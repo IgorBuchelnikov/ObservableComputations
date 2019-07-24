@@ -1,0 +1,60 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFrameworks>net461;netcoreapp2.0;netstandard2.0</TargetFrameworks>
+    <SignAssembly>true</SignAssembly>
+    <Platforms>AnyCPU;x86</Platforms>
+    <LangVersion>7.3</LangVersion>
+    <DelaySign>false</DelaySign>
+    <AssemblyOriginatorKeyFile>assembly_strong_name_key.snk</AssemblyOriginatorKeyFile>
+    <Authors>Buchelnokov Igor (igor_buchelnikov_github@mail.ru)</Authors>
+    <Company>IBCode</Company>
+    <Description>.NET API for calulations over INotifyPropertyChanged and INotifyColectionChanged (ObservableCollection) objects. Results of the calculations are INotifyPropertyChanged and INotifyColectionChanged (ObservableCollection) objects.</Description>
+    <PackageLicenseUrl>https://github.com/IgorBuchelnikov/ObservableCalculations/blob/master/LICENSE</PackageLicenseUrl>
+    <PackageProjectUrl>https://github.com/IgorBuchelnikov/ObservableCalculations</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/IgorBuchelnikov/ObservableCalculations.git</RepositoryUrl>
+    <RepositoryType>Git</RepositoryType>
+    <PackageTags>INotifyPropertyChanged INotifyPropertyChanged ObservableCollection Observable Observer react reactive data linq</PackageTags>
+    <NeutralLanguage>en</NeutralLanguage>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net472|x86'">
+    <WarningLevel>0</WarningLevel>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <OutputPath>bin\Debug\</OutputPath>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>  
+  
+  <ItemGroup>
+    <None Update="ExtensionMethods.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>ExtensionMethods.generated.cs</LastGenOutput>
+    </None>
+    <None Update="ExtensionMethods.ttinclude">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>ExtensionMethods.generated.cs</LastGenOutput>
+    </None>
+  </ItemGroup>  
+  
+  <ItemGroup>
+    <PackageReference Include="System.ValueTuple" Version="4.5.0" />
+  </ItemGroup>  
+  
+  <ItemGroup>
+    <Service Include="{508349b6-6b84-4df5-91f0-309beebad82d}" />
+  </ItemGroup>  
+  
+  <ItemGroup>
+    <Compile Update="ExtensionMethods.generated.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>ExtensionMethods.tt</DependentUpon>
+    </Compile>
+  </ItemGroup>   
+</Project>

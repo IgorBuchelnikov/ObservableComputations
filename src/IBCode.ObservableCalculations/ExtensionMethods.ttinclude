@@ -1,0 +1,292 @@
+<#@ Assembly Name="System.Core" #>
+<#@ Assembly Name="System.Windows.Forms" #>
+<#@ assembly name="EnvDTE80" #>
+<#@ import namespace="System.IO" #>
+<#@ import namespace="System.Linq" #>
+<#@ import namespace="System.Collections.Generic" #> 
+<#@ import namespace="EnvDTE80" #>
+<#@ output extension=".generated.cs"#>
+<#@ include file=".\VisualStudioHelper.ttinclude" #>
+
+<#+
+	public IEnumerable<ExtentionMethod> GetExtentionMethods()
+	{
+		try
+		{
+			List<ExtentionMethod> result = new List<ExtentionMethod>();
+
+			VisualStudioHelper = new AutomationHelper(this.Host);
+			string rootPath = VisualStudioHelper.SolutionDirectory + @"\IBCode.ObservableCalculations";
+			string rootCollections = rootPath + @"\Collections";
+			string rootScalars = rootPath + @"\Scalars";
+	
+			foreach(var file in (System.IO.Directory.GetFiles(rootCollections, @"*.cs").Concat(System.IO.Directory.GetFiles(rootScalars, @"*.cs"))).OrderBy(f => f))
+			{
+				var projectItem = this.VisualStudioHelper.FindProjectItem(file);
+				if (projectItem == null) continue;
+
+				foreach(EnvDTE.CodeClass classInFile in this.VisualStudioHelper.CodeModel.GetAllCodeElementsOfType(projectItem.FileCodeModel.CodeElements, EnvDTE.vsCMElement.vsCMElementClass, false))
+				{
+					if (classInFile.IsAbstract || classInFile.Access == vsCMAccess.vsCMAccessPrivate) continue;
+					if (!classInFile.Name.Contains("ing")) continue;
+
+					if (classInFile.Name.Contains("Zipping"))
+					{
+
+					}
+
+					string name = classInFile.Name;
+
+					string genericParameters = string.Empty;
+					if (classInFile.FullName.Contains("<"))
+					{
+						genericParameters = "<" + classInFile.FullName.Split('<', '>')[1] + ">";
+					}
+
+					List<ExtentionMethod> classExtentionMethods = new List<ExtentionMethod>();
+
+					foreach (CodeElement elem in classInFile.Children)
+					{
+						if (elem.Kind != vsCMElement.vsCMElementFunction) continue;
+						CodeFunction constructor = (CodeFunction)elem;
+						if (constructor.FunctionKind != EnvDTE.vsCMFunction.vsCMFunctionConstructor) continue;
+						if (constructor.Access == EnvDTE.vsCMAccess.vsCMAccessPrivate) continue;
+
+						List<ExtentionMethodArgumentVariants> variantsList = new List<ExtentionMethodArgumentVariants>();
+						if (constructor.Parameters.Count >= 7) continue;
+
+						foreach (CodeElement parameterCodeElement in constructor.Parameters)
+						{
+							CodeParameter2 parameter = (CodeParameter2)parameterCodeElement;
+
+							ExtentionMethodArgumentVariants variants = new ExtentionMethodArgumentVariants();
+
+							variants.Name = parameter.Name;
+							variants.Type = parameter.Type.AsString;	
+
+							if (parameter.Name.Contains("sources") || parameter.Name.Contains("Sources"))
+							{
+								variants.Types.Add(parameter.Type.AsString);
+								variants.Types.Add(parameter.Type.AsString.Replace("System.Collections.Specialized.INotifyCollectionChanged", "ObservableCollection<ObservableCollection<TSourceItem>>"));
+							}
+							else if (parameter.Name.Contains("source") || parameter.Name.Contains("Source"))
+							{
+								string sourceGenericTypeName;
+
+								variants.Types.Add(parameter.Type.AsString);
+
+								if (genericParameters.Contains("Source"))
+								{
+									if (parameter.Name.Contains("1") && genericParameters.Contains("1"))
+										sourceGenericTypeName = "TSourceItem1";
+									else if (parameter.Name.Contains("2") && genericParameters.Contains("2"))
+										sourceGenericTypeName = "TSourceItem2";
+									else if (parameter.Name.Contains("outer") && genericParameters.Contains("Outer"))
+										sourceGenericTypeName = "TOuterSourceItem";
+									else if (parameter.Name.Contains("inner") && genericParameters.Contains("Inner"))
+										sourceGenericTypeName = "TInnerSourceItem";
+									else if (parameter.Name.Contains("Left") && genericParameters.Contains("Left"))
+										sourceGenericTypeName = "TSourceItemLeft";
+									else if (parameter.Name.Contains("Right") && genericParameters.Contains("Right"))
+										sourceGenericTypeName = "TSourceItemRight";
+									else 
+										sourceGenericTypeName = "TSourceItem";
+
+									variants.Types.Add(parameter.Type.AsString.Replace("System.Collections.Specialized.INotifyCollectionChanged", "ObservableCollection<" + sourceGenericTypeName + ">"));
+								}
+							}
+							else if (parameter.ParameterKind == vsCMParameterKind.vsCMParameterKindOptional)
+							{
+								variants.DefaultValue = parameter.DefaultValue;
+							};
+
+							variantsList.Add(variants);
+						}
+
+						List<ExtentionMethod> constructorExtentionMethods = new List<ExtentionMethod>();
+
+						foreach (ExtentionMethodArgumentVariants argumentVariants in variantsList)
+						{
+							List<ExtentionMethod> newExtentionMethods = new List<ExtentionMethod>();
+
+							if (constructorExtentionMethods.Count == 0)
+							{
+								if (argumentVariants.Types.Count > 0)
+								{
+									foreach (string type in argumentVariants.Types)
+									{
+										if (name != "MinimazingOrMaximazing")
+										{
+											newExtentionMethods.Add(new ExtentionMethod(
+												name, classInFile.FullName, genericParameters, new ExtentionMethodArgument(
+													argumentVariants.Name, type)));
+										}
+
+										if (name == "MinimazingOrMaximazing")
+										{
+											newExtentionMethods.Add(new ExtentionMethod(
+												"Minimazing", classInFile.FullName, genericParameters, new ExtentionMethodArgument(
+													argumentVariants.Name, type)));
+
+											newExtentionMethods.Add(new ExtentionMethod(
+												"Maximazing", classInFile.FullName, genericParameters, new ExtentionMethodArgument(
+													argumentVariants.Name, type)));
+										}
+
+									}
+								}
+								else
+								{
+									newExtentionMethods.Add(new ExtentionMethod(
+										name, classInFile.FullName, genericParameters, new ExtentionMethodArgument(
+											argumentVariants.Name, argumentVariants.Type)));							
+								}
+							}
+							else
+							{
+								foreach (ExtentionMethod creatingExtentionMethod in constructorExtentionMethods)
+								{
+									if (!argumentVariants.Type.Contains("MinimazingOrMaximazingMode"))
+									{
+										if (argumentVariants.Types.Count > 0)
+										{
+											foreach (string type in argumentVariants.Types)
+											{
+												ExtentionMethod extentionMethod = new ExtentionMethod(
+													creatingExtentionMethod.Name, classInFile.FullName, creatingExtentionMethod.GenericParameters, creatingExtentionMethod.Arguments.ToArray());
+
+												extentionMethod.Arguments.Add(
+													new ExtentionMethodArgument(
+														argumentVariants.Name, type));
+
+												newExtentionMethods.Add(extentionMethod);
+											}
+										}
+										else if (argumentVariants.DefaultValue != null) 
+										{
+											ExtentionMethod extentionMethod = new ExtentionMethod(
+												creatingExtentionMethod.Name, classInFile.FullName, creatingExtentionMethod.GenericParameters, creatingExtentionMethod.Arguments.ToArray());
+											extentionMethod.Arguments.Add(
+												new ExtentionMethodArgument(argumentVariants.Name, argumentVariants.Type));
+											newExtentionMethods.Add(extentionMethod);
+
+											extentionMethod = new ExtentionMethod(
+												creatingExtentionMethod.Name, classInFile.FullName, creatingExtentionMethod.GenericParameters, creatingExtentionMethod.Arguments.ToArray());
+											extentionMethod.Arguments.Add(
+												new ExtentionMethodArgument(
+													argumentVariants.Name, argumentVariants.Type, argumentVariants.DefaultValue));
+											newExtentionMethods.Add(extentionMethod);
+										}
+										else
+										{
+											ExtentionMethod extentionMethod = new ExtentionMethod(
+												creatingExtentionMethod.Name, classInFile.FullName, creatingExtentionMethod.GenericParameters, creatingExtentionMethod.Arguments.ToArray());
+											extentionMethod.Arguments.Add(
+												new ExtentionMethodArgument(
+													argumentVariants.Name, argumentVariants.Type));
+											newExtentionMethods.Add(extentionMethod);
+										}
+									}
+
+									if (argumentVariants.Type.Contains("MinimazingOrMaximazingMode"))
+									{
+										ExtentionMethod extentionMethod = new ExtentionMethod(
+											creatingExtentionMethod.Name, classInFile.FullName, creatingExtentionMethod.GenericParameters, creatingExtentionMethod.Arguments.ToArray());
+										extentionMethod.Arguments.Add(
+											new ExtentionMethodArgument(
+												argumentVariants.Name, argumentVariants.Type, creatingExtentionMethod.Name == "Minimazing" ? "MinimazingOrMaximazingMode.Minimazing" : "MinimazingOrMaximazingMode.Maximazing"));
+										newExtentionMethods.Add(extentionMethod);
+									}
+
+								}
+							}
+
+							constructorExtentionMethods = newExtentionMethods;
+						}
+
+						classExtentionMethods.AddRange(constructorExtentionMethods);
+					}
+
+					result.AddRange(classExtentionMethods.Distinct());
+				}
+			}
+
+			return result;
+		}
+		catch (Exception exception)
+		{
+			throw;
+		}
+	}
+
+	public class ExtentionMethod
+	{
+		public string TypeName;
+		public string GenericParameters;
+		public string Name;
+		public List<ExtentionMethodArgument> Arguments = new List<ExtentionMethodArgument>();
+
+		public override bool Equals(object obj)
+		{
+			ExtentionMethod other = (ExtentionMethod)obj;
+			return other.Name == Name && Arguments.Where(a => a.DefaultValue == null).SequenceEqual(other.Arguments.Where(a => a.DefaultValue == null));
+		}
+
+		public ExtentionMethod(string name, string typeName, string genericParameters, params ExtentionMethodArgument[] arguments)
+		{
+			Name = name;
+			TypeName = typeName;
+			GenericParameters = genericParameters;
+			Arguments = arguments.ToList();
+		}
+
+		public override int GetHashCode()
+		{
+			unchecked {
+				int result = Name.GetHashCode();
+				
+				foreach (ExtentionMethodArgument argument in Arguments.Where(a => a.DefaultValue == null))
+				{
+					result = result + argument.GetHashCode();
+				}
+				return result; }
+		}
+	}
+
+	public class ExtentionMethodArgument
+	{
+		public string Type;
+		public string Name;
+		public string DefaultValue;
+
+		public ExtentionMethodArgument(string name, string type, string defaultValue = null)
+		{
+			Name = name;
+			Type = type;
+			DefaultValue = defaultValue;
+		}
+ 
+
+		public override bool Equals(object obj)
+		{
+			ExtentionMethodArgument other = (ExtentionMethodArgument)obj;
+			return other.Name == Name && other.Type == Type;
+		}
+
+		public override int GetHashCode()
+		{
+			unchecked {
+				return Name.GetHashCode() + Type.GetHashCode(); }
+		}
+	}
+
+	public class ExtentionMethodArgumentVariants
+	{
+		public string Name;
+
+		public List<string> Types = new List<string>();
+
+		public string Type;
+		public string DefaultValue;
+	}
+#>

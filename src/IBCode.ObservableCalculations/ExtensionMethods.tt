@@ -1,0 +1,73 @@
+<#@ template  debug="true" hostSpecific="true" #>
+<#@ output extension="generated.cs" #>
+<#@ Assembly Name="System.Core" #>
+<#@ import namespace="System.Linq" #>
+<#@ import namespace="System.Collections.Generic" #> 
+<#@ output extension=".generated.cs"#>
+<#@ include file=".\ExtensionMethods.ttinclude" #>
+using System;
+using System.Linq;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Collections.ObjectModel;
+using IBCode.ObservableCalculations.Common;
+using IBCode.ObservableCalculations.Common.Interface;
+
+namespace IBCode.ObservableCalculations
+{
+	public static partial class ExtensionMethods
+	{
+<#
+	foreach (var extentionMethodGroup in GetExtentionMethods().GroupBy(em => em.Name).OrderBy(emg => emg.Key))
+	{
+
+#>
+		#region <#=extentionMethodGroup.Key#>
+
+<#
+
+
+		foreach (ExtentionMethod extentionMethod in extentionMethodGroup)
+		{
+
+#>
+		[ObservableCalculationsCall]
+		public static <#=extentionMethod.TypeName#> <#=extentionMethod.Name#><#=extentionMethod.GenericParameters#>(this
+<#
+			int index = 0;
+			var signatureArguments = extentionMethod.Arguments.Where(a => a.DefaultValue == null);
+			foreach (ExtentionMethodArgument argument in signatureArguments )
+			{
+#>
+			 <#=argument.Type#> <#=argument.Name#><#=index == signatureArguments.Count() - 1 ? ")" : ","#>
+<#
+				index++;
+			}
+
+#>
+		{
+			return new <#=extentionMethod.TypeName#>(
+<#
+			index = 0;
+			foreach (ExtentionMethodArgument argument in extentionMethod.Arguments)
+			{
+#>
+				<#=argument.Name#>: <#=argument.DefaultValue == null ? argument.Name : argument.DefaultValue#><#=index == extentionMethod.Arguments.Count - 1 ? ");" : ","#>
+<#
+				index++;
+			}
+#>
+		}
+
+<#
+		}
+#>
+		#endregion
+<#
+    }
+#>
+	}
+}
+<#+
+
+#>

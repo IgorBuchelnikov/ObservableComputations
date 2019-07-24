@@ -1,0 +1,429 @@
+<#@ assembly name="System.Core" #>
+<#@ assembly name="EnvDTE"#>
+<#@ assembly name="EnvDTE80" #>
+<#@ import namespace="System.Collections.Generic" #>
+<#@ import namespace="System.Linq" #>
+<#@ import namespace="EnvDTE" #>
+<#@ import namespace="Microsoft.VisualStudio.TextTemplating" #>
+<# 
+	// create an instance of the AutomationHelper class so 
+	// that it is accessible from everywhere within the template
+	this.VisualStudioHelper = new AutomationHelper(this.Host);
+#>
+<#+
+/// <summary>
+/// Object that provides functionality for automating Visual Studio.
+/// </summary>
+public AutomationHelper VisualStudioHelper;
+
+/// <summary>
+/// This class provides functionality for automating Visual Studio.
+/// </summary>
+public class AutomationHelper 
+{
+	/// <summary>
+	/// Creates a new instance of this class
+	/// </summary>
+	public AutomationHelper(object host)
+	{
+		// store a reference to the template host
+		// we will need this frequently
+		this.Host = host as ITextTemplatingEngineHost;
+
+		// initialize the code model API
+		this.CodeModel = new VsCodeModel(this);
+	}
+	
+	private EnvDTE.DTE _DTE = null;
+	/// <summary>
+	/// Returns a reference to the primary management object of Visual Studio
+	/// <summary>
+	public EnvDTE.DTE DTE
+	{
+		get
+		{
+			if (_DTE == null)
+            {
+				var hostServiceProvider = this.Host as IServiceProvider;
+				if (hostServiceProvider != null)
+					_DTE = hostServiceProvider.GetService(typeof(EnvDTE.DTE)) as EnvDTE.DTE;
+            }
+			return _DTE;
+		}
+	}
+	
+	/// <summary>
+	/// Stores a reference to the Host of the t4 template
+	/// </summary>
+	public ITextTemplatingEngineHost Host { get; private set; }
+
+
+	#region Solution and Projects
+	/// <summary>
+	/// Gets the full path of the solution file
+	/// </summary>
+	public string SolutionFile => this.DTE.Solution.FileName;
+
+	public string SolutionDirectory => Path.GetDirectoryName(SolutionFile);
+
+	/// <summary>
+	/// Gets the file name of the currently opened solution.
+	/// </summary>
+	public string SolutionFileName => System.IO.Path.GetFileName(this.DTE.Solution.FileName);
+
+	/// <summary>
+	/// Gets the name of the currently opened solution
+	/// </summary>
+	public string SolutionName => this.DTE.Solution.Properties.Item("Name").Value.ToString();
+
+	/// <summary>
+	/// Gets a list of all Projects within the solution
+	/// </summary>
+	public IEnumerable<EnvDTE.Project> GetAllProjects()
+    {
+		var ret = new List<EnvDTE.Project>();
+
+		// take all projects that are at top level of the solution
+		// and recursively search Project folders
+		var topLevelProjects = this.DTE.Solution.Projects;
+
+		foreach(EnvDTE.Project project in topLevelProjects)
+        {
+			if (project.Kind == vsProjectType.SolutionFolder)
+				ret.AddRange(GetProjectsFromItemsCollection(project.ProjectItems));
+			else
+				ret.Add(project);
+        }
+
+		return ret;
+    }
+	/// <summary>
+	/// Gets the project object within the current solution by a given project name.
+	/// </summary>
+	public EnvDTE.Project GetProject(string projectName)
+    {
+		return this.GetAllProjects()
+				   .Where(p => p.Name == projectName)
+				   .First();
+    }
+	/// <summary>
+	/// Gets the project containing the .tt-File
+	/// </summary>
+	public EnvDTE.Project CurrentProject => this.FindProjectItem(this.Host.TemplateFile).ContainingProject;
+
+	#endregion
+
+	#region Project Items
+	public EnvDTE.ProjectItem FindProjectItem(string fileName)
+    {
+		return this.DTE.Solution.FindProjectItem(fileName);
+    }
+	/// <summary>
+	/// Gets all project items from the current solution
+	/// </summary>
+	public IEnumerable<EnvDTE.ProjectItem>GetAllSolutionItems()
+    {
+		var ret = new List<EnvDTE.ProjectItem>();
+
+		// iterate all projects and add their items
+		foreach(EnvDTE.Project project in this.GetAllProjects())
+			ret.AddRange(GetAllProjectItems(project));
+
+		return ret;
+    }
+	/// <summary>
+	/// Gets all project items from the current project
+	/// </summary>
+	public IEnumerable<EnvDTE.ProjectItem>GetAllProjectItems()
+    {
+		// get the project of the template file and reeturn all its items
+		var project = this.CurrentProject;
+		return GetAllProjectItems(project);
+    }
+	/// <summary>
+	/// Gets all Project items from a given project. 
+	/// </summary>
+	public IEnumerable<EnvDTE.ProjectItem>GetAllProjectItems(EnvDTE.Project project)
+    {
+		return this.GetProjectItemsRecursively(project.ProjectItems);
+    }
+	#endregion
+
+	#region CodeModel
+	public VsCodeModel CodeModel { get; private set; }
+	#endregion
+
+	#region Auxiliary stuff
+	private List<EnvDTE.Project> GetProjectsFromItemsCollection(EnvDTE.ProjectItems items)
+    {
+		var ret = new List<EnvDTE.Project>();
+
+		foreach(EnvDTE.ProjectItem item in items)
+        {
+			if (item.SubProject == null)
+				continue;
+			else if (item.SubProject.Kind == vsProjectType.SolutionFolder)
+				ret.AddRange(GetProjectsFromItemsCollection(item.SubProject.ProjectItems));
+			else if (item.SubProject.Kind == vsProjectType.VisualBasic
+				  || item.SubProject.Kind == vsProjectType.VisualCPlusPlus
+				  || item.SubProject.Kind == vsProjectType.VisualCSharp
+				  || item.SubProject.Kind == vsProjectType.VisualJSharp
+				  || item.SubProject.Kind == vsProjectType.WebProject)
+				ret.Add(item.SubProject);
+        }
+
+		return ret;
+    }
+	private List<EnvDTE.ProjectItem> GetProjectItemsRecursively(EnvDTE.ProjectItems items)
+    {
+		var ret = new List<EnvDTE.ProjectItem>();
+        if (items == null) return ret;
+		
+		foreach(EnvDTE.ProjectItem item in items)
+        {
+			ret.Add(item);
+			ret.AddRange(GetProjectItemsRecursively(item.ProjectItems));
+        }
+
+		return ret;
+    }
+	#endregion
+		
+}
+
+///<summary>
+/// Provides functionality to assist "reflecting" the Visual Studio Code Model
+/// </summary>
+public class VsCodeModel
+{
+	internal VsCodeModel(AutomationHelper helper)
+    {
+		this.VisualStudioHelper = helper;
+    }
+	private AutomationHelper VisualStudioHelper { get; set; }
+
+	/// <summary>
+    /// Searches a given collection of CodeElements recursively for objects of the given elementType.
+    /// </summary>
+    /// <param name="elements">Collection of CodeElements to recursively search for matching objects in.</param>
+    /// <param name="elementType">Objects of this CodeModelElement-Type will be returned.</param>
+    /// <param name="includeExternalTypes">If set to true objects that are not part of this solution are retrieved, too. E.g. the INotifyPropertyChanged interface from the System.ComponentModel namespace.</param>
+    /// <returns>A list of CodeElement objects matching the desired elementType.</returns>
+    public IEnumerable<EnvDTE.CodeElement> GetAllCodeElementsOfType(EnvDTE.CodeElements elements, EnvDTE.vsCMElement elementType, bool includeExternalTypes)
+    {
+        var ret = new List<EnvDTE.CodeElement>();
+
+	    try
+	    {
+		    foreach (CodeElement elem in elements)
+		    {
+			    // iterate all namespaces (even if they are external)
+			    // > they might contain project code
+			    if (elem.Kind == vsCMElement.vsCMElementNamespace)
+			    {
+				    ret.AddRange(GetAllCodeElementsOfType(((CodeNamespace)elem).Members, elementType, includeExternalTypes));
+			    }
+			    // if its not a namespace but external
+			    // > ignore it
+			    else if (elem.InfoLocation == vsCMInfoLocation.vsCMInfoLocationExternal
+			             && !includeExternalTypes)
+				    continue;
+			    // if its from the project
+			    // > check its members
+			    else if (elem.IsCodeType)
+			    {
+				    ret.AddRange(GetAllCodeElementsOfType(((CodeType)elem).Members, elementType, includeExternalTypes));
+			    }
+
+			    // if this item is of the desired type
+			    // > store it
+			    if (elem.Kind == elementType)
+				    ret.Add(elem);
+		    }
+	    }
+	    catch (Exception e)
+	    {
+		    
+		    throw;
+	    }
+
+        return ret;
+    }
+
+	/// <summary>
+	/// Recursively gets all methods and functions implemented either by the class itself, or one of its base classes.
+	/// </summary>
+	public IEnumerable<EnvDTE.CodeFunction> GetAllMethods(EnvDTE.CodeClass codeClass)
+    {
+		var implFunctions = new List<EnvDTE.CodeFunction>();
+
+		implFunctions.AddRange(GetMethods(codeClass));
+		var baseClass = GetBaseClass(codeClass);
+		if (baseClass != null)
+			implFunctions.AddRange(GetAllMethods(baseClass));
+
+		return implFunctions.Distinct(new CodeFunctionEqualityComparer());
+    }
+
+	/// <summary>
+	/// Gets all methods and functions directly implemented by a code class
+	/// </summary>
+	public IEnumerable<EnvDTE.CodeFunction> GetMethods(EnvDTE.CodeClass codeClass)
+    {
+		return GetAllCodeElementsOfType(codeClass.Members, EnvDTE.vsCMElement.vsCMElementFunction, true).OfType<EnvDTE.CodeFunction>();
+    }
+
+
+	/// <summary>
+	/// Recursively gets all interfaces a given CodeClass implements either itself, one of its base classes or as an inherited interface.
+	/// Respects partial classes.
+	/// </summary>
+	public IEnumerable<EnvDTE.CodeInterface> GetAllImplementedInterfaces(EnvDTE.CodeClass codeClass)
+    {
+		var implInterfaces = new List<EnvDTE.CodeInterface>();
+
+		foreach(var partialClass in GetPartialClasses(codeClass))
+        {
+			foreach(EnvDTE.CodeInterface ci in GetImplementedInterfaces(partialClass))
+			{
+				implInterfaces.Add(ci);
+				implInterfaces.AddRange(GetAllBaseInterfaces(ci));
+			}
+		
+			var baseClass = GetBaseClass(partialClass);
+			if (baseClass != null)
+				implInterfaces.AddRange(GetAllImplementedInterfaces(baseClass));
+        }
+		
+		return implInterfaces.Distinct(new CodeInterfaceEqualityComparer());
+    }
+	/// <summary>
+	/// Gets all interfaces a given CodeClass implements directly.
+	/// </summary>
+	public IEnumerable<EnvDTE.CodeInterface> GetImplementedInterfaces(EnvDTE.CodeClass codeClass)
+    {
+		return GetAllCodeElementsOfType(codeClass.ImplementedInterfaces, EnvDTE.vsCMElement.vsCMElementInterface, true).OfType<EnvDTE.CodeInterface>();
+    }
+	/// <summary>
+	/// Recursively gets all interfaces a given CodeInterface implements/inherits from.
+	/// </summary>
+	public IEnumerable<EnvDTE.CodeInterface> GetAllBaseInterfaces(EnvDTE.CodeInterface codeInterface)
+    {
+		var ret = new List<EnvDTE.CodeInterface>();
+
+		var directBases = GetBaseInterfaces(codeInterface);
+		ret.AddRange(directBases);
+
+		foreach(var baseInterface in directBases)
+			ret.AddRange(GetAllBaseInterfaces(baseInterface));
+
+		return ret;
+    }
+	/// <summary>
+	/// Returns a list of all base interfaces a given CodeInterface implements/inherits from.
+	/// </summary>
+	public IEnumerable<EnvDTE.CodeInterface> GetBaseInterfaces(EnvDTE.CodeInterface codeInterface)
+    {
+		return codeInterface.Bases.OfType<EnvDTE.CodeInterface>();
+    }
+
+	/// <summary>
+	/// Recursively gets all base classes of the given CodeClass respecting partial implementations.
+	/// </summary>
+	public IEnumerable<EnvDTE.CodeClass> GetAllBaseClasses(EnvDTE.CodeClass codeClass)
+    {
+		var ret = new List<EnvDTE.CodeClass>();
+
+		// iterate all partial implementations
+		foreach(EnvDTE.CodeClass partialClass in GetPartialClasses(codeClass))
+        {
+			// climb up the inheritance tree
+			var cc = partialClass;
+			while(cc != null)
+			{
+				cc = GetBaseClass(cc);
+				if (cc != null) ret.Add(cc);
+			}
+        }
+
+		return ret;
+    }
+	/// <summary>
+	/// Returns the base class of a given CodeClass, if it has any.
+	/// </summary>
+	public EnvDTE.CodeClass GetBaseClass(EnvDTE.CodeClass codeClass)
+    {
+		return codeClass.Bases.OfType<EnvDTE.CodeClass>().FirstOrDefault();
+    }
+
+	/// <summary>
+	/// Checks if the given CodeClass has partial implementations.
+	/// </summary>
+	/// <returns> A list of the partial CodeClasses that form the given class. If the class is not partial, the class itself is returned in the list.</returns>
+	public IEnumerable<EnvDTE.CodeClass> GetPartialClasses(EnvDTE.CodeClass codeClass)
+    {
+		var classParts = new List<EnvDTE.CodeClass>();
+
+		// partial classes are a new feature and only available in the CodeClass2 interface
+		// check if the given class is a CodeClass2
+		if (codeClass is EnvDTE80.CodeClass2)
+        {
+			// yes, it is
+			EnvDTE80.CodeClass2 cc2 = (EnvDTE80.CodeClass2)codeClass;
+			// check if it consists of multiple partial classes
+			if (cc2.ClassKind != EnvDTE80.vsCMClassKind.vsCMClassKindPartialClass)
+				// no > only return the class itself
+				classParts.Add(cc2);
+			else
+				// yes > add all partial classes
+				classParts.AddRange(cc2.PartialClasses.OfType<EnvDTE.CodeClass>());
+        }
+		else
+			// this is no CodeClass2 > return itself
+			classParts.Add(codeClass);
+
+		return classParts;
+    }
+
+	#region private classes
+	private class CodeInterfaceEqualityComparer : IEqualityComparer<EnvDTE.CodeInterface>
+    {
+        public bool Equals(EnvDTE.CodeInterface x, EnvDTE.CodeInterface y)
+        {
+			var n1 = x.FullName;
+			var n2 = y.FullName;
+            return n1 == n2;
+        }
+
+        public int GetHashCode(EnvDTE.CodeInterface obj)
+        {
+            return obj.FullName.GetHashCode();
+        }
+    }
+	private class CodeFunctionEqualityComparer : IEqualityComparer<EnvDTE.CodeFunction>
+    {
+		public bool Equals(EnvDTE.CodeFunction x, EnvDTE.CodeFunction y)
+        {
+			var n1 = x.FullName;
+			var n2 = y.FullName;
+			return n1 == n2;
+        }
+		
+		public int GetHashCode(EnvDTE.CodeFunction obj)
+        {
+			return obj.FullName.GetHashCode();
+        }
+    }
+	#endregion 
+}
+
+public class vsProjectType
+{
+	public const string SolutionFolder = "{66A26720-8FB5-11D2-AA7E-00C04F688DDE}";
+	public const string VisualBasic = "{F184B08F-C81C-45F6-A57F-5ABD9991F28F}";
+	public const string VisualCSharp = "{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}";
+	public const string VisualCPlusPlus = "{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}";
+	public const string VisualJSharp = "{E6FDF86B-F3D1-11D4-8576-0002A516ECE8}";
+	public const string WebProject = "{E24C65DC-7377-472b-9ABA-BC803B73C61A}";
+}
+#>

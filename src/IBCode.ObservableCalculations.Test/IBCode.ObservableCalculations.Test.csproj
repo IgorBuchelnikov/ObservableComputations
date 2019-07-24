@@ -1,0 +1,72 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFrameworks>net461;netcoreapp2.0;netstandard2.0</TargetFrameworks>
+    <SignAssembly>true</SignAssembly>
+    <Platforms>AnyCPU;x86</Platforms>
+    <LangVersion>7.3</LangVersion>
+    <AssemblyOriginatorKeyFile>assembly_strong_name_key.snk</AssemblyOriginatorKeyFile>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net472|x86'">
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <OutputPath>bin\Debug\</OutputPath>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="lib\**" />
+    <EmbeddedResource Remove="lib\**" />
+    <None Remove="lib\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>  
+   
+  
+  <ItemGroup>
+    <None Update="QuickTests.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>QuickTests.generated.cs</LastGenOutput>
+    </None>
+    <None Update="SmokeTests.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+    </None>
+    <None Update="SmokeTests.ttinclude">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>SmokeTests.generated.cs</LastGenOutput>
+    </None>
+  </ItemGroup>  
+  
+  <ItemGroup>
+    <PackageReference Include="NUnit" Version="2.6.4" />
+    <PackageReference Include="System.ValueTuple" Version="4.5.0" />
+  </ItemGroup>  
+  
+  <ItemGroup>
+    <ProjectReference Include="..\IBCode.ObservableCalculations\IBCode.ObservableCalculations.csproj" />
+  </ItemGroup>  
+  
+  <ItemGroup>
+    <Service Include="{508349b6-6b84-4df5-91f0-309beebad82d}" />
+  </ItemGroup>  
+  
+  <ItemGroup>
+    <Compile Update="QuickTests.generated.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>QuickTests.tt</DependentUpon>
+    </Compile>
+  </ItemGroup>  
+  
+  <ItemGroup>
+    <None Update="QuickTests.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>QuickTests.generated.cs</LastGenOutput>
+    </None>
+  </ItemGroup>  
+ 
+</Project>

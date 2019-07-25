@@ -7,6 +7,12 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IBCode.ObservableCalculatio
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IBCode.ObservableCalculations.Test", "IBCode.ObservableCalculations.Test\IBCode.ObservableCalculations.Test.csproj", "{067456C0-086C-46A8-B37F-1405717B7BFC}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{D1532DE3-3140-4BAA-B801-7D5DA24713D5}"
+	ProjectSection(SolutionItems) = preProject
+		..\README.md = ..\README.md
+		..\README_RU.md = ..\README_RU.md
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU

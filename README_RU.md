@@ -1,2 +1,8 @@
 # ObservableCalculations
-.NET API for calulations over INotifyPropertyChanged and INotifyColectionChanged (ObservableCollection) objects. Results of the calculations are  INotifyPropertyChanged and INotifyColectionChanged (ObservableCollection) objects. Now the calculations includes all MS LINQ and variant expression calculation.
+## Что это такое?
+Это .NET API для вычислений на объектами реализующими интерфейсы INotifyPropertyChanged и INotifyCollectionChanged. Результаты вычислений такж являются объектами реализующими интерфейсы INotifyPropertyChanged и INotifyCollectionChanged. Вычисления в ObservableCalculations включают в себя вычисления аналогичные MS LINQ, а так же произвольные вычисления.
+##Статус проекта
+По мнению автора API полностью готово к использованию. Все необходимые функции реализованы. Все найденные ошибки исправлены. API было использовано автором в одном реальном проекте.  
+##Помощь проекту
+Если у Вас появится положительный или отрицательный опыт использования API , просьба сообщить об этом.
+##Быстрый старт

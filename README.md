@@ -55,7 +55,9 @@ namespace ObservableCalculationsExamples
 					new Order(7, 80),
 				});
 
-			Filtering<Order> expensiveOrders = orders.Filtering(o => o.Price > 25);
+			// We start using ObservableCalculations here!
+			Filtering<Order> expensiveOrders = orders.Filtering(o => o.Price > 25); 
+			
 			checkFiltering(orders, expensiveOrders); // Prints "True"
 
 			expensiveOrders.CollectionChanged += (sender, eventArgs) =>

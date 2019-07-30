@@ -9,13 +9,15 @@
     <AssemblyOriginatorKeyFile>assembly_strong_name_key.snk</AssemblyOriginatorKeyFile>
     <Authors>Buchelnokov Igor (igor_buchelnikov_github@mail.ru)</Authors>
     <Company>IBCode</Company>
-    <Description>.NET API for calulations over INotifyPropertyChanged and INotifyColectionChanged (ObservableCollection) objects. Results of the calculations are INotifyPropertyChanged and INotifyColectionChanged (ObservableCollection) objects.</Description>
+    <Description>Calulations over INotifyPropertyChanged and INotifyColectionChanged (ObservableCollection) objects. Results of the calculations are INotifyPropertyChanged and INotifyColectionChanged (ObservableCollection) objects. Now the calculations includes all MS LINQ and variant expression calculation.</Description>
     <PackageLicenseUrl>https://github.com/IgorBuchelnikov/ObservableCalculations/blob/master/LICENSE</PackageLicenseUrl>
     <PackageProjectUrl>https://github.com/IgorBuchelnikov/ObservableCalculations</PackageProjectUrl>
     <RepositoryUrl>https://github.com/IgorBuchelnikov/ObservableCalculations.git</RepositoryUrl>
     <RepositoryType>Git</RepositoryType>
     <PackageTags>INotifyPropertyChanged INotifyPropertyChanged ObservableCollection Observable Observer react reactive data linq</PackageTags>
     <NeutralLanguage>en</NeutralLanguage>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net472|x86'">

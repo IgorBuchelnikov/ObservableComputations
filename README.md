@@ -1,8 +1,8 @@
-# ObservableCalculations
+﻿# ObservableCalculations
 ## What is it? 
 This is .NET library for a calculations over INotifyPropertyChanged and INotifyColectionChanged (ObservableCollection) objects. Results of the calculations are INotifyPropertyChanged and INotifyColectionChanged (ObservableCollection) objects. The calculations includes ones similar to LINQ and the calculation of variant expression. 
 ## Status
-ObservableCalculations library is ready to use in production. All essential functions is implemeted. All the bugs found is fixed.
+ObservableCalculations library is ready to use in production. All essential functions is implemeted. All the bugs found is fixed. Now I work on the readme and nuget package.
 ## How can I help porject?
 If you have positive or negative experience of using ObservableCalculations, please report it.
 ## Quick start

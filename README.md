@@ -88,5 +88,7 @@ namespace ObservableCalculationsExamples
 	}
 }
 ```
-As you can see Filtering method is analog of Where method from LINQ. ObservavleCalculations labrary contains analogs of LINQ methods.
+As you can see Filtering extension method is analog of Where method from LINQ. Filtering extension method returns instance of Filtering class. Filtering class is derived from ObservableCollection.
+
+ObservavleCalculations library contains analogs of the all LINQ methods. You can combine calls of ObservavleCalculations extention methods including chaining and nesting, as you you do for LINQ methods. 
 

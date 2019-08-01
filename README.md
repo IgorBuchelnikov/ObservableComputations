@@ -6,6 +6,7 @@ ObservableCalculations library is ready to use in production. All essential func
 ## How can I help porject?
 If you have positive or negative experience of using ObservableCalculations, please report it.
 ## Quick start
+### LINQ methods analogs
 ```csharp
 using System;
 using System.Collections.ObjectModel;
@@ -55,6 +56,7 @@ namespace ObservableCalculationsExamples
 					new Order(7, 80),
 				});
 
+			//********************************************
 			// We start using ObservableCalculations here!
 			Filtering<Order> expensiveOrders = orders.Filtering(o => o.Price > 25); 
 			
@@ -88,7 +90,95 @@ namespace ObservableCalculationsExamples
 	}
 }
 ```
-As you can see Filtering extension method is analog of Where method from LINQ. Filtering extension method returns instance of Filtering class. Filtering class is derived from ObservableCollection.
+As you can see Filtering extension method is analog of Where method from LINQ. Filtering extension method returns instance of Filtering class. Filtering class implements INotifyCollectionChanged interface (and derived from ObservableCollection).
 
-ObservavleCalculations library contains analogs of the all LINQ methods. You can combine calls of ObservavleCalculations extention methods including chaining and nesting, as you do for LINQ methods. 
+ObservavleCalculations library contains analogs of the all LINQ methods. You can combine calls of ObservavleCalculations extention methods including chaining and nesting, as you do for LINQ methods.
+
+### Variant expression
+```csharp
+using System;
+using System.ComponentModel;
+using System.Linq.Expressions;
+using IBCode.ObservableCalculations;
+
+namespace ObservableCalculationsExamples
+{
+	public class Order : INotifyPropertyChanged
+	{
+		public event PropertyChangedEventHandler PropertyChanged;
+
+		public int Num {get; set;}
+
+		private decimal _price;
+		public decimal Price
+		{
+			get => _price;
+			set
+			{
+				_price = value;
+				PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Price)));
+			}
+		}
+
+		private byte _discount;
+		public byte Discount
+		{
+			get => _discount;
+			set
+			{
+				_discount = value;
+				PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Discount)));
+			}
+		}
+
+		public Order(int num, decimal price, byte discount)
+		{
+			Num = num;
+			_price = price;
+			_discount = discount;
+		}
+	}
+
+	class Program
+	{
+		static void Main(string[] args)
+		{
+			Console.OutputEncoding = System.Text.Encoding.UTF8;
+
+			Order order = new Order(1, 100, 10);
+
+			Expression<Func<decimal>> priceWihDiscountExpression =
+				() => order.Price - order.Price * order.Discount / 100;
+
+			//********************************************
+			// We start using ObservableCalculations here!
+			Calculating<decimal> priceWihDiscountCalculating = 
+				priceWihDiscountExpression.Calculating();
+
+			printTotalPrice(priceWihDiscountCalculating);
+
+			priceWihDiscountCalculating.PropertyChanged += (sender, eventArgs) =>
+			{
+				if (eventArgs.PropertyName == nameof(Calculating<decimal>.Value))
+				{
+					printTotalPrice(priceWihDiscountCalculating);
+				}
+			};
+
+			order.Price = 200;
+			order.Discount = 15;
+
+			Console.ReadLine();
+		}
+
+		static void printTotalPrice(Calculating<decimal> priceWihDiscountCalculating)
+		{
+			Console.WriteLine($"Total price is {priceWihDiscountCalculating.Value}₽");
+		}
+	}
+}
+```
+In this code sample we observe value of total price expression. Calculating&lt;TResilt&gt; class implements INotifyPropertyChanged interface. Complicity of expression to observe is not limited. The expression can contain results of any  ObservavleCalculations methods, including LINQ analogs.
+
+
 

@@ -1,6 +1,6 @@
 ﻿# ObservableCalculations
 ## What is it? 
-This is .NET library for a calculations over INotifyPropertyChanged and INotifyColectionChanged (ObservableCollection) objects. Results of the calculations are INotifyPropertyChanged and INotifyColectionChanged (ObservableCollection) objects. The calculations includes ones similar to LINQ and the calculation of variant expression. 
+This is .NET library for a calculations over INotifyPropertyChanged and INotifyColectionChanged (ObservableCollection) objects. Results of the calculations are INotifyPropertyChanged and INotifyColectionChanged (ObservableCollection) objects. The calculations includes ones similar to LINQ and the calculation of arbitrary expression. 
 ## Status
 ObservableCalculations library is ready to use in production. All essential functions is implemeted. All the bugs found is fixed. Now I work on the readme and nuget package.
 ## How can I help porject?
@@ -64,7 +64,7 @@ namespace ObservableCalculationsExamples
 
 			expensiveOrders.CollectionChanged += (sender, eventArgs) =>
 			{
-				// see the changes here
+				// see the changes (add, remove. replace, move, reset) here
 			};
 
 			// Start the changing...
@@ -94,7 +94,7 @@ As you can see Filtering extension method is analog of Where method from LINQ. F
 
 ObservavleCalculations library contains analogs of the all LINQ methods. You can combine calls of ObservavleCalculations extention methods including chaining and nesting, as you do for LINQ methods.
 
-### Variant expression
+### Arbitrary expression observing
 ```csharp
 using System;
 using System.ComponentModel;
@@ -165,6 +165,7 @@ namespace ObservableCalculationsExamples
 				}
 			};
 
+			// Start the changing...
 			order.Price = 200;
 			order.Discount = 15;
 
@@ -178,7 +179,7 @@ namespace ObservableCalculationsExamples
 	}
 }
 ```
-In this code sample we observe value of discounted price expression. Calculating&lt;TResilt&gt; class implements INotifyPropertyChanged interface. Complicity of expression to observe is not limited. The expression can contain results of any  ObservavleCalculations methods, including LINQ analogs.
-
+In this code sample we observe value of discounted price expression. Calculating&lt;TResilt&gt; class implements INotifyPropertyChanged interface. Complicity of expression to observe is not limited. The expression can contain results of any ObservavleCalculations methods, including LINQ analogs.
+### Use cases
 
 

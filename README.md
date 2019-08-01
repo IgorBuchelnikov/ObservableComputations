@@ -64,7 +64,7 @@ namespace ObservableCalculationsExamples
 
 			expensiveOrders.CollectionChanged += (sender, eventArgs) =>
 			{
-				// see the changes (add, remove. replace, move, reset) here
+				// see the changes (add, remove, replace, move, reset) here
 			};
 
 			// Start the changing...

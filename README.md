@@ -155,13 +155,13 @@ namespace ObservableCalculationsExamples
 			Calculating<decimal> discountedPriceCalculating = 
 				discountedPriceExpression.Calculating();
 
-			printTotalPrice(discountedPriceCalculating);
+			printDiscountedPrice(discountedPriceCalculating);
 
 			discountedPriceCalculating.PropertyChanged += (sender, eventArgs) =>
 			{
 				if (eventArgs.PropertyName == nameof(Calculating<decimal>.Value))
 				{
-					printTotalPrice(discountedPriceCalculating);
+					printDiscountedPrice(discountedPriceCalculating);
 				}
 			};
 
@@ -172,9 +172,9 @@ namespace ObservableCalculationsExamples
 			Console.ReadLine();
 		}
 
-		static void printTotalPrice(Calculating<decimal> priceWithDiscountCalculating)
+		static void printDiscountedPrice(Calculating<decimal> discountedPriceCalculating)
 		{
-			Console.WriteLine($"Total price is {priceWithDiscountCalculating.Value}₽");
+			Console.WriteLine($"Discounted price is {discountedPriceCalculating.Value}₽");
 		}
 	}
 }

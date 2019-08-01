@@ -147,21 +147,21 @@ namespace ObservableCalculationsExamples
 
 			Order order = new Order(1, 100, 10);
 
-			Expression<Func<decimal>> priceWihDiscountExpression =
+			Expression<Func<decimal>> discountedPriceExpression =
 				() => order.Price - order.Price * order.Discount / 100;
 
 			//********************************************
 			// We start using ObservableCalculations here!
-			Calculating<decimal> priceWihDiscountCalculating = 
-				priceWihDiscountExpression.Calculating();
+			Calculating<decimal> discountedPriceCalculating = 
+				discountedPriceExpression.Calculating();
 
-			printTotalPrice(priceWihDiscountCalculating);
+			printTotalPrice(discountedPriceCalculating);
 
-			priceWihDiscountCalculating.PropertyChanged += (sender, eventArgs) =>
+			discountedPriceCalculating.PropertyChanged += (sender, eventArgs) =>
 			{
 				if (eventArgs.PropertyName == nameof(Calculating<decimal>.Value))
 				{
-					printTotalPrice(priceWihDiscountCalculating);
+					printTotalPrice(discountedPriceCalculating);
 				}
 			};
 
@@ -171,14 +171,14 @@ namespace ObservableCalculationsExamples
 			Console.ReadLine();
 		}
 
-		static void printTotalPrice(Calculating<decimal> priceWihDiscountCalculating)
+		static void printTotalPrice(Calculating<decimal> priceWithDiscountCalculating)
 		{
-			Console.WriteLine($"Total price is {priceWihDiscountCalculating.Value}₽");
+			Console.WriteLine($"Total price is {priceWithDiscountCalculating.Value}₽");
 		}
 	}
 }
 ```
-In this code sample we observe value of total price expression. Calculating&lt;TResilt&gt; class implements INotifyPropertyChanged interface. Complicity of expression to observe is not limited. The expression can contain results of any  ObservavleCalculations methods, including LINQ analogs.
+In this code sample we observe value of discounted price expression. Calculating&lt;TResilt&gt; class implements INotifyPropertyChanged interface. Complicity of expression to observe is not limited. The expression can contain results of any  ObservavleCalculations methods, including LINQ analogs.
 
 
 

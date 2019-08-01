@@ -174,7 +174,7 @@ namespace ObservableCalculationsExamples
 
 		static void printDiscountedPrice(Calculating<decimal> discountedPriceCalculating)
 		{
-			Console.WriteLine($"Discounted price is {discountedPriceCalculating.Value}₽");
+			Console.WriteLine($"Discounted price is ₽{discountedPriceCalculating.Value}");
 		}
 	}
 }

@@ -180,7 +180,7 @@ namespace ObservableCalculationsExamples
 }
 ```
 In this code sample we observe value of discounted price expression. Calculating&lt;TResilt&gt; class implements INotifyPropertyChanged interface. Complicity of expression to observe is not limited. The expression can contain results of any ObservavleCalculations methods, including LINQ analogs.
-### Use cases
+### Use cases and benefits
 WPF, Xamarin, Blazor. You can bind UI controls to the instances of ObservableCalculations classes (Filtering, Calculating). If you do it, you do not have to worry about forgetting to call INotifyPropertyChanged and INotifyColectionChanged for the calculated properties when the source properties changes. With ObservableCalculations, you define how the value should be calculated, everything else ObservableCalculations will do. 
 This approach facilitates asynchronous programming. You can show the user a UI form and in the background load the source data. As the source data loads, the UI form will be filled with the calculated data. If the UI form is already visible to the user, you can also refresh the source data in the background, the calculated data on the UI form will be updated thanks to ObservableCalculations. You get the following benefits:
 * Source data loading code and UI update code can be clearly separated.

@@ -183,14 +183,14 @@ In this code sample we observe value of discounted price expression. Calculating
 ### Use cases and benefits
 WPF, Xamarin, Blazor. You can bind UI controls to the instances of ObservableCalculations classes (Filtering, Calculating). If you do it, you do not have to worry about forgetting to call INotifyPropertyChanged and INotifyColectionChanged for the calculated properties when the source properties changes. With ObservableCalculations, you define how the value should be calculated, everything else ObservableCalculations will do. 
 
-This approach facilitates asynchronous programming. You can show the user a UI form and in the background load the source data (from DB or web service). As the source data loads, the UI form will be filled with the calculated data. If the UI form is already shown to the user, you can also refresh the source data in the background, the calculated data on the UI form will be refreshed thanks to ObservableCalculations. You get the following benefits:
+This approach facilitates asynchronous programming. You can show the user the UI form and in the background load the source data (from DB or web service). As the source data loads, the UI form will be filled with the calculated data. If the UI form is already shown to the user, you can also refresh the source data in the background, the calculated data on the UI form will be refreshed thanks to ObservableCalculations. You get the following benefits:
 * Source data loading code and UI refresh code can be clearly separated.
 * The end user will see the UI form faster, since the beginning of the rendering is not tied to the availability of source data.
 
 General benefits:
+* Calculated data shown to the user will always correspond to the user input and the data loaded from an external source.
 * Less human error: all data displayed to the user will always be in a consistent state.
-* Less boilerplate code
-* Calculated data will always correspond to the user input and data loaded from an external source.
+* Less boilerplate code.
 * User has no need manually refresh calculated data.
 * You do not need refresh calculated data by the timer.
 

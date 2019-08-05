@@ -190,7 +190,7 @@ This approach facilitates asynchronous programming. You can show the user the UI
 General benefits:
 * Calculated data shown to the user will always correspond to the user input and the data loaded from an external source.
 * Less human error: all calculated data is always fresh.
-* Less boilerplate code.
+* Less boilerplate imperative code. More declarative (functional style) code.
 * User has no need manually refresh calculated data.
 * You do not need refresh calculated data by the timer.
 

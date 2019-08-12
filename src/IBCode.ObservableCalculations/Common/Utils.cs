@@ -70,5 +70,6 @@ namespace IBCode.ObservableCalculations.Common
 		internal static readonly PropertyChangedEventArgs ValuePropertyChangedEventArgs = new PropertyChangedEventArgs("Value");
 		internal static readonly PropertyChangedEventArgs ValueObjectPropertyChangedEventArgs = new PropertyChangedEventArgs("ValueObject");
 		internal static readonly PropertyChangedEventArgs SetValueActionPropertyChangedEventArgs = new PropertyChangedEventArgs("SetValueAction");
+		internal static readonly PropertyChangedEventArgs IsEnabledPropertyChangedEventArgs = new PropertyChangedEventArgs("IsEnabled");
 	}
 }

@@ -634,7 +634,7 @@ DIV будут заменены.-->
   class="font121225">Aggregating</font><font class="font021225">&lt;TSourceItem,
   TResult&gt;</font></td>
   <td class=xl7721225>Aggregate</td>
-  <td class=xl6721225>ScalarCalculating&lt;TValue&gt;</td>
+  <td class=xl6721225>ScalarCalculating&lt;TResult&gt;</td>
   <td class=xl6921225 width=251 style='width:188pt'>&nbsp;</td>
  </tr>
  <tr height=22 style='height:16.5pt'>

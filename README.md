@@ -619,7 +619,7 @@ DIV будут заменены.-->
   <td class=xl6621225 width=220 style='width:165pt'><b>MS LINQ overloaded methods
   group</b></td>
   <td class=xl6621225 width=272 style='width:204pt'><b>Returned instance class
-  derived from</b></td>
+  is derived from</b></td>
   <td class=xl6621225 width=251 style='width:188pt'><b>Note</b></td>
  </tr>
  <tr height=20 style='height:15.0pt'>

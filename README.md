@@ -195,7 +195,7 @@ General benefits:
 ## Full list of methods and classes
 Before examine the table bellow, please take into account
 
-* CollectionCalculating&lt;TSourceItem&gt; derived from [ObservableCollection&lt;TSourceItem&gt;](https://docs.microsoft.com/en-us/dotnet/api/system.collections.objectmodel.observablecollection-1?view=netframework-4.8). That class implments INotifyCollectionChanged interface.
+* CollectionCalculating&lt;TSourceItem&gt; is derived from [ObservableCollection&lt;TSourceItem&gt;](https://docs.microsoft.com/en-us/dotnet/api/system.collections.objectmodel.observablecollection-1?view=netframework-4.8). That class implments INotifyCollectionChanged interface.
 * ScalarCalculating&lt;TResult&gt; implements IReadScalar&lt;TResult&gt;
 ```csharp
 public interface IReadScalar<out ValueType> : System.ComponentModel.INotifyPropertyChanged

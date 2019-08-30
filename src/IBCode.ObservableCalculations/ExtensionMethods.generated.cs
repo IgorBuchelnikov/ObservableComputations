@@ -11029,8 +11029,8 @@ namespace IBCode.ObservableCalculations
 			 System.Collections.Specialized.INotifyCollectionChanged sourceRight)
 		{
 			return new IBCode.ObservableCalculations.Zipping<TSourceItemLeft, TSourceItemRight>(
-				sourceLeftScalar: sourceLeftScalar,
-				sourceRight: sourceRight);
+				leftSourceScalar: sourceLeftScalar,
+				rightSource: sourceRight);
 		}
 
 		[ObservableCalculationsCall]
@@ -11039,8 +11039,8 @@ namespace IBCode.ObservableCalculations
 			 ObservableCollection<TSourceItemRight> sourceRight)
 		{
 			return new IBCode.ObservableCalculations.Zipping<TSourceItemLeft, TSourceItemRight>(
-				sourceLeftScalar: sourceLeftScalar,
-				sourceRight: sourceRight);
+				leftSourceScalar: sourceLeftScalar,
+				rightSource: sourceRight);
 		}
 
 		[ObservableCalculationsCall]
@@ -11049,8 +11049,8 @@ namespace IBCode.ObservableCalculations
 			 System.Collections.Specialized.INotifyCollectionChanged sourceRight)
 		{
 			return new IBCode.ObservableCalculations.Zipping<TSourceItemLeft, TSourceItemRight>(
-				sourceLeftScalar: sourceLeftScalar,
-				sourceRight: sourceRight);
+				leftSourceScalar: sourceLeftScalar,
+				rightSource: sourceRight);
 		}
 
 		[ObservableCalculationsCall]
@@ -11059,8 +11059,8 @@ namespace IBCode.ObservableCalculations
 			 ObservableCollection<TSourceItemRight> sourceRight)
 		{
 			return new IBCode.ObservableCalculations.Zipping<TSourceItemLeft, TSourceItemRight>(
-				sourceLeftScalar: sourceLeftScalar,
-				sourceRight: sourceRight);
+				leftSourceScalar: sourceLeftScalar,
+				rightSource: sourceRight);
 		}
 
 		[ObservableCalculationsCall]
@@ -11069,8 +11069,8 @@ namespace IBCode.ObservableCalculations
 			 IBCode.ObservableCalculations.Common.Interface.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> sourceRightScalar)
 		{
 			return new IBCode.ObservableCalculations.Zipping<TSourceItemLeft, TSourceItemRight>(
-				sourceLeftScalar: sourceLeftScalar,
-				sourceRightScalar: sourceRightScalar);
+				leftSourceScalar: sourceLeftScalar,
+				rightSourceScalar: sourceRightScalar);
 		}
 
 		[ObservableCalculationsCall]
@@ -11079,8 +11079,8 @@ namespace IBCode.ObservableCalculations
 			 IBCode.ObservableCalculations.Common.Interface.IReadScalar<ObservableCollection<TSourceItemRight>> sourceRightScalar)
 		{
 			return new IBCode.ObservableCalculations.Zipping<TSourceItemLeft, TSourceItemRight>(
-				sourceLeftScalar: sourceLeftScalar,
-				sourceRightScalar: sourceRightScalar);
+				leftSourceScalar: sourceLeftScalar,
+				rightSourceScalar: sourceRightScalar);
 		}
 
 		[ObservableCalculationsCall]
@@ -11089,8 +11089,8 @@ namespace IBCode.ObservableCalculations
 			 IBCode.ObservableCalculations.Common.Interface.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> sourceRightScalar)
 		{
 			return new IBCode.ObservableCalculations.Zipping<TSourceItemLeft, TSourceItemRight>(
-				sourceLeftScalar: sourceLeftScalar,
-				sourceRightScalar: sourceRightScalar);
+				leftSourceScalar: sourceLeftScalar,
+				rightSourceScalar: sourceRightScalar);
 		}
 
 		[ObservableCalculationsCall]
@@ -11099,8 +11099,8 @@ namespace IBCode.ObservableCalculations
 			 IBCode.ObservableCalculations.Common.Interface.IReadScalar<ObservableCollection<TSourceItemRight>> sourceRightScalar)
 		{
 			return new IBCode.ObservableCalculations.Zipping<TSourceItemLeft, TSourceItemRight>(
-				sourceLeftScalar: sourceLeftScalar,
-				sourceRightScalar: sourceRightScalar);
+				leftSourceScalar: sourceLeftScalar,
+				rightSourceScalar: sourceRightScalar);
 		}
 
 		[ObservableCalculationsCall]
@@ -11109,8 +11109,8 @@ namespace IBCode.ObservableCalculations
 			 System.Collections.Specialized.INotifyCollectionChanged sourceRight)
 		{
 			return new IBCode.ObservableCalculations.Zipping<TSourceItemLeft, TSourceItemRight>(
-				sourceLeft: sourceLeft,
-				sourceRight: sourceRight);
+				leftSource: sourceLeft,
+				rightSource: sourceRight);
 		}
 
 		[ObservableCalculationsCall]
@@ -11119,8 +11119,8 @@ namespace IBCode.ObservableCalculations
 			 ObservableCollection<TSourceItemRight> sourceRight)
 		{
 			return new IBCode.ObservableCalculations.Zipping<TSourceItemLeft, TSourceItemRight>(
-				sourceLeft: sourceLeft,
-				sourceRight: sourceRight);
+				leftSource: sourceLeft,
+				rightSource: sourceRight);
 		}
 
 		[ObservableCalculationsCall]
@@ -11129,8 +11129,8 @@ namespace IBCode.ObservableCalculations
 			 System.Collections.Specialized.INotifyCollectionChanged sourceRight)
 		{
 			return new IBCode.ObservableCalculations.Zipping<TSourceItemLeft, TSourceItemRight>(
-				sourceLeft: sourceLeft,
-				sourceRight: sourceRight);
+				leftSource: sourceLeft,
+				rightSource: sourceRight);
 		}
 
 		[ObservableCalculationsCall]
@@ -11139,8 +11139,8 @@ namespace IBCode.ObservableCalculations
 			 ObservableCollection<TSourceItemRight> sourceRight)
 		{
 			return new IBCode.ObservableCalculations.Zipping<TSourceItemLeft, TSourceItemRight>(
-				sourceLeft: sourceLeft,
-				sourceRight: sourceRight);
+				leftSource: sourceLeft,
+				rightSource: sourceRight);
 		}
 
 		[ObservableCalculationsCall]
@@ -11149,8 +11149,8 @@ namespace IBCode.ObservableCalculations
 			 IBCode.ObservableCalculations.Common.Interface.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> sourceRightScalar)
 		{
 			return new IBCode.ObservableCalculations.Zipping<TSourceItemLeft, TSourceItemRight>(
-				sourceLeft: sourceLeft,
-				sourceRightScalar: sourceRightScalar);
+				leftSource: sourceLeft,
+				rightSourceScalar: sourceRightScalar);
 		}
 
 		[ObservableCalculationsCall]
@@ -11159,8 +11159,8 @@ namespace IBCode.ObservableCalculations
 			 IBCode.ObservableCalculations.Common.Interface.IReadScalar<ObservableCollection<TSourceItemRight>> sourceRightScalar)
 		{
 			return new IBCode.ObservableCalculations.Zipping<TSourceItemLeft, TSourceItemRight>(
-				sourceLeft: sourceLeft,
-				sourceRightScalar: sourceRightScalar);
+				leftSource: sourceLeft,
+				rightSourceScalar: sourceRightScalar);
 		}
 
 		[ObservableCalculationsCall]
@@ -11169,8 +11169,8 @@ namespace IBCode.ObservableCalculations
 			 IBCode.ObservableCalculations.Common.Interface.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> sourceRightScalar)
 		{
 			return new IBCode.ObservableCalculations.Zipping<TSourceItemLeft, TSourceItemRight>(
-				sourceLeft: sourceLeft,
-				sourceRightScalar: sourceRightScalar);
+				leftSource: sourceLeft,
+				rightSourceScalar: sourceRightScalar);
 		}
 
 		[ObservableCalculationsCall]
@@ -11179,8 +11179,8 @@ namespace IBCode.ObservableCalculations
 			 IBCode.ObservableCalculations.Common.Interface.IReadScalar<ObservableCollection<TSourceItemRight>> sourceRightScalar)
 		{
 			return new IBCode.ObservableCalculations.Zipping<TSourceItemLeft, TSourceItemRight>(
-				sourceLeft: sourceLeft,
-				sourceRightScalar: sourceRightScalar);
+				leftSource: sourceLeft,
+				rightSourceScalar: sourceRightScalar);
 		}
 
 		#endregion

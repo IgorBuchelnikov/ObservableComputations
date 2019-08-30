@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.ComponentModel;
 using IBCode.ObservableCalculations.Common;
+using IBCode.ObservableCalculations.Common.Base;
 using IBCode.ObservableCalculations.Common.Interface;
 
 namespace IBCode.ObservableCalculations
@@ -39,6 +40,14 @@ namespace IBCode.ObservableCalculations
 		private readonly Func<TSourceItem, TResult, TResult> _aggregateFunc;
 		private readonly Func<TSourceItem, TResult, TResult> _deaggregateFunc;
 		private INotifyCollectionChanged _source;
+
+		private PropertyChangedEventHandler _sourcePropertyChangedEventHandler;
+		private WeakPropertyChangedEventHandler _sourceWeakPropertyChangedEventHandler;
+		private bool _indexerPropertyChangedEventRaised;
+		private INotifyPropertyChanged _sourceAsINotifyPropertyChanged;
+
+		private ObservableCollectionWithChangeMarker<TSourceItem> _sourceAsObservableCollectionWithChangeMarker;
+		private bool _lastProcessedSourceChangeMarker;
 
 		[ObservableCalculationsCall]
 		public Aggregating(
@@ -84,11 +93,44 @@ namespace IBCode.ObservableCalculations
 				_sourceWeakNotifyCollectionChangedEventHandler = null;
 			}
 
+			if (_sourceAsINotifyPropertyChanged != null)
+			{
+				_sourceAsINotifyPropertyChanged.PropertyChanged -=
+					_sourceWeakPropertyChangedEventHandler.Handle;
+
+				_sourceAsINotifyPropertyChanged = null;
+				_sourcePropertyChangedEventHandler = null;
+				_sourceWeakPropertyChangedEventHandler = null;
+			}
+
 			if (_sourceScalar != null) _source = _sourceScalar.Value;
 			_sourceAsList = (IList<TSourceItem>) _source;
 
 			if (_source != null)
 			{
+				_sourceAsObservableCollectionWithChangeMarker = _sourceAsList as ObservableCollectionWithChangeMarker<TSourceItem>;
+
+				if (_sourceAsObservableCollectionWithChangeMarker != null)
+				{
+					_lastProcessedSourceChangeMarker = _sourceAsObservableCollectionWithChangeMarker.ChangeMarker;
+				}
+				else
+				{
+					_sourceAsINotifyPropertyChanged = (INotifyPropertyChanged) _sourceAsList;
+
+					_sourcePropertyChangedEventHandler = (sender, args) =>
+					{
+						if (args.PropertyName == "Item[]")
+							_indexerPropertyChangedEventRaised =
+								true; // ObservableCollection raises this before CollectionChanged event raising
+					};
+
+					_sourceWeakPropertyChangedEventHandler =
+						new WeakPropertyChangedEventHandler(_sourcePropertyChangedEventHandler);
+
+					_sourceAsINotifyPropertyChanged.PropertyChanged += _sourceWeakPropertyChangedEventHandler.Handle;
+				}
+
 				_sourceNotifyCollectionChangedEventHandler = handleSourceCollectionChanged;
 				_sourceWeakNotifyCollectionChangedEventHandler =
 					new WeakNotifyCollectionChangedEventHandler(_sourceNotifyCollectionChangedEventHandler);
@@ -104,42 +146,48 @@ namespace IBCode.ObservableCalculations
 
 		private void handleSourceCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
 		{
-			switch (e.Action)
+			if (_indexerPropertyChangedEventRaised || _lastProcessedSourceChangeMarker != _sourceAsObservableCollectionWithChangeMarker.ChangeMarker)
 			{
-				case NotifyCollectionChangedAction.Add:
-					if (e.NewItems.Count > 1) throw new ObservableCalculationsException("Adding of multiple items is not supported");
-					int newIndex = e.NewStartingIndex;
-					TSourceItem addedSourceItem = _sourceAsList[newIndex];
-					_sourceItems.Insert(newIndex, addedSourceItem);
-					setValue(_aggregateFunc(addedSourceItem, Value));					
-					break;
-				case NotifyCollectionChangedAction.Remove:
-					if (e.OldItems.Count > 1) throw new ObservableCalculationsException("Removing of multiple items is not supported");
-					int oldStartingIndex = e.OldStartingIndex;
-					TSourceItem removedSourceItem = _sourceItems[oldStartingIndex];
-					_sourceItems.RemoveAt(oldStartingIndex);
-					setValue(_deaggregateFunc(removedSourceItem, Value));
-					break;
-				case NotifyCollectionChangedAction.Replace:
-					if (e.NewItems.Count > 1) throw new ObservableCalculationsException("Replacing of multiple items is not supported");
-					int newStartingIndex = e.NewStartingIndex;
-					TSourceItem newItem = _sourceAsList[newStartingIndex];
-					TSourceItem oldItem = _sourceItems[newStartingIndex];
-					_sourceItems[newStartingIndex] = newItem;
-					TResult result = _deaggregateFunc(oldItem, Value);
-					setValue(_aggregateFunc(newItem, result));
-					break;
-				case NotifyCollectionChangedAction.Move:
-					if (e.OldStartingIndex == e.NewStartingIndex) return;
-					int oldStartingIndex1 = e.OldStartingIndex;
-					int newStartingIndex1 = e.NewStartingIndex;
-					TSourceItem movingItem = _sourceItems[oldStartingIndex1];
-					_sourceItems.RemoveAt(oldStartingIndex1);
-					_sourceItems.Insert(newStartingIndex1, movingItem);
-					break;
-				case NotifyCollectionChangedAction.Reset:
-					initializeFromSource();
-					break;
+				_indexerPropertyChangedEventRaised = false;
+				_lastProcessedSourceChangeMarker = !_lastProcessedSourceChangeMarker;
+
+				switch (e.Action)
+				{
+					case NotifyCollectionChangedAction.Add:
+						if (e.NewItems.Count > 1) throw new ObservableCalculationsException("Adding of multiple items is not supported");
+						int newIndex = e.NewStartingIndex;
+						TSourceItem addedSourceItem = _sourceAsList[newIndex];
+						_sourceItems.Insert(newIndex, addedSourceItem);
+						setValue(_aggregateFunc(addedSourceItem, Value));					
+						break;
+					case NotifyCollectionChangedAction.Remove:
+						if (e.OldItems.Count > 1) throw new ObservableCalculationsException("Removing of multiple items is not supported");
+						int oldStartingIndex = e.OldStartingIndex;
+						TSourceItem removedSourceItem = _sourceItems[oldStartingIndex];
+						_sourceItems.RemoveAt(oldStartingIndex);
+						setValue(_deaggregateFunc(removedSourceItem, Value));
+						break;
+					case NotifyCollectionChangedAction.Replace:
+						if (e.NewItems.Count > 1) throw new ObservableCalculationsException("Replacing of multiple items is not supported");
+						int newStartingIndex = e.NewStartingIndex;
+						TSourceItem newItem = _sourceAsList[newStartingIndex];
+						TSourceItem oldItem = _sourceItems[newStartingIndex];
+						_sourceItems[newStartingIndex] = newItem;
+						TResult result = _deaggregateFunc(oldItem, Value);
+						setValue(_aggregateFunc(newItem, result));
+						break;
+					case NotifyCollectionChangedAction.Move:
+						if (e.OldStartingIndex == e.NewStartingIndex) return;
+						int oldStartingIndex1 = e.OldStartingIndex;
+						int newStartingIndex1 = e.NewStartingIndex;
+						TSourceItem movingItem = _sourceItems[oldStartingIndex1];
+						_sourceItems.RemoveAt(oldStartingIndex1);
+						_sourceItems.Insert(newStartingIndex1, movingItem);
+						break;
+					case NotifyCollectionChangedAction.Reset:
+						initializeFromSource();
+						break;
+				}
 			}			
 
 		}
@@ -152,7 +200,7 @@ namespace IBCode.ObservableCalculations
 
 		private void calculateValueAndRegisterSourceItems()
 		{
-			_value = default(TResult);
+			TResult value = default(TResult);
 			int count = _sourceAsList.Count;
 			for (int index = 0; index < count; index++)
 			{
@@ -160,7 +208,7 @@ namespace IBCode.ObservableCalculations
 				_value = _aggregateFunc(sourceItem, _value);
 				_sourceItems.Add(sourceItem);
 			}
-			raiseValueChanged();
+			setValue(value);
 		}
 
 		~Aggregating()
@@ -174,6 +222,11 @@ namespace IBCode.ObservableCalculations
 			{
 				_sourceScalar.PropertyChanged -= _sourceScalarWeakPropertyChangedEventHandler.Handle;			
 			}
+
+
+			if (_sourceAsINotifyPropertyChanged != null)
+				_sourceAsINotifyPropertyChanged.PropertyChanged -=
+					_sourceWeakPropertyChangedEventHandler.Handle;
 		}
 
 		public void ValidateConsistency()

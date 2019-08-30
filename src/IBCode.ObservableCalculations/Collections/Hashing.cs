@@ -39,7 +39,7 @@ namespace IBCode.ObservableCalculations
 		private readonly Expression<Func<TSourceItem, TKey>> _keySelectorExpression;
 		private readonly ExpressionWatcher.ExpressionInfo _keySelectorExpressionInfo;
 
-		private readonly bool _keySelectorContainsParametrizedLiveLinqCalls;
+		private readonly bool _keySelectorContainsParametrizedObservableCalculationsCalls;
 
 		// ReSharper disable once PrivateFieldCanBeConvertedToLocalVariable
 		private readonly PropertyChangedEventHandler _sourceScalarPropertyChangedEventHandler;
@@ -90,9 +90,9 @@ namespace IBCode.ObservableCalculations
 			_keySelectorExpressionOriginal = keySelectorExpression;
 			CallToConstantConverter callToConstantConverter = new CallToConstantConverter(_keySelectorExpressionOriginal.Parameters);
 			_keySelectorExpression = (Expression<Func<TSourceItem, TKey>>) callToConstantConverter.Visit(_keySelectorExpressionOriginal);
-			_keySelectorContainsParametrizedLiveLinqCalls = callToConstantConverter.ContainsParametrizedObservableCalculationCalls;
+			_keySelectorContainsParametrizedObservableCalculationsCalls = callToConstantConverter.ContainsParametrizedObservableCalculationCalls;
 
-			if (!_keySelectorContainsParametrizedLiveLinqCalls)
+			if (!_keySelectorContainsParametrizedObservableCalculationsCalls)
 			{
 				_keySelectorExpressionInfo = ExpressionWatcher.GetExpressionInfo(_keySelectorExpression);
 				// ReSharper disable once PossibleNullReferenceException
@@ -320,7 +320,7 @@ namespace IBCode.ObservableCalculations
 		private void fillItemInfoWithKey(ItemInfo itemInfo, TSourceItem sourceItem)
 		{
 			ExpressionWatcher watcher;
-			if (!_keySelectorContainsParametrizedLiveLinqCalls)
+			if (!_keySelectorContainsParametrizedObservableCalculationsCalls)
 			{
 				watcher = new ExpressionWatcher(_keySelectorExpressionInfo, sourceItem);
 			}
@@ -366,7 +366,7 @@ namespace IBCode.ObservableCalculations
 
 		private TKey applyKeySelector(ItemInfo itemInfo, TSourceItem sourceItem)
 		{
-			return _keySelectorContainsParametrizedLiveLinqCalls ? itemInfo.KeySelectorFunc() : _keySelectorFunc(sourceItem);
+			return _keySelectorContainsParametrizedObservableCalculationsCalls ? itemInfo.KeySelectorFunc() : _keySelectorFunc(sourceItem);
 		}
 
 		private void baseClearItems()

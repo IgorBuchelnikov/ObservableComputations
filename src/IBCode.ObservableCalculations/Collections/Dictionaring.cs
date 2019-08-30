@@ -45,13 +45,13 @@ namespace IBCode.ObservableCalculations
 		private readonly Expression<Func<TSourceItem, TKey>> _keySelectorExpressionOriginal;
 		private readonly ExpressionWatcher.ExpressionInfo _keySelectorExpressionInfo;
 
-		private readonly bool _keySelectorContainsParametrizedLiveLinqCalls;
+		private readonly bool _keySelectorContainsParametrizedObservableCalculationsCalls;
 
 		private readonly Expression<Func<TSourceItem, TValue>> _valueSelectorExpression;
 		private readonly Expression<Func<TSourceItem, TValue>> _valueSelectorExpressionOriginal;
 		private readonly ExpressionWatcher.ExpressionInfo _valueSelectorExpressionInfo;
 
-		private readonly bool _valueSelectorContainsParametrizedLiveLinqCalls;
+		private readonly bool _valueSelectorContainsParametrizedObservableCalculationsCalls;
 
 		// ReSharper disable once PrivateFieldCanBeConvertedToLocalVariable
 		private readonly PropertyChangedEventHandler _sourceScalarPropertyChangedEventHandler;
@@ -107,9 +107,9 @@ namespace IBCode.ObservableCalculations
 			_keySelectorExpressionOriginal = keySelectorExpression;
 			CallToConstantConverter callToConstantConverter = new CallToConstantConverter(_keySelectorExpressionOriginal.Parameters);
 			_keySelectorExpression = (Expression<Func<TSourceItem, TKey>>) callToConstantConverter.Visit(_keySelectorExpressionOriginal);
-			_keySelectorContainsParametrizedLiveLinqCalls = callToConstantConverter.ContainsParametrizedObservableCalculationCalls;
+			_keySelectorContainsParametrizedObservableCalculationsCalls = callToConstantConverter.ContainsParametrizedObservableCalculationCalls;
 
-			if (!_keySelectorContainsParametrizedLiveLinqCalls)
+			if (!_keySelectorContainsParametrizedObservableCalculationsCalls)
 			{
 				_keySelectorExpressionInfo = ExpressionWatcher.GetExpressionInfo(_keySelectorExpression);
 				// ReSharper disable once PossibleNullReferenceException
@@ -119,9 +119,9 @@ namespace IBCode.ObservableCalculations
 			_valueSelectorExpressionOriginal = valueSelectorExpression;
 			callToConstantConverter = new CallToConstantConverter(_valueSelectorExpressionOriginal.Parameters);
 			_valueSelectorExpression = (Expression<Func<TSourceItem, TValue>>) callToConstantConverter.Visit(_valueSelectorExpressionOriginal);
-			_valueSelectorContainsParametrizedLiveLinqCalls = callToConstantConverter.ContainsParametrizedObservableCalculationCalls;
+			_valueSelectorContainsParametrizedObservableCalculationsCalls = callToConstantConverter.ContainsParametrizedObservableCalculationCalls;
 
-			if (!_valueSelectorContainsParametrizedLiveLinqCalls)
+			if (!_valueSelectorContainsParametrizedObservableCalculationsCalls)
 			{
 				_valueSelectorExpressionInfo = ExpressionWatcher.GetExpressionInfo(_valueSelectorExpression);
 				// ReSharper disable once PossibleNullReferenceException
@@ -266,7 +266,7 @@ namespace IBCode.ObservableCalculations
 		private void fillItemInfoWithValue(ItemInfo itemInfo, TSourceItem sourceItem)
 		{
 			ExpressionWatcher watcher;
-			if (!_valueSelectorContainsParametrizedLiveLinqCalls)
+			if (!_valueSelectorContainsParametrizedObservableCalculationsCalls)
 			{
 				watcher = new ExpressionWatcher(_valueSelectorExpressionInfo, sourceItem);
 			}
@@ -291,7 +291,7 @@ namespace IBCode.ObservableCalculations
 		private void fillItemInfoWithKey(ItemInfo itemInfo, TSourceItem sourceItem)
 		{
 			ExpressionWatcher watcher;
-			if (!_keySelectorContainsParametrizedLiveLinqCalls)
+			if (!_keySelectorContainsParametrizedObservableCalculationsCalls)
 			{
 				watcher = new ExpressionWatcher(_keySelectorExpressionInfo, sourceItem);
 			}
@@ -356,7 +356,7 @@ namespace IBCode.ObservableCalculations
 					else
 					{
 						_consistent = false;
-						PropertyChanged?.Invoke(this, Utils.ConsistentPropertyChangedEventArgs);
+						PropertyChanged?.Invoke(this, null);
 						baseRemoveItem(oldKey);
 						baseAddItem(replacingItemInfo.Key, newValue);
 						_consistent = true;
@@ -474,7 +474,7 @@ namespace IBCode.ObservableCalculations
 
 		private TKey applyKeySelector(ItemInfo itemInfo, TSourceItem sourceItem)
 		{
-			return _keySelectorContainsParametrizedLiveLinqCalls ? itemInfo._keySelectorFunc() : _keySelectorFunc(sourceItem);
+			return _keySelectorContainsParametrizedObservableCalculationsCalls ? itemInfo._keySelectorFunc() : _keySelectorFunc(sourceItem);
 		}
 
 		public TValue ApplyValueSelector(int index)
@@ -484,7 +484,7 @@ namespace IBCode.ObservableCalculations
 
 		private TValue applyValueSelector(ItemInfo itemInfo, TSourceItem sourceItem)
 		{
-			return _valueSelectorContainsParametrizedLiveLinqCalls ? itemInfo._valueSelectorFunc() : _valueSelectorFunc(sourceItem);
+			return _valueSelectorContainsParametrizedObservableCalculationsCalls ? itemInfo._valueSelectorFunc() : _valueSelectorFunc(sourceItem);
 		}
 
 		private void baseClearItems()

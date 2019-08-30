@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.ComponentModel;
 using IBCode.ObservableCalculations.Common;
+using IBCode.ObservableCalculations.Common.Base;
 using IBCode.ObservableCalculations.Common.Interface;
 
 namespace IBCode.ObservableCalculations
@@ -52,6 +53,14 @@ namespace IBCode.ObservableCalculations
 		private int _index;
 		private bool _isDefaulted;
 		internal TSourceItem _defaultValue;
+
+		private PropertyChangedEventHandler _sourcePropertyChangedEventHandler;
+		private WeakPropertyChangedEventHandler _sourceWeakPropertyChangedEventHandler;
+		private bool _indexerPropertyChangedEventRaised;
+		private INotifyPropertyChanged _sourceAsINotifyPropertyChanged;
+
+		private ObservableCollectionWithChangeMarker<TSourceItem> _sourceAsObservableCollectionWithChangeMarker;
+		private bool _lastProcessedSourceChangeMarker;
 
 		private void initializeIndexScalar()
 		{
@@ -242,11 +251,44 @@ namespace IBCode.ObservableCalculations
 				_sourceWeakNotifyCollectionChangedEventHandler = null;
 			}
 
+			if (_sourceAsINotifyPropertyChanged != null)
+			{
+				_sourceAsINotifyPropertyChanged.PropertyChanged -=
+					_sourceWeakPropertyChangedEventHandler.Handle;
+
+				_sourceAsINotifyPropertyChanged = null;
+				_sourcePropertyChangedEventHandler = null;
+				_sourceWeakPropertyChangedEventHandler = null;
+			}
+
 			if (_sourceScalar != null) _source = _sourceScalar.Value;
 			_sourceAsList = (IList<TSourceItem>) _source;
 
 			if (_source != null)
 			{
+				_sourceAsObservableCollectionWithChangeMarker = _sourceAsList as ObservableCollectionWithChangeMarker<TSourceItem>;
+
+				if (_sourceAsObservableCollectionWithChangeMarker != null)
+				{
+					_lastProcessedSourceChangeMarker = _sourceAsObservableCollectionWithChangeMarker.ChangeMarker;
+				}
+				else
+				{
+					_sourceAsINotifyPropertyChanged = (INotifyPropertyChanged) _sourceAsList;
+
+					_sourcePropertyChangedEventHandler = (sender, args) =>
+					{
+						if (args.PropertyName == "Item[]")
+							_indexerPropertyChangedEventRaised =
+								true; // ObservableCollection raises this before CollectionChanged event raising
+					};
+
+					_sourceWeakPropertyChangedEventHandler =
+						new WeakPropertyChangedEventHandler(_sourcePropertyChangedEventHandler);
+
+					_sourceAsINotifyPropertyChanged.PropertyChanged += _sourceWeakPropertyChangedEventHandler.Handle;
+				}
+
 				_sourceNotifyCollectionChangedEventHandler = handleSourceCollectionChanged;
 				_sourceWeakNotifyCollectionChangedEventHandler =
 					new WeakNotifyCollectionChangedEventHandler(_sourceNotifyCollectionChangedEventHandler);
@@ -284,38 +326,44 @@ namespace IBCode.ObservableCalculations
 
 		private void handleSourceCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
 		{
-			switch (e.Action)
+			if (_indexerPropertyChangedEventRaised || _lastProcessedSourceChangeMarker != _sourceAsObservableCollectionWithChangeMarker.ChangeMarker)
 			{
-				case NotifyCollectionChangedAction.Add:
-					if (e.NewItems.Count > 1) throw new Exception("Adding of multiple items is not supported");
-					if (e.NewStartingIndex <= _index) recalculateValue();	
-					break;
-				case NotifyCollectionChangedAction.Remove:
-					if (e.OldItems.Count > 1) throw new Exception("Removing of multiple items is not supported");
-					if (e.OldStartingIndex <= _index) recalculateValue();	
-					break;
-				case NotifyCollectionChangedAction.Replace:
-					if (e.NewItems.Count > 1) throw new Exception("Replacing of multiple items is not supported");
-					if (e.OldStartingIndex == _index) recalculateValue();
-					break;
-				case NotifyCollectionChangedAction.Move:
-					int oldStartingIndex = e.OldStartingIndex;
-					int newStartingIndex = e.NewStartingIndex;
-					if (newStartingIndex == oldStartingIndex) return;
-					if (newStartingIndex < oldStartingIndex)
-					{
-						if (_index >= newStartingIndex && _index <= oldStartingIndex)
-							setValue(_sourceAsList[_index]);
-					}
-					else
-					{
-						if (_index >= oldStartingIndex && _index <= newStartingIndex)
-							setValue(_sourceAsList[_index]);						
-					}
-					break;
-				case NotifyCollectionChangedAction.Reset:
-					initializeFromSource();
-					break;
+				_indexerPropertyChangedEventRaised = false;
+				_lastProcessedSourceChangeMarker = !_lastProcessedSourceChangeMarker;
+
+				switch (e.Action)
+				{
+					case NotifyCollectionChangedAction.Add:
+						if (e.NewItems.Count > 1) throw new Exception("Adding of multiple items is not supported");
+						if (e.NewStartingIndex <= _index) recalculateValue();	
+						break;
+					case NotifyCollectionChangedAction.Remove:
+						if (e.OldItems.Count > 1) throw new Exception("Removing of multiple items is not supported");
+						if (e.OldStartingIndex <= _index) recalculateValue();	
+						break;
+					case NotifyCollectionChangedAction.Replace:
+						if (e.NewItems.Count > 1) throw new Exception("Replacing of multiple items is not supported");
+						if (e.OldStartingIndex == _index) recalculateValue();
+						break;
+					case NotifyCollectionChangedAction.Move:
+						int oldStartingIndex = e.OldStartingIndex;
+						int newStartingIndex = e.NewStartingIndex;
+						if (newStartingIndex == oldStartingIndex) return;
+						if (newStartingIndex < oldStartingIndex)
+						{
+							if (_index >= newStartingIndex && _index <= oldStartingIndex)
+								setValue(_sourceAsList[_index]);
+						}
+						else
+						{
+							if (_index >= oldStartingIndex && _index <= newStartingIndex)
+								setValue(_sourceAsList[_index]);						
+						}
+						break;
+					case NotifyCollectionChangedAction.Reset:
+						initializeFromSource();
+						break;
+				}
 			}						
 		}
 
@@ -340,6 +388,10 @@ namespace IBCode.ObservableCalculations
 			{
 				_defaultValueScalar.PropertyChanged -= _defaultValueScalarWeakPropertyChangedEventHandler.Handle;			
 			}
+
+			if (_sourceAsINotifyPropertyChanged != null)
+				_sourceAsINotifyPropertyChanged.PropertyChanged -=
+					_sourceWeakPropertyChangedEventHandler.Handle;
 		}
 
 		public void ValidateConsistency()

@@ -49,7 +49,7 @@ namespace IBCode.ObservableCalculations
 		private readonly Expression<Func<TSourceItem, TOrderingValue>> _orderingValueSelectorExpression;
 		private readonly ExpressionWatcher.ExpressionInfo _orderingValueSelectorExpressionInfo;
 
-		private readonly bool _orderingValueSelectorContainsParametrizedLiveLinqCalls;
+		private readonly bool _orderingValueSelectorContainsParametrizedObservableCalculationsCalls;
 
 		private PropertyChangedEventHandler _comparerScalarPropertyChangedEventHandler;
 		private WeakPropertyChangedEventHandler _comparerScalarWeakPropertyChangedEventHandler;
@@ -242,10 +242,10 @@ namespace IBCode.ObservableCalculations
 			_orderingValueSelectorExpression =
 				(Expression<Func<TSourceItem, TOrderingValue>>)
 				callToConstantConverter.Visit(_orderingValueSelectorOriginal);
-			_orderingValueSelectorContainsParametrizedLiveLinqCalls =
+			_orderingValueSelectorContainsParametrizedObservableCalculationsCalls =
 				callToConstantConverter.ContainsParametrizedObservableCalculationCalls;
 
-			if (!_orderingValueSelectorContainsParametrizedLiveLinqCalls)
+			if (!_orderingValueSelectorContainsParametrizedObservableCalculationsCalls)
 			{
 				_orderingValueSelectorExpressionInfo =
 					ExpressionWatcher.GetExpressionInfo(_orderingValueSelectorExpression);
@@ -296,13 +296,11 @@ namespace IBCode.ObservableCalculations
 			checkConsistent();
 		
 			_consistent = false;
-			OnPropertyChanged(Utils.ConsistentPropertyChangedEventArgs);
 
 			_comparer = _comparerScalar.Value ?? Comparer<TOrderingValue>.Default;
 			initializeFromSource();
 
 			_consistent = true;
-			OnPropertyChanged(Utils.ConsistentPropertyChangedEventArgs);
 		}
 
 		private void handleSortDirectionScalarValueChanged(object sender, PropertyChangedEventArgs e)
@@ -311,13 +309,11 @@ namespace IBCode.ObservableCalculations
 			checkConsistent();
 		
 			_consistent = false;
-			OnPropertyChanged(Utils.ConsistentPropertyChangedEventArgs);
 
 			_sortDirection = _sortDirectionScalar.Value;
 			initializeFromSource();
 
 			_consistent = true;
-			OnPropertyChanged(Utils.ConsistentPropertyChangedEventArgs);
 		}
 
 		private void handleSourceScalarValueChanged(object sender, PropertyChangedEventArgs e)
@@ -325,12 +321,10 @@ namespace IBCode.ObservableCalculations
 			if (e.PropertyName != nameof(IReadScalar<object>.Value)) return;
 			checkConsistent();
 			_consistent = false;
-			OnPropertyChanged(Utils.ConsistentPropertyChangedEventArgs);
 
 			initializeFromSource();
 
 			_consistent = true;
-			OnPropertyChanged(Utils.ConsistentPropertyChangedEventArgs);
 		}
 
 		private void handleOrderingCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
@@ -361,17 +355,14 @@ namespace IBCode.ObservableCalculations
 			{
 				case NotifyCollectionChangedAction.Add:
 					_consistent = false;
-					OnPropertyChanged(Utils.ConsistentPropertyChangedEventArgs);
 
 					int newIndex = e.NewStartingIndex;
 					processAddSourceItem(newIndex, _source[newIndex]);
 
 					_consistent = true;
-					OnPropertyChanged(Utils.ConsistentPropertyChangedEventArgs);
 					break;
 				case NotifyCollectionChangedAction.Remove:
 					_consistent = false;
-					OnPropertyChanged(Utils.ConsistentPropertyChangedEventArgs);
 
 					int oldStartingIndex = e.OldStartingIndex;
 					processRemoveSourceItem(oldStartingIndex);
@@ -380,13 +371,11 @@ namespace IBCode.ObservableCalculations
 					_deferredBaseRemoveIndex = null;
 
 					_consistent = true;
-					OnPropertyChanged(Utils.ConsistentPropertyChangedEventArgs);
 					break;
 				case NotifyCollectionChangedAction.Move:
 					//if (e.OldStartingIndex == e.NewStartingIndex) return;
 		
 					_consistent = false;
-					OnPropertyChanged(Utils.ConsistentPropertyChangedEventArgs);
 
 					int oldStartingIndex2 = e.OldStartingIndex;
 					int newStartingIndex2 = e.NewStartingIndex;
@@ -402,11 +391,9 @@ namespace IBCode.ObservableCalculations
 					baseMoveItem(oldResultIndex, newResultIndex);
 
 					_consistent = true;
-					OnPropertyChanged(Utils.ConsistentPropertyChangedEventArgs);
 					break;
 				case NotifyCollectionChangedAction.Replace:
 					_consistent = false;
-					OnPropertyChanged(Utils.ConsistentPropertyChangedEventArgs);
 
 					int newStartingIndex3 = e.NewStartingIndex;
 					getSourceItemInfo(newStartingIndex3, out _, out OrderingInfo removingOrderingInfo, out int orderingSourceIndex);
@@ -416,16 +403,13 @@ namespace IBCode.ObservableCalculations
 					baseSetItem(resultIndex, newSourceItem);
 
 					_consistent = true;
-					OnPropertyChanged(Utils.ConsistentPropertyChangedEventArgs);
 					break;
 				case NotifyCollectionChangedAction.Reset:
 					_consistent = false;
-					OnPropertyChanged(Utils.ConsistentPropertyChangedEventArgs);
 
 					initializeFromSource();
 
 					_consistent = true;
-					OnPropertyChanged(Utils.ConsistentPropertyChangedEventArgs);
 					break;
 			}
 		}
@@ -519,7 +503,7 @@ namespace IBCode.ObservableCalculations
 				_orderingValueSelectorExpression,
 				_orderingValueSelectorFunc,
 				_orderingValueSelectorExpressionInfo,
-				_orderingValueSelectorContainsParametrizedLiveLinqCalls,
+				_orderingValueSelectorContainsParametrizedObservableCalculationsCalls,
 				_sortDirection, _comparer);
 
 			orderingInfo.Source = currentOrderingSource;

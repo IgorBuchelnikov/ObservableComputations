@@ -33,7 +33,7 @@ namespace IBCode.ObservableCalculations
 		private readonly Expression<Func<TSourceItem, TResultItem>> _selectorExpression;
 		private readonly ExpressionWatcher.ExpressionInfo _selectorExpressionInfo;
 
-		private readonly bool _selectorContainsParametrizedLiveLinqCalls;
+		private readonly bool _selectorContainsParametrizedObservableCalculationsCalls;
 
 		// ReSharper disable once PrivateFieldCanBeConvertedToLocalVariable
 		private readonly PropertyChangedEventHandler _sourceScalarPropertyChangedEventHandler;
@@ -91,10 +91,10 @@ namespace IBCode.ObservableCalculations
 			_selectorExpression =
 				(Expression<Func<TSourceItem, TResultItem>>)callToConstantConverter.Visit(
 					_selectorExpressionOriginal);
-			_selectorContainsParametrizedLiveLinqCalls =
+			_selectorContainsParametrizedObservableCalculationsCalls =
 				callToConstantConverter.ContainsParametrizedObservableCalculationCalls;
 
-			if (!_selectorContainsParametrizedLiveLinqCalls)
+			if (!_selectorContainsParametrizedObservableCalculationsCalls)
 			{
 				_selectorExpressionInfo = ExpressionWatcher.GetExpressionInfo(_selectorExpression);
 				// ReSharper disable once PossibleNullReferenceException
@@ -181,12 +181,10 @@ namespace IBCode.ObservableCalculations
 				return;
 			checkConsistent();
 			_consistent = false;
-			OnPropertyChanged(Utils.ConsistentPropertyChangedEventArgs);
 
 			initializeFromSource();
 
 			_consistent = true;
-			OnPropertyChanged(Utils.ConsistentPropertyChangedEventArgs);
 		}
 
 
@@ -228,12 +226,10 @@ namespace IBCode.ObservableCalculations
 					break;
 				case NotifyCollectionChangedAction.Reset:
 					_consistent = false;
-					OnPropertyChanged(Utils.ConsistentPropertyChangedEventArgs);
 
 					initializeFromSource();
 
 					_consistent = true;
-					OnPropertyChanged(Utils.ConsistentPropertyChangedEventArgs);
 					break;
 			}
 
@@ -265,7 +261,7 @@ namespace IBCode.ObservableCalculations
 			itemInfo = itemInfo == null ? _sourcePositions.Insert(index) : _itemInfos[index];
 
 			ExpressionWatcher watcher;
-			if (!_selectorContainsParametrizedLiveLinqCalls)
+			if (!_selectorContainsParametrizedObservableCalculationsCalls)
 			{
 				watcher = new ExpressionWatcher(_selectorExpressionInfo, sourceItem);
 			}
@@ -308,11 +304,11 @@ namespace IBCode.ObservableCalculations
 
 		// ReSharper disable once MemberCanBePrivate.Global
 		public TResultItem ApplySelector(int index) => 
-			_selectorContainsParametrizedLiveLinqCalls ? _itemInfos[index].SelectorFunc() : _selectorFunc(_sourceAsList[index]);
+			_selectorContainsParametrizedObservableCalculationsCalls ? _itemInfos[index].SelectorFunc() : _selectorFunc(_sourceAsList[index]);
 
 
 		private TResultItem applySelector(ItemInfo itemInfo, TSourceItem sourceItem) => 
-			_selectorContainsParametrizedLiveLinqCalls ? itemInfo.SelectorFunc() : _selectorFunc(sourceItem);
+			_selectorContainsParametrizedObservableCalculationsCalls ? itemInfo.SelectorFunc() : _selectorFunc(sourceItem);
 
 		~Selecting()
 		{

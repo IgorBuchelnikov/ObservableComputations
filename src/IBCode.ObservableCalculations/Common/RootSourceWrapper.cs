@@ -1,5 +1,7 @@
 ﻿using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Collections.Specialized;
+using System.ComponentModel;
 using IBCode.ObservableCalculations.Common.Base;
 
 namespace IBCode.ObservableCalculations.Common
@@ -12,6 +14,12 @@ namespace IBCode.ObservableCalculations.Common
 		private NotifyCollectionChangedEventHandler _sourceNotifyCollectionChangedEventHandler;
 		private WeakNotifyCollectionChangedEventHandler _sourceWeakNotifyCollectionChangedEventHandler;
 
+		private PropertyChangedEventHandler _sourcePropertyChangedEventHandler;
+		private WeakPropertyChangedEventHandler _sourceWeakPropertyChangedEventHandler;
+		private bool _indexerPropertyChangedEventRaised;
+		private INotifyPropertyChanged _sourceAsINotifyPropertyChanged;
+
+
 		internal RootSourceWrapper(
 			INotifyCollectionChanged source)
 		{
@@ -23,6 +31,17 @@ namespace IBCode.ObservableCalculations.Common
 
 		private void initializeFromSource()
 		{
+			_sourceAsINotifyPropertyChanged = (INotifyPropertyChanged) _sourceAsList;
+
+			_sourcePropertyChangedEventHandler = (sender, args) =>
+			{
+				if (args.PropertyName == "Item[]") _indexerPropertyChangedEventRaised = true; // ObservableCollection raises this before CollectionChanged event raising
+			};
+
+			_sourceWeakPropertyChangedEventHandler = new WeakPropertyChangedEventHandler(_sourcePropertyChangedEventHandler);
+
+			_sourceAsINotifyPropertyChanged.PropertyChanged += _sourceWeakPropertyChangedEventHandler.Handle;
+
 			int count = _sourceAsList.Count;
 			for (int index = 0; index < count; index++)
 			{
@@ -39,45 +58,54 @@ namespace IBCode.ObservableCalculations.Common
 
 		private void handleSourceCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
 		{
-			switch (e.Action)
+			if (_indexerPropertyChangedEventRaised)
 			{
-				case NotifyCollectionChangedAction.Add:
-					if (e.NewItems.Count > 1) throw new ObservableCalculationsException("Adding of multiple items is not supported");
-					int newStartingIndex = e.NewStartingIndex;
-					TSourceItem addedItem = _sourceAsList[newStartingIndex];
-					InsertItem(newStartingIndex, addedItem);								
-					break;
-				case NotifyCollectionChangedAction.Remove:
-					if (e.OldItems.Count > 1) throw new ObservableCalculationsException("Removing of multiple items is not supported");
-					int oldStartingIndex = e.OldStartingIndex;
-					RemoveItem(oldStartingIndex);
-					break;
-				case NotifyCollectionChangedAction.Replace:
-					if (e.NewItems.Count > 1) throw new ObservableCalculationsException("Replacing of multiple items is not supported");
-					TSourceItem newItem = _sourceAsList[e.NewStartingIndex];
-					SetItem(e.NewStartingIndex, newItem);
-					break;
-				case NotifyCollectionChangedAction.Move:
-					int oldStartingIndex1 = e.OldStartingIndex;
-					int newStartingIndex1 = e.NewStartingIndex;
-					if (oldStartingIndex1 == newStartingIndex1) return;
+				_indexerPropertyChangedEventRaised = false;
+				switch (e.Action)
+				{
+					case NotifyCollectionChangedAction.Add:
+						if (e.NewItems.Count > 1) throw new ObservableCalculationsException("Adding of multiple items is not supported");
+						int newStartingIndex = e.NewStartingIndex;
+						TSourceItem addedItem = _sourceAsList[newStartingIndex];
+						InsertItem(newStartingIndex, addedItem);								
+						break;
+					case NotifyCollectionChangedAction.Remove:
+						if (e.OldItems.Count > 1) throw new ObservableCalculationsException("Removing of multiple items is not supported");
+						int oldStartingIndex = e.OldStartingIndex;
+						RemoveItem(oldStartingIndex);
+						break;
+					case NotifyCollectionChangedAction.Replace:
+						if (e.NewItems.Count > 1) throw new ObservableCalculationsException("Replacing of multiple items is not supported");
+						TSourceItem newItem = _sourceAsList[e.NewStartingIndex];
+						SetItem(e.NewStartingIndex, newItem);
+						break;
+					case NotifyCollectionChangedAction.Move:
+						int oldStartingIndex1 = e.OldStartingIndex;
+						int newStartingIndex1 = e.NewStartingIndex;
+						if (oldStartingIndex1 == newStartingIndex1) return;
 
-					MoveItem(oldStartingIndex1, newStartingIndex1);
-					break;
-				case NotifyCollectionChangedAction.Reset:
-					ClearItems();
+						MoveItem(oldStartingIndex1, newStartingIndex1);
+						break;
+					case NotifyCollectionChangedAction.Reset:
+						ClearItems();
 
-					_source.CollectionChanged -= _sourceWeakNotifyCollectionChangedEventHandler.Handle;
-					_sourceNotifyCollectionChangedEventHandler = null;
-					_sourceWeakNotifyCollectionChangedEventHandler = null;
-					initializeFromSource();
-					break;
-			}			
+						_source.CollectionChanged -= _sourceWeakNotifyCollectionChangedEventHandler.Handle;
+						_sourceNotifyCollectionChangedEventHandler = null;
+						_sourceWeakNotifyCollectionChangedEventHandler = null;
+						initializeFromSource();
+						break;
+				}
+			}
+			
 		}
 
 		~RootSourceWrapper()
 		{
 			_source.CollectionChanged -= _sourceWeakNotifyCollectionChangedEventHandler.Handle;
+
+			if (_sourceAsINotifyPropertyChanged != null)
+				_sourceAsINotifyPropertyChanged.PropertyChanged -=
+					_sourceWeakPropertyChangedEventHandler.Handle;
 		}
 	}
 }

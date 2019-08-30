@@ -5,6 +5,7 @@ using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Linq;
 using IBCode.ObservableCalculations.Common;
+using IBCode.ObservableCalculations.Common.Base;
 using IBCode.ObservableCalculations.Common.Interface;
 
 namespace IBCode.ObservableCalculations
@@ -70,6 +71,14 @@ namespace IBCode.ObservableCalculations
 		private IComparer<TSourceItem> _comparer;
 		private TSourceItem _defaultValue;
 		private bool _isDefaulted;
+
+		private PropertyChangedEventHandler _sourcePropertyChangedEventHandler;
+		private WeakPropertyChangedEventHandler _sourceWeakPropertyChangedEventHandler;
+		private bool _indexerPropertyChangedEventRaised;
+		private INotifyPropertyChanged _sourceAsINotifyPropertyChanged;
+
+		private ObservableCollectionWithChangeMarker<TSourceItem> _sourceAsObservableCollectionWithChangeMarker;
+		private bool _lastProcessedSourceChangeMarker;
 
 		private void initializeComparerScalar()
 		{
@@ -295,6 +304,16 @@ namespace IBCode.ObservableCalculations
 				_sourceWeakNotifyCollectionChangedEventHandler = null;
 			}
 
+			if (_sourceAsINotifyPropertyChanged != null)
+			{
+				_sourceAsINotifyPropertyChanged.PropertyChanged -=
+					_sourceWeakPropertyChangedEventHandler.Handle;
+
+				_sourceAsINotifyPropertyChanged = null;
+				_sourcePropertyChangedEventHandler = null;
+				_sourceWeakPropertyChangedEventHandler = null;
+			}
+
 			int capacity = _sourceScalar != null ? Utils.getCapacity(_sourceScalar) : Utils.getCapacity(_source);
 			_sourceItems = new List<TSourceItem>(capacity);
 			if (_sourceScalar != null) _source = _sourceScalar.Value;
@@ -302,6 +321,29 @@ namespace IBCode.ObservableCalculations
 
 			if (_source != null)
 			{
+				_sourceAsObservableCollectionWithChangeMarker = _sourceAsList as ObservableCollectionWithChangeMarker<TSourceItem>;
+
+				if (_sourceAsObservableCollectionWithChangeMarker != null)
+				{
+					_lastProcessedSourceChangeMarker = _sourceAsObservableCollectionWithChangeMarker.ChangeMarker;
+				}
+				else
+				{
+					_sourceAsINotifyPropertyChanged = (INotifyPropertyChanged) _sourceAsList;
+
+					_sourcePropertyChangedEventHandler = (sender, args) =>
+					{
+						if (args.PropertyName == "Item[]")
+							_indexerPropertyChangedEventRaised =
+								true; // ObservableCollection raises this before CollectionChanged event raising
+					};
+
+					_sourceWeakPropertyChangedEventHandler =
+						new WeakPropertyChangedEventHandler(_sourcePropertyChangedEventHandler);
+
+					_sourceAsINotifyPropertyChanged.PropertyChanged += _sourceWeakPropertyChangedEventHandler.Handle;
+				}
+
 				_sourceNotifyCollectionChangedEventHandler = handleSourceCollectionChanged;
 				_sourceWeakNotifyCollectionChangedEventHandler =
 					new WeakNotifyCollectionChangedEventHandler(_sourceNotifyCollectionChangedEventHandler);
@@ -361,67 +403,47 @@ namespace IBCode.ObservableCalculations
 
 		private void handleSourceCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
 		{
-			switch (e.Action)
+			if (_indexerPropertyChangedEventRaised || _lastProcessedSourceChangeMarker != _sourceAsObservableCollectionWithChangeMarker.ChangeMarker)
 			{
-				case NotifyCollectionChangedAction.Add:
-					if (e.NewItems.Count > 1) throw new ObservableCalculationsException("Adding of multiple items is not supported");
-					int newIndex = e.NewStartingIndex;
-					TSourceItem addedSourceItem = _sourceAsList[newIndex];
-					_sourceItems.Insert(newIndex, addedSourceItem);
+				_indexerPropertyChangedEventRaised = false;
+				_lastProcessedSourceChangeMarker = !_lastProcessedSourceChangeMarker;
 
-					if (!_isDefaulted)
-					{
-						int compareResult = _comparer.Compare(addedSourceItem, Value);
-						if (_checkCompareResult(compareResult))
+				switch (e.Action)
+				{
+					case NotifyCollectionChangedAction.Add:
+						if (e.NewItems.Count > 1) throw new ObservableCalculationsException("Adding of multiple items is not supported");
+						int newIndex = e.NewStartingIndex;
+						TSourceItem addedSourceItem = _sourceAsList[newIndex];
+						_sourceItems.Insert(newIndex, addedSourceItem);
+
+						if (!_isDefaulted)
 						{
+							int compareResult = _comparer.Compare(addedSourceItem, Value);
+							if (_checkCompareResult(compareResult))
+							{
+								_valueCount = 1;
+								setValue(addedSourceItem);
+							}
+							else if (compareResult == 0)
+							{
+								_valueCount++;
+							}	
+						}
+						else
+						{
+							_isDefaulted = false;
+							raisePropertyChanged(nameof(IsDefaulted));
 							_valueCount = 1;
 							setValue(addedSourceItem);
 						}
-						else if (compareResult == 0)
-						{
-							_valueCount++;
-						}	
-					}
-					else
-					{
-						_isDefaulted = false;
-						raisePropertyChanged(nameof(IsDefaulted));
-						_valueCount = 1;
-						setValue(addedSourceItem);
-					}
-					break;
-				case NotifyCollectionChangedAction.Remove:
-					if (e.OldItems.Count > 1) throw new ObservableCalculationsException("Removing of multiple items is not supported");
-					int oldStartingIndex = e.OldStartingIndex;
-					TSourceItem removingSourceItem = _sourceItems[oldStartingIndex];
-					_sourceItems.RemoveAt(oldStartingIndex);
+						break;
+					case NotifyCollectionChangedAction.Remove:
+						if (e.OldItems.Count > 1) throw new ObservableCalculationsException("Removing of multiple items is not supported");
+						int oldStartingIndex = e.OldStartingIndex;
+						TSourceItem removingSourceItem = _sourceItems[oldStartingIndex];
+						_sourceItems.RemoveAt(oldStartingIndex);
 
-					if (_comparer.Compare(removingSourceItem, Value) == 0)
-					{
-						_valueCount--;
-						if (_valueCount == 0)
-						{
-							recalculateValue();
-						}
-					}
-					break;
-				case NotifyCollectionChangedAction.Replace:
-					if (e.NewItems.Count > 1) throw new ObservableCalculationsException("Replacing of multiple items is not supported");
-					int replacingSourceIndex = e.NewStartingIndex;
-					TSourceItem newItem = _sourceAsList[e.NewStartingIndex];
-					TSourceItem oldItem = _sourceItems[e.NewStartingIndex];
-
-					int newCompareResult = _comparer.Compare(newItem, Value);
-					int oldCompareResult = _comparer.Compare(oldItem, Value);
-
-					if (_checkCompareResult(newCompareResult))
-					{
-						_valueCount = 1;
-						setValue(newItem);
-					}
-					else if (_antiCheckCompareResult(newCompareResult))
-					{
-						if (oldCompareResult == 0)
+						if (_comparer.Compare(removingSourceItem, Value) == 0)
 						{
 							_valueCount--;
 							if (_valueCount == 0)
@@ -429,30 +451,56 @@ namespace IBCode.ObservableCalculations
 								recalculateValue();
 							}
 						}
-					}
-					else //if (newCompareResult == 0)
-					{
-						if (_antiCheckCompareResult(oldCompareResult))
+						break;
+					case NotifyCollectionChangedAction.Replace:
+						if (e.NewItems.Count > 1) throw new ObservableCalculationsException("Replacing of multiple items is not supported");
+						int replacingSourceIndex = e.NewStartingIndex;
+						TSourceItem newItem = _sourceAsList[e.NewStartingIndex];
+						TSourceItem oldItem = _sourceItems[e.NewStartingIndex];
+
+						int newCompareResult = _comparer.Compare(newItem, Value);
+						int oldCompareResult = _comparer.Compare(oldItem, Value);
+
+						if (_checkCompareResult(newCompareResult))
 						{
-							_valueCount++;
+							_valueCount = 1;
+							setValue(newItem);
 						}
-					}
+						else if (_antiCheckCompareResult(newCompareResult))
+						{
+							if (oldCompareResult == 0)
+							{
+								_valueCount--;
+								if (_valueCount == 0)
+								{
+									recalculateValue();
+								}
+							}
+						}
+						else //if (newCompareResult == 0)
+						{
+							if (_antiCheckCompareResult(oldCompareResult))
+							{
+								_valueCount++;
+							}
+						}
 
-					_sourceItems[replacingSourceIndex] = newItem;
+						_sourceItems[replacingSourceIndex] = newItem;
 
-					break;
-				case NotifyCollectionChangedAction.Move:
-					int oldStartingIndex1 = e.OldStartingIndex;
-					int newStartingIndex1 = e.NewStartingIndex;
-					if (oldStartingIndex1 == newStartingIndex1) return;
-					TSourceItem movingSourceItem = _sourceItems[oldStartingIndex1];
-					_sourceItems.RemoveAt(oldStartingIndex1);
-					_sourceItems.Insert(newStartingIndex1, movingSourceItem);
-					break;
-				case NotifyCollectionChangedAction.Reset:
-					initializeFromSource();
-					break;
-			}						
+						break;
+					case NotifyCollectionChangedAction.Move:
+						int oldStartingIndex1 = e.OldStartingIndex;
+						int newStartingIndex1 = e.NewStartingIndex;
+						if (oldStartingIndex1 == newStartingIndex1) return;
+						TSourceItem movingSourceItem = _sourceItems[oldStartingIndex1];
+						_sourceItems.RemoveAt(oldStartingIndex1);
+						_sourceItems.Insert(newStartingIndex1, movingSourceItem);
+						break;
+					case NotifyCollectionChangedAction.Reset:
+						initializeFromSource();
+						break;
+				}	
+			}					
 		}
 
 
@@ -477,6 +525,10 @@ namespace IBCode.ObservableCalculations
 			{
 				_defaultValueScalar.PropertyChanged -= _defaultValueScalarWeakPropertyChangedEventHandler.Handle;			
 			}
+
+			if (_sourceAsINotifyPropertyChanged != null)
+				_sourceAsINotifyPropertyChanged.PropertyChanged -=
+					_sourceWeakPropertyChangedEventHandler.Handle;
 		}
 
 		public void ValidateConsistency()

@@ -10,7 +10,7 @@ namespace IBCode.ObservableCalculations.Common.Interface
 	public interface IScalar : System.ComponentModel.INotifyPropertyChanged
 	{
 		object ValueObject { get; set;}
-		Type Type {get;}
+		Type ValueType {get;}
 	}
 
 	public interface IReadScalar<out ValueType> : System.ComponentModel.INotifyPropertyChanged

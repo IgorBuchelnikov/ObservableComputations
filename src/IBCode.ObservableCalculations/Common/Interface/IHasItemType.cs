@@ -6,10 +6,8 @@ using System.Threading.Tasks;
 
 namespace IBCode.ObservableCalculations.Common.Interface
 {
-	public interface IConsistent
+	public interface IHasItemType
 	{
-		bool Consistent {get;}
-		event EventHandler ConsistencyRestored;
-
+		Type ItemType {get;}
 	}
 }

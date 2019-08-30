@@ -101,7 +101,7 @@ namespace IBCode.ObservableCalculations
 		private PropertyChangedEventHandler _sourceScalarPropertyChangedEventHandler;
 		private WeakPropertyChangedEventHandler _sourceScalarWeakPropertyChangedEventHandler;
 
-		private readonly bool _keySelectorExpressionContainsParametrizedLiveLinqCalls;
+		private readonly bool _keySelectorExpressionContainsParametrizedObservableCalculationsCalls;
 
 		private readonly ExpressionWatcher.ExpressionInfo _keySelectorExpressionInfo;
 
@@ -125,15 +125,13 @@ namespace IBCode.ObservableCalculations
 
 		Positions<Position> _resultPositions;
 		readonly int _initialResultCapacity;
+
 		internal Action<Group<TSourceItem, TKey>, int, TSourceItem> _insertItemIntoGroupAction;
-
 		internal Action<Group<TSourceItem, TKey>, int> _removeItemFromGroupAction;
-
 		internal Action<Group<TSourceItem, TKey>, int, TSourceItem> _setGroupItemAction;
-
 		internal Action<Group<TSourceItem, TKey>, int, int> _moveItemInGroupAction;
-
 		internal Action<Group<TSourceItem, TKey>> _clearGroupItemsAction;
+
 		internal readonly IReadScalar<INotifyCollectionChanged> _sourceScalar;
 		internal readonly Expression<Func<TSourceItem, TKey>> _keySelectorExpression;
 		internal readonly Expression<Func<TSourceItem, TKey>> _keySelectorExpressionOriginal;
@@ -231,10 +229,10 @@ namespace IBCode.ObservableCalculations
 				new CallToConstantConverter(_keySelectorExpressionOriginal.Parameters);
 			_keySelectorExpression =
 				(Expression<Func<TSourceItem, TKey>>) callToConstantConverter.Visit(_keySelectorExpressionOriginal);
-			_keySelectorExpressionContainsParametrizedLiveLinqCalls =
+			_keySelectorExpressionContainsParametrizedObservableCalculationsCalls =
 				callToConstantConverter.ContainsParametrizedObservableCalculationCalls;
 
-			if (!_keySelectorExpressionContainsParametrizedLiveLinqCalls)
+			if (!_keySelectorExpressionContainsParametrizedObservableCalculationsCalls)
 			{
 				_keySelectorExpressionInfo = ExpressionWatcher.GetExpressionInfo(_keySelectorExpression);
 				// ReSharper disable once PossibleNullReferenceException
@@ -278,12 +276,10 @@ namespace IBCode.ObservableCalculations
 			if (e.PropertyName != nameof(IReadScalar<object>.Value)) return;
 			checkConsistent();
 			_consistent = false;
-			OnPropertyChanged(Utils.ConsistentPropertyChangedEventArgs);
 
 			initializeFromSource();
 
 			_consistent = true;
-			OnPropertyChanged(Utils.ConsistentPropertyChangedEventArgs);
 		}
 
 		private void handleSourceCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
@@ -296,27 +292,22 @@ namespace IBCode.ObservableCalculations
 			{
 				case NotifyCollectionChangedAction.Add:
 					_consistent = false;
-					OnPropertyChanged(Utils.ConsistentPropertyChangedEventArgs);
 
 					int newIndex1 = e.NewStartingIndex;
 					TSourceItem addedItem = _sourceAsList[newIndex1];
 					registerSourceItem(addedItem, false, _sourcePositions.Insert(newIndex1));
 
 					_consistent = true;
-					OnPropertyChanged(Utils.ConsistentPropertyChangedEventArgs);
 					break;
 				case NotifyCollectionChangedAction.Remove:
 					_consistent = false;
-					OnPropertyChanged(Utils.ConsistentPropertyChangedEventArgs);
 
 					unregisterSourceItem(e.OldStartingIndex, true);
 
 					_consistent = true;
-					OnPropertyChanged(Utils.ConsistentPropertyChangedEventArgs);
 					break;
 				case NotifyCollectionChangedAction.Replace:
 					_consistent = false;
-					OnPropertyChanged(Utils.ConsistentPropertyChangedEventArgs);
 
 					int replacingSourceIndex = e.NewStartingIndex;
 					TSourceItem newItem = _sourceAsList[replacingSourceIndex];
@@ -350,7 +341,6 @@ namespace IBCode.ObservableCalculations
 					}
 
 					_consistent = true;
-					OnPropertyChanged(Utils.ConsistentPropertyChangedEventArgs);
 					break;
 				case NotifyCollectionChangedAction.Move:
 					int oldStartingIndex = e.OldStartingIndex;
@@ -358,7 +348,6 @@ namespace IBCode.ObservableCalculations
 					if (oldStartingIndex == newStartingIndex) return;
 							
 					_consistent = false;
-					OnPropertyChanged(Utils.ConsistentPropertyChangedEventArgs);
 
 					ItemInfo itemInfo = _itemInfos[oldStartingIndex];
 
@@ -434,16 +423,13 @@ namespace IBCode.ObservableCalculations
 					moveGroupToActualIndex(group1);
 
 					_consistent = true;
-					OnPropertyChanged(Utils.ConsistentPropertyChangedEventArgs);	
 					break;
 				case NotifyCollectionChangedAction.Reset:
 					_consistent = false;
-					OnPropertyChanged(Utils.ConsistentPropertyChangedEventArgs);
 
 					initializeFromSource();
 
 					_consistent = true;
-					OnPropertyChanged(Utils.ConsistentPropertyChangedEventArgs);
 					break;
 			}
 
@@ -559,7 +545,6 @@ namespace IBCode.ObservableCalculations
 		private void processExpressionWatcherValueChanged(ExpressionWatcher expressionWatcher)
 		{
 			_consistent = false;
-			OnPropertyChanged(Utils.ConsistentPropertyChangedEventArgs);
 
 			int sourceIndex = expressionWatcher._position.Index;
 			TSourceItem sourceItem = _sourceAsList[sourceIndex];
@@ -576,7 +561,6 @@ namespace IBCode.ObservableCalculations
 			}
 
 			_consistent = true;
-			OnPropertyChanged(Utils.ConsistentPropertyChangedEventArgs);
 		}
 
 		private void registerSourceItem(TSourceItem sourceItem, bool addNewToEnd, ItemInfo itemInfo)
@@ -913,7 +897,7 @@ namespace IBCode.ObservableCalculations
 		{
 			keySelectorFunc = null;
 
-			if (!_keySelectorExpressionContainsParametrizedLiveLinqCalls)
+			if (!_keySelectorExpressionContainsParametrizedObservableCalculationsCalls)
 			{
 				watcher = new ExpressionWatcher(_keySelectorExpressionInfo, sourceItem);
 			}
@@ -957,7 +941,7 @@ namespace IBCode.ObservableCalculations
 
 		private TKey applyKeySelector(int index)
 		{
-			return _keySelectorExpressionContainsParametrizedLiveLinqCalls ? _itemInfos[index].SelectorFunc() : _keySelectorFunc(_sourceAsList[index]);
+			return _keySelectorExpressionContainsParametrizedObservableCalculationsCalls ? _itemInfos[index].SelectorFunc() : _keySelectorFunc(_sourceAsList[index]);
 		}
 
 		public TKey ApplyKeySelector(int index)
@@ -968,7 +952,7 @@ namespace IBCode.ObservableCalculations
 
 		private TKey applyKeySelector(TSourceItem sourceItem, Func<TKey> selectorFunc)
 		{
-			return _keySelectorExpressionContainsParametrizedLiveLinqCalls ? selectorFunc() : _keySelectorFunc(sourceItem);
+			return _keySelectorExpressionContainsParametrizedObservableCalculationsCalls ? selectorFunc() : _keySelectorFunc(sourceItem);
 		}
 
 		public Group<TSourceItem, TKey> GetGroup(TKey key)
@@ -1084,7 +1068,7 @@ namespace IBCode.ObservableCalculations
 		}
 	}
 
-	public class Group<TSourceItem, TKey> : ObservableCollection<TSourceItem>
+	public class Group<TSourceItem, TKey> : CollectionCalculatingChild<TSourceItem>
 	{
 		public TKey Key => _key;
 
@@ -1092,7 +1076,7 @@ namespace IBCode.ObservableCalculations
 		public Grouping<TSourceItem, TKey> Grouping => _grouping;
 		internal readonly List<Position> _sourcePositions = new List<Position>();
 		internal readonly Position _position;
-		internal List<CollectionCalculatingBase<TSourceItem>> _copies;
+		internal List<CollectionCalculatingChild<TSourceItem>> _copies;
 		internal readonly TKey _key;
 		private readonly Grouping<TSourceItem, TKey> _grouping;
 
@@ -1107,63 +1091,77 @@ namespace IBCode.ObservableCalculations
 
 		internal void baseInsertItem(int index, TSourceItem item)
 		{
-			base.InsertItem(index, item);
-
-			if (_copies != null)
+			if (_copies == null)
 			{
+				insertItem(index, item);
+			}
+			else
+			{
+				insertItemNotExtended(index, item);
 				int copiesCount = _copies.Count;
 				for (int index1 = 0; index1 < copiesCount; index1++)
 				{
-					CollectionCalculatingBase<TSourceItem> copy = _copies[index1];
-					copy.baseInsertItem(index, item);
+					CollectionCalculatingChild<TSourceItem> copy = _copies[index1];
+					copy.insertItem(index, item);
 				}
 			}
 		}
 
 		internal void baseMoveItem(int oldIndex, int newIndex)
 		{
-			base.MoveItem(oldIndex, newIndex);
-
-			if (_copies != null)
+			if (_copies == null)
 			{
+				moveItem(oldIndex, newIndex);
+			}
+			else
+			{
+				moveItemNotExtended(oldIndex, newIndex);
 				int copiesCount = _copies.Count;
 				for (int index = 0; index < copiesCount; index++)
 				{
-					CollectionCalculatingBase<TSourceItem> copy = _copies[index];
-					copy.baseMoveItem(oldIndex, newIndex);
+					CollectionCalculatingChild<TSourceItem> copy = _copies[index];
+					copy.moveItem(oldIndex, newIndex);
 				}
 			}
 		}
 
 		internal void baseRemoveItem(int index)
 		{
-			base.RemoveItem(index);
-
-			if (_copies != null)
+			if (_copies == null)
 			{
+				removeItem(index);
+			}
+			else
+			{
+				removeItemNotExtended(index);
 				int copiesCount = _copies.Count;
 				for (int index1 = 0; index1 < copiesCount; index1++)
 				{
-					CollectionCalculatingBase<TSourceItem> copy = _copies[index1];
-					copy.baseRemoveItem(index);
+					CollectionCalculatingChild<TSourceItem> copy = _copies[index1];
+					copy.removeItem(index);
 				}
 			}
 		}
 
 		internal void baseSetItem(int index, TSourceItem item)
 		{
-			base.SetItem(index, item);
-
-			if (_copies != null)
+			if (_copies == null)
 			{
+				setItem(index, item);
+			}
+			else
+			{
+				setItemNotExtended(index, item);
 				int copiesCount = _copies.Count;
 				for (int index1 = 0; index1 < copiesCount; index1++)
 				{
-					CollectionCalculatingBase<TSourceItem> copy = _copies[index1];
-					copy.baseSetItem(index, item);
+					CollectionCalculatingChild<TSourceItem> copy = _copies[index1];
+					copy.setItem(index, item);
 				}
 			}
 		}
+
+		public override ICollectionCalculating Parent => _grouping;
 
 		#region Overrides of ObservableCollection<TResult>
 

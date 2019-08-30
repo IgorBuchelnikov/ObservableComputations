@@ -29,6 +29,14 @@ namespace IBCode.ObservableCalculations
 		private INotifyCollectionChanged _source;
 		private readonly IReadScalar<INotifyCollectionChanged> _sourceScalar;
 
+		private PropertyChangedEventHandler _sourcePropertyChangedEventHandler;
+		private WeakPropertyChangedEventHandler _sourceWeakPropertyChangedEventHandler;
+		private bool _indexerPropertyChangedEventRaised;
+		private INotifyPropertyChanged _sourceAsINotifyPropertyChanged;
+
+		private IHasChangeMarker _sourceAsIHasChangeMarker;
+		private bool _lastProcessedSourceChangeMarker;
+
 		[ObservableCalculationsCall]
 		public Casting(
 			IReadScalar<INotifyCollectionChanged> sourceScalar) : base(Utils.getCapacity(sourceScalar))
@@ -58,11 +66,43 @@ namespace IBCode.ObservableCalculations
 				_sourceWeakNotifyCollectionChangedEventHandler = null;
 			}
 
+			if (_sourceAsINotifyPropertyChanged != null)
+			{
+				_sourceAsINotifyPropertyChanged.PropertyChanged -=
+					_sourceWeakPropertyChangedEventHandler.Handle;
+
+				_sourceAsINotifyPropertyChanged = null;
+				_sourcePropertyChangedEventHandler = null;
+				_sourceWeakPropertyChangedEventHandler = null;
+			}
+
+
 			if (_sourceScalar != null) _source =  _sourceScalar.Value;
 			_sourceAsList = _source as IList;
 
 			if (_sourceAsList != null)
 			{
+				_sourceAsIHasChangeMarker = _sourceAsList as IHasChangeMarker;
+
+				if (_sourceAsIHasChangeMarker != null)
+				{
+					_lastProcessedSourceChangeMarker = _sourceAsIHasChangeMarker.GetChangeMarker();
+				}
+				else
+				{
+					_sourceAsINotifyPropertyChanged = (INotifyPropertyChanged) _sourceAsList;
+
+					_sourcePropertyChangedEventHandler = (sender, args) =>
+					{
+						if (args.PropertyName == "Item[]") _indexerPropertyChangedEventRaised = true; // ObservableCollection raises this before CollectionChanged event raising
+					};
+
+					_sourceWeakPropertyChangedEventHandler = new WeakPropertyChangedEventHandler(_sourcePropertyChangedEventHandler);
+
+					_sourceAsINotifyPropertyChanged.PropertyChanged += _sourceWeakPropertyChangedEventHandler.Handle;
+				}
+
+
 				int count = _sourceAsList.Count;
 				for (int index = 0; index < count; index++)
 				{
@@ -84,51 +124,53 @@ namespace IBCode.ObservableCalculations
 			checkConsistent();
 
 			_consistent = false;
-			OnPropertyChanged(Utils.ConsistentPropertyChangedEventArgs);
 
 			initializeFromSource();
 
 			_consistent = true;
-			OnPropertyChanged(Utils.ConsistentPropertyChangedEventArgs);
 		}
 
 		private void handleSourceCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
 		{
-			checkConsistent();
-			switch (e.Action)
+			if (_indexerPropertyChangedEventRaised || _lastProcessedSourceChangeMarker != _sourceAsIHasChangeMarker.GetChangeMarker())
 			{
-				case NotifyCollectionChangedAction.Add:
-					IList newItems = e.NewItems;
-					if (newItems.Count > 1) throw new ObservableCalculationsException("Adding of multiple items is not supported");
-					object addedItem = newItems[0];
-					baseInsertItem(e.NewStartingIndex, (TResultItem)addedItem);								
-					break;
-				case NotifyCollectionChangedAction.Remove:
-					if (e.OldItems.Count > 1) throw new ObservableCalculationsException("Removing of multiple items is not supported");
-					baseRemoveItem(e.OldStartingIndex);
-					break;
-				case NotifyCollectionChangedAction.Move:
-					int oldStartingIndex = e.OldStartingIndex;
-					int newStartingIndex = e.NewStartingIndex;
-					if (oldStartingIndex == newStartingIndex) return;
-					baseMoveItem(oldStartingIndex, newStartingIndex);
-					break;
-				case NotifyCollectionChangedAction.Replace:
-					IList newItems1 = e.NewItems;
-					if (newItems1.Count > 1) throw new ObservableCalculationsException("Replacing of multiple items is not supported");
-					object newItem = newItems1[0];
-					baseSetItem(e.NewStartingIndex, (TResultItem)newItem);
-					break;
-				case NotifyCollectionChangedAction.Reset:
-					_consistent = false;
-					OnPropertyChanged(Utils.ConsistentPropertyChangedEventArgs);
+				_lastProcessedSourceChangeMarker = !_lastProcessedSourceChangeMarker;
+				_indexerPropertyChangedEventRaised = false;
 
-					initializeFromSource();
+				checkConsistent();
+				_consistent = false;
 
-					_consistent = true;
-					OnPropertyChanged(Utils.ConsistentPropertyChangedEventArgs);
-					break;
-			}			
+				switch (e.Action)
+				{
+					case NotifyCollectionChangedAction.Add:
+						IList newItems = e.NewItems;
+						if (newItems.Count > 1) throw new ObservableCalculationsException("Adding of multiple items is not supported");
+						baseInsertItem(e.NewStartingIndex, (TResultItem)newItems[0]);								
+						break;
+					case NotifyCollectionChangedAction.Remove:
+						if (e.OldItems.Count > 1) throw new ObservableCalculationsException("Removing of multiple items is not supported");
+						baseRemoveItem(e.OldStartingIndex);
+						break;
+					case NotifyCollectionChangedAction.Move:
+						int oldStartingIndex = e.OldStartingIndex;
+						int newStartingIndex = e.NewStartingIndex;
+						if (oldStartingIndex == newStartingIndex) return;
+						baseMoveItem(oldStartingIndex, newStartingIndex);
+						break;
+					case NotifyCollectionChangedAction.Replace:
+						IList newItems1 = e.NewItems;
+						if (newItems1.Count > 1) throw new ObservableCalculationsException("Replacing of multiple items is not supported");
+						baseSetItem(e.NewStartingIndex, (TResultItem)newItems1[0]);
+						break;
+					case NotifyCollectionChangedAction.Reset:
+						initializeFromSource();				
+						break;
+				}	
+				
+				_consistent = true;
+				raiseConsistencyRestored();
+			}
+
 		}
 
 		~Casting()
@@ -142,6 +184,10 @@ namespace IBCode.ObservableCalculations
 			{
 				_sourceScalar.PropertyChanged -= _sourceScalarWeakPropertyChangedEventHandler.Handle;			
 			}
+
+			if (_sourceAsINotifyPropertyChanged != null)
+				_sourceAsINotifyPropertyChanged.PropertyChanged -=
+					_sourceWeakPropertyChangedEventHandler.Handle;
 		} 
 
 		public void ValidateConsistency()

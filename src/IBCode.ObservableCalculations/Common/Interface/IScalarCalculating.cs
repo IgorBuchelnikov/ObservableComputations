@@ -6,10 +6,11 @@ using System.Threading.Tasks;
 
 namespace IBCode.ObservableCalculations.Common.Interface
 {
-	public interface IConsistent
-	{
-		bool Consistent {get;}
-		event EventHandler ConsistencyRestored;
+	public interface IScalarCalculating : IScalar, ICalculating
+	{	
+		event EventHandler PreValueChanged;
+		event EventHandler PostValueChanged;
 
+		object NewValueObject {get;}
 	}
 }

@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.ComponentModel;
 using IBCode.ObservableCalculations.Common;
+using IBCode.ObservableCalculations.Common.Base;
 using IBCode.ObservableCalculations.Common.Interface;
 using INotifyPropertyChanged = System.ComponentModel.INotifyPropertyChanged;
 
@@ -12,19 +13,19 @@ namespace IBCode.ObservableCalculations
 	public class Zipping<TSourceItemLeft, TSourceItemRight> : CollectionCalculating<ZipPair<TSourceItemLeft, TSourceItemRight>>, IHasSources
 	{
 		// ReSharper disable once MemberCanBePrivate.Global
-		public IReadScalar<INotifyCollectionChanged> SourceLeftScalar => _sourceLeftScalar;
+		public IReadScalar<INotifyCollectionChanged> LeftSourceScalar => _leftSourceScalar;
 
 		// ReSharper disable once MemberCanBePrivate.Global
-		public IReadScalar<INotifyCollectionChanged> SourceRightScalar => _sourceRightScalar;
+		public IReadScalar<INotifyCollectionChanged> RightSourceScalar => _rightSourceScalar;
 
 		// ReSharper disable once MemberCanBePrivate.Global
-		public INotifyCollectionChanged SourceLeft => _sourceLeft;
+		public INotifyCollectionChanged LeftSource => _leftSource;
 
 		// ReSharper disable once MemberCanBePrivate.Global
-		public INotifyCollectionChanged SourceRight => _sourceRight;
+		public INotifyCollectionChanged RightSource => _rightSource;
 
-		public ReadOnlyCollection<INotifyCollectionChanged> SourcesCollection => new ReadOnlyCollection<INotifyCollectionChanged>(new []{SourceLeft, SourceRight});
-		public ReadOnlyCollection<IReadScalar<INotifyCollectionChanged>> SourceScalarsCollection => new ReadOnlyCollection<IReadScalar<INotifyCollectionChanged>>(new []{SourceLeftScalar, SourceRightScalar});
+		public ReadOnlyCollection<INotifyCollectionChanged> SourcesCollection => new ReadOnlyCollection<INotifyCollectionChanged>(new []{LeftSource, RightSource});
+		public ReadOnlyCollection<IReadScalar<INotifyCollectionChanged>> SourceScalarsCollection => new ReadOnlyCollection<IReadScalar<INotifyCollectionChanged>>(new []{LeftSourceScalar, RightSourceScalar});
 
 		public Action<ZipPair<TSourceItemLeft, TSourceItemRight>, TSourceItemLeft> ZipPairSetItemLeftAction
 		{
@@ -52,52 +53,68 @@ namespace IBCode.ObservableCalculations
 			}
 		}
 
-		private PropertyChangedEventHandler _sourceLeftScalarPropertyChangedEventHandler;
-		private WeakPropertyChangedEventHandler _sourceLeftScalarWeakPropertyChangedEventHandler;
+		private PropertyChangedEventHandler _leftSourceScalarPropertyChangedEventHandler;
+		private WeakPropertyChangedEventHandler _leftSourceScalarWeakPropertyChangedEventHandler;
 
-		private IList<TSourceItemLeft> _sourceLeftAsList;
+		private IList<TSourceItemLeft> _leftSourceAsList;
 
-		private PropertyChangedEventHandler _sourceRightScalarPropertyChangedEventHandler;
-		private WeakPropertyChangedEventHandler _sourceRightScalarWeakPropertyChangedEventHandler;
+		private PropertyChangedEventHandler _rightSourceScalarPropertyChangedEventHandler;
+		private WeakPropertyChangedEventHandler _rightSourceScalarWeakPropertyChangedEventHandler;
 
-		private IList<TSourceItemRight> _sourceRightAsList;
+		private IList<TSourceItemRight> _rightSourceAsList;
 
-		private NotifyCollectionChangedEventHandler _sourceLeftNotifyCollectionChangedEventHandler;
-		private WeakNotifyCollectionChangedEventHandler _sourceLeftWeakNotifyCollectionChangedEventHandler;
+		private NotifyCollectionChangedEventHandler _leftSourceNotifyCollectionChangedEventHandler;
+		private WeakNotifyCollectionChangedEventHandler _leftSourceWeakNotifyCollectionChangedEventHandler;
 
-		private NotifyCollectionChangedEventHandler _sourceRightNotifyCollectionChangedEventHandler;
-		private WeakNotifyCollectionChangedEventHandler _sourceRightWeakNotifyCollectionChangedEventHandler;
+		private NotifyCollectionChangedEventHandler _rightSourceNotifyCollectionChangedEventHandler;
+		private WeakNotifyCollectionChangedEventHandler _rightSourceWeakNotifyCollectionChangedEventHandler;
 
 		private Action<ZipPair<TSourceItemLeft, TSourceItemRight>, TSourceItemLeft> _zipPairSetItemLeftAction;
 
 		private Action<ZipPair<TSourceItemLeft, TSourceItemRight>, TSourceItemRight> _zipPairSetItemRightAction;
-		private readonly IReadScalar<INotifyCollectionChanged> _sourceLeftScalar;
-		private readonly IReadScalar<INotifyCollectionChanged> _sourceRightScalar;
-		private INotifyCollectionChanged _sourceLeft;
-		private INotifyCollectionChanged _sourceRight;
+		private readonly IReadScalar<INotifyCollectionChanged> _leftSourceScalar;
+		private readonly IReadScalar<INotifyCollectionChanged> _rightSourceScalar;
+		private INotifyCollectionChanged _leftSource;
+		private INotifyCollectionChanged _rightSource;
+
+		private PropertyChangedEventHandler _leftSourcePropertyChangedEventHandler;
+		private WeakPropertyChangedEventHandler _leftSourceWeakPropertyChangedEventHandler;
+		private bool _leftSourceIndexerPropertyChangedEventRaised;
+		private INotifyPropertyChanged _leftSourceAsINotifyPropertyChanged;
+
+		private PropertyChangedEventHandler _rigthSourcePropertyChangedEventHandler;
+		private WeakPropertyChangedEventHandler _rigthSourceWeakPropertyChangedEventHandler;
+		private bool _rigthtSourceIndexerPropertyChangedEventRaised;
+		private INotifyPropertyChanged _rigthSourceAsINotifyPropertyChanged;
+
+		private ObservableCollectionWithChangeMarker<TSourceItemLeft> _leftSourceAsObservableCollectionWithChangeMarker;
+		private bool _lastProcessedLeftSourceChangeMarker;
+
+		private ObservableCollectionWithChangeMarker<TSourceItemRight> _rightSourceAsObservableCollectionWithChangeMarker;
+		private bool _lastProcessedRightSourceChangeMarker;
 
 		[ObservableCalculationsCall]
 		public Zipping(
-			IReadScalar<INotifyCollectionChanged> sourceLeftScalar,
-			INotifyCollectionChanged sourceRight) : base(calculateCapacity(sourceLeftScalar, sourceRight))
+			IReadScalar<INotifyCollectionChanged> leftSourceScalar,
+			INotifyCollectionChanged rightSource) : base(calculateCapacity(leftSourceScalar, rightSource))
 		{
-			_sourceLeftScalar = sourceLeftScalar;
+			_leftSourceScalar = leftSourceScalar;
 			initializeSourceLeftScalar();
 			
-			_sourceRight = sourceRight;	
+			_rightSource = rightSource;	
 			
 			initializeFromSources();
 		}
 
 		[ObservableCalculationsCall]
 		public Zipping(
-			IReadScalar<INotifyCollectionChanged> sourceLeftScalar,
-			IReadScalar<INotifyCollectionChanged> sourceRightScalar) : base(calculateCapacity(sourceLeftScalar, sourceRightScalar))
+			IReadScalar<INotifyCollectionChanged> leftSourceScalar,
+			IReadScalar<INotifyCollectionChanged> rightSourceScalar) : base(calculateCapacity(leftSourceScalar, rightSourceScalar))
 		{
-			_sourceLeftScalar = sourceLeftScalar;
+			_leftSourceScalar = leftSourceScalar;
 			initializeSourceLeftScalar();
 
-			_sourceRightScalar = sourceRightScalar;
+			_rightSourceScalar = rightSourceScalar;
 			initializeSourceRightScalar();
 
 			initializeFromSources();
@@ -105,22 +122,22 @@ namespace IBCode.ObservableCalculations
 
 		[ObservableCalculationsCall]
 		public Zipping(
-			INotifyCollectionChanged sourceLeft,
-			INotifyCollectionChanged sourceRight) : base(calculateCapacity(sourceLeft, sourceRight))
+			INotifyCollectionChanged leftSource,
+			INotifyCollectionChanged rightSource) : base(calculateCapacity(leftSource, rightSource))
 		{
-			_sourceLeft = sourceLeft;			
-			_sourceRight = sourceRight;					
+			_leftSource = leftSource;			
+			_rightSource = rightSource;					
 			initializeFromSources();
 		}
 
 		[ObservableCalculationsCall]
 		public Zipping(
-			INotifyCollectionChanged sourceLeft,
-			IReadScalar<INotifyCollectionChanged> sourceRightScalar) : base(calculateCapacity(sourceLeft, sourceRightScalar))
+			INotifyCollectionChanged leftSource,
+			IReadScalar<INotifyCollectionChanged> rightSourceScalar) : base(calculateCapacity(leftSource, rightSourceScalar))
 		{
-			_sourceLeft = sourceLeft;
+			_leftSource = leftSource;
 			
-			_sourceRightScalar = sourceRightScalar;
+			_rightSourceScalar = rightSourceScalar;
 			initializeSourceRightScalar();		
 					
 			initializeFromSources();
@@ -128,18 +145,18 @@ namespace IBCode.ObservableCalculations
 
 		private void initializeSourceRightScalar()
 		{
-			_sourceRightScalarPropertyChangedEventHandler = handleSourceScalarValueChanged;
-			_sourceRightScalarWeakPropertyChangedEventHandler =
-				new WeakPropertyChangedEventHandler(_sourceRightScalarPropertyChangedEventHandler);
-			_sourceRightScalar.PropertyChanged += _sourceRightScalarWeakPropertyChangedEventHandler.Handle;
+			_rightSourceScalarPropertyChangedEventHandler = handleSourceScalarValueChanged;
+			_rightSourceScalarWeakPropertyChangedEventHandler =
+				new WeakPropertyChangedEventHandler(_rightSourceScalarPropertyChangedEventHandler);
+			_rightSourceScalar.PropertyChanged += _rightSourceScalarWeakPropertyChangedEventHandler.Handle;
 		}
 
 		private void initializeSourceLeftScalar()
 		{
-			_sourceLeftScalarPropertyChangedEventHandler = handleSourceScalarValueChanged;
-			_sourceLeftScalarWeakPropertyChangedEventHandler =
-				new WeakPropertyChangedEventHandler(_sourceLeftScalarPropertyChangedEventHandler);
-			_sourceLeftScalar.PropertyChanged += _sourceLeftScalarWeakPropertyChangedEventHandler.Handle;
+			_leftSourceScalarPropertyChangedEventHandler = handleSourceScalarValueChanged;
+			_leftSourceScalarWeakPropertyChangedEventHandler =
+				new WeakPropertyChangedEventHandler(_leftSourceScalarPropertyChangedEventHandler);
+			_leftSourceScalar.PropertyChanged += _leftSourceScalarWeakPropertyChangedEventHandler.Handle;
 		}
 
 		private static int calculateCapacity(INotifyCollectionChanged sourceLeft, INotifyCollectionChanged sourceRight)
@@ -173,43 +190,107 @@ namespace IBCode.ObservableCalculations
 
 		private void initializeFromSources()
 		{
-			if (_sourceLeftNotifyCollectionChangedEventHandler != null)
+			if (_leftSourceNotifyCollectionChangedEventHandler != null)
 			{
-				_sourceLeft.CollectionChanged -= _sourceLeftWeakNotifyCollectionChangedEventHandler.Handle;
-				_sourceLeftNotifyCollectionChangedEventHandler = null;
-				_sourceLeftWeakNotifyCollectionChangedEventHandler = null;
+				_leftSource.CollectionChanged -= _leftSourceWeakNotifyCollectionChangedEventHandler.Handle;
+				_leftSourceNotifyCollectionChangedEventHandler = null;
+				_leftSourceWeakNotifyCollectionChangedEventHandler = null;
 			}
 
-			if (_sourceRightNotifyCollectionChangedEventHandler != null)
+			if (_rightSourceNotifyCollectionChangedEventHandler != null)
 			{
-				_sourceRight.CollectionChanged -= _sourceRightWeakNotifyCollectionChangedEventHandler.Handle;
-				_sourceRightNotifyCollectionChangedEventHandler = null;
-				_sourceRightWeakNotifyCollectionChangedEventHandler = null;
+				_rightSource.CollectionChanged -= _rightSourceWeakNotifyCollectionChangedEventHandler.Handle;
+				_rightSourceNotifyCollectionChangedEventHandler = null;
+				_rightSourceWeakNotifyCollectionChangedEventHandler = null;
 			}
 
-			if (_sourceLeft != null || _sourceRight != null)
+			if (_leftSourceAsINotifyPropertyChanged != null)
+			{
+				_leftSourceAsINotifyPropertyChanged.PropertyChanged -=
+					_leftSourceWeakPropertyChangedEventHandler.Handle;
+
+				_leftSourceAsINotifyPropertyChanged = null;
+				_leftSourcePropertyChangedEventHandler = null;
+				_leftSourceWeakPropertyChangedEventHandler = null;
+			}
+
+			if (_rigthSourceAsINotifyPropertyChanged != null)
+			{
+				_rigthSourceAsINotifyPropertyChanged.PropertyChanged -=
+					_rigthSourceWeakPropertyChangedEventHandler.Handle;
+
+				_rigthSourceAsINotifyPropertyChanged = null;
+				_rigthSourcePropertyChangedEventHandler = null;
+				_rigthSourceWeakPropertyChangedEventHandler = null;
+			}
+
+			if (_leftSource != null || _rightSource != null)
 			{
 				baseClearItems();				
 			}
 
-			if (_sourceLeftScalar != null) _sourceLeft = _sourceLeftScalar.Value;
-			_sourceLeftAsList = (IList<TSourceItemLeft>) _sourceLeft;
+			if (_leftSourceScalar != null) _leftSource = _leftSourceScalar.Value;
+			_leftSourceAsList = (IList<TSourceItemLeft>) _leftSource;
 
-			if (_sourceRightScalar != null) _sourceRight = _sourceRightScalar.Value;
-			_sourceRightAsList = (IList<TSourceItemRight>) _sourceRight;
+			if (_rightSourceScalar != null) _rightSource = _rightSourceScalar.Value;
+			_rightSourceAsList = (IList<TSourceItemRight>) _rightSource;
 
-			if (_sourceLeftAsList != null && _sourceRightAsList != null)
+			if (_leftSourceAsList != null && _rightSourceAsList != null)
 			{
-				int countLeft = _sourceLeftAsList.Count;
-				int countRight = _sourceRightAsList.Count;
+				_leftSourceAsObservableCollectionWithChangeMarker = _leftSourceAsList as ObservableCollectionWithChangeMarker<TSourceItemLeft>;
+
+				if (_leftSourceAsObservableCollectionWithChangeMarker != null)
+				{
+					_lastProcessedLeftSourceChangeMarker = _leftSourceAsObservableCollectionWithChangeMarker.ChangeMarker;
+				}
+				else
+				{
+					_leftSourceAsINotifyPropertyChanged = (INotifyPropertyChanged) _leftSourceAsList;
+
+					_leftSourcePropertyChangedEventHandler = (sender, args) =>
+					{
+						if (args.PropertyName == "Item[]") _leftSourceIndexerPropertyChangedEventRaised = true; // ObservableCollection raises this before CollectionChanged event raising
+					};
+
+					_leftSourceWeakPropertyChangedEventHandler =
+						new WeakPropertyChangedEventHandler(_leftSourcePropertyChangedEventHandler);
+
+					_leftSourceAsINotifyPropertyChanged.PropertyChanged +=
+						_leftSourceWeakPropertyChangedEventHandler.Handle;
+				}
+
+				_rightSourceAsObservableCollectionWithChangeMarker = _rightSourceAsList as ObservableCollectionWithChangeMarker<TSourceItemRight>;
+
+				if (_rightSourceAsObservableCollectionWithChangeMarker != null)
+				{
+					_lastProcessedRightSourceChangeMarker = _rightSourceAsObservableCollectionWithChangeMarker.ChangeMarker;
+				}
+				else
+				{
+					_rigthSourceAsINotifyPropertyChanged = (INotifyPropertyChanged) _rightSourceAsList;
+
+					_rigthSourcePropertyChangedEventHandler = (sender, args) =>
+					{
+						if (args.PropertyName == "Item[]") _rigthtSourceIndexerPropertyChangedEventRaised = true; // ObservableCollection raises this before CollectionChanged event raising
+					};
+
+					_rigthSourceWeakPropertyChangedEventHandler =
+						new WeakPropertyChangedEventHandler(_rigthSourcePropertyChangedEventHandler);
+
+					_rigthSourceAsINotifyPropertyChanged.PropertyChanged +=
+						_rigthSourceWeakPropertyChangedEventHandler.Handle;
+				}
+
+				int countLeft = _leftSourceAsList.Count;
+				int countRight = _rightSourceAsList.Count;
 
 				for (int index = 0; index < countLeft; index++)
 				{
-					TSourceItemLeft sourceItemLeft = _sourceLeftAsList[index];
+					TSourceItemLeft sourceItemLeft = _leftSourceAsList[index];
 
 					if (index < countRight)
 					{
-						TSourceItemRight sourceItemRight = _sourceRightAsList[index];
+						TSourceItemRight sourceItemRight = _rightSourceAsList[index];
 						ZipPair<TSourceItemLeft, TSourceItemRight> zipPair = new ZipPair<TSourceItemLeft, TSourceItemRight>(this, sourceItemLeft, sourceItemRight);
 						baseInsertItem(index, zipPair);
 					}
@@ -220,19 +301,19 @@ namespace IBCode.ObservableCalculations
 				}
 			}
 
-			if (_sourceLeft != null && _sourceRight != null)
+			if (_leftSource != null && _rightSource != null)
 			{
-				_sourceLeftNotifyCollectionChangedEventHandler = handleSourceLeftCollectionChanged;
-				_sourceLeftWeakNotifyCollectionChangedEventHandler = 
-					new WeakNotifyCollectionChangedEventHandler(_sourceLeftNotifyCollectionChangedEventHandler);
+				_leftSourceNotifyCollectionChangedEventHandler = handleLeftSourceCollectionChanged;
+				_leftSourceWeakNotifyCollectionChangedEventHandler = 
+					new WeakNotifyCollectionChangedEventHandler(_leftSourceNotifyCollectionChangedEventHandler);
 
-				_sourceLeft.CollectionChanged += _sourceLeftWeakNotifyCollectionChangedEventHandler.Handle;				
+				_leftSource.CollectionChanged += _leftSourceWeakNotifyCollectionChangedEventHandler.Handle;				
 
-				_sourceRightNotifyCollectionChangedEventHandler = handleSourceRightCollectionChanged;
-				_sourceRightWeakNotifyCollectionChangedEventHandler = 
-					new WeakNotifyCollectionChangedEventHandler(_sourceRightNotifyCollectionChangedEventHandler);
+				_rightSourceNotifyCollectionChangedEventHandler = handleRightSourceCollectionChanged;
+				_rightSourceWeakNotifyCollectionChangedEventHandler = 
+					new WeakNotifyCollectionChangedEventHandler(_rightSourceNotifyCollectionChangedEventHandler);
 
-				_sourceRight.CollectionChanged += _sourceRightWeakNotifyCollectionChangedEventHandler.Handle;				
+				_rightSource.CollectionChanged += _rightSourceWeakNotifyCollectionChangedEventHandler.Handle;				
 			}
 
 		}
@@ -242,305 +323,305 @@ namespace IBCode.ObservableCalculations
 			if (e.PropertyName != nameof(IReadScalar<INotifyCollectionChanged>.Value)) return;
 			checkConsistent();
 			_consistent = false;
-			OnPropertyChanged(Utils.ConsistentPropertyChangedEventArgs);
 
 			initializeFromSources();
 
 			_consistent = true;
-			OnPropertyChanged(Utils.ConsistentPropertyChangedEventArgs);
 		}
 
-		private void handleSourceLeftCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
+		private void handleLeftSourceCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
 		{
-			checkConsistent();
-			int newIndex;
-			int oldIndex;
-			switch (e.Action)
+			if (_leftSourceIndexerPropertyChangedEventRaised || _lastProcessedLeftSourceChangeMarker != _leftSourceAsObservableCollectionWithChangeMarker.ChangeMarker)
 			{
-				case NotifyCollectionChangedAction.Add:
-					if (e.NewItems.Count > 1) throw new ObservableCalculationsException("Adding of multiple items is not supported");
-					newIndex = e.NewStartingIndex;
+				_leftSourceIndexerPropertyChangedEventRaised = false;
+				_lastProcessedLeftSourceChangeMarker = !_lastProcessedLeftSourceChangeMarker;
+
+				checkConsistent();
+				int newIndex;
+				int oldIndex;
+				switch (e.Action)
+				{
+					case NotifyCollectionChangedAction.Add:
+						if (e.NewItems.Count > 1) throw new ObservableCalculationsException("Adding of multiple items is not supported");
+						newIndex = e.NewStartingIndex;
 		
-					_consistent = false;
-					OnPropertyChanged(Utils.ConsistentPropertyChangedEventArgs);
+						_consistent = false;
 
-					//if (newIndex < this.Count)
-					//{
-					int sourceLeftCount = _sourceLeftAsList.Count;
-					int sourceRightCount = _sourceRightAsList.Count;
-					int thisCount = Count;
-					for (int sourceIndex = newIndex; sourceIndex < sourceLeftCount; sourceIndex++)
-					{
-						if (sourceIndex < sourceRightCount)
+						//if (newIndex < this.Count)
+						//{
+						int sourceLeftCount = _leftSourceAsList.Count;
+						int sourceRightCount = _rightSourceAsList.Count;
+						int thisCount = Count;
+						for (int sourceIndex = newIndex; sourceIndex < sourceLeftCount; sourceIndex++)
 						{
-
-							if (sourceIndex < thisCount)
+							if (sourceIndex < sourceRightCount)
 							{
-								this[sourceIndex].setItemLeft(_sourceLeftAsList[sourceIndex]);									
+
+								if (sourceIndex < thisCount)
+								{
+									this[sourceIndex].setItemLeft(_leftSourceAsList[sourceIndex]);									
+								}
+								else
+								{
+									baseInsertItem(sourceIndex, new ZipPair<TSourceItemLeft, TSourceItemRight>(this, _leftSourceAsList[sourceIndex], _rightSourceAsList[sourceIndex]));
+								}
 							}
 							else
 							{
-								baseInsertItem(sourceIndex, new ZipPair<TSourceItemLeft, TSourceItemRight>(this, _sourceLeftAsList[sourceIndex], _sourceRightAsList[sourceIndex]));
+								break;
 							}
+						}						
+						//}
+						//else
+						//{
+						//	if (newIndex < _rightSourceAsList.Count)
+						//	{
+						//		baseInsertItem(this.Count, new ZipPair<TSourceItemLeft, TSourceItemRight>(_leftSourceAsList[newIndex], _rightSourceAsList[newIndex]));
+						//	}		
+						//}
+
+						_consistent = true;
+						break;
+					case NotifyCollectionChangedAction.Remove:
+						if (e.OldItems.Count > 1) throw new ObservableCalculationsException("Removing of multiple items is not supported");
+						oldIndex = e.OldStartingIndex;
+		
+						_consistent = false;
+
+						int countLeft = _leftSourceAsList.Count;
+						int countRight = _rightSourceAsList.Count;
+						for (int sourceIndex = oldIndex; sourceIndex < countLeft; sourceIndex++)
+						{
+							if (sourceIndex < countRight)
+							{
+								this[sourceIndex].setItemLeft(_leftSourceAsList[sourceIndex]);
+							}
+							else
+							{
+								break;
+							}					
+						}
+
+						int thisCountLeft = Count;
+						if (thisCountLeft > countLeft)
+						{
+							baseRemoveItem(thisCountLeft - 1);
+						}
+
+						_consistent = true;
+						break;
+					case NotifyCollectionChangedAction.Replace:
+						if (e.NewItems.Count > 1) throw new ObservableCalculationsException("Replacing of multiple items is not supported");
+						newIndex = e.NewStartingIndex;
+
+						if (newIndex < Count)
+						{
+							this[newIndex].setItemLeft(_leftSourceAsList[newIndex]);
+						}
+						break;
+					case NotifyCollectionChangedAction.Move:
+						newIndex = e.NewStartingIndex;
+						oldIndex = e.OldStartingIndex;
+						if (newIndex == oldIndex) return;
+		
+						_consistent = false;
+
+						int lowerIndex;
+						int upperIndex;
+						int count = Count;
+						if (newIndex < oldIndex)
+						{
+							lowerIndex = newIndex;
+
+							upperIndex = oldIndex >= count ? count - 1 : oldIndex; 
 						}
 						else
 						{
-							break;
+							lowerIndex = oldIndex;
+							upperIndex = newIndex >= count ? count - 1 : newIndex; 						
 						}
-					}						
-					//}
-					//else
-					//{
-					//	if (newIndex < _sourceRightAsList.Count)
-					//	{
-					//		baseInsertItem(this.Count, new ZipPair<TSourceItemLeft, TSourceItemRight>(_sourceLeftAsList[newIndex], _sourceRightAsList[newIndex]));
-					//	}		
-					//}
 
-					_consistent = true;
-					OnPropertyChanged(Utils.ConsistentPropertyChangedEventArgs);
-					break;
-				case NotifyCollectionChangedAction.Remove:
-					if (e.OldItems.Count > 1) throw new ObservableCalculationsException("Removing of multiple items is not supported");
-					oldIndex = e.OldStartingIndex;
-		
-					_consistent = false;
-					OnPropertyChanged(Utils.ConsistentPropertyChangedEventArgs);
-
-					int countLeft = _sourceLeftAsList.Count;
-					int countRight = _sourceRightAsList.Count;
-					for (int sourceIndex = oldIndex; sourceIndex < countLeft; sourceIndex++)
-					{
-						if (sourceIndex < countRight)
+						for (int sourceIndex = lowerIndex; sourceIndex <= upperIndex; sourceIndex++)
 						{
-							this[sourceIndex].setItemLeft(_sourceLeftAsList[sourceIndex]);
+							if (sourceIndex < count)
+							{
+								this[sourceIndex].setItemLeft(_leftSourceAsList[sourceIndex]);
+							}					
 						}
-						else
-						{
-							break;
-						}					
-					}
 
-					int thisCountLeft = Count;
-					if (thisCountLeft > countLeft)
-					{
-						baseRemoveItem(thisCountLeft - 1);
-					}
+						_consistent = true;
+						break;
+					case NotifyCollectionChangedAction.Reset:
+						_consistent = false;
 
-					_consistent = true;
-					OnPropertyChanged(Utils.ConsistentPropertyChangedEventArgs);
-					break;
-				case NotifyCollectionChangedAction.Replace:
-					if (e.NewItems.Count > 1) throw new ObservableCalculationsException("Replacing of multiple items is not supported");
-					newIndex = e.NewStartingIndex;
+						initializeFromSources();
 
-					if (newIndex < Count)
-					{
-						this[newIndex].setItemLeft(_sourceLeftAsList[newIndex]);
-					}
-					break;
-				case NotifyCollectionChangedAction.Move:
-					newIndex = e.NewStartingIndex;
-					oldIndex = e.OldStartingIndex;
-					if (newIndex == oldIndex) return;
-		
-					_consistent = false;
-					OnPropertyChanged(Utils.ConsistentPropertyChangedEventArgs);
-
-					int lowerIndex;
-					int upperIndex;
-					int count = Count;
-					if (newIndex < oldIndex)
-					{
-						lowerIndex = newIndex;
-
-						upperIndex = oldIndex >= count ? count - 1 : oldIndex; 
-					}
-					else
-					{
-						lowerIndex = oldIndex;
-						upperIndex = newIndex >= count ? count - 1 : newIndex; 						
-					}
-
-					for (int sourceIndex = lowerIndex; sourceIndex <= upperIndex; sourceIndex++)
-					{
-						if (sourceIndex < count)
-						{
-							this[sourceIndex].setItemLeft(_sourceLeftAsList[sourceIndex]);
-						}					
-					}
-
-					_consistent = true;
-					OnPropertyChanged(Utils.ConsistentPropertyChangedEventArgs);
-					break;
-				case NotifyCollectionChangedAction.Reset:
-					_consistent = false;
-					OnPropertyChanged(Utils.ConsistentPropertyChangedEventArgs);
-
-					initializeFromSources();
-
-					_consistent = true;
-					OnPropertyChanged(Utils.ConsistentPropertyChangedEventArgs);
-					break;
+						_consistent = true;
+						break;
+				}
 			}
 		}
 
-		private void handleSourceRightCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
+		private void handleRightSourceCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
 		{
-			checkConsistent();
-			int newIndex;
-			int oldIndex;
-			switch (e.Action)
+			if (_rigthtSourceIndexerPropertyChangedEventRaised || _lastProcessedRightSourceChangeMarker != _rightSourceAsObservableCollectionWithChangeMarker.ChangeMarker)
 			{
-				case NotifyCollectionChangedAction.Add:
-					if (e.NewItems.Count > 1) throw new ObservableCalculationsException("Adding of multiple items is not supported");
-					newIndex = e.NewStartingIndex;
-		
-					_consistent = false;
-					OnPropertyChanged(Utils.ConsistentPropertyChangedEventArgs);
+				_rigthtSourceIndexerPropertyChangedEventRaised = false;
+				_lastProcessedRightSourceChangeMarker = !_lastProcessedRightSourceChangeMarker;
 
-					int countRight = _sourceRightAsList.Count;
-					int countLeft = _sourceLeftAsList.Count;
-					for (int sourceIndex = newIndex; sourceIndex < countRight; sourceIndex++)
-					{
-						if (sourceIndex < countLeft)
+				checkConsistent();
+				int newIndex;
+				int oldIndex;
+				switch (e.Action)
+				{
+					case NotifyCollectionChangedAction.Add:
+						if (e.NewItems.Count > 1) throw new ObservableCalculationsException("Adding of multiple items is not supported");
+						newIndex = e.NewStartingIndex;
+		
+						_consistent = false;
+
+						int countRight = _rightSourceAsList.Count;
+						int countLeft = _leftSourceAsList.Count;
+						for (int sourceIndex = newIndex; sourceIndex < countRight; sourceIndex++)
 						{
-							TSourceItemRight sourceItemRight = _sourceRightAsList[sourceIndex];
-							if (sourceIndex < Count)
+							if (sourceIndex < countLeft)
 							{
-								this[sourceIndex].setItemRight(sourceItemRight);
+								TSourceItemRight sourceItemRight = _rightSourceAsList[sourceIndex];
+								if (sourceIndex < Count)
+								{
+									this[sourceIndex].setItemRight(sourceItemRight);
+								}
+								else
+								{
+									baseInsertItem(sourceIndex, new ZipPair<TSourceItemLeft, TSourceItemRight>(this, _leftSourceAsList[sourceIndex], sourceItemRight));
+								}
 							}
 							else
 							{
-								baseInsertItem(sourceIndex, new ZipPair<TSourceItemLeft, TSourceItemRight>(this, _sourceLeftAsList[sourceIndex], sourceItemRight));
+								break;
+							}					
+						}
+
+						_consistent = true;
+						break;
+					case NotifyCollectionChangedAction.Remove:
+						_consistent = false;
+
+						if (e.OldItems.Count > 1) throw new ObservableCalculationsException("Removing of multiple items is not supported");
+						oldIndex = e.OldStartingIndex;
+						int sourceRightCount = _rightSourceAsList.Count;
+						int sourceLeftCount = _leftSourceAsList.Count;
+						for (int sourceIndex = oldIndex; sourceIndex < sourceRightCount; sourceIndex++)
+						{
+
+							if (sourceIndex < sourceLeftCount)
+							{
+								this[sourceIndex].setItemRight(_rightSourceAsList[sourceIndex]);
+							}
+							else
+							{
+								break;
 							}
 						}
-						else
+
+
+						int thisCountLeft = Count;
+						if (thisCountLeft > sourceRightCount)
 						{
-							break;
-						}					
-					}
+							baseRemoveItem(thisCountLeft - 1);
+						}
 
-					_consistent = true;
-					OnPropertyChanged(Utils.ConsistentPropertyChangedEventArgs);
-					break;
-				case NotifyCollectionChangedAction.Remove:
-					_consistent = false;
-					OnPropertyChanged(Utils.ConsistentPropertyChangedEventArgs);
+						_consistent = true;
+						break;
+					case NotifyCollectionChangedAction.Replace:
+						_consistent = false;
 
-					if (e.OldItems.Count > 1) throw new ObservableCalculationsException("Removing of multiple items is not supported");
-					oldIndex = e.OldStartingIndex;
-					int sourceRightCount = _sourceRightAsList.Count;
-					int sourceLeftCount = _sourceLeftAsList.Count;
-					for (int sourceIndex = oldIndex; sourceIndex < sourceRightCount; sourceIndex++)
-					{
-
-						if (sourceIndex < sourceLeftCount)
+						if (e.NewItems.Count > 1) throw new ObservableCalculationsException("Replacing of multiple items is not supported");
+						newIndex = e.NewStartingIndex;
+						if (newIndex < Count)
 						{
-							this[sourceIndex].setItemRight(_sourceRightAsList[sourceIndex]);
+							this[newIndex].setItemRight(_rightSourceAsList[newIndex]);
+						}
+
+						_consistent = true;
+						break;
+					case NotifyCollectionChangedAction.Move:
+						_consistent = false;
+
+						newIndex = e.NewStartingIndex;
+						oldIndex = e.OldStartingIndex;
+
+						int lowerIndex;
+						int upperIndex;
+						int thisCount = Count;
+						if (newIndex < oldIndex)
+						{
+							lowerIndex = newIndex;
+
+							upperIndex = oldIndex >= thisCount ? thisCount - 1 : oldIndex; 
 						}
 						else
 						{
-							break;
+							lowerIndex = oldIndex;
+							upperIndex = newIndex >= thisCount ? thisCount - 1 : newIndex; 						
 						}
-					}
 
-
-					int thisCountLeft = Count;
-					if (thisCountLeft > sourceRightCount)
-					{
-						baseRemoveItem(thisCountLeft - 1);
-					}
-
-					_consistent = true;
-					OnPropertyChanged(Utils.ConsistentPropertyChangedEventArgs);				
-					break;
-				case NotifyCollectionChangedAction.Replace:
-					_consistent = false;
-					OnPropertyChanged(Utils.ConsistentPropertyChangedEventArgs);
-
-					if (e.NewItems.Count > 1) throw new ObservableCalculationsException("Replacing of multiple items is not supported");
-					newIndex = e.NewStartingIndex;
-					if (newIndex < Count)
-					{
-						this[newIndex].setItemRight(_sourceRightAsList[newIndex]);
-					}
-
-					_consistent = true;
-					OnPropertyChanged(Utils.ConsistentPropertyChangedEventArgs);	
-					break;
-				case NotifyCollectionChangedAction.Move:
-					_consistent = false;
-					OnPropertyChanged(Utils.ConsistentPropertyChangedEventArgs);
-
-					newIndex = e.NewStartingIndex;
-					oldIndex = e.OldStartingIndex;
-
-					int lowerIndex;
-					int upperIndex;
-					int thisCount = Count;
-					if (newIndex < oldIndex)
-					{
-						lowerIndex = newIndex;
-
-						upperIndex = oldIndex >= thisCount ? thisCount - 1 : oldIndex; 
-					}
-					else
-					{
-						lowerIndex = oldIndex;
-						upperIndex = newIndex >= thisCount ? thisCount - 1 : newIndex; 						
-					}
-
-					for (int sourceIndex = lowerIndex; sourceIndex <= upperIndex; sourceIndex++)
-					{
-						if (sourceIndex < thisCount)
+						for (int sourceIndex = lowerIndex; sourceIndex <= upperIndex; sourceIndex++)
 						{
-							this[sourceIndex].setItemRight(_sourceRightAsList[sourceIndex]);
-						}					
-					}
+							if (sourceIndex < thisCount)
+							{
+								this[sourceIndex].setItemRight(_rightSourceAsList[sourceIndex]);
+							}					
+						}
 
-					_consistent = true;
-					OnPropertyChanged(Utils.ConsistentPropertyChangedEventArgs);
-					break;
-				case NotifyCollectionChangedAction.Reset:
-					_consistent = false;
-					OnPropertyChanged(Utils.ConsistentPropertyChangedEventArgs);
+						_consistent = true;
+						break;
+					case NotifyCollectionChangedAction.Reset:
+						_consistent = false;
 
-					initializeFromSources();
+						initializeFromSources();
 
-					_consistent = true;
-					OnPropertyChanged(Utils.ConsistentPropertyChangedEventArgs);
-					break;
+						_consistent = true;
+						break;
+				}
 			}
 		}
 
 		~Zipping()
 		{
-			if (_sourceLeftWeakNotifyCollectionChangedEventHandler != null)
+			if (_leftSourceWeakNotifyCollectionChangedEventHandler != null)
 			{
-				_sourceLeft.CollectionChanged -= _sourceLeftWeakNotifyCollectionChangedEventHandler.Handle;			
+				_leftSource.CollectionChanged -= _leftSourceWeakNotifyCollectionChangedEventHandler.Handle;			
 			}
 
-			if (_sourceRightWeakNotifyCollectionChangedEventHandler != null)
+			if (_rightSourceWeakNotifyCollectionChangedEventHandler != null)
 			{
-				_sourceRight.CollectionChanged -= _sourceRightWeakNotifyCollectionChangedEventHandler.Handle;			
+				_rightSource.CollectionChanged -= _rightSourceWeakNotifyCollectionChangedEventHandler.Handle;			
 			}
 
-			if (_sourceLeftScalarWeakPropertyChangedEventHandler != null)
+			if (_leftSourceScalarWeakPropertyChangedEventHandler != null)
 			{
-				_sourceLeftScalar.PropertyChanged -= _sourceLeftScalarWeakPropertyChangedEventHandler.Handle;
+				_leftSourceScalar.PropertyChanged -= _leftSourceScalarWeakPropertyChangedEventHandler.Handle;
 			}
 
-			if (_sourceRightScalarWeakPropertyChangedEventHandler != null)
+			if (_rightSourceScalarWeakPropertyChangedEventHandler != null)
 			{
-				_sourceRightScalar.PropertyChanged -= _sourceRightScalarWeakPropertyChangedEventHandler.Handle;
+				_rightSourceScalar.PropertyChanged -= _rightSourceScalarWeakPropertyChangedEventHandler.Handle;
 			}
+
+			if (_rigthSourceAsINotifyPropertyChanged != null)
+				_rigthSourceAsINotifyPropertyChanged.PropertyChanged -=
+					_rigthSourceWeakPropertyChangedEventHandler.Handle;
+
+			if (_leftSourceAsINotifyPropertyChanged != null)
+				_leftSourceAsINotifyPropertyChanged.PropertyChanged -=
+					_leftSourceWeakPropertyChangedEventHandler.Handle;
 		} 
 
 		public void ValidateConsistency()
 		{
-			IList<TSourceItemLeft> sourceLeft = _sourceLeftScalar.getValue(_sourceLeft, new ObservableCollection<TSourceItemLeft>()) as IList<TSourceItemLeft>;
-			IList<TSourceItemRight> sourceRight = _sourceRightScalar.getValue(_sourceRight, new ObservableCollection<TSourceItemRight>()) as IList<TSourceItemRight>;
+			IList<TSourceItemLeft> sourceLeft = _leftSourceScalar.getValue(_leftSource, new ObservableCollection<TSourceItemLeft>()) as IList<TSourceItemLeft>;
+			IList<TSourceItemRight> sourceRight = _rightSourceScalar.getValue(_rightSource, new ObservableCollection<TSourceItemRight>()) as IList<TSourceItemRight>;
 
 			// ReSharper disable once PossibleNullReferenceException
 			for (int index = 0; index < sourceLeft.Count; index++)

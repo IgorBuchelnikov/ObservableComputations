@@ -286,11 +286,16 @@ namespace IBCode.ObservableCalculations.Test
 					|| extentionMethodName == "Minimazing"
 					|| extentionMethodName == "Summarizing"
 					|| extentionMethodName == "Averaging"
-					|| extentionMethodName == "Ordering"
-					|| extentionMethodName == "StringsConcatenating")
+					|| extentionMethodName == "Ordering")
 				{
 					result = "getItems().Selecting(i => i.Num)";
 					variableType = "Selecting<Item, int>";
+					sourceAccessor = "?.Source";
+				}
+				else if (extentionMethodName == "StringsConcatenating")
+				{
+					result = "getItems().Selecting(i => i.Num.ToString())";
+					variableType = "Selecting<Item, string>";
 					sourceAccessor = "?.Source";
 				}
 				else
@@ -310,13 +315,19 @@ namespace IBCode.ObservableCalculations.Test
 					|| extentionMethodName == "Minimazing"
 					|| extentionMethodName == "Summarizing"
 					|| extentionMethodName == "Averaging"
-					|| extentionMethodName == "Ordering"
-					|| extentionMethodName == "StringsConcatenating")
+					|| extentionMethodName == "Ordering")
 				{
 					result = "getItems().Selecting(i => i.Num)";
 					variableType = "Selecting<Item, int>";
 					sourceAccessor = "?.Source";
 					checkingType = "ObservableCollection<int>";
+				}
+				else if (extentionMethodName == "StringsConcatenating")
+				{
+					result = "getItems().Selecting(i => i.Num.ToString())";
+					variableType = "Selecting<Item, string>";
+					sourceAccessor = "?.Source";
+					checkingType = "ObservableCollection<string>";
 				}
 				else
 				{

@@ -35,6 +35,72 @@ namespace IBCode.ObservableCalculations
 		public ReadOnlyCollection<INotifyCollectionChanged> SourcesCollection => new ReadOnlyCollection<INotifyCollectionChanged>(new []{OuterSource, InnerSource});
 		public ReadOnlyCollection<IReadScalar<INotifyCollectionChanged>> SourceScalarsCollection => new ReadOnlyCollection<IReadScalar<INotifyCollectionChanged>>(new []{OuterSourceScalar, InnerSourceScalar});
 
+		public Action<JoinGroup<TOuterSourceItem, TInnerSourceItem, TKey>, int, TInnerSourceItem> InsertItemIntoGroupAction
+		{
+			get => _insertItemIntoGroupAction;
+			set
+			{
+				if (_insertItemIntoGroupAction != value)
+				{
+					_insertItemIntoGroupAction = value;
+					OnPropertyChanged(Utils.InsertItemIntoGroupActionPropertyChangedEventArgs);
+				}
+
+			}
+		}
+
+		public Action<JoinGroup<TOuterSourceItem, TInnerSourceItem, TKey>, int> RemoveItemFromGroupAction
+		{
+			get => _removeItemFromGroupAction;
+			set
+			{
+				if (_removeItemFromGroupAction != value)
+				{
+					_removeItemFromGroupAction = value;
+					OnPropertyChanged(Utils.RemoveItemFromGroupActionPropertyChangedEventArgs);
+				}
+			}
+		}
+
+		public Action<JoinGroup<TOuterSourceItem, TInnerSourceItem, TKey>, int, int> MoveItemInGroupAction
+		{
+			get => _moveItemInGroupAction;
+			set
+			{
+				if (_moveItemInGroupAction != value)
+				{
+					_moveItemInGroupAction = value;
+					OnPropertyChanged(Utils.MoveItemInGroupActionPropertyChangedEventArgs);
+				}
+			}
+		}
+
+		public Action<JoinGroup<TOuterSourceItem, TInnerSourceItem, TKey>> ClearGroupItemsAction
+		{
+			get => _clearGroupItemsAction;
+			set
+			{
+				if (_clearGroupItemsAction != value)
+				{
+					_clearGroupItemsAction = value;
+					OnPropertyChanged(Utils.ClearGroupItemsActionPropertyChangedEventArgs);
+				}
+			}
+		}
+
+		public Action<JoinGroup<TOuterSourceItem, TInnerSourceItem, TKey>, int, TInnerSourceItem> SetGroupItemAction
+		{
+			get => _setGroupItemAction;
+			set
+			{
+				if (_setGroupItemAction != value)
+				{
+					_setGroupItemAction = value;
+					OnPropertyChanged(Utils.SetGroupItemActionPropertyChangedEventArgs);
+				}
+			}
+		}
+
 		private PropertyChangedEventHandler _outerSourceScalarPropertyChangedEventHandler;
 		private WeakPropertyChangedEventHandler _outerSourceScalarWeakPropertyChangedEventHandler;
 		private readonly Func<TOuterSourceItem, TKey> _outerKeySelectorFunc;
@@ -43,7 +109,13 @@ namespace IBCode.ObservableCalculations
 		// ReSharper disable once MemberCanBePrivate.Global
 
 		private readonly ExpressionWatcher.ExpressionInfo _outerKeySelectorExpressionInfo;
-		private readonly bool _outerKeySelectorExpressionContainsParametrizedLiveLinqCalls;
+		private readonly bool _outerKeySelectorExpressionContainsParametrizedObservableCalculationsCalls;
+
+		internal Action<JoinGroup<TOuterSourceItem, TInnerSourceItem, TKey>, int, TInnerSourceItem> _insertItemIntoGroupAction;
+		internal Action<JoinGroup<TOuterSourceItem, TInnerSourceItem, TKey>, int> _removeItemFromGroupAction;
+		internal Action<JoinGroup<TOuterSourceItem, TInnerSourceItem, TKey>, int, TInnerSourceItem> _setGroupItemAction;
+		internal Action<JoinGroup<TOuterSourceItem, TInnerSourceItem, TKey>, int, int> _moveItemInGroupAction;
+		internal Action<JoinGroup<TOuterSourceItem, TInnerSourceItem, TKey>> _clearGroupItemsAction;
 
 		Grouping<TInnerSourceItem, TKey> _grouping;
 
@@ -324,10 +396,10 @@ namespace IBCode.ObservableCalculations
 				new CallToConstantConverter(outerKeySelector.Parameters);
 			_outerKeySelectorExpression =
 				(Expression<Func<TOuterSourceItem, TKey>>) callToConstantConverter.Visit(outerKeySelector);
-			_outerKeySelectorExpressionContainsParametrizedLiveLinqCalls =
+			_outerKeySelectorExpressionContainsParametrizedObservableCalculationsCalls =
 				callToConstantConverter.ContainsParametrizedObservableCalculationCalls;
 
-			if (!_outerKeySelectorExpressionContainsParametrizedLiveLinqCalls)
+			if (!_outerKeySelectorExpressionContainsParametrizedObservableCalculationsCalls)
 			{
 				_outerKeySelectorExpressionInfo = ExpressionWatcher.GetExpressionInfo(_outerKeySelectorExpression);
 				// ReSharper disable once PossibleNullReferenceException
@@ -351,12 +423,10 @@ namespace IBCode.ObservableCalculations
 			if (e.PropertyName != nameof(IReadScalar<object>.Value)) return;
 			checkConsistent();
 			_consistent = false;
-			OnPropertyChanged(Utils.ConsistentPropertyChangedEventArgs);
 
 			initializeFromOuterSource();
 
 			_consistent = true;
-			OnPropertyChanged(Utils.ConsistentPropertyChangedEventArgs);
 		}
 
 		private void handleGroupingCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
@@ -463,12 +533,10 @@ namespace IBCode.ObservableCalculations
 					break;
 				case NotifyCollectionChangedAction.Reset:
 					_consistent = false;
-					OnPropertyChanged(Utils.ConsistentPropertyChangedEventArgs);
 
 					initializeFromOuterSource();
 
 					_consistent = true;
-					OnPropertyChanged(Utils.ConsistentPropertyChangedEventArgs);
 					break;
 			}	
 			
@@ -561,7 +629,7 @@ namespace IBCode.ObservableCalculations
 		{
 			outerKeySelectorFunc = null;
 
-			if (!_outerKeySelectorExpressionContainsParametrizedLiveLinqCalls)
+			if (!_outerKeySelectorExpressionContainsParametrizedObservableCalculationsCalls)
 			{
 				watcher = new ExpressionWatcher(_outerKeySelectorExpressionInfo, outerSourceItem);
 			}
@@ -580,12 +648,12 @@ namespace IBCode.ObservableCalculations
 
 		private TKey applyKeySelector(TOuterSourceItem outerSourceItem, Func<TKey> outerSelectorFunc)
 		{
-			return _outerKeySelectorExpressionContainsParametrizedLiveLinqCalls ? outerSelectorFunc() : _outerKeySelectorFunc(outerSourceItem);
+			return _outerKeySelectorExpressionContainsParametrizedObservableCalculationsCalls ? outerSelectorFunc() : _outerKeySelectorFunc(outerSourceItem);
 		}
 
 		private TKey applyKeySelector(int index)
 		{
-			return _outerKeySelectorExpressionContainsParametrizedLiveLinqCalls ? this[index]._outerKeySelectorFunc() : _outerKeySelectorFunc(_outerSourceAsList[index]);
+			return _outerKeySelectorExpressionContainsParametrizedObservableCalculationsCalls ? this[index]._outerKeySelectorFunc() : _outerKeySelectorFunc(_outerSourceAsList[index]);
 		}
 
 		public TKey ApplyKeySelector(int index)
@@ -707,7 +775,7 @@ namespace IBCode.ObservableCalculations
 		}
 	}
 
-	public class JoinGroup<TOuterSourceItem, TInnerSourceItem, TKey> : CollectionCalculating<TInnerSourceItem>
+	public class JoinGroup<TOuterSourceItem, TInnerSourceItem, TKey> : CollectionCalculatingChild<TInnerSourceItem>
 	{
 		public TOuterSourceItem OuterItem
 		{
@@ -732,7 +800,9 @@ namespace IBCode.ObservableCalculations
 
 		// ReSharper disable once UnusedAutoPropertyAccessor.Global
 		// ReSharper disable once MemberCanBePrivate.Global
-		public GroupJoining<TOuterSourceItem, TInnerSourceItem, TKey> GroupJoining { get; }
+		private readonly GroupJoining<TOuterSourceItem, TInnerSourceItem, TKey> _groupJoining;
+
+		public GroupJoining<TOuterSourceItem, TInnerSourceItem, TKey> GroupJoining => _groupJoining;
 
 		Group<TInnerSourceItem, TKey> _group;
 		internal readonly Position _outerSourceItemPosition;
@@ -751,8 +821,8 @@ namespace IBCode.ObservableCalculations
 			TKey key,
 			Func<TKey> outerKeySelectorFunc)
 		{
-			OuterItem = outerSourceItem;
-			GroupJoining = groupJoining;
+			_outerItem = outerSourceItem;
+			_groupJoining = groupJoining;
 			_outerSourceItemPosition = outerSourceItemPosition;
 			_outerSourceItemKeySelectorExpressionWatcher = outerSourceItemKeySelectorExpressionWatcher;
 			_key = key;
@@ -763,18 +833,13 @@ namespace IBCode.ObservableCalculations
 
 		internal void setGroup(Group<TInnerSourceItem, TKey> group)
 		{
-			checkConsistent();
-			_consistent = false;
-			OnPropertyChanged(Utils.ConsistentPropertyChangedEventArgs);
 
 			_group?._copies.Remove(this);
 			_group = group;
 
-			baseClearItems();
+			ClearItems();
 			initializeFromGroup();
 
-			_consistent = true;
-			OnPropertyChanged(Utils.ConsistentPropertyChangedEventArgs);
 
 		}
 
@@ -786,12 +851,42 @@ namespace IBCode.ObservableCalculations
 				for (int index = 0; index < count; index++)
 				{
 					TInnerSourceItem innerSourceItem = _group[index];
-					baseInsertItem(index, innerSourceItem);
+					InsertItem(index, innerSourceItem);
 				}
 
-				if (_group._copies == null) _group._copies = new List<CollectionCalculatingBase<TInnerSourceItem>>();
+				if (_group._copies == null) _group._copies = new List<CollectionCalculatingChild<TInnerSourceItem>>();
 				_group._copies.Add(this);
 			}
 		}
+
+		#region Overrides of ObservableCollection<TResult>
+
+		protected override void InsertItem(int index, TInnerSourceItem item)
+		{
+			_groupJoining._insertItemIntoGroupAction(this, index, item);
+		}
+
+		protected override void MoveItem(int oldIndex, int newIndex)
+		{
+			_groupJoining._moveItemInGroupAction(this, oldIndex, newIndex);
+		}
+
+		protected override void RemoveItem(int index)
+		{
+			_groupJoining._removeItemFromGroupAction(this, index);
+		}
+
+		protected override void SetItem(int index, TInnerSourceItem item)
+		{
+			_groupJoining._setGroupItemAction(this, index, item);
+		}
+
+		protected override void ClearItems()
+		{
+			_groupJoining._clearGroupItemsAction(this);
+		}
+		#endregion
+
+		public override ICollectionCalculating Parent => _groupJoining;
 	}
 }

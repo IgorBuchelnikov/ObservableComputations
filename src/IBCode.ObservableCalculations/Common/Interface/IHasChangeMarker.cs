@@ -6,10 +6,8 @@ using System.Threading.Tasks;
 
 namespace IBCode.ObservableCalculations.Common.Interface
 {
-	public interface IConsistent
+	internal interface IHasChangeMarker
 	{
-		bool Consistent {get;}
-		event EventHandler ConsistencyRestored;
-
+		bool GetChangeMarker();
 	}
 }

@@ -3,6 +3,7 @@ using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.ComponentModel;
 using IBCode.ObservableCalculations.Common;
+using IBCode.ObservableCalculations.Common.Base;
 using IBCode.ObservableCalculations.Common.Interface;
 
 namespace IBCode.ObservableCalculations
@@ -47,6 +48,22 @@ namespace IBCode.ObservableCalculations
 		private readonly IReadScalar<INotifyCollectionChanged> _innerSourceScalar;
 		private INotifyCollectionChanged _outerSource;
 		private INotifyCollectionChanged _innerSource;
+
+		private PropertyChangedEventHandler _innerSourcePropertyChangedEventHandler;
+		private WeakPropertyChangedEventHandler _innerSourceWeakPropertyChangedEventHandler;
+		private bool _innerSourceIndexerPropertyChangedEventRaised;
+		private INotifyPropertyChanged _innerSourceAsINotifyPropertyChanged;
+
+		private PropertyChangedEventHandler _outerSourcePropertyChangedEventHandler;
+		private WeakPropertyChangedEventHandler _outerSourceWeakPropertyChangedEventHandler;
+		private bool _outerSourceIndexerPropertyChangedEventRaised;
+		private INotifyPropertyChanged _outerSourceAsINotifyPropertyChanged;
+
+		private ObservableCollectionWithChangeMarker<TOuterSourceItem> _outerSourceAsObservableCollectionWithChangeMarker;
+		private bool _lastProcessedOuterSourceChangeMarker;
+
+		private ObservableCollectionWithChangeMarker<TInnerSourceItem> _innerSourceAsObservableCollectionWithChangeMarker;
+		private bool _lastProcessedInnerSourceChangeMarker;
 
 
 		[ObservableCalculationsCall]
@@ -130,6 +147,27 @@ namespace IBCode.ObservableCalculations
 				_innerSourceWeakNotifyCollectionChangedEventHandler = null;
 			}
 
+			if (_innerSourceAsINotifyPropertyChanged != null)
+			{
+				_innerSourceAsINotifyPropertyChanged.PropertyChanged -=
+					_innerSourceWeakPropertyChangedEventHandler.Handle;
+
+				_innerSourceAsINotifyPropertyChanged = null;
+				_innerSourcePropertyChangedEventHandler = null;
+				_innerSourceWeakPropertyChangedEventHandler = null;
+			}
+
+			if (_outerSourceAsINotifyPropertyChanged != null)
+			{
+				_outerSourceAsINotifyPropertyChanged.PropertyChanged -=
+					_outerSourceWeakPropertyChangedEventHandler.Handle;
+
+				_outerSourceAsINotifyPropertyChanged = null;
+				_outerSourcePropertyChangedEventHandler = null;
+				_outerSourceWeakPropertyChangedEventHandler = null;
+			}
+
+
 			if (_outerSource != null || _innerSource != null)
 			{
 				baseClearItems();				
@@ -143,6 +181,52 @@ namespace IBCode.ObservableCalculations
 
 			if (_outerSource != null && _innerSource != null)
 			{
+				_outerSourceAsObservableCollectionWithChangeMarker = _outerSourceAsList as ObservableCollectionWithChangeMarker<TOuterSourceItem>;
+
+				if (_outerSourceAsObservableCollectionWithChangeMarker != null)
+				{
+					_lastProcessedOuterSourceChangeMarker = _outerSourceAsObservableCollectionWithChangeMarker.ChangeMarker;
+				}
+				else
+				{
+					_outerSourceAsINotifyPropertyChanged = (INotifyPropertyChanged) _outerSource;
+
+					_outerSourcePropertyChangedEventHandler = (sender, args) =>
+					{
+						if (args.PropertyName == "Item[]") _outerSourceIndexerPropertyChangedEventRaised = true; // ObservableCollection raises this before CollectionChanged event raising
+					};
+
+					_outerSourceWeakPropertyChangedEventHandler =
+						new WeakPropertyChangedEventHandler(_outerSourcePropertyChangedEventHandler);
+
+					_outerSourceAsINotifyPropertyChanged.PropertyChanged +=
+						_outerSourceWeakPropertyChangedEventHandler.Handle;
+				}
+
+
+				_innerSourceAsObservableCollectionWithChangeMarker = _innerSourceAsList as ObservableCollectionWithChangeMarker<TInnerSourceItem>;
+
+				if (_innerSourceAsObservableCollectionWithChangeMarker != null)
+				{
+					_lastProcessedInnerSourceChangeMarker = _innerSourceAsObservableCollectionWithChangeMarker.ChangeMarker;
+				}
+				else
+				{
+					_innerSourceAsINotifyPropertyChanged = (INotifyPropertyChanged) _innerSource;
+
+					_innerSourcePropertyChangedEventHandler = (sender, args) =>
+					{
+						if (args.PropertyName == "Item[]") _innerSourceIndexerPropertyChangedEventRaised = true; // ObservableCollection raises this before CollectionChanged event raising
+					};
+
+					_innerSourceWeakPropertyChangedEventHandler =
+						new WeakPropertyChangedEventHandler(_innerSourcePropertyChangedEventHandler);
+
+					_innerSourceAsINotifyPropertyChanged.PropertyChanged +=
+						_innerSourceWeakPropertyChangedEventHandler.Handle;
+				}
+
+
 				// ReSharper disable once PossibleNullReferenceException
 				int outerSourceCount = _outerSourceAsList.Count;
 				// ReSharper disable once PossibleNullReferenceException
@@ -161,10 +245,7 @@ namespace IBCode.ObservableCalculations
 
 					baseIndex = baseIndex + innerSourceCount;
 				}
-			}
 
-			if (_outerSource != null && _innerSource != null)
-			{
 				_outerSourceNotifyCollectionChangedEventHandler = handleOuterSourceCollectionChanged;
 				_outerSourceWeakNotifyCollectionChangedEventHandler = 
 					new WeakNotifyCollectionChangedEventHandler(_outerSourceNotifyCollectionChangedEventHandler);
@@ -185,222 +266,212 @@ namespace IBCode.ObservableCalculations
 			checkConsistent();
 		
 			_consistent = false;
-			OnPropertyChanged(Utils.ConsistentPropertyChangedEventArgs);
 
 			initializeFromSources();
 
 			_consistent = true;
-			OnPropertyChanged(Utils.ConsistentPropertyChangedEventArgs);
 		}
 
 		private void handleOuterSourceCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
 		{
-			checkConsistent();
-
-			int newIndex;
-			int oldIndex;
-			switch (e.Action)
+			if (_outerSourceIndexerPropertyChangedEventRaised || _lastProcessedOuterSourceChangeMarker != _outerSourceAsObservableCollectionWithChangeMarker.ChangeMarker)
 			{
-				case NotifyCollectionChangedAction.Add:
-					if (e.NewItems.Count > 1) throw new ObservableCalculationsException("Adding of multiple items is not supported");
-					newIndex = e.NewStartingIndex;
-					TOuterSourceItem sourceOuterItem = _outerSourceAsList[newIndex];
-					_consistent = false;
-					OnPropertyChanged(Utils.ConsistentPropertyChangedEventArgs);
+				_outerSourceIndexerPropertyChangedEventRaised = false;
+				_lastProcessedOuterSourceChangeMarker = !_lastProcessedOuterSourceChangeMarker;
 
-					int count = _innerSourceAsList.Count;
-					int baseIndex = newIndex * count;
+				checkConsistent();
 
-					for (int innerSourceIndex = 0; innerSourceIndex < count; innerSourceIndex++)
-					{
-						TInnerSourceItem sourceInnerItem = _innerSourceAsList[innerSourceIndex];
-						JoinPair<TOuterSourceItem, TInnerSourceItem> joinPair = new JoinPair<TOuterSourceItem, TInnerSourceItem>(
-							sourceOuterItem, sourceInnerItem);
+				int newIndex;
+				int oldIndex;
+				switch (e.Action)
+				{
+					case NotifyCollectionChangedAction.Add:
+						if (e.NewItems.Count > 1) throw new ObservableCalculationsException("Adding of multiple items is not supported");
+						newIndex = e.NewStartingIndex;
+						TOuterSourceItem sourceOuterItem = _outerSourceAsList[newIndex];
+						_consistent = false;
 
-						baseInsertItem(baseIndex + innerSourceIndex, joinPair);												
-					}
+						int count = _innerSourceAsList.Count;
+						int baseIndex = newIndex * count;
 
-					_consistent = true;
-					OnPropertyChanged(Utils.ConsistentPropertyChangedEventArgs);
-					break;
-				case NotifyCollectionChangedAction.Remove:
-					if (e.OldItems.Count > 1) throw new ObservableCalculationsException("Removing of multiple items is not supported");
-					oldIndex = e.OldStartingIndex;
-		
-					_consistent = false;
-					OnPropertyChanged(Utils.ConsistentPropertyChangedEventArgs);
-
-					int count1 = _innerSourceAsList.Count;
-					int baseIndex1 = oldIndex * count1;
-					for (int innerSourceIndex = count1 - 1; innerSourceIndex >= 0; innerSourceIndex--)
-					{
-						baseRemoveItem(baseIndex1 + innerSourceIndex);												
-					}
-
-					_consistent = true;
-					OnPropertyChanged(Utils.ConsistentPropertyChangedEventArgs);
-
-					break;
-				case NotifyCollectionChangedAction.Replace:
-					if (e.NewItems.Count > 1) throw new ObservableCalculationsException("Replacing of multiple items is not supported");
-					newIndex = e.NewStartingIndex;
-					TOuterSourceItem sourceItem3 = _outerSourceAsList[newIndex];
-		
-					_consistent = false;
-					OnPropertyChanged(Utils.ConsistentPropertyChangedEventArgs);
-
-					int count2 = _innerSourceAsList.Count;
-					int baseIndex2 = newIndex * count2;
-					for (int innerSourceIndex = 0; innerSourceIndex < count2; innerSourceIndex++)
-					{
-						this[baseIndex2 + innerSourceIndex].setOuterItem(sourceItem3);											
-					}
-
-					_consistent = true;
-					OnPropertyChanged(Utils.ConsistentPropertyChangedEventArgs);
-					break;
-				case NotifyCollectionChangedAction.Move:
-					newIndex = e.NewStartingIndex;
-					oldIndex = e.OldStartingIndex;
-					if (newIndex == oldIndex) return;
-		
-					_consistent = false;
-					OnPropertyChanged(Utils.ConsistentPropertyChangedEventArgs);
-
-					int count3 = _innerSourceAsList.Count;
-					int oldResultIndex = oldIndex * count3;
-					int newBaseIndex = newIndex * count3;
-					if (oldIndex < newIndex)
-					{
-						for (int index = 0; index < count3; index++)
+						for (int innerSourceIndex = 0; innerSourceIndex < count; innerSourceIndex++)
 						{
-							baseMoveItem(oldResultIndex, newBaseIndex + count3 - 1);
-						}						
-					}
-					else
-					{
-						for (int index = 0; index < count3; index++)
+							TInnerSourceItem sourceInnerItem = _innerSourceAsList[innerSourceIndex];
+							JoinPair<TOuterSourceItem, TInnerSourceItem> joinPair = new JoinPair<TOuterSourceItem, TInnerSourceItem>(
+								sourceOuterItem, sourceInnerItem);
+
+							baseInsertItem(baseIndex + innerSourceIndex, joinPair);												
+						}
+
+						_consistent = true;
+						break;
+					case NotifyCollectionChangedAction.Remove:
+						if (e.OldItems.Count > 1) throw new ObservableCalculationsException("Removing of multiple items is not supported");
+						oldIndex = e.OldStartingIndex;
+		
+						_consistent = false;
+
+						int count1 = _innerSourceAsList.Count;
+						int baseIndex1 = oldIndex * count1;
+						for (int innerSourceIndex = count1 - 1; innerSourceIndex >= 0; innerSourceIndex--)
 						{
-							baseMoveItem(oldResultIndex + index, newBaseIndex + index);
-						}						
-					}
+							baseRemoveItem(baseIndex1 + innerSourceIndex);												
+						}
 
-					_consistent = true;
-					OnPropertyChanged(Utils.ConsistentPropertyChangedEventArgs);
-					break;
-				case NotifyCollectionChangedAction.Reset:
-					_consistent = false;
-					OnPropertyChanged(Utils.ConsistentPropertyChangedEventArgs);
+						_consistent = true;
 
-					initializeFromSources();
+						break;
+					case NotifyCollectionChangedAction.Replace:
+						if (e.NewItems.Count > 1) throw new ObservableCalculationsException("Replacing of multiple items is not supported");
+						newIndex = e.NewStartingIndex;
+						TOuterSourceItem sourceItem3 = _outerSourceAsList[newIndex];
+		
+						_consistent = false;
 
-					_consistent = true;
-					OnPropertyChanged(Utils.ConsistentPropertyChangedEventArgs);
-					break;
+						int count2 = _innerSourceAsList.Count;
+						int baseIndex2 = newIndex * count2;
+						for (int innerSourceIndex = 0; innerSourceIndex < count2; innerSourceIndex++)
+						{
+							this[baseIndex2 + innerSourceIndex].setOuterItem(sourceItem3);											
+						}
+
+						_consistent = true;
+						break;
+					case NotifyCollectionChangedAction.Move:
+						newIndex = e.NewStartingIndex;
+						oldIndex = e.OldStartingIndex;
+						if (newIndex == oldIndex) return;
+		
+						_consistent = false;
+
+						int count3 = _innerSourceAsList.Count;
+						int oldResultIndex = oldIndex * count3;
+						int newBaseIndex = newIndex * count3;
+						if (oldIndex < newIndex)
+						{
+							for (int index = 0; index < count3; index++)
+							{
+								baseMoveItem(oldResultIndex, newBaseIndex + count3 - 1);
+							}						
+						}
+						else
+						{
+							for (int index = 0; index < count3; index++)
+							{
+								baseMoveItem(oldResultIndex + index, newBaseIndex + index);
+							}						
+						}
+
+						_consistent = true;
+						break;
+					case NotifyCollectionChangedAction.Reset:
+						_consistent = false;
+
+						initializeFromSources();
+
+						_consistent = true;
+						break;
+				}
 			}
 		}
 
 		private void handleInnerSourceCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
 		{
-			checkConsistent();
-
-			int newIndex;
-			int oldIndex;
-			switch (e.Action)
+			if (_innerSourceIndexerPropertyChangedEventRaised || _lastProcessedInnerSourceChangeMarker != _innerSourceAsObservableCollectionWithChangeMarker.ChangeMarker)
 			{
-				case NotifyCollectionChangedAction.Add:
-					if (e.NewItems.Count > 1) throw new ObservableCalculationsException("Adding of multiple items is not supported");
-					newIndex = e.NewStartingIndex;
-					TInnerSourceItem sourceInnerItem = _innerSourceAsList[newIndex];
+				_innerSourceIndexerPropertyChangedEventRaised = false;
+				_lastProcessedInnerSourceChangeMarker = !_lastProcessedInnerSourceChangeMarker;
+
+				checkConsistent();
+
+				int newIndex;
+				int oldIndex;
+				switch (e.Action)
+				{
+					case NotifyCollectionChangedAction.Add:
+						if (e.NewItems.Count > 1) throw new ObservableCalculationsException("Adding of multiple items is not supported");
+						newIndex = e.NewStartingIndex;
+						TInnerSourceItem sourceInnerItem = _innerSourceAsList[newIndex];
 		
-					_consistent = false;
-					OnPropertyChanged(Utils.ConsistentPropertyChangedEventArgs);
+						_consistent = false;
 
-					int index1 = newIndex;
-					int outerSourceCount1 = _outerSourceAsList.Count;
-					int innerSourceCount1 = _innerSourceAsList.Count;
-					for (int outerSourceIndex = 0; outerSourceIndex < outerSourceCount1; outerSourceIndex++)
-					{
-						TOuterSourceItem sourceOuterItem = _outerSourceAsList[outerSourceIndex];
-						JoinPair<TOuterSourceItem, TInnerSourceItem> joinPair = new JoinPair<TOuterSourceItem, TInnerSourceItem>(
-							sourceOuterItem, sourceInnerItem);
+						int index1 = newIndex;
+						int outerSourceCount1 = _outerSourceAsList.Count;
+						int innerSourceCount1 = _innerSourceAsList.Count;
+						for (int outerSourceIndex = 0; outerSourceIndex < outerSourceCount1; outerSourceIndex++)
+						{
+							TOuterSourceItem sourceOuterItem = _outerSourceAsList[outerSourceIndex];
+							JoinPair<TOuterSourceItem, TInnerSourceItem> joinPair = new JoinPair<TOuterSourceItem, TInnerSourceItem>(
+								sourceOuterItem, sourceInnerItem);
 
-						baseInsertItem(index1, joinPair);	
+							baseInsertItem(index1, joinPair);	
 						
-						index1 = index1 + innerSourceCount1;
-					}
+							index1 = index1 + innerSourceCount1;
+						}
 
-					_consistent = true;
-					OnPropertyChanged(Utils.ConsistentPropertyChangedEventArgs);
-					break;
-				case NotifyCollectionChangedAction.Remove:
-					_consistent = false;
-					OnPropertyChanged(Utils.ConsistentPropertyChangedEventArgs);
+						_consistent = true;
+						break;
+					case NotifyCollectionChangedAction.Remove:
+						_consistent = false;
 
-					if (e.OldItems.Count > 1) throw new ObservableCalculationsException("Removing of multiple items is not supported");
-					oldIndex = e.OldStartingIndex;
-					int outerSourceCount3 = _outerSourceAsList.Count;
-					int oldInnerSourceCount = _innerSourceAsList.Count + 1;
-					int baseIndex = (outerSourceCount3 - 1) * oldInnerSourceCount;
-					for (int outerSourceIndex =  outerSourceCount3 - 1; outerSourceIndex >= 0; outerSourceIndex--)
-					{
-						baseRemoveItem(baseIndex + oldIndex);
+						if (e.OldItems.Count > 1) throw new ObservableCalculationsException("Removing of multiple items is not supported");
+						oldIndex = e.OldStartingIndex;
+						int outerSourceCount3 = _outerSourceAsList.Count;
+						int oldInnerSourceCount = _innerSourceAsList.Count + 1;
+						int baseIndex = (outerSourceCount3 - 1) * oldInnerSourceCount;
+						for (int outerSourceIndex =  outerSourceCount3 - 1; outerSourceIndex >= 0; outerSourceIndex--)
+						{
+							baseRemoveItem(baseIndex + oldIndex);
 
-						baseIndex = baseIndex - oldInnerSourceCount;
-					}	
+							baseIndex = baseIndex - oldInnerSourceCount;
+						}	
 
-					_consistent = true;
-					OnPropertyChanged(Utils.ConsistentPropertyChangedEventArgs);				
-					break;
-				case NotifyCollectionChangedAction.Replace:
-					_consistent = false;
-					OnPropertyChanged(Utils.ConsistentPropertyChangedEventArgs);
+						_consistent = true;
+						break;
+					case NotifyCollectionChangedAction.Replace:
+						_consistent = false;
 
-					if (e.NewItems.Count > 1) throw new ObservableCalculationsException("Replacing of multiple items is not supported");
-					newIndex = e.NewStartingIndex;
-					TInnerSourceItem sourceItem3 = _innerSourceAsList[newIndex];	
-					int index2 = newIndex;
-					int outerSourceCount2 = _outerSourceAsList.Count;
-					int innerSourceCount2 = _innerSourceAsList.Count;
-					for (int outerSourceIndex = 0; outerSourceIndex < outerSourceCount2; outerSourceIndex++)
-					{
+						if (e.NewItems.Count > 1) throw new ObservableCalculationsException("Replacing of multiple items is not supported");
+						newIndex = e.NewStartingIndex;
+						TInnerSourceItem sourceItem3 = _innerSourceAsList[newIndex];	
+						int index2 = newIndex;
+						int outerSourceCount2 = _outerSourceAsList.Count;
+						int innerSourceCount2 = _innerSourceAsList.Count;
+						for (int outerSourceIndex = 0; outerSourceIndex < outerSourceCount2; outerSourceIndex++)
+						{
 					
-						this[index2].setInnerItem(sourceItem3);
-						index2 = index2 + innerSourceCount2;
-					}
+							this[index2].setInnerItem(sourceItem3);
+							index2 = index2 + innerSourceCount2;
+						}
 
-					_consistent = true;
-					OnPropertyChanged(Utils.ConsistentPropertyChangedEventArgs);						
-					break;
-				case NotifyCollectionChangedAction.Move:
-					_consistent = false;
-					OnPropertyChanged(Utils.ConsistentPropertyChangedEventArgs);
+						_consistent = true;
+						break;
+					case NotifyCollectionChangedAction.Move:
+						_consistent = false;
 
-					newIndex = e.NewStartingIndex;
-					oldIndex = e.OldStartingIndex;
+						newIndex = e.NewStartingIndex;
+						oldIndex = e.OldStartingIndex;
 
-					int index = 0;
-					int outerSourceCount = _outerSourceAsList.Count;
-					int innerSourceCount = _innerSourceAsList.Count;
-					for (int outerSourceIndex = 0; outerSourceIndex < outerSourceCount; outerSourceIndex++)
-					{
+						int index = 0;
+						int outerSourceCount = _outerSourceAsList.Count;
+						int innerSourceCount = _innerSourceAsList.Count;
+						for (int outerSourceIndex = 0; outerSourceIndex < outerSourceCount; outerSourceIndex++)
+						{
 					
-						baseMoveItem(index + oldIndex, index + newIndex);
-						index = index + innerSourceCount;
-					}
+							baseMoveItem(index + oldIndex, index + newIndex);
+							index = index + innerSourceCount;
+						}
 
-					_consistent = true;
-					OnPropertyChanged(Utils.ConsistentPropertyChangedEventArgs);
-					break;
-				case NotifyCollectionChangedAction.Reset:
-					_consistent = false;
-					OnPropertyChanged(Utils.ConsistentPropertyChangedEventArgs);
+						_consistent = true;
+						break;
+					case NotifyCollectionChangedAction.Reset:
+						_consistent = false;
 
-					initializeFromSources();
+						initializeFromSources();
 
-					_consistent = true;
-					OnPropertyChanged(Utils.ConsistentPropertyChangedEventArgs);
-					break;
+						_consistent = true;
+						break;
+				}
 			}
 		}
 
@@ -425,6 +496,15 @@ namespace IBCode.ObservableCalculations
 			{
 				_outerSourceScalar.PropertyChanged -= _outerSourceScalarWeakPropertyChangedEventHandler.Handle;
 			}
+
+
+			if (_outerSourceAsINotifyPropertyChanged != null)
+				_outerSourceAsINotifyPropertyChanged.PropertyChanged -=
+					_outerSourceWeakPropertyChangedEventHandler.Handle;
+
+			if (_innerSourceAsINotifyPropertyChanged != null)
+				_innerSourceAsINotifyPropertyChanged.PropertyChanged -=
+					_innerSourceWeakPropertyChangedEventHandler.Handle;
 		} 
 
 		public void ValidateConsistency()

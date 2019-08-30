@@ -59,10 +59,10 @@ namespace IBCode.ObservableCalculations
 
 		private ObservableCollectionWithChangeMarker<TSourceItem> _sourceAsList;
 		bool _rootSourceWrapper;
-
-		private readonly bool _predicateContainsParametrizedLiveLinqCalls;
-
 		private bool _lastProcessedSourceChangeMarker;
+
+		private readonly bool _predicateContainsParametrizedObservableCalculationsCalls;
+
 		private Queue<ExpressionWatcher> _deferredExpressionWatcherChangedProcessings;
 		private readonly IReadScalar<INotifyCollectionChanged> _sourceScalar;
 		private INotifyCollectionChanged _source;
@@ -106,10 +106,10 @@ namespace IBCode.ObservableCalculations
 
 			_predicateExpression =
 				(Expression<Func<TSourceItem, bool>>) callToConstantConverter.Visit(predicateExpression);
-			_predicateContainsParametrizedLiveLinqCalls =
+			_predicateContainsParametrizedObservableCalculationsCalls =
 				callToConstantConverter.ContainsParametrizedObservableCalculationCalls;
 
-			if (!_predicateContainsParametrizedLiveLinqCalls)
+			if (!_predicateContainsParametrizedObservableCalculationsCalls)
 			{
 				_predicateExpressionInfo = ExpressionWatcher.GetExpressionInfo(_predicateExpression);
 				// ReSharper disable once PossibleNullReferenceException
@@ -305,12 +305,10 @@ namespace IBCode.ObservableCalculations
 			checkConsistent();
 
 			_consistent = false;
-			OnPropertyChanged(Utils.ConsistentPropertyChangedEventArgs);
 
 			initializeFromSource();
 
 			_consistent = true;
-			OnPropertyChanged(Utils.ConsistentPropertyChangedEventArgs);
 		}
 
 		private void handleSourceCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
@@ -452,12 +450,10 @@ namespace IBCode.ObservableCalculations
 					break;
 				case NotifyCollectionChangedAction.Reset:
 					_consistent = false;
-					OnPropertyChanged(Utils.ConsistentPropertyChangedEventArgs);
 
 					initializeFromSource();
 
 					_consistent = true;
-					OnPropertyChanged(Utils.ConsistentPropertyChangedEventArgs);
 					break;
 				case NotifyCollectionChangedAction.Replace:
 					int sourceIndex = e.NewStartingIndex;
@@ -517,10 +513,10 @@ namespace IBCode.ObservableCalculations
 
 		// ReSharper disable once MemberCanBePrivate.Global
 		public bool ApplyPredicate(int sourceIndex) => 
-			_predicateContainsParametrizedLiveLinqCalls ? _itemInfos[sourceIndex].PredicateFunc() : _predicateFunc(_sourceAsList[sourceIndex]);
+			_predicateContainsParametrizedObservableCalculationsCalls ? _itemInfos[sourceIndex].PredicateFunc() : _predicateFunc(_sourceAsList[sourceIndex]);
 
 		private bool applyPredicate(TSourceItem sourceItem, Func<bool> itemPredicateFunc) => 
-			_predicateContainsParametrizedLiveLinqCalls ? itemPredicateFunc() : _predicateFunc(sourceItem);
+			_predicateContainsParametrizedObservableCalculationsCalls ? itemPredicateFunc() : _predicateFunc(sourceItem);
 
 		private ItemInfo registerSourceItem(TSourceItem sourceItem, int sourceIndex, Position position, Position nextItemPosition, ExpressionWatcher watcher = null, Func<bool> predicateFunc = null)
 		{
@@ -565,7 +561,7 @@ namespace IBCode.ObservableCalculations
 		{
 			predicateFunc = null;
 
-			if (!_predicateContainsParametrizedLiveLinqCalls)
+			if (!_predicateContainsParametrizedObservableCalculationsCalls)
 			{
 				watcher = new ExpressionWatcher(_predicateExpressionInfo, sourceItem);
 			}

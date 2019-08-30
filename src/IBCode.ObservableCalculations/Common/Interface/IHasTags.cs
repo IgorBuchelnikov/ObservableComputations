@@ -6,10 +6,9 @@ using System.Threading.Tasks;
 
 namespace IBCode.ObservableCalculations.Common.Interface
 {
-	public interface IConsistent
+	public interface IHasTags
 	{
-		bool Consistent {get;}
-		event EventHandler ConsistencyRestored;
-
+		string DebugTag {get; set;}
+		object Tag {get; set;}
 	}
 }

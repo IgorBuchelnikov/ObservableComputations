@@ -4,7 +4,6 @@ using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.ComponentModel;
 using IBCode.ObservableCalculations.Common;
-using IBCode.ObservableCalculations.Common.Base;
 using IBCode.ObservableCalculations.Common.Interface;
 
 namespace IBCode.ObservableCalculations
@@ -224,7 +223,7 @@ namespace IBCode.ObservableCalculations
 
 				itemInfo.SourcePropertyChangedEventHandler = (sender, args) =>
 				{
-					if (args.PropertyName == "Item[]") _indexerPropertyChangedEventRaised = true; // ObservableCollection raises this before CollectionChanged event raising
+					if (args.PropertyName == "Item[]") itemInfo.IndexerPropertyChangedEventRaised = true; // ObservableCollection raises this before CollectionChanged event raising
 				};
 
 				itemInfo.SourceWeakPropertyChangedEventHandler = new WeakPropertyChangedEventHandler(itemInfo.SourcePropertyChangedEventHandler);
@@ -255,7 +254,7 @@ namespace IBCode.ObservableCalculations
 			if (itemInfo.SourceAsINotifyPropertyChanged != null)
 			{
 				itemInfo.SourceAsINotifyPropertyChanged.PropertyChanged -=
-					_sourcesWeakPropertyChangedEventHandler.Handle;
+					itemInfo.SourceWeakPropertyChangedEventHandler.Handle;
 
 				itemInfo.SourceAsINotifyPropertyChanged = null;
 				itemInfo.SourcePropertyChangedEventHandler = null;
@@ -274,6 +273,7 @@ namespace IBCode.ObservableCalculations
 			initializeFromSources();
 
 			_consistent = true;
+			raiseConsistencyRestored();
 		}
 
 		private void handleSourceCollectionChanged(object sender, NotifyCollectionChangedEventArgs e, ItemInfo itemInfo)
@@ -284,6 +284,7 @@ namespace IBCode.ObservableCalculations
 				itemInfo.LastProcessedSourceChangeMarker = !itemInfo.LastProcessedSourceChangeMarker;
 
 				checkConsistent();
+				_consistent = false;
 				IList sourceItem = (IList) sender;
 
 				switch (e.Action)
@@ -306,11 +307,11 @@ namespace IBCode.ObservableCalculations
 						baseSetItem(itemInfo.PlainIndex + e.NewStartingIndex, (TSourceItem) newItems1[0]);
 						break;
 					case NotifyCollectionChangedAction.Reset:
-						_consistent = false;
+
 
 						replaceItem(sourceItem, itemInfo);
 
-						_consistent = true;
+
 						break;
 					case NotifyCollectionChangedAction.Move:
 						if (e.OldStartingIndex == e.NewStartingIndex) return;
@@ -318,6 +319,9 @@ namespace IBCode.ObservableCalculations
 						baseMoveItem(rangePositionPlainIndex + e.OldStartingIndex, rangePositionPlainIndex + e.NewStartingIndex);
 						break;
 				}
+
+				_consistent = true;
+				raiseConsistencyRestored();
 			}
 
 		}
@@ -329,6 +333,7 @@ namespace IBCode.ObservableCalculations
 				_lastProcessedSourcesChangeMarker = !_lastProcessedSourcesChangeMarker;
 				_indexerPropertyChangedEventRaised = false;
 				checkConsistent();
+				_consistent = false;	
 				
 				int count;
 
@@ -339,7 +344,7 @@ namespace IBCode.ObservableCalculations
 						IList newItems = e.NewItems;
 						if (newItems.Count > 1) throw new ObservableCalculationsException("Adding of multiple items is not supported");
 			
-						_consistent = false;
+
 
 						IList addedItem = (IList) newItems[0];
 						count = addedItem?.Count ?? 0;
@@ -353,13 +358,10 @@ namespace IBCode.ObservableCalculations
 							TSourceItem item = (TSourceItem) addedItem[index];
 							baseInsertItem(rangePositionPlainIndex1 + index, item);
 						}
-
-						_consistent = true;
 						break;
 					case NotifyCollectionChangedAction.Remove:
 						if (e.OldItems.Count > 1) throw new ObservableCalculationsException("Removing of multiple items is not supported");
 						ItemInfo itemInfo1;
-						_consistent = false;
 
 						IList removedItem =  (IList) e.OldItems[0];
 						itemInfo1 = unregisterSourceItem(e.OldStartingIndex);
@@ -370,15 +372,11 @@ namespace IBCode.ObservableCalculations
 						{
 							baseRemoveItem(rangePositionPlainIndex + index);
 						}
-
-						_consistent = true;
 						break;
 					case NotifyCollectionChangedAction.Replace:
 						ItemInfo itemInfo2;
 						IList newItems1 = e.NewItems;
 						if (newItems1.Count > 1) throw new ObservableCalculationsException("Replacing of multiple items is not supported");
-			
-						_consistent = false;
 
 						INotifyCollectionChanged newItem = (INotifyCollectionChanged) newItems1[0];
 						
@@ -397,16 +395,12 @@ namespace IBCode.ObservableCalculations
 								new WeakNotifyCollectionChangedEventHandler(itemInfo2.SourceNotifyCollectionChangedEventHandler);
 							itemInfo2.Source.CollectionChanged += itemInfo2.SourceWeakNotifyCollectionChangedEventHandler.Handle;						
 						}
-
-						_consistent = true;
 						break;
 					case NotifyCollectionChangedAction.Move:
 						int oldIndex = e.OldStartingIndex;
 						int newIndex = e.NewStartingIndex;
 
 						if (oldIndex == newIndex) return;
-			
-						_consistent = false;
 
 						RangePosition oldRangePosition = _sourceRangePositions.List[e.OldStartingIndex];
 						RangePosition newRangePosition = _sourceRangePositions.List[e.NewStartingIndex];
@@ -435,19 +429,15 @@ namespace IBCode.ObservableCalculations
 								}						
 							}
 						}
-
 						_sourceRangePositions.Move(oldRangePosition.Index, newRangePosition.Index);
-
-						_consistent = true;
 						break;
 					case NotifyCollectionChangedAction.Reset:
-						_consistent = false;
-
 						initializeFromSources();
-
-						_consistent = true;
 						break;
 				}
+
+				_consistent = true;
+				raiseConsistencyRestored();
 			}
 
 		}

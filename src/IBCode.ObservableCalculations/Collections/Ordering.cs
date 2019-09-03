@@ -319,14 +319,15 @@ namespace IBCode.ObservableCalculations
 		private void handleComparerScalarValueChanged(object sender, PropertyChangedEventArgs e)
 		{
 			if (e.PropertyName != nameof(IReadScalar<object>.Value)) return;
-			checkConsistent();
 
+			checkConsistent();
 			_consistent = false;
 
 			_comparer = _comparerScalar.Value ?? Comparer<TOrderingValue>.Default;
 			initializeFromSource();
 
 			_consistent = true;
+			raiseConsistencyRestored();
 		}
 
 
@@ -360,6 +361,7 @@ namespace IBCode.ObservableCalculations
 			}
 
 			_consistent = true;
+			raiseConsistencyRestored();
 		}
 
 		private void initializeFromSource()
@@ -452,6 +454,7 @@ namespace IBCode.ObservableCalculations
 			initializeFromSource();
 
 			_consistent = true;
+			raiseConsistencyRestored();
 		}
 
 		private void registerSourceItem(TSourceItem sourceItem, int sourceIndex)
@@ -546,6 +549,8 @@ namespace IBCode.ObservableCalculations
 		private void handleSourceCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
 		{
 			checkConsistent();
+			_consistent = false;
+
 			_lastProcessedSourceChangeMarker = !_lastProcessedSourceChangeMarker;
 
 			switch (e.Action)
@@ -560,8 +565,6 @@ namespace IBCode.ObservableCalculations
 					break;
 
 				case NotifyCollectionChangedAction.Replace:
-					_consistent = false;
-
 					int replacingSourceIndex = e.NewStartingIndex;
 					TSourceItem replacingSourceItem = _sourceAsSimpleList[replacingSourceIndex];
 					ItemInfo replacingItemInfo = _itemInfos[replacingSourceIndex];
@@ -579,7 +582,6 @@ namespace IBCode.ObservableCalculations
 					baseSetItem(getOrderedIndexBySourceIndex(replacingSourceIndex), replacingSourceItem);
 					processSourceItemChange(replacingSourceIndex);
 
-					_consistent = true;
 					break;
 				case NotifyCollectionChangedAction.Move:
 					int oldStartingIndex = e.OldStartingIndex;
@@ -588,11 +590,7 @@ namespace IBCode.ObservableCalculations
 					_sourcePositions.Move(oldStartingIndex, newStartingIndex);
 					break;
 				case NotifyCollectionChangedAction.Reset:
-					_consistent = false;
-
 					initializeFromSource();
-
-					_consistent = true;
 					break;
 			}
 
@@ -603,6 +601,9 @@ namespace IBCode.ObservableCalculations
 					if (!expressionWatcher._disposed)
 						processSourceItemChange(expressionWatcher._position.Index);
 				} 
+
+			_consistent = true;
+			raiseConsistencyRestored();
 		}
 
 
@@ -612,7 +613,10 @@ namespace IBCode.ObservableCalculations
 
 			if (_sourceAsList == null || _rootSourceWrapper || _sourceAsList.ChangeMarker ==_lastProcessedSourceChangeMarker)
 			{
+				_consistent = false;
 				processSourceItemChange(expressionWatcher._position.Index);
+				_consistent = true;
+				raiseConsistencyRestored();
 			}
 			else
 			{

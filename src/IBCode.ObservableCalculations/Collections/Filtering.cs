@@ -309,11 +309,14 @@ namespace IBCode.ObservableCalculations
 			initializeFromSource();
 
 			_consistent = true;
+			raiseConsistencyRestored();
 		}
 
 		private void handleSourceCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
 		{		
 			checkConsistent();
+			_consistent = false;
+
 			if (!_rootSourceWrapper && _lastProcessedSourceChangeMarker == _sourceAsList.ChangeMarker) return;
 			_lastProcessedSourceChangeMarker = !_lastProcessedSourceChangeMarker;
 
@@ -449,11 +452,7 @@ namespace IBCode.ObservableCalculations
 					}
 					break;
 				case NotifyCollectionChangedAction.Reset:
-					_consistent = false;
-
 					initializeFromSource();
-
-					_consistent = true;
 					break;
 				case NotifyCollectionChangedAction.Replace:
 					int sourceIndex = e.NewStartingIndex;
@@ -485,6 +484,9 @@ namespace IBCode.ObservableCalculations
 					if (!expressionWatcher._disposed)
 						processChangeSourceItem(expressionWatcher._position.Index);
 				} 
+
+			_consistent = true;
+			raiseConsistencyRestored();
 		}
 
 		private void expressionWatcher_OnValueChanged(ExpressionWatcher expressionWatcher)
@@ -493,7 +495,10 @@ namespace IBCode.ObservableCalculations
 
 			if (_rootSourceWrapper || _sourceAsList.ChangeMarker ==_lastProcessedSourceChangeMarker)
 			{
+				_consistent = false;
 				processChangeSourceItem(expressionWatcher._position.Index);
+				_consistent = true;
+				raiseConsistencyRestored();
 			}
 			else
 			{

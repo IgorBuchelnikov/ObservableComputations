@@ -280,35 +280,28 @@ namespace IBCode.ObservableCalculations
 			initializeFromSource();
 
 			_consistent = true;
+			raiseConsistencyRestored();
 		}
 
 		private void handleSourceCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
 		{
 			checkConsistent();
+			_consistent = false;
+
 			if (!_rootSourceWrapper && _lastProcessedSourceChangeMarker == _sourceAsList.ChangeMarker) return;
 			_lastProcessedSourceChangeMarker = !_lastProcessedSourceChangeMarker;
 
 			switch (e.Action)
 			{
 				case NotifyCollectionChangedAction.Add:
-					_consistent = false;
-
 					int newIndex1 = e.NewStartingIndex;
 					TSourceItem addedItem = _sourceAsList[newIndex1];
 					registerSourceItem(addedItem, false, _sourcePositions.Insert(newIndex1));
-
-					_consistent = true;
 					break;
 				case NotifyCollectionChangedAction.Remove:
-					_consistent = false;
-
 					unregisterSourceItem(e.OldStartingIndex, true);
-
-					_consistent = true;
 					break;
 				case NotifyCollectionChangedAction.Replace:
-					_consistent = false;
-
 					int replacingSourceIndex = e.NewStartingIndex;
 					TSourceItem newItem = _sourceAsList[replacingSourceIndex];
 					ItemInfo replacingItemInfo = _itemInfos[replacingSourceIndex];
@@ -339,16 +332,12 @@ namespace IBCode.ObservableCalculations
 						unregisterSourceItem(replacingSourceIndex, false);
 						registerSourceItem(newItem, false, replacingItemInfo);	
 					}
-
-					_consistent = true;
 					break;
 				case NotifyCollectionChangedAction.Move:
 					int oldStartingIndex = e.OldStartingIndex;
 					int newStartingIndex = e.NewStartingIndex;
 					if (oldStartingIndex == newStartingIndex) return;
 							
-					_consistent = false;
-
 					ItemInfo itemInfo = _itemInfos[oldStartingIndex];
 
 					Group<TSourceItem, TKey> group1;
@@ -421,15 +410,9 @@ namespace IBCode.ObservableCalculations
 					}
 
 					moveGroupToActualIndex(group1);
-
-					_consistent = true;
 					break;
 				case NotifyCollectionChangedAction.Reset:
-					_consistent = false;
-
 					initializeFromSource();
-
-					_consistent = true;
 					break;
 			}
 
@@ -440,6 +423,9 @@ namespace IBCode.ObservableCalculations
 					if (!expressionWatcher._disposed)
 						processExpressionWatcherValueChanged(expressionWatcher);
 				} 
+
+			_consistent = true;
+			raiseConsistencyRestored();
 		}
 
 		private void expressionWatcher_OnValueChanged(ExpressionWatcher expressionWatcher)
@@ -448,7 +434,10 @@ namespace IBCode.ObservableCalculations
 
 			if (_rootSourceWrapper || _sourceAsList.ChangeMarker ==_lastProcessedSourceChangeMarker)
 			{
+				_consistent = false;
 				processExpressionWatcherValueChanged(expressionWatcher);
+				_consistent = true;
+				raiseConsistencyRestored();
 			}
 			else
 			{
@@ -544,8 +533,6 @@ namespace IBCode.ObservableCalculations
 
 		private void processExpressionWatcherValueChanged(ExpressionWatcher expressionWatcher)
 		{
-			_consistent = false;
-
 			int sourceIndex = expressionWatcher._position.Index;
 			TSourceItem sourceItem = _sourceAsList[sourceIndex];
 			ItemInfo itemInfo = _itemInfos[sourceIndex];
@@ -559,8 +546,6 @@ namespace IBCode.ObservableCalculations
 				removeSourceItemFromGroup(sourceIndex, oldKey);
 				addSourceItemToGroup(sourceItem, expressionWatcher._position, false, newKey);
 			}
-
-			_consistent = true;
 		}
 
 		private void registerSourceItem(TSourceItem sourceItem, bool addNewToEnd, ItemInfo itemInfo)

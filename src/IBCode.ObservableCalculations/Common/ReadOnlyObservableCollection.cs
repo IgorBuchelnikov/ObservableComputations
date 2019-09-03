@@ -1,10 +1,12 @@
 ﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
+using System.ComponentModel;
+using System.Runtime.CompilerServices;
 
 namespace IBCode.ObservableCalculations.Common
 {
-	public class ReadOnlyObservableCollection<TItem> : ReadOnlyCollection<TItem>, INotifyCollectionChanged
+	public class ReadOnlyObservableCollection<TItem> : ReadOnlyCollection<TItem>, INotifyCollectionChanged, INotifyPropertyChanged
 	{
 		public ReadOnlyObservableCollection(IList<TItem> list) : base(list)
 		{
@@ -20,5 +22,6 @@ namespace IBCode.ObservableCalculations.Common
 		}
 
 		public event NotifyCollectionChangedEventHandler CollectionChanged;
+		public event PropertyChangedEventHandler PropertyChanged;
 	}
 }

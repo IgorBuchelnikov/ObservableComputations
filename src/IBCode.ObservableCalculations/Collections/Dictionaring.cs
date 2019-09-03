@@ -7,12 +7,11 @@ using System.Linq.Expressions;
 using IBCode.ObservableCalculations.Common;
 using IBCode.ObservableCalculations.Common.Base;
 using IBCode.ObservableCalculations.Common.Interface;
-using INotifyPropertyChanged = System.ComponentModel.INotifyPropertyChanged;
 
 namespace IBCode.ObservableCalculations
 {
 	// ReSharper disable once RedundantExtendsListEntry
-	public class Dictionaring<TSourceItem, TKey, TValue> : Dictionary<TKey, TValue>, INotifyPropertyChanged, IConsistent, IHasSources
+	public class Dictionaring<TSourceItem, TKey, TValue> : Dictionary<TKey, TValue>, IHasSources
 	{
 		// ReSharper disable once MemberCanBePrivate.Global
 		public IReadScalar<INotifyCollectionChanged> SourceScalar => _sourceScalar;
@@ -31,7 +30,6 @@ namespace IBCode.ObservableCalculations
 
 		// ReSharper disable once MemberCanBePrivate.Global
 		public INotifyCollectionChanged Source => _source;
-		public bool Consistent => _consistent;
 
 		public string InstantiatingStackTrace => _instantiatingStackTrace;
 
@@ -71,7 +69,6 @@ namespace IBCode.ObservableCalculations
 		private readonly Func<TSourceItem, TValue> _valueSelectorFunc;
 		private INotifyCollectionChanged _source;
 		private readonly string _instantiatingStackTrace;
-		private bool _consistent = true;
 
 
 		// ReSharper disable once MemberCanBePrivate.Global
@@ -231,16 +228,6 @@ namespace IBCode.ObservableCalculations
 			}
 		}
 
-		public event PropertyChangedEventHandler PropertyChanged;
-
-
-		private void checkConsistent()
-		{
-			if (!_consistent)
-				throw new ObservableCalculationsException(
-					"The source collection has been changed. It is not possible to process this change, as the processing of the previous change is not completed. Make the change after Consistent property becomes true");
-		}
-
 		private ItemInfo registerSourceItem(TSourceItem sourceItem, int index, ItemInfo itemInfo = null)
 		{
 			itemInfo = itemInfo == null ? _sourcePositions.Insert(index) : _itemInfos[index];
@@ -315,7 +302,6 @@ namespace IBCode.ObservableCalculations
 
 		private void handleSourceCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
 		{
-			checkConsistent();
 			if (!_rootSourceWrapper && _lastProcessedSourceChangeMarker == _sourceAsList.ChangeMarker) return;
 			_lastProcessedSourceChangeMarker = !_lastProcessedSourceChangeMarker;
 
@@ -355,12 +341,8 @@ namespace IBCode.ObservableCalculations
 					}
 					else
 					{
-						_consistent = false;
-						PropertyChanged?.Invoke(this, null);
 						baseRemoveItem(oldKey);
 						baseAddItem(replacingItemInfo.Key, newValue);
-						_consistent = true;
-						PropertyChanged?.Invoke(this, Utils.ConsistentPropertyChangedEventArgs);
 					}		
 					break;
 				case NotifyCollectionChangedAction.Move:
@@ -371,11 +353,7 @@ namespace IBCode.ObservableCalculations
 					_sourcePositions.Move(oldStartingIndex2, newStartingIndex2);
 					break;
 				case NotifyCollectionChangedAction.Reset:
-					_consistent = false;
-					PropertyChanged?.Invoke(this, Utils.ConsistentPropertyChangedEventArgs);
 					initializeFromSource();
-					_consistent = true;
-					PropertyChanged?.Invoke(this, Utils.ConsistentPropertyChangedEventArgs);
 					break;
 			}
 
@@ -399,16 +377,11 @@ namespace IBCode.ObservableCalculations
 		private void handleSourceScalarValueChanged(object sender,  PropertyChangedEventArgs e)
 		{
 			if (e.PropertyName != nameof(IReadScalar<INotifyCollectionChanged>.Value)) return;
-			_consistent = false;
-			PropertyChanged?.Invoke(this, Utils.ConsistentPropertyChangedEventArgs);
 			initializeFromSource();
-			_consistent = true;
-			PropertyChanged?.Invoke(this, Utils.ConsistentPropertyChangedEventArgs);
 		}
 
 		private void keyExpressionWatcher_OnValueChanged(ExpressionWatcher expressionWatcher)
 		{
-			checkConsistent();
 			if (_rootSourceWrapper || _sourceAsList.ChangeMarker ==_lastProcessedSourceChangeMarker)
 			{
 				processKeyExpressionWatcherValueChanged(expressionWatcher);
@@ -421,7 +394,6 @@ namespace IBCode.ObservableCalculations
 
 		private void valueExpressionWatcher_OnValueChanged(ExpressionWatcher expressionWatcher)
 		{
-			checkConsistent();
 			if (_rootSourceWrapper || _sourceAsList.ChangeMarker ==_lastProcessedSourceChangeMarker)
 			{
 				processValueExpressionWatcherValueChanged(expressionWatcher);

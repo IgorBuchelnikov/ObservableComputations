@@ -482,6 +482,9 @@ namespace IBCode.ObservableCalculations.Test
 			case "Selecting<Item, int>":
 				result.Add("null");
 				break;
+			case "Selecting<Item, string>":
+				result.Add("null");
+				break;
 			default:
 				throw new Exception($"Unexpected scalar type {scalarType}");
 		}

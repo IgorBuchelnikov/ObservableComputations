@@ -167,7 +167,6 @@ namespace IBCode.ObservableCalculations.Common
 			_oldIndex = oldIndex;
 			_newIndex = newIndex;
 
-
 			PreCollectionChanged?.Invoke(this, null);
 			base.MoveItem(oldIndex, newIndex);
 			PostCollectionChanged?.Invoke(this, null);
@@ -246,7 +245,7 @@ namespace IBCode.ObservableCalculations.Common
 		{
 			if (!_consistent)
 				throw new ObservableCalculationsException(
-					"The source collection has been changed. It is not possible to process this change, as the processing of the previous change is not completed. Make the change after Consistent property becomes true");
+					"The source collection has been changed. It is not possible to process this change, as the processing of the previous change is not completed. Make the change on ConsistencyRestored event raising (after Consistent property becomes true). This exception is fatal and cannot be handled as the inner state is damaged.");
 		}
 	}
 

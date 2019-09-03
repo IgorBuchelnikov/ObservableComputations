@@ -80,7 +80,6 @@ namespace IBCode.ObservableCalculations.Test
 		{
 			if (_mode) return new ObservableCollection<Item>(new []{_item1, _item2, _item3, _item4, _item5});
 			else  return new ObservableCollection<Item>(new []{_item3, _item4, _item5, _item6, _item7});
-			_mode = !_mode;
 		}
 
 		public ObservableCollection<ObservableCollection<Item>> getCollectionsOfItems()

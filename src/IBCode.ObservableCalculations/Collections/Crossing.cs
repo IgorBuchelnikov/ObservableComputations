@@ -270,6 +270,7 @@ namespace IBCode.ObservableCalculations
 			initializeFromSources();
 
 			_consistent = true;
+			raiseConsistencyRestored();
 		}
 
 		private void handleOuterSourceCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
@@ -280,6 +281,7 @@ namespace IBCode.ObservableCalculations
 				_lastProcessedOuterSourceChangeMarker = !_lastProcessedOuterSourceChangeMarker;
 
 				checkConsistent();
+				_consistent = false;
 
 				int newIndex;
 				int oldIndex;
@@ -289,7 +291,7 @@ namespace IBCode.ObservableCalculations
 						if (e.NewItems.Count > 1) throw new ObservableCalculationsException("Adding of multiple items is not supported");
 						newIndex = e.NewStartingIndex;
 						TOuterSourceItem sourceOuterItem = _outerSourceAsList[newIndex];
-						_consistent = false;
+
 
 						int count = _innerSourceAsList.Count;
 						int baseIndex = newIndex * count;
@@ -302,14 +304,10 @@ namespace IBCode.ObservableCalculations
 
 							baseInsertItem(baseIndex + innerSourceIndex, joinPair);												
 						}
-
-						_consistent = true;
 						break;
 					case NotifyCollectionChangedAction.Remove:
 						if (e.OldItems.Count > 1) throw new ObservableCalculationsException("Removing of multiple items is not supported");
 						oldIndex = e.OldStartingIndex;
-		
-						_consistent = false;
 
 						int count1 = _innerSourceAsList.Count;
 						int baseIndex1 = oldIndex * count1;
@@ -317,16 +315,11 @@ namespace IBCode.ObservableCalculations
 						{
 							baseRemoveItem(baseIndex1 + innerSourceIndex);												
 						}
-
-						_consistent = true;
-
 						break;
 					case NotifyCollectionChangedAction.Replace:
 						if (e.NewItems.Count > 1) throw new ObservableCalculationsException("Replacing of multiple items is not supported");
 						newIndex = e.NewStartingIndex;
 						TOuterSourceItem sourceItem3 = _outerSourceAsList[newIndex];
-		
-						_consistent = false;
 
 						int count2 = _innerSourceAsList.Count;
 						int baseIndex2 = newIndex * count2;
@@ -334,15 +327,11 @@ namespace IBCode.ObservableCalculations
 						{
 							this[baseIndex2 + innerSourceIndex].setOuterItem(sourceItem3);											
 						}
-
-						_consistent = true;
 						break;
 					case NotifyCollectionChangedAction.Move:
 						newIndex = e.NewStartingIndex;
 						oldIndex = e.OldStartingIndex;
 						if (newIndex == oldIndex) return;
-		
-						_consistent = false;
 
 						int count3 = _innerSourceAsList.Count;
 						int oldResultIndex = oldIndex * count3;
@@ -361,17 +350,14 @@ namespace IBCode.ObservableCalculations
 								baseMoveItem(oldResultIndex + index, newBaseIndex + index);
 							}						
 						}
-
-						_consistent = true;
 						break;
 					case NotifyCollectionChangedAction.Reset:
-						_consistent = false;
-
 						initializeFromSources();
-
-						_consistent = true;
 						break;
 				}
+
+				_consistent = true;
+				raiseConsistencyRestored();
 			}
 		}
 
@@ -383,6 +369,7 @@ namespace IBCode.ObservableCalculations
 				_lastProcessedInnerSourceChangeMarker = !_lastProcessedInnerSourceChangeMarker;
 
 				checkConsistent();
+				_consistent = false;
 
 				int newIndex;
 				int oldIndex;
@@ -393,8 +380,6 @@ namespace IBCode.ObservableCalculations
 						newIndex = e.NewStartingIndex;
 						TInnerSourceItem sourceInnerItem = _innerSourceAsList[newIndex];
 		
-						_consistent = false;
-
 						int index1 = newIndex;
 						int outerSourceCount1 = _outerSourceAsList.Count;
 						int innerSourceCount1 = _innerSourceAsList.Count;
@@ -408,12 +393,8 @@ namespace IBCode.ObservableCalculations
 						
 							index1 = index1 + innerSourceCount1;
 						}
-
-						_consistent = true;
 						break;
 					case NotifyCollectionChangedAction.Remove:
-						_consistent = false;
-
 						if (e.OldItems.Count > 1) throw new ObservableCalculationsException("Removing of multiple items is not supported");
 						oldIndex = e.OldStartingIndex;
 						int outerSourceCount3 = _outerSourceAsList.Count;
@@ -425,12 +406,8 @@ namespace IBCode.ObservableCalculations
 
 							baseIndex = baseIndex - oldInnerSourceCount;
 						}	
-
-						_consistent = true;
 						break;
 					case NotifyCollectionChangedAction.Replace:
-						_consistent = false;
-
 						if (e.NewItems.Count > 1) throw new ObservableCalculationsException("Replacing of multiple items is not supported");
 						newIndex = e.NewStartingIndex;
 						TInnerSourceItem sourceItem3 = _innerSourceAsList[newIndex];	
@@ -443,12 +420,8 @@ namespace IBCode.ObservableCalculations
 							this[index2].setInnerItem(sourceItem3);
 							index2 = index2 + innerSourceCount2;
 						}
-
-						_consistent = true;
 						break;
 					case NotifyCollectionChangedAction.Move:
-						_consistent = false;
-
 						newIndex = e.NewStartingIndex;
 						oldIndex = e.OldStartingIndex;
 
@@ -461,17 +434,14 @@ namespace IBCode.ObservableCalculations
 							baseMoveItem(index + oldIndex, index + newIndex);
 							index = index + innerSourceCount;
 						}
-
-						_consistent = true;
 						break;
 					case NotifyCollectionChangedAction.Reset:
-						_consistent = false;
-
 						initializeFromSources();
-
-						_consistent = true;
 						break;
 				}
+
+				_consistent = true;
+				raiseConsistencyRestored();
 			}
 		}
 

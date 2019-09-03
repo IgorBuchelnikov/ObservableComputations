@@ -414,8 +414,7 @@ namespace IBCode.ObservableCalculations
 					? _keyPositions.TryGetValue(key, out List<Position> positions)
 						? positions
 						: null
-					: _nullKeyPositions;
-				   
+					: _nullKeyPositions;	   
 		}
 
 		private void handleOuterSourceScalarValueChanged(object sender, PropertyChangedEventArgs e)
@@ -427,10 +426,14 @@ namespace IBCode.ObservableCalculations
 			initializeFromOuterSource();
 
 			_consistent = true;
+			raiseConsistencyRestored();
 		}
 
 		private void handleGroupingCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
 		{
+			checkConsistent();
+			_consistent = false;
+
 			switch (e.Action)
 			{
 				case NotifyCollectionChangedAction.Add:
@@ -467,6 +470,9 @@ namespace IBCode.ObservableCalculations
 					initializeFromOuterSource();
 					break;
 			}
+
+			_consistent = true;
+			raiseConsistencyRestored();
 		}
 
 		//private void processGrouping()
@@ -480,6 +486,8 @@ namespace IBCode.ObservableCalculations
 		private void handleOuterSourceCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
 		{
 			checkConsistent();
+			_consistent = false;
+
 			if (!_outerRootSourceWrapper && _lastProcessedSourceChangeMarker == _outerSourceAsList.ChangeMarker) return;
 			_lastProcessedSourceChangeMarker = !_lastProcessedSourceChangeMarker;
 
@@ -532,11 +540,11 @@ namespace IBCode.ObservableCalculations
 					baseMoveItem(oldStartingIndex2, newStartingIndex2);
 					break;
 				case NotifyCollectionChangedAction.Reset:
-					_consistent = false;
+
 
 					initializeFromOuterSource();
 
-					_consistent = true;
+
 					break;
 			}	
 			
@@ -547,6 +555,9 @@ namespace IBCode.ObservableCalculations
 					if (!expressionWatcher._disposed)
 						processExpressionWatcherValueChanged(expressionWatcher);
 				} 
+
+			_consistent = true;
+			raiseConsistencyRestored();
 		}
 
 		private void expressionWatcher_OnValueChanged(ExpressionWatcher expressionWatcher)
@@ -555,7 +566,10 @@ namespace IBCode.ObservableCalculations
 
 			if (_outerRootSourceWrapper || _outerSourceAsList.ChangeMarker == _lastProcessedSourceChangeMarker)
 			{
+				_consistent = false;
 				processExpressionWatcherValueChanged(expressionWatcher);
+				_consistent = true;
+				raiseConsistencyRestored();
 			}
 			else
 			{
@@ -833,14 +847,11 @@ namespace IBCode.ObservableCalculations
 
 		internal void setGroup(Group<TInnerSourceItem, TKey> group)
 		{
-
 			_group?._copies.Remove(this);
 			_group = group;
 
-			ClearItems();
+			clearItems();
 			initializeFromGroup();
-
-
 		}
 
 		private void initializeFromGroup()
@@ -851,7 +862,7 @@ namespace IBCode.ObservableCalculations
 				for (int index = 0; index < count; index++)
 				{
 					TInnerSourceItem innerSourceItem = _group[index];
-					InsertItem(index, innerSourceItem);
+					insertItem(index, innerSourceItem);
 				}
 
 				if (_group._copies == null) _group._copies = new List<CollectionCalculatingChild<TInnerSourceItem>>();

@@ -205,7 +205,7 @@ namespace IBCode.ObservableCalculations
 			for (int index = 0; index < count; index++)
 			{
 				TSourceItem sourceItem = _sourceAsList[index];
-				_value = _aggregateFunc(sourceItem, _value);
+				value = _aggregateFunc(sourceItem, value);
 				_sourceItems.Add(sourceItem);
 			}
 			setValue(value);

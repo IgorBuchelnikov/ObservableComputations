@@ -4,7 +4,6 @@ using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Linq.Expressions;
-using INotifyPropertyChanged = System.ComponentModel.INotifyPropertyChanged;
 using IBCode.ObservableCalculations.Common;
 using IBCode.ObservableCalculations.Common.Base;
 using IBCode.ObservableCalculations.Common.Interface;
@@ -12,7 +11,7 @@ using IBCode.ObservableCalculations.Common.Interface;
 namespace IBCode.ObservableCalculations
 {
 	// ReSharper disable once RedundantExtendsListEntry
-	public class Hashing<TSourceItem, TKey> : HashSet<TKey>, INotifyPropertyChanged, IConsistent, IHasSources
+	public class Hashing<TSourceItem, TKey> : HashSet<TKey>, IHasSources
 	{
 		// ReSharper disable once MemberCanBePrivate.Global
 		public IReadScalar<INotifyCollectionChanged> SourceScalar => _sourceScalar;
@@ -25,8 +24,6 @@ namespace IBCode.ObservableCalculations
 
 		// ReSharper disable once MemberCanBePrivate.Global
 		public INotifyCollectionChanged Source => _source;
-
-		public bool Consistent => _consistent;
 
 		public string InstantiatingStackTrace => _instantiatingStackTrace;
 
@@ -57,7 +54,6 @@ namespace IBCode.ObservableCalculations
 		private readonly Expression<Func<TSourceItem, TKey>> _keySelectorExpressionOriginal;
 		private readonly Func<TSourceItem, TKey> _keySelectorFunc;
 		private INotifyCollectionChanged _source;
-		private bool _consistent = true;
 		private readonly string _instantiatingStackTrace;
 
 		private sealed class ItemInfo : Position
@@ -79,13 +75,10 @@ namespace IBCode.ObservableCalculations
 			_itemInfos = new List<ItemInfo>(sourceCapacity);
 			_sourcePositions = new Positions<ItemInfo>(_itemInfos);
 
-
 			if (Configuration.SaveInstantiatingStackTrace)
 			{
 				_instantiatingStackTrace = Environment.StackTrace;
 			}
-
-
 
 			_keySelectorExpressionOriginal = keySelectorExpression;
 			CallToConstantConverter callToConstantConverter = new CallToConstantConverter(_keySelectorExpressionOriginal.Parameters);
@@ -125,22 +118,14 @@ namespace IBCode.ObservableCalculations
 			initializeFromSource();
 		}
 
-		public event PropertyChangedEventHandler PropertyChanged;
-
-
 		private void handleSourceScalarValueChanged(object sender,  PropertyChangedEventArgs e)
 		{
 			if (e.PropertyName != nameof(IReadScalar<INotifyCollectionChanged>.Value)) return;
-			_consistent = false;
-			PropertyChanged?.Invoke(this, Utils.ConsistentPropertyChangedEventArgs);
 			initializeFromSource();
-			_consistent = true;
-			PropertyChanged?.Invoke(this, Utils.ConsistentPropertyChangedEventArgs);
 		}
 
 		private void keyExpressionWatcher_OnValueChanged(ExpressionWatcher expressionWatcher)
 		{
-			checkConsistent();
 			if (_rootSourceWrapper || _sourceAsList.ChangeMarker == _lastProcessedSourceChangeMarker)
 			{
 				processKeyExpressionWatcherValueChanged(expressionWatcher);
@@ -153,7 +138,6 @@ namespace IBCode.ObservableCalculations
 
 		private void handleSourceCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
 		{
-			checkConsistent();
 			if (!_rootSourceWrapper && _lastProcessedSourceChangeMarker == _sourceAsList.ChangeMarker) return;
 			_lastProcessedSourceChangeMarker = !_lastProcessedSourceChangeMarker;
 
@@ -184,12 +168,8 @@ namespace IBCode.ObservableCalculations
 
 					if (!Comparer.Equals(oldKey, newKey))
 					{
-						_consistent = false;
-						PropertyChanged?.Invoke(this, Utils.ConsistentPropertyChangedEventArgs);
 						baseRemoveItem(oldKey);
 						baseAddItem(newKey);
-						_consistent = true;
-						PropertyChanged?.Invoke(this, Utils.ConsistentPropertyChangedEventArgs);
 					}		
 					break;
 				case NotifyCollectionChangedAction.Move:
@@ -199,11 +179,7 @@ namespace IBCode.ObservableCalculations
 					_sourcePositions.Move(oldStartingIndex2, newStartingIndex2);
 					break;
 				case NotifyCollectionChangedAction.Reset:
-					_consistent = false;
-					PropertyChanged?.Invoke(this, Utils.ConsistentPropertyChangedEventArgs);
 					initializeFromSource();
-					_consistent = true;
-					PropertyChanged?.Invoke(this, Utils.ConsistentPropertyChangedEventArgs);
 					break;
 			}
 			
@@ -287,13 +263,6 @@ namespace IBCode.ObservableCalculations
 					_sourceAsList.CollectionChanged += _sourceWeakNotifyCollectionChangedEventHandler.Handle;
 				}
 			}
-		}
-
-		private void checkConsistent()
-		{
-			if (!_consistent)
-				throw new ObservableCalculationsException(
-					"Невозможно обработать измение в коллекции-источнике, так Hashing ещё не закончил обработку предыдущих измений. Сделайте изменения после того как Consistent станет = true");
 		}
 
 		private ItemInfo registerSourceItem(TSourceItem sourceItem, int index, ItemInfo itemInfo = null)
@@ -382,11 +351,6 @@ namespace IBCode.ObservableCalculations
 		private void baseRemoveItem(TKey key)
 		{
 			Remove(key);
-		}
-
-		protected void raisePropertyChanged(string propertyName)
-		{
-			PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
 		}
 
 		~Hashing()

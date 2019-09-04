@@ -586,8 +586,10 @@ namespace IBCode.ObservableCalculations
 				case NotifyCollectionChangedAction.Move:
 					int oldStartingIndex = e.OldStartingIndex;
 					int newStartingIndex = e.NewStartingIndex;
-					if (oldStartingIndex == newStartingIndex) return;
-					_sourcePositions.Move(oldStartingIndex, newStartingIndex);
+					if (oldStartingIndex != newStartingIndex)
+					{
+						_sourcePositions.Move(oldStartingIndex, newStartingIndex);
+					}
 					break;
 				case NotifyCollectionChangedAction.Reset:
 					initializeFromSource();

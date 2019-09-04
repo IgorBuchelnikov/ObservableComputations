@@ -275,7 +275,7 @@ namespace IBCode.ObservableCalculations
 
 		private void handleOuterSourceCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
 		{
-			if (_outerSourceIndexerPropertyChangedEventRaised || _lastProcessedOuterSourceChangeMarker != _outerSourceAsObservableCollectionWithChangeMarker.ChangeMarker)
+			if (_outerSourceIndexerPropertyChangedEventRaised || _outerSourceAsObservableCollectionWithChangeMarker != null && _lastProcessedOuterSourceChangeMarker != _outerSourceAsObservableCollectionWithChangeMarker.ChangeMarker)
 			{
 				_outerSourceIndexerPropertyChangedEventRaised = false;
 				_lastProcessedOuterSourceChangeMarker = !_lastProcessedOuterSourceChangeMarker;
@@ -331,25 +331,27 @@ namespace IBCode.ObservableCalculations
 					case NotifyCollectionChangedAction.Move:
 						newIndex = e.NewStartingIndex;
 						oldIndex = e.OldStartingIndex;
-						if (newIndex == oldIndex) return;
+						if (newIndex != oldIndex)
+						{
+							int count3 = _innerSourceAsList.Count;
+							int oldResultIndex = oldIndex * count3;
+							int newBaseIndex = newIndex * count3;
+							if (oldIndex < newIndex)
+							{
+								for (int index = 0; index < count3; index++)
+								{
+									baseMoveItem(oldResultIndex, newBaseIndex + count3 - 1);
+								}						
+							}
+							else
+							{
+								for (int index = 0; index < count3; index++)
+								{
+									baseMoveItem(oldResultIndex + index, newBaseIndex + index);
+								}						
+							}
+						}
 
-						int count3 = _innerSourceAsList.Count;
-						int oldResultIndex = oldIndex * count3;
-						int newBaseIndex = newIndex * count3;
-						if (oldIndex < newIndex)
-						{
-							for (int index = 0; index < count3; index++)
-							{
-								baseMoveItem(oldResultIndex, newBaseIndex + count3 - 1);
-							}						
-						}
-						else
-						{
-							for (int index = 0; index < count3; index++)
-							{
-								baseMoveItem(oldResultIndex + index, newBaseIndex + index);
-							}						
-						}
 						break;
 					case NotifyCollectionChangedAction.Reset:
 						initializeFromSources();

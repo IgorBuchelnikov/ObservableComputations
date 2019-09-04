@@ -167,6 +167,19 @@ namespace IBCode.ObservableCalculations.Test
 			test(orderNums1, orderNums2, orderNums3, ListSortDirection.Ascending, ListSortDirection.Ascending);
 		}
 
+		[Test]
+		public void ThenOrderingThenOrderingOrdering1_Test()
+		{
+			int[] orderNums1 = {4,4,0,4,2};
+			int[] orderNums2 = {-1,-1,4,3,4};
+			int[] orderNums3 = {4,-1,-1,2,-1};
+
+			ObservableCollection<Item> items = getObservableCollection(orderNums1, orderNums2, orderNums3);
+			ThenOrdering<Item, int?> ordering3 = items.Ordering(i => i.OrderNum, ListSortDirection.Ascending).ThenOrdering(i => i.OrderNum2, ListSortDirection.Ascending).ThenOrdering(i => i.OrderNum3, ListSortDirection.Ascending);
+			items[3] = new Item(null, null);
+			ordering3.ValidateConsistency();
+		}
+
 		[Test, Combinatorial]
 		public void ThenOrderingOrdering_Commulative(
 			[Values(ListSortDirection.Ascending, ListSortDirection.Descending)] ListSortDirection listSortDirection)

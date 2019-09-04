@@ -191,11 +191,11 @@ namespace IBCode.ObservableCalculations
 
 		private void handleSourceCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
 		{
-			checkConsistent();
-			_consistent = false;
-
 			if (!_rootSourceWrapper && _lastProcessedSourceChangeMarker == _sourceAsList.ChangeMarker) return;
 			_lastProcessedSourceChangeMarker = !_lastProcessedSourceChangeMarker;
+
+			checkConsistent();
+			_consistent = false;
 
 			ItemInfo itemInfo;
 			switch (e.Action)
@@ -222,17 +222,14 @@ namespace IBCode.ObservableCalculations
 				case NotifyCollectionChangedAction.Move:
 					int oldStartingIndex2 = e.OldStartingIndex;
 					int newStartingIndex2 = e.NewStartingIndex;
-					if (e.OldStartingIndex == newStartingIndex2)
-						return;
-					_sourcePositions.Move(oldStartingIndex2, newStartingIndex2);
-					baseMoveItem(oldStartingIndex2, newStartingIndex2);
+					if (e.OldStartingIndex != newStartingIndex2)
+					{
+						_sourcePositions.Move(oldStartingIndex2, newStartingIndex2);
+						baseMoveItem(oldStartingIndex2, newStartingIndex2);
+					}
 					break;
 				case NotifyCollectionChangedAction.Reset:
-
-
 					initializeFromSource();
-
-
 					break;
 			}
 

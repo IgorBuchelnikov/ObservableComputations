@@ -485,11 +485,11 @@ namespace IBCode.ObservableCalculations
 
 		private void handleOuterSourceCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
 		{
-			checkConsistent();
-			_consistent = false;
-
 			if (!_outerRootSourceWrapper && _lastProcessedSourceChangeMarker == _outerSourceAsList.ChangeMarker) return;
 			_lastProcessedSourceChangeMarker = !_lastProcessedSourceChangeMarker;
+
+			checkConsistent();
+			_consistent = false;
 
 			switch (e.Action)
 			{
@@ -535,9 +535,12 @@ namespace IBCode.ObservableCalculations
 				case NotifyCollectionChangedAction.Move:
 					int oldStartingIndex2 = e.OldStartingIndex;
 					int newStartingIndex2 = e.NewStartingIndex;
-					if (e.OldStartingIndex == newStartingIndex2) return;
-					_outerSourceItemPositions.Move(oldStartingIndex2, newStartingIndex2);
-					baseMoveItem(oldStartingIndex2, newStartingIndex2);
+					if (oldStartingIndex2 != newStartingIndex2)
+					{
+						_outerSourceItemPositions.Move(oldStartingIndex2, newStartingIndex2);
+						baseMoveItem(oldStartingIndex2, newStartingIndex2);
+					}
+
 					break;
 				case NotifyCollectionChangedAction.Reset:
 

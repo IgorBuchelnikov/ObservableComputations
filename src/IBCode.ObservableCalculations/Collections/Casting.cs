@@ -155,8 +155,10 @@ namespace IBCode.ObservableCalculations
 					case NotifyCollectionChangedAction.Move:
 						int oldStartingIndex = e.OldStartingIndex;
 						int newStartingIndex = e.NewStartingIndex;
-						if (oldStartingIndex == newStartingIndex) return;
-						baseMoveItem(oldStartingIndex, newStartingIndex);
+						if (oldStartingIndex != newStartingIndex)
+						{
+							baseMoveItem(oldStartingIndex, newStartingIndex);
+						}
 						break;
 					case NotifyCollectionChangedAction.Replace:
 						IList newItems1 = e.NewItems;

@@ -278,7 +278,7 @@ namespace IBCode.ObservableCalculations
 
 		private void handleSourceCollectionChanged(object sender, NotifyCollectionChangedEventArgs e, ItemInfo itemInfo)
 		{
-			if (itemInfo.IndexerPropertyChangedEventRaised || itemInfo.LastProcessedSourceChangeMarker != itemInfo.SourceAsIHasChangeMarker.GetChangeMarker())
+			if (itemInfo.IndexerPropertyChangedEventRaised || itemInfo.SourceAsIHasChangeMarker != null && itemInfo.LastProcessedSourceChangeMarker != itemInfo.SourceAsIHasChangeMarker.GetChangeMarker())
 			{
 				itemInfo.IndexerPropertyChangedEventRaised = false;
 				itemInfo.LastProcessedSourceChangeMarker = !itemInfo.LastProcessedSourceChangeMarker;
@@ -314,9 +314,11 @@ namespace IBCode.ObservableCalculations
 
 						break;
 					case NotifyCollectionChangedAction.Move:
-						if (e.OldStartingIndex == e.NewStartingIndex) return;
-						int rangePositionPlainIndex = itemInfo.PlainIndex;
-						baseMoveItem(rangePositionPlainIndex + e.OldStartingIndex, rangePositionPlainIndex + e.NewStartingIndex);
+						if (e.OldStartingIndex != e.NewStartingIndex)
+						{
+							int rangePositionPlainIndex = itemInfo.PlainIndex;
+							baseMoveItem(rangePositionPlainIndex + e.OldStartingIndex, rangePositionPlainIndex + e.NewStartingIndex);
+						}
 						break;
 				}
 
@@ -400,36 +402,38 @@ namespace IBCode.ObservableCalculations
 						int oldIndex = e.OldStartingIndex;
 						int newIndex = e.NewStartingIndex;
 
-						if (oldIndex == newIndex) return;
-
-						RangePosition oldRangePosition = _sourceRangePositions.List[e.OldStartingIndex];
-						RangePosition newRangePosition = _sourceRangePositions.List[e.NewStartingIndex];
-						int oldPlainIndex = oldRangePosition.PlainIndex;
-						int newPlainIndex = newRangePosition.PlainIndex;
-
-						if (oldPlainIndex != newPlainIndex)
+						if (oldIndex != newIndex)
 						{
-							IList movingItem = (IList) e.OldItems[0];
+							RangePosition oldRangePosition = _sourceRangePositions.List[e.OldStartingIndex];
+							RangePosition newRangePosition = _sourceRangePositions.List[e.NewStartingIndex];
+							int oldPlainIndex = oldRangePosition.PlainIndex;
+							int newPlainIndex = newRangePosition.PlainIndex;
 
-							count = movingItem?.Count ?? 0;
+							if (oldPlainIndex != newPlainIndex)
+							{
+								IList movingItem = (IList) e.OldItems[0];
 
-							if (oldIndex < newIndex)
-							{
-								int newRangePositionLength = newRangePosition.Length;
-								for (int index = 0; index < count; index++)
+								count = movingItem?.Count ?? 0;
+
+								if (oldIndex < newIndex)
 								{
-									baseMoveItem(oldPlainIndex, newPlainIndex + newRangePositionLength - 1);
-								}						
-							}
-							else
-							{
-								for (int index = 0; index < count; index++)
+									int newRangePositionLength = newRangePosition.Length;
+									for (int index = 0; index < count; index++)
+									{
+										baseMoveItem(oldPlainIndex, newPlainIndex + newRangePositionLength - 1);
+									}						
+								}
+								else
 								{
-									baseMoveItem(oldPlainIndex + index, newPlainIndex + index);
-								}						
+									for (int index = 0; index < count; index++)
+									{
+										baseMoveItem(oldPlainIndex + index, newPlainIndex + index);
+									}						
+								}
 							}
+							_sourceRangePositions.Move(oldRangePosition.Index, newRangePosition.Index);
 						}
-						_sourceRangePositions.Move(oldRangePosition.Index, newRangePosition.Index);
+
 						break;
 					case NotifyCollectionChangedAction.Reset:
 						initializeFromSources();

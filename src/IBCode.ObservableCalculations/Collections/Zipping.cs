@@ -332,7 +332,7 @@ namespace IBCode.ObservableCalculations
 
 		private void handleLeftSourceCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
 		{
-			if (_leftSourceIndexerPropertyChangedEventRaised || _lastProcessedLeftSourceChangeMarker != _leftSourceAsObservableCollectionWithChangeMarker.ChangeMarker)
+			if (_leftSourceIndexerPropertyChangedEventRaised || _leftSourceAsObservableCollectionWithChangeMarker != null && _lastProcessedLeftSourceChangeMarker != _leftSourceAsObservableCollectionWithChangeMarker.ChangeMarker)
 			{
 				_leftSourceIndexerPropertyChangedEventRaised = false;
 				_lastProcessedLeftSourceChangeMarker = !_lastProcessedLeftSourceChangeMarker;
@@ -417,30 +417,32 @@ namespace IBCode.ObservableCalculations
 					case NotifyCollectionChangedAction.Move:
 						newIndex = e.NewStartingIndex;
 						oldIndex = e.OldStartingIndex;
-						if (newIndex == oldIndex) return;
-
-						int lowerIndex;
-						int upperIndex;
-						int count = Count;
-						if (newIndex < oldIndex)
+						if (newIndex != oldIndex)
 						{
-							lowerIndex = newIndex;
-
-							upperIndex = oldIndex >= count ? count - 1 : oldIndex; 
-						}
-						else
-						{
-							lowerIndex = oldIndex;
-							upperIndex = newIndex >= count ? count - 1 : newIndex; 						
-						}
-
-						for (int sourceIndex = lowerIndex; sourceIndex <= upperIndex; sourceIndex++)
-						{
-							if (sourceIndex < count)
+							int lowerIndex;
+							int upperIndex;
+							int count = Count;
+							if (newIndex < oldIndex)
 							{
-								this[sourceIndex].setItemLeft(_leftSourceAsList[sourceIndex]);
-							}					
+								lowerIndex = newIndex;
+
+								upperIndex = oldIndex >= count ? count - 1 : oldIndex; 
+							}
+							else
+							{
+								lowerIndex = oldIndex;
+								upperIndex = newIndex >= count ? count - 1 : newIndex; 						
+							}
+
+							for (int sourceIndex = lowerIndex; sourceIndex <= upperIndex; sourceIndex++)
+							{
+								if (sourceIndex < count)
+								{
+									this[sourceIndex].setItemLeft(_leftSourceAsList[sourceIndex]);
+								}					
+							}
 						}
+
 						break;
 					case NotifyCollectionChangedAction.Reset:
 						initializeFromSources();
@@ -454,7 +456,7 @@ namespace IBCode.ObservableCalculations
 
 		private void handleRightSourceCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
 		{
-			if (_rigthtSourceIndexerPropertyChangedEventRaised || _lastProcessedRightSourceChangeMarker != _rightSourceAsObservableCollectionWithChangeMarker.ChangeMarker)
+			if (_rigthtSourceIndexerPropertyChangedEventRaised || _rightSourceAsObservableCollectionWithChangeMarker != null && _lastProcessedRightSourceChangeMarker != _rightSourceAsObservableCollectionWithChangeMarker.ChangeMarker)
 			{
 				_rigthtSourceIndexerPropertyChangedEventRaised = false;
 				_lastProcessedRightSourceChangeMarker = !_lastProcessedRightSourceChangeMarker;

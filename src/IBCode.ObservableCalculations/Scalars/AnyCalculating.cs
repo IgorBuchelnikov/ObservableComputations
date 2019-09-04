@@ -150,9 +150,11 @@ namespace IBCode.ObservableCalculations
 					int newSourceIndex1 = e.NewStartingIndex;
 					int oldSourceIndex = e.OldStartingIndex;
 
-					if (newSourceIndex1 == oldSourceIndex) return;
+					if (newSourceIndex1 != oldSourceIndex)
+					{
+						_sourcePositions.Move(oldSourceIndex, newSourceIndex1);
+					}
 
-					_sourcePositions.Move(oldSourceIndex, newSourceIndex1);
 					break;
 				case NotifyCollectionChangedAction.Reset:
 					initializeFromSource();

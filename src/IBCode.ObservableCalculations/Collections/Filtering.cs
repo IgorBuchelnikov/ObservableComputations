@@ -314,11 +314,11 @@ namespace IBCode.ObservableCalculations
 
 		private void handleSourceCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
 		{		
-			checkConsistent();
-			_consistent = false;
-
 			if (!_rootSourceWrapper && _lastProcessedSourceChangeMarker == _sourceAsList.ChangeMarker) return;
 			_lastProcessedSourceChangeMarker = !_lastProcessedSourceChangeMarker;
+
+			checkConsistent();
+			_consistent = false;
 
 			switch (e.Action)
 			{
@@ -390,65 +390,66 @@ namespace IBCode.ObservableCalculations
 					int newSourceIndex1 = e.NewStartingIndex;
 					int oldSourceIndex = e.OldStartingIndex;
 
-					if (newSourceIndex1 == oldSourceIndex) return;
-
-					ItemInfo itemInfoOfOldSourceIndex = _itemInfos[oldSourceIndex];
-					ItemInfo itemInfoOfNewSourceIndex = _itemInfos[newSourceIndex1];
-
-					Position newPosition1;
-					Position nextPosition1;
-
-					Position itemInfoOfOldSourceIndexFilteredPosition = itemInfoOfOldSourceIndex.FilteredPosition;
-					Position itemInfoOfNewSourceIndexNextFilteredItemPosition = itemInfoOfNewSourceIndex.NextFilteredItemPosition;
-					Position itemInfoOfNewSourceIndexFilteredPosition = itemInfoOfNewSourceIndex.FilteredPosition;
-					if (itemInfoOfOldSourceIndexFilteredPosition != null)
+					if (newSourceIndex1 != oldSourceIndex)
 					{
-						int oldFilteredIndex = itemInfoOfOldSourceIndexFilteredPosition.Index;
-						int newFilteredIndex1;
+						ItemInfo itemInfoOfOldSourceIndex = _itemInfos[oldSourceIndex];
+						ItemInfo itemInfoOfNewSourceIndex = _itemInfos[newSourceIndex1];
 
-						newPosition1 = itemInfoOfOldSourceIndexFilteredPosition;
-						if (itemInfoOfNewSourceIndexFilteredPosition == null)
+						Position newPosition1;
+						Position nextPosition1;
+
+						Position itemInfoOfOldSourceIndexFilteredPosition = itemInfoOfOldSourceIndex.FilteredPosition;
+						Position itemInfoOfNewSourceIndexNextFilteredItemPosition = itemInfoOfNewSourceIndex.NextFilteredItemPosition;
+						Position itemInfoOfNewSourceIndexFilteredPosition = itemInfoOfNewSourceIndex.FilteredPosition;
+						if (itemInfoOfOldSourceIndexFilteredPosition != null)
 						{
-							//nextPositionIndex = itemInfoOfNewSourceIndex.NextFilteredItemIndex;
-							nextPosition1 =
-								itemInfoOfNewSourceIndexNextFilteredItemPosition != itemInfoOfOldSourceIndexFilteredPosition
-									? itemInfoOfNewSourceIndexNextFilteredItemPosition
-									: itemInfoOfOldSourceIndex.NextFilteredItemPosition;
-							newFilteredIndex1 =  oldSourceIndex < newSourceIndex1 ? 
-								itemInfoOfNewSourceIndexNextFilteredItemPosition.Index - 1 : 
-								itemInfoOfNewSourceIndexNextFilteredItemPosition.Index;			
+							int oldFilteredIndex = itemInfoOfOldSourceIndexFilteredPosition.Index;
+							int newFilteredIndex1;
+
+							newPosition1 = itemInfoOfOldSourceIndexFilteredPosition;
+							if (itemInfoOfNewSourceIndexFilteredPosition == null)
+							{
+								//nextPositionIndex = itemInfoOfNewSourceIndex.NextFilteredItemIndex;
+								nextPosition1 =
+									itemInfoOfNewSourceIndexNextFilteredItemPosition != itemInfoOfOldSourceIndexFilteredPosition
+										? itemInfoOfNewSourceIndexNextFilteredItemPosition
+										: itemInfoOfOldSourceIndex.NextFilteredItemPosition;
+								newFilteredIndex1 =  oldSourceIndex < newSourceIndex1 ? 
+									itemInfoOfNewSourceIndexNextFilteredItemPosition.Index - 1 : 
+									itemInfoOfNewSourceIndexNextFilteredItemPosition.Index;			
+							}
+							else
+							{
+								nextPosition1 = oldSourceIndex < newSourceIndex1 ? 
+									itemInfoOfNewSourceIndexNextFilteredItemPosition : 
+									itemInfoOfNewSourceIndexFilteredPosition;
+								newFilteredIndex1 = itemInfoOfNewSourceIndexFilteredPosition.Index;
+							}
+
+							_filteredPositions.Move(
+								oldFilteredIndex, 
+								newFilteredIndex1);
+
+							modifyNextFilteredItemIndex(oldSourceIndex, itemInfoOfOldSourceIndex.NextFilteredItemPosition);
+
+							_sourcePositions.Move(oldSourceIndex, newSourceIndex1);
+
+							itemInfoOfOldSourceIndex.NextFilteredItemPosition = nextPosition1;
+
+							modifyNextFilteredItemIndex(newSourceIndex1, newPosition1);
+				
+							baseMoveItem(oldFilteredIndex, newFilteredIndex1);				
 						}
 						else
 						{
-							nextPosition1 = oldSourceIndex < newSourceIndex1 ? 
-								itemInfoOfNewSourceIndexNextFilteredItemPosition : 
-								itemInfoOfNewSourceIndexFilteredPosition;
-							newFilteredIndex1 = itemInfoOfNewSourceIndexFilteredPosition.Index;
+							nextPosition1 = oldSourceIndex < newSourceIndex1
+								? itemInfoOfNewSourceIndexNextFilteredItemPosition
+								: (itemInfoOfNewSourceIndexFilteredPosition ?? itemInfoOfNewSourceIndexNextFilteredItemPosition);
+
+							itemInfoOfOldSourceIndex.NextFilteredItemPosition = nextPosition1;
+							
+							_sourcePositions.Move(oldSourceIndex, newSourceIndex1);
 						}
-
-						_filteredPositions.Move(
-							oldFilteredIndex, 
-							newFilteredIndex1);
-
-						modifyNextFilteredItemIndex(oldSourceIndex, itemInfoOfOldSourceIndex.NextFilteredItemPosition);
-
-						_sourcePositions.Move(oldSourceIndex, newSourceIndex1);
-
-						itemInfoOfOldSourceIndex.NextFilteredItemPosition = nextPosition1;
-
-						modifyNextFilteredItemIndex(newSourceIndex1, newPosition1);
-			
-						baseMoveItem(oldFilteredIndex, newFilteredIndex1);				
-					}
-					else
-					{
-						nextPosition1 = oldSourceIndex < newSourceIndex1
-							? itemInfoOfNewSourceIndexNextFilteredItemPosition
-							: (itemInfoOfNewSourceIndexFilteredPosition ?? itemInfoOfNewSourceIndexNextFilteredItemPosition);
-
-						itemInfoOfOldSourceIndex.NextFilteredItemPosition = nextPosition1;
-						
-						_sourcePositions.Move(oldSourceIndex, newSourceIndex1);
 					}
 					break;
 				case NotifyCollectionChangedAction.Reset:

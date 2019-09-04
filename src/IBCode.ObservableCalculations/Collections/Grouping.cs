@@ -285,11 +285,11 @@ namespace IBCode.ObservableCalculations
 
 		private void handleSourceCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
 		{
-			checkConsistent();
-			_consistent = false;
-
 			if (!_rootSourceWrapper && _lastProcessedSourceChangeMarker == _sourceAsList.ChangeMarker) return;
 			_lastProcessedSourceChangeMarker = !_lastProcessedSourceChangeMarker;
+
+			checkConsistent();
+			_consistent = false;
 
 			switch (e.Action)
 			{
@@ -336,80 +336,82 @@ namespace IBCode.ObservableCalculations
 				case NotifyCollectionChangedAction.Move:
 					int oldStartingIndex = e.OldStartingIndex;
 					int newStartingIndex = e.NewStartingIndex;
-					if (oldStartingIndex == newStartingIndex) return;
-							
-					ItemInfo itemInfo = _itemInfos[oldStartingIndex];
-
-					Group<TSourceItem, TKey> group1;
-
-					group1 = itemInfo.Key != null 
-						? _groupDictionary[itemInfo.Key] 
-						: _nullGroup;
-
-					int oldIndex = findIndexInGroup(oldStartingIndex, group1);
-					_sourcePositions.Move(oldStartingIndex, newStartingIndex);
-
-					int? newIndex = null;
-
-					if (group1.Count > 1)
+					if (oldStartingIndex != newStartingIndex)
 					{
-						List<Position> group1SourcePositions = group1._sourcePositions;
-						int sourcePositionsCount = group1SourcePositions.Count;
-						if (oldIndex == 0)
+						ItemInfo itemInfo = _itemInfos[oldStartingIndex];
+
+						Group<TSourceItem, TKey> group1;
+
+						group1 = itemInfo.Key != null 
+							? _groupDictionary[itemInfo.Key] 
+							: _nullGroup;
+
+						int oldIndex = findIndexInGroup(oldStartingIndex, group1);
+						_sourcePositions.Move(oldStartingIndex, newStartingIndex);
+
+						int? newIndex = null;
+
+						if (group1.Count > 1)
 						{
-							if (group1SourcePositions[0].Index <= newStartingIndex)
+							List<Position> group1SourcePositions = group1._sourcePositions;
+							int sourcePositionsCount = group1SourcePositions.Count;
+							if (oldIndex == 0)
 							{
-								newIndex = findInsertingIndexInGroup(newStartingIndex, group1, 
-									           1, sourcePositionsCount - 1) - 1;
+								if (group1SourcePositions[0].Index <= newStartingIndex)
+								{
+									newIndex = findInsertingIndexInGroup(newStartingIndex, group1, 
+										           1, sourcePositionsCount - 1) - 1;
+								}
+								else
+								{
+									newIndex = 0;
+								}
+							}
+							else if (oldIndex == sourcePositionsCount - 1)
+							{
+								if (group1SourcePositions[oldIndex].Index >= newStartingIndex)
+								{
+									newIndex = findInsertingIndexInGroup(newStartingIndex, group1,
+										0, sourcePositionsCount - 2);
+								}
+								else
+								{
+									newIndex = sourcePositionsCount - 1;
+								}
 							}
 							else
 							{
-								newIndex = 0;
-							}
-						}
-						else if (oldIndex == sourcePositionsCount - 1)
-						{
-							if (group1SourcePositions[oldIndex].Index >= newStartingIndex)
-							{
-								newIndex = findInsertingIndexInGroup(newStartingIndex, group1,
-									0, sourcePositionsCount - 2);
-							}
-							else
-							{
-								newIndex = sourcePositionsCount - 1;
-							}
-						}
-						else
-						{
-							int comparisonsSum = 
-								(newStartingIndex - group1SourcePositions[oldIndex - 1].Index > 0 ? 1 : -1)
-								+ (newStartingIndex - group1SourcePositions[oldIndex + 1].Index >= 0 ? 1 : -1);
+								int comparisonsSum = 
+									(newStartingIndex - group1SourcePositions[oldIndex - 1].Index > 0 ? 1 : -1)
+									+ (newStartingIndex - group1SourcePositions[oldIndex + 1].Index >= 0 ? 1 : -1);
 
-							if (comparisonsSum != 0)
-							{
-								if (comparisonsSum == 2)
+								if (comparisonsSum != 0)
 								{
-									newIndex = findInsertingIndexInGroup(newStartingIndex, group1, 
-										           oldIndex + 1, sourcePositionsCount - 1) - 1;	
-								}
-								else //if (comparisonsSum == -2)
-								{
-									newIndex = findInsertingIndexInGroup(newStartingIndex, group1, 
-										0, oldIndex - 1);								
+									if (comparisonsSum == 2)
+									{
+										newIndex = findInsertingIndexInGroup(newStartingIndex, group1, 
+											           oldIndex + 1, sourcePositionsCount - 1) - 1;	
+									}
+									else //if (comparisonsSum == -2)
+									{
+										newIndex = findInsertingIndexInGroup(newStartingIndex, group1, 
+											0, oldIndex - 1);								
+									}
 								}
 							}
+
+							if (newIndex.HasValue)
+							{
+								Position movingPosition = group1SourcePositions[oldIndex];
+								group1SourcePositions.RemoveAt(oldIndex);
+								group1SourcePositions.Insert(newIndex.Value, movingPosition);
+								group1.baseMoveItem(oldIndex, newIndex.Value);
+							}			
 						}
 
-						if (newIndex.HasValue)
-						{
-							Position movingPosition = group1SourcePositions[oldIndex];
-							group1SourcePositions.RemoveAt(oldIndex);
-							group1SourcePositions.Insert(newIndex.Value, movingPosition);
-							group1.baseMoveItem(oldIndex, newIndex.Value);
-						}			
+						moveGroupToActualIndex(group1);
 					}
-
-					moveGroupToActualIndex(group1);
+							
 					break;
 				case NotifyCollectionChangedAction.Reset:
 					initializeFromSource();

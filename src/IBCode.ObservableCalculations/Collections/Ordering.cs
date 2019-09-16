@@ -473,45 +473,61 @@ namespace IBCode.ObservableCalculations
 			itemInfo.ExpressionWatcher.ValueChanged = expressionWatcher_OnValueChanged;
 			itemInfo.ExpressionWatcher._position = itemInfo;
 			OrderedItemInfo orderedItemInfo = _orderedPositions.Insert(orderedIndex);
-			itemInfo.OrderedItemPosition = orderedItemInfo;
+			itemInfo.OrderedItemInfo = orderedItemInfo;
 			orderedItemInfo.ItemInfo = itemInfo;
 			_orderingValues.Insert(orderedIndex, orderingValue);
 
 			if (_thenOrderinsCount > 0)
 			{
-				bool isIncludedInRange = false;
-
-				void tryIncludeInRange(int orderedIndex1)
-				{
-					OrderedItemInfo previousOrderedItemInfo = _orderedItemInfos[orderedIndex1];
-					if (_comparer.Compare(orderingValue,
-						    getOrderingValue(
-							    previousOrderedItemInfo.ItemInfo,
-							    this[orderedIndex1])) == 0)
-					{
-						RangePosition rangePosition = previousOrderedItemInfo.RangePosition;
-						orderedItemInfo.RangePosition = rangePosition;
-						_equalOrderingValueRangePositions.ModifyLength(rangePosition.Index, 1);
-						isIncludedInRange = true;
-					}
-				}
-
-				if (orderedIndex > 0)
-				{
-					tryIncludeInRange(orderedIndex - 1);
-				}
-
-				if (!isIncludedInRange && orderedIndex < Count - 1)
-				{
-					tryIncludeInRange(orderedIndex + 1);
-				}
+				adjustEqualOrderingValueRangePosition(orderingValue, orderedItemInfo, orderedIndex);
 			}
 			else
 			{
 				_equalOrderingValueRangePositions.List.Clear();
 			}
-			
+			 
 			baseInsertItem(orderedIndex, sourceItem);
+		}
+
+		private void adjustEqualOrderingValueRangePosition(
+			TOrderingValue orderingValue, 
+			OrderedItemInfo orderedItemInfo,
+			int orderedIndex)
+		{
+			bool isIncludedInRange = false;
+
+			void tryIncludeInRange(OrderedItemInfo nearbyOrderedItemInfo)
+			{
+				if (_comparer.Compare(orderingValue,
+					    getOrderingValue(
+						    nearbyOrderedItemInfo.ItemInfo,
+						    this[nearbyOrderedItemInfo.Index])) == 0)
+				{
+					RangePosition rangePosition = nearbyOrderedItemInfo.RangePosition;
+					orderedItemInfo.RangePosition = rangePosition;
+					_equalOrderingValueRangePositions.ModifyLength(rangePosition.Index, 1);
+					isIncludedInRange = true;
+				}
+			}
+
+			OrderedItemInfo previousOrderedItemInfo = null;
+			if (orderedIndex > 0)
+			{
+				previousOrderedItemInfo = _orderedItemInfos[orderedIndex - 1];
+				tryIncludeInRange(previousOrderedItemInfo);
+			}
+
+			if (!isIncludedInRange && orderedIndex < Count - 1)
+			{
+				tryIncludeInRange(_orderedItemInfos[orderedIndex + 1]);
+			}
+
+			if (!isIncludedInRange)
+			{
+				orderedItemInfo.RangePosition = previousOrderedItemInfo != null 
+					? _equalOrderingValueRangePositions.Insert(previousOrderedItemInfo.Index + 1, 1) 
+					: _equalOrderingValueRangePositions.Insert(0, 1);
+			}
 		}
 
 		private void getNewExpressionWatcherAndGetOrderingValueFunc(TSourceItem sourceItem,
@@ -542,10 +558,17 @@ namespace IBCode.ObservableCalculations
 			ExpressionWatcher watcher = itemInfo.ExpressionWatcher;
 			watcher.Dispose();
 
-			int orderedIndex = itemInfo.OrderedItemPosition.Index;
+			int orderedIndex = itemInfo.OrderedItemInfo.Index;
 			_orderedPositions.Remove(orderedIndex);	
 			_sourcePositions.Remove(sourceIndex);
 			_orderingValues.RemoveAt(orderedIndex);
+
+			RangePosition rangePosition = itemInfo.OrderedItemInfo.RangePosition;
+			if (rangePosition.Length == 1)
+				_equalOrderingValueRangePositions.Remove(rangePosition.Index);
+			else
+				_equalOrderingValueRangePositions.ModifyLength(rangePosition.Index, -1);
+
 			baseRemoveItem(orderedIndex);	
 		}
 
@@ -651,7 +674,10 @@ namespace IBCode.ObservableCalculations
 
 			if (_sourceAsList == null || _rootSourceWrapper || _sourceAsList.ChangeMarker ==_lastProcessedSourceChangeMarker)
 			{
+				_consistent = false;
 				processSourceItemChange(expressionWatcher._position.Index);
+				_consistent = true;
+				raiseConsistencyRestored();
 			}
 			else
 			{
@@ -675,7 +701,16 @@ namespace IBCode.ObservableCalculations
 				_orderingValues.RemoveAt(orderedIndex);
 				_orderingValues.Insert(newOrderedIndex, orderingValue);
 
+				OrderedItemInfo orderedItemInfo = _orderedItemInfos[orderedIndex];
+				RangePosition rangePosition = orderedItemInfo.RangePosition;
+				if (rangePosition.Length == 1)
+					_equalOrderingValueRangePositions.Remove(rangePosition.Index);
+				else
+					_equalOrderingValueRangePositions.ModifyLength(rangePosition.Index, -1);
+
 				_orderedPositions.Move(orderedIndex, newOrderedIndex);
+
+				adjustEqualOrderingValueRangePosition(orderingValue, orderedItemInfo, newOrderedIndex);
 				baseMoveItem(orderedIndex, newOrderedIndex);
 			}
 		}
@@ -813,7 +848,7 @@ namespace IBCode.ObservableCalculations
 
 		internal int getOrderedIndexBySourceIndex(int sourceIndex)
 		{
-			return _itemInfos[sourceIndex].OrderedItemPosition.Index;
+			return _itemInfos[sourceIndex].OrderedItemInfo.Index;
 		}
 
 		internal int getSourceIndexByOrderedIndex(int orderedIndex)
@@ -824,7 +859,7 @@ namespace IBCode.ObservableCalculations
 		public int GetOrderedIndexBySourceIndex(int sourceIndex)
 		{
 			checkConsistent();
-			return _itemInfos[sourceIndex].OrderedItemPosition.Index;
+			return _itemInfos[sourceIndex].OrderedItemInfo.Index;
 		}
 
 		public int GetSourceIndexByOrderedIndex(int orderedIndex)
@@ -836,7 +871,7 @@ namespace IBCode.ObservableCalculations
 		private sealed class ItemInfo : Position
 		{
 			public Func<TOrderingValue> GetOrderingValueFunc;
-			public OrderedItemInfo OrderedItemPosition;
+			public OrderedItemInfo OrderedItemInfo;
 			public ExpressionWatcher ExpressionWatcher;
 		}
 
@@ -1045,9 +1080,18 @@ namespace IBCode.ObservableCalculations
 			if (_orderingValues.Count != Count) 
 				throw new ObservableCalculationsException("Consistency violation: Ordering.14");
 
+			if (_thenOrderinsCount > 0)
+			{
+				_equalOrderingValueRangePositions.ValidateConsistency();
+			}
+
 			for (int orderedIndex = 0; orderedIndex < Count; orderedIndex++)
 			{
 				TSourceItem orderedItem = this[orderedIndex];
+
+				int equalOrderingValueItemsCount = 0;
+				RangePosition rangePosition = null;
+				int rangePositionIndex = 0;
 
 				if (orderedIndex > 0)
 				{
@@ -1055,10 +1099,41 @@ namespace IBCode.ObservableCalculations
 					if ((compareResult < 0 && listSortDirection == ListSortDirection.Descending)
 						|| (compareResult > 0 && listSortDirection == ListSortDirection.Ascending)) 
 						throw new ObservableCalculationsException("Consistency violation: Ordering.3");
+
+					if (_thenOrderinsCount > 0)
+					{
+						if (compareResult == 0)
+						{
+							equalOrderingValueItemsCount++;
+							if (rangePosition !=  _orderedItemInfos[orderedIndex].RangePosition)
+								throw new ObservableCalculationsException("Consistency violation: Ordering.17");
+						}
+						else				
+						{
+							if (rangePosition.Length != equalOrderingValueItemsCount)
+								throw new ObservableCalculationsException("Consistency violation: Ordering.18");
+
+							if (rangePosition.Index != rangePositionIndex)
+								throw new ObservableCalculationsException("Consistency violation: Ordering.19");
+
+							rangePositionIndex++;
+							equalOrderingValueItemsCount = 1;
+
+							rangePosition = _orderedItemInfos[orderedIndex].RangePosition;
+						}
+					}
+				}
+				else
+				{
+					if (_thenOrderinsCount > 0)
+					{
+						rangePosition = _orderedItemInfos[orderedIndex].RangePosition;
+						equalOrderingValueItemsCount = 1;
+					}
 				}
 
 				ItemInfo itemInfo = _orderedItemInfos[orderedIndex].ItemInfo;
-				if (itemInfo.OrderedItemPosition.Index != orderedIndex) throw new ObservableCalculationsException("Consistency violation: Ordering.13");
+				if (itemInfo.OrderedItemInfo.Index != orderedIndex) throw new ObservableCalculationsException("Consistency violation: Ordering.13");
 
 				if (!EqualityComparer<TOrderingValue>.Default.Equals(_orderingValues[orderedIndex], orderingValueSelector(orderedItem)))
 					throw new ObservableCalculationsException("Consistency violation: Ordering.10");
@@ -1075,10 +1150,10 @@ namespace IBCode.ObservableCalculations
 				ItemInfo itemInfo = _itemInfos[sourceIndex];
 				if (itemInfo.ExpressionWatcher._position != _sourcePositions.List[sourceIndex])
 					throw new ObservableCalculationsException("Consistency violation: Ordering.8");
-				if (!EqualityComparer<TOrderingValue>.Default.Equals(_orderingValues[itemInfo.OrderedItemPosition.Index], orderingValueSelector(sourceItem)))
+				if (!EqualityComparer<TOrderingValue>.Default.Equals(_orderingValues[itemInfo.OrderedItemInfo.Index], orderingValueSelector(sourceItem)))
 					throw new ObservableCalculationsException("Consistency violation: Ordering.9");
 
-				if (!_orderedItemInfos.Contains(_itemInfos[sourceIndex].OrderedItemPosition))
+				if (!_orderedItemInfos.Contains(_itemInfos[sourceIndex].OrderedItemInfo))
 					throw new ObservableCalculationsException("Consistency violation: Ordering.11");
 
 				if (!_sourcePositions.List.Contains(_itemInfos[sourceIndex].ExpressionWatcher._position))

@@ -484,25 +484,6 @@ namespace IBCode.ObservableCalculations
 
 		~Concatenating()
 		{
-			if (_sourcesWeakNotifyCollectionChangedEventHandler != null)
-			{
-				_sources.CollectionChanged -= _sourcesWeakNotifyCollectionChangedEventHandler.Handle;
-				int count = _sourcesAsList.Count;
-				for (int i = 0; i < count; i++)
-				{
-					INotifyCollectionChanged source = (INotifyCollectionChanged) _sourcesAsList[i];
-					if (source != null)
-					{
-						ItemInfo itemInfo = _itemInfos[i];
-						source.CollectionChanged -= itemInfo.SourceWeakNotifyCollectionChangedEventHandler.Handle;
-						
-						if (itemInfo.SourceAsINotifyPropertyChanged != null)
-							itemInfo.SourceAsINotifyPropertyChanged.PropertyChanged -=
-								itemInfo.SourceWeakPropertyChangedEventHandler.Handle;
-					}
-				}
-			}
-
 			if (_sourcesScalarWeakPropertyChangedEventHandler != null)
 			{
 				_sourcesScalar.PropertyChanged -= _sourcesScalarWeakPropertyChangedEventHandler.Handle;			
@@ -512,6 +493,24 @@ namespace IBCode.ObservableCalculations
 				_sourcesAsINotifyPropertyChanged.PropertyChanged -=
 					_sourcesWeakPropertyChangedEventHandler.Handle;
 
+			if (_sourcesWeakNotifyCollectionChangedEventHandler != null)
+			{
+				_sources.CollectionChanged -= _sourcesWeakNotifyCollectionChangedEventHandler.Handle;
+				int count = _itemInfos.Count;
+				for (int i = 0; i < count; i++)
+				{
+					ItemInfo itemInfo = _itemInfos[i];
+					INotifyCollectionChanged source = itemInfo.Source;
+					if (source != null)
+					{
+						source.CollectionChanged -= itemInfo.SourceWeakNotifyCollectionChangedEventHandler.Handle;
+						
+						if (itemInfo.SourceAsINotifyPropertyChanged != null)
+							itemInfo.SourceAsINotifyPropertyChanged.PropertyChanged -=
+								itemInfo.SourceWeakPropertyChangedEventHandler.Handle;
+					}
+				}
+			}
 
 		}
 

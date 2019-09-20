@@ -5,7 +5,10 @@ namespace IBCode.ObservableCalculations.Common.Interface
 {
 	public interface IOrdering<TSourceItem> : IList<TSourceItem>, INotifyCollectionChanged
 	{
-		bool Compare(int resultIndex1, int resultIndex2);
-		IOrdering<TSourceItem> Parent { get; }
+	}
+
+	internal interface IOrderingInternal<TSourceItem> : IOrdering<TSourceItem>
+	{
+		RangePosition GetRangePosition(int sourceIndex);
 	}
 }

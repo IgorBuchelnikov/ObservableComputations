@@ -262,38 +262,6 @@ namespace IBCode.ObservableCalculations
 			initializeFromSource();
 		}
 
-		internal Ordering(ObservableCollection<TSourceItem> source,
-			Expression<Func<TSourceItem, TOrderingValue>> orderingValueSelectorExpression,
-			Func<TSourceItem, TOrderingValue> orderingValueSelectorFunc,
-			ExpressionWatcher.ExpressionInfo orderingValueSelectorExpressionInfo,
-			bool orderingValueSelectorContainsParametrizedLiveLinqCalls,
-			ListSortDirection sortDirection,
-			IComparer<TOrderingValue> comparer)
-		{
-			int sourceCount = source.Count;
-			_orderedItemInfos = new List<OrderedItemInfo>(sourceCount);
-			_orderedPositions = new Positions<OrderedItemInfo>(_orderedItemInfos);
-
-			_itemInfos = new List<ItemInfo>(sourceCount);
-			_sourcePositions = new Positions<ItemInfo>(_itemInfos);
-
-			_orderingValues = new List<TOrderingValue>(sourceCount);
-
-			_source = source;
-
-			_orderingValueSelectorExpression = orderingValueSelectorExpression;
-			_orderingValueSelectorFunc = orderingValueSelectorFunc;
-			_orderingValueSelectorExpressionInfo = orderingValueSelectorExpressionInfo;
-			_orderingValueSelectorContainsParametrizedLiveLinqCalls = orderingValueSelectorContainsParametrizedLiveLinqCalls;
-
-			_comparer = comparer;
-			_sortDirection = sortDirection;
-			_sourceAsSimpleList = (IList<TSourceItem>) _source;
-
-			fillFromSource();
-			_source.CollectionChanged += handleSourceCollectionChanged;
-		}
-
 		private Ordering(Expression<Func<TSourceItem, TOrderingValue>> orderingValueSelectorExpression, int sourceCapacity) : base(sourceCapacity)
 		{
 			_orderedItemInfos = new List<OrderedItemInfo>(sourceCapacity);

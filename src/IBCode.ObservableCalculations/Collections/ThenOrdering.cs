@@ -43,7 +43,7 @@ namespace IBCode.ObservableCalculations
 		private PropertyChangedEventHandler _sourceScalarPropertyChangedEventHandler;
 		private WeakPropertyChangedEventHandler _sourceScalarWeakPropertyChangedEventHandler;
 
-		internal IOrdering<TSourceItem> _source;
+		internal IOrderingInternal<TSourceItem> _source;
 		private ObservableCollectionWithChangeMarker<TSourceItem> _sourceAsList;
 		private IList<TSourceItem> _sourceAsSimpleList;
 		bool _rootSourceWrapper;
@@ -130,7 +130,7 @@ namespace IBCode.ObservableCalculations
 			IReadScalar<ListSortDirection> sortDirectionScalar = null,
 			IReadScalar<IComparer<TOrderingValue>> comparerScalar = null) : this(orderingValueSelectorExpression, Utils.getCapacity(source))
 		{
-			_source = source;
+			_source = (IOrderingInternal<TSourceItem>) source;
 
 			_sortDirectionScalar = sortDirectionScalar;
 			initializeSortDirectionScalar();
@@ -148,7 +148,7 @@ namespace IBCode.ObservableCalculations
 			ListSortDirection sortDirection = ListSortDirection.Ascending,
 			IReadScalar<IComparer<TOrderingValue>> comparerScalar = null) : this(orderingValueSelectorExpression, Utils.getCapacity(source))
 		{
-			_source = source;
+			_source = (IOrderingInternal<TSourceItem>) source;
 			_sortDirection = sortDirection;
 
 			_comparerScalar = comparerScalar;
@@ -165,7 +165,7 @@ namespace IBCode.ObservableCalculations
 			IReadScalar<ListSortDirection> sortDirectionScalar = null,
 			IComparer<TOrderingValue> comparer = null) : this(orderingValueSelectorExpression, Utils.getCapacity(source))
 		{
-			_source = source;
+			_source = (IOrderingInternal<TSourceItem>) source;
 
 			_sortDirectionScalar = sortDirectionScalar;
 			initializeSortDirectionScalar();
@@ -182,7 +182,7 @@ namespace IBCode.ObservableCalculations
 			ListSortDirection sortDirection = ListSortDirection.Ascending,
 			IComparer<TOrderingValue> comparer= null) : this(orderingValueSelectorExpression, Utils.getCapacity(source))
 		{
-			_source = source;
+			_source = (IOrderingInternal<TSourceItem>) source;
 			_sortDirection = sortDirection;
 
 			_comparer = comparer ?? Comparer<TOrderingValue>.Default;
@@ -368,7 +368,7 @@ namespace IBCode.ObservableCalculations
 				_sourceNotifyCollectionChangedEventHandler = null;
 			}
 
-			if (_sourceScalar != null) _source = _sourceScalar.Value;
+			if (_sourceScalar != null) _source = (IOrderingInternal<TSourceItem>) _sourceScalar.Value;
 			_sourceAsList = null;
 
 			if (_source != null)

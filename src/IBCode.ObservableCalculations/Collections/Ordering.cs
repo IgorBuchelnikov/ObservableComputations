@@ -14,7 +14,7 @@ using IBCode.ObservableCalculations.Common.Interface;
 namespace IBCode.ObservableCalculations
 {
 	// ReSharper disable once RedundantExtendsListEntry
-	public class Ordering<TSourceItem, TOrderingValue> : CollectionCalculating<TSourceItem>, INotifyPropertyChanged, IOrdering<TSourceItem>, IHasSources
+	public class Ordering<TSourceItem, TOrderingValue> : CollectionCalculating<TSourceItem>, INotifyPropertyChanged, IOrderingInternal<TSourceItem>, IHasSources
 	{
 		// ReSharper disable once MemberCanBePrivate.Global
 		public IReadScalar<INotifyCollectionChanged> SourceScalar => _sourceScalar;
@@ -45,7 +45,6 @@ namespace IBCode.ObservableCalculations
 
 		internal INotifyCollectionChanged _source;
 		private ObservableCollectionWithChangeMarker<TSourceItem> _sourceAsList;
-		private IList<TSourceItem> _sourceAsSimpleList;
 		bool _rootSourceWrapper;
 
 		private bool _lastProcessedSourceChangeMarker;
@@ -71,8 +70,6 @@ namespace IBCode.ObservableCalculations
 		private WeakPropertyChangedEventHandler _sortDirectionScalarWeakPropertyChangedEventHandler;
 
 		List<TOrderingValue> _orderingValues;
-
-		internal RangePosition _thenOrderingRangePosition;
 		
 		private NotifyCollectionChangedEventHandler _sourceNotifyCollectionChangedEventHandler;
 		private WeakNotifyCollectionChangedEventHandler _sourceWeakNotifyCollectionChangedEventHandler;
@@ -384,7 +381,6 @@ namespace IBCode.ObservableCalculations
 					_rootSourceWrapper = true;
 				}
 
-				_sourceAsSimpleList = _sourceAsList;
 				_lastProcessedSourceChangeMarker = _sourceAsList.ChangeMarker;
 
 				fillFromSource();
@@ -407,10 +403,10 @@ namespace IBCode.ObservableCalculations
 
 		private void fillFromSource()
 		{
-			int count = _sourceAsSimpleList.Count;
+			int count = _sourceAsList.Count;
 			for (int index = 0; index < count; index++)
 			{
-				TSourceItem sourceItem = _sourceAsSimpleList[index];
+				TSourceItem sourceItem = _sourceAsList[index];
 				registerSourceItem(sourceItem, index);
 			}
 		}
@@ -457,7 +453,8 @@ namespace IBCode.ObservableCalculations
 			baseInsertItem(orderedIndex, sourceItem);
 		}
 
-		private void adjustEqualOrderingValueRangePosition(
+		private void 
+			adjustEqualOrderingValueRangePosition(
 			TOrderingValue orderingValue, 
 			OrderedItemInfo orderedItemInfo,
 			int orderedIndex)
@@ -548,7 +545,7 @@ namespace IBCode.ObservableCalculations
 
 		internal TOrderingValue getOrderingValueBySourceIndex(int sourceIndex)
 		{
-			return !_orderingValueSelectorContainsParametrizedLiveLinqCalls ? _orderingValueSelectorFunc(_sourceAsSimpleList[sourceIndex]) : _itemInfos[sourceIndex].GetOrderingValueFunc();
+			return !_orderingValueSelectorContainsParametrizedLiveLinqCalls ? _orderingValueSelectorFunc(_sourceAsList[sourceIndex]) : _itemInfos[sourceIndex].GetOrderingValueFunc();
 		}
 
 		public TOrderingValue GetOrderingValueByOrderedIndex(int orderedIndex)
@@ -582,7 +579,7 @@ namespace IBCode.ObservableCalculations
 			{
 				case NotifyCollectionChangedAction.Add:
 					int newIndex = e.NewStartingIndex;
-					TSourceItem addedItem = _sourceAsSimpleList[newIndex];
+					TSourceItem addedItem = _sourceAsList[newIndex];
 					registerSourceItem(addedItem, newIndex);
 					break;
 				case NotifyCollectionChangedAction.Remove:
@@ -593,7 +590,7 @@ namespace IBCode.ObservableCalculations
 					_consistent = false;
 
 					int replacingSourceIndex = e.NewStartingIndex;
-					TSourceItem replacingSourceItem = _sourceAsSimpleList[replacingSourceIndex];
+					TSourceItem replacingSourceItem = _sourceAsList[replacingSourceIndex];
 					ItemInfo replacingItemInfo = _itemInfos[replacingSourceIndex];
 					ExpressionWatcher oldExpressionWatcher = _itemInfos[replacingSourceIndex].ExpressionWatcher;
 
@@ -1000,6 +997,11 @@ namespace IBCode.ObservableCalculations
 					}
 				}
 			} while (true);
+		}
+
+		RangePosition IOrderingInternal<TSourceItem>.GetRangePosition(int sourceIndex)
+		{
+			return _orderedItemInfos[sourceIndex].RangePosition;
 		}
 
 		~Ordering()

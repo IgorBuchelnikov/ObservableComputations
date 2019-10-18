@@ -45,7 +45,6 @@ namespace IBCode.ObservableCalculations
 
 		internal IOrderingInternal<TSourceItem> _source;
 		private ObservableCollectionWithChangeMarker<TSourceItem> _sourceAsList;
-		private IList<TSourceItem> _sourceAsSimpleList;
 		bool _rootSourceWrapper;
 
 		private bool _lastProcessedSourceChangeMarker;
@@ -384,7 +383,6 @@ namespace IBCode.ObservableCalculations
 					_rootSourceWrapper = true;
 				}
 
-				_sourceAsSimpleList = _sourceAsList;
 				_lastProcessedSourceChangeMarker = _sourceAsList.ChangeMarker;
 
 				fillFromSource();
@@ -407,11 +405,25 @@ namespace IBCode.ObservableCalculations
 
 		private void fillFromSource()
 		{
-			int count = _sourceAsSimpleList.Count;
-			for (int index = 0; index < count; index++)
+			int count = _sourceAsList.Count;
+			if (count > 0)
 			{
-				TSourceItem sourceItem = _sourceAsSimpleList[index];
-				registerSourceItem(sourceItem, index);
+				RangePosition sourceRangePosition = _source.GetRangePosition(0);
+				int sourceLowerIndex = sourceRangePosition.PlainIndex;
+				int sourceUpperIndex = sourceLowerIndex + sourceRangePosition.Length;
+
+				for (int index = 0; index < count; index++)
+				{
+					if (index == sourceUpperIndex + 1)
+					{
+						sourceRangePosition = _source.GetRangePosition(index);
+						sourceLowerIndex = sourceRangePosition.PlainIndex;
+						sourceUpperIndex = sourceLowerIndex + sourceRangePosition.Length;
+					}
+
+					TSourceItem sourceItem = _sourceAsList[index];
+					registerSourceItem(sourceItem, index, sourceLowerIndex, sourceUpperIndex);
+				}
 			}
 		}
 
@@ -426,7 +438,7 @@ namespace IBCode.ObservableCalculations
 			_consistent = true;
 		}
 
-		private void registerSourceItem(TSourceItem sourceItem, int sourceIndex)
+		private void registerSourceItem(TSourceItem sourceItem, int sourceIndex, int sourceLowerIndex, int sourceUpperIndex)
 		{
 			ItemInfo itemInfo = _sourcePositions.Insert(sourceIndex);
 
@@ -437,7 +449,7 @@ namespace IBCode.ObservableCalculations
 
 			TOrderingValue orderingValue = getOrderingValue(itemInfo, sourceItem);
 
-			int orderedIndex = getOrderedIndex(orderingValue);
+			int orderedIndex = getOrderedIndex(orderingValue, sourceLowerIndex, sourceUpperIndex);
 
 			itemInfo.ExpressionWatcher.ValueChanged = expressionWatcher_OnValueChanged;
 			itemInfo.ExpressionWatcher._position = itemInfo;
@@ -479,16 +491,27 @@ namespace IBCode.ObservableCalculations
 				}
 			}
 
+
+			RangePosition sourceRangePosition = null;
 			OrderedItemInfo previousOrderedItemInfo = null;
 			if (orderedIndex > 0)
 			{
-				previousOrderedItemInfo = _orderedItemInfos[orderedIndex - 1];
-				tryIncludeInRange(previousOrderedItemInfo);
+				sourceRangePosition = _source.GetRangePosition(orderedIndex - 1);
+				if (sourceRangePosition.Index + sourceRangePosition.Length > orderedIndex - 1)
+				{
+					previousOrderedItemInfo = _orderedItemInfos[orderedIndex - 1];
+					tryIncludeInRange(previousOrderedItemInfo);
+				}
+
 			}
 
 			if (!isIncludedInRange && orderedIndex < Count - 1)
 			{
-				tryIncludeInRange(_orderedItemInfos[orderedIndex + 1]);
+				sourceRangePosition = _source.GetRangePosition(orderedIndex + 1);
+				if (sourceRangePosition.Index < orderedIndex + 1)
+				{
+					tryIncludeInRange(_orderedItemInfos[orderedIndex + 1]);
+				}
 			}
 
 			if (!isIncludedInRange)
@@ -549,7 +572,7 @@ namespace IBCode.ObservableCalculations
 
 		internal TOrderingValue getOrderingValueBySourceIndex(int sourceIndex)
 		{
-			return !_orderingValueSelectorContainsParametrizedLiveLinqCalls ? _orderingValueSelectorFunc(_sourceAsSimpleList[sourceIndex]) : _itemInfos[sourceIndex].GetOrderingValueFunc();
+			return !_orderingValueSelectorContainsParametrizedLiveLinqCalls ? _orderingValueSelectorFunc(_sourceAsList[sourceIndex]) : _itemInfos[sourceIndex].GetOrderingValueFunc();
 		}
 
 		public TOrderingValue GetOrderingValueByOrderedIndex(int orderedIndex)
@@ -583,8 +606,9 @@ namespace IBCode.ObservableCalculations
 			{
 				case NotifyCollectionChangedAction.Add:
 					int newIndex = e.NewStartingIndex;
-					TSourceItem addedItem = _sourceAsSimpleList[newIndex];
-					registerSourceItem(addedItem, newIndex);
+					TSourceItem addedItem = _sourceAsList[newIndex];
+					RangePosition sourceRangePosition = _source.GetRangePosition(newIndex);
+					registerSourceItem(addedItem, newIndex, sourceRangePosition.PlainIndex, sourceRangePosition.PlainIndex + sourceRangePosition.Length);
 					break;
 				case NotifyCollectionChangedAction.Remove:
 					unregisterSourceItem(e.OldStartingIndex);
@@ -594,7 +618,7 @@ namespace IBCode.ObservableCalculations
 					_consistent = false;
 
 					int replacingSourceIndex = e.NewStartingIndex;
-					TSourceItem replacingSourceItem = _sourceAsSimpleList[replacingSourceIndex];
+					TSourceItem replacingSourceItem = _sourceAsList[replacingSourceIndex];
 					ItemInfo replacingItemInfo = _itemInfos[replacingSourceIndex];
 					ExpressionWatcher oldExpressionWatcher = _itemInfos[replacingSourceIndex].ExpressionWatcher;
 
@@ -1028,7 +1052,7 @@ namespace IBCode.ObservableCalculations
 
 		public void ValidateConsistency()
 		{
-			IList<TSourceItem> source = _sourceScalar.getValue(_source, new ObservableCollection<TSourceItem>()) as IList<TSourceItem>;
+			IList<TSourceItem> source = _sourceScalar.getValue<IList<TSourceItem>>(_source, new ObservableCollection<TSourceItem>()) as IList<TSourceItem>;
 
 			if (_itemInfos.Count != Count) throw new ObservableCalculationsException("Consistency violation: Ordering.7");
 

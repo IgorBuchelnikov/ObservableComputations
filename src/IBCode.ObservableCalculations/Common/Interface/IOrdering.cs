@@ -9,6 +9,7 @@ namespace IBCode.ObservableCalculations.Common.Interface
 
 	internal interface IOrderingInternal<TSourceItem> : IOrdering<TSourceItem>
 	{
-		RangePosition GetRangePosition(int sourceIndex);
+		RangePosition GetRangePosition(int orderedIndex);
+		RangePositions<RangePosition> GetRangePositions();
 	}
 }

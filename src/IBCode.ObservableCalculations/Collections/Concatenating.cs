@@ -307,17 +307,15 @@ namespace IBCode.ObservableCalculations
 						baseSetItem(itemInfo.PlainIndex + e.NewStartingIndex, (TSourceItem) newItems1[0]);
 						break;
 					case NotifyCollectionChangedAction.Reset:
-
-
-						replaceItem(sourceItem, itemInfo);
-
-
+						replaceItem(sourceItem, itemInfo);					
 						break;
 					case NotifyCollectionChangedAction.Move:
-						if (e.OldStartingIndex != e.NewStartingIndex)
+						int oldStartingIndex = e.OldStartingIndex;
+						int newStartingIndex = e.NewStartingIndex;
+						if (oldStartingIndex != newStartingIndex)
 						{
 							int rangePositionPlainIndex = itemInfo.PlainIndex;
-							baseMoveItem(rangePositionPlainIndex + e.OldStartingIndex, rangePositionPlainIndex + e.NewStartingIndex);
+							baseMoveItem(rangePositionPlainIndex + oldStartingIndex, rangePositionPlainIndex + newStartingIndex);
 						}
 						break;
 				}
@@ -346,8 +344,6 @@ namespace IBCode.ObservableCalculations
 						IList newItems = e.NewItems;
 						if (newItems.Count > 1) throw new ObservableCalculationsException("Adding of multiple items is not supported");
 			
-
-
 						IList addedItem = (IList) newItems[0];
 						count = addedItem?.Count ?? 0;
 						itemInfo = _sourceRangePositions.Insert(e.NewStartingIndex, count);
@@ -404,8 +400,8 @@ namespace IBCode.ObservableCalculations
 
 						if (oldIndex != newIndex)
 						{
-							RangePosition oldRangePosition = _sourceRangePositions.List[e.OldStartingIndex];
-							RangePosition newRangePosition = _sourceRangePositions.List[e.NewStartingIndex];
+							RangePosition oldRangePosition = _sourceRangePositions.List[oldIndex];
+							RangePosition newRangePosition = _sourceRangePositions.List[newIndex];
 							int oldPlainIndex = oldRangePosition.PlainIndex;
 							int newPlainIndex = newRangePosition.PlainIndex;
 

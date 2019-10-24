@@ -427,14 +427,17 @@ namespace IBCode.ObservableCalculations
 						newIndex = e.NewStartingIndex;
 						oldIndex = e.OldStartingIndex;
 
-						int index = 0;
-						int outerSourceCount = _outerSourceAsList.Count;
-						int innerSourceCount = _innerSourceAsList.Count;
-						for (int outerSourceIndex = 0; outerSourceIndex < outerSourceCount; outerSourceIndex++)
+						if (newIndex != oldIndex)
 						{
+							int index = 0;
+							int outerSourceCount = _outerSourceAsList.Count;
+							int innerSourceCount = _innerSourceAsList.Count;
+							for (int outerSourceIndex = 0; outerSourceIndex < outerSourceCount; outerSourceIndex++)
+							{
 					
-							baseMoveItem(index + oldIndex, index + newIndex);
-							index = index + innerSourceCount;
+								baseMoveItem(index + oldIndex, index + newIndex);
+								index = index + innerSourceCount;
+							}
 						}
 						break;
 					case NotifyCollectionChangedAction.Reset:

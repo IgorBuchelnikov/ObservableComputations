@@ -14,7 +14,7 @@ using INotifyPropertyChanged = System.ComponentModel.INotifyPropertyChanged;
 namespace IBCode.ObservableCalculations
 {
 	// ReSharper disable once RedundantExtendsListEntry
-	public class ThenOrdering<TSourceItem, TOrderingValue> : CollectionCalculating<TSourceItem>, INotifyPropertyChanged, IOrderingInternal<TSourceItem>, IHasSources
+	public class ThenOrdering<TSourceItem, TOrderingValue> : CollectionCalculating<TSourceItem>, INotifyPropertyChanged, IOrderingInternal<TSourceItem>, IThenOrderingInternal<TSourceItem>, IHasSources
 	{
 		// ReSharper disable once MemberCanBePrivate.Global
 		public IReadScalar<IOrdering<TSourceItem>> SourceScalar => _sourceScalar;
@@ -84,7 +84,8 @@ namespace IBCode.ObservableCalculations
 		internal ListSortDirection _sortDirection;
 
 		private RangePositions<RangePosition> _equalOrderingValueRangePositions;
-		private int _thenOrderinsCount;
+		private int _thenOrderingsCount;
+		private List<WeakReference<IThenOrdering<TSourceItem>>> _thenOrderings;
 
 		private void initializeSourceScalar()
 		{
@@ -481,13 +482,9 @@ namespace IBCode.ObservableCalculations
 			orderedItemInfo.ItemInfo = itemInfo;
 			_orderingValues.Insert(orderedIndex, orderingValue);
 
-			if (_thenOrderinsCount > 0)
+			if (_thenOrderingsCount > 0)
 			{
 				adjustEqualOrderingValueRangePosition(orderingValue, orderedItemInfo, orderedIndex);
-			}
-			else
-			{
-				_equalOrderingValueRangePositions.List.Clear();
 			}
 			 
 			baseInsertItem(orderedIndex, sourceItem);
@@ -578,11 +575,14 @@ namespace IBCode.ObservableCalculations
 			_sourcePositions.Remove(sourceIndex);
 			_orderingValues.RemoveAt(orderedIndex);
 
-			RangePosition rangePosition = itemInfo.OrderedItemInfo.RangePosition;
-			if (rangePosition.Length == 1)
-				_equalOrderingValueRangePositions.Remove(rangePosition.Index);
-			else
-				_equalOrderingValueRangePositions.ModifyLength(rangePosition.Index, -1);
+			if (_thenOrderingsCount > 0)
+			{
+				RangePosition rangePosition = itemInfo.OrderedItemInfo.RangePosition;
+				if (rangePosition.Length == 1)
+					_equalOrderingValueRangePositions.Remove(rangePosition.Index);
+				else
+					_equalOrderingValueRangePositions.ModifyLength(rangePosition.Index, -1);
+			}
 
 			baseRemoveItem(orderedIndex);	
 		}
@@ -724,15 +724,20 @@ namespace IBCode.ObservableCalculations
 
 				_orderingValues.RemoveAt(orderedIndex);
 				_orderingValues.Insert(newOrderedIndex, orderingValue);
-				RangePosition rangePosition = orderedItemInfo.RangePosition;
-				if (rangePosition.Length == 1)
-					_equalOrderingValueRangePositions.Remove(rangePosition.Index);
-				else
-					_equalOrderingValueRangePositions.ModifyLength(rangePosition.Index, -1);
+
 
 				_orderedPositions.Move(orderedIndex, newOrderedIndex);
 
-				adjustEqualOrderingValueRangePosition(orderingValue, orderedItemInfo, newOrderedIndex);
+				if (_thenOrderingsCount > 0)
+				{
+					RangePosition rangePosition = orderedItemInfo.RangePosition;
+					if (rangePosition.Length == 1)
+						_equalOrderingValueRangePositions.Remove(rangePosition.Index);
+					else
+						_equalOrderingValueRangePositions.ModifyLength(rangePosition.Index, -1);
+					adjustEqualOrderingValueRangePosition(orderingValue, orderedItemInfo, newOrderedIndex);
+				}
+
 				baseMoveItem(orderedIndex, newOrderedIndex);
 			}
 		}
@@ -919,9 +924,10 @@ namespace IBCode.ObservableCalculations
 		internal void addThenOrdering()
 		{
 			Monitor.Enter(_itemInfos);
-			_thenOrderinsCount++;
+			_thenOrderingsCount++;
+			_thenOrderings = _thenOrderings
 
-			if (_thenOrderinsCount == 1)
+			if (_thenOrderingsCount == 1)
 			{
 				_equalOrderingValueRangePositions = new RangePositions<RangePosition>(
 					new List<RangePosition>(
@@ -972,7 +978,7 @@ namespace IBCode.ObservableCalculations
 		internal void removeThenOrdering()
 		{
 			Monitor.Enter(_itemInfos);
-			_thenOrderinsCount--;
+			_thenOrderingsCount--;
 			Monitor.Exit(_itemInfos);
 		}
 
@@ -1056,6 +1062,11 @@ namespace IBCode.ObservableCalculations
 			} while (true);
 		}
 
+		void IThenOrderingInternal<TSourceItem>.ProcessSourceItemChange(int sourceIndex)
+		{
+			processSourceItemChange(sourceIndex, false);
+		}
+
 		~ThenOrdering()
 		{
 			if (_sourceWeakNotifyCollectionChangedEventHandler != null)
@@ -1102,7 +1113,7 @@ namespace IBCode.ObservableCalculations
 			if (_orderingValues.Count != Count) 
 				throw new ObservableCalculationsException("Consistency violation: Ordering.14");
 
-			if (_thenOrderinsCount > 0)
+			if (_thenOrderingsCount > 0)
 			{
 				_equalOrderingValueRangePositions.ValidateConsistency();
 			}
@@ -1122,9 +1133,9 @@ namespace IBCode.ObservableCalculations
 						|| (compareResult > 0 && listSortDirection == ListSortDirection.Ascending)) 
 						throw new ObservableCalculationsException("Consistency violation: Ordering.3");
 
-					if (_thenOrderinsCount > 0)
+					if (_thenOrderingsCount > 0)
 					{
-						if (compareResult == 0)
+						if (compareResult == 0 && _source.GetRangePosition(orderedIndex) == _source.GetRangePosition(orderedIndex - 1))
 						{
 							equalOrderingValueItemsCount++;
 							if (rangePosition !=  _orderedItemInfos[orderedIndex].RangePosition)
@@ -1147,7 +1158,7 @@ namespace IBCode.ObservableCalculations
 				}
 				else
 				{
-					if (_thenOrderinsCount > 0)
+					if (_thenOrderingsCount > 0)
 					{
 						rangePosition = _orderedItemInfos[orderedIndex].RangePosition;
 						equalOrderingValueItemsCount = 1;

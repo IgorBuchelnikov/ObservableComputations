@@ -12,4 +12,13 @@ namespace IBCode.ObservableCalculations.Common.Interface
 		RangePosition GetRangePosition(int orderedIndex);
 		RangePositions<RangePosition> GetRangePositions();
 	}
+
+	public interface IThenOrdering<TSourceItem> : IList<TSourceItem>, INotifyCollectionChanged
+	{
+	}
+
+	internal interface IThenOrderingInternal<TSourceItem> : IThenOrdering<TSourceItem>
+	{
+		void ProcessSourceItemChange(int sourceIndex);
+	}
 }

@@ -876,7 +876,7 @@ namespace IBCode.ObservableCalculations
 		//public IOrdering<TSourceItem> Parent => null;
 		//#endregion
 
-		internal void addThenOrdering(IThenOrdering<TSourceItem> thenOrdering)
+		void IOrderingInternal<TSourceItem>.AddThenOrdering(IThenOrdering<TSourceItem> thenOrdering)
 		{
 			Monitor.Enter(_itemInfos);
 			_thenOrderingsCount++;
@@ -931,12 +931,17 @@ namespace IBCode.ObservableCalculations
 			Monitor.Exit(_itemInfos);
 		}
 
-		internal void removeThenOrdering(IThenOrdering<TSourceItem> thenOrdering)
+		void IOrderingInternal<TSourceItem>.RemoveThenOrdering(IThenOrdering<TSourceItem> thenOrdering)
 		{
 			Monitor.Enter(_itemInfos);
 			for (int i = 0; i < _thenOrderingsCount; i++)
 			{
-				
+				if (!_thenOrderings[i].TryGetTarget(out IThenOrdering<TSourceItem> targetThenOrdering) || ReferenceEquals(targetThenOrdering, thenOrdering))
+				{
+					_thenOrderings.RemoveAt(i);
+					break;
+				}
+
 			}
 			_thenOrderingsCount--;
 
@@ -1084,13 +1089,12 @@ namespace IBCode.ObservableCalculations
 				_equalOrderingValueRangePositions.ValidateConsistency();
 			}
 
+			RangePosition rangePosition = null;
+			int equalOrderingValueItemsCount = 0;
+			int rangePositionIndex = 0;
 			for (int orderedIndex = 0; orderedIndex < Count; orderedIndex++)
 			{
 				TSourceItem orderedItem = this[orderedIndex];
-
-				int equalOrderingValueItemsCount = 0;
-				RangePosition rangePosition = null;
-				int rangePositionIndex = 0;
 
 				if (orderedIndex > 0)
 				{

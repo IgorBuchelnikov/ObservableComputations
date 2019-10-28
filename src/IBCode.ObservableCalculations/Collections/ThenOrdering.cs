@@ -131,6 +131,7 @@ namespace IBCode.ObservableCalculations
 			IReadScalar<IComparer<TOrderingValue>> comparerScalar = null) : this(orderingValueSelectorExpression, Utils.getCapacity(source))
 		{
 			_source = (IOrderingInternal<TSourceItem>) source;
+			_source.AddThenOrdering(this);
 
 			_sortDirectionScalar = sortDirectionScalar;
 			initializeSortDirectionScalar();
@@ -149,6 +150,8 @@ namespace IBCode.ObservableCalculations
 			IReadScalar<IComparer<TOrderingValue>> comparerScalar = null) : this(orderingValueSelectorExpression, Utils.getCapacity(source))
 		{
 			_source = (IOrderingInternal<TSourceItem>) source;
+			_source.AddThenOrdering(this);
+
 			_sortDirection = sortDirection;
 
 			_comparerScalar = comparerScalar;
@@ -166,6 +169,7 @@ namespace IBCode.ObservableCalculations
 			IComparer<TOrderingValue> comparer = null) : this(orderingValueSelectorExpression, Utils.getCapacity(source))
 		{
 			_source = (IOrderingInternal<TSourceItem>) source;
+			_source.AddThenOrdering(this);
 
 			_sortDirectionScalar = sortDirectionScalar;
 			initializeSortDirectionScalar();
@@ -183,6 +187,8 @@ namespace IBCode.ObservableCalculations
 			IComparer<TOrderingValue> comparer= null) : this(orderingValueSelectorExpression, Utils.getCapacity(source))
 		{
 			_source = (IOrderingInternal<TSourceItem>) source;
+			_source.AddThenOrdering(this);
+
 			_sortDirection = sortDirection;
 
 			_comparer = comparer ?? Comparer<TOrderingValue>.Default;
@@ -389,9 +395,16 @@ namespace IBCode.ObservableCalculations
 				}
 
 				_sourceNotifyCollectionChangedEventHandler = null;
+
+				_source.RemoveThenOrdering(this);
 			}
 
-			if (_sourceScalar != null) _source = (IOrderingInternal<TSourceItem>) _sourceScalar.Value;
+			if (_sourceScalar != null)
+			{
+				_source = (IOrderingInternal<TSourceItem>) _sourceScalar.Value;
+				_source.AddThenOrdering(this);
+			}
+
 			_sourceAsList = null;
 
 			if (_source != null)
@@ -921,11 +934,12 @@ namespace IBCode.ObservableCalculations
 		//public IOrdering<TSourceItem> Parent => null;
 		//#endregion
 
-		internal void addThenOrdering()
+		void IOrderingInternal<TSourceItem>.AddThenOrdering(IThenOrdering<TSourceItem> thenOrdering)
 		{
 			Monitor.Enter(_itemInfos);
 			_thenOrderingsCount++;
-			_thenOrderings = _thenOrderings
+			_thenOrderings = _thenOrderings ?? new List<WeakReference<IThenOrdering<TSourceItem>>>();
+			_thenOrderings.Add(new WeakReference<IThenOrdering<TSourceItem>>(thenOrdering));
 
 			if (_thenOrderingsCount == 1)
 			{
@@ -975,10 +989,20 @@ namespace IBCode.ObservableCalculations
 			Monitor.Exit(_itemInfos);
 		}
 
-		internal void removeThenOrdering()
+		void IOrderingInternal<TSourceItem>.RemoveThenOrdering(IThenOrdering<TSourceItem> thenOrdering)
 		{
 			Monitor.Enter(_itemInfos);
+			for (int i = 0; i < _thenOrderingsCount; i++)
+			{
+				if (!_thenOrderings[i].TryGetTarget(out IThenOrdering<TSourceItem> targetThenOrdering) || ReferenceEquals(targetThenOrdering, thenOrdering))
+				{
+					_thenOrderings.RemoveAt(i);
+					break;
+				}
+
+			}
 			_thenOrderingsCount--;
+
 			Monitor.Exit(_itemInfos);
 		}
 
@@ -1088,6 +1112,8 @@ namespace IBCode.ObservableCalculations
 			{
 				_sortDirectionScalar.PropertyChanged -= _sortDirectionScalarWeakPropertyChangedEventHandler.Handle;			
 			}
+
+			_source.RemoveThenOrdering(this);
 		}
 
 		public void ValidateConsistency()

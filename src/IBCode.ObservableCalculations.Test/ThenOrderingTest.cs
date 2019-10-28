@@ -303,8 +303,10 @@ namespace IBCode.ObservableCalculations.Test
 						{
 							if (!traceThenOrderingOrdering(testNum = "8", orderNums, orderNums2, listSortDirection, index, orderNum, orderNum2, indexOld, indexNew)) continue;
 							items = getObservableCollection(orderNums, orderNums2);
-							ThenOrdering<Item, int?> ordering1 = items.Ordering(i => i.OrderNum, listSortDirection).ThenOrdering(i => i.OrderNum2, listSortDirection);
+							Ordering<Item, int?> orderingSource = items.Ordering(i => i.OrderNum, listSortDirection);
+							ThenOrdering<Item, int?> ordering1 = orderingSource.ThenOrdering(i => i.OrderNum2, listSortDirection);
 							items.Insert(index, new Item(orderNum == -1 ? (int?)null : orderNum, orderNum2 == -1 ? (int?)null : orderNum2));
+							orderingSource.ValidateConsistency();
 							ordering1.ValidateConsistency();
 						}
 					}

@@ -11,6 +11,8 @@ namespace IBCode.ObservableCalculations.Common.Interface
 	{
 		RangePosition GetRangePosition(int orderedIndex);
 		RangePositions<RangePosition> GetRangePositions();
+		void RemoveThenOrdering(IThenOrdering<TSourceItem> thenOrdering);
+		void AddThenOrdering(IThenOrdering<TSourceItem> thenOrdering);
 	}
 
 	public interface IThenOrdering<TSourceItem> : IList<TSourceItem>, INotifyCollectionChanged

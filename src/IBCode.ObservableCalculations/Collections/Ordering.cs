@@ -83,7 +83,7 @@ namespace IBCode.ObservableCalculations
 
 		private RangePositions<RangePosition> _equalOrderingValueRangePositions;
 		private int _thenOrderingsCount;
-		private List<WeakReference<IThenOrdering<TSourceItem>>> _thenOrderings;
+		private List<WeakReference<IThenOrderingInternal<TSourceItem>>> _thenOrderings;
 
 		private void initializeSourceScalar()
 		{
@@ -454,7 +454,7 @@ namespace IBCode.ObservableCalculations
 
 			if (_thenOrderingsCount > 0)
 			{
-				adjustEqualOrderingValueRangePosition(orderingValue, orderedItemInfo, orderedIndex);
+				adjustEqualOrderingValueRangePosition(orderingValue, orderedItemInfo, orderedIndex, orderedIndex - 1, orderedIndex);
 			}
 			 
 			baseInsertItem(orderedIndex, sourceItem);
@@ -463,16 +463,18 @@ namespace IBCode.ObservableCalculations
 		private void adjustEqualOrderingValueRangePosition(
 			TOrderingValue orderingValue, 
 			OrderedItemInfo orderedItemInfo,
-			int orderedIndex)
+			int orderedIndex,
+			int previousOrderedIndex,
+			int nextOrderedIndex)
 		{
 			bool isIncludedInRange = false;
 
-			void tryIncludeInRange(OrderedItemInfo nearbyOrderedItemInfo)
+			void tryIncludeInRange(OrderedItemInfo nearbyOrderedItemInfo, int nearbyOrderedIndex)
 			{
 				if (_comparer.Compare(orderingValue,
 					    getOrderingValue(
 						    nearbyOrderedItemInfo.ItemInfo,
-						    this[nearbyOrderedItemInfo.Index])) == 0)
+						    this[nearbyOrderedIndex])) == 0)
 				{
 					RangePosition rangePosition = nearbyOrderedItemInfo.RangePosition;
 					orderedItemInfo.RangePosition = rangePosition;
@@ -485,18 +487,18 @@ namespace IBCode.ObservableCalculations
 			if (orderedIndex > 0)
 			{
 				previousOrderedItemInfo = _orderedItemInfos[orderedIndex - 1];
-				tryIncludeInRange(previousOrderedItemInfo);
+				tryIncludeInRange(previousOrderedItemInfo, previousOrderedIndex);
 			}
 
 			if (!isIncludedInRange && orderedIndex < Count - 1)
 			{
-				tryIncludeInRange(_orderedItemInfos[orderedIndex + 1]);
+				tryIncludeInRange(_orderedItemInfos[orderedIndex + 1], nextOrderedIndex);
 			}
 
 			if (!isIncludedInRange)
 			{
 				orderedItemInfo.RangePosition = previousOrderedItemInfo != null 
-					? _equalOrderingValueRangePositions.Insert(previousOrderedItemInfo.Index + 1, 1) 
+					? _equalOrderingValueRangePositions.Insert(previousOrderedItemInfo.RangePosition.Index + 1, 1) 
 					: _equalOrderingValueRangePositions.Insert(0, 1);
 			}
 		}
@@ -662,7 +664,6 @@ namespace IBCode.ObservableCalculations
 
 		private void processSourceItemChange(int sourceIndex)
 		{
-
 			ItemInfo itemInfo = _itemInfos[sourceIndex];
 			OrderedItemInfo orderedItemInfo = itemInfo.OrderedItemInfo;
 			int orderedIndex = orderedItemInfo.Index;
@@ -690,10 +691,39 @@ namespace IBCode.ObservableCalculations
 					else
 						_equalOrderingValueRangePositions.ModifyLength(rangePosition.Index, -1);
 
-					adjustEqualOrderingValueRangePosition(orderingValue, orderedItemInfo, newOrderedIndex);
+					adjustEqualOrderingValueRangePosition(
+						orderingValue, 
+						orderedItemInfo, 
+						newOrderedIndex,
+						orderedIndex >= newOrderedIndex ? newOrderedIndex - 1 : newOrderedIndex,
+						orderedIndex > newOrderedIndex ? newOrderedIndex : newOrderedIndex + 1);
 				}
 
-				baseMoveItem(orderedIndex, newOrderedIndex);
+				if (orderedIndex != newOrderedIndex)
+				{
+					baseMoveItem(orderedIndex, newOrderedIndex);
+				}
+				else if (_thenOrderingsCount > 0)
+				{
+					Monitor.Enter(_itemInfos);
+					IThenOrderingInternal<TSourceItem>[] thenOrderings = new IThenOrderingInternal<TSourceItem>[_thenOrderingsCount];
+
+					for (int thenOrderingIndex = 0; thenOrderingIndex < _thenOrderingsCount; thenOrderingIndex++)
+					{
+						if (_thenOrderings[thenOrderingIndex].TryGetTarget(out IThenOrderingInternal<TSourceItem> thenOrdering))
+						{
+							thenOrderings[thenOrderingIndex] = thenOrdering;
+							thenOrdering.ProcessSourceItemChange(newOrderedIndex);
+						}
+					}
+					Monitor.Exit(_itemInfos);
+
+					for (int thenOrderingIndex = 0; thenOrderingIndex < _thenOrderingsCount; thenOrderingIndex++)
+					{
+						IThenOrderingInternal<TSourceItem> thenOrdering = thenOrderings[thenOrderingIndex];
+						thenOrdering?.ProcessSourceItemChange(newOrderedIndex);
+					}
+				}
 			}
 		}
 
@@ -746,7 +776,7 @@ namespace IBCode.ObservableCalculations
 						int comparisonWithUpperItem = _comparer.Compare(orderingValue, itemOrderingValue);
 						newIndex = getNearIndex(comparisonWithUpperItem, lowerIndex);
 					}
-					else if (length == 0) // _temporarilyDisorderedStartsWithIndex == 0
+					else if (length == 0) 
 					{
 						newIndex = 0;
 					}
@@ -835,7 +865,7 @@ namespace IBCode.ObservableCalculations
 
 		internal int getSourceIndexByOrderedIndex(int orderedIndex)
 		{
-			return  _orderedItemInfos[orderedIndex].ItemInfo.ExpressionWatcher._position.Index;	
+			return  _orderedItemInfos[orderedIndex].ItemInfo.Index;	
 		}
 
 		public int GetOrderedIndexBySourceIndex(int sourceIndex)
@@ -865,13 +895,13 @@ namespace IBCode.ObservableCalculations
 
 		//#region Implementation of IOrdering<TSourceItem>
 
-		//public bool Compare(int resultIndex1, int resultIndex2)
-		//{
-		//	return 
-		//		_comparer.Compare(
-		//			getOrderingValueBySourceIndex(getSourceIndexByOrderedIndex(resultIndex1)), 
-		//			getOrderingValueBySourceIndex(getSourceIndexByOrderedIndex(resultIndex2))) == 0;
-		//}
+		public bool Compare(int resultIndex1, int resultIndex2)
+		{
+			return
+				_comparer.Compare(
+					getOrderingValueBySourceIndex(getSourceIndexByOrderedIndex(resultIndex1)),
+					getOrderingValueBySourceIndex(getSourceIndexByOrderedIndex(resultIndex2))) == 0;
+		}
 
 		//public IOrdering<TSourceItem> Parent => null;
 		//#endregion
@@ -880,8 +910,8 @@ namespace IBCode.ObservableCalculations
 		{
 			Monitor.Enter(_itemInfos);
 			_thenOrderingsCount++;
-			_thenOrderings = _thenOrderings ?? new List<WeakReference<IThenOrdering<TSourceItem>>>();
-			_thenOrderings.Add(new WeakReference<IThenOrdering<TSourceItem>>(thenOrdering));
+			_thenOrderings = _thenOrderings ?? new List<WeakReference<IThenOrderingInternal<TSourceItem>>>();
+			_thenOrderings.Add(new WeakReference<IThenOrderingInternal<TSourceItem>>((IThenOrderingInternal<TSourceItem>) thenOrdering));
 
 			if (_thenOrderingsCount == 1)
 			{
@@ -936,7 +966,7 @@ namespace IBCode.ObservableCalculations
 			Monitor.Enter(_itemInfos);
 			for (int i = 0; i < _thenOrderingsCount; i++)
 			{
-				if (!_thenOrderings[i].TryGetTarget(out IThenOrdering<TSourceItem> targetThenOrdering) || ReferenceEquals(targetThenOrdering, thenOrdering))
+				if (!_thenOrderings[i].TryGetTarget(out IThenOrderingInternal<TSourceItem> targetThenOrdering) || ReferenceEquals(targetThenOrdering, thenOrdering))
 				{
 					_thenOrderings.RemoveAt(i);
 					break;

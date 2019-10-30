@@ -5,6 +5,7 @@ namespace IBCode.ObservableCalculations.Common.Interface
 {
 	public interface IOrdering<TSourceItem> : IList<TSourceItem>, INotifyCollectionChanged
 	{
+		bool Compare(int resultIndex1, int resultIndex2);
 	}
 
 	internal interface IOrderingInternal<TSourceItem> : IOrdering<TSourceItem>
@@ -13,6 +14,7 @@ namespace IBCode.ObservableCalculations.Common.Interface
 		RangePositions<RangePosition> GetRangePositions();
 		void RemoveThenOrdering(IThenOrdering<TSourceItem> thenOrdering);
 		void AddThenOrdering(IThenOrdering<TSourceItem> thenOrdering);
+		void ValidateConsistency();
 	}
 
 	public interface IThenOrdering<TSourceItem> : IList<TSourceItem>, INotifyCollectionChanged

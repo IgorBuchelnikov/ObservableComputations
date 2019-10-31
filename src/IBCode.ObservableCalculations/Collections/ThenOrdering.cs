@@ -451,7 +451,7 @@ namespace IBCode.ObservableCalculations
 
 				for (int index = 0; index < count; index++)
 				{
-					if (index == sourceUpperIndex + 1)
+					if (index == sourceUpperIndex + 2)
 					{
 						sourceRangePosition = _source.GetRangePosition(index);
 						sourceLowerIndex = sourceRangePosition.PlainIndex;
@@ -536,18 +536,18 @@ namespace IBCode.ObservableCalculations
 				sourceRangePosition = _source.GetRangePosition(orderedIndex - 1);
 				if (sourceRangePosition.Index + sourceRangePosition.Length > orderedIndex - 1)
 				{
-					previousOrderedItemInfo = _orderedItemInfos[orderedIndex - 1];
+					previousOrderedItemInfo = _orderedItemInfos[previousOrderedIndex];
 					tryIncludeInRange(previousOrderedItemInfo, previousOrderedIndex);
 				}
 
 			}
 
-			if (!isIncludedInRange && orderedIndex < Count - 1)
+			if (!isIncludedInRange && orderedIndex < Count)
 			{
 				sourceRangePosition = _source.GetRangePosition(orderedIndex + 1);
 				if (sourceRangePosition.Index < orderedIndex + 1)
 				{
-					tryIncludeInRange(_orderedItemInfos[orderedIndex + 1], nextOrderedIndex);
+					tryIncludeInRange(_orderedItemInfos[nextOrderedIndex], nextOrderedIndex);
 				}
 			}
 
@@ -733,13 +733,11 @@ namespace IBCode.ObservableCalculations
 
 			if (!checkOrderingValues || _comparer.Compare(_orderingValues[orderedIndex], orderingValue) != 0)
 			{
-				_orderingValues[orderedIndex] = orderingValue;
-
 				RangePosition newRangePosition = _source.GetRangePosition(sourceIndex);
 				int newOrderedIndex = getOrderedIndex(orderingValue, newRangePosition.PlainIndex, newRangePosition.PlainIndex + newRangePosition.Length - 1);
 				if (newOrderedIndex == Count)
 					newOrderedIndex = newOrderedIndex - 1;
-				//else if (newOrderedIndex > orderedIndex) newOrderedIndex--;
+				else if (newOrderedIndex > orderedIndex && newOrderedIndex != newRangePosition.PlainIndex) newOrderedIndex--;
 
 				_orderingValues.RemoveAt(orderedIndex);
 				_orderingValues.Insert(newOrderedIndex, orderingValue);
@@ -776,7 +774,6 @@ namespace IBCode.ObservableCalculations
 						if (_thenOrderings[thenOrderingIndex].TryGetTarget(out IThenOrderingInternal<TSourceItem> thenOrdering))
 						{
 							thenOrderings[thenOrderingIndex] = thenOrdering;
-							thenOrdering.ProcessSourceItemChange(newOrderedIndex);
 						}
 					}
 					Monitor.Exit(_itemInfos);

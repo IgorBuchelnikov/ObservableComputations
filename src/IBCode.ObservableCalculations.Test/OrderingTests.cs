@@ -245,6 +245,15 @@ namespace IBCode.ObservableCalculations.Test
 			Console.WriteLine("!!!!!!!!!!!!!!!!!! Console Console Console Console !!!!!!!!!!!!");		
 		}
 
+		[Test]
+		public void Test2()
+		{
+			ObservableCollection<Item> items = getObservableCollection(new []{-1, 1});
+			Ordering<Item, int?> ordering2 = items.Ordering(i => i.OrderNum, ListSortDirection.Ascending);
+			items[0] = new Item(0);
+			ordering2.ValidateConsistency();		
+		}
+
 		//[Test]
 		//public void Ordering_Initialization_00()
 		//{

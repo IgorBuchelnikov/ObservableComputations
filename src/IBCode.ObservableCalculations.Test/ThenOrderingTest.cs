@@ -303,10 +303,8 @@ namespace IBCode.ObservableCalculations.Test
 						{
 							if (!traceThenOrderingOrdering(testNum = "8", orderNums, orderNums2, listSortDirection, index, orderNum, orderNum2, indexOld, indexNew)) continue;
 							items = getObservableCollection(orderNums, orderNums2);
-							Ordering<Item, int?> orderingSource = items.Ordering(i => i.OrderNum, listSortDirection);
-							ThenOrdering<Item, int?> ordering1 = orderingSource.ThenOrdering(i => i.OrderNum2, listSortDirection);
+							ThenOrdering<Item, int?> ordering1 = items.Ordering(i => i.OrderNum, listSortDirection).ThenOrdering(i => i.OrderNum2, listSortDirection);
 							items.Insert(index, new Item(orderNum == -1 ? (int?)null : orderNum, orderNum2 == -1 ? (int?)null : orderNum2));
-							orderingSource.ValidateConsistency();
 							ordering1.ValidateConsistency();
 						}
 					}
@@ -395,12 +393,12 @@ namespace IBCode.ObservableCalculations.Test
 		{
 			string traceString = getTraceString(num, orderNums, orderNums2, listSortDirection, index, orderNum, orderNum2, indexOld, indexNew);
 
-			//if (traceString == "#3. OrderNums1=-1,-1,0  OrderNums2=-1,-1,-1  index=0  orderNum=0  orderNum2=-1  indexOld=0   indexNew=0 listSortDirection=Ascending")
-			//{
-			//	return true;
-			//}
+			if (traceString == "#5. OrderNums1=-1  OrderNums2=-1  index=0  orderNum=0  orderNum2=2  indexOld=0   indexNew=0 listSortDirection=Ascending")
+			{
+				return true;
+			}
 
-			//return false;
+			return false;
 
 			return true;
 		}

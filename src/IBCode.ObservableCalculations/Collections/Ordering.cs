@@ -486,13 +486,14 @@ namespace IBCode.ObservableCalculations
 			OrderedItemInfo previousOrderedItemInfo = null;
 			if (orderedIndex > 0)
 			{
-				previousOrderedItemInfo = _orderedItemInfos[orderedIndex - 1];
+				previousOrderedItemInfo = _orderedItemInfos[previousOrderedIndex];
 				tryIncludeInRange(previousOrderedItemInfo, previousOrderedIndex);
 			}
 
-			if (!isIncludedInRange && orderedIndex < Count - 1)
+			int count = Count;
+			if (!isIncludedInRange && orderedIndex < count && nextOrderedIndex < count)
 			{
-				tryIncludeInRange(_orderedItemInfos[orderedIndex + 1], nextOrderedIndex);
+				tryIncludeInRange(_orderedItemInfos[nextOrderedIndex], nextOrderedIndex);
 			}
 
 			if (!isIncludedInRange)
@@ -695,8 +696,8 @@ namespace IBCode.ObservableCalculations
 						orderingValue, 
 						orderedItemInfo, 
 						newOrderedIndex,
-						orderedIndex >= newOrderedIndex ? newOrderedIndex - 1 : newOrderedIndex,
-						orderedIndex > newOrderedIndex ? newOrderedIndex : newOrderedIndex + 1);
+						orderedIndex < newOrderedIndex ? newOrderedIndex : newOrderedIndex - 1,
+						orderedIndex <= newOrderedIndex ? newOrderedIndex + 1 : newOrderedIndex);
 				}
 
 				if (orderedIndex != newOrderedIndex)
@@ -713,7 +714,6 @@ namespace IBCode.ObservableCalculations
 						if (_thenOrderings[thenOrderingIndex].TryGetTarget(out IThenOrderingInternal<TSourceItem> thenOrdering))
 						{
 							thenOrderings[thenOrderingIndex] = thenOrdering;
-							thenOrdering.ProcessSourceItemChange(newOrderedIndex);
 						}
 					}
 					Monitor.Exit(_itemInfos);
@@ -940,22 +940,21 @@ namespace IBCode.ObservableCalculations
 						else
 						{
 							rangePosition.Length = equalOrderingValueItemsCount;
-							rangePosition = _equalOrderingValueRangePositions.Add(0);
+							rangePosition = _equalOrderingValueRangePositions.Add(1);
+							_orderedItemInfos[orderedIndex].RangePosition = rangePosition;
 							equalOrderingValueItemsCount = 1;
 						}
 					}
 					else
 					{
-						rangePosition = _equalOrderingValueRangePositions.Add(0);
+						rangePosition = _equalOrderingValueRangePositions.Add(1);
 						equalOrderingValueItemsCount = 1;
 						_orderedItemInfos[orderedIndex].RangePosition = rangePosition;
 					}
 				}
 
 				if (count > 0)
-				{
 					rangePosition.Length = equalOrderingValueItemsCount;
-				}
 			}
 
 			Monitor.Exit(_itemInfos);
@@ -1144,10 +1143,10 @@ namespace IBCode.ObservableCalculations
 						else				
 						{
 							if (rangePosition.Length != equalOrderingValueItemsCount)
-								throw new ObservableCalculationsException("Consistency violation: Ordering.18");
+								throw new ObservableCalculationsException("Consistency violation: Ordering.20");
 
 							if (rangePosition.Index != rangePositionIndex)
-								throw new ObservableCalculationsException("Consistency violation: Ordering.19");
+								throw new ObservableCalculationsException("Consistency violation: Ordering.21");
 
 							rangePositionIndex++;
 							equalOrderingValueItemsCount = 1;
@@ -1170,6 +1169,15 @@ namespace IBCode.ObservableCalculations
 
 				if (!EqualityComparer<TOrderingValue>.Default.Equals(_orderingValues[orderedIndex], orderingValueSelector(orderedItem)))
 					throw new ObservableCalculationsException("Consistency violation: Ordering.10");
+			}
+
+			if (_thenOrderingsCount > 0 && Count > 0)
+			{
+				if (rangePosition.Length != equalOrderingValueItemsCount)
+					throw new ObservableCalculationsException("Consistency violation: Ordering.22");
+
+				if (rangePosition.Index != rangePositionIndex)
+					throw new ObservableCalculationsException("Consistency violation: Ordering.23");
 			}
 
 			_sourcePositions.ValidateConsistency();

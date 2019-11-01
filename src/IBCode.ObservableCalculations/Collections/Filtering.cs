@@ -496,10 +496,7 @@ namespace IBCode.ObservableCalculations
 
 			if (_rootSourceWrapper || _sourceAsList.ChangeMarker ==_lastProcessedSourceChangeMarker)
 			{
-				_consistent = false;
 				processChangeSourceItem(expressionWatcher._position.Index);
-				_consistent = true;
-				raiseConsistencyRestored();
 			}
 			else
 			{

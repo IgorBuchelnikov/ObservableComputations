@@ -297,6 +297,7 @@ namespace IBCode.ObservableCalculations
 			initializeFromSource();
 
 			_consistent = true;
+			raiseConsistencyRestored();
 		}
 
 
@@ -340,6 +341,7 @@ namespace IBCode.ObservableCalculations
 			}
 
 			_consistent = true;
+			raiseConsistencyRestored();
 		}
 
 		private void initializeFromSource()
@@ -431,6 +433,7 @@ namespace IBCode.ObservableCalculations
 			initializeFromSource();
 
 			_consistent = true;
+			raiseConsistencyRestored();
 		}
 
 		private void registerSourceItem(TSourceItem sourceItem, int sourceIndex)
@@ -486,14 +489,14 @@ namespace IBCode.ObservableCalculations
 			OrderedItemInfo previousOrderedItemInfo = null;
 			if (orderedIndex > 0)
 			{
-				previousOrderedItemInfo = _orderedItemInfos[previousOrderedIndex];
+				previousOrderedItemInfo = _orderedItemInfos[orderedIndex - 1];
 				tryIncludeInRange(previousOrderedItemInfo, previousOrderedIndex);
 			}
 
 			int count = Count;
 			if (!isIncludedInRange && orderedIndex < count && nextOrderedIndex < count)
 			{
-				tryIncludeInRange(_orderedItemInfos[nextOrderedIndex], nextOrderedIndex);
+				tryIncludeInRange(_orderedItemInfos[orderedIndex + 1], nextOrderedIndex);
 			}
 
 			if (!isIncludedInRange)
@@ -619,6 +622,7 @@ namespace IBCode.ObservableCalculations
 					processSourceItemChange(replacingSourceIndex);
 
 					_consistent = true;
+					raiseConsistencyRestored();
 					break;
 				case NotifyCollectionChangedAction.Move:
 					int oldStartingIndex = e.OldStartingIndex;
@@ -632,6 +636,7 @@ namespace IBCode.ObservableCalculations
 					initializeFromSource();
 
 					_consistent = true;
+					raiseConsistencyRestored();
 					break;
 			}
 
@@ -665,6 +670,28 @@ namespace IBCode.ObservableCalculations
 
 		private void processSourceItemChange(int sourceIndex)
 		{
+			void notifyThenOrderings(int newOrderedIndex)
+			{
+				Monitor.Enter(_itemInfos);
+				IThenOrderingInternal<TSourceItem>[] thenOrderings = new IThenOrderingInternal<TSourceItem>[_thenOrderingsCount];
+
+				for (int thenOrderingIndex = 0; thenOrderingIndex < _thenOrderingsCount; thenOrderingIndex++)
+				{
+					if (_thenOrderings[thenOrderingIndex].TryGetTarget(out IThenOrderingInternal<TSourceItem> thenOrdering))
+					{
+						thenOrderings[thenOrderingIndex] = thenOrdering;
+					}
+				}
+
+				Monitor.Exit(_itemInfos);
+
+				for (int thenOrderingIndex = 0; thenOrderingIndex < _thenOrderingsCount; thenOrderingIndex++)
+				{
+					IThenOrderingInternal<TSourceItem> thenOrdering = thenOrderings[thenOrderingIndex];
+					thenOrdering?.ProcessSourceItemChange(newOrderedIndex);
+				}
+			}
+
 			ItemInfo itemInfo = _itemInfos[sourceIndex];
 			OrderedItemInfo orderedItemInfo = itemInfo.OrderedItemInfo;
 			int orderedIndex = orderedItemInfo.Index;
@@ -697,7 +724,7 @@ namespace IBCode.ObservableCalculations
 						orderedItemInfo, 
 						newOrderedIndex,
 						orderedIndex < newOrderedIndex ? newOrderedIndex : newOrderedIndex - 1,
-						orderedIndex <= newOrderedIndex ? newOrderedIndex + 1 : newOrderedIndex);
+						orderedIndex > newOrderedIndex ? newOrderedIndex : newOrderedIndex + 1);
 				}
 
 				if (orderedIndex != newOrderedIndex)
@@ -706,24 +733,12 @@ namespace IBCode.ObservableCalculations
 				}
 				else if (_thenOrderingsCount > 0)
 				{
-					Monitor.Enter(_itemInfos);
-					IThenOrderingInternal<TSourceItem>[] thenOrderings = new IThenOrderingInternal<TSourceItem>[_thenOrderingsCount];
-
-					for (int thenOrderingIndex = 0; thenOrderingIndex < _thenOrderingsCount; thenOrderingIndex++)
-					{
-						if (_thenOrderings[thenOrderingIndex].TryGetTarget(out IThenOrderingInternal<TSourceItem> thenOrdering))
-						{
-							thenOrderings[thenOrderingIndex] = thenOrdering;
-						}
-					}
-					Monitor.Exit(_itemInfos);
-
-					for (int thenOrderingIndex = 0; thenOrderingIndex < _thenOrderingsCount; thenOrderingIndex++)
-					{
-						IThenOrderingInternal<TSourceItem> thenOrdering = thenOrderings[thenOrderingIndex];
-						thenOrdering?.ProcessSourceItemChange(newOrderedIndex);
-					}
+					notifyThenOrderings(newOrderedIndex);
 				}
+			}
+			else if (_thenOrderingsCount > 0)
+			{
+				notifyThenOrderings(orderedIndex);
 			}
 		}
 
@@ -877,7 +892,7 @@ namespace IBCode.ObservableCalculations
 		public int GetSourceIndexByOrderedIndex(int orderedIndex)
 		{
 			checkConsistent();
-			return _orderedItemInfos[orderedIndex].ItemInfo.ExpressionWatcher._position.Index;	
+			return _orderedItemInfos[orderedIndex].ItemInfo.Index;	
 		}
 
 		private sealed class ItemInfo : Position

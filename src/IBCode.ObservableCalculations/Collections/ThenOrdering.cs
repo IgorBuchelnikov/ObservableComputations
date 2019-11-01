@@ -305,6 +305,7 @@ namespace IBCode.ObservableCalculations
 			initializeFromSource();
 
 			_consistent = true;
+			raiseConsistencyRestored();
 		}
 
 
@@ -361,6 +362,7 @@ namespace IBCode.ObservableCalculations
 			}
 
 			_consistent = true;
+			raiseConsistencyRestored();
 		}
 
 		private void initializeFromSource()
@@ -473,6 +475,7 @@ namespace IBCode.ObservableCalculations
 			initializeFromSource();
 
 			_consistent = true;
+			raiseConsistencyRestored();
 		}
 
 		private void registerSourceItem(TSourceItem sourceItem, int sourceIndex, int sourceLowerIndex, int sourceUpperIndex)
@@ -529,14 +532,14 @@ namespace IBCode.ObservableCalculations
 			}
 
 
-			RangePosition sourceRangePosition = null;
+			RangePosition sourceRangePosition;
 			OrderedItemInfo previousOrderedItemInfo = null;
 			if (orderedIndex > 0)
 			{
 				sourceRangePosition = _source.GetRangePosition(orderedIndex - 1);
 				if (sourceRangePosition.Index + sourceRangePosition.Length > orderedIndex - 1)
 				{
-					previousOrderedItemInfo = _orderedItemInfos[previousOrderedIndex];
+					previousOrderedItemInfo = _orderedItemInfos[orderedIndex - 1];
 					tryIncludeInRange(previousOrderedItemInfo, previousOrderedIndex);
 				}
 
@@ -547,7 +550,7 @@ namespace IBCode.ObservableCalculations
 				sourceRangePosition = _source.GetRangePosition(orderedIndex + 1);
 				if (sourceRangePosition.Index < orderedIndex + 1)
 				{
-					tryIncludeInRange(_orderedItemInfos[nextOrderedIndex], nextOrderedIndex);
+					tryIncludeInRange(_orderedItemInfos[orderedIndex + 1], nextOrderedIndex);
 				}
 			}
 
@@ -635,11 +638,11 @@ namespace IBCode.ObservableCalculations
 				: itemInfo.GetOrderingValueFunc();
 		}
 
-
+		private bool _replacing;
 
 		private void handleSourceCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
 		{
-			checkConsistent();
+			if (!_replacing) checkConsistent();
 			_lastProcessedSourceChangeMarker = !_lastProcessedSourceChangeMarker;
 
 			switch (e.Action)
@@ -656,7 +659,7 @@ namespace IBCode.ObservableCalculations
 
 				case NotifyCollectionChangedAction.Replace:
 					_consistent = false;
-
+					_replacing = true;
 					int replacingSourceIndex = e.NewStartingIndex;
 					TSourceItem replacingSourceItem = _sourceAsList[replacingSourceIndex];
 					ItemInfo replacingItemInfo = _itemInfos[replacingSourceIndex];
@@ -672,9 +675,6 @@ namespace IBCode.ObservableCalculations
 					replacingItemInfo.ExpressionWatcher._position = oldExpressionWatcher._position;
 
 					baseSetItem(replacingItemInfo.OrderedItemInfo.Index, replacingSourceItem);
-					processSourceItemChange(replacingSourceIndex, true);
-
-					_consistent = true;
 					break;
 				case NotifyCollectionChangedAction.Move:
 					int oldStartingIndex = e.OldStartingIndex;
@@ -689,6 +689,7 @@ namespace IBCode.ObservableCalculations
 					initializeFromSource();
 
 					_consistent = true;
+					raiseConsistencyRestored();
 					break;
 			}
 
@@ -712,8 +713,6 @@ namespace IBCode.ObservableCalculations
 			{
 				_consistent = false;
 				processSourceItemChange(expressionWatcher._position.Index, true);
-				_consistent = true;
-				raiseConsistencyRestored();
 			}
 			else
 			{
@@ -724,6 +723,28 @@ namespace IBCode.ObservableCalculations
 
 		private void processSourceItemChange(int sourceIndex, bool checkOrderingValues)
 		{
+			void notifyThenOrderings(int newOrderedIndex)
+			{
+				Monitor.Enter(_itemInfos);
+				IThenOrderingInternal<TSourceItem>[] thenOrderings = new IThenOrderingInternal<TSourceItem>[_thenOrderingsCount];
+
+				for (int thenOrderingIndex = 0; thenOrderingIndex < _thenOrderingsCount; thenOrderingIndex++)
+				{
+					if (_thenOrderings[thenOrderingIndex].TryGetTarget(out IThenOrderingInternal<TSourceItem> thenOrdering))
+					{
+						thenOrderings[thenOrderingIndex] = thenOrdering;
+					}
+				}
+
+				Monitor.Exit(_itemInfos);
+
+				for (int thenOrderingIndex = 0; thenOrderingIndex < _thenOrderingsCount; thenOrderingIndex++)
+				{
+					IThenOrderingInternal<TSourceItem> thenOrdering = thenOrderings[thenOrderingIndex];
+					thenOrdering?.ProcessSourceItemChange(newOrderedIndex);
+				}
+			}
+
 			ItemInfo itemInfo = _itemInfos[sourceIndex];
 			OrderedItemInfo orderedItemInfo = itemInfo.OrderedItemInfo;
 			int orderedIndex = orderedItemInfo.Index;
@@ -734,7 +755,19 @@ namespace IBCode.ObservableCalculations
 			if (!checkOrderingValues || _comparer.Compare(_orderingValues[orderedIndex], orderingValue) != 0)
 			{
 				RangePosition newRangePosition = _source.GetRangePosition(sourceIndex);
-				int newOrderedIndex = getOrderedIndex(orderingValue, newRangePosition.PlainIndex, newRangePosition.PlainIndex + newRangePosition.Length - 1);
+				int lowerIndex = newRangePosition.PlainIndex;
+				int upperIndex = newRangePosition.PlainIndex + newRangePosition.Length - 1;
+				if (_source.GetRangePosition(_orderedItemInfos[lowerIndex].ItemInfo.Index) != newRangePosition 
+					|| lowerIndex == orderedIndex)
+					lowerIndex++;
+				if (_source.GetRangePosition(_orderedItemInfos[upperIndex].ItemInfo.Index) != newRangePosition 
+				    || upperIndex == orderedIndex)
+					upperIndex--;
+				int newOrderedIndex = lowerIndex <= upperIndex 
+					? getOrderedIndex(orderingValue, lowerIndex, upperIndex)
+					: sourceIndex;
+
+				//int newOrderedIndex = getOrderedIndex(orderingValue, lowerIndex, upperIndex);
 				if (newOrderedIndex == Count)
 					newOrderedIndex = newOrderedIndex - 1;
 				else if (newOrderedIndex > orderedIndex && newOrderedIndex != newRangePosition.PlainIndex) newOrderedIndex--;
@@ -756,8 +789,8 @@ namespace IBCode.ObservableCalculations
 						orderingValue, 
 						orderedItemInfo, 
 						newOrderedIndex,
-						orderedIndex > newOrderedIndex ? newOrderedIndex - 1 : newOrderedIndex,
-						orderedIndex >= newOrderedIndex ? newOrderedIndex : newOrderedIndex + 1);
+						orderedIndex < newOrderedIndex ? newOrderedIndex : newOrderedIndex - 1,
+						orderedIndex > newOrderedIndex ? newOrderedIndex : newOrderedIndex + 1);
 				}
 
 				if (orderedIndex != newOrderedIndex)
@@ -766,24 +799,20 @@ namespace IBCode.ObservableCalculations
 				}
 				else if (_thenOrderingsCount > 0)
 				{
-					Monitor.Enter(_itemInfos);
-					IThenOrderingInternal<TSourceItem>[] thenOrderings = new IThenOrderingInternal<TSourceItem>[_thenOrderingsCount];
-
-					for (int thenOrderingIndex = 0; thenOrderingIndex < _thenOrderingsCount; thenOrderingIndex++)
-					{
-						if (_thenOrderings[thenOrderingIndex].TryGetTarget(out IThenOrderingInternal<TSourceItem> thenOrdering))
-						{
-							thenOrderings[thenOrderingIndex] = thenOrdering;
-						}
-					}
-					Monitor.Exit(_itemInfos);
-
-					for (int thenOrderingIndex = 0; thenOrderingIndex < _thenOrderingsCount; thenOrderingIndex++)
-					{
-						IThenOrderingInternal<TSourceItem> thenOrdering = thenOrderings[thenOrderingIndex];
-						thenOrdering?.ProcessSourceItemChange(newOrderedIndex);
-					}
+					notifyThenOrderings(newOrderedIndex);
 				}
+			}
+			else if (_thenOrderingsCount > 0)
+			{
+				notifyThenOrderings(orderedIndex);
+			}
+
+
+			if (!_consistent)
+			{
+				_consistent = true;
+				_replacing = false;
+				raiseConsistencyRestored();
 			}
 		}
 
@@ -926,7 +955,7 @@ namespace IBCode.ObservableCalculations
 
 		internal int getSourceIndexByOrderedIndex(int orderedIndex)
 		{
-			return  _orderedItemInfos[orderedIndex].ItemInfo.ExpressionWatcher._position.Index;	
+			return  _orderedItemInfos[orderedIndex].ItemInfo.Index;	
 		}
 
 		public int GetOrderedIndexBySourceIndex(int sourceIndex)
@@ -938,7 +967,7 @@ namespace IBCode.ObservableCalculations
 		public int GetSourceIndexByOrderedIndex(int orderedIndex)
 		{
 			checkConsistent();
-			return _orderedItemInfos[orderedIndex].ItemInfo.ExpressionWatcher._position.Index;	
+			return _orderedItemInfos[orderedIndex].ItemInfo.Index;	
 		}
 
 		private sealed class ItemInfo : Position
@@ -1001,22 +1030,21 @@ namespace IBCode.ObservableCalculations
 						else
 						{
 							rangePosition.Length = equalOrderingValueItemsCount;
-							rangePosition = _equalOrderingValueRangePositions.Add(0);
+							rangePosition = _equalOrderingValueRangePositions.Add(1);
+							_orderedItemInfos[orderedIndex].RangePosition = rangePosition;
 							equalOrderingValueItemsCount = 1;
 						}
 					}
 					else
 					{
-						rangePosition = _equalOrderingValueRangePositions.Add(0);
+						rangePosition = _equalOrderingValueRangePositions.Add(1);
 						equalOrderingValueItemsCount = 1;
 						_orderedItemInfos[orderedIndex].RangePosition = rangePosition;
 					}
 				}
 
 				if (count > 0)
-				{
 					rangePosition.Length = equalOrderingValueItemsCount;
-				}
 			}
 
 			Monitor.Exit(_itemInfos);

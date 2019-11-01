@@ -393,7 +393,7 @@ namespace IBCode.ObservableCalculations.Test
 		{
 			string traceString = getTraceString(num, orderNums, orderNums2, listSortDirection, index, orderNum, orderNum2, indexOld, indexNew);
 
-			if (traceString == "#5. OrderNums1=-1  OrderNums2=-1  index=0  orderNum=0  orderNum2=2  indexOld=0   indexNew=0 listSortDirection=Ascending")
+			if (traceString == "#2. OrderNums1=-1,0,0  OrderNums2=-1,-1,-1  index=1  orderNum=0  orderNum2=0  indexOld=0   indexNew=0 listSortDirection=Ascending")
 			{
 				return true;
 			}

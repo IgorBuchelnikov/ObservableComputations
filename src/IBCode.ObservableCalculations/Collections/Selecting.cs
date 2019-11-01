@@ -251,10 +251,7 @@ namespace IBCode.ObservableCalculations
 
 			if (_rootSourceWrapper || _sourceAsList.ChangeMarker == _lastProcessedSourceChangeMarker)
 			{
-				_consistent = false;
 				processExpressionWatcherValueChanged(expressionWatcher);
-				_consistent = true;
-				raiseConsistencyRestored();
 			}
 			else
 			{

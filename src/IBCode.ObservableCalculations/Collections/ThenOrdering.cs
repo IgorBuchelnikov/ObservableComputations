@@ -493,6 +493,8 @@ namespace IBCode.ObservableCalculations
 				? getOrderedIndex(orderingValue, sourceLowerIndex, sourceUpperIndex)
 				: sourceIndex;
 
+			if (orderedIndex < sourceLowerIndex) orderedIndex++;
+
 			itemInfo.ExpressionWatcher.ValueChanged = expressionWatcher_OnValueChanged;
 			itemInfo.ExpressionWatcher._position = itemInfo;
 			OrderedItemInfo orderedItemInfo = _orderedPositions.Insert(orderedIndex);
@@ -531,13 +533,11 @@ namespace IBCode.ObservableCalculations
 				}
 			}
 
-
-			RangePosition sourceRangePosition;
+			RangePosition sourceRangePosition = _source.GetRangePosition(orderedIndex);
 			OrderedItemInfo previousOrderedItemInfo = null;
 			if (orderedIndex > 0)
 			{
-				sourceRangePosition = _source.GetRangePosition(orderedIndex - 1);
-				if (sourceRangePosition.Index + sourceRangePosition.Length > orderedIndex - 1)
+				if (sourceRangePosition.PlainIndex < orderedIndex)
 				{
 					previousOrderedItemInfo = _orderedItemInfos[orderedIndex - 1];
 					tryIncludeInRange(previousOrderedItemInfo, previousOrderedIndex);
@@ -547,8 +547,7 @@ namespace IBCode.ObservableCalculations
 
 			if (!isIncludedInRange && orderedIndex < Count)
 			{
-				sourceRangePosition = _source.GetRangePosition(orderedIndex + 1);
-				if (sourceRangePosition.Index < orderedIndex + 1)
+				if (sourceRangePosition.PlainIndex + sourceRangePosition.Length - 1 > orderedIndex)
 				{
 					tryIncludeInRange(_orderedItemInfos[orderedIndex + 1], nextOrderedIndex);
 				}

@@ -187,17 +187,21 @@ namespace IBCode.ObservableCalculations.Test
 			long counter = 0;
 			Stopwatch stopwatch = Stopwatch.StartNew();
 					
-			for (int v1 = -1; v1 <= 2; v1++)
+			for (int v1 = -1; v1 <= 3; v1++)
 			{
 				test(new []{v1}, listSortDirection);
-				for (int v2 = -1; v2 <= 2; v2++)
+				for (int v2 = -1; v2 <= 3; v2++)
 				{
 					test(new []{v1, v2}, listSortDirection);
-					for (int v3 = -1; v3 <= 2; v3++)
+					for (int v3 = -1; v3 <= 3; v3++)
 					{
 						test(new []{v1, v2, v3}, listSortDirection);
-						counter++;
-						_textFileOutputTime.AppentLine($"{stopwatch.Elapsed.TotalMinutes}: {counter}");
+						for (int v4 = -1; v4 <= 3; v4++)
+						{
+							test(new []{v1, v2, v3, v4}, listSortDirection);
+							counter++;
+							_textFileOutputTime.AppentLine($"{stopwatch.Elapsed.TotalMinutes}: {counter}");
+						}
 					}
 				}
 			}
@@ -393,10 +397,10 @@ namespace IBCode.ObservableCalculations.Test
 		{
 			string traceString = getTraceString(num, orderNums, orderNums2, listSortDirection, index, orderNum, orderNum2, indexOld, indexNew);
 
-			if (traceString == "#2. OrderNums1=-1,0,0  OrderNums2=-1,-1,-1  index=1  orderNum=0  orderNum2=0  indexOld=0   indexNew=0 listSortDirection=Ascending")
-			{
-				return true;
-			}
+			//if (traceString == "#2. OrderNums1=-1,0,0  OrderNums2=-1,-1,-1  index=1  orderNum=0  orderNum2=0  indexOld=0   indexNew=0 listSortDirection=Ascending")
+			//{
+			//	return true;
+			//}
 
 			return false;
 
@@ -573,12 +577,12 @@ namespace IBCode.ObservableCalculations.Test
 		{
 			string traceString = getTraceString(num, orderNums, orderNums2, orderNums3, listSortDirection, listSortDirection2, index, orderNum, orderNum2, orderNum3, indexOld, indexNew);
 
-			//if (traceString == "#5. OrderNums1=-1,-1  OrderNums2=-1,-1  index=0  orderNum=0  orderNum2=3  indexOld=0   indexNew=0 listSortDirection=Ascending")
-			//{
-			//	return true;
-			//}
+			if (traceString == "#8. OrderNums1=-1  OrderNums2=-1  OrderNums3=-1  index=0  orderNum=0  orderNum2=0  orderNum3=0  indexOld=0   indexNew=0 listSortDirection=Ascending   listSortDirection2=Ascending")
+			{
+				return true;
+			}
 
-			//return false;
+			return false;
 
 			return true;
 		}

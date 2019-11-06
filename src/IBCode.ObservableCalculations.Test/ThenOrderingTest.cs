@@ -97,8 +97,8 @@ namespace IBCode.ObservableCalculations.Test
 			#endregion
 		}
 
-		TextFileOutput _textFileOutputLog = new TextFileOutput(@"D:\Projects\NevaPolimer\ThenOrderingOrdering_Commulative.log");
-		TextFileOutput _textFileOutputTime = new TextFileOutput(@"D:\Projects\NevaPolimer\ThenOrderingOrdering_Commulative_Time.log");
+		TextFileOutput _textFileOutputLog = new TextFileOutput(@"C:\ThenOrderingOrdering_Commulative.log");
+		TextFileOutput _textFileOutputTime = new TextFileOutput(@"C:\ThenOrderingOrdering_Commulative_Time.log");
 
 		[Test]
 		public void ThenOrderingOrdering_Random()
@@ -119,7 +119,6 @@ namespace IBCode.ObservableCalculations.Test
 
 				test(orderNums1, orderNums2, ListSortDirection.Ascending);
 				test(orderNums1, orderNums2, ListSortDirection.Descending);
-
 			}
 		}
 
@@ -230,7 +229,9 @@ namespace IBCode.ObservableCalculations.Test
 								{
 									test(new []{v1, v2}, new []{v3, v4}, new []{v5, v6}, listSortDirection, listSortDirection1);
 									counter++;
-									_textFileOutputTime.AppentLine($"{stopwatch.Elapsed.TotalMinutes}: {counter}");
+
+									if (counter % 100 == 0)
+										_textFileOutputTime.AppentLine($"{stopwatch.Elapsed.TotalMinutes}: {counter}");
 								}
 							}
 						}
@@ -577,12 +578,12 @@ namespace IBCode.ObservableCalculations.Test
 		{
 			string traceString = getTraceString(num, orderNums, orderNums2, orderNums3, listSortDirection, listSortDirection2, index, orderNum, orderNum2, orderNum3, indexOld, indexNew);
 
-			if (traceString == "#8. OrderNums1=-1  OrderNums2=-1  OrderNums3=-1  index=0  orderNum=0  orderNum2=0  orderNum3=0  indexOld=0   indexNew=0 listSortDirection=Ascending   listSortDirection2=Ascending")
-			{
-				return true;
-			}
+			//if (traceString == "#8. OrderNums1=-1,0  OrderNums2=-1,-1  OrderNums3=-1,-1  index=0  orderNum=0  orderNum2=0  orderNum3=0  indexOld=0   indexNew=0 listSortDirection=Ascending   listSortDirection2=Ascending")
+			//{
+			//	return true;
+			//}
 
-			return false;
+			//return false;
 
 			return true;
 		}

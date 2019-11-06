@@ -946,8 +946,8 @@ namespace IBCode.ObservableCalculations
 					{
 						int previousOrderedIndex = orderedIndex - 1;
 						if (_comparer.Compare(
-							getOrderingValue(_orderedItemInfos[orderedIndex].ItemInfo, this[orderedIndex]),
-							getOrderingValue(_orderedItemInfos[previousOrderedIndex].ItemInfo, this[previousOrderedIndex])) == 0)
+								getOrderingValue(_orderedItemInfos[orderedIndex].ItemInfo, this[orderedIndex]),
+								getOrderingValue(_orderedItemInfos[previousOrderedIndex].ItemInfo, this[previousOrderedIndex])) == 0)
 						{
 							equalOrderingValueItemsCount++;
 							_orderedItemInfos[orderedIndex].RangePosition = rangePosition;

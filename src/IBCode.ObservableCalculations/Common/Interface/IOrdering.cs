@@ -12,7 +12,7 @@ namespace IBCode.ObservableCalculations.Common.Interface
 	{
 		RangePosition GetRangePosition(int orderedIndex);
 		RangePositions<RangePosition> GetRangePositions();
-		void RemoveThenOrdering(IThenOrdering<TSourceItem> thenOrdering);
+		void RemoveThenOrdering();
 		void AddThenOrdering(IThenOrdering<TSourceItem> thenOrdering);
 		void ValidateConsistency();
 	}

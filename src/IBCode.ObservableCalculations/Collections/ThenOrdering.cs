@@ -40,6 +40,8 @@ namespace IBCode.ObservableCalculations
 		public ReadOnlyCollection<INotifyCollectionChanged> SourcesCollection => new ReadOnlyCollection<INotifyCollectionChanged>(new []{Source});
 		public ReadOnlyCollection<IReadScalar<INotifyCollectionChanged>> SourceScalarsCollection => new ReadOnlyCollection<IReadScalar<INotifyCollectionChanged>>(new []{SourceScalar});
 
+		public int MaxTogetherThenOrderings => _maxTogetherThenOrderings;
+
 		private PropertyChangedEventHandler _sourceScalarPropertyChangedEventHandler;
 		private WeakPropertyChangedEventHandler _sourceScalarWeakPropertyChangedEventHandler;
 
@@ -85,7 +87,8 @@ namespace IBCode.ObservableCalculations
 
 		private RangePositions<RangePosition> _equalOrderingValueRangePositions;
 		private int _thenOrderingsCount;
-		private List<WeakReference<IThenOrderingInternal<TSourceItem>>> _thenOrderings;
+		private WeakReference<IThenOrderingInternal<TSourceItem>>[] _thenOrderings;
+		private int _maxTogetherThenOrderings;
 
 		private void initializeSourceScalar()
 		{
@@ -128,7 +131,8 @@ namespace IBCode.ObservableCalculations
 			IOrdering<TSourceItem> source,
 			Expression<Func<TSourceItem, TOrderingValue>> orderingValueSelectorExpression,
 			IReadScalar<ListSortDirection> sortDirectionScalar = null,
-			IReadScalar<IComparer<TOrderingValue>> comparerScalar = null) : this(orderingValueSelectorExpression, Utils.getCapacity(source))
+			IReadScalar<IComparer<TOrderingValue>> comparerScalar = null,
+			int maxTogetherThenOrderings = 4) : this(orderingValueSelectorExpression, Utils.getCapacity(source), maxTogetherThenOrderings)
 		{
 			_source = (IOrderingInternal<TSourceItem>) source;
 			_source.AddThenOrdering(this);
@@ -147,7 +151,8 @@ namespace IBCode.ObservableCalculations
 			IOrdering<TSourceItem> source,
 			Expression<Func<TSourceItem, TOrderingValue>> orderingValueSelectorExpression,
 			ListSortDirection sortDirection = ListSortDirection.Ascending,
-			IReadScalar<IComparer<TOrderingValue>> comparerScalar = null) : this(orderingValueSelectorExpression, Utils.getCapacity(source))
+			IReadScalar<IComparer<TOrderingValue>> comparerScalar = null,
+			int maxTogetherThenOrderings = 4) : this(orderingValueSelectorExpression, Utils.getCapacity(source), maxTogetherThenOrderings)
 		{
 			_source = (IOrderingInternal<TSourceItem>) source;
 			_source.AddThenOrdering(this);
@@ -166,7 +171,8 @@ namespace IBCode.ObservableCalculations
 			IOrdering<TSourceItem> source,
 			Expression<Func<TSourceItem, TOrderingValue>> orderingValueSelectorExpression,
 			IReadScalar<ListSortDirection> sortDirectionScalar = null,
-			IComparer<TOrderingValue> comparer = null) : this(orderingValueSelectorExpression, Utils.getCapacity(source))
+			IComparer<TOrderingValue> comparer = null,
+			int maxTogetherThenOrderings = 4) : this(orderingValueSelectorExpression, Utils.getCapacity(source), maxTogetherThenOrderings)
 		{
 			_source = (IOrderingInternal<TSourceItem>) source;
 			_source.AddThenOrdering(this);
@@ -184,7 +190,8 @@ namespace IBCode.ObservableCalculations
 			IOrdering<TSourceItem> source,
 			Expression<Func<TSourceItem, TOrderingValue>> orderingValueSelectorExpression,
 			ListSortDirection sortDirection = ListSortDirection.Ascending,
-			IComparer<TOrderingValue> comparer= null) : this(orderingValueSelectorExpression, Utils.getCapacity(source))
+			IComparer<TOrderingValue> comparer= null,
+			int maxTogetherThenOrderings = 4) : this(orderingValueSelectorExpression, Utils.getCapacity(source), maxTogetherThenOrderings)
 		{
 			_source = (IOrderingInternal<TSourceItem>) source;
 			_source.AddThenOrdering(this);
@@ -201,7 +208,8 @@ namespace IBCode.ObservableCalculations
 			IReadScalar<IOrdering<TSourceItem>> sourceScalar,
 			Expression<Func<TSourceItem, TOrderingValue>> orderingValueSelectorExpression,
 			IReadScalar<ListSortDirection> sortDirectionScalar = null,
-			IReadScalar<IComparer<TOrderingValue>> comparerScalar = null) : this(orderingValueSelectorExpression, Utils.getCapacity(sourceScalar))
+			IReadScalar<IComparer<TOrderingValue>> comparerScalar = null,
+			int maxTogetherThenOrderings = 4) : this(orderingValueSelectorExpression, Utils.getCapacity(sourceScalar), maxTogetherThenOrderings)
 		{
 			_sourceScalar = sourceScalar;
 			initializeSourceScalar();
@@ -220,7 +228,8 @@ namespace IBCode.ObservableCalculations
 			IReadScalar<IOrdering<TSourceItem>> sourceScalar,
 			Expression<Func<TSourceItem, TOrderingValue>> orderingValueSelectorExpression,
 			ListSortDirection sortDirection = ListSortDirection.Ascending,
-			IReadScalar<IComparer<TOrderingValue>> comparerScalar = null) : this(orderingValueSelectorExpression, Utils.getCapacity(sourceScalar))
+			IReadScalar<IComparer<TOrderingValue>> comparerScalar = null,
+			int maxTogetherThenOrderings = 4) : this(orderingValueSelectorExpression, Utils.getCapacity(sourceScalar), maxTogetherThenOrderings)
 		{
 			_sourceScalar = sourceScalar;
 			initializeSourceScalar();
@@ -238,7 +247,8 @@ namespace IBCode.ObservableCalculations
 			IReadScalar<IOrdering<TSourceItem>> sourceScalar,
 			Expression<Func<TSourceItem, TOrderingValue>> orderingValueSelectorExpression,
 			IReadScalar<ListSortDirection> sortDirectionScalar = null,
-			IComparer<TOrderingValue> comparer = null) : this(orderingValueSelectorExpression, Utils.getCapacity(sourceScalar))
+			IComparer<TOrderingValue> comparer = null,
+			int maxTogetherThenOrderings = 4) : this(orderingValueSelectorExpression, Utils.getCapacity(sourceScalar), maxTogetherThenOrderings)
 		{
 			_sourceScalar = sourceScalar;
 			initializeSourceScalar();
@@ -256,7 +266,8 @@ namespace IBCode.ObservableCalculations
 			IReadScalar<IOrdering<TSourceItem>> sourceScalar,
 			Expression<Func<TSourceItem, TOrderingValue>> orderingValueSelectorExpression,
 			ListSortDirection sortDirection = ListSortDirection.Ascending,
-			IComparer<TOrderingValue> comparer= null) : this(orderingValueSelectorExpression, Utils.getCapacity(sourceScalar))
+			IComparer<TOrderingValue> comparer= null,
+			int maxTogetherThenOrderings = 4) : this(orderingValueSelectorExpression, Utils.getCapacity(sourceScalar), maxTogetherThenOrderings)
 		{
 			_sourceScalar = sourceScalar;
 			initializeSourceScalar();
@@ -268,8 +279,13 @@ namespace IBCode.ObservableCalculations
 			initializeFromSource();
 		}
 
-		private ThenOrdering(Expression<Func<TSourceItem, TOrderingValue>> orderingValueSelectorExpression, int sourceCapacity) : base(sourceCapacity)
+		private ThenOrdering(
+			Expression<Func<TSourceItem, TOrderingValue>> orderingValueSelectorExpression,
+			int sourceCapacity,
+			int maxTogetherThenOrderings) : base(sourceCapacity)
 		{
+			_maxTogetherThenOrderings = maxTogetherThenOrderings;
+
 			_orderedItemInfos = new List<OrderedItemInfo>(sourceCapacity);
 			_orderedPositions = new Positions<OrderedItemInfo>(_orderedItemInfos);
 			_itemInfos = new List<ItemInfo>(sourceCapacity);
@@ -398,7 +414,7 @@ namespace IBCode.ObservableCalculations
 
 				_sourceNotifyCollectionChangedEventHandler = null;
 
-				_source.RemoveThenOrdering(this);
+				_source.RemoveThenOrdering();
 			}
 
 			if (_sourceScalar != null)
@@ -724,23 +740,16 @@ namespace IBCode.ObservableCalculations
 		{
 			void notifyThenOrderings(int newOrderedIndex)
 			{
-				Monitor.Enter(_itemInfos);
-				IThenOrderingInternal<TSourceItem>[] thenOrderings = new IThenOrderingInternal<TSourceItem>[_thenOrderingsCount];
-
-				for (int thenOrderingIndex = 0; thenOrderingIndex < _thenOrderingsCount; thenOrderingIndex++)
+				int processedThenOrderingsCount = 0;
+				for (int thenOrderingIndex = 0; thenOrderingIndex < _maxTogetherThenOrderings; thenOrderingIndex++)
 				{
-					if (_thenOrderings[thenOrderingIndex].TryGetTarget(out IThenOrderingInternal<TSourceItem> thenOrdering))
+					WeakReference<IThenOrderingInternal<TSourceItem>> thenOrderingЦeakReference = _thenOrderings[thenOrderingIndex];
+					if (thenOrderingЦeakReference != null && thenOrderingЦeakReference.TryGetTarget(out IThenOrderingInternal<TSourceItem> thenOrdering))
 					{
-						thenOrderings[thenOrderingIndex] = thenOrdering;
+						thenOrdering.ProcessSourceItemChange(newOrderedIndex);
+						processedThenOrderingsCount++;
+						if (processedThenOrderingsCount == _thenOrderingsCount) break;
 					}
-				}
-
-				Monitor.Exit(_itemInfos);
-
-				for (int thenOrderingIndex = 0; thenOrderingIndex < _thenOrderingsCount; thenOrderingIndex++)
-				{
-					IThenOrderingInternal<TSourceItem> thenOrdering = thenOrderings[thenOrderingIndex];
-					thenOrdering?.ProcessSourceItemChange(newOrderedIndex);
 				}
 			}
 
@@ -999,10 +1008,24 @@ namespace IBCode.ObservableCalculations
 
 		void IOrderingInternal<TSourceItem>.AddThenOrdering(IThenOrdering<TSourceItem> thenOrdering)
 		{
-			Monitor.Enter(_itemInfos);
-			_thenOrderingsCount++;
-			_thenOrderings = _thenOrderings ?? new List<WeakReference<IThenOrderingInternal<TSourceItem>>>();
-			_thenOrderings.Add(new WeakReference<IThenOrderingInternal<TSourceItem>>((IThenOrderingInternal<TSourceItem>) thenOrdering));
+			Interlocked.Increment(ref _thenOrderingsCount);
+			_thenOrderings = _thenOrderings ?? new WeakReference<IThenOrderingInternal<TSourceItem>>[_maxTogetherThenOrderings];
+
+			bool placed = false;
+			for (int thenOrderingWeakReferenceIndex = 0; thenOrderingWeakReferenceIndex < _maxTogetherThenOrderings; thenOrderingWeakReferenceIndex++)
+			{
+				if (_thenOrderings[thenOrderingWeakReferenceIndex] == null)
+				{
+					_thenOrderings[thenOrderingWeakReferenceIndex] = new WeakReference<IThenOrderingInternal<TSourceItem>>((IThenOrderingInternal<TSourceItem>) thenOrdering);
+					placed = true;
+					break;
+				}
+
+			}
+			
+			if (!placed)
+				throw new ObservableCalculationsException("The maximum number of join ThenOrderings has been reached. Please increase the value of MaxTogetherThenOrderings parameter. The value of this parameter can be specified in the constructor of this class. The default value is 4.");
+
 
 			if (_thenOrderingsCount == 1)
 			{
@@ -1068,23 +1091,42 @@ namespace IBCode.ObservableCalculations
 				if (count > 0)
 					rangePosition.Length = equalOrderingValueItemsCount;
 			}
-
-			Monitor.Exit(_itemInfos);
 		}
 
-		void IOrderingInternal<TSourceItem>.RemoveThenOrdering(IThenOrdering<TSourceItem> thenOrdering)
+		void IOrderingInternal<TSourceItem>.RemoveThenOrdering()
 		{
-			Monitor.Enter(_itemInfos);
-			for (int i = 0; i < _thenOrderingsCount; i++)
-			{
-				if (!_thenOrderings[i].TryGetTarget(out IThenOrderingInternal<TSourceItem> targetThenOrdering) || ReferenceEquals(targetThenOrdering, thenOrdering))
-				{
-					_thenOrderings.RemoveAt(i);
-					break;
-				}
+			Interlocked.Decrement(ref _thenOrderingsCount);
 
+			Monitor.Enter(_itemInfos);
+
+			int? releasingIndex = null;
+			int? maxUsedIndex = null;
+			for (int i = 0; i < _maxTogetherThenOrderings; i++)
+			{
+				WeakReference<IThenOrderingInternal<TSourceItem>> thenOrderingWeakReference = _thenOrderings[i];
+				if (thenOrderingWeakReference != null)
+				{
+					if (!thenOrderingWeakReference.TryGetTarget(out _))
+					{
+						if (releasingIndex == null) releasingIndex = i;
+					}
+					else
+					{
+						maxUsedIndex = i;
+					}
+				}
 			}
-			_thenOrderingsCount--;
+
+			//defragmentation
+			if (releasingIndex != null && maxUsedIndex != null && maxUsedIndex.Value > releasingIndex.Value)
+			{
+				_thenOrderings[releasingIndex.Value] = _thenOrderings[maxUsedIndex.Value];
+				_thenOrderings[maxUsedIndex.Value] = null;
+			}
+			else if (releasingIndex != null)
+			{
+				_thenOrderings[releasingIndex.Value] = null;
+			}
 
 			Monitor.Exit(_itemInfos);
 		}
@@ -1196,7 +1238,7 @@ namespace IBCode.ObservableCalculations
 				_sortDirectionScalar.PropertyChanged -= _sortDirectionScalarWeakPropertyChangedEventHandler.Handle;			
 			}
 
-			_source.RemoveThenOrdering(this);
+			_source.RemoveThenOrdering();
 		}
 
 		public bool Compare(int resultIndex1, int resultIndex2)

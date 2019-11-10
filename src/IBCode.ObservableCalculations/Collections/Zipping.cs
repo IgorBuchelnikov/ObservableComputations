@@ -10,7 +10,7 @@ using INotifyPropertyChanged = System.ComponentModel.INotifyPropertyChanged;
 
 namespace IBCode.ObservableCalculations
 {
-	public class Zipping<TSourceItemLeft, TSourceItemRight> : CollectionCalculating<ZipPair<TSourceItemLeft, TSourceItemRight>>, IHasSources
+	public class Zipping<TLeftSourceItem, TRightSourceItem> : CollectionCalculating<ZipPair<TLeftSourceItem, TRightSourceItem>>, IHasSources
 	{
 		// ReSharper disable once MemberCanBePrivate.Global
 		public IReadScalar<INotifyCollectionChanged> LeftSourceScalar => _leftSourceScalar;
@@ -27,7 +27,7 @@ namespace IBCode.ObservableCalculations
 		public ReadOnlyCollection<INotifyCollectionChanged> SourcesCollection => new ReadOnlyCollection<INotifyCollectionChanged>(new []{LeftSource, RightSource});
 		public ReadOnlyCollection<IReadScalar<INotifyCollectionChanged>> SourceScalarsCollection => new ReadOnlyCollection<IReadScalar<INotifyCollectionChanged>>(new []{LeftSourceScalar, RightSourceScalar});
 
-		public Action<ZipPair<TSourceItemLeft, TSourceItemRight>, TSourceItemLeft> ZipPairSetItemLeftAction
+		public Action<ZipPair<TLeftSourceItem, TRightSourceItem>, TLeftSourceItem> ZipPairSetItemLeftAction
 		{
 			get => _zipPairSetItemLeftAction;
 			set
@@ -40,7 +40,7 @@ namespace IBCode.ObservableCalculations
 			}
 		}
 
-		public Action<ZipPair<TSourceItemLeft, TSourceItemRight>, TSourceItemRight> ZipPairSetItemRightAction
+		public Action<ZipPair<TLeftSourceItem, TRightSourceItem>, TRightSourceItem> ZipPairSetItemRightAction
 		{
 			get => _zipPairSetItemRightAction;
 			set
@@ -56,12 +56,12 @@ namespace IBCode.ObservableCalculations
 		private PropertyChangedEventHandler _leftSourceScalarPropertyChangedEventHandler;
 		private WeakPropertyChangedEventHandler _leftSourceScalarWeakPropertyChangedEventHandler;
 
-		private IList<TSourceItemLeft> _leftSourceAsList;
+		private IList<TLeftSourceItem> _leftSourceAsList;
 
 		private PropertyChangedEventHandler _rightSourceScalarPropertyChangedEventHandler;
 		private WeakPropertyChangedEventHandler _rightSourceScalarWeakPropertyChangedEventHandler;
 
-		private IList<TSourceItemRight> _rightSourceAsList;
+		private IList<TRightSourceItem> _rightSourceAsList;
 
 		private NotifyCollectionChangedEventHandler _leftSourceNotifyCollectionChangedEventHandler;
 		private WeakNotifyCollectionChangedEventHandler _leftSourceWeakNotifyCollectionChangedEventHandler;
@@ -69,9 +69,9 @@ namespace IBCode.ObservableCalculations
 		private NotifyCollectionChangedEventHandler _rightSourceNotifyCollectionChangedEventHandler;
 		private WeakNotifyCollectionChangedEventHandler _rightSourceWeakNotifyCollectionChangedEventHandler;
 
-		private Action<ZipPair<TSourceItemLeft, TSourceItemRight>, TSourceItemLeft> _zipPairSetItemLeftAction;
+		private Action<ZipPair<TLeftSourceItem, TRightSourceItem>, TLeftSourceItem> _zipPairSetItemLeftAction;
 
-		private Action<ZipPair<TSourceItemLeft, TSourceItemRight>, TSourceItemRight> _zipPairSetItemRightAction;
+		private Action<ZipPair<TLeftSourceItem, TRightSourceItem>, TRightSourceItem> _zipPairSetItemRightAction;
 		private readonly IReadScalar<INotifyCollectionChanged> _leftSourceScalar;
 		private readonly IReadScalar<INotifyCollectionChanged> _rightSourceScalar;
 		private INotifyCollectionChanged _leftSource;
@@ -87,10 +87,10 @@ namespace IBCode.ObservableCalculations
 		private bool _rigthtSourceIndexerPropertyChangedEventRaised;
 		private INotifyPropertyChanged _rigthSourceAsINotifyPropertyChanged;
 
-		private ObservableCollectionWithChangeMarker<TSourceItemLeft> _leftSourceAsObservableCollectionWithChangeMarker;
+		private ObservableCollectionWithChangeMarker<TLeftSourceItem> _leftSourceAsObservableCollectionWithChangeMarker;
 		private bool _lastProcessedLeftSourceChangeMarker;
 
-		private ObservableCollectionWithChangeMarker<TSourceItemRight> _rightSourceAsObservableCollectionWithChangeMarker;
+		private ObservableCollectionWithChangeMarker<TRightSourceItem> _rightSourceAsObservableCollectionWithChangeMarker;
 		private bool _lastProcessedRightSourceChangeMarker;
 
 		[ObservableCalculationsCall]
@@ -230,14 +230,14 @@ namespace IBCode.ObservableCalculations
 			}
 
 			if (_leftSourceScalar != null) _leftSource = _leftSourceScalar.Value;
-			_leftSourceAsList = (IList<TSourceItemLeft>) _leftSource;
+			_leftSourceAsList = (IList<TLeftSourceItem>) _leftSource;
 
 			if (_rightSourceScalar != null) _rightSource = _rightSourceScalar.Value;
-			_rightSourceAsList = (IList<TSourceItemRight>) _rightSource;
+			_rightSourceAsList = (IList<TRightSourceItem>) _rightSource;
 
 			if (_leftSourceAsList != null && _rightSourceAsList != null)
 			{
-				_leftSourceAsObservableCollectionWithChangeMarker = _leftSourceAsList as ObservableCollectionWithChangeMarker<TSourceItemLeft>;
+				_leftSourceAsObservableCollectionWithChangeMarker = _leftSourceAsList as ObservableCollectionWithChangeMarker<TLeftSourceItem>;
 
 				if (_leftSourceAsObservableCollectionWithChangeMarker != null)
 				{
@@ -259,7 +259,7 @@ namespace IBCode.ObservableCalculations
 						_leftSourceWeakPropertyChangedEventHandler.Handle;
 				}
 
-				_rightSourceAsObservableCollectionWithChangeMarker = _rightSourceAsList as ObservableCollectionWithChangeMarker<TSourceItemRight>;
+				_rightSourceAsObservableCollectionWithChangeMarker = _rightSourceAsList as ObservableCollectionWithChangeMarker<TRightSourceItem>;
 
 				if (_rightSourceAsObservableCollectionWithChangeMarker != null)
 				{
@@ -286,12 +286,12 @@ namespace IBCode.ObservableCalculations
 
 				for (int index = 0; index < countLeft; index++)
 				{
-					TSourceItemLeft sourceItemLeft = _leftSourceAsList[index];
+					TLeftSourceItem sourceItemLeft = _leftSourceAsList[index];
 
 					if (index < countRight)
 					{
-						TSourceItemRight sourceItemRight = _rightSourceAsList[index];
-						ZipPair<TSourceItemLeft, TSourceItemRight> zipPair = new ZipPair<TSourceItemLeft, TSourceItemRight>(this, sourceItemLeft, sourceItemRight);
+						TRightSourceItem sourceItemRight = _rightSourceAsList[index];
+						ZipPair<TLeftSourceItem, TRightSourceItem> zipPair = new ZipPair<TLeftSourceItem, TRightSourceItem>(this, sourceItemLeft, sourceItemRight);
 						baseInsertItem(index, zipPair);
 					}
 					else
@@ -364,7 +364,7 @@ namespace IBCode.ObservableCalculations
 								}
 								else
 								{
-									baseInsertItem(sourceIndex, new ZipPair<TSourceItemLeft, TSourceItemRight>(this, _leftSourceAsList[sourceIndex], _rightSourceAsList[sourceIndex]));
+									baseInsertItem(sourceIndex, new ZipPair<TLeftSourceItem, TRightSourceItem>(this, _leftSourceAsList[sourceIndex], _rightSourceAsList[sourceIndex]));
 								}
 							}
 							else
@@ -377,7 +377,7 @@ namespace IBCode.ObservableCalculations
 						//{
 						//	if (newIndex < _rightSourceAsList.Count)
 						//	{
-						//		baseInsertItem(this.Count, new ZipPair<TSourceItemLeft, TSourceItemRight>(_leftSourceAsList[newIndex], _rightSourceAsList[newIndex]));
+						//		baseInsertItem(this.Count, new ZipPair<TLeftSourceItem, TRightSourceItem>(_leftSourceAsList[newIndex], _rightSourceAsList[newIndex]));
 						//	}		
 						//}
 						break;
@@ -478,14 +478,14 @@ namespace IBCode.ObservableCalculations
 						{
 							if (sourceIndex < countLeft)
 							{
-								TSourceItemRight sourceItemRight = _rightSourceAsList[sourceIndex];
+								TRightSourceItem sourceItemRight = _rightSourceAsList[sourceIndex];
 								if (sourceIndex < Count)
 								{
 									this[sourceIndex].setItemRight(sourceItemRight);
 								}
 								else
 								{
-									baseInsertItem(sourceIndex, new ZipPair<TSourceItemLeft, TSourceItemRight>(this, _leftSourceAsList[sourceIndex], sourceItemRight));
+									baseInsertItem(sourceIndex, new ZipPair<TLeftSourceItem, TRightSourceItem>(this, _leftSourceAsList[sourceIndex], sourceItemRight));
 								}
 							}
 							else
@@ -597,8 +597,8 @@ namespace IBCode.ObservableCalculations
 
 		public void ValidateConsistency()
 		{
-			IList<TSourceItemLeft> sourceLeft = _leftSourceScalar.getValue(_leftSource, new ObservableCollection<TSourceItemLeft>()) as IList<TSourceItemLeft>;
-			IList<TSourceItemRight> sourceRight = _rightSourceScalar.getValue(_rightSource, new ObservableCollection<TSourceItemRight>()) as IList<TSourceItemRight>;
+			IList<TLeftSourceItem> sourceLeft = _leftSourceScalar.getValue(_leftSource, new ObservableCollection<TLeftSourceItem>()) as IList<TLeftSourceItem>;
+			IList<TRightSourceItem> sourceRight = _rightSourceScalar.getValue(_rightSource, new ObservableCollection<TRightSourceItem>()) as IList<TRightSourceItem>;
 
 			// ReSharper disable once PossibleNullReferenceException
 			for (int index = 0; index < sourceLeft.Count; index++)
@@ -606,10 +606,10 @@ namespace IBCode.ObservableCalculations
 				// ReSharper disable once PossibleNullReferenceException
 				if (index < sourceRight.Count)
 				{
-					if (!EqualityComparer<TSourceItemLeft>.Default.Equals(this[index].ItemLeft, sourceLeft[index]))
+					if (!EqualityComparer<TLeftSourceItem>.Default.Equals(this[index].ItemLeft, sourceLeft[index]))
 						throw new ObservableCalculationsException("Consistency violation: Zipping.Left");
 
-					if (!EqualityComparer<TSourceItemRight>.Default.Equals(this[index].ItemRight, sourceRight[index]))
+					if (!EqualityComparer<TRightSourceItem>.Default.Equals(this[index].ItemRight, sourceRight[index]))
 						throw new ObservableCalculationsException("Consistency violation: Zipping.Right");
 				}
 				else
@@ -621,43 +621,43 @@ namespace IBCode.ObservableCalculations
 
 	}
 
-	public class ZipPair<TSourceItemLeft, TSourceItemRight> : INotifyPropertyChanged, IEquatable<ZipPair<TSourceItemLeft, TSourceItemRight>>
+	public class ZipPair<TLeftSourceItem, TRightSourceItem> : INotifyPropertyChanged, IEquatable<ZipPair<TLeftSourceItem, TRightSourceItem>>
 	{
-		readonly EqualityComparer<TSourceItemLeft> _sourceItemLeftEqualityComparer = EqualityComparer<TSourceItemLeft>.Default;
-		readonly EqualityComparer<TSourceItemRight> _sourceItemRightEqualityComparer = EqualityComparer<TSourceItemRight>.Default;
+		readonly EqualityComparer<TLeftSourceItem> _sourceItemLeftEqualityComparer = EqualityComparer<TLeftSourceItem>.Default;
+		readonly EqualityComparer<TRightSourceItem> _sourceItemRightEqualityComparer = EqualityComparer<TRightSourceItem>.Default;
 
-		private TSourceItemLeft _itemLeft;
+		private TLeftSourceItem _itemLeft;
 
-		public TSourceItemLeft ItemLeft
+		public TLeftSourceItem ItemLeft
 		{
 			get => _itemLeft;
 			// ReSharper disable once MemberCanBePrivate.Global
 			set => _zipping.ZipPairSetItemLeftAction(this, value);
 		}
 
-		private TSourceItemRight _itemRight;
-		public TSourceItemRight ItemRight
+		private TRightSourceItem _itemRight;
+		public TRightSourceItem ItemRight
 		{
 			get => _itemRight;
 			// ReSharper disable once MemberCanBePrivate.Global
 			set =>  _zipping.ZipPairSetItemRightAction(this, value);
 		}
 
-		internal void setItemLeft(TSourceItemLeft itemLeft)
+		internal void setItemLeft(TLeftSourceItem itemLeft)
 		{
 			_itemLeft = itemLeft;
 			PropertyChanged?.Invoke(this, Utils.ItemLeftPropertyChangedEventArgs);
 		}
 
-		internal void setItemRight(TSourceItemRight itemRight)
+		internal void setItemRight(TRightSourceItem itemRight)
 		{
 			_itemRight = itemRight;
 			PropertyChanged?.Invoke(this, Utils.ItemRightPropertyChangedEventArgs);
 		}
 
-		readonly Zipping<TSourceItemLeft, TSourceItemRight> _zipping;
+		readonly Zipping<TLeftSourceItem, TRightSourceItem> _zipping;
 
-		public ZipPair(Zipping<TSourceItemLeft, TSourceItemRight> zipping, TSourceItemLeft itemLeft, TSourceItemRight itemRight)
+		public ZipPair(Zipping<TLeftSourceItem, TRightSourceItem> zipping, TLeftSourceItem itemLeft, TRightSourceItem itemRight)
 		{
 			_itemLeft = itemLeft;
 			_itemRight = itemRight;
@@ -675,10 +675,10 @@ namespace IBCode.ObservableCalculations
 
 		public override bool Equals(object obj)
 		{
-			return obj is ZipPair<TSourceItemLeft, TSourceItemRight> other && Equals(other);
+			return obj is ZipPair<TLeftSourceItem, TRightSourceItem> other && Equals(other);
 		}
 
-		public bool Equals(ZipPair<TSourceItemLeft, TSourceItemRight> other)
+		public bool Equals(ZipPair<TLeftSourceItem, TRightSourceItem> other)
 		{
 			return other != null && (_sourceItemLeftEqualityComparer.Equals(ItemLeft, other.ItemLeft) && _sourceItemRightEqualityComparer.Equals(ItemRight, other.ItemRight));
 		}

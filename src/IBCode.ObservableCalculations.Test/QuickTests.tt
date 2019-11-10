@@ -241,8 +241,8 @@ namespace IBCode.ObservableCalculations.Test
 		type = type.Replace("TSourceItem2", "Item");
 		type = type.Replace("TOuterSourceItem", "Item");
 		type = type.Replace("TInnerSourceItem", "Item");
-		type = type.Replace("TSourceItemLeft", "Item");
-		type = type.Replace("TSourceItemRight", "Item");
+		type = type.Replace("TLeftSourceItem", "Item");
+		type = type.Replace("TRightSourceItem", "Item");
 		type = type.Replace("TSourceItem", "Item");
 		type = type.Replace("TResultItem", "object");
 		type = type.Replace("TKey", "int");
@@ -307,8 +307,8 @@ namespace IBCode.ObservableCalculations.Test
 			case "ObservableCollection<TSourceItem2>":
 			case "ObservableCollection<TOuterSourceItem>":
 			case "ObservableCollection<TInnerSourceItem>":
-			case "ObservableCollection<TSourceItemLeft>":
-			case "ObservableCollection<TSourceItemRight>":
+			case "ObservableCollection<TLeftSourceItem>":
+			case "ObservableCollection<TRightSourceItem>":
 			case "ObservableCollection<TSourceItem>":
 				if (extentionMethodName == "Aggregating"					
 					|| extentionMethodName == "Maximazing"
@@ -350,8 +350,8 @@ namespace IBCode.ObservableCalculations.Test
 			case "System.Linq.Expressions.Expression<System.Func<TSourceItem, TKey>>":
 			case "System.Linq.Expressions.Expression<System.Func<TOuterSourceItem, TKey>>":
 			case "System.Linq.Expressions.Expression<System.Func<TInnerSourceItem, TKey>>":
-			case "System.Linq.Expressions.Expression<System.Func<TSourceItemLeft, TKey>>":
-			case "System.Linq.Expressions.Expression<System.Func<TSourceItemRight, TKey>>":
+			case "System.Linq.Expressions.Expression<System.Func<TLeftSourceItem, TKey>>":
+			case "System.Linq.Expressions.Expression<System.Func<TRightSourceItem, TKey>>":
 				result =  "i => i.Id";
 				break;
 			case "System.Linq.Expressions.Expression<System.Func<TSourceItem, TValue>>":
@@ -385,7 +385,7 @@ namespace IBCode.ObservableCalculations.Test
 				result =  argumentName.Contains("count") ? "3" : "0";
 				break;
 			case "IBCode.ObservableCalculations.Common.Interface.IOrdering<TSourceItem>":
-				result =  "getItems().Selecting(i => i.Num).Ordering(i => i)";
+				result =  "getItems().Selecting(i => i.Num).Ordering(i => i, 32)";
 				sourceAccessor = ".GetValueAs(s => ((Ordering<int, int>)s)?.Source)?.GetValueAs(s => ((Selecting<Item, int>)s)?.Source)";
 				break;
 			case "(System.Func<TSourceItem, TResult, TResult> aggregateFunc, System.Func<TSourceItem, TResult, TResult> deaggregateFunc)":

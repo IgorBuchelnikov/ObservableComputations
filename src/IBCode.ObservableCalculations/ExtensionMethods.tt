@@ -18,7 +18,8 @@ namespace IBCode.ObservableCalculations
 	public static partial class ExtensionMethods
 	{
 <#
-	foreach (var extentionMethodGroup in GetExtentionMethods().GroupBy(em => em.Name).OrderBy(emg => emg.Key))
+	var extentionMethodGroups = GetExtentionMethods().GroupBy(em => em.Name).OrderBy(emg => emg.Key).ToArray();
+	foreach (var extentionMethodGroup in extentionMethodGroups)
 	{
 
 #>

@@ -345,15 +345,19 @@ namespace IBCode.ObservableCalculations
 					baseMoveItem(upperIndex - 1, lowerIndex);
 				}
 
-				count = _equalOrderingValueRangePositions.List.Count;
-				for (int lowerIndex = 0, upperIndex = count - 1; lowerIndex < upperIndex; lowerIndex++, upperIndex--)
+				if (_thenOrderingsCount > 0)
 				{
-					RangePosition tempRangePosition =  _equalOrderingValueRangePositions.List[lowerIndex];
-					_equalOrderingValueRangePositions.List[lowerIndex] =  _equalOrderingValueRangePositions.List[upperIndex];
-					_equalOrderingValueRangePositions.List[upperIndex] = tempRangePosition;
-					_equalOrderingValueRangePositions.List[lowerIndex].Index = lowerIndex;
-					tempRangePosition.Index = upperIndex;
+					count = _equalOrderingValueRangePositions.List.Count;
+					for (int lowerIndex = 0, upperIndex = count - 1; lowerIndex < upperIndex; lowerIndex++, upperIndex--)
+					{
+						RangePosition tempRangePosition =  _equalOrderingValueRangePositions.List[lowerIndex];
+						_equalOrderingValueRangePositions.List[lowerIndex] =  _equalOrderingValueRangePositions.List[upperIndex];
+						_equalOrderingValueRangePositions.List[upperIndex] = tempRangePosition;
+						_equalOrderingValueRangePositions.List[lowerIndex].Index = lowerIndex;
+						tempRangePosition.Index = upperIndex;
+					}
 				}
+
 			}
 
 			_consistent = true;

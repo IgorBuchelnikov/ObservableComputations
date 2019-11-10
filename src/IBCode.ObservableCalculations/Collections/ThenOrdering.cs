@@ -344,15 +344,18 @@ namespace IBCode.ObservableCalculations
 				{
 					RangePosition rangePosition = rangePositions[rangePositionIndex];
 
-					for (int lowerIndex = _orderedItemInfos[rangePosition.PlainIndex].RangePosition.Index, 
-						upperIndex = _orderedItemInfos[rangePosition.PlainIndex + rangePosition.Length - 1].RangePosition.Index; 
-						lowerIndex < upperIndex; lowerIndex++, upperIndex--)
+					if (_thenOrderingsCount > 0)
 					{
-						RangePosition tempRangePosition =  _equalOrderingValueRangePositions.List[lowerIndex];
-						_equalOrderingValueRangePositions.List[lowerIndex] =  _equalOrderingValueRangePositions.List[upperIndex];
-						_equalOrderingValueRangePositions.List[upperIndex] = tempRangePosition;
-						_equalOrderingValueRangePositions.List[lowerIndex].Index = lowerIndex;
-						tempRangePosition.Index = upperIndex;
+						for (int lowerIndex = _orderedItemInfos[rangePosition.PlainIndex].RangePosition.Index, 
+							upperIndex = _orderedItemInfos[rangePosition.PlainIndex + rangePosition.Length - 1].RangePosition.Index; 
+							lowerIndex < upperIndex; lowerIndex++, upperIndex--)
+						{
+							RangePosition tempRangePosition =  _equalOrderingValueRangePositions.List[lowerIndex];
+							_equalOrderingValueRangePositions.List[lowerIndex] =  _equalOrderingValueRangePositions.List[upperIndex];
+							_equalOrderingValueRangePositions.List[upperIndex] = tempRangePosition;
+							_equalOrderingValueRangePositions.List[lowerIndex].Index = lowerIndex;
+							tempRangePosition.Index = upperIndex;
+						}
 					}
 
 					for (
@@ -420,13 +423,14 @@ namespace IBCode.ObservableCalculations
 			if (_sourceScalar != null)
 			{
 				_source = (IOrderingInternal<TSourceItem>) _sourceScalar.Value;
-				_source.AddThenOrdering(this);
+
 			}
 
 			_sourceAsList = null;
 
 			if (_source != null)
 			{
+				_source.AddThenOrdering(this);
 				if (_source is ObservableCollectionWithChangeMarker<TSourceItem> sourceAsList)
 				{
 					_sourceAsList = sourceAsList;
@@ -1238,7 +1242,7 @@ namespace IBCode.ObservableCalculations
 				_sortDirectionScalar.PropertyChanged -= _sortDirectionScalarWeakPropertyChangedEventHandler.Handle;			
 			}
 
-			_source.RemoveThenOrdering();
+			_source?.RemoveThenOrdering();
 		}
 
 		public bool Compare(int resultIndex1, int resultIndex2)

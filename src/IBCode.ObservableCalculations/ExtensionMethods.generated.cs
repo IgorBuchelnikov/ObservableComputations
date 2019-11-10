@@ -7332,13 +7332,45 @@ namespace IBCode.ObservableCalculations
 			 System.Collections.Specialized.INotifyCollectionChanged source,
 			 System.Linq.Expressions.Expression<System.Func<TSourceItem, TOrderingValue>> orderingValueSelectorExpression,
 			 IBCode.ObservableCalculations.Common.Interface.IReadScalar<System.ComponentModel.ListSortDirection> sortDirectionScalar,
+			 IBCode.ObservableCalculations.Common.Interface.IReadScalar<System.Collections.Generic.IComparer<TOrderingValue>> comparerScalar,
+			 int maxTogetherThenOrderings)
+		{
+			return new IBCode.ObservableCalculations.Ordering<TSourceItem, TOrderingValue>(
+				source: source,
+				orderingValueSelectorExpression: orderingValueSelectorExpression,
+				sortDirectionScalar: sortDirectionScalar,
+				comparerScalar: comparerScalar,
+				maxTogetherThenOrderings: maxTogetherThenOrderings);
+		}
+
+		[ObservableCalculationsCall]
+		public static IBCode.ObservableCalculations.Ordering<TSourceItem, TOrderingValue> Ordering<TSourceItem, TOrderingValue>(this
+			 System.Collections.Specialized.INotifyCollectionChanged source,
+			 System.Linq.Expressions.Expression<System.Func<TSourceItem, TOrderingValue>> orderingValueSelectorExpression,
+			 IBCode.ObservableCalculations.Common.Interface.IReadScalar<System.ComponentModel.ListSortDirection> sortDirectionScalar,
 			 IBCode.ObservableCalculations.Common.Interface.IReadScalar<System.Collections.Generic.IComparer<TOrderingValue>> comparerScalar)
 		{
 			return new IBCode.ObservableCalculations.Ordering<TSourceItem, TOrderingValue>(
 				source: source,
 				orderingValueSelectorExpression: orderingValueSelectorExpression,
 				sortDirectionScalar: sortDirectionScalar,
-				comparerScalar: comparerScalar);
+				comparerScalar: comparerScalar,
+				maxTogetherThenOrderings: 4);
+		}
+
+		[ObservableCalculationsCall]
+		public static IBCode.ObservableCalculations.Ordering<TSourceItem, TOrderingValue> Ordering<TSourceItem, TOrderingValue>(this
+			 System.Collections.Specialized.INotifyCollectionChanged source,
+			 System.Linq.Expressions.Expression<System.Func<TSourceItem, TOrderingValue>> orderingValueSelectorExpression,
+			 IBCode.ObservableCalculations.Common.Interface.IReadScalar<System.ComponentModel.ListSortDirection> sortDirectionScalar,
+			 int maxTogetherThenOrderings)
+		{
+			return new IBCode.ObservableCalculations.Ordering<TSourceItem, TOrderingValue>(
+				source: source,
+				orderingValueSelectorExpression: orderingValueSelectorExpression,
+				sortDirectionScalar: sortDirectionScalar,
+				comparerScalar: null,
+				maxTogetherThenOrderings: maxTogetherThenOrderings);
 		}
 
 		[ObservableCalculationsCall]
@@ -7351,7 +7383,23 @@ namespace IBCode.ObservableCalculations
 				source: source,
 				orderingValueSelectorExpression: orderingValueSelectorExpression,
 				sortDirectionScalar: sortDirectionScalar,
-				comparerScalar: null);
+				comparerScalar: null,
+				maxTogetherThenOrderings: 4);
+		}
+
+		[ObservableCalculationsCall]
+		public static IBCode.ObservableCalculations.Ordering<TSourceItem, TOrderingValue> Ordering<TSourceItem, TOrderingValue>(this
+			 System.Collections.Specialized.INotifyCollectionChanged source,
+			 System.Linq.Expressions.Expression<System.Func<TSourceItem, TOrderingValue>> orderingValueSelectorExpression,
+			 IBCode.ObservableCalculations.Common.Interface.IReadScalar<System.Collections.Generic.IComparer<TOrderingValue>> comparerScalar,
+			 int maxTogetherThenOrderings)
+		{
+			return new IBCode.ObservableCalculations.Ordering<TSourceItem, TOrderingValue>(
+				source: source,
+				orderingValueSelectorExpression: orderingValueSelectorExpression,
+				sortDirectionScalar: null,
+				comparerScalar: comparerScalar,
+				maxTogetherThenOrderings: maxTogetherThenOrderings);
 		}
 
 		[ObservableCalculationsCall]
@@ -7364,7 +7412,22 @@ namespace IBCode.ObservableCalculations
 				source: source,
 				orderingValueSelectorExpression: orderingValueSelectorExpression,
 				sortDirectionScalar: null,
-				comparerScalar: comparerScalar);
+				comparerScalar: comparerScalar,
+				maxTogetherThenOrderings: 4);
+		}
+
+		[ObservableCalculationsCall]
+		public static IBCode.ObservableCalculations.Ordering<TSourceItem, TOrderingValue> Ordering<TSourceItem, TOrderingValue>(this
+			 System.Collections.Specialized.INotifyCollectionChanged source,
+			 System.Linq.Expressions.Expression<System.Func<TSourceItem, TOrderingValue>> orderingValueSelectorExpression,
+			 int maxTogetherThenOrderings)
+		{
+			return new IBCode.ObservableCalculations.Ordering<TSourceItem, TOrderingValue>(
+				source: source,
+				orderingValueSelectorExpression: orderingValueSelectorExpression,
+				sortDirectionScalar: null,
+				comparerScalar: null,
+				maxTogetherThenOrderings: maxTogetherThenOrderings);
 		}
 
 		[ObservableCalculationsCall]
@@ -7376,7 +7439,24 @@ namespace IBCode.ObservableCalculations
 				source: source,
 				orderingValueSelectorExpression: orderingValueSelectorExpression,
 				sortDirectionScalar: null,
-				comparerScalar: null);
+				comparerScalar: null,
+				maxTogetherThenOrderings: 4);
+		}
+
+		[ObservableCalculationsCall]
+		public static IBCode.ObservableCalculations.Ordering<TSourceItem, TOrderingValue> Ordering<TSourceItem, TOrderingValue>(this
+			 ObservableCollection<TSourceItem> source,
+			 System.Linq.Expressions.Expression<System.Func<TSourceItem, TOrderingValue>> orderingValueSelectorExpression,
+			 IBCode.ObservableCalculations.Common.Interface.IReadScalar<System.ComponentModel.ListSortDirection> sortDirectionScalar,
+			 IBCode.ObservableCalculations.Common.Interface.IReadScalar<System.Collections.Generic.IComparer<TOrderingValue>> comparerScalar,
+			 int maxTogetherThenOrderings)
+		{
+			return new IBCode.ObservableCalculations.Ordering<TSourceItem, TOrderingValue>(
+				source: source,
+				orderingValueSelectorExpression: orderingValueSelectorExpression,
+				sortDirectionScalar: sortDirectionScalar,
+				comparerScalar: comparerScalar,
+				maxTogetherThenOrderings: maxTogetherThenOrderings);
 		}
 
 		[ObservableCalculationsCall]
@@ -7390,7 +7470,23 @@ namespace IBCode.ObservableCalculations
 				source: source,
 				orderingValueSelectorExpression: orderingValueSelectorExpression,
 				sortDirectionScalar: sortDirectionScalar,
-				comparerScalar: comparerScalar);
+				comparerScalar: comparerScalar,
+				maxTogetherThenOrderings: 4);
+		}
+
+		[ObservableCalculationsCall]
+		public static IBCode.ObservableCalculations.Ordering<TSourceItem, TOrderingValue> Ordering<TSourceItem, TOrderingValue>(this
+			 ObservableCollection<TSourceItem> source,
+			 System.Linq.Expressions.Expression<System.Func<TSourceItem, TOrderingValue>> orderingValueSelectorExpression,
+			 IBCode.ObservableCalculations.Common.Interface.IReadScalar<System.ComponentModel.ListSortDirection> sortDirectionScalar,
+			 int maxTogetherThenOrderings)
+		{
+			return new IBCode.ObservableCalculations.Ordering<TSourceItem, TOrderingValue>(
+				source: source,
+				orderingValueSelectorExpression: orderingValueSelectorExpression,
+				sortDirectionScalar: sortDirectionScalar,
+				comparerScalar: null,
+				maxTogetherThenOrderings: maxTogetherThenOrderings);
 		}
 
 		[ObservableCalculationsCall]
@@ -7403,7 +7499,23 @@ namespace IBCode.ObservableCalculations
 				source: source,
 				orderingValueSelectorExpression: orderingValueSelectorExpression,
 				sortDirectionScalar: sortDirectionScalar,
-				comparerScalar: null);
+				comparerScalar: null,
+				maxTogetherThenOrderings: 4);
+		}
+
+		[ObservableCalculationsCall]
+		public static IBCode.ObservableCalculations.Ordering<TSourceItem, TOrderingValue> Ordering<TSourceItem, TOrderingValue>(this
+			 ObservableCollection<TSourceItem> source,
+			 System.Linq.Expressions.Expression<System.Func<TSourceItem, TOrderingValue>> orderingValueSelectorExpression,
+			 IBCode.ObservableCalculations.Common.Interface.IReadScalar<System.Collections.Generic.IComparer<TOrderingValue>> comparerScalar,
+			 int maxTogetherThenOrderings)
+		{
+			return new IBCode.ObservableCalculations.Ordering<TSourceItem, TOrderingValue>(
+				source: source,
+				orderingValueSelectorExpression: orderingValueSelectorExpression,
+				sortDirectionScalar: null,
+				comparerScalar: comparerScalar,
+				maxTogetherThenOrderings: maxTogetherThenOrderings);
 		}
 
 		[ObservableCalculationsCall]
@@ -7416,7 +7528,22 @@ namespace IBCode.ObservableCalculations
 				source: source,
 				orderingValueSelectorExpression: orderingValueSelectorExpression,
 				sortDirectionScalar: null,
-				comparerScalar: comparerScalar);
+				comparerScalar: comparerScalar,
+				maxTogetherThenOrderings: 4);
+		}
+
+		[ObservableCalculationsCall]
+		public static IBCode.ObservableCalculations.Ordering<TSourceItem, TOrderingValue> Ordering<TSourceItem, TOrderingValue>(this
+			 ObservableCollection<TSourceItem> source,
+			 System.Linq.Expressions.Expression<System.Func<TSourceItem, TOrderingValue>> orderingValueSelectorExpression,
+			 int maxTogetherThenOrderings)
+		{
+			return new IBCode.ObservableCalculations.Ordering<TSourceItem, TOrderingValue>(
+				source: source,
+				orderingValueSelectorExpression: orderingValueSelectorExpression,
+				sortDirectionScalar: null,
+				comparerScalar: null,
+				maxTogetherThenOrderings: maxTogetherThenOrderings);
 		}
 
 		[ObservableCalculationsCall]
@@ -7428,7 +7555,24 @@ namespace IBCode.ObservableCalculations
 				source: source,
 				orderingValueSelectorExpression: orderingValueSelectorExpression,
 				sortDirectionScalar: null,
-				comparerScalar: null);
+				comparerScalar: null,
+				maxTogetherThenOrderings: 4);
+		}
+
+		[ObservableCalculationsCall]
+		public static IBCode.ObservableCalculations.Ordering<TSourceItem, TOrderingValue> Ordering<TSourceItem, TOrderingValue>(this
+			 System.Collections.Specialized.INotifyCollectionChanged source,
+			 System.Linq.Expressions.Expression<System.Func<TSourceItem, TOrderingValue>> orderingValueSelectorExpression,
+			 System.ComponentModel.ListSortDirection sortDirection,
+			 IBCode.ObservableCalculations.Common.Interface.IReadScalar<System.Collections.Generic.IComparer<TOrderingValue>> comparerScalar,
+			 int maxTogetherThenOrderings)
+		{
+			return new IBCode.ObservableCalculations.Ordering<TSourceItem, TOrderingValue>(
+				source: source,
+				orderingValueSelectorExpression: orderingValueSelectorExpression,
+				sortDirection: sortDirection,
+				comparerScalar: comparerScalar,
+				maxTogetherThenOrderings: maxTogetherThenOrderings);
 		}
 
 		[ObservableCalculationsCall]
@@ -7442,7 +7586,23 @@ namespace IBCode.ObservableCalculations
 				source: source,
 				orderingValueSelectorExpression: orderingValueSelectorExpression,
 				sortDirection: sortDirection,
-				comparerScalar: comparerScalar);
+				comparerScalar: comparerScalar,
+				maxTogetherThenOrderings: 4);
+		}
+
+		[ObservableCalculationsCall]
+		public static IBCode.ObservableCalculations.Ordering<TSourceItem, TOrderingValue> Ordering<TSourceItem, TOrderingValue>(this
+			 System.Collections.Specialized.INotifyCollectionChanged source,
+			 System.Linq.Expressions.Expression<System.Func<TSourceItem, TOrderingValue>> orderingValueSelectorExpression,
+			 System.ComponentModel.ListSortDirection sortDirection,
+			 int maxTogetherThenOrderings)
+		{
+			return new IBCode.ObservableCalculations.Ordering<TSourceItem, TOrderingValue>(
+				source: source,
+				orderingValueSelectorExpression: orderingValueSelectorExpression,
+				sortDirection: sortDirection,
+				comparerScalar: null,
+				maxTogetherThenOrderings: maxTogetherThenOrderings);
 		}
 
 		[ObservableCalculationsCall]
@@ -7455,7 +7615,24 @@ namespace IBCode.ObservableCalculations
 				source: source,
 				orderingValueSelectorExpression: orderingValueSelectorExpression,
 				sortDirection: sortDirection,
-				comparerScalar: null);
+				comparerScalar: null,
+				maxTogetherThenOrderings: 4);
+		}
+
+		[ObservableCalculationsCall]
+		public static IBCode.ObservableCalculations.Ordering<TSourceItem, TOrderingValue> Ordering<TSourceItem, TOrderingValue>(this
+			 ObservableCollection<TSourceItem> source,
+			 System.Linq.Expressions.Expression<System.Func<TSourceItem, TOrderingValue>> orderingValueSelectorExpression,
+			 System.ComponentModel.ListSortDirection sortDirection,
+			 IBCode.ObservableCalculations.Common.Interface.IReadScalar<System.Collections.Generic.IComparer<TOrderingValue>> comparerScalar,
+			 int maxTogetherThenOrderings)
+		{
+			return new IBCode.ObservableCalculations.Ordering<TSourceItem, TOrderingValue>(
+				source: source,
+				orderingValueSelectorExpression: orderingValueSelectorExpression,
+				sortDirection: sortDirection,
+				comparerScalar: comparerScalar,
+				maxTogetherThenOrderings: maxTogetherThenOrderings);
 		}
 
 		[ObservableCalculationsCall]
@@ -7469,7 +7646,23 @@ namespace IBCode.ObservableCalculations
 				source: source,
 				orderingValueSelectorExpression: orderingValueSelectorExpression,
 				sortDirection: sortDirection,
-				comparerScalar: comparerScalar);
+				comparerScalar: comparerScalar,
+				maxTogetherThenOrderings: 4);
+		}
+
+		[ObservableCalculationsCall]
+		public static IBCode.ObservableCalculations.Ordering<TSourceItem, TOrderingValue> Ordering<TSourceItem, TOrderingValue>(this
+			 ObservableCollection<TSourceItem> source,
+			 System.Linq.Expressions.Expression<System.Func<TSourceItem, TOrderingValue>> orderingValueSelectorExpression,
+			 System.ComponentModel.ListSortDirection sortDirection,
+			 int maxTogetherThenOrderings)
+		{
+			return new IBCode.ObservableCalculations.Ordering<TSourceItem, TOrderingValue>(
+				source: source,
+				orderingValueSelectorExpression: orderingValueSelectorExpression,
+				sortDirection: sortDirection,
+				comparerScalar: null,
+				maxTogetherThenOrderings: maxTogetherThenOrderings);
 		}
 
 		[ObservableCalculationsCall]
@@ -7482,7 +7675,24 @@ namespace IBCode.ObservableCalculations
 				source: source,
 				orderingValueSelectorExpression: orderingValueSelectorExpression,
 				sortDirection: sortDirection,
-				comparerScalar: null);
+				comparerScalar: null,
+				maxTogetherThenOrderings: 4);
+		}
+
+		[ObservableCalculationsCall]
+		public static IBCode.ObservableCalculations.Ordering<TSourceItem, TOrderingValue> Ordering<TSourceItem, TOrderingValue>(this
+			 System.Collections.Specialized.INotifyCollectionChanged source,
+			 System.Linq.Expressions.Expression<System.Func<TSourceItem, TOrderingValue>> orderingValueSelectorExpression,
+			 IBCode.ObservableCalculations.Common.Interface.IReadScalar<System.ComponentModel.ListSortDirection> sortDirectionScalar,
+			 System.Collections.Generic.IComparer<TOrderingValue> comparer,
+			 int maxTogetherThenOrderings)
+		{
+			return new IBCode.ObservableCalculations.Ordering<TSourceItem, TOrderingValue>(
+				source: source,
+				orderingValueSelectorExpression: orderingValueSelectorExpression,
+				sortDirectionScalar: sortDirectionScalar,
+				comparer: comparer,
+				maxTogetherThenOrderings: maxTogetherThenOrderings);
 		}
 
 		[ObservableCalculationsCall]
@@ -7496,7 +7706,23 @@ namespace IBCode.ObservableCalculations
 				source: source,
 				orderingValueSelectorExpression: orderingValueSelectorExpression,
 				sortDirectionScalar: sortDirectionScalar,
-				comparer: comparer);
+				comparer: comparer,
+				maxTogetherThenOrderings: 4);
+		}
+
+		[ObservableCalculationsCall]
+		public static IBCode.ObservableCalculations.Ordering<TSourceItem, TOrderingValue> Ordering<TSourceItem, TOrderingValue>(this
+			 System.Collections.Specialized.INotifyCollectionChanged source,
+			 System.Linq.Expressions.Expression<System.Func<TSourceItem, TOrderingValue>> orderingValueSelectorExpression,
+			 System.Collections.Generic.IComparer<TOrderingValue> comparer,
+			 int maxTogetherThenOrderings)
+		{
+			return new IBCode.ObservableCalculations.Ordering<TSourceItem, TOrderingValue>(
+				source: source,
+				orderingValueSelectorExpression: orderingValueSelectorExpression,
+				sortDirectionScalar: null,
+				comparer: comparer,
+				maxTogetherThenOrderings: maxTogetherThenOrderings);
 		}
 
 		[ObservableCalculationsCall]
@@ -7509,7 +7735,24 @@ namespace IBCode.ObservableCalculations
 				source: source,
 				orderingValueSelectorExpression: orderingValueSelectorExpression,
 				sortDirectionScalar: null,
-				comparer: comparer);
+				comparer: comparer,
+				maxTogetherThenOrderings: 4);
+		}
+
+		[ObservableCalculationsCall]
+		public static IBCode.ObservableCalculations.Ordering<TSourceItem, TOrderingValue> Ordering<TSourceItem, TOrderingValue>(this
+			 ObservableCollection<TSourceItem> source,
+			 System.Linq.Expressions.Expression<System.Func<TSourceItem, TOrderingValue>> orderingValueSelectorExpression,
+			 IBCode.ObservableCalculations.Common.Interface.IReadScalar<System.ComponentModel.ListSortDirection> sortDirectionScalar,
+			 System.Collections.Generic.IComparer<TOrderingValue> comparer,
+			 int maxTogetherThenOrderings)
+		{
+			return new IBCode.ObservableCalculations.Ordering<TSourceItem, TOrderingValue>(
+				source: source,
+				orderingValueSelectorExpression: orderingValueSelectorExpression,
+				sortDirectionScalar: sortDirectionScalar,
+				comparer: comparer,
+				maxTogetherThenOrderings: maxTogetherThenOrderings);
 		}
 
 		[ObservableCalculationsCall]
@@ -7523,7 +7766,23 @@ namespace IBCode.ObservableCalculations
 				source: source,
 				orderingValueSelectorExpression: orderingValueSelectorExpression,
 				sortDirectionScalar: sortDirectionScalar,
-				comparer: comparer);
+				comparer: comparer,
+				maxTogetherThenOrderings: 4);
+		}
+
+		[ObservableCalculationsCall]
+		public static IBCode.ObservableCalculations.Ordering<TSourceItem, TOrderingValue> Ordering<TSourceItem, TOrderingValue>(this
+			 ObservableCollection<TSourceItem> source,
+			 System.Linq.Expressions.Expression<System.Func<TSourceItem, TOrderingValue>> orderingValueSelectorExpression,
+			 System.Collections.Generic.IComparer<TOrderingValue> comparer,
+			 int maxTogetherThenOrderings)
+		{
+			return new IBCode.ObservableCalculations.Ordering<TSourceItem, TOrderingValue>(
+				source: source,
+				orderingValueSelectorExpression: orderingValueSelectorExpression,
+				sortDirectionScalar: null,
+				comparer: comparer,
+				maxTogetherThenOrderings: maxTogetherThenOrderings);
 		}
 
 		[ObservableCalculationsCall]
@@ -7536,7 +7795,24 @@ namespace IBCode.ObservableCalculations
 				source: source,
 				orderingValueSelectorExpression: orderingValueSelectorExpression,
 				sortDirectionScalar: null,
-				comparer: comparer);
+				comparer: comparer,
+				maxTogetherThenOrderings: 4);
+		}
+
+		[ObservableCalculationsCall]
+		public static IBCode.ObservableCalculations.Ordering<TSourceItem, TOrderingValue> Ordering<TSourceItem, TOrderingValue>(this
+			 System.Collections.Specialized.INotifyCollectionChanged source,
+			 System.Linq.Expressions.Expression<System.Func<TSourceItem, TOrderingValue>> orderingValueSelectorExpression,
+			 System.ComponentModel.ListSortDirection sortDirection,
+			 System.Collections.Generic.IComparer<TOrderingValue> comparer,
+			 int maxTogetherThenOrderings)
+		{
+			return new IBCode.ObservableCalculations.Ordering<TSourceItem, TOrderingValue>(
+				source: source,
+				orderingValueSelectorExpression: orderingValueSelectorExpression,
+				sortDirection: sortDirection,
+				comparer: comparer,
+				maxTogetherThenOrderings: maxTogetherThenOrderings);
 		}
 
 		[ObservableCalculationsCall]
@@ -7550,7 +7826,24 @@ namespace IBCode.ObservableCalculations
 				source: source,
 				orderingValueSelectorExpression: orderingValueSelectorExpression,
 				sortDirection: sortDirection,
-				comparer: comparer);
+				comparer: comparer,
+				maxTogetherThenOrderings: 4);
+		}
+
+		[ObservableCalculationsCall]
+		public static IBCode.ObservableCalculations.Ordering<TSourceItem, TOrderingValue> Ordering<TSourceItem, TOrderingValue>(this
+			 ObservableCollection<TSourceItem> source,
+			 System.Linq.Expressions.Expression<System.Func<TSourceItem, TOrderingValue>> orderingValueSelectorExpression,
+			 System.ComponentModel.ListSortDirection sortDirection,
+			 System.Collections.Generic.IComparer<TOrderingValue> comparer,
+			 int maxTogetherThenOrderings)
+		{
+			return new IBCode.ObservableCalculations.Ordering<TSourceItem, TOrderingValue>(
+				source: source,
+				orderingValueSelectorExpression: orderingValueSelectorExpression,
+				sortDirection: sortDirection,
+				comparer: comparer,
+				maxTogetherThenOrderings: maxTogetherThenOrderings);
 		}
 
 		[ObservableCalculationsCall]
@@ -7564,7 +7857,24 @@ namespace IBCode.ObservableCalculations
 				source: source,
 				orderingValueSelectorExpression: orderingValueSelectorExpression,
 				sortDirection: sortDirection,
-				comparer: comparer);
+				comparer: comparer,
+				maxTogetherThenOrderings: 4);
+		}
+
+		[ObservableCalculationsCall]
+		public static IBCode.ObservableCalculations.Ordering<TSourceItem, TOrderingValue> Ordering<TSourceItem, TOrderingValue>(this
+			 IBCode.ObservableCalculations.Common.Interface.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar,
+			 System.Linq.Expressions.Expression<System.Func<TSourceItem, TOrderingValue>> orderingValueSelectorExpression,
+			 IBCode.ObservableCalculations.Common.Interface.IReadScalar<System.ComponentModel.ListSortDirection> sortDirectionScalar,
+			 IBCode.ObservableCalculations.Common.Interface.IReadScalar<System.Collections.Generic.IComparer<TOrderingValue>> comparerScalar,
+			 int maxTogetherThenOrderings)
+		{
+			return new IBCode.ObservableCalculations.Ordering<TSourceItem, TOrderingValue>(
+				sourceScalar: sourceScalar,
+				orderingValueSelectorExpression: orderingValueSelectorExpression,
+				sortDirectionScalar: sortDirectionScalar,
+				comparerScalar: comparerScalar,
+				maxTogetherThenOrderings: maxTogetherThenOrderings);
 		}
 
 		[ObservableCalculationsCall]
@@ -7578,7 +7888,23 @@ namespace IBCode.ObservableCalculations
 				sourceScalar: sourceScalar,
 				orderingValueSelectorExpression: orderingValueSelectorExpression,
 				sortDirectionScalar: sortDirectionScalar,
-				comparerScalar: comparerScalar);
+				comparerScalar: comparerScalar,
+				maxTogetherThenOrderings: 4);
+		}
+
+		[ObservableCalculationsCall]
+		public static IBCode.ObservableCalculations.Ordering<TSourceItem, TOrderingValue> Ordering<TSourceItem, TOrderingValue>(this
+			 IBCode.ObservableCalculations.Common.Interface.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar,
+			 System.Linq.Expressions.Expression<System.Func<TSourceItem, TOrderingValue>> orderingValueSelectorExpression,
+			 IBCode.ObservableCalculations.Common.Interface.IReadScalar<System.ComponentModel.ListSortDirection> sortDirectionScalar,
+			 int maxTogetherThenOrderings)
+		{
+			return new IBCode.ObservableCalculations.Ordering<TSourceItem, TOrderingValue>(
+				sourceScalar: sourceScalar,
+				orderingValueSelectorExpression: orderingValueSelectorExpression,
+				sortDirectionScalar: sortDirectionScalar,
+				comparerScalar: null,
+				maxTogetherThenOrderings: maxTogetherThenOrderings);
 		}
 
 		[ObservableCalculationsCall]
@@ -7591,7 +7917,23 @@ namespace IBCode.ObservableCalculations
 				sourceScalar: sourceScalar,
 				orderingValueSelectorExpression: orderingValueSelectorExpression,
 				sortDirectionScalar: sortDirectionScalar,
-				comparerScalar: null);
+				comparerScalar: null,
+				maxTogetherThenOrderings: 4);
+		}
+
+		[ObservableCalculationsCall]
+		public static IBCode.ObservableCalculations.Ordering<TSourceItem, TOrderingValue> Ordering<TSourceItem, TOrderingValue>(this
+			 IBCode.ObservableCalculations.Common.Interface.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar,
+			 System.Linq.Expressions.Expression<System.Func<TSourceItem, TOrderingValue>> orderingValueSelectorExpression,
+			 IBCode.ObservableCalculations.Common.Interface.IReadScalar<System.Collections.Generic.IComparer<TOrderingValue>> comparerScalar,
+			 int maxTogetherThenOrderings)
+		{
+			return new IBCode.ObservableCalculations.Ordering<TSourceItem, TOrderingValue>(
+				sourceScalar: sourceScalar,
+				orderingValueSelectorExpression: orderingValueSelectorExpression,
+				sortDirectionScalar: null,
+				comparerScalar: comparerScalar,
+				maxTogetherThenOrderings: maxTogetherThenOrderings);
 		}
 
 		[ObservableCalculationsCall]
@@ -7604,7 +7946,22 @@ namespace IBCode.ObservableCalculations
 				sourceScalar: sourceScalar,
 				orderingValueSelectorExpression: orderingValueSelectorExpression,
 				sortDirectionScalar: null,
-				comparerScalar: comparerScalar);
+				comparerScalar: comparerScalar,
+				maxTogetherThenOrderings: 4);
+		}
+
+		[ObservableCalculationsCall]
+		public static IBCode.ObservableCalculations.Ordering<TSourceItem, TOrderingValue> Ordering<TSourceItem, TOrderingValue>(this
+			 IBCode.ObservableCalculations.Common.Interface.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar,
+			 System.Linq.Expressions.Expression<System.Func<TSourceItem, TOrderingValue>> orderingValueSelectorExpression,
+			 int maxTogetherThenOrderings)
+		{
+			return new IBCode.ObservableCalculations.Ordering<TSourceItem, TOrderingValue>(
+				sourceScalar: sourceScalar,
+				orderingValueSelectorExpression: orderingValueSelectorExpression,
+				sortDirectionScalar: null,
+				comparerScalar: null,
+				maxTogetherThenOrderings: maxTogetherThenOrderings);
 		}
 
 		[ObservableCalculationsCall]
@@ -7616,7 +7973,24 @@ namespace IBCode.ObservableCalculations
 				sourceScalar: sourceScalar,
 				orderingValueSelectorExpression: orderingValueSelectorExpression,
 				sortDirectionScalar: null,
-				comparerScalar: null);
+				comparerScalar: null,
+				maxTogetherThenOrderings: 4);
+		}
+
+		[ObservableCalculationsCall]
+		public static IBCode.ObservableCalculations.Ordering<TSourceItem, TOrderingValue> Ordering<TSourceItem, TOrderingValue>(this
+			 IBCode.ObservableCalculations.Common.Interface.IReadScalar<ObservableCollection<TSourceItem>> sourceScalar,
+			 System.Linq.Expressions.Expression<System.Func<TSourceItem, TOrderingValue>> orderingValueSelectorExpression,
+			 IBCode.ObservableCalculations.Common.Interface.IReadScalar<System.ComponentModel.ListSortDirection> sortDirectionScalar,
+			 IBCode.ObservableCalculations.Common.Interface.IReadScalar<System.Collections.Generic.IComparer<TOrderingValue>> comparerScalar,
+			 int maxTogetherThenOrderings)
+		{
+			return new IBCode.ObservableCalculations.Ordering<TSourceItem, TOrderingValue>(
+				sourceScalar: sourceScalar,
+				orderingValueSelectorExpression: orderingValueSelectorExpression,
+				sortDirectionScalar: sortDirectionScalar,
+				comparerScalar: comparerScalar,
+				maxTogetherThenOrderings: maxTogetherThenOrderings);
 		}
 
 		[ObservableCalculationsCall]
@@ -7630,7 +8004,23 @@ namespace IBCode.ObservableCalculations
 				sourceScalar: sourceScalar,
 				orderingValueSelectorExpression: orderingValueSelectorExpression,
 				sortDirectionScalar: sortDirectionScalar,
-				comparerScalar: comparerScalar);
+				comparerScalar: comparerScalar,
+				maxTogetherThenOrderings: 4);
+		}
+
+		[ObservableCalculationsCall]
+		public static IBCode.ObservableCalculations.Ordering<TSourceItem, TOrderingValue> Ordering<TSourceItem, TOrderingValue>(this
+			 IBCode.ObservableCalculations.Common.Interface.IReadScalar<ObservableCollection<TSourceItem>> sourceScalar,
+			 System.Linq.Expressions.Expression<System.Func<TSourceItem, TOrderingValue>> orderingValueSelectorExpression,
+			 IBCode.ObservableCalculations.Common.Interface.IReadScalar<System.ComponentModel.ListSortDirection> sortDirectionScalar,
+			 int maxTogetherThenOrderings)
+		{
+			return new IBCode.ObservableCalculations.Ordering<TSourceItem, TOrderingValue>(
+				sourceScalar: sourceScalar,
+				orderingValueSelectorExpression: orderingValueSelectorExpression,
+				sortDirectionScalar: sortDirectionScalar,
+				comparerScalar: null,
+				maxTogetherThenOrderings: maxTogetherThenOrderings);
 		}
 
 		[ObservableCalculationsCall]
@@ -7643,7 +8033,23 @@ namespace IBCode.ObservableCalculations
 				sourceScalar: sourceScalar,
 				orderingValueSelectorExpression: orderingValueSelectorExpression,
 				sortDirectionScalar: sortDirectionScalar,
-				comparerScalar: null);
+				comparerScalar: null,
+				maxTogetherThenOrderings: 4);
+		}
+
+		[ObservableCalculationsCall]
+		public static IBCode.ObservableCalculations.Ordering<TSourceItem, TOrderingValue> Ordering<TSourceItem, TOrderingValue>(this
+			 IBCode.ObservableCalculations.Common.Interface.IReadScalar<ObservableCollection<TSourceItem>> sourceScalar,
+			 System.Linq.Expressions.Expression<System.Func<TSourceItem, TOrderingValue>> orderingValueSelectorExpression,
+			 IBCode.ObservableCalculations.Common.Interface.IReadScalar<System.Collections.Generic.IComparer<TOrderingValue>> comparerScalar,
+			 int maxTogetherThenOrderings)
+		{
+			return new IBCode.ObservableCalculations.Ordering<TSourceItem, TOrderingValue>(
+				sourceScalar: sourceScalar,
+				orderingValueSelectorExpression: orderingValueSelectorExpression,
+				sortDirectionScalar: null,
+				comparerScalar: comparerScalar,
+				maxTogetherThenOrderings: maxTogetherThenOrderings);
 		}
 
 		[ObservableCalculationsCall]
@@ -7656,7 +8062,22 @@ namespace IBCode.ObservableCalculations
 				sourceScalar: sourceScalar,
 				orderingValueSelectorExpression: orderingValueSelectorExpression,
 				sortDirectionScalar: null,
-				comparerScalar: comparerScalar);
+				comparerScalar: comparerScalar,
+				maxTogetherThenOrderings: 4);
+		}
+
+		[ObservableCalculationsCall]
+		public static IBCode.ObservableCalculations.Ordering<TSourceItem, TOrderingValue> Ordering<TSourceItem, TOrderingValue>(this
+			 IBCode.ObservableCalculations.Common.Interface.IReadScalar<ObservableCollection<TSourceItem>> sourceScalar,
+			 System.Linq.Expressions.Expression<System.Func<TSourceItem, TOrderingValue>> orderingValueSelectorExpression,
+			 int maxTogetherThenOrderings)
+		{
+			return new IBCode.ObservableCalculations.Ordering<TSourceItem, TOrderingValue>(
+				sourceScalar: sourceScalar,
+				orderingValueSelectorExpression: orderingValueSelectorExpression,
+				sortDirectionScalar: null,
+				comparerScalar: null,
+				maxTogetherThenOrderings: maxTogetherThenOrderings);
 		}
 
 		[ObservableCalculationsCall]
@@ -7668,7 +8089,24 @@ namespace IBCode.ObservableCalculations
 				sourceScalar: sourceScalar,
 				orderingValueSelectorExpression: orderingValueSelectorExpression,
 				sortDirectionScalar: null,
-				comparerScalar: null);
+				comparerScalar: null,
+				maxTogetherThenOrderings: 4);
+		}
+
+		[ObservableCalculationsCall]
+		public static IBCode.ObservableCalculations.Ordering<TSourceItem, TOrderingValue> Ordering<TSourceItem, TOrderingValue>(this
+			 IBCode.ObservableCalculations.Common.Interface.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar,
+			 System.Linq.Expressions.Expression<System.Func<TSourceItem, TOrderingValue>> orderingValueSelectorExpression,
+			 System.ComponentModel.ListSortDirection sortDirection,
+			 IBCode.ObservableCalculations.Common.Interface.IReadScalar<System.Collections.Generic.IComparer<TOrderingValue>> comparerScalar,
+			 int maxTogetherThenOrderings)
+		{
+			return new IBCode.ObservableCalculations.Ordering<TSourceItem, TOrderingValue>(
+				sourceScalar: sourceScalar,
+				orderingValueSelectorExpression: orderingValueSelectorExpression,
+				sortDirection: sortDirection,
+				comparerScalar: comparerScalar,
+				maxTogetherThenOrderings: maxTogetherThenOrderings);
 		}
 
 		[ObservableCalculationsCall]
@@ -7682,7 +8120,23 @@ namespace IBCode.ObservableCalculations
 				sourceScalar: sourceScalar,
 				orderingValueSelectorExpression: orderingValueSelectorExpression,
 				sortDirection: sortDirection,
-				comparerScalar: comparerScalar);
+				comparerScalar: comparerScalar,
+				maxTogetherThenOrderings: 4);
+		}
+
+		[ObservableCalculationsCall]
+		public static IBCode.ObservableCalculations.Ordering<TSourceItem, TOrderingValue> Ordering<TSourceItem, TOrderingValue>(this
+			 IBCode.ObservableCalculations.Common.Interface.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar,
+			 System.Linq.Expressions.Expression<System.Func<TSourceItem, TOrderingValue>> orderingValueSelectorExpression,
+			 System.ComponentModel.ListSortDirection sortDirection,
+			 int maxTogetherThenOrderings)
+		{
+			return new IBCode.ObservableCalculations.Ordering<TSourceItem, TOrderingValue>(
+				sourceScalar: sourceScalar,
+				orderingValueSelectorExpression: orderingValueSelectorExpression,
+				sortDirection: sortDirection,
+				comparerScalar: null,
+				maxTogetherThenOrderings: maxTogetherThenOrderings);
 		}
 
 		[ObservableCalculationsCall]
@@ -7695,7 +8149,24 @@ namespace IBCode.ObservableCalculations
 				sourceScalar: sourceScalar,
 				orderingValueSelectorExpression: orderingValueSelectorExpression,
 				sortDirection: sortDirection,
-				comparerScalar: null);
+				comparerScalar: null,
+				maxTogetherThenOrderings: 4);
+		}
+
+		[ObservableCalculationsCall]
+		public static IBCode.ObservableCalculations.Ordering<TSourceItem, TOrderingValue> Ordering<TSourceItem, TOrderingValue>(this
+			 IBCode.ObservableCalculations.Common.Interface.IReadScalar<ObservableCollection<TSourceItem>> sourceScalar,
+			 System.Linq.Expressions.Expression<System.Func<TSourceItem, TOrderingValue>> orderingValueSelectorExpression,
+			 System.ComponentModel.ListSortDirection sortDirection,
+			 IBCode.ObservableCalculations.Common.Interface.IReadScalar<System.Collections.Generic.IComparer<TOrderingValue>> comparerScalar,
+			 int maxTogetherThenOrderings)
+		{
+			return new IBCode.ObservableCalculations.Ordering<TSourceItem, TOrderingValue>(
+				sourceScalar: sourceScalar,
+				orderingValueSelectorExpression: orderingValueSelectorExpression,
+				sortDirection: sortDirection,
+				comparerScalar: comparerScalar,
+				maxTogetherThenOrderings: maxTogetherThenOrderings);
 		}
 
 		[ObservableCalculationsCall]
@@ -7709,7 +8180,23 @@ namespace IBCode.ObservableCalculations
 				sourceScalar: sourceScalar,
 				orderingValueSelectorExpression: orderingValueSelectorExpression,
 				sortDirection: sortDirection,
-				comparerScalar: comparerScalar);
+				comparerScalar: comparerScalar,
+				maxTogetherThenOrderings: 4);
+		}
+
+		[ObservableCalculationsCall]
+		public static IBCode.ObservableCalculations.Ordering<TSourceItem, TOrderingValue> Ordering<TSourceItem, TOrderingValue>(this
+			 IBCode.ObservableCalculations.Common.Interface.IReadScalar<ObservableCollection<TSourceItem>> sourceScalar,
+			 System.Linq.Expressions.Expression<System.Func<TSourceItem, TOrderingValue>> orderingValueSelectorExpression,
+			 System.ComponentModel.ListSortDirection sortDirection,
+			 int maxTogetherThenOrderings)
+		{
+			return new IBCode.ObservableCalculations.Ordering<TSourceItem, TOrderingValue>(
+				sourceScalar: sourceScalar,
+				orderingValueSelectorExpression: orderingValueSelectorExpression,
+				sortDirection: sortDirection,
+				comparerScalar: null,
+				maxTogetherThenOrderings: maxTogetherThenOrderings);
 		}
 
 		[ObservableCalculationsCall]
@@ -7722,7 +8209,24 @@ namespace IBCode.ObservableCalculations
 				sourceScalar: sourceScalar,
 				orderingValueSelectorExpression: orderingValueSelectorExpression,
 				sortDirection: sortDirection,
-				comparerScalar: null);
+				comparerScalar: null,
+				maxTogetherThenOrderings: 4);
+		}
+
+		[ObservableCalculationsCall]
+		public static IBCode.ObservableCalculations.Ordering<TSourceItem, TOrderingValue> Ordering<TSourceItem, TOrderingValue>(this
+			 IBCode.ObservableCalculations.Common.Interface.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar,
+			 System.Linq.Expressions.Expression<System.Func<TSourceItem, TOrderingValue>> orderingValueSelectorExpression,
+			 IBCode.ObservableCalculations.Common.Interface.IReadScalar<System.ComponentModel.ListSortDirection> sortDirectionScalar,
+			 System.Collections.Generic.IComparer<TOrderingValue> comparer,
+			 int maxTogetherThenOrderings)
+		{
+			return new IBCode.ObservableCalculations.Ordering<TSourceItem, TOrderingValue>(
+				sourceScalar: sourceScalar,
+				orderingValueSelectorExpression: orderingValueSelectorExpression,
+				sortDirectionScalar: sortDirectionScalar,
+				comparer: comparer,
+				maxTogetherThenOrderings: maxTogetherThenOrderings);
 		}
 
 		[ObservableCalculationsCall]
@@ -7736,7 +8240,23 @@ namespace IBCode.ObservableCalculations
 				sourceScalar: sourceScalar,
 				orderingValueSelectorExpression: orderingValueSelectorExpression,
 				sortDirectionScalar: sortDirectionScalar,
-				comparer: comparer);
+				comparer: comparer,
+				maxTogetherThenOrderings: 4);
+		}
+
+		[ObservableCalculationsCall]
+		public static IBCode.ObservableCalculations.Ordering<TSourceItem, TOrderingValue> Ordering<TSourceItem, TOrderingValue>(this
+			 IBCode.ObservableCalculations.Common.Interface.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar,
+			 System.Linq.Expressions.Expression<System.Func<TSourceItem, TOrderingValue>> orderingValueSelectorExpression,
+			 System.Collections.Generic.IComparer<TOrderingValue> comparer,
+			 int maxTogetherThenOrderings)
+		{
+			return new IBCode.ObservableCalculations.Ordering<TSourceItem, TOrderingValue>(
+				sourceScalar: sourceScalar,
+				orderingValueSelectorExpression: orderingValueSelectorExpression,
+				sortDirectionScalar: null,
+				comparer: comparer,
+				maxTogetherThenOrderings: maxTogetherThenOrderings);
 		}
 
 		[ObservableCalculationsCall]
@@ -7749,7 +8269,24 @@ namespace IBCode.ObservableCalculations
 				sourceScalar: sourceScalar,
 				orderingValueSelectorExpression: orderingValueSelectorExpression,
 				sortDirectionScalar: null,
-				comparer: comparer);
+				comparer: comparer,
+				maxTogetherThenOrderings: 4);
+		}
+
+		[ObservableCalculationsCall]
+		public static IBCode.ObservableCalculations.Ordering<TSourceItem, TOrderingValue> Ordering<TSourceItem, TOrderingValue>(this
+			 IBCode.ObservableCalculations.Common.Interface.IReadScalar<ObservableCollection<TSourceItem>> sourceScalar,
+			 System.Linq.Expressions.Expression<System.Func<TSourceItem, TOrderingValue>> orderingValueSelectorExpression,
+			 IBCode.ObservableCalculations.Common.Interface.IReadScalar<System.ComponentModel.ListSortDirection> sortDirectionScalar,
+			 System.Collections.Generic.IComparer<TOrderingValue> comparer,
+			 int maxTogetherThenOrderings)
+		{
+			return new IBCode.ObservableCalculations.Ordering<TSourceItem, TOrderingValue>(
+				sourceScalar: sourceScalar,
+				orderingValueSelectorExpression: orderingValueSelectorExpression,
+				sortDirectionScalar: sortDirectionScalar,
+				comparer: comparer,
+				maxTogetherThenOrderings: maxTogetherThenOrderings);
 		}
 
 		[ObservableCalculationsCall]
@@ -7763,7 +8300,23 @@ namespace IBCode.ObservableCalculations
 				sourceScalar: sourceScalar,
 				orderingValueSelectorExpression: orderingValueSelectorExpression,
 				sortDirectionScalar: sortDirectionScalar,
-				comparer: comparer);
+				comparer: comparer,
+				maxTogetherThenOrderings: 4);
+		}
+
+		[ObservableCalculationsCall]
+		public static IBCode.ObservableCalculations.Ordering<TSourceItem, TOrderingValue> Ordering<TSourceItem, TOrderingValue>(this
+			 IBCode.ObservableCalculations.Common.Interface.IReadScalar<ObservableCollection<TSourceItem>> sourceScalar,
+			 System.Linq.Expressions.Expression<System.Func<TSourceItem, TOrderingValue>> orderingValueSelectorExpression,
+			 System.Collections.Generic.IComparer<TOrderingValue> comparer,
+			 int maxTogetherThenOrderings)
+		{
+			return new IBCode.ObservableCalculations.Ordering<TSourceItem, TOrderingValue>(
+				sourceScalar: sourceScalar,
+				orderingValueSelectorExpression: orderingValueSelectorExpression,
+				sortDirectionScalar: null,
+				comparer: comparer,
+				maxTogetherThenOrderings: maxTogetherThenOrderings);
 		}
 
 		[ObservableCalculationsCall]
@@ -7776,7 +8329,24 @@ namespace IBCode.ObservableCalculations
 				sourceScalar: sourceScalar,
 				orderingValueSelectorExpression: orderingValueSelectorExpression,
 				sortDirectionScalar: null,
-				comparer: comparer);
+				comparer: comparer,
+				maxTogetherThenOrderings: 4);
+		}
+
+		[ObservableCalculationsCall]
+		public static IBCode.ObservableCalculations.Ordering<TSourceItem, TOrderingValue> Ordering<TSourceItem, TOrderingValue>(this
+			 IBCode.ObservableCalculations.Common.Interface.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar,
+			 System.Linq.Expressions.Expression<System.Func<TSourceItem, TOrderingValue>> orderingValueSelectorExpression,
+			 System.ComponentModel.ListSortDirection sortDirection,
+			 System.Collections.Generic.IComparer<TOrderingValue> comparer,
+			 int maxTogetherThenOrderings)
+		{
+			return new IBCode.ObservableCalculations.Ordering<TSourceItem, TOrderingValue>(
+				sourceScalar: sourceScalar,
+				orderingValueSelectorExpression: orderingValueSelectorExpression,
+				sortDirection: sortDirection,
+				comparer: comparer,
+				maxTogetherThenOrderings: maxTogetherThenOrderings);
 		}
 
 		[ObservableCalculationsCall]
@@ -7790,7 +8360,24 @@ namespace IBCode.ObservableCalculations
 				sourceScalar: sourceScalar,
 				orderingValueSelectorExpression: orderingValueSelectorExpression,
 				sortDirection: sortDirection,
-				comparer: comparer);
+				comparer: comparer,
+				maxTogetherThenOrderings: 4);
+		}
+
+		[ObservableCalculationsCall]
+		public static IBCode.ObservableCalculations.Ordering<TSourceItem, TOrderingValue> Ordering<TSourceItem, TOrderingValue>(this
+			 IBCode.ObservableCalculations.Common.Interface.IReadScalar<ObservableCollection<TSourceItem>> sourceScalar,
+			 System.Linq.Expressions.Expression<System.Func<TSourceItem, TOrderingValue>> orderingValueSelectorExpression,
+			 System.ComponentModel.ListSortDirection sortDirection,
+			 System.Collections.Generic.IComparer<TOrderingValue> comparer,
+			 int maxTogetherThenOrderings)
+		{
+			return new IBCode.ObservableCalculations.Ordering<TSourceItem, TOrderingValue>(
+				sourceScalar: sourceScalar,
+				orderingValueSelectorExpression: orderingValueSelectorExpression,
+				sortDirection: sortDirection,
+				comparer: comparer,
+				maxTogetherThenOrderings: maxTogetherThenOrderings);
 		}
 
 		[ObservableCalculationsCall]
@@ -7804,7 +8391,8 @@ namespace IBCode.ObservableCalculations
 				sourceScalar: sourceScalar,
 				orderingValueSelectorExpression: orderingValueSelectorExpression,
 				sortDirection: sortDirection,
-				comparer: comparer);
+				comparer: comparer,
+				maxTogetherThenOrderings: 4);
 		}
 
 		#endregion
@@ -9234,54 +9822,18 @@ namespace IBCode.ObservableCalculations
 
 		[ObservableCalculationsCall]
 		public static IBCode.ObservableCalculations.ThenOrdering<TSourceItem, TOrderingValue> ThenOrdering<TSourceItem, TOrderingValue>(this
-			 IBCode.ObservableCalculations.Common.Interface.IReadScalar<IBCode.ObservableCalculations.Common.Interface.IOrdering<TSourceItem>> sourceScalar,
+			 IBCode.ObservableCalculations.Common.Interface.IOrdering<TSourceItem> source,
 			 System.Linq.Expressions.Expression<System.Func<TSourceItem, TOrderingValue>> orderingValueSelectorExpression,
 			 IBCode.ObservableCalculations.Common.Interface.IReadScalar<System.ComponentModel.ListSortDirection> sortDirectionScalar,
-			 IBCode.ObservableCalculations.Common.Interface.IReadScalar<System.Collections.Generic.IComparer<TOrderingValue>> comparerScalar)
+			 IBCode.ObservableCalculations.Common.Interface.IReadScalar<System.Collections.Generic.IComparer<TOrderingValue>> comparerScalar,
+			 int maxTogetherThenOrderings)
 		{
 			return new IBCode.ObservableCalculations.ThenOrdering<TSourceItem, TOrderingValue>(
-				sourceScalar: sourceScalar,
+				source: source,
 				orderingValueSelectorExpression: orderingValueSelectorExpression,
 				sortDirectionScalar: sortDirectionScalar,
-				comparerScalar: comparerScalar);
-		}
-
-		[ObservableCalculationsCall]
-		public static IBCode.ObservableCalculations.ThenOrdering<TSourceItem, TOrderingValue> ThenOrdering<TSourceItem, TOrderingValue>(this
-			 IBCode.ObservableCalculations.Common.Interface.IReadScalar<IBCode.ObservableCalculations.Common.Interface.IOrdering<TSourceItem>> sourceScalar,
-			 System.Linq.Expressions.Expression<System.Func<TSourceItem, TOrderingValue>> orderingValueSelectorExpression,
-			 IBCode.ObservableCalculations.Common.Interface.IReadScalar<System.ComponentModel.ListSortDirection> sortDirectionScalar)
-		{
-			return new IBCode.ObservableCalculations.ThenOrdering<TSourceItem, TOrderingValue>(
-				sourceScalar: sourceScalar,
-				orderingValueSelectorExpression: orderingValueSelectorExpression,
-				sortDirectionScalar: sortDirectionScalar,
-				comparerScalar: null);
-		}
-
-		[ObservableCalculationsCall]
-		public static IBCode.ObservableCalculations.ThenOrdering<TSourceItem, TOrderingValue> ThenOrdering<TSourceItem, TOrderingValue>(this
-			 IBCode.ObservableCalculations.Common.Interface.IReadScalar<IBCode.ObservableCalculations.Common.Interface.IOrdering<TSourceItem>> sourceScalar,
-			 System.Linq.Expressions.Expression<System.Func<TSourceItem, TOrderingValue>> orderingValueSelectorExpression,
-			 IBCode.ObservableCalculations.Common.Interface.IReadScalar<System.Collections.Generic.IComparer<TOrderingValue>> comparerScalar)
-		{
-			return new IBCode.ObservableCalculations.ThenOrdering<TSourceItem, TOrderingValue>(
-				sourceScalar: sourceScalar,
-				orderingValueSelectorExpression: orderingValueSelectorExpression,
-				sortDirectionScalar: null,
-				comparerScalar: comparerScalar);
-		}
-
-		[ObservableCalculationsCall]
-		public static IBCode.ObservableCalculations.ThenOrdering<TSourceItem, TOrderingValue> ThenOrdering<TSourceItem, TOrderingValue>(this
-			 IBCode.ObservableCalculations.Common.Interface.IReadScalar<IBCode.ObservableCalculations.Common.Interface.IOrdering<TSourceItem>> sourceScalar,
-			 System.Linq.Expressions.Expression<System.Func<TSourceItem, TOrderingValue>> orderingValueSelectorExpression)
-		{
-			return new IBCode.ObservableCalculations.ThenOrdering<TSourceItem, TOrderingValue>(
-				sourceScalar: sourceScalar,
-				orderingValueSelectorExpression: orderingValueSelectorExpression,
-				sortDirectionScalar: null,
-				comparerScalar: null);
+				comparerScalar: comparerScalar,
+				maxTogetherThenOrderings: maxTogetherThenOrderings);
 		}
 
 		[ObservableCalculationsCall]
@@ -9295,7 +9847,23 @@ namespace IBCode.ObservableCalculations
 				source: source,
 				orderingValueSelectorExpression: orderingValueSelectorExpression,
 				sortDirectionScalar: sortDirectionScalar,
-				comparerScalar: comparerScalar);
+				comparerScalar: comparerScalar,
+				maxTogetherThenOrderings: 4);
+		}
+
+		[ObservableCalculationsCall]
+		public static IBCode.ObservableCalculations.ThenOrdering<TSourceItem, TOrderingValue> ThenOrdering<TSourceItem, TOrderingValue>(this
+			 IBCode.ObservableCalculations.Common.Interface.IOrdering<TSourceItem> source,
+			 System.Linq.Expressions.Expression<System.Func<TSourceItem, TOrderingValue>> orderingValueSelectorExpression,
+			 IBCode.ObservableCalculations.Common.Interface.IReadScalar<System.ComponentModel.ListSortDirection> sortDirectionScalar,
+			 int maxTogetherThenOrderings)
+		{
+			return new IBCode.ObservableCalculations.ThenOrdering<TSourceItem, TOrderingValue>(
+				source: source,
+				orderingValueSelectorExpression: orderingValueSelectorExpression,
+				sortDirectionScalar: sortDirectionScalar,
+				comparerScalar: null,
+				maxTogetherThenOrderings: maxTogetherThenOrderings);
 		}
 
 		[ObservableCalculationsCall]
@@ -9308,7 +9876,23 @@ namespace IBCode.ObservableCalculations
 				source: source,
 				orderingValueSelectorExpression: orderingValueSelectorExpression,
 				sortDirectionScalar: sortDirectionScalar,
-				comparerScalar: null);
+				comparerScalar: null,
+				maxTogetherThenOrderings: 4);
+		}
+
+		[ObservableCalculationsCall]
+		public static IBCode.ObservableCalculations.ThenOrdering<TSourceItem, TOrderingValue> ThenOrdering<TSourceItem, TOrderingValue>(this
+			 IBCode.ObservableCalculations.Common.Interface.IOrdering<TSourceItem> source,
+			 System.Linq.Expressions.Expression<System.Func<TSourceItem, TOrderingValue>> orderingValueSelectorExpression,
+			 IBCode.ObservableCalculations.Common.Interface.IReadScalar<System.Collections.Generic.IComparer<TOrderingValue>> comparerScalar,
+			 int maxTogetherThenOrderings)
+		{
+			return new IBCode.ObservableCalculations.ThenOrdering<TSourceItem, TOrderingValue>(
+				source: source,
+				orderingValueSelectorExpression: orderingValueSelectorExpression,
+				sortDirectionScalar: null,
+				comparerScalar: comparerScalar,
+				maxTogetherThenOrderings: maxTogetherThenOrderings);
 		}
 
 		[ObservableCalculationsCall]
@@ -9321,7 +9905,22 @@ namespace IBCode.ObservableCalculations
 				source: source,
 				orderingValueSelectorExpression: orderingValueSelectorExpression,
 				sortDirectionScalar: null,
-				comparerScalar: comparerScalar);
+				comparerScalar: comparerScalar,
+				maxTogetherThenOrderings: 4);
+		}
+
+		[ObservableCalculationsCall]
+		public static IBCode.ObservableCalculations.ThenOrdering<TSourceItem, TOrderingValue> ThenOrdering<TSourceItem, TOrderingValue>(this
+			 IBCode.ObservableCalculations.Common.Interface.IOrdering<TSourceItem> source,
+			 System.Linq.Expressions.Expression<System.Func<TSourceItem, TOrderingValue>> orderingValueSelectorExpression,
+			 int maxTogetherThenOrderings)
+		{
+			return new IBCode.ObservableCalculations.ThenOrdering<TSourceItem, TOrderingValue>(
+				source: source,
+				orderingValueSelectorExpression: orderingValueSelectorExpression,
+				sortDirectionScalar: null,
+				comparerScalar: null,
+				maxTogetherThenOrderings: maxTogetherThenOrderings);
 		}
 
 		[ObservableCalculationsCall]
@@ -9333,7 +9932,24 @@ namespace IBCode.ObservableCalculations
 				source: source,
 				orderingValueSelectorExpression: orderingValueSelectorExpression,
 				sortDirectionScalar: null,
-				comparerScalar: null);
+				comparerScalar: null,
+				maxTogetherThenOrderings: 4);
+		}
+
+		[ObservableCalculationsCall]
+		public static IBCode.ObservableCalculations.ThenOrdering<TSourceItem, TOrderingValue> ThenOrdering<TSourceItem, TOrderingValue>(this
+			 IBCode.ObservableCalculations.Common.Interface.IOrdering<TSourceItem> source,
+			 System.Linq.Expressions.Expression<System.Func<TSourceItem, TOrderingValue>> orderingValueSelectorExpression,
+			 System.ComponentModel.ListSortDirection sortDirection,
+			 IBCode.ObservableCalculations.Common.Interface.IReadScalar<System.Collections.Generic.IComparer<TOrderingValue>> comparerScalar,
+			 int maxTogetherThenOrderings)
+		{
+			return new IBCode.ObservableCalculations.ThenOrdering<TSourceItem, TOrderingValue>(
+				source: source,
+				orderingValueSelectorExpression: orderingValueSelectorExpression,
+				sortDirection: sortDirection,
+				comparerScalar: comparerScalar,
+				maxTogetherThenOrderings: maxTogetherThenOrderings);
 		}
 
 		[ObservableCalculationsCall]
@@ -9347,7 +9963,23 @@ namespace IBCode.ObservableCalculations
 				source: source,
 				orderingValueSelectorExpression: orderingValueSelectorExpression,
 				sortDirection: sortDirection,
-				comparerScalar: comparerScalar);
+				comparerScalar: comparerScalar,
+				maxTogetherThenOrderings: 4);
+		}
+
+		[ObservableCalculationsCall]
+		public static IBCode.ObservableCalculations.ThenOrdering<TSourceItem, TOrderingValue> ThenOrdering<TSourceItem, TOrderingValue>(this
+			 IBCode.ObservableCalculations.Common.Interface.IOrdering<TSourceItem> source,
+			 System.Linq.Expressions.Expression<System.Func<TSourceItem, TOrderingValue>> orderingValueSelectorExpression,
+			 System.ComponentModel.ListSortDirection sortDirection,
+			 int maxTogetherThenOrderings)
+		{
+			return new IBCode.ObservableCalculations.ThenOrdering<TSourceItem, TOrderingValue>(
+				source: source,
+				orderingValueSelectorExpression: orderingValueSelectorExpression,
+				sortDirection: sortDirection,
+				comparerScalar: null,
+				maxTogetherThenOrderings: maxTogetherThenOrderings);
 		}
 
 		[ObservableCalculationsCall]
@@ -9360,7 +9992,84 @@ namespace IBCode.ObservableCalculations
 				source: source,
 				orderingValueSelectorExpression: orderingValueSelectorExpression,
 				sortDirection: sortDirection,
-				comparerScalar: null);
+				comparerScalar: null,
+				maxTogetherThenOrderings: 4);
+		}
+
+		[ObservableCalculationsCall]
+		public static IBCode.ObservableCalculations.ThenOrdering<TSourceItem, TOrderingValue> ThenOrdering<TSourceItem, TOrderingValue>(this
+			 IBCode.ObservableCalculations.Common.Interface.IOrdering<TSourceItem> source,
+			 System.Linq.Expressions.Expression<System.Func<TSourceItem, TOrderingValue>> orderingValueSelectorExpression,
+			 IBCode.ObservableCalculations.Common.Interface.IReadScalar<System.ComponentModel.ListSortDirection> sortDirectionScalar,
+			 System.Collections.Generic.IComparer<TOrderingValue> comparer,
+			 int maxTogetherThenOrderings)
+		{
+			return new IBCode.ObservableCalculations.ThenOrdering<TSourceItem, TOrderingValue>(
+				source: source,
+				orderingValueSelectorExpression: orderingValueSelectorExpression,
+				sortDirectionScalar: sortDirectionScalar,
+				comparer: comparer,
+				maxTogetherThenOrderings: maxTogetherThenOrderings);
+		}
+
+		[ObservableCalculationsCall]
+		public static IBCode.ObservableCalculations.ThenOrdering<TSourceItem, TOrderingValue> ThenOrdering<TSourceItem, TOrderingValue>(this
+			 IBCode.ObservableCalculations.Common.Interface.IOrdering<TSourceItem> source,
+			 System.Linq.Expressions.Expression<System.Func<TSourceItem, TOrderingValue>> orderingValueSelectorExpression,
+			 IBCode.ObservableCalculations.Common.Interface.IReadScalar<System.ComponentModel.ListSortDirection> sortDirectionScalar,
+			 System.Collections.Generic.IComparer<TOrderingValue> comparer)
+		{
+			return new IBCode.ObservableCalculations.ThenOrdering<TSourceItem, TOrderingValue>(
+				source: source,
+				orderingValueSelectorExpression: orderingValueSelectorExpression,
+				sortDirectionScalar: sortDirectionScalar,
+				comparer: comparer,
+				maxTogetherThenOrderings: 4);
+		}
+
+		[ObservableCalculationsCall]
+		public static IBCode.ObservableCalculations.ThenOrdering<TSourceItem, TOrderingValue> ThenOrdering<TSourceItem, TOrderingValue>(this
+			 IBCode.ObservableCalculations.Common.Interface.IOrdering<TSourceItem> source,
+			 System.Linq.Expressions.Expression<System.Func<TSourceItem, TOrderingValue>> orderingValueSelectorExpression,
+			 System.Collections.Generic.IComparer<TOrderingValue> comparer,
+			 int maxTogetherThenOrderings)
+		{
+			return new IBCode.ObservableCalculations.ThenOrdering<TSourceItem, TOrderingValue>(
+				source: source,
+				orderingValueSelectorExpression: orderingValueSelectorExpression,
+				sortDirectionScalar: null,
+				comparer: comparer,
+				maxTogetherThenOrderings: maxTogetherThenOrderings);
+		}
+
+		[ObservableCalculationsCall]
+		public static IBCode.ObservableCalculations.ThenOrdering<TSourceItem, TOrderingValue> ThenOrdering<TSourceItem, TOrderingValue>(this
+			 IBCode.ObservableCalculations.Common.Interface.IOrdering<TSourceItem> source,
+			 System.Linq.Expressions.Expression<System.Func<TSourceItem, TOrderingValue>> orderingValueSelectorExpression,
+			 System.Collections.Generic.IComparer<TOrderingValue> comparer)
+		{
+			return new IBCode.ObservableCalculations.ThenOrdering<TSourceItem, TOrderingValue>(
+				source: source,
+				orderingValueSelectorExpression: orderingValueSelectorExpression,
+				sortDirectionScalar: null,
+				comparer: comparer,
+				maxTogetherThenOrderings: 4);
+		}
+
+		[ObservableCalculationsCall]
+		public static IBCode.ObservableCalculations.ThenOrdering<TSourceItem, TOrderingValue> ThenOrdering<TSourceItem, TOrderingValue>(this
+			 IBCode.ObservableCalculations.Common.Interface.IOrdering<TSourceItem> source,
+			 System.Linq.Expressions.Expression<System.Func<TSourceItem, TOrderingValue>> orderingValueSelectorExpression,
+			 System.ComponentModel.ListSortDirection sortDirection,
+			 System.Collections.Generic.IComparer<TOrderingValue> comparer,
+			 int maxTogetherThenOrderings)
+		{
+			return new IBCode.ObservableCalculations.ThenOrdering<TSourceItem, TOrderingValue>(
+				source: source,
+				orderingValueSelectorExpression: orderingValueSelectorExpression,
+				sortDirection: sortDirection,
+				comparer: comparer,
+				maxTogetherThenOrderings: maxTogetherThenOrderings);
 		}
 
 		[ObservableCalculationsCall]
@@ -9374,20 +10083,140 @@ namespace IBCode.ObservableCalculations
 				source: source,
 				orderingValueSelectorExpression: orderingValueSelectorExpression,
 				sortDirection: sortDirection,
-				comparer: comparer);
+				comparer: comparer,
+				maxTogetherThenOrderings: 4);
 		}
 
 		[ObservableCalculationsCall]
 		public static IBCode.ObservableCalculations.ThenOrdering<TSourceItem, TOrderingValue> ThenOrdering<TSourceItem, TOrderingValue>(this
-			 IBCode.ObservableCalculations.Common.Interface.IOrdering<TSourceItem> source,
+			 IBCode.ObservableCalculations.Common.Interface.IReadScalar<IBCode.ObservableCalculations.Common.Interface.IOrdering<TSourceItem>> sourceScalar,
 			 System.Linq.Expressions.Expression<System.Func<TSourceItem, TOrderingValue>> orderingValueSelectorExpression,
-			 System.Collections.Generic.IComparer<TOrderingValue> comparer)
+			 IBCode.ObservableCalculations.Common.Interface.IReadScalar<System.ComponentModel.ListSortDirection> sortDirectionScalar,
+			 IBCode.ObservableCalculations.Common.Interface.IReadScalar<System.Collections.Generic.IComparer<TOrderingValue>> comparerScalar,
+			 int maxTogetherThenOrderings)
 		{
 			return new IBCode.ObservableCalculations.ThenOrdering<TSourceItem, TOrderingValue>(
-				source: source,
+				sourceScalar: sourceScalar,
 				orderingValueSelectorExpression: orderingValueSelectorExpression,
-				sortDirection: ListSortDirection.Ascending,
-				comparer: comparer);
+				sortDirectionScalar: sortDirectionScalar,
+				comparerScalar: comparerScalar,
+				maxTogetherThenOrderings: maxTogetherThenOrderings);
+		}
+
+		[ObservableCalculationsCall]
+		public static IBCode.ObservableCalculations.ThenOrdering<TSourceItem, TOrderingValue> ThenOrdering<TSourceItem, TOrderingValue>(this
+			 IBCode.ObservableCalculations.Common.Interface.IReadScalar<IBCode.ObservableCalculations.Common.Interface.IOrdering<TSourceItem>> sourceScalar,
+			 System.Linq.Expressions.Expression<System.Func<TSourceItem, TOrderingValue>> orderingValueSelectorExpression,
+			 IBCode.ObservableCalculations.Common.Interface.IReadScalar<System.ComponentModel.ListSortDirection> sortDirectionScalar,
+			 IBCode.ObservableCalculations.Common.Interface.IReadScalar<System.Collections.Generic.IComparer<TOrderingValue>> comparerScalar)
+		{
+			return new IBCode.ObservableCalculations.ThenOrdering<TSourceItem, TOrderingValue>(
+				sourceScalar: sourceScalar,
+				orderingValueSelectorExpression: orderingValueSelectorExpression,
+				sortDirectionScalar: sortDirectionScalar,
+				comparerScalar: comparerScalar,
+				maxTogetherThenOrderings: 4);
+		}
+
+		[ObservableCalculationsCall]
+		public static IBCode.ObservableCalculations.ThenOrdering<TSourceItem, TOrderingValue> ThenOrdering<TSourceItem, TOrderingValue>(this
+			 IBCode.ObservableCalculations.Common.Interface.IReadScalar<IBCode.ObservableCalculations.Common.Interface.IOrdering<TSourceItem>> sourceScalar,
+			 System.Linq.Expressions.Expression<System.Func<TSourceItem, TOrderingValue>> orderingValueSelectorExpression,
+			 IBCode.ObservableCalculations.Common.Interface.IReadScalar<System.ComponentModel.ListSortDirection> sortDirectionScalar,
+			 int maxTogetherThenOrderings)
+		{
+			return new IBCode.ObservableCalculations.ThenOrdering<TSourceItem, TOrderingValue>(
+				sourceScalar: sourceScalar,
+				orderingValueSelectorExpression: orderingValueSelectorExpression,
+				sortDirectionScalar: sortDirectionScalar,
+				comparerScalar: null,
+				maxTogetherThenOrderings: maxTogetherThenOrderings);
+		}
+
+		[ObservableCalculationsCall]
+		public static IBCode.ObservableCalculations.ThenOrdering<TSourceItem, TOrderingValue> ThenOrdering<TSourceItem, TOrderingValue>(this
+			 IBCode.ObservableCalculations.Common.Interface.IReadScalar<IBCode.ObservableCalculations.Common.Interface.IOrdering<TSourceItem>> sourceScalar,
+			 System.Linq.Expressions.Expression<System.Func<TSourceItem, TOrderingValue>> orderingValueSelectorExpression,
+			 IBCode.ObservableCalculations.Common.Interface.IReadScalar<System.ComponentModel.ListSortDirection> sortDirectionScalar)
+		{
+			return new IBCode.ObservableCalculations.ThenOrdering<TSourceItem, TOrderingValue>(
+				sourceScalar: sourceScalar,
+				orderingValueSelectorExpression: orderingValueSelectorExpression,
+				sortDirectionScalar: sortDirectionScalar,
+				comparerScalar: null,
+				maxTogetherThenOrderings: 4);
+		}
+
+		[ObservableCalculationsCall]
+		public static IBCode.ObservableCalculations.ThenOrdering<TSourceItem, TOrderingValue> ThenOrdering<TSourceItem, TOrderingValue>(this
+			 IBCode.ObservableCalculations.Common.Interface.IReadScalar<IBCode.ObservableCalculations.Common.Interface.IOrdering<TSourceItem>> sourceScalar,
+			 System.Linq.Expressions.Expression<System.Func<TSourceItem, TOrderingValue>> orderingValueSelectorExpression,
+			 IBCode.ObservableCalculations.Common.Interface.IReadScalar<System.Collections.Generic.IComparer<TOrderingValue>> comparerScalar,
+			 int maxTogetherThenOrderings)
+		{
+			return new IBCode.ObservableCalculations.ThenOrdering<TSourceItem, TOrderingValue>(
+				sourceScalar: sourceScalar,
+				orderingValueSelectorExpression: orderingValueSelectorExpression,
+				sortDirectionScalar: null,
+				comparerScalar: comparerScalar,
+				maxTogetherThenOrderings: maxTogetherThenOrderings);
+		}
+
+		[ObservableCalculationsCall]
+		public static IBCode.ObservableCalculations.ThenOrdering<TSourceItem, TOrderingValue> ThenOrdering<TSourceItem, TOrderingValue>(this
+			 IBCode.ObservableCalculations.Common.Interface.IReadScalar<IBCode.ObservableCalculations.Common.Interface.IOrdering<TSourceItem>> sourceScalar,
+			 System.Linq.Expressions.Expression<System.Func<TSourceItem, TOrderingValue>> orderingValueSelectorExpression,
+			 IBCode.ObservableCalculations.Common.Interface.IReadScalar<System.Collections.Generic.IComparer<TOrderingValue>> comparerScalar)
+		{
+			return new IBCode.ObservableCalculations.ThenOrdering<TSourceItem, TOrderingValue>(
+				sourceScalar: sourceScalar,
+				orderingValueSelectorExpression: orderingValueSelectorExpression,
+				sortDirectionScalar: null,
+				comparerScalar: comparerScalar,
+				maxTogetherThenOrderings: 4);
+		}
+
+		[ObservableCalculationsCall]
+		public static IBCode.ObservableCalculations.ThenOrdering<TSourceItem, TOrderingValue> ThenOrdering<TSourceItem, TOrderingValue>(this
+			 IBCode.ObservableCalculations.Common.Interface.IReadScalar<IBCode.ObservableCalculations.Common.Interface.IOrdering<TSourceItem>> sourceScalar,
+			 System.Linq.Expressions.Expression<System.Func<TSourceItem, TOrderingValue>> orderingValueSelectorExpression,
+			 int maxTogetherThenOrderings)
+		{
+			return new IBCode.ObservableCalculations.ThenOrdering<TSourceItem, TOrderingValue>(
+				sourceScalar: sourceScalar,
+				orderingValueSelectorExpression: orderingValueSelectorExpression,
+				sortDirectionScalar: null,
+				comparerScalar: null,
+				maxTogetherThenOrderings: maxTogetherThenOrderings);
+		}
+
+		[ObservableCalculationsCall]
+		public static IBCode.ObservableCalculations.ThenOrdering<TSourceItem, TOrderingValue> ThenOrdering<TSourceItem, TOrderingValue>(this
+			 IBCode.ObservableCalculations.Common.Interface.IReadScalar<IBCode.ObservableCalculations.Common.Interface.IOrdering<TSourceItem>> sourceScalar,
+			 System.Linq.Expressions.Expression<System.Func<TSourceItem, TOrderingValue>> orderingValueSelectorExpression)
+		{
+			return new IBCode.ObservableCalculations.ThenOrdering<TSourceItem, TOrderingValue>(
+				sourceScalar: sourceScalar,
+				orderingValueSelectorExpression: orderingValueSelectorExpression,
+				sortDirectionScalar: null,
+				comparerScalar: null,
+				maxTogetherThenOrderings: 4);
+		}
+
+		[ObservableCalculationsCall]
+		public static IBCode.ObservableCalculations.ThenOrdering<TSourceItem, TOrderingValue> ThenOrdering<TSourceItem, TOrderingValue>(this
+			 IBCode.ObservableCalculations.Common.Interface.IReadScalar<IBCode.ObservableCalculations.Common.Interface.IOrdering<TSourceItem>> sourceScalar,
+			 System.Linq.Expressions.Expression<System.Func<TSourceItem, TOrderingValue>> orderingValueSelectorExpression,
+			 System.ComponentModel.ListSortDirection sortDirection,
+			 IBCode.ObservableCalculations.Common.Interface.IReadScalar<System.Collections.Generic.IComparer<TOrderingValue>> comparerScalar,
+			 int maxTogetherThenOrderings)
+		{
+			return new IBCode.ObservableCalculations.ThenOrdering<TSourceItem, TOrderingValue>(
+				sourceScalar: sourceScalar,
+				orderingValueSelectorExpression: orderingValueSelectorExpression,
+				sortDirection: sortDirection,
+				comparerScalar: comparerScalar,
+				maxTogetherThenOrderings: maxTogetherThenOrderings);
 		}
 
 		[ObservableCalculationsCall]
@@ -9401,7 +10230,23 @@ namespace IBCode.ObservableCalculations
 				sourceScalar: sourceScalar,
 				orderingValueSelectorExpression: orderingValueSelectorExpression,
 				sortDirection: sortDirection,
-				comparerScalar: comparerScalar);
+				comparerScalar: comparerScalar,
+				maxTogetherThenOrderings: 4);
+		}
+
+		[ObservableCalculationsCall]
+		public static IBCode.ObservableCalculations.ThenOrdering<TSourceItem, TOrderingValue> ThenOrdering<TSourceItem, TOrderingValue>(this
+			 IBCode.ObservableCalculations.Common.Interface.IReadScalar<IBCode.ObservableCalculations.Common.Interface.IOrdering<TSourceItem>> sourceScalar,
+			 System.Linq.Expressions.Expression<System.Func<TSourceItem, TOrderingValue>> orderingValueSelectorExpression,
+			 System.ComponentModel.ListSortDirection sortDirection,
+			 int maxTogetherThenOrderings)
+		{
+			return new IBCode.ObservableCalculations.ThenOrdering<TSourceItem, TOrderingValue>(
+				sourceScalar: sourceScalar,
+				orderingValueSelectorExpression: orderingValueSelectorExpression,
+				sortDirection: sortDirection,
+				comparerScalar: null,
+				maxTogetherThenOrderings: maxTogetherThenOrderings);
 		}
 
 		[ObservableCalculationsCall]
@@ -9414,7 +10259,24 @@ namespace IBCode.ObservableCalculations
 				sourceScalar: sourceScalar,
 				orderingValueSelectorExpression: orderingValueSelectorExpression,
 				sortDirection: sortDirection,
-				comparerScalar: null);
+				comparerScalar: null,
+				maxTogetherThenOrderings: 4);
+		}
+
+		[ObservableCalculationsCall]
+		public static IBCode.ObservableCalculations.ThenOrdering<TSourceItem, TOrderingValue> ThenOrdering<TSourceItem, TOrderingValue>(this
+			 IBCode.ObservableCalculations.Common.Interface.IReadScalar<IBCode.ObservableCalculations.Common.Interface.IOrdering<TSourceItem>> sourceScalar,
+			 System.Linq.Expressions.Expression<System.Func<TSourceItem, TOrderingValue>> orderingValueSelectorExpression,
+			 IBCode.ObservableCalculations.Common.Interface.IReadScalar<System.ComponentModel.ListSortDirection> sortDirectionScalar,
+			 System.Collections.Generic.IComparer<TOrderingValue> comparer,
+			 int maxTogetherThenOrderings)
+		{
+			return new IBCode.ObservableCalculations.ThenOrdering<TSourceItem, TOrderingValue>(
+				sourceScalar: sourceScalar,
+				orderingValueSelectorExpression: orderingValueSelectorExpression,
+				sortDirectionScalar: sortDirectionScalar,
+				comparer: comparer,
+				maxTogetherThenOrderings: maxTogetherThenOrderings);
 		}
 
 		[ObservableCalculationsCall]
@@ -9428,7 +10290,23 @@ namespace IBCode.ObservableCalculations
 				sourceScalar: sourceScalar,
 				orderingValueSelectorExpression: orderingValueSelectorExpression,
 				sortDirectionScalar: sortDirectionScalar,
-				comparer: comparer);
+				comparer: comparer,
+				maxTogetherThenOrderings: 4);
+		}
+
+		[ObservableCalculationsCall]
+		public static IBCode.ObservableCalculations.ThenOrdering<TSourceItem, TOrderingValue> ThenOrdering<TSourceItem, TOrderingValue>(this
+			 IBCode.ObservableCalculations.Common.Interface.IReadScalar<IBCode.ObservableCalculations.Common.Interface.IOrdering<TSourceItem>> sourceScalar,
+			 System.Linq.Expressions.Expression<System.Func<TSourceItem, TOrderingValue>> orderingValueSelectorExpression,
+			 System.Collections.Generic.IComparer<TOrderingValue> comparer,
+			 int maxTogetherThenOrderings)
+		{
+			return new IBCode.ObservableCalculations.ThenOrdering<TSourceItem, TOrderingValue>(
+				sourceScalar: sourceScalar,
+				orderingValueSelectorExpression: orderingValueSelectorExpression,
+				sortDirectionScalar: null,
+				comparer: comparer,
+				maxTogetherThenOrderings: maxTogetherThenOrderings);
 		}
 
 		[ObservableCalculationsCall]
@@ -9441,21 +10319,24 @@ namespace IBCode.ObservableCalculations
 				sourceScalar: sourceScalar,
 				orderingValueSelectorExpression: orderingValueSelectorExpression,
 				sortDirectionScalar: null,
-				comparer: comparer);
+				comparer: comparer,
+				maxTogetherThenOrderings: 4);
 		}
 
 		[ObservableCalculationsCall]
 		public static IBCode.ObservableCalculations.ThenOrdering<TSourceItem, TOrderingValue> ThenOrdering<TSourceItem, TOrderingValue>(this
-			 IBCode.ObservableCalculations.Common.Interface.IOrdering<TSourceItem> source,
+			 IBCode.ObservableCalculations.Common.Interface.IReadScalar<IBCode.ObservableCalculations.Common.Interface.IOrdering<TSourceItem>> sourceScalar,
 			 System.Linq.Expressions.Expression<System.Func<TSourceItem, TOrderingValue>> orderingValueSelectorExpression,
-			 IBCode.ObservableCalculations.Common.Interface.IReadScalar<System.ComponentModel.ListSortDirection> sortDirectionScalar,
-			 System.Collections.Generic.IComparer<TOrderingValue> comparer)
+			 System.ComponentModel.ListSortDirection sortDirection,
+			 System.Collections.Generic.IComparer<TOrderingValue> comparer,
+			 int maxTogetherThenOrderings)
 		{
 			return new IBCode.ObservableCalculations.ThenOrdering<TSourceItem, TOrderingValue>(
-				source: source,
+				sourceScalar: sourceScalar,
 				orderingValueSelectorExpression: orderingValueSelectorExpression,
-				sortDirectionScalar: sortDirectionScalar,
-				comparer: comparer);
+				sortDirection: sortDirection,
+				comparer: comparer,
+				maxTogetherThenOrderings: maxTogetherThenOrderings);
 		}
 
 		[ObservableCalculationsCall]
@@ -9469,7 +10350,8 @@ namespace IBCode.ObservableCalculations
 				sourceScalar: sourceScalar,
 				orderingValueSelectorExpression: orderingValueSelectorExpression,
 				sortDirection: sortDirection,
-				comparer: comparer);
+				comparer: comparer,
+				maxTogetherThenOrderings: 4);
 		}
 
 		#endregion
@@ -11024,163 +11906,163 @@ namespace IBCode.ObservableCalculations
 		#region Zipping
 
 		[ObservableCalculationsCall]
-		public static IBCode.ObservableCalculations.Zipping<TSourceItemLeft, TSourceItemRight> Zipping<TSourceItemLeft, TSourceItemRight>(this
-			 IBCode.ObservableCalculations.Common.Interface.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> sourceLeftScalar,
-			 System.Collections.Specialized.INotifyCollectionChanged sourceRight)
+		public static IBCode.ObservableCalculations.Zipping<TLeftSourceItem, TRightSourceItem> Zipping<TLeftSourceItem, TRightSourceItem>(this
+			 IBCode.ObservableCalculations.Common.Interface.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> leftSourceScalar,
+			 System.Collections.Specialized.INotifyCollectionChanged rightSource)
 		{
-			return new IBCode.ObservableCalculations.Zipping<TSourceItemLeft, TSourceItemRight>(
-				leftSourceScalar: sourceLeftScalar,
-				rightSource: sourceRight);
+			return new IBCode.ObservableCalculations.Zipping<TLeftSourceItem, TRightSourceItem>(
+				leftSourceScalar: leftSourceScalar,
+				rightSource: rightSource);
 		}
 
 		[ObservableCalculationsCall]
-		public static IBCode.ObservableCalculations.Zipping<TSourceItemLeft, TSourceItemRight> Zipping<TSourceItemLeft, TSourceItemRight>(this
-			 IBCode.ObservableCalculations.Common.Interface.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> sourceLeftScalar,
-			 ObservableCollection<TSourceItemRight> sourceRight)
+		public static IBCode.ObservableCalculations.Zipping<TLeftSourceItem, TRightSourceItem> Zipping<TLeftSourceItem, TRightSourceItem>(this
+			 IBCode.ObservableCalculations.Common.Interface.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> leftSourceScalar,
+			 ObservableCollection<TRightSourceItem> rightSource)
 		{
-			return new IBCode.ObservableCalculations.Zipping<TSourceItemLeft, TSourceItemRight>(
-				leftSourceScalar: sourceLeftScalar,
-				rightSource: sourceRight);
+			return new IBCode.ObservableCalculations.Zipping<TLeftSourceItem, TRightSourceItem>(
+				leftSourceScalar: leftSourceScalar,
+				rightSource: rightSource);
 		}
 
 		[ObservableCalculationsCall]
-		public static IBCode.ObservableCalculations.Zipping<TSourceItemLeft, TSourceItemRight> Zipping<TSourceItemLeft, TSourceItemRight>(this
-			 IBCode.ObservableCalculations.Common.Interface.IReadScalar<ObservableCollection<TSourceItemLeft>> sourceLeftScalar,
-			 System.Collections.Specialized.INotifyCollectionChanged sourceRight)
+		public static IBCode.ObservableCalculations.Zipping<TLeftSourceItem, TRightSourceItem> Zipping<TLeftSourceItem, TRightSourceItem>(this
+			 IBCode.ObservableCalculations.Common.Interface.IReadScalar<ObservableCollection<TLeftSourceItem>> leftSourceScalar,
+			 System.Collections.Specialized.INotifyCollectionChanged rightSource)
 		{
-			return new IBCode.ObservableCalculations.Zipping<TSourceItemLeft, TSourceItemRight>(
-				leftSourceScalar: sourceLeftScalar,
-				rightSource: sourceRight);
+			return new IBCode.ObservableCalculations.Zipping<TLeftSourceItem, TRightSourceItem>(
+				leftSourceScalar: leftSourceScalar,
+				rightSource: rightSource);
 		}
 
 		[ObservableCalculationsCall]
-		public static IBCode.ObservableCalculations.Zipping<TSourceItemLeft, TSourceItemRight> Zipping<TSourceItemLeft, TSourceItemRight>(this
-			 IBCode.ObservableCalculations.Common.Interface.IReadScalar<ObservableCollection<TSourceItemLeft>> sourceLeftScalar,
-			 ObservableCollection<TSourceItemRight> sourceRight)
+		public static IBCode.ObservableCalculations.Zipping<TLeftSourceItem, TRightSourceItem> Zipping<TLeftSourceItem, TRightSourceItem>(this
+			 IBCode.ObservableCalculations.Common.Interface.IReadScalar<ObservableCollection<TLeftSourceItem>> leftSourceScalar,
+			 ObservableCollection<TRightSourceItem> rightSource)
 		{
-			return new IBCode.ObservableCalculations.Zipping<TSourceItemLeft, TSourceItemRight>(
-				leftSourceScalar: sourceLeftScalar,
-				rightSource: sourceRight);
+			return new IBCode.ObservableCalculations.Zipping<TLeftSourceItem, TRightSourceItem>(
+				leftSourceScalar: leftSourceScalar,
+				rightSource: rightSource);
 		}
 
 		[ObservableCalculationsCall]
-		public static IBCode.ObservableCalculations.Zipping<TSourceItemLeft, TSourceItemRight> Zipping<TSourceItemLeft, TSourceItemRight>(this
-			 IBCode.ObservableCalculations.Common.Interface.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> sourceLeftScalar,
-			 IBCode.ObservableCalculations.Common.Interface.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> sourceRightScalar)
+		public static IBCode.ObservableCalculations.Zipping<TLeftSourceItem, TRightSourceItem> Zipping<TLeftSourceItem, TRightSourceItem>(this
+			 IBCode.ObservableCalculations.Common.Interface.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> leftSourceScalar,
+			 IBCode.ObservableCalculations.Common.Interface.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> rightSourceScalar)
 		{
-			return new IBCode.ObservableCalculations.Zipping<TSourceItemLeft, TSourceItemRight>(
-				leftSourceScalar: sourceLeftScalar,
-				rightSourceScalar: sourceRightScalar);
+			return new IBCode.ObservableCalculations.Zipping<TLeftSourceItem, TRightSourceItem>(
+				leftSourceScalar: leftSourceScalar,
+				rightSourceScalar: rightSourceScalar);
 		}
 
 		[ObservableCalculationsCall]
-		public static IBCode.ObservableCalculations.Zipping<TSourceItemLeft, TSourceItemRight> Zipping<TSourceItemLeft, TSourceItemRight>(this
-			 IBCode.ObservableCalculations.Common.Interface.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> sourceLeftScalar,
-			 IBCode.ObservableCalculations.Common.Interface.IReadScalar<ObservableCollection<TSourceItemRight>> sourceRightScalar)
+		public static IBCode.ObservableCalculations.Zipping<TLeftSourceItem, TRightSourceItem> Zipping<TLeftSourceItem, TRightSourceItem>(this
+			 IBCode.ObservableCalculations.Common.Interface.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> leftSourceScalar,
+			 IBCode.ObservableCalculations.Common.Interface.IReadScalar<ObservableCollection<TRightSourceItem>> rightSourceScalar)
 		{
-			return new IBCode.ObservableCalculations.Zipping<TSourceItemLeft, TSourceItemRight>(
-				leftSourceScalar: sourceLeftScalar,
-				rightSourceScalar: sourceRightScalar);
+			return new IBCode.ObservableCalculations.Zipping<TLeftSourceItem, TRightSourceItem>(
+				leftSourceScalar: leftSourceScalar,
+				rightSourceScalar: rightSourceScalar);
 		}
 
 		[ObservableCalculationsCall]
-		public static IBCode.ObservableCalculations.Zipping<TSourceItemLeft, TSourceItemRight> Zipping<TSourceItemLeft, TSourceItemRight>(this
-			 IBCode.ObservableCalculations.Common.Interface.IReadScalar<ObservableCollection<TSourceItemLeft>> sourceLeftScalar,
-			 IBCode.ObservableCalculations.Common.Interface.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> sourceRightScalar)
+		public static IBCode.ObservableCalculations.Zipping<TLeftSourceItem, TRightSourceItem> Zipping<TLeftSourceItem, TRightSourceItem>(this
+			 IBCode.ObservableCalculations.Common.Interface.IReadScalar<ObservableCollection<TLeftSourceItem>> leftSourceScalar,
+			 IBCode.ObservableCalculations.Common.Interface.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> rightSourceScalar)
 		{
-			return new IBCode.ObservableCalculations.Zipping<TSourceItemLeft, TSourceItemRight>(
-				leftSourceScalar: sourceLeftScalar,
-				rightSourceScalar: sourceRightScalar);
+			return new IBCode.ObservableCalculations.Zipping<TLeftSourceItem, TRightSourceItem>(
+				leftSourceScalar: leftSourceScalar,
+				rightSourceScalar: rightSourceScalar);
 		}
 
 		[ObservableCalculationsCall]
-		public static IBCode.ObservableCalculations.Zipping<TSourceItemLeft, TSourceItemRight> Zipping<TSourceItemLeft, TSourceItemRight>(this
-			 IBCode.ObservableCalculations.Common.Interface.IReadScalar<ObservableCollection<TSourceItemLeft>> sourceLeftScalar,
-			 IBCode.ObservableCalculations.Common.Interface.IReadScalar<ObservableCollection<TSourceItemRight>> sourceRightScalar)
+		public static IBCode.ObservableCalculations.Zipping<TLeftSourceItem, TRightSourceItem> Zipping<TLeftSourceItem, TRightSourceItem>(this
+			 IBCode.ObservableCalculations.Common.Interface.IReadScalar<ObservableCollection<TLeftSourceItem>> leftSourceScalar,
+			 IBCode.ObservableCalculations.Common.Interface.IReadScalar<ObservableCollection<TRightSourceItem>> rightSourceScalar)
 		{
-			return new IBCode.ObservableCalculations.Zipping<TSourceItemLeft, TSourceItemRight>(
-				leftSourceScalar: sourceLeftScalar,
-				rightSourceScalar: sourceRightScalar);
+			return new IBCode.ObservableCalculations.Zipping<TLeftSourceItem, TRightSourceItem>(
+				leftSourceScalar: leftSourceScalar,
+				rightSourceScalar: rightSourceScalar);
 		}
 
 		[ObservableCalculationsCall]
-		public static IBCode.ObservableCalculations.Zipping<TSourceItemLeft, TSourceItemRight> Zipping<TSourceItemLeft, TSourceItemRight>(this
-			 System.Collections.Specialized.INotifyCollectionChanged sourceLeft,
-			 System.Collections.Specialized.INotifyCollectionChanged sourceRight)
+		public static IBCode.ObservableCalculations.Zipping<TLeftSourceItem, TRightSourceItem> Zipping<TLeftSourceItem, TRightSourceItem>(this
+			 System.Collections.Specialized.INotifyCollectionChanged leftSource,
+			 System.Collections.Specialized.INotifyCollectionChanged rightSource)
 		{
-			return new IBCode.ObservableCalculations.Zipping<TSourceItemLeft, TSourceItemRight>(
-				leftSource: sourceLeft,
-				rightSource: sourceRight);
+			return new IBCode.ObservableCalculations.Zipping<TLeftSourceItem, TRightSourceItem>(
+				leftSource: leftSource,
+				rightSource: rightSource);
 		}
 
 		[ObservableCalculationsCall]
-		public static IBCode.ObservableCalculations.Zipping<TSourceItemLeft, TSourceItemRight> Zipping<TSourceItemLeft, TSourceItemRight>(this
-			 System.Collections.Specialized.INotifyCollectionChanged sourceLeft,
-			 ObservableCollection<TSourceItemRight> sourceRight)
+		public static IBCode.ObservableCalculations.Zipping<TLeftSourceItem, TRightSourceItem> Zipping<TLeftSourceItem, TRightSourceItem>(this
+			 System.Collections.Specialized.INotifyCollectionChanged leftSource,
+			 ObservableCollection<TRightSourceItem> rightSource)
 		{
-			return new IBCode.ObservableCalculations.Zipping<TSourceItemLeft, TSourceItemRight>(
-				leftSource: sourceLeft,
-				rightSource: sourceRight);
+			return new IBCode.ObservableCalculations.Zipping<TLeftSourceItem, TRightSourceItem>(
+				leftSource: leftSource,
+				rightSource: rightSource);
 		}
 
 		[ObservableCalculationsCall]
-		public static IBCode.ObservableCalculations.Zipping<TSourceItemLeft, TSourceItemRight> Zipping<TSourceItemLeft, TSourceItemRight>(this
-			 ObservableCollection<TSourceItemLeft> sourceLeft,
-			 System.Collections.Specialized.INotifyCollectionChanged sourceRight)
+		public static IBCode.ObservableCalculations.Zipping<TLeftSourceItem, TRightSourceItem> Zipping<TLeftSourceItem, TRightSourceItem>(this
+			 ObservableCollection<TLeftSourceItem> leftSource,
+			 System.Collections.Specialized.INotifyCollectionChanged rightSource)
 		{
-			return new IBCode.ObservableCalculations.Zipping<TSourceItemLeft, TSourceItemRight>(
-				leftSource: sourceLeft,
-				rightSource: sourceRight);
+			return new IBCode.ObservableCalculations.Zipping<TLeftSourceItem, TRightSourceItem>(
+				leftSource: leftSource,
+				rightSource: rightSource);
 		}
 
 		[ObservableCalculationsCall]
-		public static IBCode.ObservableCalculations.Zipping<TSourceItemLeft, TSourceItemRight> Zipping<TSourceItemLeft, TSourceItemRight>(this
-			 ObservableCollection<TSourceItemLeft> sourceLeft,
-			 ObservableCollection<TSourceItemRight> sourceRight)
+		public static IBCode.ObservableCalculations.Zipping<TLeftSourceItem, TRightSourceItem> Zipping<TLeftSourceItem, TRightSourceItem>(this
+			 ObservableCollection<TLeftSourceItem> leftSource,
+			 ObservableCollection<TRightSourceItem> rightSource)
 		{
-			return new IBCode.ObservableCalculations.Zipping<TSourceItemLeft, TSourceItemRight>(
-				leftSource: sourceLeft,
-				rightSource: sourceRight);
+			return new IBCode.ObservableCalculations.Zipping<TLeftSourceItem, TRightSourceItem>(
+				leftSource: leftSource,
+				rightSource: rightSource);
 		}
 
 		[ObservableCalculationsCall]
-		public static IBCode.ObservableCalculations.Zipping<TSourceItemLeft, TSourceItemRight> Zipping<TSourceItemLeft, TSourceItemRight>(this
-			 System.Collections.Specialized.INotifyCollectionChanged sourceLeft,
-			 IBCode.ObservableCalculations.Common.Interface.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> sourceRightScalar)
+		public static IBCode.ObservableCalculations.Zipping<TLeftSourceItem, TRightSourceItem> Zipping<TLeftSourceItem, TRightSourceItem>(this
+			 System.Collections.Specialized.INotifyCollectionChanged leftSource,
+			 IBCode.ObservableCalculations.Common.Interface.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> rightSourceScalar)
 		{
-			return new IBCode.ObservableCalculations.Zipping<TSourceItemLeft, TSourceItemRight>(
-				leftSource: sourceLeft,
-				rightSourceScalar: sourceRightScalar);
+			return new IBCode.ObservableCalculations.Zipping<TLeftSourceItem, TRightSourceItem>(
+				leftSource: leftSource,
+				rightSourceScalar: rightSourceScalar);
 		}
 
 		[ObservableCalculationsCall]
-		public static IBCode.ObservableCalculations.Zipping<TSourceItemLeft, TSourceItemRight> Zipping<TSourceItemLeft, TSourceItemRight>(this
-			 System.Collections.Specialized.INotifyCollectionChanged sourceLeft,
-			 IBCode.ObservableCalculations.Common.Interface.IReadScalar<ObservableCollection<TSourceItemRight>> sourceRightScalar)
+		public static IBCode.ObservableCalculations.Zipping<TLeftSourceItem, TRightSourceItem> Zipping<TLeftSourceItem, TRightSourceItem>(this
+			 System.Collections.Specialized.INotifyCollectionChanged leftSource,
+			 IBCode.ObservableCalculations.Common.Interface.IReadScalar<ObservableCollection<TRightSourceItem>> rightSourceScalar)
 		{
-			return new IBCode.ObservableCalculations.Zipping<TSourceItemLeft, TSourceItemRight>(
-				leftSource: sourceLeft,
-				rightSourceScalar: sourceRightScalar);
+			return new IBCode.ObservableCalculations.Zipping<TLeftSourceItem, TRightSourceItem>(
+				leftSource: leftSource,
+				rightSourceScalar: rightSourceScalar);
 		}
 
 		[ObservableCalculationsCall]
-		public static IBCode.ObservableCalculations.Zipping<TSourceItemLeft, TSourceItemRight> Zipping<TSourceItemLeft, TSourceItemRight>(this
-			 ObservableCollection<TSourceItemLeft> sourceLeft,
-			 IBCode.ObservableCalculations.Common.Interface.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> sourceRightScalar)
+		public static IBCode.ObservableCalculations.Zipping<TLeftSourceItem, TRightSourceItem> Zipping<TLeftSourceItem, TRightSourceItem>(this
+			 ObservableCollection<TLeftSourceItem> leftSource,
+			 IBCode.ObservableCalculations.Common.Interface.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> rightSourceScalar)
 		{
-			return new IBCode.ObservableCalculations.Zipping<TSourceItemLeft, TSourceItemRight>(
-				leftSource: sourceLeft,
-				rightSourceScalar: sourceRightScalar);
+			return new IBCode.ObservableCalculations.Zipping<TLeftSourceItem, TRightSourceItem>(
+				leftSource: leftSource,
+				rightSourceScalar: rightSourceScalar);
 		}
 
 		[ObservableCalculationsCall]
-		public static IBCode.ObservableCalculations.Zipping<TSourceItemLeft, TSourceItemRight> Zipping<TSourceItemLeft, TSourceItemRight>(this
-			 ObservableCollection<TSourceItemLeft> sourceLeft,
-			 IBCode.ObservableCalculations.Common.Interface.IReadScalar<ObservableCollection<TSourceItemRight>> sourceRightScalar)
+		public static IBCode.ObservableCalculations.Zipping<TLeftSourceItem, TRightSourceItem> Zipping<TLeftSourceItem, TRightSourceItem>(this
+			 ObservableCollection<TLeftSourceItem> leftSource,
+			 IBCode.ObservableCalculations.Common.Interface.IReadScalar<ObservableCollection<TRightSourceItem>> rightSourceScalar)
 		{
-			return new IBCode.ObservableCalculations.Zipping<TSourceItemLeft, TSourceItemRight>(
-				leftSource: sourceLeft,
-				rightSourceScalar: sourceRightScalar);
+			return new IBCode.ObservableCalculations.Zipping<TLeftSourceItem, TRightSourceItem>(
+				leftSource: leftSource,
+				rightSourceScalar: rightSourceScalar);
 		}
 
 		#endregion

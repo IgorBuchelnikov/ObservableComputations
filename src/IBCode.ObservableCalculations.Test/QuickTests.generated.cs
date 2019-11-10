@@ -54656,11 +54656,13 @@ namespace IBCode.ObservableCalculations.Test
 			System.Linq.Expressions.Expression<System.Func<int, int>> orderingValueSelectorExpression = i => i;
 			Scalar<System.ComponentModel.ListSortDirection> sortDirectionScalar = getScalar<System.ComponentModel.ListSortDirection>(System.ComponentModel.ListSortDirection.Ascending);
 			Scalar<System.Collections.Generic.IComparer<int>> comparerScalar = getScalar<System.Collections.Generic.IComparer<int>>(Comparer<int>.Default);
+			int maxTogetherThenOrderings = 0;
 			
 			var testing = source.Ordering<int, int>(
 				orderingValueSelectorExpression,
 				sortDirectionScalar,
-				comparerScalar);
+				comparerScalar,
+				maxTogetherThenOrderings);
 
 			void test()
 			{
@@ -54733,212 +54735,6 @@ namespace IBCode.ObservableCalculations.Test
 			Selecting<Item, int> source = getItems().Selecting(i => i.Num);
 			System.Linq.Expressions.Expression<System.Func<int, int>> orderingValueSelectorExpression = i => i;
 			Scalar<System.ComponentModel.ListSortDirection> sortDirectionScalar = getScalar<System.ComponentModel.ListSortDirection>(System.ComponentModel.ListSortDirection.Ascending);
-			
-			var testing = source.Ordering<int, int>(
-				orderingValueSelectorExpression,
-				sortDirectionScalar);
-
-			void test()
-			{
-				testing.ValidateConsistency();
-				var sourceValue = ((ObservableCollection<Item>)((Selecting<Item, int>)source)?.Source);
-
-				if (sourceValue != null)
-				{		
-					sourceValue.Insert(2, new QuickTests.Item(1, true));
-					testing.ValidateConsistency();
-					sourceValue[3] = new QuickTests.Item(7, true);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(3);
-					testing.ValidateConsistency();
-					sourceValue.Move(1, 3);
-					testing.ValidateConsistency();
-					sourceValue[2].Active = !sourceValue[2].Active;
-					testing.ValidateConsistency();
-					sourceValue[2].Num = sourceValue[2].Num + 1;
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.Insert(0, new QuickTests.Item(1, true));
-					testing.ValidateConsistency();
-					sourceValue.Insert(0, new QuickTests.Item(2, true));
-					testing.ValidateConsistency();
-				}
-
-				IList listSource;
-				listSource = ((IList)((Selecting<Item, int>)source)?.Source);
-				if (listSource != null)
-				{
-					listSource.Clear();
-					testing.ValidateConsistency();
-				}
-
-				if (sourceValue != null)
-				{
-					sourceValue.Insert(0, new QuickTests.Item(1, true));
-					sourceValue.Insert(1, new QuickTests.Item(2, true));
-					sourceValue.Insert(2, new QuickTests.Item(3, true));
-					sourceValue.Insert(3, new QuickTests.Item(3, true));
-					sourceValue.Insert(4, new QuickTests.Item(3, true));
-					testing.ValidateConsistency();
-				}
-			}
-
-			test();
-
-			((Scalar<System.ComponentModel.ListSortDirection>)sortDirectionScalar).Touch();
-			test();
-			((Scalar<System.ComponentModel.ListSortDirection>)sortDirectionScalar).Change(System.ComponentModel.ListSortDirection.Descending);
-			test();
-		}
-		
-		[Test]
-		public void TestOrdering03()
-		{
-			Selecting<Item, int> source = getItems().Selecting(i => i.Num);
-			System.Linq.Expressions.Expression<System.Func<int, int>> orderingValueSelectorExpression = i => i;
-			Scalar<System.Collections.Generic.IComparer<int>> comparerScalar = getScalar<System.Collections.Generic.IComparer<int>>(Comparer<int>.Default);
-			
-			var testing = source.Ordering<int, int>(
-				orderingValueSelectorExpression,
-				comparerScalar);
-
-			void test()
-			{
-				testing.ValidateConsistency();
-				var sourceValue = ((ObservableCollection<Item>)((Selecting<Item, int>)source)?.Source);
-
-				if (sourceValue != null)
-				{		
-					sourceValue.Insert(2, new QuickTests.Item(1, true));
-					testing.ValidateConsistency();
-					sourceValue[3] = new QuickTests.Item(7, true);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(3);
-					testing.ValidateConsistency();
-					sourceValue.Move(1, 3);
-					testing.ValidateConsistency();
-					sourceValue[2].Active = !sourceValue[2].Active;
-					testing.ValidateConsistency();
-					sourceValue[2].Num = sourceValue[2].Num + 1;
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.Insert(0, new QuickTests.Item(1, true));
-					testing.ValidateConsistency();
-					sourceValue.Insert(0, new QuickTests.Item(2, true));
-					testing.ValidateConsistency();
-				}
-
-				IList listSource;
-				listSource = ((IList)((Selecting<Item, int>)source)?.Source);
-				if (listSource != null)
-				{
-					listSource.Clear();
-					testing.ValidateConsistency();
-				}
-
-				if (sourceValue != null)
-				{
-					sourceValue.Insert(0, new QuickTests.Item(1, true));
-					sourceValue.Insert(1, new QuickTests.Item(2, true));
-					sourceValue.Insert(2, new QuickTests.Item(3, true));
-					sourceValue.Insert(3, new QuickTests.Item(3, true));
-					sourceValue.Insert(4, new QuickTests.Item(3, true));
-					testing.ValidateConsistency();
-				}
-			}
-
-			test();
-
-			((Scalar<System.Collections.Generic.IComparer<int>>)comparerScalar).Touch();
-			test();
-			((Scalar<System.Collections.Generic.IComparer<int>>)comparerScalar).Change(null);
-			test();
-		}
-		
-		[Test]
-		public void TestOrdering04()
-		{
-			Selecting<Item, int> source = getItems().Selecting(i => i.Num);
-			System.Linq.Expressions.Expression<System.Func<int, int>> orderingValueSelectorExpression = i => i;
-			
-			var testing = source.Ordering<int, int>(
-				orderingValueSelectorExpression);
-
-			void test()
-			{
-				testing.ValidateConsistency();
-				var sourceValue = ((ObservableCollection<Item>)((Selecting<Item, int>)source)?.Source);
-
-				if (sourceValue != null)
-				{		
-					sourceValue.Insert(2, new QuickTests.Item(1, true));
-					testing.ValidateConsistency();
-					sourceValue[3] = new QuickTests.Item(7, true);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(3);
-					testing.ValidateConsistency();
-					sourceValue.Move(1, 3);
-					testing.ValidateConsistency();
-					sourceValue[2].Active = !sourceValue[2].Active;
-					testing.ValidateConsistency();
-					sourceValue[2].Num = sourceValue[2].Num + 1;
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.Insert(0, new QuickTests.Item(1, true));
-					testing.ValidateConsistency();
-					sourceValue.Insert(0, new QuickTests.Item(2, true));
-					testing.ValidateConsistency();
-				}
-
-				IList listSource;
-				listSource = ((IList)((Selecting<Item, int>)source)?.Source);
-				if (listSource != null)
-				{
-					listSource.Clear();
-					testing.ValidateConsistency();
-				}
-
-				if (sourceValue != null)
-				{
-					sourceValue.Insert(0, new QuickTests.Item(1, true));
-					sourceValue.Insert(1, new QuickTests.Item(2, true));
-					sourceValue.Insert(2, new QuickTests.Item(3, true));
-					sourceValue.Insert(3, new QuickTests.Item(3, true));
-					sourceValue.Insert(4, new QuickTests.Item(3, true));
-					testing.ValidateConsistency();
-				}
-			}
-
-			test();
-		}
-		
-		[Test]
-		public void TestOrdering05()
-		{
-			Selecting<Item, int> source = getItems().Selecting(i => i.Num);
-			System.Linq.Expressions.Expression<System.Func<int, int>> orderingValueSelectorExpression = i => i;
-			Scalar<System.ComponentModel.ListSortDirection> sortDirectionScalar = getScalar<System.ComponentModel.ListSortDirection>(System.ComponentModel.ListSortDirection.Ascending);
 			Scalar<System.Collections.Generic.IComparer<int>> comparerScalar = getScalar<System.Collections.Generic.IComparer<int>>(Comparer<int>.Default);
 			
 			var testing = source.Ordering<int, int>(
@@ -55012,7 +54808,80 @@ namespace IBCode.ObservableCalculations.Test
 		}
 		
 		[Test]
-		public void TestOrdering06()
+		public void TestOrdering03()
+		{
+			Selecting<Item, int> source = getItems().Selecting(i => i.Num);
+			System.Linq.Expressions.Expression<System.Func<int, int>> orderingValueSelectorExpression = i => i;
+			Scalar<System.ComponentModel.ListSortDirection> sortDirectionScalar = getScalar<System.ComponentModel.ListSortDirection>(System.ComponentModel.ListSortDirection.Ascending);
+			int maxTogetherThenOrderings = 0;
+			
+			var testing = source.Ordering<int, int>(
+				orderingValueSelectorExpression,
+				sortDirectionScalar,
+				maxTogetherThenOrderings);
+
+			void test()
+			{
+				testing.ValidateConsistency();
+				var sourceValue = ((ObservableCollection<Item>)((Selecting<Item, int>)source)?.Source);
+
+				if (sourceValue != null)
+				{		
+					sourceValue.Insert(2, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					sourceValue[3] = new QuickTests.Item(7, true);
+					testing.ValidateConsistency();
+					sourceValue.RemoveAt(3);
+					testing.ValidateConsistency();
+					sourceValue.Move(1, 3);
+					testing.ValidateConsistency();
+					sourceValue[2].Active = !sourceValue[2].Active;
+					testing.ValidateConsistency();
+					sourceValue[2].Num = sourceValue[2].Num + 1;
+					testing.ValidateConsistency();
+					sourceValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceValue.Insert(0, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					sourceValue.Insert(0, new QuickTests.Item(2, true));
+					testing.ValidateConsistency();
+				}
+
+				IList listSource;
+				listSource = ((IList)((Selecting<Item, int>)source)?.Source);
+				if (listSource != null)
+				{
+					listSource.Clear();
+					testing.ValidateConsistency();
+				}
+
+				if (sourceValue != null)
+				{
+					sourceValue.Insert(0, new QuickTests.Item(1, true));
+					sourceValue.Insert(1, new QuickTests.Item(2, true));
+					sourceValue.Insert(2, new QuickTests.Item(3, true));
+					sourceValue.Insert(3, new QuickTests.Item(3, true));
+					sourceValue.Insert(4, new QuickTests.Item(3, true));
+					testing.ValidateConsistency();
+				}
+			}
+
+			test();
+
+			((Scalar<System.ComponentModel.ListSortDirection>)sortDirectionScalar).Touch();
+			test();
+			((Scalar<System.ComponentModel.ListSortDirection>)sortDirectionScalar).Change(System.ComponentModel.ListSortDirection.Descending);
+			test();
+		}
+		
+		[Test]
+		public void TestOrdering04()
 		{
 			Selecting<Item, int> source = getItems().Selecting(i => i.Num);
 			System.Linq.Expressions.Expression<System.Func<int, int>> orderingValueSelectorExpression = i => i;
@@ -55083,7 +54952,80 @@ namespace IBCode.ObservableCalculations.Test
 		}
 		
 		[Test]
-		public void TestOrdering07()
+		public void TestOrdering05()
+		{
+			Selecting<Item, int> source = getItems().Selecting(i => i.Num);
+			System.Linq.Expressions.Expression<System.Func<int, int>> orderingValueSelectorExpression = i => i;
+			Scalar<System.Collections.Generic.IComparer<int>> comparerScalar = getScalar<System.Collections.Generic.IComparer<int>>(Comparer<int>.Default);
+			int maxTogetherThenOrderings = 0;
+			
+			var testing = source.Ordering<int, int>(
+				orderingValueSelectorExpression,
+				comparerScalar,
+				maxTogetherThenOrderings);
+
+			void test()
+			{
+				testing.ValidateConsistency();
+				var sourceValue = ((ObservableCollection<Item>)((Selecting<Item, int>)source)?.Source);
+
+				if (sourceValue != null)
+				{		
+					sourceValue.Insert(2, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					sourceValue[3] = new QuickTests.Item(7, true);
+					testing.ValidateConsistency();
+					sourceValue.RemoveAt(3);
+					testing.ValidateConsistency();
+					sourceValue.Move(1, 3);
+					testing.ValidateConsistency();
+					sourceValue[2].Active = !sourceValue[2].Active;
+					testing.ValidateConsistency();
+					sourceValue[2].Num = sourceValue[2].Num + 1;
+					testing.ValidateConsistency();
+					sourceValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceValue.Insert(0, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					sourceValue.Insert(0, new QuickTests.Item(2, true));
+					testing.ValidateConsistency();
+				}
+
+				IList listSource;
+				listSource = ((IList)((Selecting<Item, int>)source)?.Source);
+				if (listSource != null)
+				{
+					listSource.Clear();
+					testing.ValidateConsistency();
+				}
+
+				if (sourceValue != null)
+				{
+					sourceValue.Insert(0, new QuickTests.Item(1, true));
+					sourceValue.Insert(1, new QuickTests.Item(2, true));
+					sourceValue.Insert(2, new QuickTests.Item(3, true));
+					sourceValue.Insert(3, new QuickTests.Item(3, true));
+					sourceValue.Insert(4, new QuickTests.Item(3, true));
+					testing.ValidateConsistency();
+				}
+			}
+
+			test();
+
+			((Scalar<System.Collections.Generic.IComparer<int>>)comparerScalar).Touch();
+			test();
+			((Scalar<System.Collections.Generic.IComparer<int>>)comparerScalar).Change(null);
+			test();
+		}
+		
+		[Test]
+		public void TestOrdering06()
 		{
 			Selecting<Item, int> source = getItems().Selecting(i => i.Num);
 			System.Linq.Expressions.Expression<System.Func<int, int>> orderingValueSelectorExpression = i => i;
@@ -55150,6 +55092,72 @@ namespace IBCode.ObservableCalculations.Test
 			((Scalar<System.Collections.Generic.IComparer<int>>)comparerScalar).Touch();
 			test();
 			((Scalar<System.Collections.Generic.IComparer<int>>)comparerScalar).Change(null);
+			test();
+		}
+		
+		[Test]
+		public void TestOrdering07()
+		{
+			Selecting<Item, int> source = getItems().Selecting(i => i.Num);
+			System.Linq.Expressions.Expression<System.Func<int, int>> orderingValueSelectorExpression = i => i;
+			int maxTogetherThenOrderings = 0;
+			
+			var testing = source.Ordering<int, int>(
+				orderingValueSelectorExpression,
+				maxTogetherThenOrderings);
+
+			void test()
+			{
+				testing.ValidateConsistency();
+				var sourceValue = ((ObservableCollection<Item>)((Selecting<Item, int>)source)?.Source);
+
+				if (sourceValue != null)
+				{		
+					sourceValue.Insert(2, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					sourceValue[3] = new QuickTests.Item(7, true);
+					testing.ValidateConsistency();
+					sourceValue.RemoveAt(3);
+					testing.ValidateConsistency();
+					sourceValue.Move(1, 3);
+					testing.ValidateConsistency();
+					sourceValue[2].Active = !sourceValue[2].Active;
+					testing.ValidateConsistency();
+					sourceValue[2].Num = sourceValue[2].Num + 1;
+					testing.ValidateConsistency();
+					sourceValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceValue.Insert(0, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					sourceValue.Insert(0, new QuickTests.Item(2, true));
+					testing.ValidateConsistency();
+				}
+
+				IList listSource;
+				listSource = ((IList)((Selecting<Item, int>)source)?.Source);
+				if (listSource != null)
+				{
+					listSource.Clear();
+					testing.ValidateConsistency();
+				}
+
+				if (sourceValue != null)
+				{
+					sourceValue.Insert(0, new QuickTests.Item(1, true));
+					sourceValue.Insert(1, new QuickTests.Item(2, true));
+					sourceValue.Insert(2, new QuickTests.Item(3, true));
+					sourceValue.Insert(3, new QuickTests.Item(3, true));
+					sourceValue.Insert(4, new QuickTests.Item(3, true));
+					testing.ValidateConsistency();
+				}
+			}
+
 			test();
 		}
 		
@@ -55222,13 +55230,15 @@ namespace IBCode.ObservableCalculations.Test
 		{
 			Selecting<Item, int> source = getItems().Selecting(i => i.Num);
 			System.Linq.Expressions.Expression<System.Func<int, int>> orderingValueSelectorExpression = i => i;
-			System.ComponentModel.ListSortDirection sortDirection = System.ComponentModel.ListSortDirection.Ascending;
+			Scalar<System.ComponentModel.ListSortDirection> sortDirectionScalar = getScalar<System.ComponentModel.ListSortDirection>(System.ComponentModel.ListSortDirection.Ascending);
 			Scalar<System.Collections.Generic.IComparer<int>> comparerScalar = getScalar<System.Collections.Generic.IComparer<int>>(Comparer<int>.Default);
+			int maxTogetherThenOrderings = 0;
 			
 			var testing = source.Ordering<int, int>(
 				orderingValueSelectorExpression,
-				sortDirection,
-				comparerScalar);
+				sortDirectionScalar,
+				comparerScalar,
+				maxTogetherThenOrderings);
 
 			void test()
 			{
@@ -55282,6 +55292,11 @@ namespace IBCode.ObservableCalculations.Test
 				}
 			}
 
+			test();
+
+			((Scalar<System.ComponentModel.ListSortDirection>)sortDirectionScalar).Touch();
+			test();
+			((Scalar<System.ComponentModel.ListSortDirection>)sortDirectionScalar).Change(System.ComponentModel.ListSortDirection.Descending);
 			test();
 
 			((Scalar<System.Collections.Generic.IComparer<int>>)comparerScalar).Touch();
@@ -55295,11 +55310,13 @@ namespace IBCode.ObservableCalculations.Test
 		{
 			Selecting<Item, int> source = getItems().Selecting(i => i.Num);
 			System.Linq.Expressions.Expression<System.Func<int, int>> orderingValueSelectorExpression = i => i;
-			System.ComponentModel.ListSortDirection sortDirection = System.ComponentModel.ListSortDirection.Ascending;
+			Scalar<System.ComponentModel.ListSortDirection> sortDirectionScalar = getScalar<System.ComponentModel.ListSortDirection>(System.ComponentModel.ListSortDirection.Ascending);
+			Scalar<System.Collections.Generic.IComparer<int>> comparerScalar = getScalar<System.Collections.Generic.IComparer<int>>(Comparer<int>.Default);
 			
 			var testing = source.Ordering<int, int>(
 				orderingValueSelectorExpression,
-				sortDirection);
+				sortDirectionScalar,
+				comparerScalar);
 
 			void test()
 			{
@@ -55354,6 +55371,16 @@ namespace IBCode.ObservableCalculations.Test
 			}
 
 			test();
+
+			((Scalar<System.ComponentModel.ListSortDirection>)sortDirectionScalar).Touch();
+			test();
+			((Scalar<System.ComponentModel.ListSortDirection>)sortDirectionScalar).Change(System.ComponentModel.ListSortDirection.Descending);
+			test();
+
+			((Scalar<System.Collections.Generic.IComparer<int>>)comparerScalar).Touch();
+			test();
+			((Scalar<System.Collections.Generic.IComparer<int>>)comparerScalar).Change(null);
+			test();
 		}
 		
 		[Test]
@@ -55361,12 +55388,227 @@ namespace IBCode.ObservableCalculations.Test
 		{
 			Selecting<Item, int> source = getItems().Selecting(i => i.Num);
 			System.Linq.Expressions.Expression<System.Func<int, int>> orderingValueSelectorExpression = i => i;
-			System.ComponentModel.ListSortDirection sortDirection = System.ComponentModel.ListSortDirection.Ascending;
+			Scalar<System.ComponentModel.ListSortDirection> sortDirectionScalar = getScalar<System.ComponentModel.ListSortDirection>(System.ComponentModel.ListSortDirection.Ascending);
+			int maxTogetherThenOrderings = 0;
+			
+			var testing = source.Ordering<int, int>(
+				orderingValueSelectorExpression,
+				sortDirectionScalar,
+				maxTogetherThenOrderings);
+
+			void test()
+			{
+				testing.ValidateConsistency();
+				var sourceValue = ((ObservableCollection<Item>)((Selecting<Item, int>)source)?.Source);
+
+				if (sourceValue != null)
+				{		
+					sourceValue.Insert(2, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					sourceValue[3] = new QuickTests.Item(7, true);
+					testing.ValidateConsistency();
+					sourceValue.RemoveAt(3);
+					testing.ValidateConsistency();
+					sourceValue.Move(1, 3);
+					testing.ValidateConsistency();
+					sourceValue[2].Active = !sourceValue[2].Active;
+					testing.ValidateConsistency();
+					sourceValue[2].Num = sourceValue[2].Num + 1;
+					testing.ValidateConsistency();
+					sourceValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceValue.Insert(0, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					sourceValue.Insert(0, new QuickTests.Item(2, true));
+					testing.ValidateConsistency();
+				}
+
+				IList listSource;
+				listSource = ((IList)((Selecting<Item, int>)source)?.Source);
+				if (listSource != null)
+				{
+					listSource.Clear();
+					testing.ValidateConsistency();
+				}
+
+				if (sourceValue != null)
+				{
+					sourceValue.Insert(0, new QuickTests.Item(1, true));
+					sourceValue.Insert(1, new QuickTests.Item(2, true));
+					sourceValue.Insert(2, new QuickTests.Item(3, true));
+					sourceValue.Insert(3, new QuickTests.Item(3, true));
+					sourceValue.Insert(4, new QuickTests.Item(3, true));
+					testing.ValidateConsistency();
+				}
+			}
+
+			test();
+
+			((Scalar<System.ComponentModel.ListSortDirection>)sortDirectionScalar).Touch();
+			test();
+			((Scalar<System.ComponentModel.ListSortDirection>)sortDirectionScalar).Change(System.ComponentModel.ListSortDirection.Descending);
+			test();
+		}
+		
+		[Test]
+		public void TestOrdering12()
+		{
+			Selecting<Item, int> source = getItems().Selecting(i => i.Num);
+			System.Linq.Expressions.Expression<System.Func<int, int>> orderingValueSelectorExpression = i => i;
+			Scalar<System.ComponentModel.ListSortDirection> sortDirectionScalar = getScalar<System.ComponentModel.ListSortDirection>(System.ComponentModel.ListSortDirection.Ascending);
+			
+			var testing = source.Ordering<int, int>(
+				orderingValueSelectorExpression,
+				sortDirectionScalar);
+
+			void test()
+			{
+				testing.ValidateConsistency();
+				var sourceValue = ((ObservableCollection<Item>)((Selecting<Item, int>)source)?.Source);
+
+				if (sourceValue != null)
+				{		
+					sourceValue.Insert(2, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					sourceValue[3] = new QuickTests.Item(7, true);
+					testing.ValidateConsistency();
+					sourceValue.RemoveAt(3);
+					testing.ValidateConsistency();
+					sourceValue.Move(1, 3);
+					testing.ValidateConsistency();
+					sourceValue[2].Active = !sourceValue[2].Active;
+					testing.ValidateConsistency();
+					sourceValue[2].Num = sourceValue[2].Num + 1;
+					testing.ValidateConsistency();
+					sourceValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceValue.Insert(0, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					sourceValue.Insert(0, new QuickTests.Item(2, true));
+					testing.ValidateConsistency();
+				}
+
+				IList listSource;
+				listSource = ((IList)((Selecting<Item, int>)source)?.Source);
+				if (listSource != null)
+				{
+					listSource.Clear();
+					testing.ValidateConsistency();
+				}
+
+				if (sourceValue != null)
+				{
+					sourceValue.Insert(0, new QuickTests.Item(1, true));
+					sourceValue.Insert(1, new QuickTests.Item(2, true));
+					sourceValue.Insert(2, new QuickTests.Item(3, true));
+					sourceValue.Insert(3, new QuickTests.Item(3, true));
+					sourceValue.Insert(4, new QuickTests.Item(3, true));
+					testing.ValidateConsistency();
+				}
+			}
+
+			test();
+
+			((Scalar<System.ComponentModel.ListSortDirection>)sortDirectionScalar).Touch();
+			test();
+			((Scalar<System.ComponentModel.ListSortDirection>)sortDirectionScalar).Change(System.ComponentModel.ListSortDirection.Descending);
+			test();
+		}
+		
+		[Test]
+		public void TestOrdering13()
+		{
+			Selecting<Item, int> source = getItems().Selecting(i => i.Num);
+			System.Linq.Expressions.Expression<System.Func<int, int>> orderingValueSelectorExpression = i => i;
+			Scalar<System.Collections.Generic.IComparer<int>> comparerScalar = getScalar<System.Collections.Generic.IComparer<int>>(Comparer<int>.Default);
+			int maxTogetherThenOrderings = 0;
+			
+			var testing = source.Ordering<int, int>(
+				orderingValueSelectorExpression,
+				comparerScalar,
+				maxTogetherThenOrderings);
+
+			void test()
+			{
+				testing.ValidateConsistency();
+				var sourceValue = ((ObservableCollection<Item>)((Selecting<Item, int>)source)?.Source);
+
+				if (sourceValue != null)
+				{		
+					sourceValue.Insert(2, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					sourceValue[3] = new QuickTests.Item(7, true);
+					testing.ValidateConsistency();
+					sourceValue.RemoveAt(3);
+					testing.ValidateConsistency();
+					sourceValue.Move(1, 3);
+					testing.ValidateConsistency();
+					sourceValue[2].Active = !sourceValue[2].Active;
+					testing.ValidateConsistency();
+					sourceValue[2].Num = sourceValue[2].Num + 1;
+					testing.ValidateConsistency();
+					sourceValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceValue.Insert(0, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					sourceValue.Insert(0, new QuickTests.Item(2, true));
+					testing.ValidateConsistency();
+				}
+
+				IList listSource;
+				listSource = ((IList)((Selecting<Item, int>)source)?.Source);
+				if (listSource != null)
+				{
+					listSource.Clear();
+					testing.ValidateConsistency();
+				}
+
+				if (sourceValue != null)
+				{
+					sourceValue.Insert(0, new QuickTests.Item(1, true));
+					sourceValue.Insert(1, new QuickTests.Item(2, true));
+					sourceValue.Insert(2, new QuickTests.Item(3, true));
+					sourceValue.Insert(3, new QuickTests.Item(3, true));
+					sourceValue.Insert(4, new QuickTests.Item(3, true));
+					testing.ValidateConsistency();
+				}
+			}
+
+			test();
+
+			((Scalar<System.Collections.Generic.IComparer<int>>)comparerScalar).Touch();
+			test();
+			((Scalar<System.Collections.Generic.IComparer<int>>)comparerScalar).Change(null);
+			test();
+		}
+		
+		[Test]
+		public void TestOrdering14()
+		{
+			Selecting<Item, int> source = getItems().Selecting(i => i.Num);
+			System.Linq.Expressions.Expression<System.Func<int, int>> orderingValueSelectorExpression = i => i;
 			Scalar<System.Collections.Generic.IComparer<int>> comparerScalar = getScalar<System.Collections.Generic.IComparer<int>>(Comparer<int>.Default);
 			
 			var testing = source.Ordering<int, int>(
 				orderingValueSelectorExpression,
-				sortDirection,
 				comparerScalar);
 
 			void test()
@@ -55430,222 +55672,15 @@ namespace IBCode.ObservableCalculations.Test
 		}
 		
 		[Test]
-		public void TestOrdering12()
-		{
-			Selecting<Item, int> source = getItems().Selecting(i => i.Num);
-			System.Linq.Expressions.Expression<System.Func<int, int>> orderingValueSelectorExpression = i => i;
-			System.ComponentModel.ListSortDirection sortDirection = System.ComponentModel.ListSortDirection.Ascending;
-			
-			var testing = source.Ordering<int, int>(
-				orderingValueSelectorExpression,
-				sortDirection);
-
-			void test()
-			{
-				testing.ValidateConsistency();
-				var sourceValue = ((ObservableCollection<Item>)((Selecting<Item, int>)source)?.Source);
-
-				if (sourceValue != null)
-				{		
-					sourceValue.Insert(2, new QuickTests.Item(1, true));
-					testing.ValidateConsistency();
-					sourceValue[3] = new QuickTests.Item(7, true);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(3);
-					testing.ValidateConsistency();
-					sourceValue.Move(1, 3);
-					testing.ValidateConsistency();
-					sourceValue[2].Active = !sourceValue[2].Active;
-					testing.ValidateConsistency();
-					sourceValue[2].Num = sourceValue[2].Num + 1;
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.Insert(0, new QuickTests.Item(1, true));
-					testing.ValidateConsistency();
-					sourceValue.Insert(0, new QuickTests.Item(2, true));
-					testing.ValidateConsistency();
-				}
-
-				IList listSource;
-				listSource = ((IList)((Selecting<Item, int>)source)?.Source);
-				if (listSource != null)
-				{
-					listSource.Clear();
-					testing.ValidateConsistency();
-				}
-
-				if (sourceValue != null)
-				{
-					sourceValue.Insert(0, new QuickTests.Item(1, true));
-					sourceValue.Insert(1, new QuickTests.Item(2, true));
-					sourceValue.Insert(2, new QuickTests.Item(3, true));
-					sourceValue.Insert(3, new QuickTests.Item(3, true));
-					sourceValue.Insert(4, new QuickTests.Item(3, true));
-					testing.ValidateConsistency();
-				}
-			}
-
-			test();
-		}
-		
-		[Test]
-		public void TestOrdering13()
-		{
-			Selecting<Item, int> source = getItems().Selecting(i => i.Num);
-			System.Linq.Expressions.Expression<System.Func<int, int>> orderingValueSelectorExpression = i => i;
-			Scalar<System.ComponentModel.ListSortDirection> sortDirectionScalar = getScalar<System.ComponentModel.ListSortDirection>(System.ComponentModel.ListSortDirection.Ascending);
-			System.Collections.Generic.IComparer<int> comparer = Comparer<int>.Default;
-			
-			var testing = source.Ordering<int, int>(
-				orderingValueSelectorExpression,
-				sortDirectionScalar,
-				comparer);
-
-			void test()
-			{
-				testing.ValidateConsistency();
-				var sourceValue = ((ObservableCollection<Item>)((Selecting<Item, int>)source)?.Source);
-
-				if (sourceValue != null)
-				{		
-					sourceValue.Insert(2, new QuickTests.Item(1, true));
-					testing.ValidateConsistency();
-					sourceValue[3] = new QuickTests.Item(7, true);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(3);
-					testing.ValidateConsistency();
-					sourceValue.Move(1, 3);
-					testing.ValidateConsistency();
-					sourceValue[2].Active = !sourceValue[2].Active;
-					testing.ValidateConsistency();
-					sourceValue[2].Num = sourceValue[2].Num + 1;
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.Insert(0, new QuickTests.Item(1, true));
-					testing.ValidateConsistency();
-					sourceValue.Insert(0, new QuickTests.Item(2, true));
-					testing.ValidateConsistency();
-				}
-
-				IList listSource;
-				listSource = ((IList)((Selecting<Item, int>)source)?.Source);
-				if (listSource != null)
-				{
-					listSource.Clear();
-					testing.ValidateConsistency();
-				}
-
-				if (sourceValue != null)
-				{
-					sourceValue.Insert(0, new QuickTests.Item(1, true));
-					sourceValue.Insert(1, new QuickTests.Item(2, true));
-					sourceValue.Insert(2, new QuickTests.Item(3, true));
-					sourceValue.Insert(3, new QuickTests.Item(3, true));
-					sourceValue.Insert(4, new QuickTests.Item(3, true));
-					testing.ValidateConsistency();
-				}
-			}
-
-			test();
-
-			((Scalar<System.ComponentModel.ListSortDirection>)sortDirectionScalar).Touch();
-			test();
-			((Scalar<System.ComponentModel.ListSortDirection>)sortDirectionScalar).Change(System.ComponentModel.ListSortDirection.Descending);
-			test();
-		}
-		
-		[Test]
-		public void TestOrdering14()
-		{
-			Selecting<Item, int> source = getItems().Selecting(i => i.Num);
-			System.Linq.Expressions.Expression<System.Func<int, int>> orderingValueSelectorExpression = i => i;
-			System.Collections.Generic.IComparer<int> comparer = Comparer<int>.Default;
-			
-			var testing = source.Ordering<int, int>(
-				orderingValueSelectorExpression,
-				comparer);
-
-			void test()
-			{
-				testing.ValidateConsistency();
-				var sourceValue = ((ObservableCollection<Item>)((Selecting<Item, int>)source)?.Source);
-
-				if (sourceValue != null)
-				{		
-					sourceValue.Insert(2, new QuickTests.Item(1, true));
-					testing.ValidateConsistency();
-					sourceValue[3] = new QuickTests.Item(7, true);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(3);
-					testing.ValidateConsistency();
-					sourceValue.Move(1, 3);
-					testing.ValidateConsistency();
-					sourceValue[2].Active = !sourceValue[2].Active;
-					testing.ValidateConsistency();
-					sourceValue[2].Num = sourceValue[2].Num + 1;
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.Insert(0, new QuickTests.Item(1, true));
-					testing.ValidateConsistency();
-					sourceValue.Insert(0, new QuickTests.Item(2, true));
-					testing.ValidateConsistency();
-				}
-
-				IList listSource;
-				listSource = ((IList)((Selecting<Item, int>)source)?.Source);
-				if (listSource != null)
-				{
-					listSource.Clear();
-					testing.ValidateConsistency();
-				}
-
-				if (sourceValue != null)
-				{
-					sourceValue.Insert(0, new QuickTests.Item(1, true));
-					sourceValue.Insert(1, new QuickTests.Item(2, true));
-					sourceValue.Insert(2, new QuickTests.Item(3, true));
-					sourceValue.Insert(3, new QuickTests.Item(3, true));
-					sourceValue.Insert(4, new QuickTests.Item(3, true));
-					testing.ValidateConsistency();
-				}
-			}
-
-			test();
-		}
-		
-		[Test]
 		public void TestOrdering15()
 		{
 			Selecting<Item, int> source = getItems().Selecting(i => i.Num);
 			System.Linq.Expressions.Expression<System.Func<int, int>> orderingValueSelectorExpression = i => i;
-			Scalar<System.ComponentModel.ListSortDirection> sortDirectionScalar = getScalar<System.ComponentModel.ListSortDirection>(System.ComponentModel.ListSortDirection.Ascending);
-			System.Collections.Generic.IComparer<int> comparer = Comparer<int>.Default;
+			int maxTogetherThenOrderings = 0;
 			
 			var testing = source.Ordering<int, int>(
 				orderingValueSelectorExpression,
-				sortDirectionScalar,
-				comparer);
+				maxTogetherThenOrderings);
 
 			void test()
 			{
@@ -55699,11 +55734,6 @@ namespace IBCode.ObservableCalculations.Test
 				}
 			}
 
-			test();
-
-			((Scalar<System.ComponentModel.ListSortDirection>)sortDirectionScalar).Touch();
-			test();
-			((Scalar<System.ComponentModel.ListSortDirection>)sortDirectionScalar).Change(System.ComponentModel.ListSortDirection.Descending);
 			test();
 		}
 		
@@ -55712,11 +55742,9 @@ namespace IBCode.ObservableCalculations.Test
 		{
 			Selecting<Item, int> source = getItems().Selecting(i => i.Num);
 			System.Linq.Expressions.Expression<System.Func<int, int>> orderingValueSelectorExpression = i => i;
-			System.Collections.Generic.IComparer<int> comparer = Comparer<int>.Default;
 			
 			var testing = source.Ordering<int, int>(
-				orderingValueSelectorExpression,
-				comparer);
+				orderingValueSelectorExpression);
 
 			void test()
 			{
@@ -55779,11 +55807,789 @@ namespace IBCode.ObservableCalculations.Test
 			Selecting<Item, int> source = getItems().Selecting(i => i.Num);
 			System.Linq.Expressions.Expression<System.Func<int, int>> orderingValueSelectorExpression = i => i;
 			System.ComponentModel.ListSortDirection sortDirection = System.ComponentModel.ListSortDirection.Ascending;
-			System.Collections.Generic.IComparer<int> comparer = Comparer<int>.Default;
+			Scalar<System.Collections.Generic.IComparer<int>> comparerScalar = getScalar<System.Collections.Generic.IComparer<int>>(Comparer<int>.Default);
+			int maxTogetherThenOrderings = 0;
 			
 			var testing = source.Ordering<int, int>(
 				orderingValueSelectorExpression,
 				sortDirection,
+				comparerScalar,
+				maxTogetherThenOrderings);
+
+			void test()
+			{
+				testing.ValidateConsistency();
+				var sourceValue = ((ObservableCollection<Item>)((Selecting<Item, int>)source)?.Source);
+
+				if (sourceValue != null)
+				{		
+					sourceValue.Insert(2, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					sourceValue[3] = new QuickTests.Item(7, true);
+					testing.ValidateConsistency();
+					sourceValue.RemoveAt(3);
+					testing.ValidateConsistency();
+					sourceValue.Move(1, 3);
+					testing.ValidateConsistency();
+					sourceValue[2].Active = !sourceValue[2].Active;
+					testing.ValidateConsistency();
+					sourceValue[2].Num = sourceValue[2].Num + 1;
+					testing.ValidateConsistency();
+					sourceValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceValue.Insert(0, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					sourceValue.Insert(0, new QuickTests.Item(2, true));
+					testing.ValidateConsistency();
+				}
+
+				IList listSource;
+				listSource = ((IList)((Selecting<Item, int>)source)?.Source);
+				if (listSource != null)
+				{
+					listSource.Clear();
+					testing.ValidateConsistency();
+				}
+
+				if (sourceValue != null)
+				{
+					sourceValue.Insert(0, new QuickTests.Item(1, true));
+					sourceValue.Insert(1, new QuickTests.Item(2, true));
+					sourceValue.Insert(2, new QuickTests.Item(3, true));
+					sourceValue.Insert(3, new QuickTests.Item(3, true));
+					sourceValue.Insert(4, new QuickTests.Item(3, true));
+					testing.ValidateConsistency();
+				}
+			}
+
+			test();
+
+			((Scalar<System.Collections.Generic.IComparer<int>>)comparerScalar).Touch();
+			test();
+			((Scalar<System.Collections.Generic.IComparer<int>>)comparerScalar).Change(null);
+			test();
+		}
+		
+		[Test]
+		public void TestOrdering18()
+		{
+			Selecting<Item, int> source = getItems().Selecting(i => i.Num);
+			System.Linq.Expressions.Expression<System.Func<int, int>> orderingValueSelectorExpression = i => i;
+			System.ComponentModel.ListSortDirection sortDirection = System.ComponentModel.ListSortDirection.Ascending;
+			Scalar<System.Collections.Generic.IComparer<int>> comparerScalar = getScalar<System.Collections.Generic.IComparer<int>>(Comparer<int>.Default);
+			
+			var testing = source.Ordering<int, int>(
+				orderingValueSelectorExpression,
+				sortDirection,
+				comparerScalar);
+
+			void test()
+			{
+				testing.ValidateConsistency();
+				var sourceValue = ((ObservableCollection<Item>)((Selecting<Item, int>)source)?.Source);
+
+				if (sourceValue != null)
+				{		
+					sourceValue.Insert(2, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					sourceValue[3] = new QuickTests.Item(7, true);
+					testing.ValidateConsistency();
+					sourceValue.RemoveAt(3);
+					testing.ValidateConsistency();
+					sourceValue.Move(1, 3);
+					testing.ValidateConsistency();
+					sourceValue[2].Active = !sourceValue[2].Active;
+					testing.ValidateConsistency();
+					sourceValue[2].Num = sourceValue[2].Num + 1;
+					testing.ValidateConsistency();
+					sourceValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceValue.Insert(0, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					sourceValue.Insert(0, new QuickTests.Item(2, true));
+					testing.ValidateConsistency();
+				}
+
+				IList listSource;
+				listSource = ((IList)((Selecting<Item, int>)source)?.Source);
+				if (listSource != null)
+				{
+					listSource.Clear();
+					testing.ValidateConsistency();
+				}
+
+				if (sourceValue != null)
+				{
+					sourceValue.Insert(0, new QuickTests.Item(1, true));
+					sourceValue.Insert(1, new QuickTests.Item(2, true));
+					sourceValue.Insert(2, new QuickTests.Item(3, true));
+					sourceValue.Insert(3, new QuickTests.Item(3, true));
+					sourceValue.Insert(4, new QuickTests.Item(3, true));
+					testing.ValidateConsistency();
+				}
+			}
+
+			test();
+
+			((Scalar<System.Collections.Generic.IComparer<int>>)comparerScalar).Touch();
+			test();
+			((Scalar<System.Collections.Generic.IComparer<int>>)comparerScalar).Change(null);
+			test();
+		}
+		
+		[Test]
+		public void TestOrdering19()
+		{
+			Selecting<Item, int> source = getItems().Selecting(i => i.Num);
+			System.Linq.Expressions.Expression<System.Func<int, int>> orderingValueSelectorExpression = i => i;
+			System.ComponentModel.ListSortDirection sortDirection = System.ComponentModel.ListSortDirection.Ascending;
+			int maxTogetherThenOrderings = 0;
+			
+			var testing = source.Ordering<int, int>(
+				orderingValueSelectorExpression,
+				sortDirection,
+				maxTogetherThenOrderings);
+
+			void test()
+			{
+				testing.ValidateConsistency();
+				var sourceValue = ((ObservableCollection<Item>)((Selecting<Item, int>)source)?.Source);
+
+				if (sourceValue != null)
+				{		
+					sourceValue.Insert(2, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					sourceValue[3] = new QuickTests.Item(7, true);
+					testing.ValidateConsistency();
+					sourceValue.RemoveAt(3);
+					testing.ValidateConsistency();
+					sourceValue.Move(1, 3);
+					testing.ValidateConsistency();
+					sourceValue[2].Active = !sourceValue[2].Active;
+					testing.ValidateConsistency();
+					sourceValue[2].Num = sourceValue[2].Num + 1;
+					testing.ValidateConsistency();
+					sourceValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceValue.Insert(0, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					sourceValue.Insert(0, new QuickTests.Item(2, true));
+					testing.ValidateConsistency();
+				}
+
+				IList listSource;
+				listSource = ((IList)((Selecting<Item, int>)source)?.Source);
+				if (listSource != null)
+				{
+					listSource.Clear();
+					testing.ValidateConsistency();
+				}
+
+				if (sourceValue != null)
+				{
+					sourceValue.Insert(0, new QuickTests.Item(1, true));
+					sourceValue.Insert(1, new QuickTests.Item(2, true));
+					sourceValue.Insert(2, new QuickTests.Item(3, true));
+					sourceValue.Insert(3, new QuickTests.Item(3, true));
+					sourceValue.Insert(4, new QuickTests.Item(3, true));
+					testing.ValidateConsistency();
+				}
+			}
+
+			test();
+		}
+		
+		[Test]
+		public void TestOrdering20()
+		{
+			Selecting<Item, int> source = getItems().Selecting(i => i.Num);
+			System.Linq.Expressions.Expression<System.Func<int, int>> orderingValueSelectorExpression = i => i;
+			System.ComponentModel.ListSortDirection sortDirection = System.ComponentModel.ListSortDirection.Ascending;
+			
+			var testing = source.Ordering<int, int>(
+				orderingValueSelectorExpression,
+				sortDirection);
+
+			void test()
+			{
+				testing.ValidateConsistency();
+				var sourceValue = ((ObservableCollection<Item>)((Selecting<Item, int>)source)?.Source);
+
+				if (sourceValue != null)
+				{		
+					sourceValue.Insert(2, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					sourceValue[3] = new QuickTests.Item(7, true);
+					testing.ValidateConsistency();
+					sourceValue.RemoveAt(3);
+					testing.ValidateConsistency();
+					sourceValue.Move(1, 3);
+					testing.ValidateConsistency();
+					sourceValue[2].Active = !sourceValue[2].Active;
+					testing.ValidateConsistency();
+					sourceValue[2].Num = sourceValue[2].Num + 1;
+					testing.ValidateConsistency();
+					sourceValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceValue.Insert(0, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					sourceValue.Insert(0, new QuickTests.Item(2, true));
+					testing.ValidateConsistency();
+				}
+
+				IList listSource;
+				listSource = ((IList)((Selecting<Item, int>)source)?.Source);
+				if (listSource != null)
+				{
+					listSource.Clear();
+					testing.ValidateConsistency();
+				}
+
+				if (sourceValue != null)
+				{
+					sourceValue.Insert(0, new QuickTests.Item(1, true));
+					sourceValue.Insert(1, new QuickTests.Item(2, true));
+					sourceValue.Insert(2, new QuickTests.Item(3, true));
+					sourceValue.Insert(3, new QuickTests.Item(3, true));
+					sourceValue.Insert(4, new QuickTests.Item(3, true));
+					testing.ValidateConsistency();
+				}
+			}
+
+			test();
+		}
+		
+		[Test]
+		public void TestOrdering21()
+		{
+			Selecting<Item, int> source = getItems().Selecting(i => i.Num);
+			System.Linq.Expressions.Expression<System.Func<int, int>> orderingValueSelectorExpression = i => i;
+			System.ComponentModel.ListSortDirection sortDirection = System.ComponentModel.ListSortDirection.Ascending;
+			Scalar<System.Collections.Generic.IComparer<int>> comparerScalar = getScalar<System.Collections.Generic.IComparer<int>>(Comparer<int>.Default);
+			int maxTogetherThenOrderings = 0;
+			
+			var testing = source.Ordering<int, int>(
+				orderingValueSelectorExpression,
+				sortDirection,
+				comparerScalar,
+				maxTogetherThenOrderings);
+
+			void test()
+			{
+				testing.ValidateConsistency();
+				var sourceValue = ((ObservableCollection<Item>)((Selecting<Item, int>)source)?.Source);
+
+				if (sourceValue != null)
+				{		
+					sourceValue.Insert(2, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					sourceValue[3] = new QuickTests.Item(7, true);
+					testing.ValidateConsistency();
+					sourceValue.RemoveAt(3);
+					testing.ValidateConsistency();
+					sourceValue.Move(1, 3);
+					testing.ValidateConsistency();
+					sourceValue[2].Active = !sourceValue[2].Active;
+					testing.ValidateConsistency();
+					sourceValue[2].Num = sourceValue[2].Num + 1;
+					testing.ValidateConsistency();
+					sourceValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceValue.Insert(0, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					sourceValue.Insert(0, new QuickTests.Item(2, true));
+					testing.ValidateConsistency();
+				}
+
+				IList listSource;
+				listSource = ((IList)((Selecting<Item, int>)source)?.Source);
+				if (listSource != null)
+				{
+					listSource.Clear();
+					testing.ValidateConsistency();
+				}
+
+				if (sourceValue != null)
+				{
+					sourceValue.Insert(0, new QuickTests.Item(1, true));
+					sourceValue.Insert(1, new QuickTests.Item(2, true));
+					sourceValue.Insert(2, new QuickTests.Item(3, true));
+					sourceValue.Insert(3, new QuickTests.Item(3, true));
+					sourceValue.Insert(4, new QuickTests.Item(3, true));
+					testing.ValidateConsistency();
+				}
+			}
+
+			test();
+
+			((Scalar<System.Collections.Generic.IComparer<int>>)comparerScalar).Touch();
+			test();
+			((Scalar<System.Collections.Generic.IComparer<int>>)comparerScalar).Change(null);
+			test();
+		}
+		
+		[Test]
+		public void TestOrdering22()
+		{
+			Selecting<Item, int> source = getItems().Selecting(i => i.Num);
+			System.Linq.Expressions.Expression<System.Func<int, int>> orderingValueSelectorExpression = i => i;
+			System.ComponentModel.ListSortDirection sortDirection = System.ComponentModel.ListSortDirection.Ascending;
+			Scalar<System.Collections.Generic.IComparer<int>> comparerScalar = getScalar<System.Collections.Generic.IComparer<int>>(Comparer<int>.Default);
+			
+			var testing = source.Ordering<int, int>(
+				orderingValueSelectorExpression,
+				sortDirection,
+				comparerScalar);
+
+			void test()
+			{
+				testing.ValidateConsistency();
+				var sourceValue = ((ObservableCollection<Item>)((Selecting<Item, int>)source)?.Source);
+
+				if (sourceValue != null)
+				{		
+					sourceValue.Insert(2, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					sourceValue[3] = new QuickTests.Item(7, true);
+					testing.ValidateConsistency();
+					sourceValue.RemoveAt(3);
+					testing.ValidateConsistency();
+					sourceValue.Move(1, 3);
+					testing.ValidateConsistency();
+					sourceValue[2].Active = !sourceValue[2].Active;
+					testing.ValidateConsistency();
+					sourceValue[2].Num = sourceValue[2].Num + 1;
+					testing.ValidateConsistency();
+					sourceValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceValue.Insert(0, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					sourceValue.Insert(0, new QuickTests.Item(2, true));
+					testing.ValidateConsistency();
+				}
+
+				IList listSource;
+				listSource = ((IList)((Selecting<Item, int>)source)?.Source);
+				if (listSource != null)
+				{
+					listSource.Clear();
+					testing.ValidateConsistency();
+				}
+
+				if (sourceValue != null)
+				{
+					sourceValue.Insert(0, new QuickTests.Item(1, true));
+					sourceValue.Insert(1, new QuickTests.Item(2, true));
+					sourceValue.Insert(2, new QuickTests.Item(3, true));
+					sourceValue.Insert(3, new QuickTests.Item(3, true));
+					sourceValue.Insert(4, new QuickTests.Item(3, true));
+					testing.ValidateConsistency();
+				}
+			}
+
+			test();
+
+			((Scalar<System.Collections.Generic.IComparer<int>>)comparerScalar).Touch();
+			test();
+			((Scalar<System.Collections.Generic.IComparer<int>>)comparerScalar).Change(null);
+			test();
+		}
+		
+		[Test]
+		public void TestOrdering23()
+		{
+			Selecting<Item, int> source = getItems().Selecting(i => i.Num);
+			System.Linq.Expressions.Expression<System.Func<int, int>> orderingValueSelectorExpression = i => i;
+			System.ComponentModel.ListSortDirection sortDirection = System.ComponentModel.ListSortDirection.Ascending;
+			int maxTogetherThenOrderings = 0;
+			
+			var testing = source.Ordering<int, int>(
+				orderingValueSelectorExpression,
+				sortDirection,
+				maxTogetherThenOrderings);
+
+			void test()
+			{
+				testing.ValidateConsistency();
+				var sourceValue = ((ObservableCollection<Item>)((Selecting<Item, int>)source)?.Source);
+
+				if (sourceValue != null)
+				{		
+					sourceValue.Insert(2, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					sourceValue[3] = new QuickTests.Item(7, true);
+					testing.ValidateConsistency();
+					sourceValue.RemoveAt(3);
+					testing.ValidateConsistency();
+					sourceValue.Move(1, 3);
+					testing.ValidateConsistency();
+					sourceValue[2].Active = !sourceValue[2].Active;
+					testing.ValidateConsistency();
+					sourceValue[2].Num = sourceValue[2].Num + 1;
+					testing.ValidateConsistency();
+					sourceValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceValue.Insert(0, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					sourceValue.Insert(0, new QuickTests.Item(2, true));
+					testing.ValidateConsistency();
+				}
+
+				IList listSource;
+				listSource = ((IList)((Selecting<Item, int>)source)?.Source);
+				if (listSource != null)
+				{
+					listSource.Clear();
+					testing.ValidateConsistency();
+				}
+
+				if (sourceValue != null)
+				{
+					sourceValue.Insert(0, new QuickTests.Item(1, true));
+					sourceValue.Insert(1, new QuickTests.Item(2, true));
+					sourceValue.Insert(2, new QuickTests.Item(3, true));
+					sourceValue.Insert(3, new QuickTests.Item(3, true));
+					sourceValue.Insert(4, new QuickTests.Item(3, true));
+					testing.ValidateConsistency();
+				}
+			}
+
+			test();
+		}
+		
+		[Test]
+		public void TestOrdering24()
+		{
+			Selecting<Item, int> source = getItems().Selecting(i => i.Num);
+			System.Linq.Expressions.Expression<System.Func<int, int>> orderingValueSelectorExpression = i => i;
+			System.ComponentModel.ListSortDirection sortDirection = System.ComponentModel.ListSortDirection.Ascending;
+			
+			var testing = source.Ordering<int, int>(
+				orderingValueSelectorExpression,
+				sortDirection);
+
+			void test()
+			{
+				testing.ValidateConsistency();
+				var sourceValue = ((ObservableCollection<Item>)((Selecting<Item, int>)source)?.Source);
+
+				if (sourceValue != null)
+				{		
+					sourceValue.Insert(2, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					sourceValue[3] = new QuickTests.Item(7, true);
+					testing.ValidateConsistency();
+					sourceValue.RemoveAt(3);
+					testing.ValidateConsistency();
+					sourceValue.Move(1, 3);
+					testing.ValidateConsistency();
+					sourceValue[2].Active = !sourceValue[2].Active;
+					testing.ValidateConsistency();
+					sourceValue[2].Num = sourceValue[2].Num + 1;
+					testing.ValidateConsistency();
+					sourceValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceValue.Insert(0, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					sourceValue.Insert(0, new QuickTests.Item(2, true));
+					testing.ValidateConsistency();
+				}
+
+				IList listSource;
+				listSource = ((IList)((Selecting<Item, int>)source)?.Source);
+				if (listSource != null)
+				{
+					listSource.Clear();
+					testing.ValidateConsistency();
+				}
+
+				if (sourceValue != null)
+				{
+					sourceValue.Insert(0, new QuickTests.Item(1, true));
+					sourceValue.Insert(1, new QuickTests.Item(2, true));
+					sourceValue.Insert(2, new QuickTests.Item(3, true));
+					sourceValue.Insert(3, new QuickTests.Item(3, true));
+					sourceValue.Insert(4, new QuickTests.Item(3, true));
+					testing.ValidateConsistency();
+				}
+			}
+
+			test();
+		}
+		
+		[Test]
+		public void TestOrdering25()
+		{
+			Selecting<Item, int> source = getItems().Selecting(i => i.Num);
+			System.Linq.Expressions.Expression<System.Func<int, int>> orderingValueSelectorExpression = i => i;
+			Scalar<System.ComponentModel.ListSortDirection> sortDirectionScalar = getScalar<System.ComponentModel.ListSortDirection>(System.ComponentModel.ListSortDirection.Ascending);
+			System.Collections.Generic.IComparer<int> comparer = Comparer<int>.Default;
+			int maxTogetherThenOrderings = 0;
+			
+			var testing = source.Ordering<int, int>(
+				orderingValueSelectorExpression,
+				sortDirectionScalar,
+				comparer,
+				maxTogetherThenOrderings);
+
+			void test()
+			{
+				testing.ValidateConsistency();
+				var sourceValue = ((ObservableCollection<Item>)((Selecting<Item, int>)source)?.Source);
+
+				if (sourceValue != null)
+				{		
+					sourceValue.Insert(2, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					sourceValue[3] = new QuickTests.Item(7, true);
+					testing.ValidateConsistency();
+					sourceValue.RemoveAt(3);
+					testing.ValidateConsistency();
+					sourceValue.Move(1, 3);
+					testing.ValidateConsistency();
+					sourceValue[2].Active = !sourceValue[2].Active;
+					testing.ValidateConsistency();
+					sourceValue[2].Num = sourceValue[2].Num + 1;
+					testing.ValidateConsistency();
+					sourceValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceValue.Insert(0, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					sourceValue.Insert(0, new QuickTests.Item(2, true));
+					testing.ValidateConsistency();
+				}
+
+				IList listSource;
+				listSource = ((IList)((Selecting<Item, int>)source)?.Source);
+				if (listSource != null)
+				{
+					listSource.Clear();
+					testing.ValidateConsistency();
+				}
+
+				if (sourceValue != null)
+				{
+					sourceValue.Insert(0, new QuickTests.Item(1, true));
+					sourceValue.Insert(1, new QuickTests.Item(2, true));
+					sourceValue.Insert(2, new QuickTests.Item(3, true));
+					sourceValue.Insert(3, new QuickTests.Item(3, true));
+					sourceValue.Insert(4, new QuickTests.Item(3, true));
+					testing.ValidateConsistency();
+				}
+			}
+
+			test();
+
+			((Scalar<System.ComponentModel.ListSortDirection>)sortDirectionScalar).Touch();
+			test();
+			((Scalar<System.ComponentModel.ListSortDirection>)sortDirectionScalar).Change(System.ComponentModel.ListSortDirection.Descending);
+			test();
+		}
+		
+		[Test]
+		public void TestOrdering26()
+		{
+			Selecting<Item, int> source = getItems().Selecting(i => i.Num);
+			System.Linq.Expressions.Expression<System.Func<int, int>> orderingValueSelectorExpression = i => i;
+			Scalar<System.ComponentModel.ListSortDirection> sortDirectionScalar = getScalar<System.ComponentModel.ListSortDirection>(System.ComponentModel.ListSortDirection.Ascending);
+			System.Collections.Generic.IComparer<int> comparer = Comparer<int>.Default;
+			
+			var testing = source.Ordering<int, int>(
+				orderingValueSelectorExpression,
+				sortDirectionScalar,
+				comparer);
+
+			void test()
+			{
+				testing.ValidateConsistency();
+				var sourceValue = ((ObservableCollection<Item>)((Selecting<Item, int>)source)?.Source);
+
+				if (sourceValue != null)
+				{		
+					sourceValue.Insert(2, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					sourceValue[3] = new QuickTests.Item(7, true);
+					testing.ValidateConsistency();
+					sourceValue.RemoveAt(3);
+					testing.ValidateConsistency();
+					sourceValue.Move(1, 3);
+					testing.ValidateConsistency();
+					sourceValue[2].Active = !sourceValue[2].Active;
+					testing.ValidateConsistency();
+					sourceValue[2].Num = sourceValue[2].Num + 1;
+					testing.ValidateConsistency();
+					sourceValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceValue.Insert(0, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					sourceValue.Insert(0, new QuickTests.Item(2, true));
+					testing.ValidateConsistency();
+				}
+
+				IList listSource;
+				listSource = ((IList)((Selecting<Item, int>)source)?.Source);
+				if (listSource != null)
+				{
+					listSource.Clear();
+					testing.ValidateConsistency();
+				}
+
+				if (sourceValue != null)
+				{
+					sourceValue.Insert(0, new QuickTests.Item(1, true));
+					sourceValue.Insert(1, new QuickTests.Item(2, true));
+					sourceValue.Insert(2, new QuickTests.Item(3, true));
+					sourceValue.Insert(3, new QuickTests.Item(3, true));
+					sourceValue.Insert(4, new QuickTests.Item(3, true));
+					testing.ValidateConsistency();
+				}
+			}
+
+			test();
+
+			((Scalar<System.ComponentModel.ListSortDirection>)sortDirectionScalar).Touch();
+			test();
+			((Scalar<System.ComponentModel.ListSortDirection>)sortDirectionScalar).Change(System.ComponentModel.ListSortDirection.Descending);
+			test();
+		}
+		
+		[Test]
+		public void TestOrdering27()
+		{
+			Selecting<Item, int> source = getItems().Selecting(i => i.Num);
+			System.Linq.Expressions.Expression<System.Func<int, int>> orderingValueSelectorExpression = i => i;
+			System.Collections.Generic.IComparer<int> comparer = Comparer<int>.Default;
+			int maxTogetherThenOrderings = 0;
+			
+			var testing = source.Ordering<int, int>(
+				orderingValueSelectorExpression,
+				comparer,
+				maxTogetherThenOrderings);
+
+			void test()
+			{
+				testing.ValidateConsistency();
+				var sourceValue = ((ObservableCollection<Item>)((Selecting<Item, int>)source)?.Source);
+
+				if (sourceValue != null)
+				{		
+					sourceValue.Insert(2, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					sourceValue[3] = new QuickTests.Item(7, true);
+					testing.ValidateConsistency();
+					sourceValue.RemoveAt(3);
+					testing.ValidateConsistency();
+					sourceValue.Move(1, 3);
+					testing.ValidateConsistency();
+					sourceValue[2].Active = !sourceValue[2].Active;
+					testing.ValidateConsistency();
+					sourceValue[2].Num = sourceValue[2].Num + 1;
+					testing.ValidateConsistency();
+					sourceValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceValue.Insert(0, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					sourceValue.Insert(0, new QuickTests.Item(2, true));
+					testing.ValidateConsistency();
+				}
+
+				IList listSource;
+				listSource = ((IList)((Selecting<Item, int>)source)?.Source);
+				if (listSource != null)
+				{
+					listSource.Clear();
+					testing.ValidateConsistency();
+				}
+
+				if (sourceValue != null)
+				{
+					sourceValue.Insert(0, new QuickTests.Item(1, true));
+					sourceValue.Insert(1, new QuickTests.Item(2, true));
+					sourceValue.Insert(2, new QuickTests.Item(3, true));
+					sourceValue.Insert(3, new QuickTests.Item(3, true));
+					sourceValue.Insert(4, new QuickTests.Item(3, true));
+					testing.ValidateConsistency();
+				}
+			}
+
+			test();
+		}
+		
+		[Test]
+		public void TestOrdering28()
+		{
+			Selecting<Item, int> source = getItems().Selecting(i => i.Num);
+			System.Linq.Expressions.Expression<System.Func<int, int>> orderingValueSelectorExpression = i => i;
+			System.Collections.Generic.IComparer<int> comparer = Comparer<int>.Default;
+			
+			var testing = source.Ordering<int, int>(
+				orderingValueSelectorExpression,
 				comparer);
 
 			void test()
@@ -55842,7 +56648,359 @@ namespace IBCode.ObservableCalculations.Test
 		}
 		
 		[Test]
-		public void TestOrdering18()
+		public void TestOrdering29()
+		{
+			Selecting<Item, int> source = getItems().Selecting(i => i.Num);
+			System.Linq.Expressions.Expression<System.Func<int, int>> orderingValueSelectorExpression = i => i;
+			Scalar<System.ComponentModel.ListSortDirection> sortDirectionScalar = getScalar<System.ComponentModel.ListSortDirection>(System.ComponentModel.ListSortDirection.Ascending);
+			System.Collections.Generic.IComparer<int> comparer = Comparer<int>.Default;
+			int maxTogetherThenOrderings = 0;
+			
+			var testing = source.Ordering<int, int>(
+				orderingValueSelectorExpression,
+				sortDirectionScalar,
+				comparer,
+				maxTogetherThenOrderings);
+
+			void test()
+			{
+				testing.ValidateConsistency();
+				var sourceValue = ((ObservableCollection<Item>)((Selecting<Item, int>)source)?.Source);
+
+				if (sourceValue != null)
+				{		
+					sourceValue.Insert(2, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					sourceValue[3] = new QuickTests.Item(7, true);
+					testing.ValidateConsistency();
+					sourceValue.RemoveAt(3);
+					testing.ValidateConsistency();
+					sourceValue.Move(1, 3);
+					testing.ValidateConsistency();
+					sourceValue[2].Active = !sourceValue[2].Active;
+					testing.ValidateConsistency();
+					sourceValue[2].Num = sourceValue[2].Num + 1;
+					testing.ValidateConsistency();
+					sourceValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceValue.Insert(0, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					sourceValue.Insert(0, new QuickTests.Item(2, true));
+					testing.ValidateConsistency();
+				}
+
+				IList listSource;
+				listSource = ((IList)((Selecting<Item, int>)source)?.Source);
+				if (listSource != null)
+				{
+					listSource.Clear();
+					testing.ValidateConsistency();
+				}
+
+				if (sourceValue != null)
+				{
+					sourceValue.Insert(0, new QuickTests.Item(1, true));
+					sourceValue.Insert(1, new QuickTests.Item(2, true));
+					sourceValue.Insert(2, new QuickTests.Item(3, true));
+					sourceValue.Insert(3, new QuickTests.Item(3, true));
+					sourceValue.Insert(4, new QuickTests.Item(3, true));
+					testing.ValidateConsistency();
+				}
+			}
+
+			test();
+
+			((Scalar<System.ComponentModel.ListSortDirection>)sortDirectionScalar).Touch();
+			test();
+			((Scalar<System.ComponentModel.ListSortDirection>)sortDirectionScalar).Change(System.ComponentModel.ListSortDirection.Descending);
+			test();
+		}
+		
+		[Test]
+		public void TestOrdering30()
+		{
+			Selecting<Item, int> source = getItems().Selecting(i => i.Num);
+			System.Linq.Expressions.Expression<System.Func<int, int>> orderingValueSelectorExpression = i => i;
+			Scalar<System.ComponentModel.ListSortDirection> sortDirectionScalar = getScalar<System.ComponentModel.ListSortDirection>(System.ComponentModel.ListSortDirection.Ascending);
+			System.Collections.Generic.IComparer<int> comparer = Comparer<int>.Default;
+			
+			var testing = source.Ordering<int, int>(
+				orderingValueSelectorExpression,
+				sortDirectionScalar,
+				comparer);
+
+			void test()
+			{
+				testing.ValidateConsistency();
+				var sourceValue = ((ObservableCollection<Item>)((Selecting<Item, int>)source)?.Source);
+
+				if (sourceValue != null)
+				{		
+					sourceValue.Insert(2, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					sourceValue[3] = new QuickTests.Item(7, true);
+					testing.ValidateConsistency();
+					sourceValue.RemoveAt(3);
+					testing.ValidateConsistency();
+					sourceValue.Move(1, 3);
+					testing.ValidateConsistency();
+					sourceValue[2].Active = !sourceValue[2].Active;
+					testing.ValidateConsistency();
+					sourceValue[2].Num = sourceValue[2].Num + 1;
+					testing.ValidateConsistency();
+					sourceValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceValue.Insert(0, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					sourceValue.Insert(0, new QuickTests.Item(2, true));
+					testing.ValidateConsistency();
+				}
+
+				IList listSource;
+				listSource = ((IList)((Selecting<Item, int>)source)?.Source);
+				if (listSource != null)
+				{
+					listSource.Clear();
+					testing.ValidateConsistency();
+				}
+
+				if (sourceValue != null)
+				{
+					sourceValue.Insert(0, new QuickTests.Item(1, true));
+					sourceValue.Insert(1, new QuickTests.Item(2, true));
+					sourceValue.Insert(2, new QuickTests.Item(3, true));
+					sourceValue.Insert(3, new QuickTests.Item(3, true));
+					sourceValue.Insert(4, new QuickTests.Item(3, true));
+					testing.ValidateConsistency();
+				}
+			}
+
+			test();
+
+			((Scalar<System.ComponentModel.ListSortDirection>)sortDirectionScalar).Touch();
+			test();
+			((Scalar<System.ComponentModel.ListSortDirection>)sortDirectionScalar).Change(System.ComponentModel.ListSortDirection.Descending);
+			test();
+		}
+		
+		[Test]
+		public void TestOrdering31()
+		{
+			Selecting<Item, int> source = getItems().Selecting(i => i.Num);
+			System.Linq.Expressions.Expression<System.Func<int, int>> orderingValueSelectorExpression = i => i;
+			System.Collections.Generic.IComparer<int> comparer = Comparer<int>.Default;
+			int maxTogetherThenOrderings = 0;
+			
+			var testing = source.Ordering<int, int>(
+				orderingValueSelectorExpression,
+				comparer,
+				maxTogetherThenOrderings);
+
+			void test()
+			{
+				testing.ValidateConsistency();
+				var sourceValue = ((ObservableCollection<Item>)((Selecting<Item, int>)source)?.Source);
+
+				if (sourceValue != null)
+				{		
+					sourceValue.Insert(2, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					sourceValue[3] = new QuickTests.Item(7, true);
+					testing.ValidateConsistency();
+					sourceValue.RemoveAt(3);
+					testing.ValidateConsistency();
+					sourceValue.Move(1, 3);
+					testing.ValidateConsistency();
+					sourceValue[2].Active = !sourceValue[2].Active;
+					testing.ValidateConsistency();
+					sourceValue[2].Num = sourceValue[2].Num + 1;
+					testing.ValidateConsistency();
+					sourceValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceValue.Insert(0, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					sourceValue.Insert(0, new QuickTests.Item(2, true));
+					testing.ValidateConsistency();
+				}
+
+				IList listSource;
+				listSource = ((IList)((Selecting<Item, int>)source)?.Source);
+				if (listSource != null)
+				{
+					listSource.Clear();
+					testing.ValidateConsistency();
+				}
+
+				if (sourceValue != null)
+				{
+					sourceValue.Insert(0, new QuickTests.Item(1, true));
+					sourceValue.Insert(1, new QuickTests.Item(2, true));
+					sourceValue.Insert(2, new QuickTests.Item(3, true));
+					sourceValue.Insert(3, new QuickTests.Item(3, true));
+					sourceValue.Insert(4, new QuickTests.Item(3, true));
+					testing.ValidateConsistency();
+				}
+			}
+
+			test();
+		}
+		
+		[Test]
+		public void TestOrdering32()
+		{
+			Selecting<Item, int> source = getItems().Selecting(i => i.Num);
+			System.Linq.Expressions.Expression<System.Func<int, int>> orderingValueSelectorExpression = i => i;
+			System.Collections.Generic.IComparer<int> comparer = Comparer<int>.Default;
+			
+			var testing = source.Ordering<int, int>(
+				orderingValueSelectorExpression,
+				comparer);
+
+			void test()
+			{
+				testing.ValidateConsistency();
+				var sourceValue = ((ObservableCollection<Item>)((Selecting<Item, int>)source)?.Source);
+
+				if (sourceValue != null)
+				{		
+					sourceValue.Insert(2, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					sourceValue[3] = new QuickTests.Item(7, true);
+					testing.ValidateConsistency();
+					sourceValue.RemoveAt(3);
+					testing.ValidateConsistency();
+					sourceValue.Move(1, 3);
+					testing.ValidateConsistency();
+					sourceValue[2].Active = !sourceValue[2].Active;
+					testing.ValidateConsistency();
+					sourceValue[2].Num = sourceValue[2].Num + 1;
+					testing.ValidateConsistency();
+					sourceValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceValue.Insert(0, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					sourceValue.Insert(0, new QuickTests.Item(2, true));
+					testing.ValidateConsistency();
+				}
+
+				IList listSource;
+				listSource = ((IList)((Selecting<Item, int>)source)?.Source);
+				if (listSource != null)
+				{
+					listSource.Clear();
+					testing.ValidateConsistency();
+				}
+
+				if (sourceValue != null)
+				{
+					sourceValue.Insert(0, new QuickTests.Item(1, true));
+					sourceValue.Insert(1, new QuickTests.Item(2, true));
+					sourceValue.Insert(2, new QuickTests.Item(3, true));
+					sourceValue.Insert(3, new QuickTests.Item(3, true));
+					sourceValue.Insert(4, new QuickTests.Item(3, true));
+					testing.ValidateConsistency();
+				}
+			}
+
+			test();
+		}
+		
+		[Test]
+		public void TestOrdering33()
+		{
+			Selecting<Item, int> source = getItems().Selecting(i => i.Num);
+			System.Linq.Expressions.Expression<System.Func<int, int>> orderingValueSelectorExpression = i => i;
+			System.ComponentModel.ListSortDirection sortDirection = System.ComponentModel.ListSortDirection.Ascending;
+			System.Collections.Generic.IComparer<int> comparer = Comparer<int>.Default;
+			int maxTogetherThenOrderings = 0;
+			
+			var testing = source.Ordering<int, int>(
+				orderingValueSelectorExpression,
+				sortDirection,
+				comparer,
+				maxTogetherThenOrderings);
+
+			void test()
+			{
+				testing.ValidateConsistency();
+				var sourceValue = ((ObservableCollection<Item>)((Selecting<Item, int>)source)?.Source);
+
+				if (sourceValue != null)
+				{		
+					sourceValue.Insert(2, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					sourceValue[3] = new QuickTests.Item(7, true);
+					testing.ValidateConsistency();
+					sourceValue.RemoveAt(3);
+					testing.ValidateConsistency();
+					sourceValue.Move(1, 3);
+					testing.ValidateConsistency();
+					sourceValue[2].Active = !sourceValue[2].Active;
+					testing.ValidateConsistency();
+					sourceValue[2].Num = sourceValue[2].Num + 1;
+					testing.ValidateConsistency();
+					sourceValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceValue.Insert(0, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					sourceValue.Insert(0, new QuickTests.Item(2, true));
+					testing.ValidateConsistency();
+				}
+
+				IList listSource;
+				listSource = ((IList)((Selecting<Item, int>)source)?.Source);
+				if (listSource != null)
+				{
+					listSource.Clear();
+					testing.ValidateConsistency();
+				}
+
+				if (sourceValue != null)
+				{
+					sourceValue.Insert(0, new QuickTests.Item(1, true));
+					sourceValue.Insert(1, new QuickTests.Item(2, true));
+					sourceValue.Insert(2, new QuickTests.Item(3, true));
+					sourceValue.Insert(3, new QuickTests.Item(3, true));
+					sourceValue.Insert(4, new QuickTests.Item(3, true));
+					testing.ValidateConsistency();
+				}
+			}
+
+			test();
+		}
+		
+		[Test]
+		public void TestOrdering34()
 		{
 			Selecting<Item, int> source = getItems().Selecting(i => i.Num);
 			System.Linq.Expressions.Expression<System.Func<int, int>> orderingValueSelectorExpression = i => i;
@@ -55910,1284 +57068,2808 @@ namespace IBCode.ObservableCalculations.Test
 		}
 		
 		[Test]
-		public void TestOrdering19()
-		{
-			IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar = getScalar<Selecting<Item, int>>(getItems().Selecting(i => i.Num));
-			System.Linq.Expressions.Expression<System.Func<int, int>> orderingValueSelectorExpression = i => i;
-			Scalar<System.ComponentModel.ListSortDirection> sortDirectionScalar = getScalar<System.ComponentModel.ListSortDirection>(System.ComponentModel.ListSortDirection.Ascending);
-			Scalar<System.Collections.Generic.IComparer<int>> comparerScalar = getScalar<System.Collections.Generic.IComparer<int>>(Comparer<int>.Default);
-			
-			var testing = sourceScalar.Ordering<int, int>(
-				orderingValueSelectorExpression,
-				sortDirectionScalar,
-				comparerScalar);
-
-			void test()
-			{
-				testing.ValidateConsistency();
-				var sourceScalarValue = ((ObservableCollection<Item>)((Selecting<Item, int>)sourceScalar.Value)?.Source);
-
-				if (sourceScalarValue != null)
-				{		
-					sourceScalarValue.Insert(2, new QuickTests.Item(1, true));
-					testing.ValidateConsistency();
-					sourceScalarValue[3] = new QuickTests.Item(7, true);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(3);
-					testing.ValidateConsistency();
-					sourceScalarValue.Move(1, 3);
-					testing.ValidateConsistency();
-					sourceScalarValue[2].Active = !sourceScalarValue[2].Active;
-					testing.ValidateConsistency();
-					sourceScalarValue[2].Num = sourceScalarValue[2].Num + 1;
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
-					testing.ValidateConsistency();
-					sourceScalarValue.Insert(0, new QuickTests.Item(2, true));
-					testing.ValidateConsistency();
-				}
-
-				IList listSource;
-				listSource = ((IList)((Selecting<Item, int>)sourceScalar.Value)?.Source);
-				if (listSource != null)
-				{
-					listSource.Clear();
-					testing.ValidateConsistency();
-				}
-
-				if (sourceScalarValue != null)
-				{
-					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
-					sourceScalarValue.Insert(1, new QuickTests.Item(2, true));
-					sourceScalarValue.Insert(2, new QuickTests.Item(3, true));
-					sourceScalarValue.Insert(3, new QuickTests.Item(3, true));
-					sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
-					testing.ValidateConsistency();
-				}
-			}
-
-			test();
-
-			((Scalar<System.ComponentModel.ListSortDirection>)sortDirectionScalar).Touch();
-			test();
-			((Scalar<System.ComponentModel.ListSortDirection>)sortDirectionScalar).Change(System.ComponentModel.ListSortDirection.Descending);
-			test();
-
-			((Scalar<System.Collections.Generic.IComparer<int>>)comparerScalar).Touch();
-			test();
-			((Scalar<System.Collections.Generic.IComparer<int>>)comparerScalar).Change(null);
-			test();
-
-			((Scalar<Selecting<Item, int>>)sourceScalar).Touch();
-			test();
-			((Scalar<Selecting<Item, int>>)sourceScalar).Change(null);
-			test();
-		}
-		
-		[Test]
-		public void TestOrdering20()
-		{
-			IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar = getScalar<Selecting<Item, int>>(getItems().Selecting(i => i.Num));
-			System.Linq.Expressions.Expression<System.Func<int, int>> orderingValueSelectorExpression = i => i;
-			Scalar<System.ComponentModel.ListSortDirection> sortDirectionScalar = getScalar<System.ComponentModel.ListSortDirection>(System.ComponentModel.ListSortDirection.Ascending);
-			
-			var testing = sourceScalar.Ordering<int, int>(
-				orderingValueSelectorExpression,
-				sortDirectionScalar);
-
-			void test()
-			{
-				testing.ValidateConsistency();
-				var sourceScalarValue = ((ObservableCollection<Item>)((Selecting<Item, int>)sourceScalar.Value)?.Source);
-
-				if (sourceScalarValue != null)
-				{		
-					sourceScalarValue.Insert(2, new QuickTests.Item(1, true));
-					testing.ValidateConsistency();
-					sourceScalarValue[3] = new QuickTests.Item(7, true);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(3);
-					testing.ValidateConsistency();
-					sourceScalarValue.Move(1, 3);
-					testing.ValidateConsistency();
-					sourceScalarValue[2].Active = !sourceScalarValue[2].Active;
-					testing.ValidateConsistency();
-					sourceScalarValue[2].Num = sourceScalarValue[2].Num + 1;
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
-					testing.ValidateConsistency();
-					sourceScalarValue.Insert(0, new QuickTests.Item(2, true));
-					testing.ValidateConsistency();
-				}
-
-				IList listSource;
-				listSource = ((IList)((Selecting<Item, int>)sourceScalar.Value)?.Source);
-				if (listSource != null)
-				{
-					listSource.Clear();
-					testing.ValidateConsistency();
-				}
-
-				if (sourceScalarValue != null)
-				{
-					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
-					sourceScalarValue.Insert(1, new QuickTests.Item(2, true));
-					sourceScalarValue.Insert(2, new QuickTests.Item(3, true));
-					sourceScalarValue.Insert(3, new QuickTests.Item(3, true));
-					sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
-					testing.ValidateConsistency();
-				}
-			}
-
-			test();
-
-			((Scalar<System.ComponentModel.ListSortDirection>)sortDirectionScalar).Touch();
-			test();
-			((Scalar<System.ComponentModel.ListSortDirection>)sortDirectionScalar).Change(System.ComponentModel.ListSortDirection.Descending);
-			test();
-
-			((Scalar<Selecting<Item, int>>)sourceScalar).Touch();
-			test();
-			((Scalar<Selecting<Item, int>>)sourceScalar).Change(null);
-			test();
-		}
-		
-		[Test]
-		public void TestOrdering21()
-		{
-			IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar = getScalar<Selecting<Item, int>>(getItems().Selecting(i => i.Num));
-			System.Linq.Expressions.Expression<System.Func<int, int>> orderingValueSelectorExpression = i => i;
-			Scalar<System.Collections.Generic.IComparer<int>> comparerScalar = getScalar<System.Collections.Generic.IComparer<int>>(Comparer<int>.Default);
-			
-			var testing = sourceScalar.Ordering<int, int>(
-				orderingValueSelectorExpression,
-				comparerScalar);
-
-			void test()
-			{
-				testing.ValidateConsistency();
-				var sourceScalarValue = ((ObservableCollection<Item>)((Selecting<Item, int>)sourceScalar.Value)?.Source);
-
-				if (sourceScalarValue != null)
-				{		
-					sourceScalarValue.Insert(2, new QuickTests.Item(1, true));
-					testing.ValidateConsistency();
-					sourceScalarValue[3] = new QuickTests.Item(7, true);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(3);
-					testing.ValidateConsistency();
-					sourceScalarValue.Move(1, 3);
-					testing.ValidateConsistency();
-					sourceScalarValue[2].Active = !sourceScalarValue[2].Active;
-					testing.ValidateConsistency();
-					sourceScalarValue[2].Num = sourceScalarValue[2].Num + 1;
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
-					testing.ValidateConsistency();
-					sourceScalarValue.Insert(0, new QuickTests.Item(2, true));
-					testing.ValidateConsistency();
-				}
-
-				IList listSource;
-				listSource = ((IList)((Selecting<Item, int>)sourceScalar.Value)?.Source);
-				if (listSource != null)
-				{
-					listSource.Clear();
-					testing.ValidateConsistency();
-				}
-
-				if (sourceScalarValue != null)
-				{
-					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
-					sourceScalarValue.Insert(1, new QuickTests.Item(2, true));
-					sourceScalarValue.Insert(2, new QuickTests.Item(3, true));
-					sourceScalarValue.Insert(3, new QuickTests.Item(3, true));
-					sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
-					testing.ValidateConsistency();
-				}
-			}
-
-			test();
-
-			((Scalar<System.Collections.Generic.IComparer<int>>)comparerScalar).Touch();
-			test();
-			((Scalar<System.Collections.Generic.IComparer<int>>)comparerScalar).Change(null);
-			test();
-
-			((Scalar<Selecting<Item, int>>)sourceScalar).Touch();
-			test();
-			((Scalar<Selecting<Item, int>>)sourceScalar).Change(null);
-			test();
-		}
-		
-		[Test]
-		public void TestOrdering22()
-		{
-			IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar = getScalar<Selecting<Item, int>>(getItems().Selecting(i => i.Num));
-			System.Linq.Expressions.Expression<System.Func<int, int>> orderingValueSelectorExpression = i => i;
-			
-			var testing = sourceScalar.Ordering<int, int>(
-				orderingValueSelectorExpression);
-
-			void test()
-			{
-				testing.ValidateConsistency();
-				var sourceScalarValue = ((ObservableCollection<Item>)((Selecting<Item, int>)sourceScalar.Value)?.Source);
-
-				if (sourceScalarValue != null)
-				{		
-					sourceScalarValue.Insert(2, new QuickTests.Item(1, true));
-					testing.ValidateConsistency();
-					sourceScalarValue[3] = new QuickTests.Item(7, true);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(3);
-					testing.ValidateConsistency();
-					sourceScalarValue.Move(1, 3);
-					testing.ValidateConsistency();
-					sourceScalarValue[2].Active = !sourceScalarValue[2].Active;
-					testing.ValidateConsistency();
-					sourceScalarValue[2].Num = sourceScalarValue[2].Num + 1;
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
-					testing.ValidateConsistency();
-					sourceScalarValue.Insert(0, new QuickTests.Item(2, true));
-					testing.ValidateConsistency();
-				}
-
-				IList listSource;
-				listSource = ((IList)((Selecting<Item, int>)sourceScalar.Value)?.Source);
-				if (listSource != null)
-				{
-					listSource.Clear();
-					testing.ValidateConsistency();
-				}
-
-				if (sourceScalarValue != null)
-				{
-					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
-					sourceScalarValue.Insert(1, new QuickTests.Item(2, true));
-					sourceScalarValue.Insert(2, new QuickTests.Item(3, true));
-					sourceScalarValue.Insert(3, new QuickTests.Item(3, true));
-					sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
-					testing.ValidateConsistency();
-				}
-			}
-
-			test();
-
-			((Scalar<Selecting<Item, int>>)sourceScalar).Touch();
-			test();
-			((Scalar<Selecting<Item, int>>)sourceScalar).Change(null);
-			test();
-		}
-		
-		[Test]
-		public void TestOrdering23()
-		{
-			IReadScalar<ObservableCollection<int>> sourceScalar = getScalar<Selecting<Item, int>>(getItems().Selecting(i => i.Num));
-			System.Linq.Expressions.Expression<System.Func<int, int>> orderingValueSelectorExpression = i => i;
-			Scalar<System.ComponentModel.ListSortDirection> sortDirectionScalar = getScalar<System.ComponentModel.ListSortDirection>(System.ComponentModel.ListSortDirection.Ascending);
-			Scalar<System.Collections.Generic.IComparer<int>> comparerScalar = getScalar<System.Collections.Generic.IComparer<int>>(Comparer<int>.Default);
-			
-			var testing = sourceScalar.Ordering<int, int>(
-				orderingValueSelectorExpression,
-				sortDirectionScalar,
-				comparerScalar);
-
-			void test()
-			{
-				testing.ValidateConsistency();
-				var sourceScalarValue = ((ObservableCollection<Item>)((Selecting<Item, int>)sourceScalar.Value)?.Source);
-
-				if (sourceScalarValue != null)
-				{		
-					sourceScalarValue.Insert(2, new QuickTests.Item(1, true));
-					testing.ValidateConsistency();
-					sourceScalarValue[3] = new QuickTests.Item(7, true);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(3);
-					testing.ValidateConsistency();
-					sourceScalarValue.Move(1, 3);
-					testing.ValidateConsistency();
-					sourceScalarValue[2].Active = !sourceScalarValue[2].Active;
-					testing.ValidateConsistency();
-					sourceScalarValue[2].Num = sourceScalarValue[2].Num + 1;
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
-					testing.ValidateConsistency();
-					sourceScalarValue.Insert(0, new QuickTests.Item(2, true));
-					testing.ValidateConsistency();
-				}
-
-				IList listSource;
-				listSource = ((IList)((Selecting<Item, int>)sourceScalar.Value)?.Source);
-				if (listSource != null)
-				{
-					listSource.Clear();
-					testing.ValidateConsistency();
-				}
-
-				if (sourceScalarValue != null)
-				{
-					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
-					sourceScalarValue.Insert(1, new QuickTests.Item(2, true));
-					sourceScalarValue.Insert(2, new QuickTests.Item(3, true));
-					sourceScalarValue.Insert(3, new QuickTests.Item(3, true));
-					sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
-					testing.ValidateConsistency();
-				}
-			}
-
-			test();
-
-			((Scalar<System.ComponentModel.ListSortDirection>)sortDirectionScalar).Touch();
-			test();
-			((Scalar<System.ComponentModel.ListSortDirection>)sortDirectionScalar).Change(System.ComponentModel.ListSortDirection.Descending);
-			test();
-
-			((Scalar<System.Collections.Generic.IComparer<int>>)comparerScalar).Touch();
-			test();
-			((Scalar<System.Collections.Generic.IComparer<int>>)comparerScalar).Change(null);
-			test();
-
-			((Scalar<Selecting<Item, int>>)sourceScalar).Touch();
-			test();
-			((Scalar<Selecting<Item, int>>)sourceScalar).Change(null);
-			test();
-		}
-		
-		[Test]
-		public void TestOrdering24()
-		{
-			IReadScalar<ObservableCollection<int>> sourceScalar = getScalar<Selecting<Item, int>>(getItems().Selecting(i => i.Num));
-			System.Linq.Expressions.Expression<System.Func<int, int>> orderingValueSelectorExpression = i => i;
-			Scalar<System.ComponentModel.ListSortDirection> sortDirectionScalar = getScalar<System.ComponentModel.ListSortDirection>(System.ComponentModel.ListSortDirection.Ascending);
-			
-			var testing = sourceScalar.Ordering<int, int>(
-				orderingValueSelectorExpression,
-				sortDirectionScalar);
-
-			void test()
-			{
-				testing.ValidateConsistency();
-				var sourceScalarValue = ((ObservableCollection<Item>)((Selecting<Item, int>)sourceScalar.Value)?.Source);
-
-				if (sourceScalarValue != null)
-				{		
-					sourceScalarValue.Insert(2, new QuickTests.Item(1, true));
-					testing.ValidateConsistency();
-					sourceScalarValue[3] = new QuickTests.Item(7, true);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(3);
-					testing.ValidateConsistency();
-					sourceScalarValue.Move(1, 3);
-					testing.ValidateConsistency();
-					sourceScalarValue[2].Active = !sourceScalarValue[2].Active;
-					testing.ValidateConsistency();
-					sourceScalarValue[2].Num = sourceScalarValue[2].Num + 1;
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
-					testing.ValidateConsistency();
-					sourceScalarValue.Insert(0, new QuickTests.Item(2, true));
-					testing.ValidateConsistency();
-				}
-
-				IList listSource;
-				listSource = ((IList)((Selecting<Item, int>)sourceScalar.Value)?.Source);
-				if (listSource != null)
-				{
-					listSource.Clear();
-					testing.ValidateConsistency();
-				}
-
-				if (sourceScalarValue != null)
-				{
-					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
-					sourceScalarValue.Insert(1, new QuickTests.Item(2, true));
-					sourceScalarValue.Insert(2, new QuickTests.Item(3, true));
-					sourceScalarValue.Insert(3, new QuickTests.Item(3, true));
-					sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
-					testing.ValidateConsistency();
-				}
-			}
-
-			test();
-
-			((Scalar<System.ComponentModel.ListSortDirection>)sortDirectionScalar).Touch();
-			test();
-			((Scalar<System.ComponentModel.ListSortDirection>)sortDirectionScalar).Change(System.ComponentModel.ListSortDirection.Descending);
-			test();
-
-			((Scalar<Selecting<Item, int>>)sourceScalar).Touch();
-			test();
-			((Scalar<Selecting<Item, int>>)sourceScalar).Change(null);
-			test();
-		}
-		
-		[Test]
-		public void TestOrdering25()
-		{
-			IReadScalar<ObservableCollection<int>> sourceScalar = getScalar<Selecting<Item, int>>(getItems().Selecting(i => i.Num));
-			System.Linq.Expressions.Expression<System.Func<int, int>> orderingValueSelectorExpression = i => i;
-			Scalar<System.Collections.Generic.IComparer<int>> comparerScalar = getScalar<System.Collections.Generic.IComparer<int>>(Comparer<int>.Default);
-			
-			var testing = sourceScalar.Ordering<int, int>(
-				orderingValueSelectorExpression,
-				comparerScalar);
-
-			void test()
-			{
-				testing.ValidateConsistency();
-				var sourceScalarValue = ((ObservableCollection<Item>)((Selecting<Item, int>)sourceScalar.Value)?.Source);
-
-				if (sourceScalarValue != null)
-				{		
-					sourceScalarValue.Insert(2, new QuickTests.Item(1, true));
-					testing.ValidateConsistency();
-					sourceScalarValue[3] = new QuickTests.Item(7, true);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(3);
-					testing.ValidateConsistency();
-					sourceScalarValue.Move(1, 3);
-					testing.ValidateConsistency();
-					sourceScalarValue[2].Active = !sourceScalarValue[2].Active;
-					testing.ValidateConsistency();
-					sourceScalarValue[2].Num = sourceScalarValue[2].Num + 1;
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
-					testing.ValidateConsistency();
-					sourceScalarValue.Insert(0, new QuickTests.Item(2, true));
-					testing.ValidateConsistency();
-				}
-
-				IList listSource;
-				listSource = ((IList)((Selecting<Item, int>)sourceScalar.Value)?.Source);
-				if (listSource != null)
-				{
-					listSource.Clear();
-					testing.ValidateConsistency();
-				}
-
-				if (sourceScalarValue != null)
-				{
-					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
-					sourceScalarValue.Insert(1, new QuickTests.Item(2, true));
-					sourceScalarValue.Insert(2, new QuickTests.Item(3, true));
-					sourceScalarValue.Insert(3, new QuickTests.Item(3, true));
-					sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
-					testing.ValidateConsistency();
-				}
-			}
-
-			test();
-
-			((Scalar<System.Collections.Generic.IComparer<int>>)comparerScalar).Touch();
-			test();
-			((Scalar<System.Collections.Generic.IComparer<int>>)comparerScalar).Change(null);
-			test();
-
-			((Scalar<Selecting<Item, int>>)sourceScalar).Touch();
-			test();
-			((Scalar<Selecting<Item, int>>)sourceScalar).Change(null);
-			test();
-		}
-		
-		[Test]
-		public void TestOrdering26()
-		{
-			IReadScalar<ObservableCollection<int>> sourceScalar = getScalar<Selecting<Item, int>>(getItems().Selecting(i => i.Num));
-			System.Linq.Expressions.Expression<System.Func<int, int>> orderingValueSelectorExpression = i => i;
-			
-			var testing = sourceScalar.Ordering<int, int>(
-				orderingValueSelectorExpression);
-
-			void test()
-			{
-				testing.ValidateConsistency();
-				var sourceScalarValue = ((ObservableCollection<Item>)((Selecting<Item, int>)sourceScalar.Value)?.Source);
-
-				if (sourceScalarValue != null)
-				{		
-					sourceScalarValue.Insert(2, new QuickTests.Item(1, true));
-					testing.ValidateConsistency();
-					sourceScalarValue[3] = new QuickTests.Item(7, true);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(3);
-					testing.ValidateConsistency();
-					sourceScalarValue.Move(1, 3);
-					testing.ValidateConsistency();
-					sourceScalarValue[2].Active = !sourceScalarValue[2].Active;
-					testing.ValidateConsistency();
-					sourceScalarValue[2].Num = sourceScalarValue[2].Num + 1;
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
-					testing.ValidateConsistency();
-					sourceScalarValue.Insert(0, new QuickTests.Item(2, true));
-					testing.ValidateConsistency();
-				}
-
-				IList listSource;
-				listSource = ((IList)((Selecting<Item, int>)sourceScalar.Value)?.Source);
-				if (listSource != null)
-				{
-					listSource.Clear();
-					testing.ValidateConsistency();
-				}
-
-				if (sourceScalarValue != null)
-				{
-					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
-					sourceScalarValue.Insert(1, new QuickTests.Item(2, true));
-					sourceScalarValue.Insert(2, new QuickTests.Item(3, true));
-					sourceScalarValue.Insert(3, new QuickTests.Item(3, true));
-					sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
-					testing.ValidateConsistency();
-				}
-			}
-
-			test();
-
-			((Scalar<Selecting<Item, int>>)sourceScalar).Touch();
-			test();
-			((Scalar<Selecting<Item, int>>)sourceScalar).Change(null);
-			test();
-		}
-		
-		[Test]
-		public void TestOrdering27()
-		{
-			IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar = getScalar<Selecting<Item, int>>(getItems().Selecting(i => i.Num));
-			System.Linq.Expressions.Expression<System.Func<int, int>> orderingValueSelectorExpression = i => i;
-			System.ComponentModel.ListSortDirection sortDirection = System.ComponentModel.ListSortDirection.Ascending;
-			Scalar<System.Collections.Generic.IComparer<int>> comparerScalar = getScalar<System.Collections.Generic.IComparer<int>>(Comparer<int>.Default);
-			
-			var testing = sourceScalar.Ordering<int, int>(
-				orderingValueSelectorExpression,
-				sortDirection,
-				comparerScalar);
-
-			void test()
-			{
-				testing.ValidateConsistency();
-				var sourceScalarValue = ((ObservableCollection<Item>)((Selecting<Item, int>)sourceScalar.Value)?.Source);
-
-				if (sourceScalarValue != null)
-				{		
-					sourceScalarValue.Insert(2, new QuickTests.Item(1, true));
-					testing.ValidateConsistency();
-					sourceScalarValue[3] = new QuickTests.Item(7, true);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(3);
-					testing.ValidateConsistency();
-					sourceScalarValue.Move(1, 3);
-					testing.ValidateConsistency();
-					sourceScalarValue[2].Active = !sourceScalarValue[2].Active;
-					testing.ValidateConsistency();
-					sourceScalarValue[2].Num = sourceScalarValue[2].Num + 1;
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
-					testing.ValidateConsistency();
-					sourceScalarValue.Insert(0, new QuickTests.Item(2, true));
-					testing.ValidateConsistency();
-				}
-
-				IList listSource;
-				listSource = ((IList)((Selecting<Item, int>)sourceScalar.Value)?.Source);
-				if (listSource != null)
-				{
-					listSource.Clear();
-					testing.ValidateConsistency();
-				}
-
-				if (sourceScalarValue != null)
-				{
-					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
-					sourceScalarValue.Insert(1, new QuickTests.Item(2, true));
-					sourceScalarValue.Insert(2, new QuickTests.Item(3, true));
-					sourceScalarValue.Insert(3, new QuickTests.Item(3, true));
-					sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
-					testing.ValidateConsistency();
-				}
-			}
-
-			test();
-
-			((Scalar<System.Collections.Generic.IComparer<int>>)comparerScalar).Touch();
-			test();
-			((Scalar<System.Collections.Generic.IComparer<int>>)comparerScalar).Change(null);
-			test();
-
-			((Scalar<Selecting<Item, int>>)sourceScalar).Touch();
-			test();
-			((Scalar<Selecting<Item, int>>)sourceScalar).Change(null);
-			test();
-		}
-		
-		[Test]
-		public void TestOrdering28()
-		{
-			IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar = getScalar<Selecting<Item, int>>(getItems().Selecting(i => i.Num));
-			System.Linq.Expressions.Expression<System.Func<int, int>> orderingValueSelectorExpression = i => i;
-			System.ComponentModel.ListSortDirection sortDirection = System.ComponentModel.ListSortDirection.Ascending;
-			
-			var testing = sourceScalar.Ordering<int, int>(
-				orderingValueSelectorExpression,
-				sortDirection);
-
-			void test()
-			{
-				testing.ValidateConsistency();
-				var sourceScalarValue = ((ObservableCollection<Item>)((Selecting<Item, int>)sourceScalar.Value)?.Source);
-
-				if (sourceScalarValue != null)
-				{		
-					sourceScalarValue.Insert(2, new QuickTests.Item(1, true));
-					testing.ValidateConsistency();
-					sourceScalarValue[3] = new QuickTests.Item(7, true);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(3);
-					testing.ValidateConsistency();
-					sourceScalarValue.Move(1, 3);
-					testing.ValidateConsistency();
-					sourceScalarValue[2].Active = !sourceScalarValue[2].Active;
-					testing.ValidateConsistency();
-					sourceScalarValue[2].Num = sourceScalarValue[2].Num + 1;
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
-					testing.ValidateConsistency();
-					sourceScalarValue.Insert(0, new QuickTests.Item(2, true));
-					testing.ValidateConsistency();
-				}
-
-				IList listSource;
-				listSource = ((IList)((Selecting<Item, int>)sourceScalar.Value)?.Source);
-				if (listSource != null)
-				{
-					listSource.Clear();
-					testing.ValidateConsistency();
-				}
-
-				if (sourceScalarValue != null)
-				{
-					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
-					sourceScalarValue.Insert(1, new QuickTests.Item(2, true));
-					sourceScalarValue.Insert(2, new QuickTests.Item(3, true));
-					sourceScalarValue.Insert(3, new QuickTests.Item(3, true));
-					sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
-					testing.ValidateConsistency();
-				}
-			}
-
-			test();
-
-			((Scalar<Selecting<Item, int>>)sourceScalar).Touch();
-			test();
-			((Scalar<Selecting<Item, int>>)sourceScalar).Change(null);
-			test();
-		}
-		
-		[Test]
-		public void TestOrdering29()
-		{
-			IReadScalar<ObservableCollection<int>> sourceScalar = getScalar<Selecting<Item, int>>(getItems().Selecting(i => i.Num));
-			System.Linq.Expressions.Expression<System.Func<int, int>> orderingValueSelectorExpression = i => i;
-			System.ComponentModel.ListSortDirection sortDirection = System.ComponentModel.ListSortDirection.Ascending;
-			Scalar<System.Collections.Generic.IComparer<int>> comparerScalar = getScalar<System.Collections.Generic.IComparer<int>>(Comparer<int>.Default);
-			
-			var testing = sourceScalar.Ordering<int, int>(
-				orderingValueSelectorExpression,
-				sortDirection,
-				comparerScalar);
-
-			void test()
-			{
-				testing.ValidateConsistency();
-				var sourceScalarValue = ((ObservableCollection<Item>)((Selecting<Item, int>)sourceScalar.Value)?.Source);
-
-				if (sourceScalarValue != null)
-				{		
-					sourceScalarValue.Insert(2, new QuickTests.Item(1, true));
-					testing.ValidateConsistency();
-					sourceScalarValue[3] = new QuickTests.Item(7, true);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(3);
-					testing.ValidateConsistency();
-					sourceScalarValue.Move(1, 3);
-					testing.ValidateConsistency();
-					sourceScalarValue[2].Active = !sourceScalarValue[2].Active;
-					testing.ValidateConsistency();
-					sourceScalarValue[2].Num = sourceScalarValue[2].Num + 1;
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
-					testing.ValidateConsistency();
-					sourceScalarValue.Insert(0, new QuickTests.Item(2, true));
-					testing.ValidateConsistency();
-				}
-
-				IList listSource;
-				listSource = ((IList)((Selecting<Item, int>)sourceScalar.Value)?.Source);
-				if (listSource != null)
-				{
-					listSource.Clear();
-					testing.ValidateConsistency();
-				}
-
-				if (sourceScalarValue != null)
-				{
-					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
-					sourceScalarValue.Insert(1, new QuickTests.Item(2, true));
-					sourceScalarValue.Insert(2, new QuickTests.Item(3, true));
-					sourceScalarValue.Insert(3, new QuickTests.Item(3, true));
-					sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
-					testing.ValidateConsistency();
-				}
-			}
-
-			test();
-
-			((Scalar<System.Collections.Generic.IComparer<int>>)comparerScalar).Touch();
-			test();
-			((Scalar<System.Collections.Generic.IComparer<int>>)comparerScalar).Change(null);
-			test();
-
-			((Scalar<Selecting<Item, int>>)sourceScalar).Touch();
-			test();
-			((Scalar<Selecting<Item, int>>)sourceScalar).Change(null);
-			test();
-		}
-		
-		[Test]
-		public void TestOrdering30()
-		{
-			IReadScalar<ObservableCollection<int>> sourceScalar = getScalar<Selecting<Item, int>>(getItems().Selecting(i => i.Num));
-			System.Linq.Expressions.Expression<System.Func<int, int>> orderingValueSelectorExpression = i => i;
-			System.ComponentModel.ListSortDirection sortDirection = System.ComponentModel.ListSortDirection.Ascending;
-			
-			var testing = sourceScalar.Ordering<int, int>(
-				orderingValueSelectorExpression,
-				sortDirection);
-
-			void test()
-			{
-				testing.ValidateConsistency();
-				var sourceScalarValue = ((ObservableCollection<Item>)((Selecting<Item, int>)sourceScalar.Value)?.Source);
-
-				if (sourceScalarValue != null)
-				{		
-					sourceScalarValue.Insert(2, new QuickTests.Item(1, true));
-					testing.ValidateConsistency();
-					sourceScalarValue[3] = new QuickTests.Item(7, true);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(3);
-					testing.ValidateConsistency();
-					sourceScalarValue.Move(1, 3);
-					testing.ValidateConsistency();
-					sourceScalarValue[2].Active = !sourceScalarValue[2].Active;
-					testing.ValidateConsistency();
-					sourceScalarValue[2].Num = sourceScalarValue[2].Num + 1;
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
-					testing.ValidateConsistency();
-					sourceScalarValue.Insert(0, new QuickTests.Item(2, true));
-					testing.ValidateConsistency();
-				}
-
-				IList listSource;
-				listSource = ((IList)((Selecting<Item, int>)sourceScalar.Value)?.Source);
-				if (listSource != null)
-				{
-					listSource.Clear();
-					testing.ValidateConsistency();
-				}
-
-				if (sourceScalarValue != null)
-				{
-					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
-					sourceScalarValue.Insert(1, new QuickTests.Item(2, true));
-					sourceScalarValue.Insert(2, new QuickTests.Item(3, true));
-					sourceScalarValue.Insert(3, new QuickTests.Item(3, true));
-					sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
-					testing.ValidateConsistency();
-				}
-			}
-
-			test();
-
-			((Scalar<Selecting<Item, int>>)sourceScalar).Touch();
-			test();
-			((Scalar<Selecting<Item, int>>)sourceScalar).Change(null);
-			test();
-		}
-		
-		[Test]
-		public void TestOrdering31()
-		{
-			IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar = getScalar<Selecting<Item, int>>(getItems().Selecting(i => i.Num));
-			System.Linq.Expressions.Expression<System.Func<int, int>> orderingValueSelectorExpression = i => i;
-			Scalar<System.ComponentModel.ListSortDirection> sortDirectionScalar = getScalar<System.ComponentModel.ListSortDirection>(System.ComponentModel.ListSortDirection.Ascending);
-			System.Collections.Generic.IComparer<int> comparer = Comparer<int>.Default;
-			
-			var testing = sourceScalar.Ordering<int, int>(
-				orderingValueSelectorExpression,
-				sortDirectionScalar,
-				comparer);
-
-			void test()
-			{
-				testing.ValidateConsistency();
-				var sourceScalarValue = ((ObservableCollection<Item>)((Selecting<Item, int>)sourceScalar.Value)?.Source);
-
-				if (sourceScalarValue != null)
-				{		
-					sourceScalarValue.Insert(2, new QuickTests.Item(1, true));
-					testing.ValidateConsistency();
-					sourceScalarValue[3] = new QuickTests.Item(7, true);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(3);
-					testing.ValidateConsistency();
-					sourceScalarValue.Move(1, 3);
-					testing.ValidateConsistency();
-					sourceScalarValue[2].Active = !sourceScalarValue[2].Active;
-					testing.ValidateConsistency();
-					sourceScalarValue[2].Num = sourceScalarValue[2].Num + 1;
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
-					testing.ValidateConsistency();
-					sourceScalarValue.Insert(0, new QuickTests.Item(2, true));
-					testing.ValidateConsistency();
-				}
-
-				IList listSource;
-				listSource = ((IList)((Selecting<Item, int>)sourceScalar.Value)?.Source);
-				if (listSource != null)
-				{
-					listSource.Clear();
-					testing.ValidateConsistency();
-				}
-
-				if (sourceScalarValue != null)
-				{
-					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
-					sourceScalarValue.Insert(1, new QuickTests.Item(2, true));
-					sourceScalarValue.Insert(2, new QuickTests.Item(3, true));
-					sourceScalarValue.Insert(3, new QuickTests.Item(3, true));
-					sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
-					testing.ValidateConsistency();
-				}
-			}
-
-			test();
-
-			((Scalar<System.ComponentModel.ListSortDirection>)sortDirectionScalar).Touch();
-			test();
-			((Scalar<System.ComponentModel.ListSortDirection>)sortDirectionScalar).Change(System.ComponentModel.ListSortDirection.Descending);
-			test();
-
-			((Scalar<Selecting<Item, int>>)sourceScalar).Touch();
-			test();
-			((Scalar<Selecting<Item, int>>)sourceScalar).Change(null);
-			test();
-		}
-		
-		[Test]
-		public void TestOrdering32()
-		{
-			IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar = getScalar<Selecting<Item, int>>(getItems().Selecting(i => i.Num));
-			System.Linq.Expressions.Expression<System.Func<int, int>> orderingValueSelectorExpression = i => i;
-			System.Collections.Generic.IComparer<int> comparer = Comparer<int>.Default;
-			
-			var testing = sourceScalar.Ordering<int, int>(
-				orderingValueSelectorExpression,
-				comparer);
-
-			void test()
-			{
-				testing.ValidateConsistency();
-				var sourceScalarValue = ((ObservableCollection<Item>)((Selecting<Item, int>)sourceScalar.Value)?.Source);
-
-				if (sourceScalarValue != null)
-				{		
-					sourceScalarValue.Insert(2, new QuickTests.Item(1, true));
-					testing.ValidateConsistency();
-					sourceScalarValue[3] = new QuickTests.Item(7, true);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(3);
-					testing.ValidateConsistency();
-					sourceScalarValue.Move(1, 3);
-					testing.ValidateConsistency();
-					sourceScalarValue[2].Active = !sourceScalarValue[2].Active;
-					testing.ValidateConsistency();
-					sourceScalarValue[2].Num = sourceScalarValue[2].Num + 1;
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
-					testing.ValidateConsistency();
-					sourceScalarValue.Insert(0, new QuickTests.Item(2, true));
-					testing.ValidateConsistency();
-				}
-
-				IList listSource;
-				listSource = ((IList)((Selecting<Item, int>)sourceScalar.Value)?.Source);
-				if (listSource != null)
-				{
-					listSource.Clear();
-					testing.ValidateConsistency();
-				}
-
-				if (sourceScalarValue != null)
-				{
-					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
-					sourceScalarValue.Insert(1, new QuickTests.Item(2, true));
-					sourceScalarValue.Insert(2, new QuickTests.Item(3, true));
-					sourceScalarValue.Insert(3, new QuickTests.Item(3, true));
-					sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
-					testing.ValidateConsistency();
-				}
-			}
-
-			test();
-
-			((Scalar<Selecting<Item, int>>)sourceScalar).Touch();
-			test();
-			((Scalar<Selecting<Item, int>>)sourceScalar).Change(null);
-			test();
-		}
-		
-		[Test]
-		public void TestOrdering33()
-		{
-			IReadScalar<ObservableCollection<int>> sourceScalar = getScalar<Selecting<Item, int>>(getItems().Selecting(i => i.Num));
-			System.Linq.Expressions.Expression<System.Func<int, int>> orderingValueSelectorExpression = i => i;
-			Scalar<System.ComponentModel.ListSortDirection> sortDirectionScalar = getScalar<System.ComponentModel.ListSortDirection>(System.ComponentModel.ListSortDirection.Ascending);
-			System.Collections.Generic.IComparer<int> comparer = Comparer<int>.Default;
-			
-			var testing = sourceScalar.Ordering<int, int>(
-				orderingValueSelectorExpression,
-				sortDirectionScalar,
-				comparer);
-
-			void test()
-			{
-				testing.ValidateConsistency();
-				var sourceScalarValue = ((ObservableCollection<Item>)((Selecting<Item, int>)sourceScalar.Value)?.Source);
-
-				if (sourceScalarValue != null)
-				{		
-					sourceScalarValue.Insert(2, new QuickTests.Item(1, true));
-					testing.ValidateConsistency();
-					sourceScalarValue[3] = new QuickTests.Item(7, true);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(3);
-					testing.ValidateConsistency();
-					sourceScalarValue.Move(1, 3);
-					testing.ValidateConsistency();
-					sourceScalarValue[2].Active = !sourceScalarValue[2].Active;
-					testing.ValidateConsistency();
-					sourceScalarValue[2].Num = sourceScalarValue[2].Num + 1;
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
-					testing.ValidateConsistency();
-					sourceScalarValue.Insert(0, new QuickTests.Item(2, true));
-					testing.ValidateConsistency();
-				}
-
-				IList listSource;
-				listSource = ((IList)((Selecting<Item, int>)sourceScalar.Value)?.Source);
-				if (listSource != null)
-				{
-					listSource.Clear();
-					testing.ValidateConsistency();
-				}
-
-				if (sourceScalarValue != null)
-				{
-					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
-					sourceScalarValue.Insert(1, new QuickTests.Item(2, true));
-					sourceScalarValue.Insert(2, new QuickTests.Item(3, true));
-					sourceScalarValue.Insert(3, new QuickTests.Item(3, true));
-					sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
-					testing.ValidateConsistency();
-				}
-			}
-
-			test();
-
-			((Scalar<System.ComponentModel.ListSortDirection>)sortDirectionScalar).Touch();
-			test();
-			((Scalar<System.ComponentModel.ListSortDirection>)sortDirectionScalar).Change(System.ComponentModel.ListSortDirection.Descending);
-			test();
-
-			((Scalar<Selecting<Item, int>>)sourceScalar).Touch();
-			test();
-			((Scalar<Selecting<Item, int>>)sourceScalar).Change(null);
-			test();
-		}
-		
-		[Test]
-		public void TestOrdering34()
-		{
-			IReadScalar<ObservableCollection<int>> sourceScalar = getScalar<Selecting<Item, int>>(getItems().Selecting(i => i.Num));
-			System.Linq.Expressions.Expression<System.Func<int, int>> orderingValueSelectorExpression = i => i;
-			System.Collections.Generic.IComparer<int> comparer = Comparer<int>.Default;
-			
-			var testing = sourceScalar.Ordering<int, int>(
-				orderingValueSelectorExpression,
-				comparer);
-
-			void test()
-			{
-				testing.ValidateConsistency();
-				var sourceScalarValue = ((ObservableCollection<Item>)((Selecting<Item, int>)sourceScalar.Value)?.Source);
-
-				if (sourceScalarValue != null)
-				{		
-					sourceScalarValue.Insert(2, new QuickTests.Item(1, true));
-					testing.ValidateConsistency();
-					sourceScalarValue[3] = new QuickTests.Item(7, true);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(3);
-					testing.ValidateConsistency();
-					sourceScalarValue.Move(1, 3);
-					testing.ValidateConsistency();
-					sourceScalarValue[2].Active = !sourceScalarValue[2].Active;
-					testing.ValidateConsistency();
-					sourceScalarValue[2].Num = sourceScalarValue[2].Num + 1;
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
-					testing.ValidateConsistency();
-					sourceScalarValue.Insert(0, new QuickTests.Item(2, true));
-					testing.ValidateConsistency();
-				}
-
-				IList listSource;
-				listSource = ((IList)((Selecting<Item, int>)sourceScalar.Value)?.Source);
-				if (listSource != null)
-				{
-					listSource.Clear();
-					testing.ValidateConsistency();
-				}
-
-				if (sourceScalarValue != null)
-				{
-					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
-					sourceScalarValue.Insert(1, new QuickTests.Item(2, true));
-					sourceScalarValue.Insert(2, new QuickTests.Item(3, true));
-					sourceScalarValue.Insert(3, new QuickTests.Item(3, true));
-					sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
-					testing.ValidateConsistency();
-				}
-			}
-
-			test();
-
-			((Scalar<Selecting<Item, int>>)sourceScalar).Touch();
-			test();
-			((Scalar<Selecting<Item, int>>)sourceScalar).Change(null);
-			test();
-		}
-		
-		[Test]
 		public void TestOrdering35()
 		{
-			IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar = getScalar<Selecting<Item, int>>(getItems().Selecting(i => i.Num));
+			Selecting<Item, int> source = getItems().Selecting(i => i.Num);
 			System.Linq.Expressions.Expression<System.Func<int, int>> orderingValueSelectorExpression = i => i;
 			System.ComponentModel.ListSortDirection sortDirection = System.ComponentModel.ListSortDirection.Ascending;
 			System.Collections.Generic.IComparer<int> comparer = Comparer<int>.Default;
+			int maxTogetherThenOrderings = 0;
 			
-			var testing = sourceScalar.Ordering<int, int>(
+			var testing = source.Ordering<int, int>(
 				orderingValueSelectorExpression,
 				sortDirection,
-				comparer);
+				comparer,
+				maxTogetherThenOrderings);
 
 			void test()
 			{
 				testing.ValidateConsistency();
-				var sourceScalarValue = ((ObservableCollection<Item>)((Selecting<Item, int>)sourceScalar.Value)?.Source);
+				var sourceValue = ((ObservableCollection<Item>)((Selecting<Item, int>)source)?.Source);
 
-				if (sourceScalarValue != null)
+				if (sourceValue != null)
 				{		
-					sourceScalarValue.Insert(2, new QuickTests.Item(1, true));
+					sourceValue.Insert(2, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
-					sourceScalarValue[3] = new QuickTests.Item(7, true);
+					sourceValue[3] = new QuickTests.Item(7, true);
 					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(3);
+					sourceValue.RemoveAt(3);
 					testing.ValidateConsistency();
-					sourceScalarValue.Move(1, 3);
+					sourceValue.Move(1, 3);
 					testing.ValidateConsistency();
-					sourceScalarValue[2].Active = !sourceScalarValue[2].Active;
+					sourceValue[2].Active = !sourceValue[2].Active;
 					testing.ValidateConsistency();
-					sourceScalarValue[2].Num = sourceScalarValue[2].Num + 1;
+					sourceValue[2].Num = sourceValue[2].Num + 1;
 					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
+					sourceValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
+					sourceValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
+					sourceValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
+					sourceValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
+					sourceValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
-					sourceScalarValue.Insert(0, new QuickTests.Item(2, true));
+					sourceValue.Insert(0, new QuickTests.Item(2, true));
 					testing.ValidateConsistency();
 				}
 
 				IList listSource;
-				listSource = ((IList)((Selecting<Item, int>)sourceScalar.Value)?.Source);
+				listSource = ((IList)((Selecting<Item, int>)source)?.Source);
 				if (listSource != null)
 				{
 					listSource.Clear();
 					testing.ValidateConsistency();
 				}
 
-				if (sourceScalarValue != null)
+				if (sourceValue != null)
 				{
-					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
-					sourceScalarValue.Insert(1, new QuickTests.Item(2, true));
-					sourceScalarValue.Insert(2, new QuickTests.Item(3, true));
-					sourceScalarValue.Insert(3, new QuickTests.Item(3, true));
-					sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
+					sourceValue.Insert(0, new QuickTests.Item(1, true));
+					sourceValue.Insert(1, new QuickTests.Item(2, true));
+					sourceValue.Insert(2, new QuickTests.Item(3, true));
+					sourceValue.Insert(3, new QuickTests.Item(3, true));
+					sourceValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
 			}
 
-			test();
-
-			((Scalar<Selecting<Item, int>>)sourceScalar).Touch();
-			test();
-			((Scalar<Selecting<Item, int>>)sourceScalar).Change(null);
 			test();
 		}
 		
 		[Test]
 		public void TestOrdering36()
+		{
+			Selecting<Item, int> source = getItems().Selecting(i => i.Num);
+			System.Linq.Expressions.Expression<System.Func<int, int>> orderingValueSelectorExpression = i => i;
+			System.ComponentModel.ListSortDirection sortDirection = System.ComponentModel.ListSortDirection.Ascending;
+			System.Collections.Generic.IComparer<int> comparer = Comparer<int>.Default;
+			
+			var testing = source.Ordering<int, int>(
+				orderingValueSelectorExpression,
+				sortDirection,
+				comparer);
+
+			void test()
+			{
+				testing.ValidateConsistency();
+				var sourceValue = ((ObservableCollection<Item>)((Selecting<Item, int>)source)?.Source);
+
+				if (sourceValue != null)
+				{		
+					sourceValue.Insert(2, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					sourceValue[3] = new QuickTests.Item(7, true);
+					testing.ValidateConsistency();
+					sourceValue.RemoveAt(3);
+					testing.ValidateConsistency();
+					sourceValue.Move(1, 3);
+					testing.ValidateConsistency();
+					sourceValue[2].Active = !sourceValue[2].Active;
+					testing.ValidateConsistency();
+					sourceValue[2].Num = sourceValue[2].Num + 1;
+					testing.ValidateConsistency();
+					sourceValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceValue.Insert(0, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					sourceValue.Insert(0, new QuickTests.Item(2, true));
+					testing.ValidateConsistency();
+				}
+
+				IList listSource;
+				listSource = ((IList)((Selecting<Item, int>)source)?.Source);
+				if (listSource != null)
+				{
+					listSource.Clear();
+					testing.ValidateConsistency();
+				}
+
+				if (sourceValue != null)
+				{
+					sourceValue.Insert(0, new QuickTests.Item(1, true));
+					sourceValue.Insert(1, new QuickTests.Item(2, true));
+					sourceValue.Insert(2, new QuickTests.Item(3, true));
+					sourceValue.Insert(3, new QuickTests.Item(3, true));
+					sourceValue.Insert(4, new QuickTests.Item(3, true));
+					testing.ValidateConsistency();
+				}
+			}
+
+			test();
+		}
+		
+		[Test]
+		public void TestOrdering37()
+		{
+			IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar = getScalar<Selecting<Item, int>>(getItems().Selecting(i => i.Num));
+			System.Linq.Expressions.Expression<System.Func<int, int>> orderingValueSelectorExpression = i => i;
+			Scalar<System.ComponentModel.ListSortDirection> sortDirectionScalar = getScalar<System.ComponentModel.ListSortDirection>(System.ComponentModel.ListSortDirection.Ascending);
+			Scalar<System.Collections.Generic.IComparer<int>> comparerScalar = getScalar<System.Collections.Generic.IComparer<int>>(Comparer<int>.Default);
+			int maxTogetherThenOrderings = 0;
+			
+			var testing = sourceScalar.Ordering<int, int>(
+				orderingValueSelectorExpression,
+				sortDirectionScalar,
+				comparerScalar,
+				maxTogetherThenOrderings);
+
+			void test()
+			{
+				testing.ValidateConsistency();
+				var sourceScalarValue = ((ObservableCollection<Item>)((Selecting<Item, int>)sourceScalar.Value)?.Source);
+
+				if (sourceScalarValue != null)
+				{		
+					sourceScalarValue.Insert(2, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					sourceScalarValue[3] = new QuickTests.Item(7, true);
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(3);
+					testing.ValidateConsistency();
+					sourceScalarValue.Move(1, 3);
+					testing.ValidateConsistency();
+					sourceScalarValue[2].Active = !sourceScalarValue[2].Active;
+					testing.ValidateConsistency();
+					sourceScalarValue[2].Num = sourceScalarValue[2].Num + 1;
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					sourceScalarValue.Insert(0, new QuickTests.Item(2, true));
+					testing.ValidateConsistency();
+				}
+
+				IList listSource;
+				listSource = ((IList)((Selecting<Item, int>)sourceScalar.Value)?.Source);
+				if (listSource != null)
+				{
+					listSource.Clear();
+					testing.ValidateConsistency();
+				}
+
+				if (sourceScalarValue != null)
+				{
+					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
+					sourceScalarValue.Insert(1, new QuickTests.Item(2, true));
+					sourceScalarValue.Insert(2, new QuickTests.Item(3, true));
+					sourceScalarValue.Insert(3, new QuickTests.Item(3, true));
+					sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
+					testing.ValidateConsistency();
+				}
+			}
+
+			test();
+
+			((Scalar<System.ComponentModel.ListSortDirection>)sortDirectionScalar).Touch();
+			test();
+			((Scalar<System.ComponentModel.ListSortDirection>)sortDirectionScalar).Change(System.ComponentModel.ListSortDirection.Descending);
+			test();
+
+			((Scalar<System.Collections.Generic.IComparer<int>>)comparerScalar).Touch();
+			test();
+			((Scalar<System.Collections.Generic.IComparer<int>>)comparerScalar).Change(null);
+			test();
+
+			((Scalar<Selecting<Item, int>>)sourceScalar).Touch();
+			test();
+			((Scalar<Selecting<Item, int>>)sourceScalar).Change(null);
+			test();
+		}
+		
+		[Test]
+		public void TestOrdering38()
+		{
+			IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar = getScalar<Selecting<Item, int>>(getItems().Selecting(i => i.Num));
+			System.Linq.Expressions.Expression<System.Func<int, int>> orderingValueSelectorExpression = i => i;
+			Scalar<System.ComponentModel.ListSortDirection> sortDirectionScalar = getScalar<System.ComponentModel.ListSortDirection>(System.ComponentModel.ListSortDirection.Ascending);
+			Scalar<System.Collections.Generic.IComparer<int>> comparerScalar = getScalar<System.Collections.Generic.IComparer<int>>(Comparer<int>.Default);
+			
+			var testing = sourceScalar.Ordering<int, int>(
+				orderingValueSelectorExpression,
+				sortDirectionScalar,
+				comparerScalar);
+
+			void test()
+			{
+				testing.ValidateConsistency();
+				var sourceScalarValue = ((ObservableCollection<Item>)((Selecting<Item, int>)sourceScalar.Value)?.Source);
+
+				if (sourceScalarValue != null)
+				{		
+					sourceScalarValue.Insert(2, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					sourceScalarValue[3] = new QuickTests.Item(7, true);
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(3);
+					testing.ValidateConsistency();
+					sourceScalarValue.Move(1, 3);
+					testing.ValidateConsistency();
+					sourceScalarValue[2].Active = !sourceScalarValue[2].Active;
+					testing.ValidateConsistency();
+					sourceScalarValue[2].Num = sourceScalarValue[2].Num + 1;
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					sourceScalarValue.Insert(0, new QuickTests.Item(2, true));
+					testing.ValidateConsistency();
+				}
+
+				IList listSource;
+				listSource = ((IList)((Selecting<Item, int>)sourceScalar.Value)?.Source);
+				if (listSource != null)
+				{
+					listSource.Clear();
+					testing.ValidateConsistency();
+				}
+
+				if (sourceScalarValue != null)
+				{
+					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
+					sourceScalarValue.Insert(1, new QuickTests.Item(2, true));
+					sourceScalarValue.Insert(2, new QuickTests.Item(3, true));
+					sourceScalarValue.Insert(3, new QuickTests.Item(3, true));
+					sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
+					testing.ValidateConsistency();
+				}
+			}
+
+			test();
+
+			((Scalar<System.ComponentModel.ListSortDirection>)sortDirectionScalar).Touch();
+			test();
+			((Scalar<System.ComponentModel.ListSortDirection>)sortDirectionScalar).Change(System.ComponentModel.ListSortDirection.Descending);
+			test();
+
+			((Scalar<System.Collections.Generic.IComparer<int>>)comparerScalar).Touch();
+			test();
+			((Scalar<System.Collections.Generic.IComparer<int>>)comparerScalar).Change(null);
+			test();
+
+			((Scalar<Selecting<Item, int>>)sourceScalar).Touch();
+			test();
+			((Scalar<Selecting<Item, int>>)sourceScalar).Change(null);
+			test();
+		}
+		
+		[Test]
+		public void TestOrdering39()
+		{
+			IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar = getScalar<Selecting<Item, int>>(getItems().Selecting(i => i.Num));
+			System.Linq.Expressions.Expression<System.Func<int, int>> orderingValueSelectorExpression = i => i;
+			Scalar<System.ComponentModel.ListSortDirection> sortDirectionScalar = getScalar<System.ComponentModel.ListSortDirection>(System.ComponentModel.ListSortDirection.Ascending);
+			int maxTogetherThenOrderings = 0;
+			
+			var testing = sourceScalar.Ordering<int, int>(
+				orderingValueSelectorExpression,
+				sortDirectionScalar,
+				maxTogetherThenOrderings);
+
+			void test()
+			{
+				testing.ValidateConsistency();
+				var sourceScalarValue = ((ObservableCollection<Item>)((Selecting<Item, int>)sourceScalar.Value)?.Source);
+
+				if (sourceScalarValue != null)
+				{		
+					sourceScalarValue.Insert(2, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					sourceScalarValue[3] = new QuickTests.Item(7, true);
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(3);
+					testing.ValidateConsistency();
+					sourceScalarValue.Move(1, 3);
+					testing.ValidateConsistency();
+					sourceScalarValue[2].Active = !sourceScalarValue[2].Active;
+					testing.ValidateConsistency();
+					sourceScalarValue[2].Num = sourceScalarValue[2].Num + 1;
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					sourceScalarValue.Insert(0, new QuickTests.Item(2, true));
+					testing.ValidateConsistency();
+				}
+
+				IList listSource;
+				listSource = ((IList)((Selecting<Item, int>)sourceScalar.Value)?.Source);
+				if (listSource != null)
+				{
+					listSource.Clear();
+					testing.ValidateConsistency();
+				}
+
+				if (sourceScalarValue != null)
+				{
+					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
+					sourceScalarValue.Insert(1, new QuickTests.Item(2, true));
+					sourceScalarValue.Insert(2, new QuickTests.Item(3, true));
+					sourceScalarValue.Insert(3, new QuickTests.Item(3, true));
+					sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
+					testing.ValidateConsistency();
+				}
+			}
+
+			test();
+
+			((Scalar<System.ComponentModel.ListSortDirection>)sortDirectionScalar).Touch();
+			test();
+			((Scalar<System.ComponentModel.ListSortDirection>)sortDirectionScalar).Change(System.ComponentModel.ListSortDirection.Descending);
+			test();
+
+			((Scalar<Selecting<Item, int>>)sourceScalar).Touch();
+			test();
+			((Scalar<Selecting<Item, int>>)sourceScalar).Change(null);
+			test();
+		}
+		
+		[Test]
+		public void TestOrdering40()
+		{
+			IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar = getScalar<Selecting<Item, int>>(getItems().Selecting(i => i.Num));
+			System.Linq.Expressions.Expression<System.Func<int, int>> orderingValueSelectorExpression = i => i;
+			Scalar<System.ComponentModel.ListSortDirection> sortDirectionScalar = getScalar<System.ComponentModel.ListSortDirection>(System.ComponentModel.ListSortDirection.Ascending);
+			
+			var testing = sourceScalar.Ordering<int, int>(
+				orderingValueSelectorExpression,
+				sortDirectionScalar);
+
+			void test()
+			{
+				testing.ValidateConsistency();
+				var sourceScalarValue = ((ObservableCollection<Item>)((Selecting<Item, int>)sourceScalar.Value)?.Source);
+
+				if (sourceScalarValue != null)
+				{		
+					sourceScalarValue.Insert(2, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					sourceScalarValue[3] = new QuickTests.Item(7, true);
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(3);
+					testing.ValidateConsistency();
+					sourceScalarValue.Move(1, 3);
+					testing.ValidateConsistency();
+					sourceScalarValue[2].Active = !sourceScalarValue[2].Active;
+					testing.ValidateConsistency();
+					sourceScalarValue[2].Num = sourceScalarValue[2].Num + 1;
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					sourceScalarValue.Insert(0, new QuickTests.Item(2, true));
+					testing.ValidateConsistency();
+				}
+
+				IList listSource;
+				listSource = ((IList)((Selecting<Item, int>)sourceScalar.Value)?.Source);
+				if (listSource != null)
+				{
+					listSource.Clear();
+					testing.ValidateConsistency();
+				}
+
+				if (sourceScalarValue != null)
+				{
+					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
+					sourceScalarValue.Insert(1, new QuickTests.Item(2, true));
+					sourceScalarValue.Insert(2, new QuickTests.Item(3, true));
+					sourceScalarValue.Insert(3, new QuickTests.Item(3, true));
+					sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
+					testing.ValidateConsistency();
+				}
+			}
+
+			test();
+
+			((Scalar<System.ComponentModel.ListSortDirection>)sortDirectionScalar).Touch();
+			test();
+			((Scalar<System.ComponentModel.ListSortDirection>)sortDirectionScalar).Change(System.ComponentModel.ListSortDirection.Descending);
+			test();
+
+			((Scalar<Selecting<Item, int>>)sourceScalar).Touch();
+			test();
+			((Scalar<Selecting<Item, int>>)sourceScalar).Change(null);
+			test();
+		}
+		
+		[Test]
+		public void TestOrdering41()
+		{
+			IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar = getScalar<Selecting<Item, int>>(getItems().Selecting(i => i.Num));
+			System.Linq.Expressions.Expression<System.Func<int, int>> orderingValueSelectorExpression = i => i;
+			Scalar<System.Collections.Generic.IComparer<int>> comparerScalar = getScalar<System.Collections.Generic.IComparer<int>>(Comparer<int>.Default);
+			int maxTogetherThenOrderings = 0;
+			
+			var testing = sourceScalar.Ordering<int, int>(
+				orderingValueSelectorExpression,
+				comparerScalar,
+				maxTogetherThenOrderings);
+
+			void test()
+			{
+				testing.ValidateConsistency();
+				var sourceScalarValue = ((ObservableCollection<Item>)((Selecting<Item, int>)sourceScalar.Value)?.Source);
+
+				if (sourceScalarValue != null)
+				{		
+					sourceScalarValue.Insert(2, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					sourceScalarValue[3] = new QuickTests.Item(7, true);
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(3);
+					testing.ValidateConsistency();
+					sourceScalarValue.Move(1, 3);
+					testing.ValidateConsistency();
+					sourceScalarValue[2].Active = !sourceScalarValue[2].Active;
+					testing.ValidateConsistency();
+					sourceScalarValue[2].Num = sourceScalarValue[2].Num + 1;
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					sourceScalarValue.Insert(0, new QuickTests.Item(2, true));
+					testing.ValidateConsistency();
+				}
+
+				IList listSource;
+				listSource = ((IList)((Selecting<Item, int>)sourceScalar.Value)?.Source);
+				if (listSource != null)
+				{
+					listSource.Clear();
+					testing.ValidateConsistency();
+				}
+
+				if (sourceScalarValue != null)
+				{
+					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
+					sourceScalarValue.Insert(1, new QuickTests.Item(2, true));
+					sourceScalarValue.Insert(2, new QuickTests.Item(3, true));
+					sourceScalarValue.Insert(3, new QuickTests.Item(3, true));
+					sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
+					testing.ValidateConsistency();
+				}
+			}
+
+			test();
+
+			((Scalar<System.Collections.Generic.IComparer<int>>)comparerScalar).Touch();
+			test();
+			((Scalar<System.Collections.Generic.IComparer<int>>)comparerScalar).Change(null);
+			test();
+
+			((Scalar<Selecting<Item, int>>)sourceScalar).Touch();
+			test();
+			((Scalar<Selecting<Item, int>>)sourceScalar).Change(null);
+			test();
+		}
+		
+		[Test]
+		public void TestOrdering42()
+		{
+			IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar = getScalar<Selecting<Item, int>>(getItems().Selecting(i => i.Num));
+			System.Linq.Expressions.Expression<System.Func<int, int>> orderingValueSelectorExpression = i => i;
+			Scalar<System.Collections.Generic.IComparer<int>> comparerScalar = getScalar<System.Collections.Generic.IComparer<int>>(Comparer<int>.Default);
+			
+			var testing = sourceScalar.Ordering<int, int>(
+				orderingValueSelectorExpression,
+				comparerScalar);
+
+			void test()
+			{
+				testing.ValidateConsistency();
+				var sourceScalarValue = ((ObservableCollection<Item>)((Selecting<Item, int>)sourceScalar.Value)?.Source);
+
+				if (sourceScalarValue != null)
+				{		
+					sourceScalarValue.Insert(2, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					sourceScalarValue[3] = new QuickTests.Item(7, true);
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(3);
+					testing.ValidateConsistency();
+					sourceScalarValue.Move(1, 3);
+					testing.ValidateConsistency();
+					sourceScalarValue[2].Active = !sourceScalarValue[2].Active;
+					testing.ValidateConsistency();
+					sourceScalarValue[2].Num = sourceScalarValue[2].Num + 1;
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					sourceScalarValue.Insert(0, new QuickTests.Item(2, true));
+					testing.ValidateConsistency();
+				}
+
+				IList listSource;
+				listSource = ((IList)((Selecting<Item, int>)sourceScalar.Value)?.Source);
+				if (listSource != null)
+				{
+					listSource.Clear();
+					testing.ValidateConsistency();
+				}
+
+				if (sourceScalarValue != null)
+				{
+					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
+					sourceScalarValue.Insert(1, new QuickTests.Item(2, true));
+					sourceScalarValue.Insert(2, new QuickTests.Item(3, true));
+					sourceScalarValue.Insert(3, new QuickTests.Item(3, true));
+					sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
+					testing.ValidateConsistency();
+				}
+			}
+
+			test();
+
+			((Scalar<System.Collections.Generic.IComparer<int>>)comparerScalar).Touch();
+			test();
+			((Scalar<System.Collections.Generic.IComparer<int>>)comparerScalar).Change(null);
+			test();
+
+			((Scalar<Selecting<Item, int>>)sourceScalar).Touch();
+			test();
+			((Scalar<Selecting<Item, int>>)sourceScalar).Change(null);
+			test();
+		}
+		
+		[Test]
+		public void TestOrdering43()
+		{
+			IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar = getScalar<Selecting<Item, int>>(getItems().Selecting(i => i.Num));
+			System.Linq.Expressions.Expression<System.Func<int, int>> orderingValueSelectorExpression = i => i;
+			int maxTogetherThenOrderings = 0;
+			
+			var testing = sourceScalar.Ordering<int, int>(
+				orderingValueSelectorExpression,
+				maxTogetherThenOrderings);
+
+			void test()
+			{
+				testing.ValidateConsistency();
+				var sourceScalarValue = ((ObservableCollection<Item>)((Selecting<Item, int>)sourceScalar.Value)?.Source);
+
+				if (sourceScalarValue != null)
+				{		
+					sourceScalarValue.Insert(2, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					sourceScalarValue[3] = new QuickTests.Item(7, true);
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(3);
+					testing.ValidateConsistency();
+					sourceScalarValue.Move(1, 3);
+					testing.ValidateConsistency();
+					sourceScalarValue[2].Active = !sourceScalarValue[2].Active;
+					testing.ValidateConsistency();
+					sourceScalarValue[2].Num = sourceScalarValue[2].Num + 1;
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					sourceScalarValue.Insert(0, new QuickTests.Item(2, true));
+					testing.ValidateConsistency();
+				}
+
+				IList listSource;
+				listSource = ((IList)((Selecting<Item, int>)sourceScalar.Value)?.Source);
+				if (listSource != null)
+				{
+					listSource.Clear();
+					testing.ValidateConsistency();
+				}
+
+				if (sourceScalarValue != null)
+				{
+					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
+					sourceScalarValue.Insert(1, new QuickTests.Item(2, true));
+					sourceScalarValue.Insert(2, new QuickTests.Item(3, true));
+					sourceScalarValue.Insert(3, new QuickTests.Item(3, true));
+					sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
+					testing.ValidateConsistency();
+				}
+			}
+
+			test();
+
+			((Scalar<Selecting<Item, int>>)sourceScalar).Touch();
+			test();
+			((Scalar<Selecting<Item, int>>)sourceScalar).Change(null);
+			test();
+		}
+		
+		[Test]
+		public void TestOrdering44()
+		{
+			IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar = getScalar<Selecting<Item, int>>(getItems().Selecting(i => i.Num));
+			System.Linq.Expressions.Expression<System.Func<int, int>> orderingValueSelectorExpression = i => i;
+			
+			var testing = sourceScalar.Ordering<int, int>(
+				orderingValueSelectorExpression);
+
+			void test()
+			{
+				testing.ValidateConsistency();
+				var sourceScalarValue = ((ObservableCollection<Item>)((Selecting<Item, int>)sourceScalar.Value)?.Source);
+
+				if (sourceScalarValue != null)
+				{		
+					sourceScalarValue.Insert(2, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					sourceScalarValue[3] = new QuickTests.Item(7, true);
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(3);
+					testing.ValidateConsistency();
+					sourceScalarValue.Move(1, 3);
+					testing.ValidateConsistency();
+					sourceScalarValue[2].Active = !sourceScalarValue[2].Active;
+					testing.ValidateConsistency();
+					sourceScalarValue[2].Num = sourceScalarValue[2].Num + 1;
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					sourceScalarValue.Insert(0, new QuickTests.Item(2, true));
+					testing.ValidateConsistency();
+				}
+
+				IList listSource;
+				listSource = ((IList)((Selecting<Item, int>)sourceScalar.Value)?.Source);
+				if (listSource != null)
+				{
+					listSource.Clear();
+					testing.ValidateConsistency();
+				}
+
+				if (sourceScalarValue != null)
+				{
+					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
+					sourceScalarValue.Insert(1, new QuickTests.Item(2, true));
+					sourceScalarValue.Insert(2, new QuickTests.Item(3, true));
+					sourceScalarValue.Insert(3, new QuickTests.Item(3, true));
+					sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
+					testing.ValidateConsistency();
+				}
+			}
+
+			test();
+
+			((Scalar<Selecting<Item, int>>)sourceScalar).Touch();
+			test();
+			((Scalar<Selecting<Item, int>>)sourceScalar).Change(null);
+			test();
+		}
+		
+		[Test]
+		public void TestOrdering45()
+		{
+			IReadScalar<ObservableCollection<int>> sourceScalar = getScalar<Selecting<Item, int>>(getItems().Selecting(i => i.Num));
+			System.Linq.Expressions.Expression<System.Func<int, int>> orderingValueSelectorExpression = i => i;
+			Scalar<System.ComponentModel.ListSortDirection> sortDirectionScalar = getScalar<System.ComponentModel.ListSortDirection>(System.ComponentModel.ListSortDirection.Ascending);
+			Scalar<System.Collections.Generic.IComparer<int>> comparerScalar = getScalar<System.Collections.Generic.IComparer<int>>(Comparer<int>.Default);
+			int maxTogetherThenOrderings = 0;
+			
+			var testing = sourceScalar.Ordering<int, int>(
+				orderingValueSelectorExpression,
+				sortDirectionScalar,
+				comparerScalar,
+				maxTogetherThenOrderings);
+
+			void test()
+			{
+				testing.ValidateConsistency();
+				var sourceScalarValue = ((ObservableCollection<Item>)((Selecting<Item, int>)sourceScalar.Value)?.Source);
+
+				if (sourceScalarValue != null)
+				{		
+					sourceScalarValue.Insert(2, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					sourceScalarValue[3] = new QuickTests.Item(7, true);
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(3);
+					testing.ValidateConsistency();
+					sourceScalarValue.Move(1, 3);
+					testing.ValidateConsistency();
+					sourceScalarValue[2].Active = !sourceScalarValue[2].Active;
+					testing.ValidateConsistency();
+					sourceScalarValue[2].Num = sourceScalarValue[2].Num + 1;
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					sourceScalarValue.Insert(0, new QuickTests.Item(2, true));
+					testing.ValidateConsistency();
+				}
+
+				IList listSource;
+				listSource = ((IList)((Selecting<Item, int>)sourceScalar.Value)?.Source);
+				if (listSource != null)
+				{
+					listSource.Clear();
+					testing.ValidateConsistency();
+				}
+
+				if (sourceScalarValue != null)
+				{
+					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
+					sourceScalarValue.Insert(1, new QuickTests.Item(2, true));
+					sourceScalarValue.Insert(2, new QuickTests.Item(3, true));
+					sourceScalarValue.Insert(3, new QuickTests.Item(3, true));
+					sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
+					testing.ValidateConsistency();
+				}
+			}
+
+			test();
+
+			((Scalar<System.ComponentModel.ListSortDirection>)sortDirectionScalar).Touch();
+			test();
+			((Scalar<System.ComponentModel.ListSortDirection>)sortDirectionScalar).Change(System.ComponentModel.ListSortDirection.Descending);
+			test();
+
+			((Scalar<System.Collections.Generic.IComparer<int>>)comparerScalar).Touch();
+			test();
+			((Scalar<System.Collections.Generic.IComparer<int>>)comparerScalar).Change(null);
+			test();
+
+			((Scalar<Selecting<Item, int>>)sourceScalar).Touch();
+			test();
+			((Scalar<Selecting<Item, int>>)sourceScalar).Change(null);
+			test();
+		}
+		
+		[Test]
+		public void TestOrdering46()
+		{
+			IReadScalar<ObservableCollection<int>> sourceScalar = getScalar<Selecting<Item, int>>(getItems().Selecting(i => i.Num));
+			System.Linq.Expressions.Expression<System.Func<int, int>> orderingValueSelectorExpression = i => i;
+			Scalar<System.ComponentModel.ListSortDirection> sortDirectionScalar = getScalar<System.ComponentModel.ListSortDirection>(System.ComponentModel.ListSortDirection.Ascending);
+			Scalar<System.Collections.Generic.IComparer<int>> comparerScalar = getScalar<System.Collections.Generic.IComparer<int>>(Comparer<int>.Default);
+			
+			var testing = sourceScalar.Ordering<int, int>(
+				orderingValueSelectorExpression,
+				sortDirectionScalar,
+				comparerScalar);
+
+			void test()
+			{
+				testing.ValidateConsistency();
+				var sourceScalarValue = ((ObservableCollection<Item>)((Selecting<Item, int>)sourceScalar.Value)?.Source);
+
+				if (sourceScalarValue != null)
+				{		
+					sourceScalarValue.Insert(2, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					sourceScalarValue[3] = new QuickTests.Item(7, true);
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(3);
+					testing.ValidateConsistency();
+					sourceScalarValue.Move(1, 3);
+					testing.ValidateConsistency();
+					sourceScalarValue[2].Active = !sourceScalarValue[2].Active;
+					testing.ValidateConsistency();
+					sourceScalarValue[2].Num = sourceScalarValue[2].Num + 1;
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					sourceScalarValue.Insert(0, new QuickTests.Item(2, true));
+					testing.ValidateConsistency();
+				}
+
+				IList listSource;
+				listSource = ((IList)((Selecting<Item, int>)sourceScalar.Value)?.Source);
+				if (listSource != null)
+				{
+					listSource.Clear();
+					testing.ValidateConsistency();
+				}
+
+				if (sourceScalarValue != null)
+				{
+					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
+					sourceScalarValue.Insert(1, new QuickTests.Item(2, true));
+					sourceScalarValue.Insert(2, new QuickTests.Item(3, true));
+					sourceScalarValue.Insert(3, new QuickTests.Item(3, true));
+					sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
+					testing.ValidateConsistency();
+				}
+			}
+
+			test();
+
+			((Scalar<System.ComponentModel.ListSortDirection>)sortDirectionScalar).Touch();
+			test();
+			((Scalar<System.ComponentModel.ListSortDirection>)sortDirectionScalar).Change(System.ComponentModel.ListSortDirection.Descending);
+			test();
+
+			((Scalar<System.Collections.Generic.IComparer<int>>)comparerScalar).Touch();
+			test();
+			((Scalar<System.Collections.Generic.IComparer<int>>)comparerScalar).Change(null);
+			test();
+
+			((Scalar<Selecting<Item, int>>)sourceScalar).Touch();
+			test();
+			((Scalar<Selecting<Item, int>>)sourceScalar).Change(null);
+			test();
+		}
+		
+		[Test]
+		public void TestOrdering47()
+		{
+			IReadScalar<ObservableCollection<int>> sourceScalar = getScalar<Selecting<Item, int>>(getItems().Selecting(i => i.Num));
+			System.Linq.Expressions.Expression<System.Func<int, int>> orderingValueSelectorExpression = i => i;
+			Scalar<System.ComponentModel.ListSortDirection> sortDirectionScalar = getScalar<System.ComponentModel.ListSortDirection>(System.ComponentModel.ListSortDirection.Ascending);
+			int maxTogetherThenOrderings = 0;
+			
+			var testing = sourceScalar.Ordering<int, int>(
+				orderingValueSelectorExpression,
+				sortDirectionScalar,
+				maxTogetherThenOrderings);
+
+			void test()
+			{
+				testing.ValidateConsistency();
+				var sourceScalarValue = ((ObservableCollection<Item>)((Selecting<Item, int>)sourceScalar.Value)?.Source);
+
+				if (sourceScalarValue != null)
+				{		
+					sourceScalarValue.Insert(2, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					sourceScalarValue[3] = new QuickTests.Item(7, true);
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(3);
+					testing.ValidateConsistency();
+					sourceScalarValue.Move(1, 3);
+					testing.ValidateConsistency();
+					sourceScalarValue[2].Active = !sourceScalarValue[2].Active;
+					testing.ValidateConsistency();
+					sourceScalarValue[2].Num = sourceScalarValue[2].Num + 1;
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					sourceScalarValue.Insert(0, new QuickTests.Item(2, true));
+					testing.ValidateConsistency();
+				}
+
+				IList listSource;
+				listSource = ((IList)((Selecting<Item, int>)sourceScalar.Value)?.Source);
+				if (listSource != null)
+				{
+					listSource.Clear();
+					testing.ValidateConsistency();
+				}
+
+				if (sourceScalarValue != null)
+				{
+					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
+					sourceScalarValue.Insert(1, new QuickTests.Item(2, true));
+					sourceScalarValue.Insert(2, new QuickTests.Item(3, true));
+					sourceScalarValue.Insert(3, new QuickTests.Item(3, true));
+					sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
+					testing.ValidateConsistency();
+				}
+			}
+
+			test();
+
+			((Scalar<System.ComponentModel.ListSortDirection>)sortDirectionScalar).Touch();
+			test();
+			((Scalar<System.ComponentModel.ListSortDirection>)sortDirectionScalar).Change(System.ComponentModel.ListSortDirection.Descending);
+			test();
+
+			((Scalar<Selecting<Item, int>>)sourceScalar).Touch();
+			test();
+			((Scalar<Selecting<Item, int>>)sourceScalar).Change(null);
+			test();
+		}
+		
+		[Test]
+		public void TestOrdering48()
+		{
+			IReadScalar<ObservableCollection<int>> sourceScalar = getScalar<Selecting<Item, int>>(getItems().Selecting(i => i.Num));
+			System.Linq.Expressions.Expression<System.Func<int, int>> orderingValueSelectorExpression = i => i;
+			Scalar<System.ComponentModel.ListSortDirection> sortDirectionScalar = getScalar<System.ComponentModel.ListSortDirection>(System.ComponentModel.ListSortDirection.Ascending);
+			
+			var testing = sourceScalar.Ordering<int, int>(
+				orderingValueSelectorExpression,
+				sortDirectionScalar);
+
+			void test()
+			{
+				testing.ValidateConsistency();
+				var sourceScalarValue = ((ObservableCollection<Item>)((Selecting<Item, int>)sourceScalar.Value)?.Source);
+
+				if (sourceScalarValue != null)
+				{		
+					sourceScalarValue.Insert(2, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					sourceScalarValue[3] = new QuickTests.Item(7, true);
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(3);
+					testing.ValidateConsistency();
+					sourceScalarValue.Move(1, 3);
+					testing.ValidateConsistency();
+					sourceScalarValue[2].Active = !sourceScalarValue[2].Active;
+					testing.ValidateConsistency();
+					sourceScalarValue[2].Num = sourceScalarValue[2].Num + 1;
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					sourceScalarValue.Insert(0, new QuickTests.Item(2, true));
+					testing.ValidateConsistency();
+				}
+
+				IList listSource;
+				listSource = ((IList)((Selecting<Item, int>)sourceScalar.Value)?.Source);
+				if (listSource != null)
+				{
+					listSource.Clear();
+					testing.ValidateConsistency();
+				}
+
+				if (sourceScalarValue != null)
+				{
+					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
+					sourceScalarValue.Insert(1, new QuickTests.Item(2, true));
+					sourceScalarValue.Insert(2, new QuickTests.Item(3, true));
+					sourceScalarValue.Insert(3, new QuickTests.Item(3, true));
+					sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
+					testing.ValidateConsistency();
+				}
+			}
+
+			test();
+
+			((Scalar<System.ComponentModel.ListSortDirection>)sortDirectionScalar).Touch();
+			test();
+			((Scalar<System.ComponentModel.ListSortDirection>)sortDirectionScalar).Change(System.ComponentModel.ListSortDirection.Descending);
+			test();
+
+			((Scalar<Selecting<Item, int>>)sourceScalar).Touch();
+			test();
+			((Scalar<Selecting<Item, int>>)sourceScalar).Change(null);
+			test();
+		}
+		
+		[Test]
+		public void TestOrdering49()
+		{
+			IReadScalar<ObservableCollection<int>> sourceScalar = getScalar<Selecting<Item, int>>(getItems().Selecting(i => i.Num));
+			System.Linq.Expressions.Expression<System.Func<int, int>> orderingValueSelectorExpression = i => i;
+			Scalar<System.Collections.Generic.IComparer<int>> comparerScalar = getScalar<System.Collections.Generic.IComparer<int>>(Comparer<int>.Default);
+			int maxTogetherThenOrderings = 0;
+			
+			var testing = sourceScalar.Ordering<int, int>(
+				orderingValueSelectorExpression,
+				comparerScalar,
+				maxTogetherThenOrderings);
+
+			void test()
+			{
+				testing.ValidateConsistency();
+				var sourceScalarValue = ((ObservableCollection<Item>)((Selecting<Item, int>)sourceScalar.Value)?.Source);
+
+				if (sourceScalarValue != null)
+				{		
+					sourceScalarValue.Insert(2, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					sourceScalarValue[3] = new QuickTests.Item(7, true);
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(3);
+					testing.ValidateConsistency();
+					sourceScalarValue.Move(1, 3);
+					testing.ValidateConsistency();
+					sourceScalarValue[2].Active = !sourceScalarValue[2].Active;
+					testing.ValidateConsistency();
+					sourceScalarValue[2].Num = sourceScalarValue[2].Num + 1;
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					sourceScalarValue.Insert(0, new QuickTests.Item(2, true));
+					testing.ValidateConsistency();
+				}
+
+				IList listSource;
+				listSource = ((IList)((Selecting<Item, int>)sourceScalar.Value)?.Source);
+				if (listSource != null)
+				{
+					listSource.Clear();
+					testing.ValidateConsistency();
+				}
+
+				if (sourceScalarValue != null)
+				{
+					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
+					sourceScalarValue.Insert(1, new QuickTests.Item(2, true));
+					sourceScalarValue.Insert(2, new QuickTests.Item(3, true));
+					sourceScalarValue.Insert(3, new QuickTests.Item(3, true));
+					sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
+					testing.ValidateConsistency();
+				}
+			}
+
+			test();
+
+			((Scalar<System.Collections.Generic.IComparer<int>>)comparerScalar).Touch();
+			test();
+			((Scalar<System.Collections.Generic.IComparer<int>>)comparerScalar).Change(null);
+			test();
+
+			((Scalar<Selecting<Item, int>>)sourceScalar).Touch();
+			test();
+			((Scalar<Selecting<Item, int>>)sourceScalar).Change(null);
+			test();
+		}
+		
+		[Test]
+		public void TestOrdering50()
+		{
+			IReadScalar<ObservableCollection<int>> sourceScalar = getScalar<Selecting<Item, int>>(getItems().Selecting(i => i.Num));
+			System.Linq.Expressions.Expression<System.Func<int, int>> orderingValueSelectorExpression = i => i;
+			Scalar<System.Collections.Generic.IComparer<int>> comparerScalar = getScalar<System.Collections.Generic.IComparer<int>>(Comparer<int>.Default);
+			
+			var testing = sourceScalar.Ordering<int, int>(
+				orderingValueSelectorExpression,
+				comparerScalar);
+
+			void test()
+			{
+				testing.ValidateConsistency();
+				var sourceScalarValue = ((ObservableCollection<Item>)((Selecting<Item, int>)sourceScalar.Value)?.Source);
+
+				if (sourceScalarValue != null)
+				{		
+					sourceScalarValue.Insert(2, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					sourceScalarValue[3] = new QuickTests.Item(7, true);
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(3);
+					testing.ValidateConsistency();
+					sourceScalarValue.Move(1, 3);
+					testing.ValidateConsistency();
+					sourceScalarValue[2].Active = !sourceScalarValue[2].Active;
+					testing.ValidateConsistency();
+					sourceScalarValue[2].Num = sourceScalarValue[2].Num + 1;
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					sourceScalarValue.Insert(0, new QuickTests.Item(2, true));
+					testing.ValidateConsistency();
+				}
+
+				IList listSource;
+				listSource = ((IList)((Selecting<Item, int>)sourceScalar.Value)?.Source);
+				if (listSource != null)
+				{
+					listSource.Clear();
+					testing.ValidateConsistency();
+				}
+
+				if (sourceScalarValue != null)
+				{
+					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
+					sourceScalarValue.Insert(1, new QuickTests.Item(2, true));
+					sourceScalarValue.Insert(2, new QuickTests.Item(3, true));
+					sourceScalarValue.Insert(3, new QuickTests.Item(3, true));
+					sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
+					testing.ValidateConsistency();
+				}
+			}
+
+			test();
+
+			((Scalar<System.Collections.Generic.IComparer<int>>)comparerScalar).Touch();
+			test();
+			((Scalar<System.Collections.Generic.IComparer<int>>)comparerScalar).Change(null);
+			test();
+
+			((Scalar<Selecting<Item, int>>)sourceScalar).Touch();
+			test();
+			((Scalar<Selecting<Item, int>>)sourceScalar).Change(null);
+			test();
+		}
+		
+		[Test]
+		public void TestOrdering51()
+		{
+			IReadScalar<ObservableCollection<int>> sourceScalar = getScalar<Selecting<Item, int>>(getItems().Selecting(i => i.Num));
+			System.Linq.Expressions.Expression<System.Func<int, int>> orderingValueSelectorExpression = i => i;
+			int maxTogetherThenOrderings = 0;
+			
+			var testing = sourceScalar.Ordering<int, int>(
+				orderingValueSelectorExpression,
+				maxTogetherThenOrderings);
+
+			void test()
+			{
+				testing.ValidateConsistency();
+				var sourceScalarValue = ((ObservableCollection<Item>)((Selecting<Item, int>)sourceScalar.Value)?.Source);
+
+				if (sourceScalarValue != null)
+				{		
+					sourceScalarValue.Insert(2, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					sourceScalarValue[3] = new QuickTests.Item(7, true);
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(3);
+					testing.ValidateConsistency();
+					sourceScalarValue.Move(1, 3);
+					testing.ValidateConsistency();
+					sourceScalarValue[2].Active = !sourceScalarValue[2].Active;
+					testing.ValidateConsistency();
+					sourceScalarValue[2].Num = sourceScalarValue[2].Num + 1;
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					sourceScalarValue.Insert(0, new QuickTests.Item(2, true));
+					testing.ValidateConsistency();
+				}
+
+				IList listSource;
+				listSource = ((IList)((Selecting<Item, int>)sourceScalar.Value)?.Source);
+				if (listSource != null)
+				{
+					listSource.Clear();
+					testing.ValidateConsistency();
+				}
+
+				if (sourceScalarValue != null)
+				{
+					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
+					sourceScalarValue.Insert(1, new QuickTests.Item(2, true));
+					sourceScalarValue.Insert(2, new QuickTests.Item(3, true));
+					sourceScalarValue.Insert(3, new QuickTests.Item(3, true));
+					sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
+					testing.ValidateConsistency();
+				}
+			}
+
+			test();
+
+			((Scalar<Selecting<Item, int>>)sourceScalar).Touch();
+			test();
+			((Scalar<Selecting<Item, int>>)sourceScalar).Change(null);
+			test();
+		}
+		
+		[Test]
+		public void TestOrdering52()
+		{
+			IReadScalar<ObservableCollection<int>> sourceScalar = getScalar<Selecting<Item, int>>(getItems().Selecting(i => i.Num));
+			System.Linq.Expressions.Expression<System.Func<int, int>> orderingValueSelectorExpression = i => i;
+			
+			var testing = sourceScalar.Ordering<int, int>(
+				orderingValueSelectorExpression);
+
+			void test()
+			{
+				testing.ValidateConsistency();
+				var sourceScalarValue = ((ObservableCollection<Item>)((Selecting<Item, int>)sourceScalar.Value)?.Source);
+
+				if (sourceScalarValue != null)
+				{		
+					sourceScalarValue.Insert(2, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					sourceScalarValue[3] = new QuickTests.Item(7, true);
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(3);
+					testing.ValidateConsistency();
+					sourceScalarValue.Move(1, 3);
+					testing.ValidateConsistency();
+					sourceScalarValue[2].Active = !sourceScalarValue[2].Active;
+					testing.ValidateConsistency();
+					sourceScalarValue[2].Num = sourceScalarValue[2].Num + 1;
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					sourceScalarValue.Insert(0, new QuickTests.Item(2, true));
+					testing.ValidateConsistency();
+				}
+
+				IList listSource;
+				listSource = ((IList)((Selecting<Item, int>)sourceScalar.Value)?.Source);
+				if (listSource != null)
+				{
+					listSource.Clear();
+					testing.ValidateConsistency();
+				}
+
+				if (sourceScalarValue != null)
+				{
+					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
+					sourceScalarValue.Insert(1, new QuickTests.Item(2, true));
+					sourceScalarValue.Insert(2, new QuickTests.Item(3, true));
+					sourceScalarValue.Insert(3, new QuickTests.Item(3, true));
+					sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
+					testing.ValidateConsistency();
+				}
+			}
+
+			test();
+
+			((Scalar<Selecting<Item, int>>)sourceScalar).Touch();
+			test();
+			((Scalar<Selecting<Item, int>>)sourceScalar).Change(null);
+			test();
+		}
+		
+		[Test]
+		public void TestOrdering53()
+		{
+			IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar = getScalar<Selecting<Item, int>>(getItems().Selecting(i => i.Num));
+			System.Linq.Expressions.Expression<System.Func<int, int>> orderingValueSelectorExpression = i => i;
+			System.ComponentModel.ListSortDirection sortDirection = System.ComponentModel.ListSortDirection.Ascending;
+			Scalar<System.Collections.Generic.IComparer<int>> comparerScalar = getScalar<System.Collections.Generic.IComparer<int>>(Comparer<int>.Default);
+			int maxTogetherThenOrderings = 0;
+			
+			var testing = sourceScalar.Ordering<int, int>(
+				orderingValueSelectorExpression,
+				sortDirection,
+				comparerScalar,
+				maxTogetherThenOrderings);
+
+			void test()
+			{
+				testing.ValidateConsistency();
+				var sourceScalarValue = ((ObservableCollection<Item>)((Selecting<Item, int>)sourceScalar.Value)?.Source);
+
+				if (sourceScalarValue != null)
+				{		
+					sourceScalarValue.Insert(2, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					sourceScalarValue[3] = new QuickTests.Item(7, true);
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(3);
+					testing.ValidateConsistency();
+					sourceScalarValue.Move(1, 3);
+					testing.ValidateConsistency();
+					sourceScalarValue[2].Active = !sourceScalarValue[2].Active;
+					testing.ValidateConsistency();
+					sourceScalarValue[2].Num = sourceScalarValue[2].Num + 1;
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					sourceScalarValue.Insert(0, new QuickTests.Item(2, true));
+					testing.ValidateConsistency();
+				}
+
+				IList listSource;
+				listSource = ((IList)((Selecting<Item, int>)sourceScalar.Value)?.Source);
+				if (listSource != null)
+				{
+					listSource.Clear();
+					testing.ValidateConsistency();
+				}
+
+				if (sourceScalarValue != null)
+				{
+					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
+					sourceScalarValue.Insert(1, new QuickTests.Item(2, true));
+					sourceScalarValue.Insert(2, new QuickTests.Item(3, true));
+					sourceScalarValue.Insert(3, new QuickTests.Item(3, true));
+					sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
+					testing.ValidateConsistency();
+				}
+			}
+
+			test();
+
+			((Scalar<System.Collections.Generic.IComparer<int>>)comparerScalar).Touch();
+			test();
+			((Scalar<System.Collections.Generic.IComparer<int>>)comparerScalar).Change(null);
+			test();
+
+			((Scalar<Selecting<Item, int>>)sourceScalar).Touch();
+			test();
+			((Scalar<Selecting<Item, int>>)sourceScalar).Change(null);
+			test();
+		}
+		
+		[Test]
+		public void TestOrdering54()
+		{
+			IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar = getScalar<Selecting<Item, int>>(getItems().Selecting(i => i.Num));
+			System.Linq.Expressions.Expression<System.Func<int, int>> orderingValueSelectorExpression = i => i;
+			System.ComponentModel.ListSortDirection sortDirection = System.ComponentModel.ListSortDirection.Ascending;
+			Scalar<System.Collections.Generic.IComparer<int>> comparerScalar = getScalar<System.Collections.Generic.IComparer<int>>(Comparer<int>.Default);
+			
+			var testing = sourceScalar.Ordering<int, int>(
+				orderingValueSelectorExpression,
+				sortDirection,
+				comparerScalar);
+
+			void test()
+			{
+				testing.ValidateConsistency();
+				var sourceScalarValue = ((ObservableCollection<Item>)((Selecting<Item, int>)sourceScalar.Value)?.Source);
+
+				if (sourceScalarValue != null)
+				{		
+					sourceScalarValue.Insert(2, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					sourceScalarValue[3] = new QuickTests.Item(7, true);
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(3);
+					testing.ValidateConsistency();
+					sourceScalarValue.Move(1, 3);
+					testing.ValidateConsistency();
+					sourceScalarValue[2].Active = !sourceScalarValue[2].Active;
+					testing.ValidateConsistency();
+					sourceScalarValue[2].Num = sourceScalarValue[2].Num + 1;
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					sourceScalarValue.Insert(0, new QuickTests.Item(2, true));
+					testing.ValidateConsistency();
+				}
+
+				IList listSource;
+				listSource = ((IList)((Selecting<Item, int>)sourceScalar.Value)?.Source);
+				if (listSource != null)
+				{
+					listSource.Clear();
+					testing.ValidateConsistency();
+				}
+
+				if (sourceScalarValue != null)
+				{
+					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
+					sourceScalarValue.Insert(1, new QuickTests.Item(2, true));
+					sourceScalarValue.Insert(2, new QuickTests.Item(3, true));
+					sourceScalarValue.Insert(3, new QuickTests.Item(3, true));
+					sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
+					testing.ValidateConsistency();
+				}
+			}
+
+			test();
+
+			((Scalar<System.Collections.Generic.IComparer<int>>)comparerScalar).Touch();
+			test();
+			((Scalar<System.Collections.Generic.IComparer<int>>)comparerScalar).Change(null);
+			test();
+
+			((Scalar<Selecting<Item, int>>)sourceScalar).Touch();
+			test();
+			((Scalar<Selecting<Item, int>>)sourceScalar).Change(null);
+			test();
+		}
+		
+		[Test]
+		public void TestOrdering55()
+		{
+			IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar = getScalar<Selecting<Item, int>>(getItems().Selecting(i => i.Num));
+			System.Linq.Expressions.Expression<System.Func<int, int>> orderingValueSelectorExpression = i => i;
+			System.ComponentModel.ListSortDirection sortDirection = System.ComponentModel.ListSortDirection.Ascending;
+			int maxTogetherThenOrderings = 0;
+			
+			var testing = sourceScalar.Ordering<int, int>(
+				orderingValueSelectorExpression,
+				sortDirection,
+				maxTogetherThenOrderings);
+
+			void test()
+			{
+				testing.ValidateConsistency();
+				var sourceScalarValue = ((ObservableCollection<Item>)((Selecting<Item, int>)sourceScalar.Value)?.Source);
+
+				if (sourceScalarValue != null)
+				{		
+					sourceScalarValue.Insert(2, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					sourceScalarValue[3] = new QuickTests.Item(7, true);
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(3);
+					testing.ValidateConsistency();
+					sourceScalarValue.Move(1, 3);
+					testing.ValidateConsistency();
+					sourceScalarValue[2].Active = !sourceScalarValue[2].Active;
+					testing.ValidateConsistency();
+					sourceScalarValue[2].Num = sourceScalarValue[2].Num + 1;
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					sourceScalarValue.Insert(0, new QuickTests.Item(2, true));
+					testing.ValidateConsistency();
+				}
+
+				IList listSource;
+				listSource = ((IList)((Selecting<Item, int>)sourceScalar.Value)?.Source);
+				if (listSource != null)
+				{
+					listSource.Clear();
+					testing.ValidateConsistency();
+				}
+
+				if (sourceScalarValue != null)
+				{
+					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
+					sourceScalarValue.Insert(1, new QuickTests.Item(2, true));
+					sourceScalarValue.Insert(2, new QuickTests.Item(3, true));
+					sourceScalarValue.Insert(3, new QuickTests.Item(3, true));
+					sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
+					testing.ValidateConsistency();
+				}
+			}
+
+			test();
+
+			((Scalar<Selecting<Item, int>>)sourceScalar).Touch();
+			test();
+			((Scalar<Selecting<Item, int>>)sourceScalar).Change(null);
+			test();
+		}
+		
+		[Test]
+		public void TestOrdering56()
+		{
+			IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar = getScalar<Selecting<Item, int>>(getItems().Selecting(i => i.Num));
+			System.Linq.Expressions.Expression<System.Func<int, int>> orderingValueSelectorExpression = i => i;
+			System.ComponentModel.ListSortDirection sortDirection = System.ComponentModel.ListSortDirection.Ascending;
+			
+			var testing = sourceScalar.Ordering<int, int>(
+				orderingValueSelectorExpression,
+				sortDirection);
+
+			void test()
+			{
+				testing.ValidateConsistency();
+				var sourceScalarValue = ((ObservableCollection<Item>)((Selecting<Item, int>)sourceScalar.Value)?.Source);
+
+				if (sourceScalarValue != null)
+				{		
+					sourceScalarValue.Insert(2, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					sourceScalarValue[3] = new QuickTests.Item(7, true);
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(3);
+					testing.ValidateConsistency();
+					sourceScalarValue.Move(1, 3);
+					testing.ValidateConsistency();
+					sourceScalarValue[2].Active = !sourceScalarValue[2].Active;
+					testing.ValidateConsistency();
+					sourceScalarValue[2].Num = sourceScalarValue[2].Num + 1;
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					sourceScalarValue.Insert(0, new QuickTests.Item(2, true));
+					testing.ValidateConsistency();
+				}
+
+				IList listSource;
+				listSource = ((IList)((Selecting<Item, int>)sourceScalar.Value)?.Source);
+				if (listSource != null)
+				{
+					listSource.Clear();
+					testing.ValidateConsistency();
+				}
+
+				if (sourceScalarValue != null)
+				{
+					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
+					sourceScalarValue.Insert(1, new QuickTests.Item(2, true));
+					sourceScalarValue.Insert(2, new QuickTests.Item(3, true));
+					sourceScalarValue.Insert(3, new QuickTests.Item(3, true));
+					sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
+					testing.ValidateConsistency();
+				}
+			}
+
+			test();
+
+			((Scalar<Selecting<Item, int>>)sourceScalar).Touch();
+			test();
+			((Scalar<Selecting<Item, int>>)sourceScalar).Change(null);
+			test();
+		}
+		
+		[Test]
+		public void TestOrdering57()
+		{
+			IReadScalar<ObservableCollection<int>> sourceScalar = getScalar<Selecting<Item, int>>(getItems().Selecting(i => i.Num));
+			System.Linq.Expressions.Expression<System.Func<int, int>> orderingValueSelectorExpression = i => i;
+			System.ComponentModel.ListSortDirection sortDirection = System.ComponentModel.ListSortDirection.Ascending;
+			Scalar<System.Collections.Generic.IComparer<int>> comparerScalar = getScalar<System.Collections.Generic.IComparer<int>>(Comparer<int>.Default);
+			int maxTogetherThenOrderings = 0;
+			
+			var testing = sourceScalar.Ordering<int, int>(
+				orderingValueSelectorExpression,
+				sortDirection,
+				comparerScalar,
+				maxTogetherThenOrderings);
+
+			void test()
+			{
+				testing.ValidateConsistency();
+				var sourceScalarValue = ((ObservableCollection<Item>)((Selecting<Item, int>)sourceScalar.Value)?.Source);
+
+				if (sourceScalarValue != null)
+				{		
+					sourceScalarValue.Insert(2, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					sourceScalarValue[3] = new QuickTests.Item(7, true);
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(3);
+					testing.ValidateConsistency();
+					sourceScalarValue.Move(1, 3);
+					testing.ValidateConsistency();
+					sourceScalarValue[2].Active = !sourceScalarValue[2].Active;
+					testing.ValidateConsistency();
+					sourceScalarValue[2].Num = sourceScalarValue[2].Num + 1;
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					sourceScalarValue.Insert(0, new QuickTests.Item(2, true));
+					testing.ValidateConsistency();
+				}
+
+				IList listSource;
+				listSource = ((IList)((Selecting<Item, int>)sourceScalar.Value)?.Source);
+				if (listSource != null)
+				{
+					listSource.Clear();
+					testing.ValidateConsistency();
+				}
+
+				if (sourceScalarValue != null)
+				{
+					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
+					sourceScalarValue.Insert(1, new QuickTests.Item(2, true));
+					sourceScalarValue.Insert(2, new QuickTests.Item(3, true));
+					sourceScalarValue.Insert(3, new QuickTests.Item(3, true));
+					sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
+					testing.ValidateConsistency();
+				}
+			}
+
+			test();
+
+			((Scalar<System.Collections.Generic.IComparer<int>>)comparerScalar).Touch();
+			test();
+			((Scalar<System.Collections.Generic.IComparer<int>>)comparerScalar).Change(null);
+			test();
+
+			((Scalar<Selecting<Item, int>>)sourceScalar).Touch();
+			test();
+			((Scalar<Selecting<Item, int>>)sourceScalar).Change(null);
+			test();
+		}
+		
+		[Test]
+		public void TestOrdering58()
+		{
+			IReadScalar<ObservableCollection<int>> sourceScalar = getScalar<Selecting<Item, int>>(getItems().Selecting(i => i.Num));
+			System.Linq.Expressions.Expression<System.Func<int, int>> orderingValueSelectorExpression = i => i;
+			System.ComponentModel.ListSortDirection sortDirection = System.ComponentModel.ListSortDirection.Ascending;
+			Scalar<System.Collections.Generic.IComparer<int>> comparerScalar = getScalar<System.Collections.Generic.IComparer<int>>(Comparer<int>.Default);
+			
+			var testing = sourceScalar.Ordering<int, int>(
+				orderingValueSelectorExpression,
+				sortDirection,
+				comparerScalar);
+
+			void test()
+			{
+				testing.ValidateConsistency();
+				var sourceScalarValue = ((ObservableCollection<Item>)((Selecting<Item, int>)sourceScalar.Value)?.Source);
+
+				if (sourceScalarValue != null)
+				{		
+					sourceScalarValue.Insert(2, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					sourceScalarValue[3] = new QuickTests.Item(7, true);
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(3);
+					testing.ValidateConsistency();
+					sourceScalarValue.Move(1, 3);
+					testing.ValidateConsistency();
+					sourceScalarValue[2].Active = !sourceScalarValue[2].Active;
+					testing.ValidateConsistency();
+					sourceScalarValue[2].Num = sourceScalarValue[2].Num + 1;
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					sourceScalarValue.Insert(0, new QuickTests.Item(2, true));
+					testing.ValidateConsistency();
+				}
+
+				IList listSource;
+				listSource = ((IList)((Selecting<Item, int>)sourceScalar.Value)?.Source);
+				if (listSource != null)
+				{
+					listSource.Clear();
+					testing.ValidateConsistency();
+				}
+
+				if (sourceScalarValue != null)
+				{
+					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
+					sourceScalarValue.Insert(1, new QuickTests.Item(2, true));
+					sourceScalarValue.Insert(2, new QuickTests.Item(3, true));
+					sourceScalarValue.Insert(3, new QuickTests.Item(3, true));
+					sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
+					testing.ValidateConsistency();
+				}
+			}
+
+			test();
+
+			((Scalar<System.Collections.Generic.IComparer<int>>)comparerScalar).Touch();
+			test();
+			((Scalar<System.Collections.Generic.IComparer<int>>)comparerScalar).Change(null);
+			test();
+
+			((Scalar<Selecting<Item, int>>)sourceScalar).Touch();
+			test();
+			((Scalar<Selecting<Item, int>>)sourceScalar).Change(null);
+			test();
+		}
+		
+		[Test]
+		public void TestOrdering59()
+		{
+			IReadScalar<ObservableCollection<int>> sourceScalar = getScalar<Selecting<Item, int>>(getItems().Selecting(i => i.Num));
+			System.Linq.Expressions.Expression<System.Func<int, int>> orderingValueSelectorExpression = i => i;
+			System.ComponentModel.ListSortDirection sortDirection = System.ComponentModel.ListSortDirection.Ascending;
+			int maxTogetherThenOrderings = 0;
+			
+			var testing = sourceScalar.Ordering<int, int>(
+				orderingValueSelectorExpression,
+				sortDirection,
+				maxTogetherThenOrderings);
+
+			void test()
+			{
+				testing.ValidateConsistency();
+				var sourceScalarValue = ((ObservableCollection<Item>)((Selecting<Item, int>)sourceScalar.Value)?.Source);
+
+				if (sourceScalarValue != null)
+				{		
+					sourceScalarValue.Insert(2, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					sourceScalarValue[3] = new QuickTests.Item(7, true);
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(3);
+					testing.ValidateConsistency();
+					sourceScalarValue.Move(1, 3);
+					testing.ValidateConsistency();
+					sourceScalarValue[2].Active = !sourceScalarValue[2].Active;
+					testing.ValidateConsistency();
+					sourceScalarValue[2].Num = sourceScalarValue[2].Num + 1;
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					sourceScalarValue.Insert(0, new QuickTests.Item(2, true));
+					testing.ValidateConsistency();
+				}
+
+				IList listSource;
+				listSource = ((IList)((Selecting<Item, int>)sourceScalar.Value)?.Source);
+				if (listSource != null)
+				{
+					listSource.Clear();
+					testing.ValidateConsistency();
+				}
+
+				if (sourceScalarValue != null)
+				{
+					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
+					sourceScalarValue.Insert(1, new QuickTests.Item(2, true));
+					sourceScalarValue.Insert(2, new QuickTests.Item(3, true));
+					sourceScalarValue.Insert(3, new QuickTests.Item(3, true));
+					sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
+					testing.ValidateConsistency();
+				}
+			}
+
+			test();
+
+			((Scalar<Selecting<Item, int>>)sourceScalar).Touch();
+			test();
+			((Scalar<Selecting<Item, int>>)sourceScalar).Change(null);
+			test();
+		}
+		
+		[Test]
+		public void TestOrdering60()
+		{
+			IReadScalar<ObservableCollection<int>> sourceScalar = getScalar<Selecting<Item, int>>(getItems().Selecting(i => i.Num));
+			System.Linq.Expressions.Expression<System.Func<int, int>> orderingValueSelectorExpression = i => i;
+			System.ComponentModel.ListSortDirection sortDirection = System.ComponentModel.ListSortDirection.Ascending;
+			
+			var testing = sourceScalar.Ordering<int, int>(
+				orderingValueSelectorExpression,
+				sortDirection);
+
+			void test()
+			{
+				testing.ValidateConsistency();
+				var sourceScalarValue = ((ObservableCollection<Item>)((Selecting<Item, int>)sourceScalar.Value)?.Source);
+
+				if (sourceScalarValue != null)
+				{		
+					sourceScalarValue.Insert(2, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					sourceScalarValue[3] = new QuickTests.Item(7, true);
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(3);
+					testing.ValidateConsistency();
+					sourceScalarValue.Move(1, 3);
+					testing.ValidateConsistency();
+					sourceScalarValue[2].Active = !sourceScalarValue[2].Active;
+					testing.ValidateConsistency();
+					sourceScalarValue[2].Num = sourceScalarValue[2].Num + 1;
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					sourceScalarValue.Insert(0, new QuickTests.Item(2, true));
+					testing.ValidateConsistency();
+				}
+
+				IList listSource;
+				listSource = ((IList)((Selecting<Item, int>)sourceScalar.Value)?.Source);
+				if (listSource != null)
+				{
+					listSource.Clear();
+					testing.ValidateConsistency();
+				}
+
+				if (sourceScalarValue != null)
+				{
+					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
+					sourceScalarValue.Insert(1, new QuickTests.Item(2, true));
+					sourceScalarValue.Insert(2, new QuickTests.Item(3, true));
+					sourceScalarValue.Insert(3, new QuickTests.Item(3, true));
+					sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
+					testing.ValidateConsistency();
+				}
+			}
+
+			test();
+
+			((Scalar<Selecting<Item, int>>)sourceScalar).Touch();
+			test();
+			((Scalar<Selecting<Item, int>>)sourceScalar).Change(null);
+			test();
+		}
+		
+		[Test]
+		public void TestOrdering61()
+		{
+			IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar = getScalar<Selecting<Item, int>>(getItems().Selecting(i => i.Num));
+			System.Linq.Expressions.Expression<System.Func<int, int>> orderingValueSelectorExpression = i => i;
+			Scalar<System.ComponentModel.ListSortDirection> sortDirectionScalar = getScalar<System.ComponentModel.ListSortDirection>(System.ComponentModel.ListSortDirection.Ascending);
+			System.Collections.Generic.IComparer<int> comparer = Comparer<int>.Default;
+			int maxTogetherThenOrderings = 0;
+			
+			var testing = sourceScalar.Ordering<int, int>(
+				orderingValueSelectorExpression,
+				sortDirectionScalar,
+				comparer,
+				maxTogetherThenOrderings);
+
+			void test()
+			{
+				testing.ValidateConsistency();
+				var sourceScalarValue = ((ObservableCollection<Item>)((Selecting<Item, int>)sourceScalar.Value)?.Source);
+
+				if (sourceScalarValue != null)
+				{		
+					sourceScalarValue.Insert(2, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					sourceScalarValue[3] = new QuickTests.Item(7, true);
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(3);
+					testing.ValidateConsistency();
+					sourceScalarValue.Move(1, 3);
+					testing.ValidateConsistency();
+					sourceScalarValue[2].Active = !sourceScalarValue[2].Active;
+					testing.ValidateConsistency();
+					sourceScalarValue[2].Num = sourceScalarValue[2].Num + 1;
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					sourceScalarValue.Insert(0, new QuickTests.Item(2, true));
+					testing.ValidateConsistency();
+				}
+
+				IList listSource;
+				listSource = ((IList)((Selecting<Item, int>)sourceScalar.Value)?.Source);
+				if (listSource != null)
+				{
+					listSource.Clear();
+					testing.ValidateConsistency();
+				}
+
+				if (sourceScalarValue != null)
+				{
+					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
+					sourceScalarValue.Insert(1, new QuickTests.Item(2, true));
+					sourceScalarValue.Insert(2, new QuickTests.Item(3, true));
+					sourceScalarValue.Insert(3, new QuickTests.Item(3, true));
+					sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
+					testing.ValidateConsistency();
+				}
+			}
+
+			test();
+
+			((Scalar<System.ComponentModel.ListSortDirection>)sortDirectionScalar).Touch();
+			test();
+			((Scalar<System.ComponentModel.ListSortDirection>)sortDirectionScalar).Change(System.ComponentModel.ListSortDirection.Descending);
+			test();
+
+			((Scalar<Selecting<Item, int>>)sourceScalar).Touch();
+			test();
+			((Scalar<Selecting<Item, int>>)sourceScalar).Change(null);
+			test();
+		}
+		
+		[Test]
+		public void TestOrdering62()
+		{
+			IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar = getScalar<Selecting<Item, int>>(getItems().Selecting(i => i.Num));
+			System.Linq.Expressions.Expression<System.Func<int, int>> orderingValueSelectorExpression = i => i;
+			Scalar<System.ComponentModel.ListSortDirection> sortDirectionScalar = getScalar<System.ComponentModel.ListSortDirection>(System.ComponentModel.ListSortDirection.Ascending);
+			System.Collections.Generic.IComparer<int> comparer = Comparer<int>.Default;
+			
+			var testing = sourceScalar.Ordering<int, int>(
+				orderingValueSelectorExpression,
+				sortDirectionScalar,
+				comparer);
+
+			void test()
+			{
+				testing.ValidateConsistency();
+				var sourceScalarValue = ((ObservableCollection<Item>)((Selecting<Item, int>)sourceScalar.Value)?.Source);
+
+				if (sourceScalarValue != null)
+				{		
+					sourceScalarValue.Insert(2, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					sourceScalarValue[3] = new QuickTests.Item(7, true);
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(3);
+					testing.ValidateConsistency();
+					sourceScalarValue.Move(1, 3);
+					testing.ValidateConsistency();
+					sourceScalarValue[2].Active = !sourceScalarValue[2].Active;
+					testing.ValidateConsistency();
+					sourceScalarValue[2].Num = sourceScalarValue[2].Num + 1;
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					sourceScalarValue.Insert(0, new QuickTests.Item(2, true));
+					testing.ValidateConsistency();
+				}
+
+				IList listSource;
+				listSource = ((IList)((Selecting<Item, int>)sourceScalar.Value)?.Source);
+				if (listSource != null)
+				{
+					listSource.Clear();
+					testing.ValidateConsistency();
+				}
+
+				if (sourceScalarValue != null)
+				{
+					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
+					sourceScalarValue.Insert(1, new QuickTests.Item(2, true));
+					sourceScalarValue.Insert(2, new QuickTests.Item(3, true));
+					sourceScalarValue.Insert(3, new QuickTests.Item(3, true));
+					sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
+					testing.ValidateConsistency();
+				}
+			}
+
+			test();
+
+			((Scalar<System.ComponentModel.ListSortDirection>)sortDirectionScalar).Touch();
+			test();
+			((Scalar<System.ComponentModel.ListSortDirection>)sortDirectionScalar).Change(System.ComponentModel.ListSortDirection.Descending);
+			test();
+
+			((Scalar<Selecting<Item, int>>)sourceScalar).Touch();
+			test();
+			((Scalar<Selecting<Item, int>>)sourceScalar).Change(null);
+			test();
+		}
+		
+		[Test]
+		public void TestOrdering63()
+		{
+			IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar = getScalar<Selecting<Item, int>>(getItems().Selecting(i => i.Num));
+			System.Linq.Expressions.Expression<System.Func<int, int>> orderingValueSelectorExpression = i => i;
+			System.Collections.Generic.IComparer<int> comparer = Comparer<int>.Default;
+			int maxTogetherThenOrderings = 0;
+			
+			var testing = sourceScalar.Ordering<int, int>(
+				orderingValueSelectorExpression,
+				comparer,
+				maxTogetherThenOrderings);
+
+			void test()
+			{
+				testing.ValidateConsistency();
+				var sourceScalarValue = ((ObservableCollection<Item>)((Selecting<Item, int>)sourceScalar.Value)?.Source);
+
+				if (sourceScalarValue != null)
+				{		
+					sourceScalarValue.Insert(2, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					sourceScalarValue[3] = new QuickTests.Item(7, true);
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(3);
+					testing.ValidateConsistency();
+					sourceScalarValue.Move(1, 3);
+					testing.ValidateConsistency();
+					sourceScalarValue[2].Active = !sourceScalarValue[2].Active;
+					testing.ValidateConsistency();
+					sourceScalarValue[2].Num = sourceScalarValue[2].Num + 1;
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					sourceScalarValue.Insert(0, new QuickTests.Item(2, true));
+					testing.ValidateConsistency();
+				}
+
+				IList listSource;
+				listSource = ((IList)((Selecting<Item, int>)sourceScalar.Value)?.Source);
+				if (listSource != null)
+				{
+					listSource.Clear();
+					testing.ValidateConsistency();
+				}
+
+				if (sourceScalarValue != null)
+				{
+					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
+					sourceScalarValue.Insert(1, new QuickTests.Item(2, true));
+					sourceScalarValue.Insert(2, new QuickTests.Item(3, true));
+					sourceScalarValue.Insert(3, new QuickTests.Item(3, true));
+					sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
+					testing.ValidateConsistency();
+				}
+			}
+
+			test();
+
+			((Scalar<Selecting<Item, int>>)sourceScalar).Touch();
+			test();
+			((Scalar<Selecting<Item, int>>)sourceScalar).Change(null);
+			test();
+		}
+		
+		[Test]
+		public void TestOrdering64()
+		{
+			IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar = getScalar<Selecting<Item, int>>(getItems().Selecting(i => i.Num));
+			System.Linq.Expressions.Expression<System.Func<int, int>> orderingValueSelectorExpression = i => i;
+			System.Collections.Generic.IComparer<int> comparer = Comparer<int>.Default;
+			
+			var testing = sourceScalar.Ordering<int, int>(
+				orderingValueSelectorExpression,
+				comparer);
+
+			void test()
+			{
+				testing.ValidateConsistency();
+				var sourceScalarValue = ((ObservableCollection<Item>)((Selecting<Item, int>)sourceScalar.Value)?.Source);
+
+				if (sourceScalarValue != null)
+				{		
+					sourceScalarValue.Insert(2, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					sourceScalarValue[3] = new QuickTests.Item(7, true);
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(3);
+					testing.ValidateConsistency();
+					sourceScalarValue.Move(1, 3);
+					testing.ValidateConsistency();
+					sourceScalarValue[2].Active = !sourceScalarValue[2].Active;
+					testing.ValidateConsistency();
+					sourceScalarValue[2].Num = sourceScalarValue[2].Num + 1;
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					sourceScalarValue.Insert(0, new QuickTests.Item(2, true));
+					testing.ValidateConsistency();
+				}
+
+				IList listSource;
+				listSource = ((IList)((Selecting<Item, int>)sourceScalar.Value)?.Source);
+				if (listSource != null)
+				{
+					listSource.Clear();
+					testing.ValidateConsistency();
+				}
+
+				if (sourceScalarValue != null)
+				{
+					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
+					sourceScalarValue.Insert(1, new QuickTests.Item(2, true));
+					sourceScalarValue.Insert(2, new QuickTests.Item(3, true));
+					sourceScalarValue.Insert(3, new QuickTests.Item(3, true));
+					sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
+					testing.ValidateConsistency();
+				}
+			}
+
+			test();
+
+			((Scalar<Selecting<Item, int>>)sourceScalar).Touch();
+			test();
+			((Scalar<Selecting<Item, int>>)sourceScalar).Change(null);
+			test();
+		}
+		
+		[Test]
+		public void TestOrdering65()
+		{
+			IReadScalar<ObservableCollection<int>> sourceScalar = getScalar<Selecting<Item, int>>(getItems().Selecting(i => i.Num));
+			System.Linq.Expressions.Expression<System.Func<int, int>> orderingValueSelectorExpression = i => i;
+			Scalar<System.ComponentModel.ListSortDirection> sortDirectionScalar = getScalar<System.ComponentModel.ListSortDirection>(System.ComponentModel.ListSortDirection.Ascending);
+			System.Collections.Generic.IComparer<int> comparer = Comparer<int>.Default;
+			int maxTogetherThenOrderings = 0;
+			
+			var testing = sourceScalar.Ordering<int, int>(
+				orderingValueSelectorExpression,
+				sortDirectionScalar,
+				comparer,
+				maxTogetherThenOrderings);
+
+			void test()
+			{
+				testing.ValidateConsistency();
+				var sourceScalarValue = ((ObservableCollection<Item>)((Selecting<Item, int>)sourceScalar.Value)?.Source);
+
+				if (sourceScalarValue != null)
+				{		
+					sourceScalarValue.Insert(2, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					sourceScalarValue[3] = new QuickTests.Item(7, true);
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(3);
+					testing.ValidateConsistency();
+					sourceScalarValue.Move(1, 3);
+					testing.ValidateConsistency();
+					sourceScalarValue[2].Active = !sourceScalarValue[2].Active;
+					testing.ValidateConsistency();
+					sourceScalarValue[2].Num = sourceScalarValue[2].Num + 1;
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					sourceScalarValue.Insert(0, new QuickTests.Item(2, true));
+					testing.ValidateConsistency();
+				}
+
+				IList listSource;
+				listSource = ((IList)((Selecting<Item, int>)sourceScalar.Value)?.Source);
+				if (listSource != null)
+				{
+					listSource.Clear();
+					testing.ValidateConsistency();
+				}
+
+				if (sourceScalarValue != null)
+				{
+					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
+					sourceScalarValue.Insert(1, new QuickTests.Item(2, true));
+					sourceScalarValue.Insert(2, new QuickTests.Item(3, true));
+					sourceScalarValue.Insert(3, new QuickTests.Item(3, true));
+					sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
+					testing.ValidateConsistency();
+				}
+			}
+
+			test();
+
+			((Scalar<System.ComponentModel.ListSortDirection>)sortDirectionScalar).Touch();
+			test();
+			((Scalar<System.ComponentModel.ListSortDirection>)sortDirectionScalar).Change(System.ComponentModel.ListSortDirection.Descending);
+			test();
+
+			((Scalar<Selecting<Item, int>>)sourceScalar).Touch();
+			test();
+			((Scalar<Selecting<Item, int>>)sourceScalar).Change(null);
+			test();
+		}
+		
+		[Test]
+		public void TestOrdering66()
+		{
+			IReadScalar<ObservableCollection<int>> sourceScalar = getScalar<Selecting<Item, int>>(getItems().Selecting(i => i.Num));
+			System.Linq.Expressions.Expression<System.Func<int, int>> orderingValueSelectorExpression = i => i;
+			Scalar<System.ComponentModel.ListSortDirection> sortDirectionScalar = getScalar<System.ComponentModel.ListSortDirection>(System.ComponentModel.ListSortDirection.Ascending);
+			System.Collections.Generic.IComparer<int> comparer = Comparer<int>.Default;
+			
+			var testing = sourceScalar.Ordering<int, int>(
+				orderingValueSelectorExpression,
+				sortDirectionScalar,
+				comparer);
+
+			void test()
+			{
+				testing.ValidateConsistency();
+				var sourceScalarValue = ((ObservableCollection<Item>)((Selecting<Item, int>)sourceScalar.Value)?.Source);
+
+				if (sourceScalarValue != null)
+				{		
+					sourceScalarValue.Insert(2, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					sourceScalarValue[3] = new QuickTests.Item(7, true);
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(3);
+					testing.ValidateConsistency();
+					sourceScalarValue.Move(1, 3);
+					testing.ValidateConsistency();
+					sourceScalarValue[2].Active = !sourceScalarValue[2].Active;
+					testing.ValidateConsistency();
+					sourceScalarValue[2].Num = sourceScalarValue[2].Num + 1;
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					sourceScalarValue.Insert(0, new QuickTests.Item(2, true));
+					testing.ValidateConsistency();
+				}
+
+				IList listSource;
+				listSource = ((IList)((Selecting<Item, int>)sourceScalar.Value)?.Source);
+				if (listSource != null)
+				{
+					listSource.Clear();
+					testing.ValidateConsistency();
+				}
+
+				if (sourceScalarValue != null)
+				{
+					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
+					sourceScalarValue.Insert(1, new QuickTests.Item(2, true));
+					sourceScalarValue.Insert(2, new QuickTests.Item(3, true));
+					sourceScalarValue.Insert(3, new QuickTests.Item(3, true));
+					sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
+					testing.ValidateConsistency();
+				}
+			}
+
+			test();
+
+			((Scalar<System.ComponentModel.ListSortDirection>)sortDirectionScalar).Touch();
+			test();
+			((Scalar<System.ComponentModel.ListSortDirection>)sortDirectionScalar).Change(System.ComponentModel.ListSortDirection.Descending);
+			test();
+
+			((Scalar<Selecting<Item, int>>)sourceScalar).Touch();
+			test();
+			((Scalar<Selecting<Item, int>>)sourceScalar).Change(null);
+			test();
+		}
+		
+		[Test]
+		public void TestOrdering67()
+		{
+			IReadScalar<ObservableCollection<int>> sourceScalar = getScalar<Selecting<Item, int>>(getItems().Selecting(i => i.Num));
+			System.Linq.Expressions.Expression<System.Func<int, int>> orderingValueSelectorExpression = i => i;
+			System.Collections.Generic.IComparer<int> comparer = Comparer<int>.Default;
+			int maxTogetherThenOrderings = 0;
+			
+			var testing = sourceScalar.Ordering<int, int>(
+				orderingValueSelectorExpression,
+				comparer,
+				maxTogetherThenOrderings);
+
+			void test()
+			{
+				testing.ValidateConsistency();
+				var sourceScalarValue = ((ObservableCollection<Item>)((Selecting<Item, int>)sourceScalar.Value)?.Source);
+
+				if (sourceScalarValue != null)
+				{		
+					sourceScalarValue.Insert(2, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					sourceScalarValue[3] = new QuickTests.Item(7, true);
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(3);
+					testing.ValidateConsistency();
+					sourceScalarValue.Move(1, 3);
+					testing.ValidateConsistency();
+					sourceScalarValue[2].Active = !sourceScalarValue[2].Active;
+					testing.ValidateConsistency();
+					sourceScalarValue[2].Num = sourceScalarValue[2].Num + 1;
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					sourceScalarValue.Insert(0, new QuickTests.Item(2, true));
+					testing.ValidateConsistency();
+				}
+
+				IList listSource;
+				listSource = ((IList)((Selecting<Item, int>)sourceScalar.Value)?.Source);
+				if (listSource != null)
+				{
+					listSource.Clear();
+					testing.ValidateConsistency();
+				}
+
+				if (sourceScalarValue != null)
+				{
+					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
+					sourceScalarValue.Insert(1, new QuickTests.Item(2, true));
+					sourceScalarValue.Insert(2, new QuickTests.Item(3, true));
+					sourceScalarValue.Insert(3, new QuickTests.Item(3, true));
+					sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
+					testing.ValidateConsistency();
+				}
+			}
+
+			test();
+
+			((Scalar<Selecting<Item, int>>)sourceScalar).Touch();
+			test();
+			((Scalar<Selecting<Item, int>>)sourceScalar).Change(null);
+			test();
+		}
+		
+		[Test]
+		public void TestOrdering68()
+		{
+			IReadScalar<ObservableCollection<int>> sourceScalar = getScalar<Selecting<Item, int>>(getItems().Selecting(i => i.Num));
+			System.Linq.Expressions.Expression<System.Func<int, int>> orderingValueSelectorExpression = i => i;
+			System.Collections.Generic.IComparer<int> comparer = Comparer<int>.Default;
+			
+			var testing = sourceScalar.Ordering<int, int>(
+				orderingValueSelectorExpression,
+				comparer);
+
+			void test()
+			{
+				testing.ValidateConsistency();
+				var sourceScalarValue = ((ObservableCollection<Item>)((Selecting<Item, int>)sourceScalar.Value)?.Source);
+
+				if (sourceScalarValue != null)
+				{		
+					sourceScalarValue.Insert(2, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					sourceScalarValue[3] = new QuickTests.Item(7, true);
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(3);
+					testing.ValidateConsistency();
+					sourceScalarValue.Move(1, 3);
+					testing.ValidateConsistency();
+					sourceScalarValue[2].Active = !sourceScalarValue[2].Active;
+					testing.ValidateConsistency();
+					sourceScalarValue[2].Num = sourceScalarValue[2].Num + 1;
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					sourceScalarValue.Insert(0, new QuickTests.Item(2, true));
+					testing.ValidateConsistency();
+				}
+
+				IList listSource;
+				listSource = ((IList)((Selecting<Item, int>)sourceScalar.Value)?.Source);
+				if (listSource != null)
+				{
+					listSource.Clear();
+					testing.ValidateConsistency();
+				}
+
+				if (sourceScalarValue != null)
+				{
+					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
+					sourceScalarValue.Insert(1, new QuickTests.Item(2, true));
+					sourceScalarValue.Insert(2, new QuickTests.Item(3, true));
+					sourceScalarValue.Insert(3, new QuickTests.Item(3, true));
+					sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
+					testing.ValidateConsistency();
+				}
+			}
+
+			test();
+
+			((Scalar<Selecting<Item, int>>)sourceScalar).Touch();
+			test();
+			((Scalar<Selecting<Item, int>>)sourceScalar).Change(null);
+			test();
+		}
+		
+		[Test]
+		public void TestOrdering69()
+		{
+			IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar = getScalar<Selecting<Item, int>>(getItems().Selecting(i => i.Num));
+			System.Linq.Expressions.Expression<System.Func<int, int>> orderingValueSelectorExpression = i => i;
+			System.ComponentModel.ListSortDirection sortDirection = System.ComponentModel.ListSortDirection.Ascending;
+			System.Collections.Generic.IComparer<int> comparer = Comparer<int>.Default;
+			int maxTogetherThenOrderings = 0;
+			
+			var testing = sourceScalar.Ordering<int, int>(
+				orderingValueSelectorExpression,
+				sortDirection,
+				comparer,
+				maxTogetherThenOrderings);
+
+			void test()
+			{
+				testing.ValidateConsistency();
+				var sourceScalarValue = ((ObservableCollection<Item>)((Selecting<Item, int>)sourceScalar.Value)?.Source);
+
+				if (sourceScalarValue != null)
+				{		
+					sourceScalarValue.Insert(2, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					sourceScalarValue[3] = new QuickTests.Item(7, true);
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(3);
+					testing.ValidateConsistency();
+					sourceScalarValue.Move(1, 3);
+					testing.ValidateConsistency();
+					sourceScalarValue[2].Active = !sourceScalarValue[2].Active;
+					testing.ValidateConsistency();
+					sourceScalarValue[2].Num = sourceScalarValue[2].Num + 1;
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					sourceScalarValue.Insert(0, new QuickTests.Item(2, true));
+					testing.ValidateConsistency();
+				}
+
+				IList listSource;
+				listSource = ((IList)((Selecting<Item, int>)sourceScalar.Value)?.Source);
+				if (listSource != null)
+				{
+					listSource.Clear();
+					testing.ValidateConsistency();
+				}
+
+				if (sourceScalarValue != null)
+				{
+					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
+					sourceScalarValue.Insert(1, new QuickTests.Item(2, true));
+					sourceScalarValue.Insert(2, new QuickTests.Item(3, true));
+					sourceScalarValue.Insert(3, new QuickTests.Item(3, true));
+					sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
+					testing.ValidateConsistency();
+				}
+			}
+
+			test();
+
+			((Scalar<Selecting<Item, int>>)sourceScalar).Touch();
+			test();
+			((Scalar<Selecting<Item, int>>)sourceScalar).Change(null);
+			test();
+		}
+		
+		[Test]
+		public void TestOrdering70()
+		{
+			IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar = getScalar<Selecting<Item, int>>(getItems().Selecting(i => i.Num));
+			System.Linq.Expressions.Expression<System.Func<int, int>> orderingValueSelectorExpression = i => i;
+			System.ComponentModel.ListSortDirection sortDirection = System.ComponentModel.ListSortDirection.Ascending;
+			System.Collections.Generic.IComparer<int> comparer = Comparer<int>.Default;
+			
+			var testing = sourceScalar.Ordering<int, int>(
+				orderingValueSelectorExpression,
+				sortDirection,
+				comparer);
+
+			void test()
+			{
+				testing.ValidateConsistency();
+				var sourceScalarValue = ((ObservableCollection<Item>)((Selecting<Item, int>)sourceScalar.Value)?.Source);
+
+				if (sourceScalarValue != null)
+				{		
+					sourceScalarValue.Insert(2, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					sourceScalarValue[3] = new QuickTests.Item(7, true);
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(3);
+					testing.ValidateConsistency();
+					sourceScalarValue.Move(1, 3);
+					testing.ValidateConsistency();
+					sourceScalarValue[2].Active = !sourceScalarValue[2].Active;
+					testing.ValidateConsistency();
+					sourceScalarValue[2].Num = sourceScalarValue[2].Num + 1;
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					sourceScalarValue.Insert(0, new QuickTests.Item(2, true));
+					testing.ValidateConsistency();
+				}
+
+				IList listSource;
+				listSource = ((IList)((Selecting<Item, int>)sourceScalar.Value)?.Source);
+				if (listSource != null)
+				{
+					listSource.Clear();
+					testing.ValidateConsistency();
+				}
+
+				if (sourceScalarValue != null)
+				{
+					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
+					sourceScalarValue.Insert(1, new QuickTests.Item(2, true));
+					sourceScalarValue.Insert(2, new QuickTests.Item(3, true));
+					sourceScalarValue.Insert(3, new QuickTests.Item(3, true));
+					sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
+					testing.ValidateConsistency();
+				}
+			}
+
+			test();
+
+			((Scalar<Selecting<Item, int>>)sourceScalar).Touch();
+			test();
+			((Scalar<Selecting<Item, int>>)sourceScalar).Change(null);
+			test();
+		}
+		
+		[Test]
+		public void TestOrdering71()
+		{
+			IReadScalar<ObservableCollection<int>> sourceScalar = getScalar<Selecting<Item, int>>(getItems().Selecting(i => i.Num));
+			System.Linq.Expressions.Expression<System.Func<int, int>> orderingValueSelectorExpression = i => i;
+			System.ComponentModel.ListSortDirection sortDirection = System.ComponentModel.ListSortDirection.Ascending;
+			System.Collections.Generic.IComparer<int> comparer = Comparer<int>.Default;
+			int maxTogetherThenOrderings = 0;
+			
+			var testing = sourceScalar.Ordering<int, int>(
+				orderingValueSelectorExpression,
+				sortDirection,
+				comparer,
+				maxTogetherThenOrderings);
+
+			void test()
+			{
+				testing.ValidateConsistency();
+				var sourceScalarValue = ((ObservableCollection<Item>)((Selecting<Item, int>)sourceScalar.Value)?.Source);
+
+				if (sourceScalarValue != null)
+				{		
+					sourceScalarValue.Insert(2, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					sourceScalarValue[3] = new QuickTests.Item(7, true);
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(3);
+					testing.ValidateConsistency();
+					sourceScalarValue.Move(1, 3);
+					testing.ValidateConsistency();
+					sourceScalarValue[2].Active = !sourceScalarValue[2].Active;
+					testing.ValidateConsistency();
+					sourceScalarValue[2].Num = sourceScalarValue[2].Num + 1;
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					sourceScalarValue.Insert(0, new QuickTests.Item(2, true));
+					testing.ValidateConsistency();
+				}
+
+				IList listSource;
+				listSource = ((IList)((Selecting<Item, int>)sourceScalar.Value)?.Source);
+				if (listSource != null)
+				{
+					listSource.Clear();
+					testing.ValidateConsistency();
+				}
+
+				if (sourceScalarValue != null)
+				{
+					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
+					sourceScalarValue.Insert(1, new QuickTests.Item(2, true));
+					sourceScalarValue.Insert(2, new QuickTests.Item(3, true));
+					sourceScalarValue.Insert(3, new QuickTests.Item(3, true));
+					sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
+					testing.ValidateConsistency();
+				}
+			}
+
+			test();
+
+			((Scalar<Selecting<Item, int>>)sourceScalar).Touch();
+			test();
+			((Scalar<Selecting<Item, int>>)sourceScalar).Change(null);
+			test();
+		}
+		
+		[Test]
+		public void TestOrdering72()
 		{
 			IReadScalar<ObservableCollection<int>> sourceScalar = getScalar<Selecting<Item, int>>(getItems().Selecting(i => i.Num));
 			System.Linq.Expressions.Expression<System.Func<int, int>> orderingValueSelectorExpression = i => i;
@@ -66534,64 +69216,66 @@ namespace IBCode.ObservableCalculations.Test
 		[Test]
 		public void TestThenOrdering01()
 		{
-			Scalar<IBCode.ObservableCalculations.Common.Interface.IOrdering<int>> sourceScalar = getScalar<IBCode.ObservableCalculations.Common.Interface.IOrdering<int>>(getItems().Selecting(i => i.Num).Ordering(i => i));
+			IBCode.ObservableCalculations.Common.Interface.IOrdering<int> source = getItems().Selecting(i => i.Num).Ordering(i => i, 32);
 			System.Linq.Expressions.Expression<System.Func<int, int>> orderingValueSelectorExpression = i => i;
 			Scalar<System.ComponentModel.ListSortDirection> sortDirectionScalar = getScalar<System.ComponentModel.ListSortDirection>(System.ComponentModel.ListSortDirection.Ascending);
 			Scalar<System.Collections.Generic.IComparer<int>> comparerScalar = getScalar<System.Collections.Generic.IComparer<int>>(Comparer<int>.Default);
+			int maxTogetherThenOrderings = 0;
 			
-			var testing = sourceScalar.ThenOrdering<int, int>(
+			var testing = source.ThenOrdering<int, int>(
 				orderingValueSelectorExpression,
 				sortDirectionScalar,
-				comparerScalar);
+				comparerScalar,
+				maxTogetherThenOrderings);
 
 			void test()
 			{
 				testing.ValidateConsistency();
-				var sourceScalarValue = ((ObservableCollection<Item>)((IBCode.ObservableCalculations.Common.Interface.IOrdering<int>)sourceScalar.Value).GetValueAs(s => ((Ordering<int, int>)s)?.Source)?.GetValueAs(s => ((Selecting<Item, int>)s)?.Source));
+				var sourceValue = ((ObservableCollection<Item>)((IBCode.ObservableCalculations.Common.Interface.IOrdering<int>)source).GetValueAs(s => ((Ordering<int, int>)s)?.Source)?.GetValueAs(s => ((Selecting<Item, int>)s)?.Source));
 
-				if (sourceScalarValue != null)
+				if (sourceValue != null)
 				{		
-					sourceScalarValue.Insert(2, new QuickTests.Item(1, true));
+					sourceValue.Insert(2, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
-					sourceScalarValue[3] = new QuickTests.Item(7, true);
+					sourceValue[3] = new QuickTests.Item(7, true);
 					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(3);
+					sourceValue.RemoveAt(3);
 					testing.ValidateConsistency();
-					sourceScalarValue.Move(1, 3);
+					sourceValue.Move(1, 3);
 					testing.ValidateConsistency();
-					sourceScalarValue[2].Active = !sourceScalarValue[2].Active;
+					sourceValue[2].Active = !sourceValue[2].Active;
 					testing.ValidateConsistency();
-					sourceScalarValue[2].Num = sourceScalarValue[2].Num + 1;
+					sourceValue[2].Num = sourceValue[2].Num + 1;
 					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
+					sourceValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
+					sourceValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
+					sourceValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
+					sourceValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
+					sourceValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
-					sourceScalarValue.Insert(0, new QuickTests.Item(2, true));
+					sourceValue.Insert(0, new QuickTests.Item(2, true));
 					testing.ValidateConsistency();
 				}
 
 				IList listSource;
-				listSource = ((IList)((IBCode.ObservableCalculations.Common.Interface.IOrdering<int>)sourceScalar.Value).GetValueAs(s => ((Ordering<int, int>)s)?.Source)?.GetValueAs(s => ((Selecting<Item, int>)s)?.Source));
+				listSource = ((IList)((IBCode.ObservableCalculations.Common.Interface.IOrdering<int>)source).GetValueAs(s => ((Ordering<int, int>)s)?.Source)?.GetValueAs(s => ((Selecting<Item, int>)s)?.Source));
 				if (listSource != null)
 				{
 					listSource.Clear();
 					testing.ValidateConsistency();
 				}
 
-				if (sourceScalarValue != null)
+				if (sourceValue != null)
 				{
-					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
-					sourceScalarValue.Insert(1, new QuickTests.Item(2, true));
-					sourceScalarValue.Insert(2, new QuickTests.Item(3, true));
-					sourceScalarValue.Insert(3, new QuickTests.Item(3, true));
-					sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
+					sourceValue.Insert(0, new QuickTests.Item(1, true));
+					sourceValue.Insert(1, new QuickTests.Item(2, true));
+					sourceValue.Insert(2, new QuickTests.Item(3, true));
+					sourceValue.Insert(3, new QuickTests.Item(3, true));
+					sourceValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
 			}
@@ -66606,239 +69290,13 @@ namespace IBCode.ObservableCalculations.Test
 			((Scalar<System.Collections.Generic.IComparer<int>>)comparerScalar).Touch();
 			test();
 			((Scalar<System.Collections.Generic.IComparer<int>>)comparerScalar).Change(null);
-			test();
-
-			((Scalar<IBCode.ObservableCalculations.Common.Interface.IOrdering<int>>)sourceScalar).Touch();
-			test();
-			((Scalar<IBCode.ObservableCalculations.Common.Interface.IOrdering<int>>)sourceScalar).Change(null);
 			test();
 		}
 		
 		[Test]
 		public void TestThenOrdering02()
 		{
-			Scalar<IBCode.ObservableCalculations.Common.Interface.IOrdering<int>> sourceScalar = getScalar<IBCode.ObservableCalculations.Common.Interface.IOrdering<int>>(getItems().Selecting(i => i.Num).Ordering(i => i));
-			System.Linq.Expressions.Expression<System.Func<int, int>> orderingValueSelectorExpression = i => i;
-			Scalar<System.ComponentModel.ListSortDirection> sortDirectionScalar = getScalar<System.ComponentModel.ListSortDirection>(System.ComponentModel.ListSortDirection.Ascending);
-			
-			var testing = sourceScalar.ThenOrdering<int, int>(
-				orderingValueSelectorExpression,
-				sortDirectionScalar);
-
-			void test()
-			{
-				testing.ValidateConsistency();
-				var sourceScalarValue = ((ObservableCollection<Item>)((IBCode.ObservableCalculations.Common.Interface.IOrdering<int>)sourceScalar.Value).GetValueAs(s => ((Ordering<int, int>)s)?.Source)?.GetValueAs(s => ((Selecting<Item, int>)s)?.Source));
-
-				if (sourceScalarValue != null)
-				{		
-					sourceScalarValue.Insert(2, new QuickTests.Item(1, true));
-					testing.ValidateConsistency();
-					sourceScalarValue[3] = new QuickTests.Item(7, true);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(3);
-					testing.ValidateConsistency();
-					sourceScalarValue.Move(1, 3);
-					testing.ValidateConsistency();
-					sourceScalarValue[2].Active = !sourceScalarValue[2].Active;
-					testing.ValidateConsistency();
-					sourceScalarValue[2].Num = sourceScalarValue[2].Num + 1;
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
-					testing.ValidateConsistency();
-					sourceScalarValue.Insert(0, new QuickTests.Item(2, true));
-					testing.ValidateConsistency();
-				}
-
-				IList listSource;
-				listSource = ((IList)((IBCode.ObservableCalculations.Common.Interface.IOrdering<int>)sourceScalar.Value).GetValueAs(s => ((Ordering<int, int>)s)?.Source)?.GetValueAs(s => ((Selecting<Item, int>)s)?.Source));
-				if (listSource != null)
-				{
-					listSource.Clear();
-					testing.ValidateConsistency();
-				}
-
-				if (sourceScalarValue != null)
-				{
-					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
-					sourceScalarValue.Insert(1, new QuickTests.Item(2, true));
-					sourceScalarValue.Insert(2, new QuickTests.Item(3, true));
-					sourceScalarValue.Insert(3, new QuickTests.Item(3, true));
-					sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
-					testing.ValidateConsistency();
-				}
-			}
-
-			test();
-
-			((Scalar<System.ComponentModel.ListSortDirection>)sortDirectionScalar).Touch();
-			test();
-			((Scalar<System.ComponentModel.ListSortDirection>)sortDirectionScalar).Change(System.ComponentModel.ListSortDirection.Descending);
-			test();
-
-			((Scalar<IBCode.ObservableCalculations.Common.Interface.IOrdering<int>>)sourceScalar).Touch();
-			test();
-			((Scalar<IBCode.ObservableCalculations.Common.Interface.IOrdering<int>>)sourceScalar).Change(null);
-			test();
-		}
-		
-		[Test]
-		public void TestThenOrdering03()
-		{
-			Scalar<IBCode.ObservableCalculations.Common.Interface.IOrdering<int>> sourceScalar = getScalar<IBCode.ObservableCalculations.Common.Interface.IOrdering<int>>(getItems().Selecting(i => i.Num).Ordering(i => i));
-			System.Linq.Expressions.Expression<System.Func<int, int>> orderingValueSelectorExpression = i => i;
-			Scalar<System.Collections.Generic.IComparer<int>> comparerScalar = getScalar<System.Collections.Generic.IComparer<int>>(Comparer<int>.Default);
-			
-			var testing = sourceScalar.ThenOrdering<int, int>(
-				orderingValueSelectorExpression,
-				comparerScalar);
-
-			void test()
-			{
-				testing.ValidateConsistency();
-				var sourceScalarValue = ((ObservableCollection<Item>)((IBCode.ObservableCalculations.Common.Interface.IOrdering<int>)sourceScalar.Value).GetValueAs(s => ((Ordering<int, int>)s)?.Source)?.GetValueAs(s => ((Selecting<Item, int>)s)?.Source));
-
-				if (sourceScalarValue != null)
-				{		
-					sourceScalarValue.Insert(2, new QuickTests.Item(1, true));
-					testing.ValidateConsistency();
-					sourceScalarValue[3] = new QuickTests.Item(7, true);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(3);
-					testing.ValidateConsistency();
-					sourceScalarValue.Move(1, 3);
-					testing.ValidateConsistency();
-					sourceScalarValue[2].Active = !sourceScalarValue[2].Active;
-					testing.ValidateConsistency();
-					sourceScalarValue[2].Num = sourceScalarValue[2].Num + 1;
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
-					testing.ValidateConsistency();
-					sourceScalarValue.Insert(0, new QuickTests.Item(2, true));
-					testing.ValidateConsistency();
-				}
-
-				IList listSource;
-				listSource = ((IList)((IBCode.ObservableCalculations.Common.Interface.IOrdering<int>)sourceScalar.Value).GetValueAs(s => ((Ordering<int, int>)s)?.Source)?.GetValueAs(s => ((Selecting<Item, int>)s)?.Source));
-				if (listSource != null)
-				{
-					listSource.Clear();
-					testing.ValidateConsistency();
-				}
-
-				if (sourceScalarValue != null)
-				{
-					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
-					sourceScalarValue.Insert(1, new QuickTests.Item(2, true));
-					sourceScalarValue.Insert(2, new QuickTests.Item(3, true));
-					sourceScalarValue.Insert(3, new QuickTests.Item(3, true));
-					sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
-					testing.ValidateConsistency();
-				}
-			}
-
-			test();
-
-			((Scalar<System.Collections.Generic.IComparer<int>>)comparerScalar).Touch();
-			test();
-			((Scalar<System.Collections.Generic.IComparer<int>>)comparerScalar).Change(null);
-			test();
-
-			((Scalar<IBCode.ObservableCalculations.Common.Interface.IOrdering<int>>)sourceScalar).Touch();
-			test();
-			((Scalar<IBCode.ObservableCalculations.Common.Interface.IOrdering<int>>)sourceScalar).Change(null);
-			test();
-		}
-		
-		[Test]
-		public void TestThenOrdering04()
-		{
-			Scalar<IBCode.ObservableCalculations.Common.Interface.IOrdering<int>> sourceScalar = getScalar<IBCode.ObservableCalculations.Common.Interface.IOrdering<int>>(getItems().Selecting(i => i.Num).Ordering(i => i));
-			System.Linq.Expressions.Expression<System.Func<int, int>> orderingValueSelectorExpression = i => i;
-			
-			var testing = sourceScalar.ThenOrdering<int, int>(
-				orderingValueSelectorExpression);
-
-			void test()
-			{
-				testing.ValidateConsistency();
-				var sourceScalarValue = ((ObservableCollection<Item>)((IBCode.ObservableCalculations.Common.Interface.IOrdering<int>)sourceScalar.Value).GetValueAs(s => ((Ordering<int, int>)s)?.Source)?.GetValueAs(s => ((Selecting<Item, int>)s)?.Source));
-
-				if (sourceScalarValue != null)
-				{		
-					sourceScalarValue.Insert(2, new QuickTests.Item(1, true));
-					testing.ValidateConsistency();
-					sourceScalarValue[3] = new QuickTests.Item(7, true);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(3);
-					testing.ValidateConsistency();
-					sourceScalarValue.Move(1, 3);
-					testing.ValidateConsistency();
-					sourceScalarValue[2].Active = !sourceScalarValue[2].Active;
-					testing.ValidateConsistency();
-					sourceScalarValue[2].Num = sourceScalarValue[2].Num + 1;
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
-					testing.ValidateConsistency();
-					sourceScalarValue.Insert(0, new QuickTests.Item(2, true));
-					testing.ValidateConsistency();
-				}
-
-				IList listSource;
-				listSource = ((IList)((IBCode.ObservableCalculations.Common.Interface.IOrdering<int>)sourceScalar.Value).GetValueAs(s => ((Ordering<int, int>)s)?.Source)?.GetValueAs(s => ((Selecting<Item, int>)s)?.Source));
-				if (listSource != null)
-				{
-					listSource.Clear();
-					testing.ValidateConsistency();
-				}
-
-				if (sourceScalarValue != null)
-				{
-					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
-					sourceScalarValue.Insert(1, new QuickTests.Item(2, true));
-					sourceScalarValue.Insert(2, new QuickTests.Item(3, true));
-					sourceScalarValue.Insert(3, new QuickTests.Item(3, true));
-					sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
-					testing.ValidateConsistency();
-				}
-			}
-
-			test();
-
-			((Scalar<IBCode.ObservableCalculations.Common.Interface.IOrdering<int>>)sourceScalar).Touch();
-			test();
-			((Scalar<IBCode.ObservableCalculations.Common.Interface.IOrdering<int>>)sourceScalar).Change(null);
-			test();
-		}
-		
-		[Test]
-		public void TestThenOrdering05()
-		{
-			IBCode.ObservableCalculations.Common.Interface.IOrdering<int> source = getItems().Selecting(i => i.Num).Ordering(i => i);
+			IBCode.ObservableCalculations.Common.Interface.IOrdering<int> source = getItems().Selecting(i => i.Num).Ordering(i => i, 32);
 			System.Linq.Expressions.Expression<System.Func<int, int>> orderingValueSelectorExpression = i => i;
 			Scalar<System.ComponentModel.ListSortDirection> sortDirectionScalar = getScalar<System.ComponentModel.ListSortDirection>(System.ComponentModel.ListSortDirection.Ascending);
 			Scalar<System.Collections.Generic.IComparer<int>> comparerScalar = getScalar<System.Collections.Generic.IComparer<int>>(Comparer<int>.Default);
@@ -66905,6 +69363,223 @@ namespace IBCode.ObservableCalculations.Test
 			((Scalar<System.ComponentModel.ListSortDirection>)sortDirectionScalar).Touch();
 			test();
 			((Scalar<System.ComponentModel.ListSortDirection>)sortDirectionScalar).Change(System.ComponentModel.ListSortDirection.Descending);
+			test();
+
+			((Scalar<System.Collections.Generic.IComparer<int>>)comparerScalar).Touch();
+			test();
+			((Scalar<System.Collections.Generic.IComparer<int>>)comparerScalar).Change(null);
+			test();
+		}
+		
+		[Test]
+		public void TestThenOrdering03()
+		{
+			IBCode.ObservableCalculations.Common.Interface.IOrdering<int> source = getItems().Selecting(i => i.Num).Ordering(i => i, 32);
+			System.Linq.Expressions.Expression<System.Func<int, int>> orderingValueSelectorExpression = i => i;
+			Scalar<System.ComponentModel.ListSortDirection> sortDirectionScalar = getScalar<System.ComponentModel.ListSortDirection>(System.ComponentModel.ListSortDirection.Ascending);
+			int maxTogetherThenOrderings = 0;
+			
+			var testing = source.ThenOrdering<int, int>(
+				orderingValueSelectorExpression,
+				sortDirectionScalar,
+				maxTogetherThenOrderings);
+
+			void test()
+			{
+				testing.ValidateConsistency();
+				var sourceValue = ((ObservableCollection<Item>)((IBCode.ObservableCalculations.Common.Interface.IOrdering<int>)source).GetValueAs(s => ((Ordering<int, int>)s)?.Source)?.GetValueAs(s => ((Selecting<Item, int>)s)?.Source));
+
+				if (sourceValue != null)
+				{		
+					sourceValue.Insert(2, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					sourceValue[3] = new QuickTests.Item(7, true);
+					testing.ValidateConsistency();
+					sourceValue.RemoveAt(3);
+					testing.ValidateConsistency();
+					sourceValue.Move(1, 3);
+					testing.ValidateConsistency();
+					sourceValue[2].Active = !sourceValue[2].Active;
+					testing.ValidateConsistency();
+					sourceValue[2].Num = sourceValue[2].Num + 1;
+					testing.ValidateConsistency();
+					sourceValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceValue.Insert(0, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					sourceValue.Insert(0, new QuickTests.Item(2, true));
+					testing.ValidateConsistency();
+				}
+
+				IList listSource;
+				listSource = ((IList)((IBCode.ObservableCalculations.Common.Interface.IOrdering<int>)source).GetValueAs(s => ((Ordering<int, int>)s)?.Source)?.GetValueAs(s => ((Selecting<Item, int>)s)?.Source));
+				if (listSource != null)
+				{
+					listSource.Clear();
+					testing.ValidateConsistency();
+				}
+
+				if (sourceValue != null)
+				{
+					sourceValue.Insert(0, new QuickTests.Item(1, true));
+					sourceValue.Insert(1, new QuickTests.Item(2, true));
+					sourceValue.Insert(2, new QuickTests.Item(3, true));
+					sourceValue.Insert(3, new QuickTests.Item(3, true));
+					sourceValue.Insert(4, new QuickTests.Item(3, true));
+					testing.ValidateConsistency();
+				}
+			}
+
+			test();
+
+			((Scalar<System.ComponentModel.ListSortDirection>)sortDirectionScalar).Touch();
+			test();
+			((Scalar<System.ComponentModel.ListSortDirection>)sortDirectionScalar).Change(System.ComponentModel.ListSortDirection.Descending);
+			test();
+		}
+		
+		[Test]
+		public void TestThenOrdering04()
+		{
+			IBCode.ObservableCalculations.Common.Interface.IOrdering<int> source = getItems().Selecting(i => i.Num).Ordering(i => i, 32);
+			System.Linq.Expressions.Expression<System.Func<int, int>> orderingValueSelectorExpression = i => i;
+			Scalar<System.ComponentModel.ListSortDirection> sortDirectionScalar = getScalar<System.ComponentModel.ListSortDirection>(System.ComponentModel.ListSortDirection.Ascending);
+			
+			var testing = source.ThenOrdering<int, int>(
+				orderingValueSelectorExpression,
+				sortDirectionScalar);
+
+			void test()
+			{
+				testing.ValidateConsistency();
+				var sourceValue = ((ObservableCollection<Item>)((IBCode.ObservableCalculations.Common.Interface.IOrdering<int>)source).GetValueAs(s => ((Ordering<int, int>)s)?.Source)?.GetValueAs(s => ((Selecting<Item, int>)s)?.Source));
+
+				if (sourceValue != null)
+				{		
+					sourceValue.Insert(2, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					sourceValue[3] = new QuickTests.Item(7, true);
+					testing.ValidateConsistency();
+					sourceValue.RemoveAt(3);
+					testing.ValidateConsistency();
+					sourceValue.Move(1, 3);
+					testing.ValidateConsistency();
+					sourceValue[2].Active = !sourceValue[2].Active;
+					testing.ValidateConsistency();
+					sourceValue[2].Num = sourceValue[2].Num + 1;
+					testing.ValidateConsistency();
+					sourceValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceValue.Insert(0, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					sourceValue.Insert(0, new QuickTests.Item(2, true));
+					testing.ValidateConsistency();
+				}
+
+				IList listSource;
+				listSource = ((IList)((IBCode.ObservableCalculations.Common.Interface.IOrdering<int>)source).GetValueAs(s => ((Ordering<int, int>)s)?.Source)?.GetValueAs(s => ((Selecting<Item, int>)s)?.Source));
+				if (listSource != null)
+				{
+					listSource.Clear();
+					testing.ValidateConsistency();
+				}
+
+				if (sourceValue != null)
+				{
+					sourceValue.Insert(0, new QuickTests.Item(1, true));
+					sourceValue.Insert(1, new QuickTests.Item(2, true));
+					sourceValue.Insert(2, new QuickTests.Item(3, true));
+					sourceValue.Insert(3, new QuickTests.Item(3, true));
+					sourceValue.Insert(4, new QuickTests.Item(3, true));
+					testing.ValidateConsistency();
+				}
+			}
+
+			test();
+
+			((Scalar<System.ComponentModel.ListSortDirection>)sortDirectionScalar).Touch();
+			test();
+			((Scalar<System.ComponentModel.ListSortDirection>)sortDirectionScalar).Change(System.ComponentModel.ListSortDirection.Descending);
+			test();
+		}
+		
+		[Test]
+		public void TestThenOrdering05()
+		{
+			IBCode.ObservableCalculations.Common.Interface.IOrdering<int> source = getItems().Selecting(i => i.Num).Ordering(i => i, 32);
+			System.Linq.Expressions.Expression<System.Func<int, int>> orderingValueSelectorExpression = i => i;
+			Scalar<System.Collections.Generic.IComparer<int>> comparerScalar = getScalar<System.Collections.Generic.IComparer<int>>(Comparer<int>.Default);
+			int maxTogetherThenOrderings = 0;
+			
+			var testing = source.ThenOrdering<int, int>(
+				orderingValueSelectorExpression,
+				comparerScalar,
+				maxTogetherThenOrderings);
+
+			void test()
+			{
+				testing.ValidateConsistency();
+				var sourceValue = ((ObservableCollection<Item>)((IBCode.ObservableCalculations.Common.Interface.IOrdering<int>)source).GetValueAs(s => ((Ordering<int, int>)s)?.Source)?.GetValueAs(s => ((Selecting<Item, int>)s)?.Source));
+
+				if (sourceValue != null)
+				{		
+					sourceValue.Insert(2, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					sourceValue[3] = new QuickTests.Item(7, true);
+					testing.ValidateConsistency();
+					sourceValue.RemoveAt(3);
+					testing.ValidateConsistency();
+					sourceValue.Move(1, 3);
+					testing.ValidateConsistency();
+					sourceValue[2].Active = !sourceValue[2].Active;
+					testing.ValidateConsistency();
+					sourceValue[2].Num = sourceValue[2].Num + 1;
+					testing.ValidateConsistency();
+					sourceValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceValue.Insert(0, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					sourceValue.Insert(0, new QuickTests.Item(2, true));
+					testing.ValidateConsistency();
+				}
+
+				IList listSource;
+				listSource = ((IList)((IBCode.ObservableCalculations.Common.Interface.IOrdering<int>)source).GetValueAs(s => ((Ordering<int, int>)s)?.Source)?.GetValueAs(s => ((Selecting<Item, int>)s)?.Source));
+				if (listSource != null)
+				{
+					listSource.Clear();
+					testing.ValidateConsistency();
+				}
+
+				if (sourceValue != null)
+				{
+					sourceValue.Insert(0, new QuickTests.Item(1, true));
+					sourceValue.Insert(1, new QuickTests.Item(2, true));
+					sourceValue.Insert(2, new QuickTests.Item(3, true));
+					sourceValue.Insert(3, new QuickTests.Item(3, true));
+					sourceValue.Insert(4, new QuickTests.Item(3, true));
+					testing.ValidateConsistency();
+				}
+			}
+
 			test();
 
 			((Scalar<System.Collections.Generic.IComparer<int>>)comparerScalar).Touch();
@@ -66916,78 +69591,7 @@ namespace IBCode.ObservableCalculations.Test
 		[Test]
 		public void TestThenOrdering06()
 		{
-			IBCode.ObservableCalculations.Common.Interface.IOrdering<int> source = getItems().Selecting(i => i.Num).Ordering(i => i);
-			System.Linq.Expressions.Expression<System.Func<int, int>> orderingValueSelectorExpression = i => i;
-			Scalar<System.ComponentModel.ListSortDirection> sortDirectionScalar = getScalar<System.ComponentModel.ListSortDirection>(System.ComponentModel.ListSortDirection.Ascending);
-			
-			var testing = source.ThenOrdering<int, int>(
-				orderingValueSelectorExpression,
-				sortDirectionScalar);
-
-			void test()
-			{
-				testing.ValidateConsistency();
-				var sourceValue = ((ObservableCollection<Item>)((IBCode.ObservableCalculations.Common.Interface.IOrdering<int>)source).GetValueAs(s => ((Ordering<int, int>)s)?.Source)?.GetValueAs(s => ((Selecting<Item, int>)s)?.Source));
-
-				if (sourceValue != null)
-				{		
-					sourceValue.Insert(2, new QuickTests.Item(1, true));
-					testing.ValidateConsistency();
-					sourceValue[3] = new QuickTests.Item(7, true);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(3);
-					testing.ValidateConsistency();
-					sourceValue.Move(1, 3);
-					testing.ValidateConsistency();
-					sourceValue[2].Active = !sourceValue[2].Active;
-					testing.ValidateConsistency();
-					sourceValue[2].Num = sourceValue[2].Num + 1;
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.Insert(0, new QuickTests.Item(1, true));
-					testing.ValidateConsistency();
-					sourceValue.Insert(0, new QuickTests.Item(2, true));
-					testing.ValidateConsistency();
-				}
-
-				IList listSource;
-				listSource = ((IList)((IBCode.ObservableCalculations.Common.Interface.IOrdering<int>)source).GetValueAs(s => ((Ordering<int, int>)s)?.Source)?.GetValueAs(s => ((Selecting<Item, int>)s)?.Source));
-				if (listSource != null)
-				{
-					listSource.Clear();
-					testing.ValidateConsistency();
-				}
-
-				if (sourceValue != null)
-				{
-					sourceValue.Insert(0, new QuickTests.Item(1, true));
-					sourceValue.Insert(1, new QuickTests.Item(2, true));
-					sourceValue.Insert(2, new QuickTests.Item(3, true));
-					sourceValue.Insert(3, new QuickTests.Item(3, true));
-					sourceValue.Insert(4, new QuickTests.Item(3, true));
-					testing.ValidateConsistency();
-				}
-			}
-
-			test();
-
-			((Scalar<System.ComponentModel.ListSortDirection>)sortDirectionScalar).Touch();
-			test();
-			((Scalar<System.ComponentModel.ListSortDirection>)sortDirectionScalar).Change(System.ComponentModel.ListSortDirection.Descending);
-			test();
-		}
-		
-		[Test]
-		public void TestThenOrdering07()
-		{
-			IBCode.ObservableCalculations.Common.Interface.IOrdering<int> source = getItems().Selecting(i => i.Num).Ordering(i => i);
+			IBCode.ObservableCalculations.Common.Interface.IOrdering<int> source = getItems().Selecting(i => i.Num).Ordering(i => i, 32);
 			System.Linq.Expressions.Expression<System.Func<int, int>> orderingValueSelectorExpression = i => i;
 			Scalar<System.Collections.Generic.IComparer<int>> comparerScalar = getScalar<System.Collections.Generic.IComparer<int>>(Comparer<int>.Default);
 			
@@ -67056,9 +69660,75 @@ namespace IBCode.ObservableCalculations.Test
 		}
 		
 		[Test]
+		public void TestThenOrdering07()
+		{
+			IBCode.ObservableCalculations.Common.Interface.IOrdering<int> source = getItems().Selecting(i => i.Num).Ordering(i => i, 32);
+			System.Linq.Expressions.Expression<System.Func<int, int>> orderingValueSelectorExpression = i => i;
+			int maxTogetherThenOrderings = 0;
+			
+			var testing = source.ThenOrdering<int, int>(
+				orderingValueSelectorExpression,
+				maxTogetherThenOrderings);
+
+			void test()
+			{
+				testing.ValidateConsistency();
+				var sourceValue = ((ObservableCollection<Item>)((IBCode.ObservableCalculations.Common.Interface.IOrdering<int>)source).GetValueAs(s => ((Ordering<int, int>)s)?.Source)?.GetValueAs(s => ((Selecting<Item, int>)s)?.Source));
+
+				if (sourceValue != null)
+				{		
+					sourceValue.Insert(2, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					sourceValue[3] = new QuickTests.Item(7, true);
+					testing.ValidateConsistency();
+					sourceValue.RemoveAt(3);
+					testing.ValidateConsistency();
+					sourceValue.Move(1, 3);
+					testing.ValidateConsistency();
+					sourceValue[2].Active = !sourceValue[2].Active;
+					testing.ValidateConsistency();
+					sourceValue[2].Num = sourceValue[2].Num + 1;
+					testing.ValidateConsistency();
+					sourceValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceValue.Insert(0, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					sourceValue.Insert(0, new QuickTests.Item(2, true));
+					testing.ValidateConsistency();
+				}
+
+				IList listSource;
+				listSource = ((IList)((IBCode.ObservableCalculations.Common.Interface.IOrdering<int>)source).GetValueAs(s => ((Ordering<int, int>)s)?.Source)?.GetValueAs(s => ((Selecting<Item, int>)s)?.Source));
+				if (listSource != null)
+				{
+					listSource.Clear();
+					testing.ValidateConsistency();
+				}
+
+				if (sourceValue != null)
+				{
+					sourceValue.Insert(0, new QuickTests.Item(1, true));
+					sourceValue.Insert(1, new QuickTests.Item(2, true));
+					sourceValue.Insert(2, new QuickTests.Item(3, true));
+					sourceValue.Insert(3, new QuickTests.Item(3, true));
+					sourceValue.Insert(4, new QuickTests.Item(3, true));
+					testing.ValidateConsistency();
+				}
+			}
+
+			test();
+		}
+		
+		[Test]
 		public void TestThenOrdering08()
 		{
-			IBCode.ObservableCalculations.Common.Interface.IOrdering<int> source = getItems().Selecting(i => i.Num).Ordering(i => i);
+			IBCode.ObservableCalculations.Common.Interface.IOrdering<int> source = getItems().Selecting(i => i.Num).Ordering(i => i, 32);
 			System.Linq.Expressions.Expression<System.Func<int, int>> orderingValueSelectorExpression = i => i;
 			
 			var testing = source.ThenOrdering<int, int>(
@@ -67122,15 +69792,17 @@ namespace IBCode.ObservableCalculations.Test
 		[Test]
 		public void TestThenOrdering09()
 		{
-			IBCode.ObservableCalculations.Common.Interface.IOrdering<int> source = getItems().Selecting(i => i.Num).Ordering(i => i);
+			IBCode.ObservableCalculations.Common.Interface.IOrdering<int> source = getItems().Selecting(i => i.Num).Ordering(i => i, 32);
 			System.Linq.Expressions.Expression<System.Func<int, int>> orderingValueSelectorExpression = i => i;
 			System.ComponentModel.ListSortDirection sortDirection = System.ComponentModel.ListSortDirection.Ascending;
 			Scalar<System.Collections.Generic.IComparer<int>> comparerScalar = getScalar<System.Collections.Generic.IComparer<int>>(Comparer<int>.Default);
+			int maxTogetherThenOrderings = 0;
 			
 			var testing = source.ThenOrdering<int, int>(
 				orderingValueSelectorExpression,
 				sortDirection,
-				comparerScalar);
+				comparerScalar,
+				maxTogetherThenOrderings);
 
 			void test()
 			{
@@ -67195,7 +69867,148 @@ namespace IBCode.ObservableCalculations.Test
 		[Test]
 		public void TestThenOrdering10()
 		{
-			IBCode.ObservableCalculations.Common.Interface.IOrdering<int> source = getItems().Selecting(i => i.Num).Ordering(i => i);
+			IBCode.ObservableCalculations.Common.Interface.IOrdering<int> source = getItems().Selecting(i => i.Num).Ordering(i => i, 32);
+			System.Linq.Expressions.Expression<System.Func<int, int>> orderingValueSelectorExpression = i => i;
+			System.ComponentModel.ListSortDirection sortDirection = System.ComponentModel.ListSortDirection.Ascending;
+			Scalar<System.Collections.Generic.IComparer<int>> comparerScalar = getScalar<System.Collections.Generic.IComparer<int>>(Comparer<int>.Default);
+			
+			var testing = source.ThenOrdering<int, int>(
+				orderingValueSelectorExpression,
+				sortDirection,
+				comparerScalar);
+
+			void test()
+			{
+				testing.ValidateConsistency();
+				var sourceValue = ((ObservableCollection<Item>)((IBCode.ObservableCalculations.Common.Interface.IOrdering<int>)source).GetValueAs(s => ((Ordering<int, int>)s)?.Source)?.GetValueAs(s => ((Selecting<Item, int>)s)?.Source));
+
+				if (sourceValue != null)
+				{		
+					sourceValue.Insert(2, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					sourceValue[3] = new QuickTests.Item(7, true);
+					testing.ValidateConsistency();
+					sourceValue.RemoveAt(3);
+					testing.ValidateConsistency();
+					sourceValue.Move(1, 3);
+					testing.ValidateConsistency();
+					sourceValue[2].Active = !sourceValue[2].Active;
+					testing.ValidateConsistency();
+					sourceValue[2].Num = sourceValue[2].Num + 1;
+					testing.ValidateConsistency();
+					sourceValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceValue.Insert(0, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					sourceValue.Insert(0, new QuickTests.Item(2, true));
+					testing.ValidateConsistency();
+				}
+
+				IList listSource;
+				listSource = ((IList)((IBCode.ObservableCalculations.Common.Interface.IOrdering<int>)source).GetValueAs(s => ((Ordering<int, int>)s)?.Source)?.GetValueAs(s => ((Selecting<Item, int>)s)?.Source));
+				if (listSource != null)
+				{
+					listSource.Clear();
+					testing.ValidateConsistency();
+				}
+
+				if (sourceValue != null)
+				{
+					sourceValue.Insert(0, new QuickTests.Item(1, true));
+					sourceValue.Insert(1, new QuickTests.Item(2, true));
+					sourceValue.Insert(2, new QuickTests.Item(3, true));
+					sourceValue.Insert(3, new QuickTests.Item(3, true));
+					sourceValue.Insert(4, new QuickTests.Item(3, true));
+					testing.ValidateConsistency();
+				}
+			}
+
+			test();
+
+			((Scalar<System.Collections.Generic.IComparer<int>>)comparerScalar).Touch();
+			test();
+			((Scalar<System.Collections.Generic.IComparer<int>>)comparerScalar).Change(null);
+			test();
+		}
+		
+		[Test]
+		public void TestThenOrdering11()
+		{
+			IBCode.ObservableCalculations.Common.Interface.IOrdering<int> source = getItems().Selecting(i => i.Num).Ordering(i => i, 32);
+			System.Linq.Expressions.Expression<System.Func<int, int>> orderingValueSelectorExpression = i => i;
+			System.ComponentModel.ListSortDirection sortDirection = System.ComponentModel.ListSortDirection.Ascending;
+			int maxTogetherThenOrderings = 0;
+			
+			var testing = source.ThenOrdering<int, int>(
+				orderingValueSelectorExpression,
+				sortDirection,
+				maxTogetherThenOrderings);
+
+			void test()
+			{
+				testing.ValidateConsistency();
+				var sourceValue = ((ObservableCollection<Item>)((IBCode.ObservableCalculations.Common.Interface.IOrdering<int>)source).GetValueAs(s => ((Ordering<int, int>)s)?.Source)?.GetValueAs(s => ((Selecting<Item, int>)s)?.Source));
+
+				if (sourceValue != null)
+				{		
+					sourceValue.Insert(2, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					sourceValue[3] = new QuickTests.Item(7, true);
+					testing.ValidateConsistency();
+					sourceValue.RemoveAt(3);
+					testing.ValidateConsistency();
+					sourceValue.Move(1, 3);
+					testing.ValidateConsistency();
+					sourceValue[2].Active = !sourceValue[2].Active;
+					testing.ValidateConsistency();
+					sourceValue[2].Num = sourceValue[2].Num + 1;
+					testing.ValidateConsistency();
+					sourceValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceValue.Insert(0, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					sourceValue.Insert(0, new QuickTests.Item(2, true));
+					testing.ValidateConsistency();
+				}
+
+				IList listSource;
+				listSource = ((IList)((IBCode.ObservableCalculations.Common.Interface.IOrdering<int>)source).GetValueAs(s => ((Ordering<int, int>)s)?.Source)?.GetValueAs(s => ((Selecting<Item, int>)s)?.Source));
+				if (listSource != null)
+				{
+					listSource.Clear();
+					testing.ValidateConsistency();
+				}
+
+				if (sourceValue != null)
+				{
+					sourceValue.Insert(0, new QuickTests.Item(1, true));
+					sourceValue.Insert(1, new QuickTests.Item(2, true));
+					sourceValue.Insert(2, new QuickTests.Item(3, true));
+					sourceValue.Insert(3, new QuickTests.Item(3, true));
+					sourceValue.Insert(4, new QuickTests.Item(3, true));
+					testing.ValidateConsistency();
+				}
+			}
+
+			test();
+		}
+		
+		[Test]
+		public void TestThenOrdering12()
+		{
+			IBCode.ObservableCalculations.Common.Interface.IOrdering<int> source = getItems().Selecting(i => i.Num).Ordering(i => i, 32);
 			System.Linq.Expressions.Expression<System.Func<int, int>> orderingValueSelectorExpression = i => i;
 			System.ComponentModel.ListSortDirection sortDirection = System.ComponentModel.ListSortDirection.Ascending;
 			
@@ -67259,9 +70072,361 @@ namespace IBCode.ObservableCalculations.Test
 		}
 		
 		[Test]
-		public void TestThenOrdering11()
+		public void TestThenOrdering13()
 		{
-			IBCode.ObservableCalculations.Common.Interface.IOrdering<int> source = getItems().Selecting(i => i.Num).Ordering(i => i);
+			IBCode.ObservableCalculations.Common.Interface.IOrdering<int> source = getItems().Selecting(i => i.Num).Ordering(i => i, 32);
+			System.Linq.Expressions.Expression<System.Func<int, int>> orderingValueSelectorExpression = i => i;
+			Scalar<System.ComponentModel.ListSortDirection> sortDirectionScalar = getScalar<System.ComponentModel.ListSortDirection>(System.ComponentModel.ListSortDirection.Ascending);
+			System.Collections.Generic.IComparer<int> comparer = Comparer<int>.Default;
+			int maxTogetherThenOrderings = 0;
+			
+			var testing = source.ThenOrdering<int, int>(
+				orderingValueSelectorExpression,
+				sortDirectionScalar,
+				comparer,
+				maxTogetherThenOrderings);
+
+			void test()
+			{
+				testing.ValidateConsistency();
+				var sourceValue = ((ObservableCollection<Item>)((IBCode.ObservableCalculations.Common.Interface.IOrdering<int>)source).GetValueAs(s => ((Ordering<int, int>)s)?.Source)?.GetValueAs(s => ((Selecting<Item, int>)s)?.Source));
+
+				if (sourceValue != null)
+				{		
+					sourceValue.Insert(2, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					sourceValue[3] = new QuickTests.Item(7, true);
+					testing.ValidateConsistency();
+					sourceValue.RemoveAt(3);
+					testing.ValidateConsistency();
+					sourceValue.Move(1, 3);
+					testing.ValidateConsistency();
+					sourceValue[2].Active = !sourceValue[2].Active;
+					testing.ValidateConsistency();
+					sourceValue[2].Num = sourceValue[2].Num + 1;
+					testing.ValidateConsistency();
+					sourceValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceValue.Insert(0, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					sourceValue.Insert(0, new QuickTests.Item(2, true));
+					testing.ValidateConsistency();
+				}
+
+				IList listSource;
+				listSource = ((IList)((IBCode.ObservableCalculations.Common.Interface.IOrdering<int>)source).GetValueAs(s => ((Ordering<int, int>)s)?.Source)?.GetValueAs(s => ((Selecting<Item, int>)s)?.Source));
+				if (listSource != null)
+				{
+					listSource.Clear();
+					testing.ValidateConsistency();
+				}
+
+				if (sourceValue != null)
+				{
+					sourceValue.Insert(0, new QuickTests.Item(1, true));
+					sourceValue.Insert(1, new QuickTests.Item(2, true));
+					sourceValue.Insert(2, new QuickTests.Item(3, true));
+					sourceValue.Insert(3, new QuickTests.Item(3, true));
+					sourceValue.Insert(4, new QuickTests.Item(3, true));
+					testing.ValidateConsistency();
+				}
+			}
+
+			test();
+
+			((Scalar<System.ComponentModel.ListSortDirection>)sortDirectionScalar).Touch();
+			test();
+			((Scalar<System.ComponentModel.ListSortDirection>)sortDirectionScalar).Change(System.ComponentModel.ListSortDirection.Descending);
+			test();
+		}
+		
+		[Test]
+		public void TestThenOrdering14()
+		{
+			IBCode.ObservableCalculations.Common.Interface.IOrdering<int> source = getItems().Selecting(i => i.Num).Ordering(i => i, 32);
+			System.Linq.Expressions.Expression<System.Func<int, int>> orderingValueSelectorExpression = i => i;
+			Scalar<System.ComponentModel.ListSortDirection> sortDirectionScalar = getScalar<System.ComponentModel.ListSortDirection>(System.ComponentModel.ListSortDirection.Ascending);
+			System.Collections.Generic.IComparer<int> comparer = Comparer<int>.Default;
+			
+			var testing = source.ThenOrdering<int, int>(
+				orderingValueSelectorExpression,
+				sortDirectionScalar,
+				comparer);
+
+			void test()
+			{
+				testing.ValidateConsistency();
+				var sourceValue = ((ObservableCollection<Item>)((IBCode.ObservableCalculations.Common.Interface.IOrdering<int>)source).GetValueAs(s => ((Ordering<int, int>)s)?.Source)?.GetValueAs(s => ((Selecting<Item, int>)s)?.Source));
+
+				if (sourceValue != null)
+				{		
+					sourceValue.Insert(2, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					sourceValue[3] = new QuickTests.Item(7, true);
+					testing.ValidateConsistency();
+					sourceValue.RemoveAt(3);
+					testing.ValidateConsistency();
+					sourceValue.Move(1, 3);
+					testing.ValidateConsistency();
+					sourceValue[2].Active = !sourceValue[2].Active;
+					testing.ValidateConsistency();
+					sourceValue[2].Num = sourceValue[2].Num + 1;
+					testing.ValidateConsistency();
+					sourceValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceValue.Insert(0, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					sourceValue.Insert(0, new QuickTests.Item(2, true));
+					testing.ValidateConsistency();
+				}
+
+				IList listSource;
+				listSource = ((IList)((IBCode.ObservableCalculations.Common.Interface.IOrdering<int>)source).GetValueAs(s => ((Ordering<int, int>)s)?.Source)?.GetValueAs(s => ((Selecting<Item, int>)s)?.Source));
+				if (listSource != null)
+				{
+					listSource.Clear();
+					testing.ValidateConsistency();
+				}
+
+				if (sourceValue != null)
+				{
+					sourceValue.Insert(0, new QuickTests.Item(1, true));
+					sourceValue.Insert(1, new QuickTests.Item(2, true));
+					sourceValue.Insert(2, new QuickTests.Item(3, true));
+					sourceValue.Insert(3, new QuickTests.Item(3, true));
+					sourceValue.Insert(4, new QuickTests.Item(3, true));
+					testing.ValidateConsistency();
+				}
+			}
+
+			test();
+
+			((Scalar<System.ComponentModel.ListSortDirection>)sortDirectionScalar).Touch();
+			test();
+			((Scalar<System.ComponentModel.ListSortDirection>)sortDirectionScalar).Change(System.ComponentModel.ListSortDirection.Descending);
+			test();
+		}
+		
+		[Test]
+		public void TestThenOrdering15()
+		{
+			IBCode.ObservableCalculations.Common.Interface.IOrdering<int> source = getItems().Selecting(i => i.Num).Ordering(i => i, 32);
+			System.Linq.Expressions.Expression<System.Func<int, int>> orderingValueSelectorExpression = i => i;
+			System.Collections.Generic.IComparer<int> comparer = Comparer<int>.Default;
+			int maxTogetherThenOrderings = 0;
+			
+			var testing = source.ThenOrdering<int, int>(
+				orderingValueSelectorExpression,
+				comparer,
+				maxTogetherThenOrderings);
+
+			void test()
+			{
+				testing.ValidateConsistency();
+				var sourceValue = ((ObservableCollection<Item>)((IBCode.ObservableCalculations.Common.Interface.IOrdering<int>)source).GetValueAs(s => ((Ordering<int, int>)s)?.Source)?.GetValueAs(s => ((Selecting<Item, int>)s)?.Source));
+
+				if (sourceValue != null)
+				{		
+					sourceValue.Insert(2, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					sourceValue[3] = new QuickTests.Item(7, true);
+					testing.ValidateConsistency();
+					sourceValue.RemoveAt(3);
+					testing.ValidateConsistency();
+					sourceValue.Move(1, 3);
+					testing.ValidateConsistency();
+					sourceValue[2].Active = !sourceValue[2].Active;
+					testing.ValidateConsistency();
+					sourceValue[2].Num = sourceValue[2].Num + 1;
+					testing.ValidateConsistency();
+					sourceValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceValue.Insert(0, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					sourceValue.Insert(0, new QuickTests.Item(2, true));
+					testing.ValidateConsistency();
+				}
+
+				IList listSource;
+				listSource = ((IList)((IBCode.ObservableCalculations.Common.Interface.IOrdering<int>)source).GetValueAs(s => ((Ordering<int, int>)s)?.Source)?.GetValueAs(s => ((Selecting<Item, int>)s)?.Source));
+				if (listSource != null)
+				{
+					listSource.Clear();
+					testing.ValidateConsistency();
+				}
+
+				if (sourceValue != null)
+				{
+					sourceValue.Insert(0, new QuickTests.Item(1, true));
+					sourceValue.Insert(1, new QuickTests.Item(2, true));
+					sourceValue.Insert(2, new QuickTests.Item(3, true));
+					sourceValue.Insert(3, new QuickTests.Item(3, true));
+					sourceValue.Insert(4, new QuickTests.Item(3, true));
+					testing.ValidateConsistency();
+				}
+			}
+
+			test();
+		}
+		
+		[Test]
+		public void TestThenOrdering16()
+		{
+			IBCode.ObservableCalculations.Common.Interface.IOrdering<int> source = getItems().Selecting(i => i.Num).Ordering(i => i, 32);
+			System.Linq.Expressions.Expression<System.Func<int, int>> orderingValueSelectorExpression = i => i;
+			System.Collections.Generic.IComparer<int> comparer = Comparer<int>.Default;
+			
+			var testing = source.ThenOrdering<int, int>(
+				orderingValueSelectorExpression,
+				comparer);
+
+			void test()
+			{
+				testing.ValidateConsistency();
+				var sourceValue = ((ObservableCollection<Item>)((IBCode.ObservableCalculations.Common.Interface.IOrdering<int>)source).GetValueAs(s => ((Ordering<int, int>)s)?.Source)?.GetValueAs(s => ((Selecting<Item, int>)s)?.Source));
+
+				if (sourceValue != null)
+				{		
+					sourceValue.Insert(2, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					sourceValue[3] = new QuickTests.Item(7, true);
+					testing.ValidateConsistency();
+					sourceValue.RemoveAt(3);
+					testing.ValidateConsistency();
+					sourceValue.Move(1, 3);
+					testing.ValidateConsistency();
+					sourceValue[2].Active = !sourceValue[2].Active;
+					testing.ValidateConsistency();
+					sourceValue[2].Num = sourceValue[2].Num + 1;
+					testing.ValidateConsistency();
+					sourceValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceValue.Insert(0, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					sourceValue.Insert(0, new QuickTests.Item(2, true));
+					testing.ValidateConsistency();
+				}
+
+				IList listSource;
+				listSource = ((IList)((IBCode.ObservableCalculations.Common.Interface.IOrdering<int>)source).GetValueAs(s => ((Ordering<int, int>)s)?.Source)?.GetValueAs(s => ((Selecting<Item, int>)s)?.Source));
+				if (listSource != null)
+				{
+					listSource.Clear();
+					testing.ValidateConsistency();
+				}
+
+				if (sourceValue != null)
+				{
+					sourceValue.Insert(0, new QuickTests.Item(1, true));
+					sourceValue.Insert(1, new QuickTests.Item(2, true));
+					sourceValue.Insert(2, new QuickTests.Item(3, true));
+					sourceValue.Insert(3, new QuickTests.Item(3, true));
+					sourceValue.Insert(4, new QuickTests.Item(3, true));
+					testing.ValidateConsistency();
+				}
+			}
+
+			test();
+		}
+		
+		[Test]
+		public void TestThenOrdering17()
+		{
+			IBCode.ObservableCalculations.Common.Interface.IOrdering<int> source = getItems().Selecting(i => i.Num).Ordering(i => i, 32);
+			System.Linq.Expressions.Expression<System.Func<int, int>> orderingValueSelectorExpression = i => i;
+			System.ComponentModel.ListSortDirection sortDirection = System.ComponentModel.ListSortDirection.Ascending;
+			System.Collections.Generic.IComparer<int> comparer = Comparer<int>.Default;
+			int maxTogetherThenOrderings = 0;
+			
+			var testing = source.ThenOrdering<int, int>(
+				orderingValueSelectorExpression,
+				sortDirection,
+				comparer,
+				maxTogetherThenOrderings);
+
+			void test()
+			{
+				testing.ValidateConsistency();
+				var sourceValue = ((ObservableCollection<Item>)((IBCode.ObservableCalculations.Common.Interface.IOrdering<int>)source).GetValueAs(s => ((Ordering<int, int>)s)?.Source)?.GetValueAs(s => ((Selecting<Item, int>)s)?.Source));
+
+				if (sourceValue != null)
+				{		
+					sourceValue.Insert(2, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					sourceValue[3] = new QuickTests.Item(7, true);
+					testing.ValidateConsistency();
+					sourceValue.RemoveAt(3);
+					testing.ValidateConsistency();
+					sourceValue.Move(1, 3);
+					testing.ValidateConsistency();
+					sourceValue[2].Active = !sourceValue[2].Active;
+					testing.ValidateConsistency();
+					sourceValue[2].Num = sourceValue[2].Num + 1;
+					testing.ValidateConsistency();
+					sourceValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceValue.Insert(0, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					sourceValue.Insert(0, new QuickTests.Item(2, true));
+					testing.ValidateConsistency();
+				}
+
+				IList listSource;
+				listSource = ((IList)((IBCode.ObservableCalculations.Common.Interface.IOrdering<int>)source).GetValueAs(s => ((Ordering<int, int>)s)?.Source)?.GetValueAs(s => ((Selecting<Item, int>)s)?.Source));
+				if (listSource != null)
+				{
+					listSource.Clear();
+					testing.ValidateConsistency();
+				}
+
+				if (sourceValue != null)
+				{
+					sourceValue.Insert(0, new QuickTests.Item(1, true));
+					sourceValue.Insert(1, new QuickTests.Item(2, true));
+					sourceValue.Insert(2, new QuickTests.Item(3, true));
+					sourceValue.Insert(3, new QuickTests.Item(3, true));
+					sourceValue.Insert(4, new QuickTests.Item(3, true));
+					testing.ValidateConsistency();
+				}
+			}
+
+			test();
+		}
+		
+		[Test]
+		public void TestThenOrdering18()
+		{
+			IBCode.ObservableCalculations.Common.Interface.IOrdering<int> source = getItems().Selecting(i => i.Num).Ordering(i => i, 32);
 			System.Linq.Expressions.Expression<System.Func<int, int>> orderingValueSelectorExpression = i => i;
 			System.ComponentModel.ListSortDirection sortDirection = System.ComponentModel.ListSortDirection.Ascending;
 			System.Collections.Generic.IComparer<int> comparer = Comparer<int>.Default;
@@ -67327,75 +70492,705 @@ namespace IBCode.ObservableCalculations.Test
 		}
 		
 		[Test]
-		public void TestThenOrdering12()
+		public void TestThenOrdering19()
 		{
-			IBCode.ObservableCalculations.Common.Interface.IOrdering<int> source = getItems().Selecting(i => i.Num).Ordering(i => i);
+			Scalar<IBCode.ObservableCalculations.Common.Interface.IOrdering<int>> sourceScalar = getScalar<IBCode.ObservableCalculations.Common.Interface.IOrdering<int>>(getItems().Selecting(i => i.Num).Ordering(i => i, 32));
 			System.Linq.Expressions.Expression<System.Func<int, int>> orderingValueSelectorExpression = i => i;
-			System.Collections.Generic.IComparer<int> comparer = Comparer<int>.Default;
+			Scalar<System.ComponentModel.ListSortDirection> sortDirectionScalar = getScalar<System.ComponentModel.ListSortDirection>(System.ComponentModel.ListSortDirection.Ascending);
+			Scalar<System.Collections.Generic.IComparer<int>> comparerScalar = getScalar<System.Collections.Generic.IComparer<int>>(Comparer<int>.Default);
+			int maxTogetherThenOrderings = 0;
 			
-			var testing = source.ThenOrdering<int, int>(
+			var testing = sourceScalar.ThenOrdering<int, int>(
 				orderingValueSelectorExpression,
-				comparer);
+				sortDirectionScalar,
+				comparerScalar,
+				maxTogetherThenOrderings);
 
 			void test()
 			{
 				testing.ValidateConsistency();
-				var sourceValue = ((ObservableCollection<Item>)((IBCode.ObservableCalculations.Common.Interface.IOrdering<int>)source).GetValueAs(s => ((Ordering<int, int>)s)?.Source)?.GetValueAs(s => ((Selecting<Item, int>)s)?.Source));
+				var sourceScalarValue = ((ObservableCollection<Item>)((IBCode.ObservableCalculations.Common.Interface.IOrdering<int>)sourceScalar.Value).GetValueAs(s => ((Ordering<int, int>)s)?.Source)?.GetValueAs(s => ((Selecting<Item, int>)s)?.Source));
 
-				if (sourceValue != null)
+				if (sourceScalarValue != null)
 				{		
-					sourceValue.Insert(2, new QuickTests.Item(1, true));
+					sourceScalarValue.Insert(2, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
-					sourceValue[3] = new QuickTests.Item(7, true);
+					sourceScalarValue[3] = new QuickTests.Item(7, true);
 					testing.ValidateConsistency();
-					sourceValue.RemoveAt(3);
+					sourceScalarValue.RemoveAt(3);
 					testing.ValidateConsistency();
-					sourceValue.Move(1, 3);
+					sourceScalarValue.Move(1, 3);
 					testing.ValidateConsistency();
-					sourceValue[2].Active = !sourceValue[2].Active;
+					sourceScalarValue[2].Active = !sourceScalarValue[2].Active;
 					testing.ValidateConsistency();
-					sourceValue[2].Num = sourceValue[2].Num + 1;
+					sourceScalarValue[2].Num = sourceScalarValue[2].Num + 1;
 					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
+					sourceScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
+					sourceScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
+					sourceScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
+					sourceScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceValue.Insert(0, new QuickTests.Item(1, true));
+					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
-					sourceValue.Insert(0, new QuickTests.Item(2, true));
+					sourceScalarValue.Insert(0, new QuickTests.Item(2, true));
 					testing.ValidateConsistency();
 				}
 
 				IList listSource;
-				listSource = ((IList)((IBCode.ObservableCalculations.Common.Interface.IOrdering<int>)source).GetValueAs(s => ((Ordering<int, int>)s)?.Source)?.GetValueAs(s => ((Selecting<Item, int>)s)?.Source));
+				listSource = ((IList)((IBCode.ObservableCalculations.Common.Interface.IOrdering<int>)sourceScalar.Value).GetValueAs(s => ((Ordering<int, int>)s)?.Source)?.GetValueAs(s => ((Selecting<Item, int>)s)?.Source));
 				if (listSource != null)
 				{
 					listSource.Clear();
 					testing.ValidateConsistency();
 				}
 
-				if (sourceValue != null)
+				if (sourceScalarValue != null)
 				{
-					sourceValue.Insert(0, new QuickTests.Item(1, true));
-					sourceValue.Insert(1, new QuickTests.Item(2, true));
-					sourceValue.Insert(2, new QuickTests.Item(3, true));
-					sourceValue.Insert(3, new QuickTests.Item(3, true));
-					sourceValue.Insert(4, new QuickTests.Item(3, true));
+					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
+					sourceScalarValue.Insert(1, new QuickTests.Item(2, true));
+					sourceScalarValue.Insert(2, new QuickTests.Item(3, true));
+					sourceScalarValue.Insert(3, new QuickTests.Item(3, true));
+					sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
 			}
 
 			test();
+
+			((Scalar<System.ComponentModel.ListSortDirection>)sortDirectionScalar).Touch();
+			test();
+			((Scalar<System.ComponentModel.ListSortDirection>)sortDirectionScalar).Change(System.ComponentModel.ListSortDirection.Descending);
+			test();
+
+			((Scalar<System.Collections.Generic.IComparer<int>>)comparerScalar).Touch();
+			test();
+			((Scalar<System.Collections.Generic.IComparer<int>>)comparerScalar).Change(null);
+			test();
+
+			((Scalar<IBCode.ObservableCalculations.Common.Interface.IOrdering<int>>)sourceScalar).Touch();
+			test();
+			((Scalar<IBCode.ObservableCalculations.Common.Interface.IOrdering<int>>)sourceScalar).Change(null);
+			test();
 		}
 		
 		[Test]
-		public void TestThenOrdering13()
+		public void TestThenOrdering20()
 		{
-			Scalar<IBCode.ObservableCalculations.Common.Interface.IOrdering<int>> sourceScalar = getScalar<IBCode.ObservableCalculations.Common.Interface.IOrdering<int>>(getItems().Selecting(i => i.Num).Ordering(i => i));
+			Scalar<IBCode.ObservableCalculations.Common.Interface.IOrdering<int>> sourceScalar = getScalar<IBCode.ObservableCalculations.Common.Interface.IOrdering<int>>(getItems().Selecting(i => i.Num).Ordering(i => i, 32));
+			System.Linq.Expressions.Expression<System.Func<int, int>> orderingValueSelectorExpression = i => i;
+			Scalar<System.ComponentModel.ListSortDirection> sortDirectionScalar = getScalar<System.ComponentModel.ListSortDirection>(System.ComponentModel.ListSortDirection.Ascending);
+			Scalar<System.Collections.Generic.IComparer<int>> comparerScalar = getScalar<System.Collections.Generic.IComparer<int>>(Comparer<int>.Default);
+			
+			var testing = sourceScalar.ThenOrdering<int, int>(
+				orderingValueSelectorExpression,
+				sortDirectionScalar,
+				comparerScalar);
+
+			void test()
+			{
+				testing.ValidateConsistency();
+				var sourceScalarValue = ((ObservableCollection<Item>)((IBCode.ObservableCalculations.Common.Interface.IOrdering<int>)sourceScalar.Value).GetValueAs(s => ((Ordering<int, int>)s)?.Source)?.GetValueAs(s => ((Selecting<Item, int>)s)?.Source));
+
+				if (sourceScalarValue != null)
+				{		
+					sourceScalarValue.Insert(2, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					sourceScalarValue[3] = new QuickTests.Item(7, true);
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(3);
+					testing.ValidateConsistency();
+					sourceScalarValue.Move(1, 3);
+					testing.ValidateConsistency();
+					sourceScalarValue[2].Active = !sourceScalarValue[2].Active;
+					testing.ValidateConsistency();
+					sourceScalarValue[2].Num = sourceScalarValue[2].Num + 1;
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					sourceScalarValue.Insert(0, new QuickTests.Item(2, true));
+					testing.ValidateConsistency();
+				}
+
+				IList listSource;
+				listSource = ((IList)((IBCode.ObservableCalculations.Common.Interface.IOrdering<int>)sourceScalar.Value).GetValueAs(s => ((Ordering<int, int>)s)?.Source)?.GetValueAs(s => ((Selecting<Item, int>)s)?.Source));
+				if (listSource != null)
+				{
+					listSource.Clear();
+					testing.ValidateConsistency();
+				}
+
+				if (sourceScalarValue != null)
+				{
+					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
+					sourceScalarValue.Insert(1, new QuickTests.Item(2, true));
+					sourceScalarValue.Insert(2, new QuickTests.Item(3, true));
+					sourceScalarValue.Insert(3, new QuickTests.Item(3, true));
+					sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
+					testing.ValidateConsistency();
+				}
+			}
+
+			test();
+
+			((Scalar<System.ComponentModel.ListSortDirection>)sortDirectionScalar).Touch();
+			test();
+			((Scalar<System.ComponentModel.ListSortDirection>)sortDirectionScalar).Change(System.ComponentModel.ListSortDirection.Descending);
+			test();
+
+			((Scalar<System.Collections.Generic.IComparer<int>>)comparerScalar).Touch();
+			test();
+			((Scalar<System.Collections.Generic.IComparer<int>>)comparerScalar).Change(null);
+			test();
+
+			((Scalar<IBCode.ObservableCalculations.Common.Interface.IOrdering<int>>)sourceScalar).Touch();
+			test();
+			((Scalar<IBCode.ObservableCalculations.Common.Interface.IOrdering<int>>)sourceScalar).Change(null);
+			test();
+		}
+		
+		[Test]
+		public void TestThenOrdering21()
+		{
+			Scalar<IBCode.ObservableCalculations.Common.Interface.IOrdering<int>> sourceScalar = getScalar<IBCode.ObservableCalculations.Common.Interface.IOrdering<int>>(getItems().Selecting(i => i.Num).Ordering(i => i, 32));
+			System.Linq.Expressions.Expression<System.Func<int, int>> orderingValueSelectorExpression = i => i;
+			Scalar<System.ComponentModel.ListSortDirection> sortDirectionScalar = getScalar<System.ComponentModel.ListSortDirection>(System.ComponentModel.ListSortDirection.Ascending);
+			int maxTogetherThenOrderings = 0;
+			
+			var testing = sourceScalar.ThenOrdering<int, int>(
+				orderingValueSelectorExpression,
+				sortDirectionScalar,
+				maxTogetherThenOrderings);
+
+			void test()
+			{
+				testing.ValidateConsistency();
+				var sourceScalarValue = ((ObservableCollection<Item>)((IBCode.ObservableCalculations.Common.Interface.IOrdering<int>)sourceScalar.Value).GetValueAs(s => ((Ordering<int, int>)s)?.Source)?.GetValueAs(s => ((Selecting<Item, int>)s)?.Source));
+
+				if (sourceScalarValue != null)
+				{		
+					sourceScalarValue.Insert(2, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					sourceScalarValue[3] = new QuickTests.Item(7, true);
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(3);
+					testing.ValidateConsistency();
+					sourceScalarValue.Move(1, 3);
+					testing.ValidateConsistency();
+					sourceScalarValue[2].Active = !sourceScalarValue[2].Active;
+					testing.ValidateConsistency();
+					sourceScalarValue[2].Num = sourceScalarValue[2].Num + 1;
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					sourceScalarValue.Insert(0, new QuickTests.Item(2, true));
+					testing.ValidateConsistency();
+				}
+
+				IList listSource;
+				listSource = ((IList)((IBCode.ObservableCalculations.Common.Interface.IOrdering<int>)sourceScalar.Value).GetValueAs(s => ((Ordering<int, int>)s)?.Source)?.GetValueAs(s => ((Selecting<Item, int>)s)?.Source));
+				if (listSource != null)
+				{
+					listSource.Clear();
+					testing.ValidateConsistency();
+				}
+
+				if (sourceScalarValue != null)
+				{
+					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
+					sourceScalarValue.Insert(1, new QuickTests.Item(2, true));
+					sourceScalarValue.Insert(2, new QuickTests.Item(3, true));
+					sourceScalarValue.Insert(3, new QuickTests.Item(3, true));
+					sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
+					testing.ValidateConsistency();
+				}
+			}
+
+			test();
+
+			((Scalar<System.ComponentModel.ListSortDirection>)sortDirectionScalar).Touch();
+			test();
+			((Scalar<System.ComponentModel.ListSortDirection>)sortDirectionScalar).Change(System.ComponentModel.ListSortDirection.Descending);
+			test();
+
+			((Scalar<IBCode.ObservableCalculations.Common.Interface.IOrdering<int>>)sourceScalar).Touch();
+			test();
+			((Scalar<IBCode.ObservableCalculations.Common.Interface.IOrdering<int>>)sourceScalar).Change(null);
+			test();
+		}
+		
+		[Test]
+		public void TestThenOrdering22()
+		{
+			Scalar<IBCode.ObservableCalculations.Common.Interface.IOrdering<int>> sourceScalar = getScalar<IBCode.ObservableCalculations.Common.Interface.IOrdering<int>>(getItems().Selecting(i => i.Num).Ordering(i => i, 32));
+			System.Linq.Expressions.Expression<System.Func<int, int>> orderingValueSelectorExpression = i => i;
+			Scalar<System.ComponentModel.ListSortDirection> sortDirectionScalar = getScalar<System.ComponentModel.ListSortDirection>(System.ComponentModel.ListSortDirection.Ascending);
+			
+			var testing = sourceScalar.ThenOrdering<int, int>(
+				orderingValueSelectorExpression,
+				sortDirectionScalar);
+
+			void test()
+			{
+				testing.ValidateConsistency();
+				var sourceScalarValue = ((ObservableCollection<Item>)((IBCode.ObservableCalculations.Common.Interface.IOrdering<int>)sourceScalar.Value).GetValueAs(s => ((Ordering<int, int>)s)?.Source)?.GetValueAs(s => ((Selecting<Item, int>)s)?.Source));
+
+				if (sourceScalarValue != null)
+				{		
+					sourceScalarValue.Insert(2, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					sourceScalarValue[3] = new QuickTests.Item(7, true);
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(3);
+					testing.ValidateConsistency();
+					sourceScalarValue.Move(1, 3);
+					testing.ValidateConsistency();
+					sourceScalarValue[2].Active = !sourceScalarValue[2].Active;
+					testing.ValidateConsistency();
+					sourceScalarValue[2].Num = sourceScalarValue[2].Num + 1;
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					sourceScalarValue.Insert(0, new QuickTests.Item(2, true));
+					testing.ValidateConsistency();
+				}
+
+				IList listSource;
+				listSource = ((IList)((IBCode.ObservableCalculations.Common.Interface.IOrdering<int>)sourceScalar.Value).GetValueAs(s => ((Ordering<int, int>)s)?.Source)?.GetValueAs(s => ((Selecting<Item, int>)s)?.Source));
+				if (listSource != null)
+				{
+					listSource.Clear();
+					testing.ValidateConsistency();
+				}
+
+				if (sourceScalarValue != null)
+				{
+					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
+					sourceScalarValue.Insert(1, new QuickTests.Item(2, true));
+					sourceScalarValue.Insert(2, new QuickTests.Item(3, true));
+					sourceScalarValue.Insert(3, new QuickTests.Item(3, true));
+					sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
+					testing.ValidateConsistency();
+				}
+			}
+
+			test();
+
+			((Scalar<System.ComponentModel.ListSortDirection>)sortDirectionScalar).Touch();
+			test();
+			((Scalar<System.ComponentModel.ListSortDirection>)sortDirectionScalar).Change(System.ComponentModel.ListSortDirection.Descending);
+			test();
+
+			((Scalar<IBCode.ObservableCalculations.Common.Interface.IOrdering<int>>)sourceScalar).Touch();
+			test();
+			((Scalar<IBCode.ObservableCalculations.Common.Interface.IOrdering<int>>)sourceScalar).Change(null);
+			test();
+		}
+		
+		[Test]
+		public void TestThenOrdering23()
+		{
+			Scalar<IBCode.ObservableCalculations.Common.Interface.IOrdering<int>> sourceScalar = getScalar<IBCode.ObservableCalculations.Common.Interface.IOrdering<int>>(getItems().Selecting(i => i.Num).Ordering(i => i, 32));
+			System.Linq.Expressions.Expression<System.Func<int, int>> orderingValueSelectorExpression = i => i;
+			Scalar<System.Collections.Generic.IComparer<int>> comparerScalar = getScalar<System.Collections.Generic.IComparer<int>>(Comparer<int>.Default);
+			int maxTogetherThenOrderings = 0;
+			
+			var testing = sourceScalar.ThenOrdering<int, int>(
+				orderingValueSelectorExpression,
+				comparerScalar,
+				maxTogetherThenOrderings);
+
+			void test()
+			{
+				testing.ValidateConsistency();
+				var sourceScalarValue = ((ObservableCollection<Item>)((IBCode.ObservableCalculations.Common.Interface.IOrdering<int>)sourceScalar.Value).GetValueAs(s => ((Ordering<int, int>)s)?.Source)?.GetValueAs(s => ((Selecting<Item, int>)s)?.Source));
+
+				if (sourceScalarValue != null)
+				{		
+					sourceScalarValue.Insert(2, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					sourceScalarValue[3] = new QuickTests.Item(7, true);
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(3);
+					testing.ValidateConsistency();
+					sourceScalarValue.Move(1, 3);
+					testing.ValidateConsistency();
+					sourceScalarValue[2].Active = !sourceScalarValue[2].Active;
+					testing.ValidateConsistency();
+					sourceScalarValue[2].Num = sourceScalarValue[2].Num + 1;
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					sourceScalarValue.Insert(0, new QuickTests.Item(2, true));
+					testing.ValidateConsistency();
+				}
+
+				IList listSource;
+				listSource = ((IList)((IBCode.ObservableCalculations.Common.Interface.IOrdering<int>)sourceScalar.Value).GetValueAs(s => ((Ordering<int, int>)s)?.Source)?.GetValueAs(s => ((Selecting<Item, int>)s)?.Source));
+				if (listSource != null)
+				{
+					listSource.Clear();
+					testing.ValidateConsistency();
+				}
+
+				if (sourceScalarValue != null)
+				{
+					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
+					sourceScalarValue.Insert(1, new QuickTests.Item(2, true));
+					sourceScalarValue.Insert(2, new QuickTests.Item(3, true));
+					sourceScalarValue.Insert(3, new QuickTests.Item(3, true));
+					sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
+					testing.ValidateConsistency();
+				}
+			}
+
+			test();
+
+			((Scalar<System.Collections.Generic.IComparer<int>>)comparerScalar).Touch();
+			test();
+			((Scalar<System.Collections.Generic.IComparer<int>>)comparerScalar).Change(null);
+			test();
+
+			((Scalar<IBCode.ObservableCalculations.Common.Interface.IOrdering<int>>)sourceScalar).Touch();
+			test();
+			((Scalar<IBCode.ObservableCalculations.Common.Interface.IOrdering<int>>)sourceScalar).Change(null);
+			test();
+		}
+		
+		[Test]
+		public void TestThenOrdering24()
+		{
+			Scalar<IBCode.ObservableCalculations.Common.Interface.IOrdering<int>> sourceScalar = getScalar<IBCode.ObservableCalculations.Common.Interface.IOrdering<int>>(getItems().Selecting(i => i.Num).Ordering(i => i, 32));
+			System.Linq.Expressions.Expression<System.Func<int, int>> orderingValueSelectorExpression = i => i;
+			Scalar<System.Collections.Generic.IComparer<int>> comparerScalar = getScalar<System.Collections.Generic.IComparer<int>>(Comparer<int>.Default);
+			
+			var testing = sourceScalar.ThenOrdering<int, int>(
+				orderingValueSelectorExpression,
+				comparerScalar);
+
+			void test()
+			{
+				testing.ValidateConsistency();
+				var sourceScalarValue = ((ObservableCollection<Item>)((IBCode.ObservableCalculations.Common.Interface.IOrdering<int>)sourceScalar.Value).GetValueAs(s => ((Ordering<int, int>)s)?.Source)?.GetValueAs(s => ((Selecting<Item, int>)s)?.Source));
+
+				if (sourceScalarValue != null)
+				{		
+					sourceScalarValue.Insert(2, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					sourceScalarValue[3] = new QuickTests.Item(7, true);
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(3);
+					testing.ValidateConsistency();
+					sourceScalarValue.Move(1, 3);
+					testing.ValidateConsistency();
+					sourceScalarValue[2].Active = !sourceScalarValue[2].Active;
+					testing.ValidateConsistency();
+					sourceScalarValue[2].Num = sourceScalarValue[2].Num + 1;
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					sourceScalarValue.Insert(0, new QuickTests.Item(2, true));
+					testing.ValidateConsistency();
+				}
+
+				IList listSource;
+				listSource = ((IList)((IBCode.ObservableCalculations.Common.Interface.IOrdering<int>)sourceScalar.Value).GetValueAs(s => ((Ordering<int, int>)s)?.Source)?.GetValueAs(s => ((Selecting<Item, int>)s)?.Source));
+				if (listSource != null)
+				{
+					listSource.Clear();
+					testing.ValidateConsistency();
+				}
+
+				if (sourceScalarValue != null)
+				{
+					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
+					sourceScalarValue.Insert(1, new QuickTests.Item(2, true));
+					sourceScalarValue.Insert(2, new QuickTests.Item(3, true));
+					sourceScalarValue.Insert(3, new QuickTests.Item(3, true));
+					sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
+					testing.ValidateConsistency();
+				}
+			}
+
+			test();
+
+			((Scalar<System.Collections.Generic.IComparer<int>>)comparerScalar).Touch();
+			test();
+			((Scalar<System.Collections.Generic.IComparer<int>>)comparerScalar).Change(null);
+			test();
+
+			((Scalar<IBCode.ObservableCalculations.Common.Interface.IOrdering<int>>)sourceScalar).Touch();
+			test();
+			((Scalar<IBCode.ObservableCalculations.Common.Interface.IOrdering<int>>)sourceScalar).Change(null);
+			test();
+		}
+		
+		[Test]
+		public void TestThenOrdering25()
+		{
+			Scalar<IBCode.ObservableCalculations.Common.Interface.IOrdering<int>> sourceScalar = getScalar<IBCode.ObservableCalculations.Common.Interface.IOrdering<int>>(getItems().Selecting(i => i.Num).Ordering(i => i, 32));
+			System.Linq.Expressions.Expression<System.Func<int, int>> orderingValueSelectorExpression = i => i;
+			int maxTogetherThenOrderings = 0;
+			
+			var testing = sourceScalar.ThenOrdering<int, int>(
+				orderingValueSelectorExpression,
+				maxTogetherThenOrderings);
+
+			void test()
+			{
+				testing.ValidateConsistency();
+				var sourceScalarValue = ((ObservableCollection<Item>)((IBCode.ObservableCalculations.Common.Interface.IOrdering<int>)sourceScalar.Value).GetValueAs(s => ((Ordering<int, int>)s)?.Source)?.GetValueAs(s => ((Selecting<Item, int>)s)?.Source));
+
+				if (sourceScalarValue != null)
+				{		
+					sourceScalarValue.Insert(2, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					sourceScalarValue[3] = new QuickTests.Item(7, true);
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(3);
+					testing.ValidateConsistency();
+					sourceScalarValue.Move(1, 3);
+					testing.ValidateConsistency();
+					sourceScalarValue[2].Active = !sourceScalarValue[2].Active;
+					testing.ValidateConsistency();
+					sourceScalarValue[2].Num = sourceScalarValue[2].Num + 1;
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					sourceScalarValue.Insert(0, new QuickTests.Item(2, true));
+					testing.ValidateConsistency();
+				}
+
+				IList listSource;
+				listSource = ((IList)((IBCode.ObservableCalculations.Common.Interface.IOrdering<int>)sourceScalar.Value).GetValueAs(s => ((Ordering<int, int>)s)?.Source)?.GetValueAs(s => ((Selecting<Item, int>)s)?.Source));
+				if (listSource != null)
+				{
+					listSource.Clear();
+					testing.ValidateConsistency();
+				}
+
+				if (sourceScalarValue != null)
+				{
+					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
+					sourceScalarValue.Insert(1, new QuickTests.Item(2, true));
+					sourceScalarValue.Insert(2, new QuickTests.Item(3, true));
+					sourceScalarValue.Insert(3, new QuickTests.Item(3, true));
+					sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
+					testing.ValidateConsistency();
+				}
+			}
+
+			test();
+
+			((Scalar<IBCode.ObservableCalculations.Common.Interface.IOrdering<int>>)sourceScalar).Touch();
+			test();
+			((Scalar<IBCode.ObservableCalculations.Common.Interface.IOrdering<int>>)sourceScalar).Change(null);
+			test();
+		}
+		
+		[Test]
+		public void TestThenOrdering26()
+		{
+			Scalar<IBCode.ObservableCalculations.Common.Interface.IOrdering<int>> sourceScalar = getScalar<IBCode.ObservableCalculations.Common.Interface.IOrdering<int>>(getItems().Selecting(i => i.Num).Ordering(i => i, 32));
+			System.Linq.Expressions.Expression<System.Func<int, int>> orderingValueSelectorExpression = i => i;
+			
+			var testing = sourceScalar.ThenOrdering<int, int>(
+				orderingValueSelectorExpression);
+
+			void test()
+			{
+				testing.ValidateConsistency();
+				var sourceScalarValue = ((ObservableCollection<Item>)((IBCode.ObservableCalculations.Common.Interface.IOrdering<int>)sourceScalar.Value).GetValueAs(s => ((Ordering<int, int>)s)?.Source)?.GetValueAs(s => ((Selecting<Item, int>)s)?.Source));
+
+				if (sourceScalarValue != null)
+				{		
+					sourceScalarValue.Insert(2, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					sourceScalarValue[3] = new QuickTests.Item(7, true);
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(3);
+					testing.ValidateConsistency();
+					sourceScalarValue.Move(1, 3);
+					testing.ValidateConsistency();
+					sourceScalarValue[2].Active = !sourceScalarValue[2].Active;
+					testing.ValidateConsistency();
+					sourceScalarValue[2].Num = sourceScalarValue[2].Num + 1;
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					sourceScalarValue.Insert(0, new QuickTests.Item(2, true));
+					testing.ValidateConsistency();
+				}
+
+				IList listSource;
+				listSource = ((IList)((IBCode.ObservableCalculations.Common.Interface.IOrdering<int>)sourceScalar.Value).GetValueAs(s => ((Ordering<int, int>)s)?.Source)?.GetValueAs(s => ((Selecting<Item, int>)s)?.Source));
+				if (listSource != null)
+				{
+					listSource.Clear();
+					testing.ValidateConsistency();
+				}
+
+				if (sourceScalarValue != null)
+				{
+					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
+					sourceScalarValue.Insert(1, new QuickTests.Item(2, true));
+					sourceScalarValue.Insert(2, new QuickTests.Item(3, true));
+					sourceScalarValue.Insert(3, new QuickTests.Item(3, true));
+					sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
+					testing.ValidateConsistency();
+				}
+			}
+
+			test();
+
+			((Scalar<IBCode.ObservableCalculations.Common.Interface.IOrdering<int>>)sourceScalar).Touch();
+			test();
+			((Scalar<IBCode.ObservableCalculations.Common.Interface.IOrdering<int>>)sourceScalar).Change(null);
+			test();
+		}
+		
+		[Test]
+		public void TestThenOrdering27()
+		{
+			Scalar<IBCode.ObservableCalculations.Common.Interface.IOrdering<int>> sourceScalar = getScalar<IBCode.ObservableCalculations.Common.Interface.IOrdering<int>>(getItems().Selecting(i => i.Num).Ordering(i => i, 32));
+			System.Linq.Expressions.Expression<System.Func<int, int>> orderingValueSelectorExpression = i => i;
+			System.ComponentModel.ListSortDirection sortDirection = System.ComponentModel.ListSortDirection.Ascending;
+			Scalar<System.Collections.Generic.IComparer<int>> comparerScalar = getScalar<System.Collections.Generic.IComparer<int>>(Comparer<int>.Default);
+			int maxTogetherThenOrderings = 0;
+			
+			var testing = sourceScalar.ThenOrdering<int, int>(
+				orderingValueSelectorExpression,
+				sortDirection,
+				comparerScalar,
+				maxTogetherThenOrderings);
+
+			void test()
+			{
+				testing.ValidateConsistency();
+				var sourceScalarValue = ((ObservableCollection<Item>)((IBCode.ObservableCalculations.Common.Interface.IOrdering<int>)sourceScalar.Value).GetValueAs(s => ((Ordering<int, int>)s)?.Source)?.GetValueAs(s => ((Selecting<Item, int>)s)?.Source));
+
+				if (sourceScalarValue != null)
+				{		
+					sourceScalarValue.Insert(2, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					sourceScalarValue[3] = new QuickTests.Item(7, true);
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(3);
+					testing.ValidateConsistency();
+					sourceScalarValue.Move(1, 3);
+					testing.ValidateConsistency();
+					sourceScalarValue[2].Active = !sourceScalarValue[2].Active;
+					testing.ValidateConsistency();
+					sourceScalarValue[2].Num = sourceScalarValue[2].Num + 1;
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					sourceScalarValue.Insert(0, new QuickTests.Item(2, true));
+					testing.ValidateConsistency();
+				}
+
+				IList listSource;
+				listSource = ((IList)((IBCode.ObservableCalculations.Common.Interface.IOrdering<int>)sourceScalar.Value).GetValueAs(s => ((Ordering<int, int>)s)?.Source)?.GetValueAs(s => ((Selecting<Item, int>)s)?.Source));
+				if (listSource != null)
+				{
+					listSource.Clear();
+					testing.ValidateConsistency();
+				}
+
+				if (sourceScalarValue != null)
+				{
+					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
+					sourceScalarValue.Insert(1, new QuickTests.Item(2, true));
+					sourceScalarValue.Insert(2, new QuickTests.Item(3, true));
+					sourceScalarValue.Insert(3, new QuickTests.Item(3, true));
+					sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
+					testing.ValidateConsistency();
+				}
+			}
+
+			test();
+
+			((Scalar<System.Collections.Generic.IComparer<int>>)comparerScalar).Touch();
+			test();
+			((Scalar<System.Collections.Generic.IComparer<int>>)comparerScalar).Change(null);
+			test();
+
+			((Scalar<IBCode.ObservableCalculations.Common.Interface.IOrdering<int>>)sourceScalar).Touch();
+			test();
+			((Scalar<IBCode.ObservableCalculations.Common.Interface.IOrdering<int>>)sourceScalar).Change(null);
+			test();
+		}
+		
+		[Test]
+		public void TestThenOrdering28()
+		{
+			Scalar<IBCode.ObservableCalculations.Common.Interface.IOrdering<int>> sourceScalar = getScalar<IBCode.ObservableCalculations.Common.Interface.IOrdering<int>>(getItems().Selecting(i => i.Num).Ordering(i => i, 32));
 			System.Linq.Expressions.Expression<System.Func<int, int>> orderingValueSelectorExpression = i => i;
 			System.ComponentModel.ListSortDirection sortDirection = System.ComponentModel.ListSortDirection.Ascending;
 			Scalar<System.Collections.Generic.IComparer<int>> comparerScalar = getScalar<System.Collections.Generic.IComparer<int>>(Comparer<int>.Default);
@@ -67471,9 +71266,82 @@ namespace IBCode.ObservableCalculations.Test
 		}
 		
 		[Test]
-		public void TestThenOrdering14()
+		public void TestThenOrdering29()
 		{
-			Scalar<IBCode.ObservableCalculations.Common.Interface.IOrdering<int>> sourceScalar = getScalar<IBCode.ObservableCalculations.Common.Interface.IOrdering<int>>(getItems().Selecting(i => i.Num).Ordering(i => i));
+			Scalar<IBCode.ObservableCalculations.Common.Interface.IOrdering<int>> sourceScalar = getScalar<IBCode.ObservableCalculations.Common.Interface.IOrdering<int>>(getItems().Selecting(i => i.Num).Ordering(i => i, 32));
+			System.Linq.Expressions.Expression<System.Func<int, int>> orderingValueSelectorExpression = i => i;
+			System.ComponentModel.ListSortDirection sortDirection = System.ComponentModel.ListSortDirection.Ascending;
+			int maxTogetherThenOrderings = 0;
+			
+			var testing = sourceScalar.ThenOrdering<int, int>(
+				orderingValueSelectorExpression,
+				sortDirection,
+				maxTogetherThenOrderings);
+
+			void test()
+			{
+				testing.ValidateConsistency();
+				var sourceScalarValue = ((ObservableCollection<Item>)((IBCode.ObservableCalculations.Common.Interface.IOrdering<int>)sourceScalar.Value).GetValueAs(s => ((Ordering<int, int>)s)?.Source)?.GetValueAs(s => ((Selecting<Item, int>)s)?.Source));
+
+				if (sourceScalarValue != null)
+				{		
+					sourceScalarValue.Insert(2, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					sourceScalarValue[3] = new QuickTests.Item(7, true);
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(3);
+					testing.ValidateConsistency();
+					sourceScalarValue.Move(1, 3);
+					testing.ValidateConsistency();
+					sourceScalarValue[2].Active = !sourceScalarValue[2].Active;
+					testing.ValidateConsistency();
+					sourceScalarValue[2].Num = sourceScalarValue[2].Num + 1;
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					sourceScalarValue.Insert(0, new QuickTests.Item(2, true));
+					testing.ValidateConsistency();
+				}
+
+				IList listSource;
+				listSource = ((IList)((IBCode.ObservableCalculations.Common.Interface.IOrdering<int>)sourceScalar.Value).GetValueAs(s => ((Ordering<int, int>)s)?.Source)?.GetValueAs(s => ((Selecting<Item, int>)s)?.Source));
+				if (listSource != null)
+				{
+					listSource.Clear();
+					testing.ValidateConsistency();
+				}
+
+				if (sourceScalarValue != null)
+				{
+					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
+					sourceScalarValue.Insert(1, new QuickTests.Item(2, true));
+					sourceScalarValue.Insert(2, new QuickTests.Item(3, true));
+					sourceScalarValue.Insert(3, new QuickTests.Item(3, true));
+					sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
+					testing.ValidateConsistency();
+				}
+			}
+
+			test();
+
+			((Scalar<IBCode.ObservableCalculations.Common.Interface.IOrdering<int>>)sourceScalar).Touch();
+			test();
+			((Scalar<IBCode.ObservableCalculations.Common.Interface.IOrdering<int>>)sourceScalar).Change(null);
+			test();
+		}
+		
+		[Test]
+		public void TestThenOrdering30()
+		{
+			Scalar<IBCode.ObservableCalculations.Common.Interface.IOrdering<int>> sourceScalar = getScalar<IBCode.ObservableCalculations.Common.Interface.IOrdering<int>>(getItems().Selecting(i => i.Num).Ordering(i => i, 32));
 			System.Linq.Expressions.Expression<System.Func<int, int>> orderingValueSelectorExpression = i => i;
 			System.ComponentModel.ListSortDirection sortDirection = System.ComponentModel.ListSortDirection.Ascending;
 			
@@ -67542,9 +71410,89 @@ namespace IBCode.ObservableCalculations.Test
 		}
 		
 		[Test]
-		public void TestThenOrdering15()
+		public void TestThenOrdering31()
 		{
-			Scalar<IBCode.ObservableCalculations.Common.Interface.IOrdering<int>> sourceScalar = getScalar<IBCode.ObservableCalculations.Common.Interface.IOrdering<int>>(getItems().Selecting(i => i.Num).Ordering(i => i));
+			Scalar<IBCode.ObservableCalculations.Common.Interface.IOrdering<int>> sourceScalar = getScalar<IBCode.ObservableCalculations.Common.Interface.IOrdering<int>>(getItems().Selecting(i => i.Num).Ordering(i => i, 32));
+			System.Linq.Expressions.Expression<System.Func<int, int>> orderingValueSelectorExpression = i => i;
+			Scalar<System.ComponentModel.ListSortDirection> sortDirectionScalar = getScalar<System.ComponentModel.ListSortDirection>(System.ComponentModel.ListSortDirection.Ascending);
+			System.Collections.Generic.IComparer<int> comparer = Comparer<int>.Default;
+			int maxTogetherThenOrderings = 0;
+			
+			var testing = sourceScalar.ThenOrdering<int, int>(
+				orderingValueSelectorExpression,
+				sortDirectionScalar,
+				comparer,
+				maxTogetherThenOrderings);
+
+			void test()
+			{
+				testing.ValidateConsistency();
+				var sourceScalarValue = ((ObservableCollection<Item>)((IBCode.ObservableCalculations.Common.Interface.IOrdering<int>)sourceScalar.Value).GetValueAs(s => ((Ordering<int, int>)s)?.Source)?.GetValueAs(s => ((Selecting<Item, int>)s)?.Source));
+
+				if (sourceScalarValue != null)
+				{		
+					sourceScalarValue.Insert(2, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					sourceScalarValue[3] = new QuickTests.Item(7, true);
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(3);
+					testing.ValidateConsistency();
+					sourceScalarValue.Move(1, 3);
+					testing.ValidateConsistency();
+					sourceScalarValue[2].Active = !sourceScalarValue[2].Active;
+					testing.ValidateConsistency();
+					sourceScalarValue[2].Num = sourceScalarValue[2].Num + 1;
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					sourceScalarValue.Insert(0, new QuickTests.Item(2, true));
+					testing.ValidateConsistency();
+				}
+
+				IList listSource;
+				listSource = ((IList)((IBCode.ObservableCalculations.Common.Interface.IOrdering<int>)sourceScalar.Value).GetValueAs(s => ((Ordering<int, int>)s)?.Source)?.GetValueAs(s => ((Selecting<Item, int>)s)?.Source));
+				if (listSource != null)
+				{
+					listSource.Clear();
+					testing.ValidateConsistency();
+				}
+
+				if (sourceScalarValue != null)
+				{
+					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
+					sourceScalarValue.Insert(1, new QuickTests.Item(2, true));
+					sourceScalarValue.Insert(2, new QuickTests.Item(3, true));
+					sourceScalarValue.Insert(3, new QuickTests.Item(3, true));
+					sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
+					testing.ValidateConsistency();
+				}
+			}
+
+			test();
+
+			((Scalar<System.ComponentModel.ListSortDirection>)sortDirectionScalar).Touch();
+			test();
+			((Scalar<System.ComponentModel.ListSortDirection>)sortDirectionScalar).Change(System.ComponentModel.ListSortDirection.Descending);
+			test();
+
+			((Scalar<IBCode.ObservableCalculations.Common.Interface.IOrdering<int>>)sourceScalar).Touch();
+			test();
+			((Scalar<IBCode.ObservableCalculations.Common.Interface.IOrdering<int>>)sourceScalar).Change(null);
+			test();
+		}
+		
+		[Test]
+		public void TestThenOrdering32()
+		{
+			Scalar<IBCode.ObservableCalculations.Common.Interface.IOrdering<int>> sourceScalar = getScalar<IBCode.ObservableCalculations.Common.Interface.IOrdering<int>>(getItems().Selecting(i => i.Num).Ordering(i => i, 32));
 			System.Linq.Expressions.Expression<System.Func<int, int>> orderingValueSelectorExpression = i => i;
 			Scalar<System.ComponentModel.ListSortDirection> sortDirectionScalar = getScalar<System.ComponentModel.ListSortDirection>(System.ComponentModel.ListSortDirection.Ascending);
 			System.Collections.Generic.IComparer<int> comparer = Comparer<int>.Default;
@@ -67620,9 +71568,82 @@ namespace IBCode.ObservableCalculations.Test
 		}
 		
 		[Test]
-		public void TestThenOrdering16()
+		public void TestThenOrdering33()
 		{
-			Scalar<IBCode.ObservableCalculations.Common.Interface.IOrdering<int>> sourceScalar = getScalar<IBCode.ObservableCalculations.Common.Interface.IOrdering<int>>(getItems().Selecting(i => i.Num).Ordering(i => i));
+			Scalar<IBCode.ObservableCalculations.Common.Interface.IOrdering<int>> sourceScalar = getScalar<IBCode.ObservableCalculations.Common.Interface.IOrdering<int>>(getItems().Selecting(i => i.Num).Ordering(i => i, 32));
+			System.Linq.Expressions.Expression<System.Func<int, int>> orderingValueSelectorExpression = i => i;
+			System.Collections.Generic.IComparer<int> comparer = Comparer<int>.Default;
+			int maxTogetherThenOrderings = 0;
+			
+			var testing = sourceScalar.ThenOrdering<int, int>(
+				orderingValueSelectorExpression,
+				comparer,
+				maxTogetherThenOrderings);
+
+			void test()
+			{
+				testing.ValidateConsistency();
+				var sourceScalarValue = ((ObservableCollection<Item>)((IBCode.ObservableCalculations.Common.Interface.IOrdering<int>)sourceScalar.Value).GetValueAs(s => ((Ordering<int, int>)s)?.Source)?.GetValueAs(s => ((Selecting<Item, int>)s)?.Source));
+
+				if (sourceScalarValue != null)
+				{		
+					sourceScalarValue.Insert(2, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					sourceScalarValue[3] = new QuickTests.Item(7, true);
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(3);
+					testing.ValidateConsistency();
+					sourceScalarValue.Move(1, 3);
+					testing.ValidateConsistency();
+					sourceScalarValue[2].Active = !sourceScalarValue[2].Active;
+					testing.ValidateConsistency();
+					sourceScalarValue[2].Num = sourceScalarValue[2].Num + 1;
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					sourceScalarValue.Insert(0, new QuickTests.Item(2, true));
+					testing.ValidateConsistency();
+				}
+
+				IList listSource;
+				listSource = ((IList)((IBCode.ObservableCalculations.Common.Interface.IOrdering<int>)sourceScalar.Value).GetValueAs(s => ((Ordering<int, int>)s)?.Source)?.GetValueAs(s => ((Selecting<Item, int>)s)?.Source));
+				if (listSource != null)
+				{
+					listSource.Clear();
+					testing.ValidateConsistency();
+				}
+
+				if (sourceScalarValue != null)
+				{
+					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
+					sourceScalarValue.Insert(1, new QuickTests.Item(2, true));
+					sourceScalarValue.Insert(2, new QuickTests.Item(3, true));
+					sourceScalarValue.Insert(3, new QuickTests.Item(3, true));
+					sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
+					testing.ValidateConsistency();
+				}
+			}
+
+			test();
+
+			((Scalar<IBCode.ObservableCalculations.Common.Interface.IOrdering<int>>)sourceScalar).Touch();
+			test();
+			((Scalar<IBCode.ObservableCalculations.Common.Interface.IOrdering<int>>)sourceScalar).Change(null);
+			test();
+		}
+		
+		[Test]
+		public void TestThenOrdering34()
+		{
+			Scalar<IBCode.ObservableCalculations.Common.Interface.IOrdering<int>> sourceScalar = getScalar<IBCode.ObservableCalculations.Common.Interface.IOrdering<int>>(getItems().Selecting(i => i.Num).Ordering(i => i, 32));
 			System.Linq.Expressions.Expression<System.Func<int, int>> orderingValueSelectorExpression = i => i;
 			System.Collections.Generic.IComparer<int> comparer = Comparer<int>.Default;
 			
@@ -67691,82 +71712,84 @@ namespace IBCode.ObservableCalculations.Test
 		}
 		
 		[Test]
-		public void TestThenOrdering17()
+		public void TestThenOrdering35()
 		{
-			IBCode.ObservableCalculations.Common.Interface.IOrdering<int> source = getItems().Selecting(i => i.Num).Ordering(i => i);
+			Scalar<IBCode.ObservableCalculations.Common.Interface.IOrdering<int>> sourceScalar = getScalar<IBCode.ObservableCalculations.Common.Interface.IOrdering<int>>(getItems().Selecting(i => i.Num).Ordering(i => i, 32));
 			System.Linq.Expressions.Expression<System.Func<int, int>> orderingValueSelectorExpression = i => i;
-			Scalar<System.ComponentModel.ListSortDirection> sortDirectionScalar = getScalar<System.ComponentModel.ListSortDirection>(System.ComponentModel.ListSortDirection.Ascending);
+			System.ComponentModel.ListSortDirection sortDirection = System.ComponentModel.ListSortDirection.Ascending;
 			System.Collections.Generic.IComparer<int> comparer = Comparer<int>.Default;
+			int maxTogetherThenOrderings = 0;
 			
-			var testing = source.ThenOrdering<int, int>(
+			var testing = sourceScalar.ThenOrdering<int, int>(
 				orderingValueSelectorExpression,
-				sortDirectionScalar,
-				comparer);
+				sortDirection,
+				comparer,
+				maxTogetherThenOrderings);
 
 			void test()
 			{
 				testing.ValidateConsistency();
-				var sourceValue = ((ObservableCollection<Item>)((IBCode.ObservableCalculations.Common.Interface.IOrdering<int>)source).GetValueAs(s => ((Ordering<int, int>)s)?.Source)?.GetValueAs(s => ((Selecting<Item, int>)s)?.Source));
+				var sourceScalarValue = ((ObservableCollection<Item>)((IBCode.ObservableCalculations.Common.Interface.IOrdering<int>)sourceScalar.Value).GetValueAs(s => ((Ordering<int, int>)s)?.Source)?.GetValueAs(s => ((Selecting<Item, int>)s)?.Source));
 
-				if (sourceValue != null)
+				if (sourceScalarValue != null)
 				{		
-					sourceValue.Insert(2, new QuickTests.Item(1, true));
+					sourceScalarValue.Insert(2, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
-					sourceValue[3] = new QuickTests.Item(7, true);
+					sourceScalarValue[3] = new QuickTests.Item(7, true);
 					testing.ValidateConsistency();
-					sourceValue.RemoveAt(3);
+					sourceScalarValue.RemoveAt(3);
 					testing.ValidateConsistency();
-					sourceValue.Move(1, 3);
+					sourceScalarValue.Move(1, 3);
 					testing.ValidateConsistency();
-					sourceValue[2].Active = !sourceValue[2].Active;
+					sourceScalarValue[2].Active = !sourceScalarValue[2].Active;
 					testing.ValidateConsistency();
-					sourceValue[2].Num = sourceValue[2].Num + 1;
+					sourceScalarValue[2].Num = sourceScalarValue[2].Num + 1;
 					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
+					sourceScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
+					sourceScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
+					sourceScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
+					sourceScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceValue.Insert(0, new QuickTests.Item(1, true));
+					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
-					sourceValue.Insert(0, new QuickTests.Item(2, true));
+					sourceScalarValue.Insert(0, new QuickTests.Item(2, true));
 					testing.ValidateConsistency();
 				}
 
 				IList listSource;
-				listSource = ((IList)((IBCode.ObservableCalculations.Common.Interface.IOrdering<int>)source).GetValueAs(s => ((Ordering<int, int>)s)?.Source)?.GetValueAs(s => ((Selecting<Item, int>)s)?.Source));
+				listSource = ((IList)((IBCode.ObservableCalculations.Common.Interface.IOrdering<int>)sourceScalar.Value).GetValueAs(s => ((Ordering<int, int>)s)?.Source)?.GetValueAs(s => ((Selecting<Item, int>)s)?.Source));
 				if (listSource != null)
 				{
 					listSource.Clear();
 					testing.ValidateConsistency();
 				}
 
-				if (sourceValue != null)
+				if (sourceScalarValue != null)
 				{
-					sourceValue.Insert(0, new QuickTests.Item(1, true));
-					sourceValue.Insert(1, new QuickTests.Item(2, true));
-					sourceValue.Insert(2, new QuickTests.Item(3, true));
-					sourceValue.Insert(3, new QuickTests.Item(3, true));
-					sourceValue.Insert(4, new QuickTests.Item(3, true));
+					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
+					sourceScalarValue.Insert(1, new QuickTests.Item(2, true));
+					sourceScalarValue.Insert(2, new QuickTests.Item(3, true));
+					sourceScalarValue.Insert(3, new QuickTests.Item(3, true));
+					sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
 			}
 
 			test();
 
-			((Scalar<System.ComponentModel.ListSortDirection>)sortDirectionScalar).Touch();
+			((Scalar<IBCode.ObservableCalculations.Common.Interface.IOrdering<int>>)sourceScalar).Touch();
 			test();
-			((Scalar<System.ComponentModel.ListSortDirection>)sortDirectionScalar).Change(System.ComponentModel.ListSortDirection.Descending);
+			((Scalar<IBCode.ObservableCalculations.Common.Interface.IOrdering<int>>)sourceScalar).Change(null);
 			test();
 		}
 		
 		[Test]
-		public void TestThenOrdering18()
+		public void TestThenOrdering36()
 		{
-			Scalar<IBCode.ObservableCalculations.Common.Interface.IOrdering<int>> sourceScalar = getScalar<IBCode.ObservableCalculations.Common.Interface.IOrdering<int>>(getItems().Selecting(i => i.Num).Ordering(i => i));
+			Scalar<IBCode.ObservableCalculations.Common.Interface.IOrdering<int>> sourceScalar = getScalar<IBCode.ObservableCalculations.Common.Interface.IOrdering<int>>(getItems().Selecting(i => i.Num).Ordering(i => i, 32));
 			System.Linq.Expressions.Expression<System.Func<int, int>> orderingValueSelectorExpression = i => i;
 			System.ComponentModel.ListSortDirection sortDirection = System.ComponentModel.ListSortDirection.Ascending;
 			System.Collections.Generic.IComparer<int> comparer = Comparer<int>.Default;

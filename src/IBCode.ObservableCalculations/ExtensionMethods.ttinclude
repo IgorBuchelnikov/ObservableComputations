@@ -30,11 +30,6 @@
 					if (classInFile.IsAbstract || classInFile.Access == vsCMAccess.vsCMAccessPrivate) continue;
 					if (!classInFile.Name.Contains("ing")) continue;
 
-					if (classInFile.Name.Contains("Zipping"))
-					{
-
-					}
-
 					string name = classInFile.Name;
 
 					string genericParameters = string.Empty;
@@ -85,10 +80,10 @@
 										sourceGenericTypeName = "TOuterSourceItem";
 									else if (parameter.Name.Contains("inner") && genericParameters.Contains("Inner"))
 										sourceGenericTypeName = "TInnerSourceItem";
-									else if (parameter.Name.Contains("Left") && genericParameters.Contains("Left"))
-										sourceGenericTypeName = "TSourceItemLeft";
-									else if (parameter.Name.Contains("Right") && genericParameters.Contains("Right"))
-										sourceGenericTypeName = "TSourceItemRight";
+									else if (parameter.Name.Contains("left") && genericParameters.Contains("Left"))
+										sourceGenericTypeName = "TLeftSourceItem";
+									else if (parameter.Name.Contains("right") && genericParameters.Contains("Right"))
+										sourceGenericTypeName = "TRightSourceItem";
 									else 
 										sourceGenericTypeName = "TSourceItem";
 

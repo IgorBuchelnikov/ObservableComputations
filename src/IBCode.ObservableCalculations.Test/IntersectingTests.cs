@@ -54,11 +54,11 @@ namespace IBCode.ObservableCalculations.Test
 			#endregion
 		}
 
-		TextFileOutput _textFileOutputLog = new TextFileOutput(@"D:\Projects\NevaPolimer\Intersecting_Commulative.log");
-		TextFileOutput _textFileOutputTime = new TextFileOutput(@"D:\Projects\NevaPolimer\Intersecting_Commulative_Time.log");
+		TextFileOutput _textFileOutputLog = new TextFileOutput(@"D:\Projects\NevaPolimer\Intersecting_Deep.log");
+		TextFileOutput _textFileOutputTime = new TextFileOutput(@"D:\Projects\NevaPolimer\Intersecting_Deep_Time.log");
 
 		[Test]
-		public void Intersecting_Commulative()
+		public void Intersecting_Deep()
 		{			
 			test(new int[0], new int[0]);
 

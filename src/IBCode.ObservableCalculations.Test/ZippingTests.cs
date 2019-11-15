@@ -45,11 +45,11 @@ namespace IBCode.ObservableCalculations.Test
 			#endregion
 		}
 
-		TextFileOutput _textFileOutputLog = new TextFileOutput(@"D:\Projects\NevaPolimer\Zipping_Commulative.log");
-		TextFileOutput _textFileOutputTime = new TextFileOutput(@"D:\Projects\NevaPolimer\Zipping_Commulative_Time.log");
+		TextFileOutput _textFileOutputLog = new TextFileOutput(@"D:\Projects\NevaPolimer\Zipping_Deep.log");
+		TextFileOutput _textFileOutputTime = new TextFileOutput(@"D:\Projects\NevaPolimer\Zipping_Deep_Time.log");
 
 		[Test, Combinatorial]
-		public void Zipping_Commulative()
+		public void Zipping_Deep()
 		{			
 			for (int v1 = 0; v1 <= 7; v1++)
 			{

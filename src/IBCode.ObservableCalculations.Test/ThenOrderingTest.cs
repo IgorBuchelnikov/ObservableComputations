@@ -97,8 +97,8 @@ namespace IBCode.ObservableCalculations.Test
 			#endregion
 		}
 
-		TextFileOutput _textFileOutputLog = new TextFileOutput(@"C:\ThenOrderingOrdering_Commulative.log");
-		TextFileOutput _textFileOutputTime = new TextFileOutput(@"C:\ThenOrderingOrdering_Commulative_Time.log");
+		TextFileOutput _textFileOutputLog = new TextFileOutput(@"C:\ThenOrderingOrdering_Deep.log");
+		TextFileOutput _textFileOutputTime = new TextFileOutput(@"C:\ThenOrderingOrdering_Deep_Time.log");
 
 		[Test]
 		public void ThenOrderingOrdering_Random()
@@ -180,7 +180,7 @@ namespace IBCode.ObservableCalculations.Test
 		}
 
 		[Test, Combinatorial]
-		public void ThenOrderingOrdering_Commulative(
+		public void ThenOrderingOrdering_Deep(
 			[Values(ListSortDirection.Ascending, ListSortDirection.Descending)] ListSortDirection listSortDirection)
 		{
 			long counter = 0;
@@ -207,7 +207,7 @@ namespace IBCode.ObservableCalculations.Test
 		}
 
 		[Test, Combinatorial]
-		public void ThenOrderingThenOrderingOrdering_Commulative(
+		public void ThenOrderingThenOrderingOrdering_Deep(
 			[Values(ListSortDirection.Ascending, ListSortDirection.Descending)] ListSortDirection listSortDirection,
 			[Values(ListSortDirection.Ascending, ListSortDirection.Descending)] ListSortDirection listSortDirection1)
 		{
@@ -620,7 +620,22 @@ namespace IBCode.ObservableCalculations.Test
 
 			return result;
 		}
-	
+
+		[Test]
+		public static void TestChangeSortDirection()
+		{
+			ObservableCollection<Item> items = getObservableCollection(new[] { 0, 2, 3, 7, 5, 2, 4, 7, 5, 6, 1, 5 },
+																	   new[] { 0, 2, 3, 8, 1, 2, 4, 8, 2, 6, 1, 3 },
+																	   new[] { 0, 2, 3, 7, 5, 2, 4, 0, 5, 6, 1, 5 });
+
+			Scalar<ListSortDirection> listSortDirectionScalar = new Scalar<ListSortDirection>(ListSortDirection.Ascending);
+			Ordering<Item, int?> ordering = items.Ordering(i => i.OrderNum, listSortDirectionScalar);
+			ThenOrdering<Item, int?> ordering1 = items.Ordering(i => i.OrderNum, listSortDirectionScalar).ThenOrdering(i => i.OrderNum2, listSortDirectionScalar);
+			listSortDirectionScalar.Change(ListSortDirection.Descending);
+			ordering.ValidateConsistency();
+			ordering1.ValidateConsistency();
+		}
+
 		#endregion
 	}
 }

@@ -55,11 +55,11 @@ namespace IBCode.ObservableCalculations.Test
 			#endregion
 		}
 
-		TextFileOutput _textFileOutputLog = new TextFileOutput(@"D:\Projects\NevaPolimer\Excepting_Commulative.log");
-		TextFileOutput _textFileOutputTime = new TextFileOutput(@"D:\Projects\NevaPolimer\Excepting_Commulative_Time.log");
+		TextFileOutput _textFileOutputLog = new TextFileOutput(@"D:\Projects\NevaPolimer\Excepting_Deep.log");
+		TextFileOutput _textFileOutputTime = new TextFileOutput(@"D:\Projects\NevaPolimer\Excepting_Deep_Time.log");
 
 		[Test]
-		public void Excepting_Commulative()
+		public void Excepting_Deep()
 		{			
 			test(new int[0], new int[0]);
 

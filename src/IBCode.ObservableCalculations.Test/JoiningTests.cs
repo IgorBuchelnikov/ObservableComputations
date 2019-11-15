@@ -59,11 +59,11 @@ namespace IBCode.ObservableCalculations.Test
 			}
 		}
 
-		TextFileOutput _textFileOutputLog = new TextFileOutput(@"D:\Projects\NevaPolimer\Joining_Commulative.log");
-		TextFileOutput _textFileOutputTime = new TextFileOutput(@"D:\Projects\NevaPolimer\Joining_Commulative_Time.log");
+		TextFileOutput _textFileOutputLog = new TextFileOutput(@"D:\Projects\NevaPolimer\Joining_Deep.log");
+		TextFileOutput _textFileOutputTime = new TextFileOutput(@"D:\Projects\NevaPolimer\Joining_Deep_Time.log");
 
 		[Test]
-		public void Joining_Commulative()
+		public void Joining_Deep()
 		{			
 			test(new int[0], new int[0]);
 

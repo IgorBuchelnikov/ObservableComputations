@@ -52,11 +52,11 @@ namespace IBCode.ObservableCalculations.Test
 			}
 		}
 
-		TextFileOutput _textFileOutputLog = new TextFileOutput(@"D:\Projects\NevaPolimer\SelectingMany_Commulative.log");
-		TextFileOutput _textFileOutputTime = new TextFileOutput(@"D:\Projects\NevaPolimer\SelectingMany_Commulative_Time.log");
+		TextFileOutput _textFileOutputLog = new TextFileOutput(@"D:\Projects\NevaPolimer\SelectingMany_Deep.log");
+		TextFileOutput _textFileOutputTime = new TextFileOutput(@"D:\Projects\NevaPolimer\SelectingMany_Deep_Time.log");
 
 		[Test, Combinatorial]
-		public void SelectingMany_Commulative()
+		public void SelectingMany_Deep()
 		{
 			long counter = 0;
 			Stopwatch stopwatch = Stopwatch.StartNew();

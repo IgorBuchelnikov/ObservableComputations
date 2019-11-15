@@ -329,59 +329,70 @@ namespace IBCode.ObservableCalculations
 		{
 			if (e.PropertyName != nameof(IReadScalar<object>.Value)) return;
 			checkConsistent();
-		
+
 			_consistent = false;
-			ListSortDirection newListSortDirection = _sortDirectionScalar.Value;
-			if (_sortDirection != newListSortDirection)
-			{
-				_sortDirection = newListSortDirection;
-
-				RangePositions<RangePosition> sourceRangePositions = _source.GetRangePositions();
-
-				List<RangePosition> rangePositions = sourceRangePositions.List;
-				int count = rangePositions.Count;
-				for (int rangePositionIndex = 0; rangePositionIndex < count; rangePositionIndex++)
-				{
-					RangePosition rangePosition = rangePositions[rangePositionIndex];
-
-					if (_thenOrderingsCount > 0)
-					{
-						for (int lowerIndex = _orderedItemInfos[rangePosition.PlainIndex].RangePosition.Index, 
-							upperIndex = _orderedItemInfos[rangePosition.PlainIndex + rangePosition.Length - 1].RangePosition.Index; 
-							lowerIndex < upperIndex; lowerIndex++, upperIndex--)
-						{
-							RangePosition tempRangePosition =  _equalOrderingValueRangePositions.List[lowerIndex];
-							_equalOrderingValueRangePositions.List[lowerIndex] =  _equalOrderingValueRangePositions.List[upperIndex];
-							_equalOrderingValueRangePositions.List[upperIndex] = tempRangePosition;
-							_equalOrderingValueRangePositions.List[lowerIndex].Index = lowerIndex;
-							tempRangePosition.Index = upperIndex;
-						}
-					}
-
-					for (
-						int lowerIndex = rangePosition.PlainIndex, 
-						upperIndex = rangePosition.PlainIndex + rangePosition.Length - 1; 
-						lowerIndex < upperIndex; 
-						lowerIndex++, upperIndex--)
-					{
-						TOrderingValue tempOrderingValue = _orderingValues[lowerIndex];
-						_orderingValues[lowerIndex] = _orderingValues[upperIndex];
-						_orderingValues[upperIndex] = tempOrderingValue;
-
-						OrderedItemInfo tempItemPosition = _orderedItemInfos[lowerIndex];
-						 _orderedItemInfos[lowerIndex] = _orderedItemInfos[upperIndex];
-						 _orderedItemInfos[upperIndex] = tempItemPosition;
-						_orderedItemInfos[lowerIndex].Index = lowerIndex;
-						tempItemPosition.Index = upperIndex;
-
-						baseMoveItem(lowerIndex, upperIndex);
-						baseMoveItem(upperIndex - 1, lowerIndex);
-					}	
-				}
-			}
+			_sortDirection = _sortDirectionScalar.Value;
+			initializeFromSource();
 
 			_consistent = true;
 			raiseConsistencyRestored();
+
+
+			//if (e.PropertyName != nameof(IReadScalar<object>.Value)) return;
+			//checkConsistent();
+		
+			//_consistent = false;
+			//ListSortDirection newListSortDirection = _sortDirectionScalar.Value;
+			//if (_sortDirection != newListSortDirection)
+			//{
+			//	_sortDirection = newListSortDirection;
+
+			//	RangePositions<RangePosition> sourceRangePositions = _source.GetRangePositions();
+
+			//	List<RangePosition> rangePositions = sourceRangePositions.List;
+			//	int count = rangePositions.Count;
+			//	for (int rangePositionIndex = 0; rangePositionIndex < count; rangePositionIndex++)
+			//	{
+			//		RangePosition rangePosition = rangePositions[rangePositionIndex];
+
+			//		if (_thenOrderingsCount > 0)
+			//		{
+			//			for (int lowerIndex = _orderedItemInfos[rangePosition.PlainIndex].RangePosition.Index, 
+			//				upperIndex = _orderedItemInfos[rangePosition.PlainIndex + rangePosition.Length - 1].RangePosition.Index; 
+			//				lowerIndex < upperIndex; lowerIndex++, upperIndex--)
+			//			{
+			//				RangePosition tempRangePosition =  _equalOrderingValueRangePositions.List[lowerIndex];
+			//				_equalOrderingValueRangePositions.List[lowerIndex] =  _equalOrderingValueRangePositions.List[upperIndex];
+			//				_equalOrderingValueRangePositions.List[upperIndex] = tempRangePosition;
+			//				_equalOrderingValueRangePositions.List[lowerIndex].Index = lowerIndex;
+			//				tempRangePosition.Index = upperIndex;
+			//			}
+			//		}
+
+			//		for (
+			//			int lowerIndex = rangePosition.PlainIndex, 
+			//			upperIndex = rangePosition.PlainIndex + rangePosition.Length - 1; 
+			//			lowerIndex < upperIndex; 
+			//			lowerIndex++, upperIndex--)
+			//		{
+			//			TOrderingValue tempOrderingValue = _orderingValues[lowerIndex];
+			//			_orderingValues[lowerIndex] = _orderingValues[upperIndex];
+			//			_orderingValues[upperIndex] = tempOrderingValue;
+
+			//			OrderedItemInfo tempItemPosition = _orderedItemInfos[lowerIndex];
+			//			 _orderedItemInfos[lowerIndex] = _orderedItemInfos[upperIndex];
+			//			 _orderedItemInfos[upperIndex] = tempItemPosition;
+			//			_orderedItemInfos[lowerIndex].Index = lowerIndex;
+			//			tempItemPosition.Index = upperIndex;
+
+			//			baseMoveItem(lowerIndex, upperIndex);
+			//			baseMoveItem(upperIndex - 1, lowerIndex);
+			//		}	
+			//	}
+			//}
+
+			//_consistent = true;
+			//raiseConsistencyRestored();
 		}
 
 		private void initializeFromSource()

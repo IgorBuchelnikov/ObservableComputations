@@ -53,11 +53,11 @@ namespace IBCode.ObservableCalculations.Test
 			#endregion
 		}
 
-		TextFileOutput _textFileOutputLog = new TextFileOutput(@"D:\Grouping_Commulative.log");
-		TextFileOutput _textFileOutputTime = new TextFileOutput(@"D:\Grouping_Commulative_Time.log");
+		TextFileOutput _textFileOutputLog = new TextFileOutput(@"D:\Grouping_Deep.log");
+		TextFileOutput _textFileOutputTime = new TextFileOutput(@"D:\Grouping_Deep_Time.log");
 
 		[Test]
-		public void Grouping_Commulative()
+		public void Grouping_Deep()
 		{
 			long counter = 0;
 			Stopwatch stopwatch = Stopwatch.StartNew();

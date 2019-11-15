@@ -50,11 +50,11 @@ namespace IBCode.ObservableCalculations.Test
 			}
 		}
 
-		TextFileOutput _textFileOutputLog = new TextFileOutput(@"D:\Projects\NevaPolimer\Crossing_Commulative.log");
-		TextFileOutput _textFileOutputTime = new TextFileOutput(@"D:\Projects\NevaPolimer\Crossing_Commulative_Time.log");
+		TextFileOutput _textFileOutputLog = new TextFileOutput(@"D:\Projects\NevaPolimer\Crossing_Deep.log");
+		TextFileOutput _textFileOutputTime = new TextFileOutput(@"D:\Projects\NevaPolimer\Crossing_Deep_Time.log");
 
 		[Test, Combinatorial]
-		public void Crossing_Commulative()
+		public void Crossing_Deep()
 		{			
 			for (int v1 = 0; v1 <= 7; v1++)
 			{

@@ -50,11 +50,11 @@ namespace IBCode.ObservableCalculations.Test
 			}
 		}
 
-		TextFileOutput _textFileOutputLog = new TextFileOutput(@"D:\Projects\NevaPolimer\Concatenating_Commulative.log");
-		TextFileOutput _textFileOutputTime = new TextFileOutput(@"D:\Projects\NevaPolimer\Concatenating_Commulative_Time.log");
+		TextFileOutput _textFileOutputLog = new TextFileOutput(@"D:\Projects\NevaPolimer\Concatenating_Deep.log");
+		TextFileOutput _textFileOutputTime = new TextFileOutput(@"D:\Projects\NevaPolimer\Concatenating_Deep_Time.log");
 
 		[Test, Combinatorial]
-		public void Concating_Commulative()
+		public void Concating_Deep()
 		{
 			long counter = 0;
 			Stopwatch stopwatch = Stopwatch.StartNew();

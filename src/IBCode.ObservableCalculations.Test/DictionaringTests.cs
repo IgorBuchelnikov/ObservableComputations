@@ -49,11 +49,11 @@ namespace IBCode.ObservableCalculations.Test
 			#endregion
 		}
 
-		TextFileOutput _textFileOutputLog = new TextFileOutput(@"D:\Projects\NevaPolimer\Dictionaring_Commulative.log");
-		TextFileOutput _textFileOutputTime = new TextFileOutput(@"D:\Projects\NevaPolimer\Dictionaring_Commulative_Time.log");
+		TextFileOutput _textFileOutputLog = new TextFileOutput(@"D:\Projects\NevaPolimer\Dictionaring_Deep.log");
+		TextFileOutput _textFileOutputTime = new TextFileOutput(@"D:\Projects\NevaPolimer\Dictionaring_Deep_Time.log");
 
 		[Test]
-		public void Dictionaring_Commulative()
+		public void Dictionaring_Deep()
 		{
 			long counter = 0;
 			Stopwatch stopwatch = Stopwatch.StartNew();

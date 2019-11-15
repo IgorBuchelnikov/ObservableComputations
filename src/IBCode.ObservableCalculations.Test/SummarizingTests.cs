@@ -9,11 +9,11 @@ namespace IBCode.ObservableCalculations.Test
 	[TestFixture]
 	public class SummarizingTests
 	{
-		TextFileOutput _textFileOutputLog = new TextFileOutput(@"D:\Summarizing_Commulative.log");
-		TextFileOutput _textFileOutputTime = new TextFileOutput(@"D:\Summarizing_Commulative_Time.log");
+		TextFileOutput _textFileOutputLog = new TextFileOutput(@"D:\Summarizing_Deep.log");
+		TextFileOutput _textFileOutputTime = new TextFileOutput(@"D:\Summarizing_Deep_Time.log");
 
 		[Test]
-		public void Summarizing_Commulative()
+		public void Summarizing_Deep()
 		{
 			long counter = 0;
 			Stopwatch stopwatch = Stopwatch.StartNew();

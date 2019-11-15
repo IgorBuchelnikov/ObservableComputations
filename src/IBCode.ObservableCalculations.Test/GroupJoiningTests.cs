@@ -61,11 +61,11 @@ namespace IBCode.ObservableCalculations.Test
 			}
 		}
 
-		TextFileOutput _textFileOutputLog = new TextFileOutput(@"D:\Projects\NevaPolimer\GroupJoining_Commulative.log");
-		TextFileOutput _textFileOutputTime = new TextFileOutput(@"D:\Projects\NevaPolimer\GroupJoining_Commulative_Time.log");
+		TextFileOutput _textFileOutputLog = new TextFileOutput(@"D:\Projects\NevaPolimer\GroupJoining_Deep.log");
+		TextFileOutput _textFileOutputTime = new TextFileOutput(@"D:\Projects\NevaPolimer\GroupJoining_Deep_Time.log");
 
 		[Test]
-		public void GroupJoining_Commulative()
+		public void GroupJoining_Deep()
 		{		
 			Thread.CurrentThread.CurrentUICulture = new CultureInfo("en-US");
 			test(new int[0], new int[0]);

@@ -9,11 +9,11 @@ namespace IBCode.ObservableCalculations.Test
 	[TestFixture]
 	public class MinimazingOrMaximazingTests
 	{
-		TextFileOutput _textFileOutputLog = new TextFileOutput(@"D:\MinimazingOrMaximazing_Commulative.log");
-		TextFileOutput _textFileOutputTime = new TextFileOutput(@"D:\MinimazingOrMaximazing_Commulative_Time.log");
+		TextFileOutput _textFileOutputLog = new TextFileOutput(@"D:\MinimazingOrMaximazing_Deep.log");
+		TextFileOutput _textFileOutputTime = new TextFileOutput(@"D:\MinimazingOrMaximazing_Deep_Time.log");
 
 		[Test]
-		public void MinimazingOrMaximazing_Commulative(
+		public void MinimazingOrMaximazing_Deep(
 			[Values(MinimazingOrMaximazingMode.Maximazing, MinimazingOrMaximazingMode.Minimazing)] MinimazingOrMaximazingMode mode)
 		{
 			long counter = 0;

@@ -319,46 +319,62 @@ namespace IBCode.ObservableCalculations
 
 		private void handleSortDirectionScalarValueChanged(object sender, PropertyChangedEventArgs e)
 		{
-			if (e.PropertyName != nameof(IReadScalar<object>.Value)) return;
-			checkConsistent();
+			//if (e.PropertyName != nameof(IReadScalar<object>.Value)) return;
+			//checkConsistent();
 		
+			//_consistent = false;
+
+			//ListSortDirection newListSortDirection = _sortDirectionScalar.Value;
+			//if (_sortDirection != newListSortDirection)
+			//{
+			//	_sortDirection = newListSortDirection;
+			//	int count = Count;
+			//	for (int lowerIndex = 0, upperIndex = count - 1; lowerIndex < upperIndex; lowerIndex++, upperIndex--)
+			//	{
+			//		TOrderingValue tempOrderingValue = _orderingValues[lowerIndex];
+			//		_orderingValues[lowerIndex] = _orderingValues[upperIndex];
+			//		_orderingValues[upperIndex] = tempOrderingValue;
+
+			//		OrderedItemInfo tempItemPosition = _orderedItemInfos[lowerIndex];
+			//		 _orderedItemInfos[lowerIndex] = _orderedItemInfos[upperIndex];
+			//		 _orderedItemInfos[upperIndex] = tempItemPosition;
+			//		_orderedItemInfos[lowerIndex].Index = lowerIndex;
+			//		tempItemPosition.Index = upperIndex;
+
+			//		baseMoveItem(lowerIndex, upperIndex);
+			//		baseMoveItem(upperIndex - 1, lowerIndex);
+			//	}
+
+			//	if (_thenOrderingsCount > 0)
+			//	{
+			//		int equalOrderingValueRangePositionsCount = _equalOrderingValueRangePositions.List.Count;
+			//		for (int lowerIndex = 0, upperIndex = equalOrderingValueRangePositionsCount - 1; 
+			//			lowerIndex < upperIndex; lowerIndex++, upperIndex--)
+			//		{
+			//			List<RangePosition> rangePositions = _equalOrderingValueRangePositions.List;
+			//			RangePosition tempRangePosition =  rangePositions[lowerIndex];
+			//			RangePosition rangePosition = rangePositions[upperIndex];
+
+			//			rangePositions[lowerIndex] =  rangePosition;
+			//			rangePosition.Index = lowerIndex;
+			//			rangePosition.PlainIndex =
+			//				count - rangePosition.PlainIndex - rangePosition.Length;
+
+			//			rangePositions[upperIndex] = tempRangePosition;
+			//			tempRangePosition.Index = upperIndex;
+			//			tempRangePosition.PlainIndex =
+			//				count - tempRangePosition.PlainIndex - tempRangePosition.Length;
+			//		}
+			//	}
+
+			//}
+
+			//_consistent = true;
+			//raiseConsistencyRestored();
+			checkConsistent();
 			_consistent = false;
-
-			ListSortDirection newListSortDirection = _sortDirectionScalar.Value;
-			if (_sortDirection != newListSortDirection)
-			{
-				_sortDirection = newListSortDirection;
-				int count = Count;
-				for (int lowerIndex = 0, upperIndex = count - 1; lowerIndex < upperIndex; lowerIndex++, upperIndex--)
-				{
-					TOrderingValue tempOrderingValue = _orderingValues[lowerIndex];
-					_orderingValues[lowerIndex] = _orderingValues[upperIndex];
-					_orderingValues[upperIndex] = tempOrderingValue;
-
-					OrderedItemInfo tempItemPosition = _orderedItemInfos[lowerIndex];
-					 _orderedItemInfos[lowerIndex] = _orderedItemInfos[upperIndex];
-					 _orderedItemInfos[upperIndex] = tempItemPosition;
-					_orderedItemInfos[lowerIndex].Index = lowerIndex;
-					tempItemPosition.Index = upperIndex;
-
-					baseMoveItem(lowerIndex, upperIndex);
-					baseMoveItem(upperIndex - 1, lowerIndex);
-				}
-
-				if (_thenOrderingsCount > 0)
-				{
-					count = _equalOrderingValueRangePositions.List.Count;
-					for (int lowerIndex = 0, upperIndex = count - 1; lowerIndex < upperIndex; lowerIndex++, upperIndex--)
-					{
-						RangePosition tempRangePosition =  _equalOrderingValueRangePositions.List[lowerIndex];
-						_equalOrderingValueRangePositions.List[lowerIndex] =  _equalOrderingValueRangePositions.List[upperIndex];
-						_equalOrderingValueRangePositions.List[upperIndex] = tempRangePosition;
-						_equalOrderingValueRangePositions.List[lowerIndex].Index = lowerIndex;
-						tempRangePosition.Index = upperIndex;
-					}
-				}
-
-			}
+			_sortDirection = _sortDirectionScalar.Value;
+			initializeFromSource();
 
 			_consistent = true;
 			raiseConsistencyRestored();

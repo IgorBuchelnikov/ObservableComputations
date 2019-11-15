@@ -61,11 +61,11 @@ namespace IBCode.ObservableCalculations.Test
 			}
 		}
 
-		TextFileOutput _textFileOutputLog = new TextFileOutput(@"D:\Projects\NevaPolimer\PredicateGroupJoining_Commulative.log");
-		TextFileOutput _textFileOutputTime = new TextFileOutput(@"D:\Projects\NevaPolimer\PredicateGroupJoining_Commulative_Time.log");
+		TextFileOutput _textFileOutputLog = new TextFileOutput(@"D:\Projects\NevaPolimer\PredicateGroupJoining_Deep.log");
+		TextFileOutput _textFileOutputTime = new TextFileOutput(@"D:\Projects\NevaPolimer\PredicateGroupJoining_Deep_Time.log");
 
 		[Test]
-		public void PredicateGroupJoining_Commulative()
+		public void PredicateGroupJoining_Deep()
 		{		
 			Thread.CurrentThread.CurrentUICulture = new CultureInfo("en-US");
 			test(new int[0], new int[0]);

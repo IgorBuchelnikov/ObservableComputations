@@ -267,8 +267,12 @@ namespace IBCode.ObservableCalculations
 		private void handleEqualityComparerScalarValueChanged(object sender, PropertyChangedEventArgs e)
 		{
 			if (e.PropertyName != nameof(IReadScalar<object>.Value)) return;
+			checkConsistent();
 			_equalityComparer = _equalityComparerScalar.Value ?? EqualityComparer<TKey>.Default;
+			_consistent = false;
 			initializeFromSource();
+			_consistent = true;
+			raiseConsistencyRestored();
 		}
 
 		private void handleSourceScalarValueChanged(object sender, PropertyChangedEventArgs e)
@@ -276,9 +280,7 @@ namespace IBCode.ObservableCalculations
 			if (e.PropertyName != nameof(IReadScalar<object>.Value)) return;
 			checkConsistent();
 			_consistent = false;
-
 			initializeFromSource();
-
 			_consistent = true;
 			raiseConsistencyRestored();
 		}

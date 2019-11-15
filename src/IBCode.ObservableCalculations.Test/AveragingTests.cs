@@ -9,11 +9,11 @@ namespace IBCode.ObservableCalculations.Test
 	[TestFixture]
 	public class AveragingTests
 	{
-		TextFileOutput _textFileOutputLog = new TextFileOutput(@"D:\AverageCalculating_Commulative.log");
-		TextFileOutput _textFileOutputTime = new TextFileOutput(@"D:\AverageCalculating_Commulative_Time.log");
+		TextFileOutput _textFileOutputLog = new TextFileOutput(@"D:\AverageCalculating_Deep.log");
+		TextFileOutput _textFileOutputTime = new TextFileOutput(@"D:\AverageCalculating_Deep_Time.log");
 
 		[Test]
-		public void AverageCalculating_Commulative()
+		public void AverageCalculating_Deep()
 		{
 			long counter = 0;
 			Stopwatch stopwatch = Stopwatch.StartNew();

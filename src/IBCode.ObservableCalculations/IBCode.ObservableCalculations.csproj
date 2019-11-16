@@ -9,7 +9,7 @@
     <AssemblyOriginatorKeyFile>assembly_strong_name_key.snk</AssemblyOriginatorKeyFile>
     <Authors>Buchelnokov Igor (igor_buchelnikov_github@mail.ru)</Authors>
     <Company>IBCode</Company>
-    <Description>Calulations over INotifyPropertyChanged and INotifyColectionChanged (ObservableCollection) objects.  Results of the calculations are INotifyPropertyChanged and INotifyColectionChanged (ObservableCollection) objects. The calculations includes ones similar to LINQ and the calculation of arbitrary expression. ObservableCalculations is implementation of reactive programming programming paradigm.</Description>
+    <Description>Calulations over INotifyPropertyChanged and INotifyColectionChanged (ObservableCollection) objects.  Results of the calculations are INotifyPropertyChanged and INotifyColectionChanged (ObservableCollection) objects. The calculations includes ones similar to LINQ and the calculation of arbitrary expression. Observable Calculations are implemented as extension methods, like LINQ ones. ObservableCalculations is implementation of reactive programming paradigm.</Description>
     <PackageLicenseUrl>https://github.com/IgorBuchelnikov/ObservableCalculations/blob/master/LICENSE</PackageLicenseUrl>
     <PackageProjectUrl>https://github.com/IgorBuchelnikov/ObservableCalculations</PackageProjectUrl>
     <RepositoryUrl>https://github.com/IgorBuchelnikov/ObservableCalculations.git</RepositoryUrl>
@@ -42,7 +42,6 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
-    <Reference Include="System.Xml" />
   </ItemGroup>  
   
   <ItemGroup>

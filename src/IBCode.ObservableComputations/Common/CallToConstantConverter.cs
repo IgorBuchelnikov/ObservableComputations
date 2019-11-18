@@ -10,7 +10,7 @@ namespace IBCode.ObservableComputations.Common
 	{
 		private readonly IEnumerable<ParameterExpression> _parameterExpressions;
 
-		public bool ContainsParametrizedObservableCalculationCalls;
+		public bool ContainsParametrizedObservableComputationCalls;
 
 		public CallToConstantConverter(IEnumerable<ParameterExpression> parameterExpressions = null)
 		{
@@ -63,7 +63,7 @@ namespace IBCode.ObservableComputations.Common
 				}
 				else
 				{
-					ContainsParametrizedObservableCalculationCalls = parametersFinder.ParametersFound;
+					ContainsParametrizedObservableComputationCalls = parametersFinder.ParametersFound;
 				}
 			}
 			else

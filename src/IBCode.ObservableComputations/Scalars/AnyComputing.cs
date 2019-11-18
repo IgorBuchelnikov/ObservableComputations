@@ -61,7 +61,7 @@ namespace IBCode.ObservableComputations
 
 		private int _predicatePassedCount;
 
-		private readonly bool _predicateContainsParametrizedObservableCalculationCalls;
+		private readonly bool _predicateContainsParametrizedObservableComputationCalls;
 		[ObservableComputationsCall]
 		public AnyComputing(
 			IReadScalar<INotifyCollectionChanged> sourceScalar, 
@@ -96,10 +96,10 @@ namespace IBCode.ObservableComputations
 
 			_predicateExpression =
 				(Expression<Func<TSourceItem, bool>>) callToConstantConverter.Visit(_predicateExpressionOriginal);
-			_predicateContainsParametrizedObservableCalculationCalls =
-				callToConstantConverter.ContainsParametrizedObservableCalculationCalls;
+			_predicateContainsParametrizedObservableComputationCalls =
+				callToConstantConverter.ContainsParametrizedObservableComputationCalls;
 
-			if (!_predicateContainsParametrizedObservableCalculationCalls)
+			if (!_predicateContainsParametrizedObservableComputationCalls)
 			{
 				_predicateExpressionInfo = ExpressionWatcher.GetExpressionInfo(_predicateExpression);
 				// ReSharper disable once PossibleNullReferenceException
@@ -287,7 +287,7 @@ namespace IBCode.ObservableComputations
 		// ReSharper disable once MemberCanBePrivate.Global
 		public bool ApplyPredicate(int sourceIndex)
 		{
-			return _predicateContainsParametrizedObservableCalculationCalls ? _itemInfos[sourceIndex].PredicateFunc() : _predicateFunc(_sourceAsList[sourceIndex]);
+			return _predicateContainsParametrizedObservableComputationCalls ? _itemInfos[sourceIndex].PredicateFunc() : _predicateFunc(_sourceAsList[sourceIndex]);
 		}
 
 		private ItemInfo registerSourceItem(TSourceItem sourceItem, int sourceIndex)
@@ -307,7 +307,7 @@ namespace IBCode.ObservableComputations
 		{
 			predicateFunc = null;
 
-			if (!_predicateContainsParametrizedObservableCalculationCalls)
+			if (!_predicateContainsParametrizedObservableComputationCalls)
 			{
 				watcher = new ExpressionWatcher(_predicateExpressionInfo, sourceItem);
 			}

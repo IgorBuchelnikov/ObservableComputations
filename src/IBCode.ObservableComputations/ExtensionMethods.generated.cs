@@ -262,17 +262,6 @@ namespace IBCode.ObservableComputations
 		}
 
 		#endregion
-		#region Computing
-
-		[ObservableComputationsCall]
-		public static IBCode.ObservableComputations.Computing<TResult> Computing<TResult>(this
-			 System.Linq.Expressions.Expression<System.Func<TResult>> getValueExpression)
-		{
-			return new IBCode.ObservableComputations.Computing<TResult>(
-				getValueExpression: getValueExpression);
-		}
-
-		#endregion
 		#region Casting
 
 		[ObservableComputationsCall]
@@ -289,6 +278,17 @@ namespace IBCode.ObservableComputations
 		{
 			return new IBCode.ObservableComputations.Casting<TResultItem>(
 				source: source);
+		}
+
+		#endregion
+		#region Computing
+
+		[ObservableComputationsCall]
+		public static IBCode.ObservableComputations.Computing<TResult> Computing<TResult>(this
+			 System.Linq.Expressions.Expression<System.Func<TResult>> getValueExpression)
+		{
+			return new IBCode.ObservableComputations.Computing<TResult>(
+				getValueExpression: getValueExpression);
 		}
 
 		#endregion

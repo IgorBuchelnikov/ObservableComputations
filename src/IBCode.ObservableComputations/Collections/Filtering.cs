@@ -107,7 +107,7 @@ namespace IBCode.ObservableComputations
 			_predicateExpression =
 				(Expression<Func<TSourceItem, bool>>) callToConstantConverter.Visit(predicateExpression);
 			_predicateContainsParametrizedObservableComputationsCalls =
-				callToConstantConverter.ContainsParametrizedObservableCalculationCalls;
+				callToConstantConverter.ContainsParametrizedObservableComputationCalls;
 
 			if (!_predicateContainsParametrizedObservableComputationsCalls)
 			{

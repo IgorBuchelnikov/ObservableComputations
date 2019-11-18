@@ -83,7 +83,7 @@ namespace IBCode.ObservableComputations
 			_keySelectorExpressionOriginal = keySelectorExpression;
 			CallToConstantConverter callToConstantConverter = new CallToConstantConverter(_keySelectorExpressionOriginal.Parameters);
 			_keySelectorExpression = (Expression<Func<TSourceItem, TKey>>) callToConstantConverter.Visit(_keySelectorExpressionOriginal);
-			_keySelectorContainsParametrizedObservableComputationsCalls = callToConstantConverter.ContainsParametrizedObservableCalculationCalls;
+			_keySelectorContainsParametrizedObservableComputationsCalls = callToConstantConverter.ContainsParametrizedObservableComputationCalls;
 
 			if (!_keySelectorContainsParametrizedObservableComputationsCalls)
 			{

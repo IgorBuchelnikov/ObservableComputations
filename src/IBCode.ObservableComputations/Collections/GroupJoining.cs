@@ -397,7 +397,7 @@ namespace IBCode.ObservableComputations
 			_outerKeySelectorExpression =
 				(Expression<Func<TOuterSourceItem, TKey>>) callToConstantConverter.Visit(outerKeySelector);
 			_outerKeySelectorExpressionContainsParametrizedObservableComputationsCalls =
-				callToConstantConverter.ContainsParametrizedObservableCalculationCalls;
+				callToConstantConverter.ContainsParametrizedObservableComputationCalls;
 
 			if (!_outerKeySelectorExpressionContainsParametrizedObservableComputationsCalls)
 			{

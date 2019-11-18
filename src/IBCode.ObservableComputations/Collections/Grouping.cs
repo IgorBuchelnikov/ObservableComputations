@@ -230,7 +230,7 @@ namespace IBCode.ObservableComputations
 			_keySelectorExpression =
 				(Expression<Func<TSourceItem, TKey>>) callToConstantConverter.Visit(_keySelectorExpressionOriginal);
 			_keySelectorExpressionContainsParametrizedObservableComputationsCalls =
-				callToConstantConverter.ContainsParametrizedObservableCalculationCalls;
+				callToConstantConverter.ContainsParametrizedObservableComputationCalls;
 
 			if (!_keySelectorExpressionContainsParametrizedObservableComputationsCalls)
 			{

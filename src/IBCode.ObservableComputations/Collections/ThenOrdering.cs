@@ -299,7 +299,7 @@ namespace IBCode.ObservableComputations
 				(Expression<Func<TSourceItem, TOrderingValue>>)
 				callToConstantConverter.Visit(_orderingValueSelectorExpressionOriginal);
 			_orderingValueSelectorContainsParametrizedLiveLinqCalls =
-				callToConstantConverter.ContainsParametrizedObservableCalculationCalls;
+				callToConstantConverter.ContainsParametrizedObservableComputationCalls;
 
 			if (!_orderingValueSelectorContainsParametrizedLiveLinqCalls)
 			{

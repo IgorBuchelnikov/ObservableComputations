@@ -92,7 +92,7 @@ namespace IBCode.ObservableComputations
 				(Expression<Func<TSourceItem, TResultItem>>)callToConstantConverter.Visit(
 					_selectorExpressionOriginal);
 			_selectorContainsParametrizedObservableComputationsCalls =
-				callToConstantConverter.ContainsParametrizedObservableCalculationCalls;
+				callToConstantConverter.ContainsParametrizedObservableComputationCalls;
 
 			if (!_selectorContainsParametrizedObservableComputationsCalls)
 			{

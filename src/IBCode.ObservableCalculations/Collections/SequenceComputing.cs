@@ -1,10 +1,10 @@
 ﻿using System.ComponentModel;
-using IBCode.ObservableCalculations.Common;
-using IBCode.ObservableCalculations.Common.Interface;
+using IBCode.ObservableComputations.Common;
+using IBCode.ObservableComputations.Common.Interface;
 
-namespace IBCode.ObservableCalculations
+namespace IBCode.ObservableComputations
 {
-	public class SequenceCalculating : CollectionCalculating<int>
+	public class SequenceComputing : CollectionComputing<int>
 	{
 		// ReSharper disable once MemberCanBePrivate.Global
 		public IReadScalar<int> CountScalar => _countScalar;
@@ -12,8 +12,8 @@ namespace IBCode.ObservableCalculations
 		int _count;
 		private readonly IReadScalar<int> _countScalar;
 
-		[ObservableCalculationsCall]
-		public SequenceCalculating(IReadScalar<int> countScalar)
+		[ObservableComputationsCall]
+		public SequenceComputing(IReadScalar<int> countScalar)
 		{
 			_countScalar = countScalar;
 			_count = _countScalar.Value;
@@ -28,7 +28,7 @@ namespace IBCode.ObservableCalculations
 
 		private void handleCountChanged(object sender, PropertyChangedEventArgs propertyChangedEventArgs)
 		{
-			if (propertyChangedEventArgs.PropertyName != nameof(Calculating<int>.Value)) return;
+			if (propertyChangedEventArgs.PropertyName != nameof(Computing<int>.Value)) return;
 
 			int newCount = _countScalar.Value;
 
@@ -56,11 +56,11 @@ namespace IBCode.ObservableCalculations
 		public void ValidateConsistency()
 		{
 			int count =  _countScalar.Value;
-			if (Count != count) throw new ObservableCalculationsException("Consistency violation: SequenceCalculating.1");
+			if (Count != count) throw new ObservableComputationsException("Consistency violation: SequenceComputing.1");
 
 			for (int i = 0; i < count; i++)
 			{
-				if (this[i] != i) throw new ObservableCalculationsException("Consistency violation: SequenceCalculating.2");
+				if (this[i] != i) throw new ObservableComputationsException("Consistency violation: SequenceComputing.2");
 			}
 		}
 	}

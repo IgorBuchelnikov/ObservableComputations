@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
-using IBCode.ObservableCalculations.Common.Base;
-using IBCode.ObservableCalculations.Common.Interface;
+using IBCode.ObservableComputations.Common.Base;
+using IBCode.ObservableComputations.Common.Interface;
 
-namespace IBCode.ObservableCalculations.Common
+namespace IBCode.ObservableComputations.Common
 {
-	public abstract class CollectionCalculatingChild<TItem> : ObservableCollectionWithChangeMarker<TItem>, ICollectionCalculatingChild,  IHasChangeMarker
+	public abstract class CollectionComputingChild<TItem> : ObservableCollectionWithChangeMarker<TItem>, ICollectionComputingChild,  IHasChangeMarker
 	{
 		public string DebugTag {get; set;}
 		public object Tag {get; set;}
@@ -134,7 +134,7 @@ namespace IBCode.ObservableCalculations.Common
 
 
 		public Type ItemType => typeof(TItem);
-		public abstract ICollectionCalculating Parent { get; }
+		public abstract ICollectionComputing Parent { get; }
 	}
 
 }

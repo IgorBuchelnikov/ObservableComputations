@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace IBCode.ObservableCalculations.Common.Interface
+namespace IBCode.ObservableComputations.Common.Interface
 {
-	public interface IScalarCalculating : IScalar, ICalculating
+	public interface IScalarComputing : IScalar, IComputing
 	{	
 		event EventHandler PreValueChanged;
 		event EventHandler PostValueChanged;

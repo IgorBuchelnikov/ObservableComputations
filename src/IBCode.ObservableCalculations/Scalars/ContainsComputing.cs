@@ -4,17 +4,17 @@ using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.Linq;
 using System.Linq.Expressions;
-using IBCode.ObservableCalculations.Common;
-using IBCode.ObservableCalculations.Common.Interface;
+using IBCode.ObservableComputations.Common;
+using IBCode.ObservableComputations.Common.Interface;
 
-namespace IBCode.ObservableCalculations
+namespace IBCode.ObservableComputations
 {
-	public class ContainsCalculating<TSourceItem> : AnyCalculating<TSourceItem>, IHasSources
+	public class ContainsComputing<TSourceItem> : AnyComputing<TSourceItem>, IHasSources
 	{
-		public IReadScalar<INotifyCollectionChanged> SourceScalar => _sourceScalarContainsCalculating;
+		public IReadScalar<INotifyCollectionChanged> SourceScalar => _sourceScalarContainsComputing;
 
 		// ReSharper disable once MemberCanBePrivate.Global
-		public INotifyCollectionChanged Source => _sourceContainsCalculating;
+		public INotifyCollectionChanged Source => _sourceContainsComputing;
 
 		public ReadOnlyCollection<INotifyCollectionChanged> SourcesCollection => new ReadOnlyCollection<INotifyCollectionChanged>(new []{Source});
 		public ReadOnlyCollection<IReadScalar<INotifyCollectionChanged>> SourceScalarsCollection => new ReadOnlyCollection<IReadScalar<INotifyCollectionChanged>>(new []{SourceScalar});
@@ -30,8 +30,8 @@ namespace IBCode.ObservableCalculations
 
 		// ReSharper disable once MemberCanBePrivate.Global
 		public IEqualityComparer<TSourceItem> EqualityComparer => _equalityComparer;
-		private readonly IReadScalar<INotifyCollectionChanged> _sourceScalarContainsCalculating;
-		private readonly INotifyCollectionChanged _sourceContainsCalculating;
+		private readonly IReadScalar<INotifyCollectionChanged> _sourceScalarContainsComputing;
+		private readonly INotifyCollectionChanged _sourceContainsComputing;
 		private readonly IReadScalar<TSourceItem> _itemScalar;
 		private readonly TSourceItem _item;
 		private readonly IReadScalar<IEqualityComparer<TSourceItem>> _equalityComparerScalar;
@@ -40,100 +40,100 @@ namespace IBCode.ObservableCalculations
 		// ReSharper disable once MemberCanBePrivate.Global
 
 
-		[ObservableCalculationsCall]
-		public ContainsCalculating(
+		[ObservableComputationsCall]
+		public ContainsComputing(
 			IReadScalar<INotifyCollectionChanged> sourceScalar,
 			IReadScalar<TSourceItem> itemScalar,
 			IReadScalar<IEqualityComparer<TSourceItem>> equalityComparerScalar = null) 
 			: base(sourceScalar, getPredicateExpression(itemScalar, equalityComparerScalar))
 		{
-			_sourceScalarContainsCalculating = sourceScalar;
+			_sourceScalarContainsComputing = sourceScalar;
 			_itemScalar = itemScalar;
 			_equalityComparerScalar = equalityComparerScalar;
 		}
 
-		[ObservableCalculationsCall]
-		public ContainsCalculating(
+		[ObservableComputationsCall]
+		public ContainsComputing(
 			IReadScalar<INotifyCollectionChanged> sourceScalar,
 			TSourceItem item,
 			IReadScalar<IEqualityComparer<TSourceItem>> equalityComparerScalar = null) 
 			: base(sourceScalar, getPredicateExpression(item, equalityComparerScalar))
 		{
-			_sourceScalarContainsCalculating = sourceScalar;
+			_sourceScalarContainsComputing = sourceScalar;
 			_item = item;
 			_equalityComparerScalar = equalityComparerScalar;
 		}
 
-		[ObservableCalculationsCall]
-		public ContainsCalculating(
+		[ObservableComputationsCall]
+		public ContainsComputing(
 			IReadScalar<INotifyCollectionChanged> sourceScalar,
 			IReadScalar<TSourceItem> itemScalar,
 			IEqualityComparer<TSourceItem> equalityComparer = null) 
 			: base(sourceScalar, getPredicateExpression(itemScalar, equalityComparer))
 		{
-			_sourceScalarContainsCalculating = sourceScalar;
+			_sourceScalarContainsComputing = sourceScalar;
 			_itemScalar = itemScalar;
 			_equalityComparer = equalityComparer;
 		}
 
-		[ObservableCalculationsCall]
-		public ContainsCalculating(
+		[ObservableComputationsCall]
+		public ContainsComputing(
 			IReadScalar<INotifyCollectionChanged> sourceScalar,
 			TSourceItem item,
 			IEqualityComparer<TSourceItem> equalityComparer = null) 
 			: base(sourceScalar, getPredicateExpression(item, equalityComparer))
 		{
-			_sourceScalarContainsCalculating = sourceScalar;
+			_sourceScalarContainsComputing = sourceScalar;
 			_item = item;
 			_equalityComparer = equalityComparer;
 		}
 
 
 
-		[ObservableCalculationsCall]
-		public ContainsCalculating(
+		[ObservableComputationsCall]
+		public ContainsComputing(
 			INotifyCollectionChanged source,
 			IReadScalar<TSourceItem> itemScalar,
 			IReadScalar<IEqualityComparer<TSourceItem>> equalityComparerScalar = null) 
 			: base(source, getPredicateExpression(itemScalar, equalityComparerScalar))
 		{
-			_sourceContainsCalculating = source;
+			_sourceContainsComputing = source;
 			_itemScalar = itemScalar;
 			_equalityComparerScalar = equalityComparerScalar;
 		}
 
-		[ObservableCalculationsCall]
-		public ContainsCalculating(
+		[ObservableComputationsCall]
+		public ContainsComputing(
 			INotifyCollectionChanged source,
 			TSourceItem item,
 			IReadScalar<IEqualityComparer<TSourceItem>> equalityComparerScalar = null) 
 			: base(source, getPredicateExpression(item, equalityComparerScalar))
 		{
-			_sourceContainsCalculating = source;
+			_sourceContainsComputing = source;
 			_item = item;
 			_equalityComparerScalar = equalityComparerScalar;
 		}
 
-		[ObservableCalculationsCall]
-		public ContainsCalculating(
+		[ObservableComputationsCall]
+		public ContainsComputing(
 			INotifyCollectionChanged source,
 			IReadScalar<TSourceItem> itemScalar,
 			IEqualityComparer<TSourceItem> equalityComparer = null) 
 			: base(source, getPredicateExpression(itemScalar, equalityComparer))
 		{
-			_sourceContainsCalculating = source;
+			_sourceContainsComputing = source;
 			_itemScalar = itemScalar;
 			_equalityComparer = equalityComparer;
 		}
 
-		[ObservableCalculationsCall]
-		public ContainsCalculating(
+		[ObservableComputationsCall]
+		public ContainsComputing(
 			INotifyCollectionChanged source,
 			TSourceItem item,
 			IEqualityComparer<TSourceItem> equalityComparer = null) 
 			: base(source, getPredicateExpression(item, equalityComparer))
 		{
-			_sourceContainsCalculating = source;
+			_sourceContainsComputing = source;
 			_item = item;
 			_equalityComparer = equalityComparer;
 		}
@@ -181,12 +181,12 @@ namespace IBCode.ObservableCalculations
 
 		public new void ValidateConsistency()
 		{
-			IList<TSourceItem> source = (IList<TSourceItem>) _sourceScalarContainsCalculating.getValue(_sourceContainsCalculating, new ObservableCollection<TSourceItem>());
+			IList<TSourceItem> source = (IList<TSourceItem>) _sourceScalarContainsComputing.getValue(_sourceContainsComputing, new ObservableCollection<TSourceItem>());
 			TSourceItem sourceItem = _itemScalar.getValue(_item);
 			IEqualityComparer<TSourceItem> equalityComparer =  _equalityComparerScalar.getValue(_equalityComparer);
 
 			if (_value != source.Contains(sourceItem, equalityComparer))
-				throw new ObservableCalculationsException("Consistency violation: ContainsCalculating.1");
+				throw new ObservableComputationsException("Consistency violation: ContainsComputing.1");
 		}
 	}
 }

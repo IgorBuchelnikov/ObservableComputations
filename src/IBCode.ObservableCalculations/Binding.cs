@@ -1,15 +1,15 @@
 ﻿using System;
 using System.ComponentModel;
 using System.Linq.Expressions;
-using IBCode.ObservableCalculations.Common;
+using IBCode.ObservableComputations.Common;
 
-namespace IBCode.ObservableCalculations
+namespace IBCode.ObservableComputations
 {
 	public class Binding<TValue> : INotifyPropertyChanged
 	{
 		readonly Expression<Func<TValue>> _getSourceExpression;
 		// ReSharper disable once PrivateFieldCanBeConvertedToLocalVariable
-		readonly Calculating<TValue> _gettingExpressionValue;
+		readonly Computing<TValue> _gettingExpressionValue;
 		// ReSharper disable once PrivateFieldCanBeConvertedToLocalVariable
 		readonly PropertyChangedEventHandler _gettingExpressionValueHandlePropertyChanged;
 		readonly Action<TValue> _modifyTargetAction;
@@ -24,11 +24,11 @@ namespace IBCode.ObservableCalculations
 
 			_getSourceExpression = getSourceExpression;
 			_modifyTargetAction = modifyTargetAction;
-			_gettingExpressionValue = new Calculating<TValue>(getSourceExpression);
+			_gettingExpressionValue = new Computing<TValue>(getSourceExpression);
 
 			_gettingExpressionValueHandlePropertyChanged = (sender, args) =>
 			{
-				if (_isEnabled && args.PropertyName == nameof(Calculating<TValue>.Value))
+				if (_isEnabled && args.PropertyName == nameof(Computing<TValue>.Value))
 				{
 					modifyTargetAction(_gettingExpressionValue.Value);
 				}

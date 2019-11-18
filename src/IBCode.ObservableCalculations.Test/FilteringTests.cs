@@ -6,7 +6,7 @@ using System.Linq.Expressions;
 using System.Runtime.CompilerServices;
 using NUnit.Framework;
 
-namespace IBCode.ObservableCalculations.Test
+namespace IBCode.ObservableComputations.Test
 {
 	[TestFixture]
 	public class FilteringTests
@@ -265,10 +265,10 @@ namespace IBCode.ObservableCalculations.Test
 				}
 			);
 
-			Filtering<Item> filtering = Expr.Is(() => items).Calculating().Filtering(item => 
+			Filtering<Item> filtering = Expr.Is(() => items).Computing().Filtering(item => 
 				Expr.Is(() => param.Value 
 					? (ObservableCollection<Item>)items.Filtering(item1 => true) 
-					: items.Filtering(item1 => item1.IsActive == item.IsActive)).Calculating().Value.Count == 3);
+					: items.Filtering(item1 => item1.IsActive == item.IsActive)).Computing().Value.Count == 3);
 
 			Filtering<Item> filtering2 = items.Filtering(item => 
 				(param.Value 
@@ -279,7 +279,7 @@ namespace IBCode.ObservableCalculations.Test
 				? (ObservableCollection<Item>)items.Filtering(item1 => true) 
 				: items.Filtering(item1 => item1.IsActive == false);
 
-			Selecting<Item, bool> selecting = expression.Calculating().Selecting(item => item.IsActive);
+			Selecting<Item, bool> selecting = expression.Computing().Selecting(item => item.IsActive);
 
 			filtering.ValidateConsistency();
 			filtering2.ValidateConsistency();

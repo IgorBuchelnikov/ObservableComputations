@@ -2,10 +2,10 @@
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.Linq;
-using IBCode.ObservableCalculations.Common;
-using IBCode.ObservableCalculations.Common.Interface;
+using IBCode.ObservableComputations.Common;
+using IBCode.ObservableComputations.Common.Interface;
 
-namespace IBCode.ObservableCalculations
+namespace IBCode.ObservableComputations
 {
 	public class Distincting<TSourceItem> : Selecting<Group<TSourceItem, TSourceItem>, TSourceItem>, IHasSources
 	{
@@ -28,7 +28,7 @@ namespace IBCode.ObservableCalculations
 		private readonly IReadScalar<INotifyCollectionChanged> _sourceScalar;
 		private readonly INotifyCollectionChanged _source;
 
-		[ObservableCalculationsCall]
+		[ObservableComputationsCall]
 		public Distincting(
 			IReadScalar<INotifyCollectionChanged> sourceScalar,
 			IReadScalar<IEqualityComparer<TSourceItem>> equalityComparerScalar = null,
@@ -38,7 +38,7 @@ namespace IBCode.ObservableCalculations
 			_equalityComparerScalar = equalityComparerScalar;
 		}
 
-		[ObservableCalculationsCall]
+		[ObservableComputationsCall]
 		public Distincting(
 			INotifyCollectionChanged source,
 			IReadScalar<IEqualityComparer<TSourceItem>> equalityComparerScalar = null,
@@ -48,7 +48,7 @@ namespace IBCode.ObservableCalculations
 			_equalityComparerScalar = equalityComparerScalar;
 		}
 
-		[ObservableCalculationsCall]
+		[ObservableComputationsCall]
 		public Distincting(
 			INotifyCollectionChanged source,
 			IEqualityComparer<TSourceItem> equalityComparer,
@@ -58,7 +58,7 @@ namespace IBCode.ObservableCalculations
 			_equalityComparer = equalityComparer;
 		}
 
-		[ObservableCalculationsCall]
+		[ObservableComputationsCall]
 		public Distincting(
 			IReadScalar<INotifyCollectionChanged> sourceScalar,
 			IEqualityComparer<TSourceItem> equalityComparer = null,
@@ -100,7 +100,7 @@ namespace IBCode.ObservableCalculations
 				equalityComparer = EqualityComparer<TSourceItem>.Default;
 
 			if (!this.SequenceEqual(source.Distinct(equalityComparer)))
-				throw new ObservableCalculationsException("Consistency violation: Distincting.1");
+				throw new ObservableComputationsException("Consistency violation: Distincting.1");
 		}
 	}
 }

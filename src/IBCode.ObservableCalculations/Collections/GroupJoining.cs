@@ -5,14 +5,14 @@ using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Linq;
 using System.Linq.Expressions;
-using IBCode.ObservableCalculations.Common;
-using IBCode.ObservableCalculations.Common.Base;
-using IBCode.ObservableCalculations.Common.Interface;
+using IBCode.ObservableComputations.Common;
+using IBCode.ObservableComputations.Common.Base;
+using IBCode.ObservableComputations.Common.Interface;
 
 
-namespace IBCode.ObservableCalculations
+namespace IBCode.ObservableComputations
 {
-	public class GroupJoining<TOuterSourceItem, TInnerSourceItem, TKey> : CollectionCalculating<JoinGroup<TOuterSourceItem, TInnerSourceItem, TKey>>, IHasSources
+	public class GroupJoining<TOuterSourceItem, TInnerSourceItem, TKey> : CollectionComputing<JoinGroup<TOuterSourceItem, TInnerSourceItem, TKey>>, IHasSources
 	{
 		// ReSharper disable once MemberCanBePrivate.Global
 		public IReadScalar<INotifyCollectionChanged> OuterSourceScalar => _outerSourceScalar;
@@ -109,7 +109,7 @@ namespace IBCode.ObservableCalculations
 		// ReSharper disable once MemberCanBePrivate.Global
 
 		private readonly ExpressionWatcher.ExpressionInfo _outerKeySelectorExpressionInfo;
-		private readonly bool _outerKeySelectorExpressionContainsParametrizedObservableCalculationsCalls;
+		private readonly bool _outerKeySelectorExpressionContainsParametrizedObservableComputationsCalls;
 
 		internal Action<JoinGroup<TOuterSourceItem, TInnerSourceItem, TKey>, int, TInnerSourceItem> _insertItemIntoGroupAction;
 		internal Action<JoinGroup<TOuterSourceItem, TInnerSourceItem, TKey>, int> _removeItemFromGroupAction;
@@ -138,7 +138,7 @@ namespace IBCode.ObservableCalculations
 		private INotifyCollectionChanged _outerSource;
 		private readonly Expression<Func<TOuterSourceItem, TKey>> _outerKeySelectorExpressionOriginal;
 
-		[ObservableCalculationsCall]
+		[ObservableComputationsCall]
 		public GroupJoining(
 			IReadScalar<INotifyCollectionChanged> outerSourceScalar,
 			IReadScalar<INotifyCollectionChanged> innerSourceScalar,
@@ -155,7 +155,7 @@ namespace IBCode.ObservableCalculations
 			initializeFromOuterSource();
 		}
 
-		[ObservableCalculationsCall]
+		[ObservableComputationsCall]
 		public GroupJoining(
 			IReadScalar<INotifyCollectionChanged> outerSourceScalar,
 			INotifyCollectionChanged innerSource,
@@ -172,7 +172,7 @@ namespace IBCode.ObservableCalculations
 			initializeFromOuterSource();
 		}
 
-		[ObservableCalculationsCall]
+		[ObservableComputationsCall]
 		public GroupJoining(
 			IReadScalar<INotifyCollectionChanged> outerSourceScalar,
 			INotifyCollectionChanged innerSource,
@@ -189,7 +189,7 @@ namespace IBCode.ObservableCalculations
 			initializeFromOuterSource();
 		}
 
-		[ObservableCalculationsCall]
+		[ObservableComputationsCall]
 		public GroupJoining(
 			IReadScalar<INotifyCollectionChanged> outerSourceScalar,
 			IReadScalar<INotifyCollectionChanged> innerSourceScalar,
@@ -206,7 +206,7 @@ namespace IBCode.ObservableCalculations
 			initializeFromOuterSource();
 		}
 
-		[ObservableCalculationsCall]
+		[ObservableComputationsCall]
 		public GroupJoining(
 			INotifyCollectionChanged outerSource,
 			IReadScalar<INotifyCollectionChanged> innerSourceScalar,
@@ -222,7 +222,7 @@ namespace IBCode.ObservableCalculations
 			initializeFromOuterSource();
 		}
 
-		[ObservableCalculationsCall]
+		[ObservableComputationsCall]
 		public GroupJoining(
 			INotifyCollectionChanged outerSource,
 			INotifyCollectionChanged innerSource,
@@ -238,7 +238,7 @@ namespace IBCode.ObservableCalculations
 			initializeFromOuterSource();
 		}
 
-		[ObservableCalculationsCall]
+		[ObservableComputationsCall]
 		public GroupJoining(
 			INotifyCollectionChanged outerSource,
 			INotifyCollectionChanged innerSource,
@@ -254,7 +254,7 @@ namespace IBCode.ObservableCalculations
 			initializeFromOuterSource();
 		}
 
-		[ObservableCalculationsCall]
+		[ObservableComputationsCall]
 		public GroupJoining(
 			INotifyCollectionChanged outerSource,
 			IReadScalar<INotifyCollectionChanged> innerSourceScalar,
@@ -396,10 +396,10 @@ namespace IBCode.ObservableCalculations
 				new CallToConstantConverter(outerKeySelector.Parameters);
 			_outerKeySelectorExpression =
 				(Expression<Func<TOuterSourceItem, TKey>>) callToConstantConverter.Visit(outerKeySelector);
-			_outerKeySelectorExpressionContainsParametrizedObservableCalculationsCalls =
+			_outerKeySelectorExpressionContainsParametrizedObservableComputationsCalls =
 				callToConstantConverter.ContainsParametrizedObservableCalculationCalls;
 
-			if (!_outerKeySelectorExpressionContainsParametrizedObservableCalculationsCalls)
+			if (!_outerKeySelectorExpressionContainsParametrizedObservableComputationsCalls)
 			{
 				_outerKeySelectorExpressionInfo = ExpressionWatcher.GetExpressionInfo(_outerKeySelectorExpression);
 				// ReSharper disable once PossibleNullReferenceException
@@ -646,7 +646,7 @@ namespace IBCode.ObservableCalculations
 		{
 			outerKeySelectorFunc = null;
 
-			if (!_outerKeySelectorExpressionContainsParametrizedObservableCalculationsCalls)
+			if (!_outerKeySelectorExpressionContainsParametrizedObservableComputationsCalls)
 			{
 				watcher = new ExpressionWatcher(_outerKeySelectorExpressionInfo, outerSourceItem);
 			}
@@ -665,12 +665,12 @@ namespace IBCode.ObservableCalculations
 
 		private TKey applyKeySelector(TOuterSourceItem outerSourceItem, Func<TKey> outerSelectorFunc)
 		{
-			return _outerKeySelectorExpressionContainsParametrizedObservableCalculationsCalls ? outerSelectorFunc() : _outerKeySelectorFunc(outerSourceItem);
+			return _outerKeySelectorExpressionContainsParametrizedObservableComputationsCalls ? outerSelectorFunc() : _outerKeySelectorFunc(outerSourceItem);
 		}
 
 		private TKey applyKeySelector(int index)
 		{
-			return _outerKeySelectorExpressionContainsParametrizedObservableCalculationsCalls ? this[index]._outerKeySelectorFunc() : _outerKeySelectorFunc(_outerSourceAsList[index]);
+			return _outerKeySelectorExpressionContainsParametrizedObservableComputationsCalls ? this[index]._outerKeySelectorFunc() : _outerKeySelectorFunc(_outerSourceAsList[index]);
 		}
 
 		public TKey ApplyKeySelector(int index)
@@ -719,7 +719,7 @@ namespace IBCode.ObservableCalculations
 			Func<TOuterSourceItem, TKey> outerKeySelector = _outerKeySelectorExpressionOriginal.Compile();
 
 			if (_outerSourceItemPositions.List.Count != outerSource.Count)
-				throw new ObservableCalculationsException("Consistency violation: GroupJoining.5");
+				throw new ObservableComputationsException("Consistency violation: GroupJoining.5");
 
 			Func<TInnerSourceItem, TKey> innerKeySelector = _grouping._keySelectorExpression.Compile();
 
@@ -740,7 +740,7 @@ namespace IBCode.ObservableCalculations
 				}).ToList();
 
 			if (Count !=  result.Count())
-				throw new ObservableCalculationsException("Consistency violation: GroupJoining.1");
+				throw new ObservableComputationsException("Consistency violation: GroupJoining.1");
 
 			for (int index = 0; index < result.Count; index++)
 			{
@@ -748,16 +748,16 @@ namespace IBCode.ObservableCalculations
 				JoinGroup<TOuterSourceItem, TInnerSourceItem, TKey> thisItem = this[index];
 
 				if (!ReferenceEquals(resultItem.Key, thisItem.OuterItem))
-					throw new ObservableCalculationsException("Consistency violation: GroupJoining.2");
+					throw new ObservableComputationsException("Consistency violation: GroupJoining.2");
 
 				if (resultItem.InnerItems.Count() !=  thisItem.Count)
-					throw new ObservableCalculationsException("Consistency violation: GroupJoining.3");
+					throw new ObservableComputationsException("Consistency violation: GroupJoining.3");
 
 				if (!resultItem.InnerItems.SequenceEqual(thisItem))
-					throw new ObservableCalculationsException("Consistency violation: GroupJoining.4");
+					throw new ObservableComputationsException("Consistency violation: GroupJoining.4");
 
 				if (thisItem._outerSourceItemKeySelectorExpressionWatcher._position.Index != index)
-					throw new ObservableCalculationsException("Consistency violation: GroupJoining.9");
+					throw new ObservableComputationsException("Consistency violation: GroupJoining.9");
 
 				List<int> indices;
 				TKey key = outerKeySelector(outerSource[index]);
@@ -778,21 +778,21 @@ namespace IBCode.ObservableCalculations
 			}
 
 			if (keyIndices.Count != _keyPositions.Count)
-				throw new ObservableCalculationsException("Consistency violation: GroupJoining.6");
+				throw new ObservableComputationsException("Consistency violation: GroupJoining.6");
 
 			foreach (KeyValuePair<TKey, List<int>> keyValuePair in keyIndices)
 			{
 				List<Position> positions = _keyPositions[keyValuePair.Key];
 				if (!positions.Select(p => p.Index).OrderBy(i => i).SequenceEqual(keyValuePair.Value))
-					throw new ObservableCalculationsException("Consistency violation: GroupJoining.7");
+					throw new ObservableComputationsException("Consistency violation: GroupJoining.7");
 			}
 
 			if (!_nullKeyPositions.Select(p => p.Index).OrderBy(i => i).SequenceEqual(nullKeyIndices))
-				throw new ObservableCalculationsException("Consistency violation: GroupJoining.8");
+				throw new ObservableComputationsException("Consistency violation: GroupJoining.8");
 		}
 	}
 
-	public class JoinGroup<TOuterSourceItem, TInnerSourceItem, TKey> : CollectionCalculatingChild<TInnerSourceItem>
+	public class JoinGroup<TOuterSourceItem, TInnerSourceItem, TKey> : CollectionComputingChild<TInnerSourceItem>
 	{
 		public TOuterSourceItem OuterItem
 		{
@@ -868,7 +868,7 @@ namespace IBCode.ObservableCalculations
 					insertItem(index, innerSourceItem);
 				}
 
-				if (_group._copies == null) _group._copies = new List<CollectionCalculatingChild<TInnerSourceItem>>();
+				if (_group._copies == null) _group._copies = new List<CollectionComputingChild<TInnerSourceItem>>();
 				_group._copies.Add(this);
 			}
 		}
@@ -901,6 +901,6 @@ namespace IBCode.ObservableCalculations
 		}
 		#endregion
 
-		public override ICollectionCalculating Parent => _groupJoining;
+		public override ICollectionComputing Parent => _groupJoining;
 	}
 }

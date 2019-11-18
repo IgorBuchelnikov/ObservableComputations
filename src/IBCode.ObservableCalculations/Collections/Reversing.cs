@@ -4,10 +4,10 @@ using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Linq;
-using IBCode.ObservableCalculations.Common;
-using IBCode.ObservableCalculations.Common.Interface;
+using IBCode.ObservableComputations.Common;
+using IBCode.ObservableComputations.Common.Interface;
 
-namespace IBCode.ObservableCalculations
+namespace IBCode.ObservableComputations
 {
 	public class Reversing<TSourceItem> : Selecting<ZipPair<int, TSourceItem>, TSourceItem>, IHasSources
 	{
@@ -22,7 +22,7 @@ namespace IBCode.ObservableCalculations
 		public new ReadOnlyCollection<IReadScalar<INotifyCollectionChanged>> SourceScalarsCollection => new ReadOnlyCollection<IReadScalar<INotifyCollectionChanged>>(new []{SourceScalar});
 
 		// ReSharper disable once MemberCanBePrivate.Global
-		[ObservableCalculationsCall]
+		[ObservableComputationsCall]
 		public Reversing(
 			IReadScalar<INotifyCollectionChanged> sourceScalar)
 			: base(getSource(sourceScalar), zipPair => zipPair.ItemRight)
@@ -30,7 +30,7 @@ namespace IBCode.ObservableCalculations
 			_sourceScalar = sourceScalar;
 		}
 
-		[ObservableCalculationsCall]
+		[ObservableComputationsCall]
 		public Reversing(
 			INotifyCollectionChanged source)
 			: base(getSource(source), zipPair => zipPair.ItemRight)
@@ -42,7 +42,7 @@ namespace IBCode.ObservableCalculations
 			 IReadScalar<INotifyCollectionChanged> sourceScalar)
 		{
 			return 		
-				Expr.Is(() => sourceScalar.Value != null ? ((IList) sourceScalar.Value).Count : 0).Calculating().SequenceCalculating()
+				Expr.Is(() => sourceScalar.Value != null ? ((IList) sourceScalar.Value).Count : 0).Computing().SequenceComputing()
 				.Zipping<int, TSourceItem>(sourceScalar)
 				.Ordering(zipPair => zipPair.ItemLeft, ListSortDirection.Descending);
 		}
@@ -51,7 +51,7 @@ namespace IBCode.ObservableCalculations
 			 INotifyCollectionChanged source)
 		{
 			return 		
-				Expr.Is(() => ((IList) source).Count).Calculating().SequenceCalculating()
+				Expr.Is(() => ((IList) source).Count).Computing().SequenceComputing()
 				.Zipping<int, TSourceItem>(source)
 				.Ordering(zipPair => zipPair.ItemLeft, ListSortDirection.Descending);
 		}
@@ -62,7 +62,7 @@ namespace IBCode.ObservableCalculations
 
 			// ReSharper disable once AssignNullToNotNullAttribute
 			if (!this.SequenceEqual(source.Reverse()))
-				throw new ObservableCalculationsException("Consistency violation: Reversing.1");
+				throw new ObservableComputationsException("Consistency violation: Reversing.1");
 		}
 	}
 }

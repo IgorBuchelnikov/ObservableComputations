@@ -6,13 +6,13 @@ using System.ComponentModel;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
-using IBCode.ObservableCalculations.Common;
-using IBCode.ObservableCalculations.Common.Base;
-using IBCode.ObservableCalculations.Common.Interface;
+using IBCode.ObservableComputations.Common;
+using IBCode.ObservableComputations.Common.Base;
+using IBCode.ObservableComputations.Common.Interface;
 
-namespace IBCode.ObservableCalculations
+namespace IBCode.ObservableComputations
 {
-	public class Filtering<TSourceItem> : CollectionCalculating<TSourceItem>, IHasSources
+	public class Filtering<TSourceItem> : CollectionComputing<TSourceItem>, IHasSources
 	{
 		// ReSharper disable once MemberCanBePrivate.Global
 		public IReadScalar<INotifyCollectionChanged> SourceScalar => _sourceScalar;
@@ -61,14 +61,14 @@ namespace IBCode.ObservableCalculations
 		bool _rootSourceWrapper;
 		private bool _lastProcessedSourceChangeMarker;
 
-		private readonly bool _predicateContainsParametrizedObservableCalculationsCalls;
+		private readonly bool _predicateContainsParametrizedObservableComputationsCalls;
 
 		private Queue<ExpressionWatcher> _deferredExpressionWatcherChangedProcessings;
 		private readonly IReadScalar<INotifyCollectionChanged> _sourceScalar;
 		private INotifyCollectionChanged _source;
 		private readonly Func<TSourceItem, bool> _predicateFunc;
 
-		[ObservableCalculationsCall]
+		[ObservableComputationsCall]
 		public Filtering(
 			IReadScalar<INotifyCollectionChanged> sourceScalar, 
 			Expression<Func<TSourceItem, bool>> predicateExpression,
@@ -81,7 +81,7 @@ namespace IBCode.ObservableCalculations
 			initializeFromSource();
 		}
 		
-		[ObservableCalculationsCall]
+		[ObservableComputationsCall]
 		public Filtering(
 			INotifyCollectionChanged source,
 			Expression<Func<TSourceItem, bool>> predicateExpression,
@@ -106,10 +106,10 @@ namespace IBCode.ObservableCalculations
 
 			_predicateExpression =
 				(Expression<Func<TSourceItem, bool>>) callToConstantConverter.Visit(predicateExpression);
-			_predicateContainsParametrizedObservableCalculationsCalls =
+			_predicateContainsParametrizedObservableComputationsCalls =
 				callToConstantConverter.ContainsParametrizedObservableCalculationCalls;
 
-			if (!_predicateContainsParametrizedObservableCalculationsCalls)
+			if (!_predicateContainsParametrizedObservableComputationsCalls)
 			{
 				_predicateExpressionInfo = ExpressionWatcher.GetExpressionInfo(_predicateExpression);
 				// ReSharper disable once PossibleNullReferenceException
@@ -516,10 +516,10 @@ namespace IBCode.ObservableCalculations
 
 		// ReSharper disable once MemberCanBePrivate.Global
 		public bool ApplyPredicate(int sourceIndex) => 
-			_predicateContainsParametrizedObservableCalculationsCalls ? _itemInfos[sourceIndex].PredicateFunc() : _predicateFunc(_sourceAsList[sourceIndex]);
+			_predicateContainsParametrizedObservableComputationsCalls ? _itemInfos[sourceIndex].PredicateFunc() : _predicateFunc(_sourceAsList[sourceIndex]);
 
 		private bool applyPredicate(TSourceItem sourceItem, Func<bool> itemPredicateFunc) => 
-			_predicateContainsParametrizedObservableCalculationsCalls ? itemPredicateFunc() : _predicateFunc(sourceItem);
+			_predicateContainsParametrizedObservableComputationsCalls ? itemPredicateFunc() : _predicateFunc(sourceItem);
 
 		private ItemInfo registerSourceItem(TSourceItem sourceItem, int sourceIndex, Position position, Position nextItemPosition, ExpressionWatcher watcher = null, Func<bool> predicateFunc = null)
 		{
@@ -564,7 +564,7 @@ namespace IBCode.ObservableCalculations
 		{
 			predicateFunc = null;
 
-			if (!_predicateContainsParametrizedObservableCalculationsCalls)
+			if (!_predicateContainsParametrizedObservableComputationsCalls)
 			{
 				watcher = new ExpressionWatcher(_predicateExpressionInfo, sourceItem);
 			}
@@ -634,20 +634,20 @@ namespace IBCode.ObservableCalculations
 
 			IList<TSourceItem> source = _sourceScalar.getValue(_source, new ObservableCollection<TSourceItem>()) as IList<TSourceItem>;
 			// ReSharper disable once PossibleNullReferenceException
-			if (_itemInfos.Count != source.Count) throw new ObservableCalculationsException("Consistency violation: Filtering.9");
+			if (_itemInfos.Count != source.Count) throw new ObservableComputationsException("Consistency violation: Filtering.9");
 			Func<TSourceItem, bool> predicate = _predicateExpression.Compile();
 
 			// ReSharper disable once ConditionIsAlwaysTrueOrFalse
 			if (source != null)
 			{
 				if (_itemInfos.Count != source.Count)
-					throw new ObservableCalculationsException("Consistency violation: Filtering.14");
+					throw new ObservableComputationsException("Consistency violation: Filtering.14");
 
 				if (_source != null && _filteredPositions.List.Count - 1 != Count)
-					throw new ObservableCalculationsException("Consistency violation: Filtering.15");
+					throw new ObservableComputationsException("Consistency violation: Filtering.15");
 
 				if (_source == null && _filteredPositions.List.Count != 0)
-					throw new ObservableCalculationsException("Consistency violation: Filtering.16");
+					throw new ObservableComputationsException("Consistency violation: Filtering.16");
 
 				int index = 0;
 				for (int sourceIndex = 0; sourceIndex < source.Count; sourceIndex++)
@@ -656,33 +656,33 @@ namespace IBCode.ObservableCalculations
 					ItemInfo itemInfo = _itemInfos[sourceIndex];
 					if (predicate(sourceItem))
 					{
-						if (itemInfo.FilteredPosition == null) throw new ObservableCalculationsException("Consistency violation: Filtering.2");
+						if (itemInfo.FilteredPosition == null) throw new ObservableComputationsException("Consistency violation: Filtering.2");
 
 						if (!EqualityComparer<TSourceItem>.Default.Equals(this[index], sourceItem))
 						{
-							throw new ObservableCalculationsException("Consistency violation: Filtering.1");
+							throw new ObservableComputationsException("Consistency violation: Filtering.1");
 						}
 
-						if (itemInfo.FilteredPosition.Index != index) throw new ObservableCalculationsException("Consistency violation: Filtering.5");
+						if (itemInfo.FilteredPosition.Index != index) throw new ObservableComputationsException("Consistency violation: Filtering.5");
 						
 						index++;
 					}
 					else
 					{
-						if (itemInfo.FilteredPosition != null) throw new ObservableCalculationsException("Consistency violation: Filtering.3");
+						if (itemInfo.FilteredPosition != null) throw new ObservableComputationsException("Consistency violation: Filtering.3");
 					}
 
-					if (_itemInfos[sourceIndex].Index != sourceIndex) throw new ObservableCalculationsException("Consistency violation: Filtering.7");
-					if (itemInfo.ExpressionWatcher._position != _itemInfos[sourceIndex]) throw new ObservableCalculationsException("Consistency violation: Filtering.8");
+					if (_itemInfos[sourceIndex].Index != sourceIndex) throw new ObservableComputationsException("Consistency violation: Filtering.7");
+					if (itemInfo.ExpressionWatcher._position != _itemInfos[sourceIndex]) throw new ObservableComputationsException("Consistency violation: Filtering.8");
 
 					if (itemInfo.FilteredPosition != null && !_filteredPositions.List.Contains(itemInfo.FilteredPosition))
-						throw new ObservableCalculationsException("Consistency violation: Filtering.10");
+						throw new ObservableComputationsException("Consistency violation: Filtering.10");
 
 					if (!_filteredPositions.List.Contains(itemInfo.NextFilteredItemPosition))
-						throw new ObservableCalculationsException("Consistency violation: Filtering.11");
+						throw new ObservableComputationsException("Consistency violation: Filtering.11");
 
 					if (!_itemInfos.Contains(itemInfo.ExpressionWatcher._position))
-						throw new ObservableCalculationsException("Consistency violation: Filtering.12");
+						throw new ObservableComputationsException("Consistency violation: Filtering.12");
 				}
 
 				if (_source != null)
@@ -690,7 +690,7 @@ namespace IBCode.ObservableCalculations
 					int count = source.Where(sourceItem => predicate(sourceItem)).Count();
 					if (_filteredPositions.List.Count != count + 1)
 					{
-						throw new ObservableCalculationsException("Consistency violation: Filtering.6");
+						throw new ObservableComputationsException("Consistency violation: Filtering.6");
 					}
 
 					Position nextFilteredItemPosition;
@@ -701,7 +701,7 @@ namespace IBCode.ObservableCalculations
 						ItemInfo itemInfo = _itemInfos[sourceIndex];
 
 						if (itemInfo.NextFilteredItemPosition != nextFilteredItemPosition) 
-								throw new ObservableCalculationsException("Consistency violation: Filtering.4");
+								throw new ObservableComputationsException("Consistency violation: Filtering.4");
 
 						if (predicate(sourceItem))
 						{

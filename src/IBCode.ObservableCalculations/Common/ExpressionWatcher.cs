@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq.Expressions;
 using System.Reflection;
-using IBCode.ObservableCalculations.Common.Interface;
+using IBCode.ObservableComputations.Common.Interface;
 
-namespace IBCode.ObservableCalculations.Common
+namespace IBCode.ObservableComputations.Common
 {
 	internal sealed class ExpressionWatcher : IDisposable
 	{

@@ -2,10 +2,10 @@
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.Linq;
-using IBCode.ObservableCalculations.Common;
-using IBCode.ObservableCalculations.Common.Interface;
+using IBCode.ObservableComputations.Common;
+using IBCode.ObservableComputations.Common.Interface;
 
-namespace IBCode.ObservableCalculations
+namespace IBCode.ObservableComputations
 {
 	public class Excepting<TSourceItem> : Distincting<TSourceItem>, IHasSources
 	{
@@ -34,7 +34,7 @@ namespace IBCode.ObservableCalculations
 		private readonly INotifyCollectionChanged _source2;
 
 
-		[ObservableCalculationsCall]
+		[ObservableComputationsCall]
 		public Excepting(
 			IReadScalar<INotifyCollectionChanged> source1Scalar,
 			IReadScalar<INotifyCollectionChanged> source2Scalar,
@@ -50,7 +50,7 @@ namespace IBCode.ObservableCalculations
 			_equalityComparerScalar = equalityComparerScalar;
 		}
 
-		[ObservableCalculationsCall]
+		[ObservableComputationsCall]
 		public Excepting(
 			IReadScalar<INotifyCollectionChanged> source1Scalar,
 			INotifyCollectionChanged source2,
@@ -66,7 +66,7 @@ namespace IBCode.ObservableCalculations
 			_equalityComparerScalar = equalityComparerScalar;
 		}
 
-		[ObservableCalculationsCall]
+		[ObservableComputationsCall]
 		public Excepting(
 			IReadScalar<INotifyCollectionChanged> source1Scalar,
 			INotifyCollectionChanged source2,
@@ -82,7 +82,7 @@ namespace IBCode.ObservableCalculations
 			_equalityComparer = equalityComparer;
 		}
 
-		[ObservableCalculationsCall]
+		[ObservableComputationsCall]
 		public Excepting(
 			IReadScalar<INotifyCollectionChanged> source1Scalar,
 			IReadScalar<INotifyCollectionChanged> source2Scalar,
@@ -98,7 +98,7 @@ namespace IBCode.ObservableCalculations
 			_equalityComparer = equalityComparer;
 		}
 
-		[ObservableCalculationsCall]
+		[ObservableComputationsCall]
 		public Excepting(
 			INotifyCollectionChanged source1,
 			IReadScalar<INotifyCollectionChanged> source2Scalar,
@@ -114,7 +114,7 @@ namespace IBCode.ObservableCalculations
 			_equalityComparerScalar = equalityComparerScalar;
 		}
 
-		[ObservableCalculationsCall]
+		[ObservableComputationsCall]
 		public Excepting(
 			INotifyCollectionChanged source1,
 			INotifyCollectionChanged source2,
@@ -130,7 +130,7 @@ namespace IBCode.ObservableCalculations
 			_equalityComparerScalar = equalityComparerScalar;
 		}
 
-		[ObservableCalculationsCall]
+		[ObservableComputationsCall]
 		public Excepting(
 			INotifyCollectionChanged source1,
 			INotifyCollectionChanged source2,
@@ -146,7 +146,7 @@ namespace IBCode.ObservableCalculations
 			_equalityComparer = equalityComparer;
 		}
 
-		[ObservableCalculationsCall]
+		[ObservableComputationsCall]
 		public Excepting(
 			INotifyCollectionChanged source1,
 			IReadScalar<INotifyCollectionChanged> source2Scalar,
@@ -265,7 +265,7 @@ namespace IBCode.ObservableCalculations
 			IEqualityComparer<TSourceItem> equalityComparer = _equalityComparerScalar.getValue(_equalityComparer);
 
 			if (!this.SequenceEqual(source1.Except(source2, equalityComparer)))
-				throw new ObservableCalculationsException("Consistency violation: Excepting.1");
+				throw new ObservableComputationsException("Consistency violation: Excepting.1");
 		}
 	}
 }

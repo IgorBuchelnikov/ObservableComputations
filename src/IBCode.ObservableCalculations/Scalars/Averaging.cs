@@ -5,12 +5,12 @@ using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.Linq;
 using System.Linq.Expressions;
-using IBCode.ObservableCalculations.Common;
-using IBCode.ObservableCalculations.Common.Interface;
+using IBCode.ObservableComputations.Common;
+using IBCode.ObservableComputations.Common.Interface;
 
-namespace IBCode.ObservableCalculations
+namespace IBCode.ObservableComputations
 {
-	public class Averaging<TSourceItem, TResult> : Calculating<TResult>, IHasSources
+	public class Averaging<TSourceItem, TResult> : Computing<TResult>, IHasSources
 	{
 		// ReSharper disable once MemberCanBePrivate.Global
 		public IReadScalar<INotifyCollectionChanged> SourceScalar => _sourceScalar;
@@ -24,14 +24,14 @@ namespace IBCode.ObservableCalculations
 		private readonly IReadScalar<INotifyCollectionChanged> _sourceScalar;
 		private readonly INotifyCollectionChanged _source;
 
-		[ObservableCalculationsCall]
+		[ObservableComputationsCall]
 		public Averaging(
 			IReadScalar<INotifyCollectionChanged> sourceScalar) : base(getValueExpression(sourceScalar))
 		{
 			_sourceScalar = sourceScalar;
 		}
 
-		[ObservableCalculationsCall]
+		[ObservableComputationsCall]
 		public Averaging(
 			INotifyCollectionChanged source) : base(getValueExpression(source))
 		{
@@ -74,12 +74,12 @@ namespace IBCode.ObservableCalculations
 			{
 				// ReSharper disable once PossibleNullReferenceException
 				// ReSharper disable once CompareOfFloatsByEqualityOperator
-				if (source.Average() != @this.Value) throw new ObservableCalculationsException("Consistency violation: Averaging.1");
+				if (source.Average() != @this.Value) throw new ObservableComputationsException("Consistency violation: Averaging.1");
 			}
 			else
 			{
 				// ReSharper disable once PossibleNullReferenceException
-				if (!double.IsNaN(@this.Value)) throw new ObservableCalculationsException("Consistency violation: Averaging.2");
+				if (!double.IsNaN(@this.Value)) throw new ObservableComputationsException("Consistency violation: Averaging.2");
 			}
 		}
 	}

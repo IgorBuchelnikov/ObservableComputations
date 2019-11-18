@@ -1,18 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
-using IBCode.ObservableCalculations.Common.Base;
-using IBCode.ObservableCalculations.Common.Interface;
+using IBCode.ObservableComputations.Common.Base;
+using IBCode.ObservableComputations.Common.Interface;
 
 
-namespace IBCode.ObservableCalculations.Common
+namespace IBCode.ObservableComputations.Common
 {
-	public abstract class CollectionCalculating<TItem> : ObservableCollectionWithChangeMarker<TItem>, ICollectionCalculating
+	public abstract class CollectionComputing<TItem> : ObservableCollectionWithChangeMarker<TItem>, ICollectionComputing
 	{
 		public string DebugTag {get; set;}
 		public object Tag {get; set;}
 
-		public CollectionCalculating(int capacity = 0) : base(new List<TItem>(capacity))
+		public CollectionComputing(int capacity = 0) : base(new List<TItem>(capacity))
 		{
 			_initialCapacity = capacity;
 
@@ -244,7 +244,7 @@ namespace IBCode.ObservableCalculations.Common
 		protected void checkConsistent()
 		{
 			if (!_consistent)
-				throw new ObservableCalculationsException(
+				throw new ObservableComputationsException(
 					"The source collection has been changed. It is not possible to process this change, as the processing of the previous change is not completed. Make the change on ConsistencyRestored event raising (after Consistent property becomes true). This exception is fatal and cannot be handled as the inner state is damaged.");
 		}
 	}

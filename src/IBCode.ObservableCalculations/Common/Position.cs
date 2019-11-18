@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Diagnostics.Contracts;
 
-namespace IBCode.ObservableCalculations.Common
+namespace IBCode.ObservableComputations.Common
 {
 	internal readonly struct Positions<TPosition> where TPosition : Position, new()
 	{
@@ -102,7 +102,7 @@ namespace IBCode.ObservableCalculations.Common
 			{
 				TPosition position = List[index];
 				if (position.Index != index)
-					throw new ObservableCalculationsException("Consistency violation: Positions.1");
+					throw new ObservableComputationsException("Consistency violation: Positions.1");
 			}
 		}
 	}
@@ -370,9 +370,9 @@ namespace IBCode.ObservableCalculations.Common
 			{
 				TRangePosition rangePosition = List[index];
 				if (rangePosition.Index != index)
-					throw new ObservableCalculationsException("Consistency violation: RangePosition.1");
+					throw new ObservableComputationsException("Consistency violation: RangePosition.1");
 				if (rangePosition.PlainIndex != plainIndex)
-					throw new ObservableCalculationsException("Consistency violation: RangePosition.2");
+					throw new ObservableComputationsException("Consistency violation: RangePosition.2");
 				plainIndex = plainIndex + rangePosition.Length;
 			}
 		}

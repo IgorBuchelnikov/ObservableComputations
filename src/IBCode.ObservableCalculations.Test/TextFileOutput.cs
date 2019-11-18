@@ -1,7 +1,7 @@
 ﻿using System;
 using System.IO;
 
-namespace IBCode.ObservableCalculations.Test
+namespace IBCode.ObservableComputations.Test
 {
 	public class TextFileOutput
 	{

@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.Linq;
-using IBCode.ObservableCalculations.Common;
-using IBCode.ObservableCalculations.Common.Interface;
+using IBCode.ObservableComputations.Common;
+using IBCode.ObservableComputations.Common.Interface;
 
-namespace IBCode.ObservableCalculations
+namespace IBCode.ObservableComputations
 {
 	public class Taking<TSourceItem> : Selecting<ZipPair<int, TSourceItem>, TSourceItem>, IHasSources
 	{
@@ -39,7 +39,7 @@ namespace IBCode.ObservableCalculations
 		// ReSharper disable once MemberCanBePrivate.Global
 
 
-		[ObservableCalculationsCall]
+		[ObservableComputationsCall]
 		public Taking(			
 			IReadScalar<INotifyCollectionChanged> sourceScalar, 
 			IReadScalar<int> startIndexScalar,
@@ -54,7 +54,7 @@ namespace IBCode.ObservableCalculations
 			_startIndexScalar = startIndexScalar;
 		}
 
-		[ObservableCalculationsCall]
+		[ObservableComputationsCall]
 		public Taking(			
 			IReadScalar<INotifyCollectionChanged> sourceScalar, 
 			IReadScalar<int> startIndexScalar,
@@ -68,7 +68,7 @@ namespace IBCode.ObservableCalculations
 			_startIndexScalar = startIndexScalar;
 		}
 
-		[ObservableCalculationsCall]
+		[ObservableComputationsCall]
 		public Taking(			
 			IReadScalar<INotifyCollectionChanged> sourceScalar, 
 			int startIndex,
@@ -83,7 +83,7 @@ namespace IBCode.ObservableCalculations
 			_startIndex = startIndex;
 		}
 
-		[ObservableCalculationsCall]
+		[ObservableComputationsCall]
 		public Taking(			
 			IReadScalar<INotifyCollectionChanged> sourceScalar, 
 			int startIndex,
@@ -97,7 +97,7 @@ namespace IBCode.ObservableCalculations
 			_startIndex = startIndex;
 		}
 
-		[ObservableCalculationsCall]
+		[ObservableComputationsCall]
 		public Taking(			
 			INotifyCollectionChanged source, 
 			IReadScalar<int> startIndexScalar,
@@ -112,7 +112,7 @@ namespace IBCode.ObservableCalculations
 			_startIndexScalar = startIndexScalar;
 		}
 
-		[ObservableCalculationsCall]
+		[ObservableComputationsCall]
 		public Taking(			
 			INotifyCollectionChanged source, 
 			IReadScalar<int> startIndexScalar,
@@ -126,7 +126,7 @@ namespace IBCode.ObservableCalculations
 			_startIndexScalar = startIndexScalar;
 		}
 
-		[ObservableCalculationsCall]
+		[ObservableComputationsCall]
 		public Taking(			
 			INotifyCollectionChanged source, 
 			int startIndex,
@@ -141,7 +141,7 @@ namespace IBCode.ObservableCalculations
 			_startIndex = startIndex;
 		}
 
-		[ObservableCalculationsCall]
+		[ObservableComputationsCall]
 		public Taking(			
 			INotifyCollectionChanged source, 
 			int startIndex,
@@ -162,7 +162,7 @@ namespace IBCode.ObservableCalculations
 			int capacity)
 		{
 			return 
-				Expr.Is(() => sourceScalar.Value != null ? ((IList) sourceScalar.Value).Count : 0).Calculating().SequenceCalculating()
+				Expr.Is(() => sourceScalar.Value != null ? ((IList) sourceScalar.Value).Count : 0).Computing().SequenceComputing()
 					.Zipping<int, TSourceItem>(sourceScalar).Using(zipping => 
 					zipping.Filtering(zp => zp.ItemLeft >= startIndexScalar.Value && zp.ItemLeft < startIndexScalar.Value + countScalar.Value, capacity)).Value;
 		}
@@ -173,7 +173,7 @@ namespace IBCode.ObservableCalculations
 			int count)
 		{
 			return 
-				Expr.Is(() => sourceScalar.Value != null ? ((IList) sourceScalar.Value).Count : 0).Calculating().SequenceCalculating()
+				Expr.Is(() => sourceScalar.Value != null ? ((IList) sourceScalar.Value).Count : 0).Computing().SequenceComputing()
 					.Zipping<int, TSourceItem>(sourceScalar).Using(zipping => 
 					zipping.Filtering(zp => zp.ItemLeft >= startIndexScalar.Value && zp.ItemLeft < startIndexScalar.Value + count, count)).Value;
 		}
@@ -185,7 +185,7 @@ namespace IBCode.ObservableCalculations
 			int capacity)
 		{
 			return 
-				Expr.Is(() => sourceScalar.Value != null ? ((IList) sourceScalar.Value).Count : 0).Calculating().SequenceCalculating()
+				Expr.Is(() => sourceScalar.Value != null ? ((IList) sourceScalar.Value).Count : 0).Computing().SequenceComputing()
 					.Zipping<int, TSourceItem>(sourceScalar).Using(zipping => 
 					zipping.Filtering(zp => zp.ItemLeft >= startIndex && zp.ItemLeft < startIndex + countScalar.Value, capacity)).Value;
 		}
@@ -196,7 +196,7 @@ namespace IBCode.ObservableCalculations
 			int count)
 		{
 			return 
-				Expr.Is(() => sourceScalar.Value != null ? ((IList) sourceScalar.Value).Count : 0).Calculating().SequenceCalculating()
+				Expr.Is(() => sourceScalar.Value != null ? ((IList) sourceScalar.Value).Count : 0).Computing().SequenceComputing()
 					.Zipping<int, TSourceItem>(sourceScalar).Using(zipping => 
 					zipping.Filtering(zp => zp.ItemLeft >= startIndex && zp.ItemLeft < startIndex + count, count)).Value;
 		}
@@ -208,7 +208,7 @@ namespace IBCode.ObservableCalculations
 			int capacity)
 		{
 			return 
-				Expr.Is(() => ((IList) source).Count).Calculating().SequenceCalculating()
+				Expr.Is(() => ((IList) source).Count).Computing().SequenceComputing()
 					.Zipping<int, TSourceItem>(source).Using(zipping => 
 					zipping.Filtering(zp => zp.ItemLeft >= startIndexScalar.Value && zp.ItemLeft < startIndexScalar.Value + countScalar.Value, capacity)).Value;
 		}
@@ -219,7 +219,7 @@ namespace IBCode.ObservableCalculations
 			int count)
 		{
 			return 
-				Expr.Is(() => ((IList) source).Count).Calculating().SequenceCalculating()
+				Expr.Is(() => ((IList) source).Count).Computing().SequenceComputing()
 					.Zipping<int, TSourceItem>(source).Using(zipping => 
 					zipping.Filtering(zp => zp.ItemLeft >= startIndexScalar.Value && zp.ItemLeft < startIndexScalar.Value + count, count)).Value;
 		}
@@ -231,7 +231,7 @@ namespace IBCode.ObservableCalculations
 			int capacity)
 		{
 			return 
-				Expr.Is(() => ((IList) source).Count).Calculating().SequenceCalculating()
+				Expr.Is(() => ((IList) source).Count).Computing().SequenceComputing()
 					.Zipping<int, TSourceItem>(source).Using(zipping => 
 					zipping.Filtering(zp => zp.ItemLeft >= startIndex && zp.ItemLeft < startIndex + countScalar.Value, capacity)).Value;
 		}
@@ -242,7 +242,7 @@ namespace IBCode.ObservableCalculations
 			int count)
 		{
 			return 
-				Expr.Is(() => ((IList) source).Count).Calculating().SequenceCalculating()
+				Expr.Is(() => ((IList) source).Count).Computing().SequenceComputing()
 					.Zipping<int, TSourceItem>(source).Using(zipping => 
 					zipping.Filtering(zp => zp.ItemLeft >= startIndex && zp.ItemLeft < startIndex + count, count)).Value;
 		}
@@ -256,7 +256,7 @@ namespace IBCode.ObservableCalculations
 			// ReSharper disable once AssignNullToNotNullAttribute
 			if (!this.SequenceEqual(source.Skip(startIndex).Take(count)))
 			{
-				throw new ObservableCalculationsException("Consistency violation: Taking.1");
+				throw new ObservableComputationsException("Consistency violation: Taking.1");
 			}
 		}
 	}

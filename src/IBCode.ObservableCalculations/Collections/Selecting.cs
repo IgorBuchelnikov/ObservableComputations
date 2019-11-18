@@ -4,13 +4,13 @@ using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Linq.Expressions;
-using IBCode.ObservableCalculations.Common;
-using IBCode.ObservableCalculations.Common.Base;
-using IBCode.ObservableCalculations.Common.Interface;
+using IBCode.ObservableComputations.Common;
+using IBCode.ObservableComputations.Common.Base;
+using IBCode.ObservableComputations.Common.Interface;
 
-namespace IBCode.ObservableCalculations
+namespace IBCode.ObservableComputations
 {
-	public class Selecting<TSourceItem, TResultItem> : CollectionCalculating<TResultItem>, IHasSources
+	public class Selecting<TSourceItem, TResultItem> : CollectionComputing<TResultItem>, IHasSources
 	{
 		// ReSharper disable once MemberCanBePrivate.Global
 		public IReadScalar<INotifyCollectionChanged> SourceScalar => _sourceScalar;
@@ -33,7 +33,7 @@ namespace IBCode.ObservableCalculations
 		private readonly Expression<Func<TSourceItem, TResultItem>> _selectorExpression;
 		private readonly ExpressionWatcher.ExpressionInfo _selectorExpressionInfo;
 
-		private readonly bool _selectorContainsParametrizedObservableCalculationsCalls;
+		private readonly bool _selectorContainsParametrizedObservableComputationsCalls;
 
 		// ReSharper disable once PrivateFieldCanBeConvertedToLocalVariable
 		private readonly PropertyChangedEventHandler _sourceScalarPropertyChangedEventHandler;
@@ -58,7 +58,7 @@ namespace IBCode.ObservableCalculations
 			public Func<TResultItem> SelectorFunc;
 		}
 
-		[ObservableCalculationsCall]
+		[ObservableComputationsCall]
 		public Selecting(
 			IReadScalar<INotifyCollectionChanged> sourceScalar,
 			Expression<Func<TSourceItem, TResultItem>> selectorExpression) : this(selectorExpression, Utils.getCapacity(sourceScalar))
@@ -71,7 +71,7 @@ namespace IBCode.ObservableCalculations
 			initializeFromSource();
 		}
 
-		[ObservableCalculationsCall]
+		[ObservableComputationsCall]
 		public Selecting(
 			INotifyCollectionChanged source,
 			Expression<Func<TSourceItem, TResultItem>> selectorExpression) : this(selectorExpression, Utils.getCapacity(source))
@@ -91,10 +91,10 @@ namespace IBCode.ObservableCalculations
 			_selectorExpression =
 				(Expression<Func<TSourceItem, TResultItem>>)callToConstantConverter.Visit(
 					_selectorExpressionOriginal);
-			_selectorContainsParametrizedObservableCalculationsCalls =
+			_selectorContainsParametrizedObservableComputationsCalls =
 				callToConstantConverter.ContainsParametrizedObservableCalculationCalls;
 
-			if (!_selectorContainsParametrizedObservableCalculationsCalls)
+			if (!_selectorContainsParametrizedObservableComputationsCalls)
 			{
 				_selectorExpressionInfo = ExpressionWatcher.GetExpressionInfo(_selectorExpression);
 				// ReSharper disable once PossibleNullReferenceException
@@ -264,7 +264,7 @@ namespace IBCode.ObservableCalculations
 			itemInfo = itemInfo == null ? _sourcePositions.Insert(index) : _itemInfos[index];
 
 			ExpressionWatcher watcher;
-			if (!_selectorContainsParametrizedObservableCalculationsCalls)
+			if (!_selectorContainsParametrizedObservableComputationsCalls)
 			{
 				watcher = new ExpressionWatcher(_selectorExpressionInfo, sourceItem);
 			}
@@ -307,11 +307,11 @@ namespace IBCode.ObservableCalculations
 
 		// ReSharper disable once MemberCanBePrivate.Global
 		public TResultItem ApplySelector(int index) => 
-			_selectorContainsParametrizedObservableCalculationsCalls ? _itemInfos[index].SelectorFunc() : _selectorFunc(_sourceAsList[index]);
+			_selectorContainsParametrizedObservableComputationsCalls ? _itemInfos[index].SelectorFunc() : _selectorFunc(_sourceAsList[index]);
 
 
 		private TResultItem applySelector(ItemInfo itemInfo, TSourceItem sourceItem) => 
-			_selectorContainsParametrizedObservableCalculationsCalls ? itemInfo.SelectorFunc() : _selectorFunc(sourceItem);
+			_selectorContainsParametrizedObservableComputationsCalls ? itemInfo.SelectorFunc() : _selectorFunc(sourceItem);
 
 		~Selecting()
 		{
@@ -333,14 +333,14 @@ namespace IBCode.ObservableCalculations
 			IList<TSourceItem> source = _sourceScalar.getValue(_source, new ObservableCollection<TSourceItem>()) as IList<TSourceItem>;
 			// ReSharper disable once PossibleNullReferenceException
 			if (_itemInfos.Count != source.Count)
-				throw new ObservableCalculationsException("Consistency violation: Selecting.1");
+				throw new ObservableComputationsException("Consistency violation: Selecting.1");
 			Func<TSourceItem, TResultItem> selector = _selectorExpressionOriginal.Compile();
 
 			// ReSharper disable once ConditionIsAlwaysTrueOrFalse
 			if (source != null)
 			{
 				if (_itemInfos.Count != source.Count)
-					throw new ObservableCalculationsException("Consistency violation: Selecting.6");
+					throw new ObservableComputationsException("Consistency violation: Selecting.6");
 
 				for (int sourceIndex = 0; sourceIndex < source.Count; sourceIndex++)
 				{
@@ -348,18 +348,18 @@ namespace IBCode.ObservableCalculations
 					ItemInfo itemInfo = _itemInfos[sourceIndex];
 					
 					if (!EqualityComparer<TResultItem>.Default.Equals(this[sourceIndex], selector(sourceItem)))
-						throw new ObservableCalculationsException("Consistency violation: Selecting.2");
+						throw new ObservableComputationsException("Consistency violation: Selecting.2");
 
 					if (_itemInfos[sourceIndex].Index != sourceIndex)
-						throw new ObservableCalculationsException("Consistency violation: Selecting.3");
+						throw new ObservableComputationsException("Consistency violation: Selecting.3");
 					if (itemInfo.ExpressionWatcher._position != _itemInfos[sourceIndex])
-						throw new ObservableCalculationsException("Consistency violation: Selecting.4");
+						throw new ObservableComputationsException("Consistency violation: Selecting.4");
 
 					if (!_itemInfos.Contains((ItemInfo) itemInfo.ExpressionWatcher._position))
-						throw new ObservableCalculationsException("Consistency violation: Selecting.5");
+						throw new ObservableComputationsException("Consistency violation: Selecting.5");
 
 					if (itemInfo.ExpressionWatcher._position.Index != sourceIndex)
-						throw new ObservableCalculationsException("Consistency violation: Selecting.7");
+						throw new ObservableComputationsException("Consistency violation: Selecting.7");
 
 				}
 			}

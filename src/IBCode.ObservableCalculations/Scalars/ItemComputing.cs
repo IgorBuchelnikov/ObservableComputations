@@ -3,13 +3,13 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.ComponentModel;
-using IBCode.ObservableCalculations.Common;
-using IBCode.ObservableCalculations.Common.Base;
-using IBCode.ObservableCalculations.Common.Interface;
+using IBCode.ObservableComputations.Common;
+using IBCode.ObservableComputations.Common.Base;
+using IBCode.ObservableComputations.Common.Interface;
 
-namespace IBCode.ObservableCalculations
+namespace IBCode.ObservableComputations
 {
-	public class ItemCalculating<TSourceItem> : ScalarCalculating<TSourceItem>, IHasSources
+	public class ItemComputing<TSourceItem> : ScalarComputing<TSourceItem>, IHasSources
 	{
 		public IReadScalar<INotifyCollectionChanged> SourceScalar => _sourceScalar;
 
@@ -91,8 +91,8 @@ namespace IBCode.ObservableCalculations
 			_sourceScalar.PropertyChanged += _sourceScalarWeakPropertyChangedEventHandler.Handle;
 		}
 
-		[ObservableCalculationsCall]
-		public ItemCalculating(
+		[ObservableComputationsCall]
+		public ItemComputing(
 			IReadScalar<INotifyCollectionChanged> sourceScalar,
 			IReadScalar<int> indexScalar, 
 			IReadScalar<TSourceItem> defaultValueScalar = null)
@@ -109,8 +109,8 @@ namespace IBCode.ObservableCalculations
 			initializeFromSource();
 		}
 
-		[ObservableCalculationsCall]
-		public ItemCalculating(
+		[ObservableComputationsCall]
+		public ItemComputing(
 			IReadScalar<INotifyCollectionChanged> sourceScalar,
 			int index, 
 			IReadScalar<TSourceItem> defaultValueScalar = null)
@@ -126,8 +126,8 @@ namespace IBCode.ObservableCalculations
 			initializeFromSource();
 		}
 
-		[ObservableCalculationsCall]
-		public ItemCalculating(
+		[ObservableComputationsCall]
+		public ItemComputing(
 			IReadScalar<INotifyCollectionChanged> sourceScalar,
 			int index, 
 			TSourceItem defaultValue = default(TSourceItem))
@@ -141,8 +141,8 @@ namespace IBCode.ObservableCalculations
 			initializeFromSource();
 		}
 
-		[ObservableCalculationsCall]
-		public ItemCalculating(
+		[ObservableComputationsCall]
+		public ItemComputing(
 			IReadScalar<INotifyCollectionChanged> sourceScalar,
 			IReadScalar<int> indexScalar, 
 			TSourceItem defaultValue = default(TSourceItem))
@@ -159,8 +159,8 @@ namespace IBCode.ObservableCalculations
 		}
 
 
-		[ObservableCalculationsCall]
-		public ItemCalculating(
+		[ObservableComputationsCall]
+		public ItemComputing(
 			INotifyCollectionChanged source,
 			IReadScalar<int> indexScalar, 
 			IReadScalar<TSourceItem> defaultValueScalar = null)
@@ -176,8 +176,8 @@ namespace IBCode.ObservableCalculations
 			initializeFromSource();
 		}
 
-		[ObservableCalculationsCall]
-		public ItemCalculating(
+		[ObservableComputationsCall]
+		public ItemComputing(
 			INotifyCollectionChanged source,
 			int index, 
 			IReadScalar<TSourceItem> defaultValueScalar = null)
@@ -192,8 +192,8 @@ namespace IBCode.ObservableCalculations
 			initializeFromSource();
 		}
 
-		[ObservableCalculationsCall]
-		public ItemCalculating(
+		[ObservableComputationsCall]
+		public ItemComputing(
 			INotifyCollectionChanged source,
 			int index, 
 			TSourceItem defaultValue = default(TSourceItem))
@@ -205,8 +205,8 @@ namespace IBCode.ObservableCalculations
 			initializeFromSource();
 		}
 
-		[ObservableCalculationsCall]
-		public ItemCalculating(
+		[ObservableComputationsCall]
+		public ItemComputing(
 			INotifyCollectionChanged source,
 			IReadScalar<int> indexScalar, 
 			TSourceItem defaultValue = default(TSourceItem))
@@ -367,7 +367,7 @@ namespace IBCode.ObservableCalculations
 			}						
 		}
 
-		~ItemCalculating()
+		~ItemComputing()
 		{
 			if (_sourceWeakNotifyCollectionChangedEventHandler != null)
 			{
@@ -404,12 +404,12 @@ namespace IBCode.ObservableCalculations
 			if (source.Count > index)
 			{
 				if (!source[index].IsSameAs(_value))
-					throw new ObservableCalculationsException("Consistency violation: ItemCalculating.1");
+					throw new ObservableComputationsException("Consistency violation: ItemComputing.1");
 			}
 			else
 			{
 				if (!defaultValue.IsSameAs(_value))
-					throw new ObservableCalculationsException("Consistency violation: ItemCalculating.2");			
+					throw new ObservableComputationsException("Consistency violation: ItemComputing.2");			
 			}
 		}
 

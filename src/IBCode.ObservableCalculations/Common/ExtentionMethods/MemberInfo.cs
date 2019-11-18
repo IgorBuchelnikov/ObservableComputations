@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Reflection;
 
-namespace IBCode.ObservableCalculations.Common
+namespace IBCode.ObservableComputations.Common
 {
     internal static partial class ExtensionMethods
     {

@@ -4,13 +4,13 @@ using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Linq;
-using IBCode.ObservableCalculations.Common;
-using IBCode.ObservableCalculations.Common.Base;
-using IBCode.ObservableCalculations.Common.Interface;
+using IBCode.ObservableComputations.Common;
+using IBCode.ObservableComputations.Common.Base;
+using IBCode.ObservableComputations.Common.Interface;
 
-namespace IBCode.ObservableCalculations
+namespace IBCode.ObservableComputations
 {
-	public class MinimazingOrMaximazing<TSourceItem> : ScalarCalculating<TSourceItem>, IHasSources
+	public class MinimazingOrMaximazing<TSourceItem> : ScalarComputing<TSourceItem>, IHasSources
 	{
 		// ReSharper disable once MemberCanBePrivate.Global
 		// ReSharper disable once ConvertToAutoProperty
@@ -116,7 +116,7 @@ namespace IBCode.ObservableCalculations
 			}
 		}
 
-		[ObservableCalculationsCall]
+		[ObservableComputationsCall]
 		public MinimazingOrMaximazing(
 			IReadScalar<INotifyCollectionChanged> sourceScalar,
 			MinimazingOrMaximazingMode mode,
@@ -135,7 +135,7 @@ namespace IBCode.ObservableCalculations
 			initializeFromSource();
 		}
 
-		[ObservableCalculationsCall]
+		[ObservableComputationsCall]
 		public MinimazingOrMaximazing(
 			IReadScalar<INotifyCollectionChanged> sourceScalar,
 			MinimazingOrMaximazingMode mode,
@@ -153,7 +153,7 @@ namespace IBCode.ObservableCalculations
 			initializeFromSource();
 		}
 
-		[ObservableCalculationsCall]
+		[ObservableComputationsCall]
 		public MinimazingOrMaximazing(
 			IReadScalar<INotifyCollectionChanged> sourceScalar,
 			MinimazingOrMaximazingMode mode,
@@ -170,7 +170,7 @@ namespace IBCode.ObservableCalculations
 			initializeFromSource();
 		}
 
-		[ObservableCalculationsCall]
+		[ObservableComputationsCall]
 		public MinimazingOrMaximazing(
 			IReadScalar<INotifyCollectionChanged> sourceScalar,
 			MinimazingOrMaximazingMode mode,
@@ -188,7 +188,7 @@ namespace IBCode.ObservableCalculations
 			initializeFromSource();
 		}
 
-		[ObservableCalculationsCall]
+		[ObservableComputationsCall]
 		public MinimazingOrMaximazing(
 			INotifyCollectionChanged source,
 			MinimazingOrMaximazingMode mode,
@@ -206,7 +206,7 @@ namespace IBCode.ObservableCalculations
 			initializeFromSource();
 		}
 
-		[ObservableCalculationsCall]
+		[ObservableComputationsCall]
 		public MinimazingOrMaximazing(
 			INotifyCollectionChanged source,
 			MinimazingOrMaximazingMode mode,
@@ -224,7 +224,7 @@ namespace IBCode.ObservableCalculations
 			initializeFromSource();
 		}
 
-		[ObservableCalculationsCall]
+		[ObservableComputationsCall]
 		public MinimazingOrMaximazing(
 			INotifyCollectionChanged source,
 			MinimazingOrMaximazingMode mode,
@@ -240,7 +240,7 @@ namespace IBCode.ObservableCalculations
 			initializeFromSource();
 		}
 
-		[ObservableCalculationsCall]
+		[ObservableComputationsCall]
 		public MinimazingOrMaximazing(
 			INotifyCollectionChanged source,
 			MinimazingOrMaximazingMode mode,
@@ -411,7 +411,7 @@ namespace IBCode.ObservableCalculations
 				switch (e.Action)
 				{
 					case NotifyCollectionChangedAction.Add:
-						if (e.NewItems.Count > 1) throw new ObservableCalculationsException("Adding of multiple items is not supported");
+						if (e.NewItems.Count > 1) throw new ObservableComputationsException("Adding of multiple items is not supported");
 						int newIndex = e.NewStartingIndex;
 						TSourceItem addedSourceItem = _sourceAsList[newIndex];
 						_sourceItems.Insert(newIndex, addedSourceItem);
@@ -438,7 +438,7 @@ namespace IBCode.ObservableCalculations
 						}
 						break;
 					case NotifyCollectionChangedAction.Remove:
-						if (e.OldItems.Count > 1) throw new ObservableCalculationsException("Removing of multiple items is not supported");
+						if (e.OldItems.Count > 1) throw new ObservableComputationsException("Removing of multiple items is not supported");
 						int oldStartingIndex = e.OldStartingIndex;
 						TSourceItem removingSourceItem = _sourceItems[oldStartingIndex];
 						_sourceItems.RemoveAt(oldStartingIndex);
@@ -453,7 +453,7 @@ namespace IBCode.ObservableCalculations
 						}
 						break;
 					case NotifyCollectionChangedAction.Replace:
-						if (e.NewItems.Count > 1) throw new ObservableCalculationsException("Replacing of multiple items is not supported");
+						if (e.NewItems.Count > 1) throw new ObservableComputationsException("Replacing of multiple items is not supported");
 						int replacingSourceIndex = e.NewStartingIndex;
 						TSourceItem newItem = _sourceAsList[e.NewStartingIndex];
 						TSourceItem oldItem = _sourceItems[e.NewStartingIndex];
@@ -535,14 +535,14 @@ namespace IBCode.ObservableCalculations
 		{
 			IList<TSourceItem> source = _sourceScalar.getValue(_source, new ObservableCollection<TSourceItem>()) as IList<TSourceItem>;
 			// ReSharper disable once PossibleNullReferenceException
-			if (_sourceItems.Count != source.Count) throw new ObservableCalculationsException("Consistency violation: MinimazingOrMaximazing.1");
+			if (_sourceItems.Count != source.Count) throw new ObservableComputationsException("Consistency violation: MinimazingOrMaximazing.1");
 			TSourceItem defaultValue = _defaultValueScalar.getValue(_defaultValue);
 
 			for (int i = 0; i < source.Count; i++)
 			{
 				TSourceItem sourceItem = source[i];
 				TSourceItem savedSourceItem = _sourceItems[i];
-				if (!savedSourceItem.IsSameAs(sourceItem)) throw new ObservableCalculationsException("Consistency violation: MinimazingOrMaximazing.2");
+				if (!savedSourceItem.IsSameAs(sourceItem)) throw new ObservableComputationsException("Consistency violation: MinimazingOrMaximazing.2");
 			}
 
 			if (source.Count > 0)
@@ -551,16 +551,16 @@ namespace IBCode.ObservableCalculations
 					?  source.Max() 
 					: source.Min();
 
-				if (!result.Equals(_value)) throw new ObservableCalculationsException("Consistency violation: MinimazingOrMaximazing.3");
+				if (!result.Equals(_value)) throw new ObservableComputationsException("Consistency violation: MinimazingOrMaximazing.3");
 
-				if (source.Count(i => i.Equals(result)) != _valueCount) throw new ObservableCalculationsException("Consistency violation: MinimazingOrMaximazing.4");
+				if (source.Count(i => i.Equals(result)) != _valueCount) throw new ObservableComputationsException("Consistency violation: MinimazingOrMaximazing.4");
 
-				if (IsDefaulted) throw new ObservableCalculationsException("Consistency violation: MinimazingOrMaximazing.4");
+				if (IsDefaulted) throw new ObservableComputationsException("Consistency violation: MinimazingOrMaximazing.4");
 			}
 			else
 			{
-				if (!defaultValue.Equals(_value)) throw new ObservableCalculationsException("Consistency violation: MinimazingOrMaximazing.5");
-				if (!IsDefaulted) throw new ObservableCalculationsException("Consistency violation: MinimazingOrMaximazing.4");
+				if (!defaultValue.Equals(_value)) throw new ObservableComputationsException("Consistency violation: MinimazingOrMaximazing.5");
+				if (!IsDefaulted) throw new ObservableComputationsException("Consistency violation: MinimazingOrMaximazing.4");
 			}
 
 		}

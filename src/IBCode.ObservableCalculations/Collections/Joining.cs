@@ -5,11 +5,11 @@ using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Linq;
 using System.Linq.Expressions;
-using IBCode.ObservableCalculations.Common;
-using IBCode.ObservableCalculations.Common.Interface;
+using IBCode.ObservableComputations.Common;
+using IBCode.ObservableComputations.Common.Interface;
 using INotifyPropertyChanged = System.ComponentModel.INotifyPropertyChanged;
 
-namespace IBCode.ObservableCalculations
+namespace IBCode.ObservableComputations
 {
 	public class Joining<TOuterSourceItem, TInnerSourceItem> : Filtering<JoinPair<TOuterSourceItem, TInnerSourceItem>>, IHasSources
 	{
@@ -37,7 +37,7 @@ namespace IBCode.ObservableCalculations
 
 		// ReSharper disable once MemberCanBePrivate.Global
 
-		[ObservableCalculationsCall]
+		[ObservableComputationsCall]
 		public Joining(
 			IReadScalar<INotifyCollectionChanged> outerSourceScalar,
 			IReadScalar<INotifyCollectionChanged> innerSourceScalar,
@@ -50,7 +50,7 @@ namespace IBCode.ObservableCalculations
 			JoinPredicateExpression = joinPredicateExpression;
 		}
 
-		[ObservableCalculationsCall]
+		[ObservableComputationsCall]
 		public Joining(
 			INotifyCollectionChanged outerSource,
 			IReadScalar<INotifyCollectionChanged> innerSourceScalar,
@@ -63,7 +63,7 @@ namespace IBCode.ObservableCalculations
 			JoinPredicateExpression = joinPredicateExpression;
 		}
 
-		[ObservableCalculationsCall]
+		[ObservableComputationsCall]
 		public Joining(
 			IReadScalar<INotifyCollectionChanged> outerSourceScalar,
 			INotifyCollectionChanged innerSource,
@@ -76,7 +76,7 @@ namespace IBCode.ObservableCalculations
 			JoinPredicateExpression = joinPredicateExpression;
 		}
 
-		[ObservableCalculationsCall]
+		[ObservableComputationsCall]
 		public Joining(
 			INotifyCollectionChanged outerSource,
 			INotifyCollectionChanged innerSource,
@@ -157,7 +157,7 @@ namespace IBCode.ObservableCalculations
 
 			if (!this.SequenceEqual(source1.SelectMany(item1 => source2.Select(item2 => new JoinPair<TOuterSourceItem, TInnerSourceItem>(item1, item2)).Where(jp => joinPredicate(jp.OuterItem, jp.InnerItem)))))
 			{
-				throw new ObservableCalculationsException("Consistency violation: Joining.1");
+				throw new ObservableComputationsException("Consistency violation: Joining.1");
 			}
 		}
 	}

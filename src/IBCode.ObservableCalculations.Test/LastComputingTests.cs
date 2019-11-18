@@ -4,10 +4,10 @@ using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using NUnit.Framework;
 
-namespace IBCode.ObservableCalculations.Test
+namespace IBCode.ObservableComputations.Test
 {
 	[TestFixture]
-	public class LastCalculatingTests
+	public class LastComputingTests
 	{
 		public class Item : INotifyPropertyChanged
 		{
@@ -46,7 +46,7 @@ namespace IBCode.ObservableCalculations.Test
 		{
 			ObservableCollection<Item> items = new ObservableCollection<Item>();
 
-			LastCalculating<Item> last = items.LastCalculating();
+			LastComputing<Item> last = items.LastComputing();
 			last.ValidateConsistency();
 		}
 
@@ -66,7 +66,7 @@ namespace IBCode.ObservableCalculations.Test
 				}
 			);
 
-			LastCalculating<Item> last = items.LastCalculating();
+			LastComputing<Item> last = items.LastComputing();
 			last.ValidateConsistency();
 			items.RemoveAt(index);
 			last.ValidateConsistency();
@@ -82,7 +82,7 @@ namespace IBCode.ObservableCalculations.Test
 				}
 			);
 
-			LastCalculating<Item> last = items.LastCalculating();
+			LastComputing<Item> last = items.LastComputing();
 			last.ValidateConsistency();
 			items.RemoveAt(0);
 			last.ValidateConsistency();
@@ -103,7 +103,7 @@ namespace IBCode.ObservableCalculations.Test
 				}
 			);
 
-			LastCalculating<Item> last = items.LastCalculating();
+			LastComputing<Item> last = items.LastComputing();
 			last.ValidateConsistency();
 			items.Insert(index, new Item());
 			last.ValidateConsistency();
@@ -114,7 +114,7 @@ namespace IBCode.ObservableCalculations.Test
 		{
 			ObservableCollection<Item> items = new ObservableCollection<Item>();
 
-			LastCalculating<Item> last = items.LastCalculating();
+			LastComputing<Item> last = items.LastComputing();
 			last.ValidateConsistency();
 			items.Insert(0, new Item());
 			last.ValidateConsistency();
@@ -136,7 +136,7 @@ namespace IBCode.ObservableCalculations.Test
 				}
 			);
 
-			LastCalculating<Item> last = items.LastCalculating();
+			LastComputing<Item> last = items.LastComputing();
 			last.ValidateConsistency();
 			items.Move(oldIndex, newIndex);
 			last.ValidateConsistency();
@@ -158,7 +158,7 @@ namespace IBCode.ObservableCalculations.Test
 				}
 			);
 
-			LastCalculating<Item> last = items.LastCalculating();
+			LastComputing<Item> last = items.LastComputing();
 			last.ValidateConsistency();
 			items[index] = new Item();
 			last.ValidateConsistency();

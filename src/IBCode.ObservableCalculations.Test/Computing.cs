@@ -4,10 +4,10 @@ using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using NUnit.Framework;
 
-namespace IBCode.ObservableCalculations.Test
+namespace IBCode.ObservableComputations.Test
 {
 	[TestFixture]
-	public class CalculatingTests
+	public class ComputingTests
 	{
 		public class Order : INotifyPropertyChanged
 		{
@@ -43,8 +43,8 @@ namespace IBCode.ObservableCalculations.Test
 		{
 			bool raised = false;
 			Order order = new Order();
-			Calculating<string> calculating = new Calculating<string>(() => order.Num);
-			calculating.PropertyChanged += (sender, args) => { if (args.PropertyName == "Value") raised = true; };
+			Computing<string> computing = new Computing<string>(() => order.Num);
+			computing.PropertyChanged += (sender, args) => { if (args.PropertyName == "Value") raised = true; };
 			order.Num = "1";
 			Assert.IsTrue(raised);
 		}

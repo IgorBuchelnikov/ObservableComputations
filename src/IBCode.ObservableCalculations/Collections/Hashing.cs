@@ -4,11 +4,11 @@ using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Linq.Expressions;
-using IBCode.ObservableCalculations.Common;
-using IBCode.ObservableCalculations.Common.Base;
-using IBCode.ObservableCalculations.Common.Interface;
+using IBCode.ObservableComputations.Common;
+using IBCode.ObservableComputations.Common.Base;
+using IBCode.ObservableComputations.Common.Interface;
 
-namespace IBCode.ObservableCalculations
+namespace IBCode.ObservableComputations
 {
 	// ReSharper disable once RedundantExtendsListEntry
 	public class Hashing<TSourceItem, TKey> : HashSet<TKey>, IHasSources
@@ -36,7 +36,7 @@ namespace IBCode.ObservableCalculations
 		private readonly Expression<Func<TSourceItem, TKey>> _keySelectorExpression;
 		private readonly ExpressionWatcher.ExpressionInfo _keySelectorExpressionInfo;
 
-		private readonly bool _keySelectorContainsParametrizedObservableCalculationsCalls;
+		private readonly bool _keySelectorContainsParametrizedObservableComputationsCalls;
 
 		// ReSharper disable once PrivateFieldCanBeConvertedToLocalVariable
 		private readonly PropertyChangedEventHandler _sourceScalarPropertyChangedEventHandler;
@@ -83,9 +83,9 @@ namespace IBCode.ObservableCalculations
 			_keySelectorExpressionOriginal = keySelectorExpression;
 			CallToConstantConverter callToConstantConverter = new CallToConstantConverter(_keySelectorExpressionOriginal.Parameters);
 			_keySelectorExpression = (Expression<Func<TSourceItem, TKey>>) callToConstantConverter.Visit(_keySelectorExpressionOriginal);
-			_keySelectorContainsParametrizedObservableCalculationsCalls = callToConstantConverter.ContainsParametrizedObservableCalculationCalls;
+			_keySelectorContainsParametrizedObservableComputationsCalls = callToConstantConverter.ContainsParametrizedObservableCalculationCalls;
 
-			if (!_keySelectorContainsParametrizedObservableCalculationsCalls)
+			if (!_keySelectorContainsParametrizedObservableComputationsCalls)
 			{
 				_keySelectorExpressionInfo = ExpressionWatcher.GetExpressionInfo(_keySelectorExpression);
 				// ReSharper disable once PossibleNullReferenceException
@@ -93,7 +93,7 @@ namespace IBCode.ObservableCalculations
 			}
 		}
 
-		[ObservableCalculationsCall]
+		[ObservableComputationsCall]
 		public Hashing(
 			IReadScalar<INotifyCollectionChanged> sourceScalar,
 			Expression<Func<TSourceItem, TKey>> keySelectorExpression,
@@ -107,7 +107,7 @@ namespace IBCode.ObservableCalculations
 			initializeFromSource();
 		}
 
-		[ObservableCalculationsCall]
+		[ObservableComputationsCall]
 		public Hashing(
 			INotifyCollectionChanged source,
 			Expression<Func<TSourceItem, TKey>> keySelectorExpression,
@@ -289,7 +289,7 @@ namespace IBCode.ObservableCalculations
 		private void fillItemInfoWithKey(ItemInfo itemInfo, TSourceItem sourceItem)
 		{
 			ExpressionWatcher watcher;
-			if (!_keySelectorContainsParametrizedObservableCalculationsCalls)
+			if (!_keySelectorContainsParametrizedObservableComputationsCalls)
 			{
 				watcher = new ExpressionWatcher(_keySelectorExpressionInfo, sourceItem);
 			}
@@ -335,7 +335,7 @@ namespace IBCode.ObservableCalculations
 
 		private TKey applyKeySelector(ItemInfo itemInfo, TSourceItem sourceItem)
 		{
-			return _keySelectorContainsParametrizedObservableCalculationsCalls ? itemInfo.KeySelectorFunc() : _keySelectorFunc(sourceItem);
+			return _keySelectorContainsParametrizedObservableComputationsCalls ? itemInfo.KeySelectorFunc() : _keySelectorFunc(sourceItem);
 		}
 
 		private void baseClearItems()
@@ -372,15 +372,15 @@ namespace IBCode.ObservableCalculations
 			_sourcePositions.ValidateConsistency();
 			IList<TSourceItem> source = _sourceScalar.getValue(_source, new ObservableCollection<TSourceItem>()) as IList<TSourceItem>;
 			// ReSharper disable once PossibleNullReferenceException
-			if (_itemInfos.Count != source.Count) throw new ObservableCalculationsException("Consistency violation: Hashing.1");
-			if (Count != source.Count) throw new ObservableCalculationsException("Consistency violation: Hashing.10");
+			if (_itemInfos.Count != source.Count) throw new ObservableComputationsException("Consistency violation: Hashing.1");
+			if (Count != source.Count) throw new ObservableComputationsException("Consistency violation: Hashing.10");
 			Func<TSourceItem, TKey> keySelector = _keySelectorExpressionOriginal.Compile();
 
 			// ReSharper disable once ConditionIsAlwaysTrueOrFalse
 			if (source != null)
 			{
 				if (_sourcePositions.List.Count != source.Count)
-					throw new ObservableCalculationsException("Consistency violation: Hashing.15");
+					throw new ObservableComputationsException("Consistency violation: Hashing.15");
 
 				for (int sourceIndex = 0; sourceIndex < source.Count; sourceIndex++)
 				{
@@ -389,19 +389,19 @@ namespace IBCode.ObservableCalculations
 
 					TKey key = keySelector(sourceItem);
 					if (!Contains(key))
-						throw new ObservableCalculationsException("Consistency violation: Hashing.2");
+						throw new ObservableComputationsException("Consistency violation: Hashing.2");
 
-					if (_sourcePositions.List[sourceIndex].Index != sourceIndex) throw new ObservableCalculationsException("Consistency violation: Hashing.4");
-					if (itemInfo.KeyExpressionWatcher._position != _sourcePositions.List[sourceIndex]) throw new ObservableCalculationsException("Consistency violation: Hashing.5");
+					if (_sourcePositions.List[sourceIndex].Index != sourceIndex) throw new ObservableComputationsException("Consistency violation: Hashing.4");
+					if (itemInfo.KeyExpressionWatcher._position != _sourcePositions.List[sourceIndex]) throw new ObservableComputationsException("Consistency violation: Hashing.5");
 
 					if (!_sourcePositions.List.Contains((ItemInfo) itemInfo.KeyExpressionWatcher._position))
-						throw new ObservableCalculationsException("Consistency violation: Hashing.7");
+						throw new ObservableComputationsException("Consistency violation: Hashing.7");
 
 					if (itemInfo.KeyExpressionWatcher._position.Index != sourceIndex)
-						throw new ObservableCalculationsException("Consistency violation: Hashing.17");
+						throw new ObservableComputationsException("Consistency violation: Hashing.17");
 
 					if (!itemInfo.Key.IsSameAs(key))
-						throw new ObservableCalculationsException("Consistency violation: Hashing.9");
+						throw new ObservableComputationsException("Consistency violation: Hashing.9");
 				}
 			}			
 		}

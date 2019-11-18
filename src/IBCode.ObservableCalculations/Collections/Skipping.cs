@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.Linq;
-using IBCode.ObservableCalculations.Common;
-using IBCode.ObservableCalculations.Common.Interface;
+using IBCode.ObservableComputations.Common;
+using IBCode.ObservableComputations.Common.Interface;
 
-namespace IBCode.ObservableCalculations
+namespace IBCode.ObservableComputations
 {
 	public class Skipping<TSourceItem> : Taking<TSourceItem>, IHasSources
 	{
@@ -31,7 +31,7 @@ namespace IBCode.ObservableCalculations
 
 		// ReSharper disable once MemberCanBePrivate.Global
 
-		[ObservableCalculationsCall]
+		[ObservableComputationsCall]
 		public Skipping(
 			IReadScalar<INotifyCollectionChanged> sourceScalar, 
 			IReadScalar<int> countScalar,
@@ -46,7 +46,7 @@ namespace IBCode.ObservableCalculations
 			_countScalar = countScalar;
 		}
 
-		[ObservableCalculationsCall]
+		[ObservableComputationsCall]
 		public Skipping(
 			INotifyCollectionChanged source, 
 			IReadScalar<int> countScalar,
@@ -61,7 +61,7 @@ namespace IBCode.ObservableCalculations
 			_countScalar = countScalar;
 		}
 
-		[ObservableCalculationsCall]
+		[ObservableComputationsCall]
 		public Skipping(
 			IReadScalar<INotifyCollectionChanged> sourceScalar, 
 			int count,
@@ -76,7 +76,7 @@ namespace IBCode.ObservableCalculations
 			_countSkipping = count;
 		}
 
-		[ObservableCalculationsCall]
+		[ObservableComputationsCall]
 		public Skipping(
 			INotifyCollectionChanged source, 
 			int count,
@@ -93,12 +93,12 @@ namespace IBCode.ObservableCalculations
 
 		private static IReadScalar<int> getCount(IReadScalar<INotifyCollectionChanged> sourceScalar)
 		{
-			return Expr.Is(() => sourceScalar.Value != null ? ((IList) sourceScalar.Value).Count : 0).Calculating();
+			return Expr.Is(() => sourceScalar.Value != null ? ((IList) sourceScalar.Value).Count : 0).Computing();
 		}
 
 		private static IReadScalar<int> getCount(INotifyCollectionChanged source)
 		{
-			return Expr.Is(() => ((IList)source).Count).Calculating();
+			return Expr.Is(() => ((IList)source).Count).Computing();
 		}
 
 		public new void ValidateConsistency()
@@ -109,7 +109,7 @@ namespace IBCode.ObservableCalculations
 			// ReSharper disable once AssignNullToNotNullAttribute
 			if (!this.SequenceEqual(source.Skip(count)))
 			{
-				throw new ObservableCalculationsException("Consistency violation: Skipping.1");
+				throw new ObservableComputationsException("Consistency violation: Skipping.1");
 			}
 		}
 

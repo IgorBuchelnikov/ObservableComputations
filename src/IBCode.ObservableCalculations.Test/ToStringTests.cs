@@ -5,7 +5,7 @@ using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using NUnit.Framework;
 
-namespace IBCode.ObservableCalculations.Test
+namespace IBCode.ObservableComputations.Test
 {
 	[TestFixture]
 	public class ToStringTests
@@ -80,17 +80,17 @@ namespace IBCode.ObservableCalculations.Test
 
 			//var calc = items.Using(
 			//	itemsUsing => items1.Selecting(i => i.Num + items1[i.Num].Num));
-			//var calc = items.Zipping(Expr.Is(() => items.Count).Calculating().SequenceCalculating()).Using(
+			//var calc = items.Zipping(Expr.Is(() => items.Count).Computing().SequenceComputing()).Using(
 			//	z => z.Selecting(zp => zp.ItemLeft));
 
-			//var calc = items.Zipping(Expr.Is(() => items.Count).Calculating().SequenceCalculating());
+			//var calc = items.Zipping(Expr.Is(() => items.Count).Computing().SequenceComputing());
 			//var calc = items.Selecting(i => i.Num);
 
 			//string test = calc.ToString();
 
 			var using1 =
 				items1.Zipping(
-					Expr.Is(() => items.Count).Calculating().SequenceCalculating()
+					Expr.Is(() => items.Count).Computing().SequenceComputing()
 				).Using(
 					z =>
 						z.Filtering(

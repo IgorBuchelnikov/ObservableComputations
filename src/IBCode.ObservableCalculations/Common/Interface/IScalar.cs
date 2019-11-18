@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace IBCode.ObservableCalculations.Common.Interface
+namespace IBCode.ObservableComputations.Common.Interface
 {
 	public interface IScalar<ValueType> : IScalar
 	{

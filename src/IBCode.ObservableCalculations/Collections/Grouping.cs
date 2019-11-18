@@ -5,16 +5,16 @@ using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Linq;
 using System.Linq.Expressions;
-using IBCode.ObservableCalculations.Common;
-using IBCode.ObservableCalculations.Common.Base;
-using IBCode.ObservableCalculations.Common.Interface;
+using IBCode.ObservableComputations.Common;
+using IBCode.ObservableComputations.Common.Base;
+using IBCode.ObservableComputations.Common.Interface;
 
-namespace IBCode.ObservableCalculations
+namespace IBCode.ObservableComputations
 {
 	// TODO реализовать IDictionary в Grouping
 	// TODO если TKey это INotifyCollectionChanged реагировать на CollectionChanged
 	// TODO Сделать GettingDictionary : Dictionary 
-	public class Grouping<TSourceItem, TKey> : CollectionCalculating<Group<TSourceItem, TKey>>, IHasSources
+	public class Grouping<TSourceItem, TKey> : CollectionComputing<Group<TSourceItem, TKey>>, IHasSources
 	{
 		public IReadScalar<INotifyCollectionChanged> SourceScalar => _sourceScalar;
 
@@ -101,7 +101,7 @@ namespace IBCode.ObservableCalculations
 		private PropertyChangedEventHandler _sourceScalarPropertyChangedEventHandler;
 		private WeakPropertyChangedEventHandler _sourceScalarWeakPropertyChangedEventHandler;
 
-		private readonly bool _keySelectorExpressionContainsParametrizedObservableCalculationsCalls;
+		private readonly bool _keySelectorExpressionContainsParametrizedObservableComputationsCalls;
 
 		private readonly ExpressionWatcher.ExpressionInfo _keySelectorExpressionInfo;
 
@@ -148,7 +148,7 @@ namespace IBCode.ObservableCalculations
 		}
 
 
-		[ObservableCalculationsCall]
+		[ObservableComputationsCall]
 		public Grouping(
 			IReadScalar<INotifyCollectionChanged> sourceScalar,
 			Expression<Func<TSourceItem, TKey>> keySelectorExpression,
@@ -166,7 +166,7 @@ namespace IBCode.ObservableCalculations
 		}
 
 
-		[ObservableCalculationsCall]
+		[ObservableComputationsCall]
 		public Grouping(
 			INotifyCollectionChanged source,
 			Expression<Func<TSourceItem, TKey>> keySelectorExpression,
@@ -182,7 +182,7 @@ namespace IBCode.ObservableCalculations
 			initializeFromSource();
 		}
 
-		[ObservableCalculationsCall]
+		[ObservableComputationsCall]
 		public Grouping(
 			IReadScalar<INotifyCollectionChanged> sourceScalar,
 			Expression<Func<TSourceItem, TKey>> keySelectorExpression,
@@ -198,7 +198,7 @@ namespace IBCode.ObservableCalculations
 			initializeFromSource();
 		}
 
-		[ObservableCalculationsCall]
+		[ObservableComputationsCall]
 		public Grouping(
 			INotifyCollectionChanged source,
 			Expression<Func<TSourceItem, TKey>> keySelectorExpression,
@@ -229,10 +229,10 @@ namespace IBCode.ObservableCalculations
 				new CallToConstantConverter(_keySelectorExpressionOriginal.Parameters);
 			_keySelectorExpression =
 				(Expression<Func<TSourceItem, TKey>>) callToConstantConverter.Visit(_keySelectorExpressionOriginal);
-			_keySelectorExpressionContainsParametrizedObservableCalculationsCalls =
+			_keySelectorExpressionContainsParametrizedObservableComputationsCalls =
 				callToConstantConverter.ContainsParametrizedObservableCalculationCalls;
 
-			if (!_keySelectorExpressionContainsParametrizedObservableCalculationsCalls)
+			if (!_keySelectorExpressionContainsParametrizedObservableComputationsCalls)
 			{
 				_keySelectorExpressionInfo = ExpressionWatcher.GetExpressionInfo(_keySelectorExpression);
 				// ReSharper disable once PossibleNullReferenceException
@@ -778,7 +778,7 @@ namespace IBCode.ObservableCalculations
 				int length = upperIndex - lowerIndex + 1;
 				/*if (length == 0)
 				{
-					throw new ObservableCalculationsException("Inner exception");
+					throw new ObservableComputationsException("Inner exception");
 				}
 				else */
 				if (length == 1)
@@ -789,7 +789,7 @@ namespace IBCode.ObservableCalculations
 				{
 					if (groupSourcePositions[lowerIndex].Index == sourceIndex) return lowerIndex;
 					else if (groupSourcePositions[upperIndex].Index == sourceIndex) return upperIndex;
-					//else throw new ObservableCalculationsException("Inner exception");
+					//else throw new ObservableComputationsException("Inner exception");
 				}
 				else
 				{
@@ -886,7 +886,7 @@ namespace IBCode.ObservableCalculations
 		{
 			keySelectorFunc = null;
 
-			if (!_keySelectorExpressionContainsParametrizedObservableCalculationsCalls)
+			if (!_keySelectorExpressionContainsParametrizedObservableComputationsCalls)
 			{
 				watcher = new ExpressionWatcher(_keySelectorExpressionInfo, sourceItem);
 			}
@@ -930,7 +930,7 @@ namespace IBCode.ObservableCalculations
 
 		private TKey applyKeySelector(int index)
 		{
-			return _keySelectorExpressionContainsParametrizedObservableCalculationsCalls ? _itemInfos[index].SelectorFunc() : _keySelectorFunc(_sourceAsList[index]);
+			return _keySelectorExpressionContainsParametrizedObservableComputationsCalls ? _itemInfos[index].SelectorFunc() : _keySelectorFunc(_sourceAsList[index]);
 		}
 
 		public TKey ApplyKeySelector(int index)
@@ -941,7 +941,7 @@ namespace IBCode.ObservableCalculations
 
 		private TKey applyKeySelector(TSourceItem sourceItem, Func<TKey> selectorFunc)
 		{
-			return _keySelectorExpressionContainsParametrizedObservableCalculationsCalls ? selectorFunc() : _keySelectorFunc(sourceItem);
+			return _keySelectorExpressionContainsParametrizedObservableComputationsCalls ? selectorFunc() : _keySelectorFunc(sourceItem);
 		}
 
 		public Group<TSourceItem, TKey> GetGroup(TKey key)
@@ -989,10 +989,10 @@ namespace IBCode.ObservableCalculations
 
 			// ReSharper disable once PossibleNullReferenceException
 			if (_itemInfos.Count != source.Count)
-				throw new ObservableCalculationsException("Consistency violation: Grouping.14");
+				throw new ObservableComputationsException("Consistency violation: Grouping.14");
 
 			if (_resultPositions.List.Count != Count)
-				throw new ObservableCalculationsException("Consistency violation: Grouping.15");
+				throw new ObservableComputationsException("Consistency violation: Grouping.15");
 
 			for (int sourceIndex = 0; sourceIndex < source.Count; sourceIndex++)
 			{
@@ -1010,54 +1010,54 @@ namespace IBCode.ObservableCalculations
 				}
 				
 				if (!equalityComparer.Equals(_itemInfos[sourceIndex].Key, key))
-					throw new ObservableCalculationsException("Consistency violation: Grouping.1");
+					throw new ObservableComputationsException("Consistency violation: Grouping.1");
 
 				if (_itemInfos[sourceIndex].ExpressionWatcher._position.Index != sourceIndex)
-					throw new ObservableCalculationsException("Consistency violation: Grouping.2");
+					throw new ObservableComputationsException("Consistency violation: Grouping.2");
 			}
 
-			if (result.Count != Count) throw new ObservableCalculationsException("Consistency violation: Grouping.3");
+			if (result.Count != Count) throw new ObservableComputationsException("Consistency violation: Grouping.3");
 
 			for (int thisIndex = 0; thisIndex < Count; thisIndex++)
 			{
 				Group<TSourceItem, TKey> @group = this[thisIndex];
 				Tuple<TKey, List<Tuple<TSourceItem, int>>> resultItem = result[thisIndex];
 
-				if (!equalityComparer.Equals(@group.Key, resultItem.Item1)) throw new ObservableCalculationsException("Consistency violation: Grouping.4");
-				if (@group.Count != resultItem.Item2.Count) throw new ObservableCalculationsException("Consistency violation: Grouping.5");
+				if (!equalityComparer.Equals(@group.Key, resultItem.Item1)) throw new ObservableComputationsException("Consistency violation: Grouping.4");
+				if (@group.Count != resultItem.Item2.Count) throw new ObservableComputationsException("Consistency violation: Grouping.5");
 
 				for (int groupIndex = 0; groupIndex < @group.Count; groupIndex++)
 				{
 					TSourceItem sourceItem = @group[groupIndex];
 					Tuple<TSourceItem, int> resultItemItem = resultItem.Item2[groupIndex];
 
-					if (!EqualityComparer<TSourceItem>.Default.Equals(sourceItem, resultItemItem.Item1)) throw new ObservableCalculationsException("Consistency violation: Grouping.6");
-					if (@group._sourcePositions[groupIndex].Index != resultItemItem.Item2) throw new ObservableCalculationsException("Consistency violation: Grouping.7");
+					if (!EqualityComparer<TSourceItem>.Default.Equals(sourceItem, resultItemItem.Item1)) throw new ObservableComputationsException("Consistency violation: Grouping.6");
+					if (@group._sourcePositions[groupIndex].Index != resultItemItem.Item2) throw new ObservableComputationsException("Consistency violation: Grouping.7");
 				}
 
-				if (@group._position.Index != thisIndex) throw new ObservableCalculationsException("Consistency violation: Grouping.8");
+				if (@group._position.Index != thisIndex) throw new ObservableComputationsException("Consistency violation: Grouping.8");
 
 				if (resultItem.Item1 != null)
 				{
 					Group<TSourceItem, TKey> groupFromDictionary = _groupDictionary[resultItem.Item1];
-					if (groupFromDictionary != @group) throw new ObservableCalculationsException("Consistency violation: Grouping.9");					
+					if (groupFromDictionary != @group) throw new ObservableComputationsException("Consistency violation: Grouping.9");					
 				}
 				else
 				{
-					if (_nullGroup != @group) throw new ObservableCalculationsException("Consistency violation: Grouping.10");	
+					if (_nullGroup != @group) throw new ObservableComputationsException("Consistency violation: Grouping.10");	
 				}
 
 				if (!_resultPositions.List.Contains(@group._position))
-					throw new ObservableCalculationsException("Consistency violation: Grouping.12");
+					throw new ObservableComputationsException("Consistency violation: Grouping.12");
 
 			}		
 			
 			if (_nullGroup != null && !_resultPositions.List.Contains(_nullGroup._position))
-				throw new ObservableCalculationsException("Consistency violation: Grouping.13");
+				throw new ObservableComputationsException("Consistency violation: Grouping.13");
 		}
 	}
 
-	public class Group<TSourceItem, TKey> : CollectionCalculatingChild<TSourceItem>
+	public class Group<TSourceItem, TKey> : CollectionComputingChild<TSourceItem>
 	{
 		public TKey Key => _key;
 
@@ -1065,7 +1065,7 @@ namespace IBCode.ObservableCalculations
 		public Grouping<TSourceItem, TKey> Grouping => _grouping;
 		internal readonly List<Position> _sourcePositions = new List<Position>();
 		internal readonly Position _position;
-		internal List<CollectionCalculatingChild<TSourceItem>> _copies;
+		internal List<CollectionComputingChild<TSourceItem>> _copies;
 		internal readonly TKey _key;
 		private readonly Grouping<TSourceItem, TKey> _grouping;
 
@@ -1090,7 +1090,7 @@ namespace IBCode.ObservableCalculations
 				int copiesCount = _copies.Count;
 				for (int index1 = 0; index1 < copiesCount; index1++)
 				{
-					CollectionCalculatingChild<TSourceItem> copy = _copies[index1];
+					CollectionComputingChild<TSourceItem> copy = _copies[index1];
 					copy.insertItem(index, item);
 				}
 			}
@@ -1108,7 +1108,7 @@ namespace IBCode.ObservableCalculations
 				int copiesCount = _copies.Count;
 				for (int index = 0; index < copiesCount; index++)
 				{
-					CollectionCalculatingChild<TSourceItem> copy = _copies[index];
+					CollectionComputingChild<TSourceItem> copy = _copies[index];
 					copy.moveItem(oldIndex, newIndex);
 				}
 			}
@@ -1126,7 +1126,7 @@ namespace IBCode.ObservableCalculations
 				int copiesCount = _copies.Count;
 				for (int index1 = 0; index1 < copiesCount; index1++)
 				{
-					CollectionCalculatingChild<TSourceItem> copy = _copies[index1];
+					CollectionComputingChild<TSourceItem> copy = _copies[index1];
 					copy.removeItem(index);
 				}
 			}
@@ -1144,13 +1144,13 @@ namespace IBCode.ObservableCalculations
 				int copiesCount = _copies.Count;
 				for (int index1 = 0; index1 < copiesCount; index1++)
 				{
-					CollectionCalculatingChild<TSourceItem> copy = _copies[index1];
+					CollectionComputingChild<TSourceItem> copy = _copies[index1];
 					copy.setItem(index, item);
 				}
 			}
 		}
 
-		public override ICollectionCalculating Parent => _grouping;
+		public override ICollectionComputing Parent => _grouping;
 
 		#region Overrides of ObservableCollection<TResult>
 

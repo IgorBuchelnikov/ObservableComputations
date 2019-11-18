@@ -4,7 +4,7 @@ using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using NUnit.Framework;
 
-namespace IBCode.ObservableCalculations.Test
+namespace IBCode.ObservableComputations.Test
 {
 	[TestFixture]
 	public class TakingWhileTests
@@ -271,7 +271,7 @@ namespace IBCode.ObservableCalculations.Test
 			TakingWhile<Item> takingWhile = items.TakingWhile(item => 
 				Expr.Is(() => param.Value 
 					? (ObservableCollection<Item>)items.TakingWhile(item1 => true) 
-					: items.TakingWhile(item1 => item1.IsActive == item.IsActive)).Calculating().Value.Count == 3);
+					: items.TakingWhile(item1 => item1.IsActive == item.IsActive)).Computing().Value.Count == 3);
 
 			TakingWhile<Item> takingWhile2 = items.TakingWhile(item => 
 				(param.Value 

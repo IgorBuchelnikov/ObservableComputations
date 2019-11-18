@@ -9,12 +9,12 @@
     <AssemblyOriginatorKeyFile>assembly_strong_name_key.snk</AssemblyOriginatorKeyFile>
     <Authors>Buchelnokov Igor (igor_buchelnikov_github@mail.ru)</Authors>
     <Company>IBCode</Company>
-    <Description>Calulations over INotifyPropertyChanged and INotifyColectionChanged (ObservableCollection) objects.  Results of the calculations are INotifyPropertyChanged and INotifyColectionChanged (ObservableCollection) objects. The calculations includes ones similar to LINQ and the calculation of arbitrary expression. Observable Calculations are implemented as extension methods, like LINQ ones. ObservableCalculations is implementation of reactive programming paradigm.</Description>
+    <Description>Computations over INotifyPropertyChanged and INotifyColectionChanged (ObservableCollection) objects.  Results of the calculations are INotifyPropertyChanged and INotifyColectionChanged (ObservableCollection) objects. The calculations includes ones similar to LINQ and the calculation of arbitrary expression. Observable Calculations are implemented as extension methods, like LINQ ones. ObservableCalculations is implementation of reactive programming paradigm.</Description>
     <PackageLicenseUrl>https://github.com/IgorBuchelnikov/ObservableCalculations/blob/master/LICENSE</PackageLicenseUrl>
     <PackageProjectUrl>https://github.com/IgorBuchelnikov/ObservableCalculations</PackageProjectUrl>
     <RepositoryUrl>https://github.com/IgorBuchelnikov/ObservableCalculations.git</RepositoryUrl>
     <RepositoryType>Git</RepositoryType>
-    <PackageTags>INotifyPropertyChanged INotifyPropertyChanged ObservableCollection Observable Observer react reactive data linq</PackageTags>
+    <PackageTags>INotifyPropertyChanged INotifyPropertyChanged ObservableCollection observable computations observer react reactive data linq declarative functional programming paradigm</PackageTags>
     <NeutralLanguage>en</NeutralLanguage>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>

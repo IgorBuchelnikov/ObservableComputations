@@ -2,13 +2,13 @@
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.ComponentModel;
-using IBCode.ObservableCalculations.Common;
-using IBCode.ObservableCalculations.Common.Base;
-using IBCode.ObservableCalculations.Common.Interface;
+using IBCode.ObservableComputations.Common;
+using IBCode.ObservableComputations.Common.Base;
+using IBCode.ObservableComputations.Common.Interface;
 
-namespace IBCode.ObservableCalculations
+namespace IBCode.ObservableComputations
 {
-	public class Crossing<TOuterSourceItem, TInnerSourceItem> : CollectionCalculating<JoinPair<TOuterSourceItem, TInnerSourceItem>>, IHasSources
+	public class Crossing<TOuterSourceItem, TInnerSourceItem> : CollectionComputing<JoinPair<TOuterSourceItem, TInnerSourceItem>>, IHasSources
 	{
 		// ReSharper disable once MemberCanBePrivate.Global
 		// ReSharper disable once UnusedMember.Global
@@ -66,7 +66,7 @@ namespace IBCode.ObservableCalculations
 		private bool _lastProcessedInnerSourceChangeMarker;
 
 
-		[ObservableCalculationsCall]
+		[ObservableComputationsCall]
 		public Crossing(
 			INotifyCollectionChanged outerSource,
 			INotifyCollectionChanged innerSource) : base(Utils.getCapacity(outerSource) * Utils.getCapacity(innerSource))
@@ -76,7 +76,7 @@ namespace IBCode.ObservableCalculations
 			initializeFromSources();
 		}
 
-		[ObservableCalculationsCall]
+		[ObservableComputationsCall]
 		public Crossing(
 			INotifyCollectionChanged outerSource,
 			IReadScalar<INotifyCollectionChanged> innerSourceScalar) : base(Utils.getCapacity(outerSource) * Utils.getCapacity(innerSourceScalar))
@@ -88,7 +88,7 @@ namespace IBCode.ObservableCalculations
 			initializeFromSources();
 		}
 
-		[ObservableCalculationsCall]
+		[ObservableComputationsCall]
 		public Crossing(
 			IReadScalar<INotifyCollectionChanged> outerSourceScalar,
 			INotifyCollectionChanged innerSource) : base(Utils.getCapacity(outerSourceScalar) * Utils.getCapacity(innerSource))
@@ -101,7 +101,7 @@ namespace IBCode.ObservableCalculations
 			initializeFromSources();
 		}
 
-		[ObservableCalculationsCall]
+		[ObservableComputationsCall]
 		public Crossing(
 			IReadScalar<INotifyCollectionChanged> outerSourceScalar,
 			IReadScalar<INotifyCollectionChanged> innerSourceScalar) : base(Utils.getCapacity(outerSourceScalar) * Utils.getCapacity(innerSourceScalar))
@@ -288,7 +288,7 @@ namespace IBCode.ObservableCalculations
 				switch (e.Action)
 				{
 					case NotifyCollectionChangedAction.Add:
-						if (e.NewItems.Count > 1) throw new ObservableCalculationsException("Adding of multiple items is not supported");
+						if (e.NewItems.Count > 1) throw new ObservableComputationsException("Adding of multiple items is not supported");
 						newIndex = e.NewStartingIndex;
 						TOuterSourceItem sourceOuterItem = _outerSourceAsList[newIndex];
 
@@ -306,7 +306,7 @@ namespace IBCode.ObservableCalculations
 						}
 						break;
 					case NotifyCollectionChangedAction.Remove:
-						if (e.OldItems.Count > 1) throw new ObservableCalculationsException("Removing of multiple items is not supported");
+						if (e.OldItems.Count > 1) throw new ObservableComputationsException("Removing of multiple items is not supported");
 						oldIndex = e.OldStartingIndex;
 
 						int count1 = _innerSourceAsList.Count;
@@ -317,7 +317,7 @@ namespace IBCode.ObservableCalculations
 						}
 						break;
 					case NotifyCollectionChangedAction.Replace:
-						if (e.NewItems.Count > 1) throw new ObservableCalculationsException("Replacing of multiple items is not supported");
+						if (e.NewItems.Count > 1) throw new ObservableComputationsException("Replacing of multiple items is not supported");
 						newIndex = e.NewStartingIndex;
 						TOuterSourceItem sourceItem3 = _outerSourceAsList[newIndex];
 
@@ -378,7 +378,7 @@ namespace IBCode.ObservableCalculations
 				switch (e.Action)
 				{
 					case NotifyCollectionChangedAction.Add:
-						if (e.NewItems.Count > 1) throw new ObservableCalculationsException("Adding of multiple items is not supported");
+						if (e.NewItems.Count > 1) throw new ObservableComputationsException("Adding of multiple items is not supported");
 						newIndex = e.NewStartingIndex;
 						TInnerSourceItem sourceInnerItem = _innerSourceAsList[newIndex];
 		
@@ -397,7 +397,7 @@ namespace IBCode.ObservableCalculations
 						}
 						break;
 					case NotifyCollectionChangedAction.Remove:
-						if (e.OldItems.Count > 1) throw new ObservableCalculationsException("Removing of multiple items is not supported");
+						if (e.OldItems.Count > 1) throw new ObservableComputationsException("Removing of multiple items is not supported");
 						oldIndex = e.OldStartingIndex;
 						int outerSourceCount3 = _outerSourceAsList.Count;
 						int oldInnerSourceCount = _innerSourceAsList.Count + 1;
@@ -410,7 +410,7 @@ namespace IBCode.ObservableCalculations
 						}	
 						break;
 					case NotifyCollectionChangedAction.Replace:
-						if (e.NewItems.Count > 1) throw new ObservableCalculationsException("Replacing of multiple items is not supported");
+						if (e.NewItems.Count > 1) throw new ObservableComputationsException("Replacing of multiple items is not supported");
 						newIndex = e.NewStartingIndex;
 						TInnerSourceItem sourceItem3 = _innerSourceAsList[newIndex];	
 						int index2 = newIndex;
@@ -501,10 +501,10 @@ namespace IBCode.ObservableCalculations
 					JoinPair<TOuterSourceItem, TInnerSourceItem> joinPair = this[index];
 
 					if (!EqualityComparer<TOuterSourceItem>.Default.Equals(joinPair.OuterItem, sourceOuterItem))
-						throw new ObservableCalculationsException("Consistency violation: Crossing.1");
+						throw new ObservableComputationsException("Consistency violation: Crossing.1");
 
 					if (!EqualityComparer<TInnerSourceItem>.Default.Equals(joinPair.InnerItem, sourceInnerItem))
-						throw new ObservableCalculationsException("Consistency violation: Crossing.2");
+						throw new ObservableComputationsException("Consistency violation: Crossing.2");
 
 					index++;
 				}
@@ -512,7 +512,7 @@ namespace IBCode.ObservableCalculations
 
 			// ReSharper disable once PossibleNullReferenceException
 			if (Count != outerSource.Count * innerSource.Count)
-				throw new ObservableCalculationsException("Consistency violation: Crossing.3");
+				throw new ObservableComputationsException("Consistency violation: Crossing.3");
 		}
 
 	}

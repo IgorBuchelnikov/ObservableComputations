@@ -1,25 +1,25 @@
 ﻿using System.Collections.ObjectModel;
 using NUnit.Framework;
 
-namespace IBCode.ObservableCalculations.Test
+namespace IBCode.ObservableComputations.Test
 {
 	[TestFixture]
-	public class OfTypeCalculatingTests
+	public class OfTypeComputingTests
 	{
 		class BaseItem{}
 		class DerivedItem : BaseItem{}
 
 		[Test]
-		public void OfTypeCalculating_Initialization_01()
+		public void OfTypeComputing_Initialization_01()
 		{
 			ObservableCollection<DerivedItem> items = new ObservableCollection<DerivedItem>();
 
-			OfTypeCalculating<BaseItem> ofTypeCalculating = items.OfTypeCalculating<BaseItem>();
-			ofTypeCalculating.ValidateConsistency();
+			OfTypeComputing<BaseItem> ofTypeComputing = items.OfTypeComputing<BaseItem>();
+			ofTypeComputing.ValidateConsistency();
 		}
 
 		[Test, Combinatorial]
-		public void OfTypeCalculating_Set(
+		public void OfTypeComputing_Set(
 			[Range(-2, 0, 1)] int item1,
 			[Range(-2, 0, 1)] int item2,
 			[Range(0, 1, 1)] int index,
@@ -31,14 +31,14 @@ namespace IBCode.ObservableCalculations.Test
 
 			if (index >= items.Count) return;
 
-			OfTypeCalculating<DerivedItem> ofTypeCalculating = items.OfTypeCalculating<DerivedItem>();
-			ofTypeCalculating.ValidateConsistency();
+			OfTypeComputing<DerivedItem> ofTypeComputing = items.OfTypeComputing<DerivedItem>();
+			ofTypeComputing.ValidateConsistency();
 			if (index < items.Count) items[index] = newItem >= 0 ? (newItem == 1 ? new DerivedItem() : new BaseItem()) : null;
-			ofTypeCalculating.ValidateConsistency();
+			ofTypeComputing.ValidateConsistency();
 		}
 
 		[Test, Combinatorial]
-		public void OfTypeCalculating_Remove(
+		public void OfTypeComputing_Remove(
 			[Range(-2, 0, 1)] int item1,
 			[Range(-2, 0, 1)] int item2,
 			[Range(0, 1, 1)] int index)
@@ -49,14 +49,14 @@ namespace IBCode.ObservableCalculations.Test
 
 			if (index >= items.Count) return;
 
-			OfTypeCalculating<DerivedItem> ofTypeCalculating = items.OfTypeCalculating<DerivedItem>();
-			ofTypeCalculating.ValidateConsistency();
+			OfTypeComputing<DerivedItem> ofTypeComputing = items.OfTypeComputing<DerivedItem>();
+			ofTypeComputing.ValidateConsistency();
 			items.RemoveAt(index);
-			ofTypeCalculating.ValidateConsistency();
+			ofTypeComputing.ValidateConsistency();
 		}
 
 		[Test, Combinatorial]
-		public void OfTypeCalculating_Insert(
+		public void OfTypeComputing_Insert(
 			[Range(-2, 0, 1)] int item1,
 			[Range(-2, 0, 1)] int item2,
 			[Range(0, 2, 1)] int index,
@@ -68,14 +68,14 @@ namespace IBCode.ObservableCalculations.Test
 
 			if (index > items.Count) return;
 
-			OfTypeCalculating<DerivedItem> ofTypeCalculating = items.OfTypeCalculating<DerivedItem>();
-			ofTypeCalculating.ValidateConsistency();
+			OfTypeComputing<DerivedItem> ofTypeComputing = items.OfTypeComputing<DerivedItem>();
+			ofTypeComputing.ValidateConsistency();
 			items.Insert(index, newItem >= 0 ? (newItem == 1 ? new DerivedItem() : new BaseItem()) : null);
-			ofTypeCalculating.ValidateConsistency();
+			ofTypeComputing.ValidateConsistency();
 		}
 
 		[Test, Combinatorial]
-		public void OfTypeCalculating_Move(
+		public void OfTypeComputing_Move(
 			[Range(-2, 0, 1)] int item1,
 			[Range(-2, 0, 1)] int item2,
 			[Range(0, 4, 1)] int oldIndex,
@@ -87,10 +87,10 @@ namespace IBCode.ObservableCalculations.Test
 
 			if (oldIndex >= items.Count || newIndex >= items.Count) return;
 
-			OfTypeCalculating<DerivedItem> ofTypeCalculating = items.OfTypeCalculating<DerivedItem>();
-			ofTypeCalculating.ValidateConsistency();
+			OfTypeComputing<DerivedItem> ofTypeComputing = items.OfTypeComputing<DerivedItem>();
+			ofTypeComputing.ValidateConsistency();
 			items.Move(oldIndex, newIndex);
-			ofTypeCalculating.ValidateConsistency();
+			ofTypeComputing.ValidateConsistency();
 		}	
 	}
 }

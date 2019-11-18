@@ -5,36 +5,36 @@ using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.Linq;
 using System.Linq.Expressions;
-using IBCode.ObservableCalculations.Common;
-using IBCode.ObservableCalculations.Common.Interface;
+using IBCode.ObservableComputations.Common;
+using IBCode.ObservableComputations.Common.Interface;
 
-namespace IBCode.ObservableCalculations
+namespace IBCode.ObservableComputations
 {
-	public class LastCalculating<TSourceItem> : ItemCalculating<TSourceItem>
+	public class LastComputing<TSourceItem> : ItemComputing<TSourceItem>
 	{
-		[ObservableCalculationsCall]
-		public LastCalculating(
+		[ObservableComputationsCall]
+		public LastComputing(
 			IReadScalar<INotifyCollectionChanged> sourceScalar,
 			IReadScalar<TSourceItem> defaultValueScalar = null) : base(sourceScalar, getIndex(sourceScalar), defaultValueScalar)
 		{
 		}
 
-		[ObservableCalculationsCall]
-		public LastCalculating(
+		[ObservableComputationsCall]
+		public LastComputing(
 			INotifyCollectionChanged source,
 			IReadScalar<TSourceItem> defaultValueScalar = null) : base(source, getIndex(source), defaultValueScalar)
 		{
 		}
 
-		[ObservableCalculationsCall]
-		public LastCalculating(
+		[ObservableComputationsCall]
+		public LastComputing(
 			IReadScalar<INotifyCollectionChanged> sourceScalar,
 			TSourceItem defaultValue = default(TSourceItem)) : base(sourceScalar, getIndex(sourceScalar), defaultValue)
 		{
 		}
 
-		[ObservableCalculationsCall]
-		public LastCalculating(
+		[ObservableComputationsCall]
+		public LastComputing(
 			INotifyCollectionChanged source,
 			TSourceItem defaultValue = default(TSourceItem)) : base(source, getIndex(source), defaultValue)
 		{
@@ -42,16 +42,16 @@ namespace IBCode.ObservableCalculations
 
 		private static IReadScalar<int> getIndex(IReadScalar<INotifyCollectionChanged> sourceScalar)
 		{
-			IReadScalar<IList> listCalculating = sourceScalar.Using(s => (IList)s.Value);
-			Expression<Func<int>> indexExpression = () => listCalculating.Value != null && listCalculating.Value.Count > 0 ? listCalculating.Value.Count - 1 : 0;
-			return indexExpression.Calculating();
+			IReadScalar<IList> listComputing = sourceScalar.Using(s => (IList)s.Value);
+			Expression<Func<int>> indexExpression = () => listComputing.Value != null && listComputing.Value.Count > 0 ? listComputing.Value.Count - 1 : 0;
+			return indexExpression.Computing();
 		}
 
 		private static IReadScalar<int> getIndex(INotifyCollectionChanged source)
 		{
 			IList list = (IList)source;
 			Expression<Func<int>> indexExpression = () => list.Count > 0 ? list.Count - 1 : 0;
-			return indexExpression.Calculating();
+			return indexExpression.Computing();
 		}
 
 		public new void ValidateConsistency()
@@ -60,7 +60,7 @@ namespace IBCode.ObservableCalculations
 			TSourceItem defaultValue = _defaultValueScalar.getValue(_defaultValue);
 
 			if (!EqualityComparer<TSourceItem>.Default.Equals(_value, source.Count > 0 ? source.Last() : defaultValue))
-				throw new ObservableCalculationsException("Consistency violation: LastCalculating.1");
+				throw new ObservableComputationsException("Consistency violation: LastComputing.1");
 		}
 
 	}

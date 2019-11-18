@@ -1,6 +1,6 @@
 ﻿using NUnit.Framework;
 
-namespace IBCode.ObservableCalculations.Test
+namespace IBCode.ObservableComputations.Test
 {
 	[TestFixture]
 	class WeakEventTest

@@ -10,10 +10,10 @@ using System.Linq;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Collections.ObjectModel;
-using IBCode.ObservableCalculations.Common;
-using IBCode.ObservableCalculations.Common.Interface;
+using IBCode.ObservableComputations.Common;
+using IBCode.ObservableComputations.Common.Interface;
 
-namespace IBCode.ObservableCalculations
+namespace IBCode.ObservableComputations
 {
 	public static partial class ExtensionMethods
 	{
@@ -32,7 +32,7 @@ namespace IBCode.ObservableCalculations
 		{
 
 #>
-		[ObservableCalculationsCall]
+		[ObservableComputationsCall]
 		public static <#=extentionMethod.TypeName#> <#=extentionMethod.Name#><#=extentionMethod.GenericParameters#>(this
 <#
 			int index = 0;

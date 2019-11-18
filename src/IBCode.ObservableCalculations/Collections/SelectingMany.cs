@@ -5,10 +5,10 @@ using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.Linq;
 using System.Linq.Expressions;
-using IBCode.ObservableCalculations.Common;
-using IBCode.ObservableCalculations.Common.Interface;
+using IBCode.ObservableComputations.Common;
+using IBCode.ObservableComputations.Common.Interface;
 
-namespace IBCode.ObservableCalculations
+namespace IBCode.ObservableComputations
 {
 	public class SelectingMany<TSourceItem, TResultItem> : Concatenating<TResultItem>, IHasSources
 	{
@@ -32,7 +32,7 @@ namespace IBCode.ObservableCalculations
 		public new ReadOnlyCollection<INotifyCollectionChanged> SourcesCollection => new ReadOnlyCollection<INotifyCollectionChanged>(new []{Source});
 		public new ReadOnlyCollection<IReadScalar<INotifyCollectionChanged>> SourceScalarsCollection => new ReadOnlyCollection<IReadScalar<INotifyCollectionChanged>>(new []{SourceScalar});
 
-		[ObservableCalculationsCall]
+		[ObservableComputationsCall]
 		public SelectingMany(			
 			IReadScalar<INotifyCollectionChanged> sourceScalar, 
 			Expression<Func<TSourceItem, INotifyCollectionChanged>> selectorExpression)
@@ -43,7 +43,7 @@ namespace IBCode.ObservableCalculations
 			_selectorExpression = selectorExpression;
 		}
 
-		[ObservableCalculationsCall]
+		[ObservableComputationsCall]
 		public SelectingMany(			
 			INotifyCollectionChanged source, 
 			Expression<Func<TSourceItem, INotifyCollectionChanged>> selectorExpression)
@@ -54,7 +54,7 @@ namespace IBCode.ObservableCalculations
 			_selectorExpression = selectorExpression;
 		}
 
-		[ObservableCalculationsCall]
+		[ObservableComputationsCall]
 		public SelectingMany(			
 			IReadScalar<INotifyCollectionChanged> sourceScalar, 
 			Expression<Func<TSourceItem, int, INotifyCollectionChanged>> selectorExpression)
@@ -65,7 +65,7 @@ namespace IBCode.ObservableCalculations
 			_selectorWithIndexExpression = selectorExpression;
 		}
 
-		[ObservableCalculationsCall]
+		[ObservableComputationsCall]
 		public SelectingMany(			
 			INotifyCollectionChanged source, 
 			Expression<Func<TSourceItem, int, INotifyCollectionChanged>> selectorExpression)
@@ -95,7 +95,7 @@ namespace IBCode.ObservableCalculations
 			IReadScalar<INotifyCollectionChanged> sourceScalar, 
 			Expression<Func<TSourceItem, int, INotifyCollectionChanged>> selectorExpression)
 		{
-			return Expr.Is(() => sourceScalar.Value != null ? ((IList) sourceScalar.Value).Count : 0).Calculating().SequenceCalculating()
+			return Expr.Is(() => sourceScalar.Value != null ? ((IList) sourceScalar.Value).Count : 0).Computing().SequenceComputing()
 				.Zipping<int, TSourceItem>(sourceScalar)
 				.Selecting(getZipPairSelectorExpression(selectorExpression));
 		}
@@ -105,7 +105,7 @@ namespace IBCode.ObservableCalculations
 			INotifyCollectionChanged source, 
 			Expression<Func<TSourceItem, int, INotifyCollectionChanged>> selectorExpression)
 		{
-			return Expr.Is(() => ((IList) source).Count).Calculating().SequenceCalculating()
+			return Expr.Is(() => ((IList) source).Count).Computing().SequenceComputing()
 				.Zipping<int, TSourceItem>(source)
 				.Selecting(getZipPairSelectorExpression(selectorExpression));
 		}
@@ -152,7 +152,7 @@ namespace IBCode.ObservableCalculations
 			// ReSharper disable once AssignNullToNotNullAttribute
 			if (!this.SequenceEqual(result))
 			{
-				throw new ObservableCalculationsException("Consistency violation: SelectingMany.1");
+				throw new ObservableComputationsException("Consistency violation: SelectingMany.1");
 			}
 		}
 	}

@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.Linq.Expressions;
-using IBCode.ObservableCalculations.Common;
-using IBCode.ObservableCalculations.Common.Interface;
+using IBCode.ObservableComputations.Common;
+using IBCode.ObservableComputations.Common.Interface;
 
-namespace IBCode.ObservableCalculations
+namespace IBCode.ObservableComputations
 {
 	public class Summarizing<TSourceItem> : Aggregating<TSourceItem, TSourceItem>, IHasSources
 	{
@@ -22,14 +22,14 @@ namespace IBCode.ObservableCalculations
 
 		// ReSharper disable once MemberCanBePrivate.Global
 
-		[ObservableCalculationsCall]
+		[ObservableComputationsCall]
 		public Summarizing(
 			IReadScalar<INotifyCollectionChanged> sourceScalar) : base(sourceScalar, getSummarizingFuncs())
 		{
 			_sourceScalarSummarizing = sourceScalar;
 		}
 
-		[ObservableCalculationsCall]
+		[ObservableComputationsCall]
 		public Summarizing(
 			INotifyCollectionChanged source) : base(source, getSummarizingFuncs())
 		{
@@ -69,7 +69,7 @@ namespace IBCode.ObservableCalculations
 			}
 
 			if (!Value.Equals(result))
-				throw new ObservableCalculationsException("Consistency violation: Summarizing.1");
+				throw new ObservableComputationsException("Consistency violation: Summarizing.1");
 		}
 
 	}

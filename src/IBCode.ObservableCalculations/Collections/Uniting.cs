@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.Linq;
-using IBCode.ObservableCalculations.Common;
-using IBCode.ObservableCalculations.Common.Interface;
+using IBCode.ObservableComputations.Common;
+using IBCode.ObservableComputations.Common.Interface;
 
-namespace IBCode.ObservableCalculations
+namespace IBCode.ObservableComputations
 {
 	public class Uniting<TSourceItem> : Distincting<TSourceItem>, IHasSources
 	{
@@ -26,7 +26,7 @@ namespace IBCode.ObservableCalculations
 		private readonly IReadScalar<INotifyCollectionChanged> _sourcesScalar;
 		private readonly INotifyCollectionChanged _sources;
 
-		[ObservableCalculationsCall]
+		[ObservableComputationsCall]
 		public Uniting(
 			IReadScalar<INotifyCollectionChanged> sourcesScalar,
 			IReadScalar<IEqualityComparer<TSourceItem>> equalityComparerScalar = null,
@@ -35,7 +35,7 @@ namespace IBCode.ObservableCalculations
 			_sourcesScalar = sourcesScalar;
 		}
 
-		[ObservableCalculationsCall]
+		[ObservableComputationsCall]
 		public Uniting(
 			INotifyCollectionChanged sources,
 			IReadScalar<IEqualityComparer<TSourceItem>> equalityComparerScalar = null,
@@ -44,7 +44,7 @@ namespace IBCode.ObservableCalculations
 			_sources = sources;
 		}
 
-		[ObservableCalculationsCall]
+		[ObservableComputationsCall]
 		public Uniting(
 			INotifyCollectionChanged sources,
 			IEqualityComparer<TSourceItem> equalityComparer,
@@ -53,7 +53,7 @@ namespace IBCode.ObservableCalculations
 			_sources = sources;
 		}
 
-		[ObservableCalculationsCall]
+		[ObservableComputationsCall]
 		public Uniting(
 			IReadScalar<INotifyCollectionChanged> sourcesScalar,
 			IEqualityComparer<TSourceItem> equalityComparer = null,
@@ -62,7 +62,7 @@ namespace IBCode.ObservableCalculations
 			_sourcesScalar = sourcesScalar;
 		}
 
-		[ObservableCalculationsCall]
+		[ObservableComputationsCall]
 		public Uniting(
 			INotifyCollectionChanged source1, 
 			INotifyCollectionChanged source2, 
@@ -72,37 +72,37 @@ namespace IBCode.ObservableCalculations
 		{
 		}
 
-		[ObservableCalculationsCall]
+		[ObservableComputationsCall]
 		public Uniting(
 			IReadScalar<INotifyCollectionChanged> source1Scalar, 
 			INotifyCollectionChanged source2, 
 			IEqualityComparer<TSourceItem> equalityComparer = null,
 			int capacity = 0) 
-			: this(Expr.Is(() => new Common.ReadOnlyObservableCollection<INotifyCollectionChanged>(new []{source1Scalar.Value, source2})).Calculating(), equalityComparer, capacity)
+			: this(Expr.Is(() => new Common.ReadOnlyObservableCollection<INotifyCollectionChanged>(new []{source1Scalar.Value, source2})).Computing(), equalityComparer, capacity)
 		{
 		}
 
-		[ObservableCalculationsCall]
+		[ObservableComputationsCall]
 		public Uniting(
 			IReadScalar<INotifyCollectionChanged> source1Scalar, 
 			IReadScalar<INotifyCollectionChanged> source2Scalar, 
 			IEqualityComparer<TSourceItem> equalityComparer = null,
 			int capacity = 0) 
-			: this(Expr.Is(() => new Common.ReadOnlyObservableCollection<INotifyCollectionChanged>(new []{source1Scalar.Value, source2Scalar.Value})).Calculating(), equalityComparer, capacity)
+			: this(Expr.Is(() => new Common.ReadOnlyObservableCollection<INotifyCollectionChanged>(new []{source1Scalar.Value, source2Scalar.Value})).Computing(), equalityComparer, capacity)
 		{
 		}
 
-		[ObservableCalculationsCall]
+		[ObservableComputationsCall]
 		public Uniting(
 			INotifyCollectionChanged source1, 
 			IReadScalar<INotifyCollectionChanged> source2Scalar, 
 			IEqualityComparer<TSourceItem> equalityComparer = null,
 			int capacity = 0) 
-			: this(Expr.Is(() => new Common.ReadOnlyObservableCollection<INotifyCollectionChanged>(new []{source1, source2Scalar.Value})).Calculating(), equalityComparer, capacity)
+			: this(Expr.Is(() => new Common.ReadOnlyObservableCollection<INotifyCollectionChanged>(new []{source1, source2Scalar.Value})).Computing(), equalityComparer, capacity)
 		{
 		}
 
-		[ObservableCalculationsCall]
+		[ObservableComputationsCall]
 		public Uniting(
 			INotifyCollectionChanged source1, 
 			INotifyCollectionChanged source2, 
@@ -112,33 +112,33 @@ namespace IBCode.ObservableCalculations
 		{
 		}
 
-		[ObservableCalculationsCall]
+		[ObservableComputationsCall]
 		public Uniting(
 			IReadScalar<INotifyCollectionChanged> source1Scalar, 
 			INotifyCollectionChanged source2, 
 			IReadScalar<IEqualityComparer<TSourceItem>> equalityComparerScalar = null,
 			int capacity = 0) 
-			: this(Expr.Is(() => new Common.ReadOnlyObservableCollection<INotifyCollectionChanged>(new []{source1Scalar.Value, source2})).Calculating(), equalityComparerScalar, capacity)
+			: this(Expr.Is(() => new Common.ReadOnlyObservableCollection<INotifyCollectionChanged>(new []{source1Scalar.Value, source2})).Computing(), equalityComparerScalar, capacity)
 		{
 		}
 
-		[ObservableCalculationsCall]
+		[ObservableComputationsCall]
 		public Uniting(
 			IReadScalar<INotifyCollectionChanged> source1Scalar, 
 			IReadScalar<INotifyCollectionChanged> source2Scalar, 
 			IReadScalar<IEqualityComparer<TSourceItem>> equalityComparerScalar = null,
 			int capacity = 0) 
-			: this(Expr.Is(() => new Common.ReadOnlyObservableCollection<INotifyCollectionChanged>(new []{source1Scalar.Value, source2Scalar.Value})).Calculating(), equalityComparerScalar, capacity)
+			: this(Expr.Is(() => new Common.ReadOnlyObservableCollection<INotifyCollectionChanged>(new []{source1Scalar.Value, source2Scalar.Value})).Computing(), equalityComparerScalar, capacity)
 		{
 		}
 
-		[ObservableCalculationsCall]
+		[ObservableComputationsCall]
 		public Uniting(
 			INotifyCollectionChanged source1, 
 			IReadScalar<INotifyCollectionChanged> source2Scalar, 
 			IReadScalar<IEqualityComparer<TSourceItem>> equalityComparerScalar = null,
 			int capacity = 0) 
-			: this(Expr.Is(() => new Common.ReadOnlyObservableCollection<INotifyCollectionChanged>(new []{source1, source2Scalar.Value})).Calculating(), equalityComparerScalar, capacity)
+			: this(Expr.Is(() => new Common.ReadOnlyObservableCollection<INotifyCollectionChanged>(new []{source1, source2Scalar.Value})).Computing(), equalityComparerScalar, capacity)
 		{
 		}
 
@@ -167,7 +167,7 @@ namespace IBCode.ObservableCalculations
 			}
 
 			if (!this.SequenceEqual(result))
-				throw new ObservableCalculationsException("Consistency violation: Uniting.1");
+				throw new ObservableComputationsException("Consistency violation: Uniting.1");
 		}
 	}
 }

@@ -2,9 +2,9 @@
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.ComponentModel;
-using IBCode.ObservableCalculations.Common.Base;
+using IBCode.ObservableComputations.Common.Base;
 
-namespace IBCode.ObservableCalculations.Common
+namespace IBCode.ObservableComputations.Common
 {
 	internal sealed class RootSourceWrapper<TSourceItem> : ObservableCollectionWithChangeMarker<TSourceItem>
 	{
@@ -64,18 +64,18 @@ namespace IBCode.ObservableCalculations.Common
 				switch (e.Action)
 				{
 					case NotifyCollectionChangedAction.Add:
-						if (e.NewItems.Count > 1) throw new ObservableCalculationsException("Adding of multiple items is not supported");
+						if (e.NewItems.Count > 1) throw new ObservableComputationsException("Adding of multiple items is not supported");
 						int newStartingIndex = e.NewStartingIndex;
 						TSourceItem addedItem = _sourceAsList[newStartingIndex];
 						InsertItem(newStartingIndex, addedItem);								
 						break;
 					case NotifyCollectionChangedAction.Remove:
-						if (e.OldItems.Count > 1) throw new ObservableCalculationsException("Removing of multiple items is not supported");
+						if (e.OldItems.Count > 1) throw new ObservableComputationsException("Removing of multiple items is not supported");
 						int oldStartingIndex = e.OldStartingIndex;
 						RemoveItem(oldStartingIndex);
 						break;
 					case NotifyCollectionChangedAction.Replace:
-						if (e.NewItems.Count > 1) throw new ObservableCalculationsException("Replacing of multiple items is not supported");
+						if (e.NewItems.Count > 1) throw new ObservableComputationsException("Replacing of multiple items is not supported");
 						TSourceItem newItem = _sourceAsList[e.NewStartingIndex];
 						SetItem(e.NewStartingIndex, newItem);
 						break;

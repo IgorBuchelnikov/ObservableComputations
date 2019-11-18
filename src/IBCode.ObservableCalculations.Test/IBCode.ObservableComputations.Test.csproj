@@ -58,7 +58,7 @@
   </ItemGroup>  
   
   <ItemGroup>
-    <ProjectReference Include="..\IBCode.ObservableCalculations\IBCode.ObservableCalculations.csproj" />
+    <ProjectReference Include="..\IBCode.ObservableCalculations\IBCode.ObservableComputations.csproj" />
   </ItemGroup>  
   
   <ItemGroup>

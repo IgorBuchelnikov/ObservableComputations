@@ -2,12 +2,12 @@
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.ComponentModel;
-using IBCode.ObservableCalculations.Common;
-using IBCode.ObservableCalculations.Common.Interface;
+using IBCode.ObservableComputations.Common;
+using IBCode.ObservableComputations.Common.Interface;
 
-namespace IBCode.ObservableCalculations
+namespace IBCode.ObservableComputations
 {
-	public class Casting<TResultItem> : CollectionCalculating<TResultItem>, IHasSources
+	public class Casting<TResultItem> : CollectionComputing<TResultItem>, IHasSources
 	{
 		// ReSharper disable once MemberCanBePrivate.Global
 		public IReadScalar<INotifyCollectionChanged> SourceScalar => _sourceScalar;
@@ -37,7 +37,7 @@ namespace IBCode.ObservableCalculations
 		private IHasChangeMarker _sourceAsIHasChangeMarker;
 		private bool _lastProcessedSourceChangeMarker;
 
-		[ObservableCalculationsCall]
+		[ObservableComputationsCall]
 		public Casting(
 			IReadScalar<INotifyCollectionChanged> sourceScalar) : base(Utils.getCapacity(sourceScalar))
 		{
@@ -48,7 +48,7 @@ namespace IBCode.ObservableCalculations
 			initializeFromSource();
 		}
 
-		[ObservableCalculationsCall]
+		[ObservableComputationsCall]
 		public Casting(
 			INotifyCollectionChanged source) : base(Utils.getCapacity(source))
 		{
@@ -145,11 +145,11 @@ namespace IBCode.ObservableCalculations
 				{
 					case NotifyCollectionChangedAction.Add:
 						IList newItems = e.NewItems;
-						if (newItems.Count > 1) throw new ObservableCalculationsException("Adding of multiple items is not supported");
+						if (newItems.Count > 1) throw new ObservableComputationsException("Adding of multiple items is not supported");
 						baseInsertItem(e.NewStartingIndex, (TResultItem)newItems[0]);								
 						break;
 					case NotifyCollectionChangedAction.Remove:
-						if (e.OldItems.Count > 1) throw new ObservableCalculationsException("Removing of multiple items is not supported");
+						if (e.OldItems.Count > 1) throw new ObservableComputationsException("Removing of multiple items is not supported");
 						baseRemoveItem(e.OldStartingIndex);
 						break;
 					case NotifyCollectionChangedAction.Move:
@@ -162,7 +162,7 @@ namespace IBCode.ObservableCalculations
 						break;
 					case NotifyCollectionChangedAction.Replace:
 						IList newItems1 = e.NewItems;
-						if (newItems1.Count > 1) throw new ObservableCalculationsException("Replacing of multiple items is not supported");
+						if (newItems1.Count > 1) throw new ObservableComputationsException("Replacing of multiple items is not supported");
 						baseSetItem(e.NewStartingIndex, (TResultItem)newItems1[0]);
 						break;
 					case NotifyCollectionChangedAction.Reset:
@@ -197,14 +197,14 @@ namespace IBCode.ObservableCalculations
 		{
 			IList source = _sourceScalar.getValue(_source, new ObservableCollection<object>()) as IList;
 			// ReSharper disable once PossibleNullReferenceException
-			if (Count != source.Count) throw new ObservableCalculationsException("Consistency violation: Casting.1");
+			if (Count != source.Count) throw new ObservableComputationsException("Consistency violation: Casting.1");
 
 			for (int i = 0; i < source.Count; i++)
 			{
 				object sourceItem = source[i];
 				TResultItem resultItem = this[i];
 
-				if (!resultItem.IsSameAs(sourceItem)) throw new ObservableCalculationsException("Consistency violation: Casting.2");
+				if (!resultItem.IsSameAs(sourceItem)) throw new ObservableComputationsException("Consistency violation: Casting.2");
 			}
 		}
 	}

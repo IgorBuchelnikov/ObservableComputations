@@ -4,12 +4,12 @@ using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.Linq;
 using System.Linq.Expressions;
-using IBCode.ObservableCalculations.Common;
-using IBCode.ObservableCalculations.Common.Interface;
+using IBCode.ObservableComputations.Common;
+using IBCode.ObservableComputations.Common.Interface;
 
-namespace IBCode.ObservableCalculations
+namespace IBCode.ObservableComputations
 {
-	public class AllCalculating<TSourceItem> : Calculating<bool>, IHasSources
+	public class AllComputing<TSourceItem> : Computing<bool>, IHasSources
 	{
 		// ReSharper disable once MemberCanBePrivate.Global
 		public IReadScalar<INotifyCollectionChanged> SourceScalar => _sourceScalar;
@@ -27,8 +27,8 @@ namespace IBCode.ObservableCalculations
 		private readonly INotifyCollectionChanged _source;
 		private readonly Expression<Func<TSourceItem, bool>> _predicateExpression;
 
-		[ObservableCalculationsCall]
-		public AllCalculating(
+		[ObservableComputationsCall]
+		public AllComputing(
 			IReadScalar<INotifyCollectionChanged> sourceScalar, 
 			Expression<Func<TSourceItem, bool>> predicateExpression) : base(getValueExpression(sourceScalar, predicateExpression))
 		{
@@ -36,8 +36,8 @@ namespace IBCode.ObservableCalculations
 			_predicateExpression = predicateExpression;
 		}
 
-		[ObservableCalculationsCall]
-		public AllCalculating(
+		[ObservableComputationsCall]
+		public AllComputing(
 			INotifyCollectionChanged source, 
 			Expression<Func<TSourceItem, bool>> predicateExpression) : base(getValueExpression(source, predicateExpression))
 		{
@@ -51,7 +51,7 @@ namespace IBCode.ObservableCalculations
 		{
 			Expression<Func<TSourceItem, bool>> negativePredicateExpression = getNegativePredicateExpression(predicateExpression);
 
-			return () => !sourceScalar.AnyCalculating(negativePredicateExpression).Value;
+			return () => !sourceScalar.AnyComputing(negativePredicateExpression).Value;
 		}
 
 		private static Expression<Func<bool>> getValueExpression(
@@ -60,7 +60,7 @@ namespace IBCode.ObservableCalculations
 		{
 			Expression<Func<TSourceItem, bool>> negativePredicateExpression = getNegativePredicateExpression(predicateExpression);
 
-			return () => !source.AnyCalculating(negativePredicateExpression).Value;
+			return () => !source.AnyComputing(negativePredicateExpression).Value;
 		}
 
 		private static Expression<Func<TSourceItem, bool>> getNegativePredicateExpression(Expression<Func<TSourceItem, bool>> predicateExpression)
@@ -78,7 +78,7 @@ namespace IBCode.ObservableCalculations
 			Func<TSourceItem, bool> predicate = _predicateExpression.Compile();
 
 			if (_value != source.All(predicate))
-				throw new ObservableCalculationsException("Consistency violation: AllCalculating.1");
+				throw new ObservableComputationsException("Consistency violation: AllComputing.1");
 		}
 	}
 }

@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Linq.Expressions;
-using IBCode.ObservableCalculations.Common;
+using IBCode.ObservableComputations.Common;
 
-namespace IBCode.ObservableCalculations
+namespace IBCode.ObservableComputations
 {
-	public class Using<TArgument, TResult> : Calculating<TResult>
+	public class Using<TArgument, TResult> : Computing<TResult>
 	{
 		public TArgument Argument => _argument;
 
@@ -16,7 +16,7 @@ namespace IBCode.ObservableCalculations
 
 		// ReSharper disable once MemberCanBePrivate.Global
 
-		[ObservableCalculationsCall]
+		[ObservableComputationsCall]
 		public Using(
 			TArgument argument, Expression<Func<TArgument, TResult>> getValueExpression)
 			: base(getValueExpression.ApplyParameter(argument))

@@ -1,7 +1,7 @@
 ﻿using System.Collections.ObjectModel;
 using NUnit.Framework;
 
-namespace IBCode.ObservableCalculations.Test
+namespace IBCode.ObservableComputations.Test
 {
 	[TestFixture]
 	public class SkippingTests
@@ -23,8 +23,8 @@ namespace IBCode.ObservableCalculations.Test
 		{
 			ObservableCollection<Item> items = new ObservableCollection<Item>();
 
-			Skipping<Item> itemCalculating = items.Skipping(0);
-			itemCalculating.ValidateConsistency();
+			Skipping<Item> itemComputing = items.Skipping(0);
+			itemComputing.ValidateConsistency();
 		}
 
 
@@ -44,10 +44,10 @@ namespace IBCode.ObservableCalculations.Test
 				}
 			);
 
-			Skipping<Item> itemCalculating = items.Skipping(count);
-			itemCalculating.ValidateConsistency();
+			Skipping<Item> itemComputing = items.Skipping(count);
+			itemComputing.ValidateConsistency();
 			items.RemoveAt(index);
-			itemCalculating.ValidateConsistency();
+			itemComputing.ValidateConsistency();
 		}
 
 		[Test, Combinatorial]
@@ -61,10 +61,10 @@ namespace IBCode.ObservableCalculations.Test
 				}
 			);
 
-			Skipping<Item> itemCalculating = items.Skipping(count);
-			itemCalculating.ValidateConsistency();
+			Skipping<Item> itemComputing = items.Skipping(count);
+			itemComputing.ValidateConsistency();
 			items.RemoveAt(0);
-			itemCalculating.ValidateConsistency();
+			itemComputing.ValidateConsistency();
 		}
 
 		[Test, Combinatorial]
@@ -83,10 +83,10 @@ namespace IBCode.ObservableCalculations.Test
 				}
 			);
 
-			Skipping<Item> itemCalculating = items.Skipping( count);
-			itemCalculating.ValidateConsistency();
+			Skipping<Item> itemComputing = items.Skipping( count);
+			itemComputing.ValidateConsistency();
 			items.Insert(index, new Item());
-			itemCalculating.ValidateConsistency();
+			itemComputing.ValidateConsistency();
 		}
 
 		[Test, Combinatorial]
@@ -95,10 +95,10 @@ namespace IBCode.ObservableCalculations.Test
 		{
 			ObservableCollection<Item> items = new ObservableCollection<Item>();
 
-			Skipping<Item> itemCalculating = items.Skipping(count);
-			itemCalculating.ValidateConsistency();
+			Skipping<Item> itemComputing = items.Skipping(count);
+			itemComputing.ValidateConsistency();
 			items.Insert(0, new Item());
-			itemCalculating.ValidateConsistency();
+			itemComputing.ValidateConsistency();
 		}
 
 		[Test, Combinatorial]
@@ -118,10 +118,10 @@ namespace IBCode.ObservableCalculations.Test
 				}
 			);
 
-			Skipping<Item> itemCalculating = items.Skipping(count);
-			itemCalculating.ValidateConsistency();
+			Skipping<Item> itemComputing = items.Skipping(count);
+			itemComputing.ValidateConsistency();
 			items.Move(oldIndex, newIndex);
-			itemCalculating.ValidateConsistency();
+			itemComputing.ValidateConsistency();
 		}
 
 		[Test, Combinatorial]
@@ -140,10 +140,10 @@ namespace IBCode.ObservableCalculations.Test
 				}
 			);
 
-			Skipping<Item> itemCalculating = items.Skipping(count);
-			itemCalculating.ValidateConsistency();
+			Skipping<Item> itemComputing = items.Skipping(count);
+			itemComputing.ValidateConsistency();
 			items[index] = new Item();
-			itemCalculating.ValidateConsistency();
+			itemComputing.ValidateConsistency();
 		}		
 	}
 }

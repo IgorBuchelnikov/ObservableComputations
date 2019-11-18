@@ -4,11 +4,11 @@ using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Linq.Expressions;
-using IBCode.ObservableCalculations.Common;
-using IBCode.ObservableCalculations.Common.Base;
-using IBCode.ObservableCalculations.Common.Interface;
+using IBCode.ObservableComputations.Common;
+using IBCode.ObservableComputations.Common.Base;
+using IBCode.ObservableComputations.Common.Interface;
 
-namespace IBCode.ObservableCalculations
+namespace IBCode.ObservableComputations
 {
 	// ReSharper disable once RedundantExtendsListEntry
 	public class Dictionaring<TSourceItem, TKey, TValue> : Dictionary<TKey, TValue>, IHasSources
@@ -43,13 +43,13 @@ namespace IBCode.ObservableCalculations
 		private readonly Expression<Func<TSourceItem, TKey>> _keySelectorExpressionOriginal;
 		private readonly ExpressionWatcher.ExpressionInfo _keySelectorExpressionInfo;
 
-		private readonly bool _keySelectorContainsParametrizedObservableCalculationsCalls;
+		private readonly bool _keySelectorContainsParametrizedObservableComputationsCalls;
 
 		private readonly Expression<Func<TSourceItem, TValue>> _valueSelectorExpression;
 		private readonly Expression<Func<TSourceItem, TValue>> _valueSelectorExpressionOriginal;
 		private readonly ExpressionWatcher.ExpressionInfo _valueSelectorExpressionInfo;
 
-		private readonly bool _valueSelectorContainsParametrizedObservableCalculationsCalls;
+		private readonly bool _valueSelectorContainsParametrizedObservableComputationsCalls;
 
 		// ReSharper disable once PrivateFieldCanBeConvertedToLocalVariable
 		private readonly PropertyChangedEventHandler _sourceScalarPropertyChangedEventHandler;
@@ -104,9 +104,9 @@ namespace IBCode.ObservableCalculations
 			_keySelectorExpressionOriginal = keySelectorExpression;
 			CallToConstantConverter callToConstantConverter = new CallToConstantConverter(_keySelectorExpressionOriginal.Parameters);
 			_keySelectorExpression = (Expression<Func<TSourceItem, TKey>>) callToConstantConverter.Visit(_keySelectorExpressionOriginal);
-			_keySelectorContainsParametrizedObservableCalculationsCalls = callToConstantConverter.ContainsParametrizedObservableCalculationCalls;
+			_keySelectorContainsParametrizedObservableComputationsCalls = callToConstantConverter.ContainsParametrizedObservableCalculationCalls;
 
-			if (!_keySelectorContainsParametrizedObservableCalculationsCalls)
+			if (!_keySelectorContainsParametrizedObservableComputationsCalls)
 			{
 				_keySelectorExpressionInfo = ExpressionWatcher.GetExpressionInfo(_keySelectorExpression);
 				// ReSharper disable once PossibleNullReferenceException
@@ -116,9 +116,9 @@ namespace IBCode.ObservableCalculations
 			_valueSelectorExpressionOriginal = valueSelectorExpression;
 			callToConstantConverter = new CallToConstantConverter(_valueSelectorExpressionOriginal.Parameters);
 			_valueSelectorExpression = (Expression<Func<TSourceItem, TValue>>) callToConstantConverter.Visit(_valueSelectorExpressionOriginal);
-			_valueSelectorContainsParametrizedObservableCalculationsCalls = callToConstantConverter.ContainsParametrizedObservableCalculationCalls;
+			_valueSelectorContainsParametrizedObservableComputationsCalls = callToConstantConverter.ContainsParametrizedObservableCalculationCalls;
 
-			if (!_valueSelectorContainsParametrizedObservableCalculationsCalls)
+			if (!_valueSelectorContainsParametrizedObservableComputationsCalls)
 			{
 				_valueSelectorExpressionInfo = ExpressionWatcher.GetExpressionInfo(_valueSelectorExpression);
 				// ReSharper disable once PossibleNullReferenceException
@@ -126,7 +126,7 @@ namespace IBCode.ObservableCalculations
 			}
 		}
 
-		[ObservableCalculationsCall]
+		[ObservableComputationsCall]
 		public Dictionaring(
 			IReadScalar<INotifyCollectionChanged> sourceScalar,
 			Expression<Func<TSourceItem, TKey>> keySelectorExpression,
@@ -141,7 +141,7 @@ namespace IBCode.ObservableCalculations
 			initializeFromSource();
 		}
 
-		[ObservableCalculationsCall]
+		[ObservableComputationsCall]
 		public Dictionaring(
 			INotifyCollectionChanged source,
 			Expression<Func<TSourceItem, TKey>> keySelectorExpression,
@@ -253,7 +253,7 @@ namespace IBCode.ObservableCalculations
 		private void fillItemInfoWithValue(ItemInfo itemInfo, TSourceItem sourceItem)
 		{
 			ExpressionWatcher watcher;
-			if (!_valueSelectorContainsParametrizedObservableCalculationsCalls)
+			if (!_valueSelectorContainsParametrizedObservableComputationsCalls)
 			{
 				watcher = new ExpressionWatcher(_valueSelectorExpressionInfo, sourceItem);
 			}
@@ -278,7 +278,7 @@ namespace IBCode.ObservableCalculations
 		private void fillItemInfoWithKey(ItemInfo itemInfo, TSourceItem sourceItem)
 		{
 			ExpressionWatcher watcher;
-			if (!_keySelectorContainsParametrizedObservableCalculationsCalls)
+			if (!_keySelectorContainsParametrizedObservableComputationsCalls)
 			{
 				watcher = new ExpressionWatcher(_keySelectorExpressionInfo, sourceItem);
 			}
@@ -448,7 +448,7 @@ namespace IBCode.ObservableCalculations
 
 		private TKey applyKeySelector(ItemInfo itemInfo, TSourceItem sourceItem)
 		{
-			return _keySelectorContainsParametrizedObservableCalculationsCalls ? itemInfo._keySelectorFunc() : _keySelectorFunc(sourceItem);
+			return _keySelectorContainsParametrizedObservableComputationsCalls ? itemInfo._keySelectorFunc() : _keySelectorFunc(sourceItem);
 		}
 
 		public TValue ApplyValueSelector(int index)
@@ -458,7 +458,7 @@ namespace IBCode.ObservableCalculations
 
 		private TValue applyValueSelector(ItemInfo itemInfo, TSourceItem sourceItem)
 		{
-			return _valueSelectorContainsParametrizedObservableCalculationsCalls ? itemInfo._valueSelectorFunc() : _valueSelectorFunc(sourceItem);
+			return _valueSelectorContainsParametrizedObservableComputationsCalls ? itemInfo._valueSelectorFunc() : _valueSelectorFunc(sourceItem);
 		}
 
 		private void baseClearItems()
@@ -510,8 +510,8 @@ namespace IBCode.ObservableCalculations
 			_sourcePositions.ValidateConsistency();
 			IList<TSourceItem> source = _sourceScalar.getValue(_source, new ObservableCollection<TSourceItem>()) as IList<TSourceItem>;
 			// ReSharper disable once PossibleNullReferenceException
-			if (_itemInfos.Count != source.Count) throw new ObservableCalculationsException("Consistency violation: Dictionaring.1");
-			if (Count != source.Count) throw new ObservableCalculationsException("Consistency violation: Dictionaring.16");
+			if (_itemInfos.Count != source.Count) throw new ObservableComputationsException("Consistency violation: Dictionaring.1");
+			if (Count != source.Count) throw new ObservableComputationsException("Consistency violation: Dictionaring.16");
 			Func<TSourceItem, TKey> keySelector = _keySelectorExpression.Compile();
 			Func<TSourceItem, TValue> valueSelector = _valueSelectorExpression.Compile();
 
@@ -519,7 +519,7 @@ namespace IBCode.ObservableCalculations
 			if (source != null)
 			{
 				if (_sourcePositions.List.Count != source.Count)
-					throw new ObservableCalculationsException("Consistency violation: Dictionaring.15");
+					throw new ObservableComputationsException("Consistency violation: Dictionaring.15");
 
 				for (int sourceIndex = 0; sourceIndex < source.Count; sourceIndex++)
 				{
@@ -528,33 +528,33 @@ namespace IBCode.ObservableCalculations
 
 					TKey key = keySelector(sourceItem);
 					if (!ContainsKey(key))
-						throw new ObservableCalculationsException("Consistency violation: Dictionaring.2");
+						throw new ObservableComputationsException("Consistency violation: Dictionaring.2");
 
 					TValue value = valueSelector(sourceItem);
 					if (!this[key].IsSameAs(value))
-						throw new ObservableCalculationsException("Consistency violation: Dictionaring.3");
+						throw new ObservableComputationsException("Consistency violation: Dictionaring.3");
 
-					if (_sourcePositions.List[sourceIndex].Index != sourceIndex) throw new ObservableCalculationsException("Consistency violation: Dictionaring.4");
-					if (itemInfo.KeyExpressionWatcher._position != _sourcePositions.List[sourceIndex]) throw new ObservableCalculationsException("Consistency violation: Dictionaring.5");
-					if (itemInfo.ValueExpressionWatcher._position != _sourcePositions.List[sourceIndex]) throw new ObservableCalculationsException("Consistency violation: Dictionaring.6");
+					if (_sourcePositions.List[sourceIndex].Index != sourceIndex) throw new ObservableComputationsException("Consistency violation: Dictionaring.4");
+					if (itemInfo.KeyExpressionWatcher._position != _sourcePositions.List[sourceIndex]) throw new ObservableComputationsException("Consistency violation: Dictionaring.5");
+					if (itemInfo.ValueExpressionWatcher._position != _sourcePositions.List[sourceIndex]) throw new ObservableComputationsException("Consistency violation: Dictionaring.6");
 
 					if (!_sourcePositions.List.Contains((ItemInfo) itemInfo.KeyExpressionWatcher._position))
-						throw new ObservableCalculationsException("Consistency violation: Dictionaring.7");
+						throw new ObservableComputationsException("Consistency violation: Dictionaring.7");
 
 					if (!_sourcePositions.List.Contains((ItemInfo) itemInfo.ValueExpressionWatcher._position))
-						throw new ObservableCalculationsException("Consistency violation: Dictionaring.8");
+						throw new ObservableComputationsException("Consistency violation: Dictionaring.8");
 
 					if (itemInfo.KeyExpressionWatcher._position.Index != sourceIndex)
-						throw new ObservableCalculationsException("Consistency violation: Dictionaring.17");
+						throw new ObservableComputationsException("Consistency violation: Dictionaring.17");
 
 					if (itemInfo.ValueExpressionWatcher._position.Index != sourceIndex)
-						throw new ObservableCalculationsException("Consistency violation: Dictionaring.18");
+						throw new ObservableComputationsException("Consistency violation: Dictionaring.18");
 
 					if (!itemInfo.Key.IsSameAs(key))
-						throw new ObservableCalculationsException("Consistency violation: Dictionaring.10");
+						throw new ObservableComputationsException("Consistency violation: Dictionaring.10");
 
 					if (!itemInfo.Value.IsSameAs(value))
-						throw new ObservableCalculationsException("Consistency violation: Dictionaring.9");
+						throw new ObservableComputationsException("Consistency violation: Dictionaring.9");
 				}
 			}			
 		}

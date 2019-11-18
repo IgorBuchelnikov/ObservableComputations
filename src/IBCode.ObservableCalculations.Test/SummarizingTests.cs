@@ -4,7 +4,7 @@ using System.Diagnostics;
 using System.Linq;
 using NUnit.Framework;
 
-namespace IBCode.ObservableCalculations.Test
+namespace IBCode.ObservableComputations.Test
 {
 	[TestFixture]
 	public class SummarizingTests

@@ -4,10 +4,10 @@ using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using NUnit.Framework;
 
-namespace IBCode.ObservableCalculations.Test
+namespace IBCode.ObservableComputations.Test
 {
 	[TestFixture]
-	public class ContainsCalculatingTests
+	public class ContainsComputingTests
 	{
 		public class Item : INotifyPropertyChanged
 		{
@@ -56,16 +56,16 @@ namespace IBCode.ObservableCalculations.Test
 		}
 
 		[Test]
-		public void ContainsCalculating_Initialization_01()
+		public void ContainsComputing_Initialization_01()
 		{
 			ObservableCollection<Item> items = new ObservableCollection<Item>();
 
-			ContainsCalculating<Item> anyCalculating = items.ContainsCalculating(new Item(true));
-			anyCalculating.ValidateConsistency();
+			ContainsComputing<Item> anyComputing = items.ContainsComputing(new Item(true));
+			anyComputing.ValidateConsistency();
 		}
 
 		[Test, Combinatorial]
-		public void ContainsCalculating_Remove(
+		public void ContainsComputing_Remove(
 			[Values(true, false)] bool item0,
 			[Values(true, false)] bool item1,
 			[Values(true, false)] bool item2,
@@ -85,14 +85,14 @@ namespace IBCode.ObservableCalculations.Test
 
 			);
 
-			ContainsCalculating<Item> anyCalculating = items.ContainsCalculating(new Item(true));
-			anyCalculating.ValidateConsistency();
+			ContainsComputing<Item> anyComputing = items.ContainsComputing(new Item(true));
+			anyComputing.ValidateConsistency();
 			items.RemoveAt(index);
-			anyCalculating.ValidateConsistency();
+			anyComputing.ValidateConsistency();
 		}
 
 		[Test, Combinatorial]
-		public void ContainsCalculating_Remove1(
+		public void ContainsComputing_Remove1(
 			[Values(true, false)] bool item0)
 		{
 			ObservableCollection<Item> items = new ObservableCollection<Item>(
@@ -103,14 +103,14 @@ namespace IBCode.ObservableCalculations.Test
 
 			);
 
-			ContainsCalculating<Item> anyCalculating = items.ContainsCalculating(new Item(true));
-			anyCalculating.ValidateConsistency();
+			ContainsComputing<Item> anyComputing = items.ContainsComputing(new Item(true));
+			anyComputing.ValidateConsistency();
 			items.RemoveAt(0);
-			anyCalculating.ValidateConsistency();
+			anyComputing.ValidateConsistency();
 		}
 
 		[Test, Combinatorial]
-		public void ContainsCalculating_Insert(
+		public void ContainsComputing_Insert(
 			[Values(true, false)] bool item0,
 			[Values(true, false)] bool item1,
 			[Values(true, false)] bool item2,
@@ -131,27 +131,27 @@ namespace IBCode.ObservableCalculations.Test
 
 			);
 
-			ContainsCalculating<Item> anyCalculating = items.ContainsCalculating(new Item(true));
-			anyCalculating.ValidateConsistency();
+			ContainsComputing<Item> anyComputing = items.ContainsComputing(new Item(true));
+			anyComputing.ValidateConsistency();
 			items.Insert(index, new Item(newValue));
-			anyCalculating.ValidateConsistency();
+			anyComputing.ValidateConsistency();
 		}
 
 		[Test, Combinatorial]
-		public void ContainsCalculating_Insert1(
+		public void ContainsComputing_Insert1(
 			[Values(true, false)] bool newValue)
 		{
 			ObservableCollection<Item> items = new ObservableCollection<Item>(
 			);
 
-			ContainsCalculating<Item> anyCalculating = items.ContainsCalculating(new Item(true));
-			anyCalculating.ValidateConsistency();
+			ContainsComputing<Item> anyComputing = items.ContainsComputing(new Item(true));
+			anyComputing.ValidateConsistency();
 			items.Insert(0, new Item(newValue));
-			anyCalculating.ValidateConsistency();
+			anyComputing.ValidateConsistency();
 		}
 
 		[Test, Combinatorial]
-		public void ContainsCalculating_Move(
+		public void ContainsComputing_Move(
 			[Values(true, false)] bool item0,
 			[Values(true, false)] bool item1,
 			[Values(true, false)] bool item2,
@@ -172,14 +172,14 @@ namespace IBCode.ObservableCalculations.Test
 
 			);
 
-			ContainsCalculating<Item> anyCalculating = items.ContainsCalculating(new Item(true));
-			anyCalculating.ValidateConsistency();
+			ContainsComputing<Item> anyComputing = items.ContainsComputing(new Item(true));
+			anyComputing.ValidateConsistency();
 			items.Move(oldIndex, newIndex);
-			anyCalculating.ValidateConsistency();
+			anyComputing.ValidateConsistency();
 		}
 
 		[Test, Combinatorial]
-		public void ContainsCalculating_Set(
+		public void ContainsComputing_Set(
 			[Values(true, false)] bool item0,
 			[Values(true, false)] bool item1,
 			[Values(true, false)] bool item2,
@@ -200,10 +200,10 @@ namespace IBCode.ObservableCalculations.Test
 
 			);
 
-			ContainsCalculating<Item> anyCalculating = items.ContainsCalculating(new Item(true));
-			anyCalculating.ValidateConsistency();
+			ContainsComputing<Item> anyComputing = items.ContainsComputing(new Item(true));
+			anyComputing.ValidateConsistency();
 			items[index] = new Item(itemNew);
-			anyCalculating.ValidateConsistency();
+			anyComputing.ValidateConsistency();
 		}		
 	}
 }

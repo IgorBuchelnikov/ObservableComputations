@@ -4,16 +4,16 @@ using System.Diagnostics;
 using System.Linq;
 using NUnit.Framework;
 
-namespace IBCode.ObservableCalculations.Test
+namespace IBCode.ObservableComputations.Test
 {
 	[TestFixture]
 	public class AveragingTests
 	{
-		TextFileOutput _textFileOutputLog = new TextFileOutput(@"D:\AverageCalculating_Deep.log");
-		TextFileOutput _textFileOutputTime = new TextFileOutput(@"D:\AverageCalculating_Deep_Time.log");
+		TextFileOutput _textFileOutputLog = new TextFileOutput(@"D:\AverageComputing_Deep.log");
+		TextFileOutput _textFileOutputTime = new TextFileOutput(@"D:\AverageComputing_Deep_Time.log");
 
 		[Test]
-		public void AverageCalculating_Deep()
+		public void AverageComputing_Deep()
 		{
 			long counter = 0;
 			Stopwatch stopwatch = Stopwatch.StartNew();
@@ -69,10 +69,10 @@ namespace IBCode.ObservableCalculations.Test
 				{
 					trace(testNum = "2", values, index, value, indexOld, indexNew);
 					items = getObservableCollection(values);
-					Averaging<int, double> averageCalculating1 = items.Averaging<int, double>();
+					Averaging<int, double> averageComputing1 = items.Averaging<int, double>();
 					items.RemoveAt(index);
-					//averageCalculating1.ValidateConsistency();
-					validate(averageCalculating1, items);
+					//averageComputing1.ValidateConsistency();
+					validate(averageComputing1, items);
 				}
 
 				for (index = 0; index <= values.Length; index++)
@@ -81,10 +81,10 @@ namespace IBCode.ObservableCalculations.Test
 					{
 						trace(testNum = "8", values, index, value, indexOld, indexNew);
 						items = getObservableCollection(values);
-						Averaging<int, double> averageCalculating1 = items.Averaging<int, double>();
+						Averaging<int, double> averageComputing1 = items.Averaging<int, double>();
 						items.Insert(index, value);
-						//averageCalculating1.ValidateConsistency();
-						validate(averageCalculating1, items);
+						//averageComputing1.ValidateConsistency();
+						validate(averageComputing1, items);
 					}
 				}
 
@@ -95,10 +95,10 @@ namespace IBCode.ObservableCalculations.Test
 					{
 						trace(testNum = "3", values, index, value, indexOld, indexNew);
 						items = getObservableCollection(values);
-						Averaging<int, double> averageCalculating2 = items.Averaging<int, double>();
+						Averaging<int, double> averageComputing2 = items.Averaging<int, double>();
 						items[index] = value;
-						//averageCalculating2.ValidateConsistency();
-						validate(averageCalculating2, items);
+						//averageComputing2.ValidateConsistency();
+						validate(averageComputing2, items);
 
 					}
 				}
@@ -109,10 +109,10 @@ namespace IBCode.ObservableCalculations.Test
 					{
 						trace(testNum = "7", values, index, value, indexOld, indexNew);
 						items = getObservableCollection(values);
-						Averaging<int, double> averageCalculating2 = items.Averaging<int, double>();
+						Averaging<int, double> averageComputing2 = items.Averaging<int, double>();
 						items.Move(indexOld, indexNew);
-						//averageCalculating2.ValidateConsistency();
-						validate(averageCalculating2, items);
+						//averageComputing2.ValidateConsistency();
+						validate(averageComputing2, items);
 					}
 				}
 			}
@@ -162,7 +162,7 @@ namespace IBCode.ObservableCalculations.Test
 
 
 		//[Test, Combinatorial]
-		//public void AverageCalculating_Change(
+		//public void AverageComputing_Change(
 		//	[Range(-3, 2, 1)] int item1,
 		//	[Range(-3, 2, 1)] int item2,
 		//	[Range(-3, 2, 1)] int item3,
@@ -198,7 +198,7 @@ namespace IBCode.ObservableCalculations.Test
 		//}
 
 		//[Test, Combinatorial]
-		//public void AverageCalculating_Remove(
+		//public void AverageComputing_Remove(
 		//	[Range(-3, 2, 1)] int item1,
 		//	[Range(-3, 2, 1)] int item2,
 		//	[Range(-3, 2, 1)] int item3,
@@ -226,7 +226,7 @@ namespace IBCode.ObservableCalculations.Test
 		//}
 
 		//[Test, Combinatorial]
-		//public void AverageCalculating_Insert(
+		//public void AverageComputing_Insert(
 		//	[Range(-3, 2, 1)] int item1,
 		//	[Range(-3, 2, 1)] int item2,
 		//	[Range(-3, 2, 1)] int item3,
@@ -256,7 +256,7 @@ namespace IBCode.ObservableCalculations.Test
 		//}
 
 		//[Test, Combinatorial]
-		//public void AverageCalculating_Move(
+		//public void AverageComputing_Move(
 		//	[Range(-3, 2, 1)] int item1,
 		//	[Range(-3, 2, 1)] int item2,
 		//	[Range(-3, 2, 1)] int item3,

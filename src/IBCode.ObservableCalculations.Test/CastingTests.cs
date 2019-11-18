@@ -1,7 +1,7 @@
 ﻿using System.Collections.ObjectModel;
 using NUnit.Framework;
 
-namespace IBCode.ObservableCalculations.Test
+namespace IBCode.ObservableComputations.Test
 {
 	[TestFixture]
 	public class CastingTests

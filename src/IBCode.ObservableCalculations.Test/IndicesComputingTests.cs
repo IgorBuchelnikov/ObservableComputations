@@ -4,10 +4,10 @@ using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using NUnit.Framework;
 
-namespace IBCode.ObservableCalculations.Test
+namespace IBCode.ObservableComputations.Test
 {
 	[TestFixture]
-	public class IndicesCalculatingTests
+	public class IndicesComputingTests
 	{
 		public class Item : INotifyPropertyChanged
 		{
@@ -51,16 +51,16 @@ namespace IBCode.ObservableCalculations.Test
 		}
 
 		[Test]
-		public void IndicesCalculating_Initialization_01()
+		public void IndicesComputing_Initialization_01()
 		{
 			ObservableCollection<Item> items = new ObservableCollection<Item>();
 
-			IndicesCalculating<Item> indicesCalculating = items.IndicesCalculating(item => item.IsActive);
-			indicesCalculating.ValidateConsistency();
+			IndicesComputing<Item> indicesComputing = items.IndicesComputing(item => item.IsActive);
+			indicesComputing.ValidateConsistency();
 		}
 
 		[Test, Combinatorial]
-		public void IndicesCalculating_Change(
+		public void IndicesComputing_Change(
 			[Values(true, false)] bool item0,
 			[Values(true, false)] bool item1,
 			[Values(true, false)] bool item2,
@@ -81,14 +81,14 @@ namespace IBCode.ObservableCalculations.Test
 
 			);
 
-			IndicesCalculating<Item> indicesCalculating = items.IndicesCalculating(item => item.IsActive);
-			indicesCalculating.ValidateConsistency();
+			IndicesComputing<Item> indicesComputing = items.IndicesComputing(item => item.IsActive);
+			indicesComputing.ValidateConsistency();
 			items[index].IsActive = newValue;
-			indicesCalculating.ValidateConsistency();
+			indicesComputing.ValidateConsistency();
 		}
 
 		[Test, Combinatorial]
-		public void IndicesCalculating_Remove(
+		public void IndicesComputing_Remove(
 			[Values(true, false)] bool item0,
 			[Values(true, false)] bool item1,
 			[Values(true, false)] bool item2,
@@ -108,14 +108,14 @@ namespace IBCode.ObservableCalculations.Test
 
 			);
 
-			IndicesCalculating<Item> indicesCalculating = items.IndicesCalculating(item => item.IsActive);
-			indicesCalculating.ValidateConsistency();
+			IndicesComputing<Item> indicesComputing = items.IndicesComputing(item => item.IsActive);
+			indicesComputing.ValidateConsistency();
 			items.RemoveAt(index);
-			indicesCalculating.ValidateConsistency();
+			indicesComputing.ValidateConsistency();
 		}
 
 		[Test, Combinatorial]
-		public void IndicesCalculating_Remove1(
+		public void IndicesComputing_Remove1(
 			[Values(true, false)] bool item0)
 		{
 			ObservableCollection<Item> items = new ObservableCollection<Item>(
@@ -126,14 +126,14 @@ namespace IBCode.ObservableCalculations.Test
 
 			);
 
-			IndicesCalculating<Item> indicesCalculating = items.IndicesCalculating(item => item.IsActive);
-			indicesCalculating.ValidateConsistency();
+			IndicesComputing<Item> indicesComputing = items.IndicesComputing(item => item.IsActive);
+			indicesComputing.ValidateConsistency();
 			items.RemoveAt(0);
-			indicesCalculating.ValidateConsistency();
+			indicesComputing.ValidateConsistency();
 		}
 
 		[Test, Combinatorial]
-		public void IndicesCalculating_Insert(
+		public void IndicesComputing_Insert(
 			[Values(true, false)] bool item0,
 			[Values(true, false)] bool item1,
 			[Values(true, false)] bool item2,
@@ -154,28 +154,28 @@ namespace IBCode.ObservableCalculations.Test
 
 			);
 
-			IndicesCalculating<Item> indicesCalculating = items.IndicesCalculating(item => item.IsActive);
-			indicesCalculating.ValidateConsistency();
+			IndicesComputing<Item> indicesComputing = items.IndicesComputing(item => item.IsActive);
+			indicesComputing.ValidateConsistency();
 			items.Insert(index, new Item(newValue));
-			indicesCalculating.ValidateConsistency();
+			indicesComputing.ValidateConsistency();
 		}
 
 		[Test, Combinatorial]
-		public void IndicesCalculating_Insert1(
+		public void IndicesComputing_Insert1(
 			[Values(true, false)] bool newValue)
 		{
 			ObservableCollection<Item> items = new ObservableCollection<Item>(
 
 			);
 
-			IndicesCalculating<Item> indicesCalculating = items.IndicesCalculating(item => item.IsActive);
-			indicesCalculating.ValidateConsistency();
+			IndicesComputing<Item> indicesComputing = items.IndicesComputing(item => item.IsActive);
+			indicesComputing.ValidateConsistency();
 			items.Insert(0, new Item(newValue));
-			indicesCalculating.ValidateConsistency();
+			indicesComputing.ValidateConsistency();
 		}
 
 		[Test, Combinatorial]
-		public void IndicesCalculating_Move(
+		public void IndicesComputing_Move(
 			[Values(true, false)] bool item0,
 			[Values(true, false)] bool item1,
 			[Values(true, false)] bool item2,
@@ -196,14 +196,14 @@ namespace IBCode.ObservableCalculations.Test
 
 			);
 
-			IndicesCalculating<Item> indicesCalculating = items.IndicesCalculating(item => item.IsActive);
-			indicesCalculating.ValidateConsistency();
+			IndicesComputing<Item> indicesComputing = items.IndicesComputing(item => item.IsActive);
+			indicesComputing.ValidateConsistency();
 			items.Move(oldIndex, newIndex);
-			indicesCalculating.ValidateConsistency();
+			indicesComputing.ValidateConsistency();
 		}
 
 		[Test, Combinatorial]
-		public void IndicesCalculating_Set(
+		public void IndicesComputing_Set(
 			[Values(true, false)] bool item0,
 			[Values(true, false)] bool item1,
 			[Values(true, false)] bool item2,
@@ -224,10 +224,10 @@ namespace IBCode.ObservableCalculations.Test
 
 			);
 
-			IndicesCalculating<Item> indicesCalculating = items.IndicesCalculating(item => item.IsActive);
-			indicesCalculating.ValidateConsistency();
+			IndicesComputing<Item> indicesComputing = items.IndicesComputing(item => item.IsActive);
+			indicesComputing.ValidateConsistency();
 			items[index] = new Item(itemNew);
-			indicesCalculating.ValidateConsistency();
+			indicesComputing.ValidateConsistency();
 		}		
 	}
 }

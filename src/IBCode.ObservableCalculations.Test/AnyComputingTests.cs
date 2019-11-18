@@ -4,10 +4,10 @@ using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using NUnit.Framework;
 
-namespace IBCode.ObservableCalculations.Test
+namespace IBCode.ObservableComputations.Test
 {
 	[TestFixture]
-	public class AnyCalculatingTests
+	public class AnyComputingTests
 	{
 		public class Item : INotifyPropertyChanged
 		{
@@ -51,16 +51,16 @@ namespace IBCode.ObservableCalculations.Test
 		}
 
 		[Test]
-		public void AnyCalculating_Initialization_01()
+		public void AnyComputing_Initialization_01()
 		{
 			ObservableCollection<Item> items = new ObservableCollection<Item>();
 
-			AnyCalculating<Item> anyCalculating = items.AnyCalculating(item => item.IsActive);
-			anyCalculating.ValidateConsistency();
+			AnyComputing<Item> anyComputing = items.AnyComputing(item => item.IsActive);
+			anyComputing.ValidateConsistency();
 		}
 
 		[Test, Combinatorial]
-		public void AnyCalculating_Change(
+		public void AnyComputing_Change(
 			[Values(true, false)] bool item0,
 			[Values(true, false)] bool item1,
 			[Values(true, false)] bool item2,
@@ -81,14 +81,14 @@ namespace IBCode.ObservableCalculations.Test
 
 			);
 
-			AnyCalculating<Item> anyCalculating = items.AnyCalculating(item => item.IsActive);
-			anyCalculating.ValidateConsistency();
+			AnyComputing<Item> anyComputing = items.AnyComputing(item => item.IsActive);
+			anyComputing.ValidateConsistency();
 			items[index].IsActive = newValue;
-			anyCalculating.ValidateConsistency();
+			anyComputing.ValidateConsistency();
 		}
 
 		[Test, Combinatorial]
-		public void AnyCalculating_Remove(
+		public void AnyComputing_Remove(
 			[Values(true, false)] bool item0,
 			[Values(true, false)] bool item1,
 			[Values(true, false)] bool item2,
@@ -108,14 +108,14 @@ namespace IBCode.ObservableCalculations.Test
 
 			);
 
-			AnyCalculating<Item> anyCalculating = items.AnyCalculating(item => item.IsActive);
-			anyCalculating.ValidateConsistency();
+			AnyComputing<Item> anyComputing = items.AnyComputing(item => item.IsActive);
+			anyComputing.ValidateConsistency();
 			items.RemoveAt(index);
-			anyCalculating.ValidateConsistency();
+			anyComputing.ValidateConsistency();
 		}
 
 		[Test, Combinatorial]
-		public void AnyCalculating_Remove1(
+		public void AnyComputing_Remove1(
 			[Values(true, false)] bool item0)
 		{
 			ObservableCollection<Item> items = new ObservableCollection<Item>(
@@ -126,14 +126,14 @@ namespace IBCode.ObservableCalculations.Test
 
 			);
 
-			AnyCalculating<Item> anyCalculating = items.AnyCalculating(item => item.IsActive);
-			anyCalculating.ValidateConsistency();
+			AnyComputing<Item> anyComputing = items.AnyComputing(item => item.IsActive);
+			anyComputing.ValidateConsistency();
 			items.RemoveAt(0);
-			anyCalculating.ValidateConsistency();
+			anyComputing.ValidateConsistency();
 		}
 
 		[Test, Combinatorial]
-		public void AnyCalculating_Insert(
+		public void AnyComputing_Insert(
 			[Values(true, false)] bool item0,
 			[Values(true, false)] bool item1,
 			[Values(true, false)] bool item2,
@@ -154,27 +154,27 @@ namespace IBCode.ObservableCalculations.Test
 
 			);
 
-			AnyCalculating<Item> anyCalculating = items.AnyCalculating(item => item.IsActive);
-			anyCalculating.ValidateConsistency();
+			AnyComputing<Item> anyComputing = items.AnyComputing(item => item.IsActive);
+			anyComputing.ValidateConsistency();
 			items.Insert(index, new Item(newValue));
-			anyCalculating.ValidateConsistency();
+			anyComputing.ValidateConsistency();
 		}
 
 		[Test, Combinatorial]
-		public void AnyCalculating_Insert1(
+		public void AnyComputing_Insert1(
 			[Values(true, false)] bool newValue)
 		{
 			ObservableCollection<Item> items = new ObservableCollection<Item>(
 			);
 
-			AnyCalculating<Item> anyCalculating = items.AnyCalculating(item => item.IsActive);
-			anyCalculating.ValidateConsistency();
+			AnyComputing<Item> anyComputing = items.AnyComputing(item => item.IsActive);
+			anyComputing.ValidateConsistency();
 			items.Insert(0, new Item(newValue));
-			anyCalculating.ValidateConsistency();
+			anyComputing.ValidateConsistency();
 		}
 
 		[Test, Combinatorial]
-		public void AnyCalculating_Move(
+		public void AnyComputing_Move(
 			[Values(true, false)] bool item0,
 			[Values(true, false)] bool item1,
 			[Values(true, false)] bool item2,
@@ -195,14 +195,14 @@ namespace IBCode.ObservableCalculations.Test
 
 			);
 
-			AnyCalculating<Item> anyCalculating = items.AnyCalculating(item => item.IsActive);
-			anyCalculating.ValidateConsistency();
+			AnyComputing<Item> anyComputing = items.AnyComputing(item => item.IsActive);
+			anyComputing.ValidateConsistency();
 			items.Move(oldIndex, newIndex);
-			anyCalculating.ValidateConsistency();
+			anyComputing.ValidateConsistency();
 		}
 
 		[Test, Combinatorial]
-		public void AnyCalculating_Set(
+		public void AnyComputing_Set(
 			[Values(true, false)] bool item0,
 			[Values(true, false)] bool item1,
 			[Values(true, false)] bool item2,
@@ -223,10 +223,10 @@ namespace IBCode.ObservableCalculations.Test
 
 			);
 
-			AnyCalculating<Item> anyCalculating = items.AnyCalculating(item => item.IsActive);
-			anyCalculating.ValidateConsistency();
+			AnyComputing<Item> anyComputing = items.AnyComputing(item => item.IsActive);
+			anyComputing.ValidateConsistency();
 			items[index] = new Item(itemNew);
-			anyCalculating.ValidateConsistency();
+			anyComputing.ValidateConsistency();
 		}		
 	}
 }

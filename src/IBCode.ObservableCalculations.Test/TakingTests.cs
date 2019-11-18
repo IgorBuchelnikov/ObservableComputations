@@ -1,7 +1,7 @@
 ﻿using System.Collections.ObjectModel;
 using NUnit.Framework;
 
-namespace IBCode.ObservableCalculations.Test
+namespace IBCode.ObservableComputations.Test
 {
 	[TestFixture]
 	public class TakingTests
@@ -23,8 +23,8 @@ namespace IBCode.ObservableCalculations.Test
 		{
 			ObservableCollection<Item> items = new ObservableCollection<Item>();
 
-			Taking<Item> itemCalculating = items.Taking(0, 0);
-			itemCalculating.ValidateConsistency();
+			Taking<Item> itemComputing = items.Taking(0, 0);
+			itemComputing.ValidateConsistency();
 		}
 
 
@@ -45,10 +45,10 @@ namespace IBCode.ObservableCalculations.Test
 				}
 			);
 
-			Taking<Item> itemCalculating = items.Taking(startIndex, count);
-			itemCalculating.ValidateConsistency();
+			Taking<Item> itemComputing = items.Taking(startIndex, count);
+			itemComputing.ValidateConsistency();
 			items.RemoveAt(index);
-			itemCalculating.ValidateConsistency();
+			itemComputing.ValidateConsistency();
 		}
 
 		[Test, Combinatorial]
@@ -63,10 +63,10 @@ namespace IBCode.ObservableCalculations.Test
 				}
 			);
 
-			Taking<Item> itemCalculating = items.Taking(startIndex, count);
-			itemCalculating.ValidateConsistency();
+			Taking<Item> itemComputing = items.Taking(startIndex, count);
+			itemComputing.ValidateConsistency();
 			items.RemoveAt(0);
-			itemCalculating.ValidateConsistency();
+			itemComputing.ValidateConsistency();
 		}
 
 		[Test, Combinatorial]
@@ -86,10 +86,10 @@ namespace IBCode.ObservableCalculations.Test
 				}
 			);
 
-			Taking<Item> itemCalculating = items.Taking(startIndex, count);
-			itemCalculating.ValidateConsistency();
+			Taking<Item> itemComputing = items.Taking(startIndex, count);
+			itemComputing.ValidateConsistency();
 			items.Insert(index, new Item());
-			itemCalculating.ValidateConsistency();
+			itemComputing.ValidateConsistency();
 		}
 
 		[Test, Combinatorial]
@@ -99,10 +99,10 @@ namespace IBCode.ObservableCalculations.Test
 		{
 			ObservableCollection<Item> items = new ObservableCollection<Item>();
 
-			Taking<Item> itemCalculating = items.Taking(startIndex, count);
-			itemCalculating.ValidateConsistency();
+			Taking<Item> itemComputing = items.Taking(startIndex, count);
+			itemComputing.ValidateConsistency();
 			items.Insert(0, new Item());
-			itemCalculating.ValidateConsistency();
+			itemComputing.ValidateConsistency();
 		}
 
 		[Test, Combinatorial]
@@ -123,10 +123,10 @@ namespace IBCode.ObservableCalculations.Test
 				}
 			);
 
-			Taking<Item> itemCalculating = items.Taking(startIndex, count);
-			itemCalculating.ValidateConsistency();
+			Taking<Item> itemComputing = items.Taking(startIndex, count);
+			itemComputing.ValidateConsistency();
 			items.Move(oldIndex, newIndex);
-			itemCalculating.ValidateConsistency();
+			itemComputing.ValidateConsistency();
 		}
 
 		[Test, Combinatorial]
@@ -146,10 +146,10 @@ namespace IBCode.ObservableCalculations.Test
 				}
 			);
 
-			Taking<Item> itemCalculating = items.Taking(startIndex, count);
-			itemCalculating.ValidateConsistency();
+			Taking<Item> itemComputing = items.Taking(startIndex, count);
+			itemComputing.ValidateConsistency();
 			items[index] = new Item();
-			itemCalculating.ValidateConsistency();
+			itemComputing.ValidateConsistency();
 		}		
 	}
 }

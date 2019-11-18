@@ -2,37 +2,37 @@
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.Linq;
-using IBCode.ObservableCalculations.Common;
-using IBCode.ObservableCalculations.Common.Interface;
+using IBCode.ObservableComputations.Common;
+using IBCode.ObservableComputations.Common.Interface;
 
-namespace IBCode.ObservableCalculations
+namespace IBCode.ObservableComputations
 {
-	public class OfTypeCalculating<TResultItem> : Casting<TResultItem>, IHasSources
+	public class OfTypeComputing<TResultItem> : Casting<TResultItem>, IHasSources
 	{
-		public new IReadScalar<INotifyCollectionChanged> SourceScalar => _sourceScalarOfTypeCalculating;
+		public new IReadScalar<INotifyCollectionChanged> SourceScalar => _sourceScalarOfTypeComputing;
 
 		// ReSharper disable once MemberCanBePrivate.Global
-		public new INotifyCollectionChanged Source => _sourceOfTypeCalculating;
-		private readonly IReadScalar<INotifyCollectionChanged> _sourceScalarOfTypeCalculating;
-		private readonly INotifyCollectionChanged _sourceOfTypeCalculating;
+		public new INotifyCollectionChanged Source => _sourceOfTypeComputing;
+		private readonly IReadScalar<INotifyCollectionChanged> _sourceScalarOfTypeComputing;
+		private readonly INotifyCollectionChanged _sourceOfTypeComputing;
 
 		public new ReadOnlyCollection<INotifyCollectionChanged> SourcesCollection => new ReadOnlyCollection<INotifyCollectionChanged>(new []{Source});
 		public new ReadOnlyCollection<IReadScalar<INotifyCollectionChanged>> SourceScalarsCollection => new ReadOnlyCollection<IReadScalar<INotifyCollectionChanged>>(new []{SourceScalar});
 
 		// ReSharper disable once MemberCanBePrivate.Global
 
-		[ObservableCalculationsCall]
-		public OfTypeCalculating(
+		[ObservableComputationsCall]
+		public OfTypeComputing(
 			IReadScalar<INotifyCollectionChanged> sourceScalar) : base(getSource(sourceScalar))
 		{
-			_sourceScalarOfTypeCalculating = sourceScalar;
+			_sourceScalarOfTypeComputing = sourceScalar;
 		}
 
-		[ObservableCalculationsCall]
-		public OfTypeCalculating(
+		[ObservableComputationsCall]
+		public OfTypeComputing(
 			INotifyCollectionChanged source) : base(getSource(source))
 		{
-			_sourceOfTypeCalculating = source;
+			_sourceOfTypeComputing = source;
 		}
 
 		private static INotifyCollectionChanged getSource(IReadScalar<INotifyCollectionChanged> sourceScalar)
@@ -48,11 +48,11 @@ namespace IBCode.ObservableCalculations
 		// ReSharper disable once InconsistentNaming
 		public new void ValidateConsistency()
 		{
-			IList source = _sourceScalarOfTypeCalculating.getValue(_sourceOfTypeCalculating, new ObservableCollection<object>()) as IList;
+			IList source = _sourceScalarOfTypeComputing.getValue(_sourceOfTypeComputing, new ObservableCollection<object>()) as IList;
 
 			// ReSharper disable once AssignNullToNotNullAttribute
 			if (!this.SequenceEqual(source.OfType<TResultItem>()))
-				 throw new ObservableCalculationsException("Consistency violation: OfTypeCalculating.1");
+				 throw new ObservableComputationsException("Consistency violation: OfTypeComputing.1");
 		}
 	}
 }

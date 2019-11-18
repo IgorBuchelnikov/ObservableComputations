@@ -2,10 +2,10 @@
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.Linq;
-using IBCode.ObservableCalculations.Common;
-using IBCode.ObservableCalculations.Common.Interface;
+using IBCode.ObservableComputations.Common;
+using IBCode.ObservableComputations.Common.Interface;
 
-namespace IBCode.ObservableCalculations
+namespace IBCode.ObservableComputations
 {
 	public class Prepending<TSourceItem> : Concatenating<TSourceItem>, IHasSources
 	{
@@ -30,7 +30,7 @@ namespace IBCode.ObservableCalculations
 
 		// ReSharper disable once MemberCanBePrivate.Global
 
-		[ObservableCalculationsCall]
+		[ObservableComputationsCall]
 		public Prepending(
 			IReadScalar<INotifyCollectionChanged> sourceScalar,
 			IReadScalar<TSourceItem> itemScalar) : base(getSources(sourceScalar, itemScalar))
@@ -39,7 +39,7 @@ namespace IBCode.ObservableCalculations
 			_itemScalar = itemScalar;
 		}
 
-		[ObservableCalculationsCall]
+		[ObservableComputationsCall]
 		public Prepending(
 			INotifyCollectionChanged source,
 			IReadScalar<TSourceItem> itemScalar) : base(getSources(source, itemScalar))
@@ -48,7 +48,7 @@ namespace IBCode.ObservableCalculations
 			_itemScalar = itemScalar;
 		}
 
-		[ObservableCalculationsCall]
+		[ObservableComputationsCall]
 		public Prepending(
 			INotifyCollectionChanged source,
 			TSourceItem item) : base(getSources(source, item))
@@ -57,7 +57,7 @@ namespace IBCode.ObservableCalculations
 			_item = item;
 		}
 
-		[ObservableCalculationsCall]
+		[ObservableComputationsCall]
 		public Prepending(
 			IReadScalar<INotifyCollectionChanged> sourceScalar,
 			TSourceItem item) : base(getSources(sourceScalar, item))
@@ -71,7 +71,7 @@ namespace IBCode.ObservableCalculations
 			IReadScalar<TSourceItem> itemScalar)
 		{
 			return Expr.Is(() => new Common.ReadOnlyObservableCollection<object>(
-				new object[]{new Common.ReadOnlyObservableCollection<TSourceItem>(itemScalar.Value), sourceScalar.Value})).Calculating();
+				new object[]{new Common.ReadOnlyObservableCollection<TSourceItem>(itemScalar.Value), sourceScalar.Value})).Computing();
 		}
 
 		private static IReadScalar<INotifyCollectionChanged> getSources(
@@ -79,7 +79,7 @@ namespace IBCode.ObservableCalculations
 			IReadScalar<TSourceItem> itemScalar)
 		{
 			return Expr.Is(() => new Common.ReadOnlyObservableCollection<object>(
-				new object[]{new Common.ReadOnlyObservableCollection<TSourceItem>(itemScalar.Value), source})).Calculating();
+				new object[]{new Common.ReadOnlyObservableCollection<TSourceItem>(itemScalar.Value), source})).Computing();
 		}
 
 		private static Common.ReadOnlyObservableCollection<object> getSources(
@@ -95,7 +95,7 @@ namespace IBCode.ObservableCalculations
 			TSourceItem item)
 		{
 			return Expr.Is(() => new Common.ReadOnlyObservableCollection<object>(
-				new object[]{new Common.ReadOnlyObservableCollection<TSourceItem>(item), sourceScalar.Value})).Calculating();
+				new object[]{new Common.ReadOnlyObservableCollection<TSourceItem>(item), sourceScalar.Value})).Computing();
 		}
 
 		public new void ValidateConsistency()
@@ -107,7 +107,7 @@ namespace IBCode.ObservableCalculations
 			result.Insert(0, item);
 
 			if (!this.SequenceEqual(result))
-				throw new ObservableCalculationsException("Consistency violation: Prepending.1");
+				throw new ObservableComputationsException("Consistency violation: Prepending.1");
 		}
 	}
 }

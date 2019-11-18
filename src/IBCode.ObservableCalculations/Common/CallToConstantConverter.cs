@@ -4,7 +4,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
 
-namespace IBCode.ObservableCalculations.Common
+namespace IBCode.ObservableComputations.Common
 {
 	internal sealed class CallToConstantConverter : ExpressionVisitor
 	{
@@ -21,7 +21,7 @@ namespace IBCode.ObservableCalculations.Common
 
 		protected override Expression VisitNew(NewExpression node)
 		{
-			if (node.Constructor.GetCustomAttribute<ObservableCalculationsCallAttribute>() != null)
+			if (node.Constructor.GetCustomAttribute<ObservableComputationsCallAttribute>() != null)
 			{
 				ConstantExpression constantExpression = getConstantExpression(node);
 				if (constantExpression != null) return constantExpression;
@@ -32,11 +32,11 @@ namespace IBCode.ObservableCalculations.Common
 
 		protected override Expression VisitMethodCall(MethodCallExpression node)
 		{
-			if (node.Method.GetCustomAttribute<ObservableCalculationsCallAttribute>() != null)
+			if (node.Method.GetCustomAttribute<ObservableComputationsCallAttribute>() != null)
 			{
 				if (!node.Method.IsStatic)
-					throw new ObservableCalculationsException(
-						"ObservableCalculationsCallAttribute is applicable for static methods only");
+					throw new ObservableComputationsException(
+						"ObservableComputationsCallAttribute is applicable for static methods only");
 
 				ConstantExpression constantExpression = getConstantExpression(node);
 				if (constantExpression != null) return constantExpression;
@@ -100,7 +100,7 @@ namespace IBCode.ObservableCalculations.Common
 	}
 
 	[AttributeUsage(AttributeTargets.Method | AttributeTargets.Constructor)]
-	public sealed class ObservableCalculationsCallAttribute : Attribute
+	public sealed class ObservableComputationsCallAttribute : Attribute
 	{
 	}
 }

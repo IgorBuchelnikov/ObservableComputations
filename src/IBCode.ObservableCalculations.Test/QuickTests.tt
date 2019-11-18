@@ -5,7 +5,7 @@
 <#@ import namespace="System.Collections.Generic" #> 
 <#@ import namespace="System.Text.RegularExpressions" #> 
 <#@ output extension=".generated.cs"#>
-<#@ include file=".\..\IBCode.ObservableCalculations\ExtensionMethods.ttinclude" #>
+<#@ include file=".\..\IBCode.ObservableComputations\ExtensionMethods.ttinclude" #>
 using System;
 using System.Linq;
 using System.Collections;
@@ -13,16 +13,16 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Collections.ObjectModel;
 using NUnit.Framework;
-using IBCode.ObservableCalculations.Common;
-using IBCode.ObservableCalculations.Common.Interface;
+using IBCode.ObservableComputations.Common;
+using IBCode.ObservableComputations.Common.Interface;
 
-namespace IBCode.ObservableCalculations.Test
+namespace IBCode.ObservableComputations.Test
 {
 	[TestFixture]
 	public partial class QuickTests
 	{
 <#
-	foreach (var extentionMethodGroup in GetExtentionMethods().Where(em => em.Name != "Using" && em.Name != "Calculating").GroupBy(em => em.Name).OrderBy(emg => emg.Key))
+	foreach (var extentionMethodGroup in GetExtentionMethods().Where(em => em.Name != "Using" && em.Name != "Computing").GroupBy(em => em.Name).OrderBy(emg => emg.Key))
 	{
 
 #>
@@ -252,7 +252,7 @@ namespace IBCode.ObservableCalculations.Test
 			type = type.Replace("TResult", "double");
 		else
 			type = type.Replace("TResult", "int");
-		type = type.Replace("IBCode.ObservableCalculations.Common.Interface.IReadScalar", "Scalar");
+		type = type.Replace("IBCode.ObservableComputations.Common.Interface.IReadScalar", "Scalar");
 		return type;
 	}
 
@@ -270,7 +270,7 @@ namespace IBCode.ObservableCalculations.Test
 		string variableType = null;
 
 		bool scalar = false;
-		Regex regex = new Regex(@"IBCode\.ObservableCalculations\.Common\.Interface\.IReadScalar<(?<scalarType>.+)>");
+		Regex regex = new Regex(@"IBCode\.ObservableComputations\.Common\.Interface\.IReadScalar<(?<scalarType>.+)>");
 		MatchCollection matchCollection = regex.Matches(type);
 		if (matchCollection.Count > 0)
 		{
@@ -341,8 +341,8 @@ namespace IBCode.ObservableCalculations.Test
 				if (extentionMethodName == "Maximazing"
 					|| extentionMethodName == "Minimazing")
 					result = "0";
-				else if (extentionMethodName == "FirstCalculating"
-					|| extentionMethodName == "LastCalculating")
+				else if (extentionMethodName == "FirstComputing"
+					|| extentionMethodName == "LastComputing")
 					result = "null";
 				else
 					result = "new QuickTests.Item(1, true)";
@@ -384,7 +384,7 @@ namespace IBCode.ObservableCalculations.Test
 			case "int":
 				result =  argumentName.Contains("count") ? "3" : "0";
 				break;
-			case "IBCode.ObservableCalculations.Common.Interface.IOrdering<TSourceItem>":
+			case "IBCode.ObservableComputations.Common.Interface.IOrdering<TSourceItem>":
 				result =  "getItems().Selecting(i => i.Num).Ordering(i => i, 32)";
 				sourceAccessor = ".GetValueAs(s => ((Ordering<int, int>)s)?.Source)?.GetValueAs(s => ((Selecting<Item, int>)s)?.Source)";
 				break;
@@ -445,14 +445,14 @@ namespace IBCode.ObservableCalculations.Test
 				if (extentionMethodName == "Maximazing"
 					|| extentionMethodName == "Minimazing")
 					result.Add("1");
-				else if (extentionMethodName == "FirstCalculating"
-					|| extentionMethodName == "LastCalculating")
+				else if (extentionMethodName == "FirstComputing"
+					|| extentionMethodName == "LastComputing")
 					result.Add("new QuickTests.Item(1, true)");
 				else
 					result.Add("null");
 				break;
 			case "System.Collections.Generic.IEqualityComparer<Item>":
-				if (extentionMethodName != "ContainsCalculating"
+				if (extentionMethodName != "ContainsComputing"
 					&& extentionMethodName != "Excepting"
 					&& extentionMethodName != "Intersecting") 
 					result.Add("null");
@@ -469,7 +469,7 @@ namespace IBCode.ObservableCalculations.Test
 			case "int":
 				result.Add(argumentName.Contains("count") ? "4" : "1");
 				break;
-			case "IBCode.ObservableCalculations.Common.Interface.IOrdering<int>":
+			case "IBCode.ObservableComputations.Common.Interface.IOrdering<int>":
 				result.Add("null");
 				break;
 			case "string":

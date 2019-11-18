@@ -2,36 +2,36 @@
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.Linq;
-using IBCode.ObservableCalculations.Common;
-using IBCode.ObservableCalculations.Common.Interface;
+using IBCode.ObservableComputations.Common;
+using IBCode.ObservableComputations.Common.Interface;
 
-namespace IBCode.ObservableCalculations
+namespace IBCode.ObservableComputations
 {
-	public class FirstCalculating<TSourceItem> : ItemCalculating<TSourceItem>
+	public class FirstComputing<TSourceItem> : ItemComputing<TSourceItem>
 	{
-		[ObservableCalculationsCall]
-		public FirstCalculating(
+		[ObservableComputationsCall]
+		public FirstComputing(
 			IReadScalar<INotifyCollectionChanged> sourceScalar,
 			IReadScalar<TSourceItem> defaultValueScalar = null) : base(sourceScalar, 0, defaultValueScalar)
 		{
 		}
 
-		[ObservableCalculationsCall]
-		public FirstCalculating(
+		[ObservableComputationsCall]
+		public FirstComputing(
 			INotifyCollectionChanged source,
 			IReadScalar<TSourceItem> defaultValueScalar = null) : base(source, 0, defaultValueScalar)
 		{
 		}
 
-		[ObservableCalculationsCall]
-		public FirstCalculating(
+		[ObservableComputationsCall]
+		public FirstComputing(
 			IReadScalar<INotifyCollectionChanged> sourceScalar,
 			TSourceItem defaultValue = default(TSourceItem)) : base(sourceScalar, 0, defaultValue)
 		{
 		}
 
-		[ObservableCalculationsCall]
-		public FirstCalculating(
+		[ObservableComputationsCall]
+		public FirstComputing(
 			INotifyCollectionChanged source,
 			TSourceItem defaultValue = default(TSourceItem)) : base(source, 0, defaultValue)
 		{
@@ -43,7 +43,7 @@ namespace IBCode.ObservableCalculations
 			TSourceItem defaultValue = _defaultValueScalar.getValue(_defaultValue);
 
 			if (!EqualityComparer<TSourceItem>.Default.Equals(_value, source.Count > 0 ? source.First() : defaultValue))
-				throw new ObservableCalculationsException("Consistency violation: FirstCalculating.1");
+				throw new ObservableComputationsException("Consistency violation: FirstComputing.1");
 		}
 
 	}

@@ -5,12 +5,12 @@ using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.Linq;
 using System.Linq.Expressions;
-using IBCode.ObservableCalculations.Common;
-using IBCode.ObservableCalculations.Common.Interface;
+using IBCode.ObservableComputations.Common;
+using IBCode.ObservableComputations.Common.Interface;
 
-namespace IBCode.ObservableCalculations
+namespace IBCode.ObservableComputations
 {
-	public class IndicesCalculating<TSourceItem> : Selecting<ZipPair<int, TSourceItem>, int>, IHasSources
+	public class IndicesComputing<TSourceItem> : Selecting<ZipPair<int, TSourceItem>, int>, IHasSources
 	{
 		private readonly Expression<Func<TSourceItem, bool>> _predicateExpression;
 		private readonly IReadScalar<INotifyCollectionChanged> _sourceScalar;
@@ -28,8 +28,8 @@ namespace IBCode.ObservableCalculations
 		public new ReadOnlyCollection<INotifyCollectionChanged> SourcesCollection => new ReadOnlyCollection<INotifyCollectionChanged>(new []{Source});
 		public new ReadOnlyCollection<IReadScalar<INotifyCollectionChanged>> SourceScalarsCollection => new ReadOnlyCollection<IReadScalar<INotifyCollectionChanged>>(new []{SourceScalar});
 
-		[ObservableCalculationsCall]
-		public IndicesCalculating(
+		[ObservableComputationsCall]
+		public IndicesComputing(
 			IReadScalar<INotifyCollectionChanged> sourceScalar, 
 			Expression<Func<TSourceItem, bool>> predicateExpression,
 			int capacity = 0) : base(getSource(sourceScalar, predicateExpression, capacity), pair => pair.ItemLeft) 
@@ -38,8 +38,8 @@ namespace IBCode.ObservableCalculations
 			_sourceScalar = sourceScalar;
 		}
 
-		[ObservableCalculationsCall]
-		public IndicesCalculating(
+		[ObservableComputationsCall]
+		public IndicesComputing(
 			INotifyCollectionChanged source, 
 			Expression<Func<TSourceItem, bool>> predicateExpression,
 			int capacity = 0) : base(getSource(source, predicateExpression, capacity), pair => pair.ItemLeft) 
@@ -55,7 +55,7 @@ namespace IBCode.ObservableCalculations
 		{
 			Expression<Func<ZipPair<int, TSourceItem>, bool>> zipPairPredicateExpression = getZipPairPredicateExpression(predicateExpression);
 
-			return Expr.Is(() => sourceScalar.Value != null ? ((IList) sourceScalar.Value).Count : 0).Calculating().SequenceCalculating()
+			return Expr.Is(() => sourceScalar.Value != null ? ((IList) sourceScalar.Value).Count : 0).Computing().SequenceComputing()
 				.Zipping<int, TSourceItem>(sourceScalar)
 				.Filtering(zipPairPredicateExpression, capacity);
 		}
@@ -67,7 +67,7 @@ namespace IBCode.ObservableCalculations
 		{
 			Expression<Func<ZipPair<int, TSourceItem>, bool>> zipPairPredicateExpression = getZipPairPredicateExpression(predicateExpression);
 
-			return Expr.Is(() => ((IList) source).Count).Calculating().SequenceCalculating()
+			return Expr.Is(() => ((IList) source).Count).Computing().SequenceComputing()
 				.Zipping<int, TSourceItem>(source)
 				.Filtering(zipPairPredicateExpression, capacity);
 		}
@@ -107,7 +107,7 @@ namespace IBCode.ObservableCalculations
 				}
 			}
 
-			if (!this.SequenceEqual(result)) throw new ObservableCalculationsException("Consistency violation: IndicesCalculating.1");
+			if (!this.SequenceEqual(result)) throw new ObservableComputationsException("Consistency violation: IndicesComputing.1");
 		}
 
 		//private class FindExpressionVisitor : ExpressionVisitor

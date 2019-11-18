@@ -2,10 +2,10 @@
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.Linq;
-using IBCode.ObservableCalculations.Common;
-using IBCode.ObservableCalculations.Common.Interface;
+using IBCode.ObservableComputations.Common;
+using IBCode.ObservableComputations.Common.Interface;
 
-namespace IBCode.ObservableCalculations
+namespace IBCode.ObservableComputations
 {
 	public class Appending<TSourceItem> : Concatenating<TSourceItem>, IHasSources
 	{
@@ -34,7 +34,7 @@ namespace IBCode.ObservableCalculations
 		// ReSharper disable once MemberCanBePrivate.Global
 		// ReSharper disable once ConvertToAutoProperty
 
-		[ObservableCalculationsCall]
+		[ObservableComputationsCall]
 		public Appending(
 			INotifyCollectionChanged source,
 			TSourceItem item) : base(getSources(source, item))
@@ -43,7 +43,7 @@ namespace IBCode.ObservableCalculations
 			_item = item;
 		}
 
-		[ObservableCalculationsCall]
+		[ObservableComputationsCall]
 		public Appending(
 			INotifyCollectionChanged source,
 			IReadScalar<TSourceItem> itemScalar) : base(getSources(source, itemScalar))
@@ -52,7 +52,7 @@ namespace IBCode.ObservableCalculations
 			_itemScalar = itemScalar;
 		}
 
-		[ObservableCalculationsCall]
+		[ObservableComputationsCall]
 		public Appending(
 			IReadScalar<INotifyCollectionChanged> sourceScalar,
 			TSourceItem item) : base(getSources(sourceScalar, item))
@@ -61,7 +61,7 @@ namespace IBCode.ObservableCalculations
 			_item = item;
 		}
 
-		[ObservableCalculationsCall]
+		[ObservableComputationsCall]
 		public Appending(
 			IReadScalar<INotifyCollectionChanged> sourceScalar,
 			IReadScalar<TSourceItem> itemScalar) : base(getSources(sourceScalar, itemScalar))
@@ -80,19 +80,19 @@ namespace IBCode.ObservableCalculations
 			INotifyCollectionChanged source,
 			IReadScalar<TSourceItem> itemScalar) =>
 			Expr.Is(() => new Common.ReadOnlyObservableCollection<object>(
-				new object[]{source, new Common.ReadOnlyObservableCollection<TSourceItem>(itemScalar.Value)})).Calculating();
+				new object[]{source, new Common.ReadOnlyObservableCollection<TSourceItem>(itemScalar.Value)})).Computing();
 
 		private static IReadScalar<INotifyCollectionChanged> getSources(
 			IReadScalar<INotifyCollectionChanged> sourceScalar,
 			TSourceItem item) =>
 			Expr.Is(() => new Common.ReadOnlyObservableCollection<object>(
-				new object[]{sourceScalar.Value, new Common.ReadOnlyObservableCollection<TSourceItem>(item)})).Calculating();
+				new object[]{sourceScalar.Value, new Common.ReadOnlyObservableCollection<TSourceItem>(item)})).Computing();
 
 		private static IReadScalar<INotifyCollectionChanged> getSources(
 			IReadScalar<INotifyCollectionChanged> sourceScalar,
 			IReadScalar<TSourceItem> itemScalar) =>
 			Expr.Is(() => new Common.ReadOnlyObservableCollection<object>(
-				new object[]{sourceScalar.Value, new Common.ReadOnlyObservableCollection<TSourceItem>(itemScalar.Value)})).Calculating();
+				new object[]{sourceScalar.Value, new Common.ReadOnlyObservableCollection<TSourceItem>(itemScalar.Value)})).Computing();
 
 		public new void ValidateConsistency()
 		{
@@ -104,7 +104,7 @@ namespace IBCode.ObservableCalculations
 			result.Add(item);
 
 			if (!this.SequenceEqual(result))
-				throw new ObservableCalculationsException("Consistency violation: Appending.1");
+				throw new ObservableComputationsException("Consistency violation: Appending.1");
 		}
 	}
 }

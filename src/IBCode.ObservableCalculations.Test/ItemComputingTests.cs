@@ -1,10 +1,10 @@
 ﻿using System.Collections.ObjectModel;
 using NUnit.Framework;
 
-namespace IBCode.ObservableCalculations.Test
+namespace IBCode.ObservableComputations.Test
 {
 	[TestFixture]
-	public class ItemCalculatingTests
+	public class ItemComputingTests
 	{
 		public class Item
 		{
@@ -19,18 +19,18 @@ namespace IBCode.ObservableCalculations.Test
 		}
 
 		[Test]
-		public void ItemCalculating_Initialization_01()
+		public void ItemComputing_Initialization_01()
 		{
 			ObservableCollection<Item> items = new ObservableCollection<Item>();
 
-			ItemCalculating<Item> itemCalculating = items.ItemCalculating(0);
-			itemCalculating.ValidateConsistency();
+			ItemComputing<Item> itemComputing = items.ItemComputing(0);
+			itemComputing.ValidateConsistency();
 		}
 
 
 		[Test, Combinatorial]
-		public void ItemCalculating_Remove(
-			[Range(0, 4, 1)] int calculatingIndex,
+		public void ItemComputing_Remove(
+			[Range(0, 4, 1)] int computingIndex,
 			[Range(0, 4, 1)] int index)
 		{
 			ObservableCollection<Item> items = new ObservableCollection<Item>(
@@ -44,15 +44,15 @@ namespace IBCode.ObservableCalculations.Test
 				}
 			);
 
-			ItemCalculating<Item> itemCalculating = items.ItemCalculating(calculatingIndex);
-			itemCalculating.ValidateConsistency();
+			ItemComputing<Item> itemComputing = items.ItemComputing(computingIndex);
+			itemComputing.ValidateConsistency();
 			items.RemoveAt(index);
-			itemCalculating.ValidateConsistency();
+			itemComputing.ValidateConsistency();
 		}
 
 		[Test, Combinatorial]
-		public void ItemCalculating_Remove1(
-			[Range(0, 2, 1)] int calculatingIndex)
+		public void ItemComputing_Remove1(
+			[Range(0, 2, 1)] int computingIndex)
 		{
 			ObservableCollection<Item> items = new ObservableCollection<Item>(
 				new[]
@@ -61,16 +61,16 @@ namespace IBCode.ObservableCalculations.Test
 				}
 			);
 
-			ItemCalculating<Item> itemCalculating = items.ItemCalculating(calculatingIndex);
-			itemCalculating.ValidateConsistency();
+			ItemComputing<Item> itemComputing = items.ItemComputing(computingIndex);
+			itemComputing.ValidateConsistency();
 			items.RemoveAt(0);
-			itemCalculating.ValidateConsistency();
+			itemComputing.ValidateConsistency();
 		}
 
 		[Test, Combinatorial]
-		public void ItemCalculating_Insert(
+		public void ItemComputing_Insert(
 			[Range(0, 4, 1)] int index,
-			[Range(0, 4, 1)] int calculatingIndex)
+			[Range(0, 4, 1)] int computingIndex)
 		{
 			ObservableCollection<Item> items = new ObservableCollection<Item>(
 				new[]
@@ -83,27 +83,27 @@ namespace IBCode.ObservableCalculations.Test
 				}
 			);
 
-			ItemCalculating<Item> itemCalculating = items.ItemCalculating(calculatingIndex);
-			itemCalculating.ValidateConsistency();
+			ItemComputing<Item> itemComputing = items.ItemComputing(computingIndex);
+			itemComputing.ValidateConsistency();
 			items.Insert(index, new Item());
-			itemCalculating.ValidateConsistency();
+			itemComputing.ValidateConsistency();
 		}
 
 		[Test, Combinatorial]
-		public void ItemCalculating_Insert1(
-			[Range(0, 2, 1)] int calculatingIndex)
+		public void ItemComputing_Insert1(
+			[Range(0, 2, 1)] int computingIndex)
 		{
 			ObservableCollection<Item> items = new ObservableCollection<Item>();
 
-			ItemCalculating<Item> itemCalculating = items.ItemCalculating(calculatingIndex);
-			itemCalculating.ValidateConsistency();
+			ItemComputing<Item> itemComputing = items.ItemComputing(computingIndex);
+			itemComputing.ValidateConsistency();
 			items.Insert(0, new Item());
-			itemCalculating.ValidateConsistency();
+			itemComputing.ValidateConsistency();
 		}
 
 		[Test, Combinatorial]
-		public void ItemCalculating_Move(
-			[Range(0, 4, 1)] int calculatingIndex,
+		public void ItemComputing_Move(
+			[Range(0, 4, 1)] int computingIndex,
 			[Range(0, 4, 1)] int oldIndex,
 			[Range(0, 4, 1)] int newIndex)
 		{
@@ -118,15 +118,15 @@ namespace IBCode.ObservableCalculations.Test
 				}
 			);
 
-			ItemCalculating<Item> itemCalculating = items.ItemCalculating(calculatingIndex);
-			itemCalculating.ValidateConsistency();
+			ItemComputing<Item> itemComputing = items.ItemComputing(computingIndex);
+			itemComputing.ValidateConsistency();
 			items.Move(oldIndex, newIndex);
-			itemCalculating.ValidateConsistency();
+			itemComputing.ValidateConsistency();
 		}
 
 		[Test, Combinatorial]
-		public void ItemCalculating_Set(
-			[Range(0, 4, 1)] int calculatingIndex,
+		public void ItemComputing_Set(
+			[Range(0, 4, 1)] int computingIndex,
 			[Range(0, 4, 1)] int index)
 		{
 			ObservableCollection<Item> items = new ObservableCollection<Item>(
@@ -140,10 +140,10 @@ namespace IBCode.ObservableCalculations.Test
 				}
 			);
 
-			ItemCalculating<Item> itemCalculating = items.ItemCalculating(calculatingIndex);
-			itemCalculating.ValidateConsistency();
+			ItemComputing<Item> itemComputing = items.ItemComputing(computingIndex);
+			itemComputing.ValidateConsistency();
 			items[index] = new Item();
-			itemCalculating.ValidateConsistency();
+			itemComputing.ValidateConsistency();
 		}		
 	}
 }

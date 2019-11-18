@@ -6,15 +6,15 @@ using System.ComponentModel;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Threading;
-using IBCode.ObservableCalculations.Common;
-using IBCode.ObservableCalculations.Common.Base;
-using IBCode.ObservableCalculations.Common.Interface;
+using IBCode.ObservableComputations.Common;
+using IBCode.ObservableComputations.Common.Base;
+using IBCode.ObservableComputations.Common.Interface;
 using INotifyPropertyChanged = System.ComponentModel.INotifyPropertyChanged;
 
-namespace IBCode.ObservableCalculations
+namespace IBCode.ObservableComputations
 {
 	// ReSharper disable once RedundantExtendsListEntry
-	public class ThenOrdering<TSourceItem, TOrderingValue> : CollectionCalculating<TSourceItem>, INotifyPropertyChanged, IOrderingInternal<TSourceItem>, IThenOrderingInternal<TSourceItem>, IHasSources
+	public class ThenOrdering<TSourceItem, TOrderingValue> : CollectionComputing<TSourceItem>, INotifyPropertyChanged, IOrderingInternal<TSourceItem>, IThenOrderingInternal<TSourceItem>, IHasSources
 	{
 		// ReSharper disable once MemberCanBePrivate.Global
 		public IReadScalar<IOrdering<TSourceItem>> SourceScalar => _sourceScalar;
@@ -126,7 +126,7 @@ namespace IBCode.ObservableCalculations
 			}
 		}
 
-		[ObservableCalculationsCall]
+		[ObservableComputationsCall]
 		public ThenOrdering(
 			IOrdering<TSourceItem> source,
 			Expression<Func<TSourceItem, TOrderingValue>> orderingValueSelectorExpression,
@@ -146,7 +146,7 @@ namespace IBCode.ObservableCalculations
 			initializeFromSource();
 		}
 
-		[ObservableCalculationsCall]
+		[ObservableComputationsCall]
 		public ThenOrdering(
 			IOrdering<TSourceItem> source,
 			Expression<Func<TSourceItem, TOrderingValue>> orderingValueSelectorExpression,
@@ -166,7 +166,7 @@ namespace IBCode.ObservableCalculations
 		}
 
 
-		[ObservableCalculationsCall]
+		[ObservableComputationsCall]
 		public ThenOrdering(
 			IOrdering<TSourceItem> source,
 			Expression<Func<TSourceItem, TOrderingValue>> orderingValueSelectorExpression,
@@ -185,7 +185,7 @@ namespace IBCode.ObservableCalculations
 			initializeFromSource();
 		}
 
-		[ObservableCalculationsCall]
+		[ObservableComputationsCall]
 		public ThenOrdering(
 			IOrdering<TSourceItem> source,
 			Expression<Func<TSourceItem, TOrderingValue>> orderingValueSelectorExpression,
@@ -203,7 +203,7 @@ namespace IBCode.ObservableCalculations
 			initializeFromSource();
 		}
 
-		[ObservableCalculationsCall]
+		[ObservableComputationsCall]
 		public ThenOrdering(
 			IReadScalar<IOrdering<TSourceItem>> sourceScalar,
 			Expression<Func<TSourceItem, TOrderingValue>> orderingValueSelectorExpression,
@@ -223,7 +223,7 @@ namespace IBCode.ObservableCalculations
 			initializeFromSource();
 		}
 
-		[ObservableCalculationsCall]
+		[ObservableComputationsCall]
 		public ThenOrdering(
 			IReadScalar<IOrdering<TSourceItem>> sourceScalar,
 			Expression<Func<TSourceItem, TOrderingValue>> orderingValueSelectorExpression,
@@ -242,7 +242,7 @@ namespace IBCode.ObservableCalculations
 			initializeFromSource();
 		}
 
-		[ObservableCalculationsCall]
+		[ObservableComputationsCall]
 		public ThenOrdering(
 			IReadScalar<IOrdering<TSourceItem>> sourceScalar,
 			Expression<Func<TSourceItem, TOrderingValue>> orderingValueSelectorExpression,
@@ -261,7 +261,7 @@ namespace IBCode.ObservableCalculations
 			initializeFromSource();
 		}
 
-		[ObservableCalculationsCall]
+		[ObservableComputationsCall]
 		public ThenOrdering(
 			IReadScalar<IOrdering<TSourceItem>> sourceScalar,
 			Expression<Func<TSourceItem, TOrderingValue>> orderingValueSelectorExpression,
@@ -1039,7 +1039,7 @@ namespace IBCode.ObservableCalculations
 			}
 			
 			if (!placed)
-				throw new ObservableCalculationsException("The maximum number of join ThenOrderings has been reached. Please increase the value of MaxTogetherThenOrderings parameter. The value of this parameter can be specified in the constructor of this class. The default value is 4.");
+				throw new ObservableComputationsException("The maximum number of join ThenOrderings has been reached. Please increase the value of MaxTogetherThenOrderings parameter. The value of this parameter can be specified in the constructor of this class. The default value is 4.");
 
 
 			if (_thenOrderingsCount == 1)
@@ -1278,13 +1278,13 @@ namespace IBCode.ObservableCalculations
 
 			IOrdering<TSourceItem > orderingSource = (IOrdering<TSourceItem>)source;
 
-			if (_itemInfos.Count != Count) throw new ObservableCalculationsException("Consistency violation: ThenOrdering.1");
+			if (_itemInfos.Count != Count) throw new ObservableComputationsException("Consistency violation: ThenOrdering.1");
 
 			if (_orderingValues.Count != Count) 
-				throw new ObservableCalculationsException("Consistency violation: ThenOrdering.2");
+				throw new ObservableComputationsException("Consistency violation: ThenOrdering.2");
 
 			if (_sourcePositions.List.Count != source.Count)
-				throw new ObservableCalculationsException("Consistency violation: Ordering.3");
+				throw new ObservableComputationsException("Consistency violation: Ordering.3");
 
 			if (_thenOrderingsCount > 0)
 			{
@@ -1297,7 +1297,7 @@ namespace IBCode.ObservableCalculations
 			for (int sourceIndex = 0; sourceIndex < source.Count; sourceIndex++)
 			{
 				TSourceItem sourceItem = source[sourceIndex];
-				if (!copy.Remove(sourceItem)) throw new ObservableCalculationsException("Consistency violation: ThenOrdering.4");
+				if (!copy.Remove(sourceItem)) throw new ObservableComputationsException("Consistency violation: ThenOrdering.4");
 
 				if (sourceIndex > 0)
 				{
@@ -1334,7 +1334,7 @@ namespace IBCode.ObservableCalculations
 						{
 							TSourceItem item = orderedBuffer[index];
 							if (!bufferCopy.Remove(item))
-								throw new ObservableCalculationsException("Consistency violation: ThenOrdering.5");
+								throw new ObservableComputationsException("Consistency violation: ThenOrdering.5");
 						}
 
 						for (int bufferIndex = 0; bufferIndex < orderedBuffer.Count; bufferIndex++)
@@ -1344,7 +1344,7 @@ namespace IBCode.ObservableCalculations
 								int compareResult = comparer.Compare(orderingValueSelector(orderedBuffer[bufferIndex - 1]), orderingValueSelector(orderedBuffer[bufferIndex]));
 								if ((compareResult < 0 && listSortDirection == ListSortDirection.Descending)
 									|| (compareResult > 0 && listSortDirection == ListSortDirection.Ascending)) 
-									throw new ObservableCalculationsException("Consistency violation: ThenOrdering.6");								
+									throw new ObservableComputationsException("Consistency violation: ThenOrdering.6");								
 							}
 						}
 
@@ -1361,18 +1361,18 @@ namespace IBCode.ObservableCalculations
 
 				ItemInfo itemInfo = _itemInfos[sourceIndex];
 				if (itemInfo.ExpressionWatcher._position != _sourcePositions.List[sourceIndex])
-					throw new ObservableCalculationsException("Consistency violation: Ordering.7");
+					throw new ObservableComputationsException("Consistency violation: Ordering.7");
 				if (!EqualityComparer<TOrderingValue>.Default.Equals(_orderingValues[itemInfo.OrderedItemInfo.Index], orderingValueSelector(sourceItem)))
-					throw new ObservableCalculationsException("Consistency violation: Ordering.8");
+					throw new ObservableComputationsException("Consistency violation: Ordering.8");
 
 				if (!_orderedItemInfos.Contains(_itemInfos[sourceIndex].OrderedItemInfo))
-					throw new ObservableCalculationsException("Consistency violation: Ordering.9");
+					throw new ObservableComputationsException("Consistency violation: Ordering.9");
 
 				if (!_sourcePositions.List.Contains(_itemInfos[sourceIndex].ExpressionWatcher._position))
-					throw new ObservableCalculationsException("Consistency violation: Ordering.10");
+					throw new ObservableComputationsException("Consistency violation: Ordering.10");
 
 				if (_itemInfos[sourceIndex].ExpressionWatcher._position.Index != sourceIndex)
-					throw new ObservableCalculationsException("Consistency violation: Ordering.11");
+					throw new ObservableComputationsException("Consistency violation: Ordering.11");
 			}
 
 			List<IComparer<TOrderingValue>> ancestorComparers = new List<IComparer<TOrderingValue>>();
@@ -1430,7 +1430,7 @@ namespace IBCode.ObservableCalculations
 				//TSourceItem resultItem = resultArray[orderedIndex];
 
 				//if (!orderedItem.Equals(resultItem))
-				//	throw new ObservableCalculationsException("Consistency violation: ThenOrdering.12");
+				//	throw new ObservableComputationsException("Consistency violation: ThenOrdering.12");
 
 				if (orderedIndex > 0)
 				{
@@ -1443,15 +1443,15 @@ namespace IBCode.ObservableCalculations
 						{
 							equalOrderingValueItemsCount++;
 							if (rangePosition != _orderedItemInfos[orderedIndex].RangePosition)
-								throw new ObservableCalculationsException("Consistency violation: ThenOrdering.14");
+								throw new ObservableComputationsException("Consistency violation: ThenOrdering.14");
 						}
 						else				
 						{
 							if (rangePosition.Length != equalOrderingValueItemsCount)
-								throw new ObservableCalculationsException("Consistency violation: ThenOrdering.15");
+								throw new ObservableComputationsException("Consistency violation: ThenOrdering.15");
 
 							if (rangePosition.Index != rangePositionIndex)
-								throw new ObservableCalculationsException("Consistency violation: ThenOrdering.16");
+								throw new ObservableComputationsException("Consistency violation: ThenOrdering.16");
 
 							rangePositionIndex++;
 							equalOrderingValueItemsCount = 1;
@@ -1470,16 +1470,16 @@ namespace IBCode.ObservableCalculations
 				}
 
 				ItemInfo itemInfo = _orderedItemInfos[orderedIndex].ItemInfo;
-				if (itemInfo.OrderedItemInfo.Index != orderedIndex) throw new ObservableCalculationsException("Consistency violation: ThenOrdering.17");
+				if (itemInfo.OrderedItemInfo.Index != orderedIndex) throw new ObservableComputationsException("Consistency violation: ThenOrdering.17");
 
 				if (!EqualityComparer<TOrderingValue>.Default.Equals(_orderingValues[orderedIndex], orderingValueSelector(orderedItem)))
-					throw new ObservableCalculationsException("Consistency violation: ThenOrdering.18");
+					throw new ObservableComputationsException("Consistency violation: ThenOrdering.18");
 			}
 
 			//for (int i = 0; i < _itemInfos.Count; i++)
 			//{
 			//	if (!_orderingInfoPositions.List.Contains(_itemInfos[i].OrderingInfoRangePosition))
-			//		throw new ObservableCalculationsException("Consistency violation: ThenOrdering.12");
+			//		throw new ObservableComputationsException("Consistency violation: ThenOrdering.12");
 			//}
 		}
 

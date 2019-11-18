@@ -1,15 +1,15 @@
 ﻿using System;
 using System.ComponentModel;
-using IBCode.ObservableCalculations.Common.Interface;
+using IBCode.ObservableComputations.Common.Interface;
 
-namespace IBCode.ObservableCalculations.Common
+namespace IBCode.ObservableComputations.Common
 {
-	public abstract class ScalarCalculating<TValue> : IScalar<TValue>, IReadScalar<TValue>, IWriteScalar<TValue>, IScalarCalculating
+	public abstract class ScalarComputing<TValue> : IScalar<TValue>, IReadScalar<TValue>, IWriteScalar<TValue>, IScalarComputing
 	{
 		public string DebugTag {get; set;}
 		public object Tag {get; set;}
 
-		public ScalarCalculating()
+		public ScalarComputing()
 		{
 
 			if (Configuration.SaveInstantiatingStackTrace)
@@ -70,7 +70,7 @@ namespace IBCode.ObservableCalculations.Common
 		protected void setValue(TValue value)
 		{
 			if (!_consistent)
-				throw new ObservableCalculationsException(
+				throw new ObservableComputationsException(
 					"The source collection has been changed. It is not possible to process this change, as the processing of the previous change is not completed. Make the change on PropertyChanged or PostValueChanged events raising (after Consistent property becomes true). This exception is fatal and cannot be handled as the inner state is damaged.");
 			_consistent = false;
 

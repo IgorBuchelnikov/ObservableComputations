@@ -4,7 +4,7 @@ using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using NUnit.Framework;
 
-namespace IBCode.ObservableCalculations.Test
+namespace IBCode.ObservableComputations.Test
 {
 	[TestFixture]
 	public class SkippingWhileTests
@@ -271,7 +271,7 @@ namespace IBCode.ObservableCalculations.Test
 			SkippingWhile<Item> skippingWhile = items.SkippingWhile(item => 
 				Expr.Is(() => param.Value 
 					? (ObservableCollection<Item>)items.SkippingWhile(item1 => true) 
-					: items.SkippingWhile(item1 => item1.IsActive == item.IsActive)).Calculating().Value.Count == 3);
+					: items.SkippingWhile(item1 => item1.IsActive == item.IsActive)).Computing().Value.Count == 3);
 
 			SkippingWhile<Item> skippingWhile2 = items.SkippingWhile(item => 
 				(param.Value 

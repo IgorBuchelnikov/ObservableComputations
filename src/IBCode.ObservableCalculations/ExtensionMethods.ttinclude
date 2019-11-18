@@ -16,7 +16,7 @@
 			List<ExtentionMethod> result = new List<ExtentionMethod>();
 
 			VisualStudioHelper = new AutomationHelper(this.Host);
-			string rootPath = VisualStudioHelper.SolutionDirectory + @"\IBCode.ObservableCalculations";
+			string rootPath = VisualStudioHelper.SolutionDirectory + @"\IBCode.ObservableComputations";
 			string rootCollections = rootPath + @"\Collections";
 			string rootScalars = rootPath + @"\Scalars";
 	

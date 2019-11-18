@@ -5,10 +5,10 @@ using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.Linq;
 using System.Linq.Expressions;
-using IBCode.ObservableCalculations.Common;
-using IBCode.ObservableCalculations.Common.Interface;
+using IBCode.ObservableComputations.Common;
+using IBCode.ObservableComputations.Common.Interface;
 
-namespace IBCode.ObservableCalculations
+namespace IBCode.ObservableComputations
 {
 	public class PredicateGroupJoining<TOuterSourceItem, TInnerSourceItem> : Selecting<TOuterSourceItem, PredicateJoinGroup<TOuterSourceItem, TInnerSourceItem>>, IHasSources
 	{
@@ -36,7 +36,7 @@ namespace IBCode.ObservableCalculations
 
 		// ReSharper disable once MemberCanBePrivate.Global
 
-		[ObservableCalculationsCall]
+		[ObservableComputationsCall]
 		public PredicateGroupJoining(
 			IReadScalar<INotifyCollectionChanged> outerSourceScalar,
 			IReadScalar<INotifyCollectionChanged> innerSourceScalar,
@@ -47,7 +47,7 @@ namespace IBCode.ObservableCalculations
 			_joinPredicateExpression = joinPredicateExpression;
 		}
 
-		[ObservableCalculationsCall]
+		[ObservableComputationsCall]
 		public PredicateGroupJoining(
 			IReadScalar<INotifyCollectionChanged> outerSourceScalar,
 			INotifyCollectionChanged innerSource,
@@ -59,7 +59,7 @@ namespace IBCode.ObservableCalculations
 		}
 
 
-		[ObservableCalculationsCall]
+		[ObservableComputationsCall]
 		public PredicateGroupJoining(
 			INotifyCollectionChanged outerSource,
 			IReadScalar<INotifyCollectionChanged> innerSourceScalar,
@@ -70,7 +70,7 @@ namespace IBCode.ObservableCalculations
 			_joinPredicateExpression = joinPredicateExpression;
 		}
 
-		[ObservableCalculationsCall]
+		[ObservableComputationsCall]
 		public PredicateGroupJoining(
 			INotifyCollectionChanged outerSource,
 			INotifyCollectionChanged innerSource,
@@ -137,7 +137,7 @@ namespace IBCode.ObservableCalculations
 			}).ToList();
 
 			if (Count !=  result.Count())
-				throw new ObservableCalculationsException("Consistency violation: PredicateGroupJoining.1");
+				throw new ObservableComputationsException("Consistency violation: PredicateGroupJoining.1");
 
 			for (int index = 0; index < result.Count; index++)
 			{
@@ -146,7 +146,7 @@ namespace IBCode.ObservableCalculations
 
 				int length = resultItem.InnerItems.Length;
 				if (length !=  thisItem.Count)
-					throw new ObservableCalculationsException($"Consistency violation: PredicateGroupJoining.3 {length}");
+					throw new ObservableComputationsException($"Consistency violation: PredicateGroupJoining.3 {length}");
 
 				EqualityComparer<TInnerSourceItem> equalityComparer = EqualityComparer<TInnerSourceItem>.Default;
 
@@ -158,7 +158,7 @@ namespace IBCode.ObservableCalculations
 						{
 							enumerator2.MoveNext();
 							if (!equalityComparer.Equals((TInnerSourceItem)enumerator1.Current, enumerator2.Current))
-								throw new ObservableCalculationsException("Consistency violation: PredicateGroupJoining.4");
+								throw new ObservableComputationsException("Consistency violation: PredicateGroupJoining.4");
 						}
 					}
 				}
@@ -171,13 +171,13 @@ namespace IBCode.ObservableCalculations
 		// ReSharper disable once MemberCanBePrivate.Global
 		public TOuterSourceItem Key { get; }
 
-		[ObservableCalculationsCall]
+		[ObservableComputationsCall]
 		internal PredicateJoinGroup(IReadScalar<INotifyCollectionChanged> sourceScalar, Expression<Func<TInnerSourceItem, bool>> predicateExpression, TOuterSourceItem key) : base(sourceScalar, predicateExpression)
 		{
 			Key = key;
 		}
 
-		[ObservableCalculationsCall]
+		[ObservableComputationsCall]
 		internal PredicateJoinGroup(INotifyCollectionChanged source, Expression<Func<TInnerSourceItem, bool>> predicateExpression, TOuterSourceItem key) : base(source, predicateExpression)
 		{
 			Key = key;

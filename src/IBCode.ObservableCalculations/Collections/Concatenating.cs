@@ -3,12 +3,12 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.ComponentModel;
-using IBCode.ObservableCalculations.Common;
-using IBCode.ObservableCalculations.Common.Interface;
+using IBCode.ObservableComputations.Common;
+using IBCode.ObservableComputations.Common.Interface;
 
-namespace IBCode.ObservableCalculations
+namespace IBCode.ObservableComputations
 {
-	public class Concatenating<TSourceItem> : CollectionCalculating<TSourceItem>, IHasSources
+	public class Concatenating<TSourceItem> : CollectionComputing<TSourceItem>, IHasSources
 	{
 		// ReSharper disable once MemberCanBePrivate.Global
 		public IReadScalar<INotifyCollectionChanged> SourcesScalar => _sourcesScalar;
@@ -56,7 +56,7 @@ namespace IBCode.ObservableCalculations
 			public bool LastProcessedSourceChangeMarker;
 		}
 
-		[ObservableCalculationsCall]
+		[ObservableComputationsCall]
 		public Concatenating(
 			IReadScalar<INotifyCollectionChanged> sourcesScalar) : base(calculateCapacity(sourcesScalar.Value))
 		{		
@@ -71,7 +71,7 @@ namespace IBCode.ObservableCalculations
 			initializeFromSources();
 		}
 
-		[ObservableCalculationsCall]
+		[ObservableComputationsCall]
 		public Concatenating(
 			INotifyCollectionChanged sources) : base(calculateCapacity(sources))
 		{
@@ -102,27 +102,27 @@ namespace IBCode.ObservableCalculations
 		}
 
 
-		[ObservableCalculationsCall]
+		[ObservableComputationsCall]
 		public Concatenating(INotifyCollectionChanged source1, INotifyCollectionChanged source2) 
 			: this(new Common.ReadOnlyObservableCollection<INotifyCollectionChanged>(new []{source1, source2}))
 		{
 		}
 
-		[ObservableCalculationsCall]
+		[ObservableComputationsCall]
 		public Concatenating(IReadScalar<INotifyCollectionChanged> source1Scalar, INotifyCollectionChanged source2) 
-			: this(Expr.Is(() => new Common.ReadOnlyObservableCollection<INotifyCollectionChanged>(new []{source1Scalar.Value, source2})).Calculating())
+			: this(Expr.Is(() => new Common.ReadOnlyObservableCollection<INotifyCollectionChanged>(new []{source1Scalar.Value, source2})).Computing())
 		{
 		}
 
-		[ObservableCalculationsCall]
+		[ObservableComputationsCall]
 		public Concatenating(IReadScalar<INotifyCollectionChanged> source1Scalar, IReadScalar<INotifyCollectionChanged> source2Scalar) 
-			: this(Expr.Is(() => new Common.ReadOnlyObservableCollection<INotifyCollectionChanged>(new []{source1Scalar.Value, source2Scalar.Value})).Calculating())
+			: this(Expr.Is(() => new Common.ReadOnlyObservableCollection<INotifyCollectionChanged>(new []{source1Scalar.Value, source2Scalar.Value})).Computing())
 		{
 		}
 
-		[ObservableCalculationsCall]
+		[ObservableComputationsCall]
 		public Concatenating(INotifyCollectionChanged source1, IReadScalar<INotifyCollectionChanged> source2Scalar) 
-			: this(Expr.Is(() => new Common.ReadOnlyObservableCollection<INotifyCollectionChanged>(new []{source1, source2Scalar.Value})).Calculating())
+			: this(Expr.Is(() => new Common.ReadOnlyObservableCollection<INotifyCollectionChanged>(new []{source1, source2Scalar.Value})).Computing())
 		{
 		}
 
@@ -291,19 +291,19 @@ namespace IBCode.ObservableCalculations
 				{
 					case NotifyCollectionChangedAction.Add:
 						IList newItems = e.NewItems;
-						if (newItems.Count > 1) throw new ObservableCalculationsException("Adding of multiple items is not supported");
+						if (newItems.Count > 1) throw new ObservableComputationsException("Adding of multiple items is not supported");
 						TSourceItem addedItem = (TSourceItem) newItems[0];
 						_sourceRangePositions.ModifyLength(itemInfo.Index, 1);
 						baseInsertItem(itemInfo.PlainIndex + e.NewStartingIndex, addedItem);
 						break;
 					case NotifyCollectionChangedAction.Remove:
-						if (e.OldItems.Count > 1) throw new ObservableCalculationsException("Removing of multiple items is not supported");
+						if (e.OldItems.Count > 1) throw new ObservableComputationsException("Removing of multiple items is not supported");
 						_sourceRangePositions.ModifyLength(itemInfo.Index, -1);
 						baseRemoveItem(itemInfo.PlainIndex + e.OldStartingIndex);
 						break;
 					case NotifyCollectionChangedAction.Replace:
 						IList newItems1 = e.NewItems;
-						if (newItems1.Count > 1) throw new ObservableCalculationsException("Replacing of multiple items is not supported");
+						if (newItems1.Count > 1) throw new ObservableComputationsException("Replacing of multiple items is not supported");
 						baseSetItem(itemInfo.PlainIndex + e.NewStartingIndex, (TSourceItem) newItems1[0]);
 						break;
 					case NotifyCollectionChangedAction.Reset:
@@ -342,7 +342,7 @@ namespace IBCode.ObservableCalculations
 					case NotifyCollectionChangedAction.Add:
 						ItemInfo itemInfo;
 						IList newItems = e.NewItems;
-						if (newItems.Count > 1) throw new ObservableCalculationsException("Adding of multiple items is not supported");
+						if (newItems.Count > 1) throw new ObservableComputationsException("Adding of multiple items is not supported");
 			
 						IList addedItem = (IList) newItems[0];
 						count = addedItem?.Count ?? 0;
@@ -358,7 +358,7 @@ namespace IBCode.ObservableCalculations
 						}
 						break;
 					case NotifyCollectionChangedAction.Remove:
-						if (e.OldItems.Count > 1) throw new ObservableCalculationsException("Removing of multiple items is not supported");
+						if (e.OldItems.Count > 1) throw new ObservableComputationsException("Removing of multiple items is not supported");
 						ItemInfo itemInfo1;
 
 						IList removedItem =  (IList) e.OldItems[0];
@@ -374,7 +374,7 @@ namespace IBCode.ObservableCalculations
 					case NotifyCollectionChangedAction.Replace:
 						ItemInfo itemInfo2;
 						IList newItems1 = e.NewItems;
-						if (newItems1.Count > 1) throw new ObservableCalculationsException("Replacing of multiple items is not supported");
+						if (newItems1.Count > 1) throw new ObservableComputationsException("Replacing of multiple items is not supported");
 
 						INotifyCollectionChanged newItem = (INotifyCollectionChanged) newItems1[0];
 						
@@ -515,7 +515,7 @@ namespace IBCode.ObservableCalculations
 			_sourceRangePositions.ValidateConsistency();
 			IList sources = _sourcesScalar.getValue(_sources, new ObservableCollection<ObservableCollection<TSourceItem>>()) as IList;
 			// ReSharper disable once PossibleNullReferenceException
-			if (_itemInfos.Count != sources.Count) throw new ObservableCalculationsException("Consistency violation: Concatenating.1");
+			if (_itemInfos.Count != sources.Count) throw new ObservableComputationsException("Consistency violation: Concatenating.1");
 
 			// ReSharper disable once ConditionIsAlwaysTrueOrFalse
 			if (sources != null)
@@ -534,30 +534,30 @@ namespace IBCode.ObservableCalculations
 						TSourceItem sourceItem = (TSourceItem) source[sourceItemIndex];
 
 						if (!EqualityComparer<TSourceItem>.Default.Equals(this[index], sourceItem))
-							throw new ObservableCalculationsException("Consistency violation: Concatenating.2");
+							throw new ObservableComputationsException("Consistency violation: Concatenating.2");
 
 						index++;
 					}
 
 					ItemInfo itemInfo = _itemInfos[sourceIndex];
 
-					if (!Equals(itemInfo.Source, source)) throw new ObservableCalculationsException("Consistency violation: Concatenating.2");
-					if (itemInfo.Index != sourceIndex)  throw new ObservableCalculationsException("Consistency violation: Concatenating.3");
-					if (itemInfo.Length != sourceCount)  throw new ObservableCalculationsException("Consistency violation: Concatenating.4");
-					if (itemInfo.PlainIndex != plainIndex)  throw new ObservableCalculationsException("Consistency violation: Concatenating.5");					
+					if (!Equals(itemInfo.Source, source)) throw new ObservableComputationsException("Consistency violation: Concatenating.2");
+					if (itemInfo.Index != sourceIndex)  throw new ObservableComputationsException("Consistency violation: Concatenating.3");
+					if (itemInfo.Length != sourceCount)  throw new ObservableComputationsException("Consistency violation: Concatenating.4");
+					if (itemInfo.PlainIndex != plainIndex)  throw new ObservableComputationsException("Consistency violation: Concatenating.5");					
 
-					if (_sourceRangePositions.List[sourceIndex].Index != sourceIndex) throw new ObservableCalculationsException("Consistency violation: Concatenating.6");
+					if (_sourceRangePositions.List[sourceIndex].Index != sourceIndex) throw new ObservableComputationsException("Consistency violation: Concatenating.6");
 				}
 			}
 			
 			for (int i = 0; i < _itemInfos.Count; i++)
 			{
 				if (!_sourceRangePositions.List.Contains(_itemInfos[i]))
-					throw new ObservableCalculationsException("Consistency violation: Concatenating.7");
+					throw new ObservableComputationsException("Consistency violation: Concatenating.7");
 			}
 
 			if (_sourceRangePositions.List.Count != sources.Count)
-					throw new ObservableCalculationsException("Consistency violation: Concatenating.15");
+					throw new ObservableComputationsException("Consistency violation: Concatenating.15");
 		}
 	}
 }

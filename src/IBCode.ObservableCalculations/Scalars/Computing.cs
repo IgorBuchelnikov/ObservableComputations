@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Linq.Expressions;
-using IBCode.ObservableCalculations.Common;
+using IBCode.ObservableComputations.Common;
 
-namespace IBCode.ObservableCalculations
+namespace IBCode.ObservableComputations
 {
-	public class Calculating<TResult> : ScalarCalculating<TResult>
+	public class Computing<TResult> : ScalarComputing<TResult>
 	{
 		public Expression<Func<TResult>> GetValueExpression => _getValueExpressionOriginal;
 
@@ -18,7 +18,7 @@ namespace IBCode.ObservableCalculations
 		private readonly ExpressionWatcher _getValueExpressionWatcher;
 		private readonly bool _isDefaulted;
 
-		public Calculating(
+		public Computing(
 			Expression<Func<TResult>> getValueExpression)
 		{
 			if (getValueExpression != null)

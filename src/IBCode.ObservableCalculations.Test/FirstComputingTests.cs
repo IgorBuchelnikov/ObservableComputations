@@ -4,10 +4,10 @@ using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using NUnit.Framework;
 
-namespace IBCode.ObservableCalculations.Test
+namespace IBCode.ObservableComputations.Test
 {
 	[TestFixture]
-	public class FirstCalculatingTests
+	public class FirstComputingTests
 	{
 		public class Item : INotifyPropertyChanged
 		{
@@ -46,7 +46,7 @@ namespace IBCode.ObservableCalculations.Test
 		{
 			ObservableCollection<Item> items = new ObservableCollection<Item>();
 
-			FirstCalculating<Item> first = items.FirstCalculating();
+			FirstComputing<Item> first = items.FirstComputing();
 			first.ValidateConsistency();
 		}
 
@@ -66,7 +66,7 @@ namespace IBCode.ObservableCalculations.Test
 				}
 			);
 
-			FirstCalculating<Item> first = items.FirstCalculating();
+			FirstComputing<Item> first = items.FirstComputing();
 			first.ValidateConsistency();
 			items.RemoveAt(index);
 			first.ValidateConsistency();
@@ -82,7 +82,7 @@ namespace IBCode.ObservableCalculations.Test
 				}
 			);
 
-			FirstCalculating<Item> first = items.FirstCalculating();
+			FirstComputing<Item> first = items.FirstComputing();
 			first.ValidateConsistency();
 			items.RemoveAt(0);
 			first.ValidateConsistency();
@@ -103,7 +103,7 @@ namespace IBCode.ObservableCalculations.Test
 				}
 			);
 
-			FirstCalculating<Item> first = items.FirstCalculating();
+			FirstComputing<Item> first = items.FirstComputing();
 			first.ValidateConsistency();
 			items.Insert(index, new Item());
 			first.ValidateConsistency();
@@ -114,7 +114,7 @@ namespace IBCode.ObservableCalculations.Test
 		{
 			ObservableCollection<Item> items = new ObservableCollection<Item>();
 
-			FirstCalculating<Item> first = items.FirstCalculating();
+			FirstComputing<Item> first = items.FirstComputing();
 			first.ValidateConsistency();
 			items.Insert(0, new Item());
 			first.ValidateConsistency();
@@ -136,7 +136,7 @@ namespace IBCode.ObservableCalculations.Test
 				}
 			);
 
-			FirstCalculating<Item> first = items.FirstCalculating();
+			FirstComputing<Item> first = items.FirstComputing();
 			first.ValidateConsistency();
 			items.Move(oldIndex, newIndex);
 			first.ValidateConsistency();
@@ -158,7 +158,7 @@ namespace IBCode.ObservableCalculations.Test
 				}
 			);
 
-			FirstCalculating<Item> first = items.FirstCalculating();
+			FirstComputing<Item> first = items.FirstComputing();
 			first.ValidateConsistency();
 			items[index] = new Item();
 			first.ValidateConsistency();

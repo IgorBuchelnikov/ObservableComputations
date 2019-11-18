@@ -3,14 +3,14 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.ComponentModel;
-using IBCode.ObservableCalculations.Common;
-using IBCode.ObservableCalculations.Common.Base;
-using IBCode.ObservableCalculations.Common.Interface;
+using IBCode.ObservableComputations.Common;
+using IBCode.ObservableComputations.Common.Base;
+using IBCode.ObservableComputations.Common.Interface;
 using INotifyPropertyChanged = System.ComponentModel.INotifyPropertyChanged;
 
-namespace IBCode.ObservableCalculations
+namespace IBCode.ObservableComputations
 {
-	public class Zipping<TLeftSourceItem, TRightSourceItem> : CollectionCalculating<ZipPair<TLeftSourceItem, TRightSourceItem>>, IHasSources
+	public class Zipping<TLeftSourceItem, TRightSourceItem> : CollectionComputing<ZipPair<TLeftSourceItem, TRightSourceItem>>, IHasSources
 	{
 		// ReSharper disable once MemberCanBePrivate.Global
 		public IReadScalar<INotifyCollectionChanged> LeftSourceScalar => _leftSourceScalar;
@@ -93,7 +93,7 @@ namespace IBCode.ObservableCalculations
 		private ObservableCollectionWithChangeMarker<TRightSourceItem> _rightSourceAsObservableCollectionWithChangeMarker;
 		private bool _lastProcessedRightSourceChangeMarker;
 
-		[ObservableCalculationsCall]
+		[ObservableComputationsCall]
 		public Zipping(
 			IReadScalar<INotifyCollectionChanged> leftSourceScalar,
 			INotifyCollectionChanged rightSource) : base(calculateCapacity(leftSourceScalar, rightSource))
@@ -106,7 +106,7 @@ namespace IBCode.ObservableCalculations
 			initializeFromSources();
 		}
 
-		[ObservableCalculationsCall]
+		[ObservableComputationsCall]
 		public Zipping(
 			IReadScalar<INotifyCollectionChanged> leftSourceScalar,
 			IReadScalar<INotifyCollectionChanged> rightSourceScalar) : base(calculateCapacity(leftSourceScalar, rightSourceScalar))
@@ -120,7 +120,7 @@ namespace IBCode.ObservableCalculations
 			initializeFromSources();
 		}
 
-		[ObservableCalculationsCall]
+		[ObservableComputationsCall]
 		public Zipping(
 			INotifyCollectionChanged leftSource,
 			INotifyCollectionChanged rightSource) : base(calculateCapacity(leftSource, rightSource))
@@ -130,7 +130,7 @@ namespace IBCode.ObservableCalculations
 			initializeFromSources();
 		}
 
-		[ObservableCalculationsCall]
+		[ObservableComputationsCall]
 		public Zipping(
 			INotifyCollectionChanged leftSource,
 			IReadScalar<INotifyCollectionChanged> rightSourceScalar) : base(calculateCapacity(leftSource, rightSourceScalar))
@@ -345,7 +345,7 @@ namespace IBCode.ObservableCalculations
 				switch (e.Action)
 				{
 					case NotifyCollectionChangedAction.Add:
-						if (e.NewItems.Count > 1) throw new ObservableCalculationsException("Adding of multiple items is not supported");
+						if (e.NewItems.Count > 1) throw new ObservableComputationsException("Adding of multiple items is not supported");
 						newIndex = e.NewStartingIndex;
 		
 						//if (newIndex < this.Count)
@@ -382,7 +382,7 @@ namespace IBCode.ObservableCalculations
 						//}
 						break;
 					case NotifyCollectionChangedAction.Remove:
-						if (e.OldItems.Count > 1) throw new ObservableCalculationsException("Removing of multiple items is not supported");
+						if (e.OldItems.Count > 1) throw new ObservableComputationsException("Removing of multiple items is not supported");
 						oldIndex = e.OldStartingIndex;
 		
 						int countLeft = _leftSourceAsList.Count;
@@ -406,7 +406,7 @@ namespace IBCode.ObservableCalculations
 						}
 						break;
 					case NotifyCollectionChangedAction.Replace:
-						if (e.NewItems.Count > 1) throw new ObservableCalculationsException("Replacing of multiple items is not supported");
+						if (e.NewItems.Count > 1) throw new ObservableComputationsException("Replacing of multiple items is not supported");
 						newIndex = e.NewStartingIndex;
 
 						if (newIndex < Count)
@@ -469,7 +469,7 @@ namespace IBCode.ObservableCalculations
 				switch (e.Action)
 				{
 					case NotifyCollectionChangedAction.Add:
-						if (e.NewItems.Count > 1) throw new ObservableCalculationsException("Adding of multiple items is not supported");
+						if (e.NewItems.Count > 1) throw new ObservableComputationsException("Adding of multiple items is not supported");
 						newIndex = e.NewStartingIndex;
 
 						int countRight = _rightSourceAsList.Count;
@@ -495,7 +495,7 @@ namespace IBCode.ObservableCalculations
 						}
 						break;
 					case NotifyCollectionChangedAction.Remove:
-						if (e.OldItems.Count > 1) throw new ObservableCalculationsException("Removing of multiple items is not supported");
+						if (e.OldItems.Count > 1) throw new ObservableComputationsException("Removing of multiple items is not supported");
 						oldIndex = e.OldStartingIndex;
 						int sourceRightCount = _rightSourceAsList.Count;
 						int sourceLeftCount = _leftSourceAsList.Count;
@@ -520,7 +520,7 @@ namespace IBCode.ObservableCalculations
 						}
 						break;
 					case NotifyCollectionChangedAction.Replace:
-						if (e.NewItems.Count > 1) throw new ObservableCalculationsException("Replacing of multiple items is not supported");
+						if (e.NewItems.Count > 1) throw new ObservableComputationsException("Replacing of multiple items is not supported");
 						newIndex = e.NewStartingIndex;
 						if (newIndex < Count)
 						{
@@ -607,10 +607,10 @@ namespace IBCode.ObservableCalculations
 				if (index < sourceRight.Count)
 				{
 					if (!EqualityComparer<TLeftSourceItem>.Default.Equals(this[index].ItemLeft, sourceLeft[index]))
-						throw new ObservableCalculationsException("Consistency violation: Zipping.Left");
+						throw new ObservableComputationsException("Consistency violation: Zipping.Left");
 
 					if (!EqualityComparer<TRightSourceItem>.Default.Equals(this[index].ItemRight, sourceRight[index]))
-						throw new ObservableCalculationsException("Consistency violation: Zipping.Right");
+						throw new ObservableComputationsException("Consistency violation: Zipping.Right");
 				}
 				else
 				{

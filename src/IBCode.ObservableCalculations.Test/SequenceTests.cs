@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel;
 using NUnit.Framework;
 
-namespace IBCode.ObservableCalculations.Test
+namespace IBCode.ObservableComputations.Test
 {
 	[TestFixture]
 	class SequenceTests
@@ -31,15 +31,15 @@ namespace IBCode.ObservableCalculations.Test
 			Count countInstance = new Count();
 			int count = initialCount;
 			countInstance.CountValue = count;
-			SequenceCalculating sequenceCalculating = Expr.Is(() => countInstance.CountValue).Calculating().SequenceCalculating();
-			sequenceCalculating.ValidateConsistency();
+			SequenceComputing sequenceComputing = Expr.Is(() => countInstance.CountValue).Computing().SequenceComputing();
+			sequenceComputing.ValidateConsistency();
 					
 			void test()
 			{
 				do
 				{
 					countInstance.CountValue = count;
-					sequenceCalculating.ValidateConsistency();
+					sequenceComputing.ValidateConsistency();
 					count = count + increment;
 				} while (count >= 0 && count <= 4);
 			}

@@ -14,11 +14,12 @@
     <PackageProjectUrl>https://github.com/IgorBuchelnikov/ObservableComputations</PackageProjectUrl>
     <RepositoryUrl>https://github.com/IgorBuchelnikov/ObservableComputations.git</RepositoryUrl>
     <RepositoryType>Git</RepositoryType>
-    <PackageTags>INotifyPropertyChanged INotifyPropertyChanged ObservableCollection observable computations observer react reactive data linq declarative functional programming paradigm</PackageTags>
+    <PackageTags>INotifyPropertyChanged INotifyPropertyChanged ObservableCollection observable computations observer react reactive data binding bindable bind continuous linq declarative functional programming paradigm</PackageTags>
     <NeutralLanguage>en</NeutralLanguage>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
-    <PackageReleaseNotes>Initial release</PackageReleaseNotes>
+    <PackageReleaseNotes>Issue https://github.com/IgorBuchelnikov/ObservableComputations/issues/1 is fixed</PackageReleaseNotes>
+    <Version>1.0.1</Version>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net472|x86'">

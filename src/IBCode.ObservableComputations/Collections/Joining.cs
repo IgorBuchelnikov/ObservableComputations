@@ -128,19 +128,19 @@ namespace IBCode.ObservableComputations
 		private static Expression<Func<JoinPair<TOuterSourceItem, TInnerSourceItem>, bool>> getJoinPairPredicateExpression(Expression<Func<TOuterSourceItem, TInnerSourceItem, bool>> joinPredicateExpression)
 		{
 			ParameterExpression joinPairParameterExpression
-				= Expression.Parameter(typeof(JoinPair<TInnerSourceItem, TOuterSourceItem>), "joinPair");
-			Expression joinPairItem1Expression
+				= Expression.Parameter(typeof(JoinPair<TOuterSourceItem, TInnerSourceItem>), "joinPair");
+			Expression joinPairOuterItemExpression
 				= Expression.PropertyOrField(
 					joinPairParameterExpression,
-					nameof(JoinPair<TInnerSourceItem, TOuterSourceItem>.OuterItem));
-			Expression joinPairItem2Expression
+					nameof(JoinPair<TOuterSourceItem, TInnerSourceItem>.OuterItem));
+			Expression joinPairInnerItemExpression
 				= Expression.PropertyOrField(
 					joinPairParameterExpression,
-					nameof(JoinPair<TInnerSourceItem, TOuterSourceItem>.InnerItem));
+					nameof(JoinPair<TOuterSourceItem, TInnerSourceItem>.InnerItem));
 			ReplaceParameterVisitor replaceParameterVisitor
 				= new ReplaceParameterVisitor(
 					joinPredicateExpression.Parameters,
-					new[] {joinPairItem1Expression, joinPairItem2Expression});
+					new[] {joinPairOuterItemExpression, joinPairInnerItemExpression});
 			Expression<Func<JoinPair<TOuterSourceItem, TInnerSourceItem>, bool>> joinPairPredicateExpression
 				= Expression.Lambda<Func<JoinPair<TOuterSourceItem, TInnerSourceItem>, bool>>(
 					// ReSharper disable once AssignNullToNotNullAttribute

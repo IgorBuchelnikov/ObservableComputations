@@ -245,5 +245,72 @@ namespace IBCode.ObservableComputations.Test
 		}
 
 
+		public class Order : INotifyPropertyChanged
+		{
+			public event PropertyChangedEventHandler PropertyChanged;
+
+			public int Num {get; set;}
+
+			private decimal _price;
+			public decimal Price
+			{
+				get => _price;
+				set
+				{
+					_price = value;
+					PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Price)));
+				}
+			}
+
+			public Order(int num, decimal price)
+			{
+				Num = num;
+				_price = price;
+			}
+
+
+			public Order(int num, decimal price, string type)
+			{
+				Num = num;
+				_price = price;
+				_type = type;
+			}
+
+			private string _type;
+			public string Type
+			{
+				get => _type;
+				set
+				{
+					_type = value;
+					PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Type)));
+				}
+			}
+		}
+
+		[Test]
+		public void Joining_Test1()
+		{			
+			ObservableCollection<Order> orders = 
+				new ObservableCollection<Order>(new []
+				{
+					new Order(1, 15, "A"),
+					new Order(2, 15, "A"),
+					new Order(3, 25, "B"),
+					new Order(4, 27, "C"),
+					new Order(5, 30, "A"),
+					new Order(6, 75, "C"),
+					new Order(7, 80, "A"),
+				});
+
+			ObservableCollection<string> selectedOrderTypes = new ObservableCollection<string>(){"A", "B"};
+
+			ObservableCollection<Order> filteredOrders1 = orders
+				.Joining(selectedOrderTypes, (o, ot) => o.Type.Equals(ot))
+				.Selecting(oot => oot.OuterItem);
+
+			selectedOrderTypes.Add("C");
+			orders[0].Type = "C";		
+		}
 	}
 }

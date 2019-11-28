@@ -9,12 +9,12 @@
     <AssemblyOriginatorKeyFile>assembly_strong_name_key.snk</AssemblyOriginatorKeyFile>
     <Authors>Buchelnokov Igor (igor_buchelnikov_github@mail.ru)</Authors>
     <Company>IBCode</Company>
-    <Description>Computations over INotifyPropertyChanged and INotifyColectionChanged (ObservableCollection) objects.  Results of the computations are INotifyPropertyChanged and INotifyCollectionChanged (ObservableCollection) objects. The computations includes ones similar to LINQ and the computation of arbitrary expression. ObservableComputations are implemented as extension methods, like LINQ ones. ObservableComputations is implementation of reactive programming paradigm.</Description>
+    <Description>Computations over INotifyPropertyChanged and INotifyColectionChanged (ObservableCollection) objects.  Results of the computations are INotifyPropertyChanged and INotifyCollectionChanged (ObservableCollection) objects. The computations includes ones similar to LINQ and the computation of arbitrary expression. ObservableComputations are implemented as extension methods, like LINQ ones. ObservableComputations is implementation of reactive programming paradigm</Description>
     <PackageLicenseUrl>https://github.com/IgorBuchelnikov/ObservableComputations/blob/master/LICENSE</PackageLicenseUrl>
     <PackageProjectUrl>https://github.com/IgorBuchelnikov/ObservableComputations</PackageProjectUrl>
     <RepositoryUrl>https://github.com/IgorBuchelnikov/ObservableComputations.git</RepositoryUrl>
     <RepositoryType>Git</RepositoryType>
-    <PackageTags>INotifyPropertyChanged INotifyCollectionChanged ObservableCollection observable computations observer react reactive data binding bindable bind continuous linq declarative functional programming paradigm</PackageTags>
+    <PackageTags>INotifyPropertyChanged INotifyCollectionChanged ObservableCollection observable computations observer react reactive data binding bindable bind continuous live dynamic fresh linq declarative functional programming paradigm</PackageTags>
     <NeutralLanguage>en</NeutralLanguage>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>

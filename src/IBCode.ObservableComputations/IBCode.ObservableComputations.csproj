@@ -18,8 +18,13 @@
     <NeutralLanguage>en</NeutralLanguage>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
-    <PackageReleaseNotes>Issue https://github.com/IgorBuchelnikov/ObservableComputations/issues/1 is fixed</PackageReleaseNotes>
+    <PackageReleaseNotes>Initial release</PackageReleaseNotes>
     <Version>1.0.1</Version>
+    <AssemblyName>IBCode.ObservableComputations</AssemblyName>
+    <PackageId>ObservableComputations</PackageId>
+    <Product>ObservableComputations</Product>
+    <AssemblyVersion>1.0.0.0</AssemblyVersion>
+    <FileVersion>1.0.0.0</FileVersion>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net472|x86'">

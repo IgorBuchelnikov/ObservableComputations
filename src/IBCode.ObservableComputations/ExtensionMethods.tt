@@ -3,6 +3,7 @@
 <#@ Assembly Name="System.Core" #>
 <#@ import namespace="System.Linq" #>
 <#@ import namespace="System.Collections.Generic" #> 
+<#@ import namespace="System.Text.RegularExpressions" #> 
 <#@ output extension=".generated.cs"#>
 <#@ include file=".\ExtensionMethods.ttinclude" #>
 using System;
@@ -10,6 +11,7 @@ using System.Linq;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Collections.ObjectModel;
+using System.Linq.Expressions;
 using IBCode.ObservableComputations.Common;
 using IBCode.ObservableComputations.Common.Interface;
 
@@ -18,10 +20,23 @@ namespace IBCode.ObservableComputations
 	public static partial class ExtensionMethods
 	{
 <#
-	var extentionMethodGroups = GetExtentionMethods().GroupBy(em => em.Name).OrderBy(emg => emg.Key).ToArray();
-	foreach (var extentionMethodGroup in extentionMethodGroups)
+	string[] expressionArgumentNames = new []{"PREDICATE", "SELECTOR", "GETVALUEEXPRESSION"};
+
+	IEnumerable<IGrouping<string, ExtentionMethod>> extentionMethodGroups = null;
+	try
+	{
+		extentionMethodGroups = GetExtentionMethods().GroupBy(em => em.Name).OrderBy(emg => emg.Key).ToArray();
+	}
+	catch(Exception ex)
 	{
 
+	}
+
+	foreach (var extentionMethodGroup in extentionMethodGroups)
+	{
+		if (extentionMethodGroup.Key == "Grouping")
+		{
+		}
 #>
 		#region <#=extentionMethodGroup.Key#>
 
@@ -40,7 +55,7 @@ namespace IBCode.ObservableComputations
 			foreach (ExtentionMethodArgument argument in signatureArguments )
 			{
 #>
-			 <#=argument.Type#> <#=argument.Name#><#=index == signatureArguments.Count() - 1 ? ")" : ","#>
+			 <#=argument.Type#> <#=GetAdjustedArgumentName(argument, expressionArgumentNames)#><#=index == signatureArguments.Count() - 1 ? ")" : ","#>
 <#
 				index++;
 			}
@@ -53,7 +68,7 @@ namespace IBCode.ObservableComputations
 			foreach (ExtentionMethodArgument argument in extentionMethod.Arguments)
 			{
 #>
-				<#=argument.Name#>: <#=argument.DefaultValue == null ? argument.Name : argument.DefaultValue#><#=index == extentionMethod.Arguments.Count - 1 ? ");" : ","#>
+				<#=argument.Name#>: <#=GetAdjustedArgumentValue(argument, expressionArgumentNames)#><#=index == extentionMethod.Arguments.Count - 1 ? ");" : ","#>
 <#
 				index++;
 			}
@@ -70,5 +85,42 @@ namespace IBCode.ObservableComputations
 	}
 }
 <#+
+	public string GetAdjustedArgumentName(ExtentionMethodArgument argument, string[] expressionArgumentNames)
+	{
+		if (IsComputingArgument(argument, expressionArgumentNames))
+		{
+			return argument.Name.Replace("Scalar", "Expression");
+		}
+		else
+		{
+			return argument.Name;
+		}
+	}
+
+	public string GetAdjustedArgumentValue(ExtentionMethodArgument argument, string[] expressionArgumentNames)
+	{
+		if  (argument.DefaultValue == null)
+		{
+			if (IsComputingArgument(argument, expressionArgumentNames))
+			{
+				Regex returnTypeRegex = new Regex("Expression<Func<(.+)>>");
+				string returnType = returnTypeRegex.Match(argument.Type).Groups[1].Value;
+				return "new Computing<" + returnType + ">(" + GetAdjustedArgumentName(argument, expressionArgumentNames) + ")";
+			}
+			else
+			{
+				return argument.Name;
+			}
+		}
+		else
+		{
+			return argument.DefaultValue;
+		}
+	}
+
+	public bool IsComputingArgument(ExtentionMethodArgument argument, string[] expressionArgumentNames)
+	{
+		return argument.Type.Contains("Func") && argument.Type.Contains("Expression") && !expressionArgumentNames.Any(an => argument.Name.ToUpper().Contains(an));
+	}
 
 #>

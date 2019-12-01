@@ -11,6 +11,8 @@
 <#+
 	public IEnumerable<ExtentionMethod> GetExtentionMethods()
 	{
+		string[] expressionArgumentNames = new []{"PREDICATE", "SELECTOR", "GETVALUEEXPRESSION"};
+
 		try
 		{
 			List<ExtentionMethod> result = new List<ExtentionMethod>();
@@ -98,6 +100,41 @@
 							variantsList.Add(variants);
 						}
 
+						if (classInFile.FullName.Contains("Aggregating"))
+						{
+						}
+
+						foreach (ExtentionMethodArgumentVariants argumentVariants in variantsList)
+						{
+							if (expressionArgumentNames.Any(an => argumentVariants.Name.ToUpper().Contains(an))) continue;
+
+							List<string> newTypes = new List<string>();
+							if (argumentVariants.Types.Count > 0)
+							{
+								foreach (string type in argumentVariants.Types)
+								{
+									if (type.Contains("IReadScalar"))
+									{
+										newTypes.Add("Expression<" + type.Replace("IBCode.ObservableComputations.Common.Interface.IReadScalar", "Func") + ">");
+									}
+								}
+							}
+							else
+							{
+								newTypes.Add(argumentVariants.Type);
+								if (argumentVariants.Type.Contains("IReadScalar"))
+								{
+									newTypes.Add("Expression<" + argumentVariants.Type.Replace("IBCode.ObservableComputations.Common.Interface.IReadScalar", "Func") + ">");
+								}
+							}
+
+							if (newTypes.Count > 0)
+							{
+								argumentVariants.Types.AddRange(newTypes);
+
+							}
+						}
+
 						List<ExtentionMethod> constructorExtentionMethods = new List<ExtentionMethod>();
 
 						foreach (ExtentionMethodArgumentVariants argumentVariants in variantsList)
@@ -145,16 +182,25 @@
 									{
 										if (argumentVariants.Types.Count > 0)
 										{
+											ExtentionMethod extentionMethod;
 											foreach (string type in argumentVariants.Types)
 											{
-												ExtentionMethod extentionMethod = new ExtentionMethod(
+												extentionMethod = new ExtentionMethod(
 													creatingExtentionMethod.Name, classInFile.FullName, creatingExtentionMethod.GenericParameters, creatingExtentionMethod.Arguments.ToArray());
-
 												extentionMethod.Arguments.Add(
 													new ExtentionMethodArgument(
 														argumentVariants.Name, type));
-
 												newExtentionMethods.Add(extentionMethod);
+
+												if (argumentVariants.DefaultValue != null) 
+												{
+													extentionMethod = new ExtentionMethod(
+														creatingExtentionMethod.Name, classInFile.FullName, creatingExtentionMethod.GenericParameters, creatingExtentionMethod.Arguments.ToArray());
+													extentionMethod.Arguments.Add(
+														new ExtentionMethodArgument(
+															argumentVariants.Name, type, argumentVariants.DefaultValue));
+													newExtentionMethods.Add(extentionMethod);
+												}
 											}
 										}
 										else if (argumentVariants.DefaultValue != null) 

@@ -4,7 +4,7 @@ using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 
-namespace IBCode.ObservableComputations.Common
+namespace ObservableComputations.Common
 {
 	public class ReadOnlyObservableCollection<TItem> : ReadOnlyCollection<TItem>, INotifyCollectionChanged, INotifyPropertyChanged
 	{

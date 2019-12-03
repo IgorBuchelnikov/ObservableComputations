@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Linq.Expressions;
-using IBCode.ObservableComputations.Common;
+using ObservableComputations.Common;
 
-namespace IBCode.ObservableComputations
+namespace ObservableComputations
 {
 	public class Using<TArgument, TResult> : Computing<TResult>
 	{

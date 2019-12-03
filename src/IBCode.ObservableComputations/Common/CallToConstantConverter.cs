@@ -4,7 +4,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
 
-namespace IBCode.ObservableComputations.Common
+namespace ObservableComputations.Common
 {
 	internal sealed class CallToConstantConverter : ExpressionVisitor
 	{

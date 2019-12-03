@@ -1,7 +1,7 @@
 ﻿using System.Collections.ObjectModel;
 using NUnit.Framework;
 
-namespace IBCode.ObservableComputations.Test
+namespace ObservableComputations.Test
 {
 	[TestFixture]
 	public class OfTypeComputingTests

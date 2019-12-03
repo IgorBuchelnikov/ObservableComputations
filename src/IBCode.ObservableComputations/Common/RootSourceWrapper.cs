@@ -2,9 +2,9 @@
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.ComponentModel;
-using IBCode.ObservableComputations.Common.Base;
+using ObservableComputations.Common.Base;
 
-namespace IBCode.ObservableComputations.Common
+namespace ObservableComputations.Common
 {
 	internal sealed class RootSourceWrapper<TSourceItem> : ObservableCollectionWithChangeMarker<TSourceItem>
 	{

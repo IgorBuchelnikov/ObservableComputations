@@ -4,11 +4,11 @@ using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Linq.Expressions;
-using IBCode.ObservableComputations.Common;
-using IBCode.ObservableComputations.Common.Base;
-using IBCode.ObservableComputations.Common.Interface;
+using ObservableComputations.Common;
+using ObservableComputations.Common.Base;
+using ObservableComputations.Common.Interface;
 
-namespace IBCode.ObservableComputations
+namespace ObservableComputations
 {
 	public class AnyComputing<TSourceItem> : ScalarComputing<bool>, IHasSources
 	{

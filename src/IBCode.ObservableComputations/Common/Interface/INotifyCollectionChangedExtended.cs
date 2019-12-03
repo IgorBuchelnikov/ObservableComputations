@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace IBCode.ObservableComputations.Common.Interface
+namespace ObservableComputations.Common.Interface
 {
 	public interface INotifyCollectionChangedExtended : INotifyCollectionChanged
 	{

@@ -20,7 +20,7 @@
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
     <PackageReleaseNotes>Initial release</PackageReleaseNotes>
     <Version>1.0.1</Version>
-    <AssemblyName>IBCode.ObservableComputations</AssemblyName>
+    <AssemblyName>ObservableComputations</AssemblyName>
     <PackageId>ObservableComputations</PackageId>
     <Product>ObservableComputations</Product>
     <AssemblyVersion>1.0.0.0</AssemblyVersion>

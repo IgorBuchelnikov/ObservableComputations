@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Specialized;
 using System.ComponentModel;
 
-namespace IBCode.ObservableComputations.Common.Interface
+namespace ObservableComputations.Common.Interface
 {
 	public interface ICollectionComputing : INotifyCollectionChangedExtended, IList, IComputing, IHasItemType
 	{

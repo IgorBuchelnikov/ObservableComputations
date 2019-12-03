@@ -2,10 +2,10 @@
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.Linq;
-using IBCode.ObservableComputations.Common;
-using IBCode.ObservableComputations.Common.Interface;
+using ObservableComputations.Common;
+using ObservableComputations.Common.Interface;
 
-namespace IBCode.ObservableComputations
+namespace ObservableComputations
 {
 	public class Prepending<TSourceItem> : Concatenating<TSourceItem>, IHasSources
 	{

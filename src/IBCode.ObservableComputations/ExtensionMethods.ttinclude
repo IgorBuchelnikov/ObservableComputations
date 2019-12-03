@@ -18,7 +18,7 @@
 			List<ExtentionMethod> result = new List<ExtentionMethod>();
 
 			VisualStudioHelper = new AutomationHelper(this.Host);
-			string rootPath = VisualStudioHelper.SolutionDirectory + @"\IBCode.ObservableComputations";
+			string rootPath = VisualStudioHelper.SolutionDirectory + @"\ObservableComputations";
 			string rootCollections = rootPath + @"\Collections";
 			string rootScalars = rootPath + @"\Scalars";
 	
@@ -115,7 +115,7 @@
 								{
 									if (type.Contains("IReadScalar"))
 									{
-										newTypes.Add("Expression<" + type.Replace("IBCode.ObservableComputations.Common.Interface.IReadScalar", "Func") + ">");
+										newTypes.Add("Expression<" + type.Replace("ObservableComputations.Common.Interface.IReadScalar", "Func") + ">");
 									}
 								}
 							}
@@ -124,7 +124,7 @@
 								newTypes.Add(argumentVariants.Type);
 								if (argumentVariants.Type.Contains("IReadScalar"))
 								{
-									newTypes.Add("Expression<" + argumentVariants.Type.Replace("IBCode.ObservableComputations.Common.Interface.IReadScalar", "Func") + ">");
+									newTypes.Add("Expression<" + argumentVariants.Type.Replace("ObservableComputations.Common.Interface.IReadScalar", "Func") + ">");
 								}
 							}
 

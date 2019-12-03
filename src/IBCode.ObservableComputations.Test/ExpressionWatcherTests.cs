@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq.Expressions;
 using System.Runtime.CompilerServices;
-using IBCode.ObservableComputations.Common;
+using ObservableComputations.Common;
 using NUnit.Framework;
-using IBCode.ObservableComputations.Common.Interface;
+using ObservableComputations.Common.Interface;
 
-namespace IBCode.ObservableComputations.Test
+namespace ObservableComputations.Test
 {
 	[TestFixture]
 	public class ExpressionWatcherTests

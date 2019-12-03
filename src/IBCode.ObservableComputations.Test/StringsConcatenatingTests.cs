@@ -4,7 +4,7 @@ using System.Diagnostics;
 using System.Linq;
 using NUnit.Framework;
 
-namespace IBCode.ObservableComputations.Test
+namespace ObservableComputations.Test
 {
 	// TODO тестировать смену сепаратора
 	[TestFixture]

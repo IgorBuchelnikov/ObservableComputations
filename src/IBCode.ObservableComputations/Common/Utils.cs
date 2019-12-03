@@ -4,9 +4,9 @@ using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Linq.Expressions;
-using IBCode.ObservableComputations.Common.Interface;
+using ObservableComputations.Common.Interface;
 
-namespace IBCode.ObservableComputations.Common
+namespace ObservableComputations.Common
 {
 	internal static class Utils
 	{

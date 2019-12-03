@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel;
 
-namespace IBCode.ObservableComputations.Common.Interface
+namespace ObservableComputations.Common.Interface
 {
 	public interface IComputing : INotifyPropertyChanged, IHasTags, IConsistent
 	{

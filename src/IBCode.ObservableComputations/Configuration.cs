@@ -1,4 +1,4 @@
-﻿namespace IBCode.ObservableComputations
+﻿namespace ObservableComputations
 {
 	public static class Configuration
 	{

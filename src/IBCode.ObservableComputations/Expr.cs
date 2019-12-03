@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Linq.Expressions;
 
-namespace IBCode.ObservableComputations
+namespace ObservableComputations
 {
 	public static class Expr
 	{

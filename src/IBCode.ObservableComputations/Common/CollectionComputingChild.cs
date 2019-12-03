@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
-using IBCode.ObservableComputations.Common.Base;
-using IBCode.ObservableComputations.Common.Interface;
+using ObservableComputations.Common.Base;
+using ObservableComputations.Common.Interface;
 
-namespace IBCode.ObservableComputations.Common
+namespace ObservableComputations.Common
 {
 	public abstract class CollectionComputingChild<TItem> : ObservableCollectionWithChangeMarker<TItem>, ICollectionComputingChild,  IHasChangeMarker
 	{

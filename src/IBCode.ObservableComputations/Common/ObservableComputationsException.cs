@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Runtime.Serialization;
 
-namespace IBCode.ObservableComputations.Common
+namespace ObservableComputations.Common
 {
 	[Serializable]
 	public class ObservableComputationsException : Exception

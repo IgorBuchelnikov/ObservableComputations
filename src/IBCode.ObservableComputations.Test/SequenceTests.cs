@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel;
 using NUnit.Framework;
 
-namespace IBCode.ObservableComputations.Test
+namespace ObservableComputations.Test
 {
 	[TestFixture]
 	class SequenceTests

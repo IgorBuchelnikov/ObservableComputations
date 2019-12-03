@@ -1,8 +1,8 @@
 ﻿using System.ComponentModel;
-using IBCode.ObservableComputations.Common;
-using IBCode.ObservableComputations.Common.Interface;
+using ObservableComputations.Common;
+using ObservableComputations.Common.Interface;
 
-namespace IBCode.ObservableComputations
+namespace ObservableComputations
 {
 	public class SequenceComputing : CollectionComputing<int>
 	{

@@ -2,7 +2,7 @@
 using System.ComponentModel;
 using INotifyPropertyChanged = System.ComponentModel.INotifyPropertyChanged;
 
-namespace IBCode.ObservableComputations.Test
+namespace ObservableComputations.Test
 {
 	public partial class QuickTests
 	{

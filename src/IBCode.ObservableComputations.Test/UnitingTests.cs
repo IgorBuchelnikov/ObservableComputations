@@ -7,7 +7,7 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using NUnit.Framework;
 
-namespace IBCode.ObservableComputations.Test
+namespace ObservableComputations.Test
 {
 	[TestFixture]
 	public class UnitingTests

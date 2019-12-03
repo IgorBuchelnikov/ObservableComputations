@@ -1,9 +1,9 @@
 ﻿using System;
 using System.ComponentModel;
 using System.Linq.Expressions;
-using IBCode.ObservableComputations.Common;
+using ObservableComputations.Common;
 
-namespace IBCode.ObservableComputations
+namespace ObservableComputations
 {
 	public class Binding<TValue> : INotifyPropertyChanged
 	{

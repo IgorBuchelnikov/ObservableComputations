@@ -6,12 +6,12 @@ using System.ComponentModel;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Threading;
-using IBCode.ObservableComputations.Common;
-using IBCode.ObservableComputations.Common.Base;
-using IBCode.ObservableComputations.Common.Interface;
+using ObservableComputations.Common;
+using ObservableComputations.Common.Base;
+using ObservableComputations.Common.Interface;
 using INotifyPropertyChanged = System.ComponentModel.INotifyPropertyChanged;
 
-namespace IBCode.ObservableComputations
+namespace ObservableComputations
 {
 	// ReSharper disable once RedundantExtendsListEntry
 	public class ThenOrdering<TSourceItem, TOrderingValue> : CollectionComputing<TSourceItem>, INotifyPropertyChanged, IOrderingInternal<TSourceItem>, IThenOrderingInternal<TSourceItem>, IHasSources

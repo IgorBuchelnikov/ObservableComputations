@@ -1,8 +1,8 @@
 ﻿using System;
 using System.ComponentModel;
-using IBCode.ObservableComputations.Common.Interface;
+using ObservableComputations.Common.Interface;
 
-namespace IBCode.ObservableComputations.Common
+namespace ObservableComputations.Common
 {
 	public abstract class ScalarComputing<TValue> : IScalar<TValue>, IReadScalar<TValue>, IWriteScalar<TValue>, IScalarComputing
 	{

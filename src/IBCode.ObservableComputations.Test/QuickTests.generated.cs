@@ -11,10 +11,10 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Collections.ObjectModel;
 using NUnit.Framework;
-using IBCode.ObservableComputations.Common;
-using IBCode.ObservableComputations.Common.Interface;
+using ObservableComputations.Common;
+using ObservableComputations.Common.Interface;
 
-namespace IBCode.ObservableComputations.Test
+namespace ObservableComputations.Test
 {
 	[TestFixture]
 	public partial class QuickTests
@@ -69216,7 +69216,7 @@ namespace IBCode.ObservableComputations.Test
 		[Test]
 		public void TestThenOrdering01()
 		{
-			IBCode.ObservableComputations.Common.Interface.IOrdering<int> source = getItems().Selecting(i => i.Num).Ordering(i => i, 32);
+			ObservableComputations.Common.Interface.IOrdering<int> source = getItems().Selecting(i => i.Num).Ordering(i => i, 32);
 			System.Linq.Expressions.Expression<System.Func<int, int>> orderingValueSelectorExpression = i => i;
 			Scalar<System.ComponentModel.ListSortDirection> sortDirectionScalar = getScalar<System.ComponentModel.ListSortDirection>(System.ComponentModel.ListSortDirection.Ascending);
 			Scalar<System.Collections.Generic.IComparer<int>> comparerScalar = getScalar<System.Collections.Generic.IComparer<int>>(Comparer<int>.Default);
@@ -69231,7 +69231,7 @@ namespace IBCode.ObservableComputations.Test
 			void test()
 			{
 				testing.ValidateConsistency();
-				var sourceValue = ((ObservableCollection<Item>)((IBCode.ObservableComputations.Common.Interface.IOrdering<int>)source).GetValueAs(s => ((Ordering<int, int>)s)?.Source)?.GetValueAs(s => ((Selecting<Item, int>)s)?.Source));
+				var sourceValue = ((ObservableCollection<Item>)((ObservableComputations.Common.Interface.IOrdering<int>)source).GetValueAs(s => ((Ordering<int, int>)s)?.Source)?.GetValueAs(s => ((Selecting<Item, int>)s)?.Source));
 
 				if (sourceValue != null)
 				{		
@@ -69262,7 +69262,7 @@ namespace IBCode.ObservableComputations.Test
 				}
 
 				IList listSource;
-				listSource = ((IList)((IBCode.ObservableComputations.Common.Interface.IOrdering<int>)source).GetValueAs(s => ((Ordering<int, int>)s)?.Source)?.GetValueAs(s => ((Selecting<Item, int>)s)?.Source));
+				listSource = ((IList)((ObservableComputations.Common.Interface.IOrdering<int>)source).GetValueAs(s => ((Ordering<int, int>)s)?.Source)?.GetValueAs(s => ((Selecting<Item, int>)s)?.Source));
 				if (listSource != null)
 				{
 					listSource.Clear();
@@ -69296,7 +69296,7 @@ namespace IBCode.ObservableComputations.Test
 		[Test]
 		public void TestThenOrdering02()
 		{
-			IBCode.ObservableComputations.Common.Interface.IOrdering<int> source = getItems().Selecting(i => i.Num).Ordering(i => i, 32);
+			ObservableComputations.Common.Interface.IOrdering<int> source = getItems().Selecting(i => i.Num).Ordering(i => i, 32);
 			System.Linq.Expressions.Expression<System.Func<int, int>> orderingValueSelectorExpression = i => i;
 			Scalar<System.ComponentModel.ListSortDirection> sortDirectionScalar = getScalar<System.ComponentModel.ListSortDirection>(System.ComponentModel.ListSortDirection.Ascending);
 			Scalar<System.Collections.Generic.IComparer<int>> comparerScalar = getScalar<System.Collections.Generic.IComparer<int>>(Comparer<int>.Default);
@@ -69309,7 +69309,7 @@ namespace IBCode.ObservableComputations.Test
 			void test()
 			{
 				testing.ValidateConsistency();
-				var sourceValue = ((ObservableCollection<Item>)((IBCode.ObservableComputations.Common.Interface.IOrdering<int>)source).GetValueAs(s => ((Ordering<int, int>)s)?.Source)?.GetValueAs(s => ((Selecting<Item, int>)s)?.Source));
+				var sourceValue = ((ObservableCollection<Item>)((ObservableComputations.Common.Interface.IOrdering<int>)source).GetValueAs(s => ((Ordering<int, int>)s)?.Source)?.GetValueAs(s => ((Selecting<Item, int>)s)?.Source));
 
 				if (sourceValue != null)
 				{		
@@ -69340,7 +69340,7 @@ namespace IBCode.ObservableComputations.Test
 				}
 
 				IList listSource;
-				listSource = ((IList)((IBCode.ObservableComputations.Common.Interface.IOrdering<int>)source).GetValueAs(s => ((Ordering<int, int>)s)?.Source)?.GetValueAs(s => ((Selecting<Item, int>)s)?.Source));
+				listSource = ((IList)((ObservableComputations.Common.Interface.IOrdering<int>)source).GetValueAs(s => ((Ordering<int, int>)s)?.Source)?.GetValueAs(s => ((Selecting<Item, int>)s)?.Source));
 				if (listSource != null)
 				{
 					listSource.Clear();
@@ -69374,7 +69374,7 @@ namespace IBCode.ObservableComputations.Test
 		[Test]
 		public void TestThenOrdering03()
 		{
-			IBCode.ObservableComputations.Common.Interface.IOrdering<int> source = getItems().Selecting(i => i.Num).Ordering(i => i, 32);
+			ObservableComputations.Common.Interface.IOrdering<int> source = getItems().Selecting(i => i.Num).Ordering(i => i, 32);
 			System.Linq.Expressions.Expression<System.Func<int, int>> orderingValueSelectorExpression = i => i;
 			Scalar<System.ComponentModel.ListSortDirection> sortDirectionScalar = getScalar<System.ComponentModel.ListSortDirection>(System.ComponentModel.ListSortDirection.Ascending);
 			int maxTogetherThenOrderings = 0;
@@ -69387,7 +69387,7 @@ namespace IBCode.ObservableComputations.Test
 			void test()
 			{
 				testing.ValidateConsistency();
-				var sourceValue = ((ObservableCollection<Item>)((IBCode.ObservableComputations.Common.Interface.IOrdering<int>)source).GetValueAs(s => ((Ordering<int, int>)s)?.Source)?.GetValueAs(s => ((Selecting<Item, int>)s)?.Source));
+				var sourceValue = ((ObservableCollection<Item>)((ObservableComputations.Common.Interface.IOrdering<int>)source).GetValueAs(s => ((Ordering<int, int>)s)?.Source)?.GetValueAs(s => ((Selecting<Item, int>)s)?.Source));
 
 				if (sourceValue != null)
 				{		
@@ -69418,7 +69418,7 @@ namespace IBCode.ObservableComputations.Test
 				}
 
 				IList listSource;
-				listSource = ((IList)((IBCode.ObservableComputations.Common.Interface.IOrdering<int>)source).GetValueAs(s => ((Ordering<int, int>)s)?.Source)?.GetValueAs(s => ((Selecting<Item, int>)s)?.Source));
+				listSource = ((IList)((ObservableComputations.Common.Interface.IOrdering<int>)source).GetValueAs(s => ((Ordering<int, int>)s)?.Source)?.GetValueAs(s => ((Selecting<Item, int>)s)?.Source));
 				if (listSource != null)
 				{
 					listSource.Clear();
@@ -69447,7 +69447,7 @@ namespace IBCode.ObservableComputations.Test
 		[Test]
 		public void TestThenOrdering04()
 		{
-			IBCode.ObservableComputations.Common.Interface.IOrdering<int> source = getItems().Selecting(i => i.Num).Ordering(i => i, 32);
+			ObservableComputations.Common.Interface.IOrdering<int> source = getItems().Selecting(i => i.Num).Ordering(i => i, 32);
 			System.Linq.Expressions.Expression<System.Func<int, int>> orderingValueSelectorExpression = i => i;
 			Scalar<System.ComponentModel.ListSortDirection> sortDirectionScalar = getScalar<System.ComponentModel.ListSortDirection>(System.ComponentModel.ListSortDirection.Ascending);
 			
@@ -69458,7 +69458,7 @@ namespace IBCode.ObservableComputations.Test
 			void test()
 			{
 				testing.ValidateConsistency();
-				var sourceValue = ((ObservableCollection<Item>)((IBCode.ObservableComputations.Common.Interface.IOrdering<int>)source).GetValueAs(s => ((Ordering<int, int>)s)?.Source)?.GetValueAs(s => ((Selecting<Item, int>)s)?.Source));
+				var sourceValue = ((ObservableCollection<Item>)((ObservableComputations.Common.Interface.IOrdering<int>)source).GetValueAs(s => ((Ordering<int, int>)s)?.Source)?.GetValueAs(s => ((Selecting<Item, int>)s)?.Source));
 
 				if (sourceValue != null)
 				{		
@@ -69489,7 +69489,7 @@ namespace IBCode.ObservableComputations.Test
 				}
 
 				IList listSource;
-				listSource = ((IList)((IBCode.ObservableComputations.Common.Interface.IOrdering<int>)source).GetValueAs(s => ((Ordering<int, int>)s)?.Source)?.GetValueAs(s => ((Selecting<Item, int>)s)?.Source));
+				listSource = ((IList)((ObservableComputations.Common.Interface.IOrdering<int>)source).GetValueAs(s => ((Ordering<int, int>)s)?.Source)?.GetValueAs(s => ((Selecting<Item, int>)s)?.Source));
 				if (listSource != null)
 				{
 					listSource.Clear();
@@ -69518,7 +69518,7 @@ namespace IBCode.ObservableComputations.Test
 		[Test]
 		public void TestThenOrdering05()
 		{
-			IBCode.ObservableComputations.Common.Interface.IOrdering<int> source = getItems().Selecting(i => i.Num).Ordering(i => i, 32);
+			ObservableComputations.Common.Interface.IOrdering<int> source = getItems().Selecting(i => i.Num).Ordering(i => i, 32);
 			System.Linq.Expressions.Expression<System.Func<int, int>> orderingValueSelectorExpression = i => i;
 			Scalar<System.Collections.Generic.IComparer<int>> comparerScalar = getScalar<System.Collections.Generic.IComparer<int>>(Comparer<int>.Default);
 			int maxTogetherThenOrderings = 0;
@@ -69531,7 +69531,7 @@ namespace IBCode.ObservableComputations.Test
 			void test()
 			{
 				testing.ValidateConsistency();
-				var sourceValue = ((ObservableCollection<Item>)((IBCode.ObservableComputations.Common.Interface.IOrdering<int>)source).GetValueAs(s => ((Ordering<int, int>)s)?.Source)?.GetValueAs(s => ((Selecting<Item, int>)s)?.Source));
+				var sourceValue = ((ObservableCollection<Item>)((ObservableComputations.Common.Interface.IOrdering<int>)source).GetValueAs(s => ((Ordering<int, int>)s)?.Source)?.GetValueAs(s => ((Selecting<Item, int>)s)?.Source));
 
 				if (sourceValue != null)
 				{		
@@ -69562,7 +69562,7 @@ namespace IBCode.ObservableComputations.Test
 				}
 
 				IList listSource;
-				listSource = ((IList)((IBCode.ObservableComputations.Common.Interface.IOrdering<int>)source).GetValueAs(s => ((Ordering<int, int>)s)?.Source)?.GetValueAs(s => ((Selecting<Item, int>)s)?.Source));
+				listSource = ((IList)((ObservableComputations.Common.Interface.IOrdering<int>)source).GetValueAs(s => ((Ordering<int, int>)s)?.Source)?.GetValueAs(s => ((Selecting<Item, int>)s)?.Source));
 				if (listSource != null)
 				{
 					listSource.Clear();
@@ -69591,7 +69591,7 @@ namespace IBCode.ObservableComputations.Test
 		[Test]
 		public void TestThenOrdering06()
 		{
-			IBCode.ObservableComputations.Common.Interface.IOrdering<int> source = getItems().Selecting(i => i.Num).Ordering(i => i, 32);
+			ObservableComputations.Common.Interface.IOrdering<int> source = getItems().Selecting(i => i.Num).Ordering(i => i, 32);
 			System.Linq.Expressions.Expression<System.Func<int, int>> orderingValueSelectorExpression = i => i;
 			Scalar<System.Collections.Generic.IComparer<int>> comparerScalar = getScalar<System.Collections.Generic.IComparer<int>>(Comparer<int>.Default);
 			
@@ -69602,7 +69602,7 @@ namespace IBCode.ObservableComputations.Test
 			void test()
 			{
 				testing.ValidateConsistency();
-				var sourceValue = ((ObservableCollection<Item>)((IBCode.ObservableComputations.Common.Interface.IOrdering<int>)source).GetValueAs(s => ((Ordering<int, int>)s)?.Source)?.GetValueAs(s => ((Selecting<Item, int>)s)?.Source));
+				var sourceValue = ((ObservableCollection<Item>)((ObservableComputations.Common.Interface.IOrdering<int>)source).GetValueAs(s => ((Ordering<int, int>)s)?.Source)?.GetValueAs(s => ((Selecting<Item, int>)s)?.Source));
 
 				if (sourceValue != null)
 				{		
@@ -69633,7 +69633,7 @@ namespace IBCode.ObservableComputations.Test
 				}
 
 				IList listSource;
-				listSource = ((IList)((IBCode.ObservableComputations.Common.Interface.IOrdering<int>)source).GetValueAs(s => ((Ordering<int, int>)s)?.Source)?.GetValueAs(s => ((Selecting<Item, int>)s)?.Source));
+				listSource = ((IList)((ObservableComputations.Common.Interface.IOrdering<int>)source).GetValueAs(s => ((Ordering<int, int>)s)?.Source)?.GetValueAs(s => ((Selecting<Item, int>)s)?.Source));
 				if (listSource != null)
 				{
 					listSource.Clear();
@@ -69662,7 +69662,7 @@ namespace IBCode.ObservableComputations.Test
 		[Test]
 		public void TestThenOrdering07()
 		{
-			IBCode.ObservableComputations.Common.Interface.IOrdering<int> source = getItems().Selecting(i => i.Num).Ordering(i => i, 32);
+			ObservableComputations.Common.Interface.IOrdering<int> source = getItems().Selecting(i => i.Num).Ordering(i => i, 32);
 			System.Linq.Expressions.Expression<System.Func<int, int>> orderingValueSelectorExpression = i => i;
 			int maxTogetherThenOrderings = 0;
 			
@@ -69673,7 +69673,7 @@ namespace IBCode.ObservableComputations.Test
 			void test()
 			{
 				testing.ValidateConsistency();
-				var sourceValue = ((ObservableCollection<Item>)((IBCode.ObservableComputations.Common.Interface.IOrdering<int>)source).GetValueAs(s => ((Ordering<int, int>)s)?.Source)?.GetValueAs(s => ((Selecting<Item, int>)s)?.Source));
+				var sourceValue = ((ObservableCollection<Item>)((ObservableComputations.Common.Interface.IOrdering<int>)source).GetValueAs(s => ((Ordering<int, int>)s)?.Source)?.GetValueAs(s => ((Selecting<Item, int>)s)?.Source));
 
 				if (sourceValue != null)
 				{		
@@ -69704,7 +69704,7 @@ namespace IBCode.ObservableComputations.Test
 				}
 
 				IList listSource;
-				listSource = ((IList)((IBCode.ObservableComputations.Common.Interface.IOrdering<int>)source).GetValueAs(s => ((Ordering<int, int>)s)?.Source)?.GetValueAs(s => ((Selecting<Item, int>)s)?.Source));
+				listSource = ((IList)((ObservableComputations.Common.Interface.IOrdering<int>)source).GetValueAs(s => ((Ordering<int, int>)s)?.Source)?.GetValueAs(s => ((Selecting<Item, int>)s)?.Source));
 				if (listSource != null)
 				{
 					listSource.Clear();
@@ -69728,7 +69728,7 @@ namespace IBCode.ObservableComputations.Test
 		[Test]
 		public void TestThenOrdering08()
 		{
-			IBCode.ObservableComputations.Common.Interface.IOrdering<int> source = getItems().Selecting(i => i.Num).Ordering(i => i, 32);
+			ObservableComputations.Common.Interface.IOrdering<int> source = getItems().Selecting(i => i.Num).Ordering(i => i, 32);
 			System.Linq.Expressions.Expression<System.Func<int, int>> orderingValueSelectorExpression = i => i;
 			
 			var testing = source.ThenOrdering<int, int>(
@@ -69737,7 +69737,7 @@ namespace IBCode.ObservableComputations.Test
 			void test()
 			{
 				testing.ValidateConsistency();
-				var sourceValue = ((ObservableCollection<Item>)((IBCode.ObservableComputations.Common.Interface.IOrdering<int>)source).GetValueAs(s => ((Ordering<int, int>)s)?.Source)?.GetValueAs(s => ((Selecting<Item, int>)s)?.Source));
+				var sourceValue = ((ObservableCollection<Item>)((ObservableComputations.Common.Interface.IOrdering<int>)source).GetValueAs(s => ((Ordering<int, int>)s)?.Source)?.GetValueAs(s => ((Selecting<Item, int>)s)?.Source));
 
 				if (sourceValue != null)
 				{		
@@ -69768,7 +69768,7 @@ namespace IBCode.ObservableComputations.Test
 				}
 
 				IList listSource;
-				listSource = ((IList)((IBCode.ObservableComputations.Common.Interface.IOrdering<int>)source).GetValueAs(s => ((Ordering<int, int>)s)?.Source)?.GetValueAs(s => ((Selecting<Item, int>)s)?.Source));
+				listSource = ((IList)((ObservableComputations.Common.Interface.IOrdering<int>)source).GetValueAs(s => ((Ordering<int, int>)s)?.Source)?.GetValueAs(s => ((Selecting<Item, int>)s)?.Source));
 				if (listSource != null)
 				{
 					listSource.Clear();
@@ -69792,7 +69792,7 @@ namespace IBCode.ObservableComputations.Test
 		[Test]
 		public void TestThenOrdering09()
 		{
-			IBCode.ObservableComputations.Common.Interface.IOrdering<int> source = getItems().Selecting(i => i.Num).Ordering(i => i, 32);
+			ObservableComputations.Common.Interface.IOrdering<int> source = getItems().Selecting(i => i.Num).Ordering(i => i, 32);
 			System.Linq.Expressions.Expression<System.Func<int, int>> orderingValueSelectorExpression = i => i;
 			System.ComponentModel.ListSortDirection sortDirection = System.ComponentModel.ListSortDirection.Ascending;
 			Scalar<System.Collections.Generic.IComparer<int>> comparerScalar = getScalar<System.Collections.Generic.IComparer<int>>(Comparer<int>.Default);
@@ -69807,7 +69807,7 @@ namespace IBCode.ObservableComputations.Test
 			void test()
 			{
 				testing.ValidateConsistency();
-				var sourceValue = ((ObservableCollection<Item>)((IBCode.ObservableComputations.Common.Interface.IOrdering<int>)source).GetValueAs(s => ((Ordering<int, int>)s)?.Source)?.GetValueAs(s => ((Selecting<Item, int>)s)?.Source));
+				var sourceValue = ((ObservableCollection<Item>)((ObservableComputations.Common.Interface.IOrdering<int>)source).GetValueAs(s => ((Ordering<int, int>)s)?.Source)?.GetValueAs(s => ((Selecting<Item, int>)s)?.Source));
 
 				if (sourceValue != null)
 				{		
@@ -69838,7 +69838,7 @@ namespace IBCode.ObservableComputations.Test
 				}
 
 				IList listSource;
-				listSource = ((IList)((IBCode.ObservableComputations.Common.Interface.IOrdering<int>)source).GetValueAs(s => ((Ordering<int, int>)s)?.Source)?.GetValueAs(s => ((Selecting<Item, int>)s)?.Source));
+				listSource = ((IList)((ObservableComputations.Common.Interface.IOrdering<int>)source).GetValueAs(s => ((Ordering<int, int>)s)?.Source)?.GetValueAs(s => ((Selecting<Item, int>)s)?.Source));
 				if (listSource != null)
 				{
 					listSource.Clear();
@@ -69867,7 +69867,7 @@ namespace IBCode.ObservableComputations.Test
 		[Test]
 		public void TestThenOrdering10()
 		{
-			IBCode.ObservableComputations.Common.Interface.IOrdering<int> source = getItems().Selecting(i => i.Num).Ordering(i => i, 32);
+			ObservableComputations.Common.Interface.IOrdering<int> source = getItems().Selecting(i => i.Num).Ordering(i => i, 32);
 			System.Linq.Expressions.Expression<System.Func<int, int>> orderingValueSelectorExpression = i => i;
 			System.ComponentModel.ListSortDirection sortDirection = System.ComponentModel.ListSortDirection.Ascending;
 			Scalar<System.Collections.Generic.IComparer<int>> comparerScalar = getScalar<System.Collections.Generic.IComparer<int>>(Comparer<int>.Default);
@@ -69880,7 +69880,7 @@ namespace IBCode.ObservableComputations.Test
 			void test()
 			{
 				testing.ValidateConsistency();
-				var sourceValue = ((ObservableCollection<Item>)((IBCode.ObservableComputations.Common.Interface.IOrdering<int>)source).GetValueAs(s => ((Ordering<int, int>)s)?.Source)?.GetValueAs(s => ((Selecting<Item, int>)s)?.Source));
+				var sourceValue = ((ObservableCollection<Item>)((ObservableComputations.Common.Interface.IOrdering<int>)source).GetValueAs(s => ((Ordering<int, int>)s)?.Source)?.GetValueAs(s => ((Selecting<Item, int>)s)?.Source));
 
 				if (sourceValue != null)
 				{		
@@ -69911,7 +69911,7 @@ namespace IBCode.ObservableComputations.Test
 				}
 
 				IList listSource;
-				listSource = ((IList)((IBCode.ObservableComputations.Common.Interface.IOrdering<int>)source).GetValueAs(s => ((Ordering<int, int>)s)?.Source)?.GetValueAs(s => ((Selecting<Item, int>)s)?.Source));
+				listSource = ((IList)((ObservableComputations.Common.Interface.IOrdering<int>)source).GetValueAs(s => ((Ordering<int, int>)s)?.Source)?.GetValueAs(s => ((Selecting<Item, int>)s)?.Source));
 				if (listSource != null)
 				{
 					listSource.Clear();
@@ -69940,7 +69940,7 @@ namespace IBCode.ObservableComputations.Test
 		[Test]
 		public void TestThenOrdering11()
 		{
-			IBCode.ObservableComputations.Common.Interface.IOrdering<int> source = getItems().Selecting(i => i.Num).Ordering(i => i, 32);
+			ObservableComputations.Common.Interface.IOrdering<int> source = getItems().Selecting(i => i.Num).Ordering(i => i, 32);
 			System.Linq.Expressions.Expression<System.Func<int, int>> orderingValueSelectorExpression = i => i;
 			System.ComponentModel.ListSortDirection sortDirection = System.ComponentModel.ListSortDirection.Ascending;
 			int maxTogetherThenOrderings = 0;
@@ -69953,7 +69953,7 @@ namespace IBCode.ObservableComputations.Test
 			void test()
 			{
 				testing.ValidateConsistency();
-				var sourceValue = ((ObservableCollection<Item>)((IBCode.ObservableComputations.Common.Interface.IOrdering<int>)source).GetValueAs(s => ((Ordering<int, int>)s)?.Source)?.GetValueAs(s => ((Selecting<Item, int>)s)?.Source));
+				var sourceValue = ((ObservableCollection<Item>)((ObservableComputations.Common.Interface.IOrdering<int>)source).GetValueAs(s => ((Ordering<int, int>)s)?.Source)?.GetValueAs(s => ((Selecting<Item, int>)s)?.Source));
 
 				if (sourceValue != null)
 				{		
@@ -69984,7 +69984,7 @@ namespace IBCode.ObservableComputations.Test
 				}
 
 				IList listSource;
-				listSource = ((IList)((IBCode.ObservableComputations.Common.Interface.IOrdering<int>)source).GetValueAs(s => ((Ordering<int, int>)s)?.Source)?.GetValueAs(s => ((Selecting<Item, int>)s)?.Source));
+				listSource = ((IList)((ObservableComputations.Common.Interface.IOrdering<int>)source).GetValueAs(s => ((Ordering<int, int>)s)?.Source)?.GetValueAs(s => ((Selecting<Item, int>)s)?.Source));
 				if (listSource != null)
 				{
 					listSource.Clear();
@@ -70008,7 +70008,7 @@ namespace IBCode.ObservableComputations.Test
 		[Test]
 		public void TestThenOrdering12()
 		{
-			IBCode.ObservableComputations.Common.Interface.IOrdering<int> source = getItems().Selecting(i => i.Num).Ordering(i => i, 32);
+			ObservableComputations.Common.Interface.IOrdering<int> source = getItems().Selecting(i => i.Num).Ordering(i => i, 32);
 			System.Linq.Expressions.Expression<System.Func<int, int>> orderingValueSelectorExpression = i => i;
 			System.ComponentModel.ListSortDirection sortDirection = System.ComponentModel.ListSortDirection.Ascending;
 			
@@ -70019,7 +70019,7 @@ namespace IBCode.ObservableComputations.Test
 			void test()
 			{
 				testing.ValidateConsistency();
-				var sourceValue = ((ObservableCollection<Item>)((IBCode.ObservableComputations.Common.Interface.IOrdering<int>)source).GetValueAs(s => ((Ordering<int, int>)s)?.Source)?.GetValueAs(s => ((Selecting<Item, int>)s)?.Source));
+				var sourceValue = ((ObservableCollection<Item>)((ObservableComputations.Common.Interface.IOrdering<int>)source).GetValueAs(s => ((Ordering<int, int>)s)?.Source)?.GetValueAs(s => ((Selecting<Item, int>)s)?.Source));
 
 				if (sourceValue != null)
 				{		
@@ -70050,7 +70050,7 @@ namespace IBCode.ObservableComputations.Test
 				}
 
 				IList listSource;
-				listSource = ((IList)((IBCode.ObservableComputations.Common.Interface.IOrdering<int>)source).GetValueAs(s => ((Ordering<int, int>)s)?.Source)?.GetValueAs(s => ((Selecting<Item, int>)s)?.Source));
+				listSource = ((IList)((ObservableComputations.Common.Interface.IOrdering<int>)source).GetValueAs(s => ((Ordering<int, int>)s)?.Source)?.GetValueAs(s => ((Selecting<Item, int>)s)?.Source));
 				if (listSource != null)
 				{
 					listSource.Clear();
@@ -70074,7 +70074,7 @@ namespace IBCode.ObservableComputations.Test
 		[Test]
 		public void TestThenOrdering13()
 		{
-			IBCode.ObservableComputations.Common.Interface.IOrdering<int> source = getItems().Selecting(i => i.Num).Ordering(i => i, 32);
+			ObservableComputations.Common.Interface.IOrdering<int> source = getItems().Selecting(i => i.Num).Ordering(i => i, 32);
 			System.Linq.Expressions.Expression<System.Func<int, int>> orderingValueSelectorExpression = i => i;
 			Scalar<System.ComponentModel.ListSortDirection> sortDirectionScalar = getScalar<System.ComponentModel.ListSortDirection>(System.ComponentModel.ListSortDirection.Ascending);
 			System.Collections.Generic.IComparer<int> comparer = Comparer<int>.Default;
@@ -70089,7 +70089,7 @@ namespace IBCode.ObservableComputations.Test
 			void test()
 			{
 				testing.ValidateConsistency();
-				var sourceValue = ((ObservableCollection<Item>)((IBCode.ObservableComputations.Common.Interface.IOrdering<int>)source).GetValueAs(s => ((Ordering<int, int>)s)?.Source)?.GetValueAs(s => ((Selecting<Item, int>)s)?.Source));
+				var sourceValue = ((ObservableCollection<Item>)((ObservableComputations.Common.Interface.IOrdering<int>)source).GetValueAs(s => ((Ordering<int, int>)s)?.Source)?.GetValueAs(s => ((Selecting<Item, int>)s)?.Source));
 
 				if (sourceValue != null)
 				{		
@@ -70120,7 +70120,7 @@ namespace IBCode.ObservableComputations.Test
 				}
 
 				IList listSource;
-				listSource = ((IList)((IBCode.ObservableComputations.Common.Interface.IOrdering<int>)source).GetValueAs(s => ((Ordering<int, int>)s)?.Source)?.GetValueAs(s => ((Selecting<Item, int>)s)?.Source));
+				listSource = ((IList)((ObservableComputations.Common.Interface.IOrdering<int>)source).GetValueAs(s => ((Ordering<int, int>)s)?.Source)?.GetValueAs(s => ((Selecting<Item, int>)s)?.Source));
 				if (listSource != null)
 				{
 					listSource.Clear();
@@ -70149,7 +70149,7 @@ namespace IBCode.ObservableComputations.Test
 		[Test]
 		public void TestThenOrdering14()
 		{
-			IBCode.ObservableComputations.Common.Interface.IOrdering<int> source = getItems().Selecting(i => i.Num).Ordering(i => i, 32);
+			ObservableComputations.Common.Interface.IOrdering<int> source = getItems().Selecting(i => i.Num).Ordering(i => i, 32);
 			System.Linq.Expressions.Expression<System.Func<int, int>> orderingValueSelectorExpression = i => i;
 			Scalar<System.ComponentModel.ListSortDirection> sortDirectionScalar = getScalar<System.ComponentModel.ListSortDirection>(System.ComponentModel.ListSortDirection.Ascending);
 			System.Collections.Generic.IComparer<int> comparer = Comparer<int>.Default;
@@ -70162,7 +70162,7 @@ namespace IBCode.ObservableComputations.Test
 			void test()
 			{
 				testing.ValidateConsistency();
-				var sourceValue = ((ObservableCollection<Item>)((IBCode.ObservableComputations.Common.Interface.IOrdering<int>)source).GetValueAs(s => ((Ordering<int, int>)s)?.Source)?.GetValueAs(s => ((Selecting<Item, int>)s)?.Source));
+				var sourceValue = ((ObservableCollection<Item>)((ObservableComputations.Common.Interface.IOrdering<int>)source).GetValueAs(s => ((Ordering<int, int>)s)?.Source)?.GetValueAs(s => ((Selecting<Item, int>)s)?.Source));
 
 				if (sourceValue != null)
 				{		
@@ -70193,7 +70193,7 @@ namespace IBCode.ObservableComputations.Test
 				}
 
 				IList listSource;
-				listSource = ((IList)((IBCode.ObservableComputations.Common.Interface.IOrdering<int>)source).GetValueAs(s => ((Ordering<int, int>)s)?.Source)?.GetValueAs(s => ((Selecting<Item, int>)s)?.Source));
+				listSource = ((IList)((ObservableComputations.Common.Interface.IOrdering<int>)source).GetValueAs(s => ((Ordering<int, int>)s)?.Source)?.GetValueAs(s => ((Selecting<Item, int>)s)?.Source));
 				if (listSource != null)
 				{
 					listSource.Clear();
@@ -70222,7 +70222,7 @@ namespace IBCode.ObservableComputations.Test
 		[Test]
 		public void TestThenOrdering15()
 		{
-			IBCode.ObservableComputations.Common.Interface.IOrdering<int> source = getItems().Selecting(i => i.Num).Ordering(i => i, 32);
+			ObservableComputations.Common.Interface.IOrdering<int> source = getItems().Selecting(i => i.Num).Ordering(i => i, 32);
 			System.Linq.Expressions.Expression<System.Func<int, int>> orderingValueSelectorExpression = i => i;
 			System.Collections.Generic.IComparer<int> comparer = Comparer<int>.Default;
 			int maxTogetherThenOrderings = 0;
@@ -70235,7 +70235,7 @@ namespace IBCode.ObservableComputations.Test
 			void test()
 			{
 				testing.ValidateConsistency();
-				var sourceValue = ((ObservableCollection<Item>)((IBCode.ObservableComputations.Common.Interface.IOrdering<int>)source).GetValueAs(s => ((Ordering<int, int>)s)?.Source)?.GetValueAs(s => ((Selecting<Item, int>)s)?.Source));
+				var sourceValue = ((ObservableCollection<Item>)((ObservableComputations.Common.Interface.IOrdering<int>)source).GetValueAs(s => ((Ordering<int, int>)s)?.Source)?.GetValueAs(s => ((Selecting<Item, int>)s)?.Source));
 
 				if (sourceValue != null)
 				{		
@@ -70266,7 +70266,7 @@ namespace IBCode.ObservableComputations.Test
 				}
 
 				IList listSource;
-				listSource = ((IList)((IBCode.ObservableComputations.Common.Interface.IOrdering<int>)source).GetValueAs(s => ((Ordering<int, int>)s)?.Source)?.GetValueAs(s => ((Selecting<Item, int>)s)?.Source));
+				listSource = ((IList)((ObservableComputations.Common.Interface.IOrdering<int>)source).GetValueAs(s => ((Ordering<int, int>)s)?.Source)?.GetValueAs(s => ((Selecting<Item, int>)s)?.Source));
 				if (listSource != null)
 				{
 					listSource.Clear();
@@ -70290,7 +70290,7 @@ namespace IBCode.ObservableComputations.Test
 		[Test]
 		public void TestThenOrdering16()
 		{
-			IBCode.ObservableComputations.Common.Interface.IOrdering<int> source = getItems().Selecting(i => i.Num).Ordering(i => i, 32);
+			ObservableComputations.Common.Interface.IOrdering<int> source = getItems().Selecting(i => i.Num).Ordering(i => i, 32);
 			System.Linq.Expressions.Expression<System.Func<int, int>> orderingValueSelectorExpression = i => i;
 			System.Collections.Generic.IComparer<int> comparer = Comparer<int>.Default;
 			
@@ -70301,7 +70301,7 @@ namespace IBCode.ObservableComputations.Test
 			void test()
 			{
 				testing.ValidateConsistency();
-				var sourceValue = ((ObservableCollection<Item>)((IBCode.ObservableComputations.Common.Interface.IOrdering<int>)source).GetValueAs(s => ((Ordering<int, int>)s)?.Source)?.GetValueAs(s => ((Selecting<Item, int>)s)?.Source));
+				var sourceValue = ((ObservableCollection<Item>)((ObservableComputations.Common.Interface.IOrdering<int>)source).GetValueAs(s => ((Ordering<int, int>)s)?.Source)?.GetValueAs(s => ((Selecting<Item, int>)s)?.Source));
 
 				if (sourceValue != null)
 				{		
@@ -70332,7 +70332,7 @@ namespace IBCode.ObservableComputations.Test
 				}
 
 				IList listSource;
-				listSource = ((IList)((IBCode.ObservableComputations.Common.Interface.IOrdering<int>)source).GetValueAs(s => ((Ordering<int, int>)s)?.Source)?.GetValueAs(s => ((Selecting<Item, int>)s)?.Source));
+				listSource = ((IList)((ObservableComputations.Common.Interface.IOrdering<int>)source).GetValueAs(s => ((Ordering<int, int>)s)?.Source)?.GetValueAs(s => ((Selecting<Item, int>)s)?.Source));
 				if (listSource != null)
 				{
 					listSource.Clear();
@@ -70356,7 +70356,7 @@ namespace IBCode.ObservableComputations.Test
 		[Test]
 		public void TestThenOrdering17()
 		{
-			IBCode.ObservableComputations.Common.Interface.IOrdering<int> source = getItems().Selecting(i => i.Num).Ordering(i => i, 32);
+			ObservableComputations.Common.Interface.IOrdering<int> source = getItems().Selecting(i => i.Num).Ordering(i => i, 32);
 			System.Linq.Expressions.Expression<System.Func<int, int>> orderingValueSelectorExpression = i => i;
 			System.ComponentModel.ListSortDirection sortDirection = System.ComponentModel.ListSortDirection.Ascending;
 			System.Collections.Generic.IComparer<int> comparer = Comparer<int>.Default;
@@ -70371,7 +70371,7 @@ namespace IBCode.ObservableComputations.Test
 			void test()
 			{
 				testing.ValidateConsistency();
-				var sourceValue = ((ObservableCollection<Item>)((IBCode.ObservableComputations.Common.Interface.IOrdering<int>)source).GetValueAs(s => ((Ordering<int, int>)s)?.Source)?.GetValueAs(s => ((Selecting<Item, int>)s)?.Source));
+				var sourceValue = ((ObservableCollection<Item>)((ObservableComputations.Common.Interface.IOrdering<int>)source).GetValueAs(s => ((Ordering<int, int>)s)?.Source)?.GetValueAs(s => ((Selecting<Item, int>)s)?.Source));
 
 				if (sourceValue != null)
 				{		
@@ -70402,7 +70402,7 @@ namespace IBCode.ObservableComputations.Test
 				}
 
 				IList listSource;
-				listSource = ((IList)((IBCode.ObservableComputations.Common.Interface.IOrdering<int>)source).GetValueAs(s => ((Ordering<int, int>)s)?.Source)?.GetValueAs(s => ((Selecting<Item, int>)s)?.Source));
+				listSource = ((IList)((ObservableComputations.Common.Interface.IOrdering<int>)source).GetValueAs(s => ((Ordering<int, int>)s)?.Source)?.GetValueAs(s => ((Selecting<Item, int>)s)?.Source));
 				if (listSource != null)
 				{
 					listSource.Clear();
@@ -70426,7 +70426,7 @@ namespace IBCode.ObservableComputations.Test
 		[Test]
 		public void TestThenOrdering18()
 		{
-			IBCode.ObservableComputations.Common.Interface.IOrdering<int> source = getItems().Selecting(i => i.Num).Ordering(i => i, 32);
+			ObservableComputations.Common.Interface.IOrdering<int> source = getItems().Selecting(i => i.Num).Ordering(i => i, 32);
 			System.Linq.Expressions.Expression<System.Func<int, int>> orderingValueSelectorExpression = i => i;
 			System.ComponentModel.ListSortDirection sortDirection = System.ComponentModel.ListSortDirection.Ascending;
 			System.Collections.Generic.IComparer<int> comparer = Comparer<int>.Default;
@@ -70439,7 +70439,7 @@ namespace IBCode.ObservableComputations.Test
 			void test()
 			{
 				testing.ValidateConsistency();
-				var sourceValue = ((ObservableCollection<Item>)((IBCode.ObservableComputations.Common.Interface.IOrdering<int>)source).GetValueAs(s => ((Ordering<int, int>)s)?.Source)?.GetValueAs(s => ((Selecting<Item, int>)s)?.Source));
+				var sourceValue = ((ObservableCollection<Item>)((ObservableComputations.Common.Interface.IOrdering<int>)source).GetValueAs(s => ((Ordering<int, int>)s)?.Source)?.GetValueAs(s => ((Selecting<Item, int>)s)?.Source));
 
 				if (sourceValue != null)
 				{		
@@ -70470,7 +70470,7 @@ namespace IBCode.ObservableComputations.Test
 				}
 
 				IList listSource;
-				listSource = ((IList)((IBCode.ObservableComputations.Common.Interface.IOrdering<int>)source).GetValueAs(s => ((Ordering<int, int>)s)?.Source)?.GetValueAs(s => ((Selecting<Item, int>)s)?.Source));
+				listSource = ((IList)((ObservableComputations.Common.Interface.IOrdering<int>)source).GetValueAs(s => ((Ordering<int, int>)s)?.Source)?.GetValueAs(s => ((Selecting<Item, int>)s)?.Source));
 				if (listSource != null)
 				{
 					listSource.Clear();
@@ -70494,7 +70494,7 @@ namespace IBCode.ObservableComputations.Test
 		[Test]
 		public void TestThenOrdering19()
 		{
-			Scalar<IBCode.ObservableComputations.Common.Interface.IOrdering<int>> sourceScalar = getScalar<IBCode.ObservableComputations.Common.Interface.IOrdering<int>>(getItems().Selecting(i => i.Num).Ordering(i => i, 32));
+			Scalar<ObservableComputations.Common.Interface.IOrdering<int>> sourceScalar = getScalar<ObservableComputations.Common.Interface.IOrdering<int>>(getItems().Selecting(i => i.Num).Ordering(i => i, 32));
 			System.Linq.Expressions.Expression<System.Func<int, int>> orderingValueSelectorExpression = i => i;
 			Scalar<System.ComponentModel.ListSortDirection> sortDirectionScalar = getScalar<System.ComponentModel.ListSortDirection>(System.ComponentModel.ListSortDirection.Ascending);
 			Scalar<System.Collections.Generic.IComparer<int>> comparerScalar = getScalar<System.Collections.Generic.IComparer<int>>(Comparer<int>.Default);
@@ -70509,7 +70509,7 @@ namespace IBCode.ObservableComputations.Test
 			void test()
 			{
 				testing.ValidateConsistency();
-				var sourceScalarValue = ((ObservableCollection<Item>)((IBCode.ObservableComputations.Common.Interface.IOrdering<int>)sourceScalar.Value).GetValueAs(s => ((Ordering<int, int>)s)?.Source)?.GetValueAs(s => ((Selecting<Item, int>)s)?.Source));
+				var sourceScalarValue = ((ObservableCollection<Item>)((ObservableComputations.Common.Interface.IOrdering<int>)sourceScalar.Value).GetValueAs(s => ((Ordering<int, int>)s)?.Source)?.GetValueAs(s => ((Selecting<Item, int>)s)?.Source));
 
 				if (sourceScalarValue != null)
 				{		
@@ -70540,7 +70540,7 @@ namespace IBCode.ObservableComputations.Test
 				}
 
 				IList listSource;
-				listSource = ((IList)((IBCode.ObservableComputations.Common.Interface.IOrdering<int>)sourceScalar.Value).GetValueAs(s => ((Ordering<int, int>)s)?.Source)?.GetValueAs(s => ((Selecting<Item, int>)s)?.Source));
+				listSource = ((IList)((ObservableComputations.Common.Interface.IOrdering<int>)sourceScalar.Value).GetValueAs(s => ((Ordering<int, int>)s)?.Source)?.GetValueAs(s => ((Selecting<Item, int>)s)?.Source));
 				if (listSource != null)
 				{
 					listSource.Clear();
@@ -70570,16 +70570,16 @@ namespace IBCode.ObservableComputations.Test
 			((Scalar<System.Collections.Generic.IComparer<int>>)comparerScalar).Change(null);
 			test();
 
-			((Scalar<IBCode.ObservableComputations.Common.Interface.IOrdering<int>>)sourceScalar).Touch();
+			((Scalar<ObservableComputations.Common.Interface.IOrdering<int>>)sourceScalar).Touch();
 			test();
-			((Scalar<IBCode.ObservableComputations.Common.Interface.IOrdering<int>>)sourceScalar).Change(null);
+			((Scalar<ObservableComputations.Common.Interface.IOrdering<int>>)sourceScalar).Change(null);
 			test();
 		}
 		
 		[Test]
 		public void TestThenOrdering20()
 		{
-			Scalar<IBCode.ObservableComputations.Common.Interface.IOrdering<int>> sourceScalar = getScalar<IBCode.ObservableComputations.Common.Interface.IOrdering<int>>(getItems().Selecting(i => i.Num).Ordering(i => i, 32));
+			Scalar<ObservableComputations.Common.Interface.IOrdering<int>> sourceScalar = getScalar<ObservableComputations.Common.Interface.IOrdering<int>>(getItems().Selecting(i => i.Num).Ordering(i => i, 32));
 			System.Linq.Expressions.Expression<System.Func<int, int>> orderingValueSelectorExpression = i => i;
 			Scalar<System.ComponentModel.ListSortDirection> sortDirectionScalar = getScalar<System.ComponentModel.ListSortDirection>(System.ComponentModel.ListSortDirection.Ascending);
 			Scalar<System.Collections.Generic.IComparer<int>> comparerScalar = getScalar<System.Collections.Generic.IComparer<int>>(Comparer<int>.Default);
@@ -70592,7 +70592,7 @@ namespace IBCode.ObservableComputations.Test
 			void test()
 			{
 				testing.ValidateConsistency();
-				var sourceScalarValue = ((ObservableCollection<Item>)((IBCode.ObservableComputations.Common.Interface.IOrdering<int>)sourceScalar.Value).GetValueAs(s => ((Ordering<int, int>)s)?.Source)?.GetValueAs(s => ((Selecting<Item, int>)s)?.Source));
+				var sourceScalarValue = ((ObservableCollection<Item>)((ObservableComputations.Common.Interface.IOrdering<int>)sourceScalar.Value).GetValueAs(s => ((Ordering<int, int>)s)?.Source)?.GetValueAs(s => ((Selecting<Item, int>)s)?.Source));
 
 				if (sourceScalarValue != null)
 				{		
@@ -70623,7 +70623,7 @@ namespace IBCode.ObservableComputations.Test
 				}
 
 				IList listSource;
-				listSource = ((IList)((IBCode.ObservableComputations.Common.Interface.IOrdering<int>)sourceScalar.Value).GetValueAs(s => ((Ordering<int, int>)s)?.Source)?.GetValueAs(s => ((Selecting<Item, int>)s)?.Source));
+				listSource = ((IList)((ObservableComputations.Common.Interface.IOrdering<int>)sourceScalar.Value).GetValueAs(s => ((Ordering<int, int>)s)?.Source)?.GetValueAs(s => ((Selecting<Item, int>)s)?.Source));
 				if (listSource != null)
 				{
 					listSource.Clear();
@@ -70653,16 +70653,16 @@ namespace IBCode.ObservableComputations.Test
 			((Scalar<System.Collections.Generic.IComparer<int>>)comparerScalar).Change(null);
 			test();
 
-			((Scalar<IBCode.ObservableComputations.Common.Interface.IOrdering<int>>)sourceScalar).Touch();
+			((Scalar<ObservableComputations.Common.Interface.IOrdering<int>>)sourceScalar).Touch();
 			test();
-			((Scalar<IBCode.ObservableComputations.Common.Interface.IOrdering<int>>)sourceScalar).Change(null);
+			((Scalar<ObservableComputations.Common.Interface.IOrdering<int>>)sourceScalar).Change(null);
 			test();
 		}
 		
 		[Test]
 		public void TestThenOrdering21()
 		{
-			Scalar<IBCode.ObservableComputations.Common.Interface.IOrdering<int>> sourceScalar = getScalar<IBCode.ObservableComputations.Common.Interface.IOrdering<int>>(getItems().Selecting(i => i.Num).Ordering(i => i, 32));
+			Scalar<ObservableComputations.Common.Interface.IOrdering<int>> sourceScalar = getScalar<ObservableComputations.Common.Interface.IOrdering<int>>(getItems().Selecting(i => i.Num).Ordering(i => i, 32));
 			System.Linq.Expressions.Expression<System.Func<int, int>> orderingValueSelectorExpression = i => i;
 			Scalar<System.ComponentModel.ListSortDirection> sortDirectionScalar = getScalar<System.ComponentModel.ListSortDirection>(System.ComponentModel.ListSortDirection.Ascending);
 			int maxTogetherThenOrderings = 0;
@@ -70675,7 +70675,7 @@ namespace IBCode.ObservableComputations.Test
 			void test()
 			{
 				testing.ValidateConsistency();
-				var sourceScalarValue = ((ObservableCollection<Item>)((IBCode.ObservableComputations.Common.Interface.IOrdering<int>)sourceScalar.Value).GetValueAs(s => ((Ordering<int, int>)s)?.Source)?.GetValueAs(s => ((Selecting<Item, int>)s)?.Source));
+				var sourceScalarValue = ((ObservableCollection<Item>)((ObservableComputations.Common.Interface.IOrdering<int>)sourceScalar.Value).GetValueAs(s => ((Ordering<int, int>)s)?.Source)?.GetValueAs(s => ((Selecting<Item, int>)s)?.Source));
 
 				if (sourceScalarValue != null)
 				{		
@@ -70706,7 +70706,7 @@ namespace IBCode.ObservableComputations.Test
 				}
 
 				IList listSource;
-				listSource = ((IList)((IBCode.ObservableComputations.Common.Interface.IOrdering<int>)sourceScalar.Value).GetValueAs(s => ((Ordering<int, int>)s)?.Source)?.GetValueAs(s => ((Selecting<Item, int>)s)?.Source));
+				listSource = ((IList)((ObservableComputations.Common.Interface.IOrdering<int>)sourceScalar.Value).GetValueAs(s => ((Ordering<int, int>)s)?.Source)?.GetValueAs(s => ((Selecting<Item, int>)s)?.Source));
 				if (listSource != null)
 				{
 					listSource.Clear();
@@ -70731,16 +70731,16 @@ namespace IBCode.ObservableComputations.Test
 			((Scalar<System.ComponentModel.ListSortDirection>)sortDirectionScalar).Change(System.ComponentModel.ListSortDirection.Descending);
 			test();
 
-			((Scalar<IBCode.ObservableComputations.Common.Interface.IOrdering<int>>)sourceScalar).Touch();
+			((Scalar<ObservableComputations.Common.Interface.IOrdering<int>>)sourceScalar).Touch();
 			test();
-			((Scalar<IBCode.ObservableComputations.Common.Interface.IOrdering<int>>)sourceScalar).Change(null);
+			((Scalar<ObservableComputations.Common.Interface.IOrdering<int>>)sourceScalar).Change(null);
 			test();
 		}
 		
 		[Test]
 		public void TestThenOrdering22()
 		{
-			Scalar<IBCode.ObservableComputations.Common.Interface.IOrdering<int>> sourceScalar = getScalar<IBCode.ObservableComputations.Common.Interface.IOrdering<int>>(getItems().Selecting(i => i.Num).Ordering(i => i, 32));
+			Scalar<ObservableComputations.Common.Interface.IOrdering<int>> sourceScalar = getScalar<ObservableComputations.Common.Interface.IOrdering<int>>(getItems().Selecting(i => i.Num).Ordering(i => i, 32));
 			System.Linq.Expressions.Expression<System.Func<int, int>> orderingValueSelectorExpression = i => i;
 			Scalar<System.ComponentModel.ListSortDirection> sortDirectionScalar = getScalar<System.ComponentModel.ListSortDirection>(System.ComponentModel.ListSortDirection.Ascending);
 			
@@ -70751,7 +70751,7 @@ namespace IBCode.ObservableComputations.Test
 			void test()
 			{
 				testing.ValidateConsistency();
-				var sourceScalarValue = ((ObservableCollection<Item>)((IBCode.ObservableComputations.Common.Interface.IOrdering<int>)sourceScalar.Value).GetValueAs(s => ((Ordering<int, int>)s)?.Source)?.GetValueAs(s => ((Selecting<Item, int>)s)?.Source));
+				var sourceScalarValue = ((ObservableCollection<Item>)((ObservableComputations.Common.Interface.IOrdering<int>)sourceScalar.Value).GetValueAs(s => ((Ordering<int, int>)s)?.Source)?.GetValueAs(s => ((Selecting<Item, int>)s)?.Source));
 
 				if (sourceScalarValue != null)
 				{		
@@ -70782,7 +70782,7 @@ namespace IBCode.ObservableComputations.Test
 				}
 
 				IList listSource;
-				listSource = ((IList)((IBCode.ObservableComputations.Common.Interface.IOrdering<int>)sourceScalar.Value).GetValueAs(s => ((Ordering<int, int>)s)?.Source)?.GetValueAs(s => ((Selecting<Item, int>)s)?.Source));
+				listSource = ((IList)((ObservableComputations.Common.Interface.IOrdering<int>)sourceScalar.Value).GetValueAs(s => ((Ordering<int, int>)s)?.Source)?.GetValueAs(s => ((Selecting<Item, int>)s)?.Source));
 				if (listSource != null)
 				{
 					listSource.Clear();
@@ -70807,16 +70807,16 @@ namespace IBCode.ObservableComputations.Test
 			((Scalar<System.ComponentModel.ListSortDirection>)sortDirectionScalar).Change(System.ComponentModel.ListSortDirection.Descending);
 			test();
 
-			((Scalar<IBCode.ObservableComputations.Common.Interface.IOrdering<int>>)sourceScalar).Touch();
+			((Scalar<ObservableComputations.Common.Interface.IOrdering<int>>)sourceScalar).Touch();
 			test();
-			((Scalar<IBCode.ObservableComputations.Common.Interface.IOrdering<int>>)sourceScalar).Change(null);
+			((Scalar<ObservableComputations.Common.Interface.IOrdering<int>>)sourceScalar).Change(null);
 			test();
 		}
 		
 		[Test]
 		public void TestThenOrdering23()
 		{
-			Scalar<IBCode.ObservableComputations.Common.Interface.IOrdering<int>> sourceScalar = getScalar<IBCode.ObservableComputations.Common.Interface.IOrdering<int>>(getItems().Selecting(i => i.Num).Ordering(i => i, 32));
+			Scalar<ObservableComputations.Common.Interface.IOrdering<int>> sourceScalar = getScalar<ObservableComputations.Common.Interface.IOrdering<int>>(getItems().Selecting(i => i.Num).Ordering(i => i, 32));
 			System.Linq.Expressions.Expression<System.Func<int, int>> orderingValueSelectorExpression = i => i;
 			Scalar<System.Collections.Generic.IComparer<int>> comparerScalar = getScalar<System.Collections.Generic.IComparer<int>>(Comparer<int>.Default);
 			int maxTogetherThenOrderings = 0;
@@ -70829,7 +70829,7 @@ namespace IBCode.ObservableComputations.Test
 			void test()
 			{
 				testing.ValidateConsistency();
-				var sourceScalarValue = ((ObservableCollection<Item>)((IBCode.ObservableComputations.Common.Interface.IOrdering<int>)sourceScalar.Value).GetValueAs(s => ((Ordering<int, int>)s)?.Source)?.GetValueAs(s => ((Selecting<Item, int>)s)?.Source));
+				var sourceScalarValue = ((ObservableCollection<Item>)((ObservableComputations.Common.Interface.IOrdering<int>)sourceScalar.Value).GetValueAs(s => ((Ordering<int, int>)s)?.Source)?.GetValueAs(s => ((Selecting<Item, int>)s)?.Source));
 
 				if (sourceScalarValue != null)
 				{		
@@ -70860,7 +70860,7 @@ namespace IBCode.ObservableComputations.Test
 				}
 
 				IList listSource;
-				listSource = ((IList)((IBCode.ObservableComputations.Common.Interface.IOrdering<int>)sourceScalar.Value).GetValueAs(s => ((Ordering<int, int>)s)?.Source)?.GetValueAs(s => ((Selecting<Item, int>)s)?.Source));
+				listSource = ((IList)((ObservableComputations.Common.Interface.IOrdering<int>)sourceScalar.Value).GetValueAs(s => ((Ordering<int, int>)s)?.Source)?.GetValueAs(s => ((Selecting<Item, int>)s)?.Source));
 				if (listSource != null)
 				{
 					listSource.Clear();
@@ -70885,16 +70885,16 @@ namespace IBCode.ObservableComputations.Test
 			((Scalar<System.Collections.Generic.IComparer<int>>)comparerScalar).Change(null);
 			test();
 
-			((Scalar<IBCode.ObservableComputations.Common.Interface.IOrdering<int>>)sourceScalar).Touch();
+			((Scalar<ObservableComputations.Common.Interface.IOrdering<int>>)sourceScalar).Touch();
 			test();
-			((Scalar<IBCode.ObservableComputations.Common.Interface.IOrdering<int>>)sourceScalar).Change(null);
+			((Scalar<ObservableComputations.Common.Interface.IOrdering<int>>)sourceScalar).Change(null);
 			test();
 		}
 		
 		[Test]
 		public void TestThenOrdering24()
 		{
-			Scalar<IBCode.ObservableComputations.Common.Interface.IOrdering<int>> sourceScalar = getScalar<IBCode.ObservableComputations.Common.Interface.IOrdering<int>>(getItems().Selecting(i => i.Num).Ordering(i => i, 32));
+			Scalar<ObservableComputations.Common.Interface.IOrdering<int>> sourceScalar = getScalar<ObservableComputations.Common.Interface.IOrdering<int>>(getItems().Selecting(i => i.Num).Ordering(i => i, 32));
 			System.Linq.Expressions.Expression<System.Func<int, int>> orderingValueSelectorExpression = i => i;
 			Scalar<System.Collections.Generic.IComparer<int>> comparerScalar = getScalar<System.Collections.Generic.IComparer<int>>(Comparer<int>.Default);
 			
@@ -70905,7 +70905,7 @@ namespace IBCode.ObservableComputations.Test
 			void test()
 			{
 				testing.ValidateConsistency();
-				var sourceScalarValue = ((ObservableCollection<Item>)((IBCode.ObservableComputations.Common.Interface.IOrdering<int>)sourceScalar.Value).GetValueAs(s => ((Ordering<int, int>)s)?.Source)?.GetValueAs(s => ((Selecting<Item, int>)s)?.Source));
+				var sourceScalarValue = ((ObservableCollection<Item>)((ObservableComputations.Common.Interface.IOrdering<int>)sourceScalar.Value).GetValueAs(s => ((Ordering<int, int>)s)?.Source)?.GetValueAs(s => ((Selecting<Item, int>)s)?.Source));
 
 				if (sourceScalarValue != null)
 				{		
@@ -70936,7 +70936,7 @@ namespace IBCode.ObservableComputations.Test
 				}
 
 				IList listSource;
-				listSource = ((IList)((IBCode.ObservableComputations.Common.Interface.IOrdering<int>)sourceScalar.Value).GetValueAs(s => ((Ordering<int, int>)s)?.Source)?.GetValueAs(s => ((Selecting<Item, int>)s)?.Source));
+				listSource = ((IList)((ObservableComputations.Common.Interface.IOrdering<int>)sourceScalar.Value).GetValueAs(s => ((Ordering<int, int>)s)?.Source)?.GetValueAs(s => ((Selecting<Item, int>)s)?.Source));
 				if (listSource != null)
 				{
 					listSource.Clear();
@@ -70961,16 +70961,16 @@ namespace IBCode.ObservableComputations.Test
 			((Scalar<System.Collections.Generic.IComparer<int>>)comparerScalar).Change(null);
 			test();
 
-			((Scalar<IBCode.ObservableComputations.Common.Interface.IOrdering<int>>)sourceScalar).Touch();
+			((Scalar<ObservableComputations.Common.Interface.IOrdering<int>>)sourceScalar).Touch();
 			test();
-			((Scalar<IBCode.ObservableComputations.Common.Interface.IOrdering<int>>)sourceScalar).Change(null);
+			((Scalar<ObservableComputations.Common.Interface.IOrdering<int>>)sourceScalar).Change(null);
 			test();
 		}
 		
 		[Test]
 		public void TestThenOrdering25()
 		{
-			Scalar<IBCode.ObservableComputations.Common.Interface.IOrdering<int>> sourceScalar = getScalar<IBCode.ObservableComputations.Common.Interface.IOrdering<int>>(getItems().Selecting(i => i.Num).Ordering(i => i, 32));
+			Scalar<ObservableComputations.Common.Interface.IOrdering<int>> sourceScalar = getScalar<ObservableComputations.Common.Interface.IOrdering<int>>(getItems().Selecting(i => i.Num).Ordering(i => i, 32));
 			System.Linq.Expressions.Expression<System.Func<int, int>> orderingValueSelectorExpression = i => i;
 			int maxTogetherThenOrderings = 0;
 			
@@ -70981,7 +70981,7 @@ namespace IBCode.ObservableComputations.Test
 			void test()
 			{
 				testing.ValidateConsistency();
-				var sourceScalarValue = ((ObservableCollection<Item>)((IBCode.ObservableComputations.Common.Interface.IOrdering<int>)sourceScalar.Value).GetValueAs(s => ((Ordering<int, int>)s)?.Source)?.GetValueAs(s => ((Selecting<Item, int>)s)?.Source));
+				var sourceScalarValue = ((ObservableCollection<Item>)((ObservableComputations.Common.Interface.IOrdering<int>)sourceScalar.Value).GetValueAs(s => ((Ordering<int, int>)s)?.Source)?.GetValueAs(s => ((Selecting<Item, int>)s)?.Source));
 
 				if (sourceScalarValue != null)
 				{		
@@ -71012,7 +71012,7 @@ namespace IBCode.ObservableComputations.Test
 				}
 
 				IList listSource;
-				listSource = ((IList)((IBCode.ObservableComputations.Common.Interface.IOrdering<int>)sourceScalar.Value).GetValueAs(s => ((Ordering<int, int>)s)?.Source)?.GetValueAs(s => ((Selecting<Item, int>)s)?.Source));
+				listSource = ((IList)((ObservableComputations.Common.Interface.IOrdering<int>)sourceScalar.Value).GetValueAs(s => ((Ordering<int, int>)s)?.Source)?.GetValueAs(s => ((Selecting<Item, int>)s)?.Source));
 				if (listSource != null)
 				{
 					listSource.Clear();
@@ -71032,16 +71032,16 @@ namespace IBCode.ObservableComputations.Test
 
 			test();
 
-			((Scalar<IBCode.ObservableComputations.Common.Interface.IOrdering<int>>)sourceScalar).Touch();
+			((Scalar<ObservableComputations.Common.Interface.IOrdering<int>>)sourceScalar).Touch();
 			test();
-			((Scalar<IBCode.ObservableComputations.Common.Interface.IOrdering<int>>)sourceScalar).Change(null);
+			((Scalar<ObservableComputations.Common.Interface.IOrdering<int>>)sourceScalar).Change(null);
 			test();
 		}
 		
 		[Test]
 		public void TestThenOrdering26()
 		{
-			Scalar<IBCode.ObservableComputations.Common.Interface.IOrdering<int>> sourceScalar = getScalar<IBCode.ObservableComputations.Common.Interface.IOrdering<int>>(getItems().Selecting(i => i.Num).Ordering(i => i, 32));
+			Scalar<ObservableComputations.Common.Interface.IOrdering<int>> sourceScalar = getScalar<ObservableComputations.Common.Interface.IOrdering<int>>(getItems().Selecting(i => i.Num).Ordering(i => i, 32));
 			System.Linq.Expressions.Expression<System.Func<int, int>> orderingValueSelectorExpression = i => i;
 			
 			var testing = sourceScalar.ThenOrdering<int, int>(
@@ -71050,7 +71050,7 @@ namespace IBCode.ObservableComputations.Test
 			void test()
 			{
 				testing.ValidateConsistency();
-				var sourceScalarValue = ((ObservableCollection<Item>)((IBCode.ObservableComputations.Common.Interface.IOrdering<int>)sourceScalar.Value).GetValueAs(s => ((Ordering<int, int>)s)?.Source)?.GetValueAs(s => ((Selecting<Item, int>)s)?.Source));
+				var sourceScalarValue = ((ObservableCollection<Item>)((ObservableComputations.Common.Interface.IOrdering<int>)sourceScalar.Value).GetValueAs(s => ((Ordering<int, int>)s)?.Source)?.GetValueAs(s => ((Selecting<Item, int>)s)?.Source));
 
 				if (sourceScalarValue != null)
 				{		
@@ -71081,7 +71081,7 @@ namespace IBCode.ObservableComputations.Test
 				}
 
 				IList listSource;
-				listSource = ((IList)((IBCode.ObservableComputations.Common.Interface.IOrdering<int>)sourceScalar.Value).GetValueAs(s => ((Ordering<int, int>)s)?.Source)?.GetValueAs(s => ((Selecting<Item, int>)s)?.Source));
+				listSource = ((IList)((ObservableComputations.Common.Interface.IOrdering<int>)sourceScalar.Value).GetValueAs(s => ((Ordering<int, int>)s)?.Source)?.GetValueAs(s => ((Selecting<Item, int>)s)?.Source));
 				if (listSource != null)
 				{
 					listSource.Clear();
@@ -71101,16 +71101,16 @@ namespace IBCode.ObservableComputations.Test
 
 			test();
 
-			((Scalar<IBCode.ObservableComputations.Common.Interface.IOrdering<int>>)sourceScalar).Touch();
+			((Scalar<ObservableComputations.Common.Interface.IOrdering<int>>)sourceScalar).Touch();
 			test();
-			((Scalar<IBCode.ObservableComputations.Common.Interface.IOrdering<int>>)sourceScalar).Change(null);
+			((Scalar<ObservableComputations.Common.Interface.IOrdering<int>>)sourceScalar).Change(null);
 			test();
 		}
 		
 		[Test]
 		public void TestThenOrdering27()
 		{
-			Scalar<IBCode.ObservableComputations.Common.Interface.IOrdering<int>> sourceScalar = getScalar<IBCode.ObservableComputations.Common.Interface.IOrdering<int>>(getItems().Selecting(i => i.Num).Ordering(i => i, 32));
+			Scalar<ObservableComputations.Common.Interface.IOrdering<int>> sourceScalar = getScalar<ObservableComputations.Common.Interface.IOrdering<int>>(getItems().Selecting(i => i.Num).Ordering(i => i, 32));
 			System.Linq.Expressions.Expression<System.Func<int, int>> orderingValueSelectorExpression = i => i;
 			System.ComponentModel.ListSortDirection sortDirection = System.ComponentModel.ListSortDirection.Ascending;
 			Scalar<System.Collections.Generic.IComparer<int>> comparerScalar = getScalar<System.Collections.Generic.IComparer<int>>(Comparer<int>.Default);
@@ -71125,7 +71125,7 @@ namespace IBCode.ObservableComputations.Test
 			void test()
 			{
 				testing.ValidateConsistency();
-				var sourceScalarValue = ((ObservableCollection<Item>)((IBCode.ObservableComputations.Common.Interface.IOrdering<int>)sourceScalar.Value).GetValueAs(s => ((Ordering<int, int>)s)?.Source)?.GetValueAs(s => ((Selecting<Item, int>)s)?.Source));
+				var sourceScalarValue = ((ObservableCollection<Item>)((ObservableComputations.Common.Interface.IOrdering<int>)sourceScalar.Value).GetValueAs(s => ((Ordering<int, int>)s)?.Source)?.GetValueAs(s => ((Selecting<Item, int>)s)?.Source));
 
 				if (sourceScalarValue != null)
 				{		
@@ -71156,7 +71156,7 @@ namespace IBCode.ObservableComputations.Test
 				}
 
 				IList listSource;
-				listSource = ((IList)((IBCode.ObservableComputations.Common.Interface.IOrdering<int>)sourceScalar.Value).GetValueAs(s => ((Ordering<int, int>)s)?.Source)?.GetValueAs(s => ((Selecting<Item, int>)s)?.Source));
+				listSource = ((IList)((ObservableComputations.Common.Interface.IOrdering<int>)sourceScalar.Value).GetValueAs(s => ((Ordering<int, int>)s)?.Source)?.GetValueAs(s => ((Selecting<Item, int>)s)?.Source));
 				if (listSource != null)
 				{
 					listSource.Clear();
@@ -71181,16 +71181,16 @@ namespace IBCode.ObservableComputations.Test
 			((Scalar<System.Collections.Generic.IComparer<int>>)comparerScalar).Change(null);
 			test();
 
-			((Scalar<IBCode.ObservableComputations.Common.Interface.IOrdering<int>>)sourceScalar).Touch();
+			((Scalar<ObservableComputations.Common.Interface.IOrdering<int>>)sourceScalar).Touch();
 			test();
-			((Scalar<IBCode.ObservableComputations.Common.Interface.IOrdering<int>>)sourceScalar).Change(null);
+			((Scalar<ObservableComputations.Common.Interface.IOrdering<int>>)sourceScalar).Change(null);
 			test();
 		}
 		
 		[Test]
 		public void TestThenOrdering28()
 		{
-			Scalar<IBCode.ObservableComputations.Common.Interface.IOrdering<int>> sourceScalar = getScalar<IBCode.ObservableComputations.Common.Interface.IOrdering<int>>(getItems().Selecting(i => i.Num).Ordering(i => i, 32));
+			Scalar<ObservableComputations.Common.Interface.IOrdering<int>> sourceScalar = getScalar<ObservableComputations.Common.Interface.IOrdering<int>>(getItems().Selecting(i => i.Num).Ordering(i => i, 32));
 			System.Linq.Expressions.Expression<System.Func<int, int>> orderingValueSelectorExpression = i => i;
 			System.ComponentModel.ListSortDirection sortDirection = System.ComponentModel.ListSortDirection.Ascending;
 			Scalar<System.Collections.Generic.IComparer<int>> comparerScalar = getScalar<System.Collections.Generic.IComparer<int>>(Comparer<int>.Default);
@@ -71203,7 +71203,7 @@ namespace IBCode.ObservableComputations.Test
 			void test()
 			{
 				testing.ValidateConsistency();
-				var sourceScalarValue = ((ObservableCollection<Item>)((IBCode.ObservableComputations.Common.Interface.IOrdering<int>)sourceScalar.Value).GetValueAs(s => ((Ordering<int, int>)s)?.Source)?.GetValueAs(s => ((Selecting<Item, int>)s)?.Source));
+				var sourceScalarValue = ((ObservableCollection<Item>)((ObservableComputations.Common.Interface.IOrdering<int>)sourceScalar.Value).GetValueAs(s => ((Ordering<int, int>)s)?.Source)?.GetValueAs(s => ((Selecting<Item, int>)s)?.Source));
 
 				if (sourceScalarValue != null)
 				{		
@@ -71234,7 +71234,7 @@ namespace IBCode.ObservableComputations.Test
 				}
 
 				IList listSource;
-				listSource = ((IList)((IBCode.ObservableComputations.Common.Interface.IOrdering<int>)sourceScalar.Value).GetValueAs(s => ((Ordering<int, int>)s)?.Source)?.GetValueAs(s => ((Selecting<Item, int>)s)?.Source));
+				listSource = ((IList)((ObservableComputations.Common.Interface.IOrdering<int>)sourceScalar.Value).GetValueAs(s => ((Ordering<int, int>)s)?.Source)?.GetValueAs(s => ((Selecting<Item, int>)s)?.Source));
 				if (listSource != null)
 				{
 					listSource.Clear();
@@ -71259,16 +71259,16 @@ namespace IBCode.ObservableComputations.Test
 			((Scalar<System.Collections.Generic.IComparer<int>>)comparerScalar).Change(null);
 			test();
 
-			((Scalar<IBCode.ObservableComputations.Common.Interface.IOrdering<int>>)sourceScalar).Touch();
+			((Scalar<ObservableComputations.Common.Interface.IOrdering<int>>)sourceScalar).Touch();
 			test();
-			((Scalar<IBCode.ObservableComputations.Common.Interface.IOrdering<int>>)sourceScalar).Change(null);
+			((Scalar<ObservableComputations.Common.Interface.IOrdering<int>>)sourceScalar).Change(null);
 			test();
 		}
 		
 		[Test]
 		public void TestThenOrdering29()
 		{
-			Scalar<IBCode.ObservableComputations.Common.Interface.IOrdering<int>> sourceScalar = getScalar<IBCode.ObservableComputations.Common.Interface.IOrdering<int>>(getItems().Selecting(i => i.Num).Ordering(i => i, 32));
+			Scalar<ObservableComputations.Common.Interface.IOrdering<int>> sourceScalar = getScalar<ObservableComputations.Common.Interface.IOrdering<int>>(getItems().Selecting(i => i.Num).Ordering(i => i, 32));
 			System.Linq.Expressions.Expression<System.Func<int, int>> orderingValueSelectorExpression = i => i;
 			System.ComponentModel.ListSortDirection sortDirection = System.ComponentModel.ListSortDirection.Ascending;
 			int maxTogetherThenOrderings = 0;
@@ -71281,7 +71281,7 @@ namespace IBCode.ObservableComputations.Test
 			void test()
 			{
 				testing.ValidateConsistency();
-				var sourceScalarValue = ((ObservableCollection<Item>)((IBCode.ObservableComputations.Common.Interface.IOrdering<int>)sourceScalar.Value).GetValueAs(s => ((Ordering<int, int>)s)?.Source)?.GetValueAs(s => ((Selecting<Item, int>)s)?.Source));
+				var sourceScalarValue = ((ObservableCollection<Item>)((ObservableComputations.Common.Interface.IOrdering<int>)sourceScalar.Value).GetValueAs(s => ((Ordering<int, int>)s)?.Source)?.GetValueAs(s => ((Selecting<Item, int>)s)?.Source));
 
 				if (sourceScalarValue != null)
 				{		
@@ -71312,7 +71312,7 @@ namespace IBCode.ObservableComputations.Test
 				}
 
 				IList listSource;
-				listSource = ((IList)((IBCode.ObservableComputations.Common.Interface.IOrdering<int>)sourceScalar.Value).GetValueAs(s => ((Ordering<int, int>)s)?.Source)?.GetValueAs(s => ((Selecting<Item, int>)s)?.Source));
+				listSource = ((IList)((ObservableComputations.Common.Interface.IOrdering<int>)sourceScalar.Value).GetValueAs(s => ((Ordering<int, int>)s)?.Source)?.GetValueAs(s => ((Selecting<Item, int>)s)?.Source));
 				if (listSource != null)
 				{
 					listSource.Clear();
@@ -71332,16 +71332,16 @@ namespace IBCode.ObservableComputations.Test
 
 			test();
 
-			((Scalar<IBCode.ObservableComputations.Common.Interface.IOrdering<int>>)sourceScalar).Touch();
+			((Scalar<ObservableComputations.Common.Interface.IOrdering<int>>)sourceScalar).Touch();
 			test();
-			((Scalar<IBCode.ObservableComputations.Common.Interface.IOrdering<int>>)sourceScalar).Change(null);
+			((Scalar<ObservableComputations.Common.Interface.IOrdering<int>>)sourceScalar).Change(null);
 			test();
 		}
 		
 		[Test]
 		public void TestThenOrdering30()
 		{
-			Scalar<IBCode.ObservableComputations.Common.Interface.IOrdering<int>> sourceScalar = getScalar<IBCode.ObservableComputations.Common.Interface.IOrdering<int>>(getItems().Selecting(i => i.Num).Ordering(i => i, 32));
+			Scalar<ObservableComputations.Common.Interface.IOrdering<int>> sourceScalar = getScalar<ObservableComputations.Common.Interface.IOrdering<int>>(getItems().Selecting(i => i.Num).Ordering(i => i, 32));
 			System.Linq.Expressions.Expression<System.Func<int, int>> orderingValueSelectorExpression = i => i;
 			System.ComponentModel.ListSortDirection sortDirection = System.ComponentModel.ListSortDirection.Ascending;
 			
@@ -71352,7 +71352,7 @@ namespace IBCode.ObservableComputations.Test
 			void test()
 			{
 				testing.ValidateConsistency();
-				var sourceScalarValue = ((ObservableCollection<Item>)((IBCode.ObservableComputations.Common.Interface.IOrdering<int>)sourceScalar.Value).GetValueAs(s => ((Ordering<int, int>)s)?.Source)?.GetValueAs(s => ((Selecting<Item, int>)s)?.Source));
+				var sourceScalarValue = ((ObservableCollection<Item>)((ObservableComputations.Common.Interface.IOrdering<int>)sourceScalar.Value).GetValueAs(s => ((Ordering<int, int>)s)?.Source)?.GetValueAs(s => ((Selecting<Item, int>)s)?.Source));
 
 				if (sourceScalarValue != null)
 				{		
@@ -71383,7 +71383,7 @@ namespace IBCode.ObservableComputations.Test
 				}
 
 				IList listSource;
-				listSource = ((IList)((IBCode.ObservableComputations.Common.Interface.IOrdering<int>)sourceScalar.Value).GetValueAs(s => ((Ordering<int, int>)s)?.Source)?.GetValueAs(s => ((Selecting<Item, int>)s)?.Source));
+				listSource = ((IList)((ObservableComputations.Common.Interface.IOrdering<int>)sourceScalar.Value).GetValueAs(s => ((Ordering<int, int>)s)?.Source)?.GetValueAs(s => ((Selecting<Item, int>)s)?.Source));
 				if (listSource != null)
 				{
 					listSource.Clear();
@@ -71403,16 +71403,16 @@ namespace IBCode.ObservableComputations.Test
 
 			test();
 
-			((Scalar<IBCode.ObservableComputations.Common.Interface.IOrdering<int>>)sourceScalar).Touch();
+			((Scalar<ObservableComputations.Common.Interface.IOrdering<int>>)sourceScalar).Touch();
 			test();
-			((Scalar<IBCode.ObservableComputations.Common.Interface.IOrdering<int>>)sourceScalar).Change(null);
+			((Scalar<ObservableComputations.Common.Interface.IOrdering<int>>)sourceScalar).Change(null);
 			test();
 		}
 		
 		[Test]
 		public void TestThenOrdering31()
 		{
-			Scalar<IBCode.ObservableComputations.Common.Interface.IOrdering<int>> sourceScalar = getScalar<IBCode.ObservableComputations.Common.Interface.IOrdering<int>>(getItems().Selecting(i => i.Num).Ordering(i => i, 32));
+			Scalar<ObservableComputations.Common.Interface.IOrdering<int>> sourceScalar = getScalar<ObservableComputations.Common.Interface.IOrdering<int>>(getItems().Selecting(i => i.Num).Ordering(i => i, 32));
 			System.Linq.Expressions.Expression<System.Func<int, int>> orderingValueSelectorExpression = i => i;
 			Scalar<System.ComponentModel.ListSortDirection> sortDirectionScalar = getScalar<System.ComponentModel.ListSortDirection>(System.ComponentModel.ListSortDirection.Ascending);
 			System.Collections.Generic.IComparer<int> comparer = Comparer<int>.Default;
@@ -71427,7 +71427,7 @@ namespace IBCode.ObservableComputations.Test
 			void test()
 			{
 				testing.ValidateConsistency();
-				var sourceScalarValue = ((ObservableCollection<Item>)((IBCode.ObservableComputations.Common.Interface.IOrdering<int>)sourceScalar.Value).GetValueAs(s => ((Ordering<int, int>)s)?.Source)?.GetValueAs(s => ((Selecting<Item, int>)s)?.Source));
+				var sourceScalarValue = ((ObservableCollection<Item>)((ObservableComputations.Common.Interface.IOrdering<int>)sourceScalar.Value).GetValueAs(s => ((Ordering<int, int>)s)?.Source)?.GetValueAs(s => ((Selecting<Item, int>)s)?.Source));
 
 				if (sourceScalarValue != null)
 				{		
@@ -71458,7 +71458,7 @@ namespace IBCode.ObservableComputations.Test
 				}
 
 				IList listSource;
-				listSource = ((IList)((IBCode.ObservableComputations.Common.Interface.IOrdering<int>)sourceScalar.Value).GetValueAs(s => ((Ordering<int, int>)s)?.Source)?.GetValueAs(s => ((Selecting<Item, int>)s)?.Source));
+				listSource = ((IList)((ObservableComputations.Common.Interface.IOrdering<int>)sourceScalar.Value).GetValueAs(s => ((Ordering<int, int>)s)?.Source)?.GetValueAs(s => ((Selecting<Item, int>)s)?.Source));
 				if (listSource != null)
 				{
 					listSource.Clear();
@@ -71483,16 +71483,16 @@ namespace IBCode.ObservableComputations.Test
 			((Scalar<System.ComponentModel.ListSortDirection>)sortDirectionScalar).Change(System.ComponentModel.ListSortDirection.Descending);
 			test();
 
-			((Scalar<IBCode.ObservableComputations.Common.Interface.IOrdering<int>>)sourceScalar).Touch();
+			((Scalar<ObservableComputations.Common.Interface.IOrdering<int>>)sourceScalar).Touch();
 			test();
-			((Scalar<IBCode.ObservableComputations.Common.Interface.IOrdering<int>>)sourceScalar).Change(null);
+			((Scalar<ObservableComputations.Common.Interface.IOrdering<int>>)sourceScalar).Change(null);
 			test();
 		}
 		
 		[Test]
 		public void TestThenOrdering32()
 		{
-			Scalar<IBCode.ObservableComputations.Common.Interface.IOrdering<int>> sourceScalar = getScalar<IBCode.ObservableComputations.Common.Interface.IOrdering<int>>(getItems().Selecting(i => i.Num).Ordering(i => i, 32));
+			Scalar<ObservableComputations.Common.Interface.IOrdering<int>> sourceScalar = getScalar<ObservableComputations.Common.Interface.IOrdering<int>>(getItems().Selecting(i => i.Num).Ordering(i => i, 32));
 			System.Linq.Expressions.Expression<System.Func<int, int>> orderingValueSelectorExpression = i => i;
 			Scalar<System.ComponentModel.ListSortDirection> sortDirectionScalar = getScalar<System.ComponentModel.ListSortDirection>(System.ComponentModel.ListSortDirection.Ascending);
 			System.Collections.Generic.IComparer<int> comparer = Comparer<int>.Default;
@@ -71505,7 +71505,7 @@ namespace IBCode.ObservableComputations.Test
 			void test()
 			{
 				testing.ValidateConsistency();
-				var sourceScalarValue = ((ObservableCollection<Item>)((IBCode.ObservableComputations.Common.Interface.IOrdering<int>)sourceScalar.Value).GetValueAs(s => ((Ordering<int, int>)s)?.Source)?.GetValueAs(s => ((Selecting<Item, int>)s)?.Source));
+				var sourceScalarValue = ((ObservableCollection<Item>)((ObservableComputations.Common.Interface.IOrdering<int>)sourceScalar.Value).GetValueAs(s => ((Ordering<int, int>)s)?.Source)?.GetValueAs(s => ((Selecting<Item, int>)s)?.Source));
 
 				if (sourceScalarValue != null)
 				{		
@@ -71536,7 +71536,7 @@ namespace IBCode.ObservableComputations.Test
 				}
 
 				IList listSource;
-				listSource = ((IList)((IBCode.ObservableComputations.Common.Interface.IOrdering<int>)sourceScalar.Value).GetValueAs(s => ((Ordering<int, int>)s)?.Source)?.GetValueAs(s => ((Selecting<Item, int>)s)?.Source));
+				listSource = ((IList)((ObservableComputations.Common.Interface.IOrdering<int>)sourceScalar.Value).GetValueAs(s => ((Ordering<int, int>)s)?.Source)?.GetValueAs(s => ((Selecting<Item, int>)s)?.Source));
 				if (listSource != null)
 				{
 					listSource.Clear();
@@ -71561,16 +71561,16 @@ namespace IBCode.ObservableComputations.Test
 			((Scalar<System.ComponentModel.ListSortDirection>)sortDirectionScalar).Change(System.ComponentModel.ListSortDirection.Descending);
 			test();
 
-			((Scalar<IBCode.ObservableComputations.Common.Interface.IOrdering<int>>)sourceScalar).Touch();
+			((Scalar<ObservableComputations.Common.Interface.IOrdering<int>>)sourceScalar).Touch();
 			test();
-			((Scalar<IBCode.ObservableComputations.Common.Interface.IOrdering<int>>)sourceScalar).Change(null);
+			((Scalar<ObservableComputations.Common.Interface.IOrdering<int>>)sourceScalar).Change(null);
 			test();
 		}
 		
 		[Test]
 		public void TestThenOrdering33()
 		{
-			Scalar<IBCode.ObservableComputations.Common.Interface.IOrdering<int>> sourceScalar = getScalar<IBCode.ObservableComputations.Common.Interface.IOrdering<int>>(getItems().Selecting(i => i.Num).Ordering(i => i, 32));
+			Scalar<ObservableComputations.Common.Interface.IOrdering<int>> sourceScalar = getScalar<ObservableComputations.Common.Interface.IOrdering<int>>(getItems().Selecting(i => i.Num).Ordering(i => i, 32));
 			System.Linq.Expressions.Expression<System.Func<int, int>> orderingValueSelectorExpression = i => i;
 			System.Collections.Generic.IComparer<int> comparer = Comparer<int>.Default;
 			int maxTogetherThenOrderings = 0;
@@ -71583,7 +71583,7 @@ namespace IBCode.ObservableComputations.Test
 			void test()
 			{
 				testing.ValidateConsistency();
-				var sourceScalarValue = ((ObservableCollection<Item>)((IBCode.ObservableComputations.Common.Interface.IOrdering<int>)sourceScalar.Value).GetValueAs(s => ((Ordering<int, int>)s)?.Source)?.GetValueAs(s => ((Selecting<Item, int>)s)?.Source));
+				var sourceScalarValue = ((ObservableCollection<Item>)((ObservableComputations.Common.Interface.IOrdering<int>)sourceScalar.Value).GetValueAs(s => ((Ordering<int, int>)s)?.Source)?.GetValueAs(s => ((Selecting<Item, int>)s)?.Source));
 
 				if (sourceScalarValue != null)
 				{		
@@ -71614,7 +71614,7 @@ namespace IBCode.ObservableComputations.Test
 				}
 
 				IList listSource;
-				listSource = ((IList)((IBCode.ObservableComputations.Common.Interface.IOrdering<int>)sourceScalar.Value).GetValueAs(s => ((Ordering<int, int>)s)?.Source)?.GetValueAs(s => ((Selecting<Item, int>)s)?.Source));
+				listSource = ((IList)((ObservableComputations.Common.Interface.IOrdering<int>)sourceScalar.Value).GetValueAs(s => ((Ordering<int, int>)s)?.Source)?.GetValueAs(s => ((Selecting<Item, int>)s)?.Source));
 				if (listSource != null)
 				{
 					listSource.Clear();
@@ -71634,16 +71634,16 @@ namespace IBCode.ObservableComputations.Test
 
 			test();
 
-			((Scalar<IBCode.ObservableComputations.Common.Interface.IOrdering<int>>)sourceScalar).Touch();
+			((Scalar<ObservableComputations.Common.Interface.IOrdering<int>>)sourceScalar).Touch();
 			test();
-			((Scalar<IBCode.ObservableComputations.Common.Interface.IOrdering<int>>)sourceScalar).Change(null);
+			((Scalar<ObservableComputations.Common.Interface.IOrdering<int>>)sourceScalar).Change(null);
 			test();
 		}
 		
 		[Test]
 		public void TestThenOrdering34()
 		{
-			Scalar<IBCode.ObservableComputations.Common.Interface.IOrdering<int>> sourceScalar = getScalar<IBCode.ObservableComputations.Common.Interface.IOrdering<int>>(getItems().Selecting(i => i.Num).Ordering(i => i, 32));
+			Scalar<ObservableComputations.Common.Interface.IOrdering<int>> sourceScalar = getScalar<ObservableComputations.Common.Interface.IOrdering<int>>(getItems().Selecting(i => i.Num).Ordering(i => i, 32));
 			System.Linq.Expressions.Expression<System.Func<int, int>> orderingValueSelectorExpression = i => i;
 			System.Collections.Generic.IComparer<int> comparer = Comparer<int>.Default;
 			
@@ -71654,7 +71654,7 @@ namespace IBCode.ObservableComputations.Test
 			void test()
 			{
 				testing.ValidateConsistency();
-				var sourceScalarValue = ((ObservableCollection<Item>)((IBCode.ObservableComputations.Common.Interface.IOrdering<int>)sourceScalar.Value).GetValueAs(s => ((Ordering<int, int>)s)?.Source)?.GetValueAs(s => ((Selecting<Item, int>)s)?.Source));
+				var sourceScalarValue = ((ObservableCollection<Item>)((ObservableComputations.Common.Interface.IOrdering<int>)sourceScalar.Value).GetValueAs(s => ((Ordering<int, int>)s)?.Source)?.GetValueAs(s => ((Selecting<Item, int>)s)?.Source));
 
 				if (sourceScalarValue != null)
 				{		
@@ -71685,7 +71685,7 @@ namespace IBCode.ObservableComputations.Test
 				}
 
 				IList listSource;
-				listSource = ((IList)((IBCode.ObservableComputations.Common.Interface.IOrdering<int>)sourceScalar.Value).GetValueAs(s => ((Ordering<int, int>)s)?.Source)?.GetValueAs(s => ((Selecting<Item, int>)s)?.Source));
+				listSource = ((IList)((ObservableComputations.Common.Interface.IOrdering<int>)sourceScalar.Value).GetValueAs(s => ((Ordering<int, int>)s)?.Source)?.GetValueAs(s => ((Selecting<Item, int>)s)?.Source));
 				if (listSource != null)
 				{
 					listSource.Clear();
@@ -71705,16 +71705,16 @@ namespace IBCode.ObservableComputations.Test
 
 			test();
 
-			((Scalar<IBCode.ObservableComputations.Common.Interface.IOrdering<int>>)sourceScalar).Touch();
+			((Scalar<ObservableComputations.Common.Interface.IOrdering<int>>)sourceScalar).Touch();
 			test();
-			((Scalar<IBCode.ObservableComputations.Common.Interface.IOrdering<int>>)sourceScalar).Change(null);
+			((Scalar<ObservableComputations.Common.Interface.IOrdering<int>>)sourceScalar).Change(null);
 			test();
 		}
 		
 		[Test]
 		public void TestThenOrdering35()
 		{
-			Scalar<IBCode.ObservableComputations.Common.Interface.IOrdering<int>> sourceScalar = getScalar<IBCode.ObservableComputations.Common.Interface.IOrdering<int>>(getItems().Selecting(i => i.Num).Ordering(i => i, 32));
+			Scalar<ObservableComputations.Common.Interface.IOrdering<int>> sourceScalar = getScalar<ObservableComputations.Common.Interface.IOrdering<int>>(getItems().Selecting(i => i.Num).Ordering(i => i, 32));
 			System.Linq.Expressions.Expression<System.Func<int, int>> orderingValueSelectorExpression = i => i;
 			System.ComponentModel.ListSortDirection sortDirection = System.ComponentModel.ListSortDirection.Ascending;
 			System.Collections.Generic.IComparer<int> comparer = Comparer<int>.Default;
@@ -71729,7 +71729,7 @@ namespace IBCode.ObservableComputations.Test
 			void test()
 			{
 				testing.ValidateConsistency();
-				var sourceScalarValue = ((ObservableCollection<Item>)((IBCode.ObservableComputations.Common.Interface.IOrdering<int>)sourceScalar.Value).GetValueAs(s => ((Ordering<int, int>)s)?.Source)?.GetValueAs(s => ((Selecting<Item, int>)s)?.Source));
+				var sourceScalarValue = ((ObservableCollection<Item>)((ObservableComputations.Common.Interface.IOrdering<int>)sourceScalar.Value).GetValueAs(s => ((Ordering<int, int>)s)?.Source)?.GetValueAs(s => ((Selecting<Item, int>)s)?.Source));
 
 				if (sourceScalarValue != null)
 				{		
@@ -71760,7 +71760,7 @@ namespace IBCode.ObservableComputations.Test
 				}
 
 				IList listSource;
-				listSource = ((IList)((IBCode.ObservableComputations.Common.Interface.IOrdering<int>)sourceScalar.Value).GetValueAs(s => ((Ordering<int, int>)s)?.Source)?.GetValueAs(s => ((Selecting<Item, int>)s)?.Source));
+				listSource = ((IList)((ObservableComputations.Common.Interface.IOrdering<int>)sourceScalar.Value).GetValueAs(s => ((Ordering<int, int>)s)?.Source)?.GetValueAs(s => ((Selecting<Item, int>)s)?.Source));
 				if (listSource != null)
 				{
 					listSource.Clear();
@@ -71780,16 +71780,16 @@ namespace IBCode.ObservableComputations.Test
 
 			test();
 
-			((Scalar<IBCode.ObservableComputations.Common.Interface.IOrdering<int>>)sourceScalar).Touch();
+			((Scalar<ObservableComputations.Common.Interface.IOrdering<int>>)sourceScalar).Touch();
 			test();
-			((Scalar<IBCode.ObservableComputations.Common.Interface.IOrdering<int>>)sourceScalar).Change(null);
+			((Scalar<ObservableComputations.Common.Interface.IOrdering<int>>)sourceScalar).Change(null);
 			test();
 		}
 		
 		[Test]
 		public void TestThenOrdering36()
 		{
-			Scalar<IBCode.ObservableComputations.Common.Interface.IOrdering<int>> sourceScalar = getScalar<IBCode.ObservableComputations.Common.Interface.IOrdering<int>>(getItems().Selecting(i => i.Num).Ordering(i => i, 32));
+			Scalar<ObservableComputations.Common.Interface.IOrdering<int>> sourceScalar = getScalar<ObservableComputations.Common.Interface.IOrdering<int>>(getItems().Selecting(i => i.Num).Ordering(i => i, 32));
 			System.Linq.Expressions.Expression<System.Func<int, int>> orderingValueSelectorExpression = i => i;
 			System.ComponentModel.ListSortDirection sortDirection = System.ComponentModel.ListSortDirection.Ascending;
 			System.Collections.Generic.IComparer<int> comparer = Comparer<int>.Default;
@@ -71802,7 +71802,7 @@ namespace IBCode.ObservableComputations.Test
 			void test()
 			{
 				testing.ValidateConsistency();
-				var sourceScalarValue = ((ObservableCollection<Item>)((IBCode.ObservableComputations.Common.Interface.IOrdering<int>)sourceScalar.Value).GetValueAs(s => ((Ordering<int, int>)s)?.Source)?.GetValueAs(s => ((Selecting<Item, int>)s)?.Source));
+				var sourceScalarValue = ((ObservableCollection<Item>)((ObservableComputations.Common.Interface.IOrdering<int>)sourceScalar.Value).GetValueAs(s => ((Ordering<int, int>)s)?.Source)?.GetValueAs(s => ((Selecting<Item, int>)s)?.Source));
 
 				if (sourceScalarValue != null)
 				{		
@@ -71833,7 +71833,7 @@ namespace IBCode.ObservableComputations.Test
 				}
 
 				IList listSource;
-				listSource = ((IList)((IBCode.ObservableComputations.Common.Interface.IOrdering<int>)sourceScalar.Value).GetValueAs(s => ((Ordering<int, int>)s)?.Source)?.GetValueAs(s => ((Selecting<Item, int>)s)?.Source));
+				listSource = ((IList)((ObservableComputations.Common.Interface.IOrdering<int>)sourceScalar.Value).GetValueAs(s => ((Ordering<int, int>)s)?.Source)?.GetValueAs(s => ((Selecting<Item, int>)s)?.Source));
 				if (listSource != null)
 				{
 					listSource.Clear();
@@ -71853,9 +71853,9 @@ namespace IBCode.ObservableComputations.Test
 
 			test();
 
-			((Scalar<IBCode.ObservableComputations.Common.Interface.IOrdering<int>>)sourceScalar).Touch();
+			((Scalar<ObservableComputations.Common.Interface.IOrdering<int>>)sourceScalar).Touch();
 			test();
-			((Scalar<IBCode.ObservableComputations.Common.Interface.IOrdering<int>>)sourceScalar).Change(null);
+			((Scalar<ObservableComputations.Common.Interface.IOrdering<int>>)sourceScalar).Change(null);
 			test();
 		}
 		#endregion

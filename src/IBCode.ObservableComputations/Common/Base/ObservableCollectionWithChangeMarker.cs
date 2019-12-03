@@ -4,9 +4,9 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using IBCode.ObservableComputations.Common.Interface;
+using ObservableComputations.Common.Interface;
 
-namespace IBCode.ObservableComputations.Common.Base
+namespace ObservableComputations.Common.Base
 {
 	public class ObservableCollectionWithChangeMarker<TItem> : ObservableCollection<TItem>, IHasChangeMarker
 	{

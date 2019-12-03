@@ -9,7 +9,7 @@ using System.Runtime.CompilerServices;
 using System.Threading;
 using NUnit.Framework;
 
-namespace IBCode.ObservableComputations.Test
+namespace ObservableComputations.Test
 {
 	[TestFixture]
 	public class PredicateGroupJoiningTests

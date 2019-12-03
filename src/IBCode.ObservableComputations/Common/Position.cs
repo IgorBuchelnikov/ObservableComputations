@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Diagnostics.Contracts;
 
-namespace IBCode.ObservableComputations.Common
+namespace ObservableComputations.Common
 {
 	internal readonly struct Positions<TPosition> where TPosition : Position, new()
 	{

@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel;
-using IBCode.ObservableComputations.Common.Interface;
+using ObservableComputations.Common.Interface;
 
-namespace IBCode.ObservableComputations.Test
+namespace ObservableComputations.Test
 {
 		public class Scalar<TValue> : IReadScalar<TValue>
 		{

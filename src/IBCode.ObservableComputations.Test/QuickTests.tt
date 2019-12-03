@@ -5,7 +5,7 @@
 <#@ import namespace="System.Collections.Generic" #> 
 <#@ import namespace="System.Text.RegularExpressions" #> 
 <#@ output extension=".generated.cs"#>
-<#@ include file=".\..\IBCode.ObservableComputations\ExtensionMethods.ttinclude" #>
+<#@ include file=".\..\ObservableComputations\ExtensionMethods.ttinclude" #>
 using System;
 using System.Linq;
 using System.Collections;
@@ -13,10 +13,10 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Collections.ObjectModel;
 using NUnit.Framework;
-using IBCode.ObservableComputations.Common;
-using IBCode.ObservableComputations.Common.Interface;
+using ObservableComputations.Common;
+using ObservableComputations.Common.Interface;
 
-namespace IBCode.ObservableComputations.Test
+namespace ObservableComputations.Test
 {
 	[TestFixture]
 	public partial class QuickTests
@@ -252,7 +252,7 @@ namespace IBCode.ObservableComputations.Test
 			type = type.Replace("TResult", "double");
 		else
 			type = type.Replace("TResult", "int");
-		type = type.Replace("IBCode.ObservableComputations.Common.Interface.IReadScalar", "Scalar");
+		type = type.Replace("ObservableComputations.Common.Interface.IReadScalar", "Scalar");
 		return type;
 	}
 
@@ -384,7 +384,7 @@ namespace IBCode.ObservableComputations.Test
 			case "int":
 				result =  argumentName.Contains("count") ? "3" : "0";
 				break;
-			case "IBCode.ObservableComputations.Common.Interface.IOrdering<TSourceItem>":
+			case "ObservableComputations.Common.Interface.IOrdering<TSourceItem>":
 				result =  "getItems().Selecting(i => i.Num).Ordering(i => i, 32)";
 				sourceAccessor = ".GetValueAs(s => ((Ordering<int, int>)s)?.Source)?.GetValueAs(s => ((Selecting<Item, int>)s)?.Source)";
 				break;
@@ -469,7 +469,7 @@ namespace IBCode.ObservableComputations.Test
 			case "int":
 				result.Add(argumentName.Contains("count") ? "4" : "1");
 				break;
-			case "IBCode.ObservableComputations.Common.Interface.IOrdering<int>":
+			case "ObservableComputations.Common.Interface.IOrdering<int>":
 				result.Add("null");
 				break;
 			case "string":

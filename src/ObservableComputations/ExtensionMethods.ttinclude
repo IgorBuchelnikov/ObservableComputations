@@ -9,10 +9,10 @@
 <#@ include file=".\VisualStudioHelper.ttinclude" #>
 
 <#+
+	public string[] ExpressionArgumentNames = new []{"PREDICATE", "SELECTOR", "GETVALUEEXPRESSION"};
+
 	public IEnumerable<ExtentionMethod> GetExtentionMethods()
 	{
-		string[] expressionArgumentNames = new []{"PREDICATE", "SELECTOR", "GETVALUEEXPRESSION"};
-
 		try
 		{
 			List<ExtentionMethod> result = new List<ExtentionMethod>();
@@ -106,7 +106,7 @@
 
 						foreach (ExtentionMethodArgumentVariants argumentVariants in variantsList)
 						{
-							if (expressionArgumentNames.Any(an => argumentVariants.Name.ToUpper().Contains(an))) continue;
+							if (ExpressionArgumentNames.Any(an => argumentVariants.Name.ToUpper().Contains(an))) continue;
 
 							List<string> newTypes = new List<string>();
 							if (argumentVariants.Types.Count > 0)
@@ -329,5 +329,10 @@
 
 		public string Type;
 		public string DefaultValue;
+	}
+
+    public bool IsComputingArgument(ExtentionMethodArgument argument)
+	{
+		return argument.Type.Contains("Func") && argument.Type.Contains("Expression") && !ExpressionArgumentNames.Any(an => argument.Name.ToUpper().Contains(an));
 	}
 #>

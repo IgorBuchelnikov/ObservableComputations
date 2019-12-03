@@ -20,7 +20,7 @@ namespace ObservableComputations
 	public static partial class ExtensionMethods
 	{
 <#
-	string[] expressionArgumentNames = new []{"PREDICATE", "SELECTOR", "GETVALUEEXPRESSION"};
+
 
 	IEnumerable<IGrouping<string, ExtentionMethod>> extentionMethodGroups = null;
 	try
@@ -55,7 +55,7 @@ namespace ObservableComputations
 			foreach (ExtentionMethodArgument argument in signatureArguments )
 			{
 #>
-			 <#=argument.Type#> <#=GetAdjustedArgumentName(argument, expressionArgumentNames)#><#=index == signatureArguments.Count() - 1 ? ")" : ","#>
+			 <#=argument.Type#> <#=GetAdjustedArgumentName(argument)#><#=index == signatureArguments.Count() - 1 ? ")" : ","#>
 <#
 				index++;
 			}
@@ -68,7 +68,7 @@ namespace ObservableComputations
 			foreach (ExtentionMethodArgument argument in extentionMethod.Arguments)
 			{
 #>
-				<#=argument.Name#>: <#=GetAdjustedArgumentValue(argument, expressionArgumentNames)#><#=index == extentionMethod.Arguments.Count - 1 ? ");" : ","#>
+				<#=argument.Name#>: <#=GetAdjustedArgumentValue(argument)#><#=index == extentionMethod.Arguments.Count - 1 ? ");" : ","#>
 <#
 				index++;
 			}
@@ -85,9 +85,9 @@ namespace ObservableComputations
 	}
 }
 <#+
-	public string GetAdjustedArgumentName(ExtentionMethodArgument argument, string[] expressionArgumentNames)
+	public string GetAdjustedArgumentName(ExtentionMethodArgument argument)
 	{
-		if (IsComputingArgument(argument, expressionArgumentNames))
+		if (IsComputingArgument(argument))
 		{
 			return argument.Name.Replace("Scalar", "Expression");
 		}
@@ -97,15 +97,15 @@ namespace ObservableComputations
 		}
 	}
 
-	public string GetAdjustedArgumentValue(ExtentionMethodArgument argument, string[] expressionArgumentNames)
+	public string GetAdjustedArgumentValue(ExtentionMethodArgument argument)
 	{
 		if  (argument.DefaultValue == null)
 		{
-			if (IsComputingArgument(argument, expressionArgumentNames))
+			if (IsComputingArgument(argument))
 			{
 				Regex returnTypeRegex = new Regex("Expression<Func<(.+)>>");
 				string returnType = returnTypeRegex.Match(argument.Type).Groups[1].Value;
-				return "new Computing<" + returnType + ">(" + GetAdjustedArgumentName(argument, expressionArgumentNames) + ")";
+				return "new Computing<" + returnType + ">(" + GetAdjustedArgumentName(argument) + ")";
 			}
 			else
 			{
@@ -117,10 +117,4 @@ namespace ObservableComputations
 			return argument.DefaultValue;
 		}
 	}
-
-	public bool IsComputingArgument(ExtentionMethodArgument argument, string[] expressionArgumentNames)
-	{
-		return argument.Type.Contains("Func") && argument.Type.Contains("Expression") && !expressionArgumentNames.Any(an => argument.Name.ToUpper().Contains(an));
-	}
-
 #>

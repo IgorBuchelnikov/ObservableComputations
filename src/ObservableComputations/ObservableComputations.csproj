@@ -7,24 +7,25 @@
     <LangVersion>7.3</LangVersion>
     <DelaySign>false</DelaySign>
     <AssemblyOriginatorKeyFile>assembly_strong_name_key.snk</AssemblyOriginatorKeyFile>
-    <Authors>Buchelnokov Igor (igor_buchelnikov_github@mail.ru)</Authors>
-    <Company>IBCode</Company>
+    <Authors>Igor Buchelnokov  (igor_buchelnikov_github@mail.ru)</Authors>
+    <Company></Company>
     <Description>Computations over INotifyPropertyChanged and INotifyColectionChanged (ObservableCollection) objects.  Results of the computations are INotifyPropertyChanged and INotifyCollectionChanged (ObservableCollection) objects. The computations includes ones similar to LINQ and the computation of arbitrary expression. ObservableComputations are implemented as extension methods, like LINQ ones. ObservableComputations is implementation of reactive programming paradigm</Description>
     <PackageLicenseUrl>https://github.com/IgorBuchelnikov/ObservableComputations/blob/master/LICENSE</PackageLicenseUrl>
     <PackageProjectUrl>https://github.com/IgorBuchelnikov/ObservableComputations</PackageProjectUrl>
     <RepositoryUrl>https://github.com/IgorBuchelnikov/ObservableComputations.git</RepositoryUrl>
     <RepositoryType>Git</RepositoryType>
-    <PackageTags>INotifyPropertyChanged INotifyCollectionChanged ObservableCollection observable computations observer react reactive data binding bindable bind continuous live dynamic fresh linq declarative functional programming paradigm</PackageTags>
+    <PackageTags>INotifyPropertyChanged INotifyCollectionChanged ObservableCollection observable computation observer react reactive data view binding bindable bind binding continuous live dynamic fresh linq declarative functional programming paradigm</PackageTags>
     <NeutralLanguage>en</NeutralLanguage>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
     <PackageReleaseNotes>Initial release</PackageReleaseNotes>
-    <Version>1.0.1</Version>
+    <Version>1.0.0</Version>
     <AssemblyName>ObservableComputations</AssemblyName>
     <PackageId>ObservableComputations</PackageId>
     <Product>ObservableComputations</Product>
     <AssemblyVersion>1.0.0.0</AssemblyVersion>
     <FileVersion>1.0.0.0</FileVersion>
+    <PackageIconUrl>http://files.rsdn.org/82898/icon_32x32.ico</PackageIconUrl>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net472|x86'">

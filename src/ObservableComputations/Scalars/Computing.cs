@@ -18,6 +18,7 @@ namespace ObservableComputations
 		private readonly ExpressionWatcher _getValueExpressionWatcher;
 		private readonly bool _isDefaulted;
 
+		[ObservableComputationsCall]
 		public Computing(
 			Expression<Func<TResult>> getValueExpression)
 		{

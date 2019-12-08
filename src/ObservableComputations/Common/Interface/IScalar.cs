@@ -2,9 +2,9 @@
 
 namespace ObservableComputations.Common.Interface
 {
-	public interface IScalar<ValueType> : IScalar
+	public interface IScalar<TValue> : IScalar
 	{
-		ValueType Value { get; set;}
+		TValue Value { get; set;}
 	}
 
 	public interface IScalar : System.ComponentModel.INotifyPropertyChanged
@@ -13,13 +13,13 @@ namespace ObservableComputations.Common.Interface
 		Type ValueType {get;}
 	}
 
-	public interface IReadScalar<out ValueType> : System.ComponentModel.INotifyPropertyChanged
+	public interface IReadScalar<out TValue> : System.ComponentModel.INotifyPropertyChanged
 	{
-		ValueType Value { get;}
+		TValue Value { get;}
 	}
 
-	public interface IWriteScalar<in ValueType> : System.ComponentModel.INotifyPropertyChanged
+	public interface IWriteScalar<in TValue> : System.ComponentModel.INotifyPropertyChanged
 	{
-		ValueType Value { set;}
+		TValue Value { set;}
 	}
 }

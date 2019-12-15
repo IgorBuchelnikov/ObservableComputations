@@ -8,7 +8,7 @@ namespace ObservableComputations.Common.Interface
 {
 	public interface IConsistent
 	{
-		bool Consistent {get;}
+		bool IsConsistent {get;}
 		event EventHandler ConsistencyRestored;
 
 	}

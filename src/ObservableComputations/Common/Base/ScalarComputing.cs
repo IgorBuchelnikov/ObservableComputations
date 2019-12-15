@@ -69,17 +69,17 @@ namespace ObservableComputations.Common
 
 		protected void setValue(TValue value)
 		{
-			if (!_consistent)
+			if (!_isConsistent)
 				throw new ObservableComputationsException(
-					"The source collection has been changed. It is not possible to process this change, as the processing of the previous change is not completed. Make the change on PropertyChanged or PostValueChanged events raising (after Consistent property becomes true). This exception is fatal and cannot be handled as the inner state is damaged.");
-			_consistent = false;
+					"The source collection has been changed. It is not possible to process this change, as the processing of the previous change is not completed. Make the change on ConsistencyRestored event raising (after IsConsistent property becomes true). This exception is fatal and cannot be handled as the inner state is damaged.");
+			_isConsistent = false;
 
 			_newValue = value;
 			PreValueChanged?.Invoke(this, null);
 
 			_value = value;
 			_newValue = default;
-			_consistent = true;
+			_isConsistent = true;
 			PropertyChanged?.Invoke(this, Utils.ValuePropertyChangedEventArgs);
 			PropertyChanged?.Invoke(this, Utils.ValueObjectPropertyChangedEventArgs);
 			PostValueChanged?.Invoke(this, null);		
@@ -90,8 +90,8 @@ namespace ObservableComputations.Common
 			PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
 		}
 
-		protected bool _consistent = true;
-		public bool Consistent => _consistent;
+		protected bool _isConsistent = true;
+		public bool IsConsistent => _isConsistent;
 		public event EventHandler ConsistencyRestored;
 
 

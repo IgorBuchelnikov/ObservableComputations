@@ -123,11 +123,11 @@ namespace ObservableComputations
 			if (e.PropertyName != nameof(IReadScalar<INotifyCollectionChanged>.Value)) return;
 			checkConsistent();
 
-			_consistent = false;
+			_isConsistent = false;
 
 			initializeFromSource();
 
-			_consistent = true;
+			_isConsistent = true;
 			raiseConsistencyRestored();
 		}
 
@@ -139,7 +139,7 @@ namespace ObservableComputations
 				_indexerPropertyChangedEventRaised = false;
 
 				checkConsistent();
-				_consistent = false;
+				_isConsistent = false;
 
 				switch (e.Action)
 				{
@@ -170,7 +170,7 @@ namespace ObservableComputations
 						break;
 				}	
 				
-				_consistent = true;
+				_isConsistent = true;
 				raiseConsistencyRestored();
 			}
 

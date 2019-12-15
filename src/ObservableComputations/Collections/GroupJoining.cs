@@ -421,18 +421,18 @@ namespace ObservableComputations
 		{
 			if (e.PropertyName != nameof(IReadScalar<object>.Value)) return;
 			checkConsistent();
-			_consistent = false;
+			_isConsistent = false;
 
 			initializeFromOuterSource();
 
-			_consistent = true;
+			_isConsistent = true;
 			raiseConsistencyRestored();
 		}
 
 		private void handleGroupingCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
 		{
 			checkConsistent();
-			_consistent = false;
+			_isConsistent = false;
 
 			switch (e.Action)
 			{
@@ -471,7 +471,7 @@ namespace ObservableComputations
 					break;
 			}
 
-			_consistent = true;
+			_isConsistent = true;
 			raiseConsistencyRestored();
 		}
 
@@ -489,7 +489,7 @@ namespace ObservableComputations
 			_lastProcessedSourceChangeMarker = !_lastProcessedSourceChangeMarker;
 
 			checkConsistent();
-			_consistent = false;
+			_isConsistent = false;
 
 			switch (e.Action)
 			{
@@ -559,7 +559,7 @@ namespace ObservableComputations
 						processExpressionWatcherValueChanged(expressionWatcher);
 				} 
 
-			_consistent = true;
+			_isConsistent = true;
 			raiseConsistencyRestored();
 		}
 
@@ -569,9 +569,9 @@ namespace ObservableComputations
 
 			if (_outerRootSourceWrapper || _outerSourceAsList.ChangeMarker == _lastProcessedSourceChangeMarker)
 			{
-				_consistent = false;
+				_isConsistent = false;
 				processExpressionWatcherValueChanged(expressionWatcher);
-				_consistent = true;
+				_isConsistent = true;
 				raiseConsistencyRestored();
 			}
 			else

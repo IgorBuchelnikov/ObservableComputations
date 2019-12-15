@@ -322,11 +322,11 @@ namespace ObservableComputations
 		{
 			if (e.PropertyName != nameof(IReadScalar<INotifyCollectionChanged>.Value)) return;
 			checkConsistent();
-			_consistent = false;
+			_isConsistent = false;
 
 			initializeFromSources();
 
-			_consistent = true;
+			_isConsistent = true;
 			raiseConsistencyRestored();
 		}
 
@@ -338,7 +338,7 @@ namespace ObservableComputations
 				_lastProcessedLeftSourceChangeMarker = !_lastProcessedLeftSourceChangeMarker;
 
 				checkConsistent();
-				_consistent = false;
+				_isConsistent = false;
 
 				int newIndex;
 				int oldIndex;
@@ -449,7 +449,7 @@ namespace ObservableComputations
 						break;
 				}
 
-				_consistent = true;
+				_isConsistent = true;
 				raiseConsistencyRestored();
 			}
 		}
@@ -462,7 +462,7 @@ namespace ObservableComputations
 				_lastProcessedRightSourceChangeMarker = !_lastProcessedRightSourceChangeMarker;
 
 				checkConsistent();
-				_consistent = false;
+				_isConsistent = false;
 
 				int newIndex;
 				int oldIndex;
@@ -559,7 +559,7 @@ namespace ObservableComputations
 						break;
 				}
 
-				_consistent = true;
+				_isConsistent = true;
 				raiseConsistencyRestored();
 			}
 		}

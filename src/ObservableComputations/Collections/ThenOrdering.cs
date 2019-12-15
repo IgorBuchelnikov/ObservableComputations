@@ -315,12 +315,12 @@ namespace ObservableComputations
 			if (e.PropertyName != nameof(IReadScalar<object>.Value)) return;
 			checkConsistent();
 
-			_consistent = false;
+			_isConsistent = false;
 
 			_comparer = _comparerScalar.Value ?? Comparer<TOrderingValue>.Default;
 			initializeFromSource();
 
-			_consistent = true;
+			_isConsistent = true;
 			raiseConsistencyRestored();
 		}
 
@@ -330,18 +330,18 @@ namespace ObservableComputations
 			if (e.PropertyName != nameof(IReadScalar<object>.Value)) return;
 			checkConsistent();
 
-			_consistent = false;
+			_isConsistent = false;
 			_sortDirection = _sortDirectionScalar.Value;
 			initializeFromSource();
 
-			_consistent = true;
+			_isConsistent = true;
 			raiseConsistencyRestored();
 
 
 			//if (e.PropertyName != nameof(IReadScalar<object>.Value)) return;
 			//checkConsistent();
 		
-			//_consistent = false;
+			//_isConsistent = false;
 			//ListSortDirection newListSortDirection = _sortDirectionScalar.Value;
 			//if (_sortDirection != newListSortDirection)
 			//{
@@ -391,7 +391,7 @@ namespace ObservableComputations
 			//	}
 			//}
 
-			//_consistent = true;
+			//_isConsistent = true;
 			//raiseConsistencyRestored();
 		}
 
@@ -501,11 +501,11 @@ namespace ObservableComputations
 		{
 			if (e.PropertyName != nameof(IReadScalar<object>.Value)) return;
 			checkConsistent();
-			_consistent = false;
+			_isConsistent = false;
 
 			initializeFromSource();
 
-			_consistent = true;
+			_isConsistent = true;
 			raiseConsistencyRestored();
 		}
 
@@ -688,7 +688,7 @@ namespace ObservableComputations
 					break;
 
 				case NotifyCollectionChangedAction.Replace:
-					_consistent = false;
+					_isConsistent = false;
 					_replacing = true;
 					int replacingSourceIndex = e.NewStartingIndex;
 					TSourceItem replacingSourceItem = _sourceAsList[replacingSourceIndex];
@@ -714,11 +714,11 @@ namespace ObservableComputations
 					processSourceItemChange(newStartingIndex, false);
 					break;
 				case NotifyCollectionChangedAction.Reset:
-					_consistent = false;
+					_isConsistent = false;
 
 					initializeFromSource();
 
-					_consistent = true;
+					_isConsistent = true;
 					raiseConsistencyRestored();
 					break;
 			}
@@ -741,7 +741,7 @@ namespace ObservableComputations
 
 			if (_sourceAsList == null || _rootSourceWrapper || _sourceAsList.ChangeMarker ==_lastProcessedSourceChangeMarker)
 			{
-				_consistent = false;
+				_isConsistent = false;
 				processSourceItemChange(expressionWatcher._position.Index, true);
 			}
 			else
@@ -833,9 +833,9 @@ namespace ObservableComputations
 			}
 
 
-			if (!_consistent)
+			if (!_isConsistent)
 			{
-				_consistent = true;
+				_isConsistent = true;
 				_replacing = false;
 				raiseConsistencyRestored();
 			}

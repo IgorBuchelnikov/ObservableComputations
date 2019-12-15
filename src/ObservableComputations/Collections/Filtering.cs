@@ -304,11 +304,11 @@ namespace ObservableComputations
 			if (e.PropertyName != nameof(IReadScalar<object>.Value)) return;
 			checkConsistent();
 
-			_consistent = false;
+			_isConsistent = false;
 
 			initializeFromSource();
 
-			_consistent = true;
+			_isConsistent = true;
 			raiseConsistencyRestored();
 		}
 
@@ -318,7 +318,7 @@ namespace ObservableComputations
 			_lastProcessedSourceChangeMarker = !_lastProcessedSourceChangeMarker;
 
 			checkConsistent();
-			_consistent = false;
+			_isConsistent = false;
 
 			switch (e.Action)
 			{
@@ -486,7 +486,7 @@ namespace ObservableComputations
 						processChangeSourceItem(expressionWatcher._position.Index);
 				} 
 
-			_consistent = true;
+			_isConsistent = true;
 			raiseConsistencyRestored();
 		}
 

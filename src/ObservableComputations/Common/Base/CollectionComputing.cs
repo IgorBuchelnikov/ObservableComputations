@@ -226,14 +226,12 @@ namespace ObservableComputations.Common
 
 		public Type ItemType => typeof(TItem);
 
-
-
 		protected int _initialCapacity;
 		// ReSharper disable once MemberCanBePrivate.Global
 		public string InstantiatingStackTrace { get; }
 
-		protected bool _consistent = true;
-		public bool Consistent => _consistent;
+		protected bool _isConsistent = true;
+		public bool IsConsistent => _isConsistent;
 		public event EventHandler ConsistencyRestored;
 
 		protected void raiseConsistencyRestored()
@@ -243,9 +241,9 @@ namespace ObservableComputations.Common
 
 		protected void checkConsistent()
 		{
-			if (!_consistent)
+			if (!_isConsistent)
 				throw new ObservableComputationsException(
-					"The source collection has been changed. It is not possible to process this change, as the processing of the previous change is not completed. Make the change on ConsistencyRestored event raising (after Consistent property becomes true). This exception is fatal and cannot be handled as the inner state is damaged.");
+					"The source collection has been changed. It is not possible to process this change, as the processing of the previous change is not completed. Make the change on ConsistencyRestored event raising (after IsConsistent property becomes true). This exception is fatal and cannot be handled as the inner state is damaged.");
 		}
 	}
 

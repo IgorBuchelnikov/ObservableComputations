@@ -40,7 +40,6 @@ namespace ObservableComputations
 		private readonly Expression<Func<TSourceItem, bool>> _predicateExpression;
 		private readonly Expression<Func<TSourceItem, bool>> _predicateExpressionOriginal;
 
-
 		private Positions<Position> _filteredPositions;	
 		private Positions<ItemInfo> _sourcePositions;
 		private List<ItemInfo> _itemInfos;
@@ -49,9 +48,6 @@ namespace ObservableComputations
 
 		private NotifyCollectionChangedEventHandler _sourceNotifyCollectionChangedEventHandler;
 		private WeakNotifyCollectionChangedEventHandler _sourceWeakNotifyCollectionChangedEventHandler;
-
-		private readonly ConstructTransformSourceItemIntoMemberActionVisitor 
-			_constructTransformSourceItemIntoMemberActionVisitor = new ConstructTransformSourceItemIntoMemberActionVisitor();
 
 		// ReSharper disable once PrivateFieldCanBeConvertedToLocalVariable
 		private readonly PropertyChangedEventHandler _sourceScalarPropertyChangedEventHandler;
@@ -115,28 +111,35 @@ namespace ObservableComputations
 				// ReSharper disable once PossibleNullReferenceException
 				_predicateFunc = _predicateExpression.Compile();
 			}
-
-			if (Configuration.AutoConstructFilteringInsertAndRemoveItemAction)
-			{
-				_constructTransformSourceItemIntoMemberActionVisitor.Visit(predicateExpression);
-
-				Action<TSourceItem> transformSourceItemIntoMember =
-					_constructTransformSourceItemIntoMemberActionVisitor.TransformSourceItemIntoMember;
-				if (transformSourceItemIntoMember != null)
-				{
-					InsertItemAction = (index, item) => transformSourceItemIntoMember(item);
-				}
-
-				Action<TSourceItem> transformSourceItemNotIntoMember =
-					_constructTransformSourceItemIntoMemberActionVisitor.TransformSourceItemIntoNotMember;
-				if (transformSourceItemNotIntoMember != null)
-				{
-					RemoveItemAction = index => transformSourceItemNotIntoMember(this[index]);
-				}
-			}
 		}
 
-		private class ConstructTransformSourceItemIntoMemberActionVisitor : ExpressionVisitor
+		[ObservableComputationsCall]
+		public Filtering<TSourceItem> TryConstructInsertOrRemoveActions()
+		{
+			ConstructInsertOrRemoveActionsVisitor
+				constructInsertOrRemoveActionsVisitor =
+					new ConstructInsertOrRemoveActionsVisitor();
+
+			constructInsertOrRemoveActionsVisitor.Visit(_predicateExpressionOriginal);
+
+			Action<TSourceItem> transformSourceItemIntoMember =
+				constructInsertOrRemoveActionsVisitor.TransformSourceItemIntoMember;
+			if (transformSourceItemIntoMember != null)
+			{
+				InsertItemAction = (index, item) => transformSourceItemIntoMember(item);
+			}
+
+			Action<TSourceItem> transformSourceItemNotIntoMember =
+				constructInsertOrRemoveActionsVisitor.TransformSourceItemIntoNotMember;
+			if (transformSourceItemNotIntoMember != null)
+			{
+				RemoveItemAction = index => transformSourceItemNotIntoMember(this[index]);
+			}
+
+			return this;
+		}
+
+		private class ConstructInsertOrRemoveActionsVisitor : ExpressionVisitor
 		{
 			public Action<TSourceItem> TransformSourceItemIntoMember;
 			public Action<TSourceItem> TransformSourceItemIntoNotMember;
@@ -354,7 +357,6 @@ namespace ObservableComputations
 								newItemPosition = _filteredPositions.Insert(filteredIndex);
 								nextItemPosition = oldItemInfoFilteredPosition;
 							}
-
 							
 							modifyNextFilteredItemIndex(newSourceIndex, newItemPosition);
 						}

@@ -9,15 +9,6 @@ namespace ObservableComputations.Common
 		public string DebugTag {get; set;}
 		public object Tag {get; set;}
 
-		public ScalarComputing()
-		{
-
-			if (Configuration.SaveInstantiatingStackTrace)
-			{
-				InstantiatingStackTrace = Environment.StackTrace;
-			}
-		}
-
 		// ReSharper disable once UnusedAutoPropertyAccessor.Global
 		// ReSharper disable once MemberCanBePrivate.Global
 		public string InstantiatingStackTrace { get; }

@@ -14,7 +14,7 @@
     <PackageProjectUrl>https://github.com/IgorBuchelnikov/ObservableComputations</PackageProjectUrl>
     <RepositoryUrl>https://github.com/IgorBuchelnikov/ObservableComputations.git</RepositoryUrl>
     <RepositoryType>Git</RepositoryType>
-    <PackageTags>INotifyPropertyChanged INotifyCollectionChanged ObservableCollection observable computation observer react reactive data view binding bindable bind binding continuous live dynamic fresh linq declarative functional programming paradigm</PackageTags>
+    <PackageTags>react reactive dynamic INotifyPropertyChanged INotifyCollectionChanged ObservableCollection observable computation observer data view binding bindable bind binding continuous live fresh linq declarative functional programming paradigm</PackageTags>
     <NeutralLanguage>en</NeutralLanguage>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>

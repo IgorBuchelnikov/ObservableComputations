@@ -4,7 +4,6 @@ using System.Collections.Specialized;
 using ObservableComputations.Common.Base;
 using ObservableComputations.Common.Interface;
 
-
 namespace ObservableComputations.Common
 {
 	public abstract class CollectionComputing<TItem> : ObservableCollectionWithChangeMarker<TItem>, ICollectionComputing
@@ -15,12 +14,6 @@ namespace ObservableComputations.Common
 		public CollectionComputing(int capacity = 0) : base(new List<TItem>(capacity))
 		{
 			_initialCapacity = capacity;
-
-			if (Configuration.SaveInstantiatingStackTrace)
-			{
-				InstantiatingStackTrace = Environment.StackTrace;
-			}
-
 		}
 
 		public event EventHandler PreCollectionChanged;

@@ -14,6 +14,11 @@ namespace ObservableComputations.Common
 		public CollectionComputing(int capacity = 0) : base(new List<TItem>(capacity))
 		{
 			_initialCapacity = capacity;
+
+			if (Configuration.SaveInstantiatingStackTrace)
+			{
+				_instantiatingStackTrace = Environment.StackTrace;
+			}
 		}
 
 		public event EventHandler PreCollectionChanged;
@@ -220,10 +225,12 @@ namespace ObservableComputations.Common
 		public Type ItemType => typeof(TItem);
 
 		protected int _initialCapacity;
+
 		// ReSharper disable once MemberCanBePrivate.Global
-		public string InstantiatingStackTrace { get; }
+		public string InstantiatingStackTrace => _instantiatingStackTrace;
 
 		protected bool _isConsistent = true;
+		private readonly string _instantiatingStackTrace;
 		public bool IsConsistent => _isConsistent;
 		public event EventHandler ConsistencyRestored;
 

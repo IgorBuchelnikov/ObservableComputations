@@ -9,9 +9,17 @@ namespace ObservableComputations.Common
 		public string DebugTag {get; set;}
 		public object Tag {get; set;}
 
+		public ScalarComputing()
+		{
+			if (Configuration.SaveInstantiatingStackTrace)
+			{
+				_instantiatingStackTrace = Environment.StackTrace;
+			}
+		}
+
 		// ReSharper disable once UnusedAutoPropertyAccessor.Global
 		// ReSharper disable once MemberCanBePrivate.Global
-		public string InstantiatingStackTrace { get; }
+		public string InstantiatingStackTrace => _instantiatingStackTrace;
 
 		protected TValue _value;
 
@@ -82,6 +90,7 @@ namespace ObservableComputations.Common
 		}
 
 		protected bool _isConsistent = true;
+		private readonly string _instantiatingStackTrace;
 		public bool IsConsistent => _isConsistent;
 		public event EventHandler ConsistencyRestored;
 

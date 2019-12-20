@@ -104,7 +104,7 @@ namespace ObservableComputations
 			result.Add(item);
 
 			if (!this.SequenceEqual(result))
-				throw new ObservableComputationsException("Consistency violation: Appending.1");
+				throw new ObservableComputationsException(this, "Consistency violation: Appending.1");
 		}
 	}
 }

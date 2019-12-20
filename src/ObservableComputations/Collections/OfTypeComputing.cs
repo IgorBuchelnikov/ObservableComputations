@@ -52,7 +52,7 @@ namespace ObservableComputations
 
 			// ReSharper disable once AssignNullToNotNullAttribute
 			if (!this.SequenceEqual(source.OfType<TResultItem>()))
-				 throw new ObservableComputationsException("Consistency violation: OfTypeComputing.1");
+				 throw new ObservableComputationsException(this, "Consistency violation: OfTypeComputing.1");
 		}
 	}
 }

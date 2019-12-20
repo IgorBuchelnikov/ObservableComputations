@@ -186,7 +186,7 @@ namespace ObservableComputations
 			IEqualityComparer<TSourceItem> equalityComparer =  _equalityComparerScalar.getValue(_equalityComparer);
 
 			if (_value != source.Contains(sourceItem, equalityComparer))
-				throw new ObservableComputationsException("Consistency violation: ContainsComputing.1");
+				throw new ObservableComputationsException(this, "Consistency violation: ContainsComputing.1");
 		}
 	}
 }

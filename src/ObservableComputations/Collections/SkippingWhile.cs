@@ -145,7 +145,7 @@ namespace ObservableComputations
 			// ReSharper disable once AssignNullToNotNullAttribute
 			if (!this.SequenceEqual(source.SkipWhile(predicate)))
 			{
-				throw new ObservableComputationsException("Consistency violation: SkippingWhile.1");
+				throw new ObservableComputationsException(this, "Consistency violation: SkippingWhile.1");
 			}
 		}
 	}

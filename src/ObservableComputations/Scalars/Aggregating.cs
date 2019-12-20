@@ -154,21 +154,21 @@ namespace ObservableComputations
 				switch (e.Action)
 				{
 					case NotifyCollectionChangedAction.Add:
-						if (e.NewItems.Count > 1) throw new ObservableComputationsException("Adding of multiple items is not supported");
+						//if (e.NewItems.Count > 1) throw new ObservableComputationsException(this, "Adding of multiple items is not supported");
 						int newIndex = e.NewStartingIndex;
 						TSourceItem addedSourceItem = _sourceAsList[newIndex];
 						_sourceItems.Insert(newIndex, addedSourceItem);
 						setValue(_aggregateFunc(addedSourceItem, Value));					
 						break;
 					case NotifyCollectionChangedAction.Remove:
-						if (e.OldItems.Count > 1) throw new ObservableComputationsException("Removing of multiple items is not supported");
+						//if (e.OldItems.Count > 1) throw new ObservableComputationsException(this, "Removing of multiple items is not supported");
 						int oldStartingIndex = e.OldStartingIndex;
 						TSourceItem removedSourceItem = _sourceItems[oldStartingIndex];
 						_sourceItems.RemoveAt(oldStartingIndex);
 						setValue(_deaggregateFunc(removedSourceItem, Value));
 						break;
 					case NotifyCollectionChangedAction.Replace:
-						if (e.NewItems.Count > 1) throw new ObservableComputationsException("Replacing of multiple items is not supported");
+						//if (e.NewItems.Count > 1) throw new ObservableComputationsException(this, "Replacing of multiple items is not supported");
 						int newStartingIndex = e.NewStartingIndex;
 						TSourceItem newItem = _sourceAsList[newStartingIndex];
 						TSourceItem oldItem = _sourceItems[newStartingIndex];
@@ -235,7 +235,7 @@ namespace ObservableComputations
 
 			// ReSharper disable once PossibleNullReferenceException
 			int sourceCount = source.Count;
-			if (_sourceItems.Count != sourceCount) throw new ObservableComputationsException("Consistency violation: Aggregating.1");
+			if (_sourceItems.Count != sourceCount) throw new ObservableComputationsException(this, "Consistency violation: Aggregating.1");
 			TResult result = default(TResult);
 
 			for (int i = 0; i < sourceCount; i++)
@@ -243,11 +243,11 @@ namespace ObservableComputations
 				TSourceItem sourceItem = source[i];
 				TSourceItem savedSourceItem = _sourceItems[i];
 				result = _aggregateFunc(sourceItem, result);
-				if (!savedSourceItem.IsSameAs(sourceItem)) throw new ObservableComputationsException("Consistency violation: Aggregating.2");
+				if (!savedSourceItem.IsSameAs(sourceItem)) throw new ObservableComputationsException(this, "Consistency violation: Aggregating.2");
 			}
 
 			// ReSharper disable once PossibleNullReferenceException
-			if (!result.Equals(_value)) throw new ObservableComputationsException("Consistency violation: Aggregating.3");
+			if (!result.Equals(_value)) throw new ObservableComputationsException(this, "Consistency violation: Aggregating.3");
 		}
 	}
 }

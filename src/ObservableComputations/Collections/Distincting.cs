@@ -100,7 +100,7 @@ namespace ObservableComputations
 				equalityComparer = EqualityComparer<TSourceItem>.Default;
 
 			if (!this.SequenceEqual(source.Distinct(equalityComparer)))
-				throw new ObservableComputationsException("Consistency violation: Distincting.1");
+				throw new ObservableComputationsException(this, "Consistency violation: Distincting.1");
 		}
 	}
 }

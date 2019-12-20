@@ -167,7 +167,7 @@ namespace ObservableComputations
 			}
 
 			if (!this.SequenceEqual(result))
-				throw new ObservableComputationsException("Consistency violation: Uniting.1");
+				throw new ObservableComputationsException(this, "Consistency violation: Uniting.1");
 		}
 	}
 }

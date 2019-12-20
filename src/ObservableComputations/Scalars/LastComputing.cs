@@ -60,7 +60,7 @@ namespace ObservableComputations
 			TSourceItem defaultValue = _defaultValueScalar.getValue(_defaultValue);
 
 			if (!EqualityComparer<TSourceItem>.Default.Equals(_value, source.Count > 0 ? source.Last() : defaultValue))
-				throw new ObservableComputationsException("Consistency violation: LastComputing.1");
+				throw new ObservableComputationsException(this, "Consistency violation: LastComputing.1");
 		}
 
 	}

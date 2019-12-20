@@ -157,7 +157,7 @@ namespace ObservableComputations
 
 			if (!this.SequenceEqual(source1.SelectMany(item1 => source2.Select(item2 => new JoinPair<TOuterSourceItem, TInnerSourceItem>(item1, item2)).Where(jp => joinPredicate(jp.OuterItem, jp.InnerItem)))))
 			{
-				throw new ObservableComputationsException("Consistency violation: Joining.1");
+				throw new ObservableComputationsException(this, "Consistency violation: Joining.1");
 			}
 		}
 	}

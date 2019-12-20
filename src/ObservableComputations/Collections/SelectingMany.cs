@@ -152,7 +152,7 @@ namespace ObservableComputations
 			// ReSharper disable once AssignNullToNotNullAttribute
 			if (!this.SequenceEqual(result))
 			{
-				throw new ObservableComputationsException("Consistency violation: SelectingMany.1");
+				throw new ObservableComputationsException(this, "Consistency violation: SelectingMany.1");
 			}
 		}
 	}

@@ -146,7 +146,7 @@ namespace ObservableComputations
 			// ReSharper disable once AssignNullToNotNullAttribute
 			if (!this.SequenceEqual(source.TakeWhile(predicate)))
 			{
-				throw new ObservableComputationsException("Consistency violation: TakingWhile.1");
+				throw new ObservableComputationsException(this, "Consistency violation: TakingWhile.1");
 			}
 		}
 	}

@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Linq.Expressions;
+using System.Threading;
 using ObservableComputations.Common;
 using ObservableComputations.Common.Base;
 using ObservableComputations.Common.Interface;
@@ -11,7 +12,7 @@ using ObservableComputations.Common.Interface;
 namespace ObservableComputations
 {
 	// ReSharper disable once RedundantExtendsListEntry
-	public class Hashing<TSourceItem, TKey> : HashSet<TKey>, IHasSources
+	public class Hashing<TSourceItem, TKey> : HashSet<TKey>, IHasSources, IComputing
 	{
 		// ReSharper disable once MemberCanBePrivate.Global
 		public IReadScalar<INotifyCollectionChanged> SourceScalar => _sourceScalar;
@@ -26,6 +27,14 @@ namespace ObservableComputations
 		public INotifyCollectionChanged Source => _source;
 
 		public string InstantiatingStackTrace => _instantiatingStackTrace;
+
+		public string DebugTag { get; set; }
+		public object Tag { get; set; }
+
+		public bool IsConsistent => _isConsistent;
+
+		public event EventHandler ConsistencyRestored;
+
 
 		public ReadOnlyCollection<INotifyCollectionChanged> SourcesCollection => new ReadOnlyCollection<INotifyCollectionChanged>(new []{Source});
 		public ReadOnlyCollection<IReadScalar<INotifyCollectionChanged>> SourceScalarsCollection => new ReadOnlyCollection<IReadScalar<INotifyCollectionChanged>>(new []{SourceScalar});
@@ -55,6 +64,7 @@ namespace ObservableComputations
 		private readonly Func<TSourceItem, TKey> _keySelectorFunc;
 		private INotifyCollectionChanged _source;
 		private readonly string _instantiatingStackTrace;
+		private bool _isConsistent = true;
 
 		private sealed class ItemInfo : Position
 		{
@@ -121,14 +131,23 @@ namespace ObservableComputations
 		private void handleSourceScalarValueChanged(object sender,  PropertyChangedEventArgs e)
 		{
 			if (e.PropertyName != nameof(IReadScalar<INotifyCollectionChanged>.Value)) return;
+			checkConsistent();
+			_isConsistent = false;
 			initializeFromSource();
+			_isConsistent = true;
+			ConsistencyRestored?.Invoke(this, null);
 		}
 
 		private void keyExpressionWatcher_OnValueChanged(ExpressionWatcher expressionWatcher)
 		{
+			checkConsistent();
 			if (_rootSourceWrapper || _sourceAsList.ChangeMarker == _lastProcessedSourceChangeMarker)
 			{
+
+				_isConsistent = false;
 				processKeyExpressionWatcherValueChanged(expressionWatcher);
+				_isConsistent = true;
+				ConsistencyRestored?.Invoke(this, null);
 			}
 			else
 			{
@@ -138,6 +157,8 @@ namespace ObservableComputations
 
 		private void handleSourceCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
 		{
+			checkConsistent();
+
 			if (!_rootSourceWrapper && _lastProcessedSourceChangeMarker == _sourceAsList.ChangeMarker) return;
 			_lastProcessedSourceChangeMarker = !_lastProcessedSourceChangeMarker;
 
@@ -145,11 +166,14 @@ namespace ObservableComputations
 			switch (e.Action)
 			{
 				case NotifyCollectionChangedAction.Add:
+					_isConsistent = false;
 					int newStartingIndex = e.NewStartingIndex;
 					TSourceItem addedItem = _sourceAsList[newStartingIndex];
 					ItemInfo itemInfo = registerSourceItem(addedItem, newStartingIndex);
 					key = applyKeySelector(itemInfo, addedItem);
 					baseAddItem(key);	
+					_isConsistent = true;
+					ConsistencyRestored?.Invoke(this, null);
 					break;
 				case NotifyCollectionChangedAction.Remove:
 					int oldStartingIndex = e.OldStartingIndex;
@@ -158,6 +182,7 @@ namespace ObservableComputations
 					baseRemoveItem(key);
 					break;
 				case NotifyCollectionChangedAction.Replace:
+					_isConsistent = false;
 					int newStartingIndex1 = e.NewStartingIndex;
 					TSourceItem newItem = _sourceAsList[newStartingIndex1];
 					ItemInfo replacingItemInfo = _itemInfos[newStartingIndex1];
@@ -171,6 +196,8 @@ namespace ObservableComputations
 						baseRemoveItem(oldKey);
 						baseAddItem(newKey);
 					}		
+					_isConsistent = true;
+					ConsistencyRestored?.Invoke(this, null);
 					break;
 				case NotifyCollectionChangedAction.Move:
 					int oldStartingIndex2 = e.OldStartingIndex;
@@ -179,10 +206,15 @@ namespace ObservableComputations
 					_sourcePositions.Move(oldStartingIndex2, newStartingIndex2);
 					break;
 				case NotifyCollectionChangedAction.Reset:
+					_isConsistent = false;
 					initializeFromSource();
+					_isConsistent = true;
+					ConsistencyRestored?.Invoke(this, null);
 					break;
 			}
 			
+
+			_isConsistent = false;
 			if (_deferredKeyExpressionWatcherChangedProcessings != null)
 				while (_deferredKeyExpressionWatcherChangedProcessings.Count > 0)
 				{
@@ -190,7 +222,8 @@ namespace ObservableComputations
 					if (!expressionWatcher._disposed)
 						processKeyExpressionWatcherValueChanged(expressionWatcher);
 				}
-			
+			_isConsistent = true;
+			ConsistencyRestored?.Invoke(this, null);
 		}
 
 		private void initializeFromSource()
@@ -335,7 +368,20 @@ namespace ObservableComputations
 
 		private TKey applyKeySelector(ItemInfo itemInfo, TSourceItem sourceItem)
 		{
-			return _keySelectorContainsParametrizedObservableComputationsCalls ? itemInfo.KeySelectorFunc() : _keySelectorFunc(sourceItem);
+			bool trackComputingsExecutingUserCode = Configuration.TrackComputingsExecutingUserCode;
+			if (trackComputingsExecutingUserCode)
+			{
+				DebugInfo._computingsExecutingUserCode[Thread.CurrentThread] = this;
+			}
+
+			TKey result = _keySelectorContainsParametrizedObservableComputationsCalls ? itemInfo.KeySelectorFunc() : _keySelectorFunc(sourceItem);
+
+			if (trackComputingsExecutingUserCode)
+			{
+				DebugInfo._computingsExecutingUserCode.Remove(Thread.CurrentThread);
+			}
+
+			return result;
 		}
 
 		private void baseClearItems()
@@ -352,6 +398,14 @@ namespace ObservableComputations
 		{
 			Remove(key);
 		}
+
+		protected void checkConsistent()
+		{
+			if (!_isConsistent)
+				throw new ObservableComputationsException(this,
+					"The source collection has been changed. It is not possible to process this change, as the processing of the previous change is not completed. Make the change on ConsistencyRestored event raising (after IsConsistent property becomes true). This exception is fatal and cannot be handled as the inner state is damaged.");
+		}
+
 
 		~Hashing()
 		{

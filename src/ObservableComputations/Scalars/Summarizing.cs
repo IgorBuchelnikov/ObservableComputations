@@ -69,7 +69,7 @@ namespace ObservableComputations
 			}
 
 			if (!Value.Equals(result))
-				throw new ObservableComputationsException("Consistency violation: Summarizing.1");
+				throw new ObservableComputationsException(this, "Consistency violation: Summarizing.1");
 		}
 
 	}

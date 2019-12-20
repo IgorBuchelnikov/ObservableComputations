@@ -5,6 +5,7 @@ using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Threading;
 using ObservableComputations.Common;
 using ObservableComputations.Common.Base;
 using ObservableComputations.Common.Interface;
@@ -287,10 +288,10 @@ namespace ObservableComputations
 
 		private void handleSourceCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
 		{
+			checkConsistent();
 			if (!_rootSourceWrapper && _lastProcessedSourceChangeMarker == _sourceAsList.ChangeMarker) return;
 			_lastProcessedSourceChangeMarker = !_lastProcessedSourceChangeMarker;
 
-			checkConsistent();
 			_isConsistent = false;
 
 			switch (e.Action)
@@ -778,7 +779,7 @@ namespace ObservableComputations
 				int length = upperIndex - lowerIndex + 1;
 				/*if (length == 0)
 				{
-					throw new ObservableComputationsException("Inner exception");
+					throw new ObservableComputationsException(this, "Inner exception");
 				}
 				else */
 				if (length == 1)
@@ -789,7 +790,7 @@ namespace ObservableComputations
 				{
 					if (groupSourcePositions[lowerIndex].Index == sourceIndex) return lowerIndex;
 					else if (groupSourcePositions[upperIndex].Index == sourceIndex) return upperIndex;
-					//else throw new ObservableComputationsException("Inner exception");
+					//else throw new ObservableComputationsException(this, "Inner exception");
 				}
 				else
 				{
@@ -930,18 +931,63 @@ namespace ObservableComputations
 
 		private TKey applyKeySelector(int index)
 		{
-			return _keySelectorExpressionContainsParametrizedObservableComputationsCalls ? _itemInfos[index].SelectorFunc() : _keySelectorFunc(_sourceAsList[index]);
+			bool trackComputingsExecutingUserCode = Configuration.TrackComputingsExecutingUserCode;
+			if (trackComputingsExecutingUserCode)
+			{
+				DebugInfo._computingsExecutingUserCode[Thread.CurrentThread] = this;
+			}
+
+
+			TKey result = _keySelectorExpressionContainsParametrizedObservableComputationsCalls ? _itemInfos[index].SelectorFunc() : _keySelectorFunc(_sourceAsList[index]);;
+
+
+			if (trackComputingsExecutingUserCode)
+			{
+				DebugInfo._computingsExecutingUserCode.Remove(Thread.CurrentThread);
+			}
+
+			return result;
 		}
 
 		public TKey ApplyKeySelector(int index)
 		{
-			checkConsistent();
-			return applyKeySelector(index);
+			bool trackComputingsExecutingUserCode = Configuration.TrackComputingsExecutingUserCode;
+			if (trackComputingsExecutingUserCode)
+			{
+				DebugInfo._computingsExecutingUserCode[Thread.CurrentThread] = this;
+			}
+
+
+			TKey result = applyKeySelector(index);
+
+
+			if (trackComputingsExecutingUserCode)
+			{
+				DebugInfo._computingsExecutingUserCode.Remove(Thread.CurrentThread);
+			}
+
+
+			return result;
 		}
 
 		private TKey applyKeySelector(TSourceItem sourceItem, Func<TKey> selectorFunc)
 		{
-			return _keySelectorExpressionContainsParametrizedObservableComputationsCalls ? selectorFunc() : _keySelectorFunc(sourceItem);
+			bool trackComputingsExecutingUserCode = Configuration.TrackComputingsExecutingUserCode;
+			if (trackComputingsExecutingUserCode)
+			{
+				DebugInfo._computingsExecutingUserCode[Thread.CurrentThread] = this;
+			}
+
+
+			TKey result = _keySelectorExpressionContainsParametrizedObservableComputationsCalls ? selectorFunc() : _keySelectorFunc(sourceItem);
+
+
+			if (trackComputingsExecutingUserCode)
+			{
+				DebugInfo._computingsExecutingUserCode.Remove(Thread.CurrentThread);
+			}
+
+			return result;
 		}
 
 		public Group<TSourceItem, TKey> GetGroup(TKey key)
@@ -989,10 +1035,10 @@ namespace ObservableComputations
 
 			// ReSharper disable once PossibleNullReferenceException
 			if (_itemInfos.Count != source.Count)
-				throw new ObservableComputationsException("Consistency violation: Grouping.14");
+				throw new ObservableComputationsException(this, "Consistency violation: Grouping.14");
 
 			if (_resultPositions.List.Count != Count)
-				throw new ObservableComputationsException("Consistency violation: Grouping.15");
+				throw new ObservableComputationsException(this, "Consistency violation: Grouping.15");
 
 			for (int sourceIndex = 0; sourceIndex < source.Count; sourceIndex++)
 			{
@@ -1010,50 +1056,50 @@ namespace ObservableComputations
 				}
 				
 				if (!equalityComparer.Equals(_itemInfos[sourceIndex].Key, key))
-					throw new ObservableComputationsException("Consistency violation: Grouping.1");
+					throw new ObservableComputationsException(this, "Consistency violation: Grouping.1");
 
 				if (_itemInfos[sourceIndex].ExpressionWatcher._position.Index != sourceIndex)
-					throw new ObservableComputationsException("Consistency violation: Grouping.2");
+					throw new ObservableComputationsException(this, "Consistency violation: Grouping.2");
 			}
 
-			if (result.Count != Count) throw new ObservableComputationsException("Consistency violation: Grouping.3");
+			if (result.Count != Count) throw new ObservableComputationsException(this, "Consistency violation: Grouping.3");
 
 			for (int thisIndex = 0; thisIndex < Count; thisIndex++)
 			{
 				Group<TSourceItem, TKey> @group = this[thisIndex];
 				Tuple<TKey, List<Tuple<TSourceItem, int>>> resultItem = result[thisIndex];
 
-				if (!equalityComparer.Equals(@group.Key, resultItem.Item1)) throw new ObservableComputationsException("Consistency violation: Grouping.4");
-				if (@group.Count != resultItem.Item2.Count) throw new ObservableComputationsException("Consistency violation: Grouping.5");
+				if (!equalityComparer.Equals(@group.Key, resultItem.Item1)) throw new ObservableComputationsException(this, "Consistency violation: Grouping.4");
+				if (@group.Count != resultItem.Item2.Count) throw new ObservableComputationsException(this, "Consistency violation: Grouping.5");
 
 				for (int groupIndex = 0; groupIndex < @group.Count; groupIndex++)
 				{
 					TSourceItem sourceItem = @group[groupIndex];
 					Tuple<TSourceItem, int> resultItemItem = resultItem.Item2[groupIndex];
 
-					if (!EqualityComparer<TSourceItem>.Default.Equals(sourceItem, resultItemItem.Item1)) throw new ObservableComputationsException("Consistency violation: Grouping.6");
-					if (@group._sourcePositions[groupIndex].Index != resultItemItem.Item2) throw new ObservableComputationsException("Consistency violation: Grouping.7");
+					if (!EqualityComparer<TSourceItem>.Default.Equals(sourceItem, resultItemItem.Item1)) throw new ObservableComputationsException(this, "Consistency violation: Grouping.6");
+					if (@group._sourcePositions[groupIndex].Index != resultItemItem.Item2) throw new ObservableComputationsException(this, "Consistency violation: Grouping.7");
 				}
 
-				if (@group._position.Index != thisIndex) throw new ObservableComputationsException("Consistency violation: Grouping.8");
+				if (@group._position.Index != thisIndex) throw new ObservableComputationsException(this, "Consistency violation: Grouping.8");
 
 				if (resultItem.Item1 != null)
 				{
 					Group<TSourceItem, TKey> groupFromDictionary = _groupDictionary[resultItem.Item1];
-					if (groupFromDictionary != @group) throw new ObservableComputationsException("Consistency violation: Grouping.9");					
+					if (groupFromDictionary != @group) throw new ObservableComputationsException(this, "Consistency violation: Grouping.9");					
 				}
 				else
 				{
-					if (_nullGroup != @group) throw new ObservableComputationsException("Consistency violation: Grouping.10");	
+					if (_nullGroup != @group) throw new ObservableComputationsException(this, "Consistency violation: Grouping.10");	
 				}
 
 				if (!_resultPositions.List.Contains(@group._position))
-					throw new ObservableComputationsException("Consistency violation: Grouping.12");
+					throw new ObservableComputationsException(this, "Consistency violation: Grouping.12");
 
 			}		
 			
 			if (_nullGroup != null && !_resultPositions.List.Contains(_nullGroup._position))
-				throw new ObservableComputationsException("Consistency violation: Grouping.13");
+				throw new ObservableComputationsException(this, "Consistency violation: Grouping.13");
 		}
 	}
 

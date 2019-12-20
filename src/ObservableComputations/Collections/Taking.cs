@@ -256,7 +256,7 @@ namespace ObservableComputations
 			// ReSharper disable once AssignNullToNotNullAttribute
 			if (!this.SequenceEqual(source.Skip(startIndex).Take(count)))
 			{
-				throw new ObservableComputationsException("Consistency violation: Taking.1");
+				throw new ObservableComputationsException(this, "Consistency violation: Taking.1");
 			}
 		}
 	}

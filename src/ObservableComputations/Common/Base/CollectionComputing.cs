@@ -242,7 +242,7 @@ namespace ObservableComputations.Common
 		protected void checkConsistent()
 		{
 			if (!_isConsistent)
-				throw new ObservableComputationsException(
+				throw new ObservableComputationsException(this,
 					"The source collection has been changed. It is not possible to process this change, as the processing of the previous change is not completed. Make the change on ConsistencyRestored event raising (after IsConsistent property becomes true). This exception is fatal and cannot be handled as the inner state is damaged.");
 		}
 	}

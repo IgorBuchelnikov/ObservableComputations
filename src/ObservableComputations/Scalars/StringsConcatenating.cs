@@ -288,21 +288,21 @@ namespace ObservableComputations
 				{
 					case NotifyCollectionChangedAction.Add:
 						IList newItems = e.NewItems;
-						if (newItems.Count > 1) throw new ObservableComputationsException("Adding of multiple items is not supported");
+						//if (newItems.Count > 1) throw new ObservableComputationsException(this, "Adding of multiple items is not supported");
 						string addedSourceItem =  (string) newItems[0];
 						int addedSourceIndex = e.NewStartingIndex;
 						processAddSourceItem(addedSourceItem, addedSourceIndex);
 						setValue(_valueStringBuilder.ToString());
 						break;
 					case NotifyCollectionChangedAction.Remove:
-						if (e.OldItems.Count > 1) throw new ObservableComputationsException("Removing of multiple items is not supported");
+						//if (e.OldItems.Count > 1) throw new ObservableComputationsException(this, "Removing of multiple items is not supported");
 						int removedSourceIndex = e.OldStartingIndex;
 						processRemoveSourceItem(removedSourceIndex);
 						setValue(_valueStringBuilder.ToString());
 						break;
 					case NotifyCollectionChangedAction.Replace:
 						IList newItems1 = e.NewItems;
-						if (newItems1.Count > 1) throw new ObservableComputationsException("Replacing of multiple items is not supported");
+						//if (newItems1.Count > 1) throw new ObservableComputationsException(this, "Replacing of multiple items is not supported");
 						RangePosition replacingItemRangePosition =
 							_resultRangePositions.List[e.NewStartingIndex * 2];
 						string newSourceItem = (string) newItems1[0];
@@ -469,10 +469,10 @@ namespace ObservableComputations
 				string result = string.Join(separator, source.Cast<object>().Select(i => i != null ? i.ToString() : String.Empty).ToArray());
 
 				if (!result.Equals(_valueStringBuilder.ToString()))
-					throw new ObservableComputationsException("Consistency violation: StringsConcatenating.1");
+					throw new ObservableComputationsException(this, "Consistency violation: StringsConcatenating.1");
 
 				if (!result.Equals(_value))
-					throw new ObservableComputationsException("Consistency violation: StringsConcatenating.9");
+					throw new ObservableComputationsException(this, "Consistency violation: StringsConcatenating.9");
 
 				int plainIndex = 0;
 				for (int index = 0; index < source.Count; index++)
@@ -480,31 +480,31 @@ namespace ObservableComputations
 					string item = source[index] != null ? source[index].ToString() : String.Empty;
 					int itemLength = item.Length;
 					if (_resultRangePositions.List[index * 2].Length != itemLength)
-						throw new ObservableComputationsException("Consistency violation: StringsConcatenating.2");
+						throw new ObservableComputationsException(this, "Consistency violation: StringsConcatenating.2");
 
 					if (_resultRangePositions.List[index * 2].PlainIndex != plainIndex)
-						throw new ObservableComputationsException("Consistency violation: StringsConcatenating.3");
+						throw new ObservableComputationsException(this, "Consistency violation: StringsConcatenating.3");
 
 					if (_resultRangePositions.List[index * 2].Index != index * 2)
-						throw new ObservableComputationsException("Consistency violation: StringsConcatenating.4");
+						throw new ObservableComputationsException(this, "Consistency violation: StringsConcatenating.4");
 
 					if (index > 0)
 					{
 						if (_resultRangePositions.List[index * 2 - 1].Length != separator.Length)
-							throw new ObservableComputationsException("Consistency violation: StringsConcatenating.5");		
+							throw new ObservableComputationsException(this, "Consistency violation: StringsConcatenating.5");		
 						
 						if (_resultRangePositions.List[index * 2 - 1].PlainIndex != plainIndex - separator.Length)
-							throw new ObservableComputationsException("Consistency violation: StringsConcatenating.6");
+							throw new ObservableComputationsException(this, "Consistency violation: StringsConcatenating.6");
 
 						if (_resultRangePositions.List[index * 2 - 1].Index != index * 2 - 1)
-							throw new ObservableComputationsException("Consistency violation: StringsConcatenating.7");
+							throw new ObservableComputationsException(this, "Consistency violation: StringsConcatenating.7");
 					}
 
 					plainIndex = plainIndex + itemLength + separator.Length;
 				}
 
 				if (_resultRangePositions.List.Count != (source.Count > 0 ? source.Count * 2 - 1 : 0))
-					throw new ObservableComputationsException("Consistency violation: StringsConcatenating.8");
+					throw new ObservableComputationsException(this, "Consistency violation: StringsConcatenating.8");
 			}
 		}
 	}

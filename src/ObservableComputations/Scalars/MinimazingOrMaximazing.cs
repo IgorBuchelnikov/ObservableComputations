@@ -411,7 +411,7 @@ namespace ObservableComputations
 				switch (e.Action)
 				{
 					case NotifyCollectionChangedAction.Add:
-						if (e.NewItems.Count > 1) throw new ObservableComputationsException("Adding of multiple items is not supported");
+						//if (e.NewItems.Count > 1) throw new ObservableComputationsException(this, "Adding of multiple items is not supported");
 						int newIndex = e.NewStartingIndex;
 						TSourceItem addedSourceItem = _sourceAsList[newIndex];
 						_sourceItems.Insert(newIndex, addedSourceItem);
@@ -438,7 +438,7 @@ namespace ObservableComputations
 						}
 						break;
 					case NotifyCollectionChangedAction.Remove:
-						if (e.OldItems.Count > 1) throw new ObservableComputationsException("Removing of multiple items is not supported");
+						//if (e.OldItems.Count > 1) throw new ObservableComputationsException(this, "Removing of multiple items is not supported");
 						int oldStartingIndex = e.OldStartingIndex;
 						TSourceItem removingSourceItem = _sourceItems[oldStartingIndex];
 						_sourceItems.RemoveAt(oldStartingIndex);
@@ -453,7 +453,7 @@ namespace ObservableComputations
 						}
 						break;
 					case NotifyCollectionChangedAction.Replace:
-						if (e.NewItems.Count > 1) throw new ObservableComputationsException("Replacing of multiple items is not supported");
+						//if (e.NewItems.Count > 1) throw new ObservableComputationsException(this, "Replacing of multiple items is not supported");
 						int replacingSourceIndex = e.NewStartingIndex;
 						TSourceItem newItem = _sourceAsList[e.NewStartingIndex];
 						TSourceItem oldItem = _sourceItems[e.NewStartingIndex];
@@ -535,14 +535,14 @@ namespace ObservableComputations
 		{
 			IList<TSourceItem> source = _sourceScalar.getValue(_source, new ObservableCollection<TSourceItem>()) as IList<TSourceItem>;
 			// ReSharper disable once PossibleNullReferenceException
-			if (_sourceItems.Count != source.Count) throw new ObservableComputationsException("Consistency violation: MinimazingOrMaximazing.1");
+			if (_sourceItems.Count != source.Count) throw new ObservableComputationsException(this, "Consistency violation: MinimazingOrMaximazing.1");
 			TSourceItem defaultValue = _defaultValueScalar.getValue(_defaultValue);
 
 			for (int i = 0; i < source.Count; i++)
 			{
 				TSourceItem sourceItem = source[i];
 				TSourceItem savedSourceItem = _sourceItems[i];
-				if (!savedSourceItem.IsSameAs(sourceItem)) throw new ObservableComputationsException("Consistency violation: MinimazingOrMaximazing.2");
+				if (!savedSourceItem.IsSameAs(sourceItem)) throw new ObservableComputationsException(this, "Consistency violation: MinimazingOrMaximazing.2");
 			}
 
 			if (source.Count > 0)
@@ -551,16 +551,16 @@ namespace ObservableComputations
 					?  source.Max() 
 					: source.Min();
 
-				if (!result.Equals(_value)) throw new ObservableComputationsException("Consistency violation: MinimazingOrMaximazing.3");
+				if (!result.Equals(_value)) throw new ObservableComputationsException(this, "Consistency violation: MinimazingOrMaximazing.3");
 
-				if (source.Count(i => i.Equals(result)) != _valueCount) throw new ObservableComputationsException("Consistency violation: MinimazingOrMaximazing.4");
+				if (source.Count(i => i.Equals(result)) != _valueCount) throw new ObservableComputationsException(this, "Consistency violation: MinimazingOrMaximazing.4");
 
-				if (IsDefaulted) throw new ObservableComputationsException("Consistency violation: MinimazingOrMaximazing.4");
+				if (IsDefaulted) throw new ObservableComputationsException(this, "Consistency violation: MinimazingOrMaximazing.4");
 			}
 			else
 			{
-				if (!defaultValue.Equals(_value)) throw new ObservableComputationsException("Consistency violation: MinimazingOrMaximazing.5");
-				if (!IsDefaulted) throw new ObservableComputationsException("Consistency violation: MinimazingOrMaximazing.4");
+				if (!defaultValue.Equals(_value)) throw new ObservableComputationsException(this, "Consistency violation: MinimazingOrMaximazing.5");
+				if (!IsDefaulted) throw new ObservableComputationsException(this, "Consistency violation: MinimazingOrMaximazing.4");
 			}
 
 		}

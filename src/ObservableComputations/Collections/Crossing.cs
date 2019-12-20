@@ -275,12 +275,13 @@ namespace ObservableComputations
 
 		private void handleOuterSourceCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
 		{
+			checkConsistent();
 			if (_outerSourceIndexerPropertyChangedEventRaised || _outerSourceAsObservableCollectionWithChangeMarker != null && _lastProcessedOuterSourceChangeMarker != _outerSourceAsObservableCollectionWithChangeMarker.ChangeMarker)
 			{
 				_outerSourceIndexerPropertyChangedEventRaised = false;
 				_lastProcessedOuterSourceChangeMarker = !_lastProcessedOuterSourceChangeMarker;
 
-				checkConsistent();
+
 				_isConsistent = false;
 
 				int newIndex;
@@ -288,7 +289,7 @@ namespace ObservableComputations
 				switch (e.Action)
 				{
 					case NotifyCollectionChangedAction.Add:
-						if (e.NewItems.Count > 1) throw new ObservableComputationsException("Adding of multiple items is not supported");
+						//if (e.NewItems.Count > 1) throw new ObservableComputationsException(this, "Adding of multiple items is not supported");
 						newIndex = e.NewStartingIndex;
 						TOuterSourceItem sourceOuterItem = _outerSourceAsList[newIndex];
 
@@ -306,7 +307,7 @@ namespace ObservableComputations
 						}
 						break;
 					case NotifyCollectionChangedAction.Remove:
-						if (e.OldItems.Count > 1) throw new ObservableComputationsException("Removing of multiple items is not supported");
+						//if (e.OldItems.Count > 1) throw new ObservableComputationsException(this, "Removing of multiple items is not supported");
 						oldIndex = e.OldStartingIndex;
 
 						int count1 = _innerSourceAsList.Count;
@@ -317,7 +318,7 @@ namespace ObservableComputations
 						}
 						break;
 					case NotifyCollectionChangedAction.Replace:
-						if (e.NewItems.Count > 1) throw new ObservableComputationsException("Replacing of multiple items is not supported");
+						//if (e.NewItems.Count > 1) throw new ObservableComputationsException(this, "Replacing of multiple items is not supported");
 						newIndex = e.NewStartingIndex;
 						TOuterSourceItem sourceItem3 = _outerSourceAsList[newIndex];
 
@@ -365,12 +366,13 @@ namespace ObservableComputations
 
 		private void handleInnerSourceCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
 		{
+			checkConsistent();
 			if (_innerSourceIndexerPropertyChangedEventRaised || _lastProcessedInnerSourceChangeMarker != _innerSourceAsObservableCollectionWithChangeMarker.ChangeMarker)
 			{
 				_innerSourceIndexerPropertyChangedEventRaised = false;
 				_lastProcessedInnerSourceChangeMarker = !_lastProcessedInnerSourceChangeMarker;
 
-				checkConsistent();
+
 				_isConsistent = false;
 
 				int newIndex;
@@ -378,7 +380,7 @@ namespace ObservableComputations
 				switch (e.Action)
 				{
 					case NotifyCollectionChangedAction.Add:
-						if (e.NewItems.Count > 1) throw new ObservableComputationsException("Adding of multiple items is not supported");
+						//if (e.NewItems.Count > 1) throw new ObservableComputationsException(this, "Adding of multiple items is not supported");
 						newIndex = e.NewStartingIndex;
 						TInnerSourceItem sourceInnerItem = _innerSourceAsList[newIndex];
 		
@@ -397,7 +399,7 @@ namespace ObservableComputations
 						}
 						break;
 					case NotifyCollectionChangedAction.Remove:
-						if (e.OldItems.Count > 1) throw new ObservableComputationsException("Removing of multiple items is not supported");
+						//if (e.OldItems.Count > 1) throw new ObservableComputationsException(this, "Removing of multiple items is not supported");
 						oldIndex = e.OldStartingIndex;
 						int outerSourceCount3 = _outerSourceAsList.Count;
 						int oldInnerSourceCount = _innerSourceAsList.Count + 1;
@@ -410,7 +412,7 @@ namespace ObservableComputations
 						}	
 						break;
 					case NotifyCollectionChangedAction.Replace:
-						if (e.NewItems.Count > 1) throw new ObservableComputationsException("Replacing of multiple items is not supported");
+						//if (e.NewItems.Count > 1) throw new ObservableComputationsException(this, "Replacing of multiple items is not supported");
 						newIndex = e.NewStartingIndex;
 						TInnerSourceItem sourceItem3 = _innerSourceAsList[newIndex];	
 						int index2 = newIndex;
@@ -501,10 +503,10 @@ namespace ObservableComputations
 					JoinPair<TOuterSourceItem, TInnerSourceItem> joinPair = this[index];
 
 					if (!EqualityComparer<TOuterSourceItem>.Default.Equals(joinPair.OuterItem, sourceOuterItem))
-						throw new ObservableComputationsException("Consistency violation: Crossing.1");
+						throw new ObservableComputationsException(this, "Consistency violation: Crossing.1");
 
 					if (!EqualityComparer<TInnerSourceItem>.Default.Equals(joinPair.InnerItem, sourceInnerItem))
-						throw new ObservableComputationsException("Consistency violation: Crossing.2");
+						throw new ObservableComputationsException(this, "Consistency violation: Crossing.2");
 
 					index++;
 				}
@@ -512,7 +514,7 @@ namespace ObservableComputations
 
 			// ReSharper disable once PossibleNullReferenceException
 			if (Count != outerSource.Count * innerSource.Count)
-				throw new ObservableComputationsException("Consistency violation: Crossing.3");
+				throw new ObservableComputationsException(this, "Consistency violation: Crossing.3");
 		}
 
 	}

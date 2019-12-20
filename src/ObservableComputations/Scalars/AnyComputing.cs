@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Linq.Expressions;
+using System.Threading;
 using ObservableComputations.Common;
 using ObservableComputations.Common.Base;
 using ObservableComputations.Common.Interface;
@@ -117,18 +118,24 @@ namespace ObservableComputations
 
 		private void handleSourceScalarValueChanged(object sender, PropertyChangedEventArgs e)
 		{
+			checkConsistency();
 			if (e.PropertyName != nameof(IReadScalar<object>.Value)) return;
+			_isConsistent = false;
 			initializeFromSource();
+			_isConsistent = true;
+			raiseConsistencyRestored();
 		}
 
 		private void handleSourceCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
-		{		
+		{
+			checkConsistency();
 			if (!_rootSourceWrapper && _lastProcessedSourceChangeMarker == _sourceAsList.ChangeMarker) return;
 			_lastProcessedSourceChangeMarker = !_lastProcessedSourceChangeMarker;
 
 			switch (e.Action)
 			{
 				case NotifyCollectionChangedAction.Add:
+					_isConsistent = false;
 					int newSourceIndex = e.NewStartingIndex;
 					TSourceItem addedSourceItem = _sourceAsList[newSourceIndex];
 					ItemInfo itemInfo = registerSourceItem(addedSourceItem, newSourceIndex);
@@ -139,6 +146,8 @@ namespace ObservableComputations
 					}
 
 					calculateValue();
+					_isConsistent = true;
+					raiseConsistencyRestored();
 					break;
 				case NotifyCollectionChangedAction.Remove:
 					int oldStartingIndex = e.OldStartingIndex;
@@ -157,9 +166,13 @@ namespace ObservableComputations
 
 					break;
 				case NotifyCollectionChangedAction.Reset:
+					_isConsistent = false;
 					initializeFromSource();
+					_isConsistent = true;
+					raiseConsistencyRestored();
 					break;
 				case NotifyCollectionChangedAction.Replace:
+					_isConsistent = false;
 					int newStartingIndex = e.NewStartingIndex;
 					ItemInfo replacingItemInfo = _itemInfos[newStartingIndex];
 					ExpressionWatcher oldExpressionWatcher = replacingItemInfo.ExpressionWatcher;
@@ -185,10 +198,13 @@ namespace ObservableComputations
 						replacingItemInfo.PredicateResult = false;	
 					}
 
-					calculateValue();					
+					calculateValue();	
+					_isConsistent = true;
+					raiseConsistencyRestored();					
 					break;
 			}
 
+			_isConsistent = false;
 			if (_deferredExpressionWatcherChangedProcessings != null)
 				while (_deferredExpressionWatcherChangedProcessings.Count > 0)
 				{
@@ -196,6 +212,8 @@ namespace ObservableComputations
 					if (!expressionWatcher._disposed)
 						processExpressionWatcherValueChanged(expressionWatcher);
 				} 
+			_isConsistent = true;
+			raiseConsistencyRestored();
 		}
 
 		private void initializeFromSource()
@@ -287,7 +305,22 @@ namespace ObservableComputations
 		// ReSharper disable once MemberCanBePrivate.Global
 		public bool ApplyPredicate(int sourceIndex)
 		{
-			return _predicateContainsParametrizedObservableComputationCalls ? _itemInfos[sourceIndex].PredicateFunc() : _predicateFunc(_sourceAsList[sourceIndex]);
+			bool trackComputingsExecutingUserCode = Configuration.TrackComputingsExecutingUserCode;
+			if (trackComputingsExecutingUserCode)
+			{
+				DebugInfo._computingsExecutingUserCode[Thread.CurrentThread] = this;
+			}
+
+
+			bool result = _predicateContainsParametrizedObservableComputationCalls ? _itemInfos[sourceIndex].PredicateFunc() : _predicateFunc(_sourceAsList[sourceIndex]);
+
+
+			if (trackComputingsExecutingUserCode)
+			{
+				DebugInfo._computingsExecutingUserCode.Remove(Thread.CurrentThread);
+			}
+
+			return result;
 		}
 
 		private ItemInfo registerSourceItem(TSourceItem sourceItem, int sourceIndex)
@@ -337,7 +370,11 @@ namespace ObservableComputations
 		{
 			if (_rootSourceWrapper || _sourceAsList.ChangeMarker == _lastProcessedSourceChangeMarker)
 			{
+				checkConsistency();
+				_isConsistent = false;
 				processExpressionWatcherValueChanged(expressionWatcher);
+				_isConsistent = true;
+				raiseConsistencyRestored();
 			}
 			else
 			{
@@ -378,7 +415,7 @@ namespace ObservableComputations
 			IList<TSourceItem> source = _sourceScalar.getValue(_source, new ObservableCollection<TSourceItem>()) as IList<TSourceItem>;
 			// ReSharper disable once PossibleNullReferenceException
 			int sourceCount = source.Count;
-			if (_itemInfos.Count != sourceCount) throw new ObservableComputationsException("Consistency violation: AnyComputing.1");
+			if (_itemInfos.Count != sourceCount) throw new ObservableComputationsException(this, "Consistency violation: AnyComputing.1");
 			Func<TSourceItem, bool> predicate = _predicateExpressionOriginal.Compile();
 			int predicatePassedCount = 0;
 
@@ -386,7 +423,7 @@ namespace ObservableComputations
 			if (source != null)
 			{
 				if (_sourcePositions.List.Count != sourceCount)
-					throw new ObservableComputationsException("Consistency violation: AnyComputing.9");
+					throw new ObservableComputationsException(this, "Consistency violation: AnyComputing.9");
 
 				// ReSharper disable once NotAccessedVariable
 				int index = 0;
@@ -398,26 +435,26 @@ namespace ObservableComputations
 					{
 						predicatePassedCount++;
 						index++;
-						if (!itemInfo.PredicateResult) throw new ObservableComputationsException("Consistency violation: AnyComputing.2");
+						if (!itemInfo.PredicateResult) throw new ObservableComputationsException(this, "Consistency violation: AnyComputing.2");
 					}
 					else
 					{
-						if (itemInfo.PredicateResult) throw new ObservableComputationsException("Consistency violation: AnyComputing.3");
+						if (itemInfo.PredicateResult) throw new ObservableComputationsException(this, "Consistency violation: AnyComputing.3");
 					}
 
-					if (_sourcePositions.List[sourceIndex].Index != sourceIndex) throw new ObservableComputationsException("Consistency violation: AnyComputing.4");
-					if (itemInfo.ExpressionWatcher._position != _sourcePositions.List[sourceIndex]) throw new ObservableComputationsException("Consistency violation: AnyComputing.5");
+					if (_sourcePositions.List[sourceIndex].Index != sourceIndex) throw new ObservableComputationsException(this, "Consistency violation: AnyComputing.4");
+					if (itemInfo.ExpressionWatcher._position != _sourcePositions.List[sourceIndex]) throw new ObservableComputationsException(this, "Consistency violation: AnyComputing.5");
 
 					if (!_sourcePositions.List.Contains((ItemInfo) itemInfo.ExpressionWatcher._position))
-						throw new ObservableComputationsException("Consistency violation: AnyComputing.6");
+						throw new ObservableComputationsException(this, "Consistency violation: AnyComputing.6");
 
 					if (itemInfo.ExpressionWatcher._position.Index != sourceIndex)
-						throw new ObservableComputationsException("Consistency violation: AnyComputing.10");
+						throw new ObservableComputationsException(this, "Consistency violation: AnyComputing.10");
 
 				}
 
-				if (predicatePassedCount != _predicatePassedCount) throw new ObservableComputationsException("Consistency violation: AnyComputing.7");
-				if (_value != _predicatePassedCount > 0) throw new ObservableComputationsException("Consistency violation: AnyComputing.8");
+				if (predicatePassedCount != _predicatePassedCount) throw new ObservableComputationsException(this, "Consistency violation: AnyComputing.7");
+				if (_value != _predicatePassedCount > 0) throw new ObservableComputationsException(this, "Consistency violation: AnyComputing.8");
 
 
 			}

@@ -107,7 +107,7 @@ namespace ObservableComputations
 			result.Insert(0, item);
 
 			if (!this.SequenceEqual(result))
-				throw new ObservableComputationsException("Consistency violation: Prepending.1");
+				throw new ObservableComputationsException(this, "Consistency violation: Prepending.1");
 		}
 	}
 }

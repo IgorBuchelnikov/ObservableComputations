@@ -5,6 +5,7 @@ using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Threading;
 using ObservableComputations.Common;
 using ObservableComputations.Common.Base;
 using ObservableComputations.Common.Interface;
@@ -485,23 +486,25 @@ namespace ObservableComputations
 
 		private void handleOuterSourceCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
 		{
+			checkConsistent();
 			if (!_outerRootSourceWrapper && _lastProcessedSourceChangeMarker == _outerSourceAsList.ChangeMarker) return;
 			_lastProcessedSourceChangeMarker = !_lastProcessedSourceChangeMarker;
-
-			checkConsistent();
-			_isConsistent = false;
 
 			switch (e.Action)
 			{
 				case NotifyCollectionChangedAction.Add:
+					_isConsistent = false;
 					int newStartingIndex = e.NewStartingIndex;
 					TOuterSourceItem addedItem = _outerSourceAsList[newStartingIndex];
-					registerOuterSourceItem(addedItem, newStartingIndex);								
+					registerOuterSourceItem(addedItem, newStartingIndex);
+					_isConsistent = true;
+					raiseConsistencyRestored();					
 					break;
 				case NotifyCollectionChangedAction.Remove:
 					unregisterOuterSourceItem(e.OldStartingIndex);
 					break;
 				case NotifyCollectionChangedAction.Replace:
+					_isConsistent = false;
 					int newIndex1 = e.NewStartingIndex;
 					TOuterSourceItem newItem = _outerSourceAsList[newIndex1];
 					JoinGroup<TOuterSourceItem, TInnerSourceItem, TKey> replacingJoinGroup = this[newIndex1];
@@ -530,9 +533,11 @@ namespace ObservableComputations
 
 					replacingJoinGroup.OuterItem = newItem;
 					replacingJoinGroup._outerSourceItemKeySelectorExpressionWatcher = watcher;
-
+					_isConsistent = true;
+					raiseConsistencyRestored();
 					break;
 				case NotifyCollectionChangedAction.Move:
+					_isConsistent = false;
 					int oldStartingIndex2 = e.OldStartingIndex;
 					int newStartingIndex2 = e.NewStartingIndex;
 					if (oldStartingIndex2 != newStartingIndex2)
@@ -540,17 +545,18 @@ namespace ObservableComputations
 						_outerSourceItemPositions.Move(oldStartingIndex2, newStartingIndex2);
 						baseMoveItem(oldStartingIndex2, newStartingIndex2);
 					}
-
+					_isConsistent = true;
+					raiseConsistencyRestored();
 					break;
 				case NotifyCollectionChangedAction.Reset:
-
-
+					_isConsistent = false;
 					initializeFromOuterSource();
-
-
+					_isConsistent = true;
+					raiseConsistencyRestored();
 					break;
 			}	
 			
+			_isConsistent = false;
 			if (_deferredOuterSourceItemKeyExpressionWatcherChangedProcessings != null)
 				while (_deferredOuterSourceItemKeyExpressionWatcherChangedProcessings.Count > 0)
 				{
@@ -665,12 +671,38 @@ namespace ObservableComputations
 
 		private TKey applyKeySelector(TOuterSourceItem outerSourceItem, Func<TKey> outerSelectorFunc)
 		{
-			return _outerKeySelectorExpressionContainsParametrizedObservableComputationsCalls ? outerSelectorFunc() : _outerKeySelectorFunc(outerSourceItem);
+			bool trackComputingsExecutingUserCode = Configuration.TrackComputingsExecutingUserCode;
+			if (trackComputingsExecutingUserCode)
+			{
+				DebugInfo._computingsExecutingUserCode[Thread.CurrentThread] = this;
+			}
+
+			TKey result = _outerKeySelectorExpressionContainsParametrizedObservableComputationsCalls ? outerSelectorFunc() : _outerKeySelectorFunc(outerSourceItem);
+
+			if (trackComputingsExecutingUserCode)
+			{
+				DebugInfo._computingsExecutingUserCode.Remove(Thread.CurrentThread);
+			}
+
+			return result;
 		}
 
 		private TKey applyKeySelector(int index)
 		{
-			return _outerKeySelectorExpressionContainsParametrizedObservableComputationsCalls ? this[index]._outerKeySelectorFunc() : _outerKeySelectorFunc(_outerSourceAsList[index]);
+			bool trackComputingsExecutingUserCode = Configuration.TrackComputingsExecutingUserCode;
+			if (trackComputingsExecutingUserCode)
+			{
+				DebugInfo._computingsExecutingUserCode[Thread.CurrentThread] = this;
+			}
+
+			TKey result = _outerKeySelectorExpressionContainsParametrizedObservableComputationsCalls ? this[index]._outerKeySelectorFunc() : _outerKeySelectorFunc(_outerSourceAsList[index]);
+
+			if (trackComputingsExecutingUserCode)
+			{
+				DebugInfo._computingsExecutingUserCode.Remove(Thread.CurrentThread);
+			}
+
+			return result;
 		}
 
 		public TKey ApplyKeySelector(int index)
@@ -719,7 +751,7 @@ namespace ObservableComputations
 			Func<TOuterSourceItem, TKey> outerKeySelector = _outerKeySelectorExpressionOriginal.Compile();
 
 			if (_outerSourceItemPositions.List.Count != outerSource.Count)
-				throw new ObservableComputationsException("Consistency violation: GroupJoining.5");
+				throw new ObservableComputationsException(this, "Consistency violation: GroupJoining.5");
 
 			Func<TInnerSourceItem, TKey> innerKeySelector = _grouping._keySelectorExpression.Compile();
 
@@ -740,7 +772,7 @@ namespace ObservableComputations
 				}).ToList();
 
 			if (Count !=  result.Count())
-				throw new ObservableComputationsException("Consistency violation: GroupJoining.1");
+				throw new ObservableComputationsException(this, "Consistency violation: GroupJoining.1");
 
 			for (int index = 0; index < result.Count; index++)
 			{
@@ -748,16 +780,16 @@ namespace ObservableComputations
 				JoinGroup<TOuterSourceItem, TInnerSourceItem, TKey> thisItem = this[index];
 
 				if (!ReferenceEquals(resultItem.Key, thisItem.OuterItem))
-					throw new ObservableComputationsException("Consistency violation: GroupJoining.2");
+					throw new ObservableComputationsException(this, "Consistency violation: GroupJoining.2");
 
 				if (resultItem.InnerItems.Count() !=  thisItem.Count)
-					throw new ObservableComputationsException("Consistency violation: GroupJoining.3");
+					throw new ObservableComputationsException(this, "Consistency violation: GroupJoining.3");
 
 				if (!resultItem.InnerItems.SequenceEqual(thisItem))
-					throw new ObservableComputationsException("Consistency violation: GroupJoining.4");
+					throw new ObservableComputationsException(this, "Consistency violation: GroupJoining.4");
 
 				if (thisItem._outerSourceItemKeySelectorExpressionWatcher._position.Index != index)
-					throw new ObservableComputationsException("Consistency violation: GroupJoining.9");
+					throw new ObservableComputationsException(this, "Consistency violation: GroupJoining.9");
 
 				List<int> indices;
 				TKey key = outerKeySelector(outerSource[index]);
@@ -778,17 +810,17 @@ namespace ObservableComputations
 			}
 
 			if (keyIndices.Count != _keyPositions.Count)
-				throw new ObservableComputationsException("Consistency violation: GroupJoining.6");
+				throw new ObservableComputationsException(this, "Consistency violation: GroupJoining.6");
 
 			foreach (KeyValuePair<TKey, List<int>> keyValuePair in keyIndices)
 			{
 				List<Position> positions = _keyPositions[keyValuePair.Key];
 				if (!positions.Select(p => p.Index).OrderBy(i => i).SequenceEqual(keyValuePair.Value))
-					throw new ObservableComputationsException("Consistency violation: GroupJoining.7");
+					throw new ObservableComputationsException(this, "Consistency violation: GroupJoining.7");
 			}
 
 			if (!_nullKeyPositions.Select(p => p.Index).OrderBy(i => i).SequenceEqual(nullKeyIndices))
-				throw new ObservableComputationsException("Consistency violation: GroupJoining.8");
+				throw new ObservableComputationsException(this, "Consistency violation: GroupJoining.8");
 		}
 	}
 

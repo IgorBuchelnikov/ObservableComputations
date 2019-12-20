@@ -62,7 +62,7 @@ namespace ObservableComputations
 
 			// ReSharper disable once AssignNullToNotNullAttribute
 			if (!this.SequenceEqual(source.Reverse()))
-				throw new ObservableComputationsException("Consistency violation: Reversing.1");
+				throw new ObservableComputationsException(this, "Consistency violation: Reversing.1");
 		}
 	}
 }

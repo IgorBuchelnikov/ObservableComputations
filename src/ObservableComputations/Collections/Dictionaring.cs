@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Linq.Expressions;
+using System.Threading;
 using ObservableComputations.Common;
 using ObservableComputations.Common.Base;
 using ObservableComputations.Common.Interface;
@@ -11,7 +12,7 @@ using ObservableComputations.Common.Interface;
 namespace ObservableComputations
 {
 	// ReSharper disable once RedundantExtendsListEntry
-	public class Dictionaring<TSourceItem, TKey, TValue> : Dictionary<TKey, TValue>, IHasSources
+	public class Dictionaring<TSourceItem, TKey, TValue> : Dictionary<TKey, TValue>, IHasSources, IComputing
 	{
 		// ReSharper disable once MemberCanBePrivate.Global
 		public IReadScalar<INotifyCollectionChanged> SourceScalar => _sourceScalar;
@@ -35,6 +36,13 @@ namespace ObservableComputations
 
 		public ReadOnlyCollection<INotifyCollectionChanged> SourcesCollection => new ReadOnlyCollection<INotifyCollectionChanged>(new []{Source});
 		public ReadOnlyCollection<IReadScalar<INotifyCollectionChanged>> SourceScalarsCollection => new ReadOnlyCollection<IReadScalar<INotifyCollectionChanged>>(new []{SourceScalar});
+
+		public string DebugTag { get; set; }
+		public object Tag { get; set; }
+
+		public bool IsConsistent => _isConsistent;
+
+		public event EventHandler ConsistencyRestored;
 
 		private Positions<ItemInfo> _sourcePositions;
 		private List<ItemInfo> _itemInfos;
@@ -69,6 +77,7 @@ namespace ObservableComputations
 		private readonly Func<TSourceItem, TValue> _valueSelectorFunc;
 		private INotifyCollectionChanged _source;
 		private readonly string _instantiatingStackTrace;
+		private bool _isConsistent = true;
 
 
 		// ReSharper disable once MemberCanBePrivate.Global
@@ -302,6 +311,8 @@ namespace ObservableComputations
 
 		private void handleSourceCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
 		{
+			checkConsistent();
+
 			if (!_rootSourceWrapper && _lastProcessedSourceChangeMarker == _sourceAsList.ChangeMarker) return;
 			_lastProcessedSourceChangeMarker = !_lastProcessedSourceChangeMarker;
 
@@ -309,12 +320,15 @@ namespace ObservableComputations
 			switch (e.Action)
 			{
 				case NotifyCollectionChangedAction.Add:
+					_isConsistent = false;
 					int newStartingIndex = e.NewStartingIndex;
 					TSourceItem addedItem = _sourceAsList[newStartingIndex];
 					ItemInfo itemInfo = registerSourceItem(addedItem, newStartingIndex);
 					key = applyKeySelector(itemInfo, addedItem);
 					TValue value = applyValueSelector(itemInfo, addedItem);
-					baseAddItem(key, value);					
+					baseAddItem(key, value);
+					_isConsistent = true;
+					ConsistencyRestored?.Invoke(this, null);
 					break;
 				case NotifyCollectionChangedAction.Remove:
 					int oldStartingIndex = e.OldStartingIndex;
@@ -323,6 +337,7 @@ namespace ObservableComputations
 					baseRemoveItem(key);
 					break;
 				case NotifyCollectionChangedAction.Replace:
+					_isConsistent = false;
 					int newStartingIndex1 = e.NewStartingIndex;
 					TSourceItem newItem = _sourceAsList[newStartingIndex1];
 					ItemInfo replacingItemInfo = _itemInfos[newStartingIndex1];
@@ -343,7 +358,9 @@ namespace ObservableComputations
 					{
 						baseRemoveItem(oldKey);
 						baseAddItem(replacingItemInfo.Key, newValue);
-					}		
+					}	
+					_isConsistent = true;
+					ConsistencyRestored?.Invoke(this, null);
 					break;
 				case NotifyCollectionChangedAction.Move:
 					int oldStartingIndex2 = e.OldStartingIndex;
@@ -355,10 +372,14 @@ namespace ObservableComputations
 
 					break;
 				case NotifyCollectionChangedAction.Reset:
+					_isConsistent = false;
 					initializeFromSource();
+					_isConsistent = true;
+					ConsistencyRestored?.Invoke(this, null);
 					break;
 			}
 
+			_isConsistent = false;
 			if (_deferredKeyExpressionWatcherChangedProcessings != null)
 				while (_deferredKeyExpressionWatcherChangedProcessings.Count > 0)
 				{
@@ -367,6 +388,7 @@ namespace ObservableComputations
 						processKeyExpressionWatcherValueChanged(expressionWatcher);
 				}
 			
+
 			if (_deferredValueExpressionWatcherChangedProcessings != null)
 				while (_deferredValueExpressionWatcherChangedProcessings.Count > 0)
 				{
@@ -374,19 +396,28 @@ namespace ObservableComputations
 					if (!expressionWatcher._disposed)
 						processValueExpressionWatcherValueChanged(expressionWatcher);
 				}
+			_isConsistent = true;
+			ConsistencyRestored?.Invoke(this, null);
 		}
 
 		private void handleSourceScalarValueChanged(object sender,  PropertyChangedEventArgs e)
 		{
 			if (e.PropertyName != nameof(IReadScalar<INotifyCollectionChanged>.Value)) return;
+			checkConsistent();
+			_isConsistent = false;
 			initializeFromSource();
+			_isConsistent = true;
+			ConsistencyRestored?.Invoke(this, null);
 		}
 
 		private void keyExpressionWatcher_OnValueChanged(ExpressionWatcher expressionWatcher)
 		{
 			if (_rootSourceWrapper || _sourceAsList.ChangeMarker ==_lastProcessedSourceChangeMarker)
 			{
+				_isConsistent = false;
 				processKeyExpressionWatcherValueChanged(expressionWatcher);
+				_isConsistent = true;
+				ConsistencyRestored?.Invoke(this, null);
 			}
 			else
 			{
@@ -396,9 +427,13 @@ namespace ObservableComputations
 
 		private void valueExpressionWatcher_OnValueChanged(ExpressionWatcher expressionWatcher)
 		{
+			checkConsistent();
 			if (_rootSourceWrapper || _sourceAsList.ChangeMarker ==_lastProcessedSourceChangeMarker)
 			{
+				_isConsistent = false;
 				processValueExpressionWatcherValueChanged(expressionWatcher);
+				_isConsistent = true;
+				ConsistencyRestored?.Invoke(this, null);
 			}
 			else
 			{
@@ -448,7 +483,22 @@ namespace ObservableComputations
 
 		private TKey applyKeySelector(ItemInfo itemInfo, TSourceItem sourceItem)
 		{
-			return _keySelectorContainsParametrizedObservableComputationsCalls ? itemInfo._keySelectorFunc() : _keySelectorFunc(sourceItem);
+			bool trackComputingsExecutingUserCode = Configuration.TrackComputingsExecutingUserCode;
+			if (trackComputingsExecutingUserCode)
+			{
+				DebugInfo._computingsExecutingUserCode[Thread.CurrentThread] = this;
+			}
+
+
+			TKey result = _keySelectorContainsParametrizedObservableComputationsCalls ? itemInfo._keySelectorFunc() : _keySelectorFunc(sourceItem);
+
+
+			if (trackComputingsExecutingUserCode)
+			{
+				DebugInfo._computingsExecutingUserCode.Remove(Thread.CurrentThread);
+			}
+
+			return result;
 		}
 
 		public TValue ApplyValueSelector(int index)
@@ -458,7 +508,22 @@ namespace ObservableComputations
 
 		private TValue applyValueSelector(ItemInfo itemInfo, TSourceItem sourceItem)
 		{
-			return _valueSelectorContainsParametrizedObservableComputationsCalls ? itemInfo._valueSelectorFunc() : _valueSelectorFunc(sourceItem);
+			bool trackComputingsExecutingUserCode = Configuration.TrackComputingsExecutingUserCode;
+			if (trackComputingsExecutingUserCode)
+			{
+				DebugInfo._computingsExecutingUserCode[Thread.CurrentThread] = this;
+			}
+
+
+			TValue result = _valueSelectorContainsParametrizedObservableComputationsCalls ? itemInfo._valueSelectorFunc() : _valueSelectorFunc(sourceItem);
+
+
+			if (trackComputingsExecutingUserCode)
+			{
+				DebugInfo._computingsExecutingUserCode.Remove(Thread.CurrentThread);
+			}
+
+			return result;
 		}
 
 		private void baseClearItems()
@@ -479,6 +544,13 @@ namespace ObservableComputations
 		private void baseRemoveItem(TKey key)
 		{
 			Remove(key);
+		}
+
+		protected void checkConsistent()
+		{
+			if (!_isConsistent)
+				throw new ObservableComputationsException(this,
+					"The source collection has been changed. It is not possible to process this change, as the processing of the previous change is not completed. Make the change on ConsistencyRestored event raising (after IsConsistent property becomes true). This exception is fatal and cannot be handled as the inner state is damaged.");
 		}
 
 		// ReSharper disable once MemberCanBePrivate.Global
@@ -511,7 +583,7 @@ namespace ObservableComputations
 			IList<TSourceItem> source = _sourceScalar.getValue(_source, new ObservableCollection<TSourceItem>()) as IList<TSourceItem>;
 			// ReSharper disable once PossibleNullReferenceException
 			if (_itemInfos.Count != source.Count) throw new ObservableComputationsException("Consistency violation: Dictionaring.1");
-			if (Count != source.Count) throw new ObservableComputationsException("Consistency violation: Dictionaring.16");
+			if (Count != source.Count) throw new ObservableComputationsException( "Consistency violation: Dictionaring.16");
 			Func<TSourceItem, TKey> keySelector = _keySelectorExpression.Compile();
 			Func<TSourceItem, TValue> valueSelector = _valueSelectorExpression.Compile();
 

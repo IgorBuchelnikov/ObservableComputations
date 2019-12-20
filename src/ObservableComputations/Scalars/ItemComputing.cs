@@ -404,12 +404,12 @@ namespace ObservableComputations
 			if (source.Count > index)
 			{
 				if (!source[index].IsSameAs(_value))
-					throw new ObservableComputationsException("Consistency violation: ItemComputing.1");
+					throw new ObservableComputationsException(this, "Consistency violation: ItemComputing.1");
 			}
 			else
 			{
 				if (!defaultValue.IsSameAs(_value))
-					throw new ObservableComputationsException("Consistency violation: ItemComputing.2");			
+					throw new ObservableComputationsException(this, "Consistency violation: ItemComputing.2");			
 			}
 		}
 

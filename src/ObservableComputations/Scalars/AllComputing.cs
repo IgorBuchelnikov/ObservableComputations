@@ -78,7 +78,7 @@ namespace ObservableComputations
 			Func<TSourceItem, bool> predicate = _predicateExpression.Compile();
 
 			if (_value != source.All(predicate))
-				throw new ObservableComputationsException("Consistency violation: AllComputing.1");
+				throw new ObservableComputationsException(this, "Consistency violation: AllComputing.1");
 		}
 	}
 }

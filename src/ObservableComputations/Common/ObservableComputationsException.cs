@@ -1,25 +1,22 @@
 ﻿using System;
 using System.Runtime.Serialization;
+using ObservableComputations.Common.Interface;
 
 namespace ObservableComputations.Common
 {
 	[Serializable]
 	public class ObservableComputationsException : Exception
 	{
-		public ObservableComputationsException()
-		{
-		}
+		private IComputing _computing;
+		private IComputing Computing => _computing;
 
 		public ObservableComputationsException(string message) : base(message)
 		{
 		}
 
-		public ObservableComputationsException(string message, Exception innerException) : base(message, innerException)
+		public ObservableComputationsException(IComputing computing, string message) : base(message)
 		{
-		}
-
-		protected ObservableComputationsException(SerializationInfo info, StreamingContext context) : base(info, context)
-		{
+			_computing = computing;
 		}
 	}
 }

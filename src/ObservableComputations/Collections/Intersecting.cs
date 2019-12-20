@@ -265,7 +265,7 @@ namespace ObservableComputations
 			IEqualityComparer<TSourceItem> equalityComparer = _equalityComparerScalar.getValue(_equalityComparer);
 
 			if (!this.SequenceEqual(source1.Intersect(source2, equalityComparer)))
-				throw new ObservableComputationsException("Consistency violation: Intersecting.1");
+				throw new ObservableComputationsException(this, "Consistency violation: Intersecting.1");
 		}
 	}
 }

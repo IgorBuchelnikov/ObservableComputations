@@ -137,7 +137,7 @@ namespace ObservableComputations
 			}).ToList();
 
 			if (Count !=  result.Count())
-				throw new ObservableComputationsException("Consistency violation: PredicateGroupJoining.1");
+				throw new ObservableComputationsException(this, "Consistency violation: PredicateGroupJoining.1");
 
 			for (int index = 0; index < result.Count; index++)
 			{
@@ -158,7 +158,7 @@ namespace ObservableComputations
 						{
 							enumerator2.MoveNext();
 							if (!equalityComparer.Equals((TInnerSourceItem)enumerator1.Current, enumerator2.Current))
-								throw new ObservableComputationsException("Consistency violation: PredicateGroupJoining.4");
+								throw new ObservableComputationsException(this, "Consistency violation: PredicateGroupJoining.4");
 						}
 					}
 				}

@@ -122,7 +122,6 @@ namespace ObservableComputations
 		{
 			if (e.PropertyName != nameof(IReadScalar<INotifyCollectionChanged>.Value)) return;
 			checkConsistent();
-
 			_isConsistent = false;
 
 			initializeFromSource();
@@ -133,23 +132,24 @@ namespace ObservableComputations
 
 		private void handleSourceCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
 		{
+			checkConsistent();
 			if (_indexerPropertyChangedEventRaised || _lastProcessedSourceChangeMarker != _sourceAsIHasChangeMarker.GetChangeMarker())
 			{
 				_lastProcessedSourceChangeMarker = !_lastProcessedSourceChangeMarker;
 				_indexerPropertyChangedEventRaised = false;
 
-				checkConsistent();
+
 				_isConsistent = false;
 
 				switch (e.Action)
 				{
 					case NotifyCollectionChangedAction.Add:
 						IList newItems = e.NewItems;
-						if (newItems.Count > 1) throw new ObservableComputationsException("Adding of multiple items is not supported");
+						//if (newItems.Count > 1) throw new ObservableComputationsException(this, "Adding of multiple items is not supported");
 						baseInsertItem(e.NewStartingIndex, (TResultItem)newItems[0]);								
 						break;
 					case NotifyCollectionChangedAction.Remove:
-						if (e.OldItems.Count > 1) throw new ObservableComputationsException("Removing of multiple items is not supported");
+						//if (e.OldItems.Count > 1) throw new ObservableComputationsException(this, "Removing of multiple items is not supported");
 						baseRemoveItem(e.OldStartingIndex);
 						break;
 					case NotifyCollectionChangedAction.Move:
@@ -162,7 +162,7 @@ namespace ObservableComputations
 						break;
 					case NotifyCollectionChangedAction.Replace:
 						IList newItems1 = e.NewItems;
-						if (newItems1.Count > 1) throw new ObservableComputationsException("Replacing of multiple items is not supported");
+						//if (newItems1.Count > 1) throw new ObservableComputationsException(this, "Replacing of multiple items is not supported");
 						baseSetItem(e.NewStartingIndex, (TResultItem)newItems1[0]);
 						break;
 					case NotifyCollectionChangedAction.Reset:
@@ -197,14 +197,14 @@ namespace ObservableComputations
 		{
 			IList source = _sourceScalar.getValue(_source, new ObservableCollection<object>()) as IList;
 			// ReSharper disable once PossibleNullReferenceException
-			if (Count != source.Count) throw new ObservableComputationsException("Consistency violation: Casting.1");
+			if (Count != source.Count) throw new ObservableComputationsException(this, "Consistency violation: Casting.1");
 
 			for (int i = 0; i < source.Count; i++)
 			{
 				object sourceItem = source[i];
 				TResultItem resultItem = this[i];
 
-				if (!resultItem.IsSameAs(sourceItem)) throw new ObservableComputationsException("Consistency violation: Casting.2");
+				if (!resultItem.IsSameAs(sourceItem)) throw new ObservableComputationsException(this, "Consistency violation: Casting.2");
 			}
 		}
 	}

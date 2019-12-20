@@ -332,12 +332,13 @@ namespace ObservableComputations
 
 		private void handleLeftSourceCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
 		{
+			checkConsistent();
 			if (_leftSourceIndexerPropertyChangedEventRaised || _leftSourceAsObservableCollectionWithChangeMarker != null && _lastProcessedLeftSourceChangeMarker != _leftSourceAsObservableCollectionWithChangeMarker.ChangeMarker)
 			{
 				_leftSourceIndexerPropertyChangedEventRaised = false;
 				_lastProcessedLeftSourceChangeMarker = !_lastProcessedLeftSourceChangeMarker;
 
-				checkConsistent();
+
 				_isConsistent = false;
 
 				int newIndex;
@@ -345,7 +346,7 @@ namespace ObservableComputations
 				switch (e.Action)
 				{
 					case NotifyCollectionChangedAction.Add:
-						if (e.NewItems.Count > 1) throw new ObservableComputationsException("Adding of multiple items is not supported");
+						//if (e.NewItems.Count > 1) throw new ObservableComputationsException(this, "Adding of multiple items is not supported");
 						newIndex = e.NewStartingIndex;
 		
 						//if (newIndex < this.Count)
@@ -382,7 +383,7 @@ namespace ObservableComputations
 						//}
 						break;
 					case NotifyCollectionChangedAction.Remove:
-						if (e.OldItems.Count > 1) throw new ObservableComputationsException("Removing of multiple items is not supported");
+						//if (e.OldItems.Count > 1) throw new ObservableComputationsException(this, "Removing of multiple items is not supported");
 						oldIndex = e.OldStartingIndex;
 		
 						int countLeft = _leftSourceAsList.Count;
@@ -406,7 +407,7 @@ namespace ObservableComputations
 						}
 						break;
 					case NotifyCollectionChangedAction.Replace:
-						if (e.NewItems.Count > 1) throw new ObservableComputationsException("Replacing of multiple items is not supported");
+						//if (e.NewItems.Count > 1) throw new ObservableComputationsException(this, "Replacing of multiple items is not supported");
 						newIndex = e.NewStartingIndex;
 
 						if (newIndex < Count)
@@ -456,12 +457,13 @@ namespace ObservableComputations
 
 		private void handleRightSourceCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
 		{
+			checkConsistent();
 			if (_rigthtSourceIndexerPropertyChangedEventRaised || _rightSourceAsObservableCollectionWithChangeMarker != null && _lastProcessedRightSourceChangeMarker != _rightSourceAsObservableCollectionWithChangeMarker.ChangeMarker)
 			{
 				_rigthtSourceIndexerPropertyChangedEventRaised = false;
 				_lastProcessedRightSourceChangeMarker = !_lastProcessedRightSourceChangeMarker;
 
-				checkConsistent();
+
 				_isConsistent = false;
 
 				int newIndex;
@@ -469,7 +471,7 @@ namespace ObservableComputations
 				switch (e.Action)
 				{
 					case NotifyCollectionChangedAction.Add:
-						if (e.NewItems.Count > 1) throw new ObservableComputationsException("Adding of multiple items is not supported");
+						//if (e.NewItems.Count > 1) throw new ObservableComputationsException(this, "Adding of multiple items is not supported");
 						newIndex = e.NewStartingIndex;
 
 						int countRight = _rightSourceAsList.Count;
@@ -495,7 +497,7 @@ namespace ObservableComputations
 						}
 						break;
 					case NotifyCollectionChangedAction.Remove:
-						if (e.OldItems.Count > 1) throw new ObservableComputationsException("Removing of multiple items is not supported");
+						//if (e.OldItems.Count > 1) throw new ObservableComputationsException(this, "Removing of multiple items is not supported");
 						oldIndex = e.OldStartingIndex;
 						int sourceRightCount = _rightSourceAsList.Count;
 						int sourceLeftCount = _leftSourceAsList.Count;
@@ -520,7 +522,7 @@ namespace ObservableComputations
 						}
 						break;
 					case NotifyCollectionChangedAction.Replace:
-						if (e.NewItems.Count > 1) throw new ObservableComputationsException("Replacing of multiple items is not supported");
+						//if (e.NewItems.Count > 1) throw new ObservableComputationsException(this, "Replacing of multiple items is not supported");
 						newIndex = e.NewStartingIndex;
 						if (newIndex < Count)
 						{
@@ -607,10 +609,10 @@ namespace ObservableComputations
 				if (index < sourceRight.Count)
 				{
 					if (!EqualityComparer<TLeftSourceItem>.Default.Equals(this[index].ItemLeft, sourceLeft[index]))
-						throw new ObservableComputationsException("Consistency violation: Zipping.Left");
+						throw new ObservableComputationsException(this, "Consistency violation: Zipping.Left");
 
 					if (!EqualityComparer<TRightSourceItem>.Default.Equals(this[index].ItemRight, sourceRight[index]))
-						throw new ObservableComputationsException("Consistency violation: Zipping.Right");
+						throw new ObservableComputationsException(this, "Consistency violation: Zipping.Right");
 				}
 				else
 				{

@@ -2,7 +2,7 @@
 
 namespace ObservableComputations.Common.Interface
 {
-	public interface IComputing : INotifyPropertyChanged, IHasTags, IConsistent
+	public interface IComputing : IHasTags, IConsistent
 	{
 		string InstantiatingStackTrace { get; }
 	}

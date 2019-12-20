@@ -74,12 +74,12 @@ namespace ObservableComputations
 			{
 				// ReSharper disable once PossibleNullReferenceException
 				// ReSharper disable once CompareOfFloatsByEqualityOperator
-				if (source.Average() != @this.Value) throw new ObservableComputationsException("Consistency violation: Averaging.1");
+				if (source.Average() != @this.Value) throw new ObservableComputationsException(this, "Consistency violation: Averaging.1");
 			}
 			else
 			{
 				// ReSharper disable once PossibleNullReferenceException
-				if (!double.IsNaN(@this.Value)) throw new ObservableComputationsException("Consistency violation: Averaging.2");
+				if (!double.IsNaN(@this.Value)) throw new ObservableComputationsException(this, "Consistency violation: Averaging.2");
 			}
 		}
 	}

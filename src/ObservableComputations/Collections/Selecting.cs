@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Linq.Expressions;
+using System.Threading;
 using ObservableComputations.Common;
 using ObservableComputations.Common.Base;
 using ObservableComputations.Common.Interface;
@@ -191,20 +192,21 @@ namespace ObservableComputations
 
 		private void handleSourceCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
 		{
+			checkConsistent();
 			if (!_rootSourceWrapper && _lastProcessedSourceChangeMarker == _sourceAsList.ChangeMarker) return;
 			_lastProcessedSourceChangeMarker = !_lastProcessedSourceChangeMarker;
-
-			checkConsistent();
-			_isConsistent = false;
 
 			ItemInfo itemInfo;
 			switch (e.Action)
 			{
 				case NotifyCollectionChangedAction.Add:
+					_isConsistent = false;
 					int newStartingIndex = e.NewStartingIndex;
 					TSourceItem addedItem = _sourceAsList[newStartingIndex];
 					itemInfo = registerSourceItem(addedItem, newStartingIndex);
 					baseInsertItem(newStartingIndex, applySelector(itemInfo, addedItem));
+					_isConsistent = true;
+					raiseConsistencyRestored();
 					break;
 				case NotifyCollectionChangedAction.Remove:
 					int oldStartingIndex = e.OldStartingIndex;
@@ -212,12 +214,15 @@ namespace ObservableComputations
 					baseRemoveItem(oldStartingIndex);
 					break;
 				case NotifyCollectionChangedAction.Replace:
+					_isConsistent = false;
 					int newStartingIndex1 = e.NewStartingIndex;
 					TSourceItem newItem = _sourceAsList[newStartingIndex1];
 					ItemInfo replacingItemInfo = _itemInfos[newStartingIndex1];
 					unregisterSourceItem(newStartingIndex1, true);
 					itemInfo = registerSourceItem(newItem, newStartingIndex1, replacingItemInfo);
 					baseSetItem(newStartingIndex1, applySelector(itemInfo, newItem));
+					_isConsistent = true;
+					raiseConsistencyRestored();
 					break;
 				case NotifyCollectionChangedAction.Move:
 					int oldStartingIndex2 = e.OldStartingIndex;
@@ -229,10 +234,14 @@ namespace ObservableComputations
 					}
 					break;
 				case NotifyCollectionChangedAction.Reset:
+					_isConsistent = false;
 					initializeFromSource();
+					_isConsistent = true;
+					raiseConsistencyRestored();
 					break;
 			}
 
+			_isConsistent = false;
 			if (_deferredExpressionWatcherChangedProcessings != null)
 				while (_deferredExpressionWatcherChangedProcessings.Count > 0)
 				{
@@ -251,7 +260,10 @@ namespace ObservableComputations
 
 			if (_rootSourceWrapper || _sourceAsList.ChangeMarker == _lastProcessedSourceChangeMarker)
 			{
+				_isConsistent = false;
 				processExpressionWatcherValueChanged(expressionWatcher);
+				_isConsistent = true;
+				raiseConsistencyRestored();
 			}
 			else
 			{
@@ -306,12 +318,46 @@ namespace ObservableComputations
 		}
 
 		// ReSharper disable once MemberCanBePrivate.Global
-		public TResultItem ApplySelector(int index) => 
-			_selectorContainsParametrizedObservableComputationsCalls ? _itemInfos[index].SelectorFunc() : _selectorFunc(_sourceAsList[index]);
+		public TResultItem ApplySelector(int index)
+		{
+			bool trackComputingsExecutingUserCode = Configuration.TrackComputingsExecutingUserCode;
+			if (trackComputingsExecutingUserCode)
+			{
+				DebugInfo._computingsExecutingUserCode[Thread.CurrentThread] = this;
+			}
+
+			TResultItem result = _selectorContainsParametrizedObservableComputationsCalls
+				? _itemInfos[index].SelectorFunc()
+				: _selectorFunc(_sourceAsList[index]);
+
+			if (trackComputingsExecutingUserCode)
+			{
+				DebugInfo._computingsExecutingUserCode.Remove(Thread.CurrentThread);
+			}
+
+			return result;
+		}
 
 
-		private TResultItem applySelector(ItemInfo itemInfo, TSourceItem sourceItem) => 
-			_selectorContainsParametrizedObservableComputationsCalls ? itemInfo.SelectorFunc() : _selectorFunc(sourceItem);
+		private TResultItem applySelector(ItemInfo itemInfo, TSourceItem sourceItem)
+		{
+			bool trackComputingsExecutingUserCode = Configuration.TrackComputingsExecutingUserCode;
+			if (trackComputingsExecutingUserCode)
+			{
+				DebugInfo._computingsExecutingUserCode[Thread.CurrentThread] = this;
+			}
+
+			TResultItem result = _selectorContainsParametrizedObservableComputationsCalls
+				? itemInfo.SelectorFunc()
+				: _selectorFunc(sourceItem);
+
+			if (trackComputingsExecutingUserCode)
+			{
+				DebugInfo._computingsExecutingUserCode.Remove(Thread.CurrentThread);
+			}
+
+			return result;
+		}
 
 		~Selecting()
 		{
@@ -333,14 +379,14 @@ namespace ObservableComputations
 			IList<TSourceItem> source = _sourceScalar.getValue(_source, new ObservableCollection<TSourceItem>()) as IList<TSourceItem>;
 			// ReSharper disable once PossibleNullReferenceException
 			if (_itemInfos.Count != source.Count)
-				throw new ObservableComputationsException("Consistency violation: Selecting.1");
+				throw new ObservableComputationsException(this, "Consistency violation: Selecting.1");
 			Func<TSourceItem, TResultItem> selector = _selectorExpressionOriginal.Compile();
 
 			// ReSharper disable once ConditionIsAlwaysTrueOrFalse
 			if (source != null)
 			{
 				if (_itemInfos.Count != source.Count)
-					throw new ObservableComputationsException("Consistency violation: Selecting.6");
+					throw new ObservableComputationsException(this, "Consistency violation: Selecting.6");
 
 				for (int sourceIndex = 0; sourceIndex < source.Count; sourceIndex++)
 				{
@@ -348,18 +394,18 @@ namespace ObservableComputations
 					ItemInfo itemInfo = _itemInfos[sourceIndex];
 					
 					if (!EqualityComparer<TResultItem>.Default.Equals(this[sourceIndex], selector(sourceItem)))
-						throw new ObservableComputationsException("Consistency violation: Selecting.2");
+						throw new ObservableComputationsException(this, "Consistency violation: Selecting.2");
 
 					if (_itemInfos[sourceIndex].Index != sourceIndex)
-						throw new ObservableComputationsException("Consistency violation: Selecting.3");
+						throw new ObservableComputationsException(this, "Consistency violation: Selecting.3");
 					if (itemInfo.ExpressionWatcher._position != _itemInfos[sourceIndex])
-						throw new ObservableComputationsException("Consistency violation: Selecting.4");
+						throw new ObservableComputationsException(this, "Consistency violation: Selecting.4");
 
 					if (!_itemInfos.Contains((ItemInfo) itemInfo.ExpressionWatcher._position))
-						throw new ObservableComputationsException("Consistency violation: Selecting.5");
+						throw new ObservableComputationsException(this, "Consistency violation: Selecting.5");
 
 					if (itemInfo.ExpressionWatcher._position.Index != sourceIndex)
-						throw new ObservableComputationsException("Consistency violation: Selecting.7");
+						throw new ObservableComputationsException(this, "Consistency violation: Selecting.7");
 
 				}
 			}

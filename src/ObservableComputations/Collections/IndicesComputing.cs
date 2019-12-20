@@ -107,7 +107,7 @@ namespace ObservableComputations
 				}
 			}
 
-			if (!this.SequenceEqual(result)) throw new ObservableComputationsException("Consistency violation: IndicesComputing.1");
+			if (!this.SequenceEqual(result)) throw new ObservableComputationsException(this, "Consistency violation: IndicesComputing.1");
 		}
 
 		//private class FindExpressionVisitor : ExpressionVisitor

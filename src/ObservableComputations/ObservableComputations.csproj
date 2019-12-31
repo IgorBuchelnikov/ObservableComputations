@@ -18,14 +18,17 @@
     <NeutralLanguage>en</NeutralLanguage>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
-    <PackageReleaseNotes>fixed: creation Computing&lt;TResult&gt; throuth the constructor</PackageReleaseNotes>
+    <PackageReleaseNotes>improved and fixed: Consistency verification 
+new feature: Computing property in ObservableComputationsException
+new feature: TrackComputingsExecutingUserCode property in Configuration class
+new feature: TryConstructInsertOrRemoveActions method in Filtering&lt;TSourceItem&gt; class</PackageReleaseNotes>
     <Version>1.2.0</Version>
     <AssemblyName>ObservableComputations</AssemblyName>
     <PackageId>ObservableComputations</PackageId>
     <Product>ObservableComputations</Product>
     <AssemblyVersion>1.2.0.0</AssemblyVersion>
     <FileVersion>1.2.0.0</FileVersion>
-    <PackageIconUrl>http://files.rsdn.org/82898/icon_32x32.ico</PackageIconUrl>
+    <PackageIconUrl>https://raw.githubusercontent.com/IgorBuchelnikov/ObservableComputations/master/icon_32x32.ico</PackageIconUrl>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net472|x86'">

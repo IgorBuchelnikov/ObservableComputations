@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq.Expressions;
 using System.Reflection;
-using ObservableComputations.Common.Interface;
+using ObservableComputations.ExtentionMethods;
+using ObservableComputations.Interface;
 
 namespace ObservableComputations.Common
 {

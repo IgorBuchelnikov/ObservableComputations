@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Runtime.Serialization;
-using ObservableComputations.Common.Interface;
+using ObservableComputations.Interface;
 
 namespace ObservableComputations.Common
 {

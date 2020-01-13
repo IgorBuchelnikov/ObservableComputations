@@ -1,5 +1,5 @@
 ﻿using System.ComponentModel;
-using ObservableComputations.Common.Interface;
+using ObservableComputations.Interface;
 
 namespace ObservableComputations.Test
 {

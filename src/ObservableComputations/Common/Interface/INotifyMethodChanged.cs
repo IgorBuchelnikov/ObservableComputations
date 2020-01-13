@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace ObservableComputations.Common.Interface
+namespace ObservableComputations.Interface
 {
 	public interface INotifyMethodChanged
 	{

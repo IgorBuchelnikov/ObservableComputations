@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using ObservableComputations.Common.Interface;
+using ObservableComputations.Interface;
 
-namespace ObservableComputations.Common.Base
+namespace ObservableComputations.Base
 {
 	public class ObservableCollectionWithChangeMarker<TItem> : ObservableCollection<TItem>, IHasChangeMarker
 	{

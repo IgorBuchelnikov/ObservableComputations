@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq.Expressions;
 using ObservableComputations.Common;
+using ObservableComputations.ExtentionMethods;
 
 namespace ObservableComputations
 {

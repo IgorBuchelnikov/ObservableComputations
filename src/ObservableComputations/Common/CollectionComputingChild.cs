@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
-using ObservableComputations.Common.Base;
-using ObservableComputations.Common.Interface;
+using ObservableComputations.Base;
+using ObservableComputations.Interface;
 
 namespace ObservableComputations.Common
 {

@@ -4,7 +4,7 @@ using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Linq.Expressions;
-using ObservableComputations.Common.Interface;
+using ObservableComputations.Interface;
 
 namespace ObservableComputations.Common
 {

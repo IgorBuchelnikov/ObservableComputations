@@ -14,7 +14,8 @@ using System.ComponentModel;
 using System.Collections.ObjectModel;
 using NUnit.Framework;
 using ObservableComputations.Common;
-using ObservableComputations.Common.Interface;
+using ObservableComputations.Interface;
+using ObservableComputations.ExtentionMethods;
 
 namespace ObservableComputations.Test
 {
@@ -252,7 +253,7 @@ namespace ObservableComputations.Test
 			type = type.Replace("TResult", "double");
 		else
 			type = type.Replace("TResult", "int");
-		type = type.Replace("ObservableComputations.Common.Interface.IReadScalar", "Scalar");
+		type = type.Replace("ObservableComputations.Interface.IReadScalar", "Scalar");
 		return type;
 	}
 
@@ -270,7 +271,7 @@ namespace ObservableComputations.Test
 		string variableType = null;
 
 		bool scalar = false;
-		Regex regex = new Regex(@"ObservableComputations\.Common\.Interface\.IReadScalar<(?<scalarType>.+)>");
+		Regex regex = new Regex(@"ObservableComputations\.Interface\.IReadScalar<(?<scalarType>.+)>");
 		MatchCollection matchCollection = regex.Matches(type);
 		if (matchCollection.Count > 0)
 		{
@@ -384,7 +385,7 @@ namespace ObservableComputations.Test
 			case "int":
 				result =  argumentName.Contains("count") ? "3" : "0";
 				break;
-			case "ObservableComputations.Common.Interface.IOrdering<TSourceItem>":
+			case "ObservableComputations.Interface.IOrdering<TSourceItem>":
 				result =  "getItems().Selecting(i => i.Num).Ordering(i => i, 32)";
 				sourceAccessor = ".GetValueAs(s => ((Ordering<int, int>)s)?.Source)?.GetValueAs(s => ((Selecting<Item, int>)s)?.Source)";
 				break;
@@ -469,7 +470,7 @@ namespace ObservableComputations.Test
 			case "int":
 				result.Add(argumentName.Contains("count") ? "4" : "1");
 				break;
-			case "ObservableComputations.Common.Interface.IOrdering<int>":
+			case "ObservableComputations.Interface.IOrdering<int>":
 				result.Add("null");
 				break;
 			case "string":

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq.Expressions;
 
-namespace ObservableComputations.Common
+namespace ObservableComputations.ExtentionMethods
 {
     internal static partial class ExtensionMethods
     {

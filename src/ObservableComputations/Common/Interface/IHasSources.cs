@@ -1,7 +1,7 @@
 ﻿using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 
-namespace ObservableComputations.Common.Interface
+namespace ObservableComputations.Interface
 {
 	public interface IHasSources
 	{

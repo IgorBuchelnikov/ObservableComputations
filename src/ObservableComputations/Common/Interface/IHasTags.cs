@@ -1,5 +1,5 @@
 ﻿
-namespace ObservableComputations.Common.Interface
+namespace ObservableComputations.Interface
 {
 	public interface IHasTags
 	{

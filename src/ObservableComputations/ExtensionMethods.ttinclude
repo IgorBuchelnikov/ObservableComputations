@@ -115,7 +115,7 @@
 								{
 									if (type.Contains("IReadScalar"))
 									{
-										newTypes.Add("Expression<" + type.Replace("ObservableComputations.Common.Interface.IReadScalar", "Func") + ">");
+										newTypes.Add("Expression<" + type.Replace("ObservableComputations.Interface.IReadScalar", "Func") + ">");
 									}
 								}
 							}
@@ -124,7 +124,7 @@
 								newTypes.Add(argumentVariants.Type);
 								if (argumentVariants.Type.Contains("IReadScalar"))
 								{
-									newTypes.Add("Expression<" + argumentVariants.Type.Replace("ObservableComputations.Common.Interface.IReadScalar", "Func") + ">");
+									newTypes.Add("Expression<" + argumentVariants.Type.Replace("ObservableComputations.Interface.IReadScalar", "Func") + ">");
 								}
 							}
 

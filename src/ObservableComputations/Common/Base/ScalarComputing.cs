@@ -1,8 +1,10 @@
 ﻿using System;
 using System.ComponentModel;
-using ObservableComputations.Common.Interface;
+using System.Threading;
+using ObservableComputations.Common;
+using ObservableComputations.Interface;
 
-namespace ObservableComputations.Common
+namespace ObservableComputations.Base
 {
 	public abstract class ScalarComputing<TValue> : IScalar<TValue>, IReadScalar<TValue>, IWriteScalar<TValue>, IScalarComputing
 	{
@@ -31,8 +33,23 @@ namespace ObservableComputations.Common
 		public TValue Value
 		{
 			get => _value;
-			set => _setValueAction(value);
+			set
+			{
+				bool trackComputingsExecutingUserCode = Configuration.TrackComputingsExecutingUserCode;
+				if (trackComputingsExecutingUserCode)
+				{
+					DebugInfo._computingsExecutingUserCode[Thread.CurrentThread] = this;
+				}
+
+				_setValueAction(value);
+
+				if (trackComputingsExecutingUserCode)
+				{
+					DebugInfo._computingsExecutingUserCode.Remove(Thread.CurrentThread);
+				}
+			}
 		}
+
 		#endregion
 
 		private Action<TValue> _setValueAction;

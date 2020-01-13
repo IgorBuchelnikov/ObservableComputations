@@ -9,7 +9,7 @@
     <AssemblyOriginatorKeyFile>assembly_strong_name_key.snk</AssemblyOriginatorKeyFile>
     <Authors>Igor Buchelnokov  (igor_buchelnikov_github@mail.ru)</Authors>
     <Company></Company>
-    <Description>Computations over INotifyPropertyChanged and INotifyCollectionChanged (ObservableCollection) objects.  Results of the computations are INotifyPropertyChanged and INotifyCollectionChanged (ObservableCollection) objects. The computations includes ones similar to LINQ and the computation of arbitrary expression. ObservableComputations are implemented as extension methods, like LINQ ones. ObservableComputations is easy to use and powerful implementation of reactive programming paradigm. With ObservableComputations, your code will fit more to the functional style than with standard LINQ.</Description>
+    <Description>Computations over INotifyPropertyChanged and INotifyCollectionChanged (ObservableCollection) objects.  Results of the computations are INotifyPropertyChanged and INotifyCollectionChanged (ObservableCollection) objects. The computations includes ones similar to LINQ and the computation of arbitrary expression. Observable сomputations are implemented as extension methods, like LINQ ones. ObservableComputations is easy to use and powerful implementation of reactive programming paradigm. With ObservableComputations, your code will fit more to the functional style than with standard LINQ.</Description>
     <PackageLicenseUrl>https://github.com/IgorBuchelnikov/ObservableComputations/blob/master/LICENSE</PackageLicenseUrl>
     <PackageProjectUrl>https://github.com/IgorBuchelnikov/ObservableComputations</PackageProjectUrl>
     <RepositoryUrl>https://github.com/IgorBuchelnikov/ObservableComputations.git</RepositoryUrl>
@@ -26,8 +26,8 @@ new feature: TryConstructInsertOrRemoveActions method in Filtering&lt;TSourceIte
     <AssemblyName>ObservableComputations</AssemblyName>
     <PackageId>ObservableComputations</PackageId>
     <Product>ObservableComputations</Product>
-    <AssemblyVersion>1.2.0.0</AssemblyVersion>
-    <FileVersion>1.2.0.0</FileVersion>
+    <AssemblyVersion>1.2.1.0</AssemblyVersion>
+    <FileVersion>1.2.1.0</FileVersion>
     <PackageIconUrl>https://raw.githubusercontent.com/IgorBuchelnikov/ObservableComputations/master/icon_32x32.ico</PackageIconUrl>
   </PropertyGroup>
 

@@ -6,7 +6,8 @@ using System.ComponentModel;
 using System.Linq;
 using System.Linq.Expressions;
 using ObservableComputations.Common;
-using ObservableComputations.Common.Interface;
+using ObservableComputations.ExtentionMethods;
+using ObservableComputations.Interface;
 using INotifyPropertyChanged = System.ComponentModel.INotifyPropertyChanged;
 
 namespace ObservableComputations

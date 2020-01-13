@@ -3,7 +3,7 @@ using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.Linq;
 using ObservableComputations.Common;
-using ObservableComputations.Common.Interface;
+using ObservableComputations.Interface;
 
 namespace ObservableComputations
 {

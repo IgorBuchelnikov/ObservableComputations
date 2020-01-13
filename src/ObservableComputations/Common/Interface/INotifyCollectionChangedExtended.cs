@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Specialized;
 
-namespace ObservableComputations.Common.Interface
+namespace ObservableComputations.Interface
 {
 	public interface INotifyCollectionChangedExtended : INotifyCollectionChanged
 	{

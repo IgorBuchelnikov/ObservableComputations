@@ -2,7 +2,7 @@
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.ComponentModel;
-using ObservableComputations.Common.Base;
+using ObservableComputations.Base;
 
 namespace ObservableComputations.Common
 {

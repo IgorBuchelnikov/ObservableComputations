@@ -1,10 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
-using ObservableComputations.Common.Base;
-using ObservableComputations.Common.Interface;
+using System.Threading;
+using ObservableComputations.Common;
+using ObservableComputations.Interface;
 
-namespace ObservableComputations.Common
+namespace ObservableComputations.Base
 {
 	public abstract class CollectionComputing<TItem> : ObservableCollectionWithChangeMarker<TItem>, ICollectionComputing
 	{
@@ -104,27 +105,82 @@ namespace ObservableComputations.Common
 		#region Overrides of ObservableCollection<TResult>
 		protected override void InsertItem(int index, TItem item)
 		{
-			InsertItemAction(index, item);
+			bool trackComputingsExecutingUserCode = Configuration.TrackComputingsExecutingUserCode;
+			if (trackComputingsExecutingUserCode)
+			{
+				DebugInfo._computingsExecutingUserCode[Thread.CurrentThread] = this;
+			}
+
+			_insertItemAction(index, item);
+
+			if (trackComputingsExecutingUserCode)
+			{
+				DebugInfo._computingsExecutingUserCode.Remove(Thread.CurrentThread);
+			}
 		}
 
 		protected override void MoveItem(int oldIndex, int newIndex)
 		{
-			MoveItemAction(oldIndex, newIndex);
+			bool trackComputingsExecutingUserCode = Configuration.TrackComputingsExecutingUserCode;
+			if (trackComputingsExecutingUserCode)
+			{
+				DebugInfo._computingsExecutingUserCode[Thread.CurrentThread] = this;
+			}
+
+			_moveItemAction(oldIndex, newIndex);
+
+			if (trackComputingsExecutingUserCode)
+			{
+				DebugInfo._computingsExecutingUserCode.Remove(Thread.CurrentThread);
+			}
 		}
 
 		protected override void RemoveItem(int index)
 		{
-			RemoveItemAction(index);
+			bool trackComputingsExecutingUserCode = Configuration.TrackComputingsExecutingUserCode;
+			if (trackComputingsExecutingUserCode)
+			{
+				DebugInfo._computingsExecutingUserCode[Thread.CurrentThread] = this;
+			}
+
+			_removeItemAction(index);
+
+			if (trackComputingsExecutingUserCode)
+			{
+				DebugInfo._computingsExecutingUserCode.Remove(Thread.CurrentThread);
+			}
 		}
 
 		protected override void SetItem(int index, TItem item)
 		{
-			SetItemAction(index, item);
+			bool trackComputingsExecutingUserCode = Configuration.TrackComputingsExecutingUserCode;
+			if (trackComputingsExecutingUserCode)
+			{
+				DebugInfo._computingsExecutingUserCode[Thread.CurrentThread] = this;
+			}
+
+			_setItemAction(index, item);
+
+			if (trackComputingsExecutingUserCode)
+			{
+				DebugInfo._computingsExecutingUserCode.Remove(Thread.CurrentThread);
+			}
 		}
 
 		protected override void ClearItems()
 		{
-			ClearItemsAction();
+			bool trackComputingsExecutingUserCode = Configuration.TrackComputingsExecutingUserCode;
+			if (trackComputingsExecutingUserCode)
+			{
+				DebugInfo._computingsExecutingUserCode[Thread.CurrentThread] = this;
+			}
+
+			_clearItemsAction();
+
+			if (trackComputingsExecutingUserCode)
+			{
+				DebugInfo._computingsExecutingUserCode.Remove(Thread.CurrentThread);
+			}
 		}
 		#endregion
 

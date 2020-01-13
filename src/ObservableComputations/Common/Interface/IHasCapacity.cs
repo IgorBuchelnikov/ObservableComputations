@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Specialized;
 
-namespace ObservableComputations.Common.Interface
+namespace ObservableComputations.Interface
 {
 	public interface IHasCapacity : IList, INotifyCollectionChanged
 	{

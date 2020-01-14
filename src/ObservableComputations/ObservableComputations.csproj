@@ -18,11 +18,9 @@
     <NeutralLanguage>en</NeutralLanguage>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
-    <PackageReleaseNotes>improved and fixed: Consistency verification 
-new feature: Computing property in ObservableComputationsException
-new feature: TrackComputingsExecutingUserCode property in Configuration class
-new feature: TryConstructInsertOrRemoveActions method in Filtering&lt;TSourceItem&gt; class</PackageReleaseNotes>
-    <Version>1.2.0</Version>
+    <PackageReleaseNotes>improved: behavior of Configuration.TrackComputingsExecutingUserCode property
+renamed: interface namespace</PackageReleaseNotes>
+    <Version>1.2.1</Version>
     <AssemblyName>ObservableComputations</AssemblyName>
     <PackageId>ObservableComputations</PackageId>
     <Product>ObservableComputations</Product>

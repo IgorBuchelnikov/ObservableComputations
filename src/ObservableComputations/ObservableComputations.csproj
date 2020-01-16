@@ -19,6 +19,7 @@
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
     <PackageReleaseNotes>improved: behavior of Configuration.TrackComputingsExecutingUserCode property
+improved: Concatenating&lt;TSourceItem&gt;, Prepending&lt;TSourceItem&gt;, Appending&lt;TSourceItem&gt;
 renamed: interface namespace</PackageReleaseNotes>
     <Version>1.2.1</Version>
     <AssemblyName>ObservableComputations</AssemblyName>

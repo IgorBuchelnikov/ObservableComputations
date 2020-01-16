@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
@@ -45,6 +46,11 @@ namespace ObservableComputations
 		private sealed class ItemInfo : RangePosition
 		{
 			public INotifyCollectionChanged Source;
+			public IReadScalar<object> SourceScalar;
+
+			public PropertyChangedEventHandler SourceScalarPropertyChangedEventHandler;
+			public WeakPropertyChangedEventHandler SourceScalarWeakPropertyChangedEventHandler;
+
 			public NotifyCollectionChangedEventHandler SourceNotifyCollectionChangedEventHandler;
 			public WeakNotifyCollectionChangedEventHandler SourceWeakNotifyCollectionChangedEventHandler;
 
@@ -91,12 +97,11 @@ namespace ObservableComputations
 			IList list = (IList)sources;
 			int result = 0;
 
-
 			int listCount = list.Count;
 			for (var index= 0; index < listCount; index++)
 			{
 				object innerList = list[index];
-				result = result + (innerList is IHasCapacity capacity ? capacity.Capacity : ((IList) innerList)?.Count ?? 0);
+				result = result + (innerList is IHasCapacity capacity ? capacity.Capacity : (innerList is IReadScalar<object> scalar ? (IList)scalar.Value : (IList)innerList)?.Count ?? 0);
 			}
 
 			return result;
@@ -111,19 +116,19 @@ namespace ObservableComputations
 
 		[ObservableComputationsCall]
 		public Concatenating(IReadScalar<INotifyCollectionChanged> source1Scalar, INotifyCollectionChanged source2) 
-			: this(Expr.Is(() => new Common.ReadOnlyObservableCollection<INotifyCollectionChanged>(new []{source1Scalar.Value, source2})).Computing())
+			: this(new Common.ReadOnlyObservableCollection<object>(new object[]{source1Scalar, source2}))
 		{
 		}
 
 		[ObservableComputationsCall]
 		public Concatenating(IReadScalar<INotifyCollectionChanged> source1Scalar, IReadScalar<INotifyCollectionChanged> source2Scalar) 
-			: this(Expr.Is(() => new Common.ReadOnlyObservableCollection<INotifyCollectionChanged>(new []{source1Scalar.Value, source2Scalar.Value})).Computing())
+			: this(new Common.ReadOnlyObservableCollection<object>(new object[]{source1Scalar, source2Scalar}))
 		{
 		}
 
 		[ObservableComputationsCall]
 		public Concatenating(INotifyCollectionChanged source1, IReadScalar<INotifyCollectionChanged> source2Scalar) 
-			: this(Expr.Is(() => new Common.ReadOnlyObservableCollection<INotifyCollectionChanged>(new []{source1, source2Scalar.Value})).Computing())
+			: this(new Common.ReadOnlyObservableCollection<object>(new object[]{source1, source2Scalar}))
 		{
 		}
 
@@ -192,10 +197,12 @@ namespace ObservableComputations
 				int count = _sourcesAsList.Count;
 				for (int index = 0; index < count; index++)
 				{
-					IList sourceItem = (IList) _sourcesAsList[index];
+					object sourceItemObject = _sourcesAsList[index];
+					IReadScalar<object> sourceItemScalar = sourceItemObject as IReadScalar<object>;
+					IList sourceItem = sourceItemScalar != null ? (IList)sourceItemScalar.Value : (IList) sourceItemObject;
 					int sourceItemCount = sourceItem?.Count ?? 0;
 					ItemInfo itemInfo = _sourceRangePositions.Add(sourceItemCount);
-					registerSourceItem((INotifyCollectionChanged) sourceItem, itemInfo);
+					registerSourceItem(sourceItemObject, itemInfo);
 
 					for (int sourceSourceIndex = 0; sourceSourceIndex < sourceItemCount; sourceSourceIndex++)
 					{
@@ -214,29 +221,60 @@ namespace ObservableComputations
 			}
 		}
 
-		private void registerSourceItem(INotifyCollectionChanged sourceItem, ItemInfo itemInfo)
+		private void registerSourceItem(object sourceItemObject, ItemInfo itemInfo)
 		{
-			itemInfo.Source = sourceItem;
+			IReadScalar<object> sourceScalar = sourceItemObject as IReadScalar<object>;
+			itemInfo.SourceScalar = sourceScalar;
+			INotifyCollectionChanged source = sourceScalar != null ? (INotifyCollectionChanged)sourceScalar.Value : (INotifyCollectionChanged)sourceItemObject;
+			registerSourceItem(itemInfo, source);
 
-			if (itemInfo.Source != null)
+			if (sourceScalar != null)
 			{
-				itemInfo.SourceAsINotifyPropertyChanged = (INotifyPropertyChanged) sourceItem;
+				itemInfo.SourceScalarPropertyChangedEventHandler = 
+					(sender, eventArgs) =>
+					{
+						checkConsistent();
+						_isConsistent = false;
+						object sourceScalarValue = sourceScalar.Value;
+						replaceItem((IList) sourceScalarValue, itemInfo);
+						unregisterSourceItem(itemInfo);
+						registerSourceItem(itemInfo, (INotifyCollectionChanged) sourceScalarValue);
+						_isConsistent = true;
+						raiseConsistencyRestored();
+					};
+				itemInfo.SourceScalarWeakPropertyChangedEventHandler = new WeakPropertyChangedEventHandler(itemInfo.SourceScalarPropertyChangedEventHandler);
+				sourceScalar.PropertyChanged += itemInfo.SourceScalarWeakPropertyChangedEventHandler.Handle;
+			}
+		}
+
+		private void registerSourceItem(ItemInfo itemInfo, INotifyCollectionChanged source)
+		{
+			itemInfo.Source = source;
+
+			if (source != null)
+			{
+				itemInfo.SourceAsINotifyPropertyChanged = (INotifyPropertyChanged) source;
 
 				itemInfo.SourcePropertyChangedEventHandler = (sender, args) =>
 				{
-					if (args.PropertyName == "Item[]") itemInfo.IndexerPropertyChangedEventRaised = true; // ObservableCollection raises this before CollectionChanged event raising
+					if (args.PropertyName == "Item[]")
+						itemInfo.IndexerPropertyChangedEventRaised =
+							true; // ObservableCollection raises this before CollectionChanged event raising
 				};
 
-				itemInfo.SourceWeakPropertyChangedEventHandler = new WeakPropertyChangedEventHandler(itemInfo.SourcePropertyChangedEventHandler);
+				itemInfo.SourceWeakPropertyChangedEventHandler =
+					new WeakPropertyChangedEventHandler(itemInfo.SourcePropertyChangedEventHandler);
 
-				itemInfo.SourceAsINotifyPropertyChanged.PropertyChanged += itemInfo.SourceWeakPropertyChangedEventHandler.Handle;
+				itemInfo.SourceAsINotifyPropertyChanged.PropertyChanged +=
+					itemInfo.SourceWeakPropertyChangedEventHandler.Handle;
 
-				itemInfo.SourceNotifyCollectionChangedEventHandler = (sender, eventArgs) => handleSourceCollectionChanged(sender, eventArgs, itemInfo);
-				itemInfo.SourceWeakNotifyCollectionChangedEventHandler = 
+				itemInfo.SourceNotifyCollectionChangedEventHandler = (sender, eventArgs) =>
+					handleSourceCollectionChanged(sender, eventArgs, itemInfo);
+				itemInfo.SourceWeakNotifyCollectionChangedEventHandler =
 					new WeakNotifyCollectionChangedEventHandler(itemInfo.SourceNotifyCollectionChangedEventHandler);
-				if (sourceItem != null) sourceItem.CollectionChanged += itemInfo.SourceWeakNotifyCollectionChangedEventHandler.Handle;
+				if (source != null) source.CollectionChanged += itemInfo.SourceWeakNotifyCollectionChangedEventHandler.Handle;
 
-				IHasChangeMarker sourceAsIHasChangeMarker = sourceItem as IHasChangeMarker;
+				IHasChangeMarker sourceAsIHasChangeMarker = source as IHasChangeMarker;
 				itemInfo.SourceAsIHasChangeMarker = sourceAsIHasChangeMarker;
 				if (sourceAsIHasChangeMarker != null)
 				{
@@ -249,6 +287,19 @@ namespace ObservableComputations
 		{
 			ItemInfo itemInfo =  _itemInfos[sourcesIndex];
 			_sourceRangePositions.Remove(itemInfo.Index);
+
+			unregisterSourceItem(itemInfo);
+
+			if (itemInfo.SourceScalar != null)
+			{
+				itemInfo.SourceScalar.PropertyChanged -= itemInfo.SourceScalarWeakPropertyChangedEventHandler.Handle;
+			}
+
+			return itemInfo;
+		}
+
+		private static void unregisterSourceItem(ItemInfo itemInfo)
+		{
 			if (itemInfo.Source != null)
 				itemInfo.Source.CollectionChanged -= itemInfo.SourceWeakNotifyCollectionChangedEventHandler.Handle;
 
@@ -261,8 +312,6 @@ namespace ObservableComputations
 				itemInfo.SourcePropertyChangedEventHandler = null;
 				itemInfo.SourceWeakPropertyChangedEventHandler = null;
 			}
-
-			return itemInfo;
 		}
 
 		private void handleSourcesScalarValueChanged(object sender, PropertyChangedEventArgs e)
@@ -508,6 +557,11 @@ namespace ObservableComputations
 							itemInfo.SourceAsINotifyPropertyChanged.PropertyChanged -=
 								itemInfo.SourceWeakPropertyChangedEventHandler.Handle;
 					}
+
+					if (itemInfo.SourceScalar != null)
+					{
+						itemInfo.SourceScalar.PropertyChanged -= itemInfo.SourceScalarWeakPropertyChangedEventHandler.Handle;
+					}
 				}
 			}
 
@@ -527,7 +581,7 @@ namespace ObservableComputations
 				int sourcesCount = sources.Count;
 				for (int sourceIndex = 0; sourceIndex < sourcesCount; sourceIndex++)
 				{
-					IList source = (IList) sources[sourceIndex];
+					IList source = sources[sourceIndex] is IReadScalar<object> scalar ? (IList)scalar.Value : (IList)sources[sourceIndex];
 					int plainIndex = index;
 
 					int sourceCount = source?.Count ?? 0;

@@ -2,7 +2,7 @@
 using System.Collections.Specialized;
 using System.ComponentModel;
 
-namespace ObservableComputations.Common
+namespace ObservableComputations
 {
 	public sealed class WeakEventHandler<TEventArgs> where TEventArgs : EventArgs
 	{

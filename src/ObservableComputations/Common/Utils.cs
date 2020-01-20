@@ -1,12 +1,10 @@
 ﻿using System;
 using System.Collections;
-using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Linq.Expressions;
-using ObservableComputations.Interface;
 
-namespace ObservableComputations.Common
+namespace ObservableComputations
 {
 	internal static class Utils
 	{

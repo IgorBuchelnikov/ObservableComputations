@@ -4,9 +4,8 @@ using System.ComponentModel;
 using System.Linq.Expressions;
 using System.Reflection;
 using ObservableComputations.ExtentionMethods;
-using ObservableComputations.Interface;
 
-namespace ObservableComputations.Common
+namespace ObservableComputations
 {
 	internal sealed class ExpressionWatcher : IDisposable
 	{

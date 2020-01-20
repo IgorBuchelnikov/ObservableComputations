@@ -3,9 +3,8 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq.Expressions;
 using System.Runtime.CompilerServices;
-using ObservableComputations.Common;
 using NUnit.Framework;
-using ObservableComputations.Interface;
+using ObservableComputations;
 
 namespace ObservableComputations.Test
 {

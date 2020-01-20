@@ -1,14 +1,13 @@
 ﻿using System;
-using System.Runtime.Serialization;
-using ObservableComputations.Interface;
+using ObservableComputations;
 
-namespace ObservableComputations.Common
+namespace ObservableComputations
 {
 	[Serializable]
 	public class ObservableComputationsException : Exception
 	{
 		private IComputing _computing;
-		private IComputing Computing => _computing;
+		public IComputing Computing => _computing;
 
 		public ObservableComputationsException(string message) : base(message)
 		{

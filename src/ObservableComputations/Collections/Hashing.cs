@@ -5,10 +5,8 @@ using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Linq.Expressions;
 using System.Threading;
-using ObservableComputations.Base;
-using ObservableComputations.Common;
+using ObservableComputations;
 using ObservableComputations.ExtentionMethods;
-using ObservableComputations.Interface;
 
 namespace ObservableComputations
 {

@@ -1,9 +1,7 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Specialized;
-using System.ComponentModel;
+﻿using System.Collections;
+using ObservableComputations;
 
-namespace ObservableComputations.Interface
+namespace ObservableComputations
 {
 	public interface ICollectionComputing : INotifyCollectionChangedExtended, IList, IComputing, IHasItemType
 	{

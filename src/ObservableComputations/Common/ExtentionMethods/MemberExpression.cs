@@ -5,7 +5,7 @@ namespace ObservableComputations.ExtentionMethods
 {
     internal static partial class ExtensionMethods
     {
-        public static bool IsStatic(this MemberExpression memberExpression)
+	    public static bool IsStatic(this MemberExpression memberExpression)
         {
             FieldInfo fieldInfo = memberExpression.Member as FieldInfo;
 			PropertyInfo propertyInfo = memberExpression.Member as PropertyInfo;

@@ -5,7 +5,7 @@ namespace ObservableComputations.ExtentionMethods
 {
     internal static partial class ExtensionMethods
     {
-        public static bool IsReadOnly(this MemberInfo memberInfo)
+	    public static bool IsReadOnly(this MemberInfo memberInfo)
         {
             PropertyInfo propertyInfo = memberInfo as PropertyInfo;
 			if (propertyInfo != null)

@@ -2,10 +2,8 @@
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.ComponentModel;
-using ObservableComputations.Base;
-using ObservableComputations.Common;
+using ObservableComputations;
 using ObservableComputations.ExtentionMethods;
-using ObservableComputations.Interface;
 
 namespace ObservableComputations
 {

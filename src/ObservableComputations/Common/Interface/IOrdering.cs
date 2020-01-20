@@ -1,8 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Collections.Specialized;
-using ObservableComputations.Common;
 
-namespace ObservableComputations.Interface
+namespace ObservableComputations
 {
 	public interface IOrdering<TSourceItem> : IList<TSourceItem>, INotifyCollectionChanged
 	{

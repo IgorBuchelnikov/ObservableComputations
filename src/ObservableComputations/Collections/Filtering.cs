@@ -7,10 +7,8 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
 using System.Threading;
-using ObservableComputations.Base;
-using ObservableComputations.Common;
+using ObservableComputations;
 using ObservableComputations.ExtentionMethods;
-using ObservableComputations.Interface;
 
 namespace ObservableComputations
 {

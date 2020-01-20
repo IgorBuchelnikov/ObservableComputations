@@ -2,9 +2,8 @@
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.ComponentModel;
-using System.Runtime.CompilerServices;
 
-namespace ObservableComputations.Common
+namespace ObservableComputations
 {
 	public class ReadOnlyObservableCollection<TItem> : ReadOnlyCollection<TItem>, INotifyCollectionChanged, INotifyPropertyChanged
 	{

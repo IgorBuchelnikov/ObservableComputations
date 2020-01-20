@@ -1,10 +1,9 @@
 ﻿using System;
 using System.ComponentModel;
 using System.Threading;
-using ObservableComputations.Common;
-using ObservableComputations.Interface;
+using ObservableComputations;
 
-namespace ObservableComputations.Base
+namespace ObservableComputations
 {
 	public abstract class ScalarComputing<TValue> : IScalar<TValue>, IReadScalar<TValue>, IWriteScalar<TValue>, IScalarComputing
 	{

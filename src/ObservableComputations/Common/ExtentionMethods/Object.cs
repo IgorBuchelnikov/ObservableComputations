@@ -9,7 +9,7 @@ namespace ObservableComputations.ExtentionMethods
     internal static partial class ExtensionMethods
     {
 	    // ReSharper disable once UnusedMember.Local
-	    private static string debugView(this object viewingObject, bool lineBreaks = false, string tabsIndentation = "")
+	    public static string debugView(this object viewingObject, bool lineBreaks = false, string tabsIndentation = "")
 	    {
 		    string lineBreak = lineBreaks ? "\n" : string.Empty;
 		    switch (viewingObject)
@@ -85,7 +85,7 @@ namespace ObservableComputations.ExtentionMethods
 		    }
 	    }
 
-        public static bool IsSameAs(this object object1, object object2)
+	    public static bool IsSameAs(this object object1, object object2)
         {
 			return 
 				object1 == null && object2 == null
@@ -95,7 +95,7 @@ namespace ObservableComputations.ExtentionMethods
 						: object1.Equals(object2);
         }
 
-        public static TResult GetValueAs<TArgument, TResult>(this TArgument argument, Func<TArgument, TResult> getValueFunc)
+	    public static TResult GetValueAs<TArgument, TResult>(this TArgument argument, Func<TArgument, TResult> getValueFunc)
         {
 			return getValueFunc(argument);
         }

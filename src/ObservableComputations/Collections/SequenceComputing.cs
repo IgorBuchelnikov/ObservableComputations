@@ -1,7 +1,5 @@
 ﻿using System.ComponentModel;
-using ObservableComputations.Base;
-using ObservableComputations.Common;
-using ObservableComputations.Interface;
+using ObservableComputations;
 
 namespace ObservableComputations
 {

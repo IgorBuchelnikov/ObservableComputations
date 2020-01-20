@@ -2,8 +2,7 @@
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.Linq;
-using ObservableComputations.Common;
-using ObservableComputations.Interface;
+using ObservableComputations;
 
 namespace ObservableComputations
 {
@@ -70,26 +69,26 @@ namespace ObservableComputations
 			_itemScalar = itemScalar;
 		}
 
-		private static Common.ReadOnlyObservableCollection<object> getSources(
+		private static ReadOnlyObservableCollection<object> getSources(
 			INotifyCollectionChanged source,
 			TSourceItem item) =>
-			new Common.ReadOnlyObservableCollection<object>(
-				new object[]{source, new Common.ReadOnlyObservableCollection<TSourceItem>(item)});
+			new ReadOnlyObservableCollection<object>(
+				new object[]{source, new ReadOnlyObservableCollection<TSourceItem>(item)});
 
 		private static INotifyCollectionChanged getSources(
 			INotifyCollectionChanged source,
 			IReadScalar<TSourceItem> itemScalar) =>
-				new Common.ReadOnlyObservableCollection<object>(new object[]{source, new Computing<Common.ReadOnlyObservableCollection<TSourceItem>>(() => new Common.ReadOnlyObservableCollection<TSourceItem>(itemScalar.Value))});
+				new ReadOnlyObservableCollection<object>(new object[]{source, new Computing<ReadOnlyObservableCollection<TSourceItem>>(() => new ReadOnlyObservableCollection<TSourceItem>(itemScalar.Value))});
 
 		private static INotifyCollectionChanged getSources(
 			IReadScalar<INotifyCollectionChanged> sourceScalar,
 			TSourceItem item) =>
-				new Common.ReadOnlyObservableCollection<object>(new object[]{sourceScalar, new Common.ReadOnlyObservableCollection<TSourceItem>(item)});
+				new ReadOnlyObservableCollection<object>(new object[]{sourceScalar, new ReadOnlyObservableCollection<TSourceItem>(item)});
 
 		private static INotifyCollectionChanged getSources(
 			IReadScalar<INotifyCollectionChanged> sourceScalar,
 			IReadScalar<TSourceItem> itemScalar) =>
-				new Common.ReadOnlyObservableCollection<object>(new object[]{sourceScalar, new Computing<Common.ReadOnlyObservableCollection<TSourceItem>>(() => new Common.ReadOnlyObservableCollection<TSourceItem>(itemScalar.Value))});
+				new ReadOnlyObservableCollection<object>(new object[]{sourceScalar, new Computing<ReadOnlyObservableCollection<TSourceItem>>(() => new ReadOnlyObservableCollection<TSourceItem>(itemScalar.Value))});
 
 		public new void ValidateConsistency()
 		{

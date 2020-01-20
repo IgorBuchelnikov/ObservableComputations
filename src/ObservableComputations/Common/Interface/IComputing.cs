@@ -1,6 +1,6 @@
-﻿using System.ComponentModel;
+﻿using ObservableComputations;
 
-namespace ObservableComputations.Interface
+namespace ObservableComputations
 {
 	public interface IComputing : IHasTags, IConsistent
 	{

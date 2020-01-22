@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq.Expressions;
+using System.Threading;
 
 namespace ObservableComputations
 {
@@ -42,7 +43,20 @@ namespace ObservableComputations
 
 		private void getValueExpressionWatcherOnValueChanged(ExpressionWatcher expressionWatcher)
 		{
-			setValue(_getValueFunc());
+			bool trackComputingsExecutingUserCode = Configuration.TrackComputingsExecutingUserCode;
+			if (trackComputingsExecutingUserCode)
+			{
+				DebugInfo._computingsExecutingUserCode[Thread.CurrentThread] = this;
+			}
+
+			TResult result = _getValueFunc();
+
+			if (trackComputingsExecutingUserCode)
+			{
+				DebugInfo._computingsExecutingUserCode.Remove(Thread.CurrentThread);
+			}
+
+			setValue(result);
 		}
 	}
 }

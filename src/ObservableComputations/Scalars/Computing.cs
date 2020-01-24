@@ -43,17 +43,22 @@ namespace ObservableComputations
 
 		private void getValueExpressionWatcherOnValueChanged(ExpressionWatcher expressionWatcher)
 		{
-			bool trackComputingsExecutingUserCode = Configuration.TrackComputingsExecutingUserCode;
-			if (trackComputingsExecutingUserCode)
+			TResult result;
+
+			if (Configuration.TrackComputingsExecutingUserCode)
 			{
-				DebugInfo._computingsExecutingUserCode[Thread.CurrentThread] = this;
+				Thread currentThread = Thread.CurrentThread;
+				IComputing computing = DebugInfo._computingsExecutingUserCode.ContainsKey(currentThread) ? DebugInfo._computingsExecutingUserCode[currentThread] : null;
+				DebugInfo._computingsExecutingUserCode[currentThread] = this;	
+				
+				result = _getValueFunc();
+
+				if (computing == null) DebugInfo._computingsExecutingUserCode.Remove(currentThread);
+				else DebugInfo._computingsExecutingUserCode[currentThread] = computing;
 			}
-
-			TResult result = _getValueFunc();
-
-			if (trackComputingsExecutingUserCode)
+			else
 			{
-				DebugInfo._computingsExecutingUserCode.Remove(Thread.CurrentThread);
+				result = _getValueFunc();
 			}
 
 			setValue(result);

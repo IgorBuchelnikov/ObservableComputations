@@ -930,63 +930,64 @@ namespace ObservableComputations
 
 		private TKey applyKeySelector(int index)
 		{
-			bool trackComputingsExecutingUserCode = Configuration.TrackComputingsExecutingUserCode;
-			if (trackComputingsExecutingUserCode)
+			if (Configuration.TrackComputingsExecutingUserCode)
 			{
-				DebugInfo._computingsExecutingUserCode[Thread.CurrentThread] = this;
+				Thread currentThread = Thread.CurrentThread;
+				IComputing computing = DebugInfo._computingsExecutingUserCode.ContainsKey(currentThread) ? DebugInfo._computingsExecutingUserCode[currentThread] : null;
+				DebugInfo._computingsExecutingUserCode[currentThread] = this;	
+				
+				TKey result = _keySelectorExpressionContainsParametrizedObservableComputationsCalls 
+					? _itemInfos[index].SelectorFunc() 
+					: _keySelectorFunc(_sourceAsList[index]);;
+
+				if (computing == null) DebugInfo._computingsExecutingUserCode.Remove(currentThread);
+				else DebugInfo._computingsExecutingUserCode[currentThread] = computing;
+				return result;
 			}
 
-
-			TKey result = _keySelectorExpressionContainsParametrizedObservableComputationsCalls ? _itemInfos[index].SelectorFunc() : _keySelectorFunc(_sourceAsList[index]);;
-
-
-			if (trackComputingsExecutingUserCode)
-			{
-				DebugInfo._computingsExecutingUserCode.Remove(Thread.CurrentThread);
-			}
-
-			return result;
+			return _keySelectorExpressionContainsParametrizedObservableComputationsCalls 
+				? _itemInfos[index].SelectorFunc() 
+				: _keySelectorFunc(_sourceAsList[index]);
 		}
 
 		public TKey ApplyKeySelector(int index)
 		{
-			bool trackComputingsExecutingUserCode = Configuration.TrackComputingsExecutingUserCode;
-			if (trackComputingsExecutingUserCode)
+			if (Configuration.TrackComputingsExecutingUserCode)
 			{
-				DebugInfo._computingsExecutingUserCode[Thread.CurrentThread] = this;
+				Thread currentThread = Thread.CurrentThread;
+				IComputing computing = DebugInfo._computingsExecutingUserCode.ContainsKey(currentThread) ? DebugInfo._computingsExecutingUserCode[currentThread] : null;
+				DebugInfo._computingsExecutingUserCode[currentThread] = this;	
+				
+				TKey result = applyKeySelector(index);
+
+				if (computing == null) DebugInfo._computingsExecutingUserCode.Remove(currentThread);
+				else DebugInfo._computingsExecutingUserCode[currentThread] = computing;
+				return result;
 			}
 
-
-			TKey result = applyKeySelector(index);
-
-
-			if (trackComputingsExecutingUserCode)
-			{
-				DebugInfo._computingsExecutingUserCode.Remove(Thread.CurrentThread);
-			}
-
-
-			return result;
+			return applyKeySelector(index);
 		}
 
 		private TKey applyKeySelector(TSourceItem sourceItem, Func<TKey> selectorFunc)
 		{
-			bool trackComputingsExecutingUserCode = Configuration.TrackComputingsExecutingUserCode;
-			if (trackComputingsExecutingUserCode)
+			if (Configuration.TrackComputingsExecutingUserCode)
 			{
-				DebugInfo._computingsExecutingUserCode[Thread.CurrentThread] = this;
+				Thread currentThread = Thread.CurrentThread;
+				IComputing computing = DebugInfo._computingsExecutingUserCode.ContainsKey(currentThread) ? DebugInfo._computingsExecutingUserCode[currentThread] : null;
+				DebugInfo._computingsExecutingUserCode[currentThread] = this;	
+				
+				TKey result = _keySelectorExpressionContainsParametrizedObservableComputationsCalls 
+					? selectorFunc() 
+					: _keySelectorFunc(sourceItem);
+
+				if (computing == null) DebugInfo._computingsExecutingUserCode.Remove(currentThread);
+				else DebugInfo._computingsExecutingUserCode[currentThread] = computing;
+				return result;
 			}
 
-
-			TKey result = _keySelectorExpressionContainsParametrizedObservableComputationsCalls ? selectorFunc() : _keySelectorFunc(sourceItem);
-
-
-			if (trackComputingsExecutingUserCode)
-			{
-				DebugInfo._computingsExecutingUserCode.Remove(Thread.CurrentThread);
-			}
-
-			return result;
+			return _keySelectorExpressionContainsParametrizedObservableComputationsCalls 
+				? selectorFunc() 
+				: _keySelectorFunc(sourceItem);
 		}
 
 		public Group<TSourceItem, TKey> GetGroup(TKey key)

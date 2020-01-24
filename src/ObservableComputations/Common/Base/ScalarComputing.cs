@@ -34,18 +34,21 @@ namespace ObservableComputations
 			get => _value;
 			set
 			{
-				bool trackComputingsExecutingUserCode = Configuration.TrackComputingsExecutingUserCode;
-				if (trackComputingsExecutingUserCode)
+				if (Configuration.TrackComputingsExecutingUserCode)
 				{
-					DebugInfo._computingsExecutingUserCode[Thread.CurrentThread] = this;
+					Thread currentThread = Thread.CurrentThread;
+					IComputing computing = DebugInfo._computingsExecutingUserCode.ContainsKey(currentThread) ? DebugInfo._computingsExecutingUserCode[currentThread] : null;
+					DebugInfo._computingsExecutingUserCode[currentThread] = this;	
+				
+					_setValueAction(value);
+
+					if (computing == null) DebugInfo._computingsExecutingUserCode.Remove(currentThread);
+					else DebugInfo._computingsExecutingUserCode[currentThread] = computing;
+
+					return;
 				}
 
 				_setValueAction(value);
-
-				if (trackComputingsExecutingUserCode)
-				{
-					DebugInfo._computingsExecutingUserCode.Remove(Thread.CurrentThread);
-				}
 			}
 		}
 

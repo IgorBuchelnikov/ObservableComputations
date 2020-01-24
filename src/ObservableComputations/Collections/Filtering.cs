@@ -533,43 +533,46 @@ namespace ObservableComputations
 		// ReSharper disable once MemberCanBePrivate.Global
 		public bool ApplyPredicate(int sourceIndex)
 		{
-			bool trackComputingsExecutingUserCode = Configuration.TrackComputingsExecutingUserCode;
-			if (trackComputingsExecutingUserCode)
+			if (Configuration.TrackComputingsExecutingUserCode)
 			{
-				DebugInfo._computingsExecutingUserCode[Thread.CurrentThread] = this;
+				Thread currentThread = Thread.CurrentThread;
+				IComputing computing = DebugInfo._computingsExecutingUserCode.ContainsKey(currentThread) ? DebugInfo._computingsExecutingUserCode[currentThread] : null;
+				DebugInfo._computingsExecutingUserCode[currentThread] = this;	
+				
+				bool result = _predicateContainsParametrizedObservableComputationsCalls
+					? _itemInfos[sourceIndex].PredicateFunc()
+					: _predicateFunc(_sourceAsList[sourceIndex]);
+
+				if (computing == null) DebugInfo._computingsExecutingUserCode.Remove(currentThread);
+				else DebugInfo._computingsExecutingUserCode[currentThread] = computing;
+				return result;
 			}
 
-			bool result = _predicateContainsParametrizedObservableComputationsCalls
+			return _predicateContainsParametrizedObservableComputationsCalls
 				? _itemInfos[sourceIndex].PredicateFunc()
 				: _predicateFunc(_sourceAsList[sourceIndex]);
-
-			if (trackComputingsExecutingUserCode)
-			{
-				DebugInfo._computingsExecutingUserCode.Remove(Thread.CurrentThread);
-			}
-
-			return result;
 		}
 
 		private bool applyPredicate(TSourceItem sourceItem, Func<bool> itemPredicateFunc)
 		{
-			bool trackComputingsExecutingUserCode = Configuration.TrackComputingsExecutingUserCode;
-			if (trackComputingsExecutingUserCode)
+			if (Configuration.TrackComputingsExecutingUserCode)
 			{
-				DebugInfo._computingsExecutingUserCode[Thread.CurrentThread] = this;
+				Thread currentThread = Thread.CurrentThread;
+				IComputing computing = DebugInfo._computingsExecutingUserCode.ContainsKey(currentThread) ? DebugInfo._computingsExecutingUserCode[currentThread] : null;
+				DebugInfo._computingsExecutingUserCode[currentThread] = this;	
+				
+				bool result = _predicateContainsParametrizedObservableComputationsCalls
+					? itemPredicateFunc()
+					: _predicateFunc(sourceItem);
+
+				if (computing == null) DebugInfo._computingsExecutingUserCode.Remove(currentThread);
+				else DebugInfo._computingsExecutingUserCode[currentThread] = computing;
+				return result;
 			}
 
-			bool result =  _predicateContainsParametrizedObservableComputationsCalls
+			return _predicateContainsParametrizedObservableComputationsCalls
 				? itemPredicateFunc()
 				: _predicateFunc(sourceItem);
-
-
-			if (trackComputingsExecutingUserCode)
-			{
-				DebugInfo._computingsExecutingUserCode.Remove(Thread.CurrentThread);
-			}
-
-			return result;
 		}
 
 		private ItemInfo registerSourceItem(TSourceItem sourceItem, int sourceIndex, Position position, Position nextItemPosition, ExpressionWatcher watcher = null, Func<bool> predicateFunc = null)

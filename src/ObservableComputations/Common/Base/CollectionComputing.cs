@@ -104,82 +104,97 @@ namespace ObservableComputations
 		#region Overrides of ObservableCollection<TResult>
 		protected override void InsertItem(int index, TItem item)
 		{
-			bool trackComputingsExecutingUserCode = Configuration.TrackComputingsExecutingUserCode;
-			if (trackComputingsExecutingUserCode)
+			if (Configuration.TrackComputingsExecutingUserCode)
 			{
-				DebugInfo._computingsExecutingUserCode[Thread.CurrentThread] = this;
+				Thread currentThread = Thread.CurrentThread;
+				IComputing computing = DebugInfo._computingsExecutingUserCode.ContainsKey(currentThread) ? DebugInfo._computingsExecutingUserCode[currentThread] : null;
+				DebugInfo._computingsExecutingUserCode[currentThread] = this;	
+				
+				_insertItemAction(index, item);
+
+				if (computing == null) DebugInfo._computingsExecutingUserCode.Remove(currentThread);
+				else DebugInfo._computingsExecutingUserCode[currentThread] = computing;
+				
+				return;
 			}
 
 			_insertItemAction(index, item);
-
-			if (trackComputingsExecutingUserCode)
-			{
-				DebugInfo._computingsExecutingUserCode.Remove(Thread.CurrentThread);
-			}
 		}
 
 		protected override void MoveItem(int oldIndex, int newIndex)
 		{
-			bool trackComputingsExecutingUserCode = Configuration.TrackComputingsExecutingUserCode;
-			if (trackComputingsExecutingUserCode)
+			if (Configuration.TrackComputingsExecutingUserCode)
 			{
-				DebugInfo._computingsExecutingUserCode[Thread.CurrentThread] = this;
+				Thread currentThread = Thread.CurrentThread;
+				IComputing computing = DebugInfo._computingsExecutingUserCode.ContainsKey(currentThread) ? DebugInfo._computingsExecutingUserCode[currentThread] : null;
+				DebugInfo._computingsExecutingUserCode[currentThread] = this;	
+				
+				_moveItemAction(oldIndex, newIndex);
+
+				if (computing == null) DebugInfo._computingsExecutingUserCode.Remove(currentThread);
+				else DebugInfo._computingsExecutingUserCode[currentThread] = computing;
+				
+				return;
 			}
 
 			_moveItemAction(oldIndex, newIndex);
-
-			if (trackComputingsExecutingUserCode)
-			{
-				DebugInfo._computingsExecutingUserCode.Remove(Thread.CurrentThread);
-			}
 		}
 
 		protected override void RemoveItem(int index)
 		{
-			bool trackComputingsExecutingUserCode = Configuration.TrackComputingsExecutingUserCode;
-			if (trackComputingsExecutingUserCode)
+			if (Configuration.TrackComputingsExecutingUserCode)
 			{
-				DebugInfo._computingsExecutingUserCode[Thread.CurrentThread] = this;
+				Thread currentThread = Thread.CurrentThread;
+				IComputing computing = DebugInfo._computingsExecutingUserCode.ContainsKey(currentThread) ? DebugInfo._computingsExecutingUserCode[currentThread] : null;
+				DebugInfo._computingsExecutingUserCode[currentThread] = this;	
+				
+				_removeItemAction(index);
+
+				if (computing == null) DebugInfo._computingsExecutingUserCode.Remove(currentThread);
+				else DebugInfo._computingsExecutingUserCode[currentThread] = computing;
+				
+				return;
 			}
 
 			_removeItemAction(index);
-
-			if (trackComputingsExecutingUserCode)
-			{
-				DebugInfo._computingsExecutingUserCode.Remove(Thread.CurrentThread);
-			}
 		}
 
 		protected override void SetItem(int index, TItem item)
 		{
-			bool trackComputingsExecutingUserCode = Configuration.TrackComputingsExecutingUserCode;
-			if (trackComputingsExecutingUserCode)
+			if (Configuration.TrackComputingsExecutingUserCode)
 			{
-				DebugInfo._computingsExecutingUserCode[Thread.CurrentThread] = this;
+				Thread currentThread = Thread.CurrentThread;
+				IComputing computing = DebugInfo._computingsExecutingUserCode.ContainsKey(currentThread) ? DebugInfo._computingsExecutingUserCode[currentThread] : null;
+				DebugInfo._computingsExecutingUserCode[currentThread] = this;	
+				
+				_setItemAction(index, item);
+
+				if (computing == null) DebugInfo._computingsExecutingUserCode.Remove(currentThread);
+				else DebugInfo._computingsExecutingUserCode[currentThread] = computing;
+				
+				return;
 			}
 
 			_setItemAction(index, item);
-
-			if (trackComputingsExecutingUserCode)
-			{
-				DebugInfo._computingsExecutingUserCode.Remove(Thread.CurrentThread);
-			}
 		}
 
 		protected override void ClearItems()
 		{
-			bool trackComputingsExecutingUserCode = Configuration.TrackComputingsExecutingUserCode;
-			if (trackComputingsExecutingUserCode)
+			if (Configuration.TrackComputingsExecutingUserCode)
 			{
-				DebugInfo._computingsExecutingUserCode[Thread.CurrentThread] = this;
+				Thread currentThread = Thread.CurrentThread;
+				IComputing computing = DebugInfo._computingsExecutingUserCode.ContainsKey(currentThread) ? DebugInfo._computingsExecutingUserCode[currentThread] : null;
+				DebugInfo._computingsExecutingUserCode[currentThread] = this;	
+				
+				_clearItemsAction();
+
+				if (computing == null) DebugInfo._computingsExecutingUserCode.Remove(currentThread);
+				else DebugInfo._computingsExecutingUserCode[currentThread] = computing;
+				
+				return;
 			}
 
 			_clearItemsAction();
-
-			if (trackComputingsExecutingUserCode)
-			{
-				DebugInfo._computingsExecutingUserCode.Remove(Thread.CurrentThread);
-			}
 		}
 		#endregion
 
@@ -202,9 +217,25 @@ namespace ObservableComputations
 			_newIndex = index;
 			_newItem = item;
 
-			PreCollectionChanged?.Invoke(this, null);
-			base.InsertItem(index, item);
-			PostCollectionChanged?.Invoke(this, null);
+			if (Configuration.TrackComputingsExecutingUserCode)
+			{
+				Thread currentThread = Thread.CurrentThread;
+				IComputing computing = DebugInfo._computingsExecutingUserCode.ContainsKey(currentThread) ? DebugInfo._computingsExecutingUserCode[currentThread] : null;
+				DebugInfo._computingsExecutingUserCode[currentThread] = this;	
+				
+				PreCollectionChanged?.Invoke(this, null);
+				base.InsertItem(index, item);
+				PostCollectionChanged?.Invoke(this, null);
+
+				if (computing == null) DebugInfo._computingsExecutingUserCode.Remove(currentThread);
+				else DebugInfo._computingsExecutingUserCode[currentThread] = computing;
+			}
+			else
+			{
+				PreCollectionChanged?.Invoke(this, null);
+				base.InsertItem(index, item);
+				PostCollectionChanged?.Invoke(this, null);				
+			}
 
 			_currentChange = null;
 			_newIndex = -1;
@@ -220,9 +251,25 @@ namespace ObservableComputations
 			_oldIndex = oldIndex;
 			_newIndex = newIndex;
 
-			PreCollectionChanged?.Invoke(this, null);
-			base.MoveItem(oldIndex, newIndex);
-			PostCollectionChanged?.Invoke(this, null);
+			if (Configuration.TrackComputingsExecutingUserCode)
+			{
+				Thread currentThread = Thread.CurrentThread;
+				IComputing computing = DebugInfo._computingsExecutingUserCode.ContainsKey(currentThread) ? DebugInfo._computingsExecutingUserCode[currentThread] : null;
+				DebugInfo._computingsExecutingUserCode[currentThread] = this;	
+				
+				PreCollectionChanged?.Invoke(this, null);
+				base.MoveItem(oldIndex, newIndex);
+				PostCollectionChanged?.Invoke(this, null);
+
+				if (computing == null) DebugInfo._computingsExecutingUserCode.Remove(currentThread);
+				else DebugInfo._computingsExecutingUserCode[currentThread] = computing;
+			}
+			else
+			{
+				PreCollectionChanged?.Invoke(this, null);
+				base.MoveItem(oldIndex, newIndex);
+				PostCollectionChanged?.Invoke(this, null);
+			}
 
 			_currentChange = null;
 			_oldIndex = -1;
@@ -237,9 +284,25 @@ namespace ObservableComputations
 			_currentChange = NotifyCollectionChangedAction.Remove;
 			_oldIndex = index;
 
-			PreCollectionChanged?.Invoke(this, null);
-			base.RemoveItem(index);
-			PostCollectionChanged?.Invoke(this, null);
+			if (Configuration.TrackComputingsExecutingUserCode)
+			{
+				Thread currentThread = Thread.CurrentThread;
+				IComputing computing = DebugInfo._computingsExecutingUserCode.ContainsKey(currentThread) ? DebugInfo._computingsExecutingUserCode[currentThread] : null;
+				DebugInfo._computingsExecutingUserCode[currentThread] = this;	
+				
+				PreCollectionChanged?.Invoke(this, null);
+				base.RemoveItem(index);
+				PostCollectionChanged?.Invoke(this, null);
+
+				if (computing == null) DebugInfo._computingsExecutingUserCode.Remove(currentThread);
+				else DebugInfo._computingsExecutingUserCode[currentThread] = computing;
+			}
+			else
+			{
+				PreCollectionChanged?.Invoke(this, null);
+				base.RemoveItem(index);
+				PostCollectionChanged?.Invoke(this, null);
+			}
 
 			_currentChange = null;
 			_oldIndex = -1;
@@ -254,9 +317,25 @@ namespace ObservableComputations
 			_newItem = item;
 			_newIndex = index;
 
-			PreCollectionChanged?.Invoke(this, null);
-			base.SetItem(index, item);
-			PostCollectionChanged?.Invoke(this, null);
+			if (Configuration.TrackComputingsExecutingUserCode)
+			{
+				Thread currentThread = Thread.CurrentThread;
+				IComputing computing = DebugInfo._computingsExecutingUserCode.ContainsKey(currentThread) ? DebugInfo._computingsExecutingUserCode[currentThread] : null;
+				DebugInfo._computingsExecutingUserCode[currentThread] = this;	
+				
+				PreCollectionChanged?.Invoke(this, null);
+				base.SetItem(index, item);
+				PostCollectionChanged?.Invoke(this, null);
+
+				if (computing == null) DebugInfo._computingsExecutingUserCode.Remove(currentThread);
+				else DebugInfo._computingsExecutingUserCode[currentThread] = computing;
+			}
+			else
+			{
+				PreCollectionChanged?.Invoke(this, null);
+				base.SetItem(index, item);
+				PostCollectionChanged?.Invoke(this, null);
+			}
 
 			_currentChange = null;
 			_newItem = default;
@@ -270,9 +349,25 @@ namespace ObservableComputations
 
 			_currentChange = NotifyCollectionChangedAction.Reset;
 
-			PreCollectionChanged?.Invoke(this, null);
-			base.ClearItems();
-			PostCollectionChanged?.Invoke(this, null);
+			if (Configuration.TrackComputingsExecutingUserCode)
+			{
+				Thread currentThread = Thread.CurrentThread;
+				IComputing computing = DebugInfo._computingsExecutingUserCode.ContainsKey(currentThread) ? DebugInfo._computingsExecutingUserCode[currentThread] : null;
+				DebugInfo._computingsExecutingUserCode[currentThread] = this;	
+				
+				PreCollectionChanged?.Invoke(this, null);
+				base.ClearItems();
+				PostCollectionChanged?.Invoke(this, null);
+
+				if (computing == null) DebugInfo._computingsExecutingUserCode.Remove(currentThread);
+				else DebugInfo._computingsExecutingUserCode[currentThread] = computing;
+			}
+			else
+			{
+				PreCollectionChanged?.Invoke(this, null);
+				base.ClearItems();
+				PostCollectionChanged?.Invoke(this, null);
+			}
 
 			_currentChange = null;
 		}

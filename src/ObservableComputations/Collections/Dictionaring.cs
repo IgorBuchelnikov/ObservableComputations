@@ -482,22 +482,20 @@ namespace ObservableComputations
 
 		private TKey applyKeySelector(ItemInfo itemInfo, TSourceItem sourceItem)
 		{
-			bool trackComputingsExecutingUserCode = Configuration.TrackComputingsExecutingUserCode;
-			if (trackComputingsExecutingUserCode)
+			if (Configuration.TrackComputingsExecutingUserCode)
 			{
-				DebugInfo._computingsExecutingUserCode[Thread.CurrentThread] = this;
+				Thread currentThread = Thread.CurrentThread;
+				IComputing computing = DebugInfo._computingsExecutingUserCode.ContainsKey(currentThread) ? DebugInfo._computingsExecutingUserCode[currentThread] : null;
+				DebugInfo._computingsExecutingUserCode[currentThread] = this;	
+				
+				TKey result = _keySelectorContainsParametrizedObservableComputationsCalls ? itemInfo._keySelectorFunc() : _keySelectorFunc(sourceItem);
+
+				if (computing == null) DebugInfo._computingsExecutingUserCode.Remove(currentThread);
+				else DebugInfo._computingsExecutingUserCode[currentThread] = computing;
+				return result;
 			}
 
-
-			TKey result = _keySelectorContainsParametrizedObservableComputationsCalls ? itemInfo._keySelectorFunc() : _keySelectorFunc(sourceItem);
-
-
-			if (trackComputingsExecutingUserCode)
-			{
-				DebugInfo._computingsExecutingUserCode.Remove(Thread.CurrentThread);
-			}
-
-			return result;
+			return _keySelectorContainsParametrizedObservableComputationsCalls ? itemInfo._keySelectorFunc() : _keySelectorFunc(sourceItem);
 		}
 
 		public TValue ApplyValueSelector(int index)
@@ -507,22 +505,20 @@ namespace ObservableComputations
 
 		private TValue applyValueSelector(ItemInfo itemInfo, TSourceItem sourceItem)
 		{
-			bool trackComputingsExecutingUserCode = Configuration.TrackComputingsExecutingUserCode;
-			if (trackComputingsExecutingUserCode)
+			if (Configuration.TrackComputingsExecutingUserCode)
 			{
-				DebugInfo._computingsExecutingUserCode[Thread.CurrentThread] = this;
+				Thread currentThread = Thread.CurrentThread;
+				IComputing computing = DebugInfo._computingsExecutingUserCode.ContainsKey(currentThread) ? DebugInfo._computingsExecutingUserCode[currentThread] : null;
+				DebugInfo._computingsExecutingUserCode[currentThread] = this;	
+				
+				TValue result = _valueSelectorContainsParametrizedObservableComputationsCalls ? itemInfo._valueSelectorFunc() : _valueSelectorFunc(sourceItem);
+
+				if (computing == null) DebugInfo._computingsExecutingUserCode.Remove(currentThread);
+				else DebugInfo._computingsExecutingUserCode[currentThread] = computing;
+				return result;
 			}
 
-
-			TValue result = _valueSelectorContainsParametrizedObservableComputationsCalls ? itemInfo._valueSelectorFunc() : _valueSelectorFunc(sourceItem);
-
-
-			if (trackComputingsExecutingUserCode)
-			{
-				DebugInfo._computingsExecutingUserCode.Remove(Thread.CurrentThread);
-			}
-
-			return result;
+			return _valueSelectorContainsParametrizedObservableComputationsCalls ? itemInfo._valueSelectorFunc() : _valueSelectorFunc(sourceItem);
 		}
 
 		private void baseClearItems()

@@ -319,43 +319,47 @@ namespace ObservableComputations
 		// ReSharper disable once MemberCanBePrivate.Global
 		public TResultItem ApplySelector(int index)
 		{
-			bool trackComputingsExecutingUserCode = Configuration.TrackComputingsExecutingUserCode;
-			if (trackComputingsExecutingUserCode)
+			if (Configuration.TrackComputingsExecutingUserCode)
 			{
-				DebugInfo._computingsExecutingUserCode[Thread.CurrentThread] = this;
+				Thread currentThread = Thread.CurrentThread;
+				IComputing computing = DebugInfo._computingsExecutingUserCode.ContainsKey(currentThread) ? DebugInfo._computingsExecutingUserCode[currentThread] : null;
+				DebugInfo._computingsExecutingUserCode[currentThread] = this;	
+				
+				TResultItem result = _selectorContainsParametrizedObservableComputationsCalls
+					? _itemInfos[index].SelectorFunc()
+					: _selectorFunc(_sourceAsList[index]);
+
+				if (computing == null) DebugInfo._computingsExecutingUserCode.Remove(currentThread);
+				else DebugInfo._computingsExecutingUserCode[currentThread] = computing;
+				return result;
 			}
 
-			TResultItem result = _selectorContainsParametrizedObservableComputationsCalls
+			return _selectorContainsParametrizedObservableComputationsCalls
 				? _itemInfos[index].SelectorFunc()
 				: _selectorFunc(_sourceAsList[index]);
-
-			if (trackComputingsExecutingUserCode)
-			{
-				DebugInfo._computingsExecutingUserCode.Remove(Thread.CurrentThread);
-			}
-
-			return result;
 		}
 
 
 		private TResultItem applySelector(ItemInfo itemInfo, TSourceItem sourceItem)
 		{
-			bool trackComputingsExecutingUserCode = Configuration.TrackComputingsExecutingUserCode;
-			if (trackComputingsExecutingUserCode)
+			if (Configuration.TrackComputingsExecutingUserCode)
 			{
-				DebugInfo._computingsExecutingUserCode[Thread.CurrentThread] = this;
+				Thread currentThread = Thread.CurrentThread;
+				IComputing computing = DebugInfo._computingsExecutingUserCode.ContainsKey(currentThread) ? DebugInfo._computingsExecutingUserCode[currentThread] : null;
+				DebugInfo._computingsExecutingUserCode[currentThread] = this;	
+				
+				TResultItem result = _selectorContainsParametrizedObservableComputationsCalls
+					? itemInfo.SelectorFunc()
+					: _selectorFunc(sourceItem);
+
+				if (computing == null) DebugInfo._computingsExecutingUserCode.Remove(currentThread);
+				else DebugInfo._computingsExecutingUserCode[currentThread] = computing;
+				return result;
 			}
 
-			TResultItem result = _selectorContainsParametrizedObservableComputationsCalls
+			return _selectorContainsParametrizedObservableComputationsCalls
 				? itemInfo.SelectorFunc()
 				: _selectorFunc(sourceItem);
-
-			if (trackComputingsExecutingUserCode)
-			{
-				DebugInfo._computingsExecutingUserCode.Remove(Thread.CurrentThread);
-			}
-
-			return result;
 		}
 
 		~Selecting()

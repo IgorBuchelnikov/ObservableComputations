@@ -304,22 +304,24 @@ namespace ObservableComputations
 		// ReSharper disable once MemberCanBePrivate.Global
 		public bool ApplyPredicate(int sourceIndex)
 		{
-			bool trackComputingsExecutingUserCode = Configuration.TrackComputingsExecutingUserCode;
-			if (trackComputingsExecutingUserCode)
+			if (Configuration.TrackComputingsExecutingUserCode)
 			{
-				DebugInfo._computingsExecutingUserCode[Thread.CurrentThread] = this;
+				Thread currentThread = Thread.CurrentThread;
+				IComputing computing = DebugInfo._computingsExecutingUserCode.ContainsKey(currentThread) ? DebugInfo._computingsExecutingUserCode[currentThread] : null;
+				DebugInfo._computingsExecutingUserCode[currentThread] = this;	
+				
+				bool result = _predicateContainsParametrizedObservableComputationCalls 
+					? _itemInfos[sourceIndex].PredicateFunc() 
+					: _predicateFunc(_sourceAsList[sourceIndex]);
+
+				if (computing == null) DebugInfo._computingsExecutingUserCode.Remove(currentThread);
+				else DebugInfo._computingsExecutingUserCode[currentThread] = computing;
+				return result;
 			}
 
-
-			bool result = _predicateContainsParametrizedObservableComputationCalls ? _itemInfos[sourceIndex].PredicateFunc() : _predicateFunc(_sourceAsList[sourceIndex]);
-
-
-			if (trackComputingsExecutingUserCode)
-			{
-				DebugInfo._computingsExecutingUserCode.Remove(Thread.CurrentThread);
-			}
-
-			return result;
+			return _predicateContainsParametrizedObservableComputationCalls 
+				? _itemInfos[sourceIndex].PredicateFunc() 
+				: _predicateFunc(_sourceAsList[sourceIndex]);
 		}
 
 		private ItemInfo registerSourceItem(TSourceItem sourceItem, int sourceIndex)

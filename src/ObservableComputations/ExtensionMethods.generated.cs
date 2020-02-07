@@ -2114,7 +2114,7 @@ namespace ObservableComputations
 				sourceScalar: sourceScalar,
 				keySelectorExpression: keySelectorExpression,
 				valueSelectorExpression: valueSelectorExpression,
-				comparer: comparer,
+				equalityComparer: comparer,
 				capacity: capacity);
 		}
 
@@ -2129,7 +2129,7 @@ namespace ObservableComputations
 				sourceScalar: sourceScalar,
 				keySelectorExpression: keySelectorExpression,
 				valueSelectorExpression: valueSelectorExpression,
-				comparer: comparer,
+				equalityComparer: comparer,
 				capacity: 0);
 		}
 
@@ -2144,7 +2144,7 @@ namespace ObservableComputations
 				sourceScalar: sourceScalar,
 				keySelectorExpression: keySelectorExpression,
 				valueSelectorExpression: valueSelectorExpression,
-				comparer: null,
+				equalityComparer: null,
 				capacity: capacity);
 		}
 
@@ -2158,7 +2158,7 @@ namespace ObservableComputations
 				sourceScalar: sourceScalar,
 				keySelectorExpression: keySelectorExpression,
 				valueSelectorExpression: valueSelectorExpression,
-				comparer: null,
+				equalityComparer: null,
 				capacity: 0);
 		}
 
@@ -2174,7 +2174,7 @@ namespace ObservableComputations
 				sourceScalar: sourceScalar,
 				keySelectorExpression: keySelectorExpression,
 				valueSelectorExpression: valueSelectorExpression,
-				comparer: comparer,
+				equalityComparer: comparer,
 				capacity: capacity);
 		}
 
@@ -2189,7 +2189,7 @@ namespace ObservableComputations
 				sourceScalar: sourceScalar,
 				keySelectorExpression: keySelectorExpression,
 				valueSelectorExpression: valueSelectorExpression,
-				comparer: comparer,
+				equalityComparer: comparer,
 				capacity: 0);
 		}
 
@@ -2204,7 +2204,7 @@ namespace ObservableComputations
 				sourceScalar: sourceScalar,
 				keySelectorExpression: keySelectorExpression,
 				valueSelectorExpression: valueSelectorExpression,
-				comparer: null,
+				equalityComparer: null,
 				capacity: capacity);
 		}
 
@@ -2218,7 +2218,7 @@ namespace ObservableComputations
 				sourceScalar: sourceScalar,
 				keySelectorExpression: keySelectorExpression,
 				valueSelectorExpression: valueSelectorExpression,
-				comparer: null,
+				equalityComparer: null,
 				capacity: 0);
 		}
 
@@ -2234,7 +2234,7 @@ namespace ObservableComputations
 				sourceScalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(sourceExpression),
 				keySelectorExpression: keySelectorExpression,
 				valueSelectorExpression: valueSelectorExpression,
-				comparer: comparer,
+				equalityComparer: comparer,
 				capacity: capacity);
 		}
 
@@ -2249,7 +2249,7 @@ namespace ObservableComputations
 				sourceScalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(sourceExpression),
 				keySelectorExpression: keySelectorExpression,
 				valueSelectorExpression: valueSelectorExpression,
-				comparer: comparer,
+				equalityComparer: comparer,
 				capacity: 0);
 		}
 
@@ -2264,7 +2264,7 @@ namespace ObservableComputations
 				sourceScalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(sourceExpression),
 				keySelectorExpression: keySelectorExpression,
 				valueSelectorExpression: valueSelectorExpression,
-				comparer: null,
+				equalityComparer: null,
 				capacity: capacity);
 		}
 
@@ -2278,7 +2278,7 @@ namespace ObservableComputations
 				sourceScalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(sourceExpression),
 				keySelectorExpression: keySelectorExpression,
 				valueSelectorExpression: valueSelectorExpression,
-				comparer: null,
+				equalityComparer: null,
 				capacity: 0);
 		}
 
@@ -2294,7 +2294,7 @@ namespace ObservableComputations
 				sourceScalar: new Computing<ObservableCollection<TSourceItem>>(sourceExpression),
 				keySelectorExpression: keySelectorExpression,
 				valueSelectorExpression: valueSelectorExpression,
-				comparer: comparer,
+				equalityComparer: comparer,
 				capacity: capacity);
 		}
 
@@ -2309,7 +2309,7 @@ namespace ObservableComputations
 				sourceScalar: new Computing<ObservableCollection<TSourceItem>>(sourceExpression),
 				keySelectorExpression: keySelectorExpression,
 				valueSelectorExpression: valueSelectorExpression,
-				comparer: comparer,
+				equalityComparer: comparer,
 				capacity: 0);
 		}
 
@@ -2324,7 +2324,7 @@ namespace ObservableComputations
 				sourceScalar: new Computing<ObservableCollection<TSourceItem>>(sourceExpression),
 				keySelectorExpression: keySelectorExpression,
 				valueSelectorExpression: valueSelectorExpression,
-				comparer: null,
+				equalityComparer: null,
 				capacity: capacity);
 		}
 
@@ -2338,7 +2338,7 @@ namespace ObservableComputations
 				sourceScalar: new Computing<ObservableCollection<TSourceItem>>(sourceExpression),
 				keySelectorExpression: keySelectorExpression,
 				valueSelectorExpression: valueSelectorExpression,
-				comparer: null,
+				equalityComparer: null,
 				capacity: 0);
 		}
 
@@ -2354,7 +2354,7 @@ namespace ObservableComputations
 				source: source,
 				keySelectorExpression: keySelectorExpression,
 				valueSelectorExpression: valueSelectorExpression,
-				comparer: comparer,
+				equalityComparer: comparer,
 				capacity: capacity);
 		}
 
@@ -2369,7 +2369,7 @@ namespace ObservableComputations
 				source: source,
 				keySelectorExpression: keySelectorExpression,
 				valueSelectorExpression: valueSelectorExpression,
-				comparer: comparer,
+				equalityComparer: comparer,
 				capacity: 0);
 		}
 
@@ -2384,7 +2384,7 @@ namespace ObservableComputations
 				source: source,
 				keySelectorExpression: keySelectorExpression,
 				valueSelectorExpression: valueSelectorExpression,
-				comparer: null,
+				equalityComparer: null,
 				capacity: capacity);
 		}
 
@@ -2398,7 +2398,7 @@ namespace ObservableComputations
 				source: source,
 				keySelectorExpression: keySelectorExpression,
 				valueSelectorExpression: valueSelectorExpression,
-				comparer: null,
+				equalityComparer: null,
 				capacity: 0);
 		}
 
@@ -2414,7 +2414,7 @@ namespace ObservableComputations
 				source: source,
 				keySelectorExpression: keySelectorExpression,
 				valueSelectorExpression: valueSelectorExpression,
-				comparer: comparer,
+				equalityComparer: comparer,
 				capacity: capacity);
 		}
 
@@ -2429,7 +2429,7 @@ namespace ObservableComputations
 				source: source,
 				keySelectorExpression: keySelectorExpression,
 				valueSelectorExpression: valueSelectorExpression,
-				comparer: comparer,
+				equalityComparer: comparer,
 				capacity: 0);
 		}
 
@@ -2444,7 +2444,7 @@ namespace ObservableComputations
 				source: source,
 				keySelectorExpression: keySelectorExpression,
 				valueSelectorExpression: valueSelectorExpression,
-				comparer: null,
+				equalityComparer: null,
 				capacity: capacity);
 		}
 
@@ -2458,7 +2458,7 @@ namespace ObservableComputations
 				source: source,
 				keySelectorExpression: keySelectorExpression,
 				valueSelectorExpression: valueSelectorExpression,
-				comparer: null,
+				equalityComparer: null,
 				capacity: 0);
 		}
 

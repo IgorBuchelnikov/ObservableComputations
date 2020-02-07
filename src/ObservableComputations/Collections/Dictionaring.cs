@@ -98,8 +98,8 @@ namespace ObservableComputations
 			Expression<Func<TSourceItem, TValue>> valueSelectorExpression,
 			int sourceCapacity,
 			int resultCapacity,
-			IEqualityComparer<TKey> comparer = null
-			) : base(resultCapacity, comparer)
+			IEqualityComparer<TKey> equalityComparer = null
+			) : base(resultCapacity, equalityComparer)
 		{
 			_itemInfos = new List<ItemInfo>(sourceCapacity);
 			_sourcePositions = new Positions<ItemInfo>(_itemInfos);
@@ -139,8 +139,8 @@ namespace ObservableComputations
 			IReadScalar<INotifyCollectionChanged> sourceScalar,
 			Expression<Func<TSourceItem, TKey>> keySelectorExpression,
 			Expression<Func<TSourceItem, TValue>> valueSelectorExpression,
-			IEqualityComparer<TKey> comparer = null,
-			int capacity = 0) : this(keySelectorExpression, valueSelectorExpression, Utils.getCapacity(sourceScalar), capacity, comparer)
+			IEqualityComparer<TKey> equalityComparer = null,
+			int capacity = 0) : this(keySelectorExpression, valueSelectorExpression, Utils.getCapacity(sourceScalar), capacity, equalityComparer)
 		{
 			_sourceScalar = sourceScalar;
 			_sourceScalarPropertyChangedEventHandler = handleSourceScalarValueChanged;
@@ -154,8 +154,8 @@ namespace ObservableComputations
 			INotifyCollectionChanged source,
 			Expression<Func<TSourceItem, TKey>> keySelectorExpression,
 			Expression<Func<TSourceItem, TValue>> valueSelectorExpression,
-			IEqualityComparer<TKey> comparer = null,
-			int capacity = 0) : this(keySelectorExpression, valueSelectorExpression, Utils.getCapacity(source), capacity, comparer)
+			IEqualityComparer<TKey> equalityComparer = null,
+			int capacity = 0) : this(keySelectorExpression, valueSelectorExpression, Utils.getCapacity(source), capacity, equalityComparer)
 		{
 			_source = source;
 			initializeFromSource();

@@ -114,6 +114,11 @@ namespace ObservableComputations
 			PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
 		}
 
+		protected void raisePropertyChanged(PropertyChangedEventArgs eventArgs)
+		{
+			PropertyChanged?.Invoke(this, eventArgs);
+		}
+
 		protected bool _isConsistent = true;
 		private readonly string _instantiatingStackTrace;
 		public bool IsConsistent => _isConsistent;

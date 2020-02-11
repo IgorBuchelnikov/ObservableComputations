@@ -35,15 +35,22 @@
 					string name = classInFile.Name;
 
 					string genericParameters = string.Empty;
+                    string genericConstraints = string.Empty;
 					if (classInFile.FullName.Contains("<"))
 					{
 						genericParameters = "<" + classInFile.FullName.Split('<', '>')[1] + ">";
+					}
+
+					if (classInFile.FullName.Contains("WeakPreviousTracking"))
+					{
+                        genericConstraints = "where TResult : class";
 					}
 
 					List<ExtentionMethod> classExtentionMethods = new List<ExtentionMethod>();
 
 					foreach (CodeElement elem in classInFile.Children)
 					{
+
 						if (elem.Kind != vsCMElement.vsCMElementFunction) continue;
 						CodeFunction constructor = (CodeFunction)elem;
 						if (constructor.FunctionKind != EnvDTE.vsCMFunction.vsCMFunctionConstructor) continue;
@@ -100,10 +107,6 @@
 							variantsList.Add(variants);
 						}
 
-						if (classInFile.FullName.Contains("Aggregating"))
-						{
-						}
-
 						foreach (ExtentionMethodArgumentVariants argumentVariants in variantsList)
 						{
 							if (ExpressionArgumentNames.Any(an => argumentVariants.Name.ToUpper().Contains(an))) continue;
@@ -150,18 +153,18 @@
 										if (name != "MinimazingOrMaximazing")
 										{
 											newExtentionMethods.Add(new ExtentionMethod(
-												name, classInFile.FullName, genericParameters, new ExtentionMethodArgument(
+												name, classInFile.FullName, genericParameters, genericConstraints, new ExtentionMethodArgument(
 													argumentVariants.Name, type)));
 										}
 
 										if (name == "MinimazingOrMaximazing")
 										{
 											newExtentionMethods.Add(new ExtentionMethod(
-												"Minimazing", classInFile.FullName, genericParameters, new ExtentionMethodArgument(
+												"Minimazing", classInFile.FullName, genericParameters, genericConstraints, new ExtentionMethodArgument(
 													argumentVariants.Name, type)));
 
 											newExtentionMethods.Add(new ExtentionMethod(
-												"Maximazing", classInFile.FullName, genericParameters, new ExtentionMethodArgument(
+												"Maximazing", classInFile.FullName, genericParameters, genericConstraints, new ExtentionMethodArgument(
 													argumentVariants.Name, type)));
 										}
 
@@ -170,7 +173,7 @@
 								else
 								{
 									newExtentionMethods.Add(new ExtentionMethod(
-										name, classInFile.FullName, genericParameters, new ExtentionMethodArgument(
+										name, classInFile.FullName, genericParameters, genericConstraints, new ExtentionMethodArgument(
 											argumentVariants.Name, argumentVariants.Type)));							
 								}
 							}
@@ -186,7 +189,7 @@
 											foreach (string type in argumentVariants.Types)
 											{
 												extentionMethod = new ExtentionMethod(
-													creatingExtentionMethod.Name, classInFile.FullName, creatingExtentionMethod.GenericParameters, creatingExtentionMethod.Arguments.ToArray());
+													creatingExtentionMethod.Name, classInFile.FullName, creatingExtentionMethod.GenericParameters, creatingExtentionMethod.GenericConstraints, creatingExtentionMethod.Arguments.ToArray());
 												extentionMethod.Arguments.Add(
 													new ExtentionMethodArgument(
 														argumentVariants.Name, type));
@@ -195,7 +198,7 @@
 												if (argumentVariants.DefaultValue != null) 
 												{
 													extentionMethod = new ExtentionMethod(
-														creatingExtentionMethod.Name, classInFile.FullName, creatingExtentionMethod.GenericParameters, creatingExtentionMethod.Arguments.ToArray());
+														creatingExtentionMethod.Name, classInFile.FullName, creatingExtentionMethod.GenericParameters, creatingExtentionMethod.GenericConstraints, creatingExtentionMethod.Arguments.ToArray());
 													extentionMethod.Arguments.Add(
 														new ExtentionMethodArgument(
 															argumentVariants.Name, type, argumentVariants.DefaultValue));
@@ -206,13 +209,13 @@
 										else if (argumentVariants.DefaultValue != null) 
 										{
 											ExtentionMethod extentionMethod = new ExtentionMethod(
-												creatingExtentionMethod.Name, classInFile.FullName, creatingExtentionMethod.GenericParameters, creatingExtentionMethod.Arguments.ToArray());
+												creatingExtentionMethod.Name, classInFile.FullName, creatingExtentionMethod.GenericParameters, creatingExtentionMethod.GenericConstraints, creatingExtentionMethod.Arguments.ToArray());
 											extentionMethod.Arguments.Add(
 												new ExtentionMethodArgument(argumentVariants.Name, argumentVariants.Type));
 											newExtentionMethods.Add(extentionMethod);
 
 											extentionMethod = new ExtentionMethod(
-												creatingExtentionMethod.Name, classInFile.FullName, creatingExtentionMethod.GenericParameters, creatingExtentionMethod.Arguments.ToArray());
+												creatingExtentionMethod.Name, classInFile.FullName, creatingExtentionMethod.GenericParameters, creatingExtentionMethod.GenericConstraints, creatingExtentionMethod.Arguments.ToArray());
 											extentionMethod.Arguments.Add(
 												new ExtentionMethodArgument(
 													argumentVariants.Name, argumentVariants.Type, argumentVariants.DefaultValue));
@@ -221,7 +224,7 @@
 										else
 										{
 											ExtentionMethod extentionMethod = new ExtentionMethod(
-												creatingExtentionMethod.Name, classInFile.FullName, creatingExtentionMethod.GenericParameters, creatingExtentionMethod.Arguments.ToArray());
+												creatingExtentionMethod.Name, classInFile.FullName, creatingExtentionMethod.GenericParameters, creatingExtentionMethod.GenericConstraints, creatingExtentionMethod.Arguments.ToArray());
 											extentionMethod.Arguments.Add(
 												new ExtentionMethodArgument(
 													argumentVariants.Name, argumentVariants.Type));
@@ -232,7 +235,7 @@
 									if (argumentVariants.Type.Contains("MinimazingOrMaximazingMode"))
 									{
 										ExtentionMethod extentionMethod = new ExtentionMethod(
-											creatingExtentionMethod.Name, classInFile.FullName, creatingExtentionMethod.GenericParameters, creatingExtentionMethod.Arguments.ToArray());
+											creatingExtentionMethod.Name, classInFile.FullName, creatingExtentionMethod.GenericParameters, creatingExtentionMethod.GenericConstraints, creatingExtentionMethod.Arguments.ToArray());
 										extentionMethod.Arguments.Add(
 											new ExtentionMethodArgument(
 												argumentVariants.Name, argumentVariants.Type, creatingExtentionMethod.Name == "Minimazing" ? "MinimazingOrMaximazingMode.Minimazing" : "MinimazingOrMaximazingMode.Maximazing"));
@@ -265,6 +268,7 @@
 		public string TypeName;
 		public string GenericParameters;
 		public string Name;
+        public string GenericConstraints;
 		public List<ExtentionMethodArgument> Arguments = new List<ExtentionMethodArgument>();
 
 		public override bool Equals(object obj)
@@ -273,11 +277,12 @@
 			return other.Name == Name && Arguments.Where(a => a.DefaultValue == null).SequenceEqual(other.Arguments.Where(a => a.DefaultValue == null));
 		}
 
-		public ExtentionMethod(string name, string typeName, string genericParameters, params ExtentionMethodArgument[] arguments)
+		public ExtentionMethod(string name, string typeName, string genericParameters, string genericConstraints, params ExtentionMethodArgument[] arguments)
 		{
 			Name = name;
 			TypeName = typeName;
 			GenericParameters = genericParameters;
+            GenericConstraints = genericConstraints;
 			Arguments = arguments.ToList();
 		}
 

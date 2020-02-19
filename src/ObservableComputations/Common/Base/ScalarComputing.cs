@@ -54,7 +54,7 @@ namespace ObservableComputations
 
 		#endregion
 
-		private Action<TValue> _setValueAction;
+		protected Action<TValue> _setValueAction;
 
 		public Action<TValue> SetValueAction
 		{

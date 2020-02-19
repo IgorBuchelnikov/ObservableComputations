@@ -24210,6 +24210,288 @@ namespace ObservableComputations
 		}
 
 		#endregion
+		#region PropertyAccessing
+
+		[ObservableComputationsCall]
+		public static ObservableComputations.PropertyAccessing<TResult> PropertyAccessing<TResult>(this
+			 ObservableComputations.IReadScalar<object> propertyHolderScalar,
+			 string propertyName)
+			
+		{
+			return new ObservableComputations.PropertyAccessing<TResult>(
+				propertyHolderScalar: propertyHolderScalar,
+				propertyName: propertyName);
+		}
+
+		[ObservableComputationsCall]
+		public static ObservableComputations.PropertyAccessing<TResult> PropertyAccessing<TResult>(this
+			 Expression<Func<object>> propertyHolderExpression,
+			 string propertyName)
+			
+		{
+			return new ObservableComputations.PropertyAccessing<TResult>(
+				propertyHolderScalar: new Computing<object>(propertyHolderExpression),
+				propertyName: propertyName);
+		}
+
+		[ObservableComputationsCall]
+		public static ObservableComputations.PropertyAccessing<TResult> PropertyAccessing<TResult>(this
+			 ObservableComputations.IReadScalar<object> propertyHolderScalar,
+			 string propertyName,
+			 System.Reflection.BindingFlags bindingAttr)
+			
+		{
+			return new ObservableComputations.PropertyAccessing<TResult>(
+				propertyHolderScalar: propertyHolderScalar,
+				propertyName: propertyName,
+				bindingAttr: bindingAttr);
+		}
+
+		[ObservableComputationsCall]
+		public static ObservableComputations.PropertyAccessing<TResult> PropertyAccessing<TResult>(this
+			 Expression<Func<object>> propertyHolderExpression,
+			 string propertyName,
+			 System.Reflection.BindingFlags bindingAttr)
+			
+		{
+			return new ObservableComputations.PropertyAccessing<TResult>(
+				propertyHolderScalar: new Computing<object>(propertyHolderExpression),
+				propertyName: propertyName,
+				bindingAttr: bindingAttr);
+		}
+
+		[ObservableComputationsCall]
+		public static ObservableComputations.PropertyAccessing<TResult> PropertyAccessing<TResult>(this
+			 ObservableComputations.IReadScalar<object> propertyHolderScalar,
+			 string propertyName,
+			 System.Type returnType)
+			
+		{
+			return new ObservableComputations.PropertyAccessing<TResult>(
+				propertyHolderScalar: propertyHolderScalar,
+				propertyName: propertyName,
+				returnType: returnType);
+		}
+
+		[ObservableComputationsCall]
+		public static ObservableComputations.PropertyAccessing<TResult> PropertyAccessing<TResult>(this
+			 Expression<Func<object>> propertyHolderExpression,
+			 string propertyName,
+			 System.Type returnType)
+			
+		{
+			return new ObservableComputations.PropertyAccessing<TResult>(
+				propertyHolderScalar: new Computing<object>(propertyHolderExpression),
+				propertyName: propertyName,
+				returnType: returnType);
+		}
+
+		[ObservableComputationsCall]
+		public static ObservableComputations.PropertyAccessing<TResult> PropertyAccessing<TResult>(this
+			 ObservableComputations.IReadScalar<object> propertyHolderScalar,
+			 string propertyName,
+			 System.Type returnType,
+			 System.Type[] types)
+			
+		{
+			return new ObservableComputations.PropertyAccessing<TResult>(
+				propertyHolderScalar: propertyHolderScalar,
+				propertyName: propertyName,
+				returnType: returnType,
+				types: types);
+		}
+
+		[ObservableComputationsCall]
+		public static ObservableComputations.PropertyAccessing<TResult> PropertyAccessing<TResult>(this
+			 Expression<Func<object>> propertyHolderExpression,
+			 string propertyName,
+			 System.Type returnType,
+			 System.Type[] types)
+			
+		{
+			return new ObservableComputations.PropertyAccessing<TResult>(
+				propertyHolderScalar: new Computing<object>(propertyHolderExpression),
+				propertyName: propertyName,
+				returnType: returnType,
+				types: types);
+		}
+
+		[ObservableComputationsCall]
+		public static ObservableComputations.PropertyAccessing<TResult> PropertyAccessing<TResult>(this
+			 ObservableComputations.IReadScalar<object> propertyHolderScalar,
+			 string propertyName,
+			 System.Type returnType,
+			 System.Type[] types,
+			 System.Reflection.ParameterModifier[] modifiers)
+			
+		{
+			return new ObservableComputations.PropertyAccessing<TResult>(
+				propertyHolderScalar: propertyHolderScalar,
+				propertyName: propertyName,
+				returnType: returnType,
+				types: types,
+				modifiers: modifiers);
+		}
+
+		[ObservableComputationsCall]
+		public static ObservableComputations.PropertyAccessing<TResult> PropertyAccessing<TResult>(this
+			 Expression<Func<object>> propertyHolderExpression,
+			 string propertyName,
+			 System.Type returnType,
+			 System.Type[] types,
+			 System.Reflection.ParameterModifier[] modifiers)
+			
+		{
+			return new ObservableComputations.PropertyAccessing<TResult>(
+				propertyHolderScalar: new Computing<object>(propertyHolderExpression),
+				propertyName: propertyName,
+				returnType: returnType,
+				types: types,
+				modifiers: modifiers);
+		}
+
+		[ObservableComputationsCall]
+		public static ObservableComputations.PropertyAccessing<TResult> PropertyAccessing<TResult>(this
+			 ObservableComputations.IReadScalar<object> propertyHolderScalar,
+			 System.Func<System.Reflection.PropertyInfo, bool> propertyInfoPredicate)
+			
+		{
+			return new ObservableComputations.PropertyAccessing<TResult>(
+				propertyHolderScalar: propertyHolderScalar,
+				propertyInfoPredicate: propertyInfoPredicate);
+		}
+
+		[ObservableComputationsCall]
+		public static ObservableComputations.PropertyAccessing<TResult> PropertyAccessing<TResult>(this
+			 Expression<Func<object>> propertyHolderExpression,
+			 System.Func<System.Reflection.PropertyInfo, bool> propertyInfoPredicate)
+			
+		{
+			return new ObservableComputations.PropertyAccessing<TResult>(
+				propertyHolderScalar: new Computing<object>(propertyHolderExpression),
+				propertyInfoPredicate: propertyInfoPredicate);
+		}
+
+		[ObservableComputationsCall]
+		public static ObservableComputations.PropertyAccessing<TResult> PropertyAccessing<TResult>(this
+			 ObservableComputations.IReadScalar<object> propertyHolderScalar,
+			 System.Func<System.Reflection.PropertyInfo, bool> propertyInfoPredicate,
+			 System.Reflection.BindingFlags bindingAttr)
+			
+		{
+			return new ObservableComputations.PropertyAccessing<TResult>(
+				propertyHolderScalar: propertyHolderScalar,
+				propertyInfoPredicate: propertyInfoPredicate,
+				bindingAttr: bindingAttr);
+		}
+
+		[ObservableComputationsCall]
+		public static ObservableComputations.PropertyAccessing<TResult> PropertyAccessing<TResult>(this
+			 Expression<Func<object>> propertyHolderExpression,
+			 System.Func<System.Reflection.PropertyInfo, bool> propertyInfoPredicate,
+			 System.Reflection.BindingFlags bindingAttr)
+			
+		{
+			return new ObservableComputations.PropertyAccessing<TResult>(
+				propertyHolderScalar: new Computing<object>(propertyHolderExpression),
+				propertyInfoPredicate: propertyInfoPredicate,
+				bindingAttr: bindingAttr);
+		}
+
+		[ObservableComputationsCall]
+		public static ObservableComputations.PropertyAccessing<TResult> PropertyAccessing<TResult>(this
+			 object propertyHolder,
+			 string propertyName)
+			
+		{
+			return new ObservableComputations.PropertyAccessing<TResult>(
+				propertyHolder: propertyHolder,
+				propertyName: propertyName);
+		}
+
+		[ObservableComputationsCall]
+		public static ObservableComputations.PropertyAccessing<TResult> PropertyAccessing<TResult>(this
+			 object propertyHolder,
+			 string propertyName,
+			 System.Reflection.BindingFlags bindingAttr)
+			
+		{
+			return new ObservableComputations.PropertyAccessing<TResult>(
+				propertyHolder: propertyHolder,
+				propertyName: propertyName,
+				bindingAttr: bindingAttr);
+		}
+
+		[ObservableComputationsCall]
+		public static ObservableComputations.PropertyAccessing<TResult> PropertyAccessing<TResult>(this
+			 object propertyHolder,
+			 string propertyName,
+			 System.Type returnType)
+			
+		{
+			return new ObservableComputations.PropertyAccessing<TResult>(
+				propertyHolder: propertyHolder,
+				propertyName: propertyName,
+				returnType: returnType);
+		}
+
+		[ObservableComputationsCall]
+		public static ObservableComputations.PropertyAccessing<TResult> PropertyAccessing<TResult>(this
+			 object propertyHolder,
+			 string propertyName,
+			 System.Type returnType,
+			 System.Type[] types)
+			
+		{
+			return new ObservableComputations.PropertyAccessing<TResult>(
+				propertyHolder: propertyHolder,
+				propertyName: propertyName,
+				returnType: returnType,
+				types: types);
+		}
+
+		[ObservableComputationsCall]
+		public static ObservableComputations.PropertyAccessing<TResult> PropertyAccessing<TResult>(this
+			 object propertyHolder,
+			 string propertyName,
+			 System.Type returnType,
+			 System.Type[] types,
+			 System.Reflection.ParameterModifier[] modifiers)
+			
+		{
+			return new ObservableComputations.PropertyAccessing<TResult>(
+				propertyHolder: propertyHolder,
+				propertyName: propertyName,
+				returnType: returnType,
+				types: types,
+				modifiers: modifiers);
+		}
+
+		[ObservableComputationsCall]
+		public static ObservableComputations.PropertyAccessing<TResult> PropertyAccessing<TResult>(this
+			 object propertyHolder,
+			 System.Func<System.Reflection.PropertyInfo, bool> propertyInfoPredicate)
+			
+		{
+			return new ObservableComputations.PropertyAccessing<TResult>(
+				propertyHolder: propertyHolder,
+				propertyInfoPredicate: propertyInfoPredicate);
+		}
+
+		[ObservableComputationsCall]
+		public static ObservableComputations.PropertyAccessing<TResult> PropertyAccessing<TResult>(this
+			 object propertyHolder,
+			 System.Func<System.Reflection.PropertyInfo, bool> propertyInfoPredicate,
+			 System.Reflection.BindingFlags bindingAttr)
+			
+		{
+			return new ObservableComputations.PropertyAccessing<TResult>(
+				propertyHolder: propertyHolder,
+				propertyInfoPredicate: propertyInfoPredicate,
+				bindingAttr: bindingAttr);
+		}
+
+		#endregion
 		#region Reversing
 
 		[ObservableComputationsCall]

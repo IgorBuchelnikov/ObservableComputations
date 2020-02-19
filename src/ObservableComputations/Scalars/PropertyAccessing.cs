@@ -47,6 +47,9 @@ namespace ObservableComputations
 		private readonly PropertyChangedEventHandler _propertyHolderScalarPropertyChangedEventHandler;
 		private readonly WeakPropertyChangedEventHandler _propertyHolderScalarWeakPropertyChangedEventHandler;
 
+		private PropertyChangedEventHandler _propertyHolderPropertyChangedEventHandler;
+		private WeakPropertyChangedEventHandler _propertyHolderWeakPropertyChangedEventHandler;
+
 		[ObservableComputationsCall]
 		public PropertyAccessing(
 			IReadScalar<object> propertyHolderScalar, 
@@ -281,6 +284,8 @@ namespace ObservableComputations
 
 		private void registerPropertyHolder()
 		{
+			if (_propertyHolderWeakPropertyChangedEventHandler != null)
+
 			void getPropertyInfo(PropertyInfo[] propertyInfos)
 			{
 				for (int i = 0; i < propertyInfos.Length; i++)
@@ -328,7 +333,17 @@ namespace ObservableComputations
 			if (_propertyInfo == null)
 				throw new ObservableComputationsException(this, "Cannot obtain propertyInfo");
 
+			_propertyHolderPropertyChangedEventHandler = handlePropertyHolderPropertyChanged;
+			_propertyHolderWeakPropertyChangedEventHandler =
+				new WeakPropertyChangedEventHandler(_propertyHolderPropertyChangedEventHandler);
+			_propertyHolder.PropertyChanged += _propertyHolderWeakPropertyChangedEventHandler.Handle;
+
 			setValue((TResult) _propertyInfo.GetValue(_propertyHolder));
+		}
+
+		private void handlePropertyHolderPropertyChanged(object sender, PropertyChangedEventArgs e)
+		{
+			throw new NotImplementedException();
 		}
 
 		private void handlePropertyHolderScalarPropertyChanged(object sender, PropertyChangedEventArgs e)
@@ -340,7 +355,8 @@ namespace ObservableComputations
 
 		~PropertyAccessing()
 		{
-			_propertyHolderScalar.PropertyChanged -= _propertyHolderScalarWeakPropertyChangedEventHandler.Handle;
+			if (_propertyHolderScalarWeakPropertyChangedEventHandler != null)
+				_propertyHolderScalar.PropertyChanged -= _propertyHolderScalarWeakPropertyChangedEventHandler.Handle;
 		}
 	}
 }

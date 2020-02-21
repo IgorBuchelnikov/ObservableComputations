@@ -24214,7 +24214,7 @@ namespace ObservableComputations
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.PropertyAccessing<TResult> PropertyAccessing<TResult>(this
-			 ObservableComputations.IReadScalar<object> propertyHolderScalar,
+			 ObservableComputations.IReadScalar<System.ComponentModel.INotifyPropertyChanged> propertyHolderScalar,
 			 string propertyName)
 			
 		{
@@ -24225,18 +24225,18 @@ namespace ObservableComputations
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.PropertyAccessing<TResult> PropertyAccessing<TResult>(this
-			 Expression<Func<object>> propertyHolderExpression,
+			 Expression<Func<System.ComponentModel.INotifyPropertyChanged>> propertyHolderExpression,
 			 string propertyName)
 			
 		{
 			return new ObservableComputations.PropertyAccessing<TResult>(
-				propertyHolderScalar: new Computing<object>(propertyHolderExpression),
+				propertyHolderScalar: new Computing<System.ComponentModel.INotifyPropertyChanged>(propertyHolderExpression),
 				propertyName: propertyName);
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.PropertyAccessing<TResult> PropertyAccessing<TResult>(this
-			 ObservableComputations.IReadScalar<object> propertyHolderScalar,
+			 ObservableComputations.IReadScalar<System.ComponentModel.INotifyPropertyChanged> propertyHolderScalar,
 			 string propertyName,
 			 System.Reflection.BindingFlags bindingAttr)
 			
@@ -24249,20 +24249,20 @@ namespace ObservableComputations
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.PropertyAccessing<TResult> PropertyAccessing<TResult>(this
-			 Expression<Func<object>> propertyHolderExpression,
+			 Expression<Func<System.ComponentModel.INotifyPropertyChanged>> propertyHolderExpression,
 			 string propertyName,
 			 System.Reflection.BindingFlags bindingAttr)
 			
 		{
 			return new ObservableComputations.PropertyAccessing<TResult>(
-				propertyHolderScalar: new Computing<object>(propertyHolderExpression),
+				propertyHolderScalar: new Computing<System.ComponentModel.INotifyPropertyChanged>(propertyHolderExpression),
 				propertyName: propertyName,
 				bindingAttr: bindingAttr);
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.PropertyAccessing<TResult> PropertyAccessing<TResult>(this
-			 ObservableComputations.IReadScalar<object> propertyHolderScalar,
+			 ObservableComputations.IReadScalar<System.ComponentModel.INotifyPropertyChanged> propertyHolderScalar,
 			 string propertyName,
 			 System.Type returnType)
 			
@@ -24275,20 +24275,20 @@ namespace ObservableComputations
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.PropertyAccessing<TResult> PropertyAccessing<TResult>(this
-			 Expression<Func<object>> propertyHolderExpression,
+			 Expression<Func<System.ComponentModel.INotifyPropertyChanged>> propertyHolderExpression,
 			 string propertyName,
 			 System.Type returnType)
 			
 		{
 			return new ObservableComputations.PropertyAccessing<TResult>(
-				propertyHolderScalar: new Computing<object>(propertyHolderExpression),
+				propertyHolderScalar: new Computing<System.ComponentModel.INotifyPropertyChanged>(propertyHolderExpression),
 				propertyName: propertyName,
 				returnType: returnType);
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.PropertyAccessing<TResult> PropertyAccessing<TResult>(this
-			 ObservableComputations.IReadScalar<object> propertyHolderScalar,
+			 ObservableComputations.IReadScalar<System.ComponentModel.INotifyPropertyChanged> propertyHolderScalar,
 			 string propertyName,
 			 System.Type returnType,
 			 System.Type[] types)
@@ -24303,14 +24303,14 @@ namespace ObservableComputations
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.PropertyAccessing<TResult> PropertyAccessing<TResult>(this
-			 Expression<Func<object>> propertyHolderExpression,
+			 Expression<Func<System.ComponentModel.INotifyPropertyChanged>> propertyHolderExpression,
 			 string propertyName,
 			 System.Type returnType,
 			 System.Type[] types)
 			
 		{
 			return new ObservableComputations.PropertyAccessing<TResult>(
-				propertyHolderScalar: new Computing<object>(propertyHolderExpression),
+				propertyHolderScalar: new Computing<System.ComponentModel.INotifyPropertyChanged>(propertyHolderExpression),
 				propertyName: propertyName,
 				returnType: returnType,
 				types: types);
@@ -24318,7 +24318,7 @@ namespace ObservableComputations
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.PropertyAccessing<TResult> PropertyAccessing<TResult>(this
-			 ObservableComputations.IReadScalar<object> propertyHolderScalar,
+			 ObservableComputations.IReadScalar<System.ComponentModel.INotifyPropertyChanged> propertyHolderScalar,
 			 string propertyName,
 			 System.Type returnType,
 			 System.Type[] types,
@@ -24335,7 +24335,7 @@ namespace ObservableComputations
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.PropertyAccessing<TResult> PropertyAccessing<TResult>(this
-			 Expression<Func<object>> propertyHolderExpression,
+			 Expression<Func<System.ComponentModel.INotifyPropertyChanged>> propertyHolderExpression,
 			 string propertyName,
 			 System.Type returnType,
 			 System.Type[] types,
@@ -24343,7 +24343,7 @@ namespace ObservableComputations
 			
 		{
 			return new ObservableComputations.PropertyAccessing<TResult>(
-				propertyHolderScalar: new Computing<object>(propertyHolderExpression),
+				propertyHolderScalar: new Computing<System.ComponentModel.INotifyPropertyChanged>(propertyHolderExpression),
 				propertyName: propertyName,
 				returnType: returnType,
 				types: types,
@@ -24352,7 +24352,7 @@ namespace ObservableComputations
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.PropertyAccessing<TResult> PropertyAccessing<TResult>(this
-			 ObservableComputations.IReadScalar<object> propertyHolderScalar,
+			 ObservableComputations.IReadScalar<System.ComponentModel.INotifyPropertyChanged> propertyHolderScalar,
 			 System.Func<System.Reflection.PropertyInfo, bool> propertyInfoPredicate)
 			
 		{
@@ -24363,18 +24363,18 @@ namespace ObservableComputations
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.PropertyAccessing<TResult> PropertyAccessing<TResult>(this
-			 Expression<Func<object>> propertyHolderExpression,
+			 Expression<Func<System.ComponentModel.INotifyPropertyChanged>> propertyHolderExpression,
 			 System.Func<System.Reflection.PropertyInfo, bool> propertyInfoPredicate)
 			
 		{
 			return new ObservableComputations.PropertyAccessing<TResult>(
-				propertyHolderScalar: new Computing<object>(propertyHolderExpression),
+				propertyHolderScalar: new Computing<System.ComponentModel.INotifyPropertyChanged>(propertyHolderExpression),
 				propertyInfoPredicate: propertyInfoPredicate);
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.PropertyAccessing<TResult> PropertyAccessing<TResult>(this
-			 ObservableComputations.IReadScalar<object> propertyHolderScalar,
+			 ObservableComputations.IReadScalar<System.ComponentModel.INotifyPropertyChanged> propertyHolderScalar,
 			 System.Func<System.Reflection.PropertyInfo, bool> propertyInfoPredicate,
 			 System.Reflection.BindingFlags bindingAttr)
 			
@@ -24387,20 +24387,20 @@ namespace ObservableComputations
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.PropertyAccessing<TResult> PropertyAccessing<TResult>(this
-			 Expression<Func<object>> propertyHolderExpression,
+			 Expression<Func<System.ComponentModel.INotifyPropertyChanged>> propertyHolderExpression,
 			 System.Func<System.Reflection.PropertyInfo, bool> propertyInfoPredicate,
 			 System.Reflection.BindingFlags bindingAttr)
 			
 		{
 			return new ObservableComputations.PropertyAccessing<TResult>(
-				propertyHolderScalar: new Computing<object>(propertyHolderExpression),
+				propertyHolderScalar: new Computing<System.ComponentModel.INotifyPropertyChanged>(propertyHolderExpression),
 				propertyInfoPredicate: propertyInfoPredicate,
 				bindingAttr: bindingAttr);
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.PropertyAccessing<TResult> PropertyAccessing<TResult>(this
-			 object propertyHolder,
+			 System.ComponentModel.INotifyPropertyChanged propertyHolder,
 			 string propertyName)
 			
 		{
@@ -24411,7 +24411,7 @@ namespace ObservableComputations
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.PropertyAccessing<TResult> PropertyAccessing<TResult>(this
-			 object propertyHolder,
+			 System.ComponentModel.INotifyPropertyChanged propertyHolder,
 			 string propertyName,
 			 System.Reflection.BindingFlags bindingAttr)
 			
@@ -24424,7 +24424,7 @@ namespace ObservableComputations
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.PropertyAccessing<TResult> PropertyAccessing<TResult>(this
-			 object propertyHolder,
+			 System.ComponentModel.INotifyPropertyChanged propertyHolder,
 			 string propertyName,
 			 System.Type returnType)
 			
@@ -24437,7 +24437,7 @@ namespace ObservableComputations
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.PropertyAccessing<TResult> PropertyAccessing<TResult>(this
-			 object propertyHolder,
+			 System.ComponentModel.INotifyPropertyChanged propertyHolder,
 			 string propertyName,
 			 System.Type returnType,
 			 System.Type[] types)
@@ -24452,7 +24452,7 @@ namespace ObservableComputations
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.PropertyAccessing<TResult> PropertyAccessing<TResult>(this
-			 object propertyHolder,
+			 System.ComponentModel.INotifyPropertyChanged propertyHolder,
 			 string propertyName,
 			 System.Type returnType,
 			 System.Type[] types,
@@ -24469,7 +24469,7 @@ namespace ObservableComputations
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.PropertyAccessing<TResult> PropertyAccessing<TResult>(this
-			 object propertyHolder,
+			 System.ComponentModel.INotifyPropertyChanged propertyHolder,
 			 System.Func<System.Reflection.PropertyInfo, bool> propertyInfoPredicate)
 			
 		{
@@ -24480,7 +24480,7 @@ namespace ObservableComputations
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.PropertyAccessing<TResult> PropertyAccessing<TResult>(this
-			 object propertyHolder,
+			 System.ComponentModel.INotifyPropertyChanged propertyHolder,
 			 System.Func<System.Reflection.PropertyInfo, bool> propertyInfoPredicate,
 			 System.Reflection.BindingFlags bindingAttr)
 			

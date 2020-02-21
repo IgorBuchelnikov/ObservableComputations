@@ -17,8 +17,8 @@ namespace ObservableComputations
 		public Func<PropertyInfo, bool>  PropertyInfoPredicate => _propertyInfoPredicate;
 		public PropertyInfo  PropertyInfo => _propertyInfo;
 
-		private IReadScalar<object> _propertyHolderScalar;
-		private object _propertyHolder;
+		private IReadScalar<INotifyPropertyChanged> _propertyHolderScalar;
+		private INotifyPropertyChanged _propertyHolder;
 		private Type _propertyHolderType;
 
 		private PropertyInfoGettingType _propertyInfoGettingType;
@@ -52,7 +52,7 @@ namespace ObservableComputations
 
 		[ObservableComputationsCall]
 		public PropertyAccessing(
-			IReadScalar<object> propertyHolderScalar, 
+			IReadScalar<INotifyPropertyChanged> propertyHolderScalar, 
 			string propertyName) : this(propertyHolderScalar)
 		{
 			_propertyInfoGettingType = PropertyInfoGettingType.PropertyName;
@@ -62,7 +62,7 @@ namespace ObservableComputations
 
 		[ObservableComputationsCall]
 		public PropertyAccessing(
-			IReadScalar<object> propertyHolderScalar, 
+			IReadScalar<INotifyPropertyChanged> propertyHolderScalar, 
 			string propertyName,
 			BindingFlags bindingAttr) : this(propertyHolderScalar)
 		{
@@ -74,7 +74,7 @@ namespace ObservableComputations
 
 		[ObservableComputationsCall]
 		public PropertyAccessing(
-			IReadScalar<object> propertyHolderScalar, 
+			IReadScalar<INotifyPropertyChanged> propertyHolderScalar, 
 			string propertyName,
 			Type returnType) : this(propertyHolderScalar)
 		{
@@ -86,7 +86,7 @@ namespace ObservableComputations
 
 		[ObservableComputationsCall]
 		public PropertyAccessing(
-			IReadScalar<object> propertyHolderScalar, 
+			IReadScalar<INotifyPropertyChanged> propertyHolderScalar, 
 			string propertyName,
 			Type returnType,
 			Type[] types) : this(propertyHolderScalar)
@@ -100,7 +100,7 @@ namespace ObservableComputations
 
 		[ObservableComputationsCall]
 		public PropertyAccessing(
-			IReadScalar<object> propertyHolderScalar, 
+			IReadScalar<INotifyPropertyChanged> propertyHolderScalar, 
 			string propertyName,
 			Type returnType,
 			Type[] types,
@@ -116,7 +116,7 @@ namespace ObservableComputations
 
 		[ObservableComputationsCall]
 		public PropertyAccessing(
-			IReadScalar<object> propertyHolderScalar, 
+			IReadScalar<INotifyPropertyChanged> propertyHolderScalar, 
 			string propertyName,
 			BindingFlags bindingAttr,
 			Binder binder,
@@ -136,7 +136,7 @@ namespace ObservableComputations
 
 		[ObservableComputationsCall]
 		public PropertyAccessing(
-			IReadScalar<object> propertyHolderScalar, 
+			IReadScalar<INotifyPropertyChanged> propertyHolderScalar, 
 			Func<PropertyInfo, bool> propertyInfoPredicate) : this(propertyHolderScalar)
 		{
 			_propertyInfoGettingType = PropertyInfoGettingType.PropertyInfoPredicate;
@@ -146,7 +146,7 @@ namespace ObservableComputations
 
 		[ObservableComputationsCall]
 		public PropertyAccessing(
-			IReadScalar<object> propertyHolderScalar, 
+			IReadScalar<INotifyPropertyChanged> propertyHolderScalar, 
 			Func<PropertyInfo, bool> propertyInfoPredicate,
 			BindingFlags bindingAttr) : this(propertyHolderScalar)
 		{
@@ -157,7 +157,7 @@ namespace ObservableComputations
 		}
 
 		private PropertyAccessing(
-			IReadScalar<object> propertyHolderScalar)
+			IReadScalar<INotifyPropertyChanged> propertyHolderScalar)
 		{
 			_propertyHolderScalar = propertyHolderScalar;
 			_propertyHolder = _propertyHolderScalar.Value;
@@ -170,7 +170,7 @@ namespace ObservableComputations
 
 		[ObservableComputationsCall]
 		public PropertyAccessing(
-			object propertyHolder, 
+			INotifyPropertyChanged propertyHolder, 
 			string propertyName) : this(propertyHolder)
 		{
 			_propertyInfoGettingType = PropertyInfoGettingType.PropertyName;
@@ -180,7 +180,7 @@ namespace ObservableComputations
 
 		[ObservableComputationsCall]
 		public PropertyAccessing(
-			object propertyHolder, 
+			INotifyPropertyChanged propertyHolder, 
 			string propertyName,
 			BindingFlags bindingAttr) : this(propertyHolder)
 		{
@@ -192,7 +192,7 @@ namespace ObservableComputations
 
 		[ObservableComputationsCall]
 		public PropertyAccessing(
-			object propertyHolder,  
+			INotifyPropertyChanged propertyHolder,  
 			string propertyName,
 			Type returnType) : this(propertyHolder)
 		{
@@ -204,7 +204,7 @@ namespace ObservableComputations
 
 		[ObservableComputationsCall]
 		public PropertyAccessing(
-			object propertyHolder,  
+			INotifyPropertyChanged propertyHolder,  
 			string propertyName,
 			Type returnType,
 			Type[] types) : this(propertyHolder)
@@ -218,7 +218,7 @@ namespace ObservableComputations
 
 		[ObservableComputationsCall]
 		public PropertyAccessing(
-			object propertyHolder,  
+			INotifyPropertyChanged propertyHolder,  
 			string propertyName,
 			Type returnType,
 			Type[] types,
@@ -234,7 +234,7 @@ namespace ObservableComputations
 
 		[ObservableComputationsCall]
 		public PropertyAccessing(
-			object propertyHolder,  
+			INotifyPropertyChanged propertyHolder,  
 			string propertyName,
 			BindingFlags bindingAttr,
 			Binder binder,
@@ -254,7 +254,7 @@ namespace ObservableComputations
 
 		[ObservableComputationsCall]
 		public PropertyAccessing(
-			object propertyHolder,  
+			INotifyPropertyChanged propertyHolder,  
 			Func<PropertyInfo, bool> propertyInfoPredicate) : this(propertyHolder)
 		{
 			_propertyInfoGettingType = PropertyInfoGettingType.PropertyInfoPredicate;
@@ -264,7 +264,7 @@ namespace ObservableComputations
 
 		[ObservableComputationsCall]
 		public PropertyAccessing(
-			object propertyHolder,  
+			INotifyPropertyChanged propertyHolder,  
 			Func<PropertyInfo, bool> propertyInfoPredicate,
 			BindingFlags bindingAttr) : this(propertyHolder)
 		{
@@ -275,7 +275,7 @@ namespace ObservableComputations
 		}
 
 		private PropertyAccessing(
-			object propertyHolder)
+			INotifyPropertyChanged propertyHolder)
 		{
 			_propertyHolder = propertyHolder;
 			_setValueAction = result => _propertyInfo.SetValue(_propertyHolder, result);
@@ -285,6 +285,9 @@ namespace ObservableComputations
 		private void registerPropertyHolder()
 		{
 			if (_propertyHolderWeakPropertyChangedEventHandler != null)
+			{
+				_propertyHolder.PropertyChanged -= _propertyHolderWeakPropertyChangedEventHandler.Handle;
+			}
 
 			void getPropertyInfo(PropertyInfo[] propertyInfos)
 			{
@@ -343,7 +346,7 @@ namespace ObservableComputations
 
 		private void handlePropertyHolderPropertyChanged(object sender, PropertyChangedEventArgs e)
 		{
-			throw new NotImplementedException();
+			setValue((TResult) _propertyInfo.GetValue(_propertyHolder));
 		}
 
 		private void handlePropertyHolderScalarPropertyChanged(object sender, PropertyChangedEventArgs e)

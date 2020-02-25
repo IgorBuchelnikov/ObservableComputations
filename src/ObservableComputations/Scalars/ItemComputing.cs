@@ -12,9 +12,6 @@ namespace ObservableComputations
 	{
 		public IReadScalar<INotifyCollectionChanged> SourceScalar => _sourceScalar;
 
-		// ReSharper disable once MemberCanBeProtected.Global
-		public IReadScalar<TSourceItem> DefaultValueScalar => _defaultValueScalar;
-
 		// ReSharper disable once MemberCanBePrivate.Global
 		public IReadScalar<int> IndexValueScalar => _indexValueScalar;
 
@@ -39,15 +36,11 @@ namespace ObservableComputations
 		private PropertyChangedEventHandler _indexScalarPropertyChangedEventHandler;
 		private WeakPropertyChangedEventHandler _indexScalarWeakPropertyChangedEventHandler;
 
-		private PropertyChangedEventHandler _defaultValueScalarPropertyChangedEventHandler;
-		private WeakPropertyChangedEventHandler _defaultValueScalarWeakPropertyChangedEventHandler;
-
 		protected INotifyCollectionChanged _source;
 		private IList<TSourceItem> _sourceAsList;
 
 		private NotifyCollectionChangedEventHandler _sourceNotifyCollectionChangedEventHandler;
 		private WeakNotifyCollectionChangedEventHandler _sourceWeakNotifyCollectionChangedEventHandler;
-		internal readonly IReadScalar<TSourceItem> _defaultValueScalar;
 		private readonly IReadScalar<int> _indexValueScalar;
 		private int _index;
 		private bool _isDefaulted;
@@ -70,18 +63,6 @@ namespace ObservableComputations
 			_index = _indexValueScalar.Value;
 		}
 
-		private void initializeDefaultValueScalar()
-		{
-			if (_defaultValueScalar != null)
-			{
-				_defaultValueScalarPropertyChangedEventHandler = handleDefaultValueScalarValueChanged;
-				_defaultValueScalarWeakPropertyChangedEventHandler =
-					new WeakPropertyChangedEventHandler(_defaultValueScalarPropertyChangedEventHandler);
-				_defaultValueScalar.PropertyChanged += _defaultValueScalarWeakPropertyChangedEventHandler.Handle;
-				_defaultValue = _defaultValueScalar.Value;
-			}
-		}
-
 		private void initializeSourceScalar()
 		{
 			_sourceScalarPropertyChangedEventHandler = handleSourceScalarValueChanged;
@@ -93,41 +74,6 @@ namespace ObservableComputations
 		[ObservableComputationsCall]
 		public ItemComputing(
 			IReadScalar<INotifyCollectionChanged> sourceScalar,
-			IReadScalar<int> indexScalar, 
-			IReadScalar<TSourceItem> defaultValueScalar = null)
-		{
-			_sourceScalar = sourceScalar;
-			initializeSourceScalar();
-
-			_defaultValueScalar = defaultValueScalar;
-			initializeDefaultValueScalar();
-
-			_indexValueScalar = indexScalar;
-			initializeIndexScalar();
-
-			initializeFromSource();
-		}
-
-		[ObservableComputationsCall]
-		public ItemComputing(
-			IReadScalar<INotifyCollectionChanged> sourceScalar,
-			int index, 
-			IReadScalar<TSourceItem> defaultValueScalar = null)
-		{
-			_sourceScalar = sourceScalar;
-			initializeSourceScalar();
-
-			_index = index;
-
-			_defaultValueScalar = defaultValueScalar;
-			initializeDefaultValueScalar();
-
-			initializeFromSource();
-		}
-
-		[ObservableComputationsCall]
-		public ItemComputing(
-			IReadScalar<INotifyCollectionChanged> sourceScalar,
 			int index, 
 			TSourceItem defaultValue = default(TSourceItem))
 		{
@@ -153,40 +99,6 @@ namespace ObservableComputations
 
 			_indexValueScalar = indexScalar;
 			initializeIndexScalar();
-
-			initializeFromSource();
-		}
-
-
-		[ObservableComputationsCall]
-		public ItemComputing(
-			INotifyCollectionChanged source,
-			IReadScalar<int> indexScalar, 
-			IReadScalar<TSourceItem> defaultValueScalar = null)
-		{
-			_source = source;
-
-			_defaultValueScalar = defaultValueScalar;
-			initializeDefaultValueScalar();
-
-			_indexValueScalar = indexScalar;
-			initializeIndexScalar();
-
-			initializeFromSource();
-		}
-
-		[ObservableComputationsCall]
-		public ItemComputing(
-			INotifyCollectionChanged source,
-			int index, 
-			IReadScalar<TSourceItem> defaultValueScalar = null)
-		{
-			_source = source;
-
-			_index = index;
-
-			_defaultValueScalar = defaultValueScalar;
-			initializeDefaultValueScalar();
 
 			initializeFromSource();
 		}
@@ -226,13 +138,6 @@ namespace ObservableComputations
 			if (e.PropertyName != nameof(IReadScalar<INotifyCollectionChanged>.Value)) return;
 			_index = _indexValueScalar.Value;
 			recalculateValue();
-		}
-
-		private void handleDefaultValueScalarValueChanged(object sender, PropertyChangedEventArgs e)
-		{
-			if (e.PropertyName != nameof(IReadScalar<INotifyCollectionChanged>.Value)) return;
-			_defaultValue = _defaultValueScalar.Value;
-			if (_isDefaulted) setValue(_defaultValue);
 		}
 
 		private void handleSourceScalarValueChanged(object sender, PropertyChangedEventArgs e)
@@ -383,11 +288,6 @@ namespace ObservableComputations
 				_indexValueScalar.PropertyChanged -= _indexScalarWeakPropertyChangedEventHandler.Handle;			
 			}
 
-			if (_defaultValueScalarWeakPropertyChangedEventHandler != null)
-			{
-				_defaultValueScalar.PropertyChanged -= _defaultValueScalarWeakPropertyChangedEventHandler.Handle;			
-			}
-
 			if (_sourceAsINotifyPropertyChanged != null)
 				_sourceAsINotifyPropertyChanged.PropertyChanged -=
 					_sourceWeakPropertyChangedEventHandler.Handle;
@@ -397,7 +297,7 @@ namespace ObservableComputations
 		{
 			IList<TSourceItem> source = _sourceScalar.getValue(_source, new ObservableCollection<TSourceItem>()) as IList<TSourceItem>;
 			int index = _indexValueScalar.getValue(_index);
-			TSourceItem defaultValue = _defaultValueScalar.getValue(_defaultValue);
+			TSourceItem defaultValue = _defaultValue;
 
 			// ReSharper disable once PossibleNullReferenceException
 			if (source.Count > index)

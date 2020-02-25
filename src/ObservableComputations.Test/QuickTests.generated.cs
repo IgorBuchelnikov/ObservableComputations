@@ -7334,13 +7334,13 @@ namespace ObservableComputations.Test
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
 			System.Linq.Expressions.Expression<System.Func<Item, int>> keySelectorExpression = i => i.Id;
 			System.Linq.Expressions.Expression<System.Func<Item, int>> valueSelectorExpression = i => i.Num;
-			System.Collections.Generic.IEqualityComparer<int> comparer = EqualityComparer<int>.Default;
+			System.Collections.Generic.IEqualityComparer<int> equalityComparer = EqualityComparer<int>.Default;
 			int capacity = 0;
 			
 			var testing = sourceScalar.Dictionaring<Item, int, int>(
 				keySelectorExpression,
 				valueSelectorExpression,
-				comparer,
+				equalityComparer,
 				capacity);
 
 			void test()
@@ -7409,12 +7409,12 @@ namespace ObservableComputations.Test
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
 			System.Linq.Expressions.Expression<System.Func<Item, int>> keySelectorExpression = i => i.Id;
 			System.Linq.Expressions.Expression<System.Func<Item, int>> valueSelectorExpression = i => i.Num;
-			System.Collections.Generic.IEqualityComparer<int> comparer = EqualityComparer<int>.Default;
+			System.Collections.Generic.IEqualityComparer<int> equalityComparer = EqualityComparer<int>.Default;
 			
 			var testing = sourceScalar.Dictionaring<Item, int, int>(
 				keySelectorExpression,
 				valueSelectorExpression,
-				comparer);
+				equalityComparer);
 
 			void test()
 			{
@@ -7626,13 +7626,13 @@ namespace ObservableComputations.Test
 			Scalar<ObservableCollection<Item>> sourceScalar = getScalar<ObservableCollection<Item>>(getItems());
 			System.Linq.Expressions.Expression<System.Func<Item, int>> keySelectorExpression = i => i.Id;
 			System.Linq.Expressions.Expression<System.Func<Item, int>> valueSelectorExpression = i => i.Num;
-			System.Collections.Generic.IEqualityComparer<int> comparer = EqualityComparer<int>.Default;
+			System.Collections.Generic.IEqualityComparer<int> equalityComparer = EqualityComparer<int>.Default;
 			int capacity = 0;
 			
 			var testing = sourceScalar.Dictionaring<Item, int, int>(
 				keySelectorExpression,
 				valueSelectorExpression,
-				comparer,
+				equalityComparer,
 				capacity);
 
 			void test()
@@ -7701,12 +7701,12 @@ namespace ObservableComputations.Test
 			Scalar<ObservableCollection<Item>> sourceScalar = getScalar<ObservableCollection<Item>>(getItems());
 			System.Linq.Expressions.Expression<System.Func<Item, int>> keySelectorExpression = i => i.Id;
 			System.Linq.Expressions.Expression<System.Func<Item, int>> valueSelectorExpression = i => i.Num;
-			System.Collections.Generic.IEqualityComparer<int> comparer = EqualityComparer<int>.Default;
+			System.Collections.Generic.IEqualityComparer<int> equalityComparer = EqualityComparer<int>.Default;
 			
 			var testing = sourceScalar.Dictionaring<Item, int, int>(
 				keySelectorExpression,
 				valueSelectorExpression,
-				comparer);
+				equalityComparer);
 
 			void test()
 			{
@@ -7918,13 +7918,13 @@ namespace ObservableComputations.Test
 			System.Collections.Specialized.INotifyCollectionChanged source = getItems();
 			System.Linq.Expressions.Expression<System.Func<Item, int>> keySelectorExpression = i => i.Id;
 			System.Linq.Expressions.Expression<System.Func<Item, int>> valueSelectorExpression = i => i.Num;
-			System.Collections.Generic.IEqualityComparer<int> comparer = EqualityComparer<int>.Default;
+			System.Collections.Generic.IEqualityComparer<int> equalityComparer = EqualityComparer<int>.Default;
 			int capacity = 0;
 			
 			var testing = source.Dictionaring<Item, int, int>(
 				keySelectorExpression,
 				valueSelectorExpression,
-				comparer,
+				equalityComparer,
 				capacity);
 
 			void test()
@@ -7988,12 +7988,12 @@ namespace ObservableComputations.Test
 			System.Collections.Specialized.INotifyCollectionChanged source = getItems();
 			System.Linq.Expressions.Expression<System.Func<Item, int>> keySelectorExpression = i => i.Id;
 			System.Linq.Expressions.Expression<System.Func<Item, int>> valueSelectorExpression = i => i.Num;
-			System.Collections.Generic.IEqualityComparer<int> comparer = EqualityComparer<int>.Default;
+			System.Collections.Generic.IEqualityComparer<int> equalityComparer = EqualityComparer<int>.Default;
 			
 			var testing = source.Dictionaring<Item, int, int>(
 				keySelectorExpression,
 				valueSelectorExpression,
-				comparer);
+				equalityComparer);
 
 			void test()
 			{
@@ -8190,13 +8190,13 @@ namespace ObservableComputations.Test
 			ObservableCollection<Item> source = getItems();
 			System.Linq.Expressions.Expression<System.Func<Item, int>> keySelectorExpression = i => i.Id;
 			System.Linq.Expressions.Expression<System.Func<Item, int>> valueSelectorExpression = i => i.Num;
-			System.Collections.Generic.IEqualityComparer<int> comparer = EqualityComparer<int>.Default;
+			System.Collections.Generic.IEqualityComparer<int> equalityComparer = EqualityComparer<int>.Default;
 			int capacity = 0;
 			
 			var testing = source.Dictionaring<Item, int, int>(
 				keySelectorExpression,
 				valueSelectorExpression,
-				comparer,
+				equalityComparer,
 				capacity);
 
 			void test()
@@ -8260,12 +8260,12 @@ namespace ObservableComputations.Test
 			ObservableCollection<Item> source = getItems();
 			System.Linq.Expressions.Expression<System.Func<Item, int>> keySelectorExpression = i => i.Id;
 			System.Linq.Expressions.Expression<System.Func<Item, int>> valueSelectorExpression = i => i.Num;
-			System.Collections.Generic.IEqualityComparer<int> comparer = EqualityComparer<int>.Default;
+			System.Collections.Generic.IEqualityComparer<int> equalityComparer = EqualityComparer<int>.Default;
 			
 			var testing = source.Dictionaring<Item, int, int>(
 				keySelectorExpression,
 				valueSelectorExpression,
-				comparer);
+				equalityComparer);
 
 			void test()
 			{

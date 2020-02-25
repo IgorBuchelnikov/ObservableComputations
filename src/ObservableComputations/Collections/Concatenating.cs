@@ -108,25 +108,25 @@ namespace ObservableComputations
 
 		[ObservableComputationsCall]
 		public Concatenating(INotifyCollectionChanged source1, INotifyCollectionChanged source2) 
-			: this(new ReadOnlyObservableCollection<INotifyCollectionChanged>(new []{source1, source2}))
+			: this(new FreezedObservableCollection<INotifyCollectionChanged>(new []{source1, source2}))
 		{
 		}
 
 		[ObservableComputationsCall]
 		public Concatenating(IReadScalar<INotifyCollectionChanged> source1Scalar, INotifyCollectionChanged source2) 
-			: this(new ReadOnlyObservableCollection<object>(new object[]{source1Scalar, source2}))
+			: this(new FreezedObservableCollection<object>(new object[]{source1Scalar, source2}))
 		{
 		}
 
 		[ObservableComputationsCall]
 		public Concatenating(IReadScalar<INotifyCollectionChanged> source1Scalar, IReadScalar<INotifyCollectionChanged> source2Scalar) 
-			: this(new ReadOnlyObservableCollection<object>(new object[]{source1Scalar, source2Scalar}))
+			: this(new FreezedObservableCollection<object>(new object[]{source1Scalar, source2Scalar}))
 		{
 		}
 
 		[ObservableComputationsCall]
 		public Concatenating(INotifyCollectionChanged source1, IReadScalar<INotifyCollectionChanged> source2Scalar) 
-			: this(new ReadOnlyObservableCollection<object>(new object[]{source1, source2Scalar}))
+			: this(new FreezedObservableCollection<object>(new object[]{source1, source2Scalar}))
 		{
 		}
 

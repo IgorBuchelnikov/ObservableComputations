@@ -19,9 +19,6 @@ namespace ObservableComputations
 		public IReadScalar<IComparer<TSourceItem>> ComparerScalar => _comparerScalar;
 
 		// ReSharper disable once MemberCanBePrivate.Global
-		public IReadScalar<TSourceItem> DefaultValueScalar => _defaultValueScalar;
-
-		// ReSharper disable once MemberCanBePrivate.Global
 		public MinimazingOrMaximazingMode Mode => _mode;
 
 		// ReSharper disable once MemberCanBePrivate.Global
@@ -42,9 +39,6 @@ namespace ObservableComputations
 		private PropertyChangedEventHandler _sourceScalarPropertyChangedEventHandler;
 		private WeakPropertyChangedEventHandler _sourceScalarWeakPropertyChangedEventHandler;
 
-		private PropertyChangedEventHandler _defaultValueScalarPropertyChangedEventHandler;
-		private WeakPropertyChangedEventHandler _defaultValueScalarWeakPropertyChangedEventHandler;
-
 		private PropertyChangedEventHandler _comparerScalarPropertyChangedEventHandler;
 		private WeakPropertyChangedEventHandler _comparerScalarWeakPropertyChangedEventHandler;
 
@@ -64,7 +58,6 @@ namespace ObservableComputations
 		private WeakNotifyCollectionChangedEventHandler _sourceWeakNotifyCollectionChangedEventHandler;
 		private readonly IReadScalar<INotifyCollectionChanged> _sourceScalar;
 		private readonly IReadScalar<IComparer<TSourceItem>> _comparerScalar;
-		private readonly IReadScalar<TSourceItem> _defaultValueScalar;
 		private readonly MinimazingOrMaximazingMode _mode;
 		private INotifyCollectionChanged _source;
 		private IComparer<TSourceItem> _comparer;
@@ -103,55 +96,6 @@ namespace ObservableComputations
 			_sourceScalar.PropertyChanged += _sourceScalarWeakPropertyChangedEventHandler.Handle;
 		}
 
-		private void initializeDefaultValueScalar()
-		{
-			if (_defaultValueScalar != null)
-			{
-				_defaultValueScalarPropertyChangedEventHandler = handleDefaultValueScalarValueChanged;
-				_defaultValueScalarWeakPropertyChangedEventHandler =
-					new WeakPropertyChangedEventHandler(_defaultValueScalarPropertyChangedEventHandler);
-				_defaultValueScalar.PropertyChanged += _defaultValueScalarWeakPropertyChangedEventHandler.Handle;
-				_defaultValue = _defaultValueScalar.Value;
-			}
-		}
-
-		[ObservableComputationsCall]
-		public MinimazingOrMaximazing(
-			IReadScalar<INotifyCollectionChanged> sourceScalar,
-			MinimazingOrMaximazingMode mode,
-			IReadScalar<IComparer<TSourceItem>> comparerScalar = null,
-			IReadScalar<TSourceItem> defaultValueScalar = null) : this(mode, Utils.getCapacity(sourceScalar))
-		{
-			_sourceScalar = sourceScalar;
-			initializeSourceScalar();
-
-			_defaultValueScalar = defaultValueScalar;
-			initializeDefaultValueScalar();
-
-			_comparerScalar = comparerScalar;
-			initializeComparerScalar();
-
-			initializeFromSource();
-		}
-
-		[ObservableComputationsCall]
-		public MinimazingOrMaximazing(
-			IReadScalar<INotifyCollectionChanged> sourceScalar,
-			MinimazingOrMaximazingMode mode,
-			IComparer<TSourceItem> comparer = null,
-			IReadScalar<TSourceItem> defaultValueScalar = null) : this(mode, Utils.getCapacity(sourceScalar))
-		{
-			_sourceScalar = sourceScalar;
-			initializeSourceScalar();
-
-			_comparer = comparer ?? Comparer<TSourceItem>.Default;
-
-			_defaultValueScalar = defaultValueScalar;
-			initializeDefaultValueScalar();
-
-			initializeFromSource();
-		}
-
 		[ObservableComputationsCall]
 		public MinimazingOrMaximazing(
 			IReadScalar<INotifyCollectionChanged> sourceScalar,
@@ -183,42 +127,6 @@ namespace ObservableComputations
 			initializeComparerScalar();
 
 			_defaultValue = defaultValue;
-
-			initializeFromSource();
-		}
-
-		[ObservableComputationsCall]
-		public MinimazingOrMaximazing(
-			INotifyCollectionChanged source,
-			MinimazingOrMaximazingMode mode,
-			IReadScalar<IComparer<TSourceItem>> comparerScalar = null,
-			IReadScalar<TSourceItem> defaultValueScalar = null) : this(mode, Utils.getCapacity(source))
-		{
-			_source = source;
-
-			_defaultValueScalar = defaultValueScalar;
-			initializeDefaultValueScalar();
-
-			_comparerScalar = comparerScalar;
-			initializeComparerScalar();
-
-			initializeFromSource();
-		}
-
-		[ObservableComputationsCall]
-		public MinimazingOrMaximazing(
-			INotifyCollectionChanged source,
-			MinimazingOrMaximazingMode mode,
-			IComparer<TSourceItem> comparer = null,
-			IReadScalar<TSourceItem> defaultValueScalar = null) : this(mode, Utils.getCapacity(source))
-		{
-			_source = source;
-
-			_comparer = comparer;
-			if (_comparer == null) _comparer = Comparer<TSourceItem>.Default;
-
-			_defaultValueScalar = defaultValueScalar;
-			initializeDefaultValueScalar();
 
 			initializeFromSource();
 		}
@@ -271,14 +179,6 @@ namespace ObservableComputations
 					_antiCheckCompareResult = _checkCompareResultPositive;
 					break;
 			}
-
-		}
-
-		private void handleDefaultValueScalarValueChanged(object sender, PropertyChangedEventArgs e)
-		{
-			if (e.PropertyName != nameof(IReadScalar<INotifyCollectionChanged>.Value)) return;
-			_defaultValue = _defaultValueScalar.Value;
-			if (_isDefaulted) setValue(_defaultValue);
 		}
 
 		private void handleComparerScalarValueChanged(object sender, PropertyChangedEventArgs e)
@@ -520,11 +420,6 @@ namespace ObservableComputations
 				_comparerScalar.PropertyChanged -= _comparerScalarWeakPropertyChangedEventHandler.Handle;			
 			}
 
-			if (_defaultValueScalarWeakPropertyChangedEventHandler != null)
-			{
-				_defaultValueScalar.PropertyChanged -= _defaultValueScalarWeakPropertyChangedEventHandler.Handle;			
-			}
-
 			if (_sourceAsINotifyPropertyChanged != null)
 				_sourceAsINotifyPropertyChanged.PropertyChanged -=
 					_sourceWeakPropertyChangedEventHandler.Handle;
@@ -535,7 +430,7 @@ namespace ObservableComputations
 			IList<TSourceItem> source = _sourceScalar.getValue(_source, new ObservableCollection<TSourceItem>()) as IList<TSourceItem>;
 			// ReSharper disable once PossibleNullReferenceException
 			if (_sourceItems.Count != source.Count) throw new ObservableComputationsException(this, "Consistency violation: MinimazingOrMaximazing.1");
-			TSourceItem defaultValue = _defaultValueScalar.getValue(_defaultValue);
+			TSourceItem defaultValue = _defaultValue;
 
 			for (int i = 0; i < source.Count; i++)
 			{

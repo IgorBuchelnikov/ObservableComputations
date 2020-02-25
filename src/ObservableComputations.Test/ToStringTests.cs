@@ -67,7 +67,7 @@ namespace ObservableComputations.Test
 				}
 			);
 
-			ReadOnlyObservableCollection<Item> items = new ReadOnlyObservableCollection<Item>(new ObservableCollection<Item>(
+			FreezedObservableCollection<Item> items = new FreezedObservableCollection<Item>(new ObservableCollection<Item>(
 				new[]
 				{
 					new Item(),

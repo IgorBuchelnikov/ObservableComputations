@@ -67,7 +67,7 @@ namespace ObservableComputations
 			INotifyCollectionChanged source2, 
 			IEqualityComparer<TSourceItem> equalityComparer = null,
 			int capacity = 0) 
-			: this(new ReadOnlyObservableCollection<INotifyCollectionChanged>(new []{source1, source2}), equalityComparer, capacity)
+			: this(new FreezedObservableCollection<INotifyCollectionChanged>(new []{source1, source2}), equalityComparer, capacity)
 		{
 		}
 
@@ -77,7 +77,7 @@ namespace ObservableComputations
 			INotifyCollectionChanged source2, 
 			IEqualityComparer<TSourceItem> equalityComparer = null,
 			int capacity = 0) 
-			: this(Expr.Is(() => new ReadOnlyObservableCollection<INotifyCollectionChanged>(new []{source1Scalar.Value, source2})).Computing(), equalityComparer, capacity)
+			: this(Expr.Is(() => new FreezedObservableCollection<INotifyCollectionChanged>(new []{source1Scalar.Value, source2})).Computing(), equalityComparer, capacity)
 		{
 		}
 
@@ -87,7 +87,7 @@ namespace ObservableComputations
 			IReadScalar<INotifyCollectionChanged> source2Scalar, 
 			IEqualityComparer<TSourceItem> equalityComparer = null,
 			int capacity = 0) 
-			: this(Expr.Is(() => new ReadOnlyObservableCollection<INotifyCollectionChanged>(new []{source1Scalar.Value, source2Scalar.Value})).Computing(), equalityComparer, capacity)
+			: this(Expr.Is(() => new FreezedObservableCollection<INotifyCollectionChanged>(new []{source1Scalar.Value, source2Scalar.Value})).Computing(), equalityComparer, capacity)
 		{
 		}
 
@@ -97,7 +97,7 @@ namespace ObservableComputations
 			IReadScalar<INotifyCollectionChanged> source2Scalar, 
 			IEqualityComparer<TSourceItem> equalityComparer = null,
 			int capacity = 0) 
-			: this(Expr.Is(() => new ReadOnlyObservableCollection<INotifyCollectionChanged>(new []{source1, source2Scalar.Value})).Computing(), equalityComparer, capacity)
+			: this(Expr.Is(() => new FreezedObservableCollection<INotifyCollectionChanged>(new []{source1, source2Scalar.Value})).Computing(), equalityComparer, capacity)
 		{
 		}
 
@@ -107,7 +107,7 @@ namespace ObservableComputations
 			INotifyCollectionChanged source2, 
 			IReadScalar<IEqualityComparer<TSourceItem>> equalityComparerScalar = null,
 			int capacity = 0) 
-			: this(new ReadOnlyObservableCollection<INotifyCollectionChanged>(new []{source1, source2}), equalityComparerScalar, capacity)
+			: this(new FreezedObservableCollection<INotifyCollectionChanged>(new []{source1, source2}), equalityComparerScalar, capacity)
 		{
 		}
 
@@ -117,7 +117,7 @@ namespace ObservableComputations
 			INotifyCollectionChanged source2, 
 			IReadScalar<IEqualityComparer<TSourceItem>> equalityComparerScalar = null,
 			int capacity = 0) 
-			: this(Expr.Is(() => new ReadOnlyObservableCollection<INotifyCollectionChanged>(new []{source1Scalar.Value, source2})).Computing(), equalityComparerScalar, capacity)
+			: this(Expr.Is(() => new FreezedObservableCollection<INotifyCollectionChanged>(new []{source1Scalar.Value, source2})).Computing(), equalityComparerScalar, capacity)
 		{
 		}
 
@@ -127,7 +127,7 @@ namespace ObservableComputations
 			IReadScalar<INotifyCollectionChanged> source2Scalar, 
 			IReadScalar<IEqualityComparer<TSourceItem>> equalityComparerScalar = null,
 			int capacity = 0) 
-			: this(Expr.Is(() => new ReadOnlyObservableCollection<INotifyCollectionChanged>(new []{source1Scalar.Value, source2Scalar.Value})).Computing(), equalityComparerScalar, capacity)
+			: this(Expr.Is(() => new FreezedObservableCollection<INotifyCollectionChanged>(new []{source1Scalar.Value, source2Scalar.Value})).Computing(), equalityComparerScalar, capacity)
 		{
 		}
 
@@ -137,7 +137,7 @@ namespace ObservableComputations
 			IReadScalar<INotifyCollectionChanged> source2Scalar, 
 			IReadScalar<IEqualityComparer<TSourceItem>> equalityComparerScalar = null,
 			int capacity = 0) 
-			: this(Expr.Is(() => new ReadOnlyObservableCollection<INotifyCollectionChanged>(new []{source1, source2Scalar.Value})).Computing(), equalityComparerScalar, capacity)
+			: this(Expr.Is(() => new FreezedObservableCollection<INotifyCollectionChanged>(new []{source1, source2Scalar.Value})).Computing(), equalityComparerScalar, capacity)
 		{
 		}
 

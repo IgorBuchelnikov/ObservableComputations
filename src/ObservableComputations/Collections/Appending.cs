@@ -69,26 +69,26 @@ namespace ObservableComputations
 			_itemScalar = itemScalar;
 		}
 
-		private static ReadOnlyObservableCollection<object> getSources(
+		private static FreezedObservableCollection<object> getSources(
 			INotifyCollectionChanged source,
 			TSourceItem item) =>
-			new ReadOnlyObservableCollection<object>(
-				new object[]{source, new ReadOnlyObservableCollection<TSourceItem>(item)});
+			new FreezedObservableCollection<object>(
+				new object[]{source, new FreezedObservableCollection<TSourceItem>(item)});
 
 		private static INotifyCollectionChanged getSources(
 			INotifyCollectionChanged source,
 			IReadScalar<TSourceItem> itemScalar) =>
-				new ReadOnlyObservableCollection<object>(new object[]{source, new Computing<ReadOnlyObservableCollection<TSourceItem>>(() => new ReadOnlyObservableCollection<TSourceItem>(itemScalar.Value))});
+				new FreezedObservableCollection<object>(new object[]{source, new Computing<FreezedObservableCollection<TSourceItem>>(() => new FreezedObservableCollection<TSourceItem>(itemScalar.Value))});
 
 		private static INotifyCollectionChanged getSources(
 			IReadScalar<INotifyCollectionChanged> sourceScalar,
 			TSourceItem item) =>
-				new ReadOnlyObservableCollection<object>(new object[]{sourceScalar, new ReadOnlyObservableCollection<TSourceItem>(item)});
+				new FreezedObservableCollection<object>(new object[]{sourceScalar, new FreezedObservableCollection<TSourceItem>(item)});
 
 		private static INotifyCollectionChanged getSources(
 			IReadScalar<INotifyCollectionChanged> sourceScalar,
 			IReadScalar<TSourceItem> itemScalar) =>
-				new ReadOnlyObservableCollection<object>(new object[]{sourceScalar, new Computing<ReadOnlyObservableCollection<TSourceItem>>(() => new ReadOnlyObservableCollection<TSourceItem>(itemScalar.Value))});
+				new FreezedObservableCollection<object>(new object[]{sourceScalar, new Computing<FreezedObservableCollection<TSourceItem>>(() => new FreezedObservableCollection<TSourceItem>(itemScalar.Value))});
 
 		public new void ValidateConsistency()
 		{

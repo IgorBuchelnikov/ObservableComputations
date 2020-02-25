@@ -11,20 +11,6 @@ namespace ObservableComputations
 		[ObservableComputationsCall]
 		public FirstComputing(
 			IReadScalar<INotifyCollectionChanged> sourceScalar,
-			IReadScalar<TSourceItem> defaultValueScalar = null) : base(sourceScalar, 0, defaultValueScalar)
-		{
-		}
-
-		[ObservableComputationsCall]
-		public FirstComputing(
-			INotifyCollectionChanged source,
-			IReadScalar<TSourceItem> defaultValueScalar = null) : base(source, 0, defaultValueScalar)
-		{
-		}
-
-		[ObservableComputationsCall]
-		public FirstComputing(
-			IReadScalar<INotifyCollectionChanged> sourceScalar,
 			TSourceItem defaultValue = default(TSourceItem)) : base(sourceScalar, 0, defaultValue)
 		{
 		}
@@ -39,7 +25,7 @@ namespace ObservableComputations
 		public new void ValidateConsistency()
 		{
 			IList<TSourceItem> source = (IList<TSourceItem>) _sourceScalar.getValue(_source, new ObservableCollection<TSourceItem>());
-			TSourceItem defaultValue = _defaultValueScalar.getValue(_defaultValue);
+			TSourceItem defaultValue = _defaultValue;
 
 			if (!EqualityComparer<TSourceItem>.Default.Equals(_value, source.Count > 0 ? source.First() : defaultValue))
 				throw new ObservableComputationsException(this, "Consistency violation: FirstComputing.1");

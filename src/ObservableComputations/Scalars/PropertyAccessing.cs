@@ -16,6 +16,8 @@ namespace ObservableComputations
 		public ParameterModifier[]  Modifiers => _modifiers;
 		public Func<PropertyInfo, bool>  PropertyInfoPredicate => _propertyInfoPredicate;
 		public PropertyInfo  PropertyInfo => _propertyInfo;
+		// ReSharper disable once MemberCanBeProtected.Global
+		public TResult DefaultValue => _defaultValue;
 
 		private IReadScalar<INotifyPropertyChanged> _propertyHolderScalar;
 		private INotifyPropertyChanged _propertyHolder;
@@ -31,6 +33,8 @@ namespace ObservableComputations
 		private ParameterModifier[] _modifiers;
 		private Func<PropertyInfo, bool> _propertyInfoPredicate;
 		private PropertyInfo _propertyInfo;
+
+		internal TResult _defaultValue;
 
 		private enum PropertyInfoGettingType
 		{
@@ -53,7 +57,8 @@ namespace ObservableComputations
 		[ObservableComputationsCall]
 		public PropertyAccessing(
 			IReadScalar<INotifyPropertyChanged> propertyHolderScalar, 
-			string propertyName) : this(propertyHolderScalar)
+			string propertyName,
+			TResult defaultValue = default(TResult)) : this(propertyHolderScalar, defaultValue)
 		{
 			_propertyInfoGettingType = PropertyInfoGettingType.PropertyName;
 			_propertyName = propertyName;
@@ -64,7 +69,8 @@ namespace ObservableComputations
 		public PropertyAccessing(
 			IReadScalar<INotifyPropertyChanged> propertyHolderScalar, 
 			string propertyName,
-			BindingFlags bindingAttr) : this(propertyHolderScalar)
+			BindingFlags bindingAttr,
+			TResult defaultValue = default(TResult)) : this(propertyHolderScalar, defaultValue)
 		{
 			_propertyInfoGettingType = PropertyInfoGettingType.BindingAttr;
 			_propertyName = propertyName;
@@ -76,7 +82,8 @@ namespace ObservableComputations
 		public PropertyAccessing(
 			IReadScalar<INotifyPropertyChanged> propertyHolderScalar, 
 			string propertyName,
-			Type returnType) : this(propertyHolderScalar)
+			Type returnType,
+			TResult defaultValue = default(TResult)) : this(propertyHolderScalar, defaultValue)
 		{
 			_propertyInfoGettingType = PropertyInfoGettingType.ReturnType;
 			_propertyName = propertyName;
@@ -89,7 +96,8 @@ namespace ObservableComputations
 			IReadScalar<INotifyPropertyChanged> propertyHolderScalar, 
 			string propertyName,
 			Type returnType,
-			Type[] types) : this(propertyHolderScalar)
+			Type[] types,
+			TResult defaultValue = default(TResult)) : this(propertyHolderScalar, defaultValue)
 		{
 			_propertyInfoGettingType = PropertyInfoGettingType.Types;
 			_propertyName = propertyName;
@@ -104,7 +112,8 @@ namespace ObservableComputations
 			string propertyName,
 			Type returnType,
 			Type[] types,
-			ParameterModifier[] modifiers) : this(propertyHolderScalar)
+			ParameterModifier[] modifiers,
+			TResult defaultValue = default(TResult)) : this(propertyHolderScalar, defaultValue)
 		{
 			_propertyInfoGettingType = PropertyInfoGettingType.Modifiers;
 			_propertyName = propertyName;
@@ -122,7 +131,8 @@ namespace ObservableComputations
 			Binder binder,
 			Type returnType,
 			Type[] types,
-			ParameterModifier[] modifiers) : this(propertyHolderScalar)
+			ParameterModifier[] modifiers,
+			TResult defaultValue = default(TResult)) : this(propertyHolderScalar, defaultValue)
 		{
 			_propertyInfoGettingType = PropertyInfoGettingType.Binder;
 			_propertyName = propertyName;
@@ -137,7 +147,8 @@ namespace ObservableComputations
 		[ObservableComputationsCall]
 		public PropertyAccessing(
 			IReadScalar<INotifyPropertyChanged> propertyHolderScalar, 
-			Func<PropertyInfo, bool> propertyInfoPredicate) : this(propertyHolderScalar)
+			Func<PropertyInfo, bool> propertyInfoPredicate,
+			TResult defaultValue = default(TResult)) : this(propertyHolderScalar, defaultValue)
 		{
 			_propertyInfoGettingType = PropertyInfoGettingType.PropertyInfoPredicate;
 			_propertyInfoPredicate = propertyInfoPredicate;
@@ -148,7 +159,8 @@ namespace ObservableComputations
 		public PropertyAccessing(
 			IReadScalar<INotifyPropertyChanged> propertyHolderScalar, 
 			Func<PropertyInfo, bool> propertyInfoPredicate,
-			BindingFlags bindingAttr) : this(propertyHolderScalar)
+			BindingFlags bindingAttr,
+			TResult defaultValue = default(TResult)) : this(propertyHolderScalar, defaultValue)
 		{
 			_propertyInfoGettingType = PropertyInfoGettingType.PropertyInfoPredicateBindingAttr;
 			_propertyInfoPredicate = propertyInfoPredicate;
@@ -157,7 +169,8 @@ namespace ObservableComputations
 		}
 
 		private PropertyAccessing(
-			IReadScalar<INotifyPropertyChanged> propertyHolderScalar)
+			IReadScalar<INotifyPropertyChanged> propertyHolderScalar,
+			TResult defaultValue)
 		{
 			_propertyHolderScalar = propertyHolderScalar;
 			_propertyHolder = _propertyHolderScalar.Value;
@@ -166,12 +179,14 @@ namespace ObservableComputations
 				new WeakPropertyChangedEventHandler(_propertyHolderScalarPropertyChangedEventHandler);
 			_propertyHolderScalar.PropertyChanged += _propertyHolderScalarWeakPropertyChangedEventHandler.Handle;
 			_setValueAction = result => _propertyInfo.SetValue(_propertyHolder, result);
+			_defaultValue = defaultValue;
 		}
 
 		[ObservableComputationsCall]
 		public PropertyAccessing(
 			INotifyPropertyChanged propertyHolder, 
-			string propertyName) : this(propertyHolder)
+			string propertyName,
+			TResult defaultValue = default(TResult)) : this(propertyHolder, defaultValue)
 		{
 			_propertyInfoGettingType = PropertyInfoGettingType.PropertyName;
 			_propertyName = propertyName;
@@ -182,7 +197,8 @@ namespace ObservableComputations
 		public PropertyAccessing(
 			INotifyPropertyChanged propertyHolder, 
 			string propertyName,
-			BindingFlags bindingAttr) : this(propertyHolder)
+			BindingFlags bindingAttr,
+			TResult defaultValue = default(TResult)) : this(propertyHolder, defaultValue)
 		{
 			_propertyInfoGettingType = PropertyInfoGettingType.BindingAttr;
 			_propertyName = propertyName;
@@ -194,7 +210,8 @@ namespace ObservableComputations
 		public PropertyAccessing(
 			INotifyPropertyChanged propertyHolder,  
 			string propertyName,
-			Type returnType) : this(propertyHolder)
+			Type returnType,
+			TResult defaultValue = default(TResult)) : this(propertyHolder, defaultValue)
 		{
 			_propertyInfoGettingType = PropertyInfoGettingType.ReturnType;
 			_propertyName = propertyName;
@@ -207,7 +224,8 @@ namespace ObservableComputations
 			INotifyPropertyChanged propertyHolder,  
 			string propertyName,
 			Type returnType,
-			Type[] types) : this(propertyHolder)
+			Type[] types,
+			TResult defaultValue = default(TResult)) : this(propertyHolder, defaultValue)
 		{
 			_propertyInfoGettingType = PropertyInfoGettingType.Types;
 			_propertyName = propertyName;
@@ -222,7 +240,8 @@ namespace ObservableComputations
 			string propertyName,
 			Type returnType,
 			Type[] types,
-			ParameterModifier[] modifiers) : this(propertyHolder)
+			ParameterModifier[] modifiers,
+			TResult defaultValue = default(TResult)) : this(propertyHolder, defaultValue)
 		{
 			_propertyInfoGettingType = PropertyInfoGettingType.Modifiers;
 			_propertyName = propertyName;
@@ -240,7 +259,8 @@ namespace ObservableComputations
 			Binder binder,
 			Type returnType,
 			Type[] types,
-			ParameterModifier[] modifiers) : this(propertyHolder)
+			ParameterModifier[] modifiers,
+			TResult defaultValue = default(TResult)) : this(propertyHolder, defaultValue)
 		{
 			_propertyInfoGettingType = PropertyInfoGettingType.Binder;
 			_propertyName = propertyName;
@@ -255,7 +275,8 @@ namespace ObservableComputations
 		[ObservableComputationsCall]
 		public PropertyAccessing(
 			INotifyPropertyChanged propertyHolder,  
-			Func<PropertyInfo, bool> propertyInfoPredicate) : this(propertyHolder)
+			Func<PropertyInfo, bool> propertyInfoPredicate,
+			TResult defaultValue = default(TResult)) : this(propertyHolder, defaultValue)
 		{
 			_propertyInfoGettingType = PropertyInfoGettingType.PropertyInfoPredicate;
 			_propertyInfoPredicate = propertyInfoPredicate;
@@ -266,7 +287,8 @@ namespace ObservableComputations
 		public PropertyAccessing(
 			INotifyPropertyChanged propertyHolder,  
 			Func<PropertyInfo, bool> propertyInfoPredicate,
-			BindingFlags bindingAttr) : this(propertyHolder)
+			BindingFlags bindingAttr,
+			TResult defaultValue = default(TResult)) : this(propertyHolder, defaultValue)
 		{
 			_propertyInfoGettingType = PropertyInfoGettingType.PropertyInfoPredicateBindingAttr;
 			_propertyInfoPredicate = propertyInfoPredicate;
@@ -275,10 +297,12 @@ namespace ObservableComputations
 		}
 
 		private PropertyAccessing(
-			INotifyPropertyChanged propertyHolder)
+			INotifyPropertyChanged propertyHolder,
+			TResult defaultValue)
 		{
 			_propertyHolder = propertyHolder;
 			_setValueAction = result => _propertyInfo.SetValue(_propertyHolder, result);
+			_defaultValue = defaultValue;
 		}
 
 
@@ -287,6 +311,8 @@ namespace ObservableComputations
 			if (_propertyHolderWeakPropertyChangedEventHandler != null)
 			{
 				_propertyHolder.PropertyChanged -= _propertyHolderWeakPropertyChangedEventHandler.Handle;
+				_propertyHolderWeakPropertyChangedEventHandler = null;
+				_propertyHolderPropertyChangedEventHandler = null;
 			}
 
 			void getPropertyInfo(PropertyInfo[] propertyInfos)
@@ -302,8 +328,16 @@ namespace ObservableComputations
 				}
 			}
 
-			_propertyHolderType = _propertyHolder.GetType();
 			_propertyInfo = null;
+
+			if (_propertyHolder == null)
+			{
+				setValue(_defaultValue);
+				return;
+			}
+
+			_propertyHolderType = _propertyHolder.GetType();
+
 			switch (_propertyInfoGettingType)
 			{
 				case PropertyInfoGettingType.PropertyName:

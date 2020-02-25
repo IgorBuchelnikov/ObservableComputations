@@ -22,7 +22,17 @@ namespace ObservableComputations.Test
 	public partial class QuickTests
 	{
 <#
-	foreach (var extentionMethodGroup in GetExtentionMethods().Where(em => em.Name != "Using" && em.Name != "Computing" && !em.Arguments.Any(ema => IsComputingArgument(ema))).GroupBy(em => em.Name).OrderBy(emg => emg.Key))
+	foreach (var extentionMethodGroup in 
+        GetExtentionMethods().Where(em => 
+            em.Name != "Using" 
+            && em.Name != "Computing"
+            && em.Name != "Differing"
+            && em.Name != "PreviousTracking"
+            && em.Name != "WeakPreviousTracking"
+            && em.Name != "PropertyAccessing"
+            && em.Name != "Synchronizing"
+            && !em.Arguments.Any(ema => IsComputingArgument(ema)))
+        .GroupBy(em => em.Name).OrderBy(emg => emg.Key))
 	{
 
 #>
@@ -409,6 +419,9 @@ namespace ObservableComputations.Test
 			case "System.Linq.Expressions.Expression<System.Func<TSourceItem, int, System.Collections.Specialized.INotifyCollectionChanged>>":
 				result =  "(i, ind) => i.Items";
 				break;
+            case "ObservableComputations.IReadScalar<TResult>":
+                
+                break;
 			default:
 				throw new Exception($"Unexpected type {type}");
 		}

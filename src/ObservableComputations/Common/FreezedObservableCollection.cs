@@ -5,13 +5,13 @@ using System.ComponentModel;
 
 namespace ObservableComputations
 {
-	public class ReadOnlyObservableCollection<TItem> : ReadOnlyCollection<TItem>, INotifyCollectionChanged, INotifyPropertyChanged
+	public class FreezedObservableCollection<TItem> : ReadOnlyCollection<TItem>, INotifyCollectionChanged, INotifyPropertyChanged
 	{
-		public ReadOnlyObservableCollection(IList<TItem> list) : base(list)
+		public FreezedObservableCollection(IList<TItem> list) : base(list)
 		{
 		}
 
-		public ReadOnlyObservableCollection(TItem item) : base(wrapItemInArray(item))
+		public FreezedObservableCollection(TItem item) : base(wrapItemInArray(item))
 		{
 		}
 

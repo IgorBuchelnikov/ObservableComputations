@@ -65,26 +65,26 @@ namespace ObservableComputations
 			_item = item;
 		}
 
-		private static ReadOnlyObservableCollection<object> getSources(
+		private static FreezedObservableCollection<object> getSources(
 			INotifyCollectionChanged source,
 			TSourceItem item) =>
-				new ReadOnlyObservableCollection<object>(
-					new object[]{new ReadOnlyObservableCollection<TSourceItem>(item), source});
+				new FreezedObservableCollection<object>(
+					new object[]{new FreezedObservableCollection<TSourceItem>(item), source});
 
 		private static INotifyCollectionChanged getSources(
 			INotifyCollectionChanged source,
 			IReadScalar<TSourceItem> itemScalar) =>
-			new ReadOnlyObservableCollection<object>(new object[]{new Computing<ReadOnlyObservableCollection<TSourceItem>>(() => new ReadOnlyObservableCollection<TSourceItem>(itemScalar.Value)), source});
+			new FreezedObservableCollection<object>(new object[]{new Computing<FreezedObservableCollection<TSourceItem>>(() => new FreezedObservableCollection<TSourceItem>(itemScalar.Value)), source});
 
 		private static INotifyCollectionChanged getSources(
 			IReadScalar<INotifyCollectionChanged> sourceScalar,
 			TSourceItem item) =>
-			new ReadOnlyObservableCollection<object>(new object[]{new ReadOnlyObservableCollection<TSourceItem>(item), sourceScalar});
+			new FreezedObservableCollection<object>(new object[]{new FreezedObservableCollection<TSourceItem>(item), sourceScalar});
 
 		private static INotifyCollectionChanged getSources(
 			IReadScalar<INotifyCollectionChanged> sourceScalar,
 			IReadScalar<TSourceItem> itemScalar) =>
-			new ReadOnlyObservableCollection<object>(new object[]{new Computing<ReadOnlyObservableCollection<TSourceItem>>(() => new ReadOnlyObservableCollection<TSourceItem>(itemScalar.Value)), sourceScalar});
+			new FreezedObservableCollection<object>(new object[]{new Computing<FreezedObservableCollection<TSourceItem>>(() => new FreezedObservableCollection<TSourceItem>(itemScalar.Value)), sourceScalar});
 
 		public new void ValidateConsistency()
 		{

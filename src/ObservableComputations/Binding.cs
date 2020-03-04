@@ -18,16 +18,15 @@ namespace ObservableComputations
 		// ReSharper disable once ConvertToAutoProperty
 		public Action<TValue> ModifyTargetAction => _modifyTargetAction;
 
-		public Binding(Expression<Func<TValue>> getSourceExpression, Action<TValue> modifyTargetAction, bool bindNow = true)
+		public Binding(Expression<Func<TValue>> getSourceExpression, Action<TValue> modifyTargetAction, bool applyNow = true)
 		{
-
 			_getSourceExpression = getSourceExpression;
 			_modifyTargetAction = modifyTargetAction;
 			_gettingExpressionValue = new Computing<TValue>(getSourceExpression);
 
 			_gettingExpressionValueHandlePropertyChanged = (sender, args) =>
 			{
-				if (_isEnabled && args.PropertyName == nameof(Computing<TValue>.Value))
+				if (!_isDisabled && args.PropertyName == nameof(Computing<TValue>.Value))
 				{
 					modifyTargetAction(_gettingExpressionValue.Value);
 				}
@@ -35,18 +34,18 @@ namespace ObservableComputations
 
 			_gettingExpressionValue.PropertyChanged += _gettingExpressionValueHandlePropertyChanged;
 
-			if (bindNow)
+			if (applyNow)
 				modifyTargetAction(_gettingExpressionValue.Value);
 		}
 
-		private bool _isEnabled;
-		public bool IsEnabled
+		private bool _isDisabled;
+		public bool IsDisabled
 		{
-			get => _isEnabled;
+			get => _isDisabled;
 			set
 			{
-				_isEnabled = value;
-				PropertyChanged?.Invoke(this, Utils.IsEnabledPropertyChangedEventArgs);
+				_isDisabled = value;
+				PropertyChanged?.Invoke(this, Utils.IsDisabledPropertyChangedEventArgs);
 			}
 		}
 

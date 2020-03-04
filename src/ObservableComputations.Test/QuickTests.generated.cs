@@ -21920,10 +21920,10 @@ namespace ObservableComputations.Test
 		public void TestFirstComputing01()
 		{
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
-			Scalar<Item> defaultValueScalar = getScalar<Item>(null);
+			Item defaultValue = null;
 			
 			var testing = sourceScalar.FirstComputing<Item>(
-				defaultValueScalar);
+				defaultValue);
 
 			void test()
 			{
@@ -21977,11 +21977,6 @@ namespace ObservableComputations.Test
 				}
 			}
 
-			test();
-
-			((Scalar<Item>)defaultValueScalar).Touch();
-			test();
-			((Scalar<Item>)defaultValueScalar).Change(new QuickTests.Item(1, true));
 			test();
 
 			((Scalar<System.Collections.Specialized.INotifyCollectionChanged>)sourceScalar).Touch();
@@ -22061,10 +22056,10 @@ namespace ObservableComputations.Test
 		public void TestFirstComputing03()
 		{
 			Scalar<ObservableCollection<Item>> sourceScalar = getScalar<ObservableCollection<Item>>(getItems());
-			Scalar<Item> defaultValueScalar = getScalar<Item>(null);
+			Item defaultValue = null;
 			
 			var testing = sourceScalar.FirstComputing<Item>(
-				defaultValueScalar);
+				defaultValue);
 
 			void test()
 			{
@@ -22118,11 +22113,6 @@ namespace ObservableComputations.Test
 				}
 			}
 
-			test();
-
-			((Scalar<Item>)defaultValueScalar).Touch();
-			test();
-			((Scalar<Item>)defaultValueScalar).Change(new QuickTests.Item(1, true));
 			test();
 
 			((Scalar<ObservableCollection<Item>>)sourceScalar).Touch();
@@ -22202,10 +22192,10 @@ namespace ObservableComputations.Test
 		public void TestFirstComputing05()
 		{
 			System.Collections.Specialized.INotifyCollectionChanged source = getItems();
-			Scalar<Item> defaultValueScalar = getScalar<Item>(null);
+			Item defaultValue = null;
 			
 			var testing = source.FirstComputing<Item>(
-				defaultValueScalar);
+				defaultValue);
 
 			void test()
 			{
@@ -22259,11 +22249,6 @@ namespace ObservableComputations.Test
 				}
 			}
 
-			test();
-
-			((Scalar<Item>)defaultValueScalar).Touch();
-			test();
-			((Scalar<Item>)defaultValueScalar).Change(new QuickTests.Item(1, true));
 			test();
 		}
 		
@@ -22333,10 +22318,10 @@ namespace ObservableComputations.Test
 		public void TestFirstComputing07()
 		{
 			ObservableCollection<Item> source = getItems();
-			Scalar<Item> defaultValueScalar = getScalar<Item>(null);
+			Item defaultValue = null;
 			
 			var testing = source.FirstComputing<Item>(
-				defaultValueScalar);
+				defaultValue);
 
 			void test()
 			{
@@ -22390,11 +22375,6 @@ namespace ObservableComputations.Test
 				}
 			}
 
-			test();
-
-			((Scalar<Item>)defaultValueScalar).Touch();
-			test();
-			((Scalar<Item>)defaultValueScalar).Change(new QuickTests.Item(1, true));
 			test();
 		}
 		
@@ -22404,272 +22384,6 @@ namespace ObservableComputations.Test
 			ObservableCollection<Item> source = getItems();
 			
 			var testing = source.FirstComputing<Item>();
-
-			void test()
-			{
-				testing.ValidateConsistency();
-				var sourceValue = ((ObservableCollection<Item>)((ObservableCollection<Item>)source));
-
-				if (sourceValue != null)
-				{		
-					sourceValue.Insert(2, new QuickTests.Item(1, true));
-					testing.ValidateConsistency();
-					sourceValue[3] = new QuickTests.Item(7, true);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(3);
-					testing.ValidateConsistency();
-					sourceValue.Move(1, 3);
-					testing.ValidateConsistency();
-					sourceValue[2].Active = !sourceValue[2].Active;
-					testing.ValidateConsistency();
-					sourceValue[2].Num = sourceValue[2].Num + 1;
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.Insert(0, new QuickTests.Item(1, true));
-					testing.ValidateConsistency();
-					sourceValue.Insert(0, new QuickTests.Item(2, true));
-					testing.ValidateConsistency();
-				}
-
-				IList listSource;
-				listSource = ((IList)((ObservableCollection<Item>)source));
-				if (listSource != null)
-				{
-					listSource.Clear();
-					testing.ValidateConsistency();
-				}
-
-				if (sourceValue != null)
-				{
-					sourceValue.Insert(0, new QuickTests.Item(1, true));
-					sourceValue.Insert(1, new QuickTests.Item(2, true));
-					sourceValue.Insert(2, new QuickTests.Item(3, true));
-					sourceValue.Insert(3, new QuickTests.Item(3, true));
-					sourceValue.Insert(4, new QuickTests.Item(3, true));
-					testing.ValidateConsistency();
-				}
-			}
-
-			test();
-		}
-		
-		[Test]
-		public void TestFirstComputing09()
-		{
-			Scalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
-			Item defaultValue = null;
-			
-			var testing = sourceScalar.FirstComputing<Item>(
-				defaultValue);
-
-			void test()
-			{
-				testing.ValidateConsistency();
-				var sourceScalarValue = ((ObservableCollection<Item>)((System.Collections.Specialized.INotifyCollectionChanged)sourceScalar.Value));
-
-				if (sourceScalarValue != null)
-				{		
-					sourceScalarValue.Insert(2, new QuickTests.Item(1, true));
-					testing.ValidateConsistency();
-					sourceScalarValue[3] = new QuickTests.Item(7, true);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(3);
-					testing.ValidateConsistency();
-					sourceScalarValue.Move(1, 3);
-					testing.ValidateConsistency();
-					sourceScalarValue[2].Active = !sourceScalarValue[2].Active;
-					testing.ValidateConsistency();
-					sourceScalarValue[2].Num = sourceScalarValue[2].Num + 1;
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
-					testing.ValidateConsistency();
-					sourceScalarValue.Insert(0, new QuickTests.Item(2, true));
-					testing.ValidateConsistency();
-				}
-
-				IList listSource;
-				listSource = ((IList)((System.Collections.Specialized.INotifyCollectionChanged)sourceScalar.Value));
-				if (listSource != null)
-				{
-					listSource.Clear();
-					testing.ValidateConsistency();
-				}
-
-				if (sourceScalarValue != null)
-				{
-					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
-					sourceScalarValue.Insert(1, new QuickTests.Item(2, true));
-					sourceScalarValue.Insert(2, new QuickTests.Item(3, true));
-					sourceScalarValue.Insert(3, new QuickTests.Item(3, true));
-					sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
-					testing.ValidateConsistency();
-				}
-			}
-
-			test();
-
-			((Scalar<System.Collections.Specialized.INotifyCollectionChanged>)sourceScalar).Touch();
-			test();
-			((Scalar<System.Collections.Specialized.INotifyCollectionChanged>)sourceScalar).Change(null);
-			test();
-		}
-		
-		[Test]
-		public void TestFirstComputing10()
-		{
-			Scalar<ObservableCollection<Item>> sourceScalar = getScalar<ObservableCollection<Item>>(getItems());
-			Item defaultValue = null;
-			
-			var testing = sourceScalar.FirstComputing<Item>(
-				defaultValue);
-
-			void test()
-			{
-				testing.ValidateConsistency();
-				var sourceScalarValue = ((ObservableCollection<Item>)((ObservableCollection<Item>)sourceScalar.Value));
-
-				if (sourceScalarValue != null)
-				{		
-					sourceScalarValue.Insert(2, new QuickTests.Item(1, true));
-					testing.ValidateConsistency();
-					sourceScalarValue[3] = new QuickTests.Item(7, true);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(3);
-					testing.ValidateConsistency();
-					sourceScalarValue.Move(1, 3);
-					testing.ValidateConsistency();
-					sourceScalarValue[2].Active = !sourceScalarValue[2].Active;
-					testing.ValidateConsistency();
-					sourceScalarValue[2].Num = sourceScalarValue[2].Num + 1;
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
-					testing.ValidateConsistency();
-					sourceScalarValue.Insert(0, new QuickTests.Item(2, true));
-					testing.ValidateConsistency();
-				}
-
-				IList listSource;
-				listSource = ((IList)((ObservableCollection<Item>)sourceScalar.Value));
-				if (listSource != null)
-				{
-					listSource.Clear();
-					testing.ValidateConsistency();
-				}
-
-				if (sourceScalarValue != null)
-				{
-					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
-					sourceScalarValue.Insert(1, new QuickTests.Item(2, true));
-					sourceScalarValue.Insert(2, new QuickTests.Item(3, true));
-					sourceScalarValue.Insert(3, new QuickTests.Item(3, true));
-					sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
-					testing.ValidateConsistency();
-				}
-			}
-
-			test();
-
-			((Scalar<ObservableCollection<Item>>)sourceScalar).Touch();
-			test();
-			((Scalar<ObservableCollection<Item>>)sourceScalar).Change(null);
-			test();
-		}
-		
-		[Test]
-		public void TestFirstComputing11()
-		{
-			System.Collections.Specialized.INotifyCollectionChanged source = getItems();
-			Item defaultValue = null;
-			
-			var testing = source.FirstComputing<Item>(
-				defaultValue);
-
-			void test()
-			{
-				testing.ValidateConsistency();
-				var sourceValue = ((ObservableCollection<Item>)((System.Collections.Specialized.INotifyCollectionChanged)source));
-
-				if (sourceValue != null)
-				{		
-					sourceValue.Insert(2, new QuickTests.Item(1, true));
-					testing.ValidateConsistency();
-					sourceValue[3] = new QuickTests.Item(7, true);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(3);
-					testing.ValidateConsistency();
-					sourceValue.Move(1, 3);
-					testing.ValidateConsistency();
-					sourceValue[2].Active = !sourceValue[2].Active;
-					testing.ValidateConsistency();
-					sourceValue[2].Num = sourceValue[2].Num + 1;
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.Insert(0, new QuickTests.Item(1, true));
-					testing.ValidateConsistency();
-					sourceValue.Insert(0, new QuickTests.Item(2, true));
-					testing.ValidateConsistency();
-				}
-
-				IList listSource;
-				listSource = ((IList)((System.Collections.Specialized.INotifyCollectionChanged)source));
-				if (listSource != null)
-				{
-					listSource.Clear();
-					testing.ValidateConsistency();
-				}
-
-				if (sourceValue != null)
-				{
-					sourceValue.Insert(0, new QuickTests.Item(1, true));
-					sourceValue.Insert(1, new QuickTests.Item(2, true));
-					sourceValue.Insert(2, new QuickTests.Item(3, true));
-					sourceValue.Insert(3, new QuickTests.Item(3, true));
-					sourceValue.Insert(4, new QuickTests.Item(3, true));
-					testing.ValidateConsistency();
-				}
-			}
-
-			test();
-		}
-		
-		[Test]
-		public void TestFirstComputing12()
-		{
-			ObservableCollection<Item> source = getItems();
-			Item defaultValue = null;
-			
-			var testing = source.FirstComputing<Item>(
-				defaultValue);
 
 			void test()
 			{
@@ -43148,12 +42862,12 @@ namespace ObservableComputations.Test
 		public void TestItemComputing01()
 		{
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
-			Scalar<int> indexScalar = getScalar<int>(0);
-			Scalar<Item> defaultValueScalar = getScalar<Item>(new QuickTests.Item(1, true));
+			int index = 0;
+			Item defaultValue = new QuickTests.Item(1, true);
 			
 			var testing = sourceScalar.ItemComputing<Item>(
-				indexScalar,
-				defaultValueScalar);
+				index,
+				defaultValue);
 
 			void test()
 			{
@@ -43207,16 +42921,6 @@ namespace ObservableComputations.Test
 				}
 			}
 
-			test();
-
-			((Scalar<int>)indexScalar).Touch();
-			test();
-			((Scalar<int>)indexScalar).Change(1);
-			test();
-
-			((Scalar<Item>)defaultValueScalar).Touch();
-			test();
-			((Scalar<Item>)defaultValueScalar).Change(null);
 			test();
 
 			((Scalar<System.Collections.Specialized.INotifyCollectionChanged>)sourceScalar).Touch();
@@ -43229,10 +42933,10 @@ namespace ObservableComputations.Test
 		public void TestItemComputing02()
 		{
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
-			Scalar<int> indexScalar = getScalar<int>(0);
+			int index = 0;
 			
 			var testing = sourceScalar.ItemComputing<Item>(
-				indexScalar);
+				index);
 
 			void test()
 			{
@@ -43286,11 +42990,6 @@ namespace ObservableComputations.Test
 				}
 			}
 
-			test();
-
-			((Scalar<int>)indexScalar).Touch();
-			test();
-			((Scalar<int>)indexScalar).Change(1);
 			test();
 
 			((Scalar<System.Collections.Specialized.INotifyCollectionChanged>)sourceScalar).Touch();
@@ -43303,12 +43002,302 @@ namespace ObservableComputations.Test
 		public void TestItemComputing03()
 		{
 			Scalar<ObservableCollection<Item>> sourceScalar = getScalar<ObservableCollection<Item>>(getItems());
+			int index = 0;
+			Item defaultValue = new QuickTests.Item(1, true);
+			
+			var testing = sourceScalar.ItemComputing<Item>(
+				index,
+				defaultValue);
+
+			void test()
+			{
+				testing.ValidateConsistency();
+				var sourceScalarValue = ((ObservableCollection<Item>)((ObservableCollection<Item>)sourceScalar.Value));
+
+				if (sourceScalarValue != null)
+				{		
+					sourceScalarValue.Insert(2, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					sourceScalarValue[3] = new QuickTests.Item(7, true);
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(3);
+					testing.ValidateConsistency();
+					sourceScalarValue.Move(1, 3);
+					testing.ValidateConsistency();
+					sourceScalarValue[2].Active = !sourceScalarValue[2].Active;
+					testing.ValidateConsistency();
+					sourceScalarValue[2].Num = sourceScalarValue[2].Num + 1;
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					sourceScalarValue.Insert(0, new QuickTests.Item(2, true));
+					testing.ValidateConsistency();
+				}
+
+				IList listSource;
+				listSource = ((IList)((ObservableCollection<Item>)sourceScalar.Value));
+				if (listSource != null)
+				{
+					listSource.Clear();
+					testing.ValidateConsistency();
+				}
+
+				if (sourceScalarValue != null)
+				{
+					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
+					sourceScalarValue.Insert(1, new QuickTests.Item(2, true));
+					sourceScalarValue.Insert(2, new QuickTests.Item(3, true));
+					sourceScalarValue.Insert(3, new QuickTests.Item(3, true));
+					sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
+					testing.ValidateConsistency();
+				}
+			}
+
+			test();
+
+			((Scalar<ObservableCollection<Item>>)sourceScalar).Touch();
+			test();
+			((Scalar<ObservableCollection<Item>>)sourceScalar).Change(null);
+			test();
+		}
+		
+		[Test]
+		public void TestItemComputing04()
+		{
+			Scalar<ObservableCollection<Item>> sourceScalar = getScalar<ObservableCollection<Item>>(getItems());
+			int index = 0;
+			
+			var testing = sourceScalar.ItemComputing<Item>(
+				index);
+
+			void test()
+			{
+				testing.ValidateConsistency();
+				var sourceScalarValue = ((ObservableCollection<Item>)((ObservableCollection<Item>)sourceScalar.Value));
+
+				if (sourceScalarValue != null)
+				{		
+					sourceScalarValue.Insert(2, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					sourceScalarValue[3] = new QuickTests.Item(7, true);
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(3);
+					testing.ValidateConsistency();
+					sourceScalarValue.Move(1, 3);
+					testing.ValidateConsistency();
+					sourceScalarValue[2].Active = !sourceScalarValue[2].Active;
+					testing.ValidateConsistency();
+					sourceScalarValue[2].Num = sourceScalarValue[2].Num + 1;
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					sourceScalarValue.Insert(0, new QuickTests.Item(2, true));
+					testing.ValidateConsistency();
+				}
+
+				IList listSource;
+				listSource = ((IList)((ObservableCollection<Item>)sourceScalar.Value));
+				if (listSource != null)
+				{
+					listSource.Clear();
+					testing.ValidateConsistency();
+				}
+
+				if (sourceScalarValue != null)
+				{
+					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
+					sourceScalarValue.Insert(1, new QuickTests.Item(2, true));
+					sourceScalarValue.Insert(2, new QuickTests.Item(3, true));
+					sourceScalarValue.Insert(3, new QuickTests.Item(3, true));
+					sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
+					testing.ValidateConsistency();
+				}
+			}
+
+			test();
+
+			((Scalar<ObservableCollection<Item>>)sourceScalar).Touch();
+			test();
+			((Scalar<ObservableCollection<Item>>)sourceScalar).Change(null);
+			test();
+		}
+		
+		[Test]
+		public void TestItemComputing05()
+		{
+			Scalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
 			Scalar<int> indexScalar = getScalar<int>(0);
-			Scalar<Item> defaultValueScalar = getScalar<Item>(new QuickTests.Item(1, true));
+			Item defaultValue = new QuickTests.Item(1, true);
 			
 			var testing = sourceScalar.ItemComputing<Item>(
 				indexScalar,
-				defaultValueScalar);
+				defaultValue);
+
+			void test()
+			{
+				testing.ValidateConsistency();
+				var sourceScalarValue = ((ObservableCollection<Item>)((System.Collections.Specialized.INotifyCollectionChanged)sourceScalar.Value));
+
+				if (sourceScalarValue != null)
+				{		
+					sourceScalarValue.Insert(2, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					sourceScalarValue[3] = new QuickTests.Item(7, true);
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(3);
+					testing.ValidateConsistency();
+					sourceScalarValue.Move(1, 3);
+					testing.ValidateConsistency();
+					sourceScalarValue[2].Active = !sourceScalarValue[2].Active;
+					testing.ValidateConsistency();
+					sourceScalarValue[2].Num = sourceScalarValue[2].Num + 1;
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					sourceScalarValue.Insert(0, new QuickTests.Item(2, true));
+					testing.ValidateConsistency();
+				}
+
+				IList listSource;
+				listSource = ((IList)((System.Collections.Specialized.INotifyCollectionChanged)sourceScalar.Value));
+				if (listSource != null)
+				{
+					listSource.Clear();
+					testing.ValidateConsistency();
+				}
+
+				if (sourceScalarValue != null)
+				{
+					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
+					sourceScalarValue.Insert(1, new QuickTests.Item(2, true));
+					sourceScalarValue.Insert(2, new QuickTests.Item(3, true));
+					sourceScalarValue.Insert(3, new QuickTests.Item(3, true));
+					sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
+					testing.ValidateConsistency();
+				}
+			}
+
+			test();
+
+			((Scalar<int>)indexScalar).Touch();
+			test();
+			((Scalar<int>)indexScalar).Change(1);
+			test();
+
+			((Scalar<System.Collections.Specialized.INotifyCollectionChanged>)sourceScalar).Touch();
+			test();
+			((Scalar<System.Collections.Specialized.INotifyCollectionChanged>)sourceScalar).Change(null);
+			test();
+		}
+		
+		[Test]
+		public void TestItemComputing06()
+		{
+			Scalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
+			Scalar<int> indexScalar = getScalar<int>(0);
+			
+			var testing = sourceScalar.ItemComputing<Item>(
+				indexScalar);
+
+			void test()
+			{
+				testing.ValidateConsistency();
+				var sourceScalarValue = ((ObservableCollection<Item>)((System.Collections.Specialized.INotifyCollectionChanged)sourceScalar.Value));
+
+				if (sourceScalarValue != null)
+				{		
+					sourceScalarValue.Insert(2, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					sourceScalarValue[3] = new QuickTests.Item(7, true);
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(3);
+					testing.ValidateConsistency();
+					sourceScalarValue.Move(1, 3);
+					testing.ValidateConsistency();
+					sourceScalarValue[2].Active = !sourceScalarValue[2].Active;
+					testing.ValidateConsistency();
+					sourceScalarValue[2].Num = sourceScalarValue[2].Num + 1;
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					sourceScalarValue.Insert(0, new QuickTests.Item(2, true));
+					testing.ValidateConsistency();
+				}
+
+				IList listSource;
+				listSource = ((IList)((System.Collections.Specialized.INotifyCollectionChanged)sourceScalar.Value));
+				if (listSource != null)
+				{
+					listSource.Clear();
+					testing.ValidateConsistency();
+				}
+
+				if (sourceScalarValue != null)
+				{
+					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
+					sourceScalarValue.Insert(1, new QuickTests.Item(2, true));
+					sourceScalarValue.Insert(2, new QuickTests.Item(3, true));
+					sourceScalarValue.Insert(3, new QuickTests.Item(3, true));
+					sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
+					testing.ValidateConsistency();
+				}
+			}
+
+			test();
+
+			((Scalar<int>)indexScalar).Touch();
+			test();
+			((Scalar<int>)indexScalar).Change(1);
+			test();
+
+			((Scalar<System.Collections.Specialized.INotifyCollectionChanged>)sourceScalar).Touch();
+			test();
+			((Scalar<System.Collections.Specialized.INotifyCollectionChanged>)sourceScalar).Change(null);
+			test();
+		}
+		
+		[Test]
+		public void TestItemComputing07()
+		{
+			Scalar<ObservableCollection<Item>> sourceScalar = getScalar<ObservableCollection<Item>>(getItems());
+			Scalar<int> indexScalar = getScalar<int>(0);
+			Item defaultValue = new QuickTests.Item(1, true);
+			
+			var testing = sourceScalar.ItemComputing<Item>(
+				indexScalar,
+				defaultValue);
 
 			void test()
 			{
@@ -43369,11 +43358,6 @@ namespace ObservableComputations.Test
 			((Scalar<int>)indexScalar).Change(1);
 			test();
 
-			((Scalar<Item>)defaultValueScalar).Touch();
-			test();
-			((Scalar<Item>)defaultValueScalar).Change(null);
-			test();
-
 			((Scalar<ObservableCollection<Item>>)sourceScalar).Touch();
 			test();
 			((Scalar<ObservableCollection<Item>>)sourceScalar).Change(null);
@@ -43381,7 +43365,7 @@ namespace ObservableComputations.Test
 		}
 		
 		[Test]
-		public void TestItemComputing04()
+		public void TestItemComputing08()
 		{
 			Scalar<ObservableCollection<Item>> sourceScalar = getScalar<ObservableCollection<Item>>(getItems());
 			Scalar<int> indexScalar = getScalar<int>(0);
@@ -43455,586 +43439,262 @@ namespace ObservableComputations.Test
 		}
 		
 		[Test]
-		public void TestItemComputing05()
-		{
-			Scalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
-			int index = 0;
-			Scalar<Item> defaultValueScalar = getScalar<Item>(new QuickTests.Item(1, true));
-			
-			var testing = sourceScalar.ItemComputing<Item>(
-				index,
-				defaultValueScalar);
-
-			void test()
-			{
-				testing.ValidateConsistency();
-				var sourceScalarValue = ((ObservableCollection<Item>)((System.Collections.Specialized.INotifyCollectionChanged)sourceScalar.Value));
-
-				if (sourceScalarValue != null)
-				{		
-					sourceScalarValue.Insert(2, new QuickTests.Item(1, true));
-					testing.ValidateConsistency();
-					sourceScalarValue[3] = new QuickTests.Item(7, true);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(3);
-					testing.ValidateConsistency();
-					sourceScalarValue.Move(1, 3);
-					testing.ValidateConsistency();
-					sourceScalarValue[2].Active = !sourceScalarValue[2].Active;
-					testing.ValidateConsistency();
-					sourceScalarValue[2].Num = sourceScalarValue[2].Num + 1;
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
-					testing.ValidateConsistency();
-					sourceScalarValue.Insert(0, new QuickTests.Item(2, true));
-					testing.ValidateConsistency();
-				}
-
-				IList listSource;
-				listSource = ((IList)((System.Collections.Specialized.INotifyCollectionChanged)sourceScalar.Value));
-				if (listSource != null)
-				{
-					listSource.Clear();
-					testing.ValidateConsistency();
-				}
-
-				if (sourceScalarValue != null)
-				{
-					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
-					sourceScalarValue.Insert(1, new QuickTests.Item(2, true));
-					sourceScalarValue.Insert(2, new QuickTests.Item(3, true));
-					sourceScalarValue.Insert(3, new QuickTests.Item(3, true));
-					sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
-					testing.ValidateConsistency();
-				}
-			}
-
-			test();
-
-			((Scalar<Item>)defaultValueScalar).Touch();
-			test();
-			((Scalar<Item>)defaultValueScalar).Change(null);
-			test();
-
-			((Scalar<System.Collections.Specialized.INotifyCollectionChanged>)sourceScalar).Touch();
-			test();
-			((Scalar<System.Collections.Specialized.INotifyCollectionChanged>)sourceScalar).Change(null);
-			test();
-		}
-		
-		[Test]
-		public void TestItemComputing06()
-		{
-			Scalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
-			int index = 0;
-			
-			var testing = sourceScalar.ItemComputing<Item>(
-				index);
-
-			void test()
-			{
-				testing.ValidateConsistency();
-				var sourceScalarValue = ((ObservableCollection<Item>)((System.Collections.Specialized.INotifyCollectionChanged)sourceScalar.Value));
-
-				if (sourceScalarValue != null)
-				{		
-					sourceScalarValue.Insert(2, new QuickTests.Item(1, true));
-					testing.ValidateConsistency();
-					sourceScalarValue[3] = new QuickTests.Item(7, true);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(3);
-					testing.ValidateConsistency();
-					sourceScalarValue.Move(1, 3);
-					testing.ValidateConsistency();
-					sourceScalarValue[2].Active = !sourceScalarValue[2].Active;
-					testing.ValidateConsistency();
-					sourceScalarValue[2].Num = sourceScalarValue[2].Num + 1;
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
-					testing.ValidateConsistency();
-					sourceScalarValue.Insert(0, new QuickTests.Item(2, true));
-					testing.ValidateConsistency();
-				}
-
-				IList listSource;
-				listSource = ((IList)((System.Collections.Specialized.INotifyCollectionChanged)sourceScalar.Value));
-				if (listSource != null)
-				{
-					listSource.Clear();
-					testing.ValidateConsistency();
-				}
-
-				if (sourceScalarValue != null)
-				{
-					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
-					sourceScalarValue.Insert(1, new QuickTests.Item(2, true));
-					sourceScalarValue.Insert(2, new QuickTests.Item(3, true));
-					sourceScalarValue.Insert(3, new QuickTests.Item(3, true));
-					sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
-					testing.ValidateConsistency();
-				}
-			}
-
-			test();
-
-			((Scalar<System.Collections.Specialized.INotifyCollectionChanged>)sourceScalar).Touch();
-			test();
-			((Scalar<System.Collections.Specialized.INotifyCollectionChanged>)sourceScalar).Change(null);
-			test();
-		}
-		
-		[Test]
-		public void TestItemComputing07()
-		{
-			Scalar<ObservableCollection<Item>> sourceScalar = getScalar<ObservableCollection<Item>>(getItems());
-			int index = 0;
-			Scalar<Item> defaultValueScalar = getScalar<Item>(new QuickTests.Item(1, true));
-			
-			var testing = sourceScalar.ItemComputing<Item>(
-				index,
-				defaultValueScalar);
-
-			void test()
-			{
-				testing.ValidateConsistency();
-				var sourceScalarValue = ((ObservableCollection<Item>)((ObservableCollection<Item>)sourceScalar.Value));
-
-				if (sourceScalarValue != null)
-				{		
-					sourceScalarValue.Insert(2, new QuickTests.Item(1, true));
-					testing.ValidateConsistency();
-					sourceScalarValue[3] = new QuickTests.Item(7, true);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(3);
-					testing.ValidateConsistency();
-					sourceScalarValue.Move(1, 3);
-					testing.ValidateConsistency();
-					sourceScalarValue[2].Active = !sourceScalarValue[2].Active;
-					testing.ValidateConsistency();
-					sourceScalarValue[2].Num = sourceScalarValue[2].Num + 1;
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
-					testing.ValidateConsistency();
-					sourceScalarValue.Insert(0, new QuickTests.Item(2, true));
-					testing.ValidateConsistency();
-				}
-
-				IList listSource;
-				listSource = ((IList)((ObservableCollection<Item>)sourceScalar.Value));
-				if (listSource != null)
-				{
-					listSource.Clear();
-					testing.ValidateConsistency();
-				}
-
-				if (sourceScalarValue != null)
-				{
-					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
-					sourceScalarValue.Insert(1, new QuickTests.Item(2, true));
-					sourceScalarValue.Insert(2, new QuickTests.Item(3, true));
-					sourceScalarValue.Insert(3, new QuickTests.Item(3, true));
-					sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
-					testing.ValidateConsistency();
-				}
-			}
-
-			test();
-
-			((Scalar<Item>)defaultValueScalar).Touch();
-			test();
-			((Scalar<Item>)defaultValueScalar).Change(null);
-			test();
-
-			((Scalar<ObservableCollection<Item>>)sourceScalar).Touch();
-			test();
-			((Scalar<ObservableCollection<Item>>)sourceScalar).Change(null);
-			test();
-		}
-		
-		[Test]
-		public void TestItemComputing08()
-		{
-			Scalar<ObservableCollection<Item>> sourceScalar = getScalar<ObservableCollection<Item>>(getItems());
-			int index = 0;
-			
-			var testing = sourceScalar.ItemComputing<Item>(
-				index);
-
-			void test()
-			{
-				testing.ValidateConsistency();
-				var sourceScalarValue = ((ObservableCollection<Item>)((ObservableCollection<Item>)sourceScalar.Value));
-
-				if (sourceScalarValue != null)
-				{		
-					sourceScalarValue.Insert(2, new QuickTests.Item(1, true));
-					testing.ValidateConsistency();
-					sourceScalarValue[3] = new QuickTests.Item(7, true);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(3);
-					testing.ValidateConsistency();
-					sourceScalarValue.Move(1, 3);
-					testing.ValidateConsistency();
-					sourceScalarValue[2].Active = !sourceScalarValue[2].Active;
-					testing.ValidateConsistency();
-					sourceScalarValue[2].Num = sourceScalarValue[2].Num + 1;
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
-					testing.ValidateConsistency();
-					sourceScalarValue.Insert(0, new QuickTests.Item(2, true));
-					testing.ValidateConsistency();
-				}
-
-				IList listSource;
-				listSource = ((IList)((ObservableCollection<Item>)sourceScalar.Value));
-				if (listSource != null)
-				{
-					listSource.Clear();
-					testing.ValidateConsistency();
-				}
-
-				if (sourceScalarValue != null)
-				{
-					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
-					sourceScalarValue.Insert(1, new QuickTests.Item(2, true));
-					sourceScalarValue.Insert(2, new QuickTests.Item(3, true));
-					sourceScalarValue.Insert(3, new QuickTests.Item(3, true));
-					sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
-					testing.ValidateConsistency();
-				}
-			}
-
-			test();
-
-			((Scalar<ObservableCollection<Item>>)sourceScalar).Touch();
-			test();
-			((Scalar<ObservableCollection<Item>>)sourceScalar).Change(null);
-			test();
-		}
-		
-		[Test]
 		public void TestItemComputing09()
 		{
-			Scalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
+			System.Collections.Specialized.INotifyCollectionChanged source = getItems();
 			int index = 0;
 			Item defaultValue = new QuickTests.Item(1, true);
 			
-			var testing = sourceScalar.ItemComputing<Item>(
+			var testing = source.ItemComputing<Item>(
 				index,
 				defaultValue);
 
 			void test()
 			{
 				testing.ValidateConsistency();
-				var sourceScalarValue = ((ObservableCollection<Item>)((System.Collections.Specialized.INotifyCollectionChanged)sourceScalar.Value));
+				var sourceValue = ((ObservableCollection<Item>)((System.Collections.Specialized.INotifyCollectionChanged)source));
 
-				if (sourceScalarValue != null)
+				if (sourceValue != null)
 				{		
-					sourceScalarValue.Insert(2, new QuickTests.Item(1, true));
+					sourceValue.Insert(2, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
-					sourceScalarValue[3] = new QuickTests.Item(7, true);
+					sourceValue[3] = new QuickTests.Item(7, true);
 					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(3);
+					sourceValue.RemoveAt(3);
 					testing.ValidateConsistency();
-					sourceScalarValue.Move(1, 3);
+					sourceValue.Move(1, 3);
 					testing.ValidateConsistency();
-					sourceScalarValue[2].Active = !sourceScalarValue[2].Active;
+					sourceValue[2].Active = !sourceValue[2].Active;
 					testing.ValidateConsistency();
-					sourceScalarValue[2].Num = sourceScalarValue[2].Num + 1;
+					sourceValue[2].Num = sourceValue[2].Num + 1;
 					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
+					sourceValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
+					sourceValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
+					sourceValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
+					sourceValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
+					sourceValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
-					sourceScalarValue.Insert(0, new QuickTests.Item(2, true));
+					sourceValue.Insert(0, new QuickTests.Item(2, true));
 					testing.ValidateConsistency();
 				}
 
 				IList listSource;
-				listSource = ((IList)((System.Collections.Specialized.INotifyCollectionChanged)sourceScalar.Value));
+				listSource = ((IList)((System.Collections.Specialized.INotifyCollectionChanged)source));
 				if (listSource != null)
 				{
 					listSource.Clear();
 					testing.ValidateConsistency();
 				}
 
-				if (sourceScalarValue != null)
+				if (sourceValue != null)
 				{
-					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
-					sourceScalarValue.Insert(1, new QuickTests.Item(2, true));
-					sourceScalarValue.Insert(2, new QuickTests.Item(3, true));
-					sourceScalarValue.Insert(3, new QuickTests.Item(3, true));
-					sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
+					sourceValue.Insert(0, new QuickTests.Item(1, true));
+					sourceValue.Insert(1, new QuickTests.Item(2, true));
+					sourceValue.Insert(2, new QuickTests.Item(3, true));
+					sourceValue.Insert(3, new QuickTests.Item(3, true));
+					sourceValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
 			}
 
-			test();
-
-			((Scalar<System.Collections.Specialized.INotifyCollectionChanged>)sourceScalar).Touch();
-			test();
-			((Scalar<System.Collections.Specialized.INotifyCollectionChanged>)sourceScalar).Change(null);
 			test();
 		}
 		
 		[Test]
 		public void TestItemComputing10()
 		{
-			Scalar<ObservableCollection<Item>> sourceScalar = getScalar<ObservableCollection<Item>>(getItems());
+			System.Collections.Specialized.INotifyCollectionChanged source = getItems();
 			int index = 0;
-			Item defaultValue = new QuickTests.Item(1, true);
 			
-			var testing = sourceScalar.ItemComputing<Item>(
-				index,
-				defaultValue);
+			var testing = source.ItemComputing<Item>(
+				index);
 
 			void test()
 			{
 				testing.ValidateConsistency();
-				var sourceScalarValue = ((ObservableCollection<Item>)((ObservableCollection<Item>)sourceScalar.Value));
+				var sourceValue = ((ObservableCollection<Item>)((System.Collections.Specialized.INotifyCollectionChanged)source));
 
-				if (sourceScalarValue != null)
+				if (sourceValue != null)
 				{		
-					sourceScalarValue.Insert(2, new QuickTests.Item(1, true));
+					sourceValue.Insert(2, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
-					sourceScalarValue[3] = new QuickTests.Item(7, true);
+					sourceValue[3] = new QuickTests.Item(7, true);
 					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(3);
+					sourceValue.RemoveAt(3);
 					testing.ValidateConsistency();
-					sourceScalarValue.Move(1, 3);
+					sourceValue.Move(1, 3);
 					testing.ValidateConsistency();
-					sourceScalarValue[2].Active = !sourceScalarValue[2].Active;
+					sourceValue[2].Active = !sourceValue[2].Active;
 					testing.ValidateConsistency();
-					sourceScalarValue[2].Num = sourceScalarValue[2].Num + 1;
+					sourceValue[2].Num = sourceValue[2].Num + 1;
 					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
+					sourceValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
+					sourceValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
+					sourceValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
+					sourceValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
+					sourceValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
-					sourceScalarValue.Insert(0, new QuickTests.Item(2, true));
+					sourceValue.Insert(0, new QuickTests.Item(2, true));
 					testing.ValidateConsistency();
 				}
 
 				IList listSource;
-				listSource = ((IList)((ObservableCollection<Item>)sourceScalar.Value));
+				listSource = ((IList)((System.Collections.Specialized.INotifyCollectionChanged)source));
 				if (listSource != null)
 				{
 					listSource.Clear();
 					testing.ValidateConsistency();
 				}
 
-				if (sourceScalarValue != null)
+				if (sourceValue != null)
 				{
-					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
-					sourceScalarValue.Insert(1, new QuickTests.Item(2, true));
-					sourceScalarValue.Insert(2, new QuickTests.Item(3, true));
-					sourceScalarValue.Insert(3, new QuickTests.Item(3, true));
-					sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
+					sourceValue.Insert(0, new QuickTests.Item(1, true));
+					sourceValue.Insert(1, new QuickTests.Item(2, true));
+					sourceValue.Insert(2, new QuickTests.Item(3, true));
+					sourceValue.Insert(3, new QuickTests.Item(3, true));
+					sourceValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
 			}
 
-			test();
-
-			((Scalar<ObservableCollection<Item>>)sourceScalar).Touch();
-			test();
-			((Scalar<ObservableCollection<Item>>)sourceScalar).Change(null);
 			test();
 		}
 		
 		[Test]
 		public void TestItemComputing11()
 		{
-			Scalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
-			Scalar<int> indexScalar = getScalar<int>(0);
+			ObservableCollection<Item> source = getItems();
+			int index = 0;
 			Item defaultValue = new QuickTests.Item(1, true);
 			
-			var testing = sourceScalar.ItemComputing<Item>(
-				indexScalar,
+			var testing = source.ItemComputing<Item>(
+				index,
 				defaultValue);
 
 			void test()
 			{
 				testing.ValidateConsistency();
-				var sourceScalarValue = ((ObservableCollection<Item>)((System.Collections.Specialized.INotifyCollectionChanged)sourceScalar.Value));
+				var sourceValue = ((ObservableCollection<Item>)((ObservableCollection<Item>)source));
 
-				if (sourceScalarValue != null)
+				if (sourceValue != null)
 				{		
-					sourceScalarValue.Insert(2, new QuickTests.Item(1, true));
+					sourceValue.Insert(2, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
-					sourceScalarValue[3] = new QuickTests.Item(7, true);
+					sourceValue[3] = new QuickTests.Item(7, true);
 					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(3);
+					sourceValue.RemoveAt(3);
 					testing.ValidateConsistency();
-					sourceScalarValue.Move(1, 3);
+					sourceValue.Move(1, 3);
 					testing.ValidateConsistency();
-					sourceScalarValue[2].Active = !sourceScalarValue[2].Active;
+					sourceValue[2].Active = !sourceValue[2].Active;
 					testing.ValidateConsistency();
-					sourceScalarValue[2].Num = sourceScalarValue[2].Num + 1;
+					sourceValue[2].Num = sourceValue[2].Num + 1;
 					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
+					sourceValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
+					sourceValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
+					sourceValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
+					sourceValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
+					sourceValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
-					sourceScalarValue.Insert(0, new QuickTests.Item(2, true));
+					sourceValue.Insert(0, new QuickTests.Item(2, true));
 					testing.ValidateConsistency();
 				}
 
 				IList listSource;
-				listSource = ((IList)((System.Collections.Specialized.INotifyCollectionChanged)sourceScalar.Value));
+				listSource = ((IList)((ObservableCollection<Item>)source));
 				if (listSource != null)
 				{
 					listSource.Clear();
 					testing.ValidateConsistency();
 				}
 
-				if (sourceScalarValue != null)
+				if (sourceValue != null)
 				{
-					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
-					sourceScalarValue.Insert(1, new QuickTests.Item(2, true));
-					sourceScalarValue.Insert(2, new QuickTests.Item(3, true));
-					sourceScalarValue.Insert(3, new QuickTests.Item(3, true));
-					sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
+					sourceValue.Insert(0, new QuickTests.Item(1, true));
+					sourceValue.Insert(1, new QuickTests.Item(2, true));
+					sourceValue.Insert(2, new QuickTests.Item(3, true));
+					sourceValue.Insert(3, new QuickTests.Item(3, true));
+					sourceValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
 			}
 
-			test();
-
-			((Scalar<int>)indexScalar).Touch();
-			test();
-			((Scalar<int>)indexScalar).Change(1);
-			test();
-
-			((Scalar<System.Collections.Specialized.INotifyCollectionChanged>)sourceScalar).Touch();
-			test();
-			((Scalar<System.Collections.Specialized.INotifyCollectionChanged>)sourceScalar).Change(null);
 			test();
 		}
 		
 		[Test]
 		public void TestItemComputing12()
 		{
-			Scalar<ObservableCollection<Item>> sourceScalar = getScalar<ObservableCollection<Item>>(getItems());
-			Scalar<int> indexScalar = getScalar<int>(0);
-			Item defaultValue = new QuickTests.Item(1, true);
+			ObservableCollection<Item> source = getItems();
+			int index = 0;
 			
-			var testing = sourceScalar.ItemComputing<Item>(
-				indexScalar,
-				defaultValue);
+			var testing = source.ItemComputing<Item>(
+				index);
 
 			void test()
 			{
 				testing.ValidateConsistency();
-				var sourceScalarValue = ((ObservableCollection<Item>)((ObservableCollection<Item>)sourceScalar.Value));
+				var sourceValue = ((ObservableCollection<Item>)((ObservableCollection<Item>)source));
 
-				if (sourceScalarValue != null)
+				if (sourceValue != null)
 				{		
-					sourceScalarValue.Insert(2, new QuickTests.Item(1, true));
+					sourceValue.Insert(2, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
-					sourceScalarValue[3] = new QuickTests.Item(7, true);
+					sourceValue[3] = new QuickTests.Item(7, true);
 					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(3);
+					sourceValue.RemoveAt(3);
 					testing.ValidateConsistency();
-					sourceScalarValue.Move(1, 3);
+					sourceValue.Move(1, 3);
 					testing.ValidateConsistency();
-					sourceScalarValue[2].Active = !sourceScalarValue[2].Active;
+					sourceValue[2].Active = !sourceValue[2].Active;
 					testing.ValidateConsistency();
-					sourceScalarValue[2].Num = sourceScalarValue[2].Num + 1;
+					sourceValue[2].Num = sourceValue[2].Num + 1;
 					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
+					sourceValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
+					sourceValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
+					sourceValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
+					sourceValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
+					sourceValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
-					sourceScalarValue.Insert(0, new QuickTests.Item(2, true));
+					sourceValue.Insert(0, new QuickTests.Item(2, true));
 					testing.ValidateConsistency();
 				}
 
 				IList listSource;
-				listSource = ((IList)((ObservableCollection<Item>)sourceScalar.Value));
+				listSource = ((IList)((ObservableCollection<Item>)source));
 				if (listSource != null)
 				{
 					listSource.Clear();
 					testing.ValidateConsistency();
 				}
 
-				if (sourceScalarValue != null)
+				if (sourceValue != null)
 				{
-					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
-					sourceScalarValue.Insert(1, new QuickTests.Item(2, true));
-					sourceScalarValue.Insert(2, new QuickTests.Item(3, true));
-					sourceScalarValue.Insert(3, new QuickTests.Item(3, true));
-					sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
+					sourceValue.Insert(0, new QuickTests.Item(1, true));
+					sourceValue.Insert(1, new QuickTests.Item(2, true));
+					sourceValue.Insert(2, new QuickTests.Item(3, true));
+					sourceValue.Insert(3, new QuickTests.Item(3, true));
+					sourceValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
 			}
 
-			test();
-
-			((Scalar<int>)indexScalar).Touch();
-			test();
-			((Scalar<int>)indexScalar).Change(1);
-			test();
-
-			((Scalar<ObservableCollection<Item>>)sourceScalar).Touch();
-			test();
-			((Scalar<ObservableCollection<Item>>)sourceScalar).Change(null);
 			test();
 		}
 		
@@ -44043,11 +43703,11 @@ namespace ObservableComputations.Test
 		{
 			System.Collections.Specialized.INotifyCollectionChanged source = getItems();
 			Scalar<int> indexScalar = getScalar<int>(0);
-			Scalar<Item> defaultValueScalar = getScalar<Item>(new QuickTests.Item(1, true));
+			Item defaultValue = new QuickTests.Item(1, true);
 			
 			var testing = source.ItemComputing<Item>(
 				indexScalar,
-				defaultValueScalar);
+				defaultValue);
 
 			void test()
 			{
@@ -44106,11 +43766,6 @@ namespace ObservableComputations.Test
 			((Scalar<int>)indexScalar).Touch();
 			test();
 			((Scalar<int>)indexScalar).Change(1);
-			test();
-
-			((Scalar<Item>)defaultValueScalar).Touch();
-			test();
-			((Scalar<Item>)defaultValueScalar).Change(null);
 			test();
 		}
 		
@@ -44188,11 +43843,11 @@ namespace ObservableComputations.Test
 		{
 			ObservableCollection<Item> source = getItems();
 			Scalar<int> indexScalar = getScalar<int>(0);
-			Scalar<Item> defaultValueScalar = getScalar<Item>(new QuickTests.Item(1, true));
+			Item defaultValue = new QuickTests.Item(1, true);
 			
 			var testing = source.ItemComputing<Item>(
 				indexScalar,
-				defaultValueScalar);
+				defaultValue);
 
 			void test()
 			{
@@ -44251,11 +43906,6 @@ namespace ObservableComputations.Test
 			((Scalar<int>)indexScalar).Touch();
 			test();
 			((Scalar<int>)indexScalar).Change(1);
-			test();
-
-			((Scalar<Item>)defaultValueScalar).Touch();
-			test();
-			((Scalar<Item>)defaultValueScalar).Change(null);
 			test();
 		}
 		
@@ -44267,550 +43917,6 @@ namespace ObservableComputations.Test
 			
 			var testing = source.ItemComputing<Item>(
 				indexScalar);
-
-			void test()
-			{
-				testing.ValidateConsistency();
-				var sourceValue = ((ObservableCollection<Item>)((ObservableCollection<Item>)source));
-
-				if (sourceValue != null)
-				{		
-					sourceValue.Insert(2, new QuickTests.Item(1, true));
-					testing.ValidateConsistency();
-					sourceValue[3] = new QuickTests.Item(7, true);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(3);
-					testing.ValidateConsistency();
-					sourceValue.Move(1, 3);
-					testing.ValidateConsistency();
-					sourceValue[2].Active = !sourceValue[2].Active;
-					testing.ValidateConsistency();
-					sourceValue[2].Num = sourceValue[2].Num + 1;
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.Insert(0, new QuickTests.Item(1, true));
-					testing.ValidateConsistency();
-					sourceValue.Insert(0, new QuickTests.Item(2, true));
-					testing.ValidateConsistency();
-				}
-
-				IList listSource;
-				listSource = ((IList)((ObservableCollection<Item>)source));
-				if (listSource != null)
-				{
-					listSource.Clear();
-					testing.ValidateConsistency();
-				}
-
-				if (sourceValue != null)
-				{
-					sourceValue.Insert(0, new QuickTests.Item(1, true));
-					sourceValue.Insert(1, new QuickTests.Item(2, true));
-					sourceValue.Insert(2, new QuickTests.Item(3, true));
-					sourceValue.Insert(3, new QuickTests.Item(3, true));
-					sourceValue.Insert(4, new QuickTests.Item(3, true));
-					testing.ValidateConsistency();
-				}
-			}
-
-			test();
-
-			((Scalar<int>)indexScalar).Touch();
-			test();
-			((Scalar<int>)indexScalar).Change(1);
-			test();
-		}
-		
-		[Test]
-		public void TestItemComputing17()
-		{
-			System.Collections.Specialized.INotifyCollectionChanged source = getItems();
-			int index = 0;
-			Scalar<Item> defaultValueScalar = getScalar<Item>(new QuickTests.Item(1, true));
-			
-			var testing = source.ItemComputing<Item>(
-				index,
-				defaultValueScalar);
-
-			void test()
-			{
-				testing.ValidateConsistency();
-				var sourceValue = ((ObservableCollection<Item>)((System.Collections.Specialized.INotifyCollectionChanged)source));
-
-				if (sourceValue != null)
-				{		
-					sourceValue.Insert(2, new QuickTests.Item(1, true));
-					testing.ValidateConsistency();
-					sourceValue[3] = new QuickTests.Item(7, true);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(3);
-					testing.ValidateConsistency();
-					sourceValue.Move(1, 3);
-					testing.ValidateConsistency();
-					sourceValue[2].Active = !sourceValue[2].Active;
-					testing.ValidateConsistency();
-					sourceValue[2].Num = sourceValue[2].Num + 1;
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.Insert(0, new QuickTests.Item(1, true));
-					testing.ValidateConsistency();
-					sourceValue.Insert(0, new QuickTests.Item(2, true));
-					testing.ValidateConsistency();
-				}
-
-				IList listSource;
-				listSource = ((IList)((System.Collections.Specialized.INotifyCollectionChanged)source));
-				if (listSource != null)
-				{
-					listSource.Clear();
-					testing.ValidateConsistency();
-				}
-
-				if (sourceValue != null)
-				{
-					sourceValue.Insert(0, new QuickTests.Item(1, true));
-					sourceValue.Insert(1, new QuickTests.Item(2, true));
-					sourceValue.Insert(2, new QuickTests.Item(3, true));
-					sourceValue.Insert(3, new QuickTests.Item(3, true));
-					sourceValue.Insert(4, new QuickTests.Item(3, true));
-					testing.ValidateConsistency();
-				}
-			}
-
-			test();
-
-			((Scalar<Item>)defaultValueScalar).Touch();
-			test();
-			((Scalar<Item>)defaultValueScalar).Change(null);
-			test();
-		}
-		
-		[Test]
-		public void TestItemComputing18()
-		{
-			System.Collections.Specialized.INotifyCollectionChanged source = getItems();
-			int index = 0;
-			
-			var testing = source.ItemComputing<Item>(
-				index);
-
-			void test()
-			{
-				testing.ValidateConsistency();
-				var sourceValue = ((ObservableCollection<Item>)((System.Collections.Specialized.INotifyCollectionChanged)source));
-
-				if (sourceValue != null)
-				{		
-					sourceValue.Insert(2, new QuickTests.Item(1, true));
-					testing.ValidateConsistency();
-					sourceValue[3] = new QuickTests.Item(7, true);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(3);
-					testing.ValidateConsistency();
-					sourceValue.Move(1, 3);
-					testing.ValidateConsistency();
-					sourceValue[2].Active = !sourceValue[2].Active;
-					testing.ValidateConsistency();
-					sourceValue[2].Num = sourceValue[2].Num + 1;
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.Insert(0, new QuickTests.Item(1, true));
-					testing.ValidateConsistency();
-					sourceValue.Insert(0, new QuickTests.Item(2, true));
-					testing.ValidateConsistency();
-				}
-
-				IList listSource;
-				listSource = ((IList)((System.Collections.Specialized.INotifyCollectionChanged)source));
-				if (listSource != null)
-				{
-					listSource.Clear();
-					testing.ValidateConsistency();
-				}
-
-				if (sourceValue != null)
-				{
-					sourceValue.Insert(0, new QuickTests.Item(1, true));
-					sourceValue.Insert(1, new QuickTests.Item(2, true));
-					sourceValue.Insert(2, new QuickTests.Item(3, true));
-					sourceValue.Insert(3, new QuickTests.Item(3, true));
-					sourceValue.Insert(4, new QuickTests.Item(3, true));
-					testing.ValidateConsistency();
-				}
-			}
-
-			test();
-		}
-		
-		[Test]
-		public void TestItemComputing19()
-		{
-			ObservableCollection<Item> source = getItems();
-			int index = 0;
-			Scalar<Item> defaultValueScalar = getScalar<Item>(new QuickTests.Item(1, true));
-			
-			var testing = source.ItemComputing<Item>(
-				index,
-				defaultValueScalar);
-
-			void test()
-			{
-				testing.ValidateConsistency();
-				var sourceValue = ((ObservableCollection<Item>)((ObservableCollection<Item>)source));
-
-				if (sourceValue != null)
-				{		
-					sourceValue.Insert(2, new QuickTests.Item(1, true));
-					testing.ValidateConsistency();
-					sourceValue[3] = new QuickTests.Item(7, true);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(3);
-					testing.ValidateConsistency();
-					sourceValue.Move(1, 3);
-					testing.ValidateConsistency();
-					sourceValue[2].Active = !sourceValue[2].Active;
-					testing.ValidateConsistency();
-					sourceValue[2].Num = sourceValue[2].Num + 1;
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.Insert(0, new QuickTests.Item(1, true));
-					testing.ValidateConsistency();
-					sourceValue.Insert(0, new QuickTests.Item(2, true));
-					testing.ValidateConsistency();
-				}
-
-				IList listSource;
-				listSource = ((IList)((ObservableCollection<Item>)source));
-				if (listSource != null)
-				{
-					listSource.Clear();
-					testing.ValidateConsistency();
-				}
-
-				if (sourceValue != null)
-				{
-					sourceValue.Insert(0, new QuickTests.Item(1, true));
-					sourceValue.Insert(1, new QuickTests.Item(2, true));
-					sourceValue.Insert(2, new QuickTests.Item(3, true));
-					sourceValue.Insert(3, new QuickTests.Item(3, true));
-					sourceValue.Insert(4, new QuickTests.Item(3, true));
-					testing.ValidateConsistency();
-				}
-			}
-
-			test();
-
-			((Scalar<Item>)defaultValueScalar).Touch();
-			test();
-			((Scalar<Item>)defaultValueScalar).Change(null);
-			test();
-		}
-		
-		[Test]
-		public void TestItemComputing20()
-		{
-			ObservableCollection<Item> source = getItems();
-			int index = 0;
-			
-			var testing = source.ItemComputing<Item>(
-				index);
-
-			void test()
-			{
-				testing.ValidateConsistency();
-				var sourceValue = ((ObservableCollection<Item>)((ObservableCollection<Item>)source));
-
-				if (sourceValue != null)
-				{		
-					sourceValue.Insert(2, new QuickTests.Item(1, true));
-					testing.ValidateConsistency();
-					sourceValue[3] = new QuickTests.Item(7, true);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(3);
-					testing.ValidateConsistency();
-					sourceValue.Move(1, 3);
-					testing.ValidateConsistency();
-					sourceValue[2].Active = !sourceValue[2].Active;
-					testing.ValidateConsistency();
-					sourceValue[2].Num = sourceValue[2].Num + 1;
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.Insert(0, new QuickTests.Item(1, true));
-					testing.ValidateConsistency();
-					sourceValue.Insert(0, new QuickTests.Item(2, true));
-					testing.ValidateConsistency();
-				}
-
-				IList listSource;
-				listSource = ((IList)((ObservableCollection<Item>)source));
-				if (listSource != null)
-				{
-					listSource.Clear();
-					testing.ValidateConsistency();
-				}
-
-				if (sourceValue != null)
-				{
-					sourceValue.Insert(0, new QuickTests.Item(1, true));
-					sourceValue.Insert(1, new QuickTests.Item(2, true));
-					sourceValue.Insert(2, new QuickTests.Item(3, true));
-					sourceValue.Insert(3, new QuickTests.Item(3, true));
-					sourceValue.Insert(4, new QuickTests.Item(3, true));
-					testing.ValidateConsistency();
-				}
-			}
-
-			test();
-		}
-		
-		[Test]
-		public void TestItemComputing21()
-		{
-			System.Collections.Specialized.INotifyCollectionChanged source = getItems();
-			int index = 0;
-			Item defaultValue = new QuickTests.Item(1, true);
-			
-			var testing = source.ItemComputing<Item>(
-				index,
-				defaultValue);
-
-			void test()
-			{
-				testing.ValidateConsistency();
-				var sourceValue = ((ObservableCollection<Item>)((System.Collections.Specialized.INotifyCollectionChanged)source));
-
-				if (sourceValue != null)
-				{		
-					sourceValue.Insert(2, new QuickTests.Item(1, true));
-					testing.ValidateConsistency();
-					sourceValue[3] = new QuickTests.Item(7, true);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(3);
-					testing.ValidateConsistency();
-					sourceValue.Move(1, 3);
-					testing.ValidateConsistency();
-					sourceValue[2].Active = !sourceValue[2].Active;
-					testing.ValidateConsistency();
-					sourceValue[2].Num = sourceValue[2].Num + 1;
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.Insert(0, new QuickTests.Item(1, true));
-					testing.ValidateConsistency();
-					sourceValue.Insert(0, new QuickTests.Item(2, true));
-					testing.ValidateConsistency();
-				}
-
-				IList listSource;
-				listSource = ((IList)((System.Collections.Specialized.INotifyCollectionChanged)source));
-				if (listSource != null)
-				{
-					listSource.Clear();
-					testing.ValidateConsistency();
-				}
-
-				if (sourceValue != null)
-				{
-					sourceValue.Insert(0, new QuickTests.Item(1, true));
-					sourceValue.Insert(1, new QuickTests.Item(2, true));
-					sourceValue.Insert(2, new QuickTests.Item(3, true));
-					sourceValue.Insert(3, new QuickTests.Item(3, true));
-					sourceValue.Insert(4, new QuickTests.Item(3, true));
-					testing.ValidateConsistency();
-				}
-			}
-
-			test();
-		}
-		
-		[Test]
-		public void TestItemComputing22()
-		{
-			ObservableCollection<Item> source = getItems();
-			int index = 0;
-			Item defaultValue = new QuickTests.Item(1, true);
-			
-			var testing = source.ItemComputing<Item>(
-				index,
-				defaultValue);
-
-			void test()
-			{
-				testing.ValidateConsistency();
-				var sourceValue = ((ObservableCollection<Item>)((ObservableCollection<Item>)source));
-
-				if (sourceValue != null)
-				{		
-					sourceValue.Insert(2, new QuickTests.Item(1, true));
-					testing.ValidateConsistency();
-					sourceValue[3] = new QuickTests.Item(7, true);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(3);
-					testing.ValidateConsistency();
-					sourceValue.Move(1, 3);
-					testing.ValidateConsistency();
-					sourceValue[2].Active = !sourceValue[2].Active;
-					testing.ValidateConsistency();
-					sourceValue[2].Num = sourceValue[2].Num + 1;
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.Insert(0, new QuickTests.Item(1, true));
-					testing.ValidateConsistency();
-					sourceValue.Insert(0, new QuickTests.Item(2, true));
-					testing.ValidateConsistency();
-				}
-
-				IList listSource;
-				listSource = ((IList)((ObservableCollection<Item>)source));
-				if (listSource != null)
-				{
-					listSource.Clear();
-					testing.ValidateConsistency();
-				}
-
-				if (sourceValue != null)
-				{
-					sourceValue.Insert(0, new QuickTests.Item(1, true));
-					sourceValue.Insert(1, new QuickTests.Item(2, true));
-					sourceValue.Insert(2, new QuickTests.Item(3, true));
-					sourceValue.Insert(3, new QuickTests.Item(3, true));
-					sourceValue.Insert(4, new QuickTests.Item(3, true));
-					testing.ValidateConsistency();
-				}
-			}
-
-			test();
-		}
-		
-		[Test]
-		public void TestItemComputing23()
-		{
-			System.Collections.Specialized.INotifyCollectionChanged source = getItems();
-			Scalar<int> indexScalar = getScalar<int>(0);
-			Item defaultValue = new QuickTests.Item(1, true);
-			
-			var testing = source.ItemComputing<Item>(
-				indexScalar,
-				defaultValue);
-
-			void test()
-			{
-				testing.ValidateConsistency();
-				var sourceValue = ((ObservableCollection<Item>)((System.Collections.Specialized.INotifyCollectionChanged)source));
-
-				if (sourceValue != null)
-				{		
-					sourceValue.Insert(2, new QuickTests.Item(1, true));
-					testing.ValidateConsistency();
-					sourceValue[3] = new QuickTests.Item(7, true);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(3);
-					testing.ValidateConsistency();
-					sourceValue.Move(1, 3);
-					testing.ValidateConsistency();
-					sourceValue[2].Active = !sourceValue[2].Active;
-					testing.ValidateConsistency();
-					sourceValue[2].Num = sourceValue[2].Num + 1;
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.Insert(0, new QuickTests.Item(1, true));
-					testing.ValidateConsistency();
-					sourceValue.Insert(0, new QuickTests.Item(2, true));
-					testing.ValidateConsistency();
-				}
-
-				IList listSource;
-				listSource = ((IList)((System.Collections.Specialized.INotifyCollectionChanged)source));
-				if (listSource != null)
-				{
-					listSource.Clear();
-					testing.ValidateConsistency();
-				}
-
-				if (sourceValue != null)
-				{
-					sourceValue.Insert(0, new QuickTests.Item(1, true));
-					sourceValue.Insert(1, new QuickTests.Item(2, true));
-					sourceValue.Insert(2, new QuickTests.Item(3, true));
-					sourceValue.Insert(3, new QuickTests.Item(3, true));
-					sourceValue.Insert(4, new QuickTests.Item(3, true));
-					testing.ValidateConsistency();
-				}
-			}
-
-			test();
-
-			((Scalar<int>)indexScalar).Touch();
-			test();
-			((Scalar<int>)indexScalar).Change(1);
-			test();
-		}
-		
-		[Test]
-		public void TestItemComputing24()
-		{
-			ObservableCollection<Item> source = getItems();
-			Scalar<int> indexScalar = getScalar<int>(0);
-			Item defaultValue = new QuickTests.Item(1, true);
-			
-			var testing = source.ItemComputing<Item>(
-				indexScalar,
-				defaultValue);
 
 			void test()
 			{
@@ -48626,10 +47732,10 @@ namespace ObservableComputations.Test
 		public void TestLastComputing01()
 		{
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
-			Scalar<Item> defaultValueScalar = getScalar<Item>(null);
+			Item defaultValue = null;
 			
 			var testing = sourceScalar.LastComputing<Item>(
-				defaultValueScalar);
+				defaultValue);
 
 			void test()
 			{
@@ -48683,11 +47789,6 @@ namespace ObservableComputations.Test
 				}
 			}
 
-			test();
-
-			((Scalar<Item>)defaultValueScalar).Touch();
-			test();
-			((Scalar<Item>)defaultValueScalar).Change(new QuickTests.Item(1, true));
 			test();
 
 			((Scalar<System.Collections.Specialized.INotifyCollectionChanged>)sourceScalar).Touch();
@@ -48767,10 +47868,10 @@ namespace ObservableComputations.Test
 		public void TestLastComputing03()
 		{
 			Scalar<ObservableCollection<Item>> sourceScalar = getScalar<ObservableCollection<Item>>(getItems());
-			Scalar<Item> defaultValueScalar = getScalar<Item>(null);
+			Item defaultValue = null;
 			
 			var testing = sourceScalar.LastComputing<Item>(
-				defaultValueScalar);
+				defaultValue);
 
 			void test()
 			{
@@ -48824,11 +47925,6 @@ namespace ObservableComputations.Test
 				}
 			}
 
-			test();
-
-			((Scalar<Item>)defaultValueScalar).Touch();
-			test();
-			((Scalar<Item>)defaultValueScalar).Change(new QuickTests.Item(1, true));
 			test();
 
 			((Scalar<ObservableCollection<Item>>)sourceScalar).Touch();
@@ -48908,10 +48004,10 @@ namespace ObservableComputations.Test
 		public void TestLastComputing05()
 		{
 			System.Collections.Specialized.INotifyCollectionChanged source = getItems();
-			Scalar<Item> defaultValueScalar = getScalar<Item>(null);
+			Item defaultValue = null;
 			
 			var testing = source.LastComputing<Item>(
-				defaultValueScalar);
+				defaultValue);
 
 			void test()
 			{
@@ -48965,11 +48061,6 @@ namespace ObservableComputations.Test
 				}
 			}
 
-			test();
-
-			((Scalar<Item>)defaultValueScalar).Touch();
-			test();
-			((Scalar<Item>)defaultValueScalar).Change(new QuickTests.Item(1, true));
 			test();
 		}
 		
@@ -49039,10 +48130,10 @@ namespace ObservableComputations.Test
 		public void TestLastComputing07()
 		{
 			ObservableCollection<Item> source = getItems();
-			Scalar<Item> defaultValueScalar = getScalar<Item>(null);
+			Item defaultValue = null;
 			
 			var testing = source.LastComputing<Item>(
-				defaultValueScalar);
+				defaultValue);
 
 			void test()
 			{
@@ -49096,11 +48187,6 @@ namespace ObservableComputations.Test
 				}
 			}
 
-			test();
-
-			((Scalar<Item>)defaultValueScalar).Touch();
-			test();
-			((Scalar<Item>)defaultValueScalar).Change(new QuickTests.Item(1, true));
 			test();
 		}
 		
@@ -49165,272 +48251,6 @@ namespace ObservableComputations.Test
 
 			test();
 		}
-		
-		[Test]
-		public void TestLastComputing09()
-		{
-			Scalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
-			Item defaultValue = null;
-			
-			var testing = sourceScalar.LastComputing<Item>(
-				defaultValue);
-
-			void test()
-			{
-				testing.ValidateConsistency();
-				var sourceScalarValue = ((ObservableCollection<Item>)((System.Collections.Specialized.INotifyCollectionChanged)sourceScalar.Value));
-
-				if (sourceScalarValue != null)
-				{		
-					sourceScalarValue.Insert(2, new QuickTests.Item(1, true));
-					testing.ValidateConsistency();
-					sourceScalarValue[3] = new QuickTests.Item(7, true);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(3);
-					testing.ValidateConsistency();
-					sourceScalarValue.Move(1, 3);
-					testing.ValidateConsistency();
-					sourceScalarValue[2].Active = !sourceScalarValue[2].Active;
-					testing.ValidateConsistency();
-					sourceScalarValue[2].Num = sourceScalarValue[2].Num + 1;
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
-					testing.ValidateConsistency();
-					sourceScalarValue.Insert(0, new QuickTests.Item(2, true));
-					testing.ValidateConsistency();
-				}
-
-				IList listSource;
-				listSource = ((IList)((System.Collections.Specialized.INotifyCollectionChanged)sourceScalar.Value));
-				if (listSource != null)
-				{
-					listSource.Clear();
-					testing.ValidateConsistency();
-				}
-
-				if (sourceScalarValue != null)
-				{
-					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
-					sourceScalarValue.Insert(1, new QuickTests.Item(2, true));
-					sourceScalarValue.Insert(2, new QuickTests.Item(3, true));
-					sourceScalarValue.Insert(3, new QuickTests.Item(3, true));
-					sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
-					testing.ValidateConsistency();
-				}
-			}
-
-			test();
-
-			((Scalar<System.Collections.Specialized.INotifyCollectionChanged>)sourceScalar).Touch();
-			test();
-			((Scalar<System.Collections.Specialized.INotifyCollectionChanged>)sourceScalar).Change(null);
-			test();
-		}
-		
-		[Test]
-		public void TestLastComputing10()
-		{
-			Scalar<ObservableCollection<Item>> sourceScalar = getScalar<ObservableCollection<Item>>(getItems());
-			Item defaultValue = null;
-			
-			var testing = sourceScalar.LastComputing<Item>(
-				defaultValue);
-
-			void test()
-			{
-				testing.ValidateConsistency();
-				var sourceScalarValue = ((ObservableCollection<Item>)((ObservableCollection<Item>)sourceScalar.Value));
-
-				if (sourceScalarValue != null)
-				{		
-					sourceScalarValue.Insert(2, new QuickTests.Item(1, true));
-					testing.ValidateConsistency();
-					sourceScalarValue[3] = new QuickTests.Item(7, true);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(3);
-					testing.ValidateConsistency();
-					sourceScalarValue.Move(1, 3);
-					testing.ValidateConsistency();
-					sourceScalarValue[2].Active = !sourceScalarValue[2].Active;
-					testing.ValidateConsistency();
-					sourceScalarValue[2].Num = sourceScalarValue[2].Num + 1;
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
-					testing.ValidateConsistency();
-					sourceScalarValue.Insert(0, new QuickTests.Item(2, true));
-					testing.ValidateConsistency();
-				}
-
-				IList listSource;
-				listSource = ((IList)((ObservableCollection<Item>)sourceScalar.Value));
-				if (listSource != null)
-				{
-					listSource.Clear();
-					testing.ValidateConsistency();
-				}
-
-				if (sourceScalarValue != null)
-				{
-					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
-					sourceScalarValue.Insert(1, new QuickTests.Item(2, true));
-					sourceScalarValue.Insert(2, new QuickTests.Item(3, true));
-					sourceScalarValue.Insert(3, new QuickTests.Item(3, true));
-					sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
-					testing.ValidateConsistency();
-				}
-			}
-
-			test();
-
-			((Scalar<ObservableCollection<Item>>)sourceScalar).Touch();
-			test();
-			((Scalar<ObservableCollection<Item>>)sourceScalar).Change(null);
-			test();
-		}
-		
-		[Test]
-		public void TestLastComputing11()
-		{
-			System.Collections.Specialized.INotifyCollectionChanged source = getItems();
-			Item defaultValue = null;
-			
-			var testing = source.LastComputing<Item>(
-				defaultValue);
-
-			void test()
-			{
-				testing.ValidateConsistency();
-				var sourceValue = ((ObservableCollection<Item>)((System.Collections.Specialized.INotifyCollectionChanged)source));
-
-				if (sourceValue != null)
-				{		
-					sourceValue.Insert(2, new QuickTests.Item(1, true));
-					testing.ValidateConsistency();
-					sourceValue[3] = new QuickTests.Item(7, true);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(3);
-					testing.ValidateConsistency();
-					sourceValue.Move(1, 3);
-					testing.ValidateConsistency();
-					sourceValue[2].Active = !sourceValue[2].Active;
-					testing.ValidateConsistency();
-					sourceValue[2].Num = sourceValue[2].Num + 1;
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.Insert(0, new QuickTests.Item(1, true));
-					testing.ValidateConsistency();
-					sourceValue.Insert(0, new QuickTests.Item(2, true));
-					testing.ValidateConsistency();
-				}
-
-				IList listSource;
-				listSource = ((IList)((System.Collections.Specialized.INotifyCollectionChanged)source));
-				if (listSource != null)
-				{
-					listSource.Clear();
-					testing.ValidateConsistency();
-				}
-
-				if (sourceValue != null)
-				{
-					sourceValue.Insert(0, new QuickTests.Item(1, true));
-					sourceValue.Insert(1, new QuickTests.Item(2, true));
-					sourceValue.Insert(2, new QuickTests.Item(3, true));
-					sourceValue.Insert(3, new QuickTests.Item(3, true));
-					sourceValue.Insert(4, new QuickTests.Item(3, true));
-					testing.ValidateConsistency();
-				}
-			}
-
-			test();
-		}
-		
-		[Test]
-		public void TestLastComputing12()
-		{
-			ObservableCollection<Item> source = getItems();
-			Item defaultValue = null;
-			
-			var testing = source.LastComputing<Item>(
-				defaultValue);
-
-			void test()
-			{
-				testing.ValidateConsistency();
-				var sourceValue = ((ObservableCollection<Item>)((ObservableCollection<Item>)source));
-
-				if (sourceValue != null)
-				{		
-					sourceValue.Insert(2, new QuickTests.Item(1, true));
-					testing.ValidateConsistency();
-					sourceValue[3] = new QuickTests.Item(7, true);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(3);
-					testing.ValidateConsistency();
-					sourceValue.Move(1, 3);
-					testing.ValidateConsistency();
-					sourceValue[2].Active = !sourceValue[2].Active;
-					testing.ValidateConsistency();
-					sourceValue[2].Num = sourceValue[2].Num + 1;
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.Insert(0, new QuickTests.Item(1, true));
-					testing.ValidateConsistency();
-					sourceValue.Insert(0, new QuickTests.Item(2, true));
-					testing.ValidateConsistency();
-				}
-
-				IList listSource;
-				listSource = ((IList)((ObservableCollection<Item>)source));
-				if (listSource != null)
-				{
-					listSource.Clear();
-					testing.ValidateConsistency();
-				}
-
-				if (sourceValue != null)
-				{
-					sourceValue.Insert(0, new QuickTests.Item(1, true));
-					sourceValue.Insert(1, new QuickTests.Item(2, true));
-					sourceValue.Insert(2, new QuickTests.Item(3, true));
-					sourceValue.Insert(3, new QuickTests.Item(3, true));
-					sourceValue.Insert(4, new QuickTests.Item(3, true));
-					testing.ValidateConsistency();
-				}
-			}
-
-			test();
-		}
 		#endregion
 		#region Maximazing
 
@@ -49439,12 +48259,12 @@ namespace ObservableComputations.Test
 		public void TestMaximazing01()
 		{
 			IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar = getScalar<Selecting<Item, int>>(getItems().Selecting(i => i.Num));
-			Scalar<System.Collections.Generic.IComparer<int>> comparerScalar = getScalar<System.Collections.Generic.IComparer<int>>(Comparer<int>.Default);
-			Scalar<int> defaultValueScalar = getScalar<int>(0);
+			System.Collections.Generic.IComparer<int> comparer = Comparer<int>.Default;
+			int defaultValue = 0;
 			
 			var testing = sourceScalar.Maximazing<int>(
-				comparerScalar,
-				defaultValueScalar);
+				comparer,
+				defaultValue);
 
 			void test()
 			{
@@ -49498,16 +48318,6 @@ namespace ObservableComputations.Test
 				}
 			}
 
-			test();
-
-			((Scalar<System.Collections.Generic.IComparer<int>>)comparerScalar).Touch();
-			test();
-			((Scalar<System.Collections.Generic.IComparer<int>>)comparerScalar).Change(null);
-			test();
-
-			((Scalar<int>)defaultValueScalar).Touch();
-			test();
-			((Scalar<int>)defaultValueScalar).Change(1);
 			test();
 
 			((Scalar<Selecting<Item, int>>)sourceScalar).Touch();
@@ -49520,10 +48330,10 @@ namespace ObservableComputations.Test
 		public void TestMaximazing02()
 		{
 			IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar = getScalar<Selecting<Item, int>>(getItems().Selecting(i => i.Num));
-			Scalar<System.Collections.Generic.IComparer<int>> comparerScalar = getScalar<System.Collections.Generic.IComparer<int>>(Comparer<int>.Default);
+			System.Collections.Generic.IComparer<int> comparer = Comparer<int>.Default;
 			
 			var testing = sourceScalar.Maximazing<int>(
-				comparerScalar);
+				comparer);
 
 			void test()
 			{
@@ -49577,11 +48387,6 @@ namespace ObservableComputations.Test
 				}
 			}
 
-			test();
-
-			((Scalar<System.Collections.Generic.IComparer<int>>)comparerScalar).Touch();
-			test();
-			((Scalar<System.Collections.Generic.IComparer<int>>)comparerScalar).Change(null);
 			test();
 
 			((Scalar<Selecting<Item, int>>)sourceScalar).Touch();
@@ -49594,10 +48399,10 @@ namespace ObservableComputations.Test
 		public void TestMaximazing03()
 		{
 			IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar = getScalar<Selecting<Item, int>>(getItems().Selecting(i => i.Num));
-			Scalar<int> defaultValueScalar = getScalar<int>(0);
+			int defaultValue = 0;
 			
 			var testing = sourceScalar.Maximazing<int>(
-				defaultValueScalar);
+				defaultValue);
 
 			void test()
 			{
@@ -49651,11 +48456,6 @@ namespace ObservableComputations.Test
 				}
 			}
 
-			test();
-
-			((Scalar<int>)defaultValueScalar).Touch();
-			test();
-			((Scalar<int>)defaultValueScalar).Change(1);
 			test();
 
 			((Scalar<Selecting<Item, int>>)sourceScalar).Touch();
@@ -49735,12 +48535,12 @@ namespace ObservableComputations.Test
 		public void TestMaximazing05()
 		{
 			IReadScalar<ObservableCollection<int>> sourceScalar = getScalar<Selecting<Item, int>>(getItems().Selecting(i => i.Num));
-			Scalar<System.Collections.Generic.IComparer<int>> comparerScalar = getScalar<System.Collections.Generic.IComparer<int>>(Comparer<int>.Default);
-			Scalar<int> defaultValueScalar = getScalar<int>(0);
+			System.Collections.Generic.IComparer<int> comparer = Comparer<int>.Default;
+			int defaultValue = 0;
 			
 			var testing = sourceScalar.Maximazing<int>(
-				comparerScalar,
-				defaultValueScalar);
+				comparer,
+				defaultValue);
 
 			void test()
 			{
@@ -49794,16 +48594,6 @@ namespace ObservableComputations.Test
 				}
 			}
 
-			test();
-
-			((Scalar<System.Collections.Generic.IComparer<int>>)comparerScalar).Touch();
-			test();
-			((Scalar<System.Collections.Generic.IComparer<int>>)comparerScalar).Change(null);
-			test();
-
-			((Scalar<int>)defaultValueScalar).Touch();
-			test();
-			((Scalar<int>)defaultValueScalar).Change(1);
 			test();
 
 			((Scalar<Selecting<Item, int>>)sourceScalar).Touch();
@@ -49816,10 +48606,10 @@ namespace ObservableComputations.Test
 		public void TestMaximazing06()
 		{
 			IReadScalar<ObservableCollection<int>> sourceScalar = getScalar<Selecting<Item, int>>(getItems().Selecting(i => i.Num));
-			Scalar<System.Collections.Generic.IComparer<int>> comparerScalar = getScalar<System.Collections.Generic.IComparer<int>>(Comparer<int>.Default);
+			System.Collections.Generic.IComparer<int> comparer = Comparer<int>.Default;
 			
 			var testing = sourceScalar.Maximazing<int>(
-				comparerScalar);
+				comparer);
 
 			void test()
 			{
@@ -49873,11 +48663,6 @@ namespace ObservableComputations.Test
 				}
 			}
 
-			test();
-
-			((Scalar<System.Collections.Generic.IComparer<int>>)comparerScalar).Touch();
-			test();
-			((Scalar<System.Collections.Generic.IComparer<int>>)comparerScalar).Change(null);
 			test();
 
 			((Scalar<Selecting<Item, int>>)sourceScalar).Touch();
@@ -49890,10 +48675,10 @@ namespace ObservableComputations.Test
 		public void TestMaximazing07()
 		{
 			IReadScalar<ObservableCollection<int>> sourceScalar = getScalar<Selecting<Item, int>>(getItems().Selecting(i => i.Num));
-			Scalar<int> defaultValueScalar = getScalar<int>(0);
+			int defaultValue = 0;
 			
 			var testing = sourceScalar.Maximazing<int>(
-				defaultValueScalar);
+				defaultValue);
 
 			void test()
 			{
@@ -49947,11 +48732,6 @@ namespace ObservableComputations.Test
 				}
 			}
 
-			test();
-
-			((Scalar<int>)defaultValueScalar).Touch();
-			test();
-			((Scalar<int>)defaultValueScalar).Change(1);
 			test();
 
 			((Scalar<Selecting<Item, int>>)sourceScalar).Touch();
@@ -50031,12 +48811,12 @@ namespace ObservableComputations.Test
 		public void TestMaximazing09()
 		{
 			IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar = getScalar<Selecting<Item, int>>(getItems().Selecting(i => i.Num));
-			System.Collections.Generic.IComparer<int> comparer = Comparer<int>.Default;
-			Scalar<int> defaultValueScalar = getScalar<int>(0);
+			Scalar<System.Collections.Generic.IComparer<int>> comparerScalar = getScalar<System.Collections.Generic.IComparer<int>>(Comparer<int>.Default);
+			int defaultValue = 0;
 			
 			var testing = sourceScalar.Maximazing<int>(
-				comparer,
-				defaultValueScalar);
+				comparerScalar,
+				defaultValue);
 
 			void test()
 			{
@@ -50092,9 +48872,9 @@ namespace ObservableComputations.Test
 
 			test();
 
-			((Scalar<int>)defaultValueScalar).Touch();
+			((Scalar<System.Collections.Generic.IComparer<int>>)comparerScalar).Touch();
 			test();
-			((Scalar<int>)defaultValueScalar).Change(1);
+			((Scalar<System.Collections.Generic.IComparer<int>>)comparerScalar).Change(null);
 			test();
 
 			((Scalar<Selecting<Item, int>>)sourceScalar).Touch();
@@ -50107,10 +48887,10 @@ namespace ObservableComputations.Test
 		public void TestMaximazing10()
 		{
 			IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar = getScalar<Selecting<Item, int>>(getItems().Selecting(i => i.Num));
-			System.Collections.Generic.IComparer<int> comparer = Comparer<int>.Default;
+			Scalar<System.Collections.Generic.IComparer<int>> comparerScalar = getScalar<System.Collections.Generic.IComparer<int>>(Comparer<int>.Default);
 			
 			var testing = sourceScalar.Maximazing<int>(
-				comparer);
+				comparerScalar);
 
 			void test()
 			{
@@ -50164,6 +48944,11 @@ namespace ObservableComputations.Test
 				}
 			}
 
+			test();
+
+			((Scalar<System.Collections.Generic.IComparer<int>>)comparerScalar).Touch();
+			test();
+			((Scalar<System.Collections.Generic.IComparer<int>>)comparerScalar).Change(null);
 			test();
 
 			((Scalar<Selecting<Item, int>>)sourceScalar).Touch();
@@ -50176,12 +48961,12 @@ namespace ObservableComputations.Test
 		public void TestMaximazing11()
 		{
 			IReadScalar<ObservableCollection<int>> sourceScalar = getScalar<Selecting<Item, int>>(getItems().Selecting(i => i.Num));
-			System.Collections.Generic.IComparer<int> comparer = Comparer<int>.Default;
-			Scalar<int> defaultValueScalar = getScalar<int>(0);
+			Scalar<System.Collections.Generic.IComparer<int>> comparerScalar = getScalar<System.Collections.Generic.IComparer<int>>(Comparer<int>.Default);
+			int defaultValue = 0;
 			
 			var testing = sourceScalar.Maximazing<int>(
-				comparer,
-				defaultValueScalar);
+				comparerScalar,
+				defaultValue);
 
 			void test()
 			{
@@ -50237,9 +49022,9 @@ namespace ObservableComputations.Test
 
 			test();
 
-			((Scalar<int>)defaultValueScalar).Touch();
+			((Scalar<System.Collections.Generic.IComparer<int>>)comparerScalar).Touch();
 			test();
-			((Scalar<int>)defaultValueScalar).Change(1);
+			((Scalar<System.Collections.Generic.IComparer<int>>)comparerScalar).Change(null);
 			test();
 
 			((Scalar<Selecting<Item, int>>)sourceScalar).Touch();
@@ -50252,10 +49037,10 @@ namespace ObservableComputations.Test
 		public void TestMaximazing12()
 		{
 			IReadScalar<ObservableCollection<int>> sourceScalar = getScalar<Selecting<Item, int>>(getItems().Selecting(i => i.Num));
-			System.Collections.Generic.IComparer<int> comparer = Comparer<int>.Default;
+			Scalar<System.Collections.Generic.IComparer<int>> comparerScalar = getScalar<System.Collections.Generic.IComparer<int>>(Comparer<int>.Default);
 			
 			var testing = sourceScalar.Maximazing<int>(
-				comparer);
+				comparerScalar);
 
 			void test()
 			{
@@ -50309,6 +49094,11 @@ namespace ObservableComputations.Test
 				}
 			}
 
+			test();
+
+			((Scalar<System.Collections.Generic.IComparer<int>>)comparerScalar).Touch();
+			test();
+			((Scalar<System.Collections.Generic.IComparer<int>>)comparerScalar).Change(null);
 			test();
 
 			((Scalar<Selecting<Item, int>>)sourceScalar).Touch();
@@ -50320,432 +49110,386 @@ namespace ObservableComputations.Test
 		[Test]
 		public void TestMaximazing13()
 		{
-			IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar = getScalar<Selecting<Item, int>>(getItems().Selecting(i => i.Num));
+			Selecting<Item, int> source = getItems().Selecting(i => i.Num);
 			System.Collections.Generic.IComparer<int> comparer = Comparer<int>.Default;
 			int defaultValue = 0;
 			
-			var testing = sourceScalar.Maximazing<int>(
+			var testing = source.Maximazing<int>(
 				comparer,
 				defaultValue);
 
 			void test()
 			{
 				testing.ValidateConsistency();
-				var sourceScalarValue = ((ObservableCollection<Item>)((Selecting<Item, int>)sourceScalar.Value)?.Source);
+				var sourceValue = ((ObservableCollection<Item>)((Selecting<Item, int>)source)?.Source);
 
-				if (sourceScalarValue != null)
+				if (sourceValue != null)
 				{		
-					sourceScalarValue.Insert(2, new QuickTests.Item(1, true));
+					sourceValue.Insert(2, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
-					sourceScalarValue[3] = new QuickTests.Item(7, true);
+					sourceValue[3] = new QuickTests.Item(7, true);
 					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(3);
+					sourceValue.RemoveAt(3);
 					testing.ValidateConsistency();
-					sourceScalarValue.Move(1, 3);
+					sourceValue.Move(1, 3);
 					testing.ValidateConsistency();
-					sourceScalarValue[2].Active = !sourceScalarValue[2].Active;
+					sourceValue[2].Active = !sourceValue[2].Active;
 					testing.ValidateConsistency();
-					sourceScalarValue[2].Num = sourceScalarValue[2].Num + 1;
+					sourceValue[2].Num = sourceValue[2].Num + 1;
 					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
+					sourceValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
+					sourceValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
+					sourceValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
+					sourceValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
+					sourceValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
-					sourceScalarValue.Insert(0, new QuickTests.Item(2, true));
+					sourceValue.Insert(0, new QuickTests.Item(2, true));
 					testing.ValidateConsistency();
 				}
 
 				IList listSource;
-				listSource = ((IList)((Selecting<Item, int>)sourceScalar.Value)?.Source);
+				listSource = ((IList)((Selecting<Item, int>)source)?.Source);
 				if (listSource != null)
 				{
 					listSource.Clear();
 					testing.ValidateConsistency();
 				}
 
-				if (sourceScalarValue != null)
+				if (sourceValue != null)
 				{
-					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
-					sourceScalarValue.Insert(1, new QuickTests.Item(2, true));
-					sourceScalarValue.Insert(2, new QuickTests.Item(3, true));
-					sourceScalarValue.Insert(3, new QuickTests.Item(3, true));
-					sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
+					sourceValue.Insert(0, new QuickTests.Item(1, true));
+					sourceValue.Insert(1, new QuickTests.Item(2, true));
+					sourceValue.Insert(2, new QuickTests.Item(3, true));
+					sourceValue.Insert(3, new QuickTests.Item(3, true));
+					sourceValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
 			}
 
-			test();
-
-			((Scalar<Selecting<Item, int>>)sourceScalar).Touch();
-			test();
-			((Scalar<Selecting<Item, int>>)sourceScalar).Change(null);
 			test();
 		}
 		
 		[Test]
 		public void TestMaximazing14()
 		{
-			IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar = getScalar<Selecting<Item, int>>(getItems().Selecting(i => i.Num));
-			int defaultValue = 0;
+			Selecting<Item, int> source = getItems().Selecting(i => i.Num);
+			System.Collections.Generic.IComparer<int> comparer = Comparer<int>.Default;
 			
-			var testing = sourceScalar.Maximazing<int>(
-				defaultValue);
+			var testing = source.Maximazing<int>(
+				comparer);
 
 			void test()
 			{
 				testing.ValidateConsistency();
-				var sourceScalarValue = ((ObservableCollection<Item>)((Selecting<Item, int>)sourceScalar.Value)?.Source);
+				var sourceValue = ((ObservableCollection<Item>)((Selecting<Item, int>)source)?.Source);
 
-				if (sourceScalarValue != null)
+				if (sourceValue != null)
 				{		
-					sourceScalarValue.Insert(2, new QuickTests.Item(1, true));
+					sourceValue.Insert(2, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
-					sourceScalarValue[3] = new QuickTests.Item(7, true);
+					sourceValue[3] = new QuickTests.Item(7, true);
 					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(3);
+					sourceValue.RemoveAt(3);
 					testing.ValidateConsistency();
-					sourceScalarValue.Move(1, 3);
+					sourceValue.Move(1, 3);
 					testing.ValidateConsistency();
-					sourceScalarValue[2].Active = !sourceScalarValue[2].Active;
+					sourceValue[2].Active = !sourceValue[2].Active;
 					testing.ValidateConsistency();
-					sourceScalarValue[2].Num = sourceScalarValue[2].Num + 1;
+					sourceValue[2].Num = sourceValue[2].Num + 1;
 					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
+					sourceValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
+					sourceValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
+					sourceValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
+					sourceValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
+					sourceValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
-					sourceScalarValue.Insert(0, new QuickTests.Item(2, true));
+					sourceValue.Insert(0, new QuickTests.Item(2, true));
 					testing.ValidateConsistency();
 				}
 
 				IList listSource;
-				listSource = ((IList)((Selecting<Item, int>)sourceScalar.Value)?.Source);
+				listSource = ((IList)((Selecting<Item, int>)source)?.Source);
 				if (listSource != null)
 				{
 					listSource.Clear();
 					testing.ValidateConsistency();
 				}
 
-				if (sourceScalarValue != null)
+				if (sourceValue != null)
 				{
-					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
-					sourceScalarValue.Insert(1, new QuickTests.Item(2, true));
-					sourceScalarValue.Insert(2, new QuickTests.Item(3, true));
-					sourceScalarValue.Insert(3, new QuickTests.Item(3, true));
-					sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
+					sourceValue.Insert(0, new QuickTests.Item(1, true));
+					sourceValue.Insert(1, new QuickTests.Item(2, true));
+					sourceValue.Insert(2, new QuickTests.Item(3, true));
+					sourceValue.Insert(3, new QuickTests.Item(3, true));
+					sourceValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
 			}
 
-			test();
-
-			((Scalar<Selecting<Item, int>>)sourceScalar).Touch();
-			test();
-			((Scalar<Selecting<Item, int>>)sourceScalar).Change(null);
 			test();
 		}
 		
 		[Test]
 		public void TestMaximazing15()
 		{
-			IReadScalar<ObservableCollection<int>> sourceScalar = getScalar<Selecting<Item, int>>(getItems().Selecting(i => i.Num));
-			System.Collections.Generic.IComparer<int> comparer = Comparer<int>.Default;
+			Selecting<Item, int> source = getItems().Selecting(i => i.Num);
 			int defaultValue = 0;
 			
-			var testing = sourceScalar.Maximazing<int>(
-				comparer,
+			var testing = source.Maximazing<int>(
 				defaultValue);
 
 			void test()
 			{
 				testing.ValidateConsistency();
-				var sourceScalarValue = ((ObservableCollection<Item>)((Selecting<Item, int>)sourceScalar.Value)?.Source);
+				var sourceValue = ((ObservableCollection<Item>)((Selecting<Item, int>)source)?.Source);
 
-				if (sourceScalarValue != null)
+				if (sourceValue != null)
 				{		
-					sourceScalarValue.Insert(2, new QuickTests.Item(1, true));
+					sourceValue.Insert(2, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
-					sourceScalarValue[3] = new QuickTests.Item(7, true);
+					sourceValue[3] = new QuickTests.Item(7, true);
 					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(3);
+					sourceValue.RemoveAt(3);
 					testing.ValidateConsistency();
-					sourceScalarValue.Move(1, 3);
+					sourceValue.Move(1, 3);
 					testing.ValidateConsistency();
-					sourceScalarValue[2].Active = !sourceScalarValue[2].Active;
+					sourceValue[2].Active = !sourceValue[2].Active;
 					testing.ValidateConsistency();
-					sourceScalarValue[2].Num = sourceScalarValue[2].Num + 1;
+					sourceValue[2].Num = sourceValue[2].Num + 1;
 					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
+					sourceValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
+					sourceValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
+					sourceValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
+					sourceValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
+					sourceValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
-					sourceScalarValue.Insert(0, new QuickTests.Item(2, true));
+					sourceValue.Insert(0, new QuickTests.Item(2, true));
 					testing.ValidateConsistency();
 				}
 
 				IList listSource;
-				listSource = ((IList)((Selecting<Item, int>)sourceScalar.Value)?.Source);
+				listSource = ((IList)((Selecting<Item, int>)source)?.Source);
 				if (listSource != null)
 				{
 					listSource.Clear();
 					testing.ValidateConsistency();
 				}
 
-				if (sourceScalarValue != null)
+				if (sourceValue != null)
 				{
-					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
-					sourceScalarValue.Insert(1, new QuickTests.Item(2, true));
-					sourceScalarValue.Insert(2, new QuickTests.Item(3, true));
-					sourceScalarValue.Insert(3, new QuickTests.Item(3, true));
-					sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
+					sourceValue.Insert(0, new QuickTests.Item(1, true));
+					sourceValue.Insert(1, new QuickTests.Item(2, true));
+					sourceValue.Insert(2, new QuickTests.Item(3, true));
+					sourceValue.Insert(3, new QuickTests.Item(3, true));
+					sourceValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
 			}
 
-			test();
-
-			((Scalar<Selecting<Item, int>>)sourceScalar).Touch();
-			test();
-			((Scalar<Selecting<Item, int>>)sourceScalar).Change(null);
 			test();
 		}
 		
 		[Test]
 		public void TestMaximazing16()
 		{
-			IReadScalar<ObservableCollection<int>> sourceScalar = getScalar<Selecting<Item, int>>(getItems().Selecting(i => i.Num));
-			int defaultValue = 0;
+			Selecting<Item, int> source = getItems().Selecting(i => i.Num);
 			
-			var testing = sourceScalar.Maximazing<int>(
-				defaultValue);
+			var testing = source.Maximazing<int>();
 
 			void test()
 			{
 				testing.ValidateConsistency();
-				var sourceScalarValue = ((ObservableCollection<Item>)((Selecting<Item, int>)sourceScalar.Value)?.Source);
+				var sourceValue = ((ObservableCollection<Item>)((Selecting<Item, int>)source)?.Source);
 
-				if (sourceScalarValue != null)
+				if (sourceValue != null)
 				{		
-					sourceScalarValue.Insert(2, new QuickTests.Item(1, true));
+					sourceValue.Insert(2, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
-					sourceScalarValue[3] = new QuickTests.Item(7, true);
+					sourceValue[3] = new QuickTests.Item(7, true);
 					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(3);
+					sourceValue.RemoveAt(3);
 					testing.ValidateConsistency();
-					sourceScalarValue.Move(1, 3);
+					sourceValue.Move(1, 3);
 					testing.ValidateConsistency();
-					sourceScalarValue[2].Active = !sourceScalarValue[2].Active;
+					sourceValue[2].Active = !sourceValue[2].Active;
 					testing.ValidateConsistency();
-					sourceScalarValue[2].Num = sourceScalarValue[2].Num + 1;
+					sourceValue[2].Num = sourceValue[2].Num + 1;
 					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
+					sourceValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
+					sourceValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
+					sourceValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
+					sourceValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
+					sourceValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
-					sourceScalarValue.Insert(0, new QuickTests.Item(2, true));
+					sourceValue.Insert(0, new QuickTests.Item(2, true));
 					testing.ValidateConsistency();
 				}
 
 				IList listSource;
-				listSource = ((IList)((Selecting<Item, int>)sourceScalar.Value)?.Source);
+				listSource = ((IList)((Selecting<Item, int>)source)?.Source);
 				if (listSource != null)
 				{
 					listSource.Clear();
 					testing.ValidateConsistency();
 				}
 
-				if (sourceScalarValue != null)
+				if (sourceValue != null)
 				{
-					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
-					sourceScalarValue.Insert(1, new QuickTests.Item(2, true));
-					sourceScalarValue.Insert(2, new QuickTests.Item(3, true));
-					sourceScalarValue.Insert(3, new QuickTests.Item(3, true));
-					sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
+					sourceValue.Insert(0, new QuickTests.Item(1, true));
+					sourceValue.Insert(1, new QuickTests.Item(2, true));
+					sourceValue.Insert(2, new QuickTests.Item(3, true));
+					sourceValue.Insert(3, new QuickTests.Item(3, true));
+					sourceValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
 			}
 
-			test();
-
-			((Scalar<Selecting<Item, int>>)sourceScalar).Touch();
-			test();
-			((Scalar<Selecting<Item, int>>)sourceScalar).Change(null);
 			test();
 		}
 		
 		[Test]
 		public void TestMaximazing17()
 		{
-			IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar = getScalar<Selecting<Item, int>>(getItems().Selecting(i => i.Num));
-			Scalar<System.Collections.Generic.IComparer<int>> comparerScalar = getScalar<System.Collections.Generic.IComparer<int>>(Comparer<int>.Default);
+			Selecting<Item, int> source = getItems().Selecting(i => i.Num);
+			System.Collections.Generic.IComparer<int> comparer = Comparer<int>.Default;
 			int defaultValue = 0;
 			
-			var testing = sourceScalar.Maximazing<int>(
-				comparerScalar,
+			var testing = source.Maximazing<int>(
+				comparer,
 				defaultValue);
 
 			void test()
 			{
 				testing.ValidateConsistency();
-				var sourceScalarValue = ((ObservableCollection<Item>)((Selecting<Item, int>)sourceScalar.Value)?.Source);
+				var sourceValue = ((ObservableCollection<Item>)((Selecting<Item, int>)source)?.Source);
 
-				if (sourceScalarValue != null)
+				if (sourceValue != null)
 				{		
-					sourceScalarValue.Insert(2, new QuickTests.Item(1, true));
+					sourceValue.Insert(2, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
-					sourceScalarValue[3] = new QuickTests.Item(7, true);
+					sourceValue[3] = new QuickTests.Item(7, true);
 					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(3);
+					sourceValue.RemoveAt(3);
 					testing.ValidateConsistency();
-					sourceScalarValue.Move(1, 3);
+					sourceValue.Move(1, 3);
 					testing.ValidateConsistency();
-					sourceScalarValue[2].Active = !sourceScalarValue[2].Active;
+					sourceValue[2].Active = !sourceValue[2].Active;
 					testing.ValidateConsistency();
-					sourceScalarValue[2].Num = sourceScalarValue[2].Num + 1;
+					sourceValue[2].Num = sourceValue[2].Num + 1;
 					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
+					sourceValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
+					sourceValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
+					sourceValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
+					sourceValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
+					sourceValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
-					sourceScalarValue.Insert(0, new QuickTests.Item(2, true));
+					sourceValue.Insert(0, new QuickTests.Item(2, true));
 					testing.ValidateConsistency();
 				}
 
 				IList listSource;
-				listSource = ((IList)((Selecting<Item, int>)sourceScalar.Value)?.Source);
+				listSource = ((IList)((Selecting<Item, int>)source)?.Source);
 				if (listSource != null)
 				{
 					listSource.Clear();
 					testing.ValidateConsistency();
 				}
 
-				if (sourceScalarValue != null)
+				if (sourceValue != null)
 				{
-					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
-					sourceScalarValue.Insert(1, new QuickTests.Item(2, true));
-					sourceScalarValue.Insert(2, new QuickTests.Item(3, true));
-					sourceScalarValue.Insert(3, new QuickTests.Item(3, true));
-					sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
+					sourceValue.Insert(0, new QuickTests.Item(1, true));
+					sourceValue.Insert(1, new QuickTests.Item(2, true));
+					sourceValue.Insert(2, new QuickTests.Item(3, true));
+					sourceValue.Insert(3, new QuickTests.Item(3, true));
+					sourceValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
 			}
 
-			test();
-
-			((Scalar<System.Collections.Generic.IComparer<int>>)comparerScalar).Touch();
-			test();
-			((Scalar<System.Collections.Generic.IComparer<int>>)comparerScalar).Change(null);
-			test();
-
-			((Scalar<Selecting<Item, int>>)sourceScalar).Touch();
-			test();
-			((Scalar<Selecting<Item, int>>)sourceScalar).Change(null);
 			test();
 		}
 		
 		[Test]
 		public void TestMaximazing18()
 		{
-			IReadScalar<ObservableCollection<int>> sourceScalar = getScalar<Selecting<Item, int>>(getItems().Selecting(i => i.Num));
-			Scalar<System.Collections.Generic.IComparer<int>> comparerScalar = getScalar<System.Collections.Generic.IComparer<int>>(Comparer<int>.Default);
-			int defaultValue = 0;
+			Selecting<Item, int> source = getItems().Selecting(i => i.Num);
+			System.Collections.Generic.IComparer<int> comparer = Comparer<int>.Default;
 			
-			var testing = sourceScalar.Maximazing<int>(
-				comparerScalar,
-				defaultValue);
+			var testing = source.Maximazing<int>(
+				comparer);
 
 			void test()
 			{
 				testing.ValidateConsistency();
-				var sourceScalarValue = ((ObservableCollection<Item>)((Selecting<Item, int>)sourceScalar.Value)?.Source);
+				var sourceValue = ((ObservableCollection<Item>)((Selecting<Item, int>)source)?.Source);
 
-				if (sourceScalarValue != null)
+				if (sourceValue != null)
 				{		
-					sourceScalarValue.Insert(2, new QuickTests.Item(1, true));
+					sourceValue.Insert(2, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
-					sourceScalarValue[3] = new QuickTests.Item(7, true);
+					sourceValue[3] = new QuickTests.Item(7, true);
 					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(3);
+					sourceValue.RemoveAt(3);
 					testing.ValidateConsistency();
-					sourceScalarValue.Move(1, 3);
+					sourceValue.Move(1, 3);
 					testing.ValidateConsistency();
-					sourceScalarValue[2].Active = !sourceScalarValue[2].Active;
+					sourceValue[2].Active = !sourceValue[2].Active;
 					testing.ValidateConsistency();
-					sourceScalarValue[2].Num = sourceScalarValue[2].Num + 1;
+					sourceValue[2].Num = sourceValue[2].Num + 1;
 					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
+					sourceValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
+					sourceValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
+					sourceValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
+					sourceValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
+					sourceValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
-					sourceScalarValue.Insert(0, new QuickTests.Item(2, true));
+					sourceValue.Insert(0, new QuickTests.Item(2, true));
 					testing.ValidateConsistency();
 				}
 
 				IList listSource;
-				listSource = ((IList)((Selecting<Item, int>)sourceScalar.Value)?.Source);
+				listSource = ((IList)((Selecting<Item, int>)source)?.Source);
 				if (listSource != null)
 				{
 					listSource.Clear();
 					testing.ValidateConsistency();
 				}
 
-				if (sourceScalarValue != null)
+				if (sourceValue != null)
 				{
-					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
-					sourceScalarValue.Insert(1, new QuickTests.Item(2, true));
-					sourceScalarValue.Insert(2, new QuickTests.Item(3, true));
-					sourceScalarValue.Insert(3, new QuickTests.Item(3, true));
-					sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
+					sourceValue.Insert(0, new QuickTests.Item(1, true));
+					sourceValue.Insert(1, new QuickTests.Item(2, true));
+					sourceValue.Insert(2, new QuickTests.Item(3, true));
+					sourceValue.Insert(3, new QuickTests.Item(3, true));
+					sourceValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
 			}
 
-			test();
-
-			((Scalar<System.Collections.Generic.IComparer<int>>)comparerScalar).Touch();
-			test();
-			((Scalar<System.Collections.Generic.IComparer<int>>)comparerScalar).Change(null);
-			test();
-
-			((Scalar<Selecting<Item, int>>)sourceScalar).Touch();
-			test();
-			((Scalar<Selecting<Item, int>>)sourceScalar).Change(null);
 			test();
 		}
 		
@@ -50753,12 +49497,138 @@ namespace ObservableComputations.Test
 		public void TestMaximazing19()
 		{
 			Selecting<Item, int> source = getItems().Selecting(i => i.Num);
+			int defaultValue = 0;
+			
+			var testing = source.Maximazing<int>(
+				defaultValue);
+
+			void test()
+			{
+				testing.ValidateConsistency();
+				var sourceValue = ((ObservableCollection<Item>)((Selecting<Item, int>)source)?.Source);
+
+				if (sourceValue != null)
+				{		
+					sourceValue.Insert(2, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					sourceValue[3] = new QuickTests.Item(7, true);
+					testing.ValidateConsistency();
+					sourceValue.RemoveAt(3);
+					testing.ValidateConsistency();
+					sourceValue.Move(1, 3);
+					testing.ValidateConsistency();
+					sourceValue[2].Active = !sourceValue[2].Active;
+					testing.ValidateConsistency();
+					sourceValue[2].Num = sourceValue[2].Num + 1;
+					testing.ValidateConsistency();
+					sourceValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceValue.Insert(0, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					sourceValue.Insert(0, new QuickTests.Item(2, true));
+					testing.ValidateConsistency();
+				}
+
+				IList listSource;
+				listSource = ((IList)((Selecting<Item, int>)source)?.Source);
+				if (listSource != null)
+				{
+					listSource.Clear();
+					testing.ValidateConsistency();
+				}
+
+				if (sourceValue != null)
+				{
+					sourceValue.Insert(0, new QuickTests.Item(1, true));
+					sourceValue.Insert(1, new QuickTests.Item(2, true));
+					sourceValue.Insert(2, new QuickTests.Item(3, true));
+					sourceValue.Insert(3, new QuickTests.Item(3, true));
+					sourceValue.Insert(4, new QuickTests.Item(3, true));
+					testing.ValidateConsistency();
+				}
+			}
+
+			test();
+		}
+		
+		[Test]
+		public void TestMaximazing20()
+		{
+			Selecting<Item, int> source = getItems().Selecting(i => i.Num);
+			
+			var testing = source.Maximazing<int>();
+
+			void test()
+			{
+				testing.ValidateConsistency();
+				var sourceValue = ((ObservableCollection<Item>)((Selecting<Item, int>)source)?.Source);
+
+				if (sourceValue != null)
+				{		
+					sourceValue.Insert(2, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					sourceValue[3] = new QuickTests.Item(7, true);
+					testing.ValidateConsistency();
+					sourceValue.RemoveAt(3);
+					testing.ValidateConsistency();
+					sourceValue.Move(1, 3);
+					testing.ValidateConsistency();
+					sourceValue[2].Active = !sourceValue[2].Active;
+					testing.ValidateConsistency();
+					sourceValue[2].Num = sourceValue[2].Num + 1;
+					testing.ValidateConsistency();
+					sourceValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceValue.Insert(0, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					sourceValue.Insert(0, new QuickTests.Item(2, true));
+					testing.ValidateConsistency();
+				}
+
+				IList listSource;
+				listSource = ((IList)((Selecting<Item, int>)source)?.Source);
+				if (listSource != null)
+				{
+					listSource.Clear();
+					testing.ValidateConsistency();
+				}
+
+				if (sourceValue != null)
+				{
+					sourceValue.Insert(0, new QuickTests.Item(1, true));
+					sourceValue.Insert(1, new QuickTests.Item(2, true));
+					sourceValue.Insert(2, new QuickTests.Item(3, true));
+					sourceValue.Insert(3, new QuickTests.Item(3, true));
+					sourceValue.Insert(4, new QuickTests.Item(3, true));
+					testing.ValidateConsistency();
+				}
+			}
+
+			test();
+		}
+		
+		[Test]
+		public void TestMaximazing21()
+		{
+			Selecting<Item, int> source = getItems().Selecting(i => i.Num);
 			Scalar<System.Collections.Generic.IComparer<int>> comparerScalar = getScalar<System.Collections.Generic.IComparer<int>>(Comparer<int>.Default);
-			Scalar<int> defaultValueScalar = getScalar<int>(0);
+			int defaultValue = 0;
 			
 			var testing = source.Maximazing<int>(
 				comparerScalar,
-				defaultValueScalar);
+				defaultValue);
 
 			void test()
 			{
@@ -50818,15 +49688,10 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<System.Collections.Generic.IComparer<int>>)comparerScalar).Change(null);
 			test();
-
-			((Scalar<int>)defaultValueScalar).Touch();
-			test();
-			((Scalar<int>)defaultValueScalar).Change(1);
-			test();
 		}
 		
 		[Test]
-		public void TestMaximazing20()
+		public void TestMaximazing22()
 		{
 			Selecting<Item, int> source = getItems().Selecting(i => i.Num);
 			Scalar<System.Collections.Generic.IComparer<int>> comparerScalar = getScalar<System.Collections.Generic.IComparer<int>>(Comparer<int>.Default);
@@ -50895,146 +49760,15 @@ namespace ObservableComputations.Test
 		}
 		
 		[Test]
-		public void TestMaximazing21()
-		{
-			Selecting<Item, int> source = getItems().Selecting(i => i.Num);
-			Scalar<int> defaultValueScalar = getScalar<int>(0);
-			
-			var testing = source.Maximazing<int>(
-				defaultValueScalar);
-
-			void test()
-			{
-				testing.ValidateConsistency();
-				var sourceValue = ((ObservableCollection<Item>)((Selecting<Item, int>)source)?.Source);
-
-				if (sourceValue != null)
-				{		
-					sourceValue.Insert(2, new QuickTests.Item(1, true));
-					testing.ValidateConsistency();
-					sourceValue[3] = new QuickTests.Item(7, true);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(3);
-					testing.ValidateConsistency();
-					sourceValue.Move(1, 3);
-					testing.ValidateConsistency();
-					sourceValue[2].Active = !sourceValue[2].Active;
-					testing.ValidateConsistency();
-					sourceValue[2].Num = sourceValue[2].Num + 1;
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.Insert(0, new QuickTests.Item(1, true));
-					testing.ValidateConsistency();
-					sourceValue.Insert(0, new QuickTests.Item(2, true));
-					testing.ValidateConsistency();
-				}
-
-				IList listSource;
-				listSource = ((IList)((Selecting<Item, int>)source)?.Source);
-				if (listSource != null)
-				{
-					listSource.Clear();
-					testing.ValidateConsistency();
-				}
-
-				if (sourceValue != null)
-				{
-					sourceValue.Insert(0, new QuickTests.Item(1, true));
-					sourceValue.Insert(1, new QuickTests.Item(2, true));
-					sourceValue.Insert(2, new QuickTests.Item(3, true));
-					sourceValue.Insert(3, new QuickTests.Item(3, true));
-					sourceValue.Insert(4, new QuickTests.Item(3, true));
-					testing.ValidateConsistency();
-				}
-			}
-
-			test();
-
-			((Scalar<int>)defaultValueScalar).Touch();
-			test();
-			((Scalar<int>)defaultValueScalar).Change(1);
-			test();
-		}
-		
-		[Test]
-		public void TestMaximazing22()
-		{
-			Selecting<Item, int> source = getItems().Selecting(i => i.Num);
-			
-			var testing = source.Maximazing<int>();
-
-			void test()
-			{
-				testing.ValidateConsistency();
-				var sourceValue = ((ObservableCollection<Item>)((Selecting<Item, int>)source)?.Source);
-
-				if (sourceValue != null)
-				{		
-					sourceValue.Insert(2, new QuickTests.Item(1, true));
-					testing.ValidateConsistency();
-					sourceValue[3] = new QuickTests.Item(7, true);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(3);
-					testing.ValidateConsistency();
-					sourceValue.Move(1, 3);
-					testing.ValidateConsistency();
-					sourceValue[2].Active = !sourceValue[2].Active;
-					testing.ValidateConsistency();
-					sourceValue[2].Num = sourceValue[2].Num + 1;
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.Insert(0, new QuickTests.Item(1, true));
-					testing.ValidateConsistency();
-					sourceValue.Insert(0, new QuickTests.Item(2, true));
-					testing.ValidateConsistency();
-				}
-
-				IList listSource;
-				listSource = ((IList)((Selecting<Item, int>)source)?.Source);
-				if (listSource != null)
-				{
-					listSource.Clear();
-					testing.ValidateConsistency();
-				}
-
-				if (sourceValue != null)
-				{
-					sourceValue.Insert(0, new QuickTests.Item(1, true));
-					sourceValue.Insert(1, new QuickTests.Item(2, true));
-					sourceValue.Insert(2, new QuickTests.Item(3, true));
-					sourceValue.Insert(3, new QuickTests.Item(3, true));
-					sourceValue.Insert(4, new QuickTests.Item(3, true));
-					testing.ValidateConsistency();
-				}
-			}
-
-			test();
-		}
-		
-		[Test]
 		public void TestMaximazing23()
 		{
 			Selecting<Item, int> source = getItems().Selecting(i => i.Num);
 			Scalar<System.Collections.Generic.IComparer<int>> comparerScalar = getScalar<System.Collections.Generic.IComparer<int>>(Comparer<int>.Default);
-			Scalar<int> defaultValueScalar = getScalar<int>(0);
+			int defaultValue = 0;
 			
 			var testing = source.Maximazing<int>(
 				comparerScalar,
-				defaultValueScalar);
+				defaultValue);
 
 			void test()
 			{
@@ -51093,11 +49827,6 @@ namespace ObservableComputations.Test
 			((Scalar<System.Collections.Generic.IComparer<int>>)comparerScalar).Touch();
 			test();
 			((Scalar<System.Collections.Generic.IComparer<int>>)comparerScalar).Change(null);
-			test();
-
-			((Scalar<int>)defaultValueScalar).Touch();
-			test();
-			((Scalar<int>)defaultValueScalar).Change(1);
 			test();
 		}
 		
@@ -51169,809 +49898,6 @@ namespace ObservableComputations.Test
 			((Scalar<System.Collections.Generic.IComparer<int>>)comparerScalar).Change(null);
 			test();
 		}
-		
-		[Test]
-		public void TestMaximazing25()
-		{
-			Selecting<Item, int> source = getItems().Selecting(i => i.Num);
-			Scalar<int> defaultValueScalar = getScalar<int>(0);
-			
-			var testing = source.Maximazing<int>(
-				defaultValueScalar);
-
-			void test()
-			{
-				testing.ValidateConsistency();
-				var sourceValue = ((ObservableCollection<Item>)((Selecting<Item, int>)source)?.Source);
-
-				if (sourceValue != null)
-				{		
-					sourceValue.Insert(2, new QuickTests.Item(1, true));
-					testing.ValidateConsistency();
-					sourceValue[3] = new QuickTests.Item(7, true);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(3);
-					testing.ValidateConsistency();
-					sourceValue.Move(1, 3);
-					testing.ValidateConsistency();
-					sourceValue[2].Active = !sourceValue[2].Active;
-					testing.ValidateConsistency();
-					sourceValue[2].Num = sourceValue[2].Num + 1;
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.Insert(0, new QuickTests.Item(1, true));
-					testing.ValidateConsistency();
-					sourceValue.Insert(0, new QuickTests.Item(2, true));
-					testing.ValidateConsistency();
-				}
-
-				IList listSource;
-				listSource = ((IList)((Selecting<Item, int>)source)?.Source);
-				if (listSource != null)
-				{
-					listSource.Clear();
-					testing.ValidateConsistency();
-				}
-
-				if (sourceValue != null)
-				{
-					sourceValue.Insert(0, new QuickTests.Item(1, true));
-					sourceValue.Insert(1, new QuickTests.Item(2, true));
-					sourceValue.Insert(2, new QuickTests.Item(3, true));
-					sourceValue.Insert(3, new QuickTests.Item(3, true));
-					sourceValue.Insert(4, new QuickTests.Item(3, true));
-					testing.ValidateConsistency();
-				}
-			}
-
-			test();
-
-			((Scalar<int>)defaultValueScalar).Touch();
-			test();
-			((Scalar<int>)defaultValueScalar).Change(1);
-			test();
-		}
-		
-		[Test]
-		public void TestMaximazing26()
-		{
-			Selecting<Item, int> source = getItems().Selecting(i => i.Num);
-			
-			var testing = source.Maximazing<int>();
-
-			void test()
-			{
-				testing.ValidateConsistency();
-				var sourceValue = ((ObservableCollection<Item>)((Selecting<Item, int>)source)?.Source);
-
-				if (sourceValue != null)
-				{		
-					sourceValue.Insert(2, new QuickTests.Item(1, true));
-					testing.ValidateConsistency();
-					sourceValue[3] = new QuickTests.Item(7, true);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(3);
-					testing.ValidateConsistency();
-					sourceValue.Move(1, 3);
-					testing.ValidateConsistency();
-					sourceValue[2].Active = !sourceValue[2].Active;
-					testing.ValidateConsistency();
-					sourceValue[2].Num = sourceValue[2].Num + 1;
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.Insert(0, new QuickTests.Item(1, true));
-					testing.ValidateConsistency();
-					sourceValue.Insert(0, new QuickTests.Item(2, true));
-					testing.ValidateConsistency();
-				}
-
-				IList listSource;
-				listSource = ((IList)((Selecting<Item, int>)source)?.Source);
-				if (listSource != null)
-				{
-					listSource.Clear();
-					testing.ValidateConsistency();
-				}
-
-				if (sourceValue != null)
-				{
-					sourceValue.Insert(0, new QuickTests.Item(1, true));
-					sourceValue.Insert(1, new QuickTests.Item(2, true));
-					sourceValue.Insert(2, new QuickTests.Item(3, true));
-					sourceValue.Insert(3, new QuickTests.Item(3, true));
-					sourceValue.Insert(4, new QuickTests.Item(3, true));
-					testing.ValidateConsistency();
-				}
-			}
-
-			test();
-		}
-		
-		[Test]
-		public void TestMaximazing27()
-		{
-			Selecting<Item, int> source = getItems().Selecting(i => i.Num);
-			System.Collections.Generic.IComparer<int> comparer = Comparer<int>.Default;
-			Scalar<int> defaultValueScalar = getScalar<int>(0);
-			
-			var testing = source.Maximazing<int>(
-				comparer,
-				defaultValueScalar);
-
-			void test()
-			{
-				testing.ValidateConsistency();
-				var sourceValue = ((ObservableCollection<Item>)((Selecting<Item, int>)source)?.Source);
-
-				if (sourceValue != null)
-				{		
-					sourceValue.Insert(2, new QuickTests.Item(1, true));
-					testing.ValidateConsistency();
-					sourceValue[3] = new QuickTests.Item(7, true);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(3);
-					testing.ValidateConsistency();
-					sourceValue.Move(1, 3);
-					testing.ValidateConsistency();
-					sourceValue[2].Active = !sourceValue[2].Active;
-					testing.ValidateConsistency();
-					sourceValue[2].Num = sourceValue[2].Num + 1;
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.Insert(0, new QuickTests.Item(1, true));
-					testing.ValidateConsistency();
-					sourceValue.Insert(0, new QuickTests.Item(2, true));
-					testing.ValidateConsistency();
-				}
-
-				IList listSource;
-				listSource = ((IList)((Selecting<Item, int>)source)?.Source);
-				if (listSource != null)
-				{
-					listSource.Clear();
-					testing.ValidateConsistency();
-				}
-
-				if (sourceValue != null)
-				{
-					sourceValue.Insert(0, new QuickTests.Item(1, true));
-					sourceValue.Insert(1, new QuickTests.Item(2, true));
-					sourceValue.Insert(2, new QuickTests.Item(3, true));
-					sourceValue.Insert(3, new QuickTests.Item(3, true));
-					sourceValue.Insert(4, new QuickTests.Item(3, true));
-					testing.ValidateConsistency();
-				}
-			}
-
-			test();
-
-			((Scalar<int>)defaultValueScalar).Touch();
-			test();
-			((Scalar<int>)defaultValueScalar).Change(1);
-			test();
-		}
-		
-		[Test]
-		public void TestMaximazing28()
-		{
-			Selecting<Item, int> source = getItems().Selecting(i => i.Num);
-			System.Collections.Generic.IComparer<int> comparer = Comparer<int>.Default;
-			
-			var testing = source.Maximazing<int>(
-				comparer);
-
-			void test()
-			{
-				testing.ValidateConsistency();
-				var sourceValue = ((ObservableCollection<Item>)((Selecting<Item, int>)source)?.Source);
-
-				if (sourceValue != null)
-				{		
-					sourceValue.Insert(2, new QuickTests.Item(1, true));
-					testing.ValidateConsistency();
-					sourceValue[3] = new QuickTests.Item(7, true);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(3);
-					testing.ValidateConsistency();
-					sourceValue.Move(1, 3);
-					testing.ValidateConsistency();
-					sourceValue[2].Active = !sourceValue[2].Active;
-					testing.ValidateConsistency();
-					sourceValue[2].Num = sourceValue[2].Num + 1;
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.Insert(0, new QuickTests.Item(1, true));
-					testing.ValidateConsistency();
-					sourceValue.Insert(0, new QuickTests.Item(2, true));
-					testing.ValidateConsistency();
-				}
-
-				IList listSource;
-				listSource = ((IList)((Selecting<Item, int>)source)?.Source);
-				if (listSource != null)
-				{
-					listSource.Clear();
-					testing.ValidateConsistency();
-				}
-
-				if (sourceValue != null)
-				{
-					sourceValue.Insert(0, new QuickTests.Item(1, true));
-					sourceValue.Insert(1, new QuickTests.Item(2, true));
-					sourceValue.Insert(2, new QuickTests.Item(3, true));
-					sourceValue.Insert(3, new QuickTests.Item(3, true));
-					sourceValue.Insert(4, new QuickTests.Item(3, true));
-					testing.ValidateConsistency();
-				}
-			}
-
-			test();
-		}
-		
-		[Test]
-		public void TestMaximazing29()
-		{
-			Selecting<Item, int> source = getItems().Selecting(i => i.Num);
-			System.Collections.Generic.IComparer<int> comparer = Comparer<int>.Default;
-			Scalar<int> defaultValueScalar = getScalar<int>(0);
-			
-			var testing = source.Maximazing<int>(
-				comparer,
-				defaultValueScalar);
-
-			void test()
-			{
-				testing.ValidateConsistency();
-				var sourceValue = ((ObservableCollection<Item>)((Selecting<Item, int>)source)?.Source);
-
-				if (sourceValue != null)
-				{		
-					sourceValue.Insert(2, new QuickTests.Item(1, true));
-					testing.ValidateConsistency();
-					sourceValue[3] = new QuickTests.Item(7, true);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(3);
-					testing.ValidateConsistency();
-					sourceValue.Move(1, 3);
-					testing.ValidateConsistency();
-					sourceValue[2].Active = !sourceValue[2].Active;
-					testing.ValidateConsistency();
-					sourceValue[2].Num = sourceValue[2].Num + 1;
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.Insert(0, new QuickTests.Item(1, true));
-					testing.ValidateConsistency();
-					sourceValue.Insert(0, new QuickTests.Item(2, true));
-					testing.ValidateConsistency();
-				}
-
-				IList listSource;
-				listSource = ((IList)((Selecting<Item, int>)source)?.Source);
-				if (listSource != null)
-				{
-					listSource.Clear();
-					testing.ValidateConsistency();
-				}
-
-				if (sourceValue != null)
-				{
-					sourceValue.Insert(0, new QuickTests.Item(1, true));
-					sourceValue.Insert(1, new QuickTests.Item(2, true));
-					sourceValue.Insert(2, new QuickTests.Item(3, true));
-					sourceValue.Insert(3, new QuickTests.Item(3, true));
-					sourceValue.Insert(4, new QuickTests.Item(3, true));
-					testing.ValidateConsistency();
-				}
-			}
-
-			test();
-
-			((Scalar<int>)defaultValueScalar).Touch();
-			test();
-			((Scalar<int>)defaultValueScalar).Change(1);
-			test();
-		}
-		
-		[Test]
-		public void TestMaximazing30()
-		{
-			Selecting<Item, int> source = getItems().Selecting(i => i.Num);
-			System.Collections.Generic.IComparer<int> comparer = Comparer<int>.Default;
-			
-			var testing = source.Maximazing<int>(
-				comparer);
-
-			void test()
-			{
-				testing.ValidateConsistency();
-				var sourceValue = ((ObservableCollection<Item>)((Selecting<Item, int>)source)?.Source);
-
-				if (sourceValue != null)
-				{		
-					sourceValue.Insert(2, new QuickTests.Item(1, true));
-					testing.ValidateConsistency();
-					sourceValue[3] = new QuickTests.Item(7, true);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(3);
-					testing.ValidateConsistency();
-					sourceValue.Move(1, 3);
-					testing.ValidateConsistency();
-					sourceValue[2].Active = !sourceValue[2].Active;
-					testing.ValidateConsistency();
-					sourceValue[2].Num = sourceValue[2].Num + 1;
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.Insert(0, new QuickTests.Item(1, true));
-					testing.ValidateConsistency();
-					sourceValue.Insert(0, new QuickTests.Item(2, true));
-					testing.ValidateConsistency();
-				}
-
-				IList listSource;
-				listSource = ((IList)((Selecting<Item, int>)source)?.Source);
-				if (listSource != null)
-				{
-					listSource.Clear();
-					testing.ValidateConsistency();
-				}
-
-				if (sourceValue != null)
-				{
-					sourceValue.Insert(0, new QuickTests.Item(1, true));
-					sourceValue.Insert(1, new QuickTests.Item(2, true));
-					sourceValue.Insert(2, new QuickTests.Item(3, true));
-					sourceValue.Insert(3, new QuickTests.Item(3, true));
-					sourceValue.Insert(4, new QuickTests.Item(3, true));
-					testing.ValidateConsistency();
-				}
-			}
-
-			test();
-		}
-		
-		[Test]
-		public void TestMaximazing31()
-		{
-			Selecting<Item, int> source = getItems().Selecting(i => i.Num);
-			System.Collections.Generic.IComparer<int> comparer = Comparer<int>.Default;
-			int defaultValue = 0;
-			
-			var testing = source.Maximazing<int>(
-				comparer,
-				defaultValue);
-
-			void test()
-			{
-				testing.ValidateConsistency();
-				var sourceValue = ((ObservableCollection<Item>)((Selecting<Item, int>)source)?.Source);
-
-				if (sourceValue != null)
-				{		
-					sourceValue.Insert(2, new QuickTests.Item(1, true));
-					testing.ValidateConsistency();
-					sourceValue[3] = new QuickTests.Item(7, true);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(3);
-					testing.ValidateConsistency();
-					sourceValue.Move(1, 3);
-					testing.ValidateConsistency();
-					sourceValue[2].Active = !sourceValue[2].Active;
-					testing.ValidateConsistency();
-					sourceValue[2].Num = sourceValue[2].Num + 1;
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.Insert(0, new QuickTests.Item(1, true));
-					testing.ValidateConsistency();
-					sourceValue.Insert(0, new QuickTests.Item(2, true));
-					testing.ValidateConsistency();
-				}
-
-				IList listSource;
-				listSource = ((IList)((Selecting<Item, int>)source)?.Source);
-				if (listSource != null)
-				{
-					listSource.Clear();
-					testing.ValidateConsistency();
-				}
-
-				if (sourceValue != null)
-				{
-					sourceValue.Insert(0, new QuickTests.Item(1, true));
-					sourceValue.Insert(1, new QuickTests.Item(2, true));
-					sourceValue.Insert(2, new QuickTests.Item(3, true));
-					sourceValue.Insert(3, new QuickTests.Item(3, true));
-					sourceValue.Insert(4, new QuickTests.Item(3, true));
-					testing.ValidateConsistency();
-				}
-			}
-
-			test();
-		}
-		
-		[Test]
-		public void TestMaximazing32()
-		{
-			Selecting<Item, int> source = getItems().Selecting(i => i.Num);
-			int defaultValue = 0;
-			
-			var testing = source.Maximazing<int>(
-				defaultValue);
-
-			void test()
-			{
-				testing.ValidateConsistency();
-				var sourceValue = ((ObservableCollection<Item>)((Selecting<Item, int>)source)?.Source);
-
-				if (sourceValue != null)
-				{		
-					sourceValue.Insert(2, new QuickTests.Item(1, true));
-					testing.ValidateConsistency();
-					sourceValue[3] = new QuickTests.Item(7, true);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(3);
-					testing.ValidateConsistency();
-					sourceValue.Move(1, 3);
-					testing.ValidateConsistency();
-					sourceValue[2].Active = !sourceValue[2].Active;
-					testing.ValidateConsistency();
-					sourceValue[2].Num = sourceValue[2].Num + 1;
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.Insert(0, new QuickTests.Item(1, true));
-					testing.ValidateConsistency();
-					sourceValue.Insert(0, new QuickTests.Item(2, true));
-					testing.ValidateConsistency();
-				}
-
-				IList listSource;
-				listSource = ((IList)((Selecting<Item, int>)source)?.Source);
-				if (listSource != null)
-				{
-					listSource.Clear();
-					testing.ValidateConsistency();
-				}
-
-				if (sourceValue != null)
-				{
-					sourceValue.Insert(0, new QuickTests.Item(1, true));
-					sourceValue.Insert(1, new QuickTests.Item(2, true));
-					sourceValue.Insert(2, new QuickTests.Item(3, true));
-					sourceValue.Insert(3, new QuickTests.Item(3, true));
-					sourceValue.Insert(4, new QuickTests.Item(3, true));
-					testing.ValidateConsistency();
-				}
-			}
-
-			test();
-		}
-		
-		[Test]
-		public void TestMaximazing33()
-		{
-			Selecting<Item, int> source = getItems().Selecting(i => i.Num);
-			System.Collections.Generic.IComparer<int> comparer = Comparer<int>.Default;
-			int defaultValue = 0;
-			
-			var testing = source.Maximazing<int>(
-				comparer,
-				defaultValue);
-
-			void test()
-			{
-				testing.ValidateConsistency();
-				var sourceValue = ((ObservableCollection<Item>)((Selecting<Item, int>)source)?.Source);
-
-				if (sourceValue != null)
-				{		
-					sourceValue.Insert(2, new QuickTests.Item(1, true));
-					testing.ValidateConsistency();
-					sourceValue[3] = new QuickTests.Item(7, true);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(3);
-					testing.ValidateConsistency();
-					sourceValue.Move(1, 3);
-					testing.ValidateConsistency();
-					sourceValue[2].Active = !sourceValue[2].Active;
-					testing.ValidateConsistency();
-					sourceValue[2].Num = sourceValue[2].Num + 1;
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.Insert(0, new QuickTests.Item(1, true));
-					testing.ValidateConsistency();
-					sourceValue.Insert(0, new QuickTests.Item(2, true));
-					testing.ValidateConsistency();
-				}
-
-				IList listSource;
-				listSource = ((IList)((Selecting<Item, int>)source)?.Source);
-				if (listSource != null)
-				{
-					listSource.Clear();
-					testing.ValidateConsistency();
-				}
-
-				if (sourceValue != null)
-				{
-					sourceValue.Insert(0, new QuickTests.Item(1, true));
-					sourceValue.Insert(1, new QuickTests.Item(2, true));
-					sourceValue.Insert(2, new QuickTests.Item(3, true));
-					sourceValue.Insert(3, new QuickTests.Item(3, true));
-					sourceValue.Insert(4, new QuickTests.Item(3, true));
-					testing.ValidateConsistency();
-				}
-			}
-
-			test();
-		}
-		
-		[Test]
-		public void TestMaximazing34()
-		{
-			Selecting<Item, int> source = getItems().Selecting(i => i.Num);
-			int defaultValue = 0;
-			
-			var testing = source.Maximazing<int>(
-				defaultValue);
-
-			void test()
-			{
-				testing.ValidateConsistency();
-				var sourceValue = ((ObservableCollection<Item>)((Selecting<Item, int>)source)?.Source);
-
-				if (sourceValue != null)
-				{		
-					sourceValue.Insert(2, new QuickTests.Item(1, true));
-					testing.ValidateConsistency();
-					sourceValue[3] = new QuickTests.Item(7, true);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(3);
-					testing.ValidateConsistency();
-					sourceValue.Move(1, 3);
-					testing.ValidateConsistency();
-					sourceValue[2].Active = !sourceValue[2].Active;
-					testing.ValidateConsistency();
-					sourceValue[2].Num = sourceValue[2].Num + 1;
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.Insert(0, new QuickTests.Item(1, true));
-					testing.ValidateConsistency();
-					sourceValue.Insert(0, new QuickTests.Item(2, true));
-					testing.ValidateConsistency();
-				}
-
-				IList listSource;
-				listSource = ((IList)((Selecting<Item, int>)source)?.Source);
-				if (listSource != null)
-				{
-					listSource.Clear();
-					testing.ValidateConsistency();
-				}
-
-				if (sourceValue != null)
-				{
-					sourceValue.Insert(0, new QuickTests.Item(1, true));
-					sourceValue.Insert(1, new QuickTests.Item(2, true));
-					sourceValue.Insert(2, new QuickTests.Item(3, true));
-					sourceValue.Insert(3, new QuickTests.Item(3, true));
-					sourceValue.Insert(4, new QuickTests.Item(3, true));
-					testing.ValidateConsistency();
-				}
-			}
-
-			test();
-		}
-		
-		[Test]
-		public void TestMaximazing35()
-		{
-			Selecting<Item, int> source = getItems().Selecting(i => i.Num);
-			Scalar<System.Collections.Generic.IComparer<int>> comparerScalar = getScalar<System.Collections.Generic.IComparer<int>>(Comparer<int>.Default);
-			int defaultValue = 0;
-			
-			var testing = source.Maximazing<int>(
-				comparerScalar,
-				defaultValue);
-
-			void test()
-			{
-				testing.ValidateConsistency();
-				var sourceValue = ((ObservableCollection<Item>)((Selecting<Item, int>)source)?.Source);
-
-				if (sourceValue != null)
-				{		
-					sourceValue.Insert(2, new QuickTests.Item(1, true));
-					testing.ValidateConsistency();
-					sourceValue[3] = new QuickTests.Item(7, true);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(3);
-					testing.ValidateConsistency();
-					sourceValue.Move(1, 3);
-					testing.ValidateConsistency();
-					sourceValue[2].Active = !sourceValue[2].Active;
-					testing.ValidateConsistency();
-					sourceValue[2].Num = sourceValue[2].Num + 1;
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.Insert(0, new QuickTests.Item(1, true));
-					testing.ValidateConsistency();
-					sourceValue.Insert(0, new QuickTests.Item(2, true));
-					testing.ValidateConsistency();
-				}
-
-				IList listSource;
-				listSource = ((IList)((Selecting<Item, int>)source)?.Source);
-				if (listSource != null)
-				{
-					listSource.Clear();
-					testing.ValidateConsistency();
-				}
-
-				if (sourceValue != null)
-				{
-					sourceValue.Insert(0, new QuickTests.Item(1, true));
-					sourceValue.Insert(1, new QuickTests.Item(2, true));
-					sourceValue.Insert(2, new QuickTests.Item(3, true));
-					sourceValue.Insert(3, new QuickTests.Item(3, true));
-					sourceValue.Insert(4, new QuickTests.Item(3, true));
-					testing.ValidateConsistency();
-				}
-			}
-
-			test();
-
-			((Scalar<System.Collections.Generic.IComparer<int>>)comparerScalar).Touch();
-			test();
-			((Scalar<System.Collections.Generic.IComparer<int>>)comparerScalar).Change(null);
-			test();
-		}
-		
-		[Test]
-		public void TestMaximazing36()
-		{
-			Selecting<Item, int> source = getItems().Selecting(i => i.Num);
-			Scalar<System.Collections.Generic.IComparer<int>> comparerScalar = getScalar<System.Collections.Generic.IComparer<int>>(Comparer<int>.Default);
-			int defaultValue = 0;
-			
-			var testing = source.Maximazing<int>(
-				comparerScalar,
-				defaultValue);
-
-			void test()
-			{
-				testing.ValidateConsistency();
-				var sourceValue = ((ObservableCollection<Item>)((Selecting<Item, int>)source)?.Source);
-
-				if (sourceValue != null)
-				{		
-					sourceValue.Insert(2, new QuickTests.Item(1, true));
-					testing.ValidateConsistency();
-					sourceValue[3] = new QuickTests.Item(7, true);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(3);
-					testing.ValidateConsistency();
-					sourceValue.Move(1, 3);
-					testing.ValidateConsistency();
-					sourceValue[2].Active = !sourceValue[2].Active;
-					testing.ValidateConsistency();
-					sourceValue[2].Num = sourceValue[2].Num + 1;
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.Insert(0, new QuickTests.Item(1, true));
-					testing.ValidateConsistency();
-					sourceValue.Insert(0, new QuickTests.Item(2, true));
-					testing.ValidateConsistency();
-				}
-
-				IList listSource;
-				listSource = ((IList)((Selecting<Item, int>)source)?.Source);
-				if (listSource != null)
-				{
-					listSource.Clear();
-					testing.ValidateConsistency();
-				}
-
-				if (sourceValue != null)
-				{
-					sourceValue.Insert(0, new QuickTests.Item(1, true));
-					sourceValue.Insert(1, new QuickTests.Item(2, true));
-					sourceValue.Insert(2, new QuickTests.Item(3, true));
-					sourceValue.Insert(3, new QuickTests.Item(3, true));
-					sourceValue.Insert(4, new QuickTests.Item(3, true));
-					testing.ValidateConsistency();
-				}
-			}
-
-			test();
-
-			((Scalar<System.Collections.Generic.IComparer<int>>)comparerScalar).Touch();
-			test();
-			((Scalar<System.Collections.Generic.IComparer<int>>)comparerScalar).Change(null);
-			test();
-		}
 		#endregion
 		#region Minimazing
 
@@ -51980,12 +49906,12 @@ namespace ObservableComputations.Test
 		public void TestMinimazing01()
 		{
 			IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar = getScalar<Selecting<Item, int>>(getItems().Selecting(i => i.Num));
-			Scalar<System.Collections.Generic.IComparer<int>> comparerScalar = getScalar<System.Collections.Generic.IComparer<int>>(Comparer<int>.Default);
-			Scalar<int> defaultValueScalar = getScalar<int>(0);
+			System.Collections.Generic.IComparer<int> comparer = Comparer<int>.Default;
+			int defaultValue = 0;
 			
 			var testing = sourceScalar.Minimazing<int>(
-				comparerScalar,
-				defaultValueScalar);
+				comparer,
+				defaultValue);
 
 			void test()
 			{
@@ -52039,16 +49965,6 @@ namespace ObservableComputations.Test
 				}
 			}
 
-			test();
-
-			((Scalar<System.Collections.Generic.IComparer<int>>)comparerScalar).Touch();
-			test();
-			((Scalar<System.Collections.Generic.IComparer<int>>)comparerScalar).Change(null);
-			test();
-
-			((Scalar<int>)defaultValueScalar).Touch();
-			test();
-			((Scalar<int>)defaultValueScalar).Change(1);
 			test();
 
 			((Scalar<Selecting<Item, int>>)sourceScalar).Touch();
@@ -52061,10 +49977,10 @@ namespace ObservableComputations.Test
 		public void TestMinimazing02()
 		{
 			IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar = getScalar<Selecting<Item, int>>(getItems().Selecting(i => i.Num));
-			Scalar<System.Collections.Generic.IComparer<int>> comparerScalar = getScalar<System.Collections.Generic.IComparer<int>>(Comparer<int>.Default);
+			System.Collections.Generic.IComparer<int> comparer = Comparer<int>.Default;
 			
 			var testing = sourceScalar.Minimazing<int>(
-				comparerScalar);
+				comparer);
 
 			void test()
 			{
@@ -52118,11 +50034,6 @@ namespace ObservableComputations.Test
 				}
 			}
 
-			test();
-
-			((Scalar<System.Collections.Generic.IComparer<int>>)comparerScalar).Touch();
-			test();
-			((Scalar<System.Collections.Generic.IComparer<int>>)comparerScalar).Change(null);
 			test();
 
 			((Scalar<Selecting<Item, int>>)sourceScalar).Touch();
@@ -52135,10 +50046,10 @@ namespace ObservableComputations.Test
 		public void TestMinimazing03()
 		{
 			IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar = getScalar<Selecting<Item, int>>(getItems().Selecting(i => i.Num));
-			Scalar<int> defaultValueScalar = getScalar<int>(0);
+			int defaultValue = 0;
 			
 			var testing = sourceScalar.Minimazing<int>(
-				defaultValueScalar);
+				defaultValue);
 
 			void test()
 			{
@@ -52192,11 +50103,6 @@ namespace ObservableComputations.Test
 				}
 			}
 
-			test();
-
-			((Scalar<int>)defaultValueScalar).Touch();
-			test();
-			((Scalar<int>)defaultValueScalar).Change(1);
 			test();
 
 			((Scalar<Selecting<Item, int>>)sourceScalar).Touch();
@@ -52276,12 +50182,12 @@ namespace ObservableComputations.Test
 		public void TestMinimazing05()
 		{
 			IReadScalar<ObservableCollection<int>> sourceScalar = getScalar<Selecting<Item, int>>(getItems().Selecting(i => i.Num));
-			Scalar<System.Collections.Generic.IComparer<int>> comparerScalar = getScalar<System.Collections.Generic.IComparer<int>>(Comparer<int>.Default);
-			Scalar<int> defaultValueScalar = getScalar<int>(0);
+			System.Collections.Generic.IComparer<int> comparer = Comparer<int>.Default;
+			int defaultValue = 0;
 			
 			var testing = sourceScalar.Minimazing<int>(
-				comparerScalar,
-				defaultValueScalar);
+				comparer,
+				defaultValue);
 
 			void test()
 			{
@@ -52335,16 +50241,6 @@ namespace ObservableComputations.Test
 				}
 			}
 
-			test();
-
-			((Scalar<System.Collections.Generic.IComparer<int>>)comparerScalar).Touch();
-			test();
-			((Scalar<System.Collections.Generic.IComparer<int>>)comparerScalar).Change(null);
-			test();
-
-			((Scalar<int>)defaultValueScalar).Touch();
-			test();
-			((Scalar<int>)defaultValueScalar).Change(1);
 			test();
 
 			((Scalar<Selecting<Item, int>>)sourceScalar).Touch();
@@ -52357,10 +50253,10 @@ namespace ObservableComputations.Test
 		public void TestMinimazing06()
 		{
 			IReadScalar<ObservableCollection<int>> sourceScalar = getScalar<Selecting<Item, int>>(getItems().Selecting(i => i.Num));
-			Scalar<System.Collections.Generic.IComparer<int>> comparerScalar = getScalar<System.Collections.Generic.IComparer<int>>(Comparer<int>.Default);
+			System.Collections.Generic.IComparer<int> comparer = Comparer<int>.Default;
 			
 			var testing = sourceScalar.Minimazing<int>(
-				comparerScalar);
+				comparer);
 
 			void test()
 			{
@@ -52414,11 +50310,6 @@ namespace ObservableComputations.Test
 				}
 			}
 
-			test();
-
-			((Scalar<System.Collections.Generic.IComparer<int>>)comparerScalar).Touch();
-			test();
-			((Scalar<System.Collections.Generic.IComparer<int>>)comparerScalar).Change(null);
 			test();
 
 			((Scalar<Selecting<Item, int>>)sourceScalar).Touch();
@@ -52431,10 +50322,10 @@ namespace ObservableComputations.Test
 		public void TestMinimazing07()
 		{
 			IReadScalar<ObservableCollection<int>> sourceScalar = getScalar<Selecting<Item, int>>(getItems().Selecting(i => i.Num));
-			Scalar<int> defaultValueScalar = getScalar<int>(0);
+			int defaultValue = 0;
 			
 			var testing = sourceScalar.Minimazing<int>(
-				defaultValueScalar);
+				defaultValue);
 
 			void test()
 			{
@@ -52488,11 +50379,6 @@ namespace ObservableComputations.Test
 				}
 			}
 
-			test();
-
-			((Scalar<int>)defaultValueScalar).Touch();
-			test();
-			((Scalar<int>)defaultValueScalar).Change(1);
 			test();
 
 			((Scalar<Selecting<Item, int>>)sourceScalar).Touch();
@@ -52572,12 +50458,12 @@ namespace ObservableComputations.Test
 		public void TestMinimazing09()
 		{
 			IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar = getScalar<Selecting<Item, int>>(getItems().Selecting(i => i.Num));
-			System.Collections.Generic.IComparer<int> comparer = Comparer<int>.Default;
-			Scalar<int> defaultValueScalar = getScalar<int>(0);
+			Scalar<System.Collections.Generic.IComparer<int>> comparerScalar = getScalar<System.Collections.Generic.IComparer<int>>(Comparer<int>.Default);
+			int defaultValue = 0;
 			
 			var testing = sourceScalar.Minimazing<int>(
-				comparer,
-				defaultValueScalar);
+				comparerScalar,
+				defaultValue);
 
 			void test()
 			{
@@ -52633,9 +50519,9 @@ namespace ObservableComputations.Test
 
 			test();
 
-			((Scalar<int>)defaultValueScalar).Touch();
+			((Scalar<System.Collections.Generic.IComparer<int>>)comparerScalar).Touch();
 			test();
-			((Scalar<int>)defaultValueScalar).Change(1);
+			((Scalar<System.Collections.Generic.IComparer<int>>)comparerScalar).Change(null);
 			test();
 
 			((Scalar<Selecting<Item, int>>)sourceScalar).Touch();
@@ -52648,10 +50534,10 @@ namespace ObservableComputations.Test
 		public void TestMinimazing10()
 		{
 			IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar = getScalar<Selecting<Item, int>>(getItems().Selecting(i => i.Num));
-			System.Collections.Generic.IComparer<int> comparer = Comparer<int>.Default;
+			Scalar<System.Collections.Generic.IComparer<int>> comparerScalar = getScalar<System.Collections.Generic.IComparer<int>>(Comparer<int>.Default);
 			
 			var testing = sourceScalar.Minimazing<int>(
-				comparer);
+				comparerScalar);
 
 			void test()
 			{
@@ -52705,6 +50591,11 @@ namespace ObservableComputations.Test
 				}
 			}
 
+			test();
+
+			((Scalar<System.Collections.Generic.IComparer<int>>)comparerScalar).Touch();
+			test();
+			((Scalar<System.Collections.Generic.IComparer<int>>)comparerScalar).Change(null);
 			test();
 
 			((Scalar<Selecting<Item, int>>)sourceScalar).Touch();
@@ -52717,12 +50608,12 @@ namespace ObservableComputations.Test
 		public void TestMinimazing11()
 		{
 			IReadScalar<ObservableCollection<int>> sourceScalar = getScalar<Selecting<Item, int>>(getItems().Selecting(i => i.Num));
-			System.Collections.Generic.IComparer<int> comparer = Comparer<int>.Default;
-			Scalar<int> defaultValueScalar = getScalar<int>(0);
+			Scalar<System.Collections.Generic.IComparer<int>> comparerScalar = getScalar<System.Collections.Generic.IComparer<int>>(Comparer<int>.Default);
+			int defaultValue = 0;
 			
 			var testing = sourceScalar.Minimazing<int>(
-				comparer,
-				defaultValueScalar);
+				comparerScalar,
+				defaultValue);
 
 			void test()
 			{
@@ -52778,9 +50669,9 @@ namespace ObservableComputations.Test
 
 			test();
 
-			((Scalar<int>)defaultValueScalar).Touch();
+			((Scalar<System.Collections.Generic.IComparer<int>>)comparerScalar).Touch();
 			test();
-			((Scalar<int>)defaultValueScalar).Change(1);
+			((Scalar<System.Collections.Generic.IComparer<int>>)comparerScalar).Change(null);
 			test();
 
 			((Scalar<Selecting<Item, int>>)sourceScalar).Touch();
@@ -52793,10 +50684,10 @@ namespace ObservableComputations.Test
 		public void TestMinimazing12()
 		{
 			IReadScalar<ObservableCollection<int>> sourceScalar = getScalar<Selecting<Item, int>>(getItems().Selecting(i => i.Num));
-			System.Collections.Generic.IComparer<int> comparer = Comparer<int>.Default;
+			Scalar<System.Collections.Generic.IComparer<int>> comparerScalar = getScalar<System.Collections.Generic.IComparer<int>>(Comparer<int>.Default);
 			
 			var testing = sourceScalar.Minimazing<int>(
-				comparer);
+				comparerScalar);
 
 			void test()
 			{
@@ -52850,6 +50741,11 @@ namespace ObservableComputations.Test
 				}
 			}
 
+			test();
+
+			((Scalar<System.Collections.Generic.IComparer<int>>)comparerScalar).Touch();
+			test();
+			((Scalar<System.Collections.Generic.IComparer<int>>)comparerScalar).Change(null);
 			test();
 
 			((Scalar<Selecting<Item, int>>)sourceScalar).Touch();
@@ -52861,432 +50757,386 @@ namespace ObservableComputations.Test
 		[Test]
 		public void TestMinimazing13()
 		{
-			IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar = getScalar<Selecting<Item, int>>(getItems().Selecting(i => i.Num));
+			Selecting<Item, int> source = getItems().Selecting(i => i.Num);
 			System.Collections.Generic.IComparer<int> comparer = Comparer<int>.Default;
 			int defaultValue = 0;
 			
-			var testing = sourceScalar.Minimazing<int>(
+			var testing = source.Minimazing<int>(
 				comparer,
 				defaultValue);
 
 			void test()
 			{
 				testing.ValidateConsistency();
-				var sourceScalarValue = ((ObservableCollection<Item>)((Selecting<Item, int>)sourceScalar.Value)?.Source);
+				var sourceValue = ((ObservableCollection<Item>)((Selecting<Item, int>)source)?.Source);
 
-				if (sourceScalarValue != null)
+				if (sourceValue != null)
 				{		
-					sourceScalarValue.Insert(2, new QuickTests.Item(1, true));
+					sourceValue.Insert(2, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
-					sourceScalarValue[3] = new QuickTests.Item(7, true);
+					sourceValue[3] = new QuickTests.Item(7, true);
 					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(3);
+					sourceValue.RemoveAt(3);
 					testing.ValidateConsistency();
-					sourceScalarValue.Move(1, 3);
+					sourceValue.Move(1, 3);
 					testing.ValidateConsistency();
-					sourceScalarValue[2].Active = !sourceScalarValue[2].Active;
+					sourceValue[2].Active = !sourceValue[2].Active;
 					testing.ValidateConsistency();
-					sourceScalarValue[2].Num = sourceScalarValue[2].Num + 1;
+					sourceValue[2].Num = sourceValue[2].Num + 1;
 					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
+					sourceValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
+					sourceValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
+					sourceValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
+					sourceValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
+					sourceValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
-					sourceScalarValue.Insert(0, new QuickTests.Item(2, true));
+					sourceValue.Insert(0, new QuickTests.Item(2, true));
 					testing.ValidateConsistency();
 				}
 
 				IList listSource;
-				listSource = ((IList)((Selecting<Item, int>)sourceScalar.Value)?.Source);
+				listSource = ((IList)((Selecting<Item, int>)source)?.Source);
 				if (listSource != null)
 				{
 					listSource.Clear();
 					testing.ValidateConsistency();
 				}
 
-				if (sourceScalarValue != null)
+				if (sourceValue != null)
 				{
-					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
-					sourceScalarValue.Insert(1, new QuickTests.Item(2, true));
-					sourceScalarValue.Insert(2, new QuickTests.Item(3, true));
-					sourceScalarValue.Insert(3, new QuickTests.Item(3, true));
-					sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
+					sourceValue.Insert(0, new QuickTests.Item(1, true));
+					sourceValue.Insert(1, new QuickTests.Item(2, true));
+					sourceValue.Insert(2, new QuickTests.Item(3, true));
+					sourceValue.Insert(3, new QuickTests.Item(3, true));
+					sourceValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
 			}
 
-			test();
-
-			((Scalar<Selecting<Item, int>>)sourceScalar).Touch();
-			test();
-			((Scalar<Selecting<Item, int>>)sourceScalar).Change(null);
 			test();
 		}
 		
 		[Test]
 		public void TestMinimazing14()
 		{
-			IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar = getScalar<Selecting<Item, int>>(getItems().Selecting(i => i.Num));
-			int defaultValue = 0;
+			Selecting<Item, int> source = getItems().Selecting(i => i.Num);
+			System.Collections.Generic.IComparer<int> comparer = Comparer<int>.Default;
 			
-			var testing = sourceScalar.Minimazing<int>(
-				defaultValue);
+			var testing = source.Minimazing<int>(
+				comparer);
 
 			void test()
 			{
 				testing.ValidateConsistency();
-				var sourceScalarValue = ((ObservableCollection<Item>)((Selecting<Item, int>)sourceScalar.Value)?.Source);
+				var sourceValue = ((ObservableCollection<Item>)((Selecting<Item, int>)source)?.Source);
 
-				if (sourceScalarValue != null)
+				if (sourceValue != null)
 				{		
-					sourceScalarValue.Insert(2, new QuickTests.Item(1, true));
+					sourceValue.Insert(2, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
-					sourceScalarValue[3] = new QuickTests.Item(7, true);
+					sourceValue[3] = new QuickTests.Item(7, true);
 					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(3);
+					sourceValue.RemoveAt(3);
 					testing.ValidateConsistency();
-					sourceScalarValue.Move(1, 3);
+					sourceValue.Move(1, 3);
 					testing.ValidateConsistency();
-					sourceScalarValue[2].Active = !sourceScalarValue[2].Active;
+					sourceValue[2].Active = !sourceValue[2].Active;
 					testing.ValidateConsistency();
-					sourceScalarValue[2].Num = sourceScalarValue[2].Num + 1;
+					sourceValue[2].Num = sourceValue[2].Num + 1;
 					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
+					sourceValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
+					sourceValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
+					sourceValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
+					sourceValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
+					sourceValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
-					sourceScalarValue.Insert(0, new QuickTests.Item(2, true));
+					sourceValue.Insert(0, new QuickTests.Item(2, true));
 					testing.ValidateConsistency();
 				}
 
 				IList listSource;
-				listSource = ((IList)((Selecting<Item, int>)sourceScalar.Value)?.Source);
+				listSource = ((IList)((Selecting<Item, int>)source)?.Source);
 				if (listSource != null)
 				{
 					listSource.Clear();
 					testing.ValidateConsistency();
 				}
 
-				if (sourceScalarValue != null)
+				if (sourceValue != null)
 				{
-					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
-					sourceScalarValue.Insert(1, new QuickTests.Item(2, true));
-					sourceScalarValue.Insert(2, new QuickTests.Item(3, true));
-					sourceScalarValue.Insert(3, new QuickTests.Item(3, true));
-					sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
+					sourceValue.Insert(0, new QuickTests.Item(1, true));
+					sourceValue.Insert(1, new QuickTests.Item(2, true));
+					sourceValue.Insert(2, new QuickTests.Item(3, true));
+					sourceValue.Insert(3, new QuickTests.Item(3, true));
+					sourceValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
 			}
 
-			test();
-
-			((Scalar<Selecting<Item, int>>)sourceScalar).Touch();
-			test();
-			((Scalar<Selecting<Item, int>>)sourceScalar).Change(null);
 			test();
 		}
 		
 		[Test]
 		public void TestMinimazing15()
 		{
-			IReadScalar<ObservableCollection<int>> sourceScalar = getScalar<Selecting<Item, int>>(getItems().Selecting(i => i.Num));
-			System.Collections.Generic.IComparer<int> comparer = Comparer<int>.Default;
+			Selecting<Item, int> source = getItems().Selecting(i => i.Num);
 			int defaultValue = 0;
 			
-			var testing = sourceScalar.Minimazing<int>(
-				comparer,
+			var testing = source.Minimazing<int>(
 				defaultValue);
 
 			void test()
 			{
 				testing.ValidateConsistency();
-				var sourceScalarValue = ((ObservableCollection<Item>)((Selecting<Item, int>)sourceScalar.Value)?.Source);
+				var sourceValue = ((ObservableCollection<Item>)((Selecting<Item, int>)source)?.Source);
 
-				if (sourceScalarValue != null)
+				if (sourceValue != null)
 				{		
-					sourceScalarValue.Insert(2, new QuickTests.Item(1, true));
+					sourceValue.Insert(2, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
-					sourceScalarValue[3] = new QuickTests.Item(7, true);
+					sourceValue[3] = new QuickTests.Item(7, true);
 					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(3);
+					sourceValue.RemoveAt(3);
 					testing.ValidateConsistency();
-					sourceScalarValue.Move(1, 3);
+					sourceValue.Move(1, 3);
 					testing.ValidateConsistency();
-					sourceScalarValue[2].Active = !sourceScalarValue[2].Active;
+					sourceValue[2].Active = !sourceValue[2].Active;
 					testing.ValidateConsistency();
-					sourceScalarValue[2].Num = sourceScalarValue[2].Num + 1;
+					sourceValue[2].Num = sourceValue[2].Num + 1;
 					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
+					sourceValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
+					sourceValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
+					sourceValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
+					sourceValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
+					sourceValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
-					sourceScalarValue.Insert(0, new QuickTests.Item(2, true));
+					sourceValue.Insert(0, new QuickTests.Item(2, true));
 					testing.ValidateConsistency();
 				}
 
 				IList listSource;
-				listSource = ((IList)((Selecting<Item, int>)sourceScalar.Value)?.Source);
+				listSource = ((IList)((Selecting<Item, int>)source)?.Source);
 				if (listSource != null)
 				{
 					listSource.Clear();
 					testing.ValidateConsistency();
 				}
 
-				if (sourceScalarValue != null)
+				if (sourceValue != null)
 				{
-					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
-					sourceScalarValue.Insert(1, new QuickTests.Item(2, true));
-					sourceScalarValue.Insert(2, new QuickTests.Item(3, true));
-					sourceScalarValue.Insert(3, new QuickTests.Item(3, true));
-					sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
+					sourceValue.Insert(0, new QuickTests.Item(1, true));
+					sourceValue.Insert(1, new QuickTests.Item(2, true));
+					sourceValue.Insert(2, new QuickTests.Item(3, true));
+					sourceValue.Insert(3, new QuickTests.Item(3, true));
+					sourceValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
 			}
 
-			test();
-
-			((Scalar<Selecting<Item, int>>)sourceScalar).Touch();
-			test();
-			((Scalar<Selecting<Item, int>>)sourceScalar).Change(null);
 			test();
 		}
 		
 		[Test]
 		public void TestMinimazing16()
 		{
-			IReadScalar<ObservableCollection<int>> sourceScalar = getScalar<Selecting<Item, int>>(getItems().Selecting(i => i.Num));
-			int defaultValue = 0;
+			Selecting<Item, int> source = getItems().Selecting(i => i.Num);
 			
-			var testing = sourceScalar.Minimazing<int>(
-				defaultValue);
+			var testing = source.Minimazing<int>();
 
 			void test()
 			{
 				testing.ValidateConsistency();
-				var sourceScalarValue = ((ObservableCollection<Item>)((Selecting<Item, int>)sourceScalar.Value)?.Source);
+				var sourceValue = ((ObservableCollection<Item>)((Selecting<Item, int>)source)?.Source);
 
-				if (sourceScalarValue != null)
+				if (sourceValue != null)
 				{		
-					sourceScalarValue.Insert(2, new QuickTests.Item(1, true));
+					sourceValue.Insert(2, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
-					sourceScalarValue[3] = new QuickTests.Item(7, true);
+					sourceValue[3] = new QuickTests.Item(7, true);
 					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(3);
+					sourceValue.RemoveAt(3);
 					testing.ValidateConsistency();
-					sourceScalarValue.Move(1, 3);
+					sourceValue.Move(1, 3);
 					testing.ValidateConsistency();
-					sourceScalarValue[2].Active = !sourceScalarValue[2].Active;
+					sourceValue[2].Active = !sourceValue[2].Active;
 					testing.ValidateConsistency();
-					sourceScalarValue[2].Num = sourceScalarValue[2].Num + 1;
+					sourceValue[2].Num = sourceValue[2].Num + 1;
 					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
+					sourceValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
+					sourceValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
+					sourceValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
+					sourceValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
+					sourceValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
-					sourceScalarValue.Insert(0, new QuickTests.Item(2, true));
+					sourceValue.Insert(0, new QuickTests.Item(2, true));
 					testing.ValidateConsistency();
 				}
 
 				IList listSource;
-				listSource = ((IList)((Selecting<Item, int>)sourceScalar.Value)?.Source);
+				listSource = ((IList)((Selecting<Item, int>)source)?.Source);
 				if (listSource != null)
 				{
 					listSource.Clear();
 					testing.ValidateConsistency();
 				}
 
-				if (sourceScalarValue != null)
+				if (sourceValue != null)
 				{
-					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
-					sourceScalarValue.Insert(1, new QuickTests.Item(2, true));
-					sourceScalarValue.Insert(2, new QuickTests.Item(3, true));
-					sourceScalarValue.Insert(3, new QuickTests.Item(3, true));
-					sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
+					sourceValue.Insert(0, new QuickTests.Item(1, true));
+					sourceValue.Insert(1, new QuickTests.Item(2, true));
+					sourceValue.Insert(2, new QuickTests.Item(3, true));
+					sourceValue.Insert(3, new QuickTests.Item(3, true));
+					sourceValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
 			}
 
-			test();
-
-			((Scalar<Selecting<Item, int>>)sourceScalar).Touch();
-			test();
-			((Scalar<Selecting<Item, int>>)sourceScalar).Change(null);
 			test();
 		}
 		
 		[Test]
 		public void TestMinimazing17()
 		{
-			IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar = getScalar<Selecting<Item, int>>(getItems().Selecting(i => i.Num));
-			Scalar<System.Collections.Generic.IComparer<int>> comparerScalar = getScalar<System.Collections.Generic.IComparer<int>>(Comparer<int>.Default);
+			Selecting<Item, int> source = getItems().Selecting(i => i.Num);
+			System.Collections.Generic.IComparer<int> comparer = Comparer<int>.Default;
 			int defaultValue = 0;
 			
-			var testing = sourceScalar.Minimazing<int>(
-				comparerScalar,
+			var testing = source.Minimazing<int>(
+				comparer,
 				defaultValue);
 
 			void test()
 			{
 				testing.ValidateConsistency();
-				var sourceScalarValue = ((ObservableCollection<Item>)((Selecting<Item, int>)sourceScalar.Value)?.Source);
+				var sourceValue = ((ObservableCollection<Item>)((Selecting<Item, int>)source)?.Source);
 
-				if (sourceScalarValue != null)
+				if (sourceValue != null)
 				{		
-					sourceScalarValue.Insert(2, new QuickTests.Item(1, true));
+					sourceValue.Insert(2, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
-					sourceScalarValue[3] = new QuickTests.Item(7, true);
+					sourceValue[3] = new QuickTests.Item(7, true);
 					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(3);
+					sourceValue.RemoveAt(3);
 					testing.ValidateConsistency();
-					sourceScalarValue.Move(1, 3);
+					sourceValue.Move(1, 3);
 					testing.ValidateConsistency();
-					sourceScalarValue[2].Active = !sourceScalarValue[2].Active;
+					sourceValue[2].Active = !sourceValue[2].Active;
 					testing.ValidateConsistency();
-					sourceScalarValue[2].Num = sourceScalarValue[2].Num + 1;
+					sourceValue[2].Num = sourceValue[2].Num + 1;
 					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
+					sourceValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
+					sourceValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
+					sourceValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
+					sourceValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
+					sourceValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
-					sourceScalarValue.Insert(0, new QuickTests.Item(2, true));
+					sourceValue.Insert(0, new QuickTests.Item(2, true));
 					testing.ValidateConsistency();
 				}
 
 				IList listSource;
-				listSource = ((IList)((Selecting<Item, int>)sourceScalar.Value)?.Source);
+				listSource = ((IList)((Selecting<Item, int>)source)?.Source);
 				if (listSource != null)
 				{
 					listSource.Clear();
 					testing.ValidateConsistency();
 				}
 
-				if (sourceScalarValue != null)
+				if (sourceValue != null)
 				{
-					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
-					sourceScalarValue.Insert(1, new QuickTests.Item(2, true));
-					sourceScalarValue.Insert(2, new QuickTests.Item(3, true));
-					sourceScalarValue.Insert(3, new QuickTests.Item(3, true));
-					sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
+					sourceValue.Insert(0, new QuickTests.Item(1, true));
+					sourceValue.Insert(1, new QuickTests.Item(2, true));
+					sourceValue.Insert(2, new QuickTests.Item(3, true));
+					sourceValue.Insert(3, new QuickTests.Item(3, true));
+					sourceValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
 			}
 
-			test();
-
-			((Scalar<System.Collections.Generic.IComparer<int>>)comparerScalar).Touch();
-			test();
-			((Scalar<System.Collections.Generic.IComparer<int>>)comparerScalar).Change(null);
-			test();
-
-			((Scalar<Selecting<Item, int>>)sourceScalar).Touch();
-			test();
-			((Scalar<Selecting<Item, int>>)sourceScalar).Change(null);
 			test();
 		}
 		
 		[Test]
 		public void TestMinimazing18()
 		{
-			IReadScalar<ObservableCollection<int>> sourceScalar = getScalar<Selecting<Item, int>>(getItems().Selecting(i => i.Num));
-			Scalar<System.Collections.Generic.IComparer<int>> comparerScalar = getScalar<System.Collections.Generic.IComparer<int>>(Comparer<int>.Default);
-			int defaultValue = 0;
+			Selecting<Item, int> source = getItems().Selecting(i => i.Num);
+			System.Collections.Generic.IComparer<int> comparer = Comparer<int>.Default;
 			
-			var testing = sourceScalar.Minimazing<int>(
-				comparerScalar,
-				defaultValue);
+			var testing = source.Minimazing<int>(
+				comparer);
 
 			void test()
 			{
 				testing.ValidateConsistency();
-				var sourceScalarValue = ((ObservableCollection<Item>)((Selecting<Item, int>)sourceScalar.Value)?.Source);
+				var sourceValue = ((ObservableCollection<Item>)((Selecting<Item, int>)source)?.Source);
 
-				if (sourceScalarValue != null)
+				if (sourceValue != null)
 				{		
-					sourceScalarValue.Insert(2, new QuickTests.Item(1, true));
+					sourceValue.Insert(2, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
-					sourceScalarValue[3] = new QuickTests.Item(7, true);
+					sourceValue[3] = new QuickTests.Item(7, true);
 					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(3);
+					sourceValue.RemoveAt(3);
 					testing.ValidateConsistency();
-					sourceScalarValue.Move(1, 3);
+					sourceValue.Move(1, 3);
 					testing.ValidateConsistency();
-					sourceScalarValue[2].Active = !sourceScalarValue[2].Active;
+					sourceValue[2].Active = !sourceValue[2].Active;
 					testing.ValidateConsistency();
-					sourceScalarValue[2].Num = sourceScalarValue[2].Num + 1;
+					sourceValue[2].Num = sourceValue[2].Num + 1;
 					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
+					sourceValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
+					sourceValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
+					sourceValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
+					sourceValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
+					sourceValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
-					sourceScalarValue.Insert(0, new QuickTests.Item(2, true));
+					sourceValue.Insert(0, new QuickTests.Item(2, true));
 					testing.ValidateConsistency();
 				}
 
 				IList listSource;
-				listSource = ((IList)((Selecting<Item, int>)sourceScalar.Value)?.Source);
+				listSource = ((IList)((Selecting<Item, int>)source)?.Source);
 				if (listSource != null)
 				{
 					listSource.Clear();
 					testing.ValidateConsistency();
 				}
 
-				if (sourceScalarValue != null)
+				if (sourceValue != null)
 				{
-					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
-					sourceScalarValue.Insert(1, new QuickTests.Item(2, true));
-					sourceScalarValue.Insert(2, new QuickTests.Item(3, true));
-					sourceScalarValue.Insert(3, new QuickTests.Item(3, true));
-					sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
+					sourceValue.Insert(0, new QuickTests.Item(1, true));
+					sourceValue.Insert(1, new QuickTests.Item(2, true));
+					sourceValue.Insert(2, new QuickTests.Item(3, true));
+					sourceValue.Insert(3, new QuickTests.Item(3, true));
+					sourceValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
 			}
 
-			test();
-
-			((Scalar<System.Collections.Generic.IComparer<int>>)comparerScalar).Touch();
-			test();
-			((Scalar<System.Collections.Generic.IComparer<int>>)comparerScalar).Change(null);
-			test();
-
-			((Scalar<Selecting<Item, int>>)sourceScalar).Touch();
-			test();
-			((Scalar<Selecting<Item, int>>)sourceScalar).Change(null);
 			test();
 		}
 		
@@ -53294,12 +51144,138 @@ namespace ObservableComputations.Test
 		public void TestMinimazing19()
 		{
 			Selecting<Item, int> source = getItems().Selecting(i => i.Num);
+			int defaultValue = 0;
+			
+			var testing = source.Minimazing<int>(
+				defaultValue);
+
+			void test()
+			{
+				testing.ValidateConsistency();
+				var sourceValue = ((ObservableCollection<Item>)((Selecting<Item, int>)source)?.Source);
+
+				if (sourceValue != null)
+				{		
+					sourceValue.Insert(2, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					sourceValue[3] = new QuickTests.Item(7, true);
+					testing.ValidateConsistency();
+					sourceValue.RemoveAt(3);
+					testing.ValidateConsistency();
+					sourceValue.Move(1, 3);
+					testing.ValidateConsistency();
+					sourceValue[2].Active = !sourceValue[2].Active;
+					testing.ValidateConsistency();
+					sourceValue[2].Num = sourceValue[2].Num + 1;
+					testing.ValidateConsistency();
+					sourceValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceValue.Insert(0, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					sourceValue.Insert(0, new QuickTests.Item(2, true));
+					testing.ValidateConsistency();
+				}
+
+				IList listSource;
+				listSource = ((IList)((Selecting<Item, int>)source)?.Source);
+				if (listSource != null)
+				{
+					listSource.Clear();
+					testing.ValidateConsistency();
+				}
+
+				if (sourceValue != null)
+				{
+					sourceValue.Insert(0, new QuickTests.Item(1, true));
+					sourceValue.Insert(1, new QuickTests.Item(2, true));
+					sourceValue.Insert(2, new QuickTests.Item(3, true));
+					sourceValue.Insert(3, new QuickTests.Item(3, true));
+					sourceValue.Insert(4, new QuickTests.Item(3, true));
+					testing.ValidateConsistency();
+				}
+			}
+
+			test();
+		}
+		
+		[Test]
+		public void TestMinimazing20()
+		{
+			Selecting<Item, int> source = getItems().Selecting(i => i.Num);
+			
+			var testing = source.Minimazing<int>();
+
+			void test()
+			{
+				testing.ValidateConsistency();
+				var sourceValue = ((ObservableCollection<Item>)((Selecting<Item, int>)source)?.Source);
+
+				if (sourceValue != null)
+				{		
+					sourceValue.Insert(2, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					sourceValue[3] = new QuickTests.Item(7, true);
+					testing.ValidateConsistency();
+					sourceValue.RemoveAt(3);
+					testing.ValidateConsistency();
+					sourceValue.Move(1, 3);
+					testing.ValidateConsistency();
+					sourceValue[2].Active = !sourceValue[2].Active;
+					testing.ValidateConsistency();
+					sourceValue[2].Num = sourceValue[2].Num + 1;
+					testing.ValidateConsistency();
+					sourceValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceValue.Insert(0, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					sourceValue.Insert(0, new QuickTests.Item(2, true));
+					testing.ValidateConsistency();
+				}
+
+				IList listSource;
+				listSource = ((IList)((Selecting<Item, int>)source)?.Source);
+				if (listSource != null)
+				{
+					listSource.Clear();
+					testing.ValidateConsistency();
+				}
+
+				if (sourceValue != null)
+				{
+					sourceValue.Insert(0, new QuickTests.Item(1, true));
+					sourceValue.Insert(1, new QuickTests.Item(2, true));
+					sourceValue.Insert(2, new QuickTests.Item(3, true));
+					sourceValue.Insert(3, new QuickTests.Item(3, true));
+					sourceValue.Insert(4, new QuickTests.Item(3, true));
+					testing.ValidateConsistency();
+				}
+			}
+
+			test();
+		}
+		
+		[Test]
+		public void TestMinimazing21()
+		{
+			Selecting<Item, int> source = getItems().Selecting(i => i.Num);
 			Scalar<System.Collections.Generic.IComparer<int>> comparerScalar = getScalar<System.Collections.Generic.IComparer<int>>(Comparer<int>.Default);
-			Scalar<int> defaultValueScalar = getScalar<int>(0);
+			int defaultValue = 0;
 			
 			var testing = source.Minimazing<int>(
 				comparerScalar,
-				defaultValueScalar);
+				defaultValue);
 
 			void test()
 			{
@@ -53359,15 +51335,10 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<System.Collections.Generic.IComparer<int>>)comparerScalar).Change(null);
 			test();
-
-			((Scalar<int>)defaultValueScalar).Touch();
-			test();
-			((Scalar<int>)defaultValueScalar).Change(1);
-			test();
 		}
 		
 		[Test]
-		public void TestMinimazing20()
+		public void TestMinimazing22()
 		{
 			Selecting<Item, int> source = getItems().Selecting(i => i.Num);
 			Scalar<System.Collections.Generic.IComparer<int>> comparerScalar = getScalar<System.Collections.Generic.IComparer<int>>(Comparer<int>.Default);
@@ -53436,146 +51407,15 @@ namespace ObservableComputations.Test
 		}
 		
 		[Test]
-		public void TestMinimazing21()
-		{
-			Selecting<Item, int> source = getItems().Selecting(i => i.Num);
-			Scalar<int> defaultValueScalar = getScalar<int>(0);
-			
-			var testing = source.Minimazing<int>(
-				defaultValueScalar);
-
-			void test()
-			{
-				testing.ValidateConsistency();
-				var sourceValue = ((ObservableCollection<Item>)((Selecting<Item, int>)source)?.Source);
-
-				if (sourceValue != null)
-				{		
-					sourceValue.Insert(2, new QuickTests.Item(1, true));
-					testing.ValidateConsistency();
-					sourceValue[3] = new QuickTests.Item(7, true);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(3);
-					testing.ValidateConsistency();
-					sourceValue.Move(1, 3);
-					testing.ValidateConsistency();
-					sourceValue[2].Active = !sourceValue[2].Active;
-					testing.ValidateConsistency();
-					sourceValue[2].Num = sourceValue[2].Num + 1;
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.Insert(0, new QuickTests.Item(1, true));
-					testing.ValidateConsistency();
-					sourceValue.Insert(0, new QuickTests.Item(2, true));
-					testing.ValidateConsistency();
-				}
-
-				IList listSource;
-				listSource = ((IList)((Selecting<Item, int>)source)?.Source);
-				if (listSource != null)
-				{
-					listSource.Clear();
-					testing.ValidateConsistency();
-				}
-
-				if (sourceValue != null)
-				{
-					sourceValue.Insert(0, new QuickTests.Item(1, true));
-					sourceValue.Insert(1, new QuickTests.Item(2, true));
-					sourceValue.Insert(2, new QuickTests.Item(3, true));
-					sourceValue.Insert(3, new QuickTests.Item(3, true));
-					sourceValue.Insert(4, new QuickTests.Item(3, true));
-					testing.ValidateConsistency();
-				}
-			}
-
-			test();
-
-			((Scalar<int>)defaultValueScalar).Touch();
-			test();
-			((Scalar<int>)defaultValueScalar).Change(1);
-			test();
-		}
-		
-		[Test]
-		public void TestMinimazing22()
-		{
-			Selecting<Item, int> source = getItems().Selecting(i => i.Num);
-			
-			var testing = source.Minimazing<int>();
-
-			void test()
-			{
-				testing.ValidateConsistency();
-				var sourceValue = ((ObservableCollection<Item>)((Selecting<Item, int>)source)?.Source);
-
-				if (sourceValue != null)
-				{		
-					sourceValue.Insert(2, new QuickTests.Item(1, true));
-					testing.ValidateConsistency();
-					sourceValue[3] = new QuickTests.Item(7, true);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(3);
-					testing.ValidateConsistency();
-					sourceValue.Move(1, 3);
-					testing.ValidateConsistency();
-					sourceValue[2].Active = !sourceValue[2].Active;
-					testing.ValidateConsistency();
-					sourceValue[2].Num = sourceValue[2].Num + 1;
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.Insert(0, new QuickTests.Item(1, true));
-					testing.ValidateConsistency();
-					sourceValue.Insert(0, new QuickTests.Item(2, true));
-					testing.ValidateConsistency();
-				}
-
-				IList listSource;
-				listSource = ((IList)((Selecting<Item, int>)source)?.Source);
-				if (listSource != null)
-				{
-					listSource.Clear();
-					testing.ValidateConsistency();
-				}
-
-				if (sourceValue != null)
-				{
-					sourceValue.Insert(0, new QuickTests.Item(1, true));
-					sourceValue.Insert(1, new QuickTests.Item(2, true));
-					sourceValue.Insert(2, new QuickTests.Item(3, true));
-					sourceValue.Insert(3, new QuickTests.Item(3, true));
-					sourceValue.Insert(4, new QuickTests.Item(3, true));
-					testing.ValidateConsistency();
-				}
-			}
-
-			test();
-		}
-		
-		[Test]
 		public void TestMinimazing23()
 		{
 			Selecting<Item, int> source = getItems().Selecting(i => i.Num);
 			Scalar<System.Collections.Generic.IComparer<int>> comparerScalar = getScalar<System.Collections.Generic.IComparer<int>>(Comparer<int>.Default);
-			Scalar<int> defaultValueScalar = getScalar<int>(0);
+			int defaultValue = 0;
 			
 			var testing = source.Minimazing<int>(
 				comparerScalar,
-				defaultValueScalar);
+				defaultValue);
 
 			void test()
 			{
@@ -53634,11 +51474,6 @@ namespace ObservableComputations.Test
 			((Scalar<System.Collections.Generic.IComparer<int>>)comparerScalar).Touch();
 			test();
 			((Scalar<System.Collections.Generic.IComparer<int>>)comparerScalar).Change(null);
-			test();
-
-			((Scalar<int>)defaultValueScalar).Touch();
-			test();
-			((Scalar<int>)defaultValueScalar).Change(1);
 			test();
 		}
 		
@@ -53650,809 +51485,6 @@ namespace ObservableComputations.Test
 			
 			var testing = source.Minimazing<int>(
 				comparerScalar);
-
-			void test()
-			{
-				testing.ValidateConsistency();
-				var sourceValue = ((ObservableCollection<Item>)((Selecting<Item, int>)source)?.Source);
-
-				if (sourceValue != null)
-				{		
-					sourceValue.Insert(2, new QuickTests.Item(1, true));
-					testing.ValidateConsistency();
-					sourceValue[3] = new QuickTests.Item(7, true);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(3);
-					testing.ValidateConsistency();
-					sourceValue.Move(1, 3);
-					testing.ValidateConsistency();
-					sourceValue[2].Active = !sourceValue[2].Active;
-					testing.ValidateConsistency();
-					sourceValue[2].Num = sourceValue[2].Num + 1;
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.Insert(0, new QuickTests.Item(1, true));
-					testing.ValidateConsistency();
-					sourceValue.Insert(0, new QuickTests.Item(2, true));
-					testing.ValidateConsistency();
-				}
-
-				IList listSource;
-				listSource = ((IList)((Selecting<Item, int>)source)?.Source);
-				if (listSource != null)
-				{
-					listSource.Clear();
-					testing.ValidateConsistency();
-				}
-
-				if (sourceValue != null)
-				{
-					sourceValue.Insert(0, new QuickTests.Item(1, true));
-					sourceValue.Insert(1, new QuickTests.Item(2, true));
-					sourceValue.Insert(2, new QuickTests.Item(3, true));
-					sourceValue.Insert(3, new QuickTests.Item(3, true));
-					sourceValue.Insert(4, new QuickTests.Item(3, true));
-					testing.ValidateConsistency();
-				}
-			}
-
-			test();
-
-			((Scalar<System.Collections.Generic.IComparer<int>>)comparerScalar).Touch();
-			test();
-			((Scalar<System.Collections.Generic.IComparer<int>>)comparerScalar).Change(null);
-			test();
-		}
-		
-		[Test]
-		public void TestMinimazing25()
-		{
-			Selecting<Item, int> source = getItems().Selecting(i => i.Num);
-			Scalar<int> defaultValueScalar = getScalar<int>(0);
-			
-			var testing = source.Minimazing<int>(
-				defaultValueScalar);
-
-			void test()
-			{
-				testing.ValidateConsistency();
-				var sourceValue = ((ObservableCollection<Item>)((Selecting<Item, int>)source)?.Source);
-
-				if (sourceValue != null)
-				{		
-					sourceValue.Insert(2, new QuickTests.Item(1, true));
-					testing.ValidateConsistency();
-					sourceValue[3] = new QuickTests.Item(7, true);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(3);
-					testing.ValidateConsistency();
-					sourceValue.Move(1, 3);
-					testing.ValidateConsistency();
-					sourceValue[2].Active = !sourceValue[2].Active;
-					testing.ValidateConsistency();
-					sourceValue[2].Num = sourceValue[2].Num + 1;
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.Insert(0, new QuickTests.Item(1, true));
-					testing.ValidateConsistency();
-					sourceValue.Insert(0, new QuickTests.Item(2, true));
-					testing.ValidateConsistency();
-				}
-
-				IList listSource;
-				listSource = ((IList)((Selecting<Item, int>)source)?.Source);
-				if (listSource != null)
-				{
-					listSource.Clear();
-					testing.ValidateConsistency();
-				}
-
-				if (sourceValue != null)
-				{
-					sourceValue.Insert(0, new QuickTests.Item(1, true));
-					sourceValue.Insert(1, new QuickTests.Item(2, true));
-					sourceValue.Insert(2, new QuickTests.Item(3, true));
-					sourceValue.Insert(3, new QuickTests.Item(3, true));
-					sourceValue.Insert(4, new QuickTests.Item(3, true));
-					testing.ValidateConsistency();
-				}
-			}
-
-			test();
-
-			((Scalar<int>)defaultValueScalar).Touch();
-			test();
-			((Scalar<int>)defaultValueScalar).Change(1);
-			test();
-		}
-		
-		[Test]
-		public void TestMinimazing26()
-		{
-			Selecting<Item, int> source = getItems().Selecting(i => i.Num);
-			
-			var testing = source.Minimazing<int>();
-
-			void test()
-			{
-				testing.ValidateConsistency();
-				var sourceValue = ((ObservableCollection<Item>)((Selecting<Item, int>)source)?.Source);
-
-				if (sourceValue != null)
-				{		
-					sourceValue.Insert(2, new QuickTests.Item(1, true));
-					testing.ValidateConsistency();
-					sourceValue[3] = new QuickTests.Item(7, true);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(3);
-					testing.ValidateConsistency();
-					sourceValue.Move(1, 3);
-					testing.ValidateConsistency();
-					sourceValue[2].Active = !sourceValue[2].Active;
-					testing.ValidateConsistency();
-					sourceValue[2].Num = sourceValue[2].Num + 1;
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.Insert(0, new QuickTests.Item(1, true));
-					testing.ValidateConsistency();
-					sourceValue.Insert(0, new QuickTests.Item(2, true));
-					testing.ValidateConsistency();
-				}
-
-				IList listSource;
-				listSource = ((IList)((Selecting<Item, int>)source)?.Source);
-				if (listSource != null)
-				{
-					listSource.Clear();
-					testing.ValidateConsistency();
-				}
-
-				if (sourceValue != null)
-				{
-					sourceValue.Insert(0, new QuickTests.Item(1, true));
-					sourceValue.Insert(1, new QuickTests.Item(2, true));
-					sourceValue.Insert(2, new QuickTests.Item(3, true));
-					sourceValue.Insert(3, new QuickTests.Item(3, true));
-					sourceValue.Insert(4, new QuickTests.Item(3, true));
-					testing.ValidateConsistency();
-				}
-			}
-
-			test();
-		}
-		
-		[Test]
-		public void TestMinimazing27()
-		{
-			Selecting<Item, int> source = getItems().Selecting(i => i.Num);
-			System.Collections.Generic.IComparer<int> comparer = Comparer<int>.Default;
-			Scalar<int> defaultValueScalar = getScalar<int>(0);
-			
-			var testing = source.Minimazing<int>(
-				comparer,
-				defaultValueScalar);
-
-			void test()
-			{
-				testing.ValidateConsistency();
-				var sourceValue = ((ObservableCollection<Item>)((Selecting<Item, int>)source)?.Source);
-
-				if (sourceValue != null)
-				{		
-					sourceValue.Insert(2, new QuickTests.Item(1, true));
-					testing.ValidateConsistency();
-					sourceValue[3] = new QuickTests.Item(7, true);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(3);
-					testing.ValidateConsistency();
-					sourceValue.Move(1, 3);
-					testing.ValidateConsistency();
-					sourceValue[2].Active = !sourceValue[2].Active;
-					testing.ValidateConsistency();
-					sourceValue[2].Num = sourceValue[2].Num + 1;
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.Insert(0, new QuickTests.Item(1, true));
-					testing.ValidateConsistency();
-					sourceValue.Insert(0, new QuickTests.Item(2, true));
-					testing.ValidateConsistency();
-				}
-
-				IList listSource;
-				listSource = ((IList)((Selecting<Item, int>)source)?.Source);
-				if (listSource != null)
-				{
-					listSource.Clear();
-					testing.ValidateConsistency();
-				}
-
-				if (sourceValue != null)
-				{
-					sourceValue.Insert(0, new QuickTests.Item(1, true));
-					sourceValue.Insert(1, new QuickTests.Item(2, true));
-					sourceValue.Insert(2, new QuickTests.Item(3, true));
-					sourceValue.Insert(3, new QuickTests.Item(3, true));
-					sourceValue.Insert(4, new QuickTests.Item(3, true));
-					testing.ValidateConsistency();
-				}
-			}
-
-			test();
-
-			((Scalar<int>)defaultValueScalar).Touch();
-			test();
-			((Scalar<int>)defaultValueScalar).Change(1);
-			test();
-		}
-		
-		[Test]
-		public void TestMinimazing28()
-		{
-			Selecting<Item, int> source = getItems().Selecting(i => i.Num);
-			System.Collections.Generic.IComparer<int> comparer = Comparer<int>.Default;
-			
-			var testing = source.Minimazing<int>(
-				comparer);
-
-			void test()
-			{
-				testing.ValidateConsistency();
-				var sourceValue = ((ObservableCollection<Item>)((Selecting<Item, int>)source)?.Source);
-
-				if (sourceValue != null)
-				{		
-					sourceValue.Insert(2, new QuickTests.Item(1, true));
-					testing.ValidateConsistency();
-					sourceValue[3] = new QuickTests.Item(7, true);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(3);
-					testing.ValidateConsistency();
-					sourceValue.Move(1, 3);
-					testing.ValidateConsistency();
-					sourceValue[2].Active = !sourceValue[2].Active;
-					testing.ValidateConsistency();
-					sourceValue[2].Num = sourceValue[2].Num + 1;
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.Insert(0, new QuickTests.Item(1, true));
-					testing.ValidateConsistency();
-					sourceValue.Insert(0, new QuickTests.Item(2, true));
-					testing.ValidateConsistency();
-				}
-
-				IList listSource;
-				listSource = ((IList)((Selecting<Item, int>)source)?.Source);
-				if (listSource != null)
-				{
-					listSource.Clear();
-					testing.ValidateConsistency();
-				}
-
-				if (sourceValue != null)
-				{
-					sourceValue.Insert(0, new QuickTests.Item(1, true));
-					sourceValue.Insert(1, new QuickTests.Item(2, true));
-					sourceValue.Insert(2, new QuickTests.Item(3, true));
-					sourceValue.Insert(3, new QuickTests.Item(3, true));
-					sourceValue.Insert(4, new QuickTests.Item(3, true));
-					testing.ValidateConsistency();
-				}
-			}
-
-			test();
-		}
-		
-		[Test]
-		public void TestMinimazing29()
-		{
-			Selecting<Item, int> source = getItems().Selecting(i => i.Num);
-			System.Collections.Generic.IComparer<int> comparer = Comparer<int>.Default;
-			Scalar<int> defaultValueScalar = getScalar<int>(0);
-			
-			var testing = source.Minimazing<int>(
-				comparer,
-				defaultValueScalar);
-
-			void test()
-			{
-				testing.ValidateConsistency();
-				var sourceValue = ((ObservableCollection<Item>)((Selecting<Item, int>)source)?.Source);
-
-				if (sourceValue != null)
-				{		
-					sourceValue.Insert(2, new QuickTests.Item(1, true));
-					testing.ValidateConsistency();
-					sourceValue[3] = new QuickTests.Item(7, true);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(3);
-					testing.ValidateConsistency();
-					sourceValue.Move(1, 3);
-					testing.ValidateConsistency();
-					sourceValue[2].Active = !sourceValue[2].Active;
-					testing.ValidateConsistency();
-					sourceValue[2].Num = sourceValue[2].Num + 1;
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.Insert(0, new QuickTests.Item(1, true));
-					testing.ValidateConsistency();
-					sourceValue.Insert(0, new QuickTests.Item(2, true));
-					testing.ValidateConsistency();
-				}
-
-				IList listSource;
-				listSource = ((IList)((Selecting<Item, int>)source)?.Source);
-				if (listSource != null)
-				{
-					listSource.Clear();
-					testing.ValidateConsistency();
-				}
-
-				if (sourceValue != null)
-				{
-					sourceValue.Insert(0, new QuickTests.Item(1, true));
-					sourceValue.Insert(1, new QuickTests.Item(2, true));
-					sourceValue.Insert(2, new QuickTests.Item(3, true));
-					sourceValue.Insert(3, new QuickTests.Item(3, true));
-					sourceValue.Insert(4, new QuickTests.Item(3, true));
-					testing.ValidateConsistency();
-				}
-			}
-
-			test();
-
-			((Scalar<int>)defaultValueScalar).Touch();
-			test();
-			((Scalar<int>)defaultValueScalar).Change(1);
-			test();
-		}
-		
-		[Test]
-		public void TestMinimazing30()
-		{
-			Selecting<Item, int> source = getItems().Selecting(i => i.Num);
-			System.Collections.Generic.IComparer<int> comparer = Comparer<int>.Default;
-			
-			var testing = source.Minimazing<int>(
-				comparer);
-
-			void test()
-			{
-				testing.ValidateConsistency();
-				var sourceValue = ((ObservableCollection<Item>)((Selecting<Item, int>)source)?.Source);
-
-				if (sourceValue != null)
-				{		
-					sourceValue.Insert(2, new QuickTests.Item(1, true));
-					testing.ValidateConsistency();
-					sourceValue[3] = new QuickTests.Item(7, true);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(3);
-					testing.ValidateConsistency();
-					sourceValue.Move(1, 3);
-					testing.ValidateConsistency();
-					sourceValue[2].Active = !sourceValue[2].Active;
-					testing.ValidateConsistency();
-					sourceValue[2].Num = sourceValue[2].Num + 1;
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.Insert(0, new QuickTests.Item(1, true));
-					testing.ValidateConsistency();
-					sourceValue.Insert(0, new QuickTests.Item(2, true));
-					testing.ValidateConsistency();
-				}
-
-				IList listSource;
-				listSource = ((IList)((Selecting<Item, int>)source)?.Source);
-				if (listSource != null)
-				{
-					listSource.Clear();
-					testing.ValidateConsistency();
-				}
-
-				if (sourceValue != null)
-				{
-					sourceValue.Insert(0, new QuickTests.Item(1, true));
-					sourceValue.Insert(1, new QuickTests.Item(2, true));
-					sourceValue.Insert(2, new QuickTests.Item(3, true));
-					sourceValue.Insert(3, new QuickTests.Item(3, true));
-					sourceValue.Insert(4, new QuickTests.Item(3, true));
-					testing.ValidateConsistency();
-				}
-			}
-
-			test();
-		}
-		
-		[Test]
-		public void TestMinimazing31()
-		{
-			Selecting<Item, int> source = getItems().Selecting(i => i.Num);
-			System.Collections.Generic.IComparer<int> comparer = Comparer<int>.Default;
-			int defaultValue = 0;
-			
-			var testing = source.Minimazing<int>(
-				comparer,
-				defaultValue);
-
-			void test()
-			{
-				testing.ValidateConsistency();
-				var sourceValue = ((ObservableCollection<Item>)((Selecting<Item, int>)source)?.Source);
-
-				if (sourceValue != null)
-				{		
-					sourceValue.Insert(2, new QuickTests.Item(1, true));
-					testing.ValidateConsistency();
-					sourceValue[3] = new QuickTests.Item(7, true);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(3);
-					testing.ValidateConsistency();
-					sourceValue.Move(1, 3);
-					testing.ValidateConsistency();
-					sourceValue[2].Active = !sourceValue[2].Active;
-					testing.ValidateConsistency();
-					sourceValue[2].Num = sourceValue[2].Num + 1;
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.Insert(0, new QuickTests.Item(1, true));
-					testing.ValidateConsistency();
-					sourceValue.Insert(0, new QuickTests.Item(2, true));
-					testing.ValidateConsistency();
-				}
-
-				IList listSource;
-				listSource = ((IList)((Selecting<Item, int>)source)?.Source);
-				if (listSource != null)
-				{
-					listSource.Clear();
-					testing.ValidateConsistency();
-				}
-
-				if (sourceValue != null)
-				{
-					sourceValue.Insert(0, new QuickTests.Item(1, true));
-					sourceValue.Insert(1, new QuickTests.Item(2, true));
-					sourceValue.Insert(2, new QuickTests.Item(3, true));
-					sourceValue.Insert(3, new QuickTests.Item(3, true));
-					sourceValue.Insert(4, new QuickTests.Item(3, true));
-					testing.ValidateConsistency();
-				}
-			}
-
-			test();
-		}
-		
-		[Test]
-		public void TestMinimazing32()
-		{
-			Selecting<Item, int> source = getItems().Selecting(i => i.Num);
-			int defaultValue = 0;
-			
-			var testing = source.Minimazing<int>(
-				defaultValue);
-
-			void test()
-			{
-				testing.ValidateConsistency();
-				var sourceValue = ((ObservableCollection<Item>)((Selecting<Item, int>)source)?.Source);
-
-				if (sourceValue != null)
-				{		
-					sourceValue.Insert(2, new QuickTests.Item(1, true));
-					testing.ValidateConsistency();
-					sourceValue[3] = new QuickTests.Item(7, true);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(3);
-					testing.ValidateConsistency();
-					sourceValue.Move(1, 3);
-					testing.ValidateConsistency();
-					sourceValue[2].Active = !sourceValue[2].Active;
-					testing.ValidateConsistency();
-					sourceValue[2].Num = sourceValue[2].Num + 1;
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.Insert(0, new QuickTests.Item(1, true));
-					testing.ValidateConsistency();
-					sourceValue.Insert(0, new QuickTests.Item(2, true));
-					testing.ValidateConsistency();
-				}
-
-				IList listSource;
-				listSource = ((IList)((Selecting<Item, int>)source)?.Source);
-				if (listSource != null)
-				{
-					listSource.Clear();
-					testing.ValidateConsistency();
-				}
-
-				if (sourceValue != null)
-				{
-					sourceValue.Insert(0, new QuickTests.Item(1, true));
-					sourceValue.Insert(1, new QuickTests.Item(2, true));
-					sourceValue.Insert(2, new QuickTests.Item(3, true));
-					sourceValue.Insert(3, new QuickTests.Item(3, true));
-					sourceValue.Insert(4, new QuickTests.Item(3, true));
-					testing.ValidateConsistency();
-				}
-			}
-
-			test();
-		}
-		
-		[Test]
-		public void TestMinimazing33()
-		{
-			Selecting<Item, int> source = getItems().Selecting(i => i.Num);
-			System.Collections.Generic.IComparer<int> comparer = Comparer<int>.Default;
-			int defaultValue = 0;
-			
-			var testing = source.Minimazing<int>(
-				comparer,
-				defaultValue);
-
-			void test()
-			{
-				testing.ValidateConsistency();
-				var sourceValue = ((ObservableCollection<Item>)((Selecting<Item, int>)source)?.Source);
-
-				if (sourceValue != null)
-				{		
-					sourceValue.Insert(2, new QuickTests.Item(1, true));
-					testing.ValidateConsistency();
-					sourceValue[3] = new QuickTests.Item(7, true);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(3);
-					testing.ValidateConsistency();
-					sourceValue.Move(1, 3);
-					testing.ValidateConsistency();
-					sourceValue[2].Active = !sourceValue[2].Active;
-					testing.ValidateConsistency();
-					sourceValue[2].Num = sourceValue[2].Num + 1;
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.Insert(0, new QuickTests.Item(1, true));
-					testing.ValidateConsistency();
-					sourceValue.Insert(0, new QuickTests.Item(2, true));
-					testing.ValidateConsistency();
-				}
-
-				IList listSource;
-				listSource = ((IList)((Selecting<Item, int>)source)?.Source);
-				if (listSource != null)
-				{
-					listSource.Clear();
-					testing.ValidateConsistency();
-				}
-
-				if (sourceValue != null)
-				{
-					sourceValue.Insert(0, new QuickTests.Item(1, true));
-					sourceValue.Insert(1, new QuickTests.Item(2, true));
-					sourceValue.Insert(2, new QuickTests.Item(3, true));
-					sourceValue.Insert(3, new QuickTests.Item(3, true));
-					sourceValue.Insert(4, new QuickTests.Item(3, true));
-					testing.ValidateConsistency();
-				}
-			}
-
-			test();
-		}
-		
-		[Test]
-		public void TestMinimazing34()
-		{
-			Selecting<Item, int> source = getItems().Selecting(i => i.Num);
-			int defaultValue = 0;
-			
-			var testing = source.Minimazing<int>(
-				defaultValue);
-
-			void test()
-			{
-				testing.ValidateConsistency();
-				var sourceValue = ((ObservableCollection<Item>)((Selecting<Item, int>)source)?.Source);
-
-				if (sourceValue != null)
-				{		
-					sourceValue.Insert(2, new QuickTests.Item(1, true));
-					testing.ValidateConsistency();
-					sourceValue[3] = new QuickTests.Item(7, true);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(3);
-					testing.ValidateConsistency();
-					sourceValue.Move(1, 3);
-					testing.ValidateConsistency();
-					sourceValue[2].Active = !sourceValue[2].Active;
-					testing.ValidateConsistency();
-					sourceValue[2].Num = sourceValue[2].Num + 1;
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.Insert(0, new QuickTests.Item(1, true));
-					testing.ValidateConsistency();
-					sourceValue.Insert(0, new QuickTests.Item(2, true));
-					testing.ValidateConsistency();
-				}
-
-				IList listSource;
-				listSource = ((IList)((Selecting<Item, int>)source)?.Source);
-				if (listSource != null)
-				{
-					listSource.Clear();
-					testing.ValidateConsistency();
-				}
-
-				if (sourceValue != null)
-				{
-					sourceValue.Insert(0, new QuickTests.Item(1, true));
-					sourceValue.Insert(1, new QuickTests.Item(2, true));
-					sourceValue.Insert(2, new QuickTests.Item(3, true));
-					sourceValue.Insert(3, new QuickTests.Item(3, true));
-					sourceValue.Insert(4, new QuickTests.Item(3, true));
-					testing.ValidateConsistency();
-				}
-			}
-
-			test();
-		}
-		
-		[Test]
-		public void TestMinimazing35()
-		{
-			Selecting<Item, int> source = getItems().Selecting(i => i.Num);
-			Scalar<System.Collections.Generic.IComparer<int>> comparerScalar = getScalar<System.Collections.Generic.IComparer<int>>(Comparer<int>.Default);
-			int defaultValue = 0;
-			
-			var testing = source.Minimazing<int>(
-				comparerScalar,
-				defaultValue);
-
-			void test()
-			{
-				testing.ValidateConsistency();
-				var sourceValue = ((ObservableCollection<Item>)((Selecting<Item, int>)source)?.Source);
-
-				if (sourceValue != null)
-				{		
-					sourceValue.Insert(2, new QuickTests.Item(1, true));
-					testing.ValidateConsistency();
-					sourceValue[3] = new QuickTests.Item(7, true);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(3);
-					testing.ValidateConsistency();
-					sourceValue.Move(1, 3);
-					testing.ValidateConsistency();
-					sourceValue[2].Active = !sourceValue[2].Active;
-					testing.ValidateConsistency();
-					sourceValue[2].Num = sourceValue[2].Num + 1;
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.Insert(0, new QuickTests.Item(1, true));
-					testing.ValidateConsistency();
-					sourceValue.Insert(0, new QuickTests.Item(2, true));
-					testing.ValidateConsistency();
-				}
-
-				IList listSource;
-				listSource = ((IList)((Selecting<Item, int>)source)?.Source);
-				if (listSource != null)
-				{
-					listSource.Clear();
-					testing.ValidateConsistency();
-				}
-
-				if (sourceValue != null)
-				{
-					sourceValue.Insert(0, new QuickTests.Item(1, true));
-					sourceValue.Insert(1, new QuickTests.Item(2, true));
-					sourceValue.Insert(2, new QuickTests.Item(3, true));
-					sourceValue.Insert(3, new QuickTests.Item(3, true));
-					sourceValue.Insert(4, new QuickTests.Item(3, true));
-					testing.ValidateConsistency();
-				}
-			}
-
-			test();
-
-			((Scalar<System.Collections.Generic.IComparer<int>>)comparerScalar).Touch();
-			test();
-			((Scalar<System.Collections.Generic.IComparer<int>>)comparerScalar).Change(null);
-			test();
-		}
-		
-		[Test]
-		public void TestMinimazing36()
-		{
-			Selecting<Item, int> source = getItems().Selecting(i => i.Num);
-			Scalar<System.Collections.Generic.IComparer<int>> comparerScalar = getScalar<System.Collections.Generic.IComparer<int>>(Comparer<int>.Default);
-			int defaultValue = 0;
-			
-			var testing = source.Minimazing<int>(
-				comparerScalar,
-				defaultValue);
 
 			void test()
 			{

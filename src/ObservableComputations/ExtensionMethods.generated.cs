@@ -7628,12 +7628,12 @@ namespace ObservableComputations
 		[ObservableComputationsCall]
 		public static ObservableComputations.FirstComputing<TSourceItem> FirstComputing<TSourceItem>(this
 			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar,
-			 ObservableComputations.IReadScalar<TSourceItem> defaultValueScalar)
+			 TSourceItem defaultValue)
 			
 		{
 			return new ObservableComputations.FirstComputing<TSourceItem>(
 				sourceScalar: sourceScalar,
-				defaultValueScalar: defaultValueScalar);
+				defaultValue: defaultValue);
 		}
 
 		[ObservableComputationsCall]
@@ -7643,29 +7643,18 @@ namespace ObservableComputations
 		{
 			return new ObservableComputations.FirstComputing<TSourceItem>(
 				sourceScalar: sourceScalar,
-				defaultValueScalar: null);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.FirstComputing<TSourceItem> FirstComputing<TSourceItem>(this
-			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar,
-			 Expression<Func<TSourceItem>> defaultValueExpression)
-			
-		{
-			return new ObservableComputations.FirstComputing<TSourceItem>(
-				sourceScalar: sourceScalar,
-				defaultValueScalar: new Computing<TSourceItem>(defaultValueExpression));
+				defaultValue: default(TSourceItem));
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.FirstComputing<TSourceItem> FirstComputing<TSourceItem>(this
 			 ObservableComputations.IReadScalar<ObservableCollection<TSourceItem>> sourceScalar,
-			 ObservableComputations.IReadScalar<TSourceItem> defaultValueScalar)
+			 TSourceItem defaultValue)
 			
 		{
 			return new ObservableComputations.FirstComputing<TSourceItem>(
 				sourceScalar: sourceScalar,
-				defaultValueScalar: defaultValueScalar);
+				defaultValue: defaultValue);
 		}
 
 		[ObservableComputationsCall]
@@ -7675,29 +7664,18 @@ namespace ObservableComputations
 		{
 			return new ObservableComputations.FirstComputing<TSourceItem>(
 				sourceScalar: sourceScalar,
-				defaultValueScalar: null);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.FirstComputing<TSourceItem> FirstComputing<TSourceItem>(this
-			 ObservableComputations.IReadScalar<ObservableCollection<TSourceItem>> sourceScalar,
-			 Expression<Func<TSourceItem>> defaultValueExpression)
-			
-		{
-			return new ObservableComputations.FirstComputing<TSourceItem>(
-				sourceScalar: sourceScalar,
-				defaultValueScalar: new Computing<TSourceItem>(defaultValueExpression));
+				defaultValue: default(TSourceItem));
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.FirstComputing<TSourceItem> FirstComputing<TSourceItem>(this
 			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> sourceExpression,
-			 ObservableComputations.IReadScalar<TSourceItem> defaultValueScalar)
+			 TSourceItem defaultValue)
 			
 		{
 			return new ObservableComputations.FirstComputing<TSourceItem>(
 				sourceScalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(sourceExpression),
-				defaultValueScalar: defaultValueScalar);
+				defaultValue: defaultValue);
 		}
 
 		[ObservableComputationsCall]
@@ -7707,29 +7685,18 @@ namespace ObservableComputations
 		{
 			return new ObservableComputations.FirstComputing<TSourceItem>(
 				sourceScalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(sourceExpression),
-				defaultValueScalar: null);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.FirstComputing<TSourceItem> FirstComputing<TSourceItem>(this
-			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> sourceExpression,
-			 Expression<Func<TSourceItem>> defaultValueExpression)
-			
-		{
-			return new ObservableComputations.FirstComputing<TSourceItem>(
-				sourceScalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(sourceExpression),
-				defaultValueScalar: new Computing<TSourceItem>(defaultValueExpression));
+				defaultValue: default(TSourceItem));
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.FirstComputing<TSourceItem> FirstComputing<TSourceItem>(this
 			 Expression<Func<ObservableCollection<TSourceItem>>> sourceExpression,
-			 ObservableComputations.IReadScalar<TSourceItem> defaultValueScalar)
+			 TSourceItem defaultValue)
 			
 		{
 			return new ObservableComputations.FirstComputing<TSourceItem>(
 				sourceScalar: new Computing<ObservableCollection<TSourceItem>>(sourceExpression),
-				defaultValueScalar: defaultValueScalar);
+				defaultValue: defaultValue);
 		}
 
 		[ObservableComputationsCall]
@@ -7739,29 +7706,18 @@ namespace ObservableComputations
 		{
 			return new ObservableComputations.FirstComputing<TSourceItem>(
 				sourceScalar: new Computing<ObservableCollection<TSourceItem>>(sourceExpression),
-				defaultValueScalar: null);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.FirstComputing<TSourceItem> FirstComputing<TSourceItem>(this
-			 Expression<Func<ObservableCollection<TSourceItem>>> sourceExpression,
-			 Expression<Func<TSourceItem>> defaultValueExpression)
-			
-		{
-			return new ObservableComputations.FirstComputing<TSourceItem>(
-				sourceScalar: new Computing<ObservableCollection<TSourceItem>>(sourceExpression),
-				defaultValueScalar: new Computing<TSourceItem>(defaultValueExpression));
+				defaultValue: default(TSourceItem));
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.FirstComputing<TSourceItem> FirstComputing<TSourceItem>(this
 			 System.Collections.Specialized.INotifyCollectionChanged source,
-			 ObservableComputations.IReadScalar<TSourceItem> defaultValueScalar)
+			 TSourceItem defaultValue)
 			
 		{
 			return new ObservableComputations.FirstComputing<TSourceItem>(
 				source: source,
-				defaultValueScalar: defaultValueScalar);
+				defaultValue: defaultValue);
 		}
 
 		[ObservableComputationsCall]
@@ -7771,29 +7727,18 @@ namespace ObservableComputations
 		{
 			return new ObservableComputations.FirstComputing<TSourceItem>(
 				source: source,
-				defaultValueScalar: null);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.FirstComputing<TSourceItem> FirstComputing<TSourceItem>(this
-			 System.Collections.Specialized.INotifyCollectionChanged source,
-			 Expression<Func<TSourceItem>> defaultValueExpression)
-			
-		{
-			return new ObservableComputations.FirstComputing<TSourceItem>(
-				source: source,
-				defaultValueScalar: new Computing<TSourceItem>(defaultValueExpression));
+				defaultValue: default(TSourceItem));
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.FirstComputing<TSourceItem> FirstComputing<TSourceItem>(this
 			 ObservableCollection<TSourceItem> source,
-			 ObservableComputations.IReadScalar<TSourceItem> defaultValueScalar)
+			 TSourceItem defaultValue)
 			
 		{
 			return new ObservableComputations.FirstComputing<TSourceItem>(
 				source: source,
-				defaultValueScalar: defaultValueScalar);
+				defaultValue: defaultValue);
 		}
 
 		[ObservableComputationsCall]
@@ -7803,84 +7748,7 @@ namespace ObservableComputations
 		{
 			return new ObservableComputations.FirstComputing<TSourceItem>(
 				source: source,
-				defaultValueScalar: null);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.FirstComputing<TSourceItem> FirstComputing<TSourceItem>(this
-			 ObservableCollection<TSourceItem> source,
-			 Expression<Func<TSourceItem>> defaultValueExpression)
-			
-		{
-			return new ObservableComputations.FirstComputing<TSourceItem>(
-				source: source,
-				defaultValueScalar: new Computing<TSourceItem>(defaultValueExpression));
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.FirstComputing<TSourceItem> FirstComputing<TSourceItem>(this
-			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar,
-			 TSourceItem defaultValue)
-			
-		{
-			return new ObservableComputations.FirstComputing<TSourceItem>(
-				sourceScalar: sourceScalar,
-				defaultValue: defaultValue);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.FirstComputing<TSourceItem> FirstComputing<TSourceItem>(this
-			 ObservableComputations.IReadScalar<ObservableCollection<TSourceItem>> sourceScalar,
-			 TSourceItem defaultValue)
-			
-		{
-			return new ObservableComputations.FirstComputing<TSourceItem>(
-				sourceScalar: sourceScalar,
-				defaultValue: defaultValue);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.FirstComputing<TSourceItem> FirstComputing<TSourceItem>(this
-			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> sourceExpression,
-			 TSourceItem defaultValue)
-			
-		{
-			return new ObservableComputations.FirstComputing<TSourceItem>(
-				sourceScalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(sourceExpression),
-				defaultValue: defaultValue);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.FirstComputing<TSourceItem> FirstComputing<TSourceItem>(this
-			 Expression<Func<ObservableCollection<TSourceItem>>> sourceExpression,
-			 TSourceItem defaultValue)
-			
-		{
-			return new ObservableComputations.FirstComputing<TSourceItem>(
-				sourceScalar: new Computing<ObservableCollection<TSourceItem>>(sourceExpression),
-				defaultValue: defaultValue);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.FirstComputing<TSourceItem> FirstComputing<TSourceItem>(this
-			 System.Collections.Specialized.INotifyCollectionChanged source,
-			 TSourceItem defaultValue)
-			
-		{
-			return new ObservableComputations.FirstComputing<TSourceItem>(
-				source: source,
-				defaultValue: defaultValue);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.FirstComputing<TSourceItem> FirstComputing<TSourceItem>(this
-			 ObservableCollection<TSourceItem> source,
-			 TSourceItem defaultValue)
-			
-		{
-			return new ObservableComputations.FirstComputing<TSourceItem>(
-				source: source,
-				defaultValue: defaultValue);
+				defaultValue: default(TSourceItem));
 		}
 
 		#endregion
@@ -15590,318 +15458,14 @@ namespace ObservableComputations
 		[ObservableComputationsCall]
 		public static ObservableComputations.ItemComputing<TSourceItem> ItemComputing<TSourceItem>(this
 			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar,
-			 ObservableComputations.IReadScalar<int> indexScalar,
-			 ObservableComputations.IReadScalar<TSourceItem> defaultValueScalar)
-			
-		{
-			return new ObservableComputations.ItemComputing<TSourceItem>(
-				sourceScalar: sourceScalar,
-				indexScalar: indexScalar,
-				defaultValueScalar: defaultValueScalar);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.ItemComputing<TSourceItem> ItemComputing<TSourceItem>(this
-			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar,
-			 ObservableComputations.IReadScalar<int> indexScalar)
-			
-		{
-			return new ObservableComputations.ItemComputing<TSourceItem>(
-				sourceScalar: sourceScalar,
-				indexScalar: indexScalar,
-				defaultValueScalar: null);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.ItemComputing<TSourceItem> ItemComputing<TSourceItem>(this
-			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar,
-			 ObservableComputations.IReadScalar<int> indexScalar,
-			 Expression<Func<TSourceItem>> defaultValueExpression)
-			
-		{
-			return new ObservableComputations.ItemComputing<TSourceItem>(
-				sourceScalar: sourceScalar,
-				indexScalar: indexScalar,
-				defaultValueScalar: new Computing<TSourceItem>(defaultValueExpression));
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.ItemComputing<TSourceItem> ItemComputing<TSourceItem>(this
-			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar,
-			 Expression<Func<int>> indexExpression,
-			 ObservableComputations.IReadScalar<TSourceItem> defaultValueScalar)
-			
-		{
-			return new ObservableComputations.ItemComputing<TSourceItem>(
-				sourceScalar: sourceScalar,
-				indexScalar: new Computing<int>(indexExpression),
-				defaultValueScalar: defaultValueScalar);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.ItemComputing<TSourceItem> ItemComputing<TSourceItem>(this
-			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar,
-			 Expression<Func<int>> indexExpression)
-			
-		{
-			return new ObservableComputations.ItemComputing<TSourceItem>(
-				sourceScalar: sourceScalar,
-				indexScalar: new Computing<int>(indexExpression),
-				defaultValueScalar: null);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.ItemComputing<TSourceItem> ItemComputing<TSourceItem>(this
-			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar,
-			 Expression<Func<int>> indexExpression,
-			 Expression<Func<TSourceItem>> defaultValueExpression)
-			
-		{
-			return new ObservableComputations.ItemComputing<TSourceItem>(
-				sourceScalar: sourceScalar,
-				indexScalar: new Computing<int>(indexExpression),
-				defaultValueScalar: new Computing<TSourceItem>(defaultValueExpression));
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.ItemComputing<TSourceItem> ItemComputing<TSourceItem>(this
-			 ObservableComputations.IReadScalar<ObservableCollection<TSourceItem>> sourceScalar,
-			 ObservableComputations.IReadScalar<int> indexScalar,
-			 ObservableComputations.IReadScalar<TSourceItem> defaultValueScalar)
-			
-		{
-			return new ObservableComputations.ItemComputing<TSourceItem>(
-				sourceScalar: sourceScalar,
-				indexScalar: indexScalar,
-				defaultValueScalar: defaultValueScalar);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.ItemComputing<TSourceItem> ItemComputing<TSourceItem>(this
-			 ObservableComputations.IReadScalar<ObservableCollection<TSourceItem>> sourceScalar,
-			 ObservableComputations.IReadScalar<int> indexScalar)
-			
-		{
-			return new ObservableComputations.ItemComputing<TSourceItem>(
-				sourceScalar: sourceScalar,
-				indexScalar: indexScalar,
-				defaultValueScalar: null);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.ItemComputing<TSourceItem> ItemComputing<TSourceItem>(this
-			 ObservableComputations.IReadScalar<ObservableCollection<TSourceItem>> sourceScalar,
-			 ObservableComputations.IReadScalar<int> indexScalar,
-			 Expression<Func<TSourceItem>> defaultValueExpression)
-			
-		{
-			return new ObservableComputations.ItemComputing<TSourceItem>(
-				sourceScalar: sourceScalar,
-				indexScalar: indexScalar,
-				defaultValueScalar: new Computing<TSourceItem>(defaultValueExpression));
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.ItemComputing<TSourceItem> ItemComputing<TSourceItem>(this
-			 ObservableComputations.IReadScalar<ObservableCollection<TSourceItem>> sourceScalar,
-			 Expression<Func<int>> indexExpression,
-			 ObservableComputations.IReadScalar<TSourceItem> defaultValueScalar)
-			
-		{
-			return new ObservableComputations.ItemComputing<TSourceItem>(
-				sourceScalar: sourceScalar,
-				indexScalar: new Computing<int>(indexExpression),
-				defaultValueScalar: defaultValueScalar);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.ItemComputing<TSourceItem> ItemComputing<TSourceItem>(this
-			 ObservableComputations.IReadScalar<ObservableCollection<TSourceItem>> sourceScalar,
-			 Expression<Func<int>> indexExpression)
-			
-		{
-			return new ObservableComputations.ItemComputing<TSourceItem>(
-				sourceScalar: sourceScalar,
-				indexScalar: new Computing<int>(indexExpression),
-				defaultValueScalar: null);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.ItemComputing<TSourceItem> ItemComputing<TSourceItem>(this
-			 ObservableComputations.IReadScalar<ObservableCollection<TSourceItem>> sourceScalar,
-			 Expression<Func<int>> indexExpression,
-			 Expression<Func<TSourceItem>> defaultValueExpression)
-			
-		{
-			return new ObservableComputations.ItemComputing<TSourceItem>(
-				sourceScalar: sourceScalar,
-				indexScalar: new Computing<int>(indexExpression),
-				defaultValueScalar: new Computing<TSourceItem>(defaultValueExpression));
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.ItemComputing<TSourceItem> ItemComputing<TSourceItem>(this
-			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> sourceExpression,
-			 ObservableComputations.IReadScalar<int> indexScalar,
-			 ObservableComputations.IReadScalar<TSourceItem> defaultValueScalar)
-			
-		{
-			return new ObservableComputations.ItemComputing<TSourceItem>(
-				sourceScalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(sourceExpression),
-				indexScalar: indexScalar,
-				defaultValueScalar: defaultValueScalar);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.ItemComputing<TSourceItem> ItemComputing<TSourceItem>(this
-			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> sourceExpression,
-			 ObservableComputations.IReadScalar<int> indexScalar)
-			
-		{
-			return new ObservableComputations.ItemComputing<TSourceItem>(
-				sourceScalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(sourceExpression),
-				indexScalar: indexScalar,
-				defaultValueScalar: null);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.ItemComputing<TSourceItem> ItemComputing<TSourceItem>(this
-			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> sourceExpression,
-			 ObservableComputations.IReadScalar<int> indexScalar,
-			 Expression<Func<TSourceItem>> defaultValueExpression)
-			
-		{
-			return new ObservableComputations.ItemComputing<TSourceItem>(
-				sourceScalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(sourceExpression),
-				indexScalar: indexScalar,
-				defaultValueScalar: new Computing<TSourceItem>(defaultValueExpression));
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.ItemComputing<TSourceItem> ItemComputing<TSourceItem>(this
-			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> sourceExpression,
-			 Expression<Func<int>> indexExpression,
-			 ObservableComputations.IReadScalar<TSourceItem> defaultValueScalar)
-			
-		{
-			return new ObservableComputations.ItemComputing<TSourceItem>(
-				sourceScalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(sourceExpression),
-				indexScalar: new Computing<int>(indexExpression),
-				defaultValueScalar: defaultValueScalar);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.ItemComputing<TSourceItem> ItemComputing<TSourceItem>(this
-			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> sourceExpression,
-			 Expression<Func<int>> indexExpression)
-			
-		{
-			return new ObservableComputations.ItemComputing<TSourceItem>(
-				sourceScalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(sourceExpression),
-				indexScalar: new Computing<int>(indexExpression),
-				defaultValueScalar: null);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.ItemComputing<TSourceItem> ItemComputing<TSourceItem>(this
-			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> sourceExpression,
-			 Expression<Func<int>> indexExpression,
-			 Expression<Func<TSourceItem>> defaultValueExpression)
-			
-		{
-			return new ObservableComputations.ItemComputing<TSourceItem>(
-				sourceScalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(sourceExpression),
-				indexScalar: new Computing<int>(indexExpression),
-				defaultValueScalar: new Computing<TSourceItem>(defaultValueExpression));
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.ItemComputing<TSourceItem> ItemComputing<TSourceItem>(this
-			 Expression<Func<ObservableCollection<TSourceItem>>> sourceExpression,
-			 ObservableComputations.IReadScalar<int> indexScalar,
-			 ObservableComputations.IReadScalar<TSourceItem> defaultValueScalar)
-			
-		{
-			return new ObservableComputations.ItemComputing<TSourceItem>(
-				sourceScalar: new Computing<ObservableCollection<TSourceItem>>(sourceExpression),
-				indexScalar: indexScalar,
-				defaultValueScalar: defaultValueScalar);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.ItemComputing<TSourceItem> ItemComputing<TSourceItem>(this
-			 Expression<Func<ObservableCollection<TSourceItem>>> sourceExpression,
-			 ObservableComputations.IReadScalar<int> indexScalar)
-			
-		{
-			return new ObservableComputations.ItemComputing<TSourceItem>(
-				sourceScalar: new Computing<ObservableCollection<TSourceItem>>(sourceExpression),
-				indexScalar: indexScalar,
-				defaultValueScalar: null);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.ItemComputing<TSourceItem> ItemComputing<TSourceItem>(this
-			 Expression<Func<ObservableCollection<TSourceItem>>> sourceExpression,
-			 ObservableComputations.IReadScalar<int> indexScalar,
-			 Expression<Func<TSourceItem>> defaultValueExpression)
-			
-		{
-			return new ObservableComputations.ItemComputing<TSourceItem>(
-				sourceScalar: new Computing<ObservableCollection<TSourceItem>>(sourceExpression),
-				indexScalar: indexScalar,
-				defaultValueScalar: new Computing<TSourceItem>(defaultValueExpression));
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.ItemComputing<TSourceItem> ItemComputing<TSourceItem>(this
-			 Expression<Func<ObservableCollection<TSourceItem>>> sourceExpression,
-			 Expression<Func<int>> indexExpression,
-			 ObservableComputations.IReadScalar<TSourceItem> defaultValueScalar)
-			
-		{
-			return new ObservableComputations.ItemComputing<TSourceItem>(
-				sourceScalar: new Computing<ObservableCollection<TSourceItem>>(sourceExpression),
-				indexScalar: new Computing<int>(indexExpression),
-				defaultValueScalar: defaultValueScalar);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.ItemComputing<TSourceItem> ItemComputing<TSourceItem>(this
-			 Expression<Func<ObservableCollection<TSourceItem>>> sourceExpression,
-			 Expression<Func<int>> indexExpression)
-			
-		{
-			return new ObservableComputations.ItemComputing<TSourceItem>(
-				sourceScalar: new Computing<ObservableCollection<TSourceItem>>(sourceExpression),
-				indexScalar: new Computing<int>(indexExpression),
-				defaultValueScalar: null);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.ItemComputing<TSourceItem> ItemComputing<TSourceItem>(this
-			 Expression<Func<ObservableCollection<TSourceItem>>> sourceExpression,
-			 Expression<Func<int>> indexExpression,
-			 Expression<Func<TSourceItem>> defaultValueExpression)
-			
-		{
-			return new ObservableComputations.ItemComputing<TSourceItem>(
-				sourceScalar: new Computing<ObservableCollection<TSourceItem>>(sourceExpression),
-				indexScalar: new Computing<int>(indexExpression),
-				defaultValueScalar: new Computing<TSourceItem>(defaultValueExpression));
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.ItemComputing<TSourceItem> ItemComputing<TSourceItem>(this
-			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar,
 			 int index,
-			 ObservableComputations.IReadScalar<TSourceItem> defaultValueScalar)
+			 TSourceItem defaultValue)
 			
 		{
 			return new ObservableComputations.ItemComputing<TSourceItem>(
 				sourceScalar: sourceScalar,
 				index: index,
-				defaultValueScalar: defaultValueScalar);
+				defaultValue: defaultValue);
 		}
 
 		[ObservableComputationsCall]
@@ -15913,33 +15477,20 @@ namespace ObservableComputations
 			return new ObservableComputations.ItemComputing<TSourceItem>(
 				sourceScalar: sourceScalar,
 				index: index,
-				defaultValueScalar: null);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.ItemComputing<TSourceItem> ItemComputing<TSourceItem>(this
-			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar,
-			 int index,
-			 Expression<Func<TSourceItem>> defaultValueExpression)
-			
-		{
-			return new ObservableComputations.ItemComputing<TSourceItem>(
-				sourceScalar: sourceScalar,
-				index: index,
-				defaultValueScalar: new Computing<TSourceItem>(defaultValueExpression));
+				defaultValue: default(TSourceItem));
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.ItemComputing<TSourceItem> ItemComputing<TSourceItem>(this
 			 ObservableComputations.IReadScalar<ObservableCollection<TSourceItem>> sourceScalar,
 			 int index,
-			 ObservableComputations.IReadScalar<TSourceItem> defaultValueScalar)
+			 TSourceItem defaultValue)
 			
 		{
 			return new ObservableComputations.ItemComputing<TSourceItem>(
 				sourceScalar: sourceScalar,
 				index: index,
-				defaultValueScalar: defaultValueScalar);
+				defaultValue: defaultValue);
 		}
 
 		[ObservableComputationsCall]
@@ -15951,33 +15502,20 @@ namespace ObservableComputations
 			return new ObservableComputations.ItemComputing<TSourceItem>(
 				sourceScalar: sourceScalar,
 				index: index,
-				defaultValueScalar: null);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.ItemComputing<TSourceItem> ItemComputing<TSourceItem>(this
-			 ObservableComputations.IReadScalar<ObservableCollection<TSourceItem>> sourceScalar,
-			 int index,
-			 Expression<Func<TSourceItem>> defaultValueExpression)
-			
-		{
-			return new ObservableComputations.ItemComputing<TSourceItem>(
-				sourceScalar: sourceScalar,
-				index: index,
-				defaultValueScalar: new Computing<TSourceItem>(defaultValueExpression));
+				defaultValue: default(TSourceItem));
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.ItemComputing<TSourceItem> ItemComputing<TSourceItem>(this
 			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> sourceExpression,
 			 int index,
-			 ObservableComputations.IReadScalar<TSourceItem> defaultValueScalar)
+			 TSourceItem defaultValue)
 			
 		{
 			return new ObservableComputations.ItemComputing<TSourceItem>(
 				sourceScalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(sourceExpression),
 				index: index,
-				defaultValueScalar: defaultValueScalar);
+				defaultValue: defaultValue);
 		}
 
 		[ObservableComputationsCall]
@@ -15989,33 +15527,20 @@ namespace ObservableComputations
 			return new ObservableComputations.ItemComputing<TSourceItem>(
 				sourceScalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(sourceExpression),
 				index: index,
-				defaultValueScalar: null);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.ItemComputing<TSourceItem> ItemComputing<TSourceItem>(this
-			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> sourceExpression,
-			 int index,
-			 Expression<Func<TSourceItem>> defaultValueExpression)
-			
-		{
-			return new ObservableComputations.ItemComputing<TSourceItem>(
-				sourceScalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(sourceExpression),
-				index: index,
-				defaultValueScalar: new Computing<TSourceItem>(defaultValueExpression));
+				defaultValue: default(TSourceItem));
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.ItemComputing<TSourceItem> ItemComputing<TSourceItem>(this
 			 Expression<Func<ObservableCollection<TSourceItem>>> sourceExpression,
 			 int index,
-			 ObservableComputations.IReadScalar<TSourceItem> defaultValueScalar)
+			 TSourceItem defaultValue)
 			
 		{
 			return new ObservableComputations.ItemComputing<TSourceItem>(
 				sourceScalar: new Computing<ObservableCollection<TSourceItem>>(sourceExpression),
 				index: index,
-				defaultValueScalar: defaultValueScalar);
+				defaultValue: defaultValue);
 		}
 
 		[ObservableComputationsCall]
@@ -16027,72 +15552,7 @@ namespace ObservableComputations
 			return new ObservableComputations.ItemComputing<TSourceItem>(
 				sourceScalar: new Computing<ObservableCollection<TSourceItem>>(sourceExpression),
 				index: index,
-				defaultValueScalar: null);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.ItemComputing<TSourceItem> ItemComputing<TSourceItem>(this
-			 Expression<Func<ObservableCollection<TSourceItem>>> sourceExpression,
-			 int index,
-			 Expression<Func<TSourceItem>> defaultValueExpression)
-			
-		{
-			return new ObservableComputations.ItemComputing<TSourceItem>(
-				sourceScalar: new Computing<ObservableCollection<TSourceItem>>(sourceExpression),
-				index: index,
-				defaultValueScalar: new Computing<TSourceItem>(defaultValueExpression));
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.ItemComputing<TSourceItem> ItemComputing<TSourceItem>(this
-			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar,
-			 int index,
-			 TSourceItem defaultValue)
-			
-		{
-			return new ObservableComputations.ItemComputing<TSourceItem>(
-				sourceScalar: sourceScalar,
-				index: index,
-				defaultValue: defaultValue);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.ItemComputing<TSourceItem> ItemComputing<TSourceItem>(this
-			 ObservableComputations.IReadScalar<ObservableCollection<TSourceItem>> sourceScalar,
-			 int index,
-			 TSourceItem defaultValue)
-			
-		{
-			return new ObservableComputations.ItemComputing<TSourceItem>(
-				sourceScalar: sourceScalar,
-				index: index,
-				defaultValue: defaultValue);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.ItemComputing<TSourceItem> ItemComputing<TSourceItem>(this
-			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> sourceExpression,
-			 int index,
-			 TSourceItem defaultValue)
-			
-		{
-			return new ObservableComputations.ItemComputing<TSourceItem>(
-				sourceScalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(sourceExpression),
-				index: index,
-				defaultValue: defaultValue);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.ItemComputing<TSourceItem> ItemComputing<TSourceItem>(this
-			 Expression<Func<ObservableCollection<TSourceItem>>> sourceExpression,
-			 int index,
-			 TSourceItem defaultValue)
-			
-		{
-			return new ObservableComputations.ItemComputing<TSourceItem>(
-				sourceScalar: new Computing<ObservableCollection<TSourceItem>>(sourceExpression),
-				index: index,
-				defaultValue: defaultValue);
+				defaultValue: default(TSourceItem));
 		}
 
 		[ObservableComputationsCall]
@@ -16111,6 +15571,18 @@ namespace ObservableComputations
 		[ObservableComputationsCall]
 		public static ObservableComputations.ItemComputing<TSourceItem> ItemComputing<TSourceItem>(this
 			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar,
+			 ObservableComputations.IReadScalar<int> indexScalar)
+			
+		{
+			return new ObservableComputations.ItemComputing<TSourceItem>(
+				sourceScalar: sourceScalar,
+				indexScalar: indexScalar,
+				defaultValue: default(TSourceItem));
+		}
+
+		[ObservableComputationsCall]
+		public static ObservableComputations.ItemComputing<TSourceItem> ItemComputing<TSourceItem>(this
+			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar,
 			 Expression<Func<int>> indexExpression,
 			 TSourceItem defaultValue)
 			
@@ -16119,6 +15591,18 @@ namespace ObservableComputations
 				sourceScalar: sourceScalar,
 				indexScalar: new Computing<int>(indexExpression),
 				defaultValue: defaultValue);
+		}
+
+		[ObservableComputationsCall]
+		public static ObservableComputations.ItemComputing<TSourceItem> ItemComputing<TSourceItem>(this
+			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar,
+			 Expression<Func<int>> indexExpression)
+			
+		{
+			return new ObservableComputations.ItemComputing<TSourceItem>(
+				sourceScalar: sourceScalar,
+				indexScalar: new Computing<int>(indexExpression),
+				defaultValue: default(TSourceItem));
 		}
 
 		[ObservableComputationsCall]
@@ -16137,6 +15621,18 @@ namespace ObservableComputations
 		[ObservableComputationsCall]
 		public static ObservableComputations.ItemComputing<TSourceItem> ItemComputing<TSourceItem>(this
 			 ObservableComputations.IReadScalar<ObservableCollection<TSourceItem>> sourceScalar,
+			 ObservableComputations.IReadScalar<int> indexScalar)
+			
+		{
+			return new ObservableComputations.ItemComputing<TSourceItem>(
+				sourceScalar: sourceScalar,
+				indexScalar: indexScalar,
+				defaultValue: default(TSourceItem));
+		}
+
+		[ObservableComputationsCall]
+		public static ObservableComputations.ItemComputing<TSourceItem> ItemComputing<TSourceItem>(this
+			 ObservableComputations.IReadScalar<ObservableCollection<TSourceItem>> sourceScalar,
 			 Expression<Func<int>> indexExpression,
 			 TSourceItem defaultValue)
 			
@@ -16149,6 +15645,18 @@ namespace ObservableComputations
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.ItemComputing<TSourceItem> ItemComputing<TSourceItem>(this
+			 ObservableComputations.IReadScalar<ObservableCollection<TSourceItem>> sourceScalar,
+			 Expression<Func<int>> indexExpression)
+			
+		{
+			return new ObservableComputations.ItemComputing<TSourceItem>(
+				sourceScalar: sourceScalar,
+				indexScalar: new Computing<int>(indexExpression),
+				defaultValue: default(TSourceItem));
+		}
+
+		[ObservableComputationsCall]
+		public static ObservableComputations.ItemComputing<TSourceItem> ItemComputing<TSourceItem>(this
 			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> sourceExpression,
 			 ObservableComputations.IReadScalar<int> indexScalar,
 			 TSourceItem defaultValue)
@@ -16163,6 +15671,18 @@ namespace ObservableComputations
 		[ObservableComputationsCall]
 		public static ObservableComputations.ItemComputing<TSourceItem> ItemComputing<TSourceItem>(this
 			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> sourceExpression,
+			 ObservableComputations.IReadScalar<int> indexScalar)
+			
+		{
+			return new ObservableComputations.ItemComputing<TSourceItem>(
+				sourceScalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(sourceExpression),
+				indexScalar: indexScalar,
+				defaultValue: default(TSourceItem));
+		}
+
+		[ObservableComputationsCall]
+		public static ObservableComputations.ItemComputing<TSourceItem> ItemComputing<TSourceItem>(this
+			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> sourceExpression,
 			 Expression<Func<int>> indexExpression,
 			 TSourceItem defaultValue)
 			
@@ -16171,6 +15691,18 @@ namespace ObservableComputations
 				sourceScalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(sourceExpression),
 				indexScalar: new Computing<int>(indexExpression),
 				defaultValue: defaultValue);
+		}
+
+		[ObservableComputationsCall]
+		public static ObservableComputations.ItemComputing<TSourceItem> ItemComputing<TSourceItem>(this
+			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> sourceExpression,
+			 Expression<Func<int>> indexExpression)
+			
+		{
+			return new ObservableComputations.ItemComputing<TSourceItem>(
+				sourceScalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(sourceExpression),
+				indexScalar: new Computing<int>(indexExpression),
+				defaultValue: default(TSourceItem));
 		}
 
 		[ObservableComputationsCall]
@@ -16189,6 +15721,18 @@ namespace ObservableComputations
 		[ObservableComputationsCall]
 		public static ObservableComputations.ItemComputing<TSourceItem> ItemComputing<TSourceItem>(this
 			 Expression<Func<ObservableCollection<TSourceItem>>> sourceExpression,
+			 ObservableComputations.IReadScalar<int> indexScalar)
+			
+		{
+			return new ObservableComputations.ItemComputing<TSourceItem>(
+				sourceScalar: new Computing<ObservableCollection<TSourceItem>>(sourceExpression),
+				indexScalar: indexScalar,
+				defaultValue: default(TSourceItem));
+		}
+
+		[ObservableComputationsCall]
+		public static ObservableComputations.ItemComputing<TSourceItem> ItemComputing<TSourceItem>(this
+			 Expression<Func<ObservableCollection<TSourceItem>>> sourceExpression,
 			 Expression<Func<int>> indexExpression,
 			 TSourceItem defaultValue)
 			
@@ -16196,20 +15740,82 @@ namespace ObservableComputations
 			return new ObservableComputations.ItemComputing<TSourceItem>(
 				sourceScalar: new Computing<ObservableCollection<TSourceItem>>(sourceExpression),
 				indexScalar: new Computing<int>(indexExpression),
+				defaultValue: defaultValue);
+		}
+
+		[ObservableComputationsCall]
+		public static ObservableComputations.ItemComputing<TSourceItem> ItemComputing<TSourceItem>(this
+			 Expression<Func<ObservableCollection<TSourceItem>>> sourceExpression,
+			 Expression<Func<int>> indexExpression)
+			
+		{
+			return new ObservableComputations.ItemComputing<TSourceItem>(
+				sourceScalar: new Computing<ObservableCollection<TSourceItem>>(sourceExpression),
+				indexScalar: new Computing<int>(indexExpression),
+				defaultValue: default(TSourceItem));
+		}
+
+		[ObservableComputationsCall]
+		public static ObservableComputations.ItemComputing<TSourceItem> ItemComputing<TSourceItem>(this
+			 System.Collections.Specialized.INotifyCollectionChanged source,
+			 int index,
+			 TSourceItem defaultValue)
+			
+		{
+			return new ObservableComputations.ItemComputing<TSourceItem>(
+				source: source,
+				index: index,
 				defaultValue: defaultValue);
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.ItemComputing<TSourceItem> ItemComputing<TSourceItem>(this
 			 System.Collections.Specialized.INotifyCollectionChanged source,
+			 int index)
+			
+		{
+			return new ObservableComputations.ItemComputing<TSourceItem>(
+				source: source,
+				index: index,
+				defaultValue: default(TSourceItem));
+		}
+
+		[ObservableComputationsCall]
+		public static ObservableComputations.ItemComputing<TSourceItem> ItemComputing<TSourceItem>(this
+			 ObservableCollection<TSourceItem> source,
+			 int index,
+			 TSourceItem defaultValue)
+			
+		{
+			return new ObservableComputations.ItemComputing<TSourceItem>(
+				source: source,
+				index: index,
+				defaultValue: defaultValue);
+		}
+
+		[ObservableComputationsCall]
+		public static ObservableComputations.ItemComputing<TSourceItem> ItemComputing<TSourceItem>(this
+			 ObservableCollection<TSourceItem> source,
+			 int index)
+			
+		{
+			return new ObservableComputations.ItemComputing<TSourceItem>(
+				source: source,
+				index: index,
+				defaultValue: default(TSourceItem));
+		}
+
+		[ObservableComputationsCall]
+		public static ObservableComputations.ItemComputing<TSourceItem> ItemComputing<TSourceItem>(this
+			 System.Collections.Specialized.INotifyCollectionChanged source,
 			 ObservableComputations.IReadScalar<int> indexScalar,
-			 ObservableComputations.IReadScalar<TSourceItem> defaultValueScalar)
+			 TSourceItem defaultValue)
 			
 		{
 			return new ObservableComputations.ItemComputing<TSourceItem>(
 				source: source,
 				indexScalar: indexScalar,
-				defaultValueScalar: defaultValueScalar);
+				defaultValue: defaultValue);
 		}
 
 		[ObservableComputationsCall]
@@ -16221,33 +15827,20 @@ namespace ObservableComputations
 			return new ObservableComputations.ItemComputing<TSourceItem>(
 				source: source,
 				indexScalar: indexScalar,
-				defaultValueScalar: null);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.ItemComputing<TSourceItem> ItemComputing<TSourceItem>(this
-			 System.Collections.Specialized.INotifyCollectionChanged source,
-			 ObservableComputations.IReadScalar<int> indexScalar,
-			 Expression<Func<TSourceItem>> defaultValueExpression)
-			
-		{
-			return new ObservableComputations.ItemComputing<TSourceItem>(
-				source: source,
-				indexScalar: indexScalar,
-				defaultValueScalar: new Computing<TSourceItem>(defaultValueExpression));
+				defaultValue: default(TSourceItem));
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.ItemComputing<TSourceItem> ItemComputing<TSourceItem>(this
 			 System.Collections.Specialized.INotifyCollectionChanged source,
 			 Expression<Func<int>> indexExpression,
-			 ObservableComputations.IReadScalar<TSourceItem> defaultValueScalar)
+			 TSourceItem defaultValue)
 			
 		{
 			return new ObservableComputations.ItemComputing<TSourceItem>(
 				source: source,
 				indexScalar: new Computing<int>(indexExpression),
-				defaultValueScalar: defaultValueScalar);
+				defaultValue: defaultValue);
 		}
 
 		[ObservableComputationsCall]
@@ -16259,33 +15852,20 @@ namespace ObservableComputations
 			return new ObservableComputations.ItemComputing<TSourceItem>(
 				source: source,
 				indexScalar: new Computing<int>(indexExpression),
-				defaultValueScalar: null);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.ItemComputing<TSourceItem> ItemComputing<TSourceItem>(this
-			 System.Collections.Specialized.INotifyCollectionChanged source,
-			 Expression<Func<int>> indexExpression,
-			 Expression<Func<TSourceItem>> defaultValueExpression)
-			
-		{
-			return new ObservableComputations.ItemComputing<TSourceItem>(
-				source: source,
-				indexScalar: new Computing<int>(indexExpression),
-				defaultValueScalar: new Computing<TSourceItem>(defaultValueExpression));
+				defaultValue: default(TSourceItem));
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.ItemComputing<TSourceItem> ItemComputing<TSourceItem>(this
 			 ObservableCollection<TSourceItem> source,
 			 ObservableComputations.IReadScalar<int> indexScalar,
-			 ObservableComputations.IReadScalar<TSourceItem> defaultValueScalar)
+			 TSourceItem defaultValue)
 			
 		{
 			return new ObservableComputations.ItemComputing<TSourceItem>(
 				source: source,
 				indexScalar: indexScalar,
-				defaultValueScalar: defaultValueScalar);
+				defaultValue: defaultValue);
 		}
 
 		[ObservableComputationsCall]
@@ -16297,33 +15877,20 @@ namespace ObservableComputations
 			return new ObservableComputations.ItemComputing<TSourceItem>(
 				source: source,
 				indexScalar: indexScalar,
-				defaultValueScalar: null);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.ItemComputing<TSourceItem> ItemComputing<TSourceItem>(this
-			 ObservableCollection<TSourceItem> source,
-			 ObservableComputations.IReadScalar<int> indexScalar,
-			 Expression<Func<TSourceItem>> defaultValueExpression)
-			
-		{
-			return new ObservableComputations.ItemComputing<TSourceItem>(
-				source: source,
-				indexScalar: indexScalar,
-				defaultValueScalar: new Computing<TSourceItem>(defaultValueExpression));
+				defaultValue: default(TSourceItem));
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.ItemComputing<TSourceItem> ItemComputing<TSourceItem>(this
 			 ObservableCollection<TSourceItem> source,
 			 Expression<Func<int>> indexExpression,
-			 ObservableComputations.IReadScalar<TSourceItem> defaultValueScalar)
+			 TSourceItem defaultValue)
 			
 		{
 			return new ObservableComputations.ItemComputing<TSourceItem>(
 				source: source,
 				indexScalar: new Computing<int>(indexExpression),
-				defaultValueScalar: defaultValueScalar);
+				defaultValue: defaultValue);
 		}
 
 		[ObservableComputationsCall]
@@ -16335,174 +15902,7 @@ namespace ObservableComputations
 			return new ObservableComputations.ItemComputing<TSourceItem>(
 				source: source,
 				indexScalar: new Computing<int>(indexExpression),
-				defaultValueScalar: null);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.ItemComputing<TSourceItem> ItemComputing<TSourceItem>(this
-			 ObservableCollection<TSourceItem> source,
-			 Expression<Func<int>> indexExpression,
-			 Expression<Func<TSourceItem>> defaultValueExpression)
-			
-		{
-			return new ObservableComputations.ItemComputing<TSourceItem>(
-				source: source,
-				indexScalar: new Computing<int>(indexExpression),
-				defaultValueScalar: new Computing<TSourceItem>(defaultValueExpression));
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.ItemComputing<TSourceItem> ItemComputing<TSourceItem>(this
-			 System.Collections.Specialized.INotifyCollectionChanged source,
-			 int index,
-			 ObservableComputations.IReadScalar<TSourceItem> defaultValueScalar)
-			
-		{
-			return new ObservableComputations.ItemComputing<TSourceItem>(
-				source: source,
-				index: index,
-				defaultValueScalar: defaultValueScalar);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.ItemComputing<TSourceItem> ItemComputing<TSourceItem>(this
-			 System.Collections.Specialized.INotifyCollectionChanged source,
-			 int index)
-			
-		{
-			return new ObservableComputations.ItemComputing<TSourceItem>(
-				source: source,
-				index: index,
-				defaultValueScalar: null);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.ItemComputing<TSourceItem> ItemComputing<TSourceItem>(this
-			 System.Collections.Specialized.INotifyCollectionChanged source,
-			 int index,
-			 Expression<Func<TSourceItem>> defaultValueExpression)
-			
-		{
-			return new ObservableComputations.ItemComputing<TSourceItem>(
-				source: source,
-				index: index,
-				defaultValueScalar: new Computing<TSourceItem>(defaultValueExpression));
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.ItemComputing<TSourceItem> ItemComputing<TSourceItem>(this
-			 ObservableCollection<TSourceItem> source,
-			 int index,
-			 ObservableComputations.IReadScalar<TSourceItem> defaultValueScalar)
-			
-		{
-			return new ObservableComputations.ItemComputing<TSourceItem>(
-				source: source,
-				index: index,
-				defaultValueScalar: defaultValueScalar);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.ItemComputing<TSourceItem> ItemComputing<TSourceItem>(this
-			 ObservableCollection<TSourceItem> source,
-			 int index)
-			
-		{
-			return new ObservableComputations.ItemComputing<TSourceItem>(
-				source: source,
-				index: index,
-				defaultValueScalar: null);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.ItemComputing<TSourceItem> ItemComputing<TSourceItem>(this
-			 ObservableCollection<TSourceItem> source,
-			 int index,
-			 Expression<Func<TSourceItem>> defaultValueExpression)
-			
-		{
-			return new ObservableComputations.ItemComputing<TSourceItem>(
-				source: source,
-				index: index,
-				defaultValueScalar: new Computing<TSourceItem>(defaultValueExpression));
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.ItemComputing<TSourceItem> ItemComputing<TSourceItem>(this
-			 System.Collections.Specialized.INotifyCollectionChanged source,
-			 int index,
-			 TSourceItem defaultValue)
-			
-		{
-			return new ObservableComputations.ItemComputing<TSourceItem>(
-				source: source,
-				index: index,
-				defaultValue: defaultValue);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.ItemComputing<TSourceItem> ItemComputing<TSourceItem>(this
-			 ObservableCollection<TSourceItem> source,
-			 int index,
-			 TSourceItem defaultValue)
-			
-		{
-			return new ObservableComputations.ItemComputing<TSourceItem>(
-				source: source,
-				index: index,
-				defaultValue: defaultValue);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.ItemComputing<TSourceItem> ItemComputing<TSourceItem>(this
-			 System.Collections.Specialized.INotifyCollectionChanged source,
-			 ObservableComputations.IReadScalar<int> indexScalar,
-			 TSourceItem defaultValue)
-			
-		{
-			return new ObservableComputations.ItemComputing<TSourceItem>(
-				source: source,
-				indexScalar: indexScalar,
-				defaultValue: defaultValue);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.ItemComputing<TSourceItem> ItemComputing<TSourceItem>(this
-			 System.Collections.Specialized.INotifyCollectionChanged source,
-			 Expression<Func<int>> indexExpression,
-			 TSourceItem defaultValue)
-			
-		{
-			return new ObservableComputations.ItemComputing<TSourceItem>(
-				source: source,
-				indexScalar: new Computing<int>(indexExpression),
-				defaultValue: defaultValue);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.ItemComputing<TSourceItem> ItemComputing<TSourceItem>(this
-			 ObservableCollection<TSourceItem> source,
-			 ObservableComputations.IReadScalar<int> indexScalar,
-			 TSourceItem defaultValue)
-			
-		{
-			return new ObservableComputations.ItemComputing<TSourceItem>(
-				source: source,
-				indexScalar: indexScalar,
-				defaultValue: defaultValue);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.ItemComputing<TSourceItem> ItemComputing<TSourceItem>(this
-			 ObservableCollection<TSourceItem> source,
-			 Expression<Func<int>> indexExpression,
-			 TSourceItem defaultValue)
-			
-		{
-			return new ObservableComputations.ItemComputing<TSourceItem>(
-				source: source,
-				indexScalar: new Computing<int>(indexExpression),
-				defaultValue: defaultValue);
+				defaultValue: default(TSourceItem));
 		}
 
 		#endregion
@@ -17558,12 +16958,12 @@ namespace ObservableComputations
 		[ObservableComputationsCall]
 		public static ObservableComputations.LastComputing<TSourceItem> LastComputing<TSourceItem>(this
 			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar,
-			 ObservableComputations.IReadScalar<TSourceItem> defaultValueScalar)
+			 TSourceItem defaultValue)
 			
 		{
 			return new ObservableComputations.LastComputing<TSourceItem>(
 				sourceScalar: sourceScalar,
-				defaultValueScalar: defaultValueScalar);
+				defaultValue: defaultValue);
 		}
 
 		[ObservableComputationsCall]
@@ -17573,29 +16973,18 @@ namespace ObservableComputations
 		{
 			return new ObservableComputations.LastComputing<TSourceItem>(
 				sourceScalar: sourceScalar,
-				defaultValueScalar: null);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.LastComputing<TSourceItem> LastComputing<TSourceItem>(this
-			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar,
-			 Expression<Func<TSourceItem>> defaultValueExpression)
-			
-		{
-			return new ObservableComputations.LastComputing<TSourceItem>(
-				sourceScalar: sourceScalar,
-				defaultValueScalar: new Computing<TSourceItem>(defaultValueExpression));
+				defaultValue: default(TSourceItem));
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.LastComputing<TSourceItem> LastComputing<TSourceItem>(this
 			 ObservableComputations.IReadScalar<ObservableCollection<TSourceItem>> sourceScalar,
-			 ObservableComputations.IReadScalar<TSourceItem> defaultValueScalar)
+			 TSourceItem defaultValue)
 			
 		{
 			return new ObservableComputations.LastComputing<TSourceItem>(
 				sourceScalar: sourceScalar,
-				defaultValueScalar: defaultValueScalar);
+				defaultValue: defaultValue);
 		}
 
 		[ObservableComputationsCall]
@@ -17605,29 +16994,18 @@ namespace ObservableComputations
 		{
 			return new ObservableComputations.LastComputing<TSourceItem>(
 				sourceScalar: sourceScalar,
-				defaultValueScalar: null);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.LastComputing<TSourceItem> LastComputing<TSourceItem>(this
-			 ObservableComputations.IReadScalar<ObservableCollection<TSourceItem>> sourceScalar,
-			 Expression<Func<TSourceItem>> defaultValueExpression)
-			
-		{
-			return new ObservableComputations.LastComputing<TSourceItem>(
-				sourceScalar: sourceScalar,
-				defaultValueScalar: new Computing<TSourceItem>(defaultValueExpression));
+				defaultValue: default(TSourceItem));
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.LastComputing<TSourceItem> LastComputing<TSourceItem>(this
 			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> sourceExpression,
-			 ObservableComputations.IReadScalar<TSourceItem> defaultValueScalar)
+			 TSourceItem defaultValue)
 			
 		{
 			return new ObservableComputations.LastComputing<TSourceItem>(
 				sourceScalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(sourceExpression),
-				defaultValueScalar: defaultValueScalar);
+				defaultValue: defaultValue);
 		}
 
 		[ObservableComputationsCall]
@@ -17637,29 +17015,18 @@ namespace ObservableComputations
 		{
 			return new ObservableComputations.LastComputing<TSourceItem>(
 				sourceScalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(sourceExpression),
-				defaultValueScalar: null);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.LastComputing<TSourceItem> LastComputing<TSourceItem>(this
-			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> sourceExpression,
-			 Expression<Func<TSourceItem>> defaultValueExpression)
-			
-		{
-			return new ObservableComputations.LastComputing<TSourceItem>(
-				sourceScalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(sourceExpression),
-				defaultValueScalar: new Computing<TSourceItem>(defaultValueExpression));
+				defaultValue: default(TSourceItem));
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.LastComputing<TSourceItem> LastComputing<TSourceItem>(this
 			 Expression<Func<ObservableCollection<TSourceItem>>> sourceExpression,
-			 ObservableComputations.IReadScalar<TSourceItem> defaultValueScalar)
+			 TSourceItem defaultValue)
 			
 		{
 			return new ObservableComputations.LastComputing<TSourceItem>(
 				sourceScalar: new Computing<ObservableCollection<TSourceItem>>(sourceExpression),
-				defaultValueScalar: defaultValueScalar);
+				defaultValue: defaultValue);
 		}
 
 		[ObservableComputationsCall]
@@ -17669,29 +17036,18 @@ namespace ObservableComputations
 		{
 			return new ObservableComputations.LastComputing<TSourceItem>(
 				sourceScalar: new Computing<ObservableCollection<TSourceItem>>(sourceExpression),
-				defaultValueScalar: null);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.LastComputing<TSourceItem> LastComputing<TSourceItem>(this
-			 Expression<Func<ObservableCollection<TSourceItem>>> sourceExpression,
-			 Expression<Func<TSourceItem>> defaultValueExpression)
-			
-		{
-			return new ObservableComputations.LastComputing<TSourceItem>(
-				sourceScalar: new Computing<ObservableCollection<TSourceItem>>(sourceExpression),
-				defaultValueScalar: new Computing<TSourceItem>(defaultValueExpression));
+				defaultValue: default(TSourceItem));
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.LastComputing<TSourceItem> LastComputing<TSourceItem>(this
 			 System.Collections.Specialized.INotifyCollectionChanged source,
-			 ObservableComputations.IReadScalar<TSourceItem> defaultValueScalar)
+			 TSourceItem defaultValue)
 			
 		{
 			return new ObservableComputations.LastComputing<TSourceItem>(
 				source: source,
-				defaultValueScalar: defaultValueScalar);
+				defaultValue: defaultValue);
 		}
 
 		[ObservableComputationsCall]
@@ -17701,29 +17057,18 @@ namespace ObservableComputations
 		{
 			return new ObservableComputations.LastComputing<TSourceItem>(
 				source: source,
-				defaultValueScalar: null);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.LastComputing<TSourceItem> LastComputing<TSourceItem>(this
-			 System.Collections.Specialized.INotifyCollectionChanged source,
-			 Expression<Func<TSourceItem>> defaultValueExpression)
-			
-		{
-			return new ObservableComputations.LastComputing<TSourceItem>(
-				source: source,
-				defaultValueScalar: new Computing<TSourceItem>(defaultValueExpression));
+				defaultValue: default(TSourceItem));
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.LastComputing<TSourceItem> LastComputing<TSourceItem>(this
 			 ObservableCollection<TSourceItem> source,
-			 ObservableComputations.IReadScalar<TSourceItem> defaultValueScalar)
+			 TSourceItem defaultValue)
 			
 		{
 			return new ObservableComputations.LastComputing<TSourceItem>(
 				source: source,
-				defaultValueScalar: defaultValueScalar);
+				defaultValue: defaultValue);
 		}
 
 		[ObservableComputationsCall]
@@ -17733,84 +17078,7 @@ namespace ObservableComputations
 		{
 			return new ObservableComputations.LastComputing<TSourceItem>(
 				source: source,
-				defaultValueScalar: null);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.LastComputing<TSourceItem> LastComputing<TSourceItem>(this
-			 ObservableCollection<TSourceItem> source,
-			 Expression<Func<TSourceItem>> defaultValueExpression)
-			
-		{
-			return new ObservableComputations.LastComputing<TSourceItem>(
-				source: source,
-				defaultValueScalar: new Computing<TSourceItem>(defaultValueExpression));
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.LastComputing<TSourceItem> LastComputing<TSourceItem>(this
-			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar,
-			 TSourceItem defaultValue)
-			
-		{
-			return new ObservableComputations.LastComputing<TSourceItem>(
-				sourceScalar: sourceScalar,
-				defaultValue: defaultValue);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.LastComputing<TSourceItem> LastComputing<TSourceItem>(this
-			 ObservableComputations.IReadScalar<ObservableCollection<TSourceItem>> sourceScalar,
-			 TSourceItem defaultValue)
-			
-		{
-			return new ObservableComputations.LastComputing<TSourceItem>(
-				sourceScalar: sourceScalar,
-				defaultValue: defaultValue);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.LastComputing<TSourceItem> LastComputing<TSourceItem>(this
-			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> sourceExpression,
-			 TSourceItem defaultValue)
-			
-		{
-			return new ObservableComputations.LastComputing<TSourceItem>(
-				sourceScalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(sourceExpression),
-				defaultValue: defaultValue);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.LastComputing<TSourceItem> LastComputing<TSourceItem>(this
-			 Expression<Func<ObservableCollection<TSourceItem>>> sourceExpression,
-			 TSourceItem defaultValue)
-			
-		{
-			return new ObservableComputations.LastComputing<TSourceItem>(
-				sourceScalar: new Computing<ObservableCollection<TSourceItem>>(sourceExpression),
-				defaultValue: defaultValue);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.LastComputing<TSourceItem> LastComputing<TSourceItem>(this
-			 System.Collections.Specialized.INotifyCollectionChanged source,
-			 TSourceItem defaultValue)
-			
-		{
-			return new ObservableComputations.LastComputing<TSourceItem>(
-				source: source,
-				defaultValue: defaultValue);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.LastComputing<TSourceItem> LastComputing<TSourceItem>(this
-			 ObservableCollection<TSourceItem> source,
-			 TSourceItem defaultValue)
-			
-		{
-			return new ObservableComputations.LastComputing<TSourceItem>(
-				source: source,
-				defaultValue: defaultValue);
+				defaultValue: default(TSourceItem));
 		}
 
 		#endregion
@@ -17819,55 +17087,41 @@ namespace ObservableComputations
 		[ObservableComputationsCall]
 		public static ObservableComputations.MinimazingOrMaximazing<TSourceItem> Maximazing<TSourceItem>(this
 			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar,
-			 ObservableComputations.IReadScalar<System.Collections.Generic.IComparer<TSourceItem>> comparerScalar,
-			 ObservableComputations.IReadScalar<TSourceItem> defaultValueScalar)
+			 System.Collections.Generic.IComparer<TSourceItem> comparer,
+			 TSourceItem defaultValue)
 			
 		{
 			return new ObservableComputations.MinimazingOrMaximazing<TSourceItem>(
 				sourceScalar: sourceScalar,
 				mode: MinimazingOrMaximazingMode.Maximazing,
-				comparerScalar: comparerScalar,
-				defaultValueScalar: defaultValueScalar);
+				comparer: comparer,
+				defaultValue: defaultValue);
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.MinimazingOrMaximazing<TSourceItem> Maximazing<TSourceItem>(this
 			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar,
-			 ObservableComputations.IReadScalar<System.Collections.Generic.IComparer<TSourceItem>> comparerScalar)
+			 System.Collections.Generic.IComparer<TSourceItem> comparer)
 			
 		{
 			return new ObservableComputations.MinimazingOrMaximazing<TSourceItem>(
 				sourceScalar: sourceScalar,
 				mode: MinimazingOrMaximazingMode.Maximazing,
-				comparerScalar: comparerScalar,
-				defaultValueScalar: null);
+				comparer: comparer,
+				defaultValue: default(TSourceItem));
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.MinimazingOrMaximazing<TSourceItem> Maximazing<TSourceItem>(this
 			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar,
-			 ObservableComputations.IReadScalar<System.Collections.Generic.IComparer<TSourceItem>> comparerScalar,
-			 Expression<Func<TSourceItem>> defaultValueExpression)
+			 TSourceItem defaultValue)
 			
 		{
 			return new ObservableComputations.MinimazingOrMaximazing<TSourceItem>(
 				sourceScalar: sourceScalar,
 				mode: MinimazingOrMaximazingMode.Maximazing,
-				comparerScalar: comparerScalar,
-				defaultValueScalar: new Computing<TSourceItem>(defaultValueExpression));
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.MinimazingOrMaximazing<TSourceItem> Maximazing<TSourceItem>(this
-			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar,
-			 ObservableComputations.IReadScalar<TSourceItem> defaultValueScalar)
-			
-		{
-			return new ObservableComputations.MinimazingOrMaximazing<TSourceItem>(
-				sourceScalar: sourceScalar,
-				mode: MinimazingOrMaximazingMode.Maximazing,
-				comparerScalar: null,
-				defaultValueScalar: defaultValueScalar);
+				comparer: null,
+				defaultValue: defaultValue);
 		}
 
 		[ObservableComputationsCall]
@@ -17878,116 +17132,48 @@ namespace ObservableComputations
 			return new ObservableComputations.MinimazingOrMaximazing<TSourceItem>(
 				sourceScalar: sourceScalar,
 				mode: MinimazingOrMaximazingMode.Maximazing,
-				comparerScalar: null,
-				defaultValueScalar: null);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.MinimazingOrMaximazing<TSourceItem> Maximazing<TSourceItem>(this
-			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar,
-			 Expression<Func<TSourceItem>> defaultValueExpression)
-			
-		{
-			return new ObservableComputations.MinimazingOrMaximazing<TSourceItem>(
-				sourceScalar: sourceScalar,
-				mode: MinimazingOrMaximazingMode.Maximazing,
-				comparerScalar: null,
-				defaultValueScalar: new Computing<TSourceItem>(defaultValueExpression));
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.MinimazingOrMaximazing<TSourceItem> Maximazing<TSourceItem>(this
-			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar,
-			 Expression<Func<System.Collections.Generic.IComparer<TSourceItem>>> comparerExpression,
-			 ObservableComputations.IReadScalar<TSourceItem> defaultValueScalar)
-			
-		{
-			return new ObservableComputations.MinimazingOrMaximazing<TSourceItem>(
-				sourceScalar: sourceScalar,
-				mode: MinimazingOrMaximazingMode.Maximazing,
-				comparerScalar: new Computing<System.Collections.Generic.IComparer<TSourceItem>>(comparerExpression),
-				defaultValueScalar: defaultValueScalar);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.MinimazingOrMaximazing<TSourceItem> Maximazing<TSourceItem>(this
-			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar,
-			 Expression<Func<System.Collections.Generic.IComparer<TSourceItem>>> comparerExpression)
-			
-		{
-			return new ObservableComputations.MinimazingOrMaximazing<TSourceItem>(
-				sourceScalar: sourceScalar,
-				mode: MinimazingOrMaximazingMode.Maximazing,
-				comparerScalar: new Computing<System.Collections.Generic.IComparer<TSourceItem>>(comparerExpression),
-				defaultValueScalar: null);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.MinimazingOrMaximazing<TSourceItem> Maximazing<TSourceItem>(this
-			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar,
-			 Expression<Func<System.Collections.Generic.IComparer<TSourceItem>>> comparerExpression,
-			 Expression<Func<TSourceItem>> defaultValueExpression)
-			
-		{
-			return new ObservableComputations.MinimazingOrMaximazing<TSourceItem>(
-				sourceScalar: sourceScalar,
-				mode: MinimazingOrMaximazingMode.Maximazing,
-				comparerScalar: new Computing<System.Collections.Generic.IComparer<TSourceItem>>(comparerExpression),
-				defaultValueScalar: new Computing<TSourceItem>(defaultValueExpression));
+				comparer: null,
+				defaultValue: default(TSourceItem));
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.MinimazingOrMaximazing<TSourceItem> Maximazing<TSourceItem>(this
 			 ObservableComputations.IReadScalar<ObservableCollection<TSourceItem>> sourceScalar,
-			 ObservableComputations.IReadScalar<System.Collections.Generic.IComparer<TSourceItem>> comparerScalar,
-			 ObservableComputations.IReadScalar<TSourceItem> defaultValueScalar)
+			 System.Collections.Generic.IComparer<TSourceItem> comparer,
+			 TSourceItem defaultValue)
 			
 		{
 			return new ObservableComputations.MinimazingOrMaximazing<TSourceItem>(
 				sourceScalar: sourceScalar,
 				mode: MinimazingOrMaximazingMode.Maximazing,
-				comparerScalar: comparerScalar,
-				defaultValueScalar: defaultValueScalar);
+				comparer: comparer,
+				defaultValue: defaultValue);
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.MinimazingOrMaximazing<TSourceItem> Maximazing<TSourceItem>(this
 			 ObservableComputations.IReadScalar<ObservableCollection<TSourceItem>> sourceScalar,
-			 ObservableComputations.IReadScalar<System.Collections.Generic.IComparer<TSourceItem>> comparerScalar)
+			 System.Collections.Generic.IComparer<TSourceItem> comparer)
 			
 		{
 			return new ObservableComputations.MinimazingOrMaximazing<TSourceItem>(
 				sourceScalar: sourceScalar,
 				mode: MinimazingOrMaximazingMode.Maximazing,
-				comparerScalar: comparerScalar,
-				defaultValueScalar: null);
+				comparer: comparer,
+				defaultValue: default(TSourceItem));
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.MinimazingOrMaximazing<TSourceItem> Maximazing<TSourceItem>(this
 			 ObservableComputations.IReadScalar<ObservableCollection<TSourceItem>> sourceScalar,
-			 ObservableComputations.IReadScalar<System.Collections.Generic.IComparer<TSourceItem>> comparerScalar,
-			 Expression<Func<TSourceItem>> defaultValueExpression)
+			 TSourceItem defaultValue)
 			
 		{
 			return new ObservableComputations.MinimazingOrMaximazing<TSourceItem>(
 				sourceScalar: sourceScalar,
 				mode: MinimazingOrMaximazingMode.Maximazing,
-				comparerScalar: comparerScalar,
-				defaultValueScalar: new Computing<TSourceItem>(defaultValueExpression));
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.MinimazingOrMaximazing<TSourceItem> Maximazing<TSourceItem>(this
-			 ObservableComputations.IReadScalar<ObservableCollection<TSourceItem>> sourceScalar,
-			 ObservableComputations.IReadScalar<TSourceItem> defaultValueScalar)
-			
-		{
-			return new ObservableComputations.MinimazingOrMaximazing<TSourceItem>(
-				sourceScalar: sourceScalar,
-				mode: MinimazingOrMaximazingMode.Maximazing,
-				comparerScalar: null,
-				defaultValueScalar: defaultValueScalar);
+				comparer: null,
+				defaultValue: defaultValue);
 		}
 
 		[ObservableComputationsCall]
@@ -17998,116 +17184,48 @@ namespace ObservableComputations
 			return new ObservableComputations.MinimazingOrMaximazing<TSourceItem>(
 				sourceScalar: sourceScalar,
 				mode: MinimazingOrMaximazingMode.Maximazing,
-				comparerScalar: null,
-				defaultValueScalar: null);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.MinimazingOrMaximazing<TSourceItem> Maximazing<TSourceItem>(this
-			 ObservableComputations.IReadScalar<ObservableCollection<TSourceItem>> sourceScalar,
-			 Expression<Func<TSourceItem>> defaultValueExpression)
-			
-		{
-			return new ObservableComputations.MinimazingOrMaximazing<TSourceItem>(
-				sourceScalar: sourceScalar,
-				mode: MinimazingOrMaximazingMode.Maximazing,
-				comparerScalar: null,
-				defaultValueScalar: new Computing<TSourceItem>(defaultValueExpression));
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.MinimazingOrMaximazing<TSourceItem> Maximazing<TSourceItem>(this
-			 ObservableComputations.IReadScalar<ObservableCollection<TSourceItem>> sourceScalar,
-			 Expression<Func<System.Collections.Generic.IComparer<TSourceItem>>> comparerExpression,
-			 ObservableComputations.IReadScalar<TSourceItem> defaultValueScalar)
-			
-		{
-			return new ObservableComputations.MinimazingOrMaximazing<TSourceItem>(
-				sourceScalar: sourceScalar,
-				mode: MinimazingOrMaximazingMode.Maximazing,
-				comparerScalar: new Computing<System.Collections.Generic.IComparer<TSourceItem>>(comparerExpression),
-				defaultValueScalar: defaultValueScalar);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.MinimazingOrMaximazing<TSourceItem> Maximazing<TSourceItem>(this
-			 ObservableComputations.IReadScalar<ObservableCollection<TSourceItem>> sourceScalar,
-			 Expression<Func<System.Collections.Generic.IComparer<TSourceItem>>> comparerExpression)
-			
-		{
-			return new ObservableComputations.MinimazingOrMaximazing<TSourceItem>(
-				sourceScalar: sourceScalar,
-				mode: MinimazingOrMaximazingMode.Maximazing,
-				comparerScalar: new Computing<System.Collections.Generic.IComparer<TSourceItem>>(comparerExpression),
-				defaultValueScalar: null);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.MinimazingOrMaximazing<TSourceItem> Maximazing<TSourceItem>(this
-			 ObservableComputations.IReadScalar<ObservableCollection<TSourceItem>> sourceScalar,
-			 Expression<Func<System.Collections.Generic.IComparer<TSourceItem>>> comparerExpression,
-			 Expression<Func<TSourceItem>> defaultValueExpression)
-			
-		{
-			return new ObservableComputations.MinimazingOrMaximazing<TSourceItem>(
-				sourceScalar: sourceScalar,
-				mode: MinimazingOrMaximazingMode.Maximazing,
-				comparerScalar: new Computing<System.Collections.Generic.IComparer<TSourceItem>>(comparerExpression),
-				defaultValueScalar: new Computing<TSourceItem>(defaultValueExpression));
+				comparer: null,
+				defaultValue: default(TSourceItem));
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.MinimazingOrMaximazing<TSourceItem> Maximazing<TSourceItem>(this
 			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> sourceExpression,
-			 ObservableComputations.IReadScalar<System.Collections.Generic.IComparer<TSourceItem>> comparerScalar,
-			 ObservableComputations.IReadScalar<TSourceItem> defaultValueScalar)
+			 System.Collections.Generic.IComparer<TSourceItem> comparer,
+			 TSourceItem defaultValue)
 			
 		{
 			return new ObservableComputations.MinimazingOrMaximazing<TSourceItem>(
 				sourceScalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(sourceExpression),
 				mode: MinimazingOrMaximazingMode.Maximazing,
-				comparerScalar: comparerScalar,
-				defaultValueScalar: defaultValueScalar);
+				comparer: comparer,
+				defaultValue: defaultValue);
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.MinimazingOrMaximazing<TSourceItem> Maximazing<TSourceItem>(this
 			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> sourceExpression,
-			 ObservableComputations.IReadScalar<System.Collections.Generic.IComparer<TSourceItem>> comparerScalar)
+			 System.Collections.Generic.IComparer<TSourceItem> comparer)
 			
 		{
 			return new ObservableComputations.MinimazingOrMaximazing<TSourceItem>(
 				sourceScalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(sourceExpression),
 				mode: MinimazingOrMaximazingMode.Maximazing,
-				comparerScalar: comparerScalar,
-				defaultValueScalar: null);
+				comparer: comparer,
+				defaultValue: default(TSourceItem));
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.MinimazingOrMaximazing<TSourceItem> Maximazing<TSourceItem>(this
 			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> sourceExpression,
-			 ObservableComputations.IReadScalar<System.Collections.Generic.IComparer<TSourceItem>> comparerScalar,
-			 Expression<Func<TSourceItem>> defaultValueExpression)
+			 TSourceItem defaultValue)
 			
 		{
 			return new ObservableComputations.MinimazingOrMaximazing<TSourceItem>(
 				sourceScalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(sourceExpression),
 				mode: MinimazingOrMaximazingMode.Maximazing,
-				comparerScalar: comparerScalar,
-				defaultValueScalar: new Computing<TSourceItem>(defaultValueExpression));
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.MinimazingOrMaximazing<TSourceItem> Maximazing<TSourceItem>(this
-			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> sourceExpression,
-			 ObservableComputations.IReadScalar<TSourceItem> defaultValueScalar)
-			
-		{
-			return new ObservableComputations.MinimazingOrMaximazing<TSourceItem>(
-				sourceScalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(sourceExpression),
-				mode: MinimazingOrMaximazingMode.Maximazing,
-				comparerScalar: null,
-				defaultValueScalar: defaultValueScalar);
+				comparer: null,
+				defaultValue: defaultValue);
 		}
 
 		[ObservableComputationsCall]
@@ -18118,116 +17236,48 @@ namespace ObservableComputations
 			return new ObservableComputations.MinimazingOrMaximazing<TSourceItem>(
 				sourceScalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(sourceExpression),
 				mode: MinimazingOrMaximazingMode.Maximazing,
-				comparerScalar: null,
-				defaultValueScalar: null);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.MinimazingOrMaximazing<TSourceItem> Maximazing<TSourceItem>(this
-			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> sourceExpression,
-			 Expression<Func<TSourceItem>> defaultValueExpression)
-			
-		{
-			return new ObservableComputations.MinimazingOrMaximazing<TSourceItem>(
-				sourceScalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(sourceExpression),
-				mode: MinimazingOrMaximazingMode.Maximazing,
-				comparerScalar: null,
-				defaultValueScalar: new Computing<TSourceItem>(defaultValueExpression));
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.MinimazingOrMaximazing<TSourceItem> Maximazing<TSourceItem>(this
-			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> sourceExpression,
-			 Expression<Func<System.Collections.Generic.IComparer<TSourceItem>>> comparerExpression,
-			 ObservableComputations.IReadScalar<TSourceItem> defaultValueScalar)
-			
-		{
-			return new ObservableComputations.MinimazingOrMaximazing<TSourceItem>(
-				sourceScalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(sourceExpression),
-				mode: MinimazingOrMaximazingMode.Maximazing,
-				comparerScalar: new Computing<System.Collections.Generic.IComparer<TSourceItem>>(comparerExpression),
-				defaultValueScalar: defaultValueScalar);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.MinimazingOrMaximazing<TSourceItem> Maximazing<TSourceItem>(this
-			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> sourceExpression,
-			 Expression<Func<System.Collections.Generic.IComparer<TSourceItem>>> comparerExpression)
-			
-		{
-			return new ObservableComputations.MinimazingOrMaximazing<TSourceItem>(
-				sourceScalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(sourceExpression),
-				mode: MinimazingOrMaximazingMode.Maximazing,
-				comparerScalar: new Computing<System.Collections.Generic.IComparer<TSourceItem>>(comparerExpression),
-				defaultValueScalar: null);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.MinimazingOrMaximazing<TSourceItem> Maximazing<TSourceItem>(this
-			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> sourceExpression,
-			 Expression<Func<System.Collections.Generic.IComparer<TSourceItem>>> comparerExpression,
-			 Expression<Func<TSourceItem>> defaultValueExpression)
-			
-		{
-			return new ObservableComputations.MinimazingOrMaximazing<TSourceItem>(
-				sourceScalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(sourceExpression),
-				mode: MinimazingOrMaximazingMode.Maximazing,
-				comparerScalar: new Computing<System.Collections.Generic.IComparer<TSourceItem>>(comparerExpression),
-				defaultValueScalar: new Computing<TSourceItem>(defaultValueExpression));
+				comparer: null,
+				defaultValue: default(TSourceItem));
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.MinimazingOrMaximazing<TSourceItem> Maximazing<TSourceItem>(this
 			 Expression<Func<ObservableCollection<TSourceItem>>> sourceExpression,
-			 ObservableComputations.IReadScalar<System.Collections.Generic.IComparer<TSourceItem>> comparerScalar,
-			 ObservableComputations.IReadScalar<TSourceItem> defaultValueScalar)
+			 System.Collections.Generic.IComparer<TSourceItem> comparer,
+			 TSourceItem defaultValue)
 			
 		{
 			return new ObservableComputations.MinimazingOrMaximazing<TSourceItem>(
 				sourceScalar: new Computing<ObservableCollection<TSourceItem>>(sourceExpression),
 				mode: MinimazingOrMaximazingMode.Maximazing,
-				comparerScalar: comparerScalar,
-				defaultValueScalar: defaultValueScalar);
+				comparer: comparer,
+				defaultValue: defaultValue);
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.MinimazingOrMaximazing<TSourceItem> Maximazing<TSourceItem>(this
 			 Expression<Func<ObservableCollection<TSourceItem>>> sourceExpression,
-			 ObservableComputations.IReadScalar<System.Collections.Generic.IComparer<TSourceItem>> comparerScalar)
+			 System.Collections.Generic.IComparer<TSourceItem> comparer)
 			
 		{
 			return new ObservableComputations.MinimazingOrMaximazing<TSourceItem>(
 				sourceScalar: new Computing<ObservableCollection<TSourceItem>>(sourceExpression),
 				mode: MinimazingOrMaximazingMode.Maximazing,
-				comparerScalar: comparerScalar,
-				defaultValueScalar: null);
+				comparer: comparer,
+				defaultValue: default(TSourceItem));
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.MinimazingOrMaximazing<TSourceItem> Maximazing<TSourceItem>(this
 			 Expression<Func<ObservableCollection<TSourceItem>>> sourceExpression,
-			 ObservableComputations.IReadScalar<System.Collections.Generic.IComparer<TSourceItem>> comparerScalar,
-			 Expression<Func<TSourceItem>> defaultValueExpression)
+			 TSourceItem defaultValue)
 			
 		{
 			return new ObservableComputations.MinimazingOrMaximazing<TSourceItem>(
 				sourceScalar: new Computing<ObservableCollection<TSourceItem>>(sourceExpression),
 				mode: MinimazingOrMaximazingMode.Maximazing,
-				comparerScalar: comparerScalar,
-				defaultValueScalar: new Computing<TSourceItem>(defaultValueExpression));
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.MinimazingOrMaximazing<TSourceItem> Maximazing<TSourceItem>(this
-			 Expression<Func<ObservableCollection<TSourceItem>>> sourceExpression,
-			 ObservableComputations.IReadScalar<TSourceItem> defaultValueScalar)
-			
-		{
-			return new ObservableComputations.MinimazingOrMaximazing<TSourceItem>(
-				sourceScalar: new Computing<ObservableCollection<TSourceItem>>(sourceExpression),
-				mode: MinimazingOrMaximazingMode.Maximazing,
-				comparerScalar: null,
-				defaultValueScalar: defaultValueScalar);
+				comparer: null,
+				defaultValue: defaultValue);
 		}
 
 		[ObservableComputationsCall]
@@ -18238,35 +17288,211 @@ namespace ObservableComputations
 			return new ObservableComputations.MinimazingOrMaximazing<TSourceItem>(
 				sourceScalar: new Computing<ObservableCollection<TSourceItem>>(sourceExpression),
 				mode: MinimazingOrMaximazingMode.Maximazing,
-				comparerScalar: null,
-				defaultValueScalar: null);
+				comparer: null,
+				defaultValue: default(TSourceItem));
+		}
+
+		[ObservableComputationsCall]
+		public static ObservableComputations.MinimazingOrMaximazing<TSourceItem> Maximazing<TSourceItem>(this
+			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar,
+			 ObservableComputations.IReadScalar<System.Collections.Generic.IComparer<TSourceItem>> comparerScalar,
+			 TSourceItem defaultValue)
+			
+		{
+			return new ObservableComputations.MinimazingOrMaximazing<TSourceItem>(
+				sourceScalar: sourceScalar,
+				mode: MinimazingOrMaximazingMode.Maximazing,
+				comparerScalar: comparerScalar,
+				defaultValue: defaultValue);
+		}
+
+		[ObservableComputationsCall]
+		public static ObservableComputations.MinimazingOrMaximazing<TSourceItem> Maximazing<TSourceItem>(this
+			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar,
+			 ObservableComputations.IReadScalar<System.Collections.Generic.IComparer<TSourceItem>> comparerScalar)
+			
+		{
+			return new ObservableComputations.MinimazingOrMaximazing<TSourceItem>(
+				sourceScalar: sourceScalar,
+				mode: MinimazingOrMaximazingMode.Maximazing,
+				comparerScalar: comparerScalar,
+				defaultValue: default(TSourceItem));
+		}
+
+		[ObservableComputationsCall]
+		public static ObservableComputations.MinimazingOrMaximazing<TSourceItem> Maximazing<TSourceItem>(this
+			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar,
+			 Expression<Func<System.Collections.Generic.IComparer<TSourceItem>>> comparerExpression,
+			 TSourceItem defaultValue)
+			
+		{
+			return new ObservableComputations.MinimazingOrMaximazing<TSourceItem>(
+				sourceScalar: sourceScalar,
+				mode: MinimazingOrMaximazingMode.Maximazing,
+				comparerScalar: new Computing<System.Collections.Generic.IComparer<TSourceItem>>(comparerExpression),
+				defaultValue: defaultValue);
+		}
+
+		[ObservableComputationsCall]
+		public static ObservableComputations.MinimazingOrMaximazing<TSourceItem> Maximazing<TSourceItem>(this
+			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar,
+			 Expression<Func<System.Collections.Generic.IComparer<TSourceItem>>> comparerExpression)
+			
+		{
+			return new ObservableComputations.MinimazingOrMaximazing<TSourceItem>(
+				sourceScalar: sourceScalar,
+				mode: MinimazingOrMaximazingMode.Maximazing,
+				comparerScalar: new Computing<System.Collections.Generic.IComparer<TSourceItem>>(comparerExpression),
+				defaultValue: default(TSourceItem));
+		}
+
+		[ObservableComputationsCall]
+		public static ObservableComputations.MinimazingOrMaximazing<TSourceItem> Maximazing<TSourceItem>(this
+			 ObservableComputations.IReadScalar<ObservableCollection<TSourceItem>> sourceScalar,
+			 ObservableComputations.IReadScalar<System.Collections.Generic.IComparer<TSourceItem>> comparerScalar,
+			 TSourceItem defaultValue)
+			
+		{
+			return new ObservableComputations.MinimazingOrMaximazing<TSourceItem>(
+				sourceScalar: sourceScalar,
+				mode: MinimazingOrMaximazingMode.Maximazing,
+				comparerScalar: comparerScalar,
+				defaultValue: defaultValue);
+		}
+
+		[ObservableComputationsCall]
+		public static ObservableComputations.MinimazingOrMaximazing<TSourceItem> Maximazing<TSourceItem>(this
+			 ObservableComputations.IReadScalar<ObservableCollection<TSourceItem>> sourceScalar,
+			 ObservableComputations.IReadScalar<System.Collections.Generic.IComparer<TSourceItem>> comparerScalar)
+			
+		{
+			return new ObservableComputations.MinimazingOrMaximazing<TSourceItem>(
+				sourceScalar: sourceScalar,
+				mode: MinimazingOrMaximazingMode.Maximazing,
+				comparerScalar: comparerScalar,
+				defaultValue: default(TSourceItem));
+		}
+
+		[ObservableComputationsCall]
+		public static ObservableComputations.MinimazingOrMaximazing<TSourceItem> Maximazing<TSourceItem>(this
+			 ObservableComputations.IReadScalar<ObservableCollection<TSourceItem>> sourceScalar,
+			 Expression<Func<System.Collections.Generic.IComparer<TSourceItem>>> comparerExpression,
+			 TSourceItem defaultValue)
+			
+		{
+			return new ObservableComputations.MinimazingOrMaximazing<TSourceItem>(
+				sourceScalar: sourceScalar,
+				mode: MinimazingOrMaximazingMode.Maximazing,
+				comparerScalar: new Computing<System.Collections.Generic.IComparer<TSourceItem>>(comparerExpression),
+				defaultValue: defaultValue);
+		}
+
+		[ObservableComputationsCall]
+		public static ObservableComputations.MinimazingOrMaximazing<TSourceItem> Maximazing<TSourceItem>(this
+			 ObservableComputations.IReadScalar<ObservableCollection<TSourceItem>> sourceScalar,
+			 Expression<Func<System.Collections.Generic.IComparer<TSourceItem>>> comparerExpression)
+			
+		{
+			return new ObservableComputations.MinimazingOrMaximazing<TSourceItem>(
+				sourceScalar: sourceScalar,
+				mode: MinimazingOrMaximazingMode.Maximazing,
+				comparerScalar: new Computing<System.Collections.Generic.IComparer<TSourceItem>>(comparerExpression),
+				defaultValue: default(TSourceItem));
+		}
+
+		[ObservableComputationsCall]
+		public static ObservableComputations.MinimazingOrMaximazing<TSourceItem> Maximazing<TSourceItem>(this
+			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> sourceExpression,
+			 ObservableComputations.IReadScalar<System.Collections.Generic.IComparer<TSourceItem>> comparerScalar,
+			 TSourceItem defaultValue)
+			
+		{
+			return new ObservableComputations.MinimazingOrMaximazing<TSourceItem>(
+				sourceScalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(sourceExpression),
+				mode: MinimazingOrMaximazingMode.Maximazing,
+				comparerScalar: comparerScalar,
+				defaultValue: defaultValue);
+		}
+
+		[ObservableComputationsCall]
+		public static ObservableComputations.MinimazingOrMaximazing<TSourceItem> Maximazing<TSourceItem>(this
+			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> sourceExpression,
+			 ObservableComputations.IReadScalar<System.Collections.Generic.IComparer<TSourceItem>> comparerScalar)
+			
+		{
+			return new ObservableComputations.MinimazingOrMaximazing<TSourceItem>(
+				sourceScalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(sourceExpression),
+				mode: MinimazingOrMaximazingMode.Maximazing,
+				comparerScalar: comparerScalar,
+				defaultValue: default(TSourceItem));
+		}
+
+		[ObservableComputationsCall]
+		public static ObservableComputations.MinimazingOrMaximazing<TSourceItem> Maximazing<TSourceItem>(this
+			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> sourceExpression,
+			 Expression<Func<System.Collections.Generic.IComparer<TSourceItem>>> comparerExpression,
+			 TSourceItem defaultValue)
+			
+		{
+			return new ObservableComputations.MinimazingOrMaximazing<TSourceItem>(
+				sourceScalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(sourceExpression),
+				mode: MinimazingOrMaximazingMode.Maximazing,
+				comparerScalar: new Computing<System.Collections.Generic.IComparer<TSourceItem>>(comparerExpression),
+				defaultValue: defaultValue);
+		}
+
+		[ObservableComputationsCall]
+		public static ObservableComputations.MinimazingOrMaximazing<TSourceItem> Maximazing<TSourceItem>(this
+			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> sourceExpression,
+			 Expression<Func<System.Collections.Generic.IComparer<TSourceItem>>> comparerExpression)
+			
+		{
+			return new ObservableComputations.MinimazingOrMaximazing<TSourceItem>(
+				sourceScalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(sourceExpression),
+				mode: MinimazingOrMaximazingMode.Maximazing,
+				comparerScalar: new Computing<System.Collections.Generic.IComparer<TSourceItem>>(comparerExpression),
+				defaultValue: default(TSourceItem));
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.MinimazingOrMaximazing<TSourceItem> Maximazing<TSourceItem>(this
 			 Expression<Func<ObservableCollection<TSourceItem>>> sourceExpression,
-			 Expression<Func<TSourceItem>> defaultValueExpression)
+			 ObservableComputations.IReadScalar<System.Collections.Generic.IComparer<TSourceItem>> comparerScalar,
+			 TSourceItem defaultValue)
 			
 		{
 			return new ObservableComputations.MinimazingOrMaximazing<TSourceItem>(
 				sourceScalar: new Computing<ObservableCollection<TSourceItem>>(sourceExpression),
 				mode: MinimazingOrMaximazingMode.Maximazing,
-				comparerScalar: null,
-				defaultValueScalar: new Computing<TSourceItem>(defaultValueExpression));
+				comparerScalar: comparerScalar,
+				defaultValue: defaultValue);
+		}
+
+		[ObservableComputationsCall]
+		public static ObservableComputations.MinimazingOrMaximazing<TSourceItem> Maximazing<TSourceItem>(this
+			 Expression<Func<ObservableCollection<TSourceItem>>> sourceExpression,
+			 ObservableComputations.IReadScalar<System.Collections.Generic.IComparer<TSourceItem>> comparerScalar)
+			
+		{
+			return new ObservableComputations.MinimazingOrMaximazing<TSourceItem>(
+				sourceScalar: new Computing<ObservableCollection<TSourceItem>>(sourceExpression),
+				mode: MinimazingOrMaximazingMode.Maximazing,
+				comparerScalar: comparerScalar,
+				defaultValue: default(TSourceItem));
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.MinimazingOrMaximazing<TSourceItem> Maximazing<TSourceItem>(this
 			 Expression<Func<ObservableCollection<TSourceItem>>> sourceExpression,
 			 Expression<Func<System.Collections.Generic.IComparer<TSourceItem>>> comparerExpression,
-			 ObservableComputations.IReadScalar<TSourceItem> defaultValueScalar)
+			 TSourceItem defaultValue)
 			
 		{
 			return new ObservableComputations.MinimazingOrMaximazing<TSourceItem>(
 				sourceScalar: new Computing<ObservableCollection<TSourceItem>>(sourceExpression),
 				mode: MinimazingOrMaximazingMode.Maximazing,
 				comparerScalar: new Computing<System.Collections.Generic.IComparer<TSourceItem>>(comparerExpression),
-				defaultValueScalar: defaultValueScalar);
+				defaultValue: defaultValue);
 		}
 
 		[ObservableComputationsCall]
@@ -18279,459 +17505,47 @@ namespace ObservableComputations
 				sourceScalar: new Computing<ObservableCollection<TSourceItem>>(sourceExpression),
 				mode: MinimazingOrMaximazingMode.Maximazing,
 				comparerScalar: new Computing<System.Collections.Generic.IComparer<TSourceItem>>(comparerExpression),
-				defaultValueScalar: null);
+				defaultValue: default(TSourceItem));
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.MinimazingOrMaximazing<TSourceItem> Maximazing<TSourceItem>(this
-			 Expression<Func<ObservableCollection<TSourceItem>>> sourceExpression,
-			 Expression<Func<System.Collections.Generic.IComparer<TSourceItem>>> comparerExpression,
-			 Expression<Func<TSourceItem>> defaultValueExpression)
-			
-		{
-			return new ObservableComputations.MinimazingOrMaximazing<TSourceItem>(
-				sourceScalar: new Computing<ObservableCollection<TSourceItem>>(sourceExpression),
-				mode: MinimazingOrMaximazingMode.Maximazing,
-				comparerScalar: new Computing<System.Collections.Generic.IComparer<TSourceItem>>(comparerExpression),
-				defaultValueScalar: new Computing<TSourceItem>(defaultValueExpression));
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.MinimazingOrMaximazing<TSourceItem> Maximazing<TSourceItem>(this
-			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar,
-			 System.Collections.Generic.IComparer<TSourceItem> comparer,
-			 ObservableComputations.IReadScalar<TSourceItem> defaultValueScalar)
-			
-		{
-			return new ObservableComputations.MinimazingOrMaximazing<TSourceItem>(
-				sourceScalar: sourceScalar,
-				mode: MinimazingOrMaximazingMode.Maximazing,
-				comparer: comparer,
-				defaultValueScalar: defaultValueScalar);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.MinimazingOrMaximazing<TSourceItem> Maximazing<TSourceItem>(this
-			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar,
-			 System.Collections.Generic.IComparer<TSourceItem> comparer)
-			
-		{
-			return new ObservableComputations.MinimazingOrMaximazing<TSourceItem>(
-				sourceScalar: sourceScalar,
-				mode: MinimazingOrMaximazingMode.Maximazing,
-				comparer: comparer,
-				defaultValueScalar: null);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.MinimazingOrMaximazing<TSourceItem> Maximazing<TSourceItem>(this
-			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar,
-			 System.Collections.Generic.IComparer<TSourceItem> comparer,
-			 Expression<Func<TSourceItem>> defaultValueExpression)
-			
-		{
-			return new ObservableComputations.MinimazingOrMaximazing<TSourceItem>(
-				sourceScalar: sourceScalar,
-				mode: MinimazingOrMaximazingMode.Maximazing,
-				comparer: comparer,
-				defaultValueScalar: new Computing<TSourceItem>(defaultValueExpression));
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.MinimazingOrMaximazing<TSourceItem> Maximazing<TSourceItem>(this
-			 ObservableComputations.IReadScalar<ObservableCollection<TSourceItem>> sourceScalar,
-			 System.Collections.Generic.IComparer<TSourceItem> comparer,
-			 ObservableComputations.IReadScalar<TSourceItem> defaultValueScalar)
-			
-		{
-			return new ObservableComputations.MinimazingOrMaximazing<TSourceItem>(
-				sourceScalar: sourceScalar,
-				mode: MinimazingOrMaximazingMode.Maximazing,
-				comparer: comparer,
-				defaultValueScalar: defaultValueScalar);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.MinimazingOrMaximazing<TSourceItem> Maximazing<TSourceItem>(this
-			 ObservableComputations.IReadScalar<ObservableCollection<TSourceItem>> sourceScalar,
-			 System.Collections.Generic.IComparer<TSourceItem> comparer)
-			
-		{
-			return new ObservableComputations.MinimazingOrMaximazing<TSourceItem>(
-				sourceScalar: sourceScalar,
-				mode: MinimazingOrMaximazingMode.Maximazing,
-				comparer: comparer,
-				defaultValueScalar: null);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.MinimazingOrMaximazing<TSourceItem> Maximazing<TSourceItem>(this
-			 ObservableComputations.IReadScalar<ObservableCollection<TSourceItem>> sourceScalar,
-			 System.Collections.Generic.IComparer<TSourceItem> comparer,
-			 Expression<Func<TSourceItem>> defaultValueExpression)
-			
-		{
-			return new ObservableComputations.MinimazingOrMaximazing<TSourceItem>(
-				sourceScalar: sourceScalar,
-				mode: MinimazingOrMaximazingMode.Maximazing,
-				comparer: comparer,
-				defaultValueScalar: new Computing<TSourceItem>(defaultValueExpression));
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.MinimazingOrMaximazing<TSourceItem> Maximazing<TSourceItem>(this
-			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> sourceExpression,
-			 System.Collections.Generic.IComparer<TSourceItem> comparer,
-			 ObservableComputations.IReadScalar<TSourceItem> defaultValueScalar)
-			
-		{
-			return new ObservableComputations.MinimazingOrMaximazing<TSourceItem>(
-				sourceScalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(sourceExpression),
-				mode: MinimazingOrMaximazingMode.Maximazing,
-				comparer: comparer,
-				defaultValueScalar: defaultValueScalar);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.MinimazingOrMaximazing<TSourceItem> Maximazing<TSourceItem>(this
-			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> sourceExpression,
-			 System.Collections.Generic.IComparer<TSourceItem> comparer)
-			
-		{
-			return new ObservableComputations.MinimazingOrMaximazing<TSourceItem>(
-				sourceScalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(sourceExpression),
-				mode: MinimazingOrMaximazingMode.Maximazing,
-				comparer: comparer,
-				defaultValueScalar: null);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.MinimazingOrMaximazing<TSourceItem> Maximazing<TSourceItem>(this
-			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> sourceExpression,
-			 System.Collections.Generic.IComparer<TSourceItem> comparer,
-			 Expression<Func<TSourceItem>> defaultValueExpression)
-			
-		{
-			return new ObservableComputations.MinimazingOrMaximazing<TSourceItem>(
-				sourceScalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(sourceExpression),
-				mode: MinimazingOrMaximazingMode.Maximazing,
-				comparer: comparer,
-				defaultValueScalar: new Computing<TSourceItem>(defaultValueExpression));
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.MinimazingOrMaximazing<TSourceItem> Maximazing<TSourceItem>(this
-			 Expression<Func<ObservableCollection<TSourceItem>>> sourceExpression,
-			 System.Collections.Generic.IComparer<TSourceItem> comparer,
-			 ObservableComputations.IReadScalar<TSourceItem> defaultValueScalar)
-			
-		{
-			return new ObservableComputations.MinimazingOrMaximazing<TSourceItem>(
-				sourceScalar: new Computing<ObservableCollection<TSourceItem>>(sourceExpression),
-				mode: MinimazingOrMaximazingMode.Maximazing,
-				comparer: comparer,
-				defaultValueScalar: defaultValueScalar);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.MinimazingOrMaximazing<TSourceItem> Maximazing<TSourceItem>(this
-			 Expression<Func<ObservableCollection<TSourceItem>>> sourceExpression,
-			 System.Collections.Generic.IComparer<TSourceItem> comparer)
-			
-		{
-			return new ObservableComputations.MinimazingOrMaximazing<TSourceItem>(
-				sourceScalar: new Computing<ObservableCollection<TSourceItem>>(sourceExpression),
-				mode: MinimazingOrMaximazingMode.Maximazing,
-				comparer: comparer,
-				defaultValueScalar: null);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.MinimazingOrMaximazing<TSourceItem> Maximazing<TSourceItem>(this
-			 Expression<Func<ObservableCollection<TSourceItem>>> sourceExpression,
-			 System.Collections.Generic.IComparer<TSourceItem> comparer,
-			 Expression<Func<TSourceItem>> defaultValueExpression)
-			
-		{
-			return new ObservableComputations.MinimazingOrMaximazing<TSourceItem>(
-				sourceScalar: new Computing<ObservableCollection<TSourceItem>>(sourceExpression),
-				mode: MinimazingOrMaximazingMode.Maximazing,
-				comparer: comparer,
-				defaultValueScalar: new Computing<TSourceItem>(defaultValueExpression));
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.MinimazingOrMaximazing<TSourceItem> Maximazing<TSourceItem>(this
-			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar,
+			 System.Collections.Specialized.INotifyCollectionChanged source,
 			 System.Collections.Generic.IComparer<TSourceItem> comparer,
 			 TSourceItem defaultValue)
 			
 		{
 			return new ObservableComputations.MinimazingOrMaximazing<TSourceItem>(
-				sourceScalar: sourceScalar,
+				source: source,
 				mode: MinimazingOrMaximazingMode.Maximazing,
 				comparer: comparer,
-				defaultValue: defaultValue);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.MinimazingOrMaximazing<TSourceItem> Maximazing<TSourceItem>(this
-			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar,
-			 TSourceItem defaultValue)
-			
-		{
-			return new ObservableComputations.MinimazingOrMaximazing<TSourceItem>(
-				sourceScalar: sourceScalar,
-				mode: MinimazingOrMaximazingMode.Maximazing,
-				comparer: null,
-				defaultValue: defaultValue);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.MinimazingOrMaximazing<TSourceItem> Maximazing<TSourceItem>(this
-			 ObservableComputations.IReadScalar<ObservableCollection<TSourceItem>> sourceScalar,
-			 System.Collections.Generic.IComparer<TSourceItem> comparer,
-			 TSourceItem defaultValue)
-			
-		{
-			return new ObservableComputations.MinimazingOrMaximazing<TSourceItem>(
-				sourceScalar: sourceScalar,
-				mode: MinimazingOrMaximazingMode.Maximazing,
-				comparer: comparer,
-				defaultValue: defaultValue);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.MinimazingOrMaximazing<TSourceItem> Maximazing<TSourceItem>(this
-			 ObservableComputations.IReadScalar<ObservableCollection<TSourceItem>> sourceScalar,
-			 TSourceItem defaultValue)
-			
-		{
-			return new ObservableComputations.MinimazingOrMaximazing<TSourceItem>(
-				sourceScalar: sourceScalar,
-				mode: MinimazingOrMaximazingMode.Maximazing,
-				comparer: null,
-				defaultValue: defaultValue);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.MinimazingOrMaximazing<TSourceItem> Maximazing<TSourceItem>(this
-			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> sourceExpression,
-			 System.Collections.Generic.IComparer<TSourceItem> comparer,
-			 TSourceItem defaultValue)
-			
-		{
-			return new ObservableComputations.MinimazingOrMaximazing<TSourceItem>(
-				sourceScalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(sourceExpression),
-				mode: MinimazingOrMaximazingMode.Maximazing,
-				comparer: comparer,
-				defaultValue: defaultValue);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.MinimazingOrMaximazing<TSourceItem> Maximazing<TSourceItem>(this
-			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> sourceExpression,
-			 TSourceItem defaultValue)
-			
-		{
-			return new ObservableComputations.MinimazingOrMaximazing<TSourceItem>(
-				sourceScalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(sourceExpression),
-				mode: MinimazingOrMaximazingMode.Maximazing,
-				comparer: null,
-				defaultValue: defaultValue);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.MinimazingOrMaximazing<TSourceItem> Maximazing<TSourceItem>(this
-			 Expression<Func<ObservableCollection<TSourceItem>>> sourceExpression,
-			 System.Collections.Generic.IComparer<TSourceItem> comparer,
-			 TSourceItem defaultValue)
-			
-		{
-			return new ObservableComputations.MinimazingOrMaximazing<TSourceItem>(
-				sourceScalar: new Computing<ObservableCollection<TSourceItem>>(sourceExpression),
-				mode: MinimazingOrMaximazingMode.Maximazing,
-				comparer: comparer,
-				defaultValue: defaultValue);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.MinimazingOrMaximazing<TSourceItem> Maximazing<TSourceItem>(this
-			 Expression<Func<ObservableCollection<TSourceItem>>> sourceExpression,
-			 TSourceItem defaultValue)
-			
-		{
-			return new ObservableComputations.MinimazingOrMaximazing<TSourceItem>(
-				sourceScalar: new Computing<ObservableCollection<TSourceItem>>(sourceExpression),
-				mode: MinimazingOrMaximazingMode.Maximazing,
-				comparer: null,
-				defaultValue: defaultValue);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.MinimazingOrMaximazing<TSourceItem> Maximazing<TSourceItem>(this
-			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar,
-			 ObservableComputations.IReadScalar<System.Collections.Generic.IComparer<TSourceItem>> comparerScalar,
-			 TSourceItem defaultValue)
-			
-		{
-			return new ObservableComputations.MinimazingOrMaximazing<TSourceItem>(
-				sourceScalar: sourceScalar,
-				mode: MinimazingOrMaximazingMode.Maximazing,
-				comparerScalar: comparerScalar,
-				defaultValue: defaultValue);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.MinimazingOrMaximazing<TSourceItem> Maximazing<TSourceItem>(this
-			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar,
-			 Expression<Func<System.Collections.Generic.IComparer<TSourceItem>>> comparerExpression,
-			 TSourceItem defaultValue)
-			
-		{
-			return new ObservableComputations.MinimazingOrMaximazing<TSourceItem>(
-				sourceScalar: sourceScalar,
-				mode: MinimazingOrMaximazingMode.Maximazing,
-				comparerScalar: new Computing<System.Collections.Generic.IComparer<TSourceItem>>(comparerExpression),
-				defaultValue: defaultValue);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.MinimazingOrMaximazing<TSourceItem> Maximazing<TSourceItem>(this
-			 ObservableComputations.IReadScalar<ObservableCollection<TSourceItem>> sourceScalar,
-			 ObservableComputations.IReadScalar<System.Collections.Generic.IComparer<TSourceItem>> comparerScalar,
-			 TSourceItem defaultValue)
-			
-		{
-			return new ObservableComputations.MinimazingOrMaximazing<TSourceItem>(
-				sourceScalar: sourceScalar,
-				mode: MinimazingOrMaximazingMode.Maximazing,
-				comparerScalar: comparerScalar,
-				defaultValue: defaultValue);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.MinimazingOrMaximazing<TSourceItem> Maximazing<TSourceItem>(this
-			 ObservableComputations.IReadScalar<ObservableCollection<TSourceItem>> sourceScalar,
-			 Expression<Func<System.Collections.Generic.IComparer<TSourceItem>>> comparerExpression,
-			 TSourceItem defaultValue)
-			
-		{
-			return new ObservableComputations.MinimazingOrMaximazing<TSourceItem>(
-				sourceScalar: sourceScalar,
-				mode: MinimazingOrMaximazingMode.Maximazing,
-				comparerScalar: new Computing<System.Collections.Generic.IComparer<TSourceItem>>(comparerExpression),
-				defaultValue: defaultValue);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.MinimazingOrMaximazing<TSourceItem> Maximazing<TSourceItem>(this
-			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> sourceExpression,
-			 ObservableComputations.IReadScalar<System.Collections.Generic.IComparer<TSourceItem>> comparerScalar,
-			 TSourceItem defaultValue)
-			
-		{
-			return new ObservableComputations.MinimazingOrMaximazing<TSourceItem>(
-				sourceScalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(sourceExpression),
-				mode: MinimazingOrMaximazingMode.Maximazing,
-				comparerScalar: comparerScalar,
-				defaultValue: defaultValue);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.MinimazingOrMaximazing<TSourceItem> Maximazing<TSourceItem>(this
-			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> sourceExpression,
-			 Expression<Func<System.Collections.Generic.IComparer<TSourceItem>>> comparerExpression,
-			 TSourceItem defaultValue)
-			
-		{
-			return new ObservableComputations.MinimazingOrMaximazing<TSourceItem>(
-				sourceScalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(sourceExpression),
-				mode: MinimazingOrMaximazingMode.Maximazing,
-				comparerScalar: new Computing<System.Collections.Generic.IComparer<TSourceItem>>(comparerExpression),
-				defaultValue: defaultValue);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.MinimazingOrMaximazing<TSourceItem> Maximazing<TSourceItem>(this
-			 Expression<Func<ObservableCollection<TSourceItem>>> sourceExpression,
-			 ObservableComputations.IReadScalar<System.Collections.Generic.IComparer<TSourceItem>> comparerScalar,
-			 TSourceItem defaultValue)
-			
-		{
-			return new ObservableComputations.MinimazingOrMaximazing<TSourceItem>(
-				sourceScalar: new Computing<ObservableCollection<TSourceItem>>(sourceExpression),
-				mode: MinimazingOrMaximazingMode.Maximazing,
-				comparerScalar: comparerScalar,
-				defaultValue: defaultValue);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.MinimazingOrMaximazing<TSourceItem> Maximazing<TSourceItem>(this
-			 Expression<Func<ObservableCollection<TSourceItem>>> sourceExpression,
-			 Expression<Func<System.Collections.Generic.IComparer<TSourceItem>>> comparerExpression,
-			 TSourceItem defaultValue)
-			
-		{
-			return new ObservableComputations.MinimazingOrMaximazing<TSourceItem>(
-				sourceScalar: new Computing<ObservableCollection<TSourceItem>>(sourceExpression),
-				mode: MinimazingOrMaximazingMode.Maximazing,
-				comparerScalar: new Computing<System.Collections.Generic.IComparer<TSourceItem>>(comparerExpression),
 				defaultValue: defaultValue);
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.MinimazingOrMaximazing<TSourceItem> Maximazing<TSourceItem>(this
 			 System.Collections.Specialized.INotifyCollectionChanged source,
-			 ObservableComputations.IReadScalar<System.Collections.Generic.IComparer<TSourceItem>> comparerScalar,
-			 ObservableComputations.IReadScalar<TSourceItem> defaultValueScalar)
+			 System.Collections.Generic.IComparer<TSourceItem> comparer)
 			
 		{
 			return new ObservableComputations.MinimazingOrMaximazing<TSourceItem>(
 				source: source,
 				mode: MinimazingOrMaximazingMode.Maximazing,
-				comparerScalar: comparerScalar,
-				defaultValueScalar: defaultValueScalar);
+				comparer: comparer,
+				defaultValue: default(TSourceItem));
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.MinimazingOrMaximazing<TSourceItem> Maximazing<TSourceItem>(this
 			 System.Collections.Specialized.INotifyCollectionChanged source,
-			 ObservableComputations.IReadScalar<System.Collections.Generic.IComparer<TSourceItem>> comparerScalar)
+			 TSourceItem defaultValue)
 			
 		{
 			return new ObservableComputations.MinimazingOrMaximazing<TSourceItem>(
 				source: source,
 				mode: MinimazingOrMaximazingMode.Maximazing,
-				comparerScalar: comparerScalar,
-				defaultValueScalar: null);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.MinimazingOrMaximazing<TSourceItem> Maximazing<TSourceItem>(this
-			 System.Collections.Specialized.INotifyCollectionChanged source,
-			 ObservableComputations.IReadScalar<System.Collections.Generic.IComparer<TSourceItem>> comparerScalar,
-			 Expression<Func<TSourceItem>> defaultValueExpression)
-			
-		{
-			return new ObservableComputations.MinimazingOrMaximazing<TSourceItem>(
-				source: source,
-				mode: MinimazingOrMaximazingMode.Maximazing,
-				comparerScalar: comparerScalar,
-				defaultValueScalar: new Computing<TSourceItem>(defaultValueExpression));
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.MinimazingOrMaximazing<TSourceItem> Maximazing<TSourceItem>(this
-			 System.Collections.Specialized.INotifyCollectionChanged source,
-			 ObservableComputations.IReadScalar<TSourceItem> defaultValueScalar)
-			
-		{
-			return new ObservableComputations.MinimazingOrMaximazing<TSourceItem>(
-				source: source,
-				mode: MinimazingOrMaximazingMode.Maximazing,
-				comparerScalar: null,
-				defaultValueScalar: defaultValueScalar);
+				comparer: null,
+				defaultValue: defaultValue);
 		}
 
 		[ObservableComputationsCall]
@@ -18742,35 +17556,101 @@ namespace ObservableComputations
 			return new ObservableComputations.MinimazingOrMaximazing<TSourceItem>(
 				source: source,
 				mode: MinimazingOrMaximazingMode.Maximazing,
-				comparerScalar: null,
-				defaultValueScalar: null);
+				comparer: null,
+				defaultValue: default(TSourceItem));
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.MinimazingOrMaximazing<TSourceItem> Maximazing<TSourceItem>(this
-			 System.Collections.Specialized.INotifyCollectionChanged source,
-			 Expression<Func<TSourceItem>> defaultValueExpression)
+			 ObservableCollection<TSourceItem> source,
+			 System.Collections.Generic.IComparer<TSourceItem> comparer,
+			 TSourceItem defaultValue)
 			
 		{
 			return new ObservableComputations.MinimazingOrMaximazing<TSourceItem>(
 				source: source,
 				mode: MinimazingOrMaximazingMode.Maximazing,
-				comparerScalar: null,
-				defaultValueScalar: new Computing<TSourceItem>(defaultValueExpression));
+				comparer: comparer,
+				defaultValue: defaultValue);
+		}
+
+		[ObservableComputationsCall]
+		public static ObservableComputations.MinimazingOrMaximazing<TSourceItem> Maximazing<TSourceItem>(this
+			 ObservableCollection<TSourceItem> source,
+			 System.Collections.Generic.IComparer<TSourceItem> comparer)
+			
+		{
+			return new ObservableComputations.MinimazingOrMaximazing<TSourceItem>(
+				source: source,
+				mode: MinimazingOrMaximazingMode.Maximazing,
+				comparer: comparer,
+				defaultValue: default(TSourceItem));
+		}
+
+		[ObservableComputationsCall]
+		public static ObservableComputations.MinimazingOrMaximazing<TSourceItem> Maximazing<TSourceItem>(this
+			 ObservableCollection<TSourceItem> source,
+			 TSourceItem defaultValue)
+			
+		{
+			return new ObservableComputations.MinimazingOrMaximazing<TSourceItem>(
+				source: source,
+				mode: MinimazingOrMaximazingMode.Maximazing,
+				comparer: null,
+				defaultValue: defaultValue);
+		}
+
+		[ObservableComputationsCall]
+		public static ObservableComputations.MinimazingOrMaximazing<TSourceItem> Maximazing<TSourceItem>(this
+			 ObservableCollection<TSourceItem> source)
+			
+		{
+			return new ObservableComputations.MinimazingOrMaximazing<TSourceItem>(
+				source: source,
+				mode: MinimazingOrMaximazingMode.Maximazing,
+				comparer: null,
+				defaultValue: default(TSourceItem));
+		}
+
+		[ObservableComputationsCall]
+		public static ObservableComputations.MinimazingOrMaximazing<TSourceItem> Maximazing<TSourceItem>(this
+			 System.Collections.Specialized.INotifyCollectionChanged source,
+			 ObservableComputations.IReadScalar<System.Collections.Generic.IComparer<TSourceItem>> comparerScalar,
+			 TSourceItem defaultValue)
+			
+		{
+			return new ObservableComputations.MinimazingOrMaximazing<TSourceItem>(
+				source: source,
+				mode: MinimazingOrMaximazingMode.Maximazing,
+				comparerScalar: comparerScalar,
+				defaultValue: defaultValue);
+		}
+
+		[ObservableComputationsCall]
+		public static ObservableComputations.MinimazingOrMaximazing<TSourceItem> Maximazing<TSourceItem>(this
+			 System.Collections.Specialized.INotifyCollectionChanged source,
+			 ObservableComputations.IReadScalar<System.Collections.Generic.IComparer<TSourceItem>> comparerScalar)
+			
+		{
+			return new ObservableComputations.MinimazingOrMaximazing<TSourceItem>(
+				source: source,
+				mode: MinimazingOrMaximazingMode.Maximazing,
+				comparerScalar: comparerScalar,
+				defaultValue: default(TSourceItem));
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.MinimazingOrMaximazing<TSourceItem> Maximazing<TSourceItem>(this
 			 System.Collections.Specialized.INotifyCollectionChanged source,
 			 Expression<Func<System.Collections.Generic.IComparer<TSourceItem>>> comparerExpression,
-			 ObservableComputations.IReadScalar<TSourceItem> defaultValueScalar)
+			 TSourceItem defaultValue)
 			
 		{
 			return new ObservableComputations.MinimazingOrMaximazing<TSourceItem>(
 				source: source,
 				mode: MinimazingOrMaximazingMode.Maximazing,
 				comparerScalar: new Computing<System.Collections.Generic.IComparer<TSourceItem>>(comparerExpression),
-				defaultValueScalar: defaultValueScalar);
+				defaultValue: defaultValue);
 		}
 
 		[ObservableComputationsCall]
@@ -18783,35 +17663,21 @@ namespace ObservableComputations
 				source: source,
 				mode: MinimazingOrMaximazingMode.Maximazing,
 				comparerScalar: new Computing<System.Collections.Generic.IComparer<TSourceItem>>(comparerExpression),
-				defaultValueScalar: null);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.MinimazingOrMaximazing<TSourceItem> Maximazing<TSourceItem>(this
-			 System.Collections.Specialized.INotifyCollectionChanged source,
-			 Expression<Func<System.Collections.Generic.IComparer<TSourceItem>>> comparerExpression,
-			 Expression<Func<TSourceItem>> defaultValueExpression)
-			
-		{
-			return new ObservableComputations.MinimazingOrMaximazing<TSourceItem>(
-				source: source,
-				mode: MinimazingOrMaximazingMode.Maximazing,
-				comparerScalar: new Computing<System.Collections.Generic.IComparer<TSourceItem>>(comparerExpression),
-				defaultValueScalar: new Computing<TSourceItem>(defaultValueExpression));
+				defaultValue: default(TSourceItem));
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.MinimazingOrMaximazing<TSourceItem> Maximazing<TSourceItem>(this
 			 ObservableCollection<TSourceItem> source,
 			 ObservableComputations.IReadScalar<System.Collections.Generic.IComparer<TSourceItem>> comparerScalar,
-			 ObservableComputations.IReadScalar<TSourceItem> defaultValueScalar)
+			 TSourceItem defaultValue)
 			
 		{
 			return new ObservableComputations.MinimazingOrMaximazing<TSourceItem>(
 				source: source,
 				mode: MinimazingOrMaximazingMode.Maximazing,
 				comparerScalar: comparerScalar,
-				defaultValueScalar: defaultValueScalar);
+				defaultValue: defaultValue);
 		}
 
 		[ObservableComputationsCall]
@@ -18824,73 +17690,21 @@ namespace ObservableComputations
 				source: source,
 				mode: MinimazingOrMaximazingMode.Maximazing,
 				comparerScalar: comparerScalar,
-				defaultValueScalar: null);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.MinimazingOrMaximazing<TSourceItem> Maximazing<TSourceItem>(this
-			 ObservableCollection<TSourceItem> source,
-			 ObservableComputations.IReadScalar<System.Collections.Generic.IComparer<TSourceItem>> comparerScalar,
-			 Expression<Func<TSourceItem>> defaultValueExpression)
-			
-		{
-			return new ObservableComputations.MinimazingOrMaximazing<TSourceItem>(
-				source: source,
-				mode: MinimazingOrMaximazingMode.Maximazing,
-				comparerScalar: comparerScalar,
-				defaultValueScalar: new Computing<TSourceItem>(defaultValueExpression));
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.MinimazingOrMaximazing<TSourceItem> Maximazing<TSourceItem>(this
-			 ObservableCollection<TSourceItem> source,
-			 ObservableComputations.IReadScalar<TSourceItem> defaultValueScalar)
-			
-		{
-			return new ObservableComputations.MinimazingOrMaximazing<TSourceItem>(
-				source: source,
-				mode: MinimazingOrMaximazingMode.Maximazing,
-				comparerScalar: null,
-				defaultValueScalar: defaultValueScalar);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.MinimazingOrMaximazing<TSourceItem> Maximazing<TSourceItem>(this
-			 ObservableCollection<TSourceItem> source)
-			
-		{
-			return new ObservableComputations.MinimazingOrMaximazing<TSourceItem>(
-				source: source,
-				mode: MinimazingOrMaximazingMode.Maximazing,
-				comparerScalar: null,
-				defaultValueScalar: null);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.MinimazingOrMaximazing<TSourceItem> Maximazing<TSourceItem>(this
-			 ObservableCollection<TSourceItem> source,
-			 Expression<Func<TSourceItem>> defaultValueExpression)
-			
-		{
-			return new ObservableComputations.MinimazingOrMaximazing<TSourceItem>(
-				source: source,
-				mode: MinimazingOrMaximazingMode.Maximazing,
-				comparerScalar: null,
-				defaultValueScalar: new Computing<TSourceItem>(defaultValueExpression));
+				defaultValue: default(TSourceItem));
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.MinimazingOrMaximazing<TSourceItem> Maximazing<TSourceItem>(this
 			 ObservableCollection<TSourceItem> source,
 			 Expression<Func<System.Collections.Generic.IComparer<TSourceItem>>> comparerExpression,
-			 ObservableComputations.IReadScalar<TSourceItem> defaultValueScalar)
+			 TSourceItem defaultValue)
 			
 		{
 			return new ObservableComputations.MinimazingOrMaximazing<TSourceItem>(
 				source: source,
 				mode: MinimazingOrMaximazingMode.Maximazing,
 				comparerScalar: new Computing<System.Collections.Generic.IComparer<TSourceItem>>(comparerExpression),
-				defaultValueScalar: defaultValueScalar);
+				defaultValue: defaultValue);
 		}
 
 		[ObservableComputationsCall]
@@ -18903,213 +17717,7 @@ namespace ObservableComputations
 				source: source,
 				mode: MinimazingOrMaximazingMode.Maximazing,
 				comparerScalar: new Computing<System.Collections.Generic.IComparer<TSourceItem>>(comparerExpression),
-				defaultValueScalar: null);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.MinimazingOrMaximazing<TSourceItem> Maximazing<TSourceItem>(this
-			 ObservableCollection<TSourceItem> source,
-			 Expression<Func<System.Collections.Generic.IComparer<TSourceItem>>> comparerExpression,
-			 Expression<Func<TSourceItem>> defaultValueExpression)
-			
-		{
-			return new ObservableComputations.MinimazingOrMaximazing<TSourceItem>(
-				source: source,
-				mode: MinimazingOrMaximazingMode.Maximazing,
-				comparerScalar: new Computing<System.Collections.Generic.IComparer<TSourceItem>>(comparerExpression),
-				defaultValueScalar: new Computing<TSourceItem>(defaultValueExpression));
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.MinimazingOrMaximazing<TSourceItem> Maximazing<TSourceItem>(this
-			 System.Collections.Specialized.INotifyCollectionChanged source,
-			 System.Collections.Generic.IComparer<TSourceItem> comparer,
-			 ObservableComputations.IReadScalar<TSourceItem> defaultValueScalar)
-			
-		{
-			return new ObservableComputations.MinimazingOrMaximazing<TSourceItem>(
-				source: source,
-				mode: MinimazingOrMaximazingMode.Maximazing,
-				comparer: comparer,
-				defaultValueScalar: defaultValueScalar);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.MinimazingOrMaximazing<TSourceItem> Maximazing<TSourceItem>(this
-			 System.Collections.Specialized.INotifyCollectionChanged source,
-			 System.Collections.Generic.IComparer<TSourceItem> comparer)
-			
-		{
-			return new ObservableComputations.MinimazingOrMaximazing<TSourceItem>(
-				source: source,
-				mode: MinimazingOrMaximazingMode.Maximazing,
-				comparer: comparer,
-				defaultValueScalar: null);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.MinimazingOrMaximazing<TSourceItem> Maximazing<TSourceItem>(this
-			 System.Collections.Specialized.INotifyCollectionChanged source,
-			 System.Collections.Generic.IComparer<TSourceItem> comparer,
-			 Expression<Func<TSourceItem>> defaultValueExpression)
-			
-		{
-			return new ObservableComputations.MinimazingOrMaximazing<TSourceItem>(
-				source: source,
-				mode: MinimazingOrMaximazingMode.Maximazing,
-				comparer: comparer,
-				defaultValueScalar: new Computing<TSourceItem>(defaultValueExpression));
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.MinimazingOrMaximazing<TSourceItem> Maximazing<TSourceItem>(this
-			 ObservableCollection<TSourceItem> source,
-			 System.Collections.Generic.IComparer<TSourceItem> comparer,
-			 ObservableComputations.IReadScalar<TSourceItem> defaultValueScalar)
-			
-		{
-			return new ObservableComputations.MinimazingOrMaximazing<TSourceItem>(
-				source: source,
-				mode: MinimazingOrMaximazingMode.Maximazing,
-				comparer: comparer,
-				defaultValueScalar: defaultValueScalar);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.MinimazingOrMaximazing<TSourceItem> Maximazing<TSourceItem>(this
-			 ObservableCollection<TSourceItem> source,
-			 System.Collections.Generic.IComparer<TSourceItem> comparer)
-			
-		{
-			return new ObservableComputations.MinimazingOrMaximazing<TSourceItem>(
-				source: source,
-				mode: MinimazingOrMaximazingMode.Maximazing,
-				comparer: comparer,
-				defaultValueScalar: null);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.MinimazingOrMaximazing<TSourceItem> Maximazing<TSourceItem>(this
-			 ObservableCollection<TSourceItem> source,
-			 System.Collections.Generic.IComparer<TSourceItem> comparer,
-			 Expression<Func<TSourceItem>> defaultValueExpression)
-			
-		{
-			return new ObservableComputations.MinimazingOrMaximazing<TSourceItem>(
-				source: source,
-				mode: MinimazingOrMaximazingMode.Maximazing,
-				comparer: comparer,
-				defaultValueScalar: new Computing<TSourceItem>(defaultValueExpression));
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.MinimazingOrMaximazing<TSourceItem> Maximazing<TSourceItem>(this
-			 System.Collections.Specialized.INotifyCollectionChanged source,
-			 System.Collections.Generic.IComparer<TSourceItem> comparer,
-			 TSourceItem defaultValue)
-			
-		{
-			return new ObservableComputations.MinimazingOrMaximazing<TSourceItem>(
-				source: source,
-				mode: MinimazingOrMaximazingMode.Maximazing,
-				comparer: comparer,
-				defaultValue: defaultValue);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.MinimazingOrMaximazing<TSourceItem> Maximazing<TSourceItem>(this
-			 System.Collections.Specialized.INotifyCollectionChanged source,
-			 TSourceItem defaultValue)
-			
-		{
-			return new ObservableComputations.MinimazingOrMaximazing<TSourceItem>(
-				source: source,
-				mode: MinimazingOrMaximazingMode.Maximazing,
-				comparer: null,
-				defaultValue: defaultValue);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.MinimazingOrMaximazing<TSourceItem> Maximazing<TSourceItem>(this
-			 ObservableCollection<TSourceItem> source,
-			 System.Collections.Generic.IComparer<TSourceItem> comparer,
-			 TSourceItem defaultValue)
-			
-		{
-			return new ObservableComputations.MinimazingOrMaximazing<TSourceItem>(
-				source: source,
-				mode: MinimazingOrMaximazingMode.Maximazing,
-				comparer: comparer,
-				defaultValue: defaultValue);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.MinimazingOrMaximazing<TSourceItem> Maximazing<TSourceItem>(this
-			 ObservableCollection<TSourceItem> source,
-			 TSourceItem defaultValue)
-			
-		{
-			return new ObservableComputations.MinimazingOrMaximazing<TSourceItem>(
-				source: source,
-				mode: MinimazingOrMaximazingMode.Maximazing,
-				comparer: null,
-				defaultValue: defaultValue);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.MinimazingOrMaximazing<TSourceItem> Maximazing<TSourceItem>(this
-			 System.Collections.Specialized.INotifyCollectionChanged source,
-			 ObservableComputations.IReadScalar<System.Collections.Generic.IComparer<TSourceItem>> comparerScalar,
-			 TSourceItem defaultValue)
-			
-		{
-			return new ObservableComputations.MinimazingOrMaximazing<TSourceItem>(
-				source: source,
-				mode: MinimazingOrMaximazingMode.Maximazing,
-				comparerScalar: comparerScalar,
-				defaultValue: defaultValue);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.MinimazingOrMaximazing<TSourceItem> Maximazing<TSourceItem>(this
-			 System.Collections.Specialized.INotifyCollectionChanged source,
-			 Expression<Func<System.Collections.Generic.IComparer<TSourceItem>>> comparerExpression,
-			 TSourceItem defaultValue)
-			
-		{
-			return new ObservableComputations.MinimazingOrMaximazing<TSourceItem>(
-				source: source,
-				mode: MinimazingOrMaximazingMode.Maximazing,
-				comparerScalar: new Computing<System.Collections.Generic.IComparer<TSourceItem>>(comparerExpression),
-				defaultValue: defaultValue);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.MinimazingOrMaximazing<TSourceItem> Maximazing<TSourceItem>(this
-			 ObservableCollection<TSourceItem> source,
-			 ObservableComputations.IReadScalar<System.Collections.Generic.IComparer<TSourceItem>> comparerScalar,
-			 TSourceItem defaultValue)
-			
-		{
-			return new ObservableComputations.MinimazingOrMaximazing<TSourceItem>(
-				source: source,
-				mode: MinimazingOrMaximazingMode.Maximazing,
-				comparerScalar: comparerScalar,
-				defaultValue: defaultValue);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.MinimazingOrMaximazing<TSourceItem> Maximazing<TSourceItem>(this
-			 ObservableCollection<TSourceItem> source,
-			 Expression<Func<System.Collections.Generic.IComparer<TSourceItem>>> comparerExpression,
-			 TSourceItem defaultValue)
-			
-		{
-			return new ObservableComputations.MinimazingOrMaximazing<TSourceItem>(
-				source: source,
-				mode: MinimazingOrMaximazingMode.Maximazing,
-				comparerScalar: new Computing<System.Collections.Generic.IComparer<TSourceItem>>(comparerExpression),
-				defaultValue: defaultValue);
+				defaultValue: default(TSourceItem));
 		}
 
 		#endregion
@@ -19118,55 +17726,41 @@ namespace ObservableComputations
 		[ObservableComputationsCall]
 		public static ObservableComputations.MinimazingOrMaximazing<TSourceItem> Minimazing<TSourceItem>(this
 			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar,
-			 ObservableComputations.IReadScalar<System.Collections.Generic.IComparer<TSourceItem>> comparerScalar,
-			 ObservableComputations.IReadScalar<TSourceItem> defaultValueScalar)
+			 System.Collections.Generic.IComparer<TSourceItem> comparer,
+			 TSourceItem defaultValue)
 			
 		{
 			return new ObservableComputations.MinimazingOrMaximazing<TSourceItem>(
 				sourceScalar: sourceScalar,
 				mode: MinimazingOrMaximazingMode.Minimazing,
-				comparerScalar: comparerScalar,
-				defaultValueScalar: defaultValueScalar);
+				comparer: comparer,
+				defaultValue: defaultValue);
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.MinimazingOrMaximazing<TSourceItem> Minimazing<TSourceItem>(this
 			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar,
-			 ObservableComputations.IReadScalar<System.Collections.Generic.IComparer<TSourceItem>> comparerScalar)
+			 System.Collections.Generic.IComparer<TSourceItem> comparer)
 			
 		{
 			return new ObservableComputations.MinimazingOrMaximazing<TSourceItem>(
 				sourceScalar: sourceScalar,
 				mode: MinimazingOrMaximazingMode.Minimazing,
-				comparerScalar: comparerScalar,
-				defaultValueScalar: null);
+				comparer: comparer,
+				defaultValue: default(TSourceItem));
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.MinimazingOrMaximazing<TSourceItem> Minimazing<TSourceItem>(this
 			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar,
-			 ObservableComputations.IReadScalar<System.Collections.Generic.IComparer<TSourceItem>> comparerScalar,
-			 Expression<Func<TSourceItem>> defaultValueExpression)
+			 TSourceItem defaultValue)
 			
 		{
 			return new ObservableComputations.MinimazingOrMaximazing<TSourceItem>(
 				sourceScalar: sourceScalar,
 				mode: MinimazingOrMaximazingMode.Minimazing,
-				comparerScalar: comparerScalar,
-				defaultValueScalar: new Computing<TSourceItem>(defaultValueExpression));
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.MinimazingOrMaximazing<TSourceItem> Minimazing<TSourceItem>(this
-			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar,
-			 ObservableComputations.IReadScalar<TSourceItem> defaultValueScalar)
-			
-		{
-			return new ObservableComputations.MinimazingOrMaximazing<TSourceItem>(
-				sourceScalar: sourceScalar,
-				mode: MinimazingOrMaximazingMode.Minimazing,
-				comparerScalar: null,
-				defaultValueScalar: defaultValueScalar);
+				comparer: null,
+				defaultValue: defaultValue);
 		}
 
 		[ObservableComputationsCall]
@@ -19177,116 +17771,48 @@ namespace ObservableComputations
 			return new ObservableComputations.MinimazingOrMaximazing<TSourceItem>(
 				sourceScalar: sourceScalar,
 				mode: MinimazingOrMaximazingMode.Minimazing,
-				comparerScalar: null,
-				defaultValueScalar: null);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.MinimazingOrMaximazing<TSourceItem> Minimazing<TSourceItem>(this
-			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar,
-			 Expression<Func<TSourceItem>> defaultValueExpression)
-			
-		{
-			return new ObservableComputations.MinimazingOrMaximazing<TSourceItem>(
-				sourceScalar: sourceScalar,
-				mode: MinimazingOrMaximazingMode.Minimazing,
-				comparerScalar: null,
-				defaultValueScalar: new Computing<TSourceItem>(defaultValueExpression));
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.MinimazingOrMaximazing<TSourceItem> Minimazing<TSourceItem>(this
-			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar,
-			 Expression<Func<System.Collections.Generic.IComparer<TSourceItem>>> comparerExpression,
-			 ObservableComputations.IReadScalar<TSourceItem> defaultValueScalar)
-			
-		{
-			return new ObservableComputations.MinimazingOrMaximazing<TSourceItem>(
-				sourceScalar: sourceScalar,
-				mode: MinimazingOrMaximazingMode.Minimazing,
-				comparerScalar: new Computing<System.Collections.Generic.IComparer<TSourceItem>>(comparerExpression),
-				defaultValueScalar: defaultValueScalar);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.MinimazingOrMaximazing<TSourceItem> Minimazing<TSourceItem>(this
-			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar,
-			 Expression<Func<System.Collections.Generic.IComparer<TSourceItem>>> comparerExpression)
-			
-		{
-			return new ObservableComputations.MinimazingOrMaximazing<TSourceItem>(
-				sourceScalar: sourceScalar,
-				mode: MinimazingOrMaximazingMode.Minimazing,
-				comparerScalar: new Computing<System.Collections.Generic.IComparer<TSourceItem>>(comparerExpression),
-				defaultValueScalar: null);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.MinimazingOrMaximazing<TSourceItem> Minimazing<TSourceItem>(this
-			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar,
-			 Expression<Func<System.Collections.Generic.IComparer<TSourceItem>>> comparerExpression,
-			 Expression<Func<TSourceItem>> defaultValueExpression)
-			
-		{
-			return new ObservableComputations.MinimazingOrMaximazing<TSourceItem>(
-				sourceScalar: sourceScalar,
-				mode: MinimazingOrMaximazingMode.Minimazing,
-				comparerScalar: new Computing<System.Collections.Generic.IComparer<TSourceItem>>(comparerExpression),
-				defaultValueScalar: new Computing<TSourceItem>(defaultValueExpression));
+				comparer: null,
+				defaultValue: default(TSourceItem));
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.MinimazingOrMaximazing<TSourceItem> Minimazing<TSourceItem>(this
 			 ObservableComputations.IReadScalar<ObservableCollection<TSourceItem>> sourceScalar,
-			 ObservableComputations.IReadScalar<System.Collections.Generic.IComparer<TSourceItem>> comparerScalar,
-			 ObservableComputations.IReadScalar<TSourceItem> defaultValueScalar)
+			 System.Collections.Generic.IComparer<TSourceItem> comparer,
+			 TSourceItem defaultValue)
 			
 		{
 			return new ObservableComputations.MinimazingOrMaximazing<TSourceItem>(
 				sourceScalar: sourceScalar,
 				mode: MinimazingOrMaximazingMode.Minimazing,
-				comparerScalar: comparerScalar,
-				defaultValueScalar: defaultValueScalar);
+				comparer: comparer,
+				defaultValue: defaultValue);
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.MinimazingOrMaximazing<TSourceItem> Minimazing<TSourceItem>(this
 			 ObservableComputations.IReadScalar<ObservableCollection<TSourceItem>> sourceScalar,
-			 ObservableComputations.IReadScalar<System.Collections.Generic.IComparer<TSourceItem>> comparerScalar)
+			 System.Collections.Generic.IComparer<TSourceItem> comparer)
 			
 		{
 			return new ObservableComputations.MinimazingOrMaximazing<TSourceItem>(
 				sourceScalar: sourceScalar,
 				mode: MinimazingOrMaximazingMode.Minimazing,
-				comparerScalar: comparerScalar,
-				defaultValueScalar: null);
+				comparer: comparer,
+				defaultValue: default(TSourceItem));
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.MinimazingOrMaximazing<TSourceItem> Minimazing<TSourceItem>(this
 			 ObservableComputations.IReadScalar<ObservableCollection<TSourceItem>> sourceScalar,
-			 ObservableComputations.IReadScalar<System.Collections.Generic.IComparer<TSourceItem>> comparerScalar,
-			 Expression<Func<TSourceItem>> defaultValueExpression)
+			 TSourceItem defaultValue)
 			
 		{
 			return new ObservableComputations.MinimazingOrMaximazing<TSourceItem>(
 				sourceScalar: sourceScalar,
 				mode: MinimazingOrMaximazingMode.Minimazing,
-				comparerScalar: comparerScalar,
-				defaultValueScalar: new Computing<TSourceItem>(defaultValueExpression));
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.MinimazingOrMaximazing<TSourceItem> Minimazing<TSourceItem>(this
-			 ObservableComputations.IReadScalar<ObservableCollection<TSourceItem>> sourceScalar,
-			 ObservableComputations.IReadScalar<TSourceItem> defaultValueScalar)
-			
-		{
-			return new ObservableComputations.MinimazingOrMaximazing<TSourceItem>(
-				sourceScalar: sourceScalar,
-				mode: MinimazingOrMaximazingMode.Minimazing,
-				comparerScalar: null,
-				defaultValueScalar: defaultValueScalar);
+				comparer: null,
+				defaultValue: defaultValue);
 		}
 
 		[ObservableComputationsCall]
@@ -19297,116 +17823,48 @@ namespace ObservableComputations
 			return new ObservableComputations.MinimazingOrMaximazing<TSourceItem>(
 				sourceScalar: sourceScalar,
 				mode: MinimazingOrMaximazingMode.Minimazing,
-				comparerScalar: null,
-				defaultValueScalar: null);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.MinimazingOrMaximazing<TSourceItem> Minimazing<TSourceItem>(this
-			 ObservableComputations.IReadScalar<ObservableCollection<TSourceItem>> sourceScalar,
-			 Expression<Func<TSourceItem>> defaultValueExpression)
-			
-		{
-			return new ObservableComputations.MinimazingOrMaximazing<TSourceItem>(
-				sourceScalar: sourceScalar,
-				mode: MinimazingOrMaximazingMode.Minimazing,
-				comparerScalar: null,
-				defaultValueScalar: new Computing<TSourceItem>(defaultValueExpression));
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.MinimazingOrMaximazing<TSourceItem> Minimazing<TSourceItem>(this
-			 ObservableComputations.IReadScalar<ObservableCollection<TSourceItem>> sourceScalar,
-			 Expression<Func<System.Collections.Generic.IComparer<TSourceItem>>> comparerExpression,
-			 ObservableComputations.IReadScalar<TSourceItem> defaultValueScalar)
-			
-		{
-			return new ObservableComputations.MinimazingOrMaximazing<TSourceItem>(
-				sourceScalar: sourceScalar,
-				mode: MinimazingOrMaximazingMode.Minimazing,
-				comparerScalar: new Computing<System.Collections.Generic.IComparer<TSourceItem>>(comparerExpression),
-				defaultValueScalar: defaultValueScalar);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.MinimazingOrMaximazing<TSourceItem> Minimazing<TSourceItem>(this
-			 ObservableComputations.IReadScalar<ObservableCollection<TSourceItem>> sourceScalar,
-			 Expression<Func<System.Collections.Generic.IComparer<TSourceItem>>> comparerExpression)
-			
-		{
-			return new ObservableComputations.MinimazingOrMaximazing<TSourceItem>(
-				sourceScalar: sourceScalar,
-				mode: MinimazingOrMaximazingMode.Minimazing,
-				comparerScalar: new Computing<System.Collections.Generic.IComparer<TSourceItem>>(comparerExpression),
-				defaultValueScalar: null);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.MinimazingOrMaximazing<TSourceItem> Minimazing<TSourceItem>(this
-			 ObservableComputations.IReadScalar<ObservableCollection<TSourceItem>> sourceScalar,
-			 Expression<Func<System.Collections.Generic.IComparer<TSourceItem>>> comparerExpression,
-			 Expression<Func<TSourceItem>> defaultValueExpression)
-			
-		{
-			return new ObservableComputations.MinimazingOrMaximazing<TSourceItem>(
-				sourceScalar: sourceScalar,
-				mode: MinimazingOrMaximazingMode.Minimazing,
-				comparerScalar: new Computing<System.Collections.Generic.IComparer<TSourceItem>>(comparerExpression),
-				defaultValueScalar: new Computing<TSourceItem>(defaultValueExpression));
+				comparer: null,
+				defaultValue: default(TSourceItem));
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.MinimazingOrMaximazing<TSourceItem> Minimazing<TSourceItem>(this
 			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> sourceExpression,
-			 ObservableComputations.IReadScalar<System.Collections.Generic.IComparer<TSourceItem>> comparerScalar,
-			 ObservableComputations.IReadScalar<TSourceItem> defaultValueScalar)
+			 System.Collections.Generic.IComparer<TSourceItem> comparer,
+			 TSourceItem defaultValue)
 			
 		{
 			return new ObservableComputations.MinimazingOrMaximazing<TSourceItem>(
 				sourceScalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(sourceExpression),
 				mode: MinimazingOrMaximazingMode.Minimazing,
-				comparerScalar: comparerScalar,
-				defaultValueScalar: defaultValueScalar);
+				comparer: comparer,
+				defaultValue: defaultValue);
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.MinimazingOrMaximazing<TSourceItem> Minimazing<TSourceItem>(this
 			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> sourceExpression,
-			 ObservableComputations.IReadScalar<System.Collections.Generic.IComparer<TSourceItem>> comparerScalar)
+			 System.Collections.Generic.IComparer<TSourceItem> comparer)
 			
 		{
 			return new ObservableComputations.MinimazingOrMaximazing<TSourceItem>(
 				sourceScalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(sourceExpression),
 				mode: MinimazingOrMaximazingMode.Minimazing,
-				comparerScalar: comparerScalar,
-				defaultValueScalar: null);
+				comparer: comparer,
+				defaultValue: default(TSourceItem));
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.MinimazingOrMaximazing<TSourceItem> Minimazing<TSourceItem>(this
 			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> sourceExpression,
-			 ObservableComputations.IReadScalar<System.Collections.Generic.IComparer<TSourceItem>> comparerScalar,
-			 Expression<Func<TSourceItem>> defaultValueExpression)
+			 TSourceItem defaultValue)
 			
 		{
 			return new ObservableComputations.MinimazingOrMaximazing<TSourceItem>(
 				sourceScalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(sourceExpression),
 				mode: MinimazingOrMaximazingMode.Minimazing,
-				comparerScalar: comparerScalar,
-				defaultValueScalar: new Computing<TSourceItem>(defaultValueExpression));
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.MinimazingOrMaximazing<TSourceItem> Minimazing<TSourceItem>(this
-			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> sourceExpression,
-			 ObservableComputations.IReadScalar<TSourceItem> defaultValueScalar)
-			
-		{
-			return new ObservableComputations.MinimazingOrMaximazing<TSourceItem>(
-				sourceScalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(sourceExpression),
-				mode: MinimazingOrMaximazingMode.Minimazing,
-				comparerScalar: null,
-				defaultValueScalar: defaultValueScalar);
+				comparer: null,
+				defaultValue: defaultValue);
 		}
 
 		[ObservableComputationsCall]
@@ -19417,116 +17875,48 @@ namespace ObservableComputations
 			return new ObservableComputations.MinimazingOrMaximazing<TSourceItem>(
 				sourceScalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(sourceExpression),
 				mode: MinimazingOrMaximazingMode.Minimazing,
-				comparerScalar: null,
-				defaultValueScalar: null);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.MinimazingOrMaximazing<TSourceItem> Minimazing<TSourceItem>(this
-			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> sourceExpression,
-			 Expression<Func<TSourceItem>> defaultValueExpression)
-			
-		{
-			return new ObservableComputations.MinimazingOrMaximazing<TSourceItem>(
-				sourceScalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(sourceExpression),
-				mode: MinimazingOrMaximazingMode.Minimazing,
-				comparerScalar: null,
-				defaultValueScalar: new Computing<TSourceItem>(defaultValueExpression));
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.MinimazingOrMaximazing<TSourceItem> Minimazing<TSourceItem>(this
-			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> sourceExpression,
-			 Expression<Func<System.Collections.Generic.IComparer<TSourceItem>>> comparerExpression,
-			 ObservableComputations.IReadScalar<TSourceItem> defaultValueScalar)
-			
-		{
-			return new ObservableComputations.MinimazingOrMaximazing<TSourceItem>(
-				sourceScalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(sourceExpression),
-				mode: MinimazingOrMaximazingMode.Minimazing,
-				comparerScalar: new Computing<System.Collections.Generic.IComparer<TSourceItem>>(comparerExpression),
-				defaultValueScalar: defaultValueScalar);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.MinimazingOrMaximazing<TSourceItem> Minimazing<TSourceItem>(this
-			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> sourceExpression,
-			 Expression<Func<System.Collections.Generic.IComparer<TSourceItem>>> comparerExpression)
-			
-		{
-			return new ObservableComputations.MinimazingOrMaximazing<TSourceItem>(
-				sourceScalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(sourceExpression),
-				mode: MinimazingOrMaximazingMode.Minimazing,
-				comparerScalar: new Computing<System.Collections.Generic.IComparer<TSourceItem>>(comparerExpression),
-				defaultValueScalar: null);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.MinimazingOrMaximazing<TSourceItem> Minimazing<TSourceItem>(this
-			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> sourceExpression,
-			 Expression<Func<System.Collections.Generic.IComparer<TSourceItem>>> comparerExpression,
-			 Expression<Func<TSourceItem>> defaultValueExpression)
-			
-		{
-			return new ObservableComputations.MinimazingOrMaximazing<TSourceItem>(
-				sourceScalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(sourceExpression),
-				mode: MinimazingOrMaximazingMode.Minimazing,
-				comparerScalar: new Computing<System.Collections.Generic.IComparer<TSourceItem>>(comparerExpression),
-				defaultValueScalar: new Computing<TSourceItem>(defaultValueExpression));
+				comparer: null,
+				defaultValue: default(TSourceItem));
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.MinimazingOrMaximazing<TSourceItem> Minimazing<TSourceItem>(this
 			 Expression<Func<ObservableCollection<TSourceItem>>> sourceExpression,
-			 ObservableComputations.IReadScalar<System.Collections.Generic.IComparer<TSourceItem>> comparerScalar,
-			 ObservableComputations.IReadScalar<TSourceItem> defaultValueScalar)
+			 System.Collections.Generic.IComparer<TSourceItem> comparer,
+			 TSourceItem defaultValue)
 			
 		{
 			return new ObservableComputations.MinimazingOrMaximazing<TSourceItem>(
 				sourceScalar: new Computing<ObservableCollection<TSourceItem>>(sourceExpression),
 				mode: MinimazingOrMaximazingMode.Minimazing,
-				comparerScalar: comparerScalar,
-				defaultValueScalar: defaultValueScalar);
+				comparer: comparer,
+				defaultValue: defaultValue);
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.MinimazingOrMaximazing<TSourceItem> Minimazing<TSourceItem>(this
 			 Expression<Func<ObservableCollection<TSourceItem>>> sourceExpression,
-			 ObservableComputations.IReadScalar<System.Collections.Generic.IComparer<TSourceItem>> comparerScalar)
+			 System.Collections.Generic.IComparer<TSourceItem> comparer)
 			
 		{
 			return new ObservableComputations.MinimazingOrMaximazing<TSourceItem>(
 				sourceScalar: new Computing<ObservableCollection<TSourceItem>>(sourceExpression),
 				mode: MinimazingOrMaximazingMode.Minimazing,
-				comparerScalar: comparerScalar,
-				defaultValueScalar: null);
+				comparer: comparer,
+				defaultValue: default(TSourceItem));
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.MinimazingOrMaximazing<TSourceItem> Minimazing<TSourceItem>(this
 			 Expression<Func<ObservableCollection<TSourceItem>>> sourceExpression,
-			 ObservableComputations.IReadScalar<System.Collections.Generic.IComparer<TSourceItem>> comparerScalar,
-			 Expression<Func<TSourceItem>> defaultValueExpression)
+			 TSourceItem defaultValue)
 			
 		{
 			return new ObservableComputations.MinimazingOrMaximazing<TSourceItem>(
 				sourceScalar: new Computing<ObservableCollection<TSourceItem>>(sourceExpression),
 				mode: MinimazingOrMaximazingMode.Minimazing,
-				comparerScalar: comparerScalar,
-				defaultValueScalar: new Computing<TSourceItem>(defaultValueExpression));
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.MinimazingOrMaximazing<TSourceItem> Minimazing<TSourceItem>(this
-			 Expression<Func<ObservableCollection<TSourceItem>>> sourceExpression,
-			 ObservableComputations.IReadScalar<TSourceItem> defaultValueScalar)
-			
-		{
-			return new ObservableComputations.MinimazingOrMaximazing<TSourceItem>(
-				sourceScalar: new Computing<ObservableCollection<TSourceItem>>(sourceExpression),
-				mode: MinimazingOrMaximazingMode.Minimazing,
-				comparerScalar: null,
-				defaultValueScalar: defaultValueScalar);
+				comparer: null,
+				defaultValue: defaultValue);
 		}
 
 		[ObservableComputationsCall]
@@ -19537,35 +17927,211 @@ namespace ObservableComputations
 			return new ObservableComputations.MinimazingOrMaximazing<TSourceItem>(
 				sourceScalar: new Computing<ObservableCollection<TSourceItem>>(sourceExpression),
 				mode: MinimazingOrMaximazingMode.Minimazing,
-				comparerScalar: null,
-				defaultValueScalar: null);
+				comparer: null,
+				defaultValue: default(TSourceItem));
+		}
+
+		[ObservableComputationsCall]
+		public static ObservableComputations.MinimazingOrMaximazing<TSourceItem> Minimazing<TSourceItem>(this
+			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar,
+			 ObservableComputations.IReadScalar<System.Collections.Generic.IComparer<TSourceItem>> comparerScalar,
+			 TSourceItem defaultValue)
+			
+		{
+			return new ObservableComputations.MinimazingOrMaximazing<TSourceItem>(
+				sourceScalar: sourceScalar,
+				mode: MinimazingOrMaximazingMode.Minimazing,
+				comparerScalar: comparerScalar,
+				defaultValue: defaultValue);
+		}
+
+		[ObservableComputationsCall]
+		public static ObservableComputations.MinimazingOrMaximazing<TSourceItem> Minimazing<TSourceItem>(this
+			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar,
+			 ObservableComputations.IReadScalar<System.Collections.Generic.IComparer<TSourceItem>> comparerScalar)
+			
+		{
+			return new ObservableComputations.MinimazingOrMaximazing<TSourceItem>(
+				sourceScalar: sourceScalar,
+				mode: MinimazingOrMaximazingMode.Minimazing,
+				comparerScalar: comparerScalar,
+				defaultValue: default(TSourceItem));
+		}
+
+		[ObservableComputationsCall]
+		public static ObservableComputations.MinimazingOrMaximazing<TSourceItem> Minimazing<TSourceItem>(this
+			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar,
+			 Expression<Func<System.Collections.Generic.IComparer<TSourceItem>>> comparerExpression,
+			 TSourceItem defaultValue)
+			
+		{
+			return new ObservableComputations.MinimazingOrMaximazing<TSourceItem>(
+				sourceScalar: sourceScalar,
+				mode: MinimazingOrMaximazingMode.Minimazing,
+				comparerScalar: new Computing<System.Collections.Generic.IComparer<TSourceItem>>(comparerExpression),
+				defaultValue: defaultValue);
+		}
+
+		[ObservableComputationsCall]
+		public static ObservableComputations.MinimazingOrMaximazing<TSourceItem> Minimazing<TSourceItem>(this
+			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar,
+			 Expression<Func<System.Collections.Generic.IComparer<TSourceItem>>> comparerExpression)
+			
+		{
+			return new ObservableComputations.MinimazingOrMaximazing<TSourceItem>(
+				sourceScalar: sourceScalar,
+				mode: MinimazingOrMaximazingMode.Minimazing,
+				comparerScalar: new Computing<System.Collections.Generic.IComparer<TSourceItem>>(comparerExpression),
+				defaultValue: default(TSourceItem));
+		}
+
+		[ObservableComputationsCall]
+		public static ObservableComputations.MinimazingOrMaximazing<TSourceItem> Minimazing<TSourceItem>(this
+			 ObservableComputations.IReadScalar<ObservableCollection<TSourceItem>> sourceScalar,
+			 ObservableComputations.IReadScalar<System.Collections.Generic.IComparer<TSourceItem>> comparerScalar,
+			 TSourceItem defaultValue)
+			
+		{
+			return new ObservableComputations.MinimazingOrMaximazing<TSourceItem>(
+				sourceScalar: sourceScalar,
+				mode: MinimazingOrMaximazingMode.Minimazing,
+				comparerScalar: comparerScalar,
+				defaultValue: defaultValue);
+		}
+
+		[ObservableComputationsCall]
+		public static ObservableComputations.MinimazingOrMaximazing<TSourceItem> Minimazing<TSourceItem>(this
+			 ObservableComputations.IReadScalar<ObservableCollection<TSourceItem>> sourceScalar,
+			 ObservableComputations.IReadScalar<System.Collections.Generic.IComparer<TSourceItem>> comparerScalar)
+			
+		{
+			return new ObservableComputations.MinimazingOrMaximazing<TSourceItem>(
+				sourceScalar: sourceScalar,
+				mode: MinimazingOrMaximazingMode.Minimazing,
+				comparerScalar: comparerScalar,
+				defaultValue: default(TSourceItem));
+		}
+
+		[ObservableComputationsCall]
+		public static ObservableComputations.MinimazingOrMaximazing<TSourceItem> Minimazing<TSourceItem>(this
+			 ObservableComputations.IReadScalar<ObservableCollection<TSourceItem>> sourceScalar,
+			 Expression<Func<System.Collections.Generic.IComparer<TSourceItem>>> comparerExpression,
+			 TSourceItem defaultValue)
+			
+		{
+			return new ObservableComputations.MinimazingOrMaximazing<TSourceItem>(
+				sourceScalar: sourceScalar,
+				mode: MinimazingOrMaximazingMode.Minimazing,
+				comparerScalar: new Computing<System.Collections.Generic.IComparer<TSourceItem>>(comparerExpression),
+				defaultValue: defaultValue);
+		}
+
+		[ObservableComputationsCall]
+		public static ObservableComputations.MinimazingOrMaximazing<TSourceItem> Minimazing<TSourceItem>(this
+			 ObservableComputations.IReadScalar<ObservableCollection<TSourceItem>> sourceScalar,
+			 Expression<Func<System.Collections.Generic.IComparer<TSourceItem>>> comparerExpression)
+			
+		{
+			return new ObservableComputations.MinimazingOrMaximazing<TSourceItem>(
+				sourceScalar: sourceScalar,
+				mode: MinimazingOrMaximazingMode.Minimazing,
+				comparerScalar: new Computing<System.Collections.Generic.IComparer<TSourceItem>>(comparerExpression),
+				defaultValue: default(TSourceItem));
+		}
+
+		[ObservableComputationsCall]
+		public static ObservableComputations.MinimazingOrMaximazing<TSourceItem> Minimazing<TSourceItem>(this
+			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> sourceExpression,
+			 ObservableComputations.IReadScalar<System.Collections.Generic.IComparer<TSourceItem>> comparerScalar,
+			 TSourceItem defaultValue)
+			
+		{
+			return new ObservableComputations.MinimazingOrMaximazing<TSourceItem>(
+				sourceScalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(sourceExpression),
+				mode: MinimazingOrMaximazingMode.Minimazing,
+				comparerScalar: comparerScalar,
+				defaultValue: defaultValue);
+		}
+
+		[ObservableComputationsCall]
+		public static ObservableComputations.MinimazingOrMaximazing<TSourceItem> Minimazing<TSourceItem>(this
+			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> sourceExpression,
+			 ObservableComputations.IReadScalar<System.Collections.Generic.IComparer<TSourceItem>> comparerScalar)
+			
+		{
+			return new ObservableComputations.MinimazingOrMaximazing<TSourceItem>(
+				sourceScalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(sourceExpression),
+				mode: MinimazingOrMaximazingMode.Minimazing,
+				comparerScalar: comparerScalar,
+				defaultValue: default(TSourceItem));
+		}
+
+		[ObservableComputationsCall]
+		public static ObservableComputations.MinimazingOrMaximazing<TSourceItem> Minimazing<TSourceItem>(this
+			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> sourceExpression,
+			 Expression<Func<System.Collections.Generic.IComparer<TSourceItem>>> comparerExpression,
+			 TSourceItem defaultValue)
+			
+		{
+			return new ObservableComputations.MinimazingOrMaximazing<TSourceItem>(
+				sourceScalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(sourceExpression),
+				mode: MinimazingOrMaximazingMode.Minimazing,
+				comparerScalar: new Computing<System.Collections.Generic.IComparer<TSourceItem>>(comparerExpression),
+				defaultValue: defaultValue);
+		}
+
+		[ObservableComputationsCall]
+		public static ObservableComputations.MinimazingOrMaximazing<TSourceItem> Minimazing<TSourceItem>(this
+			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> sourceExpression,
+			 Expression<Func<System.Collections.Generic.IComparer<TSourceItem>>> comparerExpression)
+			
+		{
+			return new ObservableComputations.MinimazingOrMaximazing<TSourceItem>(
+				sourceScalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(sourceExpression),
+				mode: MinimazingOrMaximazingMode.Minimazing,
+				comparerScalar: new Computing<System.Collections.Generic.IComparer<TSourceItem>>(comparerExpression),
+				defaultValue: default(TSourceItem));
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.MinimazingOrMaximazing<TSourceItem> Minimazing<TSourceItem>(this
 			 Expression<Func<ObservableCollection<TSourceItem>>> sourceExpression,
-			 Expression<Func<TSourceItem>> defaultValueExpression)
+			 ObservableComputations.IReadScalar<System.Collections.Generic.IComparer<TSourceItem>> comparerScalar,
+			 TSourceItem defaultValue)
 			
 		{
 			return new ObservableComputations.MinimazingOrMaximazing<TSourceItem>(
 				sourceScalar: new Computing<ObservableCollection<TSourceItem>>(sourceExpression),
 				mode: MinimazingOrMaximazingMode.Minimazing,
-				comparerScalar: null,
-				defaultValueScalar: new Computing<TSourceItem>(defaultValueExpression));
+				comparerScalar: comparerScalar,
+				defaultValue: defaultValue);
+		}
+
+		[ObservableComputationsCall]
+		public static ObservableComputations.MinimazingOrMaximazing<TSourceItem> Minimazing<TSourceItem>(this
+			 Expression<Func<ObservableCollection<TSourceItem>>> sourceExpression,
+			 ObservableComputations.IReadScalar<System.Collections.Generic.IComparer<TSourceItem>> comparerScalar)
+			
+		{
+			return new ObservableComputations.MinimazingOrMaximazing<TSourceItem>(
+				sourceScalar: new Computing<ObservableCollection<TSourceItem>>(sourceExpression),
+				mode: MinimazingOrMaximazingMode.Minimazing,
+				comparerScalar: comparerScalar,
+				defaultValue: default(TSourceItem));
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.MinimazingOrMaximazing<TSourceItem> Minimazing<TSourceItem>(this
 			 Expression<Func<ObservableCollection<TSourceItem>>> sourceExpression,
 			 Expression<Func<System.Collections.Generic.IComparer<TSourceItem>>> comparerExpression,
-			 ObservableComputations.IReadScalar<TSourceItem> defaultValueScalar)
+			 TSourceItem defaultValue)
 			
 		{
 			return new ObservableComputations.MinimazingOrMaximazing<TSourceItem>(
 				sourceScalar: new Computing<ObservableCollection<TSourceItem>>(sourceExpression),
 				mode: MinimazingOrMaximazingMode.Minimazing,
 				comparerScalar: new Computing<System.Collections.Generic.IComparer<TSourceItem>>(comparerExpression),
-				defaultValueScalar: defaultValueScalar);
+				defaultValue: defaultValue);
 		}
 
 		[ObservableComputationsCall]
@@ -19578,459 +18144,47 @@ namespace ObservableComputations
 				sourceScalar: new Computing<ObservableCollection<TSourceItem>>(sourceExpression),
 				mode: MinimazingOrMaximazingMode.Minimazing,
 				comparerScalar: new Computing<System.Collections.Generic.IComparer<TSourceItem>>(comparerExpression),
-				defaultValueScalar: null);
+				defaultValue: default(TSourceItem));
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.MinimazingOrMaximazing<TSourceItem> Minimazing<TSourceItem>(this
-			 Expression<Func<ObservableCollection<TSourceItem>>> sourceExpression,
-			 Expression<Func<System.Collections.Generic.IComparer<TSourceItem>>> comparerExpression,
-			 Expression<Func<TSourceItem>> defaultValueExpression)
-			
-		{
-			return new ObservableComputations.MinimazingOrMaximazing<TSourceItem>(
-				sourceScalar: new Computing<ObservableCollection<TSourceItem>>(sourceExpression),
-				mode: MinimazingOrMaximazingMode.Minimazing,
-				comparerScalar: new Computing<System.Collections.Generic.IComparer<TSourceItem>>(comparerExpression),
-				defaultValueScalar: new Computing<TSourceItem>(defaultValueExpression));
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.MinimazingOrMaximazing<TSourceItem> Minimazing<TSourceItem>(this
-			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar,
-			 System.Collections.Generic.IComparer<TSourceItem> comparer,
-			 ObservableComputations.IReadScalar<TSourceItem> defaultValueScalar)
-			
-		{
-			return new ObservableComputations.MinimazingOrMaximazing<TSourceItem>(
-				sourceScalar: sourceScalar,
-				mode: MinimazingOrMaximazingMode.Minimazing,
-				comparer: comparer,
-				defaultValueScalar: defaultValueScalar);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.MinimazingOrMaximazing<TSourceItem> Minimazing<TSourceItem>(this
-			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar,
-			 System.Collections.Generic.IComparer<TSourceItem> comparer)
-			
-		{
-			return new ObservableComputations.MinimazingOrMaximazing<TSourceItem>(
-				sourceScalar: sourceScalar,
-				mode: MinimazingOrMaximazingMode.Minimazing,
-				comparer: comparer,
-				defaultValueScalar: null);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.MinimazingOrMaximazing<TSourceItem> Minimazing<TSourceItem>(this
-			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar,
-			 System.Collections.Generic.IComparer<TSourceItem> comparer,
-			 Expression<Func<TSourceItem>> defaultValueExpression)
-			
-		{
-			return new ObservableComputations.MinimazingOrMaximazing<TSourceItem>(
-				sourceScalar: sourceScalar,
-				mode: MinimazingOrMaximazingMode.Minimazing,
-				comparer: comparer,
-				defaultValueScalar: new Computing<TSourceItem>(defaultValueExpression));
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.MinimazingOrMaximazing<TSourceItem> Minimazing<TSourceItem>(this
-			 ObservableComputations.IReadScalar<ObservableCollection<TSourceItem>> sourceScalar,
-			 System.Collections.Generic.IComparer<TSourceItem> comparer,
-			 ObservableComputations.IReadScalar<TSourceItem> defaultValueScalar)
-			
-		{
-			return new ObservableComputations.MinimazingOrMaximazing<TSourceItem>(
-				sourceScalar: sourceScalar,
-				mode: MinimazingOrMaximazingMode.Minimazing,
-				comparer: comparer,
-				defaultValueScalar: defaultValueScalar);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.MinimazingOrMaximazing<TSourceItem> Minimazing<TSourceItem>(this
-			 ObservableComputations.IReadScalar<ObservableCollection<TSourceItem>> sourceScalar,
-			 System.Collections.Generic.IComparer<TSourceItem> comparer)
-			
-		{
-			return new ObservableComputations.MinimazingOrMaximazing<TSourceItem>(
-				sourceScalar: sourceScalar,
-				mode: MinimazingOrMaximazingMode.Minimazing,
-				comparer: comparer,
-				defaultValueScalar: null);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.MinimazingOrMaximazing<TSourceItem> Minimazing<TSourceItem>(this
-			 ObservableComputations.IReadScalar<ObservableCollection<TSourceItem>> sourceScalar,
-			 System.Collections.Generic.IComparer<TSourceItem> comparer,
-			 Expression<Func<TSourceItem>> defaultValueExpression)
-			
-		{
-			return new ObservableComputations.MinimazingOrMaximazing<TSourceItem>(
-				sourceScalar: sourceScalar,
-				mode: MinimazingOrMaximazingMode.Minimazing,
-				comparer: comparer,
-				defaultValueScalar: new Computing<TSourceItem>(defaultValueExpression));
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.MinimazingOrMaximazing<TSourceItem> Minimazing<TSourceItem>(this
-			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> sourceExpression,
-			 System.Collections.Generic.IComparer<TSourceItem> comparer,
-			 ObservableComputations.IReadScalar<TSourceItem> defaultValueScalar)
-			
-		{
-			return new ObservableComputations.MinimazingOrMaximazing<TSourceItem>(
-				sourceScalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(sourceExpression),
-				mode: MinimazingOrMaximazingMode.Minimazing,
-				comparer: comparer,
-				defaultValueScalar: defaultValueScalar);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.MinimazingOrMaximazing<TSourceItem> Minimazing<TSourceItem>(this
-			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> sourceExpression,
-			 System.Collections.Generic.IComparer<TSourceItem> comparer)
-			
-		{
-			return new ObservableComputations.MinimazingOrMaximazing<TSourceItem>(
-				sourceScalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(sourceExpression),
-				mode: MinimazingOrMaximazingMode.Minimazing,
-				comparer: comparer,
-				defaultValueScalar: null);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.MinimazingOrMaximazing<TSourceItem> Minimazing<TSourceItem>(this
-			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> sourceExpression,
-			 System.Collections.Generic.IComparer<TSourceItem> comparer,
-			 Expression<Func<TSourceItem>> defaultValueExpression)
-			
-		{
-			return new ObservableComputations.MinimazingOrMaximazing<TSourceItem>(
-				sourceScalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(sourceExpression),
-				mode: MinimazingOrMaximazingMode.Minimazing,
-				comparer: comparer,
-				defaultValueScalar: new Computing<TSourceItem>(defaultValueExpression));
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.MinimazingOrMaximazing<TSourceItem> Minimazing<TSourceItem>(this
-			 Expression<Func<ObservableCollection<TSourceItem>>> sourceExpression,
-			 System.Collections.Generic.IComparer<TSourceItem> comparer,
-			 ObservableComputations.IReadScalar<TSourceItem> defaultValueScalar)
-			
-		{
-			return new ObservableComputations.MinimazingOrMaximazing<TSourceItem>(
-				sourceScalar: new Computing<ObservableCollection<TSourceItem>>(sourceExpression),
-				mode: MinimazingOrMaximazingMode.Minimazing,
-				comparer: comparer,
-				defaultValueScalar: defaultValueScalar);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.MinimazingOrMaximazing<TSourceItem> Minimazing<TSourceItem>(this
-			 Expression<Func<ObservableCollection<TSourceItem>>> sourceExpression,
-			 System.Collections.Generic.IComparer<TSourceItem> comparer)
-			
-		{
-			return new ObservableComputations.MinimazingOrMaximazing<TSourceItem>(
-				sourceScalar: new Computing<ObservableCollection<TSourceItem>>(sourceExpression),
-				mode: MinimazingOrMaximazingMode.Minimazing,
-				comparer: comparer,
-				defaultValueScalar: null);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.MinimazingOrMaximazing<TSourceItem> Minimazing<TSourceItem>(this
-			 Expression<Func<ObservableCollection<TSourceItem>>> sourceExpression,
-			 System.Collections.Generic.IComparer<TSourceItem> comparer,
-			 Expression<Func<TSourceItem>> defaultValueExpression)
-			
-		{
-			return new ObservableComputations.MinimazingOrMaximazing<TSourceItem>(
-				sourceScalar: new Computing<ObservableCollection<TSourceItem>>(sourceExpression),
-				mode: MinimazingOrMaximazingMode.Minimazing,
-				comparer: comparer,
-				defaultValueScalar: new Computing<TSourceItem>(defaultValueExpression));
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.MinimazingOrMaximazing<TSourceItem> Minimazing<TSourceItem>(this
-			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar,
+			 System.Collections.Specialized.INotifyCollectionChanged source,
 			 System.Collections.Generic.IComparer<TSourceItem> comparer,
 			 TSourceItem defaultValue)
 			
 		{
 			return new ObservableComputations.MinimazingOrMaximazing<TSourceItem>(
-				sourceScalar: sourceScalar,
+				source: source,
 				mode: MinimazingOrMaximazingMode.Minimazing,
 				comparer: comparer,
-				defaultValue: defaultValue);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.MinimazingOrMaximazing<TSourceItem> Minimazing<TSourceItem>(this
-			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar,
-			 TSourceItem defaultValue)
-			
-		{
-			return new ObservableComputations.MinimazingOrMaximazing<TSourceItem>(
-				sourceScalar: sourceScalar,
-				mode: MinimazingOrMaximazingMode.Minimazing,
-				comparer: null,
-				defaultValue: defaultValue);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.MinimazingOrMaximazing<TSourceItem> Minimazing<TSourceItem>(this
-			 ObservableComputations.IReadScalar<ObservableCollection<TSourceItem>> sourceScalar,
-			 System.Collections.Generic.IComparer<TSourceItem> comparer,
-			 TSourceItem defaultValue)
-			
-		{
-			return new ObservableComputations.MinimazingOrMaximazing<TSourceItem>(
-				sourceScalar: sourceScalar,
-				mode: MinimazingOrMaximazingMode.Minimazing,
-				comparer: comparer,
-				defaultValue: defaultValue);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.MinimazingOrMaximazing<TSourceItem> Minimazing<TSourceItem>(this
-			 ObservableComputations.IReadScalar<ObservableCollection<TSourceItem>> sourceScalar,
-			 TSourceItem defaultValue)
-			
-		{
-			return new ObservableComputations.MinimazingOrMaximazing<TSourceItem>(
-				sourceScalar: sourceScalar,
-				mode: MinimazingOrMaximazingMode.Minimazing,
-				comparer: null,
-				defaultValue: defaultValue);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.MinimazingOrMaximazing<TSourceItem> Minimazing<TSourceItem>(this
-			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> sourceExpression,
-			 System.Collections.Generic.IComparer<TSourceItem> comparer,
-			 TSourceItem defaultValue)
-			
-		{
-			return new ObservableComputations.MinimazingOrMaximazing<TSourceItem>(
-				sourceScalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(sourceExpression),
-				mode: MinimazingOrMaximazingMode.Minimazing,
-				comparer: comparer,
-				defaultValue: defaultValue);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.MinimazingOrMaximazing<TSourceItem> Minimazing<TSourceItem>(this
-			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> sourceExpression,
-			 TSourceItem defaultValue)
-			
-		{
-			return new ObservableComputations.MinimazingOrMaximazing<TSourceItem>(
-				sourceScalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(sourceExpression),
-				mode: MinimazingOrMaximazingMode.Minimazing,
-				comparer: null,
-				defaultValue: defaultValue);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.MinimazingOrMaximazing<TSourceItem> Minimazing<TSourceItem>(this
-			 Expression<Func<ObservableCollection<TSourceItem>>> sourceExpression,
-			 System.Collections.Generic.IComparer<TSourceItem> comparer,
-			 TSourceItem defaultValue)
-			
-		{
-			return new ObservableComputations.MinimazingOrMaximazing<TSourceItem>(
-				sourceScalar: new Computing<ObservableCollection<TSourceItem>>(sourceExpression),
-				mode: MinimazingOrMaximazingMode.Minimazing,
-				comparer: comparer,
-				defaultValue: defaultValue);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.MinimazingOrMaximazing<TSourceItem> Minimazing<TSourceItem>(this
-			 Expression<Func<ObservableCollection<TSourceItem>>> sourceExpression,
-			 TSourceItem defaultValue)
-			
-		{
-			return new ObservableComputations.MinimazingOrMaximazing<TSourceItem>(
-				sourceScalar: new Computing<ObservableCollection<TSourceItem>>(sourceExpression),
-				mode: MinimazingOrMaximazingMode.Minimazing,
-				comparer: null,
-				defaultValue: defaultValue);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.MinimazingOrMaximazing<TSourceItem> Minimazing<TSourceItem>(this
-			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar,
-			 ObservableComputations.IReadScalar<System.Collections.Generic.IComparer<TSourceItem>> comparerScalar,
-			 TSourceItem defaultValue)
-			
-		{
-			return new ObservableComputations.MinimazingOrMaximazing<TSourceItem>(
-				sourceScalar: sourceScalar,
-				mode: MinimazingOrMaximazingMode.Minimazing,
-				comparerScalar: comparerScalar,
-				defaultValue: defaultValue);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.MinimazingOrMaximazing<TSourceItem> Minimazing<TSourceItem>(this
-			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar,
-			 Expression<Func<System.Collections.Generic.IComparer<TSourceItem>>> comparerExpression,
-			 TSourceItem defaultValue)
-			
-		{
-			return new ObservableComputations.MinimazingOrMaximazing<TSourceItem>(
-				sourceScalar: sourceScalar,
-				mode: MinimazingOrMaximazingMode.Minimazing,
-				comparerScalar: new Computing<System.Collections.Generic.IComparer<TSourceItem>>(comparerExpression),
-				defaultValue: defaultValue);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.MinimazingOrMaximazing<TSourceItem> Minimazing<TSourceItem>(this
-			 ObservableComputations.IReadScalar<ObservableCollection<TSourceItem>> sourceScalar,
-			 ObservableComputations.IReadScalar<System.Collections.Generic.IComparer<TSourceItem>> comparerScalar,
-			 TSourceItem defaultValue)
-			
-		{
-			return new ObservableComputations.MinimazingOrMaximazing<TSourceItem>(
-				sourceScalar: sourceScalar,
-				mode: MinimazingOrMaximazingMode.Minimazing,
-				comparerScalar: comparerScalar,
-				defaultValue: defaultValue);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.MinimazingOrMaximazing<TSourceItem> Minimazing<TSourceItem>(this
-			 ObservableComputations.IReadScalar<ObservableCollection<TSourceItem>> sourceScalar,
-			 Expression<Func<System.Collections.Generic.IComparer<TSourceItem>>> comparerExpression,
-			 TSourceItem defaultValue)
-			
-		{
-			return new ObservableComputations.MinimazingOrMaximazing<TSourceItem>(
-				sourceScalar: sourceScalar,
-				mode: MinimazingOrMaximazingMode.Minimazing,
-				comparerScalar: new Computing<System.Collections.Generic.IComparer<TSourceItem>>(comparerExpression),
-				defaultValue: defaultValue);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.MinimazingOrMaximazing<TSourceItem> Minimazing<TSourceItem>(this
-			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> sourceExpression,
-			 ObservableComputations.IReadScalar<System.Collections.Generic.IComparer<TSourceItem>> comparerScalar,
-			 TSourceItem defaultValue)
-			
-		{
-			return new ObservableComputations.MinimazingOrMaximazing<TSourceItem>(
-				sourceScalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(sourceExpression),
-				mode: MinimazingOrMaximazingMode.Minimazing,
-				comparerScalar: comparerScalar,
-				defaultValue: defaultValue);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.MinimazingOrMaximazing<TSourceItem> Minimazing<TSourceItem>(this
-			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> sourceExpression,
-			 Expression<Func<System.Collections.Generic.IComparer<TSourceItem>>> comparerExpression,
-			 TSourceItem defaultValue)
-			
-		{
-			return new ObservableComputations.MinimazingOrMaximazing<TSourceItem>(
-				sourceScalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(sourceExpression),
-				mode: MinimazingOrMaximazingMode.Minimazing,
-				comparerScalar: new Computing<System.Collections.Generic.IComparer<TSourceItem>>(comparerExpression),
-				defaultValue: defaultValue);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.MinimazingOrMaximazing<TSourceItem> Minimazing<TSourceItem>(this
-			 Expression<Func<ObservableCollection<TSourceItem>>> sourceExpression,
-			 ObservableComputations.IReadScalar<System.Collections.Generic.IComparer<TSourceItem>> comparerScalar,
-			 TSourceItem defaultValue)
-			
-		{
-			return new ObservableComputations.MinimazingOrMaximazing<TSourceItem>(
-				sourceScalar: new Computing<ObservableCollection<TSourceItem>>(sourceExpression),
-				mode: MinimazingOrMaximazingMode.Minimazing,
-				comparerScalar: comparerScalar,
-				defaultValue: defaultValue);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.MinimazingOrMaximazing<TSourceItem> Minimazing<TSourceItem>(this
-			 Expression<Func<ObservableCollection<TSourceItem>>> sourceExpression,
-			 Expression<Func<System.Collections.Generic.IComparer<TSourceItem>>> comparerExpression,
-			 TSourceItem defaultValue)
-			
-		{
-			return new ObservableComputations.MinimazingOrMaximazing<TSourceItem>(
-				sourceScalar: new Computing<ObservableCollection<TSourceItem>>(sourceExpression),
-				mode: MinimazingOrMaximazingMode.Minimazing,
-				comparerScalar: new Computing<System.Collections.Generic.IComparer<TSourceItem>>(comparerExpression),
 				defaultValue: defaultValue);
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.MinimazingOrMaximazing<TSourceItem> Minimazing<TSourceItem>(this
 			 System.Collections.Specialized.INotifyCollectionChanged source,
-			 ObservableComputations.IReadScalar<System.Collections.Generic.IComparer<TSourceItem>> comparerScalar,
-			 ObservableComputations.IReadScalar<TSourceItem> defaultValueScalar)
+			 System.Collections.Generic.IComparer<TSourceItem> comparer)
 			
 		{
 			return new ObservableComputations.MinimazingOrMaximazing<TSourceItem>(
 				source: source,
 				mode: MinimazingOrMaximazingMode.Minimazing,
-				comparerScalar: comparerScalar,
-				defaultValueScalar: defaultValueScalar);
+				comparer: comparer,
+				defaultValue: default(TSourceItem));
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.MinimazingOrMaximazing<TSourceItem> Minimazing<TSourceItem>(this
 			 System.Collections.Specialized.INotifyCollectionChanged source,
-			 ObservableComputations.IReadScalar<System.Collections.Generic.IComparer<TSourceItem>> comparerScalar)
+			 TSourceItem defaultValue)
 			
 		{
 			return new ObservableComputations.MinimazingOrMaximazing<TSourceItem>(
 				source: source,
 				mode: MinimazingOrMaximazingMode.Minimazing,
-				comparerScalar: comparerScalar,
-				defaultValueScalar: null);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.MinimazingOrMaximazing<TSourceItem> Minimazing<TSourceItem>(this
-			 System.Collections.Specialized.INotifyCollectionChanged source,
-			 ObservableComputations.IReadScalar<System.Collections.Generic.IComparer<TSourceItem>> comparerScalar,
-			 Expression<Func<TSourceItem>> defaultValueExpression)
-			
-		{
-			return new ObservableComputations.MinimazingOrMaximazing<TSourceItem>(
-				source: source,
-				mode: MinimazingOrMaximazingMode.Minimazing,
-				comparerScalar: comparerScalar,
-				defaultValueScalar: new Computing<TSourceItem>(defaultValueExpression));
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.MinimazingOrMaximazing<TSourceItem> Minimazing<TSourceItem>(this
-			 System.Collections.Specialized.INotifyCollectionChanged source,
-			 ObservableComputations.IReadScalar<TSourceItem> defaultValueScalar)
-			
-		{
-			return new ObservableComputations.MinimazingOrMaximazing<TSourceItem>(
-				source: source,
-				mode: MinimazingOrMaximazingMode.Minimazing,
-				comparerScalar: null,
-				defaultValueScalar: defaultValueScalar);
+				comparer: null,
+				defaultValue: defaultValue);
 		}
 
 		[ObservableComputationsCall]
@@ -20041,35 +18195,101 @@ namespace ObservableComputations
 			return new ObservableComputations.MinimazingOrMaximazing<TSourceItem>(
 				source: source,
 				mode: MinimazingOrMaximazingMode.Minimazing,
-				comparerScalar: null,
-				defaultValueScalar: null);
+				comparer: null,
+				defaultValue: default(TSourceItem));
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.MinimazingOrMaximazing<TSourceItem> Minimazing<TSourceItem>(this
-			 System.Collections.Specialized.INotifyCollectionChanged source,
-			 Expression<Func<TSourceItem>> defaultValueExpression)
+			 ObservableCollection<TSourceItem> source,
+			 System.Collections.Generic.IComparer<TSourceItem> comparer,
+			 TSourceItem defaultValue)
 			
 		{
 			return new ObservableComputations.MinimazingOrMaximazing<TSourceItem>(
 				source: source,
 				mode: MinimazingOrMaximazingMode.Minimazing,
-				comparerScalar: null,
-				defaultValueScalar: new Computing<TSourceItem>(defaultValueExpression));
+				comparer: comparer,
+				defaultValue: defaultValue);
+		}
+
+		[ObservableComputationsCall]
+		public static ObservableComputations.MinimazingOrMaximazing<TSourceItem> Minimazing<TSourceItem>(this
+			 ObservableCollection<TSourceItem> source,
+			 System.Collections.Generic.IComparer<TSourceItem> comparer)
+			
+		{
+			return new ObservableComputations.MinimazingOrMaximazing<TSourceItem>(
+				source: source,
+				mode: MinimazingOrMaximazingMode.Minimazing,
+				comparer: comparer,
+				defaultValue: default(TSourceItem));
+		}
+
+		[ObservableComputationsCall]
+		public static ObservableComputations.MinimazingOrMaximazing<TSourceItem> Minimazing<TSourceItem>(this
+			 ObservableCollection<TSourceItem> source,
+			 TSourceItem defaultValue)
+			
+		{
+			return new ObservableComputations.MinimazingOrMaximazing<TSourceItem>(
+				source: source,
+				mode: MinimazingOrMaximazingMode.Minimazing,
+				comparer: null,
+				defaultValue: defaultValue);
+		}
+
+		[ObservableComputationsCall]
+		public static ObservableComputations.MinimazingOrMaximazing<TSourceItem> Minimazing<TSourceItem>(this
+			 ObservableCollection<TSourceItem> source)
+			
+		{
+			return new ObservableComputations.MinimazingOrMaximazing<TSourceItem>(
+				source: source,
+				mode: MinimazingOrMaximazingMode.Minimazing,
+				comparer: null,
+				defaultValue: default(TSourceItem));
+		}
+
+		[ObservableComputationsCall]
+		public static ObservableComputations.MinimazingOrMaximazing<TSourceItem> Minimazing<TSourceItem>(this
+			 System.Collections.Specialized.INotifyCollectionChanged source,
+			 ObservableComputations.IReadScalar<System.Collections.Generic.IComparer<TSourceItem>> comparerScalar,
+			 TSourceItem defaultValue)
+			
+		{
+			return new ObservableComputations.MinimazingOrMaximazing<TSourceItem>(
+				source: source,
+				mode: MinimazingOrMaximazingMode.Minimazing,
+				comparerScalar: comparerScalar,
+				defaultValue: defaultValue);
+		}
+
+		[ObservableComputationsCall]
+		public static ObservableComputations.MinimazingOrMaximazing<TSourceItem> Minimazing<TSourceItem>(this
+			 System.Collections.Specialized.INotifyCollectionChanged source,
+			 ObservableComputations.IReadScalar<System.Collections.Generic.IComparer<TSourceItem>> comparerScalar)
+			
+		{
+			return new ObservableComputations.MinimazingOrMaximazing<TSourceItem>(
+				source: source,
+				mode: MinimazingOrMaximazingMode.Minimazing,
+				comparerScalar: comparerScalar,
+				defaultValue: default(TSourceItem));
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.MinimazingOrMaximazing<TSourceItem> Minimazing<TSourceItem>(this
 			 System.Collections.Specialized.INotifyCollectionChanged source,
 			 Expression<Func<System.Collections.Generic.IComparer<TSourceItem>>> comparerExpression,
-			 ObservableComputations.IReadScalar<TSourceItem> defaultValueScalar)
+			 TSourceItem defaultValue)
 			
 		{
 			return new ObservableComputations.MinimazingOrMaximazing<TSourceItem>(
 				source: source,
 				mode: MinimazingOrMaximazingMode.Minimazing,
 				comparerScalar: new Computing<System.Collections.Generic.IComparer<TSourceItem>>(comparerExpression),
-				defaultValueScalar: defaultValueScalar);
+				defaultValue: defaultValue);
 		}
 
 		[ObservableComputationsCall]
@@ -20082,35 +18302,21 @@ namespace ObservableComputations
 				source: source,
 				mode: MinimazingOrMaximazingMode.Minimazing,
 				comparerScalar: new Computing<System.Collections.Generic.IComparer<TSourceItem>>(comparerExpression),
-				defaultValueScalar: null);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.MinimazingOrMaximazing<TSourceItem> Minimazing<TSourceItem>(this
-			 System.Collections.Specialized.INotifyCollectionChanged source,
-			 Expression<Func<System.Collections.Generic.IComparer<TSourceItem>>> comparerExpression,
-			 Expression<Func<TSourceItem>> defaultValueExpression)
-			
-		{
-			return new ObservableComputations.MinimazingOrMaximazing<TSourceItem>(
-				source: source,
-				mode: MinimazingOrMaximazingMode.Minimazing,
-				comparerScalar: new Computing<System.Collections.Generic.IComparer<TSourceItem>>(comparerExpression),
-				defaultValueScalar: new Computing<TSourceItem>(defaultValueExpression));
+				defaultValue: default(TSourceItem));
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.MinimazingOrMaximazing<TSourceItem> Minimazing<TSourceItem>(this
 			 ObservableCollection<TSourceItem> source,
 			 ObservableComputations.IReadScalar<System.Collections.Generic.IComparer<TSourceItem>> comparerScalar,
-			 ObservableComputations.IReadScalar<TSourceItem> defaultValueScalar)
+			 TSourceItem defaultValue)
 			
 		{
 			return new ObservableComputations.MinimazingOrMaximazing<TSourceItem>(
 				source: source,
 				mode: MinimazingOrMaximazingMode.Minimazing,
 				comparerScalar: comparerScalar,
-				defaultValueScalar: defaultValueScalar);
+				defaultValue: defaultValue);
 		}
 
 		[ObservableComputationsCall]
@@ -20123,73 +18329,21 @@ namespace ObservableComputations
 				source: source,
 				mode: MinimazingOrMaximazingMode.Minimazing,
 				comparerScalar: comparerScalar,
-				defaultValueScalar: null);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.MinimazingOrMaximazing<TSourceItem> Minimazing<TSourceItem>(this
-			 ObservableCollection<TSourceItem> source,
-			 ObservableComputations.IReadScalar<System.Collections.Generic.IComparer<TSourceItem>> comparerScalar,
-			 Expression<Func<TSourceItem>> defaultValueExpression)
-			
-		{
-			return new ObservableComputations.MinimazingOrMaximazing<TSourceItem>(
-				source: source,
-				mode: MinimazingOrMaximazingMode.Minimazing,
-				comparerScalar: comparerScalar,
-				defaultValueScalar: new Computing<TSourceItem>(defaultValueExpression));
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.MinimazingOrMaximazing<TSourceItem> Minimazing<TSourceItem>(this
-			 ObservableCollection<TSourceItem> source,
-			 ObservableComputations.IReadScalar<TSourceItem> defaultValueScalar)
-			
-		{
-			return new ObservableComputations.MinimazingOrMaximazing<TSourceItem>(
-				source: source,
-				mode: MinimazingOrMaximazingMode.Minimazing,
-				comparerScalar: null,
-				defaultValueScalar: defaultValueScalar);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.MinimazingOrMaximazing<TSourceItem> Minimazing<TSourceItem>(this
-			 ObservableCollection<TSourceItem> source)
-			
-		{
-			return new ObservableComputations.MinimazingOrMaximazing<TSourceItem>(
-				source: source,
-				mode: MinimazingOrMaximazingMode.Minimazing,
-				comparerScalar: null,
-				defaultValueScalar: null);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.MinimazingOrMaximazing<TSourceItem> Minimazing<TSourceItem>(this
-			 ObservableCollection<TSourceItem> source,
-			 Expression<Func<TSourceItem>> defaultValueExpression)
-			
-		{
-			return new ObservableComputations.MinimazingOrMaximazing<TSourceItem>(
-				source: source,
-				mode: MinimazingOrMaximazingMode.Minimazing,
-				comparerScalar: null,
-				defaultValueScalar: new Computing<TSourceItem>(defaultValueExpression));
+				defaultValue: default(TSourceItem));
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.MinimazingOrMaximazing<TSourceItem> Minimazing<TSourceItem>(this
 			 ObservableCollection<TSourceItem> source,
 			 Expression<Func<System.Collections.Generic.IComparer<TSourceItem>>> comparerExpression,
-			 ObservableComputations.IReadScalar<TSourceItem> defaultValueScalar)
+			 TSourceItem defaultValue)
 			
 		{
 			return new ObservableComputations.MinimazingOrMaximazing<TSourceItem>(
 				source: source,
 				mode: MinimazingOrMaximazingMode.Minimazing,
 				comparerScalar: new Computing<System.Collections.Generic.IComparer<TSourceItem>>(comparerExpression),
-				defaultValueScalar: defaultValueScalar);
+				defaultValue: defaultValue);
 		}
 
 		[ObservableComputationsCall]
@@ -20202,213 +18356,7 @@ namespace ObservableComputations
 				source: source,
 				mode: MinimazingOrMaximazingMode.Minimazing,
 				comparerScalar: new Computing<System.Collections.Generic.IComparer<TSourceItem>>(comparerExpression),
-				defaultValueScalar: null);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.MinimazingOrMaximazing<TSourceItem> Minimazing<TSourceItem>(this
-			 ObservableCollection<TSourceItem> source,
-			 Expression<Func<System.Collections.Generic.IComparer<TSourceItem>>> comparerExpression,
-			 Expression<Func<TSourceItem>> defaultValueExpression)
-			
-		{
-			return new ObservableComputations.MinimazingOrMaximazing<TSourceItem>(
-				source: source,
-				mode: MinimazingOrMaximazingMode.Minimazing,
-				comparerScalar: new Computing<System.Collections.Generic.IComparer<TSourceItem>>(comparerExpression),
-				defaultValueScalar: new Computing<TSourceItem>(defaultValueExpression));
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.MinimazingOrMaximazing<TSourceItem> Minimazing<TSourceItem>(this
-			 System.Collections.Specialized.INotifyCollectionChanged source,
-			 System.Collections.Generic.IComparer<TSourceItem> comparer,
-			 ObservableComputations.IReadScalar<TSourceItem> defaultValueScalar)
-			
-		{
-			return new ObservableComputations.MinimazingOrMaximazing<TSourceItem>(
-				source: source,
-				mode: MinimazingOrMaximazingMode.Minimazing,
-				comparer: comparer,
-				defaultValueScalar: defaultValueScalar);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.MinimazingOrMaximazing<TSourceItem> Minimazing<TSourceItem>(this
-			 System.Collections.Specialized.INotifyCollectionChanged source,
-			 System.Collections.Generic.IComparer<TSourceItem> comparer)
-			
-		{
-			return new ObservableComputations.MinimazingOrMaximazing<TSourceItem>(
-				source: source,
-				mode: MinimazingOrMaximazingMode.Minimazing,
-				comparer: comparer,
-				defaultValueScalar: null);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.MinimazingOrMaximazing<TSourceItem> Minimazing<TSourceItem>(this
-			 System.Collections.Specialized.INotifyCollectionChanged source,
-			 System.Collections.Generic.IComparer<TSourceItem> comparer,
-			 Expression<Func<TSourceItem>> defaultValueExpression)
-			
-		{
-			return new ObservableComputations.MinimazingOrMaximazing<TSourceItem>(
-				source: source,
-				mode: MinimazingOrMaximazingMode.Minimazing,
-				comparer: comparer,
-				defaultValueScalar: new Computing<TSourceItem>(defaultValueExpression));
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.MinimazingOrMaximazing<TSourceItem> Minimazing<TSourceItem>(this
-			 ObservableCollection<TSourceItem> source,
-			 System.Collections.Generic.IComparer<TSourceItem> comparer,
-			 ObservableComputations.IReadScalar<TSourceItem> defaultValueScalar)
-			
-		{
-			return new ObservableComputations.MinimazingOrMaximazing<TSourceItem>(
-				source: source,
-				mode: MinimazingOrMaximazingMode.Minimazing,
-				comparer: comparer,
-				defaultValueScalar: defaultValueScalar);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.MinimazingOrMaximazing<TSourceItem> Minimazing<TSourceItem>(this
-			 ObservableCollection<TSourceItem> source,
-			 System.Collections.Generic.IComparer<TSourceItem> comparer)
-			
-		{
-			return new ObservableComputations.MinimazingOrMaximazing<TSourceItem>(
-				source: source,
-				mode: MinimazingOrMaximazingMode.Minimazing,
-				comparer: comparer,
-				defaultValueScalar: null);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.MinimazingOrMaximazing<TSourceItem> Minimazing<TSourceItem>(this
-			 ObservableCollection<TSourceItem> source,
-			 System.Collections.Generic.IComparer<TSourceItem> comparer,
-			 Expression<Func<TSourceItem>> defaultValueExpression)
-			
-		{
-			return new ObservableComputations.MinimazingOrMaximazing<TSourceItem>(
-				source: source,
-				mode: MinimazingOrMaximazingMode.Minimazing,
-				comparer: comparer,
-				defaultValueScalar: new Computing<TSourceItem>(defaultValueExpression));
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.MinimazingOrMaximazing<TSourceItem> Minimazing<TSourceItem>(this
-			 System.Collections.Specialized.INotifyCollectionChanged source,
-			 System.Collections.Generic.IComparer<TSourceItem> comparer,
-			 TSourceItem defaultValue)
-			
-		{
-			return new ObservableComputations.MinimazingOrMaximazing<TSourceItem>(
-				source: source,
-				mode: MinimazingOrMaximazingMode.Minimazing,
-				comparer: comparer,
-				defaultValue: defaultValue);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.MinimazingOrMaximazing<TSourceItem> Minimazing<TSourceItem>(this
-			 System.Collections.Specialized.INotifyCollectionChanged source,
-			 TSourceItem defaultValue)
-			
-		{
-			return new ObservableComputations.MinimazingOrMaximazing<TSourceItem>(
-				source: source,
-				mode: MinimazingOrMaximazingMode.Minimazing,
-				comparer: null,
-				defaultValue: defaultValue);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.MinimazingOrMaximazing<TSourceItem> Minimazing<TSourceItem>(this
-			 ObservableCollection<TSourceItem> source,
-			 System.Collections.Generic.IComparer<TSourceItem> comparer,
-			 TSourceItem defaultValue)
-			
-		{
-			return new ObservableComputations.MinimazingOrMaximazing<TSourceItem>(
-				source: source,
-				mode: MinimazingOrMaximazingMode.Minimazing,
-				comparer: comparer,
-				defaultValue: defaultValue);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.MinimazingOrMaximazing<TSourceItem> Minimazing<TSourceItem>(this
-			 ObservableCollection<TSourceItem> source,
-			 TSourceItem defaultValue)
-			
-		{
-			return new ObservableComputations.MinimazingOrMaximazing<TSourceItem>(
-				source: source,
-				mode: MinimazingOrMaximazingMode.Minimazing,
-				comparer: null,
-				defaultValue: defaultValue);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.MinimazingOrMaximazing<TSourceItem> Minimazing<TSourceItem>(this
-			 System.Collections.Specialized.INotifyCollectionChanged source,
-			 ObservableComputations.IReadScalar<System.Collections.Generic.IComparer<TSourceItem>> comparerScalar,
-			 TSourceItem defaultValue)
-			
-		{
-			return new ObservableComputations.MinimazingOrMaximazing<TSourceItem>(
-				source: source,
-				mode: MinimazingOrMaximazingMode.Minimazing,
-				comparerScalar: comparerScalar,
-				defaultValue: defaultValue);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.MinimazingOrMaximazing<TSourceItem> Minimazing<TSourceItem>(this
-			 System.Collections.Specialized.INotifyCollectionChanged source,
-			 Expression<Func<System.Collections.Generic.IComparer<TSourceItem>>> comparerExpression,
-			 TSourceItem defaultValue)
-			
-		{
-			return new ObservableComputations.MinimazingOrMaximazing<TSourceItem>(
-				source: source,
-				mode: MinimazingOrMaximazingMode.Minimazing,
-				comparerScalar: new Computing<System.Collections.Generic.IComparer<TSourceItem>>(comparerExpression),
-				defaultValue: defaultValue);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.MinimazingOrMaximazing<TSourceItem> Minimazing<TSourceItem>(this
-			 ObservableCollection<TSourceItem> source,
-			 ObservableComputations.IReadScalar<System.Collections.Generic.IComparer<TSourceItem>> comparerScalar,
-			 TSourceItem defaultValue)
-			
-		{
-			return new ObservableComputations.MinimazingOrMaximazing<TSourceItem>(
-				source: source,
-				mode: MinimazingOrMaximazingMode.Minimazing,
-				comparerScalar: comparerScalar,
-				defaultValue: defaultValue);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.MinimazingOrMaximazing<TSourceItem> Minimazing<TSourceItem>(this
-			 ObservableCollection<TSourceItem> source,
-			 Expression<Func<System.Collections.Generic.IComparer<TSourceItem>>> comparerExpression,
-			 TSourceItem defaultValue)
-			
-		{
-			return new ObservableComputations.MinimazingOrMaximazing<TSourceItem>(
-				source: source,
-				mode: MinimazingOrMaximazingMode.Minimazing,
-				comparerScalar: new Computing<System.Collections.Generic.IComparer<TSourceItem>>(comparerExpression),
-				defaultValue: defaultValue);
+				defaultValue: default(TSourceItem));
 		}
 
 		#endregion
@@ -24215,12 +22163,39 @@ namespace ObservableComputations
 		[ObservableComputationsCall]
 		public static ObservableComputations.PropertyAccessing<TResult> PropertyAccessing<TResult>(this
 			 ObservableComputations.IReadScalar<System.ComponentModel.INotifyPropertyChanged> propertyHolderScalar,
+			 string propertyName,
+			 TResult defaultValue)
+			
+		{
+			return new ObservableComputations.PropertyAccessing<TResult>(
+				propertyHolderScalar: propertyHolderScalar,
+				propertyName: propertyName,
+				defaultValue: defaultValue);
+		}
+
+		[ObservableComputationsCall]
+		public static ObservableComputations.PropertyAccessing<TResult> PropertyAccessing<TResult>(this
+			 ObservableComputations.IReadScalar<System.ComponentModel.INotifyPropertyChanged> propertyHolderScalar,
 			 string propertyName)
 			
 		{
 			return new ObservableComputations.PropertyAccessing<TResult>(
 				propertyHolderScalar: propertyHolderScalar,
-				propertyName: propertyName);
+				propertyName: propertyName,
+				defaultValue: default(TResult));
+		}
+
+		[ObservableComputationsCall]
+		public static ObservableComputations.PropertyAccessing<TResult> PropertyAccessing<TResult>(this
+			 Expression<Func<System.ComponentModel.INotifyPropertyChanged>> propertyHolderExpression,
+			 string propertyName,
+			 TResult defaultValue)
+			
+		{
+			return new ObservableComputations.PropertyAccessing<TResult>(
+				propertyHolderScalar: new Computing<System.ComponentModel.INotifyPropertyChanged>(propertyHolderExpression),
+				propertyName: propertyName,
+				defaultValue: defaultValue);
 		}
 
 		[ObservableComputationsCall]
@@ -24231,7 +22206,23 @@ namespace ObservableComputations
 		{
 			return new ObservableComputations.PropertyAccessing<TResult>(
 				propertyHolderScalar: new Computing<System.ComponentModel.INotifyPropertyChanged>(propertyHolderExpression),
-				propertyName: propertyName);
+				propertyName: propertyName,
+				defaultValue: default(TResult));
+		}
+
+		[ObservableComputationsCall]
+		public static ObservableComputations.PropertyAccessing<TResult> PropertyAccessing<TResult>(this
+			 ObservableComputations.IReadScalar<System.ComponentModel.INotifyPropertyChanged> propertyHolderScalar,
+			 string propertyName,
+			 System.Reflection.BindingFlags bindingAttr,
+			 TResult defaultValue)
+			
+		{
+			return new ObservableComputations.PropertyAccessing<TResult>(
+				propertyHolderScalar: propertyHolderScalar,
+				propertyName: propertyName,
+				bindingAttr: bindingAttr,
+				defaultValue: defaultValue);
 		}
 
 		[ObservableComputationsCall]
@@ -24244,7 +22235,23 @@ namespace ObservableComputations
 			return new ObservableComputations.PropertyAccessing<TResult>(
 				propertyHolderScalar: propertyHolderScalar,
 				propertyName: propertyName,
-				bindingAttr: bindingAttr);
+				bindingAttr: bindingAttr,
+				defaultValue: default(TResult));
+		}
+
+		[ObservableComputationsCall]
+		public static ObservableComputations.PropertyAccessing<TResult> PropertyAccessing<TResult>(this
+			 Expression<Func<System.ComponentModel.INotifyPropertyChanged>> propertyHolderExpression,
+			 string propertyName,
+			 System.Reflection.BindingFlags bindingAttr,
+			 TResult defaultValue)
+			
+		{
+			return new ObservableComputations.PropertyAccessing<TResult>(
+				propertyHolderScalar: new Computing<System.ComponentModel.INotifyPropertyChanged>(propertyHolderExpression),
+				propertyName: propertyName,
+				bindingAttr: bindingAttr,
+				defaultValue: defaultValue);
 		}
 
 		[ObservableComputationsCall]
@@ -24257,7 +22264,23 @@ namespace ObservableComputations
 			return new ObservableComputations.PropertyAccessing<TResult>(
 				propertyHolderScalar: new Computing<System.ComponentModel.INotifyPropertyChanged>(propertyHolderExpression),
 				propertyName: propertyName,
-				bindingAttr: bindingAttr);
+				bindingAttr: bindingAttr,
+				defaultValue: default(TResult));
+		}
+
+		[ObservableComputationsCall]
+		public static ObservableComputations.PropertyAccessing<TResult> PropertyAccessing<TResult>(this
+			 ObservableComputations.IReadScalar<System.ComponentModel.INotifyPropertyChanged> propertyHolderScalar,
+			 string propertyName,
+			 System.Type returnType,
+			 TResult defaultValue)
+			
+		{
+			return new ObservableComputations.PropertyAccessing<TResult>(
+				propertyHolderScalar: propertyHolderScalar,
+				propertyName: propertyName,
+				returnType: returnType,
+				defaultValue: defaultValue);
 		}
 
 		[ObservableComputationsCall]
@@ -24270,7 +22293,23 @@ namespace ObservableComputations
 			return new ObservableComputations.PropertyAccessing<TResult>(
 				propertyHolderScalar: propertyHolderScalar,
 				propertyName: propertyName,
-				returnType: returnType);
+				returnType: returnType,
+				defaultValue: default(TResult));
+		}
+
+		[ObservableComputationsCall]
+		public static ObservableComputations.PropertyAccessing<TResult> PropertyAccessing<TResult>(this
+			 Expression<Func<System.ComponentModel.INotifyPropertyChanged>> propertyHolderExpression,
+			 string propertyName,
+			 System.Type returnType,
+			 TResult defaultValue)
+			
+		{
+			return new ObservableComputations.PropertyAccessing<TResult>(
+				propertyHolderScalar: new Computing<System.ComponentModel.INotifyPropertyChanged>(propertyHolderExpression),
+				propertyName: propertyName,
+				returnType: returnType,
+				defaultValue: defaultValue);
 		}
 
 		[ObservableComputationsCall]
@@ -24283,7 +22322,25 @@ namespace ObservableComputations
 			return new ObservableComputations.PropertyAccessing<TResult>(
 				propertyHolderScalar: new Computing<System.ComponentModel.INotifyPropertyChanged>(propertyHolderExpression),
 				propertyName: propertyName,
-				returnType: returnType);
+				returnType: returnType,
+				defaultValue: default(TResult));
+		}
+
+		[ObservableComputationsCall]
+		public static ObservableComputations.PropertyAccessing<TResult> PropertyAccessing<TResult>(this
+			 ObservableComputations.IReadScalar<System.ComponentModel.INotifyPropertyChanged> propertyHolderScalar,
+			 string propertyName,
+			 System.Type returnType,
+			 System.Type[] types,
+			 TResult defaultValue)
+			
+		{
+			return new ObservableComputations.PropertyAccessing<TResult>(
+				propertyHolderScalar: propertyHolderScalar,
+				propertyName: propertyName,
+				returnType: returnType,
+				types: types,
+				defaultValue: defaultValue);
 		}
 
 		[ObservableComputationsCall]
@@ -24298,7 +22355,25 @@ namespace ObservableComputations
 				propertyHolderScalar: propertyHolderScalar,
 				propertyName: propertyName,
 				returnType: returnType,
-				types: types);
+				types: types,
+				defaultValue: default(TResult));
+		}
+
+		[ObservableComputationsCall]
+		public static ObservableComputations.PropertyAccessing<TResult> PropertyAccessing<TResult>(this
+			 Expression<Func<System.ComponentModel.INotifyPropertyChanged>> propertyHolderExpression,
+			 string propertyName,
+			 System.Type returnType,
+			 System.Type[] types,
+			 TResult defaultValue)
+			
+		{
+			return new ObservableComputations.PropertyAccessing<TResult>(
+				propertyHolderScalar: new Computing<System.ComponentModel.INotifyPropertyChanged>(propertyHolderExpression),
+				propertyName: propertyName,
+				returnType: returnType,
+				types: types,
+				defaultValue: defaultValue);
 		}
 
 		[ObservableComputationsCall]
@@ -24313,7 +22388,27 @@ namespace ObservableComputations
 				propertyHolderScalar: new Computing<System.ComponentModel.INotifyPropertyChanged>(propertyHolderExpression),
 				propertyName: propertyName,
 				returnType: returnType,
-				types: types);
+				types: types,
+				defaultValue: default(TResult));
+		}
+
+		[ObservableComputationsCall]
+		public static ObservableComputations.PropertyAccessing<TResult> PropertyAccessing<TResult>(this
+			 ObservableComputations.IReadScalar<System.ComponentModel.INotifyPropertyChanged> propertyHolderScalar,
+			 string propertyName,
+			 System.Type returnType,
+			 System.Type[] types,
+			 System.Reflection.ParameterModifier[] modifiers,
+			 TResult defaultValue)
+			
+		{
+			return new ObservableComputations.PropertyAccessing<TResult>(
+				propertyHolderScalar: propertyHolderScalar,
+				propertyName: propertyName,
+				returnType: returnType,
+				types: types,
+				modifiers: modifiers,
+				defaultValue: defaultValue);
 		}
 
 		[ObservableComputationsCall]
@@ -24330,7 +22425,27 @@ namespace ObservableComputations
 				propertyName: propertyName,
 				returnType: returnType,
 				types: types,
-				modifiers: modifiers);
+				modifiers: modifiers,
+				defaultValue: default(TResult));
+		}
+
+		[ObservableComputationsCall]
+		public static ObservableComputations.PropertyAccessing<TResult> PropertyAccessing<TResult>(this
+			 Expression<Func<System.ComponentModel.INotifyPropertyChanged>> propertyHolderExpression,
+			 string propertyName,
+			 System.Type returnType,
+			 System.Type[] types,
+			 System.Reflection.ParameterModifier[] modifiers,
+			 TResult defaultValue)
+			
+		{
+			return new ObservableComputations.PropertyAccessing<TResult>(
+				propertyHolderScalar: new Computing<System.ComponentModel.INotifyPropertyChanged>(propertyHolderExpression),
+				propertyName: propertyName,
+				returnType: returnType,
+				types: types,
+				modifiers: modifiers,
+				defaultValue: defaultValue);
 		}
 
 		[ObservableComputationsCall]
@@ -24347,7 +22462,21 @@ namespace ObservableComputations
 				propertyName: propertyName,
 				returnType: returnType,
 				types: types,
-				modifiers: modifiers);
+				modifiers: modifiers,
+				defaultValue: default(TResult));
+		}
+
+		[ObservableComputationsCall]
+		public static ObservableComputations.PropertyAccessing<TResult> PropertyAccessing<TResult>(this
+			 ObservableComputations.IReadScalar<System.ComponentModel.INotifyPropertyChanged> propertyHolderScalar,
+			 System.Func<System.Reflection.PropertyInfo, bool> propertyInfoPredicate,
+			 TResult defaultValue)
+			
+		{
+			return new ObservableComputations.PropertyAccessing<TResult>(
+				propertyHolderScalar: propertyHolderScalar,
+				propertyInfoPredicate: propertyInfoPredicate,
+				defaultValue: defaultValue);
 		}
 
 		[ObservableComputationsCall]
@@ -24358,7 +22487,21 @@ namespace ObservableComputations
 		{
 			return new ObservableComputations.PropertyAccessing<TResult>(
 				propertyHolderScalar: propertyHolderScalar,
-				propertyInfoPredicate: propertyInfoPredicate);
+				propertyInfoPredicate: propertyInfoPredicate,
+				defaultValue: default(TResult));
+		}
+
+		[ObservableComputationsCall]
+		public static ObservableComputations.PropertyAccessing<TResult> PropertyAccessing<TResult>(this
+			 Expression<Func<System.ComponentModel.INotifyPropertyChanged>> propertyHolderExpression,
+			 System.Func<System.Reflection.PropertyInfo, bool> propertyInfoPredicate,
+			 TResult defaultValue)
+			
+		{
+			return new ObservableComputations.PropertyAccessing<TResult>(
+				propertyHolderScalar: new Computing<System.ComponentModel.INotifyPropertyChanged>(propertyHolderExpression),
+				propertyInfoPredicate: propertyInfoPredicate,
+				defaultValue: defaultValue);
 		}
 
 		[ObservableComputationsCall]
@@ -24369,7 +22512,23 @@ namespace ObservableComputations
 		{
 			return new ObservableComputations.PropertyAccessing<TResult>(
 				propertyHolderScalar: new Computing<System.ComponentModel.INotifyPropertyChanged>(propertyHolderExpression),
-				propertyInfoPredicate: propertyInfoPredicate);
+				propertyInfoPredicate: propertyInfoPredicate,
+				defaultValue: default(TResult));
+		}
+
+		[ObservableComputationsCall]
+		public static ObservableComputations.PropertyAccessing<TResult> PropertyAccessing<TResult>(this
+			 ObservableComputations.IReadScalar<System.ComponentModel.INotifyPropertyChanged> propertyHolderScalar,
+			 System.Func<System.Reflection.PropertyInfo, bool> propertyInfoPredicate,
+			 System.Reflection.BindingFlags bindingAttr,
+			 TResult defaultValue)
+			
+		{
+			return new ObservableComputations.PropertyAccessing<TResult>(
+				propertyHolderScalar: propertyHolderScalar,
+				propertyInfoPredicate: propertyInfoPredicate,
+				bindingAttr: bindingAttr,
+				defaultValue: defaultValue);
 		}
 
 		[ObservableComputationsCall]
@@ -24382,7 +22541,23 @@ namespace ObservableComputations
 			return new ObservableComputations.PropertyAccessing<TResult>(
 				propertyHolderScalar: propertyHolderScalar,
 				propertyInfoPredicate: propertyInfoPredicate,
-				bindingAttr: bindingAttr);
+				bindingAttr: bindingAttr,
+				defaultValue: default(TResult));
+		}
+
+		[ObservableComputationsCall]
+		public static ObservableComputations.PropertyAccessing<TResult> PropertyAccessing<TResult>(this
+			 Expression<Func<System.ComponentModel.INotifyPropertyChanged>> propertyHolderExpression,
+			 System.Func<System.Reflection.PropertyInfo, bool> propertyInfoPredicate,
+			 System.Reflection.BindingFlags bindingAttr,
+			 TResult defaultValue)
+			
+		{
+			return new ObservableComputations.PropertyAccessing<TResult>(
+				propertyHolderScalar: new Computing<System.ComponentModel.INotifyPropertyChanged>(propertyHolderExpression),
+				propertyInfoPredicate: propertyInfoPredicate,
+				bindingAttr: bindingAttr,
+				defaultValue: defaultValue);
 		}
 
 		[ObservableComputationsCall]
@@ -24395,7 +22570,21 @@ namespace ObservableComputations
 			return new ObservableComputations.PropertyAccessing<TResult>(
 				propertyHolderScalar: new Computing<System.ComponentModel.INotifyPropertyChanged>(propertyHolderExpression),
 				propertyInfoPredicate: propertyInfoPredicate,
-				bindingAttr: bindingAttr);
+				bindingAttr: bindingAttr,
+				defaultValue: default(TResult));
+		}
+
+		[ObservableComputationsCall]
+		public static ObservableComputations.PropertyAccessing<TResult> PropertyAccessing<TResult>(this
+			 System.ComponentModel.INotifyPropertyChanged propertyHolder,
+			 string propertyName,
+			 TResult defaultValue)
+			
+		{
+			return new ObservableComputations.PropertyAccessing<TResult>(
+				propertyHolder: propertyHolder,
+				propertyName: propertyName,
+				defaultValue: defaultValue);
 		}
 
 		[ObservableComputationsCall]
@@ -24406,7 +22595,23 @@ namespace ObservableComputations
 		{
 			return new ObservableComputations.PropertyAccessing<TResult>(
 				propertyHolder: propertyHolder,
-				propertyName: propertyName);
+				propertyName: propertyName,
+				defaultValue: default(TResult));
+		}
+
+		[ObservableComputationsCall]
+		public static ObservableComputations.PropertyAccessing<TResult> PropertyAccessing<TResult>(this
+			 System.ComponentModel.INotifyPropertyChanged propertyHolder,
+			 string propertyName,
+			 System.Reflection.BindingFlags bindingAttr,
+			 TResult defaultValue)
+			
+		{
+			return new ObservableComputations.PropertyAccessing<TResult>(
+				propertyHolder: propertyHolder,
+				propertyName: propertyName,
+				bindingAttr: bindingAttr,
+				defaultValue: defaultValue);
 		}
 
 		[ObservableComputationsCall]
@@ -24419,7 +22624,23 @@ namespace ObservableComputations
 			return new ObservableComputations.PropertyAccessing<TResult>(
 				propertyHolder: propertyHolder,
 				propertyName: propertyName,
-				bindingAttr: bindingAttr);
+				bindingAttr: bindingAttr,
+				defaultValue: default(TResult));
+		}
+
+		[ObservableComputationsCall]
+		public static ObservableComputations.PropertyAccessing<TResult> PropertyAccessing<TResult>(this
+			 System.ComponentModel.INotifyPropertyChanged propertyHolder,
+			 string propertyName,
+			 System.Type returnType,
+			 TResult defaultValue)
+			
+		{
+			return new ObservableComputations.PropertyAccessing<TResult>(
+				propertyHolder: propertyHolder,
+				propertyName: propertyName,
+				returnType: returnType,
+				defaultValue: defaultValue);
 		}
 
 		[ObservableComputationsCall]
@@ -24432,7 +22653,25 @@ namespace ObservableComputations
 			return new ObservableComputations.PropertyAccessing<TResult>(
 				propertyHolder: propertyHolder,
 				propertyName: propertyName,
-				returnType: returnType);
+				returnType: returnType,
+				defaultValue: default(TResult));
+		}
+
+		[ObservableComputationsCall]
+		public static ObservableComputations.PropertyAccessing<TResult> PropertyAccessing<TResult>(this
+			 System.ComponentModel.INotifyPropertyChanged propertyHolder,
+			 string propertyName,
+			 System.Type returnType,
+			 System.Type[] types,
+			 TResult defaultValue)
+			
+		{
+			return new ObservableComputations.PropertyAccessing<TResult>(
+				propertyHolder: propertyHolder,
+				propertyName: propertyName,
+				returnType: returnType,
+				types: types,
+				defaultValue: defaultValue);
 		}
 
 		[ObservableComputationsCall]
@@ -24447,7 +22686,27 @@ namespace ObservableComputations
 				propertyHolder: propertyHolder,
 				propertyName: propertyName,
 				returnType: returnType,
-				types: types);
+				types: types,
+				defaultValue: default(TResult));
+		}
+
+		[ObservableComputationsCall]
+		public static ObservableComputations.PropertyAccessing<TResult> PropertyAccessing<TResult>(this
+			 System.ComponentModel.INotifyPropertyChanged propertyHolder,
+			 string propertyName,
+			 System.Type returnType,
+			 System.Type[] types,
+			 System.Reflection.ParameterModifier[] modifiers,
+			 TResult defaultValue)
+			
+		{
+			return new ObservableComputations.PropertyAccessing<TResult>(
+				propertyHolder: propertyHolder,
+				propertyName: propertyName,
+				returnType: returnType,
+				types: types,
+				modifiers: modifiers,
+				defaultValue: defaultValue);
 		}
 
 		[ObservableComputationsCall]
@@ -24464,7 +22723,21 @@ namespace ObservableComputations
 				propertyName: propertyName,
 				returnType: returnType,
 				types: types,
-				modifiers: modifiers);
+				modifiers: modifiers,
+				defaultValue: default(TResult));
+		}
+
+		[ObservableComputationsCall]
+		public static ObservableComputations.PropertyAccessing<TResult> PropertyAccessing<TResult>(this
+			 System.ComponentModel.INotifyPropertyChanged propertyHolder,
+			 System.Func<System.Reflection.PropertyInfo, bool> propertyInfoPredicate,
+			 TResult defaultValue)
+			
+		{
+			return new ObservableComputations.PropertyAccessing<TResult>(
+				propertyHolder: propertyHolder,
+				propertyInfoPredicate: propertyInfoPredicate,
+				defaultValue: defaultValue);
 		}
 
 		[ObservableComputationsCall]
@@ -24475,7 +22748,23 @@ namespace ObservableComputations
 		{
 			return new ObservableComputations.PropertyAccessing<TResult>(
 				propertyHolder: propertyHolder,
-				propertyInfoPredicate: propertyInfoPredicate);
+				propertyInfoPredicate: propertyInfoPredicate,
+				defaultValue: default(TResult));
+		}
+
+		[ObservableComputationsCall]
+		public static ObservableComputations.PropertyAccessing<TResult> PropertyAccessing<TResult>(this
+			 System.ComponentModel.INotifyPropertyChanged propertyHolder,
+			 System.Func<System.Reflection.PropertyInfo, bool> propertyInfoPredicate,
+			 System.Reflection.BindingFlags bindingAttr,
+			 TResult defaultValue)
+			
+		{
+			return new ObservableComputations.PropertyAccessing<TResult>(
+				propertyHolder: propertyHolder,
+				propertyInfoPredicate: propertyInfoPredicate,
+				bindingAttr: bindingAttr,
+				defaultValue: defaultValue);
 		}
 
 		[ObservableComputationsCall]
@@ -24488,7 +22777,8 @@ namespace ObservableComputations
 			return new ObservableComputations.PropertyAccessing<TResult>(
 				propertyHolder: propertyHolder,
 				propertyInfoPredicate: propertyInfoPredicate,
-				bindingAttr: bindingAttr);
+				bindingAttr: bindingAttr,
+				defaultValue: default(TResult));
 		}
 
 		#endregion

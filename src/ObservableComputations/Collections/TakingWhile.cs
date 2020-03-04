@@ -96,7 +96,7 @@ namespace ObservableComputations
 			Computing<int> countComputing,
 			int capacity)
 		{
-			return zipping.Filtering(zp => zp.ItemLeft < zipping.Filtering(zipPairNotPredicateExpression, capacity).Selecting(zp1 => zp1.ItemLeft).Minimazing<int>(countComputing).Value, capacity);
+			return zipping.Filtering(zp => zp.ItemLeft < zipping.Filtering(zipPairNotPredicateExpression, capacity).Selecting(zp1 => zp1.ItemLeft).Using(ic => ic.Count > 0 ? ic.Minimazing<int>().Value : countComputing.Value).Value, capacity);
 		}
 
 		private static INotifyCollectionChanged getSource(
@@ -106,7 +106,7 @@ namespace ObservableComputations
 		{
 			Expression<Func<ZipPair<int, TSourceItem>, bool>> zipPairNotPredicateExpression = getZipPairNotPredicateExpression(predicateExpression);
 
-			Computing<int> countComputing = Expr.Is(() => ((IList)source).Count).Computing();
+			Computing<int> countComputing = Expr.Is(() => source != null ? ((IList)source).Count : 0).Computing();
 
 			Zipping<int, TSourceItem> zipping = countComputing.SequenceComputing()
 				.Zipping<int, TSourceItem>(source);

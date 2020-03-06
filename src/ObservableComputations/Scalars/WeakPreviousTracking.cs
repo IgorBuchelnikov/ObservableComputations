@@ -7,14 +7,22 @@ namespace ObservableComputations
 		where TResult : class
 	{
 		public IReadScalar<TResult> Scalar => _scalar;
+		public bool IsEverChanged => _isEverChanged;
 
 		public bool TryGetPreviousValue(out TResult result)
 		{
+			if (_previousValueWeakReference == null)
+			{
+				result = null;
+				return false;
+			}
+
 			return _previousValueWeakReference.TryGetTarget(out result);
 		}
 
 		private WeakReference<TResult> _previousValueWeakReference;
 		private TResult _previousValue;
+		private bool _isEverChanged;
 
 		private IReadScalar<TResult> _scalar;
 
@@ -39,6 +47,13 @@ namespace ObservableComputations
 			TResult newValue = _scalar.Value;
 			_previousValue = _value;
 			_previousValueWeakReference = new WeakReference<TResult>(_previousValue);
+
+			if (!_isEverChanged)
+			{
+				_isEverChanged = true;
+				raisePropertyChanged(Utils.IsEverChangedPropertyChangedEventArgs);
+			}
+
 			setValue(newValue);
 			_previousValue = null;
 		}

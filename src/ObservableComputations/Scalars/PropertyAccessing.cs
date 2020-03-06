@@ -62,7 +62,7 @@ namespace ObservableComputations
 		{
 			_propertyInfoGettingType = PropertyInfoGettingType.PropertyName;
 			_propertyName = propertyName;
-			registerPropertyHolder();
+			registerPropertyHolder(_propertyHolder);
 		}
 
 		[ObservableComputationsCall]
@@ -75,7 +75,7 @@ namespace ObservableComputations
 			_propertyInfoGettingType = PropertyInfoGettingType.BindingAttr;
 			_propertyName = propertyName;
 			_bindingAttr = bindingAttr;
-			registerPropertyHolder();
+			registerPropertyHolder(_propertyHolder);
 		}
 
 		[ObservableComputationsCall]
@@ -88,7 +88,7 @@ namespace ObservableComputations
 			_propertyInfoGettingType = PropertyInfoGettingType.ReturnType;
 			_propertyName = propertyName;
 			_returnType = returnType;
-			registerPropertyHolder();
+			registerPropertyHolder(_propertyHolder);
 		}
 
 		[ObservableComputationsCall]
@@ -103,7 +103,7 @@ namespace ObservableComputations
 			_propertyName = propertyName;
 			_returnType = returnType;
 			_types = types;
-			registerPropertyHolder();
+			registerPropertyHolder(_propertyHolder);
 		}
 
 		[ObservableComputationsCall]
@@ -120,7 +120,7 @@ namespace ObservableComputations
 			_returnType = returnType;
 			_modifiers = modifiers;
 			_types = types;
-			registerPropertyHolder();
+			registerPropertyHolder(_propertyHolder);
 		}
 
 		[ObservableComputationsCall]
@@ -141,7 +141,7 @@ namespace ObservableComputations
 			_returnType = returnType;
 			_modifiers = modifiers;
 			_types = types;
-			registerPropertyHolder();
+			registerPropertyHolder(_propertyHolder);
 		}
 
 		[ObservableComputationsCall]
@@ -152,7 +152,7 @@ namespace ObservableComputations
 		{
 			_propertyInfoGettingType = PropertyInfoGettingType.PropertyInfoPredicate;
 			_propertyInfoPredicate = propertyInfoPredicate;
-			registerPropertyHolder();
+			registerPropertyHolder(_propertyHolder);
 		}
 
 		[ObservableComputationsCall]
@@ -165,7 +165,7 @@ namespace ObservableComputations
 			_propertyInfoGettingType = PropertyInfoGettingType.PropertyInfoPredicateBindingAttr;
 			_propertyInfoPredicate = propertyInfoPredicate;
 			_bindingAttr = bindingAttr;
-			registerPropertyHolder();
+			registerPropertyHolder(_propertyHolder);
 		}
 
 		private PropertyAccessing(
@@ -190,7 +190,7 @@ namespace ObservableComputations
 		{
 			_propertyInfoGettingType = PropertyInfoGettingType.PropertyName;
 			_propertyName = propertyName;
-			registerPropertyHolder();
+			registerPropertyHolder(_propertyHolder);
 		}
 
 		[ObservableComputationsCall]
@@ -203,7 +203,7 @@ namespace ObservableComputations
 			_propertyInfoGettingType = PropertyInfoGettingType.BindingAttr;
 			_propertyName = propertyName;
 			_bindingAttr = bindingAttr;
-			registerPropertyHolder();
+			registerPropertyHolder(_propertyHolder);
 		}
 
 		[ObservableComputationsCall]
@@ -216,7 +216,7 @@ namespace ObservableComputations
 			_propertyInfoGettingType = PropertyInfoGettingType.ReturnType;
 			_propertyName = propertyName;
 			_returnType = returnType;
-			registerPropertyHolder();
+			registerPropertyHolder(_propertyHolder);
 		}
 
 		[ObservableComputationsCall]
@@ -231,7 +231,7 @@ namespace ObservableComputations
 			_propertyName = propertyName;
 			_returnType = returnType;
 			_types = types;
-			registerPropertyHolder();
+			registerPropertyHolder(_propertyHolder);
 		}
 
 		[ObservableComputationsCall]
@@ -248,7 +248,7 @@ namespace ObservableComputations
 			_returnType = returnType;
 			_modifiers = modifiers;
 			_types = types;
-			registerPropertyHolder();
+			registerPropertyHolder(_propertyHolder);
 		}
 
 		[ObservableComputationsCall]
@@ -269,7 +269,7 @@ namespace ObservableComputations
 			_returnType = returnType;
 			_modifiers = modifiers;
 			_types = types;
-			registerPropertyHolder();
+			registerPropertyHolder(_propertyHolder);
 		}
 
 		[ObservableComputationsCall]
@@ -280,7 +280,7 @@ namespace ObservableComputations
 		{
 			_propertyInfoGettingType = PropertyInfoGettingType.PropertyInfoPredicate;
 			_propertyInfoPredicate = propertyInfoPredicate;
-			registerPropertyHolder();
+			registerPropertyHolder(_propertyHolder);
 		}
 
 		[ObservableComputationsCall]
@@ -293,7 +293,7 @@ namespace ObservableComputations
 			_propertyInfoGettingType = PropertyInfoGettingType.PropertyInfoPredicateBindingAttr;
 			_propertyInfoPredicate = propertyInfoPredicate;
 			_bindingAttr = bindingAttr;
-			registerPropertyHolder();
+			registerPropertyHolder(_propertyHolder);
 		}
 
 		private PropertyAccessing(
@@ -306,7 +306,7 @@ namespace ObservableComputations
 		}
 
 
-		private void registerPropertyHolder()
+		private void registerPropertyHolder(INotifyPropertyChanged propertyHolder)
 		{
 			if (_propertyHolderWeakPropertyChangedEventHandler != null)
 			{
@@ -329,6 +329,7 @@ namespace ObservableComputations
 			}
 
 			_propertyInfo = null;
+			_propertyHolder = propertyHolder;
 
 			if (_propertyHolder == null)
 			{
@@ -386,8 +387,7 @@ namespace ObservableComputations
 		private void handlePropertyHolderScalarPropertyChanged(object sender, PropertyChangedEventArgs e)
 		{
 			if (e.PropertyName != nameof(IReadScalar<TResult>.Value)) return;
-			_propertyHolder = _propertyHolderScalar.Value;
-			registerPropertyHolder();
+			registerPropertyHolder(_propertyHolderScalar.Value);
 		}
 
 		~PropertyAccessing()

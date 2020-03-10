@@ -18,8 +18,6 @@ namespace ObservableComputations
 		private PropertyChangedEventHandler _equalityComparerScalarPropertyChangedEventHandler;
 		private WeakPropertyChangedEventHandler _equalityComparerScalarWeakPropertyChangedEventHandler;
 
-		private TResult _previousValue;
-
 		[ObservableComputationsCall]
 		public Differing(
 			IReadScalar<TResult> scalar,
@@ -36,6 +34,7 @@ namespace ObservableComputations
 			_equalityComparerScalarPropertyChangedEventHandler = handleEqualityComparerScalarValueChanged;
 			_equalityComparerScalarWeakPropertyChangedEventHandler =
 				new WeakPropertyChangedEventHandler(_equalityComparerScalarPropertyChangedEventHandler);
+			_equalityComparerScalar = equalityComparerScalar;
 			_equalityComparerScalar.PropertyChanged += _equalityComparerScalarWeakPropertyChangedEventHandler.Handle;
 			_equalityComparer = _equalityComparerScalar.Value ?? EqualityComparer<TResult>.Default;
 		}
@@ -44,7 +43,6 @@ namespace ObservableComputations
 			IReadScalar<TResult> scalar)
 		{
 			_scalar = scalar;
-			_previousValue = _value = _scalar.Value;
 			_scalarPropertyChangedEventHandler = handleScalarPropertyChanged;
 			_scalarWeakPropertyChangedEventHandler = new WeakPropertyChangedEventHandler(_scalarPropertyChangedEventHandler);
 			_scalar.PropertyChanged += _scalarWeakPropertyChangedEventHandler.Handle;
@@ -54,14 +52,9 @@ namespace ObservableComputations
 		{
 			if (e.PropertyName != nameof(IReadScalar<TResult>.Value)) return;
 			TResult newValue = _scalar.Value;
-			_previousValue = _value;
-			if (!_equalityComparer.Equals(newValue, _previousValue))
+			if (!_equalityComparer.Equals(newValue, _value))
 			{
 				setValue(newValue);
-			}
-			else
-			{
-				_value = newValue;
 			}
 		}
 

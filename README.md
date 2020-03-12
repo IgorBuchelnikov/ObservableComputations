@@ -1,16 +1,16 @@
 # ObservableComputations
 ## What should I know to read this paper?
-To understand written here you should know: basic programming and OOP concepts, C# syntax (including events and extention methods), [LINQ](https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/concepts/linq/), [INotifyPropertyChanged](https://docs.microsoft.com/en-us/dotnet/api/system.componentmodel.inotifypropertychanged?view=netframework-4.8) and [INotifyCollectionChanged](https://docs.microsoft.com/en-us/dotnet/api/system.collections.specialized.inotifycollectionchanged?view=netframework-4.8) interfaces. 
+To understand written here you should know: basic programming and OOP concepts, C# syntax (including events and extension methods), [LINQ](https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/concepts/linq/), [INotifyPropertyChanged](https://docs.microsoft.com/en-us/dotnet/api/system.componentmodel.inotifypropertychanged?view=netframework-4.8) and [INotifyCollectionChanged](https://docs.microsoft.com/en-us/dotnet/api/system.collections.specialized.inotifycollectionchanged?view=netframework-4.8) interfaces. 
 
-To imagin benefits of using ObservableComputations you should know about [binding in WPF](https://docs.microsoft.com/en-us/dotnet/desktop-wpf/data/data-binding-overview) (or in other UI platforms: [Xamarin](https://docs.microsoft.com/en-us/xamarin/xamarin-forms/app-fundamentals/data-binding/basic-bindings), [Blazor](https://demos.telerik.com/blazor-ui/grid/observable-data)), especially in ralation with [INotifyPropertyChanged](https://docs.microsoft.com/en-us/dotnet/api/system.componentmodel.inotifypropertychanged?view=netframework-4.8) and [INotifyCollectionChanged](https://docs.microsoft.com/en-us/dotnet/api/system.collections.specialized.inotifycollectionchanged?view=netframework-4.8) interfaces, Entity framework`s [DbSet.Local](https://docs.microsoft.com/en-us/dotnet/api/system.data.entity.dbset.local?view=entity-framework-6.2.0) property ([local data](https://docs.microsoft.com/en-us/ef/ef6/querying/local-data)), [asynchronous querying in Entity framewok](https://www.entityframeworktutorial.net/entityframework6/async-query-and-save.aspx).  
+To imagine benefits of using ObservableComputations you should know about [binding in WPF](https://docs.microsoft.com/en-us/dotnet/desktop-wpf/data/data-binding-overview) (or in other UI platforms: [Xamarin](https://docs.microsoft.com/en-us/xamarin/xamarin-forms/app-fundamentals/data-binding/basic-bindings), [Blazor](https://demos.telerik.com/blazor-ui/grid/observable-data)), especially in ralation with [INotifyPropertyChanged](https://docs.microsoft.com/en-us/dotnet/api/system.componentmodel.inotifypropertychanged?view=netframework-4.8) and [INotifyCollectionChanged](https://docs.microsoft.com/en-us/dotnet/api/system.collections.specialized.inotifycollectionchanged?view=netframework-4.8) interfaces, Entity framework`s [DbSet.Local](https://docs.microsoft.com/en-us/dotnet/api/system.data.entity.dbset.local?view=entity-framework-6.2.0) property ([local data](https://docs.microsoft.com/en-us/ef/ef6/querying/local-data)), [asynchronous querying in Entity framework](https://www.entityframeworktutorial.net/entityframework6/async-query-and-save.aspx).  
 
 ## What is ObservableComputations? 
-Cross-platform .NET library for computations over [INotifyPropertyChanged](https://docs.microsoft.com/en-us/dotnet/api/system.componentmodel.inotifypropertychanged?view=netframework-4.8) and [INotifyCollectionChanged](https://docs.microsoft.com/en-us/dotnet/api/system.collections.specialized.inotifycollectionchanged?view=netframework-4.8) ([ObservableCollection](https://docs.microsoft.com/en-us/dotnet/api/system.collections.objectmodel.observablecollection-1?view=netframework-4.8)) objects. Results of the computations are also [INotifyPropertyChanged](https://docs.microsoft.com/en-us/dotnet/api/system.componentmodel.inotifypropertychanged?view=netframework-4.8) and [INotifyCollectionChanged](https://docs.microsoft.com/en-us/dotnet/api/system.collections.specialized.inotifycollectionchanged?view=netframework-4.8) ([ObservableCollection](https://docs.microsoft.com/en-us/dotnet/api/system.collections.objectmodel.observablecollection-1?view=netframework-4.8)) objects. The computations includes ones similar to [LINQ](https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/concepts/linq/) and the computation of arbitrary expression. ObservableComputations are implemented as extension methods, like [LINQ](https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/concepts/linq/) ones. You can combine calls of ObservavleComputations extention methods including chaining and nesting, as you do for [LINQ](https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/concepts/linq/) methods. ObservableComputations is easy to use and powerful implementation of [reactive programming paradigm](https://en.wikipedia.org/wiki/Reactive_programming). With ObservableComputations, your code will fit more to the functional style than with [standard LINQ](https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/concepts/linq/).
+Cross-platform .NET library for computations over [INotifyPropertyChanged](https://docs.microsoft.com/en-us/dotnet/api/system.componentmodel.inotifypropertychanged?view=netframework-4.8) and [INotifyCollectionChanged](https://docs.microsoft.com/en-us/dotnet/api/system.collections.specialized.inotifycollectionchanged?view=netframework-4.8) ([ObservableCollection](https://docs.microsoft.com/en-us/dotnet/api/system.collections.objectmodel.observablecollection-1?view=netframework-4.8)) objects. Results of the computations are also [INotifyPropertyChanged](https://docs.microsoft.com/en-us/dotnet/api/system.componentmodel.inotifypropertychanged?view=netframework-4.8) and [INotifyCollectionChanged](https://docs.microsoft.com/en-us/dotnet/api/system.collections.specialized.inotifycollectionchanged?view=netframework-4.8) ([ObservableCollection](https://docs.microsoft.com/en-us/dotnet/api/system.collections.objectmodel.observablecollection-1?view=netframework-4.8)) objects. The computations includes ones similar to [LINQ](https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/concepts/linq/) and the computation of arbitrary expression. ObservableComputations are implemented as extension methods, like [LINQ](https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/concepts/linq/) ones. You can combine calls of ObservavleComputations extension methods including chaining and nesting, as you do for [LINQ](https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/concepts/linq/) methods. ObservableComputations is easy to use and powerful implementation of [reactive programming paradigm](https://en.wikipedia.org/wiki/Reactive_programming). With ObservableComputations, your code will fit more to the functional style than with [standard LINQ](https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/concepts/linq/).
 
 ## Analogs
-ObservableComputations is not analoge of [Reactive Extentions](https://github.com/dotnet/reactive). The analoges of ObservableComputations are following libraries: Obtics, [OLinq](https://www.nuget.org/packages/OLinq/), BindableLinq, ContinuousLinq. The main distingvish ObservableComputations from [Reactive Extentions](https://github.com/dotnet/reactive) is the following: 
-* [Reactive Extentions](https://github.com/dotnet/reactive) is abstracted from event specific and event semantics: it is framework for processing all possible events. Reactive Extentions handles all events in the same way and all specifics are only in user code. ObservableComputations  is focused to [CollectionChanged](https://docs.microsoft.com/en-us/dotnet/api/system.collections.specialized.inotifycollectionchanged.collectionchanged?view=netframework-4.8) and [PropertyChanged](https://docs.microsoft.com/en-us/dotnet/api/system.componentmodel.inotifypropertychanged.propertychanged?view=netframework-4.8) events only and brings greate benefit processing these events. Thus, you can use ObservableComputations separately or in cooperation with [Reactive Extentions](https://github.com/dotnet/reactive). This guide contains [example](#isConsistent-property-and-the-inconsistency-exception) of cooperation of ObservableComputations with  [Reactive Extentions](https://github.com/dotnet/reactive). 
-* [Reactive Extentions](https://github.com/dotnet/reactive) library provides the stream of events. ObservableComputations library provides not only the stream of data change events, but currently computed data.
+ObservableComputations is not analog of [Reactive Extensions](https://github.com/dotnet/reactive). The analogs of ObservableComputations are following libraries: Obtics, [OLinq](https://www.nuget.org/packages/OLinq/), BindableLinq, ContinuousLinq. The main distinguish ObservableComputations from [Reactive Extensions](https://github.com/dotnet/reactive) is the following: 
+* [Reactive Extensions](https://github.com/dotnet/reactive) is abstracted from event specific and event semantics: it is framework for processing all possible events. Reactive Extensions handles all events in the same way and all specifics are only in user code. ObservableComputations  is focused to [CollectionChanged](https://docs.microsoft.com/en-us/dotnet/api/system.collections.specialized.inotifycollectionchanged.collectionchanged?view=netframework-4.8) and [PropertyChanged](https://docs.microsoft.com/en-us/dotnet/api/system.componentmodel.inotifypropertychanged.propertychanged?view=netframework-4.8) events only and brings great benefit processing these events. Thus, you can use ObservableComputations separately or in cooperation with [Reactive Extensions](https://github.com/dotnet/reactive). This guide contains [example](#isConsistent-property-and-the-inconsistency-exception) of cooperation of ObservableComputations with  [Reactive Extensions](https://github.com/dotnet/reactive). 
+* [Reactive Extensions](https://github.com/dotnet/reactive) library provides the stream of events. ObservableComputations library provides not only the stream of data change events, but currently computed data.
 
 ## Status
 ObservableComputations library is ready to use in production. All essential functions is implemented and covered by unit-tests. All the bugs found is fixed.
@@ -107,10 +107,10 @@ namespace ObservableComputationsExamples
 	}
 }
 ```
-As you can see *Filtering* extension method is analog of *Where* method from [LINQ](https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/concepts/linq/). *Filtering* extension method returns instance of *Filtering&lt;Order&gt;* class. *Filtering&lt;TSourceItem&gt;* class implements [INotifyCollectionChanged](https://docs.microsoft.com/en-us/dotnet/api/system.collections.specialized.inotifycollectionchanged?view=netframework-4.8) interface (and derived from [ObservableCollection&lt;TSourceItem&gt;](https://docs.microsoft.com/en-us/dotnet/api/system.collections.objectmodel.observablecollection-1?view=netframework-4.8)). Examining code above you can see *expensiveOrders* is not recomputed from scratch every time when the *orders* collection change or some order changed, in the *expensiveOrders* collection occurs only that changes, that relevant to particular change in the *orders* collection or some order object. [Reffering reactive programming terminology, this behavior defines change propagation algorithm as "push"](https://en.wikipedia.org/wiki/Reactive_programming#Change_propagation_algorithms).
+As you can see *Filtering* extension method is analog of *Where* method from [LINQ](https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/concepts/linq/). *Filtering* extension method returns instance of *Filtering&lt;Order&gt;* class. *Filtering&lt;TSourceItem&gt;* class implements [INotifyCollectionChanged](https://docs.microsoft.com/en-us/dotnet/api/system.collections.specialized.inotifycollectionchanged?view=netframework-4.8) interface (and derived from [ObservableCollection&lt;TSourceItem&gt;](https://docs.microsoft.com/en-us/dotnet/api/system.collections.objectmodel.observablecollection-1?view=netframework-4.8)). Examining code above you can see *expensiveOrders* is not recomputed from scratch every time when the *orders* collection change or some order changed, in the *expensiveOrders* collection occurs only that changes, that relevant to particular change in the *orders* collection or some order object. [Referring reactive programming terminology, this behavior defines change propagation algorithm as "push"](https://en.wikipedia.org/wiki/Reactive_programming#Change_propagation_algorithms).
 
 
-In the code above, during the execution of *Filtering* extention method  (during the creation of an instance of *Filtering&lt;Order&gt;* class), following events are subscribed: the  [CollectionChanged](https://docs.microsoft.com/en-us/dotnet/api/system.collections.specialized.inotifycollectionchanged.collectionchanged?view=netframework-4.8) event of *orders* collection and [PropertyChanged](https://docs.microsoft.com/en-us/dotnet/api/system.componentmodel.inotifypropertychanged.propertychanged?view=netframework-4.8) event of instances of the *Order* class. ObservableComputations performs weak subscriptions only (**weak events**), so the *expensiveOrders* can be garbage collected, while the *orders* will remain alive.
+In the code above, during the execution of *Filtering* extension method  (during the creation of an instance of *Filtering&lt;Order&gt;* class), following events are subscribed: the  [CollectionChanged](https://docs.microsoft.com/en-us/dotnet/api/system.collections.specialized.inotifycollectionchanged.collectionchanged?view=netframework-4.8) event of *orders* collection and [PropertyChanged](https://docs.microsoft.com/en-us/dotnet/api/system.componentmodel.inotifypropertychanged.propertychanged?view=netframework-4.8) event of instances of the *Order* class. ObservableComputations performs weak subscriptions only (**weak events**), so the *expensiveOrders* can be garbage collected, while the *orders* will remain alive.
 
 Complexity of predicate expression passed to *Filtering* method (*o => o.Price > 25*) is not limited. The expression can contain results of any ObservavleComputations methods, including [LINQ](https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/concepts/linq/) analogs.
 
@@ -217,11 +217,11 @@ WPF, Xamarin, Blazor. You can bind UI controls to the instances of ObservableCom
 ### Asynchronous programming
 This approach facilitates **asynchronous programming**. You can show the user the UI form and in the background begin load the source data (from DB or web service). As the source data loads, the UI form will be filled with the computed data. If the UI form is already shown to the user, you can also refresh the source data in the background, the computed data on the UI form will be refreshed thanks to ObservableComputations. You get the following benefits:
 * Source data loading code and UI refresh code can be clearly separated.
-* The end user will see the UI form faster (while the data is loading in bachground, you can start rendering).
+* The end user will see the UI form faster (while the data is loading in background, you can start rendering).
 
-### Increased perfomance
-If you have complex computations over frequntly changing data and\or data is large, you can get increased perfomance with ObservableComputations, since you do not need recompute value from scratch every time when source data gets some little change. Every litle change in source data causes a little change in the data computed by ObservableComputations.
-UI performance is increased, as the need for re-rendering is reduced (only data that has changed is rendered) and data from external sources (DB, web service) is loaded in background (see [previuos section](#asynchronous_programming)).
+### Increased performance
+If you have complex computations over frequently changing data and\or data is large, you can get increased performance with ObservableComputations, since you do not need recompute value from scratch every time when source data gets some little change. Every little change in source data causes a little change in the data computed by ObservableComputations.
+UI performance is increased, as the need for re-rendering is reduced (only data that has changed is rendered) and data from external sources (DB, web service) is loaded in background (see [previous section](#asynchronous_programming)).
 
 ### Clean and durable code
 * Less boilerplate imperative code. More clear declarative (functional style) code.
@@ -727,9 +727,9 @@ namespace ObservableComputationsExamples
 	}
 }
 ```
-In the code above we compute whether the logged in person is a hockey player. Expression "*loginManager.LoggedInPerson*" passed to *ContainsComputing* method is evaluated by ObservableComputations only once: when *ContainsComputing&lt;Person&gt;* class is instantiated (when ContainsComputing is called). If *LoggedInPerson* property changes, that change is not reflected in *isLoggedInPersonHockeyPlayer*. Of course, you can use more complex expression than "*loginManager.LoggedInPerson* for passing as an argument to any ObservableComputations extention method. As you see passing argument as non-observale of type T is ordinary way to pass argument of type T.
+In the code above we compute whether the logged in person is a hockey player. Expression "*loginManager.LoggedInPerson*" passed to *ContainsComputing* method is evaluated by ObservableComputations only once: when *ContainsComputing&lt;Person&gt;* class is instantiated (when ContainsComputing is called). If *LoggedInPerson* property changes, that change is not reflected in *isLoggedInPersonHockeyPlayer*. Of course, you can use more complex expression than "*loginManager.LoggedInPerson* for passing as an argument to any ObservableComputations extension method. As you see passing argument as non-observable of type *T* is ordinary way to pass argument of type *T*.
 
-### Passing arguments as observables
+### Passing argument as observable
 
 In the previous section, we assumed that our application does not support logging out (and subsequent logging in), so that the *LoginManager.LoggedInPerson* property changes. Let us add logging out to our application:  
 ```csharp
@@ -831,16 +831,16 @@ ContainsComputing<Person> isLoggedInPersonHockeyPlayer =
         Expr.Is(() => loginManager.LoggedInPerson).Computing());
 ```
 
-Original variant can be useful if you want reuse *loggedInPersonComputing* for other comptations than *isLoggedInPersonHockeyPlayer*. All the shortened variants do not allow that. Shortened variants can be usefull for the [expression-bodied properties and methods](https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/statements-expressions-operators/expression-bodied-members).
+Original variant can be useful if you want reuse *loggedInPersonComputing* for other computations than *isLoggedInPersonHockeyPlayer*. All the shortened variants do not allow that. Shortened variants can be useful for the [expression-bodied properties and methods](https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/statements-expressions-operators/expression-bodied-members).
 
 Of course, you can use more complex expression than "*() => loginManager.LoggedInPerson* for passing as an argument to any ObservableComputations extention method.
 
 ### Passing source collection argument as obserable
-As you see all calls of [LINQ](https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/concepts/linq/) like extention methods generically can be presented as
+As you see all calls of [LINQ](https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/concepts/linq/) like extension methods generically can be presented as
 ```csharp
 sourceCollection.ExtentionMethodName(arg1, arg2, ...);
 ```
-As we know about extention methods *sourceCollection* is the first argument in the extention method declaration. So like other arguments that argment can also be passed as [non-observable](#Passing-arguments-as-non-observables) and as [observables](#Passing-arguments-as-observables). Before now we passed the source collections as non-observables (it was the simplest expression consisting of a single variable, of course we was able to use more momplex expressions, but the essence is the same). Now let us try pass some source collection as observable:  
+As we know about extension methods *sourceCollection* is the first argument in the extension method declaration. So like other arguments that argument can also be passed as [non-observable](#Passing-arguments-as-non-observables) and as [observables](#Passing-arguments-as-observables). Before now we passed the source collections as non-observables (it was the simplest expression consisting of a single variable, of course we was able to use more complex expressions, but the essence is the same). Now let us try pass some source collection as observable:  
 
 ```csharp
 using System;
@@ -995,9 +995,9 @@ ContainsComputing<Person> isLoggedInPersonHockeyPlayer =
 	    () => loginManager.LoggedInPerson);
 ```
 
-Of course, you can use more complex expression than "*() => hockeyTeamManager.HockeyTeamInterested* for passing as an argument to any ObservableComputations extention method.  
+Of course, you can use more complex expression than "*() => hockeyTeamManager.HockeyTeamInterested* for passing as an argument to any ObservableComputations extension method.  
 
-### Non-observale and observable arguments in nested calls
+### Non-observable and observable arguments in nested calls
 We continue to consider the example from the [previous section](#Passing-source-collection-argument-as-obserable). We used following code to track changes in  *hockeyTeamManager.HockeyTeamInterested*:
 ```csharp
 new Computing<ObservableCollection<Person>>(
@@ -1012,7 +1012,7 @@ Computing<bool> isLoggedInPersonHockeyPlayer = new Computing<bool>(() =>
       () => loginManager.LoggedInPerson).Value);
 ```
  
-In that code *"hockeyTeamManager.HockeyTeamInterested"* is passed to *ContainsComputing* method as [non-observable](#Passing-arguments-as-non-observables), and it does not matter that *"hockeyTeamManager.HockeyTeamInterested"* is part of expression passed to *Computing&lt;bool&gt;*, changes of *"hockeyTeamManager.HockeyTeamInterested"* is not reflected in *isLoggedInPersonHockeyPlayer*. Non-observale and observable arguments rule is applied in one-way derection: from nested (wrapped) calls to the outer (wrapper) calls. In other words, non-observale and observable arguments rule is always valid, regardless of whether the computation is root or nested.
+In that code *"hockeyTeamManager.HockeyTeamInterested"* is passed to *ContainsComputing* method as [non-observable](#Passing-arguments-as-non-observables), and it does not matter that *"hockeyTeamManager.HockeyTeamInterested"* is part of expression passed to *Computing&lt;bool&gt;*, changes of *"hockeyTeamManager.HockeyTeamInterested"* is not reflected in *isLoggedInPersonHockeyPlayer*. Non-observable and observable arguments rule is applied in one-way detection: from nested (wrapped) calls to the outer (wrapper) calls. In other words, non-observable and observable arguments rule is always valid, regardless of whether the computation is root or nested.
 
 Here is another example:
 
@@ -1092,7 +1092,7 @@ ObservableCollection<Order> filteredByTypeOrders =  orders.Filtering(o =>
    selectedOrderTypes.ContainsComputing(o.Type).Value);
 ```
 
-## Modifing computations
+## Modifying computations
 The only way to modify result on computation is to modify source data. Неre is the code:
 
 ```csharp
@@ -1378,12 +1378,12 @@ namespace ObservableComputationsExamples
 }
 ```
 
-## Debuging
+## Debugging
 
-### User code: selectors, predicates, arbitary expressions, modification handlers, CollectionChanged and PropertyChanged handlers
-Selectors are expressions that are passed as an argument to the following extention methods: Selecting, SelectingMany, Grouping, GroupJoining, Dictionaring, Hashing, Ordering, ThenOrdering, PredicateGroupJoining. Predicates are expressions that are passed as an argument to Filtering extention method. Arbitary expressions are expressions that are passed as argument to Computing and Using extention methods. Modification handlers was described in the ["Modifing computations"](#Modifing-computations). CollectionChanged and PropertyChanged handlers are handlers for [CollectionChanged](https://docs.microsoft.com/en-us/dotnet/api/system.collections.specialized.inotifycollectionchanged.collectionchanged?view=netframework-4.8) and [PropertyChanged](https://docs.microsoft.com/en-us/dotnet/api/system.componentmodel.inotifypropertychanged.propertychanged?view=netframework-4.8) events respectively.
+### User code: selectors, predicates, arbitrary expressions, modification handlers, CollectionChanged and PropertyChanged handlers
+Selectors are expressions that are passed as an argument to the following extension methods: Selecting, SelectingMany, Grouping, GroupJoining, Dictionaring, Hashing, Ordering, ThenOrdering, PredicateGroupJoining. Predicates are expressions that are passed as an argument to Filtering extension method. Arbitrary expressions are expressions that are passed as argument to Computing and Using extension methods. Modification handlers was described in the ["Modifying computations"](#Modifing-computations). CollectionChanged and PropertyChanged handlers are handlers for [CollectionChanged](https://docs.microsoft.com/en-us/dotnet/api/system.collections.specialized.inotifycollectionchanged.collectionchanged?view=netframework-4.8) and [PropertyChanged](https://docs.microsoft.com/en-us/dotnet/api/system.componentmodel.inotifypropertychanged.propertychanged?view=netframework-4.8) events respectively.
 
-Here is the code illustrating debugging of arbitrary expressions (other types of code can be debuged by the same way):
+Here is the code illustrating debugging of arbitrary expressions (other types of code can be debugged by the same way):
 
 ```csharp
 using System;
@@ -1437,9 +1437,9 @@ namespace ObservableComputationsExamples
 }
 ```
 
-As you see *exception.StackTrace* points to line caused the exception: *valueProvider.Value = new Random().Next(0, 1);*. That line doesn't point us to computation which caused the exception: *computing1* or *computing2*. To determine computation which caused the exception we should examine *DebugInfo.ComputingsExecutingUserCode[Thread.CurrentThread].InstantiatingStackTrace* property. That property contains stack trace of instantiating of the computation. By default ObservableComputations doesn't save stack traces of instantiating of computations for perfomance reasons. To save that stack traces use *Configuration.SaveInstantiatingStackTrace* property. By default ObservableComputations doesn't track computations executing user code (selectors, predicates arbitary expressions and modification handlers) for perfomance reasons. To track computations executing user code use *Configuration.TrackComputingsExecutingUserCode* property.
+As you see *exception.StackTrace* points to line caused the exception: *valueProvider.Value = new Random().Next(0, 1);*. That line doesn't point us to computation which caused the exception: *computing1* or *computing2*. To determine computation which caused the exception we should examine *DebugInfo.ComputingsExecutingUserCode[Thread.CurrentThread].InstantiatingStackTrace* property. That property contains stack trace of instantiating of the computation. By default ObservableComputations doesn't save stack traces of instantiating of computations for performance reasons. To save that stack traces use *Configuration.SaveInstantiatingStackTrace* property. By default ObservableComputations doesn't track computations executing user code (selectors, predicates arbitrary expressions and modification handlers) for performance reasons. To track computations executing user code use *Configuration.TrackComputingsExecutingUserCode* property.
 
-All unhandled exceptions thrown in the user code are fatal, as the internal state of the computations becomes damaged. Pay attention to null checks.
+All unhanded exceptions thrown in the user code are fatal, as the internal state of the computations becomes damaged. Pay attention to null checks.
 
 
 ### Inconsistency exception
@@ -1513,7 +1513,7 @@ namespace ObservableComputationsExamples
 }
 ```
 
-As you see *exception.StackTrace* points to line caused the exception: *orders.Add(new Order(){Price = 35397});*. That line doesn't point us to computation which caused the exception: *ordinaryOrders* or *expensiveOrders*. To determine computation which caused the exception we should examine *exception.Computing.InstantiatingStackTrace* property. That property contains stack trace of instantiating of the computation. By default ObservableComputations doesn't save stack traces of instantiating of computation for perfomance reasons. To save that stack traces use *Configuration.SaveInstantiatingStackTrace* property.
+As you see *exception.StackTrace* points to line caused the exception: *orders.Add(new Order(){Price = 35397});*. That line doesn't point us to computation which caused the exception: *ordinaryOrders* or *expensiveOrders*. To determine computation which caused the exception we should examine *exception.Computing.InstantiatingStackTrace* property. That property contains stack trace of instantiating of the computation. By default ObservableComputations doesn't save stack traces of instantiating of computation for performance reasons. To save that stack traces use *Configuration.SaveInstantiatingStackTrace* property.
 
 
 
@@ -1592,7 +1592,7 @@ Code above has following output:
 Although we could expect:  
 > Your order price is ₽100. You have a discount! Therefore your price is ₽90!
 
-Why? We subscribe to *priceDiscounted.PropertyChanged* before *messageForUser* does it. Handlers are invoked in the order of subscriptions (it is implementataion detail of .NET). So we read *messageForUser.Value* before *messageForUser* handles change of *order.Discount*.
+Why? We subscribe to *priceDiscounted.PropertyChanged* before *messageForUser* does it. Handlers are invoked in the order of subscriptions (it is implementation detail of .NET). So we read *messageForUser.Value* before *messageForUser* handles change of *order.Discount*.
 
 Here is the fixed code:
 ```csharp
@@ -1663,9 +1663,9 @@ namespace ObservableComputationsExamples
 }
 ```
 
-Instead of  *priceDiscounted.PropertyChanged* we subscribe to *priceDiscounted.PostValueChanged*. That event is raised after *PropertyChanged*, so we can sure: all the dependant computations have refreshed their values. *PostValueChanged* is declared in *ScalarComputing&lt;TValue&gt;*. *Computing&lt;string&gt;* inherits *ScalarComputing&lt;TValue&gt;*. *ScalarComputing&lt;TValue&gt;* is mentioned [here](#full-list-of-methods-and-classes) for the first time. *ScalarComputing&lt;TValue&gt;* contains *PreValueChanged* event. That event allow you see state of the all computations before a change. If you want handle property change of your object (not of computation as in previous example) and that handle reads dependant computations (similarly to previous example) you should define and raise new event by yourselve.
+Instead of  *priceDiscounted.PropertyChanged* we subscribe to *priceDiscounted.PostValueChanged*. That event is raised after *PropertyChanged*, so we can sure: all the dependent computations have refreshed their values. *PostValueChanged* is declared in *ScalarComputing&lt;TValue&gt;*. *Computing&lt;string&gt;* inherits *ScalarComputing&lt;TValue&gt;*. *ScalarComputing&lt;TValue&gt;* is mentioned [here](#full-list-of-methods-and-classes) for the first time. *ScalarComputing&lt;TValue&gt;* contains *PreValueChanged* event. That event allow you see state of the all computations before a change. If you want handle property change of your object (not of computation as in previous example) and that handle reads dependent computations (similarly to previous example) you should define and raise new event by yourselves.
 
-*CollectionComputing&lt;TItem&gt;* contains *PreCollectionChanged* and *PostCollectionChanged* events. *CollectionComputing&lt;TItem&gt;* is mentioned [here](#full-list-of-methods-and-classes) for the first time. If you want handle collection change of your collection (not of computed collection) and that handle reads dependant computations you may use *ObservableCollectionExtended&lt;TItem&gt;*. That class inherits [*ObservableCollection&lt;TItem&gt;*](https://docs.microsoft.com/en-us/dotnet/api/system.collections.objectmodel.observablecollection-1?view=netframework-4.8) and contains *PreCollectionChanged* and *PostCollectionChanged* events. Also you can use *Extending* extention method. That mathod creates *ObservableCollectionExtended&lt;TItem&gt;* from [*ObservableCollection&lt;TItem&gt;*](https://docs.microsoft.com/en-us/dotnet/api/system.collections.objectmodel.observablecollection-1?view=netframework-4.8).
+*CollectionComputing&lt;TItem&gt;* contains *PreCollectionChanged* and *PostCollectionChanged* events. *CollectionComputing&lt;TItem&gt;* is mentioned [here](#full-list-of-methods-and-classes) for the first time. If you want handle collection change of your collection (not of computed collection) and that handle reads dependent computations you may use *ObservableCollectionExtended&lt;TItem&gt;*. That class inherits [*ObservableCollection&lt;TItem&gt;*](https://docs.microsoft.com/en-us/dotnet/api/system.collections.objectmodel.observablecollection-1?view=netframework-4.8) and contains *PreCollectionChanged* and *PostCollectionChanged* events. Also you can use *Extending* extension method. That method creates *ObservableCollectionExtended&lt;TItem&gt;* from [*ObservableCollection&lt;TItem&gt;*](https://docs.microsoft.com/en-us/dotnet/api/system.collections.objectmodel.observablecollection-1?view=netframework-4.8).
 
 ## Thread Safety
 [*CollectionComputing&lt;TSourceItem&gt;*](#full-list-of-methods-and-classes) and [*ScalarComputing&lt;TSourceItem&gt;*](#full-list-of-methods-and-classes)
@@ -1675,7 +1675,7 @@ Instead of  *priceDiscounted.PropertyChanged* we subscribe to *priceDiscounted.P
 * are modified while they handles [CollectionChanged](https://docs.microsoft.com/en-us/dotnet/api/system.collections.specialized.inotifycollectionchanged.collectionchanged?view=netframework-4.8) and [PropertyChanged](https://docs.microsoft.com/en-us/dotnet/api/system.componentmodel.inotifypropertychanged.propertychanged?view=netframework-4.8) events of source objects.
 
 ## Tracking changes in a method return value
-Before now we saw how ObservableComputations tracks changes in property values and collections via [PropertyChanged](https://docs.microsoft.com/en-us/dotnet/api/system.componentmodel.inotifypropertychanged.propertychanged?view=netframework-4.8) and [CollectionChanged](https://docs.microsoft.com/en-us/dotnet/api/system.collections.specialized.inotifycollectionchanged.collectionchanged?view=netframework-4.8) events. ObservableComputations inroduces new interface and event for tracking сhanges in a method return value: *INotifyMethodChanged* interface and *MethodChanged* event. Here is example:
+Before now we saw how ObservableComputations tracks changes in property values and collections via [PropertyChanged](https://docs.microsoft.com/en-us/dotnet/api/system.componentmodel.inotifypropertychanged.propertychanged?view=netframework-4.8) and [CollectionChanged](https://docs.microsoft.com/en-us/dotnet/api/system.collections.specialized.inotifycollectionchanged.collectionchanged?view=netframework-4.8) events. ObservableComputations introduces new interface and event for tracking changes in a method return value: *INotifyMethodChanged* interface and *MethodChanged* event. Here is example:
 
 ```csharp
 using System;
@@ -1800,10 +1800,10 @@ args =>
 ```
 That property defines what values should have arguments in a method call so that value of that call  changes.
 
-ATTENTION: Code example given in this section is not a standart, it is rather an antipattern: it contains code duplication and changes of properties of RoomReservation class is not tracked.  That code is given only for demonstration of tracking сhanges in a method return value. See fixed code [here](#use-readonly-structures-to-expose-incapsulated-private-members).
+ATTENTION: Code example given in this section is not a standard, it is rather an antipattern: it contains code duplication and changes of properties of RoomReservation class is not tracked.  That code is given only for demonstration of tracking changes in a method return value. See fixed code [here](#use-readonly-structures-to-expose-incapsulated-private-members).
 
-## Perfomance tips
-### Avoid nested parameter dependant computations
+## Performance tips
+### Avoid nested parameter dependent computations
 ```csharp
 using System;
 using System.Collections.ObjectModel;
@@ -1873,7 +1873,7 @@ namespace ObservableComputationsExamples
 	}
 }
 ```
-In the code above *selectedOrderTypes.ContainsComputing(() => o.Type)* is nested computation which is depandant on outer parameter *o*. These two circumstances lead to the fact that instance of *ContainsComputing* class will be created for each order in the *orders* collection. This may impact performance and memory consumption if you have many of orders. Fortunately, *filteredByTypeOrders* calculation can be made "flat":
+In the code above *selectedOrderTypes.ContainsComputing(() => o.Type)* is nested computation which is defendant on outer parameter *o*. These two circumstances lead to the fact that instance of *ContainsComputing* class will be created for each order in the *orders* collection. This may impact performance and memory consumption if you have many of orders. Fortunately, *filteredByTypeOrders* calculation can be made "flat":
 
 ```csharp
 ObservableCollection<Order> filteredByTypeOrders =  orders
@@ -1884,7 +1884,7 @@ ObservableCollection<Order> filteredByTypeOrders =  orders
 This computation has performance and memory consumption advantage. 
 
 ### Cache property (method) values
-Suppose we have long-computed property and we want increase perfomace of getting it's value:
+Suppose we have long-computed property and we want increase performance of getting it's value:
 
 ```csharp
 using System;
@@ -1954,7 +1954,7 @@ Code above has following output:
 > Direct access to property: 2155<br>
 Access to property via computing: 626
 
-### Differing&lt;TResult&gt; extention method
+### Differing&lt;TResult&gt; extension method
 That extension method allows you to suppress extra raisings of [PropertyChanged](https://docs.microsoft.com/en-us/dotnet/api/system.componentmodel.inotifypropertychanged.propertychanged?view=netframework-4.8) event (when value of a property in not changed). 
 
 ```csharp
@@ -2035,7 +2035,7 @@ sinComputing: 0,5 <br>
 sinComputing: -0,5 <br>
 differingSinComputing: -0,5 <br>
 
-Sometimes handling of every [PropertyChanged](https://docs.microsoft.com/en-us/dotnet/api/system.componentmodel.inotifypropertychanged.propertychanged?view=netframework-4.8) events is long-time and may freeze UI (rerendering, recomputing). Use Differing extention mathod to decrease that effect.
+Sometimes handling of every [PropertyChanged](https://docs.microsoft.com/en-us/dotnet/api/system.componentmodel.inotifypropertychanged.propertychanged?view=netframework-4.8) events is long-time and may freeze UI (rerendering, recomputing). Use Differing extension method to decrease that effect.
 
 ## Design tips
 
@@ -2048,8 +2048,8 @@ public Computing<string> ValueComputing => _valueComputing =
    _valueComputing ?? new Computing<string>(() => Value);
 ```
 
-### Use readonly structures to expose incapsulated private members
-Code example given in ["Tracking сhanges in a method return value" section ](#tracking-changes-in-a-method-return-value) is not a standart, it is rather an antipattern: it contains code duplication and changes of properties of RoomReservation class is not tracked. That code is given only for demonstration of tracking сhanges in a method return value. Here is the fixed design:
+### Use readonly structures to expose encapsulated private members
+Code example given in ["Tracking сhanges in a method return value" section ](#tracking-changes-in-a-method-return-value) is not a standard, it is rather an antipattern: it contains code duplication and changes of properties of RoomReservation class is not tracked. That code is given only for demonstration of tracking changes in a method return value. Here is the fixed design:
 
 ```csharp
 using System;
@@ -2299,7 +2299,7 @@ In this code *p* parameter has type decimal, not Summarizing&lt;decimal&gt; as i
 
 ## Tracking previous value of IReadScalar&lt;TValue&gt;
 *IReadScalar&lt;TValue&gt;* is mentioned [here](#full-list-of-methods-and-classes) for the first time.
-There is not built-in facilities to get previous value of a property while handling [PropertyChanged event](https://docs.microsoft.com/en-us/dotnet/api/system.componentmodel.inotifypropertychanged.propertychanged?view=netframework-4.8). ObservableComputation helps you and provides *PreviousTracking&lt;TResult&gt;* and *WeakPreviousTracking&lt;TResult&gt;* extention methods.
+There is not built-in facilities to get previous value of a property while handling [PropertyChanged event](https://docs.microsoft.com/en-us/dotnet/api/system.componentmodel.inotifypropertychanged.propertychanged?view=netframework-4.8). ObservableComputation helps you and provides *PreviousTracking&lt;TResult&gt;* and *WeakPreviousTracking&lt;TResult&gt;* extension methods.
 
 ```csharp
 using System;
@@ -2357,13 +2357,13 @@ namespace ObservableComputationsExamples
 }
 ```
 
-Code above has follwoing output:
+Code above has following output:
 > Current dispatch center: B; Previous dispatch center: A;  <br>
 Current dispatch center: C; Previous dispatch center: B;  <br>
 
 Note that changes of *PreviousValue* property is trackable by  [PropertyChanged event](https://docs.microsoft.com/en-us/dotnet/api/system.componentmodel.inotifypropertychanged.propertychanged?view=netframework-4.8) so you can include that property in your observable computations [as observable](#passing-arguments-as-observables).
 
-Note that instance of *PreviousTracking&lt;TResult&gt;* has strong reference to previous *TResult* value (in case *TResult* is reference type). Account it when you think will about garbage collecting and memory leaks. *WeakPreviousTracking&lt;TResult&gt;* can help you. Instead of *PreviousValue* property *WeakPreviousTracking&lt;TResult&gt;* includes *TryGetPreviousValue* method. Changes of result of that mathod isn't trackable, so you cannot include it in your observable computations [as observable](#passing-arguments-as-observables).
+Note that instance of *PreviousTracking&lt;TResult&gt;* has strong reference to previous *TResult* value (in case *TResult* is reference type). Account it when you think will about garbage collecting and memory leaks. *WeakPreviousTracking&lt;TResult&gt;* can help you. Instead of *PreviousValue* property *WeakPreviousTracking&lt;TResult&gt;* includes *TryGetPreviousValue* method. Changes of result of that method isn't trackable, so you cannot include it in your observable computations [as observable](#passing-arguments-as-observables).
 
 ## Accessing a property via reflection
 Following code will not work correctly:
@@ -2425,7 +2425,7 @@ namespace ObservableComputationsExamples
 	}
 }
 ```
-Code above has no output, as changes of return value of *GetValue* mathod cannot be tracked. Here is the fixed code:
+Code above has no output, as changes of return value of *GetValue* method cannot be tracked. Here is the fixed code:
 
 
 
@@ -2485,7 +2485,7 @@ namespace ObservableComputationsExamples
 }
 ```
 
-In the code above we use *PropertyAccessing* extenton method. Be sure you are aware of [Passing arguments as non-observales and observables](#passing-arguments-as-non-observales-and-observables): in the code above first argument of *PropertyAccessing* extention method is passed as **non-observable**. In the following code first argument of *PropertyAccessing* extention method is passed as **observable**.
+In the code above we use *PropertyAccessing* extension method. Be sure you are aware of [Passing arguments as non-observales and observables](#passing-arguments-as-non-observales-and-observables): in the code above first argument of *PropertyAccessing* extension method is passed as **non-observable**. In the following code first argument of *PropertyAccessing* extension method is passed as **observable**.
 ```csharp
 using System;
 using System.ComponentModel;
@@ -2567,17 +2567,17 @@ namespace ObservableComputationsExamples
 	}
 }
 ```
-Followoing code will not work correctly as changes in *manager.ProcessingOrder* is not reflected in *priceReflectedComputing* as first argument of *PropertyAccessing* extention method is passed as **non-observable**:
+Following code will not work correctly as changes in *manager.ProcessingOrder* is not reflected in *priceReflectedComputing* as first argument of *PropertyAccessing* extension method is passed as **non-observable**:
 ```csharp
 PropertyAccessing<decimal> priceReflectedComputing 
    = manager.ProcessingOrder.PropertyAccessing<decimal>(nameof(Order.Price));
 ```
 
-If object for which a property value is beeing accessed is null PropertyAccessing&lt;TResult&gt; returns default value of TResult. You can modify that value by passing the defaultValue parameter.
+If object for which a property value is being accessed is null PropertyAccessing&lt;TResult&gt; returns default value of TResult. You can modify that value by passing the defaultValue parameter.
 
 ## Binding class 
   
-Binding class allows you to bind two arbitary expressions. First expression is a source. Second expression is a target. If source expression value is changed, the new value is assigned to target expression:  
+Binding class allows you to bind two arbitrary expressions. First expression is a source. Second expression is a target. If source expression value is changed, the new value is assigned to target expression:  
   
 ```csharp
 using System;

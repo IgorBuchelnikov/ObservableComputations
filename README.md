@@ -2,10 +2,10 @@
 ## What should I know to read this paper?
 To understand written here you should know: basic programming and OOP concepts, C# syntax (including events and extension methods), [LINQ](https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/concepts/linq/), [INotifyPropertyChanged](https://docs.microsoft.com/en-us/dotnet/api/system.componentmodel.inotifypropertychanged?view=netframework-4.8) and [INotifyCollectionChanged](https://docs.microsoft.com/en-us/dotnet/api/system.collections.specialized.inotifycollectionchanged?view=netframework-4.8) interfaces. 
 
-To imagine [benefits of using ObservableComputations](#use-cases-and-benefits) you should know about [binding in WPF](https://docs.microsoft.com/en-us/dotnet/desktop-wpf/data/data-binding-overview) (or in other UI platforms: [Xamarin](https://docs.microsoft.com/en-us/xamarin/xamarin-forms/app-fundamentals/data-binding/basic-bindings), [Blazor](https://demos.telerik.com/blazor-ui/grid/observable-data)), especially in ralation with [INotifyPropertyChanged](https://docs.microsoft.com/en-us/dotnet/api/system.componentmodel.inotifypropertychanged?view=netframework-4.8) and [INotifyCollectionChanged](https://docs.microsoft.com/en-us/dotnet/api/system.collections.specialized.inotifycollectionchanged?view=netframework-4.8) interfaces, Entity framework`s [DbSet.Local](https://docs.microsoft.com/en-us/dotnet/api/system.data.entity.dbset.local?view=entity-framework-6.2.0) property ([local data](https://docs.microsoft.com/en-us/ef/ef6/querying/local-data)), [asynchronous querying in Entity framework](https://www.entityframeworktutorial.net/entityframework6/async-query-and-save.aspx).  
+To imagine [benefits of using ObservableComputations](#use-cases-and-benefits) you should know about [binding in WPF](https://docs.microsoft.com/en-us/dotnet/desktop-wpf/data/data-binding-overview) (or in other UI platforms: [Xamarin](https://docs.microsoft.com/en-us/xamarin/xamarin-forms/app-fundamentals/data-binding/basic-bindings), [Blazor](https://demos.telerik.com/blazor-ui/grid/observable-data)), especially in relation with [INotifyPropertyChanged](https://docs.microsoft.com/en-us/dotnet/api/system.componentmodel.inotifypropertychanged?view=netframework-4.8) and [INotifyCollectionChanged](https://docs.microsoft.com/en-us/dotnet/api/system.collections.specialized.inotifycollectionchanged?view=netframework-4.8) interfaces, Entity framework`s [DbSet.Local](https://docs.microsoft.com/en-us/dotnet/api/system.data.entity.dbset.local?view=entity-framework-6.2.0) property ([local data](https://docs.microsoft.com/en-us/ef/ef6/querying/local-data)), [asynchronous querying in Entity framework](https://www.entityframeworktutorial.net/entityframework6/async-query-and-save.aspx).  
 
 ## What is ObservableComputations? 
-Cross-platform .NET library for computations over [INotifyPropertyChanged](https://docs.microsoft.com/en-us/dotnet/api/system.componentmodel.inotifypropertychanged?view=netframework-4.8) and [INotifyCollectionChanged](https://docs.microsoft.com/en-us/dotnet/api/system.collections.specialized.inotifycollectionchanged?view=netframework-4.8) ([ObservableCollection](https://docs.microsoft.com/en-us/dotnet/api/system.collections.objectmodel.observablecollection-1?view=netframework-4.8)) objects. Results of the computations are also [INotifyPropertyChanged](https://docs.microsoft.com/en-us/dotnet/api/system.componentmodel.inotifypropertychanged?view=netframework-4.8) and [INotifyCollectionChanged](https://docs.microsoft.com/en-us/dotnet/api/system.collections.specialized.inotifycollectionchanged?view=netframework-4.8) ([ObservableCollection](https://docs.microsoft.com/en-us/dotnet/api/system.collections.objectmodel.observablecollection-1?view=netframework-4.8)) objects. The computations includes ones similar to [LINQ](https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/concepts/linq/), the computation of arbitrary expression and some additional computations. ObservableComputations are implemented as extension methods, like [LINQ](https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/concepts/linq/) ones. You can combine calls of ObservavleComputations extension methods including chaining and nesting, as you do for [LINQ](https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/concepts/linq/) methods. ObservableComputations is easy to use and powerful implementation of [reactive programming paradigm](https://en.wikipedia.org/wiki/Reactive_programming). With ObservableComputations, your code will fit more to the functional style than with [standard LINQ](https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/concepts/linq/).
+Cross-platform .NET library for computations over [INotifyPropertyChanged](https://docs.microsoft.com/en-us/dotnet/api/system.componentmodel.inotifypropertychanged?view=netframework-4.8) and [INotifyCollectionChanged](https://docs.microsoft.com/en-us/dotnet/api/system.collections.specialized.inotifycollectionchanged?view=netframework-4.8) ([ObservableCollection](https://docs.microsoft.com/en-us/dotnet/api/system.collections.objectmodel.observablecollection-1?view=netframework-4.8)) objects. Results of the computations are also [INotifyPropertyChanged](https://docs.microsoft.com/en-us/dotnet/api/system.componentmodel.inotifypropertychanged?view=netframework-4.8) and [INotifyCollectionChanged](https://docs.microsoft.com/en-us/dotnet/api/system.collections.specialized.inotifycollectionchanged?view=netframework-4.8) ([ObservableCollection](https://docs.microsoft.com/en-us/dotnet/api/system.collections.objectmodel.observablecollection-1?view=netframework-4.8)) objects. The computations includes ones similar to [LINQ](https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/concepts/linq/), the computation of arbitrary expression and some additional computations. ObservableComputations are implemented as extension methods, like [LINQ](https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/concepts/linq/) ones. You can combine calls of ObservableComputations extension methods including chaining and nesting, as you do for [LINQ](https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/concepts/linq/) methods. ObservableComputations is easy to use and powerful implementation of [reactive programming paradigm](https://en.wikipedia.org/wiki/Reactive_programming). With ObservableComputations, your code will fit more to the functional style than with [standard LINQ](https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/concepts/linq/).
 
 ## Analogs
 ObservableComputations is not analog of [Reactive Extensions](https://github.com/dotnet/reactive). The analogs of ObservableComputations are following libraries: Obtics, [OLinq](https://www.nuget.org/packages/OLinq/), BindableLinq, ContinuousLinq. The main distinguish ObservableComputations from [Reactive Extensions](https://github.com/dotnet/reactive) is the following: 
@@ -112,7 +112,7 @@ As you can see *Filtering* extension method is analog of *Where* method from [LI
 
 In the code above, during the execution of *Filtering* extension method  (during the creation of an instance of *Filtering&lt;Order&gt;* class), following events are subscribed: the  [CollectionChanged](https://docs.microsoft.com/en-us/dotnet/api/system.collections.specialized.inotifycollectionchanged.collectionchanged?view=netframework-4.8) event of *orders* collection and [PropertyChanged](https://docs.microsoft.com/en-us/dotnet/api/system.componentmodel.inotifypropertychanged.propertychanged?view=netframework-4.8) event of every instance of the *Order* class. ObservableComputations performs weak subscriptions only (**weak event pattern**), so the *expensiveOrders* can be garbage collected, while the *orders* will remain alive.
 
-Complexity of predicate expression passed to *Filtering* method (*o => o.Price > 25*) is not limited. The expression can contain results of any ObservavleComputations methods, including [LINQ](https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/concepts/linq/) analogs.
+Complexity of predicate expression passed to *Filtering* method (*o => o.Price > 25*) is not limited. The expression can contain results of any ObservableComputations methods, including [LINQ](https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/concepts/linq/) analogs.
 
 ### Arbitrary expression observing
 ```csharp
@@ -195,7 +195,7 @@ namespace ObservableComputationsExamples
 	}
 }
 ```
-In this code sample we observe value of discounted price expression. *Computing&lt;TResult&gt;* class implements [INotifyPropertyChanged](https://docs.microsoft.com/en-us/dotnet/api/system.componentmodel.inotifypropertychanged?view=netframework-4.8) interface. Complexity of expression to observe is not limited. The expression can contain results of any ObservavleComputations methods, including [LINQ](https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/concepts/linq/) analogs.
+In this code sample we observe value of discounted price expression. *Computing&lt;TResult&gt;* class implements [INotifyPropertyChanged](https://docs.microsoft.com/en-us/dotnet/api/system.componentmodel.inotifypropertychanged?view=netframework-4.8) interface. Complexity of expression to observe is not limited. The expression can contain results of any ObservableComputations methods, including [LINQ](https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/concepts/linq/) analogs.
 
 Same as in the previous example [PropertyChanged](https://docs.microsoft.com/en-us/dotnet/api/system.componentmodel.inotifypropertychanged.propertychanged?view=netframework-4.8) event of *Order* class instance is subscribed weakly (**weak event pattern**).
 
@@ -329,7 +329,7 @@ From code above you can see: *ScalarComputation&lt;TValue&gt;* allows you to obs
 		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" height="47" align="left" valign=bottom><font color="#000000">Concatenating&lt;TSourceItem&gt;</font></td>
 		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom><font color="#000000">Concat</font></td>
 		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom><font color="#000000">CollectionCalculating&lt;TSourceItem&gt;</font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom><font color="#000000">Element of the source collection <br>may be INotifyCollectionChanged <br>or IreadScalar&lt;INotifyCollectionChanged&gt;</font></td>
+		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom><font color="#000000">Element of the source collection <br>may be INotifyCollectionChanged <br>or IReadScalar&lt;INotifyCollectionChanged&gt;</font></td>
 	</tr>
 	<tr>
 		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" height="18" align="left" valign=bottom><font color="#000000">ContainsCalcuating</font></td>
@@ -359,7 +359,7 @@ From code above you can see: *ScalarComputation&lt;TValue&gt;* allows you to obs
 		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" height="18" align="left" valign=bottom><font color="#000000">Differing&lt;TResult&gt;</font></td>
 		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom><i><font color="#000000">Not applicable</font></i></td>
 		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom><font color="#000000">ScalarCalculating&lt;TResult&gt;</font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom><font color="#000000">see more<a href="#differingtresult-extention-method"> here</a></font></td>
+		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom><font color="#000000">see more<a href="#differingtresult-extension-method"> here</a></font></td>
 	</tr>
 	<tr>
 		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" height="18" align="left" valign=bottom><font color="#000000">Distincting&lt;TSourceItem&gt;</font></td>
@@ -377,7 +377,7 @@ From code above you can see: *ScalarComputation&lt;TValue&gt;* allows you to obs
 		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" height="77" align="left" valign=bottom><font color="#000000">ItemCalculating</font></td>
 		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom><font color="#000000">ElementAtOrDefault</font></td>
 		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom><font color="#000000">ScalarCalculating&lt;TSourceItem&gt;</font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom><font color="#000000">If source collection length less than <br>item index requested <br>ScalarCalculating&lt;TSourceItem&gt;.Value <br>property returns default of TSourceItem <br>or value passed in defaultValue paremeter</font></td>
+		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom><font color="#000000">If source collection length less than <br>item index requested <br>ScalarCalculating&lt;TSourceItem&gt;.Value <br>property returns default of TSourceItem <br>or value passed in defaultValue parameter</font></td>
 	</tr>
 	<tr>
 		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" height="18" align="left" valign=bottom><i><font color="#000000">Not applicable</font></i></td>
@@ -401,7 +401,7 @@ From code above you can see: *ScalarComputation&lt;TValue&gt;* allows you to obs
 		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" height="62" align="left" valign=bottom><font color="#000000">FirstCalculating&lt;TSourceItem&gt;</font></td>
 		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom><font color="#000000">FirstOrDefault</font></td>
 		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom><font color="#000000">ScalarCalculating&lt;TSourceItem&gt;</font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom><font color="#000000">If source collection length is zero <br>ScalarCalculating&lt;TSourceItem&gt;.Value property <br>returns default of TsourceItem <br>Or value passed in defaultValue paremeter</font></td>
+		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom><font color="#000000">If source collection length is zero <br>ScalarCalculating&lt;TSourceItem&gt;.Value property <br>returns default of TSourceItem <br>Or value passed in defaultValue parameter</font></td>
 	</tr>
 	<tr>
 		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" height="41" align="left" valign=bottom><font color="#000000">Grouping&lt;TSourceItem, TKey&gt;</font></td>
@@ -410,7 +410,7 @@ From code above you can see: *ScalarComputation&lt;TValue&gt;* allows you to obs
 		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom><font color="#000000">Can contain a group with null key</font></td>
 	</tr>
 	<tr>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" height="47" align="left" valign=bottom><font color="#000000">GroupJoining&lt;<br>    TOuterSourceItem, <br>    TinnerSourceItem, Tkey&gt;</font></td>
+		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" height="47" align="left" valign=bottom><font color="#000000">GroupJoining&lt;<br>    TOuterSourceItem, <br>    TInnerSourceItem, TKey&gt;</font></td>
 		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" rowspan=2 align="left" valign=middle><font color="#000000">GroupJoin</font></td>
 		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom><font color="#000000">CollectionCalculating&lt;JoinGroup&lt;<br>    TOuterSourceItem, <br>        TInnerSourceItem, TKey&gt;&gt;</font></td>
 		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom><font color="#000000"><br></font></td>
@@ -442,7 +442,7 @@ From code above you can see: *ScalarComputation&lt;TValue&gt;* allows you to obs
 		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" height="62" align="left" valign=bottom><font color="#000000">LastCalcuating&lt;TSourceItem&gt;</font></td>
 		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom><font color="#000000">LastOrDefault</font></td>
 		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom><font color="#000000">ScalarCalculating&lt;TSourceItem&gt;</font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom><font color="#000000">If source collection length is zero <br>ScalarCalculating&lt;TSourceItem&gt;.Value property <br>returns default of TsourceItem <br>Or value passed in defaultValue paremeter</font></td>
+		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom><font color="#000000">If source collection length is zero <br>ScalarCalculating&lt;TSourceItem&gt;.Value property <br>returns default of TSourceItem <br>Or value passed in defaultValue parameter</font></td>
 	</tr>
 	<tr>
 		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" height="18" align="left" valign=bottom><i><font color="#000000">Not applicable</font></i></td>
@@ -454,13 +454,13 @@ From code above you can see: *ScalarComputation&lt;TValue&gt;* allows you to obs
 		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" height="62" align="left" valign=bottom><font color="#000000">Maximazing&lt;TSourceItem&gt;</font></td>
 		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom><font color="#000000">Max</font></td>
 		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom><font color="#000000">ScalarCalculating&lt;TSourceItem&gt;</font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom><font color="#000000">If source collection length is zero <br>ScalarCalculating&lt;TSourceItem&gt;.Value property<br> returns default of TsourceItem <br>Or value passed in defaultValue paremeter</font></td>
+		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom><font color="#000000">If source collection length is zero <br>ScalarCalculating&lt;TSourceItem&gt;.Value property<br> returns default of TSourceItem <br>Or value passed in defaultValue parameter</font></td>
 	</tr>
 	<tr>
 		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" height="62" align="left" valign=bottom><font color="#000000">Minimazing&lt;TSourceItem&gt;</font></td>
 		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom><font color="#000000">Min</font></td>
 		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom><font color="#000000">ScalarCalculating&lt;TSourceItem&gt;</font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom><font color="#000000">If source collection length is zero <br>ScalarCalculating&lt;TSourceItem&gt;.Value property <br>returns default of TsourceItem <br>Or value passed in defaultValue paremeter</font></td>
+		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom><font color="#000000">If source collection length is zero <br>ScalarCalculating&lt;TSourceItem&gt;.Value property <br>returns default of TSourceItem <br>Or value passed in defaultValue parameter</font></td>
 	</tr>
 	<tr>
 		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" height="18" align="left" valign=bottom><font color="#000000">OfTypeCalculating&lt;TResultItem&gt;</font></td>
@@ -634,7 +634,7 @@ From code above you can see: *ScalarComputation&lt;TValue&gt;* allows you to obs
 		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" height="18" align="left" valign=bottom><font color="#000000">Using&lt;TArgument, TResult&gt;</font></td>
 		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom><i><font color="#000000">Not applicable</font></i></td>
 		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom><font color="#000000">ScalarCalculating&lt;TResult&gt;</font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom><font color="#000000">see more <a href="#applications-of-usingtresult-extention-method">here</a> and <a href="#arbitrary-expression-observing">here</a></font></td>
+		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom><font color="#000000">see more <a href="#applications-of-usingtresult-extension-method">here</a> and <a href="#arbitrary-expression-observing">here</a></font></td>
 	</tr>
 	<tr>
 		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" height="18" align="left" valign=bottom><font color="#000000">Filtering&lt;TSourceItem&gt;</font></td>
@@ -662,8 +662,8 @@ From code above you can see: *ScalarComputation&lt;TValue&gt;* allows you to obs
 
 For the all computations consuming source collections: null value is treated as empty collection.
 
-## Passing arguments as non-observales and observables
-All the ObservableComputations extention methods arguments can be passed by two ways: as non-observables and observables.
+## Passing arguments as non-observables and observables
+All the ObservableComputations extension methods arguments can be passed by two ways: as non-observables and observables.
 
 ### Passing arguments as non-observables
 ```csharp
@@ -837,12 +837,12 @@ ContainsComputing<Person> isLoggedInPersonHockeyPlayer =
 
 Original variant can be useful if you want reuse *loggedInPersonComputing* for other computations than *isLoggedInPersonHockeyPlayer*. All the shortened variants do not allow that. Shortened variants can be useful for the [expression-bodied properties and methods](https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/statements-expressions-operators/expression-bodied-members).
 
-Of course, you can use more complex expression than "*() => loginManager.LoggedInPerson* for passing as an argument to any ObservableComputations extention method.
+Of course, you can use more complex expression than "*() => loginManager.LoggedInPerson* for passing as an argument to any ObservableComputations extension method.
 
-### Passing source collection argument as obserable
+### Passing source collection argument as observable
 As you see all calls of [LINQ](https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/concepts/linq/) like extension methods generically can be presented as
 ```csharp
-sourceCollection.ExtentionMethodName(arg1, arg2, ...);
+sourceCollection.ExtensionMethodName(arg1, arg2, ...);
 ```
 As we know about extension methods *sourceCollection* is the first argument in the extension method declaration. So like other arguments that argument can also be passed as [non-observable](#Passing-arguments-as-non-observables) and as [observables](#Passing-arguments-as-observables). Before now we passed the source collections as non-observables (it was the simplest expression consisting of a single variable, of course we was able to use more complex expressions, but the essence is the same). Now let us try pass some source collection as observable:  
 
@@ -1002,7 +1002,7 @@ ContainsComputing<Person> isLoggedInPersonHockeyPlayer =
 Of course, you can use more complex expression than "*() => hockeyTeamManager.HockeyTeamInterested* for passing as an argument to any ObservableComputations extension method.  
 
 ### Non-observable and observable arguments in nested calls
-We continue to consider the example from the [previous section](#Passing-source-collection-argument-as-obserable). We used following code to track changes in  *hockeyTeamManager.HockeyTeamInterested*:
+We continue to consider the example from the [previous section](#Passing-source-collection-argument-as-observable). We used following code to track changes in  *hockeyTeamManager.HockeyTeamInterested*:
 ```csharp
 new Computing<ObservableCollection<Person>>(
     () => hockeyTeamManager.HockeyTeamInterested)
@@ -1089,7 +1089,7 @@ namespace ObservableComputationsExamples
 	}
 }
 ```
-In the code above we have created *"filteredByTypeOrders"* computation that reflects changes in *orders*, *selectedOrderTypes* collections and in the *Order.Type* property. Take attentention on argument passed to *ContainsComputing*. Following code will not reflect changes in the *Order.Type* property:
+In the code above we have created *"filteredByTypeOrders"* computation that reflects changes in *orders*, *selectedOrderTypes* collections and in the *Order.Type* property. Take attention on argument passed to *ContainsComputing*. Following code will not reflect changes in the *Order.Type* property:
 
 ```csharp
 ObservableCollection<Order> filteredByTypeOrders =  orders.Filtering(o => 
@@ -1385,7 +1385,7 @@ namespace ObservableComputationsExamples
 ## Debugging
 
 ### User code: selectors, predicates, arbitrary expressions, modification handlers, CollectionChanged and PropertyChanged handlers
-Selectors are expressions that are passed as an argument to the following extension methods: Selecting, SelectingMany, Grouping, GroupJoining, Dictionaring, Hashing, Ordering, ThenOrdering, PredicateGroupJoining. Predicates are expressions that are passed as an argument to Filtering extension method. Arbitrary expressions are expressions that are passed as argument to Computing and Using extension methods. Modification handlers was described in the ["Modifying computations"](#Modifing-computations). CollectionChanged and PropertyChanged handlers are handlers for [CollectionChanged](https://docs.microsoft.com/en-us/dotnet/api/system.collections.specialized.inotifycollectionchanged.collectionchanged?view=netframework-4.8) and [PropertyChanged](https://docs.microsoft.com/en-us/dotnet/api/system.componentmodel.inotifypropertychanged.propertychanged?view=netframework-4.8) events respectively.
+Selectors are expressions that are passed as an argument to the following extension methods: Selecting, SelectingMany, Grouping, GroupJoining, Dictionaring, Hashing, Ordering, ThenOrdering, PredicateGroupJoining. Predicates are expressions that are passed as an argument to Filtering extension method. Arbitrary expressions are expressions that are passed as argument to Computing and Using extension methods. Modification handlers was described in the ["Modifying computations"](#Modifying-computations). CollectionChanged and PropertyChanged handlers are handlers for [CollectionChanged](https://docs.microsoft.com/en-us/dotnet/api/system.collections.specialized.inotifycollectionchanged.collectionchanged?view=netframework-4.8) and [PropertyChanged](https://docs.microsoft.com/en-us/dotnet/api/system.componentmodel.inotifypropertychanged.propertychanged?view=netframework-4.8) events respectively.
 
 Here is the code illustrating debugging of arbitrary expressions (other types of code can be debugged by the same way):
 
@@ -1804,7 +1804,7 @@ args =>
 ```
 That property defines what values should have arguments in a method call so that value of that call  changes.
 
-ATTENTION: Code example given in this section is not a standard, it is rather an antipattern: it contains code duplication and changes of properties of RoomReservation class is not tracked.  That code is given only for demonstration of tracking changes in a method return value. See fixed code [here](#use-readonly-structures-to-expose-incapsulated-private-members).
+ATTENTION: Code example given in this section is not a standard, it is rather an antipattern: it contains code duplication and changes of properties of RoomReservation class is not tracked.  That code is given only for demonstration of tracking changes in a method return value. See fixed code [here](#use-readonly-structures-to-expose-encapsulated-private-members).
 
 ## Performance tips
 ### Avoid nested parameter dependent computations
@@ -2053,7 +2053,7 @@ public Computing<string> ValueComputing => _valueComputing =
 ```
 
 ### Use readonly structures to expose encapsulated private members
-Code example given in ["Tracking сhanges in a method return value" section ](#tracking-changes-in-a-method-return-value) is not a standard, it is rather an antipattern: it contains code duplication and changes of properties of RoomReservation class is not tracked. That code is given only for demonstration of tracking changes in a method return value. Here is the fixed design:
+Code example given in ["Tracking changes in a method return value" section ](#tracking-changes-in-a-method-return-value) is not a standard, it is rather an antipattern: it contains code duplication and changes of properties of RoomReservation class is not tracked. That code is given only for demonstration of tracking changes in a method return value. Here is the fixed design:
 
 ```csharp
 using System;
@@ -2188,10 +2188,10 @@ namespace ObservableComputationsExamples
 }
 ```
 
-Note that type of *RoomReservationManager._roomReservations* is changed to *ObservableCollection&lt;RoomReservation&gt;* and *RoomReservationManager.RoomReservations* member of type *System.Collections.ObjectModel.ReadOnlyObservableCollectionn&lt;RoomReservation&gt;* has been added.
+Note that type of *RoomReservationManager._roomReservations* is changed to *ObservableCollection&lt;RoomReservation&gt;* and *RoomReservationManager.RoomReservations* member of type *System.Collections.ObjectModel.ReadOnlyObservableCollection&lt;RoomReservation&gt;* has been added.
 To expose private field use readonly property (with getter only).
 
-## Applications of Using&lt;TResult&gt; extention method
+## Applications of Using&lt;TResult&gt; extension method
 ### Clear expressions
 See the end lines of [Arbitrary expression observing](#arbitrary-expression-observing).
 
@@ -2489,7 +2489,7 @@ namespace ObservableComputationsExamples
 }
 ```
 
-In the code above we use *PropertyAccessing* extension method. Be sure you are aware of [Passing arguments as non-observales and observables](#passing-arguments-as-non-observales-and-observables): in the code above first argument of *PropertyAccessing* extension method is passed as **non-observable**. In the following code first argument of *PropertyAccessing* extension method is passed as **observable**.
+In the code above we use *PropertyAccessing* extension method. Be sure you are aware of [Passing arguments as non-observables and observables](#passing-arguments-as-non-observables-and-observables): in the code above first argument of *PropertyAccessing* extension method is passed as **non-observable**. In the following code first argument of *PropertyAccessing* extension method is passed as **observable**.
 ```csharp
 using System;
 using System.ComponentModel;
@@ -2652,31 +2652,8 @@ In the code above we bind **order.DeliveryAddress** and **assignedDeliveryCar.De
 To avoid unloading the instance of *Binding* class from the memory by garbage collector, save reference to the one in the object that has appropriate lifetime.
 
 ## Can I use [IList&lt;T&gt;](https://docs.microsoft.com/en-us/dotnet/api/system.collections.generic.ilist-1?view=netframework-4.8) with ObservableComputations?
-If you have [IList&lt;T&gt;](https://docs.microsoft.com/en-us/dotnet/api/system.collections.generic.ilist-1?view=netframework-4.8) collection of a class that does not implement [INotifyColectionChanged](https://docs.microsoft.com/en-us/dotnet/api/system.collections.specialized.inotifycollectionchanged?view=netframework-4.8) (for example [List&lt;T&gt;](https://docs.microsoft.com/en-us/dotnet/api/system.collections.generic.list-1?view=netframework-4.8)), you can use it with ObservableComputations. See 
+If you have [IList&lt;T&gt;](https://docs.microsoft.com/en-us/dotnet/api/system.collections.generic.ilist-1?view=netframework-4.8) collection of a class that does not implement [INotifyCollectionChanged](https://docs.microsoft.com/en-us/dotnet/api/system.collections.specialized.inotifycollectionchanged?view=netframework-4.8) (for example [List&lt;T&gt;](https://docs.microsoft.com/en-us/dotnet/api/system.collections.generic.list-1?view=netframework-4.8)), you can use it with ObservableComputations. See 
 
 https://github.com/gsonnenf/Gstc.Collections.ObservableLists
 
 Nuget: https://www.nuget.org/packages/Gstc.Collections.ObservableLists
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

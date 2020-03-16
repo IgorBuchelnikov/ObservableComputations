@@ -70,7 +70,6 @@ namespace ObservableComputationsExamples
 					new Order{Num = 7, Price = 80}
 				});
 
-			//********************************************
 			// We start using ObservableComputations here!
 			Filtering<Order> expensiveOrders = orders.Filtering(o => o.Price > 25); 
 			
@@ -163,7 +162,6 @@ namespace ObservableComputationsExamples
 
 			Order order = new Order{Num = 1, Price = 100, Discount = 10};
 
-			//********************************************
 			// We start using ObservableComputations here!
 			Computing<decimal> discountedPriceComputing = new Computing(
 				() => order.Price - order.Price * order.Discount / 100);
@@ -205,7 +203,6 @@ If you want *() => order.Price - order.Price * order.Discount / 100* to be a pur
 			Expression<Func<Order, decimal>> discountedPriceExpression = 
 				o => o.Price - o.Price * o.Discount / 100;
 				
-			//********************************************
 			// We start using ObservableComputations here!
 			Computing<decimal> discountedPriceComputing = 
 				order.Using(discountedPriceExpression);
@@ -214,7 +211,6 @@ Now *discountedPriceExpression* can be reused for other instances of *Order* cla
 
 
 ## Use cases and benefits
-All described bellow can be done without Observable Computations, but ObservableComputations facilitate implementation.
 
 ### UI binding
 WPF, Xamarin, Blazor. You can bind UI controls to the instances of ObservableComputations classes (*Filtering*, *Computing* etc.). If you do it, you do not have to worry about forgetting to call [PropertyChanged](https://docs.microsoft.com/en-us/dotnet/api/system.componentmodel.inotifypropertychanged?view=netframework-4.8) for the computed properties or manually process change in some collection. With ObservableComputations, you define how the value should be computed, everything else ObservableComputations will do. 
@@ -223,16 +219,17 @@ WPF, Xamarin, Blazor. You can bind UI controls to the instances of ObservableCom
 This approach facilitates **asynchronous programming**. You can show the user the UI form and in the background begin load the source data (from DB or web service). As the source data loads, the UI form will be filled with the computed data. The end user will see the UI form faster (while the source data is loaded in background, you can start rendering). If the UI form is already shown to the user, you can also refresh the source data in the background, the computed data on the UI form will be refreshed thanks to ObservableComputations. 
 
 ### Increased performance
-If you have complex computations, over frequently changing data and\or data is large, you can get increased performance with ObservableComputations, since you do not need recompute value from scratch every time when source data gets some little change. Every little change in source data causes a little change in the data computed by ObservableComputations.
+If you have complex computations, over frequently changing source data and\or data is large, you can get increased performance with ObservableComputations, since you do not need recompute value from scratch every time when source data gets some little change. Every little change in source data causes a little change in the data computed by ObservableComputations.
 UI performance is increased, as the need for re-rendering is reduced (only data that has changed is rendered) and data from external sources (DB, web service) is loaded in background (see [previous section](#asynchronous_programming)).
 
 ### Clean and durable code
-* Less boilerplate imperative code. More clear declarative (functional style) code.
+* Less boilerplate imperative code. More clear declarative (functional style) code. Total code is reduced.
 * Source data loading code and UI data computation code can be clearly separated.
 * You do not need to worry about the fact that you forgot to update the calculated data. All calculated data will be updated automatically.
 * Less human error: computed data shown to the user will always correspond to the user input and the data loaded from an external sources (DB, web service)
 
 ### Friendly UI
+ObservableComputations facilitates design of friendly UI.
 * User has no need manually refresh computed data.
 * User can see computed data always, not only by request.
 * You do not need refresh computed data by the timer.
@@ -241,14 +238,16 @@ UI performance is increased, as the need for re-rendering is reduced (only data 
 Before examine the table bellow, please take into account
 
 * *CollectionComputing&lt;TSourceItem&gt;* derived from [ObservableCollection&lt;TSourceItem&gt;](https://docs.microsoft.com/en-us/dotnet/api/system.collections.objectmodel.observablecollection-1?view=netframework-4.8). That class implements [INotifyCollectionChanged](https://docs.microsoft.com/en-us/dotnet/api/system.collections.specialized.inotifycollectionchanged?view=netframework-4.8) interface.
-* *ScalarComputing&lt;TValue&gt;* implements *IReadScalar&lt;TValue&gt;*;
+
+
+* *ScalarComputing&lt;TValue&gt;* implements *IReadScalar&lt;TValue&gt;* interface;
 ```csharp
 public interface IReadScalar<out TValue> : System.ComponentModel.INotifyPropertyChanged
 {
 	TValue Value { get;}
 }
 ```
-From code above you can see: *ScalarComputation&lt;TValue&gt;* allows you to observe the changes of the *Value* property through [PropertyChanged](https://docs.microsoft.com/en-us/dotnet/api/system.componentmodel.inotifypropertychanged.propertychanged?view=netframework-4.8) event of [INotifyPropertyChanged](https://docs.microsoft.com/en-us/dotnet/api/system.componentmodel.inotifypropertychanged?view=netframework-4.8) interface.
+*Value* property allows you to get current result of a computation. From code above you can see: *ScalarComputation&lt;TValue&gt;* allows you to observe the changes of the *Value* property through [PropertyChanged](https://docs.microsoft.com/en-us/dotnet/api/system.componentmodel.inotifypropertychanged.propertychanged?view=netframework-4.8) event of [INotifyPropertyChanged](https://docs.microsoft.com/en-us/dotnet/api/system.componentmodel.inotifypropertychanged?view=netframework-4.8) interface.
 
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
 

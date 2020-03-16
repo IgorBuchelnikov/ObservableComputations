@@ -77,8 +77,7 @@ namespace ObservableComputationsExamples
 					new Order{Num = 7, Price = 80}
 				});
 
-			//********************************************
-			// We start using ObservableComputations here!
+			// Здесь мы начинаем использовать ObservableComputations!
 			Filtering<Order> expensiveOrders = orders.Filtering(o => o.Price > 25); 
 			
 			Debug.Assert(expensiveOrders is ObservableCollection<Order>);
@@ -169,8 +168,7 @@ namespace ObservableComputationsExamples
 
 			Order order = new Order{Num = 1, Price = 100, Discount = 10};
 
-			//********************************************
-			// We start using ObservableComputations here!
+			// Здесь мы начинаем использовать ObservableComputations!
 			Computing<decimal> discountedPriceComputing = new Computing(
 				() => order.Price - order.Price * order.Discount / 100);
 				
@@ -211,8 +209,7 @@ namespace ObservableComputationsExamples
 			Expression<Func<Order, decimal>> discountedPriceExpression = 
 				o => o.Price - o.Price * o.Discount / 100;
 				
-			//********************************************
-			// We start using ObservableComputations here!
+			// Здесь мы начинаем использовать ObservableComputations!
 			Computing<decimal> discountedPriceComputing = 
 				order.Using(discountedPriceExpression);
 ```
@@ -220,7 +217,6 @@ namespace ObservableComputationsExamples
 
 
 ## Области применеия и преимущества
-Всё описанное ниже может быть сделано и без ObservableComputations, но ObservableComputations облегчают реализацию.
 
 ### Привязка к элементам пользовательского интерфейса (binding)
 WPF, Xamarin, Blazor. Вы можете привязывать (binding) элементы пользовательского интерфейса (controls) c экземплярам классов ObservableComputations (*Filtering*, *Computing* etc.). Если Вы так делаете, Вам не нужно беспокоиться о том, что Вы забыли вызвать событие [PropertyChanged](https://docs.microsoft.com/en-us/dotnet/api/system.componentmodel.inotifypropertychanged?view=netframework-4.8) для вычисляемых свойств или вручную обработать изменение в какой-либо коллекции. С ObservableComputations Вы определяете как значение должно вычисляться, всё остальное ObservableComputations сделает за Вас. 
@@ -229,7 +225,7 @@ WPF, Xamarin, Blazor. Вы можете привязывать (binding) эле�
 Такой подход облегчает **ассинхронное программирование**. Вы можете показать пользователю форму и начать загружать исходные данные (из БД или web-сервиса) в фоне. По мере того как исходные данные загружаются, форма наполняется вычисленными данными. Пользователь увидит форму быстрее (пока исходные данные загружаются в фоне, Вы можете начать рендеринг). Если форма уже показана пользователю, Вы можете обновить в фоне исходные данные, вычисляемые данные на UI форме обновятся благодаря ObservableComputations. 
 
 ### Повышенная производиельность
-Если у Вас есть сложные вычисления, часто меняющиеся данные и\или данных много, вы можете получить выигрыш в производительности с ObservableComputations, так как Вам не надо перевычислять данные с нуля каждый раз когда меняются исходные данные. Каждое маленькое изменение в исходных данных вызывает маленькое изменение в данных вычисленных средствами ObservableComputations.
+Если у Вас есть сложные вычисления, часто меняющиеся исходные данные и\или данных много, вы можете получить выигрыш в производительности с ObservableComputations, так как Вам не надо перевычислять данные с нуля каждый раз когда меняются исходные данные. Каждое маленькое изменение в исходных данных вызывает маленькое изменение в данных вычисленных средствами ObservableComputations.
 Производительность пользовательского интерфейса возрастает, так как необходимость в ререндеренге уменьшается (только изменённые данные рендерятся) и данные из внешних источников (DB, web-сервис) загружаются в фоне (см. [предыдущий раздел](#Ассинхронное-программирование)).
 
 ### Чистый и надёжный код
@@ -239,22 +235,25 @@ WPF, Xamarin, Blazor. Вы можете привязывать (binding) эле�
 * Меньшая вероятность ошибки программиста: вычисляемые данные показанные пользователю пользователю будут всегда соответвствовать пользовательскому вводц и данным загруженным из внешних источников (DB, web-сервис).
 
 ### Дружелюбный пользовательский интерфейс
+ObservableComputations облегчают создание дружелюбного пользовательского интерфейса.
 * Пользователю не нужно вручную обновлять вычисляемые данные.
 * Пользователь видит вычисляемые данные всегда, а не только по запросу.
 * Вам не нужно обновлять вычисляемые данные по таймеру.
 
 ## Полный список методов и классов
-Before examine the table bellow, please take into account
+Перед изучение таблицы, представленной ниже, пожалуйста обратите внимание на то, что
 
-* *CollectionComputing&lt;TSourceItem&gt;* derived from [ObservableCollection&lt;TSourceItem&gt;](https://docs.microsoft.com/en-us/dotnet/api/system.collections.objectmodel.observablecollection-1?view=netframework-4.8). That class implements [INotifyCollectionChanged](https://docs.microsoft.com/en-us/dotnet/api/system.collections.specialized.inotifycollectionchanged?view=netframework-4.8) interface.
-* *ScalarComputing&lt;TValue&gt;* implements *IReadScalar&lt;TValue&gt;*;
+* *CollectionComputing&lt;TSourceItem&gt;* наследуется от [ObservableCollection&lt;TSourceItem&gt;](https://docs.microsoft.com/en-us/dotnet/api/system.collections.objectmodel.observablecollection-1?view=netframework-4.8). Этот класс реализует интерфейс [INotifyCollectionChanged](https://docs.microsoft.com/en-us/dotnet/api/system.collections.specialized.inotifycollectionchanged?view=netframework-4.8).
+
+
+* *ScalarComputing&lt;TValue&gt;* реализует интерфейс *IReadScalar&lt;TValue&gt;*;
 ```csharp
 public interface IReadScalar<out TValue> : System.ComponentModel.INotifyPropertyChanged
 {
 	TValue Value { get;}
 }
 ```
-From code above you can see: *ScalarComputation&lt;TValue&gt;* allows you to observe the changes of the *Value* property through [PropertyChanged](https://docs.microsoft.com/en-us/dotnet/api/system.componentmodel.inotifypropertychanged.propertychanged?view=netframework-4.8) event of [INotifyPropertyChanged](https://docs.microsoft.com/en-us/dotnet/api/system.componentmodel.inotifypropertychanged?view=netframework-4.8) interface.
+Свойство *Value* позволяет получить текущий результат вычисления. Из кода выше вы можете увидеть, что *ScalarComputation&lt;TValue&gt;* позволяет следить за значением свойства *Value* с помощью события [PropertyChanged](https://docs.microsoft.com/en-us/dotnet/api/system.componentmodel.inotifypropertychanged.propertychanged?view=netframework-4.8) интерфейса [INotifyPropertyChanged](https://docs.microsoft.com/en-us/dotnet/api/system.componentmodel.inotifypropertychanged?view=netframework-4.8).
 
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
 

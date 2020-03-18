@@ -251,7 +251,6 @@ public interface IReadScalar<out TValue> : System.ComponentModel.INotifyProperty
 
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
 
-<html>
 <head>
 	
 	<meta http-equiv="content-type" content="text/html; charset=windows-1251"/>
@@ -680,8 +679,6 @@ public interface IReadScalar<out TValue> : System.ComponentModel.INotifyProperty
 </table>
 <!-- ************************************************************************** -->
 </body>
-
-</html>
 
 For the all computations having parameters of types [INotifyCollectionChanged](https://docs.microsoft.com/en-us/dotnet/api/system.collections.specialized.inotifycollectionchanged?view=netframework-4.8) or *IReadScalar*&lt;[INotifyCollectionChanged](https://docs.microsoft.com/en-us/dotnet/api/system.collections.specialized.inotifycollectionchanged?view=netframework-4.8)&gt;: null value of the parameter is treated as empty collection.
 

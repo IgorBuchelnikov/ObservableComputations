@@ -251,31 +251,15 @@ public interface IReadScalar<out TValue> : System.ComponentModel.INotifyProperty
 
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
 
-<head>
-	
-	<meta http-equiv="content-type" content="text/html; charset=windows-1251"/>
-	<title></title>
-	<meta name="generator" content="LibreOffice 6.3.0.4 (Windows)"/>
-	<meta name="author" content="Igor Buchelnikov"/>
-	<meta name="created" content="2019-08-09T13:20:55"/>
-	<meta name="changed" content="2020-03-18T16:00:05.537000000"/>
-	<meta name="AppVersion" content="16.0300"/>
-	<meta name="DocSecurity" content="0"/>
-	<meta name="HyperlinksChanged" content="false"/>
-	<meta name="LinksUpToDate" content="false"/>
-	<meta name="ScaleCrop" content="false"/>
-	<meta name="ShareDoc" content="false"/>
-	
-	<style type="text/css">
-		body,div,table,thead,tbody,tfoot,tr,th,td,p { font-family:"Calibri"; font-size:x-small }
-		a.comment-indicator:hover + comment { background:#ffd; position:absolute; display:block; border:1px solid black; padding:0.5em;  } 
-		a.comment-indicator { background:red; display:inline-block; border:1px solid black; width:0.5em; height:0.5em;  } 
-		comment { display:none;  } 
-	</style>
-	
-</head>
 
 <body>
+<style type="text/css">
+	body,div,table,thead,tbody,tfoot,tr,th,td,p { font-family:"Calibri"; font-size:x-small }
+	a.comment-indicator:hover + comment { background:#ffd; position:absolute; display:block; border:1px solid black; padding:0.5em;  } 
+	a.comment-indicator { background:red; display:inline-block; border:1px solid black; width:0.5em; height:0.5em;  } 
+	comment { display:none;  } 
+</style>
+
 <table cellspacing="0" border="0">
 	<colgroup width="267"></colgroup>
 	<colgroup width="233"></colgroup>

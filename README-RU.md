@@ -819,14 +819,14 @@ namespace ObservableComputationsExamples
 }
 ```
 
-В коде выше мы передаём аргумент в метод *ContainsComputing* как *IReadScalar&lt;Person&gt;* (а не как *Person* как в предудущем разделе). *Computing&lt;Person&gt;* реализует *IReadScalar&lt;Person&gt;*. *IReadScalar&lt;TValue&gt;* первоначально был упомянут в разделе ["Full list of methods and classes" section](#full-list-of-methods-and-classes). Как Вы видите, если Вы хотите передать аргумент типа T как обозреваемый, Вы должны выполнить обычную передачу аргумента типа *IReadScalar&lt;T&gt;*. В этом случае используется другая перегруженная вервия метода *ContainsComputing*, в отличии от версии, которая использовалась в  [предыдущем разделе](#Passing-arguments-as-non-observables). It gives us the opportunity to track changes of *LoginManager.LoggedInPerson* property. Now changes in the *LoginManager.LoggedInPerson* is reflected in *isLoggedInPersonHockeyPlayer*. Note than *LoginManager* class implements [INotifyPropertyChanged](https://docs.microsoft.com/en-us/dotnet/api/system.componentmodel.inotifypropertychanged?view=netframework-4.8) now.  
+В коде выше мы передаём аргумент в метод *ContainsComputing* как *IReadScalar&lt;Person&gt;* (а не как *Person* как в предудущем разделе). *Computing&lt;Person&gt;* реализует *IReadScalar&lt;Person&gt;*. *IReadScalar&lt;TValue&gt;* первоначально был упомянут в разделе ["Full list of methods and classes" section](#full-list-of-methods-and-classes). Как видите, если Вы хотите передать аргумент типа T как обозреваемый, Вы должны выполнить обычную передачу аргумента типа *IReadScalar&lt;T&gt;*. В этом случае используется другая перегруженная вервия метода *ContainsComputing*, в отличии от версии, которая использовалась в  [предыдущем разделе](#Passing-arguments-as-non-observables). Это даёт нам возможность следить за изменениями свойства *LoginManager.LoggedInPerson*. Теперь изменения свойства *LoginManager.LoggedInPerson* отражаются *isLoggedInPersonHockeyPlayer*. Обратите внимание на то, что теперь класс *LoginManager* реализует [INotifyPropertyChanged](https://docs.microsoft.com/en-us/dotnet/api/system.componentmodel.inotifypropertychanged?view=netframework-4.8).  
 
-Сode above can be shortened:  
+Код выше может быть укорочен:  
   ```csharp
 ContainsComputing<Person> isLoggedInPersonHockeyPlayer =
     hockeyTeam.ContainsComputing(() => loginManager.LoggedInPerson);
 ```
-Using this overloaded version of *ContainsComputing* method variables *loggedInPersonExpression* and *isLoggedInPersonHockeyPlayer* are no longer needed. This overloaded version of *ContainsComputing* method creates *Computing&lt;Person&gt;* behind the scene passing expression "*() => loginManager.LoggedInPerson*" to it.
+При использовании этой перегруженной версии метода *ContainsComputing*, переменные *loggedInPersonExpression* и *isLoggedInPersonHockeyPlayer* больше не нужны. Эта перегруженной версии метода *ContainsComputing* method creates *Computing&lt;Person&gt;* behind the scene passing expression "*() => loginManager.LoggedInPerson*" to it.
 
 Other shortened variant:
 

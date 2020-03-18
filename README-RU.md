@@ -664,10 +664,10 @@ public interface IReadScalar<out TValue> : System.ComponentModel.INotifyProperty
 
 Для всех вычислений имеющих параметры типа [INotifyCollectionChanged](https://docs.microsoft.com/en-us/dotnet/api/system.collections.specialized.inotifycollectionchanged?view=netframework-4.8) или *IReadScalar*&lt;[INotifyCollectionChanged](https://docs.microsoft.com/en-us/dotnet/api/system.collections.specialized.inotifycollectionchanged?view=netframework-4.8)&gt;: null значение параметра обрабатывается как пустая коллекция.
 
-## Passing arguments as non-observales and observables
-All the ObservableComputations extention methods arguments can be passed by two ways: as non-observables and observables.
+## Передача аргументов как обозреваемых и не обозреваемых
+Аргументы методов ObservableComputations могут быть переданы двуми путями: как обозреваемые и как не обозреваемые.
 
-### Passing arguments as non-observables
+### Передача аргументов как не обозреваемых
 ```csharp
 using System;
 using System.Collections.ObjectModel;
@@ -710,8 +710,7 @@ namespace ObservableComputationsExamples
 			LoginManager loginManager = new LoginManager();
 			loginManager.LoggedInPerson = allPersons[0];
 
-			//********************************************
-			// We start using ObservableComputations here!
+			// Здесь мы начинаем использовать ObservableComputations!
 			ContainsComputing<Person> isLoggedInPersonHockeyPlayer =
 			    hockeyTeam.ContainsComputing(loginManager.LoggedInPerson);
 
@@ -733,11 +732,11 @@ namespace ObservableComputationsExamples
 	}
 }
 ```
-In the code above we compute whether the logged in person is a hockey player. Expression "*loginManager.LoggedInPerson*" passed to *ContainsComputing* method is evaluated by ObservableComputations only once: when *ContainsComputing&lt;Person&gt;* class is instantiated (when ContainsComputing is called). If *LoggedInPerson* property changes, that change is not reflected in *isLoggedInPersonHockeyPlayer*. Of course, you can use more complex expression than "*loginManager.LoggedInPerson* for passing as an argument to any ObservableComputations extention method. As you see passing argument as non-observale of type T is ordinary way to pass argument of type T.
+В приведённом коде мы вычисляем является ли залогиненный пользователь хоккейным игроком. Выражение "*loginManager.LoggedInPerson*" переданное в метод *ContainsComputing*  вычисляется (оценивается) алгоритмами ObservableComputations только один раз: когда класс *ContainsComputing&lt;Person&gt;* инстанцируется (когда вызывается метод *ContainsComputing*). Если свойство *LoggedInPerson* меняется, это изменение не отражается в *isLoggedInPersonHockeyPlayer*. Конечно, Вы можете использовать более сложное выражение, чем "*loginManager.LoggedInPerson* для передачи как аргумента в любой метод ObservableComputations. Как видите передача аргумента типа T как не обозреваемого это обычная передача аргумента типа T.
 
-### Passing arguments as observables
+### Передача аргументов как обозреваемых
 
-In the previous section, we assumed that our application does not support logging out (and subsequent logging in), so that the *LoginManager.LoggedInPerson* property changes. Let us add logging out to our application:  
+В предыдущем примере, мы предпологали, что наше приложение не поддерживает logout (и последующий login). Другими словами приложение не обрабатывает изменения свойства *LoginManager.LoggedInPerson*. Давайте добавим функционалость logout в наше приложение:  
 ```csharp
 using System;
 using System.Collections.ObjectModel;
@@ -820,7 +819,7 @@ namespace ObservableComputationsExamples
 }
 ```
 
-In the code above we pass the argument to the *ContainsComputing* method as *IReadScalar&lt;Order&gt;* (not as *Order* as in the code in the previous section). *Computing&lt;Person&gt;* implements *IReadScalar&lt;Order&gt;*. *IReadScalar&lt;TValue&gt;* was originally mentioned in the ["Full list of methods and classes" section](#full-list-of-methods-and-classes). As you see if you want to pass argument of type T as observable you should perform ordinary argument passing of type *IReadScalar&lt;T&gt;*. Another overloaded version of *ContainsComputing* method is used than one in [the previous section](#Passing-arguments-as-non-observables). It gives us the opportunity to track changes of *LoginManager.LoggedInPerson* property. Now changes in the *LoginManager.LoggedInPerson* is reflected in *isLoggedInPersonHockeyPlayer*. Note than *LoginManager* class implements [INotifyPropertyChanged](https://docs.microsoft.com/en-us/dotnet/api/system.componentmodel.inotifypropertychanged?view=netframework-4.8) now.  
+В коде выше мы передаём аргумент в метод *ContainsComputing* как *IReadScalar&lt;Person&gt;* (а не как *Person* как в предудущем разделе). *Computing&lt;Person&gt;* реализует *IReadScalar&lt;Person&gt;*. *IReadScalar&lt;TValue&gt;* первоначально был упомянут в разделе ["Full list of methods and classes" section](#full-list-of-methods-and-classes). Как Вы видите, если Вы хотите передать аргумент типа T как обозреваемый, Вы должны выполнить обычную передачу аргумента типа *IReadScalar&lt;T&gt;*. В этом случае используется другая перегруженная вервия метода *ContainsComputing*, в отличии от версии, которая использовалась в  [предыдущем разделе](#Passing-arguments-as-non-observables). It gives us the opportunity to track changes of *LoginManager.LoggedInPerson* property. Now changes in the *LoginManager.LoggedInPerson* is reflected in *isLoggedInPersonHockeyPlayer*. Note than *LoginManager* class implements [INotifyPropertyChanged](https://docs.microsoft.com/en-us/dotnet/api/system.componentmodel.inotifypropertychanged?view=netframework-4.8) now.  
 
 Сode above can be shortened:  
   ```csharp

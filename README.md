@@ -249,17 +249,8 @@ public interface IReadScalar<out TValue> : System.ComponentModel.INotifyProperty
 ```
 *Value* property allows you to get current result of a computation. From code above you can see: *ScalarComputation&lt;TValue&gt;* allows you to observe the changes of the *Value* property through [PropertyChanged](https://docs.microsoft.com/en-us/dotnet/api/system.componentmodel.inotifypropertychanged.propertychanged?view=netframework-4.8) event of [INotifyPropertyChanged](https://docs.microsoft.com/en-us/dotnet/api/system.componentmodel.inotifypropertychanged?view=netframework-4.8) interface.
 
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
-
 
 <body>
-<style type="text/css">
-	body,div,table,thead,tbody,tfoot,tr,th,td,p { font-family:"Calibri"; font-size:x-small }
-	a.comment-indicator:hover + comment { background:#ffd; position:absolute; display:block; border:1px solid black; padding:0.5em;  } 
-	a.comment-indicator { background:red; display:inline-block; border:1px solid black; width:0.5em; height:0.5em;  } 
-	comment { display:none;  } 
-</style>
-
 <table cellspacing="0" border="0">
 	<colgroup width="267"></colgroup>
 	<colgroup width="233"></colgroup>

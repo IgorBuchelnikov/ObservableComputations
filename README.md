@@ -829,7 +829,7 @@ ContainsComputing<Person> isLoggedInPersonHockeyPlayer =
         Expr.Is(() => loginManager.LoggedInPerson).Computing());
 ```
 
-Original variant can be useful if you want reuse *loggedInPersonComputing* for other computations than *isLoggedInPersonHockeyPlayer*. All the shortened variants do not allow that. Shortened variants can be useful for the [expression-bodied properties and methods](https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/statements-expressions-operators/expression-bodied-members).
+Original variant can be useful if you want reuse *loggedInPersonComputing* for other computations than *isLoggedInPersonHockeyPlayer*. First shortened variant do not allow that. Shortened variants can be useful for the [expression-bodied properties and methods](https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/statements-expressions-operators/expression-bodied-members).
 
 Of course, you can use more complex expression than "*() => loginManager.LoggedInPerson* for passing as an argument to any ObservableComputations extension method.
 
@@ -2184,6 +2184,13 @@ namespace ObservableComputationsExamples
 
 Note that type of *RoomReservationManager._roomReservations* is changed to *ObservableCollection&lt;RoomReservation&gt;* and *RoomReservationManager.RoomReservations* member of type *System.Collections.ObjectModel.ReadOnlyObservableCollection&lt;RoomReservation&gt;* has been added.
 To expose private field use readonly property (with getter only).
+
+### Short your code
+See [here](#passing-argument-as-observable) and [here](passing-source-collection-argument-as-obserable).
+
+### Do not create extra variables
+See [here](variable-declaration-in-a-computations-chain)
+
 
 ## Applications of Using&lt;TResult&gt; extension method
 ### Clear expressions

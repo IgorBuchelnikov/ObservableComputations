@@ -828,7 +828,7 @@ ContainsComputing<Person> isLoggedInPersonHockeyPlayer =
 ```
 При использовании этой перегруженной версии метода *ContainsComputing*, переменные *loggedInPersonExpression* и *isLoggedInPersonHockeyPlayer* больше не нужны. Эта перегруженной версии метода *ContainsComputing* method creates *Computing&lt;Person&gt;* behind the scene passing expression "*() => loginManager.LoggedInPerson*" to it.
 
-Other shortened variant:
+Другой укороченный вариант:
 
 ```csharp
 ContainsComputing<Person> isLoggedInPersonHockeyPlayer =
@@ -836,9 +836,9 @@ ContainsComputing<Person> isLoggedInPersonHockeyPlayer =
         Expr.Is(() => loginManager.LoggedInPerson).Computing());
 ```
 
-Original variant can be useful if you want reuse *loggedInPersonComputing* for other comptations than *isLoggedInPersonHockeyPlayer*. All the shortened variants do not allow that. Shortened variants can be usefull for the [expression-bodied properties and methods](https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/statements-expressions-operators/expression-bodied-members).
+Первоначальный вариант может быть полезен, если Вы хотите переиспользовать *loggedInPersonComputing* для друих вычислений помимо *isLoggedInPersonHockeyPlayer*. Первый укороченный вариант не позволяет этого. Укороченные варианты могут быть полезны для [expression-bodied properties and methods](https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/statements-expressions-operators/expression-bodied-members).
 
-Of course, you can use more complex expression than "*() => loginManager.LoggedInPerson* for passing as an argument to any ObservableComputations extention method.
+Конечно, вы можете использовать более сложное выражение чем "*() => loginManager.LoggedInPerson* для передачи в качестве аргумента в любой extention метод ObservableComputations.
 
 ### Passing source collection argument as obserable
 As you see all calls of [LINQ](https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/concepts/linq/) like extention methods generically can be presented as
@@ -2191,6 +2191,12 @@ namespace ObservableComputationsExamples
 
 Note that type of *RoomReservationManager._roomReservations* is changed to *ObservableCollection&lt;RoomReservation&gt;* and *RoomReservationManager.RoomReservations* member of type *System.Collections.ObjectModel.ReadOnlyObservableCollectionn&lt;RoomReservation&gt;* has been added.
 To expose private field use readonly property (with getter only).
+
+### Short your code
+See [here](#passing-argument-as-observable) and [here](passing-source-collection-argument-as-obserable).
+
+### Do not create extra variables
+See [here](variable-declaration-in-a-computations-chain)
 
 ## Applications of Using&lt;TResult&gt; extention method
 ### Clear expressions

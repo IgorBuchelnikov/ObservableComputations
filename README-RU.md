@@ -1178,7 +1178,7 @@ namespace ObservableComputationsExamples
 
 Свойства аналогичные *InsertItemAction* существуют и для других операций ([remove](https://docs.microsoft.com/en-us/dotnet/api/system.collections.generic.icollection-1.remove?view=netframework-4.8), [set (replace)](https://docs.microsoft.com/en-us/dotnet/api/system.collections.objectmodel.collection-1.item?view=netframework-4.8#System_Collections_ObjectModel_Collection_1_Item_System_Int32_), [move](https://docs.microsoft.com/en-us/dotnet/api/system.collections.objectmodel.observablecollection-1.move?view=netframework-4.8), [clear](https://docs.microsoft.com/en-us/dotnet/api/system.collections.generic.icollection-1.clear?view=netframework-4.8)) и для установки значения свойства *ScalarComputing&lt;TValue&gt;.Value* (see  ["Full list of methods and classes" section](#full-list-of-methods-and-classes)).
 
-## Свойство IsConsistent property and inconsistency exception
+## Свойство IsConsistent и исключение при нарушении целостности
 Сценарий описанный в этом разделе очень специфичен. Возможно Вы никогда его не встретите. Однако если Вы хотите быть полностью готовыми прочтите его. Рассмотрим следующий код:
 ```csharp
 using System;
@@ -1247,11 +1247,13 @@ namespace ObservableComputationsExamples
 }
 ```
 
-In the code above we have collection of relations. That collection has redundancy: if the collection contains relations A to B as parent, it must contain corresponding relation: B to A as child, and vise versa. Also we have computed collection of ordered relations. Our task is to support integrity of relations collection: if someone changes it we have to react so the collection restores integrity. Imagine that the only way to do it is to subscribe to CollectionChanged event of ordered relations collection (for some reason we cannot subscribe to CollectionChanged event of source relations collection). In the code above we consider only one type of change: Replace.
-Code above does not work: line "*relations.Remove(new Relation{From = oldItem.To, To = oldItem.From, Type = invertRelationType(oldItem.Type)});*" throws:
+В коде у нас есть коллекция отношений: *relations*. Коллекция имеет избыточность: если коллекция имеет отношение  A к B типа "Родитель", она должна содержать соответствующее отношение: B к A типа "Ребёнок", и наобарот. Также мы имеем вычисляемую упорядоченную  коллекцию отношений *orderedRelations*. Наша задачу поддержать целостность коллекции тношений: если кто-то меняет мы должны отреагировать и восстановить целостность. Представьте, что единственным способом сделать является подписка на событие CollectionChanged коллекци *orderedRelations* (по каким-то причинам мы не можем подписаться на событие CollectionChanged коллекции *relations*). В коде выше мы предпологаем только один тип изменеий: Replace.
+Код выше не работает: строка "*relations.Remove(new Relation{From = oldItem.To, To = oldItem.From, Type = invertRelationType(oldItem.Type)});*" выбрасывает:
 > ObservableComputations.Common.ObservableComputationsException: 'The source collection has been changed. It is not possible to process this change, as the processing of the previous change is not completed. Make the change on ConsistencyRestored event raising (after Consistent property becomes true). This exception is fatal and cannot be handled as the inner state is damaged.'
 
-Why? When an item is replaced in the source collection, the ordered collection produces not only a replacement, but also an additional subsequent movement of the item to maintain order. After replacement and prior to movement, the ordered collection is in an inconsistent state and so cannot process any other source collection change. Here is fixed code:  
+> ObservableComputations.Common.ObservableComputationsException: 'Коллекция источник была изменена. Невозможно обработать это измение, так как обработка предыдущего изменения не завершена. Сделайте это изменение после возниковения события ConsistencyRestored (после того как Consistent станет равным true). Это исключение фотально и не может быть обработано, так как внутреннее состояние повреждено.'
+
+Почему? Когда в коллекции *relations* заменяется элемент, коллекция *orderedRelations* производит не только замену, но и, дополнительно, последующе перемещение элемента, для того, чтобы поддержать порядок. После замены и перед перемещением,  коллекция *orderedRelations* не находится вцелостном состоянии и поэтому не может обрабатываеть любые другие изменения в коллекции *relations*. Вот исправленный код:  
   
 ```csharp
 using System;
@@ -1324,8 +1326,8 @@ namespace ObservableComputationsExamples
 	}
 }
 ```
-In the fixed code, we defer restoration of integrity of the source collection until ConsistencyRestored event of the ordered collection occurs. 
-For the sake of simplification we don't unsubscribe from ConsistencyRestored event, so we accumulate ConsistencyRestored event handlers. To fix it we can do unsubscribe from ConsistencyRestored event manually or use [Reactive Extensions](https://github.com/dotnet/reactive):
+В исправленном коде, мы откладываем восстановление целостности коллекции *relations* пока не произойжёт событие ConsistencyRestored коллекции *orderedRelations*. 
+Для упрощения мы не отписываемся от события ConsistencyRestored, поэтому мы будем накапливать обработчики события ConsistencyRestoreds. Для того чтобы исравить это мы должны вручную отписываться от события ConsistencyRestored или использовать [Reactive Extensions](https://github.com/dotnet/reactive):
 
 ```csharp
 using System;
@@ -1391,12 +1393,14 @@ namespace ObservableComputationsExamples
 }
 ```
 
-## Debuging
+Отладка исключения при нарушении целостности описана [здесь](#inconsistency-exception).
 
-### User code: selectors, predicates, arbitary expressions, modification handlers, CollectionChanged and PropertyChanged handlers
-Selectors are expressions that are passed as an argument to the following extention methods: Selecting, SelectingMany, Grouping, GroupJoining, Dictionaring, Hashing, Ordering, ThenOrdering, PredicateGroupJoining. Predicates are expressions that are passed as an argument to Filtering extention method. Arbitary expressions are expressions that are passed as argument to Computing and Using extention methods. Modification handlers was described in the ["Modifing computations"](#Modifing-computations). CollectionChanged and PropertyChanged handlers are handlers for [CollectionChanged](https://docs.microsoft.com/en-us/dotnet/api/system.collections.specialized.inotifycollectionchanged.collectionchanged?view=netframework-4.8) and [PropertyChanged](https://docs.microsoft.com/en-us/dotnet/api/system.componentmodel.inotifypropertychanged.propertychanged?view=netframework-4.8) events respectively.
+## Отладка
 
-Here is the code illustrating debugging of arbitrary expressions (other types of code can be debuged by the same way):
+### Пользовательский код: селекторы, предикаты, произвольные выраженения, обработчики изменений, обработчики событий [CollectionChanged](https://docs.microsoft.com/en-us/dotnet/api/system.collections.specialized.inotifycollectionchanged.collectionchanged?view=netframework-4.8) и [PropertyChanged](https://docs.microsoft.com/en-us/dotnet/api/system.componentmodel.inotifypropertychanged.propertychanged?view=netframework-4.8)
+Селекторы это выражения, которые предаются в качестве аргумента в следуюшие методы расширения: Selecting, SelectingMany, Grouping, GroupJoining, Dictionaring, Hashing, Ordering, ThenOrdering, PredicateGroupJoining. Предикаты это выражения, которые предаются в качестве аргумента в метод расширения Filtering. Произвольные выражения это выражения, которые предаются в качестве аргумента в методы расширения Computing и Using. Обработчики изменений описаны в ["Modifing computations"](#Modifing-computations).
+
+Вот код иллюстрирующий отладку произвольного выражения (другие типы могут быть отлажены аналочным образом):
 
 ```csharp
 using System;
@@ -1450,15 +1454,14 @@ namespace ObservableComputationsExamples
 }
 ```
 
-As you see *exception.StackTrace* points to line caused the exception: *valueProvider.Value = new Random().Next(0, 1);*. That line doesn't point us to computation which caused the exception: *computing1* or *computing2*. To determine computation which caused the exception we should examine *DebugInfo.ComputingsExecutingUserCode[Thread.CurrentThread].InstantiatingStackTrace* property. That property contains stack trace of instantiating of the computation. By default ObservableComputations doesn't save stack traces of instantiating of computations for perfomance reasons. To save that stack traces use *Configuration.SaveInstantiatingStackTrace* property. By default ObservableComputations doesn't track computations executing user code (selectors, predicates arbitary expressions and modification handlers) for perfomance reasons. To track computations executing user code use *Configuration.TrackComputingsExecutingUserCode* property.
+Как Вы видите *exception.StackTrace* указывает на строку, которая вызвала исключение: *valueProvider.Value = new Random().Next(0, 1);*. Эта строка не указывает на вычисление, которое вызвало исключение: *computing1* or *computing2*. Чтобы определить исключение, которое вызвало исключение мы должны взглянуть на свойство *DebugInfo.ComputingsExecutingUserCode[Thread.CurrentThread].InstantiatingStackTrace*. Это свойство содержит трассировку стека инстанцирования вычисления. По умолчанию ObservableComputations не сохранияет трассировки стека инстанцирования вычислений по соображениям производительности. Чтобы сохранять эти трассирвки стека используйте свойство *Configuration.SaveInstantiatingStackTrace*. По умолчанию ObservableComputations не следит за вычислениями выполняющими пользовательский код по соображениям производительности. Для того чтобы следить за вычислениями выполняющими пользовательский код используйте свойство *Configuration.TrackComputingsExecutingUserCode*.
 
-All unhandled exceptions thrown in the user code are fatal, as the internal state of the computations becomes damaged. Pay attention to null checks.
+Все необработанные исключения выброшенные в пользовательском коде фотальны, так как внутреннее состояние вычисление становится повреждённым. Обратите внимание на проверки на null.
 
+### Исключение при нарушении целостности
 
-### Inconsistency exception
-
-Inconsistency exception was described in the ["IsConsistent property and inconsistency exception"](#IsConsistent-property-and-inconsistency-exception).
-In the following example, we are trying to make discount on expensive orders: we truncate order price to the lowest value, a multiple of one hundred:
+Исключение при нарушении целостности было описано в разделе ["IsConsistent property and inconsistency exception"](#IsConsistent-property-and-inconsistency-exception).
+В следующем примере, мы пытаемся сделать скидку для дорогих заказов: мы уменьшаем цену заказа до минимального значения, кратного сотне:
 
 ```csharp
 using System;
@@ -1526,7 +1529,7 @@ namespace ObservableComputationsExamples
 }
 ```
 
-As you see *exception.StackTrace* points to line caused the exception: *orders.Add(new Order(){Price = 35397});*. That line doesn't point us to computation which caused the exception: *ordinaryOrders* or *expensiveOrders*. To determine computation which caused the exception we should examine *exception.Computing.InstantiatingStackTrace* property. That property contains stack trace of instantiating of the computation. By default ObservableComputations doesn't save stack traces of instantiating of computation for perfomance reasons. To save that stack traces use *Configuration.SaveInstantiatingStackTrace* property.
+Как Вы видите *exception.StackTrace* указывает на строку, которая вызвала исключение: *orders.Add(new Order(){Price = 35397});*. Эта строка не указывает на вычисление, которое вызвало исключение: *ordinaryOrders* or *expensiveOrders*. Чтобы определить исключение, которое вызвало исключение мы должны взглянуть на свойство *exception.Computing.InstantiatingStackTrace*. Это свойство содержит трассировку стека инстанцирования вычисления. По умолчанию ObservableComputations не сохранияет трассировки стека инстанцирования вычислений по соображениям производительности. Чтобы сохранять эти трассирвки стека используйте свойство *Configuration.SaveInstantiatingStackTrace*.
 
 
 

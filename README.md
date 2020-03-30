@@ -1239,11 +1239,11 @@ namespace ObservableComputationsExamples
 }
 ```
 
-In the code above we have collection of relations. That collection has redundancy: if the collection contains relations A to B as parent, it must contain corresponding relation: B to A as child, and vise versa. Also we have computed collection of ordered relations. Our task is to support integrity of relations collection: if someone changes it we have to react so the collection restores integrity. Imagine that the only way to do it is to subscribe to CollectionChanged event of ordered relations collection (for some reason we cannot subscribe to CollectionChanged event of source relations collection). In the code above we consider only one type of change: Replace.
+In the code above we have collection of relations: *relations*. That collection has redundancy: if the collection contains relation A to B as parent, it must contain corresponding relation: B to A as child, and vise versa. Also we have computed collection of ordered relations: *orderedRelations*. Our task is to support integrity of relations collection: if someone changes it we have to react so the collection restores integrity. Imagine that the only way to do it is to subscribe to CollectionChanged event of *orderedRelations* collection (for some reason we cannot subscribe to CollectionChanged event of *relations* collection). In the code above we consider only one type of change: Replace.
 Code above does not work: line "*relations.Remove(new Relation{From = oldItem.To, To = oldItem.From, Type = invertRelationType(oldItem.Type)});*" throws:
 > ObservableComputations.Common.ObservableComputationsException: 'The source collection has been changed. It is not possible to process this change, as the processing of the previous change is not completed. Make the change on ConsistencyRestored event raising (after Consistent property becomes true). This exception is fatal and cannot be handled as the inner state is damaged.'
 
-Why? When an item is replaced in the source collection, the ordered collection produces not only a replacement, but also an additional subsequent movement of the item to maintain order. After replacement and prior to movement, the ordered collection is in an inconsistent state and so cannot process any other source collection change. Here is fixed code:  
+Why? When an item is replaced in *relations* collection, *orderedRelations* collection produces not only a replacement, but also an additional subsequent movement of the item to maintain order. After replacement and prior to movement, *orderedRelations* is in an inconsistent state and so cannot process any other source collection change. Here is fixed code:  
   
 ```csharp
 using System;
@@ -1316,7 +1316,7 @@ namespace ObservableComputationsExamples
 	}
 }
 ```
-In the fixed code, we defer restoration of integrity of the source collection until ConsistencyRestored event of the ordered collection occurs. 
+In the fixed code, we defer restoration of integrity of *relations* collection until ConsistencyRestored event of *orderedRelations* collection occurs. 
 For the sake of simplification we don't unsubscribe from ConsistencyRestored event, so we accumulate ConsistencyRestored event handlers. To fix it we can do unsubscribe from ConsistencyRestored event manually or use [Reactive Extensions](https://github.com/dotnet/reactive):
 
 ```csharp
@@ -1383,9 +1383,11 @@ namespace ObservableComputationsExamples
 }
 ```
 
+Debuging of inconsistency exception described [here](#inconsistency-exception).
+
 ## Debugging
 
-### User code: selectors, predicates, arbitrary expressions, modification handlers, CollectionChanged and PropertyChanged handlers
+### User code: selectors, predicates, arbitrary expressions, modification handlers, [CollectionChanged](https://docs.microsoft.com/en-us/dotnet/api/system.collections.specialized.inotifycollectionchanged.collectionchanged?view=netframework-4.8) and [PropertyChanged](https://docs.microsoft.com/en-us/dotnet/api/system.componentmodel.inotifypropertychanged.propertychanged?view=netframework-4.8) handlers
 Selectors are expressions that are passed as an argument to the following extension methods: Selecting, SelectingMany, Grouping, GroupJoining, Dictionaring, Hashing, Ordering, ThenOrdering, PredicateGroupJoining. Predicates are expressions that are passed as an argument to Filtering extension method. Arbitrary expressions are expressions that are passed as argument to Computing and Using extension methods. Modification handlers was described in the ["Modifying computations"](#Modifying-computations). CollectionChanged and PropertyChanged handlers are handlers for [CollectionChanged](https://docs.microsoft.com/en-us/dotnet/api/system.collections.specialized.inotifycollectionchanged.collectionchanged?view=netframework-4.8) and [PropertyChanged](https://docs.microsoft.com/en-us/dotnet/api/system.componentmodel.inotifypropertychanged.propertychanged?view=netframework-4.8) events respectively.
 
 Here is the code illustrating debugging of arbitrary expressions (other types of code can be debugged by the same way):
@@ -1442,14 +1444,14 @@ namespace ObservableComputationsExamples
 }
 ```
 
-As you see *exception.StackTrace* points to line caused the exception: *valueProvider.Value = new Random().Next(0, 1);*. That line doesn't point us to computation which caused the exception: *computing1* or *computing2*. To determine computation which caused the exception we should examine *DebugInfo.ComputingsExecutingUserCode[Thread.CurrentThread].InstantiatingStackTrace* property. That property contains stack trace of instantiating of the computation. By default ObservableComputations doesn't save stack traces of instantiating of computations for performance reasons. To save that stack traces use *Configuration.SaveInstantiatingStackTrace* property. By default ObservableComputations doesn't track computations executing user code (selectors, predicates arbitrary expressions and modification handlers) for performance reasons. To track computations executing user code use *Configuration.TrackComputingsExecutingUserCode* property.
+As you see *exception.StackTrace* points to line caused the exception: *valueProvider.Value = new Random().Next(0, 1);*. That line doesn't point us to computation which caused the exception: *computing1* or *computing2*. To determine computation which caused the exception we should look at *DebugInfo.ComputingsExecutingUserCode[Thread.CurrentThread].InstantiatingStackTrace* property. That property contains stack trace of instantiating of the computation. By default ObservableComputations doesn't save stack traces of instantiating of computations for performance reasons. To save that stack traces use *Configuration.SaveInstantiatingStackTrace* property. By default ObservableComputations doesn't track computations executing user code for performance reasons. To track computations executing user code use *Configuration.TrackComputingsExecutingUserCode* property.
 
 All unhanded exceptions thrown in the user code are fatal, as the internal state of the computations becomes damaged. Pay attention to null checks.
 
 
 ### Inconsistency exception
 
-Inconsistency exception was described in the ["IsConsistent property and inconsistency exception"](#IsConsistent-property-and-inconsistency-exception).
+Inconsistency exception was described in the ["IsConsistent property and inconsistency exception"](#IsConsistent-property-and-inconsistency-exception) section.
 In the following example, we are trying to make discount on expensive orders: we truncate order price to the lowest value, a multiple of one hundred:
 
 ```csharp
@@ -1518,7 +1520,7 @@ namespace ObservableComputationsExamples
 }
 ```
 
-As you see *exception.StackTrace* points to line caused the exception: *orders.Add(new Order(){Price = 35397});*. That line doesn't point us to computation which caused the exception: *ordinaryOrders* or *expensiveOrders*. To determine computation which caused the exception we should examine *exception.Computing.InstantiatingStackTrace* property. That property contains stack trace of instantiating of the computation. By default ObservableComputations doesn't save stack traces of instantiating of computation for performance reasons. To save that stack traces use *Configuration.SaveInstantiatingStackTrace* property.
+As you see *exception.StackTrace* points to line caused the exception: *orders.Add(new Order(){Price = 35397});*. That line doesn't point us to computation which caused the exception: *ordinaryOrders* or *expensiveOrders*. To determine computation which caused the exception we should look at *exception.Computing.InstantiatingStackTrace* property. That property contains stack trace of instantiating of the computation. By default ObservableComputations doesn't save stack traces of instantiating of computation for performance reasons. To save that stack traces use *Configuration.SaveInstantiatingStackTrace* property.
 
 
 

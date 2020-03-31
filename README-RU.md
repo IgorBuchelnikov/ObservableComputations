@@ -1531,9 +1531,7 @@ namespace ObservableComputationsExamples
 
 Как Вы видите *exception.StackTrace* указывает на строку, которая вызвала исключение: *orders.Add(new Order(){Price = 35397});*. Эта строка не указывает на вычисление, которое вызвало исключение: *ordinaryOrders* or *expensiveOrders*. Чтобы определить исключение, которое вызвало исключение мы должны взглянуть на свойство *exception.Computing.InstantiatingStackTrace*. Это свойство содержит трассировку стека инстанцирования вычисления. По умолчанию ObservableComputations не сохранияет трассировки стека инстанцирования вычислений по соображениям производительности. Чтобы сохранять эти трассирвки стека используйте свойство *Configuration.SaveInstantiatingStackTrace*.
 
-
-
-## Additional events for changes handling: PreCollectionChanged, PreValueChanged, PostCollectionChanged, PostValueChanged
+## Дополнительные события для обработки изменений: PreCollectionChanged, PreValueChanged, PostCollectionChanged, PostValueChanged
 ```csharp
 using System;
 using System.ComponentModel;
@@ -1602,15 +1600,15 @@ namespace ObservableComputationsExamples
 }
 ```
 
-Code above has following output:
+Код sdit имеет следущий вывод:
 > Your order price is ₽100
 
-Although we could expect:  
+Хотя мы могли ожидать:  
 > Your order price is ₽100. You have a discount! Therefore your price is ₽90!
 
-Why? We subscribe to *priceDiscounted.PropertyChanged* before *messageForUser* does it. Handlers are invoked in the order of subscriptions (it is implementataion detail of .NET). So we read *messageForUser.Value* before *messageForUser* handles change of *order.Discount*.
+Почему? Мы подписались на событие *priceDiscounted.PropertyChanged* перед тем как *messageForUser* сделал это. Обработчики событий вызываются в порядке подписки (это деталь реализации .NET). Поэтому мы считываем *messageForUser.Value* перед тем как *messageForUser* обрабатывает изменение *order.Discount*.
 
-Here is the fixed code:
+Вот исправленный код:
 ```csharp
 using System;
 using System.ComponentModel;
@@ -1679,16 +1677,16 @@ namespace ObservableComputationsExamples
 }
 ```
 
-Instead of  *priceDiscounted.PropertyChanged* we subscribe to *priceDiscounted.PostValueChanged*. That event is raised after *PropertyChanged*, so we can sure: all the dependant computations have refreshed their values. *PostValueChanged* is declared in *ScalarComputing&lt;TValue&gt;*. *Computing&lt;string&gt;* inherits *ScalarComputing&lt;TValue&gt;*. *ScalarComputing&lt;TValue&gt;* is mentioned [here](#full-list-of-methods-and-classes) for the first time. *ScalarComputing&lt;TValue&gt;* contains *PreValueChanged* event. That event allow you see state of the all computations before a change. If you want handle property change of your object (not of computation as in previous example) and that handle reads dependant computations (similarly to previous example) you should define and raise new event by yourselve.
+Вместо *priceDiscounted.PropertyChanged* мы подписываемся на *priceDiscounted.PostValueChanged*. Это событие возниккает после *PropertyChanged*, поэтому мы можем быть уверены: все зависимые вычисления обновили свои значения. *PostValueChanged* объявлено в *ScalarComputing&lt;TValue&gt;*. *Computing&lt;string&gt;* наследует *ScalarComputing&lt;TValue&gt;*. *ScalarComputing&lt;TValue&gt;* впервые упомянут [здесь](#full-list-of-methods-and-classes). *ScalarComputing&lt;TValue&gt;* сожержит событие *PreValueChanged*. Это событие позволяет посмотреть состояние вычислений до изменения. Если вы хотите обрабатывать событие изменения свойства Вашего объекта (не вычисления как в предыдущем примере) и обработчик читает зависимые вычисления (подобно предыдущему примеру) Вы должны определить своё событие и вызывать его.
 
-*CollectionComputing&lt;TItem&gt;* contains *PreCollectionChanged* and *PostCollectionChanged* events. *CollectionComputing&lt;TItem&gt;* is mentioned [here](#full-list-of-methods-and-classes) for the first time. If you want handle collection change of your collection (not of computed collection) and that handle reads dependant computations you may use *ObservableCollectionExtended&lt;TItem&gt;*. That class inherits [*ObservableCollection&lt;TItem&gt;*](https://docs.microsoft.com/en-us/dotnet/api/system.collections.objectmodel.observablecollection-1?view=netframework-4.8) and contains *PreCollectionChanged* and *PostCollectionChanged* events. Also you can use *Extending* extention method. That mathod creates *ObservableCollectionExtended&lt;TItem&gt;* from [*ObservableCollection&lt;TItem&gt;*](https://docs.microsoft.com/en-us/dotnet/api/system.collections.objectmodel.observablecollection-1?view=netframework-4.8).
+*CollectionComputing&lt;TItem&gt;* содержит события *PreCollectionChanged* и *PostCollectionChanged*. *CollectionComputing&lt;TItem&gt;* впервые упомянут [здесь](#full-list-of-methods-and-classes). Если Вы хотите обрабатываеть событие изменения Вашей коллекции, реализующей [INotifyCollectionChanged](https://docs.microsoft.com/en-us/dotnet/api/system.collections.specialized.inotifycollectionchanged?view=netframework-4.8) (не вычисляемой коллекции, например, [*ObservableCollection&lt;TItem&gt;*](https://docs.microsoft.com/en-us/dotnet/api/system.collections.objectmodel.observablecollection-1?view=netframework-4.8) и обработчик читает зависимые вычисления Вы можете использовать *ObservableCollectionExtended&lt;TItem&gt;* вместо Вашей коллекции. Этот класс наследует [*ObservableCollection&lt;TItem&gt;*](https://docs.microsoft.com/en-us/dotnet/api/system.collections.objectmodel.observablecollection-1?view=netframework-4.8) и содержит события *PreCollectionChanged* и *PostCollectionChanged* . Также Вы можете оспользовать метод расширения *Extending*. Этот метод создаёт *ObservableCollectionExtended&lt;TItem&gt;* из [INotifyCollectionChanged](https://docs.microsoft.com/en-us/dotnet/api/system.collections.specialized.inotifycollectionchanged?view=netframework-4.8).
 
-## Thread Safety
-[*CollectionComputing&lt;TSourceItem&gt;*](#full-list-of-methods-and-classes) and [*ScalarComputing&lt;TSourceItem&gt;*](#full-list-of-methods-and-classes)
+## Потокобезопасность
+[*CollectionComputing&lt;TSourceItem&gt;*](#full-list-of-methods-and-classes) и [*ScalarComputing&lt;TSourceItem&gt;*](#full-list-of-methods-and-classes)
 
-* can support multiple readers concurrently, as long as they are not modified. 
-* doesn't support multiple writers concurrently. 
-* are modified while they handles [CollectionChanged](https://docs.microsoft.com/en-us/dotnet/api/system.collections.specialized.inotifycollectionchanged.collectionchanged?view=netframework-4.8) and [PropertyChanged](https://docs.microsoft.com/en-us/dotnet/api/system.componentmodel.inotifypropertychanged.propertychanged?view=netframework-4.8) events of source objects.
+* поддерживают несколько читателей одновременно, пока коллекция не изменяется. 
+* не подерживают несколько одновренных писателей. 
+* изменяются когда обрабатывают события [CollectionChanged](https://docs.microsoft.com/en-us/dotnet/api/system.collections.specialized.inotifycollectionchanged.collectionchanged?view=netframework-4.8) и [PropertyChanged](https://docs.microsoft.com/en-us/dotnet/api/system.componentmodel.inotifypropertychanged.propertychanged?view=netframework-4.8) объектов источников.
 
 ## Tracking changes in a method return value
 Before now we saw how ObservableComputations tracks changes in property values and collections via [PropertyChanged](https://docs.microsoft.com/en-us/dotnet/api/system.componentmodel.inotifypropertychanged.propertychanged?view=netframework-4.8) and [CollectionChanged](https://docs.microsoft.com/en-us/dotnet/api/system.collections.specialized.inotifycollectionchanged.collectionchanged?view=netframework-4.8) events. ObservableComputations inroduces new interface and event for tracking сhanges in a method return value: *INotifyMethodChanged* interface and *MethodChanged* event. Here is example:
@@ -2448,8 +2446,6 @@ namespace ObservableComputationsExamples
 }
 ```
 Code above has no output, as changes of return value of *GetValue* mathod cannot be tracked. Here is the fixed code:
-
-
 
 ```csharp
 using System;

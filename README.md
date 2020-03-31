@@ -1599,7 +1599,7 @@ Code above has following output:
 Although we could expect:  
 > Your order price is ₽100. You have a discount! Therefore your price is ₽90!
 
-Why? We subscribe to *priceDiscounted.PropertyChanged* before *messageForUser* does it. Handlers are invoked in the order of subscriptions (it is implementation detail of .NET). So we read *messageForUser.Value* before *messageForUser* handles change of *order.Discount*.
+Why? We subscribe to *priceDiscounted.PropertyChanged* before *messageForUser* does it. Event handlers are invoked in the order of subscriptions (it is implementation detail of .NET). So we read *messageForUser.Value* before *messageForUser* handles change of *order.Discount*.
 
 Here is the fixed code:
 ```csharp
@@ -1670,14 +1670,14 @@ namespace ObservableComputationsExamples
 }
 ```
 
-Instead of  *priceDiscounted.PropertyChanged* we subscribe to *priceDiscounted.PostValueChanged*. That event is raised after *PropertyChanged*, so we can sure: all the dependent computations have refreshed their values. *PostValueChanged* is declared in *ScalarComputing&lt;TValue&gt;*. *Computing&lt;string&gt;* inherits *ScalarComputing&lt;TValue&gt;*. *ScalarComputing&lt;TValue&gt;* is mentioned [here](#full-list-of-methods-and-classes) for the first time. *ScalarComputing&lt;TValue&gt;* contains *PreValueChanged* event. That event allow you see state of the all computations before a change. If you want handle property change of your object (not of computation as in previous example) and that handle reads dependent computations (similarly to previous example) you should define and raise new event by yourselves.
+Instead of  *priceDiscounted.PropertyChanged* we subscribe to *priceDiscounted.PostValueChanged*. That event is raised after *PropertyChanged*, so we can sure: all the dependent computations have refreshed their values. *PostValueChanged* is declared in *ScalarComputing&lt;TValue&gt;*. *Computing&lt;string&gt;* inherits *ScalarComputing&lt;TValue&gt;*. *ScalarComputing&lt;TValue&gt;* is mentioned [here](#full-list-of-methods-and-classes) for the first time. *ScalarComputing&lt;TValue&gt;* contains *PreValueChanged* event. That event allow you see state of the all computations before a change.
 
-*CollectionComputing&lt;TItem&gt;* contains *PreCollectionChanged* and *PostCollectionChanged* events. *CollectionComputing&lt;TItem&gt;* is mentioned [here](#full-list-of-methods-and-classes) for the first time. If you want handle collection change of your collection (not of computed collection) and that handle reads dependent computations you may use *ObservableCollectionExtended&lt;TItem&gt;*. That class inherits [*ObservableCollection&lt;TItem&gt;*](https://docs.microsoft.com/en-us/dotnet/api/system.collections.objectmodel.observablecollection-1?view=netframework-4.8) and contains *PreCollectionChanged* and *PostCollectionChanged* events. Also you can use *Extending* extension method. That method creates *ObservableCollectionExtended&lt;TItem&gt;* from [*ObservableCollection&lt;TItem&gt;*](https://docs.microsoft.com/en-us/dotnet/api/system.collections.objectmodel.observablecollection-1?view=netframework-4.8).
+*CollectionComputing&lt;TItem&gt;* contains *PreCollectionChanged* and *PostCollectionChanged* events. *CollectionComputing&lt;TItem&gt;* is mentioned [here](#full-list-of-methods-and-classes) for the first time. If you want handle collection change of your collection  that implements [INotifyCollectionChanged](https://docs.microsoft.com/en-us/dotnet/api/system.collections.specialized.inotifycollectionchanged?view=netframework-4.8) (not of computed collection, for example [*ObservableCollection&lt;TItem&gt;*](https://docs.microsoft.com/en-us/dotnet/api/system.collections.objectmodel.observablecollection-1?view=netframework-4.8)) and that handle reads dependent computations you may use *ObservableCollectionExtended&lt;TItem&gt;*. That class inherits [*ObservableCollection&lt;TItem&gt;*](https://docs.microsoft.com/en-us/dotnet/api/system.collections.objectmodel.observablecollection-1?view=netframework-4.8) and contains *PreCollectionChanged* and *PostCollectionChanged* events. Also you can use *Extending* extension method. That method creates *ObservableCollectionExtended&lt;TItem&gt;* from [INotifyCollectionChanged](https://docs.microsoft.com/en-us/dotnet/api/system.collections.specialized.inotifycollectionchanged?view=netframework-4.8).
 
-## Thread Safety
+## Thread safety
 [*CollectionComputing&lt;TSourceItem&gt;*](#full-list-of-methods-and-classes) and [*ScalarComputing&lt;TSourceItem&gt;*](#full-list-of-methods-and-classes)
 
-* can support multiple readers concurrently, as long as they are not modified. 
+* supports multiple readers concurrently, as long there is not changes. 
 * doesn't support multiple writers concurrently. 
 * are modified while they handles [CollectionChanged](https://docs.microsoft.com/en-us/dotnet/api/system.collections.specialized.inotifycollectionchanged.collectionchanged?view=netframework-4.8) and [PropertyChanged](https://docs.microsoft.com/en-us/dotnet/api/system.componentmodel.inotifypropertychanged.propertychanged?view=netframework-4.8) events of source objects.
 

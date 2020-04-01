@@ -1805,12 +1805,12 @@ args =>
       && roomReservation.From < dateTime && dateTime < roomReservation.To;
 }
 ```
-That property defines what values should have arguments in a method call so that value of that call  changes.
+That property defines what values should have arguments in a method call so that return value of that call changes.
 
-ATTENTION: Code example given in this section is not a standard, it is rather an antipattern: it contains code duplication and changes of properties of RoomReservation class is not tracked.  That code is given only for demonstration of tracking changes in a method return value. See fixed code [here](#use-readonly-structures-to-expose-encapsulated-private-members).
+ATTENTION: Code example given in this section is not a disign standard, it is rather an antipattern: it contains code duplication and changes of properties of *RoomReservation* class is not tracked.  That code is given only for demonstration of tracking changes in a method return value. See fixed code [here](#use-readonly-structures-to-expose-encapsulated-private-members).
 
 ## Performance tips
-### Avoid nested parameter dependent computations
+### Avoid nested parameter dependent computations on big data
 ```csharp
 using System;
 using System.Collections.ObjectModel;
@@ -2042,12 +2042,12 @@ sinComputing: 0,5 <br>
 sinComputing: -0,5 <br>
 differingSinComputing: -0,5 <br>
 
-Sometimes handling of every [PropertyChanged](https://docs.microsoft.com/en-us/dotnet/api/system.componentmodel.inotifypropertychanged.propertychanged?view=netframework-4.8) events is long-time and may freeze UI (rerendering, recomputing). Use Differing extension method to decrease that effect.
+Sometimes handling of every [PropertyChanged](https://docs.microsoft.com/en-us/dotnet/api/system.componentmodel.inotifypropertychanged.propertychanged?view=netframework-4.8) events is long-time and may freeze UI (rerendering, recomputing). Use *Differing* extension method to decrease that effect.
 
 ## Design tips
 
 ### Lazy initialized computation
-If some computation is needed only for particular scenarios lazy initialized computation is advisable. Here is an example:  
+If some computation is needed only for particular scenarios or you want delay initialization until the computation becomes needed, lazy initialized computation is advisable. Here is an example:  
   
 ```csharp
 private Computing<string> _valueComputing;
@@ -2055,8 +2055,8 @@ public Computing<string> ValueComputing => _valueComputing =
    _valueComputing ?? new Computing<string>(() => Value);
 ```
 
-### Use readonly structures to expose encapsulated private members
-Code example given in ["Tracking changes in a method return value" section ](#tracking-changes-in-a-method-return-value) is not a standard, it is rather an antipattern: it contains code duplication and changes of properties of RoomReservation class is not tracked. That code is given only for demonstration of tracking changes in a method return value. Here is the fixed design:
+### Use public readonly structures instead of encapsulated private members
+Code example given in ["Tracking changes in a method return value" section ](#tracking-changes-in-a-method-return-value) is not a design standard, it is rather an antipattern: it contains code duplication and changes of properties of RoomReservation class is not tracked. That code is given only for demonstration of tracking changes in a method return value. Here is the fixed design:
 
 ```csharp
 using System;
@@ -2192,7 +2192,6 @@ namespace ObservableComputationsExamples
 ```
 
 Note that type of *RoomReservationManager._roomReservations* is changed to *ObservableCollection&lt;RoomReservation&gt;* and *RoomReservationManager.RoomReservations* member of type *System.Collections.ObjectModel.ReadOnlyObservableCollection&lt;RoomReservation&gt;* has been added.
-To expose private field use readonly property (with getter only).
 
 ### Short your code
 See [here](#passing-argument-as-observable) and [here](passing-source-collection-argument-as-obserable).
@@ -2303,13 +2302,13 @@ public Computing<decimal> PriceWithDiscount => _priceWithDiscount = _priceWithDi
 ```
 
 In the code above *p* parameter is the result of *Lines.Selecting(l => l.Price).Summarizing()*. So *p* parameter is kind of variable. 
-Following code is incorrect as changes in OrderLine.Price property and Order.Lines collections is not reflected in the result computation:
+Following code is incorrect as changes in *OrderLine.Price* property and *Order.Lines* collection is not reflected in the result computation:
 
 ```csharp
 public Computing<decimal> PriceWithDiscount => _priceWithDiscount = _priceWithDiscount ?? 
    Lines.Selecting(l => l.Price).Summarizing().Value.Using(p => p - p * Discount);
 ```
-In this code *p* parameter has type decimal, not Summarizing&lt;decimal&gt; as in correct variant.
+In this code *p* parameter has type decimal, not *Summarizing&lt;decimal&gt*; as in correct variant. See [here](##passing-arguments-as-observables) for details.
 
 ## Tracking previous value of IReadScalar&lt;TValue&gt;
 *IReadScalar&lt;TValue&gt;* is mentioned [here](#full-list-of-methods-and-classes) for the first time.
@@ -2375,9 +2374,9 @@ Code above has following output:
 > Current dispatch center: B; Previous dispatch center: A;  <br>
 Current dispatch center: C; Previous dispatch center: B;  <br>
 
-Note that changes of *PreviousValue* property is trackable by  [PropertyChanged event](https://docs.microsoft.com/en-us/dotnet/api/system.componentmodel.inotifypropertychanged.propertychanged?view=netframework-4.8) so you can include that property in your observable computations [as observable](#passing-arguments-as-observables).
+Note that changes of *PreviousValue* property is trackable by  [PropertyChanged event](https://docs.microsoft.com/en-us/dotnet/api/system.componentmodel.inotifypropertychanged.propertychanged?view=netframework-4.8) so you can include that property in your observable computations.
 
-Note that instance of *PreviousTracking&lt;TResult&gt;* has strong reference to previous *TResult* value (in case *TResult* is reference type). Account it when you think will about garbage collecting and memory leaks. *WeakPreviousTracking&lt;TResult&gt;* can help you. Instead of *PreviousValue* property *WeakPreviousTracking&lt;TResult&gt;* includes *TryGetPreviousValue* method. Changes of result of that method isn't trackable, so you cannot include it in your observable computations [as observable](#passing-arguments-as-observables).
+Note that instance of *PreviousTracking&lt;TResult&gt;* has strong reference to previous *TResult* value (*PreviousValue* property) (in case *TResult* is reference type). Account it when you think will about garbage collecting and memory leaks. *WeakPreviousTracking&lt;TResult&gt;* can help you. Instead of *PreviousValue* property *WeakPreviousTracking&lt;TResult&gt;* includes *TryGetPreviousValue* method. Changes of return value of that method isn't trackable, so you cannot include it in your observable computations.
 
 ## Accessing a property via reflection
 Following code will not work correctly:

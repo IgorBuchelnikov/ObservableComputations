@@ -2498,7 +2498,7 @@ namespace ObservableComputationsExamples
 }
 ```
 
-In the code above we use *PropertyAccessing* extension method. Be sure you are aware of [Passing arguments as non-observables and observables](#passing-arguments-as-non-observables-and-observables): in the code above first argument of *PropertyAccessing* extension method is passed as **non-observable**. In the following code first argument of *PropertyAccessing* extension method is passed as **observable**.
+In the code above we use *PropertyAccessing* extension method. Be sure you are aware of [Passing arguments as non-observables and observables](#passing-arguments-as-non-observables-and-observables): in the code above first argument (*order*) of *PropertyAccessing* extension method is passed as **non-observable**. In the following code that argument is passed as **observable**.
 ```csharp
 using System;
 using System.ComponentModel;
@@ -2586,7 +2586,7 @@ PropertyAccessing<decimal> priceReflectedComputing
    = manager.ProcessingOrder.PropertyAccessing<decimal>(nameof(Order.Price));
 ```
 
-If object for which a property value is being accessed is null PropertyAccessing&lt;TResult&gt; returns default value of TResult. You can modify that value by passing the defaultValue parameter.
+If object reference for which a property value is being accessed is null *PropertyAccessing&lt;TResult&gt;.Value* returns default value of *TResult*. You can modify that value by passing the *defaultValue* parameter.
 
 ## Binding class 
   

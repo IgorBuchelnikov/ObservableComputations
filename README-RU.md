@@ -2384,8 +2384,8 @@ Current dispatch center: C; Previous dispatch center: B;  <br>
 
 Обратите внимание на то, что *PreviousTracking&lt;TResult&gt;* имеет сильную ссылку на значение *TResult* (свойство *PreviousValue*) (в случае если *TResult* является ссылочным типом). Учтите это когда будете думать о сборке мусора и утечках памяти. *WeakPreviousTracking&lt;TResult&gt;* может помоч Вам. Вместо свойства *PreviousValue* *WeakPreviousTracking&lt;TResult&gt;* включает в себя метод *TryGetPreviousValue*. Изменения в возвращаемом значении этого метода не могут отслеживаться, поэтому Вы не можете включить его в свои обозреваеваемые вычисления.
 
-## Accessing a property via reflection
-Following code will not work correctly:
+## Доступ к свойствам через рефлексию
+Следующий код юудет работать некоректно:
 ```csharp
 using System;
 using System.ComponentModel;
@@ -2444,7 +2444,7 @@ namespace ObservableComputationsExamples
 	}
 }
 ```
-Code above has no output, as changes of return value of *GetValue* mathod cannot be tracked. Here is the fixed code:
+Код выше не имеет вывода, так как изменения в значения возвращаемого методом *GetValue* не могут быть отслежены. Вот исправленный код:
 
 ```csharp
 using System;
@@ -2502,7 +2502,7 @@ namespace ObservableComputationsExamples
 }
 ```
 
-In the code above we use *PropertyAccessing* extenton method. Be sure you are aware of [Passing arguments as non-observales and observables](#passing-arguments-as-non-observales-and-observables): in the code above first argument of *PropertyAccessing* extention method is passed as **non-observable**. In the following code first argument of *PropertyAccessing* extention method is passed as **observable**.
+В коде выше мы используем метод расширения *PropertyAccessing*. Убедитесь, что Вы ознакомились с [Passing arguments as non-observales and observables](#passing-arguments-as-non-observales-and-observables): в коде выше первый аргумент (*order*) в методе расширения *PropertyAccessing* передан как **не обозреваемые**. В следующем коде этот аргумент передаётся как **observable**.
 ```csharp
 using System;
 using System.ComponentModel;
@@ -2584,13 +2584,13 @@ namespace ObservableComputationsExamples
 	}
 }
 ```
-Followoing code will not work correctly as changes in *manager.ProcessingOrder* is not reflected in *priceReflectedComputing* as first argument of *PropertyAccessing* extention method is passed as **non-observable**:
+Следующий код не будет работать корректно, так как исзменения в *manager.ProcessingOrder* не будут отражаться в *priceReflectedComputing*, так как первый аргумент (*manager.ProcessingOrder*)  в методе расширения *PropertyAccessing* передан как **не обозреваемый**:
 ```csharp
 PropertyAccessing<decimal> priceReflectedComputing 
    = manager.ProcessingOrder.PropertyAccessing<decimal>(nameof(Order.Price));
 ```
 
-If object for which a property value is beeing accessed is null PropertyAccessing&lt;TResult&gt; returns default value of TResult. You can modify that value by passing the defaultValue parameter.
+Если ссылка на объект, у которого вычисляется значение свойства, является null, то *PropertyAccessing&lt;TResult&gt;.Value* вызвращает значение по умолчанию для *TResult*. Вы можете изменить это значение передавая параметр *defaultValue*.
 
 ## Binding class 
   

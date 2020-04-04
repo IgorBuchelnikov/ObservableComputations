@@ -2588,9 +2588,9 @@ PropertyAccessing<decimal> priceReflectedComputing
 
 If object reference for which a property value is being accessed is null *PropertyAccessing&lt;TResult&gt;.Value* returns default value of *TResult*. You can modify that value by passing the *defaultValue* parameter.
 
-## Binding class 
+## Binding 
   
-Binding class allows you to bind two arbitrary expressions. First expression is a source. Second expression is a target. If source expression value is changed, the new value is assigned to target expression:  
+Binding class and extention method allows you to bind two arbitrary expressions. First expression is a source. Second expression is a target. If source expression value is changed, the new value is assigned to target expression:  
   
 ```csharp
 using System;
@@ -2656,7 +2656,9 @@ namespace ObservableComputationsExamples
 }
 ```
 
-In the code above we bind **order.DeliveryAddress** and **assignedDeliveryCar.DestinationAddress**. **order.DeliveryAddress** is a binding source.**assignedDeliveryCar.DestinationAddress** is a binding target.
+In the code above we bind *order.DeliveryAddress* and *assignedDeliveryCar.DestinationAddress*. *order.DeliveryAddress* is a binding source. *assignedDeliveryCar.DestinationAddress* is a binding target.
+
+*Binding* extention method extends *IReadScalar&lt;TValue&gt;*, instance oа which is a binding source. 
 
 To avoid unloading the instance of *Binding* class from the memory by garbage collector, save reference to the one in the object that has appropriate lifetime.
 

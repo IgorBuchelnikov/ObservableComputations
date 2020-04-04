@@ -2592,9 +2592,9 @@ PropertyAccessing<decimal> priceReflectedComputing
 
 Если ссылка на объект, у которого вычисляется значение свойства, является null, то *PropertyAccessing&lt;TResult&gt;.Value* вызвращает значение по умолчанию для *TResult*. Вы можете изменить это значение передавая параметр *defaultValue*.
 
-## Binding class 
+## Binding
   
-Binding class allows you to bind two arbitary expressions. First expression is a source. Second expression is a target. If source expression value is changed, the new value is assigned to target expression:  
+Класс и метод расширения Binding позволяет связать два произвольных выражения. Первое выражение это источник. Второе выражение является целевым. Когда значение выражения источника меняется, новое значение присваивается целевому выражению:  
   
 ```csharp
 using System;
@@ -2660,12 +2660,14 @@ namespace ObservableComputationsExamples
 }
 ```
 
-In the code above we bind **order.DeliveryAddress** and **assignedDeliveryCar.DestinationAddress**. **order.DeliveryAddress** is a binding source.**assignedDeliveryCar.DestinationAddress** is a binding target.
+В коде выше мы связываем *order.DeliveryAddress* и *assignedDeliveryCar.DestinationAddress*. *order.DeliveryAddress* явяляется источником связывания. *assignedDeliveryCar.DestinationAddress* явялется целью связывания.
 
-To avoid unloading the instance of *Binding* class from the memory by garbage collector, save reference to the one in the object that has appropriate lifetime.
+Метод расширения *Binding* расширяет *IReadScalar&lt;TValue&gt;*, экземпляр которого является источником связывания. 
 
-## Can I use [IList&lt;T&gt;](https://docs.microsoft.com/en-us/dotnet/api/system.collections.generic.ilist-1?view=netframework-4.8) with ObservableComputations?
-If you have [IList&lt;T&gt;](https://docs.microsoft.com/en-us/dotnet/api/system.collections.generic.ilist-1?view=netframework-4.8) collection of a class that does not implement [INotifyColectionChanged](https://docs.microsoft.com/en-us/dotnet/api/system.collections.specialized.inotifycollectionchanged?view=netframework-4.8) (for example [List&lt;T&gt;](https://docs.microsoft.com/en-us/dotnet/api/system.collections.generic.list-1?view=netframework-4.8)), you can use it with ObservableComputations. See 
+Для того чтобы избежать выгрузки из памяти экземпляра класса *Binding* сборщиком мусора, сохраните ссылку на него в объекте, который имеет подходящее время жизни.
+
+## Могу ли я использовать [IList&lt;T&gt;](https://docs.microsoft.com/en-us/dotnet/api/system.collections.generic.ilist-1?view=netframework-4.8) с ObservableComputations?
+Если у Вас есть коллекция реализующая [IList&lt;T&gt;](https://docs.microsoft.com/en-us/dotnet/api/system.collections.generic.ilist-1?view=netframework-4.8), но не реализующая [INotifyColectionChanged](https://docs.microsoft.com/en-us/dotnet/api/system.collections.specialized.inotifycollectionchanged?view=netframework-4.8) (на пример [List&lt;T&gt;](https://docs.microsoft.com/en-us/dotnet/api/system.collections.generic.list-1?view=netframework-4.8)), Вы можете использовать её с ObservableComputations. См. 
 
 https://github.com/gsonnenf/Gstc.Collections.ObservableLists
 

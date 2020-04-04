@@ -8,7 +8,7 @@ namespace ObservableComputations
 	{
 		readonly Expression<Func<TValue>> _getSourceExpression;
 		// ReSharper disable once PrivateFieldCanBeConvertedToLocalVariable
-		readonly Computing<TValue> _gettingExpressionValue;
+		readonly IReadScalar<TValue> _sourceScalar;
 		// ReSharper disable once PrivateFieldCanBeConvertedToLocalVariable
 		readonly PropertyChangedEventHandler _gettingExpressionValueHandlePropertyChanged;
 		readonly Action<TValue> _modifyTargetAction;
@@ -18,24 +18,33 @@ namespace ObservableComputations
 		// ReSharper disable once ConvertToAutoProperty
 		public Action<TValue> ModifyTargetAction => _modifyTargetAction;
 
-		public Binding(Expression<Func<TValue>> getSourceExpression, Action<TValue> modifyTargetAction, bool applyNow = true)
+		public IReadScalar<TValue> SourceScalar => _sourceScalar;
+
+		[ObservableComputationsCall]
+		public Binding(IReadScalar<TValue> sourceScalar, Action<TValue> modifyTargetAction, bool applyNow = true)
 		{
-			_getSourceExpression = getSourceExpression;
 			_modifyTargetAction = modifyTargetAction;
-			_gettingExpressionValue = new Computing<TValue>(getSourceExpression);
+			_sourceScalar = sourceScalar;
 
 			_gettingExpressionValueHandlePropertyChanged = (sender, args) =>
 			{
 				if (!_isDisabled && args.PropertyName == nameof(Computing<TValue>.Value))
 				{
-					modifyTargetAction(_gettingExpressionValue.Value);
+					modifyTargetAction(_sourceScalar.Value);
 				}
 			};
 
-			_gettingExpressionValue.PropertyChanged += _gettingExpressionValueHandlePropertyChanged;
+			_sourceScalar.PropertyChanged += _gettingExpressionValueHandlePropertyChanged;
 
 			if (applyNow)
-				modifyTargetAction(_gettingExpressionValue.Value);
+				modifyTargetAction(_sourceScalar.Value);
+		}
+
+		[ObservableComputationsCall]
+		public Binding(Expression<Func<TValue>> getSourceExpression, Action<TValue> modifyTargetAction, bool applyNow = true) 
+			: this(new Computing<TValue>(getSourceExpression), modifyTargetAction, applyNow)
+		{
+			_getSourceExpression = getSourceExpression;
 		}
 
 		private bool _isDisabled;

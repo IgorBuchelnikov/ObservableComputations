@@ -233,8 +233,9 @@ ObservableComputations facilitates design of friendly UI.
 * User has no need manually refresh computed data.
 * User can see computed data always, not only by request.
 * You do not need refresh computed data by the timer.
+* No need to block the entire user interface during the computation and rendering of a large amount of data (while showing a busy indicator). Data can be updated in small pieces, while the user can continue to work.
 
-## Full list of methods and classes
+## Full list of operators
 Before examine the table bellow, please take into account
 
 * *CollectionComputing&lt;TSourceItem&gt;* derived from [ObservableCollection&lt;TSourceItem&gt;](https://docs.microsoft.com/en-us/dotnet/api/system.collections.objectmodel.observablecollection-1?view=netframework-4.8). That class implements [INotifyCollectionChanged](https://docs.microsoft.com/en-us/dotnet/api/system.collections.specialized.inotifycollectionchanged?view=netframework-4.8) interface.

@@ -233,7 +233,7 @@ ObservableComputations facilitates design of friendly UI.
 * User has no need manually refresh computed data.
 * User can see computed data always, not only by request.
 * You do not need refresh computed data by the timer.
-* No need to block the entire user interface during the computation and rendering of a large amount of data (while showing a busy indicator). Data can be updated in small pieces, while the user can continue to work.
+* No need to block UI during the computation and rendering of a large amount of data (while showing a busy indicator). Data can be updated in small pieces, while the user can continue to work.
 
 ## Full list of operators
 Before examine the table bellow, please take into account

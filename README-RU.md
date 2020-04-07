@@ -10,10 +10,14 @@
 
 ## Аналоги
 
-ObservableComputations не явялется аналогом [Reactive Extentions](https://github.com/dotnet/reactive). Аналогами ObservableComputations явяляются следующие библеотеки: Obtics, [OLinq](https://www.nuget.org/packages/OLinq/), BindableLinq, ContinuousLinq. Вот главные отличия ObservableComputations от  [Reactive Extentions](https://github.com/dotnet/reactive):
+ObservableComputations не явялется аналогом [Reactive Extentions](https://github.com/dotnet/reactive). Аналогами ObservableComputations явяляются следующие библеотеки: [DynamicData](https://github.com/reactiveui/DynamicData), Obtics, [OLinq](https://www.nuget.org/packages/OLinq/), Obtics, [OLinq](https://www.nuget.org/packages/OLinq/), BindableLinq, ContinuousLinq.
+
+Вот главные отличия ObservableComputations от  [Reactive Extentions](https://github.com/dotnet/reactive):
 
 * [Reactive Extentions](https://github.com/dotnet/reactive) абстрагирован от конкретного события и от семантики событий: это библеотека для обработки всех возможных событий. Reactive Extentions обрабатывает все события одинаковым образом, а вся специфика только в пользовательском коде. ObservableComputations сфокусирован только на событиях [CollectionChanged](https://docs.microsoft.com/en-us/dotnet/api/system.collections.specialized.inotifycollectionchanged.collectionchanged?view=netframework-4.8) и [PropertyChanged](https://docs.microsoft.com/en-us/dotnet/api/system.componentmodel.inotifypropertychanged.propertychanged?view=netframework-4.8) и приносит большую пользу обрабатывая эти события. Поэтому, Вы можете использовать ObservableComputations отдельно или вместе с [Reactive Extentions](https://github.com/dotnet/reactive). Это руководство включает в себя [пример](#isconsistent-property-and-the-inconsistency-exception) взаимодействия ObservableComputations с  [Reactive Extentions](https://github.com/dotnet/reactive).
 * Библеотека [Reactive Extentions](https://github.com/dotnet/reactive)  предоставляет поток событий. ObservableComputations предоставляет не только поток событий изменения данных, но вычиленные в данный момент данные.
+
+[ReactiveUI](https://github.com/reactiveui/ReactiveUI) и [DynamicData](https://github.com/reactiveui/DynamicData) делают примерно то же самое, что и ObservableComputations, но ObservableComputations менее многословен, более прост в использовании, быстрее, так как не меньше обращается к исходным данным.
 
 ## Статус
 

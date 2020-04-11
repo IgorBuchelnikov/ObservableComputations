@@ -11,7 +11,7 @@ This is a cross-platform .NET library for computations whose arguments and resul
 ObservableComputations is not analog of [Reactive Extensions](https://github.com/dotnet/reactive). The analogs of ObservableComputations are following libraries: [DynamicData](https://github.com/reactiveui/DynamicData), Obtics, [OLinq](https://www.nuget.org/packages/OLinq/), BindableLinq, ContinuousLinq.
 
 The main distinguish ObservableComputations from [Reactive Extensions](https://github.com/dotnet/reactive) is the following: 
-* [Reactive Extensions](https://github.com/dotnet/reactive) is abstracted from event specific and event semantics: it is framework for processing all possible events. Reactive Extensions handles all events in the same way and all specifics are only in user code. ObservableComputations  is focused to [CollectionChanged](https://docs.microsoft.com/en-us/dotnet/api/system.collections.specialized.inotifycollectionchanged.collectionchanged?view=netframework-4.8) and [PropertyChanged](https://docs.microsoft.com/en-us/dotnet/api/system.componentmodel.inotifypropertychanged.propertychanged?view=netframework-4.8) events only and brings great benefit processing these events. Thus, you can use ObservableComputations separately or in cooperation with [Reactive Extensions](https://github.com/dotnet/reactive). This guide contains [example](#isConsistent-property-and-the-inconsistency-exception) of cooperation of ObservableComputations with  [Reactive Extensions](https://github.com/dotnet/reactive). 
+* [Reactive Extensions](https://github.com/dotnet/reactive) is abstracted from event specific and event semantics: it is framework for processing all possible events. Reactive Extensions handles all events in the same way and all specifics are only in user code. ObservableComputations  is focused to [CollectionChanged](https://docs.microsoft.com/en-us/dotnet/api/system.collections.specialized.inotifycollectionchanged.collectionchanged?view=netframework-4.8) and [PropertyChanged](https://docs.microsoft.com/en-us/dotnet/api/system.componentmodel.inotifypropertychanged.propertychanged?view=netframework-4.8) events only and brings great benefit processing these events. Thus, you can use ObservableComputations separately or in cooperation with [Reactive Extensions](https://github.com/dotnet/reactive). This guide contains [example](#isconsistent-property-and-inconsistency-exception) of cooperation of ObservableComputations with  [Reactive Extensions](https://github.com/dotnet/reactive). 
 * [Reactive Extensions](https://github.com/dotnet/reactive) library provides the stream of events. ObservableComputations library provides not only the stream of data change events, but currently computed data.
 
 [ReactiveUI](https://github.com/reactiveui/ReactiveUI) and [DynamicData](https://github.com/reactiveui/DynamicData) works with [INotifyPropertyChanged](https://docs.microsoft.com/en-us/dotnet/api/system.componentmodel.inotifypropertychanged?view=netframework-4.8) and [INotifyCollectionChanged](https://docs.microsoft.com/en-us/dotnet/api/system.collections.specialized.inotifycollectionchanged?view=netframework-4.8) interfaces and do roughly the same thing as ObservableComputations, but ObservableComputations is less verbose, simpler in use, touches the source data less. The feature sets of these libraries and ObservableComputations intersect. The set of functions of these libraries is wider and lower level than the feature set of ObservableComputations. These libraries allow you to fine-tune, but the main functions of your application can be implemented using the ObservableComputations easier and more elegant. You can compare these library and ObservableComputations in action, see [ObservableComputations.Samples](https://github.com/IgorBuchelnikov/ObservableComputations.Samples).
@@ -227,7 +227,7 @@ This approach facilitates **asynchronous programming**. You can show the user th
 
 ### Increased performance
 If you have complex computations, over frequently changing source data and\or data is large, you can get increased performance with ObservableComputations, since you do not need recompute value from scratch every time when source data gets some little change. Every little change in source data causes a little change in the data computed by ObservableComputations.
-UI performance is increased, as the need for re-rendering is reduced (only data that has changed is rendered) and data from external sources (DB, web service) is loaded in background (see [previous section](#asynchronous_programming)).
+UI performance is increased, as the need for re-rendering is reduced (only data that has changed is rendered) and data from external sources (DB, web service) is loaded in background (see [previous section](#asynchronous-programming)).
 
 ### Clean and durable code
 * Less boilerplate imperative code. More clear declarative (functional style) code. Total code is reduced.
@@ -316,7 +316,7 @@ public interface IReadScalar<out TValue> : System.ComponentModel.INotifyProperty
 		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" height="18" align="left" valign=bottom><font color="#000000">Binding class</font></td>
 		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom><i><font color="#000000">Not applicable</font></i></td>
 		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom><font color="#000000"><br></font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom><font color="#000000">see more <a href="#binding-class">here</a></font></td>
+		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom><font color="#000000">see more <a href="#binding">here</a></font></td>
 	</tr>
 	<tr>
 		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" height="18" align="left" valign=bottom><font color="#000000">Computing&lt;TResult&gt;</font></td>
@@ -364,7 +364,7 @@ public interface IReadScalar<out TValue> : System.ComponentModel.INotifyProperty
 		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" height="18" align="left" valign=bottom><font color="#000000">Differing&lt;TResult&gt;</font></td>
 		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom><i><font color="#000000">Not applicable</font></i></td>
 		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom><font color="#000000">ScalarComputing&lt;TResult&gt;</font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom><font color="#000000">see more<a href="#differingtresult-extention-method"> here</a></font></td>
+		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom><font color="#000000">see more <a href="#differingtresult-extension-method">here</a></font></td>
 	</tr>
 	<tr>
 		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" height="18" align="left" valign=bottom><font color="#000000">Distincting&lt;TSourceItem&gt;</font></td>
@@ -639,7 +639,7 @@ public interface IReadScalar<out TValue> : System.ComponentModel.INotifyProperty
 		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" height="18" align="left" valign=bottom><font color="#000000">Using&lt;TArgument, TResult&gt;</font></td>
 		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom><i><font color="#000000">Not applicable</font></i></td>
 		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom><font color="#000000">ScalarComputing&lt;TResult&gt;</font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom><font color="#000000">see more <a href="#applications-of-usingtresult-extention-method">here</a> and <a href="#arbitrary-expression-observing">here</a></font></td>
+		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom><font color="#000000">see more <a href="#arbitrary-expression-observing">here</a> and <a href="#applications-of-usingtresult-extension-method">here</a></font></td>
 	</tr>
 	<tr>
 		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" height="18" align="left" valign=bottom><font color="#000000">Filtering&lt;TSourceItem&gt;</font></td>
@@ -826,7 +826,7 @@ namespace ObservableComputationsExamples
 }
 ```
 
-In the code above we pass the argument to the *ContainsComputing* method as *IReadScalar&lt;Person&gt;* (not as *Person* as in the code in the previous section). *Computing&lt;Person&gt;* implements *IReadScalar&lt;Person&gt;*. *IReadScalar&lt;TValue&gt;* was originally mentioned in the ["Full list of methods and classes" section](#full-list-of-methods-and-classes). As you see if you want to pass argument of type T as observable you should perform ordinary argument passing of type *IReadScalar&lt;T&gt;*. In that case another overloaded version of *ContainsComputing* method is used than one in [the previous section](#Passing-arguments-as-non-observables). It gives us the opportunity to track changes of *LoginManager.LoggedInPerson* property. Now changes in the *LoginManager.LoggedInPerson* is reflected in *isLoggedInPersonHockeyPlayer*. Note than *LoginManager* class implements [INotifyPropertyChanged](https://docs.microsoft.com/en-us/dotnet/api/system.componentmodel.inotifypropertychanged?view=netframework-4.8) now.  
+In the code above we pass the argument to the *ContainsComputing* method as *IReadScalar&lt;Person&gt;* (not as *Person* as in the code in the previous section). *Computing&lt;Person&gt;* implements *IReadScalar&lt;Person&gt;*. *IReadScalar&lt;TValue&gt;* was originally mentioned in the ["Full list of methods and classes" section](#full-list-of-operators). As you see if you want to pass argument of type T as observable you should perform ordinary argument passing of type *IReadScalar&lt;T&gt;*. In that case another overloaded version of *ContainsComputing* method is used than one in [the previous section](#Passing-arguments-as-non-observables). It gives us the opportunity to track changes of *LoginManager.LoggedInPerson* property. Now changes in the *LoginManager.LoggedInPerson* is reflected in *isLoggedInPersonHockeyPlayer*. Note than *LoginManager* class implements [INotifyPropertyChanged](https://docs.microsoft.com/en-us/dotnet/api/system.componentmodel.inotifypropertychanged?view=netframework-4.8) now.  
 
 Сode above can be shortened:  
   ```csharp
@@ -852,7 +852,7 @@ As you see all calls of [LINQ](https://docs.microsoft.com/en-us/dotnet/csharp/pr
 ```csharp
 sourceCollection.ExtensionMethodName(arg1, arg2, ...);
 ```
-*sourceCollection* is the first argument in the extension method declaration. So like other arguments that argument can also be passed as [non-observable](#Passing-arguments-as-non-observables) and as [observables](#Passing-arguments-as-observables). Before now we passed the source collections as non-observables (it was the simplest expression consisting of a single variable, of course we was able to use more complex expressions, but the essence is the same). Now let us try pass some source collection argument as observable:  
+*sourceCollection* is the first argument in the extension method declaration. So like other arguments that argument can also be passed as [non-observable](#Passing-arguments-as-non-observables) and as [observables](#passing-argument-as-observable). Before now we passed the source collections as non-observables (it was the simplest expression consisting of a single variable, of course we was able to use more complex expressions, but the essence is the same). Now let us try pass some source collection argument as observable:  
 
 ```csharp
 using System;
@@ -1176,7 +1176,7 @@ Note that [Add method](https://docs.microsoft.com/en-us/dotnet/api/system.collec
 
 This feature can be used if  you pass *stepansOrders* to the code abstracted from what is *stepansOrders*: computation or ordinary collection. That code only knows *stepansOrders* implements [ICollection&lt;T&gt; interface](https://docs.microsoft.com/en-us/dotnet/api/system.collections.generic.icollection-1?view=netframework-4.8) and sometimes wants add orders to *stepansOrders*. Such a code may be for example [binding in WPF](https://docs.microsoft.com/en-us/dotnet/api/system.windows.data.bindingmode?view=netframework-4.8#System_Windows_Data_BindingMode_TwoWay).
 
-Properties similar to *InsertItemAction* exist for all other operations: ([remove](https://docs.microsoft.com/en-us/dotnet/api/system.collections.generic.icollection-1.remove?view=netframework-4.8), [set (replace)](https://docs.microsoft.com/en-us/dotnet/api/system.collections.objectmodel.collection-1.item?view=netframework-4.8#System_Collections_ObjectModel_Collection_1_Item_System_Int32_), [move](https://docs.microsoft.com/en-us/dotnet/api/system.collections.objectmodel.observablecollection-1.move?view=netframework-4.8), [clear](https://docs.microsoft.com/en-us/dotnet/api/system.collections.generic.icollection-1.clear?view=netframework-4.8)) and for setting *Value* property of *ScalarComputing&lt;TValue&gt;* (see  ["Full list of methods and classes" section](#full-list-of-methods-and-classes)).
+Properties similar to *InsertItemAction* exist for all other operations: ([remove](https://docs.microsoft.com/en-us/dotnet/api/system.collections.generic.icollection-1.remove?view=netframework-4.8), [set (replace)](https://docs.microsoft.com/en-us/dotnet/api/system.collections.objectmodel.collection-1.item?view=netframework-4.8#System_Collections_ObjectModel_Collection_1_Item_System_Int32_), [move](https://docs.microsoft.com/en-us/dotnet/api/system.collections.objectmodel.observablecollection-1.move?view=netframework-4.8), [clear](https://docs.microsoft.com/en-us/dotnet/api/system.collections.generic.icollection-1.clear?view=netframework-4.8)) and for setting *Value* property of *ScalarComputing&lt;TValue&gt;* (see  ["Full list of methods and classes" section](#full-list-of-operators)).
 
 ## IsConsistent property and inconsistency exception
 Scenario described in this section is very specific. May be you will never meet it. However if want to be fully prepared read it. Consider following code:
@@ -1678,12 +1678,12 @@ namespace ObservableComputationsExamples
 }
 ```
 
-Instead of  *priceDiscounted.PropertyChanged* we subscribe to *priceDiscounted.PostValueChanged*. That event is raised after *PropertyChanged*, so we can sure: all the dependent computations have refreshed their values. *PostValueChanged* is declared in *ScalarComputing&lt;TValue&gt;*. *Computing&lt;string&gt;* inherits *ScalarComputing&lt;TValue&gt;*. *ScalarComputing&lt;TValue&gt;* is mentioned [here](#full-list-of-methods-and-classes) for the first time. *ScalarComputing&lt;TValue&gt;* contains *PreValueChanged* event. That event allow you see state of the all computations before a change.
+Instead of  *priceDiscounted.PropertyChanged* we subscribe to *priceDiscounted.PostValueChanged*. That event is raised after *PropertyChanged*, so we can sure: all the dependent computations have refreshed their values. *PostValueChanged* is declared in *ScalarComputing&lt;TValue&gt;*. *Computing&lt;string&gt;* inherits *ScalarComputing&lt;TValue&gt;*. *ScalarComputing&lt;TValue&gt;* is mentioned [here](#full-list-of-operators) for the first time. *ScalarComputing&lt;TValue&gt;* contains *PreValueChanged* event. That event allow you see state of the all computations before a change.
 
-*CollectionComputing&lt;TItem&gt;* contains *PreCollectionChanged* and *PostCollectionChanged* events. *CollectionComputing&lt;TItem&gt;* is mentioned [here](#full-list-of-methods-and-classes) for the first time. If you want handle collection change of your collection that implements [INotifyCollectionChanged](https://docs.microsoft.com/en-us/dotnet/api/system.collections.specialized.inotifycollectionchanged?view=netframework-4.8) (not of computed collection (for example [*ObservableCollection&lt;TItem&gt;*](https://docs.microsoft.com/en-us/dotnet/api/system.collections.objectmodel.observablecollection-1?view=netframework-4.8)) and that handle reads dependent computations you may use *ObservableCollectionExtended&lt;TItem&gt;*. That class inherits [*ObservableCollection&lt;TItem&gt;*](https://docs.microsoft.com/en-us/dotnet/api/system.collections.objectmodel.observablecollection-1?view=netframework-4.8) and contains *PreCollectionChanged* and *PostCollectionChanged* events. Also you can use *Extending* extension method. That method creates *ObservableCollectionExtended&lt;TItem&gt;* from [INotifyCollectionChanged](https://docs.microsoft.com/en-us/dotnet/api/system.collections.specialized.inotifycollectionchanged?view=netframework-4.8).
+*CollectionComputing&lt;TItem&gt;* contains *PreCollectionChanged* and *PostCollectionChanged* events. *CollectionComputing&lt;TItem&gt;* is mentioned [here](#full-list-of-operators) for the first time. If you want handle collection change of your collection that implements [INotifyCollectionChanged](https://docs.microsoft.com/en-us/dotnet/api/system.collections.specialized.inotifycollectionchanged?view=netframework-4.8) (not of computed collection (for example [*ObservableCollection&lt;TItem&gt;*](https://docs.microsoft.com/en-us/dotnet/api/system.collections.objectmodel.observablecollection-1?view=netframework-4.8)) and that handle reads dependent computations you may use *ObservableCollectionExtended&lt;TItem&gt;*. That class inherits [*ObservableCollection&lt;TItem&gt;*](https://docs.microsoft.com/en-us/dotnet/api/system.collections.objectmodel.observablecollection-1?view=netframework-4.8) and contains *PreCollectionChanged* and *PostCollectionChanged* events. Also you can use *Extending* extension method. That method creates *ObservableCollectionExtended&lt;TItem&gt;* from [INotifyCollectionChanged](https://docs.microsoft.com/en-us/dotnet/api/system.collections.specialized.inotifycollectionchanged?view=netframework-4.8).
 
 ## Thread safety
-[*CollectionComputing&lt;TSourceItem&gt;*](#full-list-of-methods-and-classes) and [*ScalarComputing&lt;TSourceItem&gt;*](#full-list-of-methods-and-classes)
+[*CollectionComputing&lt;TSourceItem&gt;*](#full-list-of-operators) and [*ScalarComputing&lt;TSourceItem&gt;*](#full-list-of-operators)
 
 * supports multiple readers concurrently, as long there is not changes. 
 * doesn't support multiple writers concurrently. 
@@ -1815,7 +1815,7 @@ args =>
 ```
 That property defines what values should have arguments in a method call so that return value of that call changes.
 
-ATTENTION: Code example given in this section is not a disign standard, it is rather an antipattern: it contains code duplication and changes of properties of *RoomReservation* class is not tracked.  That code is given only for demonstration of tracking changes in a method return value. See fixed code [here](#use-readonly-structures-to-expose-encapsulated-private-members).
+ATTENTION: Code example given in this section is not a disign standard, it is rather an antipattern: it contains code duplication and changes of properties of *RoomReservation* class is not tracked.  That code is given only for demonstration of tracking changes in a method return value. See fixed code [here](#use-public-readonly-structures-instead-of-encapsulated-private-members).
 
 ## Performance tips
 ### Avoid nested parameter dependent computations on big data
@@ -2205,10 +2205,10 @@ namespace ObservableComputationsExamples
 Note that type of *RoomReservationManager._roomReservations* is changed to *ObservableCollection&lt;RoomReservation&gt;* and *RoomReservationManager.RoomReservations* member of type *System.Collections.ObjectModel.ReadOnlyObservableCollection&lt;RoomReservation&gt;* has been added.
 
 ### Short your code
-See [here](#passing-argument-as-observable) and [here](passing-source-collection-argument-as-obserable).
+See [here](#passing-argument-as-observable) and [here](#passing-source-collection-argument-as-observable).
 
 ### Do not create extra variables
-See [here](variable-declaration-in-a-computations-chain)
+See [here](#variable-declaration-in-a-computations-chain)
 
 
 ## Applications of Using&lt;TResult&gt; extension method
@@ -2319,10 +2319,10 @@ Following code is incorrect as changes in *OrderLine.Price* property and *Order.
 public Computing<decimal> PriceWithDiscount => _priceWithDiscount = _priceWithDiscount ?? 
    Lines.Selecting(l => l.Price).Summarizing().Value.Using(p => p - p * Discount);
 ```
-In this code *p* parameter has type decimal, not *Summarizing&lt;decimal&gt*; as in correct variant. See [here](##passing-arguments-as-observables) for details.
+In this code *p* parameter has type decimal, not *Summarizing&lt;decimal&gt*; as in correct variant. See [here](#passing-argument-as-observable) for details.
 
 ## Tracking previous value of IReadScalar&lt;TValue&gt;
-*IReadScalar&lt;TValue&gt;* is mentioned [here](#full-list-of-methods-and-classes) for the first time.
+*IReadScalar&lt;TValue&gt;* is mentioned [here](#full-list-of-operators) for the first time.
 There is not built-in facilities to get previous value of a property while handling [PropertyChanged event](https://docs.microsoft.com/en-us/dotnet/api/system.componentmodel.inotifypropertychanged.propertychanged?view=netframework-4.8). ObservableComputation helps you and provides *PreviousTracking&lt;TResult&gt;* and *WeakPreviousTracking&lt;TResult&gt;* extension methods.
 
 ```csharp

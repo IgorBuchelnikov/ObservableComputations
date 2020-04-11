@@ -1,10 +1,10 @@
-﻿using System;
-using System.Collections.Specialized;
+﻿//using System;
+//using System.Collections.Specialized;
 
-namespace ObservableComputations
-{
-	public interface IPostingSynchronizer : ISynchronizer
-	{
-		void WaitLastPostComplete();
-	}
-}
+//namespace ObservableComputations
+//{
+//	public interface IPostingSynchronizer : ISynchronizer
+//	{
+//		void WaitLastPostComplete();
+//	}
+//}

@@ -79,7 +79,7 @@ namespace ObservableComputations
 			int sourceCapacity,
 			// ReSharper disable once UnusedParameter.Local
 			int resultCapacity,
-			IEqualityComparer<TKey> comparer = null) : base(/*resultCapacity,*/ comparer) //ability to set capacity of HashSet starts form .Net 4.7.3
+			IEqualityComparer<TKey> comparer = null) : base(/*resultCapacity,*/ comparer) //ability to set capacity of HashSet starts form .Net 4.7.3 and netstandart 2.1
 		{
 			_itemInfos = new List<ItemInfo>(sourceCapacity);
 			_sourcePositions = new Positions<ItemInfo>(_itemInfos);

@@ -24009,69 +24009,6 @@ namespace ObservableComputations
 		}
 
 		#endregion
-		#region Synchronizing
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.Synchronizing<TSourceItem> Synchronizing<TSourceItem>(this
-			 System.Collections.Specialized.INotifyCollectionChanged source,
-			 ObservableComputations.IPostingSynchronizer postingSynchronizer,
-			 System.Action lockSourceChangeAction,
-			 System.Action unlockSourceChangeAction)
-			
-		{
-			return new ObservableComputations.Synchronizing<TSourceItem>(
-				source: source,
-				postingSynchronizer: postingSynchronizer,
-				lockSourceChangeAction: lockSourceChangeAction,
-				unlockSourceChangeAction: unlockSourceChangeAction);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.Synchronizing<TSourceItem> Synchronizing<TSourceItem>(this
-			 ObservableCollection<TSourceItem> source,
-			 ObservableComputations.IPostingSynchronizer postingSynchronizer,
-			 System.Action lockSourceChangeAction,
-			 System.Action unlockSourceChangeAction)
-			
-		{
-			return new ObservableComputations.Synchronizing<TSourceItem>(
-				source: source,
-				postingSynchronizer: postingSynchronizer,
-				lockSourceChangeAction: lockSourceChangeAction,
-				unlockSourceChangeAction: unlockSourceChangeAction);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.Synchronizing<TSourceItem> Synchronizing<TSourceItem>(this
-			 System.Collections.Specialized.INotifyCollectionChanged source,
-			 ObservableComputations.ISendingSynchronizer sendingSynchronizer,
-			 System.Action lockSourceChangeAction,
-			 System.Action unlockSourceChangeAction)
-			
-		{
-			return new ObservableComputations.Synchronizing<TSourceItem>(
-				source: source,
-				sendingSynchronizer: sendingSynchronizer,
-				lockSourceChangeAction: lockSourceChangeAction,
-				unlockSourceChangeAction: unlockSourceChangeAction);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.Synchronizing<TSourceItem> Synchronizing<TSourceItem>(this
-			 ObservableCollection<TSourceItem> source,
-			 ObservableComputations.ISendingSynchronizer sendingSynchronizer,
-			 System.Action lockSourceChangeAction,
-			 System.Action unlockSourceChangeAction)
-			
-		{
-			return new ObservableComputations.Synchronizing<TSourceItem>(
-				source: source,
-				sendingSynchronizer: sendingSynchronizer,
-				lockSourceChangeAction: lockSourceChangeAction,
-				unlockSourceChangeAction: unlockSourceChangeAction);
-		}
-
-		#endregion
 		#region Taking
 
 		[ObservableComputationsCall]

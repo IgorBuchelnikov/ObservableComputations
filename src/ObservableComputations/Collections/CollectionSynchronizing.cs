@@ -6,7 +6,7 @@
 
 //namespace ObservableComputations
 //{
-//	public class Synchronizing<TSourceItem> : ObservableCollectionWithChangeMarker<TSourceItem>
+//	public class CollectionSynchronizing<TSourceItem> : ObservableCollectionWithChangeMarker<TSourceItem>
 //	{
 //		public INotifyCollectionChanged Source => _source;
 //		public IPostingSynchronizer PostingSynchronizer => _postingSynchronizer;
@@ -34,7 +34,7 @@
 //		private Action _unlockSourceChangeAction;
 
 //		[ObservableComputationsCall]
-//		public Synchronizing(
+//		public CollectionSynchronizing(
 //			INotifyCollectionChanged source,
 //			IPostingSynchronizer postingSynchronizer,
 //			Action lockSourceChangeAction,
@@ -45,7 +45,7 @@
 //		}
 
 //		[ObservableComputationsCall]
-//		public Synchronizing(
+//		public CollectionSynchronizing(
 //			INotifyCollectionChanged source,
 //			ISendingSynchronizer sendingSynchronizer,
 //			Action lockSourceChangeAction,
@@ -55,7 +55,7 @@
 //			_synchronizer = sendingSynchronizer;
 //		}
 
-//		private Synchronizing(
+//		private CollectionSynchronizing(
 //			INotifyCollectionChanged source,
 //			Action lockSourceChangeAction,
 //			Action unlockSourceChangeAction)
@@ -141,7 +141,7 @@
 //			}
 //		}
 
-//		~Synchronizing()
+//		~CollectionSynchronizing()
 //		{
 //			_source.CollectionChanged -= _sourceWeakNotifyCollectionChangedEventHandler.Handle;
 

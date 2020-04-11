@@ -1,3 +1,5 @@
+# ObservableComputations
+
 ## Что нужно знать для чтения этой статьи?
 
 Для того чтобы понимать написанное здесь, Вы должны знать: базовые сведения о программировании и ООП, синтаксис C# (включая события, [методы расширения](https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/classes-and-structs/extension-methods), лямбда-выражения), [LINQ](https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/concepts/linq/), интерфейсы: [INotifyPropertyChanged](https://docs.microsoft.com/en-us/dotnet/api/system.componentmodel.inotifypropertychanged?view=netframework-4.8) и [INotifyCollectionChanged](https://docs.microsoft.com/en-us/dotnet/api/system.collections.specialized.inotifycollectionchanged?view=netframework-4.8).

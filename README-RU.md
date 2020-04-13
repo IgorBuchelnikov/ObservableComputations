@@ -12,7 +12,7 @@
 
 ## Аналоги
 
-ObservableComputations не является аналогом [Reactive Extentions](https://github.com/dotnet/reactive). Аналогами ObservableComputations являются следующие библиотеки: [DynamicData](https://github.com/reactiveui/DynamicData), Obtics, [OLinq](https://www.nuget.org/packages/OLinq/), Obtics, [OLinq](https://www.nuget.org/packages/OLinq/), BindableLinq, ContinuousLinq.
+ObservableComputations не является аналогом [Reactive Extentions](https://github.com/dotnet/reactive). Аналогами ObservableComputations являются следующие библиотеки: [DynamicData](https://github.com/reactiveui/DynamicData), Obtics, [OLinq](https://www.nuget.org/packages/OLinq/), BindableLinq, ContinuousLinq.
 
 Вот главные отличия ObservableComputations от  [Reactive Extentions](https://github.com/dotnet/reactive):
 

@@ -128,7 +128,7 @@ namespace ObservableComputations
 		private void handleSourceCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
 		{
 			checkConsistency();
-			if (!_rootSourceWrapper && _lastProcessedSourceChangeMarker == _sourceAsList.ChangeMarker) return;
+			if (!_rootSourceWrapper && _lastProcessedSourceChangeMarker == _sourceAsList.ChangeMarkerField) return;
 			_lastProcessedSourceChangeMarker = !_lastProcessedSourceChangeMarker;
 
 			switch (e.Action)
@@ -261,7 +261,7 @@ namespace ObservableComputations
 					_rootSourceWrapper = true;
 				}
 
-				_lastProcessedSourceChangeMarker = _sourceAsList.ChangeMarker;
+				_lastProcessedSourceChangeMarker = _sourceAsList.ChangeMarkerField;
 
 				int count = _sourceAsList.Count;
 				for (int sourceIndex = 0; sourceIndex < count; sourceIndex++)
@@ -369,7 +369,7 @@ namespace ObservableComputations
 
 		private void expressionWatcher_OnValueChanged(ExpressionWatcher expressionWatcher)
 		{
-			if (_rootSourceWrapper || _sourceAsList.ChangeMarker == _lastProcessedSourceChangeMarker)
+			if (_rootSourceWrapper || _sourceAsList.ChangeMarkerField == _lastProcessedSourceChangeMarker)
 			{
 				checkConsistency();
 				_isConsistent = false;

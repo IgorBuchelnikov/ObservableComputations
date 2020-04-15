@@ -172,7 +172,7 @@ namespace ObservableComputations
 
 				if (_sourcesAsIHasChangeMarker != null)
 				{
-					_lastProcessedSourcesChangeMarker = _sourcesAsIHasChangeMarker.GetChangeMarker();
+					_lastProcessedSourcesChangeMarker = _sourcesAsIHasChangeMarker.ChangeMarker;
 				}
 				else
 				{
@@ -276,7 +276,7 @@ namespace ObservableComputations
 				itemInfo.SourceAsIHasChangeMarker = sourceAsIHasChangeMarker;
 				if (sourceAsIHasChangeMarker != null)
 				{
-					itemInfo.LastProcessedSourceChangeMarker = sourceAsIHasChangeMarker.GetChangeMarker();
+					itemInfo.LastProcessedSourceChangeMarker = sourceAsIHasChangeMarker.ChangeMarker;
 				}
 			}
 		}
@@ -327,7 +327,7 @@ namespace ObservableComputations
 		private void handleSourceCollectionChanged(object sender, NotifyCollectionChangedEventArgs e, ItemInfo itemInfo)
 		{
 			checkConsistent();
-			if (itemInfo.IndexerPropertyChangedEventRaised || itemInfo.SourceAsIHasChangeMarker != null && itemInfo.LastProcessedSourceChangeMarker != itemInfo.SourceAsIHasChangeMarker.GetChangeMarker())
+			if (itemInfo.IndexerPropertyChangedEventRaised || itemInfo.SourceAsIHasChangeMarker != null && itemInfo.LastProcessedSourceChangeMarker != itemInfo.SourceAsIHasChangeMarker.ChangeMarker)
 			{
 				itemInfo.IndexerPropertyChangedEventRaised = false;
 				itemInfo.LastProcessedSourceChangeMarker = !itemInfo.LastProcessedSourceChangeMarker;
@@ -378,7 +378,7 @@ namespace ObservableComputations
 		private void handleSourcesCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
 		{
 			checkConsistent();
-			if (_indexerPropertyChangedEventRaised || _lastProcessedSourcesChangeMarker != _sourcesAsIHasChangeMarker.GetChangeMarker())
+			if (_indexerPropertyChangedEventRaised || _lastProcessedSourcesChangeMarker != _sourcesAsIHasChangeMarker.ChangeMarker)
 			{
 				_lastProcessedSourcesChangeMarker = !_lastProcessedSourcesChangeMarker;
 				_indexerPropertyChangedEventRaised = false;

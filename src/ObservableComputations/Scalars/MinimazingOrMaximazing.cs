@@ -224,7 +224,7 @@ namespace ObservableComputations
 
 				if (_sourceAsObservableCollectionWithChangeMarker != null)
 				{
-					_lastProcessedSourceChangeMarker = _sourceAsObservableCollectionWithChangeMarker.ChangeMarker;
+					_lastProcessedSourceChangeMarker = _sourceAsObservableCollectionWithChangeMarker.ChangeMarkerField;
 				}
 				else
 				{
@@ -302,7 +302,7 @@ namespace ObservableComputations
 
 		private void handleSourceCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
 		{
-			if (_indexerPropertyChangedEventRaised || _lastProcessedSourceChangeMarker != _sourceAsObservableCollectionWithChangeMarker.ChangeMarker)
+			if (_indexerPropertyChangedEventRaised || _lastProcessedSourceChangeMarker != _sourceAsObservableCollectionWithChangeMarker.ChangeMarkerField)
 			{
 				_indexerPropertyChangedEventRaised = false;
 				_lastProcessedSourceChangeMarker = !_lastProcessedSourceChangeMarker;

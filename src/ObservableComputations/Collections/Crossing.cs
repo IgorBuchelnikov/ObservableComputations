@@ -183,7 +183,7 @@ namespace ObservableComputations
 
 				if (_outerSourceAsObservableCollectionWithChangeMarker != null)
 				{
-					_lastProcessedOuterSourceChangeMarker = _outerSourceAsObservableCollectionWithChangeMarker.ChangeMarker;
+					_lastProcessedOuterSourceChangeMarker = _outerSourceAsObservableCollectionWithChangeMarker.ChangeMarkerField;
 				}
 				else
 				{
@@ -206,7 +206,7 @@ namespace ObservableComputations
 
 				if (_innerSourceAsObservableCollectionWithChangeMarker != null)
 				{
-					_lastProcessedInnerSourceChangeMarker = _innerSourceAsObservableCollectionWithChangeMarker.ChangeMarker;
+					_lastProcessedInnerSourceChangeMarker = _innerSourceAsObservableCollectionWithChangeMarker.ChangeMarkerField;
 				}
 				else
 				{
@@ -274,7 +274,7 @@ namespace ObservableComputations
 		private void handleOuterSourceCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
 		{
 			checkConsistent();
-			if (_outerSourceIndexerPropertyChangedEventRaised || _outerSourceAsObservableCollectionWithChangeMarker != null && _lastProcessedOuterSourceChangeMarker != _outerSourceAsObservableCollectionWithChangeMarker.ChangeMarker)
+			if (_outerSourceIndexerPropertyChangedEventRaised || _outerSourceAsObservableCollectionWithChangeMarker != null && _lastProcessedOuterSourceChangeMarker != _outerSourceAsObservableCollectionWithChangeMarker.ChangeMarkerField)
 			{
 				_outerSourceIndexerPropertyChangedEventRaised = false;
 				_lastProcessedOuterSourceChangeMarker = !_lastProcessedOuterSourceChangeMarker;
@@ -365,7 +365,7 @@ namespace ObservableComputations
 		private void handleInnerSourceCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
 		{
 			checkConsistent();
-			if (_innerSourceIndexerPropertyChangedEventRaised || _lastProcessedInnerSourceChangeMarker != _innerSourceAsObservableCollectionWithChangeMarker.ChangeMarker)
+			if (_innerSourceIndexerPropertyChangedEventRaised || _lastProcessedInnerSourceChangeMarker != _innerSourceAsObservableCollectionWithChangeMarker.ChangeMarkerField)
 			{
 				_innerSourceIndexerPropertyChangedEventRaised = false;
 				_lastProcessedInnerSourceChangeMarker = !_lastProcessedInnerSourceChangeMarker;

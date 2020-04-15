@@ -140,7 +140,7 @@ namespace ObservableComputations
 		private void keyExpressionWatcher_OnValueChanged(ExpressionWatcher expressionWatcher)
 		{
 			checkConsistent();
-			if (_rootSourceWrapper || _sourceAsList.ChangeMarker == _lastProcessedSourceChangeMarker)
+			if (_rootSourceWrapper || _sourceAsList.ChangeMarkerField == _lastProcessedSourceChangeMarker)
 			{
 
 				_isConsistent = false;
@@ -158,7 +158,7 @@ namespace ObservableComputations
 		{
 			checkConsistent();
 
-			if (!_rootSourceWrapper && _lastProcessedSourceChangeMarker == _sourceAsList.ChangeMarker) return;
+			if (!_rootSourceWrapper && _lastProcessedSourceChangeMarker == _sourceAsList.ChangeMarkerField) return;
 			_lastProcessedSourceChangeMarker = !_lastProcessedSourceChangeMarker;
 
 			TKey key;
@@ -270,7 +270,7 @@ namespace ObservableComputations
 					_rootSourceWrapper = true;
 				}
 
-				_lastProcessedSourceChangeMarker = _sourceAsList.ChangeMarker;
+				_lastProcessedSourceChangeMarker = _sourceAsList.ChangeMarkerField;
 
 				int count = _sourceAsList.Count;
 				for (int index = 0; index < count; index++)

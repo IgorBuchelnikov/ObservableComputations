@@ -54,6 +54,33 @@ namespace ObservableComputations
 
 		#endregion
 
+		object _lockModifySetValueActionKey;
+
+		public void LockModifySetValueAction(object key)
+		{
+			if (key == null) throw new ArgumentNullException("key");
+
+			if (_lockModifySetValueActionKey == null)
+				_lockModifySetValueActionKey = key;
+			else
+				throw new ObservableComputationsException(this,
+					"Modifying of SetValueAction is already locked. Unlock first.");
+		}
+
+		public void UnlockModifySetValueAction(object key)
+		{
+			if (key == null) throw new ArgumentNullException("key");
+
+			if (_lockModifySetValueActionKey == null)
+				throw new ObservableComputationsException(this,
+					"Modifying of SetValueAction is not locked. Lock first.");
+
+			if (_lockModifySetValueActionKey == key)
+				_lockModifySetValueActionKey = null;
+			else
+				throw new ObservableComputationsException(this, "Wrong key to unlock modifying of SetValueAction.");
+		}
+
 		protected Action<TValue> _setValueAction;
 
 		public Action<TValue> SetValueAction
@@ -63,6 +90,9 @@ namespace ObservableComputations
 			{
 				if (_setValueAction != value)
 				{
+					if (_lockModifySetValueActionKey != null)
+						throw new ObservableComputationsException(this, "Modifying of SetValueAction is locked. Unlock first.");
+
 					_setValueAction = value;
 					PropertyChanged?.Invoke(this, Utils.SetValueActionPropertyChangedEventArgs);
 				}

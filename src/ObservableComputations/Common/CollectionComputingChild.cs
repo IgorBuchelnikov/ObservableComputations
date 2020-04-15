@@ -24,7 +24,7 @@ namespace ObservableComputations
 	
 		protected internal void insertItem(int index, TItem item)
 		{
-			ChangeMarker = !ChangeMarker;
+			ChangeMarkerField = !ChangeMarkerField;
 
 			_currentChange = NotifyCollectionChangedAction.Add;
 			_newIndex = index;
@@ -42,7 +42,7 @@ namespace ObservableComputations
 		
 		protected internal void moveItem(int oldIndex, int newIndex)
 		{
-			ChangeMarker = !ChangeMarker;
+			ChangeMarkerField = !ChangeMarkerField;
 
 			_currentChange = NotifyCollectionChangedAction.Move;
 			_oldIndex = oldIndex;
@@ -61,7 +61,7 @@ namespace ObservableComputations
 		
 		protected internal void removeItem(int index)
 		{
-			ChangeMarker = !ChangeMarker;
+			ChangeMarkerField = !ChangeMarkerField;
 
 			_currentChange = NotifyCollectionChangedAction.Remove;
 			_oldIndex = index;
@@ -77,7 +77,7 @@ namespace ObservableComputations
 		
 		protected internal void setItem(int index, TItem item)
 		{
-			ChangeMarker = !ChangeMarker;
+			ChangeMarkerField = !ChangeMarkerField;
 
 			_currentChange = NotifyCollectionChangedAction.Replace;
 			_newItem = item;
@@ -95,7 +95,7 @@ namespace ObservableComputations
 		
 		protected internal void clearItems()
 		{
-			ChangeMarker = !ChangeMarker;
+			ChangeMarkerField = !ChangeMarkerField;
 
 			_currentChange = NotifyCollectionChangedAction.Reset;
 

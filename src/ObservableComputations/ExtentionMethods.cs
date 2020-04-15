@@ -9,54 +9,65 @@ namespace ObservableComputations
 {
 	public static partial class ExtensionMethods
 	{
+		#region Binding
+
 		[ObservableComputationsCall]
-		public static ObservableComputations.Binding<TValue> Binding<TValue>(this
-			ObservableComputations.IReadScalar<TValue> sourceScalar,
+		public static Binding<TValue> Binding<TValue>(this
+				IReadScalar<TValue> sourceScalar,
 			Action<TValue> modifyTargetAction,
 			bool applyNow)
 			
 		{
-			return new ObservableComputations.Binding<TValue>(
+			return new Binding<TValue>(
 				sourceScalar: sourceScalar,
 				modifyTargetAction: modifyTargetAction,
 				applyNow : applyNow);
 		}
 
 		[ObservableComputationsCall]
-		public static ObservableComputations.Binding<TValue> Binding<TValue>(this
-			ObservableComputations.IReadScalar<TValue> sourceScalar,
+		public static Binding<TValue> Binding<TValue>(this
+				IReadScalar<TValue> sourceScalar,
 			Action<TValue> modifyTargetAction)
 			
 		{
-			return new ObservableComputations.Binding<TValue>(
+			return new Binding<TValue>(
 				sourceScalar: sourceScalar,
 				modifyTargetAction: modifyTargetAction,
 				applyNow : true);
 		}
 
 		[ObservableComputationsCall]
-		public static ObservableComputations.Binding<TValue> Binding<TValue>(this
-			Expression<Func<TValue>> getSourceExpression,
+		public static Binding<TValue> Binding<TValue>(this
+				Expression<Func<TValue>> getSourceExpression,
 			Action<TValue> modifyTargetAction,
 			bool applyNow)
 			
 		{
-			return new ObservableComputations.Binding<TValue>(
+			return new Binding<TValue>(
 				getSourceExpression: getSourceExpression,
 				modifyTargetAction: modifyTargetAction,
 				applyNow : applyNow);
 		}
 
 		[ObservableComputationsCall]
-		public static ObservableComputations.Binding<TValue> Binding<TValue>(this
-			Expression<Func<TValue>> getSourceExpression,
+		public static Binding<TValue> Binding<TValue>(this
+				Expression<Func<TValue>> getSourceExpression,
 			Action<TValue> modifyTargetAction)
 			
 		{
-			return new ObservableComputations.Binding<TValue>(
+			return new Binding<TValue>(
 				getSourceExpression: getSourceExpression,
 				modifyTargetAction: modifyTargetAction,
 				applyNow : true);
+		}
+
+		#endregion
+
+		public static TObject Do<TObject>(
+			this TObject @object, Action<TObject> action)
+		{
+			action(@object);
+			return @object;
 		}
 	}
 }

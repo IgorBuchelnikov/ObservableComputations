@@ -32,7 +32,7 @@ namespace ObservableComputations
 				_getValueExpressionWatcher = new ExpressionWatcher(ExpressionWatcher.GetExpressionInfo(getValueExpression1));
 				_getValueExpressionWatcher.ValueChanged = getValueExpressionWatcherOnValueChanged;	
 		
-				setValue(_getValueFunc());
+				setValue(getResult());
 			}
 			else
 			{
@@ -43,14 +43,20 @@ namespace ObservableComputations
 
 		private void getValueExpressionWatcherOnValueChanged(ExpressionWatcher expressionWatcher)
 		{
-			TResult result;
+			setValue(getResult());
+		}
 
+		private TResult getResult()
+		{
+			TResult result;
 			if (Configuration.TrackComputingsExecutingUserCode)
 			{
 				Thread currentThread = Thread.CurrentThread;
-				IComputing computing = DebugInfo._computingsExecutingUserCode.ContainsKey(currentThread) ? DebugInfo._computingsExecutingUserCode[currentThread] : null;
-				DebugInfo._computingsExecutingUserCode[currentThread] = this;	
-				
+				IComputing computing = DebugInfo._computingsExecutingUserCode.ContainsKey(currentThread)
+					? DebugInfo._computingsExecutingUserCode[currentThread]
+					: null;
+				DebugInfo._computingsExecutingUserCode[currentThread] = this;
+
 				result = _getValueFunc();
 
 				if (computing == null) DebugInfo._computingsExecutingUserCode.Remove(currentThread);
@@ -61,7 +67,7 @@ namespace ObservableComputations
 				result = _getValueFunc();
 			}
 
-			setValue(result);
+			return result;
 		}
 	}
 }

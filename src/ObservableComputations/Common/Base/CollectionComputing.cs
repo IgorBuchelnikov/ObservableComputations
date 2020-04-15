@@ -24,6 +24,35 @@ namespace ObservableComputations
 		public event EventHandler PreCollectionChanged;
 		public event EventHandler PostCollectionChanged;
 
+		object _lockModifyChangeActionsKey;
+
+		public void LockModifyChangeActions(object key)
+		{
+			if (key == null) throw new ArgumentNullException("key");
+
+			if (_lockModifyChangeActionsKey == null)
+				_lockModifyChangeActionsKey = key;
+			else
+				throw new ObservableComputationsException(this,
+					"Modifying of change actions (InsertItemAction, RemoveItemAction, SetItemAction, MoveItemAction, ClearItemsAction)  is already locked. Unlock first.");
+		}
+
+		public void UnlockModifyChangeActions(object key)
+		{
+			if (key == null) throw new ArgumentNullException("key");
+
+			if (_lockModifyChangeActionsKey == null)
+				throw new ObservableComputationsException(this,
+					"Modifying of change actions (InsertItemAction, RemoveItemAction, SetItemAction, MoveItemAction, ClearItemsAction) is not locked. Lock first.");
+
+			if (_lockModifyChangeActionsKey == key)
+				_lockModifyChangeActionsKey = null;
+			else
+				throw new ObservableComputationsException(this,
+					"Wrong key to unlock modifying of change actions  (InsertItemAction, RemoveItemAction, SetItemAction, MoveItemAction, ClearItemsAction).");
+		}
+
+
 		private Action<int, TItem> _insertItemAction;
 		public Action<int, TItem> InsertItemAction
 		{
@@ -33,11 +62,20 @@ namespace ObservableComputations
 			{
 				if (_insertItemAction != value)
 				{
+					checkLockModifyChangeActions();
+
 					_insertItemAction = value;
 					OnPropertyChanged(Utils.InsertItemActionPropertyChangedEventArgs);
 				}
 
 			}
+		}
+
+		private void checkLockModifyChangeActions()
+		{
+			if (_lockModifyChangeActionsKey != null)
+				throw new ObservableComputationsException(this,
+					"Modifying of change actions  (InsertItemAction, RemoveItemAction, SetItemAction, MoveItemAction, ClearItemsAction) is locked. Unlock first.");
 		}
 
 		private Action<int> _removeItemAction;
@@ -49,6 +87,8 @@ namespace ObservableComputations
 			{
 				if (_removeItemAction != value)
 				{
+					checkLockModifyChangeActions();
+
 					_removeItemAction = value;
 					OnPropertyChanged(Utils.RemoveItemActionPropertyChangedEventArgs);
 				}
@@ -64,6 +104,8 @@ namespace ObservableComputations
 			{
 				if (_setItemAction != value)
 				{
+					checkLockModifyChangeActions();
+
 					_setItemAction = value;
 					OnPropertyChanged(Utils.SetItemActionPropertyChangedEventArgs);
 				}
@@ -79,6 +121,8 @@ namespace ObservableComputations
 			{
 				if (_moveItemAction != value)
 				{
+					checkLockModifyChangeActions();
+
 					_moveItemAction = value;
 					OnPropertyChanged(Utils.MoveItemActionPropertyChangedEventArgs);
 				}
@@ -95,6 +139,8 @@ namespace ObservableComputations
 			{
 				if (_clearItemsAction != value)
 				{
+					checkLockModifyChangeActions();
+
 					_clearItemsAction = value;
 					OnPropertyChanged(Utils.ClearItemsActionPropertyChangedEventArgs);
 				}
@@ -211,7 +257,7 @@ namespace ObservableComputations
 	
 		protected internal void baseInsertItem(int index, TItem item)
 		{
-			ChangeMarker = !ChangeMarker;
+			ChangeMarkerField = !ChangeMarkerField;
 
 			_currentChange = NotifyCollectionChangedAction.Add;
 			_newIndex = index;
@@ -245,7 +291,7 @@ namespace ObservableComputations
 		
 		protected internal void baseMoveItem(int oldIndex, int newIndex)
 		{
-			ChangeMarker = !ChangeMarker;
+			ChangeMarkerField = !ChangeMarkerField;
 
 			_currentChange = NotifyCollectionChangedAction.Move;
 			_oldIndex = oldIndex;
@@ -279,7 +325,7 @@ namespace ObservableComputations
 		
 		protected internal void baseRemoveItem(int index)
 		{
-			ChangeMarker = !ChangeMarker;
+			ChangeMarkerField = !ChangeMarkerField;
 
 			_currentChange = NotifyCollectionChangedAction.Remove;
 			_oldIndex = index;
@@ -311,7 +357,7 @@ namespace ObservableComputations
 		
 		protected internal void baseSetItem(int index, TItem item)
 		{
-			ChangeMarker = !ChangeMarker;
+			ChangeMarkerField = !ChangeMarkerField;
 			
 			_currentChange = NotifyCollectionChangedAction.Replace;
 			_newItem = item;
@@ -345,7 +391,7 @@ namespace ObservableComputations
 		
 		protected internal void baseClearItems()
 		{
-			ChangeMarker = !ChangeMarker;
+			ChangeMarkerField = !ChangeMarkerField;
 
 			_currentChange = NotifyCollectionChangedAction.Reset;
 

@@ -6,20 +6,22 @@ namespace ObservableComputations
 {
 	public class ObservableCollectionWithChangeMarker<TItem> : ObservableCollection<TItem>, IHasChangeMarker
 	{
-		public bool ChangeMarker;
+		internal bool ChangeMarkerField;
 
 		public ObservableCollectionWithChangeMarker(List<TItem> list) : base(list)
 		{
 
 		}
 
+
 		protected ObservableCollectionWithChangeMarker()
 		{
 		}
 
-		public bool GetChangeMarker()
+		bool IHasChangeMarker.ChangeMarker
 		{
-			return ChangeMarker;
+			get => ChangeMarkerField;
+			set => ChangeMarkerField = value;
 		}
 	}
 }

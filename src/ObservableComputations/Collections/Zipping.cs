@@ -239,7 +239,7 @@ namespace ObservableComputations
 
 				if (_leftSourceAsObservableCollectionWithChangeMarker != null)
 				{
-					_lastProcessedLeftSourceChangeMarker = _leftSourceAsObservableCollectionWithChangeMarker.ChangeMarker;
+					_lastProcessedLeftSourceChangeMarker = _leftSourceAsObservableCollectionWithChangeMarker.ChangeMarkerField;
 				}
 				else
 				{
@@ -261,7 +261,7 @@ namespace ObservableComputations
 
 				if (_rightSourceAsObservableCollectionWithChangeMarker != null)
 				{
-					_lastProcessedRightSourceChangeMarker = _rightSourceAsObservableCollectionWithChangeMarker.ChangeMarker;
+					_lastProcessedRightSourceChangeMarker = _rightSourceAsObservableCollectionWithChangeMarker.ChangeMarkerField;
 				}
 				else
 				{
@@ -331,7 +331,7 @@ namespace ObservableComputations
 		private void handleLeftSourceCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
 		{
 			checkConsistent();
-			if (_leftSourceIndexerPropertyChangedEventRaised || _leftSourceAsObservableCollectionWithChangeMarker != null && _lastProcessedLeftSourceChangeMarker != _leftSourceAsObservableCollectionWithChangeMarker.ChangeMarker)
+			if (_leftSourceIndexerPropertyChangedEventRaised || _leftSourceAsObservableCollectionWithChangeMarker != null && _lastProcessedLeftSourceChangeMarker != _leftSourceAsObservableCollectionWithChangeMarker.ChangeMarkerField)
 			{
 				_leftSourceIndexerPropertyChangedEventRaised = false;
 				_lastProcessedLeftSourceChangeMarker = !_lastProcessedLeftSourceChangeMarker;
@@ -456,7 +456,7 @@ namespace ObservableComputations
 		private void handleRightSourceCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
 		{
 			checkConsistent();
-			if (_rigthtSourceIndexerPropertyChangedEventRaised || _rightSourceAsObservableCollectionWithChangeMarker != null && _lastProcessedRightSourceChangeMarker != _rightSourceAsObservableCollectionWithChangeMarker.ChangeMarker)
+			if (_rigthtSourceIndexerPropertyChangedEventRaised || _rightSourceAsObservableCollectionWithChangeMarker != null && _lastProcessedRightSourceChangeMarker != _rightSourceAsObservableCollectionWithChangeMarker.ChangeMarkerField)
 			{
 				_rigthtSourceIndexerPropertyChangedEventRaised = false;
 				_lastProcessedRightSourceChangeMarker = !_lastProcessedRightSourceChangeMarker;

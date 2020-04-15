@@ -452,7 +452,7 @@ namespace ObservableComputations
 					_rootSourceWrapper = true;
 				}
 
-				_lastProcessedSourceChangeMarker = _sourceAsList.ChangeMarker;
+				_lastProcessedSourceChangeMarker = _sourceAsList.ChangeMarkerField;
 
 				fillFromSource();
 
@@ -736,7 +736,7 @@ namespace ObservableComputations
 		{
 			checkConsistent();
 
-			if (_sourceAsList == null || _rootSourceWrapper || _sourceAsList.ChangeMarker ==_lastProcessedSourceChangeMarker)
+			if (_sourceAsList == null || _rootSourceWrapper || _sourceAsList.ChangeMarkerField ==_lastProcessedSourceChangeMarker)
 			{
 				_isConsistent = false;
 				processSourceItemChange(expressionWatcher._position.Index, true);

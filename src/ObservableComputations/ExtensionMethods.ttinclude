@@ -34,6 +34,9 @@
 
 					string name = classInFile.Name;
 
+                    if (name == "ItemsProcessingVoid") name = "ItemsProcessing";
+                    if (name == "ValuesProcessingVoid") name = "ValuesProcessing";
+
 					string genericParameters = string.Empty;
                     string genericConstraints = string.Empty;
 					if (classInFile.FullName.Contains("<"))
@@ -116,7 +119,7 @@
 							{
 								foreach (string type in argumentVariants.Types)
 								{
-									if (type.Contains("IReadScalar"))
+									if (type.Contains("IReadScalar") && name != "ValuesProcessing")
 									{
 										newTypes.Add("Expression<" + type.Replace("ObservableComputations.IReadScalar", "Func") + ">");
 									}
@@ -125,7 +128,7 @@
 							else
 							{
 								newTypes.Add(argumentVariants.Type);
-								if (argumentVariants.Type.Contains("IReadScalar"))
+								if (argumentVariants.Type.Contains("IReadScalar") && name != "ValuesProcessing")
 								{
 									newTypes.Add("Expression<" + argumentVariants.Type.Replace("ObservableComputations.IReadScalar", "Func") + ">");
 								}

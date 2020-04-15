@@ -2,6 +2,6 @@
 {
 	internal interface IHasChangeMarker
 	{
-		bool GetChangeMarker();
+		bool ChangeMarker { get; set; }
 	}
 }

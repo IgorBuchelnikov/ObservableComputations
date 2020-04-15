@@ -86,7 +86,7 @@ namespace ObservableComputations
 
 				if (_sourceAsIHasChangeMarker != null)
 				{
-					_lastProcessedSourceChangeMarker = _sourceAsIHasChangeMarker.GetChangeMarker();
+					_lastProcessedSourceChangeMarker = _sourceAsIHasChangeMarker.ChangeMarker;
 				}
 				else
 				{
@@ -133,7 +133,7 @@ namespace ObservableComputations
 		private void handleSourceCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
 		{
 			checkConsistent();
-			if (_indexerPropertyChangedEventRaised || _lastProcessedSourceChangeMarker != _sourceAsIHasChangeMarker.GetChangeMarker())
+			if (_indexerPropertyChangedEventRaised || _lastProcessedSourceChangeMarker != _sourceAsIHasChangeMarker.ChangeMarker)
 			{
 				_lastProcessedSourceChangeMarker = !_lastProcessedSourceChangeMarker;
 				_indexerPropertyChangedEventRaised = false;

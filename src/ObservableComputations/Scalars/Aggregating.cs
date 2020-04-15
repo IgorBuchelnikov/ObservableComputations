@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.ComponentModel;
+using System.Threading;
 using ObservableComputations;
 using ObservableComputations.ExtentionMethods;
 
@@ -111,7 +112,7 @@ namespace ObservableComputations
 
 				if (_sourceAsObservableCollectionWithChangeMarker != null)
 				{
-					_lastProcessedSourceChangeMarker = _sourceAsObservableCollectionWithChangeMarker.ChangeMarker;
+					_lastProcessedSourceChangeMarker = _sourceAsObservableCollectionWithChangeMarker.ChangeMarkerField;
 				}
 				else
 				{
@@ -145,7 +146,7 @@ namespace ObservableComputations
 
 		private void handleSourceCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
 		{
-			if (_indexerPropertyChangedEventRaised || _lastProcessedSourceChangeMarker != _sourceAsObservableCollectionWithChangeMarker.ChangeMarker)
+			if (_indexerPropertyChangedEventRaised || _lastProcessedSourceChangeMarker != _sourceAsObservableCollectionWithChangeMarker.ChangeMarkerField)
 			{
 				_indexerPropertyChangedEventRaised = false;
 				_lastProcessedSourceChangeMarker = !_lastProcessedSourceChangeMarker;
@@ -157,14 +158,14 @@ namespace ObservableComputations
 						int newIndex = e.NewStartingIndex;
 						TSourceItem addedSourceItem = _sourceAsList[newIndex];
 						_sourceItems.Insert(newIndex, addedSourceItem);
-						setValue(_aggregateFunc(addedSourceItem, Value));					
+						setValue(aggregate(addedSourceItem, _value));					
 						break;
 					case NotifyCollectionChangedAction.Remove:
 						//if (e.OldItems.Count > 1) throw new ObservableComputationsException(this, "Removing of multiple items is not supported");
 						int oldStartingIndex = e.OldStartingIndex;
 						TSourceItem removedSourceItem = _sourceItems[oldStartingIndex];
 						_sourceItems.RemoveAt(oldStartingIndex);
-						setValue(_deaggregateFunc(removedSourceItem, Value));
+						setValue(deaggregate(removedSourceItem, _value));
 						break;
 					case NotifyCollectionChangedAction.Replace:
 						//if (e.NewItems.Count > 1) throw new ObservableComputationsException(this, "Replacing of multiple items is not supported");
@@ -172,8 +173,8 @@ namespace ObservableComputations
 						TSourceItem newItem = _sourceAsList[newStartingIndex];
 						TSourceItem oldItem = _sourceItems[newStartingIndex];
 						_sourceItems[newStartingIndex] = newItem;
-						TResult result = _deaggregateFunc(oldItem, Value);
-						setValue(_aggregateFunc(newItem, result));
+						TResult result = deaggregate(oldItem, _value);
+						setValue(aggregate(newItem, result));
 						break;
 					case NotifyCollectionChangedAction.Move:
 						if (e.OldStartingIndex == e.NewStartingIndex) return;
@@ -191,6 +192,42 @@ namespace ObservableComputations
 
 		}
 
+		private TResult aggregate(TSourceItem addedSourceItem, TResult value)
+		{
+			if (Configuration.TrackComputingsExecutingUserCode)
+			{
+				Thread currentThread = Thread.CurrentThread;
+				IComputing computing = DebugInfo._computingsExecutingUserCode.ContainsKey(currentThread) ? DebugInfo._computingsExecutingUserCode[currentThread] : null;
+				DebugInfo._computingsExecutingUserCode[currentThread] = this;	
+				
+				TResult result = _aggregateFunc(addedSourceItem, value);
+
+				if (computing == null) DebugInfo._computingsExecutingUserCode.Remove(currentThread);
+				else DebugInfo._computingsExecutingUserCode[currentThread] = computing;
+				return result;
+			}
+
+			return _aggregateFunc(addedSourceItem, Value);
+		}
+
+		private TResult deaggregate(TSourceItem removedSourceItem, TResult value)
+		{
+			if (Configuration.TrackComputingsExecutingUserCode)
+			{
+				Thread currentThread = Thread.CurrentThread;
+				IComputing computing = DebugInfo._computingsExecutingUserCode.ContainsKey(currentThread) ? DebugInfo._computingsExecutingUserCode[currentThread] : null;
+				DebugInfo._computingsExecutingUserCode[currentThread] = this;	
+				
+				TResult result = _deaggregateFunc(removedSourceItem, value);
+
+				if (computing == null) DebugInfo._computingsExecutingUserCode.Remove(currentThread);
+				else DebugInfo._computingsExecutingUserCode[currentThread] = computing;
+				return result;
+			}
+
+			return _aggregateFunc(removedSourceItem, Value);
+		}
+
 		private void handleSourceScalarValueChanged(object sender, PropertyChangedEventArgs e)
 		{
 			if (e.PropertyName != nameof(IReadScalar<INotifyCollectionChanged>.Value)) return;
@@ -204,7 +241,7 @@ namespace ObservableComputations
 			for (int index = 0; index < count; index++)
 			{
 				TSourceItem sourceItem = _sourceAsList[index];
-				value = _aggregateFunc(sourceItem, value);
+				value = aggregate(sourceItem, value);
 				_sourceItems.Add(sourceItem);
 			}
 			setValue(value);

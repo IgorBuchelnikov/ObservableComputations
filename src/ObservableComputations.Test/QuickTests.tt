@@ -31,6 +31,9 @@ namespace ObservableComputations.Test
             && em.Name != "WeakPreviousTracking"
             && em.Name != "PropertyAccessing"
             && em.Name != "Synchronizing"
+            && em.Name != "Synchronizing"
+            && em.Name != "ItemsProcessing"
+            && em.Name != "ValuesProcessing"
             && !em.Arguments.Any(ema => IsComputingArgument(ema)))
         .GroupBy(em => em.Name).OrderBy(emg => emg.Key))
 	{

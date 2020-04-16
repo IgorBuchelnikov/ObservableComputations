@@ -24,32 +24,41 @@ namespace ObservableComputations
 		public event EventHandler PreCollectionChanged;
 		public event EventHandler PostCollectionChanged;
 
-		object _lockModifyChangeActionsKey;
+		Dictionary<CollectionChangeAction, object> _lockModifyChangeActionsKeys;
+		private Dictionary<CollectionChangeAction, object> lockModifyChangeActionsKeys => _lockModifyChangeActionsKeys = 
+			_lockModifyChangeActionsKeys ?? new Dictionary<CollectionChangeAction, object>();
 
-		public void LockModifyChangeActions(object key)
+		public void LockModifyChangeAction(CollectionChangeAction collectionChangeAction, object key)
 		{
 			if (key == null) throw new ArgumentNullException("key");
 
-			if (_lockModifyChangeActionsKey == null)
-				_lockModifyChangeActionsKey = key;
+			if (!lockModifyChangeActionsKeys.ContainsKey(collectionChangeAction))
+				lockModifyChangeActionsKeys[collectionChangeAction] = key;
 			else
 				throw new ObservableComputationsException(this,
-					"Modifying of change actions (InsertItemAction, RemoveItemAction, SetItemAction, MoveItemAction, ClearItemsAction)  is already locked. Unlock first.");
+					$"Modifying of '{collectionChangeAction.ToString()}' change action is already locked. Unlock first.");
 		}
 
-		public void UnlockModifyChangeActions(object key)
+		public void UnlockModifyChangeAction(CollectionChangeAction collectionChangeAction, object key)
 		{
 			if (key == null) throw new ArgumentNullException("key");
 
-			if (_lockModifyChangeActionsKey == null)
+			if (!lockModifyChangeActionsKeys.ContainsKey(collectionChangeAction))
 				throw new ObservableComputationsException(this,
-					"Modifying of change actions (InsertItemAction, RemoveItemAction, SetItemAction, MoveItemAction, ClearItemsAction) is not locked. Lock first.");
+					"Modifying of '{collectionChangeAction.ToString()}' change action is not locked. Lock first.");
 
-			if (_lockModifyChangeActionsKey == key)
-				_lockModifyChangeActionsKey = null;
+			if (ReferenceEquals(lockModifyChangeActionsKeys[collectionChangeAction], key))
+				lockModifyChangeActionsKeys.Remove(collectionChangeAction);
 			else
 				throw new ObservableComputationsException(this,
-					"Wrong key to unlock modifying of change actions  (InsertItemAction, RemoveItemAction, SetItemAction, MoveItemAction, ClearItemsAction).");
+					"Wrong key to unlock modifying of '{collectionChangeAction.ToString()}' change action.");
+		}
+
+		private void checkLockModifyChangeAction(CollectionChangeAction collectionChangeAction)
+		{
+			if (lockModifyChangeActionsKeys.ContainsKey(collectionChangeAction))
+				throw new ObservableComputationsException(this,
+					"Modifying of '{collectionChangeAction.ToString()}' change action is locked. Unlock first.");
 		}
 
 
@@ -62,20 +71,13 @@ namespace ObservableComputations
 			{
 				if (_insertItemAction != value)
 				{
-					checkLockModifyChangeActions();
+					checkLockModifyChangeAction(CollectionChangeAction.InsertItem);
 
 					_insertItemAction = value;
 					OnPropertyChanged(Utils.InsertItemActionPropertyChangedEventArgs);
 				}
 
 			}
-		}
-
-		private void checkLockModifyChangeActions()
-		{
-			if (_lockModifyChangeActionsKey != null)
-				throw new ObservableComputationsException(this,
-					"Modifying of change actions  (InsertItemAction, RemoveItemAction, SetItemAction, MoveItemAction, ClearItemsAction) is locked. Unlock first.");
 		}
 
 		private Action<int> _removeItemAction;
@@ -87,7 +89,7 @@ namespace ObservableComputations
 			{
 				if (_removeItemAction != value)
 				{
-					checkLockModifyChangeActions();
+					checkLockModifyChangeAction(CollectionChangeAction.RemoveItem);
 
 					_removeItemAction = value;
 					OnPropertyChanged(Utils.RemoveItemActionPropertyChangedEventArgs);
@@ -104,7 +106,7 @@ namespace ObservableComputations
 			{
 				if (_setItemAction != value)
 				{
-					checkLockModifyChangeActions();
+					checkLockModifyChangeAction(CollectionChangeAction.SetItem);
 
 					_setItemAction = value;
 					OnPropertyChanged(Utils.SetItemActionPropertyChangedEventArgs);
@@ -121,7 +123,7 @@ namespace ObservableComputations
 			{
 				if (_moveItemAction != value)
 				{
-					checkLockModifyChangeActions();
+					checkLockModifyChangeAction(CollectionChangeAction.MoveItem);
 
 					_moveItemAction = value;
 					OnPropertyChanged(Utils.MoveItemActionPropertyChangedEventArgs);
@@ -139,7 +141,7 @@ namespace ObservableComputations
 			{
 				if (_clearItemsAction != value)
 				{
-					checkLockModifyChangeActions();
+					checkLockModifyChangeAction(CollectionChangeAction.ClearItems);
 
 					_clearItemsAction = value;
 					OnPropertyChanged(Utils.ClearItemsActionPropertyChangedEventArgs);
@@ -153,7 +155,7 @@ namespace ObservableComputations
 			if (Configuration.TrackComputingsExecutingUserCode)
 			{
 				Thread currentThread = Thread.CurrentThread;
-				IComputing computing = DebugInfo._computingsExecutingUserCode.ContainsKey(currentThread) ? DebugInfo._computingsExecutingUserCode[currentThread] : null;
+				DebugInfo._computingsExecutingUserCode.TryGetValue(currentThread, out IComputing computing);
 				DebugInfo._computingsExecutingUserCode[currentThread] = this;	
 				
 				_insertItemAction(index, item);
@@ -172,7 +174,7 @@ namespace ObservableComputations
 			if (Configuration.TrackComputingsExecutingUserCode)
 			{
 				Thread currentThread = Thread.CurrentThread;
-				IComputing computing = DebugInfo._computingsExecutingUserCode.ContainsKey(currentThread) ? DebugInfo._computingsExecutingUserCode[currentThread] : null;
+				DebugInfo._computingsExecutingUserCode.TryGetValue(currentThread, out IComputing computing);
 				DebugInfo._computingsExecutingUserCode[currentThread] = this;	
 				
 				_moveItemAction(oldIndex, newIndex);
@@ -191,7 +193,7 @@ namespace ObservableComputations
 			if (Configuration.TrackComputingsExecutingUserCode)
 			{
 				Thread currentThread = Thread.CurrentThread;
-				IComputing computing = DebugInfo._computingsExecutingUserCode.ContainsKey(currentThread) ? DebugInfo._computingsExecutingUserCode[currentThread] : null;
+				DebugInfo._computingsExecutingUserCode.TryGetValue(currentThread, out IComputing computing);
 				DebugInfo._computingsExecutingUserCode[currentThread] = this;	
 				
 				_removeItemAction(index);
@@ -210,7 +212,7 @@ namespace ObservableComputations
 			if (Configuration.TrackComputingsExecutingUserCode)
 			{
 				Thread currentThread = Thread.CurrentThread;
-				IComputing computing = DebugInfo._computingsExecutingUserCode.ContainsKey(currentThread) ? DebugInfo._computingsExecutingUserCode[currentThread] : null;
+				DebugInfo._computingsExecutingUserCode.TryGetValue(currentThread, out IComputing computing);
 				DebugInfo._computingsExecutingUserCode[currentThread] = this;	
 				
 				_setItemAction(index, item);
@@ -229,7 +231,7 @@ namespace ObservableComputations
 			if (Configuration.TrackComputingsExecutingUserCode)
 			{
 				Thread currentThread = Thread.CurrentThread;
-				IComputing computing = DebugInfo._computingsExecutingUserCode.ContainsKey(currentThread) ? DebugInfo._computingsExecutingUserCode[currentThread] : null;
+				DebugInfo._computingsExecutingUserCode.TryGetValue(currentThread, out IComputing computing);
 				DebugInfo._computingsExecutingUserCode[currentThread] = this;	
 				
 				_clearItemsAction();
@@ -266,7 +268,7 @@ namespace ObservableComputations
 			if (Configuration.TrackComputingsExecutingUserCode)
 			{
 				Thread currentThread = Thread.CurrentThread;
-				IComputing computing = DebugInfo._computingsExecutingUserCode.ContainsKey(currentThread) ? DebugInfo._computingsExecutingUserCode[currentThread] : null;
+				DebugInfo._computingsExecutingUserCode.TryGetValue(currentThread, out IComputing computing);
 				DebugInfo._computingsExecutingUserCode[currentThread] = this;	
 				
 				PreCollectionChanged?.Invoke(this, null);
@@ -300,7 +302,7 @@ namespace ObservableComputations
 			if (Configuration.TrackComputingsExecutingUserCode)
 			{
 				Thread currentThread = Thread.CurrentThread;
-				IComputing computing = DebugInfo._computingsExecutingUserCode.ContainsKey(currentThread) ? DebugInfo._computingsExecutingUserCode[currentThread] : null;
+				DebugInfo._computingsExecutingUserCode.TryGetValue(currentThread, out IComputing computing);
 				DebugInfo._computingsExecutingUserCode[currentThread] = this;	
 				
 				PreCollectionChanged?.Invoke(this, null);
@@ -333,7 +335,7 @@ namespace ObservableComputations
 			if (Configuration.TrackComputingsExecutingUserCode)
 			{
 				Thread currentThread = Thread.CurrentThread;
-				IComputing computing = DebugInfo._computingsExecutingUserCode.ContainsKey(currentThread) ? DebugInfo._computingsExecutingUserCode[currentThread] : null;
+				DebugInfo._computingsExecutingUserCode.TryGetValue(currentThread, out IComputing computing);
 				DebugInfo._computingsExecutingUserCode[currentThread] = this;	
 				
 				PreCollectionChanged?.Invoke(this, null);
@@ -366,7 +368,7 @@ namespace ObservableComputations
 			if (Configuration.TrackComputingsExecutingUserCode)
 			{
 				Thread currentThread = Thread.CurrentThread;
-				IComputing computing = DebugInfo._computingsExecutingUserCode.ContainsKey(currentThread) ? DebugInfo._computingsExecutingUserCode[currentThread] : null;
+				DebugInfo._computingsExecutingUserCode.TryGetValue(currentThread, out IComputing computing);
 				DebugInfo._computingsExecutingUserCode[currentThread] = this;	
 				
 				PreCollectionChanged?.Invoke(this, null);
@@ -398,7 +400,7 @@ namespace ObservableComputations
 			if (Configuration.TrackComputingsExecutingUserCode)
 			{
 				Thread currentThread = Thread.CurrentThread;
-				IComputing computing = DebugInfo._computingsExecutingUserCode.ContainsKey(currentThread) ? DebugInfo._computingsExecutingUserCode[currentThread] : null;
+				DebugInfo._computingsExecutingUserCode.TryGetValue(currentThread, out IComputing computing);
 				DebugInfo._computingsExecutingUserCode[currentThread] = this;	
 				
 				PreCollectionChanged?.Invoke(this, null);
@@ -441,6 +443,15 @@ namespace ObservableComputations
 				throw new ObservableComputationsException(this,
 					"The source collection has been changed. It is not possible to process this change, as the processing of the previous change is not completed. Make the change on ConsistencyRestored event raising (after IsConsistent property becomes true). This exception is fatal and cannot be handled as the inner state is damaged.");
 		}
+	}
+
+	public enum CollectionChangeAction
+	{
+		InsertItem,
+		RemoveItem,
+		SetItem,
+		MoveItem,
+		ClearItems,
 	}
 
 }

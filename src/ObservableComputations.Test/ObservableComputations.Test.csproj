@@ -41,7 +41,6 @@
   <ItemGroup>
     <None Update="QuickTests.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>QuickTests.generated.cs</LastGenOutput>
     </None>
     <None Update="SmokeTests.tt">
       <Generator>TextTemplatingFileGenerator</Generator>

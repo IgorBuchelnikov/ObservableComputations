@@ -8,22 +8,22 @@ namespace ObservableComputations
 	public class ValuesProcessing<TValue, TReturnValue> : ScalarComputing<TReturnValue>
 	{
 		public IReadScalar<TValue> Scalar => _scalar;
-		public Func<TValue, TReturnValue, IReadScalar<TValue>, EventArgs, TReturnValue> NewValueProcessorFunc => _newValueProcessorFunc;
+		public Func<TValue, ValuesProcessing<TValue, TReturnValue>, IReadScalar<TValue>, EventArgs, TReturnValue> NewValueProcessor => _newValueProcessor;
 
 		private IReadScalar<TValue> _scalar;
 
 		private readonly PropertyChangedEventHandler _scalarPropertyChangedEventHandler;
 		private readonly WeakPropertyChangedEventHandler _scalarWeakPropertyChangedEventHandler;
 
-		private Func<TValue, TReturnValue, IReadScalar<TValue>, EventArgs, TReturnValue> _newValueProcessorFunc;
+		private Func<TValue, ValuesProcessing<TValue, TReturnValue>, IReadScalar<TValue>, EventArgs, TReturnValue> _newValueProcessor;
 
 		[ObservableComputationsCall]
 		public ValuesProcessing(
 			IReadScalar<TValue> scalar,
-			Func<TValue, TReturnValue, IReadScalar<TValue>, EventArgs, TReturnValue> newValueProcessor,
+			Func<TValue, ValuesProcessing<TValue, TReturnValue>, IReadScalar<TValue>, EventArgs, TReturnValue> newValueProcessor,
 			bool processNow = true) : this(scalar)
 		{
-			_newValueProcessorFunc = newValueProcessor;
+			_newValueProcessor = newValueProcessor;
 			if (processNow)
 			{
 				setValue(processNewValue(scalar.Value, null, null));
@@ -57,7 +57,7 @@ namespace ObservableComputations
 					: null;
 				DebugInfo._computingsExecutingUserCode[currentThread] = this;
 
-				TReturnValue returnValue = _newValueProcessorFunc(newValue, _value, sender, eventArgs);
+				TReturnValue returnValue = _newValueProcessor(newValue, this, sender, eventArgs);
 
 				if (computing == null) DebugInfo._computingsExecutingUserCode.Remove(currentThread);
 				else DebugInfo._computingsExecutingUserCode[currentThread] = computing;
@@ -66,7 +66,7 @@ namespace ObservableComputations
 			}
 			else
 			{
-				return _newValueProcessorFunc(newValue, _value, sender, eventArgs);
+				return _newValueProcessor(newValue, this, sender, eventArgs);
 			}
 		}
 

@@ -21,6 +21,9 @@ ObservableComputations не является аналогом [Reactive Extentio
 
 [ReactiveUI](https://github.com/reactiveui/ReactiveUI) и [DynamicData](https://github.com/reactiveui/DynamicData) делают примерно то же самое, что и ObservableComputations, но ObservableComputations менее многословна, проще в использовании, меньше обращается к исходным данным. Наборы функций этих библиотек и ObservableComputations пересекаются. Набор функций этих библиотек шире и более низкоуровневый, чем набор функций ObservableComputations. Эти библиотеки позволяют производить тонкую настройку, но основная логика Вашего приложения могет быть реализованы с помощью ObservableComputations проще и изящнее. Вы можете сравнить эти библиотеки и ObservableComputations в действии, см. [ObservableComputations.Samples](https://github.com/IgorBuchelnikov/ObservableComputations.Samples).
 
+Проше так как реактивность основана только на 2-х интерфейсах и слабые события, не нужен IDisposable
+RE нужны там где события не связаны с событиями изменения двнных (нажитие клавиш (клавиатуры и мыши), асинхронный ввод вывод)
+
 ## Статус
 
 ObservableComputations готова к использованию в производственном окружении. Все необходимые функции реализованы и покрыты unit-тестами. Все найденные баги исправлены.

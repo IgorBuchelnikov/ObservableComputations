@@ -22,11 +22,11 @@ namespace ObservableComputations
 		public ReadOnlyCollection<INotifyCollectionChanged> SourcesCollection => new ReadOnlyCollection<INotifyCollectionChanged>(new []{Source});
 		public ReadOnlyCollection<IReadScalar<INotifyCollectionChanged>> SourceScalarsCollection => new ReadOnlyCollection<IReadScalar<INotifyCollectionChanged>>(new []{SourceScalar});
 
-		public Func<TSourceItem, object, EventArgs, TReturnValue> NewItemProcessorFunc => _newItemProcessorFunc;
-		public Action<TSourceItem, TReturnValue, object, EventArgs> OldItemProcessorAction => _oldItemProcessorAction;
+		public Func<TSourceItem, ItemsProcessing<TSourceItem, TReturnValue>, object, EventArgs, TReturnValue> NewItemProcessor => _newItemProcessor;
+		public Action<TSourceItem, ItemsProcessing<TSourceItem, TReturnValue>, TReturnValue, object, EventArgs> OldItemProcessor => _oldItemProcessor;
 
-		private readonly Func<TSourceItem, object, EventArgs, TReturnValue> _newItemProcessorFunc;
-		private readonly Action<TSourceItem, TReturnValue, object, EventArgs> _oldItemProcessorAction;
+		private readonly Func<TSourceItem, ItemsProcessing<TSourceItem, TReturnValue>, object, EventArgs, TReturnValue> _newItemProcessor;
+		private readonly Action<TSourceItem, ItemsProcessing<TSourceItem, TReturnValue>, TReturnValue, object, EventArgs> _oldItemProcessor;
 
 		// ReSharper disable once PrivateFieldCanBeConvertedToLocalVariable
 		private readonly PropertyChangedEventHandler _sourceScalarPropertyChangedEventHandler;
@@ -44,8 +44,8 @@ namespace ObservableComputations
 		[ObservableComputationsCall]
 		public ItemsProcessing(
 			IReadScalar<INotifyCollectionChanged> sourceScalar,
-			Func<TSourceItem, object, EventArgs, TReturnValue> newItemProcessorFunc,
-			Action<TSourceItem, TReturnValue, object, EventArgs> oldItemProcessorAction) : this(newItemProcessorFunc, oldItemProcessorAction, Utils.getCapacity(sourceScalar))
+			Func<TSourceItem, ItemsProcessing<TSourceItem, TReturnValue>, object, EventArgs, TReturnValue> newItemProcessor = null,
+			Action<TSourceItem, ItemsProcessing<TSourceItem, TReturnValue>, TReturnValue, object, EventArgs> oldItemProcessor = null) : this(newItemProcessor, oldItemProcessor, Utils.getCapacity(sourceScalar))
 		{
 			_sourceScalar = sourceScalar;
 			_sourceScalarPropertyChangedEventHandler = handleSourceScalarValueChanged;
@@ -58,20 +58,20 @@ namespace ObservableComputations
 		[ObservableComputationsCall]
 		public ItemsProcessing(
 			INotifyCollectionChanged source,
-			Func<TSourceItem,  object, EventArgs, TReturnValue> newItemProcessorFunc,
-			Action<TSourceItem, TReturnValue,  object, EventArgs> oldItemProcessorAction) : this(newItemProcessorFunc, oldItemProcessorAction, Utils.getCapacity(source))
+			Func<TSourceItem, ItemsProcessing<TSourceItem, TReturnValue>,  object, EventArgs, TReturnValue> newItemProcessor = null,
+			Action<TSourceItem, ItemsProcessing<TSourceItem, TReturnValue>, TReturnValue,  object, EventArgs> oldItemProcessor = null) : this(newItemProcessor, oldItemProcessor, Utils.getCapacity(source))
 		{
 			_source = source;
 			initializeFromSource(null, null);
 		}
 
 		private ItemsProcessing(
-			Func<TSourceItem,  object, EventArgs, TReturnValue> newItemProcessorFunc,
-			Action<TSourceItem, TReturnValue,  object, EventArgs> oldItemProcessorAction, 
+			Func<TSourceItem, ItemsProcessing<TSourceItem, TReturnValue>,  object, EventArgs, TReturnValue> newItemProcessor,
+			Action<TSourceItem, ItemsProcessing<TSourceItem, TReturnValue>, TReturnValue,  object, EventArgs> oldItemProcessor, 
 			int capacity) : base(capacity)
 		{
-			_newItemProcessorFunc = newItemProcessorFunc;
-			_oldItemProcessorAction = oldItemProcessorAction;
+			_newItemProcessor = newItemProcessor;
+			_oldItemProcessor = oldItemProcessor;
 		}
 
 		private void initializeFromSource(object sender, EventArgs eventArgs)
@@ -220,38 +220,46 @@ namespace ObservableComputations
 
 		private TReturnValue processNewItem(TSourceItem sourceItem, object sender, EventArgs eventArgs)
 		{
-			if (Configuration.TrackComputingsExecutingUserCode)
+			if (_newItemProcessor != null)
 			{
-				Thread currentThread = Thread.CurrentThread;
-				IComputing computing = DebugInfo._computingsExecutingUserCode.ContainsKey(currentThread) ? DebugInfo._computingsExecutingUserCode[currentThread] : null;
-				DebugInfo._computingsExecutingUserCode[currentThread] = this;	
+				if (Configuration.TrackComputingsExecutingUserCode)
+				{
+					Thread currentThread = Thread.CurrentThread;
+					DebugInfo._computingsExecutingUserCode.TryGetValue(currentThread, out IComputing computing);
+					DebugInfo._computingsExecutingUserCode[currentThread] = this;	
 				
-				TReturnValue returnValue = _newItemProcessorFunc(sourceItem, sender, eventArgs);
+					TReturnValue returnValue = _newItemProcessor(sourceItem, this, sender, eventArgs);
 
-				if (computing == null) DebugInfo._computingsExecutingUserCode.Remove(currentThread);
-				else DebugInfo._computingsExecutingUserCode[currentThread] = computing;
-				return returnValue;
+					if (computing == null) DebugInfo._computingsExecutingUserCode.Remove(currentThread);
+					else DebugInfo._computingsExecutingUserCode[currentThread] = computing;
+					return returnValue;
+				}
+
+				return  _newItemProcessor(sourceItem, this, sender, eventArgs);
 			}
 
-			return  _newItemProcessorFunc(sourceItem, sender, eventArgs);
+			return default;
 		}
 
 		private void processOldItem(TSourceItem sourceItem, TReturnValue returnValue, object sender, EventArgs eventArgs)
 		{
-			if (Configuration.TrackComputingsExecutingUserCode)
+			if (_oldItemProcessor != null)
 			{
-				Thread currentThread = Thread.CurrentThread;
-				IComputing computing = DebugInfo._computingsExecutingUserCode.ContainsKey(currentThread) ? DebugInfo._computingsExecutingUserCode[currentThread] : null;
-				DebugInfo._computingsExecutingUserCode[currentThread] = this;	
-				
-				_oldItemProcessorAction(sourceItem, returnValue, sender, eventArgs);
+				if (Configuration.TrackComputingsExecutingUserCode)
+				{
+					Thread currentThread = Thread.CurrentThread;
+					DebugInfo._computingsExecutingUserCode.TryGetValue(currentThread, out IComputing computing);
+					DebugInfo._computingsExecutingUserCode[currentThread] = this;	
+					
+					_oldItemProcessor(sourceItem, this, returnValue, sender, eventArgs);
 
-				if (computing == null) DebugInfo._computingsExecutingUserCode.Remove(currentThread);
-				else DebugInfo._computingsExecutingUserCode[currentThread] = computing;
-				return;
+					if (computing == null) DebugInfo._computingsExecutingUserCode.Remove(currentThread);
+					else DebugInfo._computingsExecutingUserCode[currentThread] = computing;
+					return;
+				}
+
+				_oldItemProcessor(sourceItem, this, returnValue, sender, eventArgs);
 			}
-
-			_oldItemProcessorAction(sourceItem, returnValue, sender, eventArgs);
 		}
 
 		~ItemsProcessing()

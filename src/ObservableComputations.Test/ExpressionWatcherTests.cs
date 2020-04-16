@@ -4,7 +4,6 @@ using System.ComponentModel;
 using System.Linq.Expressions;
 using System.Runtime.CompilerServices;
 using NUnit.Framework;
-using ObservableComputations;
 
 namespace ObservableComputations.Test
 {

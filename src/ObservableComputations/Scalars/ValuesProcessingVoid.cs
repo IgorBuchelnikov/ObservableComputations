@@ -8,22 +8,22 @@ namespace ObservableComputations
 	public class ValuesProcessingVoid<TValue> : ScalarComputing<TValue>
 	{
 		public IReadScalar<TValue> Scalar => _scalar;
-		public Action<TValue, IReadScalar<TValue>, EventArgs> NewValueProcessorAction => _newValueProcessorAction;
+		public Action<TValue, ValuesProcessingVoid<TValue>, IReadScalar<TValue>, EventArgs> NewValueProcessor => _newValueProcessor;
 
 		private IReadScalar<TValue> _scalar;
 
 		private readonly PropertyChangedEventHandler _scalarPropertyChangedEventHandler;
 		private readonly WeakPropertyChangedEventHandler _scalarWeakPropertyChangedEventHandler;
 
-		private Action<TValue, IReadScalar<TValue>, EventArgs> _newValueProcessorAction;
+		private Action<TValue, ValuesProcessingVoid<TValue>, IReadScalar<TValue>, EventArgs> _newValueProcessor;
 
 		[ObservableComputationsCall]
 		public ValuesProcessingVoid(
 			IReadScalar<TValue> scalar,
-			Action<TValue, IReadScalar<TValue>, EventArgs> newValueProcessor,
+			Action<TValue, ValuesProcessingVoid<TValue>, IReadScalar<TValue>, EventArgs> newValueProcessor,
 			bool processNow = true) : this(scalar)
 		{
-			_newValueProcessorAction = newValueProcessor;
+			_newValueProcessor = newValueProcessor;
 			TValue scalarValue = scalar.Value;
 			if (processNow) processNewValue(scalarValue, null, null);
 			setValue(scalarValue);
@@ -52,19 +52,17 @@ namespace ObservableComputations
 			if (Configuration.TrackComputingsExecutingUserCode)
 			{
 				Thread currentThread = Thread.CurrentThread;
-				IComputing computing = DebugInfo._computingsExecutingUserCode.ContainsKey(currentThread)
-					? DebugInfo._computingsExecutingUserCode[currentThread]
-					: null;
+				DebugInfo._computingsExecutingUserCode.TryGetValue(currentThread, out IComputing computing);
 				DebugInfo._computingsExecutingUserCode[currentThread] = this;
 
-				_newValueProcessorAction(newValue, sender, eventArgs);
+				_newValueProcessor(newValue, this, sender, eventArgs);
 
 				if (computing == null) DebugInfo._computingsExecutingUserCode.Remove(currentThread);
 				else DebugInfo._computingsExecutingUserCode[currentThread] = computing;
 			}
 			else
 			{
-				_newValueProcessorAction(newValue, sender, eventArgs);
+				_newValueProcessor(newValue, this, sender, eventArgs);
 			}
 		}
 

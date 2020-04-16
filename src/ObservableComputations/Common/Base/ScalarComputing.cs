@@ -37,7 +37,7 @@ namespace ObservableComputations
 				if (Configuration.TrackComputingsExecutingUserCode)
 				{
 					Thread currentThread = Thread.CurrentThread;
-					IComputing computing = DebugInfo._computingsExecutingUserCode.ContainsKey(currentThread) ? DebugInfo._computingsExecutingUserCode[currentThread] : null;
+					DebugInfo._computingsExecutingUserCode.TryGetValue(currentThread, out IComputing computing);
 					DebugInfo._computingsExecutingUserCode[currentThread] = this;	
 				
 					_setValueAction(value);

@@ -1194,6 +1194,97 @@ namespace ObservableComputationsExamples
 
 Свойства аналогичные *InsertItemAction* существуют и для других операций ([remove](https://docs.microsoft.com/en-us/dotnet/api/system.collections.generic.icollection-1.remove?view=netframework-4.8), [set (replace)](https://docs.microsoft.com/en-us/dotnet/api/system.collections.objectmodel.collection-1.item?view=netframework-4.8#System_Collections_ObjectModel_Collection_1_Item_System_Int32_), [move](https://docs.microsoft.com/en-us/dotnet/api/system.collections.objectmodel.observablecollection-1.move?view=netframework-4.8), [clear](https://docs.microsoft.com/en-us/dotnet/api/system.collections.generic.icollection-1.clear?view=netframework-4.8)) и для установки значения свойства *ScalarComputing&lt;TValue&gt;.Value* (см.  ["Полный список операторов" section](#полный-список-операторов)).
 
+## Обработка изменений результатов вычислений
+### Обработка измениний в коллекциях
+
+Иногда возникает необходимость производить какие-либо действия 
+* с добавляемыми в коллекцию элементами
+* с удаляемыми из коллекции элементами
+* элементами перемещаемыми внутри коллекции
+
+Конечно вы можете обработать все текущие элементв колеекции, затем подписаться на событие CollectionChanged, но библеотека ObservableComputations сожержить более простое и эффективное средство.
+
+```csharp
+using System;
+using System.Collections.ObjectModel;
+using System.Collections.Specialized;
+using ObservableComputations;
+
+namespace ObservableComputationsExamples
+{
+	public class Client : INotifyPropertyChanged
+	{
+		public string Name { get; set; }
+
+		private bool _online;
+
+		public bool Online
+		{
+			get => _online;
+			set
+			{
+				_online = value;
+				PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Online)));
+			}
+		}
+
+		public event PropertyChangedEventHandler PropertyChanged;
+	}
+
+	public class NetworkChannel : IDisposable
+	{
+		public string ClientName { get; set; }
+
+		public void Dispose()
+		{
+		}
+	}
+
+	class Program
+	{
+		static void Main(string[] args)
+		{
+
+			ObservableCollection<Client> clients = new ObservableCollection<Client>(new Client[]
+			{
+				new Client(){Name  = "Sergey", Online = false},
+				new Client(){Name  = "Evgeney", Online = true},
+				new Client(){Name  = "Anatoley", Online = false}
+			});
+
+			Filtering<Client> onlineClients = clients.Filtering(c => c.Online);
+
+			ItemsProcessing<Client, NetworkChannel> processing = 
+				onlineClients.ItemsProcessing<Client, NetworkChannel>(
+					newItemProcessor:
+						(client, @this, sender, eventArgs) =>
+						{
+							var networkChannel  = new NetworkChannel {ClientName = client.Name};
+							return networkChannel;
+						},
+					oldItemProcessor:
+						(client, @this, networkChannel, sender, eventArgs) =>
+						{
+							networkChannel.Dispose();
+						});
+
+			clients[2].Online = true;
+			clients.RemoveAt(1);
+
+			Console.ReadLine();
+		}
+	}
+}
+```
+
+Делегат переданный в параметр *newItemProcessor* вызывается при инстанцировании класса *ItemsProcessing&lt;TSourceItem, TReturnValue&gt;*, при добавлнении элементов в коллекцию-источник (*clients*), при замене элемента в коллекции-источнике (*clients*). Делегат переданный в параметр *oldItemProcessor* вызывается при удалении элементов в коллекции-источнике (*clients*), при замене элемента в коллекции-источнике (*clients*), при очистке колеекции источника (метод Clear()).
+
+Для того чтобы избежать выгрузки из памяти экземпляра класса *ItemsProcessing&lt;TSourceItem, TReturnValue&gt;* сборщиком мусора, сохраните ссылку на него в объекте, который имеет подходящее время жизни.
+
+Значение возвращаемое делегатом переданным в параметр *newItemProcessor*, может также использоваться сохранения ссылок во избежании выгрузки из памяти сборщиком мусора, например, если при добавлении элементов в коллекцию создаюстся экземпляры классов [Binding](#Binding), ItemsProcessing или ValuesProcessing.
+
+Существует также перегруженная версия метода *ItemsProcessing*, которая принимает делегат *newItemProcessor*, возращающий пустое значение (void).
+
 ## Свойство IsConsistent и исключение при нарушении целостности
 Сценарий описанный в этом разделе очень специфичен. Возможно Вы никогда его не встретите. Однако если Вы хотите быть полностью готовыми прочтите его. Рассмотрим следующий код:
 ```csharp

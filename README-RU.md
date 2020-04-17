@@ -1195,7 +1195,7 @@ namespace ObservableComputationsExamples
 Свойства аналогичные *InsertItemAction* существуют и для других операций ([remove](https://docs.microsoft.com/en-us/dotnet/api/system.collections.generic.icollection-1.remove?view=netframework-4.8), [set (replace)](https://docs.microsoft.com/en-us/dotnet/api/system.collections.objectmodel.collection-1.item?view=netframework-4.8#System_Collections_ObjectModel_Collection_1_Item_System_Int32_), [move](https://docs.microsoft.com/en-us/dotnet/api/system.collections.objectmodel.observablecollection-1.move?view=netframework-4.8), [clear](https://docs.microsoft.com/en-us/dotnet/api/system.collections.generic.icollection-1.clear?view=netframework-4.8)) и для установки значения свойства *ScalarComputing&lt;TValue&gt;.Value* (см.  ["Полный список операторов" section](#полный-список-операторов)).
 
 ## Обработка изменений результатов вычислений
-### Обработка измениний в коллекциях
+### Обработка измениний в ObservableCollection&lt;T&gt;
 
 Иногда возникает необходимость производить какие-либо действия 
 * с добавляемыми в коллекцию элементами
@@ -1208,6 +1208,7 @@ namespace ObservableComputationsExamples
 using System;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
+using System.Diagnostics;
 using ObservableComputations;
 
 namespace ObservableComputationsExamples
@@ -1244,7 +1245,6 @@ namespace ObservableComputationsExamples
 	{
 		static void Main(string[] args)
 		{
-
 			ObservableCollection<Client> clients = new ObservableCollection<Client>(new Client[]
 			{
 				new Client(){Name  = "Sergey", Online = false},
@@ -1267,6 +1267,8 @@ namespace ObservableComputationsExamples
 						{
 							networkChannel.Dispose();
 						});
+						
+		    Debug.Assert(onlineClients is ObservableCollection<NetworkChannel>);
 
 			clients[2].Online = true;
 			clients.RemoveAt(1);
@@ -1277,13 +1279,84 @@ namespace ObservableComputationsExamples
 }
 ```
 
-Делегат переданный в параметр *newItemProcessor* вызывается при инстанцировании класса *ItemsProcessing&lt;TSourceItem, TReturnValue&gt;*, при добавлнении элементов в коллекцию-источник (*clients*), при замене элемента в коллекции-источнике (*clients*). Делегат переданный в параметр *oldItemProcessor* вызывается при удалении элементов в коллекции-источнике (*clients*), при замене элемента в коллекции-источнике (*clients*), при очистке колеекции источника (метод Clear()).
+Делегат переданный в параметр *newItemProcessor* вызывается при инстанцировании класса *ItemsProcessing&lt;TSourceItem, TReturnValue&gt;* (если при этом коллекция-источник (*clients*) содержит элементы), при добавлнении элементов в коллекцию-источник, при замене элемента в коллекции-источнике. Делегат переданный в параметр *oldItemProcessor* вызывается при удалении элементов в коллекции-источнике, при замене элемента в коллекции-источнике, при очистке колеекции источника (метод Clear()).
+
+Есть также возможность передать делегат *moveItemProcessor* для обработки события перемещения элемента в коллекции-источнике).
 
 Для того чтобы избежать выгрузки из памяти экземпляра класса *ItemsProcessing&lt;TSourceItem, TReturnValue&gt;* сборщиком мусора, сохраните ссылку на него в объекте, который имеет подходящее время жизни.
 
-Значение возвращаемое делегатом переданным в параметр *newItemProcessor*, может также использоваться сохранения ссылок во избежании выгрузки из памяти сборщиком мусора, например, если при добавлении элементов в коллекцию создаюстся экземпляры классов [Binding](#Binding), ItemsProcessing или ValuesProcessing.
+Значение возвращаемое делегатом переданным в параметр *newItemProcessor*, может также использоваться для сохранения ссылок во избежании выгрузки из памяти сборщиком мусора, например, если при добавлении элементов в коллекцию создаюстся экземпляры классов [Binding](#Binding), ItemsProcessing или ValuesProcessing.
 
 Существует также перегруженная версия метода *ItemsProcessing*, которая принимает делегат *newItemProcessor*, возращающий пустое значение (void).
+
+### Обработка измениний в IReadScalar&lt;TValue&gt;
+
+*IReadScalar&lt;TValue&gt;* упоминается в первый раз [здесь](#полный-список-операторов). По аналогии с обработкой изменений в в ObservableCollection&lt;T&gt; ObservableComputations позволяет обрабатывать изменения в *IReadScalar&lt;TValue&gt;*:  
+  
+```csharp
+using System;
+using System.Collections.ObjectModel;
+using System.Collections.Specialized;
+using ObservableComputations;
+
+namespace ObservableComputationsExamples
+{
+	public class Client : INotifyPropertyChanged
+	{
+		private NetworkChannel _networkChannel;
+
+		public NetworkChannel NetworkChannel
+		{
+			get => _networkChannel;
+			set
+			{
+				_networkChannel = value;
+				PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(NetworkChannel)));
+			}
+		}
+
+		public event PropertyChangedEventHandler PropertyChanged;
+	}
+
+	public class NetworkChannel : IDisposable
+	{
+		public int Num { get; set; }
+
+		public void Dispose()
+		{
+		}
+	}
+
+	class Program
+	{
+		static void Main(string[] args)
+		{
+			var networkChannel  = new NetworkChannel(){Num = 1};
+			Client client = new Client() {NetworkChannel = networkChannel};
+
+			Computing<NetworkChannel> networkChannelComputing = new Computing<NetworkChannel>(() => client.NetworkChannel);
+
+			networkChannelComputing.ValuesProcessing(
+				newValueProcessor:
+					(networkChannel1, @this, sender, eventArgs) =>
+					{
+						// networkChannel1 is new NetworkChannel
+						// this.Value is old NetworkChannel
+						@this.Value?.Dispose();
+					});
+
+			client.NetworkChannel = new NetworkChannel(){Num = 2};
+			client.NetworkChannel = new NetworkChannel(){Num = 3};
+
+			Console.ReadLine();
+		}
+	}
+}
+```  
+
+Для того чтобы избежать выгрузки из памяти экземпляра класса *ValuesProcessing&lt;TValue&gt;* сборщиком мусора, сохраните ссылку на него в объекте, который имеет подходящее время жизни.
+
+Существует также перегруженная версия метода *ValuesProcessing*, которая принимает делегат *newValueProcessor*, возращающий не пустое значение. Это значение может использоваться для освобождения ресурсов (IDisposable) или для сохранения ссылок во избежании выгрузки из памяти сборщиком мусора, например, если в делегате *newValueProcessor* создаюстся экземпляры классов [Binding](#Binding), ItemsProcessing или ValuesProcessing.
 
 ## Свойство IsConsistent и исключение при нарушении целостности
 Сценарий описанный в этом разделе очень специфичен. Возможно Вы никогда его не встретите. Однако если Вы хотите быть полностью готовыми прочтите его. Рассмотрим следующий код:

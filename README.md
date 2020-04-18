@@ -1213,11 +1213,19 @@ Properties similar to *InsertItemAction* exist for all other operations: ([remov
 
 ### Lock setting properties of computation result change request handlers
 
-Properties of the computation change request handlers are public. By default, any code that has a reference to the computation can set or overwrite the value of this property. It is possible to control the ability to set the values of these properties using methods of [*CollectionComputing&lt;TItem&gt;* class](#full-list-of-operators):
+Properties of the computation change request handlers are public. By default, any code that has a reference to the computation can set or overwrite the value of this property. It is possible to control the ability to set the values of these properties using 
+
+methods of [*CollectionComputing&lt;TItem&gt;* class](#full-list-of-operators):
 
 * void LockModifyChangeAction(CollectionChangeAction collectionChangeAction, object key)
 * void UnlockModifyChangeAction(CollectionChangeAction collectionChangeAction, object key)
 * bool IsModifyChangeActionLocked(CollectionChangeAction collectionChangeAction)
+
+and methods of [*ScalarComputing&lt;TValue&gt;* class](#full-list-of-operators):
+
+* void LockModifySetValueAction(object key)
+* void UnlockModifySetValueAction(object key)
+* bool IsModifySetValueActionLocked()
 
 ## Processing changes of computation results
 ### Change handling in ObservableCollection&lt;T&gt;

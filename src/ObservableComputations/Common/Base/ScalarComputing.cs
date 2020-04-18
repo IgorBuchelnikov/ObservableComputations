@@ -81,6 +81,11 @@ namespace ObservableComputations
 				throw new ObservableComputationsException(this, "Wrong key to unlock modifying of SetValueAction.");
 		}
 
+		public bool IsModifySetValueActionLocked()
+		{
+			return _lockModifySetValueActionKey != null;
+		}
+
 		protected Action<TValue> _setValueAction;
 
 		public Action<TValue> SetValueAction

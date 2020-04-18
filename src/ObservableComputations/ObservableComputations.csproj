@@ -18,13 +18,15 @@
     <NeutralLanguage>en</NeutralLanguage>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
-    <PackageReleaseNotes>new feature: Binding extention method to IReadScalar&lt;TValue&gt;</PackageReleaseNotes>
-    <Version>1.3.1</Version>
+    <PackageReleaseNotes>new feature: ItemsProcessing, ValuesProcessing, Lock setting properties of computation result change request handlers
+
+fixed: debuging</PackageReleaseNotes>
+    <Version>1.4.0</Version>
     <AssemblyName>ObservableComputations</AssemblyName>
     <PackageId>ObservableComputations</PackageId>
     <Product>ObservableComputations</Product>
-    <AssemblyVersion>1.3.1.0</AssemblyVersion>
-    <FileVersion>1.3.1.0</FileVersion>
+    <AssemblyVersion>1.4.0.0</AssemblyVersion>
+    <FileVersion>1.4.0.0</FileVersion>
     <PackageIconUrl>https://raw.githubusercontent.com/IgorBuchelnikov/ObservableComputations/master/icon_32x32.ico</PackageIconUrl>
   </PropertyGroup>
 

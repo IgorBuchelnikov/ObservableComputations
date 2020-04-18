@@ -1221,11 +1221,21 @@ namespace ObservableComputationsExamples
 
 ### Блокировка установки значений свойств обработчиков запросов на изменение результатов вычислений
 
-Свойства обработчиков запросов на изменение вычислений являются публичными. По умолчанию любой код, который имеет ссылку на вычисление может установить или перезаписать значение этого свойства. Есть возможность управлять возможностью установки значений этих свойств с помощью методов класса [*CollectionComputing&lt;TItem&gt;*](#полный-список-операторов):
+Свойства обработчиков запросов на изменение вычислений являются публичными. По умолчанию любой код, который имеет ссылку на вычисление может установить или перезаписать значение этого свойства. Есть возможность управлять возможностью установки значений этих свойств с помощью 
+
+методов класса [*CollectionComputing&lt;TItem&gt;*](#полный-список-операторов):
 
 * void LockModifyChangeAction(CollectionChangeAction collectionChangeAction, object key)
 * void UnlockModifyChangeAction(CollectionChangeAction collectionChangeAction, object key)
 * bool IsModifyChangeActionLocked(CollectionChangeAction collectionChangeAction)
+
+и методов класса [*ScalarComputing&lt;TValue&gt;*](#полный-список-операторов):
+
+* void LockModifySetValueAction(object key)
+* void UnlockModifySetValueAction(object key)
+* bool IsModifySetValueActionLocked()
+
+
 
 ## Обработка изменений результатов вычислений
 ### Обработка измениний в ObservableCollection&lt;T&gt;

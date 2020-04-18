@@ -54,6 +54,11 @@ namespace ObservableComputations
 					"Wrong key to unlock modifying of '{collectionChangeAction.ToString()}' change action.");
 		}
 
+		public bool IsModifyChangeActionLocked(CollectionChangeAction collectionChangeAction)
+		{
+			return lockModifyChangeActionsKeys.ContainsKey(collectionChangeAction);
+		}
+
 		private void checkLockModifyChangeAction(CollectionChangeAction collectionChangeAction)
 		{
 			if (lockModifyChangeActionsKeys.ContainsKey(collectionChangeAction))

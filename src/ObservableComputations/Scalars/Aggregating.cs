@@ -207,7 +207,7 @@ namespace ObservableComputations
 				return result;
 			}
 
-			return _aggregateFunc(addedSourceItem, Value);
+			return _aggregateFunc(addedSourceItem, value);
 		}
 
 		private TResult deaggregate(TSourceItem removedSourceItem, TResult value)
@@ -225,7 +225,7 @@ namespace ObservableComputations
 				return result;
 			}
 
-			return _aggregateFunc(removedSourceItem, Value);
+			return _deaggregateFunc(removedSourceItem, value);
 		}
 
 		private void handleSourceScalarValueChanged(object sender, PropertyChangedEventArgs e)

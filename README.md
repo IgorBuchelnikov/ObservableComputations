@@ -2,7 +2,7 @@
 ## What should I know to read this paper?
 To understand written here you should know: basic programming and OOP concepts, C# syntax (including events and extension methods, lambda expressions), [LINQ](https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/concepts/linq/), [INotifyPropertyChanged](https://docs.microsoft.com/en-us/dotnet/api/system.componentmodel.inotifypropertychanged?view=netframework-4.8) and [INotifyCollectionChanged](https://docs.microsoft.com/en-us/dotnet/api/system.collections.specialized.inotifycollectionchanged?view=netframework-4.8) interfaces. 
 
-It is advisable to know the differences between [delegates](https://docs.microsoft.com/en-us/dotnet/api/system.delegate?view=netframework-4.8) and [expression trees](https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/concepts/expression-trees/), as well as ways to convert one into each other.
+It is advisable to know differences between [delegates](https://docs.microsoft.com/en-us/dotnet/api/system.delegate?view=netframework-4.8) and [expression trees](https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/concepts/expression-trees/).
 
 To imagine [benefits of using ObservableComputations](#use-cases-and-benefits) you should know about [binding in WPF](https://docs.microsoft.com/en-us/dotnet/desktop-wpf/data/data-binding-overview) (or in other UI platforms: [Xamarin](https://docs.microsoft.com/en-us/xamarin/xamarin-forms/app-fundamentals/data-binding/basic-bindings), [Blazor](https://demos.telerik.com/blazor-ui/grid/observable-data)), especially in relation with [INotifyPropertyChanged](https://docs.microsoft.com/en-us/dotnet/api/system.componentmodel.inotifypropertychanged?view=netframework-4.8) and [INotifyCollectionChanged](https://docs.microsoft.com/en-us/dotnet/api/system.collections.specialized.inotifycollectionchanged?view=netframework-4.8) interfaces, Entity framework`s [DbSet.Local](https://docs.microsoft.com/en-us/dotnet/api/system.data.entity.dbset.local?view=entity-framework-6.2.0) property ([local data](https://docs.microsoft.com/en-us/ef/ef6/querying/local-data)), [asynchronous querying in Entity framework](https://www.entityframeworktutorial.net/entityframework6/async-query-and-save.aspx).  
 
@@ -1179,15 +1179,23 @@ namespace ObservableComputationsExamples
 }
 ```
 
-In the code above we created *stepansOrders* (Stepan's orders) computation. We set *stepansOrders.InsertItemAction* property to define how to modify *orders* collection and *order* to be inserted so what one is included in the *stepansOrders* computation.
+In the code above we created *stepansOrders* (Stepan's orders) computation. We set delegate to *stepansOrders.InsertItemAction* property to define how to modify *orders* collection and *order* to be inserted so what one is included in *stepansOrders* computation.
 
 Note that [Add method](https://docs.microsoft.com/en-us/dotnet/api/system.collections.generic.icollection-1.add?view=netframework-4.8#System_Collections_Generic_ICollection_1_Add__0_) is member of [ICollection&lt;T&gt; interface](https://docs.microsoft.com/en-us/dotnet/api/system.collections.generic.icollection-1?view=netframework-4.8).
 
 This feature can be used if  you pass *stepansOrders* to the code abstracted from what is *stepansOrders*: computation or ordinary collection. That code only knows *stepansOrders* implements [ICollection&lt;T&gt; interface](https://docs.microsoft.com/en-us/dotnet/api/system.collections.generic.icollection-1?view=netframework-4.8) and sometimes wants add orders to *stepansOrders*. Such a code may be for example [binding in WPF](https://docs.microsoft.com/en-us/dotnet/api/system.windows.data.bindingmode?view=netframework-4.8#System_Windows_Data_BindingMode_TwoWay).
 
-Properties similar to *InsertItemAction* exist for all other operations: ([remove](https://docs.microsoft.com/en-us/dotnet/api/system.collections.generic.icollection-1.remove?view=netframework-4.8), [set (replace)](https://docs.microsoft.com/en-us/dotnet/api/system.collections.objectmodel.collection-1.item?view=netframework-4.8#System_Collections_ObjectModel_Collection_1_Item_System_Int32_), [move](https://docs.microsoft.com/en-us/dotnet/api/system.collections.objectmodel.observablecollection-1.move?view=netframework-4.8), [clear](https://docs.microsoft.com/en-us/dotnet/api/system.collections.generic.icollection-1.clear?view=netframework-4.8)) and for setting *Value* property of *ScalarComputing&lt;TValue&gt;* (see  ["Full list of methods and classes" section](#full-list-of-operators)).
+Properties similar to *InsertItemAction* exist for all other operations: ([remove](https://docs.microsoft.com/en-us/dotnet/api/system.collections.generic.icollection-1.remove?view=netframework-4.8), [set (replace)](https://docs.microsoft.com/en-us/dotnet/api/system.collections.objectmodel.collection-1.item?view=netframework-4.8#System_Collections_ObjectModel_Collection_1_Item_System_Int32_), [move](https://docs.microsoft.com/en-us/dotnet/api/system.collections.objectmodel.observablecollection-1.move?view=netframework-4.8), [clear](https://docs.microsoft.com/en-us/dotnet/api/system.collections.generic.icollection-1.clear?view=netframework-4.8)) and for setting *Value* property of *ScalarComputing&lt;TValue&gt;* (see  ["Full list of methods and classes" section](#full-list-of-operators)). Such properties are hereinafter referred to as computation change request handlers.
 
-## Processing changes to computation results
+### Lock setting properties of computation change request handlers
+
+Properties of the computation change request handlers are public. By default, any code that has a reference to the computation can set or overwrite the value of this property. It is possible to control the ability to set the values of these properties using methods of [*CollectionComputing&lt;TItem&gt;* class](#full-list-of-operators):
+
+* void LockModifyChangeAction(CollectionChangeAction collectionChangeAction, object key)
+* void UnlockModifyChangeAction(CollectionChangeAction collectionChangeAction, object key)
+* bool IsModifyChangeActionLocked(CollectionChangeAction collectionChangeAction)
+
+## Processing changes of computation results
 ### Change handling in ObservableCollection&lt;T&gt;
 
 Sometimes it becomes necessary to perform some actions
@@ -1197,7 +1205,7 @@ Sometimes it becomes necessary to perform some actions
 
 * elements moved within the collection
 
-Of course, you can process all the current elements in the collection, then subscribe to the CollectionChanged event, but the ObservableComputations library contains a simpler and more effective tool.
+Of course, you can process all the current elements in the collection, then subscribe to the [CollectionChanged](https://docs.microsoft.com/en-us/dotnet/api/system.collections.specialized.inotifycollectionchanged.collectionchanged?view=netframework-4.8) event, but the ObservableComputations library contains a simpler and more effective tool.
 
 ```csharp
 using System;
@@ -1294,13 +1302,13 @@ It is also possible to pass *moveItemProcessor* delegate to handle event of elem
 
 In order to avoid unloading from memory an instance of *ItemsProcessing&lt;TSourceItem, TReturnValue&gt;* class by the garbage collector, save reference to it in an object that has a suitable lifetime.
 
-The value returned by the delegate passed to *newItemProcessor* parameter can also be used to save references in order to avoid garbage collection from memory, for example, if you add instances of the [Binding](#Binding), ItemsProcessing or ValuesProcessing classes when adding items to the collection.
+The value returned by the delegate passed to *newItemProcessor* parameter can also be used to save references in order to avoid garbage collection from memory, for example, if you create instances of [Binding](#Binding), [ItemsProcessing](#change-handling-in-observablecollectiont) or [ValuesProcessing](#handling-changes-in-ireadscalartvalue) classes when adding items to the source collection.
 
 There is also an overloaded version of the *ItemsProcessing* method, which accepts *newItemProcessor* delegate that returns an empty value (void).
 
 ### Handling changes in IReadScalar&lt;TValue&gt;
 
-*IReadScalar&lt;TValue&gt;* is mentioned for the first time here. Similar to processing changes in ObservableCollection&lt;T&gt; ObservableComputations allows you to process changes in *IReadScalar&lt;TValue&gt;*:
+*IReadScalar&lt;TValue&gt;* is mentioned for the first time here. You can handle changes to the Value property by subscribing to the [PropertyChanged](https://docs.microsoft.com/en-us/dotnet/api/system.componentmodel.inotifypropertychanged.propertychanged?view=netframework-4.8) event, but similar to processing changes in ObservableCollection&lt;T&gt; ObservableComputations allows you to process changes in *IReadScalar&lt;TValue&gt;* easier and more efficiently:
 
 ```csharp
 using System;
@@ -1365,7 +1373,7 @@ namespace ObservableComputationsExamples
 
 In order to avoid unloading an instance of the *ValuesProcessing&lt;TValue&gt;* class from the memory by the garbage collector, save refrence to it in object that has a suitable lifetime.
 
-There is also an overloaded version of the *ValuesProcessing* method that accepts a *newValueProcessor* delegate that returns a non-void value. This value can be used to free resources ([IDisposable](https://docs.microsoft.com/en-us/dotnet/api/system.idisposable?view=netframework-4.8)) or to save references to avoid garbage collection from memory, for example, if instances of the [Binding](#Binding), ItemsProcessing or ValuesProcessing classes are created in *newValueProcessor* delegate.
+There is also an overloaded version of the *ValuesProcessing* method that accepts a *newValueProcessor* delegate that returns a non-void value. This value can be used to free resources ([IDisposable](https://docs.microsoft.com/en-us/dotnet/api/system.idisposable?view=netframework-4.8)) or to save references to avoid garbage collection from memory, for example, if instances of [Binding](#Binding), [ItemsProcessing](#change-handling-in-observablecollectiont) or [ValuesProcessing](#handling-changes-in-ireadscalartvalue) classes are created in *newValueProcessor* delegate.
 
 ## IsConsistent property and inconsistency exception
 Scenario described in this section is very specific. May be you will never meet it. However if want to be fully prepared read it. Consider following code:
@@ -1584,8 +1592,19 @@ Debuging of inconsistency exception described [here](#inconsistency-exception).
 
 ## Debugging
 
-### User code: selectors, predicates, arbitrary expressions, modification handlers, [CollectionChanged](https://docs.microsoft.com/en-us/dotnet/api/system.collections.specialized.inotifycollectionchanged.collectionchanged?view=netframework-4.8) and [PropertyChanged](https://docs.microsoft.com/en-us/dotnet/api/system.componentmodel.inotifypropertychanged.propertychanged?view=netframework-4.8) handlers
-Selectors are expressions that are passed as an argument to the following extension methods: Selecting, SelectingMany, Grouping, GroupJoining, Dictionaring, Hashing, Ordering, ThenOrdering, PredicateGroupJoining. Predicates are expressions that are passed as an argument to Filtering extension method. Arbitrary expressions are expressions that are passed as argument to Computing and Using extension methods. Modification handlers was described in the ["Modifying computations"](#Modifying-computations). CollectionChanged and PropertyChanged handlers are handlers for [CollectionChanged](https://docs.microsoft.com/en-us/dotnet/api/system.collections.specialized.inotifycollectionchanged.collectionchanged?view=netframework-4.8) and [PropertyChanged](https://docs.microsoft.com/en-us/dotnet/api/system.componentmodel.inotifypropertychanged.propertychanged?view=netframework-4.8) events respectively.
+### User code: selectors, predicates, aggregation functions, arbitrary expressions, computation change request handlers, handlers of changes of computation results, [CollectionChanged](https://docs.microsoft.com/en-us/dotnet/api/system.collections.specialized.inotifycollectionchanged.collectionchanged?view=netframework-4.8) and [PropertyChanged](https://docs.microsoft.com/en-us/dotnet/api/system.componentmodel.inotifypropertychanged.propertychanged?view=netframework-4.8) handlers
+
+* Selectors are expressions that are passed as an argument to the following [extension methods](https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/classes-and-structs/extension-methods): *Selecting*, *SelectingMany*, *Grouping*, *GroupJoining*, *Dictionaring*, *Hashing*, *Ordering*, *ThenOrdering*, *PredicateGroupJoining*. 
+
+* Predicates are expressions that are passed as an argument to *Filtering* [extension method](https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/classes-and-structs/extension-methods). 
+
+* Aggregation functions are delegates that are passed as an argument to *Aggregating* [extension method](https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/classes-and-structs/extension-methods). 
+
+* Arbitrary expressions are expressions that are passed as argument to *Computing* and *Using* [extension methods](https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/classes-and-structs/extension-methods). 
+
+* Сomputation change request handlers was described in the ["Modifying computations"](#modifying-computations). 
+
+* Handlers of changes of computation results was described in the ["Modifying computations"](#processing-changes-of-computation-results). 
 
 Here is the code illustrating debugging of arbitrary expressions (other types of code can be debugged by the same way):
 
@@ -2790,7 +2809,7 @@ If object reference for which a property value is being accessed is null *Proper
 
 ## Binding 
   
-Binding class and extention method allows you to bind two arbitrary expressions. First expression is a source. Second expression is a target. The complexity of the expressions is not limited. If source expression value is changed, the new value is assigned to target expression:  
+Binding class and extention method allows you to bind two arbitrary expressions. First expression is a source. Second expression is a target. The complexity of the expressions is not limited. The first expression is passed as an [expression tree](https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/concepts/expression-trees/). The second expression is squashed as a [delegate](https://docs.microsoft.com/en-us/dotnet/api/system.delegate?view=netframework-4.8). If source expression value is changed, the new value is assigned to target expression:  
   
 ```csharp
 using System;

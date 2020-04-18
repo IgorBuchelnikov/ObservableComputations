@@ -2,6 +2,8 @@
 ## What should I know to read this paper?
 To understand written here you should know: basic programming and OOP concepts, C# syntax (including events and extension methods, lambda expressions), [LINQ](https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/concepts/linq/), [INotifyPropertyChanged](https://docs.microsoft.com/en-us/dotnet/api/system.componentmodel.inotifypropertychanged?view=netframework-4.8) and [INotifyCollectionChanged](https://docs.microsoft.com/en-us/dotnet/api/system.collections.specialized.inotifycollectionchanged?view=netframework-4.8) interfaces. 
 
+It is advisable to know the differences between [delegates](https://docs.microsoft.com/en-us/dotnet/api/system.delegate?view=netframework-4.8) and [expression trees](https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/concepts/expression-trees/), as well as ways to convert one into each other.
+
 To imagine [benefits of using ObservableComputations](#use-cases-and-benefits) you should know about [binding in WPF](https://docs.microsoft.com/en-us/dotnet/desktop-wpf/data/data-binding-overview) (or in other UI platforms: [Xamarin](https://docs.microsoft.com/en-us/xamarin/xamarin-forms/app-fundamentals/data-binding/basic-bindings), [Blazor](https://demos.telerik.com/blazor-ui/grid/observable-data)), especially in relation with [INotifyPropertyChanged](https://docs.microsoft.com/en-us/dotnet/api/system.componentmodel.inotifypropertychanged?view=netframework-4.8) and [INotifyCollectionChanged](https://docs.microsoft.com/en-us/dotnet/api/system.collections.specialized.inotifycollectionchanged?view=netframework-4.8) interfaces, Entity framework`s [DbSet.Local](https://docs.microsoft.com/en-us/dotnet/api/system.data.entity.dbset.local?view=entity-framework-6.2.0) property ([local data](https://docs.microsoft.com/en-us/ef/ef6/querying/local-data)), [asynchronous querying in Entity framework](https://www.entityframeworktutorial.net/entityframework6/async-query-and-save.aspx).  
 
 ## What is ObservableComputations? 
@@ -16,10 +18,10 @@ The main distinguish ObservableComputations from [Reactive Extensions](https://g
 
 The [ReactiveUI](https://github.com/reactiveui/ReactiveUI) library (and its [DynamicData](https://github.com/reactiveui/DynamicData) sub-library) are not abstracted from the [INotifyPropertyChanged](https://docs.microsoft.com/en-us/dotnet/api/system.componentmodel.inotifypropertychanged?view=netframework-4.8) and [INotifyCollectionChanged](https://docs.microsoft.com/en-us/dotnet/api/system.collections.specialized.inotifycollectionchanged?view=netframework-4.8) interfaces and when working with these interfaces allows you to do much the same things as ObservableComputations, but ObservableComputations are less verbose, easier to use, more declarative, less touches the source data. Why?
 
-* Reactivity of ObservableComputations is based on only two events: [CollectionChanged](https://docs.microsoft.com/en-us/dotnet/api/system.collections.specialized.inotifycollectionchanged.collectionchanged?view=netframework-4.8) and [PropertyChanged](https://docs.microsoft.com/en-us/dotnet/api/system.componentmodel.inotifypropertychanged.propertychanged?view=netframework-4.8). This reactivity is native to ObservableComputations. [ReactiveUI](https://github.com/reactiveui/ReactiveUI) is based on interfaces inherited from [Reactive Extentions](https://github.com/dotnet/reactive): [IObserver&lt;T&gt;](https://docs.microsoft.com/en-us/dotnet/api/system.iobserver-1?view=netframework-4.8), [IObservable&lt;T&gt;](https://docs.microsoft.com/en-us/dotnet/api/system.iobservable-1?view=netframework-4.8,), as well as additional interfaces for working with collections included in [DynamicData](https://github.com/reactiveui/DynamicData): [IChangeSet](https://github.com/reactiveui/DynamicData/blob/master/src/DynamicData/IChangeSet.cs) and [IChangeSet&lt;TObject&gt;](https://github.com/reactiveui/DynamicData/blob/master/src/DynamicData/List/IChangeSet.cs). [ReactiveUI](https://github.com/reactiveui/ReactiveUI) performs bidirectional conversion between these interfaces and  [INotifyPropertyChanged](https://docs.microsoft.com/en-us/dotnet/api/system.componentmodel.inotifypropertychanged?view=netframework-4.8) and [INotifyCollectionChanged](https://docs.microsoft.com/en-us/dotnet/api/system.collections.specialized.inotifycollectionchanged?view=netframework-4.8) interfaces, which are alien to [ReactiveUI](https://github.com/reactiveui/ReactiveUI).
+* Reactivity of ObservableComputations is based on only two events: [CollectionChanged](https://docs.microsoft.com/en-us/dotnet/api/system.collections.specialized.inotifycollectionchanged.collectionchanged?view=netframework-4.8) and [PropertyChanged](https://docs.microsoft.com/en-us/dotnet/api/system.componentmodel.inotifypropertychanged.propertychanged?view=netframework-4.8). This reactivity is native to ObservableComputations. [ReactiveUI](https://github.com/reactiveui/ReactiveUI) is based on interfaces inherited from [Reactive Extentions](https://github.com/dotnet/reactive): [IObserver&lt;T&gt;](https://docs.microsoft.com/en-us/dotnet/api/system.iobserver-1?view=netframework-4.8), [IObservable&lt;T&gt;](https://docs.microsoft.com/en-us/dotnet/api/system.iobservable-1?view=netframework-4.8,), as well as additional interfaces for working with collections (included in [DynamicData](https://github.com/reactiveui/DynamicData)): [IChangeSet](https://github.com/reactiveui/DynamicData/blob/master/src/DynamicData/IChangeSet.cs) and [IChangeSet&lt;TObject&gt;](https://github.com/reactiveui/DynamicData/blob/master/src/DynamicData/List/IChangeSet.cs). [ReactiveUI](https://github.com/reactiveui/ReactiveUI) performs bidirectional conversion between these interfaces and  [INotifyPropertyChanged](https://docs.microsoft.com/en-us/dotnet/api/system.componentmodel.inotifypropertychanged?view=netframework-4.8) and [INotifyCollectionChanged](https://docs.microsoft.com/en-us/dotnet/api/system.collections.specialized.inotifycollectionchanged?view=netframework-4.8) interfaces. But even with this conversion, [INotifyPropertyChanged](https://docs.microsoft.com/en-us/dotnet/api/system.componentmodel.inotifypropertychanged?view=netframework-4.8) and [INotifyCollectionChanged](https://docs.microsoft.com/en-us/dotnet/api/system.collections.specialized.inotifycollectionchanged?view=netframework-4.8) interfaces look alien to [ReactiveUI](https://github.com/reactiveui/ReactiveUI).
 
 
-* ObservableComputations uses weak events, so there is no need for [IDisposable]((https://docs.microsoft.com/en-us/dotnet/api/system.idisposable?view=netframework-4.8). 
+* ObservableComputations uses weak events, so there is no need for [IDisposable](https://docs.microsoft.com/en-us/dotnet/api/system.idisposable?view=netframework-4.8). 
 
 You can compare these library and ObservableComputations in action, see [ObservableComputations.Samples](https://github.com/IgorBuchelnikov/ObservableComputations.Samples).
 
@@ -1184,6 +1186,186 @@ Note that [Add method](https://docs.microsoft.com/en-us/dotnet/api/system.collec
 This feature can be used if  you pass *stepansOrders* to the code abstracted from what is *stepansOrders*: computation or ordinary collection. That code only knows *stepansOrders* implements [ICollection&lt;T&gt; interface](https://docs.microsoft.com/en-us/dotnet/api/system.collections.generic.icollection-1?view=netframework-4.8) and sometimes wants add orders to *stepansOrders*. Such a code may be for example [binding in WPF](https://docs.microsoft.com/en-us/dotnet/api/system.windows.data.bindingmode?view=netframework-4.8#System_Windows_Data_BindingMode_TwoWay).
 
 Properties similar to *InsertItemAction* exist for all other operations: ([remove](https://docs.microsoft.com/en-us/dotnet/api/system.collections.generic.icollection-1.remove?view=netframework-4.8), [set (replace)](https://docs.microsoft.com/en-us/dotnet/api/system.collections.objectmodel.collection-1.item?view=netframework-4.8#System_Collections_ObjectModel_Collection_1_Item_System_Int32_), [move](https://docs.microsoft.com/en-us/dotnet/api/system.collections.objectmodel.observablecollection-1.move?view=netframework-4.8), [clear](https://docs.microsoft.com/en-us/dotnet/api/system.collections.generic.icollection-1.clear?view=netframework-4.8)) and for setting *Value* property of *ScalarComputing&lt;TValue&gt;* (see  ["Full list of methods and classes" section](#full-list-of-operators)).
+
+## Processing changes to computation results
+### Change handling in ObservableCollection&lt;T&gt;
+
+Sometimes it becomes necessary to perform some actions
+* with elements added to the collection
+
+* with items to be removed from the collection
+
+* elements moved within the collection
+
+Of course, you can process all the current elements in the collection, then subscribe to the CollectionChanged event, but the ObservableComputations library contains a simpler and more effective tool.
+
+```csharp
+using System;
+using System.Collections.ObjectModel;
+using System.Collections.Specialized;
+using System.Diagnostics;
+using ObservableComputations;
+
+namespace ObservableComputationsExamples
+{
+	public class Client : INotifyPropertyChanged
+	{
+		public string Name { get; set; }
+
+		private bool _online;
+
+		public bool Online
+		{
+			get => _online;
+			set
+			{
+				_online = value;
+				PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Online)));
+			}
+		}
+
+		public event PropertyChangedEventHandler PropertyChanged;
+	}
+
+	public class NetworkChannel : IDisposable
+	{
+		public string ClientName { get; set; }
+
+		public void Dispose()
+		{
+		}
+	}
+
+	class Program
+	{
+		static void Main(string[] args)
+		{
+			ObservableCollection<Client> clients = new ObservableCollection<Client>(new Client[]
+			{
+				new Client(){Name  = "Sergey", Online = false},
+				new Client(){Name  = "Evgeney", Online = true},
+				new Client(){Name  = "Anatoley", Online = false}
+			});
+
+			Filtering<Client> onlineClients = clients.Filtering(c => c.Online);
+
+			ItemsProcessing<Client, NetworkChannel> processing = 
+				onlineClients.ItemsProcessing<Client, NetworkChannel>(
+					newItemProcessor:
+						(client, @this, sender, eventArgs) =>
+						{
+							var networkChannel  = new NetworkChannel {ClientName = client.Name};
+							return networkChannel;
+						},
+					oldItemProcessor:
+						(client, @this, networkChannel, sender, eventArgs) =>
+						{
+							networkChannel.Dispose();
+						});
+						
+		    Debug.Assert(onlineClients is ObservableCollection<NetworkChannel>);
+
+			clients[2].Online = true;
+			clients.RemoveAt(1);
+
+			Console.ReadLine();
+		}
+	}
+}
+```
+
+Delegate passed to the *newItemProcessor* parameter is called
+
+* when instantiating *ItemsProcessing&lt;TSourceItem, TReturnValue&gt;* class (if the source collection (*clients*) contains elements at the time of instantiation),
+
+* when adding items to the source collection,
+
+* when replacing an item in the source collection (setting the collection item by index).
+
+The delegate passed to the * oldItemProcessor * parameter is called
+
+* when removing items in the source collection,
+
+* when replacing an item in the source collection (setting the collection item by index),
+
+* when cleaning the source collection (Clear() method).
+
+It is also possible to pass *moveItemProcessor* delegate to handle event of element move in the source collection.
+
+In order to avoid unloading from memory an instance of *ItemsProcessing&lt;TSourceItem, TReturnValue&gt;* class by the garbage collector, save reference to it in an object that has a suitable lifetime.
+
+The value returned by the delegate passed to *newItemProcessor* parameter can also be used to save references in order to avoid garbage collection from memory, for example, if you add instances of the [Binding](#Binding), ItemsProcessing or ValuesProcessing classes when adding items to the collection.
+
+There is also an overloaded version of the *ItemsProcessing* method, which accepts *newItemProcessor* delegate that returns an empty value (void).
+
+### Handling changes in IReadScalar&lt;TValue&gt;
+
+*IReadScalar&lt;TValue&gt;* is mentioned for the first time here. Similar to processing changes in ObservableCollection&lt;T&gt; ObservableComputations allows you to process changes in *IReadScalar&lt;TValue&gt;*:
+
+```csharp
+using System;
+using System.Collections.ObjectModel;
+using System.Collections.Specialized;
+using ObservableComputations;
+
+namespace ObservableComputationsExamples
+{
+	public class Client : INotifyPropertyChanged
+	{
+		private NetworkChannel _networkChannel;
+
+		public NetworkChannel NetworkChannel
+		{
+			get => _networkChannel;
+			set
+			{
+				_networkChannel = value;
+				PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(NetworkChannel)));
+			}
+		}
+
+		public event PropertyChangedEventHandler PropertyChanged;
+	}
+
+	public class NetworkChannel : IDisposable
+	{
+		public int Num { get; set; }
+
+		public void Dispose()
+		{
+		}
+	}
+
+	class Program
+	{
+		static void Main(string[] args)
+		{
+			var networkChannel  = new NetworkChannel(){Num = 1};
+			Client client = new Client() {NetworkChannel = networkChannel};
+
+			Computing<NetworkChannel> networkChannelComputing = new Computing<NetworkChannel>(() => client.NetworkChannel);
+
+			networkChannelComputing.ValuesProcessing(
+				newValueProcessor:
+					(networkChannel1, @this, sender, eventArgs) =>
+					{
+						// networkChannel1 is new NetworkChannel
+						// this.Value is old NetworkChannel
+						@this.Value?.Dispose();
+					});
+
+			client.NetworkChannel = new NetworkChannel(){Num = 2};
+			client.NetworkChannel = new NetworkChannel(){Num = 3};
+
+			Console.ReadLine();
+		}
+	}
+}
+```  
+
+In order to avoid unloading an instance of the *ValuesProcessing&lt;TValue&gt;* class from the memory by the garbage collector, save refrence to it in object that has a suitable lifetime.
+
+There is also an overloaded version of the *ValuesProcessing* method that accepts a *newValueProcessor* delegate that returns a non-void value. This value can be used to free resources ([IDisposable](https://docs.microsoft.com/en-us/dotnet/api/system.idisposable?view=netframework-4.8)) or to save references to avoid garbage collection from memory, for example, if instances of the [Binding](#Binding), ItemsProcessing or ValuesProcessing classes are created in *newValueProcessor* delegate.
 
 ## IsConsistent property and inconsistency exception
 Scenario described in this section is very specific. May be you will never meet it. However if want to be fully prepared read it. Consider following code:

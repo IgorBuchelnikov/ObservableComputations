@@ -3,7 +3,7 @@
 ## Что нужно знать для чтения этой статьи?
 
 Для того чтобы понимать написанное здесь, Вы должны знать: базовые сведения о программировании и ООП, синтаксис C# (включая события, [методы расширения](https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/classes-and-structs/extension-methods), лямбда-выражения), [LINQ](https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/concepts/linq/), интерфейсы: [INotifyPropertyChanged](https://docs.microsoft.com/en-us/dotnet/api/system.componentmodel.inotifypropertychanged?view=netframework-4.8) и [INotifyCollectionChanged](https://docs.microsoft.com/en-us/dotnet/api/system.collections.specialized.inotifycollectionchanged?view=netframework-4.8).  
-Желательно знать отличия [делегатов](https://docs.microsoft.com/en-us/dotnet/api/system.delegate?view=netframework-4.8) от [деревьев выражений](https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/concepts/expression-trees/), а также пути преоразования их друг в друга.
+Желательно знать отличия [делегатов](https://docs.microsoft.com/en-us/dotnet/api/system.delegate?view=netframework-4.8) от [деревьев выражений](https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/concepts/expression-trees/).
 
 Для того чтобы представить себе какие [преимущества можно получить при использовании ObservableComputations](#области-применения-и-преимущества), Вы должны знать: о [привязке данных (binding) в WPF](https://docs.microsoft.com/en-us/dotnet/desktop-wpf/data/data-binding-overview) (или в другой UI платформе: [Xamarin](https://docs.microsoft.com/en-us/xamarin/xamarin-forms/app-fundamentals/data-binding/basic-bindings), [Blazor](https://demos.telerik.com/blazor-ui/grid/observable-data)), особенно её связь с интерфейсами [INotifyPropertyChanged](https://docs.microsoft.com/en-us/dotnet/api/system.componentmodel.inotifypropertychanged?view=netframework-4.8) и [INotifyCollectionChanged](https://docs.microsoft.com/en-us/dotnet/api/system.collections.specialized.inotifycollectionchanged?view=netframework-4.8), свойство [DbSet.Local](https://docs.microsoft.com/en-us/dotnet/api/system.data.entity.dbset.local?view=entity-framework-6.2.0) ([local data](https://docs.microsoft.com/en-us/ef/ef6/querying/local-data)) из Entity framework, [асинхронные запросы Entity framewok](https://www.entityframeworktutorial.net/entityframework6/async-query-and-save.aspx).
 
@@ -18,11 +18,11 @@ ObservableComputations не является аналогом [Reactive Extentio
 Вот главные отличия ObservableComputations от  [Reactive Extentions](https://github.com/dotnet/reactive):
 
 * [Reactive Extentions](https://github.com/dotnet/reactive) абстрагирован от конкретного события и от семантики событий: это библиотека для обработки всех возможных событий. Reactive Extentions обрабатывает все события одинаковым образом, а вся специфика только в пользовательском коде. ObservableComputations сфокусирован только на двух событиях:  [CollectionChanged](https://docs.microsoft.com/en-us/dotnet/api/system.collections.specialized.inotifycollectionchanged.collectionchanged?view=netframework-4.8) и [PropertyChanged](https://docs.microsoft.com/en-us/dotnet/api/system.componentmodel.inotifypropertychanged.propertychanged?view=netframework-4.8) и приносит большую пользу обрабатывая их. Вы можете использовать ObservableComputations отдельно или вместе с [Reactive Extentions](https://github.com/dotnet/reactive). Это руководство включает в себя [пример](#исключение-при-нарушении-целостности) взаимодействия ObservableComputations с  [Reactive Extentions](https://github.com/dotnet/reactive).
-* Библеотека [Reactive Extentions](https://github.com/dotnet/reactive)  предоставляет поток событий. ObservableComputations предоставляет не только поток событий изменения данных, но вычисленные в данный момент данные.
+* Библиотека [Reactive Extentions](https://github.com/dotnet/reactive)  предоставляет поток событий. ObservableComputations предоставляет не только поток событий изменения данных, но вычисленные в данный момент данные.
 
-Библеотека [ReactiveUI](https://github.com/reactiveui/ReactiveUI) (и её подбиблеотека [DynamicData](https://github.com/reactiveui/DynamicData)) не абтрагированы от интерфейсов [INotifyPropertyChanged](https://docs.microsoft.com/en-us/dotnet/api/system.componentmodel.inotifypropertychanged?view=netframework-4.8) и [INotifyCollectionChanged](https://docs.microsoft.com/en-us/dotnet/api/system.collections.specialized.inotifycollectionchanged?view=netframework-4.8) и при работе с этими интерфейсами позволяет делать примерно тоже самое что и ObservableComputations, но ObservableComputations менее многословна, проще в использовании, более декларативна, меньше дергает исходные данные. Почему?
+Библиотека [ReactiveUI](https://github.com/reactiveui/ReactiveUI) (и её подбиблиотека [DynamicData](https://github.com/reactiveui/DynamicData)) не абстрагированы от интерфейсов [INotifyPropertyChanged](https://docs.microsoft.com/en-us/dotnet/api/system.componentmodel.inotifypropertychanged?view=netframework-4.8) и [INotifyCollectionChanged](https://docs.microsoft.com/en-us/dotnet/api/system.collections.specialized.inotifycollectionchanged?view=netframework-4.8) и при работе с этими интерфейсами позволяет делать примерно тоже самое что и ObservableComputations, но ObservableComputations менее многословна, проще в использовании, более декларативна, меньше дергает исходные данные. Почему?
 
-* Реативность ObservableComputations основана только на двух событиях: [CollectionChanged](https://docs.microsoft.com/en-us/dotnet/api/system.collections.specialized.inotifycollectionchanged.collectionchanged?view=netframework-4.8) и [PropertyChanged](https://docs.microsoft.com/en-us/dotnet/api/system.componentmodel.inotifypropertychanged.propertychanged?view=netframework-4.8). Такая реактивность является "родной" для ObservableComputations. Реативность [ReactiveUI](https://github.com/reactiveui/ReactiveUI) основана на интерфейсах унаследованных от [Reactive Extentions](https://github.com/dotnet/reactive): [IObserver&lt;T&gt;](https://docs.microsoft.com/en-us/dotnet/api/system.iobserver-1?view=netframework-4.8), [IObservable&lt;T&gt;](https://docs.microsoft.com/en-us/dotnet/api/system.iobservable-1?view=netframework-4.8,), а также дополнительных интерфейсах для работы с коллекциями (содержащиеся в [DynamicData](https://github.com/reactiveui/DynamicData)): [IChangeSet](https://github.com/reactiveui/DynamicData/blob/master/src/DynamicData/IChangeSet.cs) и [IChangeSet&lt;TObject&gt;](https://github.com/reactiveui/DynamicData/blob/master/src/DynamicData/List/IChangeSet.cs). [ReactiveUI](https://github.com/reactiveui/ReactiveUI) осуществляет двунаправленное преобразование между этими интерфейсами и интерфейсами [INotifyPropertyChanged](https://docs.microsoft.com/en-us/dotnet/api/system.componentmodel.inotifypropertychanged?view=netframework-4.8) и [INotifyCollectionChanged](https://docs.microsoft.com/en-us/dotnet/api/system.collections.specialized.inotifycollectionchanged?view=netframework-4.8). Но даже с учётом этого преобразования интерфейсы [INotifyPropertyChanged](https://docs.microsoft.com/en-us/dotnet/api/system.componentmodel.inotifypropertychanged?view=netframework-4.8) и [INotifyCollectionChanged](https://docs.microsoft.com/en-us/dotnet/api/system.collections.specialized.inotifycollectionchanged?view=netframework-4.8) выглядят чужеродными для [ReactiveUI](https://github.com/reactiveui/ReactiveUI).
+* Реактивность ObservableComputations основана только на двух событиях: [CollectionChanged](https://docs.microsoft.com/en-us/dotnet/api/system.collections.specialized.inotifycollectionchanged.collectionchanged?view=netframework-4.8) и [PropertyChanged](https://docs.microsoft.com/en-us/dotnet/api/system.componentmodel.inotifypropertychanged.propertychanged?view=netframework-4.8). Такая реактивность является "родной" для ObservableComputations. Реактивность [ReactiveUI](https://github.com/reactiveui/ReactiveUI) основана на интерфейсах унаследованных от [Reactive Extentions](https://github.com/dotnet/reactive): [IObserver&lt;T&gt;](https://docs.microsoft.com/en-us/dotnet/api/system.iobserver-1?view=netframework-4.8), [IObservable&lt;T&gt;](https://docs.microsoft.com/en-us/dotnet/api/system.iobservable-1?view=netframework-4.8,), а также дополнительных интерфейсах для работы с коллекциями (содержащиеся в [DynamicData](https://github.com/reactiveui/DynamicData)): [IChangeSet](https://github.com/reactiveui/DynamicData/blob/master/src/DynamicData/IChangeSet.cs) и [IChangeSet&lt;TObject&gt;](https://github.com/reactiveui/DynamicData/blob/master/src/DynamicData/List/IChangeSet.cs). [ReactiveUI](https://github.com/reactiveui/ReactiveUI) осуществляет двунаправленное преобразование между этими интерфейсами и интерфейсами [INotifyPropertyChanged](https://docs.microsoft.com/en-us/dotnet/api/system.componentmodel.inotifypropertychanged?view=netframework-4.8) и [INotifyCollectionChanged](https://docs.microsoft.com/en-us/dotnet/api/system.collections.specialized.inotifycollectionchanged?view=netframework-4.8). Но даже с учётом этого преобразования интерфейсы [INotifyPropertyChanged](https://docs.microsoft.com/en-us/dotnet/api/system.componentmodel.inotifypropertychanged?view=netframework-4.8) и [INotifyCollectionChanged](https://docs.microsoft.com/en-us/dotnet/api/system.collections.specialized.inotifycollectionchanged?view=netframework-4.8) выглядят чужеродными для [ReactiveUI](https://github.com/reactiveui/ReactiveUI).
 
 * ObservableComputations использует слабые события, поэтому нет необходимости в [IDisposable](https://docs.microsoft.com/en-us/dotnet/api/system.idisposable?view=netframework-4.8).
 
@@ -1187,13 +1187,21 @@ namespace ObservableComputationsExamples
 }
 ```
 
-В коде выше мы создаём вычисление *stepansOrders* (заказы Степана). Мы устанавливаем значение свойства *stepansOrders.InsertItemAction* для того чтобы определить как изменить коллекцию *orders* и *order*, который нужно добавить, так чтобы он был включён в вычисление *stepansOrders*.
+В коде выше мы создаём вычисление *stepansOrders* (заказы Степана). Мы устанавливаем делегат, в качестве значения свойства *stepansOrders.InsertItemAction* для того чтобы определить как изменить коллекцию *orders* и *order*, который нужно добавить, так чтобы он был включён в вычисление *stepansOrders*.
 
 Обратите внимание на то, что [метод Add](https://docs.microsoft.com/en-us/dotnet/api/system.collections.generic.icollection-1.add?view=netframework-4.8#System_Collections_Generic_ICollection_1_Add__0_) это член интерфейса [ICollection&lt;T&gt; interface](https://docs.microsoft.com/en-us/dotnet/api/system.collections.generic.icollection-1?view=netframework-4.8).
 
-Данная возможность может быть полезна если Вы передаёте *stepansOrders* который абстрагирован от того, чем является *stepansOrders*: вычислением или обычной коллекцией. Этот код знает только то, что *stepansOrders* реализует [ICollection&lt;T&gt; interface](https://docs.microsoft.com/en-us/dotnet/api/system.collections.generic.icollection-1?view=netframework-4.8) и иногда хочет добавлять заказы в *stepansOrders*. Таким кодом, например, может [привязка данных в WPF](https://docs.microsoft.com/en-us/dotnet/api/system.windows.data.bindingmode?view=netframework-4.8#System_Windows_Data_BindingMode_TwoWay).
+Данная возможность может быть полезна если Вы передаёте *stepansOrders* в код, который абстрагирован от того, чем является *stepansOrders*: вычислением или обычной коллекцией. Этот код знает только то, что *stepansOrders* реализует [ICollection&lt;T&gt; interface](https://docs.microsoft.com/en-us/dotnet/api/system.collections.generic.icollection-1?view=netframework-4.8) и иногда хочет добавлять заказы в *stepansOrders*. Таким кодом, например, может [привязка данных в WPF](https://docs.microsoft.com/en-us/dotnet/api/system.windows.data.bindingmode?view=netframework-4.8#System_Windows_Data_BindingMode_TwoWay).
 
-Свойства аналогичные *InsertItemAction* существуют и для других операций ([remove](https://docs.microsoft.com/en-us/dotnet/api/system.collections.generic.icollection-1.remove?view=netframework-4.8), [set (replace)](https://docs.microsoft.com/en-us/dotnet/api/system.collections.objectmodel.collection-1.item?view=netframework-4.8#System_Collections_ObjectModel_Collection_1_Item_System_Int32_), [move](https://docs.microsoft.com/en-us/dotnet/api/system.collections.objectmodel.observablecollection-1.move?view=netframework-4.8), [clear](https://docs.microsoft.com/en-us/dotnet/api/system.collections.generic.icollection-1.clear?view=netframework-4.8)) и для установки значения свойства *ScalarComputing&lt;TValue&gt;.Value* (см.  ["Полный список операторов" section](#полный-список-операторов)).
+Свойства аналогичные *InsertItemAction* существуют и для других операций ([remove](https://docs.microsoft.com/en-us/dotnet/api/system.collections.generic.icollection-1.remove?view=netframework-4.8), [set (replace)](https://docs.microsoft.com/en-us/dotnet/api/system.collections.objectmodel.collection-1.item?view=netframework-4.8#System_Collections_ObjectModel_Collection_1_Item_System_Int32_), [move](https://docs.microsoft.com/en-us/dotnet/api/system.collections.objectmodel.observablecollection-1.move?view=netframework-4.8), [clear](https://docs.microsoft.com/en-us/dotnet/api/system.collections.generic.icollection-1.clear?view=netframework-4.8)) и для установки значения свойства *ScalarComputing&lt;TValue&gt;.Value* (см. раздел ["Полный список операторов"](#полный-список-операторов)). Такие свойства далее называются обработчиками запросов на изменение вычислений.
+
+### Блокировка установки свойств обработчиков запросов на изменение вычислений
+
+Свойства обработчиков запросов на изменение вычислений являются публичными. По умолчанию любой код, который имеет ссылку на вычисление может установить или перезаписать значение этого свойства. Есть возможность управлять возможностью установки значений этих свойств с помощью методов класса [*CollectionComputing&lt;TItem&gt;*](#полный-список-операторов):
+
+* void LockModifyChangeAction(CollectionChangeAction collectionChangeAction, object key)
+* void UnlockModifyChangeAction(CollectionChangeAction collectionChangeAction, object key)
+* bool IsModifyChangeActionLocked(CollectionChangeAction collectionChangeAction)
 
 ## Обработка изменений результатов вычислений
 ### Обработка измениний в ObservableCollection&lt;T&gt;
@@ -1203,7 +1211,7 @@ namespace ObservableComputationsExamples
 * с удаляемыми из коллекции элементами
 * элементами перемещаемыми внутри коллекции
 
-Конечно вы можете обработать все текущие элементв колеекции, затем подписаться на событие CollectionChanged, но библеотека ObservableComputations сожержить более простое и эффективное средство.
+Конечно вы можете обработать все текущие элементв колеекции, затем подписаться на событие [CollectionChanged](https://docs.microsoft.com/en-us/dotnet/api/system.collections.specialized.inotifycollectionchanged.collectionchanged?view=netframework-4.8), но библеотека ObservableComputations сожержить более простое и эффективное средство.
 
 ```csharp
 using System;
@@ -1284,7 +1292,7 @@ namespace ObservableComputationsExamples
 
 * при инстанцировании класса *ItemsProcessing&lt;TSourceItem, TReturnValue&gt;* (если коллекция-источник (*clients*) содержит элементы в момент инстанцирования), 
 
-* при добавлнении элементов в коллекцию-источник, 
+* при добавление элементов в коллекцию-источник, 
 
 * при замене элемента в коллекции-источнике. 
 
@@ -1294,19 +1302,19 @@ namespace ObservableComputationsExamples
 
 * при замене элемента в коллекции-источнике (установка элемента коллекции по индексу), 
 
-* при очистке колеекции источника (метод Clear()).
+* при очистке коллекции источника (метод Clear()).
 
 Есть также возможность передать делегат *moveItemProcessor* для обработки события перемещения элемента в коллекции-источнике.
 
 Для того чтобы избежать выгрузки из памяти экземпляра класса *ItemsProcessing&lt;TSourceItem, TReturnValue&gt;* сборщиком мусора, сохраните ссылку на него в объекте, который имеет подходящее время жизни.
 
-Значение возвращаемое делегатом переданным в параметр *newItemProcessor*, может также использоваться для сохранения ссылок во избежании выгрузки из памяти сборщиком мусора, например, если при добавлении элементов в коллекцию создаюстся экземпляры классов [Binding](#Binding), ItemsProcessing или ValuesProcessing.
+Значение возвращаемое делегатом переданным в параметр *newItemProcessor*, может также использоваться для сохранения ссылок во избежании выгрузки из памяти сборщиком мусора, например, если при добавлении элементов в коллекцию создаются экземпляры классов [Binding](#Binding), [ItemsProcessing](#обработка-измениний-в-observablecollectiont) или [ValuesProcessing](#jбработка-измениний-в-ireadscalartvalue).
 
-Существует также перегруженная версия метода *ItemsProcessing*, которая принимает делегат *newItemProcessor*, возращающий пустое значение (void).
+Существует также перегруженная версия метода *ItemsProcessing*, которая принимает делегат *newItemProcessor*, возвращающий пустое значение (void).
 
-### Обработка измениний в IReadScalar&lt;TValue&gt;
+### Обработка изменений в IReadScalar&lt;TValue&gt;
 
-*IReadScalar&lt;TValue&gt;* упоминается в первый раз [здесь](#полный-список-операторов). По аналогии с обработкой изменений в ObservableCollection&lt;T&gt; ObservableComputations позволяет обрабатывать изменения в *IReadScalar&lt;TValue&gt;*:  
+*IReadScalar&lt;TValue&gt;* упоминается в первый раз [здесь](#полный-список-операторов). Вы можете обрабатывать изменение значения свойства Value, подписавшись на событие [PropertyChanged](https://docs.microsoft.com/en-us/dotnet/api/system.componentmodel.inotifypropertychanged.propertychanged?view=netframework-4.8), по аналогии с обработкой изменений в ObservableCollection&lt;T&gt; ObservableComputations позволяет обрабатывать изменения в *IReadScalar&lt;TValue&gt;* проще и эффективнее:  
   
 ```csharp
 using System;
@@ -1371,7 +1379,7 @@ namespace ObservableComputationsExamples
 
 Для того чтобы избежать выгрузки из памяти экземпляра класса *ValuesProcessing&lt;TValue&gt;* сборщиком мусора, сохраните ссылку на него в объекте, который имеет подходящее время жизни.
 
-Существует также перегруженная версия метода *ValuesProcessing*, которая принимает делегат *newValueProcessor*, возращающий не пустое значение. Это значение может использоваться для освобождения ресурсов ([IDisposable](https://docs.microsoft.com/en-us/dotnet/api/system.idisposable?view=netframework-4.8)) или для сохранения ссылок во избежании выгрузки из памяти сборщиком мусора, например, если в делегате *newValueProcessor* создаюстся экземпляры классов [Binding](#Binding), ItemsProcessing или ValuesProcessing.
+Существует также перегруженная версия метода *ValuesProcessing*, которая принимает делегат *newValueProcessor*, возвращающий не пустое значение. Это значение может использоваться для освобождения ресурсов ([IDisposable](https://docs.microsoft.com/en-us/dotnet/api/system.idisposable?view=netframework-4.8)) или для сохранения ссылок во избежании выгрузки из памяти сборщиком мусора, например, если в делегате *newValueProcessor* создаются экземпляры классов [Binding](#Binding), [ItemsProcessing](#обработка-измениний-в-observablecollectiont) или [ValuesProcessing](#jбработка-измениний-в-ireadscalartvalue).
 
 ## Свойство IsConsistent и исключение при нарушении целостности
 Сценарий описанный в этом разделе очень специфичен. Возможно Вы никогда его не встретите. Однако если Вы хотите быть полностью готовыми прочтите его. Рассмотрим следующий код:
@@ -1592,8 +1600,21 @@ namespace ObservableComputationsExamples
 
 ## Отладка
 
-### Пользовательский код: селекторы, предикаты, произвольные выражения, обработчики изменений, обработчики событий [CollectionChanged](https://docs.microsoft.com/en-us/dotnet/api/system.collections.specialized.inotifycollectionchanged.collectionchanged?view=netframework-4.8) и [PropertyChanged](https://docs.microsoft.com/en-us/dotnet/api/system.componentmodel.inotifypropertychanged.propertychanged?view=netframework-4.8)
-Селекторы это выражения, которые предаются в качестве аргумента в следующие [методы расширения](https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/classes-and-structs/extension-methods): Selecting, SelectingMany, Grouping, GroupJoining, Dictionaring, Hashing, Ordering, ThenOrdering, PredicateGroupJoining. Предикаты это выражения, которые предаются в качестве аргумента в [метод расширения](https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/classes-and-structs/extension-methods) Filtering. Произвольные выражения это выражения, которые предаются в качестве аргумента в [методы расширения](https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/classes-and-structs/extension-methods) Computing и Using. Обработчики изменений описаны в разделе ["Изменение вычислений"](#изменение-вычислений).
+### Пользовательский код: селекторы, предикаты, функции агрегирования, произвольные выражения, обработчики запросов на изменение вычислений, обработчики результатов вычислений, обработчики событий [CollectionChanged](https://docs.microsoft.com/en-us/dotnet/api/system.collections.specialized.inotifycollectionchanged.collectionchanged?view=netframework-4.8) и [PropertyChanged](https://docs.microsoft.com/en-us/dotnet/api/system.componentmodel.inotifypropertychanged.propertychanged?view=netframework-4.8)
+
+* Селекторы это выражения, которые предаются в качестве аргумента в следующие [методы расширения](https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/classes-and-structs/extension-methods): *Selecting*, *SelectingMany*, *Grouping*, *GroupJoining*, *Dictionaring*, *Hashing*, *Ordering*, *ThenOrdering*, *PredicateGroupJoining*
+
+* Предикаты это выражения, которые предаются в качестве аргумента в [метод расширения](https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/classes-and-structs/extension-methods) *Filtering*. 
+
+* Функции агрегирования это делегаты, которые передаются в [метод расширения](https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/classes-and-structs/extension-methods) *Aggregating*
+
+* Произвольные выражения это выражения, которые предаются в качестве аргумента в [методы расширения](https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/classes-and-structs/extension-methods) *Computing* и *Using*. 
+
+* Обработчики запросов на изменение вычислений описаны в разделе ["Изменение вычислений"](#изменение-вычислений).
+
+* Обработчики результатов вычислений описаны в разделе ["Обработка изменений результатов вычислений"](#обработка-изменений-результатов-вычислений).
+
+
 
 Вот код иллюстрирующий отладку произвольного выражения (другие типы могут быть отлажены аналогичным образом):
 
@@ -2794,7 +2815,7 @@ PropertyAccessing<decimal> priceReflectedComputing
 
 ## Binding
   
-Класс и [метод расширения](https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/classes-and-structs/extension-methods) Binding позволяет связать два произвольных выражения. Первое выражение это источник. Второе выражение является целевым. Сложность выражений не ограничена. Когда значение выражения источника меняется, новое значение присваивается целевому выражению:  
+Класс и [метод расширения](https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/classes-and-structs/extension-methods) *Binding* позволяет связать два произвольных выражения. Первое выражение это источник. Второе выражение является целевым. Сложность выражений не ограничена. Первое выражение передаётся как [дерево выражений](https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/concepts/expression-trees/). Второе выражение передаётся как [делегат](https://docs.microsoft.com/en-us/dotnet/api/system.delegate?view=netframework-4.8). Когда значение выражения источника меняется, новое значение присваивается целевому выражению:  
   
 ```csharp
 using System;

@@ -13,16 +13,27 @@
 
 ## Аналоги
 
-ObservableComputations не является аналогом [Reactive Extentions](https://github.com/dotnet/reactive). Аналогами ObservableComputations являются следующие библиотеки: [DynamicData](https://github.com/reactiveui/DynamicData), Obtics, [OLinq](https://www.nuget.org/packages/OLinq/), BindableLinq, ContinuousLinq.
+Ближайщими аналогами ObservableComputations являются следующие библиотеки:  Obtics, [OLinq](https://www.nuget.org/packages/OLinq/), BindableLinq, ContinuousLinq.
 
-Вот главные отличия ObservableComputations от  [Reactive Extentions](https://github.com/dotnet/reactive):
+### [Reactive Extentions](https://github.com/dotnet/reactive)
+ObservableComputations не является аналогом [Reactive Extentions](https://github.com/dotnet/reactive). Вот главные отличия ObservableComputations от  [Reactive Extentions](https://github.com/dotnet/reactive):
 
-* [Reactive Extentions](https://github.com/dotnet/reactive) абстрагирован от конкретного события и от семантики событий: это библиотека для обработки всех возможных событий. Reactive Extentions обрабатывает все события одинаковым образом, а вся специфика только в пользовательском коде. ObservableComputations сфокусирован только на двух событиях:  [CollectionChanged](https://docs.microsoft.com/en-us/dotnet/api/system.collections.specialized.inotifycollectionchanged.collectionchanged?view=netframework-4.8) и [PropertyChanged](https://docs.microsoft.com/en-us/dotnet/api/system.componentmodel.inotifypropertychanged.propertychanged?view=netframework-4.8) и приносит большую пользу обрабатывая их. Вы можете использовать ObservableComputations отдельно или вместе с [Reactive Extentions](https://github.com/dotnet/reactive). Это руководство включает в себя [пример](#исключение-при-нарушении-целостности) взаимодействия ObservableComputations с  [Reactive Extentions](https://github.com/dotnet/reactive).
-* Библиотека [Reactive Extentions](https://github.com/dotnet/reactive)  предоставляет поток событий. ObservableComputations предоставляет не только поток событий изменения данных, но вычисленные в данный момент данные.
+* [Reactive Extentions](https://github.com/dotnet/reactive) абстрагирован от конкретного события и от семантики событий: это библиотека для обработки всех возможных событий. Reactive Extentions обрабатывает все события одинаковым образом, а вся специфика только в пользовательском коде. ObservableComputations сфокусирован только на двух событиях:  [CollectionChanged](https://docs.microsoft.com/en-us/dotnet/api/system.collections.specialized.inotifycollectionchanged.collectionchanged?view=netframework-4.8) и [PropertyChanged](https://docs.microsoft.com/en-us/dotnet/api/system.componentmodel.inotifypropertychanged.propertychanged?view=netframework-4.8) и приносит большую пользу обрабатывая их. 
+* Библиотека [Reactive Extentions](https://github.com/dotnet/reactive)  предоставляет поток событий. ObservableComputations предоставляет не только поток событий изменения данных, но вычисленные в данный момент данные. 
+
+ Часть задач, которые Вы решали с помощью [Reactive Extentions](https://github.com/dotnet/reactive), теперь проще и эффективней решить с помощью ObservableComputations. Вы можете использовать ObservableComputations отдельно или вместе с [Reactive Extentions](https://github.com/dotnet/reactive). Взаимодействие с [Reactive Extentions](https://github.com/dotnet/reactive) понадобится в:
+ 
+ * при обработке событий не связанных с данными (например, нажатие клавиш), особенно при необходимости комбинировать эти события;
+ * при работе с асихронными операциями;
+ * при обработке событий связанной со временем (Throttle, Delay).
+ 
+ Это руководство включает в себя [пример](#исключение-при-нарушении-целостности) взаимодействия ObservableComputations с [Reactive Extentions](https://github.com/dotnet/reactive). 
+ 
+### [ReactiveUI](https://github.com/reactiveui/ReactiveUI) и [DynamicData](https://github.com/reactiveui/DynamicData)
 
 Библиотека [ReactiveUI](https://github.com/reactiveui/ReactiveUI) (и её подбиблиотека [DynamicData](https://github.com/reactiveui/DynamicData)) не абстрагированы от интерфейсов [INotifyPropertyChanged](https://docs.microsoft.com/en-us/dotnet/api/system.componentmodel.inotifypropertychanged?view=netframework-4.8) и [INotifyCollectionChanged](https://docs.microsoft.com/en-us/dotnet/api/system.collections.specialized.inotifycollectionchanged?view=netframework-4.8) и при работе с этими интерфейсами позволяет делать примерно тоже самое что и ObservableComputations, но ObservableComputations менее многословна, проще в использовании, более декларативна, меньше дергает исходные данные. Почему?
 
-* Реактивность ObservableComputations основана только на двух событиях: [CollectionChanged](https://docs.microsoft.com/en-us/dotnet/api/system.collections.specialized.inotifycollectionchanged.collectionchanged?view=netframework-4.8) и [PropertyChanged](https://docs.microsoft.com/en-us/dotnet/api/system.componentmodel.inotifypropertychanged.propertychanged?view=netframework-4.8). Такая реактивность является "родной" для ObservableComputations. Реактивность [ReactiveUI](https://github.com/reactiveui/ReactiveUI) основана на интерфейсах унаследованных от [Reactive Extentions](https://github.com/dotnet/reactive): [IObserver&lt;T&gt;](https://docs.microsoft.com/en-us/dotnet/api/system.iobserver-1?view=netframework-4.8), [IObservable&lt;T&gt;](https://docs.microsoft.com/en-us/dotnet/api/system.iobservable-1?view=netframework-4.8,), а также дополнительных интерфейсах для работы с коллекциями (содержащиеся в [DynamicData](https://github.com/reactiveui/DynamicData)): [IChangeSet](https://github.com/reactiveui/DynamicData/blob/master/src/DynamicData/IChangeSet.cs) и [IChangeSet&lt;TObject&gt;](https://github.com/reactiveui/DynamicData/blob/master/src/DynamicData/List/IChangeSet.cs). [ReactiveUI](https://github.com/reactiveui/ReactiveUI) осуществляет двунаправленное преобразование между этими интерфейсами и интерфейсами [INotifyPropertyChanged](https://docs.microsoft.com/en-us/dotnet/api/system.componentmodel.inotifypropertychanged?view=netframework-4.8) и [INotifyCollectionChanged](https://docs.microsoft.com/en-us/dotnet/api/system.collections.specialized.inotifycollectionchanged?view=netframework-4.8). Но даже с учётом этого преобразования интерфейсы [INotifyPropertyChanged](https://docs.microsoft.com/en-us/dotnet/api/system.componentmodel.inotifypropertychanged?view=netframework-4.8) и [INotifyCollectionChanged](https://docs.microsoft.com/en-us/dotnet/api/system.collections.specialized.inotifycollectionchanged?view=netframework-4.8) выглядят чужеродными для [ReactiveUI](https://github.com/reactiveui/ReactiveUI).
+* Реактивность ObservableComputations основана только на двух событиях: [CollectionChanged](https://docs.microsoft.com/en-us/dotnet/api/system.collections.specialized.inotifycollectionchanged.collectionchanged?view=netframework-4.8) и [PropertyChanged](https://docs.microsoft.com/en-us/dotnet/api/system.componentmodel.inotifypropertychanged.propertychanged?view=netframework-4.8). Такая реактивность является "родной" для ObservableComputations. Реактивность [ReactiveUI](https://github.com/reactiveui/ReactiveUI) основана на интерфейсах унаследованных от [Reactive Extentions](https://github.com/dotnet/reactive): [IObserver&lt;T&gt;](https://docs.microsoft.com/en-us/dotnet/api/system.iobserver-1?view=netframework-4.8), [IObservable&lt;T&gt;](https://docs.microsoft.com/en-us/dotnet/api/system.iobservable-1?view=netframework-4.8,), а также дополнительных интерфейсах для работы с коллекциями (содержащиеся в [DynamicData](https://github.com/reactiveui/DynamicData)): [IChangeSet](https://github.com/reactiveui/DynamicData/blob/master/src/DynamicData/IChangeSet.cs) и [IChangeSet&lt;TObject&gt;](https://github.com/reactiveui/DynamicData/blob/master/src/DynamicData/List/IChangeSet.cs). [ReactiveUI](https://github.com/reactiveui/ReactiveUI) осуществляет двунаправленное преобразование между этими интерфейсами и интерфейсами [INotifyPropertyChanged](https://docs.microsoft.com/en-us/dotnet/api/system.componentmodel.inotifypropertychanged?view=netframework-4.8) и [INotifyCollectionChanged](https://docs.microsoft.com/en-us/dotnet/api/system.collections.specialized.inotifycollectionchanged?view=netframework-4.8). Даже с учётом этого преобразования интерфейсы [INotifyPropertyChanged](https://docs.microsoft.com/en-us/dotnet/api/system.componentmodel.inotifypropertychanged?view=netframework-4.8) и [INotifyCollectionChanged](https://docs.microsoft.com/en-us/dotnet/api/system.collections.specialized.inotifycollectionchanged?view=netframework-4.8) выглядят чужеродными для [ReactiveUI](https://github.com/reactiveui/ReactiveUI). Если Вам нужны функции [ReactiveUI](https://github.com/reactiveui/ReactiveUI), которые отсутсвуют в ObservableComputations, Вы можете получить их используя это преобразовние. Также Вы можете использовать [ReactiveList](https://reactiveui.net/docs/handbook/obsolete/collections/reactive-list) как коллекцию-источник для ObservableComputations.
 
 * ObservableComputations использует слабые события, поэтому нет необходимости в [IDisposable](https://docs.microsoft.com/en-us/dotnet/api/system.idisposable?view=netframework-4.8).
 
@@ -1325,18 +1336,17 @@ namespace ObservableComputationsExamples
 Делегат переданный в параметр *newItemProcessor* вызывается 
 
 * при инстанцировании класса *ItemsProcessing&lt;TSourceItem, TReturnValue&gt;* (если коллекция-источник (*clients*) содержит элементы в момент инстанцирования), 
-
 * при добавление элементов в коллекцию-источник, 
+* при замене элемента в коллекции-источнике,
+* в случае если [коллекция-источник передана как скаляр](#передача-коллекции-источника-как-обозреваемого-аргумента) (*IReadScalar&lt;TValue&gt;*), и у него меняется значение свойства *Value* на коллекцию, которая сожержит элементы.
 
-* при замене элемента в коллекции-источнике. 
 
 Делегат переданный в параметр *oldItemProcessor* вызывается 
 
 * при удалении элементов в коллекции-источнике,   
-
 * при замене элемента в коллекции-источнике (установка элемента коллекции по индексу), 
-
 * при очистке коллекции источника (метод Clear()).
+* в случае если [коллекция-источник передана как скаляр](#передача-коллекции-источника-как-обозреваемого-аргумента) (*IReadScalar&lt;TValue&gt;*), и у него меняется значение свойства *Value*.
 
 Есть также возможность передать делегат *moveItemProcessor* для обработки события перемещения элемента в коллекции-источнике.
 

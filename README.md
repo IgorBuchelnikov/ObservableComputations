@@ -1328,18 +1328,16 @@ namespace ObservableComputationsExamples
 Delegate passed to the *newItemProcessor* parameter is called
 
 * when instantiating *ItemsProcessing&lt;TSourceItem, TReturnValue&gt;* class (if the source collection (*clients*) contains elements at the time of instantiation),
-
 * when adding items to the source collection,
-
-* when replacing an item in the source collection (setting the collection item by index).
+* when replacing an item in the source collection (setting the collection item by index),
+* when the source collection is passed as a scalar (*IReadScalar&lt;TValue&gt;*), and its value changes to the collection that contains the elements.
 
 The delegate passed to the * oldItemProcessor * parameter is called
 
 * when removing items in the source collection,
-
 * when replacing an item in the source collection (setting the collection item by index),
-
-* when cleaning the source collection (Clear() method).
+* when cleaning the source collection (Clear() method),
+* when the source collection is passed as a scalar (*IReadScalar&lt;TValue&gt;*), and its value changes.
 
 It is also possible to pass *moveItemProcessor* delegate to handle event of element move in the source collection.
 

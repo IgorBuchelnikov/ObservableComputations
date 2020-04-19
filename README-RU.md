@@ -21,13 +21,13 @@ ObservableComputations не является аналогом [Reactive Extentio
 * [Reactive Extentions](https://github.com/dotnet/reactive) абстрагирован от конкретного события и от семантики событий: это библиотека для обработки всех возможных событий. Reactive Extentions обрабатывает все события одинаковым образом, а вся специфика только в пользовательском коде. ObservableComputations сфокусирован только на двух событиях:  [CollectionChanged](https://docs.microsoft.com/en-us/dotnet/api/system.collections.specialized.inotifycollectionchanged.collectionchanged?view=netframework-4.8) и [PropertyChanged](https://docs.microsoft.com/en-us/dotnet/api/system.componentmodel.inotifypropertychanged.propertychanged?view=netframework-4.8) и приносит большую пользу обрабатывая их. 
 * Библиотека [Reactive Extentions](https://github.com/dotnet/reactive)  предоставляет поток событий. ObservableComputations предоставляет не только поток событий изменения данных, но вычисленные в данный момент данные. 
 
- Часть задач, которые Вы решали с помощью [Reactive Extentions](https://github.com/dotnet/reactive), теперь проще и эффективней решить с помощью ObservableComputations. Вы можете использовать ObservableComputations отдельно или вместе с [Reactive Extentions](https://github.com/dotnet/reactive). Взаимодействие с [Reactive Extentions](https://github.com/dotnet/reactive) понадобится в:
+Часть задач, которые Вы решали с помощью [Reactive Extentions](https://github.com/dotnet/reactive), теперь проще и эффективней решить с помощью ObservableComputations. Вы можете использовать ObservableComputations отдельно или вместе с [Reactive Extentions](https://github.com/dotnet/reactive). Взаимодействие с [Reactive Extentions](https://github.com/dotnet/reactive) понадобится в:
  
- * при обработке событий не связанных с данными (например, нажатие клавиш), особенно при необходимости комбинировать эти события;
- * при работе с асихронными операциями;
- * при обработке событий связанной со временем (Throttle, Delay).
+* при обработке событий не связанных с данными (например, нажатие клавиш), особенно при необходимости комбинировать эти события;
+* при работе с асихронными операциями;
+* при обработке событий связанной со временем (Throttle, Delay).
  
- Это руководство включает в себя [пример](#исключение-при-нарушении-целостности) взаимодействия ObservableComputations с [Reactive Extentions](https://github.com/dotnet/reactive). 
+Это руководство включает в себя [пример](#исключение-при-нарушении-целостности) взаимодействия ObservableComputations с [Reactive Extentions](https://github.com/dotnet/reactive). 
  
 ### [ReactiveUI](https://github.com/reactiveui/ReactiveUI) и [DynamicData](https://github.com/reactiveui/DynamicData)
 

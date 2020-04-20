@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.Linq;
-using ObservableComputations;
 
 namespace ObservableComputations
 {
@@ -161,7 +160,7 @@ namespace ObservableComputations
 			int capacity)
 		{
 			return 
-				Expr.Is(() => sourceScalar.Value != null ? ((IList) sourceScalar.Value).Count : 0).Computing().SequenceComputing()
+				new Computing<int>(() => sourceScalar.Value != null ? ((IList) sourceScalar.Value).Count : 0).SequenceComputing()
 					.Zipping<int, TSourceItem>(sourceScalar).Using(zipping => 
 					zipping.Filtering(zp => zp.ItemLeft >= startIndexScalar.Value && zp.ItemLeft < startIndexScalar.Value + countScalar.Value, capacity)).Value;
 		}
@@ -172,7 +171,7 @@ namespace ObservableComputations
 			int count)
 		{
 			return 
-				Expr.Is(() => sourceScalar.Value != null ? ((IList) sourceScalar.Value).Count : 0).Computing().SequenceComputing()
+				new Computing<int>(() => sourceScalar.Value != null ? ((IList) sourceScalar.Value).Count : 0).SequenceComputing()
 					.Zipping<int, TSourceItem>(sourceScalar).Using(zipping => 
 					zipping.Filtering(zp => zp.ItemLeft >= startIndexScalar.Value && zp.ItemLeft < startIndexScalar.Value + count, count)).Value;
 		}
@@ -184,7 +183,7 @@ namespace ObservableComputations
 			int capacity)
 		{
 			return 
-				Expr.Is(() => sourceScalar.Value != null ? ((IList) sourceScalar.Value).Count : 0).Computing().SequenceComputing()
+				new Computing<int>(() => sourceScalar.Value != null ? ((IList) sourceScalar.Value).Count : 0).SequenceComputing()
 					.Zipping<int, TSourceItem>(sourceScalar).Using(zipping => 
 					zipping.Filtering(zp => zp.ItemLeft >= startIndex && zp.ItemLeft < startIndex + countScalar.Value, capacity)).Value;
 		}
@@ -195,7 +194,7 @@ namespace ObservableComputations
 			int count)
 		{
 			return 
-				Expr.Is(() => sourceScalar.Value != null ? ((IList) sourceScalar.Value).Count : 0).Computing().SequenceComputing()
+				new Computing<int>(() => sourceScalar.Value != null ? ((IList) sourceScalar.Value).Count : 0).SequenceComputing()
 					.Zipping<int, TSourceItem>(sourceScalar).Using(zipping => 
 					zipping.Filtering(zp => zp.ItemLeft >= startIndex && zp.ItemLeft < startIndex + count, count)).Value;
 		}
@@ -207,7 +206,7 @@ namespace ObservableComputations
 			int capacity)
 		{
 			return 
-				Expr.Is(() => ((IList) source).Count).Computing().SequenceComputing()
+				new Computing<int>(() => ((IList) source).Count).SequenceComputing()
 					.Zipping<int, TSourceItem>(source).Using(zipping => 
 					zipping.Filtering(zp => zp.ItemLeft >= startIndexScalar.Value && zp.ItemLeft < startIndexScalar.Value + countScalar.Value, capacity)).Value;
 		}
@@ -218,7 +217,7 @@ namespace ObservableComputations
 			int count)
 		{
 			return 
-				Expr.Is(() => ((IList) source).Count).Computing().SequenceComputing()
+				new Computing<int>(() => ((IList) source).Count).SequenceComputing()
 					.Zipping<int, TSourceItem>(source).Using(zipping => 
 					zipping.Filtering(zp => zp.ItemLeft >= startIndexScalar.Value && zp.ItemLeft < startIndexScalar.Value + count, count)).Value;
 		}
@@ -230,7 +229,7 @@ namespace ObservableComputations
 			int capacity)
 		{
 			return 
-				Expr.Is(() => ((IList) source).Count).Computing().SequenceComputing()
+				new Computing<int>(() => ((IList) source).Count).SequenceComputing()
 					.Zipping<int, TSourceItem>(source).Using(zipping => 
 					zipping.Filtering(zp => zp.ItemLeft >= startIndex && zp.ItemLeft < startIndex + countScalar.Value, capacity)).Value;
 		}
@@ -241,7 +240,7 @@ namespace ObservableComputations
 			int count)
 		{
 			return 
-				Expr.Is(() => ((IList) source).Count).Computing().SequenceComputing()
+				new Computing<int>(() => ((IList) source).Count).SequenceComputing()
 					.Zipping<int, TSourceItem>(source).Using(zipping => 
 					zipping.Filtering(zp => zp.ItemLeft >= startIndex && zp.ItemLeft < startIndex + count, count)).Value;
 		}

@@ -41,7 +41,7 @@ namespace ObservableComputations
 			 IReadScalar<INotifyCollectionChanged> sourceScalar)
 		{
 			return 		
-				Expr.Is(() => sourceScalar.Value != null ? ((IList) sourceScalar.Value).Count : 0).Computing().SequenceComputing()
+				new Computing<int>(() => sourceScalar.Value != null ? ((IList) sourceScalar.Value).Count : 0).SequenceComputing()
 				.Zipping<int, TSourceItem>(sourceScalar)
 				.Ordering(zipPair => zipPair.ItemLeft, ListSortDirection.Descending);
 		}
@@ -50,7 +50,7 @@ namespace ObservableComputations
 			 INotifyCollectionChanged source)
 		{
 			return 		
-				Expr.Is(() => ((IList) source).Count).Computing().SequenceComputing()
+				new Computing<int>(() => ((IList) source).Count).SequenceComputing()
 				.Zipping<int, TSourceItem>(source)
 				.Ordering(zipPair => zipPair.ItemLeft, ListSortDirection.Descending);
 		}

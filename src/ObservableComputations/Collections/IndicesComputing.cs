@@ -55,7 +55,7 @@ namespace ObservableComputations
 		{
 			Expression<Func<ZipPair<int, TSourceItem>, bool>> zipPairPredicateExpression = getZipPairPredicateExpression(predicateExpression);
 
-			return Expr.Is(() => sourceScalar.Value != null ? ((IList) sourceScalar.Value).Count : 0).Computing().SequenceComputing()
+			return new Computing<int>(() => sourceScalar.Value != null ? ((IList) sourceScalar.Value).Count : 0).SequenceComputing()
 				.Zipping<int, TSourceItem>(sourceScalar)
 				.Filtering(zipPairPredicateExpression, capacity);
 		}
@@ -67,7 +67,7 @@ namespace ObservableComputations
 		{
 			Expression<Func<ZipPair<int, TSourceItem>, bool>> zipPairPredicateExpression = getZipPairPredicateExpression(predicateExpression);
 
-			return Expr.Is(() => ((IList) source).Count).Computing().SequenceComputing()
+			return new Computing<int>(() => ((IList) source).Count).SequenceComputing()
 				.Zipping<int, TSourceItem>(source)
 				.Filtering(zipPairPredicateExpression, capacity);
 		}

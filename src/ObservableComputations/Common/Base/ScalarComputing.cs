@@ -1,7 +1,6 @@
 ﻿using System;
 using System.ComponentModel;
 using System.Threading;
-using ObservableComputations;
 
 namespace ObservableComputations
 {

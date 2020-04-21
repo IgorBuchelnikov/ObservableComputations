@@ -1,5 +1,4 @@
 ﻿using System.ComponentModel;
-using ObservableComputations;
 
 namespace ObservableComputations
 {
@@ -31,6 +30,9 @@ namespace ObservableComputations
 
 			int newCount = _countScalar.Value;
 
+			checkConsistent();
+			_isConsistent = false;
+
 			if (_count < newCount)
 			{
 				for (int item = _count; item < newCount; item++)
@@ -49,6 +51,9 @@ namespace ObservableComputations
 				
 				_count = newCount;
 			}
+
+			_isConsistent = true;
+			raiseConsistencyRestored();
 		}
 
 		// ReSharper disable once InconsistentNaming

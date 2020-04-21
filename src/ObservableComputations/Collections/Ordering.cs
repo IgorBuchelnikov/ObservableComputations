@@ -7,7 +7,6 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Threading;
 using INotifyPropertyChanged = System.ComponentModel.INotifyPropertyChanged;
-using ObservableComputations;
 using ObservableComputations.ExtentionMethods;
 
 namespace ObservableComputations

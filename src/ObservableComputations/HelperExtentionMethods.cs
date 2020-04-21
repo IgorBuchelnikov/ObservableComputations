@@ -1,5 +1,4 @@
 ﻿using System;
-using ObservableComputations;
 
 namespace ObservableComputations
 {

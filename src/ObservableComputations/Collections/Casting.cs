@@ -2,7 +2,6 @@
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.ComponentModel;
-using ObservableComputations;
 using ObservableComputations.ExtentionMethods;
 
 namespace ObservableComputations
@@ -77,7 +76,7 @@ namespace ObservableComputations
 			}
 
 
-			if (_sourceScalar != null) _source =  _sourceScalar.Value;
+			if (_sourceScalar != null) _source = _sourceScalar.Value;
 			_sourceAsList = _source as IList;
 
 			if (_sourceAsList != null)

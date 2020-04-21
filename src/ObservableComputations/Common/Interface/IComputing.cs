@@ -1,6 +1,4 @@
-﻿using ObservableComputations;
-
-namespace ObservableComputations
+﻿namespace ObservableComputations
 {
 	public interface IComputing : IHasTags, IConsistent
 	{

@@ -1242,9 +1242,7 @@ and methods of [*ScalarComputing&lt;TValue&gt;* class](#full-list-of-operators):
 
 Sometimes it becomes necessary to perform some actions
 * with elements added to the collection
-
 * with items to be removed from the collection
-
 * elements moved within the collection
 
 Of course, you can process all the current elements in the collection, then subscribe to the [CollectionChanged](https://docs.microsoft.com/en-us/dotnet/api/system.collections.specialized.inotifycollectionchanged.collectionchanged?view=netframework-4.8) event, but the ObservableComputations library contains a simpler and more effective tool.

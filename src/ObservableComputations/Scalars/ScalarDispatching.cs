@@ -2,15 +2,14 @@
 
 namespace ObservableComputations
 {
-	public class ScalarSynchronizing<TResult> : ScalarComputing<TResult>
+	public class ScalarDispatching<TResult> : ScalarComputing<TResult>
 	{
 		public IReadScalar<TResult> Scalar => _scalar;
-		public IDestinationScalarSynchronizer PostingDestinationSynchronizer => _destinationScalarSynchronizer;
-		public ISourceScalarSynchronizer SendingDestinationSynchronizer => _sourceScalarSynchronizer;
+		public IDestinationScalarDispatcher PostingDestinationDispatcher => _destinationScalarDispatcher;
+		public ISourceScalarDispatcher SendingDestinationDispatcher => _sourceScalarDispatcher;
 
-		private IDestinationScalarSynchronizer _destinationScalarSynchronizer;
-		private ISourceScalarSynchronizer _sourceScalarSynchronizer;
-		private IPostingSynchronizer _postingDistinationSynchronizer;
+		private IDestinationScalarDispatcher _destinationScalarDispatcher;
+		private ISourceScalarDispatcher _sourceScalarDispatcher;
 
 		private IReadScalar<TResult> _scalar;
 
@@ -18,17 +17,16 @@ namespace ObservableComputations
 		private WeakPropertyChangedEventHandler _scalarWeakPropertyChangedEventHandler;
 
 		[ObservableComputationsCall]
-		public ScalarSynchronizing(
+		public ScalarDispatching(
 			IReadScalar<TResult> scalar, 
-			ISourceScalarSynchronizer sourceScalarSynchronizer,
-			IDestinationScalarSynchronizer destinationScalarSynchronizer)
+			ISourceScalarDispatcher sourceScalarDispatcher,
+			IDestinationScalarDispatcher destinationScalarDispatcher)
 		{
 			_scalar = scalar;
-			_sourceScalarSynchronizer = sourceScalarSynchronizer;
-			_destinationScalarSynchronizer = destinationScalarSynchronizer;
-			_postingDistinationSynchronizer = destinationScalarSynchronizer as IPostingSynchronizer;
+			_sourceScalarDispatcher = sourceScalarDispatcher;
+			_destinationScalarDispatcher = destinationScalarDispatcher;
 
-			_sourceScalarSynchronizer.InvokeReadAndSubscribe(() =>
+			_sourceScalarDispatcher.InvokeReadAndSubscribe(() =>
 			{
 				_value = _scalar.Value;
 				_scalarPropertyChangedEventHandler = handleScalarPropertyChanged;
@@ -42,15 +40,13 @@ namespace ObservableComputations
 		{
 			if (e.PropertyName != nameof(IReadScalar<TResult>.Value)) return;
 
-			_postingDistinationSynchronizer.WaitLastPostComplete();
-
 			TResult newValue = _scalar.Value;
 
-			_destinationScalarSynchronizer.InvokeSetValue(
+			_destinationScalarDispatcher.InvokeSetValue(
 				() => setValue(newValue), this, sender, e);
 		}
 
-		~ScalarSynchronizing()
+		~ScalarDispatching()
 		{
 			_scalar.PropertyChanged -= _scalarWeakPropertyChangedEventHandler.Handle;
 		}

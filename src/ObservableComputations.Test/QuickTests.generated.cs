@@ -56973,6 +56973,1051 @@ namespace ObservableComputations.Test
 			test();
 		}
 		#endregion
+		#region Paging
+
+		
+		[Test]
+		public void TestPaging01()
+		{
+			Scalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
+			Scalar<int> pageSizeScalar = getScalar<int>(2);
+			Scalar<int> currentPageNumScalar = getScalar<int>(1);
+			int capacity = 0;
+			
+			var testing = sourceScalar.Paging<Item>(
+				pageSizeScalar,
+				currentPageNumScalar,
+				capacity);
+
+			void test()
+			{
+				testing.ValidateConsistency();
+				var sourceScalarValue = ((ObservableCollection<Item>)((System.Collections.Specialized.INotifyCollectionChanged)sourceScalar.Value));
+
+				if (sourceScalarValue != null)
+				{		
+					sourceScalarValue.Insert(2, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					sourceScalarValue[3] = new QuickTests.Item(7, true);
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(3);
+					testing.ValidateConsistency();
+					sourceScalarValue.Move(1, 3);
+					testing.ValidateConsistency();
+					sourceScalarValue[2].Active = !sourceScalarValue[2].Active;
+					testing.ValidateConsistency();
+					sourceScalarValue[2].Num = sourceScalarValue[2].Num + 1;
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					sourceScalarValue.Insert(0, new QuickTests.Item(2, true));
+					testing.ValidateConsistency();
+				}
+
+				IList listSource;
+				listSource = ((IList)((System.Collections.Specialized.INotifyCollectionChanged)sourceScalar.Value));
+				if (listSource != null)
+				{
+					listSource.Clear();
+					testing.ValidateConsistency();
+				}
+
+				if (sourceScalarValue != null)
+				{
+					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
+					sourceScalarValue.Insert(1, new QuickTests.Item(2, true));
+					sourceScalarValue.Insert(2, new QuickTests.Item(3, true));
+					sourceScalarValue.Insert(3, new QuickTests.Item(3, true));
+					sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
+					testing.ValidateConsistency();
+				}
+			}
+
+			test();
+
+			((Scalar<int>)pageSizeScalar).Touch();
+			test();
+			((Scalar<int>)pageSizeScalar).Change(1);
+			test();
+			((Scalar<int>)pageSizeScalar).Change(3);
+			test();
+
+			((Scalar<int>)currentPageNumScalar).Touch();
+			test();
+			((Scalar<int>)currentPageNumScalar).Change(2);
+			test();
+			((Scalar<int>)currentPageNumScalar).Change(3);
+			test();
+			((Scalar<int>)currentPageNumScalar).Change(4);
+			test();
+			((Scalar<int>)currentPageNumScalar).Change(5);
+			test();
+			((Scalar<int>)currentPageNumScalar).Change(6);
+			test();
+
+			((Scalar<System.Collections.Specialized.INotifyCollectionChanged>)sourceScalar).Touch();
+			test();
+			((Scalar<System.Collections.Specialized.INotifyCollectionChanged>)sourceScalar).Change(null);
+			test();
+		}
+		
+		[Test]
+		public void TestPaging02()
+		{
+			Scalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
+			Scalar<int> pageSizeScalar = getScalar<int>(2);
+			Scalar<int> currentPageNumScalar = getScalar<int>(1);
+			
+			var testing = sourceScalar.Paging<Item>(
+				pageSizeScalar,
+				currentPageNumScalar);
+
+			void test()
+			{
+				testing.ValidateConsistency();
+				var sourceScalarValue = ((ObservableCollection<Item>)((System.Collections.Specialized.INotifyCollectionChanged)sourceScalar.Value));
+
+				if (sourceScalarValue != null)
+				{		
+					sourceScalarValue.Insert(2, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					sourceScalarValue[3] = new QuickTests.Item(7, true);
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(3);
+					testing.ValidateConsistency();
+					sourceScalarValue.Move(1, 3);
+					testing.ValidateConsistency();
+					sourceScalarValue[2].Active = !sourceScalarValue[2].Active;
+					testing.ValidateConsistency();
+					sourceScalarValue[2].Num = sourceScalarValue[2].Num + 1;
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					sourceScalarValue.Insert(0, new QuickTests.Item(2, true));
+					testing.ValidateConsistency();
+				}
+
+				IList listSource;
+				listSource = ((IList)((System.Collections.Specialized.INotifyCollectionChanged)sourceScalar.Value));
+				if (listSource != null)
+				{
+					listSource.Clear();
+					testing.ValidateConsistency();
+				}
+
+				if (sourceScalarValue != null)
+				{
+					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
+					sourceScalarValue.Insert(1, new QuickTests.Item(2, true));
+					sourceScalarValue.Insert(2, new QuickTests.Item(3, true));
+					sourceScalarValue.Insert(3, new QuickTests.Item(3, true));
+					sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
+					testing.ValidateConsistency();
+				}
+			}
+
+			test();
+
+			((Scalar<int>)pageSizeScalar).Touch();
+			test();
+			((Scalar<int>)pageSizeScalar).Change(1);
+			test();
+			((Scalar<int>)pageSizeScalar).Change(3);
+			test();
+
+			((Scalar<int>)currentPageNumScalar).Touch();
+			test();
+			((Scalar<int>)currentPageNumScalar).Change(2);
+			test();
+			((Scalar<int>)currentPageNumScalar).Change(3);
+			test();
+			((Scalar<int>)currentPageNumScalar).Change(4);
+			test();
+			((Scalar<int>)currentPageNumScalar).Change(5);
+			test();
+			((Scalar<int>)currentPageNumScalar).Change(6);
+			test();
+
+			((Scalar<System.Collections.Specialized.INotifyCollectionChanged>)sourceScalar).Touch();
+			test();
+			((Scalar<System.Collections.Specialized.INotifyCollectionChanged>)sourceScalar).Change(null);
+			test();
+		}
+		
+		[Test]
+		public void TestPaging03()
+		{
+			Scalar<ObservableCollection<Item>> sourceScalar = getScalar<ObservableCollection<Item>>(getItems());
+			Scalar<int> pageSizeScalar = getScalar<int>(2);
+			Scalar<int> currentPageNumScalar = getScalar<int>(1);
+			int capacity = 0;
+			
+			var testing = sourceScalar.Paging<Item>(
+				pageSizeScalar,
+				currentPageNumScalar,
+				capacity);
+
+			void test()
+			{
+				testing.ValidateConsistency();
+				var sourceScalarValue = ((ObservableCollection<Item>)((ObservableCollection<Item>)sourceScalar.Value));
+
+				if (sourceScalarValue != null)
+				{		
+					sourceScalarValue.Insert(2, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					sourceScalarValue[3] = new QuickTests.Item(7, true);
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(3);
+					testing.ValidateConsistency();
+					sourceScalarValue.Move(1, 3);
+					testing.ValidateConsistency();
+					sourceScalarValue[2].Active = !sourceScalarValue[2].Active;
+					testing.ValidateConsistency();
+					sourceScalarValue[2].Num = sourceScalarValue[2].Num + 1;
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					sourceScalarValue.Insert(0, new QuickTests.Item(2, true));
+					testing.ValidateConsistency();
+				}
+
+				IList listSource;
+				listSource = ((IList)((ObservableCollection<Item>)sourceScalar.Value));
+				if (listSource != null)
+				{
+					listSource.Clear();
+					testing.ValidateConsistency();
+				}
+
+				if (sourceScalarValue != null)
+				{
+					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
+					sourceScalarValue.Insert(1, new QuickTests.Item(2, true));
+					sourceScalarValue.Insert(2, new QuickTests.Item(3, true));
+					sourceScalarValue.Insert(3, new QuickTests.Item(3, true));
+					sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
+					testing.ValidateConsistency();
+				}
+			}
+
+			test();
+
+			((Scalar<int>)pageSizeScalar).Touch();
+			test();
+			((Scalar<int>)pageSizeScalar).Change(1);
+			test();
+			((Scalar<int>)pageSizeScalar).Change(3);
+			test();
+
+			((Scalar<int>)currentPageNumScalar).Touch();
+			test();
+			((Scalar<int>)currentPageNumScalar).Change(2);
+			test();
+			((Scalar<int>)currentPageNumScalar).Change(3);
+			test();
+			((Scalar<int>)currentPageNumScalar).Change(4);
+			test();
+			((Scalar<int>)currentPageNumScalar).Change(5);
+			test();
+			((Scalar<int>)currentPageNumScalar).Change(6);
+			test();
+
+			((Scalar<ObservableCollection<Item>>)sourceScalar).Touch();
+			test();
+			((Scalar<ObservableCollection<Item>>)sourceScalar).Change(null);
+			test();
+		}
+		
+		[Test]
+		public void TestPaging04()
+		{
+			Scalar<ObservableCollection<Item>> sourceScalar = getScalar<ObservableCollection<Item>>(getItems());
+			Scalar<int> pageSizeScalar = getScalar<int>(2);
+			Scalar<int> currentPageNumScalar = getScalar<int>(1);
+			
+			var testing = sourceScalar.Paging<Item>(
+				pageSizeScalar,
+				currentPageNumScalar);
+
+			void test()
+			{
+				testing.ValidateConsistency();
+				var sourceScalarValue = ((ObservableCollection<Item>)((ObservableCollection<Item>)sourceScalar.Value));
+
+				if (sourceScalarValue != null)
+				{		
+					sourceScalarValue.Insert(2, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					sourceScalarValue[3] = new QuickTests.Item(7, true);
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(3);
+					testing.ValidateConsistency();
+					sourceScalarValue.Move(1, 3);
+					testing.ValidateConsistency();
+					sourceScalarValue[2].Active = !sourceScalarValue[2].Active;
+					testing.ValidateConsistency();
+					sourceScalarValue[2].Num = sourceScalarValue[2].Num + 1;
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					sourceScalarValue.Insert(0, new QuickTests.Item(2, true));
+					testing.ValidateConsistency();
+				}
+
+				IList listSource;
+				listSource = ((IList)((ObservableCollection<Item>)sourceScalar.Value));
+				if (listSource != null)
+				{
+					listSource.Clear();
+					testing.ValidateConsistency();
+				}
+
+				if (sourceScalarValue != null)
+				{
+					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
+					sourceScalarValue.Insert(1, new QuickTests.Item(2, true));
+					sourceScalarValue.Insert(2, new QuickTests.Item(3, true));
+					sourceScalarValue.Insert(3, new QuickTests.Item(3, true));
+					sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
+					testing.ValidateConsistency();
+				}
+			}
+
+			test();
+
+			((Scalar<int>)pageSizeScalar).Touch();
+			test();
+			((Scalar<int>)pageSizeScalar).Change(1);
+			test();
+			((Scalar<int>)pageSizeScalar).Change(3);
+			test();
+
+			((Scalar<int>)currentPageNumScalar).Touch();
+			test();
+			((Scalar<int>)currentPageNumScalar).Change(2);
+			test();
+			((Scalar<int>)currentPageNumScalar).Change(3);
+			test();
+			((Scalar<int>)currentPageNumScalar).Change(4);
+			test();
+			((Scalar<int>)currentPageNumScalar).Change(5);
+			test();
+			((Scalar<int>)currentPageNumScalar).Change(6);
+			test();
+
+			((Scalar<ObservableCollection<Item>>)sourceScalar).Touch();
+			test();
+			((Scalar<ObservableCollection<Item>>)sourceScalar).Change(null);
+			test();
+		}
+		
+		[Test]
+		public void TestPaging05()
+		{
+			Scalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
+			int pageSize = 2;
+			Scalar<int> currentPageNumScalar = getScalar<int>(1);
+			
+			var testing = sourceScalar.Paging<Item>(
+				pageSize,
+				currentPageNumScalar);
+
+			void test()
+			{
+				testing.ValidateConsistency();
+				var sourceScalarValue = ((ObservableCollection<Item>)((System.Collections.Specialized.INotifyCollectionChanged)sourceScalar.Value));
+
+				if (sourceScalarValue != null)
+				{		
+					sourceScalarValue.Insert(2, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					sourceScalarValue[3] = new QuickTests.Item(7, true);
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(3);
+					testing.ValidateConsistency();
+					sourceScalarValue.Move(1, 3);
+					testing.ValidateConsistency();
+					sourceScalarValue[2].Active = !sourceScalarValue[2].Active;
+					testing.ValidateConsistency();
+					sourceScalarValue[2].Num = sourceScalarValue[2].Num + 1;
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					sourceScalarValue.Insert(0, new QuickTests.Item(2, true));
+					testing.ValidateConsistency();
+				}
+
+				IList listSource;
+				listSource = ((IList)((System.Collections.Specialized.INotifyCollectionChanged)sourceScalar.Value));
+				if (listSource != null)
+				{
+					listSource.Clear();
+					testing.ValidateConsistency();
+				}
+
+				if (sourceScalarValue != null)
+				{
+					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
+					sourceScalarValue.Insert(1, new QuickTests.Item(2, true));
+					sourceScalarValue.Insert(2, new QuickTests.Item(3, true));
+					sourceScalarValue.Insert(3, new QuickTests.Item(3, true));
+					sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
+					testing.ValidateConsistency();
+				}
+			}
+
+			test();
+
+			((Scalar<int>)currentPageNumScalar).Touch();
+			test();
+			((Scalar<int>)currentPageNumScalar).Change(2);
+			test();
+			((Scalar<int>)currentPageNumScalar).Change(3);
+			test();
+			((Scalar<int>)currentPageNumScalar).Change(4);
+			test();
+			((Scalar<int>)currentPageNumScalar).Change(5);
+			test();
+			((Scalar<int>)currentPageNumScalar).Change(6);
+			test();
+
+			((Scalar<System.Collections.Specialized.INotifyCollectionChanged>)sourceScalar).Touch();
+			test();
+			((Scalar<System.Collections.Specialized.INotifyCollectionChanged>)sourceScalar).Change(null);
+			test();
+		}
+		
+		[Test]
+		public void TestPaging06()
+		{
+			Scalar<ObservableCollection<Item>> sourceScalar = getScalar<ObservableCollection<Item>>(getItems());
+			int pageSize = 2;
+			Scalar<int> currentPageNumScalar = getScalar<int>(1);
+			
+			var testing = sourceScalar.Paging<Item>(
+				pageSize,
+				currentPageNumScalar);
+
+			void test()
+			{
+				testing.ValidateConsistency();
+				var sourceScalarValue = ((ObservableCollection<Item>)((ObservableCollection<Item>)sourceScalar.Value));
+
+				if (sourceScalarValue != null)
+				{		
+					sourceScalarValue.Insert(2, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					sourceScalarValue[3] = new QuickTests.Item(7, true);
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(3);
+					testing.ValidateConsistency();
+					sourceScalarValue.Move(1, 3);
+					testing.ValidateConsistency();
+					sourceScalarValue[2].Active = !sourceScalarValue[2].Active;
+					testing.ValidateConsistency();
+					sourceScalarValue[2].Num = sourceScalarValue[2].Num + 1;
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					sourceScalarValue.Insert(0, new QuickTests.Item(2, true));
+					testing.ValidateConsistency();
+				}
+
+				IList listSource;
+				listSource = ((IList)((ObservableCollection<Item>)sourceScalar.Value));
+				if (listSource != null)
+				{
+					listSource.Clear();
+					testing.ValidateConsistency();
+				}
+
+				if (sourceScalarValue != null)
+				{
+					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
+					sourceScalarValue.Insert(1, new QuickTests.Item(2, true));
+					sourceScalarValue.Insert(2, new QuickTests.Item(3, true));
+					sourceScalarValue.Insert(3, new QuickTests.Item(3, true));
+					sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
+					testing.ValidateConsistency();
+				}
+			}
+
+			test();
+
+			((Scalar<int>)currentPageNumScalar).Touch();
+			test();
+			((Scalar<int>)currentPageNumScalar).Change(2);
+			test();
+			((Scalar<int>)currentPageNumScalar).Change(3);
+			test();
+			((Scalar<int>)currentPageNumScalar).Change(4);
+			test();
+			((Scalar<int>)currentPageNumScalar).Change(5);
+			test();
+			((Scalar<int>)currentPageNumScalar).Change(6);
+			test();
+
+			((Scalar<ObservableCollection<Item>>)sourceScalar).Touch();
+			test();
+			((Scalar<ObservableCollection<Item>>)sourceScalar).Change(null);
+			test();
+		}
+		
+		[Test]
+		public void TestPaging07()
+		{
+			System.Collections.Specialized.INotifyCollectionChanged source = getItems();
+			Scalar<int> pageSizeScalar = getScalar<int>(2);
+			Scalar<int> currentPageNumScalar = getScalar<int>(1);
+			int capacity = 0;
+			
+			var testing = source.Paging<Item>(
+				pageSizeScalar,
+				currentPageNumScalar,
+				capacity);
+
+			void test()
+			{
+				testing.ValidateConsistency();
+				var sourceValue = ((ObservableCollection<Item>)((System.Collections.Specialized.INotifyCollectionChanged)source));
+
+				if (sourceValue != null)
+				{		
+					sourceValue.Insert(2, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					sourceValue[3] = new QuickTests.Item(7, true);
+					testing.ValidateConsistency();
+					sourceValue.RemoveAt(3);
+					testing.ValidateConsistency();
+					sourceValue.Move(1, 3);
+					testing.ValidateConsistency();
+					sourceValue[2].Active = !sourceValue[2].Active;
+					testing.ValidateConsistency();
+					sourceValue[2].Num = sourceValue[2].Num + 1;
+					testing.ValidateConsistency();
+					sourceValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceValue.Insert(0, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					sourceValue.Insert(0, new QuickTests.Item(2, true));
+					testing.ValidateConsistency();
+				}
+
+				IList listSource;
+				listSource = ((IList)((System.Collections.Specialized.INotifyCollectionChanged)source));
+				if (listSource != null)
+				{
+					listSource.Clear();
+					testing.ValidateConsistency();
+				}
+
+				if (sourceValue != null)
+				{
+					sourceValue.Insert(0, new QuickTests.Item(1, true));
+					sourceValue.Insert(1, new QuickTests.Item(2, true));
+					sourceValue.Insert(2, new QuickTests.Item(3, true));
+					sourceValue.Insert(3, new QuickTests.Item(3, true));
+					sourceValue.Insert(4, new QuickTests.Item(3, true));
+					testing.ValidateConsistency();
+				}
+			}
+
+			test();
+
+			((Scalar<int>)pageSizeScalar).Touch();
+			test();
+			((Scalar<int>)pageSizeScalar).Change(1);
+			test();
+			((Scalar<int>)pageSizeScalar).Change(3);
+			test();
+
+			((Scalar<int>)currentPageNumScalar).Touch();
+			test();
+			((Scalar<int>)currentPageNumScalar).Change(2);
+			test();
+			((Scalar<int>)currentPageNumScalar).Change(3);
+			test();
+			((Scalar<int>)currentPageNumScalar).Change(4);
+			test();
+			((Scalar<int>)currentPageNumScalar).Change(5);
+			test();
+			((Scalar<int>)currentPageNumScalar).Change(6);
+			test();
+		}
+		
+		[Test]
+		public void TestPaging08()
+		{
+			System.Collections.Specialized.INotifyCollectionChanged source = getItems();
+			Scalar<int> pageSizeScalar = getScalar<int>(2);
+			Scalar<int> currentPageNumScalar = getScalar<int>(1);
+			
+			var testing = source.Paging<Item>(
+				pageSizeScalar,
+				currentPageNumScalar);
+
+			void test()
+			{
+				testing.ValidateConsistency();
+				var sourceValue = ((ObservableCollection<Item>)((System.Collections.Specialized.INotifyCollectionChanged)source));
+
+				if (sourceValue != null)
+				{		
+					sourceValue.Insert(2, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					sourceValue[3] = new QuickTests.Item(7, true);
+					testing.ValidateConsistency();
+					sourceValue.RemoveAt(3);
+					testing.ValidateConsistency();
+					sourceValue.Move(1, 3);
+					testing.ValidateConsistency();
+					sourceValue[2].Active = !sourceValue[2].Active;
+					testing.ValidateConsistency();
+					sourceValue[2].Num = sourceValue[2].Num + 1;
+					testing.ValidateConsistency();
+					sourceValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceValue.Insert(0, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					sourceValue.Insert(0, new QuickTests.Item(2, true));
+					testing.ValidateConsistency();
+				}
+
+				IList listSource;
+				listSource = ((IList)((System.Collections.Specialized.INotifyCollectionChanged)source));
+				if (listSource != null)
+				{
+					listSource.Clear();
+					testing.ValidateConsistency();
+				}
+
+				if (sourceValue != null)
+				{
+					sourceValue.Insert(0, new QuickTests.Item(1, true));
+					sourceValue.Insert(1, new QuickTests.Item(2, true));
+					sourceValue.Insert(2, new QuickTests.Item(3, true));
+					sourceValue.Insert(3, new QuickTests.Item(3, true));
+					sourceValue.Insert(4, new QuickTests.Item(3, true));
+					testing.ValidateConsistency();
+				}
+			}
+
+			test();
+
+			((Scalar<int>)pageSizeScalar).Touch();
+			test();
+			((Scalar<int>)pageSizeScalar).Change(1);
+			test();
+			((Scalar<int>)pageSizeScalar).Change(3);
+			test();
+
+			((Scalar<int>)currentPageNumScalar).Touch();
+			test();
+			((Scalar<int>)currentPageNumScalar).Change(2);
+			test();
+			((Scalar<int>)currentPageNumScalar).Change(3);
+			test();
+			((Scalar<int>)currentPageNumScalar).Change(4);
+			test();
+			((Scalar<int>)currentPageNumScalar).Change(5);
+			test();
+			((Scalar<int>)currentPageNumScalar).Change(6);
+			test();
+		}
+		
+		[Test]
+		public void TestPaging09()
+		{
+			ObservableCollection<Item> source = getItems();
+			Scalar<int> pageSizeScalar = getScalar<int>(2);
+			Scalar<int> currentPageNumScalar = getScalar<int>(1);
+			int capacity = 0;
+			
+			var testing = source.Paging<Item>(
+				pageSizeScalar,
+				currentPageNumScalar,
+				capacity);
+
+			void test()
+			{
+				testing.ValidateConsistency();
+				var sourceValue = ((ObservableCollection<Item>)((ObservableCollection<Item>)source));
+
+				if (sourceValue != null)
+				{		
+					sourceValue.Insert(2, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					sourceValue[3] = new QuickTests.Item(7, true);
+					testing.ValidateConsistency();
+					sourceValue.RemoveAt(3);
+					testing.ValidateConsistency();
+					sourceValue.Move(1, 3);
+					testing.ValidateConsistency();
+					sourceValue[2].Active = !sourceValue[2].Active;
+					testing.ValidateConsistency();
+					sourceValue[2].Num = sourceValue[2].Num + 1;
+					testing.ValidateConsistency();
+					sourceValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceValue.Insert(0, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					sourceValue.Insert(0, new QuickTests.Item(2, true));
+					testing.ValidateConsistency();
+				}
+
+				IList listSource;
+				listSource = ((IList)((ObservableCollection<Item>)source));
+				if (listSource != null)
+				{
+					listSource.Clear();
+					testing.ValidateConsistency();
+				}
+
+				if (sourceValue != null)
+				{
+					sourceValue.Insert(0, new QuickTests.Item(1, true));
+					sourceValue.Insert(1, new QuickTests.Item(2, true));
+					sourceValue.Insert(2, new QuickTests.Item(3, true));
+					sourceValue.Insert(3, new QuickTests.Item(3, true));
+					sourceValue.Insert(4, new QuickTests.Item(3, true));
+					testing.ValidateConsistency();
+				}
+			}
+
+			test();
+
+			((Scalar<int>)pageSizeScalar).Touch();
+			test();
+			((Scalar<int>)pageSizeScalar).Change(1);
+			test();
+			((Scalar<int>)pageSizeScalar).Change(3);
+			test();
+
+			((Scalar<int>)currentPageNumScalar).Touch();
+			test();
+			((Scalar<int>)currentPageNumScalar).Change(2);
+			test();
+			((Scalar<int>)currentPageNumScalar).Change(3);
+			test();
+			((Scalar<int>)currentPageNumScalar).Change(4);
+			test();
+			((Scalar<int>)currentPageNumScalar).Change(5);
+			test();
+			((Scalar<int>)currentPageNumScalar).Change(6);
+			test();
+		}
+		
+		[Test]
+		public void TestPaging10()
+		{
+			ObservableCollection<Item> source = getItems();
+			Scalar<int> pageSizeScalar = getScalar<int>(2);
+			Scalar<int> currentPageNumScalar = getScalar<int>(1);
+			
+			var testing = source.Paging<Item>(
+				pageSizeScalar,
+				currentPageNumScalar);
+
+			void test()
+			{
+				testing.ValidateConsistency();
+				var sourceValue = ((ObservableCollection<Item>)((ObservableCollection<Item>)source));
+
+				if (sourceValue != null)
+				{		
+					sourceValue.Insert(2, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					sourceValue[3] = new QuickTests.Item(7, true);
+					testing.ValidateConsistency();
+					sourceValue.RemoveAt(3);
+					testing.ValidateConsistency();
+					sourceValue.Move(1, 3);
+					testing.ValidateConsistency();
+					sourceValue[2].Active = !sourceValue[2].Active;
+					testing.ValidateConsistency();
+					sourceValue[2].Num = sourceValue[2].Num + 1;
+					testing.ValidateConsistency();
+					sourceValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceValue.Insert(0, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					sourceValue.Insert(0, new QuickTests.Item(2, true));
+					testing.ValidateConsistency();
+				}
+
+				IList listSource;
+				listSource = ((IList)((ObservableCollection<Item>)source));
+				if (listSource != null)
+				{
+					listSource.Clear();
+					testing.ValidateConsistency();
+				}
+
+				if (sourceValue != null)
+				{
+					sourceValue.Insert(0, new QuickTests.Item(1, true));
+					sourceValue.Insert(1, new QuickTests.Item(2, true));
+					sourceValue.Insert(2, new QuickTests.Item(3, true));
+					sourceValue.Insert(3, new QuickTests.Item(3, true));
+					sourceValue.Insert(4, new QuickTests.Item(3, true));
+					testing.ValidateConsistency();
+				}
+			}
+
+			test();
+
+			((Scalar<int>)pageSizeScalar).Touch();
+			test();
+			((Scalar<int>)pageSizeScalar).Change(1);
+			test();
+			((Scalar<int>)pageSizeScalar).Change(3);
+			test();
+
+			((Scalar<int>)currentPageNumScalar).Touch();
+			test();
+			((Scalar<int>)currentPageNumScalar).Change(2);
+			test();
+			((Scalar<int>)currentPageNumScalar).Change(3);
+			test();
+			((Scalar<int>)currentPageNumScalar).Change(4);
+			test();
+			((Scalar<int>)currentPageNumScalar).Change(5);
+			test();
+			((Scalar<int>)currentPageNumScalar).Change(6);
+			test();
+		}
+		
+		[Test]
+		public void TestPaging11()
+		{
+			System.Collections.Specialized.INotifyCollectionChanged source = getItems();
+			int pageSize = 2;
+			Scalar<int> currentPageNumScalar = getScalar<int>(1);
+			
+			var testing = source.Paging<Item>(
+				pageSize,
+				currentPageNumScalar);
+
+			void test()
+			{
+				testing.ValidateConsistency();
+				var sourceValue = ((ObservableCollection<Item>)((System.Collections.Specialized.INotifyCollectionChanged)source));
+
+				if (sourceValue != null)
+				{		
+					sourceValue.Insert(2, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					sourceValue[3] = new QuickTests.Item(7, true);
+					testing.ValidateConsistency();
+					sourceValue.RemoveAt(3);
+					testing.ValidateConsistency();
+					sourceValue.Move(1, 3);
+					testing.ValidateConsistency();
+					sourceValue[2].Active = !sourceValue[2].Active;
+					testing.ValidateConsistency();
+					sourceValue[2].Num = sourceValue[2].Num + 1;
+					testing.ValidateConsistency();
+					sourceValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceValue.Insert(0, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					sourceValue.Insert(0, new QuickTests.Item(2, true));
+					testing.ValidateConsistency();
+				}
+
+				IList listSource;
+				listSource = ((IList)((System.Collections.Specialized.INotifyCollectionChanged)source));
+				if (listSource != null)
+				{
+					listSource.Clear();
+					testing.ValidateConsistency();
+				}
+
+				if (sourceValue != null)
+				{
+					sourceValue.Insert(0, new QuickTests.Item(1, true));
+					sourceValue.Insert(1, new QuickTests.Item(2, true));
+					sourceValue.Insert(2, new QuickTests.Item(3, true));
+					sourceValue.Insert(3, new QuickTests.Item(3, true));
+					sourceValue.Insert(4, new QuickTests.Item(3, true));
+					testing.ValidateConsistency();
+				}
+			}
+
+			test();
+
+			((Scalar<int>)currentPageNumScalar).Touch();
+			test();
+			((Scalar<int>)currentPageNumScalar).Change(2);
+			test();
+			((Scalar<int>)currentPageNumScalar).Change(3);
+			test();
+			((Scalar<int>)currentPageNumScalar).Change(4);
+			test();
+			((Scalar<int>)currentPageNumScalar).Change(5);
+			test();
+			((Scalar<int>)currentPageNumScalar).Change(6);
+			test();
+		}
+		
+		[Test]
+		public void TestPaging12()
+		{
+			ObservableCollection<Item> source = getItems();
+			int pageSize = 2;
+			Scalar<int> currentPageNumScalar = getScalar<int>(1);
+			
+			var testing = source.Paging<Item>(
+				pageSize,
+				currentPageNumScalar);
+
+			void test()
+			{
+				testing.ValidateConsistency();
+				var sourceValue = ((ObservableCollection<Item>)((ObservableCollection<Item>)source));
+
+				if (sourceValue != null)
+				{		
+					sourceValue.Insert(2, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					sourceValue[3] = new QuickTests.Item(7, true);
+					testing.ValidateConsistency();
+					sourceValue.RemoveAt(3);
+					testing.ValidateConsistency();
+					sourceValue.Move(1, 3);
+					testing.ValidateConsistency();
+					sourceValue[2].Active = !sourceValue[2].Active;
+					testing.ValidateConsistency();
+					sourceValue[2].Num = sourceValue[2].Num + 1;
+					testing.ValidateConsistency();
+					sourceValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceValue.Insert(0, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					sourceValue.Insert(0, new QuickTests.Item(2, true));
+					testing.ValidateConsistency();
+				}
+
+				IList listSource;
+				listSource = ((IList)((ObservableCollection<Item>)source));
+				if (listSource != null)
+				{
+					listSource.Clear();
+					testing.ValidateConsistency();
+				}
+
+				if (sourceValue != null)
+				{
+					sourceValue.Insert(0, new QuickTests.Item(1, true));
+					sourceValue.Insert(1, new QuickTests.Item(2, true));
+					sourceValue.Insert(2, new QuickTests.Item(3, true));
+					sourceValue.Insert(3, new QuickTests.Item(3, true));
+					sourceValue.Insert(4, new QuickTests.Item(3, true));
+					testing.ValidateConsistency();
+				}
+			}
+
+			test();
+
+			((Scalar<int>)currentPageNumScalar).Touch();
+			test();
+			((Scalar<int>)currentPageNumScalar).Change(2);
+			test();
+			((Scalar<int>)currentPageNumScalar).Change(3);
+			test();
+			((Scalar<int>)currentPageNumScalar).Change(4);
+			test();
+			((Scalar<int>)currentPageNumScalar).Change(5);
+			test();
+			((Scalar<int>)currentPageNumScalar).Change(6);
+			test();
+		}
+		#endregion
 		#region PredicateGroupJoining
 
 		

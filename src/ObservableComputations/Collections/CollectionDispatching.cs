@@ -6,11 +6,11 @@ using System.ComponentModel;
 
 namespace ObservableComputations
 {
-	public class CollectionSynchronizing<TSourceItem> : CollectionComputing<TSourceItem>
+	public class CollectionDispatching<TSourceItem> : CollectionComputing<TSourceItem>
 	{
 		public INotifyCollectionChanged Source => _source;
-		public IDestinationCollectionSynchronizer DestinationCollectionSynchronizer => _destinationCollectionSynchronizer;
-		public ISourceCollectionSynchronizer SourceCollectionSynchronizer => _sourceCollectionSynchronizer;
+		public IDestinationCollectionDispatcher DestinationCollectionDispatcher => _destinationCollectionDispatcher;
+		public ISourceCollectionDispatcher SourceCollectionDispatcher => _sourceCollectionDispatcher;
 
 		private INotifyCollectionChanged _source;
 		private IList<TSourceItem> _sourceAsList;
@@ -26,29 +26,28 @@ namespace ObservableComputations
 		private bool _indexerPropertyChangedEventRaised;
 		private INotifyPropertyChanged _sourceAsINotifyPropertyChanged;
 
-		private IPostingSynchronizer _destinationPostingSynchronizer;
-		private IDestinationCollectionSynchronizer _destinationCollectionSynchronizer;
+		private IDestinationCollectionDispatcher _destinationCollectionDispatcher;
 
-		private ISourceCollectionSynchronizer _sourceCollectionSynchronizer;
+		private ISourceCollectionDispatcher _sourceCollectionDispatcher;
 
 		private IHasChangeMarker _sourceAsIHasChangeMarker;
 		private bool _lastProcessedSourceChangeMarker;
 
 		[ObservableComputationsCall]
-		public CollectionSynchronizing(
+		public CollectionDispatching(
 			INotifyCollectionChanged source,
-			ISourceCollectionSynchronizer sourceCollectionSynchronizer,
-			IDestinationCollectionSynchronizer destinationCollectionSynchronizer) : this(sourceCollectionSynchronizer, destinationCollectionSynchronizer)
+			ISourceCollectionDispatcher sourceCollectionDispatcher,
+			IDestinationCollectionDispatcher destinationCollectionDispatcher) : this(sourceCollectionDispatcher, destinationCollectionDispatcher)
 		{
 			_source = source;
 			initializeFromSource();
 		}
 
 		[ObservableComputationsCall]
-		public CollectionSynchronizing(
+		public CollectionDispatching(
 			IReadScalar<INotifyCollectionChanged> sourceScalar,
-			ISourceCollectionSynchronizer sourceCollectionSynchronizer,
-			IDestinationCollectionSynchronizer destinationCollectionSynchronizer) : this(sourceCollectionSynchronizer, destinationCollectionSynchronizer)
+			ISourceCollectionDispatcher sourceCollectionDispatcher,
+			IDestinationCollectionDispatcher destinationCollectionDispatcher) : this(sourceCollectionDispatcher, destinationCollectionDispatcher)
 		{
 			_sourceScalar = sourceScalar;
 			_sourceScalarPropertyChangedEventHandler = handleSourceScalarValueChanged;
@@ -58,12 +57,11 @@ namespace ObservableComputations
 			initializeFromSource();
 		}
 
-		private CollectionSynchronizing(ISourceCollectionSynchronizer sourceCollectionSynchronizer,
-			IDestinationCollectionSynchronizer destinationCollectionSynchronizer)
+		private CollectionDispatching(ISourceCollectionDispatcher sourceCollectionDispatcher,
+			IDestinationCollectionDispatcher destinationCollectionDispatcher)
 		{
-			_sourceCollectionSynchronizer = sourceCollectionSynchronizer;
-			_destinationCollectionSynchronizer = destinationCollectionSynchronizer;
-			_destinationPostingSynchronizer = destinationCollectionSynchronizer as IPostingSynchronizer;
+			_sourceCollectionDispatcher = sourceCollectionDispatcher;
+			_destinationCollectionDispatcher = destinationCollectionDispatcher;
 		}
 
 		private void handleSourceScalarValueChanged(object sender, PropertyChangedEventArgs e)
@@ -80,7 +78,7 @@ namespace ObservableComputations
 		}
 
 
-		private void initializeFromSource(object senderSourceScalar = null, PropertyChangedEventArgs sourceScalarPropertyChangedEventArgs = null)
+		private void initializeFromSource(object sender = null, EventArgs eventArgs = null)
 		{
 			if (_sourceNotifyCollectionChangedEventHandler != null)
 			{
@@ -115,9 +113,9 @@ namespace ObservableComputations
 				{
 					_sourceAsINotifyPropertyChanged = (INotifyPropertyChanged) _sourceAsList;
 
-					_sourcePropertyChangedEventHandler = (sender, args) =>
+					_sourcePropertyChangedEventHandler = (sender1, args1) =>
 					{
-						if (args.PropertyName == "Item[]") _indexerPropertyChangedEventRaised = true; // ObservableCollection raises this before CollectionChanged event raising
+						if (args1.PropertyName == "Item[]") _indexerPropertyChangedEventRaised = true; // ObservableCollection raises this before CollectionChanged event raising
 					};
 
 					_sourceWeakPropertyChangedEventHandler = new WeakPropertyChangedEventHandler(_sourcePropertyChangedEventHandler);
@@ -125,17 +123,21 @@ namespace ObservableComputations
 					_sourceAsINotifyPropertyChanged.PropertyChanged += _sourceWeakPropertyChangedEventHandler.Handle;
 				}
 
-				_sourceCollectionSynchronizer.InvokeReadAndSubscribe(() =>
+				_sourceCollectionDispatcher.InvokeReadAndSubscribe(() =>
 				{
 					int index = 0;
 					for (var sourceIndex = 0; sourceIndex < _sourceAsList.Count; sourceIndex++)
 					{
 						TSourceItem sourceItem = _sourceAsList[sourceIndex];
-						_destinationPostingSynchronizer?.WaitLastPostComplete();
-						_destinationCollectionSynchronizer.InvokeInitializeFromSourceCollection(
-							() => { baseInsertItem(index++, sourceItem); }, 
-							this, sourceItem, 
-							senderSourceScalar, sourceScalarPropertyChangedEventArgs);
+
+						void insertItem() => baseInsertItem(index++, sourceItem);
+
+						if (sender == null)
+							insertItem();
+						else
+							_destinationCollectionDispatcher.InvokeInitializeFromSourceCollection(
+								insertItem, this, sourceItem, sender, eventArgs);							
+
 					}
 
 					_sourceNotifyCollectionChangedEventHandler = handleSourceCollectionChanged;
@@ -148,16 +150,9 @@ namespace ObservableComputations
 
 		private void handleSourceCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
 		{
-			_destinationPostingSynchronizer?.WaitLastPostComplete();
-			checkConsistent();
 			if (_indexerPropertyChangedEventRaised || _lastProcessedSourceChangeMarker != _sourceAsIHasChangeMarker.ChangeMarker)
 			{
 				_lastProcessedSourceChangeMarker = !_lastProcessedSourceChangeMarker;
-				_indexerPropertyChangedEventRaised = false;
-
-
-				_isConsistent = false;
-
 				_indexerPropertyChangedEventRaised = false;
 
 				switch (e.Action)
@@ -165,49 +160,87 @@ namespace ObservableComputations
 					case NotifyCollectionChangedAction.Add:
 						//if (e.NewItems.Count > 1) throw new ObservableComputationsException("Adding of multiple items is not supported");
 						int newStartingIndex = e.NewStartingIndex;
-						_destinationCollectionSynchronizer.InvokeCollectionChange(
-							() => baseInsertItem(newStartingIndex, (TSourceItem) e.NewItems[0]), 
+						_destinationCollectionDispatcher.InvokeCollectionChange(
+							() =>
+							{
+								checkConsistent();
+								_isConsistent = false;
+
+								baseInsertItem(newStartingIndex, (TSourceItem) e.NewItems[0]);
+
+								_isConsistent = true;
+								raiseConsistencyRestored();
+							}, 
 							this, sender, e);
 						break;
 					case NotifyCollectionChangedAction.Remove:
 						// (e.OldItems.Count > 1) throw new ObservableComputationsException("Removing of multiple items is not supported");
-						_destinationCollectionSynchronizer.InvokeCollectionChange(
-							() => baseRemoveItem(e.OldStartingIndex),
+						_destinationCollectionDispatcher.InvokeCollectionChange(
+							() =>
+							{
+								checkConsistent();
+								_isConsistent = false;
+
+								baseRemoveItem(e.OldStartingIndex);
+
+								_isConsistent = true;
+								raiseConsistencyRestored();
+							},
 							this, sender, e);
 						break;
 					case NotifyCollectionChangedAction.Replace:
 						//if (e.NewItems.Count > 1) throw new ObservableComputationsException("Replacing of multiple items is not supported");
-						_destinationCollectionSynchronizer.InvokeCollectionChange(
-							() => baseSetItem(e.NewStartingIndex, (TSourceItem) e.NewItems[0]),
+						_destinationCollectionDispatcher.InvokeCollectionChange(
+							() =>
+							{
+								checkConsistent();
+								_isConsistent = false;
+
+								baseSetItem(e.NewStartingIndex, (TSourceItem) e.NewItems[0]);
+		
+								_isConsistent = true;
+								raiseConsistencyRestored();
+							},
 							this, sender, e);
 						break;
 					case NotifyCollectionChangedAction.Move:
 						int oldStartingIndex1 = e.OldStartingIndex;
 						int newStartingIndex1 = e.NewStartingIndex;
 						if (oldStartingIndex1 == newStartingIndex1) return;
-						_destinationCollectionSynchronizer.InvokeCollectionChange(
-							() => baseMoveItem(oldStartingIndex1, newStartingIndex1), 
+						_destinationCollectionDispatcher.InvokeCollectionChange(
+							() =>
+							{
+								checkConsistent();
+								_isConsistent = false;
+
+								baseMoveItem(oldStartingIndex1, newStartingIndex1);
+								
+								_isConsistent = true;
+								raiseConsistencyRestored();
+							}, 
 							this, sender, e);
 						break;
 					case NotifyCollectionChangedAction.Reset:
-						_destinationCollectionSynchronizer.InvokeCollectionChange(() =>
+						_destinationCollectionDispatcher.InvokeCollectionChange(() =>
 						{
+							checkConsistent();
+							_isConsistent = false;
+
 							_source.CollectionChanged -= _sourceWeakNotifyCollectionChangedEventHandler.Handle;
 							_sourceNotifyCollectionChangedEventHandler = null;
 							_sourceWeakNotifyCollectionChangedEventHandler = null;
 							baseClearItems();
-							initializeFromSource();
+							initializeFromSource(sender, e);
+
+							_isConsistent = true;
+							raiseConsistencyRestored();
 						}, this, sender, e);
 						break;
 				}
-
-				_isConsistent = true;
-				_destinationCollectionSynchronizer.InvokeRaiseConsistencyRestored(
-					raiseConsistencyRestored, this);
 			}
 		}
 
-		~CollectionSynchronizing()
+		~CollectionDispatching()
 		{
 			if (_sourceWeakNotifyCollectionChangedEventHandler != null)
 			{

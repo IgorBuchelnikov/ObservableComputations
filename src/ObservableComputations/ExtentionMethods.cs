@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Specialized;
 using System.Linq.Expressions;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace ObservableComputations
 {
@@ -268,5 +270,22 @@ namespace ObservableComputations
 			action(@object);
 			return @object;
 		}
+
+		public static TResult GetResult<TResult>(
+			this IDispatcher dispatcher, Func<TResult> func)
+		{
+			TResult result = default;
+			dispatcher.BeginInvoke(() => result = func()).WaitOne();
+			return result;
+		}
+
+		public static TResult GetResult<TResult>(
+			this IDispatcher dispatcher, Func<object, TResult> func, object state)
+		{
+			TResult result = default;
+			dispatcher.BeginInvoke(s => result = func(s), state).WaitOne();
+			return result;
+		}
+
 	}
 }

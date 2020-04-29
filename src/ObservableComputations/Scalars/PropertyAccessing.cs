@@ -48,6 +48,7 @@ namespace ObservableComputations
 			PropertyInfoPredicateBindingAttr
 		}
 
+		// ReSharper disable once PrivateFieldCanBeConvertedToLocalVariable
 		private readonly PropertyChangedEventHandler _propertyHolderScalarPropertyChangedEventHandler;
 		private readonly WeakPropertyChangedEventHandler _propertyHolderScalarWeakPropertyChangedEventHandler;
 
@@ -58,10 +59,11 @@ namespace ObservableComputations
 		public PropertyAccessing(
 			IReadScalar<INotifyPropertyChanged> propertyHolderScalar, 
 			string propertyName,
-			TResult defaultValue = default(TResult)) : this(propertyHolderScalar, defaultValue)
+			TResult defaultValue = default(TResult)) : this(propertyHolderScalar)
 		{
 			_propertyInfoGettingType = PropertyInfoGettingType.PropertyName;
 			_propertyName = propertyName;
+			_defaultValue = defaultValue;
 			registerPropertyHolder(_propertyHolderScalar.Value);
 		}
 
@@ -70,11 +72,12 @@ namespace ObservableComputations
 			IReadScalar<INotifyPropertyChanged> propertyHolderScalar, 
 			string propertyName,
 			BindingFlags bindingAttr,
-			TResult defaultValue = default(TResult)) : this(propertyHolderScalar, defaultValue)
+			TResult defaultValue = default(TResult)) : this(propertyHolderScalar)
 		{
 			_propertyInfoGettingType = PropertyInfoGettingType.BindingAttr;
 			_propertyName = propertyName;
 			_bindingAttr = bindingAttr;
+			_defaultValue = defaultValue;
 			registerPropertyHolder(_propertyHolderScalar.Value);
 		}
 
@@ -83,11 +86,12 @@ namespace ObservableComputations
 			IReadScalar<INotifyPropertyChanged> propertyHolderScalar, 
 			string propertyName,
 			Type returnType,
-			TResult defaultValue = default(TResult)) : this(propertyHolderScalar, defaultValue)
+			TResult defaultValue = default(TResult)) : this(propertyHolderScalar)
 		{
 			_propertyInfoGettingType = PropertyInfoGettingType.ReturnType;
 			_propertyName = propertyName;
 			_returnType = returnType;
+			_defaultValue = defaultValue;
 			registerPropertyHolder(_propertyHolderScalar.Value);
 		}
 
@@ -97,12 +101,13 @@ namespace ObservableComputations
 			string propertyName,
 			Type returnType,
 			Type[] types,
-			TResult defaultValue = default(TResult)) : this(propertyHolderScalar, defaultValue)
+			TResult defaultValue = default(TResult)) : this(propertyHolderScalar)
 		{
 			_propertyInfoGettingType = PropertyInfoGettingType.Types;
 			_propertyName = propertyName;
 			_returnType = returnType;
 			_types = types;
+			_defaultValue = defaultValue;
 			registerPropertyHolder(_propertyHolderScalar.Value);
 		}
 
@@ -113,13 +118,14 @@ namespace ObservableComputations
 			Type returnType,
 			Type[] types,
 			ParameterModifier[] modifiers,
-			TResult defaultValue = default(TResult)) : this(propertyHolderScalar, defaultValue)
+			TResult defaultValue = default(TResult)) : this(propertyHolderScalar)
 		{
 			_propertyInfoGettingType = PropertyInfoGettingType.Modifiers;
 			_propertyName = propertyName;
 			_returnType = returnType;
 			_modifiers = modifiers;
 			_types = types;
+			_defaultValue = defaultValue;
 			registerPropertyHolder(_propertyHolderScalar.Value);
 		}
 
@@ -132,7 +138,7 @@ namespace ObservableComputations
 			Type returnType,
 			Type[] types,
 			ParameterModifier[] modifiers,
-			TResult defaultValue = default(TResult)) : this(propertyHolderScalar, defaultValue)
+			TResult defaultValue = default(TResult)) : this(propertyHolderScalar)
 		{
 			_propertyInfoGettingType = PropertyInfoGettingType.Binder;
 			_propertyName = propertyName;
@@ -141,6 +147,7 @@ namespace ObservableComputations
 			_returnType = returnType;
 			_modifiers = modifiers;
 			_types = types;
+			_defaultValue = defaultValue;
 			registerPropertyHolder(_propertyHolderScalar.Value);
 		}
 
@@ -148,11 +155,12 @@ namespace ObservableComputations
 		public PropertyAccessing(
 			IReadScalar<INotifyPropertyChanged> propertyHolderScalar, 
 			Func<PropertyInfo, bool> propertyInfoPredicate,
-			TResult defaultValue = default(TResult)) : this(propertyHolderScalar, defaultValue)
+			TResult defaultValue = default(TResult)) : this(propertyHolderScalar)
 		{
 			_propertyInfoGettingType = PropertyInfoGettingType.PropertyInfoPredicate;
 			_propertyInfoPredicate = propertyInfoPredicate;
-			registerPropertyHolder(_propertyHolderScalar.Value);;
+			_defaultValue = defaultValue;
+			registerPropertyHolder(_propertyHolderScalar.Value);
 		}
 
 		[ObservableComputationsCall]
@@ -160,17 +168,17 @@ namespace ObservableComputations
 			IReadScalar<INotifyPropertyChanged> propertyHolderScalar, 
 			Func<PropertyInfo, bool> propertyInfoPredicate,
 			BindingFlags bindingAttr,
-			TResult defaultValue = default(TResult)) : this(propertyHolderScalar, defaultValue)
+			TResult defaultValue = default(TResult)) : this(propertyHolderScalar)
 		{
 			_propertyInfoGettingType = PropertyInfoGettingType.PropertyInfoPredicateBindingAttr;
 			_propertyInfoPredicate = propertyInfoPredicate;
 			_bindingAttr = bindingAttr;
+			_defaultValue = defaultValue;
 			registerPropertyHolder(_propertyHolderScalar.Value);
 		}
 
 		private PropertyAccessing(
-			IReadScalar<INotifyPropertyChanged> propertyHolderScalar,
-			TResult defaultValue)
+			IReadScalar<INotifyPropertyChanged> propertyHolderScalar)
 		{
 			_propertyHolderScalar = propertyHolderScalar;
 			_propertyHolderScalarPropertyChangedEventHandler = handlePropertyHolderScalarPropertyChanged;
@@ -178,17 +186,17 @@ namespace ObservableComputations
 				new WeakPropertyChangedEventHandler(_propertyHolderScalarPropertyChangedEventHandler);
 			_propertyHolderScalar.PropertyChanged += _propertyHolderScalarWeakPropertyChangedEventHandler.Handle;
 			_setValueAction = result => _propertyInfo.SetValue(_propertyHolder, result);
-			_defaultValue = defaultValue;
 		}
 
 		[ObservableComputationsCall]
 		public PropertyAccessing(
 			INotifyPropertyChanged propertyHolder, 
 			string propertyName,
-			TResult defaultValue = default(TResult)) : this(propertyHolder, defaultValue)
+			TResult defaultValue = default(TResult)) : this()
 		{
 			_propertyInfoGettingType = PropertyInfoGettingType.PropertyName;
 			_propertyName = propertyName;
+			_defaultValue = defaultValue;
 			registerPropertyHolder(propertyHolder);
 		}
 
@@ -197,11 +205,12 @@ namespace ObservableComputations
 			INotifyPropertyChanged propertyHolder, 
 			string propertyName,
 			BindingFlags bindingAttr,
-			TResult defaultValue = default(TResult)) : this(propertyHolder, defaultValue)
+			TResult defaultValue = default(TResult)) : this()
 		{
 			_propertyInfoGettingType = PropertyInfoGettingType.BindingAttr;
 			_propertyName = propertyName;
 			_bindingAttr = bindingAttr;
+			_defaultValue = defaultValue;
 			registerPropertyHolder(propertyHolder);
 		}
 
@@ -210,11 +219,12 @@ namespace ObservableComputations
 			INotifyPropertyChanged propertyHolder,  
 			string propertyName,
 			Type returnType,
-			TResult defaultValue = default(TResult)) : this(propertyHolder, defaultValue)
+			TResult defaultValue = default(TResult)) : this()
 		{
 			_propertyInfoGettingType = PropertyInfoGettingType.ReturnType;
 			_propertyName = propertyName;
 			_returnType = returnType;
+			_defaultValue = defaultValue;
 			registerPropertyHolder(propertyHolder);
 		}
 
@@ -224,12 +234,13 @@ namespace ObservableComputations
 			string propertyName,
 			Type returnType,
 			Type[] types,
-			TResult defaultValue = default(TResult)) : this(propertyHolder, defaultValue)
+			TResult defaultValue = default(TResult)) : this()
 		{
 			_propertyInfoGettingType = PropertyInfoGettingType.Types;
 			_propertyName = propertyName;
 			_returnType = returnType;
 			_types = types;
+			_defaultValue = defaultValue;
 			registerPropertyHolder(propertyHolder);
 		}
 
@@ -240,13 +251,14 @@ namespace ObservableComputations
 			Type returnType,
 			Type[] types,
 			ParameterModifier[] modifiers,
-			TResult defaultValue = default(TResult)) : this(propertyHolder, defaultValue)
+			TResult defaultValue = default(TResult)) : this()
 		{
 			_propertyInfoGettingType = PropertyInfoGettingType.Modifiers;
 			_propertyName = propertyName;
 			_returnType = returnType;
 			_modifiers = modifiers;
 			_types = types;
+			_defaultValue = defaultValue;
 			registerPropertyHolder(propertyHolder);
 		}
 
@@ -259,7 +271,7 @@ namespace ObservableComputations
 			Type returnType,
 			Type[] types,
 			ParameterModifier[] modifiers,
-			TResult defaultValue = default(TResult)) : this(propertyHolder, defaultValue)
+			TResult defaultValue = default(TResult)) : this()
 		{
 			_propertyInfoGettingType = PropertyInfoGettingType.Binder;
 			_propertyName = propertyName;
@@ -268,6 +280,7 @@ namespace ObservableComputations
 			_returnType = returnType;
 			_modifiers = modifiers;
 			_types = types;
+			_defaultValue = defaultValue;
 			registerPropertyHolder(propertyHolder);
 		}
 
@@ -275,10 +288,11 @@ namespace ObservableComputations
 		public PropertyAccessing(
 			INotifyPropertyChanged propertyHolder,  
 			Func<PropertyInfo, bool> propertyInfoPredicate,
-			TResult defaultValue = default(TResult)) : this(propertyHolder, defaultValue)
+			TResult defaultValue = default(TResult)) : this()
 		{
 			_propertyInfoGettingType = PropertyInfoGettingType.PropertyInfoPredicate;
 			_propertyInfoPredicate = propertyInfoPredicate;
+			_defaultValue = defaultValue;
 			registerPropertyHolder(propertyHolder);
 		}
 
@@ -287,20 +301,18 @@ namespace ObservableComputations
 			INotifyPropertyChanged propertyHolder,  
 			Func<PropertyInfo, bool> propertyInfoPredicate,
 			BindingFlags bindingAttr,
-			TResult defaultValue = default(TResult)) : this(propertyHolder, defaultValue)
+			TResult defaultValue = default(TResult)) : this()
 		{
 			_propertyInfoGettingType = PropertyInfoGettingType.PropertyInfoPredicateBindingAttr;
 			_propertyInfoPredicate = propertyInfoPredicate;
 			_bindingAttr = bindingAttr;
+			_defaultValue = defaultValue;
 			registerPropertyHolder(propertyHolder);
 		}
 
-		private PropertyAccessing(
-			INotifyPropertyChanged propertyHolder,
-			TResult defaultValue)
+		private PropertyAccessing()
 		{
 			_setValueAction = result => _propertyInfo.SetValue(_propertyHolder, result);
-			_defaultValue = defaultValue;
 		}
 
 
@@ -392,6 +404,10 @@ namespace ObservableComputations
 		{
 			if (_propertyHolderScalarWeakPropertyChangedEventHandler != null)
 				_propertyHolderScalar.PropertyChanged -= _propertyHolderScalarWeakPropertyChangedEventHandler.Handle;
+
+			if (_propertyHolderWeakPropertyChangedEventHandler != null)
+				_propertyHolder.PropertyChanged -= _propertyHolderWeakPropertyChangedEventHandler.Handle;
+
 		}
 	}
 }

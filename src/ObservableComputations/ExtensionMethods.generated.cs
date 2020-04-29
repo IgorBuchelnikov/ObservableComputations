@@ -516,79 +516,79 @@ namespace ObservableComputations
 		[ObservableComputationsCall]
 		public static ObservableComputations.CollectionDispatching<TSourceItem> CollectionDispatching<TSourceItem>(this
 			 System.Collections.Specialized.INotifyCollectionChanged source,
-			 ObservableComputations.ISourceCollectionDispatcher sourceCollectionDispatcher,
-			 ObservableComputations.IDestinationCollectionDispatcher destinationCollectionDispatcher)
+			 ObservableComputations.IDispatcher sourceDispatcher,
+			 ObservableComputations.IDispatcher destinationDispatcher)
 			
 		{
 			return new ObservableComputations.CollectionDispatching<TSourceItem>(
 				source: source,
-				sourceCollectionDispatcher: sourceCollectionDispatcher,
-				destinationCollectionDispatcher: destinationCollectionDispatcher);
+				sourceDispatcher: sourceDispatcher,
+				destinationDispatcher: destinationDispatcher);
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.CollectionDispatching<TSourceItem> CollectionDispatching<TSourceItem>(this
 			 ObservableCollection<TSourceItem> source,
-			 ObservableComputations.ISourceCollectionDispatcher sourceCollectionDispatcher,
-			 ObservableComputations.IDestinationCollectionDispatcher destinationCollectionDispatcher)
+			 ObservableComputations.IDispatcher sourceDispatcher,
+			 ObservableComputations.IDispatcher destinationDispatcher)
 			
 		{
 			return new ObservableComputations.CollectionDispatching<TSourceItem>(
 				source: source,
-				sourceCollectionDispatcher: sourceCollectionDispatcher,
-				destinationCollectionDispatcher: destinationCollectionDispatcher);
+				sourceDispatcher: sourceDispatcher,
+				destinationDispatcher: destinationDispatcher);
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.CollectionDispatching<TSourceItem> CollectionDispatching<TSourceItem>(this
 			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar,
-			 ObservableComputations.ISourceCollectionDispatcher sourceCollectionDispatcher,
-			 ObservableComputations.IDestinationCollectionDispatcher destinationCollectionDispatcher)
+			 ObservableComputations.IDispatcher sourceDispatcher,
+			 ObservableComputations.IDispatcher destinationDispatcher)
 			
 		{
 			return new ObservableComputations.CollectionDispatching<TSourceItem>(
 				sourceScalar: sourceScalar,
-				sourceCollectionDispatcher: sourceCollectionDispatcher,
-				destinationCollectionDispatcher: destinationCollectionDispatcher);
+				sourceDispatcher: sourceDispatcher,
+				destinationDispatcher: destinationDispatcher);
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.CollectionDispatching<TSourceItem> CollectionDispatching<TSourceItem>(this
 			 ObservableComputations.IReadScalar<ObservableCollection<TSourceItem>> sourceScalar,
-			 ObservableComputations.ISourceCollectionDispatcher sourceCollectionDispatcher,
-			 ObservableComputations.IDestinationCollectionDispatcher destinationCollectionDispatcher)
+			 ObservableComputations.IDispatcher sourceDispatcher,
+			 ObservableComputations.IDispatcher destinationDispatcher)
 			
 		{
 			return new ObservableComputations.CollectionDispatching<TSourceItem>(
 				sourceScalar: sourceScalar,
-				sourceCollectionDispatcher: sourceCollectionDispatcher,
-				destinationCollectionDispatcher: destinationCollectionDispatcher);
+				sourceDispatcher: sourceDispatcher,
+				destinationDispatcher: destinationDispatcher);
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.CollectionDispatching<TSourceItem> CollectionDispatching<TSourceItem>(this
 			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> sourceExpression,
-			 ObservableComputations.ISourceCollectionDispatcher sourceCollectionDispatcher,
-			 ObservableComputations.IDestinationCollectionDispatcher destinationCollectionDispatcher)
+			 ObservableComputations.IDispatcher sourceDispatcher,
+			 ObservableComputations.IDispatcher destinationDispatcher)
 			
 		{
 			return new ObservableComputations.CollectionDispatching<TSourceItem>(
 				sourceScalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(sourceExpression),
-				sourceCollectionDispatcher: sourceCollectionDispatcher,
-				destinationCollectionDispatcher: destinationCollectionDispatcher);
+				sourceDispatcher: sourceDispatcher,
+				destinationDispatcher: destinationDispatcher);
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.CollectionDispatching<TSourceItem> CollectionDispatching<TSourceItem>(this
 			 Expression<Func<ObservableCollection<TSourceItem>>> sourceExpression,
-			 ObservableComputations.ISourceCollectionDispatcher sourceCollectionDispatcher,
-			 ObservableComputations.IDestinationCollectionDispatcher destinationCollectionDispatcher)
+			 ObservableComputations.IDispatcher sourceDispatcher,
+			 ObservableComputations.IDispatcher destinationDispatcher)
 			
 		{
 			return new ObservableComputations.CollectionDispatching<TSourceItem>(
 				sourceScalar: new Computing<ObservableCollection<TSourceItem>>(sourceExpression),
-				sourceCollectionDispatcher: sourceCollectionDispatcher,
-				destinationCollectionDispatcher: destinationCollectionDispatcher);
+				sourceDispatcher: sourceDispatcher,
+				destinationDispatcher: destinationDispatcher);
 		}
 
 		#endregion
@@ -2384,23 +2384,6 @@ namespace ObservableComputations
 			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar,
 			 System.Linq.Expressions.Expression<System.Func<TSourceItem, TKey>> keySelectorExpression,
 			 System.Linq.Expressions.Expression<System.Func<TSourceItem, TValue>> valueSelectorExpression,
-			 System.Collections.Generic.IEqualityComparer<TKey> equalityComparer,
-			 int capacity)
-			
-		{
-			return new ObservableComputations.Dictionaring<TSourceItem, TKey, TValue>(
-				sourceScalar: sourceScalar,
-				keySelectorExpression: keySelectorExpression,
-				valueSelectorExpression: valueSelectorExpression,
-				equalityComparer: equalityComparer,
-				capacity: capacity);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.Dictionaring<TSourceItem, TKey, TValue> Dictionaring<TSourceItem, TKey, TValue>(this
-			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar,
-			 System.Linq.Expressions.Expression<System.Func<TSourceItem, TKey>> keySelectorExpression,
-			 System.Linq.Expressions.Expression<System.Func<TSourceItem, TValue>> valueSelectorExpression,
 			 System.Collections.Generic.IEqualityComparer<TKey> equalityComparer)
 			
 		{
@@ -2408,24 +2391,7 @@ namespace ObservableComputations
 				sourceScalar: sourceScalar,
 				keySelectorExpression: keySelectorExpression,
 				valueSelectorExpression: valueSelectorExpression,
-				equalityComparer: equalityComparer,
-				capacity: 0);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.Dictionaring<TSourceItem, TKey, TValue> Dictionaring<TSourceItem, TKey, TValue>(this
-			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar,
-			 System.Linq.Expressions.Expression<System.Func<TSourceItem, TKey>> keySelectorExpression,
-			 System.Linq.Expressions.Expression<System.Func<TSourceItem, TValue>> valueSelectorExpression,
-			 int capacity)
-			
-		{
-			return new ObservableComputations.Dictionaring<TSourceItem, TKey, TValue>(
-				sourceScalar: sourceScalar,
-				keySelectorExpression: keySelectorExpression,
-				valueSelectorExpression: valueSelectorExpression,
-				equalityComparer: null,
-				capacity: capacity);
+				equalityComparer: equalityComparer);
 		}
 
 		[ObservableComputationsCall]
@@ -2439,25 +2405,7 @@ namespace ObservableComputations
 				sourceScalar: sourceScalar,
 				keySelectorExpression: keySelectorExpression,
 				valueSelectorExpression: valueSelectorExpression,
-				equalityComparer: null,
-				capacity: 0);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.Dictionaring<TSourceItem, TKey, TValue> Dictionaring<TSourceItem, TKey, TValue>(this
-			 ObservableComputations.IReadScalar<ObservableCollection<TSourceItem>> sourceScalar,
-			 System.Linq.Expressions.Expression<System.Func<TSourceItem, TKey>> keySelectorExpression,
-			 System.Linq.Expressions.Expression<System.Func<TSourceItem, TValue>> valueSelectorExpression,
-			 System.Collections.Generic.IEqualityComparer<TKey> equalityComparer,
-			 int capacity)
-			
-		{
-			return new ObservableComputations.Dictionaring<TSourceItem, TKey, TValue>(
-				sourceScalar: sourceScalar,
-				keySelectorExpression: keySelectorExpression,
-				valueSelectorExpression: valueSelectorExpression,
-				equalityComparer: equalityComparer,
-				capacity: capacity);
+				equalityComparer: null);
 		}
 
 		[ObservableComputationsCall]
@@ -2472,24 +2420,7 @@ namespace ObservableComputations
 				sourceScalar: sourceScalar,
 				keySelectorExpression: keySelectorExpression,
 				valueSelectorExpression: valueSelectorExpression,
-				equalityComparer: equalityComparer,
-				capacity: 0);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.Dictionaring<TSourceItem, TKey, TValue> Dictionaring<TSourceItem, TKey, TValue>(this
-			 ObservableComputations.IReadScalar<ObservableCollection<TSourceItem>> sourceScalar,
-			 System.Linq.Expressions.Expression<System.Func<TSourceItem, TKey>> keySelectorExpression,
-			 System.Linq.Expressions.Expression<System.Func<TSourceItem, TValue>> valueSelectorExpression,
-			 int capacity)
-			
-		{
-			return new ObservableComputations.Dictionaring<TSourceItem, TKey, TValue>(
-				sourceScalar: sourceScalar,
-				keySelectorExpression: keySelectorExpression,
-				valueSelectorExpression: valueSelectorExpression,
-				equalityComparer: null,
-				capacity: capacity);
+				equalityComparer: equalityComparer);
 		}
 
 		[ObservableComputationsCall]
@@ -2503,25 +2434,7 @@ namespace ObservableComputations
 				sourceScalar: sourceScalar,
 				keySelectorExpression: keySelectorExpression,
 				valueSelectorExpression: valueSelectorExpression,
-				equalityComparer: null,
-				capacity: 0);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.Dictionaring<TSourceItem, TKey, TValue> Dictionaring<TSourceItem, TKey, TValue>(this
-			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> sourceExpression,
-			 System.Linq.Expressions.Expression<System.Func<TSourceItem, TKey>> keySelectorExpression,
-			 System.Linq.Expressions.Expression<System.Func<TSourceItem, TValue>> valueSelectorExpression,
-			 System.Collections.Generic.IEqualityComparer<TKey> equalityComparer,
-			 int capacity)
-			
-		{
-			return new ObservableComputations.Dictionaring<TSourceItem, TKey, TValue>(
-				sourceScalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(sourceExpression),
-				keySelectorExpression: keySelectorExpression,
-				valueSelectorExpression: valueSelectorExpression,
-				equalityComparer: equalityComparer,
-				capacity: capacity);
+				equalityComparer: null);
 		}
 
 		[ObservableComputationsCall]
@@ -2536,24 +2449,7 @@ namespace ObservableComputations
 				sourceScalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(sourceExpression),
 				keySelectorExpression: keySelectorExpression,
 				valueSelectorExpression: valueSelectorExpression,
-				equalityComparer: equalityComparer,
-				capacity: 0);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.Dictionaring<TSourceItem, TKey, TValue> Dictionaring<TSourceItem, TKey, TValue>(this
-			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> sourceExpression,
-			 System.Linq.Expressions.Expression<System.Func<TSourceItem, TKey>> keySelectorExpression,
-			 System.Linq.Expressions.Expression<System.Func<TSourceItem, TValue>> valueSelectorExpression,
-			 int capacity)
-			
-		{
-			return new ObservableComputations.Dictionaring<TSourceItem, TKey, TValue>(
-				sourceScalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(sourceExpression),
-				keySelectorExpression: keySelectorExpression,
-				valueSelectorExpression: valueSelectorExpression,
-				equalityComparer: null,
-				capacity: capacity);
+				equalityComparer: equalityComparer);
 		}
 
 		[ObservableComputationsCall]
@@ -2567,25 +2463,7 @@ namespace ObservableComputations
 				sourceScalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(sourceExpression),
 				keySelectorExpression: keySelectorExpression,
 				valueSelectorExpression: valueSelectorExpression,
-				equalityComparer: null,
-				capacity: 0);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.Dictionaring<TSourceItem, TKey, TValue> Dictionaring<TSourceItem, TKey, TValue>(this
-			 Expression<Func<ObservableCollection<TSourceItem>>> sourceExpression,
-			 System.Linq.Expressions.Expression<System.Func<TSourceItem, TKey>> keySelectorExpression,
-			 System.Linq.Expressions.Expression<System.Func<TSourceItem, TValue>> valueSelectorExpression,
-			 System.Collections.Generic.IEqualityComparer<TKey> equalityComparer,
-			 int capacity)
-			
-		{
-			return new ObservableComputations.Dictionaring<TSourceItem, TKey, TValue>(
-				sourceScalar: new Computing<ObservableCollection<TSourceItem>>(sourceExpression),
-				keySelectorExpression: keySelectorExpression,
-				valueSelectorExpression: valueSelectorExpression,
-				equalityComparer: equalityComparer,
-				capacity: capacity);
+				equalityComparer: null);
 		}
 
 		[ObservableComputationsCall]
@@ -2600,24 +2478,7 @@ namespace ObservableComputations
 				sourceScalar: new Computing<ObservableCollection<TSourceItem>>(sourceExpression),
 				keySelectorExpression: keySelectorExpression,
 				valueSelectorExpression: valueSelectorExpression,
-				equalityComparer: equalityComparer,
-				capacity: 0);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.Dictionaring<TSourceItem, TKey, TValue> Dictionaring<TSourceItem, TKey, TValue>(this
-			 Expression<Func<ObservableCollection<TSourceItem>>> sourceExpression,
-			 System.Linq.Expressions.Expression<System.Func<TSourceItem, TKey>> keySelectorExpression,
-			 System.Linq.Expressions.Expression<System.Func<TSourceItem, TValue>> valueSelectorExpression,
-			 int capacity)
-			
-		{
-			return new ObservableComputations.Dictionaring<TSourceItem, TKey, TValue>(
-				sourceScalar: new Computing<ObservableCollection<TSourceItem>>(sourceExpression),
-				keySelectorExpression: keySelectorExpression,
-				valueSelectorExpression: valueSelectorExpression,
-				equalityComparer: null,
-				capacity: capacity);
+				equalityComparer: equalityComparer);
 		}
 
 		[ObservableComputationsCall]
@@ -2631,25 +2492,7 @@ namespace ObservableComputations
 				sourceScalar: new Computing<ObservableCollection<TSourceItem>>(sourceExpression),
 				keySelectorExpression: keySelectorExpression,
 				valueSelectorExpression: valueSelectorExpression,
-				equalityComparer: null,
-				capacity: 0);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.Dictionaring<TSourceItem, TKey, TValue> Dictionaring<TSourceItem, TKey, TValue>(this
-			 System.Collections.Specialized.INotifyCollectionChanged source,
-			 System.Linq.Expressions.Expression<System.Func<TSourceItem, TKey>> keySelectorExpression,
-			 System.Linq.Expressions.Expression<System.Func<TSourceItem, TValue>> valueSelectorExpression,
-			 System.Collections.Generic.IEqualityComparer<TKey> equalityComparer,
-			 int capacity)
-			
-		{
-			return new ObservableComputations.Dictionaring<TSourceItem, TKey, TValue>(
-				source: source,
-				keySelectorExpression: keySelectorExpression,
-				valueSelectorExpression: valueSelectorExpression,
-				equalityComparer: equalityComparer,
-				capacity: capacity);
+				equalityComparer: null);
 		}
 
 		[ObservableComputationsCall]
@@ -2664,24 +2507,7 @@ namespace ObservableComputations
 				source: source,
 				keySelectorExpression: keySelectorExpression,
 				valueSelectorExpression: valueSelectorExpression,
-				equalityComparer: equalityComparer,
-				capacity: 0);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.Dictionaring<TSourceItem, TKey, TValue> Dictionaring<TSourceItem, TKey, TValue>(this
-			 System.Collections.Specialized.INotifyCollectionChanged source,
-			 System.Linq.Expressions.Expression<System.Func<TSourceItem, TKey>> keySelectorExpression,
-			 System.Linq.Expressions.Expression<System.Func<TSourceItem, TValue>> valueSelectorExpression,
-			 int capacity)
-			
-		{
-			return new ObservableComputations.Dictionaring<TSourceItem, TKey, TValue>(
-				source: source,
-				keySelectorExpression: keySelectorExpression,
-				valueSelectorExpression: valueSelectorExpression,
-				equalityComparer: null,
-				capacity: capacity);
+				equalityComparer: equalityComparer);
 		}
 
 		[ObservableComputationsCall]
@@ -2695,25 +2521,7 @@ namespace ObservableComputations
 				source: source,
 				keySelectorExpression: keySelectorExpression,
 				valueSelectorExpression: valueSelectorExpression,
-				equalityComparer: null,
-				capacity: 0);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.Dictionaring<TSourceItem, TKey, TValue> Dictionaring<TSourceItem, TKey, TValue>(this
-			 ObservableCollection<TSourceItem> source,
-			 System.Linq.Expressions.Expression<System.Func<TSourceItem, TKey>> keySelectorExpression,
-			 System.Linq.Expressions.Expression<System.Func<TSourceItem, TValue>> valueSelectorExpression,
-			 System.Collections.Generic.IEqualityComparer<TKey> equalityComparer,
-			 int capacity)
-			
-		{
-			return new ObservableComputations.Dictionaring<TSourceItem, TKey, TValue>(
-				source: source,
-				keySelectorExpression: keySelectorExpression,
-				valueSelectorExpression: valueSelectorExpression,
-				equalityComparer: equalityComparer,
-				capacity: capacity);
+				equalityComparer: null);
 		}
 
 		[ObservableComputationsCall]
@@ -2728,24 +2536,7 @@ namespace ObservableComputations
 				source: source,
 				keySelectorExpression: keySelectorExpression,
 				valueSelectorExpression: valueSelectorExpression,
-				equalityComparer: equalityComparer,
-				capacity: 0);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.Dictionaring<TSourceItem, TKey, TValue> Dictionaring<TSourceItem, TKey, TValue>(this
-			 ObservableCollection<TSourceItem> source,
-			 System.Linq.Expressions.Expression<System.Func<TSourceItem, TKey>> keySelectorExpression,
-			 System.Linq.Expressions.Expression<System.Func<TSourceItem, TValue>> valueSelectorExpression,
-			 int capacity)
-			
-		{
-			return new ObservableComputations.Dictionaring<TSourceItem, TKey, TValue>(
-				source: source,
-				keySelectorExpression: keySelectorExpression,
-				valueSelectorExpression: valueSelectorExpression,
-				equalityComparer: null,
-				capacity: capacity);
+				equalityComparer: equalityComparer);
 		}
 
 		[ObservableComputationsCall]
@@ -2759,8 +2550,187 @@ namespace ObservableComputations
 				source: source,
 				keySelectorExpression: keySelectorExpression,
 				valueSelectorExpression: valueSelectorExpression,
-				equalityComparer: null,
-				capacity: 0);
+				equalityComparer: null);
+		}
+
+		[ObservableComputationsCall]
+		public static ObservableComputations.Dictionaring<TSourceItem, TKey, TValue> Dictionaring<TSourceItem, TKey, TValue>(this
+			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar,
+			 System.Linq.Expressions.Expression<System.Func<TSourceItem, TKey>> keySelectorExpression,
+			 System.Linq.Expressions.Expression<System.Func<TSourceItem, TValue>> valueSelectorExpression,
+			 ObservableComputations.IReadScalar<System.Collections.Generic.IEqualityComparer<TKey>> equalityComparerScalar)
+			
+		{
+			return new ObservableComputations.Dictionaring<TSourceItem, TKey, TValue>(
+				sourceScalar: sourceScalar,
+				keySelectorExpression: keySelectorExpression,
+				valueSelectorExpression: valueSelectorExpression,
+				equalityComparerScalar: equalityComparerScalar);
+		}
+
+		[ObservableComputationsCall]
+		public static ObservableComputations.Dictionaring<TSourceItem, TKey, TValue> Dictionaring<TSourceItem, TKey, TValue>(this
+			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar,
+			 System.Linq.Expressions.Expression<System.Func<TSourceItem, TKey>> keySelectorExpression,
+			 System.Linq.Expressions.Expression<System.Func<TSourceItem, TValue>> valueSelectorExpression,
+			 Expression<Func<System.Collections.Generic.IEqualityComparer<TKey>>> equalityComparerExpression)
+			
+		{
+			return new ObservableComputations.Dictionaring<TSourceItem, TKey, TValue>(
+				sourceScalar: sourceScalar,
+				keySelectorExpression: keySelectorExpression,
+				valueSelectorExpression: valueSelectorExpression,
+				equalityComparerScalar: new Computing<System.Collections.Generic.IEqualityComparer<TKey>>(equalityComparerExpression));
+		}
+
+		[ObservableComputationsCall]
+		public static ObservableComputations.Dictionaring<TSourceItem, TKey, TValue> Dictionaring<TSourceItem, TKey, TValue>(this
+			 ObservableComputations.IReadScalar<ObservableCollection<TSourceItem>> sourceScalar,
+			 System.Linq.Expressions.Expression<System.Func<TSourceItem, TKey>> keySelectorExpression,
+			 System.Linq.Expressions.Expression<System.Func<TSourceItem, TValue>> valueSelectorExpression,
+			 ObservableComputations.IReadScalar<System.Collections.Generic.IEqualityComparer<TKey>> equalityComparerScalar)
+			
+		{
+			return new ObservableComputations.Dictionaring<TSourceItem, TKey, TValue>(
+				sourceScalar: sourceScalar,
+				keySelectorExpression: keySelectorExpression,
+				valueSelectorExpression: valueSelectorExpression,
+				equalityComparerScalar: equalityComparerScalar);
+		}
+
+		[ObservableComputationsCall]
+		public static ObservableComputations.Dictionaring<TSourceItem, TKey, TValue> Dictionaring<TSourceItem, TKey, TValue>(this
+			 ObservableComputations.IReadScalar<ObservableCollection<TSourceItem>> sourceScalar,
+			 System.Linq.Expressions.Expression<System.Func<TSourceItem, TKey>> keySelectorExpression,
+			 System.Linq.Expressions.Expression<System.Func<TSourceItem, TValue>> valueSelectorExpression,
+			 Expression<Func<System.Collections.Generic.IEqualityComparer<TKey>>> equalityComparerExpression)
+			
+		{
+			return new ObservableComputations.Dictionaring<TSourceItem, TKey, TValue>(
+				sourceScalar: sourceScalar,
+				keySelectorExpression: keySelectorExpression,
+				valueSelectorExpression: valueSelectorExpression,
+				equalityComparerScalar: new Computing<System.Collections.Generic.IEqualityComparer<TKey>>(equalityComparerExpression));
+		}
+
+		[ObservableComputationsCall]
+		public static ObservableComputations.Dictionaring<TSourceItem, TKey, TValue> Dictionaring<TSourceItem, TKey, TValue>(this
+			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> sourceExpression,
+			 System.Linq.Expressions.Expression<System.Func<TSourceItem, TKey>> keySelectorExpression,
+			 System.Linq.Expressions.Expression<System.Func<TSourceItem, TValue>> valueSelectorExpression,
+			 ObservableComputations.IReadScalar<System.Collections.Generic.IEqualityComparer<TKey>> equalityComparerScalar)
+			
+		{
+			return new ObservableComputations.Dictionaring<TSourceItem, TKey, TValue>(
+				sourceScalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(sourceExpression),
+				keySelectorExpression: keySelectorExpression,
+				valueSelectorExpression: valueSelectorExpression,
+				equalityComparerScalar: equalityComparerScalar);
+		}
+
+		[ObservableComputationsCall]
+		public static ObservableComputations.Dictionaring<TSourceItem, TKey, TValue> Dictionaring<TSourceItem, TKey, TValue>(this
+			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> sourceExpression,
+			 System.Linq.Expressions.Expression<System.Func<TSourceItem, TKey>> keySelectorExpression,
+			 System.Linq.Expressions.Expression<System.Func<TSourceItem, TValue>> valueSelectorExpression,
+			 Expression<Func<System.Collections.Generic.IEqualityComparer<TKey>>> equalityComparerExpression)
+			
+		{
+			return new ObservableComputations.Dictionaring<TSourceItem, TKey, TValue>(
+				sourceScalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(sourceExpression),
+				keySelectorExpression: keySelectorExpression,
+				valueSelectorExpression: valueSelectorExpression,
+				equalityComparerScalar: new Computing<System.Collections.Generic.IEqualityComparer<TKey>>(equalityComparerExpression));
+		}
+
+		[ObservableComputationsCall]
+		public static ObservableComputations.Dictionaring<TSourceItem, TKey, TValue> Dictionaring<TSourceItem, TKey, TValue>(this
+			 Expression<Func<ObservableCollection<TSourceItem>>> sourceExpression,
+			 System.Linq.Expressions.Expression<System.Func<TSourceItem, TKey>> keySelectorExpression,
+			 System.Linq.Expressions.Expression<System.Func<TSourceItem, TValue>> valueSelectorExpression,
+			 ObservableComputations.IReadScalar<System.Collections.Generic.IEqualityComparer<TKey>> equalityComparerScalar)
+			
+		{
+			return new ObservableComputations.Dictionaring<TSourceItem, TKey, TValue>(
+				sourceScalar: new Computing<ObservableCollection<TSourceItem>>(sourceExpression),
+				keySelectorExpression: keySelectorExpression,
+				valueSelectorExpression: valueSelectorExpression,
+				equalityComparerScalar: equalityComparerScalar);
+		}
+
+		[ObservableComputationsCall]
+		public static ObservableComputations.Dictionaring<TSourceItem, TKey, TValue> Dictionaring<TSourceItem, TKey, TValue>(this
+			 Expression<Func<ObservableCollection<TSourceItem>>> sourceExpression,
+			 System.Linq.Expressions.Expression<System.Func<TSourceItem, TKey>> keySelectorExpression,
+			 System.Linq.Expressions.Expression<System.Func<TSourceItem, TValue>> valueSelectorExpression,
+			 Expression<Func<System.Collections.Generic.IEqualityComparer<TKey>>> equalityComparerExpression)
+			
+		{
+			return new ObservableComputations.Dictionaring<TSourceItem, TKey, TValue>(
+				sourceScalar: new Computing<ObservableCollection<TSourceItem>>(sourceExpression),
+				keySelectorExpression: keySelectorExpression,
+				valueSelectorExpression: valueSelectorExpression,
+				equalityComparerScalar: new Computing<System.Collections.Generic.IEqualityComparer<TKey>>(equalityComparerExpression));
+		}
+
+		[ObservableComputationsCall]
+		public static ObservableComputations.Dictionaring<TSourceItem, TKey, TValue> Dictionaring<TSourceItem, TKey, TValue>(this
+			 System.Collections.Specialized.INotifyCollectionChanged source,
+			 System.Linq.Expressions.Expression<System.Func<TSourceItem, TKey>> keySelectorExpression,
+			 System.Linq.Expressions.Expression<System.Func<TSourceItem, TValue>> valueSelectorExpression,
+			 ObservableComputations.IReadScalar<System.Collections.Generic.IEqualityComparer<TKey>> equalityComparerScalar)
+			
+		{
+			return new ObservableComputations.Dictionaring<TSourceItem, TKey, TValue>(
+				source: source,
+				keySelectorExpression: keySelectorExpression,
+				valueSelectorExpression: valueSelectorExpression,
+				equalityComparerScalar: equalityComparerScalar);
+		}
+
+		[ObservableComputationsCall]
+		public static ObservableComputations.Dictionaring<TSourceItem, TKey, TValue> Dictionaring<TSourceItem, TKey, TValue>(this
+			 System.Collections.Specialized.INotifyCollectionChanged source,
+			 System.Linq.Expressions.Expression<System.Func<TSourceItem, TKey>> keySelectorExpression,
+			 System.Linq.Expressions.Expression<System.Func<TSourceItem, TValue>> valueSelectorExpression,
+			 Expression<Func<System.Collections.Generic.IEqualityComparer<TKey>>> equalityComparerExpression)
+			
+		{
+			return new ObservableComputations.Dictionaring<TSourceItem, TKey, TValue>(
+				source: source,
+				keySelectorExpression: keySelectorExpression,
+				valueSelectorExpression: valueSelectorExpression,
+				equalityComparerScalar: new Computing<System.Collections.Generic.IEqualityComparer<TKey>>(equalityComparerExpression));
+		}
+
+		[ObservableComputationsCall]
+		public static ObservableComputations.Dictionaring<TSourceItem, TKey, TValue> Dictionaring<TSourceItem, TKey, TValue>(this
+			 ObservableCollection<TSourceItem> source,
+			 System.Linq.Expressions.Expression<System.Func<TSourceItem, TKey>> keySelectorExpression,
+			 System.Linq.Expressions.Expression<System.Func<TSourceItem, TValue>> valueSelectorExpression,
+			 ObservableComputations.IReadScalar<System.Collections.Generic.IEqualityComparer<TKey>> equalityComparerScalar)
+			
+		{
+			return new ObservableComputations.Dictionaring<TSourceItem, TKey, TValue>(
+				source: source,
+				keySelectorExpression: keySelectorExpression,
+				valueSelectorExpression: valueSelectorExpression,
+				equalityComparerScalar: equalityComparerScalar);
+		}
+
+		[ObservableComputationsCall]
+		public static ObservableComputations.Dictionaring<TSourceItem, TKey, TValue> Dictionaring<TSourceItem, TKey, TValue>(this
+			 ObservableCollection<TSourceItem> source,
+			 System.Linq.Expressions.Expression<System.Func<TSourceItem, TKey>> keySelectorExpression,
+			 System.Linq.Expressions.Expression<System.Func<TSourceItem, TValue>> valueSelectorExpression,
+			 Expression<Func<System.Collections.Generic.IEqualityComparer<TKey>>> equalityComparerExpression)
+			
+		{
+			return new ObservableComputations.Dictionaring<TSourceItem, TKey, TValue>(
+				source: source,
+				keySelectorExpression: keySelectorExpression,
+				valueSelectorExpression: valueSelectorExpression,
+				equalityComparerScalar: new Computing<System.Collections.Generic.IEqualityComparer<TKey>>(equalityComparerExpression));
 		}
 
 		#endregion
@@ -23780,27 +23750,27 @@ namespace ObservableComputations
 		[ObservableComputationsCall]
 		public static ObservableComputations.ScalarDispatching<TResult> ScalarDispatching<TResult>(this
 			 ObservableComputations.IReadScalar<TResult> scalar,
-			 ObservableComputations.ISourceScalarDispatcher sourceScalarDispatcher,
-			 ObservableComputations.IDestinationScalarDispatcher destinationScalarDispatcher)
+			 ObservableComputations.IDispatcher sourceDispatcher,
+			 ObservableComputations.IDispatcher destinationDispatcher)
 			
 		{
 			return new ObservableComputations.ScalarDispatching<TResult>(
 				scalar: scalar,
-				sourceScalarDispatcher: sourceScalarDispatcher,
-				destinationScalarDispatcher: destinationScalarDispatcher);
+				sourceDispatcher: sourceDispatcher,
+				destinationDispatcher: destinationDispatcher);
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.ScalarDispatching<TResult> ScalarDispatching<TResult>(this
 			 Expression<Func<TResult>> scalar,
-			 ObservableComputations.ISourceScalarDispatcher sourceScalarDispatcher,
-			 ObservableComputations.IDestinationScalarDispatcher destinationScalarDispatcher)
+			 ObservableComputations.IDispatcher sourceDispatcher,
+			 ObservableComputations.IDispatcher destinationDispatcher)
 			
 		{
 			return new ObservableComputations.ScalarDispatching<TResult>(
 				scalar: new Computing<TResult>(scalar),
-				sourceScalarDispatcher: sourceScalarDispatcher,
-				destinationScalarDispatcher: destinationScalarDispatcher);
+				sourceDispatcher: sourceDispatcher,
+				destinationDispatcher: destinationDispatcher);
 		}
 
 		#endregion

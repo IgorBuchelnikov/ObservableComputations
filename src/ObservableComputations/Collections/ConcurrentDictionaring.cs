@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
@@ -11,7 +12,7 @@ using ObservableComputations.ExtentionMethods;
 namespace ObservableComputations
 {
 	// ReSharper disable once RedundantExtendsListEntry
-	public class Dictionaring<TSourceItem, TKey, TValue> : IDictionary<TKey, TValue>, IHasSources, IComputing, INotifyMethodChanged
+	public class ConcurrentDictionaring<TSourceItem, TKey, TValue> : IDictionary<TKey, TValue>, IHasSources, IComputing, INotifyMethodChanged
 	{
 		// ReSharper disable once MemberCanBePrivate.Global
 		public IReadScalar<INotifyCollectionChanged> SourceScalar => _sourceScalar;
@@ -43,7 +44,7 @@ namespace ObservableComputations
 		public string DebugTag { get; set; }
 		public object Tag { get; set; }
 
-		private Dictionary<TKey, TValue> _dictionary;
+		private ConcurrentDictionary<TKey, TValue> _dictionary;
 
 		public bool IsConsistent => _isConsistent;
 
@@ -217,7 +218,7 @@ namespace ObservableComputations
 		}
 
 
-		private Dictionaring(
+		private ConcurrentDictionaring(
 			Expression<Func<TSourceItem, TKey>> keySelectorExpression,
 			Expression<Func<TSourceItem, TValue>> valueSelectorExpression,
 			int sourceCapacity)
@@ -257,7 +258,7 @@ namespace ObservableComputations
 		}
 
 		[ObservableComputationsCall]
-		public Dictionaring(
+		public ConcurrentDictionaring(
 			IReadScalar<INotifyCollectionChanged> sourceScalar,
 			Expression<Func<TSourceItem, TKey>> keySelectorExpression,
 			Expression<Func<TSourceItem, TValue>> valueSelectorExpression,
@@ -270,13 +271,13 @@ namespace ObservableComputations
 			_equalityComparer = equalityComparer ?? EqualityComparer<TKey>.Default;
 
 			int capacity = _sourceScalar != null ? Utils.getCapacity(_sourceScalar) : Utils.getCapacity(_source);
-			_dictionary = new Dictionary<TKey, TValue>(capacity, _equalityComparer);
+			_dictionary = new ConcurrentDictionary<TKey, TValue>(1, capacity, _equalityComparer);
 
 			initializeFromSource();
 		}
 
 		[ObservableComputationsCall]
-		public Dictionaring(
+		public ConcurrentDictionaring(
 			INotifyCollectionChanged source,
 			Expression<Func<TSourceItem, TKey>> keySelectorExpression,
 			Expression<Func<TSourceItem, TValue>> valueSelectorExpression,
@@ -286,13 +287,13 @@ namespace ObservableComputations
 			_equalityComparer = equalityComparer ?? EqualityComparer<TKey>.Default;
 
 			int capacity = _sourceScalar != null ? Utils.getCapacity(_sourceScalar) : Utils.getCapacity(_source);
-			_dictionary = new Dictionary<TKey, TValue>(capacity, _equalityComparer);
+			_dictionary = new ConcurrentDictionary<TKey, TValue>(1, capacity, _equalityComparer);
 
 			initializeFromSource();
 		}
 
 		[ObservableComputationsCall]
-		public Dictionaring(
+		public ConcurrentDictionaring(
 			IReadScalar<INotifyCollectionChanged> sourceScalar,
 			Expression<Func<TSourceItem, TKey>> keySelectorExpression,
 			Expression<Func<TSourceItem, TValue>> valueSelectorExpression,
@@ -306,13 +307,13 @@ namespace ObservableComputations
 			initializeEqualityComparer();
 
 			int capacity = _sourceScalar != null ? Utils.getCapacity(_sourceScalar) : Utils.getCapacity(_source);
-			_dictionary = new Dictionary<TKey, TValue>(capacity, _equalityComparer);
+			_dictionary = new ConcurrentDictionary<TKey, TValue>(1, capacity, _equalityComparer);
 
 			initializeFromSource();
 		}
 
 		[ObservableComputationsCall]
-		public Dictionaring(
+		public ConcurrentDictionaring(
 			INotifyCollectionChanged source,
 			Expression<Func<TSourceItem, TKey>> keySelectorExpression,
 			Expression<Func<TSourceItem, TValue>> valueSelectorExpression,
@@ -323,7 +324,7 @@ namespace ObservableComputations
 			initializeEqualityComparer();
 
 			int capacity = _sourceScalar != null ? Utils.getCapacity(_sourceScalar) : Utils.getCapacity(_source);
-			_dictionary = new Dictionary<TKey, TValue>(capacity, _equalityComparer);
+			_dictionary = new ConcurrentDictionary<TKey, TValue>(1, capacity, _equalityComparer);
 
 			initializeFromSource();
 		}
@@ -718,7 +719,7 @@ namespace ObservableComputations
 		private void baseClearItems()
 		{
 			int capacity = _sourceScalar != null ? Utils.getCapacity(_sourceScalar) : Utils.getCapacity(_source);
-			_dictionary = new Dictionary<TKey, TValue>(capacity, _equalityComparer);
+			_dictionary = new ConcurrentDictionary<TKey, TValue>(1, capacity, _equalityComparer);
 			onPropertyChanged(Utils.CountPropertyChangedEventArgs);
 			onPropertyChanged(Utils.IndexerPropertyChangedEventArgs);
 			MethodChanged?.Invoke(this, new NotifyMethodChangedEventArgs("GetValueOrDefault", args => true));
@@ -727,7 +728,7 @@ namespace ObservableComputations
 
 		private void baseAddItem(TKey key, TValue value)
 		{
-			_dictionary.Add(key, value);
+			_dictionary.TryAdd(key, value);
 			onPropertyChanged(Utils.CountPropertyChangedEventArgs);
 			onPropertyChanged(Utils.IndexerPropertyChangedEventArgs);
 			MethodChanged?.Invoke(this, new NotifyMethodChangedEventArgs("GetValueOrDefault", args => _equalityComparer.Equals(key, (TKey)args[0])));
@@ -744,7 +745,7 @@ namespace ObservableComputations
 
 		private void baseRemoveItem(TKey key)
 		{
-			_dictionary.Remove(key);
+			_dictionary.TryRemove(key, out TValue value);
 			onPropertyChanged(Utils.CountPropertyChangedEventArgs);
 			onPropertyChanged(Utils.IndexerPropertyChangedEventArgs);
 			MethodChanged?.Invoke(this, new NotifyMethodChangedEventArgs("GetValueOrDefault", args => _equalityComparer.Equals(key, (TKey)args[0])));
@@ -776,7 +777,7 @@ namespace ObservableComputations
 			PropertyChanged?.Invoke(this, eventArgs);
 		}
 
-		~Dictionaring()
+		~ConcurrentDictionaring()
 		{
 			if (_sourceWeakNotifyCollectionChangedEventHandler != null)
 			{
@@ -794,8 +795,8 @@ namespace ObservableComputations
 			_sourcePositions.ValidateConsistency();
 			IList<TSourceItem> source = _sourceScalar.getValue(_source, new ObservableCollection<TSourceItem>()) as IList<TSourceItem>;
 			// ReSharper disable once PossibleNullReferenceException
-			if (_itemInfos.Count != source.Count) throw new ObservableComputationsException("Consistency violation: Dictionaring.1");
-			if (Count != source.Count) throw new ObservableComputationsException( "Consistency violation: Dictionaring.16");
+			if (_itemInfos.Count != source.Count) throw new ObservableComputationsException("Consistency violation: ConcurrentDictionaring.1");
+			if (Count != source.Count) throw new ObservableComputationsException( "Consistency violation: ConcurrentDictionaring.16");
 			Func<TSourceItem, TKey> keySelector = _keySelectorExpression.Compile();
 			Func<TSourceItem, TValue> valueSelector = _valueSelectorExpression.Compile();
 
@@ -803,7 +804,7 @@ namespace ObservableComputations
 			if (source != null)
 			{
 				if (_sourcePositions.List.Count != source.Count)
-					throw new ObservableComputationsException("Consistency violation: Dictionaring.15");
+					throw new ObservableComputationsException("Consistency violation: ConcurrentDictionaring.15");
 
 				for (int sourceIndex = 0; sourceIndex < source.Count; sourceIndex++)
 				{
@@ -812,33 +813,33 @@ namespace ObservableComputations
 
 					TKey key = keySelector(sourceItem);
 					if (!ContainsKey(key))
-						throw new ObservableComputationsException("Consistency violation: Dictionaring.2");
+						throw new ObservableComputationsException("Consistency violation: ConcurrentDictionaring.2");
 
 					TValue value = valueSelector(sourceItem);
 					if (!this[key].IsSameAs(value))
-						throw new ObservableComputationsException("Consistency violation: Dictionaring.3");
+						throw new ObservableComputationsException("Consistency violation: ConcurrentDictionaring.3");
 
-					if (_sourcePositions.List[sourceIndex].Index != sourceIndex) throw new ObservableComputationsException("Consistency violation: Dictionaring.4");
-					if (itemInfo.KeyExpressionWatcher._position != _sourcePositions.List[sourceIndex]) throw new ObservableComputationsException("Consistency violation: Dictionaring.5");
-					if (itemInfo.ValueExpressionWatcher._position != _sourcePositions.List[sourceIndex]) throw new ObservableComputationsException("Consistency violation: Dictionaring.6");
+					if (_sourcePositions.List[sourceIndex].Index != sourceIndex) throw new ObservableComputationsException("Consistency violation: ConcurrentDictionaring.4");
+					if (itemInfo.KeyExpressionWatcher._position != _sourcePositions.List[sourceIndex]) throw new ObservableComputationsException("Consistency violation: ConcurrentDictionaring.5");
+					if (itemInfo.ValueExpressionWatcher._position != _sourcePositions.List[sourceIndex]) throw new ObservableComputationsException("Consistency violation: ConcurrentDictionaring.6");
 
 					if (!_sourcePositions.List.Contains((ItemInfo) itemInfo.KeyExpressionWatcher._position))
-						throw new ObservableComputationsException("Consistency violation: Dictionaring.7");
+						throw new ObservableComputationsException("Consistency violation: ConcurrentDictionaring.7");
 
 					if (!_sourcePositions.List.Contains((ItemInfo) itemInfo.ValueExpressionWatcher._position))
-						throw new ObservableComputationsException("Consistency violation: Dictionaring.8");
+						throw new ObservableComputationsException("Consistency violation: ConcurrentDictionaring.8");
 
 					if (itemInfo.KeyExpressionWatcher._position.Index != sourceIndex)
-						throw new ObservableComputationsException("Consistency violation: Dictionaring.17");
+						throw new ObservableComputationsException("Consistency violation: ConcurrentDictionaring.17");
 
 					if (itemInfo.ValueExpressionWatcher._position.Index != sourceIndex)
-						throw new ObservableComputationsException("Consistency violation: Dictionaring.18");
+						throw new ObservableComputationsException("Consistency violation: ConcurrentDictionaring.18");
 
 					if (!itemInfo.Key.IsSameAs(key))
-						throw new ObservableComputationsException("Consistency violation: Dictionaring.10");
+						throw new ObservableComputationsException("Consistency violation: ConcurrentDictionaring.10");
 
 					if (!itemInfo.Value.IsSameAs(value))
-						throw new ObservableComputationsException("Consistency violation: Dictionaring.9");
+						throw new ObservableComputationsException("Consistency violation: ConcurrentDictionaring.9");
 				}
 			}			
 		}
@@ -940,13 +941,5 @@ namespace ObservableComputations
 		public event EventHandler<NotifyMethodChangedEventArgs> MethodChanged;
 
 		#endregion
-	}
-
-	public enum DictionaryChangeAction
-	{
-		AddItem,
-		RemoveItem,
-		SetItem,
-		ClearItems,
 	}
 }

@@ -2,7 +2,7 @@
 
 namespace ObservableComputations
 {
-	public interface IScalar<TValue> : IScalar
+	public interface IScalar<TValue> : System.ComponentModel.INotifyPropertyChanged
 	{
 		TValue Value { get; set;}
 	}

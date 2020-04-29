@@ -19,9 +19,9 @@ namespace ObservableComputations
 
 		public Expression<Func<TSourceItem, TKey>> KeySelectorExpression => _keySelectorExpressionOriginal;
 
-		public IReadScalar<IEqualityComparer<TKey>> EqualityComparerScalar => _equalityComparerScalar;
-
 		public INotifyCollectionChanged Source => _source;
+
+		public IReadScalar<IEqualityComparer<TKey>> EqualityComparerScalar => _equalityComparerScalar;
 
 		public IEqualityComparer<TKey> EqualityComparer => _equalityComparer;
 
@@ -132,10 +132,11 @@ namespace ObservableComputations
 		internal Action<Group<TSourceItem, TKey>> _clearGroupItemsAction;
 
 		internal readonly IReadScalar<INotifyCollectionChanged> _sourceScalar;
+		internal INotifyCollectionChanged _source;
 		internal readonly Expression<Func<TSourceItem, TKey>> _keySelectorExpression;
 		internal readonly Expression<Func<TSourceItem, TKey>> _keySelectorExpressionOriginal;
+
 		internal readonly IReadScalar<IEqualityComparer<TKey>> _equalityComparerScalar;
-		internal INotifyCollectionChanged _source;
 		internal IEqualityComparer<TKey> _equalityComparer;
 		private readonly Func<TSourceItem, TKey> _keySelectorFunc;
 

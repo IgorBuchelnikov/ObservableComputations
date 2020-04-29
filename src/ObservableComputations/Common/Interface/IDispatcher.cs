@@ -7,8 +7,7 @@ namespace ObservableComputations
 {
 	public interface IDispatcher
 	{
-		WaitHandle BeginInvoke(Action action);
-		WaitHandle BeginInvoke(Action<object> action, object state);
+		void Invoke(Action action);
 	}
 
 	public interface IDestinationCollectionDispatcher

@@ -35,7 +35,8 @@
 					string name = classInFile.Name;
 
                     if (name.Contains("ItemsProcessing")
-                        || name.Contains("ValuesProcessing"))
+                        || name.Contains("ValuesProcessing")
+                        || name.Contains("PropertyDispatching"))
                         continue;
 
 					string genericParameters = string.Empty;

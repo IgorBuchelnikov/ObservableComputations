@@ -393,12 +393,7 @@ namespace ObservableComputations.Test
 				result =  "i => i.Num";
 				break;
 			case "int":
-                if (argumentName.Contains("pageSize"))
-					result = "2";
-				else if  (argumentName.Contains("currentPageNum"))
-					result = "1";
-				else
-					result =  argumentName.Contains("count") ? "3" : "0";
+				result =  argumentName.Contains("count") ? "3" : "0";
 				break;
 			case "ObservableComputations.IOrdering<TSourceItem>":
 				result =  "getItems().Selecting(i => i.Num).Ordering(i => i, 32)";
@@ -486,21 +481,7 @@ namespace ObservableComputations.Test
 				result.Add("null");
 				break;
 			case "int":
-                if (argumentName.Contains("pageSize"))
-				{
-					result.Add("1");
-					result.Add("3");
-				}
-				else if (argumentName.Contains("currentPageNum"))
-				{
-					result.Add("2");
-					result.Add("3");
-					result.Add("4");	
-					result.Add("5");
-					result.Add("6");					
-				}
-				else
-					result.Add(argumentName.Contains("count") ? "4" : "1");	
+				result.Add(argumentName.Contains("count") ? "4" : "1");
 				break;
 			case "ObservableComputations.IOrdering<int>":
 				result.Add("null");

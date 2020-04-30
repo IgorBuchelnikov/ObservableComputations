@@ -3,7 +3,60 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
+using System.ComponentModel;
 using System.Linq;
+using ObservableComputations.Internal;
+
+namespace ObservableComputations.Internal
+{
+	public class ZippingForPaging<TSourceItem> : Zipping<int, TSourceItem>
+	{
+		// ReSharper disable once StaticMemberInGenericType
+		private static readonly PropertyChangedEventArgs __pageSizePropertyChangedEventArgs = new PropertyChangedEventArgs(nameof(PageSize));
+		// ReSharper disable once StaticMemberInGenericType
+		private static readonly PropertyChangedEventArgs __currentPageNumPropertyChangedEventArgs = new PropertyChangedEventArgs(nameof(CurrentPageNum));
+
+		private int _pageSize = 20;
+		public int PageSize
+		{
+			get => _pageSize;
+			set
+			{
+				_pageSize = value;
+				OnPropertyChanged(__pageSizePropertyChangedEventArgs);
+			}
+		}
+
+
+		private int _currentPageNum =  1;
+		public int CurrentPageNum
+		{
+			get => _currentPageNum;
+			set
+			{
+				_currentPageNum = value;
+				OnPropertyChanged(__currentPageNumPropertyChangedEventArgs);
+			}
+		}
+
+		public ZippingForPaging(IReadScalar<INotifyCollectionChanged> leftSourceScalar, INotifyCollectionChanged rightSource) : base(leftSourceScalar, rightSource)
+		{
+		}
+
+		public ZippingForPaging(IReadScalar<INotifyCollectionChanged> leftSourceScalar, IReadScalar<INotifyCollectionChanged> rightSourceScalar) : base(leftSourceScalar, rightSourceScalar)
+		{
+		}
+
+		public ZippingForPaging(INotifyCollectionChanged leftSource, INotifyCollectionChanged rightSource) : base(leftSource, rightSource)
+		{
+		}
+
+		public ZippingForPaging(INotifyCollectionChanged leftSource, IReadScalar<INotifyCollectionChanged> rightSourceScalar) : base(leftSource, rightSourceScalar)
+		{
+		}
+	}
+}
+
 
 namespace ObservableComputations
 {
@@ -14,17 +67,22 @@ namespace ObservableComputations
 		// ReSharper disable once MemberCanBePrivate.Global
 		public new INotifyCollectionChanged Source => _sourcePaging;
 
-		// ReSharper disable once MemberCanBePrivate.Global
-		public IReadScalar<int> PageSizeScalar => _pageSizeScalar;
+		public int PageSize
+		{
+			get => _zippingForPaging.PageSize;
+			set => _zippingForPaging.PageSize = value;
+		}
 
-		public  IReadScalar<int> CurrentPageNumScalar => _currentPageNumScalar;
+		public int CurrentPageNum
+		{
+			get => _zippingForPaging.CurrentPageNum;
+			set => _zippingForPaging.CurrentPageNum = value;
+		}
 
-		// ReSharper disable once MemberCanBePrivate.Global
-		public int PageSizePaging => _pageSizePaging;
 
 		public IReadScalar<int> PageCount => _pageCountComputing;
 		public IReadScalar<bool> CurrentPageExists => _currentPageExistsComputing = _currentPageExistsComputing ?? 
-			new Computing<bool>(() => _currentPageNumScalar.Value >= 0 || _currentPageNumScalar.Value < _pageCountComputing.Value);
+			new Computing<bool>(() => _zippingForPaging.CurrentPageNum >= 0 || _zippingForPaging.CurrentPageNum < _pageCountComputing.Value);
 
 
 		public new ReadOnlyCollection<INotifyCollectionChanged> SourcesCollection => new ReadOnlyCollection<INotifyCollectionChanged>(new []{Source});
@@ -32,149 +90,73 @@ namespace ObservableComputations
 
 		private readonly IReadScalar<INotifyCollectionChanged> _sourceScalarPaging;
 		private readonly INotifyCollectionChanged _sourcePaging;
-		private readonly IReadScalar<int> _pageSizeScalar;
-		private readonly int _pageSizePaging;
 
 		private Computing<int> _pageCountComputing;
 		private Computing<bool> _currentPageExistsComputing;
-		private IReadScalar<int> _currentPageNumScalar;
 
+		private ZippingForPaging<TSourceItem> _zippingForPaging;
 
 		[ObservableComputationsCall]
 		public Paging(			
 			IReadScalar<INotifyCollectionChanged> sourceScalar, 
-			IReadScalar<int> pageSizeScalar,
-			IReadScalar<int> currentPageNumScalar,
 			int capacity = 0)
 			: base(
-				getSource(sourceScalar, pageSizeScalar, currentPageNumScalar, capacity),
+				getSource(sourceScalar, capacity),
 				zipPair => zipPair.ItemRight)
 		{
 			_sourceScalarPaging = sourceScalar;
-			_pageSizeScalar = pageSizeScalar;
-			_currentPageNumScalar = currentPageNumScalar;
+			_zippingForPaging = (ZippingForPaging<TSourceItem>)(((Filtering<ZipPair<int, TSourceItem>>)_source)._source);
 
 			_pageCountComputing = new Computing<int>(() => 
 				(int)Math.Ceiling(
 					new Computing<int>(() => sourceScalar.Value != null ? ((IList) sourceScalar.Value).Count : 0).Value 
-					/ (double)pageSizeScalar.Value));
-		}
-
-		[ObservableComputationsCall]
-		public Paging(			
-			IReadScalar<INotifyCollectionChanged> sourceScalar, 
-			int pageSize,
-			IReadScalar<int> currentPageNumScalar)
-			: base(
-				getSource(sourceScalar, pageSize, currentPageNumScalar),
-				zipPair => zipPair.ItemRight)
-		{
-			_sourceScalarPaging = sourceScalar;
-			_pageSizePaging = pageSize;
-			_currentPageNumScalar = currentPageNumScalar;
-
-			_pageCountComputing = new Computing<int>(() => 
-				(int)Math.Ceiling(
-					new Computing<int>(() => sourceScalar.Value != null ? ((IList) sourceScalar.Value).Count : 0).Value 
-					/ (double)pageSize));
+					/ (double)_zippingForPaging.PageSize));
 		}
 
 		[ObservableComputationsCall]
 		public Paging(			
 			INotifyCollectionChanged source, 
-			IReadScalar<int> pageSizeScalar,
-			IReadScalar<int> currentPageNumScalar,
 			int capacity = 0)
 			: base(
-				getSource(source, pageSizeScalar, currentPageNumScalar, capacity),
+				getSource(source, capacity),
 				zipPair => zipPair.ItemRight)
 		{
 			_sourcePaging = source;
-			_pageSizeScalar = pageSizeScalar;
-			_currentPageNumScalar = currentPageNumScalar;
+			_zippingForPaging = (ZippingForPaging<TSourceItem>)(((Filtering<ZipPair<int, TSourceItem>>)_source)._source);
 
 			_pageCountComputing = new Computing<int>(() => 
 				(int)Math.Ceiling(
-					((IList) source).Count
-					/ (double)pageSizeScalar.Value));
+					new Computing<int>(() => source != null ? ((IList) source).Count : 0).Value 
+					/ (double)_zippingForPaging.PageSize));
 		}
 
-		[ObservableComputationsCall]
-		public Paging(			
-			INotifyCollectionChanged source, 
-			int pageSize,
-			IReadScalar<int> currentPageNumScalar)
-			: base(
-				getSource(source, pageSize, currentPageNumScalar),
-				zipPair => zipPair.ItemRight)
-		{
-			_sourcePaging = source;
-			_pageSizePaging = pageSize;
-			_currentPageNumScalar = currentPageNumScalar;
-
-			_pageCountComputing = new Computing<int>(() => 
-				(int)Math.Ceiling(
-					((IList) source).Count
-					/ (double)pageSize));
-		}
 
 
 		private static INotifyCollectionChanged getSource(
 			IReadScalar<INotifyCollectionChanged> sourceScalar, 
-			IReadScalar<int> pageSizeScalar,
-			IReadScalar<int> currentPageNumScalar,
 			int capacity)
 		{
 			return 
-				new Computing<int>(() => sourceScalar.Value != null ? ((IList) sourceScalar.Value).Count : 0).SequenceComputing()
-					.Zipping<int, TSourceItem>(sourceScalar).Using(zipping => 
-						new Computing<int>(() => pageSizeScalar.Value * currentPageNumScalar.Value).Using(upperIndex => 
-							zipping.Filtering(zp => zp.ItemLeft >= upperIndex.Value - pageSizeScalar.Value  && zp.ItemLeft < upperIndex.Value, capacity))).Value.Value;
-		}
-
-		private static INotifyCollectionChanged getSource(
-			IReadScalar<INotifyCollectionChanged> sourceScalar, 
-			int pageSize,
-			IReadScalar<int> currentPageNumScalar)
-		{
-			return 
-				new Computing<int>(() => sourceScalar.Value != null ? ((IList) sourceScalar.Value).Count : 0).SequenceComputing()
-					.Zipping<int, TSourceItem>(sourceScalar).Using(zipping => 
-						new Computing<int>(() => pageSize * currentPageNumScalar.Value).Using(upperIndex => 
-							zipping.Filtering(zp => zp.ItemLeft >= upperIndex.Value - pageSize  && zp.ItemLeft < upperIndex.Value, pageSize))).Value.Value;
+				new ZippingForPaging<TSourceItem>(new Computing<int>(() => sourceScalar.Value != null ? ((IList) sourceScalar.Value).Count : 0).SequenceComputing(), sourceScalar).Using(zipping => 
+						new Computing<int>(() => zipping.PageSize * zipping.CurrentPageNum).Using(upperIndex => 
+							zipping.Filtering(zp => zp.ItemLeft >= upperIndex.Value - zipping.PageSize  && zp.ItemLeft < upperIndex.Value, capacity))).Value.Value;
 		}
 
 		private static INotifyCollectionChanged getSource(
 			INotifyCollectionChanged source, 
-			IReadScalar<int> pageSizeScalar,
-			IReadScalar<int> currentPageNumScalar,
 			int capacity)
 		{
 			return 
-				new Computing<int>(() => source != null ? ((IList) source).Count : 0).SequenceComputing()
-					.Zipping<int, TSourceItem>(source).Using(zipping => 
-						new Computing<int>(() => pageSizeScalar.Value * currentPageNumScalar.Value).Using(upperIndex => 
-							zipping.Filtering(zp => zp.ItemLeft >= upperIndex.Value - pageSizeScalar.Value  && zp.ItemLeft < upperIndex.Value, capacity))).Value.Value;
-
-		}
-
-		private static INotifyCollectionChanged getSource(
-			INotifyCollectionChanged source, 
-			int pageSize,
-			IReadScalar<int> currentPageNumScalar)
-		{
-			return 
-				new Computing<int>(() => source != null ? ((IList) source).Count : 0).SequenceComputing()
-					.Zipping<int, TSourceItem>(source).Using(zipping => 
-						new Computing<int>(() => pageSize * currentPageNumScalar.Value).Using(upperIndex => 
-							zipping.Filtering(zp => zp.ItemLeft >= upperIndex.Value - pageSize  && zp.ItemLeft < upperIndex.Value, pageSize))).Value.Value;
+				new ZippingForPaging<TSourceItem>(new Computing<int>(() => source != null ? ((IList) source).Count : 0).SequenceComputing(), source).Using(zipping => 
+					new Computing<int>(() => zipping.PageSize * zipping.CurrentPageNum).Using(upperIndex => 
+						zipping.Filtering(zp => zp.ItemLeft >= upperIndex.Value - zipping.PageSize  && zp.ItemLeft < upperIndex.Value, capacity))).Value.Value;
 		}
 
 		public new void ValidateConsistency()
 		{
 			IList<TSourceItem> source = _sourceScalarPaging.getValue(_sourcePaging, new ObservableCollection<TSourceItem>()) as IList<TSourceItem>;
-			int pageSize = _pageSizeScalar.getValue(_pageSizePaging);
-			int startIndex =  (_currentPageNumScalar.Value - 1) * pageSize;
+			int pageSize = PageSize;
+			int startIndex =  (CurrentPageNum - 1) * pageSize;
 
 			// ReSharper disable once AssignNullToNotNullAttribute
 			if (!this.SequenceEqual(source.Skip(startIndex).Take(pageSize)))

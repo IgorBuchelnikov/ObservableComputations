@@ -17,36 +17,36 @@ namespace ObservableComputations.Test
 		[Test]
 		public void TestCollectionDispatchingTest()
 		{
-			Worker consuminingWorker = new Worker();
-			Worker computingWorker = new Worker();
+			Dispatcher consuminingDispatcher = new Dispatcher();
+			Dispatcher computingDispatcher = new Dispatcher();
 			var nums = new ObservableCollection<int>();
 			var filteredNums = nums.Filtering(n => n % 3 == 0);
 			var dispatchingfilteredNums = filteredNums.CollectionDispatching(
-				computingWorker.Dispatcher,
-				consuminingWorker.Dispatcher);
+				computingDispatcher,
+				consuminingDispatcher);
 			bool stop = false;
 			Random computingWorkerRandom =  new Random();
 
 			ThreadStart numsChangerThreadStart = () =>
 			{
-				Random numsChangerRandom =  new Random();
+				Random random =  new Random();
 				while (!stop)
 				{
-					Thread.Sleep(numsChangerRandom.Next(0, 100));
+					Thread.Sleep(random.Next(0, 100));
 
-					NotifyCollectionChangedAction action = (NotifyCollectionChangedAction) numsChangerRandom.Next(0, 4);
+					NotifyCollectionChangedAction action = (NotifyCollectionChangedAction) random.Next(0, 4);
 					switch (action)
 					{
 						case NotifyCollectionChangedAction.Add:
-							computingWorker.Dispatcher.BeginInvoke(() =>
+							computingDispatcher.Invoke(() =>
 							{
 								int upperIndex = nums.Count > 0 ? nums.Count - 1 : 0;
 								int index = computingWorkerRandom.Next(0, upperIndex);
 								nums.Insert(index, computingWorkerRandom.Next(Int32.MinValue, int.MaxValue));
-							}).WaitOneAndDispose();
+							});
 							break;
 						case NotifyCollectionChangedAction.Remove:
-							computingWorker.Dispatcher.BeginInvoke(() =>
+							computingDispatcher.Invoke(() =>
 							{
 								int upperIndex =  nums.Count - 1;
 								if (upperIndex > 0)
@@ -54,10 +54,10 @@ namespace ObservableComputations.Test
 									int index = computingWorkerRandom.Next(0, upperIndex);
 									nums.RemoveAt(index);
 								}
-							}).WaitOneAndDispose();
+							});
 							break;
 						case NotifyCollectionChangedAction.Replace:
-							computingWorker.Dispatcher.BeginInvoke(() =>
+							computingDispatcher.Invoke(() =>
 							{
 								int upperIndex =  nums.Count - 1;
 								if (upperIndex > 0)
@@ -66,10 +66,10 @@ namespace ObservableComputations.Test
 									nums[index] = computingWorkerRandom.Next(Int32.MinValue, int.MaxValue);
 								}
 
-							}).WaitOneAndDispose();
+							});
 							break;
 						case NotifyCollectionChangedAction.Move:
-							computingWorker.Dispatcher.BeginInvoke(() =>
+							computingDispatcher.Invoke(() =>
 							{
 								int upperIndex =  nums.Count - 1;
 								if (upperIndex > 0)
@@ -78,10 +78,10 @@ namespace ObservableComputations.Test
 									int indexTo = computingWorkerRandom.Next(0, upperIndex);
 									nums.Move(indexFrom, indexTo);
 								}
-							}).WaitOneAndDispose();
+							});
 							break;
 						case NotifyCollectionChangedAction.Reset:
-							computingWorker.Dispatcher.BeginInvoke(() => { nums.Clear(); }).WaitOneAndDispose();
+							computingDispatcher.Invoke(() => { nums.Clear(); });
 							break;
 						default:
 							throw new ArgumentOutOfRangeException();
@@ -101,7 +101,7 @@ namespace ObservableComputations.Test
 
 			Thread numsChangersStopper = new Thread(() =>
 			{
-				Thread.Sleep(TimeSpan.FromMinutes(20));
+				Thread.Sleep(TimeSpan.FromMinutes(60 * 12));
 				stop = true;
 			});
 
@@ -109,18 +109,19 @@ namespace ObservableComputations.Test
 
 			Thread consuminingWorkerInvoker = new Thread(() =>
 			{
+				Random random =  new Random();
 				while (!stop)
 				{
-					Thread.Sleep(TimeSpan.FromMilliseconds(1000));
-					consuminingWorker.Dispatcher.BeginInvoke(() =>
+					Thread.Sleep(random.Next(0, 1000));
+					consuminingDispatcher.Invoke(() =>
 					{
-						computingWorker.Dispatcher.BeginInvoke(() =>
+						computingDispatcher.Invoke(() =>
 						{
 							Assert.IsTrue(nums.Where(n => n % 3 == 0).SequenceEqual(dispatchingfilteredNums));
 							Debug.Print("!!!!!");
 
 						});
-					}).WaitOneAndDispose();
+					});
 				}
 			});
 			consuminingWorkerInvoker.Start();

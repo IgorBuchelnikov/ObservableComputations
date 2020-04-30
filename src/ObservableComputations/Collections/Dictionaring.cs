@@ -721,8 +721,13 @@ namespace ObservableComputations
 			_dictionary = new Dictionary<TKey, TValue>(capacity, _equalityComparer);
 			onPropertyChanged(Utils.CountPropertyChangedEventArgs);
 			onPropertyChanged(Utils.IndexerPropertyChangedEventArgs);
-			MethodChanged?.Invoke(this, new NotifyMethodChangedEventArgs("GetValueOrDefault", args => true));
-			MethodChanged?.Invoke(this, new NotifyMethodChangedEventArgs("Item[]", args => true));
+			if (MethodChanged != null)
+			{
+				MethodChanged(this, new NotifyMethodChangedEventArgs("GetValueOrDefault", args => true));
+				MethodChanged(this, new NotifyMethodChangedEventArgs("Item[]", args => true));
+				MethodChanged(this, new NotifyMethodChangedEventArgs("ContainsKey", args => true));
+			}
+
 		}
 
 		private void baseAddItem(TKey key, TValue value)
@@ -730,16 +735,24 @@ namespace ObservableComputations
 			_dictionary.Add(key, value);
 			onPropertyChanged(Utils.CountPropertyChangedEventArgs);
 			onPropertyChanged(Utils.IndexerPropertyChangedEventArgs);
-			MethodChanged?.Invoke(this, new NotifyMethodChangedEventArgs("GetValueOrDefault", args => _equalityComparer.Equals(key, (TKey)args[0])));
-			MethodChanged?.Invoke(this, new NotifyMethodChangedEventArgs("Item[]", args => _equalityComparer.Equals(key, (TKey)args[0])));
+			if (MethodChanged != null)
+			{
+				MethodChanged(this, new NotifyMethodChangedEventArgs("GetValueOrDefault", args => _equalityComparer.Equals(key, (TKey)args[0])));
+				MethodChanged(this, new NotifyMethodChangedEventArgs("Item[]", args => _equalityComparer.Equals(key, (TKey)args[0])));
+				MethodChanged(this, new NotifyMethodChangedEventArgs("ContainsKey", args => _equalityComparer.Equals(key, (TKey)args[0])));
+			}
 		}
 
 		private void baseSetItem(TKey key, TValue value)
 		{
 			_dictionary[key] = value;
 			onPropertyChanged(Utils.IndexerPropertyChangedEventArgs);
-			MethodChanged?.Invoke(this, new NotifyMethodChangedEventArgs("GetValueOrDefault", args => _equalityComparer.Equals(key, (TKey)args[0])));
-			MethodChanged?.Invoke(this, new NotifyMethodChangedEventArgs("Item[]", args => _equalityComparer.Equals(key, (TKey)args[0])));
+			if (MethodChanged != null)
+			{
+				MethodChanged(this, new NotifyMethodChangedEventArgs("GetValueOrDefault", args => _equalityComparer.Equals(key, (TKey)args[0])));
+				MethodChanged(this, new NotifyMethodChangedEventArgs("Item[]", args => _equalityComparer.Equals(key, (TKey)args[0])));
+				MethodChanged(this, new NotifyMethodChangedEventArgs("ContainsKey", args => _equalityComparer.Equals(key, (TKey)args[0])));
+			}
 		}
 
 		private void baseRemoveItem(TKey key)
@@ -747,8 +760,12 @@ namespace ObservableComputations
 			_dictionary.Remove(key);
 			onPropertyChanged(Utils.CountPropertyChangedEventArgs);
 			onPropertyChanged(Utils.IndexerPropertyChangedEventArgs);
-			MethodChanged?.Invoke(this, new NotifyMethodChangedEventArgs("GetValueOrDefault", args => _equalityComparer.Equals(key, (TKey)args[0])));
-			MethodChanged?.Invoke(this, new NotifyMethodChangedEventArgs("Item[]", args => _equalityComparer.Equals(key, (TKey)args[0])));
+			if (MethodChanged != null)
+			{
+				MethodChanged?.Invoke(this, new NotifyMethodChangedEventArgs("GetValueOrDefault", args => _equalityComparer.Equals(key, (TKey)args[0])));
+				MethodChanged?.Invoke(this, new NotifyMethodChangedEventArgs("Item[]", args => _equalityComparer.Equals(key, (TKey)args[0])));
+				MethodChanged(this, new NotifyMethodChangedEventArgs("ContainsKey", args => _equalityComparer.Equals(key, (TKey)args[0])));
+			}
 		}
 
 		protected void checkConsistent()

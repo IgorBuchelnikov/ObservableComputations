@@ -60,7 +60,7 @@ namespace ObservableComputations
 
 		private Queue<ExpressionWatcher> _deferredExpressionWatcherChangedProcessings;
 		private readonly IReadScalar<INotifyCollectionChanged> _sourceScalar;
-		private INotifyCollectionChanged _source;
+		internal INotifyCollectionChanged _source;
 		private readonly Func<TSourceItem, bool> _predicateFunc;
 
 		[ObservableComputationsCall]

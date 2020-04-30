@@ -48,7 +48,7 @@ namespace ObservableComputations
 		private WeakNotifyCollectionChangedEventHandler _sourceWeakNotifyCollectionChangedEventHandler;
 		private readonly IReadScalar<INotifyCollectionChanged> _sourceScalar;
 		private readonly Expression<Func<TSourceItem, TResultItem>> _selectorExpressionOriginal;
-		private INotifyCollectionChanged _source;
+		internal INotifyCollectionChanged _source;
 		private readonly Func<TSourceItem, TResultItem> _selectorFunc;
 
 		private sealed class ItemInfo : Position

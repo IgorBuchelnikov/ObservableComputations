@@ -1057,6 +1057,363 @@ namespace ObservableComputations
 		}
 
 		#endregion
+		#region ConcurrentDictionaring
+
+		[ObservableComputationsCall]
+		public static ObservableComputations.ConcurrentDictionaring<TSourceItem, TKey, TValue> ConcurrentDictionaring<TSourceItem, TKey, TValue>(this
+			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar,
+			 System.Linq.Expressions.Expression<System.Func<TSourceItem, TKey>> keySelectorExpression,
+			 System.Linq.Expressions.Expression<System.Func<TSourceItem, TValue>> valueSelectorExpression,
+			 System.Collections.Generic.IEqualityComparer<TKey> equalityComparer)
+			
+		{
+			return new ObservableComputations.ConcurrentDictionaring<TSourceItem, TKey, TValue>(
+				sourceScalar: sourceScalar,
+				keySelectorExpression: keySelectorExpression,
+				valueSelectorExpression: valueSelectorExpression,
+				equalityComparer: equalityComparer);
+		}
+
+		[ObservableComputationsCall]
+		public static ObservableComputations.ConcurrentDictionaring<TSourceItem, TKey, TValue> ConcurrentDictionaring<TSourceItem, TKey, TValue>(this
+			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar,
+			 System.Linq.Expressions.Expression<System.Func<TSourceItem, TKey>> keySelectorExpression,
+			 System.Linq.Expressions.Expression<System.Func<TSourceItem, TValue>> valueSelectorExpression)
+			
+		{
+			return new ObservableComputations.ConcurrentDictionaring<TSourceItem, TKey, TValue>(
+				sourceScalar: sourceScalar,
+				keySelectorExpression: keySelectorExpression,
+				valueSelectorExpression: valueSelectorExpression,
+				equalityComparer: null);
+		}
+
+		[ObservableComputationsCall]
+		public static ObservableComputations.ConcurrentDictionaring<TSourceItem, TKey, TValue> ConcurrentDictionaring<TSourceItem, TKey, TValue>(this
+			 ObservableComputations.IReadScalar<ObservableCollection<TSourceItem>> sourceScalar,
+			 System.Linq.Expressions.Expression<System.Func<TSourceItem, TKey>> keySelectorExpression,
+			 System.Linq.Expressions.Expression<System.Func<TSourceItem, TValue>> valueSelectorExpression,
+			 System.Collections.Generic.IEqualityComparer<TKey> equalityComparer)
+			
+		{
+			return new ObservableComputations.ConcurrentDictionaring<TSourceItem, TKey, TValue>(
+				sourceScalar: sourceScalar,
+				keySelectorExpression: keySelectorExpression,
+				valueSelectorExpression: valueSelectorExpression,
+				equalityComparer: equalityComparer);
+		}
+
+		[ObservableComputationsCall]
+		public static ObservableComputations.ConcurrentDictionaring<TSourceItem, TKey, TValue> ConcurrentDictionaring<TSourceItem, TKey, TValue>(this
+			 ObservableComputations.IReadScalar<ObservableCollection<TSourceItem>> sourceScalar,
+			 System.Linq.Expressions.Expression<System.Func<TSourceItem, TKey>> keySelectorExpression,
+			 System.Linq.Expressions.Expression<System.Func<TSourceItem, TValue>> valueSelectorExpression)
+			
+		{
+			return new ObservableComputations.ConcurrentDictionaring<TSourceItem, TKey, TValue>(
+				sourceScalar: sourceScalar,
+				keySelectorExpression: keySelectorExpression,
+				valueSelectorExpression: valueSelectorExpression,
+				equalityComparer: null);
+		}
+
+		[ObservableComputationsCall]
+		public static ObservableComputations.ConcurrentDictionaring<TSourceItem, TKey, TValue> ConcurrentDictionaring<TSourceItem, TKey, TValue>(this
+			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> sourceExpression,
+			 System.Linq.Expressions.Expression<System.Func<TSourceItem, TKey>> keySelectorExpression,
+			 System.Linq.Expressions.Expression<System.Func<TSourceItem, TValue>> valueSelectorExpression,
+			 System.Collections.Generic.IEqualityComparer<TKey> equalityComparer)
+			
+		{
+			return new ObservableComputations.ConcurrentDictionaring<TSourceItem, TKey, TValue>(
+				sourceScalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(sourceExpression),
+				keySelectorExpression: keySelectorExpression,
+				valueSelectorExpression: valueSelectorExpression,
+				equalityComparer: equalityComparer);
+		}
+
+		[ObservableComputationsCall]
+		public static ObservableComputations.ConcurrentDictionaring<TSourceItem, TKey, TValue> ConcurrentDictionaring<TSourceItem, TKey, TValue>(this
+			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> sourceExpression,
+			 System.Linq.Expressions.Expression<System.Func<TSourceItem, TKey>> keySelectorExpression,
+			 System.Linq.Expressions.Expression<System.Func<TSourceItem, TValue>> valueSelectorExpression)
+			
+		{
+			return new ObservableComputations.ConcurrentDictionaring<TSourceItem, TKey, TValue>(
+				sourceScalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(sourceExpression),
+				keySelectorExpression: keySelectorExpression,
+				valueSelectorExpression: valueSelectorExpression,
+				equalityComparer: null);
+		}
+
+		[ObservableComputationsCall]
+		public static ObservableComputations.ConcurrentDictionaring<TSourceItem, TKey, TValue> ConcurrentDictionaring<TSourceItem, TKey, TValue>(this
+			 Expression<Func<ObservableCollection<TSourceItem>>> sourceExpression,
+			 System.Linq.Expressions.Expression<System.Func<TSourceItem, TKey>> keySelectorExpression,
+			 System.Linq.Expressions.Expression<System.Func<TSourceItem, TValue>> valueSelectorExpression,
+			 System.Collections.Generic.IEqualityComparer<TKey> equalityComparer)
+			
+		{
+			return new ObservableComputations.ConcurrentDictionaring<TSourceItem, TKey, TValue>(
+				sourceScalar: new Computing<ObservableCollection<TSourceItem>>(sourceExpression),
+				keySelectorExpression: keySelectorExpression,
+				valueSelectorExpression: valueSelectorExpression,
+				equalityComparer: equalityComparer);
+		}
+
+		[ObservableComputationsCall]
+		public static ObservableComputations.ConcurrentDictionaring<TSourceItem, TKey, TValue> ConcurrentDictionaring<TSourceItem, TKey, TValue>(this
+			 Expression<Func<ObservableCollection<TSourceItem>>> sourceExpression,
+			 System.Linq.Expressions.Expression<System.Func<TSourceItem, TKey>> keySelectorExpression,
+			 System.Linq.Expressions.Expression<System.Func<TSourceItem, TValue>> valueSelectorExpression)
+			
+		{
+			return new ObservableComputations.ConcurrentDictionaring<TSourceItem, TKey, TValue>(
+				sourceScalar: new Computing<ObservableCollection<TSourceItem>>(sourceExpression),
+				keySelectorExpression: keySelectorExpression,
+				valueSelectorExpression: valueSelectorExpression,
+				equalityComparer: null);
+		}
+
+		[ObservableComputationsCall]
+		public static ObservableComputations.ConcurrentDictionaring<TSourceItem, TKey, TValue> ConcurrentDictionaring<TSourceItem, TKey, TValue>(this
+			 System.Collections.Specialized.INotifyCollectionChanged source,
+			 System.Linq.Expressions.Expression<System.Func<TSourceItem, TKey>> keySelectorExpression,
+			 System.Linq.Expressions.Expression<System.Func<TSourceItem, TValue>> valueSelectorExpression,
+			 System.Collections.Generic.IEqualityComparer<TKey> equalityComparer)
+			
+		{
+			return new ObservableComputations.ConcurrentDictionaring<TSourceItem, TKey, TValue>(
+				source: source,
+				keySelectorExpression: keySelectorExpression,
+				valueSelectorExpression: valueSelectorExpression,
+				equalityComparer: equalityComparer);
+		}
+
+		[ObservableComputationsCall]
+		public static ObservableComputations.ConcurrentDictionaring<TSourceItem, TKey, TValue> ConcurrentDictionaring<TSourceItem, TKey, TValue>(this
+			 System.Collections.Specialized.INotifyCollectionChanged source,
+			 System.Linq.Expressions.Expression<System.Func<TSourceItem, TKey>> keySelectorExpression,
+			 System.Linq.Expressions.Expression<System.Func<TSourceItem, TValue>> valueSelectorExpression)
+			
+		{
+			return new ObservableComputations.ConcurrentDictionaring<TSourceItem, TKey, TValue>(
+				source: source,
+				keySelectorExpression: keySelectorExpression,
+				valueSelectorExpression: valueSelectorExpression,
+				equalityComparer: null);
+		}
+
+		[ObservableComputationsCall]
+		public static ObservableComputations.ConcurrentDictionaring<TSourceItem, TKey, TValue> ConcurrentDictionaring<TSourceItem, TKey, TValue>(this
+			 ObservableCollection<TSourceItem> source,
+			 System.Linq.Expressions.Expression<System.Func<TSourceItem, TKey>> keySelectorExpression,
+			 System.Linq.Expressions.Expression<System.Func<TSourceItem, TValue>> valueSelectorExpression,
+			 System.Collections.Generic.IEqualityComparer<TKey> equalityComparer)
+			
+		{
+			return new ObservableComputations.ConcurrentDictionaring<TSourceItem, TKey, TValue>(
+				source: source,
+				keySelectorExpression: keySelectorExpression,
+				valueSelectorExpression: valueSelectorExpression,
+				equalityComparer: equalityComparer);
+		}
+
+		[ObservableComputationsCall]
+		public static ObservableComputations.ConcurrentDictionaring<TSourceItem, TKey, TValue> ConcurrentDictionaring<TSourceItem, TKey, TValue>(this
+			 ObservableCollection<TSourceItem> source,
+			 System.Linq.Expressions.Expression<System.Func<TSourceItem, TKey>> keySelectorExpression,
+			 System.Linq.Expressions.Expression<System.Func<TSourceItem, TValue>> valueSelectorExpression)
+			
+		{
+			return new ObservableComputations.ConcurrentDictionaring<TSourceItem, TKey, TValue>(
+				source: source,
+				keySelectorExpression: keySelectorExpression,
+				valueSelectorExpression: valueSelectorExpression,
+				equalityComparer: null);
+		}
+
+		[ObservableComputationsCall]
+		public static ObservableComputations.ConcurrentDictionaring<TSourceItem, TKey, TValue> ConcurrentDictionaring<TSourceItem, TKey, TValue>(this
+			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar,
+			 System.Linq.Expressions.Expression<System.Func<TSourceItem, TKey>> keySelectorExpression,
+			 System.Linq.Expressions.Expression<System.Func<TSourceItem, TValue>> valueSelectorExpression,
+			 ObservableComputations.IReadScalar<System.Collections.Generic.IEqualityComparer<TKey>> equalityComparerScalar)
+			
+		{
+			return new ObservableComputations.ConcurrentDictionaring<TSourceItem, TKey, TValue>(
+				sourceScalar: sourceScalar,
+				keySelectorExpression: keySelectorExpression,
+				valueSelectorExpression: valueSelectorExpression,
+				equalityComparerScalar: equalityComparerScalar);
+		}
+
+		[ObservableComputationsCall]
+		public static ObservableComputations.ConcurrentDictionaring<TSourceItem, TKey, TValue> ConcurrentDictionaring<TSourceItem, TKey, TValue>(this
+			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar,
+			 System.Linq.Expressions.Expression<System.Func<TSourceItem, TKey>> keySelectorExpression,
+			 System.Linq.Expressions.Expression<System.Func<TSourceItem, TValue>> valueSelectorExpression,
+			 Expression<Func<System.Collections.Generic.IEqualityComparer<TKey>>> equalityComparerExpression)
+			
+		{
+			return new ObservableComputations.ConcurrentDictionaring<TSourceItem, TKey, TValue>(
+				sourceScalar: sourceScalar,
+				keySelectorExpression: keySelectorExpression,
+				valueSelectorExpression: valueSelectorExpression,
+				equalityComparerScalar: new Computing<System.Collections.Generic.IEqualityComparer<TKey>>(equalityComparerExpression));
+		}
+
+		[ObservableComputationsCall]
+		public static ObservableComputations.ConcurrentDictionaring<TSourceItem, TKey, TValue> ConcurrentDictionaring<TSourceItem, TKey, TValue>(this
+			 ObservableComputations.IReadScalar<ObservableCollection<TSourceItem>> sourceScalar,
+			 System.Linq.Expressions.Expression<System.Func<TSourceItem, TKey>> keySelectorExpression,
+			 System.Linq.Expressions.Expression<System.Func<TSourceItem, TValue>> valueSelectorExpression,
+			 ObservableComputations.IReadScalar<System.Collections.Generic.IEqualityComparer<TKey>> equalityComparerScalar)
+			
+		{
+			return new ObservableComputations.ConcurrentDictionaring<TSourceItem, TKey, TValue>(
+				sourceScalar: sourceScalar,
+				keySelectorExpression: keySelectorExpression,
+				valueSelectorExpression: valueSelectorExpression,
+				equalityComparerScalar: equalityComparerScalar);
+		}
+
+		[ObservableComputationsCall]
+		public static ObservableComputations.ConcurrentDictionaring<TSourceItem, TKey, TValue> ConcurrentDictionaring<TSourceItem, TKey, TValue>(this
+			 ObservableComputations.IReadScalar<ObservableCollection<TSourceItem>> sourceScalar,
+			 System.Linq.Expressions.Expression<System.Func<TSourceItem, TKey>> keySelectorExpression,
+			 System.Linq.Expressions.Expression<System.Func<TSourceItem, TValue>> valueSelectorExpression,
+			 Expression<Func<System.Collections.Generic.IEqualityComparer<TKey>>> equalityComparerExpression)
+			
+		{
+			return new ObservableComputations.ConcurrentDictionaring<TSourceItem, TKey, TValue>(
+				sourceScalar: sourceScalar,
+				keySelectorExpression: keySelectorExpression,
+				valueSelectorExpression: valueSelectorExpression,
+				equalityComparerScalar: new Computing<System.Collections.Generic.IEqualityComparer<TKey>>(equalityComparerExpression));
+		}
+
+		[ObservableComputationsCall]
+		public static ObservableComputations.ConcurrentDictionaring<TSourceItem, TKey, TValue> ConcurrentDictionaring<TSourceItem, TKey, TValue>(this
+			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> sourceExpression,
+			 System.Linq.Expressions.Expression<System.Func<TSourceItem, TKey>> keySelectorExpression,
+			 System.Linq.Expressions.Expression<System.Func<TSourceItem, TValue>> valueSelectorExpression,
+			 ObservableComputations.IReadScalar<System.Collections.Generic.IEqualityComparer<TKey>> equalityComparerScalar)
+			
+		{
+			return new ObservableComputations.ConcurrentDictionaring<TSourceItem, TKey, TValue>(
+				sourceScalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(sourceExpression),
+				keySelectorExpression: keySelectorExpression,
+				valueSelectorExpression: valueSelectorExpression,
+				equalityComparerScalar: equalityComparerScalar);
+		}
+
+		[ObservableComputationsCall]
+		public static ObservableComputations.ConcurrentDictionaring<TSourceItem, TKey, TValue> ConcurrentDictionaring<TSourceItem, TKey, TValue>(this
+			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> sourceExpression,
+			 System.Linq.Expressions.Expression<System.Func<TSourceItem, TKey>> keySelectorExpression,
+			 System.Linq.Expressions.Expression<System.Func<TSourceItem, TValue>> valueSelectorExpression,
+			 Expression<Func<System.Collections.Generic.IEqualityComparer<TKey>>> equalityComparerExpression)
+			
+		{
+			return new ObservableComputations.ConcurrentDictionaring<TSourceItem, TKey, TValue>(
+				sourceScalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(sourceExpression),
+				keySelectorExpression: keySelectorExpression,
+				valueSelectorExpression: valueSelectorExpression,
+				equalityComparerScalar: new Computing<System.Collections.Generic.IEqualityComparer<TKey>>(equalityComparerExpression));
+		}
+
+		[ObservableComputationsCall]
+		public static ObservableComputations.ConcurrentDictionaring<TSourceItem, TKey, TValue> ConcurrentDictionaring<TSourceItem, TKey, TValue>(this
+			 Expression<Func<ObservableCollection<TSourceItem>>> sourceExpression,
+			 System.Linq.Expressions.Expression<System.Func<TSourceItem, TKey>> keySelectorExpression,
+			 System.Linq.Expressions.Expression<System.Func<TSourceItem, TValue>> valueSelectorExpression,
+			 ObservableComputations.IReadScalar<System.Collections.Generic.IEqualityComparer<TKey>> equalityComparerScalar)
+			
+		{
+			return new ObservableComputations.ConcurrentDictionaring<TSourceItem, TKey, TValue>(
+				sourceScalar: new Computing<ObservableCollection<TSourceItem>>(sourceExpression),
+				keySelectorExpression: keySelectorExpression,
+				valueSelectorExpression: valueSelectorExpression,
+				equalityComparerScalar: equalityComparerScalar);
+		}
+
+		[ObservableComputationsCall]
+		public static ObservableComputations.ConcurrentDictionaring<TSourceItem, TKey, TValue> ConcurrentDictionaring<TSourceItem, TKey, TValue>(this
+			 Expression<Func<ObservableCollection<TSourceItem>>> sourceExpression,
+			 System.Linq.Expressions.Expression<System.Func<TSourceItem, TKey>> keySelectorExpression,
+			 System.Linq.Expressions.Expression<System.Func<TSourceItem, TValue>> valueSelectorExpression,
+			 Expression<Func<System.Collections.Generic.IEqualityComparer<TKey>>> equalityComparerExpression)
+			
+		{
+			return new ObservableComputations.ConcurrentDictionaring<TSourceItem, TKey, TValue>(
+				sourceScalar: new Computing<ObservableCollection<TSourceItem>>(sourceExpression),
+				keySelectorExpression: keySelectorExpression,
+				valueSelectorExpression: valueSelectorExpression,
+				equalityComparerScalar: new Computing<System.Collections.Generic.IEqualityComparer<TKey>>(equalityComparerExpression));
+		}
+
+		[ObservableComputationsCall]
+		public static ObservableComputations.ConcurrentDictionaring<TSourceItem, TKey, TValue> ConcurrentDictionaring<TSourceItem, TKey, TValue>(this
+			 System.Collections.Specialized.INotifyCollectionChanged source,
+			 System.Linq.Expressions.Expression<System.Func<TSourceItem, TKey>> keySelectorExpression,
+			 System.Linq.Expressions.Expression<System.Func<TSourceItem, TValue>> valueSelectorExpression,
+			 ObservableComputations.IReadScalar<System.Collections.Generic.IEqualityComparer<TKey>> equalityComparerScalar)
+			
+		{
+			return new ObservableComputations.ConcurrentDictionaring<TSourceItem, TKey, TValue>(
+				source: source,
+				keySelectorExpression: keySelectorExpression,
+				valueSelectorExpression: valueSelectorExpression,
+				equalityComparerScalar: equalityComparerScalar);
+		}
+
+		[ObservableComputationsCall]
+		public static ObservableComputations.ConcurrentDictionaring<TSourceItem, TKey, TValue> ConcurrentDictionaring<TSourceItem, TKey, TValue>(this
+			 System.Collections.Specialized.INotifyCollectionChanged source,
+			 System.Linq.Expressions.Expression<System.Func<TSourceItem, TKey>> keySelectorExpression,
+			 System.Linq.Expressions.Expression<System.Func<TSourceItem, TValue>> valueSelectorExpression,
+			 Expression<Func<System.Collections.Generic.IEqualityComparer<TKey>>> equalityComparerExpression)
+			
+		{
+			return new ObservableComputations.ConcurrentDictionaring<TSourceItem, TKey, TValue>(
+				source: source,
+				keySelectorExpression: keySelectorExpression,
+				valueSelectorExpression: valueSelectorExpression,
+				equalityComparerScalar: new Computing<System.Collections.Generic.IEqualityComparer<TKey>>(equalityComparerExpression));
+		}
+
+		[ObservableComputationsCall]
+		public static ObservableComputations.ConcurrentDictionaring<TSourceItem, TKey, TValue> ConcurrentDictionaring<TSourceItem, TKey, TValue>(this
+			 ObservableCollection<TSourceItem> source,
+			 System.Linq.Expressions.Expression<System.Func<TSourceItem, TKey>> keySelectorExpression,
+			 System.Linq.Expressions.Expression<System.Func<TSourceItem, TValue>> valueSelectorExpression,
+			 ObservableComputations.IReadScalar<System.Collections.Generic.IEqualityComparer<TKey>> equalityComparerScalar)
+			
+		{
+			return new ObservableComputations.ConcurrentDictionaring<TSourceItem, TKey, TValue>(
+				source: source,
+				keySelectorExpression: keySelectorExpression,
+				valueSelectorExpression: valueSelectorExpression,
+				equalityComparerScalar: equalityComparerScalar);
+		}
+
+		[ObservableComputationsCall]
+		public static ObservableComputations.ConcurrentDictionaring<TSourceItem, TKey, TValue> ConcurrentDictionaring<TSourceItem, TKey, TValue>(this
+			 ObservableCollection<TSourceItem> source,
+			 System.Linq.Expressions.Expression<System.Func<TSourceItem, TKey>> keySelectorExpression,
+			 System.Linq.Expressions.Expression<System.Func<TSourceItem, TValue>> valueSelectorExpression,
+			 Expression<Func<System.Collections.Generic.IEqualityComparer<TKey>>> equalityComparerExpression)
+			
+		{
+			return new ObservableComputations.ConcurrentDictionaring<TSourceItem, TKey, TValue>(
+				source: source,
+				keySelectorExpression: keySelectorExpression,
+				valueSelectorExpression: valueSelectorExpression,
+				equalityComparerScalar: new Computing<System.Collections.Generic.IEqualityComparer<TKey>>(equalityComparerExpression));
+		}
+
+		#endregion
 		#region ContainsComputing
 
 		[ObservableComputationsCall]
@@ -21521,853 +21878,127 @@ namespace ObservableComputations
 		[ObservableComputationsCall]
 		public static ObservableComputations.Paging<TSourceItem> Paging<TSourceItem>(this
 			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar,
-			 ObservableComputations.IReadScalar<int> pageSizeScalar,
-			 ObservableComputations.IReadScalar<int> currentPageNumScalar,
 			 int capacity)
 			
 		{
 			return new ObservableComputations.Paging<TSourceItem>(
 				sourceScalar: sourceScalar,
-				pageSizeScalar: pageSizeScalar,
-				currentPageNumScalar: currentPageNumScalar,
 				capacity: capacity);
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.Paging<TSourceItem> Paging<TSourceItem>(this
-			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar,
-			 ObservableComputations.IReadScalar<int> pageSizeScalar,
-			 ObservableComputations.IReadScalar<int> currentPageNumScalar)
+			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar)
 			
 		{
 			return new ObservableComputations.Paging<TSourceItem>(
 				sourceScalar: sourceScalar,
-				pageSizeScalar: pageSizeScalar,
-				currentPageNumScalar: currentPageNumScalar,
-				capacity: 0);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.Paging<TSourceItem> Paging<TSourceItem>(this
-			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar,
-			 ObservableComputations.IReadScalar<int> pageSizeScalar,
-			 Expression<Func<int>> currentPageNumExpression,
-			 int capacity)
-			
-		{
-			return new ObservableComputations.Paging<TSourceItem>(
-				sourceScalar: sourceScalar,
-				pageSizeScalar: pageSizeScalar,
-				currentPageNumScalar: new Computing<int>(currentPageNumExpression),
-				capacity: capacity);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.Paging<TSourceItem> Paging<TSourceItem>(this
-			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar,
-			 ObservableComputations.IReadScalar<int> pageSizeScalar,
-			 Expression<Func<int>> currentPageNumExpression)
-			
-		{
-			return new ObservableComputations.Paging<TSourceItem>(
-				sourceScalar: sourceScalar,
-				pageSizeScalar: pageSizeScalar,
-				currentPageNumScalar: new Computing<int>(currentPageNumExpression),
-				capacity: 0);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.Paging<TSourceItem> Paging<TSourceItem>(this
-			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar,
-			 Expression<Func<int>> pageSizeExpression,
-			 ObservableComputations.IReadScalar<int> currentPageNumScalar,
-			 int capacity)
-			
-		{
-			return new ObservableComputations.Paging<TSourceItem>(
-				sourceScalar: sourceScalar,
-				pageSizeScalar: new Computing<int>(pageSizeExpression),
-				currentPageNumScalar: currentPageNumScalar,
-				capacity: capacity);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.Paging<TSourceItem> Paging<TSourceItem>(this
-			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar,
-			 Expression<Func<int>> pageSizeExpression,
-			 ObservableComputations.IReadScalar<int> currentPageNumScalar)
-			
-		{
-			return new ObservableComputations.Paging<TSourceItem>(
-				sourceScalar: sourceScalar,
-				pageSizeScalar: new Computing<int>(pageSizeExpression),
-				currentPageNumScalar: currentPageNumScalar,
-				capacity: 0);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.Paging<TSourceItem> Paging<TSourceItem>(this
-			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar,
-			 Expression<Func<int>> pageSizeExpression,
-			 Expression<Func<int>> currentPageNumExpression,
-			 int capacity)
-			
-		{
-			return new ObservableComputations.Paging<TSourceItem>(
-				sourceScalar: sourceScalar,
-				pageSizeScalar: new Computing<int>(pageSizeExpression),
-				currentPageNumScalar: new Computing<int>(currentPageNumExpression),
-				capacity: capacity);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.Paging<TSourceItem> Paging<TSourceItem>(this
-			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar,
-			 Expression<Func<int>> pageSizeExpression,
-			 Expression<Func<int>> currentPageNumExpression)
-			
-		{
-			return new ObservableComputations.Paging<TSourceItem>(
-				sourceScalar: sourceScalar,
-				pageSizeScalar: new Computing<int>(pageSizeExpression),
-				currentPageNumScalar: new Computing<int>(currentPageNumExpression),
 				capacity: 0);
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.Paging<TSourceItem> Paging<TSourceItem>(this
 			 ObservableComputations.IReadScalar<ObservableCollection<TSourceItem>> sourceScalar,
-			 ObservableComputations.IReadScalar<int> pageSizeScalar,
-			 ObservableComputations.IReadScalar<int> currentPageNumScalar,
 			 int capacity)
 			
 		{
 			return new ObservableComputations.Paging<TSourceItem>(
 				sourceScalar: sourceScalar,
-				pageSizeScalar: pageSizeScalar,
-				currentPageNumScalar: currentPageNumScalar,
 				capacity: capacity);
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.Paging<TSourceItem> Paging<TSourceItem>(this
-			 ObservableComputations.IReadScalar<ObservableCollection<TSourceItem>> sourceScalar,
-			 ObservableComputations.IReadScalar<int> pageSizeScalar,
-			 ObservableComputations.IReadScalar<int> currentPageNumScalar)
+			 ObservableComputations.IReadScalar<ObservableCollection<TSourceItem>> sourceScalar)
 			
 		{
 			return new ObservableComputations.Paging<TSourceItem>(
 				sourceScalar: sourceScalar,
-				pageSizeScalar: pageSizeScalar,
-				currentPageNumScalar: currentPageNumScalar,
-				capacity: 0);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.Paging<TSourceItem> Paging<TSourceItem>(this
-			 ObservableComputations.IReadScalar<ObservableCollection<TSourceItem>> sourceScalar,
-			 ObservableComputations.IReadScalar<int> pageSizeScalar,
-			 Expression<Func<int>> currentPageNumExpression,
-			 int capacity)
-			
-		{
-			return new ObservableComputations.Paging<TSourceItem>(
-				sourceScalar: sourceScalar,
-				pageSizeScalar: pageSizeScalar,
-				currentPageNumScalar: new Computing<int>(currentPageNumExpression),
-				capacity: capacity);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.Paging<TSourceItem> Paging<TSourceItem>(this
-			 ObservableComputations.IReadScalar<ObservableCollection<TSourceItem>> sourceScalar,
-			 ObservableComputations.IReadScalar<int> pageSizeScalar,
-			 Expression<Func<int>> currentPageNumExpression)
-			
-		{
-			return new ObservableComputations.Paging<TSourceItem>(
-				sourceScalar: sourceScalar,
-				pageSizeScalar: pageSizeScalar,
-				currentPageNumScalar: new Computing<int>(currentPageNumExpression),
-				capacity: 0);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.Paging<TSourceItem> Paging<TSourceItem>(this
-			 ObservableComputations.IReadScalar<ObservableCollection<TSourceItem>> sourceScalar,
-			 Expression<Func<int>> pageSizeExpression,
-			 ObservableComputations.IReadScalar<int> currentPageNumScalar,
-			 int capacity)
-			
-		{
-			return new ObservableComputations.Paging<TSourceItem>(
-				sourceScalar: sourceScalar,
-				pageSizeScalar: new Computing<int>(pageSizeExpression),
-				currentPageNumScalar: currentPageNumScalar,
-				capacity: capacity);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.Paging<TSourceItem> Paging<TSourceItem>(this
-			 ObservableComputations.IReadScalar<ObservableCollection<TSourceItem>> sourceScalar,
-			 Expression<Func<int>> pageSizeExpression,
-			 ObservableComputations.IReadScalar<int> currentPageNumScalar)
-			
-		{
-			return new ObservableComputations.Paging<TSourceItem>(
-				sourceScalar: sourceScalar,
-				pageSizeScalar: new Computing<int>(pageSizeExpression),
-				currentPageNumScalar: currentPageNumScalar,
-				capacity: 0);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.Paging<TSourceItem> Paging<TSourceItem>(this
-			 ObservableComputations.IReadScalar<ObservableCollection<TSourceItem>> sourceScalar,
-			 Expression<Func<int>> pageSizeExpression,
-			 Expression<Func<int>> currentPageNumExpression,
-			 int capacity)
-			
-		{
-			return new ObservableComputations.Paging<TSourceItem>(
-				sourceScalar: sourceScalar,
-				pageSizeScalar: new Computing<int>(pageSizeExpression),
-				currentPageNumScalar: new Computing<int>(currentPageNumExpression),
-				capacity: capacity);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.Paging<TSourceItem> Paging<TSourceItem>(this
-			 ObservableComputations.IReadScalar<ObservableCollection<TSourceItem>> sourceScalar,
-			 Expression<Func<int>> pageSizeExpression,
-			 Expression<Func<int>> currentPageNumExpression)
-			
-		{
-			return new ObservableComputations.Paging<TSourceItem>(
-				sourceScalar: sourceScalar,
-				pageSizeScalar: new Computing<int>(pageSizeExpression),
-				currentPageNumScalar: new Computing<int>(currentPageNumExpression),
 				capacity: 0);
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.Paging<TSourceItem> Paging<TSourceItem>(this
 			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> sourceExpression,
-			 ObservableComputations.IReadScalar<int> pageSizeScalar,
-			 ObservableComputations.IReadScalar<int> currentPageNumScalar,
 			 int capacity)
 			
 		{
 			return new ObservableComputations.Paging<TSourceItem>(
 				sourceScalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(sourceExpression),
-				pageSizeScalar: pageSizeScalar,
-				currentPageNumScalar: currentPageNumScalar,
 				capacity: capacity);
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.Paging<TSourceItem> Paging<TSourceItem>(this
-			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> sourceExpression,
-			 ObservableComputations.IReadScalar<int> pageSizeScalar,
-			 ObservableComputations.IReadScalar<int> currentPageNumScalar)
+			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> sourceExpression)
 			
 		{
 			return new ObservableComputations.Paging<TSourceItem>(
 				sourceScalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(sourceExpression),
-				pageSizeScalar: pageSizeScalar,
-				currentPageNumScalar: currentPageNumScalar,
-				capacity: 0);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.Paging<TSourceItem> Paging<TSourceItem>(this
-			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> sourceExpression,
-			 ObservableComputations.IReadScalar<int> pageSizeScalar,
-			 Expression<Func<int>> currentPageNumExpression,
-			 int capacity)
-			
-		{
-			return new ObservableComputations.Paging<TSourceItem>(
-				sourceScalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(sourceExpression),
-				pageSizeScalar: pageSizeScalar,
-				currentPageNumScalar: new Computing<int>(currentPageNumExpression),
-				capacity: capacity);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.Paging<TSourceItem> Paging<TSourceItem>(this
-			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> sourceExpression,
-			 ObservableComputations.IReadScalar<int> pageSizeScalar,
-			 Expression<Func<int>> currentPageNumExpression)
-			
-		{
-			return new ObservableComputations.Paging<TSourceItem>(
-				sourceScalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(sourceExpression),
-				pageSizeScalar: pageSizeScalar,
-				currentPageNumScalar: new Computing<int>(currentPageNumExpression),
-				capacity: 0);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.Paging<TSourceItem> Paging<TSourceItem>(this
-			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> sourceExpression,
-			 Expression<Func<int>> pageSizeExpression,
-			 ObservableComputations.IReadScalar<int> currentPageNumScalar,
-			 int capacity)
-			
-		{
-			return new ObservableComputations.Paging<TSourceItem>(
-				sourceScalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(sourceExpression),
-				pageSizeScalar: new Computing<int>(pageSizeExpression),
-				currentPageNumScalar: currentPageNumScalar,
-				capacity: capacity);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.Paging<TSourceItem> Paging<TSourceItem>(this
-			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> sourceExpression,
-			 Expression<Func<int>> pageSizeExpression,
-			 ObservableComputations.IReadScalar<int> currentPageNumScalar)
-			
-		{
-			return new ObservableComputations.Paging<TSourceItem>(
-				sourceScalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(sourceExpression),
-				pageSizeScalar: new Computing<int>(pageSizeExpression),
-				currentPageNumScalar: currentPageNumScalar,
-				capacity: 0);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.Paging<TSourceItem> Paging<TSourceItem>(this
-			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> sourceExpression,
-			 Expression<Func<int>> pageSizeExpression,
-			 Expression<Func<int>> currentPageNumExpression,
-			 int capacity)
-			
-		{
-			return new ObservableComputations.Paging<TSourceItem>(
-				sourceScalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(sourceExpression),
-				pageSizeScalar: new Computing<int>(pageSizeExpression),
-				currentPageNumScalar: new Computing<int>(currentPageNumExpression),
-				capacity: capacity);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.Paging<TSourceItem> Paging<TSourceItem>(this
-			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> sourceExpression,
-			 Expression<Func<int>> pageSizeExpression,
-			 Expression<Func<int>> currentPageNumExpression)
-			
-		{
-			return new ObservableComputations.Paging<TSourceItem>(
-				sourceScalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(sourceExpression),
-				pageSizeScalar: new Computing<int>(pageSizeExpression),
-				currentPageNumScalar: new Computing<int>(currentPageNumExpression),
 				capacity: 0);
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.Paging<TSourceItem> Paging<TSourceItem>(this
 			 Expression<Func<ObservableCollection<TSourceItem>>> sourceExpression,
-			 ObservableComputations.IReadScalar<int> pageSizeScalar,
-			 ObservableComputations.IReadScalar<int> currentPageNumScalar,
 			 int capacity)
 			
 		{
 			return new ObservableComputations.Paging<TSourceItem>(
 				sourceScalar: new Computing<ObservableCollection<TSourceItem>>(sourceExpression),
-				pageSizeScalar: pageSizeScalar,
-				currentPageNumScalar: currentPageNumScalar,
 				capacity: capacity);
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.Paging<TSourceItem> Paging<TSourceItem>(this
-			 Expression<Func<ObservableCollection<TSourceItem>>> sourceExpression,
-			 ObservableComputations.IReadScalar<int> pageSizeScalar,
-			 ObservableComputations.IReadScalar<int> currentPageNumScalar)
+			 Expression<Func<ObservableCollection<TSourceItem>>> sourceExpression)
 			
 		{
 			return new ObservableComputations.Paging<TSourceItem>(
 				sourceScalar: new Computing<ObservableCollection<TSourceItem>>(sourceExpression),
-				pageSizeScalar: pageSizeScalar,
-				currentPageNumScalar: currentPageNumScalar,
-				capacity: 0);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.Paging<TSourceItem> Paging<TSourceItem>(this
-			 Expression<Func<ObservableCollection<TSourceItem>>> sourceExpression,
-			 ObservableComputations.IReadScalar<int> pageSizeScalar,
-			 Expression<Func<int>> currentPageNumExpression,
-			 int capacity)
-			
-		{
-			return new ObservableComputations.Paging<TSourceItem>(
-				sourceScalar: new Computing<ObservableCollection<TSourceItem>>(sourceExpression),
-				pageSizeScalar: pageSizeScalar,
-				currentPageNumScalar: new Computing<int>(currentPageNumExpression),
-				capacity: capacity);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.Paging<TSourceItem> Paging<TSourceItem>(this
-			 Expression<Func<ObservableCollection<TSourceItem>>> sourceExpression,
-			 ObservableComputations.IReadScalar<int> pageSizeScalar,
-			 Expression<Func<int>> currentPageNumExpression)
-			
-		{
-			return new ObservableComputations.Paging<TSourceItem>(
-				sourceScalar: new Computing<ObservableCollection<TSourceItem>>(sourceExpression),
-				pageSizeScalar: pageSizeScalar,
-				currentPageNumScalar: new Computing<int>(currentPageNumExpression),
-				capacity: 0);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.Paging<TSourceItem> Paging<TSourceItem>(this
-			 Expression<Func<ObservableCollection<TSourceItem>>> sourceExpression,
-			 Expression<Func<int>> pageSizeExpression,
-			 ObservableComputations.IReadScalar<int> currentPageNumScalar,
-			 int capacity)
-			
-		{
-			return new ObservableComputations.Paging<TSourceItem>(
-				sourceScalar: new Computing<ObservableCollection<TSourceItem>>(sourceExpression),
-				pageSizeScalar: new Computing<int>(pageSizeExpression),
-				currentPageNumScalar: currentPageNumScalar,
-				capacity: capacity);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.Paging<TSourceItem> Paging<TSourceItem>(this
-			 Expression<Func<ObservableCollection<TSourceItem>>> sourceExpression,
-			 Expression<Func<int>> pageSizeExpression,
-			 ObservableComputations.IReadScalar<int> currentPageNumScalar)
-			
-		{
-			return new ObservableComputations.Paging<TSourceItem>(
-				sourceScalar: new Computing<ObservableCollection<TSourceItem>>(sourceExpression),
-				pageSizeScalar: new Computing<int>(pageSizeExpression),
-				currentPageNumScalar: currentPageNumScalar,
-				capacity: 0);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.Paging<TSourceItem> Paging<TSourceItem>(this
-			 Expression<Func<ObservableCollection<TSourceItem>>> sourceExpression,
-			 Expression<Func<int>> pageSizeExpression,
-			 Expression<Func<int>> currentPageNumExpression,
-			 int capacity)
-			
-		{
-			return new ObservableComputations.Paging<TSourceItem>(
-				sourceScalar: new Computing<ObservableCollection<TSourceItem>>(sourceExpression),
-				pageSizeScalar: new Computing<int>(pageSizeExpression),
-				currentPageNumScalar: new Computing<int>(currentPageNumExpression),
-				capacity: capacity);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.Paging<TSourceItem> Paging<TSourceItem>(this
-			 Expression<Func<ObservableCollection<TSourceItem>>> sourceExpression,
-			 Expression<Func<int>> pageSizeExpression,
-			 Expression<Func<int>> currentPageNumExpression)
-			
-		{
-			return new ObservableComputations.Paging<TSourceItem>(
-				sourceScalar: new Computing<ObservableCollection<TSourceItem>>(sourceExpression),
-				pageSizeScalar: new Computing<int>(pageSizeExpression),
-				currentPageNumScalar: new Computing<int>(currentPageNumExpression),
-				capacity: 0);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.Paging<TSourceItem> Paging<TSourceItem>(this
-			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar,
-			 int pageSize,
-			 ObservableComputations.IReadScalar<int> currentPageNumScalar)
-			
-		{
-			return new ObservableComputations.Paging<TSourceItem>(
-				sourceScalar: sourceScalar,
-				pageSize: pageSize,
-				currentPageNumScalar: currentPageNumScalar);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.Paging<TSourceItem> Paging<TSourceItem>(this
-			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar,
-			 int pageSize,
-			 Expression<Func<int>> currentPageNumExpression)
-			
-		{
-			return new ObservableComputations.Paging<TSourceItem>(
-				sourceScalar: sourceScalar,
-				pageSize: pageSize,
-				currentPageNumScalar: new Computing<int>(currentPageNumExpression));
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.Paging<TSourceItem> Paging<TSourceItem>(this
-			 ObservableComputations.IReadScalar<ObservableCollection<TSourceItem>> sourceScalar,
-			 int pageSize,
-			 ObservableComputations.IReadScalar<int> currentPageNumScalar)
-			
-		{
-			return new ObservableComputations.Paging<TSourceItem>(
-				sourceScalar: sourceScalar,
-				pageSize: pageSize,
-				currentPageNumScalar: currentPageNumScalar);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.Paging<TSourceItem> Paging<TSourceItem>(this
-			 ObservableComputations.IReadScalar<ObservableCollection<TSourceItem>> sourceScalar,
-			 int pageSize,
-			 Expression<Func<int>> currentPageNumExpression)
-			
-		{
-			return new ObservableComputations.Paging<TSourceItem>(
-				sourceScalar: sourceScalar,
-				pageSize: pageSize,
-				currentPageNumScalar: new Computing<int>(currentPageNumExpression));
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.Paging<TSourceItem> Paging<TSourceItem>(this
-			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> sourceExpression,
-			 int pageSize,
-			 ObservableComputations.IReadScalar<int> currentPageNumScalar)
-			
-		{
-			return new ObservableComputations.Paging<TSourceItem>(
-				sourceScalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(sourceExpression),
-				pageSize: pageSize,
-				currentPageNumScalar: currentPageNumScalar);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.Paging<TSourceItem> Paging<TSourceItem>(this
-			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> sourceExpression,
-			 int pageSize,
-			 Expression<Func<int>> currentPageNumExpression)
-			
-		{
-			return new ObservableComputations.Paging<TSourceItem>(
-				sourceScalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(sourceExpression),
-				pageSize: pageSize,
-				currentPageNumScalar: new Computing<int>(currentPageNumExpression));
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.Paging<TSourceItem> Paging<TSourceItem>(this
-			 Expression<Func<ObservableCollection<TSourceItem>>> sourceExpression,
-			 int pageSize,
-			 ObservableComputations.IReadScalar<int> currentPageNumScalar)
-			
-		{
-			return new ObservableComputations.Paging<TSourceItem>(
-				sourceScalar: new Computing<ObservableCollection<TSourceItem>>(sourceExpression),
-				pageSize: pageSize,
-				currentPageNumScalar: currentPageNumScalar);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.Paging<TSourceItem> Paging<TSourceItem>(this
-			 Expression<Func<ObservableCollection<TSourceItem>>> sourceExpression,
-			 int pageSize,
-			 Expression<Func<int>> currentPageNumExpression)
-			
-		{
-			return new ObservableComputations.Paging<TSourceItem>(
-				sourceScalar: new Computing<ObservableCollection<TSourceItem>>(sourceExpression),
-				pageSize: pageSize,
-				currentPageNumScalar: new Computing<int>(currentPageNumExpression));
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.Paging<TSourceItem> Paging<TSourceItem>(this
-			 System.Collections.Specialized.INotifyCollectionChanged source,
-			 ObservableComputations.IReadScalar<int> pageSizeScalar,
-			 ObservableComputations.IReadScalar<int> currentPageNumScalar,
-			 int capacity)
-			
-		{
-			return new ObservableComputations.Paging<TSourceItem>(
-				source: source,
-				pageSizeScalar: pageSizeScalar,
-				currentPageNumScalar: currentPageNumScalar,
-				capacity: capacity);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.Paging<TSourceItem> Paging<TSourceItem>(this
-			 System.Collections.Specialized.INotifyCollectionChanged source,
-			 ObservableComputations.IReadScalar<int> pageSizeScalar,
-			 ObservableComputations.IReadScalar<int> currentPageNumScalar)
-			
-		{
-			return new ObservableComputations.Paging<TSourceItem>(
-				source: source,
-				pageSizeScalar: pageSizeScalar,
-				currentPageNumScalar: currentPageNumScalar,
 				capacity: 0);
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.Paging<TSourceItem> Paging<TSourceItem>(this
 			 System.Collections.Specialized.INotifyCollectionChanged source,
-			 ObservableComputations.IReadScalar<int> pageSizeScalar,
-			 Expression<Func<int>> currentPageNumExpression,
 			 int capacity)
 			
 		{
 			return new ObservableComputations.Paging<TSourceItem>(
 				source: source,
-				pageSizeScalar: pageSizeScalar,
-				currentPageNumScalar: new Computing<int>(currentPageNumExpression),
 				capacity: capacity);
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.Paging<TSourceItem> Paging<TSourceItem>(this
-			 System.Collections.Specialized.INotifyCollectionChanged source,
-			 ObservableComputations.IReadScalar<int> pageSizeScalar,
-			 Expression<Func<int>> currentPageNumExpression)
+			 System.Collections.Specialized.INotifyCollectionChanged source)
 			
 		{
 			return new ObservableComputations.Paging<TSourceItem>(
 				source: source,
-				pageSizeScalar: pageSizeScalar,
-				currentPageNumScalar: new Computing<int>(currentPageNumExpression),
-				capacity: 0);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.Paging<TSourceItem> Paging<TSourceItem>(this
-			 System.Collections.Specialized.INotifyCollectionChanged source,
-			 Expression<Func<int>> pageSizeExpression,
-			 ObservableComputations.IReadScalar<int> currentPageNumScalar,
-			 int capacity)
-			
-		{
-			return new ObservableComputations.Paging<TSourceItem>(
-				source: source,
-				pageSizeScalar: new Computing<int>(pageSizeExpression),
-				currentPageNumScalar: currentPageNumScalar,
-				capacity: capacity);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.Paging<TSourceItem> Paging<TSourceItem>(this
-			 System.Collections.Specialized.INotifyCollectionChanged source,
-			 Expression<Func<int>> pageSizeExpression,
-			 ObservableComputations.IReadScalar<int> currentPageNumScalar)
-			
-		{
-			return new ObservableComputations.Paging<TSourceItem>(
-				source: source,
-				pageSizeScalar: new Computing<int>(pageSizeExpression),
-				currentPageNumScalar: currentPageNumScalar,
-				capacity: 0);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.Paging<TSourceItem> Paging<TSourceItem>(this
-			 System.Collections.Specialized.INotifyCollectionChanged source,
-			 Expression<Func<int>> pageSizeExpression,
-			 Expression<Func<int>> currentPageNumExpression,
-			 int capacity)
-			
-		{
-			return new ObservableComputations.Paging<TSourceItem>(
-				source: source,
-				pageSizeScalar: new Computing<int>(pageSizeExpression),
-				currentPageNumScalar: new Computing<int>(currentPageNumExpression),
-				capacity: capacity);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.Paging<TSourceItem> Paging<TSourceItem>(this
-			 System.Collections.Specialized.INotifyCollectionChanged source,
-			 Expression<Func<int>> pageSizeExpression,
-			 Expression<Func<int>> currentPageNumExpression)
-			
-		{
-			return new ObservableComputations.Paging<TSourceItem>(
-				source: source,
-				pageSizeScalar: new Computing<int>(pageSizeExpression),
-				currentPageNumScalar: new Computing<int>(currentPageNumExpression),
 				capacity: 0);
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.Paging<TSourceItem> Paging<TSourceItem>(this
 			 ObservableCollection<TSourceItem> source,
-			 ObservableComputations.IReadScalar<int> pageSizeScalar,
-			 ObservableComputations.IReadScalar<int> currentPageNumScalar,
 			 int capacity)
 			
 		{
 			return new ObservableComputations.Paging<TSourceItem>(
 				source: source,
-				pageSizeScalar: pageSizeScalar,
-				currentPageNumScalar: currentPageNumScalar,
 				capacity: capacity);
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.Paging<TSourceItem> Paging<TSourceItem>(this
-			 ObservableCollection<TSourceItem> source,
-			 ObservableComputations.IReadScalar<int> pageSizeScalar,
-			 ObservableComputations.IReadScalar<int> currentPageNumScalar)
+			 ObservableCollection<TSourceItem> source)
 			
 		{
 			return new ObservableComputations.Paging<TSourceItem>(
 				source: source,
-				pageSizeScalar: pageSizeScalar,
-				currentPageNumScalar: currentPageNumScalar,
 				capacity: 0);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.Paging<TSourceItem> Paging<TSourceItem>(this
-			 ObservableCollection<TSourceItem> source,
-			 ObservableComputations.IReadScalar<int> pageSizeScalar,
-			 Expression<Func<int>> currentPageNumExpression,
-			 int capacity)
-			
-		{
-			return new ObservableComputations.Paging<TSourceItem>(
-				source: source,
-				pageSizeScalar: pageSizeScalar,
-				currentPageNumScalar: new Computing<int>(currentPageNumExpression),
-				capacity: capacity);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.Paging<TSourceItem> Paging<TSourceItem>(this
-			 ObservableCollection<TSourceItem> source,
-			 ObservableComputations.IReadScalar<int> pageSizeScalar,
-			 Expression<Func<int>> currentPageNumExpression)
-			
-		{
-			return new ObservableComputations.Paging<TSourceItem>(
-				source: source,
-				pageSizeScalar: pageSizeScalar,
-				currentPageNumScalar: new Computing<int>(currentPageNumExpression),
-				capacity: 0);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.Paging<TSourceItem> Paging<TSourceItem>(this
-			 ObservableCollection<TSourceItem> source,
-			 Expression<Func<int>> pageSizeExpression,
-			 ObservableComputations.IReadScalar<int> currentPageNumScalar,
-			 int capacity)
-			
-		{
-			return new ObservableComputations.Paging<TSourceItem>(
-				source: source,
-				pageSizeScalar: new Computing<int>(pageSizeExpression),
-				currentPageNumScalar: currentPageNumScalar,
-				capacity: capacity);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.Paging<TSourceItem> Paging<TSourceItem>(this
-			 ObservableCollection<TSourceItem> source,
-			 Expression<Func<int>> pageSizeExpression,
-			 ObservableComputations.IReadScalar<int> currentPageNumScalar)
-			
-		{
-			return new ObservableComputations.Paging<TSourceItem>(
-				source: source,
-				pageSizeScalar: new Computing<int>(pageSizeExpression),
-				currentPageNumScalar: currentPageNumScalar,
-				capacity: 0);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.Paging<TSourceItem> Paging<TSourceItem>(this
-			 ObservableCollection<TSourceItem> source,
-			 Expression<Func<int>> pageSizeExpression,
-			 Expression<Func<int>> currentPageNumExpression,
-			 int capacity)
-			
-		{
-			return new ObservableComputations.Paging<TSourceItem>(
-				source: source,
-				pageSizeScalar: new Computing<int>(pageSizeExpression),
-				currentPageNumScalar: new Computing<int>(currentPageNumExpression),
-				capacity: capacity);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.Paging<TSourceItem> Paging<TSourceItem>(this
-			 ObservableCollection<TSourceItem> source,
-			 Expression<Func<int>> pageSizeExpression,
-			 Expression<Func<int>> currentPageNumExpression)
-			
-		{
-			return new ObservableComputations.Paging<TSourceItem>(
-				source: source,
-				pageSizeScalar: new Computing<int>(pageSizeExpression),
-				currentPageNumScalar: new Computing<int>(currentPageNumExpression),
-				capacity: 0);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.Paging<TSourceItem> Paging<TSourceItem>(this
-			 System.Collections.Specialized.INotifyCollectionChanged source,
-			 int pageSize,
-			 ObservableComputations.IReadScalar<int> currentPageNumScalar)
-			
-		{
-			return new ObservableComputations.Paging<TSourceItem>(
-				source: source,
-				pageSize: pageSize,
-				currentPageNumScalar: currentPageNumScalar);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.Paging<TSourceItem> Paging<TSourceItem>(this
-			 System.Collections.Specialized.INotifyCollectionChanged source,
-			 int pageSize,
-			 Expression<Func<int>> currentPageNumExpression)
-			
-		{
-			return new ObservableComputations.Paging<TSourceItem>(
-				source: source,
-				pageSize: pageSize,
-				currentPageNumScalar: new Computing<int>(currentPageNumExpression));
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.Paging<TSourceItem> Paging<TSourceItem>(this
-			 ObservableCollection<TSourceItem> source,
-			 int pageSize,
-			 ObservableComputations.IReadScalar<int> currentPageNumScalar)
-			
-		{
-			return new ObservableComputations.Paging<TSourceItem>(
-				source: source,
-				pageSize: pageSize,
-				currentPageNumScalar: currentPageNumScalar);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.Paging<TSourceItem> Paging<TSourceItem>(this
-			 ObservableCollection<TSourceItem> source,
-			 int pageSize,
-			 Expression<Func<int>> currentPageNumExpression)
-			
-		{
-			return new ObservableComputations.Paging<TSourceItem>(
-				source: source,
-				pageSize: pageSize,
-				currentPageNumScalar: new Computing<int>(currentPageNumExpression));
 		}
 
 		#endregion
@@ -33193,6 +32824,405 @@ namespace ObservableComputations
 			return new ObservableComputations.Zipping<TLeftSourceItem, TRightSourceItem>(
 				leftSource: leftSource,
 				rightSourceScalar: new Computing<ObservableCollection<TRightSourceItem>>(rightSourceExpression));
+		}
+
+		#endregion
+		#region ZippingForPaging
+
+		[ObservableComputationsCall]
+		public static ObservableComputations.Internal.ZippingForPaging<TSourceItem> ZippingForPaging<TSourceItem>(this
+			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> leftSourceScalar,
+			 System.Collections.Specialized.INotifyCollectionChanged rightSource)
+			
+		{
+			return new ObservableComputations.Internal.ZippingForPaging<TSourceItem>(
+				leftSourceScalar: leftSourceScalar,
+				rightSource: rightSource);
+		}
+
+		[ObservableComputationsCall]
+		public static ObservableComputations.Internal.ZippingForPaging<TSourceItem> ZippingForPaging<TSourceItem>(this
+			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> leftSourceScalar,
+			 ObservableCollection<TSourceItem> rightSource)
+			
+		{
+			return new ObservableComputations.Internal.ZippingForPaging<TSourceItem>(
+				leftSourceScalar: leftSourceScalar,
+				rightSource: rightSource);
+		}
+
+		[ObservableComputationsCall]
+		public static ObservableComputations.Internal.ZippingForPaging<TSourceItem> ZippingForPaging<TSourceItem>(this
+			 ObservableComputations.IReadScalar<ObservableCollection<TSourceItem>> leftSourceScalar,
+			 System.Collections.Specialized.INotifyCollectionChanged rightSource)
+			
+		{
+			return new ObservableComputations.Internal.ZippingForPaging<TSourceItem>(
+				leftSourceScalar: leftSourceScalar,
+				rightSource: rightSource);
+		}
+
+		[ObservableComputationsCall]
+		public static ObservableComputations.Internal.ZippingForPaging<TSourceItem> ZippingForPaging<TSourceItem>(this
+			 ObservableComputations.IReadScalar<ObservableCollection<TSourceItem>> leftSourceScalar,
+			 ObservableCollection<TSourceItem> rightSource)
+			
+		{
+			return new ObservableComputations.Internal.ZippingForPaging<TSourceItem>(
+				leftSourceScalar: leftSourceScalar,
+				rightSource: rightSource);
+		}
+
+		[ObservableComputationsCall]
+		public static ObservableComputations.Internal.ZippingForPaging<TSourceItem> ZippingForPaging<TSourceItem>(this
+			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> leftSourceExpression,
+			 System.Collections.Specialized.INotifyCollectionChanged rightSource)
+			
+		{
+			return new ObservableComputations.Internal.ZippingForPaging<TSourceItem>(
+				leftSourceScalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(leftSourceExpression),
+				rightSource: rightSource);
+		}
+
+		[ObservableComputationsCall]
+		public static ObservableComputations.Internal.ZippingForPaging<TSourceItem> ZippingForPaging<TSourceItem>(this
+			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> leftSourceExpression,
+			 ObservableCollection<TSourceItem> rightSource)
+			
+		{
+			return new ObservableComputations.Internal.ZippingForPaging<TSourceItem>(
+				leftSourceScalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(leftSourceExpression),
+				rightSource: rightSource);
+		}
+
+		[ObservableComputationsCall]
+		public static ObservableComputations.Internal.ZippingForPaging<TSourceItem> ZippingForPaging<TSourceItem>(this
+			 Expression<Func<ObservableCollection<TSourceItem>>> leftSourceExpression,
+			 System.Collections.Specialized.INotifyCollectionChanged rightSource)
+			
+		{
+			return new ObservableComputations.Internal.ZippingForPaging<TSourceItem>(
+				leftSourceScalar: new Computing<ObservableCollection<TSourceItem>>(leftSourceExpression),
+				rightSource: rightSource);
+		}
+
+		[ObservableComputationsCall]
+		public static ObservableComputations.Internal.ZippingForPaging<TSourceItem> ZippingForPaging<TSourceItem>(this
+			 Expression<Func<ObservableCollection<TSourceItem>>> leftSourceExpression,
+			 ObservableCollection<TSourceItem> rightSource)
+			
+		{
+			return new ObservableComputations.Internal.ZippingForPaging<TSourceItem>(
+				leftSourceScalar: new Computing<ObservableCollection<TSourceItem>>(leftSourceExpression),
+				rightSource: rightSource);
+		}
+
+		[ObservableComputationsCall]
+		public static ObservableComputations.Internal.ZippingForPaging<TSourceItem> ZippingForPaging<TSourceItem>(this
+			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> leftSourceScalar,
+			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> rightSourceScalar)
+			
+		{
+			return new ObservableComputations.Internal.ZippingForPaging<TSourceItem>(
+				leftSourceScalar: leftSourceScalar,
+				rightSourceScalar: rightSourceScalar);
+		}
+
+		[ObservableComputationsCall]
+		public static ObservableComputations.Internal.ZippingForPaging<TSourceItem> ZippingForPaging<TSourceItem>(this
+			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> leftSourceScalar,
+			 ObservableComputations.IReadScalar<ObservableCollection<TSourceItem>> rightSourceScalar)
+			
+		{
+			return new ObservableComputations.Internal.ZippingForPaging<TSourceItem>(
+				leftSourceScalar: leftSourceScalar,
+				rightSourceScalar: rightSourceScalar);
+		}
+
+		[ObservableComputationsCall]
+		public static ObservableComputations.Internal.ZippingForPaging<TSourceItem> ZippingForPaging<TSourceItem>(this
+			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> leftSourceScalar,
+			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> rightSourceExpression)
+			
+		{
+			return new ObservableComputations.Internal.ZippingForPaging<TSourceItem>(
+				leftSourceScalar: leftSourceScalar,
+				rightSourceScalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(rightSourceExpression));
+		}
+
+		[ObservableComputationsCall]
+		public static ObservableComputations.Internal.ZippingForPaging<TSourceItem> ZippingForPaging<TSourceItem>(this
+			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> leftSourceScalar,
+			 Expression<Func<ObservableCollection<TSourceItem>>> rightSourceExpression)
+			
+		{
+			return new ObservableComputations.Internal.ZippingForPaging<TSourceItem>(
+				leftSourceScalar: leftSourceScalar,
+				rightSourceScalar: new Computing<ObservableCollection<TSourceItem>>(rightSourceExpression));
+		}
+
+		[ObservableComputationsCall]
+		public static ObservableComputations.Internal.ZippingForPaging<TSourceItem> ZippingForPaging<TSourceItem>(this
+			 ObservableComputations.IReadScalar<ObservableCollection<TSourceItem>> leftSourceScalar,
+			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> rightSourceScalar)
+			
+		{
+			return new ObservableComputations.Internal.ZippingForPaging<TSourceItem>(
+				leftSourceScalar: leftSourceScalar,
+				rightSourceScalar: rightSourceScalar);
+		}
+
+		[ObservableComputationsCall]
+		public static ObservableComputations.Internal.ZippingForPaging<TSourceItem> ZippingForPaging<TSourceItem>(this
+			 ObservableComputations.IReadScalar<ObservableCollection<TSourceItem>> leftSourceScalar,
+			 ObservableComputations.IReadScalar<ObservableCollection<TSourceItem>> rightSourceScalar)
+			
+		{
+			return new ObservableComputations.Internal.ZippingForPaging<TSourceItem>(
+				leftSourceScalar: leftSourceScalar,
+				rightSourceScalar: rightSourceScalar);
+		}
+
+		[ObservableComputationsCall]
+		public static ObservableComputations.Internal.ZippingForPaging<TSourceItem> ZippingForPaging<TSourceItem>(this
+			 ObservableComputations.IReadScalar<ObservableCollection<TSourceItem>> leftSourceScalar,
+			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> rightSourceExpression)
+			
+		{
+			return new ObservableComputations.Internal.ZippingForPaging<TSourceItem>(
+				leftSourceScalar: leftSourceScalar,
+				rightSourceScalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(rightSourceExpression));
+		}
+
+		[ObservableComputationsCall]
+		public static ObservableComputations.Internal.ZippingForPaging<TSourceItem> ZippingForPaging<TSourceItem>(this
+			 ObservableComputations.IReadScalar<ObservableCollection<TSourceItem>> leftSourceScalar,
+			 Expression<Func<ObservableCollection<TSourceItem>>> rightSourceExpression)
+			
+		{
+			return new ObservableComputations.Internal.ZippingForPaging<TSourceItem>(
+				leftSourceScalar: leftSourceScalar,
+				rightSourceScalar: new Computing<ObservableCollection<TSourceItem>>(rightSourceExpression));
+		}
+
+		[ObservableComputationsCall]
+		public static ObservableComputations.Internal.ZippingForPaging<TSourceItem> ZippingForPaging<TSourceItem>(this
+			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> leftSourceExpression,
+			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> rightSourceScalar)
+			
+		{
+			return new ObservableComputations.Internal.ZippingForPaging<TSourceItem>(
+				leftSourceScalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(leftSourceExpression),
+				rightSourceScalar: rightSourceScalar);
+		}
+
+		[ObservableComputationsCall]
+		public static ObservableComputations.Internal.ZippingForPaging<TSourceItem> ZippingForPaging<TSourceItem>(this
+			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> leftSourceExpression,
+			 ObservableComputations.IReadScalar<ObservableCollection<TSourceItem>> rightSourceScalar)
+			
+		{
+			return new ObservableComputations.Internal.ZippingForPaging<TSourceItem>(
+				leftSourceScalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(leftSourceExpression),
+				rightSourceScalar: rightSourceScalar);
+		}
+
+		[ObservableComputationsCall]
+		public static ObservableComputations.Internal.ZippingForPaging<TSourceItem> ZippingForPaging<TSourceItem>(this
+			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> leftSourceExpression,
+			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> rightSourceExpression)
+			
+		{
+			return new ObservableComputations.Internal.ZippingForPaging<TSourceItem>(
+				leftSourceScalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(leftSourceExpression),
+				rightSourceScalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(rightSourceExpression));
+		}
+
+		[ObservableComputationsCall]
+		public static ObservableComputations.Internal.ZippingForPaging<TSourceItem> ZippingForPaging<TSourceItem>(this
+			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> leftSourceExpression,
+			 Expression<Func<ObservableCollection<TSourceItem>>> rightSourceExpression)
+			
+		{
+			return new ObservableComputations.Internal.ZippingForPaging<TSourceItem>(
+				leftSourceScalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(leftSourceExpression),
+				rightSourceScalar: new Computing<ObservableCollection<TSourceItem>>(rightSourceExpression));
+		}
+
+		[ObservableComputationsCall]
+		public static ObservableComputations.Internal.ZippingForPaging<TSourceItem> ZippingForPaging<TSourceItem>(this
+			 Expression<Func<ObservableCollection<TSourceItem>>> leftSourceExpression,
+			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> rightSourceScalar)
+			
+		{
+			return new ObservableComputations.Internal.ZippingForPaging<TSourceItem>(
+				leftSourceScalar: new Computing<ObservableCollection<TSourceItem>>(leftSourceExpression),
+				rightSourceScalar: rightSourceScalar);
+		}
+
+		[ObservableComputationsCall]
+		public static ObservableComputations.Internal.ZippingForPaging<TSourceItem> ZippingForPaging<TSourceItem>(this
+			 Expression<Func<ObservableCollection<TSourceItem>>> leftSourceExpression,
+			 ObservableComputations.IReadScalar<ObservableCollection<TSourceItem>> rightSourceScalar)
+			
+		{
+			return new ObservableComputations.Internal.ZippingForPaging<TSourceItem>(
+				leftSourceScalar: new Computing<ObservableCollection<TSourceItem>>(leftSourceExpression),
+				rightSourceScalar: rightSourceScalar);
+		}
+
+		[ObservableComputationsCall]
+		public static ObservableComputations.Internal.ZippingForPaging<TSourceItem> ZippingForPaging<TSourceItem>(this
+			 Expression<Func<ObservableCollection<TSourceItem>>> leftSourceExpression,
+			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> rightSourceExpression)
+			
+		{
+			return new ObservableComputations.Internal.ZippingForPaging<TSourceItem>(
+				leftSourceScalar: new Computing<ObservableCollection<TSourceItem>>(leftSourceExpression),
+				rightSourceScalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(rightSourceExpression));
+		}
+
+		[ObservableComputationsCall]
+		public static ObservableComputations.Internal.ZippingForPaging<TSourceItem> ZippingForPaging<TSourceItem>(this
+			 Expression<Func<ObservableCollection<TSourceItem>>> leftSourceExpression,
+			 Expression<Func<ObservableCollection<TSourceItem>>> rightSourceExpression)
+			
+		{
+			return new ObservableComputations.Internal.ZippingForPaging<TSourceItem>(
+				leftSourceScalar: new Computing<ObservableCollection<TSourceItem>>(leftSourceExpression),
+				rightSourceScalar: new Computing<ObservableCollection<TSourceItem>>(rightSourceExpression));
+		}
+
+		[ObservableComputationsCall]
+		public static ObservableComputations.Internal.ZippingForPaging<TSourceItem> ZippingForPaging<TSourceItem>(this
+			 System.Collections.Specialized.INotifyCollectionChanged leftSource,
+			 System.Collections.Specialized.INotifyCollectionChanged rightSource)
+			
+		{
+			return new ObservableComputations.Internal.ZippingForPaging<TSourceItem>(
+				leftSource: leftSource,
+				rightSource: rightSource);
+		}
+
+		[ObservableComputationsCall]
+		public static ObservableComputations.Internal.ZippingForPaging<TSourceItem> ZippingForPaging<TSourceItem>(this
+			 System.Collections.Specialized.INotifyCollectionChanged leftSource,
+			 ObservableCollection<TSourceItem> rightSource)
+			
+		{
+			return new ObservableComputations.Internal.ZippingForPaging<TSourceItem>(
+				leftSource: leftSource,
+				rightSource: rightSource);
+		}
+
+		[ObservableComputationsCall]
+		public static ObservableComputations.Internal.ZippingForPaging<TSourceItem> ZippingForPaging<TSourceItem>(this
+			 ObservableCollection<TSourceItem> leftSource,
+			 System.Collections.Specialized.INotifyCollectionChanged rightSource)
+			
+		{
+			return new ObservableComputations.Internal.ZippingForPaging<TSourceItem>(
+				leftSource: leftSource,
+				rightSource: rightSource);
+		}
+
+		[ObservableComputationsCall]
+		public static ObservableComputations.Internal.ZippingForPaging<TSourceItem> ZippingForPaging<TSourceItem>(this
+			 ObservableCollection<TSourceItem> leftSource,
+			 ObservableCollection<TSourceItem> rightSource)
+			
+		{
+			return new ObservableComputations.Internal.ZippingForPaging<TSourceItem>(
+				leftSource: leftSource,
+				rightSource: rightSource);
+		}
+
+		[ObservableComputationsCall]
+		public static ObservableComputations.Internal.ZippingForPaging<TSourceItem> ZippingForPaging<TSourceItem>(this
+			 System.Collections.Specialized.INotifyCollectionChanged leftSource,
+			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> rightSourceScalar)
+			
+		{
+			return new ObservableComputations.Internal.ZippingForPaging<TSourceItem>(
+				leftSource: leftSource,
+				rightSourceScalar: rightSourceScalar);
+		}
+
+		[ObservableComputationsCall]
+		public static ObservableComputations.Internal.ZippingForPaging<TSourceItem> ZippingForPaging<TSourceItem>(this
+			 System.Collections.Specialized.INotifyCollectionChanged leftSource,
+			 ObservableComputations.IReadScalar<ObservableCollection<TSourceItem>> rightSourceScalar)
+			
+		{
+			return new ObservableComputations.Internal.ZippingForPaging<TSourceItem>(
+				leftSource: leftSource,
+				rightSourceScalar: rightSourceScalar);
+		}
+
+		[ObservableComputationsCall]
+		public static ObservableComputations.Internal.ZippingForPaging<TSourceItem> ZippingForPaging<TSourceItem>(this
+			 System.Collections.Specialized.INotifyCollectionChanged leftSource,
+			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> rightSourceExpression)
+			
+		{
+			return new ObservableComputations.Internal.ZippingForPaging<TSourceItem>(
+				leftSource: leftSource,
+				rightSourceScalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(rightSourceExpression));
+		}
+
+		[ObservableComputationsCall]
+		public static ObservableComputations.Internal.ZippingForPaging<TSourceItem> ZippingForPaging<TSourceItem>(this
+			 System.Collections.Specialized.INotifyCollectionChanged leftSource,
+			 Expression<Func<ObservableCollection<TSourceItem>>> rightSourceExpression)
+			
+		{
+			return new ObservableComputations.Internal.ZippingForPaging<TSourceItem>(
+				leftSource: leftSource,
+				rightSourceScalar: new Computing<ObservableCollection<TSourceItem>>(rightSourceExpression));
+		}
+
+		[ObservableComputationsCall]
+		public static ObservableComputations.Internal.ZippingForPaging<TSourceItem> ZippingForPaging<TSourceItem>(this
+			 ObservableCollection<TSourceItem> leftSource,
+			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> rightSourceScalar)
+			
+		{
+			return new ObservableComputations.Internal.ZippingForPaging<TSourceItem>(
+				leftSource: leftSource,
+				rightSourceScalar: rightSourceScalar);
+		}
+
+		[ObservableComputationsCall]
+		public static ObservableComputations.Internal.ZippingForPaging<TSourceItem> ZippingForPaging<TSourceItem>(this
+			 ObservableCollection<TSourceItem> leftSource,
+			 ObservableComputations.IReadScalar<ObservableCollection<TSourceItem>> rightSourceScalar)
+			
+		{
+			return new ObservableComputations.Internal.ZippingForPaging<TSourceItem>(
+				leftSource: leftSource,
+				rightSourceScalar: rightSourceScalar);
+		}
+
+		[ObservableComputationsCall]
+		public static ObservableComputations.Internal.ZippingForPaging<TSourceItem> ZippingForPaging<TSourceItem>(this
+			 ObservableCollection<TSourceItem> leftSource,
+			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> rightSourceExpression)
+			
+		{
+			return new ObservableComputations.Internal.ZippingForPaging<TSourceItem>(
+				leftSource: leftSource,
+				rightSourceScalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(rightSourceExpression));
+		}
+
+		[ObservableComputationsCall]
+		public static ObservableComputations.Internal.ZippingForPaging<TSourceItem> ZippingForPaging<TSourceItem>(this
+			 ObservableCollection<TSourceItem> leftSource,
+			 Expression<Func<ObservableCollection<TSourceItem>>> rightSourceExpression)
+			
+		{
+			return new ObservableComputations.Internal.ZippingForPaging<TSourceItem>(
+				leftSource: leftSource,
+				rightSourceScalar: new Computing<ObservableCollection<TSourceItem>>(rightSourceExpression));
 		}
 
 		#endregion

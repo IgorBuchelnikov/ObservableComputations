@@ -30,4 +30,9 @@ namespace ObservableComputations
 	{
 		void InvokeReadAndSubscribe(Action action, IScalarComputing scalarDispatching);
 	}
+
+	public interface IConcurrentDictionaringDestinationDispatcher
+	{
+		void Invoke(Action action, DictionaryChangeAction dictionaryChangeAction, object key, object value);
+	}
 }

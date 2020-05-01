@@ -198,6 +198,9 @@ namespace ObservableComputations
 		private readonly string _instantiatingStackTrace;
 		private bool _isConsistent = true;
 
+		private IDispatcher _destinationDispatcher;
+		private IConcurrentDictionaringDestinationDispatcher _concurrentDictionaringDestinationDispatcher;
+
 		internal readonly IReadScalar<IEqualityComparer<TKey>> _equalityComparerScalar;
 		internal IEqualityComparer<TKey> _equalityComparer;
 		private PropertyChangedEventHandler _equalityComparerScalarPropertyChangedEventHandler;
@@ -221,9 +224,12 @@ namespace ObservableComputations
 		private ConcurrentDictionaring(
 			Expression<Func<TSourceItem, TKey>> keySelectorExpression,
 			Expression<Func<TSourceItem, TValue>> valueSelectorExpression,
+			IDispatcher destinationDispatcher,
 			int sourceCapacity)
 		{
-		
+			_destinationDispatcher = destinationDispatcher;
+			_concurrentDictionaringDestinationDispatcher = destinationDispatcher as IConcurrentDictionaringDestinationDispatcher;
+
 			_itemInfos = new List<ItemInfo>(sourceCapacity);
 			_sourcePositions = new Positions<ItemInfo>(_itemInfos);
 
@@ -262,7 +268,8 @@ namespace ObservableComputations
 			IReadScalar<INotifyCollectionChanged> sourceScalar,
 			Expression<Func<TSourceItem, TKey>> keySelectorExpression,
 			Expression<Func<TSourceItem, TValue>> valueSelectorExpression,
-			IEqualityComparer<TKey> equalityComparer = null) : this(keySelectorExpression, valueSelectorExpression, Utils.getCapacity(sourceScalar))
+			IDispatcher destinationDispatcher,
+			IEqualityComparer<TKey> equalityComparer = null) : this(keySelectorExpression, valueSelectorExpression, destinationDispatcher, Utils.getCapacity(sourceScalar))
 		{
 			_sourceScalar = sourceScalar;
 			_sourceScalarPropertyChangedEventHandler = handleSourceScalarValueChanged;
@@ -281,7 +288,8 @@ namespace ObservableComputations
 			INotifyCollectionChanged source,
 			Expression<Func<TSourceItem, TKey>> keySelectorExpression,
 			Expression<Func<TSourceItem, TValue>> valueSelectorExpression,
-			IEqualityComparer<TKey> equalityComparer = null) : this(keySelectorExpression, valueSelectorExpression, Utils.getCapacity(source))
+			IDispatcher destinationDispatcher,
+			IEqualityComparer<TKey> equalityComparer = null) : this(keySelectorExpression, valueSelectorExpression, destinationDispatcher, Utils.getCapacity(source))
 		{
 			_source = source;
 			_equalityComparer = equalityComparer ?? EqualityComparer<TKey>.Default;
@@ -297,7 +305,8 @@ namespace ObservableComputations
 			IReadScalar<INotifyCollectionChanged> sourceScalar,
 			Expression<Func<TSourceItem, TKey>> keySelectorExpression,
 			Expression<Func<TSourceItem, TValue>> valueSelectorExpression,
-			IReadScalar<IEqualityComparer<TKey>> equalityComparerScalar) : this(keySelectorExpression, valueSelectorExpression, Utils.getCapacity(sourceScalar))
+			IDispatcher destinationDispatcher,
+			IReadScalar<IEqualityComparer<TKey>> equalityComparerScalar) : this(keySelectorExpression, valueSelectorExpression, destinationDispatcher, Utils.getCapacity(sourceScalar))
 		{
 			_sourceScalar = sourceScalar;
 			_sourceScalarPropertyChangedEventHandler = handleSourceScalarValueChanged;
@@ -317,7 +326,8 @@ namespace ObservableComputations
 			INotifyCollectionChanged source,
 			Expression<Func<TSourceItem, TKey>> keySelectorExpression,
 			Expression<Func<TSourceItem, TValue>> valueSelectorExpression,
-			IReadScalar<IEqualityComparer<TKey>> equalityComparerScalar) : this(keySelectorExpression, valueSelectorExpression, Utils.getCapacity(source))
+			IDispatcher destinationDispatcher,
+			IReadScalar<IEqualityComparer<TKey>> equalityComparerScalar) : this(keySelectorExpression, valueSelectorExpression, destinationDispatcher, Utils.getCapacity(source))
 		{
 			_source = source;
 			_equalityComparerScalar = equalityComparerScalar;
@@ -720,51 +730,125 @@ namespace ObservableComputations
 		{
 			int capacity = _sourceScalar != null ? Utils.getCapacity(_sourceScalar) : Utils.getCapacity(_source);
 			_dictionary = new ConcurrentDictionary<TKey, TValue>(1, capacity, _equalityComparer);
-			onPropertyChanged(Utils.CountPropertyChangedEventArgs);
-			onPropertyChanged(Utils.IndexerPropertyChangedEventArgs);
-			if (MethodChanged != null)
+
+			void raiseEvents()
 			{
-				MethodChanged(this, new NotifyMethodChangedEventArgs("GetValueOrDefault", args => true));
-				MethodChanged(this, new NotifyMethodChangedEventArgs("Item[]", args => true));
-				MethodChanged(this, new NotifyMethodChangedEventArgs("ContainsKey", args => true));
+				onPropertyChanged(Utils.CountPropertyChangedEventArgs);
+				onPropertyChanged(Utils.IndexerPropertyChangedEventArgs);
+
+				if (MethodChanged != null)
+				{
+					MethodChanged(this, new NotifyMethodChangedEventArgs("GetValueOrDefault", args => true));
+					MethodChanged(this, new NotifyMethodChangedEventArgs("Item[]", args => true));
+					MethodChanged(this, new NotifyMethodChangedEventArgs("ContainsKey", args => true));
+				}
+			}
+
+			if (_concurrentDictionaringDestinationDispatcher != null)
+			{
+				_concurrentDictionaringDestinationDispatcher.Invoke(raiseEvents, DictionaryChangeAction.ClearItems, null, null);
+			}
+			else
+			{
+				_destinationDispatcher.Invoke(raiseEvents);				
 			}
 		}
 
 		private void baseAddItem(TKey key, TValue value)
 		{
-			_dictionary.TryAdd(key, value);
-			onPropertyChanged(Utils.CountPropertyChangedEventArgs);
-			onPropertyChanged(Utils.IndexerPropertyChangedEventArgs);
-			if (MethodChanged != null)
+			if (!_dictionary.TryAdd(key, value))
 			{
-				MethodChanged(this, new NotifyMethodChangedEventArgs("GetValueOrDefault", args => _equalityComparer.Equals(key, (TKey)args[0])));
-				MethodChanged(this, new NotifyMethodChangedEventArgs("Item[]", args => _equalityComparer.Equals(key, (TKey)args[0])));
-				MethodChanged(this, new NotifyMethodChangedEventArgs("ContainsKey", args => _equalityComparer.Equals(key, (TKey)args[0])));
+				throw new ObservableComputationsException(this, "An element with the same key already exists in the ConcurrentDictionaring");
+			}
+
+			void raiseEvents()
+			{
+				onPropertyChanged(Utils.CountPropertyChangedEventArgs);
+				onPropertyChanged(Utils.IndexerPropertyChangedEventArgs);
+
+				if (MethodChanged != null)
+				{
+					MethodChanged(this,
+						new NotifyMethodChangedEventArgs("GetValueOrDefault",
+							args => _equalityComparer.Equals(key, (TKey) args[0])));
+					MethodChanged(this,
+						new NotifyMethodChangedEventArgs("Item[]", args => _equalityComparer.Equals(key, (TKey) args[0])));
+					MethodChanged(this,
+						new NotifyMethodChangedEventArgs("ContainsKey", args => _equalityComparer.Equals(key, (TKey) args[0])));
+				}
+			}
+
+			if (_concurrentDictionaringDestinationDispatcher != null)
+			{
+				_concurrentDictionaringDestinationDispatcher.Invoke(raiseEvents, DictionaryChangeAction.AddItem, key, value);
+			}
+			else
+			{
+				_destinationDispatcher.Invoke(raiseEvents);				
 			}
 		}
 
 		private void baseSetItem(TKey key, TValue value)
 		{
 			_dictionary[key] = value;
-			onPropertyChanged(Utils.IndexerPropertyChangedEventArgs);
-			if (MethodChanged != null)
+
+
+			void raiseEvents()
 			{
-				MethodChanged(this, new NotifyMethodChangedEventArgs("GetValueOrDefault", args => _equalityComparer.Equals(key, (TKey)args[0])));
-				MethodChanged(this, new NotifyMethodChangedEventArgs("Item[]", args => _equalityComparer.Equals(key, (TKey)args[0])));
-				MethodChanged(this, new NotifyMethodChangedEventArgs("ContainsKey", args => _equalityComparer.Equals(key, (TKey)args[0])));
+				if (MethodChanged != null)
+				{
+					onPropertyChanged(Utils.IndexerPropertyChangedEventArgs);
+
+					MethodChanged(this,
+						new NotifyMethodChangedEventArgs("GetValueOrDefault",
+							args => _equalityComparer.Equals(key, (TKey) args[0])));
+					MethodChanged(this,
+						new NotifyMethodChangedEventArgs("Item[]", args => _equalityComparer.Equals(key, (TKey) args[0])));
+					MethodChanged(this,
+						new NotifyMethodChangedEventArgs("ContainsKey", args => _equalityComparer.Equals(key, (TKey) args[0])));
+				}
 			}
+
+			if (_concurrentDictionaringDestinationDispatcher != null)
+			{
+				_concurrentDictionaringDestinationDispatcher.Invoke(raiseEvents, DictionaryChangeAction.SetItem, key, value);
+			}
+			else
+			{
+				_destinationDispatcher.Invoke(raiseEvents);				
+			}
+
 		}
 
 		private void baseRemoveItem(TKey key)
 		{
 			_dictionary.TryRemove(key, out TValue value);
-			onPropertyChanged(Utils.CountPropertyChangedEventArgs);
-			onPropertyChanged(Utils.IndexerPropertyChangedEventArgs);
-			if (MethodChanged != null)
+
+			void raiseEvents()
 			{
-				MethodChanged?.Invoke(this, new NotifyMethodChangedEventArgs("GetValueOrDefault", args => _equalityComparer.Equals(key, (TKey)args[0])));
-				MethodChanged?.Invoke(this, new NotifyMethodChangedEventArgs("Item[]", args => _equalityComparer.Equals(key, (TKey)args[0])));
-				MethodChanged(this, new NotifyMethodChangedEventArgs("ContainsKey", args => _equalityComparer.Equals(key, (TKey)args[0])));
+				if (MethodChanged != null)
+				{
+					onPropertyChanged(Utils.CountPropertyChangedEventArgs);
+					onPropertyChanged(Utils.IndexerPropertyChangedEventArgs);
+
+					MethodChanged(this,
+						new NotifyMethodChangedEventArgs("GetValueOrDefault",
+							args => _equalityComparer.Equals(key, (TKey) args[0])));
+					MethodChanged(this,
+						new NotifyMethodChangedEventArgs("Item[]", args => _equalityComparer.Equals(key, (TKey) args[0])));
+					MethodChanged(this,
+						new NotifyMethodChangedEventArgs("ContainsKey", args => _equalityComparer.Equals(key, (TKey) args[0])));
+				}
+			}
+
+
+			if (_concurrentDictionaringDestinationDispatcher != null)
+			{
+				_concurrentDictionaringDestinationDispatcher.Invoke(raiseEvents, DictionaryChangeAction.RemoveItem, key, value);
+			}
+			else
+			{
+				_destinationDispatcher.Invoke(raiseEvents);				
 			}
 		}
 

@@ -36,7 +36,8 @@
 
                     if (name.Contains("ItemsProcessing")
                         || name.Contains("ValuesProcessing")
-                        || name.Contains("PropertyDispatching"))
+                        || name.Contains("PropertyDispatching")
+                        || name.Contains("ZippingForPaging"))
                         continue;
 
 					string genericParameters = string.Empty;

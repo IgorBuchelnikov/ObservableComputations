@@ -32,6 +32,7 @@ namespace ObservableComputations.Test
             && em.Name != "PropertyAccessing"
             && em.Name != "CollectionDispatching"
             && em.Name != "ScalarDispatching"
+            && em.Name != "ConcurrentDictionaring"
             && !em.Arguments.Any(ema => IsComputingArgument(ema)))
         .GroupBy(em => em.Name).OrderBy(emg => emg.Key))
 	{
@@ -420,9 +421,12 @@ namespace ObservableComputations.Test
 			case "System.Linq.Expressions.Expression<System.Func<TSourceItem, int, System.Collections.Specialized.INotifyCollectionChanged>>":
 				result =  "(i, ind) => i.Items";
 				break;
-            case "ObservableComputations.IReadScalar<TResult>":
-                
+            case "ObservableComputations.IReadScalar<TResult>":             
                 break;
+            case "(int pageSize, int currentPageNum)":
+	            result =  "(2, 1)";
+                break;
+
 			default:
 				throw new Exception($"Unexpected type {type}");
 		}

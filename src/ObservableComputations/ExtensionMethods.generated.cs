@@ -11310,342 +11310,312 @@ namespace ObservableComputations
 		}
 
 		#endregion
-		#region Hashing
+		#region HashSetting
 
 		[ObservableComputationsCall]
-		public static ObservableComputations.Hashing<TSourceItem, TKey> Hashing<TSourceItem, TKey>(this
+		public static ObservableComputations.HashSetting<TSourceItem, TKey> HashSetting<TSourceItem, TKey>(this
 			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar,
 			 System.Linq.Expressions.Expression<System.Func<TSourceItem, TKey>> keySelectorExpression,
-			 System.Collections.Generic.IEqualityComparer<TKey> comparer,
-			 int capacity)
+			 System.Collections.Generic.IEqualityComparer<TKey> equalityComparer)
 			
 		{
-			return new ObservableComputations.Hashing<TSourceItem, TKey>(
+			return new ObservableComputations.HashSetting<TSourceItem, TKey>(
 				sourceScalar: sourceScalar,
 				keySelectorExpression: keySelectorExpression,
-				comparer: comparer,
-				capacity: capacity);
+				equalityComparer: equalityComparer);
 		}
 
 		[ObservableComputationsCall]
-		public static ObservableComputations.Hashing<TSourceItem, TKey> Hashing<TSourceItem, TKey>(this
-			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar,
-			 System.Linq.Expressions.Expression<System.Func<TSourceItem, TKey>> keySelectorExpression,
-			 System.Collections.Generic.IEqualityComparer<TKey> comparer)
-			
-		{
-			return new ObservableComputations.Hashing<TSourceItem, TKey>(
-				sourceScalar: sourceScalar,
-				keySelectorExpression: keySelectorExpression,
-				comparer: comparer,
-				capacity: 0);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.Hashing<TSourceItem, TKey> Hashing<TSourceItem, TKey>(this
-			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar,
-			 System.Linq.Expressions.Expression<System.Func<TSourceItem, TKey>> keySelectorExpression,
-			 int capacity)
-			
-		{
-			return new ObservableComputations.Hashing<TSourceItem, TKey>(
-				sourceScalar: sourceScalar,
-				keySelectorExpression: keySelectorExpression,
-				comparer: null,
-				capacity: capacity);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.Hashing<TSourceItem, TKey> Hashing<TSourceItem, TKey>(this
+		public static ObservableComputations.HashSetting<TSourceItem, TKey> HashSetting<TSourceItem, TKey>(this
 			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar,
 			 System.Linq.Expressions.Expression<System.Func<TSourceItem, TKey>> keySelectorExpression)
 			
 		{
-			return new ObservableComputations.Hashing<TSourceItem, TKey>(
+			return new ObservableComputations.HashSetting<TSourceItem, TKey>(
 				sourceScalar: sourceScalar,
 				keySelectorExpression: keySelectorExpression,
-				comparer: null,
-				capacity: 0);
+				equalityComparer: null);
 		}
 
 		[ObservableComputationsCall]
-		public static ObservableComputations.Hashing<TSourceItem, TKey> Hashing<TSourceItem, TKey>(this
+		public static ObservableComputations.HashSetting<TSourceItem, TKey> HashSetting<TSourceItem, TKey>(this
 			 ObservableComputations.IReadScalar<ObservableCollection<TSourceItem>> sourceScalar,
 			 System.Linq.Expressions.Expression<System.Func<TSourceItem, TKey>> keySelectorExpression,
-			 System.Collections.Generic.IEqualityComparer<TKey> comparer,
-			 int capacity)
+			 System.Collections.Generic.IEqualityComparer<TKey> equalityComparer)
 			
 		{
-			return new ObservableComputations.Hashing<TSourceItem, TKey>(
+			return new ObservableComputations.HashSetting<TSourceItem, TKey>(
 				sourceScalar: sourceScalar,
 				keySelectorExpression: keySelectorExpression,
-				comparer: comparer,
-				capacity: capacity);
+				equalityComparer: equalityComparer);
 		}
 
 		[ObservableComputationsCall]
-		public static ObservableComputations.Hashing<TSourceItem, TKey> Hashing<TSourceItem, TKey>(this
-			 ObservableComputations.IReadScalar<ObservableCollection<TSourceItem>> sourceScalar,
-			 System.Linq.Expressions.Expression<System.Func<TSourceItem, TKey>> keySelectorExpression,
-			 System.Collections.Generic.IEqualityComparer<TKey> comparer)
-			
-		{
-			return new ObservableComputations.Hashing<TSourceItem, TKey>(
-				sourceScalar: sourceScalar,
-				keySelectorExpression: keySelectorExpression,
-				comparer: comparer,
-				capacity: 0);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.Hashing<TSourceItem, TKey> Hashing<TSourceItem, TKey>(this
-			 ObservableComputations.IReadScalar<ObservableCollection<TSourceItem>> sourceScalar,
-			 System.Linq.Expressions.Expression<System.Func<TSourceItem, TKey>> keySelectorExpression,
-			 int capacity)
-			
-		{
-			return new ObservableComputations.Hashing<TSourceItem, TKey>(
-				sourceScalar: sourceScalar,
-				keySelectorExpression: keySelectorExpression,
-				comparer: null,
-				capacity: capacity);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.Hashing<TSourceItem, TKey> Hashing<TSourceItem, TKey>(this
+		public static ObservableComputations.HashSetting<TSourceItem, TKey> HashSetting<TSourceItem, TKey>(this
 			 ObservableComputations.IReadScalar<ObservableCollection<TSourceItem>> sourceScalar,
 			 System.Linq.Expressions.Expression<System.Func<TSourceItem, TKey>> keySelectorExpression)
 			
 		{
-			return new ObservableComputations.Hashing<TSourceItem, TKey>(
+			return new ObservableComputations.HashSetting<TSourceItem, TKey>(
 				sourceScalar: sourceScalar,
 				keySelectorExpression: keySelectorExpression,
-				comparer: null,
-				capacity: 0);
+				equalityComparer: null);
 		}
 
 		[ObservableComputationsCall]
-		public static ObservableComputations.Hashing<TSourceItem, TKey> Hashing<TSourceItem, TKey>(this
+		public static ObservableComputations.HashSetting<TSourceItem, TKey> HashSetting<TSourceItem, TKey>(this
 			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> sourceExpression,
 			 System.Linq.Expressions.Expression<System.Func<TSourceItem, TKey>> keySelectorExpression,
-			 System.Collections.Generic.IEqualityComparer<TKey> comparer,
-			 int capacity)
+			 System.Collections.Generic.IEqualityComparer<TKey> equalityComparer)
 			
 		{
-			return new ObservableComputations.Hashing<TSourceItem, TKey>(
+			return new ObservableComputations.HashSetting<TSourceItem, TKey>(
 				sourceScalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(sourceExpression),
 				keySelectorExpression: keySelectorExpression,
-				comparer: comparer,
-				capacity: capacity);
+				equalityComparer: equalityComparer);
 		}
 
 		[ObservableComputationsCall]
-		public static ObservableComputations.Hashing<TSourceItem, TKey> Hashing<TSourceItem, TKey>(this
-			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> sourceExpression,
-			 System.Linq.Expressions.Expression<System.Func<TSourceItem, TKey>> keySelectorExpression,
-			 System.Collections.Generic.IEqualityComparer<TKey> comparer)
-			
-		{
-			return new ObservableComputations.Hashing<TSourceItem, TKey>(
-				sourceScalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(sourceExpression),
-				keySelectorExpression: keySelectorExpression,
-				comparer: comparer,
-				capacity: 0);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.Hashing<TSourceItem, TKey> Hashing<TSourceItem, TKey>(this
-			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> sourceExpression,
-			 System.Linq.Expressions.Expression<System.Func<TSourceItem, TKey>> keySelectorExpression,
-			 int capacity)
-			
-		{
-			return new ObservableComputations.Hashing<TSourceItem, TKey>(
-				sourceScalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(sourceExpression),
-				keySelectorExpression: keySelectorExpression,
-				comparer: null,
-				capacity: capacity);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.Hashing<TSourceItem, TKey> Hashing<TSourceItem, TKey>(this
+		public static ObservableComputations.HashSetting<TSourceItem, TKey> HashSetting<TSourceItem, TKey>(this
 			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> sourceExpression,
 			 System.Linq.Expressions.Expression<System.Func<TSourceItem, TKey>> keySelectorExpression)
 			
 		{
-			return new ObservableComputations.Hashing<TSourceItem, TKey>(
+			return new ObservableComputations.HashSetting<TSourceItem, TKey>(
 				sourceScalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(sourceExpression),
 				keySelectorExpression: keySelectorExpression,
-				comparer: null,
-				capacity: 0);
+				equalityComparer: null);
 		}
 
 		[ObservableComputationsCall]
-		public static ObservableComputations.Hashing<TSourceItem, TKey> Hashing<TSourceItem, TKey>(this
+		public static ObservableComputations.HashSetting<TSourceItem, TKey> HashSetting<TSourceItem, TKey>(this
 			 Expression<Func<ObservableCollection<TSourceItem>>> sourceExpression,
 			 System.Linq.Expressions.Expression<System.Func<TSourceItem, TKey>> keySelectorExpression,
-			 System.Collections.Generic.IEqualityComparer<TKey> comparer,
-			 int capacity)
+			 System.Collections.Generic.IEqualityComparer<TKey> equalityComparer)
 			
 		{
-			return new ObservableComputations.Hashing<TSourceItem, TKey>(
+			return new ObservableComputations.HashSetting<TSourceItem, TKey>(
 				sourceScalar: new Computing<ObservableCollection<TSourceItem>>(sourceExpression),
 				keySelectorExpression: keySelectorExpression,
-				comparer: comparer,
-				capacity: capacity);
+				equalityComparer: equalityComparer);
 		}
 
 		[ObservableComputationsCall]
-		public static ObservableComputations.Hashing<TSourceItem, TKey> Hashing<TSourceItem, TKey>(this
-			 Expression<Func<ObservableCollection<TSourceItem>>> sourceExpression,
-			 System.Linq.Expressions.Expression<System.Func<TSourceItem, TKey>> keySelectorExpression,
-			 System.Collections.Generic.IEqualityComparer<TKey> comparer)
-			
-		{
-			return new ObservableComputations.Hashing<TSourceItem, TKey>(
-				sourceScalar: new Computing<ObservableCollection<TSourceItem>>(sourceExpression),
-				keySelectorExpression: keySelectorExpression,
-				comparer: comparer,
-				capacity: 0);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.Hashing<TSourceItem, TKey> Hashing<TSourceItem, TKey>(this
-			 Expression<Func<ObservableCollection<TSourceItem>>> sourceExpression,
-			 System.Linq.Expressions.Expression<System.Func<TSourceItem, TKey>> keySelectorExpression,
-			 int capacity)
-			
-		{
-			return new ObservableComputations.Hashing<TSourceItem, TKey>(
-				sourceScalar: new Computing<ObservableCollection<TSourceItem>>(sourceExpression),
-				keySelectorExpression: keySelectorExpression,
-				comparer: null,
-				capacity: capacity);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.Hashing<TSourceItem, TKey> Hashing<TSourceItem, TKey>(this
+		public static ObservableComputations.HashSetting<TSourceItem, TKey> HashSetting<TSourceItem, TKey>(this
 			 Expression<Func<ObservableCollection<TSourceItem>>> sourceExpression,
 			 System.Linq.Expressions.Expression<System.Func<TSourceItem, TKey>> keySelectorExpression)
 			
 		{
-			return new ObservableComputations.Hashing<TSourceItem, TKey>(
+			return new ObservableComputations.HashSetting<TSourceItem, TKey>(
 				sourceScalar: new Computing<ObservableCollection<TSourceItem>>(sourceExpression),
 				keySelectorExpression: keySelectorExpression,
-				comparer: null,
-				capacity: 0);
+				equalityComparer: null);
 		}
 
 		[ObservableComputationsCall]
-		public static ObservableComputations.Hashing<TSourceItem, TKey> Hashing<TSourceItem, TKey>(this
+		public static ObservableComputations.HashSetting<TSourceItem, TKey> HashSetting<TSourceItem, TKey>(this
 			 System.Collections.Specialized.INotifyCollectionChanged source,
 			 System.Linq.Expressions.Expression<System.Func<TSourceItem, TKey>> keySelectorExpression,
-			 System.Collections.Generic.IEqualityComparer<TKey> comparer,
-			 int capacity)
+			 System.Collections.Generic.IEqualityComparer<TKey> equalityComparer)
 			
 		{
-			return new ObservableComputations.Hashing<TSourceItem, TKey>(
+			return new ObservableComputations.HashSetting<TSourceItem, TKey>(
 				source: source,
 				keySelectorExpression: keySelectorExpression,
-				comparer: comparer,
-				capacity: capacity);
+				equalityComparer: equalityComparer);
 		}
 
 		[ObservableComputationsCall]
-		public static ObservableComputations.Hashing<TSourceItem, TKey> Hashing<TSourceItem, TKey>(this
-			 System.Collections.Specialized.INotifyCollectionChanged source,
-			 System.Linq.Expressions.Expression<System.Func<TSourceItem, TKey>> keySelectorExpression,
-			 System.Collections.Generic.IEqualityComparer<TKey> comparer)
-			
-		{
-			return new ObservableComputations.Hashing<TSourceItem, TKey>(
-				source: source,
-				keySelectorExpression: keySelectorExpression,
-				comparer: comparer,
-				capacity: 0);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.Hashing<TSourceItem, TKey> Hashing<TSourceItem, TKey>(this
-			 System.Collections.Specialized.INotifyCollectionChanged source,
-			 System.Linq.Expressions.Expression<System.Func<TSourceItem, TKey>> keySelectorExpression,
-			 int capacity)
-			
-		{
-			return new ObservableComputations.Hashing<TSourceItem, TKey>(
-				source: source,
-				keySelectorExpression: keySelectorExpression,
-				comparer: null,
-				capacity: capacity);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.Hashing<TSourceItem, TKey> Hashing<TSourceItem, TKey>(this
+		public static ObservableComputations.HashSetting<TSourceItem, TKey> HashSetting<TSourceItem, TKey>(this
 			 System.Collections.Specialized.INotifyCollectionChanged source,
 			 System.Linq.Expressions.Expression<System.Func<TSourceItem, TKey>> keySelectorExpression)
 			
 		{
-			return new ObservableComputations.Hashing<TSourceItem, TKey>(
+			return new ObservableComputations.HashSetting<TSourceItem, TKey>(
 				source: source,
 				keySelectorExpression: keySelectorExpression,
-				comparer: null,
-				capacity: 0);
+				equalityComparer: null);
 		}
 
 		[ObservableComputationsCall]
-		public static ObservableComputations.Hashing<TSourceItem, TKey> Hashing<TSourceItem, TKey>(this
+		public static ObservableComputations.HashSetting<TSourceItem, TKey> HashSetting<TSourceItem, TKey>(this
 			 ObservableCollection<TSourceItem> source,
 			 System.Linq.Expressions.Expression<System.Func<TSourceItem, TKey>> keySelectorExpression,
-			 System.Collections.Generic.IEqualityComparer<TKey> comparer,
-			 int capacity)
+			 System.Collections.Generic.IEqualityComparer<TKey> equalityComparer)
 			
 		{
-			return new ObservableComputations.Hashing<TSourceItem, TKey>(
+			return new ObservableComputations.HashSetting<TSourceItem, TKey>(
 				source: source,
 				keySelectorExpression: keySelectorExpression,
-				comparer: comparer,
-				capacity: capacity);
+				equalityComparer: equalityComparer);
 		}
 
 		[ObservableComputationsCall]
-		public static ObservableComputations.Hashing<TSourceItem, TKey> Hashing<TSourceItem, TKey>(this
-			 ObservableCollection<TSourceItem> source,
-			 System.Linq.Expressions.Expression<System.Func<TSourceItem, TKey>> keySelectorExpression,
-			 System.Collections.Generic.IEqualityComparer<TKey> comparer)
-			
-		{
-			return new ObservableComputations.Hashing<TSourceItem, TKey>(
-				source: source,
-				keySelectorExpression: keySelectorExpression,
-				comparer: comparer,
-				capacity: 0);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.Hashing<TSourceItem, TKey> Hashing<TSourceItem, TKey>(this
-			 ObservableCollection<TSourceItem> source,
-			 System.Linq.Expressions.Expression<System.Func<TSourceItem, TKey>> keySelectorExpression,
-			 int capacity)
-			
-		{
-			return new ObservableComputations.Hashing<TSourceItem, TKey>(
-				source: source,
-				keySelectorExpression: keySelectorExpression,
-				comparer: null,
-				capacity: capacity);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.Hashing<TSourceItem, TKey> Hashing<TSourceItem, TKey>(this
+		public static ObservableComputations.HashSetting<TSourceItem, TKey> HashSetting<TSourceItem, TKey>(this
 			 ObservableCollection<TSourceItem> source,
 			 System.Linq.Expressions.Expression<System.Func<TSourceItem, TKey>> keySelectorExpression)
 			
 		{
-			return new ObservableComputations.Hashing<TSourceItem, TKey>(
+			return new ObservableComputations.HashSetting<TSourceItem, TKey>(
 				source: source,
 				keySelectorExpression: keySelectorExpression,
-				comparer: null,
-				capacity: 0);
+				equalityComparer: null);
+		}
+
+		[ObservableComputationsCall]
+		public static ObservableComputations.HashSetting<TSourceItem, TKey> HashSetting<TSourceItem, TKey>(this
+			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar,
+			 System.Linq.Expressions.Expression<System.Func<TSourceItem, TKey>> keySelectorExpression,
+			 ObservableComputations.IReadScalar<System.Collections.Generic.IEqualityComparer<TKey>> equalityComparerScalar)
+			
+		{
+			return new ObservableComputations.HashSetting<TSourceItem, TKey>(
+				sourceScalar: sourceScalar,
+				keySelectorExpression: keySelectorExpression,
+				equalityComparerScalar: equalityComparerScalar);
+		}
+
+		[ObservableComputationsCall]
+		public static ObservableComputations.HashSetting<TSourceItem, TKey> HashSetting<TSourceItem, TKey>(this
+			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar,
+			 System.Linq.Expressions.Expression<System.Func<TSourceItem, TKey>> keySelectorExpression,
+			 Expression<Func<System.Collections.Generic.IEqualityComparer<TKey>>> equalityComparerExpression)
+			
+		{
+			return new ObservableComputations.HashSetting<TSourceItem, TKey>(
+				sourceScalar: sourceScalar,
+				keySelectorExpression: keySelectorExpression,
+				equalityComparerScalar: new Computing<System.Collections.Generic.IEqualityComparer<TKey>>(equalityComparerExpression));
+		}
+
+		[ObservableComputationsCall]
+		public static ObservableComputations.HashSetting<TSourceItem, TKey> HashSetting<TSourceItem, TKey>(this
+			 ObservableComputations.IReadScalar<ObservableCollection<TSourceItem>> sourceScalar,
+			 System.Linq.Expressions.Expression<System.Func<TSourceItem, TKey>> keySelectorExpression,
+			 ObservableComputations.IReadScalar<System.Collections.Generic.IEqualityComparer<TKey>> equalityComparerScalar)
+			
+		{
+			return new ObservableComputations.HashSetting<TSourceItem, TKey>(
+				sourceScalar: sourceScalar,
+				keySelectorExpression: keySelectorExpression,
+				equalityComparerScalar: equalityComparerScalar);
+		}
+
+		[ObservableComputationsCall]
+		public static ObservableComputations.HashSetting<TSourceItem, TKey> HashSetting<TSourceItem, TKey>(this
+			 ObservableComputations.IReadScalar<ObservableCollection<TSourceItem>> sourceScalar,
+			 System.Linq.Expressions.Expression<System.Func<TSourceItem, TKey>> keySelectorExpression,
+			 Expression<Func<System.Collections.Generic.IEqualityComparer<TKey>>> equalityComparerExpression)
+			
+		{
+			return new ObservableComputations.HashSetting<TSourceItem, TKey>(
+				sourceScalar: sourceScalar,
+				keySelectorExpression: keySelectorExpression,
+				equalityComparerScalar: new Computing<System.Collections.Generic.IEqualityComparer<TKey>>(equalityComparerExpression));
+		}
+
+		[ObservableComputationsCall]
+		public static ObservableComputations.HashSetting<TSourceItem, TKey> HashSetting<TSourceItem, TKey>(this
+			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> sourceExpression,
+			 System.Linq.Expressions.Expression<System.Func<TSourceItem, TKey>> keySelectorExpression,
+			 ObservableComputations.IReadScalar<System.Collections.Generic.IEqualityComparer<TKey>> equalityComparerScalar)
+			
+		{
+			return new ObservableComputations.HashSetting<TSourceItem, TKey>(
+				sourceScalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(sourceExpression),
+				keySelectorExpression: keySelectorExpression,
+				equalityComparerScalar: equalityComparerScalar);
+		}
+
+		[ObservableComputationsCall]
+		public static ObservableComputations.HashSetting<TSourceItem, TKey> HashSetting<TSourceItem, TKey>(this
+			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> sourceExpression,
+			 System.Linq.Expressions.Expression<System.Func<TSourceItem, TKey>> keySelectorExpression,
+			 Expression<Func<System.Collections.Generic.IEqualityComparer<TKey>>> equalityComparerExpression)
+			
+		{
+			return new ObservableComputations.HashSetting<TSourceItem, TKey>(
+				sourceScalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(sourceExpression),
+				keySelectorExpression: keySelectorExpression,
+				equalityComparerScalar: new Computing<System.Collections.Generic.IEqualityComparer<TKey>>(equalityComparerExpression));
+		}
+
+		[ObservableComputationsCall]
+		public static ObservableComputations.HashSetting<TSourceItem, TKey> HashSetting<TSourceItem, TKey>(this
+			 Expression<Func<ObservableCollection<TSourceItem>>> sourceExpression,
+			 System.Linq.Expressions.Expression<System.Func<TSourceItem, TKey>> keySelectorExpression,
+			 ObservableComputations.IReadScalar<System.Collections.Generic.IEqualityComparer<TKey>> equalityComparerScalar)
+			
+		{
+			return new ObservableComputations.HashSetting<TSourceItem, TKey>(
+				sourceScalar: new Computing<ObservableCollection<TSourceItem>>(sourceExpression),
+				keySelectorExpression: keySelectorExpression,
+				equalityComparerScalar: equalityComparerScalar);
+		}
+
+		[ObservableComputationsCall]
+		public static ObservableComputations.HashSetting<TSourceItem, TKey> HashSetting<TSourceItem, TKey>(this
+			 Expression<Func<ObservableCollection<TSourceItem>>> sourceExpression,
+			 System.Linq.Expressions.Expression<System.Func<TSourceItem, TKey>> keySelectorExpression,
+			 Expression<Func<System.Collections.Generic.IEqualityComparer<TKey>>> equalityComparerExpression)
+			
+		{
+			return new ObservableComputations.HashSetting<TSourceItem, TKey>(
+				sourceScalar: new Computing<ObservableCollection<TSourceItem>>(sourceExpression),
+				keySelectorExpression: keySelectorExpression,
+				equalityComparerScalar: new Computing<System.Collections.Generic.IEqualityComparer<TKey>>(equalityComparerExpression));
+		}
+
+		[ObservableComputationsCall]
+		public static ObservableComputations.HashSetting<TSourceItem, TKey> HashSetting<TSourceItem, TKey>(this
+			 System.Collections.Specialized.INotifyCollectionChanged source,
+			 System.Linq.Expressions.Expression<System.Func<TSourceItem, TKey>> keySelectorExpression,
+			 ObservableComputations.IReadScalar<System.Collections.Generic.IEqualityComparer<TKey>> equalityComparerScalar)
+			
+		{
+			return new ObservableComputations.HashSetting<TSourceItem, TKey>(
+				source: source,
+				keySelectorExpression: keySelectorExpression,
+				equalityComparerScalar: equalityComparerScalar);
+		}
+
+		[ObservableComputationsCall]
+		public static ObservableComputations.HashSetting<TSourceItem, TKey> HashSetting<TSourceItem, TKey>(this
+			 System.Collections.Specialized.INotifyCollectionChanged source,
+			 System.Linq.Expressions.Expression<System.Func<TSourceItem, TKey>> keySelectorExpression,
+			 Expression<Func<System.Collections.Generic.IEqualityComparer<TKey>>> equalityComparerExpression)
+			
+		{
+			return new ObservableComputations.HashSetting<TSourceItem, TKey>(
+				source: source,
+				keySelectorExpression: keySelectorExpression,
+				equalityComparerScalar: new Computing<System.Collections.Generic.IEqualityComparer<TKey>>(equalityComparerExpression));
+		}
+
+		[ObservableComputationsCall]
+		public static ObservableComputations.HashSetting<TSourceItem, TKey> HashSetting<TSourceItem, TKey>(this
+			 ObservableCollection<TSourceItem> source,
+			 System.Linq.Expressions.Expression<System.Func<TSourceItem, TKey>> keySelectorExpression,
+			 ObservableComputations.IReadScalar<System.Collections.Generic.IEqualityComparer<TKey>> equalityComparerScalar)
+			
+		{
+			return new ObservableComputations.HashSetting<TSourceItem, TKey>(
+				source: source,
+				keySelectorExpression: keySelectorExpression,
+				equalityComparerScalar: equalityComparerScalar);
+		}
+
+		[ObservableComputationsCall]
+		public static ObservableComputations.HashSetting<TSourceItem, TKey> HashSetting<TSourceItem, TKey>(this
+			 ObservableCollection<TSourceItem> source,
+			 System.Linq.Expressions.Expression<System.Func<TSourceItem, TKey>> keySelectorExpression,
+			 Expression<Func<System.Collections.Generic.IEqualityComparer<TKey>>> equalityComparerExpression)
+			
+		{
+			return new ObservableComputations.HashSetting<TSourceItem, TKey>(
+				source: source,
+				keySelectorExpression: keySelectorExpression,
+				equalityComparerScalar: new Computing<System.Collections.Generic.IEqualityComparer<TKey>>(equalityComparerExpression));
 		}
 
 		#endregion

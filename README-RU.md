@@ -13,7 +13,7 @@
 
 ## Аналоги
 
-Ближайщими аналогами ObservableComputations являются следующие библиотеки: Obtics, [OLinq](https://github.com/wasabii/OLinq), [NFM.Expressions](https://github.com/NMFCode/NMF), BindableLinq, ContinuousLinq.
+Ближайщими аналогами ObservableComputations являются следующие библиотеки: Obtics, [OLinq](https://github.com/wasabii/OLinq), [NFM.Expressions](https://github.com/NMFCode/NMF), [BindableLinq](https://github.com/svn2github/bindablelinq), ContinuousLinq.
 
 ### [Reactive Extentions](https://github.com/dotnet/reactive)
 ObservableComputations не является аналогом [Reactive Extentions](https://github.com/dotnet/reactive). Вот главные отличия ObservableComputations от  [Reactive Extentions](https://github.com/dotnet/reactive):

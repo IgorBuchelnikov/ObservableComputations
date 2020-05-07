@@ -93,7 +93,7 @@ namespace ObservableComputations
 
 
 		private Action<TKey, TValue> _addItemAction;
-		public Action<TKey, TValue> InsertItemAction
+		public Action<TKey, TValue> AddItemAction
 		{
 			// ReSharper disable once MemberCanBePrivate.Global
 			get => _addItemAction;
@@ -904,7 +904,7 @@ namespace ObservableComputations
 		{
 			if (_dictionary.TryGetValue(item.Key, out TValue value))
 			{
-				if (!EqualityComparer<TValue>.Default.Equals(this._dictionary[item.Key], item.Value))
+				if (!EqualityComparer<TValue>.Default.Equals(value, item.Value))
 					return false;
 
 				this.Remove(item.Key);
@@ -947,8 +947,8 @@ namespace ObservableComputations
 			set => _setItemAction(key, value);
 		}
 
-		public ICollection<TKey> Keys { get; }
-		public ICollection<TValue> Values { get; }
+		public ICollection<TKey> Keys => _dictionary.Keys;
+		public ICollection<TValue> Values => _dictionary.Values;
 
 		#endregion
 

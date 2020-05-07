@@ -14,6 +14,40 @@ namespace ObservableComputations.Test
 	[TestFixture]
 	public class CollectionDispatchingTest
 	{
+		public class Item : INotifyPropertyChanged
+		{
+			public Item()
+			{
+			}
+
+			private int _num;
+			public int Num
+			{
+				get => _num;
+				set => updatePropertyValue(ref _num, value);
+			}
+
+			#region INotifyPropertyChanged imlementation
+
+			public event PropertyChangedEventHandler PropertyChanged;
+
+			protected virtual void onPropertyChanged([CallerMemberName] string propertyName = null)
+			{
+				PropertyChangedEventHandler onPropertyChanged = PropertyChanged;
+				if (onPropertyChanged != null) onPropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+
+			protected bool updatePropertyValue<T>(ref T field, T value, [CallerMemberName] string propertyName = null)
+			{
+				if (EqualityComparer<T>.Default.Equals(field, value)) return false;
+				field = value;
+				this.onPropertyChanged(propertyName);
+				return true;
+			}
+
+			#endregion
+		}
+
 		[Test]
 		public void TestCollectionDispatchingTest()
 		{

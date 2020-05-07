@@ -10,7 +10,7 @@ using NUnit.Framework;
 namespace ObservableComputations.Test
 {
 	[TestFixture]
-	public class HashingTests
+	public class HashSettingTests
 	{
 		public class Item : INotifyPropertyChanged
 		{
@@ -19,13 +19,6 @@ namespace ObservableComputations.Test
 			{
 				get => _key;
 				set => updatePropertyValue(ref _key, value);
-			}
-
-			private int _value;
-			public int Value
-			{
-				get => _value;
-				set => updatePropertyValue(ref _value, value);
 			}
 
 			#region INotifyPropertyChanged imlementation
@@ -97,19 +90,19 @@ namespace ObservableComputations.Test
 			string testNum = string.Empty;
 
 			ObservableCollection<Item> items;
-			Hashing<Item, int> hashing;
+			HashSetting<Item, int> hashing;
 			try
 			{
 				trace(testNum = "1", values, index, newKey, newValue, indexOld, indexNew);
 				items = getObservableCollection(values);
-				hashing = items.Hashing(i => i.Key);
+				hashing = items.HashSetting(i => i.Key);
 				hashing.ValidateConsistency();
 
 				for (index = 0; index < values.Length; index++)
 				{
 					trace(testNum = "2", values, index, newKey, newValue, indexOld, indexNew);
 					items = getObservableCollection(values);
-					Hashing<Item, int> hashing1 = items.Hashing(i => i.Key);
+					HashSetting<Item, int> hashing1 = items.HashSetting(i => i.Key);
 					items.RemoveAt(index);
 					hashing1.ValidateConsistency();
 				}
@@ -120,8 +113,8 @@ namespace ObservableComputations.Test
 					{
 						trace(testNum = "3", values, index, newKey, newValue, indexOld, indexNew);
 						items = getObservableCollection(values);
-						Hashing<Item, int> hashing1 = items.Hashing(i => i.Key);
-						items.Insert(index, new Item(){Key = values.Length, Value = newValue});
+						HashSetting<Item, int> hashing1 = items.HashSetting(i => i.Key);
+						items.Insert(index, new Item(){Key = values.Length});
 						hashing1.ValidateConsistency();
 					}
 				}
@@ -132,14 +125,14 @@ namespace ObservableComputations.Test
 					{
 						trace(testNum = "4", values, index, newKey, newValue, indexOld, indexNew);
 						items = getObservableCollection(values);
-						Hashing<Item, int> hashing2 = items.Hashing(i => i.Key);
-						items[index] = new Item(){Key = values.Length, Value = newValue};
+						HashSetting<Item, int> hashing2 = items.HashSetting(i => i.Key);
+						items[index] = new Item(){Key = values.Length};
 						hashing2.ValidateConsistency();
 
 						trace(testNum = "5", values, index, newKey, newValue, indexOld, indexNew);
 						items = getObservableCollection(values);
-						hashing2 = items.Hashing(i => i.Key);
-						items[index] = new Item(){Key = items[index].Key, Value = newValue};
+						hashing2 = items.HashSetting(i => i.Key);
+						items[index] = new Item(){Key = items[index].Key};
 						hashing2.ValidateConsistency();
 
 					}
@@ -151,14 +144,13 @@ namespace ObservableComputations.Test
 					{
 						trace(testNum = "6", values, index, newKey, newValue, indexOld, indexNew);
 						items = getObservableCollection(values);
-						Hashing<Item, int> hashing2 = items.Hashing(i => i.Key);
+						HashSetting<Item, int> hashing2 = items.HashSetting(i => i.Key);
 						items[index].Key = values.Length;
 						hashing2.ValidateConsistency();
 
 						trace(testNum = "7", values, index, newKey, newValue, indexOld, indexNew);
 						items = getObservableCollection(values);
-						hashing2 = items.Hashing(i => i.Key);
-						items[index].Value = newValue;
+						hashing2 = items.HashSetting(i => i.Key);
 						hashing2.ValidateConsistency();
 
 					}
@@ -170,7 +162,7 @@ namespace ObservableComputations.Test
 					{
 						trace(testNum = "3", values, index, newKey, newValue, indexOld, indexNew);
 						items = getObservableCollection(values);
-						Hashing<Item, int> hashing2 = items.Hashing(i => i.Key);
+						HashSetting<Item, int> hashing2 = items.HashSetting(i => i.Key);
 						items.Move(indexOld, indexNew);
 						hashing2.ValidateConsistency();
 					}
@@ -212,7 +204,7 @@ namespace ObservableComputations.Test
 
 		private static ObservableCollection<Item> getObservableCollection(int[] values)
 		{
-			return new ObservableCollection<Item>(Enumerable.Range(0, values.Length).Select(n => new Item(){Key = n, Value = values[n]}));
+			return new ObservableCollection<Item>(Enumerable.Range(0, values.Length).Select(n => new Item(){Key = n}));
 		}
 	}
 }

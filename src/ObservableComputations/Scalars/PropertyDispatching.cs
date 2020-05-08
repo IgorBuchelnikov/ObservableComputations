@@ -38,20 +38,26 @@ namespace ObservableComputations
 
 			_propertyExpression = propertyExpression;
 
-			MemberExpression memberExpression = (MemberExpression) propertyExpression.Body;
-			_propertyHolder = (INotifyPropertyChanged) ((ConstantExpression) memberExpression.Expression).Value;
-
-			_propertyHolderPropertyChangedEventHandler = handlePropertyHolderPropertyChanged;
-			_propertyHolderWeakPropertyChangedEventHandler =
-				new WeakPropertyChangedEventHandler(_propertyHolderPropertyChangedEventHandler);
-			_propertyHolder.PropertyChanged += _propertyHolderWeakPropertyChangedEventHandler.Handle;
-
 			ParameterExpression parameterExpression = Expression.Parameter(typeof(TResult));
 			_setAction = Expression.Lambda<Action<TResult>>(
 				Expression.Assign(propertyExpression.Body, parameterExpression), 
 				parameterExpression).Compile();
 
 			_getAction = propertyExpression.Compile();
+
+			MemberExpression memberExpression = (MemberExpression) propertyExpression.Body;
+			_propertyHolder = (INotifyPropertyChanged) ((ConstantExpression) memberExpression.Expression).Value;
+
+			_propertyHolderPropertyChangedEventHandler = handlePropertyHolderPropertyChanged;
+			_propertyHolderWeakPropertyChangedEventHandler =
+				new WeakPropertyChangedEventHandler(_propertyHolderPropertyChangedEventHandler);
+
+			_sourceDispatcher.Invoke(() => 
+			{				
+				_propertyHolder.PropertyChanged += _propertyHolderWeakPropertyChangedEventHandler.Handle;
+				_value = _getAction();
+			});
+
 		}
 
 		private void handlePropertyHolderPropertyChanged(object sender, PropertyChangedEventArgs e)

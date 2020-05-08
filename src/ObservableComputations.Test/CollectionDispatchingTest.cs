@@ -16,8 +16,10 @@ namespace ObservableComputations.Test
 	{
 		public class Item : INotifyPropertyChanged
 		{
-			public Item()
+			public Item(int num, IDispatcher consuminingDispatcher, IDispatcher computingDispatcher)
 			{
+				_num = num;
+				_numDispatching = new PropertyDispatching<int>(() => Num, computingDispatcher, consuminingDispatcher);
 			}
 
 			private int _num;
@@ -26,6 +28,9 @@ namespace ObservableComputations.Test
 				get => _num;
 				set => updatePropertyValue(ref _num, value);
 			}
+
+			private PropertyDispatching<int> _numDispatching;
+			public PropertyDispatching<int> NumDispatching => _numDispatching;
 
 			#region INotifyPropertyChanged imlementation
 
@@ -53,13 +58,23 @@ namespace ObservableComputations.Test
 		{
 			Dispatcher consuminingDispatcher = new Dispatcher();
 			Dispatcher computingDispatcher = new Dispatcher();
-			var nums = new ObservableCollection<int>();
-			var filteredNums = nums.Filtering(n => n % 3 == 0);
+			IDispatcher asyncConsuminingDispatcher = consuminingDispatcher;//new AsyncDispatcher(consuminingDispatcher);
+			IDispatcher asyncComputingDispatcher = new AsyncDispatcher(computingDispatcher);
+
+			var nums = new ObservableCollection<Item>();
+			var filteredNums = nums.Filtering(i => i.Num % 3 == 0);
 			var dispatchingfilteredNums = filteredNums.CollectionDispatching(
 				computingDispatcher,
-				consuminingDispatcher);
+				asyncConsuminingDispatcher);
 			bool stop = false;
-			Random computingWorkerRandom =  new Random();
+
+			Thread numsChangersStopper = new Thread(() =>
+			{
+				Thread.Sleep(TimeSpan.FromMinutes(60 * 12));
+				stop = true;
+			});
+
+			numsChangersStopper.Start();
 
 			ThreadStart numsChangerThreadStart = () =>
 			{
@@ -75,8 +90,8 @@ namespace ObservableComputations.Test
 							computingDispatcher.Invoke(() =>
 							{
 								int upperIndex = nums.Count > 0 ? nums.Count - 1 : 0;
-								int index = computingWorkerRandom.Next(0, upperIndex);
-								nums.Insert(index, computingWorkerRandom.Next(Int32.MinValue, int.MaxValue));
+								int index = random.Next(0, upperIndex);
+								nums.Insert(index, new Item(random.Next(Int32.MinValue, int.MaxValue), asyncConsuminingDispatcher, asyncComputingDispatcher));
 							});
 							break;
 						case NotifyCollectionChangedAction.Remove:
@@ -85,7 +100,7 @@ namespace ObservableComputations.Test
 								int upperIndex =  nums.Count - 1;
 								if (upperIndex > 0)
 								{
-									int index = computingWorkerRandom.Next(0, upperIndex);
+									int index = random.Next(0, upperIndex);
 									nums.RemoveAt(index);
 								}
 							});
@@ -96,8 +111,8 @@ namespace ObservableComputations.Test
 								int upperIndex =  nums.Count - 1;
 								if (upperIndex > 0)
 								{
-									int index = computingWorkerRandom.Next(0, upperIndex);
-									nums[index] = computingWorkerRandom.Next(Int32.MinValue, int.MaxValue);
+									int index = random.Next(0, upperIndex);
+									nums[index] = new Item(random.Next(Int32.MinValue, int.MaxValue), asyncConsuminingDispatcher, asyncComputingDispatcher);
 								}
 
 							});
@@ -108,8 +123,8 @@ namespace ObservableComputations.Test
 								int upperIndex =  nums.Count - 1;
 								if (upperIndex > 0)
 								{
-									int indexFrom = computingWorkerRandom.Next(0, upperIndex);
-									int indexTo = computingWorkerRandom.Next(0, upperIndex);
+									int indexFrom = random.Next(0, upperIndex);
+									int indexTo = random.Next(0, upperIndex);
 									nums.Move(indexFrom, indexTo);
 								}
 							});
@@ -124,24 +139,42 @@ namespace ObservableComputations.Test
 				}
 			};
 
-			Thread numsChangerThread1 = new Thread(numsChangerThreadStart);
-			Thread numsChangerThread2 = new Thread(numsChangerThreadStart);
-			Thread numsChangerThread3 = new Thread(numsChangerThreadStart);
-			Thread numsChangerThread4 = new Thread(numsChangerThreadStart);
-			numsChangerThread1.Start();
-			numsChangerThread2.Start();
-			numsChangerThread3.Start();
-			numsChangerThread4.Start();
 
-			Thread numsChangersStopper = new Thread(() =>
+			int threadsCount = 10;   
+			Thread[] numsChangerThreads = new Thread[threadsCount];
+			for (int i = 0; i < threadsCount; i++)
 			{
-				Thread.Sleep(TimeSpan.FromMinutes(60 * 12));
-				stop = true;
-			});
+				numsChangerThreads[i] = new Thread(numsChangerThreadStart);
+				numsChangerThreads[i].Start();
+			}
 
-			numsChangersStopper.Start();
+			ThreadStart numValueChangerThreadStart = () =>
+			{
+				Random random =  new Random();
+				while (!stop)
+				{
+					Thread.Sleep(random.Next(0, 100));
 
-			Thread consuminingWorkerInvoker = new Thread(() =>
+					consuminingDispatcher.Invoke(() =>
+					{
+						int dispatchingfilteredNumsCount = dispatchingfilteredNums.Count;
+						if (dispatchingfilteredNumsCount > 0)
+							dispatchingfilteredNums[random.Next(0, dispatchingfilteredNumsCount - 1)].NumDispatching.Value =
+								random.Next(Int32.MinValue, int.MaxValue);
+					});
+
+				}
+			};
+ 
+			Thread[] numValueChangerThreads = new Thread[threadsCount];
+			for (int i = 0; i < threadsCount; i++)
+			{
+				numValueChangerThreads[i] = new Thread(numValueChangerThreadStart);
+				numValueChangerThreads[i].Start();
+			}
+
+
+			Thread consuminingDispatcherInvoker = new Thread(() =>
 			{
 				Random random =  new Random();
 				while (!stop)
@@ -149,25 +182,49 @@ namespace ObservableComputations.Test
 					Thread.Sleep(random.Next(0, 1000));
 					consuminingDispatcher.Invoke(() =>
 					{
-						computingDispatcher.Invoke(() =>
+						computingDispatcher.BeginInvoke(() =>
 						{
-							Assert.IsTrue(nums.Where(n => n % 3 == 0).SequenceEqual(dispatchingfilteredNums));
+							Assert.IsTrue(nums.Where(i => i.Num % 3 == 0).SequenceEqual(dispatchingfilteredNums));
+							Assert.IsTrue(nums.Where(i => i.NumDispatching.Value % 3 == 0).SequenceEqual(dispatchingfilteredNums));
 							Debug.Print("!!!!!");
 
 						});
 					});
 				}
 			});
-			consuminingWorkerInvoker.Start();
 
+			consuminingDispatcherInvoker.Start();
 
-			numsChangerThread1.Join();
-			numsChangerThread2.Join();
-			numsChangerThread3.Join();
-			numsChangerThread4.Join();
-			//consuminingWorkerInvoker.Join();
+			for (int i = 0; i < threadsCount; i++)
+			{
+				numsChangerThreads[i].Join();
+			}
 
+			for (int i = 0; i < threadsCount; i++)
+			{
+				numValueChangerThreads[i].Join();
+			}
 
+			consuminingDispatcherInvoker.Join();
 		}
+	}
+
+	public class AsyncDispatcher : IDispatcher
+	{
+		private Dispatcher _dispatcher;
+
+		public AsyncDispatcher(Dispatcher dispatcher)
+		{
+			_dispatcher = dispatcher;
+		}
+
+		#region Implementation of IDispatcher
+
+		public void Invoke(Action action)
+		{
+			_dispatcher.BeginInvoke(action);
+		}
+
+		#endregion
 	}
 }

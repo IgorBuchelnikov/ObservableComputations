@@ -13,43 +13,58 @@ namespace ObservableComputations
 {
 	public struct Invocation
 	{
-		internal ManualResetEventSlim DoneManualResetEvent;
-		internal Action Action;
-		internal Action<object> ActionWithState;
-		internal object State;
+		public Action Action => _action;
+		public Action<object> ActionWithState => _actionWithState;
+		public object State => _state;
+
+
+		internal ManualResetEventSlim _doneManualResetEvent;
+		internal Action _action;
+		internal Action<object> _actionWithState;
+		internal object _state;
 
 		internal Invocation(ManualResetEventSlim doneManualResetEvent, Action action) : this()
 		{
-			DoneManualResetEvent = doneManualResetEvent;
-			Action = action;
+			_doneManualResetEvent = doneManualResetEvent;
+			_action = action;
 		}
 
 		internal Invocation(ManualResetEventSlim doneManualResetEvent, Action<object> actionWithState, object state) : this()
 		{
-			DoneManualResetEvent = doneManualResetEvent;
-			ActionWithState = actionWithState;
-			State = state;
+			_doneManualResetEvent = doneManualResetEvent;
+			_actionWithState = actionWithState;
+			_state = state;
 		}
 
 		internal void Do()
 		{
-			if (Action != null)
-				Action();
+			if (_action != null)
+				_action();
 			else
-				ActionWithState(State);
+				_actionWithState(_state);
 
-			DoneManualResetEvent.Set();
-			DoneManualResetEvent.Dispose();
+			_doneManualResetEvent.Set();
+			_doneManualResetEvent.Dispose();
 		}
 
 		public void Wait()
 		{
-			DoneManualResetEvent.Wait();
+			if (_doneManualResetEvent != null)
+			{
+				try
+				{
+					_doneManualResetEvent.Wait();
+				}
+				catch (ObjectDisposedException)
+				{
+				}
+			}
+
 		}
 
 		public Task ToTask()
 		{
-			var doneManualResetEvent = DoneManualResetEvent;
+			var doneManualResetEvent = _doneManualResetEvent;
 			return Task.Run(() => doneManualResetEvent.Wait());
 				
 		}
@@ -84,10 +99,11 @@ namespace ObservableComputations
 		ConcurrentQueue<Invocation> _invocationQueue = new ConcurrentQueue<Invocation>();
 		private ManualResetEventSlim _newInvocationManualResetEvent = new ManualResetEventSlim(false);
 		private bool _alive = true;
-		private Thread _workerThread;
+		private Thread _thread;
+		private int _managedThreadId;
 
-		public int ManagedThreadId => _workerThread.ManagedThreadId;
-		public string ThreadName => _workerThread.Name;
+		public int ManagedThreadId => _managedThreadId;
+		public string ThreadName => _thread.Name;
 
 
 		private Invocation queueInvocation(Action action)
@@ -111,7 +127,7 @@ namespace ObservableComputations
 
 		public Dispatcher(string threadName = null)
 		{
-			_workerThread = new Thread(() =>
+			_thread = new Thread(() =>
 			{
 				while (_alive)
 				{
@@ -123,14 +139,14 @@ namespace ObservableComputations
 
 			});
 
-			_workerThread.Name = threadName ?? "ObservableComputations.Worker";
-
-			_workerThread.Start();
+			_thread.Name = threadName ?? "ObservableComputations.Worker";
+			_managedThreadId = _thread.ManagedThreadId;
+			_thread.Start();
 		}
 
 		public TimeSpan DoOthers(TimeSpan timeSpan)
 		{
-			if (_workerThread.ManagedThreadId != Thread.CurrentThread.ManagedThreadId)
+			if (_managedThreadId != Thread.CurrentThread.ManagedThreadId)
 				throw new ObservableComputationsException("Dispatcher.DoOthers method can only be called from the same thread that is associated with this Dispatcher.");
 
 			Stopwatch stopwatch = Stopwatch.StartNew();
@@ -145,7 +161,7 @@ namespace ObservableComputations
 
 		public int DoOthers(int count)
 		{
-			if (_workerThread.ManagedThreadId != Thread.CurrentThread.ManagedThreadId)
+			if (_managedThreadId != Thread.CurrentThread.ManagedThreadId)
 				throw new ObservableComputationsException("Dispatcher.DoOthers method can only be called from the same thread that is associated with this Dispatcher.");
 
 			int counter = 0;
@@ -161,7 +177,7 @@ namespace ObservableComputations
 
 		public void DoOthers()
 		{
-			if (_workerThread.ManagedThreadId != Thread.CurrentThread.ManagedThreadId)
+			if (_managedThreadId != Thread.CurrentThread.ManagedThreadId)
 				throw new ObservableComputationsException("Dispatcher.DoOthers method can only be called from the same thread that is associated with this Dispatcher.");
 
 			while (_invocationQueue.TryDequeue(out Invocation invocation))
@@ -178,22 +194,28 @@ namespace ObservableComputations
 
 		public Invocation BeginInvoke(Action action)
 		{
-			if (_workerThread.ManagedThreadId == Thread.CurrentThread.ManagedThreadId)
-				throw new ObservableComputationsException("Dispatcher.BeginInvoke can only be called from a thread other than the thread associated with this Dispatcher");
+			if (_managedThreadId == Thread.CurrentThread.ManagedThreadId)
+			{
+				action();
+				return new Invocation(null, action);
+			}
+
 			return queueInvocation(action);
 		}
 
 		public Invocation BeginInvoke(Action<object> action, object state)
 		{
-			if (_workerThread.ManagedThreadId == Thread.CurrentThread.ManagedThreadId)
-				throw new ObservableComputationsException("Dispatcher.BeginInvoke can only be called from a thread other than the thread associated with this Dispatcher");
-
+			if (_managedThreadId == Thread.CurrentThread.ManagedThreadId)
+			{
+				action(state);
+				return new Invocation(null, action, state);
+			}
 			return queueInvocation(action, state);
 		}
 
 		public void Invoke(Action action)
 		{
-			if (_workerThread.ManagedThreadId == Thread.CurrentThread.ManagedThreadId)
+			if (_managedThreadId == Thread.CurrentThread.ManagedThreadId)
 			{
 				action();
 				return;
@@ -205,7 +227,7 @@ namespace ObservableComputations
 
 		public void Invoke(Action<object> action, object state)
 		{
-			if (_workerThread.ManagedThreadId == Thread.CurrentThread.ManagedThreadId)
+			if (_managedThreadId == Thread.CurrentThread.ManagedThreadId)
 			{
 				action(state);
 				return;

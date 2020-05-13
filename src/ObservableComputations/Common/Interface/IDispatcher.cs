@@ -7,32 +7,6 @@ namespace ObservableComputations
 {
 	public interface IDispatcher
 	{
-		void Invoke(Action action);
-	}
-
-	public interface IDestinationCollectionDispatcher
-	{
-		void InvokeInitializeFromSourceCollection(Action action, ICollectionComputing collectionDispatching, object sourceItem, object sender, EventArgs eventArgs);
-		void InvokeCollectionChange(Action action, ICollectionComputing collectionDispatching, object sender, NotifyCollectionChangedEventArgs notifyCollectionChangedEventArgs);
-	}
-
-	public interface ISourceCollectionDispatcher
-	{
-		void InvokeReadAndSubscribe(Action action, ICollectionComputing collectionDispatching);
-	}
-
-	public interface IDestinationScalarDispatcher
-	{
-		void InvokeSetValue(Action action, IScalarComputing scalarDispatching, object sender, PropertyChangedEventArgs propertyChangedEventArgs);
-	}
-
-	public interface ISourceScalarDispatcher
-	{
-		void InvokeReadAndSubscribe(Action action, IScalarComputing scalarDispatching);
-	}
-
-	public interface IConcurrentDictionaringDestinationDispatcher
-	{
-		void Invoke(Action action, DictionaryChangeAction dictionaryChangeAction, object key, object value);
+		void BeginInvoke(Action action, IComputing computing);
 	}
 }

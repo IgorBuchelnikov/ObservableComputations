@@ -7,10 +7,6 @@ namespace ObservableComputations
 	{
 		public IReadScalar<TResult> Scalar => _scalar;
 		public IDispatcher DestinationDispatcher => _destinationDispatcher;
-		public IDispatcher SourceDispatcher => _sourceDispatcher;
-
-		private IDestinationScalarDispatcher _destinationScalarDispatcher;
-		private ISourceScalarDispatcher _sourceScalarDispatcher;
 
 		private IDispatcher _destinationDispatcher;
 		private IDispatcher _sourceDispatcher;
@@ -25,30 +21,24 @@ namespace ObservableComputations
 		[ObservableComputationsCall]
 		public ScalarDispatching(
 			IReadScalar<TResult> scalar, 
-			IDispatcher sourceDispatcher,
 			IDispatcher destinationDispatcher)
 		{
 			_scalar = scalar;
-			_sourceDispatcher = sourceDispatcher;
 			_destinationDispatcher = destinationDispatcher;
 
-			_sourceScalarDispatcher = sourceDispatcher as ISourceScalarDispatcher;
-			_destinationScalarDispatcher = destinationDispatcher as IDestinationScalarDispatcher;
 
-			Action readAndSubscribe = () =>
+			void readAndSubscribe()
 			{
-				_value = _scalar.Value;
+				void setNewValue() => setValue(_scalar.Value);
+
+				_destinationDispatcher.BeginInvoke(setNewValue, this);
+
 				_scalarPropertyChangedEventHandler = handleScalarPropertyChanged;
 				_scalarWeakPropertyChangedEventHandler = new WeakPropertyChangedEventHandler(_scalarPropertyChangedEventHandler);
 				_scalar.PropertyChanged += _scalarWeakPropertyChangedEventHandler.Handle;
-			};
+			}
 
-			if (_sourceScalarDispatcher != null)
-				_sourceScalarDispatcher.InvokeReadAndSubscribe(readAndSubscribe, this);
-			else
-				_sourceDispatcher.Invoke(readAndSubscribe);
-
-
+			_sourceDispatcher.BeginInvoke(readAndSubscribe, this);
 		}
 
 		private void handleScalarPropertyChanged(object sender, PropertyChangedEventArgs e)
@@ -59,11 +49,7 @@ namespace ObservableComputations
 
 			void setNewValue() => setValue(newValue);
 
-
-			if (_destinationScalarDispatcher != null)
-				_destinationScalarDispatcher.InvokeSetValue(setNewValue, this, sender, e);
-			else
-				_destinationDispatcher.Invoke(setNewValue);
+			_destinationDispatcher.BeginInvoke(setNewValue, this);
 		}
 
 		~ScalarDispatching()

@@ -225,7 +225,7 @@ namespace ObservableComputations
 			
 				_newItemProcessor(sourceItem, this, sender, eventArgs);
 
-				if (computing == null) DebugInfo._computingsExecutingUserCode.Remove(currentThread);
+				if (computing == null) DebugInfo._computingsExecutingUserCode.TryRemove(currentThread, out IComputing _);
 				else DebugInfo._computingsExecutingUserCode[currentThread] = computing;
 				return;
 			}
@@ -243,7 +243,7 @@ namespace ObservableComputations
 			
 				_oldItemProcessor(sourceItem, this, sender, eventArgs);
 
-				if (computing == null) DebugInfo._computingsExecutingUserCode.Remove(currentThread);
+				if (computing == null) DebugInfo._computingsExecutingUserCode.TryRemove(currentThread, out IComputing _);
 				else DebugInfo._computingsExecutingUserCode[currentThread] = computing;
 				return;
 			}
@@ -262,7 +262,7 @@ namespace ObservableComputations
 			
 				_moveItemProcessor(sourceItem, this, sender, eventArgs);
 
-				if (computing == null) DebugInfo._computingsExecutingUserCode.Remove(currentThread);
+				if (computing == null) DebugInfo._computingsExecutingUserCode.TryRemove(currentThread, out IComputing _);
 				else DebugInfo._computingsExecutingUserCode[currentThread] = computing;
 				return;
 			}

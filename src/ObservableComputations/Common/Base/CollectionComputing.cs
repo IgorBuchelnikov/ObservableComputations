@@ -164,7 +164,7 @@ namespace ObservableComputations
 				
 				_insertItemAction(index, item);
 
-				if (computing == null) DebugInfo._computingsExecutingUserCode.Remove(currentThread);
+				if (computing == null) DebugInfo._computingsExecutingUserCode.TryRemove(currentThread, out IComputing _);
 				else DebugInfo._computingsExecutingUserCode[currentThread] = computing;
 				
 				return;
@@ -183,7 +183,7 @@ namespace ObservableComputations
 				
 				_moveItemAction(oldIndex, newIndex);
 
-				if (computing == null) DebugInfo._computingsExecutingUserCode.Remove(currentThread);
+				if (computing == null) DebugInfo._computingsExecutingUserCode.TryRemove(currentThread, out IComputing _);
 				else DebugInfo._computingsExecutingUserCode[currentThread] = computing;
 				
 				return;
@@ -202,7 +202,7 @@ namespace ObservableComputations
 				
 				_removeItemAction(index);
 
-				if (computing == null) DebugInfo._computingsExecutingUserCode.Remove(currentThread);
+				if (computing == null) DebugInfo._computingsExecutingUserCode.TryRemove(currentThread, out IComputing _);
 				else DebugInfo._computingsExecutingUserCode[currentThread] = computing;
 				
 				return;
@@ -221,7 +221,7 @@ namespace ObservableComputations
 				
 				_setItemAction(index, item);
 
-				if (computing == null) DebugInfo._computingsExecutingUserCode.Remove(currentThread);
+				if (computing == null) DebugInfo._computingsExecutingUserCode.TryRemove(currentThread, out IComputing _);
 				else DebugInfo._computingsExecutingUserCode[currentThread] = computing;
 				
 				return;
@@ -240,7 +240,7 @@ namespace ObservableComputations
 				
 				_clearItemsAction();
 
-				if (computing == null) DebugInfo._computingsExecutingUserCode.Remove(currentThread);
+				if (computing == null) DebugInfo._computingsExecutingUserCode.TryRemove(currentThread, out IComputing _);
 				else DebugInfo._computingsExecutingUserCode[currentThread] = computing;
 				
 				return;
@@ -279,7 +279,7 @@ namespace ObservableComputations
 				base.InsertItem(index, item);
 				PostCollectionChanged?.Invoke(this, null);
 
-				if (computing == null) DebugInfo._computingsExecutingUserCode.Remove(currentThread);
+				if (computing == null) DebugInfo._computingsExecutingUserCode.TryRemove(currentThread, out IComputing _);
 				else DebugInfo._computingsExecutingUserCode[currentThread] = computing;
 			}
 			else
@@ -313,7 +313,7 @@ namespace ObservableComputations
 				base.MoveItem(oldIndex, newIndex);
 				PostCollectionChanged?.Invoke(this, null);
 
-				if (computing == null) DebugInfo._computingsExecutingUserCode.Remove(currentThread);
+				if (computing == null) DebugInfo._computingsExecutingUserCode.TryRemove(currentThread, out IComputing _);
 				else DebugInfo._computingsExecutingUserCode[currentThread] = computing;
 			}
 			else
@@ -346,7 +346,7 @@ namespace ObservableComputations
 				base.RemoveItem(index);
 				PostCollectionChanged?.Invoke(this, null);
 
-				if (computing == null) DebugInfo._computingsExecutingUserCode.Remove(currentThread);
+				if (computing == null) DebugInfo._computingsExecutingUserCode.TryRemove(currentThread, out IComputing _);
 				else DebugInfo._computingsExecutingUserCode[currentThread] = computing;
 			}
 			else
@@ -379,7 +379,7 @@ namespace ObservableComputations
 				base.SetItem(index, item);
 				PostCollectionChanged?.Invoke(this, null);
 
-				if (computing == null) DebugInfo._computingsExecutingUserCode.Remove(currentThread);
+				if (computing == null) DebugInfo._computingsExecutingUserCode.TryRemove(currentThread, out IComputing _);
 				else DebugInfo._computingsExecutingUserCode[currentThread] = computing;
 			}
 			else
@@ -411,7 +411,7 @@ namespace ObservableComputations
 				base.ClearItems();
 				PostCollectionChanged?.Invoke(this, null);
 
-				if (computing == null) DebugInfo._computingsExecutingUserCode.Remove(currentThread);
+				if (computing == null) DebugInfo._computingsExecutingUserCode.TryRemove(currentThread, out IComputing _);
 				else DebugInfo._computingsExecutingUserCode[currentThread] = computing;
 			}
 			else

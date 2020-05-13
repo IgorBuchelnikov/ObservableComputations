@@ -199,7 +199,6 @@ namespace ObservableComputations
 		private bool _isConsistent = true;
 
 		private IDispatcher _destinationDispatcher;
-		private IConcurrentDictionaringDestinationDispatcher _concurrentDictionaringDestinationDispatcher;
 
 		internal readonly IReadScalar<IEqualityComparer<TKey>> _equalityComparerScalar;
 		internal IEqualityComparer<TKey> _equalityComparer;
@@ -228,7 +227,6 @@ namespace ObservableComputations
 			int sourceCapacity)
 		{
 			_destinationDispatcher = destinationDispatcher;
-			_concurrentDictionaringDestinationDispatcher = destinationDispatcher as IConcurrentDictionaringDestinationDispatcher;
 
 			_itemInfos = new List<ItemInfo>(sourceCapacity);
 			_sourcePositions = new Positions<ItemInfo>(_itemInfos);
@@ -695,7 +693,7 @@ namespace ObservableComputations
 				
 				TKey result = _keySelectorContainsParametrizedObservableComputationsCalls ? itemInfo._keySelectorFunc() : _keySelectorFunc(sourceItem);
 
-				if (computing == null) DebugInfo._computingsExecutingUserCode.Remove(currentThread);
+				if (computing == null) DebugInfo._computingsExecutingUserCode.TryRemove(currentThread, out IComputing _);
 				else DebugInfo._computingsExecutingUserCode[currentThread] = computing;
 				return result;
 			}
@@ -718,7 +716,7 @@ namespace ObservableComputations
 				
 				TValue result = _valueSelectorContainsParametrizedObservableComputationsCalls ? itemInfo._valueSelectorFunc() : _valueSelectorFunc(sourceItem);
 
-				if (computing == null) DebugInfo._computingsExecutingUserCode.Remove(currentThread);
+				if (computing == null) DebugInfo._computingsExecutingUserCode.TryRemove(currentThread, out IComputing _);
 				else DebugInfo._computingsExecutingUserCode[currentThread] = computing;
 				return result;
 			}
@@ -744,14 +742,7 @@ namespace ObservableComputations
 				}
 			}
 
-			if (_concurrentDictionaringDestinationDispatcher != null)
-			{
-				_concurrentDictionaringDestinationDispatcher.Invoke(raiseEvents, DictionaryChangeAction.ClearItems, null, null);
-			}
-			else
-			{
-				_destinationDispatcher.Invoke(raiseEvents);				
-			}
+			_destinationDispatcher.BeginInvoke(raiseEvents, this);	
 		}
 
 		private void baseAddItem(TKey key, TValue value)
@@ -778,14 +769,7 @@ namespace ObservableComputations
 				}
 			}
 
-			if (_concurrentDictionaringDestinationDispatcher != null)
-			{
-				_concurrentDictionaringDestinationDispatcher.Invoke(raiseEvents, DictionaryChangeAction.AddItem, key, value);
-			}
-			else
-			{
-				_destinationDispatcher.Invoke(raiseEvents);				
-			}
+			_destinationDispatcher.BeginInvoke(raiseEvents, this);				
 		}
 
 		private void baseSetItem(TKey key, TValue value)
@@ -809,14 +793,7 @@ namespace ObservableComputations
 				}
 			}
 
-			if (_concurrentDictionaringDestinationDispatcher != null)
-			{
-				_concurrentDictionaringDestinationDispatcher.Invoke(raiseEvents, DictionaryChangeAction.SetItem, key, value);
-			}
-			else
-			{
-				_destinationDispatcher.Invoke(raiseEvents);				
-			}
+			_destinationDispatcher.BeginInvoke(raiseEvents, this);
 
 		}
 
@@ -842,14 +819,7 @@ namespace ObservableComputations
 			}
 
 
-			if (_concurrentDictionaringDestinationDispatcher != null)
-			{
-				_concurrentDictionaringDestinationDispatcher.Invoke(raiseEvents, DictionaryChangeAction.RemoveItem, key, value);
-			}
-			else
-			{
-				_destinationDispatcher.Invoke(raiseEvents);				
-			}
+			_destinationDispatcher.BeginInvoke(raiseEvents, this);
 		}
 
 		protected void checkConsistent()

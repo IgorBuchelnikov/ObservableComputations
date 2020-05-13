@@ -59,7 +59,7 @@ namespace ObservableComputations
 
 				result = _getValueFunc();
 
-				if (computing == null) DebugInfo._computingsExecutingUserCode.Remove(currentThread);
+				if (computing == null) DebugInfo._computingsExecutingUserCode.TryRemove(currentThread, out IComputing _);
 				else DebugInfo._computingsExecutingUserCode[currentThread] = computing;
 			}
 			else

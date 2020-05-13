@@ -201,7 +201,7 @@ namespace ObservableComputations
 				
 				TResult result = _aggregateFunc(addedSourceItem, value);
 
-				if (computing == null) DebugInfo._computingsExecutingUserCode.Remove(currentThread);
+				if (computing == null) DebugInfo._computingsExecutingUserCode.TryRemove(currentThread, out IComputing _);
 				else DebugInfo._computingsExecutingUserCode[currentThread] = computing;
 				return result;
 			}
@@ -219,7 +219,7 @@ namespace ObservableComputations
 				
 				TResult result = _deaggregateFunc(removedSourceItem, value);
 
-				if (computing == null) DebugInfo._computingsExecutingUserCode.Remove(currentThread);
+				if (computing == null) DebugInfo._computingsExecutingUserCode.TryRemove(currentThread, out IComputing _);
 				else DebugInfo._computingsExecutingUserCode[currentThread] = computing;
 				return result;
 			}

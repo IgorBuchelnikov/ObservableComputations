@@ -542,7 +542,7 @@ namespace ObservableComputations
 					? _itemInfos[sourceIndex].PredicateFunc()
 					: _predicateFunc(_sourceAsList[sourceIndex]);
 
-				if (computing == null) DebugInfo._computingsExecutingUserCode.Remove(currentThread);
+				if (computing == null) DebugInfo._computingsExecutingUserCode.TryRemove(currentThread, out IComputing _);
 				else DebugInfo._computingsExecutingUserCode[currentThread] = computing;
 				return result;
 			}
@@ -564,7 +564,7 @@ namespace ObservableComputations
 					? itemPredicateFunc()
 					: _predicateFunc(sourceItem);
 
-				if (computing == null) DebugInfo._computingsExecutingUserCode.Remove(currentThread);
+				if (computing == null) DebugInfo._computingsExecutingUserCode.TryRemove(currentThread, out IComputing _);
 				else DebugInfo._computingsExecutingUserCode[currentThread] = computing;
 				return result;
 			}

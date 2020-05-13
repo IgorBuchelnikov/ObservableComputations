@@ -679,7 +679,7 @@ namespace ObservableComputations
 					? outerSelectorFunc() 
 					: _outerKeySelectorFunc(outerSourceItem);
 
-				if (computing == null) DebugInfo._computingsExecutingUserCode.Remove(currentThread);
+				if (computing == null) DebugInfo._computingsExecutingUserCode.TryRemove(currentThread, out IComputing _);
 				else DebugInfo._computingsExecutingUserCode[currentThread] = computing;
 				return result;
 			}
@@ -701,7 +701,7 @@ namespace ObservableComputations
 					? this[index]._outerKeySelectorFunc() 
 					: _outerKeySelectorFunc(_outerSourceAsList[index]);
 
-				if (computing == null) DebugInfo._computingsExecutingUserCode.Remove(currentThread);
+				if (computing == null) DebugInfo._computingsExecutingUserCode.TryRemove(currentThread, out IComputing _);
 				else DebugInfo._computingsExecutingUserCode[currentThread] = computing;
 				return result;
 			}

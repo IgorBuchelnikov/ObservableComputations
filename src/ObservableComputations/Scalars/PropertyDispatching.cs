@@ -4,7 +4,7 @@ using System.Linq.Expressions;
 
 namespace ObservableComputations
 {
-	public class PropertyDispatching<TResult> : IReadScalar<TResult>, IWriteScalar<TResult>, IScalar<TResult>
+	public class PropertyDispatching<TResult> : IReadScalar<TResult>, IWriteScalar<TResult>, IScalar<TResult>, IComputing
 	{
 		public object PropertyHolder => _propertyHolder;
 		public Expression<Func<TResult>>  PropertyExpression => _propertyExpression;
@@ -52,21 +52,31 @@ namespace ObservableComputations
 			_propertyHolderWeakPropertyChangedEventHandler =
 				new WeakPropertyChangedEventHandler(_propertyHolderPropertyChangedEventHandler);
 
-			_sourceDispatcher.Invoke(() => 
-			{				
-				_propertyHolder.PropertyChanged += _propertyHolderWeakPropertyChangedEventHandler.Handle;
-				_value = _getAction();
-			});
+			_propertyHolder.PropertyChanged += _propertyHolderWeakPropertyChangedEventHandler.Handle;
+			_value = _getAction();
+
+			void raiseValuePropertyChanged()
+			{
+				PropertyChanged?.Invoke(this, Utils.ValuePropertyChangedEventArgs);
+			}
+
+			_destinationDispatcher.BeginInvoke(raiseValuePropertyChanged, this);
+			
+			if (Configuration.SaveInstantiatingStackTrace)
+				_instantiatingStackTrace = Environment.StackTrace;
 
 		}
 
 		private void handlePropertyHolderPropertyChanged(object sender, PropertyChangedEventArgs e)
 		{
 			_value = _getAction();
-			_destinationDispatcher.Invoke(() =>
+
+			void raiseValuePropertyChanged()
 			{
 				PropertyChanged?.Invoke(this, Utils.ValuePropertyChangedEventArgs);
-			});
+			}
+
+			_destinationDispatcher.BeginInvoke(raiseValuePropertyChanged, this);	
 		}
 
 		~PropertyDispatching()
@@ -77,8 +87,37 @@ namespace ObservableComputations
 		public event PropertyChangedEventHandler PropertyChanged;
 		public TResult Value
 		{
-			get => _value; 
-			set => _sourceDispatcher.Invoke(() => _setAction(value));
+			get => _value;
+			set
+			{
+				void set()
+				{
+					_setAction(value);
+				}
+
+				_sourceDispatcher.BeginInvoke(set, this);
+			}
 		}
+
+		#region Implementation of IHasTags
+
+		public string DebugTag { get; set; }
+		public object Tag { get; set; }
+
+		#endregion
+
+		#region Implementation of IConsistent
+
+		public bool IsConsistent => true;
+		public event EventHandler ConsistencyRestored;
+
+		#endregion
+
+		#region Implementation of IComputing
+
+		private string _instantiatingStackTrace;
+		public string InstantiatingStackTrace => _instantiatingStackTrace;
+
+		#endregion
 	}
 }

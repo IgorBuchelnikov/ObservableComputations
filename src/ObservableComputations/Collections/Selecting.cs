@@ -328,7 +328,7 @@ namespace ObservableComputations
 					? _itemInfos[index].SelectorFunc()
 					: _selectorFunc(_sourceAsList[index]);
 
-				if (computing == null) DebugInfo._computingsExecutingUserCode.Remove(currentThread);
+				if (computing == null) DebugInfo._computingsExecutingUserCode.TryRemove(currentThread, out IComputing _);
 				else DebugInfo._computingsExecutingUserCode[currentThread] = computing;
 				return result;
 			}
@@ -351,7 +351,7 @@ namespace ObservableComputations
 					? itemInfo.SelectorFunc()
 					: _selectorFunc(sourceItem);
 
-				if (computing == null) DebugInfo._computingsExecutingUserCode.Remove(currentThread);
+				if (computing == null) DebugInfo._computingsExecutingUserCode.TryRemove(currentThread, out IComputing _);
 				else DebugInfo._computingsExecutingUserCode[currentThread] = computing;
 				return result;
 			}

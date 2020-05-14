@@ -161,12 +161,13 @@ namespace ObservableComputations
 				Thread currentThread = Thread.CurrentThread;
 				DebugInfo._computingsExecutingUserCode.TryGetValue(currentThread, out IComputing computing);
 				DebugInfo._computingsExecutingUserCode[currentThread] = this;	
+				_userCodeIsCalledFrom = computing;
 				
 				_insertItemAction(index, item);
 
 				if (computing == null) DebugInfo._computingsExecutingUserCode.TryRemove(currentThread, out IComputing _);
 				else DebugInfo._computingsExecutingUserCode[currentThread] = computing;
-				
+				_userCodeIsCalledFrom = null;
 				return;
 			}
 
@@ -180,12 +181,13 @@ namespace ObservableComputations
 				Thread currentThread = Thread.CurrentThread;
 				DebugInfo._computingsExecutingUserCode.TryGetValue(currentThread, out IComputing computing);
 				DebugInfo._computingsExecutingUserCode[currentThread] = this;	
-				
+				_userCodeIsCalledFrom = computing;
+
 				_moveItemAction(oldIndex, newIndex);
 
 				if (computing == null) DebugInfo._computingsExecutingUserCode.TryRemove(currentThread, out IComputing _);
 				else DebugInfo._computingsExecutingUserCode[currentThread] = computing;
-				
+				_userCodeIsCalledFrom = null;
 				return;
 			}
 
@@ -199,12 +201,13 @@ namespace ObservableComputations
 				Thread currentThread = Thread.CurrentThread;
 				DebugInfo._computingsExecutingUserCode.TryGetValue(currentThread, out IComputing computing);
 				DebugInfo._computingsExecutingUserCode[currentThread] = this;	
-				
+				_userCodeIsCalledFrom = computing;
+
 				_removeItemAction(index);
 
 				if (computing == null) DebugInfo._computingsExecutingUserCode.TryRemove(currentThread, out IComputing _);
 				else DebugInfo._computingsExecutingUserCode[currentThread] = computing;
-				
+				_userCodeIsCalledFrom = null;
 				return;
 			}
 
@@ -218,12 +221,13 @@ namespace ObservableComputations
 				Thread currentThread = Thread.CurrentThread;
 				DebugInfo._computingsExecutingUserCode.TryGetValue(currentThread, out IComputing computing);
 				DebugInfo._computingsExecutingUserCode[currentThread] = this;	
-				
+				_userCodeIsCalledFrom = computing;
+
 				_setItemAction(index, item);
 
 				if (computing == null) DebugInfo._computingsExecutingUserCode.TryRemove(currentThread, out IComputing _);
 				else DebugInfo._computingsExecutingUserCode[currentThread] = computing;
-				
+				_userCodeIsCalledFrom = null;
 				return;
 			}
 
@@ -237,12 +241,13 @@ namespace ObservableComputations
 				Thread currentThread = Thread.CurrentThread;
 				DebugInfo._computingsExecutingUserCode.TryGetValue(currentThread, out IComputing computing);
 				DebugInfo._computingsExecutingUserCode[currentThread] = this;	
-				
+				_userCodeIsCalledFrom = computing;
+
 				_clearItemsAction();
 
 				if (computing == null) DebugInfo._computingsExecutingUserCode.TryRemove(currentThread, out IComputing _);
 				else DebugInfo._computingsExecutingUserCode[currentThread] = computing;
-				
+				_userCodeIsCalledFrom = null;
 				return;
 			}
 
@@ -274,13 +279,15 @@ namespace ObservableComputations
 				Thread currentThread = Thread.CurrentThread;
 				DebugInfo._computingsExecutingUserCode.TryGetValue(currentThread, out IComputing computing);
 				DebugInfo._computingsExecutingUserCode[currentThread] = this;	
-				
+				_userCodeIsCalledFrom = computing;
+
 				PreCollectionChanged?.Invoke(this, null);
 				base.InsertItem(index, item);
 				PostCollectionChanged?.Invoke(this, null);
 
 				if (computing == null) DebugInfo._computingsExecutingUserCode.TryRemove(currentThread, out IComputing _);
 				else DebugInfo._computingsExecutingUserCode[currentThread] = computing;
+				_userCodeIsCalledFrom = null;
 			}
 			else
 			{
@@ -308,13 +315,15 @@ namespace ObservableComputations
 				Thread currentThread = Thread.CurrentThread;
 				DebugInfo._computingsExecutingUserCode.TryGetValue(currentThread, out IComputing computing);
 				DebugInfo._computingsExecutingUserCode[currentThread] = this;	
-				
+				_userCodeIsCalledFrom = computing;
+
 				PreCollectionChanged?.Invoke(this, null);
 				base.MoveItem(oldIndex, newIndex);
 				PostCollectionChanged?.Invoke(this, null);
 
 				if (computing == null) DebugInfo._computingsExecutingUserCode.TryRemove(currentThread, out IComputing _);
 				else DebugInfo._computingsExecutingUserCode[currentThread] = computing;
+				_userCodeIsCalledFrom = null;
 			}
 			else
 			{
@@ -341,13 +350,15 @@ namespace ObservableComputations
 				Thread currentThread = Thread.CurrentThread;
 				DebugInfo._computingsExecutingUserCode.TryGetValue(currentThread, out IComputing computing);
 				DebugInfo._computingsExecutingUserCode[currentThread] = this;	
-				
+				_userCodeIsCalledFrom = computing;
+
 				PreCollectionChanged?.Invoke(this, null);
 				base.RemoveItem(index);
 				PostCollectionChanged?.Invoke(this, null);
 
 				if (computing == null) DebugInfo._computingsExecutingUserCode.TryRemove(currentThread, out IComputing _);
 				else DebugInfo._computingsExecutingUserCode[currentThread] = computing;
+				_userCodeIsCalledFrom = null;
 			}
 			else
 			{
@@ -374,13 +385,15 @@ namespace ObservableComputations
 				Thread currentThread = Thread.CurrentThread;
 				DebugInfo._computingsExecutingUserCode.TryGetValue(currentThread, out IComputing computing);
 				DebugInfo._computingsExecutingUserCode[currentThread] = this;	
-				
+				_userCodeIsCalledFrom = computing;
+
 				PreCollectionChanged?.Invoke(this, null);
 				base.SetItem(index, item);
 				PostCollectionChanged?.Invoke(this, null);
 
 				if (computing == null) DebugInfo._computingsExecutingUserCode.TryRemove(currentThread, out IComputing _);
 				else DebugInfo._computingsExecutingUserCode[currentThread] = computing;
+				_userCodeIsCalledFrom = null;
 			}
 			else
 			{
@@ -406,13 +419,15 @@ namespace ObservableComputations
 				Thread currentThread = Thread.CurrentThread;
 				DebugInfo._computingsExecutingUserCode.TryGetValue(currentThread, out IComputing computing);
 				DebugInfo._computingsExecutingUserCode[currentThread] = this;	
-				
+				_userCodeIsCalledFrom = computing;
+
 				PreCollectionChanged?.Invoke(this, null);
 				base.ClearItems();
 				PostCollectionChanged?.Invoke(this, null);
 
 				if (computing == null) DebugInfo._computingsExecutingUserCode.TryRemove(currentThread, out IComputing _);
 				else DebugInfo._computingsExecutingUserCode[currentThread] = computing;
+				_userCodeIsCalledFrom = null;
 			}
 			else
 			{
@@ -430,6 +445,9 @@ namespace ObservableComputations
 
 		// ReSharper disable once MemberCanBePrivate.Global
 		public string InstantiatingStackTrace => _instantiatingStackTrace;
+
+		internal IComputing _userCodeIsCalledFrom;
+		public IComputing UserCodeIsCalledFrom => _userCodeIsCalledFrom;
 
 		protected bool _isConsistent = true;
 		private readonly string _instantiatingStackTrace;

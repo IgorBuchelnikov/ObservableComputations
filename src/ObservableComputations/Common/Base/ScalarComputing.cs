@@ -21,6 +21,9 @@ namespace ObservableComputations
 		// ReSharper disable once MemberCanBePrivate.Global
 		public string InstantiatingStackTrace => _instantiatingStackTrace;
 
+		internal IComputing _userCodeIsCalledFrom;
+		public IComputing UserCodeIsCalledFrom => _userCodeIsCalledFrom;
+
 		protected TValue _value;
 
 		public event EventHandler PostValueChanged;
@@ -38,11 +41,13 @@ namespace ObservableComputations
 					Thread currentThread = Thread.CurrentThread;
 					DebugInfo._computingsExecutingUserCode.TryGetValue(currentThread, out IComputing computing);
 					DebugInfo._computingsExecutingUserCode[currentThread] = this;	
-				
+					_userCodeIsCalledFrom = computing;
+
 					_setValueAction(value);
 
 					if (computing == null) DebugInfo._computingsExecutingUserCode.TryRemove(currentThread, out IComputing _);
 					else DebugInfo._computingsExecutingUserCode[currentThread] = computing;
+					_userCodeIsCalledFrom = null;
 
 					return;
 				}

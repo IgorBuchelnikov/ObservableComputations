@@ -56,175 +56,164 @@ namespace ObservableComputations.Test
 		[Test]
 		public void TestCollectionDispatchingTest()
 		{
-			Dispatcher consuminingDispatcher = new Dispatcher();
-			Dispatcher computingDispatcher = new Dispatcher();
-			IDispatcher asyncConsuminingDispatcher = consuminingDispatcher;//new AsyncDispatcher(consuminingDispatcher);
-			IDispatcher asyncComputingDispatcher = new AsyncDispatcher(computingDispatcher);
-
-			var nums = new ObservableCollection<Item>();
-			var filteredNums = nums.Filtering(i => i.Num % 3 == 0);
-			var dispatchingfilteredNums = filteredNums.CollectionDispatching(
-				computingDispatcher,
-				asyncConsuminingDispatcher);
-			bool stop = false;
-
-			Thread numsChangersStopper = new Thread(() =>
+			for (int j = 0; j < 1000000; j++)
 			{
-				Thread.Sleep(TimeSpan.FromMinutes(60 * 12));
-				stop = true;
-			});
+				Dispatcher consuminingDispatcher = new Dispatcher();
+				Dispatcher computingDispatcher = new Dispatcher();
 
-			numsChangersStopper.Start();
+				var nums = new ObservableCollection<Item>();
+				var filteredNums = nums.Filtering(i => i.Num % 3 == 0);
+				var dispatchingfilteredNums = filteredNums.CollectionDispatching(consuminingDispatcher);
+				bool stop = false;
 
-			ThreadStart numsChangerThreadStart = () =>
-			{
-				Random random =  new Random();
-				while (!stop)
+				Random stopperRandom = new Random();
+				Thread stopper = new Thread(() =>
 				{
-					Thread.Sleep(random.Next(0, 100));
+					Thread.Sleep(TimeSpan.FromSeconds(stopperRandom.Next(2, 10)));
+					stop = true;
+				});
 
-					NotifyCollectionChangedAction action = (NotifyCollectionChangedAction) random.Next(0, 4);
-					switch (action)
-					{
-						case NotifyCollectionChangedAction.Add:
-							computingDispatcher.Invoke(() =>
-							{
-								int upperIndex = nums.Count > 0 ? nums.Count - 1 : 0;
-								int index = random.Next(0, upperIndex);
-								nums.Insert(index, new Item(random.Next(Int32.MinValue, int.MaxValue), asyncConsuminingDispatcher, asyncComputingDispatcher));
-							});
-							break;
-						case NotifyCollectionChangedAction.Remove:
-							computingDispatcher.Invoke(() =>
-							{
-								int upperIndex =  nums.Count - 1;
-								if (upperIndex > 0)
-								{
-									int index = random.Next(0, upperIndex);
-									nums.RemoveAt(index);
-								}
-							});
-							break;
-						case NotifyCollectionChangedAction.Replace:
-							computingDispatcher.Invoke(() =>
-							{
-								int upperIndex =  nums.Count - 1;
-								if (upperIndex > 0)
-								{
-									int index = random.Next(0, upperIndex);
-									nums[index] = new Item(random.Next(Int32.MinValue, int.MaxValue), asyncConsuminingDispatcher, asyncComputingDispatcher);
-								}
+				stopper.Start();
 
-							});
-							break;
-						case NotifyCollectionChangedAction.Move:
-							computingDispatcher.Invoke(() =>
-							{
-								int upperIndex =  nums.Count - 1;
-								if (upperIndex > 0)
-								{
-									int indexFrom = random.Next(0, upperIndex);
-									int indexTo = random.Next(0, upperIndex);
-									nums.Move(indexFrom, indexTo);
-								}
-							});
-							break;
-						case NotifyCollectionChangedAction.Reset:
-							computingDispatcher.Invoke(() => { nums.Clear(); });
-							break;
-						default:
-							throw new ArgumentOutOfRangeException();
-					}
-
-				}
-			};
-
-
-			int threadsCount = 10;   
-			Thread[] numsChangerThreads = new Thread[threadsCount];
-			for (int i = 0; i < threadsCount; i++)
-			{
-				numsChangerThreads[i] = new Thread(numsChangerThreadStart);
-				numsChangerThreads[i].Start();
-			}
-
-			ThreadStart numValueChangerThreadStart = () =>
-			{
-				Random random =  new Random();
-				while (!stop)
+				ThreadStart numsChangerThreadStart = () =>
 				{
-					Thread.Sleep(random.Next(0, 100));
-
-					consuminingDispatcher.Invoke(() =>
+					Random random =  new Random();
+					while (!stop)
 					{
-						int dispatchingfilteredNumsCount = dispatchingfilteredNums.Count;
-						if (dispatchingfilteredNumsCount > 0)
-							dispatchingfilteredNums[random.Next(0, dispatchingfilteredNumsCount - 1)].NumDispatching.Value =
-								random.Next(Int32.MinValue, int.MaxValue);
-					});
+						Thread.Sleep(random.Next(0, 3));
 
-				}
-			};
- 
-			Thread[] numValueChangerThreads = new Thread[threadsCount];
-			for (int i = 0; i < threadsCount; i++)
-			{
-				numValueChangerThreads[i] = new Thread(numValueChangerThreadStart);
-				numValueChangerThreads[i].Start();
-			}
-
-
-			Thread consuminingDispatcherInvoker = new Thread(() =>
-			{
-				Random random =  new Random();
-				while (!stop)
-				{
-					Thread.Sleep(random.Next(0, 1000));
-					consuminingDispatcher.Invoke(() =>
-					{
-						computingDispatcher.BeginInvoke(() =>
+						int nextAction = random.Next(0, 15);
+						if (nextAction > 3) nextAction = nextAction == 4 ? 4 : 0;
+						NotifyCollectionChangedAction action = (NotifyCollectionChangedAction) nextAction;
+						switch (action)
 						{
-							Assert.IsTrue(nums.Where(i => i.Num % 3 == 0).SequenceEqual(dispatchingfilteredNums));
-							Assert.IsTrue(nums.Where(i => i.NumDispatching.Value % 3 == 0).SequenceEqual(dispatchingfilteredNums));
-							Debug.Print("!!!!!");
+							case NotifyCollectionChangedAction.Add:
+								computingDispatcher.Invoke(() =>
+								{
+									int upperIndex = nums.Count > 0 ? nums.Count - 1 : 0;
+									int index = random.Next(0, upperIndex);
+									nums.Insert(index, new Item(random.Next(Int32.MinValue, int.MaxValue), consuminingDispatcher, computingDispatcher));
+								});
+								break;
+							case NotifyCollectionChangedAction.Remove:
+								computingDispatcher.Invoke(() =>
+								{
+									int upperIndex =  nums.Count - 1;
+									if (upperIndex > 0)
+									{
+										int index = random.Next(0, upperIndex);
+										nums.RemoveAt(index);
+									}
+								});
+								break;
+							case NotifyCollectionChangedAction.Replace:
+								computingDispatcher.Invoke(() =>
+								{
+									int upperIndex =  nums.Count - 1;
+									if (upperIndex > 0)
+									{
+										int index = random.Next(0, upperIndex);
+										nums[index] = new Item(random.Next(Int32.MinValue, int.MaxValue), consuminingDispatcher, computingDispatcher);
+									}
 
-						});
-					});
+								});
+								break;
+							case NotifyCollectionChangedAction.Move:
+								computingDispatcher.Invoke(() =>
+								{
+									int upperIndex =  nums.Count - 1;
+									if (upperIndex > 0)
+									{
+										int indexFrom = random.Next(0, upperIndex);
+										int indexTo = random.Next(0, upperIndex);
+										nums.Move(indexFrom, indexTo);
+									}
+								});
+								break;
+							case NotifyCollectionChangedAction.Reset:
+								computingDispatcher.Invoke(() => { nums.Clear(); });
+								break;
+							default:
+								throw new ArgumentOutOfRangeException();
+						}
+
+					}
+				};
+
+
+				int threadsCount = 10;   
+				Thread[] numsChangerThreads = new Thread[threadsCount];
+				for (int i = 0; i < threadsCount; i++)
+				{
+					numsChangerThreads[i] = new Thread(numsChangerThreadStart);
+					numsChangerThreads[i].Start();
 				}
-			});
 
-			consuminingDispatcherInvoker.Start();
+				ThreadStart numValueChangerThreadStart = () =>
+				{
+					Random random =  new Random();
+					while (!stop)
+					{
+						Thread.Sleep(random.Next(0, 3));
 
-			for (int i = 0; i < threadsCount; i++)
-			{
-				numsChangerThreads[i].Join();
+						consuminingDispatcher.Invoke(() =>
+						{
+							int dispatchingfilteredNumsCount = dispatchingfilteredNums.Count;
+							if (dispatchingfilteredNumsCount > 0)
+								dispatchingfilteredNums[random.Next(0, dispatchingfilteredNumsCount - 1)].NumDispatching.Value =
+									random.Next(Int32.MinValue, int.MaxValue);
+						});
+
+					}
+				};
+ 
+				Thread[] numValueChangerThreads = new Thread[threadsCount];
+				for (int i = 0; i < threadsCount; i++)
+				{
+					numValueChangerThreads[i] = new Thread(numValueChangerThreadStart);
+					numValueChangerThreads[i].Start();
+				}
+
+
+				//Thread consuminingDispatcherInvoker = new Thread(() =>
+				//{
+				//	Random random =  new Random();
+				//	while (!stop)
+				//	{
+				//		Thread.Sleep(random.Next(0, 1000));
+				//		consuminingDispatcher.Invoke(() =>
+				//		{
+				//			computingDispatcher.Invoke(() =>
+				//			{
+
+
+				//			});
+				//		});
+				//	}
+				//});
+
+				//consuminingDispatcherInvoker.Start();
+
+				for (int i = 0; i < threadsCount; i++)
+				{
+					numsChangerThreads[i].Join();
+				}
+
+				for (int i = 0; i < threadsCount; i++)
+				{
+					numValueChangerThreads[i].Join();
+				}
+
+				//consuminingDispatcherInvoker.Join();
+
+				consuminingDispatcher.Invoke(() => {});
+				computingDispatcher.Invoke(() => {});
+				consuminingDispatcher.Invoke(() => {});
+
+				Assert.IsTrue(nums.Where(i => i.Num % 3 == 0).SequenceEqual(dispatchingfilteredNums));
+				Assert.IsTrue(nums.Where(i => i.NumDispatching.Value % 3 == 0).SequenceEqual(dispatchingfilteredNums));
+				Debug.Print("!!!!!");
 			}
-
-			for (int i = 0; i < threadsCount; i++)
-			{
-				numValueChangerThreads[i].Join();
-			}
-
-			consuminingDispatcherInvoker.Join();
 		}
-	}
-
-	public class AsyncDispatcher : IDispatcher
-	{
-		private Dispatcher _dispatcher;
-
-		public AsyncDispatcher(Dispatcher dispatcher)
-		{
-			_dispatcher = dispatcher;
-		}
-
-		#region Implementation of IDispatcher
-
-		public void Invoke(Action action)
-		{
-			_dispatcher.BeginInvoke(action);
-		}
-
-		#endregion
 	}
 }

@@ -228,11 +228,13 @@ namespace ObservableComputations
 				Thread currentThread = Thread.CurrentThread;
 				DebugInfo._computingsExecutingUserCode.TryGetValue(currentThread, out IComputing computing);
 				DebugInfo._computingsExecutingUserCode[currentThread] = this;	
-			
+				_userCodeIsCalledFrom = computing;
+
 				TReturnValue returnValue = _newItemProcessor(sourceItem, this, sender, eventArgs);
 
 				if (computing == null) DebugInfo._computingsExecutingUserCode.TryRemove(currentThread, out IComputing _);
 				else DebugInfo._computingsExecutingUserCode[currentThread] = computing;
+				_userCodeIsCalledFrom = null;
 				return returnValue;
 			}
 
@@ -246,11 +248,13 @@ namespace ObservableComputations
 				Thread currentThread = Thread.CurrentThread;
 				DebugInfo._computingsExecutingUserCode.TryGetValue(currentThread, out IComputing computing);
 				DebugInfo._computingsExecutingUserCode[currentThread] = this;	
-				
+				_userCodeIsCalledFrom = computing;
+
 				_oldItemProcessor(sourceItem, this, returnValue, sender, eventArgs);
 
 				if (computing == null) DebugInfo._computingsExecutingUserCode.TryRemove(currentThread, out IComputing _);
 				else DebugInfo._computingsExecutingUserCode[currentThread] = computing;
+				_userCodeIsCalledFrom = null;
 				return;
 			}
 
@@ -265,11 +269,13 @@ namespace ObservableComputations
 				Thread currentThread = Thread.CurrentThread;
 				DebugInfo._computingsExecutingUserCode.TryGetValue(currentThread, out IComputing computing);
 				DebugInfo._computingsExecutingUserCode[currentThread] = this;	
-				
+				_userCodeIsCalledFrom = computing;
+
 				_moveItemProcessor(sourceItem, this, returnValue, sender, eventArgs);
 
 				if (computing == null) DebugInfo._computingsExecutingUserCode.TryRemove(currentThread, out IComputing _);
 				else DebugInfo._computingsExecutingUserCode[currentThread] = computing;
+				_userCodeIsCalledFrom = null;
 				return;
 			}
 

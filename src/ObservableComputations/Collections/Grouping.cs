@@ -935,13 +935,15 @@ namespace ObservableComputations
 				Thread currentThread = Thread.CurrentThread;
 				DebugInfo._computingsExecutingUserCode.TryGetValue(currentThread, out IComputing computing);
 				DebugInfo._computingsExecutingUserCode[currentThread] = this;	
-				
+				_userCodeIsCalledFrom = computing;
+
 				TKey result = _keySelectorExpressionContainsParametrizedObservableComputationsCalls 
 					? _itemInfos[index].SelectorFunc() 
 					: _keySelectorFunc(_sourceAsList[index]);;
 
 				if (computing == null) DebugInfo._computingsExecutingUserCode.TryRemove(currentThread, out IComputing _);
 				else DebugInfo._computingsExecutingUserCode[currentThread] = computing;
+				_userCodeIsCalledFrom = null;
 				return result;
 			}
 
@@ -957,11 +959,13 @@ namespace ObservableComputations
 				Thread currentThread = Thread.CurrentThread;
 				DebugInfo._computingsExecutingUserCode.TryGetValue(currentThread, out IComputing computing);
 				DebugInfo._computingsExecutingUserCode[currentThread] = this;	
-				
+				_userCodeIsCalledFrom = computing;
+
 				TKey result = applyKeySelector(index);
 
 				if (computing == null) DebugInfo._computingsExecutingUserCode.TryRemove(currentThread, out IComputing _);
 				else DebugInfo._computingsExecutingUserCode[currentThread] = computing;
+				_userCodeIsCalledFrom = null;
 				return result;
 			}
 
@@ -975,13 +979,15 @@ namespace ObservableComputations
 				Thread currentThread = Thread.CurrentThread;
 				DebugInfo._computingsExecutingUserCode.TryGetValue(currentThread, out IComputing computing);
 				DebugInfo._computingsExecutingUserCode[currentThread] = this;	
-				
+				_userCodeIsCalledFrom = computing;
+
 				TKey result = _keySelectorExpressionContainsParametrizedObservableComputationsCalls 
 					? selectorFunc() 
 					: _keySelectorFunc(sourceItem);
 
 				if (computing == null) DebugInfo._computingsExecutingUserCode.TryRemove(currentThread, out IComputing _);
 				else DebugInfo._computingsExecutingUserCode[currentThread] = computing;
+				_userCodeIsCalledFrom = null;
 				return result;
 			}
 

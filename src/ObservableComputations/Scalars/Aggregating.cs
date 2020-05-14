@@ -198,11 +198,13 @@ namespace ObservableComputations
 				Thread currentThread = Thread.CurrentThread;
 				DebugInfo._computingsExecutingUserCode.TryGetValue(currentThread, out IComputing computing);
 				DebugInfo._computingsExecutingUserCode[currentThread] = this;	
-				
+				_userCodeIsCalledFrom = computing;
+
 				TResult result = _aggregateFunc(addedSourceItem, value);
 
 				if (computing == null) DebugInfo._computingsExecutingUserCode.TryRemove(currentThread, out IComputing _);
 				else DebugInfo._computingsExecutingUserCode[currentThread] = computing;
+				_userCodeIsCalledFrom = null;
 				return result;
 			}
 
@@ -216,11 +218,13 @@ namespace ObservableComputations
 				Thread currentThread = Thread.CurrentThread;
 				DebugInfo._computingsExecutingUserCode.TryGetValue(currentThread, out IComputing computing);
 				DebugInfo._computingsExecutingUserCode[currentThread] = this;	
-				
+				_userCodeIsCalledFrom = computing;
+
 				TResult result = _deaggregateFunc(removedSourceItem, value);
 
 				if (computing == null) DebugInfo._computingsExecutingUserCode.TryRemove(currentThread, out IComputing _);
 				else DebugInfo._computingsExecutingUserCode[currentThread] = computing;
+				_userCodeIsCalledFrom = null;
 				return result;
 			}
 

@@ -49,18 +49,50 @@ namespace ObservableComputations
 				_callStackTrace = Environment.StackTrace;
 		}
 
+		internal void DoOther()
+		{
+			if (Configuration.TrackDispatcherInvocations)
+			{
+				DebugInfo._executingDispatcherInvocations.TryGetValue(_dispatcher._thread, out Stack<Invocation> invocations);
+				invocations.Push(this);
+
+				if (_action != null)
+					_action();
+				else
+					_actionWithState(_state);
+
+				invocations.Pop();
+			}
+			else
+			{
+				if (_action != null)
+					_action();
+				else
+					_actionWithState(_state);				
+			}	
+		}
+
 		internal void Do()
 		{
 			if (Configuration.TrackDispatcherInvocations)
-				DebugInfo._executingDispatcherInvocations[_dispatcher._thread] = this;
+			{
+				DebugInfo._executingDispatcherInvocations[_dispatcher._thread] = _dispatcher._invocations;
+				_dispatcher._invocations.Push(this);
 
-			if (_action != null)
-				_action();
+				if (_action != null)
+					_action();
+				else
+					_actionWithState(_state);
+
+				DebugInfo._executingDispatcherInvocations.TryRemove(_dispatcher._thread, out _);
+			}
 			else
-				_actionWithState(_state);
-
-			if (Configuration.TrackDispatcherInvocations)
-				DebugInfo._executingDispatcherInvocations.TryRemove(_dispatcher._thread, out var _);
+			{
+				if (_action != null)
+					_action();
+				else
+					_actionWithState(_state);				
+			}	
 		}
 	}
 
@@ -91,6 +123,7 @@ namespace ObservableComputations
 		private bool _alive = true;
 		internal Thread _thread;
 		private int _managedThreadId;
+		internal Stack<Invocation> _invocations = new Stack<Invocation>();
 
 		public int ManagedThreadId => _managedThreadId;
 		public string ThreadName => _thread.Name;
@@ -142,7 +175,7 @@ namespace ObservableComputations
 			Stopwatch stopwatch = Stopwatch.StartNew();
 			while (_invocationQueue.TryDequeue(out Invocation invocation))
 			{
-				invocation.Do();
+				invocation.DoOther();
 				if (stopwatch.ElapsedTicks > timeSpan.Ticks) break;
 			}
 			stopwatch.Stop();
@@ -157,7 +190,7 @@ namespace ObservableComputations
 			int counter = 0;
 			while (_invocationQueue.TryDequeue(out Invocation invocation))
 			{
-				invocation.Do();
+				invocation.DoOther();
 				counter++;
 				if (counter == count) break;
 			}
@@ -172,7 +205,7 @@ namespace ObservableComputations
 
 			while (_invocationQueue.TryDequeue(out Invocation invocation))
 			{
-				invocation.Do();
+				invocation.DoOther();
 			}
 		}
 

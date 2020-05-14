@@ -674,13 +674,15 @@ namespace ObservableComputations
 				Thread currentThread = Thread.CurrentThread;
 				DebugInfo._computingsExecutingUserCode.TryGetValue(currentThread, out IComputing computing);
 				DebugInfo._computingsExecutingUserCode[currentThread] = this;	
-				
+				_userCodeIsCalledFrom = computing;
+
 				TKey result = _outerKeySelectorExpressionContainsParametrizedObservableComputationsCalls 
 					? outerSelectorFunc() 
 					: _outerKeySelectorFunc(outerSourceItem);
 
 				if (computing == null) DebugInfo._computingsExecutingUserCode.TryRemove(currentThread, out IComputing _);
 				else DebugInfo._computingsExecutingUserCode[currentThread] = computing;
+				_userCodeIsCalledFrom = null;
 				return result;
 			}
 
@@ -696,13 +698,15 @@ namespace ObservableComputations
 				Thread currentThread = Thread.CurrentThread;
 				DebugInfo._computingsExecutingUserCode.TryGetValue(currentThread, out IComputing computing);
 				DebugInfo._computingsExecutingUserCode[currentThread] = this;	
-				
+				_userCodeIsCalledFrom = computing;
+
 				TKey result = _outerKeySelectorExpressionContainsParametrizedObservableComputationsCalls 
 					? this[index]._outerKeySelectorFunc() 
 					: _outerKeySelectorFunc(_outerSourceAsList[index]);
 
 				if (computing == null) DebugInfo._computingsExecutingUserCode.TryRemove(currentThread, out IComputing _);
 				else DebugInfo._computingsExecutingUserCode[currentThread] = computing;
+				_userCodeIsCalledFrom = null;
 				return result;
 			}
 

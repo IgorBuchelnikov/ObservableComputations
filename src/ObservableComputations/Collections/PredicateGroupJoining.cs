@@ -9,7 +9,7 @@ using ObservableComputations.ExtentionMethods;
 
 namespace ObservableComputations
 {
-	public class PredicateGroupJoining<TOuterSourceItem, TInnerSourceItem> : Selecting<TOuterSourceItem, PredicateJoinGroup<TOuterSourceItem, TInnerSourceItem>>, IHasSources
+	public class PredicateGroupJoining<TOuterSourceItem, TInnerSourceItem> : Selecting<TOuterSourceItem, PredicateJoinGroup<TOuterSourceItem, TInnerSourceItem>>, IHasSourceCollections
 	{
 		public IReadScalar<INotifyCollectionChanged> OuterSourceScalar => _outerSourceScalar;
 
@@ -22,8 +22,8 @@ namespace ObservableComputations
 		// ReSharper disable once MemberCanBePrivate.Global
 		public INotifyCollectionChanged InnerSource => _innerSource;
 
-		public new ReadOnlyCollection<INotifyCollectionChanged> SourcesCollection => new ReadOnlyCollection<INotifyCollectionChanged>(new []{OuterSource, InnerSource});
-		public new ReadOnlyCollection<IReadScalar<INotifyCollectionChanged>> SourceScalarsCollection => new ReadOnlyCollection<IReadScalar<INotifyCollectionChanged>>(new []{OuterSourceScalar, InnerSourceScalar});
+		public new ReadOnlyCollection<INotifyCollectionChanged> SourceCollections => new ReadOnlyCollection<INotifyCollectionChanged>(new []{OuterSource, InnerSource});
+		public new ReadOnlyCollection<IReadScalar<INotifyCollectionChanged>> SourceCollectionScalars => new ReadOnlyCollection<IReadScalar<INotifyCollectionChanged>>(new []{OuterSourceScalar, InnerSourceScalar});
 
 		// ReSharper disable once MemberCanBePrivate.Global
 		public Expression<Func<TOuterSourceItem, TInnerSourceItem, bool>> JoinPredicateExpression => _joinPredicateExpression;

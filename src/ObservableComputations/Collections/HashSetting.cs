@@ -11,7 +11,7 @@ using ObservableComputations.ExtentionMethods;
 namespace ObservableComputations
 {
 	// ReSharper disable once RedundantExtendsListEntry
-	public class HashSetting<TSourceItem, TKey> : ICollection<TKey>, IHasSources, IComputing, INotifyMethodChanged
+	public class HashSetting<TSourceItem, TKey> : ICollection<TKey>, IHasSourceCollections, IComputing, INotifyMethodChanged
 	{
 		// ReSharper disable once MemberCanBePrivate.Global
 		public IReadScalar<INotifyCollectionChanged> SourceScalar => _sourceScalar;
@@ -32,8 +32,8 @@ namespace ObservableComputations
 
 		public string InstantiatingStackTrace => _instantiatingStackTrace;
 
-		public ReadOnlyCollection<INotifyCollectionChanged> SourcesCollection => new ReadOnlyCollection<INotifyCollectionChanged>(new []{Source});
-		public ReadOnlyCollection<IReadScalar<INotifyCollectionChanged>> SourceScalarsCollection => new ReadOnlyCollection<IReadScalar<INotifyCollectionChanged>>(new []{SourceScalar});
+		public ReadOnlyCollection<INotifyCollectionChanged> SourceCollections => new ReadOnlyCollection<INotifyCollectionChanged>(new []{Source});
+		public ReadOnlyCollection<IReadScalar<INotifyCollectionChanged>> SourceCollectionScalars => new ReadOnlyCollection<IReadScalar<INotifyCollectionChanged>>(new []{SourceScalar});
 
 		public string DebugTag { get; set; }
 		public object Tag { get; set; }

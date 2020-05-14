@@ -6,7 +6,7 @@ using System.Linq;
 
 namespace ObservableComputations
 {
-	public class Skipping<TSourceItem> : Taking<TSourceItem>, IHasSources
+	public class Skipping<TSourceItem> : Taking<TSourceItem>, IHasSourceCollections
 	{
 		public new IReadScalar<INotifyCollectionChanged> SourceScalar => _sourceScalarSkipping;
 
@@ -19,8 +19,8 @@ namespace ObservableComputations
 		// ReSharper disable once MemberCanBePrivate.Global
 		public int CountSkipping => _countSkipping;
 
-		public new ReadOnlyCollection<INotifyCollectionChanged> SourcesCollection => new ReadOnlyCollection<INotifyCollectionChanged>(new []{Source});
-		public new ReadOnlyCollection<IReadScalar<INotifyCollectionChanged>> SourceScalarsCollection => new ReadOnlyCollection<IReadScalar<INotifyCollectionChanged>>(new []{SourceScalar});
+		public new ReadOnlyCollection<INotifyCollectionChanged> SourceCollections => new ReadOnlyCollection<INotifyCollectionChanged>(new []{Source});
+		public new ReadOnlyCollection<IReadScalar<INotifyCollectionChanged>> SourceCollectionScalars => new ReadOnlyCollection<IReadScalar<INotifyCollectionChanged>>(new []{SourceScalar});
 
 		private readonly IReadScalar<INotifyCollectionChanged> _sourceScalarSkipping;
 		private readonly INotifyCollectionChanged _sourceSkipping;

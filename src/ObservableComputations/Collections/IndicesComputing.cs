@@ -9,7 +9,7 @@ using ObservableComputations.ExtentionMethods;
 
 namespace ObservableComputations
 {
-	public class IndicesComputing<TSourceItem> : Selecting<ZipPair<int, TSourceItem>, int>, IHasSources
+	public class IndicesComputing<TSourceItem> : Selecting<ZipPair<int, TSourceItem>, int>, IHasSourceCollections
 	{
 		private readonly Expression<Func<TSourceItem, bool>> _predicateExpression;
 		private readonly IReadScalar<INotifyCollectionChanged> _sourceScalar;
@@ -24,8 +24,8 @@ namespace ObservableComputations
 		// ReSharper disable once MemberCanBePrivate.Global
 		public new INotifyCollectionChanged Source => _source;
 
-		public new ReadOnlyCollection<INotifyCollectionChanged> SourcesCollection => new ReadOnlyCollection<INotifyCollectionChanged>(new []{Source});
-		public new ReadOnlyCollection<IReadScalar<INotifyCollectionChanged>> SourceScalarsCollection => new ReadOnlyCollection<IReadScalar<INotifyCollectionChanged>>(new []{SourceScalar});
+		public new ReadOnlyCollection<INotifyCollectionChanged> SourceCollections => new ReadOnlyCollection<INotifyCollectionChanged>(new []{Source});
+		public new ReadOnlyCollection<IReadScalar<INotifyCollectionChanged>> SourceCollectionScalars => new ReadOnlyCollection<IReadScalar<INotifyCollectionChanged>>(new []{SourceScalar});
 
 		[ObservableComputationsCall]
 		public IndicesComputing(

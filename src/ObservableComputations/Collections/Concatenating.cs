@@ -6,7 +6,7 @@ using System.ComponentModel;
 
 namespace ObservableComputations
 {
-	public class Concatenating<TSourceItem> : CollectionComputing<TSourceItem>, IHasSources
+	public class Concatenating<TSourceItem> : CollectionComputing<TSourceItem>, IHasSourceCollections
 	{
 		// ReSharper disable once MemberCanBePrivate.Global
 		public IReadScalar<INotifyCollectionChanged> SourcesScalar => _sourcesScalar;
@@ -14,8 +14,8 @@ namespace ObservableComputations
 		// ReSharper disable once MemberCanBePrivate.Global
 		public INotifyCollectionChanged Sources => _sources;
 
-		public ReadOnlyCollection<INotifyCollectionChanged> SourcesCollection => new ReadOnlyCollection<INotifyCollectionChanged>(new []{Sources});
-		public ReadOnlyCollection<IReadScalar<INotifyCollectionChanged>> SourceScalarsCollection => new ReadOnlyCollection<IReadScalar<INotifyCollectionChanged>>(new []{SourcesScalar});
+		public ReadOnlyCollection<INotifyCollectionChanged> SourceCollections => new ReadOnlyCollection<INotifyCollectionChanged>(new []{Sources});
+		public ReadOnlyCollection<IReadScalar<INotifyCollectionChanged>> SourceCollectionScalars => new ReadOnlyCollection<IReadScalar<INotifyCollectionChanged>>(new []{SourcesScalar});
 
 		// ReSharper disable once PrivateFieldCanBeConvertedToLocalVariable
 		private readonly PropertyChangedEventHandler _sourcesScalarPropertyChangedEventHandler;

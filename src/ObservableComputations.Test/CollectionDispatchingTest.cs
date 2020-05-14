@@ -16,10 +16,12 @@ namespace ObservableComputations.Test
 	{
 		public class Item : INotifyPropertyChanged
 		{
-			public Item(int num, IDispatcher consuminingDispatcher, IDispatcher computingDispatcher)
+			public Item(int num, int num2, IDispatcher consuminingDispatcher, IDispatcher computingDispatcher)
 			{
 				_num = num;
-				_numDispatching = new PropertyDispatching<int>(() => Num, computingDispatcher, consuminingDispatcher);
+				_num2 = num2;
+				_numDispatching = new PropertyDispatching<Item, int>(() => Num, computingDispatcher, consuminingDispatcher);
+				_num2Dispatching = new PropertyDispatching<Item, int>(() => Num2, consuminingDispatcher, computingDispatcher);
 			}
 
 			private int _num;
@@ -29,8 +31,18 @@ namespace ObservableComputations.Test
 				set => updatePropertyValue(ref _num, value);
 			}
 
-			private PropertyDispatching<int> _numDispatching;
-			public PropertyDispatching<int> NumDispatching => _numDispatching;
+			private int _num2;
+			public int Num2
+			{
+				get => _num2;
+				set => updatePropertyValue(ref _num2, value);
+			}
+
+			private PropertyDispatching<Item,int> _numDispatching;
+			public PropertyDispatching<Item, int> NumDispatching => _numDispatching;
+
+			private PropertyDispatching<Item,int> _num2Dispatching;
+			public PropertyDispatching<Item, int> Num2Dispatching => _num2Dispatching;
 
 			#region INotifyPropertyChanged imlementation
 
@@ -62,14 +74,14 @@ namespace ObservableComputations.Test
 				Dispatcher computingDispatcher = new Dispatcher();
 
 				var nums = new ObservableCollection<Item>();
-				var filteredNums = nums.Filtering(i => i.Num % 3 == 0);
+				var filteredNums = nums.Filtering(i => i.Num % 3 == 0 || i.Num2Dispatching.Value % 5 == 0);
 				var dispatchingfilteredNums = filteredNums.CollectionDispatching(consuminingDispatcher);
 				bool stop = false;
 
 				Random stopperRandom = new Random();
 				Thread stopper = new Thread(() =>
 				{
-					Thread.Sleep(TimeSpan.FromSeconds(stopperRandom.Next(2, 10)));
+					Thread.Sleep(TimeSpan.FromSeconds(stopperRandom.Next(2, 20)));
 					stop = true;
 				});
 
@@ -82,7 +94,7 @@ namespace ObservableComputations.Test
 					{
 						Thread.Sleep(random.Next(0, 3));
 
-						int nextAction = random.Next(0, 15);
+						int nextAction = random.Next(0, 20);
 						if (nextAction > 3) nextAction = nextAction == 4 ? 4 : 0;
 						NotifyCollectionChangedAction action = (NotifyCollectionChangedAction) nextAction;
 						switch (action)
@@ -92,7 +104,7 @@ namespace ObservableComputations.Test
 								{
 									int upperIndex = nums.Count > 0 ? nums.Count - 1 : 0;
 									int index = random.Next(0, upperIndex);
-									nums.Insert(index, new Item(random.Next(Int32.MinValue, int.MaxValue), consuminingDispatcher, computingDispatcher));
+									nums.Insert(index, new Item(random.Next(Int32.MinValue, int.MaxValue), random.Next(Int32.MinValue, int.MaxValue), consuminingDispatcher, computingDispatcher));
 								});
 								break;
 							case NotifyCollectionChangedAction.Remove:
@@ -113,7 +125,7 @@ namespace ObservableComputations.Test
 									if (upperIndex > 0)
 									{
 										int index = random.Next(0, upperIndex);
-										nums[index] = new Item(random.Next(Int32.MinValue, int.MaxValue), consuminingDispatcher, computingDispatcher);
+										nums[index] = new Item(random.Next(Int32.MinValue, int.MaxValue), random.Next(Int32.MinValue, int.MaxValue), consuminingDispatcher, computingDispatcher);
 									}
 
 								});
@@ -174,6 +186,31 @@ namespace ObservableComputations.Test
 					numValueChangerThreads[i].Start();
 				}
 
+				ThreadStart num2ValueChangerThreadStart = () =>
+				{
+					Random random =  new Random();
+					while (!stop)
+					{
+						Thread.Sleep(random.Next(0, 3));
+
+						consuminingDispatcher.Invoke(() =>
+						{
+							int dispatchingfilteredNumsCount = dispatchingfilteredNums.Count;
+							if (dispatchingfilteredNumsCount > 0)
+								dispatchingfilteredNums[random.Next(0, dispatchingfilteredNumsCount - 1)].Num2 =
+									random.Next(Int32.MinValue, int.MaxValue);
+						});
+
+					}
+				};
+ 
+				Thread[] num2ValueChangerThreads = new Thread[threadsCount];
+				for (int i = 0; i < threadsCount; i++)
+				{
+					num2ValueChangerThreads[i] = new Thread(num2ValueChangerThreadStart);
+					num2ValueChangerThreads[i].Start();
+				}
+
 
 				//Thread consuminingDispatcherInvoker = new Thread(() =>
 				//{
@@ -204,14 +241,19 @@ namespace ObservableComputations.Test
 					numValueChangerThreads[i].Join();
 				}
 
+				for (int i = 0; i < threadsCount; i++)
+				{
+					num2ValueChangerThreads[i].Join();
+				}
+
 				//consuminingDispatcherInvoker.Join();
 
 				consuminingDispatcher.Invoke(() => {});
 				computingDispatcher.Invoke(() => {});
 				consuminingDispatcher.Invoke(() => {});
 
-				Assert.IsTrue(nums.Where(i => i.Num % 3 == 0).SequenceEqual(dispatchingfilteredNums));
-				Assert.IsTrue(nums.Where(i => i.NumDispatching.Value % 3 == 0).SequenceEqual(dispatchingfilteredNums));
+				Assert.IsTrue(nums.Where(i => i.Num % 3 == 0 || i.Num2 % 5 == 0).SequenceEqual(dispatchingfilteredNums));
+				Assert.IsTrue(nums.Where(i => i.NumDispatching.Value % 3 == 0 || i.Num2Dispatching.Value % 5 == 0).SequenceEqual(dispatchingfilteredNums));
 				Debug.Print("!!!!!");
 			}
 		}

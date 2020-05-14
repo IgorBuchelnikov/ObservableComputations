@@ -9,7 +9,7 @@ using System.Text;
 
 namespace ObservableComputations
 {
-	public class StringsConcatenating : ScalarComputing<string>, IHasSources
+	public class StringsConcatenating : ScalarComputing<string>, IHasSourceCollections
 	{
 		// ReSharper disable once MemberCanBePrivate.Global
 		public IReadScalar<INotifyCollectionChanged> SourceScalar => _sourceScalar;
@@ -23,8 +23,8 @@ namespace ObservableComputations
 		// ReSharper disable once MemberCanBePrivate.Global
 		public string Separator => _separator;
 
-		public ReadOnlyCollection<INotifyCollectionChanged> SourcesCollection => new ReadOnlyCollection<INotifyCollectionChanged>(new []{Source});
-		public ReadOnlyCollection<IReadScalar<INotifyCollectionChanged>> SourceScalarsCollection => new ReadOnlyCollection<IReadScalar<INotifyCollectionChanged>>(new []{SourceScalar});
+		public ReadOnlyCollection<INotifyCollectionChanged> SourceCollections => new ReadOnlyCollection<INotifyCollectionChanged>(new []{Source});
+		public ReadOnlyCollection<IReadScalar<INotifyCollectionChanged>> SourceCollectionScalars => new ReadOnlyCollection<IReadScalar<INotifyCollectionChanged>>(new []{SourceScalar});
 
 		private PropertyChangedEventHandler _sourceScalarPropertyChangedEventHandler;
 		private WeakPropertyChangedEventHandler _sourceScalarWeakPropertyChangedEventHandler;

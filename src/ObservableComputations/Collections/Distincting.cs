@@ -5,7 +5,7 @@ using System.Linq;
 
 namespace ObservableComputations
 {
-	public class Distincting<TSourceItem> : Selecting<Group<TSourceItem, TSourceItem>, TSourceItem>, IHasSources
+	public class Distincting<TSourceItem> : Selecting<Group<TSourceItem, TSourceItem>, TSourceItem>, IHasSourceCollections
 	{
 		// ReSharper disable once UnusedMember.Local
 		private new IReadScalar<INotifyCollectionChanged> SourceScalar => _sourceScalar;
@@ -17,8 +17,8 @@ namespace ObservableComputations
 
 		public IEqualityComparer<TSourceItem> EqualityComparer => _equalityComparer;
 
-		public new ReadOnlyCollection<INotifyCollectionChanged> SourcesCollection => new ReadOnlyCollection<INotifyCollectionChanged>(new []{Source});
-		public new ReadOnlyCollection<IReadScalar<INotifyCollectionChanged>> SourceScalarsCollection => new ReadOnlyCollection<IReadScalar<INotifyCollectionChanged>>(new []{SourceScalar});
+		public new ReadOnlyCollection<INotifyCollectionChanged> SourceCollections => new ReadOnlyCollection<INotifyCollectionChanged>(new []{Source});
+		public new ReadOnlyCollection<IReadScalar<INotifyCollectionChanged>> SourceCollectionScalars => new ReadOnlyCollection<IReadScalar<INotifyCollectionChanged>>(new []{SourceScalar});
 
 		protected IReadScalar<IEqualityComparer<TSourceItem>> _equalityComparerScalar;
 

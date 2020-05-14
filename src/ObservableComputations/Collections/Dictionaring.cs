@@ -11,7 +11,7 @@ using ObservableComputations.ExtentionMethods;
 namespace ObservableComputations
 {
 	// ReSharper disable once RedundantExtendsListEntry
-	public class Dictionaring<TSourceItem, TKey, TValue> : IDictionary<TKey, TValue>, IHasSources, IComputing, INotifyMethodChanged
+	public class Dictionaring<TSourceItem, TKey, TValue> : IDictionary<TKey, TValue>, IHasSourceCollections, IComputing, INotifyMethodChanged
 	{
 		// ReSharper disable once MemberCanBePrivate.Global
 		public IReadScalar<INotifyCollectionChanged> SourceScalar => _sourceScalar;
@@ -37,8 +37,8 @@ namespace ObservableComputations
 
 		public string InstantiatingStackTrace => _instantiatingStackTrace;
 
-		public ReadOnlyCollection<INotifyCollectionChanged> SourcesCollection => new ReadOnlyCollection<INotifyCollectionChanged>(new []{Source});
-		public ReadOnlyCollection<IReadScalar<INotifyCollectionChanged>> SourceScalarsCollection => new ReadOnlyCollection<IReadScalar<INotifyCollectionChanged>>(new []{SourceScalar});
+		public ReadOnlyCollection<INotifyCollectionChanged> SourceCollections => new ReadOnlyCollection<INotifyCollectionChanged>(new []{Source});
+		public ReadOnlyCollection<IReadScalar<INotifyCollectionChanged>> SourceCollectionScalars => new ReadOnlyCollection<IReadScalar<INotifyCollectionChanged>>(new []{SourceScalar});
 
 		public string DebugTag { get; set; }
 		public object Tag { get; set; }
@@ -708,11 +708,13 @@ namespace ObservableComputations
 				Thread currentThread = Thread.CurrentThread;
 				DebugInfo._computingsExecutingUserCode.TryGetValue(currentThread, out IComputing computing);
 				DebugInfo._computingsExecutingUserCode[currentThread] = this;	
+				_userCodeIsCalledFrom = computing;
 				
 				TValue result = _valueSelectorContainsParametrizedObservableComputationsCalls ? itemInfo._valueSelectorFunc() : _valueSelectorFunc(sourceItem);
 
 				if (computing == null) DebugInfo._computingsExecutingUserCode.TryRemove(currentThread, out IComputing _);
 				else DebugInfo._computingsExecutingUserCode[currentThread] = computing;
+				_userCodeIsCalledFrom = null;
 				return result;
 			}
 

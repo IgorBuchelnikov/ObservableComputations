@@ -10,7 +10,7 @@ using INotifyPropertyChanged = System.ComponentModel.INotifyPropertyChanged;
 
 namespace ObservableComputations
 {
-	public class Joining<TOuterSourceItem, TInnerSourceItem> : Filtering<JoinPair<TOuterSourceItem, TInnerSourceItem>>, IHasSources
+	public class Joining<TOuterSourceItem, TInnerSourceItem> : Filtering<JoinPair<TOuterSourceItem, TInnerSourceItem>>, IHasSourceCollections
 	{
 		public IReadScalar<INotifyCollectionChanged> OuterSourceScalar => _outerSourceScalar;
 
@@ -26,8 +26,8 @@ namespace ObservableComputations
 		// ReSharper disable once MemberCanBePrivate.Global
 		public Expression<Func<TOuterSourceItem, TInnerSourceItem, bool>> JoinPredicateExpression { get; }
 
-		public new ReadOnlyCollection<INotifyCollectionChanged> SourcesCollection => new ReadOnlyCollection<INotifyCollectionChanged>(new []{OuterSource, InnerSource});
-		public new ReadOnlyCollection<IReadScalar<INotifyCollectionChanged>> SourceScalarsCollection => new ReadOnlyCollection<IReadScalar<INotifyCollectionChanged>>(new []{OuterSourceScalar, InnerSourceScalar});
+		public new ReadOnlyCollection<INotifyCollectionChanged> SourceCollections => new ReadOnlyCollection<INotifyCollectionChanged>(new []{OuterSource, InnerSource});
+		public new ReadOnlyCollection<IReadScalar<INotifyCollectionChanged>> SourceCollectionScalars => new ReadOnlyCollection<IReadScalar<INotifyCollectionChanged>>(new []{OuterSourceScalar, InnerSourceScalar});
 
 		private readonly IReadScalar<INotifyCollectionChanged> _outerSourceScalar;
 		private readonly IReadScalar<INotifyCollectionChanged> _innerSourceScalar;

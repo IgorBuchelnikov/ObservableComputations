@@ -7,7 +7,7 @@ using ObservableComputations.ExtentionMethods;
 
 namespace ObservableComputations
 {
-	public class ItemComputing<TSourceItem> : ScalarComputing<TSourceItem>, IHasSources
+	public class ItemComputing<TSourceItem> : ScalarComputing<TSourceItem>, IHasSourceCollections
 	{
 		public IReadScalar<INotifyCollectionChanged> SourceScalar => _sourceScalar;
 
@@ -25,8 +25,8 @@ namespace ObservableComputations
 		// ReSharper disable once MemberCanBeProtected.Global
 		public TSourceItem DefaultValue => _defaultValue;
 
-		public ReadOnlyCollection<INotifyCollectionChanged> SourcesCollection => new ReadOnlyCollection<INotifyCollectionChanged>(new []{Source});
-		public ReadOnlyCollection<IReadScalar<INotifyCollectionChanged>> SourceScalarsCollection => new ReadOnlyCollection<IReadScalar<INotifyCollectionChanged>>(new []{SourceScalar});
+		public ReadOnlyCollection<INotifyCollectionChanged> SourceCollections => new ReadOnlyCollection<INotifyCollectionChanged>(new []{Source});
+		public ReadOnlyCollection<IReadScalar<INotifyCollectionChanged>> SourceCollectionScalars => new ReadOnlyCollection<IReadScalar<INotifyCollectionChanged>>(new []{SourceScalar});
 
 		protected readonly IReadScalar<INotifyCollectionChanged> _sourceScalar;
 		private PropertyChangedEventHandler _sourceScalarPropertyChangedEventHandler;

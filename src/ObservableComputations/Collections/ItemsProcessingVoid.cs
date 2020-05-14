@@ -6,7 +6,7 @@ using System.Threading;
 
 namespace ObservableComputations
 {
-	public class ItemsProcessingVoid<TSourceItem> : CollectionComputing<TSourceItem>, IHasSources
+	public class ItemsProcessingVoid<TSourceItem> : CollectionComputing<TSourceItem>, IHasSourceCollections
 	{
 		// ReSharper disable once MemberCanBePrivate.Global
 		public IReadScalar<INotifyCollectionChanged> SourceScalar => _sourceScalar;
@@ -14,8 +14,8 @@ namespace ObservableComputations
 		// ReSharper disable once MemberCanBePrivate.Global
 		public INotifyCollectionChanged Source => _source;
 
-		public ReadOnlyCollection<INotifyCollectionChanged> SourcesCollection => new ReadOnlyCollection<INotifyCollectionChanged>(new []{Source});
-		public ReadOnlyCollection<IReadScalar<INotifyCollectionChanged>> SourceScalarsCollection => new ReadOnlyCollection<IReadScalar<INotifyCollectionChanged>>(new []{SourceScalar});
+		public ReadOnlyCollection<INotifyCollectionChanged> SourceCollections => new ReadOnlyCollection<INotifyCollectionChanged>(new []{Source});
+		public ReadOnlyCollection<IReadScalar<INotifyCollectionChanged>> SourceCollectionScalars => new ReadOnlyCollection<IReadScalar<INotifyCollectionChanged>>(new []{SourceScalar});
 
 		public Action<TSourceItem, ItemsProcessingVoid<TSourceItem>, object, EventArgs> NewItemProcessor => _newItemProcessor;
 		public Action<TSourceItem, ItemsProcessingVoid<TSourceItem>, object, EventArgs> OldItemProcessor => _oldItemProcessor;

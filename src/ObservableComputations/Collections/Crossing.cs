@@ -5,7 +5,7 @@ using System.ComponentModel;
 
 namespace ObservableComputations
 {
-	public class Crossing<TOuterSourceItem, TInnerSourceItem> : CollectionComputing<JoinPair<TOuterSourceItem, TInnerSourceItem>>, IHasSources
+	public class Crossing<TOuterSourceItem, TInnerSourceItem> : CollectionComputing<JoinPair<TOuterSourceItem, TInnerSourceItem>>, IHasSourceCollections
 	{
 		// ReSharper disable once MemberCanBePrivate.Global
 		// ReSharper disable once UnusedMember.Global
@@ -23,8 +23,8 @@ namespace ObservableComputations
 		// ReSharper disable once UnusedMember.Global
 		public INotifyCollectionChanged InnerSource => _innerSource;
 
-		public ReadOnlyCollection<INotifyCollectionChanged> SourcesCollection => new ReadOnlyCollection<INotifyCollectionChanged>(new []{OuterSource, InnerSource});
-		public ReadOnlyCollection<IReadScalar<INotifyCollectionChanged>> SourceScalarsCollection => new ReadOnlyCollection<IReadScalar<INotifyCollectionChanged>>(new []{OuterSourceScalar, InnerSourceScalar});
+		public ReadOnlyCollection<INotifyCollectionChanged> SourceCollections => new ReadOnlyCollection<INotifyCollectionChanged>(new []{OuterSource, InnerSource});
+		public ReadOnlyCollection<IReadScalar<INotifyCollectionChanged>> SourceCollectionScalars => new ReadOnlyCollection<IReadScalar<INotifyCollectionChanged>>(new []{OuterSourceScalar, InnerSourceScalar});
 
 		private PropertyChangedEventHandler _outerSourceScalarPropertyChangedEventHandler;
 		private WeakPropertyChangedEventHandler _outerSourceScalarWeakPropertyChangedEventHandler;

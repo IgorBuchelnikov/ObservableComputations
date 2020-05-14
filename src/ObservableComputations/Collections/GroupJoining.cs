@@ -11,7 +11,7 @@ using ObservableComputations.ExtentionMethods;
 
 namespace ObservableComputations
 {
-	public class GroupJoining<TOuterSourceItem, TInnerSourceItem, TKey> : CollectionComputing<JoinGroup<TOuterSourceItem, TInnerSourceItem, TKey>>, IHasSources
+	public class GroupJoining<TOuterSourceItem, TInnerSourceItem, TKey> : CollectionComputing<JoinGroup<TOuterSourceItem, TInnerSourceItem, TKey>>, IHasSourceCollections
 	{
 		// ReSharper disable once MemberCanBePrivate.Global
 		public IReadScalar<INotifyCollectionChanged> OuterSourceScalar => _outerSourceScalar;
@@ -31,8 +31,8 @@ namespace ObservableComputations
 
 		public Expression<Func<TOuterSourceItem, TKey>> OuterKeySelector => _outerKeySelectorExpressionOriginal;
 
-		public ReadOnlyCollection<INotifyCollectionChanged> SourcesCollection => new ReadOnlyCollection<INotifyCollectionChanged>(new []{OuterSource, InnerSource});
-		public ReadOnlyCollection<IReadScalar<INotifyCollectionChanged>> SourceScalarsCollection => new ReadOnlyCollection<IReadScalar<INotifyCollectionChanged>>(new []{OuterSourceScalar, InnerSourceScalar});
+		public ReadOnlyCollection<INotifyCollectionChanged> SourceCollections => new ReadOnlyCollection<INotifyCollectionChanged>(new []{OuterSource, InnerSource});
+		public ReadOnlyCollection<IReadScalar<INotifyCollectionChanged>> SourceCollectionScalars => new ReadOnlyCollection<IReadScalar<INotifyCollectionChanged>>(new []{OuterSourceScalar, InnerSourceScalar});
 
 		public Action<JoinGroup<TOuterSourceItem, TInnerSourceItem, TKey>, int, TInnerSourceItem> InsertItemIntoGroupAction
 		{

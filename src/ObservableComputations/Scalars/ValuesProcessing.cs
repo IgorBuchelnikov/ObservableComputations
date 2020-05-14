@@ -55,11 +55,13 @@ namespace ObservableComputations
 					? DebugInfo._computingsExecutingUserCode[currentThread]
 					: null;
 				DebugInfo._computingsExecutingUserCode[currentThread] = this;
+				_userCodeIsCalledFrom = computing;
 
 				TReturnValue returnValue = _newValueProcessor(newValue, this, sender, eventArgs);
 
 				if (computing == null) DebugInfo._computingsExecutingUserCode.TryRemove(currentThread, out IComputing _);
 				else DebugInfo._computingsExecutingUserCode[currentThread] = computing;
+				_userCodeIsCalledFrom = null;
 
 				return returnValue;
 			}

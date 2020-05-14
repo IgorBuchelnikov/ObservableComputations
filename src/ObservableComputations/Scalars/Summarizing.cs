@@ -6,12 +6,12 @@ using System.Linq.Expressions;
 
 namespace ObservableComputations
 {
-	public class Summarizing<TSourceItem> : Aggregating<TSourceItem, TSourceItem>, IHasSources
+	public class Summarizing<TSourceItem> : Aggregating<TSourceItem, TSourceItem>, IHasSourceCollections
 	{
 		public new IReadScalar<INotifyCollectionChanged> SourceScalar => _sourceScalarSummarizing;
 
-		public ReadOnlyCollection<INotifyCollectionChanged> SourcesCollection => new ReadOnlyCollection<INotifyCollectionChanged>(new []{Source});
-		public ReadOnlyCollection<IReadScalar<INotifyCollectionChanged>> SourceScalarsCollection => new ReadOnlyCollection<IReadScalar<INotifyCollectionChanged>>(new []{SourceScalar});
+		public ReadOnlyCollection<INotifyCollectionChanged> SourceCollections => new ReadOnlyCollection<INotifyCollectionChanged>(new []{Source});
+		public ReadOnlyCollection<IReadScalar<INotifyCollectionChanged>> SourceCollectionScalars => new ReadOnlyCollection<IReadScalar<INotifyCollectionChanged>>(new []{SourceScalar});
 
 		// ReSharper disable once MemberCanBePrivate.Global
 		public new INotifyCollectionChanged Source => _sourceSummarizing;

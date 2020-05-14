@@ -5,7 +5,7 @@ using System.Linq;
 
 namespace ObservableComputations
 {
-	public class OfTypeComputing<TResultItem> : Casting<TResultItem>, IHasSources
+	public class OfTypeComputing<TResultItem> : Casting<TResultItem>, IHasSourceCollections
 	{
 		public new IReadScalar<INotifyCollectionChanged> SourceScalar => _sourceScalarOfTypeComputing;
 
@@ -14,8 +14,8 @@ namespace ObservableComputations
 		private readonly IReadScalar<INotifyCollectionChanged> _sourceScalarOfTypeComputing;
 		private readonly INotifyCollectionChanged _sourceOfTypeComputing;
 
-		public new ReadOnlyCollection<INotifyCollectionChanged> SourcesCollection => new ReadOnlyCollection<INotifyCollectionChanged>(new []{Source});
-		public new ReadOnlyCollection<IReadScalar<INotifyCollectionChanged>> SourceScalarsCollection => new ReadOnlyCollection<IReadScalar<INotifyCollectionChanged>>(new []{SourceScalar});
+		public new ReadOnlyCollection<INotifyCollectionChanged> SourceCollections => new ReadOnlyCollection<INotifyCollectionChanged>(new []{Source});
+		public new ReadOnlyCollection<IReadScalar<INotifyCollectionChanged>> SourceCollectionScalars => new ReadOnlyCollection<IReadScalar<INotifyCollectionChanged>>(new []{SourceScalar});
 
 		// ReSharper disable once MemberCanBePrivate.Global
 

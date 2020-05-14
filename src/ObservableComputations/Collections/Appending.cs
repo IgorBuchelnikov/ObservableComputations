@@ -5,7 +5,7 @@ using System.Linq;
 
 namespace ObservableComputations
 {
-	public class Appending<TSourceItem> : Concatenating<TSourceItem>, IHasSources
+	public class Appending<TSourceItem> : Concatenating<TSourceItem>, IHasSourceCollections
 	{
 		public IReadScalar<INotifyCollectionChanged> SourceScalar => _sourceScalar;
 
@@ -21,8 +21,8 @@ namespace ObservableComputations
 		// ReSharper disable once ConvertToAutoProperty
 		public TSourceItem Item => _item;
 
-		public new ReadOnlyCollection<INotifyCollectionChanged> SourcesCollection => new ReadOnlyCollection<INotifyCollectionChanged>(new []{Source});
-		public new ReadOnlyCollection<IReadScalar<INotifyCollectionChanged>> SourceScalarsCollection => new ReadOnlyCollection<IReadScalar<INotifyCollectionChanged>>(new []{SourceScalar});
+		public new ReadOnlyCollection<INotifyCollectionChanged> SourceCollections => new ReadOnlyCollection<INotifyCollectionChanged>(new []{Source});
+		public new ReadOnlyCollection<IReadScalar<INotifyCollectionChanged>> SourceCollectionScalars => new ReadOnlyCollection<IReadScalar<INotifyCollectionChanged>>(new []{SourceScalar});
 
 		private readonly IReadScalar<INotifyCollectionChanged> _sourceScalar;
 		private readonly IReadScalar<TSourceItem> _itemScalar;

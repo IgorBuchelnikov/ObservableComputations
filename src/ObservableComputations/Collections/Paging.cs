@@ -68,7 +68,7 @@ namespace ObservableComputations.Internal
 
 namespace ObservableComputations
 {
-	public class Paging<TSourceItem> : Selecting<ZipPair<int, TSourceItem>, TSourceItem>, IHasSources
+	public class Paging<TSourceItem> : Selecting<ZipPair<int, TSourceItem>, TSourceItem>, IHasSourceCollections
 	{
 		public new IReadScalar<INotifyCollectionChanged> SourceScalar => _sourceScalarPaging;
 
@@ -93,8 +93,8 @@ namespace ObservableComputations
 			new Computing<bool>(() => _zippingForPaging.CurrentPageNum >= 0 || _zippingForPaging.CurrentPageNum < _pageCountComputing.Value);
 
 
-		public new ReadOnlyCollection<INotifyCollectionChanged> SourcesCollection => new ReadOnlyCollection<INotifyCollectionChanged>(new []{Source});
-		public new ReadOnlyCollection<IReadScalar<INotifyCollectionChanged>> SourceScalarsCollection => new ReadOnlyCollection<IReadScalar<INotifyCollectionChanged>>(new []{SourceScalar});
+		public new ReadOnlyCollection<INotifyCollectionChanged> SourceCollections => new ReadOnlyCollection<INotifyCollectionChanged>(new []{Source});
+		public new ReadOnlyCollection<IReadScalar<INotifyCollectionChanged>> SourceCollectionScalars => new ReadOnlyCollection<IReadScalar<INotifyCollectionChanged>>(new []{SourceScalar});
 
 		private readonly IReadScalar<INotifyCollectionChanged> _sourceScalarPaging;
 		private readonly INotifyCollectionChanged _sourcePaging;

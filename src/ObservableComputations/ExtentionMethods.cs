@@ -62,8 +62,6 @@ namespace ObservableComputations
 
 		#endregion
 
-
-
 		#region ValuesProcessing
 
 		[ObservableComputationsCall]
@@ -169,7 +167,6 @@ namespace ObservableComputations
 		}
 
 		#endregion
-
 
 		#region ItemsProcessing
 		[ObservableComputationsCall]

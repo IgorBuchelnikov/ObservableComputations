@@ -1,18 +1,25 @@
 ﻿using System;
+using System.Collections.Concurrent;
 using System.ComponentModel;
 using System.Linq.Expressions;
+using System.Reflection;
+using System.Threading;
 
 namespace ObservableComputations
 {
-	public class PropertyDispatching<TResult> : IReadScalar<TResult>, IWriteScalar<TResult>, IScalar<TResult>, IComputing
+	public class PropertyDispatching<THolder, TResult> : IReadScalar<TResult>, IWriteScalar<TResult>, IScalar<TResult>, IComputing
+		where THolder : INotifyPropertyChanged
 	{
-		public object PropertyHolder => _propertyHolder;
+		public THolder PropertyHolder => _propertyHolder;
 		public Expression<Func<TResult>>  PropertyExpression => _propertyExpression;
 		public IDispatcher SourceDispatcher => _sourceDispatcher;
 		public IDispatcher DestinationDispatcher => _destinationDispatcher;
 
-
-		private INotifyPropertyChanged _propertyHolder;
+		private static ConcurrentDictionary<PropertyInfo, PropertyAccessors>
+			_propertyAccessors =
+				new ConcurrentDictionary<PropertyInfo, PropertyAccessors>();
+		
+		private THolder _propertyHolder;
 		private Expression<Func<TResult>> _propertyExpression;
 
 		// ReSharper disable once FieldCanBeMadeReadOnly.Local
@@ -22,8 +29,8 @@ namespace ObservableComputations
 		private IDispatcher _sourceDispatcher;
 		private IDispatcher _destinationDispatcher;
 
-		private Action<TResult> _setAction;
-		private Func<TResult> _getAction;
+		private Action<THolder, TResult> _setter;
+		private Func<THolder, TResult> _getter;
 
 		private TResult _value;
 
@@ -38,22 +45,38 @@ namespace ObservableComputations
 
 			_propertyExpression = propertyExpression;
 
-			ParameterExpression parameterExpression = Expression.Parameter(typeof(TResult));
-			_setAction = Expression.Lambda<Action<TResult>>(
-				Expression.Assign(propertyExpression.Body, parameterExpression), 
-				parameterExpression).Compile();
+			MemberExpression memberExpression = (MemberExpression) propertyExpression.Body;	
+			
+			PropertyInfo propertyInfo = (PropertyInfo)((MemberExpression) propertyExpression.Body).Member;
+			PropertyAccessors propertyAcessors;
 
-			_getAction = propertyExpression.Compile();
+			if (!_propertyAccessors.TryGetValue(propertyInfo, out propertyAcessors))
+			{
+				ParameterExpression valueParameterExpression = Expression.Parameter(typeof(TResult));
+				ParameterExpression holderParameterExpression = Expression.Parameter(typeof(THolder));
+				var setter = Expression.Lambda<Action<THolder, TResult>>(
+					Expression.Assign(Expression.Property(holderParameterExpression, propertyInfo), valueParameterExpression), 
+					holderParameterExpression, valueParameterExpression).Compile();
 
-			MemberExpression memberExpression = (MemberExpression) propertyExpression.Body;
-			_propertyHolder = (INotifyPropertyChanged) ((ConstantExpression) memberExpression.Expression).Value;
+				var getter = Expression.Lambda<Func<THolder, TResult>>(
+					Expression.Property(holderParameterExpression, propertyInfo), 
+					holderParameterExpression).Compile();
+
+				propertyAcessors = new PropertyAccessors(getter, setter);
+				_propertyAccessors.TryAdd(propertyInfo, propertyAcessors);
+			}
+
+			_getter = propertyAcessors.Getter;
+			_setter = propertyAcessors.Setter;
+
+			_propertyHolder = (THolder) ((ConstantExpression) memberExpression.Expression).Value;
 
 			_propertyHolderPropertyChangedEventHandler = handlePropertyHolderPropertyChanged;
 			_propertyHolderWeakPropertyChangedEventHandler =
 				new WeakPropertyChangedEventHandler(_propertyHolderPropertyChangedEventHandler);
 
 			_propertyHolder.PropertyChanged += _propertyHolderWeakPropertyChangedEventHandler.Handle;
-			_value = _getAction();
+			getValue();
 
 			void raiseValuePropertyChanged()
 			{
@@ -69,7 +92,7 @@ namespace ObservableComputations
 
 		private void handlePropertyHolderPropertyChanged(object sender, PropertyChangedEventArgs e)
 		{
-			_value = _getAction();
+			getValue();
 
 			void raiseValuePropertyChanged()
 			{
@@ -77,6 +100,30 @@ namespace ObservableComputations
 			}
 
 			_destinationDispatcher.BeginInvoke(raiseValuePropertyChanged, this);	
+		}
+
+		private void getValue()
+		{
+			if (Configuration.TrackComputingsExecutingUserCode)
+			{
+
+				Thread currentThread = Thread.CurrentThread;
+				IComputing computing = DebugInfo._computingsExecutingUserCode.ContainsKey(currentThread)
+					? DebugInfo._computingsExecutingUserCode[currentThread]
+					: null;
+				DebugInfo._computingsExecutingUserCode[currentThread] = this;
+				_userCodeIsCalledFrom = computing;
+
+				_value = _getter(_propertyHolder);
+
+				if (computing == null) DebugInfo._computingsExecutingUserCode.TryRemove(currentThread, out IComputing _);
+				else DebugInfo._computingsExecutingUserCode[currentThread] = computing;
+				_userCodeIsCalledFrom = null;
+			}
+			else
+			{
+				_value = _getter(_propertyHolder);
+			}
 		}
 
 		~PropertyDispatching()
@@ -92,7 +139,28 @@ namespace ObservableComputations
 			{
 				void set()
 				{
-					_setAction(value);
+					if (Configuration.TrackComputingsExecutingUserCode)
+					{
+
+						Thread currentThread = Thread.CurrentThread;
+						IComputing computing = DebugInfo._computingsExecutingUserCode.ContainsKey(currentThread)
+							? DebugInfo._computingsExecutingUserCode[currentThread]
+							: null;
+						DebugInfo._computingsExecutingUserCode[currentThread] = this;
+						_userCodeIsCalledFrom = computing;
+
+						_setter(_propertyHolder, value);
+
+						if (computing == null) DebugInfo._computingsExecutingUserCode.TryRemove(currentThread, out IComputing _);
+						else DebugInfo._computingsExecutingUserCode[currentThread] = computing;
+						_userCodeIsCalledFrom = null;
+					}
+					else
+					{
+						_setter(_propertyHolder, value);
+					}
+
+
 				}
 
 				_sourceDispatcher.BeginInvoke(set, this);
@@ -118,6 +186,21 @@ namespace ObservableComputations
 		private string _instantiatingStackTrace;
 		public string InstantiatingStackTrace => _instantiatingStackTrace;
 
+		private IComputing _userCodeIsCalledFrom;
+		public IComputing UserCodeIsCalledFrom => _userCodeIsCalledFrom;
+
 		#endregion
+
+		private struct PropertyAccessors
+		{
+			public PropertyAccessors(Func<THolder, TResult> getter, Action<THolder, TResult> setter)
+			{
+				Getter = getter;
+				Setter = setter;
+			}
+
+			public Func<THolder, TResult> Getter;
+			public Action<THolder, TResult> Setter;
+		}
 	}
 }

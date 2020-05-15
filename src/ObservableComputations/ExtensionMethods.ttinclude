@@ -79,7 +79,7 @@
 								variants.Types.Add(parameter.Type.AsString);
 								variants.Types.Add(parameter.Type.AsString.Replace("System.Collections.Specialized.INotifyCollectionChanged", "ObservableCollection<ObservableCollection<TSourceItem>>"));
 							}
-							else if (parameter.Name.Contains("source") || parameter.Name.Contains("Source"))
+							else if ((parameter.Name.Contains("source") || parameter.Name.Contains("Source")) && !parameter.Name.Contains("Dispatcher"))
 							{
 								string sourceGenericTypeName;
 
@@ -108,7 +108,7 @@
 							else if (parameter.ParameterKind == vsCMParameterKind.vsCMParameterKindOptional)
 							{
 								variants.DefaultValue = parameter.DefaultValue;
-							};
+							}
 
 							variantsList.Add(variants);
 						}

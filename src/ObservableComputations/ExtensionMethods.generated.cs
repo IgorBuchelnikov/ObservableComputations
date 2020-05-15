@@ -516,12 +516,39 @@ namespace ObservableComputations
 		[ObservableComputationsCall]
 		public static ObservableComputations.CollectionDispatching<TSourceItem> CollectionDispatching<TSourceItem>(this
 			 System.Collections.Specialized.INotifyCollectionChanged source,
+			 ObservableComputations.IDispatcher destinationDispatcher,
+			 ObservableComputations.IDispatcher sourceDispatcher)
+			
+		{
+			return new ObservableComputations.CollectionDispatching<TSourceItem>(
+				source: source,
+				destinationDispatcher: destinationDispatcher,
+				sourceDispatcher: sourceDispatcher);
+		}
+
+		[ObservableComputationsCall]
+		public static ObservableComputations.CollectionDispatching<TSourceItem> CollectionDispatching<TSourceItem>(this
+			 System.Collections.Specialized.INotifyCollectionChanged source,
 			 ObservableComputations.IDispatcher destinationDispatcher)
 			
 		{
 			return new ObservableComputations.CollectionDispatching<TSourceItem>(
 				source: source,
-				destinationDispatcher: destinationDispatcher);
+				destinationDispatcher: destinationDispatcher,
+				sourceDispatcher: null);
+		}
+
+		[ObservableComputationsCall]
+		public static ObservableComputations.CollectionDispatching<TSourceItem> CollectionDispatching<TSourceItem>(this
+			 ObservableCollection<TSourceItem> source,
+			 ObservableComputations.IDispatcher destinationDispatcher,
+			 ObservableComputations.IDispatcher sourceDispatcher)
+			
+		{
+			return new ObservableComputations.CollectionDispatching<TSourceItem>(
+				source: source,
+				destinationDispatcher: destinationDispatcher,
+				sourceDispatcher: sourceDispatcher);
 		}
 
 		[ObservableComputationsCall]
@@ -532,7 +559,21 @@ namespace ObservableComputations
 		{
 			return new ObservableComputations.CollectionDispatching<TSourceItem>(
 				source: source,
-				destinationDispatcher: destinationDispatcher);
+				destinationDispatcher: destinationDispatcher,
+				sourceDispatcher: null);
+		}
+
+		[ObservableComputationsCall]
+		public static ObservableComputations.CollectionDispatching<TSourceItem> CollectionDispatching<TSourceItem>(this
+			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar,
+			 ObservableComputations.IDispatcher destinationDispatcher,
+			 ObservableComputations.IDispatcher sourceDispatcher)
+			
+		{
+			return new ObservableComputations.CollectionDispatching<TSourceItem>(
+				sourceScalar: sourceScalar,
+				destinationDispatcher: destinationDispatcher,
+				sourceDispatcher: sourceDispatcher);
 		}
 
 		[ObservableComputationsCall]
@@ -543,7 +584,21 @@ namespace ObservableComputations
 		{
 			return new ObservableComputations.CollectionDispatching<TSourceItem>(
 				sourceScalar: sourceScalar,
-				destinationDispatcher: destinationDispatcher);
+				destinationDispatcher: destinationDispatcher,
+				sourceDispatcher: null);
+		}
+
+		[ObservableComputationsCall]
+		public static ObservableComputations.CollectionDispatching<TSourceItem> CollectionDispatching<TSourceItem>(this
+			 ObservableComputations.IReadScalar<ObservableCollection<TSourceItem>> sourceScalar,
+			 ObservableComputations.IDispatcher destinationDispatcher,
+			 ObservableComputations.IDispatcher sourceDispatcher)
+			
+		{
+			return new ObservableComputations.CollectionDispatching<TSourceItem>(
+				sourceScalar: sourceScalar,
+				destinationDispatcher: destinationDispatcher,
+				sourceDispatcher: sourceDispatcher);
 		}
 
 		[ObservableComputationsCall]
@@ -554,7 +609,21 @@ namespace ObservableComputations
 		{
 			return new ObservableComputations.CollectionDispatching<TSourceItem>(
 				sourceScalar: sourceScalar,
-				destinationDispatcher: destinationDispatcher);
+				destinationDispatcher: destinationDispatcher,
+				sourceDispatcher: null);
+		}
+
+		[ObservableComputationsCall]
+		public static ObservableComputations.CollectionDispatching<TSourceItem> CollectionDispatching<TSourceItem>(this
+			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> sourceExpression,
+			 ObservableComputations.IDispatcher destinationDispatcher,
+			 ObservableComputations.IDispatcher sourceDispatcher)
+			
+		{
+			return new ObservableComputations.CollectionDispatching<TSourceItem>(
+				sourceScalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(sourceExpression),
+				destinationDispatcher: destinationDispatcher,
+				sourceDispatcher: sourceDispatcher);
 		}
 
 		[ObservableComputationsCall]
@@ -565,7 +634,21 @@ namespace ObservableComputations
 		{
 			return new ObservableComputations.CollectionDispatching<TSourceItem>(
 				sourceScalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(sourceExpression),
-				destinationDispatcher: destinationDispatcher);
+				destinationDispatcher: destinationDispatcher,
+				sourceDispatcher: null);
+		}
+
+		[ObservableComputationsCall]
+		public static ObservableComputations.CollectionDispatching<TSourceItem> CollectionDispatching<TSourceItem>(this
+			 Expression<Func<ObservableCollection<TSourceItem>>> sourceExpression,
+			 ObservableComputations.IDispatcher destinationDispatcher,
+			 ObservableComputations.IDispatcher sourceDispatcher)
+			
+		{
+			return new ObservableComputations.CollectionDispatching<TSourceItem>(
+				sourceScalar: new Computing<ObservableCollection<TSourceItem>>(sourceExpression),
+				destinationDispatcher: destinationDispatcher,
+				sourceDispatcher: sourceDispatcher);
 		}
 
 		[ObservableComputationsCall]
@@ -576,7 +659,8 @@ namespace ObservableComputations
 		{
 			return new ObservableComputations.CollectionDispatching<TSourceItem>(
 				sourceScalar: new Computing<ObservableCollection<TSourceItem>>(sourceExpression),
-				destinationDispatcher: destinationDispatcher);
+				destinationDispatcher: destinationDispatcher,
+				sourceDispatcher: null);
 		}
 
 		#endregion
@@ -23537,12 +23621,39 @@ namespace ObservableComputations
 		[ObservableComputationsCall]
 		public static ObservableComputations.ScalarDispatching<TResult> ScalarDispatching<TResult>(this
 			 ObservableComputations.IReadScalar<TResult> scalar,
+			 ObservableComputations.IDispatcher destinationDispatcher,
+			 ObservableComputations.IDispatcher sourceDispatcher)
+			
+		{
+			return new ObservableComputations.ScalarDispatching<TResult>(
+				scalar: scalar,
+				destinationDispatcher: destinationDispatcher,
+				sourceDispatcher: sourceDispatcher);
+		}
+
+		[ObservableComputationsCall]
+		public static ObservableComputations.ScalarDispatching<TResult> ScalarDispatching<TResult>(this
+			 ObservableComputations.IReadScalar<TResult> scalar,
 			 ObservableComputations.IDispatcher destinationDispatcher)
 			
 		{
 			return new ObservableComputations.ScalarDispatching<TResult>(
 				scalar: scalar,
-				destinationDispatcher: destinationDispatcher);
+				destinationDispatcher: destinationDispatcher,
+				sourceDispatcher: null);
+		}
+
+		[ObservableComputationsCall]
+		public static ObservableComputations.ScalarDispatching<TResult> ScalarDispatching<TResult>(this
+			 Expression<Func<TResult>> scalar,
+			 ObservableComputations.IDispatcher destinationDispatcher,
+			 ObservableComputations.IDispatcher sourceDispatcher)
+			
+		{
+			return new ObservableComputations.ScalarDispatching<TResult>(
+				scalar: new Computing<TResult>(scalar),
+				destinationDispatcher: destinationDispatcher,
+				sourceDispatcher: sourceDispatcher);
 		}
 
 		[ObservableComputationsCall]
@@ -23553,7 +23664,8 @@ namespace ObservableComputations
 		{
 			return new ObservableComputations.ScalarDispatching<TResult>(
 				scalar: new Computing<TResult>(scalar),
-				destinationDispatcher: destinationDispatcher);
+				destinationDispatcher: destinationDispatcher,
+				sourceDispatcher: null);
 		}
 
 		#endregion

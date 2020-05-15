@@ -21,11 +21,12 @@ namespace ObservableComputations
 		[ObservableComputationsCall]
 		public ScalarDispatching(
 			IReadScalar<TResult> scalar, 
-			IDispatcher destinationDispatcher)
+			IDispatcher destinationDispatcher,
+			IDispatcher sourceDispatcher = null)
 		{
 			_scalar = scalar;
 			_destinationDispatcher = destinationDispatcher;
-
+			_sourceDispatcher = sourceDispatcher;
 
 			void readAndSubscribe()
 			{
@@ -38,7 +39,15 @@ namespace ObservableComputations
 				_scalar.PropertyChanged += _scalarWeakPropertyChangedEventHandler.Handle;
 			}
 
-			_sourceDispatcher.BeginInvoke(readAndSubscribe, this);
+			if (_sourceDispatcher != null)
+			{
+				_sourceDispatcher.BeginInvoke(readAndSubscribe, this);
+			}
+			else
+			{
+				readAndSubscribe();
+			}
+
 		}
 
 		private void handleScalarPropertyChanged(object sender, PropertyChangedEventArgs e)

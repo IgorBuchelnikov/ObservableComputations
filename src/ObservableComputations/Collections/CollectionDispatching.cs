@@ -26,6 +26,7 @@ namespace ObservableComputations
 		private INotifyPropertyChanged _sourceAsINotifyPropertyChanged;
 
 		private IDispatcher _destinationDispatcher;
+		private IDispatcher _sourceDispatcher;
 
 		private IHasChangeMarker _sourceAsIHasChangeMarker;
 		private bool _lastProcessedSourceChangeMarker;
@@ -33,38 +34,45 @@ namespace ObservableComputations
 		[ObservableComputationsCall]
 		public CollectionDispatching(
 			INotifyCollectionChanged source,
-			IDispatcher destinationDispatcher) : this(destinationDispatcher)
+			IDispatcher destinationDispatcher,
+			IDispatcher sourceDispatcher = null) 
 		{
+			_destinationDispatcher = destinationDispatcher;
+			_sourceDispatcher = sourceDispatcher;
 			_source = source;
-			initializeFromSource();
+
+			if (_sourceDispatcher != null)
+				_sourceDispatcher.BeginInvoke(initializeFromSource, this);
+			else
+				initializeFromSource();
 		}
 
 		[ObservableComputationsCall]
 		public CollectionDispatching(
 			IReadScalar<INotifyCollectionChanged> sourceScalar,
-			IDispatcher destinationDispatcher) : this(destinationDispatcher)
+			IDispatcher destinationDispatcher,
+			IDispatcher sourceDispatcher = null) 
 		{
+			_destinationDispatcher = destinationDispatcher;
+			_sourceDispatcher = sourceDispatcher;
 			_sourceScalar = sourceScalar;
 			_sourceScalarPropertyChangedEventHandler = handleSourceScalarValueChanged;
 			_sourceScalarWeakPropertyChangedEventHandler = new WeakPropertyChangedEventHandler(_sourceScalarPropertyChangedEventHandler);
 			_sourceScalar.PropertyChanged += _sourceScalarWeakPropertyChangedEventHandler.Handle;
 
-			initializeFromSource();
-		}
-
-		private CollectionDispatching(
-			IDispatcher destinationDispatcher)
-		{
-			_destinationDispatcher = destinationDispatcher;
+			if (_sourceDispatcher != null)
+				_sourceDispatcher.BeginInvoke(initializeFromSource, this);
+			else
+				initializeFromSource();
 		}
 
 		private void handleSourceScalarValueChanged(object sender, PropertyChangedEventArgs e)
 		{
 			if (e.PropertyName != nameof(IReadScalar<object>.Value)) return;
-			initializeFromSource(sender, e);
+			initializeFromSource();
 		}
 
-		private void initializeFromSource(object sender = null, EventArgs eventArgs = null)
+		private void initializeFromSource()
 		{
 			if (_sourceNotifyCollectionChangedEventHandler != null)
 			{
@@ -111,28 +119,24 @@ namespace ObservableComputations
 
 					_sourceAsINotifyPropertyChanged.PropertyChanged += _sourceWeakPropertyChangedEventHandler.Handle;
 				}
-			}
 
-			int index = 0;
-			int count = _sourceAsList.Count;
-			for (var sourceIndex = 0; sourceIndex < count; sourceIndex++)
-			{
-				TSourceItem sourceItem = _sourceAsList[sourceIndex];
-
-				void insertItem() => baseInsertItem(index++, sourceItem);
-
-				if (sender == null)
-					insertItem();
-				else
+				int index = 0;
+				int count = _sourceAsList.Count;
+				for (var sourceIndex = 0; sourceIndex < count; sourceIndex++)
 				{
+					TSourceItem sourceItem = _sourceAsList[sourceIndex];
+					int indexCopy = index++;
+
+					void insertItem() => baseInsertItem(indexCopy, sourceItem);
+
 					_destinationDispatcher.BeginInvoke(insertItem, this);
 				}
-			}
 
-			_sourceNotifyCollectionChangedEventHandler = handleSourceCollectionChanged;
-			_sourceWeakNotifyCollectionChangedEventHandler =
-				new WeakNotifyCollectionChangedEventHandler(_sourceNotifyCollectionChangedEventHandler);
-			_source.CollectionChanged += _sourceWeakNotifyCollectionChangedEventHandler.Handle;
+				_sourceNotifyCollectionChangedEventHandler = handleSourceCollectionChanged;
+				_sourceWeakNotifyCollectionChangedEventHandler =
+					new WeakNotifyCollectionChangedEventHandler(_sourceNotifyCollectionChangedEventHandler);
+				_source.CollectionChanged += _sourceWeakNotifyCollectionChangedEventHandler.Handle;
+			}
 		}
 
 		private void handleSourceCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
@@ -186,7 +190,7 @@ namespace ObservableComputations
 						_destinationDispatcher.BeginInvoke(move, this);	
 						break;
 					case NotifyCollectionChangedAction.Reset:
-						initializeFromSource(sender, e);
+						initializeFromSource();
 						break;
 				}
 			}

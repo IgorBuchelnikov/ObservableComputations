@@ -249,7 +249,7 @@ namespace ObservableComputationsExamples
 WPF, Xamarin, Blazor. Вы можете привязывать (binding) элементы пользовательского интерфейса (controls) к экземплярам классов ObservableComputations (*Filtering*, *Computing* etc.). Если Вы так делаете, Вам не нужно беспокоиться о том, что Вы забыли вызвать событие [PropertyChanged](https://docs.microsoft.com/en-us/dotnet/api/system.componentmodel.inotifypropertychanged?view=netframework-4.8) для вычисляемых свойств или вручную обработать изменение в какой-либо коллекции. С ObservableComputations Вы определяете как значение должно вычисляться, всё остальное ObservableComputations сделает за Вас. 
 
 ### Асинхронное программирование
-Такой подход облегчает **асинхронное программирование**. Вы можете показать пользователю форму и начать загружать исходные данные (из БД или web-сервиса) в фоне. По мере того как исходные данные загружаются, форма наполняется вычисленными данными. Пользователь увидит форму быстрее (пока исходные данные загружаются в фоне, Вы можете начать рендеринг). Если форма уже показана пользователю, Вы можете обновить исходные данные в фоне, вычисляемые данные отображенные на форме обновятся благодаря ObservableComputations. 
+Такой подход облегчает **асинхронное программирование**. Вы можете показать пользователю форму и начать загружать исходные данные (из БД или web-сервиса) в фоне. По мере того как исходные данные загружаются, форма наполняется вычисленными данными. Пользователь увидит форму быстрее (пока исходные данные загружаются в фоне, Вы можете начать рендеринг). Если форма уже показана пользователю, Вы можете обновить исходные данные в фоне, вычисляемые данные отображенные на форме обновятся благодаря ObseryjujgjableComputations. 
 
 ### Повышенная производительность
 Если у Вас есть сложные вычисления, часто меняющиеся исходные данные и\или данных много, вы можете получить выигрыш в производительности с ObservableComputations, так как Вам не надо перевычислять данные с нуля каждый раз когда меняются исходные данные. Каждое маленькое изменение в исходных данных вызывает маленькое изменение в данных вычисленных средствами ObservableComputations.
@@ -1947,10 +1947,514 @@ namespace ObservableComputationsExamples
 
 * поддерживают несколько читающих потоков одновременно, если во время чтения не меняются пишущим потоком. 
 * не поддерживают несколько одновременных пишущих потоков. 
-* изменяются когда обрабатывают события [CollectionChanged](https://docs.microsoft.com/en-us/dotnet/api/system.collections.specialized.inotifycollectionchanged.collectionchanged?view=netframework-4.8) и [PropertyChanged](https://docs.microsoft.com/en-us/dotnet/api/system.componentmodel.inotifypropertychanged.propertychanged?view=netframework-4.8) объектов источников.
+* изменяются когда обрабатывают события [CollectionChanged](https://docs.microsoft.com/en-us/dotnet/api/system.collections.specialized.inotifycollectionchanged.collectionchanged?view=netframework-4.8) и [PropertyChanged](https://docs.microsoft.com/en-us/dotnet/api/system.componentmodel.inotifypropertychanged.propertychanged?view=netframework-4.8) объектов-источников.
 
-### Загрузка исходных в фоновом потоке
+### Загрузка исходных данных в фоновом потоке
+Код окна WPF приложения:  
+```xml
+<Window
+	x:Class="ObservableComputationsExample.MainWindow"
+	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+	xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+	xmlns:local="clr-namespace:ObservableComputationsExample"
+	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+	x:Name="uc_this"
+	Title="ObservableComputationsExample"
+	Width="800"
+	Height="450"
+	mc:Ignorable="d">
+	<Grid>
+		<Grid.ColumnDefinitions>
+			<ColumnDefinition Width="*" />
+			<ColumnDefinition Width="*" />
+		</Grid.ColumnDefinitions>
+		<Grid.RowDefinitions>
+			<RowDefinition Height="Auto" />
+			<RowDefinition Height="Auto" />
+			<RowDefinition Height="*" />
+		</Grid.RowDefinitions>
 
+		<Label
+			x:Name="uc_LoadingIndicator"
+			Grid.Row="0"
+			Grid.Column="0"
+			Grid.ColumnSpan="2"
+			HorizontalAlignment="Center">
+			Loading source data...
+		</Label>
+
+		<Label
+			Grid.Row="1"
+			Grid.Column="0"
+			FontWeight="Bold">
+			Unpaid orders
+		</Label>
+		<ListBox
+			Grid.Row="2"
+			Grid.Column="0"
+			DisplayMemberPath="Num"
+			ItemsSource="{Binding UnpaidOrders, ElementName=uc_this}" />
+
+		<Label
+			Grid.Row="1"
+			Grid.Column="1"
+			FontWeight="Bold">
+			Paid orders
+		</Label>
+		<ListBox
+			Grid.Row="2"
+			Grid.Column="1"
+			DisplayMemberPath="Num"
+			ItemsSource="{Binding PaidOrders, ElementName=uc_this}" />
+	</Grid>
+</Window>
+```
+
+```csharp
+using System;
+using System.Collections.ObjectModel;
+using System.ComponentModel;
+using System.Threading;
+using System.Windows;
+using System.Windows.Threading;
+using ObservableComputations;
+
+namespace ObservableComputationsExample
+{
+	public partial class MainWindow : Window
+	{
+		public ObservableCollection<Order> Orders { get; }
+		public ObservableCollection<Order> PaidOrders { get; }
+		public ObservableCollection<Order> UnpaidOrders { get; }
+
+		public MainWindow()
+		{
+			Orders = new ObservableCollection<Order>();
+			PaidOrders = Orders.Filtering(o => o.Paid);
+			UnpaidOrders = Orders.Filtering(o => !o.Paid);
+
+			InitializeComponent();
+
+			fillOrdersFromDb();
+		}
+
+		private void fillOrdersFromDb()
+		{
+			Thread thread = new Thread(() =>
+			{
+				Thread.Sleep(1000); // accessing DB
+				Random random = new Random();
+				for (int i = 0; i < 5000; i++)
+				{
+					Order order = new Order(i);
+					order.Paid = Convert.ToBoolean(random.Next(0, 3));
+					this.Dispatcher.Invoke(() => Orders.Add(order), DispatcherPriority.Background);
+				}
+
+				this.Dispatcher.Invoke(
+					() => uc_LoadingIndicator.Visibility = Visibility.Hidden, 
+					DispatcherPriority.Background);
+			});
+
+			thread.Start();
+		}
+	}
+
+	public class Order : INotifyPropertyChanged
+	{
+		public Order(int num)
+		{
+			Num = num;
+		}
+
+		public int Num { get; }
+
+		private bool _paid;
+		public bool Paid
+		{
+			get => _paid;
+			set
+			{
+				_paid = value;
+				PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Paid)));
+			}
+		}
+
+		public event PropertyChangedEventHandler PropertyChanged;
+	}
+}
+```
+В этом примере мы показываем пользователю форму не дожидаясь пока закончится загрузка данных из БД. Пока идёт загрузка, форма рендерится и пользователь знакомится её содержимым. Заметьте, что код загрузки исходных данных абстрагирован от вычислений над нами (*PaidOrders* и *UnpaidOrders*);
+
+### Выполнение вычислений в фоновом потоке
+В предыдущем примере в фоновом потоке выполнялась только загрузка данных из БД. Сами вычисления (*PaidOrders* и *UnpaidOrders*) выполнялись в главном потоке (поток пользовательского интерфейса). Иногда необходимо выполнять вычисление в фоновом потоке, а в главном потоке получать только конечные результаты вычисления:  
+```xml
+<Window
+	x:Class="ObservableComputationsExample.MainWindow"
+	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+	xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+	xmlns:local="clr-namespace:ObservableComputationsExample"
+	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+	x:Name="uc_this"
+	Title="ObservableComputationsExample"
+	Width="800"
+	Height="450"
+	mc:Ignorable="d"
+	Closed="mainWindow_OnClosed">
+	<Grid>
+		<Grid.ColumnDefinitions>
+			<ColumnDefinition Width="*" />
+			<ColumnDefinition Width="*" />
+		</Grid.ColumnDefinitions>
+		<Grid.RowDefinitions>
+			<RowDefinition Height="Auto" />
+			<RowDefinition Height="Auto" />
+			<RowDefinition Height="*" />
+		</Grid.RowDefinitions>
+
+		<Label
+			x:Name="uc_LoadingIndicator"
+			Grid.Row="0"
+			Grid.Column="0"
+			Grid.ColumnSpan="2"
+			HorizontalAlignment="Center">
+			Loading source data...
+		</Label>
+
+		<Label
+			Grid.Row="1"
+			Grid.Column="0"
+			FontWeight="Bold">
+			Unpaid orders
+		</Label>
+		<ListBox
+			Grid.Row="2"
+			Grid.Column="0"
+			DisplayMemberPath="Num"
+			ItemsSource="{Binding UnpaidOrders, ElementName=uc_this}" />
+
+		<Label
+			Grid.Row="1"
+			Grid.Column="1"
+			FontWeight="Bold">
+			Paid orders
+		</Label>
+		<ListBox
+			Grid.Row="2"
+			Grid.Column="1"
+			DisplayMemberPath="Num"
+			ItemsSource="{Binding PaidOrders, ElementName=uc_this}" />
+	</Grid>
+</Window>
+```
+
+```csharp
+using System;
+using System.Collections.ObjectModel;
+using System.ComponentModel;
+using System.Threading;
+using System.Windows;
+using System.Windows.Threading;
+using ObservableComputations;
+using Dispatcher = System.Windows.Threading.Dispatcher;
+
+
+namespace ObservableComputationsExample
+{
+	public partial class MainWindow : Window
+	{
+		public ObservableCollection<Order> Orders { get; }
+		public ObservableCollection<Order> PaidOrders { get; }
+		public ObservableCollection<Order> UnpaidOrders { get; }
+
+		ObservableComputations.Dispatcher _ocDispatcher = new ObservableComputations.Dispatcher();
+
+		public MainWindow()
+		{
+			Orders = new ObservableCollection<Order>();
+
+			WpfOcDispatcher wpfOcDispatcher = new WpfOcDispatcher(this.Dispatcher);
+
+			PaidOrders = 
+				Orders.CollectionDispatching(_ocDispatcher) // отправляем вычисление в фоновый поток
+				.Filtering(o => o.Paid)
+				.CollectionDispatching(wpfOcDispatcher, _ocDispatcher); // возвращаем вычисление в главный поток из фонового
+
+			UnpaidOrders = Orders.Filtering(o => !o.Paid);
+
+			InitializeComponent();
+
+			fillOrdersFromDb();
+		}
+
+		private void fillOrdersFromDb()
+		{
+			Thread.Sleep(1000); // accessing DB
+			Random random = new Random();
+			for (int i = 0; i < 10000; i++)
+			{
+				Order order = new Order(i);
+				order.Paid = Convert.ToBoolean(random.Next(0, 3));
+				Orders.Add(order);
+			}
+
+			uc_LoadingIndicator.Visibility = Visibility.Hidden;
+		}
+
+		private void mainWindow_OnClosed(object sender, EventArgs e)
+		{
+			_ocDispatcher.Dispose();
+		}
+	}
+
+	public class Order : INotifyPropertyChanged
+	{
+		public Order(int num)
+		{
+			Num = num;
+		}
+
+		public int Num { get; }
+
+		private bool _paid;
+		public bool Paid
+		{
+			get => _paid;
+			set
+			{
+				_paid = value;
+				PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Paid)));
+			}
+		}
+
+		public event PropertyChangedEventHandler PropertyChanged;
+	}
+
+	public class WpfOcDispatcher : IDispatcher
+	{
+		private Dispatcher _dispatcher;
+
+		public WpfOcDispatcher(Dispatcher dispatcher)
+		{
+			_dispatcher = dispatcher;
+		}
+
+		#region Implementation of IDispatcher
+
+		public void BeginInvoke(Action action, IComputing computing)
+		{
+			_dispatcher.BeginInvoke(action, DispatcherPriority.Background);
+		}
+
+		#endregion
+	}
+}
+```
+
+В этом примере мы грузим данные из БД в главном потоке, но фильтрация коллекции-источника *Orders* для получения оплаченных заказов (*PaidOrders*) производится в фоновом потоке.   
+Класс *ObservableComputations.Dispatcher* очень похож на класс [System.Windows.Threading.Dispatcher](https://docs.microsoft.com/en-us/dotnet/api/system.windows.threading.dispatcher?view=netcore-3.1). Класс *ObservableComputations.Dispatcher* ассоциирован с единственным потоком. В этом потоке вы можете выполнять делегаты, вызывая методы *ObservableComputations.Dispatcher.Invoke* и *ObservableComputations.Dispatcher.BeginInvoke*. 
+Метод *CollectionDispatching* перенаправляет все изменения коллекции источника в поток целевого диспетчера (параметр *distinationDispatcher*). 
+В момент вызова метода *CollectionDispatching* происходит перечисление коллекции источника (*Orders* или *Orders.CollectionDispatching(_ocDispatcher).Filtering(o => o.Paid)*). При этом коллекция-источник не должна меняться. При вызове *.CollectionDispatching(_ocDispatcher)*, коллекция *Orders* не меняется. При вызове *.CollectionDispatching(wpfOcDispatcher, _ocDispatcher)* коллекция *Orders.CollectionDispatching(_ocDispatcher).Filtering(o => o.Paid)* может меняться в потоке *_ocDispatcher*, но так как мы передаём *_ocDispatcher* в параметр *sourceDispatcher*, то перечисление коллекции источника при вызове *.CollectionDispatching(wpfOcDispatcher, _ocDispatcher)* происходит в потоке *_ocDispatcher*, что гарантирует отсутствие изменений коллекции источника при перечислении. Так как при вызове При вызове *.CollectionDispatching(_ocDispatcher)*, коллекция *Orders* не меняется, то передавать *wpfOcDispatcher* в параметр *sourceDispatcher* смысла нет, тем более что в момент вызова *.CollectionDispatching(_ocDispatcher)* мы и так находимся в потоке *wpfOcDispatcher*.
+Обратите внимание на необходимость вызова *_ocDispatcher.Dispose()*.
+В этом примере для упрощения загрузка данных из БД сделана в главном потоке. Конечно можно совместить асинхронную загрузку данных из БД и выполнение вычислений в фоновом потоке. В следующем примере мы так и сделаем.
+
+### Диспетчеризация свойств
+В предыдущих примерах мы видели как происходит диспетчеризация коллекций средствами метода *CollectionDispatching*. Но может также возникнуть необходимость в диспетчеризации свойств:
+
+```xml
+<Window
+	x:Class="ObservableComputationsExample.MainWindow"
+	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+	xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+	xmlns:local="clr-namespace:ObservableComputationsExample"
+	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+	x:Name="uc_this"
+	Title="ObservableComputationsExample"
+	Width="800"
+	Height="450"
+	mc:Ignorable="d"
+	Closed="mainWindow_OnClosed">
+	<Grid>
+		<Grid.ColumnDefinitions>
+			<ColumnDefinition Width="*" />
+			<ColumnDefinition Width="*" />
+		</Grid.ColumnDefinitions>
+		<Grid.RowDefinitions>
+			<RowDefinition Height="Auto" />
+			<RowDefinition Height="Auto" />
+			<RowDefinition Height="*" />
+		</Grid.RowDefinitions>
+
+		<Label
+			x:Name="uc_LoadingIndicator"
+			Grid.Row="0"
+			Grid.Column="0"
+			Grid.ColumnSpan="2"
+			HorizontalAlignment="Center">
+			Loading source data...
+		</Label>
+
+		<Label
+			Grid.Row="1"
+			Grid.Column="0"
+			FontWeight="Bold">
+			Unpaid orders
+		</Label>
+		<ListBox
+			Grid.Row="2"
+			Grid.Column="0"
+			x:Name="uc_UnpaidOrderList"
+			DisplayMemberPath="Num"
+			ItemsSource="{Binding UnpaidOrders, ElementName=uc_this}"
+			MouseDoubleClick="unpaidOrdersList_OnMouseDoubleClick" />
+
+		<Label
+			Grid.Row="1"
+			Grid.Column="1"
+			FontWeight="Bold">
+			Paid orders
+		</Label>
+		<ListBox
+			Grid.Row="2"
+			Grid.Column="1"
+			DisplayMemberPath="Num"
+			ItemsSource="{Binding PaidOrders, ElementName=uc_this}" />
+	</Grid>
+</Window>
+```
+
+```csharp
+using System;
+using System.Collections.ObjectModel;
+using System.ComponentModel;
+using System.Threading;
+using System.Windows;
+using System.Windows.Input;
+using System.Windows.Threading;
+using ObservableComputations;
+using Dispatcher = System.Windows.Threading.Dispatcher;
+
+
+namespace ObservableComputationsExample
+{
+	public partial class MainWindow : Window
+	{
+		public ObservableCollection<Order> Orders { get; }
+		public ObservableCollection<Order> PaidOrders { get; }
+		public ObservableCollection<Order> UnpaidOrders { get; }
+
+		ObservableComputations.Dispatcher _ocDispatcher = new ObservableComputations.Dispatcher();
+		WpfOcDispatcher _wpfOcDispatcher;
+
+		public MainWindow()
+		{
+			_wpfOcDispatcher = new WpfOcDispatcher(this.Dispatcher);
+			Orders = new ObservableCollection<Order>();
+
+			WpfOcDispatcher wpfOcDispatcher = new WpfOcDispatcher(this.Dispatcher);
+
+			PaidOrders = 
+				Orders.CollectionDispatching(_ocDispatcher) // отправляем вычисление в фоновый поток
+				.Filtering(o => o.PaidPropertyDispatching.Value)
+				.CollectionDispatching(wpfOcDispatcher, _ocDispatcher); // возвращаем вычисление в главный поток из фонового
+
+			UnpaidOrders = Orders.Filtering(o => !o.Paid);
+
+			InitializeComponent();
+
+			fillOrdersFromDb();
+		}
+
+		private void fillOrdersFromDb()
+		{
+			Thread thread = new Thread(() =>
+			{
+				Thread.Sleep(1000); // accessing DB
+				Random random = new Random();
+				for (int i = 0; i < 5000; i++)
+				{
+					Order order = new Order(i, _ocDispatcher, _wpfOcDispatcher);
+					order.Paid = Convert.ToBoolean(random.Next(0, 3));
+					this.Dispatcher.Invoke(() => Orders.Add(order), DispatcherPriority.Background);
+				}
+
+				this.Dispatcher.Invoke(
+					() => uc_LoadingIndicator.Visibility = Visibility.Hidden, 
+					DispatcherPriority.Background);
+			});
+
+			thread.Start();
+		}
+
+		private void unpaidOrdersList_OnMouseDoubleClick(object sender, MouseButtonEventArgs e)
+		{
+			((Order) uc_UnpaidOrderList.SelectedItem).Paid = true;
+		}
+
+		private void mainWindow_OnClosed(object sender, EventArgs e)
+		{
+			_ocDispatcher.Dispose();
+		}
+	}
+
+	public class Order : INotifyPropertyChanged
+	{
+		public Order(int num, IDispatcher backgroundDispatcher, IDispatcher wpfDispatcher)
+		{
+			Num = num;
+			PaidPropertyDispatching = new PropertyDispatching<Order, bool>(() => Paid, wpfDispatcher, backgroundDispatcher);
+
+		}
+
+		public int Num { get; }
+
+		public PropertyDispatching<Order, bool> PaidPropertyDispatching { get; }
+
+		private bool _paid;
+		public bool Paid
+		{
+			get => _paid;
+			set
+			{
+				_paid = value;
+				PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Paid)));
+			}
+		}
+
+		public event PropertyChangedEventHandler PropertyChanged;
+	}
+
+	public class WpfOcDispatcher : IDispatcher
+	{
+		private Dispatcher _dispatcher;
+
+		public WpfOcDispatcher(Dispatcher dispatcher)
+		{
+			_dispatcher = dispatcher;
+		}
+
+		#region Implementation of IDispatcher
+
+		public void BeginInvoke(Action action, IComputing computing)
+		{
+			_dispatcher.BeginInvoke(action, DispatcherPriority.Background);
+		}
+
+		#endregion
+	}
+}
+```
+
+В этом примере при двойном щелчке мышью по неоплаченному заказу мы делаем его оплаченным. Так как свойство *Paid* в этом случае меняется в главном потоке, то мы не можем читать его в фоновом потоке *_ocDispatcher*. Для того чтобы читать это свойство в фоновом потоке *_ocDispatcher*, необходимо диспетчеризировать это свойство в этот поток. Это происходит с помощью класса *PropertyDispatching&lt;THolder, TResult>&gt;*.
+
+### Диспетчеризация IReadScalar&lt;TValue>&gt;
+*IReadScalar&lt;TValue>&gt;* впервые был упомянут [здесь](#полный-список-операторов). Кроме метода *CollectionDispatching*, ObservableComputations содержит метод *ScalarDispatching*. Его использование полностью аналогично использованию *CollectionDispatching*. С помощью *ScalarDispatching* можно организовать [диспетчеризацию свойств](#диспетчеризация-свойств), но диспетчеризация свойств с помощью класса *PropertyDispatching&lt;THolder, TResult>&gt;* короче и быстрее.
+
+### Параллельные вычисления в фоновых потоках
+В предыдущих примерах мы увидели вычисление в одном фоновом потоке. ObservableComputations позволяет организовать вычисления в нескольких фоновых потоках, результаты которых конкурентно объединяются в другом потоке (главном или фоновом).
 
 ## Отслеживание значений возвращаемых методом
 До сих пор мы видели как ObservableComputations отслеживает изменения в значениях свойств и в коллекциях через события [PropertyChanged](https://docs.microsoft.com/en-us/dotnet/api/system.componentmodel.inotifypropertychanged.propertychanged?view=netframework-4.8) и [CollectionChanged](https://docs.microsoft.com/en-us/dotnet/api/system.collections.specialized.inotifycollectionchanged.collectionchanged?view=netframework-4.8). ObservableComputations вводит новый интерфейс и событие для отслеживание значений возвращаемых методами: интерфейс *INotifyMethodChanged* и событие *MethodChanged*. Вот пример:

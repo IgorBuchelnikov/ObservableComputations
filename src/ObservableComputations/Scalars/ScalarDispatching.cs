@@ -7,6 +7,7 @@ namespace ObservableComputations
 	{
 		public IReadScalar<TResult> Scalar => _scalar;
 		public IDispatcher DestinationDispatcher => _destinationDispatcher;
+		public IDispatcher SourceDispatcher => _sourceDispatcher;
 
 		private IDispatcher _destinationDispatcher;
 		private IDispatcher _sourceDispatcher;

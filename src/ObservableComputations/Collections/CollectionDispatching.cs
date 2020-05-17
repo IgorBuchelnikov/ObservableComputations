@@ -10,6 +10,7 @@ namespace ObservableComputations
 	{
 		public INotifyCollectionChanged Source => _source;
 		public IDispatcher DestinationCollectionDispatcher => _destinationDispatcher;
+		public IDispatcher SourceDispatcher => _sourceDispatcher;
 
 		private INotifyCollectionChanged _source;
 		private IList<TSourceItem> _sourceAsList;

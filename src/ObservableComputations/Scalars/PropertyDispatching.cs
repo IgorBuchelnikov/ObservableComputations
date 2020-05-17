@@ -35,10 +35,10 @@ namespace ObservableComputations
 		private TResult _value;
 
 		[ObservableComputationsCall]
-		public PropertyDispatching( 
-			Expression<Func<TResult>>  propertyExpression,
-			IDispatcher sourceDispatcher,
-			IDispatcher destinationDispatcher)
+		public PropertyDispatching(
+			Expression<Func<TResult>> propertyExpression,
+			IDispatcher destinationDispatcher,
+			IDispatcher sourceDispatcher = null)
 		{
 			_sourceDispatcher = sourceDispatcher;
 			_destinationDispatcher = destinationDispatcher;
@@ -75,16 +75,30 @@ namespace ObservableComputations
 			_propertyHolderWeakPropertyChangedEventHandler =
 				new WeakPropertyChangedEventHandler(_propertyHolderPropertyChangedEventHandler);
 
-			_propertyHolder.PropertyChanged += _propertyHolderWeakPropertyChangedEventHandler.Handle;
-			getValue();
 
-			void raiseValuePropertyChanged()
+			void readAndSubscribe()
 			{
-				PropertyChanged?.Invoke(this, Utils.ValuePropertyChangedEventArgs);
+				getValue();
+
+				void raiseValuePropertyChanged()
+				{
+					PropertyChanged?.Invoke(this, Utils.ValuePropertyChangedEventArgs);
+				}
+
+				_propertyHolder.PropertyChanged += _propertyHolderWeakPropertyChangedEventHandler.Handle;
+
+				_destinationDispatcher.BeginInvoke(raiseValuePropertyChanged, this);
 			}
 
-			_destinationDispatcher.BeginInvoke(raiseValuePropertyChanged, this);
-			
+			if (_sourceDispatcher != null)
+			{
+				_sourceDispatcher.BeginInvoke(readAndSubscribe, this);
+			}
+			else
+			{
+				readAndSubscribe();
+			}
+
 			if (Configuration.SaveInstantiatingStackTrace)
 				_instantiatingStackTrace = Environment.StackTrace;
 

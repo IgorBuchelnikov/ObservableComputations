@@ -125,8 +125,7 @@ namespace ObservableComputations
 		private int _managedThreadId;
 		internal Stack<Invocation> _invocations = new Stack<Invocation>();
 
-		public int ManagedThreadId => _managedThreadId;
-		public string ThreadName => _thread.Name;
+		public Thread Thread => _thread;
 		public bool Disposed => !_alive;
 
 		private Invocation queueInvocation(Action action, IComputing computing = null)
@@ -217,16 +216,20 @@ namespace ObservableComputations
 
 		void IDispatcher.BeginInvoke(Action action, IComputing computing)
 		{ 
+			if (!_alive) return;
+
 			if (_managedThreadId == Thread.CurrentThread.ManagedThreadId)
 			{
 				action();
 			}
 
-			queueInvocation(action);			
+			queueInvocation(action, computing);			
 		}
 
 		public Invocation BeginInvoke(Action action)
 		{
+			if (!_alive) return default;
+
 			if (_managedThreadId == Thread.CurrentThread.ManagedThreadId)
 			{
 				action();
@@ -238,6 +241,8 @@ namespace ObservableComputations
 
 		public Invocation BeginInvoke(Action<object> action, object state)
 		{
+			if (!_alive) return default;
+
 			if (_managedThreadId == Thread.CurrentThread.ManagedThreadId)
 			{
 				action(state);
@@ -248,6 +253,8 @@ namespace ObservableComputations
 
 		public void Invoke(Action action)
 		{
+			if (!_alive) return;
+
 			if (_managedThreadId == Thread.CurrentThread.ManagedThreadId)
 			{
 				action();
@@ -270,6 +277,8 @@ namespace ObservableComputations
 
 		public void Invoke(Action<object> action, object state)
 		{
+			if (!_alive) return;
+
 			if (_managedThreadId == Thread.CurrentThread.ManagedThreadId)
 			{
 				action(state);
@@ -302,7 +311,6 @@ namespace ObservableComputations
 		public TResult Invoke<TResult>(Func<object, TResult> func, object state)
 		{
 			TResult result = default;
-
 			Invoke(s =>
 			{
 				result = func(s);
@@ -313,6 +321,8 @@ namespace ObservableComputations
 
 		public InvocationResult<TResult> BeginInvoke<TResult>(Func<TResult> func)
 		{
+			if (!_alive) return default;
+
 			InvocationResult<TResult> invocationResult = new InvocationResult<TResult>();
 			invocationResult._invocation = BeginInvoke(() =>
 			{
@@ -324,6 +334,8 @@ namespace ObservableComputations
 
 		public  InvocationResult<TResult> BeginInvoke<TResult>(Func<object, TResult> func, object state)
 		{
+			if (!_alive) return default;
+
 			InvocationResult<TResult> invocationResult = new InvocationResult<TResult>();
 			invocationResult._invocation = BeginInvoke(s =>
 			{

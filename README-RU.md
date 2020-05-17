@@ -1644,7 +1644,9 @@ namespace ObservableComputationsExamples
 
 ## Отладка
 
-### Пользовательский код: селекторы, предикаты, функции агрегирования, произвольные выражения, обработчики запросов на изменение вычислений, обработчики результатов вычислений, обработчики событий [CollectionChanged](https://docs.microsoft.com/en-us/dotnet/api/system.collections.specialized.inotifycollectionchanged.collectionchanged?view=netframework-4.8) и [PropertyChanged](https://docs.microsoft.com/en-us/dotnet/api/system.componentmodel.inotifypropertychanged.propertychanged?view=netframework-4.8)
+### Пользовательский код
+
+К пользовательскому коды относятся:
 
 * Селекторы это выражения, которые предаются в качестве аргумента в следующие [методы расширения](https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/classes-and-structs/extension-methods): *Selecting*, *SelectingMany*, *Grouping*, *GroupJoining*, *Dictionaring*, *Hashing*, *Ordering*, *ThenOrdering*, *PredicateGroupJoining*
 
@@ -1657,8 +1659,6 @@ namespace ObservableComputationsExamples
 * Обработчики запросов на изменение вычислений описаны в разделе ["Изменение вычислений"](#изменение-вычислений).
 
 * Обработчики результатов вычислений описаны в разделе ["Обработка изменений результатов вычислений"](#обработка-изменений-результатов-вычислений).
-
-
 
 Вот код иллюстрирующий отладку произвольного выражения (другие типы могут быть отлажены аналогичным образом):
 
@@ -1686,6 +1686,7 @@ namespace ObservableComputationsExamples
 
 		public event PropertyChangedEventHandler PropertyChanged;
 	}
+	
 	class Program
 	{
 		static void Main(string[] args)
@@ -1700,7 +1701,7 @@ namespace ObservableComputationsExamples
 
 			try
 			{
-				valueProvider.Value = new Random().Next(0, 1);
+				valueProvider.Value = new Random().Next(0, 2);
 			}
 			catch (DivideByZeroException exception)
 			{
@@ -1717,6 +1718,85 @@ namespace ObservableComputationsExamples
 Как Вы видите *exception.StackTrace* указывает на строку, которая вызвала исключение: *valueProvider.Value = new Random().Next(0, 1);*. Эта строка не указывает на вычисление, которое вызвало исключение: *computing1* or *computing2*. Чтобы определить исключение, которое вызвало исключение мы должны взглянуть на свойство *DebugInfo.ComputingsExecutingUserCode[Thread.CurrentThread].InstantiatingStackTrace*. Это свойство содержит трассировку стека инстанцирования вычисления. По умолчанию ObservableComputations не сохранияет трассировки стека инстанцирования вычислений по соображениям производительности. Чтобы сохранять эти трассирвки стека используйте свойство *Configuration.SaveInstantiatingStackTrace*. По умолчанию ObservableComputations не следит за вычислениями выполняющими пользовательский код по соображениям производительности. Для того чтобы следить за вычислениями выполняющими пользовательский код используйте свойство *Configuration.TrackComputingsExecutingUserCode*.
 
 Все необработанные исключения выброшенные в пользовательском коде фатальны, так как внутреннее состояние вычисление становится повреждённым. Обратите внимание на проверки на null.
+
+### Пользовательский код в фоновых потоках
+Работа с вычислениями в фоновых потоках описана [здесь](#многопоточность).
+
+```csharp
+using System;
+using System.ComponentModel;
+using System.Threading;
+using ObservableComputations;
+
+namespace ObservableComputationsExamples
+{
+	public class ValueProvider : IReadScalar<int>
+	{
+		private int _value;
+
+		public int Value
+		{
+			get => _value;
+			set
+			{
+				_value = value;
+				PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Value)));
+			}
+		}
+
+		public event PropertyChangedEventHandler PropertyChanged;
+	}
+	
+	class Program
+	{
+		static void Main(string[] args)
+		{
+			Configuration.SaveInstantiatingStackTrace = true;
+			Configuration.TrackComputingsExecutingUserCode = true;
+			Configuration.SaveDispatcherInvocationStackTrace = true;
+			Configuration.TrackDispatcherInvocations = true;
+
+			ValueProvider valueProvider = new ValueProvider(){Value = 2};
+			
+			Dispatcher dispatcher = new Dispatcher();
+
+			System.AppDomain.CurrentDomain.UnhandledException += (sender, eventArgs) =>
+			{
+				Console.WriteLine($"Exception stacktrace:\n{DebugInfo.ExecutingDispatcherInvocations[dispatcher.Thread].Peek().CallStackTrace}");
+				Console.WriteLine($"\nComputing which caused the exception has been instantiated by the following stacktrace :\n{DebugInfo.ComputingsExecutingUserCode[Thread.CurrentThread].InstantiatingStackTrace}");
+				Console.WriteLine($"\nDispatch computing which caused the exception has been instantiated by the following stacktrace :\n{DebugInfo.ExecutingDispatcherInvocations[dispatcher.Thread].Peek().Computing.InstantiatingStackTrace}");
+
+				Thread.CurrentThread.IsBackground = true;
+
+				while (true)
+					Thread.Sleep(TimeSpan.FromHours(1));
+			};
+
+			ScalarDispatching<int> valueProviderDispatching = valueProvider.ScalarDispatching(dispatcher);
+
+			Computing<decimal> computing1 = new Computing<decimal>(() => 1 / valueProviderDispatching.Value);
+			Computing<decimal> computing2 = new Computing<decimal>(() => 1 / (valueProviderDispatching.Value - 1));
+
+
+			try
+			{
+				valueProvider.Value = new Random().Next(0, 2);
+			}
+			catch (DivideByZeroException exception)
+			{
+				Console.WriteLine($"Exception stacktrace:\n{exception.StackTrace}");
+				Console.WriteLine($"\nComputing which caused the exception has been instantiated by the following stacktrace :\n{DebugInfo.ComputingsExecutingUserCode[Thread.CurrentThread].InstantiatingStackTrace}");
+			}
+
+			Console.ReadLine();
+		}
+	}
+}
+```
+
+Данный пример аналогичен предыдущему, за исключением
+* Свойств, которые содержат информацю об исключении
+* Установки параметров конфигурации *Configuration.SaveDispatcherInvocationStackTrace* и *Configuration.TrackDispatcherInvocations*.
 
 ### Исключение при нарушении целостности
 
@@ -2256,7 +2336,7 @@ namespace ObservableComputationsExample
 В этом примере мы грузим данные из БД в главном потоке, но фильтрация коллекции-источника *Orders* для получения оплаченных заказов (*PaidOrders*) производится в фоновом потоке.   
 Класс *ObservableComputations.Dispatcher* очень похож на класс [System.Windows.Threading.Dispatcher](https://docs.microsoft.com/en-us/dotnet/api/system.windows.threading.dispatcher?view=netcore-3.1). Класс *ObservableComputations.Dispatcher* ассоциирован с единственным потоком. В этом потоке вы можете выполнять делегаты, вызывая методы *ObservableComputations.Dispatcher.Invoke* и *ObservableComputations.Dispatcher.BeginInvoke*. 
 Метод *CollectionDispatching* перенаправляет все изменения коллекции источника в поток целевого диспетчера (параметр *distinationDispatcher*). 
-В момент вызова метода *CollectionDispatching* происходит перечисление коллекции источника (*Orders* или *Orders.CollectionDispatching(_ocDispatcher).Filtering(o => o.Paid)*). При этом коллекция-источник не должна меняться. При вызове *.CollectionDispatching(_ocDispatcher)*, коллекция *Orders* не меняется. При вызове *.CollectionDispatching(wpfOcDispatcher, _ocDispatcher)* коллекция *Orders.CollectionDispatching(_ocDispatcher).Filtering(o => o.Paid)* может меняться в потоке *_ocDispatcher*, но так как мы передаём *_ocDispatcher* в параметр *sourceDispatcher*, то перечисление коллекции источника при вызове *.CollectionDispatching(wpfOcDispatcher, _ocDispatcher)* происходит в потоке *_ocDispatcher*, что гарантирует отсутствие изменений коллекции источника при перечислении. Так как при вызове При вызове *.CollectionDispatching(_ocDispatcher)*, коллекция *Orders* не меняется, то передавать *wpfOcDispatcher* в параметр *sourceDispatcher* смысла нет, тем более что в момент вызова *.CollectionDispatching(_ocDispatcher)* мы и так находимся в потоке *wpfOcDispatcher*.
+В момент вызова метода *CollectionDispatching* происходит перечисление коллекции источника (*Orders* или *Orders.CollectionDispatching(_ocDispatcher).Filtering(o => o.Paid)*) и подписка на её событие [CollectionChanged](https://docs.microsoft.com/en-us/dotnet/api/system.collections.specialized.inotifycollectionchanged.collectionchanged?view=netcore-3.1). При этом коллекция-источник не должна меняться. При вызове *.CollectionDispatching(_ocDispatcher)*, коллекция *Orders* не меняется. При вызове *.CollectionDispatching(wpfOcDispatcher, _ocDispatcher)* коллекция *Orders.CollectionDispatching(_ocDispatcher).Filtering(o => o.Paid)* может меняться в потоке *_ocDispatcher*, но так как мы передаём *_ocDispatcher* в параметр *sourceDispatcher*, то перечисление коллекции источника подписка на её событие [CollectionChanged](https://docs.microsoft.com/en-us/dotnet/api/system.collections.specialized.inotifycollectionchanged.collectionchanged?view=netcore-3.1) происходит в потоке *_ocDispatcher*, что гарантирует отсутствие изменений коллекции источника при перечислении. Так как при вызове *.CollectionDispatching(_ocDispatcher)*, коллекция *Orders* не меняется, то передавать *wpfOcDispatcher* в параметр *sourceDispatcher* смысла нет, тем более что в момент вызова *.CollectionDispatching(_ocDispatcher)* мы и так находимся в потоке *wpfOcDispatcher*.
 Обратите внимание на необходимость вызова *_ocDispatcher.Dispose()*.
 В этом примере для упрощения загрузка данных из БД сделана в главном потоке. Конечно можно совместить асинхронную загрузку данных из БД и выполнение вычислений в фоновом потоке. В следующем примере мы так и сделаем.
 
@@ -2347,14 +2427,12 @@ namespace ObservableComputationsExample
 		public ObservableCollection<Order> UnpaidOrders { get; }
 
 		ObservableComputations.Dispatcher _ocDispatcher = new ObservableComputations.Dispatcher();
-		WpfOcDispatcher _wpfOcDispatcher;
 
 		public MainWindow()
 		{
-			_wpfOcDispatcher = new WpfOcDispatcher(this.Dispatcher);
-			Orders = new ObservableCollection<Order>();
-
 			WpfOcDispatcher wpfOcDispatcher = new WpfOcDispatcher(this.Dispatcher);
+			
+			Orders = new ObservableCollection<Order>();
 
 			PaidOrders = 
 				Orders.CollectionDispatching(_ocDispatcher) // отправляем вычисление в фоновый поток
@@ -2405,7 +2483,7 @@ namespace ObservableComputationsExample
 		public Order(int num, IDispatcher backgroundDispatcher, IDispatcher wpfDispatcher)
 		{
 			Num = num;
-			PaidPropertyDispatching = new PropertyDispatching<Order, bool>(() => Paid, wpfDispatcher, backgroundDispatcher);
+			PaidPropertyDispatching = new PropertyDispatching<Order, bool>(() => Paid, backgroundDispatcher, wpfDispatcher);
 
 		}
 
@@ -2448,13 +2526,121 @@ namespace ObservableComputationsExample
 }
 ```
 
-В этом примере при двойном щелчке мышью по неоплаченному заказу мы делаем его оплаченным. Так как свойство *Paid* в этом случае меняется в главном потоке, то мы не можем читать его в фоновом потоке *_ocDispatcher*. Для того чтобы читать это свойство в фоновом потоке *_ocDispatcher*, необходимо диспетчеризировать это свойство в этот поток. Это происходит с помощью класса *PropertyDispatching&lt;THolder, TResult>&gt;*.
+В этом примере при двойном щелчке мышью по неоплаченному заказу мы делаем его оплаченным. Так как свойство *Paid* в этом случае меняется в главном потоке, то мы не можем читать его в фоновом потоке *_ocDispatcher*. Для того чтобы читать это свойство в фоновом потоке *_ocDispatcher*, необходимо диспетчеризировать это свойство в этот поток. Это происходит с помощью класса *PropertyDispatching&lt;THolder, TResult>&gt;*. Аналогично методу *CollectionDispatching*, конструктор класса *PropertyDispatching&lt;THolder, TResult>&gt;* имеет обязательный параметр *destinationDispatcher* и опциональный параметр *sourceDispatcher*. Отличие в том, что вместо перчисления коллекции-источника и подписки на событие [CollectionChanged](https://docs.microsoft.com/en-us/dotnet/api/system.collections.specialized.inotifycollectionchanged.collectionchanged?view=netcore-3.1), происходит считывание значения свойства и подписка на событие [PropertyChanged](https://docs.microsoft.com/en-us/dotnet/api/system.componentmodel.inotifypropertychanged.propertychanged?view=netcore-3.1). Ещё одно отличие состоит в том, что передав значение в параметр *sourceDispatcher*, вы сможете изменять значение свойства *PropertyDispatching&lt;THolder, TResult>&gt;.Value* в потоке *destinationDispatcher*.
 
 ### Диспетчеризация IReadScalar&lt;TValue>&gt;
 *IReadScalar&lt;TValue>&gt;* впервые был упомянут [здесь](#полный-список-операторов). Кроме метода *CollectionDispatching*, ObservableComputations содержит метод *ScalarDispatching*. Его использование полностью аналогично использованию *CollectionDispatching*. С помощью *ScalarDispatching* можно организовать [диспетчеризацию свойств](#диспетчеризация-свойств), но диспетчеризация свойств с помощью класса *PropertyDispatching&lt;THolder, TResult>&gt;* короче и быстрее.
 
 ### Параллельные вычисления в фоновых потоках
 В предыдущих примерах мы увидели вычисление в одном фоновом потоке. ObservableComputations позволяет организовать вычисления в нескольких фоновых потоках, результаты которых конкурентно объединяются в другом потоке (главном или фоновом).
+
+### Использование класса *Dispatcher*
+
+В предыдущих разделах мы использовали экземпляр класса *Dispatcher* только для передачи его в качестве параметра в методы ObservableComputations. Класса *Dispatcher* имеет методы, которые Вы можете вызывать при необходимости
+* *Invoke* и *BeginInvoke* - для синхронного и ассинхронного выполнения делегата в потоке экземпляра класса *Dispatcher*, например, для изменения исходных данных для вычисление выполняющихся в потоке экземпляра класса *Dispatcher*. После вызова метода *Dispose* данные методы возвращают управление без выполнения переданного делегата и без выброса исключения. 
+* *DoOthers* - в случае если делегат переданный в методы *Invoke* и *BeginInvoke* выполняется долго, при вызове *DoOthers* происходит обработка других делегатов, преданных в методы *Invoke* и *BeginInvoke*. Если возможность задать максимальное количество делегатов, которые могут быть выполнены или приблизительное максимальное время их выполнения.
+
+### Запуск в консольном приложении
+Предыдущие примеры были примерами WPF приложения. Аналогичные примеры можно запустить и в консольном приложении. Это может понадобиться для Unit-тестов.
+
+```csharp
+using System;
+using System.Collections.ObjectModel;
+using System.ComponentModel;
+using System.Threading;
+using ObservableComputations;
+
+namespace ObservableComputationsExamples
+{
+	class Program
+	{
+		static ObservableComputations.Dispatcher _ocDispatcher = new ObservableComputations.Dispatcher();
+		static ObservableComputations.Dispatcher _wpfOcDispatcher = new ObservableComputations.Dispatcher();
+		static ObservableCollection<Order> Orders;
+
+		static void Main(string[] args)
+		{
+			_wpfOcDispatcher.Invoke(() =>
+			{
+				ObservableCollection<Order> paidOrders;
+				ObservableCollection<Order> unpaidOrders;
+
+				Orders = new ObservableCollection<Order>();
+
+				paidOrders =
+					Orders.CollectionDispatching(_ocDispatcher)  // отправляем вычисление в фоновый поток
+						.Filtering(o => o.PaidPropertyDispatching.Value)
+						.CollectionDispatching(_wpfOcDispatcher,
+							_ocDispatcher); // возвращаем вычисление в главный поток из фонового
+
+				unpaidOrders = Orders.Filtering(o => !o.Paid);
+
+				paidOrders.CollectionChanged += (sender, eventArgs) =>
+				{
+					Console.WriteLine($"Paid order: {((Order) eventArgs.NewItems[0]).Num}" );
+				};
+
+				unpaidOrders.CollectionChanged += (sender, eventArgs) =>
+				{
+					Console.WriteLine($"Unpaid order: {((Order) eventArgs.NewItems[0]).Num}");
+				};
+
+				fillOrdersFromDb();
+			});
+
+			Console.ReadLine();
+		}
+
+		private static void fillOrdersFromDb()
+		{
+			Thread thread = new Thread(() =>
+			{
+				Thread.Sleep(1000); // accessing DB
+				Random random = new Random();
+				for (int i = 0; i < 5000; i++)
+				{
+					Order order = new Order(i, _ocDispatcher, _wpfOcDispatcher);
+					order.Paid = Convert.ToBoolean(random.Next(0, 3));
+					_wpfOcDispatcher.Invoke(() => Orders.Add(order));
+				}
+			});
+
+			thread.Start();
+		}
+	}
+
+	public class Order : INotifyPropertyChanged
+	{
+		public Order(int num, IDispatcher backgroundDispatcher, IDispatcher wpfDispatcher)
+		{
+			Num = num;
+			PaidPropertyDispatching = new PropertyDispatching<Order, bool>(() => Paid, backgroundDispatcher, wpfDispatcher);
+
+		}
+
+		public int Num { get; }
+
+		public PropertyDispatching<Order, bool> PaidPropertyDispatching { get; }
+
+		private bool _paid;
+		public bool Paid
+		{
+			get => _paid;
+			set
+			{
+				_paid = value;
+				PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Paid)));
+			}
+		}
+
+		public event PropertyChangedEventHandler PropertyChanged;
+	}
+}
+```
+
+### Отладка
+
+Описана [здесь](#пользовательский-код-в-фоновых-потоках).
 
 ## Отслеживание значений возвращаемых методом
 До сих пор мы видели как ObservableComputations отслеживает изменения в значениях свойств и в коллекциях через события [PropertyChanged](https://docs.microsoft.com/en-us/dotnet/api/system.componentmodel.inotifypropertychanged.propertychanged?view=netframework-4.8) и [CollectionChanged](https://docs.microsoft.com/en-us/dotnet/api/system.collections.specialized.inotifycollectionchanged.collectionchanged?view=netframework-4.8). ObservableComputations вводит новый интерфейс и событие для отслеживание значений возвращаемых методами: интерфейс *INotifyMethodChanged* и событие *MethodChanged*. Вот пример:

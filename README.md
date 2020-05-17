@@ -1630,7 +1630,9 @@ Debuging of inconsistency exception described [here](#inconsistency-exception).
 
 ## Debugging
 
-### User code: selectors, predicates, aggregation functions, arbitrary expressions, computation change request handlers, handlers of changes of computation results, [CollectionChanged](https://docs.microsoft.com/en-us/dotnet/api/system.collections.specialized.inotifycollectionchanged.collectionchanged?view=netframework-4.8) and [PropertyChanged](https://docs.microsoft.com/en-us/dotnet/api/system.componentmodel.inotifypropertychanged.propertychanged?view=netframework-4.8) handlers
+### User code
+
+Use code includes:
 
 * Selectors are expressions that are passed as an argument to the following [extension methods](https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/classes-and-structs/extension-methods): *Selecting*, *SelectingMany*, *Grouping*, *GroupJoining*, *Dictionaring*, *Hashing*, *Ordering*, *ThenOrdering*, *PredicateGroupJoining*. 
 
@@ -1775,7 +1777,6 @@ namespace ObservableComputationsExamples
 ```
 
 As you see *exception.StackTrace* points to line caused the exception: *orders.Add(new Order(){Price = 35397});*. That line doesn't point us to computation which caused the exception: *ordinaryOrders* or *expensiveOrders*. To determine computation which caused the exception we should look at *exception.Computing.InstantiatingStackTrace* property. That property contains stack trace of instantiating of the computation. By default ObservableComputations doesn't save stack traces of instantiating of computation for performance reasons. To save that stack traces use *Configuration.SaveInstantiatingStackTrace* property.
-
 
 
 ## Additional events for changes handling: PreCollectionChanged, PreValueChanged, PostCollectionChanged, PostValueChanged

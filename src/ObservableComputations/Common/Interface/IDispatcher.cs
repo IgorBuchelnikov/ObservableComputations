@@ -7,6 +7,6 @@ namespace ObservableComputations
 {
 	public interface IDispatcher
 	{
-		void BeginInvoke(Action action, IComputing computing);
+		void Invoke(Action action, IComputing computing);
 	}
 }

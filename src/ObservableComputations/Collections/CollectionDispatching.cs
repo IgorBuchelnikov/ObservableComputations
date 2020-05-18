@@ -43,7 +43,7 @@ namespace ObservableComputations
 			_source = source;
 
 			if (_sourceDispatcher != null)
-				_sourceDispatcher.BeginInvoke(initializeFromSource, this);
+				_sourceDispatcher.Invoke(initializeFromSource, this);
 			else
 				initializeFromSource();
 		}
@@ -62,7 +62,7 @@ namespace ObservableComputations
 			_sourceScalar.PropertyChanged += _sourceScalarWeakPropertyChangedEventHandler.Handle;
 
 			if (_sourceDispatcher != null)
-				_sourceDispatcher.BeginInvoke(initializeFromSource, this);
+				_sourceDispatcher.Invoke(initializeFromSource, this);
 			else
 				initializeFromSource();
 		}
@@ -77,7 +77,7 @@ namespace ObservableComputations
 		{
 			if (_sourceNotifyCollectionChangedEventHandler != null)
 			{
-				_destinationDispatcher.BeginInvoke(baseClearItems, this);
+				_destinationDispatcher.Invoke(baseClearItems, this);
 				_source.CollectionChanged -= _sourceWeakNotifyCollectionChangedEventHandler.Handle;
 				_sourceNotifyCollectionChangedEventHandler = null;
 				_sourceWeakNotifyCollectionChangedEventHandler = null;
@@ -130,7 +130,7 @@ namespace ObservableComputations
 
 					void insertItem() => baseInsertItem(indexCopy, sourceItem);
 
-					_destinationDispatcher.BeginInvoke(insertItem, this);
+					_destinationDispatcher.Invoke(insertItem, this);
 				}
 
 				_sourceNotifyCollectionChangedEventHandler = handleSourceCollectionChanged;
@@ -158,7 +158,7 @@ namespace ObservableComputations
 							baseInsertItem(newStartingIndex, (TSourceItem) e.NewItems[0]);
 						}
 
-						_destinationDispatcher.BeginInvoke(add, this);	
+						_destinationDispatcher.Invoke(add, this);	
 						break;
 					case NotifyCollectionChangedAction.Remove:
 						// (e.OldItems.Count > 1) throw new ObservableComputationsException("Removing of multiple items is not supported");
@@ -167,7 +167,7 @@ namespace ObservableComputations
 							baseRemoveItem(e.OldStartingIndex);
 						}
 
-						_destinationDispatcher.BeginInvoke(remove, this);	
+						_destinationDispatcher.Invoke(remove, this);	
 						break;
 					case NotifyCollectionChangedAction.Replace:
 						//if (e.NewItems.Count > 1) throw new ObservableComputationsException("Replacing of multiple items is not supported");
@@ -176,7 +176,7 @@ namespace ObservableComputations
 							baseSetItem(e.NewStartingIndex, (TSourceItem) e.NewItems[0]);
 						}
 
-						_destinationDispatcher.BeginInvoke(replace, this);	
+						_destinationDispatcher.Invoke(replace, this);	
 						break;
 					case NotifyCollectionChangedAction.Move:
 						int oldStartingIndex1 = e.OldStartingIndex;
@@ -188,7 +188,7 @@ namespace ObservableComputations
 							baseMoveItem(oldStartingIndex1, newStartingIndex1);
 						}
 
-						_destinationDispatcher.BeginInvoke(move, this);	
+						_destinationDispatcher.Invoke(move, this);	
 						break;
 					case NotifyCollectionChangedAction.Reset:
 						initializeFromSource();

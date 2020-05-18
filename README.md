@@ -1929,12 +1929,908 @@ Instead of  *priceDiscounted.PropertyChanged* we subscribe to *priceDiscounted.P
 
 *CollectionComputing&lt;TItem&gt;* contains *PreCollectionChanged* and *PostCollectionChanged* events. *CollectionComputing&lt;TItem&gt;* is mentioned [here](#full-list-of-operators) for the first time. If you want handle collection change of your collection that implements [INotifyCollectionChanged](https://docs.microsoft.com/en-us/dotnet/api/system.collections.specialized.inotifycollectionchanged?view=netframework-4.8) (not of computed collection (for example [*ObservableCollection&lt;TItem&gt;*](https://docs.microsoft.com/en-us/dotnet/api/system.collections.objectmodel.observablecollection-1?view=netframework-4.8)) and that handle reads dependent computations you may use *ObservableCollectionExtended&lt;TItem&gt;*. That class inherits [*ObservableCollection&lt;TItem&gt;*](https://docs.microsoft.com/en-us/dotnet/api/system.collections.objectmodel.observablecollection-1?view=netframework-4.8) and contains *PreCollectionChanged* and *PostCollectionChanged* events. Also you can use *Extending* extension method. That method creates *ObservableCollectionExtended&lt;TItem&gt;* from [INotifyCollectionChanged](https://docs.microsoft.com/en-us/dotnet/api/system.collections.specialized.inotifycollectionchanged?view=netframework-4.8).
 
-## Thread safety
+## Multithreading
+### Thread safety
 [*CollectionComputing&lt;TSourceItem&gt;*](#full-list-of-operators) and [*ScalarComputing&lt;TSourceItem&gt;*](#full-list-of-operators)
-
 * supports multiple reader threads concurrently, as long there are no modifications made by the writer thread.
 * doesn't support multiple writer threads concurrently. 
 * are modified while they handle [CollectionChanged](https://docs.microsoft.com/en-us/dotnet/api/system.collections.specialized.inotifycollectionchanged.collectionchanged?view=netframework-4.8) and [PropertyChanged](https://docs.microsoft.com/en-us/dotnet/api/system.componentmodel.inotifypropertychanged.propertychanged?view=netframework-4.8) events of source objects.
+
+### Loading source data in a background thread
+Code of the window of the WPF application:
+```xml
+<Window
+	x:Class="ObservableComputationsExample.MainWindow"
+	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+	xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+	xmlns:local="clr-namespace:ObservableComputationsExample"
+	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+	x:Name="uc_this"
+	Title="ObservableComputationsExample"
+	Width="800"
+	Height="450"
+	mc:Ignorable="d">
+	<Grid>
+		<Grid.ColumnDefinitions>
+			<ColumnDefinition Width="*" />
+			<ColumnDefinition Width="*" />
+		</Grid.ColumnDefinitions>
+		<Grid.RowDefinitions>
+			<RowDefinition Height="Auto" />
+			<RowDefinition Height="Auto" />
+			<RowDefinition Height="*" />
+		</Grid.RowDefinitions>
+
+		<Label
+			x:Name="uc_LoadingIndicator"
+			Grid.Row="0"
+			Grid.Column="0"
+			Grid.ColumnSpan="2"
+			HorizontalAlignment="Center">
+			Loading source data...
+		</Label>
+
+		<Label
+			Grid.Row="1"
+			Grid.Column="0"
+			FontWeight="Bold">
+			Unpaid orders
+		</Label>
+		<ListBox
+			Grid.Row="2"
+			Grid.Column="0"
+			DisplayMemberPath="Num"
+			ItemsSource="{Binding UnpaidOrders, ElementName=uc_this}" />
+
+		<Label
+			Grid.Row="1"
+			Grid.Column="1"
+			FontWeight="Bold">
+			Paid orders
+		</Label>
+		<ListBox
+			Grid.Row="2"
+			Grid.Column="1"
+			DisplayMemberPath="Num"
+			ItemsSource="{Binding PaidOrders, ElementName=uc_this}" />
+	</Grid>
+</Window>
+```
+
+```csharp
+using System;
+using System.Collections.ObjectModel;
+using System.ComponentModel;
+using System.Threading;
+using System.Windows;
+using System.Windows.Threading;
+using ObservableComputations;
+
+namespace ObservableComputationsExample
+{
+	public partial class MainWindow : Window
+	{
+		public ObservableCollection<Order> Orders { get; }
+		public ObservableCollection<Order> PaidOrders { get; }
+		public ObservableCollection<Order> UnpaidOrders { get; }
+
+		public MainWindow()
+		{
+			Orders = new ObservableCollection<Order>();
+			PaidOrders = Orders.Filtering(o => o.Paid);
+			UnpaidOrders = Orders.Filtering(o => !o.Paid);
+
+			InitializeComponent();
+
+			fillOrdersFromDb();
+		}
+
+		private void fillOrdersFromDb()
+		{
+			Thread thread = new Thread(() =>
+			{
+				Thread.Sleep(1000); // accessing DB
+				Random random = new Random();
+				for (int i = 0; i < 5000; i++)
+				{
+					Order order = new Order(i);
+					order.Paid = Convert.ToBoolean(random.Next(0, 3));
+					this.Dispatcher.Invoke(() => Orders.Add(order), DispatcherPriority.Background);
+				}
+
+				this.Dispatcher.Invoke(
+					() => uc_LoadingIndicator.Visibility = Visibility.Hidden, 
+					DispatcherPriority.Background);
+			});
+
+			thread.Start();
+		}
+	}
+
+	public class Order : INotifyPropertyChanged
+	{
+		public Order(int num)
+		{
+			Num = num;
+		}
+
+		public int Num { get; }
+
+		private bool _paid;
+		public bool Paid
+		{
+			get => _paid;
+			set
+			{
+				_paid = value;
+				PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Paid)));
+			}
+		}
+
+		public event PropertyChangedEventHandler PropertyChanged;
+	}
+}
+```
+In this example, we show the user the form without waiting for the data to load from the database to finish. While loading, the form is rendered and the user gets acquainted with its contents. Note that the source code loading code is abstracted from computations over them (*PaidOrders* and *UnpaidOrders*).
+
+### Performing computations in a background thread
+In the previous example, only data from the database was loaded in the background thread. The computations (*PaidOrders* and *UnpaidOrders*) were performed in the main thread (UI thread). Sometimes it is necessary to perform a computations in a background thread, and in the main thread to get only the final computation results:
+```xml
+<Window
+	x:Class="ObservableComputationsExample.MainWindow"
+	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+	xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+	xmlns:local="clr-namespace:ObservableComputationsExample"
+	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+	x:Name="uc_this"
+	Title="ObservableComputationsExample"
+	Width="800"
+	Height="450"
+	mc:Ignorable="d"
+	Closed="mainWindow_OnClosed">
+	<Grid>
+		<Grid.ColumnDefinitions>
+			<ColumnDefinition Width="*" />
+			<ColumnDefinition Width="*" />
+		</Grid.ColumnDefinitions>
+		<Grid.RowDefinitions>
+			<RowDefinition Height="Auto" />
+			<RowDefinition Height="Auto" />
+			<RowDefinition Height="*" />
+		</Grid.RowDefinitions>
+
+		<Label
+			x:Name="uc_LoadingIndicator"
+			Grid.Row="0"
+			Grid.Column="0"
+			Grid.ColumnSpan="2"
+			HorizontalAlignment="Center">
+			Loading source data...
+		</Label>
+
+		<Label
+			Grid.Row="1"
+			Grid.Column="0"
+			FontWeight="Bold">
+			Unpaid orders
+		</Label>
+		<ListBox
+			Grid.Row="2"
+			Grid.Column="0"
+			DisplayMemberPath="Num"
+			ItemsSource="{Binding UnpaidOrders, ElementName=uc_this}" />
+
+		<Label
+			Grid.Row="1"
+			Grid.Column="1"
+			FontWeight="Bold">
+			Paid orders
+		</Label>
+		<ListBox
+			Grid.Row="2"
+			Grid.Column="1"
+			DisplayMemberPath="Num"
+			ItemsSource="{Binding PaidOrders, ElementName=uc_this}" />
+	</Grid>
+</Window>
+```
+
+```csharp
+using System;
+using System.Collections.ObjectModel;
+using System.ComponentModel;
+using System.Threading;
+using System.Windows;
+using System.Windows.Threading;
+using ObservableComputations;
+using Dispatcher = System.Windows.Threading.Dispatcher;
+
+
+namespace ObservableComputationsExample
+{
+	public partial class MainWindow : Window
+	{
+		public ObservableCollection<Order> Orders { get; }
+		public ObservableCollection<Order> PaidOrders { get; }
+		public ObservableCollection<Order> UnpaidOrders { get; }
+
+		ObservableComputations.Dispatcher _ocDispatcher = new ObservableComputations.Dispatcher();
+
+		public MainWindow()
+		{
+			Orders = new ObservableCollection<Order>();
+
+			WpfOcDispatcher wpfOcDispatcher = new WpfOcDispatcher(this.Dispatcher);
+
+			PaidOrders = 
+				Orders.CollectionDispatching(_ocDispatcher) // direct the computation to the background thread
+				.Filtering(o => o.Paid)
+				.CollectionDispatching(wpfOcDispatcher, _ocDispatcher); // return the computation to the main thread from the background
+
+			UnpaidOrders = Orders.Filtering(o => !o.Paid);
+
+			InitializeComponent();
+
+			fillOrdersFromDb();
+		}
+
+		private void fillOrdersFromDb()
+		{
+			Thread.Sleep(1000); // accessing DB
+			Random random = new Random();
+			for (int i = 0; i < 10000; i++)
+			{
+				Order order = new Order(i);
+				order.Paid = Convert.ToBoolean(random.Next(0, 3));
+				Orders.Add(order);
+			}
+
+			uc_LoadingIndicator.Visibility = Visibility.Hidden;
+		}
+
+		private void mainWindow_OnClosed(object sender, EventArgs e)
+		{
+			_ocDispatcher.Dispose();
+		}
+	}
+
+	public class Order : INotifyPropertyChanged
+	{
+		public Order(int num)
+		{
+			Num = num;
+		}
+
+		public int Num { get; }
+
+		private bool _paid;
+		public bool Paid
+		{
+			get => _paid;
+			set
+			{
+				_paid = value;
+				PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Paid)));
+			}
+		}
+
+		public event PropertyChangedEventHandler PropertyChanged;
+	}
+
+	public class WpfOcDispatcher : IDispatcher
+	{
+		private Dispatcher _dispatcher;
+
+		public WpfOcDispatcher(Dispatcher dispatcher)
+		{
+			_dispatcher = dispatcher;
+		}
+
+		#region Implementation of IDispatcher
+
+		public void Invoke(Action action, IComputing computing)
+		{
+			_dispatcher.BeginInvoke(action, DispatcherPriority.Background);
+		}
+
+		#endregion
+	}
+}
+```
+In this example, we load data from the database in the main thread, but filtering the source collection *Orders* to receive paid orders (*PaidOrders*) is performed in the background thread.
+*ObservableComputations.Dispatcher* class is very similar to the class [System.Windows.Threading.Dispatcher](https://docs.microsoft.com/en-us/dotnet/api/system.windows.threading.dispatcher?view=netcore- 3.1). *ObservableComputations.Dispatcher* class is associated with a single thread. In this thread, you can execute delegates by calling *ObservableComputations.Dispatcher.Invoke* and *ObservableComputations.Dispatcher.BeginInvoke* methods.
+The *CollectionDispatching* method redirects all changes of the source collection to the target dispatcher thread (*distinationDispatcher* parameter).
+When the *CollectionDispatching* method is called, the source collection is enumerated (*Orders* or *Orders.CollectionDispatching(_ocDispatcher) .Filtering (o => o.Paid)*) and its event is subscribed to [CollectionChanged](https: // docs. microsoft.com/en-us/dotnet/api/system.collections.specialized.inotifycollectionchanged.collectionchanged?view=netcore-3.1). However, the source collection should not be changed. When calling *.CollectionDispatching (_ocDispatcher)*, the collection *Orders* does not change. When calling *.CollectionDispatching (wpfOcDispatcher, _ocDispatcher)* collection *Orders.CollectionDispatching (_ocDispatcher) .Filtering (o => o.Paid)* may change in the *_ocDispatcher* thread, but since we pass *_ocDispatcher* to the *sourceDispatcher* parameter, then the enumeration of the collection of the source and subscription to its  [CollectionChanged](https://docs.microsoft.com/en-us/dotnet/api/system.collections.specialized.inotifycollectionchanged.collectionchanged?view=netcore-3.1) event occurs in the thread of *_ocDispatcher*, which guarantees that there are no changes to the source collection during enumeration. Since when calling *.CollectionDispatching(_ocDispatcher)*, the *Orders* collection does not change, then passing *wpfOcDispatcher* to the *sourceDispatcher* parameter makes no sense, especially since at the time of calling *.CollectionDispatching (_ocDispatcher)* we are in the thread of *wpfOcDispatcher*.
+Note the need to call *_ocDispatcher.Dispose ()*.
+The above example is not the only design option. Here is another option:
+```xml
+<Window
+	x:Class="ObservableComputationsExample.MainWindow"
+	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+	xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+	xmlns:local="clr-namespace:ObservableComputationsExample"
+	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+	x:Name="uc_this"
+	Title="ObservableComputationsExample"
+	Width="800"
+	Height="450"
+	mc:Ignorable="d">
+	<Grid>
+		<Grid.ColumnDefinitions>
+			<ColumnDefinition Width="*" />
+			<ColumnDefinition Width="*" />
+		</Grid.ColumnDefinitions>
+		<Grid.RowDefinitions>
+			<RowDefinition Height="Auto" />
+			<RowDefinition Height="Auto" />
+			<RowDefinition Height="*" />
+		</Grid.RowDefinitions>
+
+		<Label
+			x:Name="uc_LoadingIndicator"
+			Grid.Row="0"
+			Grid.Column="0"
+			Grid.ColumnSpan="2"
+			HorizontalAlignment="Center">
+			Loading source data...
+		</Label>
+
+		<Label
+			Grid.Row="1"
+			Grid.Column="0"
+			FontWeight="Bold">
+			Unpaid orders
+		</Label>
+		<ListBox
+			Grid.Row="2"
+			Grid.Column="0"
+			x:Name="uc_UnpaidOrderList"
+			DisplayMemberPath="Num"
+			ItemsSource="{Binding UnpaidOrders, ElementName=uc_this}"/>
+
+		<Label
+			Grid.Row="1"
+			Grid.Column="1"
+			FontWeight="Bold">
+			Paid orders
+		</Label>
+		<ListBox
+			Grid.Row="2"
+			Grid.Column="1"
+			DisplayMemberPath="Num"
+			ItemsSource="{Binding PaidOrders, ElementName=uc_this}" />
+	</Grid>
+</Window>
+```
+
+```csharp
+using System;
+using System.Collections.ObjectModel;
+using System.ComponentModel;
+using System.Threading;
+using System.Windows;
+using System.Windows.Threading;
+using ObservableComputations;
+using Dispatcher = System.Windows.Threading.Dispatcher;
+
+namespace ObservableComputationsExample
+{
+	public partial class MainWindow : Window
+	{
+		public ObservableCollection<Order> Orders { get; }
+		public ObservableCollection<Order> PaidOrders { get; }
+		public ObservableCollection<Order> UnpaidOrders { get; }
+
+		WpfOcDispatcher _wpfOcDispatcher;
+
+		public MainWindow()
+		{
+			_wpfOcDispatcher = new WpfOcDispatcher(this.Dispatcher);
+			
+			Orders = new ObservableCollection<Order>();
+
+			PaidOrders = 
+				Orders
+				.Filtering(o => o.Paid)
+				.CollectionDispatching(_wpfOcDispatcher); // direct the computation to the main thread
+
+			UnpaidOrders = 
+				Orders
+				.Filtering(o => !o.Paid)
+				.CollectionDispatching(_wpfOcDispatcher); // direct the computation to the main thread
+
+			InitializeComponent();
+
+			fillOrdersFromDb();
+		}
+
+		private void fillOrdersFromDb()
+		{
+			Thread thread = new Thread(() =>
+			{
+				Thread.Sleep(1000); // accessing DB
+				Random random = new Random();
+				for (int i = 0; i < 5000; i++)
+				{
+					Order order = new Order(i);
+					order.Paid = Convert.ToBoolean(random.Next(0, 3));
+					Orders.Add(order);
+				}
+
+				this.Dispatcher.Invoke(
+					() => uc_LoadingIndicator.Visibility = Visibility.Hidden, 
+					DispatcherPriority.Background);
+			});
+
+			thread.Start();
+		}
+	}
+
+	public class Order : INotifyPropertyChanged
+	{
+		public Order(int num)
+		{
+			Num = num;
+		}
+
+		public int Num { get; }
+
+		private bool _paid;
+		public bool Paid
+		{
+			get => _paid;
+			set
+			{
+				_paid = value;
+				PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Paid)));
+			}
+		}
+
+		public event PropertyChangedEventHandler PropertyChanged;
+	}
+
+	public class WpfOcDispatcher : IDispatcher
+	{
+		private Dispatcher _dispatcher;
+
+		public WpfOcDispatcher(Dispatcher dispatcher)
+		{
+			_dispatcher = dispatcher;
+		}
+
+		#region Implementation of IDispatcher
+
+		public void Invoke(Action action, IComputing computing)
+		{
+			_dispatcher.BeginInvoke(action, DispatcherPriority.Background);
+		}
+
+		#endregion
+	}
+}
+```
+
+### Property dispatching
+In the previous examples, we saw how collections are dispatched using the *CollectionDispatching* method. But you may also need to dispatch properties:
+
+```xml
+<Window
+	x:Class="ObservableComputationsExample.MainWindow"
+	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+	xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+	xmlns:local="clr-namespace:ObservableComputationsExample"
+	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+	x:Name="uc_this"
+	Title="ObservableComputationsExample"
+	Width="800"
+	Height="450"
+	mc:Ignorable="d"
+	Closed="mainWindow_OnClosed">
+	<Grid>
+		<Grid.ColumnDefinitions>
+			<ColumnDefinition Width="*" />
+			<ColumnDefinition Width="*" />
+		</Grid.ColumnDefinitions>
+		<Grid.RowDefinitions>
+			<RowDefinition Height="Auto" />
+			<RowDefinition Height="Auto" />
+			<RowDefinition Height="*" />
+		</Grid.RowDefinitions>
+
+		<Label
+			x:Name="uc_LoadingIndicator"
+			Grid.Row="0"
+			Grid.Column="0"
+			Grid.ColumnSpan="2"
+			HorizontalAlignment="Center">
+			Loading source data...
+		</Label>
+
+		<Label
+			Grid.Row="1"
+			Grid.Column="0"
+			FontWeight="Bold">
+			Unpaid orders
+		</Label>
+		<ListBox
+			Grid.Row="2"
+			Grid.Column="0"
+			x:Name="uc_UnpaidOrderList"
+			DisplayMemberPath="Num"
+			ItemsSource="{Binding UnpaidOrders, ElementName=uc_this}"
+			MouseDoubleClick="unpaidOrdersList_OnMouseDoubleClick" />
+
+		<Label
+			Grid.Row="1"
+			Grid.Column="1"
+			FontWeight="Bold">
+			Paid orders
+		</Label>
+		<ListBox
+			Grid.Row="2"
+			Grid.Column="1"
+			DisplayMemberPath="Num"
+			ItemsSource="{Binding PaidOrders, ElementName=uc_this}" />
+	</Grid>
+</Window>
+```
+
+```csharp
+using System;
+using System.Collections.ObjectModel;
+using System.ComponentModel;
+using System.Threading;
+using System.Windows;
+using System.Windows.Input;
+using System.Windows.Threading;
+using ObservableComputations;
+using Dispatcher = System.Windows.Threading.Dispatcher;
+
+namespace ObservableComputationsExample
+{
+	public partial class MainWindow : Window
+	{
+		public ObservableCollection<Order> Orders { get; }
+		public ObservableCollection<Order> PaidOrders { get; }
+		public ObservableCollection<Order> UnpaidOrders { get; }
+
+		ObservableComputations.Dispatcher _ocDispatcher = new ObservableComputations.Dispatcher();
+		WpfOcDispatcher _wpfOcDispatcher;
+
+		public MainWindow()
+		{
+			_wpfOcDispatcher = new WpfOcDispatcher(this.Dispatcher);
+			
+			Orders = new ObservableCollection<Order>();
+
+			PaidOrders = 
+				Orders.CollectionDispatching(_ocDispatcher) // direct the computation to the background thread
+				.Filtering(o => o.PaidPropertyDispatching.Value)
+				.CollectionDispatching(_wpfOcDispatcher, _ocDispatcher); // return the computation to the main thread from the background
+
+			UnpaidOrders = Orders.Filtering(o => !o.Paid);
+
+			InitializeComponent();
+
+			fillOrdersFromDb();
+		}
+
+		private void fillOrdersFromDb()
+		{
+			Thread thread = new Thread(() =>
+			{
+				Thread.Sleep(1000); // accessing DB
+				Random random = new Random();
+				for (int i = 0; i < 5000; i++)
+				{
+					Order order = new Order(i, _ocDispatcher, _wpfOcDispatcher);
+					order.Paid = Convert.ToBoolean(random.Next(0, 3));
+					this.Dispatcher.Invoke(() => Orders.Add(order), DispatcherPriority.Background);
+				}
+
+				this.Dispatcher.Invoke(
+					() => uc_LoadingIndicator.Visibility = Visibility.Hidden, 
+					DispatcherPriority.Background);
+			});
+
+			thread.Start();
+		}
+
+		private void unpaidOrdersList_OnMouseDoubleClick(object sender, MouseButtonEventArgs e)
+		{
+			((Order) uc_UnpaidOrderList.SelectedItem).Paid = true;
+		}
+
+		private void mainWindow_OnClosed(object sender, EventArgs e)
+		{
+			_ocDispatcher.Dispose();
+		}
+	}
+
+	public class Order : INotifyPropertyChanged
+	{
+		public Order(int num, IDispatcher backgroundDispatcher, IDispatcher wpfDispatcher)
+		{
+			Num = num;
+			PaidPropertyDispatching = new PropertyDispatching<Order, bool>(() => Paid, backgroundDispatcher, wpfDispatcher);
+
+		}
+
+		public int Num { get; }
+
+		public PropertyDispatching<Order, bool> PaidPropertyDispatching { get; }
+
+		private bool _paid;
+		public bool Paid
+		{
+			get => _paid;
+			set
+			{
+				_paid = value;
+				PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Paid)));
+			}
+		}
+
+		public event PropertyChangedEventHandler PropertyChanged;
+	}
+
+	public class WpfOcDispatcher : IDispatcher
+	{
+		private Dispatcher _dispatcher;
+
+		public WpfOcDispatcher(Dispatcher dispatcher)
+		{
+			_dispatcher = dispatcher;
+		}
+
+		#region Implementation of IDispatcher
+
+		public void Invoke(Action action, IComputing computing)
+		{
+			_dispatcher.BeginInvoke(action, DispatcherPriority.Background);
+		}
+
+		#endregion
+	}
+}
+```
+In this example, when we double-click on an unpaid order, we make it paid. Since the *Paid* property in this case changes in the main thread, we cannot read it in the background thread of *_ocDispatcher*. In order to read this property in the background thread of *_ocDispatcher*, it is necessary to dispatch this property into that thread. This is done using the  *PropertyDispatching&lt;THolder, TResult&gt;* class. Similar to the *CollectionDispatching* method, the constructor of the *PropertyDispatching&lt;THolder, TResult&gt;* class has the required parameter *destinationDispatcher* and the optional parameter *sourceDispatcher*. The difference is that instead of enumerating the source collection and subscribing to the [CollectionChanged](https://docs.microsoft.com/en-us/dotnet/api/system.collections.specialized.inotifycollectionchanged.collectionchanged?view=netcore- 3.1) event, the property value is read and the [PropertyChanged](https://docs.microsoft.com/en-us/dotnet/api/system.componentmodel.inotifypropertychanged.propertychanged?view=netcore-3.1) event is subscribed. Another difference is that by passing a value to the *sourceDispatcher* parameter, you can change the value of the *PropertyDispatching&lt;THolder, TResult&gt;.Value* property in the *destinationDispatcher* thread.
+The above example is not the only design option. Here is another option (XAML has not changed):  
+```csharp
+using System;
+using System.Collections.ObjectModel;
+using System.ComponentModel;
+using System.Threading;
+using System.Windows;
+using System.Windows.Input;
+using System.Windows.Threading;
+using ObservableComputations;
+using Dispatcher = System.Windows.Threading.Dispatcher;
+
+namespace ObservableComputationsExample
+{
+	public partial class MainWindow : Window
+	{
+		public ObservableCollection<Order> Orders { get; }
+		public ObservableCollection<Order> PaidOrders { get; }
+		public ObservableCollection<Order> UnpaidOrders { get; }
+
+		ObservableComputations.Dispatcher _ocDispatcher = new ObservableComputations.Dispatcher();
+		WpfOcDispatcher _wpfOcDispatcher;
+
+		public MainWindow()
+		{
+			_wpfOcDispatcher = new WpfOcDispatcher(this.Dispatcher);
+			
+			Orders = new ObservableCollection<Order>();
+
+			PaidOrders = 
+				Orders
+				.Filtering(o => o.PaidPropertyDispatching.Value)
+				.CollectionDispatching(_wpfOcDispatcher, _ocDispatcher); // direct the computation to the main thread from the background
+
+			UnpaidOrders = 
+				Orders
+				.Filtering(o => !o.PaidPropertyDispatching.Value)
+				.CollectionDispatching(_wpfOcDispatcher, _ocDispatcher); // direct the computation to the main thread from the background
+
+			InitializeComponent();
+
+			fillOrdersFromDb();
+		}
+
+		private void fillOrdersFromDb()
+		{
+			Thread thread = new Thread(() =>
+			{
+				Thread.Sleep(1000); // accessing DB
+				Random random = new Random();
+				for (int i = 0; i < 5000; i++)
+				{
+					Order order = new Order(i, _ocDispatcher, _wpfOcDispatcher);
+					order.Paid = Convert.ToBoolean(random.Next(0, 3));
+					_ocDispatcher.Invoke(() => Orders.Add(order));
+				}
+
+				this.Dispatcher.Invoke(
+					() => uc_LoadingIndicator.Visibility = Visibility.Hidden, 
+					DispatcherPriority.Background);
+			});
+
+			thread.Start();
+		}
+
+		private void unpaidOrdersList_OnMouseDoubleClick(object sender, MouseButtonEventArgs e)
+		{
+			((Order) uc_UnpaidOrderList.SelectedItem).Paid = true;
+		}
+
+		private void mainWindow_OnClosed(object sender, EventArgs e)
+		{
+			_ocDispatcher.Dispose();
+		}
+	}
+
+	public class Order : INotifyPropertyChanged
+	{
+		public Order(int num, IDispatcher backgroundDispatcher, IDispatcher wpfDispatcher)
+		{
+			Num = num;
+			PaidPropertyDispatching = new PropertyDispatching<Order, bool>(() => Paid, backgroundDispatcher, wpfDispatcher);
+
+		}
+
+		public int Num { get; }
+
+		public PropertyDispatching<Order, bool> PaidPropertyDispatching { get; }
+
+		private bool _paid;
+		public bool Paid
+		{
+			get => _paid;
+			set
+			{
+				_paid = value;
+				PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Paid)));
+			}
+		}
+
+		public event PropertyChangedEventHandler PropertyChanged;
+	}
+
+	public class WpfOcDispatcher : IDispatcher
+	{
+		private Dispatcher _dispatcher;
+
+		public WpfOcDispatcher(Dispatcher dispatcher)
+		{
+			_dispatcher = dispatcher;
+		}
+
+		#region Implementation of IDispatcher
+
+		public void Invoke(Action action, IComputing computing)
+		{
+			_dispatcher.Invoke(action, DispatcherPriority.Background);
+		}
+
+		#endregion
+	}
+}
+```
+
+### Dispatching *IReadScalar&lt;TValue&gt;*
+*IReadScalar&lt;TValue&gt;* was first mentioned [here](#full-list-of-operators). In addition to the *CollectionDispatching* method, ObservableComputations contains the *ScalarDispatching* method. Its use is completely analogous to the use of *CollectionDispatching*. Using *ScalarDispatching* you can implement [property dispatching](#property-dispatching), but using the *PropertyDispatching&lt;THolder, TResult&gt;* class it is simpler and faster.
+
+### Parallel computations in background threads
+In the previous examples, we saw how the computation is performed in one background thread. Using the dispatch methods described above, it is possible to organize computations in several background threads, the results of which are concurrently combined in another thread (main or background).
+
+### Using the *Dispatcher* class
+In the previous sections, we used an instance of the *Dispatcher* class only to pass it as a parameter to the ObservableComputations methods. The class *Dispatcher* has methods that you can call if necessary
+* *Invoke* and *BeginInvoke* - for synchronous and asynchronous execution of a delegate in the thread of an instance of *Dispatcher* class, for example, for changing the source data for computations performed in the thread of an instance of *Dispatcher* class. After calling *Dispose* method, these methods return control without executing the delegate passed and without throwing an exception.
+* *DoOthers* - if the delegate passed to the *Invoke* or *BeginInvoke* methods takes a long time, when *DoOthers* is called, other delegates are called. It is possible to set the maximum number of delegates that should be executed or the approximate maximum time for their execution.
+
+### Launch in a console application
+The previous examples were WPF application examples. Similar examples can be run in a console application. This may be needed for unit tests.
+
+```csharp
+using System;
+using System.Collections.ObjectModel;
+using System.ComponentModel;
+using System.Threading;
+using ObservableComputations;
+
+namespace ObservableComputationsExamples
+{
+	class Program
+	{
+		static ObservableComputations.Dispatcher _ocDispatcher = new ObservableComputations.Dispatcher();
+		static ObservableComputations.Dispatcher _wpfOcDispatcher = new ObservableComputations.Dispatcher();
+		static ObservableCollection<Order> Orders;
+
+		static void Main(string[] args)
+		{
+			_wpfOcDispatcher.Invoke(() =>
+			{
+				ObservableCollection<Order> paidOrders;
+				ObservableCollection<Order> unpaidOrders;
+
+				Orders = new ObservableCollection<Order>();
+
+				paidOrders =
+					Orders.CollectionDispatching(_ocDispatcher)  // direct the computation to the background thread
+						.Filtering(o => o.PaidPropertyDispatching.Value)
+						.CollectionDispatching(_wpfOcDispatcher,
+							_ocDispatcher); // return the computation to the main thread from the background
+
+				unpaidOrders = Orders.Filtering(o => !o.Paid);
+
+				paidOrders.CollectionChanged += (sender, eventArgs) =>
+				{
+					Console.WriteLine($"Paid order: {((Order) eventArgs.NewItems[0]).Num}" );
+				};
+
+				unpaidOrders.CollectionChanged += (sender, eventArgs) =>
+				{
+					Console.WriteLine($"Unpaid order: {((Order) eventArgs.NewItems[0]).Num}");
+				};
+
+				fillOrdersFromDb();
+			});
+
+			Console.ReadLine();
+		}
+
+		private static void fillOrdersFromDb()
+		{
+			Thread thread = new Thread(() =>
+			{
+				Thread.Sleep(1000); // accessing DB
+				Random random = new Random();
+				for (int i = 0; i < 5000; i++)
+				{
+					Order order = new Order(i, _ocDispatcher, _wpfOcDispatcher);
+					order.Paid = Convert.ToBoolean(random.Next(0, 3));
+					_wpfOcDispatcher.Invoke(() => Orders.Add(order));
+				}
+			});
+
+			thread.Start();
+		}
+	}
+
+	public class Order : INotifyPropertyChanged
+	{
+		public Order(int num, IDispatcher backgroundDispatcher, IDispatcher wpfDispatcher)
+		{
+			Num = num;
+			PaidPropertyDispatching = new PropertyDispatching<Order, bool>(() => Paid, backgroundDispatcher, wpfDispatcher);
+
+		}
+
+		public int Num { get; }
+
+		public PropertyDispatching<Order, bool> PaidPropertyDispatching { get; }
+
+		private bool _paid;
+		public bool Paid
+		{
+			get => _paid;
+			set
+			{
+				_paid = value;
+				PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Paid)));
+			}
+		}
+
+		public event PropertyChangedEventHandler PropertyChanged;
+	}
+}
+```
 
 ## Tracking changes in a method return value
 Before now we saw how ObservableComputations tracks changes in property values and collections via [PropertyChanged](https://docs.microsoft.com/en-us/dotnet/api/system.componentmodel.inotifypropertychanged.propertychanged?view=netframework-4.8) and [CollectionChanged](https://docs.microsoft.com/en-us/dotnet/api/system.collections.specialized.inotifycollectionchanged.collectionchanged?view=netframework-4.8) events. ObservableComputations introduces new interface and event for tracking changes in a method return value: *INotifyMethodChanged* interface and *MethodChanged* event. Here is example:

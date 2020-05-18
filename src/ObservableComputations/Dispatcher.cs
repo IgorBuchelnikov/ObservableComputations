@@ -214,7 +214,7 @@ namespace ObservableComputations
 			_newInvocationManualResetEvent.Set();
 		}
 
-		void IDispatcher.BeginInvoke(Action action, IComputing computing)
+		void IDispatcher.Invoke(Action action, IComputing computing)
 		{ 
 			if (!_alive) return;
 

@@ -33,7 +33,7 @@ namespace ObservableComputations
 			{
 				void setNewValue() => setValue(_scalar.Value);
 
-				_destinationDispatcher.BeginInvoke(setNewValue, this);
+				_destinationDispatcher.Invoke(setNewValue, this);
 
 				_scalarPropertyChangedEventHandler = handleScalarPropertyChanged;
 				_scalarWeakPropertyChangedEventHandler = new WeakPropertyChangedEventHandler(_scalarPropertyChangedEventHandler);
@@ -42,7 +42,7 @@ namespace ObservableComputations
 
 			if (_sourceDispatcher != null)
 			{
-				_sourceDispatcher.BeginInvoke(readAndSubscribe, this);
+				_sourceDispatcher.Invoke(readAndSubscribe, this);
 			}
 			else
 			{
@@ -59,7 +59,7 @@ namespace ObservableComputations
 
 			void setNewValue() => setValue(newValue);
 
-			_destinationDispatcher.BeginInvoke(setNewValue, this);
+			_destinationDispatcher.Invoke(setNewValue, this);
 		}
 
 		~ScalarDispatching()

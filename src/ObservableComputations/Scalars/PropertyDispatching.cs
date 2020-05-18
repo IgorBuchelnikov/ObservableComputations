@@ -87,12 +87,12 @@ namespace ObservableComputations
 
 				_propertyHolder.PropertyChanged += _propertyHolderWeakPropertyChangedEventHandler.Handle;
 
-				_destinationDispatcher.BeginInvoke(raiseValuePropertyChanged, this);
+				_destinationDispatcher.Invoke(raiseValuePropertyChanged, this);
 			}
 
 			if (_sourceDispatcher != null)
 			{
-				_sourceDispatcher.BeginInvoke(readAndSubscribe, this);
+				_sourceDispatcher.Invoke(readAndSubscribe, this);
 			}
 			else
 			{
@@ -113,7 +113,7 @@ namespace ObservableComputations
 				PropertyChanged?.Invoke(this, Utils.ValuePropertyChangedEventArgs);
 			}
 
-			_destinationDispatcher.BeginInvoke(raiseValuePropertyChanged, this);	
+			_destinationDispatcher.Invoke(raiseValuePropertyChanged, this);	
 		}
 
 		private void getValue()
@@ -177,7 +177,7 @@ namespace ObservableComputations
 
 				}
 
-				_sourceDispatcher.BeginInvoke(set, this);
+				_sourceDispatcher.Invoke(set, this);
 			}
 		}
 

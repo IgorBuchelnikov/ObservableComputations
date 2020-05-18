@@ -748,7 +748,7 @@ namespace ObservableComputations
 				}
 			}
 
-			_destinationDispatcher.BeginInvoke(raiseEvents, this);	
+			_destinationDispatcher.Invoke(raiseEvents, this);	
 		}
 
 		private void baseAddItem(TKey key, TValue value)
@@ -775,7 +775,7 @@ namespace ObservableComputations
 				}
 			}
 
-			_destinationDispatcher.BeginInvoke(raiseEvents, this);				
+			_destinationDispatcher.Invoke(raiseEvents, this);				
 		}
 
 		private void baseSetItem(TKey key, TValue value)
@@ -799,7 +799,7 @@ namespace ObservableComputations
 				}
 			}
 
-			_destinationDispatcher.BeginInvoke(raiseEvents, this);
+			_destinationDispatcher.Invoke(raiseEvents, this);
 
 		}
 
@@ -825,7 +825,7 @@ namespace ObservableComputations
 			}
 
 
-			_destinationDispatcher.BeginInvoke(raiseEvents, this);
+			_destinationDispatcher.Invoke(raiseEvents, this);
 		}
 
 		protected void checkConsistent()

@@ -48,42 +48,42 @@ namespace ObservableComputations
 		private Dictionary<HashSetChangeAction, object> lockModifyChangeActionsKeys => _lockModifyChangeActionsKeys = 
 			_lockModifyChangeActionsKeys ?? new Dictionary<HashSetChangeAction, object>();
 
-		public void LockModifyChangeAction(HashSetChangeAction collectionChangeAction, object key)
+		public void LockModifyChangeAction(HashSetChangeAction hashSetChangeAction, object key)
 		{
 			if (key == null) throw new ArgumentNullException("key");
 
-			if (!lockModifyChangeActionsKeys.ContainsKey(collectionChangeAction))
-				lockModifyChangeActionsKeys[collectionChangeAction] = key;
+			if (!lockModifyChangeActionsKeys.ContainsKey(hashSetChangeAction))
+				lockModifyChangeActionsKeys[hashSetChangeAction] = key;
 			else
 				throw new ObservableComputationsException(this,
-					$"Modifying of '{collectionChangeAction.ToString()}' change action is already locked. Unlock first.");
+					$"Modifying of '{hashSetChangeAction.ToString()}' change action is already locked. Unlock first.");
 		}
 
-		public void UnlockModifyChangeAction(HashSetChangeAction collectionChangeAction, object key)
+		public void UnlockModifyChangeAction(HashSetChangeAction hashSetChangeAction, object key)
 		{
 			if (key == null) throw new ArgumentNullException("key");
 
-			if (!lockModifyChangeActionsKeys.ContainsKey(collectionChangeAction))
+			if (!lockModifyChangeActionsKeys.ContainsKey(hashSetChangeAction))
 				throw new ObservableComputationsException(this,
-					"Modifying of '{collectionChangeAction.ToString()}' change action is not locked. Lock first.");
+					"Modifying of '{hashSetChangeAction.ToString()}' change action is not locked. Lock first.");
 
-			if (ReferenceEquals(lockModifyChangeActionsKeys[collectionChangeAction], key))
-				lockModifyChangeActionsKeys.Remove(collectionChangeAction);
+			if (ReferenceEquals(lockModifyChangeActionsKeys[hashSetChangeAction], key))
+				lockModifyChangeActionsKeys.Remove(hashSetChangeAction);
 			else
 				throw new ObservableComputationsException(this,
-					"Wrong key to unlock modifying of '{collectionChangeAction.ToString()}' change action.");
+					"Wrong key to unlock modifying of '{hashSetChangeAction.ToString()}' change action.");
 		}
 
-		public bool IsModifyChangeActionLocked(HashSetChangeAction collectionChangeAction)
+		public bool IsModifyChangeActionLocked(HashSetChangeAction hashSetChangeAction)
 		{
-			return lockModifyChangeActionsKeys.ContainsKey(collectionChangeAction);
+			return lockModifyChangeActionsKeys.ContainsKey(hashSetChangeAction);
 		}
 
-		private void checkLockModifyChangeAction(HashSetChangeAction collectionChangeAction)
+		private void checkLockModifyChangeAction(HashSetChangeAction hashSetChangeAction)
 		{
-			if (lockModifyChangeActionsKeys.ContainsKey(collectionChangeAction))
+			if (lockModifyChangeActionsKeys.ContainsKey(hashSetChangeAction))
 				throw new ObservableComputationsException(this,
-					"Modifying of '{collectionChangeAction.ToString()}' change action is locked. Unlock first.");
+					"Modifying of '{hashSetChangeAction.ToString()}' change action is locked. Unlock first.");
 		}
 
 

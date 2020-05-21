@@ -7,10 +7,10 @@ It is advisable to know differences between [delegates](https://docs.microsoft.c
 To imagine [benefits of using ObservableComputations](#use-cases-and-benefits) you should know about [binding in WPF](https://docs.microsoft.com/en-us/dotnet/desktop-wpf/data/data-binding-overview) (or in other UI platforms: [Xamarin](https://docs.microsoft.com/en-us/xamarin/xamarin-forms/app-fundamentals/data-binding/basic-bindings), [Blazor](https://demos.telerik.com/blazor-ui/grid/observable-data)), especially in relation with [INotifyPropertyChanged](https://docs.microsoft.com/en-us/dotnet/api/system.componentmodel.inotifypropertychanged?view=netframework-4.8) and [INotifyCollectionChanged](https://docs.microsoft.com/en-us/dotnet/api/system.collections.specialized.inotifycollectionchanged?view=netframework-4.8) interfaces, Entity framework`s [DbSet.Local](https://docs.microsoft.com/en-us/dotnet/api/system.data.entity.dbset.local?view=entity-framework-6.2.0) property ([local data](https://docs.microsoft.com/en-us/ef/ef6/querying/local-data)), [asynchronous querying in Entity framework](https://www.entityframeworktutorial.net/entityframework6/async-query-and-save.aspx).  
 
 ## What is ObservableComputations? 
-This is a cross-platform .NET library for computations whose arguments and results are objects that implement  [INotifyPropertyChanged](https://docs.microsoft.com/en-us/dotnet/api/system.componentmodel.inotifypropertychanged?view=netframework-4.8) and [INotifyCollectionChanged](https://docs.microsoft.com/en-us/dotnet/api/system.collections.specialized.inotifycollectionchanged?view=netframework-4.8) ([ObservableCollection](https://docs.microsoft.com/en-us/dotnet/api/system.collections.objectmodel.observablecollection-1?view=netframework-4.8)) interfaces. The computations includes ones similar to [LINQ](https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/concepts/linq/), the computation of arbitrary expression and additional features. The computations are implemented as [extension methods](https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/classes-and-structs/extension-methods), like [LINQ](https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/concepts/linq/) ones. You can combine calls of ObservableComputations extension methods including chaining and nesting, as you do for [LINQ](https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/concepts/linq/) methods. ObservableComputations is easy to use and powerful implementation of [reactive programming paradigm](https://en.wikipedia.org/wiki/Reactive_programming). With ObservableComputations, your code will fit more to the functional style than with [standard LINQ](https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/concepts/linq/).
+This is a cross-platform .NET library for computations whose arguments and results are objects that implement  [INotifyPropertyChanged](https://docs.microsoft.com/en-us/dotnet/api/system.componentmodel.inotifypropertychanged?view=netframework-4.8) and [INotifyCollectionChanged](https://docs.microsoft.com/en-us/dotnet/api/system.collections.specialized.inotifycollectionchanged?view=netframework-4.8) ([ObservableCollection](https://docs.microsoft.com/en-us/dotnet/api/system.collections.objectmodel.observablecollection-1?view=netframework-4.8)) interfaces. The computations includes ones similar to [LINQ](https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/concepts/linq/), the computation of arbitrary expression and additional features. The computations are implemented as [extension methods](https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/classes-and-structs/extension-methods), like [LINQ](https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/concepts/linq/) ones. You can combine calls of ObservableComputations extension methods including chaining and nesting, as you do for [LINQ](https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/concepts/linq/) methods. Computations in background threads, including parallel ones, are supported. ObservableComputations is easy to use and powerful implementation of [reactive programming paradigm](https://en.wikipedia.org/wiki/Reactive_programming). With ObservableComputations, your code will fit more to the functional style than with [standard LINQ](https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/concepts/linq/).
 
 ## Analogs
-The closest analogs of ObservableComputations are following libraries: Obtics, [OLinq](https://github.com/wasabii/OLinq), [NFM.Expressions](https://github.com/NMFCode/NMF), [BindableLinq](https://github.com/svn2github/bindablelinq), ContinuousLinq.
+The closest analogs of ObservableComputations are following libraries: [Obtics](https://archive.codeplex.com/?p=obtics), [OLinq](https://github.com/wasabii/OLinq), [NFM.Expressions](https://github.com/NMFCode/NMF), [BindableLinq](https://github.com/svn2github/bindablelinq), [ContinuousLinq](https://github.com/ismell/Continuous-LINQ).
 
 ### [Reactive Extensions](https://github.com/dotnet/reactive)
 
@@ -31,7 +31,7 @@ The [ReactiveUI](https://github.com/reactiveui/ReactiveUI) library (and its [Dyn
 
 * Reactivity of ObservableComputations is based on two events only: [CollectionChanged](https://docs.microsoft.com/en-us/dotnet/api/system.collections.specialized.inotifycollectionchanged.collectionchanged?view=netframework-4.8) and [PropertyChanged](https://docs.microsoft.com/en-us/dotnet/api/system.componentmodel.inotifypropertychanged.propertychanged?view=netframework-4.8). This reactivity is native to ObservableComputations. Reactivity of [ReactiveUI](https://github.com/reactiveui/ReactiveUI) is based on interfaces inherited from [Reactive Extentions](https://github.com/dotnet/reactive): [IObserver&lt;T&gt;](https://docs.microsoft.com/en-us/dotnet/api/system.iobserver-1?view=netframework-4.8), [IObservable&lt;T&gt;](https://docs.microsoft.com/en-us/dotnet/api/system.iobservable-1?view=netframework-4.8,), as well as additional interfaces for working with collections (included in [DynamicData](https://github.com/reactiveui/DynamicData)): [IChangeSet](https://github.com/reactiveui/DynamicData/blob/master/src/DynamicData/IChangeSet.cs) and [IChangeSet&lt;TObject&gt;](https://github.com/reactiveui/DynamicData/blob/master/src/DynamicData/List/IChangeSet.cs). [ReactiveUI](https://github.com/reactiveui/ReactiveUI) performs bidirectional conversion between these interfaces and  [INotifyPropertyChanged](https://docs.microsoft.com/en-us/dotnet/api/system.componentmodel.inotifypropertychanged?view=netframework-4.8) and [INotifyCollectionChanged](https://docs.microsoft.com/en-us/dotnet/api/system.collections.specialized.inotifycollectionchanged?view=netframework-4.8) interfaces. Even with this conversion, [INotifyPropertyChanged](https://docs.microsoft.com/en-us/dotnet/api/system.componentmodel.inotifypropertychanged?view=netframework-4.8) and [INotifyCollectionChanged](https://docs.microsoft.com/en-us/dotnet/api/system.collections.specialized.inotifycollectionchanged?view=netframework-4.8) interfaces look alien in [ReactiveUI](https://github.com/reactiveui/ReactiveUI). (Offtopic: If you need [ReactiveUI](https://github.com/reactiveui/ReactiveUI) features that are not included in ObservableComputations, you can get them using this conversion. You can also use [ReactiveList](https://reactiveui.net/docs/handbook/obsolete/collections/reactive-list) as a source collection for ObservableComputations.)
 * ObservableComputations uses weak events, so there is no need for [IDisposable](https://docs.microsoft.com/en-us/dotnet/api/system.idisposable?view=netframework-4.8). 
-* [INotifyPropertyChanged](https://docs.microsoft.com/en-us/dotnet/api/system.componentmodel.inotifypropertychanged?view=netframework-4.8) and [INotifyCollectionChanged](https://docs.microsoft.com/en-us/dotnet/api/system.collections.specialized.inotifycollectionchanged?view=netframework-4.8) interfaces are tightly integrated into Microsoft's UI platforms ([WPF](https://docs.microsoft.com/en-us/dotnet/desktop-wpf/data/data-binding-overview), [Xamarin](https://docs.microsoft.com/en-us/xamarin/xamarin-forms/app-fundamentals/data-binding/basic-bindings), [Blazor](https://demos.telerik.com/blazor-ui/grid/observable-data)), and therefore deserve a scecial library for working with them.
+* [INotifyPropertyChanged](https://docs.microsoft.com/en-us/dotnet/api/system.componentmodel.inotifypropertychanged?view=netframework-4.8) and [INotifyCollectionChanged](https://docs.microsoft.com/en-us/dotnet/api/system.collections.specialized.inotifycollectionchanged?view=netframework-4.8) interfaces are tightly integrated into Microsoft's UI platforms ([WPF](https://docs.microsoft.com/en-us/dotnet/desktop-wpf/data/data-binding-overview), [Xamarin](https://docs.microsoft.com/en-us/xamarin/xamarin-forms/app-fundamentals/data-binding/basic-bindings), [Blazor](https://demos.telerik.com/blazor-ui/grid/observable-data)).
 
 You can compare these library and ObservableComputations in action, see [ObservableComputations.Samples](https://github.com/IgorBuchelnikov/ObservableComputations.Samples).
 
@@ -226,12 +226,12 @@ Same as in the previous example [PropertyChanged](https://docs.microsoft.com/en-
 If you want *() => order.Price - order.Price * order.Discount / 100* to be a pure function, no problem:  
   
 ```csharp
-			Expression<Func<Order, decimal>> discountedPriceExpression = 
-				o => o.Price - o.Price * o.Discount / 100;
-				
-			// We start using ObservableComputations here!
-			Computing<decimal> discountedPriceComputing = 
-				order.Using(discountedPriceExpression);
+Expression<Func<Order, decimal>> discountedPriceExpression = 
+	o => o.Price - o.Price * o.Discount / 100;
+	
+// We start using ObservableComputations here!
+Computing<decimal> discountedPriceComputing = 
+	order.Using(discountedPriceExpression);
 ```
 Now *discountedPriceExpression* can be reused for other instances of *Order* class.
 
@@ -242,7 +242,7 @@ Now *discountedPriceExpression* can be reused for other instances of *Order* cla
 WPF, Xamarin, Blazor. You can bind UI controls to the instances of ObservableComputations classes (*Filtering*, *Computing* etc.). If you do it, you do not have to worry about forgetting to call [PropertyChanged](https://docs.microsoft.com/en-us/dotnet/api/system.componentmodel.inotifypropertychanged?view=netframework-4.8) for the computed properties or manually process change in some collection. With ObservableComputations, you define how the value should be computed, everything else ObservableComputations will do. 
 
 ### Asynchronous programming
-This approach facilitates **asynchronous programming**. You can show the user the UI form and in the background begin load the source data (from DB or web service). As the source data loads, the UI form will be filled with the computed data. The end user will see the UI form faster (while the source data is loaded in background, you can start rendering). If the UI form is already shown to the user, you can also refresh the source data in the background, the computed data on the UI form will be refreshed thanks to ObservableComputations. 
+This approach facilitates **asynchronous programming**. You can show the user the UI form and in the background begin load the source data (from DB or web service). As the source data loads, the UI form will be filled with the computed data. The end user will see the UI form faster (while the source data is loaded in background, you can start rendering). If the UI form is already shown to the user, you can also refresh the source data in the background, the computed data on the UI form will be refreshed thanks to ObservableComputations. ObservableComputations also include features for multi-threaded computing. See [here](#multithreading) for details .
 
 ### Increased performance
 If you have complex computations, over frequently changing source data and\or data is large, you can get increased performance with ObservableComputations, since you do not need recompute value from scratch every time when source data gets some little change. Every little change in source data causes a little change in the data computed by ObservableComputations.
@@ -1219,23 +1219,45 @@ Note that [Add method](https://docs.microsoft.com/en-us/dotnet/api/system.collec
 
 This feature can be used if  you pass *stepansOrders* to the code abstracted from what is *stepansOrders*: computation or ordinary collection. That code only knows *stepansOrders* implements [ICollection&lt;T&gt; interface](https://docs.microsoft.com/en-us/dotnet/api/system.collections.generic.icollection-1?view=netframework-4.8) and sometimes wants add orders to *stepansOrders*. Such a code may be for example [binding in WPF](https://docs.microsoft.com/en-us/dotnet/api/system.windows.data.bindingmode?view=netframework-4.8#System_Windows_Data_BindingMode_TwoWay).
 
-Properties similar to *InsertItemAction* exist for all other operations: ([remove](https://docs.microsoft.com/en-us/dotnet/api/system.collections.generic.icollection-1.remove?view=netframework-4.8), [set (replace)](https://docs.microsoft.com/en-us/dotnet/api/system.collections.objectmodel.collection-1.item?view=netframework-4.8#System_Collections_ObjectModel_Collection_1_Item_System_Int32_), [move](https://docs.microsoft.com/en-us/dotnet/api/system.collections.objectmodel.observablecollection-1.move?view=netframework-4.8), [clear](https://docs.microsoft.com/en-us/dotnet/api/system.collections.generic.icollection-1.clear?view=netframework-4.8)) and for setting *Value* property of *ScalarComputing&lt;TValue&gt;* (see  ["Full list of methods and classes" section](#full-list-of-operators)). Such properties are hereinafter referred to as computation result change request handlers.
+Properties similar to *InsertItemAction* exist for all other operations: 
+* [*CollectionComputing&lt;TValue&gt;.Value*](#полный-список-операторов) :
+   * [Add](https://docs.microsoft.com/en-us/dotnet/api/system.collections.generic.icollection-1.add?view=netcore-3.1) and [Insert](https://docs.microsoft.com/en-us/dotnet/api/system.collections.generic.list-1.insert?view=netcore-3.1): *InsertItemAction*
+   * [Remove](https://docs.microsoft.com/en-us/dotnet/api/system.collections.generic.icollection-1.remove?view=netframework-4.8): *RemoveItemAction*, 
+   * [Set (Replace)](https://docs.microsoft.com/en-us/dotnet/api/system.collections.objectmodel.collection-1.item?view=netframework-4.8#System_Collections_ObjectModel_Collection_1_Item_System_Int32_): *SetItemAction*,
+   * [Move](https://docs.microsoft.com/en-us/dotnet/api/system.collections.objectmodel.observablecollection-1.move?view=netframework-4.8): *MoveItemAction*,
+   * [Clear](https://docs.microsoft.com/en-us/dotnet/api/system.collections.generic.icollection-1.clear?view=netframework-4.8): *ClearItemsAction*.
+* [*ScalarComputing&lt;TValue&gt;.Value*](#полный-список-операторов) : 
+  * *SetValueAction*.
+* *Dictionaring* и *ConcurentDictionaring* :
+  * [Add](https://docs.microsoft.com/en-us/dotnet/api/system.collections.generic.idictionary-2.add?view=netcore-3.1): *AddItemAction*,
+  * [Remove](https://docs.microsoft.com/en-us/dotnet/api/system.collections.generic.idictionary-2.remove?view=netcore-3.1): *RemoveItemAction*,
+  * [Set](https://docs.microsoft.com/en-us/dotnet/api/system.collections.generic.idictionary-2.item?view=netcore-3.1): *SetItemAction*
+  * [Clear](https://docs.microsoft.com/en-us/dotnet/api/system.collections.generic.icollection-1.clear?view=netframework-4.8): *ClearItemsAction*.
+* HashSetting :
+   * [Add](https://docs.microsoft.com/en-us/dotnet/api/system.collections.generic.icollection-1.add?view=netcore-3.1): *AddItemAction*,
+   * [Remove](https://docs.microsoft.com/en-us/dotnet/api/system.collections.generic.icollection-1.remove?view=netframework-4.8): *RemoveItemAction*, 
+   * [Clear](https://docs.microsoft.com/en-us/dotnet/api/system.collections.generic.icollection-1.clear?view=netframework-4.8): *ClearItemsAction*. 
 
 ### Lock setting properties of computation result change request handlers
 
 Properties of the computation change request handlers are public. By default, any code that has a reference to the computation can set or overwrite the value of this property. It is possible to control the ability to set the values of these properties using 
 
-methods of [*CollectionComputing&lt;TItem&gt;* class](#full-list-of-operators):
-
-* void LockModifyChangeAction(CollectionChangeAction collectionChangeAction, object key)
-* void UnlockModifyChangeAction(CollectionChangeAction collectionChangeAction, object key)
-* bool IsModifyChangeActionLocked(CollectionChangeAction collectionChangeAction)
-
-and methods of [*ScalarComputing&lt;TValue&gt;* class](#full-list-of-operators):
-
-* void LockModifySetValueAction(object key)
-* void UnlockModifySetValueAction(object key)
-* bool IsModifySetValueActionLocked()
+* methods of [*CollectionComputing&lt;TItem&gt;*](#full-list-of-operators):
+  * void LockModifyChangeAction(CollectionChangeAction collectionChangeAction, object key)
+  * void UnlockModifyChangeAction(CollectionChangeAction collectionChangeAction, object key)
+  * bool IsModifyChangeActionLocked(CollectionChangeAction collectionChangeAction)
+* methods of [*ScalarComputing&lt;TValue&gt;*](#full-list-of-operators):
+  * void LockModifySetValueAction(object key)
+  * void UnlockModifySetValueAction(object key)
+  * bool IsModifySetValueActionLocked()
+* methods of *Dictionaring* и *ConcurentDictionaring*:
+  * void LockModifyChangeAction(DictionaryChangeAction dictionaryChangeAction, object key)
+  * void UnlockModifyChangeAction(DictionaryChangeAction dictionaryChangeAction, object key)
+  * bool IsModifyChangeActionLocked(DictionaryChangeAction dictionaryChangeAction)
+* methods of *HashSetting*:
+  * void LockModifyChangeAction(HashSetChangeAction hashSetChangeAction, object key)
+  * void UnlockModifyChangeAction(HashSetChangeAction hashSetChangeAction, object key)
+  * bool IsModifyChangeActionLocked(HashSetChangeAction hashSetChangeAction) 
 
 ## Processing changes of computation results
 ### Change handling in ObservableCollection&lt;T&gt;
@@ -1646,6 +1668,8 @@ Use code includes:
 
 * Handlers of changes of computation results was described in the ["Modifying computations"](#processing-changes-of-computation-results). 
 
+* Code called using the methods [*Dispatcher.Invoke* and *Dispatcher.BeginInvoke*](#using-the-dispatcher-class).
+
 Here is the code illustrating debugging of arbitrary expressions (other types of code can be debugged by the same way):
 
 ```csharp
@@ -1701,6 +1725,7 @@ namespace ObservableComputationsExamples
 ```
 
 As you see *exception.StackTrace* points to line caused the exception: *valueProvider.Value = new Random().Next(0, 1);*. That line doesn't point us to computation which caused the exception: *computing1* or *computing2*. To determine computation which caused the exception we should look at *DebugInfo.ComputingsExecutingUserCode[Thread.CurrentThread].InstantiatingStackTrace* property. That property contains stack trace of instantiating of the computation. By default ObservableComputations doesn't save stack traces of instantiating of computations for performance reasons. To save that stack traces use *Configuration.SaveInstantiatingStackTrace* property. By default ObservableComputations doesn't track computations executing user code for performance reasons. To track computations executing user code use *Configuration.TrackComputingsExecutingUserCode* property.
+If the user code was called from the user code of another computation, then *DebugInfo.ComputingsExecutingUserCode[Thread.CurrentThread].UserCodeIsCalledFrom* will point to that computation.
 
 All unhanded exceptions thrown in the user code are fatal, as the internal state of the computations becomes damaged. Pay attention to null checks.
 
@@ -2010,9 +2035,10 @@ Instead of  *priceDiscounted.PropertyChanged* we subscribe to *priceDiscounted.P
 ## Multithreading
 ### Thread safety
 [*CollectionComputing&lt;TSourceItem&gt;*](#full-list-of-operators) and [*ScalarComputing&lt;TSourceItem&gt;*](#full-list-of-operators)
-* supports multiple reader threads concurrently, as long there are no modifications made by the writer thread.
-* doesn't support multiple writer threads concurrently. 
-* are modified while they handle [CollectionChanged](https://docs.microsoft.com/en-us/dotnet/api/system.collections.specialized.inotifycollectionchanged.collectionchanged?view=netframework-4.8) and [PropertyChanged](https://docs.microsoft.com/en-us/dotnet/api/system.componentmodel.inotifypropertychanged.propertychanged?view=netframework-4.8) events of source objects.
+* supports multiple reader threads simultaneously, as long there are no modifications made by the writer thread. Exclusion: *ConcurrentDictionaring* computation, which supports simultaneous reading and modification.
+* do not support simultaneous modfications by multiple writer threads. 
+
+The computations are modified by writer thread while they handle [CollectionChanged](https://docs.microsoft.com/en-us/dotnet/api/system.collections.specialized.inotifycollectionchanged.collectionchanged?view=netframework-4.8) and [PropertyChanged](https://docs.microsoft.com/en-us/dotnet/api/system.componentmodel.inotifypropertychanged.propertychanged?view=netframework-4.8) events of source objects.
 
 ### Loading source data in a background thread
 Code of the window of the WPF application:
@@ -2223,6 +2249,7 @@ namespace ObservableComputationsExample
 		public ObservableCollection<Order> PaidOrders { get; }
 		public ObservableCollection<Order> UnpaidOrders { get; }
 
+		// Dispatcher for computations in the backgroung thread
 		ObservableComputations.Dispatcher _ocDispatcher = new ObservableComputations.Dispatcher();
 
 		public MainWindow()
@@ -2251,7 +2278,7 @@ namespace ObservableComputationsExample
 			{
 				Order order = new Order(i);
 				order.Paid = Convert.ToBoolean(random.Next(0, 3));
-				Orders.Add(order);
+				this.Dispatcher.Invoke(() => Orders.Add(order), DispatcherPriority.Background);
 			}
 		}
 
@@ -2329,6 +2356,8 @@ namespace ObservableComputationsExample
 		public ObservableCollection<Order> UnpaidOrders { get; }
 
 		WpfOcDispatcher _wpfOcDispatcher;
+		
+		// Dispatcher for computations in the backgroung thread
 		ObservableComputations.Dispatcher _ocDispatcher = new ObservableComputations.Dispatcher();
 
 		public MainWindow()
@@ -2342,12 +2371,12 @@ namespace ObservableComputationsExample
 			PaidOrders = 
 				Orders
 				.Filtering(o => o.Paid)
-				.CollectionDispatching(_wpfOcDispatcher, _ocDispatcher); // направляем вычисление в главный поток из потока _ocDispatcher
+				.CollectionDispatching(_wpfOcDispatcher, _ocDispatcher); // return the computation to the main thread from the background one
 
 			UnpaidOrders = 
 				Orders
 				.Filtering(o => !o.Paid)
-				.CollectionDispatching(_wpfOcDispatcher, _ocDispatcher); // направляем вычисление в главный поток из потока _ocDispatcher
+				.CollectionDispatching(_wpfOcDispatcher, _ocDispatcher); // return the computation to the main thread from the background one
 
 			InitializeComponent();
 		}
@@ -2677,7 +2706,9 @@ namespace ObservableComputationsExample
 		public ObservableCollection<Order> PaidOrders { get; }
 		public ObservableCollection<Order> UnpaidOrders { get; }
 
+		// Dispatcher for computations in the backgroung thread
 		ObservableComputations.Dispatcher _ocDispatcher = new ObservableComputations.Dispatcher();
+		
 		WpfOcDispatcher _wpfOcDispatcher;
 
 		public MainWindow()
@@ -2798,7 +2829,9 @@ namespace ObservableComputationsExample
 		public ObservableCollection<Order> PaidOrders { get; }
 		public ObservableCollection<Order> UnpaidOrders { get; }
 
+		// Dispatcher for computations in the backgroung thread
 		ObservableComputations.Dispatcher _ocDispatcher = new ObservableComputations.Dispatcher();
+		
 		WpfOcDispatcher _wpfOcDispatcher;
 
 		public MainWindow()
@@ -2922,7 +2955,9 @@ namespace ObservableComputationsExample
 		public ObservableCollection<Order> PaidOrders { get; }
 		public ObservableCollection<Order> UnpaidOrders { get; }
 
+		// Dispatcher for computations in the backgroung thread
 		ObservableComputations.Dispatcher _ocDispatcher = new ObservableComputations.Dispatcher();
+		
 		WpfOcDispatcher _wpfOcDispatcher;
 
 		public MainWindow()
@@ -3051,13 +3086,14 @@ namespace ObservableComputationsExamples
 {
 	class Program
 	{
-		static ObservableComputations.Dispatcher _ocDispatcher = new ObservableComputations.Dispatcher();
-		static ObservableComputations.Dispatcher _wpfOcDispatcher = new ObservableComputations.Dispatcher();
+		static ObservableComputations.Dispatcher _backgroundDispatcher = new ObservableComputations.Dispatcher();
+		
+		static ObservableComputations.Dispatcher _mainDispatcher = new ObservableComputations.Dispatcher();
 		static ObservableCollection<Order> Orders;
 
 		static void Main(string[] args)
 		{
-			_wpfOcDispatcher.Invoke(() =>
+			_mainDispatcher.Invoke(() =>
 			{
 				ObservableCollection<Order> paidOrders;
 				ObservableCollection<Order> unpaidOrders;
@@ -3065,10 +3101,10 @@ namespace ObservableComputationsExamples
 				Orders = new ObservableCollection<Order>();
 
 				paidOrders =
-					Orders.CollectionDispatching(_ocDispatcher)  // direct the computation to the background thread
-						.Filtering(o => o.PaidPropertyDispatching.Value)
-						.CollectionDispatching(_wpfOcDispatcher,
-							_ocDispatcher); // return the computation to the main thread from the background
+					Orders.CollectionDispatching(_backgroundDispatcher)  // direct the computation to the background thread
+					.Filtering(o => o.PaidPropertyDispatching.Value)
+					.CollectionDispatching(_mainDispatcher,
+						_backgroundDispatcher); // return the computation to the main thread from the background one
 
 				unpaidOrders = Orders.Filtering(o => !o.Paid);
 
@@ -3096,9 +3132,9 @@ namespace ObservableComputationsExamples
 				Random random = new Random();
 				for (int i = 0; i < 5000; i++)
 				{
-					Order order = new Order(i, _ocDispatcher, _wpfOcDispatcher);
+					Order order = new Order(i, _backgroundDispatcher, _mainDispatcher);
 					order.Paid = Convert.ToBoolean(random.Next(0, 3));
-					_wpfOcDispatcher.Invoke(() => Orders.Add(order));
+					_mainDispatcher.Invoke(() => Orders.Add(order));
 				}
 			});
 
@@ -3108,10 +3144,10 @@ namespace ObservableComputationsExamples
 
 	public class Order : INotifyPropertyChanged
 	{
-		public Order(int num, IDispatcher backgroundDispatcher, IDispatcher wpfDispatcher)
+		public Order(int num, IDispatcher backgroundDispatcher, IDispatcher mainDispatcher)
 		{
 			Num = num;
-			PaidPropertyDispatching = new PropertyDispatching<Order, bool>(() => Paid, backgroundDispatcher, wpfDispatcher);
+			PaidPropertyDispatching = new PropertyDispatching<Order, bool>(() => Paid, backgroundDispatcher, mainDispatcher);
 
 		}
 
@@ -3266,6 +3302,12 @@ args =>
 That property defines what values should have arguments in a method call so that return value of that call changes.
 
 ATTENTION: Code example given in this section is not a disign standard, it is rather an antipattern: it contains code duplication and changes of properties of *RoomReservation* class is not tracked.  That code is given only for demonstration of tracking changes in a method return value. See fixed code [here](#use-public-readonly-structures-instead-of-encapsulated-private-members).
+
+### Computations implementing *INotifyMethodChanged*
+*INotifyMethodChanged* is implemented by the following computations:
+* *Dictionaring* (methods: ContainsKey, Indexer ([]), GetValueOrDefault).
+* *ConcurrentDictionaring* (methods: ContainsKey, Indexer ([]), GetValueOrDefault).
+* *HashSetting* (method: Contains).
 
 ## Performance tips
 ### Avoid nested parameter dependent computations on big data
@@ -3504,6 +3546,9 @@ Sometimes handling of every [PropertyChanged](https://docs.microsoft.com/en-us/d
 
 #### Use *capacity* argument
 If, after instantiating the collection computation class class (e.g. *Filtering*), it is expected that the collection will grow significantly, it makes sense to pass the *capacity* argument to the constructor to reserve memory for the collection.
+
+### Use computations in background threads
+See details [here](#multithreading).
 
 ## Design tips
 

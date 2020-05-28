@@ -1,20 +1,25 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.ComponentModel;
 
 namespace ObservableComputations
 {
-	public class CollectionDispatching<TSourceItem> : CollectionComputing<TSourceItem>
+	public class CollectionDispatching<TSourceItem> : CollectionComputing<TSourceItem>, IHasSourceCollections
 	{
 		public INotifyCollectionChanged Source => _source;
-		public IDispatcher DestinationCollectionDispatcher => _destinationDispatcher;
+		public IReadScalar<INotifyCollectionChanged> SourceScalar => _sourceScalar;
+		public IDispatcher DestinationDispatcher => _destinationDispatcher;
 		public IDispatcher SourceDispatcher => _sourceDispatcher;
+
+		public ReadOnlyCollection<INotifyCollectionChanged> SourceCollections => new ReadOnlyCollection<INotifyCollectionChanged>(new []{Source});
+		public ReadOnlyCollection<IReadScalar<INotifyCollectionChanged>> SourceCollectionScalars => new ReadOnlyCollection<IReadScalar<INotifyCollectionChanged>>(new []{SourceScalar});
+
 
 		private INotifyCollectionChanged _source;
 		private IList<TSourceItem> _sourceAsList;
 		private readonly IReadScalar<INotifyCollectionChanged> _sourceScalar;
+		// ReSharper disable once PrivateFieldCanBeConvertedToLocalVariable
 		private readonly PropertyChangedEventHandler _sourceScalarPropertyChangedEventHandler;
 		private readonly WeakPropertyChangedEventHandler _sourceScalarWeakPropertyChangedEventHandler;
 
@@ -26,8 +31,8 @@ namespace ObservableComputations
 		private bool _indexerPropertyChangedEventRaised;
 		private INotifyPropertyChanged _sourceAsINotifyPropertyChanged;
 
-		private IDispatcher _destinationDispatcher;
-		private IDispatcher _sourceDispatcher;
+		private readonly IDispatcher _destinationDispatcher;
+		private readonly IDispatcher _sourceDispatcher;
 
 		private IHasChangeMarker _sourceAsIHasChangeMarker;
 		private bool _lastProcessedSourceChangeMarker;
@@ -151,17 +156,17 @@ namespace ObservableComputations
 				{
 					case NotifyCollectionChangedAction.Add:
 						//if (e.NewItems.Count > 1) throw new ObservableComputationsException("Adding of multiple items is not supported");
-						int newStartingIndex = e.NewStartingIndex;
-
 						void add()
 						{
-							baseInsertItem(newStartingIndex, (TSourceItem) e.NewItems[0]);
+							baseInsertItem(e.NewStartingIndex, (TSourceItem) e.NewItems[0]);
 						}
 
 						_destinationDispatcher.Invoke(add, this);	
 						break;
 					case NotifyCollectionChangedAction.Remove:
 						// (e.OldItems.Count > 1) throw new ObservableComputationsException("Removing of multiple items is not supported");
+						
+						
 						void remove()
 						{
 							baseRemoveItem(e.OldStartingIndex);

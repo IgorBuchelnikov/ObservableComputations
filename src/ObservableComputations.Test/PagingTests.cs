@@ -1,10 +1,10 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
+using System.Diagnostics;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Runtime.CompilerServices;
 using NUnit.Framework;
 
 namespace ObservableComputations.Test
@@ -12,12 +12,162 @@ namespace ObservableComputations.Test
 	[TestFixture]
 	public class PagingTests
 	{
+		public class Item 
+		{
+			public Item()
+			{
+				Num = LastNum;
+				LastNum++;
+			}
+
+			public static int LastNum;
+			public int Num;
+
+
+			#region Overrides of Object
+
+			public override string ToString()
+			{
+				return $" Num = {Num}";
+			}
+
+			#endregion
+		}
+
+		TextFileOutput _textFileOutputLog = new TextFileOutput(@"D:\Projects\NevaPolimer\Paging_Deep.log");
+		TextFileOutput _textFileOutputTime = new TextFileOutput(@"D:\Projects\NevaPolimer\Paging_Deep_Time.log");
+
+		[Test, Combinatorial]
+		public void Paging_Deep()
+		{
+			long counter = 0;
+			Stopwatch stopwatch = Stopwatch.StartNew();
+
+			for (int count = 0; count < 8; count++)
+			{
+				test(count);
+			}
+			
+		}
+
+		private void test(int count)
+		{
+			int index = 0;
+			int indexOld = 0;
+			int indexNew = 0;
+			int pageSize = 0;
+			int currentPage = 1;
+			string testNum = string.Empty;
+
+			ObservableCollection<Item> items;
+			Paging<Item> paging;
+			try
+			{
+				for (pageSize = 1; pageSize <= count; pageSize++)
+				{
+					for (currentPage = 1; currentPage < count; currentPage++)
+					{
+						trace(testNum = "2", count, index, indexOld, indexNew, pageSize, currentPage);
+						items = getObservableCollection(count);
+						paging = items.Paging(pageSize);
+						paging.ValidateConsistency();
+
+						trace(testNum = "3", count, index, indexOld, indexNew, pageSize, currentPage);
+						items = getObservableCollection(count);
+						paging = items.Paging(pageSize);
+						paging.CurrentPage = currentPage;
+						paging.ValidateConsistency();
+
+						for (index = 0; index < count; index++)
+						{
+							trace(testNum = "4", count, index, indexOld, indexNew, pageSize, currentPage);
+							items = getObservableCollection(count);
+							Paging<Item> paging1 = items.Paging(pageSize, currentPage);
+							items.RemoveAt(index);
+							paging1.ValidateConsistency();
+						}
+
+						for (index = 0; index < count; index++)
+						{
+							trace(testNum = "5", count, index, indexOld, indexNew, pageSize, currentPage);
+							items = getObservableCollection(count);
+							Paging<Item> paging1 = items.Paging(pageSize, currentPage);
+							items.Insert(index, new Item());
+							paging1.ValidateConsistency();
+						}
+
+						for (index = 0; index < count; index++)
+						{
+							trace(testNum = "6", count, index, indexOld, indexNew, pageSize, currentPage);
+							items = getObservableCollection(count);
+							Paging<Item> paging1 = items.Paging(pageSize, currentPage);
+							items[index] = new Item();
+							paging1.ValidateConsistency();
+						}
+
+						for (indexOld = 0; indexOld < count; indexOld++)
+						{
+							for (indexNew = 0; indexNew < count; indexNew++)
+							{
+								trace(testNum = "7", count, index, indexOld, indexNew, pageSize, currentPage);
+								items = getObservableCollection(count);
+								Paging<Item> paging1 = items.Paging(pageSize, currentPage);
+								items.Move(indexOld, indexNew);
+								paging1.ValidateConsistency();
+							}
+						}
+					}
+				}
+			}
+			catch (Exception e)
+			{
+				string traceString = getTraceString(testNum, count, index, indexOld, indexNew, pageSize, currentPage);
+				_textFileOutputLog.AppentLine(traceString);
+				_textFileOutputLog.AppentLine(e.Message);
+				_textFileOutputLog.AppentLine(e.StackTrace);
+				throw new Exception(traceString, e);
+			}
+
+		}
+
+		private void trace(string num, int count,  int index, int indexOld,
+			int indexNew, int pageSize, int currentPage)
+		{
+			string traceString = getTraceString(num, count, index, indexOld, indexNew, pageSize, currentPage);
+
+			if (traceString == "#7.   count=3    index=3  indexOld=0   indexNew=1    pageSize=2   currentPage=2")
+			{
+				
+			}
+		}
+
+		private static string getTraceString(string num, int count, int index, int indexOld, int indexNew, int pageSize, int currentPage)
+		{
+			return string.Format(
+				"#{4}.   count={0}    index={1}  indexOld={2}   indexNew={3}    pageSize={5}   currentPage={6}",
+				count,
+				index,
+				indexOld,
+				indexNew,
+				num,
+				pageSize,
+				currentPage);
+		}
+
+
+		private static ObservableCollection<Item> getObservableCollection(int count)
+		{
+			Item.LastNum = 0;
+			return new ObservableCollection<Item>(Enumerable.Range(1, count).Select(orderNum => new Item()));
+		}
+
+
 		[Test]
 		public void PagingTest_01()
 		{
 			ObservableCollection<int> items = new ObservableCollection<int>(Enumerable.Range(1, 100));
 
-			Paging<int> paging = items.Paging();
+			Paging<int> paging = items.Paging(2);
 			paging.ValidateConsistency();
 
 			void test()
@@ -64,24 +214,24 @@ namespace ObservableComputations.Test
 				}
 			}
 
-			paging.CurrentPageNum = 2;
+			paging.CurrentPage = 2;
 			test();
 
-			paging.CurrentPageNum = 3;
+			paging.CurrentPage = 3;
 			test();
 
-			paging.CurrentPageNum = 3;
+			paging.CurrentPage = 3;
 			test();
 
 			paging.PageSize = 10;
 
-			paging.CurrentPageNum = 1;
+			paging.CurrentPage = 1;
 			test();
 
-			paging.CurrentPageNum = 3;
+			paging.CurrentPage = 3;
 			test();
 
-			paging.CurrentPageNum = 3;
+			paging.CurrentPage = 3;
 			test();
 		}
 
@@ -89,7 +239,7 @@ namespace ObservableComputations.Test
 		public void PagingTest_02()
 		{
 			Scalar<ObservableCollection<int>> items = new Scalar<ObservableCollection<int>>(null);
-			Paging<int> paging = items.Paging();
+			Paging<int> paging = items.Paging(2);
 			paging.ValidateConsistency();	
 						
 			items.Change(new ObservableCollection<int>(Enumerable.Range(1, 100)));
@@ -139,27 +289,26 @@ namespace ObservableComputations.Test
 				}
 			}
 
-			paging.CurrentPageNum = 2;
+			paging.CurrentPage = 2;
 			test();
 
-			paging.CurrentPageNum = 3;
+			paging.CurrentPage = 3;
 			test();
 
-			paging.CurrentPageNum = 3;
+			paging.CurrentPage = 3;
 			test();
 
 			paging.PageSize = 10;
 			test();
 
-			paging.CurrentPageNum = 1;
+			paging.CurrentPage = 1;
 			test();
 
-			paging.CurrentPageNum = 3;
+			paging.CurrentPage = 3;
 			test();
 
-			paging.CurrentPageNum = 4;
+			paging.CurrentPage = 4;
 			test();
 		}
-
 	}
 }

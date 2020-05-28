@@ -394,7 +394,9 @@ namespace ObservableComputations.Test
 				result =  "i => i.Num";
 				break;
 			case "int":
-				result =  argumentName.Contains("count") ? "3" : "0";
+                if (argumentName == "pageSize") result = "2";
+                else if (argumentName == "initialPage") result = "1";
+				else result =  argumentName.Contains("count") ? "3" : "0";
 				break;
 			case "ObservableComputations.IOrdering<TSourceItem>":
 				result =  "getItems().Selecting(i => i.Num).Ordering(i => i, 32)";
@@ -423,10 +425,6 @@ namespace ObservableComputations.Test
 				break;
             case "ObservableComputations.IReadScalar<TResult>":             
                 break;
-            case "(int pageSize, int currentPageNum)":
-	            result =  "(2, 1)";
-                break;
-
 			default:
 				throw new Exception($"Unexpected type {type}");
 		}

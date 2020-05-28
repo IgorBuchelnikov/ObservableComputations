@@ -56447,280 +56447,260 @@ namespace ObservableComputations.Test
 		[Test]
 		public void TestPaging01()
 		{
-			Scalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
-			(int pageSize, int currentPageNum) initialParameters = (2, 1);
-			int capacity = 0;
+			System.Collections.Specialized.INotifyCollectionChanged source = getItems();
+			int pageSize = 2;
+			int initialPage = 1;
 			
-			var testing = sourceScalar.Paging<Item>(
-				initialParameters,
-				capacity);
+			var testing = source.Paging<Item>(
+				pageSize,
+				initialPage);
 
 			void test()
 			{
 				testing.ValidateConsistency();
-				var sourceScalarValue = ((ObservableCollection<Item>)((System.Collections.Specialized.INotifyCollectionChanged)sourceScalar.Value));
+				var sourceValue = ((ObservableCollection<Item>)((System.Collections.Specialized.INotifyCollectionChanged)source));
 
-				if (sourceScalarValue != null)
+				if (sourceValue != null)
 				{		
-					sourceScalarValue.Insert(2, new QuickTests.Item(1, true));
+					sourceValue.Insert(2, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
-					sourceScalarValue[3] = new QuickTests.Item(7, true);
+					sourceValue[3] = new QuickTests.Item(7, true);
 					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(3);
+					sourceValue.RemoveAt(3);
 					testing.ValidateConsistency();
-					sourceScalarValue.Move(1, 3);
+					sourceValue.Move(1, 3);
 					testing.ValidateConsistency();
-					sourceScalarValue[2].Active = !sourceScalarValue[2].Active;
+					sourceValue[2].Active = !sourceValue[2].Active;
 					testing.ValidateConsistency();
-					sourceScalarValue[2].Num = sourceScalarValue[2].Num + 1;
+					sourceValue[2].Num = sourceValue[2].Num + 1;
 					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
+					sourceValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
+					sourceValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
+					sourceValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
+					sourceValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
+					sourceValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
-					sourceScalarValue.Insert(0, new QuickTests.Item(2, true));
+					sourceValue.Insert(0, new QuickTests.Item(2, true));
 					testing.ValidateConsistency();
 				}
 
 				IList listSource;
-				listSource = ((IList)((System.Collections.Specialized.INotifyCollectionChanged)sourceScalar.Value));
+				listSource = ((IList)((System.Collections.Specialized.INotifyCollectionChanged)source));
 				if (listSource != null)
 				{
 					listSource.Clear();
 					testing.ValidateConsistency();
 				}
 
-				if (sourceScalarValue != null)
+				if (sourceValue != null)
 				{
-					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
-					sourceScalarValue.Insert(1, new QuickTests.Item(2, true));
-					sourceScalarValue.Insert(2, new QuickTests.Item(3, true));
-					sourceScalarValue.Insert(3, new QuickTests.Item(3, true));
-					sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
+					sourceValue.Insert(0, new QuickTests.Item(1, true));
+					sourceValue.Insert(1, new QuickTests.Item(2, true));
+					sourceValue.Insert(2, new QuickTests.Item(3, true));
+					sourceValue.Insert(3, new QuickTests.Item(3, true));
+					sourceValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
 			}
 
-			test();
-
-			((Scalar<System.Collections.Specialized.INotifyCollectionChanged>)sourceScalar).Touch();
-			test();
-			((Scalar<System.Collections.Specialized.INotifyCollectionChanged>)sourceScalar).Change(null);
 			test();
 		}
 		
 		[Test]
 		public void TestPaging02()
 		{
-			Scalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
-			(int pageSize, int currentPageNum) initialParameters = (2, 1);
+			System.Collections.Specialized.INotifyCollectionChanged source = getItems();
+			int pageSize = 2;
 			
-			var testing = sourceScalar.Paging<Item>(
-				initialParameters);
+			var testing = source.Paging<Item>(
+				pageSize);
 
 			void test()
 			{
 				testing.ValidateConsistency();
-				var sourceScalarValue = ((ObservableCollection<Item>)((System.Collections.Specialized.INotifyCollectionChanged)sourceScalar.Value));
+				var sourceValue = ((ObservableCollection<Item>)((System.Collections.Specialized.INotifyCollectionChanged)source));
 
-				if (sourceScalarValue != null)
+				if (sourceValue != null)
 				{		
-					sourceScalarValue.Insert(2, new QuickTests.Item(1, true));
+					sourceValue.Insert(2, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
-					sourceScalarValue[3] = new QuickTests.Item(7, true);
+					sourceValue[3] = new QuickTests.Item(7, true);
 					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(3);
+					sourceValue.RemoveAt(3);
 					testing.ValidateConsistency();
-					sourceScalarValue.Move(1, 3);
+					sourceValue.Move(1, 3);
 					testing.ValidateConsistency();
-					sourceScalarValue[2].Active = !sourceScalarValue[2].Active;
+					sourceValue[2].Active = !sourceValue[2].Active;
 					testing.ValidateConsistency();
-					sourceScalarValue[2].Num = sourceScalarValue[2].Num + 1;
+					sourceValue[2].Num = sourceValue[2].Num + 1;
 					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
+					sourceValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
+					sourceValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
+					sourceValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
+					sourceValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
+					sourceValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
-					sourceScalarValue.Insert(0, new QuickTests.Item(2, true));
+					sourceValue.Insert(0, new QuickTests.Item(2, true));
 					testing.ValidateConsistency();
 				}
 
 				IList listSource;
-				listSource = ((IList)((System.Collections.Specialized.INotifyCollectionChanged)sourceScalar.Value));
+				listSource = ((IList)((System.Collections.Specialized.INotifyCollectionChanged)source));
 				if (listSource != null)
 				{
 					listSource.Clear();
 					testing.ValidateConsistency();
 				}
 
-				if (sourceScalarValue != null)
+				if (sourceValue != null)
 				{
-					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
-					sourceScalarValue.Insert(1, new QuickTests.Item(2, true));
-					sourceScalarValue.Insert(2, new QuickTests.Item(3, true));
-					sourceScalarValue.Insert(3, new QuickTests.Item(3, true));
-					sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
+					sourceValue.Insert(0, new QuickTests.Item(1, true));
+					sourceValue.Insert(1, new QuickTests.Item(2, true));
+					sourceValue.Insert(2, new QuickTests.Item(3, true));
+					sourceValue.Insert(3, new QuickTests.Item(3, true));
+					sourceValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
 			}
 
-			test();
-
-			((Scalar<System.Collections.Specialized.INotifyCollectionChanged>)sourceScalar).Touch();
-			test();
-			((Scalar<System.Collections.Specialized.INotifyCollectionChanged>)sourceScalar).Change(null);
 			test();
 		}
 		
 		[Test]
 		public void TestPaging03()
 		{
-			Scalar<ObservableCollection<Item>> sourceScalar = getScalar<ObservableCollection<Item>>(getItems());
-			(int pageSize, int currentPageNum) initialParameters = (2, 1);
-			int capacity = 0;
+			ObservableCollection<Item> source = getItems();
+			int pageSize = 2;
+			int initialPage = 1;
 			
-			var testing = sourceScalar.Paging<Item>(
-				initialParameters,
-				capacity);
+			var testing = source.Paging<Item>(
+				pageSize,
+				initialPage);
 
 			void test()
 			{
 				testing.ValidateConsistency();
-				var sourceScalarValue = ((ObservableCollection<Item>)((ObservableCollection<Item>)sourceScalar.Value));
+				var sourceValue = ((ObservableCollection<Item>)((ObservableCollection<Item>)source));
 
-				if (sourceScalarValue != null)
+				if (sourceValue != null)
 				{		
-					sourceScalarValue.Insert(2, new QuickTests.Item(1, true));
+					sourceValue.Insert(2, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
-					sourceScalarValue[3] = new QuickTests.Item(7, true);
+					sourceValue[3] = new QuickTests.Item(7, true);
 					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(3);
+					sourceValue.RemoveAt(3);
 					testing.ValidateConsistency();
-					sourceScalarValue.Move(1, 3);
+					sourceValue.Move(1, 3);
 					testing.ValidateConsistency();
-					sourceScalarValue[2].Active = !sourceScalarValue[2].Active;
+					sourceValue[2].Active = !sourceValue[2].Active;
 					testing.ValidateConsistency();
-					sourceScalarValue[2].Num = sourceScalarValue[2].Num + 1;
+					sourceValue[2].Num = sourceValue[2].Num + 1;
 					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
+					sourceValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
+					sourceValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
+					sourceValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
+					sourceValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
+					sourceValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
-					sourceScalarValue.Insert(0, new QuickTests.Item(2, true));
+					sourceValue.Insert(0, new QuickTests.Item(2, true));
 					testing.ValidateConsistency();
 				}
 
 				IList listSource;
-				listSource = ((IList)((ObservableCollection<Item>)sourceScalar.Value));
+				listSource = ((IList)((ObservableCollection<Item>)source));
 				if (listSource != null)
 				{
 					listSource.Clear();
 					testing.ValidateConsistency();
 				}
 
-				if (sourceScalarValue != null)
+				if (sourceValue != null)
 				{
-					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
-					sourceScalarValue.Insert(1, new QuickTests.Item(2, true));
-					sourceScalarValue.Insert(2, new QuickTests.Item(3, true));
-					sourceScalarValue.Insert(3, new QuickTests.Item(3, true));
-					sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
+					sourceValue.Insert(0, new QuickTests.Item(1, true));
+					sourceValue.Insert(1, new QuickTests.Item(2, true));
+					sourceValue.Insert(2, new QuickTests.Item(3, true));
+					sourceValue.Insert(3, new QuickTests.Item(3, true));
+					sourceValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
 			}
 
-			test();
-
-			((Scalar<ObservableCollection<Item>>)sourceScalar).Touch();
-			test();
-			((Scalar<ObservableCollection<Item>>)sourceScalar).Change(null);
 			test();
 		}
 		
 		[Test]
 		public void TestPaging04()
 		{
-			Scalar<ObservableCollection<Item>> sourceScalar = getScalar<ObservableCollection<Item>>(getItems());
-			(int pageSize, int currentPageNum) initialParameters = (2, 1);
+			ObservableCollection<Item> source = getItems();
+			int pageSize = 2;
 			
-			var testing = sourceScalar.Paging<Item>(
-				initialParameters);
+			var testing = source.Paging<Item>(
+				pageSize);
 
 			void test()
 			{
 				testing.ValidateConsistency();
-				var sourceScalarValue = ((ObservableCollection<Item>)((ObservableCollection<Item>)sourceScalar.Value));
+				var sourceValue = ((ObservableCollection<Item>)((ObservableCollection<Item>)source));
 
-				if (sourceScalarValue != null)
+				if (sourceValue != null)
 				{		
-					sourceScalarValue.Insert(2, new QuickTests.Item(1, true));
+					sourceValue.Insert(2, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
-					sourceScalarValue[3] = new QuickTests.Item(7, true);
+					sourceValue[3] = new QuickTests.Item(7, true);
 					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(3);
+					sourceValue.RemoveAt(3);
 					testing.ValidateConsistency();
-					sourceScalarValue.Move(1, 3);
+					sourceValue.Move(1, 3);
 					testing.ValidateConsistency();
-					sourceScalarValue[2].Active = !sourceScalarValue[2].Active;
+					sourceValue[2].Active = !sourceValue[2].Active;
 					testing.ValidateConsistency();
-					sourceScalarValue[2].Num = sourceScalarValue[2].Num + 1;
+					sourceValue[2].Num = sourceValue[2].Num + 1;
 					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
+					sourceValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
+					sourceValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
+					sourceValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
+					sourceValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
+					sourceValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
-					sourceScalarValue.Insert(0, new QuickTests.Item(2, true));
+					sourceValue.Insert(0, new QuickTests.Item(2, true));
 					testing.ValidateConsistency();
 				}
 
 				IList listSource;
-				listSource = ((IList)((ObservableCollection<Item>)sourceScalar.Value));
+				listSource = ((IList)((ObservableCollection<Item>)source));
 				if (listSource != null)
 				{
 					listSource.Clear();
 					testing.ValidateConsistency();
 				}
 
-				if (sourceScalarValue != null)
+				if (sourceValue != null)
 				{
-					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
-					sourceScalarValue.Insert(1, new QuickTests.Item(2, true));
-					sourceScalarValue.Insert(2, new QuickTests.Item(3, true));
-					sourceScalarValue.Insert(3, new QuickTests.Item(3, true));
-					sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
+					sourceValue.Insert(0, new QuickTests.Item(1, true));
+					sourceValue.Insert(1, new QuickTests.Item(2, true));
+					sourceValue.Insert(2, new QuickTests.Item(3, true));
+					sourceValue.Insert(3, new QuickTests.Item(3, true));
+					sourceValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
 			}
 
-			test();
-
-			((Scalar<ObservableCollection<Item>>)sourceScalar).Touch();
-			test();
-			((Scalar<ObservableCollection<Item>>)sourceScalar).Change(null);
 			test();
 		}
 		
@@ -56728,10 +56708,12 @@ namespace ObservableComputations.Test
 		public void TestPaging05()
 		{
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
-			int capacity = 0;
+			int pageSize = 2;
+			int initialPage = 1;
 			
 			var testing = sourceScalar.Paging<Item>(
-				capacity);
+				pageSize,
+				initialPage);
 
 			void test()
 			{
@@ -56797,8 +56779,10 @@ namespace ObservableComputations.Test
 		public void TestPaging06()
 		{
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
+			int pageSize = 2;
 			
-			var testing = sourceScalar.Paging<Item>();
+			var testing = sourceScalar.Paging<Item>(
+				pageSize);
 
 			void test()
 			{
@@ -56864,10 +56848,12 @@ namespace ObservableComputations.Test
 		public void TestPaging07()
 		{
 			Scalar<ObservableCollection<Item>> sourceScalar = getScalar<ObservableCollection<Item>>(getItems());
-			int capacity = 0;
+			int pageSize = 2;
+			int initialPage = 1;
 			
 			var testing = sourceScalar.Paging<Item>(
-				capacity);
+				pageSize,
+				initialPage);
 
 			void test()
 			{
@@ -56933,8 +56919,10 @@ namespace ObservableComputations.Test
 		public void TestPaging08()
 		{
 			Scalar<ObservableCollection<Item>> sourceScalar = getScalar<ObservableCollection<Item>>(getItems());
+			int pageSize = 2;
 			
-			var testing = sourceScalar.Paging<Item>();
+			var testing = sourceScalar.Paging<Item>(
+				pageSize);
 
 			void test()
 			{
@@ -56993,518 +56981,6 @@ namespace ObservableComputations.Test
 			((Scalar<ObservableCollection<Item>>)sourceScalar).Touch();
 			test();
 			((Scalar<ObservableCollection<Item>>)sourceScalar).Change(null);
-			test();
-		}
-		
-		[Test]
-		public void TestPaging09()
-		{
-			System.Collections.Specialized.INotifyCollectionChanged source = getItems();
-			(int pageSize, int currentPageNum) initialParameters = (2, 1);
-			int capacity = 0;
-			
-			var testing = source.Paging<Item>(
-				initialParameters,
-				capacity);
-
-			void test()
-			{
-				testing.ValidateConsistency();
-				var sourceValue = ((ObservableCollection<Item>)((System.Collections.Specialized.INotifyCollectionChanged)source));
-
-				if (sourceValue != null)
-				{		
-					sourceValue.Insert(2, new QuickTests.Item(1, true));
-					testing.ValidateConsistency();
-					sourceValue[3] = new QuickTests.Item(7, true);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(3);
-					testing.ValidateConsistency();
-					sourceValue.Move(1, 3);
-					testing.ValidateConsistency();
-					sourceValue[2].Active = !sourceValue[2].Active;
-					testing.ValidateConsistency();
-					sourceValue[2].Num = sourceValue[2].Num + 1;
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.Insert(0, new QuickTests.Item(1, true));
-					testing.ValidateConsistency();
-					sourceValue.Insert(0, new QuickTests.Item(2, true));
-					testing.ValidateConsistency();
-				}
-
-				IList listSource;
-				listSource = ((IList)((System.Collections.Specialized.INotifyCollectionChanged)source));
-				if (listSource != null)
-				{
-					listSource.Clear();
-					testing.ValidateConsistency();
-				}
-
-				if (sourceValue != null)
-				{
-					sourceValue.Insert(0, new QuickTests.Item(1, true));
-					sourceValue.Insert(1, new QuickTests.Item(2, true));
-					sourceValue.Insert(2, new QuickTests.Item(3, true));
-					sourceValue.Insert(3, new QuickTests.Item(3, true));
-					sourceValue.Insert(4, new QuickTests.Item(3, true));
-					testing.ValidateConsistency();
-				}
-			}
-
-			test();
-		}
-		
-		[Test]
-		public void TestPaging10()
-		{
-			System.Collections.Specialized.INotifyCollectionChanged source = getItems();
-			(int pageSize, int currentPageNum) initialParameters = (2, 1);
-			
-			var testing = source.Paging<Item>(
-				initialParameters);
-
-			void test()
-			{
-				testing.ValidateConsistency();
-				var sourceValue = ((ObservableCollection<Item>)((System.Collections.Specialized.INotifyCollectionChanged)source));
-
-				if (sourceValue != null)
-				{		
-					sourceValue.Insert(2, new QuickTests.Item(1, true));
-					testing.ValidateConsistency();
-					sourceValue[3] = new QuickTests.Item(7, true);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(3);
-					testing.ValidateConsistency();
-					sourceValue.Move(1, 3);
-					testing.ValidateConsistency();
-					sourceValue[2].Active = !sourceValue[2].Active;
-					testing.ValidateConsistency();
-					sourceValue[2].Num = sourceValue[2].Num + 1;
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.Insert(0, new QuickTests.Item(1, true));
-					testing.ValidateConsistency();
-					sourceValue.Insert(0, new QuickTests.Item(2, true));
-					testing.ValidateConsistency();
-				}
-
-				IList listSource;
-				listSource = ((IList)((System.Collections.Specialized.INotifyCollectionChanged)source));
-				if (listSource != null)
-				{
-					listSource.Clear();
-					testing.ValidateConsistency();
-				}
-
-				if (sourceValue != null)
-				{
-					sourceValue.Insert(0, new QuickTests.Item(1, true));
-					sourceValue.Insert(1, new QuickTests.Item(2, true));
-					sourceValue.Insert(2, new QuickTests.Item(3, true));
-					sourceValue.Insert(3, new QuickTests.Item(3, true));
-					sourceValue.Insert(4, new QuickTests.Item(3, true));
-					testing.ValidateConsistency();
-				}
-			}
-
-			test();
-		}
-		
-		[Test]
-		public void TestPaging11()
-		{
-			ObservableCollection<Item> source = getItems();
-			(int pageSize, int currentPageNum) initialParameters = (2, 1);
-			int capacity = 0;
-			
-			var testing = source.Paging<Item>(
-				initialParameters,
-				capacity);
-
-			void test()
-			{
-				testing.ValidateConsistency();
-				var sourceValue = ((ObservableCollection<Item>)((ObservableCollection<Item>)source));
-
-				if (sourceValue != null)
-				{		
-					sourceValue.Insert(2, new QuickTests.Item(1, true));
-					testing.ValidateConsistency();
-					sourceValue[3] = new QuickTests.Item(7, true);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(3);
-					testing.ValidateConsistency();
-					sourceValue.Move(1, 3);
-					testing.ValidateConsistency();
-					sourceValue[2].Active = !sourceValue[2].Active;
-					testing.ValidateConsistency();
-					sourceValue[2].Num = sourceValue[2].Num + 1;
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.Insert(0, new QuickTests.Item(1, true));
-					testing.ValidateConsistency();
-					sourceValue.Insert(0, new QuickTests.Item(2, true));
-					testing.ValidateConsistency();
-				}
-
-				IList listSource;
-				listSource = ((IList)((ObservableCollection<Item>)source));
-				if (listSource != null)
-				{
-					listSource.Clear();
-					testing.ValidateConsistency();
-				}
-
-				if (sourceValue != null)
-				{
-					sourceValue.Insert(0, new QuickTests.Item(1, true));
-					sourceValue.Insert(1, new QuickTests.Item(2, true));
-					sourceValue.Insert(2, new QuickTests.Item(3, true));
-					sourceValue.Insert(3, new QuickTests.Item(3, true));
-					sourceValue.Insert(4, new QuickTests.Item(3, true));
-					testing.ValidateConsistency();
-				}
-			}
-
-			test();
-		}
-		
-		[Test]
-		public void TestPaging12()
-		{
-			ObservableCollection<Item> source = getItems();
-			(int pageSize, int currentPageNum) initialParameters = (2, 1);
-			
-			var testing = source.Paging<Item>(
-				initialParameters);
-
-			void test()
-			{
-				testing.ValidateConsistency();
-				var sourceValue = ((ObservableCollection<Item>)((ObservableCollection<Item>)source));
-
-				if (sourceValue != null)
-				{		
-					sourceValue.Insert(2, new QuickTests.Item(1, true));
-					testing.ValidateConsistency();
-					sourceValue[3] = new QuickTests.Item(7, true);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(3);
-					testing.ValidateConsistency();
-					sourceValue.Move(1, 3);
-					testing.ValidateConsistency();
-					sourceValue[2].Active = !sourceValue[2].Active;
-					testing.ValidateConsistency();
-					sourceValue[2].Num = sourceValue[2].Num + 1;
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.Insert(0, new QuickTests.Item(1, true));
-					testing.ValidateConsistency();
-					sourceValue.Insert(0, new QuickTests.Item(2, true));
-					testing.ValidateConsistency();
-				}
-
-				IList listSource;
-				listSource = ((IList)((ObservableCollection<Item>)source));
-				if (listSource != null)
-				{
-					listSource.Clear();
-					testing.ValidateConsistency();
-				}
-
-				if (sourceValue != null)
-				{
-					sourceValue.Insert(0, new QuickTests.Item(1, true));
-					sourceValue.Insert(1, new QuickTests.Item(2, true));
-					sourceValue.Insert(2, new QuickTests.Item(3, true));
-					sourceValue.Insert(3, new QuickTests.Item(3, true));
-					sourceValue.Insert(4, new QuickTests.Item(3, true));
-					testing.ValidateConsistency();
-				}
-			}
-
-			test();
-		}
-		
-		[Test]
-		public void TestPaging13()
-		{
-			System.Collections.Specialized.INotifyCollectionChanged source = getItems();
-			int capacity = 0;
-			
-			var testing = source.Paging<Item>(
-				capacity);
-
-			void test()
-			{
-				testing.ValidateConsistency();
-				var sourceValue = ((ObservableCollection<Item>)((System.Collections.Specialized.INotifyCollectionChanged)source));
-
-				if (sourceValue != null)
-				{		
-					sourceValue.Insert(2, new QuickTests.Item(1, true));
-					testing.ValidateConsistency();
-					sourceValue[3] = new QuickTests.Item(7, true);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(3);
-					testing.ValidateConsistency();
-					sourceValue.Move(1, 3);
-					testing.ValidateConsistency();
-					sourceValue[2].Active = !sourceValue[2].Active;
-					testing.ValidateConsistency();
-					sourceValue[2].Num = sourceValue[2].Num + 1;
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.Insert(0, new QuickTests.Item(1, true));
-					testing.ValidateConsistency();
-					sourceValue.Insert(0, new QuickTests.Item(2, true));
-					testing.ValidateConsistency();
-				}
-
-				IList listSource;
-				listSource = ((IList)((System.Collections.Specialized.INotifyCollectionChanged)source));
-				if (listSource != null)
-				{
-					listSource.Clear();
-					testing.ValidateConsistency();
-				}
-
-				if (sourceValue != null)
-				{
-					sourceValue.Insert(0, new QuickTests.Item(1, true));
-					sourceValue.Insert(1, new QuickTests.Item(2, true));
-					sourceValue.Insert(2, new QuickTests.Item(3, true));
-					sourceValue.Insert(3, new QuickTests.Item(3, true));
-					sourceValue.Insert(4, new QuickTests.Item(3, true));
-					testing.ValidateConsistency();
-				}
-			}
-
-			test();
-		}
-		
-		[Test]
-		public void TestPaging14()
-		{
-			System.Collections.Specialized.INotifyCollectionChanged source = getItems();
-			
-			var testing = source.Paging<Item>();
-
-			void test()
-			{
-				testing.ValidateConsistency();
-				var sourceValue = ((ObservableCollection<Item>)((System.Collections.Specialized.INotifyCollectionChanged)source));
-
-				if (sourceValue != null)
-				{		
-					sourceValue.Insert(2, new QuickTests.Item(1, true));
-					testing.ValidateConsistency();
-					sourceValue[3] = new QuickTests.Item(7, true);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(3);
-					testing.ValidateConsistency();
-					sourceValue.Move(1, 3);
-					testing.ValidateConsistency();
-					sourceValue[2].Active = !sourceValue[2].Active;
-					testing.ValidateConsistency();
-					sourceValue[2].Num = sourceValue[2].Num + 1;
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.Insert(0, new QuickTests.Item(1, true));
-					testing.ValidateConsistency();
-					sourceValue.Insert(0, new QuickTests.Item(2, true));
-					testing.ValidateConsistency();
-				}
-
-				IList listSource;
-				listSource = ((IList)((System.Collections.Specialized.INotifyCollectionChanged)source));
-				if (listSource != null)
-				{
-					listSource.Clear();
-					testing.ValidateConsistency();
-				}
-
-				if (sourceValue != null)
-				{
-					sourceValue.Insert(0, new QuickTests.Item(1, true));
-					sourceValue.Insert(1, new QuickTests.Item(2, true));
-					sourceValue.Insert(2, new QuickTests.Item(3, true));
-					sourceValue.Insert(3, new QuickTests.Item(3, true));
-					sourceValue.Insert(4, new QuickTests.Item(3, true));
-					testing.ValidateConsistency();
-				}
-			}
-
-			test();
-		}
-		
-		[Test]
-		public void TestPaging15()
-		{
-			ObservableCollection<Item> source = getItems();
-			int capacity = 0;
-			
-			var testing = source.Paging<Item>(
-				capacity);
-
-			void test()
-			{
-				testing.ValidateConsistency();
-				var sourceValue = ((ObservableCollection<Item>)((ObservableCollection<Item>)source));
-
-				if (sourceValue != null)
-				{		
-					sourceValue.Insert(2, new QuickTests.Item(1, true));
-					testing.ValidateConsistency();
-					sourceValue[3] = new QuickTests.Item(7, true);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(3);
-					testing.ValidateConsistency();
-					sourceValue.Move(1, 3);
-					testing.ValidateConsistency();
-					sourceValue[2].Active = !sourceValue[2].Active;
-					testing.ValidateConsistency();
-					sourceValue[2].Num = sourceValue[2].Num + 1;
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.Insert(0, new QuickTests.Item(1, true));
-					testing.ValidateConsistency();
-					sourceValue.Insert(0, new QuickTests.Item(2, true));
-					testing.ValidateConsistency();
-				}
-
-				IList listSource;
-				listSource = ((IList)((ObservableCollection<Item>)source));
-				if (listSource != null)
-				{
-					listSource.Clear();
-					testing.ValidateConsistency();
-				}
-
-				if (sourceValue != null)
-				{
-					sourceValue.Insert(0, new QuickTests.Item(1, true));
-					sourceValue.Insert(1, new QuickTests.Item(2, true));
-					sourceValue.Insert(2, new QuickTests.Item(3, true));
-					sourceValue.Insert(3, new QuickTests.Item(3, true));
-					sourceValue.Insert(4, new QuickTests.Item(3, true));
-					testing.ValidateConsistency();
-				}
-			}
-
-			test();
-		}
-		
-		[Test]
-		public void TestPaging16()
-		{
-			ObservableCollection<Item> source = getItems();
-			
-			var testing = source.Paging<Item>();
-
-			void test()
-			{
-				testing.ValidateConsistency();
-				var sourceValue = ((ObservableCollection<Item>)((ObservableCollection<Item>)source));
-
-				if (sourceValue != null)
-				{		
-					sourceValue.Insert(2, new QuickTests.Item(1, true));
-					testing.ValidateConsistency();
-					sourceValue[3] = new QuickTests.Item(7, true);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(3);
-					testing.ValidateConsistency();
-					sourceValue.Move(1, 3);
-					testing.ValidateConsistency();
-					sourceValue[2].Active = !sourceValue[2].Active;
-					testing.ValidateConsistency();
-					sourceValue[2].Num = sourceValue[2].Num + 1;
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.Insert(0, new QuickTests.Item(1, true));
-					testing.ValidateConsistency();
-					sourceValue.Insert(0, new QuickTests.Item(2, true));
-					testing.ValidateConsistency();
-				}
-
-				IList listSource;
-				listSource = ((IList)((ObservableCollection<Item>)source));
-				if (listSource != null)
-				{
-					listSource.Clear();
-					testing.ValidateConsistency();
-				}
-
-				if (sourceValue != null)
-				{
-					sourceValue.Insert(0, new QuickTests.Item(1, true));
-					sourceValue.Insert(1, new QuickTests.Item(2, true));
-					sourceValue.Insert(2, new QuickTests.Item(3, true));
-					sourceValue.Insert(3, new QuickTests.Item(3, true));
-					sourceValue.Insert(4, new QuickTests.Item(3, true));
-					testing.ValidateConsistency();
-				}
-			}
-
 			test();
 		}
 		#endregion

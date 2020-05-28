@@ -21967,278 +21967,152 @@ namespace ObservableComputations
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.Paging<TSourceItem> Paging<TSourceItem>(this
-			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar,
-			 (int pageSize, int currentPageNum) initialParameters,
-			 int capacity)
+			 System.Collections.Specialized.INotifyCollectionChanged source,
+			 int pageSize,
+			 int initialPage)
 			
 		{
 			return new ObservableComputations.Paging<TSourceItem>(
-				sourceScalar: sourceScalar,
-				initialParameters: initialParameters,
-				capacity: capacity);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.Paging<TSourceItem> Paging<TSourceItem>(this
-			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar,
-			 (int pageSize, int currentPageNum) initialParameters)
-			
-		{
-			return new ObservableComputations.Paging<TSourceItem>(
-				sourceScalar: sourceScalar,
-				initialParameters: initialParameters,
-				capacity: 0);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.Paging<TSourceItem> Paging<TSourceItem>(this
-			 ObservableComputations.IReadScalar<ObservableCollection<TSourceItem>> sourceScalar,
-			 (int pageSize, int currentPageNum) initialParameters,
-			 int capacity)
-			
-		{
-			return new ObservableComputations.Paging<TSourceItem>(
-				sourceScalar: sourceScalar,
-				initialParameters: initialParameters,
-				capacity: capacity);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.Paging<TSourceItem> Paging<TSourceItem>(this
-			 ObservableComputations.IReadScalar<ObservableCollection<TSourceItem>> sourceScalar,
-			 (int pageSize, int currentPageNum) initialParameters)
-			
-		{
-			return new ObservableComputations.Paging<TSourceItem>(
-				sourceScalar: sourceScalar,
-				initialParameters: initialParameters,
-				capacity: 0);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.Paging<TSourceItem> Paging<TSourceItem>(this
-			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> sourceExpression,
-			 (int pageSize, int currentPageNum) initialParameters,
-			 int capacity)
-			
-		{
-			return new ObservableComputations.Paging<TSourceItem>(
-				sourceScalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(sourceExpression),
-				initialParameters: initialParameters,
-				capacity: capacity);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.Paging<TSourceItem> Paging<TSourceItem>(this
-			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> sourceExpression,
-			 (int pageSize, int currentPageNum) initialParameters)
-			
-		{
-			return new ObservableComputations.Paging<TSourceItem>(
-				sourceScalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(sourceExpression),
-				initialParameters: initialParameters,
-				capacity: 0);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.Paging<TSourceItem> Paging<TSourceItem>(this
-			 Expression<Func<ObservableCollection<TSourceItem>>> sourceExpression,
-			 (int pageSize, int currentPageNum) initialParameters,
-			 int capacity)
-			
-		{
-			return new ObservableComputations.Paging<TSourceItem>(
-				sourceScalar: new Computing<ObservableCollection<TSourceItem>>(sourceExpression),
-				initialParameters: initialParameters,
-				capacity: capacity);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.Paging<TSourceItem> Paging<TSourceItem>(this
-			 Expression<Func<ObservableCollection<TSourceItem>>> sourceExpression,
-			 (int pageSize, int currentPageNum) initialParameters)
-			
-		{
-			return new ObservableComputations.Paging<TSourceItem>(
-				sourceScalar: new Computing<ObservableCollection<TSourceItem>>(sourceExpression),
-				initialParameters: initialParameters,
-				capacity: 0);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.Paging<TSourceItem> Paging<TSourceItem>(this
-			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar,
-			 int capacity)
-			
-		{
-			return new ObservableComputations.Paging<TSourceItem>(
-				sourceScalar: sourceScalar,
-				capacity: capacity);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.Paging<TSourceItem> Paging<TSourceItem>(this
-			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar)
-			
-		{
-			return new ObservableComputations.Paging<TSourceItem>(
-				sourceScalar: sourceScalar,
-				capacity: 0);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.Paging<TSourceItem> Paging<TSourceItem>(this
-			 ObservableComputations.IReadScalar<ObservableCollection<TSourceItem>> sourceScalar,
-			 int capacity)
-			
-		{
-			return new ObservableComputations.Paging<TSourceItem>(
-				sourceScalar: sourceScalar,
-				capacity: capacity);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.Paging<TSourceItem> Paging<TSourceItem>(this
-			 ObservableComputations.IReadScalar<ObservableCollection<TSourceItem>> sourceScalar)
-			
-		{
-			return new ObservableComputations.Paging<TSourceItem>(
-				sourceScalar: sourceScalar,
-				capacity: 0);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.Paging<TSourceItem> Paging<TSourceItem>(this
-			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> sourceExpression,
-			 int capacity)
-			
-		{
-			return new ObservableComputations.Paging<TSourceItem>(
-				sourceScalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(sourceExpression),
-				capacity: capacity);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.Paging<TSourceItem> Paging<TSourceItem>(this
-			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> sourceExpression)
-			
-		{
-			return new ObservableComputations.Paging<TSourceItem>(
-				sourceScalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(sourceExpression),
-				capacity: 0);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.Paging<TSourceItem> Paging<TSourceItem>(this
-			 Expression<Func<ObservableCollection<TSourceItem>>> sourceExpression,
-			 int capacity)
-			
-		{
-			return new ObservableComputations.Paging<TSourceItem>(
-				sourceScalar: new Computing<ObservableCollection<TSourceItem>>(sourceExpression),
-				capacity: capacity);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.Paging<TSourceItem> Paging<TSourceItem>(this
-			 Expression<Func<ObservableCollection<TSourceItem>>> sourceExpression)
-			
-		{
-			return new ObservableComputations.Paging<TSourceItem>(
-				sourceScalar: new Computing<ObservableCollection<TSourceItem>>(sourceExpression),
-				capacity: 0);
+				source: source,
+				pageSize: pageSize,
+				initialPage: initialPage);
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.Paging<TSourceItem> Paging<TSourceItem>(this
 			 System.Collections.Specialized.INotifyCollectionChanged source,
-			 (int pageSize, int currentPageNum) initialParameters,
-			 int capacity)
+			 int pageSize)
 			
 		{
 			return new ObservableComputations.Paging<TSourceItem>(
 				source: source,
-				initialParameters: initialParameters,
-				capacity: capacity);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.Paging<TSourceItem> Paging<TSourceItem>(this
-			 System.Collections.Specialized.INotifyCollectionChanged source,
-			 (int pageSize, int currentPageNum) initialParameters)
-			
-		{
-			return new ObservableComputations.Paging<TSourceItem>(
-				source: source,
-				initialParameters: initialParameters,
-				capacity: 0);
+				pageSize: pageSize,
+				initialPage: 1);
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.Paging<TSourceItem> Paging<TSourceItem>(this
 			 ObservableCollection<TSourceItem> source,
-			 (int pageSize, int currentPageNum) initialParameters,
-			 int capacity)
+			 int pageSize,
+			 int initialPage)
 			
 		{
 			return new ObservableComputations.Paging<TSourceItem>(
 				source: source,
-				initialParameters: initialParameters,
-				capacity: capacity);
+				pageSize: pageSize,
+				initialPage: initialPage);
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.Paging<TSourceItem> Paging<TSourceItem>(this
 			 ObservableCollection<TSourceItem> source,
-			 (int pageSize, int currentPageNum) initialParameters)
+			 int pageSize)
 			
 		{
 			return new ObservableComputations.Paging<TSourceItem>(
 				source: source,
-				initialParameters: initialParameters,
-				capacity: 0);
+				pageSize: pageSize,
+				initialPage: 1);
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.Paging<TSourceItem> Paging<TSourceItem>(this
-			 System.Collections.Specialized.INotifyCollectionChanged source,
-			 int capacity)
+			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar,
+			 int pageSize,
+			 int initialPage)
 			
 		{
 			return new ObservableComputations.Paging<TSourceItem>(
-				source: source,
-				capacity: capacity);
+				sourceScalar: sourceScalar,
+				pageSize: pageSize,
+				initialPage: initialPage);
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.Paging<TSourceItem> Paging<TSourceItem>(this
-			 System.Collections.Specialized.INotifyCollectionChanged source)
+			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar,
+			 int pageSize)
 			
 		{
 			return new ObservableComputations.Paging<TSourceItem>(
-				source: source,
-				capacity: 0);
+				sourceScalar: sourceScalar,
+				pageSize: pageSize,
+				initialPage: 1);
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.Paging<TSourceItem> Paging<TSourceItem>(this
-			 ObservableCollection<TSourceItem> source,
-			 int capacity)
+			 ObservableComputations.IReadScalar<ObservableCollection<TSourceItem>> sourceScalar,
+			 int pageSize,
+			 int initialPage)
 			
 		{
 			return new ObservableComputations.Paging<TSourceItem>(
-				source: source,
-				capacity: capacity);
+				sourceScalar: sourceScalar,
+				pageSize: pageSize,
+				initialPage: initialPage);
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.Paging<TSourceItem> Paging<TSourceItem>(this
-			 ObservableCollection<TSourceItem> source)
+			 ObservableComputations.IReadScalar<ObservableCollection<TSourceItem>> sourceScalar,
+			 int pageSize)
 			
 		{
 			return new ObservableComputations.Paging<TSourceItem>(
-				source: source,
-				capacity: 0);
+				sourceScalar: sourceScalar,
+				pageSize: pageSize,
+				initialPage: 1);
+		}
+
+		[ObservableComputationsCall]
+		public static ObservableComputations.Paging<TSourceItem> Paging<TSourceItem>(this
+			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> sourceExpression,
+			 int pageSize,
+			 int initialPage)
+			
+		{
+			return new ObservableComputations.Paging<TSourceItem>(
+				sourceScalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(sourceExpression),
+				pageSize: pageSize,
+				initialPage: initialPage);
+		}
+
+		[ObservableComputationsCall]
+		public static ObservableComputations.Paging<TSourceItem> Paging<TSourceItem>(this
+			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> sourceExpression,
+			 int pageSize)
+			
+		{
+			return new ObservableComputations.Paging<TSourceItem>(
+				sourceScalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(sourceExpression),
+				pageSize: pageSize,
+				initialPage: 1);
+		}
+
+		[ObservableComputationsCall]
+		public static ObservableComputations.Paging<TSourceItem> Paging<TSourceItem>(this
+			 Expression<Func<ObservableCollection<TSourceItem>>> sourceExpression,
+			 int pageSize,
+			 int initialPage)
+			
+		{
+			return new ObservableComputations.Paging<TSourceItem>(
+				sourceScalar: new Computing<ObservableCollection<TSourceItem>>(sourceExpression),
+				pageSize: pageSize,
+				initialPage: initialPage);
+		}
+
+		[ObservableComputationsCall]
+		public static ObservableComputations.Paging<TSourceItem> Paging<TSourceItem>(this
+			 Expression<Func<ObservableCollection<TSourceItem>>> sourceExpression,
+			 int pageSize)
+			
+		{
+			return new ObservableComputations.Paging<TSourceItem>(
+				sourceScalar: new Computing<ObservableCollection<TSourceItem>>(sourceExpression),
+				pageSize: pageSize,
+				initialPage: 1);
 		}
 
 		#endregion

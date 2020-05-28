@@ -301,7 +301,6 @@ namespace ObservableComputations
 			_newItem = default(TItem);
 		}
 
-		
 		protected internal void baseMoveItem(int oldIndex, int newIndex)
 		{
 			ChangeMarkerField = !ChangeMarkerField;

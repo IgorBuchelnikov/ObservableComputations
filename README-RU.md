@@ -1252,7 +1252,7 @@ namespace ObservableComputationsExamples
 
 Свойства обработчиков запросов на изменение вычислений являются публичными. По умолчанию любой код, который имеет ссылку на вычисление может установить или перезаписать значение этого свойства. Есть возможность управлять возможностью установки значений этих свойств с помощью 
 
-* методов класса [*CollectionComputing&lt;TItem&gt;*](#полный-список-операторов):
+* методов класса [*CollectionComputing&lt;TSourceItem&gt;*](#полный-список-операторов):
   * void LockModifyChangeAction(CollectionChangeAction collectionChangeAction, object key)
   * void UnlockModifyChangeAction(CollectionChangeAction collectionChangeAction, object key)
   * bool IsModifyChangeActionLocked(CollectionChangeAction collectionChangeAction)
@@ -1260,6 +1260,10 @@ namespace ObservableComputationsExamples
   * void LockModifySetValueAction(object key)
   * void UnlockModifySetValueAction(object key)
   * bool IsModifySetValueActionLocked()
+* методов класса [*Grouping&lt;TSourceItem, TKey&gt;*](#полный-список-операторов):
+  * void LockModifyGroupChangeAction(CollectionChangeAction collectionChangeAction, object key)
+  * void UnlockModifyGroupChangeAction(CollectionChangeAction collectionChangeAction, object key)
+  * bool IsModifyGroupChangeActionLocked(CollectionChangeAction collectionChangeAction) 
 * методов классов *Dictionaring* и *ConcurentDictionaring*:
   * void LockModifyChangeAction(DictionaryChangeAction dictionaryChangeAction, object key)
   * void UnlockModifyChangeAction(DictionaryChangeAction dictionaryChangeAction, object key)
@@ -2352,6 +2356,7 @@ namespace ObservableComputationsExample
 Класс *ObservableComputations.Dispatcher* очень похож на класс [System.Windows.Threading.Dispatcher](https://docs.microsoft.com/en-us/dotnet/api/system.windows.threading.dispatcher?view=netcore-3.1). Класс *ObservableComputations.Dispatcher* ассоциирован с единственным потоком. В этом потоке вы можете выполнять делегаты, вызывая методы *ObservableComputations.Dispatcher.Invoke* и *ObservableComputations.Dispatcher.BeginInvoke*. 
 Метод *CollectionDispatching* перенаправляет все изменения коллекции источника в поток целевого диспетчера (параметр *distinationDispatcher*). 
 В момент вызова метода *CollectionDispatching* происходит перечисление коллекции-источника (*Orders* или *Orders.CollectionDispatching(_ocDispatcher).Filtering(o => o.Paid)*) и подписка на её событие [CollectionChanged](https://docs.microsoft.com/en-us/dotnet/api/system.collections.specialized.inotifycollectionchanged.collectionchanged?view=netcore-3.1). При этом коллекция-источник не должна меняться. При вызове *.CollectionDispatching(_ocDispatcher)*, коллекция *Orders* не меняется. При вызове *.CollectionDispatching(wpfOcDispatcher, _ocDispatcher)* коллекция *Orders.CollectionDispatching(_ocDispatcher).Filtering(o => o.Paid)* может меняться в потоке *_ocDispatcher*, но так как мы передаём *_ocDispatcher* в параметр *sourceDispatcher*, то перечисление коллекции-источника и подписка на её событие [CollectionChanged](https://docs.microsoft.com/en-us/dotnet/api/system.collections.specialized.inotifycollectionchanged.collectionchanged?view=netcore-3.1) происходит в потоке *_ocDispatcher*, что гарантирует отсутствие изменений коллекции-источника при перечислении. Так как при вызове *.CollectionDispatching(_ocDispatcher)*, коллекция *Orders* не меняется, то передавать *wpfOcDispatcher* в параметр *sourceDispatcher* смысла нет, тем более что в момент вызова *.CollectionDispatching(_ocDispatcher)* мы и так находимся в потоке *wpfOcDispatcher*. В большинстве случаев излишняя передача параметра *sourceDispatcher* не приведёт к потере работоспособности, разве что немного пострадает производительность.
+Перечисление коллекции-источника происходит также в случае если [коллекция-источник передана как обозреваемый аргумент](#передача-коллекции-источника-как-обозреваемого-аргумента) и изменила своё значение.
 Обратите внимание на необходимость вызова *_ocDispatcher.Dispose()*.
 Приведённый выше пример не является единственным вариантом проектирования. Вот ещё один вариант (XAML такой же как в предыдущем примере):
  ```csharp
@@ -3090,6 +3095,150 @@ namespace ObservableComputationsExample
 Класса *Dispatcher* имеет методы, которые Вы можете вызывать при необходимости
 * *Invoke* и *BeginInvoke* - для синхронного и асинхронного выполнения делегата в потоке экземпляра класса *Dispatcher*, например, для изменения исходных данных для вычислений выполняющихся в потоке экземпляра класса *Dispatcher*. После вызова метода *Dispose* данные методы возвращают управление без выполнения переданного делегата и без выброса исключения. 
 * *DoOthers* - в случае если делегат переданный в методы *Invoke* и *BeginInvoke* выполняется долго, при вызове *DoOthers* вызываются другие делегаты. Есть возможность задать максимальное количество делегатов, которые могут быть выполнены или приблизительное максимальное время их выполнения.
+
+### Варианты реализации интерфейса IDispatcher и других аналогичных интерфейсов
+До сих пор мы исползовали очень простую реализацию интерфейса *IDispatcher*. Например, такую:  
+```csharp
+public class WpfOcDispatcher : IDispatcher
+{
+   private Dispatcher _dispatcher;
+
+   public WpfOcDispatcher(System.Windows.Threading.Dispatcher dispatcher)
+   {
+      _dispatcher = dispatcher;
+   }
+
+   #region Implementation of IDispatcher
+
+   public void Invoke(Action action, IComputing computing)
+   {
+      _dispatcher.Invoke(action, DispatcherPriority.Background);
+   }
+
+   #endregion
+}
+```
+В этой реализации вызывается метод [System.Windows.Threading.Dispatcher.Invoke](https://docs.microsoft.com/en-us/dotnet/api/system.windows.threading.dispatcher.invoke?view=netcore-3.1). В других реализациях мы вызывали [System.Windows.Threading.Dispatcher.BeginInvoke]([System.Windows.Threading.Dispatcher.Invoke](https://docs.microsoft.com/en-us/dotnet/api/system.windows.threading.dispatcher.invoke?view=netcore-3.1)). На этом варианты реализации не ограничиваются, например, вы можете использвать реализацию, которая будет буферизировать вызовы c помощью [Reactive Extensions](https://github.com/dotnet/reactive):  
+```csharp
+public class WpfOcDispatcher : IDispatcher, IDisposable
+{
+	Subject<Action> _actions;
+
+	private Dispatcher _dispatcher;
+
+	public WpfOcDispatcher(Dispatcher dispatcher)
+	{
+		_dispatcher = dispatcher;
+
+		_actions = new Subject<Action>();
+		_actions.Buffer(TimeSpan.FromMilliseconds(300)).Subscribe(actions =>
+		{
+			foreach (var action in actions)
+			{
+				_dispatcher.Invoke(action, DispatcherPriority.Background);
+			}
+		});
+	}
+
+	#region Implementation of IDispatcher
+
+	public void Invoke(Action action, IComputing computing)
+	{
+		_actions.OnNext(action);
+	}
+
+	#endregion
+
+	#region Implementation of IDisposable
+
+	public void Dispose()
+	{
+		_actions.Dispose();
+	}
+
+	#endregion
+}
+```
+
+Требования ко всем реализациям такие:  
+* Должны быть вызваны все делегаты *action* переданные в метод *Invoke*.
+* Делегаты *action* переданные в метод *Invoke* должны быть вызваны  в тоже последовательности, в которой вызывался метод *Invoke*.
+
+Может возникнуть необходимость в реализации завясящей от того, какие измения прозводятся делегатом *action* переданным в метод *Invoke*. Для этого нужно использовать интерфейсы  
+
+```csharp
+	public interface ICollectionDestinationDispatcher
+	{
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="action"></param>
+		/// <param name="collectionDispatching"></param>
+		/// <param name="initializingFromSourceCollection"></param>
+		/// <param name="notifyCollectionChangedEventArgs">not null if source collection changes, null if initializing from source collection</param>
+		/// <param name="propertyChangedEventArgs">not null if source collection scalar Value property changes</param>
+		/// <param name="notifyCollectionChangedAction">collection change action in case of initializing from source collection (Add or Clear)</param>
+		/// <param name="newItem">inserting item in case of initializing from source collection and inserting item</param>
+		/// <param name="newItemIndex">inserting item index in case of initializing from source collection and inserting item</param>
+		void Invoke(
+			Action action, 
+			ICollectionComputing collectionDispatching,
+			bool initializingFromSourceCollection,
+			NotifyCollectionChangedEventArgs notifyCollectionChangedEventArgs,
+			PropertyChangedEventArgs propertyChangedEventArgs,
+			NotifyCollectionChangedAction notifyCollectionChangedAction,
+			object newItem,
+			int newItemIndex);
+	}
+
+
+	public interface IScalarDestinationDispatcher
+	{
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="action"></param>
+		/// <param name="scalarDispatching"></param>
+		/// <param name="propertyChangedEventArgs">not null in source scalar changes, null if initializing from source scalar</param>
+		void Invoke(
+			Action action, 
+			IScalarComputing scalarDispatching,
+			PropertyChangedEventArgs propertyChangedEventArgs);
+	}
+
+	public interface IPropertyDestinationDispatcher
+	{
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="action"></param>
+		/// <param name="propertyDispatching"></param>
+		/// <param name="propertyChangedEventArgs">not null in source property changes, null if initializing from source property</param>
+		void Invoke(
+			Action action, 
+			IComputing propertyDispatching,
+			PropertyChangedEventArgs propertyChangedEventArgs);
+	}
+
+
+	public interface IPropertySourceDispatcher
+	{
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="action"></param>
+		/// <param name="propertyDispatching"></param>
+		/// <param name="initializing">false if setting property value</param>
+		/// <param name="newValue">new value if setting property value</param>
+		void Invoke(
+			Action action, 
+			IComputing propertyDispatching,
+			bool initializing,
+			object newValue);
+	}
+```
+
+
 
 ### Запуск в консольном приложении
 Предыдущие примеры были примерами WPF приложения. Аналогичные примеры можно запустить и в консольном приложении. Это может понадобиться для Unit-тестов.

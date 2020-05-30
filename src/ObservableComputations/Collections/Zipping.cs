@@ -66,9 +66,8 @@ namespace ObservableComputations
 		private NotifyCollectionChangedEventHandler _rightSourceNotifyCollectionChangedEventHandler;
 		private WeakNotifyCollectionChangedEventHandler _rightSourceWeakNotifyCollectionChangedEventHandler;
 
-		private Action<ZipPair<TLeftSourceItem, TRightSourceItem>, TLeftSourceItem> _zipPairSetItemLeftAction;
-
-		private Action<ZipPair<TLeftSourceItem, TRightSourceItem>, TRightSourceItem> _zipPairSetItemRightAction;
+		internal Action<ZipPair<TLeftSourceItem, TRightSourceItem>, TLeftSourceItem> _zipPairSetItemLeftAction;
+		internal Action<ZipPair<TLeftSourceItem, TRightSourceItem>, TRightSourceItem> _zipPairSetItemRightAction;
 		private readonly IReadScalar<INotifyCollectionChanged> _leftSourceScalar;
 		private readonly IReadScalar<INotifyCollectionChanged> _rightSourceScalar;
 		private INotifyCollectionChanged _leftSource;
@@ -631,7 +630,7 @@ namespace ObservableComputations
 		{
 			get => _itemLeft;
 			// ReSharper disable once MemberCanBePrivate.Global
-			set => _zipping.ZipPairSetItemLeftAction(this, value);
+			set => _zipping._zipPairSetItemLeftAction(this, value);
 		}
 
 		private TRightSourceItem _itemRight;
@@ -639,7 +638,7 @@ namespace ObservableComputations
 		{
 			get => _itemRight;
 			// ReSharper disable once MemberCanBePrivate.Global
-			set =>  _zipping.ZipPairSetItemRightAction(this, value);
+			set =>  _zipping._zipPairSetItemRightAction(this, value);
 		}
 
 		internal void setItemLeft(TLeftSourceItem itemLeft)

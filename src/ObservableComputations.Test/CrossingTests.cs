@@ -80,7 +80,7 @@ namespace ObservableComputations.Test
 				trace(testNum = "1", count1, count2, index, indexOld, indexNew);
 				items1 = getObservableCollection(count1);
 				items2 = getObservableCollection(count2);
-				crossing = items1.Crossing(items2);
+				crossing = new Crossing<Item, Item>(items1, items2);
 				crossing.ValidateConsistency();
 
 				for (index = 0; index < count1; index++)
@@ -88,7 +88,7 @@ namespace ObservableComputations.Test
 					trace(testNum = "2", count1, count2, index, indexOld, indexNew);
 					items1 = getObservableCollection(count1);
 					items2 = getObservableCollection(count2);
-					crossing = items1.Crossing(items2);
+					crossing = new Crossing<Item, Item>(items1, items2);
 					items1.RemoveAt(index);
 					crossing.ValidateConsistency();
 				}
@@ -98,7 +98,7 @@ namespace ObservableComputations.Test
 					trace(testNum = "3", count1, count2, index, indexOld, indexNew);
 					items1 = getObservableCollection(count1);
 					items2 = getObservableCollection(count2);
-					crossing = items1.Crossing(items2);
+					crossing = new Crossing<Item, Item>(items1, items2);
 					items2.RemoveAt(index);
 					crossing.ValidateConsistency();
 				}
@@ -108,7 +108,7 @@ namespace ObservableComputations.Test
 					trace(testNum = "4", count1, count2, index, indexOld, indexNew);
 					items1 = getObservableCollection(count1);
 					items2 = getObservableCollection(count2);
-					crossing = items1.Crossing(items2);
+					crossing = new Crossing<Item, Item>(items1, items2);
 					items1.Insert(index, new Item());
 					crossing.ValidateConsistency();
 				}
@@ -118,7 +118,7 @@ namespace ObservableComputations.Test
 					trace(testNum = "5", count1, count2, index, indexOld, indexNew);
 					items1 = getObservableCollection(count1);
 					items2 = getObservableCollection(count2);
-					crossing = items1.Crossing(items2);
+					crossing = new Crossing<Item, Item>(items1, items2);
 					items2.Insert(index, new Item());
 					crossing.ValidateConsistency();
 				}
@@ -128,7 +128,7 @@ namespace ObservableComputations.Test
 					trace(testNum = "6", count1, count2, index, indexOld, indexNew);
 					items1 = getObservableCollection(count1);
 					items2 = getObservableCollection(count2);
-					crossing = items1.Crossing(items2);
+					crossing = new Crossing<Item, Item>(items1, items2);
 					items1[index] = new Item();
 					crossing.ValidateConsistency();
 				}
@@ -138,7 +138,7 @@ namespace ObservableComputations.Test
 					trace(testNum = "7", count1, count2, index, indexOld, indexNew);
 					items1 = getObservableCollection(count1);
 					items2 = getObservableCollection(count2);
-					crossing = items1.Crossing(items2);
+					crossing = new Crossing<Item, Item>(items1, items2);
 					items2[index] = new Item();
 					crossing.ValidateConsistency();
 				}
@@ -150,7 +150,7 @@ namespace ObservableComputations.Test
 						trace(testNum = "8", count1, count2, index, indexOld, indexNew);
 						items1 = getObservableCollection(count1);
 						items2 = getObservableCollection(count2);
-						crossing = items1.Crossing(items2);
+						crossing = new Crossing<Item, Item>(items1, items2);
 						items1.Move(indexOld, indexNew);
 						crossing.ValidateConsistency();
 					}
@@ -163,7 +163,7 @@ namespace ObservableComputations.Test
 						trace(testNum = "9", count1, count2, index, indexOld, indexNew);
 						items1 = getObservableCollection(count1);
 						items2 = getObservableCollection(count2);
-						crossing = items1.Crossing(items2);
+						crossing = new Crossing<Item, Item>(items1, items2);
 						items2.Move(indexOld, indexNew);
 						crossing.ValidateConsistency();
 					}

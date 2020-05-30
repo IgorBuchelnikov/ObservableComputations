@@ -92,36 +92,28 @@ namespace ObservableComputations
 			IReadScalar<INotifyCollectionChanged> source1,
 			IReadScalar<INotifyCollectionChanged> source2)
 		{
-			return 
-				source1
-				.Crossing<TOuterSourceItem, TInnerSourceItem>(source2);
+			return new Crossing<TOuterSourceItem, TInnerSourceItem>(source1, source2);
 		}
 
 		private static INotifyCollectionChanged getSource(
 			INotifyCollectionChanged source1,
 			IReadScalar<INotifyCollectionChanged> source2)
 		{
-			return 
-				source1
-				.Crossing<TOuterSourceItem, TInnerSourceItem>(source2);
+			return new Crossing<TOuterSourceItem, TInnerSourceItem>(source1, source2);
 		}
 
 		private static INotifyCollectionChanged getSource(
 			IReadScalar<INotifyCollectionChanged> source1,
 			INotifyCollectionChanged source2)
 		{
-			return 
-				source1
-				.Crossing<TOuterSourceItem, TInnerSourceItem>(source2);
+			return new Crossing<TOuterSourceItem, TInnerSourceItem>(source1, source2);
 		}
 
 		private static INotifyCollectionChanged getSource(
 			INotifyCollectionChanged source1,
 			INotifyCollectionChanged source2)
 		{
-			return 
-				source1
-				.Crossing<TOuterSourceItem, TInnerSourceItem>(source2);
+			return new Crossing<TOuterSourceItem, TInnerSourceItem>(source1, source2);
 		}
 
 		private static Expression<Func<JoinPair<TOuterSourceItem, TInnerSourceItem>, bool>> getJoinPairPredicateExpression(Expression<Func<TOuterSourceItem, TInnerSourceItem, bool>> joinPredicateExpression)
@@ -219,7 +211,6 @@ namespace ObservableComputations
 		{
 			_outerItem = outerItem;
 			_innerItem = innerItem;
-
 		}
 
 		internal void setInnerItem(TInnerSourceItem innerSourceItem)

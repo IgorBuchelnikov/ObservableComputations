@@ -1053,7 +1053,7 @@ ContainsComputing<Person> isLoggedInPersonHockeyPlayer =
 Of course, you can use more complex expression than "*() => hockeyTeamManager.HockeyTeamInterested* for passing as an argument to any ObservableComputations extension method.  
 
 ### Non-observable and observable arguments in nested calls
-We continue to consider the example from the [previous section](#Passing-source-collection-argument-as-observable). We used following code to track changes in  *hockeyTeamManager.HockeyTeamInterested*:
+We continue to consider the example from the [previous section](#passing-source-collection-argument-as-observable). We used following code to track changes in  *hockeyTeamManager.HockeyTeamInterested*:
 ```csharp
 new Computing<ObservableCollection<Person>>(
     () => hockeyTeamManager.HockeyTeamInterested)
@@ -1242,7 +1242,7 @@ Properties similar to *InsertItemAction* exist for all other operations:
 
 Properties of the computation change request handlers are public. By default, any code that has a reference to the computation can set or overwrite the value of this property. It is possible to control the ability to set the values of these properties using 
 
-* methods of [*CollectionComputing&lt;TItem&gt;*](#full-list-of-operators):
+* methods of [*CollectionComputing&lt;TSourceItem&gt;*](#full-list-of-operators):
   * void LockModifyChangeAction(CollectionChangeAction collectionChangeAction, object key)
   * void UnlockModifyChangeAction(CollectionChangeAction collectionChangeAction, object key)
   * bool IsModifyChangeActionLocked(CollectionChangeAction collectionChangeAction)
@@ -1250,6 +1250,10 @@ Properties of the computation change request handlers are public. By default, an
   * void LockModifySetValueAction(object key)
   * void UnlockModifySetValueAction(object key)
   * bool IsModifySetValueActionLocked()
+* methods of [*Grouping&lt;TSourceItem, TKeygt;*](#full-list-of-operators):
+  * void LockModifyGroupChangeAction(CollectionChangeAction collectionChangeAction, object key)
+  * void UnlockModifyGroupChangeAction(CollectionChangeAction collectionChangeAction, object key)
+  * bool IsModifyGroupChangeActionLocked(CollectionChangeAction collectionChangeAction) 
 * methods of *Dictionaring* и *ConcurentDictionaring*:
   * void LockModifyChangeAction(DictionaryChangeAction dictionaryChangeAction, object key)
   * void UnlockModifyChangeAction(DictionaryChangeAction dictionaryChangeAction, object key)

@@ -40,14 +40,10 @@ namespace ObservableComputations.Test
 		[Test, Combinatorial]
 		public void Paging_Deep()
 		{
-			long counter = 0;
-			Stopwatch stopwatch = Stopwatch.StartNew();
-
-			for (int count = 0; count < 8; count++)
+			for (int count = 0; count < 10; count++)
 			{
 				test(count);
-			}
-			
+			}		
 		}
 
 		private void test(int count)
@@ -135,7 +131,7 @@ namespace ObservableComputations.Test
 		{
 			string traceString = getTraceString(num, count, index, indexOld, indexNew, pageSize, currentPage);
 
-			if (traceString == "#7.   count=3    index=3  indexOld=0   indexNew=1    pageSize=2   currentPage=2")
+			if (traceString == "#3.   count=4    index=4  indexOld=4   indexNew=4    pageSize=3   currentPage=2")
 			{
 				
 			}

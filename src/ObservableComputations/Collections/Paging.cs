@@ -89,10 +89,11 @@ namespace ObservableComputations
 				}
 
 				int count = Count;
+				int removingIndex = index;
 
 				for (; index < count; index++)
 				{
-					baseRemoveItem(index);
+					baseRemoveItem(removingIndex);
 				}
 
 				_isConsistent = true;
@@ -218,10 +219,11 @@ namespace ObservableComputations
 				int count = _sourceAsList.Count;
 
 				_pageCount = (int) Math.Ceiling(count  / (double) _pageSize);
+				bool currentPageChanged = false;
 				if (_currentPage > _pageCount)
 				{
 					_currentPage = _pageCount;
-					OnPropertyChanged(Utils.CurrentPagePropertyChangedEventArgs);
+					currentPageChanged = true;
 				}
 
 				_lowerIndex = _pageSize * (_currentPage - 1);
@@ -237,6 +239,8 @@ namespace ObservableComputations
 				_sourceWeakNotifyCollectionChangedEventHandler =
 					new WeakNotifyCollectionChangedEventHandler(_sourceNotifyCollectionChangedEventHandler);
 				_source.CollectionChanged += _sourceWeakNotifyCollectionChangedEventHandler.Handle;
+
+				if (currentPageChanged) OnPropertyChanged(Utils.CurrentPagePropertyChangedEventArgs);
 			}
 			else
 			{
@@ -377,8 +381,17 @@ namespace ObservableComputations
 						         && (newStartingIndex1 >= _lowerIndex && newStartingIndex1 < _upperIndex))
 						{
 							_isConsistent = false;
-							baseInsertItem(newStartingIndex1 - _lowerIndex, (TSourceItem) e.NewItems[0]);
-							if (Count > _pageSize) baseRemoveItem(_pageSize);
+							if (oldStartingIndex1 < _lowerIndex)
+							{
+								baseRemoveItem(0);
+								baseInsertItem(newStartingIndex1 - _lowerIndex, (TSourceItem) e.NewItems[0]);
+							}
+							else
+							{
+								baseInsertItem(newStartingIndex1 - _lowerIndex, (TSourceItem) e.NewItems[0]);
+								baseRemoveItem(Count - 1);								
+							}
+
 							_isConsistent = true;
 							raiseConsistencyRestored();
 						}
@@ -397,8 +410,8 @@ namespace ObservableComputations
 							_isConsistent = true;
 							raiseConsistencyRestored();
 						}
-						else if ((newStartingIndex1 < _lowerIndex || newStartingIndex1 >= _upperIndex)
-						         && (oldStartingIndex1 < _lowerIndex || oldStartingIndex1 >= _upperIndex))
+						else if ((newStartingIndex1 < _lowerIndex && oldStartingIndex1 >= _upperIndex)
+						         || (oldStartingIndex1 < _lowerIndex && newStartingIndex1 >= _upperIndex))
 						{
 							_isConsistent = false;
 

@@ -14,6 +14,8 @@ namespace ObservableComputations
 		public Expression<Func<TResult>>  PropertyExpression => _propertyExpression;
 		public IDispatcher SourceDispatcher => _sourceDispatcher;
 		public IDispatcher DestinationDispatcher => _destinationDispatcher;
+		public IPropertyDestinationDispatcher PropertyDestinationDispatcher => _propertyDestinationDispatcher;
+		public IPropertySourceDispatcher PropertySourceDispatcher => _propertySourceDispatcher;
 
 		private static ConcurrentDictionary<PropertyInfo, PropertyAccessors>
 			_propertyAccessors =
@@ -28,6 +30,8 @@ namespace ObservableComputations
 
 		private IDispatcher _sourceDispatcher;
 		private IDispatcher _destinationDispatcher;
+		private IPropertyDestinationDispatcher _propertyDestinationDispatcher;
+		private IPropertySourceDispatcher _propertySourceDispatcher;
 
 		private Action<THolder, TResult> _setter;
 		private Func<THolder, TResult> _getter;
@@ -43,11 +47,52 @@ namespace ObservableComputations
 			_sourceDispatcher = sourceDispatcher;
 			_destinationDispatcher = destinationDispatcher;
 
+			initialize(propertyExpression);
+		}
+
+		[ObservableComputationsCall]
+		public PropertyDispatching(
+			Expression<Func<TResult>> propertyExpression,
+			IPropertyDestinationDispatcher destinationDispatcher,
+			IPropertySourceDispatcher sourceDispatcher = null)
+		{
+			_propertyDestinationDispatcher = destinationDispatcher;
+			_propertySourceDispatcher = sourceDispatcher;
+
+			initialize(propertyExpression);
+		}
+
+		[ObservableComputationsCall]
+		public PropertyDispatching(
+			Expression<Func<TResult>> propertyExpression,
+			IPropertyDestinationDispatcher destinationDispatcher,
+			IDispatcher sourceDispatcher = null)
+		{
+			_propertyDestinationDispatcher = destinationDispatcher;
+			_sourceDispatcher = sourceDispatcher;
+
+			initialize(propertyExpression);
+		}
+
+		[ObservableComputationsCall]
+		public PropertyDispatching(
+			Expression<Func<TResult>> propertyExpression,
+			IDispatcher destinationDispatcher,
+			IPropertySourceDispatcher sourceDispatcher = null)
+		{
+			_propertySourceDispatcher = sourceDispatcher;
+			_destinationDispatcher = destinationDispatcher;
+
+			initialize(propertyExpression);
+		}
+
+		private void initialize(Expression<Func<TResult>> propertyExpression)
+		{
 			_propertyExpression = propertyExpression;
 
-			MemberExpression memberExpression = (MemberExpression) propertyExpression.Body;	
-			
-			PropertyInfo propertyInfo = (PropertyInfo)((MemberExpression) propertyExpression.Body).Member;
+			MemberExpression memberExpression = (MemberExpression) propertyExpression.Body;
+
+			PropertyInfo propertyInfo = (PropertyInfo) ((MemberExpression) propertyExpression.Body).Member;
 			PropertyAccessors propertyAcessors;
 
 			if (!_propertyAccessors.TryGetValue(propertyInfo, out propertyAcessors))
@@ -55,11 +100,11 @@ namespace ObservableComputations
 				ParameterExpression valueParameterExpression = Expression.Parameter(typeof(TResult));
 				ParameterExpression holderParameterExpression = Expression.Parameter(typeof(THolder));
 				var setter = Expression.Lambda<Action<THolder, TResult>>(
-					Expression.Assign(Expression.Property(holderParameterExpression, propertyInfo), valueParameterExpression), 
+					Expression.Assign(Expression.Property(holderParameterExpression, propertyInfo), valueParameterExpression),
 					holderParameterExpression, valueParameterExpression).Compile();
 
 				var getter = Expression.Lambda<Func<THolder, TResult>>(
-					Expression.Property(holderParameterExpression, propertyInfo), 
+					Expression.Property(holderParameterExpression, propertyInfo),
 					holderParameterExpression).Compile();
 
 				propertyAcessors = new PropertyAccessors(getter, setter);
@@ -87,12 +132,14 @@ namespace ObservableComputations
 
 				_propertyHolder.PropertyChanged += _propertyHolderWeakPropertyChangedEventHandler.Handle;
 
-				_destinationDispatcher.Invoke(raiseValuePropertyChanged, this);
+				if (_destinationDispatcher != null) _destinationDispatcher.Invoke(raiseValuePropertyChanged, this);
+				else _propertyDestinationDispatcher.Invoke(raiseValuePropertyChanged, this, null);
 			}
 
 			if (_sourceDispatcher != null)
 			{
-				_sourceDispatcher.Invoke(readAndSubscribe, this);
+				if (_sourceDispatcher != null) _sourceDispatcher.Invoke(readAndSubscribe, this);
+				else _propertySourceDispatcher.Invoke(readAndSubscribe, this, true, null);
 			}
 			else
 			{
@@ -101,7 +148,6 @@ namespace ObservableComputations
 
 			if (Configuration.SaveInstantiatingStackTrace)
 				_instantiatingStackTrace = Environment.StackTrace;
-
 		}
 
 		private void handlePropertyHolderPropertyChanged(object sender, PropertyChangedEventArgs e)
@@ -113,7 +159,8 @@ namespace ObservableComputations
 				PropertyChanged?.Invoke(this, Utils.ValuePropertyChangedEventArgs);
 			}
 
-			_destinationDispatcher.Invoke(raiseValuePropertyChanged, this);	
+			if (_destinationDispatcher != null) _destinationDispatcher.Invoke(raiseValuePropertyChanged, this);
+			else _propertyDestinationDispatcher.Invoke(raiseValuePropertyChanged, this, e);
 		}
 
 		private void getValue()
@@ -177,7 +224,8 @@ namespace ObservableComputations
 
 				}
 
-				_sourceDispatcher.Invoke(set, this);
+				if (_sourceDispatcher != null) _sourceDispatcher.Invoke(set, this);
+				else _propertySourceDispatcher.Invoke(set, this, false, value);
 			}
 		}
 

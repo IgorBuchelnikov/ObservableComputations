@@ -30,6 +30,10 @@ namespace ObservableComputations
 		private void handleScalarPropertyChanged(object sender, PropertyChangedEventArgs e)
 		{
 			if (e.PropertyName != nameof(IReadScalar<TResult>.Value)) return;
+
+			_processingEventSender = sender;
+			_processingEventArgs = e;
+
 			TResult newValue = _scalar.Value;
 			_previousValue = _value;
 			_isConsistent = false;
@@ -43,6 +47,9 @@ namespace ObservableComputations
 			raisePropertyChanged(Utils.PreviousValuePropertyChangedEventArgs);
 			setValue(newValue);
 			raiseConsistencyRestored();
+
+			_processingEventSender = null;
+			_processingEventArgs = null;
 		}
 
 		~PreviousTracking()

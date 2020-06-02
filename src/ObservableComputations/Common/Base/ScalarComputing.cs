@@ -30,6 +30,11 @@ namespace ObservableComputations
 
 		public event EventHandler PreValueChanged;
 
+		internal object _processingEventSender;
+		internal EventArgs _processingEventArgs;
+		public object ProcessingEventSender => _processingEventSender;
+		public EventArgs ProcessingEventArgs => _processingEventArgs;
+
 		#region Implementation of IScalar<TSourceItem>
 		public TValue Value
 		{

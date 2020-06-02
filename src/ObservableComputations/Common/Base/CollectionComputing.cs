@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
+using System.ComponentModel;
 using System.Threading;
 
 namespace ObservableComputations
@@ -448,8 +449,15 @@ namespace ObservableComputations
 		internal IComputing _userCodeIsCalledFrom;
 		public IComputing UserCodeIsCalledFrom => _userCodeIsCalledFrom;
 
+		internal object _processingEventSender;
+		internal EventArgs _processingEventArgs;
+		public object ProcessingEventSender => _processingEventSender;
+		public EventArgs ProcessingEventArgs => _processingEventArgs;
+
 		protected bool _isConsistent = true;
 		private readonly string _instantiatingStackTrace;
+
+
 		public bool IsConsistent => _isConsistent;
 		public event EventHandler ConsistencyRestored;
 

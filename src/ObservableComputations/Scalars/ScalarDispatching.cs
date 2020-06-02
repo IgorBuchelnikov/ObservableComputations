@@ -71,12 +71,19 @@ namespace ObservableComputations
 		{
 			if (e.PropertyName != nameof(IReadScalar<TResult>.Value)) return;
 
+			_processingEventSender = sender;
+			_processingEventArgs = e;
+
+
 			TResult newValue = _scalar.Value;
 
 			void setNewValue() => setValue(newValue);
 
 			if (_destinationDispatcher != null) _destinationDispatcher.Invoke(setNewValue, this);
 			else _scalarDestinationDispatcher.Invoke(setNewValue, this, e);
+
+			_processingEventSender = null;
+			_processingEventArgs = null;
 		}
 
 		~ScalarDispatching()

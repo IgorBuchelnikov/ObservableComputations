@@ -44,6 +44,11 @@ namespace ObservableComputations
 		public string DebugTag { get; set; }
 		public object Tag { get; set; }
 
+		internal object _processingEventSender;
+		internal EventArgs _processingEventArgs;
+		public object ProcessingEventSender => _processingEventSender;
+		public EventArgs ProcessingEventArgs => _processingEventArgs;
+
 		private ConcurrentDictionary<TKey, TValue> _dictionary;
 
 		public bool IsConsistent => _isConsistent;
@@ -359,11 +364,18 @@ namespace ObservableComputations
 		{
 			if (e.PropertyName != nameof(IReadScalar<object>.Value)) return;
 			checkConsistent();
+
+			_processingEventSender = sender;
+			_processingEventArgs = e;
+
 			_equalityComparer = _equalityComparerScalar.Value ?? EqualityComparer<TKey>.Default;
 			_isConsistent = false;
 			initializeFromSource();
 			_isConsistent = true;
 			ConsistencyRestored?.Invoke(this, null);
+
+			_processingEventSender = null;
+			_processingEventArgs = null;
 		}
 
 		private void initializeFromSource()
@@ -516,8 +528,11 @@ namespace ObservableComputations
 		private void handleSourceCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
 		{
 			checkConsistent();
-
 			if (!_rootSourceWrapper && _lastProcessedSourceChangeMarker == _sourceAsList.ChangeMarkerField) return;
+			
+			_processingEventSender = sender;
+			_processingEventArgs = e;
+
 			_lastProcessedSourceChangeMarker = !_lastProcessedSourceChangeMarker;
 
 			TKey key;
@@ -600,22 +615,38 @@ namespace ObservableComputations
 					if (!expressionWatcher._disposed)
 						processValueExpressionWatcherValueChanged(expressionWatcher);
 				}
+
 			_isConsistent = true;
 			ConsistencyRestored?.Invoke(this, null);
+
+			_processingEventSender = null;
+			_processingEventArgs = null;
 		}
 
 		private void handleSourceScalarValueChanged(object sender,  PropertyChangedEventArgs e)
 		{
 			if (e.PropertyName != nameof(IReadScalar<INotifyCollectionChanged>.Value)) return;
 			checkConsistent();
+
+			_processingEventSender = sender;
+			_processingEventArgs = e;
+
 			_isConsistent = false;
 			initializeFromSource();
 			_isConsistent = true;
 			ConsistencyRestored?.Invoke(this, null);
+
+			_processingEventSender = null;
+			_processingEventArgs = null;
 		}
 
-		private void keyExpressionWatcher_OnValueChanged(ExpressionWatcher expressionWatcher)
+		private void keyExpressionWatcher_OnValueChanged(ExpressionWatcher expressionWatcher, object sender, EventArgs eventArgs)
 		{
+			checkConsistent();
+
+			_processingEventSender = sender;
+			_processingEventArgs = eventArgs;
+
 			if (_rootSourceWrapper || _sourceAsList.ChangeMarkerField ==_lastProcessedSourceChangeMarker)
 			{
 				_isConsistent = false;
@@ -627,11 +658,18 @@ namespace ObservableComputations
 			{
 				(_deferredKeyExpressionWatcherChangedProcessings = _deferredKeyExpressionWatcherChangedProcessings ??  new Queue<ExpressionWatcher>()).Enqueue(expressionWatcher);
 			}
+
+			_processingEventSender = null;
+			_processingEventArgs = null;
 		}
 
-		private void valueExpressionWatcher_OnValueChanged(ExpressionWatcher expressionWatcher)
+		private void valueExpressionWatcher_OnValueChanged(ExpressionWatcher expressionWatcher, object sender, EventArgs eventArgs)
 		{
 			checkConsistent();
+
+			_processingEventSender = sender;
+			_processingEventArgs = eventArgs;
+
 			if (_rootSourceWrapper || _sourceAsList.ChangeMarkerField ==_lastProcessedSourceChangeMarker)
 			{
 				_isConsistent = false;
@@ -643,6 +681,9 @@ namespace ObservableComputations
 			{
 				(_deferredValueExpressionWatcherChangedProcessings = _deferredValueExpressionWatcherChangedProcessings ??  new Queue<ExpressionWatcher>()).Enqueue(expressionWatcher);
 			}
+
+			_processingEventSender = null;
+			_processingEventArgs = null;
 		}
 
 		private void processKeyExpressionWatcherValueChanged(ExpressionWatcher expressionWatcher)

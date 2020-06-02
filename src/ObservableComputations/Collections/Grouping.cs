@@ -322,27 +322,45 @@ namespace ObservableComputations
 		{
 			if (e.PropertyName != nameof(IReadScalar<object>.Value)) return;
 			checkConsistent();
+
+			_processingEventSender = sender;
+			_processingEventArgs = e;
+
 			_equalityComparer = _equalityComparerScalar.Value ?? EqualityComparer<TKey>.Default;
 			_isConsistent = false;
 			initializeFromSource();
 			_isConsistent = true;
 			raiseConsistencyRestored();
+
+			_processingEventSender = null;
+			_processingEventArgs = null;
 		}
 
 		private void handleSourceScalarValueChanged(object sender, PropertyChangedEventArgs e)
 		{
 			if (e.PropertyName != nameof(IReadScalar<object>.Value)) return;
 			checkConsistent();
+
+			_processingEventSender = sender;
+			_processingEventArgs = e;
+
 			_isConsistent = false;
 			initializeFromSource();
 			_isConsistent = true;
 			raiseConsistencyRestored();
+
+			_processingEventSender = null;
+			_processingEventArgs = null;
 		}
 
 		private void handleSourceCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
 		{
 			checkConsistent();
 			if (!_rootSourceWrapper && _lastProcessedSourceChangeMarker == _sourceAsList.ChangeMarkerField) return;
+
+			_processingEventSender = sender;
+			_processingEventArgs = e;
+
 			_lastProcessedSourceChangeMarker = !_lastProcessedSourceChangeMarker;
 
 			_isConsistent = false;
@@ -484,11 +502,17 @@ namespace ObservableComputations
 
 			_isConsistent = true;
 			raiseConsistencyRestored();
+
+			_processingEventSender = sender;
+			_processingEventArgs = e;
 		}
 
-		private void expressionWatcher_OnValueChanged(ExpressionWatcher expressionWatcher)
+		private void expressionWatcher_OnValueChanged(ExpressionWatcher expressionWatcher, object sender, EventArgs eventArgs)
 		{
 			checkConsistent();
+
+			_processingEventSender = sender;
+			_processingEventArgs = eventArgs;
 
 			if (_rootSourceWrapper || _sourceAsList.ChangeMarkerField ==_lastProcessedSourceChangeMarker)
 			{
@@ -501,6 +525,9 @@ namespace ObservableComputations
 			{
 				(_deferredExpressionWatcherChangedProcessings = _deferredExpressionWatcherChangedProcessings ??  new Queue<ExpressionWatcher>()).Enqueue(expressionWatcher);
 			}
+
+			_processingEventSender = null;
+			_processingEventArgs = null;
 		}
 
 		private void initializeFromSource()

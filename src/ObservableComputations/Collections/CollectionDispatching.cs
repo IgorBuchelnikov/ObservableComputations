@@ -110,7 +110,14 @@ namespace ObservableComputations
 		private void handleSourceScalarValueChanged(object sender, PropertyChangedEventArgs e)
 		{
 			if (e.PropertyName != nameof(IReadScalar<object>.Value)) return;
+
+			_processingEventSender = sender;
+			_processingEventArgs = e;
+
 			initializeFromSource(null, e);
+
+			_processingEventSender = null;
+			_processingEventArgs = null;
 		}
 
 		private void initializeFromSource()
@@ -125,7 +132,7 @@ namespace ObservableComputations
 			if (_sourceNotifyCollectionChangedEventHandler != null)
 			{
 				if (_destinationDispatcher != null) _destinationDispatcher.Invoke(baseClearItems, this);
-				else _collectionDestinationDispatcher.Invoke(baseClearItems, this, true, notifyCollectionChangedEventArgs, propertyChangedEventArgs, NotifyCollectionChangedAction.Reset, null, 0);
+				else _collectionDestinationDispatcher.Invoke(baseClearItems, this, notifyCollectionChangedEventArgs, propertyChangedEventArgs, true);
 				
 				_source.CollectionChanged -= _sourceWeakNotifyCollectionChangedEventHandler.Handle;
 				_sourceNotifyCollectionChangedEventHandler = null;
@@ -180,7 +187,7 @@ namespace ObservableComputations
 					void insertItem() => baseInsertItem(indexCopy, sourceItem);
 
 					if (_destinationDispatcher != null) _destinationDispatcher.Invoke(insertItem, this);
-					else _collectionDestinationDispatcher.Invoke(insertItem, this, true, notifyCollectionChangedEventArgs, propertyChangedEventArgs, NotifyCollectionChangedAction.Add, sourceItem, indexCopy);
+					else _collectionDestinationDispatcher.Invoke(insertItem, this, notifyCollectionChangedEventArgs, propertyChangedEventArgs, true);
 
 				}
 
@@ -193,6 +200,9 @@ namespace ObservableComputations
 
 		private void handleSourceCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
 		{
+			_processingEventSender = sender;
+			_processingEventArgs = e;
+
 			if (_indexerPropertyChangedEventRaised || _lastProcessedSourceChangeMarker != _sourceAsIHasChangeMarker.ChangeMarker)
 			{
 				_lastProcessedSourceChangeMarker = !_lastProcessedSourceChangeMarker;
@@ -253,6 +263,9 @@ namespace ObservableComputations
 						break;
 				}
 			}
+
+			_processingEventSender = null;
+			_processingEventArgs = null;
 		}
 
 		~CollectionDispatching()

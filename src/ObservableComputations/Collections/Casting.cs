@@ -121,22 +121,32 @@ namespace ObservableComputations
 		{
 			if (e.PropertyName != nameof(IReadScalar<INotifyCollectionChanged>.Value)) return;
 			checkConsistent();
+
+			_processingEventSender = sender;
+			_processingEventArgs = e;
+
 			_isConsistent = false;
 
 			initializeFromSource();
 
 			_isConsistent = true;
 			raiseConsistencyRestored();
+
+			_processingEventSender = null;
+			_processingEventArgs = null;
 		}
 
 		private void handleSourceCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
 		{
 			checkConsistent();
+
+			_processingEventSender = sender;
+			_processingEventArgs = e;
+
 			if (_indexerPropertyChangedEventRaised || _lastProcessedSourceChangeMarker != _sourceAsIHasChangeMarker.ChangeMarker)
 			{
 				_lastProcessedSourceChangeMarker = !_lastProcessedSourceChangeMarker;
 				_indexerPropertyChangedEventRaised = false;
-
 
 				_isConsistent = false;
 
@@ -173,6 +183,8 @@ namespace ObservableComputations
 				raiseConsistencyRestored();
 			}
 
+			_processingEventSender = null;
+			_processingEventArgs = null;
 		}
 
 		~Casting()

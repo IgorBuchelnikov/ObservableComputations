@@ -179,12 +179,19 @@ namespace ObservableComputations
 			if (e.PropertyName != nameof(IReadScalar<INotifyCollectionChanged>.Value))
 				return;
 			checkConsistent();
+
+			_processingEventSender = sender;
+			_processingEventArgs = e;
+
 			_isConsistent = false;
 
 			initializeFromSource();
 
 			_isConsistent = true;
 			raiseConsistencyRestored();
+
+			_processingEventSender = null;
+			_processingEventArgs = null;
 		}
 
 
@@ -192,6 +199,10 @@ namespace ObservableComputations
 		{
 			checkConsistent();
 			if (!_rootSourceWrapper && _lastProcessedSourceChangeMarker == _sourceAsList.ChangeMarkerField) return;
+
+			_processingEventSender = sender;
+			_processingEventArgs = e;
+
 			_lastProcessedSourceChangeMarker = !_lastProcessedSourceChangeMarker;
 
 			ItemInfo itemInfo;
@@ -250,11 +261,17 @@ namespace ObservableComputations
 
 			_isConsistent = true;
 			raiseConsistencyRestored();
+
+			_processingEventSender = null;
+			_processingEventArgs = null;
 		}
 
-		private void expressionWatcher_OnValueChanged(ExpressionWatcher expressionWatcher)
+		private void expressionWatcher_OnValueChanged(ExpressionWatcher expressionWatcher, object sender, EventArgs eventArgs)
 		{
 			checkConsistent();
+
+			_processingEventSender = sender;
+			_processingEventArgs = eventArgs;
 
 			if (_rootSourceWrapper || _sourceAsList.ChangeMarkerField == _lastProcessedSourceChangeMarker)
 			{
@@ -267,6 +284,9 @@ namespace ObservableComputations
 			{
 				(_deferredExpressionWatcherChangedProcessings = _deferredExpressionWatcherChangedProcessings ??  new Queue<ExpressionWatcher>()).Enqueue(expressionWatcher);
 			}
+
+			_processingEventSender = null;
+			_processingEventArgs = null;
 		}
 
 		private ItemInfo registerSourceItem(TSourceItem sourceItem, int index, ItemInfo itemInfo = null)

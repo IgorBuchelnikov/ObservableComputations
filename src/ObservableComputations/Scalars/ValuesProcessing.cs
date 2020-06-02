@@ -42,7 +42,14 @@ namespace ObservableComputations
 		private void handleScalarPropertyChanged(object sender, PropertyChangedEventArgs e)
 		{
 			if (e.PropertyName != nameof(IReadScalar<TValue>.Value)) return;
+
+			_processingEventSender = sender;
+			_processingEventArgs = e;
+
 			setValue(processNewValue(_scalar.Value, _scalar, e));
+
+			_processingEventSender = null;
+			_processingEventArgs = null;
 		}
 
 		private TReturnValue processNewValue(TValue newValue, IReadScalar<TValue> sender, EventArgs eventArgs)

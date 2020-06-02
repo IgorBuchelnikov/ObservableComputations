@@ -314,17 +314,28 @@ namespace ObservableComputations
 		{
 			if (e.PropertyName != nameof(IReadScalar<INotifyCollectionChanged>.Value)) return;
 			checkConsistent();
+
+			_processingEventSender = sender;
+			_processingEventArgs = e;
+
 			_isConsistent = false;
 
 			initializeFromSources();
 
 			_isConsistent = true;
 			raiseConsistencyRestored();
+
+			_processingEventSender = null;
+			_processingEventArgs = null;
 		}
 
 		private void handleSourceCollectionChanged(object sender, NotifyCollectionChangedEventArgs e, ItemInfo itemInfo)
 		{
 			checkConsistent();
+
+			_processingEventSender = sender;
+			_processingEventArgs = e;
+
 			if (itemInfo.IndexerPropertyChangedEventRaised || itemInfo.SourceAsIHasChangeMarker != null && itemInfo.LastProcessedSourceChangeMarker != itemInfo.SourceAsIHasChangeMarker.ChangeMarker)
 			{
 				itemInfo.IndexerPropertyChangedEventRaised = false;
@@ -371,11 +382,18 @@ namespace ObservableComputations
 				raiseConsistencyRestored();
 			}
 
+			_processingEventSender = null;
+			_processingEventArgs = null;
+
 		}
 
 		private void handleSourcesCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
 		{
 			checkConsistent();
+
+			_processingEventSender = sender;
+			_processingEventArgs = e;			_
+
 			if (_indexerPropertyChangedEventRaised || _lastProcessedSourcesChangeMarker != _sourcesAsIHasChangeMarker.ChangeMarker)
 			{
 				_lastProcessedSourcesChangeMarker = !_lastProcessedSourcesChangeMarker;
@@ -488,6 +506,8 @@ namespace ObservableComputations
 				raiseConsistencyRestored();
 			}
 
+			_processingEventSender = null;
+			_processingEventArgs = null;
 		}
 
 		private void replaceItem(IList newItem, ItemInfo itemInfo)

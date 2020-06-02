@@ -318,17 +318,29 @@ namespace ObservableComputations
 		{
 			if (e.PropertyName != nameof(IReadScalar<INotifyCollectionChanged>.Value)) return;
 			checkConsistent();
+
+			_processingEventSender = sender;
+			_processingEventArgs = e;
+
 			_isConsistent = false;
 
 			initializeFromSources();
 
 			_isConsistent = true;
 			raiseConsistencyRestored();
+
+			_processingEventSender = null;
+			_processingEventArgs = null;
 		}
 
 		private void handleLeftSourceCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
 		{
 			checkConsistent();
+
+			_processingEventSender = sender;
+			_processingEventArgs = e;
+
+
 			if (_leftSourceIndexerPropertyChangedEventRaised || _leftSourceAsObservableCollectionWithChangeMarker != null && _lastProcessedLeftSourceChangeMarker != _leftSourceAsObservableCollectionWithChangeMarker.ChangeMarkerField)
 			{
 				_leftSourceIndexerPropertyChangedEventRaised = false;
@@ -449,11 +461,18 @@ namespace ObservableComputations
 				_isConsistent = true;
 				raiseConsistencyRestored();
 			}
+
+			_processingEventSender = null;
+			_processingEventArgs = null;
 		}
 
 		private void handleRightSourceCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
 		{
 			checkConsistent();
+
+			_processingEventSender = sender;
+			_processingEventArgs = e;
+
 			if (_rigthtSourceIndexerPropertyChangedEventRaised || _rightSourceAsObservableCollectionWithChangeMarker != null && _lastProcessedRightSourceChangeMarker != _rightSourceAsObservableCollectionWithChangeMarker.ChangeMarkerField)
 			{
 				_rigthtSourceIndexerPropertyChangedEventRaised = false;
@@ -560,6 +579,9 @@ namespace ObservableComputations
 				_isConsistent = true;
 				raiseConsistencyRestored();
 			}
+
+			_processingEventSender = null;
+			_processingEventArgs = null;
 		}
 
 		~Zipping()

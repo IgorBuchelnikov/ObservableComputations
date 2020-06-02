@@ -145,6 +145,9 @@ namespace ObservableComputations
 
 		private void handleSourceCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
 		{
+			_processingEventSender = sender;
+			_processingEventArgs = e;
+
 			if (_indexerPropertyChangedEventRaised || _lastProcessedSourceChangeMarker != _sourceAsObservableCollectionWithChangeMarker.ChangeMarkerField)
 			{
 				_indexerPropertyChangedEventRaised = false;
@@ -187,7 +190,10 @@ namespace ObservableComputations
 						initializeFromSource();
 						break;
 				}
-			}			
+			}		
+			
+			_processingEventSender = null;
+			_processingEventArgs = null;
 
 		}
 
@@ -235,6 +241,13 @@ namespace ObservableComputations
 		{
 			if (e.PropertyName != nameof(IReadScalar<INotifyCollectionChanged>.Value)) return;
 			initializeFromSource();
+
+			_processingEventSender = sender;
+			_processingEventArgs = e;
+
+
+			_processingEventSender = null;
+			_processingEventArgs = null;
 		}
 
 		private void calculateValueAndRegisterSourceItems()

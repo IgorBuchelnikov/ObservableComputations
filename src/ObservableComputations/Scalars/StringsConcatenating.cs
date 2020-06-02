@@ -264,18 +264,35 @@ namespace ObservableComputations
 		private void handleSeparatorScalarValueChanged(object sender, PropertyChangedEventArgs e)
 		{
 			if (e.PropertyName != nameof(IReadScalar<INotifyCollectionChanged>.Value)) return;
+
+			_processingEventSender = sender;
+			_processingEventArgs = e;
+
 			initializeSeparator();
 			initializeFromSource();
+
+			_processingEventSender = null;
+			_processingEventArgs = null;
 		}
 
 		private void handleSourceScalarValueChanged(object sender, PropertyChangedEventArgs e)
 		{
 			if (e.PropertyName != nameof(IReadScalar<INotifyCollectionChanged>.Value)) return;
+
+			_processingEventSender = sender;
+			_processingEventArgs = e;
+
 			initializeFromSource();
+
+			_processingEventSender = null;
+			_processingEventArgs = null;
 		}
 
 		private void handleSourceCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
 		{
+			_processingEventSender = sender;
+			_processingEventArgs = e;
+
 			if (_indexerPropertyChangedEventRaised || _lastProcessedSourceChangeMarker != _sourceAsObservableCollectionWithChangeMarker.ChangeMarkerField)
 			{
 				_indexerPropertyChangedEventRaised = false;
@@ -337,19 +354,24 @@ namespace ObservableComputations
 					case NotifyCollectionChangedAction.Move:
 						int newSourceIndex = e.NewStartingIndex;
 						int oldSourceIndex = e.OldStartingIndex;
-						if (newSourceIndex == oldSourceIndex) return;
-						_moving = true;
-						processRemoveSourceItem(oldSourceIndex);
-						string newSourceItem1 = _sourceAsList[newSourceIndex];
-						processAddSourceItem(newSourceItem1, newSourceIndex);
-						_moving = false;
-						setValue(_valueStringBuilder.ToString());
+						if (newSourceIndex != oldSourceIndex)
+						{
+							_moving = true;
+							processRemoveSourceItem(oldSourceIndex);
+							string newSourceItem1 = _sourceAsList[newSourceIndex];
+							processAddSourceItem(newSourceItem1, newSourceIndex);
+							_moving = false;
+							setValue(_valueStringBuilder.ToString());
+						}
 						break;
 					case NotifyCollectionChangedAction.Reset:
 						initializeFromSource();
 						break;
 				}
-			}						
+			}	
+			
+			_processingEventSender = null;
+			_processingEventArgs = null;
 		}
 
 		private void recalculateValue()

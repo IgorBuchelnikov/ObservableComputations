@@ -17,6 +17,11 @@ namespace ObservableComputations
 		public IPropertyDestinationDispatcher PropertyDestinationDispatcher => _propertyDestinationDispatcher;
 		public IPropertySourceDispatcher PropertySourceDispatcher => _propertySourceDispatcher;
 
+		internal object _processingEventSender;
+		internal EventArgs _processingEventArgs;
+		public object ProcessingEventSender => _processingEventSender;
+		public EventArgs ProcessingEventArgs => _processingEventArgs;
+
 		private static ConcurrentDictionary<PropertyInfo, PropertyAccessors>
 			_propertyAccessors =
 				new ConcurrentDictionary<PropertyInfo, PropertyAccessors>();
@@ -152,6 +157,9 @@ namespace ObservableComputations
 
 		private void handlePropertyHolderPropertyChanged(object sender, PropertyChangedEventArgs e)
 		{
+			_processingEventSender = sender;
+			_processingEventArgs = e;
+
 			getValue();
 
 			void raiseValuePropertyChanged()
@@ -161,6 +169,9 @@ namespace ObservableComputations
 
 			if (_destinationDispatcher != null) _destinationDispatcher.Invoke(raiseValuePropertyChanged, this);
 			else _propertyDestinationDispatcher.Invoke(raiseValuePropertyChanged, this, e);
+
+			_processingEventSender = null;
+			_processingEventArgs = null;
 		}
 
 		private void getValue()
@@ -225,7 +236,8 @@ namespace ObservableComputations
 				}
 
 				if (_sourceDispatcher != null) _sourceDispatcher.Invoke(set, this);
-				else _propertySourceDispatcher.Invoke(set, this, false, value);
+				else if (_propertySourceDispatcher != null) _propertySourceDispatcher.Invoke(set, this, false, value);
+				else set();
 			}
 		}
 

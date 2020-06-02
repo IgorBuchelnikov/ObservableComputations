@@ -391,13 +391,27 @@ namespace ObservableComputations
 
 		private void handlePropertyHolderPropertyChanged(object sender, PropertyChangedEventArgs e)
 		{
+			if (e.PropertyName != _propertyName) return;
+
+			_processingEventSender = sender;
+			_processingEventArgs = e;
+
 			setValue((TResult) _propertyInfo.GetValue(_propertyHolder));
+
+			_processingEventSender = null;
+			_processingEventArgs = null;
 		}
 
 		private void handlePropertyHolderScalarPropertyChanged(object sender, PropertyChangedEventArgs e)
 		{
+			_processingEventSender = sender;
+			_processingEventArgs = e;
+
 			if (e.PropertyName != nameof(IReadScalar<TResult>.Value)) return;
 			registerPropertyHolder(_propertyHolderScalar.Value);
+
+			_processingEventSender = null;
+			_processingEventArgs = null;
 		}
 
 		~PropertyAccessing()

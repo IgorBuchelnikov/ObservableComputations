@@ -183,14 +183,28 @@ namespace ObservableComputations
 		private void handleComparerScalarValueChanged(object sender, PropertyChangedEventArgs e)
 		{
 			if (e.PropertyName != nameof(IReadScalar<INotifyCollectionChanged>.Value)) return;
+
+			_processingEventSender = sender;
+			_processingEventArgs = e;
+
 			_comparer = _comparerScalar.Value ?? Comparer<TSourceItem>.Default;
 			initializeFromSource();
+
+			_processingEventSender = null;
+			_processingEventArgs = null;
 		}
 
 		private void handleSourceScalarValueChanged(object sender, PropertyChangedEventArgs e)
 		{
 			if (e.PropertyName != nameof(IReadScalar<INotifyCollectionChanged>.Value)) return;
+
+			_processingEventSender = sender;
+			_processingEventArgs = e;
+
 			initializeFromSource();
+
+			_processingEventSender = null;
+			_processingEventArgs = null;
 		}
 
 		private void initializeFromSource()
@@ -301,6 +315,9 @@ namespace ObservableComputations
 
 		private void handleSourceCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
 		{
+			_processingEventSender = sender;
+			_processingEventArgs = e;
+
 			if (_indexerPropertyChangedEventRaised || _lastProcessedSourceChangeMarker != _sourceAsObservableCollectionWithChangeMarker.ChangeMarkerField)
 			{
 				_indexerPropertyChangedEventRaised = false;
@@ -398,7 +415,10 @@ namespace ObservableComputations
 						initializeFromSource();
 						break;
 				}	
-			}					
+			}
+			
+			_processingEventSender = null;
+			_processingEventArgs = null;
 		}
 
 

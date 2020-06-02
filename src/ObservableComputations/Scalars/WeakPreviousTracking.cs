@@ -44,6 +44,10 @@ namespace ObservableComputations
 		private void handleScalarPropertyChanged(object sender, PropertyChangedEventArgs e)
 		{
 			if (e.PropertyName != nameof(IReadScalar<TResult>.Value)) return;
+
+			_processingEventSender = sender;
+			_processingEventArgs = e;
+
 			TResult newValue = _scalar.Value;
 			_previousValue = _value;
 			_previousValueWeakReference = new WeakReference<TResult>(_previousValue);
@@ -56,6 +60,9 @@ namespace ObservableComputations
 
 			setValue(newValue);
 			_previousValue = null;
+
+			_processingEventSender = null;
+			_processingEventArgs = null;
 		}
 
 		~WeakPreviousTracking()

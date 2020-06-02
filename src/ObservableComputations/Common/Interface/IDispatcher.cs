@@ -16,25 +16,26 @@ namespace ObservableComputations
 		/// </summary>
 		/// <param name="action"></param>
 		/// <param name="collectionDispatching"></param>
-		/// <param name="initializingFromSourceCollection"></param>
 		/// <param name="notifyCollectionChangedEventArgs">not null if source collection changes, null if initializing from source collection</param>
-		/// <param name="propertyChangedEventArgs"></param>
-		/// <param name="notifyCollectionChangedAction"></param>
-		/// <param name="newItem"></param>
-		/// <param name="newItemIndex"></param>
+		/// <param name="propertyChangedEventArgs">not null if source collection scalar Value property changes</param>
+		/// <param name="initializingFromSourceCollection">enumerating source collection and adding items from it</param>	
 		void Invoke(
 			Action action, 
 			ICollectionComputing collectionDispatching,
-			bool initializingFromSourceCollection,
 			NotifyCollectionChangedEventArgs notifyCollectionChangedEventArgs,
 			PropertyChangedEventArgs propertyChangedEventArgs,
-			NotifyCollectionChangedAction notifyCollectionChangedAction,
-			object newItem,
-			int newItemIndex);
+			bool initializingFromSourceCollection);
 	}
+
 
 	public interface IScalarDestinationDispatcher
 	{
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="action"></param>
+		/// <param name="scalarDispatching"></param>
+		/// <param name="propertyChangedEventArgs">not null if source scalar changes, null if initializing from source scalar</param>
 		void Invoke(
 			Action action, 
 			IScalarComputing scalarDispatching,
@@ -43,6 +44,12 @@ namespace ObservableComputations
 
 	public interface IPropertyDestinationDispatcher
 	{
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="action"></param>
+		/// <param name="propertyDispatching"></param>
+		/// <param name="propertyChangedEventArgs">not null in source property changes, null if initializing from source property</param>
 		void Invoke(
 			Action action, 
 			IComputing propertyDispatching,
@@ -52,6 +59,13 @@ namespace ObservableComputations
 
 	public interface IPropertySourceDispatcher
 	{
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="action"></param>
+		/// <param name="propertyDispatching"></param>
+		/// <param name="initializing">false if setting property value</param>
+		/// <param name="newValue">new value if setting property value </param>
 		void Invoke(
 			Action action, 
 			IComputing propertyDispatching,

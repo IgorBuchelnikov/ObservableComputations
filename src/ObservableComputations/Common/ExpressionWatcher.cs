@@ -11,6 +11,20 @@ namespace ObservableComputations
 	{
 		internal Position _position;
 
+		internal struct Raise
+		{
+			internal ExpressionWatcher ExpressionWatcher;
+			internal object EventSender;
+			internal EventArgs EventArgs;
+
+			public Raise(ExpressionWatcher expressionWatcher, object eventSender, EventArgs eventArgs)
+			{
+				ExpressionWatcher = expressionWatcher;
+				EventSender = eventSender;
+				EventArgs = eventArgs;
+			}
+		}
+
 		public struct ExpressionInfo
 		{
 			internal readonly LambdaExpression _expressionToWatch;
@@ -127,7 +141,7 @@ namespace ObservableComputations
 
 #endif
 
-		public Action<ExpressionWatcher> ValueChanged;
+		public Action<ExpressionWatcher, object, EventArgs> ValueChanged;
 		//public event EventHandler<EventArgs> ValueChanged;
 
 		public struct ConstantCallTreesInfo
@@ -393,7 +407,7 @@ namespace ObservableComputations
 
 			}
 
-			foreach (ExpressionCallTrees parameterCallTree in _expressionCallTrees)
+			foreach (ExpressionCallTrees expressionCallTrees in _expressionCallTrees)
 			{
 #if DEBUG
 				Root getRoot()
@@ -401,32 +415,32 @@ namespace ObservableComputations
 				object getRoot()
 #endif
 				{
-					object value = parameterCallTree.ExpressionWatcher._expressionToWatchCompiled.DynamicInvoke(parameterValues);
+					object value = expressionCallTrees.ExpressionWatcher._expressionToWatchCompiled.DynamicInvoke(parameterValues);
 
 #if DEBUG
-					return new RootExpression(value, parameterCallTree.ExpressionWatcher.ExpressionToWatch);
+					return new RootExpression(value, expressionCallTrees.ExpressionWatcher.ExpressionToWatch);
 #else
 					return value;
 #endif
 				}
 #if DEBUG
 				Root root = getRoot();
-				workWithCallTrees(parameterCallTree.CallTrees, root, WorkWithCallTreeNodeType.UpdateSubscriptionAndHolder);
+				workWithCallTrees(expressionCallTrees.CallTrees, root, WorkWithCallTreeNodeType.UpdateSubscriptionAndHolder);
 #else
 				workWithCallTrees(parameterCallTree.CallTrees, getRoot(), WorkWithCallTreeNodeType.UpdateSubscriptionAndHolder);
 #endif
 
 
-				parameterCallTree.ExpressionWatcher.ValueChanged =
-					ew =>
+				expressionCallTrees.ExpressionWatcher.ValueChanged =
+					(ew, sender, eventArgs) =>
 					{
 #if DEBUG
 						Root root1 = getRoot();
-						workWithCallTrees(parameterCallTree.CallTrees, root1, WorkWithCallTreeNodeType.UpdateSubscriptionAndHolder);
-						raiseValueChanged(LastChangedRoot);
+						workWithCallTrees(expressionCallTrees.CallTrees, root1, WorkWithCallTreeNodeType.UpdateSubscriptionAndHolder);
+						raiseValueChanged(LastChangedRoot, sender, eventArgs);
 #else
 						workWithCallTrees(parameterCallTree.CallTrees, getRoot(), WorkWithCallTreeNodeType.UpdateSubscriptionAndHolder);
-						raiseValueChanged();
+						raiseValueChanged(sender, eventArgs);
 #endif
 					};
 			}
@@ -657,10 +671,10 @@ namespace ObservableComputations
 								if (!_disposed && args.PropertyName == node._call.Name)
 								{
 #if DEBUG
-									raiseValueChanged(root);
+									raiseValueChanged(root, sender, args);
 									workWithCallTreeNodeChildren(node, root, workType);
 #else
-									raiseValueChanged();
+									raiseValueChanged(sender, eventArgs);
 									workWithCallTreeNodeChildren(node, workType);
 #endif
 								}
@@ -690,10 +704,10 @@ namespace ObservableComputations
 									if (args.ArgumentsPredicate(argumentValues))
 									{
 	#if DEBUG
-										raiseValueChanged(root);
+										raiseValueChanged(root, sender, args);
 										workWithCallTreeNodeChildren(node, root, workType);
 	#else
-										raiseValueChanged();
+										raiseValueChanged(sender, eventArgs);
 										workWithCallTreeNodeChildren(node, workType);
 	#endif
 									}
@@ -717,13 +731,13 @@ namespace ObservableComputations
 								nodeCallArguments[index] = new ExpressionWatcher(_parameterValues, expressionInfo);
 							}
 
-							node._callArgumentChangedEventHandler = ew =>
+							node._callArgumentChangedEventHandler = (ew, sender, eventArgs) =>
 							{
 #if DEBUG
-									raiseValueChanged(root);
+									raiseValueChanged(root, sender, eventArgs);
 									workWithCallTreeNodeChildren(node, root, workType);
 #else
-									raiseValueChanged();
+									raiseValueChanged(sender, eventArgs);
 									workWithCallTreeNodeChildren(node, workType);
 #endif
 							};
@@ -731,8 +745,7 @@ namespace ObservableComputations
 							int callArgumentsLength = nodeCallArguments.Length;
 							for (int index = 0; index < callArgumentsLength; index++)
 							{
-								ExpressionWatcher expressionWatcher = nodeCallArguments[index];
-								expressionWatcher.ValueChanged = node._callArgumentChangedEventHandler;
+								nodeCallArguments[index].ValueChanged = node._callArgumentChangedEventHandler;
 							}
 						}
 						break;
@@ -1193,22 +1206,22 @@ namespace ObservableComputations
 			internal readonly CallTreeNode[] _children;
 
 			internal ExpressionWatcher[] _callArguments;
-			internal Action<ExpressionWatcher> _callArgumentChangedEventHandler;
+			internal Action<ExpressionWatcher, object, EventArgs> _callArgumentChangedEventHandler;
 
 			internal EventHandler<NotifyMethodChangedEventArgs> _methodChangedEventHandler;
 			internal WeakEventHandler<NotifyMethodChangedEventArgs> _weakMethodChangedEventHandler;
 		}
 
 #if DEBUG
-		private void raiseValueChanged(Root root)
+		private void raiseValueChanged(Root root, object sender, EventArgs eventArgs)
 		{
 			LastChangedRoot = root;
-			ValueChanged(this);
+			ValueChanged(this, sender, eventArgs);
 		}
 #else
-		private void raiseValueChanged()
+		private void raiseValueChanged(, object sender, EventArgs eventArgs)
 		{
-			ValueChanged(this);
+			ValueChanged(this, sender, eventArgs);
 		}
 #endif
 

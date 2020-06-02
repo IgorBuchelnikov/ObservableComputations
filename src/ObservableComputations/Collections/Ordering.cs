@@ -305,6 +305,9 @@ namespace ObservableComputations
 			if (e.PropertyName != nameof(IReadScalar<object>.Value)) return;
 			checkConsistent();
 
+			_processingEventSender = sender;
+			_processingEventArgs = e;
+
 			_isConsistent = false;
 
 			_comparer = _comparerScalar.Value ?? Comparer<TOrderingValue>.Default;
@@ -312,6 +315,9 @@ namespace ObservableComputations
 
 			_isConsistent = true;
 			raiseConsistencyRestored();
+
+			_processingEventSender = null;
+			_processingEventArgs = null;
 		}
 
 
@@ -369,13 +375,23 @@ namespace ObservableComputations
 
 			//_isConsistent = true;
 			//raiseConsistencyRestored();
+
+			if (e.PropertyName != nameof(IReadScalar<object>.Value)) return;
 			checkConsistent();
+
+			_processingEventSender = sender;
+			_processingEventArgs = e;
+
+
 			_isConsistent = false;
 			_sortDirection = _sortDirectionScalar.Value;
 			initializeFromSource();
 
 			_isConsistent = true;
 			raiseConsistencyRestored();
+
+			_processingEventSender = null;
+			_processingEventArgs = null;
 		}
 
 		private void initializeFromSource()
@@ -462,12 +478,19 @@ namespace ObservableComputations
 		{
 			if (e.PropertyName != nameof(IReadScalar<object>.Value)) return;
 			checkConsistent();
+
+			_processingEventSender = sender;
+			_processingEventArgs = e;
+
 			_isConsistent = false;
 
 			initializeFromSource();
 
 			_isConsistent = true;
 			raiseConsistencyRestored();
+
+			_processingEventSender = null;
+			_processingEventArgs = null;
 		}
 
 		private void registerSourceItem(TSourceItem sourceItem, int sourceIndex)
@@ -621,6 +644,10 @@ namespace ObservableComputations
 		{
 			checkConsistent();
 			if (!_rootSourceWrapper && _lastProcessedSourceChangeMarker == _sourceAsList.ChangeMarkerField) return;
+
+			_processingEventSender = sender;
+			_processingEventArgs = e;
+
 			_lastProcessedSourceChangeMarker = !_lastProcessedSourceChangeMarker;
 
 			switch (e.Action)
@@ -660,8 +687,8 @@ namespace ObservableComputations
 				case NotifyCollectionChangedAction.Move:
 					int oldStartingIndex = e.OldStartingIndex;
 					int newStartingIndex = e.NewStartingIndex;
-					if (oldStartingIndex == newStartingIndex) return;
-					_sourcePositions.Move(oldStartingIndex, newStartingIndex);
+					if (oldStartingIndex != newStartingIndex)
+						_sourcePositions.Move(oldStartingIndex, newStartingIndex);
 					break;
 				case NotifyCollectionChangedAction.Reset:
 					_isConsistent = false;
@@ -680,12 +707,18 @@ namespace ObservableComputations
 					if (!expressionWatcher._disposed)
 						processSourceItemChange(expressionWatcher._position.Index);
 				} 
+
+			_processingEventSender = null;
+			_processingEventArgs = null;
 		}
 
 
-		private void expressionWatcher_OnValueChanged(ExpressionWatcher expressionWatcher)
+		private void expressionWatcher_OnValueChanged(ExpressionWatcher expressionWatcher, object sender, EventArgs eventArgs)
 		{
 			checkConsistent();
+
+			_processingEventSender = sender;
+			_processingEventArgs = eventArgs;
 
 			if (_sourceAsList == null || _rootSourceWrapper || _sourceAsList.ChangeMarkerField ==_lastProcessedSourceChangeMarker)
 			{
@@ -698,6 +731,9 @@ namespace ObservableComputations
 			{
 				(_deferredExpressionWatcherChangedProcessings = _deferredExpressionWatcherChangedProcessings ??  new Queue<ExpressionWatcher>()).Enqueue(expressionWatcher);
 			}
+
+			_processingEventSender = null;
+			_processingEventArgs = null;
 		}
 
 

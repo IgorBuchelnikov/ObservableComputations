@@ -118,16 +118,27 @@ namespace ObservableComputations
 		{
 			checkConsistency();
 			if (e.PropertyName != nameof(IReadScalar<object>.Value)) return;
+
+			_processingEventSender = sender;
+			_processingEventArgs = e;
+
 			_isConsistent = false;
 			initializeFromSource();
 			_isConsistent = true;
 			raiseConsistencyRestored();
+
+			_processingEventSender = null;
+			_processingEventArgs = null;
 		}
 
 		private void handleSourceCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
 		{
 			checkConsistency();
 			if (!_rootSourceWrapper && _lastProcessedSourceChangeMarker == _sourceAsList.ChangeMarkerField) return;
+
+			_processingEventSender = sender;
+			_processingEventArgs = e;
+
 			_lastProcessedSourceChangeMarker = !_lastProcessedSourceChangeMarker;
 
 			switch (e.Action)
@@ -210,8 +221,12 @@ namespace ObservableComputations
 					if (!expressionWatcher._disposed)
 						processExpressionWatcherValueChanged(expressionWatcher);
 				} 
+
 			_isConsistent = true;
 			raiseConsistencyRestored();
+
+			_processingEventSender = null;
+			_processingEventArgs = null;
 		}
 
 		private void initializeFromSource()
@@ -368,11 +383,15 @@ namespace ObservableComputations
 			_sourcePositions.Remove(sourceIndex);
 		}
 
-		private void expressionWatcher_OnValueChanged(ExpressionWatcher expressionWatcher)
+		private void expressionWatcher_OnValueChanged(ExpressionWatcher expressionWatcher, object sender, EventArgs eventArgs)
 		{
 			if (_rootSourceWrapper || _sourceAsList.ChangeMarkerField == _lastProcessedSourceChangeMarker)
 			{
 				checkConsistency();
+
+				_processingEventSender = sender;
+				_processingEventArgs = eventArgs;
+
 				_isConsistent = false;
 				processExpressionWatcherValueChanged(expressionWatcher);
 				_isConsistent = true;
@@ -382,6 +401,9 @@ namespace ObservableComputations
 			{
 				(_deferredExpressionWatcherChangedProcessings = _deferredExpressionWatcherChangedProcessings ??  new Queue<ExpressionWatcher>()).Enqueue(expressionWatcher);
 			}
+
+			_processingEventSender = sender;
+			_processingEventArgs = eventArgs;
 		}
 
 		private void processExpressionWatcherValueChanged(ExpressionWatcher expressionWatcher)

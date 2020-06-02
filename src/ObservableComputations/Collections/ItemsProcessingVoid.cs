@@ -79,8 +79,6 @@ namespace ObservableComputations
 		{
 			if (_sourceNotifyCollectionChangedEventHandler != null)
 			{
-				int capacity = _sourceScalar != null ? Utils.getCapacity(_sourceScalar) : Utils.getCapacity(_source);
-
 				int count = Count;
 				for (int i = 0; i < count; i++)
 				{
@@ -147,15 +145,21 @@ namespace ObservableComputations
 
 		private void handleSourceScalarValueChanged(object sender, PropertyChangedEventArgs e)
 		{
-			if (e.PropertyName != nameof(IReadScalar<INotifyCollectionChanged>.Value))
-				return;
+			if (e.PropertyName != nameof(IReadScalar<INotifyCollectionChanged>.Value)) return;
 			checkConsistent();
+
+			_processingEventSender = sender;
+			_processingEventArgs = e;
+
 			_isConsistent = false;
 
 			initializeFromSource(sender, e);
 
 			_isConsistent = true;
 			raiseConsistencyRestored();
+
+			_processingEventSender = null;
+			_processingEventArgs = null;
 		}
 
 
@@ -163,6 +167,10 @@ namespace ObservableComputations
 		{
 			checkConsistent();
 			if (!_rootSourceWrapper && _lastProcessedSourceChangeMarker == _sourceAsList.ChangeMarkerField) return;
+
+			_processingEventSender = null;
+			_processingEventArgs = null;
+
 			_lastProcessedSourceChangeMarker = !_lastProcessedSourceChangeMarker;
 
 			switch (e.Action)
@@ -213,6 +221,9 @@ namespace ObservableComputations
 					raiseConsistencyRestored();
 					break;
 			}
+
+			_processingEventSender = null;
+			_processingEventArgs = null;
 		}
 
 		private void processNewItem(TSourceItem sourceItem, object sender, EventArgs eventArgs)

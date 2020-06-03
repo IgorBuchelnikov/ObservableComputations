@@ -7,11 +7,9 @@ namespace ObservableComputations
 	{
 		public IReadScalar<TResult> Scalar => _scalar;
 		public IDispatcher DestinationDispatcher => _destinationDispatcher;
-		public IScalarDestinationDispatcher ScalarDestinationDispatcher => _scalarDestinationDispatcher;
 		public IDispatcher SourceDispatcher => _sourceDispatcher;
 
 		private IDispatcher _destinationDispatcher;
-		private IScalarDestinationDispatcher _scalarDestinationDispatcher;
 		private IDispatcher _sourceDispatcher;
 
 		private IReadScalar<TResult> _scalar;
@@ -29,16 +27,6 @@ namespace ObservableComputations
 			initialize(scalar, sourceDispatcher);
 		}
 
-		[ObservableComputationsCall]
-		public ScalarDispatching(
-			IReadScalar<TResult> scalar, 
-			IScalarDestinationDispatcher destinationDispatcher,
-			IDispatcher sourceDispatcher = null)
-		{
-			_scalarDestinationDispatcher = destinationDispatcher;
-			initialize(scalar, sourceDispatcher);
-		}
-
 		private void initialize(IReadScalar<TResult> scalar, IDispatcher sourceDispatcher)
 		{
 			_scalar = scalar;
@@ -48,8 +36,7 @@ namespace ObservableComputations
 			{
 				void setNewValue() => setValue(_scalar.Value);
 
-				if (_destinationDispatcher != null) _destinationDispatcher.Invoke(setNewValue, this);
-				else _scalarDestinationDispatcher.Invoke(setNewValue, this, null);
+				_destinationDispatcher.Invoke(setNewValue, this);
 
 				_scalarPropertyChangedEventHandler = handleScalarPropertyChanged;
 				_scalarWeakPropertyChangedEventHandler =
@@ -79,8 +66,7 @@ namespace ObservableComputations
 
 			void setNewValue() => setValue(newValue);
 
-			if (_destinationDispatcher != null) _destinationDispatcher.Invoke(setNewValue, this);
-			else _scalarDestinationDispatcher.Invoke(setNewValue, this, e);
+			_destinationDispatcher.Invoke(setNewValue, this);
 
 			_processingEventSender = null;
 			_processingEventArgs = null;

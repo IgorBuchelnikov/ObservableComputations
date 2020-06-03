@@ -260,7 +260,7 @@ namespace ObservableComputations
 		private void handleSourceScalarValueChanged(object sender, PropertyChangedEventArgs e)
 		{
 			if (e.PropertyName != nameof(IReadScalar<INotifyCollectionChanged>.Value)) return;
-			checkConsistent();
+			checkConsistent(sender, e);
 
 			_processingEventSender = sender;
 			_processingEventArgs = e;
@@ -279,7 +279,7 @@ namespace ObservableComputations
 
 		private void handleOuterSourceCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
 		{
-			checkConsistent();
+			checkConsistent(sender, e);
 
 			_processingEventSender = sender;
 			_processingEventArgs = e;
@@ -376,7 +376,7 @@ namespace ObservableComputations
 
 		private void handleInnerSourceCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
 		{
-			checkConsistent();
+			checkConsistent(sender, e);
 
 			_processingEventSender = sender;
 			_processingEventArgs = e;

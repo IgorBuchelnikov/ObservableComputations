@@ -427,7 +427,7 @@ namespace ObservableComputations
 				Root root = getRoot();
 				workWithCallTrees(expressionCallTrees.CallTrees, root, WorkWithCallTreeNodeType.UpdateSubscriptionAndHolder);
 #else
-				workWithCallTrees(parameterCallTree.CallTrees, getRoot(), WorkWithCallTreeNodeType.UpdateSubscriptionAndHolder);
+				workWithCallTrees(expressionCallTrees.CallTrees, getRoot(), WorkWithCallTreeNodeType.UpdateSubscriptionAndHolder);
 #endif
 
 
@@ -439,7 +439,7 @@ namespace ObservableComputations
 						workWithCallTrees(expressionCallTrees.CallTrees, root1, WorkWithCallTreeNodeType.UpdateSubscriptionAndHolder);
 						raiseValueChanged(LastChangedRoot, sender, eventArgs);
 #else
-						workWithCallTrees(parameterCallTree.CallTrees, getRoot(), WorkWithCallTreeNodeType.UpdateSubscriptionAndHolder);
+						workWithCallTrees(expressionCallTrees.CallTrees, getRoot(), WorkWithCallTreeNodeType.UpdateSubscriptionAndHolder);
 						raiseValueChanged(sender, eventArgs);
 #endif
 					};
@@ -674,7 +674,7 @@ namespace ObservableComputations
 									raiseValueChanged(root, sender, args);
 									workWithCallTreeNodeChildren(node, root, workType);
 #else
-									raiseValueChanged(sender, eventArgs);
+									raiseValueChanged(sender, args);
 									workWithCallTreeNodeChildren(node, workType);
 #endif
 								}
@@ -707,7 +707,7 @@ namespace ObservableComputations
 										raiseValueChanged(root, sender, args);
 										workWithCallTreeNodeChildren(node, root, workType);
 	#else
-										raiseValueChanged(sender, eventArgs);
+										raiseValueChanged(sender, args);
 										workWithCallTreeNodeChildren(node, workType);
 	#endif
 									}
@@ -1219,7 +1219,7 @@ namespace ObservableComputations
 			ValueChanged(this, sender, eventArgs);
 		}
 #else
-		private void raiseValueChanged(, object sender, EventArgs eventArgs)
+		private void raiseValueChanged(object sender, EventArgs eventArgs)
 		{
 			ValueChanged(this, sender, eventArgs);
 		}

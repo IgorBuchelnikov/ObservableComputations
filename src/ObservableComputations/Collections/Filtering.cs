@@ -304,7 +304,7 @@ namespace ObservableComputations
 		private void handleSourceScalarValueChanged(object sender, PropertyChangedEventArgs e)
 		{
 			if (e.PropertyName != nameof(IReadScalar<object>.Value)) return;
-			checkConsistent();
+			checkConsistent(sender, e);
 
 			_processingEventSender = sender;
 			_processingEventArgs = e;
@@ -323,7 +323,7 @@ namespace ObservableComputations
 
 		private void handleSourceCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
 		{
-			checkConsistent();	
+			checkConsistent(sender, e);	
 			if (!_rootSourceWrapper && _lastProcessedSourceChangeMarker == _sourceAsList.ChangeMarkerField) return;
 			
 			_processingEventSender = sender;
@@ -510,8 +510,6 @@ namespace ObservableComputations
 						_processingEventSender = expressionWatcherRaise.EventSender;
 						_processingEventArgs = expressionWatcherRaise.EventArgs;
 						processChangeSourceItem(expressionWatcherRaise.ExpressionWatcher._position.Index);
-						_processingEventSender = null;
-						_processingEventArgs = null;
 					}
 				} 
 
@@ -524,7 +522,7 @@ namespace ObservableComputations
 
 		private void expressionWatcher_OnValueChanged(ExpressionWatcher expressionWatcher, object sender, EventArgs eventArgs)
 		{
-			checkConsistent();
+			checkConsistent(sender, eventArgs);
 
 			_processingEventSender = sender;
 			_processingEventArgs = eventArgs;

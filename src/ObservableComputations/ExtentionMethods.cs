@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections.ObjectModel;
 using System.Collections.Specialized;
+using System.ComponentModel;
 using System.Linq.Expressions;
 using System.Threading;
 using System.Threading.Tasks;
@@ -172,9 +174,9 @@ namespace ObservableComputations
 		[ObservableComputationsCall]
 		public static ObservableComputations.ItemsProcessing<TSourceItem, TReturnValue> ItemsProcessing<TSourceItem, TReturnValue>(this
 			System.Collections.Specialized.INotifyCollectionChanged source,
-			System.Func<TSourceItem, ItemsProcessing<TSourceItem, TReturnValue>, object, EventArgs, TReturnValue> newItemProcessor = null,
-			System.Action<TSourceItem, ItemsProcessing<TSourceItem, TReturnValue>, TReturnValue, object, EventArgs> oldItemProcessor = null,
-			System.Action<TSourceItem, ItemsProcessing<TSourceItem, TReturnValue>, TReturnValue, object, EventArgs> moveItemProcessor = null)
+			System.Func<TSourceItem, ICollectionComputing, TReturnValue> newItemProcessor = null,
+			System.Action<TSourceItem, ICollectionComputing, TReturnValue> oldItemProcessor = null,
+			System.Action<TSourceItem, ICollectionComputing, TReturnValue> moveItemProcessor = null)
 			
 		{
 			return new ObservableComputations.ItemsProcessing<TSourceItem, TReturnValue>(
@@ -187,9 +189,9 @@ namespace ObservableComputations
 		[ObservableComputationsCall]
 		public static ObservableComputations.ItemsProcessing<TSourceItem, TReturnValue> ItemsProcessing<TSourceItem, TReturnValue>(this
 			ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar,
-			System.Func<TSourceItem, ItemsProcessing<TSourceItem, TReturnValue>, object, EventArgs, TReturnValue> newItemProcessor = null,
-			System.Action<TSourceItem, ItemsProcessing<TSourceItem, TReturnValue>, TReturnValue, object, EventArgs> oldItemProcessor = null,
-			System.Action<TSourceItem, ItemsProcessing<TSourceItem, TReturnValue>, TReturnValue, object, EventArgs> moveItemProcessor = null)
+			System.Func<TSourceItem, ICollectionComputing, TReturnValue> newItemProcessor = null,
+			System.Action<TSourceItem, ICollectionComputing, TReturnValue> oldItemProcessor = null,
+			System.Action<TSourceItem, ICollectionComputing, TReturnValue> moveItemProcessor = null)
 			
 		{
 			return new ObservableComputations.ItemsProcessing<TSourceItem, TReturnValue>(
@@ -201,9 +203,9 @@ namespace ObservableComputations
 		[ObservableComputationsCall]
 		public static ObservableComputations.ItemsProcessing<TSourceItem, TReturnValue> ItemsProcessing<TSourceItem, TReturnValue>(this
 			Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> getSourceExpression,
-			System.Func<TSourceItem, ItemsProcessing<TSourceItem, TReturnValue>, object, EventArgs, TReturnValue> newItemProcessor = null,
-			System.Action<TSourceItem, ItemsProcessing<TSourceItem, TReturnValue>, TReturnValue, object, EventArgs> oldItemProcessor = null,
-			System.Action<TSourceItem, ItemsProcessing<TSourceItem, TReturnValue>, TReturnValue, object, EventArgs> moveItemProcessor = null)
+			System.Func<TSourceItem, ICollectionComputing, TReturnValue> newItemProcessor = null,
+			System.Action<TSourceItem, ICollectionComputing, TReturnValue> oldItemProcessor = null,
+			System.Action<TSourceItem, ICollectionComputing, TReturnValue> moveItemProcessor = null)
 			
 		{
 			return new ObservableComputations.ItemsProcessing<TSourceItem, TReturnValue>(
@@ -216,9 +218,9 @@ namespace ObservableComputations
 		[ObservableComputationsCall]
 		public static ObservableComputations.ItemsProcessingVoid<TSourceItem> ItemsProcessing<TSourceItem>(this
 			System.Collections.Specialized.INotifyCollectionChanged source,
-			System.Action<TSourceItem, ItemsProcessingVoid<TSourceItem>, object, EventArgs> newItemProcessor = null,
-			System.Action<TSourceItem, ItemsProcessingVoid<TSourceItem>, object, EventArgs> oldItemProcessor = null,
-			System.Action<TSourceItem, ItemsProcessingVoid<TSourceItem>, object, EventArgs> moveItemProcessor = null)
+			System.Action<TSourceItem, ICollectionComputing> newItemProcessor = null,
+			System.Action<TSourceItem, ICollectionComputing> oldItemProcessor = null,
+			System.Action<TSourceItem, ICollectionComputing> moveItemProcessor = null)
 			
 		{
 			return new ObservableComputations.ItemsProcessingVoid<TSourceItem>(
@@ -231,9 +233,9 @@ namespace ObservableComputations
 		[ObservableComputationsCall]
 		public static ObservableComputations.ItemsProcessingVoid<TSourceItem> ItemsProcessing<TSourceItem>(this
 			ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar,
-			System.Action<TSourceItem, ItemsProcessingVoid<TSourceItem>, object, EventArgs> newItemProcessor = null,
-			System.Action<TSourceItem, ItemsProcessingVoid<TSourceItem>, object, EventArgs> oldItemProcessor = null,
-			System.Action<TSourceItem, ItemsProcessingVoid<TSourceItem>, object, EventArgs> moveItemProcessor = null)
+			System.Action<TSourceItem, ICollectionComputing> newItemProcessor = null,
+			System.Action<TSourceItem, ICollectionComputing> oldItemProcessor = null,
+			System.Action<TSourceItem, ICollectionComputing> moveItemProcessor = null)
 			
 		{
 			return new ObservableComputations.ItemsProcessingVoid<TSourceItem>(
@@ -246,13 +248,104 @@ namespace ObservableComputations
 		[ObservableComputationsCall]
 		public static ObservableComputations.ItemsProcessingVoid<TSourceItem> ItemsProcessing<TSourceItem>(this
 			Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> getSourceExpression,
-			System.Action<TSourceItem, ItemsProcessingVoid<TSourceItem>, object, EventArgs> newItemProcessor = null,
-			System.Action<TSourceItem, ItemsProcessingVoid<TSourceItem>, object, EventArgs> oldItemProcessor = null,
-			System.Action<TSourceItem, ItemsProcessingVoid<TSourceItem>, object, EventArgs> moveItemProcessor = null)
+			System.Action<TSourceItem, ICollectionComputing> newItemProcessor = null,
+			System.Action<TSourceItem, ICollectionComputing> oldItemProcessor = null,
+			System.Action<TSourceItem, ICollectionComputing> moveItemProcessor = null)
 			
 		{
 			return new ObservableComputations.ItemsProcessingVoid<TSourceItem>(
 				sourceScalar: new Computing<INotifyCollectionChanged>(getSourceExpression),
+				newItemProcessor: newItemProcessor,
+				oldItemProcessor: oldItemProcessor,
+				moveItemProcessor: moveItemProcessor);
+		}
+
+
+
+		[ObservableComputationsCall]
+		public static ObservableComputations.ItemsProcessing<TSourceItem, TReturnValue> ItemsProcessing<TSourceItem, TReturnValue>(this
+			ObservableCollection<TSourceItem> source,
+			System.Func<TSourceItem, ICollectionComputing, TReturnValue> newItemProcessor = null,
+			System.Action<TSourceItem, ICollectionComputing, TReturnValue> oldItemProcessor = null,
+			System.Action<TSourceItem, ICollectionComputing, TReturnValue> moveItemProcessor = null)
+			
+		{
+			return new ObservableComputations.ItemsProcessing<TSourceItem, TReturnValue>(
+				source: source,
+				newItemProcessor: newItemProcessor,
+				oldItemProcessor: oldItemProcessor,
+				moveItemProcessor: moveItemProcessor);
+		}
+
+		[ObservableComputationsCall]
+		public static ObservableComputations.ItemsProcessing<TSourceItem, TReturnValue> ItemsProcessing<TSourceItem, TReturnValue>(this
+			ObservableComputations.IReadScalar<ObservableCollection<TSourceItem>> sourceScalar,
+			System.Func<TSourceItem, ICollectionComputing, TReturnValue> newItemProcessor = null,
+			System.Action<TSourceItem, ICollectionComputing, TReturnValue> oldItemProcessor = null,
+			System.Action<TSourceItem, ICollectionComputing, TReturnValue> moveItemProcessor = null)
+			
+		{
+			return new ObservableComputations.ItemsProcessing<TSourceItem, TReturnValue>(
+				sourceScalar: sourceScalar,
+				newItemProcessor: newItemProcessor,
+				oldItemProcessor: oldItemProcessor);
+		}
+
+		[ObservableComputationsCall]
+		public static ObservableComputations.ItemsProcessing<TSourceItem, TReturnValue> ItemsProcessing<TSourceItem, TReturnValue>(this
+			Expression<Func<ObservableCollection<TSourceItem>>> getSourceExpression,
+			System.Func<TSourceItem, ICollectionComputing, TReturnValue> newItemProcessor = null,
+			System.Action<TSourceItem, ICollectionComputing, TReturnValue> oldItemProcessor = null,
+			System.Action<TSourceItem, ICollectionComputing, TReturnValue> moveItemProcessor = null)
+			
+		{
+			return new ObservableComputations.ItemsProcessing<TSourceItem, TReturnValue>(
+				sourceScalar: new Computing<ObservableCollection<TSourceItem>>(getSourceExpression),
+				newItemProcessor: newItemProcessor,
+				oldItemProcessor: oldItemProcessor,
+				moveItemProcessor: moveItemProcessor);
+		}
+
+		[ObservableComputationsCall]
+		public static ObservableComputations.ItemsProcessingVoid<TSourceItem> ItemsProcessing<TSourceItem>(this
+			ObservableCollection<TSourceItem> source,
+			System.Action<TSourceItem, ICollectionComputing> newItemProcessor = null,
+			System.Action<TSourceItem, ICollectionComputing> oldItemProcessor = null,
+			System.Action<TSourceItem, ICollectionComputing> moveItemProcessor = null)
+			
+		{
+			return new ObservableComputations.ItemsProcessingVoid<TSourceItem>(
+				source: source,
+				newItemProcessor: newItemProcessor,
+				oldItemProcessor: oldItemProcessor,
+				moveItemProcessor: moveItemProcessor);
+		}
+
+		[ObservableComputationsCall]
+		public static ObservableComputations.ItemsProcessingVoid<TSourceItem> ItemsProcessing<TSourceItem>(this
+			ObservableComputations.IReadScalar<ObservableCollection<TSourceItem>> sourceScalar,
+			System.Action<TSourceItem, ICollectionComputing> newItemProcessor = null,
+			System.Action<TSourceItem, ICollectionComputing> oldItemProcessor = null,
+			System.Action<TSourceItem, ICollectionComputing> moveItemProcessor = null)
+			
+		{
+			return new ObservableComputations.ItemsProcessingVoid<TSourceItem>(
+				sourceScalar: sourceScalar,
+				newItemProcessor: newItemProcessor,
+				oldItemProcessor: oldItemProcessor,
+				moveItemProcessor: moveItemProcessor);
+		}
+
+		[ObservableComputationsCall]
+		public static ObservableComputations.ItemsProcessingVoid<TSourceItem> ItemsProcessing<TSourceItem>(this
+			Expression<Func<ObservableCollection<TSourceItem>>> getSourceExpression,
+			System.Action<TSourceItem, ICollectionComputing> newItemProcessor = null,
+			System.Action<TSourceItem, ICollectionComputing> oldItemProcessor = null,
+			System.Action<TSourceItem, ICollectionComputing> moveItemProcessor = null)
+			
+		{
+			return new ObservableComputations.ItemsProcessingVoid<TSourceItem>(
+				sourceScalar: new Computing<ObservableCollection<TSourceItem>>(getSourceExpression),
 				newItemProcessor: newItemProcessor,
 				oldItemProcessor: oldItemProcessor,
 				moveItemProcessor: moveItemProcessor);
@@ -266,6 +359,59 @@ namespace ObservableComputations
 		{
 			action(@object);
 			return @object;
+		}
+
+		internal static string ToStringSafe(this object @object, Func<Exception, string> getExceptionString)
+		{
+			try
+			{
+				return @object.ToString();
+			}
+			catch (Exception exception)
+			{
+				return getExceptionString(exception);
+			}
+		}
+
+		internal static string ToStringAlt(this PropertyChangedEventArgs propertyChangedEventArgs)
+		{
+			return $"{propertyChangedEventArgs.GetType().FullName} (PropertyName = '{propertyChangedEventArgs.PropertyName}'";
+		}
+
+		internal static string ToStringAlt(this NotifyCollectionChangedEventArgs notifyCollectionChangedEventArgs)
+		{
+			switch (notifyCollectionChangedEventArgs.Action)
+			{
+				case NotifyCollectionChangedAction.Add:
+					return $"{notifyCollectionChangedEventArgs.GetType().FullName} (Action = '{notifyCollectionChangedEventArgs.Action.ToString()}', notifyCollectionChangedEventArgs.NewItems[0] = '{notifyCollectionChangedEventArgs.NewItems[0].ToStringSafe(e => $"e.ToString() in notifyCollectionChangedEventArgs.NewItems[0].ToString()")}', notifyCollectionChangedEventArgs.NewStartingIndex = '{notifyCollectionChangedEventArgs.NewStartingIndex.ToString()}')";
+				case NotifyCollectionChangedAction.Remove:
+					return $"{notifyCollectionChangedEventArgs.GetType().FullName} (Action = '{notifyCollectionChangedEventArgs.Action.ToString()}', notifyCollectionChangedEventArgs.OldItems[0] = '{notifyCollectionChangedEventArgs.OldItems[0].ToStringSafe(e => $"e.ToString() in notifyCollectionChangedEventArgs.OldItems[0].ToString()")}', notifyCollectionChangedEventArgs.OldStartingIndex = '{notifyCollectionChangedEventArgs.OldStartingIndex.ToString()}')";
+				case NotifyCollectionChangedAction.Replace:
+					return $"{notifyCollectionChangedEventArgs.GetType().FullName} (Action = '{notifyCollectionChangedEventArgs.Action.ToString()}', notifyCollectionChangedEventArgs.NewItems[0] = '{notifyCollectionChangedEventArgs.NewItems[0].ToStringSafe(e => $"e.ToString() in notifyCollectionChangedEventArgs.NewItems[0].ToString()")}', notifyCollectionChangedEventArgs.NewStartingIndex = '{notifyCollectionChangedEventArgs.NewStartingIndex.ToString()}', notifyCollectionChangedEventArgs.OldItems[0] = '{notifyCollectionChangedEventArgs.OldItems[0].ToStringSafe(e => $"e.ToString() in notifyCollectionChangedEventArgs.OldItems[0].ToString()")}', notifyCollectionChangedEventArgs.OldStartingIndex = '{notifyCollectionChangedEventArgs.OldStartingIndex.ToString()}')";					
+				case NotifyCollectionChangedAction.Move:
+					return $"{notifyCollectionChangedEventArgs.GetType().FullName} (Action = '{notifyCollectionChangedEventArgs.Action.ToString()}', notifyCollectionChangedEventArgs.OldStartingIndex = '{notifyCollectionChangedEventArgs.OldStartingIndex.ToString()}', notifyCollectionChangedEventArgs.NewStartingIndex = '{notifyCollectionChangedEventArgs.NewStartingIndex.ToString()}')";					
+				case NotifyCollectionChangedAction.Reset:
+					return $"{notifyCollectionChangedEventArgs.GetType().FullName} (Action = '{notifyCollectionChangedEventArgs.Action.ToString()}')";					
+				default:
+					throw new ArgumentOutOfRangeException();
+			}
+		}
+
+		internal static string ToStringAlt(this NotifyMethodChangedEventArgs notifyMethodChangedEventArgs)
+		{
+			return $"{notifyMethodChangedEventArgs.GetType().FullName} (MethodName = '{notifyMethodChangedEventArgs.MethodName}, ArgumentsPredicate.GetHashCode() = '{notifyMethodChangedEventArgs.ArgumentsPredicate.GetHashCode()}')";
+		}
+
+		internal static string ToStringAlt(this EventArgs eventArgs)
+		{
+			if (eventArgs is PropertyChangedEventArgs propertyChangedEventArgs)
+				return propertyChangedEventArgs.ToStringAlt();
+			else if  (eventArgs is NotifyCollectionChangedEventArgs notifyCollectionChangedEventArgs)
+				return notifyCollectionChangedEventArgs.ToStringAlt();
+			else if  (eventArgs is NotifyMethodChangedEventArgs notifyMethodChangedEventArgs)
+				return notifyMethodChangedEventArgs.ToStringAlt();
+
+			return string.Empty;
 		}
 	}
 }

@@ -14,12 +14,12 @@ namespace ObservableComputations.Test
 
 		private static ItemsProcessingVoid<Item> getItemsProcessing(ObservableCollection<Item> items)
 		{
-			return items.ItemsProcessing<Item>(
-				(item, current, sender, arg3) =>
+			return items.ItemsProcessing(
+				(item, current) =>
 				{
 					item.ProcessedAsNew = true;
 				},
-				(item, current, sender, arg3) =>
+				(item, current) =>
 				{
 					item.ProcessedAsOld = true;
 				});

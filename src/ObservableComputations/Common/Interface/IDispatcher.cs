@@ -22,40 +22,12 @@ namespace ObservableComputations
 		void Invoke(
 			Action action, 
 			ICollectionComputing collectionDispatching,
-			NotifyCollectionChangedEventArgs notifyCollectionChangedEventArgs,
-			PropertyChangedEventArgs propertyChangedEventArgs,
-			bool initializingFromSourceCollection);
+			NotifyCollectionChangedAction notifyCollectionChangedAction,
+			object newItem,
+			object oldItem,
+			int newIndex,
+			int oldIndex);
 	}
-
-
-	public interface IScalarDestinationDispatcher
-	{
-		/// <summary>
-		/// 
-		/// </summary>
-		/// <param name="action"></param>
-		/// <param name="scalarDispatching"></param>
-		/// <param name="propertyChangedEventArgs">not null if source scalar changes, null if initializing from source scalar</param>
-		void Invoke(
-			Action action, 
-			IScalarComputing scalarDispatching,
-			PropertyChangedEventArgs propertyChangedEventArgs);
-	}
-
-	public interface IPropertyDestinationDispatcher
-	{
-		/// <summary>
-		/// 
-		/// </summary>
-		/// <param name="action"></param>
-		/// <param name="propertyDispatching"></param>
-		/// <param name="propertyChangedEventArgs">not null in source property changes, null if initializing from source property</param>
-		void Invoke(
-			Action action, 
-			IComputing propertyDispatching,
-			PropertyChangedEventArgs propertyChangedEventArgs);
-	}
-
 
 	public interface IPropertySourceDispatcher
 	{

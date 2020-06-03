@@ -229,7 +229,7 @@ namespace ObservableComputations
 				itemInfo.SourceScalarPropertyChangedEventHandler = 
 					(sender, eventArgs) =>
 					{
-						checkConsistent();
+						checkConsistent(sender, eventArgs);
 						_isConsistent = false;
 						object sourceScalarValue = sourceScalar.Value;
 						replaceItem((IList) sourceScalarValue, itemInfo);
@@ -313,7 +313,7 @@ namespace ObservableComputations
 		private void handleSourcesScalarValueChanged(object sender, PropertyChangedEventArgs e)
 		{
 			if (e.PropertyName != nameof(IReadScalar<INotifyCollectionChanged>.Value)) return;
-			checkConsistent();
+			checkConsistent(sender, e);
 
 			_processingEventSender = sender;
 			_processingEventArgs = e;
@@ -331,7 +331,7 @@ namespace ObservableComputations
 
 		private void handleSourceCollectionChanged(object sender, NotifyCollectionChangedEventArgs e, ItemInfo itemInfo)
 		{
-			checkConsistent();
+			checkConsistent(sender, e);
 
 			_processingEventSender = sender;
 			_processingEventArgs = e;
@@ -389,10 +389,10 @@ namespace ObservableComputations
 
 		private void handleSourcesCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
 		{
-			checkConsistent();
+			checkConsistent(sender, e);
 
 			_processingEventSender = sender;
-			_processingEventArgs = e;			_
+			_processingEventArgs = e;
 
 			if (_indexerPropertyChangedEventRaised || _lastProcessedSourcesChangeMarker != _sourcesAsIHasChangeMarker.ChangeMarker)
 			{

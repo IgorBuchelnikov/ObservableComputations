@@ -363,7 +363,7 @@ namespace ObservableComputations
 		private void handleEqualityComparerScalarValueChanged(object sender, PropertyChangedEventArgs e)
 		{
 			if (e.PropertyName != nameof(IReadScalar<object>.Value)) return;
-			checkConsistent();
+			checkConsistent(sender, e);
 
 			_processingEventSender = sender;
 			_processingEventArgs = e;
@@ -527,7 +527,7 @@ namespace ObservableComputations
 
 		private void handleSourceCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
 		{
-			checkConsistent();
+			checkConsistent(sender, e);
 			if (!_rootSourceWrapper && _lastProcessedSourceChangeMarker == _sourceAsList.ChangeMarkerField) return;
 			
 			_processingEventSender = sender;
@@ -626,7 +626,7 @@ namespace ObservableComputations
 		private void handleSourceScalarValueChanged(object sender,  PropertyChangedEventArgs e)
 		{
 			if (e.PropertyName != nameof(IReadScalar<INotifyCollectionChanged>.Value)) return;
-			checkConsistent();
+			checkConsistent(sender, e);
 
 			_processingEventSender = sender;
 			_processingEventArgs = e;
@@ -642,7 +642,7 @@ namespace ObservableComputations
 
 		private void keyExpressionWatcher_OnValueChanged(ExpressionWatcher expressionWatcher, object sender, EventArgs eventArgs)
 		{
-			checkConsistent();
+			checkConsistent(sender, eventArgs);
 
 			_processingEventSender = sender;
 			_processingEventArgs = eventArgs;
@@ -665,7 +665,7 @@ namespace ObservableComputations
 
 		private void valueExpressionWatcher_OnValueChanged(ExpressionWatcher expressionWatcher, object sender, EventArgs eventArgs)
 		{
-			checkConsistent();
+			checkConsistent(sender, eventArgs);
 
 			_processingEventSender = sender;
 			_processingEventArgs = eventArgs;
@@ -796,7 +796,7 @@ namespace ObservableComputations
 		{
 			if (!_dictionary.TryAdd(key, value))
 			{
-				throw new ObservableComputationsException(this, "An element with the same key already exists in the ConcurrentDictionaring");
+				throw new ObservableComputationsException(this, $"An element with the same key ({key.ToStringSafe(e => $"{e.ToString()} in key.ToString()")}) already exists in the ConcurrentDictionaring");
 			}
 
 			void raiseEvents()
@@ -869,11 +869,11 @@ namespace ObservableComputations
 			_destinationDispatcher.Invoke(raiseEvents, this);
 		}
 
-		protected void checkConsistent()
+		protected void checkConsistent(object sender, EventArgs eventArgs)
 		{
 			if (!_isConsistent)
 				throw new ObservableComputationsException(this,
-					"The source collection has been changed. It is not possible to process this change, as the processing of the previous change is not completed. Make the change on ConsistencyRestored event raising (after IsConsistent property becomes true). This exception is fatal and cannot be handled as the inner state is damaged.");
+					$"The source collection has been changed. It is not possible to process this change (event sender = '{sender.ToStringSafe(e => $"{e.ToString()} in sender.ToString()")}', event args = '{eventArgs.ToStringAlt()}'), as the processing of the previous change is not completed. Make the change on ConsistencyRestored event raising (after IsConsistent property becomes true). This exception is fatal and cannot be handled as the inner state is damaged.");
 		}
 
 		// ReSharper disable once MemberCanBePrivate.Global

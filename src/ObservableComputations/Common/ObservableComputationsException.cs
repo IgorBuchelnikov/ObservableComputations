@@ -17,4 +17,5 @@ namespace ObservableComputations
 			_computing = computing;
 		}
 	}
+
 }

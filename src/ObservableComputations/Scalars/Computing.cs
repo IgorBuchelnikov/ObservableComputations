@@ -41,9 +41,13 @@ namespace ObservableComputations
 			}
 		}
 
-		private void getValueExpressionWatcherOnValueChanged(ExpressionWatcher expressionWatcher)
+		private void getValueExpressionWatcherOnValueChanged(ExpressionWatcher expressionWatcher, object sender, EventArgs eventArgs)
 		{
+			_processingEventSender = sender;
+			_processingEventArgs = eventArgs;
 			setValue(getResult());
+			_processingEventSender = null;
+			_processingEventArgs = null;
 		}
 
 		private TResult getResult()

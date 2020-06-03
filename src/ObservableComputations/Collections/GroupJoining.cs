@@ -132,7 +132,7 @@ namespace ObservableComputations
 		readonly List<Position> _nullKeyPositions = new List<Position>();
 
 		private bool _lastProcessedSourceChangeMarker;
-		private Queue<ExpressionWatcher> _deferredOuterSourceItemKeyExpressionWatcherChangedProcessings;
+		private Queue<ExpressionWatcher.Raise> _deferredOuterSourceItemKeyExpressionWatcherChangedProcessings;
 		private readonly IReadScalar<INotifyCollectionChanged> _outerSourceScalar;
 		private INotifyCollectionChanged _outerSource;
 		private readonly Expression<Func<TOuterSourceItem, TKey>> _outerKeySelectorExpressionOriginal;
@@ -419,7 +419,7 @@ namespace ObservableComputations
 		private void handleOuterSourceScalarValueChanged(object sender, PropertyChangedEventArgs e)
 		{
 			if (e.PropertyName != nameof(IReadScalar<object>.Value)) return;
-			checkConsistent();
+			checkConsistent(sender, e);
 
 			_processingEventSender = sender;
 			_processingEventArgs = e;
@@ -437,7 +437,7 @@ namespace ObservableComputations
 
 		private void handleGroupingCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
 		{
-			checkConsistent();
+			checkConsistent(sender, e);
 
 			_processingEventSender = sender;
 			_processingEventArgs = e;
@@ -498,7 +498,7 @@ namespace ObservableComputations
 
 		private void handleOuterSourceCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
 		{
-			checkConsistent();
+			checkConsistent(sender, e);
 			if (!_outerRootSourceWrapper && _lastProcessedSourceChangeMarker == _outerSourceAsList.ChangeMarkerField) return;
 
 			_processingEventSender = sender;
@@ -573,12 +573,17 @@ namespace ObservableComputations
 			}	
 			
 			_isConsistent = false;
+			
 			if (_deferredOuterSourceItemKeyExpressionWatcherChangedProcessings != null)
 				while (_deferredOuterSourceItemKeyExpressionWatcherChangedProcessings.Count > 0)
 				{
-					ExpressionWatcher expressionWatcher = _deferredOuterSourceItemKeyExpressionWatcherChangedProcessings.Dequeue();
-					if (!expressionWatcher._disposed)
-						processExpressionWatcherValueChanged(expressionWatcher);
+					ExpressionWatcher.Raise expressionWatcherRaise = _deferredOuterSourceItemKeyExpressionWatcherChangedProcessings.Dequeue();
+					if (!expressionWatcherRaise.ExpressionWatcher._disposed)
+					{
+						_processingEventSender = expressionWatcherRaise.EventSender;
+						_processingEventArgs = expressionWatcherRaise.EventArgs;
+						processExpressionWatcherValueChanged(expressionWatcherRaise.ExpressionWatcher);
+					}
 				} 
 
 			_isConsistent = true;
@@ -590,7 +595,7 @@ namespace ObservableComputations
 
 		private void expressionWatcher_OnValueChanged(ExpressionWatcher expressionWatcher, object sender, EventArgs eventArgs)
 		{
-			checkConsistent();
+			checkConsistent(sender, eventArgs);
 
 			_processingEventSender = sender;
 			_processingEventArgs = eventArgs;
@@ -604,7 +609,9 @@ namespace ObservableComputations
 			}
 			else
 			{
-				(_deferredOuterSourceItemKeyExpressionWatcherChangedProcessings = _deferredOuterSourceItemKeyExpressionWatcherChangedProcessings ??  new Queue<ExpressionWatcher>()).Enqueue(expressionWatcher);
+				(_deferredOuterSourceItemKeyExpressionWatcherChangedProcessings = _deferredOuterSourceItemKeyExpressionWatcherChangedProcessings 
+					??  new Queue<ExpressionWatcher.Raise>())
+				.Enqueue(new ExpressionWatcher.Raise(expressionWatcher, sender, eventArgs));
 			}
 
 			_processingEventSender = null;

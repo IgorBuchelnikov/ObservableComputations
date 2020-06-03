@@ -103,7 +103,7 @@ namespace ObservableComputations
 			if (_sourceDispatcher != null)
 				_sourceDispatcher.Invoke(initializeFromSource, this);
 			else
-				initializeFromSource(null, null);
+				initializeFromSource();
 		}
 
 
@@ -114,7 +114,7 @@ namespace ObservableComputations
 			_processingEventSender = sender;
 			_processingEventArgs = e;
 
-			initializeFromSource(null, e);
+			initializeFromSource();
 
 			_processingEventSender = null;
 			_processingEventArgs = null;
@@ -122,17 +122,10 @@ namespace ObservableComputations
 
 		private void initializeFromSource()
 		{
-			initializeFromSource(null, null);
-		}
-
-		private void initializeFromSource(
-			NotifyCollectionChangedEventArgs notifyCollectionChangedEventArgs,
-			PropertyChangedEventArgs propertyChangedEventArgs)
-		{
 			if (_sourceNotifyCollectionChangedEventHandler != null)
 			{
 				if (_destinationDispatcher != null) _destinationDispatcher.Invoke(baseClearItems, this);
-				else _collectionDestinationDispatcher.Invoke(baseClearItems, this, notifyCollectionChangedEventArgs, propertyChangedEventArgs, true);
+				else _collectionDestinationDispatcher.Invoke(baseClearItems, this, NotifyCollectionChangedAction.Reset, null, null, 0, 0);
 				
 				_source.CollectionChanged -= _sourceWeakNotifyCollectionChangedEventHandler.Handle;
 				_sourceNotifyCollectionChangedEventHandler = null;
@@ -187,7 +180,7 @@ namespace ObservableComputations
 					void insertItem() => baseInsertItem(indexCopy, sourceItem);
 
 					if (_destinationDispatcher != null) _destinationDispatcher.Invoke(insertItem, this);
-					else _collectionDestinationDispatcher.Invoke(insertItem, this, notifyCollectionChangedEventArgs, propertyChangedEventArgs, true);
+					else _collectionDestinationDispatcher.Invoke(insertItem, this, NotifyCollectionChangedAction.Add, sourceItem, null, indexCopy, 0);
 
 				}
 
@@ -218,7 +211,7 @@ namespace ObservableComputations
 						}
 
 						if (_destinationDispatcher != null) _destinationDispatcher.Invoke(add, this);
-						else _collectionDestinationDispatcher.Invoke(add, this, false, e, null, NotifyCollectionChangedAction.Add, null, 0);
+						else _collectionDestinationDispatcher.Invoke(add, this, NotifyCollectionChangedAction.Add, (TSourceItem) e.NewItems[0], null, e.NewStartingIndex, 0);
 
 						break;
 					case NotifyCollectionChangedAction.Remove:
@@ -231,7 +224,7 @@ namespace ObservableComputations
 						}
 
 						if (_destinationDispatcher != null) _destinationDispatcher.Invoke(remove, this);
-						else _collectionDestinationDispatcher.Invoke(remove, this, false, e, null, NotifyCollectionChangedAction.Remove, null, 0);	
+						else _collectionDestinationDispatcher.Invoke(remove, this, NotifyCollectionChangedAction.Remove, null, e.OldItems[0], 0, e.OldStartingIndex);	
 
 						break;
 					case NotifyCollectionChangedAction.Replace:
@@ -242,7 +235,7 @@ namespace ObservableComputations
 						}
 
 						if (_destinationDispatcher != null) _destinationDispatcher.Invoke(replace, this);
-						else _collectionDestinationDispatcher.Invoke(replace, this, false, e, null, NotifyCollectionChangedAction.Replace, null, 0);	
+						else _collectionDestinationDispatcher.Invoke(replace, this, NotifyCollectionChangedAction.Replace, (TSourceItem) e.NewItems[0], (TSourceItem) e.OldItems[0], e.NewStartingIndex, e.OldStartingIndex);	
 						break;
 					case NotifyCollectionChangedAction.Move:
 						int oldStartingIndex1 = e.OldStartingIndex;
@@ -255,11 +248,11 @@ namespace ObservableComputations
 						}
 
 						if (_destinationDispatcher != null) _destinationDispatcher.Invoke(move, this);
-						else _collectionDestinationDispatcher.Invoke(move, this, false, e, null, NotifyCollectionChangedAction.Move, null, 0);	
+						else _collectionDestinationDispatcher.Invoke(move, this, NotifyCollectionChangedAction.Move, (TSourceItem) e.NewItems[0], (TSourceItem) e.OldItems[0], e.NewStartingIndex, e.OldStartingIndex);	
 
 						break;
 					case NotifyCollectionChangedAction.Reset:
-						initializeFromSource(e, null);
+						initializeFromSource();
 						break;
 				}
 			}

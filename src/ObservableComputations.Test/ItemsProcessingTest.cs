@@ -15,13 +15,13 @@ namespace ObservableComputations.Test
 
 		private static ItemsProcessing<Item, object> getItemsProcessing(ObservableCollection<Item> items)
 		{
-			return items.ItemsProcessing<Item, object>(
-				(item, current, sender, arg3) =>
+			return items.ItemsProcessing(
+				(item, current) =>
 				{
 					item.ProcessedAsNew = true;
 					return item.Token;
 				},
-				(item, current, returnValue, sender, arg3) =>
+				(item, current, returnValue) =>
 				{
 					item.ProcessedAsOld = true;
 					Assert.AreEqual(item.Token, returnValue);

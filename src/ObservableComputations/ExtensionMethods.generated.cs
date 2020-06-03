@@ -23293,56 +23293,6 @@ namespace ObservableComputations
 				sourceDispatcher: null);
 		}
 
-		[ObservableComputationsCall]
-		public static ObservableComputations.ScalarDispatching<TResult> ScalarDispatching<TResult>(this
-			 ObservableComputations.IReadScalar<TResult> scalar,
-			 ObservableComputations.IScalarDestinationDispatcher destinationDispatcher,
-			 ObservableComputations.IDispatcher sourceDispatcher)
-			
-		{
-			return new ObservableComputations.ScalarDispatching<TResult>(
-				scalar: scalar,
-				destinationDispatcher: destinationDispatcher,
-				sourceDispatcher: sourceDispatcher);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.ScalarDispatching<TResult> ScalarDispatching<TResult>(this
-			 ObservableComputations.IReadScalar<TResult> scalar,
-			 ObservableComputations.IScalarDestinationDispatcher destinationDispatcher)
-			
-		{
-			return new ObservableComputations.ScalarDispatching<TResult>(
-				scalar: scalar,
-				destinationDispatcher: destinationDispatcher,
-				sourceDispatcher: null);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.ScalarDispatching<TResult> ScalarDispatching<TResult>(this
-			 Expression<Func<TResult>> scalar,
-			 ObservableComputations.IScalarDestinationDispatcher destinationDispatcher,
-			 ObservableComputations.IDispatcher sourceDispatcher)
-			
-		{
-			return new ObservableComputations.ScalarDispatching<TResult>(
-				scalar: new Computing<TResult>(scalar),
-				destinationDispatcher: destinationDispatcher,
-				sourceDispatcher: sourceDispatcher);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.ScalarDispatching<TResult> ScalarDispatching<TResult>(this
-			 Expression<Func<TResult>> scalar,
-			 ObservableComputations.IScalarDestinationDispatcher destinationDispatcher)
-			
-		{
-			return new ObservableComputations.ScalarDispatching<TResult>(
-				scalar: new Computing<TResult>(scalar),
-				destinationDispatcher: destinationDispatcher,
-				sourceDispatcher: null);
-		}
-
 		#endregion
 		#region Selecting
 

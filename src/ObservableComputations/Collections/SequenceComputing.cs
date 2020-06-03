@@ -27,7 +27,7 @@ namespace ObservableComputations
 		private void handleCountChanged(object sender, PropertyChangedEventArgs e)
 		{
 			if (e.PropertyName != nameof(Computing<int>.Value)) return;
-			checkConsistent();
+			checkConsistent(sender, e);
 
 			_processingEventSender = sender;
 			_processingEventArgs = e;

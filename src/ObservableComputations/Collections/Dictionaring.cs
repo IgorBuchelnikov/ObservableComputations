@@ -185,8 +185,8 @@ namespace ObservableComputations
 		bool _rootSourceWrapper;
 
 		private bool _lastProcessedSourceChangeMarker;
-		private Queue<ExpressionWatcher> _deferredValueExpressionWatcherChangedProcessings;
-		private Queue<ExpressionWatcher> _deferredKeyExpressionWatcherChangedProcessings;
+		private Queue<ExpressionWatcher.Raise> _deferredValueExpressionWatcherChangedProcessings;
+		private Queue<ExpressionWatcher.Raise> _deferredKeyExpressionWatcherChangedProcessings;
 
 		private NotifyCollectionChangedEventHandler _sourceNotifyCollectionChangedEventHandler;
 		private WeakNotifyCollectionChangedEventHandler _sourceWeakNotifyCollectionChangedEventHandler;
@@ -354,7 +354,7 @@ namespace ObservableComputations
 		private void handleEqualityComparerScalarValueChanged(object sender, PropertyChangedEventArgs e)
 		{
 			if (e.PropertyName != nameof(IReadScalar<object>.Value)) return;
-			checkConsistent();
+			checkConsistent(sender, e);
 
 			_processingEventSender = sender;
 			_processingEventArgs = e;
@@ -518,7 +518,7 @@ namespace ObservableComputations
 
 		private void handleSourceCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
 		{
-			checkConsistent();
+			checkConsistent(sender, e);
 
 			if (!_rootSourceWrapper && _lastProcessedSourceChangeMarker == _sourceAsList.ChangeMarkerField) return;
 
@@ -542,10 +542,13 @@ namespace ObservableComputations
 					ConsistencyRestored?.Invoke(this, null);
 					break;
 				case NotifyCollectionChangedAction.Remove:
+					_isConsistent = false;
 					int oldStartingIndex = e.OldStartingIndex;
 					key = _itemInfos[oldStartingIndex].Key;
 					unregisterSourceItem(oldStartingIndex);
 					baseRemoveItem(key);
+					_isConsistent = true;
+					ConsistencyRestored?.Invoke(this, null);
 					break;
 				case NotifyCollectionChangedAction.Replace:
 					_isConsistent = false;
@@ -594,19 +597,28 @@ namespace ObservableComputations
 			if (_deferredKeyExpressionWatcherChangedProcessings != null)
 				while (_deferredKeyExpressionWatcherChangedProcessings.Count > 0)
 				{
-					ExpressionWatcher expressionWatcher = _deferredKeyExpressionWatcherChangedProcessings.Dequeue();
-					if (!expressionWatcher._disposed)
-						processKeyExpressionWatcherValueChanged(expressionWatcher);
+					ExpressionWatcher.Raise expressionWatcherRaise = _deferredKeyExpressionWatcherChangedProcessings.Dequeue();
+					if (!expressionWatcherRaise.ExpressionWatcher._disposed)
+					{
+						_processingEventSender = expressionWatcherRaise.EventSender;
+						_processingEventArgs = expressionWatcherRaise.EventArgs;
+						processKeyExpressionWatcherValueChanged(expressionWatcherRaise.ExpressionWatcher);
+					}
 				}
 			
 
 			if (_deferredValueExpressionWatcherChangedProcessings != null)
 				while (_deferredValueExpressionWatcherChangedProcessings.Count > 0)
 				{
-					ExpressionWatcher expressionWatcher = _deferredValueExpressionWatcherChangedProcessings.Dequeue();
-					if (!expressionWatcher._disposed)
-						processValueExpressionWatcherValueChanged(expressionWatcher);
+					ExpressionWatcher.Raise expressionWatcherRaise = _deferredValueExpressionWatcherChangedProcessings.Dequeue();
+					if (!expressionWatcherRaise.ExpressionWatcher._disposed)
+					{
+						_processingEventSender = expressionWatcherRaise.EventSender;
+						_processingEventArgs = expressionWatcherRaise.EventArgs;
+						processValueExpressionWatcherValueChanged(expressionWatcherRaise.ExpressionWatcher);
+					}
 				}
+
 			_isConsistent = true;
 			ConsistencyRestored?.Invoke(this, null);
 
@@ -617,7 +629,7 @@ namespace ObservableComputations
 		private void handleSourceScalarValueChanged(object sender,  PropertyChangedEventArgs e)
 		{
 			if (e.PropertyName != nameof(IReadScalar<INotifyCollectionChanged>.Value)) return;
-			checkConsistent();
+			checkConsistent(sender, e);
 
 			_processingEventSender = sender;
 			_processingEventArgs = e;
@@ -633,7 +645,7 @@ namespace ObservableComputations
 
 		private void keyExpressionWatcher_OnValueChanged(ExpressionWatcher expressionWatcher, object sender, EventArgs eventArgs)
 		{
-			checkConsistent();
+			checkConsistent(sender, eventArgs);
 
 			_processingEventSender = sender;
 			_processingEventArgs = eventArgs;
@@ -647,7 +659,9 @@ namespace ObservableComputations
 			}
 			else
 			{
-				(_deferredKeyExpressionWatcherChangedProcessings = _deferredKeyExpressionWatcherChangedProcessings ??  new Queue<ExpressionWatcher>()).Enqueue(expressionWatcher);
+				(_deferredKeyExpressionWatcherChangedProcessings = 
+					_deferredKeyExpressionWatcherChangedProcessings ??  new Queue<ExpressionWatcher.Raise>())
+				.Enqueue(new ExpressionWatcher.Raise(expressionWatcher, sender, eventArgs));
 			}
 
 			_processingEventSender = null;
@@ -656,7 +670,7 @@ namespace ObservableComputations
 
 		private void valueExpressionWatcher_OnValueChanged(ExpressionWatcher expressionWatcher, object sender, EventArgs eventArgs)
 		{
-			checkConsistent();
+			checkConsistent(sender, eventArgs);
 
 			_processingEventSender = sender;
 			_processingEventArgs = eventArgs;
@@ -670,7 +684,9 @@ namespace ObservableComputations
 			}
 			else
 			{
-				(_deferredValueExpressionWatcherChangedProcessings = _deferredValueExpressionWatcherChangedProcessings ??  new Queue<ExpressionWatcher>()).Enqueue(expressionWatcher);
+				(_deferredValueExpressionWatcherChangedProcessings = 
+					_deferredValueExpressionWatcherChangedProcessings ??  new Queue<ExpressionWatcher.Raise>())
+				.Enqueue(new ExpressionWatcher.Raise(expressionWatcher, sender, eventArgs));
 			}
 
 			_processingEventSender = null;
@@ -815,11 +831,11 @@ namespace ObservableComputations
 			}
 		}
 
-		protected void checkConsistent()
+		protected void checkConsistent(object sender, EventArgs eventArgs)
 		{
 			if (!_isConsistent)
 				throw new ObservableComputationsException(this,
-					"The source collection has been changed. It is not possible to process this change, as the processing of the previous change is not completed. Make the change on ConsistencyRestored event raising (after IsConsistent property becomes true). This exception is fatal and cannot be handled as the inner state is damaged.");
+					$"The source collection has been changed. It is not possible to process this change (event sender = '{sender.ToStringSafe(e => $"{e.ToString()} in sender.ToString()")}', event args = '{eventArgs.ToStringAlt()}'), as the processing of the previous change is not completed. Make the change on ConsistencyRestored event raising (after IsConsistent property becomes true). This exception is fatal and cannot be handled as the inner state is damaged.");
 		}
 
 		// ReSharper disable once MemberCanBePrivate.Global

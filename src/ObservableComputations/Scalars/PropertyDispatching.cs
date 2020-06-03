@@ -14,7 +14,6 @@ namespace ObservableComputations
 		public Expression<Func<TResult>>  PropertyExpression => _propertyExpression;
 		public IDispatcher SourceDispatcher => _sourceDispatcher;
 		public IDispatcher DestinationDispatcher => _destinationDispatcher;
-		public IPropertyDestinationDispatcher PropertyDestinationDispatcher => _propertyDestinationDispatcher;
 		public IPropertySourceDispatcher PropertySourceDispatcher => _propertySourceDispatcher;
 
 		internal object _processingEventSender;
@@ -35,7 +34,6 @@ namespace ObservableComputations
 
 		private IDispatcher _sourceDispatcher;
 		private IDispatcher _destinationDispatcher;
-		private IPropertyDestinationDispatcher _propertyDestinationDispatcher;
 		private IPropertySourceDispatcher _propertySourceDispatcher;
 
 		private Action<THolder, TResult> _setter;
@@ -55,35 +53,12 @@ namespace ObservableComputations
 			initialize(propertyExpression);
 		}
 
-		[ObservableComputationsCall]
-		public PropertyDispatching(
-			Expression<Func<TResult>> propertyExpression,
-			IPropertyDestinationDispatcher destinationDispatcher,
-			IPropertySourceDispatcher sourceDispatcher = null)
-		{
-			_propertyDestinationDispatcher = destinationDispatcher;
-			_propertySourceDispatcher = sourceDispatcher;
-
-			initialize(propertyExpression);
-		}
-
-		[ObservableComputationsCall]
-		public PropertyDispatching(
-			Expression<Func<TResult>> propertyExpression,
-			IPropertyDestinationDispatcher destinationDispatcher,
-			IDispatcher sourceDispatcher = null)
-		{
-			_propertyDestinationDispatcher = destinationDispatcher;
-			_sourceDispatcher = sourceDispatcher;
-
-			initialize(propertyExpression);
-		}
 
 		[ObservableComputationsCall]
 		public PropertyDispatching(
 			Expression<Func<TResult>> propertyExpression,
 			IDispatcher destinationDispatcher,
-			IPropertySourceDispatcher sourceDispatcher = null)
+			IPropertySourceDispatcher sourceDispatcher)
 		{
 			_propertySourceDispatcher = sourceDispatcher;
 			_destinationDispatcher = destinationDispatcher;
@@ -137,8 +112,7 @@ namespace ObservableComputations
 
 				_propertyHolder.PropertyChanged += _propertyHolderWeakPropertyChangedEventHandler.Handle;
 
-				if (_destinationDispatcher != null) _destinationDispatcher.Invoke(raiseValuePropertyChanged, this);
-				else _propertyDestinationDispatcher.Invoke(raiseValuePropertyChanged, this, null);
+				_destinationDispatcher.Invoke(raiseValuePropertyChanged, this);
 			}
 
 			if (_sourceDispatcher != null)
@@ -167,8 +141,7 @@ namespace ObservableComputations
 				PropertyChanged?.Invoke(this, Utils.ValuePropertyChangedEventArgs);
 			}
 
-			if (_destinationDispatcher != null) _destinationDispatcher.Invoke(raiseValuePropertyChanged, this);
-			else _propertyDestinationDispatcher.Invoke(raiseValuePropertyChanged, this, e);
+			_destinationDispatcher.Invoke(raiseValuePropertyChanged, this);
 
 			_processingEventSender = null;
 			_processingEventArgs = null;

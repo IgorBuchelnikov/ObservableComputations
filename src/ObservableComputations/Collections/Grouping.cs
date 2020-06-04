@@ -1085,7 +1085,6 @@ namespace ObservableComputations
 
 		public Group<TSourceItem, TKey> GetGroup(TKey key)
 		{
-			checkConsistent(null, null);
 			return getGroup(key);
 		}
 

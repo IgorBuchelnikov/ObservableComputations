@@ -751,7 +751,6 @@ namespace ObservableComputations
 
 		public TKey ApplyKeySelector(int index)
 		{
-			checkConsistent(null, null);
 			return applyKeySelector(index);
 		}
 

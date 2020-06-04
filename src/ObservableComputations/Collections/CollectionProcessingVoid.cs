@@ -6,7 +6,7 @@ using System.Threading;
 
 namespace ObservableComputations
 {
-	public class ItemsProcessingVoid<TSourceItem> : CollectionComputing<TSourceItem>, IHasSourceCollections
+	public class CollectionProcessingVoid<TSourceItem> : CollectionComputing<TSourceItem>, IHasSourceCollections
 	{
 		// ReSharper disable once MemberCanBePrivate.Global
 		public IReadScalar<INotifyCollectionChanged> SourceScalar => _sourceScalar;
@@ -39,7 +39,7 @@ namespace ObservableComputations
 		private INotifyCollectionChanged _source;
 
 		[ObservableComputationsCall]
-		public ItemsProcessingVoid(
+		public CollectionProcessingVoid(
 			IReadScalar<INotifyCollectionChanged> sourceScalar,
 			Action<TSourceItem, ICollectionComputing> newItemProcessor = null,
 			Action<TSourceItem, ICollectionComputing> oldItemProcessor = null,
@@ -54,7 +54,7 @@ namespace ObservableComputations
 		}
 
 		[ObservableComputationsCall]
-		public ItemsProcessingVoid(
+		public CollectionProcessingVoid(
 			INotifyCollectionChanged source,
 			Action<TSourceItem, ICollectionComputing> newItemProcessor = null,
 			Action<TSourceItem, ICollectionComputing> oldItemProcessor = null,
@@ -64,7 +64,7 @@ namespace ObservableComputations
 			initializeFromSource(null, null);
 		}
 
-		private ItemsProcessingVoid(
+		private CollectionProcessingVoid(
 			Action<TSourceItem, ICollectionComputing> newItemProcessor,
 			Action<TSourceItem, ICollectionComputing> oldItemProcessor,
 			Action<TSourceItem, ICollectionComputing> moveItemProcessor, 
@@ -287,7 +287,7 @@ namespace ObservableComputations
 			_moveItemProcessor(sourceItem, this);
 		}
 
-		~ItemsProcessingVoid()
+		~CollectionProcessingVoid()
 		{
 			if (_sourceWeakNotifyCollectionChangedEventHandler != null)
 			{

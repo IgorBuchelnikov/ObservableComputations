@@ -6,7 +6,7 @@ using System.Threading;
 
 namespace ObservableComputations
 {
-	public class ItemsProcessing<TSourceItem, TReturnValue> : CollectionComputing<TReturnValue>, IHasSourceCollections
+	public class CollectionProcessing<TSourceItem, TReturnValue> : CollectionComputing<TReturnValue>, IHasSourceCollections
 	{
 		// ReSharper disable once MemberCanBePrivate.Global
 		public IReadScalar<INotifyCollectionChanged> SourceScalar => _sourceScalar;
@@ -40,7 +40,7 @@ namespace ObservableComputations
 		private INotifyCollectionChanged _source;
 
 		[ObservableComputationsCall]
-		public ItemsProcessing(
+		public CollectionProcessing(
 			IReadScalar<INotifyCollectionChanged> sourceScalar,
 			Func<TSourceItem, ICollectionComputing, TReturnValue> newItemProcessor = null,
 			Action<TSourceItem, ICollectionComputing, TReturnValue> oldItemProcessor = null,
@@ -55,7 +55,7 @@ namespace ObservableComputations
 		}
 
 		[ObservableComputationsCall]
-		public ItemsProcessing(
+		public CollectionProcessing(
 			INotifyCollectionChanged source,
 			Func<TSourceItem, ICollectionComputing, TReturnValue> newItemProcessor = null,
 			Action<TSourceItem, ICollectionComputing, TReturnValue> oldItemProcessor = null,
@@ -65,7 +65,7 @@ namespace ObservableComputations
 			initializeFromSource(null, null);
 		}
 
-		private ItemsProcessing(
+		private CollectionProcessing(
 			Func<TSourceItem, ICollectionComputing, TReturnValue> newItemProcessor,
 			Action<TSourceItem, ICollectionComputing, TReturnValue> oldItemProcessor,
 			Action<TSourceItem, ICollectionComputing, TReturnValue> moveItemProcessor, 
@@ -293,7 +293,7 @@ namespace ObservableComputations
 			_moveItemProcessor(sourceItem, this, returnValue);
 		}
 
-		~ItemsProcessing()
+		~CollectionProcessing()
 		{
 			if (_sourceWeakNotifyCollectionChangedEventHandler != null)
 			{

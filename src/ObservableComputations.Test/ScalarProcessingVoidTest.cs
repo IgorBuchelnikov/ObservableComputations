@@ -3,7 +3,7 @@
 namespace ObservableComputations.Test
 {
 	[TestFixture]
-	public class ValuesProcessingVoidTest
+	public class ScalarProcessingVoidTest
 	{
 		public class Item
 		{
@@ -12,11 +12,11 @@ namespace ObservableComputations.Test
 
 
 		[Test]
-		public void  ValuesProcessingVoid_Test()
+		public void  ScalarProcessingVoid_Test()
 		{
 			Item item = new Item();
 			Scalar<Item> itemScalar = new Scalar<Item>(item);
-			itemScalar.ValuesProcessing((i, current, sender, eventArgs) =>
+			itemScalar.ScalarProcessing((i, current) =>
 			{
 				i.ProcessedAsNew = true;
 			});

@@ -4,33 +4,35 @@ using System.Threading;
 
 namespace ObservableComputations
 {
-	public class ValuesProcessing<TValue, TReturnValue> : ScalarComputing<TReturnValue>
+	public class ScalarProcessing<TValue, TReturnValue> : ScalarComputing<TReturnValue>
 	{
 		public IReadScalar<TValue> Scalar => _scalar;
-		public Func<TValue, ValuesProcessing<TValue, TReturnValue>, IReadScalar<TValue>, EventArgs, TReturnValue> NewValueProcessor => _newValueProcessor;
+		public Func<TValue, IScalarComputing, TReturnValue, TReturnValue> NewValueProcessor => _newValueProcessor;
 
 		private IReadScalar<TValue> _scalar;
 
 		private readonly PropertyChangedEventHandler _scalarPropertyChangedEventHandler;
 		private readonly WeakPropertyChangedEventHandler _scalarWeakPropertyChangedEventHandler;
 
-		private Func<TValue, ValuesProcessing<TValue, TReturnValue>, IReadScalar<TValue>, EventArgs, TReturnValue> _newValueProcessor;
+		private Func<TValue, IScalarComputing, TReturnValue, TReturnValue> _newValueProcessor;
+
+		private TReturnValue _returnValue;
 
 		[ObservableComputationsCall]
-		public ValuesProcessing(
+		public ScalarProcessing(
 			IReadScalar<TValue> scalar,
-			Func<TValue, ValuesProcessing<TValue, TReturnValue>, IReadScalar<TValue>, EventArgs, TReturnValue> newValueProcessor,
+			Func<TValue, IScalarComputing, TReturnValue, TReturnValue> newValueProcessor,
 			bool processNow = true) : this(scalar)
 		{
 			_newValueProcessor = newValueProcessor;
 			if (processNow)
 			{
-				setValue(processNewValue(scalar.Value, null, null));
+				setValue(processNewValue(scalar.Value));
 			}
 		}
 
 
-		private ValuesProcessing(
+		private ScalarProcessing(
 			IReadScalar<TValue> scalar)
 		{
 			_scalar = scalar;
@@ -46,13 +48,14 @@ namespace ObservableComputations
 			_handledEventSender = sender;
 			_handledEventArgs = e;
 
-			setValue(processNewValue(_scalar.Value, _scalar, e));
+			_returnValue = processNewValue(_scalar.Value);
+			setValue(_returnValue);
 
 			_handledEventSender = null;
 			_handledEventArgs = null;
 		}
 
-		private TReturnValue processNewValue(TValue newValue, IReadScalar<TValue> sender, EventArgs eventArgs)
+		private TReturnValue processNewValue(TValue newValue)
 		{
 			if (Configuration.TrackComputingsExecutingUserCode)
 			{
@@ -64,7 +67,7 @@ namespace ObservableComputations
 				DebugInfo._computingsExecutingUserCode[currentThread] = this;
 				_userCodeIsCalledFrom = computing;
 
-				TReturnValue returnValue = _newValueProcessor(newValue, this, sender, eventArgs);
+				TReturnValue returnValue = _newValueProcessor(newValue, this, _returnValue);
 
 				if (computing == null) DebugInfo._computingsExecutingUserCode.TryRemove(currentThread, out IComputing _);
 				else DebugInfo._computingsExecutingUserCode[currentThread] = computing;
@@ -74,12 +77,12 @@ namespace ObservableComputations
 			}
 			else
 			{
-				return _newValueProcessor(newValue, this, sender, eventArgs);
+				return _newValueProcessor(newValue, this, _returnValue);
 			}
 		}
 
 
-		~ValuesProcessing()
+		~ScalarProcessing()
 		{
 			_scalar.PropertyChanged -= _scalarWeakPropertyChangedEventHandler.Handle;
 		}

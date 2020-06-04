@@ -3,7 +3,7 @@
 namespace ObservableComputations.Test
 {
 	[TestFixture]
-	public class ValueProcessingTest
+	public class ScalarProcessingTest
 	{
 		public class Item
 		{
@@ -13,14 +13,14 @@ namespace ObservableComputations.Test
 
 
 		[Test]
-		public void ValuesProcessing_Test()
+		public void ScalarProcessing_Test()
 		{
 			Item item = new Item();
 			Scalar<Item> itemScalar = new Scalar<Item>(item);
 			object token = null;
-			itemScalar.ValuesProcessing<Item, object>((i, current, sender, eventArgs) =>
+			itemScalar.ScalarProcessing<Item, object>((i, current, val) =>
 			{
-				Assert.AreEqual(current.Value, token);
+				Assert.AreEqual(current.ValueObject, token);
 				i.ProcessedAsNew = true;
 				return i.Token;
 			});

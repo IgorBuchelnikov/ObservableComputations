@@ -34,8 +34,8 @@
 
 					string name = classInFile.Name;
 
-                    if (name.Contains("ItemsProcessing")
-                        || name.Contains("ValuesProcessing")
+                    if (name.Contains("CollectionProcessing")
+                        || name.Contains("ScalarProcessing")
                         || name.Contains("PropertyDispatching")
                         || name.Contains("Crossing"))
                         continue;

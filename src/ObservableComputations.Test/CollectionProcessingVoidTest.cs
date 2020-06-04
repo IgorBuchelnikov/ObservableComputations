@@ -4,7 +4,7 @@ using NUnit.Framework;
 namespace ObservableComputations.Test
 {
 	[TestFixture]
-	public class ItemsProcessingVoidTest
+	public class CollectionProcessingVoidTest
 	{
 		public class Item
 		{
@@ -12,9 +12,9 @@ namespace ObservableComputations.Test
 			public bool ProcessedAsOld;
 		}
 
-		private static ItemsProcessingVoid<Item> getItemsProcessing(ObservableCollection<Item> items)
+		private static CollectionProcessingVoid<Item> getCollectionProcessing(ObservableCollection<Item> items)
 		{
-			return items.ItemsProcessing(
+			return items.CollectionProcessing(
 				(item, current) =>
 				{
 					item.ProcessedAsNew = true;
@@ -27,16 +27,16 @@ namespace ObservableComputations.Test
 
 
 		[Test]
-		public void ItemsProcessing_Initialization_01()
+		public void CollectionProcessing_Initialization_01()
 		{
 			ObservableCollection<Item> items = new ObservableCollection<Item>();
 
-			ItemsProcessingVoid<Item> itemsProcessing = getItemsProcessing(items);
+			CollectionProcessingVoid<Item> collectionProcessing = getCollectionProcessing(items);
 		}
 
 
 		[Test, Combinatorial]
-		public void ItemsProcessing_Remove(
+		public void CollectionProcessing_Remove(
 			[Range(0, 4, 1)] int index)
 		{
 			Item[] sourceCollection = new[]
@@ -51,14 +51,14 @@ namespace ObservableComputations.Test
 			ObservableCollection<Item> items = new ObservableCollection<Item>(
 				sourceCollection);
 
-			ItemsProcessingVoid<Item> itemsProcessing = getItemsProcessing(items);
+			CollectionProcessingVoid<Item> collectionProcessing = getCollectionProcessing(items);
 			items.RemoveAt(index);
 			Assert.IsTrue(sourceCollection[index].ProcessedAsNew);
 			Assert.IsTrue(sourceCollection[index].ProcessedAsOld);
 		}
 
 		[Test, Combinatorial]
-		public void ItemsProcessing_Remove1()
+		public void CollectionProcessing_Remove1()
 		{
 			Item item = new Item();
 			ObservableCollection<Item> items = new ObservableCollection<Item>(
@@ -68,14 +68,14 @@ namespace ObservableComputations.Test
 				}
 			);
 
-			ItemsProcessingVoid<Item> itemsProcessing = getItemsProcessing(items);
+			CollectionProcessingVoid<Item> collectionProcessing = getCollectionProcessing(items);
 			items.RemoveAt(0);
 			Assert.IsTrue(item.ProcessedAsNew);
 			Assert.IsTrue(item.ProcessedAsOld);
 		}
 
 		[Test, Combinatorial]
-		public void ItemsProcessing_Insert(
+		public void CollectionProcessing_Insert(
 			[Range(0, 4, 1)] int index)
 		{
 			Item[] sourceCollection = new[]
@@ -90,7 +90,7 @@ namespace ObservableComputations.Test
 			ObservableCollection<Item> items = new ObservableCollection<Item>(
 				sourceCollection);
 
-			ItemsProcessingVoid<Item> itemsProcessing = getItemsProcessing(items);
+			CollectionProcessingVoid<Item> collectionProcessing = getCollectionProcessing(items);
 			Item item = new Item();
 			items.Insert(index, item);
 			Assert.IsTrue(item.ProcessedAsNew);
@@ -98,12 +98,12 @@ namespace ObservableComputations.Test
 		}
 
 		[Test, Combinatorial]
-		public void ItemsProcessing_Insert1(
+		public void CollectionProcessing_Insert1(
 			[Range(-1, 5)] int newValue)
 		{
 			ObservableCollection<Item> items = new ObservableCollection<Item>();
 
-			ItemsProcessingVoid<Item> itemsProcessing = getItemsProcessing(items);
+			CollectionProcessingVoid<Item> collectionProcessing = getCollectionProcessing(items);
 			Item item = new Item();
 			items.Insert(0, item);
 			Assert.IsTrue(item.ProcessedAsNew);
@@ -111,7 +111,7 @@ namespace ObservableComputations.Test
 		}
 
 		[Test, Combinatorial]
-		public void ItemsProcessing_Move(
+		public void CollectionProcessing_Move(
 			[Range(0, 4, 1)] int oldIndex,
 			[Range(0, 4, 1)] int newIndex)
 		{
@@ -127,14 +127,14 @@ namespace ObservableComputations.Test
 			ObservableCollection<Item> items = new ObservableCollection<Item>(
 				sourceCollection);
 
-			ItemsProcessingVoid<Item> itemsProcessing = getItemsProcessing(items);
+			CollectionProcessingVoid<Item> collectionProcessing = getCollectionProcessing(items);
 			items.Move(oldIndex, newIndex);
 			Assert.IsTrue(sourceCollection[oldIndex].ProcessedAsNew);
 			Assert.IsFalse(sourceCollection[oldIndex].ProcessedAsOld);
 		}
 
 		[Test, Combinatorial]
-		public void ItemsProcessing_Set(
+		public void CollectionProcessing_Set(
 			[Range(0, 4, 1)] int index)
 		{
 			Item[] sourceCollection = new[]
@@ -149,7 +149,7 @@ namespace ObservableComputations.Test
 			ObservableCollection<Item> items = new ObservableCollection<Item>(
 				sourceCollection);
 
-			ItemsProcessingVoid<Item> itemsProcessing = getItemsProcessing(items);
+			CollectionProcessingVoid<Item> collectionProcessing = getCollectionProcessing(items);
 			items[index] = new Item();
 			Assert.IsTrue(sourceCollection[index].ProcessedAsNew);
 			Assert.IsTrue(sourceCollection[index].ProcessedAsOld);

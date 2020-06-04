@@ -45,8 +45,8 @@ namespace ObservableComputations
 		{
 			if (e.PropertyName != nameof(IReadScalar<TResult>.Value)) return;
 
-			_processingEventSender = sender;
-			_processingEventArgs = e;
+			_handledEventSender = sender;
+			_handledEventArgs = e;
 
 			TResult newValue = _scalar.Value;
 			_previousValue = _value;
@@ -61,8 +61,8 @@ namespace ObservableComputations
 			setValue(newValue);
 			_previousValue = null;
 
-			_processingEventSender = null;
-			_processingEventArgs = null;
+			_handledEventSender = null;
+			_handledEventArgs = null;
 		}
 
 		~WeakPreviousTracking()

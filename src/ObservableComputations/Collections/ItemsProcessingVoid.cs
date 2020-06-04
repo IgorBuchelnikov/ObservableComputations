@@ -148,8 +148,8 @@ namespace ObservableComputations
 			if (e.PropertyName != nameof(IReadScalar<INotifyCollectionChanged>.Value)) return;
 			checkConsistent(sender, e);
 
-			_processingEventSender = sender;
-			_processingEventArgs = e;
+			_handledEventSender = sender;
+			_handledEventArgs = e;
 
 			_isConsistent = false;
 
@@ -158,8 +158,8 @@ namespace ObservableComputations
 			_isConsistent = true;
 			raiseConsistencyRestored();
 
-			_processingEventSender = null;
-			_processingEventArgs = null;
+			_handledEventSender = null;
+			_handledEventArgs = null;
 		}
 
 
@@ -168,8 +168,8 @@ namespace ObservableComputations
 			checkConsistent(sender, e);
 			if (!_rootSourceWrapper && _lastProcessedSourceChangeMarker == _sourceAsList.ChangeMarkerField) return;
 
-			_processingEventSender = null;
-			_processingEventArgs = null;
+			_handledEventSender = null;
+			_handledEventArgs = null;
 
 			_lastProcessedSourceChangeMarker = !_lastProcessedSourceChangeMarker;
 
@@ -222,8 +222,8 @@ namespace ObservableComputations
 					break;
 			}
 
-			_processingEventSender = null;
-			_processingEventArgs = null;
+			_handledEventSender = null;
+			_handledEventArgs = null;
 		}
 
 		private void processNewItem(TSourceItem sourceItem)

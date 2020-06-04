@@ -119,16 +119,16 @@ namespace ObservableComputations
 			checkConsistent(sender, e);
 			if (e.PropertyName != nameof(IReadScalar<object>.Value)) return;
 
-			_processingEventSender = sender;
-			_processingEventArgs = e;
+			_handledEventSender = sender;
+			_handledEventArgs = e;
 
 			_isConsistent = false;
 			initializeFromSource();
 			_isConsistent = true;
 			raiseConsistencyRestored();
 
-			_processingEventSender = null;
-			_processingEventArgs = null;
+			_handledEventSender = null;
+			_handledEventArgs = null;
 		}
 
 		private void handleSourceCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
@@ -136,8 +136,8 @@ namespace ObservableComputations
 			checkConsistent(sender, e);
 			if (!_rootSourceWrapper && _lastProcessedSourceChangeMarker == _sourceAsList.ChangeMarkerField) return;
 
-			_processingEventSender = sender;
-			_processingEventArgs = e;
+			_handledEventSender = sender;
+			_handledEventArgs = e;
 
 			_lastProcessedSourceChangeMarker = !_lastProcessedSourceChangeMarker;
 
@@ -220,8 +220,8 @@ namespace ObservableComputations
 					ExpressionWatcher.Raise expressionWatcherRaise = _deferredExpressionWatcherChangedProcessings.Dequeue();
 					if (!expressionWatcherRaise.ExpressionWatcher._disposed)
 					{
-						_processingEventSender = expressionWatcherRaise.EventSender;
-						_processingEventArgs = expressionWatcherRaise.EventArgs;
+						_handledEventSender = expressionWatcherRaise.EventSender;
+						_handledEventArgs = expressionWatcherRaise.EventArgs;
 						processExpressionWatcherValueChanged(expressionWatcherRaise.ExpressionWatcher);
 					}
 				} 
@@ -229,8 +229,8 @@ namespace ObservableComputations
 			_isConsistent = true;
 			raiseConsistencyRestored();
 
-			_processingEventSender = null;
-			_processingEventArgs = null;
+			_handledEventSender = null;
+			_handledEventArgs = null;
 		}
 
 		private void initializeFromSource()
@@ -393,8 +393,8 @@ namespace ObservableComputations
 			{
 				checkConsistent(sender, eventArgs);
 
-				_processingEventSender = sender;
-				_processingEventArgs = eventArgs;
+				_handledEventSender = sender;
+				_handledEventArgs = eventArgs;
 
 				_isConsistent = false;
 				processExpressionWatcherValueChanged(expressionWatcher);
@@ -407,8 +407,8 @@ namespace ObservableComputations
 					??  new Queue<ExpressionWatcher.Raise>()).Enqueue(new ExpressionWatcher.Raise(expressionWatcher, sender, eventArgs));
 			}
 
-			_processingEventSender = sender;
-			_processingEventArgs = eventArgs;
+			_handledEventSender = sender;
+			_handledEventArgs = eventArgs;
 		}
 
 		private void processExpressionWatcherValueChanged(ExpressionWatcher expressionWatcher)

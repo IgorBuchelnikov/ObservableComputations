@@ -43,11 +43,11 @@ namespace ObservableComputations
 
 		private void getValueExpressionWatcherOnValueChanged(ExpressionWatcher expressionWatcher, object sender, EventArgs eventArgs)
 		{
-			_processingEventSender = sender;
-			_processingEventArgs = eventArgs;
+			_handledEventSender = sender;
+			_handledEventArgs = eventArgs;
 			setValue(getResult());
-			_processingEventSender = null;
-			_processingEventArgs = null;
+			_handledEventSender = null;
+			_handledEventArgs = null;
 		}
 
 		private TResult getResult()

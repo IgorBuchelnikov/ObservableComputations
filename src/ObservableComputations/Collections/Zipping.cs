@@ -319,8 +319,8 @@ namespace ObservableComputations
 			if (e.PropertyName != nameof(IReadScalar<INotifyCollectionChanged>.Value)) return;
 			checkConsistent(sender, e);
 
-			_processingEventSender = sender;
-			_processingEventArgs = e;
+			_handledEventSender = sender;
+			_handledEventArgs = e;
 
 			_isConsistent = false;
 
@@ -329,16 +329,16 @@ namespace ObservableComputations
 			_isConsistent = true;
 			raiseConsistencyRestored();
 
-			_processingEventSender = null;
-			_processingEventArgs = null;
+			_handledEventSender = null;
+			_handledEventArgs = null;
 		}
 
 		private void handleLeftSourceCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
 		{
 			checkConsistent(sender, e);
 
-			_processingEventSender = sender;
-			_processingEventArgs = e;
+			_handledEventSender = sender;
+			_handledEventArgs = e;
 
 
 			if (_leftSourceIndexerPropertyChangedEventRaised || _leftSourceAsObservableCollectionWithChangeMarker != null && _lastProcessedLeftSourceChangeMarker != _leftSourceAsObservableCollectionWithChangeMarker.ChangeMarkerField)
@@ -462,16 +462,16 @@ namespace ObservableComputations
 				raiseConsistencyRestored();
 			}
 
-			_processingEventSender = null;
-			_processingEventArgs = null;
+			_handledEventSender = null;
+			_handledEventArgs = null;
 		}
 
 		private void handleRightSourceCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
 		{
 			checkConsistent(sender, e);
 
-			_processingEventSender = sender;
-			_processingEventArgs = e;
+			_handledEventSender = sender;
+			_handledEventArgs = e;
 
 			if (_rigthtSourceIndexerPropertyChangedEventRaised || _rightSourceAsObservableCollectionWithChangeMarker != null && _lastProcessedRightSourceChangeMarker != _rightSourceAsObservableCollectionWithChangeMarker.ChangeMarkerField)
 			{
@@ -580,8 +580,8 @@ namespace ObservableComputations
 				raiseConsistencyRestored();
 			}
 
-			_processingEventSender = null;
-			_processingEventArgs = null;
+			_handledEventSender = null;
+			_handledEventArgs = null;
 		}
 
 		~Zipping()

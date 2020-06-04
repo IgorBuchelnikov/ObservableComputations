@@ -111,13 +111,13 @@ namespace ObservableComputations
 		{
 			if (e.PropertyName != nameof(IReadScalar<object>.Value)) return;
 
-			_processingEventSender = sender;
-			_processingEventArgs = e;
+			_handledEventSender = sender;
+			_handledEventArgs = e;
 
 			initializeFromSource();
 
-			_processingEventSender = null;
-			_processingEventArgs = null;
+			_handledEventSender = null;
+			_handledEventArgs = null;
 		}
 
 		private void initializeFromSource()
@@ -193,8 +193,8 @@ namespace ObservableComputations
 
 		private void handleSourceCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
 		{
-			_processingEventSender = sender;
-			_processingEventArgs = e;
+			_handledEventSender = sender;
+			_handledEventArgs = e;
 
 			if (_indexerPropertyChangedEventRaised || _lastProcessedSourceChangeMarker != _sourceAsIHasChangeMarker.ChangeMarker)
 			{
@@ -257,8 +257,8 @@ namespace ObservableComputations
 				}
 			}
 
-			_processingEventSender = null;
-			_processingEventArgs = null;
+			_handledEventSender = null;
+			_handledEventArgs = null;
 		}
 
 		~CollectionDispatching()

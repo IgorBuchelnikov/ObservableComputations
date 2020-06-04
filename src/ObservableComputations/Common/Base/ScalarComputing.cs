@@ -30,10 +30,10 @@ namespace ObservableComputations
 
 		public event EventHandler PreValueChanged;
 
-		internal object _processingEventSender;
-		internal EventArgs _processingEventArgs;
-		public object ProcessingEventSender => _processingEventSender;
-		public EventArgs ProcessingEventArgs => _processingEventArgs;
+		internal object _handledEventSender;
+		internal EventArgs _handledEventArgs;
+		public object HandledEventSender => _handledEventSender;
+		public EventArgs HandledEventArgs => _handledEventArgs;
 
 		#region Implementation of IScalar<TSourceItem>
 		public TValue Value
@@ -145,7 +145,7 @@ namespace ObservableComputations
 		{
 			if (!_isConsistent)
 				throw new ObservableComputationsException(this,
-					$"The source collection has been changed. It is not possible to process this change (event sender = '{sender.ToStringSafe(e => $"{e.ToString()} in sender.ToString()")}', event args = '{eventArgs.ToStringAlt()}'), as the processing of the previous change is not completed. Make the change on ConsistencyRestored event raising (after IsConsistent property becomes true). This exception is fatal and cannot be handled as the inner state is damaged.");
+					$"The source collection has been changed. It is not possible to process this change (event sender = {sender.ToStringSafe(e => $"{e.ToString()} in sender.ToString()")}, event args = {eventArgs.ToStringAlt()}), as the processing of the previous change is not completed. Make the change on ConsistencyRestored event raising (after IsConsistent property becomes true). This exception is fatal and cannot be handled as the inner state is damaged.");
 		}
 
 		protected void raiseConsistencyRestored()

@@ -262,8 +262,8 @@ namespace ObservableComputations
 			if (e.PropertyName != nameof(IReadScalar<INotifyCollectionChanged>.Value)) return;
 			checkConsistent(sender, e);
 
-			_processingEventSender = sender;
-			_processingEventArgs = e;
+			_handledEventSender = sender;
+			_handledEventArgs = e;
 
 		
 			_isConsistent = false;
@@ -273,16 +273,16 @@ namespace ObservableComputations
 			_isConsistent = true;
 			raiseConsistencyRestored();
 
-			_processingEventSender = null;
-			_processingEventArgs = null;
+			_handledEventSender = null;
+			_handledEventArgs = null;
 		}
 
 		private void handleOuterSourceCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
 		{
 			checkConsistent(sender, e);
 
-			_processingEventSender = sender;
-			_processingEventArgs = e;
+			_handledEventSender = sender;
+			_handledEventArgs = e;
 
 			if (_outerSourceIndexerPropertyChangedEventRaised || _outerSourceAsObservableCollectionWithChangeMarker != null && _lastProcessedOuterSourceChangeMarker != _outerSourceAsObservableCollectionWithChangeMarker.ChangeMarkerField)
 			{
@@ -370,16 +370,16 @@ namespace ObservableComputations
 				raiseConsistencyRestored();
 			}
 
-			_processingEventSender = null;
-			_processingEventArgs = null;
+			_handledEventSender = null;
+			_handledEventArgs = null;
 		}
 
 		private void handleInnerSourceCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
 		{
 			checkConsistent(sender, e);
 
-			_processingEventSender = sender;
-			_processingEventArgs = e;
+			_handledEventSender = sender;
+			_handledEventArgs = e;
 
 			if (_innerSourceIndexerPropertyChangedEventRaised || _lastProcessedInnerSourceChangeMarker != _innerSourceAsObservableCollectionWithChangeMarker.ChangeMarkerField)
 			{
@@ -464,8 +464,8 @@ namespace ObservableComputations
 				raiseConsistencyRestored();
 			}
 
-			_processingEventSender = null;
-			_processingEventArgs = null;
+			_handledEventSender = null;
+			_handledEventArgs = null;
 		}
 
 		~Crossing()

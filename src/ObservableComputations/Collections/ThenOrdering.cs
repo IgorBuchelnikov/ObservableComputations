@@ -313,8 +313,8 @@ namespace ObservableComputations
 			if (e.PropertyName != nameof(IReadScalar<object>.Value)) return;
 			checkConsistent(sender, e);
 
-			_processingEventSender = sender;
-			_processingEventArgs = e;
+			_handledEventSender = sender;
+			_handledEventArgs = e;
 
 			_isConsistent = false;
 
@@ -324,8 +324,8 @@ namespace ObservableComputations
 			_isConsistent = true;
 			raiseConsistencyRestored();
 
-			_processingEventSender = null;
-			_processingEventArgs = null;
+			_handledEventSender = null;
+			_handledEventArgs = null;
 		}
 
 
@@ -334,8 +334,8 @@ namespace ObservableComputations
 			if (e.PropertyName != nameof(IReadScalar<object>.Value)) return;
 			checkConsistent(sender, e);
 
-			_processingEventSender = sender;
-			_processingEventArgs = e;
+			_handledEventSender = sender;
+			_handledEventArgs = e;
 
 			_isConsistent = false;
 			_sortDirection = _sortDirectionScalar.Value;
@@ -344,8 +344,8 @@ namespace ObservableComputations
 			_isConsistent = true;
 			raiseConsistencyRestored();
 
-			_processingEventSender = null;
-			_processingEventArgs = null;
+			_handledEventSender = null;
+			_handledEventArgs = null;
 
 
 			//if (e.PropertyName != nameof(IReadScalar<object>.Value)) return;
@@ -512,8 +512,8 @@ namespace ObservableComputations
 			if (e.PropertyName != nameof(IReadScalar<object>.Value)) return;
 			checkConsistent(sender, e);
 
-			_processingEventSender = sender;
-			_processingEventArgs = e;
+			_handledEventSender = sender;
+			_handledEventArgs = e;
 
 			_isConsistent = false;
 
@@ -522,8 +522,8 @@ namespace ObservableComputations
 			_isConsistent = true;
 			raiseConsistencyRestored();
 
-			_processingEventSender = null;
-			_processingEventArgs = null;
+			_handledEventSender = null;
+			_handledEventArgs = null;
 		}
 
 		private void registerSourceItem(TSourceItem sourceItem, int sourceIndex, int sourceLowerIndex, int sourceUpperIndex)
@@ -690,8 +690,8 @@ namespace ObservableComputations
 			if (!_replacing) checkConsistent(sender, e);
 			_lastProcessedSourceChangeMarker = !_lastProcessedSourceChangeMarker;
 
-			_processingEventSender = sender;
-			_processingEventArgs = e;
+			_handledEventSender = sender;
+			_handledEventArgs = e;
 
 			switch (e.Action)
 			{
@@ -751,8 +751,8 @@ namespace ObservableComputations
 					ExpressionWatcher.Raise expressionWatcherRaise = _deferredExpressionWatcherChangedProcessings.Dequeue();
 					if (!expressionWatcherRaise.ExpressionWatcher._disposed)
 					{
-						_processingEventSender = expressionWatcherRaise.EventSender;
-						_processingEventArgs = expressionWatcherRaise.EventArgs;
+						_handledEventSender = expressionWatcherRaise.EventSender;
+						_handledEventArgs = expressionWatcherRaise.EventArgs;
 						processSourceItemChange(expressionWatcherRaise.ExpressionWatcher._position.Index, true);
 					}
 				} 
@@ -760,8 +760,8 @@ namespace ObservableComputations
 			_isConsistent = true;
 			raiseConsistencyRestored();
 
-			_processingEventSender = null;
-			_processingEventArgs = null;
+			_handledEventSender = null;
+			_handledEventArgs = null;
 		}
 
 
@@ -769,8 +769,8 @@ namespace ObservableComputations
 		{
 			checkConsistent(sender, eventArgs);
 
-			_processingEventSender = sender;
-			_processingEventArgs = eventArgs;
+			_handledEventSender = sender;
+			_handledEventArgs = eventArgs;
 
 			if (_sourceAsList == null || _rootSourceWrapper || _sourceAsList.ChangeMarkerField ==_lastProcessedSourceChangeMarker)
 			{
@@ -784,8 +784,8 @@ namespace ObservableComputations
 					.Enqueue(new ExpressionWatcher.Raise(expressionWatcher, sender, eventArgs));
 			}
 
-			_processingEventSender = null;
-			_processingEventArgs = null;
+			_handledEventSender = null;
+			_handledEventArgs = null;
 		}
 
 

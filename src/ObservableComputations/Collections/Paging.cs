@@ -164,13 +164,13 @@ namespace ObservableComputations
 			if (e.PropertyName != nameof(IReadScalar<object>.Value)) return;
 			checkConsistent(sender, e);
 
-			_processingEventSender = sender;
-			_processingEventArgs = e;
+			_handledEventSender = sender;
+			_handledEventArgs = e;
 
 			initializeFromSource();
 
-			_processingEventSender = null;
-			_processingEventArgs = null;
+			_handledEventSender = null;
+			_handledEventArgs = null;
 		}
 
 		private void initializeFromSource()
@@ -268,8 +268,8 @@ namespace ObservableComputations
 		{
 			checkConsistent(sender, e);
 
-			_processingEventSender = sender;
-			_processingEventArgs = e;
+			_handledEventSender = sender;
+			_handledEventArgs = e;
 
 			if (_indexerPropertyChangedEventRaised || _lastProcessedSourceChangeMarker != _sourceAsIHasChangeMarker.ChangeMarker)
 			{
@@ -340,8 +340,8 @@ namespace ObservableComputations
 							if (_pageCount != originalPageCount1)
 								OnPropertyChanged(Utils.PageCountPropertyChangedEventArgs);
 
-							_processingEventSender = null;
-							_processingEventArgs = null;
+							_handledEventSender = null;
+							_handledEventArgs = null;
 
 							return;
 						}	
@@ -465,8 +465,8 @@ namespace ObservableComputations
 				}
 			}
 
-			_processingEventSender = null;
-			_processingEventArgs = null;
+			_handledEventSender = null;
+			_handledEventArgs = null;
 		}
 
 		~Paging()

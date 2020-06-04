@@ -42,15 +42,15 @@ namespace ObservableComputations
 		{
 			if (e.PropertyName != nameof(IReadScalar<TValue>.Value)) return;
 
-			_processingEventSender = sender;
-			_processingEventArgs = e;
+			_handledEventSender = sender;
+			_handledEventArgs = e;
 
 			TValue newValue = _scalar.Value;
 			processNewValue(newValue, _scalar, e);
 			setValue(newValue);
 
-			_processingEventSender = null;
-			_processingEventArgs = null;
+			_handledEventSender = null;
+			_handledEventArgs = null;
 		}
 
 		private void processNewValue(TValue newValue, IReadScalar<TValue> sender, EventArgs eventArgs)

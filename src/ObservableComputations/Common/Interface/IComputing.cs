@@ -6,7 +6,7 @@ namespace ObservableComputations
 	{
 		string InstantiatingStackTrace { get; }
 		IComputing UserCodeIsCalledFrom { get; }
-		object ProcessingEventSender { get;  }
-		EventArgs ProcessingEventArgs { get;  }
+		object HandledEventSender { get;  }
+		EventArgs HandledEventArgs { get;  }
 	}
 }

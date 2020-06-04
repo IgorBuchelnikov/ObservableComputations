@@ -29,8 +29,8 @@ namespace ObservableComputations
 			if (e.PropertyName != nameof(Computing<int>.Value)) return;
 			checkConsistent(sender, e);
 
-			_processingEventSender = sender;
-			_processingEventArgs = e;
+			_handledEventSender = sender;
+			_handledEventArgs = e;
 
 			int newCount = _countScalar.Value;
 
@@ -58,8 +58,8 @@ namespace ObservableComputations
 			_isConsistent = true;
 			raiseConsistencyRestored();
 
-			_processingEventSender = null;
-			_processingEventArgs = null;
+			_handledEventSender = null;
+			_handledEventArgs = null;
 		}
 
 		// ReSharper disable once InconsistentNaming

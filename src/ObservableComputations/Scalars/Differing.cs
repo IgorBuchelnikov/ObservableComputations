@@ -52,8 +52,8 @@ namespace ObservableComputations
 		{
 			if (e.PropertyName != nameof(IReadScalar<TResult>.Value)) return;
 
-			_processingEventSender = sender;
-			_processingEventArgs = e;
+			_handledEventSender = sender;
+			_handledEventArgs = e;
 
 			TResult newValue = _scalar.Value;
 			if (!_equalityComparer.Equals(newValue, _value))
@@ -61,21 +61,21 @@ namespace ObservableComputations
 				setValue(newValue);
 			}
 
-			_processingEventSender = null;
-			_processingEventArgs = null;
+			_handledEventSender = null;
+			_handledEventArgs = null;
 		}
 
 		private void handleEqualityComparerScalarValueChanged(object sender, PropertyChangedEventArgs e)
 		{
 			if (e.PropertyName != nameof(IReadScalar<object>.Value)) return;
 
-			_processingEventSender = sender;
-			_processingEventArgs = e;
+			_handledEventSender = sender;
+			_handledEventArgs = e;
 
 			_equalityComparer = _equalityComparerScalar.Value ?? EqualityComparer<TResult>.Default;
 
-			_processingEventSender = null;
-			_processingEventArgs = null;
+			_handledEventSender = null;
+			_handledEventArgs = null;
 		}
 
 		~Differing()

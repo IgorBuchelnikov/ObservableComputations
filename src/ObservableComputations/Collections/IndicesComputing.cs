@@ -31,7 +31,7 @@ namespace ObservableComputations
 		public IndicesComputing(
 			IReadScalar<INotifyCollectionChanged> sourceScalar, 
 			Expression<Func<TSourceItem, bool>> predicateExpression,
-			int capacity = 0) : base(getSource(sourceScalar, predicateExpression, capacity), pair => pair.ItemLeft) 
+			int capacity = 0) : base(getSource(sourceScalar, predicateExpression, capacity), pair => pair.LeftItem) 
 		{
 			_predicateExpression = predicateExpression;
 			_sourceScalar = sourceScalar;
@@ -41,7 +41,7 @@ namespace ObservableComputations
 		public IndicesComputing(
 			INotifyCollectionChanged source, 
 			Expression<Func<TSourceItem, bool>> predicateExpression,
-			int capacity = 0) : base(getSource(source, predicateExpression, capacity), pair => pair.ItemLeft) 
+			int capacity = 0) : base(getSource(source, predicateExpression, capacity), pair => pair.LeftItem) 
 		{
 			_predicateExpression = predicateExpression;
 			_source = source;
@@ -78,7 +78,7 @@ namespace ObservableComputations
 			Expression zipPairItem2Expression
 				= Expression.PropertyOrField(
 					zipPairParameterExpression,
-					nameof(ZipPair<int, TSourceItem>.ItemRight));
+					nameof(ZipPair<int, TSourceItem>.RightItem));
 			ReplaceParameterVisitor replaceParameterVisitor
 				= new ReplaceParameterVisitor(
 					predicateExpression.Parameters[0],

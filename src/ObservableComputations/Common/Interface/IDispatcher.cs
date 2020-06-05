@@ -6,7 +6,7 @@ namespace ObservableComputations
 {
 	public interface IDispatcher
 	{
-		void Invoke(Action action, IComputing computing);
+		void Invoke(Action action, object context);
 	}
 
 	public interface ICollectionDestinationDispatcher

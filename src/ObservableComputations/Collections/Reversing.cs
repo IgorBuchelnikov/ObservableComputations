@@ -23,7 +23,7 @@ namespace ObservableComputations
 		[ObservableComputationsCall]
 		public Reversing(
 			IReadScalar<INotifyCollectionChanged> sourceScalar)
-			: base(getSource(sourceScalar), zipPair => zipPair.ItemRight)
+			: base(getSource(sourceScalar), zipPair => zipPair.RightItem)
 		{
 			_sourceScalar = sourceScalar;
 		}
@@ -31,7 +31,7 @@ namespace ObservableComputations
 		[ObservableComputationsCall]
 		public Reversing(
 			INotifyCollectionChanged source)
-			: base(getSource(source), zipPair => zipPair.ItemRight)
+			: base(getSource(source), zipPair => zipPair.RightItem)
 		{
 			_source = source;
 		}
@@ -42,7 +42,7 @@ namespace ObservableComputations
 			return 		
 				new Computing<int>(() => sourceScalar.Value != null ? ((IList) sourceScalar.Value).Count : 0).SequenceComputing()
 				.Zipping<int, TSourceItem>(sourceScalar)
-				.Ordering(zipPair => zipPair.ItemLeft, ListSortDirection.Descending);
+				.Ordering(zipPair => zipPair.LeftItem, ListSortDirection.Descending);
 		}
 
 		private static INotifyCollectionChanged getSource(
@@ -51,7 +51,7 @@ namespace ObservableComputations
 			return 		
 				new Computing<int>(() => ((IList) source).Count).SequenceComputing()
 				.Zipping<int, TSourceItem>(source)
-				.Ordering(zipPair => zipPair.ItemLeft, ListSortDirection.Descending);
+				.Ordering(zipPair => zipPair.LeftItem, ListSortDirection.Descending);
 		}
 
 		public new void ValidateConsistency()

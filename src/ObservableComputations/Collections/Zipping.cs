@@ -24,30 +24,77 @@ namespace ObservableComputations
 		public ReadOnlyCollection<INotifyCollectionChanged> SourceCollections => new ReadOnlyCollection<INotifyCollectionChanged>(new []{LeftSource, RightSource});
 		public ReadOnlyCollection<IReadScalar<INotifyCollectionChanged>> SourceCollectionScalars => new ReadOnlyCollection<IReadScalar<INotifyCollectionChanged>>(new []{LeftSourceScalar, RightSourceScalar});
 
-		public Action<ZipPair<TLeftSourceItem, TRightSourceItem>, TLeftSourceItem> ZipPairSetItemLeftAction
+		public Action<ZipPair<TLeftSourceItem, TRightSourceItem>, TLeftSourceItem> ZipPairSetLeftItemAction
 		{
-			get => _zipPairSetItemLeftAction;
+			get => _zipPairSetLeftItemAction;
 			set
 			{
-				if (_zipPairSetItemLeftAction != value)
+				if (_zipPairSetLeftItemAction != value)
 				{
-					_zipPairSetItemLeftAction = value;
-					OnPropertyChanged(Utils.ZipPairSetItemLeftActionPropertyChangedEventArgs);
+					checkLockModifyZipPairChangeAction(ZipPairAction.SetLeftItem);
+
+					_zipPairSetLeftItemAction = value;
+					OnPropertyChanged(Utils.ZipPairSetLeftItemActionPropertyChangedEventArgs);
 				}
 			}
 		}
 
-		public Action<ZipPair<TLeftSourceItem, TRightSourceItem>, TRightSourceItem> ZipPairSetItemRightAction
+		public Action<ZipPair<TLeftSourceItem, TRightSourceItem>, TRightSourceItem> ZipPairSetRightItemAction
 		{
-			get => _zipPairSetItemRightAction;
+			get => _zipPairSetRightItemAction;
 			set
 			{
-				if (_zipPairSetItemRightAction != value)
+				if (_zipPairSetRightItemAction != value)
 				{
-					_zipPairSetItemRightAction = value;
-					OnPropertyChanged(Utils.ZipPairSetItemRightActionPropertyChangedEventArgs);
+					checkLockModifyZipPairChangeAction(ZipPairAction.SetRightItem);
+
+					_zipPairSetRightItemAction = value;
+					OnPropertyChanged(Utils.ZipPairSetRightItemActionPropertyChangedEventArgs);
 				}
 			}
+		}
+
+
+		Dictionary<ZipPairAction, object> _lockModifyZipPairChangeActionsKeys;
+		private Dictionary<ZipPairAction, object> lockModifyZipPairChangeActionsKeys => _lockModifyZipPairChangeActionsKeys = 
+			_lockModifyZipPairChangeActionsKeys ?? new Dictionary<ZipPairAction, object>();
+
+		public void LockModifyZipPairChangeAction(ZipPairAction collectionChangeAction, object key)
+		{
+			if (key == null) throw new ArgumentNullException("key");
+
+			if (!lockModifyZipPairChangeActionsKeys.ContainsKey(collectionChangeAction))
+				lockModifyZipPairChangeActionsKeys[collectionChangeAction] = key;
+			else
+				throw new ObservableComputationsException(this,
+					$"Modifying of '{collectionChangeAction.ToString()}' zipPair change action is already locked. Unlock first.");
+		}
+
+		public void UnlockModifyZipPairChangeAction(ZipPairAction collectionChangeAction, object key)
+		{
+			if (key == null) throw new ArgumentNullException("key");
+
+			if (!lockModifyZipPairChangeActionsKeys.ContainsKey(collectionChangeAction))
+				throw new ObservableComputationsException(this,
+					"Modifying of '{collectionChangeAction.ToString()}' zipPair change action is not locked. Lock first.");
+
+			if (ReferenceEquals(lockModifyZipPairChangeActionsKeys[collectionChangeAction], key))
+				lockModifyZipPairChangeActionsKeys.Remove(collectionChangeAction);
+			else
+				throw new ObservableComputationsException(this,
+					"Wrong key to unlock modifying of '{collectionChangeAction.ToString()}' zipPair change action.");
+		}
+
+		public bool IsModifyZipPairChangeActionLocked(ZipPairAction collectionChangeAction)
+		{
+			return lockModifyZipPairChangeActionsKeys.ContainsKey(collectionChangeAction);
+		}
+
+		private void checkLockModifyZipPairChangeAction(ZipPairAction collectionChangeAction)
+		{
+			if (lockModifyZipPairChangeActionsKeys.ContainsKey(collectionChangeAction))
+				throw new ObservableComputationsException(this,
+					"Modifying of '{collectionChangeAction.ToString()}' zipPair change action is locked. Unlock first.");
 		}
 
 		private PropertyChangedEventHandler _leftSourceScalarPropertyChangedEventHandler;
@@ -66,8 +113,8 @@ namespace ObservableComputations
 		private NotifyCollectionChangedEventHandler _rightSourceNotifyCollectionChangedEventHandler;
 		private WeakNotifyCollectionChangedEventHandler _rightSourceWeakNotifyCollectionChangedEventHandler;
 
-		internal Action<ZipPair<TLeftSourceItem, TRightSourceItem>, TLeftSourceItem> _zipPairSetItemLeftAction;
-		internal Action<ZipPair<TLeftSourceItem, TRightSourceItem>, TRightSourceItem> _zipPairSetItemRightAction;
+		internal Action<ZipPair<TLeftSourceItem, TRightSourceItem>, TLeftSourceItem> _zipPairSetLeftItemAction;
+		internal Action<ZipPair<TLeftSourceItem, TRightSourceItem>, TRightSourceItem> _zipPairSetRightItemAction;
 		private readonly IReadScalar<INotifyCollectionChanged> _leftSourceScalar;
 		private readonly IReadScalar<INotifyCollectionChanged> _rightSourceScalar;
 		private INotifyCollectionChanged _leftSource;
@@ -626,10 +673,10 @@ namespace ObservableComputations
 				// ReSharper disable once PossibleNullReferenceException
 				if (index < sourceRight.Count)
 				{
-					if (!EqualityComparer<TLeftSourceItem>.Default.Equals(this[index].ItemLeft, sourceLeft[index]))
+					if (!EqualityComparer<TLeftSourceItem>.Default.Equals(this[index].LeftItem, sourceLeft[index]))
 						throw new ObservableComputationsException(this, "Consistency violation: Zipping.Left");
 
-					if (!EqualityComparer<TRightSourceItem>.Default.Equals(this[index].ItemRight, sourceRight[index]))
+					if (!EqualityComparer<TRightSourceItem>.Default.Equals(this[index].RightItem, sourceRight[index]))
 						throw new ObservableComputationsException(this, "Consistency violation: Zipping.Right");
 				}
 				else
@@ -638,49 +685,46 @@ namespace ObservableComputations
 				}
 			}
 		}
-
 	}
 
-	public class ZipPair<TLeftSourceItem, TRightSourceItem> : INotifyPropertyChanged, IEquatable<ZipPair<TLeftSourceItem, TRightSourceItem>>
+	public class ZipPair<TLeftSourceItem, TRightSourceItem> : INotifyPropertyChanged
 	{
-		readonly EqualityComparer<TLeftSourceItem> _sourceItemLeftEqualityComparer = EqualityComparer<TLeftSourceItem>.Default;
-		readonly EqualityComparer<TRightSourceItem> _sourceItemRightEqualityComparer = EqualityComparer<TRightSourceItem>.Default;
+		private TLeftSourceItem _leftItem;
 
-		private TLeftSourceItem _itemLeft;
-
-		public TLeftSourceItem ItemLeft
+		public TLeftSourceItem LeftItem
 		{
-			get => _itemLeft;
+			get => _leftItem;
 			// ReSharper disable once MemberCanBePrivate.Global
-			set => _zipping._zipPairSetItemLeftAction(this, value);
+			set => _zipping._zipPairSetLeftItemAction(this, value);
 		}
 
-		private TRightSourceItem _itemRight;
-		public TRightSourceItem ItemRight
+		private TRightSourceItem _rightItem;
+		public TRightSourceItem RightItem
 		{
-			get => _itemRight;
+			get => _rightItem;
 			// ReSharper disable once MemberCanBePrivate.Global
-			set =>  _zipping._zipPairSetItemRightAction(this, value);
+			set =>  _zipping._zipPairSetRightItemAction(this, value);
 		}
 
 		internal void setItemLeft(TLeftSourceItem itemLeft)
 		{
-			_itemLeft = itemLeft;
+			_leftItem = itemLeft;
 			PropertyChanged?.Invoke(this, Utils.ItemLeftPropertyChangedEventArgs);
 		}
 
 		internal void setItemRight(TRightSourceItem itemRight)
 		{
-			_itemRight = itemRight;
+			_rightItem = itemRight;
 			PropertyChanged?.Invoke(this, Utils.ItemRightPropertyChangedEventArgs);
 		}
 
-		readonly Zipping<TLeftSourceItem, TRightSourceItem> _zipping;
+		private readonly Zipping<TLeftSourceItem, TRightSourceItem> _zipping;
 
-		public ZipPair(Zipping<TLeftSourceItem, TRightSourceItem> zipping, TLeftSourceItem itemLeft, TRightSourceItem itemRight)
+		public ZipPair(Zipping<TLeftSourceItem, TRightSourceItem> zipping, TLeftSourceItem leftItem,
+			TRightSourceItem rightItem)
 		{
-			_itemLeft = itemLeft;
-			_itemRight = itemRight;
+			_leftItem = leftItem;
+			_rightItem = rightItem;
 			_zipping = zipping;
 		}
 
@@ -688,26 +732,16 @@ namespace ObservableComputations
 		public event PropertyChangedEventHandler PropertyChanged;
 		#endregion
 
-		public override int GetHashCode()
-		{
-			return _sourceItemLeftEqualityComparer.GetHashCode(ItemLeft) +_sourceItemRightEqualityComparer.GetHashCode(ItemRight);
-		}
-
-		public override bool Equals(object obj)
-		{
-			return obj is ZipPair<TLeftSourceItem, TRightSourceItem> other && Equals(other);
-		}
-
-		public bool Equals(ZipPair<TLeftSourceItem, TRightSourceItem> other)
-		{
-			return other != null && (_sourceItemLeftEqualityComparer.Equals(ItemLeft, other.ItemLeft) && _sourceItemRightEqualityComparer.Equals(ItemRight, other.ItemRight));
-		}
 
 		public override string ToString()
 		{
-			return $"ZipPair: ItemLeft = {(ItemLeft != null ? $"{ItemLeft.ToString()}" : "null")}    ItemRight = {(ItemRight != null ? $"{ItemRight.ToString()}" : "null")}";
+			return $"ZipPair: ItemLeft = {(LeftItem != null ? $"{LeftItem.ToString()}" : "null")}    ItemRight = {(RightItem != null ? $"{RightItem.ToString()}" : "null")}";
 		}
 	}
 
-
+	public enum ZipPairAction
+	{
+		SetLeftItem,
+		SetRightItem
+	}
 }

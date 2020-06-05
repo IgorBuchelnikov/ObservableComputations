@@ -116,11 +116,11 @@ namespace ObservableComputations
 			Expression zipPairIndexExpression
 				= Expression.PropertyOrField(
 					zipPairParameterExpression,
-					nameof(ZipPair<int, TSourceItem>.ItemLeft));
+					nameof(ZipPair<int, TSourceItem>.LeftItem));
 			Expression zipPairItemExpression
 				= Expression.PropertyOrField(
 					zipPairParameterExpression,
-					nameof(ZipPair<int, TSourceItem>.ItemRight));
+					nameof(ZipPair<int, TSourceItem>.RightItem));
 			ReplaceParameterVisitor replaceParameterVisitor
 				= new ReplaceParameterVisitor(
 					selectorExpression.Parameters,

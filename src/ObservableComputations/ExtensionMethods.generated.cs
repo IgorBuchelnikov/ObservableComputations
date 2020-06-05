@@ -814,6 +814,135 @@ namespace ObservableComputations
 		}
 
 		#endregion
+		#region CollectionPausing
+
+		[ObservableComputationsCall]
+		public static ObservableComputations.CollectionPausing<TSourceItem> CollectionPausing<TSourceItem>(this
+			 System.Collections.Specialized.INotifyCollectionChanged source,
+			 bool paused)
+			
+		{
+			return new ObservableComputations.CollectionPausing<TSourceItem>(
+				source: source,
+				paused: paused);
+		}
+
+		[ObservableComputationsCall]
+		public static ObservableComputations.CollectionPausing<TSourceItem> CollectionPausing<TSourceItem>(this
+			 System.Collections.Specialized.INotifyCollectionChanged source)
+			
+		{
+			return new ObservableComputations.CollectionPausing<TSourceItem>(
+				source: source,
+				paused: false);
+		}
+
+		[ObservableComputationsCall]
+		public static ObservableComputations.CollectionPausing<TSourceItem> CollectionPausing<TSourceItem>(this
+			 ObservableCollection<TSourceItem> source,
+			 bool paused)
+			
+		{
+			return new ObservableComputations.CollectionPausing<TSourceItem>(
+				source: source,
+				paused: paused);
+		}
+
+		[ObservableComputationsCall]
+		public static ObservableComputations.CollectionPausing<TSourceItem> CollectionPausing<TSourceItem>(this
+			 ObservableCollection<TSourceItem> source)
+			
+		{
+			return new ObservableComputations.CollectionPausing<TSourceItem>(
+				source: source,
+				paused: false);
+		}
+
+		[ObservableComputationsCall]
+		public static ObservableComputations.CollectionPausing<TSourceItem> CollectionPausing<TSourceItem>(this
+			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar,
+			 bool paused)
+			
+		{
+			return new ObservableComputations.CollectionPausing<TSourceItem>(
+				sourceScalar: sourceScalar,
+				paused: paused);
+		}
+
+		[ObservableComputationsCall]
+		public static ObservableComputations.CollectionPausing<TSourceItem> CollectionPausing<TSourceItem>(this
+			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar)
+			
+		{
+			return new ObservableComputations.CollectionPausing<TSourceItem>(
+				sourceScalar: sourceScalar,
+				paused: false);
+		}
+
+		[ObservableComputationsCall]
+		public static ObservableComputations.CollectionPausing<TSourceItem> CollectionPausing<TSourceItem>(this
+			 ObservableComputations.IReadScalar<ObservableCollection<TSourceItem>> sourceScalar,
+			 bool paused)
+			
+		{
+			return new ObservableComputations.CollectionPausing<TSourceItem>(
+				sourceScalar: sourceScalar,
+				paused: paused);
+		}
+
+		[ObservableComputationsCall]
+		public static ObservableComputations.CollectionPausing<TSourceItem> CollectionPausing<TSourceItem>(this
+			 ObservableComputations.IReadScalar<ObservableCollection<TSourceItem>> sourceScalar)
+			
+		{
+			return new ObservableComputations.CollectionPausing<TSourceItem>(
+				sourceScalar: sourceScalar,
+				paused: false);
+		}
+
+		[ObservableComputationsCall]
+		public static ObservableComputations.CollectionPausing<TSourceItem> CollectionPausing<TSourceItem>(this
+			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> sourceExpression,
+			 bool paused)
+			
+		{
+			return new ObservableComputations.CollectionPausing<TSourceItem>(
+				sourceScalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(sourceExpression),
+				paused: paused);
+		}
+
+		[ObservableComputationsCall]
+		public static ObservableComputations.CollectionPausing<TSourceItem> CollectionPausing<TSourceItem>(this
+			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> sourceExpression)
+			
+		{
+			return new ObservableComputations.CollectionPausing<TSourceItem>(
+				sourceScalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(sourceExpression),
+				paused: false);
+		}
+
+		[ObservableComputationsCall]
+		public static ObservableComputations.CollectionPausing<TSourceItem> CollectionPausing<TSourceItem>(this
+			 Expression<Func<ObservableCollection<TSourceItem>>> sourceExpression,
+			 bool paused)
+			
+		{
+			return new ObservableComputations.CollectionPausing<TSourceItem>(
+				sourceScalar: new Computing<ObservableCollection<TSourceItem>>(sourceExpression),
+				paused: paused);
+		}
+
+		[ObservableComputationsCall]
+		public static ObservableComputations.CollectionPausing<TSourceItem> CollectionPausing<TSourceItem>(this
+			 Expression<Func<ObservableCollection<TSourceItem>>> sourceExpression)
+			
+		{
+			return new ObservableComputations.CollectionPausing<TSourceItem>(
+				sourceScalar: new Computing<ObservableCollection<TSourceItem>>(sourceExpression),
+				paused: false);
+		}
+
+		#endregion
 		#region Computing
 
 		[ObservableComputationsCall]
@@ -23291,6 +23420,105 @@ namespace ObservableComputations
 				scalar: new Computing<TResult>(scalar),
 				destinationDispatcher: destinationDispatcher,
 				sourceDispatcher: null);
+		}
+
+		#endregion
+		#region ScalarPausing
+
+		[ObservableComputationsCall]
+		public static ObservableComputations.ScalarPausing<TResult> ScalarPausing<TResult>(this
+			 ObservableComputations.IReadScalar<TResult> scalar,
+			 bool paused,
+			 int? lastChangesCountOnResume)
+			
+		{
+			return new ObservableComputations.ScalarPausing<TResult>(
+				scalar: scalar,
+				paused: paused,
+				lastChangesCountOnResume: lastChangesCountOnResume);
+		}
+
+		[ObservableComputationsCall]
+		public static ObservableComputations.ScalarPausing<TResult> ScalarPausing<TResult>(this
+			 ObservableComputations.IReadScalar<TResult> scalar,
+			 bool paused)
+			
+		{
+			return new ObservableComputations.ScalarPausing<TResult>(
+				scalar: scalar,
+				paused: paused,
+				lastChangesCountOnResume: null);
+		}
+
+		[ObservableComputationsCall]
+		public static ObservableComputations.ScalarPausing<TResult> ScalarPausing<TResult>(this
+			 ObservableComputations.IReadScalar<TResult> scalar,
+			 int? lastChangesCountOnResume)
+			
+		{
+			return new ObservableComputations.ScalarPausing<TResult>(
+				scalar: scalar,
+				paused: false,
+				lastChangesCountOnResume: lastChangesCountOnResume);
+		}
+
+		[ObservableComputationsCall]
+		public static ObservableComputations.ScalarPausing<TResult> ScalarPausing<TResult>(this
+			 ObservableComputations.IReadScalar<TResult> scalar)
+			
+		{
+			return new ObservableComputations.ScalarPausing<TResult>(
+				scalar: scalar,
+				paused: false,
+				lastChangesCountOnResume: null);
+		}
+
+		[ObservableComputationsCall]
+		public static ObservableComputations.ScalarPausing<TResult> ScalarPausing<TResult>(this
+			 Expression<Func<TResult>> scalar,
+			 bool paused,
+			 int? lastChangesCountOnResume)
+			
+		{
+			return new ObservableComputations.ScalarPausing<TResult>(
+				scalar: new Computing<TResult>(scalar),
+				paused: paused,
+				lastChangesCountOnResume: lastChangesCountOnResume);
+		}
+
+		[ObservableComputationsCall]
+		public static ObservableComputations.ScalarPausing<TResult> ScalarPausing<TResult>(this
+			 Expression<Func<TResult>> scalar,
+			 bool paused)
+			
+		{
+			return new ObservableComputations.ScalarPausing<TResult>(
+				scalar: new Computing<TResult>(scalar),
+				paused: paused,
+				lastChangesCountOnResume: null);
+		}
+
+		[ObservableComputationsCall]
+		public static ObservableComputations.ScalarPausing<TResult> ScalarPausing<TResult>(this
+			 Expression<Func<TResult>> scalar,
+			 int? lastChangesCountOnResume)
+			
+		{
+			return new ObservableComputations.ScalarPausing<TResult>(
+				scalar: new Computing<TResult>(scalar),
+				paused: false,
+				lastChangesCountOnResume: lastChangesCountOnResume);
+		}
+
+		[ObservableComputationsCall]
+		public static ObservableComputations.ScalarPausing<TResult> ScalarPausing<TResult>(this
+			 Expression<Func<TResult>> scalar)
+			
+		{
+			return new ObservableComputations.ScalarPausing<TResult>(
+				scalar: new Computing<TResult>(scalar),
+				paused: false,
+				lastChangesCountOnResume: null);
 		}
 
 		#endregion

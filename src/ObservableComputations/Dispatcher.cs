@@ -18,32 +18,32 @@ namespace ObservableComputations
 		public Action<object> ActionWithState => _actionWithState;
 		public object State => _state;
 		public string CallStackTrace => _callStackTrace;
-		public IComputing Computing => _computing;
+		public object Context => _context;
 		public Dispatcher Dispatcher => _dispatcher;
 
 		private Action _action;
 		private Action<object> _actionWithState;
 		private object _state;
 		private string _callStackTrace;
-		private IComputing _computing;
+		private object _context;
 		private Dispatcher _dispatcher;
 
-		internal Invocation(Action action, Dispatcher dispatcher, IComputing computing = null) : this()
+		internal Invocation(Action action, Dispatcher dispatcher, object context = null) : this()
 		{
 			_action = action;
 			_dispatcher = dispatcher;
-			_computing = computing;
+			_context = context;
 
 			if (Configuration.SaveDispatcherInvocationStackTrace)
 				_callStackTrace = Environment.StackTrace;
 		}
 
-		internal Invocation(Action<object> actionWithState, object state, Dispatcher dispatcher, IComputing computing = null) : this()
+		internal Invocation(Action<object> actionWithState, object state, Dispatcher dispatcher, IComputing context = null) : this()
 		{
 			_actionWithState = actionWithState;
 			_state = state;
 			_dispatcher = dispatcher;
-			_computing = computing;
+			_context = context;
 
 			if (Configuration.SaveDispatcherInvocationStackTrace)
 				_callStackTrace = Environment.StackTrace;
@@ -128,9 +128,9 @@ namespace ObservableComputations
 		public Thread Thread => _thread;
 		public bool Disposed => !_alive;
 
-		private Invocation queueInvocation(Action action, IComputing computing = null)
+		private Invocation queueInvocation(Action action, object context = null)
 		{
-			Invocation invocation = new Invocation(action, this, computing);
+			Invocation invocation = new Invocation(action, this, context);
 			_invocationQueue.Enqueue(invocation);
 			_newInvocationManualResetEvent.Set();
 			return invocation;
@@ -169,7 +169,8 @@ namespace ObservableComputations
 		public TimeSpan DoOthers(TimeSpan timeSpan)
 		{
 			if (_managedThreadId != Thread.CurrentThread.ManagedThreadId)
-				throw new ObservableComputationsException("Dispatcher.DoOthers method can only be called from the same thread that is associated with this Dispatcher.");
+				throw new ObservableComputationsException(
+					"Dispatcher.DoOthers method can only be called from the same thread that is associated with this Dispatcher.");
 
 			Stopwatch stopwatch = Stopwatch.StartNew();
 			while (_invocationQueue.TryDequeue(out Invocation invocation))
@@ -177,6 +178,7 @@ namespace ObservableComputations
 				invocation.DoOther();
 				if (stopwatch.ElapsedTicks > timeSpan.Ticks) break;
 			}
+
 			stopwatch.Stop();
 			return timeSpan - TimeSpan.FromTicks(stopwatch.ElapsedTicks);
 		}
@@ -184,7 +186,8 @@ namespace ObservableComputations
 		public int DoOthers(int count)
 		{
 			if (_managedThreadId != Thread.CurrentThread.ManagedThreadId)
-				throw new ObservableComputationsException("Dispatcher.DoOthers method can only be called from the same thread that is associated with this Dispatcher.");
+				throw new ObservableComputationsException(
+					"Dispatcher.DoOthers method can only be called from the same thread that is associated with this Dispatcher.");
 
 			int counter = 0;
 			while (_invocationQueue.TryDequeue(out Invocation invocation))
@@ -200,7 +203,8 @@ namespace ObservableComputations
 		public void DoOthers()
 		{
 			if (_managedThreadId != Thread.CurrentThread.ManagedThreadId)
-				throw new ObservableComputationsException("Dispatcher.DoOthers method can only be called from the same thread that is associated with this Dispatcher.");
+				throw new ObservableComputationsException(
+					"Dispatcher.DoOthers method can only be called from the same thread that is associated with this Dispatcher.");
 
 			while (_invocationQueue.TryDequeue(out Invocation invocation))
 			{
@@ -214,8 +218,8 @@ namespace ObservableComputations
 			_newInvocationManualResetEvent.Set();
 		}
 
-		void IDispatcher.Invoke(Action action, IComputing computing)
-		{ 
+		void IDispatcher.Invoke(Action action, object context)
+		{
 			if (!_alive) return;
 
 			if (_managedThreadId == Thread.CurrentThread.ManagedThreadId)
@@ -223,7 +227,7 @@ namespace ObservableComputations
 				action();
 			}
 
-			queueInvocation(action, computing);			
+			queueInvocation(action, context);
 		}
 
 		public Invocation BeginInvoke(Action action)
@@ -301,20 +305,14 @@ namespace ObservableComputations
 		public TResult Invoke<TResult>(Func<TResult> func)
 		{
 			TResult result = default;
-			Invoke(() =>
-			{
-				result = func();
-			});
+			Invoke(() => { result = func(); });
 			return result;
 		}
 
 		public TResult Invoke<TResult>(Func<object, TResult> func, object state)
 		{
 			TResult result = default;
-			Invoke(s =>
-			{
-				result = func(s);
-			}, state);
+			Invoke(s => { result = func(s); }, state);
 
 			return result;
 		}
@@ -324,25 +322,20 @@ namespace ObservableComputations
 			if (!_alive) return default;
 
 			InvocationResult<TResult> invocationResult = new InvocationResult<TResult>();
-			invocationResult._invocation = BeginInvoke(() =>
-			{
-				invocationResult.Result = func();
-			});
+			invocationResult._invocation = BeginInvoke(() => { invocationResult.Result = func(); });
 
 			return invocationResult;
 		}
 
-		public  InvocationResult<TResult> BeginInvoke<TResult>(Func<object, TResult> func, object state)
+		public InvocationResult<TResult> BeginInvoke<TResult>(Func<object, TResult> func, object state)
 		{
 			if (!_alive) return default;
 
 			InvocationResult<TResult> invocationResult = new InvocationResult<TResult>();
-			invocationResult._invocation = BeginInvoke(s =>
-			{
-				invocationResult.Result = func(s);
-			}, state);
+			invocationResult._invocation = BeginInvoke(s => { invocationResult.Result = func(s); }, state);
 
 			return invocationResult;
 		}
 	}
 }
+

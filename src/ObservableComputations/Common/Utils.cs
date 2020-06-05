@@ -56,8 +56,8 @@ namespace ObservableComputations
 		internal static readonly PropertyChangedEventArgs JoinPairSetOuterItemActionPropertyChangedEventArgs = new PropertyChangedEventArgs("JoinPairSetOuterItemAction");
 		internal static readonly PropertyChangedEventArgs JoinPairSetInnerItemActionPropertyChangedEventArgs = new PropertyChangedEventArgs("JoinPairSetInnerItemAction");
 		internal static readonly PropertyChangedEventArgs InnerItemPropertyChangedEventArgs = new PropertyChangedEventArgs("InnerItem");
-		internal static readonly PropertyChangedEventArgs ZipPairSetItemLeftActionPropertyChangedEventArgs = new PropertyChangedEventArgs("ZipPairSetItemLeftAction");
-		internal static readonly PropertyChangedEventArgs ZipPairSetItemRightActionPropertyChangedEventArgs = new PropertyChangedEventArgs("ZipPairSetItemRightAction");
+		internal static readonly PropertyChangedEventArgs ZipPairSetLeftItemActionPropertyChangedEventArgs = new PropertyChangedEventArgs("ZipPairSetLeftItemAction");
+		internal static readonly PropertyChangedEventArgs ZipPairSetRightItemActionPropertyChangedEventArgs = new PropertyChangedEventArgs("ZipPairSetRightItemAction");
 		internal static readonly PropertyChangedEventArgs ItemLeftPropertyChangedEventArgs = new PropertyChangedEventArgs("ItemLeft");
 		internal static readonly PropertyChangedEventArgs ItemRightPropertyChangedEventArgs = new PropertyChangedEventArgs("ItemRight");
 		internal static readonly PropertyChangedEventArgs InsertItemActionPropertyChangedEventArgs = new PropertyChangedEventArgs("InsertItemAction");
@@ -79,5 +79,7 @@ namespace ObservableComputations
 		internal static readonly PropertyChangedEventArgs CurrentPagePropertyChangedEventArgs = new PropertyChangedEventArgs("CurrentPage");
 		internal static readonly PropertyChangedEventArgs PageCountPropertyChangedEventArgs = new PropertyChangedEventArgs("PageCount");
 		internal static readonly PropertyChangedEventArgs PageSizePropertyChangedEventArgs = new PropertyChangedEventArgs("PageSize");
+		internal static readonly PropertyChangedEventArgs PausedPropertyChangedEventArgs = new PropertyChangedEventArgs("Paused");
+
 	}
 }

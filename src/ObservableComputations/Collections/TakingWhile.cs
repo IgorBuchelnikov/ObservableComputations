@@ -35,7 +35,7 @@ namespace ObservableComputations
 			int capacity = 0)
 			: base(
 				getSource(sourceScalar, predicateExpression, capacity),
-				zipPair => zipPair.ItemRight)
+				zipPair => zipPair.RightItem)
 		{
 			_sourceScalarTakingWhile = sourceScalar;
 			_predicateExpression = predicateExpression;
@@ -48,7 +48,7 @@ namespace ObservableComputations
 			int capacity = 0)
 			: base(
 				getSource(source, predicateExpression, capacity),
-				zipPair => zipPair.ItemRight)
+				zipPair => zipPair.RightItem)
 		{
 			_sourceTakingWhile = source;
 			_predicateExpression = predicateExpression;
@@ -95,7 +95,7 @@ namespace ObservableComputations
 			Computing<int> countComputing,
 			int capacity)
 		{
-			return zipping.Filtering(zp => zp.ItemLeft < zipping.Filtering(zipPairNotPredicateExpression, capacity).Selecting(zp1 => zp1.ItemLeft).Using(ic => ic.Count > 0 ? ic.Minimazing<int>().Value : countComputing.Value).Value, capacity);
+			return zipping.Filtering(zp => zp.LeftItem < zipping.Filtering(zipPairNotPredicateExpression, capacity).Selecting(zp1 => zp1.LeftItem).Using(ic => ic.Count > 0 ? ic.Minimazing<int>().Value : countComputing.Value).Value, capacity);
 		}
 
 		private static INotifyCollectionChanged getSource(
@@ -120,11 +120,11 @@ namespace ObservableComputations
 			Expression zipPairIndexExpression
 				= Expression.PropertyOrField(
 					zipPairParameterExpression,
-					nameof(ZipPair<int, TSourceItem>.ItemLeft));
+					nameof(ZipPair<int, TSourceItem>.LeftItem));
 			Expression zipPairItemExpression
 				= Expression.PropertyOrField(
 					zipPairParameterExpression,
-					nameof(ZipPair<int, TSourceItem>.ItemRight));
+					nameof(ZipPair<int, TSourceItem>.RightItem));
 			ReplaceParameterVisitor replaceParameterVisitor
 				= new ReplaceParameterVisitor(
 					predicateExpression.Parameters,

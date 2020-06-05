@@ -872,8 +872,8 @@ namespace ObservableComputations
 		protected void checkConsistent(object sender, EventArgs eventArgs)
 		{
 			if (!_isConsistent)
-				throw new ObservableComputationsException(this,
-					$"The source collection has been changed. It is not possible to process this change (event sender = {sender.ToStringSafe(e => $"{e.ToString()} in sender.ToString()")}, event args = {eventArgs.ToStringAlt()}), as the processing of the previous change is not completed. Make the change on ConsistencyRestored event raising (after IsConsistent property becomes true). This exception is fatal and cannot be handled as the inner state is damaged.");
+				throw new ObservableComputationsInconsistencyException(this,
+					$"The source collection has been changed. It is not possible to process this change (event sender = {sender.ToStringSafe(e => $"{e.ToString()} in sender.ToString()")}, event args = {eventArgs.ToStringAlt()}), as the processing of the previous change is not completed. Make the change on ConsistencyRestored event raising (after IsConsistent property becomes true). This exception is fatal and cannot be handled as the inner state is damaged.", sender, eventArgs);
 		}
 
 		// ReSharper disable once MemberCanBePrivate.Global

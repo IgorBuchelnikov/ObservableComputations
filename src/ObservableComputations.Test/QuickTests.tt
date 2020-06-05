@@ -34,6 +34,8 @@ namespace ObservableComputations.Test
             && em.Name != "ScalarDispatching"
             && em.Name != "ConcurrentDictionaring"
             && em.Name != "Crossing"
+            && em.Name != "CollectionPausing"
+            && em.Name != "ScalarPausing"
             && !em.Arguments.Any(ema => IsComputingArgument(ema)))
         .GroupBy(em => em.Name).OrderBy(emg => emg.Key))
 	{

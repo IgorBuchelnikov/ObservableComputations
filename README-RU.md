@@ -9,7 +9,7 @@
 
 ## Что такое ObservableComputations?
 
-Это кросс-платформенная .NET библиотека для вычислений, аргументами и результатами которых являются объекты реализующие интерфейсы [INotifyPropertyChanged](https://docs.microsoft.com/en-us/dotnet/api/system.componentmodel.inotifypropertychanged?view=netframework-4.8) и [INotifyCollectionChanged](https://docs.microsoft.com/en-us/dotnet/api/system.collections.specialized.inotifycollectionchanged?view=netframework-4.8) ([ObservableCollection](https://docs.microsoft.com/en-us/dotnet/api/system.collections.objectmodel.observablecollection-1?view=netframework-4.8)). Вычисления включают в себя те же вычисления которые есть в [LINQ](https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/concepts/linq/), вычисление произвольного выражения и некоторые дополнительные возможности. Вычисления реализованы как [методы расширения](https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/classes-and-structs/extension-methods), подобно [LINQ](https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/concepts/linq/) методам. Вы можете комбинировать вызовы [методов расширения](https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/classes-and-structs/extension-methods) ObservavleComputations (цепочка вызовов и вложенные вызовы), как Вы это делаете в [LINQ](https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/concepts/linq/). Поддерживаются вычисления в фоновых потоках, в том числе параллельные. ObservableComputations это простая в использовании и мощная реализация [парадигмы реактивного программирования](https://en.wikipedia.org/wiki/Reactive_programming). С ObservableComputations, Ваш код будет более соответствовать функциональному стилю, чем при использовании стандартного [LINQ](https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/concepts/linq/).
+Это кросс-платформенная .NET библиотека для вычислений, аргументами и результатами которых являются объекты реализующие интерфейсы [INotifyPropertyChanged](https://docs.microsoft.com/en-us/dotnet/api/system.componentmodel.inotifypropertychanged?view=netframework-4.8) и [INotifyCollectionChanged](https://docs.microsoft.com/en-us/dotnet/api/system.collections.specialized.inotifycollectionchanged?view=netframework-4.8) ([ObservableCollection](https://docs.microsoft.com/en-us/dotnet/api/system.collections.objectmodel.observablecollection-1?view=netframework-4.8)). Вычисления включают в себя те же вычисления которые есть в [LINQ](https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/concepts/linq/), вычисление произвольного выражения и некоторые дополнительные возможности. Вычисления реализованы как [методы расширения](https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/classes-and-structs/extension-methods), подобно [LINQ](https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/concepts/linq/) методам. Вы можете комбинировать вызовы [методов расширения](https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/classes-and-structs/extension-methods) ObservavleComputations (цепочка вызовов и вложенные вызовы), как Вы это делаете в [LINQ](https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/concepts/linq/). Поддерживаются вычисления в фоновых потоках, в том числе параллельные, а также обработка событий [CollectionChanged](https://docs.microsoft.com/en-us/dotnet/api/system.collections.specialized.inotifycollectionchanged.collectionchanged?view=netframework-4.8) и [PropertyChanged](https://docs.microsoft.com/en-us/dotnet/api/system.componentmodel.inotifypropertychanged.propertychanged?view=netframework-4.8) связанный со временем. ObservableComputations это простая в использовании и мощная реализация [парадигмы реактивного программирования](https://en.wikipedia.org/wiki/Reactive_programming). С ObservableComputations, Ваш код будет более соответствовать функциональному стилю, чем при использовании стандартного [LINQ](https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/concepts/linq/).
 
 ## Аналоги
 
@@ -23,11 +23,9 @@ ObservableComputations не является аналогом [Reactive Extentio
 
 Часть задач, которые Вы решали с помощью [Reactive Extentions](https://github.com/dotnet/reactive), теперь проще и эффективней решить с помощью ObservableComputations. Вы можете использовать ObservableComputations отдельно или вместе с [Reactive Extentions](https://github.com/dotnet/reactive). ObservableComputations не заменит [Reactive Extentions](https://github.com/dotnet/reactive):
  
-* при обработке событий не связанных с данными (например, нажатие клавиш), особенно при необходимости комбинировать эти события;
-* при работе с асихронными операциями;
-* при обработке событий связанной со временем (Throttle, Delay).
- 
-Это руководство включает в себя [пример](#исключение-при-нарушении-целостности) взаимодействия ObservableComputations с [Reactive Extentions](https://github.com/dotnet/reactive). 
+* при обработке событий связанной со временем (Throttle, Buffer). ObservableComputation позволяет реализовать связанную со временем обработку событий [CollectionChanged](https://docs.microsoft.com/en-us/dotnet/api/system.collections.specialized.inotifycollectionchanged.collectionchanged?view=netframework-4.8) и [PropertyChanged](https://docs.microsoft.com/en-us/dotnet/api/system.componentmodel.inotifypropertychanged.propertychanged?view=netframework-4.8) путем взаимодествия с [Reactive Extentions](https://github.com/dotnet/reactive) (смотрите пример [здесь](#варианты-реализации-интерфейса-idispatcher-и-других-аналогичных-интерфейсов));
+* при обработке событий не связанных с данными (например, нажатие клавиш), особенно при необходимости комбинировать эти события. Пример взаимодействия ObservableComputations с оператороми комбинирования [Reactive Extentions](https://github.com/dotnet/reactive) смотрите [здесь](#исключение-при-нарушении-целостности);
+* при работе с асихронными операциями ([метод Observable.FromAsyncPattern](https://docs.microsoft.com/en-us/previous-versions/dotnet/reactive-extensions/hh229052(v%3Dvs.103))).
  
 ### [ReactiveUI](https://github.com/reactiveui/ReactiveUI) и [DynamicData](https://github.com/reactiveui/DynamicData)
 
@@ -1288,8 +1286,7 @@ namespace ObservableComputationsExamples
 ```csharp
 using System;
 using System.Collections.ObjectModel;
-using System.Collections.Specialized;
-using System.Diagnostics;
+using System.ComponentModel;
 using ObservableComputations;
 
 namespace ObservableComputationsExamples
@@ -1315,10 +1312,17 @@ namespace ObservableComputationsExamples
 
 	public class NetworkChannel : IDisposable
 	{
+		public NetworkChannel(string clientName)
+		{
+			ClientName = clientName;
+			Console.WriteLine($"NetworkChannel to {ClientName} has been created");
+		}
+
 		public string ClientName { get; set; }
 
 		public void Dispose()
 		{
+			Console.WriteLine($"NetworkChannel to {ClientName} has been disposed");
 		}
 	}
 
@@ -1335,21 +1339,18 @@ namespace ObservableComputationsExamples
 
 			Filtering<Client> onlineClients = clients.Filtering(c => c.Online);
 
-			ItemsProcessing<Client, NetworkChannel> processing = 
-				onlineClients.ItemsProcessing<Client, NetworkChannel>(
-					newItemProcessor:
-						(client, @this, sender, eventArgs) =>
-						{
-							var networkChannel  = new NetworkChannel {ClientName = client.Name};
-							return networkChannel;
-						},
-					oldItemProcessor:
-						(client, @this, networkChannel, sender, eventArgs) =>
-						{
-							networkChannel.Dispose();
-						});
-						
-		    Debug.Assert(onlineClients is ObservableCollection<NetworkChannel>);
+			var processing = 
+				onlineClients.CollectionProcessing(
+					(client, @this) =>
+					{
+						var networkChannel  = new NetworkChannel(client.Name);
+						return networkChannel;
+					},
+					(client, @this, networkChannel) =>
+					{
+						networkChannel.Dispose();
+					});
+					
 
 			clients[2].Online = true;
 			clients.RemoveAt(1);
@@ -1389,8 +1390,7 @@ namespace ObservableComputationsExamples
   
 ```csharp
 using System;
-using System.Collections.ObjectModel;
-using System.Collections.Specialized;
+using System.ComponentModel;
 using ObservableComputations;
 
 namespace ObservableComputationsExamples
@@ -1414,10 +1414,17 @@ namespace ObservableComputationsExamples
 
 	public class NetworkChannel : IDisposable
 	{
+		public NetworkChannel(int num)
+		{
+			Num = num;
+			Console.WriteLine($"NetworkChannel #{Num} has been created");
+		}
+
 		public int Num { get; set; }
 
 		public void Dispose()
 		{
+			Console.WriteLine($"NetworkChannel #{Num} has been disposed");
 		}
 	}
 
@@ -1425,22 +1432,21 @@ namespace ObservableComputationsExamples
 	{
 		static void Main(string[] args)
 		{
-			var networkChannel  = new NetworkChannel(){Num = 1};
+			var networkChannel  = new NetworkChannel(1);
 			Client client = new Client() {NetworkChannel = networkChannel};
 
 			Computing<NetworkChannel> networkChannelComputing = new Computing<NetworkChannel>(() => client.NetworkChannel);
 
-			networkChannelComputing.ValuesProcessing(
-				newValueProcessor:
-					(networkChannel1, @this, sender, eventArgs) =>
-					{
-						// networkChannel1 is new NetworkChannel
-						// this.Value is old NetworkChannel
-						@this.Value?.Dispose();
-					});
+			networkChannelComputing.ScalarProcessing(
+				(networkChannel1, @this) =>
+				{
+					// networkChannel1 is new NetworkChannel
+					// this.Value is old NetworkChannel
+					@this.Value?.Dispose();
+				});
 
-			client.NetworkChannel = new NetworkChannel(){Num = 2};
-			client.NetworkChannel = new NetworkChannel(){Num = 3};
+			client.NetworkChannel = new NetworkChannel(2);
+			client.NetworkChannel = new NetworkChannel(3);
 
 			Console.ReadLine();
 		}
@@ -1642,7 +1648,7 @@ namespace ObservableComputationsExamples
 
 			Ordering<Relation, string> orderedRelations = relations.Ordering(r => r.From);
 
-			Observable.FromEventPattern<NotifyCollectionChangedEventHandler, NotifyCollectionChangedEventArgs>(               
+			Observable.FromEventPattern<NotifyCollectionChangedEventHandler, NotifyCollectionChangedEventArgs>(
 					h => orderedRelations.CollectionChanged += h,
 					h => orderedRelations.CollectionChanged -= h)
 				.Where(e => e.EventArgs.Action == NotifyCollectionChangedAction.Replace)
@@ -1793,7 +1799,7 @@ namespace ObservableComputationsExamples
 			{
 				Console.WriteLine($"Exception stacktrace:\n{DebugInfo.ExecutingDispatcherInvocations[dispatcher.Thread].Peek().CallStackTrace}");
 				Console.WriteLine($"\nComputing which caused the exception has been instantiated by the following stacktrace :\n{DebugInfo.ComputingsExecutingUserCode[Thread.CurrentThread].InstantiatingStackTrace}");
-				Console.WriteLine($"\nDispatch computing which caused the exception has been instantiated by the following stacktrace :\n{DebugInfo.ExecutingDispatcherInvocations[dispatcher.Thread].Peek().Computing.InstantiatingStackTrace}");
+				Console.WriteLine($"\nDispatch computing which caused the exception has been instantiated by the following stacktrace :\n{((IComputing) DebugInfo.ExecutingDispatcherInvocations[dispatcher.Thread].Peek().Context).InstantiatingStackTrace}");
 
 				Thread.CurrentThread.IsBackground = true;
 
@@ -1880,7 +1886,6 @@ namespace ObservableComputationsExamples
 						Order addedOrder = (Order) eventArgs.NewItems[0];
 						addedOrder.Price = Math.Truncate(addedOrder.Price / 100) * 100;
 						break;
-
 				}
 			};
 
@@ -1888,10 +1893,15 @@ namespace ObservableComputationsExamples
 			{
 				orders.Add(new Order(){Price = 35397});
 			}
-			catch (ObservableComputationsException exception)
+			catch (ObservableComputationsInconsistencyException exception)
 			{
 				Console.WriteLine($"Exception stacktrace:\n{exception.StackTrace}");
 				Console.WriteLine($"\nComputing which caused the exception has been instantiated by the following stacktrace :\n{exception.Computing.InstantiatingStackTrace}");
+				Console.WriteLine($"\nSender for the event that cannot be processed is :\n{exception.EventSender.ToStringSafe()}");
+				Console.WriteLine($"\nArgs for the event that cannot be processed is :\n{exception.EventArgs.ToStringAlt()}");
+				Console.WriteLine($"\nSender of event now processing is :\n{exception.Computing.HandledEventSender.ToStringSafe()}");
+				Console.WriteLine($"\nArgs for the event that is currently being processed is :\n{exception.Computing.HandledEventArgs.ToStringAlt()}");
+
 			}
 
 			Console.ReadLine();
@@ -2343,7 +2353,7 @@ namespace ObservableComputationsExample
 
 		#region Implementation of IDispatcher
 
-		public void Invoke(Action action, IComputing computing)
+		public void Invoke(Action action, object context)
 		{
 			_dispatcher.BeginInvoke(action, DispatcherPriority.Background);
 		}
@@ -2463,7 +2473,7 @@ namespace ObservableComputationsExample
 
 		#region Implementation of IDispatcher
 
-		public void Invoke(Action action, IComputing computing)
+		public void Invoke(Action action, object context)
 		{
 			_dispatcher.BeginInvoke(action, DispatcherPriority.Background);
 		}
@@ -2632,7 +2642,7 @@ namespace ObservableComputationsExample
 
 		#region Implementation of IDispatcher
 
-		public void Invoke(Action action, IComputing computing)
+		public void Invoke(Action action, object context)
 		{
 			_dispatcher.BeginInvoke(action, DispatcherPriority.Background);
 		}
@@ -2822,7 +2832,7 @@ namespace ObservableComputationsExample
 
 		#region Implementation of IDispatcher
 
-		public void Invoke(Action action, IComputing computing)
+		public void Invoke(Action action, object context)
 		{
 			_dispatcher.BeginInvoke(action, DispatcherPriority.Background);
 		}
@@ -2832,7 +2842,7 @@ namespace ObservableComputationsExample
 }
 ```
 
-В этом примере при двойном щелчке мышью по неоплаченному заказу мы делаем его оплаченным. Так как свойство *Paid* в этом случае меняется в главном потоке, то мы не можем читать его в фоновом потоке *_ocDispatcher*. Для того чтобы читать это свойство в фоновом потоке *_ocDispatcher*, необходимо диспетчеризировать это свойство в этот поток. Это происходит с помощью класса *PropertyDispatching&lt;THolder, TResult&gt;*. Аналогично методу *CollectionDispatching*, конструктор класса *PropertyDispatching&lt;THolder, TResult&gt;* имеет обязательный параметр *destinationDispatcher* и опциональный параметр *sourceDispatcher*. Отличие в том, что вместо перчисления коллекции-источника и подписки на событие [CollectionChanged](https://docs.microsoft.com/en-us/dotnet/api/system.collections.specialized.inotifycollectionchanged.collectionchanged?view=netcore-3.1), происходит считывание значения свойства и подписка на событие [PropertyChanged](https://docs.microsoft.com/en-us/dotnet/api/system.componentmodel.inotifypropertychanged.propertychanged?view=netcore-3.1). Ещё одно отличие состоит в том, что передав значение в параметр *sourceDispatcher*, вы сможете изменять значение свойства *PropertyDispatching&lt;THolder, TResult&gt;.Value* в потоке *destinationDispatcher*.
+В этом примере при двойном щелчке мышью по неоплаченному заказу мы делаем его оплаченным. Так как свойство *Paid* в этом случае меняется в главном потоке, то мы не можем читать его в фоновом потоке *_ocDispatcher*. Для того чтобы читать это свойство в фоновом потоке *_ocDispatcher*, необходимо диспетчеризировать изменения этого сойства в этот поток. Это происходит с помощью класса *PropertyDispatching&lt;THolder, TResult&gt;*. Аналогично методу *CollectionDispatching*, конструктор класса *PropertyDispatching&lt;THolder, TResult&gt;* имеет обязательный параметр *destinationDispatcher* и опциональный параметр *sourceDispatcher*. Отличие в том, что вместо перчисления коллекции-источника и подписки на событие [CollectionChanged](https://docs.microsoft.com/en-us/dotnet/api/system.collections.specialized.inotifycollectionchanged.collectionchanged?view=netcore-3.1), происходит считывание значения свойства и подписка на событие [PropertyChanged](https://docs.microsoft.com/en-us/dotnet/api/system.componentmodel.inotifypropertychanged.propertychanged?view=netcore-3.1). Ещё одно отличие состоит в том, что значение переданное в параметр *sourceDispatcher*, используется для диспетчеризации изменения значения свойства (сеттер *PropertyDispatching&lt;THolder, TResult&gt;.Value*) в поток *sourceDispatcher*, в случае если это изменение далается в другом потоке. 
 Приведённый выше пример не является единственным вариантом проектирования. Вот ещё один вариант (XAML не изменился):
 ```csharp
 using System;
@@ -2949,7 +2959,7 @@ namespace ObservableComputationsExample
 
 		#region Implementation of IDispatcher
 
-		public void Invoke(Action action, IComputing computing)
+		public void Invoke(Action action, object context)
 		{
 			_dispatcher.Invoke(action, DispatcherPriority.Background);
 		}
@@ -3075,7 +3085,7 @@ namespace ObservableComputationsExample
 
 		#region Implementation of IDispatcher
 
-		public void Invoke(Action action, IComputing computing)
+		public void Invoke(Action action, object context)
 		{
 			_dispatcher.Invoke(action, DispatcherPriority.Background);
 		}
@@ -3097,7 +3107,7 @@ namespace ObservableComputationsExample
 * *DoOthers* - в случае если делегат переданный в методы *Invoke* и *BeginInvoke* выполняется долго, при вызове *DoOthers* вызываются другие делегаты. Есть возможность задать максимальное количество делегатов, которые могут быть выполнены или приблизительное максимальное время их выполнения.
 
 ### Варианты реализации интерфейса IDispatcher и других аналогичных интерфейсов
-До сих пор мы исползовали очень простую реализацию интерфейса *IDispatcher*. Например, такую:  
+До сих пор мы использовали очень простую реализацию интерфейса *IDispatcher*. Например, такую:  
 ```csharp
 public class WpfOcDispatcher : IDispatcher
 {
@@ -3110,7 +3120,7 @@ public class WpfOcDispatcher : IDispatcher
 
    #region Implementation of IDispatcher
 
-   public void Invoke(Action action, IComputing computing)
+   public void Invoke(Action action, object context)
    {
       _dispatcher.Invoke(action, DispatcherPriority.Background);
    }
@@ -3118,31 +3128,34 @@ public class WpfOcDispatcher : IDispatcher
    #endregion
 }
 ```
-В этой реализации вызывается метод [System.Windows.Threading.Dispatcher.Invoke](https://docs.microsoft.com/en-us/dotnet/api/system.windows.threading.dispatcher.invoke?view=netcore-3.1). В других реализациях мы вызывали [System.Windows.Threading.Dispatcher.BeginInvoke]([System.Windows.Threading.Dispatcher.Invoke](https://docs.microsoft.com/en-us/dotnet/api/system.windows.threading.dispatcher.invoke?view=netcore-3.1)). На этом варианты реализации не ограничиваются, например, вы можете использвать реализацию, которая будет буферизировать вызовы c помощью [Reactive Extensions](https://github.com/dotnet/reactive):  
+В этой реализации вызывается метод [System.Windows.Threading.Dispatcher.Invoke](https://docs.microsoft.com/en-us/dotnet/api/system.windows.threading.dispatcher.invoke?view=netcore-3.1). В других реализациях мы вызывали [System.Windows.Threading.Dispatcher.BeginInvoke]([System.Windows.Threading.Dispatcher.Invoke](https://docs.microsoft.com/en-us/dotnet/api/system.windows.threading.dispatcher.invoke?view=netcore-3.1)). На этом варианты реализации не ограничиваются, например, вы можете использвать реализацию, которая будет буферизировать изменеия коллекции c помощью [Reactive Extensions](https://github.com/dotnet/reactive):  
 ```csharp
 public class WpfOcDispatcher : IDispatcher, IDisposable
 {
 	Subject<Action> _actions;
 
-	private Dispatcher _dispatcher;
+	private System.Windows.Dispatcher _dispatcher;
 
-	public WpfOcDispatcher(Dispatcher dispatcher)
+	public WpfOcDispatcher(System.Windows.Dispatcher dispatcher)
 	{
 		_dispatcher = dispatcher;
 
 		_actions = new Subject<Action>();
 		_actions.Buffer(TimeSpan.FromMilliseconds(300)).Subscribe(actions =>
 		{
-			foreach (var action in actions)
+			_dispatcher.Invoke(() =>
 			{
-				_dispatcher.Invoke(action, DispatcherPriority.Background);
-			}
+				for (var index = 0; index < actions.Count; index++)
+				{
+					actions[index]();
+				}
+			}, DispatcherPriority.Background);
 		});
 	}
 
 	#region Implementation of IDispatcher
 
-	public void Invoke(Action action, IComputing computing)
+	public void Invoke(Action action, object context)
 	{
 		_actions.OnNext(action);
 	}
@@ -3160,66 +3173,60 @@ public class WpfOcDispatcher : IDispatcher, IDisposable
 }
 ```
 
-Требования ко всем реализациям такие:  
-* Должны быть вызваны все делегаты *action* переданные в метод *Invoke*.
-* Делегаты *action* переданные в метод *Invoke* должны быть вызваны  в тоже последовательности, в которой вызывался метод *Invoke*.
+При дисптчеризации свойств (*PropertyDispatching*) и *IReadScalar&lt;TValue&gt;* (*ScalarDispatching*) может быть полезен ThrottlingDispatcher:
 
-Может возникнуть необходимость в реализации завясящей от того, какие измения прозводятся делегатом *action* переданным в метод *Invoke*. Для этого нужно использовать интерфейсы  
+```
+public class ThrottlingDispatcher : IDispatcher, IDisposable
+{
+	Subject<Action> _actions;
+
+	private System.Windows.Dispatcher _dispatcher;
+
+	public WpfOcDispatcher(System.Windows.Dispatcher dispatcher)
+	{
+		_dispatcher = dispatcher;
+
+		_actions = new Subject<Action>();
+		_actions.Throttle(TimeSpan.FromMilliseconds(300)).Subscribe(action =>
+		{
+			_dispatcher.Invoke(action, DispatcherPriority.Background);
+		});
+	}
+
+	#region Implementation of IDispatcher
+
+	public void Invoke(Action action, object context)
+	{
+		_actions.OnNext(action);
+	}
+
+	#endregion
+
+	#region Implementation of IDisposable
+
+	public void Dispose()
+	{
+		_actions.Dispose();
+	}
+
+	#endregion
+}
+```
+
+Может возникнуть необходимость в реализации завясящей от того, какие изменения прозводятся делегатом *action* переданным в метод *Invoke*. Для этого можно анализировать поараметр *context* передаваемый в метод *IDispatcher.Invoke* или использовать интерфейсы вместо интерфейса *IDispatcher*:
 
 ```csharp
 	public interface ICollectionDestinationDispatcher
 	{
-		/// <summary>
-		/// 
-		/// </summary>
-		/// <param name="action"></param>
-		/// <param name="collectionDispatching"></param>
-		/// <param name="initializingFromSourceCollection"></param>
-		/// <param name="notifyCollectionChangedEventArgs">not null if source collection changes, null if initializing from source collection</param>
-		/// <param name="propertyChangedEventArgs">not null if source collection scalar Value property changes</param>
-		/// <param name="notifyCollectionChangedAction">collection change action in case of initializing from source collection (Add or Clear)</param>
-		/// <param name="newItem">inserting item in case of initializing from source collection and inserting item</param>
-		/// <param name="newItemIndex">inserting item index in case of initializing from source collection and inserting item</param>
 		void Invoke(
 			Action action, 
 			ICollectionComputing collectionDispatching,
-			bool initializingFromSourceCollection,
-			NotifyCollectionChangedEventArgs notifyCollectionChangedEventArgs,
-			PropertyChangedEventArgs propertyChangedEventArgs,
 			NotifyCollectionChangedAction notifyCollectionChangedAction,
 			object newItem,
-			int newItemIndex);
+			object oldItem,
+			int newIndex,
+			int oldIndex);
 	}
-
-
-	public interface IScalarDestinationDispatcher
-	{
-		/// <summary>
-		/// 
-		/// </summary>
-		/// <param name="action"></param>
-		/// <param name="scalarDispatching"></param>
-		/// <param name="propertyChangedEventArgs">not null in source scalar changes, null if initializing from source scalar</param>
-		void Invoke(
-			Action action, 
-			IScalarComputing scalarDispatching,
-			PropertyChangedEventArgs propertyChangedEventArgs);
-	}
-
-	public interface IPropertyDestinationDispatcher
-	{
-		/// <summary>
-		/// 
-		/// </summary>
-		/// <param name="action"></param>
-		/// <param name="propertyDispatching"></param>
-		/// <param name="propertyChangedEventArgs">not null in source property changes, null if initializing from source property</param>
-		void Invoke(
-			Action action, 
-			IComputing propertyDispatching,
-			PropertyChangedEventArgs propertyChangedEventArgs);
-	}
-
 
 	public interface IPropertySourceDispatcher
 	{
@@ -3228,8 +3235,8 @@ public class WpfOcDispatcher : IDispatcher, IDisposable
 		/// </summary>
 		/// <param name="action"></param>
 		/// <param name="propertyDispatching"></param>
-		/// <param name="initializing">false if setting property value</param>
-		/// <param name="newValue">new value if setting property value</param>
+		/// <param name="initializing">false if setter of Value property is called</param>
+		/// <param name="newValue">new value if setter of Value property is called </param>
 		void Invoke(
 			Action action, 
 			IComputing propertyDispatching,
@@ -3237,8 +3244,6 @@ public class WpfOcDispatcher : IDispatcher, IDisposable
 			object newValue);
 	}
 ```
-
-
 
 ### Запуск в консольном приложении
 Предыдущие примеры были примерами WPF приложения. Аналогичные примеры можно запустить и в консольном приложении. Это может понадобиться для Unit-тестов.

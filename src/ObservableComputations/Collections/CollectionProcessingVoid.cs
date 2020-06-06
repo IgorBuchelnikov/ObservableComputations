@@ -17,13 +17,13 @@ namespace ObservableComputations
 		public ReadOnlyCollection<INotifyCollectionChanged> SourceCollections => new ReadOnlyCollection<INotifyCollectionChanged>(new []{Source});
 		public ReadOnlyCollection<IReadScalar<INotifyCollectionChanged>> SourceCollectionScalars => new ReadOnlyCollection<IReadScalar<INotifyCollectionChanged>>(new []{SourceScalar});
 
-		public Action<TSourceItem, ICollectionComputing> NewItemProcessor => _newItemProcessor;
-		public Action<TSourceItem, ICollectionComputing> OldItemProcessor => _oldItemProcessor;
-		public Action<TSourceItem, ICollectionComputing> MoveItemProcessor => _moveItemProcessor;
+		public Action<TSourceItem, CollectionProcessingVoid<TSourceItem>> NewItemProcessor => _newItemProcessor;
+		public Action<TSourceItem, CollectionProcessingVoid<TSourceItem>> OldItemProcessor => _oldItemProcessor;
+		public Action<TSourceItem, CollectionProcessingVoid<TSourceItem>> MoveItemProcessor => _moveItemProcessor;
 
-		private readonly Action<TSourceItem, ICollectionComputing> _newItemProcessor;
-		private readonly Action<TSourceItem, ICollectionComputing> _oldItemProcessor;
-		private readonly Action<TSourceItem, ICollectionComputing> _moveItemProcessor;
+		private readonly Action<TSourceItem, CollectionProcessingVoid<TSourceItem>> _newItemProcessor;
+		private readonly Action<TSourceItem, CollectionProcessingVoid<TSourceItem>> _oldItemProcessor;
+		private readonly Action<TSourceItem, CollectionProcessingVoid<TSourceItem>> _moveItemProcessor;
 
 		// ReSharper disable once PrivateFieldCanBeConvertedToLocalVariable
 		private readonly PropertyChangedEventHandler _sourceScalarPropertyChangedEventHandler;
@@ -41,9 +41,9 @@ namespace ObservableComputations
 		[ObservableComputationsCall]
 		public CollectionProcessingVoid(
 			IReadScalar<INotifyCollectionChanged> sourceScalar,
-			Action<TSourceItem, ICollectionComputing> newItemProcessor = null,
-			Action<TSourceItem, ICollectionComputing> oldItemProcessor = null,
-			Action<TSourceItem, ICollectionComputing> moveItemProcessor = null) : this(newItemProcessor, oldItemProcessor, moveItemProcessor, Utils.getCapacity(sourceScalar))
+			Action<TSourceItem, CollectionProcessingVoid<TSourceItem>> newItemProcessor = null,
+			Action<TSourceItem, CollectionProcessingVoid<TSourceItem>> oldItemProcessor = null,
+			Action<TSourceItem, CollectionProcessingVoid<TSourceItem>> moveItemProcessor = null) : this(newItemProcessor, oldItemProcessor, moveItemProcessor, Utils.getCapacity(sourceScalar))
 		{
 			_sourceScalar = sourceScalar;
 			_sourceScalarPropertyChangedEventHandler = handleSourceScalarValueChanged;
@@ -56,18 +56,18 @@ namespace ObservableComputations
 		[ObservableComputationsCall]
 		public CollectionProcessingVoid(
 			INotifyCollectionChanged source,
-			Action<TSourceItem, ICollectionComputing> newItemProcessor = null,
-			Action<TSourceItem, ICollectionComputing> oldItemProcessor = null,
-			Action<TSourceItem, ICollectionComputing> moveItemProcessor = null) : this(newItemProcessor, oldItemProcessor, moveItemProcessor, Utils.getCapacity(source))
+			Action<TSourceItem, CollectionProcessingVoid<TSourceItem>> newItemProcessor = null,
+			Action<TSourceItem, CollectionProcessingVoid<TSourceItem>> oldItemProcessor = null,
+			Action<TSourceItem, CollectionProcessingVoid<TSourceItem>> moveItemProcessor = null) : this(newItemProcessor, oldItemProcessor, moveItemProcessor, Utils.getCapacity(source))
 		{
 			_source = source;
 			initializeFromSource(null, null);
 		}
 
 		private CollectionProcessingVoid(
-			Action<TSourceItem, ICollectionComputing> newItemProcessor,
-			Action<TSourceItem, ICollectionComputing> oldItemProcessor,
-			Action<TSourceItem, ICollectionComputing> moveItemProcessor, 
+			Action<TSourceItem, CollectionProcessingVoid<TSourceItem>> newItemProcessor,
+			Action<TSourceItem, CollectionProcessingVoid<TSourceItem>> oldItemProcessor,
+			Action<TSourceItem, CollectionProcessingVoid<TSourceItem>> moveItemProcessor, 
 			int capacity) : base(capacity)
 		{
 			_newItemProcessor = newItemProcessor;

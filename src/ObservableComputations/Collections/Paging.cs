@@ -12,6 +12,8 @@ namespace ObservableComputations
 	{
 		public INotifyCollectionChanged Source => _source;
 		public IReadScalar<INotifyCollectionChanged> SourceScalar => _sourceScalar;
+		public IReadScalar<int> PageSizeScalar => _pageSizeScalar;
+		public IReadScalar<int> CurrentPageScalar => _currentPageScalar;
 
 		public ReadOnlyCollection<INotifyCollectionChanged> SourceCollections => new ReadOnlyCollection<INotifyCollectionChanged>(new []{Source});
 		public ReadOnlyCollection<IReadScalar<INotifyCollectionChanged>> SourceCollectionScalars => new ReadOnlyCollection<IReadScalar<INotifyCollectionChanged>>(new []{SourceScalar});
@@ -21,49 +23,59 @@ namespace ObservableComputations
 			get => _pageSize;
 			set
 			{
+				if (_pageSizeScalar != null) throw new ObservableComputationsException("Modifying of PageSize property is controlled by PageSizeScalar");
+
 				int originalPageSize = _pageSize;
-				int originalUpperIndex = _upperIndex;
 				_pageSize = value;
 
-				int sourceCount = _sourceAsList.Count;
-
-				_pageCount = (int) Math.Ceiling(sourceCount  / (double) _pageSize);
-				bool currentPageChanged = false;
-				if (_currentPage > _pageCount)
-				{
-					_currentPage = _pageCount;
-					currentPageChanged = true;		
-				}
-
-				_lowerIndex = _pageSize * (_currentPage - 1);
-				_upperIndex = _lowerIndex + _pageSize;
-
-				_isConsistent = false;
-				if (originalPageSize < _pageSize)
-				{
-					int index = originalPageSize - 1;	
-					for (var sourceIndex = originalUpperIndex; sourceIndex < sourceCount && sourceIndex < _upperIndex; sourceIndex++)
-					{
-						TSourceItem sourceItem = _sourceAsList[sourceIndex];
-						baseInsertItem(index++, sourceItem);
-					}
-				}
-				else if (originalPageSize > _pageSize)
-				{
-					int index = originalPageSize - 1;
-					index = index <	Count ? index : Count - 1;
-
-					for (; index >= _pageSize; index--)
-					{
-						baseRemoveItem(index);
-					}
-				}
-				_isConsistent = true;
-				raiseConsistencyRestored();
-
-				OnPropertyChanged(Utils.PageSizePropertyChangedEventArgs);
-				if (currentPageChanged) OnPropertyChanged(Utils.CurrentPagePropertyChangedEventArgs);
+				processPageSizeChanged(originalPageSize);
 			}
+		}
+
+		private void processPageSizeChanged(int originalPageSize)
+		{
+			int originalUpperIndex = _upperIndex;
+			int sourceCount = _sourceAsList.Count;
+
+			_pageCount = (int) Math.Ceiling(sourceCount / (double) _pageSize);
+			bool currentPageChanged = false;
+			if (_currentPage > _pageCount)
+			{
+				_currentPage = _pageCount;
+				currentPageChanged = true;
+			}
+
+			_lowerIndex = _pageSize * (_currentPage - 1);
+			_upperIndex = _lowerIndex + _pageSize;
+
+			_isConsistent = false;
+			if (originalPageSize < _pageSize)
+			{
+				int index = originalPageSize - 1;
+				for (var sourceIndex = originalUpperIndex;
+					sourceIndex < sourceCount && sourceIndex < _upperIndex;
+					sourceIndex++)
+				{
+					TSourceItem sourceItem = _sourceAsList[sourceIndex];
+					baseInsertItem(index++, sourceItem);
+				}
+			}
+			else if (originalPageSize > _pageSize)
+			{
+				int index = originalPageSize - 1;
+				index = index < Count ? index : Count - 1;
+
+				for (; index >= _pageSize; index--)
+				{
+					baseRemoveItem(index);
+				}
+			}
+
+			_isConsistent = true;
+			raiseConsistencyRestored();
+
+			OnPropertyChanged(Utils.PageSizePropertyChangedEventArgs);
+			if (currentPageChanged) OnPropertyChanged(Utils.CurrentPagePropertyChangedEventArgs);
 		}
 
 		public int CurrentPage
@@ -71,36 +83,43 @@ namespace ObservableComputations
 			get => _currentPage;
 			set
 			{
-				_isConsistent = false;
+				if (_currentPageScalar != null) throw new ObservableComputationsException("Modifying of CurrentPage property is controlled by CurrentPagecalar");
 
 				_currentPage = value;
-				if (_currentPage < 1) _currentPage = 1;
-				if (_currentPage > _pageCount) _currentPage = _pageCount;
 
-				_lowerIndex = _pageSize * (_currentPage - 1);
-				_upperIndex = _lowerIndex + _pageSize;
-
-				int sourceCount = _sourceAsList.Count;
-				int index = 0;
-				for (var sourceIndex = _lowerIndex; sourceIndex < sourceCount && sourceIndex < _upperIndex; sourceIndex++)
-				{
-					TSourceItem sourceItem = _sourceAsList[sourceIndex];
-					baseSetItem(index++, sourceItem);
-				}
-
-				int count = Count;
-				int removingIndex = index;
-
-				for (; index < count; index++)
-				{
-					baseRemoveItem(removingIndex);
-				}
-
-				_isConsistent = true;
-				raiseConsistencyRestored();
-
-				OnPropertyChanged(Utils.CurrentPagePropertyChangedEventArgs);
+				processCurentPageChanged();
 			}
+		}
+
+		private void processCurentPageChanged()
+		{
+			_isConsistent = false;
+			if (_currentPage < 1) _currentPage = 1;
+			if (_currentPage > _pageCount) _currentPage = _pageCount;
+
+			_lowerIndex = _pageSize * (_currentPage - 1);
+			_upperIndex = _lowerIndex + _pageSize;
+
+			int sourceCount = _sourceAsList.Count;
+			int index = 0;
+			for (var sourceIndex = _lowerIndex; sourceIndex < sourceCount && sourceIndex < _upperIndex; sourceIndex++)
+			{
+				TSourceItem sourceItem = _sourceAsList[sourceIndex];
+				baseSetItem(index++, sourceItem);
+			}
+
+			int count = Count;
+			int removingIndex = index;
+
+			for (; index < count; index++)
+			{
+				baseRemoveItem(removingIndex);
+			}
+
+			_isConsistent = true;
+			raiseConsistencyRestored();
+
+			OnPropertyChanged(Utils.CurrentPagePropertyChangedEventArgs);
 		}
 
 		public int PageCount => _pageCount;
@@ -118,6 +137,14 @@ namespace ObservableComputations
 		private WeakPropertyChangedEventHandler _sourceWeakPropertyChangedEventHandler;
 		private bool _indexerPropertyChangedEventRaised;
 		private INotifyPropertyChanged _sourceAsINotifyPropertyChanged;
+
+		private IReadScalar<int> _pageSizeScalar;
+		private PropertyChangedEventHandler _pageSizeScalarPropertyChangedEventHandler;
+		private WeakPropertyChangedEventHandler _pageSizeScalarWeakPropertyChangedEventHandler;
+
+		private IReadScalar<int> _currentPageScalar;
+		private PropertyChangedEventHandler _currentPageScalarPropertyChangedEventHandler;
+		private WeakPropertyChangedEventHandler _currentPageScalarWeakPropertyChangedEventHandler;
 
 		private IHasChangeMarker _sourceAsIHasChangeMarker;
 		private bool _lastProcessedSourceChangeMarker;
@@ -151,12 +178,184 @@ namespace ObservableComputations
 		{
 			_pageSize = pageSize;
 			_currentPage = initialPage;
+
 			_sourceScalar = sourceScalar;
 			_sourceScalarPropertyChangedEventHandler = handleSourceScalarValueChanged;
 			_sourceScalarWeakPropertyChangedEventHandler = new WeakPropertyChangedEventHandler(_sourceScalarPropertyChangedEventHandler);
 			_sourceScalar.PropertyChanged += _sourceScalarWeakPropertyChangedEventHandler.Handle;
 
 			initializeFromSource();
+		}
+
+		[ObservableComputationsCall]
+		public Paging(
+			INotifyCollectionChanged source,
+			IReadScalar<int> pageSizeScalar,
+			int initialPage = 1)
+		{
+			_pageSizeScalar = pageSizeScalar;
+			_pageSizeScalarPropertyChangedEventHandler = handlePageSizeScalarValueChanged;
+			_pageSizeScalarWeakPropertyChangedEventHandler =
+				new WeakPropertyChangedEventHandler(_pageSizeScalarPropertyChangedEventHandler);
+			_pageSizeScalar.PropertyChanged += _pageSizeScalarWeakPropertyChangedEventHandler.Handle;
+			_pageSize = pageSizeScalar.Value;
+
+			_currentPage = initialPage;
+			_source = source;
+
+			initializeFromSource();
+		}
+
+		[ObservableComputationsCall]
+		public Paging(
+			IReadScalar<INotifyCollectionChanged> sourceScalar,
+			IReadScalar<int> pageSizeScalar,
+			int initialPage = 1) 
+		{
+			_pageSizeScalar = pageSizeScalar;
+			_pageSizeScalarPropertyChangedEventHandler = handlePageSizeScalarValueChanged;
+			_pageSizeScalarWeakPropertyChangedEventHandler =
+				new WeakPropertyChangedEventHandler(_pageSizeScalarPropertyChangedEventHandler);
+			_pageSizeScalar.PropertyChanged += _pageSizeScalarWeakPropertyChangedEventHandler.Handle;
+			_pageSize = pageSizeScalar.Value;
+
+			_currentPage = initialPage;
+
+			_sourceScalar = sourceScalar;
+			_sourceScalarPropertyChangedEventHandler = handleSourceScalarValueChanged;
+			_sourceScalarWeakPropertyChangedEventHandler = new WeakPropertyChangedEventHandler(_sourceScalarPropertyChangedEventHandler);
+			_sourceScalar.PropertyChanged += _sourceScalarWeakPropertyChangedEventHandler.Handle;
+
+			initializeFromSource();
+		}
+
+		[ObservableComputationsCall]
+		public Paging(
+			INotifyCollectionChanged source,
+			IReadScalar<int> pageSizeScalar,
+			IReadScalar<int> currentPageScalar)
+		{
+			_pageSizeScalar = pageSizeScalar;
+			_pageSizeScalarPropertyChangedEventHandler = handlePageSizeScalarValueChanged;
+			_pageSizeScalarWeakPropertyChangedEventHandler =
+				new WeakPropertyChangedEventHandler(_pageSizeScalarPropertyChangedEventHandler);
+			_pageSizeScalar.PropertyChanged += _pageSizeScalarWeakPropertyChangedEventHandler.Handle;
+			_pageSize = pageSizeScalar.Value;
+
+			_currentPageScalar = currentPageScalar;
+			_currentPageScalarPropertyChangedEventHandler = handleCurrentPageScalarValueChanged;
+			_currentPageScalarWeakPropertyChangedEventHandler =
+				new WeakPropertyChangedEventHandler(_currentPageScalarPropertyChangedEventHandler);
+			_currentPageScalar.PropertyChanged += _currentPageScalarWeakPropertyChangedEventHandler.Handle;
+			_currentPage = currentPageScalar.Value;
+
+			_source = source;
+
+			initializeFromSource();
+		}
+
+		[ObservableComputationsCall]
+		public Paging(
+			IReadScalar<INotifyCollectionChanged> sourceScalar,
+			IReadScalar<int> pageSizeScalar,
+			IReadScalar<int> currentPageScalar) 
+		{
+			_pageSizeScalar = pageSizeScalar;
+			_pageSizeScalarPropertyChangedEventHandler = handlePageSizeScalarValueChanged;
+			_pageSizeScalarWeakPropertyChangedEventHandler =
+				new WeakPropertyChangedEventHandler(_pageSizeScalarPropertyChangedEventHandler);
+			_pageSizeScalar.PropertyChanged += _pageSizeScalarWeakPropertyChangedEventHandler.Handle;
+			_pageSize = pageSizeScalar.Value;
+
+			_currentPageScalar = currentPageScalar;
+			_currentPageScalarPropertyChangedEventHandler = handleCurrentPageScalarValueChanged;
+			_currentPageScalarWeakPropertyChangedEventHandler =
+				new WeakPropertyChangedEventHandler(_currentPageScalarPropertyChangedEventHandler);
+			_currentPageScalar.PropertyChanged += _currentPageScalarWeakPropertyChangedEventHandler.Handle;
+			_currentPage = currentPageScalar.Value;
+
+			_sourceScalar = sourceScalar;
+			_sourceScalarPropertyChangedEventHandler = handleSourceScalarValueChanged;
+			_sourceScalarWeakPropertyChangedEventHandler = new WeakPropertyChangedEventHandler(_sourceScalarPropertyChangedEventHandler);
+			_sourceScalar.PropertyChanged += _sourceScalarWeakPropertyChangedEventHandler.Handle;
+
+			initializeFromSource();
+		}
+
+		[ObservableComputationsCall]
+		public Paging(
+			INotifyCollectionChanged source,
+			int pageSize,
+			IReadScalar<int> currentPageScalar)
+		{
+			_pageSize = pageSize;
+
+			_currentPageScalar = currentPageScalar;
+			_currentPageScalarPropertyChangedEventHandler = handleCurrentPageScalarValueChanged;
+			_currentPageScalarWeakPropertyChangedEventHandler =
+				new WeakPropertyChangedEventHandler(_currentPageScalarPropertyChangedEventHandler);
+			_currentPageScalar.PropertyChanged += _currentPageScalarWeakPropertyChangedEventHandler.Handle;
+			_currentPage = currentPageScalar.Value;
+
+			_source = source;
+
+			initializeFromSource();
+		}
+
+		[ObservableComputationsCall]
+		public Paging(
+			IReadScalar<INotifyCollectionChanged> sourceScalar,
+			int pageSize,
+			IReadScalar<int> currentPageScalar) 
+		{
+			_pageSize = pageSize;
+
+			_currentPageScalar = currentPageScalar;
+			_currentPageScalarPropertyChangedEventHandler = handleCurrentPageScalarValueChanged;
+			_currentPageScalarWeakPropertyChangedEventHandler =
+				new WeakPropertyChangedEventHandler(_currentPageScalarPropertyChangedEventHandler);
+			_currentPageScalar.PropertyChanged += _currentPageScalarWeakPropertyChangedEventHandler.Handle;
+			_currentPage = currentPageScalar.Value;
+
+			_sourceScalar = sourceScalar;
+			_sourceScalarPropertyChangedEventHandler = handleSourceScalarValueChanged;
+			_sourceScalarWeakPropertyChangedEventHandler = new WeakPropertyChangedEventHandler(_sourceScalarPropertyChangedEventHandler);
+			_sourceScalar.PropertyChanged += _sourceScalarWeakPropertyChangedEventHandler.Handle;
+
+			initializeFromSource();
+		}
+
+		private void handlePageSizeScalarValueChanged(object sender, PropertyChangedEventArgs e)
+		{
+			if (e.PropertyName != nameof(IReadScalar<object>.Value)) return;
+
+			checkConsistent(sender, e);
+
+			_handledEventSender = sender;
+			_handledEventArgs = e;
+
+			int originalPageSize = _pageSize;
+			_pageSize = _pageSizeScalar.Value;
+			processPageSizeChanged(originalPageSize);
+
+			_handledEventSender = null;
+			_handledEventArgs = null;
+		}
+
+		private void handleCurrentPageScalarValueChanged(object sender, PropertyChangedEventArgs e)
+		{
+			if (e.PropertyName != nameof(IReadScalar<object>.Value)) return;
+
+			checkConsistent(sender, e);
+
+			_handledEventSender = sender;
+			_handledEventArgs = e;
+
+			_currentPage = _currentPageScalar.Value;
+			processCurentPageChanged();
+
+			_handledEventSender = null;
+			_handledEventArgs = null;
 		}
 
 		private void handleSourceScalarValueChanged(object sender, PropertyChangedEventArgs e)
@@ -479,6 +678,16 @@ namespace ObservableComputations
 			if (_sourceScalarWeakPropertyChangedEventHandler != null)
 			{
 				_sourceScalar.PropertyChanged -= _sourceScalarWeakPropertyChangedEventHandler.Handle;			
+			}
+
+			if (_pageSizeScalarWeakPropertyChangedEventHandler != null)
+			{
+				_pageSizeScalar.PropertyChanged -= _pageSizeScalarWeakPropertyChangedEventHandler.Handle;			
+			}
+
+			if (_currentPageScalarWeakPropertyChangedEventHandler != null)
+			{
+				_currentPageScalar.PropertyChanged -= _currentPageScalarWeakPropertyChangedEventHandler.Handle;			
 			}
 
 		}

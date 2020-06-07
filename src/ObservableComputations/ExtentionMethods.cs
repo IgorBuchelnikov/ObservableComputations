@@ -354,6 +354,7 @@ namespace ObservableComputations
 
 		#endregion
 
+		[ObservableComputationsCall]
 		public static TObject Do<TObject>(
 			this TObject @object, Action<TObject> action)
 		{
@@ -361,6 +362,7 @@ namespace ObservableComputations
 			return @object;
 		}
 
+		[ObservableComputationsCall]
 		public static TReturnValue Do<TObject, TReturnValue>(
 			this TObject @object, Func<TObject, TReturnValue> func)
 		{

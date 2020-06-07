@@ -1406,10 +1406,15 @@ namespace ObservableComputationsExamples
 		public NetworkChannel(int num)
 		{
 			Num = num;
-			Console.WriteLine($"NetworkChannel #{Num} has been created");
+			
 		}
 
 		public int Num { get; set; }
+
+		public void Open()
+		{
+			Console.WriteLine($"NetworkChannel #{Num} has been opened");
+		}
 
 		public void Dispose()
 		{
@@ -1424,14 +1429,17 @@ namespace ObservableComputationsExamples
 			var networkChannel  = new NetworkChannel(1);
 			Client client = new Client() {NetworkChannel = networkChannel};
 
-			Computing<NetworkChannel> networkChannelComputing = new Computing<NetworkChannel>(() => client.NetworkChannel);
+			Computing<NetworkChannel> networkChannelComputing 
+				= new Computing<NetworkChannel>(() => client.NetworkChannel);
 
 			networkChannelComputing.ScalarProcessing(
 				(networkChannel1, @this) =>
 				{
-					// networkChannel1 is new NetworkChannel
 					// this.Value is old NetworkChannel
 					@this.Value?.Dispose();
+
+					// networkChannel1 is new NetworkChannel
+					networkChannel1.Open();
 				});
 
 			client.NetworkChannel = new NetworkChannel(2);
@@ -1440,6 +1448,7 @@ namespace ObservableComputationsExamples
 			Console.ReadLine();
 		}
 	}
+}
 }
 ```  
 

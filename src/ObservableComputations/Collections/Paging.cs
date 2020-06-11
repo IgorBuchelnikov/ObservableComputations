@@ -380,8 +380,6 @@ namespace ObservableComputations
 				_source.CollectionChanged -= _sourceWeakNotifyCollectionChangedEventHandler.Handle;
 				_sourceNotifyCollectionChangedEventHandler = null;
 				_sourceWeakNotifyCollectionChangedEventHandler = null;
-				_pageCount = 0;
-				_currentPage = 1;
 			}
 
 			if (_sourceAsINotifyPropertyChanged != null)
@@ -429,7 +427,7 @@ namespace ObservableComputations
 				bool currentPageChanged = false;
 				if (_currentPage > _pageCount)
 				{
-					_currentPage = _pageCount;
+					_currentPage = _pageCount > 0 ? _pageCount : 1;
 					currentPageChanged = true;
 				}
 

@@ -396,6 +396,8 @@ namespace ObservableComputations
 
 		private void initializeFromSource()
 		{
+			int originalCount = _items.Count;
+
 			if (_sourceNotifyCollectionChangedEventHandler != null)
 			{
 				int itemInfosCount = _itemInfos.Count;
@@ -413,8 +415,6 @@ namespace ObservableComputations
 				_sourcePositions = new Positions<ItemInfo>(_itemInfos);
 				_orderingValues = new List<TOrderingValue>(capacity);
 
-				baseClearItems();
-
 				if (_rootSourceWrapper)
 				{
 					_sourceAsList.CollectionChanged -= _sourceNotifyCollectionChangedEventHandler;
@@ -426,6 +426,8 @@ namespace ObservableComputations
 				}
 
 				_sourceNotifyCollectionChangedEventHandler = null;
+
+				_items.Clear();
 			}
 
 			if (_sourceScalar != null) _source = _sourceScalar.Value;
@@ -446,7 +448,12 @@ namespace ObservableComputations
 
 				_lastProcessedSourceChangeMarker = _sourceAsList.ChangeMarkerField;
 
-				fillFromSource();
+				int count = _sourceAsList.Count;
+				int sourceIndex;
+				for (sourceIndex = 0; sourceIndex < count; sourceIndex++)
+				{
+					registerSourceItem(_sourceAsList[sourceIndex], sourceIndex, true);
+				}
 
 				_sourceNotifyCollectionChangedEventHandler = handleSourceCollectionChanged;
 
@@ -462,16 +469,8 @@ namespace ObservableComputations
 					_sourceAsList.CollectionChanged += _sourceWeakNotifyCollectionChangedEventHandler.Handle;
 				}
 			}
-		}
 
-		private void fillFromSource()
-		{
-			int count = _sourceAsList.Count;
-			for (int index = 0; index < count; index++)
-			{
-				TSourceItem sourceItem = _sourceAsList[index];
-				registerSourceItem(sourceItem, index);
-			}
+			reset();
 		}
 
 		private void handleSourceScalarValueChanged(object sender, PropertyChangedEventArgs e)
@@ -493,7 +492,7 @@ namespace ObservableComputations
 			_handledEventArgs = null;
 		}
 
-		private void registerSourceItem(TSourceItem sourceItem, int sourceIndex)
+		private void registerSourceItem(TSourceItem sourceItem, int sourceIndex, bool initializing = false)
 		{
 			ItemInfo itemInfo = _sourcePositions.Insert(sourceIndex);
 
@@ -516,8 +515,11 @@ namespace ObservableComputations
 			{
 				adjustEqualOrderingValueRangePosition(orderingValue, orderedItemInfo, orderedIndex, orderedIndex - 1, orderedIndex);
 			}
-			 
-			baseInsertItem(orderedIndex, sourceItem);
+
+			if (initializing)
+				_items.Insert(orderedIndex, sourceItem);
+			else
+				baseInsertItem(orderedIndex, sourceItem);
 		}
 
 		private void adjustEqualOrderingValueRangePosition(

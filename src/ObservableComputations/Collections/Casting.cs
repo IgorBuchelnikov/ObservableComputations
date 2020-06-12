@@ -57,9 +57,10 @@ namespace ObservableComputations
 
 		private void initializeFromSource()
 		{
+			int originalCount = _items.Count;
+
 			if (_sourceNotifyCollectionChangedEventHandler != null)
-			{
-				baseClearItems();	
+			{	
 				_source.CollectionChanged -= _sourceWeakNotifyCollectionChangedEventHandler.Handle;
 				_sourceNotifyCollectionChangedEventHandler = null;
 				_sourceWeakNotifyCollectionChangedEventHandler = null;
@@ -103,10 +104,18 @@ namespace ObservableComputations
 
 
 				int count = _sourceAsList.Count;
-				for (int index = 0; index < count; index++)
+				int sourceIndex;
+				for (sourceIndex = 0; sourceIndex < count; sourceIndex++)
 				{
-					object sourceItem = _sourceAsList[index];
-					baseInsertItem(index, (TResultItem)sourceItem);
+					if (originalCount > sourceIndex)
+						_items[sourceIndex] = (TResultItem)_sourceAsList[sourceIndex];
+					else
+						_items.Insert(sourceIndex, (TResultItem)_sourceAsList[sourceIndex]);
+				}
+
+				for (int index = originalCount - 1; index >= sourceIndex; index--)
+				{
+					_items.RemoveAt(index);
 				}
 
 				_sourceNotifyCollectionChangedEventHandler = handleSourceCollectionChanged;
@@ -114,7 +123,13 @@ namespace ObservableComputations
 					new WeakNotifyCollectionChangedEventHandler(_sourceNotifyCollectionChangedEventHandler);
 
 				_source.CollectionChanged += _sourceWeakNotifyCollectionChangedEventHandler.Handle;
+			}			
+			else
+			{
+				_items.Clear();
 			}
+
+			reset();
 		}
 
 		private void handleSourceScalarValueChanged(object sender, PropertyChangedEventArgs e)

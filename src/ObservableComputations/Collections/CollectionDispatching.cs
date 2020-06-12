@@ -122,6 +122,8 @@ namespace ObservableComputations
 
 		private void initializeFromSource()
 		{
+			int originalCount = _items.Count;
+
 			if (_sourceNotifyCollectionChangedEventHandler != null)
 			{
 				if (_destinationDispatcher != null) _destinationDispatcher.Invoke(baseClearItems, this);
@@ -170,18 +172,19 @@ namespace ObservableComputations
 					_sourceAsINotifyPropertyChanged.PropertyChanged += _sourceWeakPropertyChangedEventHandler.Handle;
 				}
 
-				int index = 0;
 				int count = _sourceAsList.Count;
-				for (var sourceIndex = 0; sourceIndex < count; sourceIndex++)
+				int sourceIndex;
+				for (sourceIndex = 0; sourceIndex < count; sourceIndex++)
 				{
-					TSourceItem sourceItem = _sourceAsList[sourceIndex];
-					int indexCopy = index++;
+					if (originalCount > sourceIndex)
+						_items[sourceIndex] = _sourceAsList[sourceIndex];
+					else
+						_items.Insert(sourceIndex, _sourceAsList[sourceIndex]);
+				}
 
-					void insertItem() => baseInsertItem(indexCopy, sourceItem);
-
-					if (_destinationDispatcher != null) _destinationDispatcher.Invoke(insertItem, this);
-					else _collectionDestinationDispatcher.Invoke(insertItem, this, NotifyCollectionChangedAction.Add, sourceItem, null, indexCopy, 0);
-
+				for (int index = originalCount - 1; index >= sourceIndex; index--)
+				{
+					_items.RemoveAt(index);
 				}
 
 				_sourceNotifyCollectionChangedEventHandler = handleSourceCollectionChanged;
@@ -189,6 +192,13 @@ namespace ObservableComputations
 					new WeakNotifyCollectionChangedEventHandler(_sourceNotifyCollectionChangedEventHandler);
 				_source.CollectionChanged += _sourceWeakNotifyCollectionChangedEventHandler.Handle;
 			}
+			else
+			{
+				_items.Clear();
+			}
+
+			if (_destinationDispatcher != null) _destinationDispatcher.Invoke(reset, this);
+			else _collectionDestinationDispatcher.Invoke(reset, this, NotifyCollectionChangedAction.Reset, null, null, 0, 0);
 		}
 
 		private void handleSourceCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)

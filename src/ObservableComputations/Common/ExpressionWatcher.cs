@@ -1,13 +1,15 @@
 ﻿using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq.Expressions;
 using System.Reflection;
+using System.Threading;
 using ObservableComputations.ExtentionMethods;
 
 namespace ObservableComputations
 {
-	internal sealed class ExpressionWatcher : IDisposable
+	internal sealed class ExpressionWatcher
 	{
 		internal Position _position;
 
@@ -607,10 +609,11 @@ namespace ObservableComputations
 #endif
 
 
-		private enum WorkWithCallTreeNodeType
+		internal enum WorkWithCallTreeNodeType
 		{
 			UpdateSubscriptionAndHolder,
-			Dispose
+			Dispose,
+			Predispose
 		}
 
 #if DEBUG
@@ -619,41 +622,60 @@ namespace ObservableComputations
 		private void workWithCallTreeNode(CallTreeNode node, object holder, WorkWithCallTreeNodeType workType)
 #endif
 		{
-			switch (node._call.Type)
+			if (workType == WorkWithCallTreeNodeType.Predispose)
 			{
-				case CallType.PropertyOrField:
-					if (node._propertyChangedEventHandler != null)
+				if (node._call.Type == CallType.Method)
+				{
+					ExpressionWatcher[] nodeCallArguments = node._callArguments;
+					if (nodeCallArguments != null)
 					{
-						((INotifyPropertyChanged)node._holder).PropertyChanged -= node._weakPropertyChangedEventHandler.Handle;
-						node._propertyChangedEventHandler = null;
-						node._weakPropertyChangedEventHandler = null;
-					}
-					break;
-				case CallType.Method:
-					if (node._methodChangedEventHandler != null)
-					{
-						((INotifyMethodChanged)node._holder).MethodChanged -= node._weakMethodChangedEventHandler.Handle;
-						node._methodChangedEventHandler = null;
-						node._weakMethodChangedEventHandler = null;
-					}			
-
-					if (workType == WorkWithCallTreeNodeType.Dispose)
-					{
-						ExpressionWatcher[] nodeCallArguments = node._callArguments;
-						if (nodeCallArguments != null)
+						int callArgumentsLength = nodeCallArguments.Length;
+						for (int index = 0; index < callArgumentsLength; index++)
 						{
-							int callArgumentsLength = nodeCallArguments.Length;
-							for (int index = 0; index < callArgumentsLength; index++)
+							ExpressionWatcher expressionWatcher = nodeCallArguments[index];
+							expressionWatcher.Dispose();
+						}
+					}
+				}
+			}
+			else
+			{
+				switch (node._call.Type)
+				{
+					case CallType.PropertyOrField:
+						if (node._propertyChangedEventHandler != null)
+						{
+							((INotifyPropertyChanged)node._holder).PropertyChanged -= node._weakPropertyChangedEventHandler.Handle;
+							node._propertyChangedEventHandler = null;
+							node._weakPropertyChangedEventHandler = null;
+						}
+						break;
+					case CallType.Method:
+						if (node._methodChangedEventHandler != null)
+						{
+							((INotifyMethodChanged)node._holder).MethodChanged -= node._weakMethodChangedEventHandler.Handle;
+							node._methodChangedEventHandler = null;
+							node._weakMethodChangedEventHandler = null;
+						}			
+
+						if (workType == WorkWithCallTreeNodeType.Dispose)
+						{
+							ExpressionWatcher[] nodeCallArguments = node._callArguments;
+							if (nodeCallArguments != null)
 							{
-								ExpressionWatcher expressionWatcher = nodeCallArguments[index];
-								expressionWatcher.Dispose();
+								int callArgumentsLength = nodeCallArguments.Length;
+								for (int index = 0; index < callArgumentsLength; index++)
+								{
+									ExpressionWatcher expressionWatcher = nodeCallArguments[index];
+									expressionWatcher.Dispose(WorkWithCallTreeNodeType.Dispose);
+								}
 							}
+
+							node._callArgumentChangedEventHandler = null;
 						}
 
-						node._callArgumentChangedEventHandler = null;
-					}
-
-					break;
+						break;
+				}
 			}
 
 			if (workType == WorkWithCallTreeNodeType.UpdateSubscriptionAndHolder)
@@ -1216,21 +1238,21 @@ namespace ObservableComputations
 		private void raiseValueChanged(Root root, object sender, EventArgs eventArgs)
 		{
 			LastChangedRoot = root;
-			ValueChanged(this, sender, eventArgs);
+			if (ValueChanged != null) ValueChanged(this, sender, eventArgs);
 		}
 #else
 		private void raiseValueChanged(object sender, EventArgs eventArgs)
 		{
-			ValueChanged(this, sender, eventArgs);
+			if (ValueChanged != null) ValueChanged(this, sender, eventArgs);
 		}
 #endif
 
 
-		#region Implementation of IDisposable
 
-		public void Dispose()
+		internal void Dispose(WorkWithCallTreeNodeType workType = WorkWithCallTreeNodeType.Dispose)
 		{
 			_disposed = true;
+
 			if (_constantCallTrees != null)
 			{
 				int length = _constantCallTrees.Length;
@@ -1238,9 +1260,9 @@ namespace ObservableComputations
 				{
 					ConstantCallTrees constantCallTree = _constantCallTrees[index];
 #if DEBUG
-					workWithCallTrees(constantCallTree.CallTrees, null, WorkWithCallTreeNodeType.Dispose);
+					workWithCallTrees(constantCallTree.CallTrees, null, workType);
 #else
-					workWithCallTrees(constantCallTree.CallTrees, null, WorkWithCallTreeNodeType.Dispose);
+					workWithCallTrees(constantCallTree.CallTrees, null, workType);
 #endif
 				}
 			}
@@ -1254,9 +1276,9 @@ namespace ObservableComputations
 					if (_parameterValues[parameterCallTree.ParameterIndex] is INotifyPropertyChanged)
 					{
 #if DEBUG
-						workWithCallTrees(parameterCallTree.CallTrees, null, WorkWithCallTreeNodeType.Dispose);
+						workWithCallTrees(parameterCallTree.CallTrees, null, workType);
 #else
-					workWithCallTrees(parameterCallTree.CallTrees, null, WorkWithCallTreeNodeType.Dispose);
+					workWithCallTrees(parameterCallTree.CallTrees, null, workType);
 #endif
 					}
 				}
@@ -1267,20 +1289,18 @@ namespace ObservableComputations
 				foreach (ExpressionCallTrees expressionCallTree in _expressionCallTrees)
 				{
 #if DEBUG
-					workWithCallTrees(expressionCallTree.CallTrees, null, WorkWithCallTreeNodeType.Dispose);				
+					workWithCallTrees(expressionCallTree.CallTrees, null, workType);				
 #else
-					workWithCallTrees(expressionCallTree.CallTrees, null, WorkWithCallTreeNodeType.Dispose);
+					workWithCallTrees(expressionCallTree.CallTrees, null, workType);
 #endif	
-					expressionCallTree.ExpressionWatcher.Dispose();
+					expressionCallTree.ExpressionWatcher.Dispose(workType);
 				}
 			}
 		}
 
-#endregion
-
 		~ExpressionWatcher ()
 		{
-			Dispose();
+			Dispose(WorkWithCallTreeNodeType.Dispose);
 		}
 	}
 }

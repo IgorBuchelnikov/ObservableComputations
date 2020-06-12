@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.ComponentModel;
+using System.Linq;
 
 namespace ObservableComputations
 {
@@ -48,23 +49,36 @@ namespace ObservableComputations
 						defferedCollectionAction.NotifyCollectionChangedEventAgs);
 				else if (defferedCollectionAction.Clear)
 				{
-					_handledEventSender = defferedCollectionAction.EventSender;
-					_handledEventArgs = defferedCollectionAction.EventArgs;
-
-					baseClearItems();
-
-					_handledEventSender = null;
-					_handledEventArgs = null;
+					_items.Clear();
 				}
-				else
+				else if (defferedCollectionAction.Reset)
 				{
 					_handledEventSender = defferedCollectionAction.EventSender;
 					_handledEventArgs = defferedCollectionAction.EventArgs;
 
-					baseInsertItem(defferedCollectionAction.NewItemIndex, defferedCollectionAction.NewItem);
+					reset();
 
 					_handledEventSender = null;
 					_handledEventArgs = null;
+				}
+				else if (defferedCollectionAction.NewItems != null)
+				{
+					int originalCount = _items.Count;
+					TSourceItem[] newItems = defferedCollectionAction.NewItems;
+					int count1 = newItems.Length;
+					int sourceIndex;
+					for (sourceIndex = 0; sourceIndex < count1; sourceIndex++)
+					{
+						if (originalCount > sourceIndex)
+							_items[sourceIndex] = newItems[sourceIndex];
+						else
+							_items.Insert(sourceIndex, newItems[sourceIndex]);
+					}
+
+					for (int index = originalCount - 1; index >= sourceIndex; index--)
+					{
+						_items.RemoveAt(index);
+					}
 				}
 			}
 
@@ -206,13 +220,10 @@ namespace ObservableComputations
 
 		private void initializeFromSource()
 		{
+			int originalCount = _items.Count;
+
 			if (_sourceNotifyCollectionChangedEventHandler != null)
-			{
-				if (_isPaused)
-					_defferedCollectionActions.Enqueue(new DefferedCollectionAction<TSourceItem>(_handledEventSender, _handledEventArgs));
-				else
-					baseClearItems();
-				
+			{		
 				_source.CollectionChanged -= _sourceWeakNotifyCollectionChangedEventHandler.Handle;
 				_sourceNotifyCollectionChangedEventHandler = null;
 				_sourceWeakNotifyCollectionChangedEventHandler = null;
@@ -256,22 +267,47 @@ namespace ObservableComputations
 					_sourceAsINotifyPropertyChanged.PropertyChanged += _sourceWeakPropertyChangedEventHandler.Handle;
 				}
 
-				int count = _sourceAsList.Count;
-				for (var sourceIndex = 0; sourceIndex < count; sourceIndex++)
-				{
-					TSourceItem sourceItem = _sourceAsList[sourceIndex];
+				int sourceIndex = 0;
 
-					if (_isPaused)
-						_defferedCollectionActions.Enqueue(new DefferedCollectionAction<TSourceItem>(_handledEventSender, _handledEventArgs, sourceItem, sourceIndex));
-					else			
-						baseInsertItem(sourceIndex, sourceItem);
+				if (_isPaused)
+					_defferedCollectionActions.Enqueue(new DefferedCollectionAction<TSourceItem>(_sourceAsList.ToArray()));
+				else
+				{
+					int count = _sourceAsList.Count;
+					for (; sourceIndex < count; sourceIndex++)
+					{
+						if (originalCount > sourceIndex)
+							_items[sourceIndex] = _sourceAsList[sourceIndex];
+						else
+							_items.Insert(sourceIndex, _sourceAsList[sourceIndex]);
+					}					
+				}
+
+				if (!_isPaused)
+				{
+					for (int index = originalCount - 1; index >= sourceIndex; index--)
+					{
+						_items.RemoveAt(index);
+					}
 				}
 
 				_sourceNotifyCollectionChangedEventHandler = handleSourceCollectionChanged;
 				_sourceWeakNotifyCollectionChangedEventHandler =
 					new WeakNotifyCollectionChangedEventHandler(_sourceNotifyCollectionChangedEventHandler);
 				_source.CollectionChanged += _sourceWeakNotifyCollectionChangedEventHandler.Handle;
+			}			
+			else 
+			{
+				if (_isPaused)
+					_defferedCollectionActions.Enqueue(new DefferedCollectionAction<TSourceItem>(true));
+				else
+					_items.Clear();
 			}
+
+			if (_isPaused)
+				_defferedCollectionActions.Enqueue(new DefferedCollectionAction<TSourceItem>(true, _handledEventSender, _handledEventArgs));
+			else
+				reset();
 		}
 
 		private void handleSourceCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
@@ -359,21 +395,16 @@ namespace ObservableComputations
 		public object EventSender;
 		public NotifyCollectionChangedEventArgs NotifyCollectionChangedEventAgs;
 		public EventArgs EventArgs;
-		public bool Clear;
 		public TSourceItem NewItem;
 		public int NewItemIndex;
+		public TSourceItem[] NewItems;
+		public bool Clear;
+		public bool Reset;
 
 		public DefferedCollectionAction(object eventSender, NotifyCollectionChangedEventArgs eventAgs) : this()
 		{
 			EventSender = eventSender;
 			NotifyCollectionChangedEventAgs = eventAgs;
-		}
-
-		public DefferedCollectionAction(object eventSender, EventArgs eventArgs) : this()
-		{
-			EventSender = eventSender;
-			EventArgs = eventArgs;
-			Clear = true;
 		}
 
 		public DefferedCollectionAction(object eventSender, EventArgs eventArgs, TSourceItem newItem, int newItemIndex) : this()
@@ -382,6 +413,23 @@ namespace ObservableComputations
 			EventArgs = eventArgs;
 			NewItem = newItem;
 			NewItemIndex = -newItemIndex;
+		}
+
+		public DefferedCollectionAction(TSourceItem[] newItems) : this()
+		{
+			NewItems = newItems;
+		}
+
+		public DefferedCollectionAction(bool clear) : this()
+		{
+			Clear = clear;
+		}
+
+		public DefferedCollectionAction(bool reset, object eventSender, EventArgs eventArgs) : this()
+		{
+			Reset = reset;
+			EventSender = eventSender;
+			EventArgs = eventArgs;
 		}
 	}
 }

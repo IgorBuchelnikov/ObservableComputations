@@ -374,9 +374,10 @@ namespace ObservableComputations
 
 		private void initializeFromSource()
 		{
+			int originalCount = _items.Count;
+
 			if (_sourceNotifyCollectionChangedEventHandler != null)
 			{
-				baseClearItems();
 				_source.CollectionChanged -= _sourceWeakNotifyCollectionChangedEventHandler.Handle;
 				_sourceNotifyCollectionChangedEventHandler = null;
 				_sourceWeakNotifyCollectionChangedEventHandler = null;
@@ -420,7 +421,7 @@ namespace ObservableComputations
 					_sourceAsINotifyPropertyChanged.PropertyChanged += _sourceWeakPropertyChangedEventHandler.Handle;
 				}
 
-				int index = 0;
+				int newIndex = 0;
 				int count = _sourceAsList.Count;
 
 				_pageCount = (int) Math.Ceiling(count  / (double) _pageSize);
@@ -436,8 +437,15 @@ namespace ObservableComputations
 	
 				for (var sourceIndex = _lowerIndex; sourceIndex < count && sourceIndex < _upperIndex; sourceIndex++)
 				{
-					TSourceItem sourceItem = _sourceAsList[sourceIndex];
-					baseInsertItem(index++, sourceItem);
+					if (originalCount > sourceIndex)
+						_items[newIndex++] = _sourceAsList[sourceIndex];
+					else
+						_items.Insert(newIndex++, _sourceAsList[sourceIndex]);
+				}
+
+				for (int index1 = originalCount - 1; index1 >= newIndex; index1--)
+				{
+					_items.RemoveAt(index1);
 				}
 
 				_sourceNotifyCollectionChangedEventHandler = handleSourceCollectionChanged;
@@ -449,6 +457,8 @@ namespace ObservableComputations
 			}
 			else
 			{
+				_items.Clear();
+
 				if (_pageCount != 0)
 				{
 					_pageCount = 0;
@@ -459,6 +469,8 @@ namespace ObservableComputations
 					_currentPage = 1;
 				}				
 			}
+
+			reset();
 		}
 
 		private void handleSourceCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)

@@ -233,6 +233,8 @@ namespace ObservableComputations
 
 		private void initializeFromSources()
 		{
+			int originalCount = _items.Count;
+
 			if (_leftSourceNotifyCollectionChangedEventHandler != null)
 			{
 				_leftSource.CollectionChanged -= _leftSourceWeakNotifyCollectionChangedEventHandler.Handle;
@@ -265,11 +267,6 @@ namespace ObservableComputations
 				_rigthSourceAsINotifyPropertyChanged = null;
 				_rigthSourcePropertyChangedEventHandler = null;
 				_rigthSourceWeakPropertyChangedEventHandler = null;
-			}
-
-			if (_leftSource != null || _rightSource != null)
-			{
-				baseClearItems();				
 			}
 
 			if (_leftSourceScalar != null) _leftSource = _leftSourceScalar.Value;
@@ -326,21 +323,28 @@ namespace ObservableComputations
 
 				int countLeft = _leftSourceAsList.Count;
 				int countRight = _rightSourceAsList.Count;
-
-				for (int index = 0; index < countLeft; index++)
+				int sourceIndex;
+				for (sourceIndex = 0; sourceIndex < countLeft; sourceIndex++)
 				{
-					TLeftSourceItem sourceItemLeft = _leftSourceAsList[index];
-
-					if (index < countRight)
-					{
-						TRightSourceItem sourceItemRight = _rightSourceAsList[index];
-						ZipPair<TLeftSourceItem, TRightSourceItem> zipPair = new ZipPair<TLeftSourceItem, TRightSourceItem>(this, sourceItemLeft, sourceItemRight);
-						baseInsertItem(index, zipPair);
+					if (sourceIndex < countRight)
+					{								
+						ZipPair<TLeftSourceItem, TRightSourceItem> zipPair = new ZipPair<TLeftSourceItem, TRightSourceItem>(this, _leftSourceAsList[sourceIndex], _rightSourceAsList[sourceIndex]);
+						
+						if (originalCount > sourceIndex)
+							_items[sourceIndex] = zipPair;
+						else
+							_items.Insert(sourceIndex, zipPair);					
 					}
 					else
 					{
 						break;
 					}
+				}
+
+
+				for (int index = originalCount - 1; index >= sourceIndex; index--)
+				{
+					_items.RemoveAt(index);
 				}
 			}
 
@@ -358,7 +362,12 @@ namespace ObservableComputations
 
 				_rightSource.CollectionChanged += _rightSourceWeakNotifyCollectionChangedEventHandler.Handle;				
 			}
+			else
+			{
+				_items.Clear();
+			}
 
+			reset();
 		}
 
 		private void handleSourceScalarValueChanged(object sender, PropertyChangedEventArgs e)

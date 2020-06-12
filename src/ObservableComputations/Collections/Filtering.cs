@@ -216,6 +216,8 @@ namespace ObservableComputations
 
 		private void initializeFromSource()
 		{
+			int originalCount = _items.Count;
+
 			if (_sourceNotifyCollectionChangedEventHandler != null)
 			{
 				int itemInfosCount = _itemInfos.Count;
@@ -230,8 +232,6 @@ namespace ObservableComputations
 				_filteredPositions = new Positions<Position>(new List<Position>(_initialCapacity));	
 				_itemInfos = new List<ItemInfo>(capacity);
 				_sourcePositions = new Positions<ItemInfo>(_itemInfos);
-
-				baseClearItems();
 
 				if (_rootSourceWrapper)
 				{
@@ -267,7 +267,9 @@ namespace ObservableComputations
 				Position nextItemPosition = _filteredPositions.Add();
 				int count = _sourceAsList.Count;
 				int insertingIndex = 0;
-				for (int sourceIndex = 0; sourceIndex < count; sourceIndex++)
+				int sourceIndex;
+
+				for (sourceIndex = 0; sourceIndex < count; sourceIndex++)
 				{
 					TSourceItem sourceItem = _sourceAsList[sourceIndex];
 					Position currentFilteredItemPosition = null;
@@ -276,13 +278,22 @@ namespace ObservableComputations
 
 					if (ApplyPredicate(sourceIndex))
 					{
-						baseInsertItem(insertingIndex++, sourceItem);
+						if (originalCount > sourceIndex)
+							_items[insertingIndex++] = sourceItem;
+						else
+							_items.Insert(insertingIndex++, sourceItem);
+
 						currentFilteredItemPosition = nextItemPosition;
 						nextItemPosition = _filteredPositions.Add();
 					}
 
 					itemInfo.FilteredPosition = currentFilteredItemPosition;
 					itemInfo.NextFilteredItemPosition = nextItemPosition;
+				}
+
+				for (int index = originalCount - 1; index >= insertingIndex; index--)
+				{
+					_items.RemoveAt(index);
 				}
 
 				_sourceNotifyCollectionChangedEventHandler = handleSourceCollectionChanged;
@@ -299,6 +310,12 @@ namespace ObservableComputations
 					_sourceAsList.CollectionChanged += _sourceWeakNotifyCollectionChangedEventHandler.Handle;
 				}
 			}
+			else
+			{
+				_items.Clear();
+			}
+
+			reset();
 		}
 
 		private void handleSourceScalarValueChanged(object sender, PropertyChangedEventArgs e)

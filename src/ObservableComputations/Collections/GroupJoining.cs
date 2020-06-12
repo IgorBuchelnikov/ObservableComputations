@@ -304,6 +304,8 @@ namespace ObservableComputations
 
 		private void initializeFromOuterSource()
 		{
+			int originalCount = _items.Count;
+
 			if (_outerSourceNotifyCollectionChangedEventHandler != null)
 			{
 				int count = Count;
@@ -318,8 +320,6 @@ namespace ObservableComputations
 				_outerSourceItemPositions = new Positions<Position>(new List<Position>(capacity));
 				_nullKeyPositions.Clear();
 				_keyPositions = new Dictionary<TKey, List<Position>>(_grouping._equalityComparer);
-
-				baseClearItems();
 
 				if (_outerRootSourceWrapper)
 				{
@@ -355,10 +355,17 @@ namespace ObservableComputations
 				_lastProcessedSourceChangeMarker = _outerSourceAsList.ChangeMarkerField;
 
 				int count = _outerSourceAsList.Count;
-				for (int index = 0; index < count; index++)
+
+
+				int sourceIndex;
+				for (sourceIndex = 0; sourceIndex < count; sourceIndex++)
 				{
-					TOuterSourceItem sourceItem = _outerSourceAsList[index];
-					registerOuterSourceItem(sourceItem, index);
+					registerOuterSourceItem(_outerSourceAsList[sourceIndex], sourceIndex, originalCount);
+				}
+
+				for (int index = originalCount - 1; index >= sourceIndex; index--)
+				{
+					_items.RemoveAt(index);
 				}
 
 				_outerSourceNotifyCollectionChangedEventHandler = handleOuterSourceCollectionChanged;
@@ -375,6 +382,12 @@ namespace ObservableComputations
 					_outerSourceAsList.CollectionChanged += _outerSourceWeakNotifyCollectionChangedEventHandler.Handle;
 				}
 			}
+			else
+			{
+				_items.Clear();
+			}
+
+			reset();
 		}
 
 		private void subscribeToGroupingCollectionChanged()
@@ -634,7 +647,7 @@ namespace ObservableComputations
 		}
 
 
-		private void registerOuterSourceItem(TOuterSourceItem outerSourceItem, int index)
+		private void registerOuterSourceItem(TOuterSourceItem outerSourceItem, int index, int? originalCount = null)
 		{
 			getNewExpressionWatcherAndKeySelectorFunc(
 				outerSourceItem, 
@@ -655,7 +668,18 @@ namespace ObservableComputations
 			
 			registerKey(key, outerSourceItemPosition);
 
-			baseInsertItem(index, joinGroup);
+			if (originalCount == null)
+			{
+				baseInsertItem(index, joinGroup);
+			}
+			else
+			{
+				if (originalCount > index)
+					_items[index] = joinGroup;
+				else
+					_items.Insert(index, joinGroup);			
+			}
+
 		}
 		
 		private void unregisterKey(int index, Position position)

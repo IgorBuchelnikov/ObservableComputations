@@ -537,7 +537,9 @@ namespace ObservableComputations
 		}
 
 		private void initializeFromSource()
-		{
+		{			
+			int originalCount = _items.Count;
+
 			if (_sourceNotifyCollectionChangedEventHandler != null)
 			{
 				int itemInfosCount = _itemInfos.Count;
@@ -555,16 +557,7 @@ namespace ObservableComputations
 				_resultPositions = new Positions<Position>(new List<Position>(_initialResultCapacity));
 				_nullGroup = null;
 
-				if (!ReferenceEquals(_groupDictionary.Comparer, _equalityComparer))
-				{
-					_groupDictionary = new Dictionary<TKey, Group<TSourceItem, TKey>>(_equalityComparer);			
-				}
-				else
-				{
-					_groupDictionary.Clear();
-				}
-
-				baseClearItems();
+				_groupDictionary = new Dictionary<TKey, Group<TSourceItem, TKey>>(_equalityComparer);			
 
 				if (_rootSourceWrapper)
 				{
@@ -602,7 +595,14 @@ namespace ObservableComputations
 				for (int index = 0; index < count; index++)
 				{
 					TSourceItem sourceItem = _sourceAsList[index];
-					registerSourceItem(sourceItem, true, _sourcePositions.Insert(index));
+					registerSourceItem(sourceItem, true, _sourcePositions.Insert(index), originalCount);
+				}
+
+				int newCount = _items.Count;
+
+				for (int index = originalCount - 1; index >= newCount; index--)
+				{
+					_items.RemoveAt(index);
 				}
 
 				_sourceNotifyCollectionChangedEventHandler = handleSourceCollectionChanged;
@@ -618,7 +618,13 @@ namespace ObservableComputations
 
 					_sourceAsList.CollectionChanged += _sourceWeakNotifyCollectionChangedEventHandler.Handle;
 				}
+			}			
+			else
+			{
+				_items.Clear();
 			}
+
+			reset();
 		}
 
 
@@ -639,7 +645,7 @@ namespace ObservableComputations
 			}
 		}
 
-		private void registerSourceItem(TSourceItem sourceItem, bool addNewToEnd, ItemInfo itemInfo)
+		private void registerSourceItem(TSourceItem sourceItem, bool addNewToEnd, ItemInfo itemInfo, int? originalCount = null)
 		{
 			getNewExpressionWatcherAndKeySelectorFunc(sourceItem, out ExpressionWatcher watcher, out Func<TKey> selectorFunc);
 
@@ -651,7 +657,7 @@ namespace ObservableComputations
 			TKey key = applyKeySelector(itemInfo.Index);
 			itemInfo.Key = key;
 
-			addSourceItemToGroup(sourceItem, itemInfo, addNewToEnd, key);
+			addSourceItemToGroup(sourceItem, itemInfo, addNewToEnd, key, originalCount);
 		}
 
 		private void unregisterSourceItem(int sourceIndex, bool removeFromSourcePositions)
@@ -674,7 +680,8 @@ namespace ObservableComputations
 			TSourceItem sourceItem,
 			Position sourceItemPosition, 
 			bool addNewToEnd,
-			TKey key)
+			TKey key,
+			int? originalCount = null)
 		{
 			if ((key != null && !_groupDictionary.ContainsKey(key))
 			    || (key == null && _nullGroup == null))
@@ -692,7 +699,17 @@ namespace ObservableComputations
 				else
 					_nullGroup = newGroup;
 
-				baseInsertItem(resultItemPosition.Index, newGroup);
+				if (originalCount == null)
+				{
+					baseInsertItem(resultItemPosition.Index, newGroup);
+				}
+				else
+				{
+					if (originalCount > resultItemPosition.Index)
+						_items[resultItemPosition.Index] = newGroup;
+					else
+						_items.Insert(resultItemPosition.Index, newGroup);
+				}
 			}
 			else
 			{

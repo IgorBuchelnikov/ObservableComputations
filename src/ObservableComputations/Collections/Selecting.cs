@@ -103,6 +103,8 @@ namespace ObservableComputations
 
 		private void initializeFromSource()
 		{
+			int originalCount = _items.Count;
+
 			if (_sourceNotifyCollectionChangedEventHandler != null)
 			{
 				int itemInfosCount = _itemInfos.Count;
@@ -116,7 +118,6 @@ namespace ObservableComputations
 				int capacity = _sourceScalar != null ? Utils.getCapacity(_sourceScalar) : Utils.getCapacity(_source);
 				_itemInfos = new List<ItemInfo>(capacity);
 				_sourcePositions = new Positions<ItemInfo>(_itemInfos);
-				baseClearItems();
 
 				if (_rootSourceWrapper)
 				{
@@ -151,11 +152,21 @@ namespace ObservableComputations
 				_lastProcessedSourceChangeMarker = _sourceAsList.ChangeMarkerField;
 
 				int count = _sourceAsList.Count;
-				for (int index = 0; index < count; index++)
+				int sourceIndex;
+				for (sourceIndex = 0; sourceIndex < count; sourceIndex++)
 				{
-					TSourceItem sourceItem = _sourceAsList[index];
-					ItemInfo itemInfo = registerSourceItem(sourceItem, index);
-					baseInsertItem(index, applySelector(itemInfo, sourceItem));
+					TSourceItem sourceItem = _sourceAsList[sourceIndex];
+					ItemInfo itemInfo = registerSourceItem(sourceItem, sourceIndex);
+
+					if (originalCount > sourceIndex)
+						_items[sourceIndex] = applySelector(itemInfo, sourceItem);
+					else
+						_items.Insert(sourceIndex, applySelector(itemInfo, sourceItem));
+				}
+
+				for (int index = originalCount - 1; index >= sourceIndex; index--)
+				{
+					_items.RemoveAt(index);
 				}
 
 				_sourceNotifyCollectionChangedEventHandler = handleSourceCollectionChanged;
@@ -172,6 +183,12 @@ namespace ObservableComputations
 					_sourceAsList.CollectionChanged += _sourceWeakNotifyCollectionChangedEventHandler.Handle;
 				}
 			}
+			else
+			{
+				_items.Clear();
+			}
+
+			reset();
 		}
 
 		private void handleSourceScalarValueChanged(object sender, PropertyChangedEventArgs e)

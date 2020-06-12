@@ -130,6 +130,8 @@ namespace ObservableComputations
 
 		private void initializeFromSources()
 		{
+			int originalCount = _items.Count;
+
 			if (_sourcesNotifyCollectionChangedEventHandler != null)
 			{
 				int itemInfosCount = _itemInfos.Count;
@@ -144,7 +146,6 @@ namespace ObservableComputations
 				int capacity = _sourcesScalar != null ? Utils.getCapacity(_sourcesScalar) : Utils.getCapacity(_sources);
 				_itemInfos = new List<ItemInfo>(capacity);
 				_sourceRangePositions = new RangePositions<ItemInfo>(_itemInfos);
-				baseClearItems();
 
 				_sources.CollectionChanged -= _sourcesWeakNotifyCollectionChangedEventHandler.Handle;
 				_sourcesNotifyCollectionChangedEventHandler = null;
@@ -202,11 +203,18 @@ namespace ObservableComputations
 
 					for (int sourceSourceIndex = 0; sourceSourceIndex < sourceItemCount; sourceSourceIndex++)
 					{
-						// ReSharper disable once PossibleNullReferenceException
-						TSourceItem sourceSourceItem = (TSourceItem) sourceItem[sourceSourceIndex];
-						baseInsertItem(plainIndex, sourceSourceItem);
-						plainIndex++;
+						if (originalCount > plainIndex)
+							// ReSharper disable once PossibleNullReferenceException
+							_items[plainIndex++] = (TSourceItem) sourceItem[sourceSourceIndex];
+						else
+							// ReSharper disable once PossibleNullReferenceException
+							_items.Insert(plainIndex++, (TSourceItem) sourceItem[sourceSourceIndex]);						
 					}	
+				}
+
+				for (int index = originalCount - 1; index >= plainIndex; index--)
+				{
+					_items.RemoveAt(index);
 				}
 
 				_sourcesNotifyCollectionChangedEventHandler = handleSourcesCollectionChanged;
@@ -215,6 +223,12 @@ namespace ObservableComputations
 
 				_sources.CollectionChanged += _sourcesWeakNotifyCollectionChangedEventHandler.Handle;
 			}
+			else
+			{
+				_items.Clear();
+			}
+
+			reset();
 		}
 
 		private void registerSourceItem(object sourceItemObject, ItemInfo itemInfo)

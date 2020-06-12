@@ -407,6 +407,8 @@ namespace ObservableComputations
 
 		private void initializeFromSource()
 		{
+			int originalCount = _items.Count;
+
 			if (_sourceNotifyCollectionChangedEventHandler != null)
 			{
 				int itemInfosCount = _itemInfos.Count;
@@ -423,8 +425,6 @@ namespace ObservableComputations
 				_itemInfos = new List<ItemInfo>(capacity);
 				_sourcePositions = new Positions<ItemInfo>(_itemInfos);
 				_orderingValues = new List<TOrderingValue>(capacity);
-
-				baseClearItems();
 
 				if (_rootSourceWrapper)
 				{
@@ -465,7 +465,31 @@ namespace ObservableComputations
 
 				_lastProcessedSourceChangeMarker = _sourceAsList.ChangeMarkerField;
 
-				fillFromSource();
+				int count = _sourceAsList.Count;
+				if (count > 0)
+				{
+					RangePosition sourceRangePosition = _source.GetRangePosition(0);
+					int sourceLowerIndex = sourceRangePosition.PlainIndex;
+					int sourceUpperIndex = sourceLowerIndex + sourceRangePosition.Length - 2;
+
+					for (int index = 0; index < count; index++)
+					{
+						if (index == sourceUpperIndex + 2)
+						{
+							sourceRangePosition = _source.GetRangePosition(index);
+							sourceLowerIndex = sourceRangePosition.PlainIndex;
+							sourceUpperIndex = sourceLowerIndex + sourceRangePosition.Length - 2;
+						}
+
+						registerSourceItem(_sourceAsList[index], index, sourceLowerIndex, sourceUpperIndex, originalCount);
+					}
+				}
+
+
+				for (int index = originalCount - 1; index >= count; index--)
+				{
+					_items.RemoveAt(index);
+				}
 
 				_sourceNotifyCollectionChangedEventHandler = handleSourceCollectionChanged;
 
@@ -481,30 +505,12 @@ namespace ObservableComputations
 					_sourceAsList.CollectionChanged += _sourceWeakNotifyCollectionChangedEventHandler.Handle;
 				}
 			}
-		}
-
-		private void fillFromSource()
-		{
-			int count = _sourceAsList.Count;
-			if (count > 0)
+			else
 			{
-				RangePosition sourceRangePosition = _source.GetRangePosition(0);
-				int sourceLowerIndex = sourceRangePosition.PlainIndex;
-				int sourceUpperIndex = sourceLowerIndex + sourceRangePosition.Length - 2;
-
-				for (int index = 0; index < count; index++)
-				{
-					if (index == sourceUpperIndex + 2)
-					{
-						sourceRangePosition = _source.GetRangePosition(index);
-						sourceLowerIndex = sourceRangePosition.PlainIndex;
-						sourceUpperIndex = sourceLowerIndex + sourceRangePosition.Length - 2;
-					}
-
-					TSourceItem sourceItem = _sourceAsList[index];
-					registerSourceItem(sourceItem, index, sourceLowerIndex, sourceUpperIndex);
-				}
+				_items.Clear();
 			}
+
+			reset();
 		}
 
 		private void handleSourceScalarValueChanged(object sender, PropertyChangedEventArgs e)
@@ -526,7 +532,7 @@ namespace ObservableComputations
 			_handledEventArgs = null;
 		}
 
-		private void registerSourceItem(TSourceItem sourceItem, int sourceIndex, int sourceLowerIndex, int sourceUpperIndex)
+		private void registerSourceItem(TSourceItem sourceItem, int sourceIndex, int sourceLowerIndex, int sourceUpperIndex, int? originalCount = null)
 		{
 			ItemInfo itemInfo = _sourcePositions.Insert(sourceIndex);
 
@@ -555,7 +561,15 @@ namespace ObservableComputations
 				adjustEqualOrderingValueRangePosition(orderingValue, orderedItemInfo, orderedIndex, orderedIndex - 1, orderedIndex);
 			}
 			 
-			baseInsertItem(orderedIndex, sourceItem);
+			if (originalCount == null)
+				baseInsertItem(orderedIndex, sourceItem);
+			else
+			{
+				if (originalCount > sourceIndex)
+					_items[orderedIndex] = sourceItem;
+				else
+					_items.Insert(orderedIndex, sourceItem);
+			}
 		}
 
 		private void adjustEqualOrderingValueRangePosition(

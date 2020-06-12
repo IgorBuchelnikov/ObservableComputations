@@ -10,6 +10,7 @@ namespace ObservableComputations
 	{
 		public string DebugTag {get; set;}
 		public object Tag {get; set;}
+		internal IList<TItem> _items;
 
 		public CollectionComputing(int capacity = 0) : base(new List<TItem>(capacity))
 		{
@@ -19,6 +20,8 @@ namespace ObservableComputations
 			{
 				_instantiatingStackTrace = Environment.StackTrace;
 			}
+
+			_items = Items;
 		}
 
 		public event EventHandler PreCollectionChanged;
@@ -437,6 +440,15 @@ namespace ObservableComputations
 			}
 
 			_currentChange = null;
+		}
+
+		protected void reset()
+		{
+			ChangeMarkerField = !ChangeMarkerField;
+			this.CheckReentrancy();
+			this.OnPropertyChanged(Utils.CountPropertyChangedEventArgs);
+			this.OnPropertyChanged(Utils.IndexerPropertyChangedEventArgs);
+			this.OnCollectionChanged(Utils.ResetNotifyCollectionChangedEventArgs);
 		}
 
 		public Type ItemType => typeof(TItem);

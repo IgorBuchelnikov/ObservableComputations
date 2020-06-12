@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.ComponentModel;
+using System.Resources;
 
 namespace ObservableComputations
 {
@@ -19,38 +20,73 @@ namespace ObservableComputations
 		private bool _indexerPropertyChangedEventRaised;
 		private INotifyPropertyChanged _sourceAsINotifyPropertyChanged;
 
+		private IList<TSourceItem> _items;
+
 		private Extending(
 			INotifyCollectionChanged source)
 		{
+			_items = Items;
 			_source = source;
 			initializeFromSource();
 		}
 
 		private void initializeFromSource()
 		{
-			_sourceAsINotifyPropertyChanged = (INotifyPropertyChanged) _sourceAsList;
+			int originalCount = _items.Count;
 
-			_sourcePropertyChangedEventHandler = (sender, args) =>
+			if (_sourceWeakPropertyChangedEventHandler == null)
 			{
-				if (args.PropertyName == "Item[]") _indexerPropertyChangedEventRaised = true; // ObservableCollection raises this before CollectionChanged event raising
-			};
+				_sourceAsINotifyPropertyChanged = (INotifyPropertyChanged) _sourceAsList;
 
-			_sourceWeakPropertyChangedEventHandler = new WeakPropertyChangedEventHandler(_sourcePropertyChangedEventHandler);
+				_sourcePropertyChangedEventHandler = (sender, args) =>
+				{
+					if (args.PropertyName == "Item[]") _indexerPropertyChangedEventRaised = true; // ObservableCollection raises this before CollectionChanged event raising
+				};
 
-			_sourceAsINotifyPropertyChanged.PropertyChanged += _sourceWeakPropertyChangedEventHandler.Handle;
+				_sourceWeakPropertyChangedEventHandler = new WeakPropertyChangedEventHandler(_sourcePropertyChangedEventHandler);
 
-			// foreach to control modifications of _sourceAsList from another thread
-			int index = 0;
-			foreach (TSourceItem sourceItem in _sourceAsList)
-			{
-				InsertItem(index++, sourceItem);
+				_sourceAsINotifyPropertyChanged.PropertyChanged += _sourceWeakPropertyChangedEventHandler.Handle;
+
 			}
 
-			_sourceNotifyCollectionChangedEventHandler = handleSourceCollectionChanged;
-			_sourceWeakNotifyCollectionChangedEventHandler =
-				new WeakNotifyCollectionChangedEventHandler(_sourceNotifyCollectionChangedEventHandler);
+			int count = _sourceAsList.Count;
 
-			_source.CollectionChanged += _sourceWeakNotifyCollectionChangedEventHandler.Handle;
+			if (count > 0)
+			{
+				int sourceIndex;
+				for (sourceIndex = 0; sourceIndex < count; sourceIndex++)
+				{
+					if (originalCount > sourceIndex)
+						_items[sourceIndex] = _sourceAsList[sourceIndex];
+					else
+						_items.Insert(sourceIndex, _sourceAsList[sourceIndex]);
+				}
+
+				for (int index = originalCount - 1; index >= sourceIndex; index--)
+				{
+					_items.RemoveAt(index);
+				}
+			}
+			else
+			{
+				_items.Clear();
+			}
+
+			if (_sourceWeakNotifyCollectionChangedEventHandler == null)
+			{
+				_sourceNotifyCollectionChangedEventHandler = handleSourceCollectionChanged;
+				_sourceWeakNotifyCollectionChangedEventHandler =
+					new WeakNotifyCollectionChangedEventHandler(_sourceNotifyCollectionChangedEventHandler);
+
+				_source.CollectionChanged += _sourceWeakNotifyCollectionChangedEventHandler.Handle;
+
+			}
+
+			ChangeMarkerField = !ChangeMarkerField;
+			this.CheckReentrancy();
+			this.OnPropertyChanged(Utils.CountPropertyChangedEventArgs);
+			this.OnPropertyChanged(Utils.IndexerPropertyChangedEventArgs);
+			this.OnCollectionChanged(Utils.ResetNotifyCollectionChangedEventArgs);
 		}
 
 		private void handleSourceCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
@@ -81,10 +117,6 @@ namespace ObservableComputations
 						MoveItem(oldStartingIndex1, newStartingIndex1);
 						break;
 					case NotifyCollectionChangedAction.Reset:
-						_source.CollectionChanged -= _sourceWeakNotifyCollectionChangedEventHandler.Handle;
-						_sourceNotifyCollectionChangedEventHandler = null;
-						_sourceWeakNotifyCollectionChangedEventHandler = null;
-						ClearItems();
 						initializeFromSource();
 						break;
 				}

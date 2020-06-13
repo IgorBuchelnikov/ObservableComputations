@@ -439,6 +439,8 @@ namespace ObservableComputations
 				_sourceNotifyCollectionChangedEventHandler = null;
 
 				_source.RemoveThenOrdering();
+
+				_items.Clear();
 			}
 
 			if (_sourceScalar != null)
@@ -481,15 +483,10 @@ namespace ObservableComputations
 							sourceUpperIndex = sourceLowerIndex + sourceRangePosition.Length - 2;
 						}
 
-						registerSourceItem(_sourceAsList[index], index, sourceLowerIndex, sourceUpperIndex, originalCount);
+						registerSourceItem(_sourceAsList[index], index, sourceLowerIndex, sourceUpperIndex, true);
 					}
 				}
 
-
-				for (int index = originalCount - 1; index >= count; index--)
-				{
-					_items.RemoveAt(index);
-				}
 
 				_sourceNotifyCollectionChangedEventHandler = handleSourceCollectionChanged;
 
@@ -504,10 +501,6 @@ namespace ObservableComputations
 
 					_sourceAsList.CollectionChanged += _sourceWeakNotifyCollectionChangedEventHandler.Handle;
 				}
-			}
-			else
-			{
-				_items.Clear();
 			}
 
 			reset();
@@ -532,7 +525,7 @@ namespace ObservableComputations
 			_handledEventArgs = null;
 		}
 
-		private void registerSourceItem(TSourceItem sourceItem, int sourceIndex, int sourceLowerIndex, int sourceUpperIndex, int? originalCount = null)
+		private void registerSourceItem(TSourceItem sourceItem, int sourceIndex, int sourceLowerIndex, int sourceUpperIndex, bool initializing = false)
 		{
 			ItemInfo itemInfo = _sourcePositions.Insert(sourceIndex);
 
@@ -557,19 +550,12 @@ namespace ObservableComputations
 			_orderingValues.Insert(orderedIndex, orderingValue);
 
 			if (_thenOrderingsCount > 0)
-			{
 				adjustEqualOrderingValueRangePosition(orderingValue, orderedItemInfo, orderedIndex, orderedIndex - 1, orderedIndex);
-			}
-			 
-			if (originalCount == null)
-				baseInsertItem(orderedIndex, sourceItem);
+
+			if (initializing)
+				_items.Insert(orderedIndex, sourceItem);
 			else
-			{
-				if (originalCount > sourceIndex)
-					_items[orderedIndex] = sourceItem;
-				else
-					_items.Insert(orderedIndex, sourceItem);
-			}
+				baseInsertItem(orderedIndex, sourceItem);
 		}
 
 		private void adjustEqualOrderingValueRangePosition(

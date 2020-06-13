@@ -278,7 +278,7 @@ namespace ObservableComputations
 
 					if (ApplyPredicate(sourceIndex))
 					{
-						if (originalCount > sourceIndex)
+						if (originalCount > insertingIndex)
 							_items[insertingIndex++] = sourceItem;
 						else
 							_items.Insert(insertingIndex++, sourceItem);

@@ -571,6 +571,7 @@ namespace ObservableComputations
 
 				_sourceNotifyCollectionChangedEventHandler = null;
 
+				_items.Clear();
 			}
 
 			if (_sourceScalar != null) _source = _sourceScalar.Value;
@@ -595,14 +596,7 @@ namespace ObservableComputations
 				for (int index = 0; index < count; index++)
 				{
 					TSourceItem sourceItem = _sourceAsList[index];
-					registerSourceItem(sourceItem, true, _sourcePositions.Insert(index), originalCount);
-				}
-
-				int newCount = _items.Count;
-
-				for (int index = originalCount - 1; index >= newCount; index--)
-				{
-					_items.RemoveAt(index);
+					registerSourceItem(sourceItem, true, _sourcePositions.Insert(index), true);
 				}
 
 				_sourceNotifyCollectionChangedEventHandler = handleSourceCollectionChanged;
@@ -619,10 +613,6 @@ namespace ObservableComputations
 					_sourceAsList.CollectionChanged += _sourceWeakNotifyCollectionChangedEventHandler.Handle;
 				}
 			}			
-			else
-			{
-				_items.Clear();
-			}
 
 			reset();
 		}
@@ -645,7 +635,7 @@ namespace ObservableComputations
 			}
 		}
 
-		private void registerSourceItem(TSourceItem sourceItem, bool addNewToEnd, ItemInfo itemInfo, int? originalCount = null)
+		private void registerSourceItem(TSourceItem sourceItem, bool addNewToEnd, ItemInfo itemInfo, bool initializing = false)
 		{
 			getNewExpressionWatcherAndKeySelectorFunc(sourceItem, out ExpressionWatcher watcher, out Func<TKey> selectorFunc);
 
@@ -657,7 +647,7 @@ namespace ObservableComputations
 			TKey key = applyKeySelector(itemInfo.Index);
 			itemInfo.Key = key;
 
-			addSourceItemToGroup(sourceItem, itemInfo, addNewToEnd, key, originalCount);
+			addSourceItemToGroup(sourceItem, itemInfo, addNewToEnd, key, initializing);
 		}
 
 		private void unregisterSourceItem(int sourceIndex, bool removeFromSourcePositions)
@@ -681,7 +671,7 @@ namespace ObservableComputations
 			Position sourceItemPosition, 
 			bool addNewToEnd,
 			TKey key,
-			int? originalCount = null)
+			bool initializing = false)
 		{
 			if ((key != null && !_groupDictionary.ContainsKey(key))
 			    || (key == null && _nullGroup == null))
@@ -699,17 +689,10 @@ namespace ObservableComputations
 				else
 					_nullGroup = newGroup;
 
-				if (originalCount == null)
-				{
-					baseInsertItem(resultItemPosition.Index, newGroup);
-				}
+				if (initializing)
+					_items.Insert(resultItemPosition.Index, newGroup);
 				else
-				{
-					if (originalCount > resultItemPosition.Index)
-						_items[resultItemPosition.Index] = newGroup;
-					else
-						_items.Insert(resultItemPosition.Index, newGroup);
-				}
+					baseInsertItem(resultItemPosition.Index, newGroup);
 			}
 			else
 			{
@@ -724,7 +707,7 @@ namespace ObservableComputations
 				existingGroup._sourcePositions.Insert(newIndex, sourceItemPosition);
 				existingGroup.baseInsertItem(newIndex, sourceItem);
 
-				moveGroupToActualIndex(existingGroup);
+				moveGroupToActualIndex(existingGroup, initializing);
 			}
 		}
 
@@ -733,7 +716,9 @@ namespace ObservableComputations
 			return new Group<TSourceItem, TKey>(this, key, resultItemPosition, sourceItemPosition, sourceItem);
 		}
 
-		private void moveGroupToActualIndex(Group<TSourceItem, TKey> existingGroup)
+		private void moveGroupToActualIndex(
+			Group<TSourceItem, TKey> existingGroup,
+			bool initializing = false)
 		{
 			int? newResultIndex = null;
 
@@ -790,7 +775,14 @@ namespace ObservableComputations
 			{
 				int oldIndex = positionIndex;
 				_resultPositions.Move(positionIndex, newResultIndex.Value);
-				baseMoveItem(oldIndex, newResultIndex.Value);
+
+				if (initializing)
+				{
+					_items.RemoveAt(oldIndex);
+					_items.Insert(newResultIndex.Value, existingGroup);
+				}
+				else
+					baseMoveItem(oldIndex, newResultIndex.Value);
 			}
 		}
 

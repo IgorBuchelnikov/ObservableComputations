@@ -341,7 +341,6 @@ namespace ObservableComputations
 					}
 				}
 
-
 				for (int index = originalCount - 1; index >= sourceIndex; index--)
 				{
 					_items.RemoveAt(index);
@@ -396,12 +395,10 @@ namespace ObservableComputations
 			_handledEventSender = sender;
 			_handledEventArgs = e;
 
-
 			if (_leftSourceIndexerPropertyChangedEventRaised || _leftSourceAsObservableCollectionWithChangeMarker != null && _lastProcessedLeftSourceChangeMarker != _leftSourceAsObservableCollectionWithChangeMarker.ChangeMarkerField)
 			{
 				_leftSourceIndexerPropertyChangedEventRaised = false;
 				_lastProcessedLeftSourceChangeMarker = !_lastProcessedLeftSourceChangeMarker;
-
 
 				_isConsistent = false;
 
@@ -533,7 +530,6 @@ namespace ObservableComputations
 			{
 				_rigthtSourceIndexerPropertyChangedEventRaised = false;
 				_lastProcessedRightSourceChangeMarker = !_lastProcessedRightSourceChangeMarker;
-
 
 				_isConsistent = false;
 
@@ -718,13 +714,13 @@ namespace ObservableComputations
 		internal void setItemLeft(TLeftSourceItem itemLeft)
 		{
 			_leftItem = itemLeft;
-			PropertyChanged?.Invoke(this, Utils.ItemLeftPropertyChangedEventArgs);
+			PropertyChanged?.Invoke(this, Utils.LeftItemPropertyChangedEventArgs);
 		}
 
 		internal void setItemRight(TRightSourceItem itemRight)
 		{
 			_rightItem = itemRight;
-			PropertyChanged?.Invoke(this, Utils.ItemRightPropertyChangedEventArgs);
+			PropertyChanged?.Invoke(this, Utils.RightItemPropertyChangedEventArgs);
 		}
 
 		private readonly Zipping<TLeftSourceItem, TRightSourceItem> _zipping;

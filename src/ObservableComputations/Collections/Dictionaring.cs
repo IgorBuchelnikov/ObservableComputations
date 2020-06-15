@@ -786,9 +786,9 @@ namespace ObservableComputations
 			onPropertyChanged(Utils.IndexerPropertyChangedEventArgs);
 			if (MethodChanged != null)
 			{
-				MethodChanged(this, new NotifyMethodChangedEventArgs("GetValueOrDefault", args => true));
-				MethodChanged(this, new NotifyMethodChangedEventArgs("Item[]", args => true));
-				MethodChanged(this, new NotifyMethodChangedEventArgs("ContainsKey", args => true));
+				MethodChanged(this, new MethodChangedEventArgs("GetValueOrDefault", args => true));
+				MethodChanged(this, new MethodChangedEventArgs("Item[]", args => true));
+				MethodChanged(this, new MethodChangedEventArgs("ContainsKey", args => true));
 			}
 
 		}
@@ -800,9 +800,9 @@ namespace ObservableComputations
 			onPropertyChanged(Utils.IndexerPropertyChangedEventArgs);
 			if (MethodChanged != null)
 			{
-				MethodChanged(this, new NotifyMethodChangedEventArgs("GetValueOrDefault", args => _equalityComparer.Equals(key, (TKey)args[0])));
-				MethodChanged(this, new NotifyMethodChangedEventArgs("Item[]", args => _equalityComparer.Equals(key, (TKey)args[0])));
-				MethodChanged(this, new NotifyMethodChangedEventArgs("ContainsKey", args => _equalityComparer.Equals(key, (TKey)args[0])));
+				MethodChanged(this, new MethodChangedEventArgs("GetValueOrDefault", args => _equalityComparer.Equals(key, (TKey)args[0])));
+				MethodChanged(this, new MethodChangedEventArgs("Item[]", args => _equalityComparer.Equals(key, (TKey)args[0])));
+				MethodChanged(this, new MethodChangedEventArgs("ContainsKey", args => _equalityComparer.Equals(key, (TKey)args[0])));
 			}
 		}
 
@@ -812,9 +812,9 @@ namespace ObservableComputations
 			onPropertyChanged(Utils.IndexerPropertyChangedEventArgs);
 			if (MethodChanged != null)
 			{
-				MethodChanged(this, new NotifyMethodChangedEventArgs("GetValueOrDefault", args => _equalityComparer.Equals(key, (TKey)args[0])));
-				MethodChanged(this, new NotifyMethodChangedEventArgs("Item[]", args => _equalityComparer.Equals(key, (TKey)args[0])));
-				MethodChanged(this, new NotifyMethodChangedEventArgs("ContainsKey", args => _equalityComparer.Equals(key, (TKey)args[0])));
+				MethodChanged(this, new MethodChangedEventArgs("GetValueOrDefault", args => _equalityComparer.Equals(key, (TKey)args[0])));
+				MethodChanged(this, new MethodChangedEventArgs("Item[]", args => _equalityComparer.Equals(key, (TKey)args[0])));
+				MethodChanged(this, new MethodChangedEventArgs("ContainsKey", args => _equalityComparer.Equals(key, (TKey)args[0])));
 			}
 		}
 
@@ -825,9 +825,9 @@ namespace ObservableComputations
 			onPropertyChanged(Utils.IndexerPropertyChangedEventArgs);
 			if (MethodChanged != null)
 			{
-				MethodChanged?.Invoke(this, new NotifyMethodChangedEventArgs("GetValueOrDefault", args => _equalityComparer.Equals(key, (TKey)args[0])));
-				MethodChanged?.Invoke(this, new NotifyMethodChangedEventArgs("Item[]", args => _equalityComparer.Equals(key, (TKey)args[0])));
-				MethodChanged(this, new NotifyMethodChangedEventArgs("ContainsKey", args => _equalityComparer.Equals(key, (TKey)args[0])));
+				MethodChanged?.Invoke(this, new MethodChangedEventArgs("GetValueOrDefault", args => _equalityComparer.Equals(key, (TKey)args[0])));
+				MethodChanged?.Invoke(this, new MethodChangedEventArgs("Item[]", args => _equalityComparer.Equals(key, (TKey)args[0])));
+				MethodChanged(this, new MethodChangedEventArgs("ContainsKey", args => _equalityComparer.Equals(key, (TKey)args[0])));
 			}
 		}
 
@@ -1017,7 +1017,7 @@ namespace ObservableComputations
 
 		#region Implementation of INotifyMethodChanged
 
-		public event EventHandler<NotifyMethodChangedEventArgs> MethodChanged;
+		public event EventHandler<MethodChangedEventArgs> MethodChanged;
 
 		#endregion
 	}

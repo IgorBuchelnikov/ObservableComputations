@@ -4,12 +4,12 @@ namespace ObservableComputations
 {
 	public interface INotifyMethodChanged
 	{
-		event EventHandler<NotifyMethodChangedEventArgs> MethodChanged;
+		event EventHandler<MethodChangedEventArgs> MethodChanged;
 	}
 
-	public class NotifyMethodChangedEventArgs : EventArgs
+	public class MethodChangedEventArgs : EventArgs
 	{
-		public NotifyMethodChangedEventArgs(string methodName, Func<object[], bool> argumentsPredicate)
+		public MethodChangedEventArgs(string methodName, Func<object[], bool> argumentsPredicate)
 		{
 			MethodName = methodName;
 			ArgumentsPredicate = argumentsPredicate;

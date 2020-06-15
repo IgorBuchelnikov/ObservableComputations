@@ -48,7 +48,7 @@ namespace ObservableComputations.Test
 			public void SetChild(string num, Item item)
 			{
 				_children[num] = item;
-				MethodChanged?.Invoke(this, new NotifyMethodChangedEventArgs(nameof(GetChild), args => args[0].Equals(num)));
+				MethodChanged?.Invoke(this, new MethodChangedEventArgs(nameof(GetChild), args => args[0].Equals(num)));
 			}
 
 			public Item Child
@@ -78,7 +78,7 @@ namespace ObservableComputations.Test
 			}
 			#endregion
 
-			public event EventHandler<NotifyMethodChangedEventArgs> MethodChanged;
+			public event EventHandler<MethodChangedEventArgs> MethodChanged;
 		}
 
 		[Test]

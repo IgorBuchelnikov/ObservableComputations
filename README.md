@@ -3305,7 +3305,7 @@ namespace ObservableComputationsExamples
 		public void AddReservation(RoomReservation roomReservation)
 		{
 			_roomReservations.Add(roomReservation);
-			MethodChanged?.Invoke(this, new NotifyMethodChangedEventArgs(
+			MethodChanged?.Invoke(this, new MethodChangedEventArgs(
 				nameof(IsRoomReserved),
 				args =>
 				{
@@ -3324,7 +3324,7 @@ namespace ObservableComputationsExamples
 				&& rr.From < dateTime && dateTime < rr.To);
 		}
 
-		public event EventHandler<NotifyMethodChangedEventArgs> MethodChanged;
+		public event EventHandler<MethodChangedEventArgs> MethodChanged;
 	}
 
 	public class Meeting : INotifyPropertyChanged
@@ -3392,7 +3392,7 @@ namespace ObservableComputationsExamples
 	}
 }
 ```
-As you see *NotifyMethodChangedEventArgs* contains *ArgumentsPredicate* property. Following value is passed to that property:
+As you see *MethodChangedEventArgs* contains *ArgumentsPredicate* property. Following value is passed to that property:
 ```csharp
 args =>
 {

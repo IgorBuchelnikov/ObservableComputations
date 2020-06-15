@@ -7,5 +7,6 @@
 
 		public static bool TrackComputingsExecutingUserCode = false;
 		public static bool TrackDispatcherInvocations = false;
+		public static int WeakEventCleanPeriod = 30000;
 	}
 }

@@ -410,10 +410,10 @@ namespace ObservableComputations
 			}
 		}
 
-		public static string ToStringAlt(this NotifyMethodChangedEventArgs notifyMethodChangedEventArgs)
+		public static string ToStringAlt(this MethodChangedEventArgs methodChangedEventArgs)
 		{
-			if (notifyMethodChangedEventArgs == null) return "null";
-			return $"({notifyMethodChangedEventArgs.ToString()} (MethodName = ({notifyMethodChangedEventArgs.MethodName}), ArgumentsPredicate.GetHashCode() = ({notifyMethodChangedEventArgs.ArgumentsPredicate.GetHashCode()})))";
+			if (methodChangedEventArgs == null) return "null";
+			return $"({methodChangedEventArgs.ToString()} (MethodName = ({methodChangedEventArgs.MethodName}), ArgumentsPredicate.GetHashCode() = ({methodChangedEventArgs.ArgumentsPredicate.GetHashCode()})))";
 		}
 
 		public static string ToStringAlt(this EventArgs eventArgs)
@@ -424,7 +424,7 @@ namespace ObservableComputations
 				return propertyChangedEventArgs.ToStringAlt();
 			else if  (eventArgs is NotifyCollectionChangedEventArgs notifyCollectionChangedEventArgs)
 				return notifyCollectionChangedEventArgs.ToStringAlt();
-			else if  (eventArgs is NotifyMethodChangedEventArgs notifyMethodChangedEventArgs)
+			else if  (eventArgs is MethodChangedEventArgs notifyMethodChangedEventArgs)
 				return notifyMethodChangedEventArgs.ToStringAlt();
 
 			return string.Empty;

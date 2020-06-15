@@ -613,7 +613,7 @@ namespace ObservableComputations
 		{
 			UpdateSubscriptionAndHolder,
 			Dispose,
-			Predispose
+			PreDispose
 		}
 
 #if DEBUG
@@ -622,7 +622,7 @@ namespace ObservableComputations
 		private void workWithCallTreeNode(CallTreeNode node, object holder, WorkWithCallTreeNodeType workType)
 #endif
 		{
-			if (workType == WorkWithCallTreeNodeType.Predispose)
+			if (workType == WorkWithCallTreeNodeType.PreDispose)
 			{
 				if (node._call.Type == CallType.Method)
 				{
@@ -737,7 +737,7 @@ namespace ObservableComputations
 
 							};
 	
-							node._weakMethodChangedEventHandler = new WeakEventHandler<NotifyMethodChangedEventArgs>(node._methodChangedEventHandler);
+							node._weakMethodChangedEventHandler = new WeakMethodChangedEventHandler<MethodChangedEventArgs>(node._methodChangedEventHandler);
 		
 							notifyMethodChanged.MethodChanged += node._methodChangedEventHandler;
 						}
@@ -1230,8 +1230,8 @@ namespace ObservableComputations
 			internal ExpressionWatcher[] _callArguments;
 			internal Action<ExpressionWatcher, object, EventArgs> _callArgumentChangedEventHandler;
 
-			internal EventHandler<NotifyMethodChangedEventArgs> _methodChangedEventHandler;
-			internal WeakEventHandler<NotifyMethodChangedEventArgs> _weakMethodChangedEventHandler;
+			internal EventHandler<MethodChangedEventArgs> _methodChangedEventHandler;
+			internal WeakMethodChangedEventHandler<MethodChangedEventArgs> _weakMethodChangedEventHandler;
 		}
 
 #if DEBUG
@@ -1249,7 +1249,7 @@ namespace ObservableComputations
 
 
 
-		internal void Dispose(WorkWithCallTreeNodeType workType = WorkWithCallTreeNodeType.Dispose)
+		internal void Dispose(WorkWithCallTreeNodeType workType = WorkWithCallTreeNodeType.PreDispose)
 		{
 			_disposed = true;
 

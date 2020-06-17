@@ -14,18 +14,16 @@ namespace ObservableComputations
 		private readonly INotifyMethodChanged _eventSource;
 
 
-		public WeakMethodChangedEventHandler(EventHandler<MethodChangedEventArgs> handler, INotifyMethodChanged eventSource)
+		public WeakMethodChangedEventHandler(EventHandler<MethodChangedEventArgs> handler)
 		{
 			_weakReference = new WeakReference<EventHandler<MethodChangedEventArgs>>(handler);
-			_eventSource = eventSource;
+
 		}
 
 		public void Handle(object sender, MethodChangedEventArgs eventArgs)
 		{			
 			if (_weakReference.TryGetTarget(out var handler))
 				handler(sender, eventArgs);
-			else
-				_eventSource.MethodChanged -= Handle;
 		}
 
 		#region Implementation of IWeakEventHandler
@@ -47,18 +45,16 @@ namespace ObservableComputations
 		private readonly WeakReference<PropertyChangedEventHandler> _weakReference;
 		private readonly INotifyPropertyChanged _eventSource;
 
-		public WeakPropertyChangedEventHandler(PropertyChangedEventHandler handler, INotifyPropertyChanged eventSource)
+		public WeakPropertyChangedEventHandler(PropertyChangedEventHandler handler)
 		{
 			_weakReference = new WeakReference<PropertyChangedEventHandler>(handler);
-			_eventSource = eventSource;
 		}
 
 		public void Handle(object sender, PropertyChangedEventArgs eventArgs)
 		{			
 			if (_weakReference.TryGetTarget(out var handler))
 				handler(sender, eventArgs);
-			else
-				_eventSource.PropertyChanged -= Handle;
+
 		}
 
 		#region Implementation of IWeakEventHandler
@@ -80,18 +76,16 @@ namespace ObservableComputations
 		private readonly WeakReference<NotifyCollectionChangedEventHandler> _weakReference;
 		private readonly INotifyCollectionChanged _eventSource;
 
-		public WeakNotifyCollectionChangedEventHandler(NotifyCollectionChangedEventHandler handler, INotifyCollectionChanged eventSource)
+		public WeakNotifyCollectionChangedEventHandler(NotifyCollectionChangedEventHandler handler)
 		{
 			_weakReference = new WeakReference<NotifyCollectionChangedEventHandler>(handler);
-			_eventSource = eventSource;
 		}
 
 		public void Handle(object sender, NotifyCollectionChangedEventArgs eventArgs)
 		{
 			if (_weakReference.TryGetTarget(out var handler))
 				handler(sender, eventArgs);
-			else
-				_eventSource.CollectionChanged -= Handle;
+
 		}
 
 		#region Implementation of IWeakEventHandler

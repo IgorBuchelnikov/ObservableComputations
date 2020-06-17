@@ -737,7 +737,7 @@ namespace ObservableComputations
 
 							};
 	
-							node._weakMethodChangedEventHandler = new WeakMethodChangedEventHandler<MethodChangedEventArgs>(node._methodChangedEventHandler);
+							node._weakMethodChangedEventHandler = new WeakMethodChangedEventHandler(node._methodChangedEventHandler);
 		
 							notifyMethodChanged.MethodChanged += node._methodChangedEventHandler;
 						}
@@ -1231,7 +1231,7 @@ namespace ObservableComputations
 			internal Action<ExpressionWatcher, object, EventArgs> _callArgumentChangedEventHandler;
 
 			internal EventHandler<MethodChangedEventArgs> _methodChangedEventHandler;
-			internal WeakMethodChangedEventHandler<MethodChangedEventArgs> _weakMethodChangedEventHandler;
+			internal WeakMethodChangedEventHandler _weakMethodChangedEventHandler;
 		}
 
 #if DEBUG

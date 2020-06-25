@@ -36,7 +36,9 @@ The [ReactiveUI](https://github.com/reactiveui/ReactiveUI) library (and its [Dyn
 You can compare these library and ObservableComputations in action, see [ObservableComputations.Samples](https://github.com/IgorBuchelnikov/ObservableComputations.Samples).
 
 ## Status
-ObservableComputations library is ready to use in production. All essential functions is implemented and covered by unit-tests. All the bugs found is fixed.
+ObservableComputations library is ready to use in production. All essential functions is implemented and covered by unit-tests. 
+
+The current version uses weak event handlers [CollectionChanged](https://docs.microsoft.com/en-us/dotnet/api/system.collections.specialized.inotifycollectionchanged.collectionchanged?view=netframework-4.8) and [PropertyChanged]( https://docs.microsoft.com/en-us/dotnet/api/system.componentmodel.inotifypropertychanged.propertychanged?view=netframework-4.8) (weak events on the subscriber side). The event is unsubscribed from the weak handler in the finalizer of the ObservableComputations class. In most cases, this mechanism works correctly, but in some cases (presumably highly loaded WPF applications) object finalizers are not called and instances of the ObservableComputations classes accumulate in the f-reachible queue, leading to memory leaks. I'm currently working on switching to strong event handlers and adding an explicit unsubscribe API.
 
 ## How to install?
 ObservableComputations is available on [NuGet](https://www.nuget.org/packages/ObservableComputations/).

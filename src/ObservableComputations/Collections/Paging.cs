@@ -366,7 +366,12 @@ namespace ObservableComputations
 			_handledEventSender = sender;
 			_handledEventArgs = e;
 
+            _isConsistent = false;
+
 			initializeFromSource();
+
+            _isConsistent = true;
+            raiseConsistencyRestored();
 
 			_handledEventSender = null;
 			_handledEventArgs = null;

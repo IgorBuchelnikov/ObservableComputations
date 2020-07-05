@@ -240,11 +240,12 @@ namespace ObservableComputations
 		private void handleSourceScalarValueChanged(object sender, PropertyChangedEventArgs e)
 		{
 			if (e.PropertyName != nameof(IReadScalar<INotifyCollectionChanged>.Value)) return;
-			initializeFromSource();
+
 
 			_handledEventSender = sender;
 			_handledEventArgs = e;
 
+			initializeFromSource();
 
 			_handledEventSender = null;
 			_handledEventArgs = null;

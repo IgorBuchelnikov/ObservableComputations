@@ -116,8 +116,8 @@ namespace ObservableComputations
 
 		private void handleSourceScalarValueChanged(object sender, PropertyChangedEventArgs e)
 		{
-			checkConsistent(sender, e);
 			if (e.PropertyName != nameof(IReadScalar<object>.Value)) return;
+			checkConsistent(sender, e);
 
 			_handledEventSender = sender;
 			_handledEventArgs = e;

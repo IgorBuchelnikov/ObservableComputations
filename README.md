@@ -1,6 +1,5 @@
 # ObservableComputations
 ## What I should  know to read this paper?
-To understand written here you should know: basic programming and OOP concepts, C# syntax (including events and extension methods, lambda expressions), [LINQ](https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/concepts/linq/), [INotifyPropertyChanged](https://docs.microsoft.com/en-us/dotnet/api/system.componentmodel.inotifypropertychanged?view=netframework-4.8) and [INotifyCollectionChanged](https://docs.microsoft.com/en-us/dotnet/api/system.collections.specialized.inotifycollectionchanged?view=netframework-4.8) interfaces. 
 
 It is advisable to know differences between [delegates](https://docs.microsoft.com/en-us/dotnet/api/system.delegate?view=netframework-4.8) and [expression trees](https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/concepts/expression-trees/).
 
@@ -2215,7 +2214,7 @@ namespace ObservableComputationsExample
 		public ObservableCollection<Order> PaidOrders { get; }
 		public ObservableCollection<Order> UnpaidOrders { get; }
 
-		// Dispatcher for computations in the backgroung thread
+		// Dispatcher for computations in the background thread
 		ObservableComputations.Dispatcher _ocDispatcher = new ObservableComputations.Dispatcher();
 
 		public MainWindow()
@@ -2323,7 +2322,7 @@ namespace ObservableComputationsExample
 
 		WpfOcDispatcher _wpfOcDispatcher;
 		
-		// Dispatcher for computations in the backgroung thread
+		// Dispatcher for computations in the background thread
 		ObservableComputations.Dispatcher _ocDispatcher = new ObservableComputations.Dispatcher();
 
 		public MainWindow()
@@ -2672,7 +2671,7 @@ namespace ObservableComputationsExample
 		public ObservableCollection<Order> PaidOrders { get; }
 		public ObservableCollection<Order> UnpaidOrders { get; }
 
-		// Dispatcher for computations in the backgroung thread
+		// Dispatcher for computations in the background thread
 		ObservableComputations.Dispatcher _ocDispatcher = new ObservableComputations.Dispatcher();
 		
 		WpfOcDispatcher _wpfOcDispatcher;
@@ -2795,7 +2794,7 @@ namespace ObservableComputationsExample
 		public ObservableCollection<Order> PaidOrders { get; }
 		public ObservableCollection<Order> UnpaidOrders { get; }
 
-		// Dispatcher for computations in the backgroung thread
+		// Dispatcher for computations in the background thread
 		ObservableComputations.Dispatcher _ocDispatcher = new ObservableComputations.Dispatcher();
 		
 		WpfOcDispatcher _wpfOcDispatcher;
@@ -2921,7 +2920,7 @@ namespace ObservableComputationsExample
 		public ObservableCollection<Order> PaidOrders { get; }
 		public ObservableCollection<Order> UnpaidOrders { get; }
 
-		// Dispatcher for computations in the backgroung thread
+		// Dispatcher for computations in the background thread
 		ObservableComputations.Dispatcher _ocDispatcher = new ObservableComputations.Dispatcher();
 		
 		WpfOcDispatcher _wpfOcDispatcher;
@@ -3106,7 +3105,7 @@ public class WpfOcDispatcher : IDispatcher, IDisposable
 ```
 
 When dispatching properties (*PropertyDispatching*) and *IReadScalar&lt;TValue&gt;* (*ScalarDispatching*), ThrottlingDispatcher can be useful:
-```
+```csharp
 public class ThrottlingDispatcher : IDispatcher, IDisposable
 {
 	Subject<Action> _actions;
@@ -3406,7 +3405,7 @@ args =>
 ```
 That property defines what values should have arguments in a method call so that return value of that call changes.
 
-ATTENTION: Code example given in this section is not a disign standard, it is rather an antipattern: it contains code duplication and changes of properties of *RoomReservation* class is not tracked.  That code is given only for demonstration of tracking changes in a method return value. See fixed code [here](#use-public-readonly-structures-instead-of-encapsulated-private-members).
+ATTENTION: Code example given in this section is not a design standard, it is rather an antipattern: it contains code duplication and changes of properties of *RoomReservation* class is not tracked.  That code is given only for demonstration of tracking changes in a method return value. See fixed code [here](#use-public-readonly-structures-instead-of-encapsulated-private-members).
 
 ### Computations implementing *INotifyMethodChanged*
 *INotifyMethodChanged* is implemented by the following computations:
@@ -3485,7 +3484,7 @@ namespace ObservableComputationsExamples
 	}
 }
 ```
-In the code above *selectedOrderTypes.ContainsComputing(() => o.Type)* is nested computation which is defendant on outer parameter *o*. These two circumstances lead to the fact that instance of *ContainsComputing* class will be created for each order in the *orders* collection. This may impact performance and memory consumption if you have many of orders. Fortunately, *filteredByTypeOrders* calculation can be made "flat":
+In the code above, *selectedOrderTypes.ContainsComputing(() => o.Type)* is a nested computation which is dependent on outer parameter *o*. These two circumstances lead to the fact that an instance of *ContainsComputing* class will be created for each order in the *orders* collection. This may impact performance and memory consumption if you have many of orders. Fortunately, *filteredByTypeOrders* calculation can be made "flat":
 
 ```csharp
 ObservableCollection<Order> filteredByTypeOrders =  orders
@@ -3496,7 +3495,7 @@ ObservableCollection<Order> filteredByTypeOrders =  orders
 This computation has performance and memory consumption advantage. 
 
 ### Cache property (method) values
-Suppose we have long-computed property and we want increase performance of getting it's value:
+Suppose we have a long-computed property and we want increase performance of getting its value:
 
 ```csharp
 using System;
@@ -3804,7 +3803,7 @@ namespace ObservableComputationsExamples
 
 Note that type of *RoomReservationManager._roomReservations* is changed to *ObservableCollection&lt;RoomReservation&gt;* and *RoomReservationManager.RoomReservations* member of type *System.Collections.ObjectModel.ReadOnlyObservableCollection&lt;RoomReservation&gt;* has been added.
 
-### Short your code
+### Shorten your code
 See [here](#passing-argument-as-observable) and [here](#passing-source-collection-argument-as-observable).
 
 ### Do not create extra variables

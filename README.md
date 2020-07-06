@@ -1,5 +1,6 @@
 # ObservableComputations
 ## What I should  know to read this paper?
+To understand written here you should know: basic programming and OOP concepts, C# syntax (including events and extension methods, lambda expressions), [LINQ](https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/concepts/linq/), [INotifyPropertyChanged](https://docs.microsoft.com/en-us/dotnet/api/system.componentmodel.inotifypropertychanged?view=netframework-4.8) and [INotifyCollectionChanged](https://docs.microsoft.com/en-us/dotnet/api/system.collections.specialized.inotifycollectionchanged?view=netframework-4.8) interfaces. 
 
 It is advisable to know differences between [delegates](https://docs.microsoft.com/en-us/dotnet/api/system.delegate?view=netframework-4.8) and [expression trees](https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/concepts/expression-trees/).
 

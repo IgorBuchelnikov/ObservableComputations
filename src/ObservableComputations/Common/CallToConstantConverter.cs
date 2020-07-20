@@ -9,12 +9,14 @@ namespace ObservableComputations
 	internal sealed class CallToConstantConverter : ExpressionVisitor
 	{
 		private readonly IEnumerable<ParameterExpression> _parameterExpressions;
+        public List<IComputingInternal> NestedComputings;
 
 		public bool ContainsParametrizedObservableComputationCalls;
 
 		public CallToConstantConverter(IEnumerable<ParameterExpression> parameterExpressions = null)
 		{
 			_parameterExpressions = parameterExpressions;
+            NestedComputings = new List<IComputingInternal>();
 		}
 
 		#region Overrides of ExpressionVisitor
@@ -48,9 +50,11 @@ namespace ObservableComputations
 		private ConstantExpression getConstantExpression(Expression node)
 		{
 			ConstantExpression getConstantExpressionLocal()
-			{
-				return Expression.Constant(Expression.Lambda(node).Compile().DynamicInvoke(), node.Type);
-			}
+            {
+                IComputingInternal nestedComputing = (IComputingInternal) Expression.Lambda(node).Compile().DynamicInvoke();
+                NestedComputings.Add(nestedComputing);
+                return Expression.Constant(nestedComputing, node.Type);
+            }
 
 			if (_parameterExpressions != null)
 			{

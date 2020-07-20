@@ -168,6 +168,8 @@ namespace ObservableComputations
 		public bool IsConsistent => _isConsistent;
 		public event EventHandler ConsistencyRestored;
 
+        protected bool _isActive;
+        public bool IsActive => _isActive;
 
 		#region INotifyPropertyChanged imlementation
 		public event PropertyChangedEventHandler PropertyChanged;

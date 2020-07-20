@@ -1,12 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.ComponentModel;
+using System.Linq;
 using System.Threading;
 
 namespace ObservableComputations
 {
-	public abstract class CollectionComputing<TItem> : ObservableCollectionWithChangeMarker<TItem>, ICollectionComputing
+	public abstract class CollectionComputing<TItem> : ObservableCollectionWithChangeMarker<TItem>, ICollectionComputing, IComputingInternal
 	{
 		public string DebugTag {get; set;}
 		public object Tag {get; set;}
@@ -451,6 +453,32 @@ namespace ObservableComputations
 			this.OnCollectionChanged(Utils.ResetNotifyCollectionChangedEventArgs);
 		}
 
+        protected PropertyChangedEventHandler getSourceScalarValueChangedHandler()
+        {
+            return (sender, args) =>
+            {
+                checkConsistent(sender, args);
+
+                _handledEventSender = sender;
+                _handledEventArgs = args;
+
+                _isConsistent = false;
+
+                initializeFromSource();
+
+                _isConsistent = true;
+                raiseConsistencyRestored();
+
+                _handledEventSender = null;
+                _handledEventArgs = null;
+            };
+        }
+
+        protected abstract void initializeFromSource();
+        protected abstract void initialize();
+        protected abstract void uninitialize();
+
+
 		public Type ItemType => typeof(TItem);
 
 		protected int _initialCapacity;
@@ -484,7 +512,104 @@ namespace ObservableComputations
 				throw new ObservableComputationsInconsistencyException(this,
 					$"The source collection has been changed. It is not possible to process this change (event sender = {sender.ToStringSafe(e => $"{e.ToString()} in sender.ToString()")}, event args = {eventArgs.ToStringAlt()}), as the processing of the previous change is not completed. Make the change on ConsistencyRestored event raising (after IsConsistent property becomes true). This exception is fatal and cannot be handled as the inner state is damaged.", sender, eventArgs);
 		}
-	}
+
+        protected List<Consumer> _consumers = new List<Consumer>();
+        protected bool _isActive;
+        internal  List<IComputingInternal> _downstreamConsumedComputings = new List<IComputingInternal>();
+        public bool IsActive => _isActive;
+
+        public ReadOnlyCollection<object> ConsumerTags =>
+            new ReadOnlyCollection<object>(_consumers.Union(_downstreamConsumedComputings.SelectMany(c => c.Consumers.Select(cons => cons.Tag))).ToList());
+
+        #region Implementation of IComputingInternal
+        IEnumerable<Consumer> IComputingInternal.Consumers => _consumers;
+
+        void IComputingInternal.AddConsumer(Consumer addingConsumer)
+        {
+            for (var index = 0; index < _consumers.Count; index++)
+            {
+                Consumer consumer = _consumers[index];
+                if (ReferenceEquals(consumer, addingConsumer)) return;
+            }
+
+            _consumers.Add(addingConsumer);
+            addingConsumer.AddComputing(this);
+
+            if (_consumers.Count == 1)
+            {                   
+                if (_downstreamConsumedComputings.Count == 0)
+                {
+                    _isActive = true;
+                    initialize();
+                    addToUpstreamComputings(this);
+                    initializeFromSource();
+                    OnPropertyChanged(Utils.IsActivePropertyChangedEventArgs);
+                }
+                else
+                {
+                    addToUpstreamComputings(this);
+                }
+            }
+        }
+
+        void IComputingInternal.RemoveConsumer(Consumer removingConsumer)
+        {
+            for (var index = 0; index < _consumers.Count; index++)
+            {
+                Consumer consumer = _consumers[index];
+                if (ReferenceEquals(consumer, removingConsumer))
+                {
+                    _consumers.RemoveAt(index);
+                    break;
+                }
+            }
+            
+            if (_consumers.Count == 0 && _downstreamConsumedComputings.Count == 0)
+            {
+                _isActive = false;
+                initializeFromSource();
+                uninitialize();
+                OnPropertyChanged(Utils.IsActivePropertyChangedEventArgs);
+
+                removeFromUpstreamComputings(this);
+            }
+        }
+
+        void IComputingInternal.AddDownstreamConsumedComputing(IComputingInternal computing)
+        {
+            _downstreamConsumedComputings.Add(computing);
+
+            if (_downstreamConsumedComputings.Count == 1 && _consumers.Count == 0)
+            {
+                _isActive = true;
+                initialize();
+                addToUpstreamComputings(computing);
+                initializeFromSource();
+                OnPropertyChanged(Utils.IsActivePropertyChangedEventArgs);
+            }
+            else
+                addToUpstreamComputings(computing);
+        }
+
+        void IComputingInternal.RemoveDownstreamConsumedComputing(IComputingInternal computing)
+        {
+            _downstreamConsumedComputings.Remove(computing);
+
+            if (_consumers.Count == 0 && _downstreamConsumedComputings.Count == 0)
+            {
+                _isActive = true;
+                uninitialize();
+                initializeFromSource();
+                OnPropertyChanged(Utils.IsActivePropertyChangedEventArgs);
+            }
+
+            removeFromUpstreamComputings(computing);
+        }
+        #endregion
+
+        internal abstract void addToUpstreamComputings(IComputingInternal computing);
+        internal abstract void removeFromUpstreamComputings(IComputingInternal computing);
+    }
 
 	public enum CollectionChangeAction
 	{

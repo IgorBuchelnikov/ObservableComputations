@@ -9,11 +9,9 @@ namespace ObservableComputations
 		private readonly INotifyCollectionChanged _source;
 		private readonly IList<TSourceItem> _sourceAsList;
 
-		private NotifyCollectionChangedEventHandler _sourceNotifyCollectionChangedEventHandler;
-		private WeakNotifyCollectionChangedEventHandler _sourceWeakNotifyCollectionChangedEventHandler;
+        private NotifyCollectionChangedEventHandler _sourceNotifyCollectionChangedEventHandler;
 
 		private PropertyChangedEventHandler _sourcePropertyChangedEventHandler;
-		private WeakPropertyChangedEventHandler _sourceWeakPropertyChangedEventHandler;
 		private bool _indexerPropertyChangedEventRaised;
 		private INotifyPropertyChanged _sourceAsINotifyPropertyChanged;
 		private IList<TSourceItem> _items;
@@ -31,7 +29,7 @@ namespace ObservableComputations
 		private void initializeFromSource()
 		{
 			int originalCount = _items.Count;
-			if (_sourceWeakPropertyChangedEventHandler == null)
+			if (_sourcePropertyChangedEventHandler == null)
 			{
 				_sourceAsINotifyPropertyChanged = (INotifyPropertyChanged) _sourceAsList;
 
@@ -40,9 +38,7 @@ namespace ObservableComputations
 					if (args.PropertyName == "Item[]") _indexerPropertyChangedEventRaised = true; // ObservableCollection raises this before CollectionChanged event raising
 				};
 
-				_sourceWeakPropertyChangedEventHandler = new WeakPropertyChangedEventHandler(_sourcePropertyChangedEventHandler);
-
-				_sourceAsINotifyPropertyChanged.PropertyChanged += _sourceWeakPropertyChangedEventHandler.Handle;
+				_sourceAsINotifyPropertyChanged.PropertyChanged += _sourcePropertyChangedEventHandler;
 			}
 
 			int count = _sourceAsList.Count;
@@ -67,13 +63,10 @@ namespace ObservableComputations
 				_items.Clear();
 			}
 
-			if (_sourceWeakNotifyCollectionChangedEventHandler == null)
+			if (_sourceNotifyCollectionChangedEventHandler == null)
 			{
 				_sourceNotifyCollectionChangedEventHandler = handleSourceCollectionChanged;
-				_sourceWeakNotifyCollectionChangedEventHandler =
-					new WeakNotifyCollectionChangedEventHandler(_sourceNotifyCollectionChangedEventHandler);
-
-				_source.CollectionChanged += _sourceWeakNotifyCollectionChangedEventHandler.Handle;
+				_source.CollectionChanged += _sourceNotifyCollectionChangedEventHandler;
 
 			}
 
@@ -118,15 +111,6 @@ namespace ObservableComputations
 				}
 			}
 			
-		}
-
-		~RootSourceWrapper()
-		{
-			_source.CollectionChanged -= _sourceWeakNotifyCollectionChangedEventHandler.Handle;
-
-			if (_sourceAsINotifyPropertyChanged != null)
-				_sourceAsINotifyPropertyChanged.PropertyChanged -=
-					_sourceWeakPropertyChangedEventHandler.Handle;
 		}
 	}
 }

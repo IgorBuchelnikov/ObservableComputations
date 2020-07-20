@@ -4,7 +4,6 @@ using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Linq.Expressions;
-using System.Threading;
 using ObservableComputations.ExtentionMethods;
 
 namespace ObservableComputations
@@ -29,14 +28,14 @@ namespace ObservableComputations
 		private Positions<ItemInfo> _sourcePositions;
 		private List<ItemInfo> _itemInfos;
 
-		private readonly Expression<Func<TSourceItem, TResultItem>> _selectorExpression;
-		private readonly ExpressionWatcher.ExpressionInfo _selectorExpressionInfo;
+		private Expression<Func<TSourceItem, TResultItem>> _selectorExpression;
+		private ExpressionWatcher.ExpressionInfo _selectorExpressionInfo;
+        private int _selectorExpressionСallCount;
 
-		private readonly bool _selectorContainsParametrizedObservableComputationsCalls;
+		private bool _selectorContainsParametrizedObservableComputationsCalls;
 
 		// ReSharper disable once PrivateFieldCanBeConvertedToLocalVariable
-		private readonly PropertyChangedEventHandler _sourceScalarPropertyChangedEventHandler;
-		private readonly WeakPropertyChangedEventHandler _sourceScalarWeakPropertyChangedEventHandler;
+		private PropertyChangedEventHandler _sourceScalarPropertyChangedEventHandler;
 
 		private ObservableCollectionWithChangeMarker<TSourceItem> _sourceAsList;
 		bool _rootSourceWrapper;
@@ -45,17 +44,18 @@ namespace ObservableComputations
 		private Queue<ExpressionWatcher.Raise> _deferredExpressionWatcherChangedProcessings;
 
 		private NotifyCollectionChangedEventHandler _sourceNotifyCollectionChangedEventHandler;
-		private WeakNotifyCollectionChangedEventHandler _sourceWeakNotifyCollectionChangedEventHandler;
 		private readonly IReadScalar<INotifyCollectionChanged> _sourceScalar;
-		private readonly Expression<Func<TSourceItem, TResultItem>> _selectorExpressionOriginal;
+		private Expression<Func<TSourceItem, TResultItem>> _selectorExpressionOriginal;
 		internal INotifyCollectionChanged _source;
-		private readonly Func<TSourceItem, TResultItem> _selectorFunc;
+		private Func<TSourceItem, TResultItem> _selectorFunc;
 
-		private sealed class ItemInfo : Position
+        private List<IComputingInternal> _nestedComputings;
+        Action<ExpressionWatcher.Raise> _processExpressionWatcherRaise;
+
+		private sealed class ItemInfo : ExpressionItemInfo
 		{
-			public ExpressionWatcher ExpressionWatcher;
 			public Func<TResultItem> SelectorFunc;
-		}
+        }
 
 		[ObservableComputationsCall]
 		public Selecting(
@@ -63,11 +63,6 @@ namespace ObservableComputations
 			Expression<Func<TSourceItem, TResultItem>> selectorExpression) : this(selectorExpression, Utils.getCapacity(sourceScalar))
 		{
 			_sourceScalar = sourceScalar;
-			_sourceScalarPropertyChangedEventHandler = handleSourceScalarValueChanged;
-			_sourceScalarWeakPropertyChangedEventHandler = new WeakPropertyChangedEventHandler(_sourceScalarPropertyChangedEventHandler);
-			_sourceScalar.PropertyChanged += _sourceScalarWeakPropertyChangedEventHandler.Handle;
-
-			initializeFromSource();
 		}
 
 		[ObservableComputationsCall]
@@ -76,153 +71,113 @@ namespace ObservableComputations
 			Expression<Func<TSourceItem, TResultItem>> selectorExpression) : this(selectorExpression, Utils.getCapacity(source))
 		{
 			_source = source;
-			initializeFromSource();
+
 		}
 
 		private Selecting(Expression<Func<TSourceItem, TResultItem>> selectorExpression, int capacity) : base(capacity)
+        {
+            Utils.construct(
+                selectorExpression, 
+                capacity, 
+                ref _itemInfos, 
+                ref _sourcePositions, 
+                ref _selectorExpressionOriginal, 
+                ref _selectorExpression, 
+                ref _selectorContainsParametrizedObservableComputationsCalls, 
+                ref _selectorExpressionInfo, 
+                ref _selectorExpressionСallCount, 
+                ref _selectorFunc, 
+                ref _nestedComputings);
+
+            _processExpressionWatcherRaise = 
+                expressionWatcherRaise => processExpressionWatcherValueChanged(expressionWatcherRaise.ExpressionWatcher);
+        }
+
+        protected override void initializeFromSource()
+        {
+            int originalCount = _items.Count;
+
+            if (_sourceNotifyCollectionChangedEventHandler != null)
+            {
+                Utils.disposeExpressionItemInfos(ref _itemInfos, _selectorExpressionСallCount, this);
+                Utils.disposeSource(
+                    _sourceScalar != null ? Utils.getCapacity(_sourceScalar) : Utils.getCapacity(_source), 
+                    ref _itemInfos,
+                    ref _sourcePositions, 
+                    _sourceAsList, 
+                    ref _sourceNotifyCollectionChangedEventHandler);
+            }
+
+            Utils.changeSource(ref _source, _sourceScalar, _downstreamConsumedComputings, _consumers, this);
+
+            _sourceAsList = null;
+
+            if (_source != null && _isActive)
+            {
+                Utils.initializeFromObservableCollectionWithChangeMarker(
+                    _source, 
+                    ref _sourceAsList, 
+                    ref _rootSourceWrapper, 
+                    ref _lastProcessedSourceChangeMarker);
+
+                int count = _sourceAsList.Count;
+                int sourceIndex;
+                for (sourceIndex = 0; sourceIndex < count; sourceIndex++)
+                {
+                    TSourceItem sourceItem = _sourceAsList[sourceIndex];
+                    ItemInfo itemInfo = registerSourceItem(sourceItem, sourceIndex);
+
+                    if (originalCount > sourceIndex)
+                        _items[sourceIndex] = applySelector(itemInfo, sourceItem);
+                    else
+                        _items.Insert(sourceIndex, applySelector(itemInfo, sourceItem));
+                }
+
+                for (int index = originalCount - 1; index >= sourceIndex; index--)
+                {
+                    _items.RemoveAt(index);
+                }
+
+                _sourceNotifyCollectionChangedEventHandler = handleSourceCollectionChanged;
+                _sourceAsList.CollectionChanged += _sourceNotifyCollectionChangedEventHandler;
+            }
+            else
+            {
+                _items.Clear();
+            }
+
+            reset();
+        }
+
+        protected override void initialize()
+        {
+            Utils.initializeSourceScalar(_sourceScalar, ref _sourceScalarPropertyChangedEventHandler, ref _source, getSourceScalarValueChangedHandler());
+            Utils.initializeNestedComputings(_nestedComputings, this);
+        }
+
+        protected override void uninitialize()
+        {
+            Utils.uninitializeSourceScalar(_sourceScalar, _sourceScalarPropertyChangedEventHandler);
+            Utils.uninitializeNestedComputings(_nestedComputings, this);
+        }
+
+
+
+        protected void handleSourceCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
 		{
-			_itemInfos = new List<ItemInfo>(capacity);
-			_sourcePositions = new Positions<ItemInfo>(_itemInfos);
+			if (!Utils.preHandleSourceCollectionChanged(
+                    sender, 
+                    e, 
+                    _rootSourceWrapper, 
+                    ref _lastProcessedSourceChangeMarker, 
+                    _sourceAsList, 
+                    _isConsistent,
+                     this)) return;
 
-			_selectorExpressionOriginal = selectorExpression;
-			CallToConstantConverter callToConstantConverter =
-				new CallToConstantConverter(_selectorExpressionOriginal.Parameters);
-			_selectorExpression =
-				(Expression<Func<TSourceItem, TResultItem>>)callToConstantConverter.Visit(
-					_selectorExpressionOriginal);
-			_selectorContainsParametrizedObservableComputationsCalls =
-				callToConstantConverter.ContainsParametrizedObservableComputationCalls;
+            _handledEventSender = sender;
+            _handledEventArgs = e;
 
-			if (!_selectorContainsParametrizedObservableComputationsCalls)
-			{
-				_selectorExpressionInfo = ExpressionWatcher.GetExpressionInfo(_selectorExpression);
-				// ReSharper disable once PossibleNullReferenceException
-				_selectorFunc = _selectorExpression.Compile();
-			}
-		}
-
-		private void initializeFromSource()
-		{
-			int originalCount = _items.Count;
-
-			if (_sourceNotifyCollectionChangedEventHandler != null)
-			{
-				int itemInfosCount = _itemInfos.Count;
-				for (int index = 0; index < itemInfosCount; index++)
-				{
-					ItemInfo itemInfo = _itemInfos[index];
-					ExpressionWatcher expressionWatcher = itemInfo.ExpressionWatcher;
-					expressionWatcher.Dispose();
-				}
-
-				int capacity = _sourceScalar != null ? Utils.getCapacity(_sourceScalar) : Utils.getCapacity(_source);
-				_itemInfos = new List<ItemInfo>(capacity);
-				_sourcePositions = new Positions<ItemInfo>(_itemInfos);
-
-				if (_rootSourceWrapper)
-				{
-					_sourceAsList.CollectionChanged -= _sourceNotifyCollectionChangedEventHandler;
-				}
-				else
-				{
-					_sourceAsList.CollectionChanged -= _sourceWeakNotifyCollectionChangedEventHandler.Handle;
-					_sourceWeakNotifyCollectionChangedEventHandler = null;
-				}
-
-				_sourceNotifyCollectionChangedEventHandler = null;
-			}
-
-			if (_sourceScalar != null)
-				_source = _sourceScalar.Value;
-			_sourceAsList = null;
-
-			if (_source != null)
-			{
-				if (_source is ObservableCollectionWithChangeMarker<TSourceItem> sourceAsList)
-				{
-					_sourceAsList = sourceAsList;
-					_rootSourceWrapper = false;
-				}
-				else
-				{
-					_sourceAsList = new RootSourceWrapper<TSourceItem>(_source);
-					_rootSourceWrapper = true;
-				}
-
-				_lastProcessedSourceChangeMarker = _sourceAsList.ChangeMarkerField;
-
-				int count = _sourceAsList.Count;
-				int sourceIndex;
-				for (sourceIndex = 0; sourceIndex < count; sourceIndex++)
-				{
-					TSourceItem sourceItem = _sourceAsList[sourceIndex];
-					ItemInfo itemInfo = registerSourceItem(sourceItem, sourceIndex);
-
-					if (originalCount > sourceIndex)
-						_items[sourceIndex] = applySelector(itemInfo, sourceItem);
-					else
-						_items.Insert(sourceIndex, applySelector(itemInfo, sourceItem));
-				}
-
-				for (int index = originalCount - 1; index >= sourceIndex; index--)
-				{
-					_items.RemoveAt(index);
-				}
-
-				_sourceNotifyCollectionChangedEventHandler = handleSourceCollectionChanged;
-
-				if (_rootSourceWrapper)
-				{
-					_sourceAsList.CollectionChanged += _sourceNotifyCollectionChangedEventHandler;
-				}
-				else
-				{
-					_sourceWeakNotifyCollectionChangedEventHandler =
-						new WeakNotifyCollectionChangedEventHandler(_sourceNotifyCollectionChangedEventHandler);
-
-					_sourceAsList.CollectionChanged += _sourceWeakNotifyCollectionChangedEventHandler.Handle;
-				}
-			}
-			else
-			{
-				_items.Clear();
-			}
-
-			reset();
-		}
-
-		private void handleSourceScalarValueChanged(object sender, PropertyChangedEventArgs e)
-		{
-			if (e.PropertyName != nameof(IReadScalar<INotifyCollectionChanged>.Value))
-				return;
-			checkConsistent(sender, e);
-
-			_handledEventSender = sender;
-			_handledEventArgs = e;
-
-			_isConsistent = false;
-
-			initializeFromSource();
-
-			_isConsistent = true;
-			raiseConsistencyRestored();
-
-			_handledEventSender = null;
-			_handledEventArgs = null;
-		}
-
-
-		private void handleSourceCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
-		{
-			checkConsistent(sender, e);
-			if (!_rootSourceWrapper && _lastProcessedSourceChangeMarker == _sourceAsList.ChangeMarkerField) return;
-
-			_handledEventSender = sender;
-			_handledEventArgs = e;
-
-			_lastProcessedSourceChangeMarker = !_lastProcessedSourceChangeMarker;
-
-			ItemInfo itemInfo;
+            ItemInfo itemInfo;
 			switch (e.Action)
 			{
 				case NotifyCollectionChangedAction.Add:
@@ -268,26 +223,34 @@ namespace ObservableComputations
 			}
 
 			_isConsistent = false;
-			if (_deferredExpressionWatcherChangedProcessings != null)
-				while (_deferredExpressionWatcherChangedProcessings.Count > 0)
-				{
-					ExpressionWatcher.Raise expressionWatcherRaise = _deferredExpressionWatcherChangedProcessings.Dequeue();
-					if (!expressionWatcherRaise.ExpressionWatcher._disposed)
-					{
-						_handledEventSender = expressionWatcherRaise.EventSender;
-						_handledEventArgs = expressionWatcherRaise.EventArgs;
-						processExpressionWatcherValueChanged(expressionWatcherRaise.ExpressionWatcher);
-					}
-				}
-
-			_isConsistent = true;
-			raiseConsistencyRestored();
-
-			_handledEventSender = null;
+          
+            Utils.doDeferredExpressionWatcherChangedProcessings(
+                _deferredExpressionWatcherChangedProcessings, 
+                ref _handledEventSender, 
+                ref _handledEventArgs, 
+                _processExpressionWatcherRaise);
+           
+            _isConsistent = true;
+            raiseConsistencyRestored();
+           
+            _handledEventSender = null;
 			_handledEventArgs = null;
 		}
 
-		private void expressionWatcher_OnValueChanged(ExpressionWatcher expressionWatcher, object sender, EventArgs eventArgs)
+
+
+
+        internal override void addToUpstreamComputings(IComputingInternal computing)
+        {
+            (_source as IComputingInternal)?.AddDownstreamConsumedComputing(computing);
+        }
+
+        internal override void removeFromUpstreamComputings(IComputingInternal computing)        
+        {
+            (_source as IComputingInternal)?.RemoveDownstreamConsumedComputing(computing);
+        }
+
+        private void expressionWatcher_OnValueChanged(ExpressionWatcher expressionWatcher, object sender, EventArgs eventArgs)
 		{
 			checkConsistent(sender, eventArgs);
 
@@ -305,7 +268,7 @@ namespace ObservableComputations
 			{
 				(_deferredExpressionWatcherChangedProcessings = _deferredExpressionWatcherChangedProcessings 
 					??  new Queue<ExpressionWatcher.Raise>())
-				.Enqueue(new ExpressionWatcher.Raise(expressionWatcher, sender, eventArgs));
+				    .Enqueue(new ExpressionWatcher.Raise(expressionWatcher, sender, eventArgs));
 			}
 
 			_handledEventSender = null;
@@ -325,12 +288,22 @@ namespace ObservableComputations
 			{
 				Expression<Func<TResultItem>> deparametrizedSelectorExpression =
 					(Expression<Func<TResultItem>>)_selectorExpression.ApplyParameters(new object[] { sourceItem });
-				Expression<Func<TResultItem>> selectorExpression =
+                CallToConstantConverter callToConstantConverter = new CallToConstantConverter();
+                Expression<Func<TResultItem>> selectorExpression =
 					(Expression<Func<TResultItem>>)
-						new CallToConstantConverter().Visit(deparametrizedSelectorExpression);
-				// ReSharper disable once PossibleNullReferenceException
-				itemInfo.SelectorFunc = selectorExpression.Compile();
-				watcher = new ExpressionWatcher(ExpressionWatcher.GetExpressionInfo(selectorExpression));
+						callToConstantConverter.Visit(deparametrizedSelectorExpression);
+
+                // ReSharper disable once PossibleNullReferenceException
+                itemInfo.SelectorFunc = selectorExpression.Compile();
+                List<IComputingInternal> nestedComputings = callToConstantConverter.NestedComputings;
+                itemInfo.NestedComputings = nestedComputings;
+                int nestedComputingsCount = nestedComputings.Count;
+                for (var computingIndex = 0; computingIndex < nestedComputingsCount; computingIndex++)
+                    nestedComputings[computingIndex].AddDownstreamConsumedComputing(this);
+
+                ExpressionWatcher.ExpressionInfo expressionInfo = ExpressionWatcher.GetExpressionInfo(selectorExpression);
+                watcher = new ExpressionWatcher(expressionInfo);
+                _selectorExpressionСallCount = expressionInfo._callCount;
 			}
 
 			watcher.ValueChanged = expressionWatcher_OnValueChanged;
@@ -340,19 +313,28 @@ namespace ObservableComputations
 			return itemInfo;
 		}
 
-
 		private void unregisterSourceItem(int index, bool replacing = false)
 		{
 			ExpressionWatcher watcher = _itemInfos[index].ExpressionWatcher;
 			watcher.Dispose();
+            EventUnsubscriber.QueueSubscriptions(watcher._propertyChangedEventSubscriptions, watcher._methodChangedEventSubscriptions);
 
 			if (!replacing)
 			{
 				_sourcePositions.Remove(index);
 			}
+
+            if (_selectorContainsParametrizedObservableComputationsCalls)
+            {
+                ItemInfo itemInfo = _itemInfos[index];
+                List<IComputingInternal> nestedComputings = itemInfo.NestedComputings;
+                int nestedComputingsCount = nestedComputings.Count;
+                for (var computingIndex = 0; computingIndex < nestedComputingsCount; computingIndex++)              
+                    nestedComputings[computingIndex].RemoveDownstreamConsumedComputing(this);                       
+            }
 		}
 
-		private void processExpressionWatcherValueChanged(ExpressionWatcher expressionWatcher)
+        private void processExpressionWatcherValueChanged(ExpressionWatcher expressionWatcher)
 		{
 			int sourceIndex = expressionWatcher._position.Index;
 			baseSetItem(sourceIndex, ApplySelector(sourceIndex));
@@ -363,19 +345,14 @@ namespace ObservableComputations
 		{
 			if (Configuration.TrackComputingsExecutingUserCode)
 			{
-				Thread currentThread = Thread.CurrentThread;
-				DebugInfo._computingsExecutingUserCode.TryGetValue(currentThread, out IComputing computing);
-				DebugInfo._computingsExecutingUserCode[currentThread] = this;	
-				_userCodeIsCalledFrom = computing;
+				var currentThread = Utils.startComputingExecutingUserCode(out var computing, ref _userCodeIsCalledFrom, this);
 
-				TResultItem result = _selectorContainsParametrizedObservableComputationsCalls
+                TResultItem result = _selectorContainsParametrizedObservableComputationsCalls
 					? _itemInfos[index].SelectorFunc()
 					: _selectorFunc(_sourceAsList[index]);
 
-				if (computing == null) DebugInfo._computingsExecutingUserCode.TryRemove(currentThread, out IComputing _);
-				else DebugInfo._computingsExecutingUserCode[currentThread] = computing;
-				_userCodeIsCalledFrom = null;
-				return result;
+                Utils.endComputingExecutingUserCode(computing, currentThread, ref _userCodeIsCalledFrom);
+                return result;
 			}
 
 			return _selectorContainsParametrizedObservableComputationsCalls
@@ -383,42 +360,23 @@ namespace ObservableComputations
 				: _selectorFunc(_sourceAsList[index]);
 		}
 
-
-		private TResultItem applySelector(ItemInfo itemInfo, TSourceItem sourceItem)
+        private TResultItem applySelector(ItemInfo itemInfo, TSourceItem sourceItem)
 		{
 			if (Configuration.TrackComputingsExecutingUserCode)
 			{
-				Thread currentThread = Thread.CurrentThread;
-				DebugInfo._computingsExecutingUserCode.TryGetValue(currentThread, out IComputing computing);
-				DebugInfo._computingsExecutingUserCode[currentThread] = this;	
-				_userCodeIsCalledFrom = computing;
+                var currentThread = Utils.startComputingExecutingUserCode(out var computing, ref _userCodeIsCalledFrom, this);
 				
 				TResultItem result = _selectorContainsParametrizedObservableComputationsCalls
 					? itemInfo.SelectorFunc()
 					: _selectorFunc(sourceItem);
 
-				if (computing == null) DebugInfo._computingsExecutingUserCode.TryRemove(currentThread, out IComputing _);
-				else DebugInfo._computingsExecutingUserCode[currentThread] = computing;
-				_userCodeIsCalledFrom = null;
+                Utils.endComputingExecutingUserCode(computing, currentThread, ref _userCodeIsCalledFrom);
 				return result;
 			}
 
 			return _selectorContainsParametrizedObservableComputationsCalls
 				? itemInfo.SelectorFunc()
 				: _selectorFunc(sourceItem);
-		}
-
-		~Selecting()
-		{
-			if (_sourceWeakNotifyCollectionChangedEventHandler != null)
-			{
-				_sourceAsList.CollectionChanged -= _sourceWeakNotifyCollectionChangedEventHandler.Handle;
-			}
-
-			if (_sourceScalarWeakPropertyChangedEventHandler != null)
-			{
-				_sourceScalar.PropertyChanged -= _sourceScalarWeakPropertyChangedEventHandler.Handle;
-			}
 		}
 
 		// ReSharper disable once InconsistentNaming

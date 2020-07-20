@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace ObservableComputations
 {
@@ -8,5 +9,15 @@ namespace ObservableComputations
 		IComputing UserCodeIsCalledFrom { get; }
 		object HandledEventSender { get;  }
 		EventArgs HandledEventArgs { get;  }
+        bool IsActive { get; }
 	}
+
+    internal interface IComputingInternal
+    {
+        void AddConsumer(Consumer addingConsumer);
+        void RemoveConsumer(Consumer removingConsumer);
+        void AddDownstreamConsumedComputing(IComputingInternal computing);
+        void RemoveDownstreamConsumedComputing(IComputingInternal computing);
+        IEnumerable<Consumer> Consumers { get; }
+    }
 }

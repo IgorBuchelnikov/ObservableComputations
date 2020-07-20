@@ -12,6 +12,8 @@ namespace ObservableComputations
 	internal sealed class ExpressionWatcher
 	{
 		internal Position _position;
+        internal PropertyChangedEventSubscription[] _propertyChangedEventSubscriptions;
+        internal MethodChangedEventSubscription[] _methodChangedEventSubscriptions;
 
 		internal struct Raise
 		{
@@ -33,6 +35,7 @@ namespace ObservableComputations
 			internal readonly ConstantCallTreesInfo[] _constantCallTrees;
 			internal readonly ParameterCallTreesInfo[] _parameterCallTrees;
 			internal readonly ExpressionCallTreesInfo[] _expressionCallTrees;
+            internal int _callCount;
 #if DEBUG
 			// ReSharper disable once MemberCanBePrivate.Global
 			internal List<ConstantCallPaths> _constantCallPaths;
@@ -221,12 +224,19 @@ namespace ObservableComputations
 			}
 		}
 
+        public static ExpressionInfo GetExpressionInfo(LambdaExpression expression)
+        {
+            int callIndex = 0;
+            ExpressionInfo expressionInfo = GetExpressionInfo(expression, ref callIndex);
+            expressionInfo._callCount = callIndex + 1;
+            return expressionInfo;
+        }
 
-		public static ExpressionInfo GetExpressionInfo(LambdaExpression expression)
+
+        public static ExpressionInfo GetExpressionInfo(LambdaExpression expression, ref int callIndex)
 		{
 			CallPathsConstructor callPathsConstructor =  new CallPathsConstructor(expression);
 			callPathsConstructor.Visit(expression);
-
 			int count;
 
 			count = callPathsConstructor.ConstantCallPaths.Count;
@@ -237,7 +247,7 @@ namespace ObservableComputations
 				for (var index = 0; index < count; index++)
 				{
 					ConstantCallPaths constantCallPaths = callPathsConstructor.ConstantCallPaths[index];
-					constantsCallTreesInfo[index] = new ConstantCallTreesInfo(constantCallPaths.ConstantValue, getCallTrees(constantCallPaths.CallPaths));
+					constantsCallTreesInfo[index] = new ConstantCallTreesInfo(constantCallPaths.ConstantValue, getCallTrees(constantCallPaths.CallPaths, ref callIndex));
 				}
 			}
 
@@ -249,7 +259,7 @@ namespace ObservableComputations
 				for (var index = 0; index < count; index++)
 				{
 					ParameterCallPaths parameterCallPaths = callPathsConstructor.ParameterCallPaths[index];
-					parameterCallTreesInfo[index] = new ParameterCallTreesInfo(parameterCallPaths.ParameterIndex, getCallTrees(parameterCallPaths.CallPaths));
+					parameterCallTreesInfo[index] = new ParameterCallTreesInfo(parameterCallPaths.ParameterIndex, getCallTrees(parameterCallPaths.CallPaths, ref callIndex));
 				}
 			}
 
@@ -261,7 +271,7 @@ namespace ObservableComputations
 				for (var index = 0; index < count; index++)
 				{
 					ExpressionCallPaths expressionCallPaths = callPathsConstructor.ExpressionCallPaths[index];
-					expressionCallTreesInfo[index] = new ExpressionCallTreesInfo(expressionCallPaths.ExpressionInfo, getCallTrees(expressionCallPaths.CallPaths));
+					expressionCallTreesInfo[index] = new ExpressionCallTreesInfo(GetExpressionInfo(expressionCallPaths.Expression, ref callIndex), getCallTrees(expressionCallPaths.CallPaths, ref callIndex));
 				}
 			}
 
@@ -279,18 +289,22 @@ namespace ObservableComputations
 			if (expressionInfo._constantCallTrees != null) workWithCallTrees(expressionInfo._constantCallTrees);
 		}
 
-		public ExpressionWatcher(ExpressionInfo expressionInfo)
+		internal ExpressionWatcher(ExpressionInfo expressionInfo)
 		{
 			ExpressionToWatch = expressionInfo._expressionToWatch;
 			_parameterValues = null;
+            _propertyChangedEventSubscriptions = new PropertyChangedEventSubscription[expressionInfo._callCount];
+            _methodChangedEventSubscriptions = new MethodChangedEventSubscription[expressionInfo._callCount];
 			initialize(expressionInfo);
 		}
 
 		// ReSharper disable once MemberCanBePrivate.Global
-		internal ExpressionWatcher(object[] parameterValues, ExpressionInfo expressionInfo)
+		private ExpressionWatcher(object[] parameterValues, ExpressionInfo expressionInfo, PropertyChangedEventSubscription[] propertyChangedEventSubscriptions, MethodChangedEventSubscription[] methodChangedEventSubscriptions)
 		{
 			ExpressionToWatch = expressionInfo._expressionToWatch;
 			_parameterValues = parameterValues;
+            _propertyChangedEventSubscriptions = propertyChangedEventSubscriptions;
+            _methodChangedEventSubscriptions = methodChangedEventSubscriptions;
 			initialize(expressionInfo);
 		}
 
@@ -298,6 +312,8 @@ namespace ObservableComputations
 		{
 			ExpressionToWatch = expressionInfo._expressionToWatch;
 			_parameterValues = new []{parameter1};
+            _propertyChangedEventSubscriptions = new PropertyChangedEventSubscription[expressionInfo._callCount];
+            _methodChangedEventSubscriptions = new MethodChangedEventSubscription[expressionInfo._callCount];
 			initialize(expressionInfo);
 		}
 
@@ -305,51 +321,10 @@ namespace ObservableComputations
 		{
 			ExpressionToWatch = expressionInfo._expressionToWatch;
 			_parameterValues = new []{parameter1, parameter2};
+            _propertyChangedEventSubscriptions = new PropertyChangedEventSubscription[expressionInfo._callCount];
+            _methodChangedEventSubscriptions = new MethodChangedEventSubscription[expressionInfo._callCount];
 			initialize(expressionInfo);
 		}
-
-		public ExpressionWatcher(ExpressionInfo expressionInfo, object parameter1, object parameter2, object parameter3)
-		{
-			ExpressionToWatch = expressionInfo._expressionToWatch;
-			_parameterValues = new []{parameter1, parameter2, parameter3};
-			initialize(expressionInfo);
-		}
-
-		public ExpressionWatcher(ExpressionInfo expressionInfo, object parameter1, object parameter2, object parameter3, object parameter4)
-		{
-			ExpressionToWatch = expressionInfo._expressionToWatch;
-			_parameterValues = new []{parameter1, parameter2, parameter3, parameter4};
-			initialize(expressionInfo);
-		}
-
-		public ExpressionWatcher(ExpressionInfo expressionInfo, object parameter1, object parameter2, object parameter3, object parameter4, object parameter5)
-		{
-			ExpressionToWatch = expressionInfo._expressionToWatch;
-			_parameterValues = new []{parameter1, parameter2, parameter3, parameter4, parameter5};
-			initialize(expressionInfo);
-		}
-
-		public ExpressionWatcher(ExpressionInfo expressionInfo, object parameter1, object parameter2, object parameter3, object parameter4, object parameter5, object parameter6)
-		{
-			ExpressionToWatch = expressionInfo._expressionToWatch;
-			_parameterValues = new []{parameter1, parameter2, parameter3, parameter4, parameter5, parameter6};
-			initialize(expressionInfo);
-		}
-
-		public ExpressionWatcher(ExpressionInfo expressionInfo, object parameter1, object parameter2, object parameter3, object parameter4, object parameter5, object parameter6, object parameter7)
-		{
-			ExpressionToWatch = expressionInfo._expressionToWatch;
-			_parameterValues = new []{parameter1, parameter2, parameter3, parameter4, parameter5, parameter6, parameter7};
-			initialize(expressionInfo);
-		}
-
-		public ExpressionWatcher(ExpressionInfo expressionInfo, object parameter1, object parameter2, object parameter3, object parameter4, object parameter5, object parameter6, object parameter7, object parameter8)
-		{
-			ExpressionToWatch = expressionInfo._expressionToWatch;
-			_parameterValues = new []{parameter1, parameter2, parameter3, parameter4, parameter5, parameter6, parameter7, parameter8};
-			initialize(expressionInfo);
-		}
-
 
 		private void workWithCallTrees(ParameterCallTreesInfo[] parameterCallTreesInfo,  ExpressionCallTreesInfo[] expressionCallTreesInfo, object[] parameterValues)
 		{
@@ -365,7 +340,7 @@ namespace ObservableComputations
 					CallTreeNode[] callTrees = new CallTreeNode[callTreesCount];
 					for (int i = 0; i < callTreesCount; i++)
 					{
-						callTrees[i] = parameterCallTreesInfoItem.CallTrees[i].getCallTreeNode();
+						callTrees[i] = parameterCallTreesInfoItem.CallTrees[i].getCallTreeNode(_parameterValues, _propertyChangedEventSubscriptions, _methodChangedEventSubscriptions);
 					}
 
 					_parameterCallTrees[index] = new ParameterCallTrees(parameterCallTreesInfoItem.ParameterIndex, callTrees);
@@ -395,14 +370,14 @@ namespace ObservableComputations
 			for (var index = 0; index < length; index++)
 			{
 				ExpressionCallTreesInfo expressionCallTreesInfoItem = expressionCallTreesInfo[index];
-				ExpressionWatcher expressionWatcher = new ExpressionWatcher(expressionCallTreesInfoItem.ExpressionInfo);
+				ExpressionWatcher expressionWatcher = new ExpressionWatcher(_parameterValues, expressionCallTreesInfoItem.ExpressionInfo, _propertyChangedEventSubscriptions, _methodChangedEventSubscriptions);
 				expressionWatcher.complileExpressionToWatch();
 
 				int callTreesCount = expressionCallTreesInfoItem.CallTrees.Count;
 				CallTreeNode[] callTrees = new CallTreeNode[callTreesCount];
 				for (int i = 0; i < callTreesCount; i++)
 				{
-					callTrees[i] = expressionCallTreesInfoItem.CallTrees[i].getCallTreeNode();
+					callTrees[i] = expressionCallTreesInfoItem.CallTrees[i].getCallTreeNode(_parameterValues, _propertyChangedEventSubscriptions, _methodChangedEventSubscriptions);
 				}
 
 				_expressionCallTrees[index] = new ExpressionCallTrees(expressionWatcher, callTrees);
@@ -460,7 +435,7 @@ namespace ObservableComputations
 				CallTreeNode[] callTrees = new CallTreeNode[callTreesCount];
 				for (int i = 0; i < callTreesCount; i++)
 				{
-					callTrees[i] = constantCallTreesInfoItem.CallTrees[i].getCallTreeNode();
+					callTrees[i] = constantCallTreesInfoItem.CallTrees[i].getCallTreeNode(_parameterValues, _propertyChangedEventSubscriptions, _methodChangedEventSubscriptions);
 				}
 
 				_constantCallTrees[index] = new ConstantCallTrees(constantCallTreesInfoItem.ConstantValue, callTrees);
@@ -483,7 +458,7 @@ namespace ObservableComputations
 		public IEnumerable<object> ParameterValues => _parameterValues;
 
 		// ReSharper disable once MemberCanBePrivate.Global
-		public LambdaExpression ExpressionToWatch { get; }
+        public LambdaExpression ExpressionToWatch;
 
 		private Delegate _expressionToWatchCompiled;
 
@@ -498,11 +473,12 @@ namespace ObservableComputations
 
 		internal bool _disposed;
 
-		private static List<CallTreeNodeInfo> getCallTrees(List<List<Call>> callPaths)
+		private static List<CallTreeNodeInfo> getCallTrees(List<List<Call>> callPaths, ref int callIndex)
 		{
 			List<CallTreeNodeInfo> resultCallTrees = new List<CallTreeNodeInfo>(8);
 			int callPathsCount = callPaths.Count;
 			int resultCallTreesCount = 0;
+            
 			for (int index = 0; index < callPathsCount; index++)
 			{
 				List<Call> callPath = callPaths[index];
@@ -510,7 +486,7 @@ namespace ObservableComputations
 				int count = callPath.Count;
 				for (int pathElementIndex = 0; pathElementIndex < count; pathElementIndex++)
 				{
-					CallTreeNodeInfo traversingPpa = new CallTreeNodeInfo(callPath[pathElementIndex], new List<CallTreeNodeInfo>(8));
+					Call currentCall = callPath[pathElementIndex];
 					if (pathElementIndex == 0)
 					{
 						CallTreeNodeInfo? rootResultPpa = null;
@@ -520,7 +496,7 @@ namespace ObservableComputations
 							Call call = callTreeNode._call;
 							if 
 								(
-									call.Name == traversingPpa._call.Name
+									call.Name == currentCall.Name
 									&& (call.Type != CallType.Method || call.Arguments.Count == 0) //Если метод с аргументами, то считаем, что по любому это разные выховы. Не учитываем, что метод мог быть вызван с одинаковыми аргуметами
 								)
 							{
@@ -531,7 +507,7 @@ namespace ObservableComputations
 
 						if (rootResultPpa == null)
 						{
-							rootResultPpa = covertPathToTree(callPath, 0);
+							rootResultPpa = covertPathToTree(callPath, 0, ref callIndex);
 							resultCallTrees.Add(rootResultPpa.Value);
 							resultCallTreesCount++;
 						}
@@ -548,7 +524,7 @@ namespace ObservableComputations
 						for (int i = 0; i < childrenCount; i++)
 						{
 							CallTreeNodeInfo callTreeNode = callTreeNodeInfo._children[i];
-							if (callTreeNode._call.Name == traversingPpa._call.Name)
+							if (callTreeNode._call.Name == currentCall.Name)
 							{
 								newCurrentResultPpa = callTreeNode;
 								break;
@@ -557,7 +533,7 @@ namespace ObservableComputations
 
 						if (newCurrentResultPpa == null)
 						{
-							newCurrentResultPpa = covertPathToTree(callPath, pathElementIndex);
+							newCurrentResultPpa = covertPathToTree(callPath, pathElementIndex, ref callIndex);
 							callTreeNodeInfo._children.Add(newCurrentResultPpa.Value);
 						}
 
@@ -570,15 +546,15 @@ namespace ObservableComputations
 		}
 
 
-		private static CallTreeNodeInfo covertPathToTree(List<Call> callPath, int startIndex)
+		private static CallTreeNodeInfo covertPathToTree(List<Call> callPath, int startIndex, ref int callIndex)
 		{
-			CallTreeNodeInfo result = new CallTreeNodeInfo(callPath[startIndex], new List<CallTreeNodeInfo>(8));
+			CallTreeNodeInfo result = new CallTreeNodeInfo(callPath[startIndex], new List<CallTreeNodeInfo>(8), ref callIndex);
 			CallTreeNodeInfo current = result;
 
 			int count = callPath.Count;
 			for (int index = startIndex + 1; index < count; index++)
 			{
-				CallTreeNodeInfo callPathElement = new CallTreeNodeInfo(callPath[index], new List<CallTreeNodeInfo>(8));
+				CallTreeNodeInfo callPathElement = new CallTreeNodeInfo(callPath[index], new List<CallTreeNodeInfo>(8), ref callIndex);
 				current._children.Add(callPathElement);
 				current = callPathElement;
 			}
@@ -612,17 +588,17 @@ namespace ObservableComputations
 		internal enum WorkWithCallTreeNodeType
 		{
 			UpdateSubscriptionAndHolder,
-			Dispose,
-			PreDispose
+			Dispose
 		}
 
+        private object _debug;
 #if DEBUG
 		private void workWithCallTreeNode(CallTreeNode node, object holder, Root root, WorkWithCallTreeNodeType workType)
 #else
 		private void workWithCallTreeNode(CallTreeNode node, object holder, WorkWithCallTreeNodeType workType)
 #endif
 		{
-			if (workType == WorkWithCallTreeNodeType.PreDispose)
+			if (workType == WorkWithCallTreeNodeType.Dispose)
 			{
 				if (node._call.Type == CallType.Method)
 				{
@@ -638,147 +614,125 @@ namespace ObservableComputations
 					}
 				}
 			}
-			else
+			else if (!ReferenceEquals(holder, node._holder))
 			{
 				switch (node._call.Type)
 				{
 					case CallType.PropertyOrField:
 						if (node._propertyChangedEventHandler != null)
 						{
-							((INotifyPropertyChanged)node._holder).PropertyChanged -= node._weakPropertyChangedEventHandler.Handle;
+							((INotifyPropertyChanged)node._holder).PropertyChanged -= node._propertyChangedEventHandler;
 							node._propertyChangedEventHandler = null;
-							node._weakPropertyChangedEventHandler = null;
 						}
 						break;
 					case CallType.Method:
 						if (node._methodChangedEventHandler != null)
 						{
-							((INotifyMethodChanged)node._holder).MethodChanged -= node._weakMethodChangedEventHandler.Handle;
+							((INotifyMethodChanged)node._holder).MethodChanged -= node._methodChangedEventHandler;
 							node._methodChangedEventHandler = null;
-							node._weakMethodChangedEventHandler = null;
-						}			
-
-						if (workType == WorkWithCallTreeNodeType.Dispose)
-						{
-							ExpressionWatcher[] nodeCallArguments = node._callArguments;
-							if (nodeCallArguments != null)
-							{
-								int callArgumentsLength = nodeCallArguments.Length;
-								for (int index = 0; index < callArgumentsLength; index++)
-								{
-									ExpressionWatcher expressionWatcher = nodeCallArguments[index];
-									expressionWatcher.Dispose(WorkWithCallTreeNodeType.Dispose);
-								}
-							}
-
-							node._callArgumentChangedEventHandler = null;
 						}
 
 						break;
 				}
+
+    		    node._holder = holder;
+                
+			    switch (node._call.Type)
+			    {
+				    case CallType.PropertyOrField:
+
+					    if (node._holder is INotifyPropertyChanged notifyPropertyChanged)
+					    {
+                            CallTreeNode nodeCopy = node;
+                            string pn = nodeCopy._call.Name;
+                            node._propertyChangedEventHandler = (sender, args) =>
+                            {
+                                if (!_disposed && args.PropertyName == pn)
+                                {
+#if DEBUG
+                                    raiseValueChanged(root, sender, args);
+                                    workWithCallTreeNodeChildren(nodeCopy, root, workType);
+#else
+								    raiseValueChanged(sender, args);
+								    workWithCallTreeNodeChildren(nodeCopy, workType);
+#endif
+                                }
+                            };
+
+						    notifyPropertyChanged.PropertyChanged += node._propertyChangedEventHandler;
+                            _propertyChangedEventSubscriptions[node._call.Index] = new PropertyChangedEventSubscription(notifyPropertyChanged, node._propertyChangedEventHandler);
+					    }
+					    break;
+				    case CallType.Method:
+					    INotifyMethodChanged notifyMethodChanged = node._holder as INotifyMethodChanged;
+					    if (notifyMethodChanged != null)
+                        {
+                            CallTreeNode nodeCopy = node;
+						    node._methodChangedEventHandler = (sender, args) =>
+						    {
+							    if (!_disposed && args.MethodName == nodeCopy._call.Name)
+							    {
+								    int length = nodeCopy._call.GetArgumentValues.Length;
+								    object[] argumentValues = new object[length];
+								    for (var index = 0; index < length; index++)
+								    {
+									    Delegate callGetArgumentValue = nodeCopy._call.GetArgumentValues[index];
+									    argumentValues[index] = callGetArgumentValue.DynamicInvoke(_parameterValues);
+								    }
+
+								    if (args.ArgumentsPredicate(argumentValues))
+								    {
+#if DEBUG
+									    raiseValueChanged(root, sender, args);
+									    workWithCallTreeNodeChildren(node, root, workType);
+#else
+									    raiseValueChanged(sender, args);
+									    workWithCallTreeNodeChildren(nodeCopy, workType);
+#endif
+								    }
+							    }
+
+						    };
+		    
+						    notifyMethodChanged.MethodChanged += node._methodChangedEventHandler;
+                            _methodChangedEventSubscriptions[node._call.Index] = new MethodChangedEventSubscription(notifyMethodChanged, node._methodChangedEventHandler);
+					    }
+
+					    ExpressionWatcher[] nodeCallArguments = node._callArguments;
+					    if (nodeCallArguments != null)
+					    {
+						    node._callArgumentChangedEventHandler = (ew, sender, eventArgs) =>
+						    {
+                                if (!_disposed)
+                                {
+#if DEBUG
+								    raiseValueChanged(root, sender, eventArgs);
+								    workWithCallTreeNodeChildren(node, root, workType);
+#else
+								    raiseValueChanged(sender, eventArgs);
+								    workWithCallTreeNodeChildren(node, workType);
+#endif
+                                }
+                      
+						    };
+
+						    int callArgumentsLength = nodeCallArguments.Length;
+						    for (int index = 0; index < callArgumentsLength; index++)
+						    {
+							    nodeCallArguments[index].ValueChanged = node._callArgumentChangedEventHandler;
+						    }
+					    }
+					    break;
+			    }			
+
+#if DEBUG
+			    workWithCallTreeNodeChildren(node, root, workType);	
+#else
+			    workWithCallTreeNodeChildren(node, workType);	
+#endif
+
 			}
 
-			if (workType == WorkWithCallTreeNodeType.UpdateSubscriptionAndHolder)
-			{
-				node._holder = holder;
-
-				switch (node._call.Type)
-				{
-					case CallType.PropertyOrField:
-
-						if (node._holder is INotifyPropertyChanged notifyPropertyChanged)
-						{
-							node._propertyChangedEventHandler = (sender, args) =>
-							{
-								if (!_disposed && args.PropertyName == node._call.Name)
-								{
-#if DEBUG
-									raiseValueChanged(root, sender, args);
-									workWithCallTreeNodeChildren(node, root, workType);
-#else
-									raiseValueChanged(sender, args);
-									workWithCallTreeNodeChildren(node, workType);
-#endif
-								}
-							};	
-
-							node._weakPropertyChangedEventHandler = new WeakPropertyChangedEventHandler(node._propertyChangedEventHandler);
-		
-							notifyPropertyChanged.PropertyChanged += node._weakPropertyChangedEventHandler.Handle;
-						}
-						break;
-					case CallType.Method:
-						INotifyMethodChanged notifyMethodChanged = node._holder as INotifyMethodChanged;
-						if (notifyMethodChanged != null)
-						{
-							node._methodChangedEventHandler = (sender, args) =>
-							{
-								if (!_disposed && args.MethodName == node._call.Name)
-								{
-									int length = node._call.GetArgumentValues.Length;
-									object[] argumentValues = new object[length];
-									for (var index = 0; index < length; index++)
-									{
-										Delegate callGetArgumentValue = node._call.GetArgumentValues[index];
-										argumentValues[index] = callGetArgumentValue.DynamicInvoke(_parameterValues);
-									}
-
-									if (args.ArgumentsPredicate(argumentValues))
-									{
-	#if DEBUG
-										raiseValueChanged(root, sender, args);
-										workWithCallTreeNodeChildren(node, root, workType);
-	#else
-										raiseValueChanged(sender, args);
-										workWithCallTreeNodeChildren(node, workType);
-	#endif
-									}
-								}
-
-							};
-	
-							node._weakMethodChangedEventHandler = new WeakMethodChangedEventHandler(node._methodChangedEventHandler);
-		
-							notifyMethodChanged.MethodChanged += node._methodChangedEventHandler;
-						}
-
-						ExpressionWatcher[] nodeCallArguments = node._callArguments;
-						if (nodeCallArguments == null)
-						{
-							node._callArguments = nodeCallArguments = new ExpressionWatcher[node._call.Arguments.Count];
-							int argumentsLength = node._call.Arguments.Count;
-							for (var index = 0; index < argumentsLength; index++)
-							{
-								ExpressionInfo expressionInfo = node._call.Arguments[index];
-								nodeCallArguments[index] = new ExpressionWatcher(_parameterValues, expressionInfo);
-							}
-
-							node._callArgumentChangedEventHandler = (ew, sender, eventArgs) =>
-							{
-#if DEBUG
-									raiseValueChanged(root, sender, eventArgs);
-									workWithCallTreeNodeChildren(node, root, workType);
-#else
-									raiseValueChanged(sender, eventArgs);
-									workWithCallTreeNodeChildren(node, workType);
-#endif
-							};
-
-							int callArgumentsLength = nodeCallArguments.Length;
-							for (int index = 0; index < callArgumentsLength; index++)
-							{
-								nodeCallArguments[index].ValueChanged = node._callArgumentChangedEventHandler;
-							}
-						}
-						break;
-				}			
-			}
-
-#if DEBUG
-			workWithCallTreeNodeChildren(node, root, workType);	
-#else
-			workWithCallTreeNodeChildren(node, workType);	
-#endif
 		}
 
 
@@ -870,12 +824,12 @@ namespace ObservableComputations
 
 		private readonly struct ExpressionCallPaths
 		{
-			public readonly ExpressionInfo ExpressionInfo;
+			public readonly LambdaExpression Expression;
 			public readonly List<List<Call>> CallPaths;
 
-			public ExpressionCallPaths(ExpressionInfo expressionInfo, List<List<Call>> callPaths)
+			public ExpressionCallPaths(LambdaExpression expression, List<List<Call>> callPaths)
 			{
-				ExpressionInfo = expressionInfo;
+                Expression = expression;
 				CallPaths = callPaths;
 			}
 		}
@@ -893,6 +847,7 @@ namespace ObservableComputations
 			private List<Call> _callPathBuffer = new List<Call>(8);
 			private readonly LambdaExpression _expression;
 			private readonly List<Expression> _visitedExpressions =  new List<Expression>();
+            private int _callIndex;
 
 			public CallPathsConstructor(LambdaExpression expression)
 			{
@@ -951,7 +906,7 @@ namespace ObservableComputations
 				else //if (methodCallExpression != null)
 				{
 					int argumentsCount = methodCallExpression.Arguments.Count;
-					List<ExpressionInfo> argumentExpressionInfos = new List<ExpressionInfo>(argumentsCount);
+					List<LambdaExpression> argumentExpressions = new List<LambdaExpression>(argumentsCount);
 					Delegate[] argumentValues = new Delegate[argumentsCount];
 
 					for (int index = 0; index < argumentsCount; index++)
@@ -961,8 +916,7 @@ namespace ObservableComputations
 
 						if (!(argument is LambdaExpression) || ((LambdaExpression) argument).Parameters.Count == 0)
 						{
-							argumentExpressionInfos.Add(
-								GetExpressionInfo(Expression.Lambda(argument, _expression.Parameters)));
+							argumentExpressions.Add(Expression.Lambda(argument, _expression.Parameters));
 						}
 
 						argumentValues[index] = getMethodArgumentValueFunc(argument);
@@ -974,7 +928,7 @@ namespace ObservableComputations
 							getMethodValueFunc(methodCallExpression).Compile(), 
 							//GetMethodValueExpression = methodValueExpression, 
 							methodCallExpression.Method.Name, 
-							argumentExpressionInfos,
+							argumentExpressions,
 							argumentValues
 						));
 
@@ -1067,10 +1021,9 @@ namespace ObservableComputations
 
 					//if (memberCallPaths == null)
 					//{
-					ExpressionInfo expressionInfo = GetExpressionInfo(expressionToWatch);
 
 					memberCallPaths = new List<List<Call>>(8);
-					ExpressionCallPaths.Add(new ExpressionCallPaths(expressionInfo, memberCallPaths));
+					ExpressionCallPaths.Add(new ExpressionCallPaths(expressionToWatch, memberCallPaths));
 					//}
 
 					memberCallPaths.Add(_callPathBuffer);
@@ -1152,7 +1105,7 @@ namespace ObservableComputations
 				Type = CallType.PropertyOrField;
 			}
 
-			public Call(Delegate methodValue, string name, List<ExpressionInfo> arguments, Delegate[] argumentValues) : this()
+			public Call(Delegate methodValue, string name, List<LambdaExpression> arguments, Delegate[] argumentValues) : this()
 			{
 				GetMethodValue = methodValue;
 				Name = name;
@@ -1161,11 +1114,14 @@ namespace ObservableComputations
 				Type = CallType.Method;
 			}
 
+            public int Index;
+
 			public readonly Func<object, object> GetMemberValue;
 			public readonly Delegate GetMethodValue;
 
 			public readonly string Name;
-			public readonly List<ExpressionInfo> Arguments;
+			public readonly List<LambdaExpression> Arguments;
+            public ExpressionInfo[] ArgumentExpressionInfos;
 			public readonly Delegate[] GetArgumentValues;
 
 			public object Result;
@@ -1185,45 +1141,78 @@ namespace ObservableComputations
 		{
 			internal Call _call;
 
-			internal CallTreeNodeInfo(Call call, List<CallTreeNodeInfo> children)
+			internal CallTreeNodeInfo(Call call, List<CallTreeNodeInfo> children, ref int callIndex)
 			{
 				_call = call;
+                _call.Index = callIndex++;
 				_children = children;
+
+                ExpressionInfo[] callArgumentExpressionInfos = null;
+                if (_call.Arguments != null)
+                {
+                    int argumentsLength = _call.Arguments.Count;
+                    if (argumentsLength > 0)
+                    {
+                        callArgumentExpressionInfos =  new ExpressionInfo[_call.Arguments.Count];
+
+                        for (var index = 0; index < argumentsLength; index++)
+                        {
+                            callArgumentExpressionInfos[index] = GetExpressionInfo(_call.Arguments[index], ref callIndex);
+                        }
+
+                        _call.ArgumentExpressionInfos = callArgumentExpressionInfos;
+                    }
+                }
 			}
 
 			internal readonly List<CallTreeNodeInfo> _children;
 
-			internal CallTreeNode getCallTreeNode()
+			internal CallTreeNode getCallTreeNode(object[] parameterValues, PropertyChangedEventSubscription[] propertyChangedEventSubscriptions, MethodChangedEventSubscription[] methodChangedEventSubscription)
 			{
 				CallTreeNode[] childNodes = null;
 				int childrenCount = _children.Count;
 				if (childrenCount > 0)
 				{
 					childNodes = new CallTreeNode[childrenCount];
-				for (var index = 0; index < childrenCount; index++)
-				{
-					CallTreeNodeInfo callTreeNodeInfo = _children[index];
-					childNodes[index] = callTreeNodeInfo.getCallTreeNode();
-				}
+				    for (var index = 0; index < childrenCount; index++)
+				    {
+					    CallTreeNodeInfo callTreeNodeInfo = _children[index];
+					    childNodes[index] = callTreeNodeInfo.getCallTreeNode(parameterValues, propertyChangedEventSubscriptions, methodChangedEventSubscription);
+				    }
 				}
 
-				return new CallTreeNode(_call, childNodes);
+                ExpressionWatcher[] callArguments = null;
+                if (_call.Arguments != null)
+                {
+                    int argumentsLength = _call.Arguments.Count;
+                    if (argumentsLength > 0)
+                    {
+                        callArguments =  new ExpressionWatcher[_call.Arguments.Count];
+
+                        for (var index = 0; index < argumentsLength; index++)
+                        {
+                            callArguments[index] = new ExpressionWatcher(parameterValues, _call.ArgumentExpressionInfos[index], propertyChangedEventSubscriptions, methodChangedEventSubscription);
+                        }
+                    }
+                    
+                }
+				return new CallTreeNode(_call, childNodes, callArguments);
 			}
 		}
 
 		public sealed class CallTreeNode
 		{
 			internal PropertyChangedEventHandler _propertyChangedEventHandler;
-			internal WeakPropertyChangedEventHandler _weakPropertyChangedEventHandler;
 
 			internal object _holder;
 			internal Call _call;
 
-			internal CallTreeNode(Call call, CallTreeNode[] callTreeNodes)
+			internal CallTreeNode(Call call, CallTreeNode[] callTreeNodes, ExpressionWatcher[] callArguments)
 			{
 				_call = call;
 				_children = callTreeNodes;
-			}
+                _callArguments = callArguments;
+            }
 
 			internal readonly CallTreeNode[] _children;
 
@@ -1231,7 +1220,6 @@ namespace ObservableComputations
 			internal Action<ExpressionWatcher, object, EventArgs> _callArgumentChangedEventHandler;
 
 			internal EventHandler<MethodChangedEventArgs> _methodChangedEventHandler;
-			internal WeakMethodChangedEventHandler _weakMethodChangedEventHandler;
 		}
 
 #if DEBUG
@@ -1249,7 +1237,7 @@ namespace ObservableComputations
 
 
 
-		internal void Dispose(WorkWithCallTreeNodeType workType = WorkWithCallTreeNodeType.PreDispose)
+		internal void Dispose()
 		{
 			_disposed = true;
 
@@ -1260,7 +1248,7 @@ namespace ObservableComputations
 				{
 					ConstantCallTrees constantCallTree = _constantCallTrees[index];
 #if DEBUG
-					workWithCallTrees(constantCallTree.CallTrees, null, workType);
+					workWithCallTrees(constantCallTree.CallTrees, null, WorkWithCallTreeNodeType.Dispose);
 #else
 					workWithCallTrees(constantCallTree.CallTrees, null, workType);
 #endif
@@ -1276,7 +1264,7 @@ namespace ObservableComputations
 					if (_parameterValues[parameterCallTree.ParameterIndex] is INotifyPropertyChanged)
 					{
 #if DEBUG
-						workWithCallTrees(parameterCallTree.CallTrees, null, workType);
+						workWithCallTrees(parameterCallTree.CallTrees, null, WorkWithCallTreeNodeType.Dispose);
 #else
 					workWithCallTrees(parameterCallTree.CallTrees, null, workType);
 #endif
@@ -1289,18 +1277,14 @@ namespace ObservableComputations
 				foreach (ExpressionCallTrees expressionCallTree in _expressionCallTrees)
 				{
 #if DEBUG
-					workWithCallTrees(expressionCallTree.CallTrees, null, workType);				
+					workWithCallTrees(expressionCallTree.CallTrees, null, WorkWithCallTreeNodeType.Dispose);				
 #else
 					workWithCallTrees(expressionCallTree.CallTrees, null, workType);
 #endif	
-					expressionCallTree.ExpressionWatcher.Dispose(workType);
+					expressionCallTree.ExpressionWatcher.Dispose();
 				}
 			}
 		}
 
-		~ExpressionWatcher ()
-		{
-			Dispose(WorkWithCallTreeNodeType.Dispose);
-		}
 	}
 }

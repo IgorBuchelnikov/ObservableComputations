@@ -338,7 +338,6 @@ namespace ObservableComputations
                 callToConstantConverter.Visit(deparametrizedPredicateExpression);
             // ReSharper disable once PossibleNullReferenceException
             func = predicateExpression.Compile();
-            watcher = new ExpressionWatcher(ExpressionWatcher.GetExpressionInfo(predicateExpression));
 
             nestedComputings = callToConstantConverter.NestedComputings;
             int nestedComputingsCount = nestedComputings.Count;

@@ -457,6 +457,7 @@ namespace ObservableComputations
         {
             return (sender, args) =>
             {
+                if (args.PropertyName != nameof(IReadScalar<object>.Value)) return;
                 checkConsistent(sender, args);
 
                 _handledEventSender = sender;

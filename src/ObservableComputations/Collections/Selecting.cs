@@ -72,7 +72,6 @@ namespace ObservableComputations
 			Expression<Func<TSourceItem, TResultItem>> selectorExpression) : this(selectorExpression, Utils.getCapacity(source))
 		{
 			_source = source;
-
 		}
 
 		private Selecting(Expression<Func<TSourceItem, TResultItem>> selectorExpression, int capacity) : base(capacity)
@@ -160,8 +159,6 @@ namespace ObservableComputations
             Utils.uninitializeSourceScalar(_sourceScalar, _sourceScalarPropertyChangedEventHandler);
             Utils.uninitializeNestedComputings(_nestedComputings, this);
         }
-
-
 
         protected void handleSourceCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
 		{

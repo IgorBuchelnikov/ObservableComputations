@@ -605,6 +605,12 @@ namespace ObservableComputations
 
             removeFromUpstreamComputings(computing);
         }
+
+        void IComputingInternal.RaiseConsistencyRestored()
+        {
+            raiseConsistencyRestored();
+        }
+
         #endregion
 
         internal abstract void addToUpstreamComputings(IComputingInternal computing);

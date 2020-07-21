@@ -12,12 +12,13 @@ namespace ObservableComputations
         bool IsActive { get; }
 	}
 
-    internal interface IComputingInternal
+    internal interface IComputingInternal : IComputing
     {
         void AddConsumer(Consumer addingConsumer);
         void RemoveConsumer(Consumer removingConsumer);
         void AddDownstreamConsumedComputing(IComputingInternal computing);
         void RemoveDownstreamConsumedComputing(IComputingInternal computing);
         IEnumerable<Consumer> Consumers { get; }
+        void RaiseConsistencyRestored();
     }
 }

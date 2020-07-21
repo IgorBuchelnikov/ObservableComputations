@@ -6,6 +6,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Threading;
+using ObservableComputations.ExtentionMethods;
 
 namespace ObservableComputations
 {
@@ -97,6 +98,16 @@ namespace ObservableComputations
             EventUnsubscriber.QueueSubscriptions(propertyChangedEventSubscriptions, methodChangedEventSubscriptions);
         }
 
+        internal static void disposeSource<TItemInfo>(int capacity, ref List<TItemInfo> itemInfos, ref Positions<TItemInfo> sourcePositions,INotifyCollectionChanged sourceAsList, ref NotifyCollectionChangedEventHandler sourceNotifyCollectionChangedEventHandler)
+            where TItemInfo : Position, new()
+        {
+            itemInfos = new List<TItemInfo>(capacity);
+            sourcePositions = new Positions<TItemInfo>(itemInfos);
+
+            sourceAsList.CollectionChanged -= sourceNotifyCollectionChangedEventHandler;
+            sourceNotifyCollectionChangedEventHandler = null;
+        }
+
         internal static void changeSource(
             ref INotifyCollectionChanged source, 
             IReadScalar<INotifyCollectionChanged> sourceScalar, 
@@ -137,16 +148,6 @@ namespace ObservableComputations
             }
 
             lastProcessedSourceChangeMarker = sourceAsList.ChangeMarkerField;
-        }
-
-        internal static void disposeSource<TItemInfo>(int capacity, ref List<TItemInfo> itemInfos, ref Positions<TItemInfo> sourcePositions,INotifyCollectionChanged sourceAsList, ref NotifyCollectionChangedEventHandler sourceNotifyCollectionChangedEventHandler)
-            where TItemInfo : Position, new()
-        {
-            itemInfos = new List<TItemInfo>(capacity);
-            sourcePositions = new Positions<TItemInfo>(itemInfos);
-
-            sourceAsList.CollectionChanged -= sourceNotifyCollectionChangedEventHandler;
-            sourceNotifyCollectionChangedEventHandler = null;
         }
 
         internal static void initializeSourceScalar(IReadScalar<INotifyCollectionChanged> sourceScalar, ref PropertyChangedEventHandler sourceScalarOnPropertyChanged, ref INotifyCollectionChanged source, PropertyChangedEventHandler newSourceScalarOnPropertyChanged)
@@ -194,17 +195,35 @@ namespace ObservableComputations
                     $"The source collection has been changed. It is not possible to process this change (event sender = {sender.ToStringSafe(e => $"{e.ToString()} in sender.ToString()")}, event args = {eventArgs.ToStringAlt()}), as the processing of the previous change is not completed. Make the change on ConsistencyRestored event raising (after IsConsistent property becomes true). This exception is fatal and cannot be handled as the inner state is damaged.", sender, eventArgs);
         }
 
-        internal static bool preHandleSourceCollectionChanged<TSourceItem>(object sender, NotifyCollectionChangedEventArgs e, bool rootSourceWrapper, ref bool lastProcessedSourceChangeMarker, ObservableCollectionWithChangeMarker<TSourceItem> sourceAsList, bool isConsistent, IComputing computing)
+        internal static bool preHandleSourceCollectionChanged<TSourceItem>(object sender,
+            NotifyCollectionChangedEventArgs e, bool rootSourceWrapper, ref bool lastProcessedSourceChangeMarker,
+            ObservableCollectionWithChangeMarker<TSourceItem> sourceAsList, bool isConsistent, IComputing computing,
+            ref object handledEventSender, ref EventArgs handledEventArgs)
         {
             Utils.checkConsistent(sender, e, isConsistent, computing);
             if (!rootSourceWrapper && lastProcessedSourceChangeMarker == sourceAsList.ChangeMarkerField) return false;
 
             lastProcessedSourceChangeMarker = !lastProcessedSourceChangeMarker;
+
+            handledEventSender = sender;
+            handledEventArgs = e;
             return true;
         }
 
-        internal static void doDeferredExpressionWatcherChangedProcessings(Queue<ExpressionWatcher.Raise> deferredExpressionWatcherChangedProcessings, ref object handledEventSender, ref EventArgs handledEventArgs, Action<ExpressionWatcher.Raise> processExpressionWatcherRaise)
+        internal static void postHandleSourceCollectionChanged(
+            ref object handledEventSender, ref EventArgs handledEventArgs)
         {
+            handledEventSender = null;
+            handledEventArgs = null;
+        }
+
+        internal static void doDeferredExpressionWatcherChangedProcessings(
+            Queue<ExpressionWatcher.Raise> deferredExpressionWatcherChangedProcessings, ref object handledEventSender,
+            ref EventArgs handledEventArgs, ICanProcessSourceItemChange canProcessSourceItemChange,
+            ref bool isConsistent)
+        {
+            isConsistent = false;
+
             if (deferredExpressionWatcherChangedProcessings != null)
                 while (deferredExpressionWatcherChangedProcessings.Count > 0)
                 {
@@ -213,9 +232,12 @@ namespace ObservableComputations
                     {
                         handledEventSender = expressionWatcherRaise.EventSender;
                         handledEventArgs = expressionWatcherRaise.EventArgs;
-                        processExpressionWatcherRaise(expressionWatcherRaise);
+                        canProcessSourceItemChange.ProcessSourceItemChange(expressionWatcherRaise.ExpressionWatcher);
                     }
                 }
+
+            isConsistent = true;
+            canProcessSourceItemChange.RaiseConsistencyRestored();
         }
 
         internal static void endComputingExecutingUserCode(IComputing computing, Thread currentThread, ref IComputing userCodeIsCalledFrom)
@@ -235,38 +257,105 @@ namespace ObservableComputations
         }
 
         internal static void construct<TItemInfo, TExpression>(
-            Expression<TExpression> selectorExpressionToProcess, 
+            Expression<TExpression> expressionToProcess, 
             int capacity, 
             ref List<TItemInfo> itemInfos, 
             ref Positions<TItemInfo> sourcePositions, 
-            ref Expression<TExpression> selectorExpressionOriginal, 
-            ref Expression<TExpression> selectorExpression, 
-            ref bool selectorContainsParametrizedObservableComputationsCalls, 
-            ref ExpressionWatcher.ExpressionInfo selectorExpressionInfo, 
-            ref int selectorExpressionСallCount, 
-            ref TExpression selectorFunc, 
+            ref Expression<TExpression> expressionOriginal, 
+            ref Expression<TExpression> expression, 
+            ref bool expressionContainsParametrizedObservableComputationsCalls, 
+            ref ExpressionWatcher.ExpressionInfo expressionInfo, 
+            ref int expressionСallCount, 
+            ref TExpression func, 
             ref List<IComputingInternal> nestedComputing) where TItemInfo : Position, new()
         {
             itemInfos = new List<TItemInfo>(capacity);
             sourcePositions = new Positions<TItemInfo>(itemInfos);
 
-            selectorExpressionOriginal = selectorExpressionToProcess;
+            expressionOriginal = expressionToProcess;
             CallToConstantConverter callToConstantConverter =
-                new CallToConstantConverter(selectorExpressionOriginal.Parameters);
-            selectorExpression =
+                new CallToConstantConverter(expressionOriginal.Parameters);
+            expression =
                 (Expression<TExpression>) callToConstantConverter.Visit(
-                    selectorExpressionOriginal);
-            selectorContainsParametrizedObservableComputationsCalls =
+                    expressionOriginal);
+            expressionContainsParametrizedObservableComputationsCalls =
                 callToConstantConverter.ContainsParametrizedObservableComputationCalls;
 
-            if (!selectorContainsParametrizedObservableComputationsCalls)
+            if (!expressionContainsParametrizedObservableComputationsCalls)
             {
-                selectorExpressionInfo = ExpressionWatcher.GetExpressionInfo(selectorExpression);
-                selectorExpressionСallCount = selectorExpressionInfo._callCount;
+                expressionInfo = ExpressionWatcher.GetExpressionInfo(expression);
+                expressionСallCount = expressionInfo._callCount;
                 // ReSharper disable once PossibleNullReferenceException
-                selectorFunc = selectorExpression.Compile();
+                func = expression.Compile();
                 nestedComputing = callToConstantConverter.NestedComputings;
             }
+        }
+
+        internal static void ProcessSourceItemChange<TSourceItem>(ExpressionWatcher expressionWatcher,
+            object sender, EventArgs eventArgs,
+            bool rootSourceWrapper,
+            ObservableCollectionWithChangeMarker<TSourceItem> observableCollectionWithChangeMarker,
+            bool lastProcessedSourceChangeMarker, ICanProcessSourceItemChange thisAsCanProcessSourceItemChange,
+            ref Queue<ExpressionWatcher.Raise> deferredExpressionWatcherChangedProcessings,
+            ref bool isConsistent, ref object handledEventSender, ref EventArgs handledEventArgs, bool consistent)
+        {
+            Utils.checkConsistent(sender, eventArgs, consistent, thisAsCanProcessSourceItemChange);
+
+            if (rootSourceWrapper || observableCollectionWithChangeMarker.ChangeMarkerField == lastProcessedSourceChangeMarker)
+            {
+                handledEventSender = sender;
+                handledEventArgs = eventArgs;
+                isConsistent = false;
+                thisAsCanProcessSourceItemChange.ProcessSourceItemChange(expressionWatcher);
+                isConsistent = true;
+                thisAsCanProcessSourceItemChange.RaiseConsistencyRestored();
+                handledEventSender = null;
+                handledEventArgs = null;
+            }
+            else
+            {
+                (deferredExpressionWatcherChangedProcessings =
+                        deferredExpressionWatcherChangedProcessings
+                        ?? new Queue<ExpressionWatcher.Raise>())
+                    .Enqueue(new ExpressionWatcher.Raise(expressionWatcher, sender, eventArgs));
+            }
+        }
+
+        internal static void getItemInfoContent<TExpression, TExpressionCompiled, TSourceItem>(
+            TSourceItem sourceItem, 
+            out ExpressionWatcher watcher,
+            out TExpressionCompiled func,
+            out List<IComputingInternal> nestedComputings, 
+            Expression<TExpression> expression, 
+            ref int expressionСallCount, 
+            IComputingInternal current)
+        {
+            Expression<TExpressionCompiled> deparametrizedPredicateExpression =
+                (Expression<TExpressionCompiled>) expression.ApplyParameters(new object[] {sourceItem});
+            CallToConstantConverter callToConstantConverter = new CallToConstantConverter();
+            Expression<TExpressionCompiled> predicateExpression =
+                (Expression<TExpressionCompiled>)
+                callToConstantConverter.Visit(deparametrizedPredicateExpression);
+            // ReSharper disable once PossibleNullReferenceException
+            func = predicateExpression.Compile();
+            watcher = new ExpressionWatcher(ExpressionWatcher.GetExpressionInfo(predicateExpression));
+
+            nestedComputings = callToConstantConverter.NestedComputings;
+            int nestedComputingsCount = nestedComputings.Count;
+            for (var computingIndex = 0; computingIndex < nestedComputingsCount; computingIndex++)
+                nestedComputings[computingIndex].AddDownstreamConsumedComputing(current);
+
+            ExpressionWatcher.ExpressionInfo expressionInfo = ExpressionWatcher.GetExpressionInfo(predicateExpression);
+            watcher = new ExpressionWatcher(expressionInfo);
+            expressionСallCount = expressionInfo._callCount;
+        }
+
+        internal static void itemInfoRemoveDownstreamConsumedComputing(ExpressionItemInfo itemInfo, IComputingInternal current)
+        {
+            List<IComputingInternal> nestedComputings = itemInfo.NestedComputings;
+            int nestedComputingsCount = nestedComputings.Count;
+            for (var computingIndex = 0; computingIndex < nestedComputingsCount; computingIndex++)
+                nestedComputings[computingIndex].RemoveDownstreamConsumedComputing(current);
         }
 
 		internal static readonly PropertyChangedEventArgs InsertItemIntoGroupActionPropertyChangedEventArgs = new PropertyChangedEventArgs("InsertItemIntoGroupAction");

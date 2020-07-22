@@ -453,7 +453,7 @@ namespace ObservableComputations
 			this.OnCollectionChanged(Utils.ResetNotifyCollectionChangedEventArgs);
 		}
 
-        protected PropertyChangedEventHandler getSourceScalarValueChangedHandler()
+        protected PropertyChangedEventHandler getScalarValueChangedHandler(Action action = null)
         {
             return (sender, args) =>
             {
@@ -465,6 +465,7 @@ namespace ObservableComputations
 
                 _isConsistent = false;
 
+                action?.Invoke();
                 initializeFromSource();
 
                 _isConsistent = true;

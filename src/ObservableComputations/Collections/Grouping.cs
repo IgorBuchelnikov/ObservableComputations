@@ -275,31 +275,14 @@ namespace ObservableComputations
 		{
 			if (_equalityComparerScalar != null)
 			{
-				_equalityComparerScalarPropertyChangedEventHandler = handleEqualityComparerScalarValueChanged;
+				_equalityComparerScalarPropertyChangedEventHandler = getScalarValueChangedHandler(
+                    () => _equalityComparer = _equalityComparerScalar.Value ?? EqualityComparer<TKey>.Default);
 				_equalityComparerScalar.PropertyChanged += _equalityComparerScalarPropertyChangedEventHandler;
 				_equalityComparer = _equalityComparerScalar.Value;
 			}
 
 			if (_equalityComparer == null)
 				_equalityComparer = EqualityComparer<TKey>.Default;
-		}
-
-		private void handleEqualityComparerScalarValueChanged(object sender, PropertyChangedEventArgs e)
-		{
-			if (e.PropertyName != nameof(IReadScalar<object>.Value)) return;
-			checkConsistent(sender, e);
-
-			_handledEventSender = sender;
-			_handledEventArgs = e;
-
-			_equalityComparer = _equalityComparerScalar.Value ?? EqualityComparer<TKey>.Default;
-			_isConsistent = false;
-			initializeFromSource();
-			_isConsistent = true;
-			raiseConsistencyRestored();
-
-			_handledEventSender = null;
-			_handledEventArgs = null;
 		}
 
 		private void handleSourceCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
@@ -502,7 +485,7 @@ namespace ObservableComputations
         protected override void initialize()
         {
             initializeEqualityComparer();
-            Utils.initializeSourceScalar(_sourceScalar, ref _sourceScalarPropertyChangedEventHandler, ref _source, getSourceScalarValueChangedHandler());
+            Utils.initializeSourceScalar(_sourceScalar, ref _sourceScalarPropertyChangedEventHandler, ref _source, getScalarValueChangedHandler());
             Utils.initializeNestedComputings(_nestedComputings, this);
             _groupDictionary = new Dictionary<TKey, Group<TSourceItem, TKey>>(_equalityComparer);
         }
@@ -535,9 +518,9 @@ namespace ObservableComputations
 				_items.Clear();
 			}
 
-            Utils.changeSource(ref _source, _sourceScalar, _downstreamConsumedComputings, _consumers, this);
+            Utils.changeSource(ref _source, _sourceScalar, _downstreamConsumedComputings, _consumers, this, ref _sourceAsList);
 
-			if (_source != null)
+			if (_source != null && _isActive)
 			{
                 Utils.initializeFromObservableCollectionWithChangeMarker(
                     _source, 

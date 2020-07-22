@@ -223,8 +223,7 @@ namespace ObservableComputations
                     ref _sourceNotifyCollectionChangedEventHandler);
 			}
 
-            Utils.changeSource(ref _source, _sourceScalar, _downstreamConsumedComputings, _consumers, this);
-			_sourceAsList = null;
+            Utils.changeSource(ref _source, _sourceScalar, _downstreamConsumedComputings, _consumers, this, ref _sourceAsList);
 
 			if (_source != null && _isActive)
 			{
@@ -279,7 +278,7 @@ namespace ObservableComputations
 
         protected override void initialize()
         {
-            Utils.initializeSourceScalar(_sourceScalar, ref _sourceScalarPropertyChangedEventHandler, ref _source, getSourceScalarValueChangedHandler());
+            Utils.initializeSourceScalar(_sourceScalar, ref _sourceScalarPropertyChangedEventHandler, ref _source, getScalarValueChangedHandler());
             Utils.initializeNestedComputings(_nestedComputings, this);
         }
 

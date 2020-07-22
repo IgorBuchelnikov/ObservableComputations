@@ -108,12 +108,12 @@ namespace ObservableComputations
             sourceNotifyCollectionChangedEventHandler = null;
         }
 
-        internal static void changeSource(
-            ref INotifyCollectionChanged source, 
-            IReadScalar<INotifyCollectionChanged> sourceScalar, 
-            List<IComputingInternal> downstreamConsumedComputings, 
-            List<Consumer> consumers, 
-            IComputingInternal computing)
+        internal static void changeSource<TSourceItem>(ref INotifyCollectionChanged source,
+            IReadScalar<INotifyCollectionChanged> sourceScalar,
+            List<IComputingInternal> downstreamConsumedComputings,
+            List<Consumer> consumers,
+            IComputingInternal computing, 
+            ref ObservableCollectionWithChangeMarker<TSourceItem> sourceAsList)
         {
             IComputingInternal originalSource = source as IComputingInternal;
             if (sourceScalar != null) source = sourceScalar.Value;
@@ -132,6 +132,8 @@ namespace ObservableComputations
                 if (consumers.Count > 0)
                     newSource?.AddDownstreamConsumedComputing(computing);
             }
+
+            sourceAsList = null;
         }
 
         internal static void initializeFromObservableCollectionWithChangeMarker<TSourceItem>(INotifyCollectionChanged source, ref ObservableCollectionWithChangeMarker<TSourceItem> sourceAsList, ref bool rootSourceWrapper, ref bool lastProcessedSourceChangeMarker)

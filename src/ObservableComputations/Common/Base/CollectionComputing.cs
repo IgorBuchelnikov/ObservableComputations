@@ -541,8 +541,8 @@ namespace ObservableComputations
                 if (_downstreamConsumedComputings.Count == 0)
                 {
                     _isActive = true;
-                    initialize();
                     addToUpstreamComputings(this);
+                    initialize();
                     initializeFromSource();
                     OnPropertyChanged(Utils.IsActivePropertyChangedEventArgs);
                 }
@@ -583,8 +583,8 @@ namespace ObservableComputations
             if (_downstreamConsumedComputings.Count == 1 && _consumers.Count == 0)
             {
                 _isActive = true;
-                initialize();
                 addToUpstreamComputings(computing);
+                initialize();
                 initializeFromSource();
                 OnPropertyChanged(Utils.IsActivePropertyChangedEventArgs);
             }

@@ -98,6 +98,21 @@ namespace ObservableComputations
             EventUnsubscriber.QueueSubscriptions(propertyChangedEventSubscriptions, methodChangedEventSubscriptions);
         }
 
+        internal static int disposeSource<TItemInfo>(IReadScalar<INotifyCollectionChanged> sourceScalar, INotifyCollectionChanged source, ref List<TItemInfo> itemInfos, ref Positions<TItemInfo> sourcePositions,INotifyCollectionChanged sourceAsList, ref NotifyCollectionChangedEventHandler sourceNotifyCollectionChangedEventHandler)
+            where TItemInfo : Position, new()
+        {
+            int capacity = sourceScalar != null ? Utils.getCapacity(sourceScalar) : Utils.getCapacity(source);
+
+            disposeSource(
+                capacity, 
+                ref itemInfos,
+                ref sourcePositions,
+                sourceAsList,
+                ref sourceNotifyCollectionChangedEventHandler);
+
+            return capacity;
+        }
+
         internal static void disposeSource<TItemInfo>(int capacity, ref List<TItemInfo> itemInfos, ref Positions<TItemInfo> sourcePositions,INotifyCollectionChanged sourceAsList, ref NotifyCollectionChangedEventHandler sourceNotifyCollectionChangedEventHandler)
             where TItemInfo : Position, new()
         {
@@ -108,15 +123,17 @@ namespace ObservableComputations
             sourceNotifyCollectionChangedEventHandler = null;
         }
 
-        internal static void changeSource<TSourceItem>(ref INotifyCollectionChanged source,
+        internal static void changeSource<TSourceItem, TSource>(
+            ref TSource source,
             IReadScalar<INotifyCollectionChanged> sourceScalar,
             List<IComputingInternal> downstreamConsumedComputings,
             List<Consumer> consumers,
             IComputingInternal computing, 
             ref ObservableCollectionWithChangeMarker<TSourceItem> sourceAsList)
+        where TSource : INotifyCollectionChanged
         {
             IComputingInternal originalSource = source as IComputingInternal;
-            if (sourceScalar != null) source = sourceScalar.Value;
+            if (sourceScalar != null) source = (TSource) sourceScalar.Value;
             IComputingInternal newSource = source as IComputingInternal;
 
             if (originalSource != newSource)
@@ -152,13 +169,13 @@ namespace ObservableComputations
             lastProcessedSourceChangeMarker = sourceAsList.ChangeMarkerField;
         }
 
-        internal static void initializeSourceScalar(IReadScalar<INotifyCollectionChanged> sourceScalar, ref PropertyChangedEventHandler sourceScalarOnPropertyChanged, ref INotifyCollectionChanged source, PropertyChangedEventHandler newSourceScalarOnPropertyChanged)
+        internal static void initializeSourceScalar<TSource>(IReadScalar<INotifyCollectionChanged> sourceScalar, ref PropertyChangedEventHandler sourceScalarOnPropertyChanged, ref TSource source, PropertyChangedEventHandler newSourceScalarOnPropertyChanged)
         {
             if (sourceScalar != null)
             {
                 sourceScalarOnPropertyChanged = newSourceScalarOnPropertyChanged;
                 sourceScalar.PropertyChanged += sourceScalarOnPropertyChanged;
-                source = sourceScalar.Value;
+                source = (TSource) sourceScalar.Value;
             }
         }
 
@@ -324,31 +341,43 @@ namespace ObservableComputations
         }
 
         internal static void getItemInfoContent<TExpression, TExpressionCompiled, TSourceItem>(
-            TSourceItem sourceItem, 
+            TSourceItem sourceItem,
             out ExpressionWatcher watcher,
             out TExpressionCompiled func,
-            out List<IComputingInternal> nestedComputings, 
-            Expression<TExpression> expression, 
-            ref int expressionСallCount, 
-            IComputingInternal current)
+            out List<IComputingInternal> nestedComputings,
+            Expression<TExpression> expression,
+            ref int expressionСallCount,
+            IComputingInternal current, 
+            bool expressionContainsParametrizedLiveLinqCalls,
+            ExpressionWatcher.ExpressionInfo orderingValueSelectorExpressionInfo)
         {
-            Expression<TExpressionCompiled> deparametrizedPredicateExpression =
-                (Expression<TExpressionCompiled>) expression.ApplyParameters(new object[] {sourceItem});
-            CallToConstantConverter callToConstantConverter = new CallToConstantConverter();
-            Expression<TExpressionCompiled> predicateExpression =
-                (Expression<TExpressionCompiled>)
-                callToConstantConverter.Visit(deparametrizedPredicateExpression);
-            // ReSharper disable once PossibleNullReferenceException
-            func = predicateExpression.Compile();
+            if (!expressionContainsParametrizedLiveLinqCalls)
+            {
+                watcher = new ExpressionWatcher(orderingValueSelectorExpressionInfo, sourceItem);
+                func = default(TExpressionCompiled);
+                nestedComputings = null;
+            }
+            else
+            {
+                Expression<TExpressionCompiled> deparametrizedPredicateExpression =
+                    (Expression<TExpressionCompiled>) expression.ApplyParameters(new object[] {sourceItem});
+                CallToConstantConverter callToConstantConverter = new CallToConstantConverter();
+                Expression<TExpressionCompiled> predicateExpression =
+                    (Expression<TExpressionCompiled>)
+                    callToConstantConverter.Visit(deparametrizedPredicateExpression);
+                // ReSharper disable once PossibleNullReferenceException
+                func = predicateExpression.Compile();
 
-            nestedComputings = callToConstantConverter.NestedComputings;
-            int nestedComputingsCount = nestedComputings.Count;
-            for (var computingIndex = 0; computingIndex < nestedComputingsCount; computingIndex++)
-                nestedComputings[computingIndex].AddDownstreamConsumedComputing(current);
+                nestedComputings = callToConstantConverter.NestedComputings;
+                int nestedComputingsCount = nestedComputings.Count;
+                for (var computingIndex = 0; computingIndex < nestedComputingsCount; computingIndex++)
+                    nestedComputings[computingIndex].AddDownstreamConsumedComputing(current);
 
-            ExpressionWatcher.ExpressionInfo expressionInfo = ExpressionWatcher.GetExpressionInfo(predicateExpression);
-            watcher = new ExpressionWatcher(expressionInfo);
-            expressionСallCount = expressionInfo._callCount;
+                ExpressionWatcher.ExpressionInfo expressionInfo =
+                    ExpressionWatcher.GetExpressionInfo(predicateExpression);
+                watcher = new ExpressionWatcher(expressionInfo);
+                expressionСallCount = expressionInfo._callCount;
+            }
         }
 
         internal static void itemInfoRemoveDownstreamConsumedComputing(ExpressionItemInfo itemInfo, IComputingInternal current)
@@ -357,6 +386,13 @@ namespace ObservableComputations
             int nestedComputingsCount = nestedComputings.Count;
             for (var computingIndex = 0; computingIndex < nestedComputingsCount; computingIndex++)
                 nestedComputings[computingIndex].RemoveDownstreamConsumedComputing(current);
+        }
+
+        internal static void construct<TOrderingValue>(int sourceCapacity, ref List<OrderedItemInfo<TOrderingValue>> orderedItemInfos, ref Positions<OrderedItemInfo<TOrderingValue>> orderedPositions, ref List<TOrderingValue> orderingValues)
+        {
+            orderedItemInfos = new List<OrderedItemInfo<TOrderingValue>>(sourceCapacity);
+            orderedPositions = new Positions<OrderedItemInfo<TOrderingValue>>(orderedItemInfos);
+            orderingValues = new List<TOrderingValue>(sourceCapacity);
         }
 
 		internal static readonly PropertyChangedEventArgs InsertItemIntoGroupActionPropertyChangedEventArgs = new PropertyChangedEventArgs("InsertItemIntoGroupAction");

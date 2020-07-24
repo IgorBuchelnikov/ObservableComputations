@@ -216,7 +216,8 @@ namespace ObservableComputations
 				_filteredPositions = new Positions<Position>(new List<Position>(_initialCapacity));	
 
                 Utils.disposeSource(
-                    _sourceScalar != null ? Utils.getCapacity(_sourceScalar) : Utils.getCapacity(_source), 
+                    _sourceScalar, 
+                    _source,
                     ref _itemInfos,
                     ref _sourcePositions, 
                     _sourceAsList, 
@@ -312,7 +313,16 @@ namespace ObservableComputations
 
 					int? newFilteredIndex  = null;
 
-					getItemInfoContent(addedSourceItem, out ExpressionWatcher newWatcher, out Func<bool> newPredicateFunc, out List<IComputingInternal> nestedComputings);
+                    Utils.getItemInfoContent(
+                        addedSourceItem, 
+                        out ExpressionWatcher newWatcher, 
+                        out Func<bool> newPredicateFunc, 
+                        out List<IComputingInternal> nestedComputings,
+                        _predicateExpression,
+                        ref _predicateExpressionСallCount,
+                        this,
+                        _predicateContainsParametrizedObservableComputationsCalls,
+                        _predicateExpressionInfo);
 
 					if (newSourceIndex < _itemInfos.Count)
 					{
@@ -456,11 +466,20 @@ namespace ObservableComputations
                     if (_predicateContainsParametrizedObservableComputationsCalls)
                         Utils.itemInfoRemoveDownstreamConsumedComputing(replacingItemInfo, this);
 
-					ExpressionWatcher watcher;
-					Func<bool> predicateFunc;
 					TSourceItem replacingSourceItem = _sourceAsList[sourceIndex];
-					getItemInfoContent(replacingSourceItem, out watcher, out predicateFunc, out List<IComputingInternal> nestedComputings1);
-					replacingItemInfo.PredicateFunc = predicateFunc;	
+
+                    Utils.getItemInfoContent(
+                        replacingSourceItem, 
+                        out ExpressionWatcher watcher, 
+                        out Func<bool> predicateFunc, 
+                        out List<IComputingInternal> nestedComputings1,
+                        _predicateExpression,
+                        ref _predicateExpressionСallCount,
+                        this,
+                        _predicateContainsParametrizedObservableComputationsCalls,
+                        _predicateExpressionInfo);	
+                    
+                    replacingItemInfo.PredicateFunc = predicateFunc;	
 					watcher.ValueChanged = expressionWatcher_OnValueChanged;
 					watcher._position = oldExpressionWatcher._position;
 					replacingItemInfo.ExpressionWatcher = watcher;
@@ -570,7 +589,16 @@ namespace ObservableComputations
 			itemInfo.NextFilteredItemPosition = nextItemPosition;
 
 			if (watcher == null /*&& predicateFunc == null*/) 
-				getItemInfoContent(sourceItem, out watcher, out predicateFunc, out nestedComputings);
+                Utils.getItemInfoContent(
+                    sourceItem, 
+                    out watcher, 
+                    out predicateFunc, 
+                    out nestedComputings,
+                    _predicateExpression,
+                    ref _predicateExpressionСallCount,
+                    this,
+                    _predicateContainsParametrizedObservableComputationsCalls,
+                    _predicateExpressionInfo);	
 
 			itemInfo.PredicateFunc = predicateFunc;	
 			watcher.ValueChanged = expressionWatcher_OnValueChanged;
@@ -605,29 +633,6 @@ namespace ObservableComputations
                 Utils.itemInfoRemoveDownstreamConsumedComputing(itemInfo, this);
 
 			if (removeIndex.HasValue) baseRemoveItem(removeIndex.Value);
-		}
-
-
-
-        private void getItemInfoContent(TSourceItem sourceItem, out ExpressionWatcher watcher, out Func<bool> predicateFunc, out List<IComputingInternal> nestedComputings)
-		{
-			if (!_predicateContainsParametrizedObservableComputationsCalls)
-			{
-				watcher = new ExpressionWatcher(_predicateExpressionInfo, sourceItem);
-                predicateFunc = null;
-                nestedComputings = null;
-			}
-			else
-            {
-                Utils.getItemInfoContent(
-                    sourceItem, 
-                    out watcher, 
-                    out predicateFunc, 
-                    out nestedComputings, 
-                    _predicateExpression, 
-                    ref _predicateExpressionСallCount, 
-                    this);
-            }
 		}
 
 

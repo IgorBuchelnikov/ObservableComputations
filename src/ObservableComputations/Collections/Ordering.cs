@@ -5,7 +5,6 @@ using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Linq;
 using System.Linq.Expressions;
-using System.Threading;
 using INotifyPropertyChanged = System.ComponentModel.INotifyPropertyChanged;
 
 namespace ObservableComputations
@@ -37,8 +36,6 @@ namespace ObservableComputations
 		public ReadOnlyCollection<INotifyCollectionChanged> SourceCollections => new ReadOnlyCollection<INotifyCollectionChanged>(new []{Source});
 		public ReadOnlyCollection<IReadScalar<INotifyCollectionChanged>> SourceCollectionScalars => new ReadOnlyCollection<IReadScalar<INotifyCollectionChanged>>(new []{SourceScalar});
 
-		public int MaxTogetherThenOrderings => _maxTogetherThenOrderings;
-
 		private PropertyChangedEventHandler _sourceScalarPropertyChangedEventHandler;
 
 		internal INotifyCollectionChanged _source;
@@ -48,12 +45,12 @@ namespace ObservableComputations
 		private bool _lastProcessedSourceChangeMarker;
 		private Queue<ExpressionWatcher.Raise> _deferredExpressionWatcherChangedProcessings;
 
-		private Positions<OrderedItemInfo> _orderedPositions;
-		private Positions<ItemInfo> _sourcePositions;
+		private Positions<OrderedItemInfo<TOrderingValue>> _orderedPositions;
+		private Positions<OrderingItemInfo<TOrderingValue>> _sourcePositions;
 
 		//private readonly List<Expression<Func<TResultElement>>> _selectorExpressions;
-		private List<ItemInfo> _itemInfos;
-		private List<OrderedItemInfo> _orderedItemInfos;
+		private List<OrderingItemInfo<TOrderingValue>> _itemInfos;
+		private List<OrderedItemInfo<TOrderingValue>> _orderedItemInfos;
 
 		private readonly Expression<Func<TSourceItem, TOrderingValue>> _orderingValueSelectorExpression;
 
@@ -78,8 +75,7 @@ namespace ObservableComputations
 
 		private RangePositions<RangePosition> _equalOrderingValueRangePositions;
 		private int _thenOrderingsCount;
-		private WeakReference<IThenOrderingInternal<TSourceItem>>[] _thenOrderings;
-		private int _maxTogetherThenOrderings;
+		private List<IThenOrderingInternal<TSourceItem>> _thenOrderings;
 
         private int _orderingValueSelectorExpressionСallCount;
         private List<IComputingInternal> _nestedComputings;
@@ -115,8 +111,7 @@ namespace ObservableComputations
 			INotifyCollectionChanged source,
 			Expression<Func<TSourceItem, TOrderingValue>> orderingValueSelectorExpression,
 			IReadScalar<ListSortDirection> sortDirectionScalar = null,
-			IReadScalar<IComparer<TOrderingValue>> comparerScalar = null,
-			int maxTogetherThenOrderings = 4) : this(orderingValueSelectorExpression, Utils.getCapacity(source), maxTogetherThenOrderings)
+			IReadScalar<IComparer<TOrderingValue>> comparerScalar = null) : this(orderingValueSelectorExpression, Utils.getCapacity(source))
 		{
 			_source = source;
 			_sortDirectionScalar = sortDirectionScalar;
@@ -128,8 +123,7 @@ namespace ObservableComputations
 			INotifyCollectionChanged source,
 			Expression<Func<TSourceItem, TOrderingValue>> orderingValueSelectorExpression,
 			ListSortDirection sortDirection = ListSortDirection.Ascending,
-			IReadScalar<IComparer<TOrderingValue>> comparerScalar = null,
-			int maxTogetherThenOrderings = 4) : this(orderingValueSelectorExpression, Utils.getCapacity(source), maxTogetherThenOrderings)
+			IReadScalar<IComparer<TOrderingValue>> comparerScalar = null) : this(orderingValueSelectorExpression, Utils.getCapacity(source))
 		{
 			_source = source;
 			_sortDirection = sortDirection;
@@ -142,8 +136,7 @@ namespace ObservableComputations
 			INotifyCollectionChanged source,
 			Expression<Func<TSourceItem, TOrderingValue>> orderingValueSelectorExpression,
 			IReadScalar<ListSortDirection> sortDirectionScalar = null,
-			IComparer<TOrderingValue> comparer = null,
-			int maxTogetherThenOrderings = 4) : this(orderingValueSelectorExpression, Utils.getCapacity(source), maxTogetherThenOrderings)
+			IComparer<TOrderingValue> comparer = null) : this(orderingValueSelectorExpression, Utils.getCapacity(source))
 		{
 			_source = source;
 			_sortDirectionScalar = sortDirectionScalar;
@@ -155,8 +148,7 @@ namespace ObservableComputations
 			INotifyCollectionChanged source,
 			Expression<Func<TSourceItem, TOrderingValue>> orderingValueSelectorExpression,
 			ListSortDirection sortDirection = ListSortDirection.Ascending,
-			IComparer<TOrderingValue> comparer= null,
-			int maxTogetherThenOrderings = 4) : this(orderingValueSelectorExpression, Utils.getCapacity(source), maxTogetherThenOrderings)
+			IComparer<TOrderingValue> comparer= null) : this(orderingValueSelectorExpression, Utils.getCapacity(source))
 		{
 			_source = source;
 			_sortDirection = sortDirection;
@@ -168,8 +160,7 @@ namespace ObservableComputations
 			IReadScalar<INotifyCollectionChanged> sourceScalar,
 			Expression<Func<TSourceItem, TOrderingValue>> orderingValueSelectorExpression,
 			IReadScalar<ListSortDirection> sortDirectionScalar = null,
-			IReadScalar<IComparer<TOrderingValue>> comparerScalar = null,
-			int maxTogetherThenOrderings = 4) : this(orderingValueSelectorExpression, Utils.getCapacity(sourceScalar), maxTogetherThenOrderings)
+			IReadScalar<IComparer<TOrderingValue>> comparerScalar = null) : this(orderingValueSelectorExpression, Utils.getCapacity(sourceScalar))
 		{
 			_sourceScalar = sourceScalar;
 			_sortDirectionScalar = sortDirectionScalar;
@@ -181,8 +172,7 @@ namespace ObservableComputations
 			IReadScalar<INotifyCollectionChanged> sourceScalar,
 			Expression<Func<TSourceItem, TOrderingValue>> orderingValueSelectorExpression,
 			ListSortDirection sortDirection = ListSortDirection.Ascending,
-			IReadScalar<IComparer<TOrderingValue>> comparerScalar = null,
-			int maxTogetherThenOrderings = 4) : this(orderingValueSelectorExpression, Utils.getCapacity(sourceScalar), maxTogetherThenOrderings)
+			IReadScalar<IComparer<TOrderingValue>> comparerScalar = null) : this(orderingValueSelectorExpression, Utils.getCapacity(sourceScalar))
 		{
 			_sourceScalar = sourceScalar;
 			_sortDirection = sortDirection;
@@ -194,8 +184,7 @@ namespace ObservableComputations
 			IReadScalar<INotifyCollectionChanged> sourceScalar,
 			Expression<Func<TSourceItem, TOrderingValue>> orderingValueSelectorExpression,
 			IReadScalar<ListSortDirection> sortDirectionScalar = null,
-			IComparer<TOrderingValue> comparer = null,
-			int maxTogetherThenOrderings = 4) : this(orderingValueSelectorExpression, Utils.getCapacity(sourceScalar), maxTogetherThenOrderings)
+			IComparer<TOrderingValue> comparer = null) : this(orderingValueSelectorExpression, Utils.getCapacity(sourceScalar))
 		{
 			_sourceScalar = sourceScalar;
 			_sortDirectionScalar = sortDirectionScalar;
@@ -207,8 +196,7 @@ namespace ObservableComputations
 			IReadScalar<INotifyCollectionChanged> sourceScalar,
 			Expression<Func<TSourceItem, TOrderingValue>> orderingValueSelectorExpression,
 			ListSortDirection sortDirection = ListSortDirection.Ascending,
-			IComparer<TOrderingValue> comparer= null,
-			int maxTogetherThenOrderings = 4) : this(orderingValueSelectorExpression, Utils.getCapacity(sourceScalar), maxTogetherThenOrderings)
+			IComparer<TOrderingValue> comparer= null) : this(orderingValueSelectorExpression, Utils.getCapacity(sourceScalar))
 		{
 			_sourceScalar = sourceScalar;
 			_sortDirection = sortDirection;
@@ -217,17 +205,9 @@ namespace ObservableComputations
 
 		private Ordering(
 			Expression<Func<TSourceItem, TOrderingValue>> orderingValueSelectorExpression, 
-			int sourceCapacity,
-			int maxTogetherThenOrderings) : base(sourceCapacity)
+			int sourceCapacity) : base(sourceCapacity)
 		{
-			_maxTogetherThenOrderings = maxTogetherThenOrderings;
-
-			_orderedItemInfos = new List<OrderedItemInfo>(sourceCapacity);
-			_orderedPositions = new Positions<OrderedItemInfo>(_orderedItemInfos);
-			_orderingValues = new List<TOrderingValue>(sourceCapacity);
-
-			_itemInfos = new List<ItemInfo>(sourceCapacity);
-			_sourcePositions = new Positions<ItemInfo>(_itemInfos);
+			Utils.construct(sourceCapacity, ref _orderedItemInfos, ref _orderedPositions, ref _orderingValues);
 
             Utils.construct(
                 orderingValueSelectorExpression, 
@@ -271,20 +251,15 @@ namespace ObservableComputations
 			{
                 Utils.disposeExpressionItemInfos(ref _itemInfos, _orderingValueSelectorExpressionСallCount, this);
 
-				int capacity = _sourceScalar != null ? Utils.getCapacity(_sourceScalar) : Utils.getCapacity(_source);
-				_orderedItemInfos = new List<OrderedItemInfo>(_orderedItemInfos);
-				_orderedPositions = new Positions<OrderedItemInfo>(_orderedItemInfos);
-				_orderingValues = new List<TOrderingValue>(capacity);
-
-				_itemInfos = new List<ItemInfo>(capacity);
-				_sourcePositions = new Positions<ItemInfo>(_itemInfos);
-
-                Utils.disposeSource(
-                    capacity, 
+				int capacity = Utils.disposeSource(
+                    _sourceScalar, 
+                    _source,
                     ref _itemInfos,
                     ref _sourcePositions, 
                     _sourceAsList, 
                     ref _sourceNotifyCollectionChangedEventHandler);
+
+                Utils.construct(capacity, ref _orderedItemInfos, ref _orderedPositions, ref _orderingValues);
 
 				_items.Clear();
 			}
@@ -316,9 +291,18 @@ namespace ObservableComputations
 
 		private void registerSourceItem(TSourceItem sourceItem, int sourceIndex, bool initializing = false)
 		{
-			ItemInfo itemInfo = _sourcePositions.Insert(sourceIndex);
+			OrderingItemInfo<TOrderingValue> itemInfo = _sourcePositions.Insert(sourceIndex);
 
-			getItemInfoContent(sourceItem, out ExpressionWatcher expressionWatcher, out Func<TOrderingValue> getOrderingValueFunc, out List<IComputingInternal> nestedComputings);
+            Utils.getItemInfoContent(
+                sourceItem, 
+                out ExpressionWatcher expressionWatcher, 
+                out Func<TOrderingValue> getOrderingValueFunc, 
+                out List<IComputingInternal> nestedComputings,
+                _orderingValueSelectorExpression,
+                ref _orderingValueSelectorExpressionСallCount,
+                this,
+                _orderingValueSelectorContainsParametrizedLiveLinqCalls,
+                _orderingValueSelectorExpressionInfo);
 
 			itemInfo.GetOrderingValueFunc = getOrderingValueFunc;
 			itemInfo.ExpressionWatcher = expressionWatcher;
@@ -329,15 +313,13 @@ namespace ObservableComputations
 
 			itemInfo.ExpressionWatcher.ValueChanged = expressionWatcher_OnValueChanged;
 			itemInfo.ExpressionWatcher._position = itemInfo;
-			OrderedItemInfo orderedItemInfo = _orderedPositions.Insert(orderedIndex);
+			OrderedItemInfo<TOrderingValue> orderedItemInfo = _orderedPositions.Insert(orderedIndex);
 			itemInfo.OrderedItemInfo = orderedItemInfo;
 			orderedItemInfo.ItemInfo = itemInfo;
 			_orderingValues.Insert(orderedIndex, orderingValue);
 
 			if (_thenOrderingsCount > 0)
-			{
 				adjustEqualOrderingValueRangePosition(orderingValue, orderedItemInfo, orderedIndex, orderedIndex - 1, orderedIndex);
-			}
 
 			if (initializing)
 				_items.Insert(orderedIndex, sourceItem);
@@ -347,14 +329,14 @@ namespace ObservableComputations
 
 		private void adjustEqualOrderingValueRangePosition(
 			TOrderingValue orderingValue, 
-			OrderedItemInfo orderedItemInfo,
+			OrderedItemInfo<TOrderingValue> orderedItemInfo,
 			int orderedIndex,
 			int previousOrderedIndex,
 			int nextOrderedIndex)
 		{
 			bool isIncludedInRange = false;
 
-			void tryIncludeInRange(OrderedItemInfo nearbyOrderedItemInfo, int nearbyOrderedIndex)
+			void tryIncludeInRange(OrderedItemInfo<TOrderingValue> nearbyOrderedItemInfo, int nearbyOrderedIndex)
 			{
 				if (_comparer.Compare(orderingValue,
 					    getOrderingValue(
@@ -368,7 +350,7 @@ namespace ObservableComputations
 				}
 			}
 
-			OrderedItemInfo previousOrderedItemInfo = null;
+			OrderedItemInfo<TOrderingValue> previousOrderedItemInfo = null;
 			if (orderedIndex > 0)
 			{
 				previousOrderedItemInfo = _orderedItemInfos[orderedIndex - 1];
@@ -389,31 +371,9 @@ namespace ObservableComputations
 			}
 		}
 
-		private void getItemInfoContent(TSourceItem sourceItem,
-			out ExpressionWatcher expressionWatcher, out Func<TOrderingValue> getOrderingValueFunc, out List<IComputingInternal> nestedComputings)
-		{
-			if (!_orderingValueSelectorContainsParametrizedLiveLinqCalls)
-			{
-				expressionWatcher = new ExpressionWatcher(_orderingValueSelectorExpressionInfo, sourceItem);
-                getOrderingValueFunc = null;
-                nestedComputings = null;
-			}
-			else
-			{
-                Utils.getItemInfoContent(
-                    sourceItem, 
-                    out expressionWatcher, 
-                    out getOrderingValueFunc, 
-                    out nestedComputings, 
-                    _orderingValueSelectorExpression, 
-                    ref _orderingValueSelectorExpressionСallCount, 
-                    this);
-			}
-		}
-
 		private void unregisterSourceItem(int sourceIndex)
 		{
-			ItemInfo itemInfo = _itemInfos[sourceIndex];
+			OrderingItemInfo<TOrderingValue> itemInfo = _itemInfos[sourceIndex];
 			ExpressionWatcher watcher = itemInfo.ExpressionWatcher;
 			watcher.Dispose();
             EventUnsubscriber.QueueSubscriptions(watcher._propertyChangedEventSubscriptions, watcher._methodChangedEventSubscriptions);
@@ -445,7 +405,20 @@ namespace ObservableComputations
 
 		internal TOrderingValue getOrderingValueBySourceIndex(int sourceIndex)
 		{
-			return !_orderingValueSelectorContainsParametrizedLiveLinqCalls ? _orderingValueSelectorFunc(_sourceAsList[sourceIndex]) : _itemInfos[sourceIndex].GetOrderingValueFunc();
+            TOrderingValue getValue() => 
+                !_orderingValueSelectorContainsParametrizedLiveLinqCalls 
+                ? _orderingValueSelectorFunc(_sourceAsList[sourceIndex]) 
+                : _itemInfos[sourceIndex].GetOrderingValueFunc();
+
+            if (Configuration.TrackComputingsExecutingUserCode)
+            {
+                var currentThread = Utils.startComputingExecutingUserCode(out var computing, ref _userCodeIsCalledFrom, this);
+                TOrderingValue result = getValue();
+                Utils.endComputingExecutingUserCode(computing, currentThread, ref _userCodeIsCalledFrom);
+                return result;
+            }
+
+            return getValue();
 		}
 
 		public TOrderingValue GetOrderingValueByOrderedIndex(int orderedIndex)
@@ -471,7 +444,7 @@ namespace ObservableComputations
             return getValue();
 		}
 
-		private TOrderingValue getOrderingValue(ItemInfo itemInfo, TSourceItem sourceItem)
+		private TOrderingValue getOrderingValue(OrderingItemInfo<TOrderingValue> itemInfo, TSourceItem sourceItem)
 		{
             TOrderingValue getValue() => 
                 !_orderingValueSelectorContainsParametrizedLiveLinqCalls 
@@ -519,13 +492,22 @@ namespace ObservableComputations
 					_isConsistent = false;
 					int replacingSourceIndex = e.NewStartingIndex;
 					TSourceItem replacingSourceItem = _sourceAsList[replacingSourceIndex];
-					ItemInfo replacingItemInfo = _itemInfos[replacingSourceIndex];
+					OrderingItemInfo<TOrderingValue> replacingItemInfo = _itemInfos[replacingSourceIndex];
 					ExpressionWatcher oldExpressionWatcher = _itemInfos[replacingSourceIndex].ExpressionWatcher;
 
 					oldExpressionWatcher.Dispose();
                     EventUnsubscriber.QueueSubscriptions(oldExpressionWatcher._propertyChangedEventSubscriptions, oldExpressionWatcher._methodChangedEventSubscriptions);
 
-					getItemInfoContent(replacingSourceItem, out ExpressionWatcher newExpressionWatcher, out Func<TOrderingValue> newGetOrderingValueFunc, out List<IComputingInternal> nestedComputings);
+                    Utils.getItemInfoContent(
+                        replacingSourceItem, 
+                        out ExpressionWatcher newExpressionWatcher, 
+                        out Func<TOrderingValue> newGetOrderingValueFunc, 
+                        out List<IComputingInternal> nestedComputings,
+                        _orderingValueSelectorExpression,
+                        ref _orderingValueSelectorExpressionСallCount,
+                        this,
+                        _orderingValueSelectorContainsParametrizedLiveLinqCalls,
+                        _orderingValueSelectorExpressionInfo);
 
 					replacingItemInfo.GetOrderingValueFunc = newGetOrderingValueFunc;
 					replacingItemInfo.ExpressionWatcher = newExpressionWatcher;
@@ -598,20 +580,17 @@ namespace ObservableComputations
 			void notifyThenOrderings(int newOrderedIndex)
 			{
 				int processedThenOrderingsCount = 0;
-				for (int thenOrderingIndex = 0; thenOrderingIndex < _maxTogetherThenOrderings; thenOrderingIndex++)
+				for (int thenOrderingIndex = 0; thenOrderingIndex < _thenOrderingsCount; thenOrderingIndex++)
 				{
-					WeakReference<IThenOrderingInternal<TSourceItem>> thenOrderingЦeakReference = _thenOrderings[thenOrderingIndex];
-					if (thenOrderingЦeakReference != null && thenOrderingЦeakReference.TryGetTarget(out IThenOrderingInternal<TSourceItem> thenOrdering))
-					{
-						thenOrdering.ProcessSourceItemChange(newOrderedIndex);
-						processedThenOrderingsCount++;
-						if (processedThenOrderingsCount == _thenOrderingsCount) break;
-					}
+					IThenOrderingInternal<TSourceItem> thenOrdering = _thenOrderings[thenOrderingIndex];
+                    thenOrdering.ProcessSourceItemChange(newOrderedIndex);
+                    processedThenOrderingsCount++;
+                    if (processedThenOrderingsCount == _thenOrderingsCount) break;
 				}
 			}
 
-			ItemInfo itemInfo = _itemInfos[sourceIndex];
-			OrderedItemInfo orderedItemInfo = itemInfo.OrderedItemInfo;
+			OrderingItemInfo<TOrderingValue> itemInfo = _itemInfos[sourceIndex];
+			OrderedItemInfo<TOrderingValue> orderedItemInfo = itemInfo.OrderedItemInfo;
 			int orderedIndex = orderedItemInfo.Index;
             TOrderingValue orderingValue = getOrderingValue(itemInfo, _sourceAsList[sourceIndex]);
 
@@ -814,18 +793,6 @@ namespace ObservableComputations
 			return _orderedItemInfos[orderedIndex].ItemInfo.Index;	
 		}
 
-		private sealed class ItemInfo : ExpressionItemInfo
-		{
-			public Func<TOrderingValue> GetOrderingValueFunc;
-			public OrderedItemInfo OrderedItemInfo;
-		}
-
-		private sealed class OrderedItemInfo : Position
-		{
-			public ItemInfo ItemInfo;
-			public RangePosition RangePosition;
-		}
-
 		//#region Implementation of IOrdering<TSourceItem>
 
 		public bool Compare(int resultIndex1, int resultIndex2)
@@ -840,24 +807,10 @@ namespace ObservableComputations
 		//#endregion
 
 		void IOrderingInternal<TSourceItem>.AddThenOrdering(IThenOrdering<TSourceItem> thenOrdering)
-		{
-			Interlocked.Increment(ref _thenOrderingsCount);
-			_thenOrderings = _thenOrderings ?? new WeakReference<IThenOrderingInternal<TSourceItem>>[_maxTogetherThenOrderings];
-
-			bool placed = false;
-			for (int thenOrderingWeakReferenceIndex = 0; thenOrderingWeakReferenceIndex < _maxTogetherThenOrderings; thenOrderingWeakReferenceIndex++)
-			{
-				if (_thenOrderings[thenOrderingWeakReferenceIndex] == null)
-				{
-					_thenOrderings[thenOrderingWeakReferenceIndex] = new WeakReference<IThenOrderingInternal<TSourceItem>>((IThenOrderingInternal<TSourceItem>) thenOrdering);
-					placed = true;
-					break;
-				}
-
-			}
-			
-			if (!placed)
-				throw new ObservableComputationsException(this, "The maximum number of join ThenOrderings has been reached. Please increase the value of MaxTogetherThenOrderings parameter. The value of this parameter can be specified in the constructor of this class. The default value is 4.");
+        {
+            _thenOrderingsCount++;
+			_thenOrderings = _thenOrderings ?? new List<IThenOrderingInternal<TSourceItem>>(4);
+            _thenOrderings.Add((IThenOrderingInternal<TSourceItem>) thenOrdering);
 
 			if (_thenOrderingsCount == 1)
 			{
@@ -906,42 +859,11 @@ namespace ObservableComputations
 			}
 		}
 
-		void IOrderingInternal<TSourceItem>.RemoveThenOrdering()
+		void IOrderingInternal<TSourceItem>.RemoveThenOrdering(IThenOrderingInternal<TSourceItem> thenOrdering)
 		{
-			Interlocked.Decrement(ref _thenOrderingsCount);
-
-			Monitor.Enter(_itemInfos);
-			int? releasingIndex = null;
-			int? maxUsedIndex = null;
-			for (int i = 0; i < _maxTogetherThenOrderings; i++)
-			{
-				WeakReference<IThenOrderingInternal<TSourceItem>> thenOrderingWeakReference = _thenOrderings[i];
-				if (thenOrderingWeakReference != null)
-				{
-					if (!thenOrderingWeakReference.TryGetTarget(out _))
-					{
-						if (releasingIndex == null) releasingIndex = i;
-					}
-					else
-					{
-						maxUsedIndex = i;
-					}
-				}
-			}
-
-			//defragmentation
-			if (releasingIndex != null && maxUsedIndex != null && maxUsedIndex.Value > releasingIndex.Value)
-			{
-				_thenOrderings[releasingIndex.Value] = _thenOrderings[maxUsedIndex.Value];
-				_thenOrderings[maxUsedIndex.Value] = null;
-			}
-			else if (releasingIndex != null)
-			{
-				_thenOrderings[releasingIndex.Value] = null;
-			}
-
-			Monitor.Exit(_itemInfos);
-		}
+			_thenOrderingsCount--;
+            _thenOrderings.Remove(thenOrdering);
+        }
 
 		public OrderingIndicesRange? GetIndicesRangeOf(TOrderingValue orderingValue)
 		{
@@ -1028,11 +950,6 @@ namespace ObservableComputations
 			return _orderedItemInfos[orderedIndex].RangePosition;
 		}
 
-		RangePositions<RangePosition> IOrderingInternal<TSourceItem>.GetRangePositions()
-		{
-			return _equalOrderingValueRangePositions;
-		}
-
 		public void ValidateConsistency()
 		{
 			IList<TSourceItem> source = _sourceScalar.getValue(_source, new ObservableCollection<TSourceItem>()) as IList<TSourceItem>;
@@ -1108,7 +1025,7 @@ namespace ObservableComputations
 					}
 				}
 
-				ItemInfo itemInfo = _orderedItemInfos[orderedIndex].ItemInfo;
+				OrderingItemInfo<TOrderingValue> itemInfo = _orderedItemInfos[orderedIndex].ItemInfo;
 				if (itemInfo.OrderedItemInfo.Index != orderedIndex) throw new ObservableComputationsException(this, "Consistency violation: Ordering.13");
 
 				if (!EqualityComparer<TOrderingValue>.Default.Equals(_orderingValues[orderedIndex], orderingValueSelector(orderedItem)))
@@ -1133,7 +1050,7 @@ namespace ObservableComputations
 			for (int sourceIndex = 0; sourceIndex < source.Count; sourceIndex++)
 			{
 				TSourceItem sourceItem = source[sourceIndex];
-				ItemInfo itemInfo = _itemInfos[sourceIndex];
+				OrderingItemInfo<TOrderingValue> itemInfo = _itemInfos[sourceIndex];
 				if (itemInfo.ExpressionWatcher._position != _sourcePositions.List[sourceIndex])
 					throw new ObservableComputationsException(this, "Consistency violation: Ordering.8");
 				if (!EqualityComparer<TOrderingValue>.Default.Equals(_orderingValues[itemInfo.OrderedItemInfo.Index], orderingValueSelector(sourceItem)))

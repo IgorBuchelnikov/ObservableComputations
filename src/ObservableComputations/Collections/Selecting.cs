@@ -100,7 +100,8 @@ namespace ObservableComputations
             {
                 Utils.disposeExpressionItemInfos(ref _itemInfos, _selectorExpressionСallCount, this);
                 Utils.disposeSource(
-                    _sourceScalar != null ? Utils.getCapacity(_sourceScalar) : Utils.getCapacity(_source), 
+                    _sourceScalar, 
+                    _source,
                     ref _itemInfos,
                     ref _sourcePositions, 
                     _sourceAsList, 
@@ -260,26 +261,20 @@ namespace ObservableComputations
 			itemInfo = itemInfo == null ? _sourcePositions.Insert(index) : _itemInfos[index];
 
 			ExpressionWatcher watcher;
-			if (!_selectorContainsParametrizedObservableComputationsCalls)
-			{
-				watcher = new ExpressionWatcher(_selectorExpressionInfo, sourceItem);
-			}
-			else
-			{
-                Utils.getItemInfoContent(
-                    sourceItem, 
-                    out watcher, 
-                    out Func<TResultItem> predicateFunc, 
-                    out List<IComputingInternal> nestedComputings, 
-                    _selectorExpression, 
-                    ref _selectorExpressionСallCount, 
-                    this);
 
-                // ReSharper disable once PossibleNullReferenceException
-                itemInfo.SelectorFunc = predicateFunc;
-                itemInfo.NestedComputings = nestedComputings;
-			}
+            Utils.getItemInfoContent(
+                sourceItem, 
+                out watcher, 
+                out Func<TResultItem> predicateFunc, 
+                out List<IComputingInternal> nestedComputings,
+                _selectorExpression,
+                ref _selectorExpressionСallCount,
+                this,
+                _selectorContainsParametrizedObservableComputationsCalls,
+                _selectorExpressionInfo);
 
+            itemInfo.SelectorFunc = predicateFunc;
+            itemInfo.NestedComputings = nestedComputings;
 			watcher.ValueChanged = expressionWatcher_OnValueChanged;
 			itemInfo.ExpressionWatcher = watcher;
 			watcher._position = itemInfo;

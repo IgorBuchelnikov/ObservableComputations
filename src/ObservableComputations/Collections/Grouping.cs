@@ -320,7 +320,16 @@ namespace ObservableComputations
 					TSourceItem newItem = _sourceAsList[replacingSourceIndex];
 					ItemInfo replacingItemInfo = _itemInfos[replacingSourceIndex];
 
-					getItemInfoContent(newItem, out ExpressionWatcher watcher, out Func<TKey> selectorFunc, out List<IComputingInternal> nestedComputings);
+                    Utils.getItemInfoContent(
+                        newItem, 
+                        out ExpressionWatcher watcher, 
+                        out Func<TKey> selectorFunc, 
+                        out List<IComputingInternal> nestedComputings,
+                        _keySelectorExpression,
+                        ref _keySelectorExpressionСallCount,
+                        this,
+                        _keySelectorExpressionContainsParametrizedObservableComputationsCalls,
+                        _keySelectorExpressionInfo);
 
 					TKey key = replacingItemInfo.Key;
 					if (_equalityComparer.Equals(key, applyKeySelector(newItem, selectorFunc)))
@@ -506,7 +515,8 @@ namespace ObservableComputations
                 Utils.disposeExpressionItemInfos(ref _itemInfos, _keySelectorExpressionСallCount, this);
 
                 Utils.disposeSource(
-                    _sourceScalar != null ? Utils.getCapacity(_sourceScalar) : Utils.getCapacity(_source), 
+                    _sourceScalar, 
+                    _source,
                     ref _itemInfos,
                     ref _sourcePositions, 
                     _sourceAsList, 
@@ -562,7 +572,16 @@ namespace ObservableComputations
 
 		private void registerSourceItem(TSourceItem sourceItem, bool addNewToEnd, ItemInfo itemInfo, bool initializing = false)
 		{
-			getItemInfoContent(sourceItem, out ExpressionWatcher watcher, out Func<TKey> selectorFunc, out List<IComputingInternal> nestedComputings);
+            Utils.getItemInfoContent(
+                sourceItem, 
+                out ExpressionWatcher watcher, 
+                out Func<TKey> selectorFunc, 
+                out List<IComputingInternal> nestedComputings,
+                _keySelectorExpression,
+                ref _keySelectorExpressionСallCount,
+                this,
+                _keySelectorExpressionContainsParametrizedObservableComputationsCalls,
+                _keySelectorExpressionInfo);
 
 			itemInfo.SelectorFunc = selectorFunc;
 			itemInfo.ExpressionWatcher = watcher;
@@ -906,28 +925,6 @@ namespace ObservableComputations
 		private int findInsertingResultIndex(int sourceIndex)
 		{
 			return findInsertingResultIndex(sourceIndex, 0, Count - 1);
-		}
-
-		private void getItemInfoContent(TSourceItem sourceItem, out ExpressionWatcher watcher,
-			out Func<TKey> keySelectorFunc, out List<IComputingInternal> nestedComputings)
-		{
-			if (!_keySelectorExpressionContainsParametrizedObservableComputationsCalls)
-			{
-				watcher = new ExpressionWatcher(_keySelectorExpressionInfo, sourceItem);
-                nestedComputings = null;			
-                keySelectorFunc = null;
-			}
-			else
-			{
-                Utils.getItemInfoContent(
-                    sourceItem, 
-                    out watcher, 
-                    out keySelectorFunc, 
-                    out nestedComputings, 
-                    _keySelectorExpression, 
-                    ref _keySelectorExpressionСallCount, 
-                    this);
-			}
 		}
 
 		private void removeSourceItemFromGroup(int sourceIndex, TKey key)

@@ -11,8 +11,7 @@ namespace ObservableComputations
 	internal interface IOrderingInternal<TSourceItem> : IOrdering<TSourceItem>
 	{
 		RangePosition GetRangePosition(int orderedIndex);
-		RangePositions<RangePosition> GetRangePositions();
-		void RemoveThenOrdering();
+		void RemoveThenOrdering(IThenOrderingInternal<TSourceItem> thenOrdering);
 		void AddThenOrdering(IThenOrdering<TSourceItem> thenOrdering);
 		void ValidateConsistency();
 	}

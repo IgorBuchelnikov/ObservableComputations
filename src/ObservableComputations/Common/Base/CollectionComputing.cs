@@ -516,8 +516,8 @@ namespace ObservableComputations
 		}
 
         protected List<Consumer> _consumers = new List<Consumer>();
-        protected bool _isActive;
         internal  List<IComputingInternal> _downstreamConsumedComputings = new List<IComputingInternal>();
+        protected bool _isActive;
         public bool IsActive => _isActive;
 
         public ReadOnlyCollection<object> ConsumerTags =>
@@ -526,86 +526,54 @@ namespace ObservableComputations
         #region Implementation of IComputingInternal
         IEnumerable<Consumer> IComputingInternal.Consumers => _consumers;
 
+        void IComputingInternal.AddToUpstreamComputings(IComputingInternal computing)
+        {
+            addToUpstreamComputings(computing);
+        }
+
+        void IComputingInternal.RemoveFromUpstreamComputings(IComputingInternal computing)
+        {
+            removeFromUpstreamComputings(computing);
+        }
+
+        void IComputingInternal.Initialize()
+        {
+            initialize();
+        }
+
+        void IComputingInternal.Uninitialize()
+        {
+            uninitialize();
+        }
+
+        void IComputingInternal.InitializeFromSource()
+        {
+            initializeFromSource();
+        }
+
         void IComputingInternal.AddConsumer(Consumer addingConsumer)
         {
-            for (var index = 0; index < _consumers.Count; index++)
-            {
-                Consumer consumer = _consumers[index];
-                if (ReferenceEquals(consumer, addingConsumer)) return;
-            }
+            Utils.AddComsumer(addingConsumer, _consumers, _downstreamConsumedComputings, this, ref _isActive);
+        }
 
-            _consumers.Add(addingConsumer);
-            addingConsumer.AddComputing(this);
-
-            if (_consumers.Count == 1)
-            {                   
-                if (_downstreamConsumedComputings.Count == 0)
-                {
-                    _isActive = true;
-                    addToUpstreamComputings(this);
-                    initialize();
-                    initializeFromSource();
-                    OnPropertyChanged(Utils.IsActivePropertyChangedEventArgs);
-                }
-                else
-                {
-                    addToUpstreamComputings(this);
-                }
-            }
+        void IComputingInternal.OnPropertyChanged(PropertyChangedEventArgs propertyChangedEventArgs)
+        {
+            OnPropertyChanged(propertyChangedEventArgs);
         }
 
         void IComputingInternal.RemoveConsumer(Consumer removingConsumer)
         {
-            for (var index = 0; index < _consumers.Count; index++)
-            {
-                Consumer consumer = _consumers[index];
-                if (ReferenceEquals(consumer, removingConsumer))
-                {
-                    _consumers.RemoveAt(index);
-                    break;
-                }
-            }
-            
-            if (_consumers.Count == 0 && _downstreamConsumedComputings.Count == 0)
-            {
-                _isActive = false;
-                initializeFromSource();
-                uninitialize();
-                OnPropertyChanged(Utils.IsActivePropertyChangedEventArgs);
-
-                removeFromUpstreamComputings(this);
-            }
+            Utils.RemoveConsumer(removingConsumer, _consumers, _downstreamConsumedComputings, ref _isActive, this);
         }
 
         void IComputingInternal.AddDownstreamConsumedComputing(IComputingInternal computing)
         {
-            _downstreamConsumedComputings.Add(computing);
-
-            if (_downstreamConsumedComputings.Count == 1 && _consumers.Count == 0)
-            {
-                _isActive = true;
-                addToUpstreamComputings(computing);
-                initialize();
-                initializeFromSource();
-                OnPropertyChanged(Utils.IsActivePropertyChangedEventArgs);
-            }
-            else
-                addToUpstreamComputings(computing);
+            Utils.AddDownstreamConsumedComputing(computing, _downstreamConsumedComputings, _consumers, ref _isActive, this);
         }
 
         void IComputingInternal.RemoveDownstreamConsumedComputing(IComputingInternal computing)
         {
-            _downstreamConsumedComputings.Remove(computing);
-
-            if (_consumers.Count == 0 && _downstreamConsumedComputings.Count == 0)
-            {
-                _isActive = true;
-                uninitialize();
-                initializeFromSource();
-                OnPropertyChanged(Utils.IsActivePropertyChangedEventArgs);
-            }
-
-            removeFromUpstreamComputings(computing);
+            Utils.RemoveDownstreamConsumedComputing(computing, _downstreamConsumedComputings, ref _isActive, this, _consumers);
         }
 
         void IComputingInternal.RaiseConsistencyRestored()

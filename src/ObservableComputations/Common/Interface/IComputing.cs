@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 
 namespace ObservableComputations
 {
@@ -20,5 +21,11 @@ namespace ObservableComputations
         void RemoveDownstreamConsumedComputing(IComputingInternal computing);
         IEnumerable<Consumer> Consumers { get; }
         void RaiseConsistencyRestored();
+        void AddToUpstreamComputings(IComputingInternal computing);
+        void RemoveFromUpstreamComputings(IComputingInternal computing);
+        void Initialize();
+        void Uninitialize();
+        void InitializeFromSource();
+        void OnPropertyChanged(PropertyChangedEventArgs propertyChangedEventArgs);
     }
 }

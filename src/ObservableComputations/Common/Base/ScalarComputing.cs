@@ -1,13 +1,15 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Threading;
 
 namespace ObservableComputations
 {
-	public abstract class ScalarComputing<TValue> : IScalar<TValue>, IReadScalar<TValue>, IWriteScalar<TValue>, IScalarComputing
+	public abstract class ScalarComputing<TValue> : IScalar<TValue>, IReadScalar<TValue>, IWriteScalar<TValue>, IScalarComputing,  IComputingInternal
 	{
 		public string DebugTag {get; set;}
 		public object Tag {get; set;}
+
 
 		public ScalarComputing()
 		{
@@ -170,6 +172,99 @@ namespace ObservableComputations
 
         protected bool _isActive;
         public bool IsActive => _isActive;
+
+        protected PropertyChangedEventHandler getScalarValueChangedHandler(Action action = null)
+        {
+            return (sender, args) =>
+            {
+                if (args.PropertyName != nameof(IReadScalar<object>.Value)) return;
+                checkConsistent(sender, args);
+
+                _handledEventSender = sender;
+                _handledEventArgs = args;
+
+                _isConsistent = false;
+
+                action?.Invoke();
+                initializeFromSource();
+
+                _isConsistent = true;
+                raiseConsistencyRestored();
+
+                _handledEventSender = null;
+                _handledEventArgs = null;
+            };
+        }
+
+        protected abstract void initializeFromSource();
+        protected abstract void initialize();
+        protected abstract void uninitialize();
+        internal abstract void addToUpstreamComputings(IComputingInternal computing);
+        internal abstract void removeFromUpstreamComputings(IComputingInternal computing);
+
+
+        protected List<Consumer> _consumers = new List<Consumer>();
+        internal  List<IComputingInternal> _downstreamConsumedComputings = new List<IComputingInternal>();
+
+        #region Implementation of IComputingInternal
+        IEnumerable<Consumer> IComputingInternal.Consumers => _consumers;
+
+        void IComputingInternal.AddToUpstreamComputings(IComputingInternal computing)
+        {
+            addToUpstreamComputings(computing);
+        }
+
+        void IComputingInternal.RemoveFromUpstreamComputings(IComputingInternal computing)
+        {
+            removeFromUpstreamComputings(computing);
+        }
+
+        void IComputingInternal.Initialize()
+        {
+            initialize();
+        }
+
+        void IComputingInternal.Uninitialize()
+        {
+            uninitialize();
+        }
+
+        void IComputingInternal.InitializeFromSource()
+        {
+            initializeFromSource();
+        }
+
+        void IComputingInternal.AddConsumer(Consumer addingConsumer)
+        {
+            Utils.AddComsumer(addingConsumer, _consumers, _downstreamConsumedComputings, this, ref _isActive);
+        }
+
+        void IComputingInternal.OnPropertyChanged(PropertyChangedEventArgs propertyChangedEventArgs)
+        {
+            raisePropertyChanged(propertyChangedEventArgs);
+        }
+
+        void IComputingInternal.RemoveConsumer(Consumer removingConsumer)
+        {
+            Utils.RemoveConsumer(removingConsumer, _consumers, _downstreamConsumedComputings, ref _isActive, this);
+        }
+
+        void IComputingInternal.AddDownstreamConsumedComputing(IComputingInternal computing)
+        {
+            Utils.AddDownstreamConsumedComputing(computing, _downstreamConsumedComputings, _consumers, ref _isActive, this);
+        }
+
+        void IComputingInternal.RemoveDownstreamConsumedComputing(IComputingInternal computing)
+        {
+            Utils.RemoveDownstreamConsumedComputing(computing, _downstreamConsumedComputings, ref _isActive, this, _consumers);
+        }
+
+        void IComputingInternal.RaiseConsistencyRestored()
+        {
+            raiseConsistencyRestored();
+        }
+
+        #endregion
 
 		#region INotifyPropertyChanged imlementation
 		public event PropertyChangedEventHandler PropertyChanged;

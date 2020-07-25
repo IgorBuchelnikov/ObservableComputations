@@ -395,6 +395,88 @@ namespace ObservableComputations
             orderingValues = new List<TOrderingValue>(sourceCapacity);
         }
 
+        internal static void AddComsumer(Consumer addingConsumer, List<Consumer> consumers, List<IComputingInternal> downstreamConsumedComputings, IComputingInternal current, ref bool isActive)
+        {
+            for (var index = 0; index < consumers.Count; index++)
+            {
+                Consumer consumer = consumers[index];
+                if (ReferenceEquals(consumer, addingConsumer)) return;
+            }
+
+            consumers.Add(addingConsumer);
+            addingConsumer.AddComputing(current);
+
+            if (consumers.Count == 1)
+            {
+                if (downstreamConsumedComputings.Count == 0)
+                {
+                    isActive = true;
+                    current.AddToUpstreamComputings(current);
+                    current.Initialize();
+                    current.InitializeFromSource();
+                    current.OnPropertyChanged(Utils.IsActivePropertyChangedEventArgs);
+                }
+                else
+                {
+                    current.AddToUpstreamComputings(current);
+                }
+            }
+        }
+
+        internal static void RemoveConsumer(Consumer removingConsumer, List<Consumer> consumers, List<IComputingInternal> downstreamConsumedComputings, ref bool isActive, IComputingInternal current)
+        {
+            for (var index = 0; index < consumers.Count; index++)
+            {
+                Consumer consumer = consumers[index];
+                if (ReferenceEquals(consumer, removingConsumer))
+                {
+                    consumers.RemoveAt(index);
+                    break;
+                }
+            }
+
+            if (consumers.Count == 0 && downstreamConsumedComputings.Count == 0)
+            {
+                isActive = false;
+                current.InitializeFromSource();
+                current.Uninitialize();
+                current.OnPropertyChanged(Utils.IsActivePropertyChangedEventArgs);
+
+                current.RemoveFromUpstreamComputings(current);
+            }
+        }
+
+        internal static void AddDownstreamConsumedComputing(IComputingInternal computing, List<IComputingInternal> downstreamConsumedComputings, List<Consumer> consumers, ref bool isActive, IComputingInternal current)
+        {
+            downstreamConsumedComputings.Add(computing);
+
+            if (downstreamConsumedComputings.Count == 1 && consumers.Count == 0)
+            {
+                isActive = true;
+                current.AddToUpstreamComputings(computing);
+                current.Initialize();
+                current.InitializeFromSource();
+                current.OnPropertyChanged(Utils.IsActivePropertyChangedEventArgs);
+            }
+            else
+                current.AddToUpstreamComputings(computing);
+        }
+
+        internal static void RemoveDownstreamConsumedComputing(IComputingInternal computing, List<IComputingInternal> downstreamConsumedComputings, ref bool isActive, IComputingInternal current, List<Consumer> consumers)
+        {
+            downstreamConsumedComputings.Remove(computing);
+
+            if (consumers.Count == 0 && downstreamConsumedComputings.Count == 0)
+            {
+                isActive = true;
+                current.Uninitialize();
+                current.InitializeFromSource();
+                current.OnPropertyChanged(Utils.IsActivePropertyChangedEventArgs);
+            }
+
+            current.RemoveFromUpstreamComputings(computing);
+        }
+
 		internal static readonly PropertyChangedEventArgs InsertItemIntoGroupActionPropertyChangedEventArgs = new PropertyChangedEventArgs("InsertItemIntoGroupAction");
 		internal static readonly PropertyChangedEventArgs RemoveItemFromGroupActionPropertyChangedEventArgs = new PropertyChangedEventArgs("RemoveItemFromGroupAction");
 		internal static readonly PropertyChangedEventArgs SetGroupItemActionPropertyChangedEventArgs = new PropertyChangedEventArgs("SetGroupItemAction");
@@ -430,6 +512,6 @@ namespace ObservableComputations
 		internal static readonly PropertyChangedEventArgs PageSizePropertyChangedEventArgs = new PropertyChangedEventArgs("PageSize");
 		internal static readonly PropertyChangedEventArgs PausedPropertyChangedEventArgs = new PropertyChangedEventArgs("Paused");
 		internal static readonly NotifyCollectionChangedEventArgs ResetNotifyCollectionChangedEventArgs = new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Reset);
-        public static PropertyChangedEventArgs IsActivePropertyChangedEventArgs = new PropertyChangedEventArgs("IsActive");
+        internal static PropertyChangedEventArgs IsActivePropertyChangedEventArgs = new PropertyChangedEventArgs("IsActive");
     }
 }

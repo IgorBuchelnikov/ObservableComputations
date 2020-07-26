@@ -123,14 +123,14 @@ namespace ObservableComputations
             sourceNotifyCollectionChangedEventHandler = null;
         }
 
-        internal static void changeSource<TSourceItem, TSource>(
+        internal static void changeSource<TSource, TSourceAsList>(
             ref TSource source,
             IReadScalar<INotifyCollectionChanged> sourceScalar,
             List<IComputingInternal> downstreamConsumedComputings,
             List<Consumer> consumers,
             IComputingInternal computing, 
-            ref ObservableCollectionWithChangeMarker<TSourceItem> sourceAsList)
-        where TSource : INotifyCollectionChanged
+            ref TSourceAsList sourceAsList)
+            where TSource : INotifyCollectionChanged where TSourceAsList : class
         {
             IComputingInternal originalSource = source as IComputingInternal;
             if (sourceScalar != null) source = (TSource) sourceScalar.Value;
@@ -475,6 +475,51 @@ namespace ObservableComputations
             }
 
             current.RemoveFromUpstreamComputings(computing);
+        }
+
+        internal static void initializeSourceIndexerPropertyTracker<TSourceList>(
+            ref INotifyPropertyChanged sourceAsINotifyPropertyChanged, 
+            ISourceIndexerPropertyTracker current,
+            TSourceList sourceAsList)
+        {
+            sourceAsINotifyPropertyChanged = (INotifyPropertyChanged) sourceAsList;
+            sourceAsINotifyPropertyChanged.PropertyChanged += current.HandleSourcePropertyChanged;
+        }
+
+        internal static void initializeFromHasChangeMarker<TSourceList>(
+            ref IHasChangeMarker sourceAsIHasChangeMarker, 
+            TSourceList sourceAsList, 
+            ref bool lastProcessedSourceChangeMarker,
+            ref INotifyPropertyChanged sourceAsINotifyPropertyChanged, 
+            ISourceIndexerPropertyTracker current)
+        {
+            sourceAsIHasChangeMarker = sourceAsList as IHasChangeMarker;
+
+            if (sourceAsIHasChangeMarker != null)
+            {
+                lastProcessedSourceChangeMarker = sourceAsIHasChangeMarker.ChangeMarker;
+            }
+            else
+            {
+                Utils.initializeSourceIndexerPropertyTracker(ref sourceAsINotifyPropertyChanged,
+                    current, sourceAsList);
+            }
+        }
+
+        internal static bool preHandleSourceCollectionChanged(object sender, NotifyCollectionChangedEventArgs e, bool isConsistent, IComputing sourceItems, ref bool indexerPropertyChangedEventRaised, ref bool lastProcessedSourceChangeMarker, IHasChangeMarker sourceAsIHasChangeMarker, ref object handledEventSender, ref EventArgs handledEventArgs)
+        {
+            Utils.checkConsistent(sender, e, isConsistent, sourceItems);
+
+            if (!indexerPropertyChangedEventRaised &&
+                lastProcessedSourceChangeMarker == sourceAsIHasChangeMarker.ChangeMarker)
+                return false;
+
+            handledEventSender = sender;
+            handledEventArgs = e;
+
+            lastProcessedSourceChangeMarker = !lastProcessedSourceChangeMarker;
+            indexerPropertyChangedEventRaised = false;
+            return true;
         }
 
 		internal static readonly PropertyChangedEventArgs InsertItemIntoGroupActionPropertyChangedEventArgs = new PropertyChangedEventArgs("InsertItemIntoGroupAction");

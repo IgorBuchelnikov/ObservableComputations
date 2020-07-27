@@ -129,7 +129,8 @@ namespace ObservableComputations
             List<IComputingInternal> downstreamConsumedComputings,
             List<Consumer> consumers,
             IComputingInternal computing, 
-            ref TSourceAsList sourceAsList)
+            ref TSourceAsList sourceAsList,
+            TSourceAsList sourceAsListValue)
             where TSource : INotifyCollectionChanged where TSourceAsList : class
         {
             IComputingInternal originalSource = source as IComputingInternal;
@@ -150,7 +151,7 @@ namespace ObservableComputations
                     newSource?.AddDownstreamConsumedComputing(computing);
             }
 
-            sourceAsList = null;
+            sourceAsList = sourceAsListValue;
         }
 
         internal static void initializeFromObservableCollectionWithChangeMarker<TSourceItem>(INotifyCollectionChanged source, ref ObservableCollectionWithChangeMarker<TSourceItem> sourceAsList, ref bool rootSourceWrapper, ref bool lastProcessedSourceChangeMarker)

@@ -255,7 +255,7 @@ namespace ObservableComputations
 			}
 
 			_predicatePassedCount = 0;
-            Utils.changeSource(ref _source, _sourceScalar, _downstreamConsumedComputings, _consumers, this, ref _sourceAsList);
+            Utils.changeSource(ref _source, _sourceScalar, _downstreamConsumedComputings, _consumers, this, ref _sourceAsList, null);
 
 			if (_source != null && _isActive)
 			{

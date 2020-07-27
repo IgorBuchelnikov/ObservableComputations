@@ -310,7 +310,7 @@ namespace ObservableComputations
 			}
 
             Utils.changeSource(ref _source, _sourceScalar, _downstreamConsumedComputings, _consumers, this,
-                ref _sourceAsList);
+                ref _sourceAsList, _source as IList<TSourceItem>);
 
 			if (_sourceAsList != null && _isActive)
 			{
@@ -639,7 +639,7 @@ namespace ObservableComputations
 
         void ISourceIndexerPropertyTracker.HandleSourcePropertyChanged(object sender, PropertyChangedEventArgs propertyChangedEventArgs)
         {
-            throw new NotImplementedException();
+            _indexerPropertyChangedEventRaised = true;
         }
 
         #endregion

@@ -26,7 +26,6 @@ namespace ObservableComputations
 		private INotifyCollectionChanged _source;
 		private readonly IReadScalar<INotifyCollectionChanged> _sourceScalar;
 
-		private PropertyChangedEventHandler _sourcePropertyChangedEventHandler;
 		private bool _indexerPropertyChangedEventRaised;
 		private INotifyPropertyChanged _sourceAsINotifyPropertyChanged;
 
@@ -58,12 +57,10 @@ namespace ObservableComputations
 			}
 
 			if (_sourceAsINotifyPropertyChanged != null)
-			{
+            {
                 _sourceAsINotifyPropertyChanged.PropertyChanged -=
-                    _sourcePropertyChangedEventHandler;
-
+                    ((ISourceIndexerPropertyTracker) this).HandleSourcePropertyChanged;
                 _sourceAsINotifyPropertyChanged = null;
-                _sourcePropertyChangedEventHandler = null;
 			}
 
             Utils.changeSource(ref _source, _sourceScalar, _downstreamConsumedComputings, _consumers, this,
@@ -176,9 +173,16 @@ namespace ObservableComputations
         protected override void uninitialize()
         {
             Utils.uninitializeSourceScalar(_sourceScalar, _sourceScalarPropertyChangedEventHandler);
-            if (_sourceAsINotifyPropertyChanged != null)
-                _sourceAsINotifyPropertyChanged.PropertyChanged -= ((ISourceIndexerPropertyTracker) this).HandleSourcePropertyChanged;
         }
+
+        #region Implementation of ISourceIndexerPropertyTracker
+
+        void ISourceIndexerPropertyTracker.HandleSourcePropertyChanged(object sender, PropertyChangedEventArgs propertyChangedEventArgs)
+        {
+            _indexerPropertyChangedEventRaised = true;
+        }
+
+        #endregion
 
 		public void ValidateConsistency()
 		{
@@ -194,14 +198,5 @@ namespace ObservableComputations
 				if (!resultItem.IsSameAs(sourceItem)) throw new ObservableComputationsException(this, "Consistency violation: Casting.2");
 			}
 		}
-
-        #region Implementation of ISourceIndexerPropertyTracker
-
-        void ISourceIndexerPropertyTracker.HandleSourcePropertyChanged(object sender, PropertyChangedEventArgs propertyChangedEventArgs)
-        {
-            _indexerPropertyChangedEventRaised = true;
-        }
-
-        #endregion
     }
 }

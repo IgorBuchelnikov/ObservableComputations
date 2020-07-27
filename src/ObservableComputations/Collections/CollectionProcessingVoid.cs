@@ -1,12 +1,12 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.ComponentModel;
-using System.Threading;
 
 namespace ObservableComputations
 {
-	public class CollectionProcessingVoid<TSourceItem> : CollectionComputing<TSourceItem>, IHasSourceCollections
+	public class CollectionProcessingVoid<TSourceItem> : CollectionComputing<TSourceItem>, IHasSourceCollections, ISourceIndexerPropertyTracker
 	{
 		// ReSharper disable once MemberCanBePrivate.Global
 		public IReadScalar<INotifyCollectionChanged> SourceScalar => _sourceScalar;
@@ -26,17 +26,18 @@ namespace ObservableComputations
 		private readonly Action<TSourceItem, CollectionProcessingVoid<TSourceItem>> _moveItemProcessor;
 
 		// ReSharper disable once PrivateFieldCanBeConvertedToLocalVariable
-		private readonly PropertyChangedEventHandler _sourceScalarPropertyChangedEventHandler;
-		private readonly WeakPropertyChangedEventHandler _sourceScalarWeakPropertyChangedEventHandler;
+		private PropertyChangedEventHandler _sourceScalarPropertyChangedEventHandler;
 
-		private ObservableCollectionWithChangeMarker<TSourceItem> _sourceAsList;
-		bool _rootSourceWrapper;
+		private IList<TSourceItem> _sourceAsList;
+        private IHasChangeMarker _sourceAsIHasChangeMarker;
 		private bool _lastProcessedSourceChangeMarker;
 
 		private NotifyCollectionChangedEventHandler _sourceNotifyCollectionChangedEventHandler;
-		private WeakNotifyCollectionChangedEventHandler _sourceWeakNotifyCollectionChangedEventHandler;
 		private readonly IReadScalar<INotifyCollectionChanged> _sourceScalar;
 		private INotifyCollectionChanged _source;
+
+        private bool _indexerPropertyChangedEventRaised;
+        private INotifyPropertyChanged _sourceAsINotifyPropertyChanged;
 
 		[ObservableComputationsCall]
 		public CollectionProcessingVoid(
@@ -46,11 +47,6 @@ namespace ObservableComputations
 			Action<TSourceItem, CollectionProcessingVoid<TSourceItem>> moveItemProcessor = null) : this(newItemProcessor, oldItemProcessor, moveItemProcessor, Utils.getCapacity(sourceScalar))
 		{
 			_sourceScalar = sourceScalar;
-			_sourceScalarPropertyChangedEventHandler = handleSourceScalarValueChanged;
-			_sourceScalarWeakPropertyChangedEventHandler = new WeakPropertyChangedEventHandler(_sourceScalarPropertyChangedEventHandler);
-			_sourceScalar.PropertyChanged += _sourceScalarWeakPropertyChangedEventHandler.Handle;
-
-			initializeFromSource(null, null);
 		}
 
 		[ObservableComputationsCall]
@@ -61,7 +57,6 @@ namespace ObservableComputations
 			Action<TSourceItem, CollectionProcessingVoid<TSourceItem>> moveItemProcessor = null) : this(newItemProcessor, oldItemProcessor, moveItemProcessor, Utils.getCapacity(source))
 		{
 			_source = source;
-			initializeFromSource(null, null);
 		}
 
 		private CollectionProcessingVoid(
@@ -75,7 +70,7 @@ namespace ObservableComputations
 			_moveItemProcessor = moveItemProcessor;
 		}
 
-		private void initializeFromSource(object sender, EventArgs eventArgs)
+        protected override void initializeFromSource()
 		{
 			if (_sourceNotifyCollectionChangedEventHandler != null)
 			{
@@ -87,37 +82,21 @@ namespace ObservableComputations
 					if (_oldItemProcessor!= null) processOldItem(sourceItem);
 				}
 
-				if (_rootSourceWrapper)
-				{
-					_sourceAsList.CollectionChanged -= _sourceNotifyCollectionChangedEventHandler;
-				}
-				else
-				{
-					_sourceAsList.CollectionChanged -= _sourceWeakNotifyCollectionChangedEventHandler.Handle;
-					_sourceWeakNotifyCollectionChangedEventHandler = null;
-				}
-
-				_sourceNotifyCollectionChangedEventHandler = null;
+                _source.CollectionChanged -= _sourceNotifyCollectionChangedEventHandler;
+                _sourceNotifyCollectionChangedEventHandler = null;
 			}
 
-			if (_sourceScalar != null)
-				_source = _sourceScalar.Value;
-			_sourceAsList = null;
+            Utils.changeSource(ref _source, _sourceScalar, _downstreamConsumedComputings, _consumers, this,
+                ref _sourceAsList, _source as IList<TSourceItem>);
 
-			if (_source != null)
-			{
-				if (_source is ObservableCollectionWithChangeMarker<TSourceItem> sourceAsList)
-				{
-					_sourceAsList = sourceAsList;
-					_rootSourceWrapper = false;
-				}
-				else
-				{
-					_sourceAsList = new RootSourceWrapper<TSourceItem>(_source);
-					_rootSourceWrapper = true;
-				}
-
-				_lastProcessedSourceChangeMarker = _sourceAsList.ChangeMarkerField;
+            if (_sourceAsList != null && _isActive)
+            {
+                Utils.initializeFromHasChangeMarker(
+                    ref _sourceAsIHasChangeMarker, 
+                    _sourceAsList, 
+                    ref _lastProcessedSourceChangeMarker, 
+                    ref _sourceAsINotifyPropertyChanged,
+                    this);
 
 				int count = _sourceAsList.Count;
 				for (int index = 0; index < count; index++)
@@ -127,51 +106,23 @@ namespace ObservableComputations
 					baseInsertItem(index, sourceItem);
 				}
 
-				_sourceNotifyCollectionChangedEventHandler = handleSourceCollectionChanged;
-
-				if (_rootSourceWrapper)
-				{
-					_sourceAsList.CollectionChanged += _sourceNotifyCollectionChangedEventHandler;
-				}
-				else
-				{
-					_sourceWeakNotifyCollectionChangedEventHandler =
-						new WeakNotifyCollectionChangedEventHandler(_sourceNotifyCollectionChangedEventHandler);
-
-					_sourceAsList.CollectionChanged += _sourceWeakNotifyCollectionChangedEventHandler.Handle;
-				}
+                _sourceNotifyCollectionChangedEventHandler = handleSourceCollectionChanged;
+                _source.CollectionChanged += _sourceNotifyCollectionChangedEventHandler;
 			}
 		}
 
-		private void handleSourceScalarValueChanged(object sender, PropertyChangedEventArgs e)
-		{
-			if (e.PropertyName != nameof(IReadScalar<INotifyCollectionChanged>.Value)) return;
-			checkConsistent(sender, e);
-
-			_handledEventSender = sender;
-			_handledEventArgs = e;
-
-			_isConsistent = false;
-
-			initializeFromSource(sender, e);
-
-			_isConsistent = true;
-			raiseConsistencyRestored();
-
-			_handledEventSender = null;
-			_handledEventArgs = null;
-		}
-
-
 		private void handleSourceCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
 		{
-			checkConsistent(sender, e);
-			if (!_rootSourceWrapper && _lastProcessedSourceChangeMarker == _sourceAsList.ChangeMarkerField) return;
-
-			_handledEventSender = null;
-			_handledEventArgs = null;
-
-			_lastProcessedSourceChangeMarker = !_lastProcessedSourceChangeMarker;
+            if (!Utils.preHandleSourceCollectionChanged(
+                sender, 
+                e, 
+                _isConsistent, 
+                this, 
+                ref _indexerPropertyChangedEventRaised, 
+                ref _lastProcessedSourceChangeMarker, 
+                _sourceAsIHasChangeMarker, 
+                ref _handledEventSender, 
+                ref _handledEventArgs)) return;
 
 			switch (e.Action)
 			{
@@ -216,30 +167,24 @@ namespace ObservableComputations
 					break;
 				case NotifyCollectionChangedAction.Reset:
 					_isConsistent = false;
-					initializeFromSource(sender, e);
+					initializeFromSource();
 					_isConsistent = true;
 					raiseConsistencyRestored();
 					break;
 			}
 
-			_handledEventSender = null;
-			_handledEventArgs = null;
+            Utils.postHandleSourceCollectionChanged(
+                ref _handledEventSender,
+                ref _handledEventArgs);
 		}
 
 		private void processNewItem(TSourceItem sourceItem)
 		{
 			if (Configuration.TrackComputingsExecutingUserCode)
 			{
-				Thread currentThread = Thread.CurrentThread;
-				DebugInfo._computingsExecutingUserCode.TryGetValue(currentThread, out IComputing computing);
-				DebugInfo._computingsExecutingUserCode[currentThread] = this;	
-				_userCodeIsCalledFrom = computing;
-
+                var currentThread = Utils.startComputingExecutingUserCode(out var computing, ref _userCodeIsCalledFrom, this);
 				_newItemProcessor(sourceItem, this);
-
-				if (computing == null) DebugInfo._computingsExecutingUserCode.TryRemove(currentThread, out IComputing _);
-				else DebugInfo._computingsExecutingUserCode[currentThread] = computing;
-				_userCodeIsCalledFrom = null;
+                Utils.endComputingExecutingUserCode(computing, currentThread, ref _userCodeIsCalledFrom);
 				return;
 			}
 
@@ -250,16 +195,9 @@ namespace ObservableComputations
 		{
 			if (Configuration.TrackComputingsExecutingUserCode)
 			{
-				Thread currentThread = Thread.CurrentThread;
-				DebugInfo._computingsExecutingUserCode.TryGetValue(currentThread, out IComputing computing);
-				DebugInfo._computingsExecutingUserCode[currentThread] = this;	
-				_userCodeIsCalledFrom = computing;
-
+                var currentThread = Utils.startComputingExecutingUserCode(out var computing, ref _userCodeIsCalledFrom, this);
 				_oldItemProcessor(sourceItem, this);
-
-				if (computing == null) DebugInfo._computingsExecutingUserCode.TryRemove(currentThread, out IComputing _);
-				else DebugInfo._computingsExecutingUserCode[currentThread] = computing;
-				_userCodeIsCalledFrom = null;
+                Utils.endComputingExecutingUserCode(computing, currentThread, ref _userCodeIsCalledFrom);
 				return;
 			}
 
@@ -271,33 +209,42 @@ namespace ObservableComputations
 		{
 			if (Configuration.TrackComputingsExecutingUserCode)
 			{
-				Thread currentThread = Thread.CurrentThread;
-				DebugInfo._computingsExecutingUserCode.TryGetValue(currentThread, out IComputing computing);
-				DebugInfo._computingsExecutingUserCode[currentThread] = this;	
-				_userCodeIsCalledFrom = computing;
-
+                var currentThread = Utils.startComputingExecutingUserCode(out var computing, ref _userCodeIsCalledFrom, this);
 				_moveItemProcessor(sourceItem, this);
-
-				if (computing == null) DebugInfo._computingsExecutingUserCode.TryRemove(currentThread, out IComputing _);
-				else DebugInfo._computingsExecutingUserCode[currentThread] = computing;
-				_userCodeIsCalledFrom = null;
+                Utils.endComputingExecutingUserCode(computing, currentThread, ref _userCodeIsCalledFrom);
 				return;
 			}
 
 			_moveItemProcessor(sourceItem, this);
 		}
 
-		~CollectionProcessingVoid()
-		{
-			if (_sourceWeakNotifyCollectionChangedEventHandler != null)
-			{
-				_sourceAsList.CollectionChanged -= _sourceWeakNotifyCollectionChangedEventHandler.Handle;
-			}
+        internal override void addToUpstreamComputings(IComputingInternal computing)
+        {
+            (_source as IComputingInternal)?.AddDownstreamConsumedComputing(computing);
+        }
 
-			if (_sourceScalarWeakPropertyChangedEventHandler != null)
-			{
-				_sourceScalar.PropertyChanged -= _sourceScalarWeakPropertyChangedEventHandler.Handle;
-			}
-		}
+        internal override void removeFromUpstreamComputings(IComputingInternal computing)        
+        {
+            (_source as IComputingInternal)?.RemoveDownstreamConsumedComputing(computing);
+        }
+
+        protected override void initialize()
+        {
+            Utils.initializeSourceScalar(_sourceScalar, ref _sourceScalarPropertyChangedEventHandler, ref _source, getScalarValueChangedHandler());
+        }
+
+        protected override void uninitialize()
+        {
+            Utils.uninitializeSourceScalar(_sourceScalar, _sourceScalarPropertyChangedEventHandler);
+        }
+
+        #region Implementation of ISourceIndexerPropertyTracker
+
+        void ISourceIndexerPropertyTracker.HandleSourcePropertyChanged(object sender, PropertyChangedEventArgs propertyChangedEventArgs)
+        {
+            _indexerPropertyChangedEventRaised = true;
+        }
+
+        #endregion
 	}
 }

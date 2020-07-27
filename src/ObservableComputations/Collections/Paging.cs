@@ -611,6 +611,15 @@ namespace ObservableComputations
                 _sourceAsINotifyPropertyChanged.PropertyChanged -= ((ISourceIndexerPropertyTracker) this).HandleSourcePropertyChanged;
         }
 
+        #region Implementation of ISourceIndexerPropertyTracker
+
+        void ISourceIndexerPropertyTracker.HandleSourcePropertyChanged(object sender, PropertyChangedEventArgs propertyChangedEventArgs)
+        {
+            _indexerPropertyChangedEventRaised = true;
+        }
+
+        #endregion
+
 		public void ValidateConsistency()
 		{
 			IList<TSourceItem> source = _sourceScalar.getValue(_source, new ObservableCollection<TSourceItem>()) as IList<TSourceItem>;
@@ -635,13 +644,6 @@ namespace ObservableComputations
 			}
 		}
 
-        #region Implementation of ISourceIndexerPropertyTracker
 
-        void ISourceIndexerPropertyTracker.HandleSourcePropertyChanged(object sender, PropertyChangedEventArgs propertyChangedEventArgs)
-        {
-            _indexerPropertyChangedEventRaised = true;
-        }
-
-        #endregion
     }
 }

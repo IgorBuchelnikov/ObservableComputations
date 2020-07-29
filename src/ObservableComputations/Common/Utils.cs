@@ -51,10 +51,43 @@ namespace ObservableComputations
 		}
 
         internal static void disposeExpressionItemInfos<TItemInfo>(
-            ref List<TItemInfo> itemInfos, 
-            int expressionСallCount, 
+            List<TItemInfo> itemInfos,
+            int expressionСallCount,
             IComputingInternal computing)
             where TItemInfo : ExpressionItemInfo
+        {
+
+            disposeExpressionItemInfos(itemInfos, expressionСallCount,
+                (callIndexTotal, itemInfo, propertyChangedEventSubscriptions, methodChangedEventSubscriptions) =>
+                {
+                    int newCallIndexTotal = disposeExpressionWatcher(expressionСallCount, itemInfo.ExpressionWatcher, callIndexTotal, propertyChangedEventSubscriptions, methodChangedEventSubscriptions);
+                    disposeNestedComputings(computing, itemInfo.NestedComputings);
+                    return newCallIndexTotal;
+                });
+        }
+
+        internal static void disposeKeyValueExpressionItemInfos<TItemInfo>(
+            List<TItemInfo> itemInfos,
+            int keyExpressionСallCount,
+            int valueExpressionСallCount,
+            IComputingInternal computing)
+            where TItemInfo : KeyValueExpressionItemInfo
+        {
+            disposeExpressionItemInfos(itemInfos, keyExpressionСallCount + valueExpressionСallCount,
+                (callIndexTotal, itemInfo, propertyChangedEventSubscriptions, methodChangedEventSubscriptions) =>
+                {
+                    int newCallIndexTotal = disposeExpressionWatcher(keyExpressionСallCount, itemInfo.KeyExpressionWatcher, callIndexTotal, propertyChangedEventSubscriptions, methodChangedEventSubscriptions);
+                    disposeNestedComputings(computing, itemInfo.KeyNestedComputings);
+                    newCallIndexTotal = disposeExpressionWatcher(valueExpressionСallCount, itemInfo.ValueExpressionWatcher, newCallIndexTotal, propertyChangedEventSubscriptions, methodChangedEventSubscriptions);
+                    disposeNestedComputings(computing, itemInfo.ValueNestedComputings);
+                    return newCallIndexTotal;
+                });
+        }
+
+        internal static void disposeExpressionItemInfos<TItemInfo>(
+            List<TItemInfo> itemInfos,
+            int expressionСallCount,
+            Func<int, TItemInfo, PropertyChangedEventSubscription[], MethodChangedEventSubscription[], int> disposeItemInfo)
         {
             int itemInfosCount = itemInfos.Count;
 
@@ -67,35 +100,43 @@ namespace ObservableComputations
                 new MethodChangedEventSubscription[callCount];
 
             int callIndexTotal = 0;
-            int callIndex;
             for (var index = 0; index < itemInfosCount; index++)
             {
-                ExpressionItemInfo itemInfo = itemInfos[index];
-                ExpressionWatcher expressionWatcher = itemInfo.ExpressionWatcher;
-                expressionWatcher.Dispose();
-                int nextUpperCallIndexTotal = callIndexTotal + expressionСallCount;
-
-                callIndex = 0;
-                for (; callIndexTotal < nextUpperCallIndexTotal; callIndexTotal++)
-                {
-                    propertyChangedEventSubscriptions[callIndexTotal] =
-                        expressionWatcher._propertyChangedEventSubscriptions[callIndex];
-                    methodChangedEventSubscriptions[callIndexTotal] =
-                        expressionWatcher._methodChangedEventSubscriptions[callIndex];
-                    callIndex++;
-                }
-
-                List<IComputingInternal> nestedComputings = itemInfo.NestedComputings;
-
-                if (nestedComputings != null)
-                {
-                    int nestedComputingsCount = nestedComputings.Count;
-                    for (var computingIndex = 0; computingIndex < nestedComputingsCount; computingIndex++)
-                        nestedComputings[computingIndex].RemoveDownstreamConsumedComputing(computing);
-                }
+                callIndexTotal = disposeItemInfo(callIndexTotal, itemInfos[index], propertyChangedEventSubscriptions, methodChangedEventSubscriptions);
             }
 
             EventUnsubscriber.QueueSubscriptions(propertyChangedEventSubscriptions, methodChangedEventSubscriptions);
+        }
+
+        private static void disposeNestedComputings(IComputingInternal computing, List<IComputingInternal> nestedComputings)
+        {
+            if (nestedComputings != null)
+            {
+                int nestedComputingsCount = nestedComputings.Count;
+                for (var computingIndex = 0; computingIndex < nestedComputingsCount; computingIndex++)
+                    nestedComputings[computingIndex].RemoveDownstreamConsumedComputing(computing);
+            }
+        }
+
+        private static int disposeExpressionWatcher(int expressionСallCount, ExpressionWatcher expressionWatcher,
+            int callIndexTotal, PropertyChangedEventSubscription[] propertyChangedEventSubscriptions,
+            MethodChangedEventSubscription[] methodChangedEventSubscriptions) 
+        {
+            int callIndex;
+            expressionWatcher.Dispose();
+            int nextUpperCallIndexTotal = callIndexTotal + expressionСallCount;
+
+            callIndex = 0;
+            for (; callIndexTotal < nextUpperCallIndexTotal; callIndexTotal++)
+            {
+                propertyChangedEventSubscriptions[callIndexTotal] =
+                    expressionWatcher._propertyChangedEventSubscriptions[callIndex];
+                methodChangedEventSubscriptions[callIndexTotal] =
+                    expressionWatcher._methodChangedEventSubscriptions[callIndex];
+                callIndex++;
+            }
+
+            return callIndexTotal;
         }
 
         internal static int disposeSource<TItemInfo>(IReadScalar<INotifyCollectionChanged> sourceScalar, INotifyCollectionChanged source, ref List<TItemInfo> itemInfos, ref Positions<TItemInfo> sourcePositions,INotifyCollectionChanged sourceAsList, ref NotifyCollectionChangedEventHandler sourceNotifyCollectionChangedEventHandler)
@@ -289,9 +330,27 @@ namespace ObservableComputations
             ref TExpression func, 
             ref List<IComputingInternal> nestedComputing) where TItemInfo : Position, new()
         {
+            construct(capacity, out itemInfos, out sourcePositions);
+            construct(expressionToProcess, ref expressionOriginal, ref expression, ref expressionContainsParametrizedObservableComputationsCalls, ref expressionInfo, ref expressionСallCount, ref func, ref nestedComputing);
+        }
+
+        internal static void construct<TItemInfo>(int capacity, out List<TItemInfo> itemInfos, out Positions<TItemInfo> sourcePositions)
+            where TItemInfo : Position, new()
+        {
             itemInfos = new List<TItemInfo>(capacity);
             sourcePositions = new Positions<TItemInfo>(itemInfos);
+        }
 
+        internal static void construct<TExpression>(
+            Expression<TExpression> expressionToProcess, 
+            ref Expression<TExpression> expressionOriginal,
+            ref Expression<TExpression> expression, 
+            ref bool expressionContainsParametrizedObservableComputationsCalls,
+            ref ExpressionWatcher.ExpressionInfo expressionInfo, 
+            ref int expressionСallCount, 
+            ref TExpression func, 
+            ref List<IComputingInternal> nestedComputing)
+        {
             expressionOriginal = expressionToProcess;
             CallToConstantConverter callToConstantConverter =
                 new CallToConstantConverter(expressionOriginal.Parameters);

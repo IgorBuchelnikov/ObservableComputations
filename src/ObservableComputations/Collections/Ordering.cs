@@ -249,7 +249,7 @@ namespace ObservableComputations
 		{
 			if (_sourceNotifyCollectionChangedEventHandler != null)
 			{
-                Utils.disposeExpressionItemInfos(ref _itemInfos, _orderingValueSelectorExpressionСallCount, this);
+                Utils.disposeExpressionItemInfos(_itemInfos, _orderingValueSelectorExpressionСallCount, this);
 
 				int capacity = Utils.disposeSource(
                     _sourceScalar, 

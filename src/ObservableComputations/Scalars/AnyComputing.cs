@@ -244,7 +244,7 @@ namespace ObservableComputations
 		{
 			if (_sourceNotifyCollectionChangedEventHandler != null)
 			{
-                Utils.disposeExpressionItemInfos(ref _itemInfos, _predicateExpressionСallCount, this);
+                Utils.disposeExpressionItemInfos(_itemInfos, _predicateExpressionСallCount, this);
                 Utils.disposeSource(
                     _sourceScalar, 
                     _source,

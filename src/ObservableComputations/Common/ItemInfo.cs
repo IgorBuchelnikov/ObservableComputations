@@ -9,6 +9,14 @@ namespace ObservableComputations
         public List<IComputingInternal> NestedComputings;
     }
 
+    internal class KeyValueExpressionItemInfo : Position
+    {
+        public ExpressionWatcher KeyExpressionWatcher;
+        public List<IComputingInternal> KeyNestedComputings;
+        public ExpressionWatcher ValueExpressionWatcher;
+        public List<IComputingInternal> ValueNestedComputings;
+    }
+
     internal sealed class OrderingItemInfo<TOrderingValue> : ExpressionItemInfo
     {
         public Func<TOrderingValue> GetOrderingValueFunc;

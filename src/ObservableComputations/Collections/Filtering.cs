@@ -211,7 +211,7 @@ namespace ObservableComputations
 
 			if (_sourceNotifyCollectionChangedEventHandler != null)
 			{
-				Utils.disposeExpressionItemInfos(ref _itemInfos, _predicateExpressionСallCount, this);
+				Utils.disposeExpressionItemInfos(_itemInfos, _predicateExpressionСallCount, this);
 
 				_filteredPositions = new Positions<Position>(new List<Position>(_initialCapacity));	
 

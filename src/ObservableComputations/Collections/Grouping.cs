@@ -512,7 +512,7 @@ namespace ObservableComputations
 		{			
 			if (_sourceNotifyCollectionChangedEventHandler != null)
 			{
-                Utils.disposeExpressionItemInfos(ref _itemInfos, _keySelectorExpressionСallCount, this);
+                Utils.disposeExpressionItemInfos(_itemInfos, _keySelectorExpressionСallCount, this);
 
                 Utils.disposeSource(
                     _sourceScalar, 

@@ -302,7 +302,7 @@ namespace ObservableComputations
             if (_selectorContainsParametrizedObservableComputationsCalls)
             {
                 ItemInfo itemInfo = _itemInfos[index];
-                Utils.itemInfoRemoveDownstreamConsumedComputing(itemInfo, this);                    
+                Utils.itemInfoRemoveDownstreamConsumedComputing(itemInfo.NestedComputings, this);                    
             }
         }
 

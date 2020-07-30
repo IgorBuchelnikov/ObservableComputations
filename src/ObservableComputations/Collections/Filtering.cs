@@ -464,7 +464,7 @@ namespace ObservableComputations
                     EventUnsubscriber.QueueSubscriptions(oldExpressionWatcher._propertyChangedEventSubscriptions, oldExpressionWatcher._methodChangedEventSubscriptions);
 
                     if (_predicateContainsParametrizedObservableComputationsCalls)
-                        Utils.itemInfoRemoveDownstreamConsumedComputing(replacingItemInfo, this);
+                        Utils.itemInfoRemoveDownstreamConsumedComputing(replacingItemInfo.NestedComputings, this);
 
 					TSourceItem replacingSourceItem = _sourceAsList[sourceIndex];
 
@@ -630,7 +630,7 @@ namespace ObservableComputations
 			_sourcePositions.Remove(sourceIndex);
 
             if (_predicateContainsParametrizedObservableComputationsCalls)
-                Utils.itemInfoRemoveDownstreamConsumedComputing(itemInfo, this);
+                Utils.itemInfoRemoveDownstreamConsumedComputing(itemInfo.NestedComputings, this);
 
 			if (removeIndex.HasValue) baseRemoveItem(removeIndex.Value);
 		}

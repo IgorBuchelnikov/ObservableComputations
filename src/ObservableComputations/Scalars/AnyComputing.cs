@@ -345,7 +345,7 @@ namespace ObservableComputations
 			_sourcePositions.Remove(sourceIndex);
 
             if (_predicateContainsParametrizedObservableComputationCalls)
-                Utils.itemInfoRemoveDownstreamConsumedComputing(itemInfo, this);
+                Utils.itemInfoRemoveDownstreamConsumedComputing(itemInfo.NestedComputings, this);
 		}
 
 		private void expressionWatcher_OnValueChanged(ExpressionWatcher expressionWatcher, object sender, EventArgs eventArgs)

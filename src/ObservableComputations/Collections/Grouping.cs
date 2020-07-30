@@ -612,7 +612,7 @@ namespace ObservableComputations
 			}
 
             if (_keySelectorExpressionContainsParametrizedObservableComputationsCalls)
-                Utils.itemInfoRemoveDownstreamConsumedComputing(itemInfo, this);                    
+                Utils.itemInfoRemoveDownstreamConsumedComputing(itemInfo.NestedComputings, this);                    
             
 		}
 

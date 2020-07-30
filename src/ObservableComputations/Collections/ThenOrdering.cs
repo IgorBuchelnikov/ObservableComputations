@@ -444,7 +444,7 @@ namespace ObservableComputations
 			}
 
             if (_orderingValueSelectorContainsParametrizedLiveLinqCalls)
-                Utils.itemInfoRemoveDownstreamConsumedComputing(itemInfo, this);
+                Utils.itemInfoRemoveDownstreamConsumedComputing(itemInfo.NestedComputings, this);
 
 			baseRemoveItem(orderedIndex);	
 		}

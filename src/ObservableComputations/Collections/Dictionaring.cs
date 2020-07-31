@@ -5,7 +5,6 @@ using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Linq.Expressions;
-using System.Threading;
 using ObservableComputations.ExtentionMethods;
 
 namespace ObservableComputations
@@ -56,7 +55,8 @@ namespace ObservableComputations
         private ICanProcessSourceItemValueChange _thisAsCanProcessSourceValueItemChange;
 
 		Dictionary<DictionaryChangeAction, object> _lockModifyChangeActionsKeys;
-		private Dictionary<DictionaryChangeAction, object> lockModifyChangeActionsKeys => _lockModifyChangeActionsKeys = 
+        // ReSharper disable once InconsistentNaming
+        private Dictionary<DictionaryChangeAction, object> lockModifyChangeActionsKeys => _lockModifyChangeActionsKeys = 
 			_lockModifyChangeActionsKeys ?? new Dictionary<DictionaryChangeAction, object>();
 
 		public void LockModifyChangeAction(DictionaryChangeAction collectionChangeAction, object key)
@@ -90,7 +90,8 @@ namespace ObservableComputations
 			return lockModifyChangeActionsKeys.ContainsKey(collectionChangeAction);
 		}
 
-		private void checkLockModifyChangeAction(DictionaryChangeAction collectionChangeAction)
+        // ReSharper disable once ParameterOnlyUsedForPreconditionCheck.Local
+        private void checkLockModifyChangeAction(DictionaryChangeAction collectionChangeAction)
 		{
 			if (lockModifyChangeActionsKeys.ContainsKey(collectionChangeAction))
 				throw new ObservableComputationsException(this,
@@ -219,8 +220,6 @@ namespace ObservableComputations
 
 		private sealed class ItemInfo : KeyValueExpressionItemInfo
 		{
-			public ExpressionWatcher KeyExpressionWatcher;
-			public ExpressionWatcher ValueExpressionWatcher;
 			public Func<TKey> _keySelectorFunc;
 			public Func<TValue> _valueSelectorFunc;
 			public TKey Key;
@@ -231,7 +230,9 @@ namespace ObservableComputations
 			Expression<Func<TSourceItem, TKey>> keySelectorExpression,
 			Expression<Func<TSourceItem, TValue>> valueSelectorExpression,
 			int sourceCapacity)
-		{
+        {
+            if (Configuration.SaveInstantiatingStackTrace) _instantiatingStackTrace = Environment.StackTrace;
+
             Utils.construct(sourceCapacity, out _itemInfos, out _sourcePositions);
 
             Utils.construct(
@@ -489,7 +490,7 @@ namespace ObservableComputations
 					TKey newKey = replacingItemInfo.Key;
 					TValue newValue = replacingItemInfo.Value;
 
-					if (Comparer.Equals(oldKey, newKey))
+                    if (_equalityComparer.Equals(oldKey, newKey))
 					{
 						baseSetItem(replacingItemInfo.Key, newValue);
 					}
@@ -925,7 +926,7 @@ namespace ObservableComputations
 				if (!EqualityComparer<TValue>.Default.Equals(value, item.Value))
 					return false;
 
-				this.Remove(item.Key);
+				Remove(item.Key);
 				return true;
 			}
 

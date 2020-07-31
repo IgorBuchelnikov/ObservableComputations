@@ -332,7 +332,6 @@ namespace ObservableComputations
 						Position oldItemInfoFilteredPosition = oldItemInfo.FilteredPosition;
 						if (applyPredicate(addedSourceItem, newPredicateFunc))
 						{
-
 							if (oldItemInfoFilteredPosition == null)
 							{
 								newItemPosition = _filteredPositions.Insert(oldItemInfoNextFilteredItemPosition.Index);

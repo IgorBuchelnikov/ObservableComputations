@@ -5,13 +5,12 @@ using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Linq.Expressions;
-using System.Threading;
 using ObservableComputations.ExtentionMethods;
 
 namespace ObservableComputations
 {
 	// ReSharper disable once RedundantExtendsListEntry
-	public class HashSetting<TSourceItem, TKey> : ICollection<TKey>, IHasSourceCollections, IComputing, INotifyMethodChanged
+	public class HashSetting<TSourceItem, TKey> : ICollection<TKey>, IHasSourceCollections, IComputing, INotifyMethodChanged, ICanProcessSourceItemChange
 	{
 		// ReSharper disable once MemberCanBePrivate.Global
 		public IReadScalar<INotifyCollectionChanged> SourceScalar => _sourceScalar;
@@ -21,7 +20,6 @@ namespace ObservableComputations
 
 		// ReSharper disable once MemberCanBePrivate.Global
 		public Func<TSourceItem, TKey> KeySelectorFunc => _keySelectorFunc;
-
 
 		public IReadScalar<IEqualityComparer<TKey>> EqualityComparerScalar => _equalityComparerScalar;
 
@@ -44,13 +42,13 @@ namespace ObservableComputations
 
 		public event EventHandler ConsistencyRestored;
 
-		internal object _handledEventSender;
-		internal EventArgs _handledEventArgs;
-		public object HandledEventSender => _handledEventSender;
-		public EventArgs HandledEventArgs => _handledEventArgs;
+        private List<IComputingInternal> _keyNestedComputings;
+
+        private ICanProcessSourceItemChange _thisAsCanProcessSourceKeyItemChange;
 
 		Dictionary<HashSetChangeAction, object> _lockModifyChangeActionsKeys;
-		private Dictionary<HashSetChangeAction, object> lockModifyChangeActionsKeys => _lockModifyChangeActionsKeys = 
+        // ReSharper disable once InconsistentNaming
+        private Dictionary<HashSetChangeAction, object> lockModifyChangeActionsKeys => _lockModifyChangeActionsKeys = 
 			_lockModifyChangeActionsKeys ?? new Dictionary<HashSetChangeAction, object>();
 
 		public void LockModifyChangeAction(HashSetChangeAction hashSetChangeAction, object key)
@@ -84,7 +82,8 @@ namespace ObservableComputations
 			return lockModifyChangeActionsKeys.ContainsKey(hashSetChangeAction);
 		}
 
-		private void checkLockModifyChangeAction(HashSetChangeAction hashSetChangeAction)
+        // ReSharper disable once ParameterOnlyUsedForPreconditionCheck.Local
+        private void checkLockModifyChangeAction(HashSetChangeAction hashSetChangeAction)
 		{
 			if (lockModifyChangeActionsKeys.ContainsKey(hashSetChangeAction))
 				throw new ObservableComputationsException(this,
@@ -151,21 +150,20 @@ namespace ObservableComputations
 		private readonly Expression<Func<TSourceItem, TKey>> _keySelectorExpression;
 		private readonly Expression<Func<TSourceItem, TKey>> _keySelectorExpressionOriginal;
 		private readonly ExpressionWatcher.ExpressionInfo _keySelectorExpressionInfo;
+        private int _keySelectorExpressionСallCount;
 
 		private readonly bool _keySelectorContainsParametrizedObservableComputationsCalls;
 
 		// ReSharper disable once PrivateFieldCanBeConvertedToLocalVariable
-		private readonly PropertyChangedEventHandler _sourceScalarPropertyChangedEventHandler;
-		private readonly WeakPropertyChangedEventHandler _sourceScalarWeakPropertyChangedEventHandler;
+		private PropertyChangedEventHandler _sourceScalarPropertyChangedEventHandler;
 
 		private ObservableCollectionWithChangeMarker<TSourceItem> _sourceAsList;
 		bool _rootSourceWrapper;
 
 		private bool _lastProcessedSourceChangeMarker;
-		private Queue<ExpressionWatcher> _deferredKeyExpressionWatcherChangedProcessings;
+		private Queue<ExpressionWatcher.Raise> _deferredKeyExpressionWatcherChangedProcessings;
 
 		private NotifyCollectionChangedEventHandler _sourceNotifyCollectionChangedEventHandler;
-		private WeakNotifyCollectionChangedEventHandler _sourceWeakNotifyCollectionChangedEventHandler;
 		private readonly IReadScalar<INotifyCollectionChanged> _sourceScalar;
 		private readonly Func<TSourceItem, TKey> _keySelectorFunc;
 		private INotifyCollectionChanged _source;
@@ -174,48 +172,45 @@ namespace ObservableComputations
 
 		internal readonly IReadScalar<IEqualityComparer<TKey>> _equalityComparerScalar;
 		internal IEqualityComparer<TKey> _equalityComparer;
-		private PropertyChangedEventHandler _equalityComparerScalarPropertyChangedEventHandler;
-		private WeakPropertyChangedEventHandler _equalityComparerScalarWeakPropertyChangedEventHandler;
 
 		private IComputing _userCodeIsCalledFrom;
 		public IComputing UserCodeIsCalledFrom => _userCodeIsCalledFrom;
 
+		internal object _handledEventSender;
+		internal EventArgs _handledEventArgs;
+		public object HandledEventSender => _handledEventSender;
+		public EventArgs HandledEventArgs => _handledEventArgs;
+
 		// ReSharper disable once MemberCanBePrivate.Global
 		// ReSharper disable once UnusedAutoPropertyAccessor.Global
 
-		private sealed class ItemInfo : Position
+		private sealed class ItemInfo : ExpressionItemInfo
 		{
-			public ExpressionWatcher KeyExpressionWatcher;
 			public Func<TKey> _keySelectorFunc;
 			public TKey Key;
 		}
-
 
 		private HashSetting(
 			Expression<Func<TSourceItem, TKey>> keySelectorExpression,
 			int sourceCapacity)
 		{
-		
-			_itemInfos = new List<ItemInfo>(sourceCapacity);
-			_sourcePositions = new Positions<ItemInfo>(_itemInfos);
+            if (Configuration.SaveInstantiatingStackTrace) _instantiatingStackTrace = Environment.StackTrace;
 
-			if (Configuration.SaveInstantiatingStackTrace)
-			{
-				_instantiatingStackTrace = Environment.StackTrace;
-			}
+            Utils.construct(sourceCapacity, out _itemInfos, out _sourcePositions);
 
-			_keySelectorExpressionOriginal = keySelectorExpression;
-			CallToConstantConverter callToConstantConverter = new CallToConstantConverter(_keySelectorExpressionOriginal.Parameters);
-			_keySelectorExpression = (Expression<Func<TSourceItem, TKey>>) callToConstantConverter.Visit(_keySelectorExpressionOriginal);
-			_keySelectorContainsParametrizedObservableComputationsCalls = callToConstantConverter.ContainsParametrizedObservableComputationCalls;
+            Utils.construct(
+                keySelectorExpression, 
+                ref _keySelectorExpressionOriginal, 
+                ref _keySelectorExpression, 
+                ref _keySelectorContainsParametrizedObservableComputationsCalls, 
+                ref _keySelectorExpressionInfo, 
+                ref _keySelectorExpressionСallCount, 
+                ref _keySelectorFunc, 
+                ref _keyNestedComputings);
 
-			if (!_keySelectorContainsParametrizedObservableComputationsCalls)
-			{
-				_keySelectorExpressionInfo = ExpressionWatcher.GetExpressionInfo(_keySelectorExpression);
-				// ReSharper disable once PossibleNullReferenceException
-				_keySelectorFunc = _keySelectorExpression.Compile();
-			}
-		}
+
+            _thisAsCanProcessSourceKeyItemChange = this;
+        }
 
 		[ObservableComputationsCall]
 		public HashSetting(
@@ -224,15 +219,7 @@ namespace ObservableComputations
 			IEqualityComparer<TKey> equalityComparer = null) : this(keySelectorExpression, Utils.getCapacity(sourceScalar))
 		{
 			_sourceScalar = sourceScalar;
-			_sourceScalarPropertyChangedEventHandler = handleSourceScalarValueChanged;
-			_sourceScalarWeakPropertyChangedEventHandler = new WeakPropertyChangedEventHandler(_sourceScalarPropertyChangedEventHandler);
-			_sourceScalar.PropertyChanged += _sourceScalarWeakPropertyChangedEventHandler.Handle;
-			_equalityComparer = equalityComparer ?? EqualityComparer<TKey>.Default;
-
-			int capacity = _sourceScalar != null ? Utils.getCapacity(_sourceScalar) : Utils.getCapacity(_source);
-			_hashSet = new HashSet<TKey>(/*capacity, */_equalityComparer);
-
-			initializeFromSource();
+			_equalityComparer = equalityComparer;
 		}
 
 		[ObservableComputationsCall]
@@ -243,11 +230,6 @@ namespace ObservableComputations
 		{
 			_source = source;
 			_equalityComparer = equalityComparer ?? EqualityComparer<TKey>.Default;
-
-			int capacity = _sourceScalar != null ? Utils.getCapacity(_sourceScalar) : Utils.getCapacity(_source);
-			_hashSet = new HashSet<TKey>(/*capacity, */_equalityComparer);
-
-			initializeFromSource();
 		}
 
 		[ObservableComputationsCall]
@@ -257,16 +239,7 @@ namespace ObservableComputations
 			IReadScalar<IEqualityComparer<TKey>> equalityComparerScalar) : this(keySelectorExpression, Utils.getCapacity(sourceScalar))
 		{
 			_sourceScalar = sourceScalar;
-			_sourceScalarPropertyChangedEventHandler = handleSourceScalarValueChanged;
-			_sourceScalarWeakPropertyChangedEventHandler = new WeakPropertyChangedEventHandler(_sourceScalarPropertyChangedEventHandler);
-			_sourceScalar.PropertyChanged += _sourceScalarWeakPropertyChangedEventHandler.Handle;
 			_equalityComparerScalar = equalityComparerScalar;
-			initializeEqualityComparer();
-
-			int capacity = _sourceScalar != null ? Utils.getCapacity(_sourceScalar) : Utils.getCapacity(_source);
-			_hashSet = new HashSet<TKey>(/*capacity, */_equalityComparer);
-
-			initializeFromSource();
 		}
 
 		[ObservableComputationsCall]
@@ -277,28 +250,18 @@ namespace ObservableComputations
 		{
 			_source = source;
 			_equalityComparerScalar = equalityComparerScalar;
-			initializeEqualityComparer();
-
-			int capacity = _sourceScalar != null ? Utils.getCapacity(_sourceScalar) : Utils.getCapacity(_source);
-			_hashSet = new HashSet<TKey>(/*capacity, */_equalityComparer);
-
-			initializeFromSource();
 		}
 
 		private void initializeEqualityComparer()
 		{
 			if (_equalityComparerScalar != null)
 			{
-				_equalityComparerScalarPropertyChangedEventHandler = handleEqualityComparerScalarValueChanged;
-				_equalityComparerScalarWeakPropertyChangedEventHandler =
-					new WeakPropertyChangedEventHandler(_equalityComparerScalarPropertyChangedEventHandler);
-				_equalityComparerScalar.PropertyChanged += _equalityComparerScalarWeakPropertyChangedEventHandler.Handle;
-				_equalityComparer = _equalityComparerScalar.Value ?? EqualityComparer<TKey>.Default;
+				_equalityComparerScalar.PropertyChanged += handleEqualityComparerScalarValueChanged;
+				_equalityComparer = _equalityComparerScalar.Value;
 			}
-			else
-			{
+			
+            if (_equalityComparer == null)
 				_equalityComparer = EqualityComparer<TKey>.Default;
-			}
 		}
 
 		private void handleEqualityComparerScalarValueChanged(object sender, PropertyChangedEventArgs e)
@@ -315,57 +278,39 @@ namespace ObservableComputations
 			_isConsistent = true;
 			ConsistencyRestored?.Invoke(this, null);
 
-			_handledEventSender = sender;
-			_handledEventArgs = e;
+			_handledEventSender = null;
+			_handledEventArgs = null;
 		}
 
 		private void initializeFromSource()
 		{
 			if (_sourceNotifyCollectionChangedEventHandler != null)
 			{
-				int itemInfosCount = _itemInfos.Count;
-				for (int index = 0; index < itemInfosCount; index++)
-				{
-					ItemInfo itemInfo = _itemInfos[index];
-					disposeKeyExpressionWatcher(itemInfo);
-				}
+				Utils.disposeExpressionItemInfos(
+                    _itemInfos,
+                    _keySelectorExpressionСallCount,
+                    this);
 
-				int capacity = _sourceScalar != null ? Utils.getCapacity(_sourceScalar) : Utils.getCapacity(_source);
-				_itemInfos = new List<ItemInfo>(capacity);
-				_sourcePositions = new Positions<ItemInfo>(_itemInfos);
+                Utils.disposeSource(
+                    _sourceScalar, 
+                    _source,
+                    ref _itemInfos,
+                    ref _sourcePositions, 
+                    _sourceAsList, 
+                    ref _sourceNotifyCollectionChangedEventHandler);
 
 				baseClearItems();
-
-				if (_rootSourceWrapper)
-				{
-					_sourceAsList.CollectionChanged -= _sourceNotifyCollectionChangedEventHandler;
-				}
-				else
-				{
-					_sourceAsList.CollectionChanged -= _sourceWeakNotifyCollectionChangedEventHandler.Handle;
-					_sourceWeakNotifyCollectionChangedEventHandler = null;					
-				}
-
-				_sourceNotifyCollectionChangedEventHandler = null;
 			}
 
-			if (_sourceScalar != null) _source = _sourceScalar.Value;
-			_sourceAsList = null;
+            Utils.changeSource(ref _source, _sourceScalar, _downstreamConsumedComputings, _consumers, this, ref _sourceAsList, null);
 
-			if (_source != null)
+			if (_source != null && _isActive)
 			{
-				if (_source is ObservableCollectionWithChangeMarker<TSourceItem> sourceAsList)
-				{
-					_sourceAsList = sourceAsList;
-					_rootSourceWrapper = false;
-				}
-				else
-				{
-					_sourceAsList = new RootSourceWrapper<TSourceItem>(_source);
-					_rootSourceWrapper = true;
-				}
-
-				_lastProcessedSourceChangeMarker = _sourceAsList.ChangeMarkerField;
+                Utils.initializeFromObservableCollectionWithChangeMarker(
+                    _source, 
+                    ref _sourceAsList, 
+                    ref _rootSourceWrapper, 
+                    ref _lastProcessedSourceChangeMarker);
 
 				int count = _sourceAsList.Count;
 				for (int index = 0; index < count; index++)
@@ -376,19 +321,8 @@ namespace ObservableComputations
 					baseAddItem(key);
 				}
 
-				_sourceNotifyCollectionChangedEventHandler = handleSourceCollectionChanged;
-
-				if (_rootSourceWrapper)
-				{
-					_sourceAsList.CollectionChanged += _sourceNotifyCollectionChangedEventHandler;
-				}
-				else
-				{
-					_sourceWeakNotifyCollectionChangedEventHandler = 
-						new WeakNotifyCollectionChangedEventHandler(_sourceNotifyCollectionChangedEventHandler);
-					_sourceAsList.CollectionChanged += _sourceWeakNotifyCollectionChangedEventHandler.Handle;
-				}
-
+                _sourceNotifyCollectionChangedEventHandler = handleSourceCollectionChanged;
+                _sourceAsList.CollectionChanged += _sourceNotifyCollectionChangedEventHandler;
 			}
 		}
 
@@ -406,47 +340,43 @@ namespace ObservableComputations
 			ItemInfo itemInfo = _itemInfos[index];
 			disposeKeyExpressionWatcher(itemInfo);
 
-			if (!replacing)
-			{
-				_sourcePositions.Remove(index);
-			}
-		}
+			if (!replacing) _sourcePositions.Remove(index);
+        }
 
 
 		private void fillItemInfoWithKey(ItemInfo itemInfo, TSourceItem sourceItem)
 		{
-			ExpressionWatcher watcher;
-			if (!_keySelectorContainsParametrizedObservableComputationsCalls)
-			{
-				watcher = new ExpressionWatcher(_keySelectorExpressionInfo, sourceItem);
-			}
-			else
-			{
-				Expression<Func<TKey>> deparametrizedSelectorExpression =
-					(Expression<Func<TKey>>) _keySelectorExpression.ApplyParameters(new object[] {sourceItem});
-				Expression<Func<TKey>> selectorExpression =
-					(Expression<Func<TKey>>)
-					new CallToConstantConverter().Visit(deparametrizedSelectorExpression);
-				// ReSharper disable once PossibleNullReferenceException
-				itemInfo._keySelectorFunc = selectorExpression.Compile();
-				watcher = new ExpressionWatcher(ExpressionWatcher.GetExpressionInfo(selectorExpression));
-			}
+            Utils.getItemInfoContent(
+                sourceItem, 
+                out ExpressionWatcher watcher,
+                out Func<TKey> func,
+                out List<IComputingInternal> nestedComputings,
+                _keySelectorExpression,
+                ref _keySelectorExpressionСallCount,
+                this,
+                _keySelectorContainsParametrizedObservableComputationsCalls,
+                _keySelectorExpressionInfo);
 
 			watcher.ValueChanged = keyExpressionWatcher_OnValueChanged;
 			watcher._position = itemInfo;
-			itemInfo.KeyExpressionWatcher = watcher;
+			itemInfo.ExpressionWatcher = watcher;
 			itemInfo.Key = applyKeySelector(itemInfo, sourceItem);
-		}
+            itemInfo._keySelectorFunc = func;
+            itemInfo.NestedComputings = nestedComputings;
+        }
 
 		private void handleSourceCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
 		{
-			checkConsistent(sender, e);
-			if (!_rootSourceWrapper && _lastProcessedSourceChangeMarker == _sourceAsList.ChangeMarkerField) return;
-			
-			_handledEventSender = sender;
-			_handledEventArgs = e;
-
-			_lastProcessedSourceChangeMarker = !_lastProcessedSourceChangeMarker;
+            if (!Utils.preHandleSourceCollectionChanged(
+                sender, 
+                e, 
+                _rootSourceWrapper, 
+                ref _lastProcessedSourceChangeMarker, 
+                _sourceAsList, 
+                _isConsistent,
+                this,
+                ref _handledEventSender,
+                ref _handledEventArgs)) return;
 
 			TKey key;
 			switch (e.Action)
@@ -462,10 +392,13 @@ namespace ObservableComputations
 					ConsistencyRestored?.Invoke(this, null);
 					break;
 				case NotifyCollectionChangedAction.Remove:
+					_isConsistent = false;
 					int oldStartingIndex = e.OldStartingIndex;
 					key = _itemInfos[oldStartingIndex].Key;
 					unregisterSourceItem(oldStartingIndex);
 					baseRemoveItem(key);
+					_isConsistent = true;
+					ConsistencyRestored?.Invoke(this, null);
 					break;
 				case NotifyCollectionChangedAction.Replace:
 					_isConsistent = false;
@@ -475,9 +408,7 @@ namespace ObservableComputations
 					TKey oldKey = replacingItemInfo.Key;
 					disposeKeyExpressionWatcher(replacingItemInfo);
 					fillItemInfoWithKey(replacingItemInfo, newItem);
-
-					TKey newKey = replacingItemInfo.Key;
-
+                    replacingItemInfo.Key = applyKeySelector(replacingItemInfo, newItem);
 					baseRemoveItem(oldKey);
 					baseAddItem(replacingItemInfo.Key);
 					
@@ -501,35 +432,13 @@ namespace ObservableComputations
 					break;
 			}
 
-			_isConsistent = false;
-			if (_deferredKeyExpressionWatcherChangedProcessings != null)
-				while (_deferredKeyExpressionWatcherChangedProcessings.Count > 0)
-				{
-					ExpressionWatcher expressionWatcher = _deferredKeyExpressionWatcherChangedProcessings.Dequeue();
-					if (!expressionWatcher._disposed)
-						processKeyExpressionWatcherValueChanged(expressionWatcher);
-				}
-			
-
-			_isConsistent = true;
-			ConsistencyRestored?.Invoke(this, null);
-
-			_handledEventSender = null;
-			_handledEventArgs = null;
-		}
-
-		private void handleSourceScalarValueChanged(object sender,  PropertyChangedEventArgs e)
-		{
-			if (e.PropertyName != nameof(IReadScalar<INotifyCollectionChanged>.Value)) return;
-			checkConsistent(sender, e);
-
-			_handledEventSender = sender;
-			_handledEventArgs = e;
-
-			_isConsistent = false;
-			initializeFromSource();
-			_isConsistent = true;
-			ConsistencyRestored?.Invoke(this, null);
+            Utils.doDeferredExpressionWatcherChangedProcessings(
+                _deferredKeyExpressionWatcherChangedProcessings, 
+                ref _handledEventSender, 
+                ref _handledEventArgs, 
+                _thisAsCanProcessSourceKeyItemChange,
+                ref _isConsistent,
+                false); 
 
 			_handledEventSender = null;
 			_handledEventArgs = null;
@@ -537,46 +446,41 @@ namespace ObservableComputations
 
 		private void keyExpressionWatcher_OnValueChanged(ExpressionWatcher expressionWatcher, object sender, EventArgs eventArgs)
 		{
-			checkConsistent(sender, eventArgs);
-
-			_handledEventSender = sender;
-			_handledEventArgs = eventArgs;
-
-			if (_rootSourceWrapper || _sourceAsList.ChangeMarkerField ==_lastProcessedSourceChangeMarker)
-			{
-				_isConsistent = false;
-				processKeyExpressionWatcherValueChanged(expressionWatcher);
-				_isConsistent = true;
-				ConsistencyRestored?.Invoke(this, null);
-			}
-			else
-			{
-				(_deferredKeyExpressionWatcherChangedProcessings = _deferredKeyExpressionWatcherChangedProcessings ??  new Queue<ExpressionWatcher>()).Enqueue(expressionWatcher);
-			}
-
-			_handledEventSender = null;
-			_handledEventArgs = null;
+            Utils.ProcessSourceItemChange(
+                expressionWatcher, 
+                sender, 
+                eventArgs, 
+                _rootSourceWrapper, 
+                _sourceAsList, 
+                _lastProcessedSourceChangeMarker, 
+                _thisAsCanProcessSourceKeyItemChange,
+                ref _deferredKeyExpressionWatcherChangedProcessings, 
+                ref _isConsistent,
+                ref _handledEventSender,
+                ref _handledEventArgs,
+                _isConsistent);
 		}
 
 
-		private void processKeyExpressionWatcherValueChanged(ExpressionWatcher expressionWatcher)
+        void ICanProcessSourceItemChange.ProcessSourceItemChange(ExpressionWatcher expressionWatcher)
 		{
 			int sourceIndex = expressionWatcher._position.Index;
 			ItemInfo itemInfo = _itemInfos[sourceIndex];
 			TKey key = itemInfo.Key;
-			disposeKeyExpressionWatcher(itemInfo);
-			fillItemInfoWithKey(itemInfo, _sourceAsList[sourceIndex]);
+            itemInfo.Key = applyKeySelector(itemInfo, _sourceAsList[sourceIndex]);
 			baseRemoveItem(key);
 			TKey newKey = itemInfo.Key;
 			baseAddItem(newKey);
 		}
 
-
 		private void disposeKeyExpressionWatcher(ItemInfo itemInfo)
 		{
-			ExpressionWatcher watcher = itemInfo.KeyExpressionWatcher;
+			ExpressionWatcher watcher = itemInfo.ExpressionWatcher;
 			watcher.Dispose();
-		}
+            EventUnsubscriber.QueueSubscriptions(watcher._propertyChangedEventSubscriptions, watcher._methodChangedEventSubscriptions);
+            if (_keySelectorContainsParametrizedObservableComputationsCalls)
+                Utils.itemInfoRemoveDownstreamConsumedComputing(itemInfo.NestedComputings, this);
+        }
 
 		public TKey ApplyKeySelector(int index)
 		{
@@ -585,28 +489,23 @@ namespace ObservableComputations
 
 		private TKey applyKeySelector(ItemInfo itemInfo, TSourceItem sourceItem)
 		{
-			if (Configuration.TrackComputingsExecutingUserCode)
+            TKey getValue() => _keySelectorContainsParametrizedObservableComputationsCalls ? itemInfo._keySelectorFunc() : _keySelectorFunc(sourceItem);
+
+            if (Configuration.TrackComputingsExecutingUserCode)
 			{
-				Thread currentThread = Thread.CurrentThread;
-				DebugInfo._computingsExecutingUserCode.TryGetValue(currentThread, out IComputing computing);
-				DebugInfo._computingsExecutingUserCode[currentThread] = this;	
-				_userCodeIsCalledFrom = computing;
-
-				TKey result = _keySelectorContainsParametrizedObservableComputationsCalls ? itemInfo._keySelectorFunc() : _keySelectorFunc(sourceItem);
-
-				if (computing == null) DebugInfo._computingsExecutingUserCode.TryRemove(currentThread, out IComputing _);
-				else DebugInfo._computingsExecutingUserCode[currentThread] = computing;
-				_userCodeIsCalledFrom = null;
+                var currentThread = Utils.startComputingExecutingUserCode(out var computing, ref _userCodeIsCalledFrom, this);
+				TKey result = getValue();
+                Utils.endComputingExecutingUserCode(computing, currentThread, ref _userCodeIsCalledFrom);
 				return result;
 			}
 
-			return _keySelectorContainsParametrizedObservableComputationsCalls ? itemInfo._keySelectorFunc() : _keySelectorFunc(sourceItem);
+			return getValue();
 		}
 
 
 		private void baseClearItems()
 		{
-			int capacity = _sourceScalar != null ? Utils.getCapacity(_sourceScalar) : Utils.getCapacity(_source);
+			//int capacity = _sourceScalar != null ? Utils.getCapacity(_sourceScalar) : Utils.getCapacity(_source);
 			_hashSet = new HashSet<TKey>(/*capacity, */_equalityComparer);
 			onPropertyChanged(Utils.CountPropertyChangedEventArgs);
 			onPropertyChanged(Utils.IndexerPropertyChangedEventArgs);
@@ -654,19 +553,6 @@ namespace ObservableComputations
 			PropertyChanged?.Invoke(this, eventArgs);
 		}
 
-		~HashSetting()
-		{
-			if (_sourceWeakNotifyCollectionChangedEventHandler != null)
-			{
-				_sourceAsList.CollectionChanged -= _sourceWeakNotifyCollectionChangedEventHandler.Handle;			
-			}
-
-			if (_sourceScalarWeakPropertyChangedEventHandler != null)
-			{
-				_sourceScalar.PropertyChanged -= _sourceScalarWeakPropertyChangedEventHandler.Handle;			
-			}
-		}
-
 		public void ValidateConsistency()
 		{
 			_sourcePositions.ValidateConsistency();
@@ -692,12 +578,12 @@ namespace ObservableComputations
 						throw new ObservableComputationsException("Consistency violation: HashSetting.2");
 
 					if (_sourcePositions.List[sourceIndex].Index != sourceIndex) throw new ObservableComputationsException("Consistency violation: HashSetting.4");
-					if (itemInfo.KeyExpressionWatcher._position != _sourcePositions.List[sourceIndex]) throw new ObservableComputationsException("Consistency violation: HashSetting.5");
+					if (itemInfo.ExpressionWatcher._position != _sourcePositions.List[sourceIndex]) throw new ObservableComputationsException("Consistency violation: HashSetting.5");
 
-					if (!_sourcePositions.List.Contains((ItemInfo) itemInfo.KeyExpressionWatcher._position))
+					if (!_sourcePositions.List.Contains((ItemInfo) itemInfo.ExpressionWatcher._position))
 						throw new ObservableComputationsException("Consistency violation: HashSetting.7");
 
-					if (itemInfo.KeyExpressionWatcher._position.Index != sourceIndex)
+					if (itemInfo.ExpressionWatcher._position.Index != sourceIndex)
 						throw new ObservableComputationsException("Consistency violation: HashSetting.17");
 
 					if (!itemInfo.Key.IsSameAs(key))
@@ -705,6 +591,94 @@ namespace ObservableComputations
 				}
 			}			
 		}
+
+        protected List<Consumer> _consumers = new List<Consumer>();
+        internal  List<IComputingInternal> _downstreamConsumedComputings = new List<IComputingInternal>();
+        protected bool _isActive;
+        public bool IsActive => _isActive;
+
+        private void handleSourceScalarValueChanged(object sender,  PropertyChangedEventArgs e)
+        {
+            if (e.PropertyName != nameof(IReadScalar<INotifyCollectionChanged>.Value)) return;
+            checkConsistent(sender, e);
+
+            _handledEventSender = sender;
+            _handledEventArgs = e;
+
+            _isConsistent = false;
+            initializeFromSource();
+            _isConsistent = true;
+            ConsistencyRestored?.Invoke(this, null);
+
+            _handledEventSender = null;
+            _handledEventArgs = null;
+        }
+
+        #region Implementation of IComputingInternal
+        IEnumerable<Consumer> IComputingInternal.Consumers => _consumers;
+
+        void IComputingInternal.AddToUpstreamComputings(IComputingInternal computing)
+        {
+            (_source as IComputingInternal)?.AddDownstreamConsumedComputing(computing);
+        }
+
+        void IComputingInternal.RemoveFromUpstreamComputings(IComputingInternal computing)
+        {
+            (_source as IComputingInternal)?.RemoveDownstreamConsumedComputing(computing);
+        }
+
+        void IComputingInternal.Initialize()
+        {
+            initializeEqualityComparer();
+            Utils.initializeSourceScalar(_sourceScalar, ref _sourceScalarPropertyChangedEventHandler, ref _source, handleSourceScalarValueChanged);
+            Utils.initializeNestedComputings(_keyNestedComputings, this);
+            _hashSet = new HashSet<TKey>(/*Utils.getCapacity(_sourceScalar, _source),*/ _equalityComparer);
+        }
+
+        void IComputingInternal.Uninitialize()
+        {
+            if (_equalityComparerScalar != null)
+                _equalityComparerScalar.PropertyChanged -= handleEqualityComparerScalarValueChanged;
+            Utils.uninitializeSourceScalar(_sourceScalar, _sourceScalarPropertyChangedEventHandler);
+            Utils.uninitializeNestedComputings(_keyNestedComputings, this);
+        }
+
+        void IComputingInternal.InitializeFromSource()
+        {
+            initializeFromSource();
+        }
+
+        void IComputingInternal.AddConsumer(Consumer addingConsumer)
+        {
+            Utils.AddComsumer(addingConsumer, _consumers, _downstreamConsumedComputings, this, ref _isActive);
+        }
+
+        void IComputingInternal.OnPropertyChanged(PropertyChangedEventArgs propertyChangedEventArgs)
+        {
+            PropertyChanged?.Invoke(this, propertyChangedEventArgs);
+        }
+
+        void IComputingInternal.RemoveConsumer(Consumer removingConsumer)
+        {
+            Utils.RemoveConsumer(removingConsumer, _consumers, _downstreamConsumedComputings, ref _isActive, this);
+        }
+
+        void IComputingInternal.AddDownstreamConsumedComputing(IComputingInternal computing)
+        {
+            Utils.AddDownstreamConsumedComputing(computing, _downstreamConsumedComputings, _consumers, ref _isActive, this);
+        }
+
+        void IComputingInternal.RemoveDownstreamConsumedComputing(IComputingInternal computing)
+        {
+            Utils.RemoveDownstreamConsumedComputing(computing, _downstreamConsumedComputings, ref _isActive, this, _consumers);
+        }
+
+        void IComputingInternal.RaiseConsistencyRestored()
+        {
+            ConsistencyRestored?.Invoke(this, null);
+        }
+
+        #endregion
 
 		#region IEnumerable<out T>
 

@@ -294,7 +294,7 @@ namespace ObservableComputations
 			OrderingItemInfo<TOrderingValue> itemInfo = _sourcePositions.Insert(sourceIndex);
 
             Utils.getItemInfoContent(
-                sourceItem, 
+                new object[]{sourceItem}, 
                 out ExpressionWatcher expressionWatcher, 
                 out Func<TOrderingValue> getOrderingValueFunc, 
                 out List<IComputingInternal> nestedComputings,
@@ -499,7 +499,7 @@ namespace ObservableComputations
                     EventUnsubscriber.QueueSubscriptions(oldExpressionWatcher._propertyChangedEventSubscriptions, oldExpressionWatcher._methodChangedEventSubscriptions);
 
                     Utils.getItemInfoContent(
-                        replacingSourceItem, 
+                        new object[]{replacingSourceItem}, 
                         out ExpressionWatcher newExpressionWatcher, 
                         out Func<TOrderingValue> newGetOrderingValueFunc, 
                         out List<IComputingInternal> nestedComputings,

@@ -162,11 +162,23 @@ namespace ObservableComputations
         internal static void disposeSource<TItemInfo>(int capacity, ref List<TItemInfo> itemInfos, ref Positions<TItemInfo> sourcePositions,INotifyCollectionChanged sourceAsList, ref NotifyCollectionChangedEventHandler sourceNotifyCollectionChangedEventHandler)
             where TItemInfo : Position, new()
         {
-            itemInfos = new List<TItemInfo>(capacity);
-            sourcePositions = new Positions<TItemInfo>(itemInfos);
+            initializeItemInfos(capacity, out itemInfos, out sourcePositions);
 
+            unsubscribeSource(sourceAsList, ref sourceNotifyCollectionChangedEventHandler);
+        }
+
+        internal static void unsubscribeSource(INotifyCollectionChanged sourceAsList,
+            ref NotifyCollectionChangedEventHandler sourceNotifyCollectionChangedEventHandler)
+        {
             sourceAsList.CollectionChanged -= sourceNotifyCollectionChangedEventHandler;
             sourceNotifyCollectionChangedEventHandler = null;
+        }
+
+        internal static void initializeItemInfos<TItemInfo>(int capacity, out List<TItemInfo> itemInfos, out Positions<TItemInfo> sourcePositions)
+            where TItemInfo : Position, new()
+        {
+            itemInfos = new List<TItemInfo>(capacity);
+            sourcePositions = new Positions<TItemInfo>(itemInfos);
         }
 
         internal static void changeSource<TSource, TSourceAsList>(
@@ -202,6 +214,8 @@ namespace ObservableComputations
 
         internal static void initializeFromObservableCollectionWithChangeMarker<TSourceItem>(INotifyCollectionChanged source, ref ObservableCollectionWithChangeMarker<TSourceItem> sourceAsList, ref bool rootSourceWrapper, ref bool lastProcessedSourceChangeMarker)
         {
+            if (source == null) return;
+
             if (source is ObservableCollectionWithChangeMarker<TSourceItem> sourceAsObservableCollectionWithChangeMarker)
             {
                 sourceAsList = sourceAsObservableCollectionWithChangeMarker;
@@ -423,8 +437,8 @@ namespace ObservableComputations
             }
         }
 
-        internal static void getItemInfoContent<TExpression, TExpressionCompiled, TSourceItem>(
-            TSourceItem sourceItem,
+        internal static void getItemInfoContent<TExpression, TExpressionCompiled>(
+            object[] sourceItems,
             out ExpressionWatcher watcher,
             out TExpressionCompiled func,
             out List<IComputingInternal> nestedComputings,
@@ -436,14 +450,14 @@ namespace ObservableComputations
         {
             if (!expressionContainsParametrizedLiveLinqCalls)
             {
-                watcher = new ExpressionWatcher(orderingValueSelectorExpressionInfo, sourceItem);
+                watcher = new ExpressionWatcher(orderingValueSelectorExpressionInfo, sourceItems);
                 func = default(TExpressionCompiled);
                 nestedComputings = null;
             }
             else
             {
                 Expression<TExpressionCompiled> deparametrizedPredicateExpression =
-                    (Expression<TExpressionCompiled>) expression.ApplyParameters(new object[] {sourceItem});
+                    (Expression<TExpressionCompiled>) expression.ApplyParameters(sourceItems);
                 CallToConstantConverter callToConstantConverter = new CallToConstantConverter();
                 Expression<TExpressionCompiled> predicateExpression =
                     (Expression<TExpressionCompiled>)

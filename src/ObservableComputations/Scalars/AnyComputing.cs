@@ -166,7 +166,7 @@ namespace ObservableComputations
 					Func<bool> predicateFunc;
 					TSourceItem replacingSourceItem = _sourceAsList[newStartingIndex];
                     Utils.getItemInfoContent(
-                        replacingSourceItem, 
+                        new object[]{replacingSourceItem}, 
                         out watcher, 
                         out predicateFunc, 
                         out List<IComputingInternal> nestedComputings1,
@@ -316,7 +316,7 @@ namespace ObservableComputations
 			ItemInfo itemInfo =_sourcePositions.Insert(sourceIndex);
 
             Utils.getItemInfoContent(
-                sourceItem, 
+                new object[]{sourceItem}, 
                 out ExpressionWatcher watcher, 
                 out Func<bool> predicateFunc, 
                 out List<IComputingInternal> nestedComputings,

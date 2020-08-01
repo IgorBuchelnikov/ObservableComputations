@@ -263,7 +263,7 @@ namespace ObservableComputations
 			ExpressionWatcher watcher;
 
             Utils.getItemInfoContent(
-                sourceItem, 
+                new object[]{sourceItem}, 
                 out watcher, 
                 out Func<TResultItem> predicateFunc, 
                 out List<IComputingInternal> nestedComputings,

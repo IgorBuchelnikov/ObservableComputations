@@ -321,7 +321,7 @@ namespace ObservableComputations
 					ItemInfo replacingItemInfo = _itemInfos[replacingSourceIndex];
 
                     Utils.getItemInfoContent(
-                        newItem, 
+                        new object[]{newItem}, 
                         out ExpressionWatcher watcher, 
                         out Func<TKey> selectorFunc, 
                         out List<IComputingInternal> nestedComputings,
@@ -573,7 +573,7 @@ namespace ObservableComputations
 		private void registerSourceItem(TSourceItem sourceItem, bool addNewToEnd, ItemInfo itemInfo, bool initializing = false)
 		{
             Utils.getItemInfoContent(
-                sourceItem, 
+                new object[]{sourceItem}, 
                 out ExpressionWatcher watcher, 
                 out Func<TKey> selectorFunc, 
                 out List<IComputingInternal> nestedComputings,

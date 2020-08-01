@@ -308,19 +308,10 @@ namespace ObservableComputations
 			initialize(expressionInfo);
 		}
 
-		public ExpressionWatcher(ExpressionInfo expressionInfo, object parameter1)
+		public ExpressionWatcher(ExpressionInfo expressionInfo, object[] parameters)
 		{
 			ExpressionToWatch = expressionInfo._expressionToWatch;
-			_parameterValues = new []{parameter1};
-            _propertyChangedEventSubscriptions = new PropertyChangedEventSubscription[expressionInfo._callCount];
-            _methodChangedEventSubscriptions = new MethodChangedEventSubscription[expressionInfo._callCount];
-			initialize(expressionInfo);
-		}
-
-		public ExpressionWatcher(ExpressionInfo expressionInfo, object parameter1, object parameter2)
-		{
-			ExpressionToWatch = expressionInfo._expressionToWatch;
-			_parameterValues = new []{parameter1, parameter2};
+			_parameterValues = parameters;
             _propertyChangedEventSubscriptions = new PropertyChangedEventSubscription[expressionInfo._callCount];
             _methodChangedEventSubscriptions = new MethodChangedEventSubscription[expressionInfo._callCount];
 			initialize(expressionInfo);

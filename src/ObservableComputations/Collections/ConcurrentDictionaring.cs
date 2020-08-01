@@ -402,7 +402,7 @@ namespace ObservableComputations
 		private void fillItemInfoWithValue(ItemInfo itemInfo, TSourceItem sourceItem)
 		{
             Utils.getItemInfoContent(
-                sourceItem, 
+                new object[]{sourceItem}, 
                 out ExpressionWatcher watcher,
                 out Func<TValue> func,
                 out List<IComputingInternal> nestedComputings,
@@ -423,7 +423,7 @@ namespace ObservableComputations
 		private void fillItemInfoWithKey(ItemInfo itemInfo, TSourceItem sourceItem)
 		{
             Utils.getItemInfoContent(
-                sourceItem, 
+                new object[]{sourceItem}, 
                 out ExpressionWatcher watcher,
                 out Func<TKey> func,
                 out List<IComputingInternal> nestedComputings,

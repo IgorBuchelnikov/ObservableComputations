@@ -10,8 +10,17 @@ using ObservableComputations.ExtentionMethods;
 
 namespace ObservableComputations
 {
-	public class Filtering<TSourceItem> : CollectionComputing<TSourceItem>, IHasSourceCollections, ICanProcessSourceItemChange
-	{
+    internal interface IFiltering<TItem> : IComputingInternal, ICanProcessSourceItemChange
+    {
+        bool ApplyPredicate(int sourceIndex);
+
+        void expressionWatcher_OnValueChanged(ExpressionWatcher expressionWatcher, object sender, EventArgs eventArgs);
+
+        TItem GetItem(int sourceIndex);
+    }
+
+    public class Filtering<TSourceItem> : CollectionComputing<TSourceItem>, IHasSourceCollections, ICanProcessSourceItemChange, IFiltering<TSourceItem>
+    {
 		// ReSharper disable once MemberCanBePrivate.Global
 		public IReadScalar<INotifyCollectionChanged> SourceScalar => _sourceScalar;
 
@@ -54,7 +63,7 @@ namespace ObservableComputations
 		private readonly IReadScalar<INotifyCollectionChanged> _sourceScalar;
 		internal INotifyCollectionChanged _source;
 		private readonly Func<TSourceItem, bool> _predicateFunc;
-        private ICanProcessSourceItemChange _thisAsCanProcessSourceItemChange;
+        private IFiltering<TSourceItem> _thisAsFiltering;
 
 		[ObservableComputationsCall]
 		public Filtering(
@@ -90,7 +99,8 @@ namespace ObservableComputations
                 ref _predicateFunc, 
                 ref _nestedComputings);
 
-            _thisAsCanProcessSourceItemChange = this;
+            _thisAsFiltering = this;
+
 
 			_initialCapacity = capacity;
 			_filteredPositions = new Positions<Position>(new List<Position>(_initialCapacity));	
@@ -239,7 +249,7 @@ namespace ObservableComputations
 
 					FilteringItemInfo itemInfo =  registerSourceItem(sourceItem, sourceIndex, null, null);
 
-					if (ApplyPredicate(sourceIndex))
+					if (_thisAsFiltering.ApplyPredicate(sourceIndex))
 					{
 						if (originalCount > insertingIndex)
 							_items[insertingIndex++] = sourceItem;
@@ -332,71 +342,8 @@ namespace ObservableComputations
 					unregisterSourceItem(e.OldStartingIndex);
 					break;
 				case NotifyCollectionChangedAction.Move:
-					_isConsistent = false;
-					int newSourceIndex1 = e.NewStartingIndex;
-					int oldSourceIndex = e.OldStartingIndex;
-
-					if (newSourceIndex1 != oldSourceIndex)
-					{
-						FilteringItemInfo itemInfoOfOldSourceIndex = _itemInfos[oldSourceIndex];
-						FilteringItemInfo itemInfoOfNewSourceIndex = _itemInfos[newSourceIndex1];
-
-						Position newPosition1;
-						Position nextPosition1;
-
-						Position itemInfoOfOldSourceIndexFilteredPosition = itemInfoOfOldSourceIndex.FilteredPosition;
-						Position itemInfoOfNewSourceIndexNextFilteredItemPosition = itemInfoOfNewSourceIndex.NextFilteredItemPosition;
-						Position itemInfoOfNewSourceIndexFilteredPosition = itemInfoOfNewSourceIndex.FilteredPosition;
-						if (itemInfoOfOldSourceIndexFilteredPosition != null)
-						{
-							int oldFilteredIndex = itemInfoOfOldSourceIndexFilteredPosition.Index;
-							int newFilteredIndex1;
-
-							newPosition1 = itemInfoOfOldSourceIndexFilteredPosition;
-							if (itemInfoOfNewSourceIndexFilteredPosition == null)
-							{
-								//nextPositionIndex = itemInfoOfNewSourceIndex.NextFilteredItemIndex;
-								nextPosition1 =
-									itemInfoOfNewSourceIndexNextFilteredItemPosition != itemInfoOfOldSourceIndexFilteredPosition
-										? itemInfoOfNewSourceIndexNextFilteredItemPosition
-										: itemInfoOfOldSourceIndex.NextFilteredItemPosition;
-								newFilteredIndex1 =  oldSourceIndex < newSourceIndex1 ? 
-									itemInfoOfNewSourceIndexNextFilteredItemPosition.Index - 1 : 
-									itemInfoOfNewSourceIndexNextFilteredItemPosition.Index;			
-							}
-							else
-							{
-								nextPosition1 = oldSourceIndex < newSourceIndex1 ? 
-									itemInfoOfNewSourceIndexNextFilteredItemPosition : 
-									itemInfoOfNewSourceIndexFilteredPosition;
-								newFilteredIndex1 = itemInfoOfNewSourceIndexFilteredPosition.Index;
-							}
-
-							_filteredPositions.Move(
-								oldFilteredIndex, 
-								newFilteredIndex1);
-
-                            FilteringUtils.modifyNextFilteredItemIndex(oldSourceIndex, itemInfoOfOldSourceIndex.NextFilteredItemPosition, _itemInfos);
-
-							_sourcePositions.Move(oldSourceIndex, newSourceIndex1);
-
-							itemInfoOfOldSourceIndex.NextFilteredItemPosition = nextPosition1;
-
-                            FilteringUtils.modifyNextFilteredItemIndex(newSourceIndex1, newPosition1, _itemInfos);
-				
-							baseMoveItem(oldFilteredIndex, newFilteredIndex1);				
-						}
-						else
-						{
-							nextPosition1 = oldSourceIndex < newSourceIndex1
-								? itemInfoOfNewSourceIndexNextFilteredItemPosition
-								: (itemInfoOfNewSourceIndexFilteredPosition ?? itemInfoOfNewSourceIndexNextFilteredItemPosition);
-
-							itemInfoOfOldSourceIndex.NextFilteredItemPosition = nextPosition1;
-							
-							_sourcePositions.Move(oldSourceIndex, newSourceIndex1);
-						}
-					}
+					_isConsistent = false;             
+					FilteringUtils.ProcessMoveSourceItems(e.NewStartingIndex, e.OldStartingIndex, _itemInfos, _filteredPositions, _sourcePositions, this);
 					_isConsistent = true;
 					raiseConsistencyRestored();
 					break;
@@ -409,37 +356,14 @@ namespace ObservableComputations
 				case NotifyCollectionChangedAction.Replace:
 					_isConsistent = false;
 					int sourceIndex = e.NewStartingIndex;
-					FilteringItemInfo replacingItemInfo = _itemInfos[sourceIndex];
-					ExpressionWatcher oldExpressionWatcher = replacingItemInfo.ExpressionWatcher;
-					oldExpressionWatcher.Dispose();
-                    EventUnsubscriber.QueueSubscriptions(oldExpressionWatcher._propertyChangedEventSubscriptions, oldExpressionWatcher._methodChangedEventSubscriptions);
-
-                    if (_predicateContainsParametrizedObservableComputationsCalls)
-                        Utils.itemInfoRemoveDownstreamConsumedComputing(replacingItemInfo.NestedComputings, this);
-
 					TSourceItem replacingSourceItem = _sourceAsList[sourceIndex];
 
-                    Utils.getItemInfoContent(
-                        new object[]{replacingSourceItem}, 
-                        out ExpressionWatcher watcher, 
-                        out Func<bool> predicateFunc, 
-                        out List<IComputingInternal> nestedComputings1,
-                        _predicateExpression,
-                        ref _predicateExpressionСallCount,
-                        this,
-                        _predicateContainsParametrizedObservableComputationsCalls,
-                        _predicateExpressionInfo);	
-                    
-                    replacingItemInfo.PredicateFunc = predicateFunc;	
-					watcher.ValueChanged = expressionWatcher_OnValueChanged;
-					watcher._position = oldExpressionWatcher._position;
-					replacingItemInfo.ExpressionWatcher = watcher;
-                    replacingItemInfo.NestedComputings = nestedComputings1;
+					FilteringItemInfo replacingItemInfo = _itemInfos[sourceIndex];
+					var replace = FilteringUtils.ProcessReplaceSourceItem(replacingItemInfo, new object[]{replacingSourceItem}, sourceIndex, _predicateContainsParametrizedObservableComputationsCalls, _predicateExpression, ref _predicateExpressionСallCount, _predicateExpressionInfo, _itemInfos, _filteredPositions, _thisAsFiltering, this);
 
-					if (!processChangeSourceItem(sourceIndex) && replacingItemInfo.FilteredPosition != null)
-					{
+                    if (replace)
 						baseSetItem(replacingItemInfo.FilteredPosition.Index, replacingSourceItem);
-					}
+					
 					_isConsistent = true;
 					raiseConsistencyRestored();
 					break;
@@ -467,7 +391,7 @@ namespace ObservableComputations
             (_source as IComputingInternal)?.RemoveDownstreamConsumedComputing(computing);
         }
 
-		private void expressionWatcher_OnValueChanged(ExpressionWatcher expressionWatcher, object sender, EventArgs eventArgs)
+        void IFiltering<TSourceItem>.expressionWatcher_OnValueChanged(ExpressionWatcher expressionWatcher, object sender, EventArgs eventArgs)
 		{
 			Utils.ProcessSourceItemChange(
                 expressionWatcher, 
@@ -476,7 +400,7 @@ namespace ObservableComputations
                 _rootSourceWrapper, 
                 _sourceAsList, 
                 _lastProcessedSourceChangeMarker, 
-                _thisAsCanProcessSourceItemChange,
+                _thisAsFiltering,
                 ref _deferredExpressionWatcherChangedProcessings, 
                 ref _isConsistent,
                 ref _handledEventSender,
@@ -484,10 +408,14 @@ namespace ObservableComputations
                 _isConsistent);
 		}
 
+        TSourceItem IFiltering<TSourceItem>.GetItem(int sourceIndex)
+        {
+            return _sourceAsList[sourceIndex];
+        }
 
 
-		// ReSharper disable once MemberCanBePrivate.Global
-		public bool ApplyPredicate(int sourceIndex)
+        // ReSharper disable once MemberCanBePrivate.Global
+        bool IFiltering<TSourceItem>.ApplyPredicate(int sourceIndex)
 		{
             bool getValue() =>
                 _predicateContainsParametrizedObservableComputationsCalls
@@ -544,7 +472,7 @@ namespace ObservableComputations
                     _predicateExpressionInfo);	
 
 			itemInfo.PredicateFunc = predicateFunc;	
-			watcher.ValueChanged = expressionWatcher_OnValueChanged;
+			watcher.ValueChanged = _thisAsFiltering.expressionWatcher_OnValueChanged;
 			watcher._position = itemInfo;
 			itemInfo.ExpressionWatcher = watcher;
             itemInfo.NestedComputings = nestedComputings;
@@ -578,43 +506,10 @@ namespace ObservableComputations
 			if (removeIndex.HasValue) baseRemoveItem(removeIndex.Value);
 		}
 
-
-        private bool processChangeSourceItem(int sourceIndex)
-		{
-			TSourceItem item = _sourceAsList[sourceIndex];
-			FilteringItemInfo itemInfo = _itemInfos[sourceIndex];
-
-			bool newPredicateValue = ApplyPredicate(sourceIndex);
-			bool oldPredicateValue = itemInfo.FilteredPosition != null;
-
-			if (newPredicateValue != oldPredicateValue)
-			{
-				if (newPredicateValue)
-				{
-					int newIndex = itemInfo.NextFilteredItemPosition.Index;
-					itemInfo.FilteredPosition = _filteredPositions.Insert(newIndex);
-					newIndex = itemInfo.FilteredPosition.Index;
-                    FilteringUtils.modifyNextFilteredItemIndex(sourceIndex, itemInfo.FilteredPosition, _itemInfos);
-					baseInsertItem(newIndex, item);
-					return true;
-				}
-				else // if (oldPredicaeValue)
-				{
-					int index = itemInfo.FilteredPosition.Index;
-					_filteredPositions.Remove(index);
-					itemInfo.FilteredPosition = null;
-                    FilteringUtils.modifyNextFilteredItemIndex(sourceIndex, itemInfo.NextFilteredItemPosition, _itemInfos);
-					baseRemoveItem(index);
-					return true;
-				}
-			}
-
-			return false;
-		}
-
         void ICanProcessSourceItemChange.ProcessSourceItemChange(ExpressionWatcher expressionWatcher)
         {
-            processChangeSourceItem(expressionWatcher._position.Index);
+            FilteringUtils.ProcessChangeSourceItem(expressionWatcher._position.Index, _itemInfos, this,
+                _filteredPositions, this);
         }
 
 		public void ValidateConsistency()
@@ -772,5 +667,147 @@ namespace ObservableComputations
                 if (itemInfo.FilteredPosition != null) break;
             }
         }
+
+        internal static void ProcessMoveSourceItems<TSourceItem1>(int newSourceIndex1, int oldSourceIndex, List<FilteringItemInfo> filteringItemInfos, Positions<Position> filteredPositions, Positions<FilteringItemInfo> sourcePositions, CollectionComputing<TSourceItem1> current)
+        {
+            if (newSourceIndex1 != oldSourceIndex)
+            {
+                FilteringItemInfo itemInfoOfOldSourceIndex = filteringItemInfos[oldSourceIndex];
+                FilteringItemInfo itemInfoOfNewSourceIndex = filteringItemInfos[newSourceIndex1];
+
+                Position newPosition1;
+                Position nextPosition1;
+
+                Position itemInfoOfOldSourceIndexFilteredPosition = itemInfoOfOldSourceIndex.FilteredPosition;
+                Position itemInfoOfNewSourceIndexNextFilteredItemPosition = itemInfoOfNewSourceIndex.NextFilteredItemPosition;
+                Position itemInfoOfNewSourceIndexFilteredPosition = itemInfoOfNewSourceIndex.FilteredPosition;
+                if (itemInfoOfOldSourceIndexFilteredPosition != null)
+                {
+                    int oldFilteredIndex = itemInfoOfOldSourceIndexFilteredPosition.Index;
+                    int newFilteredIndex1;
+
+                    newPosition1 = itemInfoOfOldSourceIndexFilteredPosition;
+                    if (itemInfoOfNewSourceIndexFilteredPosition == null)
+                    {
+                        //nextPositionIndex = itemInfoOfNewSourceIndex.NextFilteredItemIndex;
+                        nextPosition1 =
+                            itemInfoOfNewSourceIndexNextFilteredItemPosition != itemInfoOfOldSourceIndexFilteredPosition
+                                ? itemInfoOfNewSourceIndexNextFilteredItemPosition
+                                : itemInfoOfOldSourceIndex.NextFilteredItemPosition;
+                        newFilteredIndex1 = oldSourceIndex < newSourceIndex1
+                            ? itemInfoOfNewSourceIndexNextFilteredItemPosition.Index - 1
+                            : itemInfoOfNewSourceIndexNextFilteredItemPosition.Index;
+                    }
+                    else
+                    {
+                        nextPosition1 = oldSourceIndex < newSourceIndex1
+                            ? itemInfoOfNewSourceIndexNextFilteredItemPosition
+                            : itemInfoOfNewSourceIndexFilteredPosition;
+                        newFilteredIndex1 = itemInfoOfNewSourceIndexFilteredPosition.Index;
+                    }
+
+                    filteredPositions.Move(
+                        oldFilteredIndex,
+                        newFilteredIndex1);
+
+                    FilteringUtils.modifyNextFilteredItemIndex(oldSourceIndex,
+                        itemInfoOfOldSourceIndex.NextFilteredItemPosition, filteringItemInfos);
+
+                    sourcePositions.Move(oldSourceIndex, newSourceIndex1);
+
+                    itemInfoOfOldSourceIndex.NextFilteredItemPosition = nextPosition1;
+
+                    FilteringUtils.modifyNextFilteredItemIndex(newSourceIndex1, newPosition1, filteringItemInfos);
+
+                    current.baseMoveItem(oldFilteredIndex, newFilteredIndex1);
+                }
+                else
+                {
+                    nextPosition1 = oldSourceIndex < newSourceIndex1
+                        ? itemInfoOfNewSourceIndexNextFilteredItemPosition
+                        : (itemInfoOfNewSourceIndexFilteredPosition ?? itemInfoOfNewSourceIndexNextFilteredItemPosition);
+
+                    itemInfoOfOldSourceIndex.NextFilteredItemPosition = nextPosition1;
+
+                    sourcePositions.Move(oldSourceIndex, newSourceIndex1);
+                }
+            }
+        }
+
+        internal static bool ProcessChangeSourceItem<TSourceItem>(int sourceIndex,
+            List<FilteringItemInfo> filteringItemInfos, IFiltering<TSourceItem> filtering,
+            Positions<Position> filteredPositions, CollectionComputing<TSourceItem> current)
+        {
+            TSourceItem item = filtering.GetItem(sourceIndex);
+            FilteringItemInfo itemInfo = filteringItemInfos[sourceIndex];
+
+            bool newPredicateValue = filtering.ApplyPredicate(sourceIndex);
+            bool oldPredicateValue = itemInfo.FilteredPosition != null;
+
+            if (newPredicateValue != oldPredicateValue)
+            {
+                if (newPredicateValue)
+                {
+                    int newIndex = itemInfo.NextFilteredItemPosition.Index;
+                    itemInfo.FilteredPosition = filteredPositions.Insert(newIndex);
+                    newIndex = itemInfo.FilteredPosition.Index;
+                    FilteringUtils.modifyNextFilteredItemIndex(sourceIndex, itemInfo.FilteredPosition, filteringItemInfos);
+                    current.baseInsertItem(newIndex, item);
+                    return true;
+                }
+                else // if (oldPredicaeValue)
+                {
+                    int index = itemInfo.FilteredPosition.Index;
+                    filteredPositions.Remove(index);
+                    itemInfo.FilteredPosition = null;
+                    FilteringUtils.modifyNextFilteredItemIndex(sourceIndex, itemInfo.NextFilteredItemPosition, filteringItemInfos);
+                    current.baseRemoveItem(index);
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
+        internal static bool ProcessReplaceSourceItem<TExpression, TSourceItem>(FilteringItemInfo replacingItemInfo,
+            object[] sourceItems,
+            int sourceIndex, bool predicateContainsParametrizedObservableComputationsCalls,
+            Expression<TExpression> predicateExpression,
+            ref int predicateExpressionСallCount,
+            ExpressionWatcher.ExpressionInfo orderingValueSelectorExpressionInfo,
+            List<FilteringItemInfo> filteringItemInfos,
+            Positions<Position> filteredPositions, IFiltering<TSourceItem> thisAsFiltering,
+            CollectionComputing<TSourceItem> current)
+        {
+            ExpressionWatcher oldExpressionWatcher = replacingItemInfo.ExpressionWatcher;
+            oldExpressionWatcher.Dispose();
+            EventUnsubscriber.QueueSubscriptions(oldExpressionWatcher._propertyChangedEventSubscriptions,
+                oldExpressionWatcher._methodChangedEventSubscriptions);
+
+            if (predicateContainsParametrizedObservableComputationsCalls)
+                Utils.itemInfoRemoveDownstreamConsumedComputing(replacingItemInfo.NestedComputings, thisAsFiltering);
+
+            Utils.getItemInfoContent(
+                sourceItems,
+                out ExpressionWatcher watcher,
+                out Func<bool> predicateFunc,
+                out List<IComputingInternal> nestedComputings1,
+                predicateExpression,
+                ref predicateExpressionСallCount,
+                thisAsFiltering,
+                predicateContainsParametrizedObservableComputationsCalls,
+                orderingValueSelectorExpressionInfo);
+
+            replacingItemInfo.PredicateFunc = predicateFunc;
+            watcher.ValueChanged = thisAsFiltering.expressionWatcher_OnValueChanged;
+            watcher._position = oldExpressionWatcher._position;
+            replacingItemInfo.ExpressionWatcher = watcher;
+            replacingItemInfo.NestedComputings = nestedComputings1;
+            bool replace = !FilteringUtils.ProcessChangeSourceItem(sourceIndex, filteringItemInfos, thisAsFiltering,
+                               filteredPositions, current)
+                           && replacingItemInfo.FilteredPosition != null;
+            return replace;
+        }
+
     }
 }

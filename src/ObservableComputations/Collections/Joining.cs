@@ -13,7 +13,7 @@ namespace ObservableComputations
 {
     public class
         Joining<TLeftSourceItem, TRightSourceItem> : CollectionComputing<JoinPair<TLeftSourceItem, TRightSourceItem>>,
-            IHasSourceCollections, ICanProcessSourceItemChange
+            IHasSourceCollections, ICanProcessSourceItemChange, IFiltering<JoinPair<TLeftSourceItem, TRightSourceItem>>
     {
         public IReadScalar<INotifyCollectionChanged> LeftSourceScalar => _leftSourceScalar;
 
@@ -81,7 +81,7 @@ namespace ObservableComputations
         internal INotifyCollectionChanged _rightSource;
 
         private readonly Func<TLeftSourceItem, TRightSourceItem, bool> _predicateFunc;
-        private ICanProcessSourceItemChange _thisAsCanProcessSourceItemChange;
+        private IFiltering<JoinPair<TLeftSourceItem, TRightSourceItem>> _thisAsFiltering;
 
         [ObservableComputationsCall]
         public Joining(
@@ -143,7 +143,7 @@ namespace ObservableComputations
                 ref _predicateFunc,
                 ref _nestedComputings);
 
-            _thisAsCanProcessSourceItemChange = this;
+            _thisAsFiltering = this;
 
             _initialCapacity = capacity;
             _filteredPositions = new Positions<Position>(new List<Position>(_initialCapacity));
@@ -330,76 +330,37 @@ namespace ObservableComputations
                     raiseConsistencyRestored();
                     break;
                 case NotifyCollectionChangedAction.Remove:
-                    unregisterSourceItem(e.OldStartingIndex);
+                    int oldIndex = e.OldStartingIndex;
+
+                    int count1 = _rightSourceAsList.Count;
+                    int baseIndex1 = oldIndex * count1;
+                    for (int innerSourceIndex = count1 - 1; innerSourceIndex >= 0; innerSourceIndex--)
+                    {
+                        unregisterSourceItem(baseIndex1 + innerSourceIndex);										
+                    }        
                     break;
                 case NotifyCollectionChangedAction.Move:
                     _isConsistent = false;
-                    int newSourceIndex1 = e.NewStartingIndex;
-                    int oldSourceIndex = e.OldStartingIndex;
-
-                    if (newSourceIndex1 != oldSourceIndex)
+                    int newIndex1 = e.NewStartingIndex;
+                    int oldIndex1 = e.OldStartingIndex;
+                    if (newIndex1 != oldIndex1)
                     {
-                        FilteringItemInfo itemInfoOfOldSourceIndex = _itemInfos[oldSourceIndex];
-                        FilteringItemInfo itemInfoOfNewSourceIndex = _itemInfos[newSourceIndex1];
-
-                        Position newPosition1;
-                        Position nextPosition1;
-
-                        Position itemInfoOfOldSourceIndexFilteredPosition = itemInfoOfOldSourceIndex.FilteredPosition;
-                        Position itemInfoOfNewSourceIndexNextFilteredItemPosition =
-                            itemInfoOfNewSourceIndex.NextFilteredItemPosition;
-                        Position itemInfoOfNewSourceIndexFilteredPosition = itemInfoOfNewSourceIndex.FilteredPosition;
-                        if (itemInfoOfOldSourceIndexFilteredPosition != null)
+                        int count3 = _rightSourceAsList.Count;
+                        int oldResultIndex = oldIndex1 * count3;
+                        int newBaseIndex = newIndex1 * count3;
+                        if (oldIndex1 < newIndex1)
                         {
-                            int oldFilteredIndex = itemInfoOfOldSourceIndexFilteredPosition.Index;
-                            int newFilteredIndex1;
-
-                            newPosition1 = itemInfoOfOldSourceIndexFilteredPosition;
-                            if (itemInfoOfNewSourceIndexFilteredPosition == null)
+                            for (int index = 0; index < count3; index++)
                             {
-                                //nextPositionIndex = itemInfoOfNewSourceIndex.NextFilteredItemIndex;
-                                nextPosition1 =
-                                    itemInfoOfNewSourceIndexNextFilteredItemPosition !=
-                                    itemInfoOfOldSourceIndexFilteredPosition
-                                        ? itemInfoOfNewSourceIndexNextFilteredItemPosition
-                                        : itemInfoOfOldSourceIndex.NextFilteredItemPosition;
-                                newFilteredIndex1 = oldSourceIndex < newSourceIndex1
-                                    ? itemInfoOfNewSourceIndexNextFilteredItemPosition.Index - 1
-                                    : itemInfoOfNewSourceIndexNextFilteredItemPosition.Index;
-                            }
-                            else
-                            {
-                                nextPosition1 = oldSourceIndex < newSourceIndex1
-                                    ? itemInfoOfNewSourceIndexNextFilteredItemPosition
-                                    : itemInfoOfNewSourceIndexFilteredPosition;
-                                newFilteredIndex1 = itemInfoOfNewSourceIndexFilteredPosition.Index;
-                            }
-
-                            _filteredPositions.Move(
-                                oldFilteredIndex,
-                                newFilteredIndex1);
-
-                            modifyNextFilteredItemIndex(oldSourceIndex,
-                                itemInfoOfOldSourceIndex.NextFilteredItemPosition);
-
-                            _sourcePositions.Move(oldSourceIndex, newSourceIndex1);
-
-                            itemInfoOfOldSourceIndex.NextFilteredItemPosition = nextPosition1;
-
-                            modifyNextFilteredItemIndex(newSourceIndex1, newPosition1);
-
-                            baseMoveItem(oldFilteredIndex, newFilteredIndex1);
+                                FilteringUtils.ProcessMoveSourceItems(oldResultIndex, newBaseIndex + count3 - 1, _itemInfos, _filteredPositions, _sourcePositions, this);
+                            }						
                         }
                         else
                         {
-                            nextPosition1 = oldSourceIndex < newSourceIndex1
-                                ? itemInfoOfNewSourceIndexNextFilteredItemPosition
-                                : (itemInfoOfNewSourceIndexFilteredPosition ??
-                                   itemInfoOfNewSourceIndexNextFilteredItemPosition);
-
-                            itemInfoOfOldSourceIndex.NextFilteredItemPosition = nextPosition1;
-
-                            _sourcePositions.Move(oldSourceIndex, newSourceIndex1);
+                            for (int index = 0; index < count3; index++)
+                            {
+                                FilteringUtils.ProcessMoveSourceItems(oldResultIndex + index, newBaseIndex + index, _itemInfos, _filteredPositions, _sourcePositions, this);
+                            }						
                         }
                     }
 
@@ -414,40 +375,21 @@ namespace ObservableComputations
                     break;
                 case NotifyCollectionChangedAction.Replace:
                     _isConsistent = false;
-                    int sourceIndex = e.NewStartingIndex;
-                    FilteringItemInfo replacingItemInfo = _itemInfos[sourceIndex];
-                    ExpressionWatcher oldExpressionWatcher = replacingItemInfo.ExpressionWatcher;
-                    oldExpressionWatcher.Dispose();
-                    EventUnsubscriber.QueueSubscriptions(oldExpressionWatcher._propertyChangedEventSubscriptions,
-                        oldExpressionWatcher._methodChangedEventSubscriptions);
+                    int newIndex3 = e.NewStartingIndex;
+                    TLeftSourceItem newLeftSourceItem1 = _leftSourceAsList[newIndex3];
 
-                    if (_predicateContainsParametrizedObservableComputationsCalls)
-                        Utils.itemInfoRemoveDownstreamConsumedComputing(replacingItemInfo.NestedComputings, this);
-
-                    TSourceItem replacingSourceItem = _sourceAsList[sourceIndex];
-
-                    Utils.getItemInfoContent(
-                        new object[]{replacingSourceItem},
-                        out ExpressionWatcher watcher,
-                        out Func<bool> predicateFunc,
-                        out List<IComputingInternal> nestedComputings1,
-                        _predicateExpression,
-                        ref _predicateExpressionСallCount,
-                        this,
-                        _predicateContainsParametrizedObservableComputationsCalls,
-                        _predicateExpressionInfo);
-
-                    replacingItemInfo.PredicateFunc = predicateFunc;
-                    watcher.ValueChanged = expressionWatcher_OnValueChanged;
-                    watcher._position = oldExpressionWatcher._position;
-                    replacingItemInfo.ExpressionWatcher = watcher;
-                    replacingItemInfo.NestedComputings = nestedComputings1;
-
-                    if (!processChangeSourceItem(sourceIndex) && replacingItemInfo.FilteredPosition != null)
+                    int count2 = _rightSourceAsList.Count;
+                    int baseIndex2 = newIndex3 * count2;
+                    for (int rightSourceIndex = 0; rightSourceIndex < count2; rightSourceIndex++)
                     {
-                        baseSetItem(replacingItemInfo.FilteredPosition.Index, replacingSourceItem);
-                    }
+                        TRightSourceItem rightSourceItem = _rightSourceAsList[rightSourceIndex];
+                        FilteringItemInfo replacingItemInfo = _itemInfos[baseIndex2 + rightSourceIndex];
 
+                        var replace = FilteringUtils.ProcessReplaceSourceItem(replacingItemInfo, new object[]{newLeftSourceItem1, rightSourceItem}, baseIndex2 + rightSourceIndex, _predicateContainsParametrizedObservableComputationsCalls, _predicateExpression, ref _predicateExpressionСallCount, _predicateExpressionInfo, _itemInfos, _filteredPositions, _thisAsFiltering, this);
+
+                        if (replace)
+                            this[baseIndex2 + rightSourceIndex].setLeftItem(newLeftSourceItem1);	                   										
+                    }
                     _isConsistent = true;
                     raiseConsistencyRestored();
                     break;
@@ -475,7 +417,7 @@ namespace ObservableComputations
             (_source as IComputingInternal)?.RemoveDownstreamConsumedComputing(computing);
         }
 
-        private void expressionWatcher_OnValueChanged(ExpressionWatcher expressionWatcher, object sender,
+        void IFiltering<JoinPair<TLeftSourceItem, TRightSourceItem>>.expressionWatcher_OnValueChanged(ExpressionWatcher expressionWatcher, object sender,
             EventArgs eventArgs)
         {
             Utils.ProcessSourceItemChange(
@@ -485,7 +427,7 @@ namespace ObservableComputations
                 _rootSourceWrapper,
                 _sourceAsList,
                 _lastProcessedSourceChangeMarker,
-                _thisAsCanProcessSourceItemChange,
+                _thisAsFiltering,
                 ref _deferredExpressionWatcherChangedProcessings,
                 ref _isConsistent,
                 ref _handledEventSender,
@@ -501,6 +443,19 @@ namespace ObservableComputations
                 itemInfo.NextFilteredItemPosition = nextItemPosition;
                 if (itemInfo.FilteredPosition != null) break;
             }
+        }
+
+        // ReSharper disable once MemberCanBePrivate.Global
+        bool IFiltering<JoinPair<TLeftSourceItem, TRightSourceItem>>.ApplyPredicate(int sourceIndex)
+        {
+            int count = _leftSourceAsList.Count;
+            return ApplyPredicate(sourceIndex / count, sourceIndex % count);
+        }
+
+        JoinPair<TLeftSourceItem, TRightSourceItem> IFiltering<JoinPair<TLeftSourceItem, TRightSourceItem>>.GetItem(int sourceIndex)
+        {
+            int count = _leftSourceAsList.Count;
+            return new JoinPair<TLeftSourceItem, TRightSourceItem>(_leftSourceAsList[sourceIndex / count], _rightSourceAsList[sourceIndex % count]);
         }
 
         // ReSharper disable once MemberCanBePrivate.Global

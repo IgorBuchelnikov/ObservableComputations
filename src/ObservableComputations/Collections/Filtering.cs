@@ -343,7 +343,7 @@ namespace ObservableComputations
 					break;
 				case NotifyCollectionChangedAction.Move:
 					_isConsistent = false;             
-					FilteringUtils.ProcessMoveSourceItems(e.NewStartingIndex, e.OldStartingIndex, _itemInfos, _filteredPositions, _sourcePositions, this);
+					FilteringUtils.ProcessMoveSourceItems(e.OldStartingIndex, e.NewStartingIndex, _itemInfos, _filteredPositions, _sourcePositions, this);
 					_isConsistent = true;
 					raiseConsistencyRestored();
 					break;
@@ -668,7 +668,9 @@ namespace ObservableComputations
             }
         }
 
-        internal static void ProcessMoveSourceItems<TSourceItem1>(int newSourceIndex1, int oldSourceIndex, List<FilteringItemInfo> filteringItemInfos, Positions<Position> filteredPositions, Positions<FilteringItemInfo> sourcePositions, CollectionComputing<TSourceItem1> current)
+        internal static void ProcessMoveSourceItems<TSourceItem1>(int oldSourceIndex, int newSourceIndex1,
+            List<FilteringItemInfo> filteringItemInfos, Positions<Position> filteredPositions,
+            Positions<FilteringItemInfo> sourcePositions, CollectionComputing<TSourceItem1> current)
         {
             if (newSourceIndex1 != oldSourceIndex)
             {

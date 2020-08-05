@@ -299,31 +299,7 @@ namespace ObservableComputations
                     for (int rightSourceIndex = 0; rightSourceIndex < count; rightSourceIndex++)
                     {
                         TRightSourceItem rightSourceItem = _rightSourceAsList[rightSourceIndex];
-
-                        Position newItemPosition = null;
-                        Position nextItemPosition;
-
-                        int? newFilteredIndex  = null;
-
-                        Utils.getItemInfoContent(
-                            new object[]{addedLeftSourceItem, rightSourceItem}, 
-                            out ExpressionWatcher newWatcher, 
-                            out Func<bool> newPredicateFunc, 
-                            out List<IComputingInternal> nestedComputings,
-                            _predicateExpression,
-                            ref _predicateExpressionСallCount,
-                            this,
-                            _predicateContainsParametrizedObservableComputationsCalls,
-                            _predicateExpressionInfo);
-
-                        bool predicateValue = applyPredicate(addedLeftSourceItem, rightSourceItem, newPredicateFunc);
-                        int newSourceIndex = baseIndex + rightSourceIndex;
-                        nextItemPosition = FilteringUtils.processAddSourceItem(newSourceIndex, predicateValue, ref newItemPosition, ref newFilteredIndex, _itemInfos, _filteredPositions, Count);
-
-                        registerSourceItem(addedLeftSourceItem, rightSourceItem, newSourceIndex, newItemPosition, nextItemPosition, newWatcher, newPredicateFunc, nestedComputings);
-
-                        if (newFilteredIndex != null)
-                            baseInsertItem(newFilteredIndex.Value, new JoinPair<TLeftSourceItem, TRightSourceItem>(addedLeftSourceItem, rightSourceItem));					
+                        processAddSourceItem(addedLeftSourceItem, rightSourceItem, baseIndex + rightSourceIndex);
                     }            
 
                     _isConsistent = true;
@@ -331,13 +307,10 @@ namespace ObservableComputations
                     break;
                 case NotifyCollectionChangedAction.Remove:
                     int oldIndex = e.OldStartingIndex;
-
                     int count1 = _rightSourceAsList.Count;
                     int baseIndex1 = oldIndex * count1;
                     for (int innerSourceIndex = count1 - 1; innerSourceIndex >= 0; innerSourceIndex--)
-                    {
-                        unregisterSourceItem(baseIndex1 + innerSourceIndex);										
-                    }        
+                        unregisterSourceItem(baseIndex1 + innerSourceIndex);										      
                     break;
                 case NotifyCollectionChangedAction.Move:
                     _isConsistent = false;
@@ -406,6 +379,135 @@ namespace ObservableComputations
                 ref _handledEventSender,
                 ref _handledEventArgs);
         }
+
+        private void processAddSourceItem(TLeftSourceItem leftSourceItem, TRightSourceItem rightSourceItem, int newSourceIndex)
+        {
+            Position newItemPosition = null;
+            Position nextItemPosition;
+
+            int? newFilteredIndex = null;
+
+            Utils.getItemInfoContent(
+                new object[] {leftSourceItem, rightSourceItem},
+                out ExpressionWatcher newWatcher,
+                out Func<bool> newPredicateFunc,
+                out List<IComputingInternal> nestedComputings,
+                _predicateExpression,
+                ref _predicateExpressionСallCount,
+                this,
+                _predicateContainsParametrizedObservableComputationsCalls,
+                _predicateExpressionInfo);
+
+            bool predicateValue = applyPredicate(leftSourceItem, rightSourceItem, newPredicateFunc);
+            nextItemPosition = FilteringUtils.processAddSourceItem(newSourceIndex, predicateValue, ref newItemPosition,
+                ref newFilteredIndex, _itemInfos, _filteredPositions, Count);
+
+            registerSourceItem(leftSourceItem, rightSourceItem, newSourceIndex, newItemPosition, nextItemPosition,
+                newWatcher, newPredicateFunc, nestedComputings);
+
+            if (newFilteredIndex != null)
+                baseInsertItem(newFilteredIndex.Value,
+                    new JoinPair<TLeftSourceItem, TRightSourceItem>(leftSourceItem, rightSourceItem));
+        }
+
+        private void handleRightSourceCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
+		{
+            if (!Utils.preHandleSourceCollectionChanged(
+                sender,
+                e,
+                _rootLeftSourceWrapper,
+                ref _lastProcessedLeftSourceChangeMarker,
+                _leftSourceAsList,
+                _isConsistent,
+                this,
+                ref _handledEventSender,
+                ref _handledEventArgs)) return;
+
+			switch (e.Action)
+			{
+				case NotifyCollectionChangedAction.Add:
+					//if (e.NewItems.Count > 1) throw new ObservableComputationsException(this, "Adding of multiple items is not supported");
+					int newIndex = e.NewStartingIndex;
+					TRightSourceItem sourceRightItem = _rightSourceAsList[newIndex];
+	
+					int index1 = newIndex;
+					int outerSourceCount1 = _leftSourceAsList.Count;
+					int innerSourceCount1 = _rightSourceAsList.Count;
+					for (int leftSourceIndex = 0; leftSourceIndex < outerSourceCount1; leftSourceIndex++)
+					{
+						TLeftSourceItem sourceLeftItem = _leftSourceAsList[leftSourceIndex];
+                        processAddSourceItem(sourceLeftItem, sourceRightItem, index1);
+						index1 = index1 + innerSourceCount1;
+					}
+					break;
+				case NotifyCollectionChangedAction.Remove:
+					//if (e.OldItems.Count > 1) throw new ObservableComputationsException(this, "Removing of multiple items is not supported");
+					int oldIndex = e.OldStartingIndex;
+					int outerSourceCount3 = _leftSourceAsList.Count;
+					int oldInnerSourceCount = _rightSourceAsList.Count + 1;
+					int baseIndex = (outerSourceCount3 - 1) * oldInnerSourceCount;
+					for (int outerSourceIndex =  outerSourceCount3 - 1; outerSourceIndex >= 0; outerSourceIndex--)
+					{
+                        unregisterSourceItem(baseIndex + oldIndex);
+						baseIndex = baseIndex - oldInnerSourceCount;
+					}	
+					break;
+				case NotifyCollectionChangedAction.Replace:
+					//if (e.NewItems.Count > 1) throw new ObservableComputationsException(this, "Replacing of multiple items is not supported");
+					newIndex = e.NewStartingIndex;
+					TRightSourceItem sourceRightItem3 = _rightSourceAsList[newIndex];	
+					int index2 = newIndex;
+					int leftSourceCount2 = _leftSourceAsList.Count;
+					int rightSourceCount2 = _rightSourceAsList.Count;
+					for (int leftSourceIndex = 0; leftSourceIndex < leftSourceCount2; leftSourceIndex++)
+					{
+                        TLeftSourceItem leftSourceItem = _leftSourceAsList[leftSourceIndex];
+                        FilteringItemInfo replacingItemInfo = _itemInfos[index2];
+
+                        var replace = FilteringUtils.ProcessReplaceSourceItem(replacingItemInfo, new object[]{leftSourceItem, sourceRightItem3}, index2, _predicateContainsParametrizedObservableComputationsCalls, _predicateExpression, ref _predicateExpressionСallCount, _predicateExpressionInfo, _itemInfos, _filteredPositions, _thisAsFiltering, this);
+
+                        if (replace)
+                            this[index2].setRightItem(sourceRightItem3);	                        
+
+						index2 = index2 + rightSourceCount2;
+					}
+					break;
+				case NotifyCollectionChangedAction.Move:
+					newIndex = e.NewStartingIndex;
+					oldIndex = e.OldStartingIndex;
+
+					if (newIndex != oldIndex)
+					{
+						int index = 0;
+						int leftSourceCount = _leftSourceAsList.Count;
+						int rightSourceCount = _rightSourceAsList.Count;
+						for (int leftSourceIndex = 0; leftSourceIndex < leftSourceCount; leftSourceIndex++)
+						{
+				
+                            FilteringUtils.ProcessMoveSourceItems(index + oldIndex, index + newIndex, _itemInfos, _filteredPositions, _sourcePositions, this);
+							index = index + rightSourceCount;
+						}
+					}
+					break;
+				case NotifyCollectionChangedAction.Reset:
+                    _isConsistent = false;
+                    initializeFromSource();
+                    _isConsistent = true;
+                    raiseConsistencyRestored();
+					break;
+			}
+
+            Utils.doDeferredExpressionWatcherChangedProcessings(
+                _deferredExpressionWatcherChangedProcessings,
+                ref _handledEventSender,
+                ref _handledEventArgs,
+                this,
+                ref _isConsistent);
+
+            Utils.postHandleSourceCollectionChanged(
+                ref _handledEventSender,
+                ref _handledEventArgs);
+		}
 
         internal override void addToUpstreamComputings(IComputingInternal computing)
         {

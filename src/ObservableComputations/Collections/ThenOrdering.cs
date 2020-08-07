@@ -219,8 +219,8 @@ namespace ObservableComputations
             Utils.construct(
                 orderingValueSelectorExpression, 
                 sourceCapacity, 
-                ref _itemInfos, 
-                ref _sourcePositions, 
+                out _itemInfos, 
+                out _sourcePositions, 
                 ref _orderingValueSelectorExpressionOriginal, 
                 ref _orderingValueSelectorExpression, 
                 ref _orderingValueSelectorContainsParametrizedLiveLinqCalls, 

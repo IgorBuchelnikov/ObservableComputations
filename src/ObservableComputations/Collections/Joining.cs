@@ -3,17 +3,14 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.ComponentModel;
-using System.Linq;
 using System.Linq.Expressions;
-using System.Reflection;
-using ObservableComputations.ExtentionMethods;
 using INotifyPropertyChanged = System.ComponentModel.INotifyPropertyChanged;
 
 namespace ObservableComputations
 {
     public class
         Joining<TLeftSourceItem, TRightSourceItem> : CollectionComputing<JoinPair<TLeftSourceItem, TRightSourceItem>>,
-            IHasSourceCollections, ICanProcessSourceItemChange, IFiltering<JoinPair<TLeftSourceItem, TRightSourceItem>>
+            IHasSourceCollections, IFiltering<JoinPair<TLeftSourceItem, TRightSourceItem>>
     {
         public IReadScalar<INotifyCollectionChanged> LeftSourceScalar => _leftSourceScalar;
 
@@ -27,12 +24,13 @@ namespace ObservableComputations
         public INotifyCollectionChanged RightSource => _rightSource;
 
         // ReSharper disable once MemberCanBePrivate.Global
+        // ReSharper disable once UnassignedGetOnlyAutoProperty
         public Expression<Func<TLeftSourceItem, TRightSourceItem, bool>> JoinPredicateExpression { get; }
 
-        public new ReadOnlyCollection<INotifyCollectionChanged> SourceCollections =>
+        public ReadOnlyCollection<INotifyCollectionChanged> SourceCollections =>
             new ReadOnlyCollection<INotifyCollectionChanged>(new[] {LeftSource, RightSource});
 
-        public new ReadOnlyCollection<IReadScalar<INotifyCollectionChanged>> SourceCollectionScalars =>
+        public ReadOnlyCollection<IReadScalar<INotifyCollectionChanged>> SourceCollectionScalars =>
             new ReadOnlyCollection<IReadScalar<INotifyCollectionChanged>>(new[] {LeftSourceScalar, RightSourceScalar});
 
 
@@ -82,6 +80,48 @@ namespace ObservableComputations
 
         private readonly Func<TLeftSourceItem, TRightSourceItem, bool> _predicateFunc;
         private IFiltering<JoinPair<TLeftSourceItem, TRightSourceItem>> _thisAsFiltering;
+        internal Action<JoinPair<TLeftSourceItem, TRightSourceItem>, TLeftSourceItem> _setLeftItemRequestHandler;
+        internal Action<JoinPair<TLeftSourceItem, TRightSourceItem>, TRightSourceItem> _setRightItemRequestHandler;
+
+        //private bool _isLeft;
+        private TRightSourceItem _defaultRightSourceItemForLeftJoin;
+
+        private List<LeftItemInfo> _leftItemInfos;
+        private sealed class LeftItemInfo
+        {
+            public bool Defaulted; // for left join
+
+            public LeftItemInfo(bool defaulted)
+            {
+                Defaulted = defaulted;
+            }
+        }
+
+        public Action<JoinPair<TLeftSourceItem, TRightSourceItem>, TLeftSourceItem> SetLeftItemRequestHandler
+        {
+            get => _setLeftItemRequestHandler;
+            set
+            {
+                if (_setLeftItemRequestHandler != value)
+                {
+                    _setLeftItemRequestHandler = value;
+                    OnPropertyChanged(Utils.SetLeftItemRequestHandlerPropertyChangedEventArgs);
+                }
+            }
+        }
+
+        public Action<JoinPair<TLeftSourceItem, TRightSourceItem>, TRightSourceItem> SetRightItemAction
+        {
+            get => _setRightItemRequestHandler;
+            set
+            {
+                if (_setRightItemRequestHandler != value)
+                {
+                    _setRightItemRequestHandler = value;
+                    OnPropertyChanged(Utils.SetLeftItemRequestHandlerPropertyChangedEventArgs);
+                }
+            }
+        }
 
         [ObservableComputationsCall]
         public Joining(
@@ -127,14 +167,74 @@ namespace ObservableComputations
             _rightSource = rightSource;
         }
 
+        //[ObservableComputationsCall]
+        //public Joining(
+        //    IReadScalar<INotifyCollectionChanged> leftSourceScalar,
+        //    IReadScalar<INotifyCollectionChanged> rightSourceScalar,
+        //    Expression<Func<TLeftSourceItem, TRightSourceItem, bool>> predicateExpression,
+        //    TRightSourceItem defaultRightSourceItemForLeftJoin,
+        //    int capacity = 0) : this(predicateExpression, Utils.getCapacity(leftSourceScalar) * Utils.getCapacity(rightSourceScalar), capacity)
+        //{
+        //    _leftSourceScalar = leftSourceScalar;
+        //    _rightSourceScalar = rightSourceScalar;
+        //    _isLeft = true;
+        //    _defaultRightSourceItemForLeftJoin = defaultRightSourceItemForLeftJoin;
+        //    _leftItemInfos = new List<LeftItemInfo>(Utils.getCapacity(leftSourceScalar));
+        //}
+
+        //[ObservableComputationsCall]
+        //public Joining(
+        //    INotifyCollectionChanged leftSource,
+        //    IReadScalar<INotifyCollectionChanged> rightSourceScalar,
+        //    Expression<Func<TLeftSourceItem, TRightSourceItem, bool>> predicateExpression,
+        //    TRightSourceItem defaultRightSourceItemForLeftJoin,
+        //    int capacity = 0) : this(predicateExpression, Utils.getCapacity(leftSource) * Utils.getCapacity(rightSourceScalar), capacity)
+        //{
+        //    _leftSource = leftSource;
+        //    _rightSourceScalar = rightSourceScalar;
+        //    _isLeft = true;
+        //    _defaultRightSourceItemForLeftJoin = defaultRightSourceItemForLeftJoin;
+        //    _leftItemInfos = new List<LeftItemInfo>( Utils.getCapacity(leftSource));
+        //}
+
+        //[ObservableComputationsCall]
+        //public Joining(
+        //    IReadScalar<INotifyCollectionChanged> leftSourceScalar,
+        //    INotifyCollectionChanged rightSource,
+        //    Expression<Func<TLeftSourceItem, TRightSourceItem, bool>> predicateExpression,
+        //    TRightSourceItem defaultRightSourceItemForLeftJoin,
+        //    int capacity = 0) : this(predicateExpression, Utils.getCapacity(leftSourceScalar) * Utils.getCapacity(rightSource), capacity)
+        //{
+        //    _leftSourceScalar = leftSourceScalar;
+        //    _rightSource = rightSource;
+        //    _isLeft = true;
+        //    _defaultRightSourceItemForLeftJoin = defaultRightSourceItemForLeftJoin;
+        //    _leftItemInfos = new List<LeftItemInfo>(Utils.getCapacity(leftSourceScalar));
+        //}
+
+        //[ObservableComputationsCall]
+        //public Joining(
+        //    INotifyCollectionChanged leftSource,
+        //    INotifyCollectionChanged rightSource,
+        //    Expression<Func<TLeftSourceItem, TRightSourceItem, bool>> predicateExpression,
+        //    TRightSourceItem defaultRightSourceItemForLeftJoin,
+        //    int capacity = 0) : this(predicateExpression, Utils.getCapacity(leftSource) * Utils.getCapacity(rightSource), capacity)
+        //{
+        //    _leftSource = leftSource;
+        //    _rightSource = rightSource;
+        //    _isLeft = true;
+        //    _defaultRightSourceItemForLeftJoin = defaultRightSourceItemForLeftJoin;
+        //    _leftItemInfos = new List<LeftItemInfo>( Utils.getCapacity(leftSource));
+        //}
+
         private Joining(Expression<Func<TLeftSourceItem, TRightSourceItem, bool>> predicateExpression,
             int sourceCapacity, int capacity) : base(capacity)
         {
             Utils.construct(
                 predicateExpression,
                 sourceCapacity,
-                ref _itemInfos,
-                ref _sourcePositions,
+                out _itemInfos,
+                out _sourcePositions,
                 ref _predicateExpressionOriginal,
                 ref _predicateExpression,
                 ref _predicateContainsParametrizedObservableComputationsCalls,
@@ -157,12 +257,14 @@ namespace ObservableComputations
             {
                 Utils.disposeExpressionItemInfos(_itemInfos, _predicateExpressionСallCount, this);
 
+                //int leftCapacity = Utils.getCapacity(_leftSourceScalar, _leftSource);
                 Utils.initializeItemInfos(
                     Utils.getCapacity(_leftSourceScalar, _leftSource) * Utils.getCapacity(_rightSourceScalar, _rightSource),
                     out _itemInfos,
                     out _sourcePositions);
 
                 _filteredPositions = new Positions<Position>(new List<Position>(_initialCapacity));
+                //if (_isLeft) _leftItemInfos = new List<LeftItemInfo>(leftCapacity);
             }
 
             if (_leftSourceNotifyCollectionChangedEventHandler != null)
@@ -210,18 +312,20 @@ namespace ObservableComputations
                 {
                     TLeftSourceItem leftSourceItem = _leftSourceAsList[leftSourceIndex];
 
-                    for (rightSourceIndex = 0; rightSourceIndex < rightCount; rightSourceIndex++)
+                    //bool anyAdded = false;
+
+                    int doRegisterSourceItem(TRightSourceItem rightSourceItem, bool predicateValue)
                     {
-                        TRightSourceItem rightSourceItem = _rightSourceAsList[rightSourceIndex];
                         Position currentFilteredItemPosition = null;
 
-                        FilteringItemInfo itemInfo = registerSourceItem(leftSourceItem, rightSourceItem, leftSourceIndex + rightSourceIndex, null, null);
+                        FilteringItemInfo itemInfo =
+                            registerSourceItem(leftSourceItem, rightSourceItem, leftSourceIndex + rightSourceIndex, null, null);
 
-                        if (ApplyPredicate(leftSourceIndex, rightSourceIndex))
+                        if (predicateValue)
                         {
-                            JoinPair<TLeftSourceItem, TRightSourceItem> joinPair 
-                                = new JoinPair<TLeftSourceItem, TRightSourceItem>(leftSourceItem, rightSourceItem);
-                            
+                            JoinPair<TLeftSourceItem, TRightSourceItem> joinPair
+                                = new JoinPair<TLeftSourceItem, TRightSourceItem>(leftSourceItem, rightSourceItem, this);
+
                             if (originalCount > insertingIndex)
                                 _items[insertingIndex++] = joinPair;
                             else
@@ -229,11 +333,31 @@ namespace ObservableComputations
 
                             currentFilteredItemPosition = nextItemPosition;
                             nextItemPosition = _filteredPositions.Add();
+                            //anyAdded = true;
                         }
 
                         itemInfo.FilteredPosition = currentFilteredItemPosition;
                         itemInfo.NextFilteredItemPosition = nextItemPosition;
+                        return insertingIndex;
                     }
+
+                    for (rightSourceIndex = 0; rightSourceIndex < rightCount; rightSourceIndex++)
+                    {
+                        insertingIndex = doRegisterSourceItem(
+                            _rightSourceAsList[rightSourceIndex], 
+                            ApplyPredicate(leftSourceIndex, rightSourceIndex));
+                    }
+
+                    //if (_isLeft)
+                    //{
+                    //    if (!anyAdded)
+                    //    {
+                    //        doRegisterSourceItem(_defaultRightSourceItemForLeftJoin, true);
+                    //        _leftItemInfos.Add(new LeftItemInfo(true));
+                    //    }
+
+                    //    _leftItemInfos.Add(new LeftItemInfo(true));
+                    //}
                 }
 
                 for (int index = originalCount - 1; index >= insertingIndex; index--)
@@ -296,11 +420,17 @@ namespace ObservableComputations
                     int count = _rightSourceAsList.Count;
                     int baseIndex = newLeftSourceIndex * count;
 
+                    //bool anyAdded = false;
                     for (int rightSourceIndex = 0; rightSourceIndex < count; rightSourceIndex++)
                     {
                         TRightSourceItem rightSourceItem = _rightSourceAsList[rightSourceIndex];
                         processAddSourceItem(addedLeftSourceItem, rightSourceItem, baseIndex + rightSourceIndex);
-                    }            
+                        //if (processAddSourceItem(addedLeftSourceItem, rightSourceItem, baseIndex + rightSourceIndex))
+                        //    anyAdded = true;
+                    }
+
+                    //if (_isLeft && !anyAdded)
+                    //    processAddSourceItem(addedLeftSourceItem, _defaultRightSourceItemForLeftJoin, baseIndex);
 
                     _isConsistent = true;
                     raiseConsistencyRestored();
@@ -309,6 +439,14 @@ namespace ObservableComputations
                     int oldIndex = e.OldStartingIndex;
                     int count1 = _rightSourceAsList.Count;
                     int baseIndex1 = oldIndex * count1;
+
+                    //if (_isLeft)
+                    //{
+                    //    LeftItemInfo leftItemInfo = _leftItemInfos[oldIndex];
+                    //    if (leftItemInfo.Defaulted)  unregisterSourceItem(baseIndex1);
+                    //    _leftItemInfos.RemoveAt(oldIndex);
+                    //}
+
                     for (int innerSourceIndex = count1 - 1; innerSourceIndex >= 0; innerSourceIndex--)
                         unregisterSourceItem(baseIndex1 + innerSourceIndex);										      
                     break;
@@ -318,6 +456,10 @@ namespace ObservableComputations
                     int oldIndex1 = e.OldStartingIndex;
                     if (newIndex1 != oldIndex1)
                     {
+                    //    LeftItemInfo leftItemInfo = _leftItemInfos[oldIndex1];
+                    //    _leftItemInfos.RemoveAt(oldIndex1);
+                    //    _leftItemInfos.Insert(newIndex1, leftItemInfo);
+
                         int count3 = _rightSourceAsList.Count;
                         int oldResultIndex = oldIndex1 * count3;
                         int newBaseIndex = newIndex1 * count3;
@@ -380,7 +522,7 @@ namespace ObservableComputations
                 ref _handledEventArgs);
         }
 
-        private void processAddSourceItem(TLeftSourceItem leftSourceItem, TRightSourceItem rightSourceItem, int newSourceIndex)
+        private bool processAddSourceItem(TLeftSourceItem leftSourceItem, TRightSourceItem rightSourceItem, int newSourceIndex)
         {
             Position newItemPosition = null;
             Position nextItemPosition;
@@ -406,8 +548,14 @@ namespace ObservableComputations
                 newWatcher, newPredicateFunc, nestedComputings);
 
             if (newFilteredIndex != null)
+            {
                 baseInsertItem(newFilteredIndex.Value,
-                    new JoinPair<TLeftSourceItem, TRightSourceItem>(leftSourceItem, rightSourceItem));
+                    new JoinPair<TLeftSourceItem, TRightSourceItem>(leftSourceItem, rightSourceItem, this));
+
+                return true;
+            }
+
+            return false;
         }
 
         private void handleRightSourceCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
@@ -416,8 +564,8 @@ namespace ObservableComputations
                 sender,
                 e,
                 _rootLeftSourceWrapper,
-                ref _lastProcessedLeftSourceChangeMarker,
-                _leftSourceAsList,
+                ref _lastProcessedRightSourceChangeMarker,
+                _rightSourceAsList,
                 _isConsistent,
                 this,
                 ref _handledEventSender,
@@ -511,12 +659,14 @@ namespace ObservableComputations
 
         internal override void addToUpstreamComputings(IComputingInternal computing)
         {
-            (_source as IComputingInternal)?.AddDownstreamConsumedComputing(computing);
+            (_leftSource as IComputingInternal)?.AddDownstreamConsumedComputing(computing);
+            (_rightSource as IComputingInternal)?.AddDownstreamConsumedComputing(computing);
         }
 
         internal override void removeFromUpstreamComputings(IComputingInternal computing)
         {
-            (_source as IComputingInternal)?.RemoveDownstreamConsumedComputing(computing);
+            (_leftSource as IComputingInternal)?.RemoveDownstreamConsumedComputing(computing);
+            (_rightSource as IComputingInternal)?.RemoveDownstreamConsumedComputing(computing);
         }
 
         void IFiltering<JoinPair<TLeftSourceItem, TRightSourceItem>>.expressionWatcher_OnValueChanged(ExpressionWatcher expressionWatcher, object sender,
@@ -526,9 +676,12 @@ namespace ObservableComputations
                 expressionWatcher,
                 sender,
                 eventArgs,
-                _rootSourceWrapper,
-                _sourceAsList,
-                _lastProcessedSourceChangeMarker,
+                _rootLeftSourceWrapper,
+                _leftSourceAsList,
+                _rootRightSourceWrapper,
+                _rightSourceAsList,
+                _lastProcessedLeftSourceChangeMarker,
+                _lastProcessedRightSourceChangeMarker,
                 _thisAsFiltering,
                 ref _deferredExpressionWatcherChangedProcessings,
                 ref _isConsistent,
@@ -557,7 +710,7 @@ namespace ObservableComputations
         JoinPair<TLeftSourceItem, TRightSourceItem> IFiltering<JoinPair<TLeftSourceItem, TRightSourceItem>>.GetItem(int sourceIndex)
         {
             int count = _leftSourceAsList.Count;
-            return new JoinPair<TLeftSourceItem, TRightSourceItem>(_leftSourceAsList[sourceIndex / count], _rightSourceAsList[sourceIndex % count]);
+            return new JoinPair<TLeftSourceItem, TRightSourceItem>(_leftSourceAsList[sourceIndex / count], _rightSourceAsList[sourceIndex % count], this);
         }
 
         // ReSharper disable once MemberCanBePrivate.Global
@@ -620,7 +773,7 @@ namespace ObservableComputations
                     _predicateExpressionInfo);
 
             itemInfo.PredicateFunc = predicateFunc;
-            watcher.ValueChanged = expressionWatcher_OnValueChanged;
+            watcher.ValueChanged = _thisAsFiltering.expressionWatcher_OnValueChanged;
             watcher._position = itemInfo;
             itemInfo.ExpressionWatcher = watcher;
             itemInfo.NestedComputings = nestedComputings;
@@ -655,105 +808,48 @@ namespace ObservableComputations
             if (removeIndex.HasValue) baseRemoveItem(removeIndex.Value);
         }
 
-
-        private bool processChangeSourceItem(int sourceIndex)
-        {
-            TSourceItem item = _sourceAsList[sourceIndex];
-            FilteringItemInfo itemInfo = _itemInfos[sourceIndex];
-
-            bool newPredicateValue = ApplyPredicate(sourceIndex);
-            bool oldPredicateValue = itemInfo.FilteredPosition != null;
-
-            if (newPredicateValue != oldPredicateValue)
-            {
-                if (newPredicateValue)
-                {
-                    int newIndex = itemInfo.NextFilteredItemPosition.Index;
-                    itemInfo.FilteredPosition = _filteredPositions.Insert(newIndex);
-                    newIndex = itemInfo.FilteredPosition.Index;
-                    modifyNextFilteredItemIndex(sourceIndex, itemInfo.FilteredPosition);
-                    baseInsertItem(newIndex, item);
-                    return true;
-                }
-                else // if (oldPredicaeValue)
-                {
-                    int index = itemInfo.FilteredPosition.Index;
-                    _filteredPositions.Remove(index);
-                    itemInfo.FilteredPosition = null;
-                    modifyNextFilteredItemIndex(sourceIndex, itemInfo.NextFilteredItemPosition);
-                    baseRemoveItem(index);
-                    return true;
-                }
-            }
-
-            return false;
-        }
-
         void ICanProcessSourceItemChange.ProcessSourceItemChange(ExpressionWatcher expressionWatcher)
         {
-            processChangeSourceItem(expressionWatcher._position.Index);
+            FilteringUtils.ProcessChangeSourceItem(expressionWatcher._position.Index, _itemInfos, this,
+                _filteredPositions, this);
         }
     }
 
 	public class JoinPair<TLeftSourceItem, TRightSourceItem> : IEquatable<JoinPair<TLeftSourceItem, TRightSourceItem>>, INotifyPropertyChanged
 	{
-		public Action<JoinPair<TLeftSourceItem, TRightSourceItem>, TLeftSourceItem> JoinPairSetLeftItemAction
-		{
-			get => _joinPairSetLeftItemAction;
-			set
-			{
-				if (_joinPairSetLeftItemAction != value)
-				{
-					_joinPairSetLeftItemAction = value;
-					PropertyChanged?.Invoke(this, Utils.JoinPairSetLeftItemActionPropertyChangedEventArgs);
-				}
-			}
-		}
-
-		public Action<JoinPair<TLeftSourceItem, TRightSourceItem>, TRightSourceItem> JoinPairSetRightItemAction
-		{
-			get => _joinPairSetRightItemAction;
-			set
-			{
-				if (_joinPairSetRightItemAction != value)
-				{
-					_joinPairSetRightItemAction = value;
-					PropertyChanged?.Invoke(this, Utils.JoinPairSetRightItemActionPropertyChangedEventArgs);
-				}
-			}
-		}
-
 		public TLeftSourceItem LeftItem
 		{
 			get => _leftItem;
 			// ReSharper disable once MemberCanBePrivate.Global
-			set => _joinPairSetLeftItemAction(this, value);
+			set => _joining._setLeftItemRequestHandler(this, value);
 		}
 
 		public TRightSourceItem RightItem
 		{
 			get => _rightItem;
 			// ReSharper disable once MemberCanBePrivate.Global
-			set => _joinPairSetRightItemAction(this, value);
+			set =>_joining._setRightItemRequestHandler(this, value);
 		}
 
 		readonly EqualityComparer<TLeftSourceItem> _leftSourceItemEqualityComparer = EqualityComparer<TLeftSourceItem>.Default;
 		readonly EqualityComparer<TRightSourceItem> _rightSourceItemEqualityComparer = EqualityComparer<TRightSourceItem>.Default;
 
-		private Action<JoinPair<TLeftSourceItem, TRightSourceItem>, TLeftSourceItem> _joinPairSetLeftItemAction;
-
-		private Action<JoinPair<TLeftSourceItem, TRightSourceItem>, TRightSourceItem> _joinPairSetRightItemAction;
-
 		private TLeftSourceItem _leftItem;
 
 		private TRightSourceItem _rightItem;
+        private Joining<TLeftSourceItem, TRightSourceItem> _joining;
+
+        // ReSharper disable once UnusedMember.Local
+        private Joining<TLeftSourceItem, TRightSourceItem> Joining => _joining;
 
 		public JoinPair(
-			TLeftSourceItem leftItem, TRightSourceItem rightItem)
+			TLeftSourceItem leftItem, TRightSourceItem rightItem,
+            Joining<TLeftSourceItem, TRightSourceItem> joining)
 		{
 			_leftItem = leftItem;
 			_rightItem = rightItem;
-		}
+            _joining = joining;
+        }
 
 		internal void setRightItem(TRightSourceItem rightSourceItem)
 		{

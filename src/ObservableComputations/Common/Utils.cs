@@ -348,16 +348,16 @@ namespace ObservableComputations
         }
 
         internal static void construct<TItemInfo, TExpression>(
-            Expression<TExpression> expressionToProcess, 
-            int capacity, 
-            ref List<TItemInfo> itemInfos, 
-            ref Positions<TItemInfo> sourcePositions, 
-            ref Expression<TExpression> expressionOriginal, 
-            ref Expression<TExpression> expression, 
-            ref bool expressionContainsParametrizedObservableComputationsCalls, 
-            ref ExpressionWatcher.ExpressionInfo expressionInfo, 
-            ref int expressionСallCount, 
-            ref TExpression func, 
+            Expression<TExpression> expressionToProcess,
+            int capacity,
+            out List<TItemInfo> itemInfos,
+            out Positions<TItemInfo> sourcePositions,
+            ref Expression<TExpression> expressionOriginal,
+            ref Expression<TExpression> expression,
+            ref bool expressionContainsParametrizedObservableComputationsCalls,
+            ref ExpressionWatcher.ExpressionInfo expressionInfo,
+            ref int expressionСallCount,
+            ref TExpression func,
             ref List<IComputingInternal> nestedComputing) where TItemInfo : Position, new()
         {
             construct(capacity, out itemInfos, out sourcePositions);
@@ -408,20 +408,52 @@ namespace ObservableComputations
             ref Queue<ExpressionWatcher.Raise> deferredExpressionWatcherChangedProcessings,
             ref bool isConsistent, ref object handledEventSender, ref EventArgs handledEventArgs, bool consistent) where TCanProcessSourceItemChange : ICanProcessSourceItemChange
         {
+            bool canProcessNow = rootSourceWrapper || observableCollectionWithChangeMarker.ChangeMarkerField == lastProcessedSourceChangeMarker;
+
             Utils.checkConsistent(sender, eventArgs, consistent, thisAsCanProcessSourceItemChange);
 
-            if (rootSourceWrapper || observableCollectionWithChangeMarker.ChangeMarkerField == lastProcessedSourceChangeMarker)
+            processSourceItemChange(expressionWatcher, sender, eventArgs, thisAsCanProcessSourceItemChange, ref deferredExpressionWatcherChangedProcessings, out isConsistent, ref handledEventSender, ref handledEventArgs, canProcessNow);
+        }
+
+        internal static void ProcessSourceItemChange<TSourceItem1, TSourceItem2, TCanProcessSourceItemChange>(ExpressionWatcher expressionWatcher,
+            object sender, EventArgs eventArgs,
+            bool rootSourceWrapper1,
+            ObservableCollectionWithChangeMarker<TSourceItem1> observableCollectionWithChangeMarker1,
+            bool rootSourceWrapper2,
+            ObservableCollectionWithChangeMarker<TSourceItem2> observableCollectionWithChangeMarker2,
+            bool lastProcessedSource1ChangeMarker, bool lastProcessedSource2ChangeMarker, TCanProcessSourceItemChange thisAsCanProcessSourceItemChange,
+            ref Queue<ExpressionWatcher.Raise> deferredExpressionWatcherChangedProcessings,
+            ref bool isConsistent, ref object handledEventSender, ref EventArgs handledEventArgs, bool consistent) where TCanProcessSourceItemChange : ICanProcessSourceItemChange
+        {
+            bool canProcessNow = 
+                (rootSourceWrapper1 || observableCollectionWithChangeMarker1.ChangeMarkerField == lastProcessedSource1ChangeMarker)
+                && (rootSourceWrapper2 || observableCollectionWithChangeMarker2.ChangeMarkerField == lastProcessedSource2ChangeMarker);
+
+            Utils.checkConsistent(sender, eventArgs, consistent, thisAsCanProcessSourceItemChange);
+
+            processSourceItemChange(expressionWatcher, sender, eventArgs, thisAsCanProcessSourceItemChange, ref deferredExpressionWatcherChangedProcessings, out isConsistent, ref handledEventSender, ref handledEventArgs, canProcessNow);
+        }
+
+        private static void processSourceItemChange<TCanProcessSourceItemChange>(
+            ExpressionWatcher expressionWatcher, object sender, EventArgs eventArgs,
+            TCanProcessSourceItemChange thisAsCanProcessSourceItemChange, ref Queue<ExpressionWatcher.Raise> deferredExpressionWatcherChangedProcessings,
+            out bool isConsistent, ref object handledEventSender, ref EventArgs handledEventArgs, bool canProcessNow)
+            where TCanProcessSourceItemChange : ICanProcessSourceItemChange
+        {
+            if (canProcessNow)
             {
                 handledEventSender = sender;
                 handledEventArgs = eventArgs;
                 isConsistent = false;
 
-                if (typeof(TCanProcessSourceItemChange) == typeof(ICanProcessSourceItemChange))               
+                if (typeof(TCanProcessSourceItemChange) == typeof(ICanProcessSourceItemChange))
                     thisAsCanProcessSourceItemChange.ProcessSourceItemChange(expressionWatcher);
                 else if (typeof(TCanProcessSourceItemChange) == typeof(ICanProcessSourceItemKeyChange))
-                    ((ICanProcessSourceItemKeyChange) thisAsCanProcessSourceItemChange).ProcessSourceItemChange(expressionWatcher);
+                    ((ICanProcessSourceItemKeyChange) thisAsCanProcessSourceItemChange).ProcessSourceItemChange(
+                        expressionWatcher);
                 else if (typeof(TCanProcessSourceItemChange) == typeof(ICanProcessSourceItemValueChange))
-                    ((ICanProcessSourceItemValueChange) thisAsCanProcessSourceItemChange).ProcessSourceItemChange(expressionWatcher);  
+                    ((ICanProcessSourceItemValueChange) thisAsCanProcessSourceItemChange).ProcessSourceItemChange(
+                        expressionWatcher);
 
                 isConsistent = true;
                 thisAsCanProcessSourceItemChange.RaiseConsistencyRestored();
@@ -625,9 +657,8 @@ namespace ObservableComputations
 		internal static readonly PropertyChangedEventArgs ClearGroupItemsActionPropertyChangedEventArgs = new PropertyChangedEventArgs("ClearGroupItemsAction");
 		internal static readonly PropertyChangedEventArgs OuterItemPropertyChangedEventArgs = new PropertyChangedEventArgs("OuterItem");
 		internal static readonly PropertyChangedEventArgs KeyPropertyChangedEventArgs = new PropertyChangedEventArgs("Key");
-		internal static readonly PropertyChangedEventArgs JoinPairSetOuterItemActionPropertyChangedEventArgs = new PropertyChangedEventArgs("JoinPairSetOuterItemAction");
-		internal static readonly PropertyChangedEventArgs JoinPairSetInnerItemActionPropertyChangedEventArgs = new PropertyChangedEventArgs("JoinPairSetInnerItemAction");
-		internal static readonly PropertyChangedEventArgs InnerItemPropertyChangedEventArgs = new PropertyChangedEventArgs("InnerItem");
+		internal static readonly PropertyChangedEventArgs SetLeftItemRequestHandlerPropertyChangedEventArgs = new PropertyChangedEventArgs("SetLeftItemRequestHandler");
+		internal static readonly PropertyChangedEventArgs SetRightItemRequestHandlerPropertyChangedEventArgs = new PropertyChangedEventArgs("SetRightItemRequestHandler");
 		internal static readonly PropertyChangedEventArgs ZipPairSetLeftItemActionPropertyChangedEventArgs = new PropertyChangedEventArgs("ZipPairSetLeftItemAction");
 		internal static readonly PropertyChangedEventArgs ZipPairSetRightItemActionPropertyChangedEventArgs = new PropertyChangedEventArgs("ZipPairSetRightItemAction");
 		internal static readonly PropertyChangedEventArgs LeftItemPropertyChangedEventArgs = new PropertyChangedEventArgs("LeftItem");

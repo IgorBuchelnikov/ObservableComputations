@@ -79,8 +79,8 @@ namespace ObservableComputations
             Utils.construct(
                 selectorExpression, 
                 capacity, 
-                ref _itemInfos, 
-                ref _sourcePositions, 
+                out _itemInfos, 
+                out _sourcePositions, 
                 ref _selectorExpressionOriginal, 
                 ref _selectorExpression, 
                 ref _selectorContainsParametrizedObservableComputationsCalls, 

@@ -89,8 +89,8 @@ namespace ObservableComputations
             Utils.construct(
                 predicateExpression, 
                 sourceCapacity, 
-                ref _itemInfos, 
-                ref _sourcePositions, 
+                out _itemInfos, 
+                out _sourcePositions, 
                 ref _predicateExpressionOriginal, 
                 ref _predicateExpression, 
                 ref _predicateContainsParametrizedObservableComputationsCalls, 

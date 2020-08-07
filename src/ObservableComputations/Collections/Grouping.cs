@@ -11,8 +11,7 @@ using ObservableComputations.ExtentionMethods;
 namespace ObservableComputations
 {
 	// TODO реализовать IDictionary в Grouping
-	// TODO если TKey это INotifyCollectionChanged реагировать на CollectionChanged
-	// TODO Сделать GettingDictionary : Dictionary 
+	// TODO если TKey это INotifyCollectionChanged реагировать на CollectionChanged 
 	public class Grouping<TSourceItem, TKey> : CollectionComputing<Group<TSourceItem, TKey>>, IHasSourceCollections, ICanProcessSourceItemChange
 	{
 		public IReadScalar<INotifyCollectionChanged> SourceScalar => _sourceScalar;
@@ -336,7 +335,7 @@ namespace ObservableComputations
 					{
 						ExpressionWatcher oldExpressionWatcher = replacingItemInfo.ExpressionWatcher;
 						oldExpressionWatcher.Dispose();
-                        EventUnsubscriber.QueueSubscriptions(watcher._propertyChangedEventSubscriptions, watcher._methodChangedEventSubscriptions);
+                        EventUnsubscriber.QueueSubscriptions(oldExpressionWatcher._propertyChangedEventSubscriptions, oldExpressionWatcher._methodChangedEventSubscriptions);
 
 						replacingItemInfo.SelectorFunc = selectorFunc;
 						replacingItemInfo.ExpressionWatcher = watcher;

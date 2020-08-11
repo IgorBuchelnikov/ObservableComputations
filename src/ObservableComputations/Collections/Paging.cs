@@ -125,10 +125,8 @@ namespace ObservableComputations
 		private INotifyCollectionChanged _source;
 		private IList<TSourceItem> _sourceAsList;
 		private readonly IReadScalar<INotifyCollectionChanged> _sourceScalar;
-		// ReSharper disable once PrivateFieldCanBeConvertedToLocalVariable
-		private PropertyChangedEventHandler _sourceScalarPropertyChangedEventHandler;
 
-		private NotifyCollectionChangedEventHandler _sourceNotifyCollectionChangedEventHandler;
+		private bool _sourceInitialized;
 
 		private PropertyChangedEventHandler _sourcePropertyChangedEventHandler;
 		private bool _indexerPropertyChangedEventRaised;
@@ -597,14 +595,14 @@ namespace ObservableComputations
 
         protected override void initialize()
         {
-            Utils.initializeSourceScalar(_sourceScalar, ref _sourceScalarPropertyChangedEventHandler, ref _source, getScalarValueChangedHandler());
+            Utils.initializeSourceScalar(_sourceScalar, ref _source, scalarValueChangedHandler);
             initializePageSizeScalar();
             initializeCurrentPageScalar();
         }
 
         protected override void uninitialize()
         {
-            Utils.uninitializeSourceScalar(_sourceScalar, _sourceScalarPropertyChangedEventHandler);
+            Utils.uninitializeSourceScalar(_sourceScalar, scalarValueChangedHandler);
             if (_pageSizeScalar != null) _pageSizeScalar.PropertyChanged -= handlePageSizeScalarValueChanged;
             if (_currentPageScalar != null) _currentPageScalar.PropertyChanged -= handleCurrentPageScalarValueChanged;
             if (_sourceAsINotifyPropertyChanged != null)

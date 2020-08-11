@@ -31,14 +31,12 @@ namespace ObservableComputations
         private IHasChangeMarker _sourceAsIHasChangeMarker;
 		private bool _lastProcessedSourceChangeMarker;
 
-		private NotifyCollectionChangedEventHandler _sourceNotifyCollectionChangedEventHandler;
+		private bool _sourceInitialized;
 		private readonly IReadScalar<INotifyCollectionChanged> _sourceScalar;
 		private INotifyCollectionChanged _source;
 
         private bool _indexerPropertyChangedEventRaised;
         private INotifyPropertyChanged _sourceAsINotifyPropertyChanged;
-
-        private PropertyChangedEventHandler _sourceScalarPropertyChangedEventHandler;
 
 		[ObservableComputationsCall]
 		public CollectionProcessing(
@@ -73,7 +71,7 @@ namespace ObservableComputations
 
         protected override void initializeFromSource()
 		{
-			if (_sourceNotifyCollectionChangedEventHandler != null)
+			if (_sourceInitialized)
 			{
 				int count = Count;
 				for (int i = 0; i < count; i++)
@@ -84,9 +82,9 @@ namespace ObservableComputations
 					if (_oldItemProcessor != null) processOldItem(sourceItem, returnValue);
 				}
 
-                _source.CollectionChanged -= _sourceNotifyCollectionChangedEventHandler;
-                _sourceNotifyCollectionChangedEventHandler = null;
-			}
+                _source.CollectionChanged -= handleSourceCollectionChanged;
+                _sourceInitialized = false;
+            }
 
             Utils.changeSource(ref _source, _sourceScalar, _downstreamConsumedComputings, _consumers, this,
                 ref _sourceAsList, _source as IList<TSourceItem>);
@@ -109,9 +107,9 @@ namespace ObservableComputations
 					baseInsertItem(index, returnValue);
 				}
 
-                _sourceNotifyCollectionChangedEventHandler = handleSourceCollectionChanged;
-                _source.CollectionChanged += _sourceNotifyCollectionChangedEventHandler;
-			}
+                _source.CollectionChanged += handleSourceCollectionChanged;
+                _sourceInitialized = true;
+            }
 		}
 
 
@@ -237,12 +235,12 @@ namespace ObservableComputations
 
         protected override void initialize()
         {
-            Utils.initializeSourceScalar(_sourceScalar, ref _sourceScalarPropertyChangedEventHandler, ref _source, getScalarValueChangedHandler());
+            Utils.initializeSourceScalar(_sourceScalar, ref _source, scalarValueChangedHandler);
         }
 
         protected override void uninitialize()
         {
-            Utils.uninitializeSourceScalar(_sourceScalar, _sourceScalarPropertyChangedEventHandler);
+            Utils.uninitializeSourceScalar(_sourceScalar, scalarValueChangedHandler);
         }
 
         #region Implementation of ISourceIndexerPropertyTracker

@@ -53,8 +53,7 @@ namespace ObservableComputations
 		private int _valueCount;
 		private List<TSourceItem> _sourceItems;
 
-		private NotifyCollectionChangedEventHandler _sourceNotifyCollectionChangedEventHandler;
-		private WeakNotifyCollectionChangedEventHandler _sourceWeakNotifyCollectionChangedEventHandler;
+		private bool _sourceInitialized;
 		private readonly IReadScalar<INotifyCollectionChanged> _sourceScalar;
 		private readonly IReadScalar<IComparer<TSourceItem>> _comparerScalar;
 		private readonly MinimazingOrMaximazingMode _mode;

@@ -150,9 +150,6 @@ namespace ObservableComputations
 		}
 
 
-
-		private PropertyChangedEventHandler _sourceScalarPropertyChangedEventHandler;
-
 		private readonly bool _keySelectorExpressionContainsParametrizedObservableComputationsCalls;
 
 		private readonly ExpressionWatcher.ExpressionInfo _keySelectorExpressionInfo;
@@ -165,7 +162,7 @@ namespace ObservableComputations
 		private bool _lastProcessedSourceChangeMarker;
 		private Queue<ExpressionWatcher.Raise> _deferredExpressionWatcherChangedProcessings;
 
-		private NotifyCollectionChangedEventHandler _sourceNotifyCollectionChangedEventHandler;
+		private bool _sourceInitialized;
 
 		private Dictionary<TKey, Group<TSourceItem, TKey>> _groupDictionary;
 		private Group<TSourceItem, TKey> _nullGroup;
@@ -493,7 +490,7 @@ namespace ObservableComputations
         protected override void initialize()
         {
             initializeEqualityComparer();
-            Utils.initializeSourceScalar(_sourceScalar, ref _sourceScalarPropertyChangedEventHandler, ref _source, getScalarValueChangedHandler());
+            Utils.initializeSourceScalar(_sourceScalar, ref _source, scalarValueChangedHandler);
             Utils.initializeNestedComputings(_nestedComputings, this);
             _groupDictionary = new Dictionary<TKey, Group<TSourceItem, TKey>>(_equalityComparer);
         }
@@ -503,13 +500,13 @@ namespace ObservableComputations
             if (_equalityComparerScalar != null)
                 _equalityComparerScalar.PropertyChanged -= _equalityComparerScalarPropertyChangedEventHandler;
 
-            Utils.uninitializeSourceScalar(_sourceScalar, _sourceScalarPropertyChangedEventHandler);
+            Utils.uninitializeSourceScalar(_sourceScalar, scalarValueChangedHandler);
             Utils.uninitializeNestedComputings(_nestedComputings, this);
         }
 
 		protected override void initializeFromSource()
 		{			
-			if (_sourceNotifyCollectionChangedEventHandler != null)
+			if (_sourceInitialized)
 			{
                 Utils.disposeExpressionItemInfos(_itemInfos, _keySelectorExpressionСallCount, this);
 
@@ -519,13 +516,15 @@ namespace ObservableComputations
                     ref _itemInfos,
                     ref _sourcePositions, 
                     _sourceAsList, 
-                    ref _sourceNotifyCollectionChangedEventHandler);
+                    handleSourceCollectionChanged);
 
 				_resultPositions = new Positions<Position>(new List<Position>(_initialResultCapacity));
 				_nullGroup = null;            
 				_groupDictionary = new Dictionary<TKey, Group<TSourceItem, TKey>>(_equalityComparer);	
 				_items.Clear();
-			}
+
+                _sourceInitialized = false;
+            }
 
             Utils.changeSource(ref _source, _sourceScalar, _downstreamConsumedComputings, _consumers, this, ref _sourceAsList, null);
 
@@ -544,9 +543,9 @@ namespace ObservableComputations
 					registerSourceItem(sourceItem, true, _sourcePositions.Insert(index), true);
 				}
 
-                _sourceNotifyCollectionChangedEventHandler = handleSourceCollectionChanged;
-                _sourceAsList.CollectionChanged += _sourceNotifyCollectionChangedEventHandler;
-			}			
+                _sourceAsList.CollectionChanged += handleSourceCollectionChanged;
+                _sourceInitialized = true;
+            }			
 
 			reset();
 		}

@@ -33,8 +33,7 @@ namespace ObservableComputations
 
 		private List<TSourceItem> _sourceItems;
 
-		private NotifyCollectionChangedEventHandler _sourceNotifyCollectionChangedEventHandler;
-		private WeakNotifyCollectionChangedEventHandler _sourceWeakNotifyCollectionChangedEventHandler;
+		private bool _sourceInitialized;
 		private readonly IReadScalar<INotifyCollectionChanged> _sourceScalar;
 		private readonly Func<TSourceItem, TResult, TResult> _aggregateFunc;
 		private readonly Func<TSourceItem, TResult, TResult> _deaggregateFunc;

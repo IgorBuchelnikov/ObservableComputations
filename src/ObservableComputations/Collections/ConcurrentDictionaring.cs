@@ -187,8 +187,6 @@ namespace ObservableComputations
 
 		private readonly bool _valueSelectorContainsParametrizedObservableComputationsCalls;
 
-		// ReSharper disable once PrivateFieldCanBeConvertedToLocalVariable
-		private PropertyChangedEventHandler _sourceScalarPropertyChangedEventHandler;
 
 		private ObservableCollectionWithChangeMarker<TSourceItem> _sourceAsList;
 		bool _rootSourceWrapper;
@@ -197,7 +195,7 @@ namespace ObservableComputations
 		private Queue<ExpressionWatcher.Raise> _deferredValueExpressionWatcherChangedProcessings;
 		private Queue<ExpressionWatcher.Raise> _deferredKeyExpressionWatcherChangedProcessings;
 
-		private NotifyCollectionChangedEventHandler _sourceNotifyCollectionChangedEventHandler;
+		private bool _sourceInitialized;
 		private readonly IReadScalar<INotifyCollectionChanged> _sourceScalar;
 		private readonly Func<TSourceItem, TKey> _keySelectorFunc;
 		private readonly Func<TSourceItem, TValue> _valueSelectorFunc;
@@ -336,7 +334,7 @@ namespace ObservableComputations
 
 		private void initializeFromSource()
 		{
-			if (_sourceNotifyCollectionChangedEventHandler != null)
+			if (_sourceInitialized)
 			{
 				Utils.disposeKeyValueExpressionItemInfos(
                     _itemInfos,
@@ -350,10 +348,12 @@ namespace ObservableComputations
                     ref _itemInfos,
                     ref _sourcePositions, 
                     _sourceAsList, 
-                    ref _sourceNotifyCollectionChangedEventHandler);
+                    handleSourceCollectionChanged);
 
 				baseClearItems();
-			}
+
+                _sourceInitialized = false;
+            }
 
             Utils.changeSource(ref _source, _sourceScalar, _downstreamConsumedComputings, _consumers, this, ref _sourceAsList, null);
 
@@ -375,9 +375,9 @@ namespace ObservableComputations
 					baseAddItem(key, value);
 				}
 
-                _sourceNotifyCollectionChangedEventHandler = handleSourceCollectionChanged;
-                _sourceAsList.CollectionChanged += _sourceNotifyCollectionChangedEventHandler;
-			}
+                _sourceAsList.CollectionChanged += handleSourceCollectionChanged;
+                _sourceInitialized = true;
+            }
 		}
 
 		private ItemInfo registerSourceItem(TSourceItem sourceItem, int index, ItemInfo itemInfo = null)
@@ -823,7 +823,7 @@ namespace ObservableComputations
         void IComputingInternal.Initialize()
         {
             initializeEqualityComparer();
-            Utils.initializeSourceScalar(_sourceScalar, ref _sourceScalarPropertyChangedEventHandler, ref _source, handleSourceScalarValueChanged);
+            Utils.initializeSourceScalar(_sourceScalar, ref _source, scalarValueChangedHandler);
             Utils.initializeNestedComputings(_keyNestedComputings, this);
             Utils.initializeNestedComputings(_valueNestedComputings, this);
             _dictionary = new ConcurrentDictionary<TKey, TValue>(1, Utils.getCapacity(_sourceScalar, _source), _equalityComparer);
@@ -833,7 +833,7 @@ namespace ObservableComputations
         {
             if (_equalityComparerScalar != null)
                 _equalityComparerScalar.PropertyChanged -= handleEqualityComparerScalarValueChanged;
-            Utils.uninitializeSourceScalar(_sourceScalar, _sourceScalarPropertyChangedEventHandler);
+            Utils.uninitializeSourceScalar(_sourceScalar, scalarValueChangedHandler);
             Utils.uninitializeNestedComputings(_keyNestedComputings, this);
             Utils.uninitializeNestedComputings(_valueNestedComputings, this);
         }

@@ -39,8 +39,6 @@ namespace ObservableComputations
 		public ReadOnlyCollection<IReadScalar<INotifyCollectionChanged>> SourceCollectionScalars => new ReadOnlyCollection<IReadScalar<INotifyCollectionChanged>>(new []{SourceScalar});
 
 
-		private PropertyChangedEventHandler _sourceScalarPropertyChangedEventHandler;
-
 		internal IOrderingInternal<TSourceItem> _source;
 		private ObservableCollectionWithChangeMarker<TSourceItem> _sourceAsList;
 		bool _rootSourceWrapper;
@@ -69,7 +67,7 @@ namespace ObservableComputations
 
 		internal RangePosition _thenOrderingRangePosition;
 		
-		private NotifyCollectionChangedEventHandler _sourceNotifyCollectionChangedEventHandler;
+		private bool _sourceInitialized;
 		private readonly IReadScalar<IOrdering<TSourceItem>> _sourceScalar;
 		private readonly Expression<Func<TSourceItem, TOrderingValue>> _orderingValueSelectorExpressionOriginal;
 		private readonly IReadScalar<ListSortDirection> _sortDirectionScalar;
@@ -237,7 +235,7 @@ namespace ObservableComputations
             _source.AddThenOrdering(this);
             initializeComparer();
             initializeSortDirectionScalar();
-            Utils.initializeSourceScalar(_sourceScalar, ref _sourceScalarPropertyChangedEventHandler, ref _source, getScalarValueChangedHandler());
+            Utils.initializeSourceScalar(_sourceScalar, ref _source, scalarValueChangedHandler);
             Utils.initializeNestedComputings(_nestedComputings, this);
         }
 
@@ -249,7 +247,7 @@ namespace ObservableComputations
             if (_sortDirectionScalar != null)
                 _sortDirectionScalar.PropertyChanged -= _sortDirectionScalarPropertyChangedEventHandler;			
 
-            Utils.uninitializeSourceScalar(_sourceScalar, _sourceScalarPropertyChangedEventHandler);
+            Utils.uninitializeSourceScalar(_sourceScalar, scalarValueChangedHandler);
             Utils.uninitializeNestedComputings(_nestedComputings, this);
 
             _source?.RemoveThenOrdering(this);
@@ -268,7 +266,7 @@ namespace ObservableComputations
 		protected override void initializeFromSource()
 		{
 
-			if (_sourceNotifyCollectionChangedEventHandler != null)
+			if (_sourceInitialized)
 			{
                 Utils.disposeExpressionItemInfos(_itemInfos, _orderingValueSelectorExpressionСallCount, this);
 
@@ -278,14 +276,16 @@ namespace ObservableComputations
                     ref _itemInfos,
                     ref _sourcePositions, 
                     _sourceAsList, 
-                    ref _sourceNotifyCollectionChangedEventHandler);
+                    handleSourceCollectionChanged);
 
                 Utils.construct(capacity, ref _orderedItemInfos, ref _orderedPositions, ref _orderingValues);
 
                 _source.RemoveThenOrdering(this);
 
 				_items.Clear();
-			}
+
+                _sourceInitialized = false;
+            }
 
             Utils.changeSource(ref _source, _sourceScalar, _downstreamConsumedComputings, _consumers, this, ref _sourceAsList, null);
 
@@ -320,9 +320,9 @@ namespace ObservableComputations
 					}
 				}
 
-                _sourceNotifyCollectionChangedEventHandler = handleSourceCollectionChanged;
-                _sourceAsList.CollectionChanged += _sourceNotifyCollectionChangedEventHandler;
-			}
+                _sourceAsList.CollectionChanged += handleSourceCollectionChanged;
+                _sourceInitialized = true;
+            }
 
 			reset();
 		}

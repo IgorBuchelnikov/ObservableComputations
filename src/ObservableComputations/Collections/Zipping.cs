@@ -107,11 +107,7 @@ namespace ObservableComputations
 
 		private IList<TRightSourceItem> _rightSourceAsList;
 
-		private NotifyCollectionChangedEventHandler _leftSourceNotifyCollectionChangedEventHandler;
-		private WeakNotifyCollectionChangedEventHandler _leftSourceWeakNotifyCollectionChangedEventHandler;
-
-		private NotifyCollectionChangedEventHandler _rightSourceNotifyCollectionChangedEventHandler;
-		private WeakNotifyCollectionChangedEventHandler _rightSourceWeakNotifyCollectionChangedEventHandler;
+		private bool _sourceInitialized;
 
 		internal Action<ZipPair<TLeftSourceItem, TRightSourceItem>, TLeftSourceItem> _zipPairSetLeftItemAction;
 		internal Action<ZipPair<TLeftSourceItem, TRightSourceItem>, TRightSourceItem> _zipPairSetRightItemAction;

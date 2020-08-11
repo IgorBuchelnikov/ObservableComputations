@@ -9,7 +9,7 @@ namespace ObservableComputations
 		private readonly INotifyCollectionChanged _source;
 		private readonly IList<TSourceItem> _sourceAsList;
 
-        private NotifyCollectionChangedEventHandler _sourceNotifyCollectionChangedEventHandler;
+        private bool _sourceInitialized;
 
 		private PropertyChangedEventHandler _sourcePropertyChangedEventHandler;
 		private bool _indexerPropertyChangedEventRaised;

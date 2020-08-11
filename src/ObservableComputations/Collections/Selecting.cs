@@ -34,16 +34,13 @@ namespace ObservableComputations
 
 		private bool _selectorContainsParametrizedObservableComputationsCalls;
 
-		// ReSharper disable once PrivateFieldCanBeConvertedToLocalVariable
-		private PropertyChangedEventHandler _sourceScalarPropertyChangedEventHandler;
-
 		private ObservableCollectionWithChangeMarker<TSourceItem> _sourceAsList;
 		bool _rootSourceWrapper;
 		private bool _lastProcessedSourceChangeMarker;
 
 		private Queue<ExpressionWatcher.Raise> _deferredExpressionWatcherChangedProcessings;
 
-		private NotifyCollectionChangedEventHandler _sourceNotifyCollectionChangedEventHandler;
+		private bool _sourceInitialized;
 		private readonly IReadScalar<INotifyCollectionChanged> _sourceScalar;
 		private Expression<Func<TSourceItem, TResultItem>> _selectorExpressionOriginal;
 		internal INotifyCollectionChanged _source;
@@ -96,7 +93,7 @@ namespace ObservableComputations
         {
             int originalCount = _items.Count;
 
-            if (_sourceNotifyCollectionChangedEventHandler != null)
+            if (_sourceInitialized)
             {
                 Utils.disposeExpressionItemInfos(_itemInfos, _selectorExpressionСallCount, this);
                 Utils.disposeSource(
@@ -105,7 +102,9 @@ namespace ObservableComputations
                     ref _itemInfos,
                     ref _sourcePositions, 
                     _sourceAsList, 
-                    ref _sourceNotifyCollectionChangedEventHandler);
+                    handleSourceCollectionChanged);
+
+                _sourceInitialized = false;
             }
 
             Utils.changeSource(ref _source, _sourceScalar, _downstreamConsumedComputings, _consumers, this, ref _sourceAsList, null);
@@ -136,8 +135,8 @@ namespace ObservableComputations
                     _items.RemoveAt(index);
                 }
 
-                _sourceNotifyCollectionChangedEventHandler = handleSourceCollectionChanged;
-                _sourceAsList.CollectionChanged += _sourceNotifyCollectionChangedEventHandler;
+                _sourceAsList.CollectionChanged += handleSourceCollectionChanged;
+                _sourceInitialized = true;
             }
             else
             {
@@ -149,13 +148,13 @@ namespace ObservableComputations
 
         protected override void initialize()
         {
-            Utils.initializeSourceScalar(_sourceScalar, ref _sourceScalarPropertyChangedEventHandler, ref _source, getScalarValueChangedHandler());
+            Utils.initializeSourceScalar(_sourceScalar, ref _source, scalarValueChangedHandler);
             Utils.initializeNestedComputings(_nestedComputings, this);
         }
 
         protected override void uninitialize()
         {
-            Utils.uninitializeSourceScalar(_sourceScalar, _sourceScalarPropertyChangedEventHandler);
+            Utils.uninitializeSourceScalar(_sourceScalar, scalarValueChangedHandler);
             Utils.uninitializeNestedComputings(_nestedComputings, this);
         }
 

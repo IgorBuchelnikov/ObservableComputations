@@ -453,27 +453,36 @@ namespace ObservableComputations
 			this.OnCollectionChanged(Utils.ResetNotifyCollectionChangedEventArgs);
 		}
 
+        private Action _scalarValueChangedHandlerAction;
+
         protected PropertyChangedEventHandler getScalarValueChangedHandler(Action action = null)
         {
             return (sender, args) =>
             {
-                if (args.PropertyName != nameof(IReadScalar<object>.Value)) return;
-                checkConsistent(sender, args);
-
-                _handledEventSender = sender;
-                _handledEventArgs = args;
-
-                _isConsistent = false;
-
-                action?.Invoke();
-                initializeFromSource();
-
-                _isConsistent = true;
-                raiseConsistencyRestored();
-
-                _handledEventSender = null;
-                _handledEventArgs = null;
+                _scalarValueChangedHandlerAction = action;
+                scalarValueChangedHandler(sender, args);
+                _scalarValueChangedHandlerAction = null;
             };
+        }
+
+        protected void scalarValueChangedHandler(object sender, PropertyChangedEventArgs args)
+        {
+            if (args.PropertyName != nameof(IReadScalar<object>.Value)) return;
+            checkConsistent(sender, args);
+
+            _handledEventSender = sender;
+            _handledEventArgs = args;
+
+            _isConsistent = false;
+
+            _scalarValueChangedHandlerAction?.Invoke();
+            initializeFromSource();
+
+            _isConsistent = true;
+            raiseConsistencyRestored();
+
+            _handledEventSender = null;
+            _handledEventArgs = null;
         }
 
         protected abstract void initializeFromSource();

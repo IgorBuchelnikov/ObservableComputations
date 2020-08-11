@@ -38,8 +38,7 @@ namespace ObservableComputations
 		protected INotifyCollectionChanged _source;
 		private IList<TSourceItem> _sourceAsList;
 
-		private NotifyCollectionChangedEventHandler _sourceNotifyCollectionChangedEventHandler;
-		private WeakNotifyCollectionChangedEventHandler _sourceWeakNotifyCollectionChangedEventHandler;
+		private bool _sourceInitialized;
 		private readonly IReadScalar<int> _indexValueScalar;
 		private int _index;
 		private bool _isDefaulted;

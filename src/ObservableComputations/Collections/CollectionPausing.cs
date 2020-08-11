@@ -92,12 +92,9 @@ namespace ObservableComputations
 		private IList<TSourceItem> _sourceAsList;
 		private IReadScalar<INotifyCollectionChanged> _sourceScalar;
 
-		// ReSharper disable once PrivateFieldCanBeConvertedToLocalVariable
-		private PropertyChangedEventHandler _sourceScalarPropertyChangedEventHandler;
-
 		private IReadScalar<bool> _isPausedScalar;
 
-		private NotifyCollectionChangedEventHandler _sourceNotifyCollectionChangedEventHandler;
+		private bool _sourceInitialized;
 
 		private bool _indexerPropertyChangedEventRaised;
 		private INotifyPropertyChanged _sourceAsINotifyPropertyChanged;
@@ -179,19 +176,17 @@ namespace ObservableComputations
 		{
 			int originalCount = _items.Count;
 
-			if (_sourceNotifyCollectionChangedEventHandler != null)
+			if (_sourceInitialized)
 			{		
-                _source.CollectionChanged -= _sourceNotifyCollectionChangedEventHandler;
-                _sourceNotifyCollectionChangedEventHandler = null;
-			}
+                _source.CollectionChanged -= handleSourceCollectionChanged;
 
-			if (_sourceAsINotifyPropertyChanged != null)
-			{
                 _sourceAsINotifyPropertyChanged.PropertyChanged -=
                     ((ISourceIndexerPropertyTracker) this).HandleSourcePropertyChanged;
 
                 _sourceAsINotifyPropertyChanged = null;
-			}
+
+                _sourceInitialized = false;
+            }
 
             Utils.changeSource(ref _source, _sourceScalar, _downstreamConsumedComputings, _consumers, this,
                 ref _sourceAsList, _source as IList<TSourceItem>);
@@ -229,9 +224,9 @@ namespace ObservableComputations
 					}
 				}
 
-                _sourceNotifyCollectionChangedEventHandler = handleSourceCollectionChanged;
-                _source.CollectionChanged += _sourceNotifyCollectionChangedEventHandler;
-			}			
+                _source.CollectionChanged += handleSourceCollectionChanged;
+                _sourceInitialized = true;
+            }			
 			else 
 			{
 				if (_isPaused)
@@ -320,13 +315,13 @@ namespace ObservableComputations
 
         protected override void initialize()
         {     
-            Utils.initializeSourceScalar(_sourceScalar, ref _sourceScalarPropertyChangedEventHandler, ref _source, getScalarValueChangedHandler());
+            Utils.initializeSourceScalar(_sourceScalar, ref _source, scalarValueChangedHandler);
             initializeIsPausedScalar();
         }
 
         protected override void uninitialize()
         {
-            Utils.uninitializeSourceScalar(_sourceScalar, _sourceScalarPropertyChangedEventHandler);
+            Utils.uninitializeSourceScalar(_sourceScalar, scalarValueChangedHandler);
             if (_isPausedScalar != null) _isPausedScalar.PropertyChanged -= handleIsPausedScalarValueChanged;
         }
 

@@ -97,7 +97,6 @@ namespace ObservableComputations
 			}
 		}
 
-		private PropertyChangedEventHandler _outerSourceScalarPropertyChangedEventHandler;
 		private readonly Func<TOuterSourceItem, TKey> _outerKeySelectorFunc;
 		private readonly Expression<Func<TOuterSourceItem, TKey>> _outerKeySelectorExpression;
 
@@ -117,7 +116,7 @@ namespace ObservableComputations
 		private ObservableCollectionWithChangeMarker<TOuterSourceItem> _outerSourceAsList;
 		bool _outerRootSourceWrapper;
 
-		private NotifyCollectionChangedEventHandler _outerSourceNotifyCollectionChangedEventHandler;
+		private bool _sourceInitialized;
 
 		private NotifyCollectionChangedEventHandler _groupingNotifyCollectionChangedEventHandler;
 
@@ -312,7 +311,7 @@ namespace ObservableComputations
 
             _keyPositions = new Dictionary<TKey, List<OuterItemInfo>>(_grouping._equalityComparer);
 
-            Utils.initializeSourceScalar(_outerSourceScalar, ref _outerSourceScalarPropertyChangedEventHandler, ref _outerSource, getScalarValueChangedHandler());
+            Utils.initializeSourceScalar(_outerSourceScalar, ref _outerSource, scalarValueChangedHandler);
             Utils.initializeNestedComputings(_nestedComputings, this);
         }
 
@@ -321,7 +320,7 @@ namespace ObservableComputations
             if (_groupingNotifyCollectionChangedEventHandler != null)
                 _grouping.CollectionChanged -= _groupingNotifyCollectionChangedEventHandler;			
 
-            Utils.uninitializeSourceScalar(_outerSourceScalar, _outerSourceScalarPropertyChangedEventHandler);
+            Utils.uninitializeSourceScalar(_outerSourceScalar, scalarValueChangedHandler);
             Utils.uninitializeNestedComputings(_nestedComputings, this);
         }
 
@@ -329,7 +328,7 @@ namespace ObservableComputations
 		{
 			int originalCount = _items.Count;
 
-			if (_outerSourceNotifyCollectionChangedEventHandler != null)
+			if (_sourceInitialized)
 			{
                 Utils.disposeExpressionItemInfos(_itemInfos, _outerKeySelectorExpressionСallCount, this);
 
@@ -339,11 +338,12 @@ namespace ObservableComputations
                     ref _itemInfos,
                     ref _outerSourceItemPositions, 
                     _outerSourceAsList, 
-                    ref _outerSourceNotifyCollectionChangedEventHandler);
+                    handleOuterSourceCollectionChanged);
 
 				_nullKeyPositions.Clear();
 				_keyPositions = new Dictionary<TKey, List<OuterItemInfo>>(_grouping._equalityComparer);
-			}
+                _sourceInitialized = false;
+            }
 
             Utils.changeSource(ref _outerSource, _outerSourceScalar, _downstreamConsumedComputings, _consumers, this, ref _outerSourceAsList, null);
 
@@ -368,9 +368,9 @@ namespace ObservableComputations
 					_items.RemoveAt(index);
 				}
 
-				_outerSourceNotifyCollectionChangedEventHandler = handleOuterSourceCollectionChanged;
-                _outerSourceAsList.CollectionChanged += _outerSourceNotifyCollectionChangedEventHandler;
-			}
+                _outerSourceAsList.CollectionChanged += handleOuterSourceCollectionChanged;
+                _sourceInitialized = true;
+            }
 			else
 			{
 				_items.Clear();
@@ -416,8 +416,8 @@ namespace ObservableComputations
 		{
 			checkConsistent(sender, e);
 
-			_handledEventSender = sender;
-			_handledEventArgs = e;
+			_handledEventSender = _grouping._handledEventSender;
+			_handledEventArgs = _grouping._handledEventArgs;
 
 			_isConsistent = false;
 
@@ -497,7 +497,10 @@ namespace ObservableComputations
 					raiseConsistencyRestored();					
 					break;
 				case NotifyCollectionChangedAction.Remove:
+                    _isConsistent = false;
 					unregisterOuterSourceItem(e.OldStartingIndex);
+                    _isConsistent = true;
+                    raiseConsistencyRestored();	
 					break;
 				case NotifyCollectionChangedAction.Replace:
 					_isConsistent = false;
@@ -608,7 +611,6 @@ namespace ObservableComputations
 			OuterItemInfo itemInfo = _itemInfos[index];
 			ExpressionWatcher watcher = itemInfo.ExpressionWatcher;
 
-
 			unregisterKey(index, itemInfo);
 
 			watcher.Dispose();
@@ -623,7 +625,6 @@ namespace ObservableComputations
 			baseRemoveItem(index);
 		}
 
-
 		private void registerOuterSourceItem(TOuterSourceItem outerSourceItem, int index, int? originalCount = null)
 		{
             Utils.getItemInfoContent(
@@ -636,11 +637,6 @@ namespace ObservableComputations
                 this,
                 _outerKeySelectorExpressionContainsParametrizedObservableComputationsCalls,
                 _outerKeySelectorExpressionInfo);
-
-			//getNewExpressionWatcherAndKeySelectorFunc(
-			//	outerSourceItem, 
-			//	out ExpressionWatcher watcher, 
-			//	out Func<TKey> outerKeySelectorFunc);
 
 			TKey key = applyKeySelector(outerSourceItem, outerKeySelectorFunc);
 

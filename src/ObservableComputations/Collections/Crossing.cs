@@ -36,11 +36,8 @@ namespace ObservableComputations
 
 		private IList<TInnerSourceItem> _innerSourceAsList;
 
-		private NotifyCollectionChangedEventHandler _outerSourceNotifyCollectionChangedEventHandler;
-		private WeakNotifyCollectionChangedEventHandler _outerSourceWeakNotifyCollectionChangedEventHandler;
+		private bool _sourceInitialized;
 
-		private NotifyCollectionChangedEventHandler _innerSourceNotifyCollectionChangedEventHandler;
-		private WeakNotifyCollectionChangedEventHandler _innerSourceWeakNotifyCollectionChangedEventHandler;
 		private readonly IReadScalar<INotifyCollectionChanged> _outerSourceScalar;
 		private readonly IReadScalar<INotifyCollectionChanged> _innerSourceScalar;
 		private INotifyCollectionChanged _outerSource;

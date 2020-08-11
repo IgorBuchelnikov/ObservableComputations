@@ -23,8 +23,8 @@
 //		private readonly PropertyChangedEventHandler _sourceScalarPropertyChangedEventHandler;
 //		private readonly WeakPropertyChangedEventHandler _sourceScalarWeakPropertyChangedEventHandler;
 
-//		private NotifyCollectionChangedEventHandler _sourceNotifyCollectionChangedEventHandler;
-//		private WeakNotifyCollectionChangedEventHandler _sourceWeakNotifyCollectionChangedEventHandler;
+//		private bool _sourceInitialized;
+//		private Weakbool _sourceInitialized;
 
 //		private PropertyChangedEventHandler _sourcePropertyChangedEventHandler;
 //		private WeakPropertyChangedEventHandler _sourceWeakPropertyChangedEventHandler;

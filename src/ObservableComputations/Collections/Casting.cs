@@ -17,12 +17,9 @@ namespace ObservableComputations
 		public ReadOnlyCollection<INotifyCollectionChanged> SourceCollections => new ReadOnlyCollection<INotifyCollectionChanged>(new []{Source});
 		public ReadOnlyCollection<IReadScalar<INotifyCollectionChanged>> SourceCollectionScalars => new ReadOnlyCollection<IReadScalar<INotifyCollectionChanged>>(new []{SourceScalar});
 
-		// ReSharper disable once PrivateFieldCanBeConvertedToLocalVariable
-		private PropertyChangedEventHandler _sourceScalarPropertyChangedEventHandler;
-
 		private IList _sourceAsList;
 
-		private NotifyCollectionChangedEventHandler _sourceNotifyCollectionChangedEventHandler;
+		private bool _sourceInitialized;
 		private INotifyCollectionChanged _source;
 		private readonly IReadScalar<INotifyCollectionChanged> _sourceScalar;
 
@@ -50,18 +47,16 @@ namespace ObservableComputations
 		{
 			int originalCount = _items.Count;
 
-			if (_sourceNotifyCollectionChangedEventHandler != null)
+			if (_sourceInitialized)
 			{	
-                _source.CollectionChanged -= _sourceNotifyCollectionChangedEventHandler;
-                _sourceNotifyCollectionChangedEventHandler = null;
-			}
+                _source.CollectionChanged -= handleSourceCollectionChanged;
 
-			if (_sourceAsINotifyPropertyChanged != null)
-            {
                 _sourceAsINotifyPropertyChanged.PropertyChanged -=
                     ((ISourceIndexerPropertyTracker) this).HandleSourcePropertyChanged;
                 _sourceAsINotifyPropertyChanged = null;
-			}
+
+                _sourceInitialized = false;
+            }
 
             Utils.changeSource(ref _source, _sourceScalar, _downstreamConsumedComputings, _consumers, this,
                 ref _sourceAsList, _source as IList);
@@ -91,9 +86,9 @@ namespace ObservableComputations
 					_items.RemoveAt(index);
 				}
 
-                _sourceNotifyCollectionChangedEventHandler = handleSourceCollectionChanged;
-                _source.CollectionChanged += _sourceNotifyCollectionChangedEventHandler;
-			}			
+                _source.CollectionChanged += handleSourceCollectionChanged;
+                _sourceInitialized = true;
+            }			
 			else
 			{
 				_items.Clear();
@@ -167,12 +162,12 @@ namespace ObservableComputations
 
         protected override void initialize()
         {
-            Utils.initializeSourceScalar(_sourceScalar, ref _sourceScalarPropertyChangedEventHandler, ref _source, getScalarValueChangedHandler());
+            Utils.initializeSourceScalar(_sourceScalar, ref _source, scalarValueChangedHandler);
         }
 
         protected override void uninitialize()
         {
-            Utils.uninitializeSourceScalar(_sourceScalar, _sourceScalarPropertyChangedEventHandler);
+            Utils.uninitializeSourceScalar(_sourceScalar, scalarValueChangedHandler);
         }
 
         #region Implementation of ISourceIndexerPropertyTracker

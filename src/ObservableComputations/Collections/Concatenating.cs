@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
@@ -19,12 +20,10 @@ namespace ObservableComputations
 
 		// ReSharper disable once PrivateFieldCanBeConvertedToLocalVariable
 		private readonly PropertyChangedEventHandler _sourcesScalarPropertyChangedEventHandler;
-		private readonly WeakPropertyChangedEventHandler _sourcesScalarWeakPropertyChangedEventHandler;
 
 		private IList _sourcesAsList;
 
-		private NotifyCollectionChangedEventHandler _sourcesNotifyCollectionChangedEventHandler;
-		private WeakNotifyCollectionChangedEventHandler _sourcesWeakNotifyCollectionChangedEventHandler;
+		private bool _sourceInitialized;
 
 		RangePositions<ItemInfo> _sourceRangePositions;
 		List<ItemInfo> _itemInfos;
@@ -32,7 +31,6 @@ namespace ObservableComputations
 		private INotifyCollectionChanged _sources;
 
 		private PropertyChangedEventHandler _sourcesPropertyChangedEventHandler;
-		private WeakPropertyChangedEventHandler _sourcesWeakPropertyChangedEventHandler;
 		private bool _indexerPropertyChangedEventRaised;
 		private INotifyPropertyChanged _sourcesAsINotifyPropertyChanged;
 
@@ -132,7 +130,7 @@ namespace ObservableComputations
 		{
 			int originalCount = _items.Count;
 
-			if (_sourcesNotifyCollectionChangedEventHandler != null)
+			if (_sourceInitialized)
 			{
 				int itemInfosCount = _itemInfos.Count;
 				for (int index = 0; index < itemInfosCount; index++)
@@ -147,10 +145,9 @@ namespace ObservableComputations
 				_itemInfos = new List<ItemInfo>(capacity);
 				_sourceRangePositions = new RangePositions<ItemInfo>(_itemInfos);
 
-				_sources.CollectionChanged -= _sourcesWeakNotifyCollectionChangedEventHandler.Handle;
-				_sourcesNotifyCollectionChangedEventHandler = null;
-				_sourcesWeakNotifyCollectionChangedEventHandler = null;
-			}
+				_sources.CollectionChanged -= handleSourcesCollectionChanged;
+                _sourceInitialized = false;
+            }
 
 			if (_sourcesAsINotifyPropertyChanged != null)
 			{
@@ -217,12 +214,9 @@ namespace ObservableComputations
 					_items.RemoveAt(index);
 				}
 
-				_sourcesNotifyCollectionChangedEventHandler = handleSourcesCollectionChanged;
-				_sourcesWeakNotifyCollectionChangedEventHandler = 
-					new WeakNotifyCollectionChangedEventHandler(_sourcesNotifyCollectionChangedEventHandler);
-
-				_sources.CollectionChanged += _sourcesWeakNotifyCollectionChangedEventHandler.Handle;
-			}
+				_sources.CollectionChanged += handleSourcesCollectionChanged;
+                _sourceInitialized = true;
+            }
 			else
 			{
 				_items.Clear();

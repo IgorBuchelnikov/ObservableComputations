@@ -139,7 +139,7 @@ namespace ObservableComputations
             return callIndexTotal;
         }
 
-        internal static int disposeSource<TItemInfo>(IReadScalar<INotifyCollectionChanged> sourceScalar, INotifyCollectionChanged source, ref List<TItemInfo> itemInfos, ref Positions<TItemInfo> sourcePositions,INotifyCollectionChanged sourceAsList, ref NotifyCollectionChangedEventHandler sourceNotifyCollectionChangedEventHandler)
+        internal static int disposeSource<TItemInfo>(IReadScalar<INotifyCollectionChanged> sourceScalar, INotifyCollectionChanged source, ref List<TItemInfo> itemInfos, ref Positions<TItemInfo> sourcePositions,INotifyCollectionChanged sourceAsList, NotifyCollectionChangedEventHandler sourceNotifyCollectionChangedEventHandler)
             where TItemInfo : Position, new()
         {
             int capacity = getCapacity(sourceScalar, source);
@@ -164,14 +164,13 @@ namespace ObservableComputations
         {
             initializeItemInfos(capacity, out itemInfos, out sourcePositions);
 
-            unsubscribeSource(sourceAsList, ref sourceNotifyCollectionChangedEventHandler);
+            unsubscribeSource(sourceAsList, sourceNotifyCollectionChangedEventHandler);
         }
 
         internal static void unsubscribeSource(INotifyCollectionChanged sourceAsList,
-            ref NotifyCollectionChangedEventHandler sourceNotifyCollectionChangedEventHandler)
+            NotifyCollectionChangedEventHandler sourceNotifyCollectionChangedEventHandler)
         {
             sourceAsList.CollectionChanged -= sourceNotifyCollectionChangedEventHandler;
-            sourceNotifyCollectionChangedEventHandler = null;
         }
 
         internal static void initializeItemInfos<TItemInfo>(int capacity, out List<TItemInfo> itemInfos, out Positions<TItemInfo> sourcePositions)
@@ -230,12 +229,11 @@ namespace ObservableComputations
             lastProcessedSourceChangeMarker = sourceAsList.ChangeMarkerField;
         }
 
-        internal static void initializeSourceScalar<TSource>(IReadScalar<INotifyCollectionChanged> sourceScalar, ref PropertyChangedEventHandler sourceScalarOnPropertyChanged, ref TSource source, PropertyChangedEventHandler newSourceScalarOnPropertyChanged)
+        internal static void initializeSourceScalar<TSource>(IReadScalar<INotifyCollectionChanged> sourceScalar, ref TSource source, PropertyChangedEventHandler newSourceScalarOnPropertyChanged)
         {
             if (sourceScalar != null)
             {
-                sourceScalarOnPropertyChanged = newSourceScalarOnPropertyChanged;
-                sourceScalar.PropertyChanged += sourceScalarOnPropertyChanged;
+                sourceScalar.PropertyChanged += newSourceScalarOnPropertyChanged;
                 source = (TSource) sourceScalar.Value;
             }
         }

@@ -54,14 +54,7 @@ namespace ObservableComputations
 
         private readonly ExpressionWatcher.ExpressionInfo _predicateExpressionInfo;
 
-        private NotifyCollectionChangedEventHandler _leftSourceNotifyCollectionChangedEventHandler;
-        private NotifyCollectionChangedEventHandler _rightSourceNotifyCollectionChangedEventHandler;
-
-        // ReSharper disable once PrivateFieldCanBeConvertedToLocalVariable
-        private PropertyChangedEventHandler _leftSourceScalarPropertyChangedEventHandler;
-
-        // ReSharper disable once PrivateFieldCanBeConvertedToLocalVariable
-        private PropertyChangedEventHandler _rightSourceScalarPropertyChangedEventHandler;
+        private bool _sourceInitialized;
 
         private ObservableCollectionWithChangeMarker<TLeftSourceItem> _leftSourceAsList;
         private ObservableCollectionWithChangeMarker<TRightSourceItem> _rightSourceAsList;
@@ -253,7 +246,7 @@ namespace ObservableComputations
         {
             int originalCount = _items.Count;
 
-            if (_leftSourceNotifyCollectionChangedEventHandler != null || _rightSourceScalarPropertyChangedEventHandler != null)
+            if (_sourceInitialized)
             {
                 Utils.disposeExpressionItemInfos(_itemInfos, _predicateExpressionСallCount, this);
 
@@ -265,20 +258,15 @@ namespace ObservableComputations
 
                 _filteredPositions = new Positions<Position>(new List<Position>(_initialCapacity));
                 //if (_isLeft) _leftItemInfos = new List<LeftItemInfo>(leftCapacity);
-            }
 
-            if (_leftSourceNotifyCollectionChangedEventHandler != null)
-            {
                 Utils.unsubscribeSource(
                     _leftSourceAsList,
-                    ref _leftSourceNotifyCollectionChangedEventHandler);
-            }
+                    handleLeftSourceCollectionChanged);
 
-            if (_rightSourceNotifyCollectionChangedEventHandler != null)
-            {
                 Utils.unsubscribeSource(
                     _rightSourceAsList,
-                    ref _rightSourceNotifyCollectionChangedEventHandler);
+                    handleRightSourceCollectionChanged);
+                _sourceInitialized = false;
             }
 
             Utils.changeSource(ref _leftSource, _leftSourceScalar, _downstreamConsumedComputings, _consumers, this,
@@ -365,14 +353,13 @@ namespace ObservableComputations
                     _items.RemoveAt(index);
                 }
 
-                _leftSourceNotifyCollectionChangedEventHandler = handleLeftSourceCollectionChanged;
-                _leftSourceAsList.CollectionChanged += _leftSourceNotifyCollectionChangedEventHandler;
+                _leftSourceAsList.CollectionChanged += handleLeftSourceCollectionChanged;
 
                 if (_rightSourceAsList != null)
-                {
-                    _rightSourceNotifyCollectionChangedEventHandler = handleRightSourceCollectionChanged;
-                    _rightSourceAsList.CollectionChanged += _rightSourceNotifyCollectionChangedEventHandler;
-                }
+                    _rightSourceAsList.CollectionChanged += handleRightSourceCollectionChanged;
+
+                _sourceInitialized = true;
+
             }
             else
             {
@@ -384,17 +371,17 @@ namespace ObservableComputations
 
         protected override void initialize()
         {
-            Utils.initializeSourceScalar(_leftSourceScalar, ref _leftSourceScalarPropertyChangedEventHandler, ref _leftSource,
-                getScalarValueChangedHandler());
-            Utils.initializeSourceScalar(_rightSourceScalar, ref _rightSourceScalarPropertyChangedEventHandler, ref _rightSource,
-                getScalarValueChangedHandler());
+            Utils.initializeSourceScalar(_leftSourceScalar, ref _leftSource,
+                scalarValueChangedHandler);
+            Utils.initializeSourceScalar(_rightSourceScalar, ref _rightSource,
+                scalarValueChangedHandler);
             Utils.initializeNestedComputings(_nestedComputings, this);
         }
 
         protected override void uninitialize()
         {
-            Utils.uninitializeSourceScalar(_leftSourceScalar, _leftSourceScalarPropertyChangedEventHandler);
-            Utils.uninitializeSourceScalar(_rightSourceScalar, _rightSourceScalarPropertyChangedEventHandler);
+            Utils.uninitializeSourceScalar(_leftSourceScalar, scalarValueChangedHandler);
+            Utils.uninitializeSourceScalar(_rightSourceScalar, scalarValueChangedHandler);
             Utils.uninitializeNestedComputings(_nestedComputings, this);
         }
 

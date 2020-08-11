@@ -39,8 +39,7 @@ namespace ObservableComputations
 		private readonly StringBuilder _valueStringBuilder = new StringBuilder();
 		private RangePositions<RangePosition> _resultRangePositions;
 
-		private NotifyCollectionChangedEventHandler _sourceNotifyCollectionChangedEventHandler;
-		private WeakNotifyCollectionChangedEventHandler _sourceWeakNotifyCollectionChangedEventHandler;
+		private bool _sourceInitialized;
 
 		private bool _moving;
 		private readonly IReadScalar<INotifyCollectionChanged> _sourceScalar;

@@ -48,10 +48,7 @@ namespace ObservableComputations
 
 		private readonly ExpressionWatcher.ExpressionInfo _predicateExpressionInfo;
 
-		private NotifyCollectionChangedEventHandler _sourceNotifyCollectionChangedEventHandler;
-
-		// ReSharper disable once PrivateFieldCanBeConvertedToLocalVariable
-		private PropertyChangedEventHandler _sourceScalarPropertyChangedEventHandler;
+		private bool _sourceInitialized;
 
 		private ObservableCollectionWithChangeMarker<TSourceItem> _sourceAsList;
 		bool _rootSourceWrapper;
@@ -212,7 +209,7 @@ namespace ObservableComputations
 		{
 			int originalCount = _items.Count;
 
-			if (_sourceNotifyCollectionChangedEventHandler != null)
+			if (_sourceInitialized)
 			{
 				Utils.disposeExpressionItemInfos(_itemInfos, _predicateExpressionСallCount, this);
 
@@ -224,8 +221,10 @@ namespace ObservableComputations
                     ref _itemInfos,
                     ref _sourcePositions, 
                     _sourceAsList, 
-                    ref _sourceNotifyCollectionChangedEventHandler);
-			}
+                    handleSourceCollectionChanged);
+
+                _sourceInitialized = false;
+            }
 
             Utils.changeSource(ref _source, _sourceScalar, _downstreamConsumedComputings, _consumers, this, ref _sourceAsList, null);
 
@@ -269,9 +268,9 @@ namespace ObservableComputations
 					_items.RemoveAt(index);
 				}
 
-				_sourceNotifyCollectionChangedEventHandler = handleSourceCollectionChanged;
-                _sourceAsList.CollectionChanged += _sourceNotifyCollectionChangedEventHandler;
-			}
+                _sourceAsList.CollectionChanged += handleSourceCollectionChanged;
+                _sourceInitialized = true;
+            }
 			else
 			{
 				_items.Clear();
@@ -282,13 +281,13 @@ namespace ObservableComputations
 
         protected override void initialize()
         {
-            Utils.initializeSourceScalar(_sourceScalar, ref _sourceScalarPropertyChangedEventHandler, ref _source, getScalarValueChangedHandler());
+            Utils.initializeSourceScalar(_sourceScalar, ref _source, scalarValueChangedHandler);
             Utils.initializeNestedComputings(_nestedComputings, this);
         }
 
         protected override void uninitialize()
         {
-            Utils.uninitializeSourceScalar(_sourceScalar, _sourceScalarPropertyChangedEventHandler);
+            Utils.uninitializeSourceScalar(_sourceScalar, scalarValueChangedHandler);
             Utils.uninitializeNestedComputings(_nestedComputings, this);
         }
 

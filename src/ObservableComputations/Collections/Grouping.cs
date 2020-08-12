@@ -500,7 +500,7 @@ namespace ObservableComputations
             if (_equalityComparerScalar != null)
                 _equalityComparerScalar.PropertyChanged -= _equalityComparerScalarPropertyChangedEventHandler;
 
-            Utils.uninitializeSourceScalar(_sourceScalar, scalarValueChangedHandler);
+            Utils.uninitializeSourceScalar(_sourceScalar, scalarValueChangedHandler, ref _source);
             Utils.uninitializeNestedComputings(_nestedComputings, this);
         }
 

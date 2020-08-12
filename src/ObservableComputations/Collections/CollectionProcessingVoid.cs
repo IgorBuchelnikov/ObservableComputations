@@ -233,14 +233,14 @@ namespace ObservableComputations
 
         protected override void uninitialize()
         {
-            Utils.uninitializeSourceScalar(_sourceScalar, scalarValueChangedHandler);
+            Utils.uninitializeSourceScalar(_sourceScalar, scalarValueChangedHandler, ref _source);
         }
 
         #region Implementation of ISourceIndexerPropertyTracker
 
         void ISourceIndexerPropertyTracker.HandleSourcePropertyChanged(object sender, PropertyChangedEventArgs propertyChangedEventArgs)
         {
-            _indexerPropertyChangedEventRaised = true;
+            Utils.HandleSourcePropertyChanged(propertyChangedEventArgs, ref _indexerPropertyChangedEventRaised);
         }
 
         #endregion

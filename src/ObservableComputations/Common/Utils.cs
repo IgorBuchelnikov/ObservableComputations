@@ -180,6 +180,13 @@ namespace ObservableComputations
             sourcePositions = new Positions<TItemInfo>(itemInfos);
         }
 
+        internal static void initializeItemInfos<TItemInfo>(int capacity, out List<TItemInfo> itemInfos, out RangePositions<TItemInfo> sourcePositions)
+            where TItemInfo : RangePosition, new()
+        {
+            itemInfos = new List<TItemInfo>(capacity);
+            sourcePositions = new RangePositions<TItemInfo>(itemInfos);
+        }
+
         internal static void changeSource<TSource, TSourceAsList>(
             ref TSource source,
             IReadScalar<INotifyCollectionChanged> sourceScalar,
@@ -258,10 +265,13 @@ namespace ObservableComputations
             }
         }
 
-        internal static void uninitializeSourceScalar(IReadScalar<INotifyCollectionChanged> sourceScalar, PropertyChangedEventHandler sourceScalarOnPropertyChanged)
+        internal static void uninitializeSourceScalar(IReadScalar<INotifyCollectionChanged> sourceScalar, PropertyChangedEventHandler sourceScalarOnPropertyChanged, ref INotifyCollectionChanged source)
         {
-            if (sourceScalar != null) 
+            if (sourceScalar != null)
+            {
                 sourceScalar.PropertyChanged -= sourceScalarOnPropertyChanged;
+                source = null;
+            }
         }
 
         internal static  void checkConsistent(object sender, EventArgs eventArgs, bool isConsistent, IComputing computing)
@@ -537,8 +547,8 @@ namespace ObservableComputations
                 if (downstreamConsumedComputings.Count == 0)
                 {
                     isActive = true;
-                    current.AddToUpstreamComputings(current);
                     current.Initialize();
+                    current.AddToUpstreamComputings(current);
                     current.InitializeFromSource();
                     current.OnPropertyChanged(Utils.IsActivePropertyChangedEventArgs);
                 }
@@ -565,10 +575,9 @@ namespace ObservableComputations
             {
                 isActive = false;
                 current.InitializeFromSource();
-                current.Uninitialize();
-                current.OnPropertyChanged(Utils.IsActivePropertyChangedEventArgs);
-
                 current.RemoveFromUpstreamComputings(current);
+                current.Uninitialize();
+                current.OnPropertyChanged(Utils.IsActivePropertyChangedEventArgs);    
             }
         }
 
@@ -579,8 +588,8 @@ namespace ObservableComputations
             if (downstreamConsumedComputings.Count == 1 && consumers.Count == 0)
             {
                 isActive = true;
-                current.AddToUpstreamComputings(computing);
                 current.Initialize();
+                current.AddToUpstreamComputings(computing);
                 current.InitializeFromSource();
                 current.OnPropertyChanged(Utils.IsActivePropertyChangedEventArgs);
             }
@@ -595,12 +604,15 @@ namespace ObservableComputations
             if (consumers.Count == 0 && downstreamConsumedComputings.Count == 0)
             {
                 isActive = true;
-                current.Uninitialize();
                 current.InitializeFromSource();
+                current.RemoveFromUpstreamComputings(computing);
+                current.Uninitialize();
                 current.OnPropertyChanged(Utils.IsActivePropertyChangedEventArgs);
             }
-
-            current.RemoveFromUpstreamComputings(computing);
+            else
+            {
+                current.RemoveFromUpstreamComputings(computing);               
+            }
         }
 
         internal static void initializeSourceIndexerPropertyTracker<TSourceList>(
@@ -630,6 +642,12 @@ namespace ObservableComputations
                 Utils.initializeSourceIndexerPropertyTracker(ref sourceAsINotifyPropertyChanged,
                     current, sourceAsList);
             }
+        }
+
+        internal static void HandleSourcePropertyChanged(PropertyChangedEventArgs propertyChangedEventArgs, ref bool indexerPropertyChangedEventRaised)
+        {
+            if (propertyChangedEventArgs.PropertyName == "Item[]")
+                indexerPropertyChangedEventRaised = true;
         }
 
         internal static bool preHandleSourceCollectionChanged(object sender, NotifyCollectionChangedEventArgs e, bool isConsistent, IComputing sourceItems, ref bool indexerPropertyChangedEventRaised, ref bool lastProcessedSourceChangeMarker, IHasChangeMarker sourceAsIHasChangeMarker, ref object handledEventSender, ref EventArgs handledEventArgs)

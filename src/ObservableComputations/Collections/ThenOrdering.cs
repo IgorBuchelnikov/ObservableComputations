@@ -247,7 +247,7 @@ namespace ObservableComputations
             if (_sortDirectionScalar != null)
                 _sortDirectionScalar.PropertyChanged -= _sortDirectionScalarPropertyChangedEventHandler;			
 
-            Utils.uninitializeSourceScalar(_sourceScalar, scalarValueChangedHandler);
+            Utils.uninitializeSourceScalar(_sourceScalar, scalarValueChangedHandler, ref _source);
             Utils.uninitializeNestedComputings(_nestedComputings, this);
 
             _source?.RemoveThenOrdering(this);

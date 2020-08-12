@@ -320,7 +320,7 @@ namespace ObservableComputations
             if (_groupingNotifyCollectionChangedEventHandler != null)
                 _grouping.CollectionChanged -= _groupingNotifyCollectionChangedEventHandler;			
 
-            Utils.uninitializeSourceScalar(_outerSourceScalar, scalarValueChangedHandler);
+            Utils.uninitializeSourceScalar(_outerSourceScalar, scalarValueChangedHandler, ref _outerSource);
             Utils.uninitializeNestedComputings(_nestedComputings, this);
         }
 

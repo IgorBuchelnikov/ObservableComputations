@@ -287,7 +287,7 @@ namespace ObservableComputations
 
         protected override void uninitialize()
         {
-            Utils.uninitializeSourceScalar(_sourceScalar, scalarValueChangedHandler);
+            Utils.uninitializeSourceScalar(_sourceScalar, scalarValueChangedHandler, ref _source);
             Utils.uninitializeNestedComputings(_nestedComputings, this);
         }
 

@@ -831,7 +831,7 @@ namespace ObservableComputations
         {
             if (_equalityComparerScalar != null)
                 _equalityComparerScalar.PropertyChanged -= handleEqualityComparerScalarValueChanged;
-            Utils.uninitializeSourceScalar(_sourceScalar, scalarValueChangedHandler);
+            Utils.uninitializeSourceScalar(_sourceScalar, handleSourceScalarValueChanged, ref _source);
             Utils.uninitializeNestedComputings(_keyNestedComputings, this);
             Utils.uninitializeNestedComputings(_valueNestedComputings, this);
         }

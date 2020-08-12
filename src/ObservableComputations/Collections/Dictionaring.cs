@@ -821,7 +821,7 @@ namespace ObservableComputations
         void IComputingInternal.Initialize()
         {
             initializeEqualityComparer();
-            Utils.initializeSourceScalar(_sourceScalar, ref _source, scalarValueChangedHandler);
+            Utils.initializeSourceScalar(_sourceScalar, ref _source, handleSourceScalarValueChanged);
             Utils.initializeNestedComputings(_keyNestedComputings, this);
             Utils.initializeNestedComputings(_valueNestedComputings, this);
             _dictionary = new Dictionary<TKey, TValue>(Utils.getCapacity(_sourceScalar, _source), _equalityComparer);

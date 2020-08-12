@@ -13,15 +13,7 @@ namespace ObservableComputations
 		[ObservableComputationsCall]
 		public SequenceComputing(IReadScalar<int> countScalar)
 		{
-			_countScalar = countScalar;
-			_count = _countScalar.Value;
-
-			for (int item = 0; item < _count; item++)
-			{
-				baseInsertItem(item, item);
-			}
-
-			_countScalar.PropertyChanged += handleCountChanged;
+			_countScalar = countScalar;	
 		}
 
 		private void handleCountChanged(object sender, PropertyChangedEventArgs e)
@@ -73,5 +65,46 @@ namespace ObservableComputations
 				if (this[i] != i) throw new ObservableComputationsException(this, "Consistency violation: SequenceComputing.2");
 			}
 		}
-	}
+
+        #region Overrides of CollectionComputing<int>
+
+        protected override void initializeFromSource()
+        {
+            if (_isActive)
+            {
+                _count = _countScalar.Value;
+
+                for (int item = 0; item < _count; item++)
+                {
+                    baseInsertItem(item, item);
+                }
+
+                _countScalar.PropertyChanged += handleCountChanged;
+            }
+            else
+            {
+                _countScalar.PropertyChanged -= handleCountChanged;
+            }
+        }
+
+        protected override void initialize()
+        {
+        }
+
+        protected override void uninitialize()
+        {
+        }
+
+        internal override void addToUpstreamComputings(IComputingInternal computing)
+        {
+            (_countScalar as IComputingInternal)?.AddDownstreamConsumedComputing(computing);
+        }
+
+        internal override void removeFromUpstreamComputings(IComputingInternal computing)
+        {
+            (_countScalar as IComputingInternal)?.RemoveDownstreamConsumedComputing(computing);
+        }
+
+        #endregion
+    }
 }

@@ -7,7 +7,7 @@ using INotifyPropertyChanged = System.ComponentModel.INotifyPropertyChanged;
 
 namespace ObservableComputations
 {
-	public class Zipping<TLeftSourceItem, TRightSourceItem> : CollectionComputing<ZipPair<TLeftSourceItem, TRightSourceItem>>, IHasSourceCollections
+	public class Zipping<TLeftSourceItem, TRightSourceItem> : CollectionComputing<ZipPair<TLeftSourceItem, TRightSourceItem>>, IHasSourceCollections, ILeftSourceIndexerPropertyTracker, IRightSourceIndexerPropertyTracker
 	{
 		// ReSharper disable once MemberCanBePrivate.Global
 		public IReadScalar<INotifyCollectionChanged> LeftSourceScalar => _leftSourceScalar;
@@ -98,16 +98,13 @@ namespace ObservableComputations
 		}
 
 		private PropertyChangedEventHandler _leftSourceScalarPropertyChangedEventHandler;
-		private WeakPropertyChangedEventHandler _leftSourceScalarWeakPropertyChangedEventHandler;
 
 		private IList<TLeftSourceItem> _leftSourceAsList;
 
 		private PropertyChangedEventHandler _rightSourceScalarPropertyChangedEventHandler;
-		private WeakPropertyChangedEventHandler _rightSourceScalarWeakPropertyChangedEventHandler;
 
 		private IList<TRightSourceItem> _rightSourceAsList;
 
-		private bool _sourceInitialized;
 
 		internal Action<ZipPair<TLeftSourceItem, TRightSourceItem>, TLeftSourceItem> _zipPairSetLeftItemAction;
 		internal Action<ZipPair<TLeftSourceItem, TRightSourceItem>, TRightSourceItem> _zipPairSetRightItemAction;
@@ -117,20 +114,20 @@ namespace ObservableComputations
 		private INotifyCollectionChanged _rightSource;
 
 		private PropertyChangedEventHandler _leftSourcePropertyChangedEventHandler;
-		private WeakPropertyChangedEventHandler _leftSourceWeakPropertyChangedEventHandler;
 		private bool _leftSourceIndexerPropertyChangedEventRaised;
 		private INotifyPropertyChanged _leftSourceAsINotifyPropertyChanged;
 
 		private PropertyChangedEventHandler _rigthSourcePropertyChangedEventHandler;
-		private WeakPropertyChangedEventHandler _rigthSourceWeakPropertyChangedEventHandler;
 		private bool _rigthtSourceIndexerPropertyChangedEventRaised;
 		private INotifyPropertyChanged _rigthSourceAsINotifyPropertyChanged;
 
-		private ObservableCollectionWithChangeMarker<TLeftSourceItem> _leftSourceAsObservableCollectionWithChangeMarker;
+		private IHasChangeMarker _leftSourceAsObservableCollectionWithChangeMarker;
 		private bool _lastProcessedLeftSourceChangeMarker;
 
-		private ObservableCollectionWithChangeMarker<TRightSourceItem> _rightSourceAsObservableCollectionWithChangeMarker;
+		private IHasChangeMarker _rightSourceAsObservableCollectionWithChangeMarker;
 		private bool _lastProcessedRightSourceChangeMarker;
+
+        private bool _sourceInitialized;
 
 		[ObservableComputationsCall]
 		public Zipping(
@@ -138,11 +135,11 @@ namespace ObservableComputations
 			INotifyCollectionChanged rightSource) : base(calculateCapacity(leftSourceScalar, rightSource))
 		{
 			_leftSourceScalar = leftSourceScalar;
-			initializeSourceLeftScalar();
+			//initializeSourceLeftScalar();
 			
 			_rightSource = rightSource;	
 			
-			initializeFromSources();
+			//initializeFromSources();
 		}
 
 		[ObservableComputationsCall]
@@ -151,12 +148,12 @@ namespace ObservableComputations
 			IReadScalar<INotifyCollectionChanged> rightSourceScalar) : base(calculateCapacity(leftSourceScalar, rightSourceScalar))
 		{
 			_leftSourceScalar = leftSourceScalar;
-			initializeSourceLeftScalar();
+			//initializeSourceLeftScalar();
 
 			_rightSourceScalar = rightSourceScalar;
-			initializeSourceRightScalar();
+			//initializeSourceRightScalar();
 
-			initializeFromSources();
+			//initializeFromSources();
 		}
 
 		[ObservableComputationsCall]
@@ -166,7 +163,7 @@ namespace ObservableComputations
 		{
 			_leftSource = leftSource;			
 			_rightSource = rightSource;					
-			initializeFromSources();
+			//initializeFromSources();
 		}
 
 		[ObservableComputationsCall]
@@ -177,26 +174,26 @@ namespace ObservableComputations
 			_leftSource = leftSource;
 			
 			_rightSourceScalar = rightSourceScalar;
-			initializeSourceRightScalar();		
+			//initializeSourceRightScalar();		
 					
-			initializeFromSources();
+			//initializeFromSources();
 		}
 
-		private void initializeSourceRightScalar()
-		{
-			_rightSourceScalarPropertyChangedEventHandler = handleSourceScalarValueChanged;
-			_rightSourceScalarWeakPropertyChangedEventHandler =
-				new WeakPropertyChangedEventHandler(_rightSourceScalarPropertyChangedEventHandler);
-			_rightSourceScalar.PropertyChanged += _rightSourceScalarWeakPropertyChangedEventHandler.Handle;
-		}
+		//private void initializeSourceRightScalar()
+		//{
+		//	_rightSourceScalarPropertyChangedEventHandler = handleSourceScalarValueChanged;
+		//	_rightSourceScalarWeakPropertyChangedEventHandler =
+		//		new WeakPropertyChangedEventHandler(_rightSourceScalarPropertyChangedEventHandler);
+		//	_rightSourceScalar.PropertyChanged += _rightSourceScalarWeakPropertyChangedEventHandler.Handle;
+		//}
 
-		private void initializeSourceLeftScalar()
-		{
-			_leftSourceScalarPropertyChangedEventHandler = handleSourceScalarValueChanged;
-			_leftSourceScalarWeakPropertyChangedEventHandler =
-				new WeakPropertyChangedEventHandler(_leftSourceScalarPropertyChangedEventHandler);
-			_leftSourceScalar.PropertyChanged += _leftSourceScalarWeakPropertyChangedEventHandler.Handle;
-		}
+		//private void initializeSourceLeftScalar()
+		//{
+		//	_leftSourceScalarPropertyChangedEventHandler = handleSourceScalarValueChanged;
+		//	_leftSourceScalarWeakPropertyChangedEventHandler =
+		//		new WeakPropertyChangedEventHandler(_leftSourceScalarPropertyChangedEventHandler);
+		//	_leftSourceScalar.PropertyChanged += _leftSourceScalarWeakPropertyChangedEventHandler.Handle;
+		//}
 
 		private static int calculateCapacity(INotifyCollectionChanged sourceLeft, INotifyCollectionChanged sourceRight)
 		{
@@ -231,91 +228,51 @@ namespace ObservableComputations
 		{
 			int originalCount = _items.Count;
 
-			if (_leftSourceNotifyCollectionChangedEventHandler != null)
-			{
-				_leftSource.CollectionChanged -= _leftSourceWeakNotifyCollectionChangedEventHandler.Handle;
-				_leftSourceNotifyCollectionChangedEventHandler = null;
-				_leftSourceWeakNotifyCollectionChangedEventHandler = null;
-			}
+			if (_sourceInitialized)
+            {
+                if (_leftSource != null)
+                {
+                    _leftSource.CollectionChanged -= handleLeftSourceCollectionChanged;
+                    _leftSourceAsINotifyPropertyChanged.PropertyChanged -=
+                        ((ILeftSourceIndexerPropertyTracker) this).HandleSourcePropertyChanged;
+                    _leftSourceAsINotifyPropertyChanged = null;
+                }
 
-			if (_rightSourceNotifyCollectionChangedEventHandler != null)
-			{
-				_rightSource.CollectionChanged -= _rightSourceWeakNotifyCollectionChangedEventHandler.Handle;
-				_rightSourceNotifyCollectionChangedEventHandler = null;
-				_rightSourceWeakNotifyCollectionChangedEventHandler = null;
-			}
 
-			if (_leftSourceAsINotifyPropertyChanged != null)
-			{
-				_leftSourceAsINotifyPropertyChanged.PropertyChanged -=
-					_leftSourceWeakPropertyChangedEventHandler.Handle;
+                if (_rightSource != null)
+                {
+                    _rightSource.CollectionChanged -= handleLeftSourceCollectionChanged;
+                    _rigthSourceAsINotifyPropertyChanged.PropertyChanged -=
+                        ((IRightSourceIndexerPropertyTracker) this).HandleSourcePropertyChanged;
+                    _rigthSourceAsINotifyPropertyChanged = null;
+                }
 
-				_leftSourceAsINotifyPropertyChanged = null;
-				_leftSourcePropertyChangedEventHandler = null;
-				_leftSourceWeakPropertyChangedEventHandler = null;
-			}
+                _sourceInitialized = false;
+            }
 
-			if (_rigthSourceAsINotifyPropertyChanged != null)
-			{
-				_rigthSourceAsINotifyPropertyChanged.PropertyChanged -=
-					_rigthSourceWeakPropertyChangedEventHandler.Handle;
+            Utils.changeSource(ref _leftSource, _leftSourceScalar, _downstreamConsumedComputings, _consumers, this,
+                ref _leftSourceAsList, (IList<TLeftSourceItem>) _leftSource);
 
-				_rigthSourceAsINotifyPropertyChanged = null;
-				_rigthSourcePropertyChangedEventHandler = null;
-				_rigthSourceWeakPropertyChangedEventHandler = null;
-			}
+            Utils.changeSource(ref _rightSource, _rightSourceScalar, _downstreamConsumedComputings, _consumers, this,
+                ref _rightSourceAsList, (IList<TRightSourceItem>) _rightSource);
 
-			if (_leftSourceScalar != null) _leftSource = _leftSourceScalar.Value;
-			_leftSourceAsList = (IList<TLeftSourceItem>) _leftSource;
-
-			if (_rightSourceScalar != null) _rightSource = _rightSourceScalar.Value;
-			_rightSourceAsList = (IList<TRightSourceItem>) _rightSource;
 
 			if (_leftSourceAsList != null && _rightSourceAsList != null)
 			{
-				_leftSourceAsObservableCollectionWithChangeMarker = _leftSourceAsList as ObservableCollectionWithChangeMarker<TLeftSourceItem>;
+                Utils.initializeFromHasChangeMarker(
+                    ref _leftSourceAsObservableCollectionWithChangeMarker, 
+                    _leftSourceAsList, 
+                    ref _lastProcessedLeftSourceChangeMarker, 
+                    ref _leftSourceAsINotifyPropertyChanged,
+                    (ILeftSourceIndexerPropertyTracker)this);
 
-				if (_leftSourceAsObservableCollectionWithChangeMarker != null)
-				{
-					_lastProcessedLeftSourceChangeMarker = _leftSourceAsObservableCollectionWithChangeMarker.ChangeMarkerField;
-				}
-				else
-				{
-					_leftSourceAsINotifyPropertyChanged = (INotifyPropertyChanged) _leftSourceAsList;
+                Utils.initializeFromHasChangeMarker(
+                    ref _rightSourceAsObservableCollectionWithChangeMarker, 
+                    _rightSourceAsList, 
+                    ref _lastProcessedRightSourceChangeMarker, 
+                    ref _rigthSourceAsINotifyPropertyChanged,
+                    (IRightSourceIndexerPropertyTracker)this);
 
-					_leftSourcePropertyChangedEventHandler = (sender, args) =>
-					{
-						if (args.PropertyName == "Item[]") _leftSourceIndexerPropertyChangedEventRaised = true; // ObservableCollection raises this before CollectionChanged event raising
-					};
-
-					_leftSourceWeakPropertyChangedEventHandler =
-						new WeakPropertyChangedEventHandler(_leftSourcePropertyChangedEventHandler);
-
-					_leftSourceAsINotifyPropertyChanged.PropertyChanged +=
-						_leftSourceWeakPropertyChangedEventHandler.Handle;
-				}
-
-				_rightSourceAsObservableCollectionWithChangeMarker = _rightSourceAsList as ObservableCollectionWithChangeMarker<TRightSourceItem>;
-
-				if (_rightSourceAsObservableCollectionWithChangeMarker != null)
-				{
-					_lastProcessedRightSourceChangeMarker = _rightSourceAsObservableCollectionWithChangeMarker.ChangeMarkerField;
-				}
-				else
-				{
-					_rigthSourceAsINotifyPropertyChanged = (INotifyPropertyChanged) _rightSourceAsList;
-
-					_rigthSourcePropertyChangedEventHandler = (sender, args) =>
-					{
-						if (args.PropertyName == "Item[]") _rigthtSourceIndexerPropertyChangedEventRaised = true; // ObservableCollection raises this before CollectionChanged event raising
-					};
-
-					_rigthSourceWeakPropertyChangedEventHandler =
-						new WeakPropertyChangedEventHandler(_rigthSourcePropertyChangedEventHandler);
-
-					_rigthSourceAsINotifyPropertyChanged.PropertyChanged +=
-						_rigthSourceWeakPropertyChangedEventHandler.Handle;
-				}
 
 				int countLeft = _leftSourceAsList.Count;
 				int countRight = _rightSourceAsList.Count;
@@ -341,21 +298,12 @@ namespace ObservableComputations
 				{
 					_items.RemoveAt(index);
 				}
-			}
 
-			if (_leftSource != null && _rightSource != null)
-			{
-				_leftSourceNotifyCollectionChangedEventHandler = handleLeftSourceCollectionChanged;
-				_leftSourceWeakNotifyCollectionChangedEventHandler = 
-					new WeakNotifyCollectionChangedEventHandler(_leftSourceNotifyCollectionChangedEventHandler);
+				_leftSource.CollectionChanged += handleLeftSourceCollectionChanged;				
+				_rightSource.CollectionChanged += handleRightSourceCollectionChanged;
 
-				_leftSource.CollectionChanged += _leftSourceWeakNotifyCollectionChangedEventHandler.Handle;				
+                _sourceInitialized = true;
 
-				_rightSourceNotifyCollectionChangedEventHandler = handleRightSourceCollectionChanged;
-				_rightSourceWeakNotifyCollectionChangedEventHandler = 
-					new WeakNotifyCollectionChangedEventHandler(_rightSourceNotifyCollectionChangedEventHandler);
-
-				_rightSource.CollectionChanged += _rightSourceWeakNotifyCollectionChangedEventHandler.Handle;				
 			}
 			else
 			{
@@ -363,25 +311,6 @@ namespace ObservableComputations
 			}
 
 			reset();
-		}
-
-		private void handleSourceScalarValueChanged(object sender, PropertyChangedEventArgs e)
-		{
-			if (e.PropertyName != nameof(IReadScalar<INotifyCollectionChanged>.Value)) return;
-			checkConsistent(sender, e);
-
-			_handledEventSender = sender;
-			_handledEventArgs = e;
-
-			_isConsistent = false;
-
-			initializeFromSources();
-
-			_isConsistent = true;
-			raiseConsistencyRestored();
-
-			_handledEventSender = null;
-			_handledEventArgs = null;
 		}
 
 		private void handleLeftSourceCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)

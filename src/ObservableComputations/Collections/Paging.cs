@@ -292,20 +292,18 @@ namespace ObservableComputations
 		{
 			int originalCount = _items.Count;
 
-			if (_sourceNotifyCollectionChangedEventHandler != null)
+			if (_sourceInitialized)
 			{
-				_source.CollectionChanged -= _sourceNotifyCollectionChangedEventHandler;
-				_sourceNotifyCollectionChangedEventHandler = null;
-			}
+				_source.CollectionChanged -= handleSourceCollectionChanged;
 
-			if (_sourceAsINotifyPropertyChanged != null)
-			{
 				_sourceAsINotifyPropertyChanged.PropertyChanged -=
 					_sourcePropertyChangedEventHandler;
 
 				_sourceAsINotifyPropertyChanged = null;
 				_sourcePropertyChangedEventHandler = null;
-			}
+
+                _sourceInitialized = false;
+            }
 
             Utils.changeSource(ref _source, _sourceScalar, _downstreamConsumedComputings, _consumers, this,
                 ref _sourceAsList, _source as IList<TSourceItem>);
@@ -346,8 +344,8 @@ namespace ObservableComputations
 					_items.RemoveAt(index1);
 				}
 
-				_sourceNotifyCollectionChangedEventHandler = handleSourceCollectionChanged;
-				_source.CollectionChanged += _sourceNotifyCollectionChangedEventHandler;
+				_source.CollectionChanged += handleSourceCollectionChanged;
+                _sourceInitialized = true;
 
 				if (currentPageChanged) OnPropertyChanged(Utils.CurrentPagePropertyChangedEventArgs);
 			}

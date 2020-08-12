@@ -170,7 +170,8 @@ namespace ObservableComputations
         internal static void unsubscribeSource(INotifyCollectionChanged sourceAsList,
             NotifyCollectionChangedEventHandler sourceNotifyCollectionChangedEventHandler)
         {
-            sourceAsList.CollectionChanged -= sourceNotifyCollectionChangedEventHandler;
+            if (sourceAsList != null)
+                sourceAsList.CollectionChanged -= sourceNotifyCollectionChangedEventHandler;
         }
 
         internal static void initializeItemInfos<TItemInfo>(int capacity, out List<TItemInfo> itemInfos, out Positions<TItemInfo> sourcePositions)
@@ -215,7 +216,7 @@ namespace ObservableComputations
                     newSource?.AddDownstreamConsumedComputing(computing);
             }
 
-            sourceAsList = sourceAsListValue;
+            sourceAsList = sourceAsListValue as TSourceAsList;
         }
 
         internal static void initializeFromObservableCollectionWithChangeMarker<TSourceItem>(INotifyCollectionChanged source, ref ObservableCollectionWithChangeMarker<TSourceItem> sourceAsList, ref bool rootSourceWrapper, ref bool lastProcessedSourceChangeMarker)
@@ -615,21 +616,28 @@ namespace ObservableComputations
             }
         }
 
-        internal static void initializeSourceIndexerPropertyTracker<TSourceList>(
+        internal static void initializeSourceIndexerPropertyTracker<TSourceList, TSourceIndexerPropertyTracker>(
             ref INotifyPropertyChanged sourceAsINotifyPropertyChanged, 
-            ISourceIndexerPropertyTracker current,
-            TSourceList sourceAsList)
+            TSourceIndexerPropertyTracker current,
+            TSourceList sourceAsList) 
+            where TSourceIndexerPropertyTracker : ISourceIndexerPropertyTracker
         {
             sourceAsINotifyPropertyChanged = (INotifyPropertyChanged) sourceAsList;
-            sourceAsINotifyPropertyChanged.PropertyChanged += current.HandleSourcePropertyChanged;
+
+            if (typeof(TSourceIndexerPropertyTracker) == typeof(ISourceIndexerPropertyTracker))
+                sourceAsINotifyPropertyChanged.PropertyChanged += current.HandleSourcePropertyChanged;
+            else if (typeof(TSourceIndexerPropertyTracker) == typeof(ILeftSourceIndexerPropertyTracker))
+                sourceAsINotifyPropertyChanged.PropertyChanged += ((ILeftSourceIndexerPropertyTracker) current).HandleSourcePropertyChanged;
+            else if (typeof(TSourceIndexerPropertyTracker) == typeof(IRightSourceIndexerPropertyTracker))
+                sourceAsINotifyPropertyChanged.PropertyChanged += ((IRightSourceIndexerPropertyTracker) current).HandleSourcePropertyChanged;
         }
 
-        internal static void initializeFromHasChangeMarker<TSourceList>(
+        internal static void initializeFromHasChangeMarker<TSourceList, TSourceIndexerPropertyTracker>(
             ref IHasChangeMarker sourceAsIHasChangeMarker, 
             TSourceList sourceAsList, 
             ref bool lastProcessedSourceChangeMarker,
             ref INotifyPropertyChanged sourceAsINotifyPropertyChanged, 
-            ISourceIndexerPropertyTracker current)
+            TSourceIndexerPropertyTracker current) where TSourceIndexerPropertyTracker : ISourceIndexerPropertyTracker
         {
             sourceAsIHasChangeMarker = sourceAsList as IHasChangeMarker;
 

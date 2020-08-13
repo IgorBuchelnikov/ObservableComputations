@@ -270,10 +270,10 @@ namespace ObservableComputations
             }
 
             Utils.changeSource(ref _leftSource, _leftSourceScalar, _downstreamConsumedComputings, _consumers, this,
-                ref _leftSourceAsList, null);
+                ref _leftSourceAsList, false);
 
             Utils.changeSource(ref _rightSource, _rightSourceScalar, _downstreamConsumedComputings, _consumers, this,
-                ref _rightSourceAsList, null);
+                ref _rightSourceAsList, false);
 
             if (_leftSource != null && _isActive)
             {
@@ -729,8 +729,7 @@ namespace ObservableComputations
 
             if (Configuration.TrackComputingsExecutingUserCode)
             {
-                var currentThread =
-                    Utils.startComputingExecutingUserCode(out var computing, ref _userCodeIsCalledFrom, this);
+                var currentThread = Utils.startComputingExecutingUserCode(out var computing, ref _userCodeIsCalledFrom, this);
                 var result = getValue();
                 Utils.endComputingExecutingUserCode(computing, currentThread, ref _userCodeIsCalledFrom);
                 return result;

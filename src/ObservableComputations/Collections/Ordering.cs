@@ -264,7 +264,7 @@ namespace ObservableComputations
                 _sourceInitialized = false;
             }
 
-            Utils.changeSource(ref _source, _sourceScalar, _downstreamConsumedComputings, _consumers, this, ref _sourceAsList, null);
+            Utils.changeSource(ref _source, _sourceScalar, _downstreamConsumedComputings, _consumers, this, ref _sourceAsList, false);
 
 			if (_source != null && _isActive)
 			{

@@ -138,15 +138,18 @@ namespace ObservableComputations
 
 				_sources.CollectionChanged -= handleSourcesCollectionChanged;
 
-                _sourcesAsINotifyPropertyChanged.PropertyChanged -=
-                    ((ISourceIndexerPropertyTracker) this).HandleSourcePropertyChanged;
-                _sourcesAsINotifyPropertyChanged = null;
+                if (_sourcesAsINotifyPropertyChanged != null)
+                {
+                    _sourcesAsINotifyPropertyChanged.PropertyChanged -=
+                        ((ISourceIndexerPropertyTracker) this).HandleSourcePropertyChanged;
+                    _sourcesAsINotifyPropertyChanged = null;
+                }
 
                 _sourceInitialized = false;
             }
 
             Utils.changeSource(ref _sources, _sourcesScalar, _downstreamConsumedComputings, _consumers, this,
-                ref _sourcesAsList, (IList)_sources);
+                ref _sourcesAsList, true);
 
 			if (_sources != null && _isActive)
 			{
@@ -275,7 +278,6 @@ namespace ObservableComputations
 					itemInfo.SourcePropertyChangedEventHandler;
 
 				itemInfo.SourceAsINotifyPropertyChanged = null;
-				itemInfo.SourcePropertyChangedEventHandler = null;
 				itemInfo.SourcePropertyChangedEventHandler = null;
 			}
 		}	

@@ -128,7 +128,6 @@ namespace ObservableComputations
 
 		private bool _sourceInitialized;
 
-		private PropertyChangedEventHandler _sourcePropertyChangedEventHandler;
 		private bool _indexerPropertyChangedEventRaised;
 		private INotifyPropertyChanged _sourceAsINotifyPropertyChanged;
 
@@ -296,17 +295,18 @@ namespace ObservableComputations
 			{
 				_source.CollectionChanged -= handleSourceCollectionChanged;
 
-				_sourceAsINotifyPropertyChanged.PropertyChanged -=
-					_sourcePropertyChangedEventHandler;
-
-				_sourceAsINotifyPropertyChanged = null;
-				_sourcePropertyChangedEventHandler = null;
+                if (_sourceAsINotifyPropertyChanged != null)
+                {
+                    _sourceAsINotifyPropertyChanged.PropertyChanged -=
+                        ((ISourceIndexerPropertyTracker) this).HandleSourcePropertyChanged;
+                    _sourceAsINotifyPropertyChanged = null;
+                }
 
                 _sourceInitialized = false;
             }
 
             Utils.changeSource(ref _source, _sourceScalar, _downstreamConsumedComputings, _consumers, this,
-                ref _sourceAsList, _source as IList<TSourceItem>);
+                ref _sourceAsList, true);
 
 			if (_sourceAsList != null && _isActive)
 			{

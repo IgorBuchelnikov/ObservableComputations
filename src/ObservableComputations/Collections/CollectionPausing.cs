@@ -180,16 +180,18 @@ namespace ObservableComputations
 			{		
                 _source.CollectionChanged -= handleSourceCollectionChanged;
 
-                _sourceAsINotifyPropertyChanged.PropertyChanged -=
-                    ((ISourceIndexerPropertyTracker) this).HandleSourcePropertyChanged;
-
-                _sourceAsINotifyPropertyChanged = null;
+                if (_sourceAsINotifyPropertyChanged != null)
+                {
+                    _sourceAsINotifyPropertyChanged.PropertyChanged -=
+                        ((ISourceIndexerPropertyTracker) this).HandleSourcePropertyChanged;
+                    _sourceAsINotifyPropertyChanged = null;
+                }
 
                 _sourceInitialized = false;
             }
 
             Utils.changeSource(ref _source, _sourceScalar, _downstreamConsumedComputings, _consumers, this,
-                ref _sourceAsList, _source as IList<TSourceItem>);
+                ref _sourceAsList, true);
 
 			if (_sourceAsList != null && _isActive)
 			{

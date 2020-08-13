@@ -8,7 +8,7 @@ using ObservableComputations.ExtentionMethods;
 
 namespace ObservableComputations
 {
-	public class Aggregating<TSourceItem, TResult> : ScalarComputing<TResult>, IHasSourceCollections
+	public class Aggregating<TSourceItem, TResult> : ScalarComputing<TResult>, IHasSourceCollections, ISourceIndexerPropertyTracker
 	{
 		// ReSharper disable once MemberCanBePrivate.Global
 		public IReadScalar<INotifyCollectionChanged> SourceScalar => _sourceScalar;
@@ -27,7 +27,6 @@ namespace ObservableComputations
 
 		// ReSharper disable once PrivateFieldCanBeConvertedToLocalVariable
 		private readonly PropertyChangedEventHandler _sourceScalarPropertyChangedEventHandler;
-		private readonly WeakPropertyChangedEventHandler _sourceScalarWeakPropertyChangedEventHandler;
 
 		private IList<TSourceItem> _sourceAsList;
 
@@ -40,11 +39,10 @@ namespace ObservableComputations
 		private INotifyCollectionChanged _source;
 
 		private PropertyChangedEventHandler _sourcePropertyChangedEventHandler;
-		private WeakPropertyChangedEventHandler _sourceWeakPropertyChangedEventHandler;
 		private bool _indexerPropertyChangedEventRaised;
 		private INotifyPropertyChanged _sourceAsINotifyPropertyChanged;
 
-		private ObservableCollectionWithChangeMarker<TSourceItem> _sourceAsObservableCollectionWithChangeMarker;
+		private IHasChangeMarker _sourceAsIHasChangeMarker;
 		private bool _lastProcessedSourceChangeMarker;
 
 		[ObservableComputationsCall]
@@ -54,11 +52,11 @@ namespace ObservableComputations
 			Func<TSourceItem, TResult, TResult> deaggregateFunc) funcs) : this(funcs, Utils.getCapacity(sourceScalar))
 		{
 			_sourceScalar = sourceScalar;
-			_sourceScalarPropertyChangedEventHandler = handleSourceScalarValueChanged;
-			_sourceScalarWeakPropertyChangedEventHandler = new WeakPropertyChangedEventHandler(_sourceScalarPropertyChangedEventHandler);
-			_sourceScalar.PropertyChanged += _sourceScalarWeakPropertyChangedEventHandler.Handle;
+			//_sourceScalarPropertyChangedEventHandler = handleSourceScalarValueChanged;
+			//_sourceScalarWeakPropertyChangedEventHandler = new WeakPropertyChangedEventHandler(_sourceScalarPropertyChangedEventHandler);
+			//_sourceScalar.PropertyChanged += _sourceScalarWeakPropertyChangedEventHandler.Handle;
 
-			initializeFromSource();
+			//initializeFromSource();
 		}
 
 		[ObservableComputationsCall]
@@ -69,7 +67,7 @@ namespace ObservableComputations
 			: this(funcs, Utils.getCapacity(source))
 		{
 			_source = source;
-			initializeFromSource();
+			//initializeFromSource();
 		}
 
 		private Aggregating((Func<TSourceItem, TResult, TResult> aggregateFunc, Func<TSourceItem, TResult, TResult> deaggregateFunc) funcs, int capacity)
@@ -81,59 +79,36 @@ namespace ObservableComputations
 
 		private void initializeFromSource()
 		{
-			if (_sourceNotifyCollectionChangedEventHandler != null)
+			if (_sourceInitialized)
 			{
-				int capacity = _sourceScalar != null ? Utils.getCapacity(_sourceScalar) : Utils.getCapacity(_source);
-				_sourceItems = new List<TSourceItem>(capacity);
+				_sourceItems = new List<TSourceItem>(Utils.getCapacity(_sourceScalar, _source) );
+				_source.CollectionChanged -= handleSourceCollectionChanged;
 
-				_source.CollectionChanged -= _sourceWeakNotifyCollectionChangedEventHandler.Handle;
-				_sourceNotifyCollectionChangedEventHandler = null;
-				_sourceWeakNotifyCollectionChangedEventHandler = null;
-			}
+                if (_sourceAsINotifyPropertyChanged != null)
+                {
+                    _sourceAsINotifyPropertyChanged.PropertyChanged -=
+                        ((ISourceIndexerPropertyTracker) this).HandleSourcePropertyChanged;
+                    _sourceAsINotifyPropertyChanged = null;
+                }
 
-			if (_sourceAsINotifyPropertyChanged != null)
+                _sourceInitialized = false;
+            }
+
+
+            Utils.changeSource(ref _source, _sourceScalar, _downstreamConsumedComputings, _consumers, this,
+                ref _sourceAsList, true);
+
+			if (_source != null && _isActive)
 			{
-				_sourceAsINotifyPropertyChanged.PropertyChanged -=
-					_sourceWeakPropertyChangedEventHandler.Handle;
 
-				_sourceAsINotifyPropertyChanged = null;
-				_sourcePropertyChangedEventHandler = null;
-				_sourceWeakPropertyChangedEventHandler = null;
-			}
+                Utils.initializeFromHasChangeMarker(
+                    ref _sourceAsIHasChangeMarker, 
+                    _sourceAsList, 
+                    ref _lastProcessedSourceChangeMarker, 
+                    ref _sourceAsINotifyPropertyChanged,
+                    this);
 
-			if (_sourceScalar != null) _source = _sourceScalar.Value;
-			_sourceAsList = (IList<TSourceItem>) _source;
-
-			if (_source != null)
-			{
-				_sourceAsObservableCollectionWithChangeMarker = _sourceAsList as ObservableCollectionWithChangeMarker<TSourceItem>;
-
-				if (_sourceAsObservableCollectionWithChangeMarker != null)
-				{
-					_lastProcessedSourceChangeMarker = _sourceAsObservableCollectionWithChangeMarker.ChangeMarkerField;
-				}
-				else
-				{
-					_sourceAsINotifyPropertyChanged = (INotifyPropertyChanged) _sourceAsList;
-
-					_sourcePropertyChangedEventHandler = (sender, args) =>
-					{
-						if (args.PropertyName == "Item[]")
-							_indexerPropertyChangedEventRaised =
-								true; // ObservableCollection raises this before CollectionChanged event raising
-					};
-
-					_sourceWeakPropertyChangedEventHandler =
-						new WeakPropertyChangedEventHandler(_sourcePropertyChangedEventHandler);
-
-					_sourceAsINotifyPropertyChanged.PropertyChanged += _sourceWeakPropertyChangedEventHandler.Handle;
-				}
-
-				_sourceNotifyCollectionChangedEventHandler = handleSourceCollectionChanged;
-				_sourceWeakNotifyCollectionChangedEventHandler =
-					new WeakNotifyCollectionChangedEventHandler(_sourceNotifyCollectionChangedEventHandler);
-
-				_source.CollectionChanged += _sourceWeakNotifyCollectionChangedEventHandler.Handle;
+				_source.CollectionChanged += handleSourceCollectionChanged;
 				calculateValueAndRegisterSourceItems();
 			}
 			else
@@ -144,72 +119,67 @@ namespace ObservableComputations
 
 		private void handleSourceCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
 		{
-			_handledEventSender = sender;
-			_handledEventArgs = e;
+            if (!Utils.preHandleSourceCollectionChanged(
+                sender, 
+                e, 
+                _isConsistent, 
+                this, 
+                ref _indexerPropertyChangedEventRaised, 
+                ref _lastProcessedSourceChangeMarker, 
+                _sourceAsIHasChangeMarker, 
+                ref _handledEventSender, 
+                ref _handledEventArgs)) return;
 
-			if (_indexerPropertyChangedEventRaised || _lastProcessedSourceChangeMarker != _sourceAsObservableCollectionWithChangeMarker.ChangeMarkerField)
-			{
-				_indexerPropertyChangedEventRaised = false;
-				_lastProcessedSourceChangeMarker = !_lastProcessedSourceChangeMarker;
+            switch (e.Action)
+            {
+                case NotifyCollectionChangedAction.Add:
+                    //if (e.NewItems.Count > 1) throw new ObservableComputationsException(this, "Adding of multiple items is not supported");
+                    int newIndex = e.NewStartingIndex;
+                    TSourceItem addedSourceItem = _sourceAsList[newIndex];
+                    _sourceItems.Insert(newIndex, addedSourceItem);
+                    setValue(aggregate(addedSourceItem, _value));
+                    break;
+                case NotifyCollectionChangedAction.Remove:
+                    //if (e.OldItems.Count > 1) throw new ObservableComputationsException(this, "Removing of multiple items is not supported");
+                    int oldStartingIndex = e.OldStartingIndex;
+                    TSourceItem removedSourceItem = _sourceItems[oldStartingIndex];
+                    _sourceItems.RemoveAt(oldStartingIndex);
+                    setValue(deaggregate(removedSourceItem, _value));
+                    break;
+                case NotifyCollectionChangedAction.Replace:
+                    //if (e.NewItems.Count > 1) throw new ObservableComputationsException(this, "Replacing of multiple items is not supported");
+                    int newStartingIndex = e.NewStartingIndex;
+                    TSourceItem newItem = _sourceAsList[newStartingIndex];
+                    TSourceItem oldItem = _sourceItems[newStartingIndex];
+                    _sourceItems[newStartingIndex] = newItem;
+                    TResult result = deaggregate(oldItem, _value);
+                    setValue(aggregate(newItem, result));
+                    break;
+                case NotifyCollectionChangedAction.Move:
+                    if (e.OldStartingIndex == e.NewStartingIndex) return;
+                    int oldStartingIndex1 = e.OldStartingIndex;
+                    int newStartingIndex1 = e.NewStartingIndex;
+                    TSourceItem movingItem = _sourceItems[oldStartingIndex1];
+                    _sourceItems.RemoveAt(oldStartingIndex1);
+                    _sourceItems.Insert(newStartingIndex1, movingItem);
+                    break;
+                case NotifyCollectionChangedAction.Reset:
+                    initializeFromSource();
+                    break;
+            }
 
-				switch (e.Action)
-				{
-					case NotifyCollectionChangedAction.Add:
-						//if (e.NewItems.Count > 1) throw new ObservableComputationsException(this, "Adding of multiple items is not supported");
-						int newIndex = e.NewStartingIndex;
-						TSourceItem addedSourceItem = _sourceAsList[newIndex];
-						_sourceItems.Insert(newIndex, addedSourceItem);
-						setValue(aggregate(addedSourceItem, _value));					
-						break;
-					case NotifyCollectionChangedAction.Remove:
-						//if (e.OldItems.Count > 1) throw new ObservableComputationsException(this, "Removing of multiple items is not supported");
-						int oldStartingIndex = e.OldStartingIndex;
-						TSourceItem removedSourceItem = _sourceItems[oldStartingIndex];
-						_sourceItems.RemoveAt(oldStartingIndex);
-						setValue(deaggregate(removedSourceItem, _value));
-						break;
-					case NotifyCollectionChangedAction.Replace:
-						//if (e.NewItems.Count > 1) throw new ObservableComputationsException(this, "Replacing of multiple items is not supported");
-						int newStartingIndex = e.NewStartingIndex;
-						TSourceItem newItem = _sourceAsList[newStartingIndex];
-						TSourceItem oldItem = _sourceItems[newStartingIndex];
-						_sourceItems[newStartingIndex] = newItem;
-						TResult result = deaggregate(oldItem, _value);
-						setValue(aggregate(newItem, result));
-						break;
-					case NotifyCollectionChangedAction.Move:
-						if (e.OldStartingIndex == e.NewStartingIndex) return;
-						int oldStartingIndex1 = e.OldStartingIndex;
-						int newStartingIndex1 = e.NewStartingIndex;
-						TSourceItem movingItem = _sourceItems[oldStartingIndex1];
-						_sourceItems.RemoveAt(oldStartingIndex1);
-						_sourceItems.Insert(newStartingIndex1, movingItem);
-						break;
-					case NotifyCollectionChangedAction.Reset:
-						initializeFromSource();
-						break;
-				}
-			}		
-			
-			_handledEventSender = null;
-			_handledEventArgs = null;
-
+            Utils.postHandleSourceCollectionChanged(
+                ref _handledEventSender,
+                ref _handledEventArgs);
 		}
 
 		private TResult aggregate(TSourceItem addedSourceItem, TResult value)
 		{
 			if (Configuration.TrackComputingsExecutingUserCode)
 			{
-				Thread currentThread = Thread.CurrentThread;
-				DebugInfo._computingsExecutingUserCode.TryGetValue(currentThread, out IComputing computing);
-				DebugInfo._computingsExecutingUserCode[currentThread] = this;	
-				_userCodeIsCalledFrom = computing;
-
+                var currentThread = Utils.startComputingExecutingUserCode(out var computing, ref _userCodeIsCalledFrom, this);
 				TResult result = _aggregateFunc(addedSourceItem, value);
-
-				if (computing == null) DebugInfo._computingsExecutingUserCode.TryRemove(currentThread, out IComputing _);
-				else DebugInfo._computingsExecutingUserCode[currentThread] = computing;
-				_userCodeIsCalledFrom = null;
+                Utils.endComputingExecutingUserCode(computing, currentThread, ref _userCodeIsCalledFrom);
 				return result;
 			}
 
@@ -220,16 +190,9 @@ namespace ObservableComputations
 		{
 			if (Configuration.TrackComputingsExecutingUserCode)
 			{
-				Thread currentThread = Thread.CurrentThread;
-				DebugInfo._computingsExecutingUserCode.TryGetValue(currentThread, out IComputing computing);
-				DebugInfo._computingsExecutingUserCode[currentThread] = this;	
-				_userCodeIsCalledFrom = computing;
-
+                var currentThread = Utils.startComputingExecutingUserCode(out var computing, ref _userCodeIsCalledFrom, this);
 				TResult result = _deaggregateFunc(removedSourceItem, value);
-
-				if (computing == null) DebugInfo._computingsExecutingUserCode.TryRemove(currentThread, out IComputing _);
-				else DebugInfo._computingsExecutingUserCode[currentThread] = computing;
-				_userCodeIsCalledFrom = null;
+                Utils.endComputingExecutingUserCode(computing, currentThread, ref _userCodeIsCalledFrom);
 				return result;
 			}
 
@@ -239,7 +202,6 @@ namespace ObservableComputations
 		private void handleSourceScalarValueChanged(object sender, PropertyChangedEventArgs e)
 		{
 			if (e.PropertyName != nameof(IReadScalar<INotifyCollectionChanged>.Value)) return;
-
 
 			_handledEventSender = sender;
 			_handledEventArgs = e;
@@ -263,23 +225,25 @@ namespace ObservableComputations
 			setValue(value);
 		}
 
-		~Aggregating()
-		{
-			if (_sourceWeakNotifyCollectionChangedEventHandler != null)
-			{
-				_source.CollectionChanged -= _sourceWeakNotifyCollectionChangedEventHandler.Handle;			
-			}
+        internal override void addToUpstreamComputings(IComputingInternal computing)
+        {
+            (_source as IComputingInternal)?.AddDownstreamConsumedComputing(computing);
+        }
 
-			if (_sourceScalarWeakPropertyChangedEventHandler != null)
-			{
-				_sourceScalar.PropertyChanged -= _sourceScalarWeakPropertyChangedEventHandler.Handle;			
-			}
+        internal override void removeFromUpstreamComputings(IComputingInternal computing)        
+        {
+            (_source as IComputingInternal)?.RemoveDownstreamConsumedComputing(computing);
+        }
 
+        protected override void initialize()
+        {
+            Utils.initializeSourceScalar(_sourceScalar, ref _source, handleSourceScalarValueChanged);
+        }
 
-			if (_sourceAsINotifyPropertyChanged != null)
-				_sourceAsINotifyPropertyChanged.PropertyChanged -=
-					_sourceWeakPropertyChangedEventHandler.Handle;
-		}
+        protected override void uninitialize()
+        {
+            Utils.uninitializeSourceScalar(_sourceScalar, handleSourceScalarValueChanged, ref _source);
+        }
 
 		public void ValidateConsistency()
 		{

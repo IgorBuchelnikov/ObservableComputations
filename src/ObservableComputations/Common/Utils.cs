@@ -195,7 +195,7 @@ namespace ObservableComputations
             List<Consumer> consumers,
             IComputingInternal computing, 
             ref TSourceAsList sourceAsList,
-            TSourceAsList sourceAsListValue)
+            bool setSourceAsList)
             where TSource : INotifyCollectionChanged where TSourceAsList : class
         {
             IComputingInternal originalSource = source as IComputingInternal;
@@ -216,7 +216,8 @@ namespace ObservableComputations
                     newSource?.AddDownstreamConsumedComputing(computing);
             }
 
-            sourceAsList = sourceAsListValue as TSourceAsList;
+            if (setSourceAsList)
+                sourceAsList = source as TSourceAsList;
         }
 
         internal static void initializeFromObservableCollectionWithChangeMarker<TSourceItem>(INotifyCollectionChanged source, ref ObservableCollectionWithChangeMarker<TSourceItem> sourceAsList, ref bool rootSourceWrapper, ref bool lastProcessedSourceChangeMarker)
@@ -663,7 +664,8 @@ namespace ObservableComputations
             Utils.checkConsistent(sender, e, isConsistent, sourceItems);
 
             if (!indexerPropertyChangedEventRaised &&
-                lastProcessedSourceChangeMarker == sourceAsIHasChangeMarker.ChangeMarker)
+                    (sourceAsIHasChangeMarker == null 
+                    || lastProcessedSourceChangeMarker == sourceAsIHasChangeMarker.ChangeMarker))
                 return false;
 
             handledEventSender = sender;

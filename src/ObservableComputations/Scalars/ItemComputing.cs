@@ -161,7 +161,7 @@ namespace ObservableComputations
                 ref _sourceAsList, true);
 
 
-			if (_source != null)
+			if (_source != null && _isActive)
 			{
                 Utils.initializeFromHasChangeMarker(
                     ref _sourceAsIHasChangeMarker, 
@@ -173,9 +173,13 @@ namespace ObservableComputations
 				_source.CollectionChanged += handleSourceCollectionChanged;
 
                 _sourceInitialized = true;
+			    recalculateValue();
             }
-
-			recalculateValue();
+            else
+            {
+                _isDefaulted = true;
+                setValue(_defaultValue);
+            }
 		}
 
 		private void recalculateValue()

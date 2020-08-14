@@ -85,6 +85,10 @@ namespace ObservableComputations
                 _sourceInitialized = true;
                 setValue(_scalar.Value);
             }
+            else
+            {
+                setValue(default);
+            }
         }
 
         protected override void initialize()

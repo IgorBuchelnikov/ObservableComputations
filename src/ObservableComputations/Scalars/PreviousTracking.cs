@@ -11,9 +11,8 @@ namespace ObservableComputations
 		private IReadScalar<TResult> _scalar;
 		private TResult _previousValue;
 		private bool _isEverChanged;
+        private bool _sourceInitialized;
 
-		private readonly PropertyChangedEventHandler _scalarPropertyChangedEventHandler;
-		private readonly WeakPropertyChangedEventHandler _scalarWeakPropertyChangedEventHandler;
 
 		[ObservableComputationsCall]
 		public PreviousTracking(
@@ -21,9 +20,7 @@ namespace ObservableComputations
 		{
 			_scalar = scalar;
 			_value = _scalar.Value;
-			_scalarPropertyChangedEventHandler = handleScalarPropertyChanged;
-			_scalarWeakPropertyChangedEventHandler = new WeakPropertyChangedEventHandler(_scalarPropertyChangedEventHandler);
-			_scalar.PropertyChanged += _scalarWeakPropertyChangedEventHandler.Handle;
+			_scalar.PropertyChanged += handleScalarPropertyChanged;
 		}
 
 
@@ -52,9 +49,53 @@ namespace ObservableComputations
 			_handledEventArgs = null;
 		}
 
-		~PreviousTracking()
-		{
-			_scalar.PropertyChanged -= _scalarWeakPropertyChangedEventHandler.Handle;
-		}
-	}
+        #region Overrides of ScalarComputing<TResult>
+
+        protected override void initializeFromSource()
+        {
+            if (_sourceInitialized)
+            {
+                _scalar.PropertyChanged -= handleScalarPropertyChanged;
+                _sourceInitialized = false;
+            }
+
+            if (_isActive)
+            {
+                _scalar.PropertyChanged += handleScalarPropertyChanged;
+                setValue(_scalar.Value);
+                _sourceInitialized = false;
+            }
+            else
+            {
+                _previousValue = default;
+                raisePropertyChanged(Utils.PreviousValuePropertyChangedEventArgs);
+                setValue(default);
+                if (_isEverChanged)
+                {
+                    _isEverChanged = false;
+                    raisePropertyChanged(Utils.IsEverChangedPropertyChangedEventArgs);
+                }
+            }
+        }
+
+        protected override void initialize()
+        {
+        }
+
+        protected override void uninitialize()
+        {
+        }
+
+        internal override void addToUpstreamComputings(IComputingInternal computing)
+        {
+            (_scalar as IComputingInternal)?.AddDownstreamConsumedComputing(computing);
+        }
+
+        internal override void removeFromUpstreamComputings(IComputingInternal computing)
+        {
+            (_scalar as IComputingInternal)?.RemoveDownstreamConsumedComputing(computing);
+        }
+
+        #endregion
+    }
 }

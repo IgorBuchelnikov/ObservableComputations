@@ -48,18 +48,9 @@ namespace ObservableComputations
 			TResult result;
 			if (Configuration.TrackComputingsExecutingUserCode)
 			{
-				Thread currentThread = Thread.CurrentThread;
-				IComputing computing = DebugInfo._computingsExecutingUserCode.ContainsKey(currentThread)
-					? DebugInfo._computingsExecutingUserCode[currentThread]
-					: null;
-				DebugInfo._computingsExecutingUserCode[currentThread] = this;
-				_userCodeIsCalledFrom = computing;
-
+                var currentThread = Utils.startComputingExecutingUserCode(out var computing, ref _userCodeIsCalledFrom, this);
 				result = _getValueFunc();
-
-				if (computing == null) DebugInfo._computingsExecutingUserCode.TryRemove(currentThread, out IComputing _);
-				else DebugInfo._computingsExecutingUserCode[currentThread] = computing;
-				_userCodeIsCalledFrom = null;
+                Utils.endComputingExecutingUserCode(computing, currentThread, ref _userCodeIsCalledFrom);
 			}
 			else
 			{
@@ -80,17 +71,15 @@ namespace ObservableComputations
 
             }
 
-            if (_getValueExpressionOriginal != null && _isActive)
+            if (_isActive)
             {
                 _getValueExpressionWatcher = new ExpressionWatcher(_expressionInfo);
                 _getValueExpressionWatcher.ValueChanged = getValueExpressionWatcherOnValueChanged;
 
-                _isDefaulted = false;
                 setValue(getResult());
             }
             else
             {
-                _isDefaulted = true;
                 setValue(default);
             }
         }

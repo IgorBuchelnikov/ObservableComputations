@@ -242,7 +242,10 @@ namespace ObservableComputations
         protected override void uninitialize()
         {
             if (_comparerScalar != null)
-                _comparerScalar.PropertyChanged -= _comparerScalarPropertyChangedEventHandler;			
+            {
+                _comparerScalar.PropertyChanged -= _comparerScalarPropertyChangedEventHandler;
+                _comparer = null;
+            }		
 
             if (_sortDirectionScalar != null)
                 _sortDirectionScalar.PropertyChanged -= _sortDirectionScalarPropertyChangedEventHandler;			

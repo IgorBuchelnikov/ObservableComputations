@@ -212,8 +212,9 @@ namespace ObservableComputations
 			_isConsistent = true;
 			raiseConsistencyRestored();
 
-			_handledEventSender = null;
-			_handledEventArgs = null;
+            Utils.postHandleSourceCollectionChanged(
+                ref _handledEventSender,
+                ref _handledEventArgs);
 		}
 
         internal override void addToUpstreamComputings(IComputingInternal computing)

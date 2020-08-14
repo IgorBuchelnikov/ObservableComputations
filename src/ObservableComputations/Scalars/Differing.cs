@@ -12,11 +12,9 @@ namespace ObservableComputations
 		private IEqualityComparer<TResult> _equalityComparer;
 
 		private readonly PropertyChangedEventHandler _scalarPropertyChangedEventHandler;
-		private readonly WeakPropertyChangedEventHandler _scalarWeakPropertyChangedEventHandler;
 
-		private readonly IReadScalar<IEqualityComparer<TResult>> _equalityComparerScalar;
-		private PropertyChangedEventHandler _equalityComparerScalarPropertyChangedEventHandler;
-		private WeakPropertyChangedEventHandler _equalityComparerScalarWeakPropertyChangedEventHandler;
+        private readonly IReadScalar<IEqualityComparer<TResult>> _equalityComparerScalar;
+        private bool _sourceInitialized;
 
 		[ObservableComputationsCall]
 		public Differing(
@@ -31,21 +29,13 @@ namespace ObservableComputations
 			IReadScalar<TResult> scalar,
 			IReadScalar<IEqualityComparer<TResult>> equalityComparerScalar) : this(scalar)
 		{
-			_equalityComparerScalarPropertyChangedEventHandler = handleEqualityComparerScalarValueChanged;
-			_equalityComparerScalarWeakPropertyChangedEventHandler =
-				new WeakPropertyChangedEventHandler(_equalityComparerScalarPropertyChangedEventHandler);
 			_equalityComparerScalar = equalityComparerScalar;
-			_equalityComparerScalar.PropertyChanged += _equalityComparerScalarWeakPropertyChangedEventHandler.Handle;
-			_equalityComparer = _equalityComparerScalar.Value ?? EqualityComparer<TResult>.Default;
 		}
 
 		private Differing(
 			IReadScalar<TResult> scalar)
 		{
 			_scalar = scalar;
-			_scalarPropertyChangedEventHandler = handleScalarPropertyChanged;
-			_scalarWeakPropertyChangedEventHandler = new WeakPropertyChangedEventHandler(_scalarPropertyChangedEventHandler);
-			_scalar.PropertyChanged += _scalarWeakPropertyChangedEventHandler.Handle;
 		}
 
 		private void handleScalarPropertyChanged(object sender, PropertyChangedEventArgs e)
@@ -78,14 +68,53 @@ namespace ObservableComputations
 			_handledEventArgs = null;
 		}
 
-		~Differing()
-		{
-			_scalar.PropertyChanged -= _scalarWeakPropertyChangedEventHandler.Handle;
 
-			if (_equalityComparerScalarWeakPropertyChangedEventHandler != null)
-			{
-				_equalityComparerScalar.PropertyChanged -= _equalityComparerScalarWeakPropertyChangedEventHandler.Handle;			
-			}
-		}
-	}
+        #region Overrides of ScalarComputing<TResult>
+
+        protected override void initializeFromSource()
+        {
+            if (_sourceInitialized)
+            {
+                _scalar.PropertyChanged -= handleScalarPropertyChanged;
+                _sourceInitialized = false;
+            }
+
+            if (_isActive)
+            {
+                _scalar.PropertyChanged += handleScalarPropertyChanged;
+                _sourceInitialized = true;
+                setValue(_scalar.Value);
+            }
+        }
+
+        protected override void initialize()
+        {
+            if (_equalityComparerScalar != null)
+            {
+                _equalityComparerScalar.PropertyChanged += handleEqualityComparerScalarValueChanged;
+                _equalityComparer = _equalityComparerScalar.Value ?? EqualityComparer<TResult>.Default;      
+            }
+        }
+
+        protected override void uninitialize()
+        {
+            if (_equalityComparerScalar != null)
+            {
+                _equalityComparerScalar.PropertyChanged -= handleEqualityComparerScalarValueChanged;
+                _equalityComparer = null;      
+            }
+        }
+
+        internal override void addToUpstreamComputings(IComputingInternal computing)
+        {
+            (_scalar as IComputingInternal)?.AddDownstreamConsumedComputing(computing);
+        }
+
+        internal override void removeFromUpstreamComputings(IComputingInternal computing)
+        {
+            (_scalar as IComputingInternal)?.RemoveDownstreamConsumedComputing(computing);
+        }
+
+        #endregion
+    }
 }

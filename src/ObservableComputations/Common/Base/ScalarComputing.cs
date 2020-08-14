@@ -10,11 +10,6 @@ namespace ObservableComputations
 		public string DebugTag {get; set;}
 		public object Tag {get; set;}
 
-        // ReSharper disable once MemberCanBePrivate.Global
-        public bool IsDefaulted => _isDefaulted;
-
-        protected bool _isDefaulted = true;
-
 
 		public ScalarComputing()
 		{

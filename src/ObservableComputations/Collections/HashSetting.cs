@@ -637,7 +637,11 @@ namespace ObservableComputations
         void IComputingInternal.Uninitialize()
         {
             if (_equalityComparerScalar != null)
+            {
                 _equalityComparerScalar.PropertyChanged -= handleEqualityComparerScalarValueChanged;
+                _equalityComparer = null;
+            }
+
             Utils.uninitializeSourceScalar(_sourceScalar, handleSourceScalarValueChanged, ref _source);
             Utils.uninitializeNestedComputings(_keyNestedComputings, this);
         }

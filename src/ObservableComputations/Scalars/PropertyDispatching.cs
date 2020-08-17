@@ -20,8 +20,9 @@ namespace ObservableComputations
 		internal EventArgs _handledEventArgs;
 		public object HandledEventSender => _handledEventSender;
 		public EventArgs HandledEventArgs => _handledEventArgs;
+        public bool IsActive { get; }
 
-		private static ConcurrentDictionary<PropertyInfo, PropertyAccessors>
+        private static ConcurrentDictionary<PropertyInfo, PropertyAccessors>
 			_propertyAccessors =
 				new ConcurrentDictionary<PropertyInfo, PropertyAccessors>();
 		
@@ -30,7 +31,6 @@ namespace ObservableComputations
 
 		// ReSharper disable once FieldCanBeMadeReadOnly.Local
 		private PropertyChangedEventHandler _propertyHolderPropertyChangedEventHandler;
-		private WeakPropertyChangedEventHandler _propertyHolderWeakPropertyChangedEventHandler;
 
 		private IDispatcher _sourceDispatcher;
 		private IDispatcher _destinationDispatcher;
@@ -49,8 +49,7 @@ namespace ObservableComputations
 		{
 			_sourceDispatcher = sourceDispatcher;
 			_destinationDispatcher = destinationDispatcher;
-
-			initialize(propertyExpression);
+            _propertyExpression = propertyExpression
 		}
 
 
@@ -62,14 +61,11 @@ namespace ObservableComputations
 		{
 			_propertySourceDispatcher = sourceDispatcher;
 			_destinationDispatcher = destinationDispatcher;
-
-			initialize(propertyExpression);
+            _propertyExpression = propertyExpression
 		}
 
 		private void initialize(Expression<Func<TResult>> propertyExpression)
 		{
-			_propertyExpression = propertyExpression;
-
 			MemberExpression memberExpression = (MemberExpression) propertyExpression.Body;
 
 			PropertyInfo propertyInfo = (PropertyInfo) ((MemberExpression) propertyExpression.Body).Member;
@@ -96,11 +92,6 @@ namespace ObservableComputations
 
 			_propertyHolder = (THolder) ((ConstantExpression) memberExpression.Expression).Value;
 
-			_propertyHolderPropertyChangedEventHandler = handlePropertyHolderPropertyChanged;
-			_propertyHolderWeakPropertyChangedEventHandler =
-				new WeakPropertyChangedEventHandler(_propertyHolderPropertyChangedEventHandler);
-
-
 			void readAndSubscribe()
 			{
 				getValue();
@@ -110,7 +101,7 @@ namespace ObservableComputations
 					PropertyChanged?.Invoke(this, Utils.ValuePropertyChangedEventArgs);
 				}
 
-				_propertyHolder.PropertyChanged += _propertyHolderWeakPropertyChangedEventHandler.Handle;
+				_propertyHolder.PropertyChanged += handlePropertyHolderPropertyChanged;
 
 				_destinationDispatcher.Invoke(raiseValuePropertyChanged, this);
 			}

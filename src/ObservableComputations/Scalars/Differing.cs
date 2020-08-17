@@ -14,7 +14,6 @@ namespace ObservableComputations
 		private readonly PropertyChangedEventHandler _scalarPropertyChangedEventHandler;
 
         private readonly IReadScalar<IEqualityComparer<TResult>> _equalityComparerScalar;
-        private bool _sourceInitialized;
 
 		[ObservableComputationsCall]
 		public Differing(
@@ -70,27 +69,6 @@ namespace ObservableComputations
 
 
         #region Overrides of ScalarComputing<TResult>
-
-        protected override void initializeFromSource()
-        {
-            if (_sourceInitialized)
-            {
-                _scalar.PropertyChanged -= handleScalarPropertyChanged;
-                _sourceInitialized = false;
-            }
-
-            if (_isActive)
-            {
-                _scalar.PropertyChanged += handleScalarPropertyChanged;
-                _sourceInitialized = true;
-                setValue(_scalar.Value);
-            }
-            else
-            {
-                setValue(default);
-            }
-        }
-
         protected override void initialize()
         {
             if (_equalityComparerScalar != null)
@@ -98,6 +76,9 @@ namespace ObservableComputations
                 _equalityComparerScalar.PropertyChanged += handleEqualityComparerScalarValueChanged;
                 _equalityComparer = _equalityComparerScalar.Value ?? EqualityComparer<TResult>.Default;      
             }
+
+            _scalar.PropertyChanged += handleScalarPropertyChanged;
+            setValue(_scalar.Value);
         }
 
         protected override void uninitialize()
@@ -107,6 +88,9 @@ namespace ObservableComputations
                 _equalityComparerScalar.PropertyChanged -= handleEqualityComparerScalarValueChanged;
                 _equalityComparer = null;      
             }
+
+            _scalar.PropertyChanged -= handleScalarPropertyChanged;
+            setValue(default);
         }
 
         internal override void addToUpstreamComputings(IComputingInternal computing)

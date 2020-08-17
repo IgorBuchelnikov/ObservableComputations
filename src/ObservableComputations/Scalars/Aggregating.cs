@@ -77,7 +77,7 @@ namespace ObservableComputations
 			_deaggregateFunc = funcs.deaggregateFunc;
 		}
 
-		private void initializeFromSource()
+        protected override void initializeFromSource()
 		{
 			if (_sourceInitialized)
 			{

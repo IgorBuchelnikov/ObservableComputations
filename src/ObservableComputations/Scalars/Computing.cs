@@ -15,7 +15,6 @@ namespace ObservableComputations
 		// ReSharper disable once PrivateFieldCanBeConvertedToLocalVariable
 		private ExpressionWatcher _getValueExpressionWatcher;
 
-        private bool _sourceInitialized;
         private List<IComputingInternal> _nestedComputings;
         private ExpressionWatcher.ExpressionInfo _expressionInfo;
 
@@ -64,34 +63,22 @@ namespace ObservableComputations
 
         protected override void initializeFromSource()
         {
-            if (_sourceInitialized)
-            {
-                _getValueExpressionWatcher.Dispose();
-                EventUnsubscriber.QueueSubscriptions(_getValueExpressionWatcher._propertyChangedEventSubscriptions, _getValueExpressionWatcher._methodChangedEventSubscriptions);
-
-            }
-
-            if (_isActive)
-            {
-                _getValueExpressionWatcher = new ExpressionWatcher(_expressionInfo);
-                _getValueExpressionWatcher.ValueChanged = getValueExpressionWatcherOnValueChanged;
-
-                setValue(getResult());
-            }
-            else
-            {
-                setValue(default);
-            }
         }
 
         protected override void initialize()
         {
             Utils.initializeNestedComputings(_nestedComputings, this);
+            _getValueExpressionWatcher = new ExpressionWatcher(_expressionInfo);
+            _getValueExpressionWatcher.ValueChanged = getValueExpressionWatcherOnValueChanged;
+            setValue(getResult());
         }
 
         protected override void uninitialize()
         {
+            _getValueExpressionWatcher.Dispose();
+            EventUnsubscriber.QueueSubscriptions(_getValueExpressionWatcher._propertyChangedEventSubscriptions, _getValueExpressionWatcher._methodChangedEventSubscriptions);
             Utils.uninitializeNestedComputings(_nestedComputings, this);
+            setValue(default);
         }
 
         internal override void addToUpstreamComputings(IComputingInternal computing)

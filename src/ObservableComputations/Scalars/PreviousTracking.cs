@@ -11,7 +11,6 @@ namespace ObservableComputations
 		private IReadScalar<TResult> _scalar;
 		private TResult _previousValue;
 		private bool _isEverChanged;
-        private bool _sourceInitialized;
 
 
 		[ObservableComputationsCall]
@@ -53,37 +52,25 @@ namespace ObservableComputations
 
         protected override void initializeFromSource()
         {
-            if (_sourceInitialized)
-            {
-                _scalar.PropertyChanged -= handleScalarPropertyChanged;
-                _sourceInitialized = false;
-            }
-
-            if (_isActive)
-            {
-                _scalar.PropertyChanged += handleScalarPropertyChanged;
-                setValue(_scalar.Value);
-                _sourceInitialized = false;
-            }
-            else
-            {
-                _previousValue = default;
-                raisePropertyChanged(Utils.PreviousValuePropertyChangedEventArgs);
-                setValue(default);
-                if (_isEverChanged)
-                {
-                    _isEverChanged = false;
-                    raisePropertyChanged(Utils.IsEverChangedPropertyChangedEventArgs);
-                }
-            }
         }
 
         protected override void initialize()
         {
+            _scalar.PropertyChanged += handleScalarPropertyChanged;
+            setValue(_scalar.Value);
         }
 
         protected override void uninitialize()
         {
+            _scalar.PropertyChanged -= handleScalarPropertyChanged;
+            _previousValue = default;
+            raisePropertyChanged(Utils.PreviousValuePropertyChangedEventArgs);
+            setValue(default);
+            if (_isEverChanged)
+            {
+                _isEverChanged = false;
+                raisePropertyChanged(Utils.IsEverChangedPropertyChangedEventArgs);
+            }
         }
 
         internal override void addToUpstreamComputings(IComputingInternal computing)

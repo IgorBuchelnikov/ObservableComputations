@@ -15,7 +15,6 @@ namespace ObservableComputations
 		private IReadScalar<TResult> _scalar;
 
 		private PropertyChangedEventHandler _scalarPropertyChangedEventHandler;
-		private WeakPropertyChangedEventHandler _scalarWeakPropertyChangedEventHandler;
 
 		[ObservableComputationsCall]
 		public ScalarDispatching(
@@ -24,34 +23,8 @@ namespace ObservableComputations
 			IDispatcher sourceDispatcher = null)
 		{
 			_destinationDispatcher = destinationDispatcher;
-			initialize(scalar, sourceDispatcher);
-		}
-
-		private void initialize(IReadScalar<TResult> scalar, IDispatcher sourceDispatcher)
-		{
-			_scalar = scalar;
-			_sourceDispatcher = sourceDispatcher;
-
-			void readAndSubscribe()
-			{
-				void setNewValue() => setValue(_scalar.Value);
-
-				_destinationDispatcher.Invoke(setNewValue, this);
-
-				_scalarPropertyChangedEventHandler = handleScalarPropertyChanged;
-				_scalarWeakPropertyChangedEventHandler =
-					new WeakPropertyChangedEventHandler(_scalarPropertyChangedEventHandler);
-				_scalar.PropertyChanged += _scalarWeakPropertyChangedEventHandler.Handle;
-			}
-
-			if (_sourceDispatcher != null)
-			{
-				_sourceDispatcher.Invoke(readAndSubscribe, this);
-			}
-			else
-			{
-				readAndSubscribe();
-			}
+            _scalar = scalar;
+            _sourceDispatcher = sourceDispatcher;
 		}
 
 		private void handleScalarPropertyChanged(object sender, PropertyChangedEventArgs e)
@@ -72,9 +45,49 @@ namespace ObservableComputations
 			_handledEventArgs = null;
 		}
 
-		~ScalarDispatching()
-		{
-			_scalar.PropertyChanged -= _scalarWeakPropertyChangedEventHandler.Handle;
-		}
-	}
+        #region Overrides of ScalarComputing<TResult>
+
+        protected override void initializeFromSource()
+        {
+
+        }
+
+        protected override void initialize()
+        {
+            void readAndSubscribe()
+            {
+                TResult newValue = _scalar.Value;
+                void setNewValue() => setValue(newValue);
+
+                _destinationDispatcher.Invoke(setNewValue, this);
+                _scalar.PropertyChanged += handleScalarPropertyChanged;
+            }
+
+            if (_sourceDispatcher != null)
+            {
+                _sourceDispatcher.Invoke(readAndSubscribe, this);
+            }
+            else
+            {
+                readAndSubscribe();
+            }
+        }
+
+        protected override void uninitialize()
+        {
+            _scalar.PropertyChanged -= handleScalarPropertyChanged;
+        }
+
+        internal override void addToUpstreamComputings(IComputingInternal computing)
+        {
+            (_scalar as IComputingInternal)?.AddDownstreamConsumedComputing(computing);
+        }
+
+        internal override void removeFromUpstreamComputings(IComputingInternal computing)
+        {
+            (_scalar as IComputingInternal)?.RemoveDownstreamConsumedComputing(computing);
+        }
+
+        #endregion
+    }
 }

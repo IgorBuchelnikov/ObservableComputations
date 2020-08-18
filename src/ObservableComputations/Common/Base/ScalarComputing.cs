@@ -45,17 +45,9 @@ namespace ObservableComputations
 			{
 				if (Configuration.TrackComputingsExecutingUserCode)
 				{
-					Thread currentThread = Thread.CurrentThread;
-					DebugInfo._computingsExecutingUserCode.TryGetValue(currentThread, out IComputing computing);
-					DebugInfo._computingsExecutingUserCode[currentThread] = this;	
-					_userCodeIsCalledFrom = computing;
-
+                    var currentThread = Utils.startComputingExecutingUserCode(out var computing, ref _userCodeIsCalledFrom, this);
 					_setValueAction(value);
-
-					if (computing == null) DebugInfo._computingsExecutingUserCode.TryRemove(currentThread, out IComputing _);
-					else DebugInfo._computingsExecutingUserCode[currentThread] = computing;
-					_userCodeIsCalledFrom = null;
-
+                    Utils.endComputingExecutingUserCode(computing, currentThread, ref _userCodeIsCalledFrom);
 					return;
 				}
 
@@ -132,16 +124,30 @@ namespace ObservableComputations
 
 
 		protected void setValue(TValue value)
-		{
-			_newValue = value;
-			PreValueChanged?.Invoke(this, null);
+        {
+            void perform()
+            {
+                _newValue = value;
+                PreValueChanged?.Invoke(this, null);
 
-			_value = value;
+                _value = value;
 
-			PropertyChanged?.Invoke(this, Utils.ValuePropertyChangedEventArgs);
-			PropertyChanged?.Invoke(this, Utils.ValueObjectPropertyChangedEventArgs);
-			PostValueChanged?.Invoke(this, null);		
-		}
+                PropertyChanged?.Invoke(this, Utils.ValuePropertyChangedEventArgs);
+                PropertyChanged?.Invoke(this, Utils.ValueObjectPropertyChangedEventArgs);
+                PostValueChanged?.Invoke(this, null);
+            }
+
+            if (Configuration.TrackComputingsExecutingUserCode)
+            {
+                var currentThread = Utils.startComputingExecutingUserCode(out var computing, ref _userCodeIsCalledFrom, this);
+                perform();
+                Utils.endComputingExecutingUserCode(computing, currentThread, ref _userCodeIsCalledFrom);
+            }
+            else
+            {
+                perform();
+            }
+        }
 
 		protected void checkConsistent(object sender, EventArgs eventArgs)
 		{

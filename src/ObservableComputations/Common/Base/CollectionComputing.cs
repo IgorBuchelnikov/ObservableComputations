@@ -274,7 +274,14 @@ namespace ObservableComputations
 	
 		protected internal void baseInsertItem(int index, TItem item)
 		{
-			ChangeMarkerField = !ChangeMarkerField;
+            void perform()
+            {
+                PreCollectionChanged?.Invoke(this, null);
+                base.InsertItem(index, item);
+                PostCollectionChanged?.Invoke(this, null);
+            }
+
+            ChangeMarkerField = !ChangeMarkerField;
 
 			_currentChange = NotifyCollectionChangedAction.Add;
 			_newIndex = index;
@@ -282,25 +289,16 @@ namespace ObservableComputations
 
 			if (Configuration.TrackComputingsExecutingUserCode)
 			{
-				Thread currentThread = Thread.CurrentThread;
-				DebugInfo._computingsExecutingUserCode.TryGetValue(currentThread, out IComputing computing);
-				DebugInfo._computingsExecutingUserCode[currentThread] = this;	
-				_userCodeIsCalledFrom = computing;
+                var currentThread = Utils.startComputingExecutingUserCode(out var computing, ref _userCodeIsCalledFrom, this);
 
-				PreCollectionChanged?.Invoke(this, null);
-				base.InsertItem(index, item);
-				PostCollectionChanged?.Invoke(this, null);
+				perform();
 
-				if (computing == null) DebugInfo._computingsExecutingUserCode.TryRemove(currentThread, out IComputing _);
-				else DebugInfo._computingsExecutingUserCode[currentThread] = computing;
-				_userCodeIsCalledFrom = null;
+                Utils.endComputingExecutingUserCode(computing, currentThread, ref _userCodeIsCalledFrom);
 			}
 			else
-			{
-				PreCollectionChanged?.Invoke(this, null);
-				base.InsertItem(index, item);
-				PostCollectionChanged?.Invoke(this, null);				
-			}
+            {
+                perform();
+            }
 
 			_currentChange = null;
 			_newIndex = -1;
@@ -309,7 +307,14 @@ namespace ObservableComputations
 
 		protected internal void baseMoveItem(int oldIndex, int newIndex)
 		{
-			ChangeMarkerField = !ChangeMarkerField;
+            void perform()
+            {
+                PreCollectionChanged?.Invoke(this, null);
+                base.MoveItem(oldIndex, newIndex);
+                PostCollectionChanged?.Invoke(this, null);
+            }
+
+            ChangeMarkerField = !ChangeMarkerField;
 
 			_currentChange = NotifyCollectionChangedAction.Move;
 			_oldIndex = oldIndex;
@@ -317,24 +322,15 @@ namespace ObservableComputations
 
 			if (Configuration.TrackComputingsExecutingUserCode)
 			{
-				Thread currentThread = Thread.CurrentThread;
-				DebugInfo._computingsExecutingUserCode.TryGetValue(currentThread, out IComputing computing);
-				DebugInfo._computingsExecutingUserCode[currentThread] = this;	
-				_userCodeIsCalledFrom = computing;
+                var currentThread = Utils.startComputingExecutingUserCode(out var computing, ref _userCodeIsCalledFrom, this);
 
-				PreCollectionChanged?.Invoke(this, null);
-				base.MoveItem(oldIndex, newIndex);
-				PostCollectionChanged?.Invoke(this, null);
+				perform();
 
-				if (computing == null) DebugInfo._computingsExecutingUserCode.TryRemove(currentThread, out IComputing _);
-				else DebugInfo._computingsExecutingUserCode[currentThread] = computing;
-				_userCodeIsCalledFrom = null;
+                Utils.endComputingExecutingUserCode(computing, currentThread, ref _userCodeIsCalledFrom);
 			}
 			else
 			{
-				PreCollectionChanged?.Invoke(this, null);
-				base.MoveItem(oldIndex, newIndex);
-				PostCollectionChanged?.Invoke(this, null);
+                perform();
 			}
 
 			_currentChange = null;
@@ -345,31 +341,29 @@ namespace ObservableComputations
 		
 		protected internal void baseRemoveItem(int index)
 		{
-			ChangeMarkerField = !ChangeMarkerField;
+            void perform()
+            {
+                PreCollectionChanged?.Invoke(this, null);
+                base.RemoveItem(index);
+                PostCollectionChanged?.Invoke(this, null);
+            }
+
+            ChangeMarkerField = !ChangeMarkerField;
 
 			_currentChange = NotifyCollectionChangedAction.Remove;
 			_oldIndex = index;
 
 			if (Configuration.TrackComputingsExecutingUserCode)
 			{
-				Thread currentThread = Thread.CurrentThread;
-				DebugInfo._computingsExecutingUserCode.TryGetValue(currentThread, out IComputing computing);
-				DebugInfo._computingsExecutingUserCode[currentThread] = this;	
-				_userCodeIsCalledFrom = computing;
+                var currentThread = Utils.startComputingExecutingUserCode(out var computing, ref _userCodeIsCalledFrom, this);
 
-				PreCollectionChanged?.Invoke(this, null);
-				base.RemoveItem(index);
-				PostCollectionChanged?.Invoke(this, null);
+				perform();
 
-				if (computing == null) DebugInfo._computingsExecutingUserCode.TryRemove(currentThread, out IComputing _);
-				else DebugInfo._computingsExecutingUserCode[currentThread] = computing;
-				_userCodeIsCalledFrom = null;
+                Utils.endComputingExecutingUserCode(computing, currentThread, ref _userCodeIsCalledFrom);
 			}
 			else
 			{
-				PreCollectionChanged?.Invoke(this, null);
-				base.RemoveItem(index);
-				PostCollectionChanged?.Invoke(this, null);
+				perform();
 			}
 
 			_currentChange = null;
@@ -379,7 +373,14 @@ namespace ObservableComputations
 		
 		protected internal void baseSetItem(int index, TItem item)
 		{
-			ChangeMarkerField = !ChangeMarkerField;
+            void perform()
+            {
+                PreCollectionChanged?.Invoke(this, null);
+                base.SetItem(index, item);
+                PostCollectionChanged?.Invoke(this, null);
+            }
+
+            ChangeMarkerField = !ChangeMarkerField;
 			
 			_currentChange = NotifyCollectionChangedAction.Replace;
 			_newItem = item;
@@ -387,25 +388,16 @@ namespace ObservableComputations
 
 			if (Configuration.TrackComputingsExecutingUserCode)
 			{
-				Thread currentThread = Thread.CurrentThread;
-				DebugInfo._computingsExecutingUserCode.TryGetValue(currentThread, out IComputing computing);
-				DebugInfo._computingsExecutingUserCode[currentThread] = this;	
-				_userCodeIsCalledFrom = computing;
+                var currentThread = Utils.startComputingExecutingUserCode(out var computing, ref _userCodeIsCalledFrom, this);
 
-				PreCollectionChanged?.Invoke(this, null);
-				base.SetItem(index, item);
-				PostCollectionChanged?.Invoke(this, null);
+				perform();
 
-				if (computing == null) DebugInfo._computingsExecutingUserCode.TryRemove(currentThread, out IComputing _);
-				else DebugInfo._computingsExecutingUserCode[currentThread] = computing;
-				_userCodeIsCalledFrom = null;
+                Utils.endComputingExecutingUserCode(computing, currentThread, ref _userCodeIsCalledFrom);
 			}
 			else
-			{
-				PreCollectionChanged?.Invoke(this, null);
-				base.SetItem(index, item);
-				PostCollectionChanged?.Invoke(this, null);
-			}
+            {
+                perform();
+            }
 
 			_currentChange = null;
 			_newItem = default;
@@ -415,30 +407,28 @@ namespace ObservableComputations
 		
 		protected internal void baseClearItems()
 		{
-			ChangeMarkerField = !ChangeMarkerField;
+            void perform()
+            {
+                PreCollectionChanged?.Invoke(this, null);
+                base.ClearItems();
+                PostCollectionChanged?.Invoke(this, null);
+            }
+
+            ChangeMarkerField = !ChangeMarkerField;
 
 			_currentChange = NotifyCollectionChangedAction.Reset;
 
 			if (Configuration.TrackComputingsExecutingUserCode)
 			{
-				Thread currentThread = Thread.CurrentThread;
-				DebugInfo._computingsExecutingUserCode.TryGetValue(currentThread, out IComputing computing);
-				DebugInfo._computingsExecutingUserCode[currentThread] = this;	
-				_userCodeIsCalledFrom = computing;
+                var currentThread = Utils.startComputingExecutingUserCode(out var computing, ref _userCodeIsCalledFrom, this);
 
-				PreCollectionChanged?.Invoke(this, null);
-				base.ClearItems();
-				PostCollectionChanged?.Invoke(this, null);
+				perform();
 
-				if (computing == null) DebugInfo._computingsExecutingUserCode.TryRemove(currentThread, out IComputing _);
-				else DebugInfo._computingsExecutingUserCode[currentThread] = computing;
-				_userCodeIsCalledFrom = null;
+                Utils.endComputingExecutingUserCode(computing, currentThread, ref _userCodeIsCalledFrom);
 			}
 			else
 			{
-				PreCollectionChanged?.Invoke(this, null);
-				base.ClearItems();
-				PostCollectionChanged?.Invoke(this, null);
+				perform();
 			}
 
 			_currentChange = null;

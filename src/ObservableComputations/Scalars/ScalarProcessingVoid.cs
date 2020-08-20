@@ -11,9 +11,6 @@ namespace ObservableComputations
 
 		private IReadScalar<TValue> _scalar;
 
-		private readonly PropertyChangedEventHandler _scalarPropertyChangedEventHandler;
-		private readonly WeakPropertyChangedEventHandler _scalarWeakPropertyChangedEventHandler;
-
 		private Action<TValue, ScalarProcessingVoid<TValue>> _newValueProcessor;
 
 		[ObservableComputationsCall]
@@ -33,9 +30,7 @@ namespace ObservableComputations
 			IReadScalar<TValue> scalar)
 		{
 			_scalar = scalar;
-			_scalarPropertyChangedEventHandler = handleScalarPropertyChanged;
-			_scalarWeakPropertyChangedEventHandler = new WeakPropertyChangedEventHandler(_scalarPropertyChangedEventHandler);
-			_scalar.PropertyChanged += _scalarWeakPropertyChangedEventHandler.Handle;
+			_scalar.PropertyChanged += handleScalarPropertyChanged;
 		}
 
 		private void handleScalarPropertyChanged(object sender, PropertyChangedEventArgs e)
@@ -57,16 +52,9 @@ namespace ObservableComputations
 		{
 			if (Configuration.TrackComputingsExecutingUserCode)
 			{
-				Thread currentThread = Thread.CurrentThread;
-				DebugInfo._computingsExecutingUserCode.TryGetValue(currentThread, out IComputing computing);
-				DebugInfo._computingsExecutingUserCode[currentThread] = this;
-				_userCodeIsCalledFrom = computing;
-
+                var currentThread = Utils.startComputingExecutingUserCode(out var computing, ref _userCodeIsCalledFrom, this);
 				_newValueProcessor(newValue, this);
-
-				if (computing == null) DebugInfo._computingsExecutingUserCode.TryRemove(currentThread, out IComputing _);
-				else DebugInfo._computingsExecutingUserCode[currentThread] = computing;
-				_userCodeIsCalledFrom = null;
+                Utils.endComputingExecutingUserCode(computing, currentThread, ref _userCodeIsCalledFrom);
 			}
 			else
 			{
@@ -74,10 +62,32 @@ namespace ObservableComputations
 			}
 		}
 
+        #region Overrides of ScalarComputing<TValue>
 
-		~ScalarProcessingVoid()
-		{
-			_scalar.PropertyChanged -= _scalarWeakPropertyChangedEventHandler.Handle;
-		}
-	}
+        protected override void initializeFromSource()
+        {
+        }
+
+        protected override void initialize()
+        {
+            _scalar.PropertyChanged += handleScalarPropertyChanged;
+        }
+
+        protected override void uninitialize()
+        {
+            _scalar.PropertyChanged -= handleScalarPropertyChanged;
+        }
+
+        internal override void addToUpstreamComputings(IComputingInternal computing)
+        {
+            (_scalar as IComputingInternal)?.AddDownstreamConsumedComputing(computing);
+        }
+
+        internal override void removeFromUpstreamComputings(IComputingInternal computing)
+        {
+            (_scalar as IComputingInternal)?.RemoveDownstreamConsumedComputing(computing);
+        }
+
+        #endregion
+    }
 }

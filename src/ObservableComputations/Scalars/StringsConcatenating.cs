@@ -9,7 +9,7 @@ using System.Text;
 
 namespace ObservableComputations
 {
-	public class StringsConcatenating : ScalarComputing<string>, IHasSourceCollections
+	public class StringsConcatenating : ScalarComputing<string>, IHasSourceCollections, ISourceIndexerPropertyTracker
 	{
 		// ReSharper disable once MemberCanBePrivate.Global
 		public IReadScalar<INotifyCollectionChanged> SourceScalar => _sourceScalar;
@@ -26,13 +26,7 @@ namespace ObservableComputations
 		public ReadOnlyCollection<INotifyCollectionChanged> SourceCollections => new ReadOnlyCollection<INotifyCollectionChanged>(new []{Source});
 		public ReadOnlyCollection<IReadScalar<INotifyCollectionChanged>> SourceCollectionScalars => new ReadOnlyCollection<IReadScalar<INotifyCollectionChanged>>(new []{SourceScalar});
 
-		private PropertyChangedEventHandler _sourceScalarPropertyChangedEventHandler;
-		private WeakPropertyChangedEventHandler _sourceScalarWeakPropertyChangedEventHandler;
-
 		private IList<string> _sourceAsList;
-
-		private PropertyChangedEventHandler _separatorScalarPropertyChangedEventHandler;
-		private WeakPropertyChangedEventHandler _separatorScalarWeakPropertyChangedEventHandler;
 
 		private int _separatorLength;
 
@@ -47,12 +41,10 @@ namespace ObservableComputations
 		private INotifyCollectionChanged _source;
 		private string _separator;
 
-		private PropertyChangedEventHandler _sourcePropertyChangedEventHandler;
-		private WeakPropertyChangedEventHandler _sourceWeakPropertyChangedEventHandler;
 		private bool _indexerPropertyChangedEventRaised;
 		private INotifyPropertyChanged _sourceAsINotifyPropertyChanged;
 
-		private ObservableCollectionWithChangeMarker<string> _sourceAsObservableCollectionWithChangeMarker;
+        private IHasChangeMarker _sourceAsIHasChangeMarker;
 		private bool _lastProcessedSourceChangeMarker;
 
 		private StringsConcatenating(int capacity)
@@ -65,14 +57,8 @@ namespace ObservableComputations
 			IReadScalar<INotifyCollectionChanged> sourceScalar,
 			IReadScalar<string> separatorScalar = null) : this(Utils.getCapacity(sourceScalar))
 		{
-			_sourceScalar = sourceScalar;
-			initializeSourceScalar();
-
+			_sourceScalar = sourceScalar;;
 			_separatorScalar = separatorScalar;
-			initializeSeparatorScalar();
-
-			initializeSeparator();
-			initializeFromSource();
 		}
 
 		[ObservableComputationsCall]
@@ -81,12 +67,7 @@ namespace ObservableComputations
 			IReadScalar<string> separatorScalar = null) : this(Utils.getCapacity(source))
 		{
 			_source = source;
-
 			_separatorScalar = separatorScalar;
-			initializeSeparatorScalar();
-
-			initializeSeparator();
-			initializeFromSource();
 		}
 
 		[ObservableComputationsCall]
@@ -96,9 +77,6 @@ namespace ObservableComputations
 		{
 			_source = source;
 			_separator = separator;
-
-			initializeSeparator();
-			initializeFromSource();
 		}
 
 		[ObservableComputationsCall]
@@ -107,91 +85,50 @@ namespace ObservableComputations
 			string separator = "") : this(Utils.getCapacity(sourceScalar))
 		{
 			_sourceScalar = sourceScalar;
-			initializeSourceScalar();
-
 			_separator = separator;
-
-			initializeSeparator();
-			initializeFromSource();
-		}
-
-		private void initializeSourceScalar()
-		{
-			_sourceScalarPropertyChangedEventHandler = handleSourceScalarValueChanged;
-			_sourceScalarWeakPropertyChangedEventHandler =
-				new WeakPropertyChangedEventHandler(_sourceScalarPropertyChangedEventHandler);
-			_sourceScalar.PropertyChanged += _sourceScalarWeakPropertyChangedEventHandler.Handle;
 		}
 
 		private void initializeSeparatorScalar()
 		{
 			if (_separatorScalar != null)
 			{
-				_separatorScalarPropertyChangedEventHandler = handleSeparatorScalarValueChanged;
-				_separatorScalarWeakPropertyChangedEventHandler =
-					new WeakPropertyChangedEventHandler(_separatorScalarPropertyChangedEventHandler);
-				_separatorScalar.PropertyChanged += _separatorScalarWeakPropertyChangedEventHandler.Handle;
-			}
+				_separatorScalar.PropertyChanged += handleSeparatorScalarValueChanged;
+            }
 		}
 
-		private void initializeFromSource()
+        protected override void initializeFromSource()
 		{
-			if (_sourceNotifyCollectionChangedEventHandler != null)
+			if (_sourceInitialized)
 			{
 				_valueStringBuilder.Clear();
 
 				int capacity = _sourceScalar != null ? Utils.getCapacity(_sourceScalar) : Utils.getCapacity(_source);
 				_resultRangePositions = new RangePositions<RangePosition>(new List<RangePosition>(capacity * 2));
 
-				_source.CollectionChanged -= _sourceWeakNotifyCollectionChangedEventHandler.Handle;
-				_sourceNotifyCollectionChangedEventHandler = null;
-				_sourceWeakNotifyCollectionChangedEventHandler = null;
-				setValue(String.Empty);
+				_source.CollectionChanged -= handleSourceCollectionChanged;
+
+                if (_sourceAsINotifyPropertyChanged != null)
+                {
+                    _sourceAsINotifyPropertyChanged.PropertyChanged -=
+                        ((ISourceIndexerPropertyTracker) this).HandleSourcePropertyChanged;
+                    _sourceAsINotifyPropertyChanged = null;
+                }
 			}
 
-			if (_sourceAsINotifyPropertyChanged != null)
+
+            Utils.changeSource(ref _source, _sourceScalar, _downstreamConsumedComputings, _consumers, this,
+                ref _sourceAsList, true);
+
+			if (_source != null && _isActive)
 			{
-				_sourceAsINotifyPropertyChanged.PropertyChanged -=
-					_sourceWeakPropertyChangedEventHandler.Handle;
+                Utils.initializeFromHasChangeMarker(
+                    ref _sourceAsIHasChangeMarker, 
+                    _sourceAsList, 
+                    ref _lastProcessedSourceChangeMarker, 
+                    ref _sourceAsINotifyPropertyChanged,
+                    this);
 
-				_sourceAsINotifyPropertyChanged = null;
-				_sourcePropertyChangedEventHandler = null;
-				_sourceWeakPropertyChangedEventHandler = null;
-			}
-
-			if (_sourceScalar != null) _source = _sourceScalar.Value;
-			_sourceAsList = (IList<string>) _source;
-
-			if (_source != null)
-			{
-				_sourceAsObservableCollectionWithChangeMarker = _sourceAsList as ObservableCollectionWithChangeMarker<string>;
-
-				if (_sourceAsObservableCollectionWithChangeMarker != null)
-				{
-					_lastProcessedSourceChangeMarker = _sourceAsObservableCollectionWithChangeMarker.ChangeMarkerField;
-				}
-				else
-				{
-
-					_sourceAsINotifyPropertyChanged = (INotifyPropertyChanged) _sourceAsList;
-
-					_sourcePropertyChangedEventHandler = (sender, args) =>
-					{
-						if (args.PropertyName == "Item[]")
-							_indexerPropertyChangedEventRaised =
-								true; // ObservableCollection raises this before CollectionChanged event raising
-					};
-
-					_sourceWeakPropertyChangedEventHandler =
-						new WeakPropertyChangedEventHandler(_sourcePropertyChangedEventHandler);
-
-					_sourceAsINotifyPropertyChanged.PropertyChanged += _sourceWeakPropertyChangedEventHandler.Handle;
-				}
-
-				_sourceNotifyCollectionChangedEventHandler = handleSourceCollectionChanged;
-				_sourceWeakNotifyCollectionChangedEventHandler =
-					new WeakNotifyCollectionChangedEventHandler(_sourceNotifyCollectionChangedEventHandler);
-				_source.CollectionChanged += _sourceWeakNotifyCollectionChangedEventHandler.Handle;
+				_source.CollectionChanged += handleSourceCollectionChanged;
 
 				recalculateValue();
 			}
@@ -289,89 +226,127 @@ namespace ObservableComputations
 
 		private void handleSourceCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
 		{
-			_handledEventSender = sender;
-			_handledEventArgs = e;
+            if (!Utils.preHandleSourceCollectionChanged(
+                sender, 
+                e, 
+                _isConsistent, 
+                this, 
+                ref _indexerPropertyChangedEventRaised, 
+                ref _lastProcessedSourceChangeMarker, 
+                _sourceAsIHasChangeMarker, 
+                ref _handledEventSender, 
+                ref _handledEventArgs)) return;
 
-			if (_indexerPropertyChangedEventRaised || _lastProcessedSourceChangeMarker != _sourceAsObservableCollectionWithChangeMarker.ChangeMarkerField)
-			{
-				_indexerPropertyChangedEventRaised = false;
-				_lastProcessedSourceChangeMarker = !_lastProcessedSourceChangeMarker;
+            switch (e.Action)
+            {
+                case NotifyCollectionChangedAction.Add:
+                    IList newItems = e.NewItems;
+                    //if (newItems.Count > 1) throw new ObservableComputationsException(this, "Adding of multiple items is not supported");
+                    string addedSourceItem = (string) newItems[0];
+                    int addedSourceIndex = e.NewStartingIndex;
+                    processAddSourceItem(addedSourceItem, addedSourceIndex);
+                    setValue(_valueStringBuilder.ToString());
+                    break;
+                case NotifyCollectionChangedAction.Remove:
+                    //if (e.OldItems.Count > 1) throw new ObservableComputationsException(this, "Removing of multiple items is not supported");
+                    int removedSourceIndex = e.OldStartingIndex;
+                    processRemoveSourceItem(removedSourceIndex);
+                    setValue(_valueStringBuilder.ToString());
+                    break;
+                case NotifyCollectionChangedAction.Replace:
+                    IList newItems1 = e.NewItems;
+                    //if (newItems1.Count > 1) throw new ObservableComputationsException(this, "Replacing of multiple items is not supported");
+                    RangePosition replacingItemRangePosition =
+                        _resultRangePositions.List[e.NewStartingIndex * 2];
+                    string newSourceItem = (string) newItems1[0];
+                    int replacingSourceItemLength = replacingItemRangePosition.Length;
+                    int newSourceItemLength = newSourceItem != null ? newSourceItem.Length : 0;
 
-				switch (e.Action)
-				{
-					case NotifyCollectionChangedAction.Add:
-						IList newItems = e.NewItems;
-						//if (newItems.Count > 1) throw new ObservableComputationsException(this, "Adding of multiple items is not supported");
-						string addedSourceItem =  (string) newItems[0];
-						int addedSourceIndex = e.NewStartingIndex;
-						processAddSourceItem(addedSourceItem, addedSourceIndex);
-						setValue(_valueStringBuilder.ToString());
-						break;
-					case NotifyCollectionChangedAction.Remove:
-						//if (e.OldItems.Count > 1) throw new ObservableComputationsException(this, "Removing of multiple items is not supported");
-						int removedSourceIndex = e.OldStartingIndex;
-						processRemoveSourceItem(removedSourceIndex);
-						setValue(_valueStringBuilder.ToString());
-						break;
-					case NotifyCollectionChangedAction.Replace:
-						IList newItems1 = e.NewItems;
-						//if (newItems1.Count > 1) throw new ObservableComputationsException(this, "Replacing of multiple items is not supported");
-						RangePosition replacingItemRangePosition =
-							_resultRangePositions.List[e.NewStartingIndex * 2];
-						string newSourceItem = (string) newItems1[0];
-						int replacingSourceItemLength = replacingItemRangePosition.Length;
-						int newSourceItemLength = newSourceItem != null ? newSourceItem.Length : 0;
-						 
-						int plainIndex = replacingItemRangePosition.PlainIndex;
-						for (
-							int charIndex = 0; 
-							charIndex < replacingSourceItemLength 
-							&& charIndex < newSourceItemLength; 
-							charIndex++)
-						{
+                    int plainIndex = replacingItemRangePosition.PlainIndex;
+                    for (
+                        int charIndex = 0;
+                        charIndex < replacingSourceItemLength
+                        && charIndex < newSourceItemLength;
+                        charIndex++)
+                    {
 
-							_valueStringBuilder[plainIndex + charIndex] = newSourceItem[charIndex];
-						}
+                        _valueStringBuilder[plainIndex + charIndex] = newSourceItem[charIndex];
+                    }
 
-						if (newSourceItemLength < replacingSourceItemLength)
-						{
-							_valueStringBuilder.Remove(
-								plainIndex + newSourceItemLength,
-								replacingSourceItemLength - newSourceItemLength);
-						}
-						else if (newSourceItemLength > replacingSourceItemLength)
-						{
-							_valueStringBuilder.Insert(
-								plainIndex + replacingSourceItemLength,
-								newSourceItem.Substring(replacingSourceItemLength, newSourceItemLength - replacingSourceItemLength));
-						}
+                    if (newSourceItemLength < replacingSourceItemLength)
+                    {
+                        _valueStringBuilder.Remove(
+                            plainIndex + newSourceItemLength,
+                            replacingSourceItemLength - newSourceItemLength);
+                    }
+                    else if (newSourceItemLength > replacingSourceItemLength)
+                    {
+                        _valueStringBuilder.Insert(
+                            plainIndex + replacingSourceItemLength,
+                            newSourceItem.Substring(replacingSourceItemLength,
+                                newSourceItemLength - replacingSourceItemLength));
+                    }
 
-						_resultRangePositions.ModifyLength(replacingItemRangePosition.Index, newSourceItemLength - replacingSourceItemLength);
+                    _resultRangePositions.ModifyLength(replacingItemRangePosition.Index,
+                        newSourceItemLength - replacingSourceItemLength);
 
-						setValue(_valueStringBuilder.ToString());
-						break;
-					case NotifyCollectionChangedAction.Move:
-						int newSourceIndex = e.NewStartingIndex;
-						int oldSourceIndex = e.OldStartingIndex;
-						if (newSourceIndex != oldSourceIndex)
-						{
-							_moving = true;
-							processRemoveSourceItem(oldSourceIndex);
-							string newSourceItem1 = _sourceAsList[newSourceIndex];
-							processAddSourceItem(newSourceItem1, newSourceIndex);
-							_moving = false;
-							setValue(_valueStringBuilder.ToString());
-						}
-						break;
-					case NotifyCollectionChangedAction.Reset:
-						initializeFromSource();
-						break;
-				}
-			}	
-			
-			_handledEventSender = null;
-			_handledEventArgs = null;
+                    setValue(_valueStringBuilder.ToString());
+                    break;
+                case NotifyCollectionChangedAction.Move:
+                    int newSourceIndex = e.NewStartingIndex;
+                    int oldSourceIndex = e.OldStartingIndex;
+                    if (newSourceIndex != oldSourceIndex)
+                    {
+                        _moving = true;
+                        processRemoveSourceItem(oldSourceIndex);
+                        string newSourceItem1 = _sourceAsList[newSourceIndex];
+                        processAddSourceItem(newSourceItem1, newSourceIndex);
+                        _moving = false;
+                        setValue(_valueStringBuilder.ToString());
+                    }
+
+                    break;
+                case NotifyCollectionChangedAction.Reset:
+                    initializeFromSource();
+                    break;
+            }
+
+            Utils.postHandleSourceCollectionChanged(
+                ref _handledEventSender,
+                ref _handledEventArgs);
 		}
+
+        internal override void addToUpstreamComputings(IComputingInternal computing)
+        {
+            (_source as IComputingInternal)?.AddDownstreamConsumedComputing(computing);
+        }
+
+        internal override void removeFromUpstreamComputings(IComputingInternal computing)        
+        {
+            (_source as IComputingInternal)?.RemoveDownstreamConsumedComputing(computing);
+        }
+
+        protected override void initialize()
+        {
+            Utils.initializeSourceScalar(_sourceScalar, ref _source, handleSourceScalarValueChanged);
+            initializeSeparator();
+        }
+
+        protected override void uninitialize()
+        {
+            Utils.uninitializeSourceScalar(_sourceScalar, handleSourceScalarValueChanged, ref _source);
+            if (_separatorScalar != null)
+                _separatorScalar.PropertyChanged -= handleSeparatorScalarValueChanged;
+        }
+
+        #region Implementation of ISourceIndexerPropertyTracker
+
+        void ISourceIndexerPropertyTracker.HandleSourcePropertyChanged(object sender, PropertyChangedEventArgs propertyChangedEventArgs)
+        {
+            Utils.HandleSourcePropertyChanged(propertyChangedEventArgs, ref _indexerPropertyChangedEventRaised);
+        }
+
+        #endregion
 
 		private void recalculateValue()
 		{
@@ -452,28 +427,6 @@ namespace ObservableComputations
 					_resultRangePositions.Remove(oldItemRangePosition.Index);					
 				}
 			}
-		}
-
-		~StringsConcatenating()
-		{
-			if (_sourceWeakNotifyCollectionChangedEventHandler != null)
-			{
-				_source.CollectionChanged -= _sourceWeakNotifyCollectionChangedEventHandler.Handle;			
-			}
-
-			if (_sourceScalarWeakPropertyChangedEventHandler != null)
-			{
-				_sourceScalar.PropertyChanged -= _sourceScalarWeakPropertyChangedEventHandler.Handle;			
-			}
-
-			if (_separatorScalarWeakPropertyChangedEventHandler != null)
-			{
-				_separatorScalar.PropertyChanged -= _separatorScalarWeakPropertyChangedEventHandler.Handle;			
-			}
-
-			if (_sourceAsINotifyPropertyChanged != null)
-				_sourceAsINotifyPropertyChanged.PropertyChanged -=
-					_sourceWeakPropertyChangedEventHandler.Handle;
 		}
 
 		public void ValidateConsistency()

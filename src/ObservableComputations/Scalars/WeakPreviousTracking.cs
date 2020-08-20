@@ -26,19 +26,12 @@ namespace ObservableComputations
 
 		private IReadScalar<TResult> _scalar;
 
-		private readonly PropertyChangedEventHandler _scalarPropertyChangedEventHandler;
-		private readonly WeakPropertyChangedEventHandler _scalarWeakPropertyChangedEventHandler;
 
 		[ObservableComputationsCall]
 		public WeakPreviousTracking(
 			IReadScalar<TResult> scalar)
 		{
 			_scalar = scalar;
-			_value = _scalar.Value;
-			_scalarPropertyChangedEventHandler = handleScalarPropertyChanged;
-			_scalarWeakPropertyChangedEventHandler =
-				new WeakPropertyChangedEventHandler(_scalarPropertyChangedEventHandler);
-			_scalar.PropertyChanged += _scalarWeakPropertyChangedEventHandler.Handle;
 		}
 
 		private void handleScalarPropertyChanged(object sender, PropertyChangedEventArgs e)
@@ -65,9 +58,46 @@ namespace ObservableComputations
 			_handledEventArgs = null;
 		}
 
+        #region Overrides of ScalarComputing<TResult>
+
+        protected override void initializeFromSource()
+        {
+        }
+
+        protected override void initialize()
+        {
+            _scalar.PropertyChanged += handleScalarPropertyChanged;
+            setValue(_scalar.Value);
+        }
+
+        protected override void uninitialize()
+        {
+            _scalar.PropertyChanged -= handleScalarPropertyChanged;
+            _previousValue = default;
+            raisePropertyChanged(Utils.PreviousValuePropertyChangedEventArgs);
+            setValue(default);
+            if (_isEverChanged)
+            {
+                _isEverChanged = false;
+                raisePropertyChanged(Utils.IsEverChangedPropertyChangedEventArgs);
+            }
+        }
+
+        internal override void addToUpstreamComputings(IComputingInternal computing)
+        {
+            (_scalar as IComputingInternal)?.AddDownstreamConsumedComputing(computing);
+        }
+
+        internal override void removeFromUpstreamComputings(IComputingInternal computing)
+        {
+            (_scalar as IComputingInternal)?.RemoveDownstreamConsumedComputing(computing);
+        }
+
+        #endregion
+
 		~WeakPreviousTracking()
 		{
-			_scalar.PropertyChanged -= _scalarWeakPropertyChangedEventHandler.Handle;
+			_scalar.PropertyChanged -= handleScalarPropertyChanged;
 		}
 	}
 }

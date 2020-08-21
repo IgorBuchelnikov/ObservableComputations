@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.Specialized;
+﻿using System.Collections.Generic;
 using System.ComponentModel;
 
 namespace ObservableComputations
@@ -22,12 +20,12 @@ namespace ObservableComputations
 
 		public int? LastChangesCountOnResume
 		{
-			get => _lastChangesCountOnResume;
+			get => _lastChangesToApplyOnResumeCount;
 			set
 			{
 				if (_lastChangesToApplyOnResumeCountScalar != null) throw new ObservableComputationsException("Modifying of LastChangesToApplyOnResumeCount property is controlled by LastChangesToApplyOnResumeCountScalar");
 
-				_lastChangesCountOnResume = value;
+				_lastChangesToApplyOnResumeCount = value;
 			}
 		}
 
@@ -58,7 +56,7 @@ namespace ObservableComputations
 
 			_isConsistent = false;
 
-			int startIndex = count - _lastChangesCountOnResume != null ? count = _lastChangesCountOnResume.Value : count;
+			int startIndex = count - _lastChangesToApplyOnResumeCount ?? count;
 
 			for (int i = 0; i < count; i++)
 			{
@@ -75,16 +73,16 @@ namespace ObservableComputations
 		}
 
 		Queue<DefferedScalarAction<TResult>> _defferedScalarActions = new Queue<DefferedScalarAction<TResult>>();
-		private int? _lastChangesCountOnResume;
+		private int? _lastChangesToApplyOnResumeCount;
 
 		[ObservableComputationsCall]
 		public ScalarPausing(
 			IReadScalar<TResult> scalar,
 			bool initialIsPaused = false,
-			int? lastChangesCountOnResume = null)
+			int? lastChangesToApplyOnResumeCount = null)
 		{
 			_isPaused = initialIsPaused;
-			_lastChangesCountOnResume = lastChangesCountOnResume;
+			_lastChangesToApplyOnResumeCount = lastChangesToApplyOnResumeCount;
 			_scalar = scalar;
 		}
 
@@ -92,10 +90,10 @@ namespace ObservableComputations
 		public ScalarPausing(
 			IReadScalar<TResult> scalar,
 			IReadScalar<bool> isPausedScalar,
-			int? lastChangesCountOnResume = null)
+			int? lastChangesToApplyOnResumeCount = null)
 		{
 			_isPausedScalar = isPausedScalar;
-			_lastChangesCountOnResume = lastChangesCountOnResume;
+			_lastChangesToApplyOnResumeCount = lastChangesToApplyOnResumeCount;
             _scalar = scalar;
 		}
 
@@ -136,7 +134,7 @@ namespace ObservableComputations
             if (_lastChangesToApplyOnResumeCountScalar != null)
             {
                 _lastChangesToApplyOnResumeCountScalar.PropertyChanged += handleLastChangesToApplyOnResumeCountScalarValueChanged;
-                _lastChangesCountOnResume = _lastChangesToApplyOnResumeCountScalar.Value;
+                _lastChangesToApplyOnResumeCount = _lastChangesToApplyOnResumeCountScalar.Value;
             }
         }
 
@@ -230,7 +228,7 @@ namespace ObservableComputations
 			_handledEventSender = sender;
 			_handledEventArgs = e;
 
-			_lastChangesCountOnResume = _lastChangesToApplyOnResumeCountScalar.Value;
+			_lastChangesToApplyOnResumeCount = _lastChangesToApplyOnResumeCountScalar.Value;
 
 			if (_resuming) resume();
 

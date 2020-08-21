@@ -69,6 +69,12 @@ namespace ObservableComputations
 
 
         #region Overrides of ScalarComputing<TResult>
+
+        protected override void initializeFromSource()
+        {
+
+        }
+
         protected override void initialize()
         {
             if (_equalityComparerScalar != null)

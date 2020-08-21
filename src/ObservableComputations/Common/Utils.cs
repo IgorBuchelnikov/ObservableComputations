@@ -3,7 +3,6 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.ComponentModel;
-using System.Linq;
 using System.Linq.Expressions;
 using System.Threading;
 using ObservableComputations.ExtentionMethods;
@@ -267,7 +266,8 @@ namespace ObservableComputations
             }
         }
 
-        internal static void uninitializeSourceScalar(IReadScalar<INotifyCollectionChanged> sourceScalar, PropertyChangedEventHandler sourceScalarOnPropertyChanged, ref INotifyCollectionChanged source)
+        internal static void uninitializeSourceScalar<TSource>(IReadScalar<INotifyCollectionChanged> sourceScalar, PropertyChangedEventHandler sourceScalarOnPropertyChanged, ref TSource source) 
+            where TSource : class
         {
             if (sourceScalar != null)
             {

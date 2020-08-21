@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.ComponentModel;
-using System.Threading;
 using ObservableComputations.ExtentionMethods;
 
 namespace ObservableComputations
@@ -228,11 +227,13 @@ namespace ObservableComputations
         internal override void addToUpstreamComputings(IComputingInternal computing)
         {
             (_source as IComputingInternal)?.AddDownstreamConsumedComputing(computing);
+            (_sourceScalar as IComputingInternal)?.AddDownstreamConsumedComputing(computing);
         }
 
         internal override void removeFromUpstreamComputings(IComputingInternal computing)        
         {
             (_source as IComputingInternal)?.RemoveDownstreamConsumedComputing(computing);
+            (_sourceScalar as IComputingInternal)?.RemoveDownstreamConsumedComputing(computing);
         }
 
         protected override void initialize()
@@ -265,5 +266,14 @@ namespace ObservableComputations
 			// ReSharper disable once PossibleNullReferenceException
 			if (!result.Equals(_value)) throw new ObservableComputationsException(this, "Consistency violation: Aggregating.3");
 		}
-	}
+
+        #region Implementation of ISourceIndexerPropertyTracker
+
+        void ISourceIndexerPropertyTracker.HandleSourcePropertyChanged(object sender, PropertyChangedEventArgs propertyChangedEventArgs)
+        {
+            Utils.HandleSourcePropertyChanged(propertyChangedEventArgs, ref _indexerPropertyChangedEventRaised);
+        }
+
+        #endregion
+    }
 }

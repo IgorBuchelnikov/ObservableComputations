@@ -29,48 +29,6 @@ namespace ObservableComputations
 		public event EventHandler PreCollectionChanged;
 		public event EventHandler PostCollectionChanged;
 
-		Dictionary<CollectionChangeAction, object> _lockModifyChangeActionsKeys;
-		private Dictionary<CollectionChangeAction, object> lockModifyChangeActionsKeys => _lockModifyChangeActionsKeys = 
-			_lockModifyChangeActionsKeys ?? new Dictionary<CollectionChangeAction, object>();
-
-		public void LockModifyChangeAction(CollectionChangeAction collectionChangeAction, object key)
-		{
-			if (key == null) throw new ArgumentNullException("key");
-
-			if (!lockModifyChangeActionsKeys.ContainsKey(collectionChangeAction))
-				lockModifyChangeActionsKeys[collectionChangeAction] = key;
-			else
-				throw new ObservableComputationsException(this,
-					$"Modifying of '{collectionChangeAction.ToString()}' change action is already locked. Unlock first.");
-		}
-
-		public void UnlockModifyChangeAction(CollectionChangeAction collectionChangeAction, object key)
-		{
-			if (key == null) throw new ArgumentNullException("key");
-
-			if (!lockModifyChangeActionsKeys.ContainsKey(collectionChangeAction))
-				throw new ObservableComputationsException(this,
-					"Modifying of '{collectionChangeAction.ToString()}' change action is not locked. Lock first.");
-
-			if (ReferenceEquals(lockModifyChangeActionsKeys[collectionChangeAction], key))
-				lockModifyChangeActionsKeys.Remove(collectionChangeAction);
-			else
-				throw new ObservableComputationsException(this,
-					"Wrong key to unlock modifying of '{collectionChangeAction.ToString()}' change action.");
-		}
-
-		public bool IsModifyChangeActionLocked(CollectionChangeAction collectionChangeAction)
-		{
-			return lockModifyChangeActionsKeys.ContainsKey(collectionChangeAction);
-		}
-
-		private void checkLockModifyChangeAction(CollectionChangeAction collectionChangeAction)
-		{
-			if (lockModifyChangeActionsKeys.ContainsKey(collectionChangeAction))
-				throw new ObservableComputationsException(this,
-					"Modifying of '{collectionChangeAction.ToString()}' change action is locked. Unlock first.");
-		}
-
 
 		private Action<int, TItem> _insertItemAction;
 		public Action<int, TItem> InsertItemAction
@@ -81,8 +39,6 @@ namespace ObservableComputations
 			{
 				if (_insertItemAction != value)
 				{
-					checkLockModifyChangeAction(CollectionChangeAction.InsertItem);
-
 					_insertItemAction = value;
 					OnPropertyChanged(Utils.InsertItemActionPropertyChangedEventArgs);
 				}
@@ -99,8 +55,6 @@ namespace ObservableComputations
 			{
 				if (_removeItemAction != value)
 				{
-					checkLockModifyChangeAction(CollectionChangeAction.RemoveItem);
-
 					_removeItemAction = value;
 					OnPropertyChanged(Utils.RemoveItemActionPropertyChangedEventArgs);
 				}
@@ -116,8 +70,6 @@ namespace ObservableComputations
 			{
 				if (_setItemAction != value)
 				{
-					checkLockModifyChangeAction(CollectionChangeAction.SetItem);
-
 					_setItemAction = value;
 					OnPropertyChanged(Utils.SetItemActionPropertyChangedEventArgs);
 				}
@@ -133,8 +85,6 @@ namespace ObservableComputations
 			{
 				if (_moveItemAction != value)
 				{
-					checkLockModifyChangeAction(CollectionChangeAction.MoveItem);
-
 					_moveItemAction = value;
 					OnPropertyChanged(Utils.MoveItemActionPropertyChangedEventArgs);
 				}
@@ -151,8 +101,6 @@ namespace ObservableComputations
 			{
 				if (_clearItemsAction != value)
 				{
-					checkLockModifyChangeAction(CollectionChangeAction.ClearItems);
-
 					_clearItemsAction = value;
 					OnPropertyChanged(Utils.ClearItemsActionPropertyChangedEventArgs);
 				}
@@ -437,10 +385,10 @@ namespace ObservableComputations
 		protected void reset()
 		{
 			ChangeMarkerField = !ChangeMarkerField;
-			this.CheckReentrancy();
-			this.OnPropertyChanged(Utils.CountPropertyChangedEventArgs);
-			this.OnPropertyChanged(Utils.IndexerPropertyChangedEventArgs);
-			this.OnCollectionChanged(Utils.ResetNotifyCollectionChangedEventArgs);
+			CheckReentrancy();
+			OnPropertyChanged(Utils.CountPropertyChangedEventArgs);
+			OnPropertyChanged(Utils.IndexerPropertyChangedEventArgs);
+			OnCollectionChanged(Utils.ResetNotifyCollectionChangedEventArgs);
 		}
 
         private Action _scalarValueChangedHandlerAction;
@@ -585,14 +533,5 @@ namespace ObservableComputations
         internal abstract void addToUpstreamComputings(IComputingInternal computing);
         internal abstract void removeFromUpstreamComputings(IComputingInternal computing);
     }
-
-	public enum CollectionChangeAction
-	{
-		InsertItem,
-		RemoveItem,
-		SetItem,
-		MoveItem,
-		ClearItems,
-	}
 
 }

@@ -23,17 +23,12 @@ namespace ObservableComputations
 		private THolder _propertyHolder;
 		private Expression<Func<TResult>> _propertyExpression;
 
-		// ReSharper disable once FieldCanBeMadeReadOnly.Local
-		private PropertyChangedEventHandler _propertyHolderPropertyChangedEventHandler;
-
 		private IDispatcher _sourceDispatcher;
 		private IDispatcher _destinationDispatcher;
 		private IPropertySourceDispatcher _propertySourceDispatcher;
 
 		private Action<THolder, TResult> _setter;
 		private Func<THolder, TResult> _getter;
-
-		private TResult _value;
 
 		[ObservableComputationsCall]
 		public PropertyDispatching(
@@ -62,7 +57,7 @@ namespace ObservableComputations
 
         private void lockChangeSetValueHandle()
         {
-            this.PropertyChanged += (sender, args) =>
+            PropertyChanged += (sender, args) =>
             {
                 if (args == Utils.SetValueActionPropertyChangedEventArgs)
                     throw new ObjectDisposedException(

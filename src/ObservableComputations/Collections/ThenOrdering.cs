@@ -5,8 +5,6 @@ using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Linq;
 using System.Linq.Expressions;
-using System.Threading;
-using ObservableComputations.ExtentionMethods;
 using INotifyPropertyChanged = System.ComponentModel.INotifyPropertyChanged;
 
 namespace ObservableComputations
@@ -35,8 +33,8 @@ namespace ObservableComputations
 
 		public Func<TSourceItem, TOrderingValue> OrderingValueSelectorFunc => _orderingValueSelectorFunc;
 
-		public ReadOnlyCollection<INotifyCollectionChanged> SourceCollections => new ReadOnlyCollection<INotifyCollectionChanged>(new []{Source});
-		public ReadOnlyCollection<IReadScalar<INotifyCollectionChanged>> SourceCollectionScalars => new ReadOnlyCollection<IReadScalar<INotifyCollectionChanged>>(new []{SourceScalar});
+		public ReadOnlyCollection<INotifyCollectionChanged> SourceCollections => new ReadOnlyCollection<INotifyCollectionChanged>(new INotifyCollectionChanged[]{Source});
+		public ReadOnlyCollection<IReadScalar<INotifyCollectionChanged>> SourceCollectionScalars => new ReadOnlyCollection<IReadScalar<INotifyCollectionChanged>>(new IReadScalar<INotifyCollectionChanged>[]{SourceScalar});
 
 
 		internal IOrderingInternal<TSourceItem> _source;
@@ -82,7 +80,6 @@ namespace ObservableComputations
 
         private int _orderingValueSelectorExpressionСallCount;
         private List<IComputingInternal> _nestedComputings;
-        private ICanProcessSourceItemChange _thisAsCanProcessSourceItemChange;
 
         private void initializeComparer()
         {
@@ -226,8 +223,6 @@ namespace ObservableComputations
                 ref _orderingValueSelectorExpressionСallCount, 
                 ref _orderingValueSelectorFunc, 
                 ref _nestedComputings);
-
-            _thisAsCanProcessSourceItemChange = this;
 		}
 
         protected override void initialize()
@@ -259,11 +254,17 @@ namespace ObservableComputations
         internal override void addToUpstreamComputings(IComputingInternal computing)
         {
             (_source as IComputingInternal)?.AddDownstreamConsumedComputing(computing);
+            (_sourceScalar as IComputingInternal)?.AddDownstreamConsumedComputing(computing);
+            (_sortDirectionScalar as IComputingInternal)?.AddDownstreamConsumedComputing(computing);
+            (_comparerScalar as IComputingInternal)?.AddDownstreamConsumedComputing(computing);
         }
 
         internal override void removeFromUpstreamComputings(IComputingInternal computing)        
         {
             (_source as IComputingInternal)?.RemoveDownstreamConsumedComputing(computing);
+            (_sourceScalar as IComputingInternal)?.RemoveDownstreamConsumedComputing(computing);
+            (_sortDirectionScalar as IComputingInternal)?.RemoveDownstreamConsumedComputing(computing);
+            (_comparerScalar as IComputingInternal)?.RemoveDownstreamConsumedComputing(computing);
         }
 
 		protected override void initializeFromSource()
@@ -911,7 +912,8 @@ namespace ObservableComputations
 
 						RangePosition registerNewRangePosition()
 						{
-							rangePosition.Length = equalOrderingValueItemsCount;
+                            // ReSharper disable once PossibleNullReferenceException
+                            rangePosition.Length = equalOrderingValueItemsCount;
 							rangePosition = _equalOrderingValueRangePositions.Add(1);
 							_orderedItemInfos[orderedIndex].RangePosition = rangePosition;
 							equalOrderingValueItemsCount = 1;
@@ -950,7 +952,8 @@ namespace ObservableComputations
 				}
 
 				if (count > 0)
-					rangePosition.Length = equalOrderingValueItemsCount;
+                    // ReSharper disable once PossibleNullReferenceException
+                    rangePosition.Length = equalOrderingValueItemsCount;
 			}
 		}
 
@@ -1064,7 +1067,7 @@ namespace ObservableComputations
             IOrderingInternal<TSourceItem> source = (IOrderingInternal<TSourceItem>) _sourceScalar.getValue(_source);
 			source.ValidateConsistency();
 
-			IOrdering<TSourceItem > orderingSource = (IOrdering<TSourceItem>)source;
+			IOrdering<TSourceItem > orderingSource = source;
 
 			if (_itemInfos.Count != Count) throw new ObservableComputationsException(this, "Consistency violation: ThenOrdering.1");
 
@@ -1079,7 +1082,6 @@ namespace ObservableComputations
 				_equalOrderingValueRangePositions.ValidateConsistency();
 			}
 
-			int orderingRangeIndex = 0;
 			List<TSourceItem> copy = this.ToList();	
 			List<TSourceItem> buffer = new List<TSourceItem>();	
 			for (int sourceIndex = 0; sourceIndex < source.Count; sourceIndex++)
@@ -1138,7 +1140,6 @@ namespace ObservableComputations
 
 
 						buffer.Clear();
-						orderingRangeIndex++;
 						buffer.Add(source[sourceIndex]);
 					}
 				}
@@ -1235,7 +1236,8 @@ namespace ObservableComputations
 						}
 						else				
 						{
-							if (rangePosition.Length != equalOrderingValueItemsCount)
+                            // ReSharper disable once PossibleNullReferenceException
+                            if (rangePosition.Length != equalOrderingValueItemsCount)
 								throw new ObservableComputationsException(this, "Consistency violation: ThenOrdering.15");
 
 							if (rangePosition.Index != rangePositionIndex)

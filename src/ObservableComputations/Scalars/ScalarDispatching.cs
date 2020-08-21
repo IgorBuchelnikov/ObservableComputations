@@ -1,5 +1,4 @@
-﻿using System;
-using System.ComponentModel;
+﻿using System.ComponentModel;
 
 namespace ObservableComputations
 {
@@ -13,8 +12,6 @@ namespace ObservableComputations
 		private IDispatcher _sourceDispatcher;
 
 		private IReadScalar<TResult> _scalar;
-
-		private PropertyChangedEventHandler _scalarPropertyChangedEventHandler;
 
 		[ObservableComputationsCall]
 		public ScalarDispatching(

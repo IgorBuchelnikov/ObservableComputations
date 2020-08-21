@@ -35,12 +35,10 @@ namespace ObservableComputations
 		public ReadOnlyCollection<INotifyCollectionChanged> SourceCollections => new ReadOnlyCollection<INotifyCollectionChanged>(new []{Source});
 		public ReadOnlyCollection<IReadScalar<INotifyCollectionChanged>> SourceCollectionScalars => new ReadOnlyCollection<IReadScalar<INotifyCollectionChanged>>(new []{SourceScalar});
 
-		private PropertyChangedEventHandler _sourceScalarPropertyChangedEventHandler;
-
 		// ReSharper disable once StaticMemberInGenericType
-		private static readonly Func<int, bool> _checkCompareResultPositive = compareResult => compareResult > 0;
+		private static readonly Func<int, bool> __checkCompareResultPositive = compareResult => compareResult > 0;
 		// ReSharper disable once StaticMemberInGenericType
-		private static readonly Func<int, bool> _checkCompareResultNegative = compareResult => compareResult < 0;
+		private static readonly Func<int, bool> __checkCompareResultNegative = compareResult => compareResult < 0;
 		private readonly Func<int, bool> _checkCompareResult; 
 		private readonly Func<int, bool> _antiCheckCompareResult;
 
@@ -58,7 +56,6 @@ namespace ObservableComputations
 		private TSourceItem _defaultValue;
 		private bool _isDefaulted;
 
-		private PropertyChangedEventHandler _sourcePropertyChangedEventHandler;
 		private bool _indexerPropertyChangedEventRaised;
 		private INotifyPropertyChanged _sourceAsINotifyPropertyChanged;
 
@@ -136,12 +133,12 @@ namespace ObservableComputations
 			switch (_mode)
 			{
 				case MinimazingOrMaximazingMode.Maximazing:
-					_checkCompareResult = _checkCompareResultPositive;
-					_antiCheckCompareResult = _checkCompareResultNegative;
+					_checkCompareResult = __checkCompareResultPositive;
+					_antiCheckCompareResult = __checkCompareResultNegative;
 					break;
 				case MinimazingOrMaximazingMode.Minimazing:
-					_checkCompareResult = _checkCompareResultNegative;
-					_antiCheckCompareResult = _checkCompareResultPositive;
+					_checkCompareResult = __checkCompareResultNegative;
+					_antiCheckCompareResult = __checkCompareResultPositive;
 					break;
 			}
 		}
@@ -374,11 +371,15 @@ namespace ObservableComputations
         internal override void addToUpstreamComputings(IComputingInternal computing)
         {
             (_source as IComputingInternal)?.AddDownstreamConsumedComputing(computing);
+            (_sourceScalar as IComputingInternal)?.AddDownstreamConsumedComputing(computing);
+            (_comparerScalar as IComputingInternal)?.AddDownstreamConsumedComputing(computing);
         }
 
         internal override void removeFromUpstreamComputings(IComputingInternal computing)        
         {
             (_source as IComputingInternal)?.RemoveDownstreamConsumedComputing(computing);
+            (_sourceScalar as IComputingInternal)?.RemoveDownstreamConsumedComputing(computing);
+            (_comparerScalar as IComputingInternal)?.RemoveDownstreamConsumedComputing(computing);
         }
 
         protected override void initialize()

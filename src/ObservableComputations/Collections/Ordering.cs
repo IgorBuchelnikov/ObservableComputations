@@ -553,11 +553,17 @@ namespace ObservableComputations
         internal override void addToUpstreamComputings(IComputingInternal computing)
         {
             (_source as IComputingInternal)?.AddDownstreamConsumedComputing(computing);
+            (_sourceScalar as IComputingInternal)?.AddDownstreamConsumedComputing(computing);
+            (_sortDirectionScalar as IComputingInternal)?.AddDownstreamConsumedComputing(computing);
+            (_comparerScalar as IComputingInternal)?.AddDownstreamConsumedComputing(computing);
         }
 
         internal override void removeFromUpstreamComputings(IComputingInternal computing)        
         {
             (_source as IComputingInternal)?.RemoveDownstreamConsumedComputing(computing);
+            (_sourceScalar as IComputingInternal)?.RemoveDownstreamConsumedComputing(computing);
+            (_sortDirectionScalar as IComputingInternal)?.RemoveDownstreamConsumedComputing(computing);
+            (_comparerScalar as IComputingInternal)?.RemoveDownstreamConsumedComputing(computing);
         }
 
 		private void expressionWatcher_OnValueChanged(ExpressionWatcher expressionWatcher, object sender, EventArgs eventArgs)

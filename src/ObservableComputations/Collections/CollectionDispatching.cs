@@ -23,7 +23,6 @@ namespace ObservableComputations
 
 		private bool _sourceInitialized;
 
-		private PropertyChangedEventHandler _sourcePropertyChangedEventHandler;
 		private bool _indexerPropertyChangedEventRaised;
 		private INotifyPropertyChanged _sourceAsINotifyPropertyChanged;
 
@@ -105,7 +104,7 @@ namespace ObservableComputations
 		{
 			int originalCount = _items.Count;
 
-			if (_sourceInitialized != null)
+			if (_sourceInitialized)
 			{
 				if (_destinationDispatcher != null) _destinationDispatcher.Invoke(baseClearItems, this);
 				else _collectionDestinationDispatcher.Invoke(baseClearItems, this, NotifyCollectionChangedAction.Reset, null, null, 0, 0);
@@ -258,21 +257,23 @@ namespace ObservableComputations
         internal override void addToUpstreamComputings(IComputingInternal computing)
         {
             (_source as IComputingInternal)?.AddDownstreamConsumedComputing(computing);
+            (_sourceScalar as IComputingInternal)?.AddDownstreamConsumedComputing(computing);
         }
 
         internal override void removeFromUpstreamComputings(IComputingInternal computing)        
         {
             (_source as IComputingInternal)?.RemoveDownstreamConsumedComputing(computing);
+            (_sourceScalar as IComputingInternal)?.RemoveDownstreamConsumedComputing(computing);
         }
 
         protected override void initialize()
         {
-            Utils.initializeSourceScalar(_sourceScalar, ref _source, scalarValueChangedHandler);
+            Utils.initializeSourceScalar(_sourceScalar, ref _source, handleSourceScalarValueChanged);
         }
 
         protected override void uninitialize()
         {
-            Utils.uninitializeSourceScalar(_sourceScalar, scalarValueChangedHandler, ref _source);
+            Utils.uninitializeSourceScalar(_sourceScalar, handleSourceScalarValueChanged, ref _source);
         }
 	}
 }

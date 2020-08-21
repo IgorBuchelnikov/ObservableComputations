@@ -46,50 +46,6 @@ namespace ObservableComputations
 
         private ICanProcessSourceItemChange _thisAsCanProcessSourceKeyItemChange;
 
-		Dictionary<HashSetChangeAction, object> _lockModifyChangeActionsKeys;
-        // ReSharper disable once InconsistentNaming
-        private Dictionary<HashSetChangeAction, object> lockModifyChangeActionsKeys => _lockModifyChangeActionsKeys = 
-			_lockModifyChangeActionsKeys ?? new Dictionary<HashSetChangeAction, object>();
-
-		public void LockModifyChangeAction(HashSetChangeAction hashSetChangeAction, object key)
-		{
-			if (key == null) throw new ArgumentNullException("key");
-
-			if (!lockModifyChangeActionsKeys.ContainsKey(hashSetChangeAction))
-				lockModifyChangeActionsKeys[hashSetChangeAction] = key;
-			else
-				throw new ObservableComputationsException(this,
-					$"Modifying of '{hashSetChangeAction.ToString()}' change action is already locked. Unlock first.");
-		}
-
-		public void UnlockModifyChangeAction(HashSetChangeAction hashSetChangeAction, object key)
-		{
-			if (key == null) throw new ArgumentNullException("key");
-
-			if (!lockModifyChangeActionsKeys.ContainsKey(hashSetChangeAction))
-				throw new ObservableComputationsException(this,
-					"Modifying of '{hashSetChangeAction.ToString()}' change action is not locked. Lock first.");
-
-			if (ReferenceEquals(lockModifyChangeActionsKeys[hashSetChangeAction], key))
-				lockModifyChangeActionsKeys.Remove(hashSetChangeAction);
-			else
-				throw new ObservableComputationsException(this,
-					"Wrong key to unlock modifying of '{hashSetChangeAction.ToString()}' change action.");
-		}
-
-		public bool IsModifyChangeActionLocked(HashSetChangeAction hashSetChangeAction)
-		{
-			return lockModifyChangeActionsKeys.ContainsKey(hashSetChangeAction);
-		}
-
-        // ReSharper disable once ParameterOnlyUsedForPreconditionCheck.Local
-        private void checkLockModifyChangeAction(HashSetChangeAction hashSetChangeAction)
-		{
-			if (lockModifyChangeActionsKeys.ContainsKey(hashSetChangeAction))
-				throw new ObservableComputationsException(this,
-					"Modifying of '{hashSetChangeAction.ToString()}' change action is locked. Unlock first.");
-		}
-
 
 		private Action<TKey> _addItemAction;
 		public Action<TKey> AddItemAction
@@ -100,8 +56,6 @@ namespace ObservableComputations
 			{
 				if (_addItemAction != value)
 				{
-					checkLockModifyChangeAction(HashSetChangeAction.AddItem);
-
 					_addItemAction = value;
 					onPropertyChanged(Utils.AddItemActionPropertyChangedEventArgs);
 				}
@@ -118,8 +72,6 @@ namespace ObservableComputations
 			{
 				if (_removeItemFunc != value)
 				{
-					checkLockModifyChangeAction(HashSetChangeAction.RemoveItem);
-
 					_removeItemFunc = value;
 					onPropertyChanged(Utils.RemoveItemFuncPropertyChangedEventArgs);
 				}
@@ -136,8 +88,6 @@ namespace ObservableComputations
 			{
 				if (_clearItemsAction != value)
 				{
-					checkLockModifyChangeAction(HashSetChangeAction.ClearItems);
-
 					_clearItemsAction = value;
 					onPropertyChanged(Utils.ClearItemsActionPropertyChangedEventArgs);
 				}
@@ -629,7 +579,7 @@ namespace ObservableComputations
         void IComputingInternal.Initialize()
         {
             initializeEqualityComparer();
-            Utils.initializeSourceScalar(_sourceScalar, ref _source, scalarValueChangedHandler);
+            Utils.initializeSourceScalar(_sourceScalar, ref _source, handleSourceScalarValueChanged);
             Utils.initializeNestedComputings(_keyNestedComputings, this);
             _hashSet = new HashSet<TKey>(/*Utils.getCapacity(_sourceScalar, _source),*/ _equalityComparer);
         }

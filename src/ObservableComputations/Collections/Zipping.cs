@@ -31,8 +31,6 @@ namespace ObservableComputations
 			{
 				if (_zipPairSetLeftItemAction != value)
 				{
-					checkLockModifyZipPairChangeAction(ZipPairAction.SetLeftItem);
-
 					_zipPairSetLeftItemAction = value;
 					OnPropertyChanged(Utils.ZipPairSetLeftItemActionPropertyChangedEventArgs);
 				}
@@ -46,8 +44,6 @@ namespace ObservableComputations
 			{
 				if (_zipPairSetRightItemAction != value)
 				{
-					checkLockModifyZipPairChangeAction(ZipPairAction.SetRightItem);
-
 					_zipPairSetRightItemAction = value;
 					OnPropertyChanged(Utils.ZipPairSetRightItemActionPropertyChangedEventArgs);
 				}
@@ -55,53 +51,8 @@ namespace ObservableComputations
 		}
 
 
-		Dictionary<ZipPairAction, object> _lockModifyZipPairChangeActionsKeys;
-		private Dictionary<ZipPairAction, object> lockModifyZipPairChangeActionsKeys => _lockModifyZipPairChangeActionsKeys = 
-			_lockModifyZipPairChangeActionsKeys ?? new Dictionary<ZipPairAction, object>();
-
-		public void LockModifyZipPairChangeAction(ZipPairAction collectionChangeAction, object key)
-		{
-			if (key == null) throw new ArgumentNullException("key");
-
-			if (!lockModifyZipPairChangeActionsKeys.ContainsKey(collectionChangeAction))
-				lockModifyZipPairChangeActionsKeys[collectionChangeAction] = key;
-			else
-				throw new ObservableComputationsException(this,
-					$"Modifying of '{collectionChangeAction.ToString()}' zipPair change action is already locked. Unlock first.");
-		}
-
-		public void UnlockModifyZipPairChangeAction(ZipPairAction collectionChangeAction, object key)
-		{
-			if (key == null) throw new ArgumentNullException("key");
-
-			if (!lockModifyZipPairChangeActionsKeys.ContainsKey(collectionChangeAction))
-				throw new ObservableComputationsException(this,
-					"Modifying of '{collectionChangeAction.ToString()}' zipPair change action is not locked. Lock first.");
-
-			if (ReferenceEquals(lockModifyZipPairChangeActionsKeys[collectionChangeAction], key))
-				lockModifyZipPairChangeActionsKeys.Remove(collectionChangeAction);
-			else
-				throw new ObservableComputationsException(this,
-					"Wrong key to unlock modifying of '{collectionChangeAction.ToString()}' zipPair change action.");
-		}
-
-		public bool IsModifyZipPairChangeActionLocked(ZipPairAction collectionChangeAction)
-		{
-			return lockModifyZipPairChangeActionsKeys.ContainsKey(collectionChangeAction);
-		}
-
-		private void checkLockModifyZipPairChangeAction(ZipPairAction collectionChangeAction)
-		{
-			if (lockModifyZipPairChangeActionsKeys.ContainsKey(collectionChangeAction))
-				throw new ObservableComputationsException(this,
-					"Modifying of '{collectionChangeAction.ToString()}' zipPair change action is locked. Unlock first.");
-		}
-
-		private PropertyChangedEventHandler _leftSourceScalarPropertyChangedEventHandler;
-
 		private IList<TLeftSourceItem> _leftSourceAsList;
 
-		private PropertyChangedEventHandler _rightSourceScalarPropertyChangedEventHandler;
 
 		private IList<TRightSourceItem> _rightSourceAsList;
 
@@ -113,11 +64,9 @@ namespace ObservableComputations
 		private INotifyCollectionChanged _leftSource;
 		private INotifyCollectionChanged _rightSource;
 
-		private PropertyChangedEventHandler _leftSourcePropertyChangedEventHandler;
 		private bool _leftSourceIndexerPropertyChangedEventRaised;
 		private INotifyPropertyChanged _leftSourceAsINotifyPropertyChanged;
 
-		private PropertyChangedEventHandler _rigthSourcePropertyChangedEventHandler;
 		private bool _rigthtSourceIndexerPropertyChangedEventRaised;
 		private INotifyPropertyChanged _rigthSourceAsINotifyPropertyChanged;
 
@@ -555,12 +504,16 @@ namespace ObservableComputations
         {
             (_leftSource as IComputingInternal)?.AddDownstreamConsumedComputing(computing);
             (_rightSource as IComputingInternal)?.AddDownstreamConsumedComputing(computing);
+            (_leftSourceScalar as IComputingInternal)?.AddDownstreamConsumedComputing(computing);
+            (_rightSourceScalar as IComputingInternal)?.AddDownstreamConsumedComputing(computing);
         }
 
         internal override void removeFromUpstreamComputings(IComputingInternal computing)        
         {
             (_leftSource as IComputingInternal)?.RemoveDownstreamConsumedComputing(computing);
             (_rightSource as IComputingInternal)?.RemoveDownstreamConsumedComputing(computing);
+            (_leftSourceScalar as IComputingInternal)?.RemoveDownstreamConsumedComputing(computing);
+            (_rightSourceScalar as IComputingInternal)?.RemoveDownstreamConsumedComputing(computing);
         }
 
         protected override void initialize()

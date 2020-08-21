@@ -5,8 +5,6 @@ using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Linq;
 using System.Linq.Expressions;
-using System.Threading;
-using ObservableComputations.ExtentionMethods;
 
 namespace ObservableComputations
 {
@@ -37,8 +35,6 @@ namespace ObservableComputations
 			{
 				if (_insertItemIntoGroupAction != value)
 				{
-					checkLockModifyGroupChangeAction(CollectionChangeAction.InsertItem);
-
 					_insertItemIntoGroupAction = value;
 					OnPropertyChanged(Utils.InsertItemIntoGroupActionPropertyChangedEventArgs);
 				}
@@ -53,8 +49,6 @@ namespace ObservableComputations
 			{
 				if (_removeItemFromGroupAction != value)
 				{
-					checkLockModifyGroupChangeAction(CollectionChangeAction.RemoveItem);
-
 					_removeItemFromGroupAction = value;
 					OnPropertyChanged(Utils.RemoveItemFromGroupActionPropertyChangedEventArgs);
 				}
@@ -68,8 +62,6 @@ namespace ObservableComputations
 			{
 				if (_moveItemInGroupAction != value)
 				{
-					checkLockModifyGroupChangeAction(CollectionChangeAction.MoveItem);
-
 					_moveItemInGroupAction = value;
 					OnPropertyChanged(Utils.MoveItemInGroupActionPropertyChangedEventArgs);
 				}
@@ -83,8 +75,6 @@ namespace ObservableComputations
 			{
 				if (_clearGroupItemsAction != value)
 				{
-					checkLockModifyGroupChangeAction(CollectionChangeAction.ClearItems);
-
 					_clearGroupItemsAction = value;
 					OnPropertyChanged(Utils.ClearGroupItemsActionPropertyChangedEventArgs);
 				}
@@ -98,55 +88,10 @@ namespace ObservableComputations
 			{
 				if (_setGroupItemAction != value)
 				{
-					checkLockModifyGroupChangeAction(CollectionChangeAction.SetItem);
-
 					_setGroupItemAction = value;
 					OnPropertyChanged(Utils.SetGroupItemActionPropertyChangedEventArgs);
 				}
 			}
-		}
-
-
-		Dictionary<CollectionChangeAction, object> _lockModifyGroupChangeActionsKeys;
-		private Dictionary<CollectionChangeAction, object> lockModifyGroupChangeActionsKeys => _lockModifyGroupChangeActionsKeys = 
-			_lockModifyGroupChangeActionsKeys ?? new Dictionary<CollectionChangeAction, object>();
-
-		public void LockModifyGroupChangeAction(CollectionChangeAction collectionChangeAction, object key)
-		{
-			if (key == null) throw new ArgumentNullException("key");
-
-			if (!lockModifyGroupChangeActionsKeys.ContainsKey(collectionChangeAction))
-				lockModifyGroupChangeActionsKeys[collectionChangeAction] = key;
-			else
-				throw new ObservableComputationsException(this,
-					$"Modifying of '{collectionChangeAction.ToString()}' group change action is already locked. Unlock first.");
-		}
-
-		public void UnlockModifyGroupChangeAction(CollectionChangeAction collectionChangeAction, object key)
-		{
-			if (key == null) throw new ArgumentNullException("key");
-
-			if (!lockModifyGroupChangeActionsKeys.ContainsKey(collectionChangeAction))
-				throw new ObservableComputationsException(this,
-					"Modifying of '{collectionChangeAction.ToString()}' group change action is not locked. Lock first.");
-
-			if (ReferenceEquals(lockModifyGroupChangeActionsKeys[collectionChangeAction], key))
-				lockModifyGroupChangeActionsKeys.Remove(collectionChangeAction);
-			else
-				throw new ObservableComputationsException(this,
-					"Wrong key to unlock modifying of '{collectionChangeAction.ToString()}' group change action.");
-		}
-
-		public bool IsModifyGroupChangeActionLocked(CollectionChangeAction collectionChangeAction)
-		{
-			return lockModifyGroupChangeActionsKeys.ContainsKey(collectionChangeAction);
-		}
-
-		private void checkLockModifyGroupChangeAction(CollectionChangeAction collectionChangeAction)
-		{
-			if (lockModifyGroupChangeActionsKeys.ContainsKey(collectionChangeAction))
-				throw new ObservableComputationsException(this,
-					"Modifying of '{collectionChangeAction.ToString()}' group change action is locked. Unlock first.");
 		}
 
 
@@ -253,8 +198,8 @@ namespace ObservableComputations
             Utils.construct(
                 keySelectorExpression, 
                 sourceCapacity, 
-                ref _itemInfos, 
-                ref _sourcePositions, 
+                out _itemInfos, 
+                out _sourcePositions, 
                 ref _keySelectorExpressionOriginal, 
                 ref _keySelectorExpression, 
                 ref _keySelectorExpressionContainsParametrizedObservableComputationsCalls, 
@@ -264,7 +209,8 @@ namespace ObservableComputations
                 ref _nestedComputings);
 
 			_initialResultCapacity = resultCapacity;
-		}
+            _thisAsCanProcessSourceItemChange = this;
+        }
 
 
 		private void initializeEqualityComparer()
@@ -463,11 +409,15 @@ namespace ObservableComputations
         internal override void addToUpstreamComputings(IComputingInternal computing)
         {
             (_source as IComputingInternal)?.AddDownstreamConsumedComputing(computing);
+            (_sourceScalar as IComputingInternal)?.AddDownstreamConsumedComputing(computing);
+            (_equalityComparerScalar as IComputingInternal)?.AddDownstreamConsumedComputing(computing);
         }
 
         internal override void removeFromUpstreamComputings(IComputingInternal computing)        
         {
             (_source as IComputingInternal)?.RemoveDownstreamConsumedComputing(computing);
+            (_sourceScalar as IComputingInternal)?.RemoveDownstreamConsumedComputing(computing);
+            (_equalityComparerScalar as IComputingInternal)?.RemoveDownstreamConsumedComputing(computing);
         }
 
 		private void expressionWatcher_OnValueChanged(ExpressionWatcher expressionWatcher, object sender, EventArgs eventArgs)

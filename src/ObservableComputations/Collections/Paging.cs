@@ -584,11 +584,17 @@ namespace ObservableComputations
         internal override void addToUpstreamComputings(IComputingInternal computing)
         {
             (_source as IComputingInternal)?.AddDownstreamConsumedComputing(computing);
+            (_sourceScalar as IComputingInternal)?.AddDownstreamConsumedComputing(computing);
+            (_pageSizeScalar as IComputingInternal)?.AddDownstreamConsumedComputing(computing);
+            (_currentPageScalar as IComputingInternal)?.AddDownstreamConsumedComputing(computing);
         }
 
         internal override void removeFromUpstreamComputings(IComputingInternal computing)        
         {
             (_source as IComputingInternal)?.RemoveDownstreamConsumedComputing(computing);
+            (_sourceScalar as IComputingInternal)?.RemoveDownstreamConsumedComputing(computing);
+            (_pageSizeScalar as IComputingInternal)?.RemoveDownstreamConsumedComputing(computing);
+            (_currentPageScalar as IComputingInternal)?.RemoveDownstreamConsumedComputing(computing);
         }
 
         protected override void initialize()

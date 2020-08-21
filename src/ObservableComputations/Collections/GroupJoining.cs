@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
-using System.ComponentModel;
 using System.Linq;
 using System.Linq.Expressions;
 
@@ -580,12 +579,16 @@ namespace ObservableComputations
         internal override void addToUpstreamComputings(IComputingInternal computing)
         {
             (_outerSource as IComputingInternal)?.AddDownstreamConsumedComputing(computing);
+            (_outerSourceScalar as IComputingInternal)?.AddDownstreamConsumedComputing(computing);
+            (_equalityComparerScalar as IComputingInternal)?.AddDownstreamConsumedComputing(computing);
             ((IComputingInternal) _grouping).AddDownstreamConsumedComputing(computing);
         }
 
         internal override void removeFromUpstreamComputings(IComputingInternal computing)        
         {
             (_outerSource as IComputingInternal)?.RemoveDownstreamConsumedComputing(computing);
+            (_outerSourceScalar as IComputingInternal)?.RemoveDownstreamConsumedComputing(computing);
+            (_equalityComparerScalar as IComputingInternal)?.RemoveDownstreamConsumedComputing(computing);
             ((IComputingInternal) _grouping).RemoveDownstreamConsumedComputing(computing);
         }
 
@@ -701,7 +704,7 @@ namespace ObservableComputations
 			{
                 var currentThread = Utils.startComputingExecutingUserCode(out var computing, ref _userCodeIsCalledFrom, this);
 				TKey result = getValue();
-                Utils.endComputingExecutingUserCode(computing, currentThread, ref _userCodeIsCalledFrom);;
+                Utils.endComputingExecutingUserCode(computing, currentThread, ref _userCodeIsCalledFrom);
 				return result;
 			}
 

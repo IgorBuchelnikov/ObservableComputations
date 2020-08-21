@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
-using System.ComponentModel;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
@@ -10,7 +9,7 @@ using ObservableComputations.ExtentionMethods;
 
 namespace ObservableComputations
 {
-    internal interface IFiltering<TItem> : IComputingInternal, ICanProcessSourceItemChange
+    internal interface IFiltering<TItem> : ICanProcessSourceItemChange
     {
         bool ApplyPredicate(int sourceIndex);
 
@@ -19,7 +18,7 @@ namespace ObservableComputations
         TItem GetItem(int sourceIndex);
     }
 
-    public class Filtering<TSourceItem> : CollectionComputing<TSourceItem>, IHasSourceCollections, ICanProcessSourceItemChange, IFiltering<TSourceItem>
+    public class Filtering<TSourceItem> : CollectionComputing<TSourceItem>, IHasSourceCollections, IFiltering<TSourceItem>
     {
 		// ReSharper disable once MemberCanBePrivate.Global
 		public IReadScalar<INotifyCollectionChanged> SourceScalar => _sourceScalar;
@@ -383,11 +382,13 @@ namespace ObservableComputations
         internal override void addToUpstreamComputings(IComputingInternal computing)
         {
             (_source as IComputingInternal)?.AddDownstreamConsumedComputing(computing);
+            (_sourceScalar as IComputingInternal)?.AddDownstreamConsumedComputing(computing);
         }
 
         internal override void removeFromUpstreamComputings(IComputingInternal computing)        
         {
             (_source as IComputingInternal)?.RemoveDownstreamConsumedComputing(computing);
+            (_sourceScalar as IComputingInternal)?.RemoveDownstreamConsumedComputing(computing);
         }
 
         void IFiltering<TSourceItem>.expressionWatcher_OnValueChanged(ExpressionWatcher expressionWatcher, object sender, EventArgs eventArgs)
@@ -711,14 +712,14 @@ namespace ObservableComputations
                         oldFilteredIndex,
                         newFilteredIndex1);
 
-                    FilteringUtils.modifyNextFilteredItemIndex(oldSourceIndex,
+                    modifyNextFilteredItemIndex(oldSourceIndex,
                         itemInfoOfOldSourceIndex.NextFilteredItemPosition, filteringItemInfos);
 
                     sourcePositions.Move(oldSourceIndex, newSourceIndex1);
 
                     itemInfoOfOldSourceIndex.NextFilteredItemPosition = nextPosition1;
 
-                    FilteringUtils.modifyNextFilteredItemIndex(newSourceIndex1, newPosition1, filteringItemInfos);
+                    modifyNextFilteredItemIndex(newSourceIndex1, newPosition1, filteringItemInfos);
 
                     current.baseMoveItem(oldFilteredIndex, newFilteredIndex1);
                 }
@@ -752,7 +753,7 @@ namespace ObservableComputations
                     int newIndex = itemInfo.NextFilteredItemPosition.Index;
                     itemInfo.FilteredPosition = filteredPositions.Insert(newIndex);
                     newIndex = itemInfo.FilteredPosition.Index;
-                    FilteringUtils.modifyNextFilteredItemIndex(sourceIndex, itemInfo.FilteredPosition, filteringItemInfos);
+                    modifyNextFilteredItemIndex(sourceIndex, itemInfo.FilteredPosition, filteringItemInfos);
                     current.baseInsertItem(newIndex, item);
                     return true;
                 }
@@ -761,7 +762,7 @@ namespace ObservableComputations
                     int index = itemInfo.FilteredPosition.Index;
                     filteredPositions.Remove(index);
                     itemInfo.FilteredPosition = null;
-                    FilteringUtils.modifyNextFilteredItemIndex(sourceIndex, itemInfo.NextFilteredItemPosition, filteringItemInfos);
+                    modifyNextFilteredItemIndex(sourceIndex, itemInfo.NextFilteredItemPosition, filteringItemInfos);
                     current.baseRemoveItem(index);
                     return true;
                 }
@@ -804,7 +805,7 @@ namespace ObservableComputations
             watcher._position = oldExpressionWatcher._position;
             replacingItemInfo.ExpressionWatcher = watcher;
             replacingItemInfo.NestedComputings = nestedComputings1;
-            bool replace = !FilteringUtils.ProcessChangeSourceItem(sourceIndex, filteringItemInfos, thisAsFiltering,
+            bool replace = !ProcessChangeSourceItem(sourceIndex, filteringItemInfos, thisAsFiltering,
                                filteredPositions, current)
                            && replacingItemInfo.FilteredPosition != null;
             return replace;

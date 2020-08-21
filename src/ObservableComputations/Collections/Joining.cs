@@ -648,12 +648,16 @@ namespace ObservableComputations
         {
             (_leftSource as IComputingInternal)?.AddDownstreamConsumedComputing(computing);
             (_rightSource as IComputingInternal)?.AddDownstreamConsumedComputing(computing);
+            (_leftSourceScalar as IComputingInternal)?.AddDownstreamConsumedComputing(computing);
+            (_rightSourceScalar as IComputingInternal)?.AddDownstreamConsumedComputing(computing);
         }
 
         internal override void removeFromUpstreamComputings(IComputingInternal computing)
         {
             (_leftSource as IComputingInternal)?.RemoveDownstreamConsumedComputing(computing);
             (_rightSource as IComputingInternal)?.RemoveDownstreamConsumedComputing(computing);
+            (_leftSourceScalar as IComputingInternal)?.RemoveDownstreamConsumedComputing(computing);
+            (_rightSourceScalar as IComputingInternal)?.RemoveDownstreamConsumedComputing(computing);
         }
 
         void IFiltering<JoinPair<TLeftSourceItem, TRightSourceItem>>.expressionWatcher_OnValueChanged(ExpressionWatcher expressionWatcher, object sender,

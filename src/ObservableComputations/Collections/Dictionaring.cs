@@ -54,51 +54,6 @@ namespace ObservableComputations
         private ICanProcessSourceItemKeyChange _thisAsCanProcessSourceKeyItemChange;
         private ICanProcessSourceItemValueChange _thisAsCanProcessSourceValueItemChange;
 
-		Dictionary<DictionaryChangeAction, object> _lockModifyChangeActionsKeys;
-        // ReSharper disable once InconsistentNaming
-        private Dictionary<DictionaryChangeAction, object> lockModifyChangeActionsKeys => _lockModifyChangeActionsKeys = 
-			_lockModifyChangeActionsKeys ?? new Dictionary<DictionaryChangeAction, object>();
-
-		public void LockModifyChangeAction(DictionaryChangeAction collectionChangeAction, object key)
-		{
-			if (key == null) throw new ArgumentNullException("key");
-
-			if (!lockModifyChangeActionsKeys.ContainsKey(collectionChangeAction))
-				lockModifyChangeActionsKeys[collectionChangeAction] = key;
-			else
-				throw new ObservableComputationsException(this,
-					$"Modifying of '{collectionChangeAction.ToString()}' change action is already locked. Unlock first.");
-		}
-
-		public void UnlockModifyChangeAction(DictionaryChangeAction collectionChangeAction, object key)
-		{
-			if (key == null) throw new ArgumentNullException("key");
-
-			if (!lockModifyChangeActionsKeys.ContainsKey(collectionChangeAction))
-				throw new ObservableComputationsException(this,
-					"Modifying of '{collectionChangeAction.ToString()}' change action is not locked. Lock first.");
-
-			if (ReferenceEquals(lockModifyChangeActionsKeys[collectionChangeAction], key))
-				lockModifyChangeActionsKeys.Remove(collectionChangeAction);
-			else
-				throw new ObservableComputationsException(this,
-					"Wrong key to unlock modifying of '{collectionChangeAction.ToString()}' change action.");
-		}
-
-		public bool IsModifyChangeActionLocked(DictionaryChangeAction collectionChangeAction)
-		{
-			return lockModifyChangeActionsKeys.ContainsKey(collectionChangeAction);
-		}
-
-        // ReSharper disable once ParameterOnlyUsedForPreconditionCheck.Local
-        private void checkLockModifyChangeAction(DictionaryChangeAction collectionChangeAction)
-		{
-			if (lockModifyChangeActionsKeys.ContainsKey(collectionChangeAction))
-				throw new ObservableComputationsException(this,
-					"Modifying of '{collectionChangeAction.ToString()}' change action is locked. Unlock first.");
-		}
-
-
 		private Action<TKey, TValue> _addItemAction;
 		public Action<TKey, TValue> AddItemAction
 		{
@@ -108,8 +63,6 @@ namespace ObservableComputations
 			{
 				if (_addItemAction != value)
 				{
-					checkLockModifyChangeAction(DictionaryChangeAction.AddItem);
-
 					_addItemAction = value;
 					onPropertyChanged(Utils.AddItemActionPropertyChangedEventArgs);
 				}
@@ -126,8 +79,6 @@ namespace ObservableComputations
 			{
 				if (_removeItemFunc != value)
 				{
-					checkLockModifyChangeAction(DictionaryChangeAction.RemoveItem);
-
 					_removeItemFunc = value;
 					onPropertyChanged(Utils.RemoveItemFuncPropertyChangedEventArgs);
 				}
@@ -143,8 +94,6 @@ namespace ObservableComputations
 			{
 				if (_setItemAction != value)
 				{
-					checkLockModifyChangeAction(DictionaryChangeAction.SetItem);
-
 					_setItemAction = value;
 					onPropertyChanged(Utils.SetItemActionPropertyChangedEventArgs);
 				}
@@ -161,8 +110,6 @@ namespace ObservableComputations
 			{
 				if (_clearItemsAction != value)
 				{
-					checkLockModifyChangeAction(DictionaryChangeAction.ClearItems);
-
 					_clearItemsAction = value;
 					onPropertyChanged(Utils.ClearItemsActionPropertyChangedEventArgs);
 				}
@@ -979,13 +926,5 @@ namespace ObservableComputations
 		public event EventHandler<MethodChangedEventArgs> MethodChanged;
 
 		#endregion
-	}
-
-	public enum DictionaryChangeAction
-	{
-		AddItem,
-		RemoveItem,
-		SetItem,
-		ClearItems,
 	}
 }

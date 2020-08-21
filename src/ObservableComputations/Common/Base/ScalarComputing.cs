@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Threading;
 
 namespace ObservableComputations
 {
@@ -57,38 +56,6 @@ namespace ObservableComputations
 
 		#endregion
 
-		object _lockModifySetValueActionKey;
-
-		public void LockModifySetValueAction(object key)
-		{
-			if (key == null) throw new ArgumentNullException("key");
-
-			if (_lockModifySetValueActionKey == null)
-				_lockModifySetValueActionKey = key;
-			else
-				throw new ObservableComputationsException(this,
-					"Modifying of SetValueAction is already locked. Unlock first.");
-		}
-
-		public void UnlockModifySetValueAction(object key)
-		{
-			if (key == null) throw new ArgumentNullException("key");
-
-			if (_lockModifySetValueActionKey == null)
-				throw new ObservableComputationsException(this,
-					"Modifying of SetValueAction is not locked. Lock first.");
-
-			if (_lockModifySetValueActionKey == key)
-				_lockModifySetValueActionKey = null;
-			else
-				throw new ObservableComputationsException(this, "Wrong key to unlock modifying of SetValueAction.");
-		}
-
-		public bool IsModifySetValueActionLocked()
-		{
-			return _lockModifySetValueActionKey != null;
-		}
-
 		protected Action<TValue> _setValueAction;
 
 		public Action<TValue> SetValueAction
@@ -98,9 +65,6 @@ namespace ObservableComputations
 			{
 				if (_setValueAction != value)
 				{
-					if (_lockModifySetValueActionKey != null)
-						throw new ObservableComputationsException(this, "Modifying of SetValueAction is locked. Unlock first.");
-
 					_setValueAction = value;
 					PropertyChanged?.Invoke(this, Utils.SetValueActionPropertyChangedEventArgs);
 				}
@@ -210,29 +174,6 @@ namespace ObservableComputations
 
         protected bool _isActive;
         public bool IsActive => _isActive;
-
-        protected PropertyChangedEventHandler getScalarValueChangedHandler(Action action = null)
-        {
-            return (sender, args) =>
-            {
-                if (args.PropertyName != nameof(IReadScalar<object>.Value)) return;
-                checkConsistent(sender, args);
-
-                _handledEventSender = sender;
-                _handledEventArgs = args;
-
-                _isConsistent = false;
-
-                action?.Invoke();
-                initializeFromSource();
-
-                _isConsistent = true;
-                raiseConsistencyRestored();
-
-                _handledEventSender = null;
-                _handledEventArgs = null;
-            };
-        }
 
         protected abstract void initializeFromSource();
         protected abstract void initialize();

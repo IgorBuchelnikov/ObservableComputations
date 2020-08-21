@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
@@ -26,7 +25,6 @@ namespace ObservableComputations
 		private readonly IReadScalar<INotifyCollectionChanged> _sourcesScalar;
 		private INotifyCollectionChanged _sources;
 
-		private PropertyChangedEventHandler _sourcesPropertyChangedEventHandler;
 		private bool _indexerPropertyChangedEventRaised;
 		private INotifyPropertyChanged _sourcesAsINotifyPropertyChanged;
 
@@ -505,12 +503,14 @@ namespace ObservableComputations
         internal override void addToUpstreamComputings(IComputingInternal computing)
         {
             (_sources as IComputingInternal)?.AddDownstreamConsumedComputing(computing);
+            (_sourcesScalar as IComputingInternal)?.AddDownstreamConsumedComputing(computing);
             processSourceUpstreamComputings(computing, true);
         }
 
         internal override void removeFromUpstreamComputings(IComputingInternal computing)        
         {
             (_sources as IComputingInternal)?.RemoveDownstreamConsumedComputing(computing);
+            (_sourcesScalar as IComputingInternal)?.RemoveDownstreamConsumedComputing(computing);
             processSourceUpstreamComputings(computing, false);
         }
 

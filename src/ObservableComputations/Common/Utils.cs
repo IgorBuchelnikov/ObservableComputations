@@ -158,7 +158,7 @@ namespace ObservableComputations
             return sourceScalar != null ? Utils.getCapacity(sourceScalar) : Utils.getCapacity(source);
         }
 
-        internal static void disposeSource<TItemInfo>(int capacity, ref List<TItemInfo> itemInfos, ref Positions<TItemInfo> sourcePositions,INotifyCollectionChanged sourceAsList, ref NotifyCollectionChangedEventHandler sourceNotifyCollectionChangedEventHandler)
+        internal static void disposeSource<TItemInfo>(int capacity, ref List<TItemInfo> itemInfos, ref Positions<TItemInfo> sourcePositions, INotifyCollectionChanged sourceAsList, ref NotifyCollectionChangedEventHandler sourceNotifyCollectionChangedEventHandler)
             where TItemInfo : Position, new()
         {
             initializeItemInfos(capacity, out itemInfos, out sourcePositions);
@@ -171,6 +171,9 @@ namespace ObservableComputations
         {
             if (sourceAsList != null)
                 sourceAsList.CollectionChanged -= sourceNotifyCollectionChangedEventHandler;
+
+            if (sourceAsList is IRootSourceWrapper rootSourceWrapper)
+                rootSourceWrapper.Unitialize();
         }
 
         internal static void initializeItemInfos<TItemInfo>(int capacity, out List<TItemInfo> itemInfos, out Positions<TItemInfo> sourcePositions)
@@ -422,7 +425,7 @@ namespace ObservableComputations
 
             Utils.checkConsistent(sender, eventArgs, consistent, thisAsCanProcessSourceItemChange);
 
-            processSourceItemChange(expressionWatcher, sender, eventArgs, thisAsCanProcessSourceItemChange, ref deferredExpressionWatcherChangedProcessings, out isConsistent, ref handledEventSender, ref handledEventArgs, canProcessNow);
+            processSourceItemChange(expressionWatcher, sender, eventArgs, thisAsCanProcessSourceItemChange, ref deferredExpressionWatcherChangedProcessings, ref isConsistent, ref handledEventSender, ref handledEventArgs, canProcessNow);
         }
 
         internal static void ProcessSourceItemChange<TSourceItem1, TSourceItem2, TCanProcessSourceItemChange>(ExpressionWatcher expressionWatcher,
@@ -441,13 +444,13 @@ namespace ObservableComputations
 
             Utils.checkConsistent(sender, eventArgs, consistent, thisAsCanProcessSourceItemChange);
 
-            processSourceItemChange(expressionWatcher, sender, eventArgs, thisAsCanProcessSourceItemChange, ref deferredExpressionWatcherChangedProcessings, out isConsistent, ref handledEventSender, ref handledEventArgs, canProcessNow);
+            processSourceItemChange(expressionWatcher, sender, eventArgs, thisAsCanProcessSourceItemChange, ref deferredExpressionWatcherChangedProcessings, ref isConsistent, ref handledEventSender, ref handledEventArgs, canProcessNow);
         }
 
         private static void processSourceItemChange<TCanProcessSourceItemChange>(
             ExpressionWatcher expressionWatcher, object sender, EventArgs eventArgs,
             TCanProcessSourceItemChange thisAsCanProcessSourceItemChange, ref Queue<ExpressionWatcher.Raise> deferredExpressionWatcherChangedProcessings,
-            out bool isConsistent, ref object handledEventSender, ref EventArgs handledEventArgs, bool canProcessNow)
+            ref bool isConsistent, ref object handledEventSender, ref EventArgs handledEventArgs, bool canProcessNow)
             where TCanProcessSourceItemChange : ICanProcessSourceItemChange
         {
             if (canProcessNow)

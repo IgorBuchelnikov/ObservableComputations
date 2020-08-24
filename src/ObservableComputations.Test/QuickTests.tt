@@ -381,7 +381,10 @@ namespace ObservableComputations.Test
 			case "System.Linq.Expressions.Expression<System.Func<TSourceItem, bool>>":
 				result =  "i => i.Active";
 				break;
-			case "System.Linq.Expressions.Expression<System.Func<TOuterSourceItem, TInnerSourceItem, bool>>":
+			case "System.Linq.Expressions.Expression<System.Func<TLeftSourceItem, TRightSourceItem, bool>>":
+				result =  "(i1, i2) => i1.Num == i2.Num";
+				break;
+            case "System.Linq.Expressions.Expression<System.Func<TOuterSourceItem, TInnerSourceItem, bool>>":
 				result =  "(i1, i2) => i1.Num == i2.Num";
 				break;
 			case "System.Linq.Expressions.Expression<System.Func<TSourceItem, TOrderingValue>>":
@@ -402,7 +405,7 @@ namespace ObservableComputations.Test
 				else result =  argumentName.Contains("count") ? "3" : "0";
 				break;
 			case "ObservableComputations.IOrdering<TSourceItem>":
-				result =  "getItems().Selecting(i => i.Num).Ordering(i => i, 32)";
+				result =  "getItems().Selecting(i => i.Num).Ordering(i => i)";
 				sourceAccessor = ".GetValueAs(s => ((Ordering<int, int>)s)?.Source)?.GetValueAs(s => ((Selecting<Item, int>)s)?.Source)";
 				break;
 			case "(System.Func<TSourceItem, TResult, TResult> aggregateFunc, System.Func<TSourceItem, TResult, TResult> deaggregateFunc)":

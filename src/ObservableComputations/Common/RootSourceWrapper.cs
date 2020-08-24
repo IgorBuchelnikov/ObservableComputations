@@ -4,14 +4,18 @@ using System.ComponentModel;
 
 namespace ObservableComputations
 {
-	internal sealed class RootSourceWrapper<TSourceItem> : ObservableCollectionWithChangeMarker<TSourceItem>
-	{
+    internal interface IRootSourceWrapper
+    {
+        void Unitialize();
+    }
+
+	internal sealed class RootSourceWrapper<TSourceItem> : ObservableCollectionWithChangeMarker<TSourceItem>, IRootSourceWrapper
+    {
 		private readonly INotifyCollectionChanged _source;
 		private readonly IList<TSourceItem> _sourceAsList;
 
         private bool _sourceInitialized;
 
-		private PropertyChangedEventHandler _sourcePropertyChangedEventHandler;
 		private bool _indexerPropertyChangedEventRaised;
 		private INotifyPropertyChanged _sourceAsINotifyPropertyChanged;
 		private IList<TSourceItem> _items;
@@ -22,24 +26,13 @@ namespace ObservableComputations
 			_items = Items;
 			_source = source;
 			_sourceAsList = (IList<TSourceItem>) _source;
-
-			initializeFromSource();
+			_sourceAsINotifyPropertyChanged = (INotifyPropertyChanged) _sourceAsList;
+			initialize();
 		}
 
-		private void initializeFromSource()
+		private void initialize()
 		{
-			int originalCount = _items.Count;
-			if (_sourcePropertyChangedEventHandler == null)
-			{
-				_sourceAsINotifyPropertyChanged = (INotifyPropertyChanged) _sourceAsList;
-
-				_sourcePropertyChangedEventHandler = (sender, args) =>
-				{
-					if (args.PropertyName == "Item[]") _indexerPropertyChangedEventRaised = true; // ObservableCollection raises this before CollectionChanged event raising
-				};
-
-				_sourceAsINotifyPropertyChanged.PropertyChanged += _sourcePropertyChangedEventHandler;
-			}
+			_sourceAsINotifyPropertyChanged.PropertyChanged += handleSourcePropetyChanged;
 
 			int count = _sourceAsList.Count;
 			if (count > 0)
@@ -47,37 +40,27 @@ namespace ObservableComputations
 				int sourceIndex;
 				for (sourceIndex = 0; sourceIndex < count; sourceIndex++)
 				{
-					if (originalCount > sourceIndex)
-						_items[sourceIndex] = _sourceAsList[sourceIndex];
-					else
-						_items.Insert(sourceIndex, _sourceAsList[sourceIndex]);
-				}
-
-				for (int index = originalCount - 1; index >= sourceIndex; index--)
-				{
-					_items.RemoveAt(index);
+					_items.Insert(sourceIndex, _sourceAsList[sourceIndex]);
 				}
 			}
-			else
-			{
-				_items.Clear();
-			}
 
-			if (_sourceNotifyCollectionChangedEventHandler == null)
-			{
-				_sourceNotifyCollectionChangedEventHandler = handleSourceCollectionChanged;
-				_source.CollectionChanged += _sourceNotifyCollectionChangedEventHandler;
-
-			}
+			_source.CollectionChanged += handleSourceCollectionChanged;		
 
 			ChangeMarkerField = !ChangeMarkerField;
-			this.CheckReentrancy();
-			this.OnPropertyChanged(Utils.CountPropertyChangedEventArgs);
-			this.OnPropertyChanged(Utils.IndexerPropertyChangedEventArgs);
-			this.OnCollectionChanged(Utils.ResetNotifyCollectionChangedEventArgs);
 		}
 
-		private void handleSourceCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
+        void IRootSourceWrapper.Unitialize()
+        {
+            _sourceAsINotifyPropertyChanged.PropertyChanged -= handleSourcePropetyChanged;
+            _source.CollectionChanged -= handleSourceCollectionChanged;
+        }
+
+        private void handleSourcePropetyChanged(object sender, PropertyChangedEventArgs args)
+        {
+            if (args.PropertyName == "Item[]") _indexerPropertyChangedEventRaised = true; // ObservableCollection raises this before CollectionChanged event raising
+        }
+
+        private void handleSourceCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
 		{
 			if (_indexerPropertyChangedEventRaised)
 			{
@@ -106,7 +89,7 @@ namespace ObservableComputations
 						MoveItem(oldStartingIndex1, newStartingIndex1);
 						break;
 					case NotifyCollectionChangedAction.Reset:
-						initializeFromSource();
+						initialize();
 						break;
 				}
 			}

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.ComponentModel;
+using System.Linq;
 using System.Linq.Expressions;
 using INotifyPropertyChanged = System.ComponentModel.INotifyPropertyChanged;
 
@@ -803,6 +804,105 @@ namespace ObservableComputations
             FilteringUtils.ProcessChangeSourceItem(expressionWatcher._position.Index, _itemInfos, this,
                 _filteredPositions, this);
         }
+
+		internal void ValidateConsistency()
+		{
+			_filteredPositions.ValidateConsistency();
+			_sourcePositions.ValidateConsistency();
+
+			IList<TLeftSourceItem> leftSource = _leftSourceScalar.getValue(_leftSource, new ObservableCollection<TLeftSourceItem>()) as IList<TLeftSourceItem>;
+            IList<TRightSourceItem> rightSource = _rightSourceScalar.getValue(_rightSource, new ObservableCollection<TRightSourceItem>()) as IList<TRightSourceItem>;
+		
+			// ReSharper disable once PossibleNullReferenceException
+			if (_itemInfos.Count != leftSource.Count * rightSource.Count) throw new ObservableComputationsException(this, "Consistency violation: Joining.9");
+			Func<TLeftSourceItem, TRightSourceItem, bool> predicate = _predicateExpression.Compile();
+
+			// ReSharper disable once ConditionIsAlwaysTrueOrFalse
+			if (leftSource != null && rightSource != null)
+			{
+				if (_leftSource != null && _rightSource != null && _filteredPositions.List.Count - 1 != Count)
+					throw new ObservableComputationsException(this, "Consistency violation: Joining.15");
+
+				if ((_leftSource == null || _rightSource == null) && _filteredPositions.List.Count != 0)
+					throw new ObservableComputationsException(this, "Consistency violation: Joining.16");
+
+				int index = 0;
+				for (int leftSourceIndex = 0; leftSourceIndex < leftSource.Count; leftSourceIndex++)
+				{
+					TLeftSourceItem leftSourceItem = leftSource[leftSourceIndex];
+
+
+                    for (int rightSourceIndex = 0; rightSourceIndex < leftSource.Count; rightSourceIndex++)
+                    {
+                        TRightSourceItem rightSourceItem = rightSource[rightSourceIndex];
+                        var internalIndex = leftSourceIndex * leftSource.Count + rightSourceIndex;
+                        FilteringItemInfo itemInfo = _itemInfos[internalIndex];
+                        if (predicate(leftSourceItem, rightSourceItem))
+                        {
+                            if (itemInfo.FilteredPosition == null) throw new ObservableComputationsException(this, "Consistency violation: Joining.2");
+
+                            if (!Equals(this[index].LeftItem, leftSourceItem) || !Equals(this[index].RightItem, rightSourceItem))
+                            {
+                                throw new ObservableComputationsException(this, "Consistency violation: Joining.1");
+                            }
+
+                            if (itemInfo.FilteredPosition.Index != index) throw new ObservableComputationsException(this, "Consistency violation: Joining.5");
+						
+                            index++;
+                        }
+                        else
+                        {
+                            if (itemInfo.FilteredPosition != null) throw new ObservableComputationsException(this, "Consistency violation: Joining.3");
+                        }
+
+                        if (_itemInfos[internalIndex].Index != internalIndex) throw new ObservableComputationsException(this, "Consistency violation: Joining.7");
+                        if (itemInfo.ExpressionWatcher._position != _itemInfos[internalIndex]) throw new ObservableComputationsException(this, "Consistency violation: Joining.8");
+
+                        if (itemInfo.FilteredPosition != null && !_filteredPositions.List.Contains(itemInfo.FilteredPosition))
+                            throw new ObservableComputationsException(this, "Consistency violation: Joining.10");
+
+                        if (!_filteredPositions.List.Contains(itemInfo.NextFilteredItemPosition))
+                            throw new ObservableComputationsException(this, "Consistency violation: Joining.11");
+
+                        if (!_itemInfos.Contains(itemInfo.ExpressionWatcher._position))
+                            throw new ObservableComputationsException(this, "Consistency violation: Joining.12");
+                    }
+				}
+
+				if (leftSource != null && rightSource != null)
+				{
+					int count = leftSource.SelectMany(li => rightSource.Select(ri => new {li, ri})).Where(p => predicate(p.li, p.ri)).Count();
+
+					if (_filteredPositions.List.Count != count + 1)
+					{
+						throw new ObservableComputationsException(this, "Consistency violation: Joining.6");
+					}
+
+					Position nextFilteredItemPosition;
+					nextFilteredItemPosition = _filteredPositions.List[count];
+                    for (int leftSourceIndex = 0; leftSourceIndex < leftSource.Count; leftSourceIndex++)
+                    {
+                        TLeftSourceItem leftSourceItem = leftSource[leftSourceIndex];
+
+
+                        for (int rightSourceIndex = 0; rightSourceIndex < leftSource.Count; rightSourceIndex++)
+                        {
+                            TRightSourceItem rightSourceItem = rightSource[rightSourceIndex];
+                            var internalIndex = leftSourceIndex * leftSource.Count + rightSourceIndex;
+                            FilteringItemInfo itemInfo = _itemInfos[internalIndex];
+
+                            if (itemInfo.NextFilteredItemPosition != nextFilteredItemPosition)
+                                throw new ObservableComputationsException(this, "Consistency violation: Joining.4");
+
+                            if (predicate(leftSourceItem, rightSourceItem))
+                            {
+                                nextFilteredItemPosition = itemInfo.FilteredPosition;
+                            }
+                        }
+                    }
+				}
+			}
+		}
     }
 
 	public class JoinPair<TLeftSourceItem, TRightSourceItem> : IEquatable<JoinPair<TLeftSourceItem, TRightSourceItem>>, INotifyPropertyChanged

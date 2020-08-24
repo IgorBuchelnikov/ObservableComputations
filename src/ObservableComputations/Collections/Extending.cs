@@ -1,132 +1,196 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.ComponentModel;
+using System.Linq;
 
 namespace ObservableComputations
 {
-	public class Extending<TSourceItem> : ObservableCollectionWithChangeMarker<TSourceItem>
+	public class Extending<TSourceItem> : CollectionComputing<TSourceItem>, IHasSourceCollections, ISourceIndexerPropertyTracker
 	{
-		public INotifyCollectionChanged Source => _source;	
+		// ReSharper disable once MemberCanBePrivate.Global
+		public IReadScalar<INotifyCollectionChanged> SourceScalar => _sourceScalar;
 
-		private readonly INotifyCollectionChanged _source;
-		private readonly IList<TSourceItem> _sourceAsList;
+		// ReSharper disable once MemberCanBePrivate.Global
+		public INotifyCollectionChanged Source => _source;
+
+		public ReadOnlyCollection<INotifyCollectionChanged> SourceCollections => new ReadOnlyCollection<INotifyCollectionChanged>(new []{Source});
+		public ReadOnlyCollection<IReadScalar<INotifyCollectionChanged>> SourceCollectionScalars => new ReadOnlyCollection<IReadScalar<INotifyCollectionChanged>>(new []{SourceScalar});
+
+		private IList _sourceAsList;
 
 		private bool _sourceInitialized;
+		private INotifyCollectionChanged _source;
+		private readonly IReadScalar<INotifyCollectionChanged> _sourceScalar;
 
-		private PropertyChangedEventHandler _sourcePropertyChangedEventHandler;
 		private bool _indexerPropertyChangedEventRaised;
 		private INotifyPropertyChanged _sourceAsINotifyPropertyChanged;
 
-		private IList<TSourceItem> _items;
+		private IHasChangeMarker _sourceAsIHasChangeMarker;
+		private bool _lastProcessedSourceChangeMarker;
 
-		private Extending(
-			INotifyCollectionChanged source)
+		[ObservableComputationsCall]
+		public Extending(
+			IReadScalar<INotifyCollectionChanged> sourceScalar) : base(Utils.getCapacity(sourceScalar))
 		{
-			_items = Items;
-			_source = source;
-			initializeFromSource();
+			_sourceScalar = sourceScalar;
 		}
 
-		private void initializeFromSource()
+		[ObservableComputationsCall]
+		public Extending(
+			INotifyCollectionChanged source) : base(Utils.getCapacity(source))
+		{
+			_source = source;
+		}
+
+        protected override void initializeFromSource()
 		{
 			int originalCount = _items.Count;
 
-			if (_sourceWeakPropertyChangedEventHandler == null)
+			if (_sourceInitialized)
+			{	
+                _source.CollectionChanged -= handleSourceCollectionChanged;
+
+                if (_sourceAsINotifyPropertyChanged != null)
+                {
+                    _sourceAsINotifyPropertyChanged.PropertyChanged -=
+                        ((ISourceIndexerPropertyTracker) this).HandleSourcePropertyChanged;
+                    _sourceAsINotifyPropertyChanged = null;
+                }
+
+                _sourceInitialized = false;
+            }
+
+            Utils.changeSource(ref _source, _sourceScalar, _downstreamConsumedComputings, _consumers, this,
+                ref _sourceAsList, true);
+
+			if (_sourceAsList != null && _isActive)
 			{
-				_sourceAsINotifyPropertyChanged = (INotifyPropertyChanged) _sourceAsList;
+                Utils.initializeFromHasChangeMarker(
+                    ref _sourceAsIHasChangeMarker, 
+                    _sourceAsList, 
+                    ref _lastProcessedSourceChangeMarker, 
+                    ref _sourceAsINotifyPropertyChanged,
+                    this);
 
-				_sourcePropertyChangedEventHandler = (sender, args) =>
-				{
-					if (args.PropertyName == "Item[]") _indexerPropertyChangedEventRaised = true; // ObservableCollection raises this before CollectionChanged event raising
-				};
 
-				_sourceWeakPropertyChangedEventHandler = new WeakPropertyChangedEventHandler(_sourcePropertyChangedEventHandler);
-
-				_sourceAsINotifyPropertyChanged.PropertyChanged += _sourceWeakPropertyChangedEventHandler.Handle;
-
-			}
-
-			int count = _sourceAsList.Count;
-
-			if (count > 0)
-			{
+				int count = _sourceAsList.Count;
 				int sourceIndex;
 				for (sourceIndex = 0; sourceIndex < count; sourceIndex++)
 				{
 					if (originalCount > sourceIndex)
-						_items[sourceIndex] = _sourceAsList[sourceIndex];
+						_items[sourceIndex] = (TSourceItem)_sourceAsList[sourceIndex];
 					else
-						_items.Insert(sourceIndex, _sourceAsList[sourceIndex]);
+						_items.Insert(sourceIndex, (TSourceItem)_sourceAsList[sourceIndex]);
 				}
 
 				for (int index = originalCount - 1; index >= sourceIndex; index--)
 				{
 					_items.RemoveAt(index);
 				}
-			}
+
+                _source.CollectionChanged += handleSourceCollectionChanged;
+                _sourceInitialized = true;
+            }			
 			else
 			{
 				_items.Clear();
 			}
 
-			if (_sourceWeakNotifyCollectionChangedEventHandler == null)
-			{
-				_sourceNotifyCollectionChangedEventHandler = handleSourceCollectionChanged;
-				_sourceWeakNotifyCollectionChangedEventHandler =
-					new WeakNotifyCollectionChangedEventHandler(_sourceNotifyCollectionChangedEventHandler);
-
-				_source.CollectionChanged += _sourceWeakNotifyCollectionChangedEventHandler.Handle;
-
-			}
-
-			ChangeMarkerField = !ChangeMarkerField;
-			this.CheckReentrancy();
-			this.OnPropertyChanged(Utils.CountPropertyChangedEventArgs);
-			this.OnPropertyChanged(Utils.IndexerPropertyChangedEventArgs);
-			this.OnCollectionChanged(Utils.ResetNotifyCollectionChangedEventArgs);
+			reset();
 		}
 
 		private void handleSourceCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
 		{
-			if (_indexerPropertyChangedEventRaised)
-			{
-				_indexerPropertyChangedEventRaised = false;
-				switch (e.Action)
-				{
-					case NotifyCollectionChangedAction.Add:
-						//if (e.NewItems.Count > 1) throw new ObservableComputationsException("Adding of multiple items is not supported");
-						int newStartingIndex = e.NewStartingIndex;
-						InsertItem(newStartingIndex, _sourceAsList[newStartingIndex]);							
-						break;
-					case NotifyCollectionChangedAction.Remove:
-						// (e.OldItems.Count > 1) throw new ObservableComputationsException("Removing of multiple items is not supported");
-						RemoveItem(e.OldStartingIndex);
-						break;
-					case NotifyCollectionChangedAction.Replace:
-						//if (e.NewItems.Count > 1) throw new ObservableComputationsException("Replacing of multiple items is not supported");
-						int newStartingIndex2 = e.NewStartingIndex;
-						SetItem(newStartingIndex2, _sourceAsList[newStartingIndex2]);
-						break;
-					case NotifyCollectionChangedAction.Move:
-						int oldStartingIndex1 = e.OldStartingIndex;
-						int newStartingIndex1 = e.NewStartingIndex;
-						if (oldStartingIndex1 == newStartingIndex1) return;
-						MoveItem(oldStartingIndex1, newStartingIndex1);
-						break;
-					case NotifyCollectionChangedAction.Reset:
-						initializeFromSource();
-						break;
-				}
-			}
+            if (!Utils.preHandleSourceCollectionChanged(
+                sender, 
+                e, 
+                _isConsistent, 
+                this, 
+                ref _indexerPropertyChangedEventRaised, 
+                ref _lastProcessedSourceChangeMarker, 
+                _sourceAsIHasChangeMarker, 
+                ref _handledEventSender, 
+                ref _handledEventArgs)) return;
+
+            _isConsistent = false;
+
+            switch (e.Action)
+            {
+                case NotifyCollectionChangedAction.Add:
+                    IList newItems = e.NewItems;
+                    //if (newItems.Count > 1) throw new ObservableComputationsException(this, "Adding of multiple items is not supported");
+                    baseInsertItem(e.NewStartingIndex, (TSourceItem) newItems[0]);
+                    break;
+                case NotifyCollectionChangedAction.Remove:
+                    //if (e.OldItems.Count > 1) throw new ObservableComputationsException(this, "Removing of multiple items is not supported");
+                    baseRemoveItem(e.OldStartingIndex);
+                    break;
+                case NotifyCollectionChangedAction.Move:
+                    int oldStartingIndex = e.OldStartingIndex;
+                    int newStartingIndex = e.NewStartingIndex;
+                    if (oldStartingIndex != newStartingIndex)
+                    {
+                        baseMoveItem(oldStartingIndex, newStartingIndex);
+                    }
+
+                    break;
+                case NotifyCollectionChangedAction.Replace:
+                    IList newItems1 = e.NewItems;
+                    //if (newItems1.Count > 1) throw new ObservableComputationsException(this, "Replacing of multiple items is not supported");
+                    baseSetItem(e.NewStartingIndex, (TSourceItem) newItems1[0]);
+                    break;
+                case NotifyCollectionChangedAction.Reset:
+                    initializeFromSource();
+                    break;
+            }
+
+            _isConsistent = true;
+            raiseConsistencyRestored();
+
+            Utils.postHandleSourceCollectionChanged(
+                ref _handledEventSender,
+                ref _handledEventArgs);
 		}
 
-		~Extending()
-		{
-			_source.CollectionChanged -= _sourceWeakNotifyCollectionChangedEventHandler.Handle;
+        internal override void addToUpstreamComputings(IComputingInternal computing)
+        {
+            (_source as IComputingInternal)?.AddDownstreamConsumedComputing(computing);
+            (_sourceScalar as IComputingInternal)?.AddDownstreamConsumedComputing(computing);
+        }
 
-			if (_sourceAsINotifyPropertyChanged != null)
-				_sourceAsINotifyPropertyChanged.PropertyChanged -=
-					_sourceWeakPropertyChangedEventHandler.Handle;
+        internal override void removeFromUpstreamComputings(IComputingInternal computing)        
+        {
+            (_source as IComputingInternal)?.RemoveDownstreamConsumedComputing(computing);
+            (_sourceScalar as IComputingInternal)?.RemoveDownstreamConsumedComputing(computing);
+        }
+
+        protected override void initialize()
+        {
+            Utils.initializeSourceScalar(_sourceScalar, ref _source, scalarValueChangedHandler);
+        }
+
+        protected override void uninitialize()
+        {
+            Utils.uninitializeSourceScalar(_sourceScalar, scalarValueChangedHandler, ref _source);
+        }
+
+        #region Implementation of ISourceIndexerPropertyTracker
+
+        void ISourceIndexerPropertyTracker.HandleSourcePropertyChanged(object sender, PropertyChangedEventArgs propertyChangedEventArgs)
+        {
+            Utils.HandleSourcePropertyChanged(propertyChangedEventArgs, ref _indexerPropertyChangedEventRaised);
+        }
+
+        #endregion
+
+		public void ValidateConsistency()
+		{
+
+			IList<TSourceItem> source = _sourceScalar.getValue(_source, new ObservableCollection<TSourceItem>()) as IList<TSourceItem>;
+			// ReSharper disable once PossibleNullReferenceException
+		    if (!this.SequenceEqual(source)) throw new ObservableComputationsException(this, "Consistency violation: Extending.1");
 		}
 	}
 }

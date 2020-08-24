@@ -307,7 +307,7 @@ namespace ObservableComputations.Test
 
 			ObservableCollection<Order> filteredOrders1 = orders
 				.Joining(selectedOrderTypes, (o, ot) => o.Type.Equals(ot))
-				.Selecting(oot => oot.OuterItem);
+				.Selecting(oot => oot.LeftItem);
 
 			selectedOrderTypes.Add("C");
 			orders[0].Type = "C";		

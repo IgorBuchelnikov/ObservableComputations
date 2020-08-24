@@ -512,7 +512,7 @@ namespace ObservableComputations
                 _filteredPositions, this);
         }
 
-		public void ValidateConsistency()
+		internal void ValidateConsistency()
 		{
 			_filteredPositions.ValidateConsistency();
 			_sourcePositions.ValidateConsistency();

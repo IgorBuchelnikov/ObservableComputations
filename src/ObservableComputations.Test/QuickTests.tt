@@ -72,14 +72,14 @@ namespace ObservableComputations.Test
 
 			string genericParamsValues = getTestType(extentionMethod.GenericParameters, extentionMethod.Name);
 #>
-			
-			var testing = <#=arguments.First().Item2#>.<#=extentionMethod.Name#><#=genericParamsValues#>(<#=arguments.Count == 1 ? ");" : ""#>
+			Consumer consumer = new Consumer();
+			var testing = <#=arguments.First().Item2#>.<#=extentionMethod.Name#><#=genericParamsValues#>(<#=arguments.Count == 1 ? ").IsNeededFor(consumer);" : ""#>
 <#
 			int index = 0;
 			foreach (var argument in arguments.Skip(1))
 			{
 #>
-				<#=argument.Item2#><#=index == arguments.Count() - 2 ? ");" : ","#>
+				<#=argument.Item2#><#=index == arguments.Count() - 2 ? ").IsNeededFor(consumer);" : ","#>
 <#
 					index++;
 			}
@@ -225,7 +225,8 @@ namespace ObservableComputations.Test
 				}
 			}
 #>
-		}
+		    consumer.Dispose();
+        }
 <#
 		}
 #>

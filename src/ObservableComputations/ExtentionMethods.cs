@@ -428,7 +428,7 @@ namespace ObservableComputations
 			return string.Empty;
 		}
 
-        public static TComputing Consume<TComputing>(this TComputing computing, Consumer consumer)
+        public static TComputing IsNeededFor<TComputing>(this TComputing computing, Consumer consumer)
             where TComputing : IComputing
         {
             ((IComputingInternal) computing).AddConsumer(consumer);

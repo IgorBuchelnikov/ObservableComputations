@@ -10,7 +10,7 @@ namespace ObservableComputations
 {
 	public class LastComputing<TSourceItem> : ItemComputing<TSourceItem>
 	{
-		[ObservableComputationsCall]
+        [ObservableComputationsCall]
 		public LastComputing(
 			IReadScalar<INotifyCollectionChanged> sourceScalar,
 			TSourceItem defaultValue = default(TSourceItem)) : base(sourceScalar, getIndex(sourceScalar), defaultValue)
@@ -26,8 +26,7 @@ namespace ObservableComputations
 
 		private static IReadScalar<int> getIndex(IReadScalar<INotifyCollectionChanged> sourceScalar)
 		{
-			IReadScalar<IList> listComputing = sourceScalar.Using(s => (IList)s.Value);
-			Expression<Func<int>> indexExpression = () => listComputing.Value != null && listComputing.Value.Count > 0 ? listComputing.Value.Count - 1 : 0;
+			Expression<Func<int>> indexExpression = () => sourceScalar.Value != null && ((IList) sourceScalar.Value).Count > 0 ? ((IList) sourceScalar.Value).Count - 1 : 0;
 			return indexExpression.Computing();
 		}
 

@@ -126,7 +126,7 @@ namespace ObservableComputations
                     _sourceAsList, 
                     ref _lastProcessedSourceChangeMarker, 
                     ref _sourceAsINotifyPropertyChanged,
-                    this);
+                    (ISourceIndexerPropertyTracker)this);
 
 				_source.CollectionChanged += handleSourceCollectionChanged;
                 _sourceInitialized = true;

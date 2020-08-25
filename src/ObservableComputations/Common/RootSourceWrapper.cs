@@ -45,9 +45,33 @@ namespace ObservableComputations
 			}
 
 			_source.CollectionChanged += handleSourceCollectionChanged;		
-
-			ChangeMarkerField = !ChangeMarkerField;
 		}
+
+        private void reset()
+        {
+            int originalCount = _items.Count;
+            int count = _sourceAsList.Count;
+            int sourceIndex;
+            for (sourceIndex = 0; sourceIndex < count; sourceIndex++)
+            {
+                TSourceItem sourceItem = _sourceAsList[sourceIndex];
+
+                if (originalCount > sourceIndex)
+                    _items[sourceIndex] = sourceItem;
+                else
+                    _items.Insert(sourceIndex, sourceItem);
+            }
+
+            for (int index = originalCount - 1; index >= sourceIndex; index--)
+            {
+                _items.RemoveAt(index);
+            }
+
+            CheckReentrancy();
+            OnPropertyChanged(Utils.CountPropertyChangedEventArgs);
+            OnPropertyChanged(Utils.IndexerPropertyChangedEventArgs);
+            OnCollectionChanged(Utils.ResetNotifyCollectionChangedEventArgs);
+        }
 
         void IRootSourceWrapper.Unitialize()
         {
@@ -89,7 +113,7 @@ namespace ObservableComputations
 						MoveItem(oldStartingIndex1, newStartingIndex1);
 						break;
 					case NotifyCollectionChangedAction.Reset:
-						initialize();
+                        reset();
 						break;
 				}
 			}

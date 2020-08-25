@@ -155,7 +155,9 @@ namespace ObservableComputations
 			_pageSize = pageSize;
 			_currentPage = initialPage;
 			_source = source;
-		}
+            checkPageSize();
+            checkCurrentPage();
+        }
 
 		[ObservableComputationsCall]
 		public Paging(
@@ -166,6 +168,8 @@ namespace ObservableComputations
 			_pageSize = pageSize;
 			_currentPage = initialPage;
 			_sourceScalar = sourceScalar;
+            checkPageSize();
+            checkCurrentPage();
 		}
 
 		[ObservableComputationsCall]
@@ -177,8 +181,7 @@ namespace ObservableComputations
 			_pageSizeScalar = pageSizeScalar;
 			_currentPage = initialPage;
 			_source = source;
-
-		}
+        }
 
 		[ObservableComputationsCall]
 		public Paging(
@@ -189,6 +192,7 @@ namespace ObservableComputations
 			_pageSizeScalar = pageSizeScalar;
 			_currentPage = initialPage;
 			_sourceScalar = sourceScalar;
+            checkCurrentPage();
 		}
 
 		[ObservableComputationsCall]
@@ -222,6 +226,7 @@ namespace ObservableComputations
 			_pageSize = pageSize;
 			_currentPageScalar = currentPageScalar;
 			_source = source;
+            checkPageSize();
 		}
 
 		[ObservableComputationsCall]
@@ -233,7 +238,20 @@ namespace ObservableComputations
 			_pageSize = pageSize;
 			_currentPageScalar = currentPageScalar;
 			_sourceScalar = sourceScalar;
+            checkPageSize();
 		}
+
+        private void checkPageSize()
+        {
+            if (_pageSize <= 0)
+                throw new ObservableComputationsException($"Invalid PageSize value '{_pageSize}' for Paging computation");
+        }
+
+        private void checkCurrentPage()
+        {
+            if (_currentPage <= 0)
+                throw new ObservableComputationsException($"Invalid CurrentPage value '{_currentPage}' for Paging computation");
+        }
 
         private void initializePageSizeScalar()
         {
@@ -241,6 +259,7 @@ namespace ObservableComputations
             {
                 _pageSizeScalar.PropertyChanged += handlePageSizeScalarValueChanged;
                 _pageSize = _pageSizeScalar.Value;
+                checkPageSize();
             }
         }
 
@@ -255,6 +274,7 @@ namespace ObservableComputations
 
 			int originalPageSize = _pageSize;
 			_pageSize = _pageSizeScalar.Value;
+            checkPageSize();
 			processPageSizeChanged(originalPageSize);
 
 			_handledEventSender = null;
@@ -268,6 +288,7 @@ namespace ObservableComputations
             {
                 _currentPageScalar.PropertyChanged += handleCurrentPageScalarValueChanged;
                 _currentPage = _currentPageScalar.Value;
+                checkCurrentPage();
             }
         }
 
@@ -281,6 +302,7 @@ namespace ObservableComputations
 			_handledEventArgs = e;
 
 			_currentPage = _currentPageScalar.Value;
+            checkCurrentPage();
 			processCurentPageChanged();
 
 			_handledEventSender = null;
@@ -315,7 +337,7 @@ namespace ObservableComputations
                     _sourceAsList, 
                     ref _lastProcessedSourceChangeMarker, 
                     ref _sourceAsINotifyPropertyChanged,
-                    this);
+                    (ISourceIndexerPropertyTracker)this);
 
                 int newIndex = 0;
 				int count = _sourceAsList.Count;

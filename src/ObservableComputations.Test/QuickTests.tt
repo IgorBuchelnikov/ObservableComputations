@@ -292,6 +292,9 @@ namespace ObservableComputations.Test
 		{
 			checkingType = matchCollection[0].Groups["scalarType"].Value;
 			scalar = true;
+            if (extentionMethodName == "Paging")
+            {
+            }
 		}
 
 		switch (checkingType)
@@ -401,8 +404,9 @@ namespace ObservableComputations.Test
 				result =  "i => i.Num";
 				break;
 			case "int":
-                if (argumentName == "pageSize") result = "2";
-                else if (argumentName == "initialPage") result = "1";
+                if (argumentName.Contains("pageSize")) result = "2";
+                else if (argumentName.Contains("initialPage")) result = "1";
+                else if (argumentName.Contains("currentPage")) result = "1";
 				else result =  argumentName.Contains("count") ? "3" : "0";
 				break;
 			case "ObservableComputations.IOrdering<TSourceItem>":

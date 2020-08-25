@@ -386,8 +386,7 @@ namespace ObservableComputations
                 ref _handledEventSender, 
                 ref _handledEventArgs, 
                 _thisAsCanProcessSourceKeyItemChange,
-                ref _isConsistent,
-                false); 
+                ref _isConsistent); 
 
 			_handledEventSender = null;
 			_handledEventArgs = null;

@@ -195,6 +195,9 @@ namespace ObservableComputations
 			int sourceCapacity,
 			int resultCapacity) : base(resultCapacity)
 		{
+            _initialResultCapacity = resultCapacity;
+            _resultPositions = new Positions<Position>(new List<Position>(_initialResultCapacity));
+
             Utils.construct(
                 keySelectorExpression, 
                 sourceCapacity, 

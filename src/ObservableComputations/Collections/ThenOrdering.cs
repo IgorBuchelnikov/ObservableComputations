@@ -227,10 +227,10 @@ namespace ObservableComputations
 
         protected override void initialize()
         {
-            _source.AddThenOrdering(this);
             initializeComparer();
             initializeSortDirectionScalar();
             Utils.initializeSourceScalar(_sourceScalar, ref _source, scalarValueChangedHandler);
+            _source?.AddThenOrdering(this);
             Utils.initializeNestedComputings(_nestedComputings, this);
         }
 
@@ -1064,7 +1064,7 @@ namespace ObservableComputations
 			IComparer<TOrderingValue> comparer = _comparerScalar.getValue(_comparer) ?? Comparer<TOrderingValue>.Default;
 			ListSortDirection listSortDirection = _sortDirectionScalar.getValue(_sortDirection);
 			Func<TSourceItem, TOrderingValue> orderingValueSelector = _orderingValueSelectorExpressionOriginal.Compile();
-            IOrderingInternal<TSourceItem> source = (IOrderingInternal<TSourceItem>) _sourceScalar.getValue(_source);
+            IOrderingInternal<TSourceItem> source = (IOrderingInternal<TSourceItem>) _sourceScalar.getValue(_source) ?? new ObservableCollection<TSourceItem>().Ordering(i => 0);
 			source.ValidateConsistency();
 
 			IOrdering<TSourceItem > orderingSource = source;

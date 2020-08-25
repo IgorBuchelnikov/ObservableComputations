@@ -156,7 +156,7 @@ namespace ObservableComputations
                     _sourcesAsList, 
                     ref _lastProcessedSourcesChangeMarker, 
                     ref _sourcesAsINotifyPropertyChanged,
-                    this);
+                    (ISourceIndexerPropertyTracker)this);
 
 
 				int plainIndex = 0;

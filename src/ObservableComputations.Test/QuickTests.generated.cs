@@ -50420,7 +50420,7 @@ namespace ObservableComputations.Test
 		public void TestPaging09()
 		{
 			System.Collections.Specialized.INotifyCollectionChanged source = getItems();
-			Scalar<int> pageSizeScalar = getScalar<int>(0);
+			Scalar<int> pageSizeScalar = getScalar<int>(2);
 			int initialPage = 1;
 			Consumer consumer = new Consumer();
 			var testing = source.Paging<Item>(
@@ -50492,7 +50492,7 @@ namespace ObservableComputations.Test
 		public void TestPaging10()
 		{
 			System.Collections.Specialized.INotifyCollectionChanged source = getItems();
-			Scalar<int> pageSizeScalar = getScalar<int>(0);
+			Scalar<int> pageSizeScalar = getScalar<int>(2);
 			Consumer consumer = new Consumer();
 			var testing = source.Paging<Item>(
 				pageSizeScalar).IsNeededFor(consumer);
@@ -50562,7 +50562,7 @@ namespace ObservableComputations.Test
 		public void TestPaging11()
 		{
 			ObservableCollection<Item> source = getItems();
-			Scalar<int> pageSizeScalar = getScalar<int>(0);
+			Scalar<int> pageSizeScalar = getScalar<int>(2);
 			int initialPage = 1;
 			Consumer consumer = new Consumer();
 			var testing = source.Paging<Item>(
@@ -50634,7 +50634,7 @@ namespace ObservableComputations.Test
 		public void TestPaging12()
 		{
 			ObservableCollection<Item> source = getItems();
-			Scalar<int> pageSizeScalar = getScalar<int>(0);
+			Scalar<int> pageSizeScalar = getScalar<int>(2);
 			Consumer consumer = new Consumer();
 			var testing = source.Paging<Item>(
 				pageSizeScalar).IsNeededFor(consumer);
@@ -50704,7 +50704,7 @@ namespace ObservableComputations.Test
 		public void TestPaging13()
 		{
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
-			Scalar<int> pageSizeScalar = getScalar<int>(0);
+			Scalar<int> pageSizeScalar = getScalar<int>(2);
 			int initialPage = 1;
 			Consumer consumer = new Consumer();
 			var testing = sourceScalar.Paging<Item>(
@@ -50781,7 +50781,7 @@ namespace ObservableComputations.Test
 		public void TestPaging14()
 		{
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
-			Scalar<int> pageSizeScalar = getScalar<int>(0);
+			Scalar<int> pageSizeScalar = getScalar<int>(2);
 			Consumer consumer = new Consumer();
 			var testing = sourceScalar.Paging<Item>(
 				pageSizeScalar).IsNeededFor(consumer);
@@ -50856,7 +50856,7 @@ namespace ObservableComputations.Test
 		public void TestPaging15()
 		{
 			Scalar<ObservableCollection<Item>> sourceScalar = getScalar<ObservableCollection<Item>>(getItems());
-			Scalar<int> pageSizeScalar = getScalar<int>(0);
+			Scalar<int> pageSizeScalar = getScalar<int>(2);
 			int initialPage = 1;
 			Consumer consumer = new Consumer();
 			var testing = sourceScalar.Paging<Item>(
@@ -50933,7 +50933,7 @@ namespace ObservableComputations.Test
 		public void TestPaging16()
 		{
 			Scalar<ObservableCollection<Item>> sourceScalar = getScalar<ObservableCollection<Item>>(getItems());
-			Scalar<int> pageSizeScalar = getScalar<int>(0);
+			Scalar<int> pageSizeScalar = getScalar<int>(2);
 			Consumer consumer = new Consumer();
 			var testing = sourceScalar.Paging<Item>(
 				pageSizeScalar).IsNeededFor(consumer);
@@ -51008,8 +51008,8 @@ namespace ObservableComputations.Test
 		public void TestPaging17()
 		{
 			System.Collections.Specialized.INotifyCollectionChanged source = getItems();
-			Scalar<int> pageSizeScalar = getScalar<int>(0);
-			Scalar<int> currentPageScalar = getScalar<int>(0);
+			Scalar<int> pageSizeScalar = getScalar<int>(2);
+			Scalar<int> currentPageScalar = getScalar<int>(1);
 			Consumer consumer = new Consumer();
 			var testing = source.Paging<Item>(
 				pageSizeScalar,
@@ -51085,8 +51085,8 @@ namespace ObservableComputations.Test
 		public void TestPaging18()
 		{
 			ObservableCollection<Item> source = getItems();
-			Scalar<int> pageSizeScalar = getScalar<int>(0);
-			Scalar<int> currentPageScalar = getScalar<int>(0);
+			Scalar<int> pageSizeScalar = getScalar<int>(2);
+			Scalar<int> currentPageScalar = getScalar<int>(1);
 			Consumer consumer = new Consumer();
 			var testing = source.Paging<Item>(
 				pageSizeScalar,
@@ -51162,8 +51162,8 @@ namespace ObservableComputations.Test
 		public void TestPaging19()
 		{
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
-			Scalar<int> pageSizeScalar = getScalar<int>(0);
-			Scalar<int> currentPageScalar = getScalar<int>(0);
+			Scalar<int> pageSizeScalar = getScalar<int>(2);
+			Scalar<int> currentPageScalar = getScalar<int>(1);
 			Consumer consumer = new Consumer();
 			var testing = sourceScalar.Paging<Item>(
 				pageSizeScalar,
@@ -51244,8 +51244,8 @@ namespace ObservableComputations.Test
 		public void TestPaging20()
 		{
 			Scalar<ObservableCollection<Item>> sourceScalar = getScalar<ObservableCollection<Item>>(getItems());
-			Scalar<int> pageSizeScalar = getScalar<int>(0);
-			Scalar<int> currentPageScalar = getScalar<int>(0);
+			Scalar<int> pageSizeScalar = getScalar<int>(2);
+			Scalar<int> currentPageScalar = getScalar<int>(1);
 			Consumer consumer = new Consumer();
 			var testing = sourceScalar.Paging<Item>(
 				pageSizeScalar,
@@ -51327,7 +51327,7 @@ namespace ObservableComputations.Test
 		{
 			System.Collections.Specialized.INotifyCollectionChanged source = getItems();
 			int pageSize = 2;
-			Scalar<int> currentPageScalar = getScalar<int>(0);
+			Scalar<int> currentPageScalar = getScalar<int>(1);
 			Consumer consumer = new Consumer();
 			var testing = source.Paging<Item>(
 				pageSize,
@@ -51399,7 +51399,7 @@ namespace ObservableComputations.Test
 		{
 			ObservableCollection<Item> source = getItems();
 			int pageSize = 2;
-			Scalar<int> currentPageScalar = getScalar<int>(0);
+			Scalar<int> currentPageScalar = getScalar<int>(1);
 			Consumer consumer = new Consumer();
 			var testing = source.Paging<Item>(
 				pageSize,
@@ -51471,7 +51471,7 @@ namespace ObservableComputations.Test
 		{
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
 			int pageSize = 2;
-			Scalar<int> currentPageScalar = getScalar<int>(0);
+			Scalar<int> currentPageScalar = getScalar<int>(1);
 			Consumer consumer = new Consumer();
 			var testing = sourceScalar.Paging<Item>(
 				pageSize,
@@ -51548,7 +51548,7 @@ namespace ObservableComputations.Test
 		{
 			Scalar<ObservableCollection<Item>> sourceScalar = getScalar<ObservableCollection<Item>>(getItems());
 			int pageSize = 2;
-			Scalar<int> currentPageScalar = getScalar<int>(0);
+			Scalar<int> currentPageScalar = getScalar<int>(1);
 			Consumer consumer = new Consumer();
 			var testing = sourceScalar.Paging<Item>(
 				pageSize,

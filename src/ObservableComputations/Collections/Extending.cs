@@ -72,7 +72,7 @@ namespace ObservableComputations
                     _sourceAsList, 
                     ref _lastProcessedSourceChangeMarker, 
                     ref _sourceAsINotifyPropertyChanged,
-                    this);
+                    (ISourceIndexerPropertyTracker)this);
 
 
 				int count = _sourceAsList.Count;

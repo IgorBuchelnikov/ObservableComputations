@@ -90,7 +90,7 @@ namespace ObservableComputations
             if (_sourceAsList != null && _isActive)
             {
                 Utils.initializeFromHasChangeMarker(
-                    ref _sourceAsIHasChangeMarker, 
+                    out _sourceAsIHasChangeMarker, 
                     _sourceAsList, 
                     ref _lastProcessedSourceChangeMarker, 
                     ref _sourceAsINotifyPropertyChanged,
@@ -172,17 +172,17 @@ namespace ObservableComputations
 			}
 
             Utils.postHandleSourceCollectionChanged(
-                ref _handledEventSender,
-                ref _handledEventArgs);
+                out _handledEventSender,
+                out _handledEventArgs);
 		}
 
 		private void processNewItem(TSourceItem sourceItem)
 		{
 			if (Configuration.TrackComputingsExecutingUserCode)
 			{
-                var currentThread = Utils.startComputingExecutingUserCode(out var computing, ref _userCodeIsCalledFrom, this);
+                var currentThread = Utils.startComputingExecutingUserCode(out var computing, out _userCodeIsCalledFrom, this);
 				_newItemProcessor(sourceItem, this);
-                Utils.endComputingExecutingUserCode(computing, currentThread, ref _userCodeIsCalledFrom);
+                Utils.endComputingExecutingUserCode(computing, currentThread, out _userCodeIsCalledFrom);
 				return;
 			}
 
@@ -193,9 +193,9 @@ namespace ObservableComputations
 		{
 			if (Configuration.TrackComputingsExecutingUserCode)
 			{
-                var currentThread = Utils.startComputingExecutingUserCode(out var computing, ref _userCodeIsCalledFrom, this);
+                var currentThread = Utils.startComputingExecutingUserCode(out var computing, out _userCodeIsCalledFrom, this);
 				_oldItemProcessor(sourceItem, this);
-                Utils.endComputingExecutingUserCode(computing, currentThread, ref _userCodeIsCalledFrom);
+                Utils.endComputingExecutingUserCode(computing, currentThread, out _userCodeIsCalledFrom);
 				return;
 			}
 
@@ -207,9 +207,9 @@ namespace ObservableComputations
 		{
 			if (Configuration.TrackComputingsExecutingUserCode)
 			{
-                var currentThread = Utils.startComputingExecutingUserCode(out var computing, ref _userCodeIsCalledFrom, this);
+                var currentThread = Utils.startComputingExecutingUserCode(out var computing, out _userCodeIsCalledFrom, this);
 				_moveItemProcessor(sourceItem, this);
-                Utils.endComputingExecutingUserCode(computing, currentThread, ref _userCodeIsCalledFrom);
+                Utils.endComputingExecutingUserCode(computing, currentThread, out _userCodeIsCalledFrom);
 				return;
 			}
 

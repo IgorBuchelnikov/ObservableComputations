@@ -186,14 +186,14 @@ namespace ObservableComputations
 			if (_leftSourceAsList != null && _rightSourceAsList != null && _isActive)
 			{
                 Utils.initializeFromHasChangeMarker(
-                    ref _leftSourceAsIHasChangeMarker, 
+                    out _leftSourceAsIHasChangeMarker, 
                     _leftSourceAsList, 
                     ref _lastProcessedLeftSourceChangeMarker, 
                     ref _leftSourceAsINotifyPropertyChanged,
                     (ILeftSourceIndexerPropertyTracker)this);
 
                 Utils.initializeFromHasChangeMarker(
-                    ref _rightSourceAsHasChangeMarker, 
+                    out _rightSourceAsHasChangeMarker, 
                     _rightSourceAsList, 
                     ref _lastProcessedRightSourceChangeMarker, 
                     ref _rigthSourceAsINotifyPropertyChanged,
@@ -372,8 +372,8 @@ namespace ObservableComputations
             raiseConsistencyRestored();
 
             Utils.postHandleSourceCollectionChanged(
-                ref _handledEventSender,
-                ref _handledEventArgs);
+                out _handledEventSender,
+                out _handledEventArgs);
 		}
 
 		private void handleRightSourceCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
@@ -496,8 +496,8 @@ namespace ObservableComputations
             raiseConsistencyRestored();
 
             Utils.postHandleSourceCollectionChanged(
-                ref _handledEventSender,
-                ref _handledEventArgs);
+                out _handledEventSender,
+                out _handledEventArgs);
 		}
 
         internal override void addToUpstreamComputings(IComputingInternal computing)

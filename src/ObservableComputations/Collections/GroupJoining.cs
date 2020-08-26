@@ -330,12 +330,13 @@ namespace ObservableComputations
 			if (_sourceInitialized)
 			{
                 Utils.disposeExpressionItemInfos(_itemInfos, _outerKeySelectorExpressionСallCount, this);
+                Utils.RemoveDownstreamConsumedComputing(_itemInfos, this);
 
                 Utils.disposeSource(
                     _outerSourceScalar, 
                     _outerSource,
-                    ref _itemInfos,
-                    ref _outerSourceItemPositions, 
+                    out _itemInfos,
+                    out _outerSourceItemPositions, 
                     _outerSourceAsList, 
                     handleOuterSourceCollectionChanged);
 
@@ -391,9 +392,9 @@ namespace ObservableComputations
                 outerSourceCapacity, 
                 out _itemInfos, 
                 out _outerSourceItemPositions, 
-                ref _outerKeySelectorExpressionOriginal, 
-                ref _outerKeySelectorExpression, 
-                ref _outerKeySelectorExpressionContainsParametrizedObservableComputationsCalls, 
+                out _outerKeySelectorExpressionOriginal, 
+                out _outerKeySelectorExpression, 
+                out _outerKeySelectorExpressionContainsParametrizedObservableComputationsCalls, 
                 ref _outerKeySelectorExpressionInfo, 
                 ref _outerKeySelectorExpressionСallCount, 
                 ref _outerKeySelectorFunc, 
@@ -508,9 +509,8 @@ namespace ObservableComputations
 					JoinGroup<TOuterSourceItem, TInnerSourceItem, TKey> replacingJoinGroup = this[newIndex1];
                     OuterItemInfo itemInfo = _itemInfos[newIndex1];
 
-                    ExpressionWatcher oldExpressionWatcher = itemInfo.ExpressionWatcher;
-                    oldExpressionWatcher.Dispose();
-                    EventUnsubscriber.QueueSubscriptions(oldExpressionWatcher._propertyChangedEventSubscriptions, oldExpressionWatcher._methodChangedEventSubscriptions);
+                    Utils.disposeExpressionWatcher(itemInfo.ExpressionWatcher, itemInfo.NestedComputings, this,
+                        _outerKeySelectorExpressionContainsParametrizedObservableComputationsCalls);
 
                     Utils.getItemInfoContent(
                         new object[]{newItem}, 
@@ -518,7 +518,7 @@ namespace ObservableComputations
                         out Func<TKey> outerKeySelectorFunc, 
                         out List<IComputingInternal> nestedComputings,
                         _outerKeySelectorExpression,
-                        ref _outerKeySelectorExpressionСallCount,
+                        out _outerKeySelectorExpressionСallCount,
                         this,
                         _outerKeySelectorExpressionContainsParametrizedObservableComputationsCalls,
                         _outerKeySelectorExpressionInfo);
@@ -569,11 +569,11 @@ namespace ObservableComputations
                 ref _handledEventSender, 
                 ref _handledEventArgs, 
                 this,
-                ref _isConsistent); 
+                out _isConsistent); 
 
             Utils.postHandleSourceCollectionChanged(
-                ref _handledEventSender,
-                ref _handledEventArgs);
+                out _handledEventSender,
+                out _handledEventArgs);
 		}
 
         internal override void addToUpstreamComputings(IComputingInternal computing)
@@ -616,14 +616,11 @@ namespace ObservableComputations
 
 			unregisterKey(index, itemInfo);
 
-			watcher.Dispose();
-            EventUnsubscriber.QueueSubscriptions(watcher._propertyChangedEventSubscriptions, watcher._methodChangedEventSubscriptions);
+            Utils.disposeExpressionWatcher(itemInfo.ExpressionWatcher, itemInfo.NestedComputings, this,
+                _outerKeySelectorExpressionContainsParametrizedObservableComputationsCalls);
 
 			_outerSourceItemPositions.Remove(index);
 			//this[position.Index].Group.JoinGroupsPositions.Remove(position);
-
-            if (_outerKeySelectorExpressionContainsParametrizedObservableComputationsCalls)
-                Utils.itemInfoRemoveDownstreamConsumedComputing(itemInfo.NestedComputings, this);
 
 			baseRemoveItem(index);
 		}
@@ -636,7 +633,7 @@ namespace ObservableComputations
                 out Func<TKey> outerKeySelectorFunc, 
                 out List<IComputingInternal> nestedComputings,
                 _outerKeySelectorExpression,
-                ref _outerKeySelectorExpressionСallCount,
+                out _outerKeySelectorExpressionСallCount,
                 this,
                 _outerKeySelectorExpressionContainsParametrizedObservableComputationsCalls,
                 _outerKeySelectorExpressionInfo);
@@ -702,9 +699,9 @@ namespace ObservableComputations
 
             if (Configuration.TrackComputingsExecutingUserCode)
 			{
-                var currentThread = Utils.startComputingExecutingUserCode(out var computing, ref _userCodeIsCalledFrom, this);
+                var currentThread = Utils.startComputingExecutingUserCode(out var computing, out _userCodeIsCalledFrom, this);
 				TKey result = getValue();
-                Utils.endComputingExecutingUserCode(computing, currentThread, ref _userCodeIsCalledFrom);
+                Utils.endComputingExecutingUserCode(computing, currentThread, out _userCodeIsCalledFrom);
 				return result;
 			}
 
@@ -722,9 +719,9 @@ namespace ObservableComputations
 
             if (Configuration.TrackComputingsExecutingUserCode)
 			{
-                var currentThread = Utils.startComputingExecutingUserCode(out var computing, ref _userCodeIsCalledFrom, this);
+                var currentThread = Utils.startComputingExecutingUserCode(out var computing, out _userCodeIsCalledFrom, this);
 				TKey result = getValue();
-                Utils.endComputingExecutingUserCode(computing, currentThread, ref _userCodeIsCalledFrom);
+                Utils.endComputingExecutingUserCode(computing, currentThread, out _userCodeIsCalledFrom);
 				return result;
 			}
 

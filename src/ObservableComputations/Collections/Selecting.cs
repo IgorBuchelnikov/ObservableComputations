@@ -76,9 +76,9 @@ namespace ObservableComputations
                 capacity, 
                 out _itemInfos, 
                 out _sourcePositions, 
-                ref _selectorExpressionOriginal, 
-                ref _selectorExpression, 
-                ref _selectorContainsParametrizedObservableComputationsCalls, 
+                out _selectorExpressionOriginal, 
+                out _selectorExpression, 
+                out _selectorContainsParametrizedObservableComputationsCalls, 
                 ref _selectorExpressionInfo, 
                 ref _selectorExpressionСallCount, 
                 ref _selectorFunc, 
@@ -94,11 +94,13 @@ namespace ObservableComputations
             if (_sourceInitialized)
             {
                 Utils.disposeExpressionItemInfos(_itemInfos, _selectorExpressionСallCount, this);
+                Utils.RemoveDownstreamConsumedComputing(_itemInfos, this);
+
                 Utils.disposeSource(
                     _sourceScalar, 
                     _source,
-                    ref _itemInfos,
-                    ref _sourcePositions, 
+                    out _itemInfos,
+                    out _sourcePositions, 
                     _sourceAsList, 
                     handleSourceCollectionChanged);
 
@@ -219,23 +221,26 @@ namespace ObservableComputations
                 ref _handledEventSender, 
                 ref _handledEventArgs, 
                 this,
-                ref _isConsistent);          
+                out _isConsistent);          
            
             Utils.postHandleSourceCollectionChanged(
-                ref _handledEventSender,
-                ref _handledEventArgs);
+                out _handledEventSender,
+                out _handledEventArgs);
 		}
 
         internal override void addToUpstreamComputings(IComputingInternal computing)
         {
             (_source as IComputingInternal)?.AddDownstreamConsumedComputing(computing);
             (_sourceScalar as IComputingInternal)?.AddDownstreamConsumedComputing(computing);
+            Utils.RemoveDownstreamConsumedComputing(_itemInfos, this);
         }
+
 
         internal override void removeFromUpstreamComputings(IComputingInternal computing)        
         {
             (_source as IComputingInternal)?.RemoveDownstreamConsumedComputing(computing);
             (_sourceScalar as IComputingInternal)?.RemoveDownstreamConsumedComputing(computing);
+            Utils.AddDownstreamConsumedComputing(_itemInfos, this);
         }
 
         private void expressionWatcher_OnValueChanged(ExpressionWatcher expressionWatcher, object sender, EventArgs eventArgs)
@@ -267,7 +272,7 @@ namespace ObservableComputations
                 out Func<TResultItem> predicateFunc, 
                 out List<IComputingInternal> nestedComputings,
                 _selectorExpression,
-                ref _selectorExpressionСallCount,
+                out _selectorExpressionСallCount,
                 this,
                 _selectorContainsParametrizedObservableComputationsCalls,
                 _selectorExpressionInfo);
@@ -289,20 +294,13 @@ namespace ObservableComputations
 
         private void unregisterSourceItem(int index, bool replacing = false)
         {
-            ExpressionWatcher watcher = _itemInfos[index].ExpressionWatcher;
-            watcher.Dispose();
-            EventUnsubscriber.QueueSubscriptions(watcher._propertyChangedEventSubscriptions, watcher._methodChangedEventSubscriptions);
-
             if (!replacing)
             {
                 _sourcePositions.Remove(index);
             }
 
-            if (_selectorContainsParametrizedObservableComputationsCalls)
-            {
-                ItemInfo itemInfo = _itemInfos[index];
-                Utils.itemInfoRemoveDownstreamConsumedComputing(itemInfo.NestedComputings, this);                    
-            }
+            Utils.disposeExpressionWatcher(_itemInfos[index].ExpressionWatcher, _itemInfos[index].NestedComputings, this,
+                _selectorContainsParametrizedObservableComputationsCalls);
         }
 
         // ReSharper disable once MemberCanBePrivate.Global
@@ -315,9 +313,9 @@ namespace ObservableComputations
 
             if (Configuration.TrackComputingsExecutingUserCode)
 			{
-				var currentThread = Utils.startComputingExecutingUserCode(out var computing, ref _userCodeIsCalledFrom, this);
+				var currentThread = Utils.startComputingExecutingUserCode(out var computing, out _userCodeIsCalledFrom, this);
                 TResultItem result = getValue();
-                Utils.endComputingExecutingUserCode(computing, currentThread, ref _userCodeIsCalledFrom);
+                Utils.endComputingExecutingUserCode(computing, currentThread, out _userCodeIsCalledFrom);
                 return result;
 			}
 
@@ -333,9 +331,9 @@ namespace ObservableComputations
 
             if (Configuration.TrackComputingsExecutingUserCode)
 			{
-                var currentThread = Utils.startComputingExecutingUserCode(out var computing, ref _userCodeIsCalledFrom, this);		
+                var currentThread = Utils.startComputingExecutingUserCode(out var computing, out _userCodeIsCalledFrom, this);		
 				TResultItem result = getValue();
-                Utils.endComputingExecutingUserCode(computing, currentThread, ref _userCodeIsCalledFrom);
+                Utils.endComputingExecutingUserCode(computing, currentThread, out _userCodeIsCalledFrom);
 				return result;
 			}
 

@@ -152,7 +152,7 @@ namespace ObservableComputations
 			if (_sources != null && _isActive)
 			{
                 Utils.initializeFromHasChangeMarker(
-                    ref _sourcesAsIHasChangeMarker, 
+                    out _sourcesAsIHasChangeMarker, 
                     _sourcesAsList, 
                     ref _lastProcessedSourcesChangeMarker, 
                     ref _sourcesAsINotifyPropertyChanged,
@@ -335,8 +335,8 @@ namespace ObservableComputations
             raiseConsistencyRestored();
 
             Utils.postHandleSourceCollectionChanged(
-                ref _handledEventSender,
-                ref _handledEventArgs);
+                out _handledEventSender,
+                out _handledEventArgs);
 
 		}
 
@@ -460,8 +460,8 @@ namespace ObservableComputations
             raiseConsistencyRestored();
 
             Utils.postHandleSourceCollectionChanged(
-                ref _handledEventSender,
-                ref _handledEventArgs);
+                out _handledEventSender,
+                out _handledEventArgs);
 		}
 
 		private void replaceItem(IList newItem, ItemInfo itemInfo)

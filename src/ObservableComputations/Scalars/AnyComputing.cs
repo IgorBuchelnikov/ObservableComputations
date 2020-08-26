@@ -79,9 +79,9 @@ namespace ObservableComputations
                 capacity, 
                 out _itemInfos, 
                 out _sourcePositions, 
-                ref _predicateExpressionOriginal, 
-                ref _predicateExpression, 
-                ref _predicateContainsParametrizedObservableComputationCalls, 
+                out _predicateExpressionOriginal, 
+                out _predicateExpression, 
+                out _predicateContainsParametrizedObservableComputationCalls, 
                 ref _predicateExpressionInfo, 
                 ref _predicateExpressionСallCount, 
                 ref _predicateFunc, 
@@ -155,8 +155,8 @@ namespace ObservableComputations
 					int newStartingIndex = e.NewStartingIndex;
 					ItemInfo replacingItemInfo = _itemInfos[newStartingIndex];
 					ExpressionWatcher oldExpressionWatcher = replacingItemInfo.ExpressionWatcher;
-					oldExpressionWatcher.Dispose();
-                    EventUnsubscriber.QueueSubscriptions(oldExpressionWatcher._propertyChangedEventSubscriptions, oldExpressionWatcher._methodChangedEventSubscriptions);
+                    Utils.disposeExpressionWatcher(oldExpressionWatcher, replacingItemInfo.NestedComputings, this,
+                        _predicateContainsParametrizedObservableComputationCalls);
 
 					if (replacingItemInfo.PredicateResult) _predicatePassedCount--;
 
@@ -169,7 +169,7 @@ namespace ObservableComputations
                         out predicateFunc, 
                         out List<IComputingInternal> nestedComputings1,
                         _predicateExpression,
-                        ref _predicateExpressionСallCount,
+                        out _predicateExpressionСallCount,
                         this,
                         _predicateContainsParametrizedObservableComputationCalls,
                         _predicateExpressionInfo);	
@@ -201,11 +201,11 @@ namespace ObservableComputations
                 ref _handledEventSender, 
                 ref _handledEventArgs, 
                 this,
-                ref _isConsistent);
+                out _isConsistent);
 
             Utils.postHandleSourceCollectionChanged(
-                ref _handledEventSender,
-                ref _handledEventArgs);
+                out _handledEventSender,
+                out _handledEventArgs);
 		}
 
         internal override void addToUpstreamComputings(IComputingInternal computing)
@@ -237,11 +237,13 @@ namespace ObservableComputations
 			if (_sourceInitialized)
 			{
                 Utils.disposeExpressionItemInfos(_itemInfos, _predicateExpressionСallCount, this);
+                Utils.RemoveDownstreamConsumedComputing(_itemInfos, this);
+
                 Utils.disposeSource(
                     _sourceScalar, 
                     _source,
-                    ref _itemInfos,
-                    ref _sourcePositions, 
+                    out _itemInfos,
+                    out _sourcePositions, 
                     _sourceAsList, 
                     handleSourceCollectionChanged);
 
@@ -297,9 +299,9 @@ namespace ObservableComputations
 
             if (Configuration.TrackComputingsExecutingUserCode)
 			{
-                var currentThread = Utils.startComputingExecutingUserCode(out var computing, ref _userCodeIsCalledFrom, this);
+                var currentThread = Utils.startComputingExecutingUserCode(out var computing, out _userCodeIsCalledFrom, this);
 				bool result = getValue();
-                Utils.endComputingExecutingUserCode(computing, currentThread, ref _userCodeIsCalledFrom);
+                Utils.endComputingExecutingUserCode(computing, currentThread, out _userCodeIsCalledFrom);
 				return result;
 			}
 
@@ -316,7 +318,7 @@ namespace ObservableComputations
                 out Func<bool> predicateFunc, 
                 out List<IComputingInternal> nestedComputings,
                 _predicateExpression,
-                ref _predicateExpressionСallCount,
+                out _predicateExpressionСallCount,
                 this,
                 _predicateContainsParametrizedObservableComputationCalls,
                 _predicateExpressionInfo);	
@@ -333,14 +335,10 @@ namespace ObservableComputations
 		{
 			ItemInfo itemInfo = _itemInfos[sourceIndex];
 
-			ExpressionWatcher watcher = itemInfo.ExpressionWatcher;
-			watcher.Dispose();
-            EventUnsubscriber.QueueSubscriptions(watcher._propertyChangedEventSubscriptions, watcher._methodChangedEventSubscriptions);
+            Utils.disposeExpressionWatcher(itemInfo.ExpressionWatcher, itemInfo.NestedComputings, this,
+                _predicateContainsParametrizedObservableComputationCalls);
 
 			_sourcePositions.Remove(sourceIndex);
-
-            if (_predicateContainsParametrizedObservableComputationCalls)
-                Utils.itemInfoRemoveDownstreamConsumedComputing(itemInfo.NestedComputings, this);
 		}
 
 		private void expressionWatcher_OnValueChanged(ExpressionWatcher expressionWatcher, object sender, EventArgs eventArgs)

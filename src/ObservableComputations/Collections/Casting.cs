@@ -67,7 +67,7 @@ namespace ObservableComputations
 			if (_sourceAsList != null && _isActive)
 			{
                 Utils.initializeFromHasChangeMarker(
-                    ref _sourceAsIHasChangeMarker, 
+                    out _sourceAsIHasChangeMarker, 
                     _sourceAsList, 
                     ref _lastProcessedSourceChangeMarker, 
                     ref _sourceAsINotifyPropertyChanged,
@@ -149,8 +149,8 @@ namespace ObservableComputations
             raiseConsistencyRestored();
 
             Utils.postHandleSourceCollectionChanged(
-                ref _handledEventSender,
-                ref _handledEventArgs);
+                out _handledEventSender,
+                out _handledEventArgs);
 		}
 
         internal override void addToUpstreamComputings(IComputingInternal computing)

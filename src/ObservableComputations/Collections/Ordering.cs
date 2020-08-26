@@ -205,16 +205,16 @@ namespace ObservableComputations
 			Expression<Func<TSourceItem, TOrderingValue>> orderingValueSelectorExpression, 
 			int sourceCapacity) : base(sourceCapacity)
 		{
-			Utils.construct(sourceCapacity, ref _orderedItemInfos, ref _orderedPositions, ref _orderingValues);
+			Utils.construct(sourceCapacity, out _orderedItemInfos, out _orderedPositions, out _orderingValues);
 
             Utils.construct(
                 orderingValueSelectorExpression, 
                 sourceCapacity, 
                 out _itemInfos, 
                 out _sourcePositions, 
-                ref _orderingValueSelectorExpressionOriginal, 
-                ref _orderingValueSelectorExpression, 
-                ref _orderingValueSelectorContainsParametrizedLiveLinqCalls, 
+                out _orderingValueSelectorExpressionOriginal, 
+                out _orderingValueSelectorExpression, 
+                out _orderingValueSelectorContainsParametrizedLiveLinqCalls, 
                 ref _orderingValueSelectorExpressionInfo, 
                 ref _orderingValueSelectorExpressionСallCount, 
                 ref _orderingValueSelectorFunc, 
@@ -251,16 +251,17 @@ namespace ObservableComputations
 			if (_sourceInitialized)
 			{
                 Utils.disposeExpressionItemInfos(_itemInfos, _orderingValueSelectorExpressionСallCount, this);
+                Utils.RemoveDownstreamConsumedComputing(_itemInfos, this);
 
 				int capacity = Utils.disposeSource(
                     _sourceScalar, 
                     _source,
-                    ref _itemInfos,
-                    ref _sourcePositions, 
+                    out _itemInfos,
+                    out _sourcePositions, 
                     _sourceAsList, 
                     handleSourceCollectionChanged);
 
-                Utils.construct(capacity, ref _orderedItemInfos, ref _orderedPositions, ref _orderingValues);
+                Utils.construct(capacity, out _orderedItemInfos, out _orderedPositions, out _orderingValues);
 
 				_items.Clear();
 
@@ -302,7 +303,7 @@ namespace ObservableComputations
                 out Func<TOrderingValue> getOrderingValueFunc, 
                 out List<IComputingInternal> nestedComputings,
                 _orderingValueSelectorExpression,
-                ref _orderingValueSelectorExpressionСallCount,
+                out _orderingValueSelectorExpressionСallCount,
                 this,
                 _orderingValueSelectorContainsParametrizedLiveLinqCalls,
                 _orderingValueSelectorExpressionInfo);
@@ -377,9 +378,7 @@ namespace ObservableComputations
 		private void unregisterSourceItem(int sourceIndex)
 		{
 			OrderingItemInfo<TOrderingValue> itemInfo = _itemInfos[sourceIndex];
-			ExpressionWatcher watcher = itemInfo.ExpressionWatcher;
-			watcher.Dispose();
-            EventUnsubscriber.QueueSubscriptions(watcher._propertyChangedEventSubscriptions, watcher._methodChangedEventSubscriptions);
+            Utils.disposeExpressionWatcher(itemInfo.ExpressionWatcher, itemInfo.NestedComputings, this, _orderingValueSelectorContainsParametrizedLiveLinqCalls);
 
 			int orderedIndex = itemInfo.OrderedItemInfo.Index;
 			_orderedPositions.Remove(orderedIndex);	
@@ -394,9 +393,6 @@ namespace ObservableComputations
 				else
 					_equalOrderingValueRangePositions.ModifyLength(rangePosition.Index, -1);
 			}
-
-            if (_orderingValueSelectorContainsParametrizedLiveLinqCalls)
-                Utils.itemInfoRemoveDownstreamConsumedComputing(itemInfo.NestedComputings, this);
 
 			baseRemoveItem(orderedIndex);	
 		}
@@ -415,9 +411,9 @@ namespace ObservableComputations
 
             if (Configuration.TrackComputingsExecutingUserCode)
             {
-                var currentThread = Utils.startComputingExecutingUserCode(out var computing, ref _userCodeIsCalledFrom, this);
+                var currentThread = Utils.startComputingExecutingUserCode(out var computing, out _userCodeIsCalledFrom, this);
                 TOrderingValue result = getValue();
-                Utils.endComputingExecutingUserCode(computing, currentThread, ref _userCodeIsCalledFrom);
+                Utils.endComputingExecutingUserCode(computing, currentThread, out _userCodeIsCalledFrom);
                 return result;
             }
 
@@ -438,9 +434,9 @@ namespace ObservableComputations
 
             if (Configuration.TrackComputingsExecutingUserCode)
             {
-                var currentThread = Utils.startComputingExecutingUserCode(out var computing, ref _userCodeIsCalledFrom, this);
+                var currentThread = Utils.startComputingExecutingUserCode(out var computing, out _userCodeIsCalledFrom, this);
                 TOrderingValue result = getValue();
-                Utils.endComputingExecutingUserCode(computing, currentThread, ref _userCodeIsCalledFrom);
+                Utils.endComputingExecutingUserCode(computing, currentThread, out _userCodeIsCalledFrom);
                 return result;
             }
 
@@ -456,9 +452,9 @@ namespace ObservableComputations
 
             if (Configuration.TrackComputingsExecutingUserCode)
             {
-                var currentThread = Utils.startComputingExecutingUserCode(out var computing, ref _userCodeIsCalledFrom, this);
+                var currentThread = Utils.startComputingExecutingUserCode(out var computing, out _userCodeIsCalledFrom, this);
                 TOrderingValue result = getValue();
-                Utils.endComputingExecutingUserCode(computing, currentThread, ref _userCodeIsCalledFrom);
+                Utils.endComputingExecutingUserCode(computing, currentThread, out _userCodeIsCalledFrom);
                 return result;
             }
 
@@ -496,18 +492,17 @@ namespace ObservableComputations
 					int replacingSourceIndex = e.NewStartingIndex;
 					TSourceItem replacingSourceItem = _sourceAsList[replacingSourceIndex];
 					OrderingItemInfo<TOrderingValue> replacingItemInfo = _itemInfos[replacingSourceIndex];
-					ExpressionWatcher oldExpressionWatcher = _itemInfos[replacingSourceIndex].ExpressionWatcher;
+					ExpressionWatcher oldExpressionWatcher = replacingItemInfo.ExpressionWatcher;
 
-					oldExpressionWatcher.Dispose();
-                    EventUnsubscriber.QueueSubscriptions(oldExpressionWatcher._propertyChangedEventSubscriptions, oldExpressionWatcher._methodChangedEventSubscriptions);
-
+                    Utils.disposeExpressionWatcher(oldExpressionWatcher, replacingItemInfo.NestedComputings, this, _orderingValueSelectorContainsParametrizedLiveLinqCalls);
+                    
                     Utils.getItemInfoContent(
                         new object[]{replacingSourceItem}, 
                         out ExpressionWatcher newExpressionWatcher, 
                         out Func<TOrderingValue> newGetOrderingValueFunc, 
                         out List<IComputingInternal> nestedComputings,
                         _orderingValueSelectorExpression,
-                        ref _orderingValueSelectorExpressionСallCount,
+                        out _orderingValueSelectorExpressionСallCount,
                         this,
                         _orderingValueSelectorContainsParametrizedLiveLinqCalls,
                         _orderingValueSelectorExpressionInfo);
@@ -543,11 +538,11 @@ namespace ObservableComputations
                 ref _handledEventSender, 
                 ref _handledEventArgs, 
                 this,
-                ref _isConsistent);
+                out _isConsistent);
 
             Utils.postHandleSourceCollectionChanged(
-                ref _handledEventSender,
-                ref _handledEventArgs);
+                out _handledEventSender,
+                out _handledEventArgs);
 		}
 
         internal override void addToUpstreamComputings(IComputingInternal computing)

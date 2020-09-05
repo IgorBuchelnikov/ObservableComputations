@@ -219,6 +219,7 @@ namespace ObservableComputations
                 ref _handledEventSender, 
                 ref _handledEventArgs)) return;
 
+            _isConsistent = false;
             switch (e.Action)
             {
                 case NotifyCollectionChangedAction.Add:
@@ -254,7 +255,10 @@ namespace ObservableComputations
                     break;
             }
 
-            Utils.postHandleSourceCollectionChanged(
+            _isConsistent = true;
+            raiseConsistencyRestored();
+
+            Utils.postHandleChange(
                 out _handledEventSender,
                 out _handledEventArgs);
 		}

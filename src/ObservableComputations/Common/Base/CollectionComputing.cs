@@ -13,6 +13,7 @@ namespace ObservableComputations
 		public string DebugTag {get; set;}
 		public object Tag {get; set;}
 		internal IList<TItem> _items;
+        internal Queue<IProcessable>[] _deferredProcessings;
 
 		public CollectionComputing(int capacity = 0) : base(new List<TItem>(capacity))
 		{
@@ -406,7 +407,6 @@ namespace ObservableComputations
         protected void scalarValueChangedHandler(object sender, PropertyChangedEventArgs args)
         {
             if (args.PropertyName != nameof(IReadScalar<object>.Value)) return;
-            checkConsistent(sender, args);
 
             _handledEventSender = sender;
             _handledEventArgs = args;
@@ -453,13 +453,6 @@ namespace ObservableComputations
 		protected void raiseConsistencyRestored()
 		{
 			ConsistencyRestored?.Invoke(this, null);
-		}
-
-		protected void checkConsistent(object sender, EventArgs eventArgs)
-		{
-			if (!_isConsistent)
-				throw new ObservableComputationsInconsistencyException(this,
-					$"The source collection has been changed. It is not possible to process this change (event sender = {sender.ToStringSafe(e => $"{e.ToString()} in sender.ToString()")}, event args = {eventArgs.ToStringAlt()}), as the processing of the previous change is not completed. Make the change on ConsistencyRestored event raising (after IsConsistent property becomes true). This exception is fatal and cannot be handled as the inner state is damaged.", sender, eventArgs);
 		}
 
         protected List<Consumer> _consumers = new List<Consumer>();

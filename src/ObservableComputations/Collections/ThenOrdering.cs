@@ -10,7 +10,7 @@ using INotifyPropertyChanged = System.ComponentModel.INotifyPropertyChanged;
 namespace ObservableComputations
 {
 	// ReSharper disable once RedundantExtendsListEntry
-	public class ThenOrdering<TSourceItem, TOrderingValue> : CollectionComputing<TSourceItem>, INotifyPropertyChanged, IOrderingInternal<TSourceItem>, IThenOrderingInternal<TSourceItem>, IHasSourceCollections, ICanProcessSourceItemChange
+	public class ThenOrdering<TSourceItem, TOrderingValue> : CollectionComputing<TSourceItem>, INotifyPropertyChanged, IOrderingInternal<TSourceItem>, IThenOrderingInternal<TSourceItem>, IHasSourceCollections, ISourceItemChangeProcessor
 	{
 		// ReSharper disable once MemberCanBePrivate.Global
 		public IReadScalar<IOrdering<TSourceItem>> SourceScalar => _sourceScalar;
@@ -42,7 +42,8 @@ namespace ObservableComputations
 		bool _rootSourceWrapper;
 
 		private bool _lastProcessedSourceChangeMarker;
-		private Queue<ExpressionWatcher.Raise> _deferredExpressionWatcherChangedProcessings;
+		private Queue<ExpressionWatcher.Raise> _deferredExpressionWatcherChangedProcessingsCollectionChanged;
+        private Queue<ExpressionWatcher.Raise> _deferredExpressionWatcherChangedProcessingsConsistencyRestored
 
 		private Positions<OrderedItemInfo<TOrderingValue>> _orderedPositions;
 		private Positions<OrderingItemInfo<TOrderingValue>> _sourcePositions;
@@ -523,6 +524,8 @@ namespace ObservableComputations
 			_handledEventSender = sender;
 			_handledEventArgs = e;
 
+			_isConsistent = false;
+
 			switch (e.Action)
 			{
 				case NotifyCollectionChangedAction.Add:
@@ -534,9 +537,7 @@ namespace ObservableComputations
 				case NotifyCollectionChangedAction.Remove:
 					unregisterSourceItem(e.OldStartingIndex);
 					break;
-
 				case NotifyCollectionChangedAction.Replace:
-					_isConsistent = false;
 					_replacing = true;
 					int replacingSourceIndex = e.NewStartingIndex;
 					TSourceItem replacingSourceItem = _sourceAsList[replacingSourceIndex];
@@ -574,23 +575,22 @@ namespace ObservableComputations
 					}
 					break;
 				case NotifyCollectionChangedAction.Reset:
-					_isConsistent = false;
-
 					initializeFromSource();
 
-					_isConsistent = true;
-					raiseConsistencyRestored();
 					break;
 			}
 
+            _isConsistent = true;
+            raiseConsistencyRestored();
+
             Utils.doDeferredExpressionWatcherChangedProcessings(
-                _deferredExpressionWatcherChangedProcessings, 
+                _deferredExpressionWatcherChangedProcessingsCollectionChanged, 
                 ref _handledEventSender, 
                 ref _handledEventArgs, 
                 this,
                 out _isConsistent);
 
-            Utils.postHandleSourceCollectionChanged(
+            Utils.postHandleChange(
                 out _handledEventSender,
                 out _handledEventArgs);
 		}
@@ -610,7 +610,7 @@ namespace ObservableComputations
 			}
 			else
 			{
-				(_deferredExpressionWatcherChangedProcessings = _deferredExpressionWatcherChangedProcessings 
+				(_deferredExpressionWatcherChangedProcessingsCollectionChanged = _deferredExpressionWatcherChangedProcessingsCollectionChanged 
 					??  new Queue<ExpressionWatcher.Raise>())
 					.Enqueue(new ExpressionWatcher.Raise(expressionWatcher, sender, eventArgs));
 			}
@@ -707,7 +707,7 @@ namespace ObservableComputations
 			}
 		}
 
-        void ICanProcessSourceItemChange.ProcessSourceItemChange(ExpressionWatcher expressionWatcher)
+        void ISourceItemChangeProcessor.ProcessSourceItemChange(ExpressionWatcher expressionWatcher)
         {
             processSourceItemChange(expressionWatcher._position.Index, true);
         }

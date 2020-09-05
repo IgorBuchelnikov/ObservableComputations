@@ -371,7 +371,7 @@ namespace ObservableComputations
             _isConsistent = true;
             raiseConsistencyRestored();
 
-            Utils.postHandleSourceCollectionChanged(
+            Utils.postHandleChange(
                 out _handledEventSender,
                 out _handledEventArgs);
 		}
@@ -495,7 +495,7 @@ namespace ObservableComputations
             _isConsistent = true;
             raiseConsistencyRestored();
 
-            Utils.postHandleSourceCollectionChanged(
+            Utils.postHandleChange(
                 out _handledEventSender,
                 out _handledEventArgs);
 		}

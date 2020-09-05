@@ -163,15 +163,9 @@ namespace ObservableComputations
 		private void handleSourceCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
 		{
             if (!Utils.preHandleSourceCollectionChanged(
-                sender, 
-                e, 
-                _isConsistent, 
-                this, 
                 ref _indexerPropertyChangedEventRaised, 
                 ref _lastProcessedSourceChangeMarker, 
-                _sourceAsIHasChangeMarker, 
-                ref _handledEventSender, 
-                ref _handledEventArgs)) return;
+                _sourceAsIHasChangeMarker)) return;
 
             switch (e.Action)
             {
@@ -240,7 +234,7 @@ namespace ObservableComputations
                     break;
             }
 
-            Utils.postHandleSourceCollectionChanged(
+            Utils.postHandleChange(
                 out _handledEventSender,
                 out _handledEventArgs);
 		}

@@ -407,11 +407,12 @@ namespace ObservableComputations
                 ref _handledEventSender, 
                 ref _handledEventArgs)) return;
 
+            _isConsistent = false;
             switch (e.Action)
             {
                 case NotifyCollectionChangedAction.Add:
                     //if (e.NewItems.Count > 1) throw new ObservableComputationsException("Adding of multiple items is not supported");
-                    _isConsistent = false;
+
                     int newStartingIndex = e.NewStartingIndex;
 
                     int originalPageCount2 = _pageCount;
@@ -437,15 +438,11 @@ namespace ObservableComputations
 
                     if (Count > _pageSize) baseRemoveItem(_pageSize);
 
-                    _isConsistent = true;
-                    raiseConsistencyRestored();
-
                     if (_pageCount != originalPageCount2)
                         OnPropertyChanged(Utils.PageCountPropertyChangedEventArgs);
                     break;
                 case NotifyCollectionChangedAction.Remove:
                     // (e.OldItems.Count > 1) throw new ObservableComputationsException("Removing of multiple items is not supported");
-                    _isConsistent = false;
                     var oldStartingIndex = e.OldStartingIndex;
 
                     int originalPageCount1 = _pageCount;
@@ -497,9 +494,6 @@ namespace ObservableComputations
                         }
                     }
 
-                    _isConsistent = true;
-                    raiseConsistencyRestored();
-
                     if (_pageCount != originalPageCount1)
                         OnPropertyChanged(Utils.PageCountPropertyChangedEventArgs);
 
@@ -530,7 +524,6 @@ namespace ObservableComputations
                     else if ((oldStartingIndex1 < _lowerIndex || oldStartingIndex1 >= _upperIndex)
                              && (newStartingIndex1 >= _lowerIndex && newStartingIndex1 < _upperIndex))
                     {
-                        _isConsistent = false;
                         if (oldStartingIndex1 < _lowerIndex)
                         {
                             baseRemoveItem(0);
@@ -541,30 +534,20 @@ namespace ObservableComputations
                             baseInsertItem(newStartingIndex1 - _lowerIndex, (TSourceItem) e.NewItems[0]);
                             baseRemoveItem(Count - 1);
                         }
-
-                        _isConsistent = true;
-                        raiseConsistencyRestored();
                     }
                     else if ((newStartingIndex1 < _lowerIndex || newStartingIndex1 >= _upperIndex)
                              && (oldStartingIndex1 >= _lowerIndex && oldStartingIndex1 < _upperIndex))
                     {
-                        _isConsistent = false;
-
                         baseRemoveItem(oldStartingIndex1 - _lowerIndex);
 
                         if (newStartingIndex1 < _lowerIndex)
                             baseInsertItem(0, _sourceAsList[_lowerIndex]);
                         else
                             baseInsertItem(_pageSize - 1, _sourceAsList[_upperIndex - 1]);
-
-                        _isConsistent = true;
-                        raiseConsistencyRestored();
                     }
                     else if ((newStartingIndex1 < _lowerIndex && oldStartingIndex1 >= _upperIndex)
                              || (oldStartingIndex1 < _lowerIndex && newStartingIndex1 >= _upperIndex))
                     {
-                        _isConsistent = false;
-
                         if (oldStartingIndex1 < _lowerIndex)
                         {
                             baseRemoveItem(0);
@@ -575,19 +558,13 @@ namespace ObservableComputations
                             baseInsertItem(0, _sourceAsList[_lowerIndex]);
                             baseRemoveItem(_pageSize);
                         }
-
-                        _isConsistent = true;
-                        raiseConsistencyRestored();
                     }
 
                     break;
                 case NotifyCollectionChangedAction.Reset:
                     int originalPageCount = _pageCount;
                     int originalCurrentPage = _currentPage;
-                    _isConsistent = false;
                     initializeFromSource();
-                    _isConsistent = true;
-                    raiseConsistencyRestored();
 
                     if (_pageCount != originalPageCount)
                         OnPropertyChanged(Utils.PageCountPropertyChangedEventArgs);
@@ -598,7 +575,10 @@ namespace ObservableComputations
                     break;
             }
 
-            Utils.postHandleSourceCollectionChanged(
+            _isConsistent = true;
+            raiseConsistencyRestored();
+
+            Utils.postHandleChange(
                 out _handledEventSender,
                 out _handledEventArgs);
 		}

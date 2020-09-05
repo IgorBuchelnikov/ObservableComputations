@@ -10,7 +10,7 @@ using ObservableComputations.ExtentionMethods;
 namespace ObservableComputations
 {
 	// ReSharper disable once RedundantExtendsListEntry
-	public class Dictionaring<TSourceItem, TKey, TValue> : IDictionary<TKey, TValue>, IHasSourceCollections, IComputing, INotifyMethodChanged, ICanProcessSourceItemKeyChange, ICanProcessSourceItemValueChange
+	public class Dictionaring<TSourceItem, TKey, TValue> : IDictionary<TKey, TValue>, IHasSourceCollections, IComputing, INotifyMethodChanged, ISourceItemKeyChangeProcessor, ISourceItemValueChangeProcessor
 	{
 		// ReSharper disable once MemberCanBePrivate.Global
 		public IReadScalar<INotifyCollectionChanged> SourceScalar => _sourceScalar;
@@ -51,8 +51,8 @@ namespace ObservableComputations
         private List<IComputingInternal> _keyNestedComputings;
         private List<IComputingInternal> _valueNestedComputings;
 
-        private ICanProcessSourceItemKeyChange _thisAsCanProcessSourceKeyItemChange;
-        private ICanProcessSourceItemValueChange _thisAsCanProcessSourceValueItemChange;
+        private ISourceItemKeyChangeProcessor _thisAsSourceItemKeyChangeProcessor;
+        private ISourceItemValueChangeProcessor _thisAsSourceValueItemChangeProcessor;
 
 		private Action<TKey, TValue> _addItemAction;
 		public Action<TKey, TValue> AddItemAction
@@ -137,8 +137,10 @@ namespace ObservableComputations
 		bool _rootSourceWrapper;
 
 		private bool _lastProcessedSourceChangeMarker;
-		private Queue<ExpressionWatcher.Raise> _deferredValueExpressionWatcherChangedProcessings;
-		private Queue<ExpressionWatcher.Raise> _deferredKeyExpressionWatcherChangedProcessings;
+		private Queue<ExpressionWatcher.Raise> _deferredValueExpressionWatcherChangedProcessingsCollectionChanged;
+		private Queue<ExpressionWatcher.Raise> _deferredKeyExpressionWatcherChangedProcessingsCollectionChanged;
+        private Queue<ExpressionWatcher.Raise> _deferredValueExpressionWatcherChangedProcessingsConsistencyRestored;
+        private Queue<ExpressionWatcher.Raise> _deferredKeyExpressionWatcherChangedProcessingsConsistencyRestored;
 
 		private bool _sourceInitialized;
 		private readonly IReadScalar<INotifyCollectionChanged> _sourceScalar;
@@ -192,8 +194,8 @@ namespace ObservableComputations
                 ref _valueSelectorFunc, 
                 ref _valueNestedComputings);
 
-            _thisAsCanProcessSourceKeyItemChange = this;
-            _thisAsCanProcessSourceValueItemChange = this;
+            _thisAsSourceItemKeyChangeProcessor = this;
+            _thisAsSourceValueItemChangeProcessor = this;
         }
 
 		[ObservableComputationsCall]
@@ -395,30 +397,24 @@ namespace ObservableComputations
                 ref _handledEventArgs)) return;
 
 			TKey key;
+			_isConsistent = false;
 			switch (e.Action)
 			{
 				case NotifyCollectionChangedAction.Add:
-					_isConsistent = false;
 					int newStartingIndex = e.NewStartingIndex;
 					TSourceItem addedItem = _sourceAsList[newStartingIndex];
                     KeyValueExpressionItemInfo<TKey, TValue> itemInfo = registerSourceItem(addedItem, newStartingIndex);
 					key = applyKeySelector(itemInfo, addedItem);
 					TValue value = applyValueSelector(itemInfo, addedItem);
 					baseAddItem(key, value);
-					_isConsistent = true;
-					ConsistencyRestored?.Invoke(this, null);
 					break;
 				case NotifyCollectionChangedAction.Remove:
-					_isConsistent = false;
 					int oldStartingIndex = e.OldStartingIndex;
 					key = _itemInfos[oldStartingIndex].Key;
 					unregisterSourceItem(oldStartingIndex);
 					baseRemoveItem(key);
-					_isConsistent = true;
-					ConsistencyRestored?.Invoke(this, null);
 					break;
 				case NotifyCollectionChangedAction.Replace:
-					_isConsistent = false;
 					int newStartingIndex1 = e.NewStartingIndex;
 					TSourceItem newItem = _sourceAsList[newStartingIndex1];
                     KeyValueExpressionItemInfo<TKey, TValue> replacingItemInfo = _itemInfos[newStartingIndex1];
@@ -440,8 +436,6 @@ namespace ObservableComputations
 						baseRemoveItem(oldKey);
 						baseAddItem(replacingItemInfo.Key, newValue);
 					}	
-					_isConsistent = true;
-					ConsistencyRestored?.Invoke(this, null);
 					break;
 				case NotifyCollectionChangedAction.Move:
 					int oldStartingIndex2 = e.OldStartingIndex;
@@ -453,26 +447,26 @@ namespace ObservableComputations
 
 					break;
 				case NotifyCollectionChangedAction.Reset:
-					_isConsistent = false;
 					initializeFromSource();
-					_isConsistent = true;
-					ConsistencyRestored?.Invoke(this, null);
 					break;
 			}
 
+            _isConsistent = true;
+            ConsistencyRestored?.Invoke(this, null);
+
             Utils.doDeferredExpressionWatcherChangedProcessings(
-                _deferredKeyExpressionWatcherChangedProcessings, 
+                _deferredKeyExpressionWatcherChangedProcessingsCollectionChanged, 
                 ref _handledEventSender, 
                 ref _handledEventArgs, 
-                _thisAsCanProcessSourceKeyItemChange,
+                _thisAsSourceItemKeyChangeProcessor,
                 out _isConsistent,
                 false); 
 
             Utils.doDeferredExpressionWatcherChangedProcessings(
-                _deferredValueExpressionWatcherChangedProcessings, 
+                _deferredValueExpressionWatcherChangedProcessingsCollectionChanged, 
                 ref _handledEventSender, 
                 ref _handledEventArgs, 
-                _thisAsCanProcessSourceValueItemChange,
+                _thisAsSourceValueItemChangeProcessor,
                 out _isConsistent); 
 
 			_handledEventSender = null;
@@ -488,8 +482,8 @@ namespace ObservableComputations
                 _rootSourceWrapper, 
                 _sourceAsList, 
                 _lastProcessedSourceChangeMarker, 
-                _thisAsCanProcessSourceKeyItemChange,
-                ref _deferredKeyExpressionWatcherChangedProcessings, 
+                _thisAsSourceItemKeyChangeProcessor,
+                ref _deferredKeyExpressionWatcherChangedProcessingsCollectionChanged, 
                 ref _isConsistent,
                 ref _handledEventSender,
                 ref _handledEventArgs,
@@ -505,15 +499,15 @@ namespace ObservableComputations
                 _rootSourceWrapper, 
                 _sourceAsList, 
                 _lastProcessedSourceChangeMarker, 
-                _thisAsCanProcessSourceValueItemChange,
-                ref _deferredValueExpressionWatcherChangedProcessings, 
+                _thisAsSourceValueItemChangeProcessor,
+                ref _deferredValueExpressionWatcherChangedProcessingsCollectionChanged, 
                 ref _isConsistent,
                 ref _handledEventSender,
                 ref _handledEventArgs,
                 _isConsistent);
 		}
 
-        void ICanProcessSourceItemKeyChange.ProcessSourceItemChange(ExpressionWatcher expressionWatcher)
+        void ISourceItemKeyChangeProcessor.ProcessSourceItemChange(ExpressionWatcher expressionWatcher)
 		{
 			int sourceIndex = expressionWatcher._position.Index;
             KeyValueExpressionItemInfo<TKey, TValue> itemInfo = _itemInfos[sourceIndex];
@@ -524,7 +518,7 @@ namespace ObservableComputations
 			baseAddItem(newKey, itemInfo.Value);
 		}
 
-        void ICanProcessSourceItemValueChange.ProcessSourceItemChange(ExpressionWatcher expressionWatcher)
+        void ISourceItemValueChangeProcessor.ProcessSourceItemChange(ExpressionWatcher expressionWatcher)
 		{
 			int sourceIndex = expressionWatcher._position.Index;
             KeyValueExpressionItemInfo<TKey, TValue> itemInfo = _itemInfos[sourceIndex];
@@ -781,7 +775,7 @@ namespace ObservableComputations
             PropertyChanged?.Invoke(this, propertyChangedEventArgs);
         }
 
-        void ICanProcessSourceItemChange.ProcessSourceItemChange(ExpressionWatcher expressionWatcher)
+        void ISourceItemChangeProcessor.ProcessSourceItemChange(ExpressionWatcher expressionWatcher)
         {
             throw new NotImplementedException();
         }

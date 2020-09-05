@@ -9,7 +9,7 @@ using ObservableComputations.ExtentionMethods;
 
 namespace ObservableComputations
 {
-    internal interface IFiltering<TItem> : ICanProcessSourceItemChange
+    internal interface IFiltering<TItem> : ISourceItemChangeProcessor, ISourceCollectionChangeProcessor
     {
         bool ApplyPredicate(int sourceIndex);
 
@@ -55,7 +55,6 @@ namespace ObservableComputations
 
 		private readonly bool _predicateContainsParametrizedObservableComputationsCalls;
 
-		private Queue<ExpressionWatcher.Raise> _deferredExpressionWatcherChangedProcessings;
 		private readonly IReadScalar<INotifyCollectionChanged> _sourceScalar;
 		internal INotifyCollectionChanged _source;
 		private readonly Func<TSourceItem, bool> _predicateFunc;
@@ -299,26 +298,40 @@ namespace ObservableComputations
                 _rootSourceWrapper, 
                 ref _lastProcessedSourceChangeMarker, 
                 _sourceAsList, 
-                _isConsistent,
+                ref _isConsistent,
                 this,
                 ref _handledEventSender,
-                ref _handledEventArgs)) return;	
+                ref _handledEventArgs,
+                ref _deferredProcessings,
+                0, 2, 
+                this)) return;
 
-			switch (e.Action)
-			{
-				case NotifyCollectionChangedAction.Add:		
-					_isConsistent = false;
-					int newSourceIndex = e.NewStartingIndex;
-					TSourceItem addedSourceItem = _sourceAsList[newSourceIndex];
-					Position newItemPosition = null;
-					Position nextItemPosition;
+			_thisAsFiltering.processSourceCollectionChanged(sender, e);
 
-					int? newFilteredIndex  = null;
+            Utils.postHandleChange(
+                ref _handledEventSender,
+                ref _handledEventArgs,
+                _deferredProcessings,
+                out _isConsistent,
+                this);
+        }
+
+        void ISourceCollectionChangeProcessor.processSourceCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
+        {
+            switch (e.Action)
+            {
+                case NotifyCollectionChangedAction.Add:
+                    int newSourceIndex = e.NewStartingIndex;
+                    TSourceItem addedSourceItem = (TSourceItem) e.NewItems[0];
+                    Position newItemPosition = null;
+                    Position nextItemPosition;
+
+                    int? newFilteredIndex = null;
 
                     Utils.getItemInfoContent(
-                        new object[]{addedSourceItem}, 
-                        out ExpressionWatcher newWatcher, 
-                        out Func<bool> newPredicateFunc, 
+                        new object[] {addedSourceItem},
+                        out ExpressionWatcher newWatcher,
+                        out Func<bool> newPredicateFunc,
                         out List<IComputingInternal> nestedComputings,
                         _predicateExpression,
                         out _predicateExpressionСallCount,
@@ -327,57 +340,39 @@ namespace ObservableComputations
                         _predicateExpressionInfo);
 
                     bool predicateValue = applyPredicate(addedSourceItem, newPredicateFunc);
-                    nextItemPosition = FilteringUtils.processAddSourceItem(newSourceIndex, predicateValue, ref newItemPosition, ref newFilteredIndex, _itemInfos, _filteredPositions, Count);
+                    nextItemPosition = FilteringUtils.processAddSourceItem(newSourceIndex, predicateValue, ref newItemPosition,
+                        ref newFilteredIndex, _itemInfos, _filteredPositions, Count);
 
-					registerSourceItem(addedSourceItem, newSourceIndex, newItemPosition, nextItemPosition, newWatcher, newPredicateFunc, nestedComputings);
+                    registerSourceItem(addedSourceItem, newSourceIndex, newItemPosition, nextItemPosition, newWatcher,
+                        newPredicateFunc, nestedComputings);
 
-					if (newFilteredIndex != null)
-						baseInsertItem(newFilteredIndex.Value, addedSourceItem);
-					
-					_isConsistent = true;
-					raiseConsistencyRestored();
-					break;
-				case NotifyCollectionChangedAction.Remove:
-					unregisterSourceItem(e.OldStartingIndex);
-					break;
-				case NotifyCollectionChangedAction.Move:
-					_isConsistent = false;             
-					FilteringUtils.ProcessMoveSourceItems(e.OldStartingIndex, e.NewStartingIndex, _itemInfos, _filteredPositions, _sourcePositions, this);
-					_isConsistent = true;
-					raiseConsistencyRestored();
-					break;
-				case NotifyCollectionChangedAction.Reset:
-					_isConsistent = false;
-					initializeFromSource();
-					_isConsistent = true;
-					raiseConsistencyRestored();
-					break;
-				case NotifyCollectionChangedAction.Replace:
-					_isConsistent = false;
-					int sourceIndex = e.NewStartingIndex;
-					TSourceItem replacingSourceItem = _sourceAsList[sourceIndex];
+                    if (newFilteredIndex != null)
+                        baseInsertItem(newFilteredIndex.Value, addedSourceItem);
+                    break;
+                case NotifyCollectionChangedAction.Remove:
+                    unregisterSourceItem(e.OldStartingIndex);
+                    break;
+                case NotifyCollectionChangedAction.Move:
+                    FilteringUtils.ProcessMoveSourceItems(e.OldStartingIndex, e.NewStartingIndex, _itemInfos,
+                        _filteredPositions, _sourcePositions, this);
+                    break;
+                case NotifyCollectionChangedAction.Reset:
+                    initializeFromSource();
+                    break;
+                case NotifyCollectionChangedAction.Replace:
+                    int sourceIndex = e.NewStartingIndex;
+                    TSourceItem replacingSourceItem = (TSourceItem) e.NewItems[0];
 
-					FilteringItemInfo replacingItemInfo = _itemInfos[sourceIndex];
-					var replace = FilteringUtils.ProcessReplaceSourceItem(replacingItemInfo, new object[]{replacingSourceItem}, sourceIndex, _predicateContainsParametrizedObservableComputationsCalls, _predicateExpression, ref _predicateExpressionСallCount, _predicateExpressionInfo, _itemInfos, _filteredPositions, _thisAsFiltering, this);
+                    FilteringItemInfo replacingItemInfo = _itemInfos[sourceIndex];
+                    var replace = FilteringUtils.ProcessReplaceSourceItem(replacingItemInfo, new object[] {replacingSourceItem},
+                        sourceIndex, _predicateContainsParametrizedObservableComputationsCalls, _predicateExpression,
+                        out _predicateExpressionСallCount, _predicateExpressionInfo, _itemInfos, _filteredPositions,
+                        _thisAsFiltering, this);
 
                     if (replace)
-						baseSetItem(replacingItemInfo.FilteredPosition.Index, replacingSourceItem);
-					
-					_isConsistent = true;
-					raiseConsistencyRestored();
-					break;
-			}
-
-            Utils.doDeferredExpressionWatcherChangedProcessings(
-                _deferredExpressionWatcherChangedProcessings, 
-                ref _handledEventSender, 
-                ref _handledEventArgs, 
-                this,
-                out _isConsistent);
-
-            Utils.postHandleSourceCollectionChanged(
-                out _handledEventSender,
-                out _handledEventArgs);
+                        baseSetItem(replacingItemInfo.FilteredPosition.Index, replacingSourceItem);
+                    break;
+            }
         }
 
         internal override void addToUpstreamComputings(IComputingInternal computing)
@@ -394,19 +389,19 @@ namespace ObservableComputations
 
         void IFiltering<TSourceItem>.expressionWatcher_OnValueChanged(ExpressionWatcher expressionWatcher, object sender, EventArgs eventArgs)
 		{
-			Utils.ProcessSourceItemChange(
+            Utils.ProcessSourceItemChange(
                 expressionWatcher, 
                 sender, 
                 eventArgs, 
                 _rootSourceWrapper, 
                 _sourceAsList, 
-                _lastProcessedSourceChangeMarker,
-                (ICanProcessSourceItemChange)this,
-                ref _deferredExpressionWatcherChangedProcessings, 
+                _lastProcessedSourceChangeMarker, 
+                this,
                 ref _isConsistent,
                 ref _handledEventSender,
                 ref _handledEventArgs,
-                _isConsistent);
+                ref _deferredProcessings, 
+                1, 2, this);
 		}
 
         TSourceItem IFiltering<TSourceItem>.GetItem(int sourceIndex)
@@ -503,8 +498,9 @@ namespace ObservableComputations
 			if (removeIndex.HasValue) baseRemoveItem(removeIndex.Value);
 		}
 
-        void ICanProcessSourceItemChange.ProcessSourceItemChange(ExpressionWatcher expressionWatcher)
+        void ISourceItemChangeProcessor.ProcessSourceItemChange(ExpressionWatcher expressionWatcher)
         {
+            if (expressionWatcher._disposed) return;
             FilteringUtils.ProcessChangeSourceItem(expressionWatcher._position.Index, _itemInfos, this,
                 _filteredPositions, this);
         }
@@ -772,7 +768,7 @@ namespace ObservableComputations
             object[] sourceItems,
             int sourceIndex, bool predicateContainsParametrizedObservableComputationsCalls,
             Expression<TExpression> predicateExpression,
-            ref int predicateExpressionСallCount,
+            out int predicateExpressionСallCount,
             ExpressionWatcher.ExpressionInfo orderingValueSelectorExpressionInfo,
             List<FilteringItemInfo> filteringItemInfos,
             Positions<Position> filteredPositions, IFiltering<TSourceItem> thisAsFiltering,

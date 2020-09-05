@@ -7,7 +7,7 @@ using System.Linq.Expressions;
 
 namespace ObservableComputations
 {
-	public class GroupJoining<TOuterSourceItem, TInnerSourceItem, TKey> : CollectionComputing<JoinGroup<TOuterSourceItem, TInnerSourceItem, TKey>>, IHasSourceCollections, ICanProcessSourceItemChange
+	public class GroupJoining<TOuterSourceItem, TInnerSourceItem, TKey> : CollectionComputing<JoinGroup<TOuterSourceItem, TInnerSourceItem, TKey>>, IHasSourceCollections, ISourceItemChangeProcessor
 	{
 		// ReSharper disable once MemberCanBePrivate.Global
 		public IReadScalar<INotifyCollectionChanged> OuterSourceScalar => _outerSourceScalar;
@@ -125,7 +125,8 @@ namespace ObservableComputations
 		readonly List<OuterItemInfo> _nullKeyPositions = new List<OuterItemInfo>();
 
 		private bool _lastProcessedSourceChangeMarker;
-		private Queue<ExpressionWatcher.Raise> _deferredOuterSourceItemKeyExpressionWatcherChangedProcessings;
+		private Queue<ExpressionWatcher.Raise> _deferredOuterSourceItemKeyExpressionWatcherChangedProcessingsCollectionChanged;
+        private Queue<ExpressionWatcher.Raise> _deferredOuterSourceItemKeyExpressionWatcherChangedProcessingsConsistencyRestored;
 		private readonly IReadScalar<INotifyCollectionChanged> _outerSourceScalar;
 		private INotifyCollectionChanged _outerSource;
 		private readonly Expression<Func<TOuterSourceItem, TKey>> _outerKeySelectorExpressionOriginal;
@@ -137,7 +138,7 @@ namespace ObservableComputations
         private IEqualityComparer<TKey> _equalityComparer;
 
         private List<IComputingInternal> _nestedComputings;
-        private ICanProcessSourceItemChange _thisAsCanProcessSourceItemChange;
+        private ISourceItemChangeProcessor _thisAsSourceItemChangeProcessor;
         private int _outerKeySelectorExpressionСallCount;
 
         private sealed class OuterItemInfo : ExpressionItemInfo
@@ -158,7 +159,7 @@ namespace ObservableComputations
             _innerSourceScalar = innerSourceScalar;
             _innerKeySelector = innerKeySelector;
             _equalityComparerScalar = equalityComparerScalar;
-            _thisAsCanProcessSourceItemChange = this;
+            _thisAsSourceItemChangeProcessor = this;
         }
 
 		[ObservableComputationsCall]
@@ -173,7 +174,7 @@ namespace ObservableComputations
             _innerSource = innerSource;
             _innerKeySelector = innerKeySelector;
             _equalityComparerScalar = equalityComparerScalar;
-            _thisAsCanProcessSourceItemChange = this;
+            _thisAsSourceItemChangeProcessor = this;
 		}
 
 		[ObservableComputationsCall]
@@ -188,7 +189,7 @@ namespace ObservableComputations
             _innerSource = innerSource;
             _innerKeySelector = innerKeySelector;
             _equalityComparer = equalityComparer;
-            _thisAsCanProcessSourceItemChange = this;
+            _thisAsSourceItemChangeProcessor = this;
         }
 
 		[ObservableComputationsCall]
@@ -203,7 +204,7 @@ namespace ObservableComputations
             _innerSourceScalar = innerSourceScalar;
             _innerKeySelector = innerKeySelector;
             _equalityComparer = equalityComparer;
-            _thisAsCanProcessSourceItemChange = this;
+            _thisAsSourceItemChangeProcessor = this;
 		}
 
 		[ObservableComputationsCall]
@@ -218,7 +219,7 @@ namespace ObservableComputations
             _innerSourceScalar = innerSourceScalar;
             _innerKeySelector = innerKeySelector;
             _equalityComparerScalar = equalityComparerScalar;
-            _thisAsCanProcessSourceItemChange = this;
+            _thisAsSourceItemChangeProcessor = this;
 		}
 
 		[ObservableComputationsCall]
@@ -233,7 +234,7 @@ namespace ObservableComputations
             _innerSource = innerSource;
             _innerKeySelector = innerKeySelector;
             _equalityComparerScalar = equalityComparerScalar;
-            _thisAsCanProcessSourceItemChange = this;
+            _thisAsSourceItemChangeProcessor = this;
 		}
 
 		[ObservableComputationsCall]
@@ -248,7 +249,7 @@ namespace ObservableComputations
             _innerSource = innerSource;
             _innerKeySelector = innerKeySelector;
             _equalityComparer = equalityComparer;
-            _thisAsCanProcessSourceItemChange = this;
+            _thisAsSourceItemChangeProcessor = this;
 		}
 
 		[ObservableComputationsCall]
@@ -263,7 +264,7 @@ namespace ObservableComputations
             _innerSourceScalar = innerSourceScalar;
             _innerKeySelector = innerKeySelector;
             _equalityComparer = equalityComparer;
-            _thisAsCanProcessSourceItemChange = this;
+            _thisAsSourceItemChangeProcessor = this;
 		}
 
 
@@ -486,24 +487,19 @@ namespace ObservableComputations
                 ref _handledEventSender,
                 ref _handledEventArgs)) return;
 
+            _isConsistent = false;
 			switch (e.Action)
 			{
 				case NotifyCollectionChangedAction.Add:
-					_isConsistent = false;
 					int newStartingIndex = e.NewStartingIndex;
 					TOuterSourceItem addedItem = _outerSourceAsList[newStartingIndex];
-					registerOuterSourceItem(addedItem, newStartingIndex);
-					_isConsistent = true;
-					raiseConsistencyRestored();					
+					registerOuterSourceItem(addedItem, newStartingIndex);				
 					break;
 				case NotifyCollectionChangedAction.Remove:
-                    _isConsistent = false;
 					unregisterOuterSourceItem(e.OldStartingIndex);
-                    _isConsistent = true;
-                    raiseConsistencyRestored();	
+
 					break;
 				case NotifyCollectionChangedAction.Replace:
-					_isConsistent = false;
 					int newIndex1 = e.NewStartingIndex;
 					TOuterSourceItem newItem = _outerSourceAsList[newIndex1];
 					JoinGroup<TOuterSourceItem, TInnerSourceItem, TKey> replacingJoinGroup = this[newIndex1];
@@ -541,11 +537,8 @@ namespace ObservableComputations
                     itemInfo.ExpressionWatcher = watcher;
                     itemInfo.SelectorFunc = outerKeySelectorFunc;
                     itemInfo.NestedComputings = nestedComputings;
-					_isConsistent = true;
-					raiseConsistencyRestored();
 					break;
 				case NotifyCollectionChangedAction.Move:
-					_isConsistent = false;
 					int oldStartingIndex2 = e.OldStartingIndex;
 					int newStartingIndex2 = e.NewStartingIndex;
 					if (oldStartingIndex2 != newStartingIndex2)
@@ -553,25 +546,23 @@ namespace ObservableComputations
 						_outerSourceItemPositions.Move(oldStartingIndex2, newStartingIndex2);
 						baseMoveItem(oldStartingIndex2, newStartingIndex2);
 					}
-					_isConsistent = true;
-					raiseConsistencyRestored();
 					break;
 				case NotifyCollectionChangedAction.Reset:
-					_isConsistent = false;
 					initializeFromSource();
-					_isConsistent = true;
-					raiseConsistencyRestored();
 					break;
 			}	
+
+            _isConsistent = true;
+            raiseConsistencyRestored();
 			
             Utils.doDeferredExpressionWatcherChangedProcessings(
-                _deferredOuterSourceItemKeyExpressionWatcherChangedProcessings, 
+                _deferredOuterSourceItemKeyExpressionWatcherChangedProcessingsCollectionChanged, 
                 ref _handledEventSender, 
                 ref _handledEventArgs, 
                 this,
                 out _isConsistent); 
 
-            Utils.postHandleSourceCollectionChanged(
+            Utils.postHandleChange(
                 out _handledEventSender,
                 out _handledEventArgs);
 		}
@@ -601,8 +592,8 @@ namespace ObservableComputations
                 _outerRootSourceWrapper, 
                 _outerSourceAsList, 
                 _lastProcessedSourceChangeMarker, 
-                _thisAsCanProcessSourceItemChange,
-                ref _deferredOuterSourceItemKeyExpressionWatcherChangedProcessings, 
+                _thisAsSourceItemChangeProcessor,
+                ref _deferredOuterSourceItemKeyExpressionWatcherChangedProcessingsCollectionChanged, 
                 ref _isConsistent,
                 ref _handledEventSender,
                 ref _handledEventArgs,
@@ -733,7 +724,7 @@ namespace ObservableComputations
 			return applyKeySelector(index);
 		}
 
-        void ICanProcessSourceItemChange.ProcessSourceItemChange(ExpressionWatcher expressionWatcher)
+        void ISourceItemChangeProcessor.ProcessSourceItemChange(ExpressionWatcher expressionWatcher)
 		{
 			int outerSourceIndex = expressionWatcher._position.Index;
 			JoinGroup<TOuterSourceItem, TInnerSourceItem, TKey> joinGroup = this[outerSourceIndex];

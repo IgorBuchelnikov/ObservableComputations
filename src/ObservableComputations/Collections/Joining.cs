@@ -66,7 +66,8 @@ namespace ObservableComputations
 
         private readonly bool _predicateContainsParametrizedObservableComputationsCalls;
 
-        private Queue<ExpressionWatcher.Raise> _deferredExpressionWatcherChangedProcessings;
+        private Queue<ExpressionWatcher.Raise> _deferredExpressionWatcherChangedProcessingsCollectionChanged;
+        private Queue<ExpressionWatcher.Raise> _deferredExpressionWatcherChangedProcessingsConsistencyRestored;
         private IReadScalar<INotifyCollectionChanged> _leftSourceScalar;
         internal INotifyCollectionChanged _leftSource;
         private readonly IReadScalar<INotifyCollectionChanged> _rightSourceScalar;
@@ -400,10 +401,11 @@ namespace ObservableComputations
                 ref _handledEventSender,
                 ref _handledEventArgs)) return;
 
+            _isConsistent = false;
             switch (e.Action)
             {
                 case NotifyCollectionChangedAction.Add:
-                    _isConsistent = false;
+
                     int newLeftSourceIndex = e.NewStartingIndex;
                     TLeftSourceItem addedLeftSourceItem = _leftSourceAsList[newLeftSourceIndex];
                     int count = _rightSourceAsList.Count;
@@ -420,9 +422,6 @@ namespace ObservableComputations
 
                     //if (_isLeft && !anyAdded)
                     //    processAddSourceItem(addedLeftSourceItem, _defaultRightSourceItemForLeftJoin, baseIndex);
-
-                    _isConsistent = true;
-                    raiseConsistencyRestored();
                     break;
                 case NotifyCollectionChangedAction.Remove:
                     int oldIndex = e.OldStartingIndex;
@@ -440,7 +439,6 @@ namespace ObservableComputations
                         unregisterSourceItem(baseIndex1 + innerSourceIndex);										      
                     break;
                 case NotifyCollectionChangedAction.Move:
-                    _isConsistent = false;
                     int newIndex1 = e.NewStartingIndex;
                     int oldIndex1 = e.OldStartingIndex;
                     if (newIndex1 != oldIndex1)
@@ -467,18 +465,11 @@ namespace ObservableComputations
                             }						
                         }
                     }
-
-                    _isConsistent = true;
-                    raiseConsistencyRestored();
                     break;
                 case NotifyCollectionChangedAction.Reset:
-                    _isConsistent = false;
                     initializeFromSource();
-                    _isConsistent = true;
-                    raiseConsistencyRestored();
                     break;
                 case NotifyCollectionChangedAction.Replace:
-                    _isConsistent = false;
                     int newIndex3 = e.NewStartingIndex;
                     TLeftSourceItem newLeftSourceItem1 = _leftSourceAsList[newIndex3];
 
@@ -489,24 +480,25 @@ namespace ObservableComputations
                         TRightSourceItem rightSourceItem = _rightSourceAsList[rightSourceIndex];
                         FilteringItemInfo replacingItemInfo = _itemInfos[baseIndex2 + rightSourceIndex];
 
-                        var replace = FilteringUtils.ProcessReplaceSourceItem(replacingItemInfo, new object[]{newLeftSourceItem1, rightSourceItem}, baseIndex2 + rightSourceIndex, _predicateContainsParametrizedObservableComputationsCalls, _predicateExpression, ref _predicateExpressionСallCount, _predicateExpressionInfo, _itemInfos, _filteredPositions, _thisAsFiltering, this);
+                        var replace = FilteringUtils.ProcessReplaceSourceItem(replacingItemInfo, new object[]{newLeftSourceItem1, rightSourceItem}, baseIndex2 + rightSourceIndex, _predicateContainsParametrizedObservableComputationsCalls, _predicateExpression, out _predicateExpressionСallCount, _predicateExpressionInfo, _itemInfos, _filteredPositions, _thisAsFiltering, this);
 
                         if (replace)
                             this[baseIndex2 + rightSourceIndex].setLeftItem(newLeftSourceItem1);	                   										
                     }
-                    _isConsistent = true;
-                    raiseConsistencyRestored();
                     break;
             }
 
+            _isConsistent = true;
+            raiseConsistencyRestored();
+
             Utils.doDeferredExpressionWatcherChangedProcessings(
-                _deferredExpressionWatcherChangedProcessings,
+                _deferredExpressionWatcherChangedProcessingsCollectionChanged,
                 ref _handledEventSender,
                 ref _handledEventArgs,
                 this,
                 out _isConsistent);
 
-            Utils.postHandleSourceCollectionChanged(
+            Utils.postHandleChange(
                 out _handledEventSender,
                 out _handledEventArgs);
         }
@@ -559,7 +551,7 @@ namespace ObservableComputations
                 this,
                 ref _handledEventSender,
                 ref _handledEventArgs)) return;
-
+            _isConsistent = false;
 			switch (e.Action)
 			{
 				case NotifyCollectionChangedAction.Add:
@@ -601,7 +593,7 @@ namespace ObservableComputations
                         TLeftSourceItem leftSourceItem = _leftSourceAsList[leftSourceIndex];
                         FilteringItemInfo replacingItemInfo = _itemInfos[index2];
 
-                        var replace = FilteringUtils.ProcessReplaceSourceItem(replacingItemInfo, new object[]{leftSourceItem, sourceRightItem3}, index2, _predicateContainsParametrizedObservableComputationsCalls, _predicateExpression, ref _predicateExpressionСallCount, _predicateExpressionInfo, _itemInfos, _filteredPositions, _thisAsFiltering, this);
+                        var replace = FilteringUtils.ProcessReplaceSourceItem(replacingItemInfo, new object[]{leftSourceItem, sourceRightItem3}, index2, _predicateContainsParametrizedObservableComputationsCalls, _predicateExpression, out _predicateExpressionСallCount, _predicateExpressionInfo, _itemInfos, _filteredPositions, _thisAsFiltering, this);
 
                         if (replace)
                             this[index2].setRightItem(sourceRightItem3);	                        
@@ -627,21 +619,21 @@ namespace ObservableComputations
 					}
 					break;
 				case NotifyCollectionChangedAction.Reset:
-                    _isConsistent = false;
                     initializeFromSource();
-                    _isConsistent = true;
-                    raiseConsistencyRestored();
 					break;
 			}
 
+            _isConsistent = true;
+            raiseConsistencyRestored();
+
             Utils.doDeferredExpressionWatcherChangedProcessings(
-                _deferredExpressionWatcherChangedProcessings,
+                _deferredExpressionWatcherChangedProcessingsCollectionChanged,
                 ref _handledEventSender,
                 ref _handledEventArgs,
                 this,
                 out _isConsistent);
 
-            Utils.postHandleSourceCollectionChanged(
+            Utils.postHandleChange(
                 out _handledEventSender,
                 out _handledEventArgs);
 		}
@@ -676,7 +668,7 @@ namespace ObservableComputations
                 _lastProcessedLeftSourceChangeMarker,
                 _lastProcessedRightSourceChangeMarker,
                 _thisAsFiltering,
-                ref _deferredExpressionWatcherChangedProcessings,
+                ref _deferredExpressionWatcherChangedProcessingsCollectionChanged,
                 ref _isConsistent,
                 ref _handledEventSender,
                 ref _handledEventArgs,
@@ -794,7 +786,7 @@ namespace ObservableComputations
             if (removeIndex.HasValue) baseRemoveItem(removeIndex.Value);
         }
 
-        void ICanProcessSourceItemChange.ProcessSourceItemChange(ExpressionWatcher expressionWatcher)
+        void ISourceItemChangeProcessor.ProcessSourceItemChange(ExpressionWatcher expressionWatcher)
         {
             FilteringUtils.ProcessChangeSourceItem(expressionWatcher._position.Index, _itemInfos, this,
                 _filteredPositions, this);

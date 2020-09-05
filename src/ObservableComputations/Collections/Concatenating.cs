@@ -334,7 +334,7 @@ namespace ObservableComputations
             _isConsistent = true;
             raiseConsistencyRestored();
 
-            Utils.postHandleSourceCollectionChanged(
+            Utils.postHandleChange(
                 out _handledEventSender,
                 out _handledEventArgs);
 
@@ -459,7 +459,7 @@ namespace ObservableComputations
             _isConsistent = true;
             raiseConsistencyRestored();
 
-            Utils.postHandleSourceCollectionChanged(
+            Utils.postHandleChange(
                 out _handledEventSender,
                 out _handledEventArgs);
 		}
@@ -596,7 +596,7 @@ namespace ObservableComputations
 
         #region Implementation of ISourceIndexerPropertyTracker
 
-        public void HandleSourcePropertyChanged(object sender, PropertyChangedEventArgs propertyChangedEventArgs)
+        void ISourceIndexerPropertyTracker.HandleSourcePropertyChanged(object sender, PropertyChangedEventArgs propertyChangedEventArgs)
         {
             Utils.HandleSourcePropertyChanged(propertyChangedEventArgs, ref _indexerPropertyChangedEventRaised);
         }

@@ -7,7 +7,7 @@ using System.Linq;
 
 namespace ObservableComputations
 {
-	public class CollectionPausing<TSourceItem> : CollectionComputing<TSourceItem>, IHasSourceCollections, ISourceIndexerPropertyTracker
+	public class CollectionPausing<TSourceItem> : CollectionComputing<TSourceItem>, IHasSourceCollections, ISourceIndexerPropertyTracker, ISourceCollectionChangeProcessor
 	{
 		public INotifyCollectionChanged Source => _source;
 		public IReadScalar<INotifyCollectionChanged> SourceScalar => _sourceScalar;
@@ -27,11 +27,8 @@ namespace ObservableComputations
 				_isPaused = value;
 				OnPropertyChanged(Utils.PausedPropertyChangedEventArgs);
 
-				if (_resuming)
-				{
-					resume();
-				}
-			}
+				if (_resuming) resume();
+            }
 		}
 
 		private void resume()
@@ -104,6 +101,8 @@ namespace ObservableComputations
 		private bool _isPaused;
 		private bool _resuming;
 
+        private ISourceCollectionChangeProcessor _thisAsSourceCollectionChangeProcessor;
+
 		Queue<DefferedCollectionAction<TSourceItem>> _defferedCollectionActions = new Queue<DefferedCollectionAction<TSourceItem>>();
 
 		[ObservableComputationsCall]
@@ -113,7 +112,8 @@ namespace ObservableComputations
 		{
 			_isPaused = initialIsPaused;
 			_source = source;
-		}
+            _thisAsSourceCollectionChangeProcessor = this;
+        }
 
 
 		[ObservableComputationsCall]
@@ -123,6 +123,7 @@ namespace ObservableComputations
 		{
 			_isPaused = initialIsPaused;
 			_sourceScalar = sourceScalar;
+            _thisAsSourceCollectionChangeProcessor = this;
 		}
 
 		[ObservableComputationsCall]
@@ -132,8 +133,8 @@ namespace ObservableComputations
 		{
 			_isPausedScalar = isPausedScalar;
 			_source = source;
+            _thisAsSourceCollectionChangeProcessor = this;
 		}
-
 
 		[ObservableComputationsCall]
 		public CollectionPausing(
@@ -142,6 +143,7 @@ namespace ObservableComputations
 		{
 			_isPausedScalar = isPausedScalar;
 			_sourceScalar = sourceScalar;
+            _thisAsSourceCollectionChangeProcessor = this;
 		}
 
         private void initializeIsPausedScalar()
@@ -156,8 +158,6 @@ namespace ObservableComputations
 		private void handleIsPausedScalarValueChanged(object sender, PropertyChangedEventArgs e)
 		{
 			if (e.PropertyName != nameof(IReadScalar<object>.Value)) return;
-
-			checkConsistent(sender, e);
 
 			_handledEventSender = sender;
 			_handledEventArgs = e;
@@ -248,19 +248,29 @@ namespace ObservableComputations
             if (!Utils.preHandleSourceCollectionChanged(
                 sender, 
                 e, 
-                _isConsistent, 
-                this, 
+                ref _isConsistent, 
                 ref _indexerPropertyChangedEventRaised, 
                 ref _lastProcessedSourceChangeMarker, 
                 _sourceAsIHasChangeMarker, 
                 ref _handledEventSender, 
-                ref _handledEventArgs)) return;
+                ref _handledEventArgs,
+                ref _deferredProcessings,
+                0, 1, this)) return;
 
-			if (!_resuming && !_isPaused)
-			{
-				_isConsistent = false;
-			}
+			_isConsistent = !_resuming && !_isPaused;
 
+            _thisAsSourceCollectionChangeProcessor.processSourceCollectionChanged(sender, e);
+
+            Utils.postHandleChange(
+                ref _handledEventSender,
+                ref _handledEventArgs,
+                _deferredProcessings,
+                out _isConsistent,
+                this);
+		}
+
+        void ISourceCollectionChangeProcessor.processSourceCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
+        {
             if (_isPaused && e.Action != NotifyCollectionChangedAction.Reset)
             {
                 _defferedCollectionActions.Enqueue(new DefferedCollectionAction<TSourceItem>(sender, e));
@@ -294,16 +304,7 @@ namespace ObservableComputations
                     break;
             }
 
-            if (!_resuming && !_isPaused)
-			{		
-				_isConsistent = true;
-				raiseConsistencyRestored();
-			}
-
-            Utils.postHandleSourceCollectionChanged(
-                out _handledEventSender,
-                out _handledEventArgs);
-		}
+        }
 
         internal override void addToUpstreamComputings(IComputingInternal computing)
         {

@@ -291,64 +291,67 @@ namespace ObservableComputations
                     $"The source collection has been changed. It is not possible to process this change (event sender = {sender.ToStringSafe(e => $"{e.ToString()} in sender.ToString()")}, event args = {eventArgs.ToStringAlt()}), as the processing of the previous change is not completed. Make the change on ConsistencyRestored event raising (after IsConsistent property becomes true). This exception is fatal and cannot be handled as the inner state is damaged.", sender, eventArgs);
         }
 
-        internal static bool preHandleSourceCollectionChanged<TSourceItem>(object sender,
-            NotifyCollectionChangedEventArgs e, bool rootSourceWrapper, ref bool lastProcessedSourceChangeMarker,
-            ObservableCollectionWithChangeMarker<TSourceItem> sourceAsList, bool isConsistent, IComputing computing,
-            ref object handledEventSender, ref EventArgs handledEventArgs)
+        private static Queue<IProcessable> getOrInitializeDeferredProcessingsQueue(ref Queue<IProcessable>[] deferredProcessings,
+            int deferredSourceCollectionChangedEventProcessingsIndex, int deferredProcessingsCount)
         {
-            checkConsistent(sender, e, isConsistent, computing);
-            if (!rootSourceWrapper && lastProcessedSourceChangeMarker == sourceAsList.ChangeMarkerField) return false;
+            if (deferredProcessings == null)
+                deferredProcessings = new Queue<IProcessable>[deferredProcessingsCount];
 
-            lastProcessedSourceChangeMarker = !lastProcessedSourceChangeMarker;
+            Queue<IProcessable> deferredSourceCollectionChangedEventProcessings;
+            if (deferredProcessings[deferredSourceCollectionChangedEventProcessingsIndex] == null)
+            {
+                deferredSourceCollectionChangedEventProcessings = new Queue<IProcessable>();
+                deferredProcessings[deferredSourceCollectionChangedEventProcessingsIndex] =
+                    deferredSourceCollectionChangedEventProcessings;
+            }
+            else
+            {
+                deferredSourceCollectionChangedEventProcessings =
+                    deferredProcessings[deferredSourceCollectionChangedEventProcessingsIndex];
+            }
 
-            handledEventSender = sender;
-            handledEventArgs = e;
-            return true;
+            return deferredSourceCollectionChangedEventProcessings;
         }
 
-        internal static void postHandleSourceCollectionChanged(
-            out object handledEventSender,
-            out EventArgs handledEventArgs)
+        internal static void postHandleChange(
+            ref object handledEventSender,
+            ref EventArgs handledEventArgs,
+            Queue<IProcessable>[] deferredProcessings,
+            out bool isConsistent, IComputingInternal computing)
+        {
+            bool processed = true;
+            while (processed)
+            {
+                processed = false;
+                int deferredProcessingsLength = deferredProcessings.Length;
+                for (int queueIndex = 0; queueIndex < deferredProcessingsLength; queueIndex++)
+                {
+                    Queue<IProcessable> queue = deferredProcessings[queueIndex];
+                    if (queue != null && queue.Count > 0)
+                    {
+                        IProcessable processable = queue.Dequeue();
+                        processable.Process();
+                        processed = true;
+                        break;
+                    }
+                }
+            }
+
+            if (!isConsistent)
+            {
+                isConsistent = true;
+                computing.RaiseConsistencyRestored();
+            }
+
+            postHandleChange(out handledEventSender, out handledEventArgs);
+        }
+
+        internal static void postHandleChange(out object handledEventSender, out EventArgs handledEventArgs)
         {
             handledEventSender = null;
             handledEventArgs = null;
         }
 
-        internal static void doDeferredExpressionWatcherChangedProcessings<TCanProcessSourceItemChange>(
-            Queue<ExpressionWatcher.Raise> deferredExpressionWatcherChangedProcessings, ref object handledEventSender,
-            ref EventArgs handledEventArgs, TCanProcessSourceItemChange canProcessSourceItemChange,
-            out bool isConsistent, bool setConsistencyRestored = true) where TCanProcessSourceItemChange : ICanProcessSourceItemChange
-        {
-            isConsistent = false;
-
-            if (deferredExpressionWatcherChangedProcessings != null)
-            {
-                while (deferredExpressionWatcherChangedProcessings.Count > 0)
-                {
-                    ExpressionWatcher.Raise expressionWatcherRaise = deferredExpressionWatcherChangedProcessings.Dequeue();
-                    if (!expressionWatcherRaise.ExpressionWatcher._disposed)
-                    {
-                        handledEventSender = expressionWatcherRaise.EventSender;
-                        handledEventArgs = expressionWatcherRaise.EventArgs;
-
-                        if (typeof(TCanProcessSourceItemChange) == typeof(ICanProcessSourceItemChange))               
-                            canProcessSourceItemChange.ProcessSourceItemChange(expressionWatcherRaise.ExpressionWatcher);
-                        else if (typeof(TCanProcessSourceItemChange) == typeof(ICanProcessSourceItemKeyChange))
-                            ((ICanProcessSourceItemKeyChange) canProcessSourceItemChange).ProcessSourceItemChange(expressionWatcherRaise.ExpressionWatcher);
-                        else if (typeof(TCanProcessSourceItemChange) == typeof(ICanProcessSourceItemValueChange))
-                            ((ICanProcessSourceItemValueChange) canProcessSourceItemChange).ProcessSourceItemChange(expressionWatcherRaise.ExpressionWatcher);               
-                    }
-                }
-            }
-
-
-            if (setConsistencyRestored)
-            {
-                isConsistent = true;
-                canProcessSourceItemChange.RaiseConsistencyRestored();
-            }
-
-        }
 
         internal static void endComputingExecutingUserCode(IComputing computing, Thread currentThread,
             out IComputing userCodeIsCalledFrom)
@@ -419,21 +422,36 @@ namespace ObservableComputations
             }
         }
 
-        internal static void ProcessSourceItemChange<TSourceItem, TCanProcessSourceItemChange>(ExpressionWatcher expressionWatcher,
-            object sender, EventArgs eventArgs,
+        internal static void ProcessSourceItemChange<TSourceItem, TCanProcessSourceItemChange>(
+            ExpressionWatcher expressionWatcher,
+            object sender,
+            EventArgs eventArgs,
             bool rootSourceWrapper,
             ObservableCollectionWithChangeMarker<TSourceItem> observableCollectionWithChangeMarker,
-            bool lastProcessedSourceChangeMarker, TCanProcessSourceItemChange thisAsCanProcessSourceItemChange,
-            ref Queue<ExpressionWatcher.Raise> deferredExpressionWatcherChangedProcessings,
-            ref bool isConsistent, ref object handledEventSender, ref EventArgs handledEventArgs, bool consistent) where TCanProcessSourceItemChange : ICanProcessSourceItemChange
+            bool lastProcessedSourceChangeMarker,
+            TCanProcessSourceItemChange thisAsCanProcessSourceItemChange,
+            ref bool isConsistent, ref object handledEventSender, ref EventArgs handledEventArgs,
+            ref Queue<IProcessable>[] deferredProcessings,
+            int deferredSourceItemChangedEventProcessingsIndex,
+            int deferredProcessingsCount,
+            IComputingInternal computing) 
+            where TCanProcessSourceItemChange : ISourceItemChangeProcessor
         {
             processExpressionWatcherNestedComputings(expressionWatcher, thisAsCanProcessSourceItemChange);
 
-            bool canProcessNow = rootSourceWrapper || observableCollectionWithChangeMarker.ChangeMarkerField == lastProcessedSourceChangeMarker;
+            bool canProcessNow = isConsistent && (rootSourceWrapper || observableCollectionWithChangeMarker.ChangeMarkerField == lastProcessedSourceChangeMarker);
 
-            checkConsistent(sender, eventArgs, consistent, thisAsCanProcessSourceItemChange);
-
-            processSourceItemChange(expressionWatcher, sender, eventArgs, thisAsCanProcessSourceItemChange, ref deferredExpressionWatcherChangedProcessings, ref isConsistent, ref handledEventSender, ref handledEventArgs, canProcessNow);
+            processSourceItemChange(
+                expressionWatcher, 
+                sender, 
+                eventArgs, 
+                thisAsCanProcessSourceItemChange, 
+                ref deferredProcessings, 
+                deferredSourceItemChangedEventProcessingsIndex, 
+                deferredProcessingsCount,
+                ref isConsistent, 
+                ref handledEventSender, 
+                ref handledEventArgs, canProcessNow, computing);
         }
 
         internal static void ProcessSourceItemChange<TSourceItem1, TSourceItem2, TCanProcessSourceItemChange>(ExpressionWatcher expressionWatcher,
@@ -444,31 +462,40 @@ namespace ObservableComputations
             ObservableCollectionWithChangeMarker<TSourceItem2> observableCollectionWithChangeMarker2,
             bool lastProcessedSource1ChangeMarker, bool lastProcessedSource2ChangeMarker, TCanProcessSourceItemChange thisAsCanProcessSourceItemChange,
             ref Queue<ExpressionWatcher.Raise> deferredExpressionWatcherChangedProcessings,
-            ref bool isConsistent, ref object handledEventSender, ref EventArgs handledEventArgs, bool consistent) where TCanProcessSourceItemChange : ICanProcessSourceItemChange
+            ref bool isConsistent, ref object handledEventSender, ref EventArgs handledEventArgs, bool consistent) where TCanProcessSourceItemChange : ISourceItemChangeProcessor
         {
             processExpressionWatcherNestedComputings(expressionWatcher, thisAsCanProcessSourceItemChange);
 
-            bool canProcessNow = 
-                (rootSourceWrapper1 || observableCollectionWithChangeMarker1.ChangeMarkerField == lastProcessedSource1ChangeMarker)
+            bool canProcessNow = consistent
+                && (rootSourceWrapper1 || observableCollectionWithChangeMarker1.ChangeMarkerField == lastProcessedSource1ChangeMarker)
                 && (rootSourceWrapper2 || observableCollectionWithChangeMarker2.ChangeMarkerField == lastProcessedSource2ChangeMarker);
 
-            checkConsistent(sender, eventArgs, consistent, thisAsCanProcessSourceItemChange);
-
-            processSourceItemChange(expressionWatcher, sender, eventArgs, thisAsCanProcessSourceItemChange, ref deferredExpressionWatcherChangedProcessings, ref isConsistent, ref handledEventSender, ref handledEventArgs, canProcessNow);
-
-
+            processSourceItemChange(
+                expressionWatcher, 
+                sender, 
+                eventArgs, 
+                thisAsCanProcessSourceItemChange, 
+                ref deferredExpressionWatcherChangedProcessings, 
+                ref isConsistent, 
+                ref handledEventSender, 
+                ref handledEventArgs, 
+                canProcessNow);
         }
 
         private static void processExpressionWatcherNestedComputings<TCanProcessSourceItemChange>(
             ExpressionWatcher expressionWatcher, TCanProcessSourceItemChange thisAsCanProcessSourceItemChange)
-            where TCanProcessSourceItemChange : ICanProcessSourceItemChange
+            where TCanProcessSourceItemChange : ISourceItemChangeProcessor
         {
+            if (!expressionWatcher._computingsChanged) return;
+
             int callCount = expressionWatcher._currentComputings.Length;
+            IComputingInternal[] newComputings = new IComputingInternal[callCount];
+            expressionWatcher._currentComputings.CopyTo(newComputings, 0);
 
             for (int callIndex = 0; callIndex < callCount; callIndex++)
             {
                 IComputingInternal oldComputing = expressionWatcher._oldComputings[callIndex];
-                IComputingInternal newComputing = expressionWatcher._currentComputings[callIndex];
+                IComputingInternal newComputing = newComputings[callIndex];
                 bool newExistsInOld = false;
                 bool oldExistsInNew = false;
 
@@ -476,11 +503,19 @@ namespace ObservableComputations
                 {
                     for (int callIndex1 = 0; callIndex1 < callCount; callIndex1++)
                     {
-                        if (expressionWatcher._oldComputings[callIndex1] == newComputing)
+                        if (newComputing != null && expressionWatcher._oldComputings[callIndex1] == newComputing)
+                        {
                             newExistsInOld = true;
+                            expressionWatcher._oldComputings[callIndex1] = null;
+                            newComputings[callIndex] = null;
+                        }
 
-                        if (expressionWatcher._currentComputings[callIndex1] == oldComputing)
+                        if (oldComputing != null && newComputings[callIndex1] == oldComputing)
+                        {
                             oldExistsInNew = true;
+                            expressionWatcher._oldComputings[callIndex] = null;
+                            newComputings[callIndex1] = null;
+                        }
                     }
                 }
 
@@ -494,9 +529,16 @@ namespace ObservableComputations
 
         private static void processSourceItemChange<TCanProcessSourceItemChange>(
             ExpressionWatcher expressionWatcher, object sender, EventArgs eventArgs,
-            TCanProcessSourceItemChange thisAsCanProcessSourceItemChange, ref Queue<ExpressionWatcher.Raise> deferredExpressionWatcherChangedProcessings,
-            ref bool isConsistent, ref object handledEventSender, ref EventArgs handledEventArgs, bool canProcessNow)
-            where TCanProcessSourceItemChange : ICanProcessSourceItemChange
+            TCanProcessSourceItemChange thisAsCanProcessSourceItemChange, 
+            ref Queue<IProcessable>[] deferredProcessings,
+            int deferredSourceItemChangedEventProcessingsIndex, 
+            int deferredProcessingsCount,
+            ref bool isConsistent, 
+            ref object handledEventSender, 
+            ref EventArgs handledEventArgs, 
+            bool canProcessNow,
+            IComputingInternal computing)
+            where TCanProcessSourceItemChange : ISourceItemChangeProcessor
         {
             if (canProcessNow)
             {
@@ -504,26 +546,30 @@ namespace ObservableComputations
                 handledEventArgs = eventArgs;
                 isConsistent = false;
 
-                if (typeof(TCanProcessSourceItemChange) == typeof(ICanProcessSourceItemChange))
+                if (typeof(TCanProcessSourceItemChange) == typeof(ISourceItemChangeProcessor))
                     thisAsCanProcessSourceItemChange.ProcessSourceItemChange(expressionWatcher);
-                else if (typeof(TCanProcessSourceItemChange) == typeof(ICanProcessSourceItemKeyChange))
-                    ((ICanProcessSourceItemKeyChange) thisAsCanProcessSourceItemChange).ProcessSourceItemChange(
+                else if (typeof(TCanProcessSourceItemChange) == typeof(ISourceItemKeyChangeProcessor))
+                    ((ISourceItemKeyChangeProcessor) thisAsCanProcessSourceItemChange).ProcessSourceItemChange(
                         expressionWatcher);
-                else if (typeof(TCanProcessSourceItemChange) == typeof(ICanProcessSourceItemValueChange))
-                    ((ICanProcessSourceItemValueChange) thisAsCanProcessSourceItemChange).ProcessSourceItemChange(
+                else if (typeof(TCanProcessSourceItemChange) == typeof(ISourceItemValueChangeProcessor))
+                    ((ISourceItemValueChangeProcessor) thisAsCanProcessSourceItemChange).ProcessSourceItemChange(
                         expressionWatcher);
 
-                isConsistent = true;
-                thisAsCanProcessSourceItemChange.RaiseConsistencyRestored();
-                handledEventSender = null;
-                handledEventArgs = null;
+
+                postHandleChange(
+                    ref handledEventSender,
+                    ref handledEventArgs,
+                    deferredProcessings,
+                    out isConsistent,
+                    computing);
             }
             else
             {
-                (deferredExpressionWatcherChangedProcessings =
-                        deferredExpressionWatcherChangedProcessings
-                        ?? new Queue<ExpressionWatcher.Raise>())
-                    .Enqueue(new ExpressionWatcher.Raise(expressionWatcher, sender, eventArgs));
+                getOrInitializeDeferredProcessingsQueue(
+                    ref deferredProcessings, 
+                    deferredSourceItemChangedEventProcessingsIndex, 
+                    deferredProcessingsCount)
+                .Enqueue(new ExpressionWatcher.Raise(expressionWatcher, sender, eventArgs, thisAsCanProcessSourceItemChange));
             }
         }
 
@@ -569,7 +615,7 @@ namespace ObservableComputations
             }
 
             for (var computingIndex = 0; computingIndex < expressionСallCount; computingIndex++)
-                watcher._currentComputings[computingIndex].AddDownstreamConsumedComputing(current);
+                watcher._currentComputings[computingIndex]?.AddDownstreamConsumedComputing(current);
         }
 
         internal static void itemInfoRemoveDownstreamConsumedComputing(List<IComputingInternal> nestedComputings, IComputingInternal current)
@@ -704,17 +750,100 @@ namespace ObservableComputations
                 indexerPropertyChangedEventRaised = true;
         }
 
-        internal static bool preHandleSourceCollectionChanged(object sender, NotifyCollectionChangedEventArgs e, bool isConsistent, IComputing sourceItems, ref bool indexerPropertyChangedEventRaised, ref bool lastProcessedSourceChangeMarker, IHasChangeMarker sourceAsIHasChangeMarker, ref object handledEventSender, ref EventArgs handledEventArgs)
+        internal static bool preHandleSourceCollectionChanged<TSourceItem>(object sender,
+            NotifyCollectionChangedEventArgs e, bool rootSourceWrapper, ref bool lastProcessedSourceChangeMarker,
+            ObservableCollectionWithChangeMarker<TSourceItem> sourceAsList, ref bool isConsistent, IComputing computing,
+            ref object handledEventSender, ref EventArgs handledEventArgs,
+            ref Queue<IProcessable>[] deferredProcessings, 
+            int deferredSourceCollectionChangedEventProcessingsIndex, 
+            int deferredProcessingsCount,
+            ISourceCollectionChangeProcessor sourceCollectionChangeProcessor)
         {
-            checkConsistent(sender, e, isConsistent, sourceItems);
+            if (!rootSourceWrapper && lastProcessedSourceChangeMarker == sourceAsList.ChangeMarkerField) return false;
 
-            if (!indexerPropertyChangedEventRaised &&
-                    (sourceAsIHasChangeMarker == null 
-                    || lastProcessedSourceChangeMarker == sourceAsIHasChangeMarker.ChangeMarker))
+            lastProcessedSourceChangeMarker = !lastProcessedSourceChangeMarker;
+
+            if (e.Action == NotifyCollectionChangedAction.Reset)
+            {
+                deferredProcessings = null;
+                handledEventSender = sender;
+                handledEventArgs = e;
+                isConsistent = false;
+                return true;
+            }
+
+            if (isConsistent)
+            {
+                handledEventSender = sender;
+                handledEventArgs = e;
+                isConsistent = false;
+                return true;
+            }
+
+            getOrInitializeDeferredProcessingsQueue(
+                    ref deferredProcessings, 
+                    deferredSourceCollectionChangedEventProcessingsIndex, 
+                    deferredProcessingsCount)
+                .Enqueue(
+                    new CollectionChangedEventRaise(sender, e, sourceCollectionChangeProcessor));
+            return false;
+        }
+
+        internal static bool preHandleSourceCollectionChanged(
+            object sender, 
+            NotifyCollectionChangedEventArgs e, 
+            ref bool isConsistent, 
+            ref bool indexerPropertyChangedEventRaised, 
+            ref bool lastProcessedSourceChangeMarker, 
+            IHasChangeMarker sourceAsIHasChangeMarker, 
+            ref object handledEventSender, 
+            ref EventArgs handledEventArgs,
+            ref Queue<IProcessable>[] deferredProcessings, 
+            int deferredSourceCollectionChangedEventProcessingsIndex, 
+            int deferredProcessingsCount,
+            ISourceCollectionChangeProcessor sourceCollectionChangeProcessor)
+        {
+            if (!preHandleSourceCollectionChanged(
+                ref indexerPropertyChangedEventRaised, 
+                ref lastProcessedSourceChangeMarker, 
+                sourceAsIHasChangeMarker))
                 return false;
 
-            handledEventSender = sender;
-            handledEventArgs = e;
+            if (e.Action == NotifyCollectionChangedAction.Reset)
+            {
+                deferredProcessings = null;
+                handledEventSender = sender;
+                handledEventArgs = e;
+                isConsistent = false;
+                return true;
+            }
+
+
+            if (isConsistent)
+            {
+                handledEventSender = sender;
+                handledEventArgs = e;
+                isConsistent = false;
+                return true;
+            }
+
+            getOrInitializeDeferredProcessingsQueue(
+                    ref deferredProcessings, 
+                    deferredSourceCollectionChangedEventProcessingsIndex, 
+                    deferredProcessingsCount)
+                .Enqueue(
+                    new CollectionChangedEventRaise(sender, e, sourceCollectionChangeProcessor));
+
+            return false;
+        }
+
+        internal static bool preHandleSourceCollectionChanged(ref bool indexerPropertyChangedEventRaised,
+            ref bool lastProcessedSourceChangeMarker, IHasChangeMarker sourceAsIHasChangeMarker)
+        {
+            if (!indexerPropertyChangedEventRaised &&
+                (sourceAsIHasChangeMarker == null
+                 || lastProcessedSourceChangeMarker == sourceAsIHasChangeMarker.ChangeMarker))
+                return false;
 
             lastProcessedSourceChangeMarker = !lastProcessedSourceChangeMarker;
             indexerPropertyChangedEventRaised = false;

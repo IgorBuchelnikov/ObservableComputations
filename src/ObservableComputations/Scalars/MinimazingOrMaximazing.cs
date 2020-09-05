@@ -252,7 +252,7 @@ namespace ObservableComputations
 				}
 				setValue(_defaultValue);
 			}
-		}
+        }
 
 
 		private void handleSourceCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
@@ -267,6 +267,8 @@ namespace ObservableComputations
                 _sourceAsIHasChangeMarker, 
                 ref _handledEventSender, 
                 ref _handledEventArgs)) return;
+
+            _isConsistent = false;
 
             switch (e.Action)
             {
@@ -363,7 +365,10 @@ namespace ObservableComputations
                     break;
             }
 
-            Utils.postHandleSourceCollectionChanged(
+            _isConsistent = true;
+            raiseConsistencyRestored();
+
+            Utils.postHandleChange(
                 out _handledEventSender,
                 out _handledEventArgs);
 		}

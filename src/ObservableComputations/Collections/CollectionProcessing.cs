@@ -6,7 +6,7 @@ using System.ComponentModel;
 
 namespace ObservableComputations
 {
-	public class CollectionProcessing<TSourceItem, TReturnValue> : CollectionComputing<TReturnValue>, IHasSourceCollections, ISourceIndexerPropertyTracker
+	public class CollectionProcessing<TSourceItem, TReturnValue> : CollectionComputing<TReturnValue>, IHasSourceCollections, ISourceIndexerPropertyTracker, ISourceCollectionChangeProcessor
 	{
 		// ReSharper disable once MemberCanBePrivate.Global
 		public IReadScalar<INotifyCollectionChanged> SourceScalar => _sourceScalar;
@@ -38,6 +38,8 @@ namespace ObservableComputations
         private bool _indexerPropertyChangedEventRaised;
         private INotifyPropertyChanged _sourceAsINotifyPropertyChanged;
 
+        private ISourceCollectionChangeProcessor _thisAsSourceCollectionChangeProcessor;
+
 		[ObservableComputationsCall]
 		public CollectionProcessing(
 			IReadScalar<INotifyCollectionChanged> sourceScalar,
@@ -67,7 +69,8 @@ namespace ObservableComputations
 			_newItemProcessor = newItemProcessor;
 			_oldItemProcessor = oldItemProcessor;
 			_moveItemProcessor = moveItemProcessor;
-		}
+            _thisAsSourceCollectionChangeProcessor = this;
+        }
 
         protected override void initializeFromSource()
 		{
@@ -118,72 +121,70 @@ namespace ObservableComputations
             if (!Utils.preHandleSourceCollectionChanged(
                 sender, 
                 e, 
-                _isConsistent, 
-                this, 
+                ref _isConsistent, 
                 ref _indexerPropertyChangedEventRaised, 
                 ref _lastProcessedSourceChangeMarker, 
                 _sourceAsIHasChangeMarker, 
                 ref _handledEventSender, 
-                ref _handledEventArgs)) return;
+                ref _handledEventArgs,
+                ref _deferredProcessings,
+                0, 1, this)) return;
 
-			switch (e.Action)
-			{
-				case NotifyCollectionChangedAction.Add:
-					_isConsistent = false;
-					int newStartingIndex = e.NewStartingIndex;
-					TSourceItem addedItem = _sourceAsList[newStartingIndex];
-					TReturnValue returnValue = _newItemProcessor != null ? processNewItem(addedItem) : default(TReturnValue);
+			_thisAsSourceCollectionChangeProcessor.processSourceCollectionChanged(sender, e);
 
-					baseInsertItem(newStartingIndex, returnValue);
-					_isConsistent = true;
-					raiseConsistencyRestored();
-					break;
-				case NotifyCollectionChangedAction.Remove:
-					_isConsistent = false;
-					int oldStartingIndex = e.OldStartingIndex;
-					TSourceItem removedItem = (TSourceItem) e.OldItems[0];
-					TReturnValue returnValue1 = this[oldStartingIndex];
-					baseRemoveItem(oldStartingIndex);
-					if (_oldItemProcessor != null) processOldItem(removedItem, returnValue1);
-					_isConsistent = true;
-					raiseConsistencyRestored();
-					break;
-				case NotifyCollectionChangedAction.Replace:
-					_isConsistent = false;
-					int newStartingIndex1 = e.NewStartingIndex;
-					TSourceItem oldItem = (TSourceItem) e.OldItems[0];
-					TSourceItem newItem = _sourceAsList[newStartingIndex1];
-					TReturnValue returnValueOld = this[newStartingIndex1];
-
-					TReturnValue returnValue2 = _newItemProcessor != null ? processNewItem(newItem) : default;
-					baseSetItem(newStartingIndex1, returnValue2);
-					if (_oldItemProcessor != null) processOldItem(oldItem, returnValueOld);
-					_isConsistent = true;
-					raiseConsistencyRestored();
-					break;
-				case NotifyCollectionChangedAction.Move:
-					int oldStartingIndex2 = e.OldStartingIndex;
-					int newStartingIndex2 = e.NewStartingIndex;
-					if (oldStartingIndex2 != newStartingIndex2)
-					{
-						baseMoveItem(oldStartingIndex2, newStartingIndex2);
-						if (_moveItemProcessor!= null) processMovedItem(_sourceAsList[newStartingIndex2], this[newStartingIndex2]);
-					}
-					break;
-				case NotifyCollectionChangedAction.Reset:
-					_isConsistent = false;
-					initializeFromSource();
-					_isConsistent = true;
-					raiseConsistencyRestored();
-					break;
-			}
-
-            Utils.postHandleSourceCollectionChanged(
-                out _handledEventSender,
-                out _handledEventArgs);
+            Utils.postHandleChange(
+                ref _handledEventSender,
+                ref _handledEventArgs,
+                _deferredProcessings,
+                out _isConsistent,
+                this);
 		}
 
-		private TReturnValue processNewItem(TSourceItem sourceItem)
+        void ISourceCollectionChangeProcessor.processSourceCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
+        {
+            switch (e.Action)
+            {
+                case NotifyCollectionChangedAction.Add:
+                    int newStartingIndex = e.NewStartingIndex;
+                    TSourceItem addedItem = (TSourceItem) e.NewItems[0];
+                    TReturnValue returnValue = _newItemProcessor != null ? processNewItem(addedItem) : default(TReturnValue);
+                    baseInsertItem(newStartingIndex, returnValue);
+                    raiseConsistencyRestored();
+                    break;
+                case NotifyCollectionChangedAction.Remove:
+                    int oldStartingIndex = e.OldStartingIndex;
+                    TSourceItem removedItem = (TSourceItem) e.OldItems[0];
+                    TReturnValue returnValue1 = this[oldStartingIndex];
+                    baseRemoveItem(oldStartingIndex);
+                    if (_oldItemProcessor != null) processOldItem(removedItem, returnValue1);
+                    break;
+                case NotifyCollectionChangedAction.Replace:
+                    int newStartingIndex1 = e.NewStartingIndex;
+                    TSourceItem oldItem = (TSourceItem) e.OldItems[0];
+                    TSourceItem newItem = _sourceAsList[newStartingIndex1];
+                    TReturnValue returnValueOld = this[newStartingIndex1];
+
+                    TReturnValue returnValue2 = _newItemProcessor != null ? processNewItem(newItem) : default;
+                    baseSetItem(newStartingIndex1, returnValue2);
+                    if (_oldItemProcessor != null) processOldItem(oldItem, returnValueOld);
+                    break;
+                case NotifyCollectionChangedAction.Move:
+                    int oldStartingIndex2 = e.OldStartingIndex;
+                    int newStartingIndex2 = e.NewStartingIndex;
+                    if (oldStartingIndex2 != newStartingIndex2)
+                    {
+                        baseMoveItem(oldStartingIndex2, newStartingIndex2);
+                        if (_moveItemProcessor != null) processMovedItem((TSourceItem) e.NewItems[0], this[newStartingIndex2]);
+                    }
+
+                    break;
+                case NotifyCollectionChangedAction.Reset:
+                    initializeFromSource();
+                    break;
+            }
+        }
+
+        private TReturnValue processNewItem(TSourceItem sourceItem)
 		{
 			if (Configuration.TrackComputingsExecutingUserCode)
 			{

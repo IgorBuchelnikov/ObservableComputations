@@ -134,13 +134,16 @@ namespace ObservableComputations
                     (ISourceIndexerPropertyTracker)this);
 
 				int count = _sourceAsList.Count;
+                TSourceItem[] sourceCopy = new TSourceItem[count];
+                _sourceAsList.CopyTo(sourceCopy, 0);
+
 				int sourceIndex;
 				for (sourceIndex = 0; sourceIndex < count; sourceIndex++)
 				{
 					if (originalCount > sourceIndex)
-						_items[sourceIndex] = _sourceAsList[sourceIndex];
+						_items[sourceIndex] = sourceCopy[sourceIndex];
 					else
-						_items.Insert(sourceIndex, _sourceAsList[sourceIndex]);
+						_items.Insert(sourceIndex, sourceCopy[sourceIndex]);
 				}
 
 				for (int index = originalCount - 1; index >= sourceIndex; index--)

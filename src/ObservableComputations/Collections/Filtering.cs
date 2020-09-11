@@ -9,13 +9,12 @@ using ObservableComputations.ExtentionMethods;
 
 namespace ObservableComputations
 {
+    // ReSharper disable once PossibleInterfaceMemberAmbiguity
     internal interface IFiltering<TItem> : ISourceItemChangeProcessor, ISourceCollectionChangeProcessor
     {
-        bool ApplyPredicate(int sourceIndex);
+        bool applyPredicate(TItem sourceItem, Func<bool> itemPredicateFunc);
 
         void expressionWatcher_OnValueChanged(ExpressionWatcher expressionWatcher, object sender, EventArgs eventArgs);
-
-        TItem GetItem(int sourceIndex);
     }
 
     public class Filtering<TSourceItem> : CollectionComputing<TSourceItem>, IHasSourceCollections, IFiltering<TSourceItem>
@@ -237,17 +236,19 @@ namespace ObservableComputations
 
 				Position nextItemPosition = _filteredPositions.Add();
 				int count = _sourceAsList.Count;
+                TSourceItem[] sourceCopy = new TSourceItem[count];
+                _sourceAsList.CopyTo(sourceCopy, 0);
 				int insertingIndex = 0;
 				int sourceIndex;
 
 				for (sourceIndex = 0; sourceIndex < count; sourceIndex++)
 				{
-					TSourceItem sourceItem = _sourceAsList[sourceIndex];
+					TSourceItem sourceItem = sourceCopy[sourceIndex];
 					Position currentFilteredItemPosition = null;
 
 					FilteringItemInfo itemInfo =  registerSourceItem(sourceItem, sourceIndex, null, null);
 
-					if (_thisAsFiltering.ApplyPredicate(sourceIndex))
+					if (_thisAsFiltering.applyPredicate(sourceItem, itemInfo.PredicateFunc))
 					{
 						if (originalCount > insertingIndex)
 							_items[insertingIndex++] = sourceItem;
@@ -312,7 +313,7 @@ namespace ObservableComputations
                 ref _handledEventSender,
                 ref _handledEventArgs,
                 _deferredProcessings,
-                out _isConsistent,
+                ref _isConsistent,
                 this);
         }
 
@@ -339,7 +340,7 @@ namespace ObservableComputations
                         _predicateContainsParametrizedObservableComputationsCalls,
                         _predicateExpressionInfo);
 
-                    bool predicateValue = applyPredicate(addedSourceItem, newPredicateFunc);
+                    bool predicateValue = _thisAsFiltering.applyPredicate(addedSourceItem, newPredicateFunc);
                     nextItemPosition = FilteringUtils.processAddSourceItem(newSourceIndex, predicateValue, ref newItemPosition,
                         ref newFilteredIndex, _itemInfos, _filteredPositions, Count);
 
@@ -364,7 +365,7 @@ namespace ObservableComputations
                     TSourceItem replacingSourceItem = (TSourceItem) e.NewItems[0];
 
                     FilteringItemInfo replacingItemInfo = _itemInfos[sourceIndex];
-                    var replace = FilteringUtils.ProcessReplaceSourceItem(replacingItemInfo, new object[] {replacingSourceItem},
+                    var replace = FilteringUtils.ProcessReplaceSourceItem(replacingItemInfo, replacingSourceItem,
                         sourceIndex, _predicateContainsParametrizedObservableComputationsCalls, _predicateExpression,
                         out _predicateExpressionСallCount, _predicateExpressionInfo, _itemInfos, _filteredPositions,
                         _thisAsFiltering, this);
@@ -404,32 +405,7 @@ namespace ObservableComputations
                 1, 2, this);
 		}
 
-        TSourceItem IFiltering<TSourceItem>.GetItem(int sourceIndex)
-        {
-            return _sourceAsList[sourceIndex];
-        }
-
-
-        // ReSharper disable once MemberCanBePrivate.Global
-        bool IFiltering<TSourceItem>.ApplyPredicate(int sourceIndex)
-		{
-            bool getValue() =>
-                _predicateContainsParametrizedObservableComputationsCalls
-                    ? _itemInfos[sourceIndex].PredicateFunc()
-                    : _predicateFunc(_sourceAsList[sourceIndex]);
-
-            if (Configuration.TrackComputingsExecutingUserCode)
-			{
-                var currentThread = Utils.startComputingExecutingUserCode(out var computing, out _userCodeIsCalledFrom, this);			
-				bool result = getValue();
-                Utils.endComputingExecutingUserCode(computing, currentThread, out _userCodeIsCalledFrom);
-				return result;
-			}
-
-			return getValue();
-		}
-
-		private bool applyPredicate(TSourceItem sourceItem, Func<bool> itemPredicateFunc)
+        bool IFiltering<TSourceItem>.applyPredicate(TSourceItem sourceItem, Func<bool> itemPredicateFunc)
 		{
             bool getValue() =>
                 _predicateContainsParametrizedObservableComputationsCalls
@@ -501,7 +477,7 @@ namespace ObservableComputations
         void ISourceItemChangeProcessor.ProcessSourceItemChange(ExpressionWatcher expressionWatcher)
         {
             if (expressionWatcher._disposed) return;
-            FilteringUtils.ProcessChangeSourceItem(expressionWatcher._position.Index, _itemInfos, this,
+            FilteringUtils.ProcessChangeSourceItem(expressionWatcher._position.Index, (TSourceItem)expressionWatcher._parameterValues[0], _itemInfos, this,
                 _filteredPositions, this);
         }
 
@@ -729,14 +705,13 @@ namespace ObservableComputations
             }
         }
 
-        internal static bool ProcessChangeSourceItem<TSourceItem>(int sourceIndex,
+        internal static bool ProcessChangeSourceItem<TSourceItem>(int sourceIndex, TSourceItem sourceItem,
             List<FilteringItemInfo> filteringItemInfos, IFiltering<TSourceItem> filtering,
             Positions<Position> filteredPositions, CollectionComputing<TSourceItem> current)
         {
-            TSourceItem item = filtering.GetItem(sourceIndex);
             FilteringItemInfo itemInfo = filteringItemInfos[sourceIndex];
 
-            bool newPredicateValue = filtering.ApplyPredicate(sourceIndex);
+            bool newPredicateValue = filtering.applyPredicate(sourceItem, itemInfo.PredicateFunc);
             bool oldPredicateValue = itemInfo.FilteredPosition != null;
 
             if (newPredicateValue != oldPredicateValue)
@@ -747,7 +722,7 @@ namespace ObservableComputations
                     itemInfo.FilteredPosition = filteredPositions.Insert(newIndex);
                     newIndex = itemInfo.FilteredPosition.Index;
                     modifyNextFilteredItemIndex(sourceIndex, itemInfo.FilteredPosition, filteringItemInfos);
-                    current.baseInsertItem(newIndex, item);
+                    current.baseInsertItem(newIndex, sourceItem);
                     return true;
                 }
                 else // if (oldPredicaeValue)
@@ -765,7 +740,7 @@ namespace ObservableComputations
         }
 
         internal static bool ProcessReplaceSourceItem<TExpression, TSourceItem>(FilteringItemInfo replacingItemInfo,
-            object[] sourceItems,
+            TSourceItem sourceItem,
             int sourceIndex, bool predicateContainsParametrizedObservableComputationsCalls,
             Expression<TExpression> predicateExpression,
             out int predicateExpressionСallCount,
@@ -779,7 +754,7 @@ namespace ObservableComputations
                 predicateContainsParametrizedObservableComputationsCalls);
 
             Utils.getItemInfoContent(
-                sourceItems,
+                new object[]{sourceItem},
                 out ExpressionWatcher watcher,
                 out Func<bool> predicateFunc,
                 out List<IComputingInternal> nestedComputings1,
@@ -794,7 +769,7 @@ namespace ObservableComputations
             watcher._position = oldExpressionWatcher._position;
             replacingItemInfo.ExpressionWatcher = watcher;
             replacingItemInfo.NestedComputings = nestedComputings1;
-            bool replace = !ProcessChangeSourceItem(sourceIndex, filteringItemInfos, thisAsFiltering,
+            bool replace = !ProcessChangeSourceItem(sourceIndex, sourceItem, filteringItemInfos, thisAsFiltering,
                                filteredPositions, current)
                            && replacingItemInfo.FilteredPosition != null;
             return replace;

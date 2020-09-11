@@ -8,6 +8,6 @@ namespace ObservableComputations
 {
     internal  interface IProcessable
     {
-        void Process();
+        void Process(Queue<IProcessable>[] deferredProcessings);
     }
 }

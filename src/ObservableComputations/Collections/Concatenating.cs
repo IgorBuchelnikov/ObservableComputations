@@ -6,7 +6,7 @@ using System.ComponentModel;
 
 namespace ObservableComputations
 {
-	public class Concatenating<TSourceItem> : CollectionComputing<TSourceItem>, IHasSourceCollections, ISourceIndexerPropertyTracker
+	public class Concatenating<TSourceItem> : CollectionComputing<TSourceItem>, IHasSourceCollections, ISourceIndexerPropertyTracker, ISourceCollectionChangeProcessor
 	{
 		// ReSharper disable once MemberCanBePrivate.Global
 		public IReadScalar<INotifyCollectionChanged> SourcesScalar => _sourcesScalar;
@@ -31,10 +31,14 @@ namespace ObservableComputations
 		private IHasChangeMarker _sourcesAsIHasChangeMarker;
 		private bool _lastProcessedSourcesChangeMarker;
 
-		private sealed class ItemInfo : RangePosition
-		{
+        private ISourceCollectionChangeProcessor _thisAsSourceCollectionChangeProcessor;
+
+		private sealed class ItemInfo : RangePosition, ISourceCollectionChangeProcessor
+        {
+            public Concatenating<TSourceItem> Concatenating;
 			public INotifyCollectionChanged Source;
 			public IReadScalar<object> SourceScalar;
+            public IList<TSourceItem> SourceCopy;
 			public PropertyChangedEventHandler SourceScalarPropertyChangedEventHandler;
 			public NotifyCollectionChangedEventHandler SourceNotifyCollectionChangedEventHandler;
 			public PropertyChangedEventHandler SourcePropertyChangedEventHandler;
@@ -42,11 +46,26 @@ namespace ObservableComputations
 			public INotifyPropertyChanged SourceAsINotifyPropertyChanged;
 			public IHasChangeMarker SourceAsIHasChangeMarker;
 			public bool LastProcessedSourceChangeMarker;
-		}
+
+            #region Implementation of ISourceCollectionChangeProcessor
+
+            public void processSourceCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
+            {
+                Concatenating.processSourceItemCollectionChanged(e, this);
+            }
+
+            public void InitializeFromSource()
+            {
+                Concatenating.resetSourceItem(this);
+            }
+
+            #endregion
+        }
 
         private Concatenating(int capacity) : base(capacity)
         {
             Utils.initializeItemInfos(capacity,out _itemInfos, out _sourceRangePositions);
+            _thisAsSourceCollectionChangeProcessor = this;
         }
 
 		[ObservableComputationsCall]
@@ -161,24 +180,28 @@ namespace ObservableComputations
 
 				int plainIndex = 0;
 				int count = _sourcesAsList.Count;
+                object[] sourcesCopy = new object[count];
+                _sourcesAsList.CopyTo(sourcesCopy, 0);
 				for (int index = 0; index < count; index++)
 				{
-					object sourceItemObject = _sourcesAsList[index];
+					object sourceItemObject = sourcesCopy[index];
 					IReadScalar<object> sourceItemScalar = sourceItemObject as IReadScalar<object>;
 					IList sourceItem = sourceItemScalar != null ? (IList)sourceItemScalar.Value : (IList) sourceItemObject;
 					int sourceItemCount = sourceItem?.Count ?? 0;
 					ItemInfo itemInfo = _sourceRangePositions.Add(sourceItemCount);
 					registerSourceItem(sourceItemObject, itemInfo);
+                    IList<TSourceItem> sourceCopy = itemInfo.SourceCopy;
 
 					for (int sourceSourceIndex = 0; sourceSourceIndex < sourceItemCount; sourceSourceIndex++)
-					{
-						if (originalCount > plainIndex)
+                    {
+
+                        if (originalCount > plainIndex)
 							// ReSharper disable once PossibleNullReferenceException
-							_items[plainIndex++] = (TSourceItem) sourceItem[sourceSourceIndex];
+							_items[plainIndex++] = sourceCopy[sourceSourceIndex];
 						else
 							// ReSharper disable once PossibleNullReferenceException
-							_items.Insert(plainIndex++, (TSourceItem) sourceItem[sourceSourceIndex]);						
-					}	
+							_items.Insert(plainIndex++, sourceCopy[sourceSourceIndex]);
+                    }	
 				}
 
 				for (int index = originalCount - 1; index >= plainIndex; index--)
@@ -198,7 +221,8 @@ namespace ObservableComputations
 		}
 
 		private void registerSourceItem(object sourceItemObject, ItemInfo itemInfo)
-		{
+        {
+            itemInfo.Concatenating = this;
 			IReadScalar<object> sourceScalar = sourceItemObject as IReadScalar<object>;
 			itemInfo.SourceScalar = sourceScalar;
 			INotifyCollectionChanged source = sourceScalar != null ? (INotifyCollectionChanged)sourceScalar.Value : (INotifyCollectionChanged)sourceItemObject;
@@ -209,10 +233,9 @@ namespace ObservableComputations
 				itemInfo.SourceScalarPropertyChangedEventHandler = 
 					(sender, eventArgs) =>
 					{
-						checkConsistent(sender, eventArgs);
 						_isConsistent = false;
 						object sourceScalarValue = sourceScalar.Value;
-						replaceItem((IList) sourceScalarValue, itemInfo);
+						replaceItem((IList<TSourceItem>) sourceScalarValue, itemInfo);
 						unregisterSourceItem(itemInfo);
 						registerSourceItem(itemInfo, (INotifyCollectionChanged) sourceScalarValue);
 						_isConsistent = true;
@@ -247,13 +270,24 @@ namespace ObservableComputations
 				{
 					itemInfo.LastProcessedSourceChangeMarker = sourceAsIHasChangeMarker.ChangeMarker;
 				}
-			}
+
+                initializeSourceCopy(itemInfo);
+            }
 		}
 
-		private ItemInfo unregisterSourceItem(int sourcesIndex)
+        private static void initializeSourceCopy(ItemInfo itemInfo)
+        {
+            IList source = (IList) itemInfo.Source;
+            IList<TSourceItem> sourceCopy = new List<TSourceItem>(source.Count);
+            itemInfo.SourceCopy = sourceCopy;
+            foreach (TSourceItem sourceItem in source)
+                sourceCopy.Add(sourceItem);
+        }
+
+        private ItemInfo unregisterSourceItem(int sourcesIndex, bool replace = false)
 		{
 			ItemInfo itemInfo =  _itemInfos[sourcesIndex];
-			_sourceRangePositions.Remove(itemInfo.Index);
+			if (!replace) _sourceRangePositions.Remove(itemInfo.Index);
 
 			unregisterSourceItem(itemInfo);
 
@@ -285,38 +319,54 @@ namespace ObservableComputations
             if (!Utils.preHandleSourceCollectionChanged(
                 sender, 
                 e, 
-                _isConsistent, 
-                this, 
+                ref _isConsistent, 
                 ref itemInfo.IndexerPropertyChangedEventRaised, 
                 ref itemInfo.LastProcessedSourceChangeMarker, 
                 itemInfo.SourceAsIHasChangeMarker, 
                 ref _handledEventSender, 
-                ref _handledEventArgs)) return;
+                ref _handledEventArgs,
+                ref _deferredProcessings,
+                1, 2, itemInfo)) return;
 
-            _isConsistent = false;
-            IList sourceItem = (IList) sender;
+            processSourceItemCollectionChanged(e, itemInfo);
 
+            Utils.postHandleChange(
+                ref _handledEventSender,
+                ref _handledEventArgs,
+                _deferredProcessings,
+                ref _isConsistent,
+                this);
+
+		}
+
+        private void processSourceItemCollectionChanged(NotifyCollectionChangedEventArgs e, ItemInfo itemInfo)
+        {
             switch (e.Action)
             {
                 case NotifyCollectionChangedAction.Add:
-                    IList newItems = e.NewItems;
                     //if (newItems.Count > 1) throw new ObservableComputationsException(this, "Adding of multiple items is not supported");
-                    TSourceItem addedItem = (TSourceItem) newItems[0];
+                    TSourceItem addedItem = (TSourceItem) e.NewItems[0];
                     _sourceRangePositions.ModifyLength(itemInfo.Index, 1);
-                    baseInsertItem(itemInfo.PlainIndex + e.NewStartingIndex, addedItem);
+                    int newStartingIndex1 = e.NewStartingIndex;
+                    itemInfo.SourceCopy.Insert(newStartingIndex1, addedItem);
+                    baseInsertItem(itemInfo.PlainIndex + newStartingIndex1, addedItem);
                     break;
                 case NotifyCollectionChangedAction.Remove:
                     //if (e.OldItems.Count > 1) throw new ObservableComputationsException(this, "Removing of multiple items is not supported");
                     _sourceRangePositions.ModifyLength(itemInfo.Index, -1);
-                    baseRemoveItem(itemInfo.PlainIndex + e.OldStartingIndex);
+                    int oldStartingIndex1 = e.OldStartingIndex;
+                    itemInfo.SourceCopy.RemoveAt(oldStartingIndex1);
+                    baseRemoveItem(itemInfo.PlainIndex + oldStartingIndex1);
                     break;
                 case NotifyCollectionChangedAction.Replace:
-                    IList newItems1 = e.NewItems;
                     //if (newItems1.Count > 1) throw new ObservableComputationsException(this, "Replacing of multiple items is not supported");
-                    baseSetItem(itemInfo.PlainIndex + e.NewStartingIndex, (TSourceItem) newItems1[0]);
+                    int newStartingIndex2 = e.NewStartingIndex;
+                    TSourceItem newItem1 = (TSourceItem) e.NewItems[0];
+                    itemInfo.SourceCopy[newStartingIndex2] = newItem1;
+                    baseSetItem(itemInfo.PlainIndex + newStartingIndex2, newItem1);
                     break;
                 case NotifyCollectionChangedAction.Reset:
-                    replaceItem(sourceItem, itemInfo);
+                    resetSourceItem(itemInfo);
                     break;
                 case NotifyCollectionChangedAction.Move:
                     int oldStartingIndex = e.OldStartingIndex;
@@ -324,56 +374,69 @@ namespace ObservableComputations
                     if (oldStartingIndex != newStartingIndex)
                     {
                         int rangePositionPlainIndex = itemInfo.PlainIndex;
+                        TSourceItem movedItem = itemInfo.SourceCopy[oldStartingIndex];
+                        itemInfo.SourceCopy.RemoveAt(oldStartingIndex);
+                        itemInfo.SourceCopy.Insert(newStartingIndex, movedItem);
                         baseMoveItem(rangePositionPlainIndex + oldStartingIndex,
                             rangePositionPlainIndex + newStartingIndex);
                     }
 
                     break;
             }
+        }
 
-            _isConsistent = true;
-            raiseConsistencyRestored();
+        private void resetSourceItem(ItemInfo itemInfo)
+        {
+            initializeSourceCopy(itemInfo);
+            replaceItem(itemInfo.SourceCopy, itemInfo);
+        }
 
-            Utils.postHandleChange(
-                out _handledEventSender,
-                out _handledEventArgs);
-
-		}
-
-		private void handleSourcesCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
+        private void handleSourcesCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
 		{
             if (!Utils.preHandleSourceCollectionChanged(
                 sender, 
                 e, 
-                _isConsistent, 
-                this, 
+                ref _isConsistent, 
                 ref _indexerPropertyChangedEventRaised, 
                 ref _lastProcessedSourcesChangeMarker, 
                 _sourcesAsIHasChangeMarker, 
                 ref _handledEventSender, 
-                ref _handledEventArgs)) return;
+                ref _handledEventArgs,
+                ref _deferredProcessings,
+                1, 2, this)) return;
 
-            _isConsistent = false;
+            _thisAsSourceCollectionChangeProcessor.processSourceCollectionChanged(sender, e);
 
+            Utils.postHandleChange(
+                ref _handledEventSender,
+                ref _handledEventArgs,
+                _deferredProcessings,
+                ref _isConsistent,
+                this);
+		}
+
+        void ISourceCollectionChangeProcessor.processSourceCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
+        {
             int count;
 
             switch (e.Action)
             {
                 case NotifyCollectionChangedAction.Add:
                     ItemInfo itemInfo;
-                    IList newItems = e.NewItems;
                     //if (newItems.Count > 1) throw new ObservableComputationsException(this, "Adding of multiple items is not supported");
 
-                    IList addedItem = (IList) newItems[0];
-                    count = addedItem?.Count ?? 0;
-                    itemInfo = _sourceRangePositions.Insert(e.NewStartingIndex, count);
-                    registerSourceItem((INotifyCollectionChanged) addedItem, itemInfo);
+                    object addedItem = e.NewItems[0];
+                    int newStartingIndex = e.NewStartingIndex;
+                    itemInfo = _sourceRangePositions.Insert(newStartingIndex, 0);
+                    registerSourceItem(addedItem, itemInfo);
                     int rangePositionPlainIndex1 = itemInfo.PlainIndex;
-
+                    IList<TSourceItem> sourceCopy = itemInfo.SourceCopy;
+                    count = sourceCopy?.Count ?? 0;
+                    _sourceRangePositions.ModifyLength(newStartingIndex, count);
                     for (int index = 0; index < count; index++)
                     {
                         // ReSharper disable once PossibleNullReferenceException
-                        TSourceItem item = (TSourceItem) addedItem[index];
+                        TSourceItem item = sourceCopy[index];
                         baseInsertItem(rangePositionPlainIndex1 + index, item);
                     }
 
@@ -395,23 +458,13 @@ namespace ObservableComputations
                     break;
                 case NotifyCollectionChangedAction.Replace:
                     ItemInfo itemInfo2;
-                    IList newItems1 = e.NewItems;
                     //if (newItems1.Count > 1) throw new ObservableComputationsException(this, "Replacing of multiple items is not supported");
 
-                    INotifyCollectionChanged newItem = (INotifyCollectionChanged) newItems1[0];
-
+                    object newItem = e.NewItems[0];
+                    unregisterSourceItem(e.OldStartingIndex, true);
                     itemInfo2 = _itemInfos[e.OldStartingIndex];
-                    replaceItem((IList) newItem, itemInfo2);
-                    if (itemInfo2.Source != null)
-                    {
-                        itemInfo2.Source.CollectionChanged -= itemInfo2.SourceNotifyCollectionChangedEventHandler;
-                        itemInfo2.SourceNotifyCollectionChangedEventHandler = (sender1, eventArgs) =>
-                            handleSourceCollectionChanged(sender1, eventArgs, itemInfo2);
-                    }
-
-                    itemInfo2.Source = newItem;
-                    if (itemInfo2.Source != null)
-                        itemInfo2.Source.CollectionChanged += itemInfo2.SourceNotifyCollectionChangedEventHandler;
+                    registerSourceItem(newItem, itemInfo2);
+                    replaceItem(itemInfo2.SourceCopy, itemInfo2);
                     break;
                 case NotifyCollectionChangedAction.Move:
                     int oldIndex = e.OldStartingIndex;
@@ -419,20 +472,20 @@ namespace ObservableComputations
 
                     if (oldIndex != newIndex)
                     {
-                        RangePosition oldRangePosition = _sourceRangePositions.List[oldIndex];
-                        RangePosition newRangePosition = _sourceRangePositions.List[newIndex];
-                        int oldPlainIndex = oldRangePosition.PlainIndex;
+                        ItemInfo oldItemInfo = _itemInfos[oldIndex];
+                        RangePosition newRangePosition = _itemInfos[newIndex];
+                        int oldPlainIndex = oldItemInfo.PlainIndex;
                         int newPlainIndex = newRangePosition.PlainIndex;
+                        int newRangePositionLength = newRangePosition.Length;
 
                         if (oldPlainIndex != newPlainIndex)
                         {
-                            IList movingItem = (IList) e.OldItems[0];
+                            IList<TSourceItem> movingItem = oldItemInfo.SourceCopy;
 
                             count = movingItem?.Count ?? 0;
 
                             if (oldIndex < newIndex)
                             {
-                                int newRangePositionLength = newRangePosition.Length;
                                 for (int index = 0; index < count; index++)
                                 {
                                     baseMoveItem(oldPlainIndex, newPlainIndex + newRangePositionLength - 1);
@@ -447,7 +500,7 @@ namespace ObservableComputations
                             }
                         }
 
-                        _sourceRangePositions.Move(oldRangePosition.Index, newRangePosition.Index);
+                        _sourceRangePositions.Move(oldItemInfo.Index, newRangePosition.Index);
                     }
 
                     break;
@@ -455,16 +508,9 @@ namespace ObservableComputations
                     initializeFromSource();
                     break;
             }
+        }
 
-            _isConsistent = true;
-            raiseConsistencyRestored();
-
-            Utils.postHandleChange(
-                out _handledEventSender,
-                out _handledEventArgs);
-		}
-
-		private void replaceItem(IList newItem, ItemInfo itemInfo)
+        private void replaceItem(IList<TSourceItem> newItem, ItemInfo itemInfo)
 		{
 			int i;
 			int newItemCount = newItem?.Count ?? 0;
@@ -475,7 +521,7 @@ namespace ObservableComputations
 			{
 
 				// ReSharper disable once PossibleNullReferenceException
-				baseSetItem(rangePositionPlainIndex + i, (TSourceItem) newItem[i]);
+				baseSetItem(rangePositionPlainIndex + i, newItem[i]);
 			}
 			
 			if (rangePositionLength > newItemCount)
@@ -493,7 +539,7 @@ namespace ObservableComputations
 					baseInsertItem(
 						rangePositionPlainIndex + rangePositionLength + i,
 						// ReSharper disable once PossibleNullReferenceException
-						(TSourceItem) newItem[rangePositionLength + i]);
+						newItem[rangePositionLength + i]);
 				}				
 			}
 

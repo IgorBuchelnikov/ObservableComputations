@@ -102,9 +102,13 @@ namespace ObservableComputations
                     (ISourceIndexerPropertyTracker)this);
 
 				int count = _sourceAsList.Count;
+
+                TSourceItem[] sourceCopy = new TSourceItem[count];
+                _sourceAsList.CopyTo(sourceCopy, 0);
+
 				for (int index = 0; index < count; index++)
 				{
-					TSourceItem sourceItem = _sourceAsList[index];
+					TSourceItem sourceItem = sourceCopy[index];
 					TReturnValue returnValue = _newItemProcessor != null ? processNewItem(sourceItem) : default(TReturnValue);
 
 					baseInsertItem(index, returnValue);
@@ -128,7 +132,7 @@ namespace ObservableComputations
                 ref _handledEventSender, 
                 ref _handledEventArgs,
                 ref _deferredProcessings,
-                0, 1, this)) return;
+                1, 2, this)) return;
 
 			_thisAsSourceCollectionChangeProcessor.processSourceCollectionChanged(sender, e);
 
@@ -136,7 +140,7 @@ namespace ObservableComputations
                 ref _handledEventSender,
                 ref _handledEventArgs,
                 _deferredProcessings,
-                out _isConsistent,
+                ref _isConsistent,
                 this);
 		}
 

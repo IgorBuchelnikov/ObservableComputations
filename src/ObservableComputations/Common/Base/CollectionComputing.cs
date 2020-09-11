@@ -406,21 +406,14 @@ namespace ObservableComputations
 
         protected void scalarValueChangedHandler(object sender, PropertyChangedEventArgs args)
         {
-            if (args.PropertyName != nameof(IReadScalar<object>.Value)) return;
-
-            _handledEventSender = sender;
-            _handledEventArgs = args;
-
-            _isConsistent = false;
-
-            _scalarValueChangedHandlerAction?.Invoke();
-            initializeFromSource();
-
-            _isConsistent = true;
-            raiseConsistencyRestored();
-
-            _handledEventSender = null;
-            _handledEventArgs = null;
+            Utils.processResetChange(
+                sender, 
+                args, 
+                ref _isConsistent, 
+                ref _handledEventSender, 
+                ref _handledEventArgs, 
+                _scalarValueChangedHandlerAction, 
+                ref _deferredProcessings, this);
         }
 
         protected abstract void initializeFromSource();
@@ -486,7 +479,7 @@ namespace ObservableComputations
             uninitialize();
         }
 
-        void IComputingInternal.InitializeFromSource()
+        void ICanInitializeFromSource.InitializeFromSource()
         {
             initializeFromSource();
         }

@@ -23,15 +23,33 @@ namespace ObservableComputations
 			internal object EventSender;
 			internal EventArgs EventArgs;
             internal ISourceItemChangeProcessor SourceItemChangeProcessor;
+            internal Type SourceItemChangeProcessorType;
 
-			public Raise(ExpressionWatcher expressionWatcher, object eventSender, EventArgs eventArgs, ISourceItemChangeProcessor sourceItemChangeProcessor)
+			public Raise(ExpressionWatcher expressionWatcher, object eventSender, EventArgs eventArgs, ISourceItemChangeProcessor sourceItemChangeProcessor, Type sourceItemChangeProcessorType)
 			{
 				ExpressionWatcher = expressionWatcher;
 				EventSender = eventSender;
 				EventArgs = eventArgs;
                 SourceItemChangeProcessor = sourceItemChangeProcessor;
+                SourceItemChangeProcessorType = sourceItemChangeProcessorType;
             }
-		}
+
+            #region Implementation of IProcessable
+
+            public void Process(Queue<IProcessable>[] deferredProcessings)
+            {
+                if (SourceItemChangeProcessorType == typeof(ISourceItemChangeProcessor))
+                    SourceItemChangeProcessor.ProcessSourceItemChange(ExpressionWatcher);
+                else if (SourceItemChangeProcessorType == typeof(ISourceItemKeyChangeProcessor))
+                    ((ISourceItemKeyChangeProcessor) SourceItemChangeProcessor).ProcessSourceItemChange(
+                        ExpressionWatcher);
+                else if (SourceItemChangeProcessorType == typeof(ISourceItemValueChangeProcessor))
+                    ((ISourceItemValueChangeProcessor) SourceItemChangeProcessor).ProcessSourceItemChange(
+                        ExpressionWatcher);
+            }
+
+            #endregion
+        }
 
 		public struct ExpressionInfo
 		{
@@ -488,7 +506,7 @@ namespace ObservableComputations
 			}
 		}
 
-		private object[] _parameterValues;
+        internal object[] _parameterValues;
 		public IEnumerable<object> ParameterValues => _parameterValues;
 
 		// ReSharper disable once MemberCanBePrivate.Global

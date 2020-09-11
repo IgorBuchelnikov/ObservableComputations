@@ -13,7 +13,7 @@ namespace ObservableComputations
         bool IsActive { get; }
 	}
 
-    internal interface IComputingInternal : IComputing
+    internal interface IComputingInternal : IComputing, ICanInitializeFromSource
     {
         void AddConsumer(Consumer addingConsumer);
         void RemoveConsumer(Consumer removingConsumer);
@@ -25,7 +25,11 @@ namespace ObservableComputations
         void RemoveFromUpstreamComputings(IComputingInternal computing);
         void Initialize();
         void Uninitialize();
-        void InitializeFromSource();
         void OnPropertyChanged(PropertyChangedEventArgs propertyChangedEventArgs);
+    }
+
+    internal interface ICanInitializeFromSource
+    {
+        void InitializeFromSource();
     }
 }

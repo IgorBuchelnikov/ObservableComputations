@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 namespace ObservableComputations
 {
 
-    internal interface ISourceCollectionChangeProcessor
+    internal interface ISourceCollectionChangeProcessor : ICanInitializeFromSource
     {
         void processSourceCollectionChanged(object sender, NotifyCollectionChangedEventArgs e);
     }

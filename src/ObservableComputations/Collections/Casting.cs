@@ -79,13 +79,15 @@ namespace ObservableComputations
 
 
 				int count = _sourceAsList.Count;
+                object[] sourceCopy = new object[count];
+                _sourceAsList.CopyTo(sourceCopy, 0);
 				int sourceIndex;
 				for (sourceIndex = 0; sourceIndex < count; sourceIndex++)
 				{
 					if (originalCount > sourceIndex)
-						_items[sourceIndex] = (TResultItem)_sourceAsList[sourceIndex];
+						_items[sourceIndex] = (TResultItem)sourceCopy[sourceIndex];
 					else
-						_items.Insert(sourceIndex, (TResultItem)_sourceAsList[sourceIndex]);
+						_items.Insert(sourceIndex, (TResultItem)sourceCopy[sourceIndex]);
 				}
 
 				for (int index = originalCount - 1; index >= sourceIndex; index--)
@@ -116,7 +118,7 @@ namespace ObservableComputations
                 ref _handledEventSender, 
                 ref _handledEventArgs,
                 ref _deferredProcessings,
-                0, 1, this)) return;
+                1, 2, this)) return;
 
             _thisAsSourceCollectionChangeProcessor.processSourceCollectionChanged(sender, e);
 
@@ -124,7 +126,7 @@ namespace ObservableComputations
                 ref _handledEventSender,
                 ref _handledEventArgs,
                 _deferredProcessings,
-                out _isConsistent,
+                ref _isConsistent,
                 this);
 		}
 

@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Collections.Specialized;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ObservableComputations
 {
@@ -23,7 +19,7 @@ namespace ObservableComputations
 
         #region Implementation of IProcessable
 
-        public void Process()
+        public void Process(Queue<IProcessable>[] deferredProcessings)
         {
             SourceCollectionChangeProcessor.processSourceCollectionChanged(Sender, Args);
         }

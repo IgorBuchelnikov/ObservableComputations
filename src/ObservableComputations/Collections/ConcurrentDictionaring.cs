@@ -11,7 +11,7 @@ using ObservableComputations.ExtentionMethods;
 namespace ObservableComputations
 {
 	// ReSharper disable once RedundantExtendsListEntry
-	public class ConcurrentDictionaring<TSourceItem, TKey, TValue> : IDictionary<TKey, TValue>, IHasSourceCollections, IComputing, INotifyMethodChanged, ISourceItemKeyChangeProcessor, ISourceItemValueChangeProcessor
+	public class ConcurrentDictionaring<TSourceItem, TKey, TValue> : IDictionary<TKey, TValue>, IHasSourceCollections, IComputing, INotifyMethodChanged, ISourceItemKeyChangeProcessor, ISourceItemValueChangeProcessor, ISourceCollectionChangeProcessor
 	{
 		// ReSharper disable once MemberCanBePrivate.Global
 		public IReadScalar<INotifyCollectionChanged> SourceScalar => _sourceScalar;
@@ -54,6 +54,9 @@ namespace ObservableComputations
 
         private ISourceItemKeyChangeProcessor _thisAsSourceItemKeyChangeProcessor;
         private ISourceItemValueChangeProcessor _thisAsSourceValueItemChangeProcessor;
+        private ISourceCollectionChangeProcessor _thisAsSourceCollectionChangeProcessor;
+
+        internal Queue<IProcessable>[] _deferredProcessings;
 
 		private Action<TKey, TValue> _addItemAction;
 		public Action<TKey, TValue> AddItemAction
@@ -139,10 +142,6 @@ namespace ObservableComputations
 		bool _rootSourceWrapper;
 
 		private bool _lastProcessedSourceChangeMarker;
-		private Queue<ExpressionWatcher.Raise> _deferredValueExpressionWatcherChangedProcessingsCollectionChanged;
-		private Queue<ExpressionWatcher.Raise> _deferredKeyExpressionWatcherChangedProcessingsCollectionChanged;
-        private Queue<ExpressionWatcher.Raise> _deferredValueExpressionWatcherChangedProcessingsConsistencyRestored;
-        private Queue<ExpressionWatcher.Raise> _deferredKeyExpressionWatcherChangedProcessingsConsistencyRestored;
 
 		private bool _sourceInitialized;
 		private readonly IReadScalar<INotifyCollectionChanged> _sourceScalar;
@@ -197,6 +196,7 @@ namespace ObservableComputations
 
             _thisAsSourceItemKeyChangeProcessor = this;
             _thisAsSourceValueItemChangeProcessor = this;
+            _thisAsSourceCollectionChangeProcessor = this;
         }
 
 		[ObservableComputationsCall]
@@ -257,20 +257,14 @@ namespace ObservableComputations
 
 		private void handleEqualityComparerScalarValueChanged(object sender, PropertyChangedEventArgs e)
 		{
-			if (e.PropertyName != nameof(IReadScalar<object>.Value)) return;
-			checkConsistent(sender, e);
-
-			_handledEventSender = sender;
-			_handledEventArgs = e;
-
-			_equalityComparer = _equalityComparerScalar.Value ?? EqualityComparer<TKey>.Default;
-			_isConsistent = false;
-			initializeFromSource();
-			_isConsistent = true;
-			ConsistencyRestored?.Invoke(this, null);
-
-			_handledEventSender = null;
-			_handledEventArgs = null;
+            Utils.processResetChange(
+                sender, 
+                e, 
+                ref _isConsistent, 
+                ref _handledEventSender, 
+                ref _handledEventArgs,
+                () => { _equalityComparer = _equalityComparerScalar.Value ?? EqualityComparer<TKey>.Default;}, 
+                ref _deferredProcessings, this);
 		}
 
 		private void initializeFromSource()
@@ -309,9 +303,11 @@ namespace ObservableComputations
                     ref _lastProcessedSourceChangeMarker);
 
 				int count = _sourceAsList.Count;
+                TSourceItem[] sourceCopy = new TSourceItem[count];
+                _sourceAsList.CopyTo(sourceCopy, 0);
 				for (int index = 0; index < count; index++)
 				{
-					TSourceItem sourceItem = _sourceAsList[index];
+					TSourceItem sourceItem = sourceCopy[index];
 					KeyValueExpressionItemInfo<TKey, TValue> itemInfo = registerSourceItem(sourceItem, index);
 					TKey key = applyKeySelector(itemInfo, sourceItem);
 					TValue value = applyValueSelector(itemInfo, sourceItem);
@@ -392,90 +388,88 @@ namespace ObservableComputations
                 _rootSourceWrapper, 
                 ref _lastProcessedSourceChangeMarker, 
                 _sourceAsList, 
-                _isConsistent,
+                ref _isConsistent,
                 this,
                 ref _handledEventSender,
-                ref _handledEventArgs)) return;
+                ref _handledEventArgs,
+                ref _deferredProcessings,
+                1, 3, 
+                this)) return;
 
-			TKey key;
-			_isConsistent = false
-			switch (e.Action)
-			{
-				case NotifyCollectionChangedAction.Add:
-					int newStartingIndex = e.NewStartingIndex;
-					TSourceItem addedItem = _sourceAsList[newStartingIndex];
-					KeyValueExpressionItemInfo<TKey, TValue> itemInfo = registerSourceItem(addedItem, newStartingIndex);
-					key = applyKeySelector(itemInfo, addedItem);
-					TValue value = applyValueSelector(itemInfo, addedItem);
-					baseAddItem(key, value);
-					break;
-				case NotifyCollectionChangedAction.Remove:
-					int oldStartingIndex = e.OldStartingIndex;
-					key = _itemInfos[oldStartingIndex].Key;
-					unregisterSourceItem(oldStartingIndex);
-					baseRemoveItem(key);
-					break;
-				case NotifyCollectionChangedAction.Replace:
-					int newStartingIndex1 = e.NewStartingIndex;
-					TSourceItem newItem = _sourceAsList[newStartingIndex1];
-					KeyValueExpressionItemInfo<TKey, TValue> replacingItemInfo = _itemInfos[newStartingIndex1];
-					TKey oldKey = replacingItemInfo.Key;
-                    Utils.disposeExpressionWatcher(replacingItemInfo.KeyExpressionWatcher, replacingItemInfo.KeyNestedComputings, this, _keySelectorContainsParametrizedObservableComputationsCalls);
-                    Utils.disposeExpressionWatcher(replacingItemInfo.ValueExpressionWatcher, replacingItemInfo.ValueNestedComputings, this, _valueSelectorContainsParametrizedObservableComputationsCalls);
+			_thisAsSourceCollectionChangeProcessor.processSourceCollectionChanged(sender, e);
 
-					fillItemInfoWithKey(replacingItemInfo, newItem);
-					fillItemInfoWithValue(replacingItemInfo, newItem);
-
-					TKey newKey = replacingItemInfo.Key;
-					TValue newValue = replacingItemInfo.Value;
-
-					if (_equalityComparer.Equals(oldKey, newKey))
-					{
-						baseSetItem(replacingItemInfo.Key, newValue);
-					}
-					else
-					{
-						baseRemoveItem(oldKey);
-						baseAddItem(replacingItemInfo.Key, newValue);
-					}	
-					break;
-				case NotifyCollectionChangedAction.Move:
-					int oldStartingIndex2 = e.OldStartingIndex;
-					int newStartingIndex2 = e.NewStartingIndex;
-					if (oldStartingIndex2 != newStartingIndex2)
-					{
-						_sourcePositions.Move(oldStartingIndex2, newStartingIndex2);
-					}
-
-					break;
-				case NotifyCollectionChangedAction.Reset:
-					initializeFromSource();
-					break;
-			}
-
-            _isConsistent = true;
-            ConsistencyRestored?.Invoke(this, null);
-
-            Utils.doDeferredExpressionWatcherChangedProcessings(
-                _deferredKeyExpressionWatcherChangedProcessingsCollectionChanged, 
-                ref _handledEventSender, 
-                ref _handledEventArgs, 
-                _thisAsSourceItemKeyChangeProcessor,
-                out _isConsistent,
-                false); 
-
-            Utils.doDeferredExpressionWatcherChangedProcessings(
-                _deferredValueExpressionWatcherChangedProcessingsCollectionChanged, 
-                ref _handledEventSender, 
-                ref _handledEventArgs, 
-                _thisAsSourceValueItemChangeProcessor,
-                out _isConsistent); 
-
-			_handledEventSender = null;
-			_handledEventArgs = null;
+            Utils.postHandleChange(
+                ref _handledEventSender,
+                ref _handledEventArgs,
+                _deferredProcessings,
+                ref _isConsistent,
+                this);
 		}
 
-		private void keyExpressionWatcher_OnValueChanged(ExpressionWatcher expressionWatcher, object sender, EventArgs eventArgs)
+        void ISourceCollectionChangeProcessor.processSourceCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
+        {
+            TKey key;
+            switch (e.Action)
+            {
+                case NotifyCollectionChangedAction.Add:
+                    int newStartingIndex = e.NewStartingIndex;
+                    TSourceItem addedItem = (TSourceItem) e.NewItems[0];
+                    KeyValueExpressionItemInfo<TKey, TValue> itemInfo = registerSourceItem(addedItem, newStartingIndex);
+                    key = applyKeySelector(itemInfo, addedItem);
+                    TValue value = applyValueSelector(itemInfo, addedItem);
+                    baseAddItem(key, value);
+                    break;
+                case NotifyCollectionChangedAction.Remove:
+                    int oldStartingIndex = e.OldStartingIndex;
+                    key = _itemInfos[oldStartingIndex].Key;
+                    unregisterSourceItem(oldStartingIndex);
+                    baseRemoveItem(key);
+                    break;
+                case NotifyCollectionChangedAction.Replace:
+                    int newStartingIndex1 = e.NewStartingIndex;
+                    TSourceItem newItem = (TSourceItem) e.NewItems[0];
+                    KeyValueExpressionItemInfo<TKey, TValue> replacingItemInfo = _itemInfos[newStartingIndex1];
+                    TKey oldKey = replacingItemInfo.Key;
+                    Utils.disposeExpressionWatcher(replacingItemInfo.KeyExpressionWatcher,
+                        replacingItemInfo.KeyNestedComputings, this,
+                        _keySelectorContainsParametrizedObservableComputationsCalls);
+                    Utils.disposeExpressionWatcher(replacingItemInfo.ValueExpressionWatcher,
+                        replacingItemInfo.ValueNestedComputings, this,
+                        _valueSelectorContainsParametrizedObservableComputationsCalls);
+
+                    fillItemInfoWithKey(replacingItemInfo, newItem);
+                    fillItemInfoWithValue(replacingItemInfo, newItem);
+
+                    TKey newKey = replacingItemInfo.Key;
+                    TValue newValue = replacingItemInfo.Value;
+
+                    if (_equalityComparer.Equals(oldKey, newKey))
+                    {
+                        baseSetItem(replacingItemInfo.Key, newValue);
+                    }
+                    else
+                    {
+                        baseRemoveItem(oldKey);
+                        baseAddItem(replacingItemInfo.Key, newValue);
+                    }
+
+                    break;
+                case NotifyCollectionChangedAction.Move:
+                    int oldStartingIndex2 = e.OldStartingIndex;
+                    int newStartingIndex2 = e.NewStartingIndex;
+                    if (oldStartingIndex2 != newStartingIndex2)
+                    {
+                        _sourcePositions.Move(oldStartingIndex2, newStartingIndex2);
+                    }
+
+                    break;
+                case NotifyCollectionChangedAction.Reset:
+                    initializeFromSource();
+                    break;
+            }
+        }
+
+        private void keyExpressionWatcher_OnValueChanged(ExpressionWatcher expressionWatcher, object sender, EventArgs eventArgs)
 		{
             Utils.ProcessSourceItemChange(
                 expressionWatcher, 
@@ -485,15 +479,16 @@ namespace ObservableComputations
                 _sourceAsList, 
                 _lastProcessedSourceChangeMarker, 
                 _thisAsSourceItemKeyChangeProcessor,
-                ref _deferredKeyExpressionWatcherChangedProcessingsCollectionChanged, 
                 ref _isConsistent,
                 ref _handledEventSender,
                 ref _handledEventArgs,
-                _isConsistent);
+                ref _deferredProcessings, 
+                2, 3, this);
 		}
 
 		private void valueExpressionWatcher_OnValueChanged(ExpressionWatcher expressionWatcher, object sender, EventArgs eventArgs)
 		{
+
             Utils.ProcessSourceItemChange(
                 expressionWatcher, 
                 sender, 
@@ -502,19 +497,20 @@ namespace ObservableComputations
                 _sourceAsList, 
                 _lastProcessedSourceChangeMarker, 
                 _thisAsSourceValueItemChangeProcessor,
-                ref _deferredValueExpressionWatcherChangedProcessingsCollectionChanged, 
                 ref _isConsistent,
                 ref _handledEventSender,
                 ref _handledEventArgs,
-                _isConsistent);
+                ref _deferredProcessings, 
+                2, 3, this);
 		}
 
         void ISourceItemKeyChangeProcessor.ProcessSourceItemChange(ExpressionWatcher expressionWatcher)
 		{
+            if (expressionWatcher._disposed) return;
 			int sourceIndex = expressionWatcher._position.Index;
 			KeyValueExpressionItemInfo<TKey, TValue> itemInfo = _itemInfos[sourceIndex];
 			TKey key = itemInfo.Key;
-            itemInfo.Key = applyKeySelector(itemInfo, _sourceAsList[sourceIndex]);
+            itemInfo.Key = applyKeySelector(itemInfo, (TSourceItem) expressionWatcher._parameterValues[0]);
 			baseRemoveItem(key);
 			TKey newKey = itemInfo.Key;
 			baseAddItem(newKey, itemInfo.Value);
@@ -522,10 +518,11 @@ namespace ObservableComputations
 
         void ISourceItemValueChangeProcessor.ProcessSourceItemChange(ExpressionWatcher expressionWatcher)
 		{
+            if (expressionWatcher._disposed) return;
 			int sourceIndex = expressionWatcher._position.Index;
 			KeyValueExpressionItemInfo<TKey, TValue> itemInfo = _itemInfos[sourceIndex];
 			TKey key = itemInfo.Key;
-            itemInfo.Value = applyValueSelector(itemInfo, _sourceAsList[sourceIndex]);
+            itemInfo.Value = applyValueSelector(itemInfo, (TSourceItem) expressionWatcher._parameterValues[0]);
 			baseSetItem(key, itemInfo.Value);
 		}
 
@@ -710,19 +707,14 @@ namespace ObservableComputations
 
         private void handleSourceScalarValueChanged(object sender,  PropertyChangedEventArgs e)
         {
-            if (e.PropertyName != nameof(IReadScalar<INotifyCollectionChanged>.Value)) return;
-            checkConsistent(sender, e);
-
-            _handledEventSender = sender;
-            _handledEventArgs = e;
-
-            _isConsistent = false;
-            initializeFromSource();
-            _isConsistent = true;
-            ConsistencyRestored?.Invoke(this, null);
-
-            _handledEventSender = null;
-            _handledEventArgs = null;
+            Utils.processResetChange(
+                sender, 
+                e, 
+                ref _isConsistent, 
+                ref _handledEventSender, 
+                ref _handledEventArgs, 
+                null, 
+                ref _deferredProcessings, this);
         }
 
         #region Implementation of IComputingInternal
@@ -762,7 +754,7 @@ namespace ObservableComputations
             Utils.uninitializeNestedComputings(_valueNestedComputings, this);
         }
 
-        void IComputingInternal.InitializeFromSource()
+        void ICanInitializeFromSource.InitializeFromSource()
         {
             initializeFromSource();
         }

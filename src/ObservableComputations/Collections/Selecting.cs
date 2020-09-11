@@ -36,7 +36,6 @@ namespace ObservableComputations
 		bool _rootSourceWrapper;
 		private bool _lastProcessedSourceChangeMarker;
 
-
 		private bool _sourceInitialized;
 		private readonly IReadScalar<INotifyCollectionChanged> _sourceScalar;
 		private Expression<Func<TSourceItem, TResultItem>> _selectorExpressionOriginal;
@@ -117,10 +116,14 @@ namespace ObservableComputations
                     ref _lastProcessedSourceChangeMarker);
 
                 int count = _sourceAsList.Count;
+
+                TSourceItem[] sourceCopy = new TSourceItem[count];
+                _sourceAsList.CopyTo(sourceCopy, 0);
+
                 int sourceIndex;
                 for (sourceIndex = 0; sourceIndex < count; sourceIndex++)
                 {
-                    TSourceItem sourceItem = _sourceAsList[sourceIndex];
+                    TSourceItem sourceItem = sourceCopy[sourceIndex];
                     ItemInfo itemInfo = registerSourceItem(sourceItem, sourceIndex);
 
                     if (originalCount > sourceIndex)
@@ -170,7 +173,7 @@ namespace ObservableComputations
                     ref _handledEventSender,
                     ref _handledEventArgs,
                     ref _deferredProcessings,
-                    0, 2, 
+                    1, 3, 
                     this)) return;
 	
 			_thisAsSourceCollectionChangeProcessor.processSourceCollectionChanged(sender,e);      
@@ -179,7 +182,7 @@ namespace ObservableComputations
                 ref _handledEventSender,
                 ref _handledEventArgs,
                 _deferredProcessings,
-                out _isConsistent,
+                ref _isConsistent,
                 this);
 		}
 
@@ -252,7 +255,7 @@ namespace ObservableComputations
                 ref _handledEventSender,
                 ref _handledEventArgs,
                 ref _deferredProcessings, 
-                1, 2, this);
+                2, 3, this);
 		}
 
         private ItemInfo registerSourceItem(TSourceItem sourceItem, int index, ItemInfo itemInfo = null)
@@ -285,7 +288,7 @@ namespace ObservableComputations
         {
             if (expressionWatcher._disposed) return;
             int sourceIndex = expressionWatcher._position.Index;
-            baseSetItem(sourceIndex, ApplySelector(sourceIndex));
+            baseSetItem(sourceIndex, applySelector((ItemInfo)expressionWatcher._position, (TSourceItem)expressionWatcher._parameterValues[0]));
         }
 
         private void unregisterSourceItem(int index, bool replacing = false)
@@ -298,25 +301,6 @@ namespace ObservableComputations
             Utils.disposeExpressionWatcher(_itemInfos[index].ExpressionWatcher, _itemInfos[index].NestedComputings, this,
                 _selectorContainsParametrizedObservableComputationsCalls);
         }
-
-        // ReSharper disable once MemberCanBePrivate.Global
-		public TResultItem ApplySelector(int index)
-		{
-            TResultItem getValue() =>
-                _selectorContainsParametrizedObservableComputationsCalls
-                    ? _itemInfos[index].SelectorFunc()
-                    : _selectorFunc(_sourceAsList[index]);
-
-            if (Configuration.TrackComputingsExecutingUserCode)
-			{
-				var currentThread = Utils.startComputingExecutingUserCode(out var computing, out _userCodeIsCalledFrom, this);
-                TResultItem result = getValue();
-                Utils.endComputingExecutingUserCode(computing, currentThread, out _userCodeIsCalledFrom);
-                return result;
-			}
-
-			return getValue();
-		}
 
         private TResultItem applySelector(ItemInfo itemInfo, TSourceItem sourceItem)
 		{

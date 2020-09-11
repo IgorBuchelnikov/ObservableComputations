@@ -209,12 +209,14 @@ namespace ObservableComputations
 				else
 				{
 					int count = _sourceAsList.Count;
+                    TSourceItem[] sourceCopy = new TSourceItem[count];
+                    _sourceAsList.CopyTo(sourceCopy, 0);
 					for (; sourceIndex < count; sourceIndex++)
 					{
 						if (originalCount > sourceIndex)
-							_items[sourceIndex] = _sourceAsList[sourceIndex];
+							_items[sourceIndex] = sourceCopy[sourceIndex];
 						else
-							_items.Insert(sourceIndex, _sourceAsList[sourceIndex]);
+							_items.Insert(sourceIndex, sourceCopy[sourceIndex]);
 					}					
 				}
 
@@ -255,7 +257,7 @@ namespace ObservableComputations
                 ref _handledEventSender, 
                 ref _handledEventArgs,
                 ref _deferredProcessings,
-                0, 1, this)) return;
+                1, 2, this)) return;
 
 			_isConsistent = !_resuming && !_isPaused;
 
@@ -265,7 +267,7 @@ namespace ObservableComputations
                 ref _handledEventSender,
                 ref _handledEventArgs,
                 _deferredProcessings,
-                out _isConsistent,
+                ref _isConsistent,
                 this);
 		}
 
@@ -303,7 +305,6 @@ namespace ObservableComputations
                     initializeFromSource();
                     break;
             }
-
         }
 
         internal override void addToUpstreamComputings(IComputingInternal computing)

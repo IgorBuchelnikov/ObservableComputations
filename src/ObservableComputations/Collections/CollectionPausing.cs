@@ -211,6 +211,9 @@ namespace ObservableComputations
 					int count = _sourceAsList.Count;
                     TSourceItem[] sourceCopy = new TSourceItem[count];
                     _sourceAsList.CopyTo(sourceCopy, 0);
+
+                    _source.CollectionChanged += handleSourceCollectionChanged;
+
 					for (; sourceIndex < count; sourceIndex++)
 					{
 						if (originalCount > sourceIndex)
@@ -227,8 +230,7 @@ namespace ObservableComputations
 						_items.RemoveAt(index);
 					}
 				}
-
-                _source.CollectionChanged += handleSourceCollectionChanged;
+          
                 _sourceInitialized = true;
             }			
 			else 

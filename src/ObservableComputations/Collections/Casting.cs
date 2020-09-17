@@ -81,6 +81,9 @@ namespace ObservableComputations
 				int count = _sourceAsList.Count;
                 object[] sourceCopy = new object[count];
                 _sourceAsList.CopyTo(sourceCopy, 0);
+
+                _source.CollectionChanged += handleSourceCollectionChanged;
+
 				int sourceIndex;
 				for (sourceIndex = 0; sourceIndex < count; sourceIndex++)
 				{
@@ -95,7 +98,6 @@ namespace ObservableComputations
 					_items.RemoveAt(index);
 				}
 
-                _source.CollectionChanged += handleSourceCollectionChanged;
                 _sourceInitialized = true;
             }			
 			else

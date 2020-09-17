@@ -22,6 +22,6 @@ namespace ObservableComputations
 
 	internal interface IThenOrderingInternal<TSourceItem> : IThenOrdering<TSourceItem>
 	{
-		void ProcessSourceItemChange(int sourceIndex);
+		void ProcessSourceItemChange(int sourceIndex, TSourceItem sourceItem);
 	}
 }

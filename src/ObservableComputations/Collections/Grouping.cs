@@ -10,7 +10,7 @@ namespace ObservableComputations
 {
 	// TODO реализовать IDictionary в Grouping
 	// TODO если TKey это INotifyCollectionChanged реагировать на CollectionChanged 
-	public class Grouping<TSourceItem, TKey> : CollectionComputing<Group<TSourceItem, TKey>>, IHasSourceCollections, ISourceItemChangeProcessor
+	public class Grouping<TSourceItem, TKey> : CollectionComputing<Group<TSourceItem, TKey>>, IHasSourceCollections, ISourceItemChangeProcessor, ISourceCollectionChangeProcessor
 	{
 		public IReadScalar<INotifyCollectionChanged> SourceScalar => _sourceScalar;
 
@@ -105,8 +105,7 @@ namespace ObservableComputations
 		bool _rootSourceWrapper;
 
 		private bool _lastProcessedSourceChangeMarker;
-		private Queue<ExpressionWatcher.Raise> _deferredExpressionWatcherChangedProcessingsCollectionChanged;
-        private Queue<ExpressionWatcher.Raise> _deferredExpressionWatcherChangedProcessingsConsistencyRestored;
+        private ISourceCollectionChangeProcessor _thisAsSourceCollectionChangeProcessor;
 
 		private bool _sourceInitialized;
 
@@ -136,7 +135,6 @@ namespace ObservableComputations
 		private readonly Func<TSourceItem, TKey> _keySelectorFunc;
 
         private List<IComputingInternal> _nestedComputings;
-        private ISourceItemChangeProcessor _thisAsSourceItemChangeProcessor;
 
 		private sealed class ItemInfo : ExpressionItemInfo
 		{
@@ -213,7 +211,7 @@ namespace ObservableComputations
                 ref _nestedComputings);
 
 			_initialResultCapacity = resultCapacity;
-            _thisAsSourceItemChangeProcessor = this;
+            _thisAsSourceCollectionChangeProcessor = this;
         }
 
 
@@ -239,31 +237,45 @@ namespace ObservableComputations
                 _rootSourceWrapper, 
                 ref _lastProcessedSourceChangeMarker, 
                 _sourceAsList, 
-                _isConsistent,
+                ref _isConsistent,
                 this,
                 ref _handledEventSender,
-                ref _handledEventArgs)) return;
+                ref _handledEventArgs,
+                ref _deferredProcessings,
+                1, 3, 
+                this)) return;
 
-            _isConsistent = false;
-			switch (e.Action)
-			{
-				case NotifyCollectionChangedAction.Add:
-					int newIndex1 = e.NewStartingIndex;
-					TSourceItem addedItem = _sourceAsList[newIndex1];
-					registerSourceItem(addedItem, false, _sourcePositions.Insert(newIndex1));
-					break;
-				case NotifyCollectionChangedAction.Remove:
-					unregisterSourceItem(e.OldStartingIndex, true);
-					break;
-				case NotifyCollectionChangedAction.Replace:
-					int replacingSourceIndex = e.NewStartingIndex;
-					TSourceItem newItem = _sourceAsList[replacingSourceIndex];
-					ItemInfo replacingItemInfo = _itemInfos[replacingSourceIndex];
+            _thisAsSourceCollectionChangeProcessor.processSourceCollectionChanged(sender, e);
+        
+            Utils.postHandleChange(
+                ref _handledEventSender,
+                ref _handledEventArgs,
+                _deferredProcessings,
+                ref _isConsistent,
+                this);
+		}
+
+        void ISourceCollectionChangeProcessor.processSourceCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
+        {
+            switch (e.Action)
+            {
+                case NotifyCollectionChangedAction.Add:
+                    int newIndex1 = e.NewStartingIndex;
+                    TSourceItem addedItem = (TSourceItem) e.NewItems[0];
+                    registerSourceItem(addedItem, false, _sourcePositions.Insert(newIndex1));
+                    break;
+                case NotifyCollectionChangedAction.Remove:
+                    unregisterSourceItem(e.OldStartingIndex, true);
+                    break;
+                case NotifyCollectionChangedAction.Replace:
+                    int replacingSourceIndex = e.NewStartingIndex;
+                    TSourceItem newItem = (TSourceItem) e.NewItems[0];
+                    ItemInfo replacingItemInfo = _itemInfos[replacingSourceIndex];
 
                     Utils.getItemInfoContent(
-                        new object[]{newItem}, 
-                        out ExpressionWatcher watcher, 
-                        out Func<TKey> selectorFunc, 
+                        new object[] {newItem},
+                        out ExpressionWatcher watcher,
+                        out Func<TKey> selectorFunc,
                         out List<IComputingInternal> nestedComputings,
                         _keySelectorExpression,
                         out _keySelectorExpressionСallCount,
@@ -271,132 +283,119 @@ namespace ObservableComputations
                         _keySelectorExpressionContainsParametrizedObservableComputationsCalls,
                         _keySelectorExpressionInfo);
 
-					TKey key = replacingItemInfo.Key;
-					if (_equalityComparer.Equals(key, applyKeySelector(newItem, selectorFunc)))
-					{
-						ExpressionWatcher oldExpressionWatcher = replacingItemInfo.ExpressionWatcher;
+                    TKey key = replacingItemInfo.Key;
+                    if (_equalityComparer.Equals(key, applyKeySelector(newItem, selectorFunc)))
+                    {
+                        ExpressionWatcher oldExpressionWatcher = replacingItemInfo.ExpressionWatcher;
                         Utils.disposeExpressionWatcher(oldExpressionWatcher, replacingItemInfo.NestedComputings, this,
                             _keySelectorExpressionContainsParametrizedObservableComputationsCalls);
 
-						replacingItemInfo.SelectorFunc = selectorFunc;
-						replacingItemInfo.ExpressionWatcher = watcher;
+                        replacingItemInfo.SelectorFunc = selectorFunc;
+                        replacingItemInfo.ExpressionWatcher = watcher;
                         replacingItemInfo.NestedComputings = nestedComputings;
-						watcher.ValueChanged = expressionWatcher_OnValueChanged;
-						watcher._position = oldExpressionWatcher._position;
+                        watcher.ValueChanged = expressionWatcher_OnValueChanged;
+                        watcher._position = oldExpressionWatcher._position;
 
-						Group<TSourceItem, TKey> @group;
+                        Group<TSourceItem, TKey> @group;
 
-						@group = key != null 
-							? _groupDictionary[key] 
-							: _nullGroup;
+                        @group = key != null
+                            ? _groupDictionary[key]
+                            : _nullGroup;
 
-						@group.baseSetItem(findIndexInGroup(replacingSourceIndex, @group), newItem);
-					}
-					else
-					{
-						unregisterSourceItem(replacingSourceIndex, false);
-						registerSourceItem(newItem, false, replacingItemInfo);	
-					}
-					break;
-				case NotifyCollectionChangedAction.Move:
-					int oldStartingIndex = e.OldStartingIndex;
-					int newStartingIndex = e.NewStartingIndex;
-					if (oldStartingIndex != newStartingIndex)
-					{
-						ItemInfo itemInfo = _itemInfos[oldStartingIndex];
+                        @group.baseSetItem(findIndexInGroup(replacingSourceIndex, @group), newItem);
+                    }
+                    else
+                    {
+                        unregisterSourceItem(replacingSourceIndex, false);
+                        registerSourceItem(newItem, false, replacingItemInfo);
+                    }
 
-						Group<TSourceItem, TKey> group1;
+                    break;
+                case NotifyCollectionChangedAction.Move:
+                    int oldStartingIndex = e.OldStartingIndex;
+                    int newStartingIndex = e.NewStartingIndex;
+                    if (oldStartingIndex != newStartingIndex)
+                    {
+                        ItemInfo itemInfo = _itemInfos[oldStartingIndex];
 
-						group1 = itemInfo.Key != null 
-							? _groupDictionary[itemInfo.Key] 
-							: _nullGroup;
+                        Group<TSourceItem, TKey> group1;
 
-						int oldIndex = findIndexInGroup(oldStartingIndex, group1);
-						_sourcePositions.Move(oldStartingIndex, newStartingIndex);
+                        group1 = itemInfo.Key != null
+                            ? _groupDictionary[itemInfo.Key]
+                            : _nullGroup;
 
-						int? newIndex = null;
+                        int oldIndex = findIndexInGroup(oldStartingIndex, group1);
+                        _sourcePositions.Move(oldStartingIndex, newStartingIndex);
 
-						if (group1.Count > 1)
-						{
-							List<Position> group1SourcePositions = group1._sourcePositions;
-							int sourcePositionsCount = group1SourcePositions.Count;
-							if (oldIndex == 0)
-							{
-								if (group1SourcePositions[0].Index <= newStartingIndex)
-								{
-									newIndex = findInsertingIndexInGroup(newStartingIndex, group1, 
-										           1, sourcePositionsCount - 1) - 1;
-								}
-								else
-								{
-									newIndex = 0;
-								}
-							}
-							else if (oldIndex == sourcePositionsCount - 1)
-							{
-								if (group1SourcePositions[oldIndex].Index >= newStartingIndex)
-								{
-									newIndex = findInsertingIndexInGroup(newStartingIndex, group1,
-										0, sourcePositionsCount - 2);
-								}
-								else
-								{
-									newIndex = sourcePositionsCount - 1;
-								}
-							}
-							else
-							{
-								int comparisonsSum = 
-									(newStartingIndex - group1SourcePositions[oldIndex - 1].Index > 0 ? 1 : -1)
-									+ (newStartingIndex - group1SourcePositions[oldIndex + 1].Index >= 0 ? 1 : -1);
+                        int? newIndex = null;
 
-								if (comparisonsSum != 0)
-								{
-									if (comparisonsSum == 2)
-									{
-										newIndex = findInsertingIndexInGroup(newStartingIndex, group1, 
-											           oldIndex + 1, sourcePositionsCount - 1) - 1;	
-									}
-									else //if (comparisonsSum == -2)
-									{
-										newIndex = findInsertingIndexInGroup(newStartingIndex, group1, 
-											0, oldIndex - 1);								
-									}
-								}
-							}
+                        if (group1.Count > 1)
+                        {
+                            List<Position> group1SourcePositions = group1._sourcePositions;
+                            int sourcePositionsCount = group1SourcePositions.Count;
+                            if (oldIndex == 0)
+                            {
+                                if (group1SourcePositions[0].Index <= newStartingIndex)
+                                {
+                                    newIndex = findInsertingIndexInGroup(newStartingIndex, group1,
+                                                   1, sourcePositionsCount - 1) - 1;
+                                }
+                                else
+                                {
+                                    newIndex = 0;
+                                }
+                            }
+                            else if (oldIndex == sourcePositionsCount - 1)
+                            {
+                                if (group1SourcePositions[oldIndex].Index >= newStartingIndex)
+                                {
+                                    newIndex = findInsertingIndexInGroup(newStartingIndex, group1,
+                                        0, sourcePositionsCount - 2);
+                                }
+                                else
+                                {
+                                    newIndex = sourcePositionsCount - 1;
+                                }
+                            }
+                            else
+                            {
+                                int comparisonsSum =
+                                    (newStartingIndex - group1SourcePositions[oldIndex - 1].Index > 0 ? 1 : -1)
+                                    + (newStartingIndex - group1SourcePositions[oldIndex + 1].Index >= 0 ? 1 : -1);
 
-							if (newIndex.HasValue)
-							{
-								Position movingPosition = group1SourcePositions[oldIndex];
-								group1SourcePositions.RemoveAt(oldIndex);
-								group1SourcePositions.Insert(newIndex.Value, movingPosition);
-								group1.baseMoveItem(oldIndex, newIndex.Value);
-							}			
-						}
+                                if (comparisonsSum != 0)
+                                {
+                                    if (comparisonsSum == 2)
+                                    {
+                                        newIndex = findInsertingIndexInGroup(newStartingIndex, group1,
+                                                       oldIndex + 1, sourcePositionsCount - 1) - 1;
+                                    }
+                                    else //if (comparisonsSum == -2)
+                                    {
+                                        newIndex = findInsertingIndexInGroup(newStartingIndex, group1,
+                                            0, oldIndex - 1);
+                                    }
+                                }
+                            }
 
-						moveGroupToActualIndex(group1);
-					}
-							
-					break;
-				case NotifyCollectionChangedAction.Reset:
-					initializeFromSource();
-					break;
-			}
+                            if (newIndex.HasValue)
+                            {
+                                Position movingPosition = group1SourcePositions[oldIndex];
+                                group1SourcePositions.RemoveAt(oldIndex);
+                                group1SourcePositions.Insert(newIndex.Value, movingPosition);
+                                group1.baseMoveItem(oldIndex, newIndex.Value);
+                            }
+                        }
 
-            _isConsistent = true;
-            raiseConsistencyRestored();
+                        moveGroupToActualIndex(group1);
+                    }
 
-            Utils.doDeferredExpressionWatcherChangedProcessings(
-                _deferredExpressionWatcherChangedProcessingsCollectionChanged, 
-                ref _handledEventSender, 
-                ref _handledEventArgs, 
-                this,
-                out _isConsistent); 
-
-            Utils.postHandleChange(
-                out _handledEventSender,
-                out _handledEventArgs);
-		}
+                    break;
+                case NotifyCollectionChangedAction.Reset:
+                    initializeFromSource();
+                    break;
+            }
+        }
 
         internal override void addToUpstreamComputings(IComputingInternal computing)
         {
@@ -421,12 +420,12 @@ namespace ObservableComputations
                 _rootSourceWrapper, 
                 _sourceAsList, 
                 _lastProcessedSourceChangeMarker, 
-                _thisAsSourceItemChangeProcessor,
-                ref _deferredExpressionWatcherChangedProcessingsCollectionChanged, 
+                this,
                 ref _isConsistent,
                 ref _handledEventSender,
                 ref _handledEventArgs,
-                _isConsistent);
+                ref _deferredProcessings, 
+                2, 3, this);
 		}
 
         protected override void initialize()
@@ -480,13 +479,17 @@ namespace ObservableComputations
                     ref _lastProcessedSourceChangeMarker);
 
 				int count = _sourceAsList.Count;
+                TSourceItem[] sourceCopy = new TSourceItem[count];
+                _sourceAsList.CopyTo(sourceCopy, 0);
+
+                _sourceAsList.CollectionChanged += handleSourceCollectionChanged;
+
 				for (int index = 0; index < count; index++)
 				{
-					TSourceItem sourceItem = _sourceAsList[index];
+					TSourceItem sourceItem = sourceCopy[index];
 					registerSourceItem(sourceItem, true, _sourcePositions.Insert(index), true);
 				}
 
-                _sourceAsList.CollectionChanged += handleSourceCollectionChanged;
                 _sourceInitialized = true;
             }			
 
@@ -496,11 +499,12 @@ namespace ObservableComputations
 
         void ISourceItemChangeProcessor.ProcessSourceItemChange(ExpressionWatcher expressionWatcher)
 		{
+            if (expressionWatcher._disposed) return;
 			int sourceIndex = expressionWatcher._position.Index;
-			TSourceItem sourceItem = _sourceAsList[sourceIndex];
+			TSourceItem sourceItem = (TSourceItem)expressionWatcher._parameterValues[0];
 			ItemInfo itemInfo = _itemInfos[sourceIndex];
 			TKey oldKey = itemInfo.Key;
-			TKey newKey = applyKeySelector(sourceIndex);
+			TKey newKey = applyKeySelector(sourceItem, itemInfo.SelectorFunc);
 
 			if (!_equalityComparer.Equals(oldKey, newKey))
 			{
@@ -530,7 +534,7 @@ namespace ObservableComputations
 			watcher.ValueChanged = expressionWatcher_OnValueChanged;
 			watcher._position = itemInfo;
 
-			TKey key = applyKeySelector(itemInfo.Index);
+			TKey key = applyKeySelector(sourceItem, selectorFunc);
 			itemInfo.Key = key;
 
 			addSourceItemToGroup(sourceItem, itemInfo, addNewToEnd, key, initializing);

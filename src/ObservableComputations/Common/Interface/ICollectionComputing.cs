@@ -6,7 +6,7 @@ namespace ObservableComputations
 	{
 	}
 
-	public interface ICollectionComputingChild : INotifyCollectionChangedExtended, IList, IHasTags, IHasItemType
+	public interface ICollectionComputingChild : INotifyCollectionChangedExtended, IList, IComputing, IHasItemType
 	{
 		ICollectionComputing Parent {get;}
 	}

@@ -93,8 +93,9 @@ namespace ObservableComputations
                 ref _predicateFunc, 
                 ref _nestedComputings);
 
-            _thisAsFiltering = this;
+            _deferredQueuesCount = 3;
 
+            _thisAsFiltering = this;
 
 			_initialCapacity = capacity;
 			_filteredPositions = new Positions<Position>(new List<Position>(_initialCapacity));	
@@ -306,14 +307,14 @@ namespace ObservableComputations
                 ref _handledEventSender,
                 ref _handledEventArgs,
                 ref _deferredProcessings,
-                0, 2, 
+                1, 3, 
                 this)) return;
 
 			_thisAsFiltering.processSourceCollectionChanged(sender, e);
 
             Utils.postHandleChange(
-                ref _handledEventSender,
-                ref _handledEventArgs,
+                out _handledEventSender,
+                out _handledEventArgs,
                 _deferredProcessings,
                 ref _isConsistent,
                 this);
@@ -368,6 +369,7 @@ namespace ObservableComputations
 
                     FilteringItemInfo replacingItemInfo = _itemInfos[sourceIndex];
                     var replace = FilteringUtils.ProcessReplaceSourceItem(replacingItemInfo, replacingSourceItem,
+                        new object[]{replacingSourceItem},
                         sourceIndex, _predicateContainsParametrizedObservableComputationsCalls, _predicateExpression,
                         out _predicateExpressionСallCount, _predicateExpressionInfo, _itemInfos, _filteredPositions,
                         _thisAsFiltering, this);
@@ -404,7 +406,7 @@ namespace ObservableComputations
                 ref _handledEventSender,
                 ref _handledEventArgs,
                 ref _deferredProcessings, 
-                1, 2, this);
+                2, 3, this);
 		}
 
         bool IFiltering<TSourceItem>.applyPredicate(TSourceItem sourceItem, Func<bool> itemPredicateFunc)
@@ -707,9 +709,13 @@ namespace ObservableComputations
             }
         }
 
-        internal static bool ProcessChangeSourceItem<TSourceItem>(int sourceIndex, TSourceItem sourceItem,
-            List<FilteringItemInfo> filteringItemInfos, IFiltering<TSourceItem> filtering,
-            Positions<Position> filteredPositions, CollectionComputing<TSourceItem> current)
+        internal static bool ProcessChangeSourceItem<TSourceItem>(
+            int sourceIndex, 
+            TSourceItem sourceItem,
+            List<FilteringItemInfo> filteringItemInfos, 
+            IFiltering<TSourceItem> filtering,
+            Positions<Position> filteredPositions, 
+            CollectionComputing<TSourceItem> current)
         {
             FilteringItemInfo itemInfo = filteringItemInfos[sourceIndex];
 
@@ -741,8 +747,10 @@ namespace ObservableComputations
             return false;
         }
 
-        internal static bool ProcessReplaceSourceItem<TExpression, TSourceItem>(FilteringItemInfo replacingItemInfo,
+        internal static bool  ProcessReplaceSourceItem<TExpression, TSourceItem>(
+            FilteringItemInfo replacingItemInfo,
             TSourceItem sourceItem,
+            object[] sourceItems,
             int sourceIndex, bool predicateContainsParametrizedObservableComputationsCalls,
             Expression<TExpression> predicateExpression,
             out int predicateExpressionСallCount,

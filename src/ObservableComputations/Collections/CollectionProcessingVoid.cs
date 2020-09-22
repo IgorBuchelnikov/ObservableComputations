@@ -136,8 +136,8 @@ namespace ObservableComputations
 			_thisAsSourceCollectionChangeProcessor.processSourceCollectionChanged(sender, e);
 
             Utils.postHandleChange(
-                ref _handledEventSender,
-                ref _handledEventArgs,
+                out _handledEventSender,
+                out _handledEventArgs,
                 _deferredProcessings,
                 ref _isConsistent,
                 this);

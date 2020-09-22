@@ -14,6 +14,7 @@ namespace ObservableComputations
 		public object Tag {get; set;}
 		internal IList<TItem> _items;
         internal Queue<IProcessable>[] _deferredProcessings;
+        protected int _deferredQueuesCount = 2; 
 
 		public CollectionComputing(int capacity = 0) : base(new List<TItem>(capacity))
 		{
@@ -413,6 +414,7 @@ namespace ObservableComputations
                 ref _handledEventSender, 
                 ref _handledEventArgs, 
                 _scalarValueChangedHandlerAction, 
+                _deferredQueuesCount,
                 ref _deferredProcessings, this);
         }
 

@@ -264,6 +264,7 @@ namespace ObservableComputations
                 ref _handledEventSender, 
                 ref _handledEventArgs,
                 () => { _equalityComparer = _equalityComparerScalar.Value ?? EqualityComparer<TKey>.Default;}, 
+                3,
                 ref _deferredProcessings, this);
 		}
 
@@ -402,8 +403,8 @@ namespace ObservableComputations
 			_thisAsSourceCollectionChangeProcessor.processSourceCollectionChanged(sender, e);
 
             Utils.postHandleChange(
-                ref _handledEventSender,
-                ref _handledEventArgs,
+                out _handledEventSender,
+                out _handledEventArgs,
                 _deferredProcessings,
                 ref _isConsistent,
                 this);

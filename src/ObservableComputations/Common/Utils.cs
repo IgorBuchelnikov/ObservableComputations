@@ -5,6 +5,7 @@ using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Linq.Expressions;
 using System.Threading;
+using ObservableComputations.Common;
 using ObservableComputations.ExtentionMethods;
 
 namespace ObservableComputations
@@ -314,8 +315,8 @@ namespace ObservableComputations
         }
 
         internal static void postHandleChange(
-            ref object handledEventSender,
-            ref EventArgs handledEventArgs,
+            out object handledEventSender,
+            out EventArgs handledEventArgs,
             Queue<IProcessable>[] deferredProcessings,
             ref bool isConsistent, IComputingInternal computing)
         {
@@ -430,7 +431,9 @@ namespace ObservableComputations
             ObservableCollectionWithChangeMarker<TSourceItem> observableCollectionWithChangeMarker,
             bool lastProcessedSourceChangeMarker,
             TCanProcessSourceItemChange thisAsCanProcessSourceItemChange,
-            ref bool isConsistent, ref object handledEventSender, ref EventArgs handledEventArgs,
+            ref bool isConsistent, 
+            ref object handledEventSender, 
+            ref EventArgs handledEventArgs,
             ref Queue<IProcessable>[] deferredProcessings,
             int deferredSourceItemChangedEventProcessingsIndex,
             int deferredProcessingsCount,
@@ -454,19 +457,28 @@ namespace ObservableComputations
                 ref handledEventArgs, canProcessNow, computing);
         }
 
-        internal static void ProcessSourceItemChange<TSourceItem1, TSourceItem2, TCanProcessSourceItemChange>(ExpressionWatcher expressionWatcher,
-            object sender, EventArgs eventArgs,
+        internal static void ProcessSourceItemChange<TSourceItem1, TSourceItem2, TCanProcessSourceItemChange>(
+            ExpressionWatcher expressionWatcher,
+            object sender, 
+            EventArgs eventArgs,
             bool rootSourceWrapper1,
             ObservableCollectionWithChangeMarker<TSourceItem1> observableCollectionWithChangeMarker1,
             bool rootSourceWrapper2,
             ObservableCollectionWithChangeMarker<TSourceItem2> observableCollectionWithChangeMarker2,
-            bool lastProcessedSource1ChangeMarker, bool lastProcessedSource2ChangeMarker, TCanProcessSourceItemChange thisAsCanProcessSourceItemChange,
-            ref Queue<ExpressionWatcher.Raise> deferredExpressionWatcherChangedProcessings,
-            ref bool isConsistent, ref object handledEventSender, ref EventArgs handledEventArgs, bool consistent) where TCanProcessSourceItemChange : ISourceItemChangeProcessor
+            bool lastProcessedSource1ChangeMarker, 
+            bool lastProcessedSource2ChangeMarker, 
+            TCanProcessSourceItemChange thisAsCanProcessSourceItemChange,           
+            ref bool isConsistent, 
+            ref object handledEventSender,
+            ref EventArgs handledEventArgs,
+            ref Queue<IProcessable>[] deferredProcessings,
+            int deferredSourceItemChangedEventProcessingsIndex,
+            int deferredProcessingsCount,
+            IComputingInternal computing) where TCanProcessSourceItemChange : ISourceItemChangeProcessor
         {
             processExpressionWatcherNestedComputings(expressionWatcher, thisAsCanProcessSourceItemChange);
 
-            bool canProcessNow = consistent
+            bool canProcessNow = isConsistent
                 && (rootSourceWrapper1 || observableCollectionWithChangeMarker1.ChangeMarkerField == lastProcessedSource1ChangeMarker)
                 && (rootSourceWrapper2 || observableCollectionWithChangeMarker2.ChangeMarkerField == lastProcessedSource2ChangeMarker);
 
@@ -475,15 +487,17 @@ namespace ObservableComputations
                 sender, 
                 eventArgs, 
                 thisAsCanProcessSourceItemChange, 
-                ref deferredExpressionWatcherChangedProcessings, 
+                ref deferredProcessings, 
+                deferredSourceItemChangedEventProcessingsIndex, 
+                deferredProcessingsCount,
                 ref isConsistent, 
                 ref handledEventSender, 
-                ref handledEventArgs, 
-                canProcessNow);
+                ref handledEventArgs, canProcessNow, computing);
         }
 
         private static void processExpressionWatcherNestedComputings<TCanProcessSourceItemChange>(
-            ExpressionWatcher expressionWatcher, TCanProcessSourceItemChange thisAsCanProcessSourceItemChange)
+            ExpressionWatcher expressionWatcher, 
+            TCanProcessSourceItemChange thisAsCanProcessSourceItemChange)
             where TCanProcessSourceItemChange : ISourceItemChangeProcessor
         {
             if (!expressionWatcher._computingsChanged) return;
@@ -557,8 +571,8 @@ namespace ObservableComputations
 
 
                 postHandleChange(
-                    ref handledEventSender,
-                    ref handledEventArgs,
+                    out handledEventSender,
+                    out handledEventArgs,
                     deferredProcessings,
                     ref isConsistent,
                     computing);
@@ -780,7 +794,7 @@ namespace ObservableComputations
             return preHandleSourceCollectionChanged(sender, e, ref isConsistent, ref handledEventSender, ref handledEventArgs, ref deferredProcessings, deferredSourceCollectionChangedEventProcessingsIndex, deferredProcessingsCount, sourceCollectionChangeProcessor);
         }
 
-        private static bool preHandleSourceCollectionChanged(
+        internal static bool preHandleSourceCollectionChanged(
             object sender, 
             NotifyCollectionChangedEventArgs e,
             ref bool isConsistent, 
@@ -878,7 +892,51 @@ namespace ObservableComputations
             ref object handledEventSender, 
             ref EventArgs handledEventArgs, 
             Action scalarValueChangedHandlerAction, 
+            int deferredQueuesCount,            
             ref Queue<IProcessable>[] deferredProcessings, IComputingInternal computing)
+        {
+            processChange(sender, args, 
+                () =>
+                {
+                    scalarValueChangedHandlerAction?.Invoke();
+                    computing.InitializeFromSource();
+                }, 
+                () => new CollectionReset(sender, args, computing, scalarValueChangedHandlerAction),
+                ref isConsistent, ref handledEventSender, ref handledEventArgs,
+                0, deferredQueuesCount, ref deferredProcessings,
+                computing);
+        }
+
+        internal static void processChange(
+            object sender, 
+            PropertyChangedEventArgs args, 
+            Action action,
+            ref bool isConsistent, 
+            ref object handledEventSender, 
+            ref EventArgs handledEventArgs, 
+            int deferredQueueIndex,
+            int deferredQueuesCount,              
+            ref Queue<IProcessable>[] deferredProcessings, 
+            IComputingInternal computing)
+        {
+            processChange(sender, args, action, () => new Processable(action),
+                ref isConsistent, ref handledEventSender, ref handledEventArgs,
+                deferredQueueIndex, deferredQueuesCount, ref deferredProcessings,
+                computing);
+        }
+
+        internal static void processChange(
+            object sender, 
+            PropertyChangedEventArgs args, 
+            Action action,
+            Func<IProcessable> getProcessable,
+            ref bool isConsistent, 
+            ref object handledEventSender, 
+            ref EventArgs handledEventArgs, 
+            int deferredQueueIndex,
+            int deferredQueuesCount,              
+            ref Queue<IProcessable>[] deferredProcessings, 
+            IComputingInternal computing)
         {
             if (args.PropertyName != nameof(IReadScalar<object>.Value)) return;
 
@@ -888,20 +946,19 @@ namespace ObservableComputations
                 handledEventArgs = args;
                 isConsistent = false;
 
-                scalarValueChangedHandlerAction?.Invoke();
-                computing.InitializeFromSource();
+                action();
 
-                Utils.postHandleChange(
-                    ref handledEventSender,
-                    ref handledEventArgs,
+                postHandleChange(
+                    out handledEventSender,
+                    out handledEventArgs,
                     deferredProcessings,
                     ref isConsistent,
                     computing);
             }
             else
             {
-                Utils.getOrInitializeDeferredProcessingsQueue(ref deferredProcessings, 0, 3)
-                    .Enqueue(new CollectionReset(sender, args, computing, scalarValueChangedHandlerAction));
+                getOrInitializeDeferredProcessingsQueue(ref deferredProcessings, deferredQueueIndex, deferredQueuesCount)
+                    .Enqueue(getProcessable());
             }
         }
 

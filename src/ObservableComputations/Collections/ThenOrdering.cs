@@ -130,7 +130,6 @@ namespace ObservableComputations
 			_comparerScalar = comparerScalar;
 		}
 
-
 		[ObservableComputationsCall]
 		public ThenOrdering(
 			IOrdering<TSourceItem> source,
@@ -222,6 +221,7 @@ namespace ObservableComputations
                 ref _orderingValueSelectorFunc, 
                 ref _nestedComputings);
 
+            _deferredQueuesCount = 3;
             _thisAsSourceCollectionChangeProcessor = this;
 		}
 
@@ -555,8 +555,8 @@ namespace ObservableComputations
 			_thisAsSourceCollectionChangeProcessor.processSourceCollectionChanged(sender, e);
 
             Utils.postHandleChange(
-                ref _handledEventSender,
-                ref _handledEventArgs,
+                out _handledEventSender,
+                out _handledEventArgs,
                 _deferredProcessings,
                 ref _isConsistent,
                 this);

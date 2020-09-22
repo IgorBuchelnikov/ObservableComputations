@@ -7,7 +7,7 @@ using System.Linq;
 
 namespace ObservableComputations
 {
-	public class Paging<TSourceItem> : CollectionComputing<TSourceItem>, IHasSourceCollections, ISourceIndexerPropertyTracker
+	public class Paging<TSourceItem> : CollectionComputing<TSourceItem>, IHasSourceCollections, ISourceIndexerPropertyTracker, ISourceCollectionChangeProcessor
 	{
 		public INotifyCollectionChanged Source => _source;
 		public IReadScalar<INotifyCollectionChanged> SourceScalar => _sourceScalar;
@@ -145,6 +145,8 @@ namespace ObservableComputations
 		private int _lowerIndex;
 		private int _upperIndex;
 
+        private ISourceCollectionChangeProcessor _thisAsSourceCollectionChangeProcessor;
+
 
 		[ObservableComputationsCall]
 		public Paging(
@@ -155,6 +157,7 @@ namespace ObservableComputations
 			_pageSize = pageSize;
 			_currentPage = initialPage;
 			_source = source;
+            _thisAsSourceCollectionChangeProcessor = this;
             checkPageSize();
             checkCurrentPage();
         }
@@ -168,6 +171,7 @@ namespace ObservableComputations
 			_pageSize = pageSize;
 			_currentPage = initialPage;
 			_sourceScalar = sourceScalar;
+            _thisAsSourceCollectionChangeProcessor = this;
             checkPageSize();
             checkCurrentPage();
 		}
@@ -181,6 +185,7 @@ namespace ObservableComputations
 			_pageSizeScalar = pageSizeScalar;
 			_currentPage = initialPage;
 			_source = source;
+            _thisAsSourceCollectionChangeProcessor = this;
         }
 
 		[ObservableComputationsCall]
@@ -192,6 +197,7 @@ namespace ObservableComputations
 			_pageSizeScalar = pageSizeScalar;
 			_currentPage = initialPage;
 			_sourceScalar = sourceScalar;
+            _thisAsSourceCollectionChangeProcessor = this;
             checkCurrentPage();
 		}
 
@@ -204,6 +210,7 @@ namespace ObservableComputations
 			_pageSizeScalar = pageSizeScalar;
 			_currentPageScalar = currentPageScalar;
 			_source = source;
+            _thisAsSourceCollectionChangeProcessor = this;
 		}
 
 		[ObservableComputationsCall]
@@ -215,6 +222,7 @@ namespace ObservableComputations
 			_pageSizeScalar = pageSizeScalar;
 			_currentPageScalar = currentPageScalar;
 			_sourceScalar = sourceScalar;
+            _thisAsSourceCollectionChangeProcessor = this;
 		}
 
 		[ObservableComputationsCall]
@@ -226,6 +234,7 @@ namespace ObservableComputations
 			_pageSize = pageSize;
 			_currentPageScalar = currentPageScalar;
 			_source = source;
+            _thisAsSourceCollectionChangeProcessor = this;
             checkPageSize();
 		}
 
@@ -238,6 +247,7 @@ namespace ObservableComputations
 			_pageSize = pageSize;
 			_currentPageScalar = currentPageScalar;
 			_sourceScalar = sourceScalar;
+            _thisAsSourceCollectionChangeProcessor = this;
             checkPageSize();
 		}
 
@@ -264,22 +274,27 @@ namespace ObservableComputations
         }
 
 		private void handlePageSizeScalarValueChanged(object sender, PropertyChangedEventArgs e)
-		{
-			if (e.PropertyName != nameof(IReadScalar<object>.Value)) return;
+        {
+            int pageSize = _pageSizeScalar.Value;
+            Action action = () =>
+            {
+                int originalPageSize = _pageSize;
+                _pageSize = pageSize;
+                checkPageSize();
+                processPageSizeChanged(originalPageSize);
+            };
 
-			checkConsistent(sender, e);
+            Utils.processChange(
+                sender, 
+                e, 
+                action,
+                ref _isConsistent, 
+                ref _handledEventSender, 
+                ref _handledEventArgs, 
+                1, 2,
+                ref _deferredProcessings, this);
 
-			_handledEventSender = sender;
-			_handledEventArgs = e;
-
-			int originalPageSize = _pageSize;
-			_pageSize = _pageSizeScalar.Value;
-            checkPageSize();
-			processPageSizeChanged(originalPageSize);
-
-			_handledEventSender = null;
-			_handledEventArgs = null;
-		}
+        }
 
 
         private void initializeCurrentPageScalar()
@@ -294,19 +309,24 @@ namespace ObservableComputations
 
 		private void handleCurrentPageScalarValueChanged(object sender, PropertyChangedEventArgs e)
 		{
-			if (e.PropertyName != nameof(IReadScalar<object>.Value)) return;
+            int currentPage = _currentPageScalar.Value;
+            Action action = () =>
+            {
 
-			checkConsistent(sender, e);
+                _currentPage = currentPage;
+                checkCurrentPage();
+                processCurentPageChanged();
+            };
 
-			_handledEventSender = sender;
-			_handledEventArgs = e;
-
-			_currentPage = _currentPageScalar.Value;
-            checkCurrentPage();
-			processCurentPageChanged();
-
-			_handledEventSender = null;
-			_handledEventArgs = null;
+            Utils.processChange(
+                sender, 
+                e, 
+                action,
+                ref _isConsistent, 
+                ref _handledEventSender, 
+                ref _handledEventArgs, 
+                1, 2,
+                ref _deferredProcessings, this);
 		}
 
 		protected override void initializeFromSource()
@@ -341,6 +361,10 @@ namespace ObservableComputations
 
                 int newIndex = 0;
 				int count = _sourceAsList.Count;
+                TSourceItem[] sourceCopy = new TSourceItem[count];
+                _sourceAsList.CopyTo(sourceCopy, 0);
+
+                _source.CollectionChanged += handleSourceCollectionChanged;
 
 				_pageCount = (int) Math.Ceiling(count  / (double) _pageSize);
 				bool currentPageChanged = false;
@@ -356,9 +380,9 @@ namespace ObservableComputations
 				for (var sourceIndex = _lowerIndex; sourceIndex < count && sourceIndex < _upperIndex; sourceIndex++)
 				{
 					if (originalCount > sourceIndex)
-						_items[newIndex++] = _sourceAsList[sourceIndex];
+						_items[newIndex++] = sourceCopy[sourceIndex];
 					else
-						_items.Insert(newIndex++, _sourceAsList[sourceIndex]);
+						_items.Insert(newIndex++, sourceCopy[sourceIndex]);
 				}
 
 				for (int index1 = originalCount - 1; index1 >= newIndex; index1--)
@@ -366,7 +390,6 @@ namespace ObservableComputations
 					_items.RemoveAt(index1);
 				}
 
-				_source.CollectionChanged += handleSourceCollectionChanged;
                 _sourceInitialized = true;
 
 				if (currentPageChanged) OnPropertyChanged(Utils.CurrentPagePropertyChangedEventArgs);
@@ -396,18 +419,30 @@ namespace ObservableComputations
 
         private void handleSourceCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
 		{
-			if (!Utils.preHandleSourceCollectionChanged(
+            if (!Utils.preHandleSourceCollectionChanged(
                 sender, 
                 e, 
-                _isConsistent, 
-                this, 
+                ref _isConsistent, 
                 ref _indexerPropertyChangedEventRaised, 
                 ref _lastProcessedSourceChangeMarker, 
                 _sourceAsIHasChangeMarker, 
                 ref _handledEventSender, 
-                ref _handledEventArgs)) return;
+                ref _handledEventArgs,
+                ref _deferredProcessings,
+                1, 2, this)) return;
 
-            _isConsistent = false;
+            _thisAsSourceCollectionChangeProcessor.processSourceCollectionChanged(sender, e);
+
+            Utils.postHandleChange(
+                out _handledEventSender,
+                out _handledEventArgs,
+                _deferredProcessings,
+                ref _isConsistent,
+                this);
+		}
+
+        void ISourceCollectionChangeProcessor.processSourceCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
+        {
             switch (e.Action)
             {
                 case NotifyCollectionChangedAction.Add:
@@ -429,9 +464,6 @@ namespace ObservableComputations
                     }
                     else
                     {
-                        _isConsistent = true;
-                        raiseConsistencyRestored();
-
                         if (_pageCount != originalPageCount2)
                             OnPropertyChanged(Utils.PageCountPropertyChangedEventArgs);
                     }
@@ -461,14 +493,8 @@ namespace ObservableComputations
                     }
                     else
                     {
-                        _isConsistent = true;
-                        raiseConsistencyRestored();
-
                         if (_pageCount != originalPageCount1)
                             OnPropertyChanged(Utils.PageCountPropertyChangedEventArgs);
-
-                        _handledEventSender = null;
-                        _handledEventArgs = null;
 
                         return;
                     }
@@ -574,14 +600,7 @@ namespace ObservableComputations
 
                     break;
             }
-
-            _isConsistent = true;
-            raiseConsistencyRestored();
-
-            Utils.postHandleChange(
-                out _handledEventSender,
-                out _handledEventArgs);
-		}
+        }
 
         internal override void addToUpstreamComputings(IComputingInternal computing)
         {

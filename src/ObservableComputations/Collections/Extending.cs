@@ -7,7 +7,7 @@ using System.Linq;
 
 namespace ObservableComputations
 {
-	public class Extending<TSourceItem> : CollectionComputing<TSourceItem>, IHasSourceCollections, ISourceIndexerPropertyTracker
+	public class Extending<TSourceItem> : CollectionComputing<TSourceItem>, IHasSourceCollections, ISourceIndexerPropertyTracker, ISourceCollectionChangeProcessor
 	{
 		// ReSharper disable once MemberCanBePrivate.Global
 		public IReadScalar<INotifyCollectionChanged> SourceScalar => _sourceScalar;
@@ -29,20 +29,23 @@ namespace ObservableComputations
 
 		private IHasChangeMarker _sourceAsIHasChangeMarker;
 		private bool _lastProcessedSourceChangeMarker;
+        private ISourceCollectionChangeProcessor _thisAsSourceCollectionChangeProcessor;
 
 		[ObservableComputationsCall]
 		public Extending(
 			IReadScalar<INotifyCollectionChanged> sourceScalar) : base(Utils.getCapacity(sourceScalar))
 		{
 			_sourceScalar = sourceScalar;
-		}
+            _thisAsSourceCollectionChangeProcessor = this;
+        }
 
 		[ObservableComputationsCall]
 		public Extending(
 			INotifyCollectionChanged source) : base(Utils.getCapacity(source))
 		{
 			_source = source;
-		}
+            _thisAsSourceCollectionChangeProcessor = this;
+        }
 
         protected override void initializeFromSource()
 		{
@@ -76,13 +79,19 @@ namespace ObservableComputations
 
 
 				int count = _sourceAsList.Count;
+
+                object[] sourceCopy = new object[count];
+                _sourceAsList.CopyTo(sourceCopy, 0);
+
+                _source.CollectionChanged += handleSourceCollectionChanged;
+
 				int sourceIndex;
 				for (sourceIndex = 0; sourceIndex < count; sourceIndex++)
 				{
 					if (originalCount > sourceIndex)
-						_items[sourceIndex] = (TSourceItem)_sourceAsList[sourceIndex];
+						_items[sourceIndex] = (TSourceItem)sourceCopy[sourceIndex];
 					else
-						_items.Insert(sourceIndex, (TSourceItem)_sourceAsList[sourceIndex]);
+						_items.Insert(sourceIndex, (TSourceItem)sourceCopy[sourceIndex]);
 				}
 
 				for (int index = originalCount - 1; index >= sourceIndex; index--)
@@ -90,7 +99,6 @@ namespace ObservableComputations
 					_items.RemoveAt(index);
 				}
 
-                _source.CollectionChanged += handleSourceCollectionChanged;
                 _sourceInitialized = true;
             }			
 			else
@@ -106,16 +114,27 @@ namespace ObservableComputations
             if (!Utils.preHandleSourceCollectionChanged(
                 sender, 
                 e, 
-                _isConsistent, 
-                this, 
+                ref _isConsistent, 
                 ref _indexerPropertyChangedEventRaised, 
                 ref _lastProcessedSourceChangeMarker, 
                 _sourceAsIHasChangeMarker, 
                 ref _handledEventSender, 
-                ref _handledEventArgs)) return;
+                ref _handledEventArgs,
+                ref _deferredProcessings,
+                1, 2, this)) return;
 
-            _isConsistent = false;
+            _thisAsSourceCollectionChangeProcessor.processSourceCollectionChanged(sender, e);
+            
+            Utils.postHandleChange(
+                out _handledEventSender,
+                out _handledEventArgs,
+                _deferredProcessings,
+                ref _isConsistent,
+                this);
+		}
 
+        void ISourceCollectionChangeProcessor.processSourceCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
+        {
             switch (e.Action)
             {
                 case NotifyCollectionChangedAction.Add:
@@ -145,14 +164,7 @@ namespace ObservableComputations
                     initializeFromSource();
                     break;
             }
-
-            _isConsistent = true;
-            raiseConsistencyRestored();
-
-            Utils.postHandleChange(
-                out _handledEventSender,
-                out _handledEventArgs);
-		}
+        }
 
         internal override void addToUpstreamComputings(IComputingInternal computing)
         {
@@ -190,7 +202,8 @@ namespace ObservableComputations
 
 			IList<TSourceItem> source = _sourceScalar.getValue(_source, new ObservableCollection<TSourceItem>()) as IList<TSourceItem>;
 			// ReSharper disable once PossibleNullReferenceException
-		    if (!this.SequenceEqual(source)) throw new ObservableComputationsException(this, "Consistency violation: Extending.1");
+            // ReSharper disable once AssignNullToNotNullAttribute
+            if (!this.SequenceEqual(source)) throw new ObservableComputationsException(this, "Consistency violation: Extending.1");
 		}
 	}
 }

@@ -20,16 +20,16 @@ namespace ObservableComputations
 		internal class Raise : IProcessable
 		{
 			internal ExpressionWatcher ExpressionWatcher;
-			internal object EventSender;
-			internal EventArgs EventArgs;
+			internal object _eventSender;
+			internal EventArgs _eventArgs;
             internal ISourceItemChangeProcessor SourceItemChangeProcessor;
             internal Type SourceItemChangeProcessorType;
 
 			public Raise(ExpressionWatcher expressionWatcher, object eventSender, EventArgs eventArgs, ISourceItemChangeProcessor sourceItemChangeProcessor, Type sourceItemChangeProcessorType)
 			{
 				ExpressionWatcher = expressionWatcher;
-				EventSender = eventSender;
-				EventArgs = eventArgs;
+				_eventSender = eventSender;
+				_eventArgs = eventArgs;
                 SourceItemChangeProcessor = sourceItemChangeProcessor;
                 SourceItemChangeProcessorType = sourceItemChangeProcessorType;
             }
@@ -47,6 +47,9 @@ namespace ObservableComputations
                     ((ISourceItemValueChangeProcessor) SourceItemChangeProcessor).ProcessSourceItemChange(
                         ExpressionWatcher);
             }
+
+            public object EventSender => _eventSender;
+            public EventArgs EventArgs => _eventArgs;
 
             #endregion
         }

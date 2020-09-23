@@ -315,8 +315,8 @@ namespace ObservableComputations
         }
 
         internal static void postHandleChange(
-            out object handledEventSender,
-            out EventArgs handledEventArgs,
+            ref object handledEventSender,
+            ref EventArgs handledEventArgs,
             Queue<IProcessable>[] deferredProcessings,
             ref bool isConsistent, IComputingInternal computing)
         {
@@ -331,6 +331,8 @@ namespace ObservableComputations
                     if (queue != null && queue.Count > 0)
                     {
                         IProcessable processable = queue.Dequeue();
+                        handledEventSender = processable.EventSender;
+                        handledEventArgs = processable.EventArgs;
                         processable.Process(deferredProcessings);
                         processed = true;
                         break;
@@ -571,8 +573,8 @@ namespace ObservableComputations
 
 
                 postHandleChange(
-                    out handledEventSender,
-                    out handledEventArgs,
+                    ref handledEventSender,
+                    ref handledEventArgs,
                     deferredProcessings,
                     ref isConsistent,
                     computing);
@@ -919,7 +921,7 @@ namespace ObservableComputations
             ref Queue<IProcessable>[] deferredProcessings, 
             IComputingInternal computing)
         {
-            processChange(sender, args, action, () => new Processable(action),
+            processChange(sender, args, action, () => new Processable(sender, args, action),
                 ref isConsistent, ref handledEventSender, ref handledEventArgs,
                 deferredQueueIndex, deferredQueuesCount, ref deferredProcessings,
                 computing);
@@ -949,8 +951,8 @@ namespace ObservableComputations
                 action();
 
                 postHandleChange(
-                    out handledEventSender,
-                    out handledEventArgs,
+                    ref handledEventSender,
+                    ref handledEventArgs,
                     deferredProcessings,
                     ref isConsistent,
                     computing);

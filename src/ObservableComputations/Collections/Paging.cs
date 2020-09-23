@@ -24,10 +24,23 @@ namespace ObservableComputations
 			{
 				if (_pageSizeScalar != null) throw new ObservableComputationsException("Modifying of PageSize property is controlled by PageSizeScalar");
 
-				int originalPageSize = _pageSize;
-				_pageSize = value;
+                int newPageSize = value;
 
-				processPageSizeChanged(originalPageSize);
+                Action action = () => {
+                    int originalPageSize = _pageSize;
+                    _pageSize = newPageSize;
+                    processPageSizeChanged(originalPageSize);
+                };
+
+                Utils.processChange(
+                    null, 
+                    null, 
+                    action,
+                    ref _isConsistent, 
+                    ref _handledEventSender, 
+                    ref _handledEventArgs, 
+                    0, 2,
+                    ref _deferredProcessings, this);
 			}
 		}
 
@@ -84,10 +97,24 @@ namespace ObservableComputations
 			{
 				if (_currentPageScalar != null) throw new ObservableComputationsException("Modifying of CurrentPage property is controlled by CurrentPagecalar");
 
-				_currentPage = value;
+                var newCurrentPage = value;
 
-				processCurentPageChanged();
-			}
+                Action action = () =>
+                {
+                    _currentPage = newCurrentPage;
+                    processCurentPageChanged();
+                };
+
+                Utils.processChange(
+                    null, 
+                    null, 
+                    action,
+                    ref _isConsistent, 
+                    ref _handledEventSender, 
+                    ref _handledEventArgs, 
+                    0, 2,
+                    ref _deferredProcessings, this);
+            }
 		}
 
 		private void processCurentPageChanged()
@@ -291,7 +318,7 @@ namespace ObservableComputations
                 ref _isConsistent, 
                 ref _handledEventSender, 
                 ref _handledEventArgs, 
-                1, 2,
+                0, 2,
                 ref _deferredProcessings, this);
 
         }
@@ -325,7 +352,7 @@ namespace ObservableComputations
                 ref _isConsistent, 
                 ref _handledEventSender, 
                 ref _handledEventArgs, 
-                1, 2,
+                0, 2,
                 ref _deferredProcessings, this);
 		}
 
@@ -414,9 +441,6 @@ namespace ObservableComputations
 			reset();
 		}
 
-
-
-
         private void handleSourceCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
 		{
             if (!Utils.preHandleSourceCollectionChanged(
@@ -434,8 +458,8 @@ namespace ObservableComputations
             _thisAsSourceCollectionChangeProcessor.processSourceCollectionChanged(sender, e);
 
             Utils.postHandleChange(
-                out _handledEventSender,
-                out _handledEventArgs,
+                ref _handledEventSender,
+                ref _handledEventArgs,
                 _deferredProcessings,
                 ref _isConsistent,
                 this);

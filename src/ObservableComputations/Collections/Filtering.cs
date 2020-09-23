@@ -313,8 +313,8 @@ namespace ObservableComputations
 			_thisAsFiltering.processSourceCollectionChanged(sender, e);
 
             Utils.postHandleChange(
-                out _handledEventSender,
-                out _handledEventArgs,
+                ref _handledEventSender,
+                ref _handledEventArgs,
                 _deferredProcessings,
                 ref _isConsistent,
                 this);

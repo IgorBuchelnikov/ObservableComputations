@@ -6,15 +6,15 @@ namespace ObservableComputations
 {
     internal class CollectionReset : IProcessable
     {
-        internal object Sender;
-        internal EventArgs Args;
+        private object _eventSender;
+        private EventArgs _eventArgs;
         internal Action Action;
         internal ICanInitializeFromSource CanInitializeFromSource;
 
-        public CollectionReset(object sender, EventArgs args, ICanInitializeFromSource canInitializeFromSource, Action action)
+        public CollectionReset(object eventSender, EventArgs eventArgs, ICanInitializeFromSource canInitializeFromSource, Action action)
         {
-            Sender = sender;
-            Args = args;
+            _eventSender = eventSender;
+            _eventArgs = eventArgs;
             CanInitializeFromSource = canInitializeFromSource;
             Action = action;
         }
@@ -29,6 +29,9 @@ namespace ObservableComputations
         }
 
         #endregion
+
+        public object EventSender => _eventSender;
+        public EventArgs EventArgs => _eventArgs;
     }
 }
 

@@ -1,18 +1,19 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Collections.Specialized;
 
 namespace ObservableComputations
 {
     internal class CollectionChangedEventRaise : IProcessable
     {
-        internal object Sender;
-        internal NotifyCollectionChangedEventArgs Args;
+        private object _eventSender;
+        private NotifyCollectionChangedEventArgs _eventArgs;
         internal ISourceCollectionChangeProcessor SourceCollectionChangeProcessor;
 
-        public CollectionChangedEventRaise(object sender, NotifyCollectionChangedEventArgs args, ISourceCollectionChangeProcessor sourceCollectionChangeProcessor)
+        public CollectionChangedEventRaise(object eventSender, NotifyCollectionChangedEventArgs eventArgs, ISourceCollectionChangeProcessor sourceCollectionChangeProcessor)
         {
-            Sender = sender;
-            Args = args;
+            _eventSender = eventSender;
+            _eventArgs = eventArgs;
             SourceCollectionChangeProcessor = sourceCollectionChangeProcessor;
 
         }
@@ -21,8 +22,11 @@ namespace ObservableComputations
 
         public void Process(Queue<IProcessable>[] deferredProcessings)
         {
-            SourceCollectionChangeProcessor.processSourceCollectionChanged(Sender, Args);
+            SourceCollectionChangeProcessor.processSourceCollectionChanged(_eventSender, _eventArgs);
         }
+
+        public object EventSender => _eventSender;
+        public EventArgs EventArgs => _eventArgs;
 
         #endregion
     }

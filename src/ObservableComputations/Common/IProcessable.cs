@@ -6,8 +6,11 @@ using System.Threading.Tasks;
 
 namespace ObservableComputations
 {
-    internal  interface IProcessable
+    internal interface IProcessable
     {
         void Process(Queue<IProcessable>[] deferredProcessings);
+        object EventSender { get; }
+        EventArgs EventArgs { get; }
     }
+
 }

@@ -1,4 +1,5 @@
-﻿using System.ComponentModel;
+﻿using System;
+using System.ComponentModel;
 
 namespace ObservableComputations
 {
@@ -13,45 +14,45 @@ namespace ObservableComputations
 		[ObservableComputationsCall]
 		public SequenceComputing(IReadScalar<int> countScalar)
 		{
-			_countScalar = countScalar;	
-		}
+			_countScalar = countScalar;
+            _deferredQueuesCount = 1;
+        }
 
 		private void handleCountChanged(object sender, PropertyChangedEventArgs e)
 		{
-			if (e.PropertyName != nameof(Computing<int>.Value)) return;
-			checkConsistent(sender, e);
-
-			_handledEventSender = sender;
-			_handledEventArgs = e;
-
 			int newCount = _countScalar.Value;
 
-			_isConsistent = false;
+            Action action = () =>
+            {
+			    if (_count < newCount)
+			    {
+				    for (int item = _count; item < newCount; item++)
+				    {
+					    baseInsertItem(item, item);
+				    }	
+				    
+				    _count = newCount;
+			    }
+			    else if (_count > newCount)
+			    {
+				    for (int itemIndex = _count - 1; itemIndex > newCount - 1; itemIndex--)
+				    {
+					    baseRemoveItem(itemIndex);
+				    }	
+				    
+				    _count = newCount;
+			    }
+            };
 
-			if (_count < newCount)
-			{
-				for (int item = _count; item < newCount; item++)
-				{
-					baseInsertItem(item, item);
-				}	
-				
-				_count = newCount;
-			}
-			else if (_count > newCount)
-			{
-				for (int itemIndex = _count - 1; itemIndex > newCount - 1; itemIndex--)
-				{
-					baseRemoveItem(itemIndex);
-				}	
-				
-				_count = newCount;
-			}
-
-			_isConsistent = true;
-			raiseConsistencyRestored();
-
-			_handledEventSender = null;
-			_handledEventArgs = null;
+            Utils.processChange(
+                sender, 
+                e, 
+                action,
+                ref _isConsistent, 
+                ref _handledEventSender, 
+                ref _handledEventArgs, 
+                0, 1,
+                ref _deferredProcessings, this);
 		}
 
 		// ReSharper disable once InconsistentNaming
@@ -87,7 +88,7 @@ namespace ObservableComputations
         protected override void uninitialize()
         {
             _countScalar.PropertyChanged -= handleCountChanged;
-            this.baseClearItems();
+            baseClearItems();
         }
 
         internal override void addToUpstreamComputings(IComputingInternal computing)

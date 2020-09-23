@@ -7,7 +7,7 @@ using INotifyPropertyChanged = System.ComponentModel.INotifyPropertyChanged;
 
 namespace ObservableComputations
 {
-	public class Zipping<TLeftSourceItem, TRightSourceItem> : CollectionComputing<ZipPair<TLeftSourceItem, TRightSourceItem>>, IHasSourceCollections, ILeftSourceIndexerPropertyTracker, IRightSourceIndexerPropertyTracker
+	public class Zipping<TLeftSourceItem, TRightSourceItem> : CollectionComputing<ZipPair<TLeftSourceItem, TRightSourceItem>>, IHasSourceCollections, ILeftSourceIndexerPropertyTracker, IRightSourceIndexerPropertyTracker, ISourceCollectionChangeProcessor
 	{
 		// ReSharper disable once MemberCanBePrivate.Global
 		public IReadScalar<INotifyCollectionChanged> LeftSourceScalar => _leftSourceScalar;
@@ -63,6 +63,8 @@ namespace ObservableComputations
 		private readonly IReadScalar<INotifyCollectionChanged> _rightSourceScalar;
 		private INotifyCollectionChanged _leftSource;
 		private INotifyCollectionChanged _rightSource;
+        private List<TLeftSourceItem> _leftSourceCopy;
+        private List<TRightSourceItem> _rightSourceCopy;
 
 		private bool _leftSourceIndexerPropertyChangedEventRaised;
 		private INotifyPropertyChanged _leftSourceAsINotifyPropertyChanged;
@@ -78,6 +80,8 @@ namespace ObservableComputations
 
         private bool _sourceInitialized;
 
+        private ISourceCollectionChangeProcessor _thisAsSourceCollectionChangeProcessor;
+
 		[ObservableComputationsCall]
 		public Zipping(
 			IReadScalar<INotifyCollectionChanged> leftSourceScalar,
@@ -85,6 +89,7 @@ namespace ObservableComputations
 		{
 			_leftSourceScalar = leftSourceScalar;
 			_rightSource = rightSource;	
+            _thisAsSourceCollectionChangeProcessor = this;
 		}
 
 		[ObservableComputationsCall]
@@ -94,6 +99,7 @@ namespace ObservableComputations
 		{
 			_leftSourceScalar = leftSourceScalar;
 			_rightSourceScalar = rightSourceScalar;
+            _thisAsSourceCollectionChangeProcessor = this;
 		}
 
 		[ObservableComputationsCall]
@@ -102,7 +108,8 @@ namespace ObservableComputations
 			INotifyCollectionChanged rightSource) : base(calculateCapacity(leftSource, rightSource))
 		{
 			_leftSource = leftSource;			
-			_rightSource = rightSource;					
+			_rightSource = rightSource;		
+            _thisAsSourceCollectionChangeProcessor = this;
 		}
 
 		[ObservableComputationsCall]
@@ -112,6 +119,7 @@ namespace ObservableComputations
 		{
 			_leftSource = leftSource;			
 			_rightSourceScalar = rightSourceScalar;
+            _thisAsSourceCollectionChangeProcessor = this;
 
 		}
 
@@ -202,12 +210,20 @@ namespace ObservableComputations
 
 				int countLeft = _leftSourceAsList.Count;
 				int countRight = _rightSourceAsList.Count;
+
+                _leftSourceCopy = new List<TLeftSourceItem>(_leftSourceAsList);
+                _rightSourceCopy = new List<TRightSourceItem>(_rightSourceAsList);
+
 				int sourceIndex;
 				for (sourceIndex = 0; sourceIndex < countLeft; sourceIndex++)
 				{
 					if (sourceIndex < countRight)
 					{								
-						ZipPair<TLeftSourceItem, TRightSourceItem> zipPair = new ZipPair<TLeftSourceItem, TRightSourceItem>(this, _leftSourceAsList[sourceIndex], _rightSourceAsList[sourceIndex]);
+						ZipPair<TLeftSourceItem, TRightSourceItem> zipPair = 
+                            new ZipPair<TLeftSourceItem, TRightSourceItem>(
+                                this, 
+                                _leftSourceCopy[sourceIndex], 
+                                _rightSourceCopy[sourceIndex]);
 						
 						if (originalCount > sourceIndex)
 							_items[sourceIndex] = zipPair;
@@ -244,168 +260,165 @@ namespace ObservableComputations
             if (!Utils.preHandleSourceCollectionChanged(
                 sender, 
                 e, 
-                _isConsistent, 
-                this, 
+                ref _isConsistent, 
                 ref _leftSourceIndexerPropertyChangedEventRaised, 
                 ref _lastProcessedLeftSourceChangeMarker, 
                 _leftSourceAsIHasChangeMarker, 
                 ref _handledEventSender, 
-                ref _handledEventArgs)) return;
+                ref _handledEventArgs,
+                ref _deferredProcessings,
+                1, 2, this)) return;
 
-            _isConsistent = false;
+            _thisAsSourceCollectionChangeProcessor.processSourceCollectionChanged(sender, e);
 
+            Utils.postHandleChange(
+                ref _handledEventSender,
+                ref _handledEventArgs,
+                _deferredProcessings,
+                ref _isConsistent,
+                this);
+		}
+
+        void ISourceCollectionChangeProcessor.processSourceCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
+        {
             int newIndex;
             int oldIndex;
-            switch (e.Action)
+
+            if (ReferenceEquals(sender, _leftSource))
             {
-                case NotifyCollectionChangedAction.Add:
-                    //if (e.NewItems.Count > 1) throw new ObservableComputationsException(this, "Adding of multiple items is not supported");
-                    newIndex = e.NewStartingIndex;
+                switch (e.Action)
+                {
+                    case NotifyCollectionChangedAction.Add:
+                        //if (e.NewItems.Count > 1) throw new ObservableComputationsException(this, "Adding of multiple items is not supported");
+                        newIndex = e.NewStartingIndex;
+                        _leftSourceCopy.Insert(newIndex, (TLeftSourceItem) e.NewItems[0]);
 
-                    //if (newIndex < this.Count)
-                    //{
-                    int sourceLeftCount = _leftSourceAsList.Count;
-                    int sourceRightCount = _rightSourceAsList.Count;
-                    int thisCount = Count;
-                    for (int sourceIndex = newIndex; sourceIndex < sourceLeftCount; sourceIndex++)
-                    {
-                        if (sourceIndex < sourceRightCount)
+                        //if (newIndex < this.Count)
+                        //{
+                        int sourceLeftCount = _leftSourceCopy.Count;
+                        int sourceRightCount = _rightSourceCopy.Count;
+                        int thisCount = Count;
+                        for (int sourceIndex = newIndex; sourceIndex < sourceLeftCount; sourceIndex++)
                         {
-
-                            if (sourceIndex < thisCount)
+                            if (sourceIndex < sourceRightCount)
                             {
-                                this[sourceIndex].setItemLeft(_leftSourceAsList[sourceIndex]);
+                                if (sourceIndex < thisCount)
+                                {
+                                    this[sourceIndex].setItemLeft(_leftSourceCopy[sourceIndex]);
+                                }
+                                else
+                                {
+                                    baseInsertItem(sourceIndex,
+                                        new ZipPair<TLeftSourceItem, TRightSourceItem>(this, _leftSourceCopy[sourceIndex],
+                                            _rightSourceCopy[sourceIndex]));
+                                }
                             }
                             else
                             {
-                                baseInsertItem(sourceIndex,
-                                    new ZipPair<TLeftSourceItem, TRightSourceItem>(this, _leftSourceAsList[sourceIndex],
-                                        _rightSourceAsList[sourceIndex]));
+                                break;
                             }
                         }
-                        else
+
+                        //}
+                        //else
+                        //{
+                        //	if (newIndex < _rightSourceCopy.Count)
+                        //	{
+                        //		baseInsertItem(this.Count, new ZipPair<TLeftSourceItem, TRightSourceItem>(_leftSourceCopy[newIndex], _rightSourceCopy[newIndex]));
+                        //	}		
+                        //}
+                        break;
+                    case NotifyCollectionChangedAction.Remove:
+                        //if (e.OldItems.Count > 1) throw new ObservableComputationsException(this, "Removing of multiple items is not supported");
+                        oldIndex = e.OldStartingIndex;
+                        _leftSourceCopy.RemoveAt(oldIndex);
+
+                        int countLeft = _leftSourceCopy.Count;
+                        int countRight = _rightSourceCopy.Count;
+                        for (int sourceIndex = oldIndex; sourceIndex < countLeft; sourceIndex++)
                         {
-                            break;
-                        }
-                    }
-
-                    //}
-                    //else
-                    //{
-                    //	if (newIndex < _rightSourceAsList.Count)
-                    //	{
-                    //		baseInsertItem(this.Count, new ZipPair<TLeftSourceItem, TRightSourceItem>(_leftSourceAsList[newIndex], _rightSourceAsList[newIndex]));
-                    //	}		
-                    //}
-                    break;
-                case NotifyCollectionChangedAction.Remove:
-                    //if (e.OldItems.Count > 1) throw new ObservableComputationsException(this, "Removing of multiple items is not supported");
-                    oldIndex = e.OldStartingIndex;
-
-                    int countLeft = _leftSourceAsList.Count;
-                    int countRight = _rightSourceAsList.Count;
-                    for (int sourceIndex = oldIndex; sourceIndex < countLeft; sourceIndex++)
-                    {
-                        if (sourceIndex < countRight)
-                        {
-                            this[sourceIndex].setItemLeft(_leftSourceAsList[sourceIndex]);
-                        }
-                        else
-                        {
-                            break;
-                        }
-                    }
-
-                    int thisCountLeft = Count;
-                    if (thisCountLeft > countLeft)
-                    {
-                        baseRemoveItem(thisCountLeft - 1);
-                    }
-
-                    break;
-                case NotifyCollectionChangedAction.Replace:
-                    //if (e.NewItems.Count > 1) throw new ObservableComputationsException(this, "Replacing of multiple items is not supported");
-                    newIndex = e.NewStartingIndex;
-
-                    if (newIndex < Count)
-                    {
-                        this[newIndex].setItemLeft(_leftSourceAsList[newIndex]);
-                    }
-
-                    break;
-                case NotifyCollectionChangedAction.Move:
-                    newIndex = e.NewStartingIndex;
-                    oldIndex = e.OldStartingIndex;
-                    if (newIndex != oldIndex)
-                    {
-                        int lowerIndex;
-                        int upperIndex;
-                        int count = Count;
-                        if (newIndex < oldIndex)
-                        {
-                            lowerIndex = newIndex;
-
-                            upperIndex = oldIndex >= count ? count - 1 : oldIndex;
-                        }
-                        else
-                        {
-                            lowerIndex = oldIndex;
-                            upperIndex = newIndex >= count ? count - 1 : newIndex;
-                        }
-
-                        for (int sourceIndex = lowerIndex; sourceIndex <= upperIndex; sourceIndex++)
-                        {
-                            if (sourceIndex < count)
+                            if (sourceIndex < countRight)
                             {
-                                this[sourceIndex].setItemLeft(_leftSourceAsList[sourceIndex]);
+                                this[sourceIndex].setItemLeft(_leftSourceCopy[sourceIndex]);
+                            }
+                            else
+                            {
+                                break;
                             }
                         }
-                    }
 
-                    break;
-                case NotifyCollectionChangedAction.Reset:
-                    initializeFromSource();
-                    break;
+                        int thisCountLeft = Count;
+                        if (thisCountLeft > countLeft)
+                        {
+                            baseRemoveItem(thisCountLeft - 1);
+                        }
+
+                        break;
+                    case NotifyCollectionChangedAction.Replace:
+                        //if (e.NewItems.Count > 1) throw new ObservableComputationsException(this, "Replacing of multiple items is not supported");
+                        newIndex = e.NewStartingIndex;
+                        _leftSourceCopy[newIndex] = (TLeftSourceItem) e.NewItems[0];
+
+                        if (newIndex < Count)
+                        {
+                            this[newIndex].setItemLeft(_leftSourceCopy[newIndex]);
+                        }
+
+                        break;
+                    case NotifyCollectionChangedAction.Move:
+                        newIndex = e.NewStartingIndex;
+                        oldIndex = e.OldStartingIndex;
+
+                        TLeftSourceItem leftSourceItem = (TLeftSourceItem) e.NewItems[0];
+                        _leftSourceCopy.RemoveAt(oldIndex);
+                        _leftSourceCopy.Insert(newIndex, leftSourceItem);
+
+                        if (newIndex != oldIndex)
+                        {
+                            int lowerIndex;
+                            int upperIndex;
+                            int count = Count;
+                            if (newIndex < oldIndex)
+                            {
+                                lowerIndex = newIndex;
+
+                                upperIndex = oldIndex >= count ? count - 1 : oldIndex;
+                            }
+                            else
+                            {
+                                lowerIndex = oldIndex;
+                                upperIndex = newIndex >= count ? count - 1 : newIndex;
+                            }
+
+                            for (int sourceIndex = lowerIndex; sourceIndex <= upperIndex; sourceIndex++)
+                            {
+                                if (sourceIndex < count)
+                                {
+                                    this[sourceIndex].setItemLeft(_leftSourceCopy[sourceIndex]);
+                                }
+                            }
+                        }
+
+                        break;
+                    case NotifyCollectionChangedAction.Reset:
+                        initializeFromSource();
+                        break;
+                }
             }
-
-            _isConsistent = true;
-            raiseConsistencyRestored();
-
-            Utils.postHandleChange(
-                out _handledEventSender,
-                out _handledEventArgs);
-		}
-
-		private void handleRightSourceCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
-		{
-            if (!Utils.preHandleSourceCollectionChanged(
-                sender, 
-                e, 
-                _isConsistent, 
-                this, 
-                ref _rigthtSourceIndexerPropertyChangedEventRaised, 
-                ref _lastProcessedRightSourceChangeMarker, 
-                _rightSourceAsHasChangeMarker, 
-                ref _handledEventSender, 
-                ref _handledEventArgs)) return;
-
-            _isConsistent = false;
-
-            int newIndex;
-            int oldIndex;
-            switch (e.Action)
+            else //if (ReferenceEquals(sender, _rightSource))
+                switch (e.Action)
             {
                 case NotifyCollectionChangedAction.Add:
                     //if (e.NewItems.Count > 1) throw new ObservableComputationsException(this, "Adding of multiple items is not supported");
                     newIndex = e.NewStartingIndex;
-
-                    int countRight = _rightSourceAsList.Count;
-                    int countLeft = _leftSourceAsList.Count;
+                    _rightSourceCopy.Insert(newIndex, (TRightSourceItem) e.NewItems[0]);
+                    int countRight = _rightSourceCopy.Count;
+                    int countLeft = _leftSourceCopy.Count;
                     for (int sourceIndex = newIndex; sourceIndex < countRight; sourceIndex++)
                     {
                         if (sourceIndex < countLeft)
                         {
-                            TRightSourceItem sourceItemRight = _rightSourceAsList[sourceIndex];
+                            TRightSourceItem sourceItemRight = _rightSourceCopy[sourceIndex];
                             if (sourceIndex < Count)
                             {
                                 this[sourceIndex].setItemRight(sourceItemRight);
@@ -413,7 +426,7 @@ namespace ObservableComputations
                             else
                             {
                                 baseInsertItem(sourceIndex,
-                                    new ZipPair<TLeftSourceItem, TRightSourceItem>(this, _leftSourceAsList[sourceIndex],
+                                    new ZipPair<TLeftSourceItem, TRightSourceItem>(this, _leftSourceCopy[sourceIndex],
                                         sourceItemRight));
                             }
                         }
@@ -427,14 +440,15 @@ namespace ObservableComputations
                 case NotifyCollectionChangedAction.Remove:
                     //if (e.OldItems.Count > 1) throw new ObservableComputationsException(this, "Removing of multiple items is not supported");
                     oldIndex = e.OldStartingIndex;
-                    int sourceRightCount = _rightSourceAsList.Count;
-                    int sourceLeftCount = _leftSourceAsList.Count;
+                    _rightSourceCopy.RemoveAt(oldIndex);
+                    int sourceRightCount = _rightSourceCopy.Count;
+                    int sourceLeftCount = _leftSourceCopy.Count;
                     for (int sourceIndex = oldIndex; sourceIndex < sourceRightCount; sourceIndex++)
                     {
 
                         if (sourceIndex < sourceLeftCount)
                         {
-                            this[sourceIndex].setItemRight(_rightSourceAsList[sourceIndex]);
+                            this[sourceIndex].setItemRight(_rightSourceCopy[sourceIndex]);
                         }
                         else
                         {
@@ -453,15 +467,20 @@ namespace ObservableComputations
                 case NotifyCollectionChangedAction.Replace:
                     //if (e.NewItems.Count > 1) throw new ObservableComputationsException(this, "Replacing of multiple items is not supported");
                     newIndex = e.NewStartingIndex;
+                    _rightSourceCopy[newIndex] = (TRightSourceItem) e.NewItems[0];
                     if (newIndex < Count)
                     {
-                        this[newIndex].setItemRight(_rightSourceAsList[newIndex]);
+                        this[newIndex].setItemRight(_rightSourceCopy[newIndex]);
                     }
 
                     break;
                 case NotifyCollectionChangedAction.Move:
                     newIndex = e.NewStartingIndex;
                     oldIndex = e.OldStartingIndex;
+
+                    TRightSourceItem rightSourceItem = (TRightSourceItem) e.NewItems[0];
+                    _rightSourceCopy.RemoveAt(oldIndex);
+                    _rightSourceCopy.Insert(newIndex, rightSourceItem);
 
                     int lowerIndex;
                     int upperIndex;
@@ -482,7 +501,7 @@ namespace ObservableComputations
                     {
                         if (sourceIndex < thisCount)
                         {
-                            this[sourceIndex].setItemRight(_rightSourceAsList[sourceIndex]);
+                            this[sourceIndex].setItemRight(_rightSourceCopy[sourceIndex]);
                         }
                     }
 
@@ -491,9 +510,23 @@ namespace ObservableComputations
                     initializeFromSource();
                     break;
             }
+        }
 
-            _isConsistent = true;
-            raiseConsistencyRestored();
+        private void handleRightSourceCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
+		{
+            if (!Utils.preHandleSourceCollectionChanged(
+                sender, 
+                e, 
+                ref _isConsistent, 
+                ref _rigthtSourceIndexerPropertyChangedEventRaised, 
+                ref _lastProcessedRightSourceChangeMarker, 
+                _rightSourceAsHasChangeMarker, 
+                ref _handledEventSender, 
+                ref _handledEventArgs,
+                ref _deferredProcessings,
+                1, 2, this)) return;
+
+            _thisAsSourceCollectionChangeProcessor.processSourceCollectionChanged(sender, e);
 
             Utils.postHandleChange(
                 out _handledEventSender,

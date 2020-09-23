@@ -47,7 +47,7 @@ namespace ObservableComputations
 		private void processPageSizeChanged(int originalPageSize)
 		{
 			int originalUpperIndex = _upperIndex;
-			int sourceCount = _sourceAsList.Count;
+			int sourceCount = _sourceCopy.Count;
 
 			_pageCount = (int) Math.Ceiling(sourceCount / (double) _pageSize);
 			bool currentPageChanged = false;
@@ -68,7 +68,7 @@ namespace ObservableComputations
 					sourceIndex < sourceCount && sourceIndex < _upperIndex;
 					sourceIndex++)
 				{
-					TSourceItem sourceItem = _sourceAsList[sourceIndex];
+					TSourceItem sourceItem = _sourceCopy[sourceIndex];
 					baseInsertItem(index++, sourceItem);
 				}
 			}
@@ -126,11 +126,11 @@ namespace ObservableComputations
 			_lowerIndex = _pageSize * (_currentPage - 1);
 			_upperIndex = _lowerIndex + _pageSize;
 
-			int sourceCount = _sourceAsList.Count;
+			int sourceCount = _sourceCopy.Count;
 			int index = 0;
 			for (var sourceIndex = _lowerIndex; sourceIndex < sourceCount && sourceIndex < _upperIndex; sourceIndex++)
 			{
-				TSourceItem sourceItem = _sourceAsList[sourceIndex];
+				TSourceItem sourceItem = _sourceCopy[sourceIndex];
 				baseSetItem(index++, sourceItem);
 			}
 
@@ -151,6 +151,7 @@ namespace ObservableComputations
 		public int PageCount => _pageCount;
 		private INotifyCollectionChanged _source;
 		private IList<TSourceItem> _sourceAsList;
+        private List<TSourceItem> _sourceCopy;
 		private readonly IReadScalar<INotifyCollectionChanged> _sourceScalar;
 
 		private bool _sourceInitialized;
@@ -320,7 +321,6 @@ namespace ObservableComputations
                 ref _handledEventArgs, 
                 0, 2,
                 ref _deferredProcessings, this);
-
         }
 
 
@@ -377,6 +377,9 @@ namespace ObservableComputations
             Utils.changeSource(ref _source, _sourceScalar, _downstreamConsumedComputings, _consumers, this,
                 ref _sourceAsList, true);
 
+            int originalPageCount = _pageCount;
+            int originalCurrentPage = _currentPage;
+
 			if (_sourceAsList != null && _isActive)
 			{
 				Utils.initializeFromHasChangeMarker(
@@ -388,17 +391,14 @@ namespace ObservableComputations
 
                 int newIndex = 0;
 				int count = _sourceAsList.Count;
-                TSourceItem[] sourceCopy = new TSourceItem[count];
-                _sourceAsList.CopyTo(sourceCopy, 0);
+                _sourceCopy = new List<TSourceItem>(_sourceAsList);
 
                 _source.CollectionChanged += handleSourceCollectionChanged;
 
 				_pageCount = (int) Math.Ceiling(count  / (double) _pageSize);
-				bool currentPageChanged = false;
 				if (_currentPage > _pageCount)
 				{
 					_currentPage = _pageCount > 0 ? _pageCount : 1;
-					currentPageChanged = true;
 				}
 
 				_lowerIndex = _pageSize * (_currentPage - 1);
@@ -407,9 +407,9 @@ namespace ObservableComputations
 				for (var sourceIndex = _lowerIndex; sourceIndex < count && sourceIndex < _upperIndex; sourceIndex++)
 				{
 					if (originalCount > sourceIndex)
-						_items[newIndex++] = sourceCopy[sourceIndex];
+						_items[newIndex++] = _sourceCopy[sourceIndex];
 					else
-						_items.Insert(newIndex++, sourceCopy[sourceIndex]);
+						_items.Insert(newIndex++, _sourceCopy[sourceIndex]);
 				}
 
 				for (int index1 = originalCount - 1; index1 >= newIndex; index1--)
@@ -418,8 +418,6 @@ namespace ObservableComputations
 				}
 
                 _sourceInitialized = true;
-
-				if (currentPageChanged) OnPropertyChanged(Utils.CurrentPagePropertyChangedEventArgs);
 			}
 			else
 			{
@@ -439,6 +437,12 @@ namespace ObservableComputations
 			}
 
 			reset();
+
+            if (_pageCount != originalPageCount)
+                OnPropertyChanged(Utils.PageCountPropertyChangedEventArgs);
+
+            if (_currentPage != originalCurrentPage)
+                OnPropertyChanged(Utils.CurrentPagePropertyChangedEventArgs);
 		}
 
         private void handleSourceCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
@@ -473,18 +477,21 @@ namespace ObservableComputations
                     //if (e.NewItems.Count > 1) throw new ObservableComputationsException("Adding of multiple items is not supported");
 
                     int newStartingIndex = e.NewStartingIndex;
+                    TSourceItem newItem = (TSourceItem) e.NewItems[0];
+                    _sourceCopy.Insert(newStartingIndex, newItem);
 
                     int originalPageCount2 = _pageCount;
-                    int sourceCount2 = _sourceAsList.Count;
+                    int sourceCount2 = _sourceCopy.Count;
                     _pageCount = (int) Math.Ceiling(sourceCount2 / (double) _pageSize);
 
                     if (newStartingIndex < _lowerIndex)
                     {
-                        baseInsertItem(0, _sourceAsList[_lowerIndex]);
+                        baseInsertItem(0, _sourceCopy[_lowerIndex]);
                     }
                     else if (newStartingIndex < _upperIndex)
                     {
-                        baseInsertItem(newStartingIndex - _lowerIndex, (TSourceItem) e.NewItems[0]);
+
+                        baseInsertItem(newStartingIndex - _lowerIndex, newItem);
                     }
                     else
                     {
@@ -500,11 +507,11 @@ namespace ObservableComputations
                 case NotifyCollectionChangedAction.Remove:
                     // (e.OldItems.Count > 1) throw new ObservableComputationsException("Removing of multiple items is not supported");
                     var oldStartingIndex = e.OldStartingIndex;
-
+                    _sourceCopy.RemoveAt(oldStartingIndex);
                     int originalPageCount1 = _pageCount;
                     int originalCurrentPage1 = _currentPage;
 
-                    int sourceCount = _sourceAsList.Count;
+                    int sourceCount = _sourceCopy.Count;
                     _pageCount = (int) Math.Ceiling(sourceCount / (double) _pageSize);
 
                     if (oldStartingIndex < _lowerIndex)
@@ -526,7 +533,7 @@ namespace ObservableComputations
                     int count = Count;
 
                     if (count < _pageSize && sourceCount > _upperIndex - 1)
-                        baseInsertItem(_pageSize - 1, _sourceAsList[_upperIndex - 1]);
+                        baseInsertItem(_pageSize - 1, _sourceCopy[_upperIndex - 1]);
                     else if (count == 0 && _currentPage > 1)
                     {
                         _currentPage = _currentPage - 1;
@@ -539,7 +546,7 @@ namespace ObservableComputations
                             sourceIndex < sourceCount && sourceIndex < _upperIndex;
                             sourceIndex++)
                         {
-                            TSourceItem sourceItem = _sourceAsList[sourceIndex];
+                            TSourceItem sourceItem = _sourceCopy[sourceIndex];
                             baseInsertItem(index++, sourceItem);
                         }
                     }
@@ -552,17 +559,26 @@ namespace ObservableComputations
                     break;
                 case NotifyCollectionChangedAction.Replace:
                     int newStartingIndex2 = e.NewStartingIndex;
+                    TSourceItem newItem1 = (TSourceItem) e.NewItems[0];
+
+                    _sourceCopy[newStartingIndex2] = newItem1;
+
                     if (newStartingIndex2 >= _lowerIndex && newStartingIndex2 < _upperIndex
                                                          && (newStartingIndex2 >= _lowerIndex &&
                                                              newStartingIndex2 < _upperIndex))
                     {
-                        baseSetItem(newStartingIndex2 - _lowerIndex, (TSourceItem) e.NewItems[0]);
+                        
+                        baseSetItem(newStartingIndex2 - _lowerIndex, newItem1);
                     }
 
                     break;
                 case NotifyCollectionChangedAction.Move:
                     int oldStartingIndex1 = e.OldStartingIndex;
                     int newStartingIndex1 = e.NewStartingIndex;
+
+                    TSourceItem sourceItem1 = (TSourceItem) e.NewItems[0];
+                    _sourceCopy.RemoveAt(oldStartingIndex1);
+                    _sourceCopy.Insert(newStartingIndex1, sourceItem1);
 
                     if (oldStartingIndex1 == newStartingIndex1) return;
 
@@ -591,9 +607,9 @@ namespace ObservableComputations
                         baseRemoveItem(oldStartingIndex1 - _lowerIndex);
 
                         if (newStartingIndex1 < _lowerIndex)
-                            baseInsertItem(0, _sourceAsList[_lowerIndex]);
+                            baseInsertItem(0, _sourceCopy[_lowerIndex]);
                         else
-                            baseInsertItem(_pageSize - 1, _sourceAsList[_upperIndex - 1]);
+                            baseInsertItem(_pageSize - 1, _sourceCopy[_upperIndex - 1]);
                     }
                     else if ((newStartingIndex1 < _lowerIndex && oldStartingIndex1 >= _upperIndex)
                              || (oldStartingIndex1 < _lowerIndex && newStartingIndex1 >= _upperIndex))
@@ -601,27 +617,18 @@ namespace ObservableComputations
                         if (oldStartingIndex1 < _lowerIndex)
                         {
                             baseRemoveItem(0);
-                            baseInsertItem(_pageSize - 1, _sourceAsList[_upperIndex - 1]);
+                            baseInsertItem(_pageSize - 1, _sourceCopy[_upperIndex - 1]);
                         }
                         else
                         {
-                            baseInsertItem(0, _sourceAsList[_lowerIndex]);
+                            baseInsertItem(0, _sourceCopy[_lowerIndex]);
                             baseRemoveItem(_pageSize);
                         }
                     }
 
                     break;
                 case NotifyCollectionChangedAction.Reset:
-                    int originalPageCount = _pageCount;
-                    int originalCurrentPage = _currentPage;
                     initializeFromSource();
-
-                    if (_pageCount != originalPageCount)
-                        OnPropertyChanged(Utils.PageCountPropertyChangedEventArgs);
-
-                    if (_currentPage != originalCurrentPage)
-                        OnPropertyChanged(Utils.CurrentPagePropertyChangedEventArgs);
-
                     break;
             }
         }

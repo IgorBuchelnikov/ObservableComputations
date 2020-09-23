@@ -468,7 +468,7 @@ namespace ObservableComputations
                         int oldIndex1 = e.OldStartingIndex;
                         if (newIndex1 != oldIndex1)
                         {
-                            TLeftSourceItem leftSourceItem = _leftSourceCopy[oldIndex1];
+                            TLeftSourceItem leftSourceItem = (TLeftSourceItem) e.NewItems[0];
                             _leftSourceCopy.RemoveAt(oldIndex1);
                             _leftSourceCopy.Insert(newIndex1, leftSourceItem);
                             //    LeftItemInfo leftItemInfo = _leftItemInfos[oldIndex1];
@@ -603,7 +603,7 @@ namespace ObservableComputations
 
 					    if (newIndex != oldIndex)
 					    {
-                            TRightSourceItem rightSourceItem = _rightSourceCopy[oldIndex];
+                            TRightSourceItem rightSourceItem = (TRightSourceItem) e.NewItems[0];
                             _rightSourceCopy.RemoveAt(oldIndex);
                             _rightSourceCopy.Insert(newIndex, rightSourceItem);
 

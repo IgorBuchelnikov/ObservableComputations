@@ -3,11 +3,10 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.ComponentModel;
-using ObservableComputations.ExtentionMethods;
 
 namespace ObservableComputations
 {
-	public class Aggregating<TSourceItem, TResult> : ScalarComputing<TResult>, IHasSourceCollections, ISourceIndexerPropertyTracker
+	public class Aggregating<TSourceItem, TResult> : ScalarComputing<TResult>, IHasSourceCollections, ISourceIndexerPropertyTracker, ISourceCollectionChangeProcessor
 	{
 		// ReSharper disable once MemberCanBePrivate.Global
 		public IReadScalar<INotifyCollectionChanged> SourceScalar => _sourceScalar;
@@ -24,12 +23,7 @@ namespace ObservableComputations
 		public ReadOnlyCollection<INotifyCollectionChanged> SourceCollections => new ReadOnlyCollection<INotifyCollectionChanged>(new []{Source});
 		public ReadOnlyCollection<IReadScalar<INotifyCollectionChanged>> SourceCollectionScalars => new ReadOnlyCollection<IReadScalar<INotifyCollectionChanged>>(new []{SourceScalar});
 
-		// ReSharper disable once PrivateFieldCanBeConvertedToLocalVariable
-		private readonly PropertyChangedEventHandler _sourceScalarPropertyChangedEventHandler;
-
 		private IList<TSourceItem> _sourceAsList;
-
-		private List<TSourceItem> _sourceItems;
 
 		private bool _sourceInitialized;
 		private readonly IReadScalar<INotifyCollectionChanged> _sourceScalar;
@@ -37,18 +31,19 @@ namespace ObservableComputations
 		private readonly Func<TSourceItem, TResult, TResult> _deaggregateFunc;
 		private INotifyCollectionChanged _source;
 
-		private PropertyChangedEventHandler _sourcePropertyChangedEventHandler;
 		private bool _indexerPropertyChangedEventRaised;
 		private INotifyPropertyChanged _sourceAsINotifyPropertyChanged;
 
 		private IHasChangeMarker _sourceAsIHasChangeMarker;
 		private bool _lastProcessedSourceChangeMarker;
 
+        private ISourceCollectionChangeProcessor _thisAsSourceCollectionChangeProcessor;
+
 		[ObservableComputationsCall]
 		public Aggregating(
 			IReadScalar<INotifyCollectionChanged> sourceScalar,
 			(Func<TSourceItem, TResult, TResult> aggregateFunc,
-			Func<TSourceItem, TResult, TResult> deaggregateFunc) funcs) : this(funcs, Utils.getCapacity(sourceScalar))
+			Func<TSourceItem, TResult, TResult> deaggregateFunc) funcs) : this(funcs)
 		{
 			_sourceScalar = sourceScalar;
 			//_sourceScalarPropertyChangedEventHandler = handleSourceScalarValueChanged;
@@ -63,24 +58,23 @@ namespace ObservableComputations
 			INotifyCollectionChanged source,
 			(Func<TSourceItem, TResult, TResult> aggregateFunc,
 			Func<TSourceItem, TResult, TResult> deaggregateFunc) funcs)
-			: this(funcs, Utils.getCapacity(source))
+			: this(funcs)
 		{
 			_source = source;
 			//initializeFromSource();
 		}
 
-		private Aggregating((Func<TSourceItem, TResult, TResult> aggregateFunc, Func<TSourceItem, TResult, TResult> deaggregateFunc) funcs, int capacity)
+		private Aggregating((Func<TSourceItem, TResult, TResult> aggregateFunc, Func<TSourceItem, TResult, TResult> deaggregateFunc) funcs)
 		{
-			_sourceItems = new List<TSourceItem>(capacity);
 			_aggregateFunc = funcs.aggregateFunc;
 			_deaggregateFunc = funcs.deaggregateFunc;
+            _thisAsSourceCollectionChangeProcessor = this;
 		}
 
         protected override void initializeFromSource()
 		{
 			if (_sourceInitialized)
 			{
-				_sourceItems = new List<TSourceItem>(Utils.getCapacity(_sourceScalar, _source) );
 				_source.CollectionChanged -= handleSourceCollectionChanged;
 
                 if (_sourceAsINotifyPropertyChanged != null)
@@ -108,7 +102,15 @@ namespace ObservableComputations
                     (ISourceIndexerPropertyTracker)this);
 
 				_source.CollectionChanged += handleSourceCollectionChanged;
-				calculateValueAndRegisterSourceItems();
+
+                TResult value = default(TResult);
+                int count = _sourceAsList.Count;
+                for (int index = 0; index < count; index++)
+                {
+                    TSourceItem sourceItem = _sourceAsList[index];
+                    value = aggregate(sourceItem, value);
+                }
+                setValue(value);
 
                 _sourceInitialized = true;
 			}
@@ -123,62 +125,53 @@ namespace ObservableComputations
             if (!Utils.preHandleSourceCollectionChanged(
                 sender, 
                 e, 
-                _isConsistent, 
-                this, 
+                ref _isConsistent, 
                 ref _indexerPropertyChangedEventRaised, 
                 ref _lastProcessedSourceChangeMarker, 
                 _sourceAsIHasChangeMarker, 
                 ref _handledEventSender, 
-                ref _handledEventArgs)) return;
+                ref _handledEventArgs,
+                ref _deferredProcessings,
+                1, 2, this)) return;
 
-            _isConsistent = false;
+            _thisAsSourceCollectionChangeProcessor.processSourceCollectionChanged(sender, e);
+
+            Utils.postHandleChange(
+                ref _handledEventSender,
+                ref _handledEventArgs,
+                _deferredProcessings,
+                ref _isConsistent,
+                this);
+		}
+
+        void ISourceCollectionChangeProcessor.processSourceCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
+        {
             switch (e.Action)
             {
                 case NotifyCollectionChangedAction.Add:
                     //if (e.NewItems.Count > 1) throw new ObservableComputationsException(this, "Adding of multiple items is not supported");
-                    int newIndex = e.NewStartingIndex;
-                    TSourceItem addedSourceItem = _sourceAsList[newIndex];
-                    _sourceItems.Insert(newIndex, addedSourceItem);
+                    TSourceItem addedSourceItem = (TSourceItem) e.NewItems[0];
                     setValue(aggregate(addedSourceItem, _value));
                     break;
                 case NotifyCollectionChangedAction.Remove:
                     //if (e.OldItems.Count > 1) throw new ObservableComputationsException(this, "Removing of multiple items is not supported");
-                    int oldStartingIndex = e.OldStartingIndex;
-                    TSourceItem removedSourceItem = _sourceItems[oldStartingIndex];
-                    _sourceItems.RemoveAt(oldStartingIndex);
+                    TSourceItem removedSourceItem = (TSourceItem) e.OldItems[0];
                     setValue(deaggregate(removedSourceItem, _value));
                     break;
                 case NotifyCollectionChangedAction.Replace:
                     //if (e.NewItems.Count > 1) throw new ObservableComputationsException(this, "Replacing of multiple items is not supported");
-                    int newStartingIndex = e.NewStartingIndex;
-                    TSourceItem newItem = _sourceAsList[newStartingIndex];
-                    TSourceItem oldItem = _sourceItems[newStartingIndex];
-                    _sourceItems[newStartingIndex] = newItem;
+                    TSourceItem newItem = (TSourceItem) e.NewItems[0];
+                    TSourceItem oldItem = (TSourceItem) e.OldItems[0];
                     TResult result = deaggregate(oldItem, _value);
                     setValue(aggregate(newItem, result));
-                    break;
-                case NotifyCollectionChangedAction.Move:
-                    if (e.OldStartingIndex == e.NewStartingIndex) return;
-                    int oldStartingIndex1 = e.OldStartingIndex;
-                    int newStartingIndex1 = e.NewStartingIndex;
-                    TSourceItem movingItem = _sourceItems[oldStartingIndex1];
-                    _sourceItems.RemoveAt(oldStartingIndex1);
-                    _sourceItems.Insert(newStartingIndex1, movingItem);
                     break;
                 case NotifyCollectionChangedAction.Reset:
                     initializeFromSource();
                     break;
             }
+        }
 
-            _isConsistent = true;
-            raiseConsistencyRestored();
-
-            Utils.postHandleChange(
-                out _handledEventSender,
-                out _handledEventArgs);
-		}
-
-		private TResult aggregate(TSourceItem addedSourceItem, TResult value)
+        private TResult aggregate(TSourceItem addedSourceItem, TResult value)
 		{
 			if (Configuration.TrackComputingsExecutingUserCode)
 			{
@@ -204,31 +197,6 @@ namespace ObservableComputations
 			return _deaggregateFunc(removedSourceItem, value);
 		}
 
-		private void handleSourceScalarValueChanged(object sender, PropertyChangedEventArgs e)
-		{
-			if (e.PropertyName != nameof(IReadScalar<INotifyCollectionChanged>.Value)) return;
-
-			_handledEventSender = sender;
-			_handledEventArgs = e;
-
-			initializeFromSource();
-
-			_handledEventSender = null;
-			_handledEventArgs = null;
-		}
-
-		private void calculateValueAndRegisterSourceItems()
-		{
-			TResult value = default(TResult);
-			int count = _sourceAsList.Count;
-			for (int index = 0; index < count; index++)
-			{
-				TSourceItem sourceItem = _sourceAsList[index];
-				value = aggregate(sourceItem, value);
-				_sourceItems.Add(sourceItem);
-			}
-			setValue(value);
-		}
 
         internal override void addToUpstreamComputings(IComputingInternal computing)
         {
@@ -244,12 +212,12 @@ namespace ObservableComputations
 
         protected override void initialize()
         {
-            Utils.initializeSourceScalar(_sourceScalar, ref _source, handleSourceScalarValueChanged);
+            Utils.initializeSourceScalar(_sourceScalar, ref _source, scalarValueChangedHandler);
         }
 
         protected override void uninitialize()
         {
-            Utils.uninitializeSourceScalar(_sourceScalar, handleSourceScalarValueChanged, ref _source);
+            Utils.uninitializeSourceScalar(_sourceScalar, scalarValueChangedHandler, ref _source);
         }
 
 		public void ValidateConsistency()
@@ -258,15 +226,12 @@ namespace ObservableComputations
 
 			// ReSharper disable once PossibleNullReferenceException
 			int sourceCount = source.Count;
-			if (_sourceItems.Count != sourceCount) throw new ObservableComputationsException(this, "Consistency violation: Aggregating.1");
 			TResult result = default(TResult);
 
 			for (int i = 0; i < sourceCount; i++)
 			{
 				TSourceItem sourceItem = source[i];
-				TSourceItem savedSourceItem = _sourceItems[i];
 				result = _aggregateFunc(sourceItem, result);
-				if (!savedSourceItem.IsSameAs(sourceItem)) throw new ObservableComputationsException(this, "Consistency violation: Aggregating.2");
 			}
 
 			// ReSharper disable once PossibleNullReferenceException

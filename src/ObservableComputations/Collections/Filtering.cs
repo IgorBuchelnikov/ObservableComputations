@@ -424,7 +424,7 @@ namespace ObservableComputations
 				return result;
 			}
 
-			return getValue() ;
+			return getValue();
 		}
 
 		private FilteringItemInfo registerSourceItem(TSourceItem sourceItem, int sourceIndex, Position position,

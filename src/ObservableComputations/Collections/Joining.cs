@@ -829,6 +829,7 @@ namespace ObservableComputations
 
         void ISourceItemChangeProcessor.ProcessSourceItemChange(ExpressionWatcher expressionWatcher)
         {
+            if (expressionWatcher._disposed) return;
             FilteringUtils.ProcessChangeSourceItem(
                 expressionWatcher._position.Index, 
                 new JoinPair<TLeftSourceItem, TRightSourceItem>(

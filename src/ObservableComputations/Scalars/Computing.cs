@@ -34,11 +34,15 @@ namespace ObservableComputations
 
 		private void getValueExpressionWatcherOnValueChanged(ExpressionWatcher expressionWatcher, object sender, EventArgs eventArgs)
 		{
-			_handledEventSender = sender;
-			_handledEventArgs = eventArgs;
-			setValue(getResult());
-			_handledEventSender = null;
-			_handledEventArgs = null;
+            Utils.processChange(
+                sender, 
+                eventArgs, 
+                () => setValue(getResult()),
+                ref _isConsistent, 
+                ref _handledEventSender, 
+                ref _handledEventArgs, 
+                0, 2,
+                ref _deferredProcessings, this);
 		}
 
 		private TResult getResult()

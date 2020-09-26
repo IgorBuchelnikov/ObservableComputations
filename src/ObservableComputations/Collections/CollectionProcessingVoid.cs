@@ -77,6 +77,8 @@ namespace ObservableComputations
 		{
 			if (_sourceInitialized)
 			{
+                _source.CollectionChanged -= handleSourceCollectionChanged;
+
 				int count = Count;
 				for (int i = 0; i < count; i++)
 				{
@@ -85,7 +87,6 @@ namespace ObservableComputations
 					if (_oldItemProcessor!= null) processOldItem(sourceItem);
 				}
 
-                _source.CollectionChanged -= handleSourceCollectionChanged;
                 _sourceInitialized = false;
             }
 

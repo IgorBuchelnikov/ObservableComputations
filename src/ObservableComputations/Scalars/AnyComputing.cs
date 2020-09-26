@@ -374,6 +374,7 @@ namespace ObservableComputations
 
 		void ISourceItemChangeProcessor.ProcessSourceItemChange(ExpressionWatcher expressionWatcher)
 		{
+            if (expressionWatcher._disposed) return;
 			ItemInfo itemInfo = (ItemInfo) expressionWatcher._position;
 			if (itemInfo.PredicateResult) _predicatePassedCount--;
 

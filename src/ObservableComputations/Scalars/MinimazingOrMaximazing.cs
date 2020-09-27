@@ -8,7 +8,7 @@ using ObservableComputations.ExtentionMethods;
 
 namespace ObservableComputations
 {
-	public class MinimazingOrMaximazing<TSourceItem> : ScalarComputing<TSourceItem>, IHasSourceCollections, ISourceIndexerPropertyTracker
+	public class MinimazingOrMaximazing<TSourceItem> : ScalarComputing<TSourceItem>, IHasSourceCollections, ISourceIndexerPropertyTracker, ISourceCollectionChangeProcessor
 	{
 		// ReSharper disable once MemberCanBePrivate.Global
 		// ReSharper disable once ConvertToAutoProperty
@@ -45,7 +45,7 @@ namespace ObservableComputations
 		private IList<TSourceItem> _sourceAsList;
 
 		private int _valueCount;
-		private List<TSourceItem> _sourceItems;
+		private List<TSourceItem> _sourceCopy;
 
 		private bool _sourceInitialized;
 		private readonly IReadScalar<INotifyCollectionChanged> _sourceScalar;
@@ -61,6 +61,8 @@ namespace ObservableComputations
 
 		private IHasChangeMarker _sourceAsIHasChangeMarker;
 		private bool _lastProcessedSourceChangeMarker;
+
+        private ISourceCollectionChangeProcessor _thisAsSourceCollectionChangeProcessor;
 
 		private void initializeComparer()
 		{
@@ -128,7 +130,7 @@ namespace ObservableComputations
 
 		private MinimazingOrMaximazing(MinimazingOrMaximazingMode mode, int capacity)
 		{
-			_sourceItems = new List<TSourceItem>(capacity);
+			_sourceCopy = new List<TSourceItem>(capacity);
 			_mode = mode;
 			switch (_mode)
 			{
@@ -141,6 +143,8 @@ namespace ObservableComputations
 					_antiCheckCompareResult = __checkCompareResultPositive;
 					break;
 			}
+
+            _thisAsSourceCollectionChangeProcessor = this;
 		}
 
 		private void handleComparerScalarValueChanged(object sender, PropertyChangedEventArgs e)
@@ -183,8 +187,7 @@ namespace ObservableComputations
                     _sourceAsINotifyPropertyChanged = null;
                 }
 
-			    _sourceItems = new List<TSourceItem>(Utils.getCapacity(_sourceScalar, _source));
-
+			    _sourceCopy = new List<TSourceItem>(Utils.getCapacity(_sourceScalar, _source));
                 _sourceInitialized = false;
             }
 
@@ -201,7 +204,6 @@ namespace ObservableComputations
                     (ISourceIndexerPropertyTracker)this);
 
 				_source.CollectionChanged += handleSourceCollectionChanged;
-
                 _sourceInitialized = true;
             }
 
@@ -210,18 +212,28 @@ namespace ObservableComputations
 
 		private void recalculateValue(bool initializeSourceItems = false)
 		{
-			int count = _sourceAsList?.Count ?? 0;
+			int count = initializeSourceItems ? _sourceAsList?.Count ?? 0 : _sourceCopy.Count;
 
 			if (count > 0)
 			{
 				// ReSharper disable once PossibleNullReferenceException
-				TSourceItem value = _sourceAsList[0];
+				TSourceItem value = _sourceCopy[0];
 				_valueCount = 1;
-				if (initializeSourceItems) _sourceItems.Add(value);
+
+				if (initializeSourceItems) _sourceCopy.Add(value);
 				for (int sourceIndex = 1; sourceIndex < count; sourceIndex++)
 				{
-					TSourceItem sourceItem = _sourceAsList[sourceIndex];
-					if (initializeSourceItems) _sourceItems.Add(sourceItem);
+					TSourceItem sourceItem;
+					if (initializeSourceItems)
+                    {
+                        // ReSharper disable once PossibleNullReferenceException
+                        sourceItem = _sourceAsList[sourceIndex];
+                        _sourceCopy.Add(sourceItem);
+                    }
+                    else
+                    {
+                        sourceItem = _sourceCopy[sourceIndex];
+                    }
 
 					int compareResult = _comparer.Compare(sourceItem, value);
 					if (_checkCompareResult(compareResult))
@@ -260,23 +272,34 @@ namespace ObservableComputations
             if (!Utils.preHandleSourceCollectionChanged(
                 sender, 
                 e, 
-                _isConsistent, 
-                this, 
+                ref _isConsistent, 
                 ref _indexerPropertyChangedEventRaised, 
                 ref _lastProcessedSourceChangeMarker, 
                 _sourceAsIHasChangeMarker, 
                 ref _handledEventSender, 
-                ref _handledEventArgs)) return;
+                ref _handledEventArgs,
+                ref _deferredProcessings,
+                1, 1, this)) return;
 
-            _isConsistent = false;
+            _thisAsSourceCollectionChangeProcessor.processSourceCollectionChanged(sender, e);
 
+            Utils.postHandleChange(
+                ref _handledEventSender,
+                ref _handledEventArgs,
+                _deferredProcessings,
+                ref _isConsistent,
+                this);
+		}
+
+        void ISourceCollectionChangeProcessor.processSourceCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
+        {
             switch (e.Action)
             {
                 case NotifyCollectionChangedAction.Add:
                     //if (e.NewItems.Count > 1) throw new ObservableComputationsException(this, "Adding of multiple items is not supported");
                     int newIndex = e.NewStartingIndex;
-                    TSourceItem addedSourceItem = _sourceAsList[newIndex];
-                    _sourceItems.Insert(newIndex, addedSourceItem);
+                    TSourceItem addedSourceItem = (TSourceItem) e.NewItems[0];
+                    _sourceCopy.Insert(newIndex, addedSourceItem);
 
                     if (!_isDefaulted)
                     {
@@ -303,8 +326,8 @@ namespace ObservableComputations
                 case NotifyCollectionChangedAction.Remove:
                     //if (e.OldItems.Count > 1) throw new ObservableComputationsException(this, "Removing of multiple items is not supported");
                     int oldStartingIndex = e.OldStartingIndex;
-                    TSourceItem removingSourceItem = _sourceItems[oldStartingIndex];
-                    _sourceItems.RemoveAt(oldStartingIndex);
+                    TSourceItem removingSourceItem = (TSourceItem) e.OldItems[0];
+                    _sourceCopy.RemoveAt(oldStartingIndex);
 
                     if (_comparer.Compare(removingSourceItem, Value) == 0)
                     {
@@ -319,8 +342,8 @@ namespace ObservableComputations
                 case NotifyCollectionChangedAction.Replace:
                     //if (e.NewItems.Count > 1) throw new ObservableComputationsException(this, "Replacing of multiple items is not supported");
                     int replacingSourceIndex = e.NewStartingIndex;
-                    TSourceItem newItem = _sourceAsList[e.NewStartingIndex];
-                    TSourceItem oldItem = _sourceItems[e.NewStartingIndex];
+                    TSourceItem newItem = (TSourceItem) e.NewItems[0];
+                    TSourceItem oldItem = (TSourceItem) e.OldItems[0];
 
                     int newCompareResult = _comparer.Compare(newItem, Value);
                     int oldCompareResult = _comparer.Compare(oldItem, Value);
@@ -349,29 +372,22 @@ namespace ObservableComputations
                         }
                     }
 
-                    _sourceItems[replacingSourceIndex] = newItem;
+                    _sourceCopy[replacingSourceIndex] = newItem;
 
                     break;
                 case NotifyCollectionChangedAction.Move:
                     int oldStartingIndex1 = e.OldStartingIndex;
                     int newStartingIndex1 = e.NewStartingIndex;
                     if (oldStartingIndex1 == newStartingIndex1) return;
-                    TSourceItem movingSourceItem = _sourceItems[oldStartingIndex1];
-                    _sourceItems.RemoveAt(oldStartingIndex1);
-                    _sourceItems.Insert(newStartingIndex1, movingSourceItem);
+                    TSourceItem movingSourceItem = (TSourceItem) e.NewItems[0];
+                    _sourceCopy.RemoveAt(oldStartingIndex1);
+                    _sourceCopy.Insert(newStartingIndex1, movingSourceItem);
                     break;
                 case NotifyCollectionChangedAction.Reset:
                     initializeFromSource();
                     break;
             }
-
-            _isConsistent = true;
-            raiseConsistencyRestored();
-
-            Utils.postHandleChange(
-                out _handledEventSender,
-                out _handledEventArgs);
-		}
+        }
 
         internal override void addToUpstreamComputings(IComputingInternal computing)
         {
@@ -413,13 +429,13 @@ namespace ObservableComputations
 		{
 			IList<TSourceItem> source = _sourceScalar.getValue(_source, new ObservableCollection<TSourceItem>()) as IList<TSourceItem>;
 			// ReSharper disable once PossibleNullReferenceException
-			if (_sourceItems.Count != source.Count) throw new ObservableComputationsException(this, "Consistency violation: MinimazingOrMaximazing.1");
+			if (_sourceCopy.Count != source.Count) throw new ObservableComputationsException(this, "Consistency violation: MinimazingOrMaximazing.1");
 			TSourceItem defaultValue = _defaultValue;
 
 			for (int i = 0; i < source.Count; i++)
 			{
 				TSourceItem sourceItem = source[i];
-				TSourceItem savedSourceItem = _sourceItems[i];
+				TSourceItem savedSourceItem = _sourceCopy[i];
 				if (!savedSourceItem.IsSameAs(sourceItem)) throw new ObservableComputationsException(this, "Consistency violation: MinimazingOrMaximazing.2");
 			}
 

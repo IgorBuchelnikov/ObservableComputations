@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.ComponentModel;
@@ -6,7 +7,7 @@ using ObservableComputations.ExtentionMethods;
 
 namespace ObservableComputations
 {
-	public class ItemComputing<TSourceItem> : ScalarComputing<TSourceItem>, IHasSourceCollections,  ISourceIndexerPropertyTracker
+	public class ItemComputing<TSourceItem> : ScalarComputing<TSourceItem>, IHasSourceCollections, ISourceIndexerPropertyTracker, ISourceCollectionChangeProcessor
 	{
 		public IReadScalar<INotifyCollectionChanged> SourceScalar => _sourceScalar;
 
@@ -44,6 +45,11 @@ namespace ObservableComputations
 		private IHasChangeMarker _sourceAsIHasChangeMarker;
 		private bool _lastProcessedSourceChangeMarker;
 
+        List<TSourceItem> _sourceCopy;
+
+        private ISourceCollectionChangeProcessor _thisAsSourceCollectionChangeProcessor;
+        Action _changeIndexAction;
+
 		private void initializeIndexScalar()
 		{
             if (_indexValueScalar != null)
@@ -58,22 +64,21 @@ namespace ObservableComputations
 		public ItemComputing(
 			IReadScalar<INotifyCollectionChanged> sourceScalar,
 			int index, 
-			TSourceItem defaultValue = default(TSourceItem))
+			TSourceItem defaultValue = default(TSourceItem)) : this()
 		{
 			_sourceScalar = sourceScalar;
 			//initializeSourceScalar();
 
 			_index = index;
 			_defaultValue = defaultValue;
-
-			//initializeFromSource();
-		}
+            //initializeFromSource();
+        }
 
 		[ObservableComputationsCall]
 		public ItemComputing(
 			IReadScalar<INotifyCollectionChanged> sourceScalar,
 			IReadScalar<int> indexScalar, 
-			TSourceItem defaultValue = default)
+			TSourceItem defaultValue = default) : this()
 		{
 			_sourceScalar = sourceScalar;
 			//initializeSourceScalar();
@@ -90,12 +95,11 @@ namespace ObservableComputations
 		public ItemComputing(
 			INotifyCollectionChanged source,
 			int index, 
-			TSourceItem defaultValue = default)
+			TSourceItem defaultValue = default) : this()
 		{
 			_source = source;
 			_index = index;
 			_defaultValue = defaultValue;
-
 			//initializeFromSource();
 		}
 
@@ -103,41 +107,38 @@ namespace ObservableComputations
 		public ItemComputing(
 			INotifyCollectionChanged source,
 			IReadScalar<int> indexScalar, 
-			TSourceItem defaultValue = default)
+			TSourceItem defaultValue = default) : this()
 		{
 			_source = source;
 			_defaultValue = defaultValue;
 			_indexValueScalar = indexScalar;
+            
 			//initializeIndexScalar();
 			//initializeFromSource();
 		}
 
+        private ItemComputing()
+        {
+            _thisAsSourceCollectionChangeProcessor = this;
+            _changeIndexAction = () =>
+            {
+                _index = _indexValueScalar.Value;
+                recalculateValue();
+            };      
+        }
+
 
 		private void handleIndexScalarValueChanged(object sender, PropertyChangedEventArgs e)
-		{
-			if (e.PropertyName != nameof(IReadScalar<INotifyCollectionChanged>.Value)) return;
-
-			_handledEventSender = sender;
-			_handledEventArgs = e;
-
-			_index = _indexValueScalar.Value;
-			recalculateValue();
-
-			_handledEventSender = null;
-			_handledEventArgs = null;
-		}
-
-		private void handleSourceScalarValueChanged(object sender, PropertyChangedEventArgs e)
-		{
-			if (e.PropertyName != nameof(IReadScalar<INotifyCollectionChanged>.Value)) return;
-
-			_handledEventSender = sender;
-			_handledEventArgs = e;
-
-			initializeFromSource();
-
-			_handledEventSender = null;
-			_handledEventArgs = null;
+        {
+            Utils.processChange(
+                sender, 
+                e, 
+                _changeIndexAction,
+                ref _isConsistent, 
+                ref _handledEventSender, 
+                ref _handledEventArgs, 
+                0, 1,
+                ref _deferredProcessings, this);
 		}
 
         protected override void initializeFromSource()
@@ -152,6 +153,8 @@ namespace ObservableComputations
                         ((ISourceIndexerPropertyTracker) this).HandleSourcePropertyChanged;
                     _sourceAsINotifyPropertyChanged = null;
                 }
+
+                _sourceCopy = null;
 
                 _sourceInitialized = false;
             }
@@ -170,9 +173,12 @@ namespace ObservableComputations
                     (ISourceIndexerPropertyTracker)this);
 
 				_source.CollectionChanged += handleSourceCollectionChanged;
+                _sourceCopy = new List<TSourceItem>(_sourceAsList);
+			    recalculateValue();
+
 
                 _sourceInitialized = true;
-			    recalculateValue();
+
             }
             else
             {
@@ -183,7 +189,7 @@ namespace ObservableComputations
 
 		private void recalculateValue()
 		{
-			if (_sourceAsList != null && _sourceAsList.Count > _index)
+			if (_sourceCopy != null && _sourceCopy.Count > _index)
 			{
 				if (_isDefaulted)
 				{
@@ -191,7 +197,7 @@ namespace ObservableComputations
 					raisePropertyChanged(nameof(IsDefaulted));
 				}
 
-				setValue(_sourceAsList[_index]);
+				setValue(_sourceCopy[_index]);
 			}
 			else
 			{
@@ -211,42 +217,63 @@ namespace ObservableComputations
             if (!Utils.preHandleSourceCollectionChanged(
                 sender, 
                 e, 
-                _isConsistent, 
-                this, 
+                ref _isConsistent, 
                 ref _indexerPropertyChangedEventRaised, 
                 ref _lastProcessedSourceChangeMarker, 
                 _sourceAsIHasChangeMarker, 
                 ref _handledEventSender, 
-                ref _handledEventArgs)) return;
+                ref _handledEventArgs,
+                ref _deferredProcessings,
+                1, 1, this)) return;
 
-            _isConsistent = false;
+
+            _thisAsSourceCollectionChangeProcessor.processSourceCollectionChanged(sender, e);
+
+            Utils.postHandleChange(
+                ref _handledEventSender,
+                ref _handledEventArgs,
+                _deferredProcessings,
+                ref _isConsistent,
+                this);
+		}
+
+        void ISourceCollectionChangeProcessor.processSourceCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
+        {
             switch (e.Action)
             {
                 case NotifyCollectionChangedAction.Add:
                     //if (e.NewItems.Count > 1) throw new Exception("Adding of multiple items is not supported");
+                    _sourceCopy.Insert(e.NewStartingIndex, (TSourceItem) e.NewItems[0]);
                     if (e.NewStartingIndex <= _index) recalculateValue();
                     break;
                 case NotifyCollectionChangedAction.Remove:
                     //if (e.OldItems.Count > 1) throw new Exception("Removing of multiple items is not supported");
+                    _sourceCopy.RemoveAt(e.OldStartingIndex);
                     if (e.OldStartingIndex <= _index) recalculateValue();
                     break;
                 case NotifyCollectionChangedAction.Replace:
                     //if (e.NewItems.Count > 1) throw new Exception("Replacing of multiple items is not supported");
+                    _sourceCopy[e.NewStartingIndex] = (TSourceItem) e.NewItems[0];
                     if (e.OldStartingIndex == _index) recalculateValue();
                     break;
                 case NotifyCollectionChangedAction.Move:
                     int oldStartingIndex = e.OldStartingIndex;
                     int newStartingIndex = e.NewStartingIndex;
                     if (newStartingIndex == oldStartingIndex) return;
+
+                    TSourceItem sourceItem = (TSourceItem) e.NewItems[0];
+                    _sourceCopy.RemoveAt(oldStartingIndex);
+                    _sourceCopy.Insert(newStartingIndex, sourceItem);
+
                     if (newStartingIndex < oldStartingIndex)
                     {
                         if (_index >= newStartingIndex && _index <= oldStartingIndex)
-                            setValue(_sourceAsList[_index]);
+                            setValue(_sourceCopy[_index]);
                     }
                     else
                     {
                         if (_index >= oldStartingIndex && _index <= newStartingIndex)
-                            setValue(_sourceAsList[_index]);
+                            setValue(_sourceCopy[_index]);
                     }
 
                     break;
@@ -254,14 +281,7 @@ namespace ObservableComputations
                     initializeFromSource();
                     break;
             }
-
-            _isConsistent = true;
-            raiseConsistencyRestored();
-
-            Utils.postHandleChange(
-                out _handledEventSender,
-                out _handledEventArgs);
-		}
+        }
 
         internal override void addToUpstreamComputings(IComputingInternal computing)
         {
@@ -279,13 +299,13 @@ namespace ObservableComputations
 
         protected override void initialize()
         {
-            Utils.initializeSourceScalar(_sourceScalar, ref _source, handleSourceScalarValueChanged);
+            Utils.initializeSourceScalar(_sourceScalar, ref _source, scalarValueChangedHandler);
             initializeIndexScalar();
         }
 
         protected override void uninitialize()
         {
-            Utils.uninitializeSourceScalar(_sourceScalar, handleSourceScalarValueChanged, ref _source);
+            Utils.uninitializeSourceScalar(_sourceScalar, scalarValueChangedHandler, ref _source);
             if (_indexValueScalar != null) 
                 _indexValueScalar.PropertyChanged -= handleIndexScalarValueChanged;
         }

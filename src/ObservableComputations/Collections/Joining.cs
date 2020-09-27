@@ -271,6 +271,9 @@ namespace ObservableComputations
                 Utils.unsubscribeSource(
                     _rightSourceAsList,
                     handleRightSourceCollectionChanged);
+
+                _leftSourceCopy = null;
+                _rightSourceCopy = null;
                 _sourceInitialized = false;
             }
 

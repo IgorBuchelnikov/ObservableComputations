@@ -371,6 +371,7 @@ namespace ObservableComputations
                     _sourceAsINotifyPropertyChanged = null;
                 }
 
+                _sourceCopy = null;
                 _sourceInitialized = false;
             }
 

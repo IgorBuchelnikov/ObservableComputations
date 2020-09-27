@@ -16,11 +16,13 @@ namespace ObservableComputations
 
         private List<IComputingInternal> _nestedComputings;
         private ExpressionWatcher.ExpressionInfo _expressionInfo;
+        private Action _changeValueAction;
 
 		[ObservableComputationsCall]
 		public Computing(
 			Expression<Func<TResult>> getValueExpression)
 		{
+            _changeValueAction = () => setValue(getResult());
 			_getValueExpressionOriginal = getValueExpression;
 
             CallToConstantConverter callToConstantConverter = new CallToConstantConverter(_getValueExpressionOriginal.Parameters);
@@ -33,17 +35,17 @@ namespace ObservableComputations
 		}
 
 		private void getValueExpressionWatcherOnValueChanged(ExpressionWatcher expressionWatcher, object sender, EventArgs eventArgs)
-		{
+        {
             Utils.processChange(
                 sender, 
                 eventArgs, 
-                () => setValue(getResult()),
+                _changeValueAction,
                 ref _isConsistent, 
                 ref _handledEventSender, 
                 ref _handledEventArgs, 
-                0, 2,
+                0, 1,
                 ref _deferredProcessings, this);
-		}
+        }
 
 		private TResult getResult()
 		{

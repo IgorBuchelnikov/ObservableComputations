@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 
 namespace ObservableComputations
@@ -11,9 +12,10 @@ namespace ObservableComputations
 		private IReadScalar<TResult> _scalar;
 		private IEqualityComparer<TResult> _equalityComparer;
 
-		private readonly PropertyChangedEventHandler _scalarPropertyChangedEventHandler;
 
         private readonly IReadScalar<IEqualityComparer<TResult>> _equalityComparerScalar;
+        private Action _changeValueAction;
+        private Action _setEqualityComparerAction;
 
 		[ObservableComputationsCall]
 		public Differing(
@@ -35,37 +37,47 @@ namespace ObservableComputations
 			IReadScalar<TResult> scalar)
 		{
 			_scalar = scalar;
+
+            _changeValueAction = () =>
+            {
+                TResult newValue = _scalar.Value;
+                if (!_equalityComparer.Equals(newValue, _value))
+                {
+                    setValue(newValue);
+                }
+            };
+
+            _setEqualityComparerAction = () =>
+            {
+                _equalityComparer = _equalityComparerScalar.Value ?? EqualityComparer<TResult>.Default;
+            };
 		}
 
 		private void handleScalarPropertyChanged(object sender, PropertyChangedEventArgs e)
-		{
-			if (e.PropertyName != nameof(IReadScalar<TResult>.Value)) return;
-
-			_handledEventSender = sender;
-			_handledEventArgs = e;
-
-			TResult newValue = _scalar.Value;
-			if (!_equalityComparer.Equals(newValue, _value))
-			{
-				setValue(newValue);
-			}
-
-			_handledEventSender = null;
-			_handledEventArgs = null;
-		}
+        {
+            Utils.processChange(
+                sender, 
+                e, 
+                _changeValueAction,
+                ref _isConsistent, 
+                ref _handledEventSender, 
+                ref _handledEventArgs, 
+                0, 1,
+                ref _deferredProcessings, this);
+        }
 
 		private void handleEqualityComparerScalarValueChanged(object sender, PropertyChangedEventArgs e)
-		{
-			if (e.PropertyName != nameof(IReadScalar<object>.Value)) return;
-
-			_handledEventSender = sender;
-			_handledEventArgs = e;
-
-			_equalityComparer = _equalityComparerScalar.Value ?? EqualityComparer<TResult>.Default;
-
-			_handledEventSender = null;
-			_handledEventArgs = null;
-		}
+        {
+            Utils.processChange(
+                sender, 
+                e, 
+                _setEqualityComparerAction,
+                ref _isConsistent, 
+                ref _handledEventSender, 
+                ref _handledEventArgs, 
+                0, 1,
+                ref _deferredProcessings, this);
+        }
 
 
         #region Overrides of ScalarComputing<TResult>

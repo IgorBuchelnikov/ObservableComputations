@@ -6,6 +6,7 @@ using System.Linq.Expressions;
 
 namespace ObservableComputations
 {
+    //TODO clear sourceCopy
     public class Selecting<TSourceItem, TResultItem> : CollectionComputing<TResultItem>, IHasSourceCollections, ISourceItemChangeProcessor, ISourceCollectionChangeProcessor
     {
 		// ReSharper disable once MemberCanBePrivate.Global

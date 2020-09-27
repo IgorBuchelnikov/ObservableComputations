@@ -181,6 +181,9 @@ namespace ObservableComputations
                     }
                 }
 
+                _leftSourceCopy = null;
+                _rightSourceCopy = null;
+
                 _sourceInitialized = false;
             }
 

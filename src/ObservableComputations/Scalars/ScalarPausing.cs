@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 
 namespace ObservableComputations
@@ -18,6 +19,8 @@ namespace ObservableComputations
 
 		private bool _resuming;
 
+        private Action _changeValueAction;
+
 		public int? LastChangesCountOnResume
 		{
 			get => _lastChangesToApplyOnResumeCount;
@@ -36,6 +39,7 @@ namespace ObservableComputations
 			set
 			{
 				if (_isPausedScalar != null) throw new ObservableComputationsException("Modifying of IsPaused property is controlled by IsPausedScalar");
+                checkConsistent(null, null);
 
 				_resuming = _isPaused != value && value;
 				_isPaused = value;
@@ -51,25 +55,34 @@ namespace ObservableComputations
 
 		private void resume()
 		{
-			DefferedScalarAction<TResult> defferedScalarAction;
-			int count = _defferedScalarActions.Count;
-
 			_isConsistent = false;
 
+			DefferedScalarAction<TResult> defferedScalarAction;
+			int count = _defferedScalarActions.Count;
 			int startIndex = count - _lastChangesToApplyOnResumeCount ?? count;
 
 			for (int i = 0; i < count; i++)
 			{
 				defferedScalarAction = _defferedScalarActions.Dequeue();
 				if (i >= startIndex)
-					handleScalarPropertyChanged(defferedScalarAction.EventSender, defferedScalarAction.PropertyChangedEventAgs,
-						defferedScalarAction.Value);
+                {
+                    _handledEventSender = defferedScalarAction.EventSender;
+                    _handledEventArgs = defferedScalarAction.PropertyChangedEventAgs;
+
+                    setValue(defferedScalarAction.Value);
+
+                    _handledEventSender = null;
+                    _handledEventArgs = null;
+                }
 			}
-
-			_isConsistent = true;
-			raiseConsistencyRestored();
-
 			_resuming = false;
+
+            Utils.postHandleChange(
+                ref _handledEventSender,
+                ref _handledEventArgs,
+                _deferredProcessings,
+                ref _isConsistent,
+                this);
 		}
 
 		Queue<DefferedScalarAction<TResult>> _defferedScalarActions = new Queue<DefferedScalarAction<TResult>>();
@@ -79,8 +92,8 @@ namespace ObservableComputations
 		public ScalarPausing(
 			IReadScalar<TResult> scalar,
 			bool initialIsPaused = false,
-			int? lastChangesToApplyOnResumeCount = null)
-		{
+			int? lastChangesToApplyOnResumeCount = null) : this()
+        {
 			_isPaused = initialIsPaused;
 			_lastChangesToApplyOnResumeCount = lastChangesToApplyOnResumeCount;
 			_scalar = scalar;
@@ -117,8 +130,12 @@ namespace ObservableComputations
 			_isPaused = initialIsPaused;
 			_lastChangesToApplyOnResumeCountScalar = lastChangesToApplyOnResumeCountScalar;
             _scalar = scalar;
-
 		}
+
+        private ScalarPausing()
+        {
+            _changeValueAction = () => setValue(_scalar.Value);
+        }
 
         private void initializeIsPauserScalar()
         {
@@ -182,22 +199,27 @@ namespace ObservableComputations
             (_lastChangesToApplyOnResumeCountScalar as IComputingInternal)?.RemoveDownstreamConsumedComputing(computing);
         }
 
-        private void handleScalarPropertyChanged(object sender, PropertyChangedEventArgs e)
+  //      private void handleScalarPropertyChanged(object sender, PropertyChangedEventArgs e)
+		//{
+		//	if (e.PropertyName != nameof(IReadScalar<TResult>.Value)) return;
+		//	handleScalarPropertyChanged(sender, e, _scalar.Value);
+		//}
+
+		private void handleScalarPropertyChanged(object sender, PropertyChangedEventArgs e)
 		{
-			if (e.PropertyName != nameof(IReadScalar<TResult>.Value)) return;
-			handleScalarPropertyChanged(sender, e, _scalar.Value);
-		}
+			if (_isPaused) 
+                _defferedScalarActions.Enqueue(new DefferedScalarAction<TResult>(sender, e, _scalar.Value));
+			else             
+                Utils.processChange(
+                    sender, 
+                    e, 
+                    _changeValueAction,
+                    ref _isConsistent, 
+                    ref _handledEventSender, 
+                    ref _handledEventArgs, 
+                    0, 1,
+                    ref _deferredProcessings, this);
 
-		private void handleScalarPropertyChanged(object sender, PropertyChangedEventArgs e, TResult newScalarValue)
-		{
-			_handledEventSender = sender;
-			_handledEventArgs = e;
-
-			if (_isPaused) _defferedScalarActions.Enqueue(new DefferedScalarAction<TResult>(null, null, newScalarValue));
-			else setValue(newScalarValue);
-
-			_handledEventSender = null;
-			_handledEventArgs = null;
 		}
 
 		private void handleIsPausedScalarValueChanged(object sender, PropertyChangedEventArgs e)

@@ -8,8 +8,6 @@ namespace ObservableComputations
 	{
 		public TArgument Argument => _argument;
 
-
-
         // ReSharper disable once ArrangeTypeMemberModifiers
 		// ReSharper disable once UnusedMember.Local
 		private Expression<Func<TArgument, TResult>> GetValueExpressionUsing => _getValueExpressionUsing;

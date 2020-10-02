@@ -15,7 +15,6 @@ namespace ObservableComputations
 		public IDispatcher DestinationDispatcher => _destinationDispatcher;
 		public IPropertySourceDispatcher PropertySourceDispatcher => _propertySourceDispatcher;
 
-
         private static ConcurrentDictionary<PropertyInfo, PropertyAccessors>
 			_propertyAccessors =
 				new ConcurrentDictionary<PropertyInfo, PropertyAccessors>();
@@ -30,11 +29,13 @@ namespace ObservableComputations
 		private Action<THolder, TResult> _setter;
 		private Func<THolder, TResult> _getter;
 
+        private Action _changeValueAction;
+
 		[ObservableComputationsCall]
 		public PropertyDispatching(
 			Expression<Func<TResult>> propertyExpression,
 			IDispatcher destinationDispatcher,
-			IDispatcher sourceDispatcher = null)
+			IDispatcher sourceDispatcher = null) : this()
 		{
 			_sourceDispatcher = sourceDispatcher;
 			_destinationDispatcher = destinationDispatcher;
@@ -47,12 +48,21 @@ namespace ObservableComputations
 		public PropertyDispatching(
 			Expression<Func<TResult>> propertyExpression,
 			IDispatcher destinationDispatcher,
-			IPropertySourceDispatcher sourceDispatcher)
+			IPropertySourceDispatcher sourceDispatcher) : this()
 		{
 			_propertySourceDispatcher = sourceDispatcher;
 			_destinationDispatcher = destinationDispatcher;
             _propertyExpression = propertyExpression;
             lockChangeSetValueHandle();
+        }
+
+        private PropertyDispatching()
+        {
+            _changeValueAction = () =>
+            {
+                TResult value = getValue();
+                _destinationDispatcher.Invoke(() => setValue(value), this);
+            };
         }
 
         private void lockChangeSetValueHandle()
@@ -67,13 +77,15 @@ namespace ObservableComputations
 
 		private void handlePropertyHolderPropertyChanged(object sender, PropertyChangedEventArgs e)
 		{
-			_handledEventSender = sender;
-			_handledEventArgs = e;
-
-            TResult value = getValue();
-			_destinationDispatcher.Invoke(() => setValue(value), this);
-			_handledEventSender = null;
-			_handledEventArgs = null;
+            Utils.processChange(
+                sender, 
+                e, 
+                _changeValueAction,
+                ref _isConsistent, 
+                ref _handledEventSender, 
+                ref _handledEventArgs, 
+                0, 1,
+                ref _deferredProcessings, this);
 		}
 
 		private TResult getValue()

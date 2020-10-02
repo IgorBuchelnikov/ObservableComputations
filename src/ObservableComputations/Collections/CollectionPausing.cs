@@ -22,8 +22,13 @@ namespace ObservableComputations
 			get => _isPaused;
 			set
 			{
-				if (_isPausedScalar != null) throw new ObservableComputationsException("Modifying of IsPaused property is controlled by IsPausedScalar");
-				_resuming = _isPaused != value && value;
+                if (!_isConsistent)
+                    throw new ObservableComputationsException(this, "Cannot change IsPaused property as processing of another change is in progress");
+				
+                if (_isPausedScalar != null) 
+                    throw new ObservableComputationsException("Modifying of IsPaused property is controlled by IsPausedScalar");
+				
+                _resuming = _isPaused != value && value;
 				_isPaused = value;
 				OnPropertyChanged(Utils.PausedPropertyChangedEventArgs);
 
@@ -79,10 +84,14 @@ namespace ObservableComputations
 				}
 			}
 
-			_isConsistent = true;
-			raiseConsistencyRestored();
-
 			_resuming = false;
+
+            Utils.postHandleChange(
+                ref _handledEventSender,
+                ref _handledEventArgs,
+                _deferredProcessings,
+                ref _isConsistent,
+                this);
 		}
 
 		private INotifyCollectionChanged _source;
@@ -158,6 +167,8 @@ namespace ObservableComputations
 		private void handleIsPausedScalarValueChanged(object sender, PropertyChangedEventArgs e)
 		{
 			if (e.PropertyName != nameof(IReadScalar<object>.Value)) return;
+            if (!_isConsistent)
+                throw new ObservableComputationsException(this, "Cannot change IsPaused property as processing of another change is in progress");
 
 			_handledEventSender = sender;
 			_handledEventArgs = e;
@@ -286,7 +297,6 @@ namespace ObservableComputations
                 case NotifyCollectionChangedAction.Add:
                     //if (e.NewItems.Count > 1) throw new ObservableComputationsException("Adding of multiple items is not supported");
                     baseInsertItem(e.NewStartingIndex, (TSourceItem) e.NewItems[0]);
-
                     break;
                 case NotifyCollectionChangedAction.Remove:
                     // (e.OldItems.Count > 1) throw new ObservableComputationsException("Removing of multiple items is not supported");

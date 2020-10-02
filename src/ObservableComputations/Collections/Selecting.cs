@@ -6,7 +6,8 @@ using System.Linq.Expressions;
 
 namespace ObservableComputations
 {
-    //TODO clear sourceCopy
+    //TODO if (!_isConsistent) throw new ObservableComputationsInconsistencyException
+    //TODO проверить что нет сомодельных неправильных handleScalarChanged
     public class Selecting<TSourceItem, TResultItem> : CollectionComputing<TResultItem>, IHasSourceCollections, ISourceItemChangeProcessor, ISourceCollectionChangeProcessor
     {
 		// ReSharper disable once MemberCanBePrivate.Global

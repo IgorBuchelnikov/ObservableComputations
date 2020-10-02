@@ -25,6 +25,7 @@ namespace ObservableComputations
 		private bool _isEverChanged;
 
 		private IReadScalar<TResult> _scalar;
+        private Action _changeValueAction;
 
 
 		[ObservableComputationsCall]
@@ -32,30 +33,34 @@ namespace ObservableComputations
 			IReadScalar<TResult> scalar)
 		{
 			_scalar = scalar;
-		}
+            _changeValueAction = () =>
+            {
+                TResult newValue = _scalar.Value;
+                _previousValue = _value;
+                _previousValueWeakReference = new WeakReference<TResult>(_previousValue);
+
+                if (!_isEverChanged)
+                {
+                    _isEverChanged = true;
+                    raisePropertyChanged(Utils.IsEverChangedPropertyChangedEventArgs);
+                }
+
+                setValue(newValue);
+                _previousValue = null;
+            };
+        }
 
 		private void handleScalarPropertyChanged(object sender, PropertyChangedEventArgs e)
 		{
-			if (e.PropertyName != nameof(IReadScalar<TResult>.Value)) return;
-
-			_handledEventSender = sender;
-			_handledEventArgs = e;
-
-			TResult newValue = _scalar.Value;
-			_previousValue = _value;
-			_previousValueWeakReference = new WeakReference<TResult>(_previousValue);
-
-			if (!_isEverChanged)
-			{
-				_isEverChanged = true;
-				raisePropertyChanged(Utils.IsEverChangedPropertyChangedEventArgs);
-			}
-
-			setValue(newValue);
-			_previousValue = null;
-
-			_handledEventSender = null;
-			_handledEventArgs = null;
+            Utils.processChange(
+                sender, 
+                e, 
+                _changeValueAction,
+                ref _isConsistent, 
+                ref _handledEventSender, 
+                ref _handledEventArgs, 
+                0, 1,
+                ref _deferredProcessings, this);
 		}
 
         #region Overrides of ScalarComputing<TResult>

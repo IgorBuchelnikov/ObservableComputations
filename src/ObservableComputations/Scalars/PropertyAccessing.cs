@@ -36,6 +36,9 @@ namespace ObservableComputations
 
 		internal TResult _defaultValue;
 
+        private Action _changeValueAction;
+        private Action _changeHolderAction;
+
 		private enum PropertyInfoGettingType
 		{
 			PropertyName,
@@ -302,6 +305,13 @@ namespace ObservableComputations
 		private PropertyAccessing()
 		{
 			_setValueAction = result => _propertyInfo.SetValue(_propertyHolder, result);
+            _changeValueAction = () => 	setValue((TResult) _propertyInfo.GetValue(_propertyHolder));
+            _changeHolderAction = () => {            
+                if (_propertyHolder != null)
+                    _propertyHolder.PropertyChanged -= handlePropertyHolderPropertyChanged;
+                _propertyHolder = _propertyHolderScalar.Value;
+                registerPropertyHolder();
+            };
 		}
 
 		private void registerPropertyHolder()
@@ -368,31 +378,28 @@ namespace ObservableComputations
 
 		private void handlePropertyHolderPropertyChanged(object sender, PropertyChangedEventArgs e)
 		{
-			if (e.PropertyName != _propertyName) return;
-
-			_handledEventSender = sender;
-			_handledEventArgs = e;
-
-			setValue((TResult) _propertyInfo.GetValue(_propertyHolder));
-
-			_handledEventSender = null;
-			_handledEventArgs = null;
+            Utils.processChange(
+                sender, 
+                e, 
+                _changeValueAction,
+                ref _isConsistent, 
+                ref _handledEventSender, 
+                ref _handledEventArgs, 
+                0, 1,
+                ref _deferredProcessings, this);
 		}
 
 		private void handlePropertyHolderScalarPropertyChanged(object sender, PropertyChangedEventArgs e)
 		{
-			_handledEventSender = sender;
-			_handledEventArgs = e;
-
-			if (e.PropertyName != nameof(IReadScalar<TResult>.Value)) return;
-
-            if (_propertyHolder != null)
-                _propertyHolder.PropertyChanged -= handlePropertyHolderPropertyChanged;
-            _propertyHolder = _propertyHolderScalar.Value;
-			registerPropertyHolder();
-
-			_handledEventSender = null;
-			_handledEventArgs = null;
+            Utils.processChange(
+                sender, 
+                e, 
+                _changeHolderAction,
+                ref _isConsistent, 
+                ref _handledEventSender, 
+                ref _handledEventArgs, 
+                0, 1,
+                ref _deferredProcessings, this);
 		}
 
         #region Overrides of ScalarComputing<TResult>

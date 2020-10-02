@@ -13,6 +13,7 @@ namespace ObservableComputations
 		private Func<TValue, IScalarComputing, TReturnValue, TReturnValue> _newValueProcessor;
 
 		private TReturnValue _returnValue;
+        private Action _changeValueAction;
 
 		[ObservableComputationsCall]
 		public ScalarProcessing(
@@ -32,20 +33,25 @@ namespace ObservableComputations
 			IReadScalar<TValue> scalar)
 		{
 			_scalar = scalar;
+
+            _changeValueAction = () =>
+            {
+                _returnValue = processNewValue(_scalar.Value);
+                setValue(_returnValue);
+            };
 		}
 
 		private void handleScalarPropertyChanged(object sender, PropertyChangedEventArgs e)
 		{
-			if (e.PropertyName != nameof(IReadScalar<TValue>.Value)) return;
-
-			_handledEventSender = sender;
-			_handledEventArgs = e;
-
-			_returnValue = processNewValue(_scalar.Value);
-			setValue(_returnValue);
-
-			_handledEventSender = null;
-			_handledEventArgs = null;
+            Utils.processChange(
+                sender, 
+                e, 
+                _changeValueAction,
+                ref _isConsistent, 
+                ref _handledEventSender, 
+                ref _handledEventArgs, 
+                0, 1,
+                ref _deferredProcessings, this);
 		}
 
 		private TReturnValue processNewValue(TValue newValue)

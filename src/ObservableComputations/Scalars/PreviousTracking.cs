@@ -1,4 +1,5 @@
-﻿using System.ComponentModel;
+﻿using System;
+using System.ComponentModel;
 
 namespace ObservableComputations
 {
@@ -11,41 +12,44 @@ namespace ObservableComputations
 		private IReadScalar<TResult> _scalar;
 		private TResult _previousValue;
 		private bool _isEverChanged;
+        private Action _changeValueAction;
 
 
 		[ObservableComputationsCall]
 		public PreviousTracking(
 			IReadScalar<TResult> scalar)
 		{
+            _changeValueAction = () =>
+            {
+                TResult newValue = _scalar.Value;
+                _previousValue = _value;
+
+                if (!_isEverChanged)
+                {
+                    _isEverChanged = true;
+                    raisePropertyChanged(Utils.IsEverChangedPropertyChangedEventArgs);
+                }
+
+                raisePropertyChanged(Utils.PreviousValuePropertyChangedEventArgs);
+                setValue(newValue);
+            };
+
 			_scalar = scalar;
 			_value = _scalar.Value;
 			_scalar.PropertyChanged += handleScalarPropertyChanged;
 		}
 
-
 		private void handleScalarPropertyChanged(object sender, PropertyChangedEventArgs e)
 		{
-			if (e.PropertyName != nameof(IReadScalar<TResult>.Value)) return;
-
-			_handledEventSender = sender;
-			_handledEventArgs = e;
-
-			TResult newValue = _scalar.Value;
-			_previousValue = _value;
-			_isConsistent = false;
-
-			if (!_isEverChanged)
-			{
-				_isEverChanged = true;
-				raisePropertyChanged(Utils.IsEverChangedPropertyChangedEventArgs);
-			}
-
-			raisePropertyChanged(Utils.PreviousValuePropertyChangedEventArgs);
-			setValue(newValue);
-			raiseConsistencyRestored();
-
-			_handledEventSender = null;
-			_handledEventArgs = null;
+            Utils.processChange(
+                sender, 
+                e, 
+                _changeValueAction,
+                ref _isConsistent, 
+                ref _handledEventSender, 
+                ref _handledEventArgs, 
+                0, 1,
+                ref _deferredProcessings, this);
 		}
 
         #region Overrides of ScalarComputing<TResult>

@@ -12,6 +12,8 @@ namespace ObservableComputations
 
 		private Action<TValue, ScalarProcessingVoid<TValue>> _newValueProcessor;
 
+        private Action _changeValueAction;
+
 		[ObservableComputationsCall]
 		public ScalarProcessingVoid(
 			IReadScalar<TValue> scalar,
@@ -30,21 +32,26 @@ namespace ObservableComputations
 		{
 			_scalar = scalar;
 			_scalar.PropertyChanged += handleScalarPropertyChanged;
+
+            _changeValueAction = () =>
+            {
+                TValue newValue = _scalar.Value;
+                processNewValue(newValue);
+                setValue(newValue);
+            };
 		}
 
 		private void handleScalarPropertyChanged(object sender, PropertyChangedEventArgs e)
 		{
-			if (e.PropertyName != nameof(IReadScalar<TValue>.Value)) return;
-
-			_handledEventSender = sender;
-			_handledEventArgs = e;
-
-			TValue newValue = _scalar.Value;
-			processNewValue(newValue);
-			setValue(newValue);
-
-			_handledEventSender = null;
-			_handledEventArgs = null;
+            Utils.processChange(
+                sender, 
+                e, 
+                _changeValueAction,
+                ref _isConsistent, 
+                ref _handledEventSender, 
+                ref _handledEventArgs, 
+                0, 1,
+                ref _deferredProcessings, this);
 		}
 
 		private void processNewValue(TValue newValue)

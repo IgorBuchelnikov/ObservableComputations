@@ -9,7 +9,7 @@ using System.Text;
 
 namespace ObservableComputations
 {
-	public class StringsConcatenating : ScalarComputing<string>, IHasSourceCollections, ISourceIndexerPropertyTracker
+	public class StringsConcatenating : ScalarComputing<string>, IHasSourceCollections, ISourceIndexerPropertyTracker, ISourceCollectionChangeProcessor
 	{
 		// ReSharper disable once MemberCanBePrivate.Global
 		public IReadScalar<INotifyCollectionChanged> SourceScalar => _sourceScalar;
@@ -47,10 +47,15 @@ namespace ObservableComputations
         private IHasChangeMarker _sourceAsIHasChangeMarker;
 		private bool _lastProcessedSourceChangeMarker;
 
-		private StringsConcatenating(int capacity)
+        private ISourceCollectionChangeProcessor _thisAsSourceCollectionChangeProcessor;
+        private int _sourceCount;
+        private PropertyChangedEventHandler _handleSeparatorScalarValueChanged;
+
+        private StringsConcatenating(int capacity)
 		{
 			_resultRangePositions = new RangePositions<RangePosition>(new List<RangePosition>(capacity * 2));
-		}
+            _thisAsSourceCollectionChangeProcessor = this;
+        }
 
 		[ObservableComputationsCall]
 		public StringsConcatenating(
@@ -91,7 +96,10 @@ namespace ObservableComputations
 		private void initializeSeparatorScalar()
 		{
 			if (_separatorScalar != null)
-				_separatorScalar.PropertyChanged += handleSeparatorScalarValueChanged;
+            {
+                _handleSeparatorScalarValueChanged = getScalarValueChangedHandler(initializeSeparator);
+                _separatorScalar.PropertyChanged += _handleSeparatorScalarValueChanged;
+            }
 		}
 
         protected override void initializeFromSource()
@@ -150,11 +158,10 @@ namespace ObservableComputations
 
 			int lengthIncrement = _separatorLength - oldSeparatorLength;
 
-			if (_sourceAsList != null && _sourceAsList.Count > 0)
+			if (_sourceCount > 0)
 			{
 				int incrementSum = 0;
-				int count = _sourceAsList.Count;
-				for (int sourceIndex = 0; sourceIndex <= count - 2; sourceIndex++)
+				for (int sourceIndex = 0; sourceIndex <= _sourceCount - 2; sourceIndex++)
 				{
 					int itemIndex = sourceIndex * 2;
 
@@ -197,52 +204,37 @@ namespace ObservableComputations
 			}
 		}
 
-		private void handleSeparatorScalarValueChanged(object sender, PropertyChangedEventArgs e)
-		{
-			if (e.PropertyName != nameof(IReadScalar<INotifyCollectionChanged>.Value)) return;
-
-			_handledEventSender = sender;
-			_handledEventArgs = e;
-
-			initializeSeparator();
-			initializeFromSource();
-
-			_handledEventSender = null;
-			_handledEventArgs = null;
-		}
-
-		private void handleSourceScalarValueChanged(object sender, PropertyChangedEventArgs e)
-		{
-			if (e.PropertyName != nameof(IReadScalar<INotifyCollectionChanged>.Value)) return;
-
-			_handledEventSender = sender;
-			_handledEventArgs = e;
-
-			initializeFromSource();
-
-			_handledEventSender = null;
-			_handledEventArgs = null;
-		}
-
 		private void handleSourceCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
 		{
             if (!Utils.preHandleSourceCollectionChanged(
                 sender, 
                 e, 
-                _isConsistent, 
-                this, 
+                ref _isConsistent, 
                 ref _indexerPropertyChangedEventRaised, 
                 ref _lastProcessedSourceChangeMarker, 
                 _sourceAsIHasChangeMarker, 
                 ref _handledEventSender, 
-                ref _handledEventArgs)) return;
+                ref _handledEventArgs,
+                ref _deferredProcessings,
+                1, 2, this)) return;
 
-            _isConsistent = false;
+            _thisAsSourceCollectionChangeProcessor.processSourceCollectionChanged(sender, e);
 
+            Utils.postHandleChange(
+                ref _handledEventSender,
+                ref _handledEventArgs,
+                _deferredProcessings,
+                ref _isConsistent,
+                this);
+		}
+
+        void ISourceCollectionChangeProcessor.processSourceCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
+        {
             switch (e.Action)
             {
                 case NotifyCollectionChangedAction.Add:
                     IList newItems = e.NewItems;
+                    _sourceCount++;
                     //if (newItems.Count > 1) throw new ObservableComputationsException(this, "Adding of multiple items is not supported");
                     string addedSourceItem = (string) newItems[0];
                     int addedSourceIndex = e.NewStartingIndex;
@@ -251,6 +243,7 @@ namespace ObservableComputations
                     break;
                 case NotifyCollectionChangedAction.Remove:
                     //if (e.OldItems.Count > 1) throw new ObservableComputationsException(this, "Removing of multiple items is not supported");
+                    _sourceCount--;
                     int removedSourceIndex = e.OldStartingIndex;
                     processRemoveSourceItem(removedSourceIndex);
                     setValue(_valueStringBuilder.ToString());
@@ -271,7 +264,6 @@ namespace ObservableComputations
                         && charIndex < newSourceItemLength;
                         charIndex++)
                     {
-
                         // ReSharper disable once PossibleNullReferenceException
                         _valueStringBuilder[plainIndex + charIndex] = newSourceItem[charIndex];
                     }
@@ -303,7 +295,7 @@ namespace ObservableComputations
                     {
                         _moving = true;
                         processRemoveSourceItem(oldSourceIndex);
-                        string newSourceItem1 = _sourceAsList[newSourceIndex];
+                        string newSourceItem1 = (string) e.NewItems[0];
                         processAddSourceItem(newSourceItem1, newSourceIndex);
                         _moving = false;
                         setValue(_valueStringBuilder.ToString());
@@ -314,14 +306,7 @@ namespace ObservableComputations
                     initializeFromSource();
                     break;
             }
-
-            _isConsistent = true;
-            raiseConsistencyRestored();
-
-            Utils.postHandleChange(
-                out _handledEventSender,
-                out _handledEventArgs);
-		}
+        }
 
         internal override void addToUpstreamComputings(IComputingInternal computing)
         {
@@ -337,16 +322,16 @@ namespace ObservableComputations
 
         protected override void initialize()
         {
-            Utils.initializeSourceScalar(_sourceScalar, ref _source, handleSourceScalarValueChanged);
+            Utils.initializeSourceScalar(_sourceScalar, ref _source, scalarValueChangedHandler);
             initializeSeparatorScalar();
             initializeSeparator();
         }
 
         protected override void uninitialize()
         {
-            Utils.uninitializeSourceScalar(_sourceScalar, handleSourceScalarValueChanged, ref _source);
+            Utils.uninitializeSourceScalar(_sourceScalar, scalarValueChangedHandler, ref _source);
             if (_separatorScalar != null)
-                _separatorScalar.PropertyChanged -= handleSeparatorScalarValueChanged;
+                _separatorScalar.PropertyChanged -= _handleSeparatorScalarValueChanged;
         }
 
         #region Implementation of ISourceIndexerPropertyTracker
@@ -362,15 +347,18 @@ namespace ObservableComputations
 		{
 			_resultRangePositions.List.Clear();
 			_valueStringBuilder.Clear();
-			int count = _sourceAsList.Count;
-			for (int sourceIndex = 0; sourceIndex < count; sourceIndex++)
+            _sourceCount = _sourceAsList.Count;
+            string[] sourceCopy = new string[_sourceCount];
+            _sourceAsList.CopyTo(sourceCopy, 0);
+
+			for (int sourceIndex = 0; sourceIndex < _sourceCount; sourceIndex++)
 			{
-				string sourceItem = _sourceAsList[sourceIndex];
+				string sourceItem = sourceCopy[sourceIndex];
 				_valueStringBuilder.Append(sourceItem);
 				// ReSharper disable once ReturnValueOfPureMethodIsNotUsed
 				_resultRangePositions.Add(sourceItem != null ? sourceItem.Length : 0);
 
-				if (sourceIndex != count - 1)
+				if (sourceIndex != _sourceCount - 1)
 				{
 					_valueStringBuilder.Append(_separator);
 					// ReSharper disable once ReturnValueOfPureMethodIsNotUsed
@@ -384,14 +372,13 @@ namespace ObservableComputations
 		private void processAddSourceItem(string addedSourceItem, int addedSourceIndex)
 		{
 			int addedSourceItemLength = addedSourceItem?.Length ?? 0;
-			int count = _sourceAsList.Count;
-			if (addedSourceIndex == 0 &&  count == 1)
+			if (addedSourceIndex == 0 && _sourceCount == 1)
 			{
 				_valueStringBuilder.Insert(0, addedSourceItem);
 				// ReSharper disable once ReturnValueOfPureMethodIsNotUsed
 				_resultRangePositions.Insert(0, addedSourceItemLength);
 			}
-			else if (addedSourceIndex == count - 1)
+			else if (addedSourceIndex == _sourceCount - 1)
 			{
 				_valueStringBuilder.Append(_separator);
 				_valueStringBuilder.Append(addedSourceItem);
@@ -417,8 +404,8 @@ namespace ObservableComputations
 		{
 			RangePosition oldItemRangePosition =
 				_resultRangePositions.List[removedSourceIndex * 2];
-			int count = _sourceAsList.Count;
-			if (removedSourceIndex < (_moving ? count - 1 : count))
+
+			if (removedSourceIndex < (_moving ? _sourceCount - 1 : _sourceCount))
 			{
 				_valueStringBuilder.Remove(oldItemRangePosition.PlainIndex, oldItemRangePosition.Length + _separatorLength);
 				_resultRangePositions.RemoveRange(oldItemRangePosition.Index, 2);

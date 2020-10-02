@@ -1,4 +1,5 @@
-﻿using System.ComponentModel;
+﻿using System;
+using System.ComponentModel;
 
 namespace ObservableComputations
 {
@@ -12,6 +13,7 @@ namespace ObservableComputations
 		private IDispatcher _sourceDispatcher;
 
 		private IReadScalar<TResult> _scalar;
+        private Action _changeValueAction;
 
 		[ObservableComputationsCall]
 		public ScalarDispatching(
@@ -22,24 +24,26 @@ namespace ObservableComputations
 			_destinationDispatcher = destinationDispatcher;
             _scalar = scalar;
             _sourceDispatcher = sourceDispatcher;
-		}
+            _changeValueAction = () =>
+            {
+                TResult newValue = _scalar.Value;
+                void setNewValue() => setValue(newValue);
+
+                _destinationDispatcher.Invoke(setNewValue, this);
+            };
+        }
 
 		private void handleScalarPropertyChanged(object sender, PropertyChangedEventArgs e)
 		{
-			if (e.PropertyName != nameof(IReadScalar<TResult>.Value)) return;
-
-			_handledEventSender = sender;
-			_handledEventArgs = e;
-
-
-			TResult newValue = _scalar.Value;
-
-			void setNewValue() => setValue(newValue);
-
-			_destinationDispatcher.Invoke(setNewValue, this);
-
-			_handledEventSender = null;
-			_handledEventArgs = null;
+            Utils.processChange(
+                sender, 
+                e, 
+                _changeValueAction,
+                ref _isConsistent, 
+                ref _handledEventSender, 
+                ref _handledEventArgs, 
+                0, 1,
+                ref _deferredProcessings, this);
 		}
 
         #region Overrides of ScalarComputing<TResult>

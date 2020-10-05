@@ -121,7 +121,7 @@ namespace ObservableComputations
                 ref _handledEventSender, 
                 ref _handledEventArgs,
                 ref _deferredProcessings,
-                1, 2, this)) return;
+                1, _deferredQueuesCount, this)) return;
 
             _thisAsSourceCollectionChangeProcessor.processSourceCollectionChanged(sender, e);
             

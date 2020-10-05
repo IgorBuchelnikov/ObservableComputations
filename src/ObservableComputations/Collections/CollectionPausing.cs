@@ -22,8 +22,7 @@ namespace ObservableComputations
 			get => _isPaused;
 			set
 			{
-                if (!_isConsistent)
-                    throw new ObservableComputationsException(this, "Cannot change IsPaused property as processing of another change is in progress");
+                checkConsistent(null, null);
 				
                 if (_isPausedScalar != null) 
                     throw new ObservableComputationsException("Modifying of IsPaused property is controlled by IsPausedScalar");
@@ -167,8 +166,7 @@ namespace ObservableComputations
 		private void handleIsPausedScalarValueChanged(object sender, PropertyChangedEventArgs e)
 		{
 			if (e.PropertyName != nameof(IReadScalar<object>.Value)) return;
-            if (!_isConsistent)
-                throw new ObservableComputationsException(this, "Cannot change IsPaused property as processing of another change is in progress");
+            checkConsistent(sender, e);
 
 			_handledEventSender = sender;
 			_handledEventArgs = e;
@@ -270,7 +268,7 @@ namespace ObservableComputations
                 ref _handledEventSender, 
                 ref _handledEventArgs,
                 ref _deferredProcessings,
-                1, 2, this)) return;
+                1, _deferredQueuesCount, this)) return;
 
 			_isConsistent = !_resuming && !_isPaused;
 

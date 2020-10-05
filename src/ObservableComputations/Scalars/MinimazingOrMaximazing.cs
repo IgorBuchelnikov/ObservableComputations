@@ -63,12 +63,16 @@ namespace ObservableComputations
 		private bool _lastProcessedSourceChangeMarker;
 
         private ISourceCollectionChangeProcessor _thisAsSourceCollectionChangeProcessor;
+        private PropertyChangedEventHandler _comparerScalarValueChangedHandler;
 
-		private void initializeComparer()
+        private void initializeComparer()
 		{
 			if (_comparerScalar != null)
 			{
-				_comparerScalar.PropertyChanged += handleComparerScalarValueChanged;
+                _comparerScalarValueChangedHandler = getScalarValueChangedHandler(
+                    () => { _comparer = _comparerScalar.Value ?? Comparer<TSourceItem>.Default; });
+
+				_comparerScalar.PropertyChanged += _comparerScalarValueChangedHandler;
 				_comparer = _comparerScalar.Value;
 			}
 
@@ -145,34 +149,9 @@ namespace ObservableComputations
 			}
 
             _thisAsSourceCollectionChangeProcessor = this;
+            _deferredQueuesCount = 2;
 		}
 
-		private void handleComparerScalarValueChanged(object sender, PropertyChangedEventArgs e)
-		{
-			if (e.PropertyName != nameof(IReadScalar<INotifyCollectionChanged>.Value)) return;
-
-			_handledEventSender = sender;
-			_handledEventArgs = e;
-
-			_comparer = _comparerScalar.Value ?? Comparer<TSourceItem>.Default;
-			initializeFromSource();
-
-			_handledEventSender = null;
-			_handledEventArgs = null;
-		}
-
-		private void handleSourceScalarValueChanged(object sender, PropertyChangedEventArgs e)
-		{
-			if (e.PropertyName != nameof(IReadScalar<INotifyCollectionChanged>.Value)) return;
-
-			_handledEventSender = sender;
-			_handledEventArgs = e;
-
-			initializeFromSource();
-
-			_handledEventSender = null;
-			_handledEventArgs = null;
-		}
 
         protected override void initializeFromSource()
 		{
@@ -279,7 +258,7 @@ namespace ObservableComputations
                 ref _handledEventSender, 
                 ref _handledEventArgs,
                 ref _deferredProcessings,
-                1, 1, this)) return;
+                1, _deferredQueuesCount, this)) return;
 
             _thisAsSourceCollectionChangeProcessor.processSourceCollectionChanged(sender, e);
 
@@ -405,15 +384,16 @@ namespace ObservableComputations
 
         protected override void initialize()
         {
-            Utils.initializeSourceScalar(_sourceScalar, ref _source, handleSourceScalarValueChanged);
+            Utils.initializeSourceScalar(_sourceScalar, ref _source, scalarValueChangedHandler);
             initializeComparer();
         }
 
         protected override void uninitialize()
         {
-            Utils.uninitializeSourceScalar(_sourceScalar, handleSourceScalarValueChanged, ref _source);
-            if (_comparerScalar != null) 
-                _comparerScalar.PropertyChanged -= handleComparerScalarValueChanged;
+            Utils.uninitializeSourceScalar(_sourceScalar, scalarValueChangedHandler, ref _source);
+            if (_comparerScalar != null)
+                _comparerScalar.PropertyChanged -= _comparerScalarValueChangedHandler;
+            
         }
 
         #region Implementation of ISourceIndexerPropertyTracker

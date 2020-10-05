@@ -29,7 +29,7 @@ namespace ObservableComputations
         public EventArgs HandledEventArgs => Parent.HandledEventArgs;
         public bool IsActive => Parent.IsActive;
 
-        protected internal void baseInsertItem(int index, TItem item)
+        protected internal void insertItem(int index, TItem item)
 		{
             void perform()
             {
@@ -62,7 +62,7 @@ namespace ObservableComputations
 			_newItem = default(TItem);
 		}
 
-		protected internal void baseMoveItem(int oldIndex, int newIndex)
+		protected internal void moveItem(int oldIndex, int newIndex)
 		{
             void perform()
             {
@@ -96,7 +96,7 @@ namespace ObservableComputations
 		}
 
 		
-		protected internal void baseRemoveItem(int index)
+		protected internal void removeItem(int index)
 		{
             void perform()
             {
@@ -128,7 +128,7 @@ namespace ObservableComputations
 		}
 
 		
-		protected internal void baseSetItem(int index, TItem item)
+		protected internal void setItem(int index, TItem item)
 		{
             void perform()
             {
@@ -162,7 +162,7 @@ namespace ObservableComputations
 		}
 
 		
-		protected internal void baseClearItems()
+		protected internal void clearItems()
 		{
             void perform()
             {

@@ -55,6 +55,7 @@ namespace ObservableComputations
 		{
 			_resultRangePositions = new RangePositions<RangePosition>(new List<RangePosition>(capacity * 2));
             _thisAsSourceCollectionChangeProcessor = this;
+            _deferredQueuesCount = 2;
         }
 
 		[ObservableComputationsCall]
@@ -216,7 +217,7 @@ namespace ObservableComputations
                 ref _handledEventSender, 
                 ref _handledEventArgs,
                 ref _deferredProcessings,
-                1, 2, this)) return;
+                1, _deferredQueuesCount, this)) return;
 
             _thisAsSourceCollectionChangeProcessor.processSourceCollectionChanged(sender, e);
 

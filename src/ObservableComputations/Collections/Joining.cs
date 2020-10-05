@@ -244,6 +244,8 @@ namespace ObservableComputations
 
             _initialCapacity = capacity;
             _filteredPositions = new Positions<Position>(new List<Position>(_initialCapacity));
+
+            _deferredQueuesCount = 3;
         }
 
         protected override void initializeFromSource()
@@ -351,6 +353,7 @@ namespace ObservableComputations
                     for (rightSourceIndex = 0; rightSourceIndex < rightCount; rightSourceIndex++)
                     {
                         insertingIndex = doRegisterSourceItem(
+                            // ReSharper disable once PossibleNullReferenceException
                             _rightSourceCopy[rightSourceIndex], 
                             ApplyPredicate(leftSourceIndex, rightSourceIndex));
                     }
@@ -412,7 +415,7 @@ namespace ObservableComputations
                 ref _handledEventSender,
                 ref _handledEventArgs,
                 ref _deferredProcessings,
-                1, 3, 
+                1, _deferredQueuesCount, 
                 this)) return;
 
             _thisAsSourceCollectionChangeProcessor.processSourceCollectionChanged(sender, e);
@@ -676,7 +679,7 @@ namespace ObservableComputations
                 ref _handledEventSender,
                 ref _handledEventArgs,
                 ref _deferredProcessings,
-                1, 3, 
+                1, _deferredQueuesCount, 
                 this)) return;
 
             _thisAsSourceCollectionChangeProcessor.processSourceCollectionChanged(sender, e);
@@ -723,7 +726,7 @@ namespace ObservableComputations
                 ref _handledEventSender,
                 ref _handledEventArgs,
                 ref _deferredProcessings, 
-                2, 3, this);
+                2, _deferredQueuesCount, this);
         }
 
         private void modifyNextFilteredItemIndex(int sourceIndex, Position nextItemPosition)

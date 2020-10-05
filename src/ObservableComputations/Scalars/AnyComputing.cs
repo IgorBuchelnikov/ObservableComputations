@@ -111,7 +111,7 @@ namespace ObservableComputations
                 ref _handledEventSender,
                 ref _handledEventArgs,
                 ref _deferredProcessings,
-                1, 3, 
+                1, _deferredQueuesCount, 
                 this)) return;
 
 			_thisAsSourceCollectionChangeProcessor.processSourceCollectionChanged(sender, e);
@@ -369,7 +369,7 @@ namespace ObservableComputations
                 ref _handledEventSender,
                 ref _handledEventArgs,
                 ref _deferredProcessings, 
-                2, 3, this);
+                2, _deferredQueuesCount, this);
 		}
 
 		void ISourceItemChangeProcessor.ProcessSourceItemChange(ExpressionWatcher expressionWatcher)

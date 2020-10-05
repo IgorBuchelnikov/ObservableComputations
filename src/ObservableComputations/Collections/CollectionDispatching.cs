@@ -86,7 +86,6 @@ namespace ObservableComputations
             _sourceScalar = sourceScalar;
 		}
 
-
 		private void handleSourceScalarValueChanged(object sender, PropertyChangedEventArgs e)
 		{
 			if (e.PropertyName != nameof(IReadScalar<object>.Value)) return;

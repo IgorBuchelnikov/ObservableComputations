@@ -6,8 +6,6 @@ using System.Linq.Expressions;
 
 namespace ObservableComputations
 {
-    //TODO if (!_isConsistent) throw new ObservableComputationsInconsistencyException
-    //TODO проверить что нет сомодельных неправильных handleScalarChanged
     public class Selecting<TSourceItem, TResultItem> : CollectionComputing<TResultItem>, IHasSourceCollections, ISourceItemChangeProcessor, ISourceCollectionChangeProcessor
     {
 		// ReSharper disable once MemberCanBePrivate.Global
@@ -177,7 +175,7 @@ namespace ObservableComputations
                     ref _handledEventSender,
                     ref _handledEventArgs,
                     ref _deferredProcessings,
-                    1, 3, 
+                    1, _deferredQueuesCount, 
                     this)) return;
 	
 			_thisAsSourceCollectionChangeProcessor.processSourceCollectionChanged(sender,e);      
@@ -259,7 +257,7 @@ namespace ObservableComputations
                 ref _handledEventSender,
                 ref _handledEventArgs,
                 ref _deferredProcessings, 
-                2, 3, this);
+                2, _deferredQueuesCount, this);
 		}
 
         private ItemInfo registerSourceItem(TSourceItem sourceItem, int index, ItemInfo itemInfo = null)

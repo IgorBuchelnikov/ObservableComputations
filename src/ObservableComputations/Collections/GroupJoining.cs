@@ -419,7 +419,7 @@ namespace ObservableComputations
                 ref _handledEventSender,
                 ref _handledEventArgs,
                 ref _deferredProcessings,
-                1, 3, 
+                1, _deferredQueuesCount, 
                 this)) return;
 
             _thisAsSourceCollectionChangeProcessor.processSourceCollectionChanged(sender, e);	
@@ -445,7 +445,7 @@ namespace ObservableComputations
                 ref _handledEventSender,
                 ref _handledEventArgs,
                 ref _deferredProcessings,
-                1, 3, 
+                1, _deferredQueuesCount, 
                 this)) return;
 
 			_thisAsSourceCollectionChangeProcessor.processSourceCollectionChanged(sender, e);	
@@ -593,7 +593,7 @@ namespace ObservableComputations
                 ref _handledEventSender,
                 ref _handledEventArgs,
                 ref _deferredProcessings, 
-                2, 3, this);
+                2, _deferredQueuesCount, this);
 		}
 
 		private void unregisterOuterSourceItem(int index)
@@ -870,7 +870,7 @@ namespace ObservableComputations
 			_group?._copies.Remove(this);
 			_group = group;
 
-			baseClearItems();
+			clearItems();
 			initializeFromGroup();
 		}
 
@@ -882,7 +882,7 @@ namespace ObservableComputations
 				for (int index = 0; index < count; index++)
 				{
 					TInnerSourceItem innerSourceItem = _group[index];
-					baseInsertItem(index, innerSourceItem);
+					insertItem(index, innerSourceItem);
 				}
 
 				if (_group._copies == null) _group._copies = new List<CollectionComputingChild<TInnerSourceItem>>();

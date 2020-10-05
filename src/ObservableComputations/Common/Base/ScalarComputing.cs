@@ -9,7 +9,7 @@ namespace ObservableComputations
 		public string DebugTag {get; set;}
 		public object Tag {get; set;}
         internal Queue<IProcessable>[] _deferredProcessings;
-        protected int _deferredQueuesCount = 2;
+        protected int _deferredQueuesCount = 1;
 
 		public ScalarComputing()
 		{
@@ -118,7 +118,7 @@ namespace ObservableComputations
 		{
 			if (!_isConsistent)
 				throw new ObservableComputationsInconsistencyException(this,
-					$"The source has been changed. It is not possible to process this change (event sender = {sender.ToStringSafe(e => $"{e.ToString()} in sender.ToString()")}, event args = {eventArgs.ToStringAlt()}), as the processing of the previous change is not completed. Make the change on ConsistencyRestored event raising (after IsConsistent property becomes true). This exception is fatal and cannot be handled as the inner state is damaged.", sender, eventArgs);
+					$"It is not possible to process this change (event sender = {sender.ToStringSafe(e => $"{e.ToString()} in sender.ToString()")}, event args = {eventArgs.ToStringAlt()}), as the processing of the previous change is not completed. Make the change on ConsistencyRestored event raising (after IsConsistent property becomes true). This exception is fatal and cannot be handled as the inner state is damaged.", sender, eventArgs);
 		}
 
 		protected void raiseConsistencyRestored()

@@ -78,6 +78,7 @@ namespace ObservableComputations
 
         private int _orderingValueSelectorExpressionСallCount;
         private List<IComputingInternal> _nestedComputings;
+        private ISourceItemChangeProcessor _thisAsSourceItemChangeProcessor;
 
         private void initializeComparer()
         {
@@ -223,6 +224,7 @@ namespace ObservableComputations
 
             _deferredQueuesCount = 3;
             _thisAsSourceCollectionChangeProcessor = this;
+            _thisAsSourceItemChangeProcessor = this;
 		}
 
         protected override void initialize()
@@ -631,7 +633,7 @@ namespace ObservableComputations
                 _rootSourceWrapper, 
                 _sourceAsList, 
                 _lastProcessedSourceChangeMarker, 
-                this,
+                _thisAsSourceItemChangeProcessor,
                 ref _isConsistent,
                 ref _handledEventSender,
                 ref _handledEventArgs,

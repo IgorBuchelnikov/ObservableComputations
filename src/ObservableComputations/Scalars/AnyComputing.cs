@@ -53,6 +53,7 @@ namespace ObservableComputations
         private List<IComputingInternal> _nestedComputings;
 
         private int _predicateExpressionСallCount;
+        private ISourceItemChangeProcessor _thisAsSourceItemChangeProcessor;
 
 		private readonly bool _predicateContainsParametrizedObservableComputationCalls;
 		[ObservableComputationsCall]
@@ -88,7 +89,8 @@ namespace ObservableComputations
 
             _deferredQueuesCount = 3;
             _thisAsSourceCollectionChangeProcessor = this;
-		}
+            _thisAsSourceItemChangeProcessor = this;
+        }
 
 		private void calculateValue()
 		{
@@ -364,7 +366,7 @@ namespace ObservableComputations
                 _rootSourceWrapper, 
                 _sourceAsList, 
                 _lastProcessedSourceChangeMarker, 
-                this,
+                _thisAsSourceItemChangeProcessor,
                 ref _isConsistent,
                 ref _handledEventSender,
                 ref _handledEventArgs,

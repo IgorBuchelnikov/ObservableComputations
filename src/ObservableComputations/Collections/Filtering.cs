@@ -58,6 +58,7 @@ namespace ObservableComputations
 		internal INotifyCollectionChanged _source;
 		private readonly Func<TSourceItem, bool> _predicateFunc;
         private IFiltering<TSourceItem> _thisAsFiltering;
+        private ISourceItemChangeProcessor _thisAsSourceItemChangeProcessor;
 
 		[ObservableComputationsCall]
 		public Filtering(
@@ -96,7 +97,7 @@ namespace ObservableComputations
             _deferredQueuesCount = 3;
 
             _thisAsFiltering = this;
-
+            _thisAsSourceItemChangeProcessor = this;
 			_initialCapacity = capacity;
 			_filteredPositions = new Positions<Position>(new List<Position>(_initialCapacity));	
 		}
@@ -401,7 +402,7 @@ namespace ObservableComputations
                 _rootSourceWrapper, 
                 _sourceAsList, 
                 _lastProcessedSourceChangeMarker, 
-                this,
+                _thisAsSourceItemChangeProcessor,
                 ref _isConsistent,
                 ref _handledEventSender,
                 ref _handledEventArgs,

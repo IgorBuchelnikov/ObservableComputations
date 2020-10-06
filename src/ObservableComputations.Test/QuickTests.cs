@@ -39,6 +39,17 @@ namespace ObservableComputations.Test
 				}
 			}
 
+            public PropertyChangedEventHandler ProgressChangedEventHandler
+            {
+                get
+                {
+                    PropertyChangedEventHandler onPropertyChanged = PropertyChanged;
+                    return onPropertyChanged;
+                }
+            }
+
+
+
 			public int Id {get;}
 			private static int _lastId;
 

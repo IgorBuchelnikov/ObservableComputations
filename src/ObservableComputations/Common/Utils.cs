@@ -334,22 +334,25 @@ namespace ObservableComputations
             ref bool isConsistent, 
             IComputingInternal computing)
         {
-            bool processed = true;
-            while (processed)
+            if (deferredProcessings != null)
             {
-                processed = false;
-                int deferredProcessingsLength = deferredProcessings.Length;
-                for (int queueIndex = 0; queueIndex < deferredProcessingsLength; queueIndex++)
+                bool processed = true;
+                while (processed)
                 {
-                    Queue<IProcessable> queue = deferredProcessings[queueIndex];
-                    if (queue != null && queue.Count > 0)
+                    processed = false;
+                    int deferredProcessingsLength = deferredProcessings.Length;
+                    for (int queueIndex = 0; queueIndex < deferredProcessingsLength; queueIndex++)
                     {
-                        IProcessable processable = queue.Dequeue();
-                        handledEventSender = processable.EventSender;
-                        handledEventArgs = processable.EventArgs;
-                        processable.Process(deferredProcessings);
-                        processed = true;
-                        break;
+                        Queue<IProcessable> queue = deferredProcessings[queueIndex];
+                        if (queue != null && queue.Count > 0)
+                        {
+                            IProcessable processable = queue.Dequeue();
+                            handledEventSender = processable.EventSender;
+                            handledEventArgs = processable.EventArgs;
+                            processable.Process(deferredProcessings);
+                            processed = true;
+                            break;
+                        }
                     }
                 }
             }
@@ -703,7 +706,13 @@ namespace ObservableComputations
                 }
             }
 
-            processQueue(ref handledEventSender, ref handledEventArgs, deferredProcessings, ref isConsistent, current);
+            processQueue(
+                ref handledEventSender, 
+                ref handledEventArgs, 
+                deferredProcessings, 
+                ref isConsistent,
+                current);
+
         }
 
         internal static void RemoveConsumer(
@@ -767,7 +776,12 @@ namespace ObservableComputations
             else
                 current.AddToUpstreamComputings(computing);
 
-            processQueue(ref handledEventSender, ref handledEventArgs, deferredProcessings, ref isConsistent, current);
+            processQueue(
+                ref handledEventSender, 
+                ref handledEventArgs, 
+                deferredProcessings, 
+                ref isConsistent,
+                current);
         }
 
         internal static void RemoveDownstreamConsumedComputing(
@@ -849,7 +863,7 @@ namespace ObservableComputations
             if (deferredProcessings == null) return;
 
             for (int index = fromIndex; index < deferredProcessings.Length; index++)
-                deferredProcessings[index].Clear();
+                deferredProcessings[index]?.Clear();
         }
 
         internal static bool preHandleSourceCollectionChanged<TSourceItem>(

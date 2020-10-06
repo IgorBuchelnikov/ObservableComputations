@@ -139,6 +139,8 @@ namespace ObservableComputations
         private List<IComputingInternal> _nestedComputings;
         private int _outerKeySelectorExpressionСallCount;
 
+        private ISourceItemChangeProcessor _thisAsSourceItemChangeProcessor;
+
         private sealed class OuterItemInfo : ExpressionItemInfo
         {
             public Func<TKey> SelectorFunc;
@@ -397,6 +399,7 @@ namespace ObservableComputations
             _deferredQueuesCount = 3;
             
             _thisAsSourceCollectionChangeProcessor = this;
+            _thisAsSourceItemChangeProcessor = this;
 		}
 
 		List<OuterItemInfo> getPositionsByKey(TKey key)
@@ -588,7 +591,7 @@ namespace ObservableComputations
                 _outerRootSourceWrapper, 
                 _outerSourceAsList,
                 _lastProcessedSourceChangeMarker, 
-                this,
+                _thisAsSourceItemChangeProcessor,
                 ref _isConsistent,
                 ref _handledEventSender,
                 ref _handledEventArgs,

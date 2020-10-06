@@ -136,6 +136,8 @@ namespace ObservableComputations
 
         private List<IComputingInternal> _nestedComputings;
 
+        private ISourceItemChangeProcessor _thisAsSourceItemChangeProcessor;
+
 		private sealed class ItemInfo : ExpressionItemInfo
 		{
 			public TKey Key;
@@ -214,6 +216,7 @@ namespace ObservableComputations
 
 			_initialResultCapacity = resultCapacity;
             _thisAsSourceCollectionChangeProcessor = this;
+            _thisAsSourceItemChangeProcessor = this;
         }
 
 
@@ -422,7 +425,7 @@ namespace ObservableComputations
                 _rootSourceWrapper, 
                 _sourceAsList, 
                 _lastProcessedSourceChangeMarker, 
-                this,
+                _thisAsSourceItemChangeProcessor,
                 ref _isConsistent,
                 ref _handledEventSender,
                 ref _handledEventArgs,

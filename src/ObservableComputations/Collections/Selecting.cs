@@ -45,6 +45,7 @@ namespace ObservableComputations
         private List<IComputingInternal> _nestedComputings;
 
         private ISourceCollectionChangeProcessor _thisAsSourceCollectionChangeProcessor;
+        private ISourceItemChangeProcessor _thisAsSourceItemChangeProcessor;
 
 		private sealed class ItemInfo : ExpressionItemInfo
 		{
@@ -84,6 +85,7 @@ namespace ObservableComputations
 
             _deferredQueuesCount = 3;
             _thisAsSourceCollectionChangeProcessor = this;
+            _thisAsSourceItemChangeProcessor = this;
         }
 
         protected override void initializeFromSource()
@@ -252,7 +254,7 @@ namespace ObservableComputations
                 _rootSourceWrapper, 
                 _sourceAsList, 
                 _lastProcessedSourceChangeMarker, 
-                this,
+                _thisAsSourceItemChangeProcessor,
                 ref _isConsistent,
                 ref _handledEventSender,
                 ref _handledEventArgs,
@@ -295,13 +297,10 @@ namespace ObservableComputations
 
         private void unregisterSourceItem(int index, bool replacing = false)
         {
-            if (!replacing)
-            {
-                _sourcePositions.Remove(index);
-            }
-
             Utils.disposeExpressionWatcher(_itemInfos[index].ExpressionWatcher, _itemInfos[index].NestedComputings, this,
                 _selectorContainsParametrizedObservableComputationsCalls);
+
+            if (!replacing) _sourcePositions.Remove(index);
         }
 
         private TResultItem applySelector(ItemInfo itemInfo, TSourceItem sourceItem)

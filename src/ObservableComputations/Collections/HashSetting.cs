@@ -597,7 +597,7 @@ namespace ObservableComputations
                 ref _isConsistent,
                 ref _handledEventSender,
                 ref _handledEventArgs,
-                _deferredProcessings);
+                ref _deferredProcessings);
         }
 
         void IComputingInternal.OnPropertyChanged(PropertyChangedEventArgs propertyChangedEventArgs)
@@ -627,7 +627,7 @@ namespace ObservableComputations
                 ref _isConsistent,
                 ref _handledEventSender,
                 ref _handledEventArgs,
-                _deferredProcessings);        }
+                ref _deferredProcessings);        }
 
         void IComputingInternal.RemoveDownstreamConsumedComputing(IComputingInternal computing)
         {

@@ -666,15 +666,15 @@ namespace ObservableComputations
         }
 
         internal static void AddComsumer(
-            Consumer addingConsumer, 
-            List<Consumer> consumers, 
-            List<IComputingInternal> downstreamConsumedComputings, 
-            IComputingInternal current, 
+            Consumer addingConsumer,
+            List<Consumer> consumers,
+            List<IComputingInternal> downstreamConsumedComputings,
+            IComputingInternal current,
             ref bool isActive,
             ref bool isConsistent,
-            ref object handledEventSender, 
+            ref object handledEventSender,
             ref EventArgs handledEventArgs,
-            Queue<IProcessable>[] deferredProcessings)
+            ref Queue<IProcessable>[] deferredProcessings)
         {
             if (!isConsistent)
                 throw new ObservableComputationsException(current, "Cannot add the consumer, as change processing is in progress.");
@@ -748,15 +748,15 @@ namespace ObservableComputations
         }
 
         internal static void AddDownstreamConsumedComputing(
-            IComputingInternal computing, 
-            List<IComputingInternal> downstreamConsumedComputings, 
-            List<Consumer> consumers, 
-            ref bool isActive, 
+            IComputingInternal computing,
+            List<IComputingInternal> downstreamConsumedComputings,
+            List<Consumer> consumers,
+            ref bool isActive,
             IComputingInternal current,
             ref bool isConsistent,
-            ref object handledEventSender, 
+            ref object handledEventSender,
             ref EventArgs handledEventArgs,
-            Queue<IProcessable>[] deferredProcessings)
+            ref Queue<IProcessable>[] deferredProcessings)
         {
             if (!isConsistent)
                 throw new ObservableComputationsException(current, "Cannot add the consumer, as change processing is in progress.");
@@ -1020,12 +1020,13 @@ namespace ObservableComputations
             int deferredQueueIndex,
             int deferredQueuesCount,              
             ref Queue<IProcessable>[] deferredProcessings, 
-            IComputingInternal computing)
+            IComputingInternal computing,
+            bool propertyNameValue = true)
         {
             processChange(sender, args, action, () => new Processable(sender, args, action),
                 ref isConsistent, ref handledEventSender, ref handledEventArgs,
                 deferredQueueIndex, deferredQueuesCount, ref deferredProcessings,
-                computing);
+                computing, propertyNameValue);
         }
 
         internal static void processChange(
@@ -1039,9 +1040,11 @@ namespace ObservableComputations
             int deferredQueueIndex,
             int deferredQueuesCount,              
             ref Queue<IProcessable>[] deferredProcessings, 
-            IComputingInternal computing)
+            IComputingInternal computing,
+            bool propertyNameValue = true)
         {
-            if (args is PropertyChangedEventArgs propertyChangedEventArgs 
+            if (propertyNameValue 
+                && args is PropertyChangedEventArgs propertyChangedEventArgs 
                 &&  propertyChangedEventArgs.PropertyName != nameof(IReadScalar<object>.Value)) return;
 
             if (isConsistent)

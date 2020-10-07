@@ -44,7 +44,9 @@ namespace ObservableComputations
                 ref _handledEventSender, 
                 ref _handledEventArgs, 
                 0, 1,
-                ref _deferredProcessings, this);
+                ref _deferredProcessings, 
+                this,
+                false);
         }
 
 		private TResult getResult()

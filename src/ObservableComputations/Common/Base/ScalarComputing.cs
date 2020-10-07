@@ -223,7 +223,7 @@ namespace ObservableComputations
                 ref _isConsistent,
                 ref _handledEventSender,
                 ref _handledEventArgs,
-                _deferredProcessings);
+                ref _deferredProcessings);
         }
 
 
@@ -250,7 +250,7 @@ namespace ObservableComputations
                 ref _isConsistent,
                 ref _handledEventSender,
                 ref _handledEventArgs,
-                _deferredProcessings);
+                ref _deferredProcessings);
         }
 
         void IComputingInternal.RemoveDownstreamConsumedComputing(IComputingInternal computing)

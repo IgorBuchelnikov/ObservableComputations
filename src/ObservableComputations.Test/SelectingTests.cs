@@ -249,6 +249,34 @@ namespace ObservableComputations.Test
         }
 
         [Test]
+        public void Selecting_Nested3()
+        {
+            Item.LastNum = 0;
+            ObservableCollection<Item> items = new ObservableCollection<Item>(
+                new[]
+                {
+                    new Item(),
+                    new Item(),
+                    new Item(),
+                    new Item(),
+                    new Item()
+                }
+
+            );
+
+            Consumer consumer = new Consumer();
+            var selecting = items.Selecting(item => items.Selecting(i => i)).IsNeededFor(consumer);
+
+            consumer.Dispose();
+
+        }
+
+        private int Dummy(object o1, object o2)
+        {
+            return 0;
+        }
+
+        [Test]
         public void Selecting_Nested2()
         {
             Item.LastNum = 0;

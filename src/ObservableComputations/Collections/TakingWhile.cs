@@ -95,7 +95,14 @@ namespace ObservableComputations
 			Computing<int> countComputing,
 			int capacity)
 		{
-			return zipping.Filtering(zp => zp.LeftItem < zipping.Filtering(zipPairNotPredicateExpression, capacity).Selecting(zp1 => zp1.LeftItem).Using(ic => ic.Count > 0 ? ic.Minimazing<int>().Value : countComputing.Value).Value, capacity);
+			return zipping.Filtering(zp => 
+                zp.LeftItem < 
+                    zipping
+                    .Filtering(zipPairNotPredicateExpression, capacity)
+                    .Selecting(zp1 => zp1.LeftItem)
+                    .Using(ic => ic.Count > 0 ? ic.Minimazing<int>().Value : countComputing.Value)
+                    .Value, 
+                capacity);
 		}
 
 		private static INotifyCollectionChanged getSource(

@@ -196,8 +196,9 @@ namespace ObservableComputations
 			if (count > 0)
 			{
 				// ReSharper disable once PossibleNullReferenceException
-				TSourceItem value = _sourceCopy[0];
-				_valueCount = 1;
+				TSourceItem value;
+                value = initializeSourceItems ? _sourceAsList[0] : _sourceCopy[0];
+                _valueCount = 1;
 
 				if (initializeSourceItems) _sourceCopy.Add(value);
 				for (int sourceIndex = 1; sourceIndex < count; sourceIndex++)

@@ -328,7 +328,11 @@ namespace ObservableComputations
                         Position currentFilteredItemPosition = null;
 
                         FilteringItemInfo itemInfo =
-                            registerSourceItem(leftSourceItem, rightSourceItem, leftSourceIndex + rightSourceIndex, null, null);
+                            registerSourceItem(
+                                leftSourceItem, 
+                                rightSourceItem, 
+                                leftSourceIndex * rightCount + rightSourceIndex, 
+                                null, null);
 
                         if (predicateValue)
                         {
@@ -533,7 +537,7 @@ namespace ObservableComputations
                                 this);
 
                             if (replace)
-                                this[baseIndex2 + rightSourceIndex].setLeftItem(newLeftSourceItem1);
+                                this[replacingItemInfo.FilteredPosition.Index].setLeftItem(newLeftSourceItem1);
                         }
 
                         break;
@@ -561,13 +565,13 @@ namespace ObservableComputations
 					    //if (e.OldItems.Count > 1) throw new ObservableComputationsException(this, "Removing of multiple items is not supported");
 					    int oldIndex = e.OldStartingIndex;
                         _rightSourceCopy.RemoveAt(oldIndex);
-					    int outerSourceCount3 = _leftSourceCopy.Count;
-					    int oldInnerSourceCount = _rightSourceCopy.Count + 1;
-					    int baseIndex = (outerSourceCount3 - 1) * oldInnerSourceCount;
-					    for (int outerSourceIndex =  outerSourceCount3 - 1; outerSourceIndex >= 0; outerSourceIndex--)
+					    int leftSourceCount3 = _leftSourceCopy.Count;
+					    int oldRightSourceCount = _rightSourceCopy.Count + 1;
+					    int baseIndex = (leftSourceCount3 - 1) * oldRightSourceCount;
+					    for (int outerSourceIndex =  leftSourceCount3 - 1; outerSourceIndex >= 0; outerSourceIndex--)
 					    {
                             unregisterSourceItem(baseIndex + oldIndex);
-						    baseIndex = baseIndex - oldInnerSourceCount;
+						    baseIndex = baseIndex - oldRightSourceCount;
 					    }	
 					    break;
 				    case NotifyCollectionChangedAction.Replace:
@@ -598,7 +602,7 @@ namespace ObservableComputations
                                 this);
 
                             if (replace)
-                                this[index2].setRightItem(sourceRightItem3);	                        
+                                this[replacingItemInfo.FilteredPosition.Index].setRightItem(sourceRightItem3);	                        
 
 						    index2 = index2 + rightSourceCount2;
 					    }
@@ -877,10 +881,10 @@ namespace ObservableComputations
 					TLeftSourceItem leftSourceItem = leftSource[leftSourceIndex];
 
 
-                    for (int rightSourceIndex = 0; rightSourceIndex < leftSource.Count; rightSourceIndex++)
+                    for (int rightSourceIndex = 0; rightSourceIndex < rightSource.Count; rightSourceIndex++)
                     {
                         TRightSourceItem rightSourceItem = rightSource[rightSourceIndex];
-                        var internalIndex = leftSourceIndex * leftSource.Count + rightSourceIndex;
+                        var internalIndex = leftSourceIndex * rightSource.Count + rightSourceIndex;
                         FilteringItemInfo itemInfo = _itemInfos[internalIndex];
                         if (predicate(leftSourceItem, rightSourceItem))
                         {
@@ -923,18 +927,18 @@ namespace ObservableComputations
 					{
 						throw new ObservableComputationsException(this, "Consistency violation: Joining.6");
 					}
-
+                    
 					Position nextFilteredItemPosition;
 					nextFilteredItemPosition = _filteredPositions.List[count];
-                    for (int leftSourceIndex = 0; leftSourceIndex < leftSource.Count; leftSourceIndex++)
+                    for (int leftSourceIndex = leftSource.Count - 1; leftSourceIndex >= 0; leftSourceIndex--)
                     {
                         TLeftSourceItem leftSourceItem = leftSource[leftSourceIndex];
 
 
-                        for (int rightSourceIndex = 0; rightSourceIndex < leftSource.Count; rightSourceIndex++)
+                        for (int rightSourceIndex = rightSource.Count - 1; rightSourceIndex >= 0; rightSourceIndex--)
                         {
                             TRightSourceItem rightSourceItem = rightSource[rightSourceIndex];
-                            var internalIndex = leftSourceIndex * leftSource.Count + rightSourceIndex;
+                            var internalIndex = leftSourceIndex * rightSource.Count + rightSourceIndex;
                             FilteringItemInfo itemInfo = _itemInfos[internalIndex];
 
                             if (itemInfo.NextFilteredItemPosition != nextFilteredItemPosition)

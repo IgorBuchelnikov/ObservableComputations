@@ -26,6 +26,7 @@ namespace ObservableComputations
         void Initialize();
         void Uninitialize();
         void OnPropertyChanged(PropertyChangedEventArgs propertyChangedEventArgs);
+        void SetIsActive(bool value);
     }
 
     internal interface ICanInitializeFromSource

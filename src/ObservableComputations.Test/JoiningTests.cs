@@ -96,22 +96,27 @@ namespace ObservableComputations.Test
 			ObservableCollection<Item> items1;
 			ObservableCollection<Item> items2;
 			Joining<Item, Item> joining;
+
 			try
 			{
 				trace(testNum = "1", ids1, ids2, newItemId, index, indexOld, indexNew);
 				items1 = getObservableCollection(ids1);
 				items2 = getObservableCollection(ids2);
-				joining = items1.Joining(items2, (item1, item2) => item1 != null && item2 != null && item1.Id == item2.Id);
+                Consumer consumer1 = new Consumer();
+				joining = items1.Joining(items2, (item1, item2) => item1 != null && item2 != null && item1.Id == item2.Id).IsNeededFor(consumer1);
 				joining.ValidateConsistency();
+                consumer1.Dispose();
 
 				for (index = 0; index < ids1.Length; index++)
 				{
 					trace(testNum = "2", ids1, ids2, newItemId, index, indexOld, indexNew);
 					items1 = getObservableCollection(ids1);
 					items2 = getObservableCollection(ids2);
-					joining = items1.Joining(items2, (item1, item2) => item1 != null && item2 != null && item1.Id == item2.Id);
+                    Consumer consumer2 = new Consumer();
+					joining = items1.Joining(items2, (item1, item2) => item1 != null && item2 != null && item1.Id == item2.Id).IsNeededFor(consumer2);
 					items1.RemoveAt(index);
 					joining.ValidateConsistency();
+                    consumer2.Dispose();
 				}
 
 				for (index = 0; index < ids2.Length; index++)
@@ -119,9 +124,11 @@ namespace ObservableComputations.Test
 					trace(testNum = "3", ids1, ids2, newItemId, index, indexOld, indexNew);
 					items1 = getObservableCollection(ids1);
 					items2 = getObservableCollection(ids2);
-					joining = items1.Joining(items2, (item1, item2) => item1 != null && item2 != null && item1.Id == item2.Id);
+                    Consumer consumer3 = new Consumer();
+					joining = items1.Joining(items2, (item1, item2) => item1 != null && item2 != null && item1.Id == item2.Id).IsNeededFor(consumer3);
 					items2.RemoveAt(index);
 					joining.ValidateConsistency();
+                    consumer3.Dispose();
 				}
 
 				for (index = 0; index <= ids1.Length; index++)
@@ -131,9 +138,11 @@ namespace ObservableComputations.Test
 						trace(testNum = "4", ids1, ids2, newItemId, index, indexOld, indexNew);
 						items1 = getObservableCollection(ids1);
 						items2 = getObservableCollection(ids2);
-						joining = items1.Joining(items2, (item1, item2) => item1 != null && item2 != null && item1.Id == item2.Id);
+                        Consumer consumer4 = new Consumer();
+						joining = items1.Joining(items2, (item1, item2) => item1 != null && item2 != null && item1.Id == item2.Id).IsNeededFor(consumer4);
 						items1.Insert(index, new Item(newItemId));
 						joining.ValidateConsistency();
+                        consumer4.Dispose();
 					}
 
 				}
@@ -145,9 +154,11 @@ namespace ObservableComputations.Test
 						trace(testNum = "5", ids1, ids2, newItemId, index, indexOld, indexNew);
 						items1 = getObservableCollection(ids1);
 						items2 = getObservableCollection(ids2);
-						joining = items1.Joining(items2, (item1, item2) => item1 != null && item2 != null && item1.Id == item2.Id);
+                        Consumer consumer5 = new Consumer();
+						joining = items1.Joining(items2, (item1, item2) => item1 != null && item2 != null && item1.Id == item2.Id).IsNeededFor(consumer5);
 						items2.Insert(index, new Item(newItemId));
 						joining.ValidateConsistency();
+                        consumer5.Dispose();
 					}
 				}
 
@@ -158,9 +169,11 @@ namespace ObservableComputations.Test
 						trace(testNum = "6", ids1, ids2, newItemId, index, indexOld, indexNew);
 						items1 = getObservableCollection(ids1);
 						items2 = getObservableCollection(ids2);
-						joining = items1.Joining(items2, (item1, item2) => item1 != null && item2 != null && item1.Id == item2.Id);
+                        Consumer consumer6 = new Consumer();
+						joining = items1.Joining(items2, (item1, item2) => item1 != null && item2 != null && item1.Id == item2.Id).IsNeededFor(consumer6);
 						items1[index] = new Item(newItemId);
 						joining.ValidateConsistency();
+                        consumer6.Dispose();
 					}
 				}
 
@@ -171,9 +184,11 @@ namespace ObservableComputations.Test
 						trace(testNum = "7", ids1, ids2, newItemId, index, indexOld, indexNew);
 						items1 = getObservableCollection(ids1);
 						items2 = getObservableCollection(ids2);
-						joining = items1.Joining(items2, (item1, item2) => item1 != null && item2 != null && item1.Id == item2.Id);
+                        Consumer consumer7 = new Consumer();
+						joining = items1.Joining(items2, (item1, item2) => item1 != null && item2 != null && item1.Id == item2.Id).IsNeededFor(consumer7);
 						items2[index] = new Item(newItemId);
 						joining.ValidateConsistency();
+                        consumer7.Dispose();
 					}
 				}
 
@@ -184,9 +199,11 @@ namespace ObservableComputations.Test
 						trace(testNum = "8", ids1, ids2, newItemId, index, indexOld, indexNew);
 						items1 = getObservableCollection(ids1);
 						items2 = getObservableCollection(ids2);
-						joining = items1.Joining(items2, (item1, item2) => item1 != null && item2 != null && item1.Id == item2.Id);
+                        Consumer consumer8 = new Consumer();
+						joining = items1.Joining(items2, (item1, item2) => item1 != null && item2 != null && item1.Id == item2.Id).IsNeededFor(consumer8);
 						items1.Move(indexOld, indexNew);
 						joining.ValidateConsistency();
+                        consumer8.Dispose();
 					}
 				}
 
@@ -197,9 +214,11 @@ namespace ObservableComputations.Test
 						trace(testNum = "9", ids1, ids2, newItemId, index, indexOld, indexNew);
 						items1 = getObservableCollection(ids1);
 						items2 = getObservableCollection(ids2);
-						joining = items1.Joining(items2, (item1, item2) => item1 != null && item2 != null && item1.Id == item2.Id);
+                        Consumer consumer9 = new Consumer();
+						joining = items1.Joining(items2, (item1, item2) => item1 != null && item2 != null && item1.Id == item2.Id).IsNeededFor(consumer9);
 						items2.Move(indexOld, indexNew);
 						joining.ValidateConsistency();
+                        consumer9.Dispose();
 					}
 				}
 
@@ -219,7 +238,7 @@ namespace ObservableComputations.Test
 		private void trace(string num, int[] ids1, int[] ids2, int newId, int index, int indexOld, int indexNew)
 		{
 			string traceString = getTraceString(num, ids1, ids2, newId, index, indexOld, indexNew);
-			if (traceString == "#8. ids1=0,0  ids2=0,0  index=2  newId=3  indexOld=1  indexNew=0")
+			if (traceString == "#6. ids1=-1,0  ids2=-1,0  index=1  newId=0  indexOld=0  indexNew=0")
 			{
 				Debugger.Break();
 			}

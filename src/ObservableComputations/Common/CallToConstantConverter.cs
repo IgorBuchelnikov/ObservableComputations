@@ -47,7 +47,15 @@ namespace ObservableComputations
 			return base.VisitMethodCall(node);
 		}
 
-		private ConstantExpression getConstantExpression(Expression node)
+        protected override Expression VisitConstant(ConstantExpression node)
+        {
+            if (node.Value is IComputingInternal computing)
+                NestedComputings.Add(computing);
+
+            return base.VisitConstant(node);
+        }
+
+        private ConstantExpression getConstantExpression(Expression node)
 		{
 			ConstantExpression getConstantExpressionLocal()
             {

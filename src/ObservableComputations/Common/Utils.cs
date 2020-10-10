@@ -670,150 +670,149 @@ namespace ObservableComputations
             List<Consumer> consumers,
             List<IComputingInternal> downstreamConsumedComputings,
             IComputingInternal current,
-            ref bool isActive,
             ref bool isConsistent,
             ref object handledEventSender,
             ref EventArgs handledEventArgs,
-            ref Queue<IProcessable>[] deferredProcessings)
+            ref Queue<IProcessable>[] deferredProcessings,
+            int deferredQueuesCount)
         {
-            if (!isConsistent)
-                throw new ObservableComputationsException(current, "Cannot add the consumer, as change processing is in progress.");
-
-            isConsistent = false;
-
-            int consumersCount = consumers.Count;
-            for (var index = 0; index < consumersCount; index++)
+            processChange(null, null, () =>
             {
-                if (consumers[index] == addingConsumer) return;
-            }
-
-            consumers.Add(addingConsumer);
-            addingConsumer.AddComputing(current);
-
-            if (consumers.Count == 1)
-            {
-                if (downstreamConsumedComputings.Count == 0)
+                int consumersCount = consumers.Count;
+                for (var index = 0; index < consumersCount; index++)
                 {
-                    isActive = true;
-                    current.Initialize();
-                    current.AddToUpstreamComputings(current);
-                    current.OnPropertyChanged(IsActivePropertyChangedEventArgs);
-                    current.InitializeFromSource();
+                    if (consumers[index] == addingConsumer) return;
                 }
-                else
+
+                consumers.Add(addingConsumer);
+                addingConsumer.AddComputing(current);
+
+                if (consumers.Count == 1)
                 {
-                    current.AddToUpstreamComputings(current);
+                    if (downstreamConsumedComputings.Count == 0)
+                    {
+                        current.SetIsActive(true);
+                        current.Initialize();
+                        current.AddToUpstreamComputings(current);
+                        current.InitializeFromSource();
+                        current.OnPropertyChanged(IsActivePropertyChangedEventArgs);
+                    }
+                    else
+                    {
+                        current.AddToUpstreamComputings(current);
+                    }
                 }
-            }
-
-            processQueue(
-                ref handledEventSender, 
-                ref handledEventArgs, 
-                deferredProcessings, 
-                ref isConsistent,
-                current);
-
+            },
+            ref isConsistent,
+            ref handledEventSender,
+            ref handledEventArgs,
+            0, deferredQueuesCount,
+            ref deferredProcessings, 
+            current, false);
         }
 
         internal static void RemoveConsumer(
             Consumer removingConsumer, 
             List<Consumer> consumers, 
             List<IComputingInternal> downstreamConsumedComputings, 
-            ref bool isActive, 
             IComputingInternal current,
             ref bool isConsistent,
-
-            Queue<IProcessable>[] deferredProcessings)
+            ref object handledEventSender,
+            ref EventArgs handledEventArgs,
+            Queue<IProcessable>[] deferredProcessings,
+            int deferredQueuesCount)
         {
-            if (!isConsistent)
-                throw new ObservableComputationsException(current, "Cannot remove the consumer, as change processing is in progress.");
+            processChange(null, null, () =>
+                {
+                    consumers.Remove(removingConsumer);
 
-            isConsistent = false;
-
-            consumers.Remove(removingConsumer);
-
-            if (consumers.Count == 0 && downstreamConsumedComputings.Count == 0)
-            {
-                isActive = false;
-                current.InitializeFromSource();
-                current.RemoveFromUpstreamComputings(current);
-                current.Uninitialize();
-                current.OnPropertyChanged(IsActivePropertyChangedEventArgs);    
-            }
-
-            ClearDefferedProcessings(deferredProcessings, 0);
-            isConsistent = true;
-            current.RaiseConsistencyRestored();
-
+                    if (consumers.Count == 0 && downstreamConsumedComputings.Count == 0)
+                    {
+                        current.SetIsActive(false);
+                        current.InitializeFromSource();
+                        current.RemoveFromUpstreamComputings(current);
+                        current.Uninitialize();
+                        current.OnPropertyChanged(IsActivePropertyChangedEventArgs);  
+                        // ReSharper disable once AccessToModifiedClosure
+                        ClearDefferedProcessings(deferredProcessings, 0);                        
+                    }
+                },
+                ref isConsistent,
+                ref handledEventSender,
+                ref handledEventArgs,
+                0, deferredQueuesCount,
+                ref deferredProcessings, 
+                current, false);
         }
 
         internal static void AddDownstreamConsumedComputing(
             IComputingInternal computing,
             List<IComputingInternal> downstreamConsumedComputings,
             List<Consumer> consumers,
-            ref bool isActive,
             IComputingInternal current,
             ref bool isConsistent,
             ref object handledEventSender,
             ref EventArgs handledEventArgs,
-            ref Queue<IProcessable>[] deferredProcessings)
+            ref Queue<IProcessable>[] deferredProcessings,
+            int deferredQueuesCount)
         {
-            if (!isConsistent)
-                throw new ObservableComputationsException(current, "Cannot add the consumer, as change processing is in progress.");
+            processChange(null, null, () =>
+                {
+                    downstreamConsumedComputings.Add(computing);
 
-            isConsistent = false;
-
-            downstreamConsumedComputings.Add(computing);
-
-            if (downstreamConsumedComputings.Count == 1 && consumers.Count == 0)
-            {
-                isActive = true;
-                current.Initialize();
-                current.AddToUpstreamComputings(computing);
-                current.OnPropertyChanged(IsActivePropertyChangedEventArgs);
-                current.InitializeFromSource();
-            }
-            else
-                current.AddToUpstreamComputings(computing);
-
-            processQueue(
-                ref handledEventSender, 
-                ref handledEventArgs, 
-                deferredProcessings, 
+                    if (downstreamConsumedComputings.Count == 1 && consumers.Count == 0)
+                    {
+                        current.SetIsActive(true);
+                        current.Initialize();
+                        current.AddToUpstreamComputings(computing);
+                        current.InitializeFromSource();
+                        current.OnPropertyChanged(IsActivePropertyChangedEventArgs);
+                    }
+                    else
+                        current.AddToUpstreamComputings(computing);
+                },
                 ref isConsistent,
-                current);
+                ref handledEventSender,
+                ref handledEventArgs,
+                0, deferredQueuesCount,
+                ref deferredProcessings, 
+                current, false);
         }
 
         internal static void RemoveDownstreamConsumedComputing(
             IComputingInternal computing, 
             List<IComputingInternal> downstreamConsumedComputings, 
-            ref bool isActive, 
             IComputingInternal current, 
-            List<Consumer> consumers,
             ref bool isConsistent,
-            Queue<IProcessable>[] deferredProcessings)
+            List<Consumer> consumers,
+            ref object handledEventSender,
+            ref EventArgs handledEventArgs,
+            Queue<IProcessable>[] deferredProcessings,
+            int deferredQueuesCount)
         {
-            if (!isConsistent)
-                throw new ObservableComputationsException(current, "Cannot remove the consumer, as change processing is in progress.");
+            processChange(null, null, () =>
+                {
+                    downstreamConsumedComputings.Remove(computing);
 
-            isConsistent = false;
-
-            downstreamConsumedComputings.Remove(computing);
-
-            if (consumers.Count == 0 && downstreamConsumedComputings.Count == 0)
-            {
-                isActive = true;
-                current.InitializeFromSource();
-                current.RemoveFromUpstreamComputings(computing);
-                current.Uninitialize();
-                current.OnPropertyChanged(IsActivePropertyChangedEventArgs);
-            }
-            else
-                current.RemoveFromUpstreamComputings(computing);
-
-            ClearDefferedProcessings(deferredProcessings, 0);
-            isConsistent = true;
-            current.RaiseConsistencyRestored();
+                    if (consumers.Count == 0 && downstreamConsumedComputings.Count == 0)
+                    {
+                        current.SetIsActive(false);
+                        current.InitializeFromSource();
+                        current.RemoveFromUpstreamComputings(computing);
+                        current.Uninitialize();
+                        current.OnPropertyChanged(IsActivePropertyChangedEventArgs);
+                        // ReSharper disable once AccessToModifiedClosure
+                        ClearDefferedProcessings(deferredProcessings, 0);
+                    }
+                    else
+                        current.RemoveFromUpstreamComputings(computing);
+                },
+                ref isConsistent,
+                ref handledEventSender,
+                ref handledEventArgs,
+                0, deferredQueuesCount,
+                ref deferredProcessings, 
+                current, false);
         }
 
         internal static void initializeSourceIndexerPropertyTracker<TSourceList, TSourceIndexerPropertyTracker>(

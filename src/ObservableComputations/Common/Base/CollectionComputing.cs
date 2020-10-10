@@ -491,6 +491,11 @@ namespace ObservableComputations
             OnPropertyChanged(propertyChangedEventArgs);
         }
 
+        public void SetIsActive(bool value)
+        {
+            _isActive = value;
+        }
+
         void IComputingInternal.AddConsumer(Consumer addingConsumer)
         {
             Utils.AddComsumer(
@@ -498,11 +503,11 @@ namespace ObservableComputations
                 _consumers,
                 _downstreamConsumedComputings, 
                 this, 
-                ref _isActive,
                 ref _isConsistent,
                 ref _handledEventSender,
                 ref _handledEventArgs,
-                ref _deferredProcessings);
+                ref _deferredProcessings,
+                _deferredQueuesCount);
         }
 
 
@@ -512,10 +517,12 @@ namespace ObservableComputations
                 removingConsumer, 
                 _consumers, 
                 _downstreamConsumedComputings, 
-                ref _isActive, 
                 this,
-                ref _isConsistent,
-                _deferredProcessings);
+                ref _isConsistent, 
+                ref _handledEventSender,
+                ref _handledEventArgs,
+                _deferredProcessings,
+                _deferredQueuesCount);
         }
 
         void IComputingInternal.AddDownstreamConsumedComputing(IComputingInternal computing)
@@ -524,12 +531,12 @@ namespace ObservableComputations
                 computing, 
                 _downstreamConsumedComputings, 
                 _consumers, 
-                ref _isActive, 
                 this,
                 ref _isConsistent,
                 ref _handledEventSender,
                 ref _handledEventArgs,
-                ref _deferredProcessings);
+                ref _deferredProcessings,
+                _deferredQueuesCount);
         }
 
         void IComputingInternal.RemoveDownstreamConsumedComputing(IComputingInternal computing)
@@ -537,11 +544,13 @@ namespace ObservableComputations
             Utils.RemoveDownstreamConsumedComputing(
                 computing, 
                 _downstreamConsumedComputings, 
-                ref _isActive, 
                 this, 
-                _consumers,
                 ref _isConsistent,
-                _deferredProcessings);
+                _consumers,
+                ref _handledEventSender,
+                ref _handledEventArgs,
+                _deferredProcessings,
+                _deferredQueuesCount);
         }
 
         void IComputingInternal.RaiseConsistencyRestored()

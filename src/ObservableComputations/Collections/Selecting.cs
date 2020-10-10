@@ -234,7 +234,7 @@ namespace ObservableComputations
         {
             (_source as IComputingInternal)?.AddDownstreamConsumedComputing(computing);
             (_sourceScalar as IComputingInternal)?.AddDownstreamConsumedComputing(computing);
-            Utils.RemoveDownstreamConsumedComputing(_itemInfos, this);
+            Utils.AddDownstreamConsumedComputing(_itemInfos, this);
         }
 
 
@@ -242,7 +242,7 @@ namespace ObservableComputations
         {
             (_source as IComputingInternal)?.RemoveDownstreamConsumedComputing(computing);
             (_sourceScalar as IComputingInternal)?.RemoveDownstreamConsumedComputing(computing);
-            Utils.AddDownstreamConsumedComputing(_itemInfos, this);
+            Utils.RemoveDownstreamConsumedComputing(_itemInfos, this);
         }
 
         private void expressionWatcher_OnValueChanged(ExpressionWatcher expressionWatcher, object sender, EventArgs eventArgs)

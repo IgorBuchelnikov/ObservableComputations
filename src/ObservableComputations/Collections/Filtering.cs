@@ -765,7 +765,7 @@ namespace ObservableComputations
                 predicateContainsParametrizedObservableComputationsCalls);
 
             Utils.getItemInfoContent(
-                new object[]{sourceItem},
+                sourceItems,
                 out ExpressionWatcher watcher,
                 out Func<bool> predicateFunc,
                 out List<IComputingInternal> nestedComputings1,

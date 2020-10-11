@@ -226,6 +226,8 @@ namespace ObservableComputations
 
             if (setSourceAsList)
                 sourceAsList = source as TSourceAsList;
+            else
+                sourceAsList = null;
         }
 
         internal static void initializeFromObservableCollectionWithChangeMarker<TSourceItem>(INotifyCollectionChanged source, ref ObservableCollectionWithChangeMarker<TSourceItem> sourceAsList, ref bool rootSourceWrapper, ref bool lastProcessedSourceChangeMarker)

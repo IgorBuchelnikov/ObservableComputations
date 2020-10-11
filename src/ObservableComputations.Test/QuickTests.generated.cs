@@ -52,11 +52,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					sourceScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
+					sourceScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -122,11 +118,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					sourceScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
+					sourceScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -192,11 +184,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					sourceValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
+					sourceValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					sourceValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -257,11 +245,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					sourceValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
+					sourceValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					sourceValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -325,11 +309,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					sourceScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
+					sourceScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -395,11 +375,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					sourceScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
+					sourceScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -465,11 +441,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					sourceValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
+					sourceValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					sourceValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -530,11 +502,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					sourceValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
+					sourceValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					sourceValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -598,11 +566,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					sourceScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
+					sourceScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -668,11 +632,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					sourceScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
+					sourceScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -738,11 +698,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					sourceValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
+					sourceValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					sourceValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -803,11 +759,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					sourceValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
+					sourceValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					sourceValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -871,11 +823,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					sourceValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
+					sourceValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					sourceValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -936,11 +884,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					sourceValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
+					sourceValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					sourceValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -1001,11 +945,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					sourceValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
+					sourceValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					sourceValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -1071,11 +1011,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					sourceValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
+					sourceValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					sourceValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -1141,11 +1077,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					sourceScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
+					sourceScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -1211,11 +1143,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					sourceScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
+					sourceScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -1281,11 +1209,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					sourceScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
+					sourceScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -1356,11 +1280,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					sourceScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
+					sourceScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -1432,11 +1352,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					sourceScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
+					sourceScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -1500,11 +1416,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					sourceScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
+					sourceScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -1568,11 +1480,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					sourceValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
+					sourceValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					sourceValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -1631,11 +1539,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					sourceValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
+					sourceValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					sourceValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -1697,11 +1601,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					sourceScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
+					sourceScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -1765,11 +1665,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					sourceValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
+					sourceValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					sourceValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -2019,11 +1915,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source1Value.RemoveAt(0);
 					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
+					source1Value.RemoveAt(1);
 					testing.ValidateConsistency();
 					source1Value.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -2048,11 +1940,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source2Value.RemoveAt(0);
 					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
+					source2Value.RemoveAt(1);
 					testing.ValidateConsistency();
 					source2Value.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -2129,11 +2017,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source1Value.RemoveAt(0);
 					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
+					source1Value.RemoveAt(1);
 					testing.ValidateConsistency();
 					source1Value.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -2158,11 +2042,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source2Value.RemoveAt(0);
 					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
+					source2Value.RemoveAt(1);
 					testing.ValidateConsistency();
 					source2Value.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -2239,11 +2119,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source1Value.RemoveAt(0);
 					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
+					source1Value.RemoveAt(1);
 					testing.ValidateConsistency();
 					source1Value.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -2268,11 +2144,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source2Value.RemoveAt(0);
 					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
+					source2Value.RemoveAt(1);
 					testing.ValidateConsistency();
 					source2Value.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -2349,11 +2221,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source1Value.RemoveAt(0);
 					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
+					source1Value.RemoveAt(1);
 					testing.ValidateConsistency();
 					source1Value.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -2378,11 +2246,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source2Value.RemoveAt(0);
 					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
+					source2Value.RemoveAt(1);
 					testing.ValidateConsistency();
 					source2Value.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -2459,11 +2323,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source1ScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
+					source1ScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					source1ScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -2488,11 +2348,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source2Value.RemoveAt(0);
 					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
+					source2Value.RemoveAt(1);
 					testing.ValidateConsistency();
 					source2Value.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -2574,11 +2430,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source1ScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
+					source1ScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					source1ScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -2603,11 +2455,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source2Value.RemoveAt(0);
 					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
+					source2Value.RemoveAt(1);
 					testing.ValidateConsistency();
 					source2Value.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -2689,11 +2537,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source1ScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
+					source1ScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					source1ScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -2718,11 +2562,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source2Value.RemoveAt(0);
 					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
+					source2Value.RemoveAt(1);
 					testing.ValidateConsistency();
 					source2Value.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -2804,11 +2644,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source1ScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
+					source1ScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					source1ScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -2833,11 +2669,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source2Value.RemoveAt(0);
 					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
+					source2Value.RemoveAt(1);
 					testing.ValidateConsistency();
 					source2Value.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -2919,11 +2751,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source1ScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
+					source1ScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					source1ScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -2948,11 +2776,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source2ScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
+					source2ScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					source2ScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -3039,11 +2863,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source1ScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
+					source1ScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					source1ScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -3068,11 +2888,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source2ScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
+					source2ScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					source2ScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -3159,11 +2975,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source1ScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
+					source1ScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					source1ScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -3188,11 +3000,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source2ScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
+					source2ScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					source2ScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -3279,11 +3087,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source1ScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
+					source1ScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					source1ScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -3308,11 +3112,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source2ScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
+					source2ScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					source2ScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -3399,11 +3199,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source1Value.RemoveAt(0);
 					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
+					source1Value.RemoveAt(1);
 					testing.ValidateConsistency();
 					source1Value.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -3428,11 +3224,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source2ScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
+					source2ScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					source2ScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -3514,11 +3306,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source1Value.RemoveAt(0);
 					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
+					source1Value.RemoveAt(1);
 					testing.ValidateConsistency();
 					source1Value.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -3543,11 +3331,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source2ScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
+					source2ScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					source2ScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -3629,11 +3413,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source1Value.RemoveAt(0);
 					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
+					source1Value.RemoveAt(1);
 					testing.ValidateConsistency();
 					source1Value.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -3658,11 +3438,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source2ScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
+					source2ScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					source2ScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -3744,11 +3520,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source1Value.RemoveAt(0);
 					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
+					source1Value.RemoveAt(1);
 					testing.ValidateConsistency();
 					source1Value.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -3773,11 +3545,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source2ScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
+					source2ScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					source2ScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -3864,11 +3632,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					sourceScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
+					sourceScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -3942,11 +3706,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					sourceScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
+					sourceScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -4019,11 +3779,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					sourceScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
+					sourceScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -4097,11 +3853,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					sourceScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
+					sourceScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -4174,11 +3926,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					sourceScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
+					sourceScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -4247,11 +3995,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					sourceScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
+					sourceScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -4319,11 +4063,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					sourceScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
+					sourceScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -4392,11 +4132,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					sourceScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
+					sourceScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -4464,11 +4200,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					sourceScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
+					sourceScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -4541,11 +4273,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					sourceScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
+					sourceScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -4618,11 +4346,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					sourceScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
+					sourceScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -4690,11 +4414,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					sourceScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
+					sourceScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -4762,11 +4482,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					sourceValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
+					sourceValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					sourceValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -4835,11 +4551,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					sourceValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
+					sourceValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					sourceValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -4907,11 +4619,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					sourceValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
+					sourceValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					sourceValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -4980,11 +4688,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					sourceValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
+					sourceValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					sourceValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -5052,11 +4756,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					sourceValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
+					sourceValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					sourceValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -5120,11 +4820,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					sourceValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
+					sourceValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					sourceValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -5187,11 +4883,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					sourceValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
+					sourceValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					sourceValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -5255,11 +4947,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					sourceValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
+					sourceValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					sourceValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -5322,11 +5010,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					sourceValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
+					sourceValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					sourceValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -5394,11 +5078,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					sourceValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
+					sourceValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					sourceValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -5466,11 +5146,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					sourceValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
+					sourceValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					sourceValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -5533,11 +5209,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					sourceValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
+					sourceValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					sourceValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -5605,11 +5277,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					sourceScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
+					sourceScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -5677,11 +5345,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					sourceScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
+					sourceScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -5751,11 +5415,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					sourceScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
+					sourceScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -5823,11 +5483,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					sourceScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
+					sourceScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -5897,11 +5553,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					sourceValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
+					sourceValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					sourceValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -5964,11 +5616,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					sourceValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
+					sourceValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					sourceValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -6033,11 +5681,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					sourceValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
+					sourceValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					sourceValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -6100,11 +5744,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					sourceValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
+					sourceValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					sourceValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -6169,11 +5809,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					sourceScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
+					sourceScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -6248,11 +5884,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					sourceScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
+					sourceScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -6327,11 +5959,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					sourceValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
+					sourceValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					sourceValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -6401,11 +6029,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					sourceValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
+					sourceValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					sourceValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -6476,11 +6100,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					sourceScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
+					sourceScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -6551,11 +6171,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					sourceScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
+					sourceScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -6626,11 +6242,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					sourceScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
+					sourceScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -6694,11 +6306,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					sourceScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
+					sourceScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -6766,11 +6374,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					sourceScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
+					sourceScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -6841,11 +6445,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					sourceScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
+					sourceScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -6916,11 +6516,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					sourceScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
+					sourceScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -6984,11 +6580,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					sourceScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
+					sourceScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -7056,11 +6648,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					sourceValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
+					sourceValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					sourceValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -7126,11 +6714,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					sourceValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
+					sourceValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					sourceValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -7196,11 +6780,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					sourceValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
+					sourceValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					sourceValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -7259,11 +6839,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					sourceValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
+					sourceValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					sourceValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -7326,11 +6902,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					sourceValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
+					sourceValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					sourceValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -7396,11 +6968,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					sourceValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
+					sourceValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					sourceValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -7466,11 +7034,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					sourceValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
+					sourceValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					sourceValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -7529,11 +7093,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					sourceValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
+					sourceValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					sourceValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -7596,11 +7156,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					sourceValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
+					sourceValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					sourceValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -7661,11 +7217,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					sourceValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
+					sourceValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					sourceValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -7728,11 +7280,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					sourceValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
+					sourceValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					sourceValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -7793,11 +7341,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					sourceValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
+					sourceValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					sourceValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -7860,11 +7404,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					sourceScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
+					sourceScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -7930,11 +7470,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					sourceScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
+					sourceScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -8002,11 +7538,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					sourceScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
+					sourceScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -8072,11 +7604,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					sourceScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
+					sourceScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -8149,11 +7677,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source1ScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
+					source1ScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					source1ScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -8178,11 +7702,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source2ScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
+					source2ScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					source2ScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -8274,11 +7794,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source1ScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
+					source1ScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					source1ScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -8303,11 +7819,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source2ScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
+					source2ScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					source2ScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -8399,11 +7911,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source1ScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
+					source1ScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					source1ScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -8428,11 +7936,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source2ScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
+					source2ScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					source2ScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -8519,11 +8023,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source1ScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
+					source1ScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					source1ScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -8548,11 +8048,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source2ScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
+					source2ScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					source2ScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -8643,11 +8139,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source1ScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
+					source1ScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					source1ScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -8672,11 +8164,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source2ScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
+					source2ScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					source2ScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -8768,11 +8256,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source1ScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
+					source1ScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					source1ScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -8797,11 +8281,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source2ScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
+					source2ScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					source2ScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -8893,11 +8373,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source1ScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
+					source1ScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					source1ScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -8922,11 +8398,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source2ScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
+					source2ScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					source2ScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -9013,11 +8485,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source1ScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
+					source1ScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					source1ScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -9042,11 +8510,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source2ScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
+					source2ScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					source2ScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -9137,11 +8601,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source1ScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
+					source1ScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					source1ScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -9166,11 +8626,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source2ScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
+					source2ScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					source2ScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -9262,11 +8718,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source1ScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
+					source1ScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					source1ScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -9291,11 +8743,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source2ScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
+					source2ScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					source2ScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -9387,11 +8835,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source1ScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
+					source1ScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					source1ScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -9416,11 +8860,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source2ScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
+					source2ScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					source2ScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -9507,11 +8947,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source1ScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
+					source1ScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					source1ScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -9536,11 +8972,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source2ScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
+					source2ScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					source2ScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -9631,11 +9063,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source1ScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
+					source1ScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					source1ScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -9660,11 +9088,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source2ScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
+					source2ScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					source2ScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -9756,11 +9180,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source1ScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
+					source1ScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					source1ScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -9785,11 +9205,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source2ScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
+					source2ScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					source2ScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -9881,11 +9297,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source1ScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
+					source1ScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					source1ScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -9910,11 +9322,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source2ScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
+					source2ScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					source2ScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -10001,11 +9409,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source1ScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
+					source1ScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					source1ScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -10030,11 +9434,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source2ScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
+					source2ScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					source2ScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -10125,11 +9525,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source1ScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
+					source1ScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					source1ScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -10154,11 +9550,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source2Value.RemoveAt(0);
 					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
+					source2Value.RemoveAt(1);
 					testing.ValidateConsistency();
 					source2Value.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -10245,11 +9637,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source1ScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
+					source1ScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					source1ScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -10274,11 +9662,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source2Value.RemoveAt(0);
 					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
+					source2Value.RemoveAt(1);
 					testing.ValidateConsistency();
 					source2Value.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -10365,11 +9749,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source1ScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
+					source1ScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					source1ScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -10394,11 +9774,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source2Value.RemoveAt(0);
 					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
+					source2Value.RemoveAt(1);
 					testing.ValidateConsistency();
 					source2Value.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -10480,11 +9856,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source1ScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
+					source1ScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					source1ScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -10509,11 +9881,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source2Value.RemoveAt(0);
 					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
+					source2Value.RemoveAt(1);
 					testing.ValidateConsistency();
 					source2Value.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -10599,11 +9967,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source1ScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
+					source1ScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					source1ScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -10628,11 +9992,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source2Value.RemoveAt(0);
 					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
+					source2Value.RemoveAt(1);
 					testing.ValidateConsistency();
 					source2Value.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -10719,11 +10079,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source1ScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
+					source1ScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					source1ScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -10748,11 +10104,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source2Value.RemoveAt(0);
 					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
+					source2Value.RemoveAt(1);
 					testing.ValidateConsistency();
 					source2Value.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -10839,11 +10191,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source1ScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
+					source1ScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					source1ScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -10868,11 +10216,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source2Value.RemoveAt(0);
 					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
+					source2Value.RemoveAt(1);
 					testing.ValidateConsistency();
 					source2Value.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -10954,11 +10298,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source1ScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
+					source1ScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					source1ScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -10983,11 +10323,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source2Value.RemoveAt(0);
 					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
+					source2Value.RemoveAt(1);
 					testing.ValidateConsistency();
 					source2Value.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -11073,11 +10409,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source1ScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
+					source1ScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					source1ScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -11102,11 +10434,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source2Value.RemoveAt(0);
 					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
+					source2Value.RemoveAt(1);
 					testing.ValidateConsistency();
 					source2Value.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -11193,11 +10521,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source1ScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
+					source1ScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					source1ScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -11222,11 +10546,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source2Value.RemoveAt(0);
 					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
+					source2Value.RemoveAt(1);
 					testing.ValidateConsistency();
 					source2Value.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -11313,11 +10633,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source1ScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
+					source1ScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					source1ScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -11342,11 +10658,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source2Value.RemoveAt(0);
 					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
+					source2Value.RemoveAt(1);
 					testing.ValidateConsistency();
 					source2Value.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -11428,11 +10740,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source1ScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
+					source1ScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					source1ScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -11457,11 +10765,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source2Value.RemoveAt(0);
 					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
+					source2Value.RemoveAt(1);
 					testing.ValidateConsistency();
 					source2Value.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -11547,11 +10851,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source1ScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
+					source1ScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					source1ScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -11576,11 +10876,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source2Value.RemoveAt(0);
 					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
+					source2Value.RemoveAt(1);
 					testing.ValidateConsistency();
 					source2Value.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -11667,11 +10963,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source1ScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
+					source1ScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					source1ScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -11696,11 +10988,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source2Value.RemoveAt(0);
 					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
+					source2Value.RemoveAt(1);
 					testing.ValidateConsistency();
 					source2Value.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -11787,11 +11075,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source1ScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
+					source1ScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					source1ScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -11816,11 +11100,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source2Value.RemoveAt(0);
 					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
+					source2Value.RemoveAt(1);
 					testing.ValidateConsistency();
 					source2Value.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -11902,11 +11182,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source1ScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
+					source1ScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					source1ScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -11931,11 +11207,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source2Value.RemoveAt(0);
 					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
+					source2Value.RemoveAt(1);
 					testing.ValidateConsistency();
 					source2Value.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -12021,11 +11293,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source1ScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
+					source1ScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					source1ScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -12050,11 +11318,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source2Value.RemoveAt(0);
 					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
+					source2Value.RemoveAt(1);
 					testing.ValidateConsistency();
 					source2Value.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -12138,11 +11402,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source1ScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
+					source1ScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					source1ScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -12167,11 +11427,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source2Value.RemoveAt(0);
 					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
+					source2Value.RemoveAt(1);
 					testing.ValidateConsistency();
 					source2Value.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -12257,11 +11513,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source1ScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
+					source1ScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					source1ScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -12286,11 +11538,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source2Value.RemoveAt(0);
 					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
+					source2Value.RemoveAt(1);
 					testing.ValidateConsistency();
 					source2Value.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -12374,11 +11622,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source1ScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
+					source1ScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					source1ScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -12403,11 +11647,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source2Value.RemoveAt(0);
 					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
+					source2Value.RemoveAt(1);
 					testing.ValidateConsistency();
 					source2Value.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -12493,11 +11733,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source1ScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
+					source1ScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					source1ScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -12522,11 +11758,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source2Value.RemoveAt(0);
 					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
+					source2Value.RemoveAt(1);
 					testing.ValidateConsistency();
 					source2Value.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -12610,11 +11842,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source1ScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
+					source1ScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					source1ScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -12639,11 +11867,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source2Value.RemoveAt(0);
 					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
+					source2Value.RemoveAt(1);
 					testing.ValidateConsistency();
 					source2Value.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -12729,11 +11953,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source1ScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
+					source1ScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					source1ScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -12758,11 +11978,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source2Value.RemoveAt(0);
 					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
+					source2Value.RemoveAt(1);
 					testing.ValidateConsistency();
 					source2Value.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -12846,11 +12062,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source1ScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
+					source1ScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					source1ScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -12875,11 +12087,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source2Value.RemoveAt(0);
 					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
+					source2Value.RemoveAt(1);
 					testing.ValidateConsistency();
 					source2Value.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -12965,11 +12173,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source1ScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
+					source1ScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					source1ScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -12994,11 +12198,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source2ScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
+					source2ScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					source2ScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -13087,11 +12287,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source1ScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
+					source1ScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					source1ScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -13116,11 +12312,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source2ScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
+					source2ScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					source2ScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -13211,11 +12403,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source1ScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
+					source1ScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					source1ScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -13240,11 +12428,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source2ScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
+					source2ScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					source2ScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -13333,11 +12517,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source1ScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
+					source1ScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					source1ScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -13362,11 +12542,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source2ScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
+					source2ScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					source2ScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -13457,11 +12633,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source1ScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
+					source1ScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					source1ScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -13486,11 +12658,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source2ScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
+					source2ScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					source2ScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -13579,11 +12747,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source1ScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
+					source1ScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					source1ScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -13608,11 +12772,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source2ScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
+					source2ScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					source2ScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -13703,11 +12863,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source1ScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
+					source1ScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					source1ScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -13732,11 +12888,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source2ScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
+					source2ScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					source2ScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -13825,11 +12977,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source1ScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
+					source1ScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					source1ScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -13854,11 +13002,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source2ScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
+					source2ScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					source2ScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -13949,11 +13093,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source1Value.RemoveAt(0);
 					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
+					source1Value.RemoveAt(1);
 					testing.ValidateConsistency();
 					source1Value.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -13978,11 +13118,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source2ScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
+					source2ScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					source2ScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -14069,11 +13205,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source1Value.RemoveAt(0);
 					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
+					source1Value.RemoveAt(1);
 					testing.ValidateConsistency();
 					source1Value.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -14098,11 +13230,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source2ScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
+					source2ScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					source2ScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -14189,11 +13317,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source1Value.RemoveAt(0);
 					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
+					source1Value.RemoveAt(1);
 					testing.ValidateConsistency();
 					source1Value.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -14218,11 +13342,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source2ScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
+					source2ScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					source2ScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -14304,11 +13424,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source1Value.RemoveAt(0);
 					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
+					source1Value.RemoveAt(1);
 					testing.ValidateConsistency();
 					source1Value.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -14333,11 +13449,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source2ScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
+					source2ScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					source2ScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -14423,11 +13535,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source1Value.RemoveAt(0);
 					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
+					source1Value.RemoveAt(1);
 					testing.ValidateConsistency();
 					source1Value.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -14452,11 +13560,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source2ScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
+					source2ScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					source2ScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -14543,11 +13647,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source1Value.RemoveAt(0);
 					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
+					source1Value.RemoveAt(1);
 					testing.ValidateConsistency();
 					source1Value.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -14572,11 +13672,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source2ScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
+					source2ScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					source2ScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -14663,11 +13759,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source1Value.RemoveAt(0);
 					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
+					source1Value.RemoveAt(1);
 					testing.ValidateConsistency();
 					source1Value.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -14692,11 +13784,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source2ScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
+					source2ScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					source2ScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -14778,11 +13866,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source1Value.RemoveAt(0);
 					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
+					source1Value.RemoveAt(1);
 					testing.ValidateConsistency();
 					source1Value.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -14807,11 +13891,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source2ScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
+					source2ScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					source2ScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -14897,11 +13977,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source1Value.RemoveAt(0);
 					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
+					source1Value.RemoveAt(1);
 					testing.ValidateConsistency();
 					source1Value.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -14926,11 +14002,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source2ScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
+					source2ScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					source2ScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -15017,11 +14089,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source1Value.RemoveAt(0);
 					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
+					source1Value.RemoveAt(1);
 					testing.ValidateConsistency();
 					source1Value.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -15046,11 +14114,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source2ScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
+					source2ScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					source2ScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -15137,11 +14201,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source1Value.RemoveAt(0);
 					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
+					source1Value.RemoveAt(1);
 					testing.ValidateConsistency();
 					source1Value.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -15166,11 +14226,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source2ScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
+					source2ScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					source2ScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -15252,11 +14308,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source1Value.RemoveAt(0);
 					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
+					source1Value.RemoveAt(1);
 					testing.ValidateConsistency();
 					source1Value.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -15281,11 +14333,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source2ScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
+					source2ScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					source2ScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -15371,11 +14419,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source1Value.RemoveAt(0);
 					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
+					source1Value.RemoveAt(1);
 					testing.ValidateConsistency();
 					source1Value.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -15400,11 +14444,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source2ScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
+					source2ScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					source2ScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -15491,11 +14531,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source1Value.RemoveAt(0);
 					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
+					source1Value.RemoveAt(1);
 					testing.ValidateConsistency();
 					source1Value.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -15520,11 +14556,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source2ScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
+					source2ScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					source2ScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -15611,11 +14643,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source1Value.RemoveAt(0);
 					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
+					source1Value.RemoveAt(1);
 					testing.ValidateConsistency();
 					source1Value.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -15640,11 +14668,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source2ScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
+					source2ScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					source2ScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -15726,11 +14750,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source1Value.RemoveAt(0);
 					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
+					source1Value.RemoveAt(1);
 					testing.ValidateConsistency();
 					source1Value.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -15755,11 +14775,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source2ScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
+					source2ScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					source2ScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -15845,11 +14861,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source1Value.RemoveAt(0);
 					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
+					source1Value.RemoveAt(1);
 					testing.ValidateConsistency();
 					source1Value.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -15874,11 +14886,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source2Value.RemoveAt(0);
 					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
+					source2Value.RemoveAt(1);
 					testing.ValidateConsistency();
 					source2Value.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -15960,11 +14968,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source1Value.RemoveAt(0);
 					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
+					source1Value.RemoveAt(1);
 					testing.ValidateConsistency();
 					source1Value.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -15989,11 +14993,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source2Value.RemoveAt(0);
 					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
+					source2Value.RemoveAt(1);
 					testing.ValidateConsistency();
 					source2Value.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -16075,11 +15075,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source1Value.RemoveAt(0);
 					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
+					source1Value.RemoveAt(1);
 					testing.ValidateConsistency();
 					source1Value.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -16104,11 +15100,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source2Value.RemoveAt(0);
 					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
+					source2Value.RemoveAt(1);
 					testing.ValidateConsistency();
 					source2Value.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -16185,11 +15177,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source1Value.RemoveAt(0);
 					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
+					source1Value.RemoveAt(1);
 					testing.ValidateConsistency();
 					source1Value.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -16214,11 +15202,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source2Value.RemoveAt(0);
 					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
+					source2Value.RemoveAt(1);
 					testing.ValidateConsistency();
 					source2Value.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -16299,11 +15283,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source1Value.RemoveAt(0);
 					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
+					source1Value.RemoveAt(1);
 					testing.ValidateConsistency();
 					source1Value.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -16328,11 +15308,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source2Value.RemoveAt(0);
 					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
+					source2Value.RemoveAt(1);
 					testing.ValidateConsistency();
 					source2Value.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -16414,11 +15390,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source1Value.RemoveAt(0);
 					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
+					source1Value.RemoveAt(1);
 					testing.ValidateConsistency();
 					source1Value.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -16443,11 +15415,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source2Value.RemoveAt(0);
 					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
+					source2Value.RemoveAt(1);
 					testing.ValidateConsistency();
 					source2Value.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -16529,11 +15497,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source1Value.RemoveAt(0);
 					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
+					source1Value.RemoveAt(1);
 					testing.ValidateConsistency();
 					source1Value.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -16558,11 +15522,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source2Value.RemoveAt(0);
 					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
+					source2Value.RemoveAt(1);
 					testing.ValidateConsistency();
 					source2Value.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -16639,11 +15599,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source1Value.RemoveAt(0);
 					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
+					source1Value.RemoveAt(1);
 					testing.ValidateConsistency();
 					source1Value.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -16668,11 +15624,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source2Value.RemoveAt(0);
 					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
+					source2Value.RemoveAt(1);
 					testing.ValidateConsistency();
 					source2Value.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -16753,11 +15705,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source1Value.RemoveAt(0);
 					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
+					source1Value.RemoveAt(1);
 					testing.ValidateConsistency();
 					source1Value.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -16782,11 +15730,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source2Value.RemoveAt(0);
 					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
+					source2Value.RemoveAt(1);
 					testing.ValidateConsistency();
 					source2Value.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -16868,11 +15812,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source1Value.RemoveAt(0);
 					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
+					source1Value.RemoveAt(1);
 					testing.ValidateConsistency();
 					source1Value.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -16897,11 +15837,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source2Value.RemoveAt(0);
 					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
+					source2Value.RemoveAt(1);
 					testing.ValidateConsistency();
 					source2Value.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -16983,11 +15919,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source1Value.RemoveAt(0);
 					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
+					source1Value.RemoveAt(1);
 					testing.ValidateConsistency();
 					source1Value.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -17012,11 +15944,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source2Value.RemoveAt(0);
 					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
+					source2Value.RemoveAt(1);
 					testing.ValidateConsistency();
 					source2Value.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -17093,11 +16021,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source1Value.RemoveAt(0);
 					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
+					source1Value.RemoveAt(1);
 					testing.ValidateConsistency();
 					source1Value.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -17122,11 +16046,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source2Value.RemoveAt(0);
 					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
+					source2Value.RemoveAt(1);
 					testing.ValidateConsistency();
 					source2Value.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -17207,11 +16127,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source1Value.RemoveAt(0);
 					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
+					source1Value.RemoveAt(1);
 					testing.ValidateConsistency();
 					source1Value.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -17236,11 +16152,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source2Value.RemoveAt(0);
 					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
+					source2Value.RemoveAt(1);
 					testing.ValidateConsistency();
 					source2Value.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -17322,11 +16234,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source1Value.RemoveAt(0);
 					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
+					source1Value.RemoveAt(1);
 					testing.ValidateConsistency();
 					source1Value.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -17351,11 +16259,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source2Value.RemoveAt(0);
 					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
+					source2Value.RemoveAt(1);
 					testing.ValidateConsistency();
 					source2Value.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -17437,11 +16341,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source1Value.RemoveAt(0);
 					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
+					source1Value.RemoveAt(1);
 					testing.ValidateConsistency();
 					source1Value.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -17466,11 +16366,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source2Value.RemoveAt(0);
 					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
+					source2Value.RemoveAt(1);
 					testing.ValidateConsistency();
 					source2Value.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -17547,11 +16443,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source1Value.RemoveAt(0);
 					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
+					source1Value.RemoveAt(1);
 					testing.ValidateConsistency();
 					source1Value.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -17576,11 +16468,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source2Value.RemoveAt(0);
 					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
+					source2Value.RemoveAt(1);
 					testing.ValidateConsistency();
 					source2Value.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -17661,11 +16549,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source1Value.RemoveAt(0);
 					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
+					source1Value.RemoveAt(1);
 					testing.ValidateConsistency();
 					source1Value.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -17690,11 +16574,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source2Value.RemoveAt(0);
 					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
+					source2Value.RemoveAt(1);
 					testing.ValidateConsistency();
 					source2Value.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -17773,11 +16653,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source1Value.RemoveAt(0);
 					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
+					source1Value.RemoveAt(1);
 					testing.ValidateConsistency();
 					source1Value.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -17802,11 +16678,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source2Value.RemoveAt(0);
 					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
+					source2Value.RemoveAt(1);
 					testing.ValidateConsistency();
 					source2Value.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -17887,11 +16759,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source1Value.RemoveAt(0);
 					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
+					source1Value.RemoveAt(1);
 					testing.ValidateConsistency();
 					source1Value.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -17916,11 +16784,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source2Value.RemoveAt(0);
 					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
+					source2Value.RemoveAt(1);
 					testing.ValidateConsistency();
 					source2Value.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -17999,11 +16863,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source1Value.RemoveAt(0);
 					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
+					source1Value.RemoveAt(1);
 					testing.ValidateConsistency();
 					source1Value.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -18028,11 +16888,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source2Value.RemoveAt(0);
 					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
+					source2Value.RemoveAt(1);
 					testing.ValidateConsistency();
 					source2Value.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -18113,11 +16969,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source1Value.RemoveAt(0);
 					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
+					source1Value.RemoveAt(1);
 					testing.ValidateConsistency();
 					source1Value.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -18142,11 +16994,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source2Value.RemoveAt(0);
 					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
+					source2Value.RemoveAt(1);
 					testing.ValidateConsistency();
 					source2Value.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -18225,11 +17073,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source1Value.RemoveAt(0);
 					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
+					source1Value.RemoveAt(1);
 					testing.ValidateConsistency();
 					source1Value.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -18254,11 +17098,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source2Value.RemoveAt(0);
 					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
+					source2Value.RemoveAt(1);
 					testing.ValidateConsistency();
 					source2Value.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -18339,11 +17179,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source1Value.RemoveAt(0);
 					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
+					source1Value.RemoveAt(1);
 					testing.ValidateConsistency();
 					source1Value.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -18368,11 +17204,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source2Value.RemoveAt(0);
 					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
+					source2Value.RemoveAt(1);
 					testing.ValidateConsistency();
 					source2Value.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -18451,11 +17283,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source1Value.RemoveAt(0);
 					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
+					source1Value.RemoveAt(1);
 					testing.ValidateConsistency();
 					source1Value.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -18480,11 +17308,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source2Value.RemoveAt(0);
 					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
+					source2Value.RemoveAt(1);
 					testing.ValidateConsistency();
 					source2Value.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -18565,11 +17389,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source1Value.RemoveAt(0);
 					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
+					source1Value.RemoveAt(1);
 					testing.ValidateConsistency();
 					source1Value.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -18594,11 +17414,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source2ScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
+					source2ScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					source2ScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -18682,11 +17498,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source1Value.RemoveAt(0);
 					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
+					source1Value.RemoveAt(1);
 					testing.ValidateConsistency();
 					source1Value.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -18711,11 +17523,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source2ScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
+					source2ScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					source2ScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -18801,11 +17609,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source1Value.RemoveAt(0);
 					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
+					source1Value.RemoveAt(1);
 					testing.ValidateConsistency();
 					source1Value.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -18830,11 +17634,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source2ScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
+					source2ScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					source2ScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -18918,11 +17718,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source1Value.RemoveAt(0);
 					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
+					source1Value.RemoveAt(1);
 					testing.ValidateConsistency();
 					source1Value.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -18947,11 +17743,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source2ScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
+					source2ScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					source2ScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -19037,11 +17829,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source1Value.RemoveAt(0);
 					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
+					source1Value.RemoveAt(1);
 					testing.ValidateConsistency();
 					source1Value.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -19066,11 +17854,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source2ScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
+					source2ScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					source2ScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -19154,11 +17938,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source1Value.RemoveAt(0);
 					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
+					source1Value.RemoveAt(1);
 					testing.ValidateConsistency();
 					source1Value.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -19183,11 +17963,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source2ScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
+					source2ScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					source2ScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -19273,11 +18049,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source1Value.RemoveAt(0);
 					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
+					source1Value.RemoveAt(1);
 					testing.ValidateConsistency();
 					source1Value.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -19302,11 +18074,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source2ScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
+					source2ScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					source2ScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -19390,11 +18158,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source1Value.RemoveAt(0);
 					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
+					source1Value.RemoveAt(1);
 					testing.ValidateConsistency();
 					source1Value.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -19419,11 +18183,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source2ScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
+					source2ScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					source2ScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -19506,11 +18266,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					sourceScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
+					sourceScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -19574,11 +18330,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					sourceScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
+					sourceScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -19642,11 +18394,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					sourceValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
+					sourceValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					sourceValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -19705,11 +18453,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					sourceValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
+					sourceValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					sourceValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -19775,11 +18519,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					sourceScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
+					sourceScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -19845,11 +18585,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					sourceScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
+					sourceScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -19917,11 +18653,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					sourceScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
+					sourceScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -19987,11 +18719,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					sourceScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
+					sourceScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -20059,11 +18787,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					sourceValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
+					sourceValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					sourceValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -20124,11 +18848,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					sourceValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
+					sourceValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					sourceValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -20191,11 +18911,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					sourceValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
+					sourceValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					sourceValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -20256,11 +18972,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					sourceValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
+					sourceValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					sourceValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -20324,11 +19036,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					sourceScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
+					sourceScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -20392,11 +19100,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					sourceScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
+					sourceScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -20462,11 +19166,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					sourceScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
+					sourceScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -20530,11 +19230,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					sourceScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
+					sourceScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -20600,11 +19296,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					sourceValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
+					sourceValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					sourceValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -20663,11 +19355,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					sourceValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
+					sourceValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					sourceValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -20728,11 +19416,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					sourceValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
+					sourceValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					sourceValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -20791,11 +19475,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					sourceValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
+					sourceValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					sourceValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -20863,11 +19543,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					sourceScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
+					sourceScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -20940,11 +19616,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					sourceScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
+					sourceScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -21017,11 +19689,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					sourceScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
+					sourceScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -21087,11 +19755,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					sourceScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
+					sourceScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -21161,11 +19825,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					sourceScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
+					sourceScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -21238,11 +19898,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					sourceScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
+					sourceScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -21315,11 +19971,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					sourceScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
+					sourceScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -21385,11 +20037,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					sourceScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
+					sourceScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -21459,11 +20107,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					sourceValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
+					sourceValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					sourceValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -21531,11 +20175,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					sourceValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
+					sourceValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					sourceValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -21603,11 +20243,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					sourceValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
+					sourceValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					sourceValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -21668,11 +20304,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					sourceValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
+					sourceValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					sourceValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -21737,11 +20369,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					sourceValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
+					sourceValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					sourceValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -21809,11 +20437,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					sourceValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
+					sourceValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					sourceValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -21881,11 +20505,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					sourceValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
+					sourceValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					sourceValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -21946,11 +20566,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					sourceValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
+					sourceValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					sourceValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -22015,11 +20631,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					sourceScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
+					sourceScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -22087,11 +20699,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					sourceScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
+					sourceScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -22161,11 +20769,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					sourceScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
+					sourceScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -22233,11 +20837,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					sourceScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
+					sourceScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -22307,11 +20907,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					sourceValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
+					sourceValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					sourceValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -22374,11 +20970,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					sourceValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
+					sourceValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					sourceValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -22443,11 +21035,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					sourceValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
+					sourceValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					sourceValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -22510,11 +21098,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					sourceValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
+					sourceValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					sourceValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -22584,11 +21168,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					outerSourceScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					outerSourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					outerSourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					outerSourceScalarValue.RemoveAt(0);
+					outerSourceScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					outerSourceScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -22613,11 +21193,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					innerSourceScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					innerSourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					innerSourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					innerSourceScalarValue.RemoveAt(0);
+					innerSourceScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					innerSourceScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -22713,11 +21289,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					outerSourceScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					outerSourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					outerSourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					outerSourceScalarValue.RemoveAt(0);
+					outerSourceScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					outerSourceScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -22742,11 +21314,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					innerSourceScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					innerSourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					innerSourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					innerSourceScalarValue.RemoveAt(0);
+					innerSourceScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					innerSourceScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -22839,11 +21407,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					outerSourceScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					outerSourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					outerSourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					outerSourceScalarValue.RemoveAt(0);
+					outerSourceScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					outerSourceScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -22868,11 +21432,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					innerSourceScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					innerSourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					innerSourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					innerSourceScalarValue.RemoveAt(0);
+					innerSourceScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					innerSourceScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -22968,11 +21528,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					outerSourceScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					outerSourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					outerSourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					outerSourceScalarValue.RemoveAt(0);
+					outerSourceScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					outerSourceScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -22997,11 +21553,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					innerSourceScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					innerSourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					innerSourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					innerSourceScalarValue.RemoveAt(0);
+					innerSourceScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					innerSourceScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -23094,11 +21646,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					outerSourceScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					outerSourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					outerSourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					outerSourceScalarValue.RemoveAt(0);
+					outerSourceScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					outerSourceScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -23123,11 +21671,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					innerSourceScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					innerSourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					innerSourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					innerSourceScalarValue.RemoveAt(0);
+					innerSourceScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					innerSourceScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -23223,11 +21767,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					outerSourceScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					outerSourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					outerSourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					outerSourceScalarValue.RemoveAt(0);
+					outerSourceScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					outerSourceScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -23252,11 +21792,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					innerSourceScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					innerSourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					innerSourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					innerSourceScalarValue.RemoveAt(0);
+					innerSourceScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					innerSourceScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -23349,11 +21885,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					outerSourceScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					outerSourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					outerSourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					outerSourceScalarValue.RemoveAt(0);
+					outerSourceScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					outerSourceScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -23378,11 +21910,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					innerSourceScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					innerSourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					innerSourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					innerSourceScalarValue.RemoveAt(0);
+					innerSourceScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					innerSourceScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -23478,11 +22006,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					outerSourceScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					outerSourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					outerSourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					outerSourceScalarValue.RemoveAt(0);
+					outerSourceScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					outerSourceScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -23507,11 +22031,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					innerSourceScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					innerSourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					innerSourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					innerSourceScalarValue.RemoveAt(0);
+					innerSourceScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					innerSourceScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -23604,11 +22124,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					outerSourceScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					outerSourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					outerSourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					outerSourceScalarValue.RemoveAt(0);
+					outerSourceScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					outerSourceScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -23633,11 +22149,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					innerSourceValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					innerSourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					innerSourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					innerSourceValue.RemoveAt(0);
+					innerSourceValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					innerSourceValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -23728,11 +22240,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					outerSourceScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					outerSourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					outerSourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					outerSourceScalarValue.RemoveAt(0);
+					outerSourceScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					outerSourceScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -23757,11 +22265,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					innerSourceValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					innerSourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					innerSourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					innerSourceValue.RemoveAt(0);
+					innerSourceValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					innerSourceValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -23849,11 +22353,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					outerSourceScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					outerSourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					outerSourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					outerSourceScalarValue.RemoveAt(0);
+					outerSourceScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					outerSourceScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -23878,11 +22378,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					innerSourceValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					innerSourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					innerSourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					innerSourceValue.RemoveAt(0);
+					innerSourceValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					innerSourceValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -23973,11 +22469,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					outerSourceScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					outerSourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					outerSourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					outerSourceScalarValue.RemoveAt(0);
+					outerSourceScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					outerSourceScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -24002,11 +22494,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					innerSourceValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					innerSourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					innerSourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					innerSourceValue.RemoveAt(0);
+					innerSourceValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					innerSourceValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -24094,11 +22582,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					outerSourceScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					outerSourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					outerSourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					outerSourceScalarValue.RemoveAt(0);
+					outerSourceScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					outerSourceScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -24123,11 +22607,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					innerSourceValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					innerSourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					innerSourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					innerSourceValue.RemoveAt(0);
+					innerSourceValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					innerSourceValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -24218,11 +22698,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					outerSourceScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					outerSourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					outerSourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					outerSourceScalarValue.RemoveAt(0);
+					outerSourceScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					outerSourceScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -24247,11 +22723,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					innerSourceValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					innerSourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					innerSourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					innerSourceValue.RemoveAt(0);
+					innerSourceValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					innerSourceValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -24339,11 +22811,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					outerSourceScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					outerSourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					outerSourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					outerSourceScalarValue.RemoveAt(0);
+					outerSourceScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					outerSourceScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -24368,11 +22836,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					innerSourceValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					innerSourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					innerSourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					innerSourceValue.RemoveAt(0);
+					innerSourceValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					innerSourceValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -24463,11 +22927,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					outerSourceScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					outerSourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					outerSourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					outerSourceScalarValue.RemoveAt(0);
+					outerSourceScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					outerSourceScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -24492,11 +22952,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					innerSourceValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					innerSourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					innerSourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					innerSourceValue.RemoveAt(0);
+					innerSourceValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					innerSourceValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -24584,11 +23040,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					outerSourceScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					outerSourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					outerSourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					outerSourceScalarValue.RemoveAt(0);
+					outerSourceScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					outerSourceScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -24613,11 +23065,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					innerSourceValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					innerSourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					innerSourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					innerSourceValue.RemoveAt(0);
+					innerSourceValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					innerSourceValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -24705,11 +23153,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					outerSourceScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					outerSourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					outerSourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					outerSourceScalarValue.RemoveAt(0);
+					outerSourceScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					outerSourceScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -24734,11 +23178,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					innerSourceValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					innerSourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					innerSourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					innerSourceValue.RemoveAt(0);
+					innerSourceValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					innerSourceValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -24826,11 +23266,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					outerSourceScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					outerSourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					outerSourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					outerSourceScalarValue.RemoveAt(0);
+					outerSourceScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					outerSourceScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -24855,11 +23291,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					innerSourceValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					innerSourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					innerSourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					innerSourceValue.RemoveAt(0);
+					innerSourceValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					innerSourceValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -24947,11 +23379,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					outerSourceScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					outerSourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					outerSourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					outerSourceScalarValue.RemoveAt(0);
+					outerSourceScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					outerSourceScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -24976,11 +23404,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					innerSourceValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					innerSourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					innerSourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					innerSourceValue.RemoveAt(0);
+					innerSourceValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					innerSourceValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -25068,11 +23492,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					outerSourceScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					outerSourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					outerSourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					outerSourceScalarValue.RemoveAt(0);
+					outerSourceScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					outerSourceScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -25097,11 +23517,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					innerSourceScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					innerSourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					innerSourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					innerSourceScalarValue.RemoveAt(0);
+					innerSourceScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					innerSourceScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -25194,11 +23610,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					outerSourceScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					outerSourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					outerSourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					outerSourceScalarValue.RemoveAt(0);
+					outerSourceScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					outerSourceScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -25223,11 +23635,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					innerSourceScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					innerSourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					innerSourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					innerSourceScalarValue.RemoveAt(0);
+					innerSourceScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					innerSourceScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -25320,11 +23728,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					outerSourceScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					outerSourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					outerSourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					outerSourceScalarValue.RemoveAt(0);
+					outerSourceScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					outerSourceScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -25349,11 +23753,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					innerSourceScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					innerSourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					innerSourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					innerSourceScalarValue.RemoveAt(0);
+					innerSourceScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					innerSourceScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -25446,11 +23846,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					outerSourceScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					outerSourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					outerSourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					outerSourceScalarValue.RemoveAt(0);
+					outerSourceScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					outerSourceScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -25475,11 +23871,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					innerSourceScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					innerSourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					innerSourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					innerSourceScalarValue.RemoveAt(0);
+					innerSourceScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					innerSourceScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -25572,11 +23964,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					outerSourceValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					outerSourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					outerSourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					outerSourceValue.RemoveAt(0);
+					outerSourceValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					outerSourceValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -25601,11 +23989,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					innerSourceScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					innerSourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					innerSourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					innerSourceScalarValue.RemoveAt(0);
+					innerSourceScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					innerSourceScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -25696,11 +24080,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					outerSourceValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					outerSourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					outerSourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					outerSourceValue.RemoveAt(0);
+					outerSourceValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					outerSourceValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -25725,11 +24105,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					innerSourceScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					innerSourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					innerSourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					innerSourceScalarValue.RemoveAt(0);
+					innerSourceScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					innerSourceScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -25817,11 +24193,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					outerSourceValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					outerSourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					outerSourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					outerSourceValue.RemoveAt(0);
+					outerSourceValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					outerSourceValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -25846,11 +24218,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					innerSourceScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					innerSourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					innerSourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					innerSourceScalarValue.RemoveAt(0);
+					innerSourceScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					innerSourceScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -25941,11 +24309,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					outerSourceValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					outerSourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					outerSourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					outerSourceValue.RemoveAt(0);
+					outerSourceValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					outerSourceValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -25970,11 +24334,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					innerSourceScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					innerSourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					innerSourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					innerSourceScalarValue.RemoveAt(0);
+					innerSourceScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					innerSourceScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -26062,11 +24422,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					outerSourceValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					outerSourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					outerSourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					outerSourceValue.RemoveAt(0);
+					outerSourceValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					outerSourceValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -26091,11 +24447,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					innerSourceScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					innerSourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					innerSourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					innerSourceScalarValue.RemoveAt(0);
+					innerSourceScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					innerSourceScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -26186,11 +24538,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					outerSourceValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					outerSourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					outerSourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					outerSourceValue.RemoveAt(0);
+					outerSourceValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					outerSourceValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -26215,11 +24563,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					innerSourceScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					innerSourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					innerSourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					innerSourceScalarValue.RemoveAt(0);
+					innerSourceScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					innerSourceScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -26307,11 +24651,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					outerSourceValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					outerSourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					outerSourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					outerSourceValue.RemoveAt(0);
+					outerSourceValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					outerSourceValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -26336,11 +24676,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					innerSourceScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					innerSourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					innerSourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					innerSourceScalarValue.RemoveAt(0);
+					innerSourceScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					innerSourceScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -26431,11 +24767,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					outerSourceValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					outerSourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					outerSourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					outerSourceValue.RemoveAt(0);
+					outerSourceValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					outerSourceValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -26460,11 +24792,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					innerSourceScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					innerSourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					innerSourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					innerSourceScalarValue.RemoveAt(0);
+					innerSourceScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					innerSourceScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -26552,11 +24880,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					outerSourceValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					outerSourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					outerSourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					outerSourceValue.RemoveAt(0);
+					outerSourceValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					outerSourceValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -26581,11 +24905,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					innerSourceValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					innerSourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					innerSourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					innerSourceValue.RemoveAt(0);
+					innerSourceValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					innerSourceValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -26671,11 +24991,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					outerSourceValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					outerSourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					outerSourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					outerSourceValue.RemoveAt(0);
+					outerSourceValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					outerSourceValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -26700,11 +25016,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					innerSourceValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					innerSourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					innerSourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					innerSourceValue.RemoveAt(0);
+					innerSourceValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					innerSourceValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -26787,11 +25099,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					outerSourceValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					outerSourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					outerSourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					outerSourceValue.RemoveAt(0);
+					outerSourceValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					outerSourceValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -26816,11 +25124,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					innerSourceValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					innerSourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					innerSourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					innerSourceValue.RemoveAt(0);
+					innerSourceValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					innerSourceValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -26906,11 +25210,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					outerSourceValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					outerSourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					outerSourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					outerSourceValue.RemoveAt(0);
+					outerSourceValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					outerSourceValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -26935,11 +25235,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					innerSourceValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					innerSourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					innerSourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					innerSourceValue.RemoveAt(0);
+					innerSourceValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					innerSourceValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -27022,11 +25318,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					outerSourceValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					outerSourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					outerSourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					outerSourceValue.RemoveAt(0);
+					outerSourceValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					outerSourceValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -27051,11 +25343,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					innerSourceValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					innerSourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					innerSourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					innerSourceValue.RemoveAt(0);
+					innerSourceValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					innerSourceValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -27141,11 +25429,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					outerSourceValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					outerSourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					outerSourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					outerSourceValue.RemoveAt(0);
+					outerSourceValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					outerSourceValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -27170,11 +25454,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					innerSourceValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					innerSourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					innerSourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					innerSourceValue.RemoveAt(0);
+					innerSourceValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					innerSourceValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -27257,11 +25537,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					outerSourceValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					outerSourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					outerSourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					outerSourceValue.RemoveAt(0);
+					outerSourceValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					outerSourceValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -27286,11 +25562,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					innerSourceValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					innerSourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					innerSourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					innerSourceValue.RemoveAt(0);
+					innerSourceValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					innerSourceValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -27376,11 +25648,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					outerSourceValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					outerSourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					outerSourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					outerSourceValue.RemoveAt(0);
+					outerSourceValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					outerSourceValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -27405,11 +25673,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					innerSourceValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					innerSourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					innerSourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					innerSourceValue.RemoveAt(0);
+					innerSourceValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					innerSourceValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -27492,11 +25756,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					outerSourceValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					outerSourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					outerSourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					outerSourceValue.RemoveAt(0);
+					outerSourceValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					outerSourceValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -27521,11 +25781,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					innerSourceValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					innerSourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					innerSourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					innerSourceValue.RemoveAt(0);
+					innerSourceValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					innerSourceValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -27608,11 +25864,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					outerSourceValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					outerSourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					outerSourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					outerSourceValue.RemoveAt(0);
+					outerSourceValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					outerSourceValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -27637,11 +25889,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					innerSourceValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					innerSourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					innerSourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					innerSourceValue.RemoveAt(0);
+					innerSourceValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					innerSourceValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -27724,11 +25972,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					outerSourceValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					outerSourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					outerSourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					outerSourceValue.RemoveAt(0);
+					outerSourceValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					outerSourceValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -27753,11 +25997,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					innerSourceValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					innerSourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					innerSourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					innerSourceValue.RemoveAt(0);
+					innerSourceValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					innerSourceValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -27840,11 +26080,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					outerSourceValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					outerSourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					outerSourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					outerSourceValue.RemoveAt(0);
+					outerSourceValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					outerSourceValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -27869,11 +26105,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					innerSourceValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					innerSourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					innerSourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					innerSourceValue.RemoveAt(0);
+					innerSourceValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					innerSourceValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -27956,11 +26188,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					outerSourceValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					outerSourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					outerSourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					outerSourceValue.RemoveAt(0);
+					outerSourceValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					outerSourceValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -27985,11 +26213,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					innerSourceScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					innerSourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					innerSourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					innerSourceScalarValue.RemoveAt(0);
+					innerSourceScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					innerSourceScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -28077,11 +26301,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					outerSourceValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					outerSourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					outerSourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					outerSourceValue.RemoveAt(0);
+					outerSourceValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					outerSourceValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -28106,11 +26326,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					innerSourceScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					innerSourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					innerSourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					innerSourceScalarValue.RemoveAt(0);
+					innerSourceScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					innerSourceScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -28198,11 +26414,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					outerSourceValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					outerSourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					outerSourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					outerSourceValue.RemoveAt(0);
+					outerSourceValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					outerSourceValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -28227,11 +26439,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					innerSourceScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					innerSourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					innerSourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					innerSourceScalarValue.RemoveAt(0);
+					innerSourceScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					innerSourceScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -28319,11 +26527,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					outerSourceValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					outerSourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					outerSourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					outerSourceValue.RemoveAt(0);
+					outerSourceValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					outerSourceValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -28348,11 +26552,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					innerSourceScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					innerSourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					innerSourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					innerSourceScalarValue.RemoveAt(0);
+					innerSourceScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					innerSourceScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -28439,11 +26639,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					sourceScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
+					sourceScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -28509,11 +26705,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					sourceScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
+					sourceScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -28581,11 +26773,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					sourceScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
+					sourceScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -28651,11 +26839,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					sourceScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
+					sourceScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -28723,11 +26907,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					sourceValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
+					sourceValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					sourceValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -28788,11 +26968,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					sourceValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
+					sourceValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					sourceValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -28855,11 +27031,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					sourceValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
+					sourceValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					sourceValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -28920,11 +27092,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					sourceValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
+					sourceValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					sourceValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -28987,11 +27155,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					sourceScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
+					sourceScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -29064,11 +27228,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					sourceScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
+					sourceScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -29141,11 +27301,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					sourceValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
+					sourceValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					sourceValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -29213,11 +27369,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					sourceValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
+					sourceValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					sourceValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -29288,11 +27440,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					sourceScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
+					sourceScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -29358,11 +27506,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					sourceScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
+					sourceScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -29430,11 +27574,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					sourceScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
+					sourceScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -29500,11 +27640,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					sourceScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
+					sourceScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -29572,11 +27708,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					sourceValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
+					sourceValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					sourceValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -29637,11 +27769,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					sourceValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
+					sourceValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					sourceValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -29704,11 +27832,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					sourceValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
+					sourceValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					sourceValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -29769,11 +27893,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					sourceValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
+					sourceValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					sourceValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -29841,11 +27961,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source1ScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
+					source1ScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					source1ScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -29870,11 +27986,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source2ScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
+					source2ScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					source2ScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -29966,11 +28078,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source1ScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
+					source1ScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					source1ScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -29995,11 +28103,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source2ScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
+					source2ScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					source2ScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -30091,11 +28195,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source1ScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
+					source1ScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					source1ScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -30120,11 +28220,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source2ScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
+					source2ScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					source2ScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -30211,11 +28307,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source1ScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
+					source1ScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					source1ScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -30240,11 +28332,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source2ScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
+					source2ScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					source2ScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -30335,11 +28423,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source1ScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
+					source1ScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					source1ScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -30364,11 +28448,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source2ScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
+					source2ScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					source2ScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -30460,11 +28540,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source1ScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
+					source1ScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					source1ScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -30489,11 +28565,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source2ScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
+					source2ScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					source2ScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -30585,11 +28657,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source1ScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
+					source1ScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					source1ScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -30614,11 +28682,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source2ScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
+					source2ScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					source2ScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -30705,11 +28769,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source1ScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
+					source1ScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					source1ScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -30734,11 +28794,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source2ScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
+					source2ScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					source2ScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -30829,11 +28885,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source1ScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
+					source1ScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					source1ScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -30858,11 +28910,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source2ScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
+					source2ScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					source2ScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -30954,11 +29002,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source1ScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
+					source1ScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					source1ScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -30983,11 +29027,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source2ScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
+					source2ScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					source2ScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -31079,11 +29119,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source1ScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
+					source1ScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					source1ScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -31108,11 +29144,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source2ScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
+					source2ScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					source2ScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -31199,11 +29231,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source1ScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
+					source1ScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					source1ScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -31228,11 +29256,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source2ScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
+					source2ScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					source2ScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -31323,11 +29347,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source1ScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
+					source1ScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					source1ScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -31352,11 +29372,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source2ScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
+					source2ScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					source2ScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -31448,11 +29464,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source1ScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
+					source1ScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					source1ScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -31477,11 +29489,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source2ScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
+					source2ScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					source2ScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -31573,11 +29581,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source1ScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
+					source1ScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					source1ScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -31602,11 +29606,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source2ScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
+					source2ScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					source2ScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -31693,11 +29693,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source1ScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
+					source1ScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					source1ScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -31722,11 +29718,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source2ScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
+					source2ScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					source2ScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -31817,11 +29809,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source1ScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
+					source1ScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					source1ScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -31846,11 +29834,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source2Value.RemoveAt(0);
 					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
+					source2Value.RemoveAt(1);
 					testing.ValidateConsistency();
 					source2Value.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -31937,11 +29921,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source1ScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
+					source1ScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					source1ScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -31966,11 +29946,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source2Value.RemoveAt(0);
 					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
+					source2Value.RemoveAt(1);
 					testing.ValidateConsistency();
 					source2Value.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -32057,11 +30033,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source1ScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
+					source1ScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					source1ScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -32086,11 +30058,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source2Value.RemoveAt(0);
 					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
+					source2Value.RemoveAt(1);
 					testing.ValidateConsistency();
 					source2Value.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -32172,11 +30140,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source1ScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
+					source1ScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					source1ScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -32201,11 +30165,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source2Value.RemoveAt(0);
 					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
+					source2Value.RemoveAt(1);
 					testing.ValidateConsistency();
 					source2Value.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -32291,11 +30251,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source1ScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
+					source1ScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					source1ScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -32320,11 +30276,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source2Value.RemoveAt(0);
 					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
+					source2Value.RemoveAt(1);
 					testing.ValidateConsistency();
 					source2Value.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -32411,11 +30363,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source1ScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
+					source1ScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					source1ScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -32440,11 +30388,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source2Value.RemoveAt(0);
 					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
+					source2Value.RemoveAt(1);
 					testing.ValidateConsistency();
 					source2Value.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -32531,11 +30475,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source1ScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
+					source1ScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					source1ScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -32560,11 +30500,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source2Value.RemoveAt(0);
 					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
+					source2Value.RemoveAt(1);
 					testing.ValidateConsistency();
 					source2Value.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -32646,11 +30582,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source1ScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
+					source1ScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					source1ScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -32675,11 +30607,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source2Value.RemoveAt(0);
 					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
+					source2Value.RemoveAt(1);
 					testing.ValidateConsistency();
 					source2Value.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -32765,11 +30693,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source1ScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
+					source1ScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					source1ScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -32794,11 +30718,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source2Value.RemoveAt(0);
 					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
+					source2Value.RemoveAt(1);
 					testing.ValidateConsistency();
 					source2Value.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -32885,11 +30805,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source1ScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
+					source1ScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					source1ScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -32914,11 +30830,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source2Value.RemoveAt(0);
 					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
+					source2Value.RemoveAt(1);
 					testing.ValidateConsistency();
 					source2Value.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -33005,11 +30917,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source1ScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
+					source1ScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					source1ScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -33034,11 +30942,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source2Value.RemoveAt(0);
 					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
+					source2Value.RemoveAt(1);
 					testing.ValidateConsistency();
 					source2Value.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -33120,11 +31024,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source1ScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
+					source1ScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					source1ScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -33149,11 +31049,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source2Value.RemoveAt(0);
 					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
+					source2Value.RemoveAt(1);
 					testing.ValidateConsistency();
 					source2Value.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -33239,11 +31135,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source1ScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
+					source1ScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					source1ScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -33268,11 +31160,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source2Value.RemoveAt(0);
 					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
+					source2Value.RemoveAt(1);
 					testing.ValidateConsistency();
 					source2Value.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -33359,11 +31247,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source1ScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
+					source1ScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					source1ScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -33388,11 +31272,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source2Value.RemoveAt(0);
 					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
+					source2Value.RemoveAt(1);
 					testing.ValidateConsistency();
 					source2Value.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -33479,11 +31359,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source1ScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
+					source1ScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					source1ScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -33508,11 +31384,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source2Value.RemoveAt(0);
 					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
+					source2Value.RemoveAt(1);
 					testing.ValidateConsistency();
 					source2Value.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -33594,11 +31466,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source1ScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
+					source1ScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					source1ScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -33623,11 +31491,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source2Value.RemoveAt(0);
 					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
+					source2Value.RemoveAt(1);
 					testing.ValidateConsistency();
 					source2Value.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -33713,11 +31577,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source1ScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
+					source1ScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					source1ScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -33742,11 +31602,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source2Value.RemoveAt(0);
 					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
+					source2Value.RemoveAt(1);
 					testing.ValidateConsistency();
 					source2Value.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -33830,11 +31686,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source1ScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
+					source1ScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					source1ScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -33859,11 +31711,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source2Value.RemoveAt(0);
 					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
+					source2Value.RemoveAt(1);
 					testing.ValidateConsistency();
 					source2Value.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -33949,11 +31797,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source1ScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
+					source1ScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					source1ScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -33978,11 +31822,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source2Value.RemoveAt(0);
 					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
+					source2Value.RemoveAt(1);
 					testing.ValidateConsistency();
 					source2Value.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -34066,11 +31906,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source1ScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
+					source1ScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					source1ScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -34095,11 +31931,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source2Value.RemoveAt(0);
 					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
+					source2Value.RemoveAt(1);
 					testing.ValidateConsistency();
 					source2Value.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -34185,11 +32017,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source1ScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
+					source1ScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					source1ScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -34214,11 +32042,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source2Value.RemoveAt(0);
 					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
+					source2Value.RemoveAt(1);
 					testing.ValidateConsistency();
 					source2Value.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -34302,11 +32126,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source1ScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
+					source1ScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					source1ScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -34331,11 +32151,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source2Value.RemoveAt(0);
 					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
+					source2Value.RemoveAt(1);
 					testing.ValidateConsistency();
 					source2Value.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -34421,11 +32237,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source1ScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
+					source1ScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					source1ScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -34450,11 +32262,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source2Value.RemoveAt(0);
 					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
+					source2Value.RemoveAt(1);
 					testing.ValidateConsistency();
 					source2Value.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -34538,11 +32346,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source1ScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
+					source1ScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					source1ScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -34567,11 +32371,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source2Value.RemoveAt(0);
 					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
+					source2Value.RemoveAt(1);
 					testing.ValidateConsistency();
 					source2Value.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -34657,11 +32457,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source1ScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
+					source1ScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					source1ScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -34686,11 +32482,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source2ScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
+					source2ScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					source2ScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -34779,11 +32571,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source1ScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
+					source1ScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					source1ScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -34808,11 +32596,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source2ScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
+					source2ScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					source2ScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -34903,11 +32687,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source1ScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
+					source1ScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					source1ScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -34932,11 +32712,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source2ScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
+					source2ScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					source2ScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -35025,11 +32801,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source1ScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
+					source1ScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					source1ScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -35054,11 +32826,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source2ScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
+					source2ScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					source2ScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -35149,11 +32917,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source1ScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
+					source1ScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					source1ScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -35178,11 +32942,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source2ScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
+					source2ScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					source2ScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -35271,11 +33031,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source1ScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
+					source1ScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					source1ScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -35300,11 +33056,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source2ScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
+					source2ScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					source2ScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -35395,11 +33147,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source1ScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
+					source1ScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					source1ScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -35424,11 +33172,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source2ScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
+					source2ScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					source2ScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -35517,11 +33261,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source1ScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
+					source1ScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					source1ScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -35546,11 +33286,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source2ScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
+					source2ScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					source2ScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -35641,11 +33377,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source1Value.RemoveAt(0);
 					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
+					source1Value.RemoveAt(1);
 					testing.ValidateConsistency();
 					source1Value.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -35670,11 +33402,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source2ScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
+					source2ScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					source2ScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -35761,11 +33489,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source1Value.RemoveAt(0);
 					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
+					source1Value.RemoveAt(1);
 					testing.ValidateConsistency();
 					source1Value.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -35790,11 +33514,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source2ScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
+					source2ScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					source2ScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -35881,11 +33601,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source1Value.RemoveAt(0);
 					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
+					source1Value.RemoveAt(1);
 					testing.ValidateConsistency();
 					source1Value.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -35910,11 +33626,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source2ScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
+					source2ScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					source2ScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -35996,11 +33708,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source1Value.RemoveAt(0);
 					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
+					source1Value.RemoveAt(1);
 					testing.ValidateConsistency();
 					source1Value.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -36025,11 +33733,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source2ScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
+					source2ScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					source2ScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -36115,11 +33819,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source1Value.RemoveAt(0);
 					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
+					source1Value.RemoveAt(1);
 					testing.ValidateConsistency();
 					source1Value.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -36144,11 +33844,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source2ScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
+					source2ScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					source2ScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -36235,11 +33931,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source1Value.RemoveAt(0);
 					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
+					source1Value.RemoveAt(1);
 					testing.ValidateConsistency();
 					source1Value.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -36264,11 +33956,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source2ScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
+					source2ScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					source2ScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -36355,11 +34043,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source1Value.RemoveAt(0);
 					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
+					source1Value.RemoveAt(1);
 					testing.ValidateConsistency();
 					source1Value.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -36384,11 +34068,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source2ScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
+					source2ScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					source2ScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -36470,11 +34150,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source1Value.RemoveAt(0);
 					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
+					source1Value.RemoveAt(1);
 					testing.ValidateConsistency();
 					source1Value.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -36499,11 +34175,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source2ScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
+					source2ScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					source2ScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -36589,11 +34261,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source1Value.RemoveAt(0);
 					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
+					source1Value.RemoveAt(1);
 					testing.ValidateConsistency();
 					source1Value.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -36618,11 +34286,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source2ScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
+					source2ScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					source2ScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -36709,11 +34373,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source1Value.RemoveAt(0);
 					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
+					source1Value.RemoveAt(1);
 					testing.ValidateConsistency();
 					source1Value.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -36738,11 +34398,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source2ScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
+					source2ScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					source2ScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -36829,11 +34485,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source1Value.RemoveAt(0);
 					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
+					source1Value.RemoveAt(1);
 					testing.ValidateConsistency();
 					source1Value.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -36858,11 +34510,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source2ScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
+					source2ScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					source2ScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -36944,11 +34592,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source1Value.RemoveAt(0);
 					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
+					source1Value.RemoveAt(1);
 					testing.ValidateConsistency();
 					source1Value.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -36973,11 +34617,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source2ScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
+					source2ScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					source2ScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -37063,11 +34703,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source1Value.RemoveAt(0);
 					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
+					source1Value.RemoveAt(1);
 					testing.ValidateConsistency();
 					source1Value.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -37092,11 +34728,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source2ScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
+					source2ScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					source2ScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -37183,11 +34815,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source1Value.RemoveAt(0);
 					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
+					source1Value.RemoveAt(1);
 					testing.ValidateConsistency();
 					source1Value.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -37212,11 +34840,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source2ScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
+					source2ScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					source2ScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -37303,11 +34927,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source1Value.RemoveAt(0);
 					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
+					source1Value.RemoveAt(1);
 					testing.ValidateConsistency();
 					source1Value.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -37332,11 +34952,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source2ScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
+					source2ScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					source2ScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -37418,11 +35034,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source1Value.RemoveAt(0);
 					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
+					source1Value.RemoveAt(1);
 					testing.ValidateConsistency();
 					source1Value.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -37447,11 +35059,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source2ScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
+					source2ScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					source2ScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -37537,11 +35145,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source1Value.RemoveAt(0);
 					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
+					source1Value.RemoveAt(1);
 					testing.ValidateConsistency();
 					source1Value.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -37566,11 +35170,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source2Value.RemoveAt(0);
 					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
+					source2Value.RemoveAt(1);
 					testing.ValidateConsistency();
 					source2Value.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -37652,11 +35252,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source1Value.RemoveAt(0);
 					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
+					source1Value.RemoveAt(1);
 					testing.ValidateConsistency();
 					source1Value.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -37681,11 +35277,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source2Value.RemoveAt(0);
 					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
+					source2Value.RemoveAt(1);
 					testing.ValidateConsistency();
 					source2Value.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -37767,11 +35359,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source1Value.RemoveAt(0);
 					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
+					source1Value.RemoveAt(1);
 					testing.ValidateConsistency();
 					source1Value.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -37796,11 +35384,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source2Value.RemoveAt(0);
 					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
+					source2Value.RemoveAt(1);
 					testing.ValidateConsistency();
 					source2Value.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -37877,11 +35461,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source1Value.RemoveAt(0);
 					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
+					source1Value.RemoveAt(1);
 					testing.ValidateConsistency();
 					source1Value.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -37906,11 +35486,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source2Value.RemoveAt(0);
 					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
+					source2Value.RemoveAt(1);
 					testing.ValidateConsistency();
 					source2Value.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -37991,11 +35567,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source1Value.RemoveAt(0);
 					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
+					source1Value.RemoveAt(1);
 					testing.ValidateConsistency();
 					source1Value.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -38020,11 +35592,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source2Value.RemoveAt(0);
 					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
+					source2Value.RemoveAt(1);
 					testing.ValidateConsistency();
 					source2Value.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -38106,11 +35674,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source1Value.RemoveAt(0);
 					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
+					source1Value.RemoveAt(1);
 					testing.ValidateConsistency();
 					source1Value.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -38135,11 +35699,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source2Value.RemoveAt(0);
 					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
+					source2Value.RemoveAt(1);
 					testing.ValidateConsistency();
 					source2Value.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -38221,11 +35781,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source1Value.RemoveAt(0);
 					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
+					source1Value.RemoveAt(1);
 					testing.ValidateConsistency();
 					source1Value.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -38250,11 +35806,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source2Value.RemoveAt(0);
 					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
+					source2Value.RemoveAt(1);
 					testing.ValidateConsistency();
 					source2Value.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -38331,11 +35883,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source1Value.RemoveAt(0);
 					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
+					source1Value.RemoveAt(1);
 					testing.ValidateConsistency();
 					source1Value.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -38360,11 +35908,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source2Value.RemoveAt(0);
 					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
+					source2Value.RemoveAt(1);
 					testing.ValidateConsistency();
 					source2Value.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -38445,11 +35989,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source1Value.RemoveAt(0);
 					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
+					source1Value.RemoveAt(1);
 					testing.ValidateConsistency();
 					source1Value.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -38474,11 +36014,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source2Value.RemoveAt(0);
 					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
+					source2Value.RemoveAt(1);
 					testing.ValidateConsistency();
 					source2Value.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -38560,11 +36096,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source1Value.RemoveAt(0);
 					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
+					source1Value.RemoveAt(1);
 					testing.ValidateConsistency();
 					source1Value.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -38589,11 +36121,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source2Value.RemoveAt(0);
 					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
+					source2Value.RemoveAt(1);
 					testing.ValidateConsistency();
 					source2Value.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -38675,11 +36203,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source1Value.RemoveAt(0);
 					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
+					source1Value.RemoveAt(1);
 					testing.ValidateConsistency();
 					source1Value.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -38704,11 +36228,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source2Value.RemoveAt(0);
 					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
+					source2Value.RemoveAt(1);
 					testing.ValidateConsistency();
 					source2Value.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -38785,11 +36305,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source1Value.RemoveAt(0);
 					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
+					source1Value.RemoveAt(1);
 					testing.ValidateConsistency();
 					source1Value.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -38814,11 +36330,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source2Value.RemoveAt(0);
 					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
+					source2Value.RemoveAt(1);
 					testing.ValidateConsistency();
 					source2Value.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -38899,11 +36411,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source1Value.RemoveAt(0);
 					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
+					source1Value.RemoveAt(1);
 					testing.ValidateConsistency();
 					source1Value.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -38928,11 +36436,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source2Value.RemoveAt(0);
 					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
+					source2Value.RemoveAt(1);
 					testing.ValidateConsistency();
 					source2Value.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -39014,11 +36518,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source1Value.RemoveAt(0);
 					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
+					source1Value.RemoveAt(1);
 					testing.ValidateConsistency();
 					source1Value.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -39043,11 +36543,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source2Value.RemoveAt(0);
 					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
+					source2Value.RemoveAt(1);
 					testing.ValidateConsistency();
 					source2Value.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -39129,11 +36625,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source1Value.RemoveAt(0);
 					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
+					source1Value.RemoveAt(1);
 					testing.ValidateConsistency();
 					source1Value.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -39158,11 +36650,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source2Value.RemoveAt(0);
 					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
+					source2Value.RemoveAt(1);
 					testing.ValidateConsistency();
 					source2Value.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -39239,11 +36727,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source1Value.RemoveAt(0);
 					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
+					source1Value.RemoveAt(1);
 					testing.ValidateConsistency();
 					source1Value.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -39268,11 +36752,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source2Value.RemoveAt(0);
 					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
+					source2Value.RemoveAt(1);
 					testing.ValidateConsistency();
 					source2Value.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -39353,11 +36833,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source1Value.RemoveAt(0);
 					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
+					source1Value.RemoveAt(1);
 					testing.ValidateConsistency();
 					source1Value.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -39382,11 +36858,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source2Value.RemoveAt(0);
 					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
+					source2Value.RemoveAt(1);
 					testing.ValidateConsistency();
 					source2Value.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -39465,11 +36937,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source1Value.RemoveAt(0);
 					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
+					source1Value.RemoveAt(1);
 					testing.ValidateConsistency();
 					source1Value.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -39494,11 +36962,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source2Value.RemoveAt(0);
 					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
+					source2Value.RemoveAt(1);
 					testing.ValidateConsistency();
 					source2Value.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -39579,11 +37043,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source1Value.RemoveAt(0);
 					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
+					source1Value.RemoveAt(1);
 					testing.ValidateConsistency();
 					source1Value.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -39608,11 +37068,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source2Value.RemoveAt(0);
 					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
+					source2Value.RemoveAt(1);
 					testing.ValidateConsistency();
 					source2Value.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -39691,11 +37147,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source1Value.RemoveAt(0);
 					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
+					source1Value.RemoveAt(1);
 					testing.ValidateConsistency();
 					source1Value.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -39720,11 +37172,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source2Value.RemoveAt(0);
 					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
+					source2Value.RemoveAt(1);
 					testing.ValidateConsistency();
 					source2Value.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -39805,11 +37253,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source1Value.RemoveAt(0);
 					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
+					source1Value.RemoveAt(1);
 					testing.ValidateConsistency();
 					source1Value.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -39834,11 +37278,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source2Value.RemoveAt(0);
 					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
+					source2Value.RemoveAt(1);
 					testing.ValidateConsistency();
 					source2Value.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -39917,11 +37357,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source1Value.RemoveAt(0);
 					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
+					source1Value.RemoveAt(1);
 					testing.ValidateConsistency();
 					source1Value.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -39946,11 +37382,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source2Value.RemoveAt(0);
 					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
+					source2Value.RemoveAt(1);
 					testing.ValidateConsistency();
 					source2Value.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -40031,11 +37463,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source1Value.RemoveAt(0);
 					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
+					source1Value.RemoveAt(1);
 					testing.ValidateConsistency();
 					source1Value.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -40060,11 +37488,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source2Value.RemoveAt(0);
 					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
+					source2Value.RemoveAt(1);
 					testing.ValidateConsistency();
 					source2Value.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -40143,11 +37567,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source1Value.RemoveAt(0);
 					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
+					source1Value.RemoveAt(1);
 					testing.ValidateConsistency();
 					source1Value.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -40172,11 +37592,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source2Value.RemoveAt(0);
 					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
+					source2Value.RemoveAt(1);
 					testing.ValidateConsistency();
 					source2Value.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -40257,11 +37673,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source1Value.RemoveAt(0);
 					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
+					source1Value.RemoveAt(1);
 					testing.ValidateConsistency();
 					source1Value.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -40286,11 +37698,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source2ScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
+					source2ScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					source2ScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -40374,11 +37782,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source1Value.RemoveAt(0);
 					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
+					source1Value.RemoveAt(1);
 					testing.ValidateConsistency();
 					source1Value.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -40403,11 +37807,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source2ScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
+					source2ScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					source2ScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -40493,11 +37893,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source1Value.RemoveAt(0);
 					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
+					source1Value.RemoveAt(1);
 					testing.ValidateConsistency();
 					source1Value.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -40522,11 +37918,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source2ScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
+					source2ScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					source2ScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -40610,11 +38002,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source1Value.RemoveAt(0);
 					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
+					source1Value.RemoveAt(1);
 					testing.ValidateConsistency();
 					source1Value.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -40639,11 +38027,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source2ScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
+					source2ScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					source2ScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -40729,11 +38113,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source1Value.RemoveAt(0);
 					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
+					source1Value.RemoveAt(1);
 					testing.ValidateConsistency();
 					source1Value.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -40758,11 +38138,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source2ScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
+					source2ScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					source2ScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -40846,11 +38222,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source1Value.RemoveAt(0);
 					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
+					source1Value.RemoveAt(1);
 					testing.ValidateConsistency();
 					source1Value.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -40875,11 +38247,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source2ScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
+					source2ScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					source2ScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -40965,11 +38333,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source1Value.RemoveAt(0);
 					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
+					source1Value.RemoveAt(1);
 					testing.ValidateConsistency();
 					source1Value.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -40994,11 +38358,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source2ScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
+					source2ScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					source2ScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -41082,11 +38442,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source1Value.RemoveAt(0);
 					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
+					source1Value.RemoveAt(1);
 					testing.ValidateConsistency();
 					source1Value.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -41111,11 +38467,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source2ScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
+					source2ScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					source2ScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -41202,11 +38554,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					sourceScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
+					sourceScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -41272,11 +38620,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					sourceScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
+					sourceScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -41344,11 +38688,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					sourceScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
+					sourceScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -41414,11 +38754,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					sourceScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
+					sourceScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -41486,11 +38822,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					sourceScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
+					sourceScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -41561,11 +38893,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					sourceScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
+					sourceScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -41638,11 +38966,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					sourceScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
+					sourceScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -41713,11 +39037,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					sourceScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
+					sourceScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -41790,11 +39110,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					sourceValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
+					sourceValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					sourceValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -41855,11 +39171,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					sourceValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
+					sourceValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					sourceValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -41922,11 +39234,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					sourceValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
+					sourceValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					sourceValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -41987,11 +39295,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					sourceValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
+					sourceValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					sourceValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -42054,11 +39358,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					sourceValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
+					sourceValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					sourceValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -42124,11 +39424,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					sourceValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
+					sourceValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					sourceValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -42196,11 +39492,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					sourceValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
+					sourceValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					sourceValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -42266,11 +39558,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					sourceValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
+					sourceValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					sourceValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -42325,6 +39613,56 @@ namespace ObservableComputations.Test
 			void test()
 			{
 				testing.ValidateConsistency();
+				var leftSourceScalarValue = ((ObservableCollection<Item>)((System.Collections.Specialized.INotifyCollectionChanged)leftSourceScalar.Value));
+
+				if (leftSourceScalarValue != null)
+				{		
+					leftSourceScalarValue.Insert(2, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					leftSourceScalarValue[3] = new QuickTests.Item(7, true);
+					testing.ValidateConsistency();
+					leftSourceScalarValue.RemoveAt(3);
+					testing.ValidateConsistency();
+					leftSourceScalarValue.Move(1, 3);
+					testing.ValidateConsistency();
+					leftSourceScalarValue[2].Active = !leftSourceScalarValue[2].Active;
+					testing.ValidateConsistency();
+					leftSourceScalarValue[2].Num = leftSourceScalarValue[2].Num + 1;
+					testing.ValidateConsistency();
+					leftSourceScalarValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					leftSourceScalarValue.RemoveAt(1);
+					testing.ValidateConsistency();
+					leftSourceScalarValue.Insert(0, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					leftSourceScalarValue.Insert(0, new QuickTests.Item(2, true));
+					testing.ValidateConsistency();
+				}
+				var rightSourceScalarValue = ((ObservableCollection<Item>)((System.Collections.Specialized.INotifyCollectionChanged)rightSourceScalar.Value));
+
+				if (rightSourceScalarValue != null)
+				{		
+					rightSourceScalarValue.Insert(2, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					rightSourceScalarValue[3] = new QuickTests.Item(7, true);
+					testing.ValidateConsistency();
+					rightSourceScalarValue.RemoveAt(3);
+					testing.ValidateConsistency();
+					rightSourceScalarValue.Move(1, 3);
+					testing.ValidateConsistency();
+					rightSourceScalarValue[2].Active = !rightSourceScalarValue[2].Active;
+					testing.ValidateConsistency();
+					rightSourceScalarValue[2].Num = rightSourceScalarValue[2].Num + 1;
+					testing.ValidateConsistency();
+					rightSourceScalarValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					rightSourceScalarValue.RemoveAt(1);
+					testing.ValidateConsistency();
+					rightSourceScalarValue.Insert(0, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					rightSourceScalarValue.Insert(0, new QuickTests.Item(2, true));
+					testing.ValidateConsistency();
+				}
 
 				IList listSource;
 			}
@@ -42357,6 +39695,56 @@ namespace ObservableComputations.Test
 			void test()
 			{
 				testing.ValidateConsistency();
+				var leftSourceScalarValue = ((ObservableCollection<Item>)((System.Collections.Specialized.INotifyCollectionChanged)leftSourceScalar.Value));
+
+				if (leftSourceScalarValue != null)
+				{		
+					leftSourceScalarValue.Insert(2, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					leftSourceScalarValue[3] = new QuickTests.Item(7, true);
+					testing.ValidateConsistency();
+					leftSourceScalarValue.RemoveAt(3);
+					testing.ValidateConsistency();
+					leftSourceScalarValue.Move(1, 3);
+					testing.ValidateConsistency();
+					leftSourceScalarValue[2].Active = !leftSourceScalarValue[2].Active;
+					testing.ValidateConsistency();
+					leftSourceScalarValue[2].Num = leftSourceScalarValue[2].Num + 1;
+					testing.ValidateConsistency();
+					leftSourceScalarValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					leftSourceScalarValue.RemoveAt(1);
+					testing.ValidateConsistency();
+					leftSourceScalarValue.Insert(0, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					leftSourceScalarValue.Insert(0, new QuickTests.Item(2, true));
+					testing.ValidateConsistency();
+				}
+				var rightSourceScalarValue = ((ObservableCollection<Item>)((System.Collections.Specialized.INotifyCollectionChanged)rightSourceScalar.Value));
+
+				if (rightSourceScalarValue != null)
+				{		
+					rightSourceScalarValue.Insert(2, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					rightSourceScalarValue[3] = new QuickTests.Item(7, true);
+					testing.ValidateConsistency();
+					rightSourceScalarValue.RemoveAt(3);
+					testing.ValidateConsistency();
+					rightSourceScalarValue.Move(1, 3);
+					testing.ValidateConsistency();
+					rightSourceScalarValue[2].Active = !rightSourceScalarValue[2].Active;
+					testing.ValidateConsistency();
+					rightSourceScalarValue[2].Num = rightSourceScalarValue[2].Num + 1;
+					testing.ValidateConsistency();
+					rightSourceScalarValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					rightSourceScalarValue.RemoveAt(1);
+					testing.ValidateConsistency();
+					rightSourceScalarValue.Insert(0, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					rightSourceScalarValue.Insert(0, new QuickTests.Item(2, true));
+					testing.ValidateConsistency();
+				}
 
 				IList listSource;
 			}
@@ -42391,6 +39779,56 @@ namespace ObservableComputations.Test
 			void test()
 			{
 				testing.ValidateConsistency();
+				var leftSourceScalarValue = ((ObservableCollection<Item>)((System.Collections.Specialized.INotifyCollectionChanged)leftSourceScalar.Value));
+
+				if (leftSourceScalarValue != null)
+				{		
+					leftSourceScalarValue.Insert(2, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					leftSourceScalarValue[3] = new QuickTests.Item(7, true);
+					testing.ValidateConsistency();
+					leftSourceScalarValue.RemoveAt(3);
+					testing.ValidateConsistency();
+					leftSourceScalarValue.Move(1, 3);
+					testing.ValidateConsistency();
+					leftSourceScalarValue[2].Active = !leftSourceScalarValue[2].Active;
+					testing.ValidateConsistency();
+					leftSourceScalarValue[2].Num = leftSourceScalarValue[2].Num + 1;
+					testing.ValidateConsistency();
+					leftSourceScalarValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					leftSourceScalarValue.RemoveAt(1);
+					testing.ValidateConsistency();
+					leftSourceScalarValue.Insert(0, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					leftSourceScalarValue.Insert(0, new QuickTests.Item(2, true));
+					testing.ValidateConsistency();
+				}
+				var rightSourceScalarValue = ((ObservableCollection<Item>)((ObservableCollection<Item>)rightSourceScalar.Value));
+
+				if (rightSourceScalarValue != null)
+				{		
+					rightSourceScalarValue.Insert(2, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					rightSourceScalarValue[3] = new QuickTests.Item(7, true);
+					testing.ValidateConsistency();
+					rightSourceScalarValue.RemoveAt(3);
+					testing.ValidateConsistency();
+					rightSourceScalarValue.Move(1, 3);
+					testing.ValidateConsistency();
+					rightSourceScalarValue[2].Active = !rightSourceScalarValue[2].Active;
+					testing.ValidateConsistency();
+					rightSourceScalarValue[2].Num = rightSourceScalarValue[2].Num + 1;
+					testing.ValidateConsistency();
+					rightSourceScalarValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					rightSourceScalarValue.RemoveAt(1);
+					testing.ValidateConsistency();
+					rightSourceScalarValue.Insert(0, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					rightSourceScalarValue.Insert(0, new QuickTests.Item(2, true));
+					testing.ValidateConsistency();
+				}
 
 				IList listSource;
 			}
@@ -42423,6 +39861,56 @@ namespace ObservableComputations.Test
 			void test()
 			{
 				testing.ValidateConsistency();
+				var leftSourceScalarValue = ((ObservableCollection<Item>)((System.Collections.Specialized.INotifyCollectionChanged)leftSourceScalar.Value));
+
+				if (leftSourceScalarValue != null)
+				{		
+					leftSourceScalarValue.Insert(2, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					leftSourceScalarValue[3] = new QuickTests.Item(7, true);
+					testing.ValidateConsistency();
+					leftSourceScalarValue.RemoveAt(3);
+					testing.ValidateConsistency();
+					leftSourceScalarValue.Move(1, 3);
+					testing.ValidateConsistency();
+					leftSourceScalarValue[2].Active = !leftSourceScalarValue[2].Active;
+					testing.ValidateConsistency();
+					leftSourceScalarValue[2].Num = leftSourceScalarValue[2].Num + 1;
+					testing.ValidateConsistency();
+					leftSourceScalarValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					leftSourceScalarValue.RemoveAt(1);
+					testing.ValidateConsistency();
+					leftSourceScalarValue.Insert(0, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					leftSourceScalarValue.Insert(0, new QuickTests.Item(2, true));
+					testing.ValidateConsistency();
+				}
+				var rightSourceScalarValue = ((ObservableCollection<Item>)((ObservableCollection<Item>)rightSourceScalar.Value));
+
+				if (rightSourceScalarValue != null)
+				{		
+					rightSourceScalarValue.Insert(2, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					rightSourceScalarValue[3] = new QuickTests.Item(7, true);
+					testing.ValidateConsistency();
+					rightSourceScalarValue.RemoveAt(3);
+					testing.ValidateConsistency();
+					rightSourceScalarValue.Move(1, 3);
+					testing.ValidateConsistency();
+					rightSourceScalarValue[2].Active = !rightSourceScalarValue[2].Active;
+					testing.ValidateConsistency();
+					rightSourceScalarValue[2].Num = rightSourceScalarValue[2].Num + 1;
+					testing.ValidateConsistency();
+					rightSourceScalarValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					rightSourceScalarValue.RemoveAt(1);
+					testing.ValidateConsistency();
+					rightSourceScalarValue.Insert(0, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					rightSourceScalarValue.Insert(0, new QuickTests.Item(2, true));
+					testing.ValidateConsistency();
+				}
 
 				IList listSource;
 			}
@@ -42457,6 +39945,56 @@ namespace ObservableComputations.Test
 			void test()
 			{
 				testing.ValidateConsistency();
+				var leftSourceScalarValue = ((ObservableCollection<Item>)((ObservableCollection<Item>)leftSourceScalar.Value));
+
+				if (leftSourceScalarValue != null)
+				{		
+					leftSourceScalarValue.Insert(2, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					leftSourceScalarValue[3] = new QuickTests.Item(7, true);
+					testing.ValidateConsistency();
+					leftSourceScalarValue.RemoveAt(3);
+					testing.ValidateConsistency();
+					leftSourceScalarValue.Move(1, 3);
+					testing.ValidateConsistency();
+					leftSourceScalarValue[2].Active = !leftSourceScalarValue[2].Active;
+					testing.ValidateConsistency();
+					leftSourceScalarValue[2].Num = leftSourceScalarValue[2].Num + 1;
+					testing.ValidateConsistency();
+					leftSourceScalarValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					leftSourceScalarValue.RemoveAt(1);
+					testing.ValidateConsistency();
+					leftSourceScalarValue.Insert(0, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					leftSourceScalarValue.Insert(0, new QuickTests.Item(2, true));
+					testing.ValidateConsistency();
+				}
+				var rightSourceScalarValue = ((ObservableCollection<Item>)((System.Collections.Specialized.INotifyCollectionChanged)rightSourceScalar.Value));
+
+				if (rightSourceScalarValue != null)
+				{		
+					rightSourceScalarValue.Insert(2, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					rightSourceScalarValue[3] = new QuickTests.Item(7, true);
+					testing.ValidateConsistency();
+					rightSourceScalarValue.RemoveAt(3);
+					testing.ValidateConsistency();
+					rightSourceScalarValue.Move(1, 3);
+					testing.ValidateConsistency();
+					rightSourceScalarValue[2].Active = !rightSourceScalarValue[2].Active;
+					testing.ValidateConsistency();
+					rightSourceScalarValue[2].Num = rightSourceScalarValue[2].Num + 1;
+					testing.ValidateConsistency();
+					rightSourceScalarValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					rightSourceScalarValue.RemoveAt(1);
+					testing.ValidateConsistency();
+					rightSourceScalarValue.Insert(0, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					rightSourceScalarValue.Insert(0, new QuickTests.Item(2, true));
+					testing.ValidateConsistency();
+				}
 
 				IList listSource;
 			}
@@ -42489,6 +40027,56 @@ namespace ObservableComputations.Test
 			void test()
 			{
 				testing.ValidateConsistency();
+				var leftSourceScalarValue = ((ObservableCollection<Item>)((ObservableCollection<Item>)leftSourceScalar.Value));
+
+				if (leftSourceScalarValue != null)
+				{		
+					leftSourceScalarValue.Insert(2, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					leftSourceScalarValue[3] = new QuickTests.Item(7, true);
+					testing.ValidateConsistency();
+					leftSourceScalarValue.RemoveAt(3);
+					testing.ValidateConsistency();
+					leftSourceScalarValue.Move(1, 3);
+					testing.ValidateConsistency();
+					leftSourceScalarValue[2].Active = !leftSourceScalarValue[2].Active;
+					testing.ValidateConsistency();
+					leftSourceScalarValue[2].Num = leftSourceScalarValue[2].Num + 1;
+					testing.ValidateConsistency();
+					leftSourceScalarValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					leftSourceScalarValue.RemoveAt(1);
+					testing.ValidateConsistency();
+					leftSourceScalarValue.Insert(0, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					leftSourceScalarValue.Insert(0, new QuickTests.Item(2, true));
+					testing.ValidateConsistency();
+				}
+				var rightSourceScalarValue = ((ObservableCollection<Item>)((System.Collections.Specialized.INotifyCollectionChanged)rightSourceScalar.Value));
+
+				if (rightSourceScalarValue != null)
+				{		
+					rightSourceScalarValue.Insert(2, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					rightSourceScalarValue[3] = new QuickTests.Item(7, true);
+					testing.ValidateConsistency();
+					rightSourceScalarValue.RemoveAt(3);
+					testing.ValidateConsistency();
+					rightSourceScalarValue.Move(1, 3);
+					testing.ValidateConsistency();
+					rightSourceScalarValue[2].Active = !rightSourceScalarValue[2].Active;
+					testing.ValidateConsistency();
+					rightSourceScalarValue[2].Num = rightSourceScalarValue[2].Num + 1;
+					testing.ValidateConsistency();
+					rightSourceScalarValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					rightSourceScalarValue.RemoveAt(1);
+					testing.ValidateConsistency();
+					rightSourceScalarValue.Insert(0, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					rightSourceScalarValue.Insert(0, new QuickTests.Item(2, true));
+					testing.ValidateConsistency();
+				}
 
 				IList listSource;
 			}
@@ -42523,6 +40111,56 @@ namespace ObservableComputations.Test
 			void test()
 			{
 				testing.ValidateConsistency();
+				var leftSourceScalarValue = ((ObservableCollection<Item>)((ObservableCollection<Item>)leftSourceScalar.Value));
+
+				if (leftSourceScalarValue != null)
+				{		
+					leftSourceScalarValue.Insert(2, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					leftSourceScalarValue[3] = new QuickTests.Item(7, true);
+					testing.ValidateConsistency();
+					leftSourceScalarValue.RemoveAt(3);
+					testing.ValidateConsistency();
+					leftSourceScalarValue.Move(1, 3);
+					testing.ValidateConsistency();
+					leftSourceScalarValue[2].Active = !leftSourceScalarValue[2].Active;
+					testing.ValidateConsistency();
+					leftSourceScalarValue[2].Num = leftSourceScalarValue[2].Num + 1;
+					testing.ValidateConsistency();
+					leftSourceScalarValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					leftSourceScalarValue.RemoveAt(1);
+					testing.ValidateConsistency();
+					leftSourceScalarValue.Insert(0, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					leftSourceScalarValue.Insert(0, new QuickTests.Item(2, true));
+					testing.ValidateConsistency();
+				}
+				var rightSourceScalarValue = ((ObservableCollection<Item>)((ObservableCollection<Item>)rightSourceScalar.Value));
+
+				if (rightSourceScalarValue != null)
+				{		
+					rightSourceScalarValue.Insert(2, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					rightSourceScalarValue[3] = new QuickTests.Item(7, true);
+					testing.ValidateConsistency();
+					rightSourceScalarValue.RemoveAt(3);
+					testing.ValidateConsistency();
+					rightSourceScalarValue.Move(1, 3);
+					testing.ValidateConsistency();
+					rightSourceScalarValue[2].Active = !rightSourceScalarValue[2].Active;
+					testing.ValidateConsistency();
+					rightSourceScalarValue[2].Num = rightSourceScalarValue[2].Num + 1;
+					testing.ValidateConsistency();
+					rightSourceScalarValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					rightSourceScalarValue.RemoveAt(1);
+					testing.ValidateConsistency();
+					rightSourceScalarValue.Insert(0, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					rightSourceScalarValue.Insert(0, new QuickTests.Item(2, true));
+					testing.ValidateConsistency();
+				}
 
 				IList listSource;
 			}
@@ -42555,6 +40193,56 @@ namespace ObservableComputations.Test
 			void test()
 			{
 				testing.ValidateConsistency();
+				var leftSourceScalarValue = ((ObservableCollection<Item>)((ObservableCollection<Item>)leftSourceScalar.Value));
+
+				if (leftSourceScalarValue != null)
+				{		
+					leftSourceScalarValue.Insert(2, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					leftSourceScalarValue[3] = new QuickTests.Item(7, true);
+					testing.ValidateConsistency();
+					leftSourceScalarValue.RemoveAt(3);
+					testing.ValidateConsistency();
+					leftSourceScalarValue.Move(1, 3);
+					testing.ValidateConsistency();
+					leftSourceScalarValue[2].Active = !leftSourceScalarValue[2].Active;
+					testing.ValidateConsistency();
+					leftSourceScalarValue[2].Num = leftSourceScalarValue[2].Num + 1;
+					testing.ValidateConsistency();
+					leftSourceScalarValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					leftSourceScalarValue.RemoveAt(1);
+					testing.ValidateConsistency();
+					leftSourceScalarValue.Insert(0, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					leftSourceScalarValue.Insert(0, new QuickTests.Item(2, true));
+					testing.ValidateConsistency();
+				}
+				var rightSourceScalarValue = ((ObservableCollection<Item>)((ObservableCollection<Item>)rightSourceScalar.Value));
+
+				if (rightSourceScalarValue != null)
+				{		
+					rightSourceScalarValue.Insert(2, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					rightSourceScalarValue[3] = new QuickTests.Item(7, true);
+					testing.ValidateConsistency();
+					rightSourceScalarValue.RemoveAt(3);
+					testing.ValidateConsistency();
+					rightSourceScalarValue.Move(1, 3);
+					testing.ValidateConsistency();
+					rightSourceScalarValue[2].Active = !rightSourceScalarValue[2].Active;
+					testing.ValidateConsistency();
+					rightSourceScalarValue[2].Num = rightSourceScalarValue[2].Num + 1;
+					testing.ValidateConsistency();
+					rightSourceScalarValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					rightSourceScalarValue.RemoveAt(1);
+					testing.ValidateConsistency();
+					rightSourceScalarValue.Insert(0, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					rightSourceScalarValue.Insert(0, new QuickTests.Item(2, true));
+					testing.ValidateConsistency();
+				}
 
 				IList listSource;
 			}
@@ -42589,6 +40277,56 @@ namespace ObservableComputations.Test
 			void test()
 			{
 				testing.ValidateConsistency();
+				var leftSourceValue = ((ObservableCollection<Item>)((System.Collections.Specialized.INotifyCollectionChanged)leftSource));
+
+				if (leftSourceValue != null)
+				{		
+					leftSourceValue.Insert(2, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					leftSourceValue[3] = new QuickTests.Item(7, true);
+					testing.ValidateConsistency();
+					leftSourceValue.RemoveAt(3);
+					testing.ValidateConsistency();
+					leftSourceValue.Move(1, 3);
+					testing.ValidateConsistency();
+					leftSourceValue[2].Active = !leftSourceValue[2].Active;
+					testing.ValidateConsistency();
+					leftSourceValue[2].Num = leftSourceValue[2].Num + 1;
+					testing.ValidateConsistency();
+					leftSourceValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					leftSourceValue.RemoveAt(1);
+					testing.ValidateConsistency();
+					leftSourceValue.Insert(0, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					leftSourceValue.Insert(0, new QuickTests.Item(2, true));
+					testing.ValidateConsistency();
+				}
+				var rightSourceScalarValue = ((ObservableCollection<Item>)((System.Collections.Specialized.INotifyCollectionChanged)rightSourceScalar.Value));
+
+				if (rightSourceScalarValue != null)
+				{		
+					rightSourceScalarValue.Insert(2, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					rightSourceScalarValue[3] = new QuickTests.Item(7, true);
+					testing.ValidateConsistency();
+					rightSourceScalarValue.RemoveAt(3);
+					testing.ValidateConsistency();
+					rightSourceScalarValue.Move(1, 3);
+					testing.ValidateConsistency();
+					rightSourceScalarValue[2].Active = !rightSourceScalarValue[2].Active;
+					testing.ValidateConsistency();
+					rightSourceScalarValue[2].Num = rightSourceScalarValue[2].Num + 1;
+					testing.ValidateConsistency();
+					rightSourceScalarValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					rightSourceScalarValue.RemoveAt(1);
+					testing.ValidateConsistency();
+					rightSourceScalarValue.Insert(0, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					rightSourceScalarValue.Insert(0, new QuickTests.Item(2, true));
+					testing.ValidateConsistency();
+				}
 
 				IList listSource;
 			}
@@ -42616,6 +40354,56 @@ namespace ObservableComputations.Test
 			void test()
 			{
 				testing.ValidateConsistency();
+				var leftSourceValue = ((ObservableCollection<Item>)((System.Collections.Specialized.INotifyCollectionChanged)leftSource));
+
+				if (leftSourceValue != null)
+				{		
+					leftSourceValue.Insert(2, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					leftSourceValue[3] = new QuickTests.Item(7, true);
+					testing.ValidateConsistency();
+					leftSourceValue.RemoveAt(3);
+					testing.ValidateConsistency();
+					leftSourceValue.Move(1, 3);
+					testing.ValidateConsistency();
+					leftSourceValue[2].Active = !leftSourceValue[2].Active;
+					testing.ValidateConsistency();
+					leftSourceValue[2].Num = leftSourceValue[2].Num + 1;
+					testing.ValidateConsistency();
+					leftSourceValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					leftSourceValue.RemoveAt(1);
+					testing.ValidateConsistency();
+					leftSourceValue.Insert(0, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					leftSourceValue.Insert(0, new QuickTests.Item(2, true));
+					testing.ValidateConsistency();
+				}
+				var rightSourceScalarValue = ((ObservableCollection<Item>)((System.Collections.Specialized.INotifyCollectionChanged)rightSourceScalar.Value));
+
+				if (rightSourceScalarValue != null)
+				{		
+					rightSourceScalarValue.Insert(2, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					rightSourceScalarValue[3] = new QuickTests.Item(7, true);
+					testing.ValidateConsistency();
+					rightSourceScalarValue.RemoveAt(3);
+					testing.ValidateConsistency();
+					rightSourceScalarValue.Move(1, 3);
+					testing.ValidateConsistency();
+					rightSourceScalarValue[2].Active = !rightSourceScalarValue[2].Active;
+					testing.ValidateConsistency();
+					rightSourceScalarValue[2].Num = rightSourceScalarValue[2].Num + 1;
+					testing.ValidateConsistency();
+					rightSourceScalarValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					rightSourceScalarValue.RemoveAt(1);
+					testing.ValidateConsistency();
+					rightSourceScalarValue.Insert(0, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					rightSourceScalarValue.Insert(0, new QuickTests.Item(2, true));
+					testing.ValidateConsistency();
+				}
 
 				IList listSource;
 			}
@@ -42645,6 +40433,56 @@ namespace ObservableComputations.Test
 			void test()
 			{
 				testing.ValidateConsistency();
+				var leftSourceValue = ((ObservableCollection<Item>)((System.Collections.Specialized.INotifyCollectionChanged)leftSource));
+
+				if (leftSourceValue != null)
+				{		
+					leftSourceValue.Insert(2, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					leftSourceValue[3] = new QuickTests.Item(7, true);
+					testing.ValidateConsistency();
+					leftSourceValue.RemoveAt(3);
+					testing.ValidateConsistency();
+					leftSourceValue.Move(1, 3);
+					testing.ValidateConsistency();
+					leftSourceValue[2].Active = !leftSourceValue[2].Active;
+					testing.ValidateConsistency();
+					leftSourceValue[2].Num = leftSourceValue[2].Num + 1;
+					testing.ValidateConsistency();
+					leftSourceValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					leftSourceValue.RemoveAt(1);
+					testing.ValidateConsistency();
+					leftSourceValue.Insert(0, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					leftSourceValue.Insert(0, new QuickTests.Item(2, true));
+					testing.ValidateConsistency();
+				}
+				var rightSourceScalarValue = ((ObservableCollection<Item>)((ObservableCollection<Item>)rightSourceScalar.Value));
+
+				if (rightSourceScalarValue != null)
+				{		
+					rightSourceScalarValue.Insert(2, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					rightSourceScalarValue[3] = new QuickTests.Item(7, true);
+					testing.ValidateConsistency();
+					rightSourceScalarValue.RemoveAt(3);
+					testing.ValidateConsistency();
+					rightSourceScalarValue.Move(1, 3);
+					testing.ValidateConsistency();
+					rightSourceScalarValue[2].Active = !rightSourceScalarValue[2].Active;
+					testing.ValidateConsistency();
+					rightSourceScalarValue[2].Num = rightSourceScalarValue[2].Num + 1;
+					testing.ValidateConsistency();
+					rightSourceScalarValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					rightSourceScalarValue.RemoveAt(1);
+					testing.ValidateConsistency();
+					rightSourceScalarValue.Insert(0, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					rightSourceScalarValue.Insert(0, new QuickTests.Item(2, true));
+					testing.ValidateConsistency();
+				}
 
 				IList listSource;
 			}
@@ -42672,6 +40510,56 @@ namespace ObservableComputations.Test
 			void test()
 			{
 				testing.ValidateConsistency();
+				var leftSourceValue = ((ObservableCollection<Item>)((System.Collections.Specialized.INotifyCollectionChanged)leftSource));
+
+				if (leftSourceValue != null)
+				{		
+					leftSourceValue.Insert(2, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					leftSourceValue[3] = new QuickTests.Item(7, true);
+					testing.ValidateConsistency();
+					leftSourceValue.RemoveAt(3);
+					testing.ValidateConsistency();
+					leftSourceValue.Move(1, 3);
+					testing.ValidateConsistency();
+					leftSourceValue[2].Active = !leftSourceValue[2].Active;
+					testing.ValidateConsistency();
+					leftSourceValue[2].Num = leftSourceValue[2].Num + 1;
+					testing.ValidateConsistency();
+					leftSourceValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					leftSourceValue.RemoveAt(1);
+					testing.ValidateConsistency();
+					leftSourceValue.Insert(0, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					leftSourceValue.Insert(0, new QuickTests.Item(2, true));
+					testing.ValidateConsistency();
+				}
+				var rightSourceScalarValue = ((ObservableCollection<Item>)((ObservableCollection<Item>)rightSourceScalar.Value));
+
+				if (rightSourceScalarValue != null)
+				{		
+					rightSourceScalarValue.Insert(2, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					rightSourceScalarValue[3] = new QuickTests.Item(7, true);
+					testing.ValidateConsistency();
+					rightSourceScalarValue.RemoveAt(3);
+					testing.ValidateConsistency();
+					rightSourceScalarValue.Move(1, 3);
+					testing.ValidateConsistency();
+					rightSourceScalarValue[2].Active = !rightSourceScalarValue[2].Active;
+					testing.ValidateConsistency();
+					rightSourceScalarValue[2].Num = rightSourceScalarValue[2].Num + 1;
+					testing.ValidateConsistency();
+					rightSourceScalarValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					rightSourceScalarValue.RemoveAt(1);
+					testing.ValidateConsistency();
+					rightSourceScalarValue.Insert(0, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					rightSourceScalarValue.Insert(0, new QuickTests.Item(2, true));
+					testing.ValidateConsistency();
+				}
 
 				IList listSource;
 			}
@@ -42701,6 +40589,56 @@ namespace ObservableComputations.Test
 			void test()
 			{
 				testing.ValidateConsistency();
+				var leftSourceValue = ((ObservableCollection<Item>)((ObservableCollection<Item>)leftSource));
+
+				if (leftSourceValue != null)
+				{		
+					leftSourceValue.Insert(2, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					leftSourceValue[3] = new QuickTests.Item(7, true);
+					testing.ValidateConsistency();
+					leftSourceValue.RemoveAt(3);
+					testing.ValidateConsistency();
+					leftSourceValue.Move(1, 3);
+					testing.ValidateConsistency();
+					leftSourceValue[2].Active = !leftSourceValue[2].Active;
+					testing.ValidateConsistency();
+					leftSourceValue[2].Num = leftSourceValue[2].Num + 1;
+					testing.ValidateConsistency();
+					leftSourceValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					leftSourceValue.RemoveAt(1);
+					testing.ValidateConsistency();
+					leftSourceValue.Insert(0, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					leftSourceValue.Insert(0, new QuickTests.Item(2, true));
+					testing.ValidateConsistency();
+				}
+				var rightSourceScalarValue = ((ObservableCollection<Item>)((System.Collections.Specialized.INotifyCollectionChanged)rightSourceScalar.Value));
+
+				if (rightSourceScalarValue != null)
+				{		
+					rightSourceScalarValue.Insert(2, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					rightSourceScalarValue[3] = new QuickTests.Item(7, true);
+					testing.ValidateConsistency();
+					rightSourceScalarValue.RemoveAt(3);
+					testing.ValidateConsistency();
+					rightSourceScalarValue.Move(1, 3);
+					testing.ValidateConsistency();
+					rightSourceScalarValue[2].Active = !rightSourceScalarValue[2].Active;
+					testing.ValidateConsistency();
+					rightSourceScalarValue[2].Num = rightSourceScalarValue[2].Num + 1;
+					testing.ValidateConsistency();
+					rightSourceScalarValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					rightSourceScalarValue.RemoveAt(1);
+					testing.ValidateConsistency();
+					rightSourceScalarValue.Insert(0, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					rightSourceScalarValue.Insert(0, new QuickTests.Item(2, true));
+					testing.ValidateConsistency();
+				}
 
 				IList listSource;
 			}
@@ -42728,6 +40666,56 @@ namespace ObservableComputations.Test
 			void test()
 			{
 				testing.ValidateConsistency();
+				var leftSourceValue = ((ObservableCollection<Item>)((ObservableCollection<Item>)leftSource));
+
+				if (leftSourceValue != null)
+				{		
+					leftSourceValue.Insert(2, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					leftSourceValue[3] = new QuickTests.Item(7, true);
+					testing.ValidateConsistency();
+					leftSourceValue.RemoveAt(3);
+					testing.ValidateConsistency();
+					leftSourceValue.Move(1, 3);
+					testing.ValidateConsistency();
+					leftSourceValue[2].Active = !leftSourceValue[2].Active;
+					testing.ValidateConsistency();
+					leftSourceValue[2].Num = leftSourceValue[2].Num + 1;
+					testing.ValidateConsistency();
+					leftSourceValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					leftSourceValue.RemoveAt(1);
+					testing.ValidateConsistency();
+					leftSourceValue.Insert(0, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					leftSourceValue.Insert(0, new QuickTests.Item(2, true));
+					testing.ValidateConsistency();
+				}
+				var rightSourceScalarValue = ((ObservableCollection<Item>)((System.Collections.Specialized.INotifyCollectionChanged)rightSourceScalar.Value));
+
+				if (rightSourceScalarValue != null)
+				{		
+					rightSourceScalarValue.Insert(2, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					rightSourceScalarValue[3] = new QuickTests.Item(7, true);
+					testing.ValidateConsistency();
+					rightSourceScalarValue.RemoveAt(3);
+					testing.ValidateConsistency();
+					rightSourceScalarValue.Move(1, 3);
+					testing.ValidateConsistency();
+					rightSourceScalarValue[2].Active = !rightSourceScalarValue[2].Active;
+					testing.ValidateConsistency();
+					rightSourceScalarValue[2].Num = rightSourceScalarValue[2].Num + 1;
+					testing.ValidateConsistency();
+					rightSourceScalarValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					rightSourceScalarValue.RemoveAt(1);
+					testing.ValidateConsistency();
+					rightSourceScalarValue.Insert(0, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					rightSourceScalarValue.Insert(0, new QuickTests.Item(2, true));
+					testing.ValidateConsistency();
+				}
 
 				IList listSource;
 			}
@@ -42757,6 +40745,56 @@ namespace ObservableComputations.Test
 			void test()
 			{
 				testing.ValidateConsistency();
+				var leftSourceValue = ((ObservableCollection<Item>)((ObservableCollection<Item>)leftSource));
+
+				if (leftSourceValue != null)
+				{		
+					leftSourceValue.Insert(2, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					leftSourceValue[3] = new QuickTests.Item(7, true);
+					testing.ValidateConsistency();
+					leftSourceValue.RemoveAt(3);
+					testing.ValidateConsistency();
+					leftSourceValue.Move(1, 3);
+					testing.ValidateConsistency();
+					leftSourceValue[2].Active = !leftSourceValue[2].Active;
+					testing.ValidateConsistency();
+					leftSourceValue[2].Num = leftSourceValue[2].Num + 1;
+					testing.ValidateConsistency();
+					leftSourceValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					leftSourceValue.RemoveAt(1);
+					testing.ValidateConsistency();
+					leftSourceValue.Insert(0, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					leftSourceValue.Insert(0, new QuickTests.Item(2, true));
+					testing.ValidateConsistency();
+				}
+				var rightSourceScalarValue = ((ObservableCollection<Item>)((ObservableCollection<Item>)rightSourceScalar.Value));
+
+				if (rightSourceScalarValue != null)
+				{		
+					rightSourceScalarValue.Insert(2, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					rightSourceScalarValue[3] = new QuickTests.Item(7, true);
+					testing.ValidateConsistency();
+					rightSourceScalarValue.RemoveAt(3);
+					testing.ValidateConsistency();
+					rightSourceScalarValue.Move(1, 3);
+					testing.ValidateConsistency();
+					rightSourceScalarValue[2].Active = !rightSourceScalarValue[2].Active;
+					testing.ValidateConsistency();
+					rightSourceScalarValue[2].Num = rightSourceScalarValue[2].Num + 1;
+					testing.ValidateConsistency();
+					rightSourceScalarValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					rightSourceScalarValue.RemoveAt(1);
+					testing.ValidateConsistency();
+					rightSourceScalarValue.Insert(0, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					rightSourceScalarValue.Insert(0, new QuickTests.Item(2, true));
+					testing.ValidateConsistency();
+				}
 
 				IList listSource;
 			}
@@ -42784,6 +40822,56 @@ namespace ObservableComputations.Test
 			void test()
 			{
 				testing.ValidateConsistency();
+				var leftSourceValue = ((ObservableCollection<Item>)((ObservableCollection<Item>)leftSource));
+
+				if (leftSourceValue != null)
+				{		
+					leftSourceValue.Insert(2, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					leftSourceValue[3] = new QuickTests.Item(7, true);
+					testing.ValidateConsistency();
+					leftSourceValue.RemoveAt(3);
+					testing.ValidateConsistency();
+					leftSourceValue.Move(1, 3);
+					testing.ValidateConsistency();
+					leftSourceValue[2].Active = !leftSourceValue[2].Active;
+					testing.ValidateConsistency();
+					leftSourceValue[2].Num = leftSourceValue[2].Num + 1;
+					testing.ValidateConsistency();
+					leftSourceValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					leftSourceValue.RemoveAt(1);
+					testing.ValidateConsistency();
+					leftSourceValue.Insert(0, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					leftSourceValue.Insert(0, new QuickTests.Item(2, true));
+					testing.ValidateConsistency();
+				}
+				var rightSourceScalarValue = ((ObservableCollection<Item>)((ObservableCollection<Item>)rightSourceScalar.Value));
+
+				if (rightSourceScalarValue != null)
+				{		
+					rightSourceScalarValue.Insert(2, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					rightSourceScalarValue[3] = new QuickTests.Item(7, true);
+					testing.ValidateConsistency();
+					rightSourceScalarValue.RemoveAt(3);
+					testing.ValidateConsistency();
+					rightSourceScalarValue.Move(1, 3);
+					testing.ValidateConsistency();
+					rightSourceScalarValue[2].Active = !rightSourceScalarValue[2].Active;
+					testing.ValidateConsistency();
+					rightSourceScalarValue[2].Num = rightSourceScalarValue[2].Num + 1;
+					testing.ValidateConsistency();
+					rightSourceScalarValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					rightSourceScalarValue.RemoveAt(1);
+					testing.ValidateConsistency();
+					rightSourceScalarValue.Insert(0, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					rightSourceScalarValue.Insert(0, new QuickTests.Item(2, true));
+					testing.ValidateConsistency();
+				}
 
 				IList listSource;
 			}
@@ -42813,6 +40901,56 @@ namespace ObservableComputations.Test
 			void test()
 			{
 				testing.ValidateConsistency();
+				var leftSourceScalarValue = ((ObservableCollection<Item>)((System.Collections.Specialized.INotifyCollectionChanged)leftSourceScalar.Value));
+
+				if (leftSourceScalarValue != null)
+				{		
+					leftSourceScalarValue.Insert(2, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					leftSourceScalarValue[3] = new QuickTests.Item(7, true);
+					testing.ValidateConsistency();
+					leftSourceScalarValue.RemoveAt(3);
+					testing.ValidateConsistency();
+					leftSourceScalarValue.Move(1, 3);
+					testing.ValidateConsistency();
+					leftSourceScalarValue[2].Active = !leftSourceScalarValue[2].Active;
+					testing.ValidateConsistency();
+					leftSourceScalarValue[2].Num = leftSourceScalarValue[2].Num + 1;
+					testing.ValidateConsistency();
+					leftSourceScalarValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					leftSourceScalarValue.RemoveAt(1);
+					testing.ValidateConsistency();
+					leftSourceScalarValue.Insert(0, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					leftSourceScalarValue.Insert(0, new QuickTests.Item(2, true));
+					testing.ValidateConsistency();
+				}
+				var rightSourceValue = ((ObservableCollection<Item>)((System.Collections.Specialized.INotifyCollectionChanged)rightSource));
+
+				if (rightSourceValue != null)
+				{		
+					rightSourceValue.Insert(2, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					rightSourceValue[3] = new QuickTests.Item(7, true);
+					testing.ValidateConsistency();
+					rightSourceValue.RemoveAt(3);
+					testing.ValidateConsistency();
+					rightSourceValue.Move(1, 3);
+					testing.ValidateConsistency();
+					rightSourceValue[2].Active = !rightSourceValue[2].Active;
+					testing.ValidateConsistency();
+					rightSourceValue[2].Num = rightSourceValue[2].Num + 1;
+					testing.ValidateConsistency();
+					rightSourceValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					rightSourceValue.RemoveAt(1);
+					testing.ValidateConsistency();
+					rightSourceValue.Insert(0, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					rightSourceValue.Insert(0, new QuickTests.Item(2, true));
+					testing.ValidateConsistency();
+				}
 
 				IList listSource;
 			}
@@ -42840,6 +40978,56 @@ namespace ObservableComputations.Test
 			void test()
 			{
 				testing.ValidateConsistency();
+				var leftSourceScalarValue = ((ObservableCollection<Item>)((System.Collections.Specialized.INotifyCollectionChanged)leftSourceScalar.Value));
+
+				if (leftSourceScalarValue != null)
+				{		
+					leftSourceScalarValue.Insert(2, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					leftSourceScalarValue[3] = new QuickTests.Item(7, true);
+					testing.ValidateConsistency();
+					leftSourceScalarValue.RemoveAt(3);
+					testing.ValidateConsistency();
+					leftSourceScalarValue.Move(1, 3);
+					testing.ValidateConsistency();
+					leftSourceScalarValue[2].Active = !leftSourceScalarValue[2].Active;
+					testing.ValidateConsistency();
+					leftSourceScalarValue[2].Num = leftSourceScalarValue[2].Num + 1;
+					testing.ValidateConsistency();
+					leftSourceScalarValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					leftSourceScalarValue.RemoveAt(1);
+					testing.ValidateConsistency();
+					leftSourceScalarValue.Insert(0, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					leftSourceScalarValue.Insert(0, new QuickTests.Item(2, true));
+					testing.ValidateConsistency();
+				}
+				var rightSourceValue = ((ObservableCollection<Item>)((System.Collections.Specialized.INotifyCollectionChanged)rightSource));
+
+				if (rightSourceValue != null)
+				{		
+					rightSourceValue.Insert(2, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					rightSourceValue[3] = new QuickTests.Item(7, true);
+					testing.ValidateConsistency();
+					rightSourceValue.RemoveAt(3);
+					testing.ValidateConsistency();
+					rightSourceValue.Move(1, 3);
+					testing.ValidateConsistency();
+					rightSourceValue[2].Active = !rightSourceValue[2].Active;
+					testing.ValidateConsistency();
+					rightSourceValue[2].Num = rightSourceValue[2].Num + 1;
+					testing.ValidateConsistency();
+					rightSourceValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					rightSourceValue.RemoveAt(1);
+					testing.ValidateConsistency();
+					rightSourceValue.Insert(0, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					rightSourceValue.Insert(0, new QuickTests.Item(2, true));
+					testing.ValidateConsistency();
+				}
 
 				IList listSource;
 			}
@@ -42869,6 +41057,56 @@ namespace ObservableComputations.Test
 			void test()
 			{
 				testing.ValidateConsistency();
+				var leftSourceScalarValue = ((ObservableCollection<Item>)((System.Collections.Specialized.INotifyCollectionChanged)leftSourceScalar.Value));
+
+				if (leftSourceScalarValue != null)
+				{		
+					leftSourceScalarValue.Insert(2, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					leftSourceScalarValue[3] = new QuickTests.Item(7, true);
+					testing.ValidateConsistency();
+					leftSourceScalarValue.RemoveAt(3);
+					testing.ValidateConsistency();
+					leftSourceScalarValue.Move(1, 3);
+					testing.ValidateConsistency();
+					leftSourceScalarValue[2].Active = !leftSourceScalarValue[2].Active;
+					testing.ValidateConsistency();
+					leftSourceScalarValue[2].Num = leftSourceScalarValue[2].Num + 1;
+					testing.ValidateConsistency();
+					leftSourceScalarValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					leftSourceScalarValue.RemoveAt(1);
+					testing.ValidateConsistency();
+					leftSourceScalarValue.Insert(0, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					leftSourceScalarValue.Insert(0, new QuickTests.Item(2, true));
+					testing.ValidateConsistency();
+				}
+				var rightSourceValue = ((ObservableCollection<Item>)((ObservableCollection<Item>)rightSource));
+
+				if (rightSourceValue != null)
+				{		
+					rightSourceValue.Insert(2, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					rightSourceValue[3] = new QuickTests.Item(7, true);
+					testing.ValidateConsistency();
+					rightSourceValue.RemoveAt(3);
+					testing.ValidateConsistency();
+					rightSourceValue.Move(1, 3);
+					testing.ValidateConsistency();
+					rightSourceValue[2].Active = !rightSourceValue[2].Active;
+					testing.ValidateConsistency();
+					rightSourceValue[2].Num = rightSourceValue[2].Num + 1;
+					testing.ValidateConsistency();
+					rightSourceValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					rightSourceValue.RemoveAt(1);
+					testing.ValidateConsistency();
+					rightSourceValue.Insert(0, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					rightSourceValue.Insert(0, new QuickTests.Item(2, true));
+					testing.ValidateConsistency();
+				}
 
 				IList listSource;
 			}
@@ -42896,6 +41134,56 @@ namespace ObservableComputations.Test
 			void test()
 			{
 				testing.ValidateConsistency();
+				var leftSourceScalarValue = ((ObservableCollection<Item>)((System.Collections.Specialized.INotifyCollectionChanged)leftSourceScalar.Value));
+
+				if (leftSourceScalarValue != null)
+				{		
+					leftSourceScalarValue.Insert(2, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					leftSourceScalarValue[3] = new QuickTests.Item(7, true);
+					testing.ValidateConsistency();
+					leftSourceScalarValue.RemoveAt(3);
+					testing.ValidateConsistency();
+					leftSourceScalarValue.Move(1, 3);
+					testing.ValidateConsistency();
+					leftSourceScalarValue[2].Active = !leftSourceScalarValue[2].Active;
+					testing.ValidateConsistency();
+					leftSourceScalarValue[2].Num = leftSourceScalarValue[2].Num + 1;
+					testing.ValidateConsistency();
+					leftSourceScalarValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					leftSourceScalarValue.RemoveAt(1);
+					testing.ValidateConsistency();
+					leftSourceScalarValue.Insert(0, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					leftSourceScalarValue.Insert(0, new QuickTests.Item(2, true));
+					testing.ValidateConsistency();
+				}
+				var rightSourceValue = ((ObservableCollection<Item>)((ObservableCollection<Item>)rightSource));
+
+				if (rightSourceValue != null)
+				{		
+					rightSourceValue.Insert(2, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					rightSourceValue[3] = new QuickTests.Item(7, true);
+					testing.ValidateConsistency();
+					rightSourceValue.RemoveAt(3);
+					testing.ValidateConsistency();
+					rightSourceValue.Move(1, 3);
+					testing.ValidateConsistency();
+					rightSourceValue[2].Active = !rightSourceValue[2].Active;
+					testing.ValidateConsistency();
+					rightSourceValue[2].Num = rightSourceValue[2].Num + 1;
+					testing.ValidateConsistency();
+					rightSourceValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					rightSourceValue.RemoveAt(1);
+					testing.ValidateConsistency();
+					rightSourceValue.Insert(0, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					rightSourceValue.Insert(0, new QuickTests.Item(2, true));
+					testing.ValidateConsistency();
+				}
 
 				IList listSource;
 			}
@@ -42925,6 +41213,56 @@ namespace ObservableComputations.Test
 			void test()
 			{
 				testing.ValidateConsistency();
+				var leftSourceScalarValue = ((ObservableCollection<Item>)((ObservableCollection<Item>)leftSourceScalar.Value));
+
+				if (leftSourceScalarValue != null)
+				{		
+					leftSourceScalarValue.Insert(2, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					leftSourceScalarValue[3] = new QuickTests.Item(7, true);
+					testing.ValidateConsistency();
+					leftSourceScalarValue.RemoveAt(3);
+					testing.ValidateConsistency();
+					leftSourceScalarValue.Move(1, 3);
+					testing.ValidateConsistency();
+					leftSourceScalarValue[2].Active = !leftSourceScalarValue[2].Active;
+					testing.ValidateConsistency();
+					leftSourceScalarValue[2].Num = leftSourceScalarValue[2].Num + 1;
+					testing.ValidateConsistency();
+					leftSourceScalarValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					leftSourceScalarValue.RemoveAt(1);
+					testing.ValidateConsistency();
+					leftSourceScalarValue.Insert(0, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					leftSourceScalarValue.Insert(0, new QuickTests.Item(2, true));
+					testing.ValidateConsistency();
+				}
+				var rightSourceValue = ((ObservableCollection<Item>)((System.Collections.Specialized.INotifyCollectionChanged)rightSource));
+
+				if (rightSourceValue != null)
+				{		
+					rightSourceValue.Insert(2, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					rightSourceValue[3] = new QuickTests.Item(7, true);
+					testing.ValidateConsistency();
+					rightSourceValue.RemoveAt(3);
+					testing.ValidateConsistency();
+					rightSourceValue.Move(1, 3);
+					testing.ValidateConsistency();
+					rightSourceValue[2].Active = !rightSourceValue[2].Active;
+					testing.ValidateConsistency();
+					rightSourceValue[2].Num = rightSourceValue[2].Num + 1;
+					testing.ValidateConsistency();
+					rightSourceValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					rightSourceValue.RemoveAt(1);
+					testing.ValidateConsistency();
+					rightSourceValue.Insert(0, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					rightSourceValue.Insert(0, new QuickTests.Item(2, true));
+					testing.ValidateConsistency();
+				}
 
 				IList listSource;
 			}
@@ -42952,6 +41290,56 @@ namespace ObservableComputations.Test
 			void test()
 			{
 				testing.ValidateConsistency();
+				var leftSourceScalarValue = ((ObservableCollection<Item>)((ObservableCollection<Item>)leftSourceScalar.Value));
+
+				if (leftSourceScalarValue != null)
+				{		
+					leftSourceScalarValue.Insert(2, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					leftSourceScalarValue[3] = new QuickTests.Item(7, true);
+					testing.ValidateConsistency();
+					leftSourceScalarValue.RemoveAt(3);
+					testing.ValidateConsistency();
+					leftSourceScalarValue.Move(1, 3);
+					testing.ValidateConsistency();
+					leftSourceScalarValue[2].Active = !leftSourceScalarValue[2].Active;
+					testing.ValidateConsistency();
+					leftSourceScalarValue[2].Num = leftSourceScalarValue[2].Num + 1;
+					testing.ValidateConsistency();
+					leftSourceScalarValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					leftSourceScalarValue.RemoveAt(1);
+					testing.ValidateConsistency();
+					leftSourceScalarValue.Insert(0, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					leftSourceScalarValue.Insert(0, new QuickTests.Item(2, true));
+					testing.ValidateConsistency();
+				}
+				var rightSourceValue = ((ObservableCollection<Item>)((System.Collections.Specialized.INotifyCollectionChanged)rightSource));
+
+				if (rightSourceValue != null)
+				{		
+					rightSourceValue.Insert(2, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					rightSourceValue[3] = new QuickTests.Item(7, true);
+					testing.ValidateConsistency();
+					rightSourceValue.RemoveAt(3);
+					testing.ValidateConsistency();
+					rightSourceValue.Move(1, 3);
+					testing.ValidateConsistency();
+					rightSourceValue[2].Active = !rightSourceValue[2].Active;
+					testing.ValidateConsistency();
+					rightSourceValue[2].Num = rightSourceValue[2].Num + 1;
+					testing.ValidateConsistency();
+					rightSourceValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					rightSourceValue.RemoveAt(1);
+					testing.ValidateConsistency();
+					rightSourceValue.Insert(0, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					rightSourceValue.Insert(0, new QuickTests.Item(2, true));
+					testing.ValidateConsistency();
+				}
 
 				IList listSource;
 			}
@@ -42981,6 +41369,56 @@ namespace ObservableComputations.Test
 			void test()
 			{
 				testing.ValidateConsistency();
+				var leftSourceScalarValue = ((ObservableCollection<Item>)((ObservableCollection<Item>)leftSourceScalar.Value));
+
+				if (leftSourceScalarValue != null)
+				{		
+					leftSourceScalarValue.Insert(2, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					leftSourceScalarValue[3] = new QuickTests.Item(7, true);
+					testing.ValidateConsistency();
+					leftSourceScalarValue.RemoveAt(3);
+					testing.ValidateConsistency();
+					leftSourceScalarValue.Move(1, 3);
+					testing.ValidateConsistency();
+					leftSourceScalarValue[2].Active = !leftSourceScalarValue[2].Active;
+					testing.ValidateConsistency();
+					leftSourceScalarValue[2].Num = leftSourceScalarValue[2].Num + 1;
+					testing.ValidateConsistency();
+					leftSourceScalarValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					leftSourceScalarValue.RemoveAt(1);
+					testing.ValidateConsistency();
+					leftSourceScalarValue.Insert(0, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					leftSourceScalarValue.Insert(0, new QuickTests.Item(2, true));
+					testing.ValidateConsistency();
+				}
+				var rightSourceValue = ((ObservableCollection<Item>)((ObservableCollection<Item>)rightSource));
+
+				if (rightSourceValue != null)
+				{		
+					rightSourceValue.Insert(2, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					rightSourceValue[3] = new QuickTests.Item(7, true);
+					testing.ValidateConsistency();
+					rightSourceValue.RemoveAt(3);
+					testing.ValidateConsistency();
+					rightSourceValue.Move(1, 3);
+					testing.ValidateConsistency();
+					rightSourceValue[2].Active = !rightSourceValue[2].Active;
+					testing.ValidateConsistency();
+					rightSourceValue[2].Num = rightSourceValue[2].Num + 1;
+					testing.ValidateConsistency();
+					rightSourceValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					rightSourceValue.RemoveAt(1);
+					testing.ValidateConsistency();
+					rightSourceValue.Insert(0, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					rightSourceValue.Insert(0, new QuickTests.Item(2, true));
+					testing.ValidateConsistency();
+				}
 
 				IList listSource;
 			}
@@ -43008,6 +41446,56 @@ namespace ObservableComputations.Test
 			void test()
 			{
 				testing.ValidateConsistency();
+				var leftSourceScalarValue = ((ObservableCollection<Item>)((ObservableCollection<Item>)leftSourceScalar.Value));
+
+				if (leftSourceScalarValue != null)
+				{		
+					leftSourceScalarValue.Insert(2, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					leftSourceScalarValue[3] = new QuickTests.Item(7, true);
+					testing.ValidateConsistency();
+					leftSourceScalarValue.RemoveAt(3);
+					testing.ValidateConsistency();
+					leftSourceScalarValue.Move(1, 3);
+					testing.ValidateConsistency();
+					leftSourceScalarValue[2].Active = !leftSourceScalarValue[2].Active;
+					testing.ValidateConsistency();
+					leftSourceScalarValue[2].Num = leftSourceScalarValue[2].Num + 1;
+					testing.ValidateConsistency();
+					leftSourceScalarValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					leftSourceScalarValue.RemoveAt(1);
+					testing.ValidateConsistency();
+					leftSourceScalarValue.Insert(0, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					leftSourceScalarValue.Insert(0, new QuickTests.Item(2, true));
+					testing.ValidateConsistency();
+				}
+				var rightSourceValue = ((ObservableCollection<Item>)((ObservableCollection<Item>)rightSource));
+
+				if (rightSourceValue != null)
+				{		
+					rightSourceValue.Insert(2, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					rightSourceValue[3] = new QuickTests.Item(7, true);
+					testing.ValidateConsistency();
+					rightSourceValue.RemoveAt(3);
+					testing.ValidateConsistency();
+					rightSourceValue.Move(1, 3);
+					testing.ValidateConsistency();
+					rightSourceValue[2].Active = !rightSourceValue[2].Active;
+					testing.ValidateConsistency();
+					rightSourceValue[2].Num = rightSourceValue[2].Num + 1;
+					testing.ValidateConsistency();
+					rightSourceValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					rightSourceValue.RemoveAt(1);
+					testing.ValidateConsistency();
+					rightSourceValue.Insert(0, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					rightSourceValue.Insert(0, new QuickTests.Item(2, true));
+					testing.ValidateConsistency();
+				}
 
 				IList listSource;
 			}
@@ -43037,6 +41525,56 @@ namespace ObservableComputations.Test
 			void test()
 			{
 				testing.ValidateConsistency();
+				var leftSourceValue = ((ObservableCollection<Item>)((System.Collections.Specialized.INotifyCollectionChanged)leftSource));
+
+				if (leftSourceValue != null)
+				{		
+					leftSourceValue.Insert(2, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					leftSourceValue[3] = new QuickTests.Item(7, true);
+					testing.ValidateConsistency();
+					leftSourceValue.RemoveAt(3);
+					testing.ValidateConsistency();
+					leftSourceValue.Move(1, 3);
+					testing.ValidateConsistency();
+					leftSourceValue[2].Active = !leftSourceValue[2].Active;
+					testing.ValidateConsistency();
+					leftSourceValue[2].Num = leftSourceValue[2].Num + 1;
+					testing.ValidateConsistency();
+					leftSourceValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					leftSourceValue.RemoveAt(1);
+					testing.ValidateConsistency();
+					leftSourceValue.Insert(0, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					leftSourceValue.Insert(0, new QuickTests.Item(2, true));
+					testing.ValidateConsistency();
+				}
+				var rightSourceValue = ((ObservableCollection<Item>)((System.Collections.Specialized.INotifyCollectionChanged)rightSource));
+
+				if (rightSourceValue != null)
+				{		
+					rightSourceValue.Insert(2, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					rightSourceValue[3] = new QuickTests.Item(7, true);
+					testing.ValidateConsistency();
+					rightSourceValue.RemoveAt(3);
+					testing.ValidateConsistency();
+					rightSourceValue.Move(1, 3);
+					testing.ValidateConsistency();
+					rightSourceValue[2].Active = !rightSourceValue[2].Active;
+					testing.ValidateConsistency();
+					rightSourceValue[2].Num = rightSourceValue[2].Num + 1;
+					testing.ValidateConsistency();
+					rightSourceValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					rightSourceValue.RemoveAt(1);
+					testing.ValidateConsistency();
+					rightSourceValue.Insert(0, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					rightSourceValue.Insert(0, new QuickTests.Item(2, true));
+					testing.ValidateConsistency();
+				}
 
 				IList listSource;
 			}
@@ -43059,6 +41597,56 @@ namespace ObservableComputations.Test
 			void test()
 			{
 				testing.ValidateConsistency();
+				var leftSourceValue = ((ObservableCollection<Item>)((System.Collections.Specialized.INotifyCollectionChanged)leftSource));
+
+				if (leftSourceValue != null)
+				{		
+					leftSourceValue.Insert(2, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					leftSourceValue[3] = new QuickTests.Item(7, true);
+					testing.ValidateConsistency();
+					leftSourceValue.RemoveAt(3);
+					testing.ValidateConsistency();
+					leftSourceValue.Move(1, 3);
+					testing.ValidateConsistency();
+					leftSourceValue[2].Active = !leftSourceValue[2].Active;
+					testing.ValidateConsistency();
+					leftSourceValue[2].Num = leftSourceValue[2].Num + 1;
+					testing.ValidateConsistency();
+					leftSourceValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					leftSourceValue.RemoveAt(1);
+					testing.ValidateConsistency();
+					leftSourceValue.Insert(0, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					leftSourceValue.Insert(0, new QuickTests.Item(2, true));
+					testing.ValidateConsistency();
+				}
+				var rightSourceValue = ((ObservableCollection<Item>)((System.Collections.Specialized.INotifyCollectionChanged)rightSource));
+
+				if (rightSourceValue != null)
+				{		
+					rightSourceValue.Insert(2, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					rightSourceValue[3] = new QuickTests.Item(7, true);
+					testing.ValidateConsistency();
+					rightSourceValue.RemoveAt(3);
+					testing.ValidateConsistency();
+					rightSourceValue.Move(1, 3);
+					testing.ValidateConsistency();
+					rightSourceValue[2].Active = !rightSourceValue[2].Active;
+					testing.ValidateConsistency();
+					rightSourceValue[2].Num = rightSourceValue[2].Num + 1;
+					testing.ValidateConsistency();
+					rightSourceValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					rightSourceValue.RemoveAt(1);
+					testing.ValidateConsistency();
+					rightSourceValue.Insert(0, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					rightSourceValue.Insert(0, new QuickTests.Item(2, true));
+					testing.ValidateConsistency();
+				}
 
 				IList listSource;
 			}
@@ -43083,6 +41671,56 @@ namespace ObservableComputations.Test
 			void test()
 			{
 				testing.ValidateConsistency();
+				var leftSourceValue = ((ObservableCollection<Item>)((System.Collections.Specialized.INotifyCollectionChanged)leftSource));
+
+				if (leftSourceValue != null)
+				{		
+					leftSourceValue.Insert(2, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					leftSourceValue[3] = new QuickTests.Item(7, true);
+					testing.ValidateConsistency();
+					leftSourceValue.RemoveAt(3);
+					testing.ValidateConsistency();
+					leftSourceValue.Move(1, 3);
+					testing.ValidateConsistency();
+					leftSourceValue[2].Active = !leftSourceValue[2].Active;
+					testing.ValidateConsistency();
+					leftSourceValue[2].Num = leftSourceValue[2].Num + 1;
+					testing.ValidateConsistency();
+					leftSourceValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					leftSourceValue.RemoveAt(1);
+					testing.ValidateConsistency();
+					leftSourceValue.Insert(0, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					leftSourceValue.Insert(0, new QuickTests.Item(2, true));
+					testing.ValidateConsistency();
+				}
+				var rightSourceValue = ((ObservableCollection<Item>)((ObservableCollection<Item>)rightSource));
+
+				if (rightSourceValue != null)
+				{		
+					rightSourceValue.Insert(2, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					rightSourceValue[3] = new QuickTests.Item(7, true);
+					testing.ValidateConsistency();
+					rightSourceValue.RemoveAt(3);
+					testing.ValidateConsistency();
+					rightSourceValue.Move(1, 3);
+					testing.ValidateConsistency();
+					rightSourceValue[2].Active = !rightSourceValue[2].Active;
+					testing.ValidateConsistency();
+					rightSourceValue[2].Num = rightSourceValue[2].Num + 1;
+					testing.ValidateConsistency();
+					rightSourceValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					rightSourceValue.RemoveAt(1);
+					testing.ValidateConsistency();
+					rightSourceValue.Insert(0, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					rightSourceValue.Insert(0, new QuickTests.Item(2, true));
+					testing.ValidateConsistency();
+				}
 
 				IList listSource;
 			}
@@ -43105,6 +41743,56 @@ namespace ObservableComputations.Test
 			void test()
 			{
 				testing.ValidateConsistency();
+				var leftSourceValue = ((ObservableCollection<Item>)((System.Collections.Specialized.INotifyCollectionChanged)leftSource));
+
+				if (leftSourceValue != null)
+				{		
+					leftSourceValue.Insert(2, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					leftSourceValue[3] = new QuickTests.Item(7, true);
+					testing.ValidateConsistency();
+					leftSourceValue.RemoveAt(3);
+					testing.ValidateConsistency();
+					leftSourceValue.Move(1, 3);
+					testing.ValidateConsistency();
+					leftSourceValue[2].Active = !leftSourceValue[2].Active;
+					testing.ValidateConsistency();
+					leftSourceValue[2].Num = leftSourceValue[2].Num + 1;
+					testing.ValidateConsistency();
+					leftSourceValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					leftSourceValue.RemoveAt(1);
+					testing.ValidateConsistency();
+					leftSourceValue.Insert(0, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					leftSourceValue.Insert(0, new QuickTests.Item(2, true));
+					testing.ValidateConsistency();
+				}
+				var rightSourceValue = ((ObservableCollection<Item>)((ObservableCollection<Item>)rightSource));
+
+				if (rightSourceValue != null)
+				{		
+					rightSourceValue.Insert(2, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					rightSourceValue[3] = new QuickTests.Item(7, true);
+					testing.ValidateConsistency();
+					rightSourceValue.RemoveAt(3);
+					testing.ValidateConsistency();
+					rightSourceValue.Move(1, 3);
+					testing.ValidateConsistency();
+					rightSourceValue[2].Active = !rightSourceValue[2].Active;
+					testing.ValidateConsistency();
+					rightSourceValue[2].Num = rightSourceValue[2].Num + 1;
+					testing.ValidateConsistency();
+					rightSourceValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					rightSourceValue.RemoveAt(1);
+					testing.ValidateConsistency();
+					rightSourceValue.Insert(0, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					rightSourceValue.Insert(0, new QuickTests.Item(2, true));
+					testing.ValidateConsistency();
+				}
 
 				IList listSource;
 			}
@@ -43129,6 +41817,56 @@ namespace ObservableComputations.Test
 			void test()
 			{
 				testing.ValidateConsistency();
+				var leftSourceValue = ((ObservableCollection<Item>)((ObservableCollection<Item>)leftSource));
+
+				if (leftSourceValue != null)
+				{		
+					leftSourceValue.Insert(2, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					leftSourceValue[3] = new QuickTests.Item(7, true);
+					testing.ValidateConsistency();
+					leftSourceValue.RemoveAt(3);
+					testing.ValidateConsistency();
+					leftSourceValue.Move(1, 3);
+					testing.ValidateConsistency();
+					leftSourceValue[2].Active = !leftSourceValue[2].Active;
+					testing.ValidateConsistency();
+					leftSourceValue[2].Num = leftSourceValue[2].Num + 1;
+					testing.ValidateConsistency();
+					leftSourceValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					leftSourceValue.RemoveAt(1);
+					testing.ValidateConsistency();
+					leftSourceValue.Insert(0, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					leftSourceValue.Insert(0, new QuickTests.Item(2, true));
+					testing.ValidateConsistency();
+				}
+				var rightSourceValue = ((ObservableCollection<Item>)((System.Collections.Specialized.INotifyCollectionChanged)rightSource));
+
+				if (rightSourceValue != null)
+				{		
+					rightSourceValue.Insert(2, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					rightSourceValue[3] = new QuickTests.Item(7, true);
+					testing.ValidateConsistency();
+					rightSourceValue.RemoveAt(3);
+					testing.ValidateConsistency();
+					rightSourceValue.Move(1, 3);
+					testing.ValidateConsistency();
+					rightSourceValue[2].Active = !rightSourceValue[2].Active;
+					testing.ValidateConsistency();
+					rightSourceValue[2].Num = rightSourceValue[2].Num + 1;
+					testing.ValidateConsistency();
+					rightSourceValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					rightSourceValue.RemoveAt(1);
+					testing.ValidateConsistency();
+					rightSourceValue.Insert(0, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					rightSourceValue.Insert(0, new QuickTests.Item(2, true));
+					testing.ValidateConsistency();
+				}
 
 				IList listSource;
 			}
@@ -43151,6 +41889,56 @@ namespace ObservableComputations.Test
 			void test()
 			{
 				testing.ValidateConsistency();
+				var leftSourceValue = ((ObservableCollection<Item>)((ObservableCollection<Item>)leftSource));
+
+				if (leftSourceValue != null)
+				{		
+					leftSourceValue.Insert(2, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					leftSourceValue[3] = new QuickTests.Item(7, true);
+					testing.ValidateConsistency();
+					leftSourceValue.RemoveAt(3);
+					testing.ValidateConsistency();
+					leftSourceValue.Move(1, 3);
+					testing.ValidateConsistency();
+					leftSourceValue[2].Active = !leftSourceValue[2].Active;
+					testing.ValidateConsistency();
+					leftSourceValue[2].Num = leftSourceValue[2].Num + 1;
+					testing.ValidateConsistency();
+					leftSourceValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					leftSourceValue.RemoveAt(1);
+					testing.ValidateConsistency();
+					leftSourceValue.Insert(0, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					leftSourceValue.Insert(0, new QuickTests.Item(2, true));
+					testing.ValidateConsistency();
+				}
+				var rightSourceValue = ((ObservableCollection<Item>)((System.Collections.Specialized.INotifyCollectionChanged)rightSource));
+
+				if (rightSourceValue != null)
+				{		
+					rightSourceValue.Insert(2, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					rightSourceValue[3] = new QuickTests.Item(7, true);
+					testing.ValidateConsistency();
+					rightSourceValue.RemoveAt(3);
+					testing.ValidateConsistency();
+					rightSourceValue.Move(1, 3);
+					testing.ValidateConsistency();
+					rightSourceValue[2].Active = !rightSourceValue[2].Active;
+					testing.ValidateConsistency();
+					rightSourceValue[2].Num = rightSourceValue[2].Num + 1;
+					testing.ValidateConsistency();
+					rightSourceValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					rightSourceValue.RemoveAt(1);
+					testing.ValidateConsistency();
+					rightSourceValue.Insert(0, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					rightSourceValue.Insert(0, new QuickTests.Item(2, true));
+					testing.ValidateConsistency();
+				}
 
 				IList listSource;
 			}
@@ -43175,6 +41963,56 @@ namespace ObservableComputations.Test
 			void test()
 			{
 				testing.ValidateConsistency();
+				var leftSourceValue = ((ObservableCollection<Item>)((ObservableCollection<Item>)leftSource));
+
+				if (leftSourceValue != null)
+				{		
+					leftSourceValue.Insert(2, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					leftSourceValue[3] = new QuickTests.Item(7, true);
+					testing.ValidateConsistency();
+					leftSourceValue.RemoveAt(3);
+					testing.ValidateConsistency();
+					leftSourceValue.Move(1, 3);
+					testing.ValidateConsistency();
+					leftSourceValue[2].Active = !leftSourceValue[2].Active;
+					testing.ValidateConsistency();
+					leftSourceValue[2].Num = leftSourceValue[2].Num + 1;
+					testing.ValidateConsistency();
+					leftSourceValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					leftSourceValue.RemoveAt(1);
+					testing.ValidateConsistency();
+					leftSourceValue.Insert(0, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					leftSourceValue.Insert(0, new QuickTests.Item(2, true));
+					testing.ValidateConsistency();
+				}
+				var rightSourceValue = ((ObservableCollection<Item>)((ObservableCollection<Item>)rightSource));
+
+				if (rightSourceValue != null)
+				{		
+					rightSourceValue.Insert(2, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					rightSourceValue[3] = new QuickTests.Item(7, true);
+					testing.ValidateConsistency();
+					rightSourceValue.RemoveAt(3);
+					testing.ValidateConsistency();
+					rightSourceValue.Move(1, 3);
+					testing.ValidateConsistency();
+					rightSourceValue[2].Active = !rightSourceValue[2].Active;
+					testing.ValidateConsistency();
+					rightSourceValue[2].Num = rightSourceValue[2].Num + 1;
+					testing.ValidateConsistency();
+					rightSourceValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					rightSourceValue.RemoveAt(1);
+					testing.ValidateConsistency();
+					rightSourceValue.Insert(0, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					rightSourceValue.Insert(0, new QuickTests.Item(2, true));
+					testing.ValidateConsistency();
+				}
 
 				IList listSource;
 			}
@@ -43197,6 +42035,56 @@ namespace ObservableComputations.Test
 			void test()
 			{
 				testing.ValidateConsistency();
+				var leftSourceValue = ((ObservableCollection<Item>)((ObservableCollection<Item>)leftSource));
+
+				if (leftSourceValue != null)
+				{		
+					leftSourceValue.Insert(2, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					leftSourceValue[3] = new QuickTests.Item(7, true);
+					testing.ValidateConsistency();
+					leftSourceValue.RemoveAt(3);
+					testing.ValidateConsistency();
+					leftSourceValue.Move(1, 3);
+					testing.ValidateConsistency();
+					leftSourceValue[2].Active = !leftSourceValue[2].Active;
+					testing.ValidateConsistency();
+					leftSourceValue[2].Num = leftSourceValue[2].Num + 1;
+					testing.ValidateConsistency();
+					leftSourceValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					leftSourceValue.RemoveAt(1);
+					testing.ValidateConsistency();
+					leftSourceValue.Insert(0, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					leftSourceValue.Insert(0, new QuickTests.Item(2, true));
+					testing.ValidateConsistency();
+				}
+				var rightSourceValue = ((ObservableCollection<Item>)((ObservableCollection<Item>)rightSource));
+
+				if (rightSourceValue != null)
+				{		
+					rightSourceValue.Insert(2, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					rightSourceValue[3] = new QuickTests.Item(7, true);
+					testing.ValidateConsistency();
+					rightSourceValue.RemoveAt(3);
+					testing.ValidateConsistency();
+					rightSourceValue.Move(1, 3);
+					testing.ValidateConsistency();
+					rightSourceValue[2].Active = !rightSourceValue[2].Active;
+					testing.ValidateConsistency();
+					rightSourceValue[2].Num = rightSourceValue[2].Num + 1;
+					testing.ValidateConsistency();
+					rightSourceValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					rightSourceValue.RemoveAt(1);
+					testing.ValidateConsistency();
+					rightSourceValue.Insert(0, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					rightSourceValue.Insert(0, new QuickTests.Item(2, true));
+					testing.ValidateConsistency();
+				}
 
 				IList listSource;
 			}
@@ -43238,11 +42126,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					sourceScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
+					sourceScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -43306,11 +42190,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					sourceScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
+					sourceScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -43376,11 +42256,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					sourceScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
+					sourceScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -43444,11 +42320,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					sourceScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
+					sourceScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -43514,11 +42386,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					sourceValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
+					sourceValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					sourceValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -43577,11 +42445,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					sourceValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
+					sourceValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					sourceValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -43642,11 +42506,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					sourceValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
+					sourceValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					sourceValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -43705,11 +42565,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					sourceValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
+					sourceValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					sourceValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -43775,11 +42631,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					sourceScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
+					sourceScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -43845,11 +42697,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					sourceScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
+					sourceScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -43915,11 +42763,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					sourceScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
+					sourceScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -43983,11 +42827,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					sourceScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
+					sourceScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -44055,11 +42895,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					sourceScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
+					sourceScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -44125,11 +42961,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					sourceScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
+					sourceScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -44195,11 +43027,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					sourceScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
+					sourceScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -44263,11 +43091,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					sourceScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
+					sourceScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -44335,11 +43159,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					sourceScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
+					sourceScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -44410,11 +43230,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					sourceScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
+					sourceScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -44487,11 +43303,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					sourceScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
+					sourceScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -44562,11 +43374,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					sourceScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
+					sourceScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -44639,11 +43447,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					sourceValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
+					sourceValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					sourceValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -44704,11 +43508,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					sourceValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
+					sourceValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					sourceValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -44769,11 +43569,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					sourceValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
+					sourceValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					sourceValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -44832,11 +43628,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					sourceValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
+					sourceValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					sourceValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -44899,11 +43691,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					sourceValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
+					sourceValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					sourceValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -44964,11 +43752,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					sourceValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
+					sourceValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					sourceValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -45029,11 +43813,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					sourceValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
+					sourceValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					sourceValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -45092,11 +43872,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					sourceValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
+					sourceValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					sourceValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -45159,11 +43935,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					sourceValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
+					sourceValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					sourceValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -45229,11 +44001,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					sourceValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
+					sourceValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					sourceValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -45301,11 +44069,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					sourceValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
+					sourceValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					sourceValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -45371,11 +44135,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					sourceValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
+					sourceValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					sourceValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -45446,11 +44206,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					sourceScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
+					sourceScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -45516,11 +44272,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					sourceScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
+					sourceScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -45586,11 +44338,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					sourceScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
+					sourceScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -45654,11 +44402,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					sourceScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
+					sourceScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -45726,11 +44470,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					sourceScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
+					sourceScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -45796,11 +44536,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					sourceScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
+					sourceScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -45866,11 +44602,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					sourceScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
+					sourceScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -45934,11 +44666,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					sourceScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
+					sourceScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -46006,11 +44734,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					sourceScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
+					sourceScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -46081,11 +44805,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					sourceScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
+					sourceScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -46158,11 +44878,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					sourceScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
+					sourceScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -46233,11 +44949,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					sourceScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
+					sourceScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -46310,11 +45022,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					sourceValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
+					sourceValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					sourceValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -46375,11 +45083,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					sourceValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
+					sourceValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					sourceValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -46440,11 +45144,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					sourceValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
+					sourceValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					sourceValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -46503,11 +45203,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					sourceValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
+					sourceValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					sourceValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -46570,11 +45266,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					sourceValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
+					sourceValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					sourceValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -46635,11 +45327,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					sourceValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
+					sourceValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					sourceValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -46700,11 +45388,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					sourceValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
+					sourceValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					sourceValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -46763,11 +45447,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					sourceValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
+					sourceValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					sourceValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -46830,11 +45510,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					sourceValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
+					sourceValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					sourceValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -46900,11 +45576,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					sourceValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
+					sourceValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					sourceValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -46972,11 +45644,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					sourceValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
+					sourceValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					sourceValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -47042,11 +45710,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					sourceValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
+					sourceValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					sourceValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -47113,11 +45777,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					sourceScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
+					sourceScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -47181,11 +45841,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					sourceValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
+					sourceValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					sourceValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -47253,11 +45909,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					sourceValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
+					sourceValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					sourceValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -47330,11 +45982,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					sourceValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
+					sourceValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					sourceValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -47402,11 +46050,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					sourceValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
+					sourceValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					sourceValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -47472,11 +46116,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					sourceValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
+					sourceValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					sourceValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -47541,11 +46181,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					sourceValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
+					sourceValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					sourceValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -47618,11 +46254,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					sourceValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
+					sourceValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					sourceValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -47690,11 +46322,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					sourceValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
+					sourceValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					sourceValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -47760,11 +46388,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					sourceValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
+					sourceValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					sourceValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -47829,11 +46453,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					sourceValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
+					sourceValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					sourceValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -47901,11 +46521,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					sourceValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
+					sourceValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					sourceValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -47970,11 +46586,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					sourceValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
+					sourceValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					sourceValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -48042,11 +46654,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					sourceValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
+					sourceValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					sourceValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -48111,11 +46719,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					sourceValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
+					sourceValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					sourceValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -48183,11 +46787,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					sourceValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
+					sourceValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					sourceValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -48252,11 +46852,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					sourceValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
+					sourceValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					sourceValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -48324,11 +46920,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					sourceValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
+					sourceValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					sourceValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -48393,11 +46985,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					sourceValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
+					sourceValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					sourceValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -48462,11 +47050,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					sourceValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
+					sourceValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					sourceValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -48531,11 +47115,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					sourceScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
+					sourceScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -48613,11 +47193,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					sourceScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
+					sourceScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -48690,11 +47266,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					sourceScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
+					sourceScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -48765,11 +47337,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					sourceScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
+					sourceScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -48839,11 +47407,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					sourceScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
+					sourceScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -48921,11 +47485,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					sourceScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
+					sourceScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -48998,11 +47558,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					sourceScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
+					sourceScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -49073,11 +47629,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					sourceScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
+					sourceScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -49147,11 +47699,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					sourceScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
+					sourceScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -49224,11 +47772,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					sourceScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
+					sourceScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -49298,11 +47842,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					sourceScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
+					sourceScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -49375,11 +47915,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					sourceScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
+					sourceScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -49449,11 +47985,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					sourceScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
+					sourceScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -49526,11 +48058,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					sourceScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
+					sourceScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -49600,11 +48128,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					sourceScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
+					sourceScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -49677,11 +48201,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					sourceScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
+					sourceScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -49751,11 +48271,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					sourceScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
+					sourceScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -49825,11 +48341,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					sourceScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
+					sourceScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -49900,11 +48412,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					sourceValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
+					sourceValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					sourceValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -49965,11 +48473,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					sourceValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
+					sourceValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					sourceValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -50032,11 +48536,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					sourceValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
+					sourceValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					sourceValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -50097,11 +48597,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					sourceValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
+					sourceValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					sourceValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -50164,11 +48660,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					sourceScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
+					sourceScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -50234,11 +48726,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					sourceScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
+					sourceScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -50306,11 +48794,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					sourceScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
+					sourceScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -50376,11 +48860,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					sourceScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
+					sourceScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -50448,11 +48928,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					sourceValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
+					sourceValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					sourceValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -50518,11 +48994,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					sourceValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
+					sourceValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					sourceValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -50590,11 +49062,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					sourceValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
+					sourceValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					sourceValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -50660,11 +49128,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					sourceValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
+					sourceValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					sourceValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -50732,11 +49196,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					sourceScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
+					sourceScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -50807,11 +49267,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					sourceScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
+					sourceScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -50884,11 +49340,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					sourceScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
+					sourceScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -50959,11 +49411,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					sourceScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
+					sourceScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -51036,11 +49484,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					sourceValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
+					sourceValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					sourceValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -51113,11 +49557,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					sourceValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
+					sourceValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					sourceValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -51190,11 +49630,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					sourceScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
+					sourceScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -51272,11 +49708,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					sourceScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
+					sourceScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -51354,11 +49786,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					sourceValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
+					sourceValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					sourceValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -51426,11 +49854,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					sourceValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
+					sourceValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					sourceValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -51498,11 +49922,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					sourceScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
+					sourceScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -51575,11 +49995,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					sourceScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
+					sourceScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -51655,11 +50071,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					outerSourceScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					outerSourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					outerSourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					outerSourceScalarValue.RemoveAt(0);
+					outerSourceScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					outerSourceScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -51684,11 +50096,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					innerSourceScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					innerSourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					innerSourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					innerSourceScalarValue.RemoveAt(0);
+					innerSourceScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					innerSourceScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -51777,11 +50185,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					outerSourceScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					outerSourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					outerSourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					outerSourceScalarValue.RemoveAt(0);
+					outerSourceScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					outerSourceScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -51806,11 +50210,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					innerSourceScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					innerSourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					innerSourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					innerSourceScalarValue.RemoveAt(0);
+					innerSourceScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					innerSourceScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -51899,11 +50299,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					outerSourceScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					outerSourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					outerSourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					outerSourceScalarValue.RemoveAt(0);
+					outerSourceScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					outerSourceScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -51928,11 +50324,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					innerSourceScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					innerSourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					innerSourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					innerSourceScalarValue.RemoveAt(0);
+					innerSourceScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					innerSourceScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -52021,11 +50413,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					outerSourceScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					outerSourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					outerSourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					outerSourceScalarValue.RemoveAt(0);
+					outerSourceScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					outerSourceScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -52050,11 +50438,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					innerSourceScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					innerSourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					innerSourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					innerSourceScalarValue.RemoveAt(0);
+					innerSourceScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					innerSourceScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -52143,11 +50527,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					outerSourceScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					outerSourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					outerSourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					outerSourceScalarValue.RemoveAt(0);
+					outerSourceScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					outerSourceScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -52172,11 +50552,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					innerSourceValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					innerSourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					innerSourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					innerSourceValue.RemoveAt(0);
+					innerSourceValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					innerSourceValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -52260,11 +50636,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					outerSourceScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					outerSourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					outerSourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					outerSourceScalarValue.RemoveAt(0);
+					outerSourceScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					outerSourceScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -52289,11 +50661,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					innerSourceValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					innerSourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					innerSourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					innerSourceValue.RemoveAt(0);
+					innerSourceValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					innerSourceValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -52377,11 +50745,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					outerSourceScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					outerSourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					outerSourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					outerSourceScalarValue.RemoveAt(0);
+					outerSourceScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					outerSourceScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -52406,11 +50770,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					innerSourceValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					innerSourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					innerSourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					innerSourceValue.RemoveAt(0);
+					innerSourceValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					innerSourceValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -52494,11 +50854,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					outerSourceScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					outerSourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					outerSourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					outerSourceScalarValue.RemoveAt(0);
+					outerSourceScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					outerSourceScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -52523,11 +50879,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					innerSourceValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					innerSourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					innerSourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					innerSourceValue.RemoveAt(0);
+					innerSourceValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					innerSourceValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -52611,11 +50963,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					outerSourceValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					outerSourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					outerSourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					outerSourceValue.RemoveAt(0);
+					outerSourceValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					outerSourceValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -52640,11 +50988,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					innerSourceScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					innerSourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					innerSourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					innerSourceScalarValue.RemoveAt(0);
+					innerSourceScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					innerSourceScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -52728,11 +51072,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					outerSourceValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					outerSourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					outerSourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					outerSourceValue.RemoveAt(0);
+					outerSourceValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					outerSourceValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -52757,11 +51097,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					innerSourceScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					innerSourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					innerSourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					innerSourceScalarValue.RemoveAt(0);
+					innerSourceScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					innerSourceScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -52845,11 +51181,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					outerSourceValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					outerSourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					outerSourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					outerSourceValue.RemoveAt(0);
+					outerSourceValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					outerSourceValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -52874,11 +51206,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					innerSourceScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					innerSourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					innerSourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					innerSourceScalarValue.RemoveAt(0);
+					innerSourceScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					innerSourceScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -52962,11 +51290,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					outerSourceValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					outerSourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					outerSourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					outerSourceValue.RemoveAt(0);
+					outerSourceValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					outerSourceValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -52991,11 +51315,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					innerSourceScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					innerSourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					innerSourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					innerSourceScalarValue.RemoveAt(0);
+					innerSourceScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					innerSourceScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -53079,11 +51399,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					outerSourceValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					outerSourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					outerSourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					outerSourceValue.RemoveAt(0);
+					outerSourceValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					outerSourceValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -53108,11 +51424,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					innerSourceValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					innerSourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					innerSourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					innerSourceValue.RemoveAt(0);
+					innerSourceValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					innerSourceValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -53191,11 +51503,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					outerSourceValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					outerSourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					outerSourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					outerSourceValue.RemoveAt(0);
+					outerSourceValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					outerSourceValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -53220,11 +51528,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					innerSourceValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					innerSourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					innerSourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					innerSourceValue.RemoveAt(0);
+					innerSourceValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					innerSourceValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -53303,11 +51607,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					outerSourceValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					outerSourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					outerSourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					outerSourceValue.RemoveAt(0);
+					outerSourceValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					outerSourceValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -53332,11 +51632,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					innerSourceValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					innerSourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					innerSourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					innerSourceValue.RemoveAt(0);
+					innerSourceValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					innerSourceValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -53415,11 +51711,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					outerSourceValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					outerSourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					outerSourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					outerSourceValue.RemoveAt(0);
+					outerSourceValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					outerSourceValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -53444,11 +51736,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					innerSourceValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					innerSourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					innerSourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					innerSourceValue.RemoveAt(0);
+					innerSourceValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					innerSourceValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -53528,11 +51816,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					sourceScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
+					sourceScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -53603,11 +51887,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					sourceScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
+					sourceScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -53678,11 +51958,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					sourceValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
+					sourceValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					sourceValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -53748,11 +52024,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					sourceValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
+					sourceValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					sourceValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -53818,11 +52090,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					sourceValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
+					sourceValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					sourceValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -53883,11 +52151,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					sourceValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
+					sourceValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					sourceValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -53948,11 +52212,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					sourceScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
+					sourceScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -54018,11 +52278,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					sourceScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
+					sourceScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -54089,11 +52345,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					sourceScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
+					sourceScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -54157,11 +52409,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					sourceScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
+					sourceScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -54225,11 +52473,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					sourceValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
+					sourceValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					sourceValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -54288,11 +52532,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					sourceValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
+					sourceValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					sourceValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -54356,11 +52596,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					sourceScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
+					sourceScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -54426,11 +52662,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					sourceScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
+					sourceScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -54496,11 +52728,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					sourceValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
+					sourceValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					sourceValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -54561,11 +52789,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					sourceValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
+					sourceValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					sourceValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -54629,11 +52853,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					sourceScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
+					sourceScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -54699,11 +52919,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					sourceScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
+					sourceScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -54769,11 +52985,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					sourceValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
+					sourceValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					sourceValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -54834,11 +53046,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					sourceValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
+					sourceValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					sourceValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -54899,11 +53107,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					sourceScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
+					sourceScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -54969,11 +53173,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					sourceScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
+					sourceScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -55039,11 +53239,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					sourceValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
+					sourceValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					sourceValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -55104,11 +53300,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					sourceValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
+					sourceValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					sourceValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -55200,11 +53392,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					sourceScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
+					sourceScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -55275,11 +53463,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					sourceScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
+					sourceScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -55352,11 +53536,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					sourceScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
+					sourceScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -55427,11 +53607,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					sourceScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
+					sourceScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -55504,11 +53680,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					sourceValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
+					sourceValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					sourceValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -55574,11 +53746,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					sourceValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
+					sourceValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					sourceValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -55646,11 +53814,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					sourceValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
+					sourceValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					sourceValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -55716,11 +53880,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					sourceValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
+					sourceValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					sourceValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -55788,11 +53948,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					sourceScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
+					sourceScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -55858,11 +54014,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					sourceScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
+					sourceScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -55930,11 +54082,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					sourceScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
+					sourceScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -56000,11 +54148,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					sourceScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
+					sourceScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -56072,11 +54216,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					sourceValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
+					sourceValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					sourceValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -56137,11 +54277,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					sourceValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
+					sourceValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					sourceValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -56204,11 +54340,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					sourceValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
+					sourceValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					sourceValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -56269,11 +54401,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					sourceValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
+					sourceValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					sourceValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -56339,11 +54467,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					sourceScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
+					sourceScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -56409,11 +54533,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					sourceScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
+					sourceScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -56481,11 +54601,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					sourceScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
+					sourceScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -56551,11 +54667,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					sourceScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
+					sourceScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -56623,11 +54735,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					sourceValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
+					sourceValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					sourceValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -56688,11 +54796,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					sourceValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
+					sourceValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					sourceValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -56755,11 +54859,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					sourceValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
+					sourceValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					sourceValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -56820,11 +54920,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					sourceValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
+					sourceValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					sourceValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -56887,11 +54983,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					sourceScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
+					sourceScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -56957,11 +55049,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					sourceScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
+					sourceScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -57029,11 +55117,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					sourceScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
+					sourceScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -57099,11 +55183,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					sourceScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
+					sourceScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -57171,11 +55251,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					sourceValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
+					sourceValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					sourceValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -57236,11 +55312,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					sourceValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
+					sourceValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					sourceValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -57303,11 +55375,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					sourceValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
+					sourceValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					sourceValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -57368,11 +55436,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					sourceValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
+					sourceValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					sourceValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -57436,11 +55500,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					sourceScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
+					sourceScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -57511,11 +55571,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					sourceScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
+					sourceScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -57581,11 +55637,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					sourceValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
+					sourceValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					sourceValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -57651,11 +55703,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					sourceValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
+					sourceValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					sourceValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -57716,11 +55764,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					sourceValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
+					sourceValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					sourceValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -57781,11 +55825,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					sourceScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
+					sourceScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -57852,11 +55892,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					sourceScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
+					sourceScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -57920,11 +55956,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					sourceScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
+					sourceScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -57988,11 +56020,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					sourceValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
+					sourceValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					sourceValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -58051,11 +56079,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					sourceValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
+					sourceValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					sourceValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -58123,11 +56147,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					sourceScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
+					sourceScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -58205,11 +56225,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					sourceScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
+					sourceScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -58289,11 +56305,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					sourceScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
+					sourceScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -58371,11 +56383,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					sourceScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
+					sourceScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -58453,11 +56461,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					sourceScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
+					sourceScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -58530,11 +56534,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					sourceScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
+					sourceScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -58609,11 +56609,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					sourceScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
+					sourceScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -58686,11 +56682,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					sourceScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
+					sourceScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -58765,11 +56757,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					sourceScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
+					sourceScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -58842,11 +56830,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					sourceScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
+					sourceScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -58919,11 +56903,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					sourceScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
+					sourceScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -58991,11 +56971,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					sourceScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
+					sourceScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -59065,11 +57041,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					sourceValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
+					sourceValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					sourceValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -59142,11 +57114,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					sourceValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
+					sourceValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					sourceValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -59221,11 +57189,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					sourceValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
+					sourceValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					sourceValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -59298,11 +57262,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					sourceValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
+					sourceValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					sourceValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -59375,11 +57335,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					sourceValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
+					sourceValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					sourceValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -59447,11 +57403,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					sourceValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
+					sourceValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					sourceValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -59521,11 +57473,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					sourceValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
+					sourceValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					sourceValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -59593,11 +57541,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					sourceValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
+					sourceValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					sourceValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -59667,11 +57611,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					sourceValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
+					sourceValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					sourceValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -59739,11 +57679,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					sourceValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
+					sourceValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					sourceValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -59811,11 +57747,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					sourceValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
+					sourceValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					sourceValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -59878,11 +57810,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					sourceValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
+					sourceValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					sourceValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -59948,11 +57876,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					sourceScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
+					sourceScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -60018,11 +57942,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					sourceScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
+					sourceScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -60090,11 +58010,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					sourceScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
+					sourceScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -60160,11 +58076,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					sourceScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
+					sourceScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -60232,11 +58144,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					sourceValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
+					sourceValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					sourceValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -60297,11 +58205,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					sourceValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
+					sourceValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					sourceValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -60364,11 +58268,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					sourceValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
+					sourceValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					sourceValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -60429,11 +58329,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					sourceValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
+					sourceValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					sourceValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -60496,11 +58392,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					sourceScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
+					sourceScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -60566,11 +58458,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					sourceScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
+					sourceScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -60638,11 +58526,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					sourceScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
+					sourceScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -60708,11 +58592,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					sourceScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
+					sourceScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -60780,11 +58660,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					sourceValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
+					sourceValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					sourceValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -60845,11 +58721,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					sourceValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
+					sourceValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					sourceValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -60912,11 +58784,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					sourceValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
+					sourceValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					sourceValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -60977,11 +58845,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					sourceValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
+					sourceValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					sourceValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -61049,11 +58913,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					sourceValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
+					sourceValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					sourceValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -61126,11 +58986,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					sourceValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
+					sourceValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					sourceValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -61198,11 +59054,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					sourceValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
+					sourceValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					sourceValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -61268,11 +59120,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					sourceValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
+					sourceValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					sourceValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -61337,11 +59185,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					sourceValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
+					sourceValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					sourceValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -61409,11 +59253,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					sourceValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
+					sourceValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					sourceValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -61478,11 +59318,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					sourceValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
+					sourceValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					sourceValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -61550,11 +59386,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					sourceValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
+					sourceValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					sourceValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -61619,11 +59451,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					sourceValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
+					sourceValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					sourceValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -61688,11 +59516,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					sourceScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
+					sourceScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -61770,11 +59594,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					sourceScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
+					sourceScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -61847,11 +59667,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					sourceScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
+					sourceScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -61922,11 +59738,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					sourceScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
+					sourceScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -61996,11 +59808,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					sourceScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
+					sourceScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -62073,11 +59881,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					sourceScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
+					sourceScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -62147,11 +59951,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					sourceScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
+					sourceScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -62224,11 +60024,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					sourceScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
+					sourceScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -62298,11 +60094,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					sourceScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
+					sourceScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -63587,11 +61379,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source1Value.RemoveAt(0);
 					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
+					source1Value.RemoveAt(1);
 					testing.ValidateConsistency();
 					source1Value.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -63616,11 +61404,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source2Value.RemoveAt(0);
 					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
+					source2Value.RemoveAt(1);
 					testing.ValidateConsistency();
 					source2Value.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -63699,11 +61483,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source1Value.RemoveAt(0);
 					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
+					source1Value.RemoveAt(1);
 					testing.ValidateConsistency();
 					source1Value.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -63728,11 +61508,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source2Value.RemoveAt(0);
 					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
+					source2Value.RemoveAt(1);
 					testing.ValidateConsistency();
 					source2Value.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -63811,11 +61587,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source1Value.RemoveAt(0);
 					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
+					source1Value.RemoveAt(1);
 					testing.ValidateConsistency();
 					source1Value.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -63840,11 +61612,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source2Value.RemoveAt(0);
 					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
+					source2Value.RemoveAt(1);
 					testing.ValidateConsistency();
 					source2Value.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -63921,11 +61689,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source1Value.RemoveAt(0);
 					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
+					source1Value.RemoveAt(1);
 					testing.ValidateConsistency();
 					source1Value.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -63950,11 +61714,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source2Value.RemoveAt(0);
 					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
+					source2Value.RemoveAt(1);
 					testing.ValidateConsistency();
 					source2Value.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -64035,11 +61795,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source1Value.RemoveAt(0);
 					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
+					source1Value.RemoveAt(1);
 					testing.ValidateConsistency();
 					source1Value.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -64064,11 +61820,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source2Value.RemoveAt(0);
 					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
+					source2Value.RemoveAt(1);
 					testing.ValidateConsistency();
 					source2Value.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -64147,11 +61899,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source1Value.RemoveAt(0);
 					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
+					source1Value.RemoveAt(1);
 					testing.ValidateConsistency();
 					source1Value.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -64176,11 +61924,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source2Value.RemoveAt(0);
 					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
+					source2Value.RemoveAt(1);
 					testing.ValidateConsistency();
 					source2Value.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -64259,11 +62003,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source1Value.RemoveAt(0);
 					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
+					source1Value.RemoveAt(1);
 					testing.ValidateConsistency();
 					source1Value.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -64288,11 +62028,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source2Value.RemoveAt(0);
 					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
+					source2Value.RemoveAt(1);
 					testing.ValidateConsistency();
 					source2Value.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -64369,11 +62105,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source1Value.RemoveAt(0);
 					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
+					source1Value.RemoveAt(1);
 					testing.ValidateConsistency();
 					source1Value.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -64398,11 +62130,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source2Value.RemoveAt(0);
 					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
+					source2Value.RemoveAt(1);
 					testing.ValidateConsistency();
 					source2Value.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -64483,11 +62211,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source1Value.RemoveAt(0);
 					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
+					source1Value.RemoveAt(1);
 					testing.ValidateConsistency();
 					source1Value.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -64512,11 +62236,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source2Value.RemoveAt(0);
 					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
+					source2Value.RemoveAt(1);
 					testing.ValidateConsistency();
 					source2Value.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -64595,11 +62315,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source1Value.RemoveAt(0);
 					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
+					source1Value.RemoveAt(1);
 					testing.ValidateConsistency();
 					source1Value.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -64624,11 +62340,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source2Value.RemoveAt(0);
 					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
+					source2Value.RemoveAt(1);
 					testing.ValidateConsistency();
 					source2Value.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -64707,11 +62419,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source1Value.RemoveAt(0);
 					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
+					source1Value.RemoveAt(1);
 					testing.ValidateConsistency();
 					source1Value.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -64736,11 +62444,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source2Value.RemoveAt(0);
 					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
+					source2Value.RemoveAt(1);
 					testing.ValidateConsistency();
 					source2Value.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -64817,11 +62521,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source1Value.RemoveAt(0);
 					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
+					source1Value.RemoveAt(1);
 					testing.ValidateConsistency();
 					source1Value.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -64846,11 +62546,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source2Value.RemoveAt(0);
 					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
+					source2Value.RemoveAt(1);
 					testing.ValidateConsistency();
 					source2Value.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -64931,11 +62627,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source1Value.RemoveAt(0);
 					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
+					source1Value.RemoveAt(1);
 					testing.ValidateConsistency();
 					source1Value.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -64960,11 +62652,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source2Value.RemoveAt(0);
 					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
+					source2Value.RemoveAt(1);
 					testing.ValidateConsistency();
 					source2Value.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -65043,11 +62731,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source1Value.RemoveAt(0);
 					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
+					source1Value.RemoveAt(1);
 					testing.ValidateConsistency();
 					source1Value.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -65072,11 +62756,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source2Value.RemoveAt(0);
 					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
+					source2Value.RemoveAt(1);
 					testing.ValidateConsistency();
 					source2Value.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -65155,11 +62835,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source1Value.RemoveAt(0);
 					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
+					source1Value.RemoveAt(1);
 					testing.ValidateConsistency();
 					source1Value.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -65184,11 +62860,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source2Value.RemoveAt(0);
 					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
+					source2Value.RemoveAt(1);
 					testing.ValidateConsistency();
 					source2Value.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -65265,11 +62937,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source1Value.RemoveAt(0);
 					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
+					source1Value.RemoveAt(1);
 					testing.ValidateConsistency();
 					source1Value.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -65294,11 +62962,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source2Value.RemoveAt(0);
 					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
+					source2Value.RemoveAt(1);
 					testing.ValidateConsistency();
 					source2Value.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -65379,11 +63043,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source1ScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
+					source1ScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					source1ScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -65408,11 +63068,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source2Value.RemoveAt(0);
 					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
+					source2Value.RemoveAt(1);
 					testing.ValidateConsistency();
 					source2Value.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -65496,11 +63152,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source1ScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
+					source1ScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					source1ScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -65525,11 +63177,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source2Value.RemoveAt(0);
 					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
+					source2Value.RemoveAt(1);
 					testing.ValidateConsistency();
 					source2Value.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -65613,11 +63261,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source1ScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
+					source1ScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					source1ScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -65642,11 +63286,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source2Value.RemoveAt(0);
 					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
+					source2Value.RemoveAt(1);
 					testing.ValidateConsistency();
 					source2Value.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -65728,11 +63368,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source1ScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
+					source1ScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					source1ScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -65757,11 +63393,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source2Value.RemoveAt(0);
 					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
+					source2Value.RemoveAt(1);
 					testing.ValidateConsistency();
 					source2Value.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -65847,11 +63479,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source1ScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
+					source1ScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					source1ScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -65876,11 +63504,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source2Value.RemoveAt(0);
 					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
+					source2Value.RemoveAt(1);
 					testing.ValidateConsistency();
 					source2Value.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -65964,11 +63588,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source1ScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
+					source1ScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					source1ScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -65993,11 +63613,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source2Value.RemoveAt(0);
 					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
+					source2Value.RemoveAt(1);
 					testing.ValidateConsistency();
 					source2Value.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -66081,11 +63697,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source1ScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
+					source1ScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					source1ScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -66110,11 +63722,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source2Value.RemoveAt(0);
 					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
+					source2Value.RemoveAt(1);
 					testing.ValidateConsistency();
 					source2Value.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -66196,11 +63804,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source1ScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
+					source1ScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					source1ScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -66225,11 +63829,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source2Value.RemoveAt(0);
 					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
+					source2Value.RemoveAt(1);
 					testing.ValidateConsistency();
 					source2Value.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -66315,11 +63915,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source1ScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
+					source1ScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					source1ScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -66344,11 +63940,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source2Value.RemoveAt(0);
 					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
+					source2Value.RemoveAt(1);
 					testing.ValidateConsistency();
 					source2Value.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -66432,11 +64024,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source1ScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
+					source1ScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					source1ScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -66461,11 +64049,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source2Value.RemoveAt(0);
 					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
+					source2Value.RemoveAt(1);
 					testing.ValidateConsistency();
 					source2Value.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -66549,11 +64133,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source1ScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
+					source1ScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					source1ScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -66578,11 +64158,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source2Value.RemoveAt(0);
 					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
+					source2Value.RemoveAt(1);
 					testing.ValidateConsistency();
 					source2Value.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -66664,11 +64240,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source1ScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
+					source1ScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					source1ScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -66693,11 +64265,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source2Value.RemoveAt(0);
 					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
+					source2Value.RemoveAt(1);
 					testing.ValidateConsistency();
 					source2Value.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -66783,11 +64351,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source1ScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
+					source1ScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					source1ScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -66812,11 +64376,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source2Value.RemoveAt(0);
 					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
+					source2Value.RemoveAt(1);
 					testing.ValidateConsistency();
 					source2Value.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -66900,11 +64460,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source1ScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
+					source1ScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					source1ScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -66929,11 +64485,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source2Value.RemoveAt(0);
 					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
+					source2Value.RemoveAt(1);
 					testing.ValidateConsistency();
 					source2Value.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -67017,11 +64569,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source1ScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
+					source1ScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					source1ScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -67046,11 +64594,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source2Value.RemoveAt(0);
 					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
+					source2Value.RemoveAt(1);
 					testing.ValidateConsistency();
 					source2Value.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -67132,11 +64676,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source1ScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
+					source1ScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					source1ScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -67161,11 +64701,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source2Value.RemoveAt(0);
 					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
+					source2Value.RemoveAt(1);
 					testing.ValidateConsistency();
 					source2Value.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -67251,11 +64787,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source1ScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
+					source1ScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					source1ScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -67280,11 +64812,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source2ScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
+					source2ScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					source2ScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -67373,11 +64901,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source1ScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
+					source1ScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					source1ScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -67402,11 +64926,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source2ScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
+					source2ScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					source2ScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -67495,11 +65015,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source1ScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
+					source1ScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					source1ScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -67524,11 +65040,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source2ScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
+					source2ScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					source2ScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -67615,11 +65127,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source1ScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
+					source1ScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					source1ScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -67644,11 +65152,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source2ScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
+					source2ScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					source2ScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -67739,11 +65243,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source1ScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
+					source1ScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					source1ScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -67768,11 +65268,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source2ScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
+					source2ScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					source2ScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -67861,11 +65357,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source1ScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
+					source1ScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					source1ScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -67890,11 +65382,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source2ScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
+					source2ScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					source2ScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -67983,11 +65471,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source1ScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
+					source1ScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					source1ScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -68012,11 +65496,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source2ScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
+					source2ScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					source2ScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -68103,11 +65583,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source1ScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
+					source1ScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					source1ScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -68132,11 +65608,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source2ScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
+					source2ScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					source2ScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -68227,11 +65699,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source1ScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
+					source1ScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					source1ScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -68256,11 +65724,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source2ScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
+					source2ScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					source2ScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -68349,11 +65813,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source1ScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
+					source1ScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					source1ScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -68378,11 +65838,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source2ScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
+					source2ScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					source2ScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -68471,11 +65927,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source1ScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
+					source1ScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					source1ScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -68500,11 +65952,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source2ScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
+					source2ScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					source2ScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -68591,11 +66039,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source1ScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
+					source1ScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					source1ScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -68620,11 +66064,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source2ScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
+					source2ScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					source2ScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -68715,11 +66155,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source1ScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
+					source1ScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					source1ScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -68744,11 +66180,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source2ScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
+					source2ScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					source2ScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -68837,11 +66269,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source1ScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
+					source1ScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					source1ScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -68866,11 +66294,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source2ScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
+					source2ScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					source2ScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -68959,11 +66383,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source1ScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
+					source1ScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					source1ScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -68988,11 +66408,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source2ScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
+					source2ScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					source2ScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -69079,11 +66495,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source1ScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
+					source1ScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					source1ScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -69108,11 +66520,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source2ScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
+					source2ScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					source2ScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -69203,11 +66611,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source1Value.RemoveAt(0);
 					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
+					source1Value.RemoveAt(1);
 					testing.ValidateConsistency();
 					source1Value.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -69232,11 +66636,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source2ScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
+					source2ScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					source2ScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -69320,11 +66720,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source1Value.RemoveAt(0);
 					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
+					source1Value.RemoveAt(1);
 					testing.ValidateConsistency();
 					source1Value.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -69349,11 +66745,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source2ScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
+					source2ScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					source2ScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -69437,11 +66829,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source1Value.RemoveAt(0);
 					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
+					source1Value.RemoveAt(1);
 					testing.ValidateConsistency();
 					source1Value.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -69466,11 +66854,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source2ScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
+					source2ScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					source2ScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -69552,11 +66936,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source1Value.RemoveAt(0);
 					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
+					source1Value.RemoveAt(1);
 					testing.ValidateConsistency();
 					source1Value.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -69581,11 +66961,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source2ScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
+					source2ScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					source2ScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -69671,11 +67047,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source1Value.RemoveAt(0);
 					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
+					source1Value.RemoveAt(1);
 					testing.ValidateConsistency();
 					source1Value.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -69700,11 +67072,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source2ScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
+					source2ScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					source2ScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -69788,11 +67156,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source1Value.RemoveAt(0);
 					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
+					source1Value.RemoveAt(1);
 					testing.ValidateConsistency();
 					source1Value.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -69817,11 +67181,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source2ScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
+					source2ScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					source2ScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -69905,11 +67265,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source1Value.RemoveAt(0);
 					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
+					source1Value.RemoveAt(1);
 					testing.ValidateConsistency();
 					source1Value.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -69934,11 +67290,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source2ScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
+					source2ScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					source2ScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -70020,11 +67372,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source1Value.RemoveAt(0);
 					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
+					source1Value.RemoveAt(1);
 					testing.ValidateConsistency();
 					source1Value.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -70049,11 +67397,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source2ScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
+					source2ScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					source2ScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -70139,11 +67483,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source1Value.RemoveAt(0);
 					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
+					source1Value.RemoveAt(1);
 					testing.ValidateConsistency();
 					source1Value.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -70168,11 +67508,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source2ScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
+					source2ScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					source2ScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -70256,11 +67592,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source1Value.RemoveAt(0);
 					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
+					source1Value.RemoveAt(1);
 					testing.ValidateConsistency();
 					source1Value.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -70285,11 +67617,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source2ScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
+					source2ScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					source2ScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -70373,11 +67701,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source1Value.RemoveAt(0);
 					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
+					source1Value.RemoveAt(1);
 					testing.ValidateConsistency();
 					source1Value.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -70402,11 +67726,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source2ScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
+					source2ScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					source2ScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -70488,11 +67808,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source1Value.RemoveAt(0);
 					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
+					source1Value.RemoveAt(1);
 					testing.ValidateConsistency();
 					source1Value.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -70517,11 +67833,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source2ScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
+					source2ScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					source2ScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -70607,11 +67919,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source1Value.RemoveAt(0);
 					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
+					source1Value.RemoveAt(1);
 					testing.ValidateConsistency();
 					source1Value.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -70636,11 +67944,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source2ScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
+					source2ScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					source2ScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -70724,11 +68028,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source1Value.RemoveAt(0);
 					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
+					source1Value.RemoveAt(1);
 					testing.ValidateConsistency();
 					source1Value.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -70753,11 +68053,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source2ScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
+					source2ScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					source2ScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -70841,11 +68137,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source1Value.RemoveAt(0);
 					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
+					source1Value.RemoveAt(1);
 					testing.ValidateConsistency();
 					source1Value.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -70870,11 +68162,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source2ScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
+					source2ScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					source2ScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -70956,11 +68244,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source1Value.RemoveAt(0);
 					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
+					source1Value.RemoveAt(1);
 					testing.ValidateConsistency();
 					source1Value.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -70985,11 +68269,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source2ScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
+					source2ScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					source2ScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -71075,11 +68355,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source1Value.RemoveAt(0);
 					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
+					source1Value.RemoveAt(1);
 					testing.ValidateConsistency();
 					source1Value.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -71104,11 +68380,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source2Value.RemoveAt(0);
 					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
+					source2Value.RemoveAt(1);
 					testing.ValidateConsistency();
 					source2Value.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -71192,11 +68464,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source1Value.RemoveAt(0);
 					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
+					source1Value.RemoveAt(1);
 					testing.ValidateConsistency();
 					source1Value.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -71221,11 +68489,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source2Value.RemoveAt(0);
 					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
+					source2Value.RemoveAt(1);
 					testing.ValidateConsistency();
 					source2Value.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -71311,11 +68575,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source1Value.RemoveAt(0);
 					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
+					source1Value.RemoveAt(1);
 					testing.ValidateConsistency();
 					source1Value.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -71340,11 +68600,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source2Value.RemoveAt(0);
 					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
+					source2Value.RemoveAt(1);
 					testing.ValidateConsistency();
 					source2Value.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -71428,11 +68684,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source1Value.RemoveAt(0);
 					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
+					source1Value.RemoveAt(1);
 					testing.ValidateConsistency();
 					source1Value.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -71457,11 +68709,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source2Value.RemoveAt(0);
 					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
+					source2Value.RemoveAt(1);
 					testing.ValidateConsistency();
 					source2Value.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -71547,11 +68795,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source1Value.RemoveAt(0);
 					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
+					source1Value.RemoveAt(1);
 					testing.ValidateConsistency();
 					source1Value.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -71576,11 +68820,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source2Value.RemoveAt(0);
 					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
+					source2Value.RemoveAt(1);
 					testing.ValidateConsistency();
 					source2Value.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -71664,11 +68904,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source1Value.RemoveAt(0);
 					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
+					source1Value.RemoveAt(1);
 					testing.ValidateConsistency();
 					source1Value.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -71693,11 +68929,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source2Value.RemoveAt(0);
 					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
+					source2Value.RemoveAt(1);
 					testing.ValidateConsistency();
 					source2Value.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -71783,11 +69015,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source1Value.RemoveAt(0);
 					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
+					source1Value.RemoveAt(1);
 					testing.ValidateConsistency();
 					source1Value.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -71812,11 +69040,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source2Value.RemoveAt(0);
 					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
+					source2Value.RemoveAt(1);
 					testing.ValidateConsistency();
 					source2Value.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -71900,11 +69124,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source1Value.RemoveAt(0);
 					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
+					source1Value.RemoveAt(1);
 					testing.ValidateConsistency();
 					source1Value.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -71929,11 +69149,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source2Value.RemoveAt(0);
 					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
+					source2Value.RemoveAt(1);
 					testing.ValidateConsistency();
 					source2Value.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -72019,11 +69235,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source1ScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
+					source1ScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					source1ScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -72048,11 +69260,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source2Value.RemoveAt(0);
 					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
+					source2Value.RemoveAt(1);
 					testing.ValidateConsistency();
 					source2Value.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -72141,11 +69349,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source1ScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
+					source1ScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					source1ScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -72170,11 +69374,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source2Value.RemoveAt(0);
 					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
+					source2Value.RemoveAt(1);
 					testing.ValidateConsistency();
 					source2Value.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -72265,11 +69465,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source1ScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
+					source1ScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					source1ScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -72294,11 +69490,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source2Value.RemoveAt(0);
 					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
+					source2Value.RemoveAt(1);
 					testing.ValidateConsistency();
 					source2Value.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -72387,11 +69579,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source1ScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
+					source1ScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					source1ScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -72416,11 +69604,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source2Value.RemoveAt(0);
 					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
+					source2Value.RemoveAt(1);
 					testing.ValidateConsistency();
 					source2Value.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -72511,11 +69695,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source1ScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
+					source1ScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					source1ScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -72540,11 +69720,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source2Value.RemoveAt(0);
 					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
+					source2Value.RemoveAt(1);
 					testing.ValidateConsistency();
 					source2Value.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -72633,11 +69809,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source1ScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
+					source1ScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					source1ScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -72662,11 +69834,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source2Value.RemoveAt(0);
 					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
+					source2Value.RemoveAt(1);
 					testing.ValidateConsistency();
 					source2Value.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -72757,11 +69925,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source1ScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
+					source1ScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					source1ScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -72786,11 +69950,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source2Value.RemoveAt(0);
 					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
+					source2Value.RemoveAt(1);
 					testing.ValidateConsistency();
 					source2Value.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -72879,11 +70039,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source1ScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
+					source1ScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					source1ScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -72908,11 +70064,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source2Value.RemoveAt(0);
 					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2Value.RemoveAt(0);
+					source2Value.RemoveAt(1);
 					testing.ValidateConsistency();
 					source2Value.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -73003,11 +70155,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source1ScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
+					source1ScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					source1ScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -73032,11 +70180,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source2ScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
+					source2ScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					source2ScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -73130,11 +70274,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source1ScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
+					source1ScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					source1ScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -73159,11 +70299,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source2ScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
+					source2ScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					source2ScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -73259,11 +70395,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source1ScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
+					source1ScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					source1ScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -73288,11 +70420,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source2ScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
+					source2ScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					source2ScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -73386,11 +70514,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source1ScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
+					source1ScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					source1ScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -73415,11 +70539,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source2ScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
+					source2ScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					source2ScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -73515,11 +70635,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source1ScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
+					source1ScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					source1ScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -73544,11 +70660,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source2ScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
+					source2ScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					source2ScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -73642,11 +70754,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source1ScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
+					source1ScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					source1ScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -73671,11 +70779,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source2ScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
+					source2ScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					source2ScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -73771,11 +70875,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source1ScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
+					source1ScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					source1ScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -73800,11 +70900,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source2ScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
+					source2ScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					source2ScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -73898,11 +70994,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source1ScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1ScalarValue.RemoveAt(0);
+					source1ScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					source1ScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -73927,11 +71019,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source2ScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
+					source2ScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					source2ScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -74027,11 +71115,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source1Value.RemoveAt(0);
 					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
+					source1Value.RemoveAt(1);
 					testing.ValidateConsistency();
 					source1Value.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -74056,11 +71140,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source2ScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
+					source2ScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					source2ScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -74149,11 +71229,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source1Value.RemoveAt(0);
 					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
+					source1Value.RemoveAt(1);
 					testing.ValidateConsistency();
 					source1Value.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -74178,11 +71254,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source2ScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
+					source2ScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					source2ScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -74273,11 +71345,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source1Value.RemoveAt(0);
 					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
+					source1Value.RemoveAt(1);
 					testing.ValidateConsistency();
 					source1Value.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -74302,11 +71370,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source2ScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
+					source2ScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					source2ScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -74395,11 +71459,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source1Value.RemoveAt(0);
 					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
+					source1Value.RemoveAt(1);
 					testing.ValidateConsistency();
 					source1Value.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -74424,11 +71484,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source2ScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
+					source2ScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					source2ScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -74519,11 +71575,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source1Value.RemoveAt(0);
 					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
+					source1Value.RemoveAt(1);
 					testing.ValidateConsistency();
 					source1Value.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -74548,11 +71600,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source2ScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
+					source2ScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					source2ScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -74641,11 +71689,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source1Value.RemoveAt(0);
 					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
+					source1Value.RemoveAt(1);
 					testing.ValidateConsistency();
 					source1Value.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -74670,11 +71714,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source2ScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
+					source2ScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					source2ScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -74765,11 +71805,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source1Value.RemoveAt(0);
 					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
+					source1Value.RemoveAt(1);
 					testing.ValidateConsistency();
 					source1Value.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -74794,11 +71830,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source2ScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
+					source2ScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					source2ScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -74887,11 +71919,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source1Value.RemoveAt(0);
 					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					source1Value.RemoveAt(0);
+					source1Value.RemoveAt(1);
 					testing.ValidateConsistency();
 					source1Value.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -74916,11 +71944,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					source2ScalarValue.RemoveAt(0);
 					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
-					testing.ValidateConsistency();
-					source2ScalarValue.RemoveAt(0);
+					source2ScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
 					source2ScalarValue.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
@@ -74992,6 +72016,56 @@ namespace ObservableComputations.Test
 			void test()
 			{
 				testing.ValidateConsistency();
+				var leftSourceScalarValue = ((ObservableCollection<Item>)((System.Collections.Specialized.INotifyCollectionChanged)leftSourceScalar.Value));
+
+				if (leftSourceScalarValue != null)
+				{		
+					leftSourceScalarValue.Insert(2, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					leftSourceScalarValue[3] = new QuickTests.Item(7, true);
+					testing.ValidateConsistency();
+					leftSourceScalarValue.RemoveAt(3);
+					testing.ValidateConsistency();
+					leftSourceScalarValue.Move(1, 3);
+					testing.ValidateConsistency();
+					leftSourceScalarValue[2].Active = !leftSourceScalarValue[2].Active;
+					testing.ValidateConsistency();
+					leftSourceScalarValue[2].Num = leftSourceScalarValue[2].Num + 1;
+					testing.ValidateConsistency();
+					leftSourceScalarValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					leftSourceScalarValue.RemoveAt(1);
+					testing.ValidateConsistency();
+					leftSourceScalarValue.Insert(0, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					leftSourceScalarValue.Insert(0, new QuickTests.Item(2, true));
+					testing.ValidateConsistency();
+				}
+				var rightSourceValue = ((ObservableCollection<Item>)((System.Collections.Specialized.INotifyCollectionChanged)rightSource));
+
+				if (rightSourceValue != null)
+				{		
+					rightSourceValue.Insert(2, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					rightSourceValue[3] = new QuickTests.Item(7, true);
+					testing.ValidateConsistency();
+					rightSourceValue.RemoveAt(3);
+					testing.ValidateConsistency();
+					rightSourceValue.Move(1, 3);
+					testing.ValidateConsistency();
+					rightSourceValue[2].Active = !rightSourceValue[2].Active;
+					testing.ValidateConsistency();
+					rightSourceValue[2].Num = rightSourceValue[2].Num + 1;
+					testing.ValidateConsistency();
+					rightSourceValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					rightSourceValue.RemoveAt(1);
+					testing.ValidateConsistency();
+					rightSourceValue.Insert(0, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					rightSourceValue.Insert(0, new QuickTests.Item(2, true));
+					testing.ValidateConsistency();
+				}
 
 				IList listSource;
 			}
@@ -75017,6 +72091,56 @@ namespace ObservableComputations.Test
 			void test()
 			{
 				testing.ValidateConsistency();
+				var leftSourceScalarValue = ((ObservableCollection<Item>)((System.Collections.Specialized.INotifyCollectionChanged)leftSourceScalar.Value));
+
+				if (leftSourceScalarValue != null)
+				{		
+					leftSourceScalarValue.Insert(2, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					leftSourceScalarValue[3] = new QuickTests.Item(7, true);
+					testing.ValidateConsistency();
+					leftSourceScalarValue.RemoveAt(3);
+					testing.ValidateConsistency();
+					leftSourceScalarValue.Move(1, 3);
+					testing.ValidateConsistency();
+					leftSourceScalarValue[2].Active = !leftSourceScalarValue[2].Active;
+					testing.ValidateConsistency();
+					leftSourceScalarValue[2].Num = leftSourceScalarValue[2].Num + 1;
+					testing.ValidateConsistency();
+					leftSourceScalarValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					leftSourceScalarValue.RemoveAt(1);
+					testing.ValidateConsistency();
+					leftSourceScalarValue.Insert(0, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					leftSourceScalarValue.Insert(0, new QuickTests.Item(2, true));
+					testing.ValidateConsistency();
+				}
+				var rightSourceValue = ((ObservableCollection<Item>)((ObservableCollection<Item>)rightSource));
+
+				if (rightSourceValue != null)
+				{		
+					rightSourceValue.Insert(2, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					rightSourceValue[3] = new QuickTests.Item(7, true);
+					testing.ValidateConsistency();
+					rightSourceValue.RemoveAt(3);
+					testing.ValidateConsistency();
+					rightSourceValue.Move(1, 3);
+					testing.ValidateConsistency();
+					rightSourceValue[2].Active = !rightSourceValue[2].Active;
+					testing.ValidateConsistency();
+					rightSourceValue[2].Num = rightSourceValue[2].Num + 1;
+					testing.ValidateConsistency();
+					rightSourceValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					rightSourceValue.RemoveAt(1);
+					testing.ValidateConsistency();
+					rightSourceValue.Insert(0, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					rightSourceValue.Insert(0, new QuickTests.Item(2, true));
+					testing.ValidateConsistency();
+				}
 
 				IList listSource;
 			}
@@ -75042,6 +72166,56 @@ namespace ObservableComputations.Test
 			void test()
 			{
 				testing.ValidateConsistency();
+				var leftSourceScalarValue = ((ObservableCollection<Item>)((ObservableCollection<Item>)leftSourceScalar.Value));
+
+				if (leftSourceScalarValue != null)
+				{		
+					leftSourceScalarValue.Insert(2, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					leftSourceScalarValue[3] = new QuickTests.Item(7, true);
+					testing.ValidateConsistency();
+					leftSourceScalarValue.RemoveAt(3);
+					testing.ValidateConsistency();
+					leftSourceScalarValue.Move(1, 3);
+					testing.ValidateConsistency();
+					leftSourceScalarValue[2].Active = !leftSourceScalarValue[2].Active;
+					testing.ValidateConsistency();
+					leftSourceScalarValue[2].Num = leftSourceScalarValue[2].Num + 1;
+					testing.ValidateConsistency();
+					leftSourceScalarValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					leftSourceScalarValue.RemoveAt(1);
+					testing.ValidateConsistency();
+					leftSourceScalarValue.Insert(0, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					leftSourceScalarValue.Insert(0, new QuickTests.Item(2, true));
+					testing.ValidateConsistency();
+				}
+				var rightSourceValue = ((ObservableCollection<Item>)((System.Collections.Specialized.INotifyCollectionChanged)rightSource));
+
+				if (rightSourceValue != null)
+				{		
+					rightSourceValue.Insert(2, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					rightSourceValue[3] = new QuickTests.Item(7, true);
+					testing.ValidateConsistency();
+					rightSourceValue.RemoveAt(3);
+					testing.ValidateConsistency();
+					rightSourceValue.Move(1, 3);
+					testing.ValidateConsistency();
+					rightSourceValue[2].Active = !rightSourceValue[2].Active;
+					testing.ValidateConsistency();
+					rightSourceValue[2].Num = rightSourceValue[2].Num + 1;
+					testing.ValidateConsistency();
+					rightSourceValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					rightSourceValue.RemoveAt(1);
+					testing.ValidateConsistency();
+					rightSourceValue.Insert(0, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					rightSourceValue.Insert(0, new QuickTests.Item(2, true));
+					testing.ValidateConsistency();
+				}
 
 				IList listSource;
 			}
@@ -75067,6 +72241,56 @@ namespace ObservableComputations.Test
 			void test()
 			{
 				testing.ValidateConsistency();
+				var leftSourceScalarValue = ((ObservableCollection<Item>)((ObservableCollection<Item>)leftSourceScalar.Value));
+
+				if (leftSourceScalarValue != null)
+				{		
+					leftSourceScalarValue.Insert(2, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					leftSourceScalarValue[3] = new QuickTests.Item(7, true);
+					testing.ValidateConsistency();
+					leftSourceScalarValue.RemoveAt(3);
+					testing.ValidateConsistency();
+					leftSourceScalarValue.Move(1, 3);
+					testing.ValidateConsistency();
+					leftSourceScalarValue[2].Active = !leftSourceScalarValue[2].Active;
+					testing.ValidateConsistency();
+					leftSourceScalarValue[2].Num = leftSourceScalarValue[2].Num + 1;
+					testing.ValidateConsistency();
+					leftSourceScalarValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					leftSourceScalarValue.RemoveAt(1);
+					testing.ValidateConsistency();
+					leftSourceScalarValue.Insert(0, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					leftSourceScalarValue.Insert(0, new QuickTests.Item(2, true));
+					testing.ValidateConsistency();
+				}
+				var rightSourceValue = ((ObservableCollection<Item>)((ObservableCollection<Item>)rightSource));
+
+				if (rightSourceValue != null)
+				{		
+					rightSourceValue.Insert(2, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					rightSourceValue[3] = new QuickTests.Item(7, true);
+					testing.ValidateConsistency();
+					rightSourceValue.RemoveAt(3);
+					testing.ValidateConsistency();
+					rightSourceValue.Move(1, 3);
+					testing.ValidateConsistency();
+					rightSourceValue[2].Active = !rightSourceValue[2].Active;
+					testing.ValidateConsistency();
+					rightSourceValue[2].Num = rightSourceValue[2].Num + 1;
+					testing.ValidateConsistency();
+					rightSourceValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					rightSourceValue.RemoveAt(1);
+					testing.ValidateConsistency();
+					rightSourceValue.Insert(0, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					rightSourceValue.Insert(0, new QuickTests.Item(2, true));
+					testing.ValidateConsistency();
+				}
 
 				IList listSource;
 			}
@@ -75092,6 +72316,56 @@ namespace ObservableComputations.Test
 			void test()
 			{
 				testing.ValidateConsistency();
+				var leftSourceScalarValue = ((ObservableCollection<Item>)((System.Collections.Specialized.INotifyCollectionChanged)leftSourceScalar.Value));
+
+				if (leftSourceScalarValue != null)
+				{		
+					leftSourceScalarValue.Insert(2, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					leftSourceScalarValue[3] = new QuickTests.Item(7, true);
+					testing.ValidateConsistency();
+					leftSourceScalarValue.RemoveAt(3);
+					testing.ValidateConsistency();
+					leftSourceScalarValue.Move(1, 3);
+					testing.ValidateConsistency();
+					leftSourceScalarValue[2].Active = !leftSourceScalarValue[2].Active;
+					testing.ValidateConsistency();
+					leftSourceScalarValue[2].Num = leftSourceScalarValue[2].Num + 1;
+					testing.ValidateConsistency();
+					leftSourceScalarValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					leftSourceScalarValue.RemoveAt(1);
+					testing.ValidateConsistency();
+					leftSourceScalarValue.Insert(0, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					leftSourceScalarValue.Insert(0, new QuickTests.Item(2, true));
+					testing.ValidateConsistency();
+				}
+				var rightSourceScalarValue = ((ObservableCollection<Item>)((System.Collections.Specialized.INotifyCollectionChanged)rightSourceScalar.Value));
+
+				if (rightSourceScalarValue != null)
+				{		
+					rightSourceScalarValue.Insert(2, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					rightSourceScalarValue[3] = new QuickTests.Item(7, true);
+					testing.ValidateConsistency();
+					rightSourceScalarValue.RemoveAt(3);
+					testing.ValidateConsistency();
+					rightSourceScalarValue.Move(1, 3);
+					testing.ValidateConsistency();
+					rightSourceScalarValue[2].Active = !rightSourceScalarValue[2].Active;
+					testing.ValidateConsistency();
+					rightSourceScalarValue[2].Num = rightSourceScalarValue[2].Num + 1;
+					testing.ValidateConsistency();
+					rightSourceScalarValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					rightSourceScalarValue.RemoveAt(1);
+					testing.ValidateConsistency();
+					rightSourceScalarValue.Insert(0, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					rightSourceScalarValue.Insert(0, new QuickTests.Item(2, true));
+					testing.ValidateConsistency();
+				}
 
 				IList listSource;
 			}
@@ -75122,6 +72396,56 @@ namespace ObservableComputations.Test
 			void test()
 			{
 				testing.ValidateConsistency();
+				var leftSourceScalarValue = ((ObservableCollection<Item>)((System.Collections.Specialized.INotifyCollectionChanged)leftSourceScalar.Value));
+
+				if (leftSourceScalarValue != null)
+				{		
+					leftSourceScalarValue.Insert(2, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					leftSourceScalarValue[3] = new QuickTests.Item(7, true);
+					testing.ValidateConsistency();
+					leftSourceScalarValue.RemoveAt(3);
+					testing.ValidateConsistency();
+					leftSourceScalarValue.Move(1, 3);
+					testing.ValidateConsistency();
+					leftSourceScalarValue[2].Active = !leftSourceScalarValue[2].Active;
+					testing.ValidateConsistency();
+					leftSourceScalarValue[2].Num = leftSourceScalarValue[2].Num + 1;
+					testing.ValidateConsistency();
+					leftSourceScalarValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					leftSourceScalarValue.RemoveAt(1);
+					testing.ValidateConsistency();
+					leftSourceScalarValue.Insert(0, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					leftSourceScalarValue.Insert(0, new QuickTests.Item(2, true));
+					testing.ValidateConsistency();
+				}
+				var rightSourceScalarValue = ((ObservableCollection<Item>)((ObservableCollection<Item>)rightSourceScalar.Value));
+
+				if (rightSourceScalarValue != null)
+				{		
+					rightSourceScalarValue.Insert(2, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					rightSourceScalarValue[3] = new QuickTests.Item(7, true);
+					testing.ValidateConsistency();
+					rightSourceScalarValue.RemoveAt(3);
+					testing.ValidateConsistency();
+					rightSourceScalarValue.Move(1, 3);
+					testing.ValidateConsistency();
+					rightSourceScalarValue[2].Active = !rightSourceScalarValue[2].Active;
+					testing.ValidateConsistency();
+					rightSourceScalarValue[2].Num = rightSourceScalarValue[2].Num + 1;
+					testing.ValidateConsistency();
+					rightSourceScalarValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					rightSourceScalarValue.RemoveAt(1);
+					testing.ValidateConsistency();
+					rightSourceScalarValue.Insert(0, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					rightSourceScalarValue.Insert(0, new QuickTests.Item(2, true));
+					testing.ValidateConsistency();
+				}
 
 				IList listSource;
 			}
@@ -75152,6 +72476,56 @@ namespace ObservableComputations.Test
 			void test()
 			{
 				testing.ValidateConsistency();
+				var leftSourceScalarValue = ((ObservableCollection<Item>)((ObservableCollection<Item>)leftSourceScalar.Value));
+
+				if (leftSourceScalarValue != null)
+				{		
+					leftSourceScalarValue.Insert(2, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					leftSourceScalarValue[3] = new QuickTests.Item(7, true);
+					testing.ValidateConsistency();
+					leftSourceScalarValue.RemoveAt(3);
+					testing.ValidateConsistency();
+					leftSourceScalarValue.Move(1, 3);
+					testing.ValidateConsistency();
+					leftSourceScalarValue[2].Active = !leftSourceScalarValue[2].Active;
+					testing.ValidateConsistency();
+					leftSourceScalarValue[2].Num = leftSourceScalarValue[2].Num + 1;
+					testing.ValidateConsistency();
+					leftSourceScalarValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					leftSourceScalarValue.RemoveAt(1);
+					testing.ValidateConsistency();
+					leftSourceScalarValue.Insert(0, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					leftSourceScalarValue.Insert(0, new QuickTests.Item(2, true));
+					testing.ValidateConsistency();
+				}
+				var rightSourceScalarValue = ((ObservableCollection<Item>)((System.Collections.Specialized.INotifyCollectionChanged)rightSourceScalar.Value));
+
+				if (rightSourceScalarValue != null)
+				{		
+					rightSourceScalarValue.Insert(2, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					rightSourceScalarValue[3] = new QuickTests.Item(7, true);
+					testing.ValidateConsistency();
+					rightSourceScalarValue.RemoveAt(3);
+					testing.ValidateConsistency();
+					rightSourceScalarValue.Move(1, 3);
+					testing.ValidateConsistency();
+					rightSourceScalarValue[2].Active = !rightSourceScalarValue[2].Active;
+					testing.ValidateConsistency();
+					rightSourceScalarValue[2].Num = rightSourceScalarValue[2].Num + 1;
+					testing.ValidateConsistency();
+					rightSourceScalarValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					rightSourceScalarValue.RemoveAt(1);
+					testing.ValidateConsistency();
+					rightSourceScalarValue.Insert(0, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					rightSourceScalarValue.Insert(0, new QuickTests.Item(2, true));
+					testing.ValidateConsistency();
+				}
 
 				IList listSource;
 			}
@@ -75182,6 +72556,56 @@ namespace ObservableComputations.Test
 			void test()
 			{
 				testing.ValidateConsistency();
+				var leftSourceScalarValue = ((ObservableCollection<Item>)((ObservableCollection<Item>)leftSourceScalar.Value));
+
+				if (leftSourceScalarValue != null)
+				{		
+					leftSourceScalarValue.Insert(2, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					leftSourceScalarValue[3] = new QuickTests.Item(7, true);
+					testing.ValidateConsistency();
+					leftSourceScalarValue.RemoveAt(3);
+					testing.ValidateConsistency();
+					leftSourceScalarValue.Move(1, 3);
+					testing.ValidateConsistency();
+					leftSourceScalarValue[2].Active = !leftSourceScalarValue[2].Active;
+					testing.ValidateConsistency();
+					leftSourceScalarValue[2].Num = leftSourceScalarValue[2].Num + 1;
+					testing.ValidateConsistency();
+					leftSourceScalarValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					leftSourceScalarValue.RemoveAt(1);
+					testing.ValidateConsistency();
+					leftSourceScalarValue.Insert(0, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					leftSourceScalarValue.Insert(0, new QuickTests.Item(2, true));
+					testing.ValidateConsistency();
+				}
+				var rightSourceScalarValue = ((ObservableCollection<Item>)((ObservableCollection<Item>)rightSourceScalar.Value));
+
+				if (rightSourceScalarValue != null)
+				{		
+					rightSourceScalarValue.Insert(2, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					rightSourceScalarValue[3] = new QuickTests.Item(7, true);
+					testing.ValidateConsistency();
+					rightSourceScalarValue.RemoveAt(3);
+					testing.ValidateConsistency();
+					rightSourceScalarValue.Move(1, 3);
+					testing.ValidateConsistency();
+					rightSourceScalarValue[2].Active = !rightSourceScalarValue[2].Active;
+					testing.ValidateConsistency();
+					rightSourceScalarValue[2].Num = rightSourceScalarValue[2].Num + 1;
+					testing.ValidateConsistency();
+					rightSourceScalarValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					rightSourceScalarValue.RemoveAt(1);
+					testing.ValidateConsistency();
+					rightSourceScalarValue.Insert(0, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					rightSourceScalarValue.Insert(0, new QuickTests.Item(2, true));
+					testing.ValidateConsistency();
+				}
 
 				IList listSource;
 			}
@@ -75212,6 +72636,56 @@ namespace ObservableComputations.Test
 			void test()
 			{
 				testing.ValidateConsistency();
+				var leftSourceValue = ((ObservableCollection<Item>)((System.Collections.Specialized.INotifyCollectionChanged)leftSource));
+
+				if (leftSourceValue != null)
+				{		
+					leftSourceValue.Insert(2, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					leftSourceValue[3] = new QuickTests.Item(7, true);
+					testing.ValidateConsistency();
+					leftSourceValue.RemoveAt(3);
+					testing.ValidateConsistency();
+					leftSourceValue.Move(1, 3);
+					testing.ValidateConsistency();
+					leftSourceValue[2].Active = !leftSourceValue[2].Active;
+					testing.ValidateConsistency();
+					leftSourceValue[2].Num = leftSourceValue[2].Num + 1;
+					testing.ValidateConsistency();
+					leftSourceValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					leftSourceValue.RemoveAt(1);
+					testing.ValidateConsistency();
+					leftSourceValue.Insert(0, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					leftSourceValue.Insert(0, new QuickTests.Item(2, true));
+					testing.ValidateConsistency();
+				}
+				var rightSourceValue = ((ObservableCollection<Item>)((System.Collections.Specialized.INotifyCollectionChanged)rightSource));
+
+				if (rightSourceValue != null)
+				{		
+					rightSourceValue.Insert(2, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					rightSourceValue[3] = new QuickTests.Item(7, true);
+					testing.ValidateConsistency();
+					rightSourceValue.RemoveAt(3);
+					testing.ValidateConsistency();
+					rightSourceValue.Move(1, 3);
+					testing.ValidateConsistency();
+					rightSourceValue[2].Active = !rightSourceValue[2].Active;
+					testing.ValidateConsistency();
+					rightSourceValue[2].Num = rightSourceValue[2].Num + 1;
+					testing.ValidateConsistency();
+					rightSourceValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					rightSourceValue.RemoveAt(1);
+					testing.ValidateConsistency();
+					rightSourceValue.Insert(0, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					rightSourceValue.Insert(0, new QuickTests.Item(2, true));
+					testing.ValidateConsistency();
+				}
 
 				IList listSource;
 			}
@@ -75232,6 +72706,56 @@ namespace ObservableComputations.Test
 			void test()
 			{
 				testing.ValidateConsistency();
+				var leftSourceValue = ((ObservableCollection<Item>)((System.Collections.Specialized.INotifyCollectionChanged)leftSource));
+
+				if (leftSourceValue != null)
+				{		
+					leftSourceValue.Insert(2, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					leftSourceValue[3] = new QuickTests.Item(7, true);
+					testing.ValidateConsistency();
+					leftSourceValue.RemoveAt(3);
+					testing.ValidateConsistency();
+					leftSourceValue.Move(1, 3);
+					testing.ValidateConsistency();
+					leftSourceValue[2].Active = !leftSourceValue[2].Active;
+					testing.ValidateConsistency();
+					leftSourceValue[2].Num = leftSourceValue[2].Num + 1;
+					testing.ValidateConsistency();
+					leftSourceValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					leftSourceValue.RemoveAt(1);
+					testing.ValidateConsistency();
+					leftSourceValue.Insert(0, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					leftSourceValue.Insert(0, new QuickTests.Item(2, true));
+					testing.ValidateConsistency();
+				}
+				var rightSourceValue = ((ObservableCollection<Item>)((ObservableCollection<Item>)rightSource));
+
+				if (rightSourceValue != null)
+				{		
+					rightSourceValue.Insert(2, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					rightSourceValue[3] = new QuickTests.Item(7, true);
+					testing.ValidateConsistency();
+					rightSourceValue.RemoveAt(3);
+					testing.ValidateConsistency();
+					rightSourceValue.Move(1, 3);
+					testing.ValidateConsistency();
+					rightSourceValue[2].Active = !rightSourceValue[2].Active;
+					testing.ValidateConsistency();
+					rightSourceValue[2].Num = rightSourceValue[2].Num + 1;
+					testing.ValidateConsistency();
+					rightSourceValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					rightSourceValue.RemoveAt(1);
+					testing.ValidateConsistency();
+					rightSourceValue.Insert(0, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					rightSourceValue.Insert(0, new QuickTests.Item(2, true));
+					testing.ValidateConsistency();
+				}
 
 				IList listSource;
 			}
@@ -75252,6 +72776,56 @@ namespace ObservableComputations.Test
 			void test()
 			{
 				testing.ValidateConsistency();
+				var leftSourceValue = ((ObservableCollection<Item>)((ObservableCollection<Item>)leftSource));
+
+				if (leftSourceValue != null)
+				{		
+					leftSourceValue.Insert(2, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					leftSourceValue[3] = new QuickTests.Item(7, true);
+					testing.ValidateConsistency();
+					leftSourceValue.RemoveAt(3);
+					testing.ValidateConsistency();
+					leftSourceValue.Move(1, 3);
+					testing.ValidateConsistency();
+					leftSourceValue[2].Active = !leftSourceValue[2].Active;
+					testing.ValidateConsistency();
+					leftSourceValue[2].Num = leftSourceValue[2].Num + 1;
+					testing.ValidateConsistency();
+					leftSourceValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					leftSourceValue.RemoveAt(1);
+					testing.ValidateConsistency();
+					leftSourceValue.Insert(0, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					leftSourceValue.Insert(0, new QuickTests.Item(2, true));
+					testing.ValidateConsistency();
+				}
+				var rightSourceValue = ((ObservableCollection<Item>)((System.Collections.Specialized.INotifyCollectionChanged)rightSource));
+
+				if (rightSourceValue != null)
+				{		
+					rightSourceValue.Insert(2, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					rightSourceValue[3] = new QuickTests.Item(7, true);
+					testing.ValidateConsistency();
+					rightSourceValue.RemoveAt(3);
+					testing.ValidateConsistency();
+					rightSourceValue.Move(1, 3);
+					testing.ValidateConsistency();
+					rightSourceValue[2].Active = !rightSourceValue[2].Active;
+					testing.ValidateConsistency();
+					rightSourceValue[2].Num = rightSourceValue[2].Num + 1;
+					testing.ValidateConsistency();
+					rightSourceValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					rightSourceValue.RemoveAt(1);
+					testing.ValidateConsistency();
+					rightSourceValue.Insert(0, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					rightSourceValue.Insert(0, new QuickTests.Item(2, true));
+					testing.ValidateConsistency();
+				}
 
 				IList listSource;
 			}
@@ -75272,6 +72846,56 @@ namespace ObservableComputations.Test
 			void test()
 			{
 				testing.ValidateConsistency();
+				var leftSourceValue = ((ObservableCollection<Item>)((ObservableCollection<Item>)leftSource));
+
+				if (leftSourceValue != null)
+				{		
+					leftSourceValue.Insert(2, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					leftSourceValue[3] = new QuickTests.Item(7, true);
+					testing.ValidateConsistency();
+					leftSourceValue.RemoveAt(3);
+					testing.ValidateConsistency();
+					leftSourceValue.Move(1, 3);
+					testing.ValidateConsistency();
+					leftSourceValue[2].Active = !leftSourceValue[2].Active;
+					testing.ValidateConsistency();
+					leftSourceValue[2].Num = leftSourceValue[2].Num + 1;
+					testing.ValidateConsistency();
+					leftSourceValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					leftSourceValue.RemoveAt(1);
+					testing.ValidateConsistency();
+					leftSourceValue.Insert(0, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					leftSourceValue.Insert(0, new QuickTests.Item(2, true));
+					testing.ValidateConsistency();
+				}
+				var rightSourceValue = ((ObservableCollection<Item>)((ObservableCollection<Item>)rightSource));
+
+				if (rightSourceValue != null)
+				{		
+					rightSourceValue.Insert(2, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					rightSourceValue[3] = new QuickTests.Item(7, true);
+					testing.ValidateConsistency();
+					rightSourceValue.RemoveAt(3);
+					testing.ValidateConsistency();
+					rightSourceValue.Move(1, 3);
+					testing.ValidateConsistency();
+					rightSourceValue[2].Active = !rightSourceValue[2].Active;
+					testing.ValidateConsistency();
+					rightSourceValue[2].Num = rightSourceValue[2].Num + 1;
+					testing.ValidateConsistency();
+					rightSourceValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					rightSourceValue.RemoveAt(1);
+					testing.ValidateConsistency();
+					rightSourceValue.Insert(0, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					rightSourceValue.Insert(0, new QuickTests.Item(2, true));
+					testing.ValidateConsistency();
+				}
 
 				IList listSource;
 			}
@@ -75292,6 +72916,56 @@ namespace ObservableComputations.Test
 			void test()
 			{
 				testing.ValidateConsistency();
+				var leftSourceValue = ((ObservableCollection<Item>)((System.Collections.Specialized.INotifyCollectionChanged)leftSource));
+
+				if (leftSourceValue != null)
+				{		
+					leftSourceValue.Insert(2, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					leftSourceValue[3] = new QuickTests.Item(7, true);
+					testing.ValidateConsistency();
+					leftSourceValue.RemoveAt(3);
+					testing.ValidateConsistency();
+					leftSourceValue.Move(1, 3);
+					testing.ValidateConsistency();
+					leftSourceValue[2].Active = !leftSourceValue[2].Active;
+					testing.ValidateConsistency();
+					leftSourceValue[2].Num = leftSourceValue[2].Num + 1;
+					testing.ValidateConsistency();
+					leftSourceValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					leftSourceValue.RemoveAt(1);
+					testing.ValidateConsistency();
+					leftSourceValue.Insert(0, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					leftSourceValue.Insert(0, new QuickTests.Item(2, true));
+					testing.ValidateConsistency();
+				}
+				var rightSourceScalarValue = ((ObservableCollection<Item>)((System.Collections.Specialized.INotifyCollectionChanged)rightSourceScalar.Value));
+
+				if (rightSourceScalarValue != null)
+				{		
+					rightSourceScalarValue.Insert(2, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					rightSourceScalarValue[3] = new QuickTests.Item(7, true);
+					testing.ValidateConsistency();
+					rightSourceScalarValue.RemoveAt(3);
+					testing.ValidateConsistency();
+					rightSourceScalarValue.Move(1, 3);
+					testing.ValidateConsistency();
+					rightSourceScalarValue[2].Active = !rightSourceScalarValue[2].Active;
+					testing.ValidateConsistency();
+					rightSourceScalarValue[2].Num = rightSourceScalarValue[2].Num + 1;
+					testing.ValidateConsistency();
+					rightSourceScalarValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					rightSourceScalarValue.RemoveAt(1);
+					testing.ValidateConsistency();
+					rightSourceScalarValue.Insert(0, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					rightSourceScalarValue.Insert(0, new QuickTests.Item(2, true));
+					testing.ValidateConsistency();
+				}
 
 				IList listSource;
 			}
@@ -75317,6 +72991,56 @@ namespace ObservableComputations.Test
 			void test()
 			{
 				testing.ValidateConsistency();
+				var leftSourceValue = ((ObservableCollection<Item>)((System.Collections.Specialized.INotifyCollectionChanged)leftSource));
+
+				if (leftSourceValue != null)
+				{		
+					leftSourceValue.Insert(2, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					leftSourceValue[3] = new QuickTests.Item(7, true);
+					testing.ValidateConsistency();
+					leftSourceValue.RemoveAt(3);
+					testing.ValidateConsistency();
+					leftSourceValue.Move(1, 3);
+					testing.ValidateConsistency();
+					leftSourceValue[2].Active = !leftSourceValue[2].Active;
+					testing.ValidateConsistency();
+					leftSourceValue[2].Num = leftSourceValue[2].Num + 1;
+					testing.ValidateConsistency();
+					leftSourceValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					leftSourceValue.RemoveAt(1);
+					testing.ValidateConsistency();
+					leftSourceValue.Insert(0, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					leftSourceValue.Insert(0, new QuickTests.Item(2, true));
+					testing.ValidateConsistency();
+				}
+				var rightSourceScalarValue = ((ObservableCollection<Item>)((ObservableCollection<Item>)rightSourceScalar.Value));
+
+				if (rightSourceScalarValue != null)
+				{		
+					rightSourceScalarValue.Insert(2, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					rightSourceScalarValue[3] = new QuickTests.Item(7, true);
+					testing.ValidateConsistency();
+					rightSourceScalarValue.RemoveAt(3);
+					testing.ValidateConsistency();
+					rightSourceScalarValue.Move(1, 3);
+					testing.ValidateConsistency();
+					rightSourceScalarValue[2].Active = !rightSourceScalarValue[2].Active;
+					testing.ValidateConsistency();
+					rightSourceScalarValue[2].Num = rightSourceScalarValue[2].Num + 1;
+					testing.ValidateConsistency();
+					rightSourceScalarValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					rightSourceScalarValue.RemoveAt(1);
+					testing.ValidateConsistency();
+					rightSourceScalarValue.Insert(0, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					rightSourceScalarValue.Insert(0, new QuickTests.Item(2, true));
+					testing.ValidateConsistency();
+				}
 
 				IList listSource;
 			}
@@ -75342,6 +73066,56 @@ namespace ObservableComputations.Test
 			void test()
 			{
 				testing.ValidateConsistency();
+				var leftSourceValue = ((ObservableCollection<Item>)((ObservableCollection<Item>)leftSource));
+
+				if (leftSourceValue != null)
+				{		
+					leftSourceValue.Insert(2, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					leftSourceValue[3] = new QuickTests.Item(7, true);
+					testing.ValidateConsistency();
+					leftSourceValue.RemoveAt(3);
+					testing.ValidateConsistency();
+					leftSourceValue.Move(1, 3);
+					testing.ValidateConsistency();
+					leftSourceValue[2].Active = !leftSourceValue[2].Active;
+					testing.ValidateConsistency();
+					leftSourceValue[2].Num = leftSourceValue[2].Num + 1;
+					testing.ValidateConsistency();
+					leftSourceValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					leftSourceValue.RemoveAt(1);
+					testing.ValidateConsistency();
+					leftSourceValue.Insert(0, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					leftSourceValue.Insert(0, new QuickTests.Item(2, true));
+					testing.ValidateConsistency();
+				}
+				var rightSourceScalarValue = ((ObservableCollection<Item>)((System.Collections.Specialized.INotifyCollectionChanged)rightSourceScalar.Value));
+
+				if (rightSourceScalarValue != null)
+				{		
+					rightSourceScalarValue.Insert(2, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					rightSourceScalarValue[3] = new QuickTests.Item(7, true);
+					testing.ValidateConsistency();
+					rightSourceScalarValue.RemoveAt(3);
+					testing.ValidateConsistency();
+					rightSourceScalarValue.Move(1, 3);
+					testing.ValidateConsistency();
+					rightSourceScalarValue[2].Active = !rightSourceScalarValue[2].Active;
+					testing.ValidateConsistency();
+					rightSourceScalarValue[2].Num = rightSourceScalarValue[2].Num + 1;
+					testing.ValidateConsistency();
+					rightSourceScalarValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					rightSourceScalarValue.RemoveAt(1);
+					testing.ValidateConsistency();
+					rightSourceScalarValue.Insert(0, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					rightSourceScalarValue.Insert(0, new QuickTests.Item(2, true));
+					testing.ValidateConsistency();
+				}
 
 				IList listSource;
 			}
@@ -75367,6 +73141,56 @@ namespace ObservableComputations.Test
 			void test()
 			{
 				testing.ValidateConsistency();
+				var leftSourceValue = ((ObservableCollection<Item>)((ObservableCollection<Item>)leftSource));
+
+				if (leftSourceValue != null)
+				{		
+					leftSourceValue.Insert(2, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					leftSourceValue[3] = new QuickTests.Item(7, true);
+					testing.ValidateConsistency();
+					leftSourceValue.RemoveAt(3);
+					testing.ValidateConsistency();
+					leftSourceValue.Move(1, 3);
+					testing.ValidateConsistency();
+					leftSourceValue[2].Active = !leftSourceValue[2].Active;
+					testing.ValidateConsistency();
+					leftSourceValue[2].Num = leftSourceValue[2].Num + 1;
+					testing.ValidateConsistency();
+					leftSourceValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					leftSourceValue.RemoveAt(1);
+					testing.ValidateConsistency();
+					leftSourceValue.Insert(0, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					leftSourceValue.Insert(0, new QuickTests.Item(2, true));
+					testing.ValidateConsistency();
+				}
+				var rightSourceScalarValue = ((ObservableCollection<Item>)((ObservableCollection<Item>)rightSourceScalar.Value));
+
+				if (rightSourceScalarValue != null)
+				{		
+					rightSourceScalarValue.Insert(2, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					rightSourceScalarValue[3] = new QuickTests.Item(7, true);
+					testing.ValidateConsistency();
+					rightSourceScalarValue.RemoveAt(3);
+					testing.ValidateConsistency();
+					rightSourceScalarValue.Move(1, 3);
+					testing.ValidateConsistency();
+					rightSourceScalarValue[2].Active = !rightSourceScalarValue[2].Active;
+					testing.ValidateConsistency();
+					rightSourceScalarValue[2].Num = rightSourceScalarValue[2].Num + 1;
+					testing.ValidateConsistency();
+					rightSourceScalarValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					rightSourceScalarValue.RemoveAt(1);
+					testing.ValidateConsistency();
+					rightSourceScalarValue.Insert(0, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					rightSourceScalarValue.Insert(0, new QuickTests.Item(2, true));
+					testing.ValidateConsistency();
+				}
 
 				IList listSource;
 			}

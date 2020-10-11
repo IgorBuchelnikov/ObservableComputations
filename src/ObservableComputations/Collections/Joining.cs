@@ -79,6 +79,7 @@ namespace ObservableComputations
         internal Action<JoinPair<TLeftSourceItem, TRightSourceItem>, TLeftSourceItem> _setLeftItemRequestHandler;
         internal Action<JoinPair<TLeftSourceItem, TRightSourceItem>, TRightSourceItem> _setRightItemRequestHandler;
 
+        private ISourceItemChangeProcessor _thisAsSourceItemChangeProcessor;
         //private bool _isLeft;
         //private TRightSourceItem _defaultRightSourceItemForLeftJoin;
 
@@ -241,6 +242,7 @@ namespace ObservableComputations
 
             _thisAsFiltering = this;
             _thisAsSourceCollectionChangeProcessor = this;
+            _thisAsSourceItemChangeProcessor = this;
 
             _initialCapacity = capacity;
             _filteredPositions = new Positions<Position>(new List<Position>(_initialCapacity));
@@ -285,7 +287,7 @@ namespace ObservableComputations
             Utils.changeSource(ref _rightSource, _rightSourceScalar, _downstreamConsumedComputings, _consumers, this,
                 ref _rightSourceAsList, false);
 
-            if (_leftSource != null && _isActive)
+            if (_leftSource != null && _rightSource != null && _isActive)
             {
                 Utils.initializeFromObservableCollectionWithChangeMarker(
                     _leftSource,
@@ -301,17 +303,13 @@ namespace ObservableComputations
 
                 Position nextItemPosition = _filteredPositions.Add();
                 int leftCount = _leftSourceAsList.Count;
-                int rightCount = (_rightSourceAsList?.Count).GetValueOrDefault();
+                int rightCount = _rightSourceAsList.Count;
 
                 _leftSourceCopy = new List<TLeftSourceItem>(_leftSourceAsList);
-
-                if (_rightSourceAsList != null)
-                    _rightSourceCopy = new List<TRightSourceItem>(_rightSourceAsList);
+                _rightSourceCopy = new List<TRightSourceItem>(_rightSourceAsList);
 
                 _leftSourceAsList.CollectionChanged += handleLeftSourceCollectionChanged;
-
-                if (_rightSourceAsList != null)
-                    _rightSourceAsList.CollectionChanged += handleRightSourceCollectionChanged;
+               _rightSourceAsList.CollectionChanged += handleRightSourceCollectionChanged;
 
                 int insertingIndex = 0;
                 int leftSourceIndex;
@@ -725,7 +723,7 @@ namespace ObservableComputations
                 _rightSourceAsList,
                 _lastProcessedLeftSourceChangeMarker,
                 _lastProcessedRightSourceChangeMarker,
-                this,
+                _thisAsSourceItemChangeProcessor,
                 ref _isConsistent,
                 ref _handledEventSender,
                 ref _handledEventArgs,
@@ -867,7 +865,7 @@ namespace ObservableComputations
 			Func<TLeftSourceItem, TRightSourceItem, bool> predicate = _predicateExpression.Compile();
 
 			// ReSharper disable once ConditionIsAlwaysTrueOrFalse
-			if (leftSource != null && rightSource != null)
+			if (_leftSource != null && _rightSource != null)
 			{
 				if (_leftSource != null && _rightSource != null && _filteredPositions.List.Count - 1 != Count)
 					throw new ObservableComputationsException(this, "Consistency violation: Joining.15");
@@ -919,7 +917,7 @@ namespace ObservableComputations
 				}
 
                 // ReSharper disable once ConditionIsAlwaysTrueOrFalse
-                if (leftSource != null && rightSource != null)
+                if (_leftSource != null && _rightSource != null)
 				{
 					int count = leftSource.SelectMany(li => rightSource.Select(ri => new {li, ri})).Where(p => predicate(p.li, p.ri)).Count();
 

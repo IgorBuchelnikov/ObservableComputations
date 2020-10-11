@@ -89,7 +89,7 @@ namespace ObservableComputations.Test
 			{
 				testing.ValidateConsistency();
 <#
-			foreach (var argument in arguments.Where(a => (a.Item2.Contains("source") || a.Item2.Contains("innerSource") || a.Item2.Contains("outerSource")) && !a.Item2.Contains("sources")))
+			foreach (var argument in arguments.Where(a => (a.Item2.Contains("source") || a.Item2.Contains("innerSource") || a.Item2.Contains("outerSource") || a.Item2.Contains("leftSource") || a.Item2.Contains("rightSource")) && !a.Item2.Contains("sources")))
 			{
 				string scalarValueAccessor = argument.Item1.Contains("Scalar") ? ".Value" : "";
 #>
@@ -111,11 +111,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 					<#=argument.Item2#>Value.RemoveAt(0);
 					testing.ValidateConsistency();
-					<#=argument.Item2#>Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					<#=argument.Item2#>Value.RemoveAt(0);
-					testing.ValidateConsistency();
-					<#=argument.Item2#>Value.RemoveAt(0);
+					<#=argument.Item2#>Value.RemoveAt(1);
 					testing.ValidateConsistency();
 					<#=argument.Item2#>Value.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();

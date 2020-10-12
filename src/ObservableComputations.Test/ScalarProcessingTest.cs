@@ -5,6 +5,8 @@ namespace ObservableComputations.Test
 	[TestFixture]
 	public class ScalarProcessingTest
 	{
+        Consumer consumer = new Consumer();
+
 		public class Item
 		{
 			public bool ProcessedAsNew;
@@ -23,7 +25,7 @@ namespace ObservableComputations.Test
 				Assert.AreEqual(current.ValueObject, token);
 				i.ProcessedAsNew = true;
 				return i.Token;
-			});
+			}).IsNeededFor(consumer);
 			Assert.IsTrue(item.ProcessedAsNew);
 			token = item.Token;
 			item = new Item();

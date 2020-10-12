@@ -6,6 +6,8 @@ namespace ObservableComputations.Test
 	[TestFixture]
 	public class SkippingTests
 	{
+        Consumer consumer = new Consumer();
+
 		public class Item
 		{
 			public Item()
@@ -23,7 +25,7 @@ namespace ObservableComputations.Test
 		{
 			ObservableCollection<Item> items = new ObservableCollection<Item>();
 
-			Skipping<Item> itemComputing = items.Skipping(0);
+			Skipping<Item> itemComputing = items.Skipping(0).IsNeededFor(consumer);;
 			itemComputing.ValidateConsistency();
 		}
 
@@ -44,7 +46,7 @@ namespace ObservableComputations.Test
 				}
 			);
 
-			Skipping<Item> itemComputing = items.Skipping(count);
+			Skipping<Item> itemComputing = items.Skipping(count).IsNeededFor(consumer);
 			itemComputing.ValidateConsistency();
 			items.RemoveAt(index);
 			itemComputing.ValidateConsistency();
@@ -61,7 +63,7 @@ namespace ObservableComputations.Test
 				}
 			);
 
-			Skipping<Item> itemComputing = items.Skipping(count);
+			Skipping<Item> itemComputing = items.Skipping(count).IsNeededFor(consumer);
 			itemComputing.ValidateConsistency();
 			items.RemoveAt(0);
 			itemComputing.ValidateConsistency();
@@ -95,7 +97,7 @@ namespace ObservableComputations.Test
 		{
 			ObservableCollection<Item> items = new ObservableCollection<Item>();
 
-			Skipping<Item> itemComputing = items.Skipping(count);
+			Skipping<Item> itemComputing = items.Skipping(count).IsNeededFor(consumer);
 			itemComputing.ValidateConsistency();
 			items.Insert(0, new Item());
 			itemComputing.ValidateConsistency();
@@ -118,7 +120,7 @@ namespace ObservableComputations.Test
 				}
 			);
 
-			Skipping<Item> itemComputing = items.Skipping(count);
+			Skipping<Item> itemComputing = items.Skipping(count).IsNeededFor(consumer);
 			itemComputing.ValidateConsistency();
 			items.Move(oldIndex, newIndex);
 			itemComputing.ValidateConsistency();
@@ -140,7 +142,7 @@ namespace ObservableComputations.Test
 				}
 			);
 
-			Skipping<Item> itemComputing = items.Skipping(count);
+			Skipping<Item> itemComputing = items.Skipping(count).IsNeededFor(consumer);
 			itemComputing.ValidateConsistency();
 			items[index] = new Item();
 			itemComputing.ValidateConsistency();

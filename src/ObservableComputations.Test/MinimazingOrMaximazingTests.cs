@@ -9,6 +9,8 @@ namespace ObservableComputations.Test
 	[TestFixture]
 	public class MinimazingOrMaximazingTests
 	{
+        Consumer consumer = new Consumer();
+
 		TextFileOutput _textFileOutputLog = new TextFileOutput(@"D:\MinimazingOrMaximazing_Deep.log");
 		TextFileOutput _textFileOutputTime = new TextFileOutput(@"D:\MinimazingOrMaximazing_Deep_Time.log");
 
@@ -157,7 +159,7 @@ namespace ObservableComputations.Test
 
 		private MinimazingOrMaximazing<int> getMinimazingOrMaximazing(ObservableCollection<int> items, MinimazingOrMaximazingMode mode)
 		{
-			return mode == MinimazingOrMaximazingMode.Maximazing ? items.Maximazing() : items.Minimazing();
+			return mode == MinimazingOrMaximazingMode.Maximazing ? items.Maximazing().IsNeededFor(consumer) : items.Minimazing().IsNeededFor(consumer);
 		}
 
 		private int getResult(ObservableCollection<int> items, MinimazingOrMaximazingMode mode)

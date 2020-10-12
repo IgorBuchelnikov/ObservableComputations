@@ -8,6 +8,8 @@ namespace ObservableComputations.Test
 	[TestFixture]
 	public class ComputingTests
 	{
+        Consumer consumer = new Consumer();
+
 		public class Order : INotifyPropertyChanged
 		{
 			private string _num;
@@ -42,7 +44,7 @@ namespace ObservableComputations.Test
 		{
 			bool raised = false;
 			Order order = new Order();
-			Computing<string> computing = new Computing<string>(() => order.Num);
+			Computing<string> computing = new Computing<string>(() => order.Num).IsNeededFor(consumer);
 			computing.PropertyChanged += (sender, args) => { if (args.PropertyName == "Value") raised = true; };
 			order.Num = "1";
 			Assert.IsTrue(raised);

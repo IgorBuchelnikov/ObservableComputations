@@ -5,6 +5,8 @@ namespace ObservableComputations.Test
 	[TestFixture]
 	public class ScalarProcessingVoidTest
 	{
+        Consumer consumer = new Consumer();
+
 		public class Item
 		{
 			public bool ProcessedAsNew;
@@ -19,7 +21,7 @@ namespace ObservableComputations.Test
 			itemScalar.ScalarProcessing((i, current) =>
 			{
 				i.ProcessedAsNew = true;
-			});
+			}).IsNeededFor(consumer);
 			Assert.IsTrue(item.ProcessedAsNew);
 			item = new Item();
 			itemScalar.Change(item);

@@ -6,6 +6,8 @@ namespace ObservableComputations.Test
 	[TestFixture]
 	public class TakingTests
 	{
+        Consumer consumer = new Consumer();
+
 		public class Item
 		{
 			public Item()
@@ -23,7 +25,7 @@ namespace ObservableComputations.Test
 		{
 			ObservableCollection<Item> items = new ObservableCollection<Item>();
 
-			Taking<Item> itemComputing = items.Taking(0, 0);
+			Taking<Item> itemComputing = items.Taking(0, 0).IsNeededFor(consumer);;
 			itemComputing.ValidateConsistency();
 		}
 
@@ -45,7 +47,7 @@ namespace ObservableComputations.Test
 				}
 			);
 
-			Taking<Item> itemComputing = items.Taking(startIndex, count);
+			Taking<Item> itemComputing = items.Taking(startIndex, count).IsNeededFor(consumer);
 			itemComputing.ValidateConsistency();
 			items.RemoveAt(index);
 			itemComputing.ValidateConsistency();
@@ -63,7 +65,7 @@ namespace ObservableComputations.Test
 				}
 			);
 
-			Taking<Item> itemComputing = items.Taking(startIndex, count);
+			Taking<Item> itemComputing = items.Taking(startIndex, count).IsNeededFor(consumer);
 			itemComputing.ValidateConsistency();
 			items.RemoveAt(0);
 			itemComputing.ValidateConsistency();
@@ -86,7 +88,7 @@ namespace ObservableComputations.Test
 				}
 			);
 
-			Taking<Item> itemComputing = items.Taking(startIndex, count);
+			Taking<Item> itemComputing = items.Taking(startIndex, count).IsNeededFor(consumer);
 			itemComputing.ValidateConsistency();
 			items.Insert(index, new Item());
 			itemComputing.ValidateConsistency();
@@ -99,7 +101,7 @@ namespace ObservableComputations.Test
 		{
 			ObservableCollection<Item> items = new ObservableCollection<Item>();
 
-			Taking<Item> itemComputing = items.Taking(startIndex, count);
+			Taking<Item> itemComputing = items.Taking(startIndex, count).IsNeededFor(consumer);
 			itemComputing.ValidateConsistency();
 			items.Insert(0, new Item());
 			itemComputing.ValidateConsistency();
@@ -123,7 +125,7 @@ namespace ObservableComputations.Test
 				}
 			);
 
-			Taking<Item> itemComputing = items.Taking(startIndex, count);
+			Taking<Item> itemComputing = items.Taking(startIndex, count).IsNeededFor(consumer);
 			itemComputing.ValidateConsistency();
 			items.Move(oldIndex, newIndex);
 			itemComputing.ValidateConsistency();
@@ -146,7 +148,7 @@ namespace ObservableComputations.Test
 				}
 			);
 
-			Taking<Item> itemComputing = items.Taking(startIndex, count);
+			Taking<Item> itemComputing = items.Taking(startIndex, count).IsNeededFor(consumer);
 			itemComputing.ValidateConsistency();
 			items[index] = new Item();
 			itemComputing.ValidateConsistency();

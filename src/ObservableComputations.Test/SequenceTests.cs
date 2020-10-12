@@ -6,6 +6,8 @@ namespace ObservableComputations.Test
 	[TestFixture]
 	class SequenceTests
 	{
+        Consumer consumer = new Consumer();
+
 		class Count : INotifyPropertyChanged
 		{
 			private int _countValue;
@@ -31,7 +33,7 @@ namespace ObservableComputations.Test
 			Count countInstance = new Count();
 			int count = initialCount;
 			countInstance.CountValue = count;
-			SequenceComputing sequenceComputing = Expr.Is(() => countInstance.CountValue).Computing().SequenceComputing();
+			SequenceComputing sequenceComputing = Expr.Is(() => countInstance.CountValue).Computing().SequenceComputing().IsNeededFor(consumer);
 			sequenceComputing.ValidateConsistency();
 					
 			void test()

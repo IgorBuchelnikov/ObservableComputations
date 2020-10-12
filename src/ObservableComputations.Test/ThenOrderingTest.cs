@@ -11,6 +11,8 @@ namespace ObservableComputations.Test
 	[TestFixture]
 	public class ThenOrderingOrderingTests
 	{
+        Consumer consumer = new Consumer();
+
 		public class Item : INotifyPropertyChanged, IEquatable<Item>
 		{
 			private int? _orderNum;
@@ -174,7 +176,7 @@ namespace ObservableComputations.Test
 			int[] orderNums3 = {4,-1,-1,2,-1};
 
 			ObservableCollection<Item> items = getObservableCollection(orderNums1, orderNums2, orderNums3);
-			ThenOrdering<Item, int?> ordering3 = items.Ordering(i => i.OrderNum, ListSortDirection.Ascending).ThenOrdering(i => i.OrderNum2, ListSortDirection.Ascending).ThenOrdering(i => i.OrderNum3, ListSortDirection.Ascending);
+			ThenOrdering<Item, int?> ordering3 = items.Ordering(i => i.OrderNum, ListSortDirection.Ascending).ThenOrdering(i => i.OrderNum2, ListSortDirection.Ascending).ThenOrdering(i => i.OrderNum3, ListSortDirection.Ascending).IsNeededFor(consumer);
 			items[3] = new Item(null, null);
 			ordering3.ValidateConsistency();
 		}
@@ -295,7 +297,7 @@ namespace ObservableComputations.Test
 				{
 					if (!traceThenOrderingOrdering(testNum = "2", orderNums, orderNums2, listSortDirection, index, orderNum, orderNum2, indexOld, indexNew)) continue;
 					items = getObservableCollection(orderNums, orderNums2);
-					ThenOrdering<Item, int?> ordering1 = items.Ordering(i => i.OrderNum, listSortDirection).ThenOrdering(i => i.OrderNum2, listSortDirection);
+					ThenOrdering<Item, int?> ordering1 = items.Ordering(i => i.OrderNum, listSortDirection).ThenOrdering(i => i.OrderNum2, listSortDirection).IsNeededFor(consumer);
 					items.RemoveAt(index);
 					ordering1.ValidateConsistency();
 				}
@@ -308,7 +310,7 @@ namespace ObservableComputations.Test
 						{
 							if (!traceThenOrderingOrdering(testNum = "8", orderNums, orderNums2, listSortDirection, index, orderNum, orderNum2, indexOld, indexNew)) continue;
 							items = getObservableCollection(orderNums, orderNums2);
-							ThenOrdering<Item, int?> ordering1 = items.Ordering(i => i.OrderNum, listSortDirection).ThenOrdering(i => i.OrderNum2, listSortDirection);
+							ThenOrdering<Item, int?> ordering1 = items.Ordering(i => i.OrderNum, listSortDirection).ThenOrdering(i => i.OrderNum2, listSortDirection).IsNeededFor(consumer);
 							items.Insert(index, new Item(orderNum == -1 ? (int?)null : orderNum, orderNum2 == -1 ? (int?)null : orderNum2));
 							ordering1.ValidateConsistency();
 						}
@@ -319,7 +321,7 @@ namespace ObservableComputations.Test
 				{
 					traceThenOrderingOrdering(testNum = "6", orderNums, orderNums2, listSortDirection, index, orderNum, orderNum2, indexOld, indexNew);
 					items = getObservableCollection(orderNums, orderNums2);
-					ThenOrdering<Item, int?> ordering3 = items.Ordering(i => i.OrderNum, listSortDirection).ThenOrdering(i => i.OrderNum2, listSortDirection);
+					ThenOrdering<Item, int?> ordering3 = items.Ordering(i => i.OrderNum, listSortDirection).ThenOrdering(i => i.OrderNum2, listSortDirection).IsNeededFor(consumer);
 					items[index] = new Item(null, null);
 					ordering3.ValidateConsistency();
 
@@ -329,7 +331,7 @@ namespace ObservableComputations.Test
 						{
 							if (!traceThenOrderingOrdering(testNum = "3", orderNums, orderNums2, listSortDirection, index, orderNum, orderNum2, indexOld, indexNew)) continue;
 							items = getObservableCollection(orderNums, orderNums2);
-							ThenOrdering<Item, int?> ordering2 = items.Ordering(i => i.OrderNum, listSortDirection).ThenOrdering(i => i.OrderNum2, listSortDirection);
+							ThenOrdering<Item, int?> ordering2 = items.Ordering(i => i.OrderNum, listSortDirection).ThenOrdering(i => i.OrderNum2, listSortDirection).IsNeededFor(consumer);
 							items[index] = new Item(orderNum == -1 ? (int?)null : orderNum, orderNum2 == -1 ? (int?)null : orderNum2);
 							ordering2.ValidateConsistency();
 						}
@@ -340,7 +342,7 @@ namespace ObservableComputations.Test
 				{
 					traceThenOrderingOrdering(testNum = "4", orderNums, orderNums2, listSortDirection, index, orderNum, orderNum2, indexOld, indexNew);
 					items = getObservableCollection(orderNums, orderNums2);
-					ThenOrdering<Item, int?> ordering1 = items.Ordering(i => i.OrderNum, listSortDirection).ThenOrdering(i => i.OrderNum2, listSortDirection);
+					ThenOrdering<Item, int?> ordering1 = items.Ordering(i => i.OrderNum, listSortDirection).ThenOrdering(i => i.OrderNum2, listSortDirection).IsNeededFor(consumer);
 					items[index].OrderNum = null;
 					ordering1.ValidateConsistency();
 
@@ -350,7 +352,7 @@ namespace ObservableComputations.Test
 						{
 							if (!traceThenOrderingOrdering(testNum = "7", orderNums, orderNums2, listSortDirection, index, orderNum, orderNum2, indexOld, indexNew)) continue;
 							items = getObservableCollection(orderNums, orderNums2);
-							ThenOrdering<Item, int?> ordering3 = items.Ordering(i => i.OrderNum, listSortDirection).ThenOrdering(i => i.OrderNum2, listSortDirection);
+							ThenOrdering<Item, int?> ordering3 = items.Ordering(i => i.OrderNum, listSortDirection).ThenOrdering(i => i.OrderNum2, listSortDirection).IsNeededFor(consumer);
 							items[index].OrderNum = orderNum == -1 ? (int?)null : orderNum;
 							items[index].OrderNum2 = orderNum2 == -1 ? (int?)null : orderNum2;
 							ordering3.ValidateConsistency();
@@ -358,13 +360,13 @@ namespace ObservableComputations.Test
 
 						traceThenOrderingOrdering(testNum = "5", orderNums, orderNums2, listSortDirection, index, orderNum, orderNum2, indexOld, indexNew);
 						items = getObservableCollection(orderNums, orderNums2);
-						ThenOrdering<Item, int?> ordering2 = items.Ordering(i => i.OrderNum, listSortDirection).ThenOrdering(i => i.OrderNum2, listSortDirection);
+						ThenOrdering<Item, int?> ordering2 = items.Ordering(i => i.OrderNum, listSortDirection).ThenOrdering(i => i.OrderNum2, listSortDirection).IsNeededFor(consumer);
 						items[index].OrderNum = orderNum == -1 ? (int?)null : orderNum;
 						ordering2.ValidateConsistency();
 
 						if (!traceThenOrderingOrdering(testNum = "9", orderNums, orderNums2, listSortDirection, index, orderNum, orderNum2, indexOld, indexNew)) continue;
 						items = getObservableCollection(orderNums, orderNums2);
-						ThenOrdering<Item, int?> ordering4 = items.Ordering(i => i.OrderNum, listSortDirection).ThenOrdering(i => i.OrderNum2, listSortDirection);
+						ThenOrdering<Item, int?> ordering4 = items.Ordering(i => i.OrderNum, listSortDirection).ThenOrdering(i => i.OrderNum2, listSortDirection).IsNeededFor(consumer);
 						items[index].OrderNum2 = orderNum == -1 ? (int?)null : orderNum;
 						ordering4.ValidateConsistency();
 					}
@@ -376,7 +378,7 @@ namespace ObservableComputations.Test
 					{
 						if (!traceThenOrderingOrdering(testNum = "6", orderNums, orderNums2, listSortDirection, index, orderNum, orderNum2, indexOld, indexNew)) continue;
 						items = getObservableCollection(orderNums, orderNums2);
-						ThenOrdering<Item, int?> ordering2 = items.Ordering(i => i.OrderNum, listSortDirection).ThenOrdering(i => i.OrderNum2, listSortDirection);
+						ThenOrdering<Item, int?> ordering2 = items.Ordering(i => i.OrderNum, listSortDirection).ThenOrdering(i => i.OrderNum2, listSortDirection).IsNeededFor(consumer);
 						items.Move(indexOld, indexNew);
 						ordering2.ValidateConsistency();
 					}

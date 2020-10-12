@@ -9,6 +9,8 @@ namespace ObservableComputations.Test
 	[TestFixture]
 	public class SkippingWhileTests
 	{
+        Consumer consumer = new Consumer();
+
 		public class Item : INotifyPropertyChanged
 		{
 			private bool _isActive;
@@ -60,7 +62,7 @@ namespace ObservableComputations.Test
 		{
 			ObservableCollection<Item> items = new ObservableCollection<Item>();
 
-			SkippingWhile<Item> skippingWhile = items.SkippingWhile(item => item.IsActive);
+			SkippingWhile<Item> skippingWhile = items.SkippingWhile(item => item.IsActive).IsNeededFor(consumer);
 			skippingWhile.ValidateConsistency();
 		}
 
@@ -86,7 +88,7 @@ namespace ObservableComputations.Test
 
 			);
 
-			SkippingWhile<Item> skippingWhile = items.SkippingWhile(item => item.IsActive);
+			SkippingWhile<Item> skippingWhile = items.SkippingWhile(item => item.IsActive).IsNeededFor(consumer);
 			skippingWhile.ValidateConsistency();
 			items[index].IsActive = newValue;
 			skippingWhile.ValidateConsistency();
@@ -104,7 +106,7 @@ namespace ObservableComputations.Test
 
 			);
 
-			SkippingWhile<Item> skippingWhile = items.SkippingWhile(item => item.IsActive);
+			SkippingWhile<Item> skippingWhile = items.SkippingWhile(item => item.IsActive).IsNeededFor(consumer);
 			skippingWhile.ValidateConsistency();
 			items[0].IsActive = !items[0].IsActive;
 			skippingWhile.ValidateConsistency();
@@ -131,7 +133,7 @@ namespace ObservableComputations.Test
 
 			);
 
-			SkippingWhile<Item> skippingWhile = items.SkippingWhile(item => item.IsActive);
+			SkippingWhile<Item> skippingWhile = items.SkippingWhile(item => item.IsActive).IsNeededFor(consumer);
 			skippingWhile.ValidateConsistency();
 			items.RemoveAt(index);
 			skippingWhile.ValidateConsistency();
@@ -149,7 +151,7 @@ namespace ObservableComputations.Test
 
 			);
 
-			SkippingWhile<Item> skippingWhile = items.SkippingWhile(item => item.IsActive);
+			SkippingWhile<Item> skippingWhile = items.SkippingWhile(item => item.IsActive).IsNeededFor(consumer);
 			skippingWhile.ValidateConsistency();
 			items.RemoveAt(0);
 			skippingWhile.ValidateConsistency();
@@ -177,7 +179,7 @@ namespace ObservableComputations.Test
 
 			);
 
-			SkippingWhile<Item> skippingWhile = items.SkippingWhile(item => item.IsActive);
+			SkippingWhile<Item> skippingWhile = items.SkippingWhile(item => item.IsActive).IsNeededFor(consumer);
 			skippingWhile.ValidateConsistency();
 			items.Insert(index, new Item(newValue));
 			skippingWhile.ValidateConsistency();
@@ -191,7 +193,7 @@ namespace ObservableComputations.Test
 
 			);
 
-			SkippingWhile<Item> skippingWhile = items.SkippingWhile(item => item.IsActive);
+			SkippingWhile<Item> skippingWhile = items.SkippingWhile(item => item.IsActive).IsNeededFor(consumer);
 			skippingWhile.ValidateConsistency();
 			items.Insert(0, new Item(newValue));
 			skippingWhile.ValidateConsistency();
@@ -219,7 +221,7 @@ namespace ObservableComputations.Test
 
 			);
 
-			SkippingWhile<Item> skippingWhile = items.SkippingWhile(item => item.IsActive);
+			SkippingWhile<Item> skippingWhile = items.SkippingWhile(item => item.IsActive).IsNeededFor(consumer);
 			skippingWhile.ValidateConsistency();
 			items.Move(oldIndex, newIndex);
 			skippingWhile.ValidateConsistency();
@@ -247,7 +249,7 @@ namespace ObservableComputations.Test
 
 			);
 
-			SkippingWhile<Item> skippingWhile = items.SkippingWhile(item => item.IsActive);
+			SkippingWhile<Item> skippingWhile = items.SkippingWhile(item => item.IsActive).IsNeededFor(consumer);
 			skippingWhile.ValidateConsistency();
 			items[index] = new Item(itemNew);
 			skippingWhile.ValidateConsistency();

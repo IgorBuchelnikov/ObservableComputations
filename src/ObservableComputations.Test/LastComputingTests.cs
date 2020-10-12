@@ -9,6 +9,8 @@ namespace ObservableComputations.Test
 	[TestFixture]
 	public class LastComputingTests
 	{
+        Consumer consumer = new Consumer();
+
 		public class Item : INotifyPropertyChanged
 		{
 			public Item()
@@ -46,7 +48,7 @@ namespace ObservableComputations.Test
 		{
 			ObservableCollection<Item> items = new ObservableCollection<Item>();
 
-			LastComputing<Item> last = items.LastComputing();
+			LastComputing<Item> last = items.LastComputing().IsNeededFor(consumer);
 			last.ValidateConsistency();
 		}
 
@@ -66,7 +68,7 @@ namespace ObservableComputations.Test
 				}
 			);
 
-			LastComputing<Item> last = items.LastComputing();
+			LastComputing<Item> last = items.LastComputing().IsNeededFor(consumer);
 			last.ValidateConsistency();
 			items.RemoveAt(index);
 			last.ValidateConsistency();
@@ -82,7 +84,7 @@ namespace ObservableComputations.Test
 				}
 			);
 
-			LastComputing<Item> last = items.LastComputing();
+			LastComputing<Item> last = items.LastComputing().IsNeededFor(consumer);
 			last.ValidateConsistency();
 			items.RemoveAt(0);
 			last.ValidateConsistency();
@@ -103,7 +105,7 @@ namespace ObservableComputations.Test
 				}
 			);
 
-			LastComputing<Item> last = items.LastComputing();
+			LastComputing<Item> last = items.LastComputing().IsNeededFor(consumer);
 			last.ValidateConsistency();
 			items.Insert(index, new Item());
 			last.ValidateConsistency();
@@ -114,7 +116,7 @@ namespace ObservableComputations.Test
 		{
 			ObservableCollection<Item> items = new ObservableCollection<Item>();
 
-			LastComputing<Item> last = items.LastComputing();
+			LastComputing<Item> last = items.LastComputing().IsNeededFor(consumer);
 			last.ValidateConsistency();
 			items.Insert(0, new Item());
 			last.ValidateConsistency();
@@ -136,7 +138,7 @@ namespace ObservableComputations.Test
 				}
 			);
 
-			LastComputing<Item> last = items.LastComputing();
+			LastComputing<Item> last = items.LastComputing().IsNeededFor(consumer);
 			last.ValidateConsistency();
 			items.Move(oldIndex, newIndex);
 			last.ValidateConsistency();
@@ -158,7 +160,7 @@ namespace ObservableComputations.Test
 				}
 			);
 
-			LastComputing<Item> last = items.LastComputing();
+			LastComputing<Item> last = items.LastComputing().IsNeededFor(consumer);
 			last.ValidateConsistency();
 			items[index] = new Item();
 			last.ValidateConsistency();

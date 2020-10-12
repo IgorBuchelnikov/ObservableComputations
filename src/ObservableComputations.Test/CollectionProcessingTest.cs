@@ -6,6 +6,8 @@ namespace ObservableComputations.Test
 	[TestFixture]
 	public class CollectionProcessingTest
 	{
+        Consumer consumer = new Consumer();
+
 		public class Item
 		{
 			public bool ProcessedAsNew;
@@ -13,7 +15,7 @@ namespace ObservableComputations.Test
 			public object Token = new object();
 		}
 
-		private static CollectionProcessing<Item, object> getCollectionProcessing(ObservableCollection<Item> items)
+		private static CollectionProcessing<Item, object> getCollectionProcessing(ObservableCollection<Item> items, Consumer consumer)
 		{
 			return items.CollectionProcessing(
 				(item, current) =>
@@ -25,7 +27,7 @@ namespace ObservableComputations.Test
 				{
 					item.ProcessedAsOld = true;
 					Assert.AreEqual(item.Token, returnValue);
-				});
+				}).IsNeededFor(consumer);
 		}
 
 		[Test]
@@ -33,7 +35,7 @@ namespace ObservableComputations.Test
 		{
 			ObservableCollection<Item> items = new ObservableCollection<Item>();
 
-			CollectionProcessing<Item, object> collectionProcessing = getCollectionProcessing(items);
+			CollectionProcessing<Item, object> collectionProcessing = getCollectionProcessing(items, consumer);
 		}
 
 
@@ -53,7 +55,7 @@ namespace ObservableComputations.Test
 			ObservableCollection<Item> items = new ObservableCollection<Item>(
 				sourceCollection);
 
-			CollectionProcessing<Item, object> collectionProcessing = getCollectionProcessing(items);
+			CollectionProcessing<Item, object> collectionProcessing = getCollectionProcessing(items, consumer);
 			items.RemoveAt(index);
 			Assert.IsTrue(sourceCollection[index].ProcessedAsNew);
 			Assert.IsTrue(sourceCollection[index].ProcessedAsOld);
@@ -70,7 +72,7 @@ namespace ObservableComputations.Test
 				}
 			);
 
-			CollectionProcessing<Item, object> collectionProcessing = getCollectionProcessing(items);
+			CollectionProcessing<Item, object> collectionProcessing = getCollectionProcessing(items, consumer);
 			items.RemoveAt(0);
 			Assert.IsTrue(item.ProcessedAsNew);
 			Assert.IsTrue(item.ProcessedAsOld);
@@ -92,7 +94,7 @@ namespace ObservableComputations.Test
 			ObservableCollection<Item> items = new ObservableCollection<Item>(
 				sourceCollection);
 
-			CollectionProcessing<Item, object> collectionProcessing = getCollectionProcessing(items);
+			CollectionProcessing<Item, object> collectionProcessing = getCollectionProcessing(items, consumer);
 			Item item = new Item();
 			items.Insert(index, item);
 			Assert.IsTrue(item.ProcessedAsNew);
@@ -105,7 +107,7 @@ namespace ObservableComputations.Test
 		{
 			ObservableCollection<Item> items = new ObservableCollection<Item>();
 
-			CollectionProcessing<Item, object> collectionProcessing = getCollectionProcessing(items);
+			CollectionProcessing<Item, object> collectionProcessing = getCollectionProcessing(items, consumer);
 			Item item = new Item();
 			items.Insert(0, item);
 			Assert.IsTrue(item.ProcessedAsNew);
@@ -129,7 +131,7 @@ namespace ObservableComputations.Test
 			ObservableCollection<Item> items = new ObservableCollection<Item>(
 				sourceCollection);
 
-			CollectionProcessing<Item, object> collectionProcessing = getCollectionProcessing(items);
+			CollectionProcessing<Item, object> collectionProcessing = getCollectionProcessing(items, consumer);
 			items.Move(oldIndex, newIndex);
 			Assert.IsTrue(sourceCollection[oldIndex].ProcessedAsNew);
 			Assert.IsFalse(sourceCollection[oldIndex].ProcessedAsOld);
@@ -151,7 +153,7 @@ namespace ObservableComputations.Test
 			ObservableCollection<Item> items = new ObservableCollection<Item>(
 				sourceCollection);
 
-			CollectionProcessing<Item, object> collectionProcessing = getCollectionProcessing(items);
+			CollectionProcessing<Item, object> collectionProcessing = getCollectionProcessing(items, consumer);
 			items[index] = new Item();
 			Assert.IsTrue(sourceCollection[index].ProcessedAsNew);
 			Assert.IsTrue(sourceCollection[index].ProcessedAsOld);

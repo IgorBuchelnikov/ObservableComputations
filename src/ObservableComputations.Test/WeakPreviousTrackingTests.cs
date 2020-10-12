@@ -8,6 +8,8 @@ namespace ObservableComputations.Test
 	[TestFixture]
 	public class WeakPreviousTrackingTests
 	{
+        Consumer consumer = new Consumer();
+
 		public class Order : INotifyPropertyChanged
 		{
 			private Order _parentOrder;

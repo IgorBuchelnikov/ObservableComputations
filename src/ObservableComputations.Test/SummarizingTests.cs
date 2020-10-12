@@ -9,6 +9,8 @@ namespace ObservableComputations.Test
 	[TestFixture]
 	public class SummarizingTests
 	{
+        Consumer consumer = new Consumer();
+
 		TextFileOutput _textFileOutputLog = new TextFileOutput(@"D:\Summarizing_Deep.log");
 		TextFileOutput _textFileOutputTime = new TextFileOutput(@"D:\Summarizing_Deep_Time.log");
 
@@ -61,7 +63,7 @@ namespace ObservableComputations.Test
 			{
 				trace(testNum = "1", values, index, value, indexOld, indexNew);
 				items = getObservableCollection(values);
-				summarizing = items.Summarizing();
+				summarizing = items.Summarizing().IsNeededFor(consumer);
 				validateSummarizingConsistency(summarizing, items);
 				Assert.AreEqual(summarizing.Value, items.Sum());
 
@@ -69,7 +71,7 @@ namespace ObservableComputations.Test
 				{
 					trace(testNum = "2", values, index, value, indexOld, indexNew);
 					items = getObservableCollection(values);
-					Summarizing<int> summarizing1 = items.Summarizing();
+					Summarizing<int> summarizing1 = items.Summarizing().IsNeededFor(consumer);
 					items.RemoveAt(index);
 					validateSummarizingConsistency(summarizing1, items);
 					Assert.AreEqual(summarizing1.Value, items.Sum());
@@ -81,7 +83,7 @@ namespace ObservableComputations.Test
 					{
 						trace(testNum = "8", values, index, value, indexOld, indexNew);
 						items = getObservableCollection(values);
-						Summarizing<int> summarizing1 = items.Summarizing();
+						Summarizing<int> summarizing1 = items.Summarizing().IsNeededFor(consumer);
 						items.Insert(index, value);
 						validateSummarizingConsistency(summarizing1, items);
 						Assert.AreEqual(summarizing1.Value, items.Sum());
@@ -95,7 +97,7 @@ namespace ObservableComputations.Test
 					{
 						trace(testNum = "3", values, index, value, indexOld, indexNew);
 						items = getObservableCollection(values);
-						Summarizing<int> summarizing2 = items.Summarizing();
+						Summarizing<int> summarizing2 = items.Summarizing().IsNeededFor(consumer);
 						items[index] = value;
 						validateSummarizingConsistency(summarizing2, items);
 						Assert.AreEqual(summarizing2.Value, items.Sum());
@@ -109,7 +111,7 @@ namespace ObservableComputations.Test
 					{
 						trace(testNum = "7", values, index, value, indexOld, indexNew);
 						items = getObservableCollection(values);
-						Summarizing<int> summarizing2 = items.Summarizing();
+						Summarizing<int> summarizing2 = items.Summarizing().IsNeededFor(consumer);
 						items.Move(indexOld, indexNew);
 						validateSummarizingConsistency(summarizing2, items);
 						Assert.AreEqual(summarizing2.Value, items.Sum());
@@ -186,7 +188,7 @@ namespace ObservableComputations.Test
 		//	if (index >= items.Count)
 		//		return;
 
-		//	Aggregating<int, int> summarizing = items.Summarizing();
+		//	Aggregating<int, int> summarizing = items.Summarizing().IsNeededFor(consumer);
 		//	summarizing.ValidateConsistency();
 		//	Assert.Equals(summarizing.Value, items.Sum());
 
@@ -215,7 +217,7 @@ namespace ObservableComputations.Test
 
 		//	if (index >= items.Count) return;
 
-		//	Aggregating<int, int> summarizing = items.Summarizing();
+		//	Aggregating<int, int> summarizing = items.Summarizing().IsNeededFor(consumer);
 		//	summarizing.ValidateConsistency();
 		//	Assert.Equals(summarizing.Value, items.Sum());
 
@@ -244,7 +246,7 @@ namespace ObservableComputations.Test
 
 		//	if (index > items.Count) return;
 
-		//	Aggregating<int, int> summarizing = items.Summarizing();
+		//	Aggregating<int, int> summarizing = items.Summarizing().IsNeededFor(consumer);
 
 		//	summarizing.ValidateConsistency();
 		//	Assert.Equals(summarizing.Value, items.Sum());
@@ -274,7 +276,7 @@ namespace ObservableComputations.Test
 
 		//	if (oldIndex >= items.Count || newIndex >= items.Count) return;
 
-		//	Aggregating<int, int> summarizing = items.Summarizing();
+		//	Aggregating<int, int> summarizing = items.Summarizing().IsNeededFor(consumer);
 
 		//	summarizing.ValidateConsistency();
 		//	Assert.Equals(summarizing.Value, items.Sum());

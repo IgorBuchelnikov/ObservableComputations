@@ -14,6 +14,8 @@ namespace ObservableComputations.Test
 	[TestFixture]
 	public class GroupJoiningTests
 	{
+        Consumer consumer = new Consumer();
+
 		public class Item : INotifyPropertyChanged
 		{
 
@@ -105,7 +107,7 @@ namespace ObservableComputations.Test
 				trace(testNum = "1", ids1, ids2, newItemId, index, indexOld, indexNew);
 				items1 = getObservableCollection(ids1);
 				items2 = getObservableCollection(ids2);
-				groupJoining = items1.GroupJoining(items2, item1 => item1.Id, item2 => item2.Id);
+				groupJoining = items1.GroupJoining(items2, item1 => item1.Id, item2 => item2.Id).IsNeededFor(consumer);
 				groupJoining.ValidateConsistency();
 
 				for (index = 0; index < ids1.Length; index++)
@@ -113,7 +115,7 @@ namespace ObservableComputations.Test
 					trace(testNum = "2", ids1, ids2, newItemId, index, indexOld, indexNew);
 					items1 = getObservableCollection(ids1);
 					items2 = getObservableCollection(ids2);
-					groupJoining = items1.GroupJoining(items2, item1 => item1.Id, item2 => item2.Id);
+					groupJoining = items1.GroupJoining(items2, item1 => item1.Id, item2 => item2.Id).IsNeededFor(consumer);
 					items1.RemoveAt(index);
 					groupJoining.ValidateConsistency();
 				}
@@ -123,7 +125,7 @@ namespace ObservableComputations.Test
 					trace(testNum = "3", ids1, ids2, newItemId, index, indexOld, indexNew);
 					items1 = getObservableCollection(ids1);
 					items2 = getObservableCollection(ids2);
-					groupJoining = items1.GroupJoining(items2, item1 => item1.Id, item2 => item2.Id);
+					groupJoining = items1.GroupJoining(items2, item1 => item1.Id, item2 => item2.Id).IsNeededFor(consumer);
 					items2.RemoveAt(index);
 					groupJoining.ValidateConsistency();
 				}
@@ -135,7 +137,7 @@ namespace ObservableComputations.Test
 						trace(testNum = "4", ids1, ids2, newItemId, index, indexOld, indexNew);
 						items1 = getObservableCollection(ids1);
 						items2 = getObservableCollection(ids2);
-						groupJoining = items1.GroupJoining(items2, item1 => item1.Id, item2 => item2.Id);
+						groupJoining = items1.GroupJoining(items2, item1 => item1.Id, item2 => item2.Id).IsNeededFor(consumer);
 						items1.Insert(index, new Item(newItemId));
 						groupJoining.ValidateConsistency();
 					}
@@ -149,7 +151,7 @@ namespace ObservableComputations.Test
 						trace(testNum = "5", ids1, ids2, newItemId, index, indexOld, indexNew);
 						items1 = getObservableCollection(ids1);
 						items2 = getObservableCollection(ids2);
-						groupJoining = items1.GroupJoining(items2, item1 => item1.Id, item2 => item2.Id);
+						groupJoining = items1.GroupJoining(items2, item1 => item1.Id, item2 => item2.Id).IsNeededFor(consumer);
 						items2.Insert(index, new Item(newItemId));
 						groupJoining.ValidateConsistency();
 					}
@@ -162,7 +164,7 @@ namespace ObservableComputations.Test
 						trace(testNum = "6", ids1, ids2, newItemId, index, indexOld, indexNew);
 						items1 = getObservableCollection(ids1);
 						items2 = getObservableCollection(ids2);
-						groupJoining = items1.GroupJoining(items2, item1 => item1.Id, item2 => item2.Id);
+						groupJoining = items1.GroupJoining(items2, item1 => item1.Id, item2 => item2.Id).IsNeededFor(consumer);
 						items1[index] = new Item(newItemId);
 						groupJoining.ValidateConsistency();
 					}
@@ -173,7 +175,7 @@ namespace ObservableComputations.Test
                         items1 = getObservableCollection(ids1);
                         if (items1[index] == null) continue;   
                         items2 = getObservableCollection(ids2);
-                        groupJoining = items1.GroupJoining(items2, item1 => item1.Id, item2 => item2.Id);
+                        groupJoining = items1.GroupJoining(items2, item1 => item1.Id, item2 => item2.Id).IsNeededFor(consumer);
                         items1[index].Id = newItemId;
                         groupJoining.ValidateConsistency();
                     }
@@ -186,7 +188,7 @@ namespace ObservableComputations.Test
 						trace(testNum = "7", ids1, ids2, newItemId, index, indexOld, indexNew);
 						items1 = getObservableCollection(ids1);
 						items2 = getObservableCollection(ids2);
-						groupJoining = items1.GroupJoining(items2, item1 => item1.Id, item2 => item2.Id);
+						groupJoining = items1.GroupJoining(items2, item1 => item1.Id, item2 => item2.Id).IsNeededFor(consumer);
 						items2[index] = new Item(newItemId);
 						groupJoining.ValidateConsistency();
 					}
@@ -197,7 +199,7 @@ namespace ObservableComputations.Test
 						items1 = getObservableCollection(ids1);
 						items2 = getObservableCollection(ids2);
                         if (items2[index] == null) continue; 
-						groupJoining = items1.GroupJoining(items2, item1 => item1.Id, item2 => item2.Id);
+						groupJoining = items1.GroupJoining(items2, item1 => item1.Id, item2 => item2.Id).IsNeededFor(consumer);
                         items2[index].Id = newItemId;
 						groupJoining.ValidateConsistency();
 					}
@@ -210,7 +212,7 @@ namespace ObservableComputations.Test
 						trace(testNum = "8", ids1, ids2, newItemId, index, indexOld, indexNew);
 						items1 = getObservableCollection(ids1);
 						items2 = getObservableCollection(ids2);
-						groupJoining = items1.GroupJoining(items2, item1 => item1.Id, item2 => item2.Id);
+						groupJoining = items1.GroupJoining(items2, item1 => item1.Id, item2 => item2.Id).IsNeededFor(consumer);
 						items1.Move(indexOld, indexNew);
 						groupJoining.ValidateConsistency();
 					}
@@ -223,7 +225,7 @@ namespace ObservableComputations.Test
 						trace(testNum = "9", ids1, ids2, newItemId, index, indexOld, indexNew);
 						items1 = getObservableCollection(ids1);
 						items2 = getObservableCollection(ids2);
-						groupJoining = items1.GroupJoining(items2, item1 => item1.Id, item2 => item2.Id);
+						groupJoining = items1.GroupJoining(items2, item1 => item1.Id, item2 => item2.Id).IsNeededFor(consumer);
 						items2.Move(indexOld, indexNew);
 						groupJoining.ValidateConsistency();
 					}

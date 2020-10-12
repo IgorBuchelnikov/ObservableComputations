@@ -8,6 +8,8 @@ namespace ObservableComputations.Test
 	[TestFixture]
 	public class DifferingTests
 	{
+        Consumer consumer = new Consumer();
+
 		public class Order : INotifyPropertyChanged
 		{
 			private string _num;
@@ -42,7 +44,7 @@ namespace ObservableComputations.Test
 		{
 			bool raised = false;
 			Order order = new Order();
-			Differing<string> computing = new Differing<string>(new Computing<string>(() => order.Num));
+			Differing<string> computing = new Differing<string>(new Computing<string>(() => order.Num)).IsNeededFor(consumer);
 			computing.PropertyChanged += (sender, args) => { if (args.PropertyName == "Value") raised = true; };
 
 			order.Num = "1";

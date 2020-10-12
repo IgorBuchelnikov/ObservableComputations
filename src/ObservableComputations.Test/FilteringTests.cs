@@ -11,6 +11,8 @@ namespace ObservableComputations.Test
 	[TestFixture]
 	public class FilteringTests
 	{
+        Consumer consumer = new Consumer();
+
 		public class Item : INotifyPropertyChanged
 		{
 			private bool _isActive;
@@ -57,7 +59,7 @@ namespace ObservableComputations.Test
 		{
 			ObservableCollection<Item> items = new ObservableCollection<Item>();
 
-			Filtering<Item> filtering = items.Filtering(item => item.IsActive);
+			Filtering<Item> filtering = items.Filtering(item => item.IsActive).IsNeededFor(consumer);
 			filtering.ValidateConsistency();
 		}
 
@@ -83,7 +85,7 @@ namespace ObservableComputations.Test
 
 			);
 
-			Filtering<Item> filtering = items.Filtering(item => item.IsActive);
+			Filtering<Item> filtering = items.Filtering(item => item.IsActive).IsNeededFor(consumer);
 			filtering.ValidateConsistency();
 			items[index].IsActive = newValue;
 			filtering.ValidateConsistency();
@@ -101,7 +103,7 @@ namespace ObservableComputations.Test
 
 			);
 
-			Filtering<Item> filtering = items.Filtering(item => item.IsActive);
+			Filtering<Item> filtering = items.Filtering(item => item.IsActive).IsNeededFor(consumer);
 			filtering.ValidateConsistency();
 			items[0].IsActive = !items[0].IsActive;
 			filtering.ValidateConsistency();
@@ -128,7 +130,7 @@ namespace ObservableComputations.Test
 
 			);
 
-			Filtering<Item> filtering = items.Filtering(item => item.IsActive);
+			Filtering<Item> filtering = items.Filtering(item => item.IsActive).IsNeededFor(consumer);
 			filtering.ValidateConsistency();
 			items.RemoveAt(index);
 			filtering.ValidateConsistency();
@@ -146,7 +148,7 @@ namespace ObservableComputations.Test
 
 			);
 
-			Filtering<Item> filtering = items.Filtering(item => item.IsActive);
+			Filtering<Item> filtering = items.Filtering(item => item.IsActive).IsNeededFor(consumer);
 			filtering.ValidateConsistency();
 			items.RemoveAt(0);
 			filtering.ValidateConsistency();
@@ -174,7 +176,7 @@ namespace ObservableComputations.Test
 
 			);
 
-			Filtering<Item> filtering = items.Filtering(item => item.IsActive);
+			Filtering<Item> filtering = items.Filtering(item => item.IsActive).IsNeededFor(consumer);
 			filtering.ValidateConsistency();
 			items.Insert(index, new Item(newValue));
 			filtering.ValidateConsistency();
@@ -188,7 +190,7 @@ namespace ObservableComputations.Test
 
 			);
 
-			Filtering<Item> filtering = items.Filtering(item => item.IsActive);
+			Filtering<Item> filtering = items.Filtering(item => item.IsActive).IsNeededFor(consumer);
 			filtering.ValidateConsistency();
 			items.Insert(0, new Item(newValue));
 			filtering.ValidateConsistency();
@@ -216,7 +218,7 @@ namespace ObservableComputations.Test
 
 			);
 
-			Filtering<Item> filtering = items.Filtering(item => item.IsActive);
+			Filtering<Item> filtering = items.Filtering(item => item.IsActive).IsNeededFor(consumer);
 			filtering.ValidateConsistency();
 			items.Move(oldIndex, newIndex);
 			filtering.ValidateConsistency();
@@ -244,7 +246,7 @@ namespace ObservableComputations.Test
 
 			);
 
-			Filtering<Item> filtering = items.Filtering(item => item.IsActive);
+			Filtering<Item> filtering = items.Filtering(item => item.IsActive).IsNeededFor(consumer);
 			filtering.ValidateConsistency();
 			items[index] = new Item(itemNew);
 			filtering.ValidateConsistency();

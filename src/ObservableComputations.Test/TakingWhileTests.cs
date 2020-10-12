@@ -9,6 +9,8 @@ namespace ObservableComputations.Test
 	[TestFixture]
 	public class TakingWhileTests
 	{
+        Consumer consumer = new Consumer();
+
 		public class Item : INotifyPropertyChanged
 		{
 			private bool _isActive;
@@ -60,7 +62,7 @@ namespace ObservableComputations.Test
 		{
 			ObservableCollection<Item> items = new ObservableCollection<Item>();
 
-			TakingWhile<Item> takingWhile = items.TakingWhile(item => item.IsActive);
+			TakingWhile<Item> takingWhile = items.TakingWhile(item => item.IsActive).IsNeededFor(consumer);
 			takingWhile.ValidateConsistency();
 		}
 
@@ -86,7 +88,7 @@ namespace ObservableComputations.Test
 
 			);
 
-			TakingWhile<Item> takingWhile = items.TakingWhile(item => item.IsActive);
+			TakingWhile<Item> takingWhile = items.TakingWhile(item => item.IsActive).IsNeededFor(consumer);
 			takingWhile.ValidateConsistency();
 			items[index].IsActive = newValue;
 			takingWhile.ValidateConsistency();
@@ -104,7 +106,7 @@ namespace ObservableComputations.Test
 
 			);
 
-			TakingWhile<Item> takingWhile = items.TakingWhile(item => item.IsActive);
+			TakingWhile<Item> takingWhile = items.TakingWhile(item => item.IsActive).IsNeededFor(consumer);
 			takingWhile.ValidateConsistency();
 			items[0].IsActive = !items[0].IsActive;
 			takingWhile.ValidateConsistency();
@@ -131,7 +133,7 @@ namespace ObservableComputations.Test
 
 			);
 
-			TakingWhile<Item> takingWhile = items.TakingWhile(item => item.IsActive);
+			TakingWhile<Item> takingWhile = items.TakingWhile(item => item.IsActive).IsNeededFor(consumer);
 			takingWhile.ValidateConsistency();
 			items.RemoveAt(index);
 			takingWhile.ValidateConsistency();
@@ -149,7 +151,7 @@ namespace ObservableComputations.Test
 
 			);
 
-			TakingWhile<Item> takingWhile = items.TakingWhile(item => item.IsActive);
+			TakingWhile<Item> takingWhile = items.TakingWhile(item => item.IsActive).IsNeededFor(consumer);
 			takingWhile.ValidateConsistency();
 			items.RemoveAt(0);
 			takingWhile.ValidateConsistency();
@@ -177,7 +179,7 @@ namespace ObservableComputations.Test
 
 			);
 
-			TakingWhile<Item> takingWhile = items.TakingWhile(item => item.IsActive);
+			TakingWhile<Item> takingWhile = items.TakingWhile(item => item.IsActive).IsNeededFor(consumer);
 			takingWhile.ValidateConsistency();
 			items.Insert(index, new Item(newValue));
 			takingWhile.ValidateConsistency();
@@ -191,7 +193,7 @@ namespace ObservableComputations.Test
 
 			);
 
-			TakingWhile<Item> takingWhile = items.TakingWhile(item => item.IsActive);
+			TakingWhile<Item> takingWhile = items.TakingWhile(item => item.IsActive).IsNeededFor(consumer);
 			takingWhile.ValidateConsistency();
 			items.Insert(0, new Item(newValue));
 			takingWhile.ValidateConsistency();
@@ -219,7 +221,7 @@ namespace ObservableComputations.Test
 
 			);
 
-			TakingWhile<Item> takingWhile = items.TakingWhile(item => item.IsActive);
+			TakingWhile<Item> takingWhile = items.TakingWhile(item => item.IsActive).IsNeededFor(consumer);
 			takingWhile.ValidateConsistency();
 			items.Move(oldIndex, newIndex);
 			takingWhile.ValidateConsistency();
@@ -247,7 +249,7 @@ namespace ObservableComputations.Test
 
 			);
 
-			TakingWhile<Item> takingWhile = items.TakingWhile(item => item.IsActive);
+			TakingWhile<Item> takingWhile = items.TakingWhile(item => item.IsActive).IsNeededFor(consumer);
 			takingWhile.ValidateConsistency();
 			items[index] = new Item(itemNew);
 			takingWhile.ValidateConsistency();

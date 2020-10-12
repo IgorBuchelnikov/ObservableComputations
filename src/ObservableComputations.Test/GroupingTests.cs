@@ -12,6 +12,8 @@ namespace ObservableComputations.Test
 	[TestFixture]
 	public class GroupingTests
 	{
+        Consumer consumer = new Consumer();
+
 		public class Item : INotifyPropertyChanged
 		{
 			private int? _key;
@@ -105,14 +107,14 @@ namespace ObservableComputations.Test
 			{
 				trace(testNum = "1", orderNums, index, orderNum, indexOld, indexNew);
 				items = getObservableCollection(orderNums);
-				grouping = items.Grouping(i => i.Key);
+				grouping = items.Grouping(i => i.Key).IsNeededFor(consumer);
 				grouping.ValidateConsistency();
 
 				for (index = 0; index < orderNums.Length; index++)
 				{
 					trace(testNum = "2", orderNums, index, orderNum, indexOld, indexNew);
 					items = getObservableCollection(orderNums);
-					Grouping<Item, int?> grouping1 = items.Grouping(i => i.Key);
+					Grouping<Item, int?> grouping1 = items.Grouping(i => i.Key).IsNeededFor(consumer);
 					items.RemoveAt(index);
 					grouping1.ValidateConsistency();
 				}
@@ -123,7 +125,7 @@ namespace ObservableComputations.Test
 					{
 						trace(testNum = "8", orderNums, index, orderNum, indexOld, indexNew);
 						items = getObservableCollection(orderNums);
-						Grouping<Item, int?> grouping1 = items.Grouping(i => i.Key);
+						Grouping<Item, int?> grouping1 = items.Grouping(i => i.Key).IsNeededFor(consumer);
 						items.Insert(index, new Item(orderNum));
 						grouping1.ValidateConsistency();
 					}
@@ -133,7 +135,7 @@ namespace ObservableComputations.Test
 				{
 					trace(testNum = "6", orderNums, index, orderNum, indexOld, indexNew);
 					items = getObservableCollection(orderNums);
-					Grouping<Item, int?> grouping3 = items.Grouping(i => i.Key);
+					Grouping<Item, int?> grouping3 = items.Grouping(i => i.Key).IsNeededFor(consumer);
 					items[index] = new Item(null);
 					grouping3.ValidateConsistency();
 
@@ -141,7 +143,7 @@ namespace ObservableComputations.Test
 					{
 						trace(testNum = "3", orderNums, index, orderNum, indexOld, indexNew);
 						items = getObservableCollection(orderNums);
-						Grouping<Item, int?> grouping2 = items.Grouping(i => i.Key);
+						Grouping<Item, int?> grouping2 = items.Grouping(i => i.Key).IsNeededFor(consumer);
 						items[index] = new Item(orderNum);
 						grouping2.ValidateConsistency();
 
@@ -152,7 +154,7 @@ namespace ObservableComputations.Test
 				{
 					trace(testNum = "4", orderNums, index, orderNum, indexOld, indexNew);
 					items = getObservableCollection(orderNums);
-					Grouping<Item, int?> grouping1 = items.Grouping(i => i.Key);
+					Grouping<Item, int?> grouping1 = items.Grouping(i => i.Key).IsNeededFor(consumer);
 					items[index].Key = null;
 					grouping1.ValidateConsistency();
 
@@ -160,7 +162,7 @@ namespace ObservableComputations.Test
 					{
 						trace(testNum = "5", orderNums, index, orderNum, indexOld, indexNew);
 						items = getObservableCollection(orderNums);
-						Grouping<Item, int?> grouping2 = items.Grouping(i => i.Key);
+						Grouping<Item, int?> grouping2 = items.Grouping(i => i.Key).IsNeededFor(consumer);
 						items[index].Key = orderNum;
 						grouping2.ValidateConsistency();
 
@@ -172,7 +174,7 @@ namespace ObservableComputations.Test
 					{
 						trace(testNum = "7", orderNums, index, orderNum, indexOld, indexNew);
 						items = getObservableCollection(orderNums);
-						Grouping<Item, int?> grouping2 = items.Grouping(i => i.Key);
+						Grouping<Item, int?> grouping2 = items.Grouping(i => i.Key).IsNeededFor(consumer);
 						items.Move(indexOld, indexNew);
 						grouping2.ValidateConsistency();
 					}

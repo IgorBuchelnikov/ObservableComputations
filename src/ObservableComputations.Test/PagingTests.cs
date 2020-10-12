@@ -12,6 +12,8 @@ namespace ObservableComputations.Test
 	[TestFixture]
 	public class PagingTests
 	{
+        Consumer consumer = new Consumer();
+
 		public class Item 
 		{
 			public Item()
@@ -65,12 +67,12 @@ namespace ObservableComputations.Test
 					{
 						trace(testNum = "2", count, index, indexOld, indexNew, pageSize, currentPage);
 						items = getObservableCollection(count);
-						paging = items.Paging(pageSize);
+						paging = items.Paging(pageSize).IsNeededFor(consumer);
 						paging.ValidateConsistency();
 
 						trace(testNum = "3", count, index, indexOld, indexNew, pageSize, currentPage);
 						items = getObservableCollection(count);
-						paging = items.Paging(pageSize);
+						paging = items.Paging(pageSize).IsNeededFor(consumer);
 						paging.CurrentPage = currentPage;
 						paging.ValidateConsistency();
 
@@ -78,7 +80,7 @@ namespace ObservableComputations.Test
 						{
 							trace(testNum = "4", count, index, indexOld, indexNew, pageSize, currentPage);
 							items = getObservableCollection(count);
-							Paging<Item> paging1 = items.Paging(pageSize, currentPage);
+							Paging<Item> paging1 = items.Paging(pageSize, currentPage).IsNeededFor(consumer);
 							items.RemoveAt(index);
 							paging1.ValidateConsistency();
 						}
@@ -87,7 +89,7 @@ namespace ObservableComputations.Test
 						{
 							trace(testNum = "5", count, index, indexOld, indexNew, pageSize, currentPage);
 							items = getObservableCollection(count);
-							Paging<Item> paging1 = items.Paging(pageSize, currentPage);
+							Paging<Item> paging1 = items.Paging(pageSize, currentPage).IsNeededFor(consumer);
 							items.Insert(index, new Item());
 							paging1.ValidateConsistency();
 						}
@@ -96,7 +98,7 @@ namespace ObservableComputations.Test
 						{
 							trace(testNum = "6", count, index, indexOld, indexNew, pageSize, currentPage);
 							items = getObservableCollection(count);
-							Paging<Item> paging1 = items.Paging(pageSize, currentPage);
+							Paging<Item> paging1 = items.Paging(pageSize, currentPage).IsNeededFor(consumer);
 							items[index] = new Item();
 							paging1.ValidateConsistency();
 						}
@@ -107,7 +109,7 @@ namespace ObservableComputations.Test
 							{
 								trace(testNum = "7", count, index, indexOld, indexNew, pageSize, currentPage);
 								items = getObservableCollection(count);
-								Paging<Item> paging1 = items.Paging(pageSize, currentPage);
+								Paging<Item> paging1 = items.Paging(pageSize, currentPage).IsNeededFor(consumer);
 								items.Move(indexOld, indexNew);
 								paging1.ValidateConsistency();
 							}

@@ -12,6 +12,8 @@ namespace ObservableComputations.Test
 	[TestFixture]
 	public class HashSettingTests
 	{
+        Consumer consumer = new Consumer();
+
 		public class Item : INotifyPropertyChanged
 		{
 			private int _key;
@@ -95,14 +97,14 @@ namespace ObservableComputations.Test
 			{
 				trace(testNum = "1", values, index, newKey, newValue, indexOld, indexNew);
 				items = getObservableCollection(values);
-				hashing = items.HashSetting(i => i.Key);
+				hashing = items.HashSetting(i => i.Key).IsNeededFor(consumer);
 				hashing.ValidateConsistency();
 
 				for (index = 0; index < values.Length; index++)
 				{
 					trace(testNum = "2", values, index, newKey, newValue, indexOld, indexNew);
 					items = getObservableCollection(values);
-					HashSetting<Item, int> hashing1 = items.HashSetting(i => i.Key);
+					HashSetting<Item, int> hashing1 = items.HashSetting(i => i.Key).IsNeededFor(consumer);
 					items.RemoveAt(index);
 					hashing1.ValidateConsistency();
 				}
@@ -113,7 +115,7 @@ namespace ObservableComputations.Test
 					{
 						trace(testNum = "3", values, index, newKey, newValue, indexOld, indexNew);
 						items = getObservableCollection(values);
-						HashSetting<Item, int> hashing1 = items.HashSetting(i => i.Key);
+						HashSetting<Item, int> hashing1 = items.HashSetting(i => i.Key).IsNeededFor(consumer);
 						items.Insert(index, new Item(){Key = values.Length});
 						hashing1.ValidateConsistency();
 					}
@@ -125,13 +127,13 @@ namespace ObservableComputations.Test
 					{
 						trace(testNum = "4", values, index, newKey, newValue, indexOld, indexNew);
 						items = getObservableCollection(values);
-						HashSetting<Item, int> hashing2 = items.HashSetting(i => i.Key);
+						HashSetting<Item, int> hashing2 = items.HashSetting(i => i.Key).IsNeededFor(consumer);
 						items[index] = new Item(){Key = values.Length};
 						hashing2.ValidateConsistency();
 
 						trace(testNum = "5", values, index, newKey, newValue, indexOld, indexNew);
 						items = getObservableCollection(values);
-						hashing2 = items.HashSetting(i => i.Key);
+						hashing2 = items.HashSetting(i => i.Key).IsNeededFor(consumer);
 						items[index] = new Item(){Key = items[index].Key};
 						hashing2.ValidateConsistency();
 
@@ -144,13 +146,13 @@ namespace ObservableComputations.Test
 					{
 						trace(testNum = "6", values, index, newKey, newValue, indexOld, indexNew);
 						items = getObservableCollection(values);
-						HashSetting<Item, int> hashing2 = items.HashSetting(i => i.Key);
+						HashSetting<Item, int> hashing2 = items.HashSetting(i => i.Key).IsNeededFor(consumer);
 						items[index].Key = values.Length;
 						hashing2.ValidateConsistency();
 
 						trace(testNum = "7", values, index, newKey, newValue, indexOld, indexNew);
 						items = getObservableCollection(values);
-						hashing2 = items.HashSetting(i => i.Key);
+						hashing2 = items.HashSetting(i => i.Key).IsNeededFor(consumer);
 						hashing2.ValidateConsistency();
 
 					}
@@ -162,7 +164,7 @@ namespace ObservableComputations.Test
 					{
 						trace(testNum = "3", values, index, newKey, newValue, indexOld, indexNew);
 						items = getObservableCollection(values);
-						HashSetting<Item, int> hashing2 = items.HashSetting(i => i.Key);
+						HashSetting<Item, int> hashing2 = items.HashSetting(i => i.Key).IsNeededFor(consumer);
 						items.Move(indexOld, indexNew);
 						hashing2.ValidateConsistency();
 					}

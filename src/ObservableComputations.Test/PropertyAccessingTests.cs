@@ -8,6 +8,8 @@ namespace ObservableComputations.Test
 	[TestFixture]
 	public class PropertyAccessingTests
 	{
+        Consumer consumer = new Consumer();
+
 		public class Order : INotifyPropertyChanged
 		{
 			private Order _parentOrder;
@@ -47,7 +49,7 @@ namespace ObservableComputations.Test
 		public void TestRaiseValueChanged()
 		{
 			Order order = new Order();
-			var propertyAccessing = order.PropertyAccessing<string>("Num");
+			var propertyAccessing = order.PropertyAccessing<string>("Num").IsNeededFor(consumer);
 			string result = null;
 			bool raised = false;
 
@@ -76,7 +78,7 @@ namespace ObservableComputations.Test
 		public void TestRaiseValueChanged2()
 		{
 			Order order = new Order();
-			var propertyAccessing = new Computing<Order>(() => order.ParentOrder).PropertyAccessing<string>("Num");
+			var propertyAccessing = new Computing<Order>(() => order.ParentOrder).PropertyAccessing<string>("Num").IsNeededFor(consumer);
 			string result = null;
 			bool raised = false;
 

@@ -14,6 +14,8 @@ namespace ObservableComputations.Test
 	[TestFixture]
 	public class CollectionDispatchingTest
 	{
+        Consumer consumer = new Consumer();
+
 		public class Item : INotifyPropertyChanged
 		{
 			public Item(int num, int num2, IDispatcher consuminingDispatcher, IDispatcher computingDispatcher)

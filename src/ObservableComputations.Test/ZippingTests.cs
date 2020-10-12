@@ -12,6 +12,8 @@ namespace ObservableComputations.Test
 	[TestFixture]
 	public class ZippingTests
 	{
+        Consumer consumer = new Consumer();
+
 		public class Item : INotifyPropertyChanged
 		{
 
@@ -75,7 +77,7 @@ namespace ObservableComputations.Test
 				trace(testNum = "1", count1, count2, index, indexOld, indexNew);
 				items1 = getObservableCollection(count1);
 				items2 = getObservableCollection(count2);
-				zipping = items1.Zipping(items2);
+				zipping = items1.Zipping(items2).IsNeededFor(consumer);
 				zipping.ValidateConsistency();
 
 				for (index = 0; index < count1; index++)
@@ -83,7 +85,7 @@ namespace ObservableComputations.Test
 					trace(testNum = "2", count1, count2, index, indexOld, indexNew);
 					items1 = getObservableCollection(count1);
 					items2 = getObservableCollection(count2);
-					zipping = items1.Zipping(items2);
+					zipping = items1.Zipping(items2).IsNeededFor(consumer);
 					items1.RemoveAt(index);
 					zipping.ValidateConsistency();
 				}
@@ -93,7 +95,7 @@ namespace ObservableComputations.Test
 					trace(testNum = "3", count1, count2, index, indexOld, indexNew);
 					items1 = getObservableCollection(count1);
 					items2 = getObservableCollection(count2);
-					zipping = items1.Zipping(items2);
+					zipping = items1.Zipping(items2).IsNeededFor(consumer);
 					items2.RemoveAt(index);
 					zipping.ValidateConsistency();
 				}
@@ -103,7 +105,7 @@ namespace ObservableComputations.Test
 					trace(testNum = "4", count1, count2, index, indexOld, indexNew);
 					items1 = getObservableCollection(count1);
 					items2 = getObservableCollection(count2);
-					zipping = items1.Zipping(items2);
+					zipping = items1.Zipping(items2).IsNeededFor(consumer);
 					items1.Insert(index, new Item());
 					zipping.ValidateConsistency();
 				}
@@ -113,7 +115,7 @@ namespace ObservableComputations.Test
 					trace(testNum = "5", count1, count2, index, indexOld, indexNew);
 					items1 = getObservableCollection(count1);
 					items2 = getObservableCollection(count2);
-					zipping = items1.Zipping(items2);
+					zipping = items1.Zipping(items2).IsNeededFor(consumer);
 					items2.Insert(index, new Item());
 					zipping.ValidateConsistency();
 				}
@@ -123,7 +125,7 @@ namespace ObservableComputations.Test
 					trace(testNum = "6", count1, count2, index, indexOld, indexNew);
 					items1 = getObservableCollection(count1);
 					items2 = getObservableCollection(count2);
-					zipping = items1.Zipping(items2);
+					zipping = items1.Zipping(items2).IsNeededFor(consumer);
 					items1[index] = new Item();
 					zipping.ValidateConsistency();
 				}
@@ -133,7 +135,7 @@ namespace ObservableComputations.Test
 					trace(testNum = "7", count1, count2, index, indexOld, indexNew);
 					items1 = getObservableCollection(count1);
 					items2 = getObservableCollection(count2);
-					zipping = items1.Zipping(items2);
+					zipping = items1.Zipping(items2).IsNeededFor(consumer);
 					items2[index] = new Item();
 					zipping.ValidateConsistency();
 				}
@@ -145,7 +147,7 @@ namespace ObservableComputations.Test
 						trace(testNum = "8", count1, count2, index, indexOld, indexNew);
 						items1 = getObservableCollection(count1);
 						items2 = getObservableCollection(count2);
-						zipping = items1.Zipping(items2);
+						zipping = items1.Zipping(items2).IsNeededFor(consumer);
 						items1.Move(indexOld, indexNew);
 						zipping.ValidateConsistency();
 					}
@@ -158,7 +160,7 @@ namespace ObservableComputations.Test
 						trace(testNum = "9", count1, count2, index, indexOld, indexNew);
 						items1 = getObservableCollection(count1);
 						items2 = getObservableCollection(count2);
-						zipping = items1.Zipping(items2);
+						zipping = items1.Zipping(items2).IsNeededFor(consumer);
 						items2.Move(indexOld, indexNew);
 						zipping.ValidateConsistency();
 					}

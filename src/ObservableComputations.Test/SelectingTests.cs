@@ -13,6 +13,8 @@ namespace ObservableComputations.Test
 	[TestFixture]
 	public class SelectingTests
 	{
+        Consumer consumer = new Consumer();
+
 		public class Item : INotifyPropertyChanged
 		{
 			public Item()

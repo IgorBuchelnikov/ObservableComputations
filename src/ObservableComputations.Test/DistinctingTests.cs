@@ -6,13 +6,14 @@ namespace ObservableComputations.Test
 	[TestFixture]
 	public class DistinctingTests
 	{
+        Consumer consumer = new Consumer();
 
 		[Test]
 		public void Distincting_Initialization_01()
 		{
 			ObservableCollection<int> items = new ObservableCollection<int>();
 
-			Distincting<int> distincting = items.Distincting();
+			Distincting<int> distincting = items.Distincting().IsNeededFor(consumer);
 			distincting.ValidateConsistency();
 		}
 
@@ -37,7 +38,7 @@ namespace ObservableComputations.Test
 
 			);
 
-			Distincting<int> distincting = items.Distincting();
+			Distincting<int> distincting = items.Distincting().IsNeededFor(consumer);
 			distincting.ValidateConsistency();
 			items.RemoveAt(index);
 			distincting.ValidateConsistency();
@@ -55,7 +56,7 @@ namespace ObservableComputations.Test
 
 			);
 
-			Distincting<int> distincting = items.Distincting();
+			Distincting<int> distincting = items.Distincting().IsNeededFor(consumer);
 			distincting.ValidateConsistency();
 			items.RemoveAt(0);
 			distincting.ValidateConsistency();
@@ -83,7 +84,7 @@ namespace ObservableComputations.Test
 
 			);
 
-			Distincting<int> distincting = items.Distincting();
+			Distincting<int> distincting = items.Distincting().IsNeededFor(consumer);
 			distincting.ValidateConsistency();
 			items.Insert(index, newValue);
 			distincting.ValidateConsistency();
@@ -95,7 +96,7 @@ namespace ObservableComputations.Test
 		{
 			ObservableCollection<int> items = new ObservableCollection<int>();
 
-			Distincting<int> distincting = items.Distincting();
+			Distincting<int> distincting = items.Distincting().IsNeededFor(consumer);
 			distincting.ValidateConsistency();
 			items.Insert(0, newValue);
 			distincting.ValidateConsistency();
@@ -123,7 +124,7 @@ namespace ObservableComputations.Test
 
 			);
 
-			Distincting<int> distincting = items.Distincting();
+			Distincting<int> distincting = items.Distincting().IsNeededFor(consumer);
 			distincting.ValidateConsistency();
 			items.Move(oldIndex, newIndex);
 			distincting.ValidateConsistency();
@@ -151,7 +152,7 @@ namespace ObservableComputations.Test
 
 			);
 
-			Distincting<int> distincting = items.Distincting();
+			Distincting<int> distincting = items.Distincting().IsNeededFor(consumer);
 			distincting.ValidateConsistency();
 			items[index] = itemNew;
 			distincting.ValidateConsistency();

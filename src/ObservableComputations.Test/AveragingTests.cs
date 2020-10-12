@@ -47,6 +47,8 @@ namespace ObservableComputations.Test
 			}
 		}
 
+        Consumer consumer = new Consumer();
+
 		private void test(int[] values)
 		{
 			string testNum = string.Empty;
@@ -57,11 +59,13 @@ namespace ObservableComputations.Test
 
 			ObservableCollection<int> items;
 			Averaging<int, double> averaging;
+
 			try
 			{
 				trace(testNum = "1", values, index, value, indexOld, indexNew);
 				items = getObservableCollection(values);
-				averaging = items.Averaging<int, double>();
+
+				averaging = items.Averaging<int, double>().IsNeededFor(consumer);
 				//averaging.ValidateConsistency();
 				validate(averaging, items);
 
@@ -69,10 +73,11 @@ namespace ObservableComputations.Test
 				{
 					trace(testNum = "2", values, index, value, indexOld, indexNew);
 					items = getObservableCollection(values);
-					Averaging<int, double> averageComputing1 = items.Averaging<int, double>();
+					Averaging<int, double> averageComputing1 = items.Averaging<int, double>().IsNeededFor(consumer);
 					items.RemoveAt(index);
 					//averageComputing1.ValidateConsistency();
 					validate(averageComputing1, items);
+                    consumer.Dispose();
 				}
 
 				for (index = 0; index <= values.Length; index++)
@@ -81,10 +86,11 @@ namespace ObservableComputations.Test
 					{
 						trace(testNum = "8", values, index, value, indexOld, indexNew);
 						items = getObservableCollection(values);
-						Averaging<int, double> averageComputing1 = items.Averaging<int, double>();
+						Averaging<int, double> averageComputing1 = items.Averaging<int, double>().IsNeededFor(consumer);
 						items.Insert(index, value);
 						//averageComputing1.ValidateConsistency();
 						validate(averageComputing1, items);
+                        consumer.Dispose();
 					}
 				}
 
@@ -95,10 +101,11 @@ namespace ObservableComputations.Test
 					{
 						trace(testNum = "3", values, index, value, indexOld, indexNew);
 						items = getObservableCollection(values);
-						Averaging<int, double> averageComputing2 = items.Averaging<int, double>();
+						Averaging<int, double> averageComputing2 = items.Averaging<int, double>().IsNeededFor(consumer);
 						items[index] = value;
 						//averageComputing2.ValidateConsistency();
 						validate(averageComputing2, items);
+                        consumer.Dispose();
 
 					}
 				}
@@ -109,10 +116,11 @@ namespace ObservableComputations.Test
 					{
 						trace(testNum = "7", values, index, value, indexOld, indexNew);
 						items = getObservableCollection(values);
-						Averaging<int, double> averageComputing2 = items.Averaging<int, double>();
+						Averaging<int, double> averageComputing2 = items.Averaging<int, double>().IsNeededFor(consumer);
 						items.Move(indexOld, indexNew);
 						//averageComputing2.ValidateConsistency();
 						validate(averageComputing2, items);
+                        consumer.Dispose();
 					}
 				}
 			}

@@ -8,6 +8,8 @@ namespace ObservableComputations.Test
 	[TestFixture]
 	public class PreviousTrackingTests
 	{
+        Consumer consumer = new Consumer();
+
 		public class Order : INotifyPropertyChanged
 		{
 			private string _num;
@@ -42,7 +44,7 @@ namespace ObservableComputations.Test
 		{
 			bool raised = false;
 			Order order = new Order();
-			PreviousTracking<string> computing = new PreviousTracking<string>(new Computing<string>(() => order.Num));
+			PreviousTracking<string> computing = new PreviousTracking<string>(new Computing<string>(() => order.Num)).IsNeededFor(consumer);
 			Assert.IsFalse(computing.IsEverChanged);
 			Assert.IsTrue(computing.PreviousValue == null);
 			Assert.IsTrue(computing.Value == null);

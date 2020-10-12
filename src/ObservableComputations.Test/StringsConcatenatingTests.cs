@@ -10,6 +10,8 @@ namespace ObservableComputations.Test
 	[TestFixture]
 	public class StringsConcatenatingTests
 	{
+        Consumer consumer = new Consumer();
+
 		TextFileOutput _textFileOutputLog = new TextFileOutput(@"D:\Projects\NevaPolimer\Concatenating_Deep.log");
 		TextFileOutput _textFileOutputTime = new TextFileOutput(@"D:\Projects\NevaPolimer\Concatenating_Deep_Time.log");
 
@@ -59,7 +61,7 @@ namespace ObservableComputations.Test
 				trace(testNum = "1", charsCounts, index, charsCount, indexOld, indexNew);
 				strings = getObservableCollections(charsCounts);
 				separatorScalar = new Scalar<string>("*");
-				stringsConcatenating = strings.StringsConcatenating(separatorScalar);
+				stringsConcatenating = strings.StringsConcatenating(separatorScalar).IsNeededFor(consumer);
 				test(stringsConcatenating, separatorScalar);
 
 				for (index = 0; index < charsCounts.Length; index++)
@@ -67,7 +69,7 @@ namespace ObservableComputations.Test
 					trace(testNum = "2", charsCounts, index, charsCount, indexOld, indexNew);
 					strings = getObservableCollections(charsCounts);
 					separatorScalar = new Scalar<string>("*");
-					StringsConcatenating concatenating1 = strings.StringsConcatenating(separatorScalar);
+					StringsConcatenating concatenating1 = strings.StringsConcatenating(separatorScalar).IsNeededFor(consumer);
 					strings.RemoveAt(index);
 					test(concatenating1, separatorScalar);
 				}
@@ -79,7 +81,7 @@ namespace ObservableComputations.Test
 						trace(testNum = "11", charsCounts, index, charsCount, indexOld, indexNew);
 						strings = getObservableCollections(charsCounts);
 						separatorScalar = new Scalar<string>("*");
-						StringsConcatenating concatenating2 = strings.StringsConcatenating(separatorScalar);
+						StringsConcatenating concatenating2 = strings.StringsConcatenating(separatorScalar).IsNeededFor(consumer);
 						strings.Insert(index, getString(charsCount));
 						test(concatenating2, separatorScalar);
 					}
@@ -90,7 +92,7 @@ namespace ObservableComputations.Test
 					trace(testNum = "6", charsCounts, index, charsCount, indexOld, indexNew);
 					strings = getObservableCollections(charsCounts);
 					separatorScalar = new Scalar<string>("*");
-					StringsConcatenating concatenating3 = strings.StringsConcatenating(separatorScalar);
+					StringsConcatenating concatenating3 = strings.StringsConcatenating(separatorScalar).IsNeededFor(consumer);
 					strings[index] = string.Empty;
 					test(concatenating3, separatorScalar);
 
@@ -99,7 +101,7 @@ namespace ObservableComputations.Test
 						trace(testNum = "3", charsCounts, index, charsCount, indexOld, indexNew);
 						strings = getObservableCollections(charsCounts);
 						separatorScalar = new Scalar<string>("*");
-						StringsConcatenating concatenating2 = strings.StringsConcatenating(separatorScalar);
+						StringsConcatenating concatenating2 = strings.StringsConcatenating(separatorScalar).IsNeededFor(consumer);
 						strings[index] = getString(charsCount);
 						test(concatenating2, separatorScalar);
 
@@ -111,7 +113,7 @@ namespace ObservableComputations.Test
 					trace(testNum = "4", charsCounts, index, charsCount, indexOld, indexNew);
 					strings = getObservableCollections(charsCounts);
 					separatorScalar = new Scalar<string>("*");
-					StringsConcatenating concatenating1 = strings.StringsConcatenating(separatorScalar);
+					StringsConcatenating concatenating1 = strings.StringsConcatenating(separatorScalar).IsNeededFor(consumer);
 					strings[index] = null;
 					test(concatenating1, separatorScalar);
 
@@ -120,7 +122,7 @@ namespace ObservableComputations.Test
 						trace(testNum = "5", charsCounts, index, charsCount, indexOld, indexNew);
 						strings = getObservableCollections(charsCounts);
 						separatorScalar = new Scalar<string>("*");
-						StringsConcatenating concatenating2 = strings.StringsConcatenating(separatorScalar);
+						StringsConcatenating concatenating2 = strings.StringsConcatenating(separatorScalar).IsNeededFor(consumer);
 						strings[index] = getString(charsCount);
 						test(concatenating2, separatorScalar);
 
@@ -134,7 +136,7 @@ namespace ObservableComputations.Test
 						trace(testNum = "6", charsCounts, index, charsCount, indexOld, indexNew);
 						strings = getObservableCollections(charsCounts);
 						separatorScalar = new Scalar<string>("*");
-						StringsConcatenating concatenating2 = strings.StringsConcatenating(separatorScalar);
+						StringsConcatenating concatenating2 = strings.StringsConcatenating(separatorScalar).IsNeededFor(consumer);
 						strings.Move(indexOld, indexNew);
 						test(concatenating2, separatorScalar);
 					}

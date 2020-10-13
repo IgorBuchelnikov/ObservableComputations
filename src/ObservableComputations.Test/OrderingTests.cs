@@ -118,7 +118,8 @@ namespace ObservableComputations.Test
 				trace(testNum = "1", orderNums, listSortDirection, index, orderNum, indexOld, indexNew);
 				items = getObservableCollection(orderNums);
 				ordering = items.Ordering(i => i.OrderNum, listSortDirection).IsNeededFor(consumer);
-				ordering.ValidateConsistency();
+				ordering.ValidateConsistency();				
+				consumer.Dispose();
 
 				for (index = 0; index < orderNums.Length; index++)
 				{
@@ -126,7 +127,8 @@ namespace ObservableComputations.Test
 					items = getObservableCollection(orderNums);
 					Ordering<Item, int?> ordering1 = items.Ordering(i => i.OrderNum, listSortDirection).IsNeededFor(consumer);
 					items.RemoveAt(index);
-					ordering1.ValidateConsistency();
+					ordering1.ValidateConsistency();					
+					consumer.Dispose();
 				}
 
 				for (index = 0; index <= orderNums.Length; index++)
@@ -137,7 +139,8 @@ namespace ObservableComputations.Test
 						items = getObservableCollection(orderNums);
 						Ordering<Item, int?> ordering1 = items.Ordering(i => i.OrderNum, listSortDirection).IsNeededFor(consumer);
 						items.Insert(index, new Item(orderNum == -1 ? (int?)null : orderNum));
-						ordering1.ValidateConsistency();
+						ordering1.ValidateConsistency();						
+						consumer.Dispose();
 					}
 				}
 
@@ -147,7 +150,8 @@ namespace ObservableComputations.Test
 					items = getObservableCollection(orderNums);
 					Ordering<Item, int?> ordering3 = items.Ordering(i => i.OrderNum, listSortDirection).IsNeededFor(consumer);
 					items[index] = new Item(null);
-					ordering3.ValidateConsistency();
+					ordering3.ValidateConsistency();					
+					consumer.Dispose();
 
 					for (orderNum = -1; orderNum <= orderNums.Length; orderNum++)
 					{
@@ -155,7 +159,8 @@ namespace ObservableComputations.Test
 						items = getObservableCollection(orderNums);
 						Ordering<Item, int?> ordering2 = items.Ordering(i => i.OrderNum, listSortDirection).IsNeededFor(consumer);
 						items[index] = new Item(orderNum == -1 ? (int?)null : orderNum);
-						ordering2.ValidateConsistency();
+						ordering2.ValidateConsistency();						
+						consumer.Dispose();
 
 					}
 				}
@@ -166,7 +171,8 @@ namespace ObservableComputations.Test
 					items = getObservableCollection(orderNums);
 					Ordering<Item, int?> ordering1 = items.Ordering(i => i.OrderNum, listSortDirection).IsNeededFor(consumer);
 					items[index].OrderNum = null;
-					ordering1.ValidateConsistency();
+					ordering1.ValidateConsistency();					
+					consumer.Dispose();
 
 					for (orderNum = -1; orderNum <= orderNums.Length; orderNum++)
 					{
@@ -174,7 +180,8 @@ namespace ObservableComputations.Test
 						items = getObservableCollection(orderNums);
 						Ordering<Item, int?> ordering2 = items.Ordering(i => i.OrderNum, listSortDirection).IsNeededFor(consumer);
 						items[index].OrderNum = orderNum == -1 ? (int?)null : orderNum;
-						ordering2.ValidateConsistency();
+						ordering2.ValidateConsistency();						
+						consumer.Dispose();
 					}
 				}
 
@@ -186,7 +193,8 @@ namespace ObservableComputations.Test
 						items = getObservableCollection(orderNums);
 						Ordering<Item, int?> ordering2 = items.Ordering(i => i.OrderNum, listSortDirection).IsNeededFor(consumer);
 						items.Move(indexOld, indexNew);
-						ordering2.ValidateConsistency();
+						ordering2.ValidateConsistency();						
+						consumer.Dispose();
 					}
 				}
 			}
@@ -237,7 +245,8 @@ namespace ObservableComputations.Test
 			ObservableCollection<Item> items = getObservableCollection(new []{-1,-1,-1,-1,-1,0,0});
 			Ordering<Item, int?> ordering2 = items.Ordering(i => i.OrderNum, ListSortDirection.Ascending);
 			items[0] = new Item(-1);
-			ordering2.ValidateConsistency();		
+			ordering2.ValidateConsistency();			
+			consumer.Dispose();		
 		}
 
 		[Test]
@@ -253,7 +262,8 @@ namespace ObservableComputations.Test
 			ObservableCollection<Item> items = getObservableCollection(new []{-1, 1});
 			Ordering<Item, int?> ordering2 = items.Ordering(i => i.OrderNum, ListSortDirection.Ascending);
 			items[0] = new Item(0);
-			ordering2.ValidateConsistency();		
+			ordering2.ValidateConsistency();			
+			consumer.Dispose();		
 		}
 
 		//[Test]

@@ -17,7 +17,8 @@ namespace ObservableComputations.Test
 			ObservableCollection<DerivedItem> items = new ObservableCollection<DerivedItem>();
 
 			OfTypeComputing<BaseItem> ofTypeComputing = items.OfTypeComputing<BaseItem>();
-			ofTypeComputing.ValidateConsistency();
+			ofTypeComputing.ValidateConsistency();			
+			consumer.Dispose();
 		}
 
 		[Test, Combinatorial]
@@ -36,7 +37,8 @@ namespace ObservableComputations.Test
 			OfTypeComputing<DerivedItem> ofTypeComputing = items.OfTypeComputing<DerivedItem>().IsNeededFor(consumer);
 			ofTypeComputing.ValidateConsistency();
 			if (index < items.Count) items[index] = newItem >= 0 ? (newItem == 1 ? new DerivedItem() : new BaseItem()) : null;
-			ofTypeComputing.ValidateConsistency();
+			ofTypeComputing.ValidateConsistency();			
+			consumer.Dispose();
 		}
 
 		[Test, Combinatorial]
@@ -54,7 +56,8 @@ namespace ObservableComputations.Test
 			OfTypeComputing<DerivedItem> ofTypeComputing = items.OfTypeComputing<DerivedItem>().IsNeededFor(consumer);
 			ofTypeComputing.ValidateConsistency();
 			items.RemoveAt(index);
-			ofTypeComputing.ValidateConsistency();
+			ofTypeComputing.ValidateConsistency();			
+			consumer.Dispose();
 		}
 
 		[Test, Combinatorial]
@@ -73,7 +76,8 @@ namespace ObservableComputations.Test
 			OfTypeComputing<DerivedItem> ofTypeComputing = items.OfTypeComputing<DerivedItem>().IsNeededFor(consumer);
 			ofTypeComputing.ValidateConsistency();
 			items.Insert(index, newItem >= 0 ? (newItem == 1 ? new DerivedItem() : new BaseItem()) : null);
-			ofTypeComputing.ValidateConsistency();
+			ofTypeComputing.ValidateConsistency();			
+			consumer.Dispose();
 		}
 
 		[Test, Combinatorial]
@@ -92,7 +96,8 @@ namespace ObservableComputations.Test
 			OfTypeComputing<DerivedItem> ofTypeComputing = items.OfTypeComputing<DerivedItem>().IsNeededFor(consumer);
 			ofTypeComputing.ValidateConsistency();
 			items.Move(oldIndex, newIndex);
-			ofTypeComputing.ValidateConsistency();
+			ofTypeComputing.ValidateConsistency();			
+			consumer.Dispose();
 		}	
 	}
 }

@@ -9,6 +9,8 @@ namespace ObservableComputations.Test
 	[TestFixture]
 	public class AllComputingTests
 	{
+        Consumer consumer = new Consumer();
+
 		public class Item : INotifyPropertyChanged
 		{
 			private bool _isActive;
@@ -55,7 +57,7 @@ namespace ObservableComputations.Test
 		{
 			ObservableCollection<Item> items = new ObservableCollection<Item>();
 
-			AllComputing<Item> allComputing = items.AllComputing(item => item.IsActive);
+			AllComputing<Item> allComputing = items.AllComputing(item => item.IsActive).IsNeededFor(consumer);
 			allComputing.ValidateConsistency();
 		}
 
@@ -81,7 +83,7 @@ namespace ObservableComputations.Test
 
 			);
 
-			AllComputing<Item> allComputing = items.AllComputing(item => item.IsActive);
+			AllComputing<Item> allComputing = items.AllComputing(item => item.IsActive).IsNeededFor(consumer);
 			allComputing.ValidateConsistency();
 			items[index].IsActive = newValue;
 			allComputing.ValidateConsistency();
@@ -108,7 +110,7 @@ namespace ObservableComputations.Test
 
 			);
 
-			AllComputing<Item> allComputing = items.AllComputing(item => item.IsActive);
+			AllComputing<Item> allComputing = items.AllComputing(item => item.IsActive).IsNeededFor(consumer);
 			allComputing.ValidateConsistency();
 			items.RemoveAt(index);
 			allComputing.ValidateConsistency();
@@ -125,7 +127,7 @@ namespace ObservableComputations.Test
 				}
 			);
 
-			AllComputing<Item> allComputing = items.AllComputing(item => item.IsActive);
+			AllComputing<Item> allComputing = items.AllComputing(item => item.IsActive).IsNeededFor(consumer);
 			allComputing.ValidateConsistency();
 			items.RemoveAt(0);
 			allComputing.ValidateConsistency();
@@ -153,7 +155,7 @@ namespace ObservableComputations.Test
 
 			);
 
-			AllComputing<Item> allComputing = items.AllComputing(item => item.IsActive);
+			AllComputing<Item> allComputing = items.AllComputing(item => item.IsActive).IsNeededFor(consumer);
 			allComputing.ValidateConsistency();
 			items.Insert(index, new Item(newValue));
 			allComputing.ValidateConsistency();
@@ -165,7 +167,7 @@ namespace ObservableComputations.Test
 		{
 			ObservableCollection<Item> items = new ObservableCollection<Item>();
 
-			AllComputing<Item> allComputing = items.AllComputing(item => item.IsActive);
+			AllComputing<Item> allComputing = items.AllComputing(item => item.IsActive).IsNeededFor(consumer);
 			allComputing.ValidateConsistency();
 			items.Insert(0, new Item(newValue));
 			allComputing.ValidateConsistency();
@@ -193,7 +195,7 @@ namespace ObservableComputations.Test
 
 			);
 
-			AllComputing<Item> allComputing = items.AllComputing(item => item.IsActive);
+			AllComputing<Item> allComputing = items.AllComputing(item => item.IsActive).IsNeededFor(consumer);
 			allComputing.ValidateConsistency();
 			items.Move(oldIndex, newIndex);
 			allComputing.ValidateConsistency();
@@ -221,7 +223,7 @@ namespace ObservableComputations.Test
 
 			);
 
-			AllComputing<Item> allComputing = items.AllComputing(item => item.IsActive);
+			AllComputing<Item> allComputing = items.AllComputing(item => item.IsActive).IsNeededFor(consumer);
 			allComputing.ValidateConsistency();
 			items[index] = new Item(itemNew);
 			allComputing.ValidateConsistency();

@@ -49,7 +49,8 @@ namespace ObservableComputations.Test
 			ObservableCollection<Item> items = new ObservableCollection<Item>();
 
 			Prepending<Item> prepending = items.Prepending(new Item()).IsNeededFor(consumer);
-			prepending.ValidateConsistency();
+			prepending.ValidateConsistency();			
+			consumer.Dispose();
 		}
 
 
@@ -71,7 +72,8 @@ namespace ObservableComputations.Test
 			Prepending<Item> prepending = items.Prepending(new Item()).IsNeededFor(consumer);
 			prepending.ValidateConsistency();
 			items.RemoveAt(index);
-			prepending.ValidateConsistency();
+			prepending.ValidateConsistency();			
+			consumer.Dispose();
 		}
 
 		[Test, Combinatorial]
@@ -88,7 +90,8 @@ namespace ObservableComputations.Test
 			Prepending<Item> prepending = items.Prepending(new Item()).IsNeededFor(consumer);
 			prepending.ValidateConsistency();
 			items.RemoveAt(0);
-			prepending.ValidateConsistency();
+			prepending.ValidateConsistency();			
+			consumer.Dispose();
 		}
 
 		[Test, Combinatorial]
@@ -109,7 +112,8 @@ namespace ObservableComputations.Test
 			Prepending<Item> prepending = items.Prepending(new Item()).IsNeededFor(consumer);
 			prepending.ValidateConsistency();
 			items.Insert(index, new Item());
-			prepending.ValidateConsistency();
+			prepending.ValidateConsistency();			
+			consumer.Dispose();
 		}
 
 		[Test, Combinatorial]
@@ -120,7 +124,8 @@ namespace ObservableComputations.Test
 			Prepending<Item> prepending = items.Prepending(new Item()).IsNeededFor(consumer);
 			prepending.ValidateConsistency();
 			items.Insert(0, new Item());
-			prepending.ValidateConsistency();
+			prepending.ValidateConsistency();			
+			consumer.Dispose();
 		}
 
 		[Test, Combinatorial]
@@ -142,7 +147,8 @@ namespace ObservableComputations.Test
 			Prepending<Item> prepending = items.Prepending(new Item()).IsNeededFor(consumer);
 			prepending.ValidateConsistency();
 			items.Move(oldIndex, newIndex);
-			prepending.ValidateConsistency();
+			prepending.ValidateConsistency();			
+			consumer.Dispose();
 		}
 
 		[Test, Combinatorial]
@@ -163,7 +169,8 @@ namespace ObservableComputations.Test
 			Prepending<Item> prepending = items.Prepending(new Item()).IsNeededFor(consumer);
 			prepending.ValidateConsistency();
 			items[index] = new Item();
-			prepending.ValidateConsistency();
+			prepending.ValidateConsistency();			
+			consumer.Dispose();
 		}
 	}
 }

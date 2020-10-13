@@ -31,6 +31,7 @@ namespace ObservableComputations.Test
 			item = new Item();
 			itemScalar.Change(item);
 			Assert.IsTrue(item.ProcessedAsNew);
+            consumer.Dispose();
 		}
 	}
 }

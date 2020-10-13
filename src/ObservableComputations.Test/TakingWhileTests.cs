@@ -63,7 +63,8 @@ namespace ObservableComputations.Test
 			ObservableCollection<Item> items = new ObservableCollection<Item>();
 
 			TakingWhile<Item> takingWhile = items.TakingWhile(item => item.IsActive).IsNeededFor(consumer);
-			takingWhile.ValidateConsistency();
+			takingWhile.ValidateConsistency();		
+		    consumer.Dispose();
 		}
 
 		[Test, Combinatorial]
@@ -91,7 +92,8 @@ namespace ObservableComputations.Test
 			TakingWhile<Item> takingWhile = items.TakingWhile(item => item.IsActive).IsNeededFor(consumer);
 			takingWhile.ValidateConsistency();
 			items[index].IsActive = newValue;
-			takingWhile.ValidateConsistency();
+			takingWhile.ValidateConsistency();			
+			consumer.Dispose();
 		}
 
 		[Test, Combinatorial]
@@ -109,7 +111,8 @@ namespace ObservableComputations.Test
 			TakingWhile<Item> takingWhile = items.TakingWhile(item => item.IsActive).IsNeededFor(consumer);
 			takingWhile.ValidateConsistency();
 			items[0].IsActive = !items[0].IsActive;
-			takingWhile.ValidateConsistency();
+			takingWhile.ValidateConsistency();			
+			consumer.Dispose();
 		}
 
 		[Test, Combinatorial]
@@ -136,7 +139,8 @@ namespace ObservableComputations.Test
 			TakingWhile<Item> takingWhile = items.TakingWhile(item => item.IsActive).IsNeededFor(consumer);
 			takingWhile.ValidateConsistency();
 			items.RemoveAt(index);
-			takingWhile.ValidateConsistency();
+			takingWhile.ValidateConsistency();			
+			consumer.Dispose();
 		}
 
 		[Test, Combinatorial]
@@ -154,7 +158,8 @@ namespace ObservableComputations.Test
 			TakingWhile<Item> takingWhile = items.TakingWhile(item => item.IsActive).IsNeededFor(consumer);
 			takingWhile.ValidateConsistency();
 			items.RemoveAt(0);
-			takingWhile.ValidateConsistency();
+			takingWhile.ValidateConsistency();			
+			consumer.Dispose();
 		}
 
 		[Test, Combinatorial]
@@ -182,7 +187,8 @@ namespace ObservableComputations.Test
 			TakingWhile<Item> takingWhile = items.TakingWhile(item => item.IsActive).IsNeededFor(consumer);
 			takingWhile.ValidateConsistency();
 			items.Insert(index, new Item(newValue));
-			takingWhile.ValidateConsistency();
+			takingWhile.ValidateConsistency();			
+			consumer.Dispose();
 		}
 
 		[Test, Combinatorial]
@@ -196,7 +202,8 @@ namespace ObservableComputations.Test
 			TakingWhile<Item> takingWhile = items.TakingWhile(item => item.IsActive).IsNeededFor(consumer);
 			takingWhile.ValidateConsistency();
 			items.Insert(0, new Item(newValue));
-			takingWhile.ValidateConsistency();
+			takingWhile.ValidateConsistency();			
+			consumer.Dispose();
 		}
 
 		[Test, Combinatorial]
@@ -224,7 +231,8 @@ namespace ObservableComputations.Test
 			TakingWhile<Item> takingWhile = items.TakingWhile(item => item.IsActive).IsNeededFor(consumer);
 			takingWhile.ValidateConsistency();
 			items.Move(oldIndex, newIndex);
-			takingWhile.ValidateConsistency();
+			takingWhile.ValidateConsistency();			
+			consumer.Dispose();
 		}
 
 		[Test, Combinatorial]
@@ -252,7 +260,8 @@ namespace ObservableComputations.Test
 			TakingWhile<Item> takingWhile = items.TakingWhile(item => item.IsActive).IsNeededFor(consumer);
 			takingWhile.ValidateConsistency();
 			items[index] = new Item(itemNew);
-			takingWhile.ValidateConsistency();
+			takingWhile.ValidateConsistency();			
+			consumer.Dispose();
 		}		
 
 		[Test]
@@ -273,12 +282,12 @@ namespace ObservableComputations.Test
 			TakingWhile<Item> takingWhile = items.TakingWhile(item => 
 				Expr.Is(() => param.Value 
 					? (ObservableCollection<Item>)items.TakingWhile(item1 => true) 
-					: items.TakingWhile(item1 => item1.IsActive == item.IsActive)).Computing().Value.Count == 3);
+					: items.TakingWhile(item1 => item1.IsActive == item.IsActive)).Computing().Value.Count == 3).IsNeededFor(consumer);
 
 			TakingWhile<Item> takingWhile2 = items.TakingWhile(item => 
 				(param.Value 
 					? items.TakingWhile(item1 => true) 
-					: items.TakingWhile(item1 => item1.IsActive == item.IsActive)).Count == 3);
+					: items.TakingWhile(item1 => item1.IsActive == item.IsActive)).Count == 3).IsNeededFor(consumer);
 
 			takingWhile.ValidateConsistency();
 			takingWhile2.ValidateConsistency();
@@ -287,6 +296,7 @@ namespace ObservableComputations.Test
 
 			takingWhile.ValidateConsistency();
 			takingWhile2.ValidateConsistency();
+            consumer.Dispose();
 		}
 
 		public class Param : INotifyPropertyChanged

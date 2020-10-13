@@ -66,6 +66,7 @@ namespace ObservableComputations.Test
 				summarizing = items.Summarizing().IsNeededFor(consumer);
 				validateSummarizingConsistency(summarizing, items);
 				Assert.AreEqual(summarizing.Value, items.Sum());
+                consumer.Dispose();
 
 				for (index = 0; index < values.Length; index++)
 				{
@@ -75,6 +76,7 @@ namespace ObservableComputations.Test
 					items.RemoveAt(index);
 					validateSummarizingConsistency(summarizing1, items);
 					Assert.AreEqual(summarizing1.Value, items.Sum());
+                    consumer.Dispose();
 				}
 
 				for (index = 0; index <= values.Length; index++)
@@ -87,6 +89,7 @@ namespace ObservableComputations.Test
 						items.Insert(index, value);
 						validateSummarizingConsistency(summarizing1, items);
 						Assert.AreEqual(summarizing1.Value, items.Sum());
+                        consumer.Dispose();
 					}
 				}
 
@@ -101,6 +104,7 @@ namespace ObservableComputations.Test
 						items[index] = value;
 						validateSummarizingConsistency(summarizing2, items);
 						Assert.AreEqual(summarizing2.Value, items.Sum());
+                        consumer.Dispose();
 
 					}
 				}
@@ -115,6 +119,7 @@ namespace ObservableComputations.Test
 						items.Move(indexOld, indexNew);
 						validateSummarizingConsistency(summarizing2, items);
 						Assert.AreEqual(summarizing2.Value, items.Sum());
+                        consumer.Dispose();
 					}
 				}
 			}

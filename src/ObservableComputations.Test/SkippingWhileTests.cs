@@ -63,7 +63,8 @@ namespace ObservableComputations.Test
 			ObservableCollection<Item> items = new ObservableCollection<Item>();
 
 			SkippingWhile<Item> skippingWhile = items.SkippingWhile(item => item.IsActive).IsNeededFor(consumer);
-			skippingWhile.ValidateConsistency();
+			skippingWhile.ValidateConsistency();			
+			consumer.Dispose();
 		}
 
 		[Test, Combinatorial]
@@ -91,7 +92,8 @@ namespace ObservableComputations.Test
 			SkippingWhile<Item> skippingWhile = items.SkippingWhile(item => item.IsActive).IsNeededFor(consumer);
 			skippingWhile.ValidateConsistency();
 			items[index].IsActive = newValue;
-			skippingWhile.ValidateConsistency();
+			skippingWhile.ValidateConsistency();			
+			consumer.Dispose();
 		}
 
 		[Test, Combinatorial]
@@ -109,7 +111,8 @@ namespace ObservableComputations.Test
 			SkippingWhile<Item> skippingWhile = items.SkippingWhile(item => item.IsActive).IsNeededFor(consumer);
 			skippingWhile.ValidateConsistency();
 			items[0].IsActive = !items[0].IsActive;
-			skippingWhile.ValidateConsistency();
+			skippingWhile.ValidateConsistency();			
+			consumer.Dispose();
 		}
 
 		[Test, Combinatorial]
@@ -136,7 +139,8 @@ namespace ObservableComputations.Test
 			SkippingWhile<Item> skippingWhile = items.SkippingWhile(item => item.IsActive).IsNeededFor(consumer);
 			skippingWhile.ValidateConsistency();
 			items.RemoveAt(index);
-			skippingWhile.ValidateConsistency();
+			skippingWhile.ValidateConsistency();			
+			consumer.Dispose();
 		}
 
 		[Test, Combinatorial]
@@ -154,7 +158,8 @@ namespace ObservableComputations.Test
 			SkippingWhile<Item> skippingWhile = items.SkippingWhile(item => item.IsActive).IsNeededFor(consumer);
 			skippingWhile.ValidateConsistency();
 			items.RemoveAt(0);
-			skippingWhile.ValidateConsistency();
+			skippingWhile.ValidateConsistency();			
+			consumer.Dispose();
 		}
 
 		[Test, Combinatorial]
@@ -182,7 +187,8 @@ namespace ObservableComputations.Test
 			SkippingWhile<Item> skippingWhile = items.SkippingWhile(item => item.IsActive).IsNeededFor(consumer);
 			skippingWhile.ValidateConsistency();
 			items.Insert(index, new Item(newValue));
-			skippingWhile.ValidateConsistency();
+			skippingWhile.ValidateConsistency();			
+			consumer.Dispose();
 		}
 
 		[Test, Combinatorial]
@@ -196,7 +202,8 @@ namespace ObservableComputations.Test
 			SkippingWhile<Item> skippingWhile = items.SkippingWhile(item => item.IsActive).IsNeededFor(consumer);
 			skippingWhile.ValidateConsistency();
 			items.Insert(0, new Item(newValue));
-			skippingWhile.ValidateConsistency();
+			skippingWhile.ValidateConsistency();			
+			consumer.Dispose();
 		}
 
 		[Test, Combinatorial]
@@ -224,7 +231,8 @@ namespace ObservableComputations.Test
 			SkippingWhile<Item> skippingWhile = items.SkippingWhile(item => item.IsActive).IsNeededFor(consumer);
 			skippingWhile.ValidateConsistency();
 			items.Move(oldIndex, newIndex);
-			skippingWhile.ValidateConsistency();
+			skippingWhile.ValidateConsistency();			
+			consumer.Dispose();
 		}
 
 		[Test, Combinatorial]
@@ -252,7 +260,8 @@ namespace ObservableComputations.Test
 			SkippingWhile<Item> skippingWhile = items.SkippingWhile(item => item.IsActive).IsNeededFor(consumer);
 			skippingWhile.ValidateConsistency();
 			items[index] = new Item(itemNew);
-			skippingWhile.ValidateConsistency();
+			skippingWhile.ValidateConsistency();			
+			consumer.Dispose();
 		}		
 
 		[Test]
@@ -273,12 +282,12 @@ namespace ObservableComputations.Test
 			SkippingWhile<Item> skippingWhile = items.SkippingWhile(item => 
 				Expr.Is(() => param.Value 
 					? (ObservableCollection<Item>)items.SkippingWhile(item1 => true) 
-					: items.SkippingWhile(item1 => item1.IsActive == item.IsActive)).Computing().Value.Count == 3);
+					: items.SkippingWhile(item1 => item1.IsActive == item.IsActive)).Computing().Value.Count == 3).IsNeededFor(consumer);
 
 			SkippingWhile<Item> skippingWhile2 = items.SkippingWhile(item => 
 				(param.Value 
 					? items.SkippingWhile(item1 => true) 
-					: items.SkippingWhile(item1 => item1.IsActive == item.IsActive)).Count == 3);
+					: items.SkippingWhile(item1 => item1.IsActive == item.IsActive)).Count == 3).IsNeededFor(consumer);
 
 			skippingWhile.ValidateConsistency();
 			skippingWhile2.ValidateConsistency();
@@ -287,6 +296,7 @@ namespace ObservableComputations.Test
 
 			skippingWhile.ValidateConsistency();
 			skippingWhile2.ValidateConsistency();
+            consumer.Dispose();
 		}
 
 		public class Param : INotifyPropertyChanged

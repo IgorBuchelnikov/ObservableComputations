@@ -139,6 +139,7 @@ namespace ObservableComputations.Test
 		{
 			if (items.Count > 0) Assert.AreEqual(averaging.Value, items.Average());
 			else Assert.AreEqual(averaging.Value, double.NaN);
+            consumer.Dispose();
 		}
 
 		private void trace(string testNum, int[] values, int index, int value, int indexOld, int indexNew)

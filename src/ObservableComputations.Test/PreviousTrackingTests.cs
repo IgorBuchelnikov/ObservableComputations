@@ -57,6 +57,8 @@ namespace ObservableComputations.Test
 			order.Num = "2";
 			Assert.IsTrue(computing.IsEverChanged);
 			Assert.IsTrue(computing.Value == "2");
+
+            consumer.Dispose();
 		}
 	}
 }

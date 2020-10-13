@@ -68,13 +68,15 @@ namespace ObservableComputations.Test
 						trace(testNum = "2", count, index, indexOld, indexNew, pageSize, currentPage);
 						items = getObservableCollection(count);
 						paging = items.Paging(pageSize).IsNeededFor(consumer);
-						paging.ValidateConsistency();
+						paging.ValidateConsistency();						
+						consumer.Dispose();
 
 						trace(testNum = "3", count, index, indexOld, indexNew, pageSize, currentPage);
 						items = getObservableCollection(count);
 						paging = items.Paging(pageSize).IsNeededFor(consumer);
 						paging.CurrentPage = currentPage;
-						paging.ValidateConsistency();
+						paging.ValidateConsistency();						
+						consumer.Dispose();
 
 						for (index = 0; index < count; index++)
 						{
@@ -82,7 +84,8 @@ namespace ObservableComputations.Test
 							items = getObservableCollection(count);
 							Paging<Item> paging1 = items.Paging(pageSize, currentPage).IsNeededFor(consumer);
 							items.RemoveAt(index);
-							paging1.ValidateConsistency();
+							paging1.ValidateConsistency();							
+							consumer.Dispose();
 						}
 
 						for (index = 0; index < count; index++)
@@ -91,7 +94,8 @@ namespace ObservableComputations.Test
 							items = getObservableCollection(count);
 							Paging<Item> paging1 = items.Paging(pageSize, currentPage).IsNeededFor(consumer);
 							items.Insert(index, new Item());
-							paging1.ValidateConsistency();
+							paging1.ValidateConsistency();							
+							consumer.Dispose();
 						}
 
 						for (index = 0; index < count; index++)
@@ -100,7 +104,8 @@ namespace ObservableComputations.Test
 							items = getObservableCollection(count);
 							Paging<Item> paging1 = items.Paging(pageSize, currentPage).IsNeededFor(consumer);
 							items[index] = new Item();
-							paging1.ValidateConsistency();
+							paging1.ValidateConsistency();							
+							consumer.Dispose();
 						}
 
 						for (indexOld = 0; indexOld < count; indexOld++)
@@ -111,7 +116,8 @@ namespace ObservableComputations.Test
 								items = getObservableCollection(count);
 								Paging<Item> paging1 = items.Paging(pageSize, currentPage).IsNeededFor(consumer);
 								items.Move(indexOld, indexNew);
-								paging1.ValidateConsistency();
+								paging1.ValidateConsistency();								
+								consumer.Dispose();
 							}
 						}
 					}
@@ -166,7 +172,7 @@ namespace ObservableComputations.Test
 			ObservableCollection<int> items = new ObservableCollection<int>(Enumerable.Range(1, 100));
 
 			Paging<int> paging = items.Paging(2);
-			paging.ValidateConsistency();
+			paging.ValidateConsistency();			
 
 			void test()
 			{
@@ -231,6 +237,8 @@ namespace ObservableComputations.Test
 
 			paging.CurrentPage = 3;
 			test();
+
+            consumer.Dispose();
 		}
 
 		[Test]
@@ -307,6 +315,8 @@ namespace ObservableComputations.Test
 
 			paging.CurrentPage = 4;
 			test();
+
+            consumer.Dispose();
 		}
 	}
 }

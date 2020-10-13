@@ -49,7 +49,8 @@ namespace ObservableComputations.Test
 			ObservableCollection<Item> items = new ObservableCollection<Item>();
 
 			LastComputing<Item> last = items.LastComputing().IsNeededFor(consumer);
-			last.ValidateConsistency();
+			last.ValidateConsistency();			
+			consumer.Dispose();
 		}
 
 
@@ -71,7 +72,8 @@ namespace ObservableComputations.Test
 			LastComputing<Item> last = items.LastComputing().IsNeededFor(consumer);
 			last.ValidateConsistency();
 			items.RemoveAt(index);
-			last.ValidateConsistency();
+			last.ValidateConsistency();			
+			consumer.Dispose();
 		}
 
 		[Test, Combinatorial]
@@ -87,7 +89,8 @@ namespace ObservableComputations.Test
 			LastComputing<Item> last = items.LastComputing().IsNeededFor(consumer);
 			last.ValidateConsistency();
 			items.RemoveAt(0);
-			last.ValidateConsistency();
+			last.ValidateConsistency();			
+			consumer.Dispose();
 		}
 
 		[Test, Combinatorial]
@@ -108,7 +111,8 @@ namespace ObservableComputations.Test
 			LastComputing<Item> last = items.LastComputing().IsNeededFor(consumer);
 			last.ValidateConsistency();
 			items.Insert(index, new Item());
-			last.ValidateConsistency();
+			last.ValidateConsistency();			
+			consumer.Dispose();
 		}
 
 		[Test, Combinatorial]
@@ -119,7 +123,8 @@ namespace ObservableComputations.Test
 			LastComputing<Item> last = items.LastComputing().IsNeededFor(consumer);
 			last.ValidateConsistency();
 			items.Insert(0, new Item());
-			last.ValidateConsistency();
+			last.ValidateConsistency();			
+			consumer.Dispose();
 		}
 
 		[Test, Combinatorial]
@@ -141,7 +146,8 @@ namespace ObservableComputations.Test
 			LastComputing<Item> last = items.LastComputing().IsNeededFor(consumer);
 			last.ValidateConsistency();
 			items.Move(oldIndex, newIndex);
-			last.ValidateConsistency();
+			last.ValidateConsistency();			
+			consumer.Dispose();
 		}
 
 		[Test, Combinatorial]
@@ -163,7 +169,8 @@ namespace ObservableComputations.Test
 			LastComputing<Item> last = items.LastComputing().IsNeededFor(consumer);
 			last.ValidateConsistency();
 			items[index] = new Item();
-			last.ValidateConsistency();
+			last.ValidateConsistency();			
+			consumer.Dispose();
 		}		
 	}
 }

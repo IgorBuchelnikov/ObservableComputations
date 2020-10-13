@@ -17,7 +17,8 @@ namespace ObservableComputations.Test
 			ObservableCollection<DerivedItem> items = new ObservableCollection<DerivedItem>();
 
 			Casting<BaseItem> casting = items.Casting<BaseItem>().IsNeededFor(consumer);
-			casting.ValidateConsistency();
+			casting.ValidateConsistency();			
+			consumer.Dispose();
 		}
 
 		[Test, Combinatorial]
@@ -36,7 +37,8 @@ namespace ObservableComputations.Test
 			Casting<BaseItem> casting = items.Casting<BaseItem>().IsNeededFor(consumer);
 			casting.ValidateConsistency();
 			if (index < items.Count) items[index] = newItem == 0 ? new DerivedItem() : null;
-			casting.ValidateConsistency();
+			casting.ValidateConsistency();			
+			consumer.Dispose();
 		}
 
 		[Test, Combinatorial]
@@ -54,7 +56,8 @@ namespace ObservableComputations.Test
 			Casting<BaseItem> casting = items.Casting<BaseItem>().IsNeededFor(consumer);
 			casting.ValidateConsistency();
 			items.RemoveAt(index);
-			casting.ValidateConsistency();
+			casting.ValidateConsistency();			
+			consumer.Dispose();
 		}
 
 		[Test, Combinatorial]
@@ -73,7 +76,8 @@ namespace ObservableComputations.Test
 			Casting<BaseItem> casting = items.Casting<BaseItem>().IsNeededFor(consumer);
 			casting.ValidateConsistency();
 			items.Insert(index, newItem == 0 ? new DerivedItem() : null);
-			casting.ValidateConsistency();
+			casting.ValidateConsistency();			
+			consumer.Dispose();
 		}
 
 		[Test, Combinatorial]
@@ -92,7 +96,8 @@ namespace ObservableComputations.Test
 			Casting<BaseItem> casting = items.Casting<BaseItem>().IsNeededFor(consumer);
 			casting.ValidateConsistency();
 			items.Move(oldIndex, newIndex);
-			casting.ValidateConsistency();
+			casting.ValidateConsistency();			
+			consumer.Dispose();
 		}	
 	}
 }

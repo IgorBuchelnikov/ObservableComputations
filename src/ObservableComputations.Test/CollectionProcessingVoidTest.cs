@@ -57,6 +57,7 @@ namespace ObservableComputations.Test
 			items.RemoveAt(index);
 			Assert.IsTrue(sourceCollection[index].ProcessedAsNew);
 			Assert.IsTrue(sourceCollection[index].ProcessedAsOld);
+            consumer.Dispose();
 		}
 
 		[Test, Combinatorial]
@@ -74,6 +75,7 @@ namespace ObservableComputations.Test
 			items.RemoveAt(0);
 			Assert.IsTrue(item.ProcessedAsNew);
 			Assert.IsTrue(item.ProcessedAsOld);
+            consumer.Dispose();
 		}
 
 		[Test, Combinatorial]
@@ -97,6 +99,7 @@ namespace ObservableComputations.Test
 			items.Insert(index, item);
 			Assert.IsTrue(item.ProcessedAsNew);
 			Assert.IsFalse(item.ProcessedAsOld);
+            consumer.Dispose();
 		}
 
 		[Test, Combinatorial]
@@ -110,6 +113,7 @@ namespace ObservableComputations.Test
 			items.Insert(0, item);
 			Assert.IsTrue(item.ProcessedAsNew);
 			Assert.IsFalse(item.ProcessedAsOld);
+            consumer.Dispose();
 		}
 
 		[Test, Combinatorial]
@@ -133,6 +137,7 @@ namespace ObservableComputations.Test
 			items.Move(oldIndex, newIndex);
 			Assert.IsTrue(sourceCollection[oldIndex].ProcessedAsNew);
 			Assert.IsFalse(sourceCollection[oldIndex].ProcessedAsOld);
+            consumer.Dispose();
 		}
 
 		[Test, Combinatorial]
@@ -157,6 +162,7 @@ namespace ObservableComputations.Test
 			Assert.IsTrue(sourceCollection[index].ProcessedAsOld);
 			Assert.IsTrue(items[index].ProcessedAsNew);
 			Assert.IsFalse(items[index].ProcessedAsOld);
+            consumer.Dispose();
 		}	
 	}
 }

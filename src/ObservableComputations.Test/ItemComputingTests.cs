@@ -26,7 +26,8 @@ namespace ObservableComputations.Test
 			ObservableCollection<Item> items = new ObservableCollection<Item>();
 
 			ItemComputing<Item> itemComputing = items.ItemComputing(0);
-			itemComputing.ValidateConsistency();
+			itemComputing.ValidateConsistency();			
+			consumer.Dispose();
 		}
 
 
@@ -49,7 +50,8 @@ namespace ObservableComputations.Test
 			ItemComputing<Item> itemComputing = items.ItemComputing(computingIndex).IsNeededFor(consumer);
 			itemComputing.ValidateConsistency();
 			items.RemoveAt(index);
-			itemComputing.ValidateConsistency();
+			itemComputing.ValidateConsistency();			
+			consumer.Dispose();
 		}
 
 		[Test, Combinatorial]
@@ -66,7 +68,8 @@ namespace ObservableComputations.Test
 			ItemComputing<Item> itemComputing = items.ItemComputing(computingIndex).IsNeededFor(consumer);
 			itemComputing.ValidateConsistency();
 			items.RemoveAt(0);
-			itemComputing.ValidateConsistency();
+			itemComputing.ValidateConsistency();			
+			consumer.Dispose();
 		}
 
 		[Test, Combinatorial]
@@ -88,7 +91,8 @@ namespace ObservableComputations.Test
 			ItemComputing<Item> itemComputing = items.ItemComputing(computingIndex).IsNeededFor(consumer);
 			itemComputing.ValidateConsistency();
 			items.Insert(index, new Item());
-			itemComputing.ValidateConsistency();
+			itemComputing.ValidateConsistency();			
+			consumer.Dispose();
 		}
 
 		[Test, Combinatorial]
@@ -100,7 +104,8 @@ namespace ObservableComputations.Test
 			ItemComputing<Item> itemComputing = items.ItemComputing(computingIndex).IsNeededFor(consumer);
 			itemComputing.ValidateConsistency();
 			items.Insert(0, new Item());
-			itemComputing.ValidateConsistency();
+			itemComputing.ValidateConsistency();			
+			consumer.Dispose();
 		}
 
 		[Test, Combinatorial]
@@ -123,7 +128,8 @@ namespace ObservableComputations.Test
 			ItemComputing<Item> itemComputing = items.ItemComputing(computingIndex).IsNeededFor(consumer);
 			itemComputing.ValidateConsistency();
 			items.Move(oldIndex, newIndex);
-			itemComputing.ValidateConsistency();
+			itemComputing.ValidateConsistency();			
+			consumer.Dispose();
 		}
 
 		[Test, Combinatorial]
@@ -145,7 +151,8 @@ namespace ObservableComputations.Test
 			ItemComputing<Item> itemComputing = items.ItemComputing(computingIndex).IsNeededFor(consumer);
 			itemComputing.ValidateConsistency();
 			items[index] = new Item();
-			itemComputing.ValidateConsistency();
+			itemComputing.ValidateConsistency();			
+			consumer.Dispose();
 		}		
 	}
 }

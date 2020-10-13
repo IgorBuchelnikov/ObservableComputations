@@ -49,7 +49,8 @@ namespace ObservableComputations.Test
 			ObservableCollection<Item> items = new ObservableCollection<Item>();
 
 			FirstComputing<Item> first = items.FirstComputing().IsNeededFor(consumer);
-			first.ValidateConsistency();
+			first.ValidateConsistency();			
+			consumer.Dispose();
 		}
 
 
@@ -71,7 +72,8 @@ namespace ObservableComputations.Test
 			FirstComputing<Item> first = items.FirstComputing().IsNeededFor(consumer);
 			first.ValidateConsistency();
 			items.RemoveAt(index);
-			first.ValidateConsistency();
+			first.ValidateConsistency();			
+			consumer.Dispose();
 		}
 
 		[Test, Combinatorial]
@@ -87,7 +89,8 @@ namespace ObservableComputations.Test
 			FirstComputing<Item> first = items.FirstComputing().IsNeededFor(consumer);
 			first.ValidateConsistency();
 			items.RemoveAt(0);
-			first.ValidateConsistency();
+			first.ValidateConsistency();			
+			consumer.Dispose();
 		}
 
 		[Test, Combinatorial]
@@ -108,7 +111,8 @@ namespace ObservableComputations.Test
 			FirstComputing<Item> first = items.FirstComputing().IsNeededFor(consumer);
 			first.ValidateConsistency();
 			items.Insert(index, new Item());
-			first.ValidateConsistency();
+			first.ValidateConsistency();			
+			consumer.Dispose();
 		}
 
 		[Test, Combinatorial]
@@ -119,7 +123,8 @@ namespace ObservableComputations.Test
 			FirstComputing<Item> first = items.FirstComputing().IsNeededFor(consumer);
 			first.ValidateConsistency();
 			items.Insert(0, new Item());
-			first.ValidateConsistency();
+			first.ValidateConsistency();			
+			consumer.Dispose();
 		}
 
 		[Test, Combinatorial]
@@ -141,7 +146,8 @@ namespace ObservableComputations.Test
 			FirstComputing<Item> first = items.FirstComputing().IsNeededFor(consumer);
 			first.ValidateConsistency();
 			items.Move(oldIndex, newIndex);
-			first.ValidateConsistency();
+			first.ValidateConsistency();			
+			consumer.Dispose();
 		}
 
 		[Test, Combinatorial]
@@ -163,7 +169,8 @@ namespace ObservableComputations.Test
 			FirstComputing<Item> first = items.FirstComputing().IsNeededFor(consumer);
 			first.ValidateConsistency();
 			items[index] = new Item();
-			first.ValidateConsistency();
+			first.ValidateConsistency();			
+			consumer.Dispose();
 		}		
 	}
 }

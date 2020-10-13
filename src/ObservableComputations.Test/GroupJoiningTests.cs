@@ -108,7 +108,8 @@ namespace ObservableComputations.Test
 				items1 = getObservableCollection(ids1);
 				items2 = getObservableCollection(ids2);
 				groupJoining = items1.GroupJoining(items2, item1 => item1.Id, item2 => item2.Id).IsNeededFor(consumer);
-				groupJoining.ValidateConsistency();
+				groupJoining.ValidateConsistency();				
+				consumer.Dispose();
 
 				for (index = 0; index < ids1.Length; index++)
 				{
@@ -117,7 +118,8 @@ namespace ObservableComputations.Test
 					items2 = getObservableCollection(ids2);
 					groupJoining = items1.GroupJoining(items2, item1 => item1.Id, item2 => item2.Id).IsNeededFor(consumer);
 					items1.RemoveAt(index);
-					groupJoining.ValidateConsistency();
+					groupJoining.ValidateConsistency();					
+					consumer.Dispose();
 				}
 
 				for (index = 0; index < ids2.Length; index++)
@@ -127,7 +129,8 @@ namespace ObservableComputations.Test
 					items2 = getObservableCollection(ids2);
 					groupJoining = items1.GroupJoining(items2, item1 => item1.Id, item2 => item2.Id).IsNeededFor(consumer);
 					items2.RemoveAt(index);
-					groupJoining.ValidateConsistency();
+					groupJoining.ValidateConsistency();					
+					consumer.Dispose();
 				}
 
 				for (index = 0; index <= ids1.Length; index++)
@@ -139,7 +142,8 @@ namespace ObservableComputations.Test
 						items2 = getObservableCollection(ids2);
 						groupJoining = items1.GroupJoining(items2, item1 => item1.Id, item2 => item2.Id).IsNeededFor(consumer);
 						items1.Insert(index, new Item(newItemId));
-						groupJoining.ValidateConsistency();
+						groupJoining.ValidateConsistency();						
+						consumer.Dispose();
 					}
 
 				}
@@ -153,7 +157,8 @@ namespace ObservableComputations.Test
 						items2 = getObservableCollection(ids2);
 						groupJoining = items1.GroupJoining(items2, item1 => item1.Id, item2 => item2.Id).IsNeededFor(consumer);
 						items2.Insert(index, new Item(newItemId));
-						groupJoining.ValidateConsistency();
+						groupJoining.ValidateConsistency();						
+						consumer.Dispose();
 					}
 				}
 
@@ -166,7 +171,8 @@ namespace ObservableComputations.Test
 						items2 = getObservableCollection(ids2);
 						groupJoining = items1.GroupJoining(items2, item1 => item1.Id, item2 => item2.Id).IsNeededFor(consumer);
 						items1[index] = new Item(newItemId);
-						groupJoining.ValidateConsistency();
+						groupJoining.ValidateConsistency();						
+						consumer.Dispose();
 					}
 
                     for (newItemId = 0; newItemId <= ids1.Length; newItemId++)
@@ -177,7 +183,8 @@ namespace ObservableComputations.Test
                         items2 = getObservableCollection(ids2);
                         groupJoining = items1.GroupJoining(items2, item1 => item1.Id, item2 => item2.Id).IsNeededFor(consumer);
                         items1[index].Id = newItemId;
-                        groupJoining.ValidateConsistency();
+                        groupJoining.ValidateConsistency();                        
+                        consumer.Dispose();
                     }
 				}
 
@@ -190,7 +197,8 @@ namespace ObservableComputations.Test
 						items2 = getObservableCollection(ids2);
 						groupJoining = items1.GroupJoining(items2, item1 => item1.Id, item2 => item2.Id).IsNeededFor(consumer);
 						items2[index] = new Item(newItemId);
-						groupJoining.ValidateConsistency();
+						groupJoining.ValidateConsistency();						
+						consumer.Dispose();
 					}
 
 					for (newItemId = 0; newItemId <= ids2.Length; newItemId++)
@@ -201,7 +209,8 @@ namespace ObservableComputations.Test
                         if (items2[index] == null) continue; 
 						groupJoining = items1.GroupJoining(items2, item1 => item1.Id, item2 => item2.Id).IsNeededFor(consumer);
                         items2[index].Id = newItemId;
-						groupJoining.ValidateConsistency();
+						groupJoining.ValidateConsistency();						
+						consumer.Dispose();
 					}
 				}
 
@@ -214,7 +223,8 @@ namespace ObservableComputations.Test
 						items2 = getObservableCollection(ids2);
 						groupJoining = items1.GroupJoining(items2, item1 => item1.Id, item2 => item2.Id).IsNeededFor(consumer);
 						items1.Move(indexOld, indexNew);
-						groupJoining.ValidateConsistency();
+						groupJoining.ValidateConsistency();						
+						consumer.Dispose();
 					}
 				}
 
@@ -227,7 +237,8 @@ namespace ObservableComputations.Test
 						items2 = getObservableCollection(ids2);
 						groupJoining = items1.GroupJoining(items2, item1 => item1.Id, item2 => item2.Id).IsNeededFor(consumer);
 						items2.Move(indexOld, indexNew);
-						groupJoining.ValidateConsistency();
+						groupJoining.ValidateConsistency();						
+						consumer.Dispose();
 					}
 				}
 

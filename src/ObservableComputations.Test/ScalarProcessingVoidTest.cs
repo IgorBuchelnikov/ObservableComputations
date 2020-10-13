@@ -26,7 +26,7 @@ namespace ObservableComputations.Test
 			item = new Item();
 			itemScalar.Change(item);
 			itemScalar.Change(item);
-
+            consumer.Dispose();
 		}
 	}
 }

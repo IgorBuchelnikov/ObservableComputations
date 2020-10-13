@@ -26,7 +26,8 @@ namespace ObservableComputations.Test
 			ObservableCollection<Item> items = new ObservableCollection<Item>();
 
 			Taking<Item> itemComputing = items.Taking(0, 0).IsNeededFor(consumer);;
-			itemComputing.ValidateConsistency();
+			itemComputing.ValidateConsistency();			
+			consumer.Dispose();
 		}
 
 
@@ -50,7 +51,8 @@ namespace ObservableComputations.Test
 			Taking<Item> itemComputing = items.Taking(startIndex, count).IsNeededFor(consumer);
 			itemComputing.ValidateConsistency();
 			items.RemoveAt(index);
-			itemComputing.ValidateConsistency();
+			itemComputing.ValidateConsistency();			
+			consumer.Dispose();
 		}
 
 		[Test, Combinatorial]
@@ -68,7 +70,8 @@ namespace ObservableComputations.Test
 			Taking<Item> itemComputing = items.Taking(startIndex, count).IsNeededFor(consumer);
 			itemComputing.ValidateConsistency();
 			items.RemoveAt(0);
-			itemComputing.ValidateConsistency();
+			itemComputing.ValidateConsistency();			
+			consumer.Dispose();
 		}
 
 		[Test, Combinatorial]
@@ -91,7 +94,8 @@ namespace ObservableComputations.Test
 			Taking<Item> itemComputing = items.Taking(startIndex, count).IsNeededFor(consumer);
 			itemComputing.ValidateConsistency();
 			items.Insert(index, new Item());
-			itemComputing.ValidateConsistency();
+			itemComputing.ValidateConsistency();			
+			consumer.Dispose();
 		}
 
 		[Test, Combinatorial]
@@ -104,7 +108,8 @@ namespace ObservableComputations.Test
 			Taking<Item> itemComputing = items.Taking(startIndex, count).IsNeededFor(consumer);
 			itemComputing.ValidateConsistency();
 			items.Insert(0, new Item());
-			itemComputing.ValidateConsistency();
+			itemComputing.ValidateConsistency();			
+			consumer.Dispose();
 		}
 
 		[Test, Combinatorial]
@@ -128,7 +133,8 @@ namespace ObservableComputations.Test
 			Taking<Item> itemComputing = items.Taking(startIndex, count).IsNeededFor(consumer);
 			itemComputing.ValidateConsistency();
 			items.Move(oldIndex, newIndex);
-			itemComputing.ValidateConsistency();
+			itemComputing.ValidateConsistency();			
+			consumer.Dispose();
 		}
 
 		[Test, Combinatorial]
@@ -151,7 +157,8 @@ namespace ObservableComputations.Test
 			Taking<Item> itemComputing = items.Taking(startIndex, count).IsNeededFor(consumer);
 			itemComputing.ValidateConsistency();
 			items[index] = new Item();
-			itemComputing.ValidateConsistency();
+			itemComputing.ValidateConsistency();			
+			consumer.Dispose();
 		}		
 	}
 }

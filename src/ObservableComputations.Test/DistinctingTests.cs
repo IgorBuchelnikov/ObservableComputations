@@ -14,7 +14,8 @@ namespace ObservableComputations.Test
 			ObservableCollection<int> items = new ObservableCollection<int>();
 
 			Distincting<int> distincting = items.Distincting().IsNeededFor(consumer);
-			distincting.ValidateConsistency();
+			distincting.ValidateConsistency();			
+			consumer.Dispose();
 		}
 
 		[Test, Combinatorial]
@@ -41,7 +42,8 @@ namespace ObservableComputations.Test
 			Distincting<int> distincting = items.Distincting().IsNeededFor(consumer);
 			distincting.ValidateConsistency();
 			items.RemoveAt(index);
-			distincting.ValidateConsistency();
+			distincting.ValidateConsistency();			
+			consumer.Dispose();
 		}
 
 		[Test, Combinatorial]
@@ -59,7 +61,8 @@ namespace ObservableComputations.Test
 			Distincting<int> distincting = items.Distincting().IsNeededFor(consumer);
 			distincting.ValidateConsistency();
 			items.RemoveAt(0);
-			distincting.ValidateConsistency();
+			distincting.ValidateConsistency();			
+			consumer.Dispose();
 		}
 
 		[Test, Combinatorial]
@@ -87,7 +90,8 @@ namespace ObservableComputations.Test
 			Distincting<int> distincting = items.Distincting().IsNeededFor(consumer);
 			distincting.ValidateConsistency();
 			items.Insert(index, newValue);
-			distincting.ValidateConsistency();
+			distincting.ValidateConsistency();			
+			consumer.Dispose();
 		}
 
 		[Test, Combinatorial]
@@ -99,7 +103,8 @@ namespace ObservableComputations.Test
 			Distincting<int> distincting = items.Distincting().IsNeededFor(consumer);
 			distincting.ValidateConsistency();
 			items.Insert(0, newValue);
-			distincting.ValidateConsistency();
+			distincting.ValidateConsistency();			
+			consumer.Dispose();
 		}
 
 		[Test, Combinatorial]
@@ -127,7 +132,8 @@ namespace ObservableComputations.Test
 			Distincting<int> distincting = items.Distincting().IsNeededFor(consumer);
 			distincting.ValidateConsistency();
 			items.Move(oldIndex, newIndex);
-			distincting.ValidateConsistency();
+			distincting.ValidateConsistency();			
+			consumer.Dispose();
 		}
 
 		[Test, Combinatorial]
@@ -155,7 +161,8 @@ namespace ObservableComputations.Test
 			Distincting<int> distincting = items.Distincting().IsNeededFor(consumer);
 			distincting.ValidateConsistency();
 			items[index] = itemNew;
-			distincting.ValidateConsistency();
+			distincting.ValidateConsistency();			
+			consumer.Dispose();
 		}		
 	}
 }

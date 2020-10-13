@@ -53,6 +53,8 @@ namespace ObservableComputations.Test
 
 			test();
 
+            consumer.Dispose();
+
 		}
 	}
 }

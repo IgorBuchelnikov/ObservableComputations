@@ -49,7 +49,8 @@ namespace ObservableComputations.Test
 			ObservableCollection<Item> items = new ObservableCollection<Item>();
 
 			Reversing<Item> reversing = items.Reversing().IsNeededFor(consumer);
-			reversing.ValidateConsistency();
+			reversing.ValidateConsistency();			
+			consumer.Dispose();
 		}
 
 
@@ -71,7 +72,8 @@ namespace ObservableComputations.Test
 			Reversing<Item> reversing = items.Reversing().IsNeededFor(consumer);
 			reversing.ValidateConsistency();
 			items.RemoveAt(index);
-			reversing.ValidateConsistency();
+			reversing.ValidateConsistency();			
+			consumer.Dispose();
 		}
 
 		[Test, Combinatorial]
@@ -88,7 +90,8 @@ namespace ObservableComputations.Test
 			Reversing<Item> reversing = items.Reversing().IsNeededFor(consumer);
 			reversing.ValidateConsistency();
 			items.RemoveAt(0);
-			reversing.ValidateConsistency();
+			reversing.ValidateConsistency();			
+			consumer.Dispose();
 		}
 
 		[Test, Combinatorial]
@@ -115,7 +118,8 @@ namespace ObservableComputations.Test
 			Reversing<Item> reversing = items.Reversing().IsNeededFor(consumer);
 			reversing.ValidateConsistency();
 			items.Insert(index, new Item());
-			reversing.ValidateConsistency();
+			reversing.ValidateConsistency();			
+			consumer.Dispose();
 		}
 
 		[Test, Combinatorial]
@@ -126,7 +130,8 @@ namespace ObservableComputations.Test
 			Reversing<Item> reversing = items.Reversing().IsNeededFor(consumer);
 			reversing.ValidateConsistency();
 			items.Insert(0, new Item());
-			reversing.ValidateConsistency();
+			reversing.ValidateConsistency();			
+			consumer.Dispose();
 		}
 
 		[Test, Combinatorial]
@@ -148,7 +153,8 @@ namespace ObservableComputations.Test
 			Reversing<Item> reversing = items.Reversing().IsNeededFor(consumer);
 			reversing.ValidateConsistency();
 			items.Move(oldIndex, newIndex);
-			reversing.ValidateConsistency();
+			reversing.ValidateConsistency();			
+			consumer.Dispose();
 		}
 
 		[Test, Combinatorial]
@@ -170,7 +176,8 @@ namespace ObservableComputations.Test
 			Reversing<Item> reversing = items.Reversing().IsNeededFor(consumer);
 			reversing.ValidateConsistency();
 			items[index] = new Item();
-			reversing.ValidateConsistency();
+			reversing.ValidateConsistency();			
+			consumer.Dispose();
 		}		
 
 

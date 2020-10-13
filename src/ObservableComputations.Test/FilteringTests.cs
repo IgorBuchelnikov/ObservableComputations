@@ -60,7 +60,8 @@ namespace ObservableComputations.Test
 			ObservableCollection<Item> items = new ObservableCollection<Item>();
 
 			Filtering<Item> filtering = items.Filtering(item => item.IsActive).IsNeededFor(consumer);
-			filtering.ValidateConsistency();
+			filtering.ValidateConsistency();			
+			consumer.Dispose();
 		}
 
 		[Test, Combinatorial]
@@ -88,7 +89,8 @@ namespace ObservableComputations.Test
 			Filtering<Item> filtering = items.Filtering(item => item.IsActive).IsNeededFor(consumer);
 			filtering.ValidateConsistency();
 			items[index].IsActive = newValue;
-			filtering.ValidateConsistency();
+			filtering.ValidateConsistency();			
+			consumer.Dispose();
 		}
 
 		[Test, Combinatorial]
@@ -106,7 +108,8 @@ namespace ObservableComputations.Test
 			Filtering<Item> filtering = items.Filtering(item => item.IsActive).IsNeededFor(consumer);
 			filtering.ValidateConsistency();
 			items[0].IsActive = !items[0].IsActive;
-			filtering.ValidateConsistency();
+			filtering.ValidateConsistency();			
+			consumer.Dispose();
 		}
 
 		[Test, Combinatorial]
@@ -133,7 +136,8 @@ namespace ObservableComputations.Test
 			Filtering<Item> filtering = items.Filtering(item => item.IsActive).IsNeededFor(consumer);
 			filtering.ValidateConsistency();
 			items.RemoveAt(index);
-			filtering.ValidateConsistency();
+			filtering.ValidateConsistency();			
+			consumer.Dispose();
 		}
 
 		[Test, Combinatorial]
@@ -151,7 +155,8 @@ namespace ObservableComputations.Test
 			Filtering<Item> filtering = items.Filtering(item => item.IsActive).IsNeededFor(consumer);
 			filtering.ValidateConsistency();
 			items.RemoveAt(0);
-			filtering.ValidateConsistency();
+			filtering.ValidateConsistency();			
+			consumer.Dispose();
 		}
 
 		[Test, Combinatorial]
@@ -179,7 +184,8 @@ namespace ObservableComputations.Test
 			Filtering<Item> filtering = items.Filtering(item => item.IsActive).IsNeededFor(consumer);
 			filtering.ValidateConsistency();
 			items.Insert(index, new Item(newValue));
-			filtering.ValidateConsistency();
+			filtering.ValidateConsistency();			
+			consumer.Dispose();
 		}
 
 		[Test, Combinatorial]
@@ -193,7 +199,8 @@ namespace ObservableComputations.Test
 			Filtering<Item> filtering = items.Filtering(item => item.IsActive).IsNeededFor(consumer);
 			filtering.ValidateConsistency();
 			items.Insert(0, new Item(newValue));
-			filtering.ValidateConsistency();
+			filtering.ValidateConsistency();			
+			consumer.Dispose();
 		}
 
 		[Test, Combinatorial]
@@ -221,7 +228,8 @@ namespace ObservableComputations.Test
 			Filtering<Item> filtering = items.Filtering(item => item.IsActive).IsNeededFor(consumer);
 			filtering.ValidateConsistency();
 			items.Move(oldIndex, newIndex);
-			filtering.ValidateConsistency();
+			filtering.ValidateConsistency();			
+			consumer.Dispose();
 		}
 
 		[Test, Combinatorial]
@@ -249,7 +257,8 @@ namespace ObservableComputations.Test
 			Filtering<Item> filtering = items.Filtering(item => item.IsActive).IsNeededFor(consumer);
 			filtering.ValidateConsistency();
 			items[index] = new Item(itemNew);
-			filtering.ValidateConsistency();
+			filtering.ValidateConsistency();			
+			consumer.Dispose();
 		}		
 
 		[Test]
@@ -270,18 +279,18 @@ namespace ObservableComputations.Test
 			Filtering<Item> filtering = Expr.Is(() => items).Computing().Filtering(item => 
 				Expr.Is(() => param.Value 
 					? (ObservableCollection<Item>)items.Filtering(item1 => true) 
-					: items.Filtering(item1 => item1.IsActive == item.IsActive)).Computing().Value.Count == 3);
+					: items.Filtering(item1 => item1.IsActive == item.IsActive)).Computing().Value.Count == 3).IsNeededFor(consumer);
 
 			Filtering<Item> filtering2 = items.Filtering(item => 
 				(param.Value 
 					? items.Filtering(item1 => true) 
-					: items.Filtering(item1 => item1.IsActive == item.IsActive)).Count == 3);
+					: items.Filtering(item1 => item1.IsActive == item.IsActive)).Count == 3).IsNeededFor(consumer);
 
 			Expression<Func<ObservableCollection<Item>>> expression = () => param.Value 
 				? (ObservableCollection<Item>)items.Filtering(item1 => true) 
 				: items.Filtering(item1 => item1.IsActive == false);
 
-			Selecting<Item, bool> selecting = expression.Computing().Selecting(item => item.IsActive);
+			Selecting<Item, bool> selecting = expression.Computing().Selecting(item => item.IsActive).IsNeededFor(consumer);
 
 			filtering.ValidateConsistency();
 			filtering2.ValidateConsistency();
@@ -289,7 +298,8 @@ namespace ObservableComputations.Test
 			param.Value = true;
 
 			filtering.ValidateConsistency();
-			filtering2.ValidateConsistency();
+			filtering2.ValidateConsistency();		
+		    consumer.Dispose();
 		}
 
 		public class Param : INotifyPropertyChanged

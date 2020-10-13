@@ -78,7 +78,8 @@ namespace ObservableComputations.Test
 				items1 = getObservableCollection(count1);
 				items2 = getObservableCollection(count2);
 				zipping = items1.Zipping(items2).IsNeededFor(consumer);
-				zipping.ValidateConsistency();
+				zipping.ValidateConsistency();				
+				consumer.Dispose();
 
 				for (index = 0; index < count1; index++)
 				{
@@ -87,7 +88,8 @@ namespace ObservableComputations.Test
 					items2 = getObservableCollection(count2);
 					zipping = items1.Zipping(items2).IsNeededFor(consumer);
 					items1.RemoveAt(index);
-					zipping.ValidateConsistency();
+					zipping.ValidateConsistency();					
+					consumer.Dispose();
 				}
 
 				for (index = 0; index < count2; index++)
@@ -97,7 +99,8 @@ namespace ObservableComputations.Test
 					items2 = getObservableCollection(count2);
 					zipping = items1.Zipping(items2).IsNeededFor(consumer);
 					items2.RemoveAt(index);
-					zipping.ValidateConsistency();
+					zipping.ValidateConsistency();					
+					consumer.Dispose();
 				}
 
 				for (index = 0; index <= count1; index++)
@@ -107,7 +110,8 @@ namespace ObservableComputations.Test
 					items2 = getObservableCollection(count2);
 					zipping = items1.Zipping(items2).IsNeededFor(consumer);
 					items1.Insert(index, new Item());
-					zipping.ValidateConsistency();
+					zipping.ValidateConsistency();					
+					consumer.Dispose();
 				}
 
 				for (index = 0; index <= count2; index++)
@@ -117,7 +121,8 @@ namespace ObservableComputations.Test
 					items2 = getObservableCollection(count2);
 					zipping = items1.Zipping(items2).IsNeededFor(consumer);
 					items2.Insert(index, new Item());
-					zipping.ValidateConsistency();
+					zipping.ValidateConsistency();					
+					consumer.Dispose();
 				}
 
 				for (index = 0; index < count1; index++)
@@ -127,7 +132,8 @@ namespace ObservableComputations.Test
 					items2 = getObservableCollection(count2);
 					zipping = items1.Zipping(items2).IsNeededFor(consumer);
 					items1[index] = new Item();
-					zipping.ValidateConsistency();
+					zipping.ValidateConsistency();					
+					consumer.Dispose();
 				}
 
 				for (index = 0; index < count2; index++)
@@ -137,7 +143,8 @@ namespace ObservableComputations.Test
 					items2 = getObservableCollection(count2);
 					zipping = items1.Zipping(items2).IsNeededFor(consumer);
 					items2[index] = new Item();
-					zipping.ValidateConsistency();
+					zipping.ValidateConsistency();					
+					consumer.Dispose();
 				}
 
 				for (indexOld = 0; indexOld < count1; indexOld++)
@@ -149,7 +156,8 @@ namespace ObservableComputations.Test
 						items2 = getObservableCollection(count2);
 						zipping = items1.Zipping(items2).IsNeededFor(consumer);
 						items1.Move(indexOld, indexNew);
-						zipping.ValidateConsistency();
+						zipping.ValidateConsistency();						
+						consumer.Dispose();
 					}
 				}
 
@@ -162,7 +170,8 @@ namespace ObservableComputations.Test
 						items2 = getObservableCollection(count2);
 						zipping = items1.Zipping(items2).IsNeededFor(consumer);
 						items2.Move(indexOld, indexNew);
-						zipping.ValidateConsistency();
+						zipping.ValidateConsistency();						
+						consumer.Dispose();
 					}
 				}
 

@@ -160,7 +160,7 @@ namespace ObservableComputations.Test
 
 		}
 
-		private static void test(StringsConcatenating stringsConcatenating, Scalar<string> separatorScalar)
+		private void test(StringsConcatenating stringsConcatenating, Scalar<string> separatorScalar)
 		{
 			stringsConcatenating.ValidateConsistency();
 			separatorScalar.Change("");
@@ -171,6 +171,7 @@ namespace ObservableComputations.Test
 			stringsConcatenating.ValidateConsistency();
 			separatorScalar.Change("^&");
 			stringsConcatenating.ValidateConsistency();
+            consumer.Dispose();
 		}
 
 		private void trace(string num, int[] charsCounts, int index, int charsCount, int indexOld,

@@ -107,7 +107,8 @@ namespace ObservableComputations.Test
 				items1 = getObservableCollection(ids1);
 				items2 = getObservableCollection(ids2);
 				predicateGroupJoining = items1.PredicateGroupJoining(items2, (item1, item2) => item1 != null && item2 != null && item1.Id == item2.Id).IsNeededFor(consumer);
-				predicateGroupJoining.ValidateConsistency();
+				predicateGroupJoining.ValidateConsistency();				
+				consumer.Dispose();
 
 				for (index = 0; index < ids1.Length; index++)
 				{
@@ -116,7 +117,8 @@ namespace ObservableComputations.Test
 					items2 = getObservableCollection(ids2);
 					predicateGroupJoining = items1.PredicateGroupJoining(items2, (item1, item2) => item1 != null && item2 != null && item1.Id == item2.Id).IsNeededFor(consumer);
 					items1.RemoveAt(index);
-					predicateGroupJoining.ValidateConsistency();
+					predicateGroupJoining.ValidateConsistency();					
+					consumer.Dispose();
 				}
 
 				for (index = 0; index < ids2.Length; index++)
@@ -126,7 +128,8 @@ namespace ObservableComputations.Test
 					items2 = getObservableCollection(ids2);
 					predicateGroupJoining = items1.PredicateGroupJoining(items2, (item1, item2) => item1 != null && item2 != null && item1.Id == item2.Id).IsNeededFor(consumer);
 					items2.RemoveAt(index);
-					predicateGroupJoining.ValidateConsistency();
+					predicateGroupJoining.ValidateConsistency();					
+					consumer.Dispose();
 				}
 
 				for (index = 0; index <= ids1.Length; index++)
@@ -138,7 +141,8 @@ namespace ObservableComputations.Test
 						items2 = getObservableCollection(ids2);
 						predicateGroupJoining = items1.PredicateGroupJoining(items2, (item1, item2) => item1 != null && item2 != null && item1.Id == item2.Id).IsNeededFor(consumer);
 						items1.Insert(index, new Item(newItemId));
-						predicateGroupJoining.ValidateConsistency();
+						predicateGroupJoining.ValidateConsistency();						
+						consumer.Dispose();
 					}
 
 				}
@@ -152,7 +156,8 @@ namespace ObservableComputations.Test
 						items2 = getObservableCollection(ids2);
 						predicateGroupJoining = items1.PredicateGroupJoining(items2, (item1, item2) => item1 != null && item2 != null && item1.Id == item2.Id).IsNeededFor(consumer);
 						items2.Insert(index, new Item(newItemId));
-						predicateGroupJoining.ValidateConsistency();
+						predicateGroupJoining.ValidateConsistency();						
+						consumer.Dispose();
 					}
 				}
 
@@ -165,7 +170,8 @@ namespace ObservableComputations.Test
 						items2 = getObservableCollection(ids2);
 						predicateGroupJoining = items1.PredicateGroupJoining(items2, (item1, item2) => item1 != null && item2 != null && item1.Id == item2.Id).IsNeededFor(consumer);
 						items1[index] = new Item(newItemId);
-						predicateGroupJoining.ValidateConsistency();
+						predicateGroupJoining.ValidateConsistency();						
+						consumer.Dispose();
 					}
 				}
 
@@ -178,7 +184,8 @@ namespace ObservableComputations.Test
 						items2 = getObservableCollection(ids2);
 						predicateGroupJoining = items1.PredicateGroupJoining(items2, (item1, item2) => item1 != null && item2 != null && item1.Id == item2.Id).IsNeededFor(consumer);
 						items2[index] = new Item(newItemId);
-						predicateGroupJoining.ValidateConsistency();
+						predicateGroupJoining.ValidateConsistency();						
+						consumer.Dispose();
 					}
 				}
 
@@ -191,7 +198,8 @@ namespace ObservableComputations.Test
 						items2 = getObservableCollection(ids2);
 						predicateGroupJoining = items1.PredicateGroupJoining(items2, (item1, item2) => item1 != null && item2 != null && item1.Id == item2.Id).IsNeededFor(consumer);
 						items1.Move(indexOld, indexNew);
-						predicateGroupJoining.ValidateConsistency();
+						predicateGroupJoining.ValidateConsistency();						
+						consumer.Dispose();
 					}
 				}
 
@@ -204,7 +212,8 @@ namespace ObservableComputations.Test
 						items2 = getObservableCollection(ids2);
 						predicateGroupJoining = items1.PredicateGroupJoining(items2, (item1, item2) => item1 != null && item2 != null && item1.Id == item2.Id).IsNeededFor(consumer);
 						items2.Move(indexOld, indexNew);
-						predicateGroupJoining.ValidateConsistency();
+						predicateGroupJoining.ValidateConsistency();						
+						consumer.Dispose();
 					}
 				}
 

@@ -72,6 +72,8 @@ namespace ObservableComputations.Test
 			order.Num = result;
 			Assert.IsTrue(raised);
 			Assert.IsTrue(propertyAccessing.Value == result);
+
+            consumer.Dispose();
 		}
 
 		[Test]
@@ -125,6 +127,8 @@ namespace ObservableComputations.Test
 			Assert.IsTrue(raised);
 			Assert.AreEqual(propertyAccessing.Value, result);
 			raised = false;
+
+            consumer.Dispose();
 		}
 
 	}

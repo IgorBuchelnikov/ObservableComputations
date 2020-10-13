@@ -44,8 +44,9 @@ namespace ObservableComputations.Test
 		{
 			bool raised = false;
 			Order order = new Order();
-			WeakPreviousTracking<Order> computing = new WeakPreviousTracking<Order>(new Computing<Order>(() => order.ParentOrder));
-			bool result = true;
+			WeakPreviousTracking<Order> computing = new WeakPreviousTracking<Order>(new Computing<Order>(() => order.ParentOrder)).IsNeededFor(consumer);
+			bool
+                result = true;
 			Order previousOrder = null;
 
 			computing.PropertyChanged += (sender, eventArgs) =>
@@ -76,6 +77,8 @@ namespace ObservableComputations.Test
 			result = true;
 			previousOrder = order.ParentOrder;
 			order.ParentOrder = new Order();
+
+            consumer.Dispose();
 		}
 
 	}

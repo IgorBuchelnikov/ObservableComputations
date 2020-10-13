@@ -9,6 +9,8 @@ namespace ObservableComputations.Test
 	[TestFixture]
 	public class AppendingTests
 	{
+        Consumer consumer = new Consumer();
+
 		public class Item : INotifyPropertyChanged
 		{
 			public Item()
@@ -46,8 +48,9 @@ namespace ObservableComputations.Test
 		{
 			ObservableCollection<Item> items = new ObservableCollection<Item>();
 
-			Appending<Item> appending = items.Appending(new Item());
-			appending.ValidateConsistency();
+			Appending<Item> appending = items.Appending(new Item()).IsNeededFor(consumer);
+			appending.ValidateConsistency();			
+			consumer.Dispose();
 		}
 
 
@@ -66,10 +69,11 @@ namespace ObservableComputations.Test
 				}
 			);
 
-			Appending<Item> appending = items.Appending(new Item());
+			Appending<Item> appending = items.Appending(new Item()).IsNeededFor(consumer);
 			appending.ValidateConsistency();
 			items.RemoveAt(index);
-			appending.ValidateConsistency();
+			appending.ValidateConsistency();			
+			consumer.Dispose();			
 		}
 
 		[Test, Combinatorial]
@@ -83,10 +87,11 @@ namespace ObservableComputations.Test
 
 			);
 
-			Appending<Item> appending = items.Appending(new Item());
+			Appending<Item> appending = items.Appending(new Item()).IsNeededFor(consumer);
 			appending.ValidateConsistency();
 			items.RemoveAt(0);
-			appending.ValidateConsistency();
+			appending.ValidateConsistency();			
+			consumer.Dispose();
 		}
 
 		[Test, Combinatorial]
@@ -104,10 +109,11 @@ namespace ObservableComputations.Test
 				}
 			);
 
-			Appending<Item> appending = items.Appending(new Item());
+			Appending<Item> appending = items.Appending(new Item()).IsNeededFor(consumer);
 			appending.ValidateConsistency();
 			items.Insert(index, new Item());
-			appending.ValidateConsistency();
+			appending.ValidateConsistency();			
+			consumer.Dispose();
 		}
 
 		[Test, Combinatorial]
@@ -115,10 +121,11 @@ namespace ObservableComputations.Test
 		{
 			ObservableCollection<Item> items = new ObservableCollection<Item>();
 
-			Appending<Item> appending = items.Appending(new Item());
+			Appending<Item> appending = items.Appending(new Item()).IsNeededFor(consumer);
 			appending.ValidateConsistency();
 			items.Insert(0, new Item());
-			appending.ValidateConsistency();
+			appending.ValidateConsistency();			
+			consumer.Dispose();
 		}
 
 		[Test, Combinatorial]
@@ -137,10 +144,11 @@ namespace ObservableComputations.Test
 				}
 			);
 
-			Appending<Item> appending = items.Appending(new Item());
+			Appending<Item> appending = items.Appending(new Item()).IsNeededFor(consumer);
 			appending.ValidateConsistency();
 			items.Move(oldIndex, newIndex);
-			appending.ValidateConsistency();
+			appending.ValidateConsistency();		
+		    consumer.Dispose();
 		}
 
 		[Test, Combinatorial]
@@ -158,10 +166,11 @@ namespace ObservableComputations.Test
 				}
 			);
 
-			Appending<Item> appending = items.Appending(new Item());
+			Appending<Item> appending = items.Appending(new Item()).IsNeededFor(consumer);
 			appending.ValidateConsistency();
 			items[index] = new Item();
-			appending.ValidateConsistency();
+			appending.ValidateConsistency();			
+			consumer.Dispose();
 		}
 	}
 }

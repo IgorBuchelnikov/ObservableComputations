@@ -257,7 +257,7 @@ namespace ObservableComputations.Test
 		private void trace(string num, int[] ids1, int[] ids2, int newId, int index, int indexOld, int indexNew)
 		{
 			string traceString = getTraceString(num, ids1, ids2, newId, index, indexOld, indexNew);
-			if (traceString == "#4. ids1=-1,0  ids2=-1  index=0  newId=0  indexOld=0  indexNew=0")
+			if (traceString == "#10. ids1=-1,-1  ids2=  index=0  newId=0  indexOld=0  indexNew=0")
 			{
 				Debugger.Break();
 			}

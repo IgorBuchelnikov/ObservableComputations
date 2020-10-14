@@ -171,7 +171,7 @@ namespace ObservableComputations.Test
 		{
 			ObservableCollection<int> items = new ObservableCollection<int>(Enumerable.Range(1, 100));
 
-			Paging<int> paging = items.Paging(2);
+			Paging<int> paging = items.Paging(2).IsNeededFor(consumer);
 			paging.ValidateConsistency();			
 
 			void test()
@@ -245,7 +245,7 @@ namespace ObservableComputations.Test
 		public void PagingTest_02()
 		{
 			Scalar<ObservableCollection<int>> items = new Scalar<ObservableCollection<int>>(null);
-			Paging<int> paging = items.Paging(2);
+			Paging<int> paging = items.Paging(2).IsNeededFor(consumer);
 			paging.ValidateConsistency();	
 						
 			items.Change(new ObservableCollection<int>(Enumerable.Range(1, 100)));

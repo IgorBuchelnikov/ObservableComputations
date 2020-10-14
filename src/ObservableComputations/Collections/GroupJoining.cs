@@ -727,7 +727,10 @@ namespace ObservableComputations
             if (expressionWatcher._disposed) return;
 			int outerSourceIndex = expressionWatcher._position.Index;
 			JoinGroup<TOuterSourceItem, TInnerSourceItem, TKey> joinGroup = this[outerSourceIndex];
-			joinGroup.Key = applyKeySelector(joinGroup._outerItem, _itemInfos[outerSourceIndex].SelectorFunc);
+            OuterItemInfo outerItemInfo = _itemInfos[outerSourceIndex];
+            unregisterKey(outerSourceIndex, outerItemInfo);
+            joinGroup.Key = applyKeySelector(joinGroup._outerItem, outerItemInfo.SelectorFunc);
+            registerKey(joinGroup.Key, outerItemInfo);
 			joinGroup.setGroup(_grouping.getGroup(joinGroup.Key));
 		}
 

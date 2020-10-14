@@ -319,18 +319,6 @@ namespace ObservableComputations.Test
 			Assert.IsTrue(raised);
 		}
 
-		[Test]
-		public void TestRaiseValueChanged13()
-		{
-			bool raised = false;
-			Item item = new Item();
-			item.Num = "777";
-			Expression<Func<Item, string>> expression = i => i.Child.Num;
-
-			ExpressionWatcher expressionWatcher = new ExpressionWatcher(
-				ExpressionWatcher.GetExpressionInfo(expression), null);
-		}
-
         //[Test]
         //public void TestWeakEventHandler()
         //{

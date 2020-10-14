@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
@@ -232,14 +233,26 @@ namespace ObservableComputations
 			{
 				itemInfo.SourceScalarPropertyChangedEventHandler = 
 					(sender, eventArgs) =>
-					{
-						_isConsistent = false;
-						object sourceScalarValue = sourceScalar.Value;
-						replaceItem((IList<TSourceItem>) sourceScalarValue, itemInfo);
-						unregisterSourceItem(itemInfo);
-						registerSourceItem(itemInfo, (INotifyCollectionChanged) sourceScalarValue);
-						_isConsistent = true;
-						raiseConsistencyRestored();
+                    {
+
+                        Utils.processChange(sender, eventArgs, 
+                            () =>
+                            {
+                                if (ReferenceEquals(itemInfo.SourceScalar, sourceScalar))
+                                {
+						            object sourceScalarValue = sourceScalar.Value;
+						            unregisterSourceItem(itemInfo);
+						            registerSourceItem(itemInfo, (INotifyCollectionChanged) sourceScalarValue);
+						            replaceItem(itemInfo.SourceCopy, itemInfo);
+                                }
+                            },
+                            ref _isConsistent,
+                            ref _handledEventSender,
+                            ref _handledEventArgs,
+                            1, _deferredQueuesCount,
+                            ref _deferredProcessings,
+                            this);
+
 					};
 
 				sourceScalar.PropertyChanged += itemInfo.SourceScalarPropertyChangedEventHandler;
@@ -269,19 +282,25 @@ namespace ObservableComputations
 				if (sourceAsIHasChangeMarker != null)
 				{
 					itemInfo.LastProcessedSourceChangeMarker = sourceAsIHasChangeMarker.ChangeMarker;
-				}
-
-                initializeSourceCopy(itemInfo);
+				}              
             }
+
+            initializeSourceCopy(itemInfo);
 		}
 
         private static void initializeSourceCopy(ItemInfo itemInfo)
         {
             IList source = (IList) itemInfo.Source;
-            IList<TSourceItem> sourceCopy = new List<TSourceItem>(source.Count);
-            itemInfo.SourceCopy = sourceCopy;
-            foreach (TSourceItem sourceItem in source)
-                sourceCopy.Add(sourceItem);
+            if (source != null)
+            {
+                IList<TSourceItem> sourceCopy = new List<TSourceItem>(source.Count);
+                itemInfo.SourceCopy = sourceCopy;
+                foreach (TSourceItem sourceItem in source)
+                    sourceCopy.Add(sourceItem);
+            }
+            else
+                itemInfo.SourceCopy = null;
+
         }
 
         private ItemInfo unregisterSourceItem(int sourcesIndex, bool replace = false)
@@ -294,7 +313,10 @@ namespace ObservableComputations
 			if (itemInfo.SourceScalar != null)
 			{
 				itemInfo.SourceScalar.PropertyChanged -= itemInfo.SourceScalarPropertyChangedEventHandler;
-			}
+
+                itemInfo.SourceScalar = null;
+                itemInfo.SourceScalarPropertyChangedEventHandler = null;
+            }
 
 			return itemInfo;
 		}
@@ -302,7 +324,13 @@ namespace ObservableComputations
 		private static void unregisterSourceItem(ItemInfo itemInfo)
 		{
 			if (itemInfo.Source != null)
-				itemInfo.Source.CollectionChanged -= itemInfo.SourceNotifyCollectionChangedEventHandler;
+            {
+                itemInfo.Source.CollectionChanged -= 
+                    itemInfo.SourceNotifyCollectionChangedEventHandler;
+
+                itemInfo.Source = null;
+                itemInfo.SourceNotifyCollectionChangedEventHandler = null;
+            }
 
 			if (itemInfo.SourceAsINotifyPropertyChanged != null)
 			{
@@ -461,8 +489,9 @@ namespace ObservableComputations
                     //if (newItems1.Count > 1) throw new ObservableComputationsException(this, "Replacing of multiple items is not supported");
 
                     object newItem = e.NewItems[0];
-                    unregisterSourceItem(e.OldStartingIndex, true);
-                    itemInfo2 = _itemInfos[e.OldStartingIndex];
+                    int oldStartingIndex = e.OldStartingIndex;
+                    unregisterSourceItem(oldStartingIndex, true);
+                    itemInfo2 = _itemInfos[oldStartingIndex];
                     registerSourceItem(newItem, itemInfo2);
                     replaceItem(itemInfo2.SourceCopy, itemInfo2);
                     break;

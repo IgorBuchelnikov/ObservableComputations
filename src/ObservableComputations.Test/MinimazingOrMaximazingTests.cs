@@ -139,7 +139,7 @@ namespace ObservableComputations.Test
 		{
 			string traceString = getTraceString(testNum, values, index, value, indexOld, indexNew);
 
-			if (traceString == "#8. OrderNums=-2  index=0  value=0   indexOld=0   indexNew=0")
+			if (traceString == "#3. OrderNums=-2,-2,-2,-2,0  index=4  value=-1   indexOld=0   indexNew=0")
 			{
 				Debugger.Break();
 			}

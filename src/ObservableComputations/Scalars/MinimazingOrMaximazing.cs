@@ -324,6 +324,7 @@ namespace ObservableComputations
                     int replacingSourceIndex = e.NewStartingIndex;
                     TSourceItem newItem = (TSourceItem) e.NewItems[0];
                     TSourceItem oldItem = (TSourceItem) e.OldItems[0];
+                    _sourceCopy[replacingSourceIndex] = newItem;
 
                     int newCompareResult = _comparer.Compare(newItem, Value);
                     int oldCompareResult = _comparer.Compare(oldItem, Value);
@@ -351,8 +352,6 @@ namespace ObservableComputations
                             _valueCount++;
                         }
                     }
-
-                    _sourceCopy[replacingSourceIndex] = newItem;
 
                     break;
                 case NotifyCollectionChangedAction.Move:

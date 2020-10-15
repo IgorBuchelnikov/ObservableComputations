@@ -68,20 +68,30 @@ namespace ObservableComputations
 			}
 		}
 
-        #region Overrides of ScalarComputing<TValue>
+        private bool _initializedFromSource;
+        #region Overrides of ScalarComputing<TResult>
 
         protected override void initializeFromSource()
         {
+            if (_initializedFromSource)
+            {
+                _scalar.PropertyChanged -= handleScalarPropertyChanged;
+            }
+
+            if (_isActive)
+            {
+                _scalar.PropertyChanged += handleScalarPropertyChanged;
+            }
         }
 
         protected override void initialize()
         {
-            _scalar.PropertyChanged += handleScalarPropertyChanged;
+
         }
 
         protected override void uninitialize()
         {
-            _scalar.PropertyChanged -= handleScalarPropertyChanged;
+
         }
 
         internal override void addToUpstreamComputings(IComputingInternal computing)

@@ -283,7 +283,7 @@ namespace ObservableComputations
 
                     if (!_isDefaulted)
                     {
-                        int compareResult = _comparer.Compare(addedSourceItem, Value);
+                        int compareResult = _comparer.Compare(addedSourceItem, _value);
                         if (_checkCompareResult(compareResult))
                         {
                             _valueCount = 1;
@@ -309,7 +309,7 @@ namespace ObservableComputations
                     TSourceItem removingSourceItem = (TSourceItem) e.OldItems[0];
                     _sourceCopy.RemoveAt(oldStartingIndex);
 
-                    if (_comparer.Compare(removingSourceItem, Value) == 0)
+                    if (_comparer.Compare(removingSourceItem, _value) == 0)
                     {
                         _valueCount--;
                         if (_valueCount == 0)
@@ -326,8 +326,8 @@ namespace ObservableComputations
                     TSourceItem oldItem = (TSourceItem) e.OldItems[0];
                     _sourceCopy[replacingSourceIndex] = newItem;
 
-                    int newCompareResult = _comparer.Compare(newItem, Value);
-                    int oldCompareResult = _comparer.Compare(oldItem, Value);
+                    int newCompareResult = _comparer.Compare(newItem, _value);
+                    int oldCompareResult = _comparer.Compare(oldItem, _value);
 
                     if (_checkCompareResult(newCompareResult))
                     {

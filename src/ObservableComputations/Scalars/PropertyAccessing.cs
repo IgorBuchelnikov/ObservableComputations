@@ -402,36 +402,43 @@ namespace ObservableComputations
                 ref _deferredProcessings, this);
 		}
 
+        private bool _initializedFromSource;
         #region Overrides of ScalarComputing<TResult>
 
         protected override void initializeFromSource()
         {
+            if (_initializedFromSource)
+            {
+                if (_propertyHolderScalar != null)
+                {
+                    _propertyHolderScalar.PropertyChanged -= handlePropertyHolderScalarPropertyChanged;
+                    _propertyHolder = null;
+                }
 
+                if (_propertyHolder != null)
+                    _propertyHolder.PropertyChanged -= handlePropertyHolderPropertyChanged;
+
+                setValue(default);
+            }
+
+            if (_isActive)
+            {
+                if (_propertyHolderScalar != null)
+                {
+                    _propertyHolderScalar.PropertyChanged += handlePropertyHolderScalarPropertyChanged;
+                    _propertyHolder = _propertyHolderScalar.Value;
+                }
+
+                registerPropertyHolder();
+            }
         }
 
         protected override void initialize()
-        {
-            if (_propertyHolderScalar != null)
-            {
-                _propertyHolderScalar.PropertyChanged += handlePropertyHolderScalarPropertyChanged;
-                _propertyHolder = _propertyHolderScalar.Value;
-            }
-
-            registerPropertyHolder();
-
-      
+        {    
         }
 
         protected override void uninitialize()
         {
-            if (_propertyHolderScalar != null)
-            {
-                _propertyHolderScalar.PropertyChanged -= handlePropertyHolderScalarPropertyChanged;
-                _propertyHolder = null;
-            }
-
-            if (_propertyHolder != null)
-                _propertyHolder.PropertyChanged -= handlePropertyHolderPropertyChanged;
         }
 
         internal override void addToUpstreamComputings(IComputingInternal computing)

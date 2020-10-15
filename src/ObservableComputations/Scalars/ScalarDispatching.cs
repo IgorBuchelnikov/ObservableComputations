@@ -46,37 +46,48 @@ namespace ObservableComputations
                 ref _deferredProcessings, this);
 		}
 
+        private bool _initializedFromSource;
         #region Overrides of ScalarComputing<TResult>
 
         protected override void initializeFromSource()
         {
+            if (_initializedFromSource)
+            {
+                _scalar.PropertyChanged -= handleScalarPropertyChanged;
+                void setNewValue() => setValue(default);
+                _destinationDispatcher.Invoke(setNewValue, this);
+            }
 
+            if (_isActive)
+            {
+                void readAndSubscribe()
+                {
+                    TResult newValue = _scalar.Value;
+                    void setNewValue() => setValue(newValue);
+
+                    _destinationDispatcher.Invoke(setNewValue, this);
+                    _scalar.PropertyChanged += handleScalarPropertyChanged;
+                }
+
+                if (_sourceDispatcher != null)
+                {
+                    _sourceDispatcher.Invoke(readAndSubscribe, this);
+                }
+                else
+                {
+                    readAndSubscribe();
+                }
+            }
         }
 
         protected override void initialize()
         {
-            void readAndSubscribe()
-            {
-                TResult newValue = _scalar.Value;
-                void setNewValue() => setValue(newValue);
 
-                _destinationDispatcher.Invoke(setNewValue, this);
-                _scalar.PropertyChanged += handleScalarPropertyChanged;
-            }
-
-            if (_sourceDispatcher != null)
-            {
-                _sourceDispatcher.Invoke(readAndSubscribe, this);
-            }
-            else
-            {
-                readAndSubscribe();
-            }
         }
 
         protected override void uninitialize()
         {
-            _scalar.PropertyChanged -= handleScalarPropertyChanged;
+
         }
 
         internal override void addToUpstreamComputings(IComputingInternal computing)

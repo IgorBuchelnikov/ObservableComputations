@@ -35,8 +35,6 @@ namespace ObservableComputations
             };
 
 			_scalar = scalar;
-			_value = _scalar.Value;
-			_scalar.PropertyChanged += handleScalarPropertyChanged;
 		}
 
 		private void handleScalarPropertyChanged(object sender, PropertyChangedEventArgs e)
@@ -52,29 +50,40 @@ namespace ObservableComputations
                 ref _deferredProcessings, this);
 		}
 
+        private bool _initializedFromSource;
         #region Overrides of ScalarComputing<TResult>
 
         protected override void initializeFromSource()
         {
+            if (_initializedFromSource)
+            {
+                _scalar.PropertyChanged -= handleScalarPropertyChanged;
+                _previousValue = default;
+                raisePropertyChanged(Utils.PreviousValuePropertyChangedEventArgs);
+                setValue(default);
+                if (_isEverChanged)
+                {
+                    _isEverChanged = false;
+                    raisePropertyChanged(Utils.IsEverChangedPropertyChangedEventArgs);
+                }
+            }
+
+            if (_isActive)
+            {
+                _scalar.PropertyChanged += handleScalarPropertyChanged;
+                setValue(_scalar.Value);
+            }
+
         }
 
         protected override void initialize()
         {
-            _scalar.PropertyChanged += handleScalarPropertyChanged;
-            setValue(_scalar.Value);
+
         }
 
         protected override void uninitialize()
         {
-            _scalar.PropertyChanged -= handleScalarPropertyChanged;
-            _previousValue = default;
-            raisePropertyChanged(Utils.PreviousValuePropertyChangedEventArgs);
-            setValue(default);
-            if (_isEverChanged)
-            {
-                _isEverChanged = false;
-                raisePropertyChanged(Utils.IsEverChangedPropertyChangedEventArgs);
-            }
+
         }
 
         internal override void addToUpstreamComputings(IComputingInternal computing)

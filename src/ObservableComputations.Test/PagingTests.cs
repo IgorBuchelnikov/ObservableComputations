@@ -249,6 +249,7 @@ namespace ObservableComputations.Test
 			paging.ValidateConsistency();	
 						
 			items.Change(new ObservableCollection<int>(Enumerable.Range(1, 100)));
+            paging.ValidateConsistency();
 
 			void test()
 			{

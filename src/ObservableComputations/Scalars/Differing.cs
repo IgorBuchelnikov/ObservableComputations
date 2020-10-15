@@ -79,36 +79,44 @@ namespace ObservableComputations
                 ref _deferredProcessings, this);
         }
 
-
+        private bool _initializedFromSource;
         #region Overrides of ScalarComputing<TResult>
 
         protected override void initializeFromSource()
         {
+            if (_initializedFromSource)
+            {
+                if (_equalityComparerScalar != null)
+                {
+                    _equalityComparerScalar.PropertyChanged -= handleEqualityComparerScalarValueChanged;
+                    _equalityComparer = null;      
+                }
 
+                _scalar.PropertyChanged -= handleScalarPropertyChanged;
+                setValue(default);
+            }
+
+            if (_isActive)
+            {
+                if (_equalityComparerScalar != null)
+                {
+                    _equalityComparerScalar.PropertyChanged += handleEqualityComparerScalarValueChanged;
+                    _equalityComparer = _equalityComparerScalar.Value ?? EqualityComparer<TResult>.Default;      
+                }
+
+                _scalar.PropertyChanged += handleScalarPropertyChanged;
+                setValue(_scalar.Value);
+            }
         }
 
         protected override void initialize()
         {
-            if (_equalityComparerScalar != null)
-            {
-                _equalityComparerScalar.PropertyChanged += handleEqualityComparerScalarValueChanged;
-                _equalityComparer = _equalityComparerScalar.Value ?? EqualityComparer<TResult>.Default;      
-            }
 
-            _scalar.PropertyChanged += handleScalarPropertyChanged;
-            setValue(_scalar.Value);
         }
 
         protected override void uninitialize()
         {
-            if (_equalityComparerScalar != null)
-            {
-                _equalityComparerScalar.PropertyChanged -= handleEqualityComparerScalarValueChanged;
-                _equalityComparer = null;      
-            }
 
-            _scalar.PropertyChanged -= handleScalarPropertyChanged;
-            setValue(default);
         }
 
         internal override void addToUpstreamComputings(IComputingInternal computing)

@@ -155,34 +155,49 @@ namespace ObservableComputations
             }
         }
 
+        private bool _initializedFromSource;
+
         protected override void initializeFromSource()
         {
+            if (_initializedFromSource)
+            {
+                _scalar.PropertyChanged -= handleScalarPropertyChanged;
+
+                if (_isPausedScalar != null)
+                {
+                    _isPausedScalar.PropertyChanged -= handleIsPausedScalarValueChanged;			
+                }
+
+                if (_lastChangesToApplyOnResumeCountScalar != null)
+                {
+                    _lastChangesToApplyOnResumeCountScalar.PropertyChanged -= handleLastChangesToApplyOnResumeCountScalarValueChanged;			
+                }
+
+                _defferedScalarActions.Clear();
+
+                setValue(default);
+            }
+
+            if (_isActive)
+            {
+			    if (_isPaused) _defferedScalarActions.Enqueue(new DefferedScalarAction<TResult>(null, null, _scalar.Value));
+			    else setValue(_scalar.Value);
+
+			    _scalar.PropertyChanged += handleScalarPropertyChanged;
+
+                initializeIsPauserScalar();
+                initializeLastChangesCountOnResumeScalar();
+            }
         }
 
         protected override void initialize()
 		{
-			if (_isPaused) _defferedScalarActions.Enqueue(new DefferedScalarAction<TResult>(null, null, _scalar.Value));
-			else setValue(_scalar.Value);
 
-			_scalar.PropertyChanged += handleScalarPropertyChanged;
-
-            initializeIsPauserScalar();
-            initializeLastChangesCountOnResumeScalar();
         }
 
         protected override void uninitialize()
         {
-            _scalar.PropertyChanged -= handleScalarPropertyChanged;
 
-            if (_isPausedScalar != null)
-            {
-                _isPausedScalar.PropertyChanged -= handleIsPausedScalarValueChanged;			
-            }
-
-            if (_lastChangesToApplyOnResumeCountScalar != null)
-            {
-                _lastChangesToApplyOnResumeCountScalar.PropertyChanged -= handleLastChangesToApplyOnResumeCountScalarValueChanged;			
-            }
         }
 
         internal override void addToUpstreamComputings(IComputingInternal computing)

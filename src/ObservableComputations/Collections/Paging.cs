@@ -60,10 +60,9 @@ namespace ObservableComputations
 			_lowerIndex = _pageSize * (_currentPage - 1);
 			_upperIndex = _lowerIndex + _pageSize;
 
-			_isConsistent = false;
 			if (originalPageSize < _pageSize)
 			{
-				int index = originalPageSize - 1;
+				int index = originalPageSize;
 				for (var sourceIndex = originalUpperIndex;
 					sourceIndex < sourceCount && sourceIndex < _upperIndex;
 					sourceIndex++)
@@ -82,9 +81,6 @@ namespace ObservableComputations
 					baseRemoveItem(index);
 				}
 			}
-
-			_isConsistent = true;
-			raiseConsistencyRestored();
 
 			OnPropertyChanged(Utils.PageSizePropertyChangedEventArgs);
 			if (currentPageChanged) OnPropertyChanged(Utils.CurrentPagePropertyChangedEventArgs);
@@ -119,7 +115,6 @@ namespace ObservableComputations
 
 		private void processCurentPageChanged()
 		{
-			_isConsistent = false;
 			if (_currentPage < 1) _currentPage = 1;
 			if (_currentPage > _pageCount) _currentPage = _pageCount;
 
@@ -141,9 +136,6 @@ namespace ObservableComputations
 			{
 				baseRemoveItem(removingIndex);
 			}
-
-			_isConsistent = true;
-			raiseConsistencyRestored();
 
 			OnPropertyChanged(Utils.CurrentPagePropertyChangedEventArgs);
 		}
@@ -681,16 +673,18 @@ namespace ObservableComputations
 			int pageSize = PageSize;
 			int startIndex =  (CurrentPage - 1) * pageSize;
 
+            if (_source != null || (_sourceScalar != null && _sourceScalar.Value != null))
+            {
+			    if (_lowerIndex != PageSize * (CurrentPage - 1))
+				    throw new ObservableComputationsException(this, "Consistency violation: Paging.2");
 
-			if (_lowerIndex != PageSize * (CurrentPage - 1))
-				throw new ObservableComputationsException(this, "Consistency violation: Paging.2");
+			    if (_upperIndex != _lowerIndex + PageSize)
+				    throw new ObservableComputationsException(this, "Consistency violation: Paging.3");
 
-			if (_upperIndex != _lowerIndex + PageSize)
-				throw new ObservableComputationsException(this, "Consistency violation: Paging.3");
-
-            // ReSharper disable once PossibleNullReferenceException
-            if (_pageCount != (int) Math.Ceiling(source.Count  / (double) _pageSize))
-				throw new ObservableComputationsException(this, "Consistency violation: Paging.4");
+                // ReSharper disable once PossibleNullReferenceException
+                if (_pageCount != (int) Math.Ceiling(source.Count  / (double) _pageSize))
+				    throw new ObservableComputationsException(this, "Consistency violation: Paging.4");
+            }
 
 			// ReSharper disable once AssignNullToNotNullAttribute
 			if (!this.SequenceEqual(source.Skip(startIndex).Take(pageSize)))

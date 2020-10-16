@@ -48,6 +48,7 @@ namespace ObservableComputations.Test
 			bool
                 result = true;
 			Order previousOrder = null;
+            bool isEverchanged = true;
 
 			computing.PropertyChanged += (sender, eventArgs) =>
 			{
@@ -57,7 +58,7 @@ namespace ObservableComputations.Test
 				currentResult = computing.TryGetPreviousValue(out currentPreviousOrder);
 				Assert.IsTrue(currentResult == result);
 				Assert.IsTrue(currentPreviousOrder == previousOrder);
-				Assert.IsTrue(computing.IsEverChanged);
+				Assert.IsTrue(computing.IsEverChanged == isEverchanged);
 			};
 
 			Assert.IsFalse(computing.IsEverChanged);
@@ -78,6 +79,8 @@ namespace ObservableComputations.Test
 			previousOrder = order.ParentOrder;
 			order.ParentOrder = new Order();
 
+            isEverchanged = false;
+            result = true;
             consumer.Dispose();
 		}
 

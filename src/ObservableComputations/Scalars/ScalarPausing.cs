@@ -174,8 +174,7 @@ namespace ObservableComputations
                 }
 
                 _defferedScalarActions.Clear();
-
-                setValue(default);
+                _initializedFromSource = true;
             }
 
             if (_isActive)
@@ -187,6 +186,10 @@ namespace ObservableComputations
 
                 initializeIsPauserScalar();
                 initializeLastChangesCountOnResumeScalar();
+            }
+            else
+            {
+                setValue(default);
             }
         }
 

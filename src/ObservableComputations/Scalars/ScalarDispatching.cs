@@ -54,8 +54,7 @@ namespace ObservableComputations
             if (_initializedFromSource)
             {
                 _scalar.PropertyChanged -= handleScalarPropertyChanged;
-                void setNewValue() => setValue(default);
-                _destinationDispatcher.Invoke(setNewValue, this);
+                _initializedFromSource = true;
             }
 
             if (_isActive)
@@ -77,6 +76,11 @@ namespace ObservableComputations
                 {
                     readAndSubscribe();
                 }
+            }
+            else
+            {
+                void setNewValue() => setValue(default);
+                _destinationDispatcher.Invoke(setNewValue, this);
             }
         }
 

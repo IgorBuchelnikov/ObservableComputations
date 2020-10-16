@@ -93,7 +93,7 @@ namespace ObservableComputations
                 }
 
                 _scalar.PropertyChanged -= handleScalarPropertyChanged;
-                setValue(default);
+                _initializedFromSource = true;
             }
 
             if (_isActive)
@@ -106,6 +106,10 @@ namespace ObservableComputations
 
                 _scalar.PropertyChanged += handleScalarPropertyChanged;
                 setValue(_scalar.Value);
+            }
+            else
+            {
+                setValue(default);
             }
         }
 

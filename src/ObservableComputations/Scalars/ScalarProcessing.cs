@@ -78,12 +78,16 @@ namespace ObservableComputations
             if (_initializedFromSource)
             {
                 _scalar.PropertyChanged -= handleScalarPropertyChanged;
-                setValue(default);
+                _initializedFromSource = true;
             }
 
             if (_isActive)
             {
                 _scalar.PropertyChanged += handleScalarPropertyChanged;
+            }
+            else
+            {
+                setValue(default);
             }
         }
 

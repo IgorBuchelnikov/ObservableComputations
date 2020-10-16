@@ -494,7 +494,8 @@ namespace ObservableComputations
 			IList<TSourceItem> source = _sourceScalar.getValue(_source, new ObservableCollection<TSourceItem>()) as IList<TSourceItem>;
 			// ReSharper disable once PossibleNullReferenceException
 			if (_itemInfos.Count != source.Count) throw new ObservableComputationsException(this, "Consistency violation: Filtering.9");
-			Func<TSourceItem, bool> predicate = _predicateExpression.Compile();
+			Func<TSourceItem, bool> predicate1 = _predicateExpression.Compile();
+            Func<TSourceItem, FilteringItemInfo, bool> predicate = (si, fii) => fii.PredicateFunc != null ? fii.PredicateFunc() : predicate1(si);
 
 			// ReSharper disable once ConditionIsAlwaysTrueOrFalse
 			if (source != null)
@@ -513,7 +514,7 @@ namespace ObservableComputations
 				{
 					TSourceItem sourceItem = source[sourceIndex];
 					FilteringItemInfo itemInfo = _itemInfos[sourceIndex];
-					if (predicate(sourceItem))
+					if (predicate(sourceItem, itemInfo))
 					{
 						if (itemInfo.FilteredPosition == null) throw new ObservableComputationsException(this, "Consistency violation: Filtering.2");
 
@@ -546,12 +547,7 @@ namespace ObservableComputations
 
 				if (_source != null)
 				{
-					int count = source.Where(sourceItem => predicate(sourceItem)).Count();
-					if (_filteredPositions.List.Count != count + 1)
-					{
-						throw new ObservableComputationsException(this, "Consistency violation: Filtering.6");
-					}
-
+					int count = 0;
 					Position nextFilteredItemPosition;
 					nextFilteredItemPosition = _filteredPositions.List[count];
 					for (int sourceIndex = source.Count - 1; sourceIndex >= 0; sourceIndex--)
@@ -562,10 +558,16 @@ namespace ObservableComputations
 						if (itemInfo.NextFilteredItemPosition != nextFilteredItemPosition) 
 								throw new ObservableComputationsException(this, "Consistency violation: Filtering.4");
 
-						if (predicate(sourceItem))
+						if (predicate(sourceItem, itemInfo))
 						{
 							nextFilteredItemPosition = itemInfo.FilteredPosition;
-						}
+                            count++;
+                        }
+					}
+
+					if (_filteredPositions.List.Count != count + 1)
+					{
+						throw new ObservableComputationsException(this, "Consistency violation: Filtering.6");
 					}
 				}
 			}

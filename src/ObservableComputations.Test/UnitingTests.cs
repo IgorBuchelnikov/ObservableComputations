@@ -261,7 +261,7 @@ namespace ObservableComputations.Test
 		{
 			string traceString = getTraceString(num, itemsCounts, index, itemsCount, indexOld, indexNew, index1);
 
-			if (traceString == "#6. ItemsCounts=-1,-1,1,-1  index=4  itemsCount=5   indexOld=2   indexNew=3, index1=0")
+			if (traceString == "#4. ItemsCounts=-1,-1,-1,1  index=3  itemsCount=5   indexOld=0   indexNew=0, index1=0")
 			{
 				
 			}

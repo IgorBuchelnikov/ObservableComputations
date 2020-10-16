@@ -73,6 +73,7 @@ namespace ObservableComputations.Test
 			Assert.IsTrue(raised);
 			Assert.IsTrue(propertyAccessing.Value == result);
 
+            result = null;
             consumer.Dispose();
 		}
 
@@ -128,6 +129,7 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(propertyAccessing.Value, result);
 			raised = false;
 
+            result = null;
             consumer.Dispose();
 		}
 

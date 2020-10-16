@@ -71,20 +71,26 @@ namespace ObservableComputations
             if (_initializedFromSource)
             {
                 _scalar.PropertyChanged -= handleScalarPropertyChanged;
-                _previousValue = default;
-                raisePropertyChanged(Utils.PreviousValuePropertyChangedEventArgs);
-                setValue(default);
-                if (_isEverChanged)
-                {
-                    _isEverChanged = false;
-                    raisePropertyChanged(Utils.IsEverChangedPropertyChangedEventArgs);
-                }
+                _initializedFromSource = true;
             }
 
             if (_isActive)
             {
                 _scalar.PropertyChanged += handleScalarPropertyChanged;
                 setValue(_scalar.Value);
+            }
+            else
+            {
+                if (_isEverChanged)
+                {
+                    _isEverChanged = false;
+                    raisePropertyChanged(Utils.IsEverChangedPropertyChangedEventArgs);
+                }
+
+                setValue(default);
+
+                _previousValue = default;
+                raisePropertyChanged(Utils.PreviousValuePropertyChangedEventArgs);
             }
         }
 

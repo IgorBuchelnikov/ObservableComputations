@@ -174,10 +174,9 @@ namespace ObservableComputations
 		}
 
 		private PropertyAccessing(
-			IReadScalar<INotifyPropertyChanged> propertyHolderScalar)
+			IReadScalar<INotifyPropertyChanged> propertyHolderScalar) : this()
 		{
 			_propertyHolderScalar = propertyHolderScalar;
-			_setValueAction = result => _propertyInfo.SetValue(_propertyHolder, result);
 		}
 
 		[ObservableComputationsCall]
@@ -386,7 +385,9 @@ namespace ObservableComputations
                 ref _handledEventSender, 
                 ref _handledEventArgs, 
                 0, 1,
-                ref _deferredProcessings, this);
+                ref _deferredProcessings, 
+                this,
+                false);
 		}
 
 		private void handlePropertyHolderScalarPropertyChanged(object sender, PropertyChangedEventArgs e)
@@ -418,7 +419,7 @@ namespace ObservableComputations
                 if (_propertyHolder != null)
                     _propertyHolder.PropertyChanged -= handlePropertyHolderPropertyChanged;
 
-                setValue(default);
+                _initializedFromSource = true;
             }
 
             if (_isActive)
@@ -430,6 +431,10 @@ namespace ObservableComputations
                 }
 
                 registerPropertyHolder();
+            }
+            else
+            {
+                setValue(default);
             }
         }
 

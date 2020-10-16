@@ -25,8 +25,9 @@ namespace ObservableComputations.Test
 		{
 			ObservableCollection<Item> items = new ObservableCollection<Item>();
 
-			Skipping<Item> itemComputing = items.Skipping(0).IsNeededFor(consumer);;
+			Skipping<Item> itemComputing = items.Skipping(0).IsNeededFor(consumer);
 			itemComputing.ValidateConsistency();
+            consumer.Dispose();
 		}
 
 
@@ -50,6 +51,7 @@ namespace ObservableComputations.Test
 			itemComputing.ValidateConsistency();
 			items.RemoveAt(index);
 			itemComputing.ValidateConsistency();
+            consumer.Dispose();
 		}
 
 		[Test, Combinatorial]
@@ -67,6 +69,7 @@ namespace ObservableComputations.Test
 			itemComputing.ValidateConsistency();
 			items.RemoveAt(0);
 			itemComputing.ValidateConsistency();
+            consumer.Dispose();
 		}
 
 		[Test, Combinatorial]
@@ -85,10 +88,11 @@ namespace ObservableComputations.Test
 				}
 			);
 
-			Skipping<Item> itemComputing = items.Skipping( count);
+			Skipping<Item> itemComputing = items.Skipping( count).IsNeededFor(consumer);
 			itemComputing.ValidateConsistency();
 			items.Insert(index, new Item());
 			itemComputing.ValidateConsistency();
+            consumer.Dispose();
 		}
 
 		[Test, Combinatorial]
@@ -101,6 +105,7 @@ namespace ObservableComputations.Test
 			itemComputing.ValidateConsistency();
 			items.Insert(0, new Item());
 			itemComputing.ValidateConsistency();
+            consumer.Dispose();
 		}
 
 		[Test, Combinatorial]
@@ -124,6 +129,7 @@ namespace ObservableComputations.Test
 			itemComputing.ValidateConsistency();
 			items.Move(oldIndex, newIndex);
 			itemComputing.ValidateConsistency();
+            consumer.Dispose();
 		}
 
 		[Test, Combinatorial]
@@ -146,6 +152,7 @@ namespace ObservableComputations.Test
 			itemComputing.ValidateConsistency();
 			items[index] = new Item();
 			itemComputing.ValidateConsistency();
+            consumer.Dispose();
 		}		
 	}
 }

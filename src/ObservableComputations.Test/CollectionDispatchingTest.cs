@@ -14,16 +14,15 @@ namespace ObservableComputations.Test
 	[TestFixture]
 	public class CollectionDispatchingTest
 	{
-        Consumer consumer = new Consumer();
-
 		public class Item : INotifyPropertyChanged
 		{
+            public Consumer Consumer = new Consumer();
 			public Item(int num, int num2, IDispatcher consuminingDispatcher, IDispatcher computingDispatcher)
 			{
 				_num = num;
 				_num2 = num2;
-				_numDispatching = new PropertyDispatching<Item, int>(() => Num, computingDispatcher, consuminingDispatcher);
-				_num2Dispatching = new PropertyDispatching<Item, int>(() => Num2, consuminingDispatcher, computingDispatcher);
+				_numDispatching = new PropertyDispatching<Item, int>(() => Num, computingDispatcher, consuminingDispatcher).IsNeededFor(Consumer);
+				_num2Dispatching = new PropertyDispatching<Item, int>(() => Num2, consuminingDispatcher, computingDispatcher).IsNeededFor(Consumer);
 			}
 
 			private int _num;
@@ -74,10 +73,11 @@ namespace ObservableComputations.Test
 			{
 				Dispatcher consuminingDispatcher = new Dispatcher();
 				Dispatcher computingDispatcher = new Dispatcher();
+                Consumer consumer = new Consumer();
 
 				var nums = new ObservableCollection<Item>();
 				var filteredNums = nums.Filtering(i => i.Num % 3 == 0 || i.Num2Dispatching.Value % 5 == 0);
-				var dispatchingfilteredNums = filteredNums.CollectionDispatching(consuminingDispatcher);
+				var dispatchingfilteredNums = filteredNums.CollectionDispatching(consuminingDispatcher).IsNeededFor(consumer);
 				bool stop = false;
 
 				Random stopperRandom = new Random();
@@ -116,8 +116,10 @@ namespace ObservableComputations.Test
 									if (upperIndex > 0)
 									{
 										int index = random.Next(0, upperIndex);
+                                        Item item = nums[index];
 										nums.RemoveAt(index);
-									}
+                                        item.Consumer.Dispose();
+                                    }
 								});
 								break;
 							case NotifyCollectionChangedAction.Replace:
@@ -127,8 +129,10 @@ namespace ObservableComputations.Test
 									if (upperIndex > 0)
 									{
 										int index = random.Next(0, upperIndex);
+                                        Item item = nums[index];
 										nums[index] = new Item(random.Next(Int32.MinValue, int.MaxValue), random.Next(Int32.MinValue, int.MaxValue), consuminingDispatcher, computingDispatcher);
-									}
+                                        item.Consumer.Dispose();
+                                    }
 
 								});
 								break;
@@ -146,6 +150,8 @@ namespace ObservableComputations.Test
 								break;
 							case NotifyCollectionChangedAction.Reset:
 								computingDispatcher.Invoke(() => { nums.Clear(); });
+                                foreach (Item item in nums)
+                                    item.Consumer.Dispose();
 								break;
 							default:
 								throw new ArgumentOutOfRangeException();
@@ -256,7 +262,13 @@ namespace ObservableComputations.Test
 
 				Assert.IsTrue(nums.Where(i => i.Num % 3 == 0 || i.Num2 % 5 == 0).SequenceEqual(dispatchingfilteredNums));
 				Assert.IsTrue(nums.Where(i => i.NumDispatching.Value % 3 == 0 || i.Num2Dispatching.Value % 5 == 0).SequenceEqual(dispatchingfilteredNums));
-				Debug.Print("!!!!!");
+				
+                foreach (Item item in nums)
+                    item.Consumer.Dispose();
+
+                consumer.Dispose();
+                
+                Debug.Print("!!!!!");
 			}
 		}
 	}

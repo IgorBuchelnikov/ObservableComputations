@@ -481,9 +481,9 @@ namespace ObservableComputations
 
         void ISourceItemChangeProcessor.ProcessSourceItemChange(ExpressionWatcher expressionWatcher)
         {
-            if (expressionWatcher._disposed) return;
-            FilteringUtils.ProcessChangeSourceItem(expressionWatcher._position.Index, (TSourceItem)expressionWatcher._parameterValues[0], _itemInfos, this,
-                _filteredPositions, this);
+            int index = expressionWatcher._position.Index;
+            FilteringUtils.ProcessChangeSourceItem(index, _sourceAsList[index], _itemInfos, this,
+                _filteredPositions, this, expressionWatcher);
         }
 
 		internal void ValidateConsistency()
@@ -509,6 +509,7 @@ namespace ObservableComputations
 				if (_source == null && _filteredPositions.List.Count != 0)
 					throw new ObservableComputationsException(this, "Consistency violation: Filtering.16");
 
+                int count = 0;
 				int index = 0;
 				for (int sourceIndex = 0; sourceIndex < source.Count; sourceIndex++)
 				{
@@ -524,7 +525,8 @@ namespace ObservableComputations
 						}
 
 						if (itemInfo.FilteredPosition.Index != index) throw new ObservableComputationsException(this, "Consistency violation: Filtering.5");
-						
+
+                        count++;
 						index++;
 					}
 					else
@@ -547,7 +549,6 @@ namespace ObservableComputations
 
 				if (_source != null)
 				{
-					int count = 0;
 					Position nextFilteredItemPosition;
 					nextFilteredItemPosition = _filteredPositions.List[count];
 					for (int sourceIndex = source.Count - 1; sourceIndex >= 0; sourceIndex--)
@@ -561,7 +562,6 @@ namespace ObservableComputations
 						if (predicate(sourceItem, itemInfo))
 						{
 							nextFilteredItemPosition = itemInfo.FilteredPosition;
-                            count++;
                         }
 					}
 
@@ -712,14 +712,16 @@ namespace ObservableComputations
             }
         }
 
-        internal static bool ProcessChangeSourceItem<TSourceItem>(
-            int sourceIndex, 
+        internal static bool ProcessChangeSourceItem<TSourceItem>(int sourceIndex,
             TSourceItem sourceItem,
-            List<FilteringItemInfo> filteringItemInfos, 
+            List<FilteringItemInfo> filteringItemInfos,
             IFiltering<TSourceItem> filtering,
-            Positions<Position> filteredPositions, 
-            CollectionComputing<TSourceItem> current)
+            Positions<Position> filteredPositions,
+            CollectionComputing<TSourceItem> current, 
+            ExpressionWatcher expressionWatcher)
         {
+            if (expressionWatcher._disposed) return false;
+
             FilteringItemInfo itemInfo = filteringItemInfos[sourceIndex];
 
             bool newPredicateValue = filtering.applyPredicate(sourceItem, itemInfo.PredicateFunc);
@@ -783,7 +785,7 @@ namespace ObservableComputations
             replacingItemInfo.ExpressionWatcher = watcher;
             replacingItemInfo.NestedComputings = nestedComputings1;
             bool replace = !ProcessChangeSourceItem(sourceIndex, sourceItem, filteringItemInfos, thisAsFiltering,
-                               filteredPositions, current)
+                               filteredPositions, current, watcher)
                            && replacingItemInfo.FilteredPosition != null;
             return replace;
         }

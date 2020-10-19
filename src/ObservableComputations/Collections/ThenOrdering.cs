@@ -724,7 +724,8 @@ namespace ObservableComputations
         void ISourceItemChangeProcessor.ProcessSourceItemChange(ExpressionWatcher expressionWatcher)
         {
             if (expressionWatcher._disposed) return;
-            processSourceItemChange(expressionWatcher._position.Index, true, (TSourceItem)expressionWatcher._parameterValues[0]);
+            int sourceIndex = expressionWatcher._position.Index;
+            processSourceItemChange(sourceIndex, true, _sourceAsList[sourceIndex]);
         }
 
         private int getOrderedIndex(TOrderingValue orderingValue, int lowerIndex, int upperIndex)

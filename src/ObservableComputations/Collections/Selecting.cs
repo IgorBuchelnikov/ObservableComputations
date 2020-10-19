@@ -292,7 +292,7 @@ namespace ObservableComputations
         {
             if (expressionWatcher._disposed) return;
             int sourceIndex = expressionWatcher._position.Index;
-            baseSetItem(sourceIndex, applySelector((ItemInfo)expressionWatcher._position, (TSourceItem)expressionWatcher._parameterValues[0]));
+            baseSetItem(sourceIndex, applySelector((ItemInfo)expressionWatcher._position, _sourceAsList[sourceIndex]));
         }
 
         private void unregisterSourceItem(int index, bool replacing = false)

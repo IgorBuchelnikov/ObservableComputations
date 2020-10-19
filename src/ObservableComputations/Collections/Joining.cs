@@ -321,7 +321,7 @@ namespace ObservableComputations
 
                     //bool anyAdded = false;
 
-                    int doRegisterSourceItem(TRightSourceItem rightSourceItem, bool predicateValue)
+                    int doRegisterSourceItem(TRightSourceItem rightSourceItem)
                     {
                         Position currentFilteredItemPosition = null;
 
@@ -332,7 +332,7 @@ namespace ObservableComputations
                                 leftSourceIndex * rightCount + rightSourceIndex, 
                                 null, null);
 
-                        if (predicateValue)
+                        if (ApplyPredicate(leftSourceIndex, rightSourceIndex, rightCount))
                         {
                             JoinPair<TLeftSourceItem, TRightSourceItem> joinPair
                                 = new JoinPair<TLeftSourceItem, TRightSourceItem>(leftSourceItem, rightSourceItem, this);
@@ -356,8 +356,7 @@ namespace ObservableComputations
                     {
                         insertingIndex = doRegisterSourceItem(
                             // ReSharper disable once PossibleNullReferenceException
-                            _rightSourceCopy[rightSourceIndex], 
-                            ApplyPredicate(leftSourceIndex, rightSourceIndex));
+                            _rightSourceCopy[rightSourceIndex]);
                     }
 
                     //if (_isLeft)
@@ -748,11 +747,11 @@ namespace ObservableComputations
         }
 
         // ReSharper disable once MemberCanBePrivate.Global
-        public bool ApplyPredicate(int leftSourceIndex, int rightSourceIndex)
+        public bool ApplyPredicate(int leftSourceIndex, int rightSourceIndex, int rightCount)
         {
             bool getValue() =>
                 _predicateContainsParametrizedObservableComputationsCalls
-                    ? _itemInfos[leftSourceIndex + rightSourceIndex].PredicateFunc()
+                    ? _itemInfos[leftSourceIndex * rightCount + rightSourceIndex].PredicateFunc()
                     : _predicateFunc(_leftSourceAsList[leftSourceIndex], _rightSourceAsList[rightSourceIndex]);
 
             if (Configuration.TrackComputingsExecutingUserCode)
@@ -837,17 +836,20 @@ namespace ObservableComputations
 
         void ISourceItemChangeProcessor.ProcessSourceItemChange(ExpressionWatcher expressionWatcher)
         {
-            if (expressionWatcher._disposed) return;
+            int sourceIndex = expressionWatcher._position.Index;
+            int rightCount = _rightSourceAsList.Count;
+
             FilteringUtils.ProcessChangeSourceItem(
-                expressionWatcher._position.Index, 
+                sourceIndex, 
                 new JoinPair<TLeftSourceItem, TRightSourceItem>(
-                    (TLeftSourceItem) expressionWatcher._parameterValues[0],
-                    (TRightSourceItem) expressionWatcher._parameterValues[1],
+                    _leftSourceAsList[sourceIndex / rightCount],
+                    _rightSourceAsList[sourceIndex % rightCount],
                     this), 
                 _itemInfos, 
                 this,
                 _filteredPositions, 
-                this);
+                this,
+                expressionWatcher);
         }
 
 		internal void ValidateConsistency()

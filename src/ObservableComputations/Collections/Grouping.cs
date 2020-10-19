@@ -506,7 +506,7 @@ namespace ObservableComputations
 		{
             if (expressionWatcher._disposed) return;
 			int sourceIndex = expressionWatcher._position.Index;
-			TSourceItem sourceItem = (TSourceItem)expressionWatcher._parameterValues[0];
+			TSourceItem sourceItem = _sourceAsList[sourceIndex];
 			ItemInfo itemInfo = _itemInfos[sourceIndex];
 			TKey oldKey = itemInfo.Key;
 			TKey newKey = applyKeySelector(sourceItem, itemInfo.SelectorFunc);

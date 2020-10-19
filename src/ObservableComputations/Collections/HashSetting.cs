@@ -411,7 +411,7 @@ namespace ObservableComputations
 			int sourceIndex = expressionWatcher._position.Index;
 			ItemInfo itemInfo = _itemInfos[sourceIndex];
 			TKey key = itemInfo.Key;
-            itemInfo.Key = applyKeySelector(itemInfo, (TSourceItem) expressionWatcher._parameterValues[0]);
+            itemInfo.Key = applyKeySelector(itemInfo, _sourceAsList[sourceIndex]);
 			baseRemoveItem(key);
 			TKey newKey = itemInfo.Key;
 			baseAddItem(newKey);

@@ -380,7 +380,7 @@ namespace ObservableComputations
 			ItemInfo itemInfo = (ItemInfo) expressionWatcher._position;
 			if (itemInfo.PredicateResult) _predicatePassedCount--;
 
-			if (applyPredicate((TSourceItem) expressionWatcher._parameterValues[0], itemInfo.PredicateFunc))
+			if (applyPredicate(_sourceAsList[itemInfo.Index], itemInfo.PredicateFunc))
 			{
 				_predicatePassedCount++;
 				itemInfo.PredicateResult = true;

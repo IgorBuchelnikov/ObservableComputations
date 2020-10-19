@@ -640,7 +640,10 @@ namespace ObservableComputations
         void ISourceItemChangeProcessor.ProcessSourceItemChange(ExpressionWatcher expressionWatcher)
         {
             if (expressionWatcher._disposed) return;
-            processSourceItemChange(expressionWatcher._position.Index, (TSourceItem)expressionWatcher._parameterValues[0]);
+            int sourceIndex = expressionWatcher._position.Index;
+            processSourceItemChange(
+                sourceIndex, 
+                _sourceAsList[sourceIndex]);
         }
 
 		private int getOrderedIndex(TOrderingValue orderingValue)

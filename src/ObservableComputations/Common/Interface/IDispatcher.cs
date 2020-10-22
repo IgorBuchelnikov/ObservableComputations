@@ -10,7 +10,7 @@ namespace ObservableComputations
 
 	public interface ICollectionDestinationDispatcher
 	{
-		void Invoke(
+		void InvokeCollectionChange(
 			Action action, 
 			ICollectionComputing collectionDispatching,
 			NotifyCollectionChangedAction notifyCollectionChangedAction,
@@ -18,6 +18,12 @@ namespace ObservableComputations
 			object oldItem,
 			int newIndex,
 			int oldIndex);
+
+        void InvokeInitialization(
+            Action action, 
+            ICollectionComputing collectionDispatching);
+
+
 	}
 
 	public interface IPropertySourceDispatcher

@@ -70,14 +70,14 @@ namespace ObservableComputations.Test
 		public void TestCollectionDispatchingTest()
 		{
 			for (int j = 0; j < 1000000; j++)
-			{
-				Dispatcher consuminingDispatcher = new Dispatcher();
-				Dispatcher computingDispatcher = new Dispatcher();
+            {
+                Dispatcher consuminingDispatcher = new Dispatcher("coNSuminingDispatcher");
+				Dispatcher computingDispatcher = new Dispatcher("coMPutingDispatcher");
                 Consumer consumer = new Consumer();
 
 				var nums = new ObservableCollection<Item>();
 				var filteredNums = nums.Filtering(i => i.Num % 3 == 0 || i.Num2Dispatching.Value % 5 == 0);
-				var dispatchingfilteredNums = filteredNums.CollectionDispatching(consuminingDispatcher).IsNeededFor(consumer);
+				var dispatchingfilteredNums = filteredNums.CollectionDispatching(consuminingDispatcher, computingDispatcher).IsNeededFor(consumer);
 				bool stop = false;
 
 				Random stopperRandom = new Random();
@@ -110,49 +110,53 @@ namespace ObservableComputations.Test
 								});
 								break;
 							case NotifyCollectionChangedAction.Remove:
-								computingDispatcher.Invoke(() =>
-								{
-									int upperIndex =  nums.Count - 1;
-									if (upperIndex > 0)
-									{
-										int index = random.Next(0, upperIndex);
+                                computingDispatcher.Invoke(() =>
+                                {
+                                    int upperIndex = nums.Count - 1;
+                                    if (upperIndex > 0)
+                                    {
+                                        int index = random.Next(0, upperIndex);
                                         Item item = nums[index];
-										nums.RemoveAt(index);
+                                        nums.RemoveAt(index);
                                         item.Consumer.Dispose();
                                     }
-								});
-								break;
+                                });
+                                break;
 							case NotifyCollectionChangedAction.Replace:
-								computingDispatcher.Invoke(() =>
-								{
-									int upperIndex =  nums.Count - 1;
-									if (upperIndex > 0)
-									{
-										int index = random.Next(0, upperIndex);
+                                computingDispatcher.Invoke(() =>
+                                {
+                                    int upperIndex = nums.Count - 1;
+                                    if (upperIndex > 0)
+                                    {
+                                        int index = random.Next(0, upperIndex);
                                         Item item = nums[index];
-										nums[index] = new Item(random.Next(Int32.MinValue, int.MaxValue), random.Next(Int32.MinValue, int.MaxValue), consuminingDispatcher, computingDispatcher);
+                                        nums[index] = new Item(random.Next(Int32.MinValue, int.MaxValue), random.Next(Int32.MinValue, int.MaxValue), consuminingDispatcher, computingDispatcher);
                                         item.Consumer.Dispose();
                                     }
 
-								});
-								break;
+                                });
+                                break;
 							case NotifyCollectionChangedAction.Move:
-								computingDispatcher.Invoke(() =>
-								{
-									int upperIndex =  nums.Count - 1;
-									if (upperIndex > 0)
-									{
-										int indexFrom = random.Next(0, upperIndex);
-										int indexTo = random.Next(0, upperIndex);
-										nums.Move(indexFrom, indexTo);
-									}
-								});
-								break;
+                                computingDispatcher.Invoke(() =>
+                                {
+                                    int upperIndex = nums.Count - 1;
+                                    if (upperIndex > 0)
+                                    {
+                                        int indexFrom = random.Next(0, upperIndex);
+                                        int indexTo = random.Next(0, upperIndex);
+                                        nums.Move(indexFrom, indexTo);
+                                    }
+                                });
+                                break;
 							case NotifyCollectionChangedAction.Reset:
-								computingDispatcher.Invoke(() => { nums.Clear(); });
-                                foreach (Item item in nums)
-                                    item.Consumer.Dispose();
-								break;
+                                computingDispatcher.Invoke(() =>
+                                {
+                                    nums.Clear();
+                                    foreach (Item item in nums)
+                                        item.Consumer.Dispose();
+                                });
+
+                                break;
 							default:
 								throw new ArgumentOutOfRangeException();
 						}
@@ -171,21 +175,21 @@ namespace ObservableComputations.Test
 
 				ThreadStart numValueChangerThreadStart = () =>
 				{
-					Random random =  new Random();
-					while (!stop)
-					{
-						Thread.Sleep(random.Next(0, 3));
+                    Random random = new Random();
+                    while (!stop)
+                    {
+                        Thread.Sleep(random.Next(0, 3));
 
-						consuminingDispatcher.Invoke(() =>
-						{
-							int dispatchingfilteredNumsCount = dispatchingfilteredNums.Count;
-							if (dispatchingfilteredNumsCount > 0)
-								dispatchingfilteredNums[random.Next(0, dispatchingfilteredNumsCount - 1)].NumDispatching.Value =
-									random.Next(Int32.MinValue, int.MaxValue);
-						});
+                        consuminingDispatcher.Invoke(() =>
+                        {
+                            int dispatchingfilteredNumsCount = dispatchingfilteredNums.Count;
+                            if (dispatchingfilteredNumsCount > 0)
+                                dispatchingfilteredNums[random.Next(0, dispatchingfilteredNumsCount - 1)].NumDispatching.Value =
+                                    random.Next(Int32.MinValue, int.MaxValue);
+                        });
 
-					}
-				};
+                    }
+                };
  
 				Thread[] numValueChangerThreads = new Thread[threadsCount];
 				for (int i = 0; i < threadsCount; i++)
@@ -196,21 +200,21 @@ namespace ObservableComputations.Test
 
 				ThreadStart num2ValueChangerThreadStart = () =>
 				{
-					Random random =  new Random();
-					while (!stop)
-					{
-						Thread.Sleep(random.Next(0, 3));
+                    Random random = new Random();
+                    while (!stop)
+                    {
+                        Thread.Sleep(random.Next(0, 3));
 
-						consuminingDispatcher.Invoke(() =>
-						{
-							int dispatchingfilteredNumsCount = dispatchingfilteredNums.Count;
-							if (dispatchingfilteredNumsCount > 0)
-								dispatchingfilteredNums[random.Next(0, dispatchingfilteredNumsCount - 1)].Num2 =
-									random.Next(Int32.MinValue, int.MaxValue);
-						});
+                        consuminingDispatcher.Invoke(() =>
+                        {
+                            int dispatchingfilteredNumsCount = dispatchingfilteredNums.Count;
+                            if (dispatchingfilteredNumsCount > 0)
+                                dispatchingfilteredNums[random.Next(0, dispatchingfilteredNumsCount - 1)].Num2 =
+                                    random.Next(Int32.MinValue, int.MaxValue);
+                        });
 
-					}
-				};
+                    }
+                };
  
 				Thread[] num2ValueChangerThreads = new Thread[threadsCount];
 				for (int i = 0; i < threadsCount; i++)

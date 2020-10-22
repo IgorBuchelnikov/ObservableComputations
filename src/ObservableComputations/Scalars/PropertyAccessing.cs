@@ -419,7 +419,7 @@ namespace ObservableComputations
                 if (_propertyHolder != null)
                     _propertyHolder.PropertyChanged -= handlePropertyHolderPropertyChanged;
 
-                _initializedFromSource = true;
+                _initializedFromSource = false;
             }
 
             if (_isActive)
@@ -431,6 +431,7 @@ namespace ObservableComputations
                 }
 
                 registerPropertyHolder();
+                _initializedFromSource = true;
             }
             else
             {

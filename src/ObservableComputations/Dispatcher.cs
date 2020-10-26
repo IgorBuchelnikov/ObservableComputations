@@ -49,7 +49,8 @@ namespace ObservableComputations
 			if (Configuration.TrackDispatcherInvocations)
 			{
 				DebugInfo._executingDispatcherInvocations.TryGetValue(_dispatcher._thread, out Stack<Invocation> invocations);
-				invocations.Push(this);
+                // ReSharper disable once PossibleNullReferenceException
+                invocations.Push(this);
 
 				if (_action != null)
 					_action();
@@ -93,8 +94,6 @@ namespace ObservableComputations
 
 	public class InvocationResult<TResult> : INotifyPropertyChanged
 	{
-		public Invocation Invocation => _invocation;
-
 		public TResult Result
 		{
 			get => _result;
@@ -105,7 +104,6 @@ namespace ObservableComputations
 			}
 		}
 
-		internal Invocation _invocation;
 		private TResult _result;
 
 		public event PropertyChangedEventHandler PropertyChanged;
@@ -123,20 +121,18 @@ namespace ObservableComputations
         public Thread Thread => _thread;
         public bool Disposed => !_alive;
 
-        private Invocation queueInvocation(Action action, object context = null)
+        private void queueInvocation(Action action, object context = null)
         {
             Invocation invocation = new Invocation(action, this, context);
             _invocationQueue.Enqueue(invocation);
             _newInvocationManualResetEvent.Set();
-            return invocation;
         }
 
-        private Invocation queueInvocation(Action<object> action, object state, IComputing computing = null)
+        private void queueInvocation(Action<object> action, object state, IComputing computing = null)
         {
             Invocation invocation = new Invocation(action, state, this, computing);
             _invocationQueue.Enqueue(invocation);
             _newInvocationManualResetEvent.Set();
-            return invocation;
         }
 
         public Dispatcher(string threadName = null)
@@ -227,31 +223,30 @@ namespace ObservableComputations
             }
         }
 
-        public Invocation BeginInvoke(Action action)
+        public void BeginInvoke(Action action)
         {
-            if (!_alive) return default;
+            if (!_alive) return;
 
-            if (_managedThreadId == Thread.CurrentThread.ManagedThreadId)
+            if (_thread == Thread.CurrentThread)
             {
                 action();
-                return new Invocation(null, action, this);
+                return;
             }
 
-            return queueInvocation(action);
+            queueInvocation(action);
         }
 
-        public Invocation BeginInvoke(Action<object> action, object state)
+        public void BeginInvoke(Action<object> action, object state)
         {
-            if (!_alive) return default;
+            if (!_alive) return;
 
             if (_thread == Thread.CurrentThread)
             {
                 action(state);
-                return new Invocation(action, state, this);
             }
             else
             {
-                return queueInvocation(action, state);               
+                queueInvocation(action, state);               
             }
  
         }
@@ -271,6 +266,7 @@ namespace ObservableComputations
             Action actionWithManualResetEvent = () =>
             {
                 action();
+                // ReSharper disable once AccessToDisposedClosure
                 manualResetEvent.Set();
             };
 
@@ -295,6 +291,7 @@ namespace ObservableComputations
             Action<object> actionWithManualResetEvent = s =>
             {
                 action(s);
+                // ReSharper disable once AccessToDisposedClosure
                 manualResetEvent.Set();
             };
 
@@ -323,7 +320,7 @@ namespace ObservableComputations
             if (!_alive) return default;
 
             InvocationResult<TResult> invocationResult = new InvocationResult<TResult>();
-            invocationResult._invocation = BeginInvoke(() => { invocationResult.Result = func(); });
+            BeginInvoke(() => { invocationResult.Result = func(); });
 
             return invocationResult;
         }
@@ -333,7 +330,7 @@ namespace ObservableComputations
             if (!_alive) return default;
 
             InvocationResult<TResult> invocationResult = new InvocationResult<TResult>();
-            invocationResult._invocation = BeginInvoke(s => { invocationResult.Result = func(s); }, state);
+           BeginInvoke(s => { invocationResult.Result = func(s); }, state);
 
             return invocationResult;
         }

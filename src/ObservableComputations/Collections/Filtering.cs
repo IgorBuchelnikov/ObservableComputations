@@ -210,10 +210,10 @@ namespace ObservableComputations
 
 			if (_sourceInitialized)
 			{
-				Utils.disposeExpressionItemInfos(_itemInfos, _predicateExpressionСallCount, this);
+                Utils.disposeExpressionItemInfos(_itemInfos, _predicateExpressionСallCount, this);
                 Utils.RemoveDownstreamConsumedComputing(_itemInfos, this);
 
-				_filteredPositions = new Positions<Position>(new List<Position>(_initialCapacity));	
+                _filteredPositions = new Positions<Position>(new List<Position>(_initialCapacity));	
 
                 Utils.disposeSource(
                     _sourceScalar, 

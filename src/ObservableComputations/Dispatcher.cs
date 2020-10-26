@@ -180,7 +180,7 @@ namespace ObservableComputations
 
         public int DoOthers(int count)
         {
-            if (_managedThreadId != Thread.CurrentThread.ManagedThreadId)
+            if (_thread != Thread.CurrentThread)
                 throw new ObservableComputationsException(
                     "Dispatcher.DoOthers method can only be called from the same thread that is associated with this Dispatcher.");
 
@@ -197,7 +197,7 @@ namespace ObservableComputations
 
         public void DoOthers()
         {
-            if (_managedThreadId != Thread.CurrentThread.ManagedThreadId)
+            if (_thread != Thread.CurrentThread)
                 throw new ObservableComputationsException(
                     "Dispatcher.DoOthers method can only be called from the same thread that is associated with this Dispatcher.");
 
@@ -217,12 +217,14 @@ namespace ObservableComputations
         {
             if (!_alive) return;
 
-            if (_managedThreadId == Thread.CurrentThread.ManagedThreadId)
+            if (_thread == Thread.CurrentThread)
             {
                 action();
             }
-
-            queueInvocation(action, context);
+            else
+            {
+                queueInvocation(action, context);                
+            }
         }
 
         public Invocation BeginInvoke(Action action)
@@ -242,19 +244,23 @@ namespace ObservableComputations
         {
             if (!_alive) return default;
 
-            if (_managedThreadId == Thread.CurrentThread.ManagedThreadId)
+            if (_thread == Thread.CurrentThread)
             {
                 action(state);
+                return new Invocation(action, state, this);
             }
-
-            return queueInvocation(action, state);
+            else
+            {
+                return queueInvocation(action, state);               
+            }
+ 
         }
 
         public void Invoke(Action action)
         {
             if (!_alive) return;
 
-            if (_managedThreadId == Thread.CurrentThread.ManagedThreadId)
+            if (_thread == Thread.CurrentThread)
             {
                 action();
                 return;
@@ -278,7 +284,7 @@ namespace ObservableComputations
         {
             if (!_alive) return;
 
-            if (_managedThreadId == Thread.CurrentThread.ManagedThreadId)
+            if (_thread == Thread.CurrentThread)
             {
                 action(state);
                 return;

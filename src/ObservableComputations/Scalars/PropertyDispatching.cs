@@ -29,7 +29,6 @@ namespace ObservableComputations
 		private Action<THolder, TResult> _setter;
 		private Func<THolder, TResult> _getter;
 
-        private Action _changeValueAction;
 
 		[ObservableComputationsCall]
 		public PropertyDispatching(
@@ -58,11 +57,6 @@ namespace ObservableComputations
 
         private PropertyDispatching()
         {
-            _changeValueAction = () =>
-            {
-                TResult value = getValue();
-                _destinationDispatcher.Invoke(() => setValue(value), this);
-            };
         }
 
         private void lockChangeSetValueHandle()
@@ -77,15 +71,8 @@ namespace ObservableComputations
 
 		private void handlePropertyHolderPropertyChanged(object sender, PropertyChangedEventArgs e)
 		{
-            Utils.processChange(
-                sender, 
-                e, 
-                _changeValueAction,
-                ref _isConsistent, 
-                ref _handledEventSender, 
-                ref _handledEventArgs, 
-                0, 1,
-                ref _deferredProcessings, this);
+            TResult value = getValue();
+            _destinationDispatcher.Invoke(() => setValue(value), this);
 		}
 
 		private TResult getValue()

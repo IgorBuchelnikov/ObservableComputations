@@ -35,9 +35,6 @@ namespace ObservableComputations
 		private IHasChangeMarker _sourceAsIHasChangeMarker;
 		private bool _lastProcessedSourceChangeMarker;
 
-        private bool _sourceColectionChangedHandlingEnabled = false;
-
-
 		[ObservableComputationsCall]
 		public CollectionDispatching(
 			INotifyCollectionChanged source,
@@ -97,7 +94,8 @@ namespace ObservableComputations
 
         private void invokeInitializeFromSource(object sender, EventArgs e)
         {
-            _sourceColectionChangedHandlingEnabled = false;
+            if (_source != null)
+                _source.CollectionChanged -= handleSourceCollectionChanged;
 
             if (_destinationDispatcher != null)
                 _destinationDispatcher.Invoke(() => doInitializeFromSource(sender, e), this);
@@ -118,7 +116,6 @@ namespace ObservableComputations
                 void uninitializeSource()
                 {
                     _source.CollectionChanged -= handleSourceCollectionChanged;
-                    _sourceColectionChangedHandlingEnabled = false;
 
                     if (_sourceAsINotifyPropertyChanged != null)
                     {
@@ -148,30 +145,34 @@ namespace ObservableComputations
                         ref _sourceAsINotifyPropertyChanged,
                         (ISourceIndexerPropertyTracker)this);
 
-				    int sourceIndex = 0;
+                    int count = _sourceAsList.Count;
+                    TSourceItem[] sourceCopy = new TSourceItem[count];
+                    _sourceAsList.CopyTo(sourceCopy, 0);
 
-                    foreach (TSourceItem sourceItem in _sourceAsList)
-                    {
-					    if (originalCount > sourceIndex)
-						    _items[sourceIndex] = sourceItem;
-					    else
-						    _items.Insert(sourceIndex, sourceItem);
-
-                        sourceIndex++;
-                    }
-
-				    for (int index = originalCount - 1; index >= sourceIndex; index--)
-				    {
-					    _items.RemoveAt(index);
-				    }
-
-                    _sourceColectionChangedHandlingEnabled = true;
                     _source.CollectionChanged += handleSourceCollectionChanged;
 
                     Action resetAction = () =>
                     {
                         _handledEventSender = sender;
                         _handledEventArgs = e;
+
+                        int sourceIndex = 0;
+
+                        for (var index = 0; index < count; index++)
+                        {
+                            TSourceItem sourceItem = sourceCopy[index];
+                            if (originalCount > sourceIndex)
+                                _items[sourceIndex] = sourceItem;
+                            else
+                                _items.Insert(sourceIndex, sourceItem);
+
+                            sourceIndex++;
+                        }
+
+                        for (int index = originalCount - 1; index >= sourceIndex; index--)
+                        {
+                            _items.RemoveAt(index);
+                        }
 
                         reset();
 
@@ -212,8 +213,6 @@ namespace ObservableComputations
             {
 
             }
-
-            if (!_sourceColectionChangedHandlingEnabled) return;
 
             if (!Utils.preHandleSourceCollectionChanged(
                 ref _indexerPropertyChangedEventRaised, 

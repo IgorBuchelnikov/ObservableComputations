@@ -21,8 +21,8 @@ namespace ObservableComputations.Test
 			{
 				_num = num;
 				_num2 = num2;
-				_numDispatching = new PropertyDispatching<Item, int>(() => Num, computingDispatcher, consuminingDispatcher).IsNeededFor(Consumer);
-				_num2Dispatching = new PropertyDispatching<Item, int>(() => Num2, consuminingDispatcher, computingDispatcher).IsNeededFor(Consumer);
+				_numCompToConsDispatching = new PropertyDispatching<Item, int>(() => Num, consuminingDispatcher, computingDispatcher).IsNeededFor(Consumer);
+				_num2ConsToCompDispatching = new PropertyDispatching<Item, int>(() => Num2, computingDispatcher, consuminingDispatcher).IsNeededFor(Consumer);
 			}
 
 			private int _num;
@@ -39,11 +39,11 @@ namespace ObservableComputations.Test
 				set => updatePropertyValue(ref _num2, value);
 			}
 
-			private PropertyDispatching<Item,int> _numDispatching;
-			public PropertyDispatching<Item, int> NumDispatching => _numDispatching;
+			private PropertyDispatching<Item,int> _numCompToConsDispatching;
+			public PropertyDispatching<Item, int> NumCompToConsDispatching => _numCompToConsDispatching;
 
-			private PropertyDispatching<Item,int> _num2Dispatching;
-			public PropertyDispatching<Item, int> Num2Dispatching => _num2Dispatching;
+			private PropertyDispatching<Item,int> _num2ConsToCompDispatching;
+			public PropertyDispatching<Item, int> Num2ConsToCompDispatching => _num2ConsToCompDispatching;
 
 			#region INotifyPropertyChanged imlementation
 
@@ -76,9 +76,31 @@ namespace ObservableComputations.Test
                 Consumer consumer = new Consumer();
 
 				var nums = new ObservableCollection<Item>();
-				var filteredNums = nums.Filtering(i => i.Num % 3 == 0 || i.Num2Dispatching.Value % 5 == 0);
+				var filteredNums = nums.Filtering(i => i.Num % 3 == 0 || i.Num2ConsToCompDispatching.Value % 5 == 0);
 				var dispatchingfilteredNums = filteredNums.CollectionDispatching(consuminingDispatcher, computingDispatcher).IsNeededFor(consumer);
-				bool stop = false;
+
+                bool changed;
+                dispatchingfilteredNums.CollectionChanged += (sender, args) =>
+                {
+                    
+                    if (Thread.CurrentThread != consuminingDispatcher.Thread)
+                    {
+                        throw new Exception("Wrong thread");
+                    }
+                };
+
+                ((INotifyPropertyChanged) dispatchingfilteredNums).PropertyChanged += (sender, args) =>
+                {
+                    if (Thread.CurrentThread != consuminingDispatcher.Thread)
+                    {
+                        throw new Exception("Wrong thread");
+                    }
+
+                    if (args.PropertyName == "Count")
+                        changed = true;
+                };
+                
+                bool stop = false;
 
 				Random stopperRandom = new Random();
 				Thread stopper = new Thread(() =>
@@ -102,13 +124,13 @@ namespace ObservableComputations.Test
 						switch (action)
 						{
 							case NotifyCollectionChangedAction.Add:
-								computingDispatcher.Invoke(() =>
-								{
-									int upperIndex = nums.Count > 0 ? nums.Count - 1 : 0;
-									int index = random.Next(0, upperIndex);
-									nums.Insert(index, new Item(random.Next(Int32.MinValue, int.MaxValue), random.Next(Int32.MinValue, int.MaxValue), consuminingDispatcher, computingDispatcher));
-								});
-								break;
+                                computingDispatcher.Invoke(() =>
+                                {
+                                    int upperIndex = nums.Count > 0 ? nums.Count - 1 : 0;
+                                    int index = random.Next(0, upperIndex);
+                                    nums.Insert(index, new Item(random.Next(Int32.MinValue, int.MaxValue), random.Next(Int32.MinValue, int.MaxValue), consuminingDispatcher, computingDispatcher));
+                                });
+                                break;
 							case NotifyCollectionChangedAction.Remove:
                                 computingDispatcher.Invoke(() =>
                                 {
@@ -151,8 +173,9 @@ namespace ObservableComputations.Test
 							case NotifyCollectionChangedAction.Reset:
                                 computingDispatcher.Invoke(() =>
                                 {
+                                    Item[] items = nums.ToArray();
                                     nums.Clear();
-                                    foreach (Item item in nums)
+                                    foreach (Item item in items)
                                         item.Consumer.Dispose();
                                 });
 
@@ -184,7 +207,7 @@ namespace ObservableComputations.Test
                         {
                             int dispatchingfilteredNumsCount = dispatchingfilteredNums.Count;
                             if (dispatchingfilteredNumsCount > 0)
-                                dispatchingfilteredNums[random.Next(0, dispatchingfilteredNumsCount - 1)].NumDispatching.Value =
+                                dispatchingfilteredNums[random.Next(0, dispatchingfilteredNumsCount - 1)].NumCompToConsDispatching.Value =
                                     random.Next(Int32.MinValue, int.MaxValue);
                         });
 
@@ -223,26 +246,6 @@ namespace ObservableComputations.Test
 					num2ValueChangerThreads[i].Start();
 				}
 
-
-				//Thread consuminingDispatcherInvoker = new Thread(() =>
-				//{
-				//	Random random =  new Random();
-				//	while (!stop)
-				//	{
-				//		Thread.Sleep(random.Next(0, 1000));
-				//		consuminingDispatcher.Invoke(() =>
-				//		{
-				//			computingDispatcher.Invoke(() =>
-				//			{
-
-
-				//			});
-				//		});
-				//	}
-				//});
-
-				//consuminingDispatcherInvoker.Start();
-
 				for (int i = 0; i < threadsCount; i++)
 				{
 					numsChangerThreads[i].Join();
@@ -264,13 +267,17 @@ namespace ObservableComputations.Test
 				computingDispatcher.Invoke(() => {});
 				consuminingDispatcher.Invoke(() => {});
 
-				Assert.IsTrue(nums.Where(i => i.Num % 3 == 0 || i.Num2 % 5 == 0).SequenceEqual(dispatchingfilteredNums));
-				Assert.IsTrue(nums.Where(i => i.NumDispatching.Value % 3 == 0 || i.Num2Dispatching.Value % 5 == 0).SequenceEqual(dispatchingfilteredNums));
-				
+                Assert.IsTrue(nums.Where(i => i.Num % 3 == 0 || i.Num2 % 5 == 0).SequenceEqual(dispatchingfilteredNums));
+                Assert.IsTrue(nums.Where(i => i.NumCompToConsDispatching.Value % 3 == 0 || i.Num2ConsToCompDispatching.Value % 5 == 0).SequenceEqual(dispatchingfilteredNums));
+
                 foreach (Item item in nums)
                     item.Consumer.Dispose();
 
-                consumer.Dispose();
+                consuminingDispatcher.Invoke(() =>
+                {
+                    consumer.Dispose();
+                });
+
                 
                 Debug.Print("!!!!!");
 			}

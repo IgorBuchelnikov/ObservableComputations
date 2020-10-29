@@ -84,10 +84,10 @@ namespace ObservableComputations
 
 			return getFiltering(zipping, zipPairNotPredicateExpression, countComputing, capacity);
 
-			//return () => (INotifyCollectionChanged)Expr.Is(() => (INotifyCollectionChanged)getSource.Computing().Using(sc =>
-			//			Expr.Is(() => ((IList) sc.Value).Count).SequenceComputing()
-			//				.Zipping<int, TSourceItem>(() => sc.Value)).Value).Computing().Using(zipping => zipping.Value.Filtering<ZipPair<int, TSourceItem>>(zp => zp.ItemLeft < zipping.Value.Filtering(zipPairNotPredicateExpression).Selecting(zp1 => zp1.ItemLeft).Minimazing(() => (((IList)zipping.Value).Count)).Value)).Value;
-		}
+            //return () => (INotifyCollectionChanged)Expr.Is(() => (INotifyCollectionChanged)getSource.Computing().Using(sc =>
+            //            Expr.Is(() => ((IList)sc.Value).Count).SequenceComputing()
+            //                .Zipping<int, TSourceItem>(() => sc.Value)).Value).Computing().Using(zipping => zipping.Value.Filtering<ZipPair<int, TSourceItem>>(zp => zp.ItemLeft < zipping.Value.Filtering(zipPairNotPredicateExpression).Selecting(zp1 => zp1.ItemLeft).Minimazing(() => (((IList)zipping.Value).Count)).Value)).Value;
+        }
 
 		private static Filtering<ZipPair<int, TSourceItem>> getFiltering(
 			Zipping<int, TSourceItem> zipping, 

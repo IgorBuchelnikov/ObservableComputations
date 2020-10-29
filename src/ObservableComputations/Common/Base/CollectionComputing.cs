@@ -48,7 +48,19 @@ namespace ObservableComputations
 			}
 		}
 
-		private Action<int> _removeItemAction;
+        #region Overrides of Object
+
+        public override string ToString()
+        {
+            if (!string.IsNullOrEmpty(DebugTag))
+                return $"{DebugTag} ({base.ToString()})";
+
+            return base.ToString();
+        }
+
+        #endregion
+
+        private Action<int> _removeItemAction;
 		public Action<int> RemoveItemAction
 		{
 			// ReSharper disable once MemberCanBePrivate.Global

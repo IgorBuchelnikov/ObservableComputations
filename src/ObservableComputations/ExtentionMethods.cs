@@ -428,10 +428,19 @@ namespace ObservableComputations
 			return string.Empty;
 		}
 
+        [ObservableComputationsCall]
         public static TComputing IsNeededFor<TComputing>(this TComputing computing, Consumer consumer)
             where TComputing : IComputing
         {
             ((IComputingInternal) computing).AddConsumer(consumer);
+            return computing;
+        }
+
+        [ObservableComputationsCall]
+        public static TComputing SetDebugTag<TComputing>(this TComputing computing, string debugTag)
+            where TComputing : IHasTags
+        {
+            computing.DebugTag = debugTag;
             return computing;
         }
 	}

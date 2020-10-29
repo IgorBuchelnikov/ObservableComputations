@@ -836,6 +836,7 @@ namespace ObservableComputations
 
         void ISourceItemChangeProcessor.ProcessSourceItemChange(ExpressionWatcher expressionWatcher)
         {
+            if (expressionWatcher._disposed) return;
             int sourceIndex = expressionWatcher._position.Index;
             int rightCount = _rightSourceAsList.Count;
 
@@ -848,8 +849,7 @@ namespace ObservableComputations
                 _itemInfos, 
                 this,
                 _filteredPositions, 
-                this,
-                expressionWatcher);
+                this);
         }
 
 		internal void ValidateConsistency()

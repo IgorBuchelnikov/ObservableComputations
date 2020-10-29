@@ -283,6 +283,18 @@ namespace ObservableComputations
 		#region INotifyPropertyChanged imlementation
 		public event PropertyChangedEventHandler PropertyChanged;
 		#endregion
+
+        #region Overrides of Object
+
+        public override string ToString()
+        {
+            if (!string.IsNullOrEmpty(DebugTag))
+                return $"{DebugTag} ({base.ToString()})";
+
+            return base.ToString();
+        }
+
+        #endregion
 	}
 }
 

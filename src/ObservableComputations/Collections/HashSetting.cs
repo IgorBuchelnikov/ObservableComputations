@@ -715,6 +715,18 @@ namespace ObservableComputations
 		public event EventHandler<MethodChangedEventArgs> MethodChanged;
 
 		#endregion
+
+        #region Overrides of Object
+
+        public override string ToString()
+        {
+            if (!string.IsNullOrEmpty(DebugTag))
+                return $"{DebugTag} ({base.ToString()})";
+
+            return base.ToString();
+        }
+
+        #endregion
 	}
 
 	public enum HashSetChangeAction

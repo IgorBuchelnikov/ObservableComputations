@@ -17,13 +17,48 @@ namespace ObservableComputations.Test
 		public class Item : INotifyPropertyChanged
 		{
             public Consumer Consumer = new Consumer();
-			public Item(int num, int num2, IDispatcher consuminingDispatcher, IDispatcher computingDispatcher)
+			public Item(int num, int num2, Dispatcher consuminingDispatcher, Dispatcher computingDispatcher)
 			{
 				_num = num;
 				_num2 = num2;
 				_numCompToConsDispatching = new PropertyDispatching<Item, int>(() => Num, consuminingDispatcher, computingDispatcher).IsNeededFor(Consumer);
 				_num2ConsToCompDispatching = new PropertyDispatching<Item, int>(() => Num2, computingDispatcher, consuminingDispatcher).IsNeededFor(Consumer);
-			}
+				_numCompToConsScalarDispatching = new Computing<int>(() => Num).ScalarDispatching(consuminingDispatcher, computingDispatcher).IsNeededFor(Consumer);				
+                _num2ConsToCompScalarDispatching = new Computing<int>(() => Num2).ScalarDispatching(computingDispatcher, consuminingDispatcher).IsNeededFor(Consumer);
+                
+                
+                _num2ConsToCompDispatching.PropertyChanged += (sender, args) =>
+                {
+                    if (Thread.CurrentThread != computingDispatcher.Thread)
+                    {
+                        throw new Exception("Wrong thread");
+                    }
+                };
+                
+                _num2ConsToCompScalarDispatching.PropertyChanged += (sender, args) =>
+                {
+                    if (Thread.CurrentThread != computingDispatcher.Thread)
+                    {
+                        throw new Exception("Wrong thread");
+                    }
+                };
+
+                _numCompToConsDispatching.PropertyChanged += (sender, args) =>
+                {
+                    if (Thread.CurrentThread != consuminingDispatcher.Thread)
+                    {
+                        throw new Exception("Wrong thread");
+                    }
+                };
+
+                _numCompToConsScalarDispatching.PropertyChanged += (sender, args) =>
+                {
+                    if (Thread.CurrentThread != consuminingDispatcher.Thread)
+                    {
+                        throw new Exception("Wrong thread");
+                    }
+                };
+            }
 
 			private int _num;
 			public int Num
@@ -44,6 +79,13 @@ namespace ObservableComputations.Test
 
 			private PropertyDispatching<Item,int> _num2ConsToCompDispatching;
 			public PropertyDispatching<Item, int> Num2ConsToCompDispatching => _num2ConsToCompDispatching;
+
+            private ScalarDispatching<int> _numCompToConsScalarDispatching;
+            public ScalarDispatching<int> NumCompToConsScalarDispatching => _numCompToConsScalarDispatching;
+
+            private ScalarDispatching<int> _num2ConsToCompScalarDispatching;
+            public ScalarDispatching<int> Num2ConsToCompScalarDispatching => _num2ConsToCompScalarDispatching;
+
 
 			#region INotifyPropertyChanged imlementation
 
@@ -76,10 +118,12 @@ namespace ObservableComputations.Test
                 Consumer consumer = new Consumer();
 
 				var nums = new ObservableCollection<Item>();
-				var filteredNums = nums.Filtering(i => i.Num % 3 == 0 || i.Num2ConsToCompDispatching.Value % 5 == 0);
+				var filteredNums = nums.Filtering(i => 
+                    i.Num % 3 == 0 
+                    || i.Num2ConsToCompDispatching.Value % 5 == 0
+                    || i.Num2ConsToCompScalarDispatching.Value % 5 == 0);
 				var dispatchingfilteredNums = filteredNums.CollectionDispatching(consuminingDispatcher, computingDispatcher).IsNeededFor(consumer);
 
-                bool changed;
                 dispatchingfilteredNums.CollectionChanged += (sender, args) =>
                 {
                     
@@ -95,9 +139,23 @@ namespace ObservableComputations.Test
                     {
                         throw new Exception("Wrong thread");
                     }
+                };
 
-                    if (args.PropertyName == "Count")
-                        changed = true;
+                filteredNums.CollectionChanged += (sender, args) =>
+                {
+                    
+                    if (Thread.CurrentThread != computingDispatcher.Thread)
+                    {
+                        throw new Exception("Wrong thread");
+                    }
+                };
+
+                ((INotifyPropertyChanged) filteredNums).PropertyChanged += (sender, args) =>
+                {
+                    if (Thread.CurrentThread != computingDispatcher.Thread)
+                    {
+                        throw new Exception("Wrong thread");
+                    }
                 };
                 
                 bool stop = false;
@@ -268,7 +326,10 @@ namespace ObservableComputations.Test
 				consuminingDispatcher.Invoke(() => {});
 
                 Assert.IsTrue(nums.Where(i => i.Num % 3 == 0 || i.Num2 % 5 == 0).SequenceEqual(dispatchingfilteredNums));
-                Assert.IsTrue(nums.Where(i => i.NumCompToConsDispatching.Value % 3 == 0 || i.Num2ConsToCompDispatching.Value % 5 == 0).SequenceEqual(dispatchingfilteredNums));
+                Assert.IsTrue(nums.Where(i => 
+                    i.NumCompToConsDispatching.Value % 3 == 0 
+                    || i.Num2ConsToCompDispatching.Value % 5 == 0
+                    || i.Num2ConsToCompScalarDispatching.Value % 5 == 0).SequenceEqual(dispatchingfilteredNums));
 
                 foreach (Item item in nums)
                     item.Consumer.Dispose();

@@ -35,55 +35,92 @@ namespace ObservableComputations
             }
 		}
 
+        public CollectionPausingResumeType ResumeType
+        {
+            get => _resumeType;
+            set
+            {
+                if (_isPaused)
+                {
+                    if (_resumeType == CollectionPausingResumeType.Reset 
+                        && value == CollectionPausingResumeType.ReplayChanges)
+                        throw new ObservableComputationsException(this, "It is imposible to change ResumeType from Reset to ReplayChanges while IsPaused is true");
+
+                    if (_resumeType == CollectionPausingResumeType.ReplayChanges
+                        && value == CollectionPausingResumeType.Reset)
+                        _defferedCollectionActions.Clear();
+
+                }
+
+                _resumeType = value;
+                OnPropertyChanged(Utils.ResumeTypePropertyChangedEventArgs);
+            }
+        }
+
 		private void resume()
 		{
-			DefferedCollectionAction<TSourceItem> defferedCollectionAction;
-			int count = _defferedCollectionActions.Count;
-
 			_isConsistent = false;
+            if (_resumeType == CollectionPausingResumeType.ReplayChanges)
+            {
+			    DefferedCollectionAction<TSourceItem> defferedCollectionAction;
+			    int count = _defferedCollectionActions.Count;
 
-			for (int i = 0; i < count; i++)
-			{
-				defferedCollectionAction = _defferedCollectionActions.Dequeue();
-				if (defferedCollectionAction.NotifyCollectionChangedEventAgs != null)
-					handleSourceCollectionChanged(defferedCollectionAction.EventSender,
-						defferedCollectionAction.NotifyCollectionChangedEventAgs);
-				else if (defferedCollectionAction.Clear)
-				{
-					_items.Clear();
-				}
-				else if (defferedCollectionAction.Reset)
-				{
-					_handledEventSender = defferedCollectionAction.EventSender;
-					_handledEventArgs = defferedCollectionAction.EventArgs;
 
-					reset();
 
-					_handledEventSender = null;
-					_handledEventArgs = null;
-				}
-				else if (defferedCollectionAction.NewItems != null)
-				{
-					int originalCount = _items.Count;
-					TSourceItem[] newItems = defferedCollectionAction.NewItems;
-					int count1 = newItems.Length;
-					int sourceIndex;
-					for (sourceIndex = 0; sourceIndex < count1; sourceIndex++)
-					{
-						if (originalCount > sourceIndex)
-							_items[sourceIndex] = newItems[sourceIndex];
-						else
-							_items.Insert(sourceIndex, newItems[sourceIndex]);
-					}
+			    for (int i = 0; i < count; i++)
+			    {
+				    defferedCollectionAction = _defferedCollectionActions.Dequeue();
+				    if (defferedCollectionAction.NotifyCollectionChangedEventAgs != null)
+					    handleSourceCollectionChanged(defferedCollectionAction.EventSender,
+						    defferedCollectionAction.NotifyCollectionChangedEventAgs);
+				    else if (defferedCollectionAction.Clear)
+				    {
+					    _items.Clear();
+				    }
+				    else if (defferedCollectionAction.Reset)
+				    {
+					    _handledEventSender = defferedCollectionAction.EventSender;
+					    _handledEventArgs = defferedCollectionAction.EventArgs;
 
-					for (int index = originalCount - 1; index >= sourceIndex; index--)
-					{
-						_items.RemoveAt(index);
-					}
-				}
-			}
+					    reset();
 
-			_resuming = false;
+					    _handledEventSender = null;
+					    _handledEventArgs = null;
+				    }
+				    else if (defferedCollectionAction.NewItems != null)
+				    {
+					    int originalCount = _items.Count;
+					    TSourceItem[] newItems = defferedCollectionAction.NewItems;
+					    int count1 = newItems.Length;
+					    int sourceIndex;
+					    for (sourceIndex = 0; sourceIndex < count1; sourceIndex++)
+					    {
+						    if (originalCount > sourceIndex)
+							    _items[sourceIndex] = newItems[sourceIndex];
+						    else
+							    _items.Insert(sourceIndex, newItems[sourceIndex]);
+					    }
+
+					    for (int index = originalCount - 1; index >= sourceIndex; index--)
+					    {
+						    _items.RemoveAt(index);
+					    }
+				    }
+			    }
+
+			    _resuming = false;
+
+                Utils.postHandleChange(
+                    ref _handledEventSender,
+                    ref _handledEventArgs,
+                    _deferredProcessings,
+                    ref _isConsistent,
+                    this);
+            }
+            else //if (_resumeType == CollectionPausingResumeType.Reset)
+            {
+                initializeFromSource();
+            }
 
             Utils.postHandleChange(
                 ref _handledEventSender,
@@ -108,6 +145,7 @@ namespace ObservableComputations
 		private bool _lastProcessedSourceChangeMarker;
 		private bool _isPaused;
 		private bool _resuming;
+        private CollectionPausingResumeType _resumeType;
 
         private ISourceCollectionChangeProcessor _thisAsSourceCollectionChangeProcessor;
 
@@ -395,4 +433,10 @@ namespace ObservableComputations
 			EventArgs = eventArgs;
 		}
 	}
+
+    public enum CollectionPausingResumeType
+    {
+        Reset,
+        ReplayChanges
+    }
 }

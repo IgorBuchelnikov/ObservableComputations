@@ -36,6 +36,7 @@ namespace ObservableComputations
 
 		private void getValueExpressionWatcherOnValueChanged(ExpressionWatcher expressionWatcher, object sender, EventArgs eventArgs)
         {
+            Utils.processExpressionWatcherNestedComputings(expressionWatcher, this);
             Utils.processChange(
                 sender, 
                 eventArgs, 
@@ -76,6 +77,7 @@ namespace ObservableComputations
         {
             Utils.initializeNestedComputings(_nestedComputings, this);
             _getValueExpressionWatcher = new ExpressionWatcher(_expressionInfo);
+            Utils.initializeExpressionWatcherCurrentComputings(_getValueExpressionWatcher, _expressionInfo._callCount, this);
             _getValueExpressionWatcher.ValueChanged = getValueExpressionWatcherOnValueChanged;
             setValue(getResult());
         }
@@ -84,6 +86,7 @@ namespace ObservableComputations
         {
             _getValueExpressionWatcher.Dispose();
             EventUnsubscriber.QueueSubscriptions(_getValueExpressionWatcher._propertyChangedEventSubscriptions, _getValueExpressionWatcher._methodChangedEventSubscriptions);
+            Utils.RemoveDownstreamConsumedComputing(_getValueExpressionWatcher, this);            
             Utils.uninitializeNestedComputings(_nestedComputings, this);
             setValue(default);
         }

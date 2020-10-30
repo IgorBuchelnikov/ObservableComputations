@@ -196,13 +196,12 @@ namespace ObservableComputations
             sourcePositions = new RangePositions<TItemInfo>(itemInfos);
         }
 
-        internal static void changeSource<TSource, TSourceAsList>(
-            ref TSource source,
+        internal static void changeSource<TSource, TSourceAsList>(ref TSource source,
             IReadScalar<INotifyCollectionChanged> sourceScalar,
             List<IComputingInternal> downstreamConsumedComputings,
             List<Consumer> consumers,
-            IComputingInternal computing, 
-            ref TSourceAsList sourceAsList,
+            IComputingInternal computing,
+            out TSourceAsList sourceAsList,
             bool setSourceAsList)
             where TSource : INotifyCollectionChanged where TSourceAsList : class
         {
@@ -514,10 +513,9 @@ namespace ObservableComputations
                 ref handledEventArgs, canProcessNow, computing);
         }
 
-        private static void processExpressionWatcherNestedComputings<TCanProcessSourceItemChange>(
+        internal static void processExpressionWatcherNestedComputings(
             ExpressionWatcher expressionWatcher, 
-            TCanProcessSourceItemChange thisAsCanProcessSourceItemChange)
-            where TCanProcessSourceItemChange : ISourceItemChangeProcessor
+            IComputingInternal computing)
         {
             if (!expressionWatcher._computingsChanged) return;
 
@@ -553,10 +551,10 @@ namespace ObservableComputations
                 }
 
                 if (oldComputing != null && !oldExistsInNew)
-                    oldComputing.RemoveDownstreamConsumedComputing(thisAsCanProcessSourceItemChange);
+                    oldComputing.RemoveDownstreamConsumedComputing(computing);
 
                 if (newComputing != null && !newExistsInOld)
-                    newComputing.AddDownstreamConsumedComputing(thisAsCanProcessSourceItemChange);
+                    newComputing.AddDownstreamConsumedComputing(computing);
             }
         }
 
@@ -647,6 +645,14 @@ namespace ObservableComputations
                 expressionСallCount = expressionInfo._callCount;
             }
 
+            initializeExpressionWatcherCurrentComputings(watcher, expressionСallCount, current);
+        }
+
+        internal static void initializeExpressionWatcherCurrentComputings(
+            ExpressionWatcher watcher, 
+            int expressionСallCount, 
+            IComputingInternal current)
+        {
             for (var computingIndex = 0; computingIndex < expressionСallCount; computingIndex++)
                 watcher._currentComputings[computingIndex]?.AddDownstreamConsumedComputing(current);
         }

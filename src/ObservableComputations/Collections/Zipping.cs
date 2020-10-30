@@ -188,10 +188,10 @@ namespace ObservableComputations
             }
 
             Utils.changeSource(ref _leftSource, _leftSourceScalar, _downstreamConsumedComputings, _consumers, this,
-                ref _leftSourceAsList, true);
+                out _leftSourceAsList, true);
 
             Utils.changeSource(ref _rightSource, _rightSourceScalar, _downstreamConsumedComputings, _consumers, this,
-                ref _rightSourceAsList, true);
+                out _rightSourceAsList, true);
 
 
 			if (_leftSourceAsList != null && _rightSourceAsList != null && _isActive)

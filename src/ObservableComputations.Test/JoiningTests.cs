@@ -105,7 +105,7 @@ namespace ObservableComputations.Test
 				trace(testNum = "1", ids1, ids2, newItemId, index, indexOld, indexNew);
 				items1 = getObservableCollection(ids1);
 				items2 = getObservableCollection(ids2);
-				joining = items1.Joining(items2, (item1, item2) => item1 != null && item2 != null && item1.Id == item2.Id).IsNeededFor(consumer);
+				joining = items1.Joining(items2, (item1, item2) => item1 != null && item2 != null && item1.Id == item2.Id).For(consumer);
 				joining.ValidateConsistency();
                 consumer.Dispose();
 
@@ -114,7 +114,7 @@ namespace ObservableComputations.Test
 					trace(testNum = "2", ids1, ids2, newItemId, index, indexOld, indexNew);
 					items1 = getObservableCollection(ids1);
 					items2 = getObservableCollection(ids2);
-					joining = items1.Joining(items2, (item1, item2) => item1 != null && item2 != null && item1.Id == item2.Id).IsNeededFor(consumer);
+					joining = items1.Joining(items2, (item1, item2) => item1 != null && item2 != null && item1.Id == item2.Id).For(consumer);
 					items1.RemoveAt(index);
 					joining.ValidateConsistency();
                     consumer.Dispose();
@@ -125,7 +125,7 @@ namespace ObservableComputations.Test
 					trace(testNum = "3", ids1, ids2, newItemId, index, indexOld, indexNew);
 					items1 = getObservableCollection(ids1);
 					items2 = getObservableCollection(ids2);
-					joining = items1.Joining(items2, (item1, item2) => item1 != null && item2 != null && item1.Id == item2.Id).IsNeededFor(consumer);
+					joining = items1.Joining(items2, (item1, item2) => item1 != null && item2 != null && item1.Id == item2.Id).For(consumer);
 					items2.RemoveAt(index);
 					joining.ValidateConsistency();
                     consumer.Dispose();
@@ -138,7 +138,7 @@ namespace ObservableComputations.Test
 						trace(testNum = "4", ids1, ids2, newItemId, index, indexOld, indexNew);
 						items1 = getObservableCollection(ids1);
 						items2 = getObservableCollection(ids2);
-						joining = items1.Joining(items2, (item1, item2) => item1 != null && item2 != null && item1.Id == item2.Id).IsNeededFor(consumer);
+						joining = items1.Joining(items2, (item1, item2) => item1 != null && item2 != null && item1.Id == item2.Id).For(consumer);
 						items1.Insert(index, new Item(newItemId));
 						joining.ValidateConsistency();
                         consumer.Dispose();
@@ -153,7 +153,7 @@ namespace ObservableComputations.Test
 						trace(testNum = "5", ids1, ids2, newItemId, index, indexOld, indexNew);
 						items1 = getObservableCollection(ids1);
 						items2 = getObservableCollection(ids2);
-						joining = items1.Joining(items2, (item1, item2) => item1 != null && item2 != null && item1.Id == item2.Id).IsNeededFor(consumer);
+						joining = items1.Joining(items2, (item1, item2) => item1 != null && item2 != null && item1.Id == item2.Id).For(consumer);
 						items2.Insert(index, new Item(newItemId));
 						joining.ValidateConsistency();
                         consumer.Dispose();
@@ -167,7 +167,7 @@ namespace ObservableComputations.Test
 						trace(testNum = "6", ids1, ids2, newItemId, index, indexOld, indexNew);
 						items1 = getObservableCollection(ids1);
 						items2 = getObservableCollection(ids2);
-						joining = items1.Joining(items2, (item1, item2) => item1 != null && item2 != null && item1.Id == item2.Id).IsNeededFor(consumer);
+						joining = items1.Joining(items2, (item1, item2) => item1 != null && item2 != null && item1.Id == item2.Id).For(consumer);
 						items1[index] = new Item(newItemId);
 						joining.ValidateConsistency();
                         consumer.Dispose();
@@ -179,7 +179,7 @@ namespace ObservableComputations.Test
                         items1 = getObservableCollection(ids1);
                         if (items1[index] == null) continue;                      
                         items2 = getObservableCollection(ids2);
-                        joining = items1.Joining(items2, (item1, item2) => item1 != null && item2 != null && item1.Id == item2.Id).IsNeededFor(consumer);
+                        joining = items1.Joining(items2, (item1, item2) => item1 != null && item2 != null && item1.Id == item2.Id).For(consumer);
                         items1[index].Id = newItemId;
                         joining.ValidateConsistency();
                         consumer.Dispose();
@@ -193,7 +193,7 @@ namespace ObservableComputations.Test
 						trace(testNum = "7", ids1, ids2, newItemId, index, indexOld, indexNew);
 						items1 = getObservableCollection(ids1);
 						items2 = getObservableCollection(ids2);
-						joining = items1.Joining(items2, (item1, item2) => item1 != null && item2 != null && item1.Id == item2.Id).IsNeededFor(consumer);
+						joining = items1.Joining(items2, (item1, item2) => item1 != null && item2 != null && item1.Id == item2.Id).For(consumer);
 						items2[index] = new Item(newItemId);
 						joining.ValidateConsistency();
                         consumer.Dispose();
@@ -205,7 +205,7 @@ namespace ObservableComputations.Test
                         items1 = getObservableCollection(ids1);
                         items2 = getObservableCollection(ids2);
                         if (items2[index] == null) continue; 
-                        joining = items1.Joining(items2, (item1, item2) => item1 != null && item2 != null && item1.Id == item2.Id).IsNeededFor(consumer);
+                        joining = items1.Joining(items2, (item1, item2) => item1 != null && item2 != null && item1.Id == item2.Id).For(consumer);
                         items2[index].Id = newItemId;
                         joining.ValidateConsistency();
                         consumer.Dispose();
@@ -219,7 +219,7 @@ namespace ObservableComputations.Test
 						trace(testNum = "8", ids1, ids2, newItemId, index, indexOld, indexNew);
 						items1 = getObservableCollection(ids1);
 						items2 = getObservableCollection(ids2);
-						joining = items1.Joining(items2, (item1, item2) => item1 != null && item2 != null && item1.Id == item2.Id).IsNeededFor(consumer);
+						joining = items1.Joining(items2, (item1, item2) => item1 != null && item2 != null && item1.Id == item2.Id).For(consumer);
 						items1.Move(indexOld, indexNew);
 						joining.ValidateConsistency();
                         consumer.Dispose();
@@ -233,7 +233,7 @@ namespace ObservableComputations.Test
 						trace(testNum = "9", ids1, ids2, newItemId, index, indexOld, indexNew);
 						items1 = getObservableCollection(ids1);
 						items2 = getObservableCollection(ids2);
-						joining = items1.Joining(items2, (item1, item2) => item1 != null && item2 != null && item1.Id == item2.Id).IsNeededFor(consumer);
+						joining = items1.Joining(items2, (item1, item2) => item1 != null && item2 != null && item1.Id == item2.Id).For(consumer);
 						items2.Move(indexOld, indexNew);
 						joining.ValidateConsistency();
                         consumer.Dispose();

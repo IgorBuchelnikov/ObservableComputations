@@ -441,7 +441,7 @@ namespace ObservableComputations
             }
         }
 
-        internal static void ProcessSourceItemChange<TSourceItem, TCanProcessSourceItemChange>(
+        internal static void processSourceItemChange<TSourceItem, TCanProcessSourceItemChange>(
             ExpressionWatcher expressionWatcher,
             object sender,
             EventArgs eventArgs,
@@ -475,7 +475,7 @@ namespace ObservableComputations
                 ref handledEventArgs, canProcessNow, computing);
         }
 
-        internal static void ProcessSourceItemChange<TSourceItem1, TSourceItem2, TCanProcessSourceItemChange>(
+        internal static void processSourceItemChange<TSourceItem1, TSourceItem2, TCanProcessSourceItemChange>(
             ExpressionWatcher expressionWatcher,
             object sender, 
             EventArgs eventArgs,
@@ -673,7 +673,7 @@ namespace ObservableComputations
             orderingValues = new List<TOrderingValue>(sourceCapacity);
         }
 
-        internal static void AddComsumer(
+        internal static void addComsumer(
             Consumer addingConsumer,
             List<Consumer> consumers,
             List<IComputingInternal> downstreamConsumedComputings,
@@ -719,7 +719,7 @@ namespace ObservableComputations
             current, false);
         }
 
-        internal static void RemoveConsumer(
+        internal static void removeConsumer(
             Consumer removingConsumer, 
             List<Consumer> consumers, 
             List<IComputingInternal> downstreamConsumedComputings, 
@@ -742,7 +742,7 @@ namespace ObservableComputations
                         current.Uninitialize();
                         current.OnPropertyChanged(IsActivePropertyChangedEventArgs);  
                         // ReSharper disable once AccessToModifiedClosure
-                        ClearDefferedProcessings(deferredProcessings, 0);                        
+                        clearDefferedProcessings(deferredProcessings, 0);                        
                     }
                 },
                 ref isConsistent,
@@ -753,7 +753,7 @@ namespace ObservableComputations
                 current, false);
         }
 
-        internal static void AddDownstreamConsumedComputing(
+        internal static void addDownstreamConsumedComputing(
             IComputingInternal computing,
             List<IComputingInternal> downstreamConsumedComputings,
             List<Consumer> consumers,
@@ -787,7 +787,7 @@ namespace ObservableComputations
                 current, false);
         }
 
-        internal static void RemoveDownstreamConsumedComputing(
+        internal static void removeDownstreamConsumedComputing(
             IComputingInternal computing, 
             List<IComputingInternal> downstreamConsumedComputings, 
             IComputingInternal current, 
@@ -810,7 +810,7 @@ namespace ObservableComputations
                         current.Uninitialize();
                         current.OnPropertyChanged(IsActivePropertyChangedEventArgs);
                         // ReSharper disable once AccessToModifiedClosure
-                        ClearDefferedProcessings(deferredProcessings, 0);
+                        clearDefferedProcessings(deferredProcessings, 0);
                     }
                     else
                         current.RemoveFromUpstreamComputings(computing);
@@ -859,13 +859,13 @@ namespace ObservableComputations
             }
         }
 
-        internal static void HandleSourcePropertyChanged(PropertyChangedEventArgs propertyChangedEventArgs, ref bool indexerPropertyChangedEventRaised)
+        internal static void handleSourcePropertyChanged(PropertyChangedEventArgs propertyChangedEventArgs, ref bool indexerPropertyChangedEventRaised)
         {
             if (propertyChangedEventArgs.PropertyName == "Item[]")
                 indexerPropertyChangedEventRaised = true;
         }
 
-        internal static void ClearDefferedProcessings(Queue<IProcessable>[] deferredProcessings, int fromIndex = 1)
+        internal static void clearDefferedProcessings(Queue<IProcessable>[] deferredProcessings, int fromIndex = 1)
         {
             if (deferredProcessings == null) return;
 
@@ -918,7 +918,7 @@ namespace ObservableComputations
             if (isConsistent)
             {
                 if (e.Action == NotifyCollectionChangedAction.Reset)
-                    ClearDefferedProcessings(deferredProcessings);
+                    clearDefferedProcessings(deferredProcessings);
 
                 handledEventSender = sender;
                 handledEventArgs = e;
@@ -992,7 +992,7 @@ namespace ObservableComputations
             if (expressionContainsParametrizedObservableComputationsCalls)
                 itemInfoRemoveDownstreamConsumedComputing(nestedComputings, current);
 
-            RemoveDownstreamConsumedComputing(watcher, current);
+            removeDownstreamConsumedComputing(watcher, current);
         }
 
         internal static void processResetChange(
@@ -1076,45 +1076,45 @@ namespace ObservableComputations
             }
         }
 
-        internal static void RemoveDownstreamConsumedComputing(ExpressionWatcher watcher, IComputingInternal current)
+        internal static void removeDownstreamConsumedComputing(ExpressionWatcher watcher, IComputingInternal current)
         {
             int currentComputingsLength = watcher._currentComputings.Length;
             for (var computingIndex = 0; computingIndex < currentComputingsLength; computingIndex++)
                 watcher._currentComputings[computingIndex]?.RemoveDownstreamConsumedComputing(current);
         }
 
-        internal static void RemoveDownstreamConsumedComputing<TItemInfo>(List<TItemInfo> itemInfos, IComputingInternal current) where TItemInfo : ExpressionItemInfo
+        internal static void removeDownstreamConsumedComputing<TItemInfo>(List<TItemInfo> itemInfos, IComputingInternal current) where TItemInfo : ExpressionItemInfo
         {
             int itemInfosCount = itemInfos.Count;
             for (int index = 0; index < itemInfosCount; index++)
             {
-                RemoveDownstreamConsumedComputing(itemInfos[index].ExpressionWatcher, current);
+                removeDownstreamConsumedComputing(itemInfos[index].ExpressionWatcher, current);
             }
         }
 
-        internal static void RemoveDownstreamConsumedComputing<TKey, TValue>(List<KeyValueExpressionItemInfo<TKey, TValue>> itemInfos, IComputingInternal current)
+        internal static void removeDownstreamConsumedComputing<TKey, TValue>(List<KeyValueExpressionItemInfo<TKey, TValue>> itemInfos, IComputingInternal current)
         {
             int itemInfosCount = itemInfos.Count;
             for (int index = 0; index < itemInfosCount; index++)
             {
-                RemoveDownstreamConsumedComputing(itemInfos[index].KeyExpressionWatcher, current);
-                RemoveDownstreamConsumedComputing(itemInfos[index].ValueExpressionWatcher, current);
+                removeDownstreamConsumedComputing(itemInfos[index].KeyExpressionWatcher, current);
+                removeDownstreamConsumedComputing(itemInfos[index].ValueExpressionWatcher, current);
             }
         }
 
-        internal static void AddDownstreamConsumedComputing(ExpressionWatcher watcher, IComputingInternal current)
+        internal static void addDownstreamConsumedComputing(ExpressionWatcher watcher, IComputingInternal current)
         {
             int currentComputingsLength = watcher._currentComputings.Length;
             for (var computingIndex = 0; computingIndex < currentComputingsLength; computingIndex++)
                 watcher._currentComputings[computingIndex]?.AddDownstreamConsumedComputing(current);
         }
 
-        internal static void AddDownstreamConsumedComputing<TItemInfo>(List<TItemInfo> itemInfos, IComputingInternal current) where TItemInfo : ExpressionItemInfo
+        internal static void addDownstreamConsumedComputing<TItemInfo>(List<TItemInfo> itemInfos, IComputingInternal current) where TItemInfo : ExpressionItemInfo
         {
             int itemInfosCount = itemInfos.Count;
             for (int index = 0; index < itemInfosCount; index++)
             {
-                AddDownstreamConsumedComputing(itemInfos[index].ExpressionWatcher, current);
+                addDownstreamConsumedComputing(itemInfos[index].ExpressionWatcher, current);
             }
         }
 

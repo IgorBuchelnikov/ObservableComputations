@@ -257,7 +257,7 @@ namespace ObservableComputations
             if (_sourceInitialized)
             {
                 Utils.disposeExpressionItemInfos(_itemInfos, _predicateExpressionСallCount, this);
-                Utils.RemoveDownstreamConsumedComputing(_itemInfos, this);
+                Utils.removeDownstreamConsumedComputing(_itemInfos, this);
 
                 //int leftCapacity = Utils.getCapacity(_leftSourceScalar, _leftSource);
                 Utils.initializeItemInfos(
@@ -712,7 +712,7 @@ namespace ObservableComputations
         void IFiltering<JoinPair<TLeftSourceItem, TRightSourceItem>>.expressionWatcher_OnValueChanged(ExpressionWatcher expressionWatcher, object sender,
             EventArgs eventArgs)
         {
-            Utils.ProcessSourceItemChange(
+            Utils.processSourceItemChange(
                 expressionWatcher, 
                 sender, 
                 eventArgs, 

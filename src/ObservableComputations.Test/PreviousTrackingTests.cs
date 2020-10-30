@@ -44,7 +44,7 @@ namespace ObservableComputations.Test
 		{
 			bool raised = false;
 			Order order = new Order();
-			PreviousTracking<string> computing = new PreviousTracking<string>(new Computing<string>(() => order.Num)).IsNeededFor(consumer);
+			PreviousTracking<string> computing = new PreviousTracking<string>(new Computing<string>(() => order.Num)).For(consumer);
 			Assert.IsFalse(computing.IsEverChanged);
 			Assert.IsTrue(computing.PreviousValue == null);
 			Assert.IsTrue(computing.Value == null);

@@ -107,7 +107,7 @@ namespace ObservableComputations.Test
 			{
 				trace(testNum = "1", orderNums, index, orderNum, indexOld, indexNew);
 				items = getObservableCollection(orderNums);
-				grouping = items.Grouping(i => i.Key).IsNeededFor(consumer);
+				grouping = items.Grouping(i => i.Key).For(consumer);
 				grouping.ValidateConsistency();				
 				consumer.Dispose();
 
@@ -115,7 +115,7 @@ namespace ObservableComputations.Test
 				{
 					trace(testNum = "2", orderNums, index, orderNum, indexOld, indexNew);
 					items = getObservableCollection(orderNums);
-					Grouping<Item, int?> grouping1 = items.Grouping(i => i.Key).IsNeededFor(consumer);
+					Grouping<Item, int?> grouping1 = items.Grouping(i => i.Key).For(consumer);
 					items.RemoveAt(index);
 					grouping1.ValidateConsistency();					
 					consumer.Dispose();
@@ -127,7 +127,7 @@ namespace ObservableComputations.Test
 					{
 						trace(testNum = "8", orderNums, index, orderNum, indexOld, indexNew);
 						items = getObservableCollection(orderNums);
-						Grouping<Item, int?> grouping1 = items.Grouping(i => i.Key).IsNeededFor(consumer);
+						Grouping<Item, int?> grouping1 = items.Grouping(i => i.Key).For(consumer);
 						items.Insert(index, new Item(orderNum));
 						grouping1.ValidateConsistency();						
 						consumer.Dispose();
@@ -138,7 +138,7 @@ namespace ObservableComputations.Test
 				{
 					trace(testNum = "6", orderNums, index, orderNum, indexOld, indexNew);
 					items = getObservableCollection(orderNums);
-					Grouping<Item, int?> grouping3 = items.Grouping(i => i.Key).IsNeededFor(consumer);
+					Grouping<Item, int?> grouping3 = items.Grouping(i => i.Key).For(consumer);
 					items[index] = new Item(null);
 					grouping3.ValidateConsistency();					
 					consumer.Dispose();
@@ -147,7 +147,7 @@ namespace ObservableComputations.Test
 					{
 						trace(testNum = "3", orderNums, index, orderNum, indexOld, indexNew);
 						items = getObservableCollection(orderNums);
-						Grouping<Item, int?> grouping2 = items.Grouping(i => i.Key).IsNeededFor(consumer);
+						Grouping<Item, int?> grouping2 = items.Grouping(i => i.Key).For(consumer);
 						items[index] = new Item(orderNum);
 						grouping2.ValidateConsistency();						
 						consumer.Dispose();
@@ -159,7 +159,7 @@ namespace ObservableComputations.Test
 				{
 					trace(testNum = "4", orderNums, index, orderNum, indexOld, indexNew);
 					items = getObservableCollection(orderNums);
-					Grouping<Item, int?> grouping1 = items.Grouping(i => i.Key).IsNeededFor(consumer);
+					Grouping<Item, int?> grouping1 = items.Grouping(i => i.Key).For(consumer);
 					items[index].Key = null;
 					grouping1.ValidateConsistency();					
 					consumer.Dispose();
@@ -168,7 +168,7 @@ namespace ObservableComputations.Test
 					{
 						trace(testNum = "5", orderNums, index, orderNum, indexOld, indexNew);
 						items = getObservableCollection(orderNums);
-						Grouping<Item, int?> grouping2 = items.Grouping(i => i.Key).IsNeededFor(consumer);
+						Grouping<Item, int?> grouping2 = items.Grouping(i => i.Key).For(consumer);
 						items[index].Key = orderNum;
 						grouping2.ValidateConsistency();						
 						consumer.Dispose();
@@ -181,7 +181,7 @@ namespace ObservableComputations.Test
 					{
 						trace(testNum = "7", orderNums, index, orderNum, indexOld, indexNew);
 						items = getObservableCollection(orderNums);
-						Grouping<Item, int?> grouping2 = items.Grouping(i => i.Key).IsNeededFor(consumer);
+						Grouping<Item, int?> grouping2 = items.Grouping(i => i.Key).For(consumer);
 						items.Move(indexOld, indexNew);
 						grouping2.ValidateConsistency();						
 						consumer.Dispose();

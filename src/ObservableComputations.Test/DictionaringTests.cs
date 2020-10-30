@@ -104,7 +104,7 @@ namespace ObservableComputations.Test
 			{
 				trace(testNum = "1", values, index, newKey, newValue, indexOld, indexNew);
 				items = getObservableCollection(values);
-				dictionaring = items.Dictionaring(i => i.Key, i => i.Value).IsNeededFor(consumer);
+				dictionaring = items.Dictionaring(i => i.Key, i => i.Value).For(consumer);
 				dictionaring.ValidateConsistency();				
 				consumer.Dispose();
 
@@ -112,7 +112,7 @@ namespace ObservableComputations.Test
 				{
 					trace(testNum = "2", values, index, newKey, newValue, indexOld, indexNew);
 					items = getObservableCollection(values);
-					Dictionaring<Item, int, int> dictionaring1 = items.Dictionaring(i => i.Key, i => i.Value).IsNeededFor(consumer);
+					Dictionaring<Item, int, int> dictionaring1 = items.Dictionaring(i => i.Key, i => i.Value).For(consumer);
 					items.RemoveAt(index);
 					dictionaring1.ValidateConsistency();					
 					consumer.Dispose();
@@ -124,7 +124,7 @@ namespace ObservableComputations.Test
 					{
 						trace(testNum = "3", values, index, newKey, newValue, indexOld, indexNew);
 						items = getObservableCollection(values);
-						Dictionaring<Item, int, int> dictionaring1 = items.Dictionaring(i => i.Key, i => i.Value).IsNeededFor(consumer);
+						Dictionaring<Item, int, int> dictionaring1 = items.Dictionaring(i => i.Key, i => i.Value).For(consumer);
 						items.Insert(index, new Item(){Key = values.Length, Value = newValue});
 						dictionaring1.ValidateConsistency();						
 						consumer.Dispose();
@@ -137,14 +137,14 @@ namespace ObservableComputations.Test
 					{
 						trace(testNum = "4", values, index, newKey, newValue, indexOld, indexNew);
 						items = getObservableCollection(values);
-						Dictionaring<Item, int, int> dictionaring2 = items.Dictionaring(i => i.Key, i => i.Value).IsNeededFor(consumer);
+						Dictionaring<Item, int, int> dictionaring2 = items.Dictionaring(i => i.Key, i => i.Value).For(consumer);
 						items[index] = new Item(){Key = values.Length, Value = newValue};
 						dictionaring2.ValidateConsistency();						
 						consumer.Dispose();
 
 						trace(testNum = "5", values, index, newKey, newValue, indexOld, indexNew);
 						items = getObservableCollection(values);
-						dictionaring2 = items.Dictionaring(i => i.Key, i => i.Value).IsNeededFor(consumer);
+						dictionaring2 = items.Dictionaring(i => i.Key, i => i.Value).For(consumer);
 						items[index] = new Item(){Key = items[index].Key, Value = newValue};
 						dictionaring2.ValidateConsistency();						
 						consumer.Dispose();
@@ -158,14 +158,14 @@ namespace ObservableComputations.Test
 					{
 						trace(testNum = "6", values, index, newKey, newValue, indexOld, indexNew);
 						items = getObservableCollection(values);
-						Dictionaring<Item, int, int> dictionaring2 = items.Dictionaring(i => i.Key, i => i.Value).IsNeededFor(consumer);
+						Dictionaring<Item, int, int> dictionaring2 = items.Dictionaring(i => i.Key, i => i.Value).For(consumer);
 						items[index].Key = values.Length;
 						dictionaring2.ValidateConsistency();						
 						consumer.Dispose();
 
 						trace(testNum = "7", values, index, newKey, newValue, indexOld, indexNew);
 						items = getObservableCollection(values);
-						dictionaring2 = items.Dictionaring(i => i.Key, i => i.Value).IsNeededFor(consumer);
+						dictionaring2 = items.Dictionaring(i => i.Key, i => i.Value).For(consumer);
 						items[index].Value = newValue;
 						dictionaring2.ValidateConsistency();						
 						consumer.Dispose();
@@ -179,7 +179,7 @@ namespace ObservableComputations.Test
 					{
 						trace(testNum = "3", values, index, newKey, newValue, indexOld, indexNew);
 						items = getObservableCollection(values);
-						Dictionaring<Item, int, int> dictionaring2 = items.Dictionaring(i => i.Key, i => i.Value).IsNeededFor(consumer);
+						Dictionaring<Item, int, int> dictionaring2 = items.Dictionaring(i => i.Key, i => i.Value).For(consumer);
 						items.Move(indexOld, indexNew);
 						dictionaring2.ValidateConsistency();						
 						consumer.Dispose();

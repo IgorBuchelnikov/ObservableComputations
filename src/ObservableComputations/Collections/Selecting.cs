@@ -95,7 +95,7 @@ namespace ObservableComputations
             if (_sourceInitialized)
             {
                 Utils.disposeExpressionItemInfos(_itemInfos, _selectorExpressionСallCount, this);
-                Utils.RemoveDownstreamConsumedComputing(_itemInfos, this);
+                Utils.removeDownstreamConsumedComputing(_itemInfos, this);
 
                 Utils.disposeSource(
                     _sourceScalar, 
@@ -234,7 +234,7 @@ namespace ObservableComputations
         {
             (_source as IComputingInternal)?.AddDownstreamConsumedComputing(computing);
             (_sourceScalar as IComputingInternal)?.AddDownstreamConsumedComputing(computing);
-            Utils.AddDownstreamConsumedComputing(_itemInfos, this);
+            Utils.addDownstreamConsumedComputing(_itemInfos, this);
         }
 
 
@@ -242,12 +242,12 @@ namespace ObservableComputations
         {
             (_source as IComputingInternal)?.RemoveDownstreamConsumedComputing(computing);
             (_sourceScalar as IComputingInternal)?.RemoveDownstreamConsumedComputing(computing);
-            Utils.RemoveDownstreamConsumedComputing(_itemInfos, this);
+            Utils.removeDownstreamConsumedComputing(_itemInfos, this);
         }
 
         private void expressionWatcher_OnValueChanged(ExpressionWatcher expressionWatcher, object sender, EventArgs eventArgs)
 		{
-            Utils.ProcessSourceItemChange(
+            Utils.processSourceItemChange(
                 expressionWatcher, 
                 sender, 
                 eventArgs, 

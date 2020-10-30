@@ -102,7 +102,7 @@ namespace ObservableComputations.Test
 			{
 				trace(testNum = "1", itemsCounts, index, itemsCount, indexOld, indexNew);
 				items = getObservableCollections(itemsCounts);
-				selectingMany = items.SelectingMany<Item, Item>(i => i.Items).IsNeededFor(consumer);
+				selectingMany = items.SelectingMany<Item, Item>(i => i.Items).For(consumer);
 				selectingMany.ValidateConsistency();				
 				consumer.Dispose();
 
@@ -110,7 +110,7 @@ namespace ObservableComputations.Test
 				{
 					trace(testNum = "2", itemsCounts, index, itemsCount, indexOld, indexNew);
 					items = getObservableCollections(itemsCounts);
-					SelectingMany<Item, Item> concating1 = items.SelectingMany<Item, Item>(i => i.Items).IsNeededFor(consumer);
+					SelectingMany<Item, Item> concating1 = items.SelectingMany<Item, Item>(i => i.Items).For(consumer);
 					items.RemoveAt(index);
 					concating1.ValidateConsistency();					
 					consumer.Dispose();
@@ -122,7 +122,7 @@ namespace ObservableComputations.Test
 					{
 						trace(testNum = "11", itemsCounts, index, itemsCount, indexOld, indexNew);
 						items = getObservableCollections(itemsCounts);
-						SelectingMany<Item, Item> concating2 = items.SelectingMany<Item, Item>(i => i.Items).IsNeededFor(consumer);
+						SelectingMany<Item, Item> concating2 = items.SelectingMany<Item, Item>(i => i.Items).For(consumer);
 						items.Insert(index, getObservableCollection(itemsCount));
 						concating2.ValidateConsistency();						
 						consumer.Dispose();
@@ -133,7 +133,7 @@ namespace ObservableComputations.Test
 				{
 					trace(testNum = "6", itemsCounts, index, itemsCount, indexOld, indexNew);
 					items = getObservableCollections(itemsCounts);
-					SelectingMany<Item, Item> concating3 = items.SelectingMany<Item, Item>(i => i.Items).IsNeededFor(consumer);
+					SelectingMany<Item, Item> concating3 = items.SelectingMany<Item, Item>(i => i.Items).For(consumer);
 					items[index] = new Item(){Items = new ObservableCollection<Item>()};
 					concating3.ValidateConsistency();					
 					consumer.Dispose();
@@ -142,7 +142,7 @@ namespace ObservableComputations.Test
 					{
 						trace(testNum = "3", itemsCounts, index, itemsCount, indexOld, indexNew);
 						items = getObservableCollections(itemsCounts);
-						SelectingMany<Item, Item> concating2 = items.SelectingMany<Item, Item>(i => i.Items).IsNeededFor(consumer);
+						SelectingMany<Item, Item> concating2 = items.SelectingMany<Item, Item>(i => i.Items).For(consumer);
 						items[index] = getObservableCollection(itemsCount);
 						concating2.ValidateConsistency();						
 						consumer.Dispose();
@@ -156,7 +156,7 @@ namespace ObservableComputations.Test
 					{
 						trace(testNum = "5", itemsCounts, index, itemsCount, indexOld, indexNew);
 						items = getObservableCollections(itemsCounts);
-						SelectingMany<Item, Item> concating2 = items.SelectingMany<Item, Item>(i => i.Items).IsNeededFor(consumer);
+						SelectingMany<Item, Item> concating2 = items.SelectingMany<Item, Item>(i => i.Items).For(consumer);
 						items[index] = getObservableCollection(itemsCount);
 						concating2.ValidateConsistency();						
 						consumer.Dispose();
@@ -170,7 +170,7 @@ namespace ObservableComputations.Test
 					{
 						trace(testNum = "6", itemsCounts, index, itemsCount, indexOld, indexNew);
 						items = getObservableCollections(itemsCounts);
-						SelectingMany<Item, Item> concating2 = items.SelectingMany<Item, Item>(i => i.Items).IsNeededFor(consumer);
+						SelectingMany<Item, Item> concating2 = items.SelectingMany<Item, Item>(i => i.Items).For(consumer);
 						items.Move(indexOld, indexNew);
 						concating2.ValidateConsistency();						
 						consumer.Dispose();
@@ -186,7 +186,7 @@ namespace ObservableComputations.Test
 					{
 						trace(testNum = "7", itemsCounts, index, itemsCount, indexOld, indexNew);
 						items = getObservableCollections(itemsCounts);
-						SelectingMany<Item, Item> concating1 = items.SelectingMany<Item, Item>(i => i.Items).IsNeededFor(consumer);
+						SelectingMany<Item, Item> concating1 = items.SelectingMany<Item, Item>(i => i.Items).For(consumer);
 						items[index1].Items.RemoveAt(index);
 						concating1.ValidateConsistency();						
 						consumer.Dispose();
@@ -196,7 +196,7 @@ namespace ObservableComputations.Test
 					{
 						trace(testNum = "12", itemsCounts, index, itemsCount, indexOld, indexNew);
 						items = getObservableCollections(itemsCounts);
-						SelectingMany<Item, Item> concating1 = items.SelectingMany<Item, Item>(i => i.Items).IsNeededFor(consumer);
+						SelectingMany<Item, Item> concating1 = items.SelectingMany<Item, Item>(i => i.Items).For(consumer);
 						items[index1].Items.Insert(index, new Item());
 						concating1.ValidateConsistency();						
 						consumer.Dispose();
@@ -206,14 +206,14 @@ namespace ObservableComputations.Test
 					{
 						trace(testNum = "4", itemsCounts, index, itemsCount, indexOld, indexNew);
 						items = getObservableCollections(itemsCounts);
-						SelectingMany<Item, Item> concating3 = items.SelectingMany<Item, Item>(i => i.Items).IsNeededFor(consumer);
+						SelectingMany<Item, Item> concating3 = items.SelectingMany<Item, Item>(i => i.Items).For(consumer);
 						items[index1].Items[index] = null;
 						concating3.ValidateConsistency();	
                         consumer.Dispose();
 
 						trace(testNum = "9", itemsCounts, index, itemsCount, indexOld, indexNew);
 						items = getObservableCollections(itemsCounts);
-						SelectingMany<Item, Item> concating2 = items.SelectingMany<Item, Item>(i => i.Items).IsNeededFor(consumer);
+						SelectingMany<Item, Item> concating2 = items.SelectingMany<Item, Item>(i => i.Items).For(consumer);
 						items[index1].Items[index] = new Item();
 						concating2.ValidateConsistency();						
 						consumer.Dispose();
@@ -225,7 +225,7 @@ namespace ObservableComputations.Test
 						{
 							trace(testNum = "10", itemsCounts, index, itemsCount, indexOld, indexNew);
 							items = getObservableCollections(itemsCounts);
-							SelectingMany<Item, Item> concating2 = items.SelectingMany<Item, Item>(i => i.Items).IsNeededFor(consumer);
+							SelectingMany<Item, Item> concating2 = items.SelectingMany<Item, Item>(i => i.Items).For(consumer);
 							items[index1].Items.Move(indexOld, indexNew);
 							concating2.ValidateConsistency();							
 							consumer.Dispose();

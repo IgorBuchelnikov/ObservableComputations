@@ -418,7 +418,7 @@ namespace ObservableComputations
 
 		private void expressionWatcher_OnValueChanged(ExpressionWatcher expressionWatcher, object sender, EventArgs eventArgs)
 		{
-            Utils.ProcessSourceItemChange(
+            Utils.processSourceItemChange(
                 expressionWatcher, 
                 sender, 
                 eventArgs, 
@@ -455,7 +455,7 @@ namespace ObservableComputations
 			if (_sourceInitialized)
 			{
                 Utils.disposeExpressionItemInfos(_itemInfos, _keySelectorExpressionСallCount, this);
-                Utils.RemoveDownstreamConsumedComputing(_itemInfos, this);
+                Utils.removeDownstreamConsumedComputing(_itemInfos, this);
 
                 Utils.disposeSource(
                     _sourceScalar, 

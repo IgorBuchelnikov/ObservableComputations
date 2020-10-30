@@ -48,7 +48,7 @@ namespace ObservableComputations.Test
 		{
 			ObservableCollection<Item> items = new ObservableCollection<Item>();
 
-			Appending<Item> appending = items.Appending(new Item()).IsNeededFor(consumer);
+			Appending<Item> appending = items.Appending(new Item()).For(consumer);
 			appending.ValidateConsistency();			
 			consumer.Dispose();
 		}
@@ -69,7 +69,7 @@ namespace ObservableComputations.Test
 				}
 			);
 
-			Appending<Item> appending = items.Appending(new Item()).IsNeededFor(consumer);
+			Appending<Item> appending = items.Appending(new Item()).For(consumer);
 			appending.ValidateConsistency();
 			items.RemoveAt(index);
 			appending.ValidateConsistency();			
@@ -87,7 +87,7 @@ namespace ObservableComputations.Test
 
 			);
 
-			Appending<Item> appending = items.Appending(new Item()).IsNeededFor(consumer);
+			Appending<Item> appending = items.Appending(new Item()).For(consumer);
 			appending.ValidateConsistency();
 			items.RemoveAt(0);
 			appending.ValidateConsistency();			
@@ -109,7 +109,7 @@ namespace ObservableComputations.Test
 				}
 			);
 
-			Appending<Item> appending = items.Appending(new Item()).IsNeededFor(consumer);
+			Appending<Item> appending = items.Appending(new Item()).For(consumer);
 			appending.ValidateConsistency();
 			items.Insert(index, new Item());
 			appending.ValidateConsistency();			
@@ -121,7 +121,7 @@ namespace ObservableComputations.Test
 		{
 			ObservableCollection<Item> items = new ObservableCollection<Item>();
 
-			Appending<Item> appending = items.Appending(new Item()).IsNeededFor(consumer);
+			Appending<Item> appending = items.Appending(new Item()).For(consumer);
 			appending.ValidateConsistency();
 			items.Insert(0, new Item());
 			appending.ValidateConsistency();			
@@ -144,7 +144,7 @@ namespace ObservableComputations.Test
 				}
 			);
 
-			Appending<Item> appending = items.Appending(new Item()).IsNeededFor(consumer);
+			Appending<Item> appending = items.Appending(new Item()).For(consumer);
 			appending.ValidateConsistency();
 			items.Move(oldIndex, newIndex);
 			appending.ValidateConsistency();		
@@ -166,7 +166,7 @@ namespace ObservableComputations.Test
 				}
 			);
 
-			Appending<Item> appending = items.Appending(new Item()).IsNeededFor(consumer);
+			Appending<Item> appending = items.Appending(new Item()).For(consumer);
 			appending.ValidateConsistency();
 			items[index] = new Item();
 			appending.ValidateConsistency();			

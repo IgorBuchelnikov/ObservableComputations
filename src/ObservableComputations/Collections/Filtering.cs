@@ -211,7 +211,7 @@ namespace ObservableComputations
 			if (_sourceInitialized)
 			{
                 Utils.disposeExpressionItemInfos(_itemInfos, _predicateExpressionСallCount, this);
-                Utils.RemoveDownstreamConsumedComputing(_itemInfos, this);
+                Utils.removeDownstreamConsumedComputing(_itemInfos, this);
 
                 _filteredPositions = new Positions<Position>(new List<Position>(_initialCapacity));	
 
@@ -395,7 +395,7 @@ namespace ObservableComputations
 
         void IFiltering<TSourceItem>.expressionWatcher_OnValueChanged(ExpressionWatcher expressionWatcher, object sender, EventArgs eventArgs)
 		{
-            Utils.ProcessSourceItemChange(
+            Utils.processSourceItemChange(
                 expressionWatcher, 
                 sender, 
                 eventArgs, 

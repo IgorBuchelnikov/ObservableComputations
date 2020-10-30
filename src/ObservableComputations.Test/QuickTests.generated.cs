@@ -29,7 +29,7 @@ namespace ObservableComputations.Test
 			(System.Func<int, int, int> aggregateFunc, System.Func<int, int, int> deaggregateFunc) funcs = ((i, r) => i + r, (i, r) => r - i);
 			Consumer consumer = new Consumer();
 			var testing = sourceScalar.Aggregating<int, int>(
-				funcs).IsNeededFor(consumer);
+				funcs).For(consumer);
 
 			void test()
 			{
@@ -95,7 +95,7 @@ namespace ObservableComputations.Test
 			(System.Func<int, int, int> aggregateFunc, System.Func<int, int, int> deaggregateFunc) funcs = ((i, r) => i + r, (i, r) => r - i);
 			Consumer consumer = new Consumer();
 			var testing = sourceScalar.Aggregating<int, int>(
-				funcs).IsNeededFor(consumer);
+				funcs).For(consumer);
 
 			void test()
 			{
@@ -161,7 +161,7 @@ namespace ObservableComputations.Test
 			(System.Func<int, int, int> aggregateFunc, System.Func<int, int, int> deaggregateFunc) funcs = ((i, r) => i + r, (i, r) => r - i);
 			Consumer consumer = new Consumer();
 			var testing = source.Aggregating<int, int>(
-				funcs).IsNeededFor(consumer);
+				funcs).For(consumer);
 
 			void test()
 			{
@@ -222,7 +222,7 @@ namespace ObservableComputations.Test
 			(System.Func<int, int, int> aggregateFunc, System.Func<int, int, int> deaggregateFunc) funcs = ((i, r) => i + r, (i, r) => r - i);
 			Consumer consumer = new Consumer();
 			var testing = source.Aggregating<int, int>(
-				funcs).IsNeededFor(consumer);
+				funcs).For(consumer);
 
 			void test()
 			{
@@ -286,7 +286,7 @@ namespace ObservableComputations.Test
 			System.Linq.Expressions.Expression<System.Func<Item, bool>> predicateExpression = i => i.Active;
 			Consumer consumer = new Consumer();
 			var testing = sourceScalar.AllComputing<Item>(
-				predicateExpression).IsNeededFor(consumer);
+				predicateExpression).For(consumer);
 
 			void test()
 			{
@@ -352,7 +352,7 @@ namespace ObservableComputations.Test
 			System.Linq.Expressions.Expression<System.Func<Item, bool>> predicateExpression = i => i.Active;
 			Consumer consumer = new Consumer();
 			var testing = sourceScalar.AllComputing<Item>(
-				predicateExpression).IsNeededFor(consumer);
+				predicateExpression).For(consumer);
 
 			void test()
 			{
@@ -418,7 +418,7 @@ namespace ObservableComputations.Test
 			System.Linq.Expressions.Expression<System.Func<Item, bool>> predicateExpression = i => i.Active;
 			Consumer consumer = new Consumer();
 			var testing = source.AllComputing<Item>(
-				predicateExpression).IsNeededFor(consumer);
+				predicateExpression).For(consumer);
 
 			void test()
 			{
@@ -479,7 +479,7 @@ namespace ObservableComputations.Test
 			System.Linq.Expressions.Expression<System.Func<Item, bool>> predicateExpression = i => i.Active;
 			Consumer consumer = new Consumer();
 			var testing = source.AllComputing<Item>(
-				predicateExpression).IsNeededFor(consumer);
+				predicateExpression).For(consumer);
 
 			void test()
 			{
@@ -543,7 +543,7 @@ namespace ObservableComputations.Test
 			System.Linq.Expressions.Expression<System.Func<Item, bool>> predicateExpression = i => i.Active;
 			Consumer consumer = new Consumer();
 			var testing = sourceScalar.AnyComputing<Item>(
-				predicateExpression).IsNeededFor(consumer);
+				predicateExpression).For(consumer);
 
 			void test()
 			{
@@ -609,7 +609,7 @@ namespace ObservableComputations.Test
 			System.Linq.Expressions.Expression<System.Func<Item, bool>> predicateExpression = i => i.Active;
 			Consumer consumer = new Consumer();
 			var testing = sourceScalar.AnyComputing<Item>(
-				predicateExpression).IsNeededFor(consumer);
+				predicateExpression).For(consumer);
 
 			void test()
 			{
@@ -675,7 +675,7 @@ namespace ObservableComputations.Test
 			System.Linq.Expressions.Expression<System.Func<Item, bool>> predicateExpression = i => i.Active;
 			Consumer consumer = new Consumer();
 			var testing = source.AnyComputing<Item>(
-				predicateExpression).IsNeededFor(consumer);
+				predicateExpression).For(consumer);
 
 			void test()
 			{
@@ -736,7 +736,7 @@ namespace ObservableComputations.Test
 			System.Linq.Expressions.Expression<System.Func<Item, bool>> predicateExpression = i => i.Active;
 			Consumer consumer = new Consumer();
 			var testing = source.AnyComputing<Item>(
-				predicateExpression).IsNeededFor(consumer);
+				predicateExpression).For(consumer);
 
 			void test()
 			{
@@ -800,7 +800,7 @@ namespace ObservableComputations.Test
 			Item item = new QuickTests.Item(1, true);
 			Consumer consumer = new Consumer();
 			var testing = source.Appending<Item>(
-				item).IsNeededFor(consumer);
+				item).For(consumer);
 
 			void test()
 			{
@@ -861,7 +861,7 @@ namespace ObservableComputations.Test
 			Item item = new QuickTests.Item(1, true);
 			Consumer consumer = new Consumer();
 			var testing = source.Appending<Item>(
-				item).IsNeededFor(consumer);
+				item).For(consumer);
 
 			void test()
 			{
@@ -922,7 +922,7 @@ namespace ObservableComputations.Test
 			Scalar<Item> itemScalar = getScalar<Item>(new QuickTests.Item(1, true));
 			Consumer consumer = new Consumer();
 			var testing = source.Appending<Item>(
-				itemScalar).IsNeededFor(consumer);
+				itemScalar).For(consumer);
 
 			void test()
 			{
@@ -988,7 +988,7 @@ namespace ObservableComputations.Test
 			Scalar<Item> itemScalar = getScalar<Item>(new QuickTests.Item(1, true));
 			Consumer consumer = new Consumer();
 			var testing = source.Appending<Item>(
-				itemScalar).IsNeededFor(consumer);
+				itemScalar).For(consumer);
 
 			void test()
 			{
@@ -1054,7 +1054,7 @@ namespace ObservableComputations.Test
 			Item item = new QuickTests.Item(1, true);
 			Consumer consumer = new Consumer();
 			var testing = sourceScalar.Appending<Item>(
-				item).IsNeededFor(consumer);
+				item).For(consumer);
 
 			void test()
 			{
@@ -1120,7 +1120,7 @@ namespace ObservableComputations.Test
 			Item item = new QuickTests.Item(1, true);
 			Consumer consumer = new Consumer();
 			var testing = sourceScalar.Appending<Item>(
-				item).IsNeededFor(consumer);
+				item).For(consumer);
 
 			void test()
 			{
@@ -1186,7 +1186,7 @@ namespace ObservableComputations.Test
 			Scalar<Item> itemScalar = getScalar<Item>(new QuickTests.Item(1, true));
 			Consumer consumer = new Consumer();
 			var testing = sourceScalar.Appending<Item>(
-				itemScalar).IsNeededFor(consumer);
+				itemScalar).For(consumer);
 
 			void test()
 			{
@@ -1257,7 +1257,7 @@ namespace ObservableComputations.Test
 			Scalar<Item> itemScalar = getScalar<Item>(new QuickTests.Item(1, true));
 			Consumer consumer = new Consumer();
 			var testing = sourceScalar.Appending<Item>(
-				itemScalar).IsNeededFor(consumer);
+				itemScalar).For(consumer);
 
 			void test()
 			{
@@ -1329,7 +1329,7 @@ namespace ObservableComputations.Test
 		{
 			IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar = getScalar<Selecting<Item, int>>(getItems().Selecting(i => i.Num));
 			Consumer consumer = new Consumer();
-			var testing = sourceScalar.Averaging<int, double>().IsNeededFor(consumer);
+			var testing = sourceScalar.Averaging<int, double>().For(consumer);
 
 			void test()
 			{
@@ -1393,7 +1393,7 @@ namespace ObservableComputations.Test
 		{
 			IReadScalar<ObservableCollection<int>> sourceScalar = getScalar<Selecting<Item, int>>(getItems().Selecting(i => i.Num));
 			Consumer consumer = new Consumer();
-			var testing = sourceScalar.Averaging<int, double>().IsNeededFor(consumer);
+			var testing = sourceScalar.Averaging<int, double>().For(consumer);
 
 			void test()
 			{
@@ -1457,7 +1457,7 @@ namespace ObservableComputations.Test
 		{
 			Selecting<Item, int> source = getItems().Selecting(i => i.Num);
 			Consumer consumer = new Consumer();
-			var testing = source.Averaging<int, double>().IsNeededFor(consumer);
+			var testing = source.Averaging<int, double>().For(consumer);
 
 			void test()
 			{
@@ -1516,7 +1516,7 @@ namespace ObservableComputations.Test
 		{
 			Selecting<Item, int> source = getItems().Selecting(i => i.Num);
 			Consumer consumer = new Consumer();
-			var testing = source.Averaging<int, double>().IsNeededFor(consumer);
+			var testing = source.Averaging<int, double>().For(consumer);
 
 			void test()
 			{
@@ -1578,7 +1578,7 @@ namespace ObservableComputations.Test
 		{
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
 			Consumer consumer = new Consumer();
-			var testing = sourceScalar.Casting<object>().IsNeededFor(consumer);
+			var testing = sourceScalar.Casting<object>().For(consumer);
 
 			void test()
 			{
@@ -1642,7 +1642,7 @@ namespace ObservableComputations.Test
 		{
 			System.Collections.Specialized.INotifyCollectionChanged source = getItems();
 			Consumer consumer = new Consumer();
-			var testing = source.Casting<object>().IsNeededFor(consumer);
+			var testing = source.Casting<object>().For(consumer);
 
 			void test()
 			{
@@ -1704,7 +1704,7 @@ namespace ObservableComputations.Test
 		{
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> sourcesScalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getCollectionsOfItems());
 			Consumer consumer = new Consumer();
-			var testing = sourcesScalar.Concatenating<Item>().IsNeededFor(consumer);
+			var testing = sourcesScalar.Concatenating<Item>().For(consumer);
 
 			void test()
 			{
@@ -1753,7 +1753,7 @@ namespace ObservableComputations.Test
 		{
 			Scalar<ObservableCollection<ObservableCollection<Item>>> sourcesScalar = getScalar<ObservableCollection<ObservableCollection<Item>>>(getCollectionsOfItems());
 			Consumer consumer = new Consumer();
-			var testing = sourcesScalar.Concatenating<Item>().IsNeededFor(consumer);
+			var testing = sourcesScalar.Concatenating<Item>().For(consumer);
 
 			void test()
 			{
@@ -1802,7 +1802,7 @@ namespace ObservableComputations.Test
 		{
 			System.Collections.Specialized.INotifyCollectionChanged sources = getCollectionsOfItems();
 			Consumer consumer = new Consumer();
-			var testing = sources.Concatenating<Item>().IsNeededFor(consumer);
+			var testing = sources.Concatenating<Item>().For(consumer);
 
 			void test()
 			{
@@ -1846,7 +1846,7 @@ namespace ObservableComputations.Test
 		{
 			ObservableCollection<ObservableCollection<Item>> sources = getCollectionsOfItems();
 			Consumer consumer = new Consumer();
-			var testing = sources.Concatenating<Item>().IsNeededFor(consumer);
+			var testing = sources.Concatenating<Item>().For(consumer);
 
 			void test()
 			{
@@ -1892,7 +1892,7 @@ namespace ObservableComputations.Test
 			System.Collections.Specialized.INotifyCollectionChanged source2 = getItems();
 			Consumer consumer = new Consumer();
 			var testing = source1.Concatenating<Item>(
-				source2).IsNeededFor(consumer);
+				source2).For(consumer);
 
 			void test()
 			{
@@ -1994,7 +1994,7 @@ namespace ObservableComputations.Test
 			ObservableCollection<Item> source2 = getItems();
 			Consumer consumer = new Consumer();
 			var testing = source1.Concatenating<Item>(
-				source2).IsNeededFor(consumer);
+				source2).For(consumer);
 
 			void test()
 			{
@@ -2096,7 +2096,7 @@ namespace ObservableComputations.Test
 			System.Collections.Specialized.INotifyCollectionChanged source2 = getItems();
 			Consumer consumer = new Consumer();
 			var testing = source1.Concatenating<Item>(
-				source2).IsNeededFor(consumer);
+				source2).For(consumer);
 
 			void test()
 			{
@@ -2198,7 +2198,7 @@ namespace ObservableComputations.Test
 			ObservableCollection<Item> source2 = getItems();
 			Consumer consumer = new Consumer();
 			var testing = source1.Concatenating<Item>(
-				source2).IsNeededFor(consumer);
+				source2).For(consumer);
 
 			void test()
 			{
@@ -2300,7 +2300,7 @@ namespace ObservableComputations.Test
 			System.Collections.Specialized.INotifyCollectionChanged source2 = getItems();
 			Consumer consumer = new Consumer();
 			var testing = source1Scalar.Concatenating<Item>(
-				source2).IsNeededFor(consumer);
+				source2).For(consumer);
 
 			void test()
 			{
@@ -2407,7 +2407,7 @@ namespace ObservableComputations.Test
 			ObservableCollection<Item> source2 = getItems();
 			Consumer consumer = new Consumer();
 			var testing = source1Scalar.Concatenating<Item>(
-				source2).IsNeededFor(consumer);
+				source2).For(consumer);
 
 			void test()
 			{
@@ -2514,7 +2514,7 @@ namespace ObservableComputations.Test
 			System.Collections.Specialized.INotifyCollectionChanged source2 = getItems();
 			Consumer consumer = new Consumer();
 			var testing = source1Scalar.Concatenating<Item>(
-				source2).IsNeededFor(consumer);
+				source2).For(consumer);
 
 			void test()
 			{
@@ -2621,7 +2621,7 @@ namespace ObservableComputations.Test
 			ObservableCollection<Item> source2 = getItems();
 			Consumer consumer = new Consumer();
 			var testing = source1Scalar.Concatenating<Item>(
-				source2).IsNeededFor(consumer);
+				source2).For(consumer);
 
 			void test()
 			{
@@ -2728,7 +2728,7 @@ namespace ObservableComputations.Test
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> source2Scalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
 			Consumer consumer = new Consumer();
 			var testing = source1Scalar.Concatenating<Item>(
-				source2Scalar).IsNeededFor(consumer);
+				source2Scalar).For(consumer);
 
 			void test()
 			{
@@ -2840,7 +2840,7 @@ namespace ObservableComputations.Test
 			Scalar<ObservableCollection<Item>> source2Scalar = getScalar<ObservableCollection<Item>>(getItems());
 			Consumer consumer = new Consumer();
 			var testing = source1Scalar.Concatenating<Item>(
-				source2Scalar).IsNeededFor(consumer);
+				source2Scalar).For(consumer);
 
 			void test()
 			{
@@ -2952,7 +2952,7 @@ namespace ObservableComputations.Test
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> source2Scalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
 			Consumer consumer = new Consumer();
 			var testing = source1Scalar.Concatenating<Item>(
-				source2Scalar).IsNeededFor(consumer);
+				source2Scalar).For(consumer);
 
 			void test()
 			{
@@ -3064,7 +3064,7 @@ namespace ObservableComputations.Test
 			Scalar<ObservableCollection<Item>> source2Scalar = getScalar<ObservableCollection<Item>>(getItems());
 			Consumer consumer = new Consumer();
 			var testing = source1Scalar.Concatenating<Item>(
-				source2Scalar).IsNeededFor(consumer);
+				source2Scalar).For(consumer);
 
 			void test()
 			{
@@ -3176,7 +3176,7 @@ namespace ObservableComputations.Test
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> source2Scalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
 			Consumer consumer = new Consumer();
 			var testing = source1.Concatenating<Item>(
-				source2Scalar).IsNeededFor(consumer);
+				source2Scalar).For(consumer);
 
 			void test()
 			{
@@ -3283,7 +3283,7 @@ namespace ObservableComputations.Test
 			Scalar<ObservableCollection<Item>> source2Scalar = getScalar<ObservableCollection<Item>>(getItems());
 			Consumer consumer = new Consumer();
 			var testing = source1.Concatenating<Item>(
-				source2Scalar).IsNeededFor(consumer);
+				source2Scalar).For(consumer);
 
 			void test()
 			{
@@ -3390,7 +3390,7 @@ namespace ObservableComputations.Test
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> source2Scalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
 			Consumer consumer = new Consumer();
 			var testing = source1.Concatenating<Item>(
-				source2Scalar).IsNeededFor(consumer);
+				source2Scalar).For(consumer);
 
 			void test()
 			{
@@ -3497,7 +3497,7 @@ namespace ObservableComputations.Test
 			Scalar<ObservableCollection<Item>> source2Scalar = getScalar<ObservableCollection<Item>>(getItems());
 			Consumer consumer = new Consumer();
 			var testing = source1.Concatenating<Item>(
-				source2Scalar).IsNeededFor(consumer);
+				source2Scalar).For(consumer);
 
 			void test()
 			{
@@ -3609,7 +3609,7 @@ namespace ObservableComputations.Test
 			Consumer consumer = new Consumer();
 			var testing = sourceScalar.ContainsComputing<Item>(
 				itemScalar,
-				equalityComparerScalar).IsNeededFor(consumer);
+				equalityComparerScalar).For(consumer);
 
 			void test()
 			{
@@ -3683,7 +3683,7 @@ namespace ObservableComputations.Test
 			Scalar<Item> itemScalar = getScalar<Item>(new QuickTests.Item(1, true));
 			Consumer consumer = new Consumer();
 			var testing = sourceScalar.ContainsComputing<Item>(
-				itemScalar).IsNeededFor(consumer);
+				itemScalar).For(consumer);
 
 			void test()
 			{
@@ -3756,7 +3756,7 @@ namespace ObservableComputations.Test
 			Consumer consumer = new Consumer();
 			var testing = sourceScalar.ContainsComputing<Item>(
 				itemScalar,
-				equalityComparerScalar).IsNeededFor(consumer);
+				equalityComparerScalar).For(consumer);
 
 			void test()
 			{
@@ -3830,7 +3830,7 @@ namespace ObservableComputations.Test
 			Scalar<Item> itemScalar = getScalar<Item>(new QuickTests.Item(1, true));
 			Consumer consumer = new Consumer();
 			var testing = sourceScalar.ContainsComputing<Item>(
-				itemScalar).IsNeededFor(consumer);
+				itemScalar).For(consumer);
 
 			void test()
 			{
@@ -3903,7 +3903,7 @@ namespace ObservableComputations.Test
 			Consumer consumer = new Consumer();
 			var testing = sourceScalar.ContainsComputing<Item>(
 				item,
-				equalityComparerScalar).IsNeededFor(consumer);
+				equalityComparerScalar).For(consumer);
 
 			void test()
 			{
@@ -3972,7 +3972,7 @@ namespace ObservableComputations.Test
 			Item item = new QuickTests.Item(1, true);
 			Consumer consumer = new Consumer();
 			var testing = sourceScalar.ContainsComputing<Item>(
-				item).IsNeededFor(consumer);
+				item).For(consumer);
 
 			void test()
 			{
@@ -4040,7 +4040,7 @@ namespace ObservableComputations.Test
 			Consumer consumer = new Consumer();
 			var testing = sourceScalar.ContainsComputing<Item>(
 				item,
-				equalityComparerScalar).IsNeededFor(consumer);
+				equalityComparerScalar).For(consumer);
 
 			void test()
 			{
@@ -4109,7 +4109,7 @@ namespace ObservableComputations.Test
 			Item item = new QuickTests.Item(1, true);
 			Consumer consumer = new Consumer();
 			var testing = sourceScalar.ContainsComputing<Item>(
-				item).IsNeededFor(consumer);
+				item).For(consumer);
 
 			void test()
 			{
@@ -4177,7 +4177,7 @@ namespace ObservableComputations.Test
 			Consumer consumer = new Consumer();
 			var testing = sourceScalar.ContainsComputing<Item>(
 				itemScalar,
-				equalityComparer).IsNeededFor(consumer);
+				equalityComparer).For(consumer);
 
 			void test()
 			{
@@ -4250,7 +4250,7 @@ namespace ObservableComputations.Test
 			Consumer consumer = new Consumer();
 			var testing = sourceScalar.ContainsComputing<Item>(
 				itemScalar,
-				equalityComparer).IsNeededFor(consumer);
+				equalityComparer).For(consumer);
 
 			void test()
 			{
@@ -4323,7 +4323,7 @@ namespace ObservableComputations.Test
 			Consumer consumer = new Consumer();
 			var testing = sourceScalar.ContainsComputing<Item>(
 				item,
-				equalityComparer).IsNeededFor(consumer);
+				equalityComparer).For(consumer);
 
 			void test()
 			{
@@ -4391,7 +4391,7 @@ namespace ObservableComputations.Test
 			Consumer consumer = new Consumer();
 			var testing = sourceScalar.ContainsComputing<Item>(
 				item,
-				equalityComparer).IsNeededFor(consumer);
+				equalityComparer).For(consumer);
 
 			void test()
 			{
@@ -4459,7 +4459,7 @@ namespace ObservableComputations.Test
 			Consumer consumer = new Consumer();
 			var testing = source.ContainsComputing<Item>(
 				itemScalar,
-				equalityComparerScalar).IsNeededFor(consumer);
+				equalityComparerScalar).For(consumer);
 
 			void test()
 			{
@@ -4528,7 +4528,7 @@ namespace ObservableComputations.Test
 			Scalar<Item> itemScalar = getScalar<Item>(new QuickTests.Item(1, true));
 			Consumer consumer = new Consumer();
 			var testing = source.ContainsComputing<Item>(
-				itemScalar).IsNeededFor(consumer);
+				itemScalar).For(consumer);
 
 			void test()
 			{
@@ -4596,7 +4596,7 @@ namespace ObservableComputations.Test
 			Consumer consumer = new Consumer();
 			var testing = source.ContainsComputing<Item>(
 				itemScalar,
-				equalityComparerScalar).IsNeededFor(consumer);
+				equalityComparerScalar).For(consumer);
 
 			void test()
 			{
@@ -4665,7 +4665,7 @@ namespace ObservableComputations.Test
 			Scalar<Item> itemScalar = getScalar<Item>(new QuickTests.Item(1, true));
 			Consumer consumer = new Consumer();
 			var testing = source.ContainsComputing<Item>(
-				itemScalar).IsNeededFor(consumer);
+				itemScalar).For(consumer);
 
 			void test()
 			{
@@ -4733,7 +4733,7 @@ namespace ObservableComputations.Test
 			Consumer consumer = new Consumer();
 			var testing = source.ContainsComputing<Item>(
 				item,
-				equalityComparerScalar).IsNeededFor(consumer);
+				equalityComparerScalar).For(consumer);
 
 			void test()
 			{
@@ -4797,7 +4797,7 @@ namespace ObservableComputations.Test
 			Item item = new QuickTests.Item(1, true);
 			Consumer consumer = new Consumer();
 			var testing = source.ContainsComputing<Item>(
-				item).IsNeededFor(consumer);
+				item).For(consumer);
 
 			void test()
 			{
@@ -4860,7 +4860,7 @@ namespace ObservableComputations.Test
 			Consumer consumer = new Consumer();
 			var testing = source.ContainsComputing<Item>(
 				item,
-				equalityComparerScalar).IsNeededFor(consumer);
+				equalityComparerScalar).For(consumer);
 
 			void test()
 			{
@@ -4924,7 +4924,7 @@ namespace ObservableComputations.Test
 			Item item = new QuickTests.Item(1, true);
 			Consumer consumer = new Consumer();
 			var testing = source.ContainsComputing<Item>(
-				item).IsNeededFor(consumer);
+				item).For(consumer);
 
 			void test()
 			{
@@ -4987,7 +4987,7 @@ namespace ObservableComputations.Test
 			Consumer consumer = new Consumer();
 			var testing = source.ContainsComputing<Item>(
 				itemScalar,
-				equalityComparer).IsNeededFor(consumer);
+				equalityComparer).For(consumer);
 
 			void test()
 			{
@@ -5055,7 +5055,7 @@ namespace ObservableComputations.Test
 			Consumer consumer = new Consumer();
 			var testing = source.ContainsComputing<Item>(
 				itemScalar,
-				equalityComparer).IsNeededFor(consumer);
+				equalityComparer).For(consumer);
 
 			void test()
 			{
@@ -5123,7 +5123,7 @@ namespace ObservableComputations.Test
 			Consumer consumer = new Consumer();
 			var testing = source.ContainsComputing<Item>(
 				item,
-				equalityComparer).IsNeededFor(consumer);
+				equalityComparer).For(consumer);
 
 			void test()
 			{
@@ -5186,7 +5186,7 @@ namespace ObservableComputations.Test
 			Consumer consumer = new Consumer();
 			var testing = source.ContainsComputing<Item>(
 				item,
-				equalityComparer).IsNeededFor(consumer);
+				equalityComparer).For(consumer);
 
 			void test()
 			{
@@ -5254,7 +5254,7 @@ namespace ObservableComputations.Test
 			var testing = sourceScalar.Dictionaring<Item, int, int>(
 				keySelectorExpression,
 				valueSelectorExpression,
-				equalityComparer).IsNeededFor(consumer);
+				equalityComparer).For(consumer);
 
 			void test()
 			{
@@ -5322,7 +5322,7 @@ namespace ObservableComputations.Test
 			Consumer consumer = new Consumer();
 			var testing = sourceScalar.Dictionaring<Item, int, int>(
 				keySelectorExpression,
-				valueSelectorExpression).IsNeededFor(consumer);
+				valueSelectorExpression).For(consumer);
 
 			void test()
 			{
@@ -5392,7 +5392,7 @@ namespace ObservableComputations.Test
 			var testing = sourceScalar.Dictionaring<Item, int, int>(
 				keySelectorExpression,
 				valueSelectorExpression,
-				equalityComparer).IsNeededFor(consumer);
+				equalityComparer).For(consumer);
 
 			void test()
 			{
@@ -5460,7 +5460,7 @@ namespace ObservableComputations.Test
 			Consumer consumer = new Consumer();
 			var testing = sourceScalar.Dictionaring<Item, int, int>(
 				keySelectorExpression,
-				valueSelectorExpression).IsNeededFor(consumer);
+				valueSelectorExpression).For(consumer);
 
 			void test()
 			{
@@ -5530,7 +5530,7 @@ namespace ObservableComputations.Test
 			var testing = source.Dictionaring<Item, int, int>(
 				keySelectorExpression,
 				valueSelectorExpression,
-				equalityComparer).IsNeededFor(consumer);
+				equalityComparer).For(consumer);
 
 			void test()
 			{
@@ -5593,7 +5593,7 @@ namespace ObservableComputations.Test
 			Consumer consumer = new Consumer();
 			var testing = source.Dictionaring<Item, int, int>(
 				keySelectorExpression,
-				valueSelectorExpression).IsNeededFor(consumer);
+				valueSelectorExpression).For(consumer);
 
 			void test()
 			{
@@ -5658,7 +5658,7 @@ namespace ObservableComputations.Test
 			var testing = source.Dictionaring<Item, int, int>(
 				keySelectorExpression,
 				valueSelectorExpression,
-				equalityComparer).IsNeededFor(consumer);
+				equalityComparer).For(consumer);
 
 			void test()
 			{
@@ -5721,7 +5721,7 @@ namespace ObservableComputations.Test
 			Consumer consumer = new Consumer();
 			var testing = source.Dictionaring<Item, int, int>(
 				keySelectorExpression,
-				valueSelectorExpression).IsNeededFor(consumer);
+				valueSelectorExpression).For(consumer);
 
 			void test()
 			{
@@ -5786,7 +5786,7 @@ namespace ObservableComputations.Test
 			var testing = sourceScalar.Dictionaring<Item, int, int>(
 				keySelectorExpression,
 				valueSelectorExpression,
-				equalityComparerScalar).IsNeededFor(consumer);
+				equalityComparerScalar).For(consumer);
 
 			void test()
 			{
@@ -5861,7 +5861,7 @@ namespace ObservableComputations.Test
 			var testing = sourceScalar.Dictionaring<Item, int, int>(
 				keySelectorExpression,
 				valueSelectorExpression,
-				equalityComparerScalar).IsNeededFor(consumer);
+				equalityComparerScalar).For(consumer);
 
 			void test()
 			{
@@ -5936,7 +5936,7 @@ namespace ObservableComputations.Test
 			var testing = source.Dictionaring<Item, int, int>(
 				keySelectorExpression,
 				valueSelectorExpression,
-				equalityComparerScalar).IsNeededFor(consumer);
+				equalityComparerScalar).For(consumer);
 
 			void test()
 			{
@@ -6006,7 +6006,7 @@ namespace ObservableComputations.Test
 			var testing = source.Dictionaring<Item, int, int>(
 				keySelectorExpression,
 				valueSelectorExpression,
-				equalityComparerScalar).IsNeededFor(consumer);
+				equalityComparerScalar).For(consumer);
 
 			void test()
 			{
@@ -6077,7 +6077,7 @@ namespace ObservableComputations.Test
 			Consumer consumer = new Consumer();
 			var testing = sourceScalar.Distincting<Item>(
 				equalityComparerScalar,
-				capacity).IsNeededFor(consumer);
+				capacity).For(consumer);
 
 			void test()
 			{
@@ -6148,7 +6148,7 @@ namespace ObservableComputations.Test
 			Scalar<System.Collections.Generic.IEqualityComparer<Item>> equalityComparerScalar = getScalar<System.Collections.Generic.IEqualityComparer<Item>>(EqualityComparer<Item>.Default);
 			Consumer consumer = new Consumer();
 			var testing = sourceScalar.Distincting<Item>(
-				equalityComparerScalar).IsNeededFor(consumer);
+				equalityComparerScalar).For(consumer);
 
 			void test()
 			{
@@ -6219,7 +6219,7 @@ namespace ObservableComputations.Test
 			int capacity = 0;
 			Consumer consumer = new Consumer();
 			var testing = sourceScalar.Distincting<Item>(
-				capacity).IsNeededFor(consumer);
+				capacity).For(consumer);
 
 			void test()
 			{
@@ -6283,7 +6283,7 @@ namespace ObservableComputations.Test
 		{
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
 			Consumer consumer = new Consumer();
-			var testing = sourceScalar.Distincting<Item>().IsNeededFor(consumer);
+			var testing = sourceScalar.Distincting<Item>().For(consumer);
 
 			void test()
 			{
@@ -6351,7 +6351,7 @@ namespace ObservableComputations.Test
 			Consumer consumer = new Consumer();
 			var testing = sourceScalar.Distincting<Item>(
 				equalityComparerScalar,
-				capacity).IsNeededFor(consumer);
+				capacity).For(consumer);
 
 			void test()
 			{
@@ -6422,7 +6422,7 @@ namespace ObservableComputations.Test
 			Scalar<System.Collections.Generic.IEqualityComparer<Item>> equalityComparerScalar = getScalar<System.Collections.Generic.IEqualityComparer<Item>>(EqualityComparer<Item>.Default);
 			Consumer consumer = new Consumer();
 			var testing = sourceScalar.Distincting<Item>(
-				equalityComparerScalar).IsNeededFor(consumer);
+				equalityComparerScalar).For(consumer);
 
 			void test()
 			{
@@ -6493,7 +6493,7 @@ namespace ObservableComputations.Test
 			int capacity = 0;
 			Consumer consumer = new Consumer();
 			var testing = sourceScalar.Distincting<Item>(
-				capacity).IsNeededFor(consumer);
+				capacity).For(consumer);
 
 			void test()
 			{
@@ -6557,7 +6557,7 @@ namespace ObservableComputations.Test
 		{
 			Scalar<ObservableCollection<Item>> sourceScalar = getScalar<ObservableCollection<Item>>(getItems());
 			Consumer consumer = new Consumer();
-			var testing = sourceScalar.Distincting<Item>().IsNeededFor(consumer);
+			var testing = sourceScalar.Distincting<Item>().For(consumer);
 
 			void test()
 			{
@@ -6625,7 +6625,7 @@ namespace ObservableComputations.Test
 			Consumer consumer = new Consumer();
 			var testing = source.Distincting<Item>(
 				equalityComparerScalar,
-				capacity).IsNeededFor(consumer);
+				capacity).For(consumer);
 
 			void test()
 			{
@@ -6691,7 +6691,7 @@ namespace ObservableComputations.Test
 			Scalar<System.Collections.Generic.IEqualityComparer<Item>> equalityComparerScalar = getScalar<System.Collections.Generic.IEqualityComparer<Item>>(EqualityComparer<Item>.Default);
 			Consumer consumer = new Consumer();
 			var testing = source.Distincting<Item>(
-				equalityComparerScalar).IsNeededFor(consumer);
+				equalityComparerScalar).For(consumer);
 
 			void test()
 			{
@@ -6757,7 +6757,7 @@ namespace ObservableComputations.Test
 			int capacity = 0;
 			Consumer consumer = new Consumer();
 			var testing = source.Distincting<Item>(
-				capacity).IsNeededFor(consumer);
+				capacity).For(consumer);
 
 			void test()
 			{
@@ -6816,7 +6816,7 @@ namespace ObservableComputations.Test
 		{
 			System.Collections.Specialized.INotifyCollectionChanged source = getItems();
 			Consumer consumer = new Consumer();
-			var testing = source.Distincting<Item>().IsNeededFor(consumer);
+			var testing = source.Distincting<Item>().For(consumer);
 
 			void test()
 			{
@@ -6879,7 +6879,7 @@ namespace ObservableComputations.Test
 			Consumer consumer = new Consumer();
 			var testing = source.Distincting<Item>(
 				equalityComparerScalar,
-				capacity).IsNeededFor(consumer);
+				capacity).For(consumer);
 
 			void test()
 			{
@@ -6945,7 +6945,7 @@ namespace ObservableComputations.Test
 			Scalar<System.Collections.Generic.IEqualityComparer<Item>> equalityComparerScalar = getScalar<System.Collections.Generic.IEqualityComparer<Item>>(EqualityComparer<Item>.Default);
 			Consumer consumer = new Consumer();
 			var testing = source.Distincting<Item>(
-				equalityComparerScalar).IsNeededFor(consumer);
+				equalityComparerScalar).For(consumer);
 
 			void test()
 			{
@@ -7011,7 +7011,7 @@ namespace ObservableComputations.Test
 			int capacity = 0;
 			Consumer consumer = new Consumer();
 			var testing = source.Distincting<Item>(
-				capacity).IsNeededFor(consumer);
+				capacity).For(consumer);
 
 			void test()
 			{
@@ -7070,7 +7070,7 @@ namespace ObservableComputations.Test
 		{
 			ObservableCollection<Item> source = getItems();
 			Consumer consumer = new Consumer();
-			var testing = source.Distincting<Item>().IsNeededFor(consumer);
+			var testing = source.Distincting<Item>().For(consumer);
 
 			void test()
 			{
@@ -7133,7 +7133,7 @@ namespace ObservableComputations.Test
 			Consumer consumer = new Consumer();
 			var testing = source.Distincting<Item>(
 				equalityComparer,
-				capacity).IsNeededFor(consumer);
+				capacity).For(consumer);
 
 			void test()
 			{
@@ -7194,7 +7194,7 @@ namespace ObservableComputations.Test
 			System.Collections.Generic.IEqualityComparer<Item> equalityComparer = EqualityComparer<Item>.Default;
 			Consumer consumer = new Consumer();
 			var testing = source.Distincting<Item>(
-				equalityComparer).IsNeededFor(consumer);
+				equalityComparer).For(consumer);
 
 			void test()
 			{
@@ -7257,7 +7257,7 @@ namespace ObservableComputations.Test
 			Consumer consumer = new Consumer();
 			var testing = source.Distincting<Item>(
 				equalityComparer,
-				capacity).IsNeededFor(consumer);
+				capacity).For(consumer);
 
 			void test()
 			{
@@ -7318,7 +7318,7 @@ namespace ObservableComputations.Test
 			System.Collections.Generic.IEqualityComparer<Item> equalityComparer = EqualityComparer<Item>.Default;
 			Consumer consumer = new Consumer();
 			var testing = source.Distincting<Item>(
-				equalityComparer).IsNeededFor(consumer);
+				equalityComparer).For(consumer);
 
 			void test()
 			{
@@ -7381,7 +7381,7 @@ namespace ObservableComputations.Test
 			Consumer consumer = new Consumer();
 			var testing = sourceScalar.Distincting<Item>(
 				equalityComparer,
-				capacity).IsNeededFor(consumer);
+				capacity).For(consumer);
 
 			void test()
 			{
@@ -7447,7 +7447,7 @@ namespace ObservableComputations.Test
 			System.Collections.Generic.IEqualityComparer<Item> equalityComparer = EqualityComparer<Item>.Default;
 			Consumer consumer = new Consumer();
 			var testing = sourceScalar.Distincting<Item>(
-				equalityComparer).IsNeededFor(consumer);
+				equalityComparer).For(consumer);
 
 			void test()
 			{
@@ -7515,7 +7515,7 @@ namespace ObservableComputations.Test
 			Consumer consumer = new Consumer();
 			var testing = sourceScalar.Distincting<Item>(
 				equalityComparer,
-				capacity).IsNeededFor(consumer);
+				capacity).For(consumer);
 
 			void test()
 			{
@@ -7581,7 +7581,7 @@ namespace ObservableComputations.Test
 			System.Collections.Generic.IEqualityComparer<Item> equalityComparer = EqualityComparer<Item>.Default;
 			Consumer consumer = new Consumer();
 			var testing = sourceScalar.Distincting<Item>(
-				equalityComparer).IsNeededFor(consumer);
+				equalityComparer).For(consumer);
 
 			void test()
 			{
@@ -7654,7 +7654,7 @@ namespace ObservableComputations.Test
 			var testing = source1Scalar.Excepting<Item>(
 				source2Scalar,
 				equalityComparerScalar,
-				capacity).IsNeededFor(consumer);
+				capacity).For(consumer);
 
 			void test()
 			{
@@ -7771,7 +7771,7 @@ namespace ObservableComputations.Test
 			Consumer consumer = new Consumer();
 			var testing = source1Scalar.Excepting<Item>(
 				source2Scalar,
-				equalityComparerScalar).IsNeededFor(consumer);
+				equalityComparerScalar).For(consumer);
 
 			void test()
 			{
@@ -7888,7 +7888,7 @@ namespace ObservableComputations.Test
 			Consumer consumer = new Consumer();
 			var testing = source1Scalar.Excepting<Item>(
 				source2Scalar,
-				capacity).IsNeededFor(consumer);
+				capacity).For(consumer);
 
 			void test()
 			{
@@ -8000,7 +8000,7 @@ namespace ObservableComputations.Test
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> source2Scalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
 			Consumer consumer = new Consumer();
 			var testing = source1Scalar.Excepting<Item>(
-				source2Scalar).IsNeededFor(consumer);
+				source2Scalar).For(consumer);
 
 			void test()
 			{
@@ -8116,7 +8116,7 @@ namespace ObservableComputations.Test
 			var testing = source1Scalar.Excepting<Item>(
 				source2Scalar,
 				equalityComparerScalar,
-				capacity).IsNeededFor(consumer);
+				capacity).For(consumer);
 
 			void test()
 			{
@@ -8233,7 +8233,7 @@ namespace ObservableComputations.Test
 			Consumer consumer = new Consumer();
 			var testing = source1Scalar.Excepting<Item>(
 				source2Scalar,
-				equalityComparerScalar).IsNeededFor(consumer);
+				equalityComparerScalar).For(consumer);
 
 			void test()
 			{
@@ -8350,7 +8350,7 @@ namespace ObservableComputations.Test
 			Consumer consumer = new Consumer();
 			var testing = source1Scalar.Excepting<Item>(
 				source2Scalar,
-				capacity).IsNeededFor(consumer);
+				capacity).For(consumer);
 
 			void test()
 			{
@@ -8462,7 +8462,7 @@ namespace ObservableComputations.Test
 			Scalar<ObservableCollection<Item>> source2Scalar = getScalar<ObservableCollection<Item>>(getItems());
 			Consumer consumer = new Consumer();
 			var testing = source1Scalar.Excepting<Item>(
-				source2Scalar).IsNeededFor(consumer);
+				source2Scalar).For(consumer);
 
 			void test()
 			{
@@ -8578,7 +8578,7 @@ namespace ObservableComputations.Test
 			var testing = source1Scalar.Excepting<Item>(
 				source2Scalar,
 				equalityComparerScalar,
-				capacity).IsNeededFor(consumer);
+				capacity).For(consumer);
 
 			void test()
 			{
@@ -8695,7 +8695,7 @@ namespace ObservableComputations.Test
 			Consumer consumer = new Consumer();
 			var testing = source1Scalar.Excepting<Item>(
 				source2Scalar,
-				equalityComparerScalar).IsNeededFor(consumer);
+				equalityComparerScalar).For(consumer);
 
 			void test()
 			{
@@ -8812,7 +8812,7 @@ namespace ObservableComputations.Test
 			Consumer consumer = new Consumer();
 			var testing = source1Scalar.Excepting<Item>(
 				source2Scalar,
-				capacity).IsNeededFor(consumer);
+				capacity).For(consumer);
 
 			void test()
 			{
@@ -8924,7 +8924,7 @@ namespace ObservableComputations.Test
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> source2Scalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
 			Consumer consumer = new Consumer();
 			var testing = source1Scalar.Excepting<Item>(
-				source2Scalar).IsNeededFor(consumer);
+				source2Scalar).For(consumer);
 
 			void test()
 			{
@@ -9040,7 +9040,7 @@ namespace ObservableComputations.Test
 			var testing = source1Scalar.Excepting<Item>(
 				source2Scalar,
 				equalityComparerScalar,
-				capacity).IsNeededFor(consumer);
+				capacity).For(consumer);
 
 			void test()
 			{
@@ -9157,7 +9157,7 @@ namespace ObservableComputations.Test
 			Consumer consumer = new Consumer();
 			var testing = source1Scalar.Excepting<Item>(
 				source2Scalar,
-				equalityComparerScalar).IsNeededFor(consumer);
+				equalityComparerScalar).For(consumer);
 
 			void test()
 			{
@@ -9274,7 +9274,7 @@ namespace ObservableComputations.Test
 			Consumer consumer = new Consumer();
 			var testing = source1Scalar.Excepting<Item>(
 				source2Scalar,
-				capacity).IsNeededFor(consumer);
+				capacity).For(consumer);
 
 			void test()
 			{
@@ -9386,7 +9386,7 @@ namespace ObservableComputations.Test
 			Scalar<ObservableCollection<Item>> source2Scalar = getScalar<ObservableCollection<Item>>(getItems());
 			Consumer consumer = new Consumer();
 			var testing = source1Scalar.Excepting<Item>(
-				source2Scalar).IsNeededFor(consumer);
+				source2Scalar).For(consumer);
 
 			void test()
 			{
@@ -9502,7 +9502,7 @@ namespace ObservableComputations.Test
 			var testing = source1Scalar.Excepting<Item>(
 				source2,
 				equalityComparerScalar,
-				capacity).IsNeededFor(consumer);
+				capacity).For(consumer);
 
 			void test()
 			{
@@ -9614,7 +9614,7 @@ namespace ObservableComputations.Test
 			Consumer consumer = new Consumer();
 			var testing = source1Scalar.Excepting<Item>(
 				source2,
-				equalityComparerScalar).IsNeededFor(consumer);
+				equalityComparerScalar).For(consumer);
 
 			void test()
 			{
@@ -9726,7 +9726,7 @@ namespace ObservableComputations.Test
 			Consumer consumer = new Consumer();
 			var testing = source1Scalar.Excepting<Item>(
 				source2,
-				capacity).IsNeededFor(consumer);
+				capacity).For(consumer);
 
 			void test()
 			{
@@ -9833,7 +9833,7 @@ namespace ObservableComputations.Test
 			System.Collections.Specialized.INotifyCollectionChanged source2 = getItems();
 			Consumer consumer = new Consumer();
 			var testing = source1Scalar.Excepting<Item>(
-				source2).IsNeededFor(consumer);
+				source2).For(consumer);
 
 			void test()
 			{
@@ -9944,7 +9944,7 @@ namespace ObservableComputations.Test
 			var testing = source1Scalar.Excepting<Item>(
 				source2,
 				equalityComparerScalar,
-				capacity).IsNeededFor(consumer);
+				capacity).For(consumer);
 
 			void test()
 			{
@@ -10056,7 +10056,7 @@ namespace ObservableComputations.Test
 			Consumer consumer = new Consumer();
 			var testing = source1Scalar.Excepting<Item>(
 				source2,
-				equalityComparerScalar).IsNeededFor(consumer);
+				equalityComparerScalar).For(consumer);
 
 			void test()
 			{
@@ -10168,7 +10168,7 @@ namespace ObservableComputations.Test
 			Consumer consumer = new Consumer();
 			var testing = source1Scalar.Excepting<Item>(
 				source2,
-				capacity).IsNeededFor(consumer);
+				capacity).For(consumer);
 
 			void test()
 			{
@@ -10275,7 +10275,7 @@ namespace ObservableComputations.Test
 			ObservableCollection<Item> source2 = getItems();
 			Consumer consumer = new Consumer();
 			var testing = source1Scalar.Excepting<Item>(
-				source2).IsNeededFor(consumer);
+				source2).For(consumer);
 
 			void test()
 			{
@@ -10386,7 +10386,7 @@ namespace ObservableComputations.Test
 			var testing = source1Scalar.Excepting<Item>(
 				source2,
 				equalityComparerScalar,
-				capacity).IsNeededFor(consumer);
+				capacity).For(consumer);
 
 			void test()
 			{
@@ -10498,7 +10498,7 @@ namespace ObservableComputations.Test
 			Consumer consumer = new Consumer();
 			var testing = source1Scalar.Excepting<Item>(
 				source2,
-				equalityComparerScalar).IsNeededFor(consumer);
+				equalityComparerScalar).For(consumer);
 
 			void test()
 			{
@@ -10610,7 +10610,7 @@ namespace ObservableComputations.Test
 			Consumer consumer = new Consumer();
 			var testing = source1Scalar.Excepting<Item>(
 				source2,
-				capacity).IsNeededFor(consumer);
+				capacity).For(consumer);
 
 			void test()
 			{
@@ -10717,7 +10717,7 @@ namespace ObservableComputations.Test
 			System.Collections.Specialized.INotifyCollectionChanged source2 = getItems();
 			Consumer consumer = new Consumer();
 			var testing = source1Scalar.Excepting<Item>(
-				source2).IsNeededFor(consumer);
+				source2).For(consumer);
 
 			void test()
 			{
@@ -10828,7 +10828,7 @@ namespace ObservableComputations.Test
 			var testing = source1Scalar.Excepting<Item>(
 				source2,
 				equalityComparerScalar,
-				capacity).IsNeededFor(consumer);
+				capacity).For(consumer);
 
 			void test()
 			{
@@ -10940,7 +10940,7 @@ namespace ObservableComputations.Test
 			Consumer consumer = new Consumer();
 			var testing = source1Scalar.Excepting<Item>(
 				source2,
-				equalityComparerScalar).IsNeededFor(consumer);
+				equalityComparerScalar).For(consumer);
 
 			void test()
 			{
@@ -11052,7 +11052,7 @@ namespace ObservableComputations.Test
 			Consumer consumer = new Consumer();
 			var testing = source1Scalar.Excepting<Item>(
 				source2,
-				capacity).IsNeededFor(consumer);
+				capacity).For(consumer);
 
 			void test()
 			{
@@ -11159,7 +11159,7 @@ namespace ObservableComputations.Test
 			ObservableCollection<Item> source2 = getItems();
 			Consumer consumer = new Consumer();
 			var testing = source1Scalar.Excepting<Item>(
-				source2).IsNeededFor(consumer);
+				source2).For(consumer);
 
 			void test()
 			{
@@ -11270,7 +11270,7 @@ namespace ObservableComputations.Test
 			var testing = source1Scalar.Excepting<Item>(
 				source2,
 				equalityComparer,
-				capacity).IsNeededFor(consumer);
+				capacity).For(consumer);
 
 			void test()
 			{
@@ -11379,7 +11379,7 @@ namespace ObservableComputations.Test
 			Consumer consumer = new Consumer();
 			var testing = source1Scalar.Excepting<Item>(
 				source2,
-				equalityComparer).IsNeededFor(consumer);
+				equalityComparer).For(consumer);
 
 			void test()
 			{
@@ -11490,7 +11490,7 @@ namespace ObservableComputations.Test
 			var testing = source1Scalar.Excepting<Item>(
 				source2,
 				equalityComparer,
-				capacity).IsNeededFor(consumer);
+				capacity).For(consumer);
 
 			void test()
 			{
@@ -11599,7 +11599,7 @@ namespace ObservableComputations.Test
 			Consumer consumer = new Consumer();
 			var testing = source1Scalar.Excepting<Item>(
 				source2,
-				equalityComparer).IsNeededFor(consumer);
+				equalityComparer).For(consumer);
 
 			void test()
 			{
@@ -11710,7 +11710,7 @@ namespace ObservableComputations.Test
 			var testing = source1Scalar.Excepting<Item>(
 				source2,
 				equalityComparer,
-				capacity).IsNeededFor(consumer);
+				capacity).For(consumer);
 
 			void test()
 			{
@@ -11819,7 +11819,7 @@ namespace ObservableComputations.Test
 			Consumer consumer = new Consumer();
 			var testing = source1Scalar.Excepting<Item>(
 				source2,
-				equalityComparer).IsNeededFor(consumer);
+				equalityComparer).For(consumer);
 
 			void test()
 			{
@@ -11930,7 +11930,7 @@ namespace ObservableComputations.Test
 			var testing = source1Scalar.Excepting<Item>(
 				source2,
 				equalityComparer,
-				capacity).IsNeededFor(consumer);
+				capacity).For(consumer);
 
 			void test()
 			{
@@ -12039,7 +12039,7 @@ namespace ObservableComputations.Test
 			Consumer consumer = new Consumer();
 			var testing = source1Scalar.Excepting<Item>(
 				source2,
-				equalityComparer).IsNeededFor(consumer);
+				equalityComparer).For(consumer);
 
 			void test()
 			{
@@ -12150,7 +12150,7 @@ namespace ObservableComputations.Test
 			var testing = source1Scalar.Excepting<Item>(
 				source2Scalar,
 				equalityComparer,
-				capacity).IsNeededFor(consumer);
+				capacity).For(consumer);
 
 			void test()
 			{
@@ -12264,7 +12264,7 @@ namespace ObservableComputations.Test
 			Consumer consumer = new Consumer();
 			var testing = source1Scalar.Excepting<Item>(
 				source2Scalar,
-				equalityComparer).IsNeededFor(consumer);
+				equalityComparer).For(consumer);
 
 			void test()
 			{
@@ -12380,7 +12380,7 @@ namespace ObservableComputations.Test
 			var testing = source1Scalar.Excepting<Item>(
 				source2Scalar,
 				equalityComparer,
-				capacity).IsNeededFor(consumer);
+				capacity).For(consumer);
 
 			void test()
 			{
@@ -12494,7 +12494,7 @@ namespace ObservableComputations.Test
 			Consumer consumer = new Consumer();
 			var testing = source1Scalar.Excepting<Item>(
 				source2Scalar,
-				equalityComparer).IsNeededFor(consumer);
+				equalityComparer).For(consumer);
 
 			void test()
 			{
@@ -12610,7 +12610,7 @@ namespace ObservableComputations.Test
 			var testing = source1Scalar.Excepting<Item>(
 				source2Scalar,
 				equalityComparer,
-				capacity).IsNeededFor(consumer);
+				capacity).For(consumer);
 
 			void test()
 			{
@@ -12724,7 +12724,7 @@ namespace ObservableComputations.Test
 			Consumer consumer = new Consumer();
 			var testing = source1Scalar.Excepting<Item>(
 				source2Scalar,
-				equalityComparer).IsNeededFor(consumer);
+				equalityComparer).For(consumer);
 
 			void test()
 			{
@@ -12840,7 +12840,7 @@ namespace ObservableComputations.Test
 			var testing = source1Scalar.Excepting<Item>(
 				source2Scalar,
 				equalityComparer,
-				capacity).IsNeededFor(consumer);
+				capacity).For(consumer);
 
 			void test()
 			{
@@ -12954,7 +12954,7 @@ namespace ObservableComputations.Test
 			Consumer consumer = new Consumer();
 			var testing = source1Scalar.Excepting<Item>(
 				source2Scalar,
-				equalityComparer).IsNeededFor(consumer);
+				equalityComparer).For(consumer);
 
 			void test()
 			{
@@ -13070,7 +13070,7 @@ namespace ObservableComputations.Test
 			var testing = source1.Excepting<Item>(
 				source2Scalar,
 				equalityComparerScalar,
-				capacity).IsNeededFor(consumer);
+				capacity).For(consumer);
 
 			void test()
 			{
@@ -13182,7 +13182,7 @@ namespace ObservableComputations.Test
 			Consumer consumer = new Consumer();
 			var testing = source1.Excepting<Item>(
 				source2Scalar,
-				equalityComparerScalar).IsNeededFor(consumer);
+				equalityComparerScalar).For(consumer);
 
 			void test()
 			{
@@ -13294,7 +13294,7 @@ namespace ObservableComputations.Test
 			Consumer consumer = new Consumer();
 			var testing = source1.Excepting<Item>(
 				source2Scalar,
-				capacity).IsNeededFor(consumer);
+				capacity).For(consumer);
 
 			void test()
 			{
@@ -13401,7 +13401,7 @@ namespace ObservableComputations.Test
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> source2Scalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
 			Consumer consumer = new Consumer();
 			var testing = source1.Excepting<Item>(
-				source2Scalar).IsNeededFor(consumer);
+				source2Scalar).For(consumer);
 
 			void test()
 			{
@@ -13512,7 +13512,7 @@ namespace ObservableComputations.Test
 			var testing = source1.Excepting<Item>(
 				source2Scalar,
 				equalityComparerScalar,
-				capacity).IsNeededFor(consumer);
+				capacity).For(consumer);
 
 			void test()
 			{
@@ -13624,7 +13624,7 @@ namespace ObservableComputations.Test
 			Consumer consumer = new Consumer();
 			var testing = source1.Excepting<Item>(
 				source2Scalar,
-				equalityComparerScalar).IsNeededFor(consumer);
+				equalityComparerScalar).For(consumer);
 
 			void test()
 			{
@@ -13736,7 +13736,7 @@ namespace ObservableComputations.Test
 			Consumer consumer = new Consumer();
 			var testing = source1.Excepting<Item>(
 				source2Scalar,
-				capacity).IsNeededFor(consumer);
+				capacity).For(consumer);
 
 			void test()
 			{
@@ -13843,7 +13843,7 @@ namespace ObservableComputations.Test
 			Scalar<ObservableCollection<Item>> source2Scalar = getScalar<ObservableCollection<Item>>(getItems());
 			Consumer consumer = new Consumer();
 			var testing = source1.Excepting<Item>(
-				source2Scalar).IsNeededFor(consumer);
+				source2Scalar).For(consumer);
 
 			void test()
 			{
@@ -13954,7 +13954,7 @@ namespace ObservableComputations.Test
 			var testing = source1.Excepting<Item>(
 				source2Scalar,
 				equalityComparerScalar,
-				capacity).IsNeededFor(consumer);
+				capacity).For(consumer);
 
 			void test()
 			{
@@ -14066,7 +14066,7 @@ namespace ObservableComputations.Test
 			Consumer consumer = new Consumer();
 			var testing = source1.Excepting<Item>(
 				source2Scalar,
-				equalityComparerScalar).IsNeededFor(consumer);
+				equalityComparerScalar).For(consumer);
 
 			void test()
 			{
@@ -14178,7 +14178,7 @@ namespace ObservableComputations.Test
 			Consumer consumer = new Consumer();
 			var testing = source1.Excepting<Item>(
 				source2Scalar,
-				capacity).IsNeededFor(consumer);
+				capacity).For(consumer);
 
 			void test()
 			{
@@ -14285,7 +14285,7 @@ namespace ObservableComputations.Test
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> source2Scalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
 			Consumer consumer = new Consumer();
 			var testing = source1.Excepting<Item>(
-				source2Scalar).IsNeededFor(consumer);
+				source2Scalar).For(consumer);
 
 			void test()
 			{
@@ -14396,7 +14396,7 @@ namespace ObservableComputations.Test
 			var testing = source1.Excepting<Item>(
 				source2Scalar,
 				equalityComparerScalar,
-				capacity).IsNeededFor(consumer);
+				capacity).For(consumer);
 
 			void test()
 			{
@@ -14508,7 +14508,7 @@ namespace ObservableComputations.Test
 			Consumer consumer = new Consumer();
 			var testing = source1.Excepting<Item>(
 				source2Scalar,
-				equalityComparerScalar).IsNeededFor(consumer);
+				equalityComparerScalar).For(consumer);
 
 			void test()
 			{
@@ -14620,7 +14620,7 @@ namespace ObservableComputations.Test
 			Consumer consumer = new Consumer();
 			var testing = source1.Excepting<Item>(
 				source2Scalar,
-				capacity).IsNeededFor(consumer);
+				capacity).For(consumer);
 
 			void test()
 			{
@@ -14727,7 +14727,7 @@ namespace ObservableComputations.Test
 			Scalar<ObservableCollection<Item>> source2Scalar = getScalar<ObservableCollection<Item>>(getItems());
 			Consumer consumer = new Consumer();
 			var testing = source1.Excepting<Item>(
-				source2Scalar).IsNeededFor(consumer);
+				source2Scalar).For(consumer);
 
 			void test()
 			{
@@ -14838,7 +14838,7 @@ namespace ObservableComputations.Test
 			var testing = source1.Excepting<Item>(
 				source2,
 				equalityComparerScalar,
-				capacity).IsNeededFor(consumer);
+				capacity).For(consumer);
 
 			void test()
 			{
@@ -14945,7 +14945,7 @@ namespace ObservableComputations.Test
 			Consumer consumer = new Consumer();
 			var testing = source1.Excepting<Item>(
 				source2,
-				equalityComparerScalar).IsNeededFor(consumer);
+				equalityComparerScalar).For(consumer);
 
 			void test()
 			{
@@ -15052,7 +15052,7 @@ namespace ObservableComputations.Test
 			Consumer consumer = new Consumer();
 			var testing = source1.Excepting<Item>(
 				source2,
-				capacity).IsNeededFor(consumer);
+				capacity).For(consumer);
 
 			void test()
 			{
@@ -15154,7 +15154,7 @@ namespace ObservableComputations.Test
 			System.Collections.Specialized.INotifyCollectionChanged source2 = getItems();
 			Consumer consumer = new Consumer();
 			var testing = source1.Excepting<Item>(
-				source2).IsNeededFor(consumer);
+				source2).For(consumer);
 
 			void test()
 			{
@@ -15260,7 +15260,7 @@ namespace ObservableComputations.Test
 			var testing = source1.Excepting<Item>(
 				source2,
 				equalityComparerScalar,
-				capacity).IsNeededFor(consumer);
+				capacity).For(consumer);
 
 			void test()
 			{
@@ -15367,7 +15367,7 @@ namespace ObservableComputations.Test
 			Consumer consumer = new Consumer();
 			var testing = source1.Excepting<Item>(
 				source2,
-				equalityComparerScalar).IsNeededFor(consumer);
+				equalityComparerScalar).For(consumer);
 
 			void test()
 			{
@@ -15474,7 +15474,7 @@ namespace ObservableComputations.Test
 			Consumer consumer = new Consumer();
 			var testing = source1.Excepting<Item>(
 				source2,
-				capacity).IsNeededFor(consumer);
+				capacity).For(consumer);
 
 			void test()
 			{
@@ -15576,7 +15576,7 @@ namespace ObservableComputations.Test
 			ObservableCollection<Item> source2 = getItems();
 			Consumer consumer = new Consumer();
 			var testing = source1.Excepting<Item>(
-				source2).IsNeededFor(consumer);
+				source2).For(consumer);
 
 			void test()
 			{
@@ -15682,7 +15682,7 @@ namespace ObservableComputations.Test
 			var testing = source1.Excepting<Item>(
 				source2,
 				equalityComparerScalar,
-				capacity).IsNeededFor(consumer);
+				capacity).For(consumer);
 
 			void test()
 			{
@@ -15789,7 +15789,7 @@ namespace ObservableComputations.Test
 			Consumer consumer = new Consumer();
 			var testing = source1.Excepting<Item>(
 				source2,
-				equalityComparerScalar).IsNeededFor(consumer);
+				equalityComparerScalar).For(consumer);
 
 			void test()
 			{
@@ -15896,7 +15896,7 @@ namespace ObservableComputations.Test
 			Consumer consumer = new Consumer();
 			var testing = source1.Excepting<Item>(
 				source2,
-				capacity).IsNeededFor(consumer);
+				capacity).For(consumer);
 
 			void test()
 			{
@@ -15998,7 +15998,7 @@ namespace ObservableComputations.Test
 			System.Collections.Specialized.INotifyCollectionChanged source2 = getItems();
 			Consumer consumer = new Consumer();
 			var testing = source1.Excepting<Item>(
-				source2).IsNeededFor(consumer);
+				source2).For(consumer);
 
 			void test()
 			{
@@ -16104,7 +16104,7 @@ namespace ObservableComputations.Test
 			var testing = source1.Excepting<Item>(
 				source2,
 				equalityComparerScalar,
-				capacity).IsNeededFor(consumer);
+				capacity).For(consumer);
 
 			void test()
 			{
@@ -16211,7 +16211,7 @@ namespace ObservableComputations.Test
 			Consumer consumer = new Consumer();
 			var testing = source1.Excepting<Item>(
 				source2,
-				equalityComparerScalar).IsNeededFor(consumer);
+				equalityComparerScalar).For(consumer);
 
 			void test()
 			{
@@ -16318,7 +16318,7 @@ namespace ObservableComputations.Test
 			Consumer consumer = new Consumer();
 			var testing = source1.Excepting<Item>(
 				source2,
-				capacity).IsNeededFor(consumer);
+				capacity).For(consumer);
 
 			void test()
 			{
@@ -16420,7 +16420,7 @@ namespace ObservableComputations.Test
 			ObservableCollection<Item> source2 = getItems();
 			Consumer consumer = new Consumer();
 			var testing = source1.Excepting<Item>(
-				source2).IsNeededFor(consumer);
+				source2).For(consumer);
 
 			void test()
 			{
@@ -16526,7 +16526,7 @@ namespace ObservableComputations.Test
 			var testing = source1.Excepting<Item>(
 				source2,
 				equalityComparer,
-				capacity).IsNeededFor(consumer);
+				capacity).For(consumer);
 
 			void test()
 			{
@@ -16630,7 +16630,7 @@ namespace ObservableComputations.Test
 			Consumer consumer = new Consumer();
 			var testing = source1.Excepting<Item>(
 				source2,
-				equalityComparer).IsNeededFor(consumer);
+				equalityComparer).For(consumer);
 
 			void test()
 			{
@@ -16736,7 +16736,7 @@ namespace ObservableComputations.Test
 			var testing = source1.Excepting<Item>(
 				source2,
 				equalityComparer,
-				capacity).IsNeededFor(consumer);
+				capacity).For(consumer);
 
 			void test()
 			{
@@ -16840,7 +16840,7 @@ namespace ObservableComputations.Test
 			Consumer consumer = new Consumer();
 			var testing = source1.Excepting<Item>(
 				source2,
-				equalityComparer).IsNeededFor(consumer);
+				equalityComparer).For(consumer);
 
 			void test()
 			{
@@ -16946,7 +16946,7 @@ namespace ObservableComputations.Test
 			var testing = source1.Excepting<Item>(
 				source2,
 				equalityComparer,
-				capacity).IsNeededFor(consumer);
+				capacity).For(consumer);
 
 			void test()
 			{
@@ -17050,7 +17050,7 @@ namespace ObservableComputations.Test
 			Consumer consumer = new Consumer();
 			var testing = source1.Excepting<Item>(
 				source2,
-				equalityComparer).IsNeededFor(consumer);
+				equalityComparer).For(consumer);
 
 			void test()
 			{
@@ -17156,7 +17156,7 @@ namespace ObservableComputations.Test
 			var testing = source1.Excepting<Item>(
 				source2,
 				equalityComparer,
-				capacity).IsNeededFor(consumer);
+				capacity).For(consumer);
 
 			void test()
 			{
@@ -17260,7 +17260,7 @@ namespace ObservableComputations.Test
 			Consumer consumer = new Consumer();
 			var testing = source1.Excepting<Item>(
 				source2,
-				equalityComparer).IsNeededFor(consumer);
+				equalityComparer).For(consumer);
 
 			void test()
 			{
@@ -17366,7 +17366,7 @@ namespace ObservableComputations.Test
 			var testing = source1.Excepting<Item>(
 				source2Scalar,
 				equalityComparer,
-				capacity).IsNeededFor(consumer);
+				capacity).For(consumer);
 
 			void test()
 			{
@@ -17475,7 +17475,7 @@ namespace ObservableComputations.Test
 			Consumer consumer = new Consumer();
 			var testing = source1.Excepting<Item>(
 				source2Scalar,
-				equalityComparer).IsNeededFor(consumer);
+				equalityComparer).For(consumer);
 
 			void test()
 			{
@@ -17586,7 +17586,7 @@ namespace ObservableComputations.Test
 			var testing = source1.Excepting<Item>(
 				source2Scalar,
 				equalityComparer,
-				capacity).IsNeededFor(consumer);
+				capacity).For(consumer);
 
 			void test()
 			{
@@ -17695,7 +17695,7 @@ namespace ObservableComputations.Test
 			Consumer consumer = new Consumer();
 			var testing = source1.Excepting<Item>(
 				source2Scalar,
-				equalityComparer).IsNeededFor(consumer);
+				equalityComparer).For(consumer);
 
 			void test()
 			{
@@ -17806,7 +17806,7 @@ namespace ObservableComputations.Test
 			var testing = source1.Excepting<Item>(
 				source2Scalar,
 				equalityComparer,
-				capacity).IsNeededFor(consumer);
+				capacity).For(consumer);
 
 			void test()
 			{
@@ -17915,7 +17915,7 @@ namespace ObservableComputations.Test
 			Consumer consumer = new Consumer();
 			var testing = source1.Excepting<Item>(
 				source2Scalar,
-				equalityComparer).IsNeededFor(consumer);
+				equalityComparer).For(consumer);
 
 			void test()
 			{
@@ -18026,7 +18026,7 @@ namespace ObservableComputations.Test
 			var testing = source1.Excepting<Item>(
 				source2Scalar,
 				equalityComparer,
-				capacity).IsNeededFor(consumer);
+				capacity).For(consumer);
 
 			void test()
 			{
@@ -18135,7 +18135,7 @@ namespace ObservableComputations.Test
 			Consumer consumer = new Consumer();
 			var testing = source1.Excepting<Item>(
 				source2Scalar,
-				equalityComparer).IsNeededFor(consumer);
+				equalityComparer).For(consumer);
 
 			void test()
 			{
@@ -18243,7 +18243,7 @@ namespace ObservableComputations.Test
 		{
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
 			Consumer consumer = new Consumer();
-			var testing = sourceScalar.Extending<Item>().IsNeededFor(consumer);
+			var testing = sourceScalar.Extending<Item>().For(consumer);
 
 			void test()
 			{
@@ -18307,7 +18307,7 @@ namespace ObservableComputations.Test
 		{
 			Scalar<ObservableCollection<Item>> sourceScalar = getScalar<ObservableCollection<Item>>(getItems());
 			Consumer consumer = new Consumer();
-			var testing = sourceScalar.Extending<Item>().IsNeededFor(consumer);
+			var testing = sourceScalar.Extending<Item>().For(consumer);
 
 			void test()
 			{
@@ -18371,7 +18371,7 @@ namespace ObservableComputations.Test
 		{
 			System.Collections.Specialized.INotifyCollectionChanged source = getItems();
 			Consumer consumer = new Consumer();
-			var testing = source.Extending<Item>().IsNeededFor(consumer);
+			var testing = source.Extending<Item>().For(consumer);
 
 			void test()
 			{
@@ -18430,7 +18430,7 @@ namespace ObservableComputations.Test
 		{
 			ObservableCollection<Item> source = getItems();
 			Consumer consumer = new Consumer();
-			var testing = source.Extending<Item>().IsNeededFor(consumer);
+			var testing = source.Extending<Item>().For(consumer);
 
 			void test()
 			{
@@ -18496,7 +18496,7 @@ namespace ObservableComputations.Test
 			Consumer consumer = new Consumer();
 			var testing = sourceScalar.Filtering<Item>(
 				predicateExpression,
-				capacity).IsNeededFor(consumer);
+				capacity).For(consumer);
 
 			void test()
 			{
@@ -18562,7 +18562,7 @@ namespace ObservableComputations.Test
 			System.Linq.Expressions.Expression<System.Func<Item, bool>> predicateExpression = i => i.Active;
 			Consumer consumer = new Consumer();
 			var testing = sourceScalar.Filtering<Item>(
-				predicateExpression).IsNeededFor(consumer);
+				predicateExpression).For(consumer);
 
 			void test()
 			{
@@ -18630,7 +18630,7 @@ namespace ObservableComputations.Test
 			Consumer consumer = new Consumer();
 			var testing = sourceScalar.Filtering<Item>(
 				predicateExpression,
-				capacity).IsNeededFor(consumer);
+				capacity).For(consumer);
 
 			void test()
 			{
@@ -18696,7 +18696,7 @@ namespace ObservableComputations.Test
 			System.Linq.Expressions.Expression<System.Func<Item, bool>> predicateExpression = i => i.Active;
 			Consumer consumer = new Consumer();
 			var testing = sourceScalar.Filtering<Item>(
-				predicateExpression).IsNeededFor(consumer);
+				predicateExpression).For(consumer);
 
 			void test()
 			{
@@ -18764,7 +18764,7 @@ namespace ObservableComputations.Test
 			Consumer consumer = new Consumer();
 			var testing = source.Filtering<Item>(
 				predicateExpression,
-				capacity).IsNeededFor(consumer);
+				capacity).For(consumer);
 
 			void test()
 			{
@@ -18825,7 +18825,7 @@ namespace ObservableComputations.Test
 			System.Linq.Expressions.Expression<System.Func<Item, bool>> predicateExpression = i => i.Active;
 			Consumer consumer = new Consumer();
 			var testing = source.Filtering<Item>(
-				predicateExpression).IsNeededFor(consumer);
+				predicateExpression).For(consumer);
 
 			void test()
 			{
@@ -18888,7 +18888,7 @@ namespace ObservableComputations.Test
 			Consumer consumer = new Consumer();
 			var testing = source.Filtering<Item>(
 				predicateExpression,
-				capacity).IsNeededFor(consumer);
+				capacity).For(consumer);
 
 			void test()
 			{
@@ -18949,7 +18949,7 @@ namespace ObservableComputations.Test
 			System.Linq.Expressions.Expression<System.Func<Item, bool>> predicateExpression = i => i.Active;
 			Consumer consumer = new Consumer();
 			var testing = source.Filtering<Item>(
-				predicateExpression).IsNeededFor(consumer);
+				predicateExpression).For(consumer);
 
 			void test()
 			{
@@ -19013,7 +19013,7 @@ namespace ObservableComputations.Test
 			Item defaultValue = null;
 			Consumer consumer = new Consumer();
 			var testing = sourceScalar.FirstComputing<Item>(
-				defaultValue).IsNeededFor(consumer);
+				defaultValue).For(consumer);
 
 			void test()
 			{
@@ -19077,7 +19077,7 @@ namespace ObservableComputations.Test
 		{
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
 			Consumer consumer = new Consumer();
-			var testing = sourceScalar.FirstComputing<Item>().IsNeededFor(consumer);
+			var testing = sourceScalar.FirstComputing<Item>().For(consumer);
 
 			void test()
 			{
@@ -19143,7 +19143,7 @@ namespace ObservableComputations.Test
 			Item defaultValue = null;
 			Consumer consumer = new Consumer();
 			var testing = sourceScalar.FirstComputing<Item>(
-				defaultValue).IsNeededFor(consumer);
+				defaultValue).For(consumer);
 
 			void test()
 			{
@@ -19207,7 +19207,7 @@ namespace ObservableComputations.Test
 		{
 			Scalar<ObservableCollection<Item>> sourceScalar = getScalar<ObservableCollection<Item>>(getItems());
 			Consumer consumer = new Consumer();
-			var testing = sourceScalar.FirstComputing<Item>().IsNeededFor(consumer);
+			var testing = sourceScalar.FirstComputing<Item>().For(consumer);
 
 			void test()
 			{
@@ -19273,7 +19273,7 @@ namespace ObservableComputations.Test
 			Item defaultValue = null;
 			Consumer consumer = new Consumer();
 			var testing = source.FirstComputing<Item>(
-				defaultValue).IsNeededFor(consumer);
+				defaultValue).For(consumer);
 
 			void test()
 			{
@@ -19332,7 +19332,7 @@ namespace ObservableComputations.Test
 		{
 			System.Collections.Specialized.INotifyCollectionChanged source = getItems();
 			Consumer consumer = new Consumer();
-			var testing = source.FirstComputing<Item>().IsNeededFor(consumer);
+			var testing = source.FirstComputing<Item>().For(consumer);
 
 			void test()
 			{
@@ -19393,7 +19393,7 @@ namespace ObservableComputations.Test
 			Item defaultValue = null;
 			Consumer consumer = new Consumer();
 			var testing = source.FirstComputing<Item>(
-				defaultValue).IsNeededFor(consumer);
+				defaultValue).For(consumer);
 
 			void test()
 			{
@@ -19452,7 +19452,7 @@ namespace ObservableComputations.Test
 		{
 			ObservableCollection<Item> source = getItems();
 			Consumer consumer = new Consumer();
-			var testing = source.FirstComputing<Item>().IsNeededFor(consumer);
+			var testing = source.FirstComputing<Item>().For(consumer);
 
 			void test()
 			{
@@ -19520,7 +19520,7 @@ namespace ObservableComputations.Test
 			var testing = sourceScalar.Grouping<Item, int>(
 				keySelectorExpression,
 				equalityComparerScalar,
-				capacity).IsNeededFor(consumer);
+				capacity).For(consumer);
 
 			void test()
 			{
@@ -19593,7 +19593,7 @@ namespace ObservableComputations.Test
 			Consumer consumer = new Consumer();
 			var testing = sourceScalar.Grouping<Item, int>(
 				keySelectorExpression,
-				equalityComparerScalar).IsNeededFor(consumer);
+				equalityComparerScalar).For(consumer);
 
 			void test()
 			{
@@ -19666,7 +19666,7 @@ namespace ObservableComputations.Test
 			Consumer consumer = new Consumer();
 			var testing = sourceScalar.Grouping<Item, int>(
 				keySelectorExpression,
-				capacity).IsNeededFor(consumer);
+				capacity).For(consumer);
 
 			void test()
 			{
@@ -19732,7 +19732,7 @@ namespace ObservableComputations.Test
 			System.Linq.Expressions.Expression<System.Func<Item, int>> keySelectorExpression = i => i.Id;
 			Consumer consumer = new Consumer();
 			var testing = sourceScalar.Grouping<Item, int>(
-				keySelectorExpression).IsNeededFor(consumer);
+				keySelectorExpression).For(consumer);
 
 			void test()
 			{
@@ -19802,7 +19802,7 @@ namespace ObservableComputations.Test
 			var testing = sourceScalar.Grouping<Item, int>(
 				keySelectorExpression,
 				equalityComparerScalar,
-				capacity).IsNeededFor(consumer);
+				capacity).For(consumer);
 
 			void test()
 			{
@@ -19875,7 +19875,7 @@ namespace ObservableComputations.Test
 			Consumer consumer = new Consumer();
 			var testing = sourceScalar.Grouping<Item, int>(
 				keySelectorExpression,
-				equalityComparerScalar).IsNeededFor(consumer);
+				equalityComparerScalar).For(consumer);
 
 			void test()
 			{
@@ -19948,7 +19948,7 @@ namespace ObservableComputations.Test
 			Consumer consumer = new Consumer();
 			var testing = sourceScalar.Grouping<Item, int>(
 				keySelectorExpression,
-				capacity).IsNeededFor(consumer);
+				capacity).For(consumer);
 
 			void test()
 			{
@@ -20014,7 +20014,7 @@ namespace ObservableComputations.Test
 			System.Linq.Expressions.Expression<System.Func<Item, int>> keySelectorExpression = i => i.Id;
 			Consumer consumer = new Consumer();
 			var testing = sourceScalar.Grouping<Item, int>(
-				keySelectorExpression).IsNeededFor(consumer);
+				keySelectorExpression).For(consumer);
 
 			void test()
 			{
@@ -20084,7 +20084,7 @@ namespace ObservableComputations.Test
 			var testing = source.Grouping<Item, int>(
 				keySelectorExpression,
 				equalityComparerScalar,
-				capacity).IsNeededFor(consumer);
+				capacity).For(consumer);
 
 			void test()
 			{
@@ -20152,7 +20152,7 @@ namespace ObservableComputations.Test
 			Consumer consumer = new Consumer();
 			var testing = source.Grouping<Item, int>(
 				keySelectorExpression,
-				equalityComparerScalar).IsNeededFor(consumer);
+				equalityComparerScalar).For(consumer);
 
 			void test()
 			{
@@ -20220,7 +20220,7 @@ namespace ObservableComputations.Test
 			Consumer consumer = new Consumer();
 			var testing = source.Grouping<Item, int>(
 				keySelectorExpression,
-				capacity).IsNeededFor(consumer);
+				capacity).For(consumer);
 
 			void test()
 			{
@@ -20281,7 +20281,7 @@ namespace ObservableComputations.Test
 			System.Linq.Expressions.Expression<System.Func<Item, int>> keySelectorExpression = i => i.Id;
 			Consumer consumer = new Consumer();
 			var testing = source.Grouping<Item, int>(
-				keySelectorExpression).IsNeededFor(consumer);
+				keySelectorExpression).For(consumer);
 
 			void test()
 			{
@@ -20346,7 +20346,7 @@ namespace ObservableComputations.Test
 			var testing = source.Grouping<Item, int>(
 				keySelectorExpression,
 				equalityComparerScalar,
-				capacity).IsNeededFor(consumer);
+				capacity).For(consumer);
 
 			void test()
 			{
@@ -20414,7 +20414,7 @@ namespace ObservableComputations.Test
 			Consumer consumer = new Consumer();
 			var testing = source.Grouping<Item, int>(
 				keySelectorExpression,
-				equalityComparerScalar).IsNeededFor(consumer);
+				equalityComparerScalar).For(consumer);
 
 			void test()
 			{
@@ -20482,7 +20482,7 @@ namespace ObservableComputations.Test
 			Consumer consumer = new Consumer();
 			var testing = source.Grouping<Item, int>(
 				keySelectorExpression,
-				capacity).IsNeededFor(consumer);
+				capacity).For(consumer);
 
 			void test()
 			{
@@ -20543,7 +20543,7 @@ namespace ObservableComputations.Test
 			System.Linq.Expressions.Expression<System.Func<Item, int>> keySelectorExpression = i => i.Id;
 			Consumer consumer = new Consumer();
 			var testing = source.Grouping<Item, int>(
-				keySelectorExpression).IsNeededFor(consumer);
+				keySelectorExpression).For(consumer);
 
 			void test()
 			{
@@ -20608,7 +20608,7 @@ namespace ObservableComputations.Test
 			var testing = sourceScalar.Grouping<Item, int>(
 				keySelectorExpression,
 				equalityComparer,
-				capacity).IsNeededFor(consumer);
+				capacity).For(consumer);
 
 			void test()
 			{
@@ -20676,7 +20676,7 @@ namespace ObservableComputations.Test
 			Consumer consumer = new Consumer();
 			var testing = sourceScalar.Grouping<Item, int>(
 				keySelectorExpression,
-				equalityComparer).IsNeededFor(consumer);
+				equalityComparer).For(consumer);
 
 			void test()
 			{
@@ -20746,7 +20746,7 @@ namespace ObservableComputations.Test
 			var testing = sourceScalar.Grouping<Item, int>(
 				keySelectorExpression,
 				equalityComparer,
-				capacity).IsNeededFor(consumer);
+				capacity).For(consumer);
 
 			void test()
 			{
@@ -20814,7 +20814,7 @@ namespace ObservableComputations.Test
 			Consumer consumer = new Consumer();
 			var testing = sourceScalar.Grouping<Item, int>(
 				keySelectorExpression,
-				equalityComparer).IsNeededFor(consumer);
+				equalityComparer).For(consumer);
 
 			void test()
 			{
@@ -20884,7 +20884,7 @@ namespace ObservableComputations.Test
 			var testing = source.Grouping<Item, int>(
 				keySelectorExpression,
 				equalityComparer,
-				capacity).IsNeededFor(consumer);
+				capacity).For(consumer);
 
 			void test()
 			{
@@ -20947,7 +20947,7 @@ namespace ObservableComputations.Test
 			Consumer consumer = new Consumer();
 			var testing = source.Grouping<Item, int>(
 				keySelectorExpression,
-				equalityComparer).IsNeededFor(consumer);
+				equalityComparer).For(consumer);
 
 			void test()
 			{
@@ -21012,7 +21012,7 @@ namespace ObservableComputations.Test
 			var testing = source.Grouping<Item, int>(
 				keySelectorExpression,
 				equalityComparer,
-				capacity).IsNeededFor(consumer);
+				capacity).For(consumer);
 
 			void test()
 			{
@@ -21075,7 +21075,7 @@ namespace ObservableComputations.Test
 			Consumer consumer = new Consumer();
 			var testing = source.Grouping<Item, int>(
 				keySelectorExpression,
-				equalityComparer).IsNeededFor(consumer);
+				equalityComparer).For(consumer);
 
 			void test()
 			{
@@ -21145,7 +21145,7 @@ namespace ObservableComputations.Test
 				innerSourceScalar,
 				outerKeySelector,
 				innerKeySelector,
-				equalityComparerScalar).IsNeededFor(consumer);
+				equalityComparerScalar).For(consumer);
 
 			void test()
 			{
@@ -21266,7 +21266,7 @@ namespace ObservableComputations.Test
 			var testing = outerSourceScalar.GroupJoining<Item, Item, int>(
 				innerSourceScalar,
 				outerKeySelector,
-				innerKeySelector).IsNeededFor(consumer);
+				innerKeySelector).For(consumer);
 
 			void test()
 			{
@@ -21384,7 +21384,7 @@ namespace ObservableComputations.Test
 				innerSourceScalar,
 				outerKeySelector,
 				innerKeySelector,
-				equalityComparerScalar).IsNeededFor(consumer);
+				equalityComparerScalar).For(consumer);
 
 			void test()
 			{
@@ -21505,7 +21505,7 @@ namespace ObservableComputations.Test
 			var testing = outerSourceScalar.GroupJoining<Item, Item, int>(
 				innerSourceScalar,
 				outerKeySelector,
-				innerKeySelector).IsNeededFor(consumer);
+				innerKeySelector).For(consumer);
 
 			void test()
 			{
@@ -21623,7 +21623,7 @@ namespace ObservableComputations.Test
 				innerSourceScalar,
 				outerKeySelector,
 				innerKeySelector,
-				equalityComparerScalar).IsNeededFor(consumer);
+				equalityComparerScalar).For(consumer);
 
 			void test()
 			{
@@ -21744,7 +21744,7 @@ namespace ObservableComputations.Test
 			var testing = outerSourceScalar.GroupJoining<Item, Item, int>(
 				innerSourceScalar,
 				outerKeySelector,
-				innerKeySelector).IsNeededFor(consumer);
+				innerKeySelector).For(consumer);
 
 			void test()
 			{
@@ -21862,7 +21862,7 @@ namespace ObservableComputations.Test
 				innerSourceScalar,
 				outerKeySelector,
 				innerKeySelector,
-				equalityComparerScalar).IsNeededFor(consumer);
+				equalityComparerScalar).For(consumer);
 
 			void test()
 			{
@@ -21983,7 +21983,7 @@ namespace ObservableComputations.Test
 			var testing = outerSourceScalar.GroupJoining<Item, Item, int>(
 				innerSourceScalar,
 				outerKeySelector,
-				innerKeySelector).IsNeededFor(consumer);
+				innerKeySelector).For(consumer);
 
 			void test()
 			{
@@ -22101,7 +22101,7 @@ namespace ObservableComputations.Test
 				innerSource,
 				outerKeySelector,
 				innerKeySelector,
-				equalityComparerScalar).IsNeededFor(consumer);
+				equalityComparerScalar).For(consumer);
 
 			void test()
 			{
@@ -22217,7 +22217,7 @@ namespace ObservableComputations.Test
 			var testing = outerSourceScalar.GroupJoining<Item, Item, int>(
 				innerSource,
 				outerKeySelector,
-				innerKeySelector).IsNeededFor(consumer);
+				innerKeySelector).For(consumer);
 
 			void test()
 			{
@@ -22330,7 +22330,7 @@ namespace ObservableComputations.Test
 				innerSource,
 				outerKeySelector,
 				innerKeySelector,
-				equalityComparerScalar).IsNeededFor(consumer);
+				equalityComparerScalar).For(consumer);
 
 			void test()
 			{
@@ -22446,7 +22446,7 @@ namespace ObservableComputations.Test
 			var testing = outerSourceScalar.GroupJoining<Item, Item, int>(
 				innerSource,
 				outerKeySelector,
-				innerKeySelector).IsNeededFor(consumer);
+				innerKeySelector).For(consumer);
 
 			void test()
 			{
@@ -22559,7 +22559,7 @@ namespace ObservableComputations.Test
 				innerSource,
 				outerKeySelector,
 				innerKeySelector,
-				equalityComparerScalar).IsNeededFor(consumer);
+				equalityComparerScalar).For(consumer);
 
 			void test()
 			{
@@ -22675,7 +22675,7 @@ namespace ObservableComputations.Test
 			var testing = outerSourceScalar.GroupJoining<Item, Item, int>(
 				innerSource,
 				outerKeySelector,
-				innerKeySelector).IsNeededFor(consumer);
+				innerKeySelector).For(consumer);
 
 			void test()
 			{
@@ -22788,7 +22788,7 @@ namespace ObservableComputations.Test
 				innerSource,
 				outerKeySelector,
 				innerKeySelector,
-				equalityComparerScalar).IsNeededFor(consumer);
+				equalityComparerScalar).For(consumer);
 
 			void test()
 			{
@@ -22904,7 +22904,7 @@ namespace ObservableComputations.Test
 			var testing = outerSourceScalar.GroupJoining<Item, Item, int>(
 				innerSource,
 				outerKeySelector,
-				innerKeySelector).IsNeededFor(consumer);
+				innerKeySelector).For(consumer);
 
 			void test()
 			{
@@ -23017,7 +23017,7 @@ namespace ObservableComputations.Test
 				innerSource,
 				outerKeySelector,
 				innerKeySelector,
-				equalityComparer).IsNeededFor(consumer);
+				equalityComparer).For(consumer);
 
 			void test()
 			{
@@ -23130,7 +23130,7 @@ namespace ObservableComputations.Test
 				innerSource,
 				outerKeySelector,
 				innerKeySelector,
-				equalityComparer).IsNeededFor(consumer);
+				equalityComparer).For(consumer);
 
 			void test()
 			{
@@ -23243,7 +23243,7 @@ namespace ObservableComputations.Test
 				innerSource,
 				outerKeySelector,
 				innerKeySelector,
-				equalityComparer).IsNeededFor(consumer);
+				equalityComparer).For(consumer);
 
 			void test()
 			{
@@ -23356,7 +23356,7 @@ namespace ObservableComputations.Test
 				innerSource,
 				outerKeySelector,
 				innerKeySelector,
-				equalityComparer).IsNeededFor(consumer);
+				equalityComparer).For(consumer);
 
 			void test()
 			{
@@ -23469,7 +23469,7 @@ namespace ObservableComputations.Test
 				innerSourceScalar,
 				outerKeySelector,
 				innerKeySelector,
-				equalityComparer).IsNeededFor(consumer);
+				equalityComparer).For(consumer);
 
 			void test()
 			{
@@ -23587,7 +23587,7 @@ namespace ObservableComputations.Test
 				innerSourceScalar,
 				outerKeySelector,
 				innerKeySelector,
-				equalityComparer).IsNeededFor(consumer);
+				equalityComparer).For(consumer);
 
 			void test()
 			{
@@ -23705,7 +23705,7 @@ namespace ObservableComputations.Test
 				innerSourceScalar,
 				outerKeySelector,
 				innerKeySelector,
-				equalityComparer).IsNeededFor(consumer);
+				equalityComparer).For(consumer);
 
 			void test()
 			{
@@ -23823,7 +23823,7 @@ namespace ObservableComputations.Test
 				innerSourceScalar,
 				outerKeySelector,
 				innerKeySelector,
-				equalityComparer).IsNeededFor(consumer);
+				equalityComparer).For(consumer);
 
 			void test()
 			{
@@ -23941,7 +23941,7 @@ namespace ObservableComputations.Test
 				innerSourceScalar,
 				outerKeySelector,
 				innerKeySelector,
-				equalityComparerScalar).IsNeededFor(consumer);
+				equalityComparerScalar).For(consumer);
 
 			void test()
 			{
@@ -24057,7 +24057,7 @@ namespace ObservableComputations.Test
 			var testing = outerSource.GroupJoining<Item, Item, int>(
 				innerSourceScalar,
 				outerKeySelector,
-				innerKeySelector).IsNeededFor(consumer);
+				innerKeySelector).For(consumer);
 
 			void test()
 			{
@@ -24170,7 +24170,7 @@ namespace ObservableComputations.Test
 				innerSourceScalar,
 				outerKeySelector,
 				innerKeySelector,
-				equalityComparerScalar).IsNeededFor(consumer);
+				equalityComparerScalar).For(consumer);
 
 			void test()
 			{
@@ -24286,7 +24286,7 @@ namespace ObservableComputations.Test
 			var testing = outerSource.GroupJoining<Item, Item, int>(
 				innerSourceScalar,
 				outerKeySelector,
-				innerKeySelector).IsNeededFor(consumer);
+				innerKeySelector).For(consumer);
 
 			void test()
 			{
@@ -24399,7 +24399,7 @@ namespace ObservableComputations.Test
 				innerSourceScalar,
 				outerKeySelector,
 				innerKeySelector,
-				equalityComparerScalar).IsNeededFor(consumer);
+				equalityComparerScalar).For(consumer);
 
 			void test()
 			{
@@ -24515,7 +24515,7 @@ namespace ObservableComputations.Test
 			var testing = outerSource.GroupJoining<Item, Item, int>(
 				innerSourceScalar,
 				outerKeySelector,
-				innerKeySelector).IsNeededFor(consumer);
+				innerKeySelector).For(consumer);
 
 			void test()
 			{
@@ -24628,7 +24628,7 @@ namespace ObservableComputations.Test
 				innerSourceScalar,
 				outerKeySelector,
 				innerKeySelector,
-				equalityComparerScalar).IsNeededFor(consumer);
+				equalityComparerScalar).For(consumer);
 
 			void test()
 			{
@@ -24744,7 +24744,7 @@ namespace ObservableComputations.Test
 			var testing = outerSource.GroupJoining<Item, Item, int>(
 				innerSourceScalar,
 				outerKeySelector,
-				innerKeySelector).IsNeededFor(consumer);
+				innerKeySelector).For(consumer);
 
 			void test()
 			{
@@ -24857,7 +24857,7 @@ namespace ObservableComputations.Test
 				innerSource,
 				outerKeySelector,
 				innerKeySelector,
-				equalityComparerScalar).IsNeededFor(consumer);
+				equalityComparerScalar).For(consumer);
 
 			void test()
 			{
@@ -24968,7 +24968,7 @@ namespace ObservableComputations.Test
 			var testing = outerSource.GroupJoining<Item, Item, int>(
 				innerSource,
 				outerKeySelector,
-				innerKeySelector).IsNeededFor(consumer);
+				innerKeySelector).For(consumer);
 
 			void test()
 			{
@@ -25076,7 +25076,7 @@ namespace ObservableComputations.Test
 				innerSource,
 				outerKeySelector,
 				innerKeySelector,
-				equalityComparerScalar).IsNeededFor(consumer);
+				equalityComparerScalar).For(consumer);
 
 			void test()
 			{
@@ -25187,7 +25187,7 @@ namespace ObservableComputations.Test
 			var testing = outerSource.GroupJoining<Item, Item, int>(
 				innerSource,
 				outerKeySelector,
-				innerKeySelector).IsNeededFor(consumer);
+				innerKeySelector).For(consumer);
 
 			void test()
 			{
@@ -25295,7 +25295,7 @@ namespace ObservableComputations.Test
 				innerSource,
 				outerKeySelector,
 				innerKeySelector,
-				equalityComparerScalar).IsNeededFor(consumer);
+				equalityComparerScalar).For(consumer);
 
 			void test()
 			{
@@ -25406,7 +25406,7 @@ namespace ObservableComputations.Test
 			var testing = outerSource.GroupJoining<Item, Item, int>(
 				innerSource,
 				outerKeySelector,
-				innerKeySelector).IsNeededFor(consumer);
+				innerKeySelector).For(consumer);
 
 			void test()
 			{
@@ -25514,7 +25514,7 @@ namespace ObservableComputations.Test
 				innerSource,
 				outerKeySelector,
 				innerKeySelector,
-				equalityComparerScalar).IsNeededFor(consumer);
+				equalityComparerScalar).For(consumer);
 
 			void test()
 			{
@@ -25625,7 +25625,7 @@ namespace ObservableComputations.Test
 			var testing = outerSource.GroupJoining<Item, Item, int>(
 				innerSource,
 				outerKeySelector,
-				innerKeySelector).IsNeededFor(consumer);
+				innerKeySelector).For(consumer);
 
 			void test()
 			{
@@ -25733,7 +25733,7 @@ namespace ObservableComputations.Test
 				innerSource,
 				outerKeySelector,
 				innerKeySelector,
-				equalityComparer).IsNeededFor(consumer);
+				equalityComparer).For(consumer);
 
 			void test()
 			{
@@ -25841,7 +25841,7 @@ namespace ObservableComputations.Test
 				innerSource,
 				outerKeySelector,
 				innerKeySelector,
-				equalityComparer).IsNeededFor(consumer);
+				equalityComparer).For(consumer);
 
 			void test()
 			{
@@ -25949,7 +25949,7 @@ namespace ObservableComputations.Test
 				innerSource,
 				outerKeySelector,
 				innerKeySelector,
-				equalityComparer).IsNeededFor(consumer);
+				equalityComparer).For(consumer);
 
 			void test()
 			{
@@ -26057,7 +26057,7 @@ namespace ObservableComputations.Test
 				innerSource,
 				outerKeySelector,
 				innerKeySelector,
-				equalityComparer).IsNeededFor(consumer);
+				equalityComparer).For(consumer);
 
 			void test()
 			{
@@ -26165,7 +26165,7 @@ namespace ObservableComputations.Test
 				innerSourceScalar,
 				outerKeySelector,
 				innerKeySelector,
-				equalityComparer).IsNeededFor(consumer);
+				equalityComparer).For(consumer);
 
 			void test()
 			{
@@ -26278,7 +26278,7 @@ namespace ObservableComputations.Test
 				innerSourceScalar,
 				outerKeySelector,
 				innerKeySelector,
-				equalityComparer).IsNeededFor(consumer);
+				equalityComparer).For(consumer);
 
 			void test()
 			{
@@ -26391,7 +26391,7 @@ namespace ObservableComputations.Test
 				innerSourceScalar,
 				outerKeySelector,
 				innerKeySelector,
-				equalityComparer).IsNeededFor(consumer);
+				equalityComparer).For(consumer);
 
 			void test()
 			{
@@ -26504,7 +26504,7 @@ namespace ObservableComputations.Test
 				innerSourceScalar,
 				outerKeySelector,
 				innerKeySelector,
-				equalityComparer).IsNeededFor(consumer);
+				equalityComparer).For(consumer);
 
 			void test()
 			{
@@ -26616,7 +26616,7 @@ namespace ObservableComputations.Test
 			Consumer consumer = new Consumer();
 			var testing = sourceScalar.HashSetting<Item, int>(
 				keySelectorExpression,
-				equalityComparer).IsNeededFor(consumer);
+				equalityComparer).For(consumer);
 
 			void test()
 			{
@@ -26682,7 +26682,7 @@ namespace ObservableComputations.Test
 			System.Linq.Expressions.Expression<System.Func<Item, int>> keySelectorExpression = i => i.Id;
 			Consumer consumer = new Consumer();
 			var testing = sourceScalar.HashSetting<Item, int>(
-				keySelectorExpression).IsNeededFor(consumer);
+				keySelectorExpression).For(consumer);
 
 			void test()
 			{
@@ -26750,7 +26750,7 @@ namespace ObservableComputations.Test
 			Consumer consumer = new Consumer();
 			var testing = sourceScalar.HashSetting<Item, int>(
 				keySelectorExpression,
-				equalityComparer).IsNeededFor(consumer);
+				equalityComparer).For(consumer);
 
 			void test()
 			{
@@ -26816,7 +26816,7 @@ namespace ObservableComputations.Test
 			System.Linq.Expressions.Expression<System.Func<Item, int>> keySelectorExpression = i => i.Id;
 			Consumer consumer = new Consumer();
 			var testing = sourceScalar.HashSetting<Item, int>(
-				keySelectorExpression).IsNeededFor(consumer);
+				keySelectorExpression).For(consumer);
 
 			void test()
 			{
@@ -26884,7 +26884,7 @@ namespace ObservableComputations.Test
 			Consumer consumer = new Consumer();
 			var testing = source.HashSetting<Item, int>(
 				keySelectorExpression,
-				equalityComparer).IsNeededFor(consumer);
+				equalityComparer).For(consumer);
 
 			void test()
 			{
@@ -26945,7 +26945,7 @@ namespace ObservableComputations.Test
 			System.Linq.Expressions.Expression<System.Func<Item, int>> keySelectorExpression = i => i.Id;
 			Consumer consumer = new Consumer();
 			var testing = source.HashSetting<Item, int>(
-				keySelectorExpression).IsNeededFor(consumer);
+				keySelectorExpression).For(consumer);
 
 			void test()
 			{
@@ -27008,7 +27008,7 @@ namespace ObservableComputations.Test
 			Consumer consumer = new Consumer();
 			var testing = source.HashSetting<Item, int>(
 				keySelectorExpression,
-				equalityComparer).IsNeededFor(consumer);
+				equalityComparer).For(consumer);
 
 			void test()
 			{
@@ -27069,7 +27069,7 @@ namespace ObservableComputations.Test
 			System.Linq.Expressions.Expression<System.Func<Item, int>> keySelectorExpression = i => i.Id;
 			Consumer consumer = new Consumer();
 			var testing = source.HashSetting<Item, int>(
-				keySelectorExpression).IsNeededFor(consumer);
+				keySelectorExpression).For(consumer);
 
 			void test()
 			{
@@ -27132,7 +27132,7 @@ namespace ObservableComputations.Test
 			Consumer consumer = new Consumer();
 			var testing = sourceScalar.HashSetting<Item, int>(
 				keySelectorExpression,
-				equalityComparerScalar).IsNeededFor(consumer);
+				equalityComparerScalar).For(consumer);
 
 			void test()
 			{
@@ -27205,7 +27205,7 @@ namespace ObservableComputations.Test
 			Consumer consumer = new Consumer();
 			var testing = sourceScalar.HashSetting<Item, int>(
 				keySelectorExpression,
-				equalityComparerScalar).IsNeededFor(consumer);
+				equalityComparerScalar).For(consumer);
 
 			void test()
 			{
@@ -27278,7 +27278,7 @@ namespace ObservableComputations.Test
 			Consumer consumer = new Consumer();
 			var testing = source.HashSetting<Item, int>(
 				keySelectorExpression,
-				equalityComparerScalar).IsNeededFor(consumer);
+				equalityComparerScalar).For(consumer);
 
 			void test()
 			{
@@ -27346,7 +27346,7 @@ namespace ObservableComputations.Test
 			Consumer consumer = new Consumer();
 			var testing = source.HashSetting<Item, int>(
 				keySelectorExpression,
-				equalityComparerScalar).IsNeededFor(consumer);
+				equalityComparerScalar).For(consumer);
 
 			void test()
 			{
@@ -27417,7 +27417,7 @@ namespace ObservableComputations.Test
 			Consumer consumer = new Consumer();
 			var testing = sourceScalar.IndicesComputing<Item>(
 				predicateExpression,
-				capacity).IsNeededFor(consumer);
+				capacity).For(consumer);
 
 			void test()
 			{
@@ -27483,7 +27483,7 @@ namespace ObservableComputations.Test
 			System.Linq.Expressions.Expression<System.Func<Item, bool>> predicateExpression = i => i.Active;
 			Consumer consumer = new Consumer();
 			var testing = sourceScalar.IndicesComputing<Item>(
-				predicateExpression).IsNeededFor(consumer);
+				predicateExpression).For(consumer);
 
 			void test()
 			{
@@ -27551,7 +27551,7 @@ namespace ObservableComputations.Test
 			Consumer consumer = new Consumer();
 			var testing = sourceScalar.IndicesComputing<Item>(
 				predicateExpression,
-				capacity).IsNeededFor(consumer);
+				capacity).For(consumer);
 
 			void test()
 			{
@@ -27617,7 +27617,7 @@ namespace ObservableComputations.Test
 			System.Linq.Expressions.Expression<System.Func<Item, bool>> predicateExpression = i => i.Active;
 			Consumer consumer = new Consumer();
 			var testing = sourceScalar.IndicesComputing<Item>(
-				predicateExpression).IsNeededFor(consumer);
+				predicateExpression).For(consumer);
 
 			void test()
 			{
@@ -27685,7 +27685,7 @@ namespace ObservableComputations.Test
 			Consumer consumer = new Consumer();
 			var testing = source.IndicesComputing<Item>(
 				predicateExpression,
-				capacity).IsNeededFor(consumer);
+				capacity).For(consumer);
 
 			void test()
 			{
@@ -27746,7 +27746,7 @@ namespace ObservableComputations.Test
 			System.Linq.Expressions.Expression<System.Func<Item, bool>> predicateExpression = i => i.Active;
 			Consumer consumer = new Consumer();
 			var testing = source.IndicesComputing<Item>(
-				predicateExpression).IsNeededFor(consumer);
+				predicateExpression).For(consumer);
 
 			void test()
 			{
@@ -27809,7 +27809,7 @@ namespace ObservableComputations.Test
 			Consumer consumer = new Consumer();
 			var testing = source.IndicesComputing<Item>(
 				predicateExpression,
-				capacity).IsNeededFor(consumer);
+				capacity).For(consumer);
 
 			void test()
 			{
@@ -27870,7 +27870,7 @@ namespace ObservableComputations.Test
 			System.Linq.Expressions.Expression<System.Func<Item, bool>> predicateExpression = i => i.Active;
 			Consumer consumer = new Consumer();
 			var testing = source.IndicesComputing<Item>(
-				predicateExpression).IsNeededFor(consumer);
+				predicateExpression).For(consumer);
 
 			void test()
 			{
@@ -27938,7 +27938,7 @@ namespace ObservableComputations.Test
 			var testing = source1Scalar.Intersecting<Item>(
 				source2Scalar,
 				equalityComparerScalar,
-				capacity).IsNeededFor(consumer);
+				capacity).For(consumer);
 
 			void test()
 			{
@@ -28055,7 +28055,7 @@ namespace ObservableComputations.Test
 			Consumer consumer = new Consumer();
 			var testing = source1Scalar.Intersecting<Item>(
 				source2Scalar,
-				equalityComparerScalar).IsNeededFor(consumer);
+				equalityComparerScalar).For(consumer);
 
 			void test()
 			{
@@ -28172,7 +28172,7 @@ namespace ObservableComputations.Test
 			Consumer consumer = new Consumer();
 			var testing = source1Scalar.Intersecting<Item>(
 				source2Scalar,
-				capacity).IsNeededFor(consumer);
+				capacity).For(consumer);
 
 			void test()
 			{
@@ -28284,7 +28284,7 @@ namespace ObservableComputations.Test
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> source2Scalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
 			Consumer consumer = new Consumer();
 			var testing = source1Scalar.Intersecting<Item>(
-				source2Scalar).IsNeededFor(consumer);
+				source2Scalar).For(consumer);
 
 			void test()
 			{
@@ -28400,7 +28400,7 @@ namespace ObservableComputations.Test
 			var testing = source1Scalar.Intersecting<Item>(
 				source2Scalar,
 				equalityComparerScalar,
-				capacity).IsNeededFor(consumer);
+				capacity).For(consumer);
 
 			void test()
 			{
@@ -28517,7 +28517,7 @@ namespace ObservableComputations.Test
 			Consumer consumer = new Consumer();
 			var testing = source1Scalar.Intersecting<Item>(
 				source2Scalar,
-				equalityComparerScalar).IsNeededFor(consumer);
+				equalityComparerScalar).For(consumer);
 
 			void test()
 			{
@@ -28634,7 +28634,7 @@ namespace ObservableComputations.Test
 			Consumer consumer = new Consumer();
 			var testing = source1Scalar.Intersecting<Item>(
 				source2Scalar,
-				capacity).IsNeededFor(consumer);
+				capacity).For(consumer);
 
 			void test()
 			{
@@ -28746,7 +28746,7 @@ namespace ObservableComputations.Test
 			Scalar<ObservableCollection<Item>> source2Scalar = getScalar<ObservableCollection<Item>>(getItems());
 			Consumer consumer = new Consumer();
 			var testing = source1Scalar.Intersecting<Item>(
-				source2Scalar).IsNeededFor(consumer);
+				source2Scalar).For(consumer);
 
 			void test()
 			{
@@ -28862,7 +28862,7 @@ namespace ObservableComputations.Test
 			var testing = source1Scalar.Intersecting<Item>(
 				source2Scalar,
 				equalityComparerScalar,
-				capacity).IsNeededFor(consumer);
+				capacity).For(consumer);
 
 			void test()
 			{
@@ -28979,7 +28979,7 @@ namespace ObservableComputations.Test
 			Consumer consumer = new Consumer();
 			var testing = source1Scalar.Intersecting<Item>(
 				source2Scalar,
-				equalityComparerScalar).IsNeededFor(consumer);
+				equalityComparerScalar).For(consumer);
 
 			void test()
 			{
@@ -29096,7 +29096,7 @@ namespace ObservableComputations.Test
 			Consumer consumer = new Consumer();
 			var testing = source1Scalar.Intersecting<Item>(
 				source2Scalar,
-				capacity).IsNeededFor(consumer);
+				capacity).For(consumer);
 
 			void test()
 			{
@@ -29208,7 +29208,7 @@ namespace ObservableComputations.Test
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> source2Scalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
 			Consumer consumer = new Consumer();
 			var testing = source1Scalar.Intersecting<Item>(
-				source2Scalar).IsNeededFor(consumer);
+				source2Scalar).For(consumer);
 
 			void test()
 			{
@@ -29324,7 +29324,7 @@ namespace ObservableComputations.Test
 			var testing = source1Scalar.Intersecting<Item>(
 				source2Scalar,
 				equalityComparerScalar,
-				capacity).IsNeededFor(consumer);
+				capacity).For(consumer);
 
 			void test()
 			{
@@ -29441,7 +29441,7 @@ namespace ObservableComputations.Test
 			Consumer consumer = new Consumer();
 			var testing = source1Scalar.Intersecting<Item>(
 				source2Scalar,
-				equalityComparerScalar).IsNeededFor(consumer);
+				equalityComparerScalar).For(consumer);
 
 			void test()
 			{
@@ -29558,7 +29558,7 @@ namespace ObservableComputations.Test
 			Consumer consumer = new Consumer();
 			var testing = source1Scalar.Intersecting<Item>(
 				source2Scalar,
-				capacity).IsNeededFor(consumer);
+				capacity).For(consumer);
 
 			void test()
 			{
@@ -29670,7 +29670,7 @@ namespace ObservableComputations.Test
 			Scalar<ObservableCollection<Item>> source2Scalar = getScalar<ObservableCollection<Item>>(getItems());
 			Consumer consumer = new Consumer();
 			var testing = source1Scalar.Intersecting<Item>(
-				source2Scalar).IsNeededFor(consumer);
+				source2Scalar).For(consumer);
 
 			void test()
 			{
@@ -29786,7 +29786,7 @@ namespace ObservableComputations.Test
 			var testing = source1Scalar.Intersecting<Item>(
 				source2,
 				equalityComparerScalar,
-				capacity).IsNeededFor(consumer);
+				capacity).For(consumer);
 
 			void test()
 			{
@@ -29898,7 +29898,7 @@ namespace ObservableComputations.Test
 			Consumer consumer = new Consumer();
 			var testing = source1Scalar.Intersecting<Item>(
 				source2,
-				equalityComparerScalar).IsNeededFor(consumer);
+				equalityComparerScalar).For(consumer);
 
 			void test()
 			{
@@ -30010,7 +30010,7 @@ namespace ObservableComputations.Test
 			Consumer consumer = new Consumer();
 			var testing = source1Scalar.Intersecting<Item>(
 				source2,
-				capacity).IsNeededFor(consumer);
+				capacity).For(consumer);
 
 			void test()
 			{
@@ -30117,7 +30117,7 @@ namespace ObservableComputations.Test
 			System.Collections.Specialized.INotifyCollectionChanged source2 = getItems();
 			Consumer consumer = new Consumer();
 			var testing = source1Scalar.Intersecting<Item>(
-				source2).IsNeededFor(consumer);
+				source2).For(consumer);
 
 			void test()
 			{
@@ -30228,7 +30228,7 @@ namespace ObservableComputations.Test
 			var testing = source1Scalar.Intersecting<Item>(
 				source2,
 				equalityComparerScalar,
-				capacity).IsNeededFor(consumer);
+				capacity).For(consumer);
 
 			void test()
 			{
@@ -30340,7 +30340,7 @@ namespace ObservableComputations.Test
 			Consumer consumer = new Consumer();
 			var testing = source1Scalar.Intersecting<Item>(
 				source2,
-				equalityComparerScalar).IsNeededFor(consumer);
+				equalityComparerScalar).For(consumer);
 
 			void test()
 			{
@@ -30452,7 +30452,7 @@ namespace ObservableComputations.Test
 			Consumer consumer = new Consumer();
 			var testing = source1Scalar.Intersecting<Item>(
 				source2,
-				capacity).IsNeededFor(consumer);
+				capacity).For(consumer);
 
 			void test()
 			{
@@ -30559,7 +30559,7 @@ namespace ObservableComputations.Test
 			ObservableCollection<Item> source2 = getItems();
 			Consumer consumer = new Consumer();
 			var testing = source1Scalar.Intersecting<Item>(
-				source2).IsNeededFor(consumer);
+				source2).For(consumer);
 
 			void test()
 			{
@@ -30670,7 +30670,7 @@ namespace ObservableComputations.Test
 			var testing = source1Scalar.Intersecting<Item>(
 				source2,
 				equalityComparerScalar,
-				capacity).IsNeededFor(consumer);
+				capacity).For(consumer);
 
 			void test()
 			{
@@ -30782,7 +30782,7 @@ namespace ObservableComputations.Test
 			Consumer consumer = new Consumer();
 			var testing = source1Scalar.Intersecting<Item>(
 				source2,
-				equalityComparerScalar).IsNeededFor(consumer);
+				equalityComparerScalar).For(consumer);
 
 			void test()
 			{
@@ -30894,7 +30894,7 @@ namespace ObservableComputations.Test
 			Consumer consumer = new Consumer();
 			var testing = source1Scalar.Intersecting<Item>(
 				source2,
-				capacity).IsNeededFor(consumer);
+				capacity).For(consumer);
 
 			void test()
 			{
@@ -31001,7 +31001,7 @@ namespace ObservableComputations.Test
 			System.Collections.Specialized.INotifyCollectionChanged source2 = getItems();
 			Consumer consumer = new Consumer();
 			var testing = source1Scalar.Intersecting<Item>(
-				source2).IsNeededFor(consumer);
+				source2).For(consumer);
 
 			void test()
 			{
@@ -31112,7 +31112,7 @@ namespace ObservableComputations.Test
 			var testing = source1Scalar.Intersecting<Item>(
 				source2,
 				equalityComparerScalar,
-				capacity).IsNeededFor(consumer);
+				capacity).For(consumer);
 
 			void test()
 			{
@@ -31224,7 +31224,7 @@ namespace ObservableComputations.Test
 			Consumer consumer = new Consumer();
 			var testing = source1Scalar.Intersecting<Item>(
 				source2,
-				equalityComparerScalar).IsNeededFor(consumer);
+				equalityComparerScalar).For(consumer);
 
 			void test()
 			{
@@ -31336,7 +31336,7 @@ namespace ObservableComputations.Test
 			Consumer consumer = new Consumer();
 			var testing = source1Scalar.Intersecting<Item>(
 				source2,
-				capacity).IsNeededFor(consumer);
+				capacity).For(consumer);
 
 			void test()
 			{
@@ -31443,7 +31443,7 @@ namespace ObservableComputations.Test
 			ObservableCollection<Item> source2 = getItems();
 			Consumer consumer = new Consumer();
 			var testing = source1Scalar.Intersecting<Item>(
-				source2).IsNeededFor(consumer);
+				source2).For(consumer);
 
 			void test()
 			{
@@ -31554,7 +31554,7 @@ namespace ObservableComputations.Test
 			var testing = source1Scalar.Intersecting<Item>(
 				source2,
 				equalityComparer,
-				capacity).IsNeededFor(consumer);
+				capacity).For(consumer);
 
 			void test()
 			{
@@ -31663,7 +31663,7 @@ namespace ObservableComputations.Test
 			Consumer consumer = new Consumer();
 			var testing = source1Scalar.Intersecting<Item>(
 				source2,
-				equalityComparer).IsNeededFor(consumer);
+				equalityComparer).For(consumer);
 
 			void test()
 			{
@@ -31774,7 +31774,7 @@ namespace ObservableComputations.Test
 			var testing = source1Scalar.Intersecting<Item>(
 				source2,
 				equalityComparer,
-				capacity).IsNeededFor(consumer);
+				capacity).For(consumer);
 
 			void test()
 			{
@@ -31883,7 +31883,7 @@ namespace ObservableComputations.Test
 			Consumer consumer = new Consumer();
 			var testing = source1Scalar.Intersecting<Item>(
 				source2,
-				equalityComparer).IsNeededFor(consumer);
+				equalityComparer).For(consumer);
 
 			void test()
 			{
@@ -31994,7 +31994,7 @@ namespace ObservableComputations.Test
 			var testing = source1Scalar.Intersecting<Item>(
 				source2,
 				equalityComparer,
-				capacity).IsNeededFor(consumer);
+				capacity).For(consumer);
 
 			void test()
 			{
@@ -32103,7 +32103,7 @@ namespace ObservableComputations.Test
 			Consumer consumer = new Consumer();
 			var testing = source1Scalar.Intersecting<Item>(
 				source2,
-				equalityComparer).IsNeededFor(consumer);
+				equalityComparer).For(consumer);
 
 			void test()
 			{
@@ -32214,7 +32214,7 @@ namespace ObservableComputations.Test
 			var testing = source1Scalar.Intersecting<Item>(
 				source2,
 				equalityComparer,
-				capacity).IsNeededFor(consumer);
+				capacity).For(consumer);
 
 			void test()
 			{
@@ -32323,7 +32323,7 @@ namespace ObservableComputations.Test
 			Consumer consumer = new Consumer();
 			var testing = source1Scalar.Intersecting<Item>(
 				source2,
-				equalityComparer).IsNeededFor(consumer);
+				equalityComparer).For(consumer);
 
 			void test()
 			{
@@ -32434,7 +32434,7 @@ namespace ObservableComputations.Test
 			var testing = source1Scalar.Intersecting<Item>(
 				source2Scalar,
 				equalityComparer,
-				capacity).IsNeededFor(consumer);
+				capacity).For(consumer);
 
 			void test()
 			{
@@ -32548,7 +32548,7 @@ namespace ObservableComputations.Test
 			Consumer consumer = new Consumer();
 			var testing = source1Scalar.Intersecting<Item>(
 				source2Scalar,
-				equalityComparer).IsNeededFor(consumer);
+				equalityComparer).For(consumer);
 
 			void test()
 			{
@@ -32664,7 +32664,7 @@ namespace ObservableComputations.Test
 			var testing = source1Scalar.Intersecting<Item>(
 				source2Scalar,
 				equalityComparer,
-				capacity).IsNeededFor(consumer);
+				capacity).For(consumer);
 
 			void test()
 			{
@@ -32778,7 +32778,7 @@ namespace ObservableComputations.Test
 			Consumer consumer = new Consumer();
 			var testing = source1Scalar.Intersecting<Item>(
 				source2Scalar,
-				equalityComparer).IsNeededFor(consumer);
+				equalityComparer).For(consumer);
 
 			void test()
 			{
@@ -32894,7 +32894,7 @@ namespace ObservableComputations.Test
 			var testing = source1Scalar.Intersecting<Item>(
 				source2Scalar,
 				equalityComparer,
-				capacity).IsNeededFor(consumer);
+				capacity).For(consumer);
 
 			void test()
 			{
@@ -33008,7 +33008,7 @@ namespace ObservableComputations.Test
 			Consumer consumer = new Consumer();
 			var testing = source1Scalar.Intersecting<Item>(
 				source2Scalar,
-				equalityComparer).IsNeededFor(consumer);
+				equalityComparer).For(consumer);
 
 			void test()
 			{
@@ -33124,7 +33124,7 @@ namespace ObservableComputations.Test
 			var testing = source1Scalar.Intersecting<Item>(
 				source2Scalar,
 				equalityComparer,
-				capacity).IsNeededFor(consumer);
+				capacity).For(consumer);
 
 			void test()
 			{
@@ -33238,7 +33238,7 @@ namespace ObservableComputations.Test
 			Consumer consumer = new Consumer();
 			var testing = source1Scalar.Intersecting<Item>(
 				source2Scalar,
-				equalityComparer).IsNeededFor(consumer);
+				equalityComparer).For(consumer);
 
 			void test()
 			{
@@ -33354,7 +33354,7 @@ namespace ObservableComputations.Test
 			var testing = source1.Intersecting<Item>(
 				source2Scalar,
 				equalityComparerScalar,
-				capacity).IsNeededFor(consumer);
+				capacity).For(consumer);
 
 			void test()
 			{
@@ -33466,7 +33466,7 @@ namespace ObservableComputations.Test
 			Consumer consumer = new Consumer();
 			var testing = source1.Intersecting<Item>(
 				source2Scalar,
-				equalityComparerScalar).IsNeededFor(consumer);
+				equalityComparerScalar).For(consumer);
 
 			void test()
 			{
@@ -33578,7 +33578,7 @@ namespace ObservableComputations.Test
 			Consumer consumer = new Consumer();
 			var testing = source1.Intersecting<Item>(
 				source2Scalar,
-				capacity).IsNeededFor(consumer);
+				capacity).For(consumer);
 
 			void test()
 			{
@@ -33685,7 +33685,7 @@ namespace ObservableComputations.Test
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> source2Scalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
 			Consumer consumer = new Consumer();
 			var testing = source1.Intersecting<Item>(
-				source2Scalar).IsNeededFor(consumer);
+				source2Scalar).For(consumer);
 
 			void test()
 			{
@@ -33796,7 +33796,7 @@ namespace ObservableComputations.Test
 			var testing = source1.Intersecting<Item>(
 				source2Scalar,
 				equalityComparerScalar,
-				capacity).IsNeededFor(consumer);
+				capacity).For(consumer);
 
 			void test()
 			{
@@ -33908,7 +33908,7 @@ namespace ObservableComputations.Test
 			Consumer consumer = new Consumer();
 			var testing = source1.Intersecting<Item>(
 				source2Scalar,
-				equalityComparerScalar).IsNeededFor(consumer);
+				equalityComparerScalar).For(consumer);
 
 			void test()
 			{
@@ -34020,7 +34020,7 @@ namespace ObservableComputations.Test
 			Consumer consumer = new Consumer();
 			var testing = source1.Intersecting<Item>(
 				source2Scalar,
-				capacity).IsNeededFor(consumer);
+				capacity).For(consumer);
 
 			void test()
 			{
@@ -34127,7 +34127,7 @@ namespace ObservableComputations.Test
 			Scalar<ObservableCollection<Item>> source2Scalar = getScalar<ObservableCollection<Item>>(getItems());
 			Consumer consumer = new Consumer();
 			var testing = source1.Intersecting<Item>(
-				source2Scalar).IsNeededFor(consumer);
+				source2Scalar).For(consumer);
 
 			void test()
 			{
@@ -34238,7 +34238,7 @@ namespace ObservableComputations.Test
 			var testing = source1.Intersecting<Item>(
 				source2Scalar,
 				equalityComparerScalar,
-				capacity).IsNeededFor(consumer);
+				capacity).For(consumer);
 
 			void test()
 			{
@@ -34350,7 +34350,7 @@ namespace ObservableComputations.Test
 			Consumer consumer = new Consumer();
 			var testing = source1.Intersecting<Item>(
 				source2Scalar,
-				equalityComparerScalar).IsNeededFor(consumer);
+				equalityComparerScalar).For(consumer);
 
 			void test()
 			{
@@ -34462,7 +34462,7 @@ namespace ObservableComputations.Test
 			Consumer consumer = new Consumer();
 			var testing = source1.Intersecting<Item>(
 				source2Scalar,
-				capacity).IsNeededFor(consumer);
+				capacity).For(consumer);
 
 			void test()
 			{
@@ -34569,7 +34569,7 @@ namespace ObservableComputations.Test
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> source2Scalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
 			Consumer consumer = new Consumer();
 			var testing = source1.Intersecting<Item>(
-				source2Scalar).IsNeededFor(consumer);
+				source2Scalar).For(consumer);
 
 			void test()
 			{
@@ -34680,7 +34680,7 @@ namespace ObservableComputations.Test
 			var testing = source1.Intersecting<Item>(
 				source2Scalar,
 				equalityComparerScalar,
-				capacity).IsNeededFor(consumer);
+				capacity).For(consumer);
 
 			void test()
 			{
@@ -34792,7 +34792,7 @@ namespace ObservableComputations.Test
 			Consumer consumer = new Consumer();
 			var testing = source1.Intersecting<Item>(
 				source2Scalar,
-				equalityComparerScalar).IsNeededFor(consumer);
+				equalityComparerScalar).For(consumer);
 
 			void test()
 			{
@@ -34904,7 +34904,7 @@ namespace ObservableComputations.Test
 			Consumer consumer = new Consumer();
 			var testing = source1.Intersecting<Item>(
 				source2Scalar,
-				capacity).IsNeededFor(consumer);
+				capacity).For(consumer);
 
 			void test()
 			{
@@ -35011,7 +35011,7 @@ namespace ObservableComputations.Test
 			Scalar<ObservableCollection<Item>> source2Scalar = getScalar<ObservableCollection<Item>>(getItems());
 			Consumer consumer = new Consumer();
 			var testing = source1.Intersecting<Item>(
-				source2Scalar).IsNeededFor(consumer);
+				source2Scalar).For(consumer);
 
 			void test()
 			{
@@ -35122,7 +35122,7 @@ namespace ObservableComputations.Test
 			var testing = source1.Intersecting<Item>(
 				source2,
 				equalityComparerScalar,
-				capacity).IsNeededFor(consumer);
+				capacity).For(consumer);
 
 			void test()
 			{
@@ -35229,7 +35229,7 @@ namespace ObservableComputations.Test
 			Consumer consumer = new Consumer();
 			var testing = source1.Intersecting<Item>(
 				source2,
-				equalityComparerScalar).IsNeededFor(consumer);
+				equalityComparerScalar).For(consumer);
 
 			void test()
 			{
@@ -35336,7 +35336,7 @@ namespace ObservableComputations.Test
 			Consumer consumer = new Consumer();
 			var testing = source1.Intersecting<Item>(
 				source2,
-				capacity).IsNeededFor(consumer);
+				capacity).For(consumer);
 
 			void test()
 			{
@@ -35438,7 +35438,7 @@ namespace ObservableComputations.Test
 			System.Collections.Specialized.INotifyCollectionChanged source2 = getItems();
 			Consumer consumer = new Consumer();
 			var testing = source1.Intersecting<Item>(
-				source2).IsNeededFor(consumer);
+				source2).For(consumer);
 
 			void test()
 			{
@@ -35544,7 +35544,7 @@ namespace ObservableComputations.Test
 			var testing = source1.Intersecting<Item>(
 				source2,
 				equalityComparerScalar,
-				capacity).IsNeededFor(consumer);
+				capacity).For(consumer);
 
 			void test()
 			{
@@ -35651,7 +35651,7 @@ namespace ObservableComputations.Test
 			Consumer consumer = new Consumer();
 			var testing = source1.Intersecting<Item>(
 				source2,
-				equalityComparerScalar).IsNeededFor(consumer);
+				equalityComparerScalar).For(consumer);
 
 			void test()
 			{
@@ -35758,7 +35758,7 @@ namespace ObservableComputations.Test
 			Consumer consumer = new Consumer();
 			var testing = source1.Intersecting<Item>(
 				source2,
-				capacity).IsNeededFor(consumer);
+				capacity).For(consumer);
 
 			void test()
 			{
@@ -35860,7 +35860,7 @@ namespace ObservableComputations.Test
 			ObservableCollection<Item> source2 = getItems();
 			Consumer consumer = new Consumer();
 			var testing = source1.Intersecting<Item>(
-				source2).IsNeededFor(consumer);
+				source2).For(consumer);
 
 			void test()
 			{
@@ -35966,7 +35966,7 @@ namespace ObservableComputations.Test
 			var testing = source1.Intersecting<Item>(
 				source2,
 				equalityComparerScalar,
-				capacity).IsNeededFor(consumer);
+				capacity).For(consumer);
 
 			void test()
 			{
@@ -36073,7 +36073,7 @@ namespace ObservableComputations.Test
 			Consumer consumer = new Consumer();
 			var testing = source1.Intersecting<Item>(
 				source2,
-				equalityComparerScalar).IsNeededFor(consumer);
+				equalityComparerScalar).For(consumer);
 
 			void test()
 			{
@@ -36180,7 +36180,7 @@ namespace ObservableComputations.Test
 			Consumer consumer = new Consumer();
 			var testing = source1.Intersecting<Item>(
 				source2,
-				capacity).IsNeededFor(consumer);
+				capacity).For(consumer);
 
 			void test()
 			{
@@ -36282,7 +36282,7 @@ namespace ObservableComputations.Test
 			System.Collections.Specialized.INotifyCollectionChanged source2 = getItems();
 			Consumer consumer = new Consumer();
 			var testing = source1.Intersecting<Item>(
-				source2).IsNeededFor(consumer);
+				source2).For(consumer);
 
 			void test()
 			{
@@ -36388,7 +36388,7 @@ namespace ObservableComputations.Test
 			var testing = source1.Intersecting<Item>(
 				source2,
 				equalityComparerScalar,
-				capacity).IsNeededFor(consumer);
+				capacity).For(consumer);
 
 			void test()
 			{
@@ -36495,7 +36495,7 @@ namespace ObservableComputations.Test
 			Consumer consumer = new Consumer();
 			var testing = source1.Intersecting<Item>(
 				source2,
-				equalityComparerScalar).IsNeededFor(consumer);
+				equalityComparerScalar).For(consumer);
 
 			void test()
 			{
@@ -36602,7 +36602,7 @@ namespace ObservableComputations.Test
 			Consumer consumer = new Consumer();
 			var testing = source1.Intersecting<Item>(
 				source2,
-				capacity).IsNeededFor(consumer);
+				capacity).For(consumer);
 
 			void test()
 			{
@@ -36704,7 +36704,7 @@ namespace ObservableComputations.Test
 			ObservableCollection<Item> source2 = getItems();
 			Consumer consumer = new Consumer();
 			var testing = source1.Intersecting<Item>(
-				source2).IsNeededFor(consumer);
+				source2).For(consumer);
 
 			void test()
 			{
@@ -36810,7 +36810,7 @@ namespace ObservableComputations.Test
 			var testing = source1.Intersecting<Item>(
 				source2,
 				equalityComparer,
-				capacity).IsNeededFor(consumer);
+				capacity).For(consumer);
 
 			void test()
 			{
@@ -36914,7 +36914,7 @@ namespace ObservableComputations.Test
 			Consumer consumer = new Consumer();
 			var testing = source1.Intersecting<Item>(
 				source2,
-				equalityComparer).IsNeededFor(consumer);
+				equalityComparer).For(consumer);
 
 			void test()
 			{
@@ -37020,7 +37020,7 @@ namespace ObservableComputations.Test
 			var testing = source1.Intersecting<Item>(
 				source2,
 				equalityComparer,
-				capacity).IsNeededFor(consumer);
+				capacity).For(consumer);
 
 			void test()
 			{
@@ -37124,7 +37124,7 @@ namespace ObservableComputations.Test
 			Consumer consumer = new Consumer();
 			var testing = source1.Intersecting<Item>(
 				source2,
-				equalityComparer).IsNeededFor(consumer);
+				equalityComparer).For(consumer);
 
 			void test()
 			{
@@ -37230,7 +37230,7 @@ namespace ObservableComputations.Test
 			var testing = source1.Intersecting<Item>(
 				source2,
 				equalityComparer,
-				capacity).IsNeededFor(consumer);
+				capacity).For(consumer);
 
 			void test()
 			{
@@ -37334,7 +37334,7 @@ namespace ObservableComputations.Test
 			Consumer consumer = new Consumer();
 			var testing = source1.Intersecting<Item>(
 				source2,
-				equalityComparer).IsNeededFor(consumer);
+				equalityComparer).For(consumer);
 
 			void test()
 			{
@@ -37440,7 +37440,7 @@ namespace ObservableComputations.Test
 			var testing = source1.Intersecting<Item>(
 				source2,
 				equalityComparer,
-				capacity).IsNeededFor(consumer);
+				capacity).For(consumer);
 
 			void test()
 			{
@@ -37544,7 +37544,7 @@ namespace ObservableComputations.Test
 			Consumer consumer = new Consumer();
 			var testing = source1.Intersecting<Item>(
 				source2,
-				equalityComparer).IsNeededFor(consumer);
+				equalityComparer).For(consumer);
 
 			void test()
 			{
@@ -37650,7 +37650,7 @@ namespace ObservableComputations.Test
 			var testing = source1.Intersecting<Item>(
 				source2Scalar,
 				equalityComparer,
-				capacity).IsNeededFor(consumer);
+				capacity).For(consumer);
 
 			void test()
 			{
@@ -37759,7 +37759,7 @@ namespace ObservableComputations.Test
 			Consumer consumer = new Consumer();
 			var testing = source1.Intersecting<Item>(
 				source2Scalar,
-				equalityComparer).IsNeededFor(consumer);
+				equalityComparer).For(consumer);
 
 			void test()
 			{
@@ -37870,7 +37870,7 @@ namespace ObservableComputations.Test
 			var testing = source1.Intersecting<Item>(
 				source2Scalar,
 				equalityComparer,
-				capacity).IsNeededFor(consumer);
+				capacity).For(consumer);
 
 			void test()
 			{
@@ -37979,7 +37979,7 @@ namespace ObservableComputations.Test
 			Consumer consumer = new Consumer();
 			var testing = source1.Intersecting<Item>(
 				source2Scalar,
-				equalityComparer).IsNeededFor(consumer);
+				equalityComparer).For(consumer);
 
 			void test()
 			{
@@ -38090,7 +38090,7 @@ namespace ObservableComputations.Test
 			var testing = source1.Intersecting<Item>(
 				source2Scalar,
 				equalityComparer,
-				capacity).IsNeededFor(consumer);
+				capacity).For(consumer);
 
 			void test()
 			{
@@ -38199,7 +38199,7 @@ namespace ObservableComputations.Test
 			Consumer consumer = new Consumer();
 			var testing = source1.Intersecting<Item>(
 				source2Scalar,
-				equalityComparer).IsNeededFor(consumer);
+				equalityComparer).For(consumer);
 
 			void test()
 			{
@@ -38310,7 +38310,7 @@ namespace ObservableComputations.Test
 			var testing = source1.Intersecting<Item>(
 				source2Scalar,
 				equalityComparer,
-				capacity).IsNeededFor(consumer);
+				capacity).For(consumer);
 
 			void test()
 			{
@@ -38419,7 +38419,7 @@ namespace ObservableComputations.Test
 			Consumer consumer = new Consumer();
 			var testing = source1.Intersecting<Item>(
 				source2Scalar,
-				equalityComparer).IsNeededFor(consumer);
+				equalityComparer).For(consumer);
 
 			void test()
 			{
@@ -38531,7 +38531,7 @@ namespace ObservableComputations.Test
 			Consumer consumer = new Consumer();
 			var testing = sourceScalar.ItemComputing<Item>(
 				index,
-				defaultValue).IsNeededFor(consumer);
+				defaultValue).For(consumer);
 
 			void test()
 			{
@@ -38597,7 +38597,7 @@ namespace ObservableComputations.Test
 			int index = 0;
 			Consumer consumer = new Consumer();
 			var testing = sourceScalar.ItemComputing<Item>(
-				index).IsNeededFor(consumer);
+				index).For(consumer);
 
 			void test()
 			{
@@ -38665,7 +38665,7 @@ namespace ObservableComputations.Test
 			Consumer consumer = new Consumer();
 			var testing = sourceScalar.ItemComputing<Item>(
 				index,
-				defaultValue).IsNeededFor(consumer);
+				defaultValue).For(consumer);
 
 			void test()
 			{
@@ -38731,7 +38731,7 @@ namespace ObservableComputations.Test
 			int index = 0;
 			Consumer consumer = new Consumer();
 			var testing = sourceScalar.ItemComputing<Item>(
-				index).IsNeededFor(consumer);
+				index).For(consumer);
 
 			void test()
 			{
@@ -38799,7 +38799,7 @@ namespace ObservableComputations.Test
 			Consumer consumer = new Consumer();
 			var testing = sourceScalar.ItemComputing<Item>(
 				indexScalar,
-				defaultValue).IsNeededFor(consumer);
+				defaultValue).For(consumer);
 
 			void test()
 			{
@@ -38870,7 +38870,7 @@ namespace ObservableComputations.Test
 			Scalar<int> indexScalar = getScalar<int>(0);
 			Consumer consumer = new Consumer();
 			var testing = sourceScalar.ItemComputing<Item>(
-				indexScalar).IsNeededFor(consumer);
+				indexScalar).For(consumer);
 
 			void test()
 			{
@@ -38943,7 +38943,7 @@ namespace ObservableComputations.Test
 			Consumer consumer = new Consumer();
 			var testing = sourceScalar.ItemComputing<Item>(
 				indexScalar,
-				defaultValue).IsNeededFor(consumer);
+				defaultValue).For(consumer);
 
 			void test()
 			{
@@ -39014,7 +39014,7 @@ namespace ObservableComputations.Test
 			Scalar<int> indexScalar = getScalar<int>(0);
 			Consumer consumer = new Consumer();
 			var testing = sourceScalar.ItemComputing<Item>(
-				indexScalar).IsNeededFor(consumer);
+				indexScalar).For(consumer);
 
 			void test()
 			{
@@ -39087,7 +39087,7 @@ namespace ObservableComputations.Test
 			Consumer consumer = new Consumer();
 			var testing = source.ItemComputing<Item>(
 				index,
-				defaultValue).IsNeededFor(consumer);
+				defaultValue).For(consumer);
 
 			void test()
 			{
@@ -39148,7 +39148,7 @@ namespace ObservableComputations.Test
 			int index = 0;
 			Consumer consumer = new Consumer();
 			var testing = source.ItemComputing<Item>(
-				index).IsNeededFor(consumer);
+				index).For(consumer);
 
 			void test()
 			{
@@ -39211,7 +39211,7 @@ namespace ObservableComputations.Test
 			Consumer consumer = new Consumer();
 			var testing = source.ItemComputing<Item>(
 				index,
-				defaultValue).IsNeededFor(consumer);
+				defaultValue).For(consumer);
 
 			void test()
 			{
@@ -39272,7 +39272,7 @@ namespace ObservableComputations.Test
 			int index = 0;
 			Consumer consumer = new Consumer();
 			var testing = source.ItemComputing<Item>(
-				index).IsNeededFor(consumer);
+				index).For(consumer);
 
 			void test()
 			{
@@ -39335,7 +39335,7 @@ namespace ObservableComputations.Test
 			Consumer consumer = new Consumer();
 			var testing = source.ItemComputing<Item>(
 				indexScalar,
-				defaultValue).IsNeededFor(consumer);
+				defaultValue).For(consumer);
 
 			void test()
 			{
@@ -39401,7 +39401,7 @@ namespace ObservableComputations.Test
 			Scalar<int> indexScalar = getScalar<int>(0);
 			Consumer consumer = new Consumer();
 			var testing = source.ItemComputing<Item>(
-				indexScalar).IsNeededFor(consumer);
+				indexScalar).For(consumer);
 
 			void test()
 			{
@@ -39469,7 +39469,7 @@ namespace ObservableComputations.Test
 			Consumer consumer = new Consumer();
 			var testing = source.ItemComputing<Item>(
 				indexScalar,
-				defaultValue).IsNeededFor(consumer);
+				defaultValue).For(consumer);
 
 			void test()
 			{
@@ -39535,7 +39535,7 @@ namespace ObservableComputations.Test
 			Scalar<int> indexScalar = getScalar<int>(0);
 			Consumer consumer = new Consumer();
 			var testing = source.ItemComputing<Item>(
-				indexScalar).IsNeededFor(consumer);
+				indexScalar).For(consumer);
 
 			void test()
 			{
@@ -39608,7 +39608,7 @@ namespace ObservableComputations.Test
 			var testing = leftSourceScalar.Joining<Item, Item>(
 				rightSourceScalar,
 				predicateExpression,
-				capacity).IsNeededFor(consumer);
+				capacity).For(consumer);
 
 			void test()
 			{
@@ -39690,7 +39690,7 @@ namespace ObservableComputations.Test
 			Consumer consumer = new Consumer();
 			var testing = leftSourceScalar.Joining<Item, Item>(
 				rightSourceScalar,
-				predicateExpression).IsNeededFor(consumer);
+				predicateExpression).For(consumer);
 
 			void test()
 			{
@@ -39774,7 +39774,7 @@ namespace ObservableComputations.Test
 			var testing = leftSourceScalar.Joining<Item, Item>(
 				rightSourceScalar,
 				predicateExpression,
-				capacity).IsNeededFor(consumer);
+				capacity).For(consumer);
 
 			void test()
 			{
@@ -39856,7 +39856,7 @@ namespace ObservableComputations.Test
 			Consumer consumer = new Consumer();
 			var testing = leftSourceScalar.Joining<Item, Item>(
 				rightSourceScalar,
-				predicateExpression).IsNeededFor(consumer);
+				predicateExpression).For(consumer);
 
 			void test()
 			{
@@ -39940,7 +39940,7 @@ namespace ObservableComputations.Test
 			var testing = leftSourceScalar.Joining<Item, Item>(
 				rightSourceScalar,
 				predicateExpression,
-				capacity).IsNeededFor(consumer);
+				capacity).For(consumer);
 
 			void test()
 			{
@@ -40022,7 +40022,7 @@ namespace ObservableComputations.Test
 			Consumer consumer = new Consumer();
 			var testing = leftSourceScalar.Joining<Item, Item>(
 				rightSourceScalar,
-				predicateExpression).IsNeededFor(consumer);
+				predicateExpression).For(consumer);
 
 			void test()
 			{
@@ -40106,7 +40106,7 @@ namespace ObservableComputations.Test
 			var testing = leftSourceScalar.Joining<Item, Item>(
 				rightSourceScalar,
 				predicateExpression,
-				capacity).IsNeededFor(consumer);
+				capacity).For(consumer);
 
 			void test()
 			{
@@ -40188,7 +40188,7 @@ namespace ObservableComputations.Test
 			Consumer consumer = new Consumer();
 			var testing = leftSourceScalar.Joining<Item, Item>(
 				rightSourceScalar,
-				predicateExpression).IsNeededFor(consumer);
+				predicateExpression).For(consumer);
 
 			void test()
 			{
@@ -40272,7 +40272,7 @@ namespace ObservableComputations.Test
 			var testing = leftSource.Joining<Item, Item>(
 				rightSourceScalar,
 				predicateExpression,
-				capacity).IsNeededFor(consumer);
+				capacity).For(consumer);
 
 			void test()
 			{
@@ -40349,7 +40349,7 @@ namespace ObservableComputations.Test
 			Consumer consumer = new Consumer();
 			var testing = leftSource.Joining<Item, Item>(
 				rightSourceScalar,
-				predicateExpression).IsNeededFor(consumer);
+				predicateExpression).For(consumer);
 
 			void test()
 			{
@@ -40428,7 +40428,7 @@ namespace ObservableComputations.Test
 			var testing = leftSource.Joining<Item, Item>(
 				rightSourceScalar,
 				predicateExpression,
-				capacity).IsNeededFor(consumer);
+				capacity).For(consumer);
 
 			void test()
 			{
@@ -40505,7 +40505,7 @@ namespace ObservableComputations.Test
 			Consumer consumer = new Consumer();
 			var testing = leftSource.Joining<Item, Item>(
 				rightSourceScalar,
-				predicateExpression).IsNeededFor(consumer);
+				predicateExpression).For(consumer);
 
 			void test()
 			{
@@ -40584,7 +40584,7 @@ namespace ObservableComputations.Test
 			var testing = leftSource.Joining<Item, Item>(
 				rightSourceScalar,
 				predicateExpression,
-				capacity).IsNeededFor(consumer);
+				capacity).For(consumer);
 
 			void test()
 			{
@@ -40661,7 +40661,7 @@ namespace ObservableComputations.Test
 			Consumer consumer = new Consumer();
 			var testing = leftSource.Joining<Item, Item>(
 				rightSourceScalar,
-				predicateExpression).IsNeededFor(consumer);
+				predicateExpression).For(consumer);
 
 			void test()
 			{
@@ -40740,7 +40740,7 @@ namespace ObservableComputations.Test
 			var testing = leftSource.Joining<Item, Item>(
 				rightSourceScalar,
 				predicateExpression,
-				capacity).IsNeededFor(consumer);
+				capacity).For(consumer);
 
 			void test()
 			{
@@ -40817,7 +40817,7 @@ namespace ObservableComputations.Test
 			Consumer consumer = new Consumer();
 			var testing = leftSource.Joining<Item, Item>(
 				rightSourceScalar,
-				predicateExpression).IsNeededFor(consumer);
+				predicateExpression).For(consumer);
 
 			void test()
 			{
@@ -40896,7 +40896,7 @@ namespace ObservableComputations.Test
 			var testing = leftSourceScalar.Joining<Item, Item>(
 				rightSource,
 				predicateExpression,
-				capacity).IsNeededFor(consumer);
+				capacity).For(consumer);
 
 			void test()
 			{
@@ -40973,7 +40973,7 @@ namespace ObservableComputations.Test
 			Consumer consumer = new Consumer();
 			var testing = leftSourceScalar.Joining<Item, Item>(
 				rightSource,
-				predicateExpression).IsNeededFor(consumer);
+				predicateExpression).For(consumer);
 
 			void test()
 			{
@@ -41052,7 +41052,7 @@ namespace ObservableComputations.Test
 			var testing = leftSourceScalar.Joining<Item, Item>(
 				rightSource,
 				predicateExpression,
-				capacity).IsNeededFor(consumer);
+				capacity).For(consumer);
 
 			void test()
 			{
@@ -41129,7 +41129,7 @@ namespace ObservableComputations.Test
 			Consumer consumer = new Consumer();
 			var testing = leftSourceScalar.Joining<Item, Item>(
 				rightSource,
-				predicateExpression).IsNeededFor(consumer);
+				predicateExpression).For(consumer);
 
 			void test()
 			{
@@ -41208,7 +41208,7 @@ namespace ObservableComputations.Test
 			var testing = leftSourceScalar.Joining<Item, Item>(
 				rightSource,
 				predicateExpression,
-				capacity).IsNeededFor(consumer);
+				capacity).For(consumer);
 
 			void test()
 			{
@@ -41285,7 +41285,7 @@ namespace ObservableComputations.Test
 			Consumer consumer = new Consumer();
 			var testing = leftSourceScalar.Joining<Item, Item>(
 				rightSource,
-				predicateExpression).IsNeededFor(consumer);
+				predicateExpression).For(consumer);
 
 			void test()
 			{
@@ -41364,7 +41364,7 @@ namespace ObservableComputations.Test
 			var testing = leftSourceScalar.Joining<Item, Item>(
 				rightSource,
 				predicateExpression,
-				capacity).IsNeededFor(consumer);
+				capacity).For(consumer);
 
 			void test()
 			{
@@ -41441,7 +41441,7 @@ namespace ObservableComputations.Test
 			Consumer consumer = new Consumer();
 			var testing = leftSourceScalar.Joining<Item, Item>(
 				rightSource,
-				predicateExpression).IsNeededFor(consumer);
+				predicateExpression).For(consumer);
 
 			void test()
 			{
@@ -41520,7 +41520,7 @@ namespace ObservableComputations.Test
 			var testing = leftSource.Joining<Item, Item>(
 				rightSource,
 				predicateExpression,
-				capacity).IsNeededFor(consumer);
+				capacity).For(consumer);
 
 			void test()
 			{
@@ -41592,7 +41592,7 @@ namespace ObservableComputations.Test
 			Consumer consumer = new Consumer();
 			var testing = leftSource.Joining<Item, Item>(
 				rightSource,
-				predicateExpression).IsNeededFor(consumer);
+				predicateExpression).For(consumer);
 
 			void test()
 			{
@@ -41666,7 +41666,7 @@ namespace ObservableComputations.Test
 			var testing = leftSource.Joining<Item, Item>(
 				rightSource,
 				predicateExpression,
-				capacity).IsNeededFor(consumer);
+				capacity).For(consumer);
 
 			void test()
 			{
@@ -41738,7 +41738,7 @@ namespace ObservableComputations.Test
 			Consumer consumer = new Consumer();
 			var testing = leftSource.Joining<Item, Item>(
 				rightSource,
-				predicateExpression).IsNeededFor(consumer);
+				predicateExpression).For(consumer);
 
 			void test()
 			{
@@ -41812,7 +41812,7 @@ namespace ObservableComputations.Test
 			var testing = leftSource.Joining<Item, Item>(
 				rightSource,
 				predicateExpression,
-				capacity).IsNeededFor(consumer);
+				capacity).For(consumer);
 
 			void test()
 			{
@@ -41884,7 +41884,7 @@ namespace ObservableComputations.Test
 			Consumer consumer = new Consumer();
 			var testing = leftSource.Joining<Item, Item>(
 				rightSource,
-				predicateExpression).IsNeededFor(consumer);
+				predicateExpression).For(consumer);
 
 			void test()
 			{
@@ -41958,7 +41958,7 @@ namespace ObservableComputations.Test
 			var testing = leftSource.Joining<Item, Item>(
 				rightSource,
 				predicateExpression,
-				capacity).IsNeededFor(consumer);
+				capacity).For(consumer);
 
 			void test()
 			{
@@ -42030,7 +42030,7 @@ namespace ObservableComputations.Test
 			Consumer consumer = new Consumer();
 			var testing = leftSource.Joining<Item, Item>(
 				rightSource,
-				predicateExpression).IsNeededFor(consumer);
+				predicateExpression).For(consumer);
 
 			void test()
 			{
@@ -42103,7 +42103,7 @@ namespace ObservableComputations.Test
 			Item defaultValue = null;
 			Consumer consumer = new Consumer();
 			var testing = sourceScalar.LastComputing<Item>(
-				defaultValue).IsNeededFor(consumer);
+				defaultValue).For(consumer);
 
 			void test()
 			{
@@ -42167,7 +42167,7 @@ namespace ObservableComputations.Test
 		{
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
 			Consumer consumer = new Consumer();
-			var testing = sourceScalar.LastComputing<Item>().IsNeededFor(consumer);
+			var testing = sourceScalar.LastComputing<Item>().For(consumer);
 
 			void test()
 			{
@@ -42233,7 +42233,7 @@ namespace ObservableComputations.Test
 			Item defaultValue = null;
 			Consumer consumer = new Consumer();
 			var testing = sourceScalar.LastComputing<Item>(
-				defaultValue).IsNeededFor(consumer);
+				defaultValue).For(consumer);
 
 			void test()
 			{
@@ -42297,7 +42297,7 @@ namespace ObservableComputations.Test
 		{
 			Scalar<ObservableCollection<Item>> sourceScalar = getScalar<ObservableCollection<Item>>(getItems());
 			Consumer consumer = new Consumer();
-			var testing = sourceScalar.LastComputing<Item>().IsNeededFor(consumer);
+			var testing = sourceScalar.LastComputing<Item>().For(consumer);
 
 			void test()
 			{
@@ -42363,7 +42363,7 @@ namespace ObservableComputations.Test
 			Item defaultValue = null;
 			Consumer consumer = new Consumer();
 			var testing = source.LastComputing<Item>(
-				defaultValue).IsNeededFor(consumer);
+				defaultValue).For(consumer);
 
 			void test()
 			{
@@ -42422,7 +42422,7 @@ namespace ObservableComputations.Test
 		{
 			System.Collections.Specialized.INotifyCollectionChanged source = getItems();
 			Consumer consumer = new Consumer();
-			var testing = source.LastComputing<Item>().IsNeededFor(consumer);
+			var testing = source.LastComputing<Item>().For(consumer);
 
 			void test()
 			{
@@ -42483,7 +42483,7 @@ namespace ObservableComputations.Test
 			Item defaultValue = null;
 			Consumer consumer = new Consumer();
 			var testing = source.LastComputing<Item>(
-				defaultValue).IsNeededFor(consumer);
+				defaultValue).For(consumer);
 
 			void test()
 			{
@@ -42542,7 +42542,7 @@ namespace ObservableComputations.Test
 		{
 			ObservableCollection<Item> source = getItems();
 			Consumer consumer = new Consumer();
-			var testing = source.LastComputing<Item>().IsNeededFor(consumer);
+			var testing = source.LastComputing<Item>().For(consumer);
 
 			void test()
 			{
@@ -42608,7 +42608,7 @@ namespace ObservableComputations.Test
 			Consumer consumer = new Consumer();
 			var testing = sourceScalar.Maximazing<int>(
 				comparer,
-				defaultValue).IsNeededFor(consumer);
+				defaultValue).For(consumer);
 
 			void test()
 			{
@@ -42674,7 +42674,7 @@ namespace ObservableComputations.Test
 			System.Collections.Generic.IComparer<int> comparer = Comparer<int>.Default;
 			Consumer consumer = new Consumer();
 			var testing = sourceScalar.Maximazing<int>(
-				comparer).IsNeededFor(consumer);
+				comparer).For(consumer);
 
 			void test()
 			{
@@ -42740,7 +42740,7 @@ namespace ObservableComputations.Test
 			int defaultValue = 0;
 			Consumer consumer = new Consumer();
 			var testing = sourceScalar.Maximazing<int>(
-				defaultValue).IsNeededFor(consumer);
+				defaultValue).For(consumer);
 
 			void test()
 			{
@@ -42804,7 +42804,7 @@ namespace ObservableComputations.Test
 		{
 			IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar = getScalar<Selecting<Item, int>>(getItems().Selecting(i => i.Num));
 			Consumer consumer = new Consumer();
-			var testing = sourceScalar.Maximazing<int>().IsNeededFor(consumer);
+			var testing = sourceScalar.Maximazing<int>().For(consumer);
 
 			void test()
 			{
@@ -42872,7 +42872,7 @@ namespace ObservableComputations.Test
 			Consumer consumer = new Consumer();
 			var testing = sourceScalar.Maximazing<int>(
 				comparer,
-				defaultValue).IsNeededFor(consumer);
+				defaultValue).For(consumer);
 
 			void test()
 			{
@@ -42938,7 +42938,7 @@ namespace ObservableComputations.Test
 			System.Collections.Generic.IComparer<int> comparer = Comparer<int>.Default;
 			Consumer consumer = new Consumer();
 			var testing = sourceScalar.Maximazing<int>(
-				comparer).IsNeededFor(consumer);
+				comparer).For(consumer);
 
 			void test()
 			{
@@ -43004,7 +43004,7 @@ namespace ObservableComputations.Test
 			int defaultValue = 0;
 			Consumer consumer = new Consumer();
 			var testing = sourceScalar.Maximazing<int>(
-				defaultValue).IsNeededFor(consumer);
+				defaultValue).For(consumer);
 
 			void test()
 			{
@@ -43068,7 +43068,7 @@ namespace ObservableComputations.Test
 		{
 			IReadScalar<ObservableCollection<int>> sourceScalar = getScalar<Selecting<Item, int>>(getItems().Selecting(i => i.Num));
 			Consumer consumer = new Consumer();
-			var testing = sourceScalar.Maximazing<int>().IsNeededFor(consumer);
+			var testing = sourceScalar.Maximazing<int>().For(consumer);
 
 			void test()
 			{
@@ -43136,7 +43136,7 @@ namespace ObservableComputations.Test
 			Consumer consumer = new Consumer();
 			var testing = sourceScalar.Maximazing<int>(
 				comparerScalar,
-				defaultValue).IsNeededFor(consumer);
+				defaultValue).For(consumer);
 
 			void test()
 			{
@@ -43207,7 +43207,7 @@ namespace ObservableComputations.Test
 			Scalar<System.Collections.Generic.IComparer<int>> comparerScalar = getScalar<System.Collections.Generic.IComparer<int>>(Comparer<int>.Default);
 			Consumer consumer = new Consumer();
 			var testing = sourceScalar.Maximazing<int>(
-				comparerScalar).IsNeededFor(consumer);
+				comparerScalar).For(consumer);
 
 			void test()
 			{
@@ -43280,7 +43280,7 @@ namespace ObservableComputations.Test
 			Consumer consumer = new Consumer();
 			var testing = sourceScalar.Maximazing<int>(
 				comparerScalar,
-				defaultValue).IsNeededFor(consumer);
+				defaultValue).For(consumer);
 
 			void test()
 			{
@@ -43351,7 +43351,7 @@ namespace ObservableComputations.Test
 			Scalar<System.Collections.Generic.IComparer<int>> comparerScalar = getScalar<System.Collections.Generic.IComparer<int>>(Comparer<int>.Default);
 			Consumer consumer = new Consumer();
 			var testing = sourceScalar.Maximazing<int>(
-				comparerScalar).IsNeededFor(consumer);
+				comparerScalar).For(consumer);
 
 			void test()
 			{
@@ -43424,7 +43424,7 @@ namespace ObservableComputations.Test
 			Consumer consumer = new Consumer();
 			var testing = source.Maximazing<int>(
 				comparer,
-				defaultValue).IsNeededFor(consumer);
+				defaultValue).For(consumer);
 
 			void test()
 			{
@@ -43485,7 +43485,7 @@ namespace ObservableComputations.Test
 			System.Collections.Generic.IComparer<int> comparer = Comparer<int>.Default;
 			Consumer consumer = new Consumer();
 			var testing = source.Maximazing<int>(
-				comparer).IsNeededFor(consumer);
+				comparer).For(consumer);
 
 			void test()
 			{
@@ -43546,7 +43546,7 @@ namespace ObservableComputations.Test
 			int defaultValue = 0;
 			Consumer consumer = new Consumer();
 			var testing = source.Maximazing<int>(
-				defaultValue).IsNeededFor(consumer);
+				defaultValue).For(consumer);
 
 			void test()
 			{
@@ -43605,7 +43605,7 @@ namespace ObservableComputations.Test
 		{
 			Selecting<Item, int> source = getItems().Selecting(i => i.Num);
 			Consumer consumer = new Consumer();
-			var testing = source.Maximazing<int>().IsNeededFor(consumer);
+			var testing = source.Maximazing<int>().For(consumer);
 
 			void test()
 			{
@@ -43668,7 +43668,7 @@ namespace ObservableComputations.Test
 			Consumer consumer = new Consumer();
 			var testing = source.Maximazing<int>(
 				comparer,
-				defaultValue).IsNeededFor(consumer);
+				defaultValue).For(consumer);
 
 			void test()
 			{
@@ -43729,7 +43729,7 @@ namespace ObservableComputations.Test
 			System.Collections.Generic.IComparer<int> comparer = Comparer<int>.Default;
 			Consumer consumer = new Consumer();
 			var testing = source.Maximazing<int>(
-				comparer).IsNeededFor(consumer);
+				comparer).For(consumer);
 
 			void test()
 			{
@@ -43790,7 +43790,7 @@ namespace ObservableComputations.Test
 			int defaultValue = 0;
 			Consumer consumer = new Consumer();
 			var testing = source.Maximazing<int>(
-				defaultValue).IsNeededFor(consumer);
+				defaultValue).For(consumer);
 
 			void test()
 			{
@@ -43849,7 +43849,7 @@ namespace ObservableComputations.Test
 		{
 			Selecting<Item, int> source = getItems().Selecting(i => i.Num);
 			Consumer consumer = new Consumer();
-			var testing = source.Maximazing<int>().IsNeededFor(consumer);
+			var testing = source.Maximazing<int>().For(consumer);
 
 			void test()
 			{
@@ -43912,7 +43912,7 @@ namespace ObservableComputations.Test
 			Consumer consumer = new Consumer();
 			var testing = source.Maximazing<int>(
 				comparerScalar,
-				defaultValue).IsNeededFor(consumer);
+				defaultValue).For(consumer);
 
 			void test()
 			{
@@ -43978,7 +43978,7 @@ namespace ObservableComputations.Test
 			Scalar<System.Collections.Generic.IComparer<int>> comparerScalar = getScalar<System.Collections.Generic.IComparer<int>>(Comparer<int>.Default);
 			Consumer consumer = new Consumer();
 			var testing = source.Maximazing<int>(
-				comparerScalar).IsNeededFor(consumer);
+				comparerScalar).For(consumer);
 
 			void test()
 			{
@@ -44046,7 +44046,7 @@ namespace ObservableComputations.Test
 			Consumer consumer = new Consumer();
 			var testing = source.Maximazing<int>(
 				comparerScalar,
-				defaultValue).IsNeededFor(consumer);
+				defaultValue).For(consumer);
 
 			void test()
 			{
@@ -44112,7 +44112,7 @@ namespace ObservableComputations.Test
 			Scalar<System.Collections.Generic.IComparer<int>> comparerScalar = getScalar<System.Collections.Generic.IComparer<int>>(Comparer<int>.Default);
 			Consumer consumer = new Consumer();
 			var testing = source.Maximazing<int>(
-				comparerScalar).IsNeededFor(consumer);
+				comparerScalar).For(consumer);
 
 			void test()
 			{
@@ -44183,7 +44183,7 @@ namespace ObservableComputations.Test
 			Consumer consumer = new Consumer();
 			var testing = sourceScalar.Minimazing<int>(
 				comparer,
-				defaultValue).IsNeededFor(consumer);
+				defaultValue).For(consumer);
 
 			void test()
 			{
@@ -44249,7 +44249,7 @@ namespace ObservableComputations.Test
 			System.Collections.Generic.IComparer<int> comparer = Comparer<int>.Default;
 			Consumer consumer = new Consumer();
 			var testing = sourceScalar.Minimazing<int>(
-				comparer).IsNeededFor(consumer);
+				comparer).For(consumer);
 
 			void test()
 			{
@@ -44315,7 +44315,7 @@ namespace ObservableComputations.Test
 			int defaultValue = 0;
 			Consumer consumer = new Consumer();
 			var testing = sourceScalar.Minimazing<int>(
-				defaultValue).IsNeededFor(consumer);
+				defaultValue).For(consumer);
 
 			void test()
 			{
@@ -44379,7 +44379,7 @@ namespace ObservableComputations.Test
 		{
 			IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar = getScalar<Selecting<Item, int>>(getItems().Selecting(i => i.Num));
 			Consumer consumer = new Consumer();
-			var testing = sourceScalar.Minimazing<int>().IsNeededFor(consumer);
+			var testing = sourceScalar.Minimazing<int>().For(consumer);
 
 			void test()
 			{
@@ -44447,7 +44447,7 @@ namespace ObservableComputations.Test
 			Consumer consumer = new Consumer();
 			var testing = sourceScalar.Minimazing<int>(
 				comparer,
-				defaultValue).IsNeededFor(consumer);
+				defaultValue).For(consumer);
 
 			void test()
 			{
@@ -44513,7 +44513,7 @@ namespace ObservableComputations.Test
 			System.Collections.Generic.IComparer<int> comparer = Comparer<int>.Default;
 			Consumer consumer = new Consumer();
 			var testing = sourceScalar.Minimazing<int>(
-				comparer).IsNeededFor(consumer);
+				comparer).For(consumer);
 
 			void test()
 			{
@@ -44579,7 +44579,7 @@ namespace ObservableComputations.Test
 			int defaultValue = 0;
 			Consumer consumer = new Consumer();
 			var testing = sourceScalar.Minimazing<int>(
-				defaultValue).IsNeededFor(consumer);
+				defaultValue).For(consumer);
 
 			void test()
 			{
@@ -44643,7 +44643,7 @@ namespace ObservableComputations.Test
 		{
 			IReadScalar<ObservableCollection<int>> sourceScalar = getScalar<Selecting<Item, int>>(getItems().Selecting(i => i.Num));
 			Consumer consumer = new Consumer();
-			var testing = sourceScalar.Minimazing<int>().IsNeededFor(consumer);
+			var testing = sourceScalar.Minimazing<int>().For(consumer);
 
 			void test()
 			{
@@ -44711,7 +44711,7 @@ namespace ObservableComputations.Test
 			Consumer consumer = new Consumer();
 			var testing = sourceScalar.Minimazing<int>(
 				comparerScalar,
-				defaultValue).IsNeededFor(consumer);
+				defaultValue).For(consumer);
 
 			void test()
 			{
@@ -44782,7 +44782,7 @@ namespace ObservableComputations.Test
 			Scalar<System.Collections.Generic.IComparer<int>> comparerScalar = getScalar<System.Collections.Generic.IComparer<int>>(Comparer<int>.Default);
 			Consumer consumer = new Consumer();
 			var testing = sourceScalar.Minimazing<int>(
-				comparerScalar).IsNeededFor(consumer);
+				comparerScalar).For(consumer);
 
 			void test()
 			{
@@ -44855,7 +44855,7 @@ namespace ObservableComputations.Test
 			Consumer consumer = new Consumer();
 			var testing = sourceScalar.Minimazing<int>(
 				comparerScalar,
-				defaultValue).IsNeededFor(consumer);
+				defaultValue).For(consumer);
 
 			void test()
 			{
@@ -44926,7 +44926,7 @@ namespace ObservableComputations.Test
 			Scalar<System.Collections.Generic.IComparer<int>> comparerScalar = getScalar<System.Collections.Generic.IComparer<int>>(Comparer<int>.Default);
 			Consumer consumer = new Consumer();
 			var testing = sourceScalar.Minimazing<int>(
-				comparerScalar).IsNeededFor(consumer);
+				comparerScalar).For(consumer);
 
 			void test()
 			{
@@ -44999,7 +44999,7 @@ namespace ObservableComputations.Test
 			Consumer consumer = new Consumer();
 			var testing = source.Minimazing<int>(
 				comparer,
-				defaultValue).IsNeededFor(consumer);
+				defaultValue).For(consumer);
 
 			void test()
 			{
@@ -45060,7 +45060,7 @@ namespace ObservableComputations.Test
 			System.Collections.Generic.IComparer<int> comparer = Comparer<int>.Default;
 			Consumer consumer = new Consumer();
 			var testing = source.Minimazing<int>(
-				comparer).IsNeededFor(consumer);
+				comparer).For(consumer);
 
 			void test()
 			{
@@ -45121,7 +45121,7 @@ namespace ObservableComputations.Test
 			int defaultValue = 0;
 			Consumer consumer = new Consumer();
 			var testing = source.Minimazing<int>(
-				defaultValue).IsNeededFor(consumer);
+				defaultValue).For(consumer);
 
 			void test()
 			{
@@ -45180,7 +45180,7 @@ namespace ObservableComputations.Test
 		{
 			Selecting<Item, int> source = getItems().Selecting(i => i.Num);
 			Consumer consumer = new Consumer();
-			var testing = source.Minimazing<int>().IsNeededFor(consumer);
+			var testing = source.Minimazing<int>().For(consumer);
 
 			void test()
 			{
@@ -45243,7 +45243,7 @@ namespace ObservableComputations.Test
 			Consumer consumer = new Consumer();
 			var testing = source.Minimazing<int>(
 				comparer,
-				defaultValue).IsNeededFor(consumer);
+				defaultValue).For(consumer);
 
 			void test()
 			{
@@ -45304,7 +45304,7 @@ namespace ObservableComputations.Test
 			System.Collections.Generic.IComparer<int> comparer = Comparer<int>.Default;
 			Consumer consumer = new Consumer();
 			var testing = source.Minimazing<int>(
-				comparer).IsNeededFor(consumer);
+				comparer).For(consumer);
 
 			void test()
 			{
@@ -45365,7 +45365,7 @@ namespace ObservableComputations.Test
 			int defaultValue = 0;
 			Consumer consumer = new Consumer();
 			var testing = source.Minimazing<int>(
-				defaultValue).IsNeededFor(consumer);
+				defaultValue).For(consumer);
 
 			void test()
 			{
@@ -45424,7 +45424,7 @@ namespace ObservableComputations.Test
 		{
 			Selecting<Item, int> source = getItems().Selecting(i => i.Num);
 			Consumer consumer = new Consumer();
-			var testing = source.Minimazing<int>().IsNeededFor(consumer);
+			var testing = source.Minimazing<int>().For(consumer);
 
 			void test()
 			{
@@ -45487,7 +45487,7 @@ namespace ObservableComputations.Test
 			Consumer consumer = new Consumer();
 			var testing = source.Minimazing<int>(
 				comparerScalar,
-				defaultValue).IsNeededFor(consumer);
+				defaultValue).For(consumer);
 
 			void test()
 			{
@@ -45553,7 +45553,7 @@ namespace ObservableComputations.Test
 			Scalar<System.Collections.Generic.IComparer<int>> comparerScalar = getScalar<System.Collections.Generic.IComparer<int>>(Comparer<int>.Default);
 			Consumer consumer = new Consumer();
 			var testing = source.Minimazing<int>(
-				comparerScalar).IsNeededFor(consumer);
+				comparerScalar).For(consumer);
 
 			void test()
 			{
@@ -45621,7 +45621,7 @@ namespace ObservableComputations.Test
 			Consumer consumer = new Consumer();
 			var testing = source.Minimazing<int>(
 				comparerScalar,
-				defaultValue).IsNeededFor(consumer);
+				defaultValue).For(consumer);
 
 			void test()
 			{
@@ -45687,7 +45687,7 @@ namespace ObservableComputations.Test
 			Scalar<System.Collections.Generic.IComparer<int>> comparerScalar = getScalar<System.Collections.Generic.IComparer<int>>(Comparer<int>.Default);
 			Consumer consumer = new Consumer();
 			var testing = source.Minimazing<int>(
-				comparerScalar).IsNeededFor(consumer);
+				comparerScalar).For(consumer);
 
 			void test()
 			{
@@ -45754,7 +45754,7 @@ namespace ObservableComputations.Test
 		{
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
 			Consumer consumer = new Consumer();
-			var testing = sourceScalar.OfTypeComputing<object>().IsNeededFor(consumer);
+			var testing = sourceScalar.OfTypeComputing<object>().For(consumer);
 
 			void test()
 			{
@@ -45818,7 +45818,7 @@ namespace ObservableComputations.Test
 		{
 			System.Collections.Specialized.INotifyCollectionChanged source = getItems();
 			Consumer consumer = new Consumer();
-			var testing = source.OfTypeComputing<object>().IsNeededFor(consumer);
+			var testing = source.OfTypeComputing<object>().For(consumer);
 
 			void test()
 			{
@@ -45886,7 +45886,7 @@ namespace ObservableComputations.Test
 			var testing = source.Ordering<int, int>(
 				orderingValueSelectorExpression,
 				sortDirectionScalar,
-				comparerScalar).IsNeededFor(consumer);
+				comparerScalar).For(consumer);
 
 			void test()
 			{
@@ -45959,7 +45959,7 @@ namespace ObservableComputations.Test
 			Consumer consumer = new Consumer();
 			var testing = source.Ordering<int, int>(
 				orderingValueSelectorExpression,
-				sortDirectionScalar).IsNeededFor(consumer);
+				sortDirectionScalar).For(consumer);
 
 			void test()
 			{
@@ -46027,7 +46027,7 @@ namespace ObservableComputations.Test
 			Consumer consumer = new Consumer();
 			var testing = source.Ordering<int, int>(
 				orderingValueSelectorExpression,
-				comparerScalar).IsNeededFor(consumer);
+				comparerScalar).For(consumer);
 
 			void test()
 			{
@@ -46093,7 +46093,7 @@ namespace ObservableComputations.Test
 			System.Linq.Expressions.Expression<System.Func<int, int>> orderingValueSelectorExpression = i => i;
 			Consumer consumer = new Consumer();
 			var testing = source.Ordering<int, int>(
-				orderingValueSelectorExpression).IsNeededFor(consumer);
+				orderingValueSelectorExpression).For(consumer);
 
 			void test()
 			{
@@ -46158,7 +46158,7 @@ namespace ObservableComputations.Test
 			var testing = source.Ordering<int, int>(
 				orderingValueSelectorExpression,
 				sortDirectionScalar,
-				comparerScalar).IsNeededFor(consumer);
+				comparerScalar).For(consumer);
 
 			void test()
 			{
@@ -46231,7 +46231,7 @@ namespace ObservableComputations.Test
 			Consumer consumer = new Consumer();
 			var testing = source.Ordering<int, int>(
 				orderingValueSelectorExpression,
-				sortDirectionScalar).IsNeededFor(consumer);
+				sortDirectionScalar).For(consumer);
 
 			void test()
 			{
@@ -46299,7 +46299,7 @@ namespace ObservableComputations.Test
 			Consumer consumer = new Consumer();
 			var testing = source.Ordering<int, int>(
 				orderingValueSelectorExpression,
-				comparerScalar).IsNeededFor(consumer);
+				comparerScalar).For(consumer);
 
 			void test()
 			{
@@ -46365,7 +46365,7 @@ namespace ObservableComputations.Test
 			System.Linq.Expressions.Expression<System.Func<int, int>> orderingValueSelectorExpression = i => i;
 			Consumer consumer = new Consumer();
 			var testing = source.Ordering<int, int>(
-				orderingValueSelectorExpression).IsNeededFor(consumer);
+				orderingValueSelectorExpression).For(consumer);
 
 			void test()
 			{
@@ -46430,7 +46430,7 @@ namespace ObservableComputations.Test
 			var testing = source.Ordering<int, int>(
 				orderingValueSelectorExpression,
 				sortDirection,
-				comparerScalar).IsNeededFor(consumer);
+				comparerScalar).For(consumer);
 
 			void test()
 			{
@@ -46498,7 +46498,7 @@ namespace ObservableComputations.Test
 			Consumer consumer = new Consumer();
 			var testing = source.Ordering<int, int>(
 				orderingValueSelectorExpression,
-				sortDirection).IsNeededFor(consumer);
+				sortDirection).For(consumer);
 
 			void test()
 			{
@@ -46563,7 +46563,7 @@ namespace ObservableComputations.Test
 			var testing = source.Ordering<int, int>(
 				orderingValueSelectorExpression,
 				sortDirection,
-				comparerScalar).IsNeededFor(consumer);
+				comparerScalar).For(consumer);
 
 			void test()
 			{
@@ -46631,7 +46631,7 @@ namespace ObservableComputations.Test
 			Consumer consumer = new Consumer();
 			var testing = source.Ordering<int, int>(
 				orderingValueSelectorExpression,
-				sortDirection).IsNeededFor(consumer);
+				sortDirection).For(consumer);
 
 			void test()
 			{
@@ -46696,7 +46696,7 @@ namespace ObservableComputations.Test
 			var testing = source.Ordering<int, int>(
 				orderingValueSelectorExpression,
 				sortDirectionScalar,
-				comparer).IsNeededFor(consumer);
+				comparer).For(consumer);
 
 			void test()
 			{
@@ -46764,7 +46764,7 @@ namespace ObservableComputations.Test
 			Consumer consumer = new Consumer();
 			var testing = source.Ordering<int, int>(
 				orderingValueSelectorExpression,
-				comparer).IsNeededFor(consumer);
+				comparer).For(consumer);
 
 			void test()
 			{
@@ -46829,7 +46829,7 @@ namespace ObservableComputations.Test
 			var testing = source.Ordering<int, int>(
 				orderingValueSelectorExpression,
 				sortDirectionScalar,
-				comparer).IsNeededFor(consumer);
+				comparer).For(consumer);
 
 			void test()
 			{
@@ -46897,7 +46897,7 @@ namespace ObservableComputations.Test
 			Consumer consumer = new Consumer();
 			var testing = source.Ordering<int, int>(
 				orderingValueSelectorExpression,
-				comparer).IsNeededFor(consumer);
+				comparer).For(consumer);
 
 			void test()
 			{
@@ -46962,7 +46962,7 @@ namespace ObservableComputations.Test
 			var testing = source.Ordering<int, int>(
 				orderingValueSelectorExpression,
 				sortDirection,
-				comparer).IsNeededFor(consumer);
+				comparer).For(consumer);
 
 			void test()
 			{
@@ -47027,7 +47027,7 @@ namespace ObservableComputations.Test
 			var testing = source.Ordering<int, int>(
 				orderingValueSelectorExpression,
 				sortDirection,
-				comparer).IsNeededFor(consumer);
+				comparer).For(consumer);
 
 			void test()
 			{
@@ -47092,7 +47092,7 @@ namespace ObservableComputations.Test
 			var testing = sourceScalar.Ordering<int, int>(
 				orderingValueSelectorExpression,
 				sortDirectionScalar,
-				comparerScalar).IsNeededFor(consumer);
+				comparerScalar).For(consumer);
 
 			void test()
 			{
@@ -47170,7 +47170,7 @@ namespace ObservableComputations.Test
 			Consumer consumer = new Consumer();
 			var testing = sourceScalar.Ordering<int, int>(
 				orderingValueSelectorExpression,
-				sortDirectionScalar).IsNeededFor(consumer);
+				sortDirectionScalar).For(consumer);
 
 			void test()
 			{
@@ -47243,7 +47243,7 @@ namespace ObservableComputations.Test
 			Consumer consumer = new Consumer();
 			var testing = sourceScalar.Ordering<int, int>(
 				orderingValueSelectorExpression,
-				comparerScalar).IsNeededFor(consumer);
+				comparerScalar).For(consumer);
 
 			void test()
 			{
@@ -47314,7 +47314,7 @@ namespace ObservableComputations.Test
 			System.Linq.Expressions.Expression<System.Func<int, int>> orderingValueSelectorExpression = i => i;
 			Consumer consumer = new Consumer();
 			var testing = sourceScalar.Ordering<int, int>(
-				orderingValueSelectorExpression).IsNeededFor(consumer);
+				orderingValueSelectorExpression).For(consumer);
 
 			void test()
 			{
@@ -47384,7 +47384,7 @@ namespace ObservableComputations.Test
 			var testing = sourceScalar.Ordering<int, int>(
 				orderingValueSelectorExpression,
 				sortDirectionScalar,
-				comparerScalar).IsNeededFor(consumer);
+				comparerScalar).For(consumer);
 
 			void test()
 			{
@@ -47462,7 +47462,7 @@ namespace ObservableComputations.Test
 			Consumer consumer = new Consumer();
 			var testing = sourceScalar.Ordering<int, int>(
 				orderingValueSelectorExpression,
-				sortDirectionScalar).IsNeededFor(consumer);
+				sortDirectionScalar).For(consumer);
 
 			void test()
 			{
@@ -47535,7 +47535,7 @@ namespace ObservableComputations.Test
 			Consumer consumer = new Consumer();
 			var testing = sourceScalar.Ordering<int, int>(
 				orderingValueSelectorExpression,
-				comparerScalar).IsNeededFor(consumer);
+				comparerScalar).For(consumer);
 
 			void test()
 			{
@@ -47606,7 +47606,7 @@ namespace ObservableComputations.Test
 			System.Linq.Expressions.Expression<System.Func<int, int>> orderingValueSelectorExpression = i => i;
 			Consumer consumer = new Consumer();
 			var testing = sourceScalar.Ordering<int, int>(
-				orderingValueSelectorExpression).IsNeededFor(consumer);
+				orderingValueSelectorExpression).For(consumer);
 
 			void test()
 			{
@@ -47676,7 +47676,7 @@ namespace ObservableComputations.Test
 			var testing = sourceScalar.Ordering<int, int>(
 				orderingValueSelectorExpression,
 				sortDirection,
-				comparerScalar).IsNeededFor(consumer);
+				comparerScalar).For(consumer);
 
 			void test()
 			{
@@ -47749,7 +47749,7 @@ namespace ObservableComputations.Test
 			Consumer consumer = new Consumer();
 			var testing = sourceScalar.Ordering<int, int>(
 				orderingValueSelectorExpression,
-				sortDirection).IsNeededFor(consumer);
+				sortDirection).For(consumer);
 
 			void test()
 			{
@@ -47819,7 +47819,7 @@ namespace ObservableComputations.Test
 			var testing = sourceScalar.Ordering<int, int>(
 				orderingValueSelectorExpression,
 				sortDirection,
-				comparerScalar).IsNeededFor(consumer);
+				comparerScalar).For(consumer);
 
 			void test()
 			{
@@ -47892,7 +47892,7 @@ namespace ObservableComputations.Test
 			Consumer consumer = new Consumer();
 			var testing = sourceScalar.Ordering<int, int>(
 				orderingValueSelectorExpression,
-				sortDirection).IsNeededFor(consumer);
+				sortDirection).For(consumer);
 
 			void test()
 			{
@@ -47962,7 +47962,7 @@ namespace ObservableComputations.Test
 			var testing = sourceScalar.Ordering<int, int>(
 				orderingValueSelectorExpression,
 				sortDirectionScalar,
-				comparer).IsNeededFor(consumer);
+				comparer).For(consumer);
 
 			void test()
 			{
@@ -48035,7 +48035,7 @@ namespace ObservableComputations.Test
 			Consumer consumer = new Consumer();
 			var testing = sourceScalar.Ordering<int, int>(
 				orderingValueSelectorExpression,
-				comparer).IsNeededFor(consumer);
+				comparer).For(consumer);
 
 			void test()
 			{
@@ -48105,7 +48105,7 @@ namespace ObservableComputations.Test
 			var testing = sourceScalar.Ordering<int, int>(
 				orderingValueSelectorExpression,
 				sortDirectionScalar,
-				comparer).IsNeededFor(consumer);
+				comparer).For(consumer);
 
 			void test()
 			{
@@ -48178,7 +48178,7 @@ namespace ObservableComputations.Test
 			Consumer consumer = new Consumer();
 			var testing = sourceScalar.Ordering<int, int>(
 				orderingValueSelectorExpression,
-				comparer).IsNeededFor(consumer);
+				comparer).For(consumer);
 
 			void test()
 			{
@@ -48248,7 +48248,7 @@ namespace ObservableComputations.Test
 			var testing = sourceScalar.Ordering<int, int>(
 				orderingValueSelectorExpression,
 				sortDirection,
-				comparer).IsNeededFor(consumer);
+				comparer).For(consumer);
 
 			void test()
 			{
@@ -48318,7 +48318,7 @@ namespace ObservableComputations.Test
 			var testing = sourceScalar.Ordering<int, int>(
 				orderingValueSelectorExpression,
 				sortDirection,
-				comparer).IsNeededFor(consumer);
+				comparer).For(consumer);
 
 			void test()
 			{
@@ -48389,7 +48389,7 @@ namespace ObservableComputations.Test
 			Consumer consumer = new Consumer();
 			var testing = source.Paging<Item>(
 				pageSize,
-				initialPage).IsNeededFor(consumer);
+				initialPage).For(consumer);
 
 			void test()
 			{
@@ -48450,7 +48450,7 @@ namespace ObservableComputations.Test
 			int pageSize = 2;
 			Consumer consumer = new Consumer();
 			var testing = source.Paging<Item>(
-				pageSize).IsNeededFor(consumer);
+				pageSize).For(consumer);
 
 			void test()
 			{
@@ -48513,7 +48513,7 @@ namespace ObservableComputations.Test
 			Consumer consumer = new Consumer();
 			var testing = source.Paging<Item>(
 				pageSize,
-				initialPage).IsNeededFor(consumer);
+				initialPage).For(consumer);
 
 			void test()
 			{
@@ -48574,7 +48574,7 @@ namespace ObservableComputations.Test
 			int pageSize = 2;
 			Consumer consumer = new Consumer();
 			var testing = source.Paging<Item>(
-				pageSize).IsNeededFor(consumer);
+				pageSize).For(consumer);
 
 			void test()
 			{
@@ -48637,7 +48637,7 @@ namespace ObservableComputations.Test
 			Consumer consumer = new Consumer();
 			var testing = sourceScalar.Paging<Item>(
 				pageSize,
-				initialPage).IsNeededFor(consumer);
+				initialPage).For(consumer);
 
 			void test()
 			{
@@ -48703,7 +48703,7 @@ namespace ObservableComputations.Test
 			int pageSize = 2;
 			Consumer consumer = new Consumer();
 			var testing = sourceScalar.Paging<Item>(
-				pageSize).IsNeededFor(consumer);
+				pageSize).For(consumer);
 
 			void test()
 			{
@@ -48771,7 +48771,7 @@ namespace ObservableComputations.Test
 			Consumer consumer = new Consumer();
 			var testing = sourceScalar.Paging<Item>(
 				pageSize,
-				initialPage).IsNeededFor(consumer);
+				initialPage).For(consumer);
 
 			void test()
 			{
@@ -48837,7 +48837,7 @@ namespace ObservableComputations.Test
 			int pageSize = 2;
 			Consumer consumer = new Consumer();
 			var testing = sourceScalar.Paging<Item>(
-				pageSize).IsNeededFor(consumer);
+				pageSize).For(consumer);
 
 			void test()
 			{
@@ -48905,7 +48905,7 @@ namespace ObservableComputations.Test
 			Consumer consumer = new Consumer();
 			var testing = source.Paging<Item>(
 				pageSizeScalar,
-				initialPage).IsNeededFor(consumer);
+				initialPage).For(consumer);
 
 			void test()
 			{
@@ -48971,7 +48971,7 @@ namespace ObservableComputations.Test
 			Scalar<int> pageSizeScalar = getScalar<int>(2);
 			Consumer consumer = new Consumer();
 			var testing = source.Paging<Item>(
-				pageSizeScalar).IsNeededFor(consumer);
+				pageSizeScalar).For(consumer);
 
 			void test()
 			{
@@ -49039,7 +49039,7 @@ namespace ObservableComputations.Test
 			Consumer consumer = new Consumer();
 			var testing = source.Paging<Item>(
 				pageSizeScalar,
-				initialPage).IsNeededFor(consumer);
+				initialPage).For(consumer);
 
 			void test()
 			{
@@ -49105,7 +49105,7 @@ namespace ObservableComputations.Test
 			Scalar<int> pageSizeScalar = getScalar<int>(2);
 			Consumer consumer = new Consumer();
 			var testing = source.Paging<Item>(
-				pageSizeScalar).IsNeededFor(consumer);
+				pageSizeScalar).For(consumer);
 
 			void test()
 			{
@@ -49173,7 +49173,7 @@ namespace ObservableComputations.Test
 			Consumer consumer = new Consumer();
 			var testing = sourceScalar.Paging<Item>(
 				pageSizeScalar,
-				initialPage).IsNeededFor(consumer);
+				initialPage).For(consumer);
 
 			void test()
 			{
@@ -49244,7 +49244,7 @@ namespace ObservableComputations.Test
 			Scalar<int> pageSizeScalar = getScalar<int>(2);
 			Consumer consumer = new Consumer();
 			var testing = sourceScalar.Paging<Item>(
-				pageSizeScalar).IsNeededFor(consumer);
+				pageSizeScalar).For(consumer);
 
 			void test()
 			{
@@ -49317,7 +49317,7 @@ namespace ObservableComputations.Test
 			Consumer consumer = new Consumer();
 			var testing = sourceScalar.Paging<Item>(
 				pageSizeScalar,
-				initialPage).IsNeededFor(consumer);
+				initialPage).For(consumer);
 
 			void test()
 			{
@@ -49388,7 +49388,7 @@ namespace ObservableComputations.Test
 			Scalar<int> pageSizeScalar = getScalar<int>(2);
 			Consumer consumer = new Consumer();
 			var testing = sourceScalar.Paging<Item>(
-				pageSizeScalar).IsNeededFor(consumer);
+				pageSizeScalar).For(consumer);
 
 			void test()
 			{
@@ -49461,7 +49461,7 @@ namespace ObservableComputations.Test
 			Consumer consumer = new Consumer();
 			var testing = source.Paging<Item>(
 				pageSizeScalar,
-				currentPageScalar).IsNeededFor(consumer);
+				currentPageScalar).For(consumer);
 
 			void test()
 			{
@@ -49534,7 +49534,7 @@ namespace ObservableComputations.Test
 			Consumer consumer = new Consumer();
 			var testing = source.Paging<Item>(
 				pageSizeScalar,
-				currentPageScalar).IsNeededFor(consumer);
+				currentPageScalar).For(consumer);
 
 			void test()
 			{
@@ -49607,7 +49607,7 @@ namespace ObservableComputations.Test
 			Consumer consumer = new Consumer();
 			var testing = sourceScalar.Paging<Item>(
 				pageSizeScalar,
-				currentPageScalar).IsNeededFor(consumer);
+				currentPageScalar).For(consumer);
 
 			void test()
 			{
@@ -49685,7 +49685,7 @@ namespace ObservableComputations.Test
 			Consumer consumer = new Consumer();
 			var testing = sourceScalar.Paging<Item>(
 				pageSizeScalar,
-				currentPageScalar).IsNeededFor(consumer);
+				currentPageScalar).For(consumer);
 
 			void test()
 			{
@@ -49763,7 +49763,7 @@ namespace ObservableComputations.Test
 			Consumer consumer = new Consumer();
 			var testing = source.Paging<Item>(
 				pageSize,
-				currentPageScalar).IsNeededFor(consumer);
+				currentPageScalar).For(consumer);
 
 			void test()
 			{
@@ -49831,7 +49831,7 @@ namespace ObservableComputations.Test
 			Consumer consumer = new Consumer();
 			var testing = source.Paging<Item>(
 				pageSize,
-				currentPageScalar).IsNeededFor(consumer);
+				currentPageScalar).For(consumer);
 
 			void test()
 			{
@@ -49899,7 +49899,7 @@ namespace ObservableComputations.Test
 			Consumer consumer = new Consumer();
 			var testing = sourceScalar.Paging<Item>(
 				pageSize,
-				currentPageScalar).IsNeededFor(consumer);
+				currentPageScalar).For(consumer);
 
 			void test()
 			{
@@ -49972,7 +49972,7 @@ namespace ObservableComputations.Test
 			Consumer consumer = new Consumer();
 			var testing = sourceScalar.Paging<Item>(
 				pageSize,
-				currentPageScalar).IsNeededFor(consumer);
+				currentPageScalar).For(consumer);
 
 			void test()
 			{
@@ -50048,7 +50048,7 @@ namespace ObservableComputations.Test
 			Consumer consumer = new Consumer();
 			var testing = outerSourceScalar.PredicateGroupJoining<Item, Item>(
 				innerSourceScalar,
-				joinPredicateExpression).IsNeededFor(consumer);
+				joinPredicateExpression).For(consumer);
 
 			void test()
 			{
@@ -50162,7 +50162,7 @@ namespace ObservableComputations.Test
 			Consumer consumer = new Consumer();
 			var testing = outerSourceScalar.PredicateGroupJoining<Item, Item>(
 				innerSourceScalar,
-				joinPredicateExpression).IsNeededFor(consumer);
+				joinPredicateExpression).For(consumer);
 
 			void test()
 			{
@@ -50276,7 +50276,7 @@ namespace ObservableComputations.Test
 			Consumer consumer = new Consumer();
 			var testing = outerSourceScalar.PredicateGroupJoining<Item, Item>(
 				innerSourceScalar,
-				joinPredicateExpression).IsNeededFor(consumer);
+				joinPredicateExpression).For(consumer);
 
 			void test()
 			{
@@ -50390,7 +50390,7 @@ namespace ObservableComputations.Test
 			Consumer consumer = new Consumer();
 			var testing = outerSourceScalar.PredicateGroupJoining<Item, Item>(
 				innerSourceScalar,
-				joinPredicateExpression).IsNeededFor(consumer);
+				joinPredicateExpression).For(consumer);
 
 			void test()
 			{
@@ -50504,7 +50504,7 @@ namespace ObservableComputations.Test
 			Consumer consumer = new Consumer();
 			var testing = outerSourceScalar.PredicateGroupJoining<Item, Item>(
 				innerSource,
-				joinPredicateExpression).IsNeededFor(consumer);
+				joinPredicateExpression).For(consumer);
 
 			void test()
 			{
@@ -50613,7 +50613,7 @@ namespace ObservableComputations.Test
 			Consumer consumer = new Consumer();
 			var testing = outerSourceScalar.PredicateGroupJoining<Item, Item>(
 				innerSource,
-				joinPredicateExpression).IsNeededFor(consumer);
+				joinPredicateExpression).For(consumer);
 
 			void test()
 			{
@@ -50722,7 +50722,7 @@ namespace ObservableComputations.Test
 			Consumer consumer = new Consumer();
 			var testing = outerSourceScalar.PredicateGroupJoining<Item, Item>(
 				innerSource,
-				joinPredicateExpression).IsNeededFor(consumer);
+				joinPredicateExpression).For(consumer);
 
 			void test()
 			{
@@ -50831,7 +50831,7 @@ namespace ObservableComputations.Test
 			Consumer consumer = new Consumer();
 			var testing = outerSourceScalar.PredicateGroupJoining<Item, Item>(
 				innerSource,
-				joinPredicateExpression).IsNeededFor(consumer);
+				joinPredicateExpression).For(consumer);
 
 			void test()
 			{
@@ -50940,7 +50940,7 @@ namespace ObservableComputations.Test
 			Consumer consumer = new Consumer();
 			var testing = outerSource.PredicateGroupJoining<Item, Item>(
 				innerSourceScalar,
-				joinPredicateExpression).IsNeededFor(consumer);
+				joinPredicateExpression).For(consumer);
 
 			void test()
 			{
@@ -51049,7 +51049,7 @@ namespace ObservableComputations.Test
 			Consumer consumer = new Consumer();
 			var testing = outerSource.PredicateGroupJoining<Item, Item>(
 				innerSourceScalar,
-				joinPredicateExpression).IsNeededFor(consumer);
+				joinPredicateExpression).For(consumer);
 
 			void test()
 			{
@@ -51158,7 +51158,7 @@ namespace ObservableComputations.Test
 			Consumer consumer = new Consumer();
 			var testing = outerSource.PredicateGroupJoining<Item, Item>(
 				innerSourceScalar,
-				joinPredicateExpression).IsNeededFor(consumer);
+				joinPredicateExpression).For(consumer);
 
 			void test()
 			{
@@ -51267,7 +51267,7 @@ namespace ObservableComputations.Test
 			Consumer consumer = new Consumer();
 			var testing = outerSource.PredicateGroupJoining<Item, Item>(
 				innerSourceScalar,
-				joinPredicateExpression).IsNeededFor(consumer);
+				joinPredicateExpression).For(consumer);
 
 			void test()
 			{
@@ -51376,7 +51376,7 @@ namespace ObservableComputations.Test
 			Consumer consumer = new Consumer();
 			var testing = outerSource.PredicateGroupJoining<Item, Item>(
 				innerSource,
-				joinPredicateExpression).IsNeededFor(consumer);
+				joinPredicateExpression).For(consumer);
 
 			void test()
 			{
@@ -51480,7 +51480,7 @@ namespace ObservableComputations.Test
 			Consumer consumer = new Consumer();
 			var testing = outerSource.PredicateGroupJoining<Item, Item>(
 				innerSource,
-				joinPredicateExpression).IsNeededFor(consumer);
+				joinPredicateExpression).For(consumer);
 
 			void test()
 			{
@@ -51584,7 +51584,7 @@ namespace ObservableComputations.Test
 			Consumer consumer = new Consumer();
 			var testing = outerSource.PredicateGroupJoining<Item, Item>(
 				innerSource,
-				joinPredicateExpression).IsNeededFor(consumer);
+				joinPredicateExpression).For(consumer);
 
 			void test()
 			{
@@ -51688,7 +51688,7 @@ namespace ObservableComputations.Test
 			Consumer consumer = new Consumer();
 			var testing = outerSource.PredicateGroupJoining<Item, Item>(
 				innerSource,
-				joinPredicateExpression).IsNeededFor(consumer);
+				joinPredicateExpression).For(consumer);
 
 			void test()
 			{
@@ -51793,7 +51793,7 @@ namespace ObservableComputations.Test
 			Scalar<Item> itemScalar = getScalar<Item>(new QuickTests.Item(1, true));
 			Consumer consumer = new Consumer();
 			var testing = sourceScalar.Prepending<Item>(
-				itemScalar).IsNeededFor(consumer);
+				itemScalar).For(consumer);
 
 			void test()
 			{
@@ -51864,7 +51864,7 @@ namespace ObservableComputations.Test
 			Scalar<Item> itemScalar = getScalar<Item>(new QuickTests.Item(1, true));
 			Consumer consumer = new Consumer();
 			var testing = sourceScalar.Prepending<Item>(
-				itemScalar).IsNeededFor(consumer);
+				itemScalar).For(consumer);
 
 			void test()
 			{
@@ -51935,7 +51935,7 @@ namespace ObservableComputations.Test
 			Scalar<Item> itemScalar = getScalar<Item>(new QuickTests.Item(1, true));
 			Consumer consumer = new Consumer();
 			var testing = source.Prepending<Item>(
-				itemScalar).IsNeededFor(consumer);
+				itemScalar).For(consumer);
 
 			void test()
 			{
@@ -52001,7 +52001,7 @@ namespace ObservableComputations.Test
 			Scalar<Item> itemScalar = getScalar<Item>(new QuickTests.Item(1, true));
 			Consumer consumer = new Consumer();
 			var testing = source.Prepending<Item>(
-				itemScalar).IsNeededFor(consumer);
+				itemScalar).For(consumer);
 
 			void test()
 			{
@@ -52067,7 +52067,7 @@ namespace ObservableComputations.Test
 			Item item = new QuickTests.Item(1, true);
 			Consumer consumer = new Consumer();
 			var testing = source.Prepending<Item>(
-				item).IsNeededFor(consumer);
+				item).For(consumer);
 
 			void test()
 			{
@@ -52128,7 +52128,7 @@ namespace ObservableComputations.Test
 			Item item = new QuickTests.Item(1, true);
 			Consumer consumer = new Consumer();
 			var testing = source.Prepending<Item>(
-				item).IsNeededFor(consumer);
+				item).For(consumer);
 
 			void test()
 			{
@@ -52189,7 +52189,7 @@ namespace ObservableComputations.Test
 			Item item = new QuickTests.Item(1, true);
 			Consumer consumer = new Consumer();
 			var testing = sourceScalar.Prepending<Item>(
-				item).IsNeededFor(consumer);
+				item).For(consumer);
 
 			void test()
 			{
@@ -52255,7 +52255,7 @@ namespace ObservableComputations.Test
 			Item item = new QuickTests.Item(1, true);
 			Consumer consumer = new Consumer();
 			var testing = sourceScalar.Prepending<Item>(
-				item).IsNeededFor(consumer);
+				item).For(consumer);
 
 			void test()
 			{
@@ -52322,7 +52322,7 @@ namespace ObservableComputations.Test
 		{
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
 			Consumer consumer = new Consumer();
-			var testing = sourceScalar.Reversing<Item>().IsNeededFor(consumer);
+			var testing = sourceScalar.Reversing<Item>().For(consumer);
 
 			void test()
 			{
@@ -52386,7 +52386,7 @@ namespace ObservableComputations.Test
 		{
 			Scalar<ObservableCollection<Item>> sourceScalar = getScalar<ObservableCollection<Item>>(getItems());
 			Consumer consumer = new Consumer();
-			var testing = sourceScalar.Reversing<Item>().IsNeededFor(consumer);
+			var testing = sourceScalar.Reversing<Item>().For(consumer);
 
 			void test()
 			{
@@ -52450,7 +52450,7 @@ namespace ObservableComputations.Test
 		{
 			System.Collections.Specialized.INotifyCollectionChanged source = getItems();
 			Consumer consumer = new Consumer();
-			var testing = source.Reversing<Item>().IsNeededFor(consumer);
+			var testing = source.Reversing<Item>().For(consumer);
 
 			void test()
 			{
@@ -52509,7 +52509,7 @@ namespace ObservableComputations.Test
 		{
 			ObservableCollection<Item> source = getItems();
 			Consumer consumer = new Consumer();
-			var testing = source.Reversing<Item>().IsNeededFor(consumer);
+			var testing = source.Reversing<Item>().For(consumer);
 
 			void test()
 			{
@@ -52573,7 +52573,7 @@ namespace ObservableComputations.Test
 			System.Linq.Expressions.Expression<System.Func<Item, object>> selectorExpression = i => i.Num;
 			Consumer consumer = new Consumer();
 			var testing = sourceScalar.Selecting<Item, object>(
-				selectorExpression).IsNeededFor(consumer);
+				selectorExpression).For(consumer);
 
 			void test()
 			{
@@ -52639,7 +52639,7 @@ namespace ObservableComputations.Test
 			System.Linq.Expressions.Expression<System.Func<Item, object>> selectorExpression = i => i.Num;
 			Consumer consumer = new Consumer();
 			var testing = sourceScalar.Selecting<Item, object>(
-				selectorExpression).IsNeededFor(consumer);
+				selectorExpression).For(consumer);
 
 			void test()
 			{
@@ -52705,7 +52705,7 @@ namespace ObservableComputations.Test
 			System.Linq.Expressions.Expression<System.Func<Item, object>> selectorExpression = i => i.Num;
 			Consumer consumer = new Consumer();
 			var testing = source.Selecting<Item, object>(
-				selectorExpression).IsNeededFor(consumer);
+				selectorExpression).For(consumer);
 
 			void test()
 			{
@@ -52766,7 +52766,7 @@ namespace ObservableComputations.Test
 			System.Linq.Expressions.Expression<System.Func<Item, object>> selectorExpression = i => i.Num;
 			Consumer consumer = new Consumer();
 			var testing = source.Selecting<Item, object>(
-				selectorExpression).IsNeededFor(consumer);
+				selectorExpression).For(consumer);
 
 			void test()
 			{
@@ -52830,7 +52830,7 @@ namespace ObservableComputations.Test
 			System.Linq.Expressions.Expression<System.Func<Item, System.Collections.Specialized.INotifyCollectionChanged>> selectorExpression = i => i.Items;
 			Consumer consumer = new Consumer();
 			var testing = sourceScalar.SelectingMany<Item, object>(
-				selectorExpression).IsNeededFor(consumer);
+				selectorExpression).For(consumer);
 
 			void test()
 			{
@@ -52896,7 +52896,7 @@ namespace ObservableComputations.Test
 			System.Linq.Expressions.Expression<System.Func<Item, System.Collections.Specialized.INotifyCollectionChanged>> selectorExpression = i => i.Items;
 			Consumer consumer = new Consumer();
 			var testing = sourceScalar.SelectingMany<Item, object>(
-				selectorExpression).IsNeededFor(consumer);
+				selectorExpression).For(consumer);
 
 			void test()
 			{
@@ -52962,7 +52962,7 @@ namespace ObservableComputations.Test
 			System.Linq.Expressions.Expression<System.Func<Item, System.Collections.Specialized.INotifyCollectionChanged>> selectorExpression = i => i.Items;
 			Consumer consumer = new Consumer();
 			var testing = source.SelectingMany<Item, object>(
-				selectorExpression).IsNeededFor(consumer);
+				selectorExpression).For(consumer);
 
 			void test()
 			{
@@ -53023,7 +53023,7 @@ namespace ObservableComputations.Test
 			System.Linq.Expressions.Expression<System.Func<Item, System.Collections.Specialized.INotifyCollectionChanged>> selectorExpression = i => i.Items;
 			Consumer consumer = new Consumer();
 			var testing = source.SelectingMany<Item, object>(
-				selectorExpression).IsNeededFor(consumer);
+				selectorExpression).For(consumer);
 
 			void test()
 			{
@@ -53084,7 +53084,7 @@ namespace ObservableComputations.Test
 			System.Linq.Expressions.Expression<System.Func<Item, int, System.Collections.Specialized.INotifyCollectionChanged>> selectorExpression = (i, ind) => i.Items;
 			Consumer consumer = new Consumer();
 			var testing = sourceScalar.SelectingMany<Item, object>(
-				selectorExpression).IsNeededFor(consumer);
+				selectorExpression).For(consumer);
 
 			void test()
 			{
@@ -53150,7 +53150,7 @@ namespace ObservableComputations.Test
 			System.Linq.Expressions.Expression<System.Func<Item, int, System.Collections.Specialized.INotifyCollectionChanged>> selectorExpression = (i, ind) => i.Items;
 			Consumer consumer = new Consumer();
 			var testing = sourceScalar.SelectingMany<Item, object>(
-				selectorExpression).IsNeededFor(consumer);
+				selectorExpression).For(consumer);
 
 			void test()
 			{
@@ -53216,7 +53216,7 @@ namespace ObservableComputations.Test
 			System.Linq.Expressions.Expression<System.Func<Item, int, System.Collections.Specialized.INotifyCollectionChanged>> selectorExpression = (i, ind) => i.Items;
 			Consumer consumer = new Consumer();
 			var testing = source.SelectingMany<Item, object>(
-				selectorExpression).IsNeededFor(consumer);
+				selectorExpression).For(consumer);
 
 			void test()
 			{
@@ -53277,7 +53277,7 @@ namespace ObservableComputations.Test
 			System.Linq.Expressions.Expression<System.Func<Item, int, System.Collections.Specialized.INotifyCollectionChanged>> selectorExpression = (i, ind) => i.Items;
 			Consumer consumer = new Consumer();
 			var testing = source.SelectingMany<Item, object>(
-				selectorExpression).IsNeededFor(consumer);
+				selectorExpression).For(consumer);
 
 			void test()
 			{
@@ -53339,7 +53339,7 @@ namespace ObservableComputations.Test
 		{
 			Scalar<int> countScalar = getScalar<int>(3);
 			Consumer consumer = new Consumer();
-			var testing = countScalar.SequenceComputing().IsNeededFor(consumer);
+			var testing = countScalar.SequenceComputing().For(consumer);
 
 			void test()
 			{
@@ -53369,7 +53369,7 @@ namespace ObservableComputations.Test
 			Consumer consumer = new Consumer();
 			var testing = sourceScalar.Skipping<Item>(
 				countScalar,
-				capacity).IsNeededFor(consumer);
+				capacity).For(consumer);
 
 			void test()
 			{
@@ -53440,7 +53440,7 @@ namespace ObservableComputations.Test
 			Scalar<int> countScalar = getScalar<int>(3);
 			Consumer consumer = new Consumer();
 			var testing = sourceScalar.Skipping<Item>(
-				countScalar).IsNeededFor(consumer);
+				countScalar).For(consumer);
 
 			void test()
 			{
@@ -53513,7 +53513,7 @@ namespace ObservableComputations.Test
 			Consumer consumer = new Consumer();
 			var testing = sourceScalar.Skipping<Item>(
 				countScalar,
-				capacity).IsNeededFor(consumer);
+				capacity).For(consumer);
 
 			void test()
 			{
@@ -53584,7 +53584,7 @@ namespace ObservableComputations.Test
 			Scalar<int> countScalar = getScalar<int>(3);
 			Consumer consumer = new Consumer();
 			var testing = sourceScalar.Skipping<Item>(
-				countScalar).IsNeededFor(consumer);
+				countScalar).For(consumer);
 
 			void test()
 			{
@@ -53657,7 +53657,7 @@ namespace ObservableComputations.Test
 			Consumer consumer = new Consumer();
 			var testing = source.Skipping<Item>(
 				countScalar,
-				capacity).IsNeededFor(consumer);
+				capacity).For(consumer);
 
 			void test()
 			{
@@ -53723,7 +53723,7 @@ namespace ObservableComputations.Test
 			Scalar<int> countScalar = getScalar<int>(3);
 			Consumer consumer = new Consumer();
 			var testing = source.Skipping<Item>(
-				countScalar).IsNeededFor(consumer);
+				countScalar).For(consumer);
 
 			void test()
 			{
@@ -53791,7 +53791,7 @@ namespace ObservableComputations.Test
 			Consumer consumer = new Consumer();
 			var testing = source.Skipping<Item>(
 				countScalar,
-				capacity).IsNeededFor(consumer);
+				capacity).For(consumer);
 
 			void test()
 			{
@@ -53857,7 +53857,7 @@ namespace ObservableComputations.Test
 			Scalar<int> countScalar = getScalar<int>(3);
 			Consumer consumer = new Consumer();
 			var testing = source.Skipping<Item>(
-				countScalar).IsNeededFor(consumer);
+				countScalar).For(consumer);
 
 			void test()
 			{
@@ -53925,7 +53925,7 @@ namespace ObservableComputations.Test
 			Consumer consumer = new Consumer();
 			var testing = sourceScalar.Skipping<Item>(
 				count,
-				capacity).IsNeededFor(consumer);
+				capacity).For(consumer);
 
 			void test()
 			{
@@ -53991,7 +53991,7 @@ namespace ObservableComputations.Test
 			int count = 3;
 			Consumer consumer = new Consumer();
 			var testing = sourceScalar.Skipping<Item>(
-				count).IsNeededFor(consumer);
+				count).For(consumer);
 
 			void test()
 			{
@@ -54059,7 +54059,7 @@ namespace ObservableComputations.Test
 			Consumer consumer = new Consumer();
 			var testing = sourceScalar.Skipping<Item>(
 				count,
-				capacity).IsNeededFor(consumer);
+				capacity).For(consumer);
 
 			void test()
 			{
@@ -54125,7 +54125,7 @@ namespace ObservableComputations.Test
 			int count = 3;
 			Consumer consumer = new Consumer();
 			var testing = sourceScalar.Skipping<Item>(
-				count).IsNeededFor(consumer);
+				count).For(consumer);
 
 			void test()
 			{
@@ -54193,7 +54193,7 @@ namespace ObservableComputations.Test
 			Consumer consumer = new Consumer();
 			var testing = source.Skipping<Item>(
 				count,
-				capacity).IsNeededFor(consumer);
+				capacity).For(consumer);
 
 			void test()
 			{
@@ -54254,7 +54254,7 @@ namespace ObservableComputations.Test
 			int count = 3;
 			Consumer consumer = new Consumer();
 			var testing = source.Skipping<Item>(
-				count).IsNeededFor(consumer);
+				count).For(consumer);
 
 			void test()
 			{
@@ -54317,7 +54317,7 @@ namespace ObservableComputations.Test
 			Consumer consumer = new Consumer();
 			var testing = source.Skipping<Item>(
 				count,
-				capacity).IsNeededFor(consumer);
+				capacity).For(consumer);
 
 			void test()
 			{
@@ -54378,7 +54378,7 @@ namespace ObservableComputations.Test
 			int count = 3;
 			Consumer consumer = new Consumer();
 			var testing = source.Skipping<Item>(
-				count).IsNeededFor(consumer);
+				count).For(consumer);
 
 			void test()
 			{
@@ -54444,7 +54444,7 @@ namespace ObservableComputations.Test
 			Consumer consumer = new Consumer();
 			var testing = sourceScalar.SkippingWhile<Item>(
 				predicateExpression,
-				capacity).IsNeededFor(consumer);
+				capacity).For(consumer);
 
 			void test()
 			{
@@ -54510,7 +54510,7 @@ namespace ObservableComputations.Test
 			System.Linq.Expressions.Expression<System.Func<Item, int, bool>> predicateExpression = (i, ind) => i.Active;
 			Consumer consumer = new Consumer();
 			var testing = sourceScalar.SkippingWhile<Item>(
-				predicateExpression).IsNeededFor(consumer);
+				predicateExpression).For(consumer);
 
 			void test()
 			{
@@ -54578,7 +54578,7 @@ namespace ObservableComputations.Test
 			Consumer consumer = new Consumer();
 			var testing = sourceScalar.SkippingWhile<Item>(
 				predicateExpression,
-				capacity).IsNeededFor(consumer);
+				capacity).For(consumer);
 
 			void test()
 			{
@@ -54644,7 +54644,7 @@ namespace ObservableComputations.Test
 			System.Linq.Expressions.Expression<System.Func<Item, int, bool>> predicateExpression = (i, ind) => i.Active;
 			Consumer consumer = new Consumer();
 			var testing = sourceScalar.SkippingWhile<Item>(
-				predicateExpression).IsNeededFor(consumer);
+				predicateExpression).For(consumer);
 
 			void test()
 			{
@@ -54712,7 +54712,7 @@ namespace ObservableComputations.Test
 			Consumer consumer = new Consumer();
 			var testing = source.SkippingWhile<Item>(
 				predicateExpression,
-				capacity).IsNeededFor(consumer);
+				capacity).For(consumer);
 
 			void test()
 			{
@@ -54773,7 +54773,7 @@ namespace ObservableComputations.Test
 			System.Linq.Expressions.Expression<System.Func<Item, int, bool>> predicateExpression = (i, ind) => i.Active;
 			Consumer consumer = new Consumer();
 			var testing = source.SkippingWhile<Item>(
-				predicateExpression).IsNeededFor(consumer);
+				predicateExpression).For(consumer);
 
 			void test()
 			{
@@ -54836,7 +54836,7 @@ namespace ObservableComputations.Test
 			Consumer consumer = new Consumer();
 			var testing = source.SkippingWhile<Item>(
 				predicateExpression,
-				capacity).IsNeededFor(consumer);
+				capacity).For(consumer);
 
 			void test()
 			{
@@ -54897,7 +54897,7 @@ namespace ObservableComputations.Test
 			System.Linq.Expressions.Expression<System.Func<Item, int, bool>> predicateExpression = (i, ind) => i.Active;
 			Consumer consumer = new Consumer();
 			var testing = source.SkippingWhile<Item>(
-				predicateExpression).IsNeededFor(consumer);
+				predicateExpression).For(consumer);
 
 			void test()
 			{
@@ -54960,7 +54960,7 @@ namespace ObservableComputations.Test
 			Consumer consumer = new Consumer();
 			var testing = sourceScalar.SkippingWhile<Item>(
 				predicateExpression,
-				capacity).IsNeededFor(consumer);
+				capacity).For(consumer);
 
 			void test()
 			{
@@ -55026,7 +55026,7 @@ namespace ObservableComputations.Test
 			System.Linq.Expressions.Expression<System.Func<Item, bool>> predicateExpression = i => i.Active;
 			Consumer consumer = new Consumer();
 			var testing = sourceScalar.SkippingWhile<Item>(
-				predicateExpression).IsNeededFor(consumer);
+				predicateExpression).For(consumer);
 
 			void test()
 			{
@@ -55094,7 +55094,7 @@ namespace ObservableComputations.Test
 			Consumer consumer = new Consumer();
 			var testing = sourceScalar.SkippingWhile<Item>(
 				predicateExpression,
-				capacity).IsNeededFor(consumer);
+				capacity).For(consumer);
 
 			void test()
 			{
@@ -55160,7 +55160,7 @@ namespace ObservableComputations.Test
 			System.Linq.Expressions.Expression<System.Func<Item, bool>> predicateExpression = i => i.Active;
 			Consumer consumer = new Consumer();
 			var testing = sourceScalar.SkippingWhile<Item>(
-				predicateExpression).IsNeededFor(consumer);
+				predicateExpression).For(consumer);
 
 			void test()
 			{
@@ -55228,7 +55228,7 @@ namespace ObservableComputations.Test
 			Consumer consumer = new Consumer();
 			var testing = source.SkippingWhile<Item>(
 				predicateExpression,
-				capacity).IsNeededFor(consumer);
+				capacity).For(consumer);
 
 			void test()
 			{
@@ -55289,7 +55289,7 @@ namespace ObservableComputations.Test
 			System.Linq.Expressions.Expression<System.Func<Item, bool>> predicateExpression = i => i.Active;
 			Consumer consumer = new Consumer();
 			var testing = source.SkippingWhile<Item>(
-				predicateExpression).IsNeededFor(consumer);
+				predicateExpression).For(consumer);
 
 			void test()
 			{
@@ -55352,7 +55352,7 @@ namespace ObservableComputations.Test
 			Consumer consumer = new Consumer();
 			var testing = source.SkippingWhile<Item>(
 				predicateExpression,
-				capacity).IsNeededFor(consumer);
+				capacity).For(consumer);
 
 			void test()
 			{
@@ -55413,7 +55413,7 @@ namespace ObservableComputations.Test
 			System.Linq.Expressions.Expression<System.Func<Item, bool>> predicateExpression = i => i.Active;
 			Consumer consumer = new Consumer();
 			var testing = source.SkippingWhile<Item>(
-				predicateExpression).IsNeededFor(consumer);
+				predicateExpression).For(consumer);
 
 			void test()
 			{
@@ -55477,7 +55477,7 @@ namespace ObservableComputations.Test
 			Scalar<string> separatorScalar = getScalar<string>("&");
 			Consumer consumer = new Consumer();
 			var testing = sourceScalar.StringsConcatenating(
-				separatorScalar).IsNeededFor(consumer);
+				separatorScalar).For(consumer);
 
 			void test()
 			{
@@ -55548,7 +55548,7 @@ namespace ObservableComputations.Test
 		{
 			IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar = getScalar<Selecting<Item, string>>(getItems().Selecting(i => i.Num.ToString()));
 			Consumer consumer = new Consumer();
-			var testing = sourceScalar.StringsConcatenating().IsNeededFor(consumer);
+			var testing = sourceScalar.StringsConcatenating().For(consumer);
 
 			void test()
 			{
@@ -55614,7 +55614,7 @@ namespace ObservableComputations.Test
 			Scalar<string> separatorScalar = getScalar<string>("&");
 			Consumer consumer = new Consumer();
 			var testing = source.StringsConcatenating(
-				separatorScalar).IsNeededFor(consumer);
+				separatorScalar).For(consumer);
 
 			void test()
 			{
@@ -55680,7 +55680,7 @@ namespace ObservableComputations.Test
 		{
 			Selecting<Item, string> source = getItems().Selecting(i => i.Num.ToString());
 			Consumer consumer = new Consumer();
-			var testing = source.StringsConcatenating().IsNeededFor(consumer);
+			var testing = source.StringsConcatenating().For(consumer);
 
 			void test()
 			{
@@ -55741,7 +55741,7 @@ namespace ObservableComputations.Test
 			string separator = "&";
 			Consumer consumer = new Consumer();
 			var testing = source.StringsConcatenating(
-				separator).IsNeededFor(consumer);
+				separator).For(consumer);
 
 			void test()
 			{
@@ -55802,7 +55802,7 @@ namespace ObservableComputations.Test
 			string separator = "&";
 			Consumer consumer = new Consumer();
 			var testing = sourceScalar.StringsConcatenating(
-				separator).IsNeededFor(consumer);
+				separator).For(consumer);
 
 			void test()
 			{
@@ -55869,7 +55869,7 @@ namespace ObservableComputations.Test
 		{
 			IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar = getScalar<Selecting<Item, int>>(getItems().Selecting(i => i.Num));
 			Consumer consumer = new Consumer();
-			var testing = sourceScalar.Summarizing<int>().IsNeededFor(consumer);
+			var testing = sourceScalar.Summarizing<int>().For(consumer);
 
 			void test()
 			{
@@ -55933,7 +55933,7 @@ namespace ObservableComputations.Test
 		{
 			IReadScalar<ObservableCollection<int>> sourceScalar = getScalar<Selecting<Item, int>>(getItems().Selecting(i => i.Num));
 			Consumer consumer = new Consumer();
-			var testing = sourceScalar.Summarizing<int>().IsNeededFor(consumer);
+			var testing = sourceScalar.Summarizing<int>().For(consumer);
 
 			void test()
 			{
@@ -55997,7 +55997,7 @@ namespace ObservableComputations.Test
 		{
 			Selecting<Item, int> source = getItems().Selecting(i => i.Num);
 			Consumer consumer = new Consumer();
-			var testing = source.Summarizing<int>().IsNeededFor(consumer);
+			var testing = source.Summarizing<int>().For(consumer);
 
 			void test()
 			{
@@ -56056,7 +56056,7 @@ namespace ObservableComputations.Test
 		{
 			Selecting<Item, int> source = getItems().Selecting(i => i.Num);
 			Consumer consumer = new Consumer();
-			var testing = source.Summarizing<int>().IsNeededFor(consumer);
+			var testing = source.Summarizing<int>().For(consumer);
 
 			void test()
 			{
@@ -56124,7 +56124,7 @@ namespace ObservableComputations.Test
 			var testing = sourceScalar.Taking<Item>(
 				startIndexScalar,
 				countScalar,
-				capacity).IsNeededFor(consumer);
+				capacity).For(consumer);
 
 			void test()
 			{
@@ -56202,7 +56202,7 @@ namespace ObservableComputations.Test
 			Consumer consumer = new Consumer();
 			var testing = sourceScalar.Taking<Item>(
 				startIndexScalar,
-				countScalar).IsNeededFor(consumer);
+				countScalar).For(consumer);
 
 			void test()
 			{
@@ -56282,7 +56282,7 @@ namespace ObservableComputations.Test
 			var testing = sourceScalar.Taking<Item>(
 				startIndexScalar,
 				countScalar,
-				capacity).IsNeededFor(consumer);
+				capacity).For(consumer);
 
 			void test()
 			{
@@ -56360,7 +56360,7 @@ namespace ObservableComputations.Test
 			Consumer consumer = new Consumer();
 			var testing = sourceScalar.Taking<Item>(
 				startIndexScalar,
-				countScalar).IsNeededFor(consumer);
+				countScalar).For(consumer);
 
 			void test()
 			{
@@ -56438,7 +56438,7 @@ namespace ObservableComputations.Test
 			Consumer consumer = new Consumer();
 			var testing = sourceScalar.Taking<Item>(
 				startIndexScalar,
-				count).IsNeededFor(consumer);
+				count).For(consumer);
 
 			void test()
 			{
@@ -56511,7 +56511,7 @@ namespace ObservableComputations.Test
 			Consumer consumer = new Consumer();
 			var testing = sourceScalar.Taking<Item>(
 				startIndexScalar,
-				count).IsNeededFor(consumer);
+				count).For(consumer);
 
 			void test()
 			{
@@ -56586,7 +56586,7 @@ namespace ObservableComputations.Test
 			var testing = sourceScalar.Taking<Item>(
 				startIndex,
 				countScalar,
-				capacity).IsNeededFor(consumer);
+				capacity).For(consumer);
 
 			void test()
 			{
@@ -56659,7 +56659,7 @@ namespace ObservableComputations.Test
 			Consumer consumer = new Consumer();
 			var testing = sourceScalar.Taking<Item>(
 				startIndex,
-				countScalar).IsNeededFor(consumer);
+				countScalar).For(consumer);
 
 			void test()
 			{
@@ -56734,7 +56734,7 @@ namespace ObservableComputations.Test
 			var testing = sourceScalar.Taking<Item>(
 				startIndex,
 				countScalar,
-				capacity).IsNeededFor(consumer);
+				capacity).For(consumer);
 
 			void test()
 			{
@@ -56807,7 +56807,7 @@ namespace ObservableComputations.Test
 			Consumer consumer = new Consumer();
 			var testing = sourceScalar.Taking<Item>(
 				startIndex,
-				countScalar).IsNeededFor(consumer);
+				countScalar).For(consumer);
 
 			void test()
 			{
@@ -56880,7 +56880,7 @@ namespace ObservableComputations.Test
 			Consumer consumer = new Consumer();
 			var testing = sourceScalar.Taking<Item>(
 				startIndex,
-				count).IsNeededFor(consumer);
+				count).For(consumer);
 
 			void test()
 			{
@@ -56948,7 +56948,7 @@ namespace ObservableComputations.Test
 			Consumer consumer = new Consumer();
 			var testing = sourceScalar.Taking<Item>(
 				startIndex,
-				count).IsNeededFor(consumer);
+				count).For(consumer);
 
 			void test()
 			{
@@ -57018,7 +57018,7 @@ namespace ObservableComputations.Test
 			var testing = source.Taking<Item>(
 				startIndexScalar,
 				countScalar,
-				capacity).IsNeededFor(consumer);
+				capacity).For(consumer);
 
 			void test()
 			{
@@ -57091,7 +57091,7 @@ namespace ObservableComputations.Test
 			Consumer consumer = new Consumer();
 			var testing = source.Taking<Item>(
 				startIndexScalar,
-				countScalar).IsNeededFor(consumer);
+				countScalar).For(consumer);
 
 			void test()
 			{
@@ -57166,7 +57166,7 @@ namespace ObservableComputations.Test
 			var testing = source.Taking<Item>(
 				startIndexScalar,
 				countScalar,
-				capacity).IsNeededFor(consumer);
+				capacity).For(consumer);
 
 			void test()
 			{
@@ -57239,7 +57239,7 @@ namespace ObservableComputations.Test
 			Consumer consumer = new Consumer();
 			var testing = source.Taking<Item>(
 				startIndexScalar,
-				countScalar).IsNeededFor(consumer);
+				countScalar).For(consumer);
 
 			void test()
 			{
@@ -57312,7 +57312,7 @@ namespace ObservableComputations.Test
 			Consumer consumer = new Consumer();
 			var testing = source.Taking<Item>(
 				startIndexScalar,
-				count).IsNeededFor(consumer);
+				count).For(consumer);
 
 			void test()
 			{
@@ -57380,7 +57380,7 @@ namespace ObservableComputations.Test
 			Consumer consumer = new Consumer();
 			var testing = source.Taking<Item>(
 				startIndexScalar,
-				count).IsNeededFor(consumer);
+				count).For(consumer);
 
 			void test()
 			{
@@ -57450,7 +57450,7 @@ namespace ObservableComputations.Test
 			var testing = source.Taking<Item>(
 				startIndex,
 				countScalar,
-				capacity).IsNeededFor(consumer);
+				capacity).For(consumer);
 
 			void test()
 			{
@@ -57518,7 +57518,7 @@ namespace ObservableComputations.Test
 			Consumer consumer = new Consumer();
 			var testing = source.Taking<Item>(
 				startIndex,
-				countScalar).IsNeededFor(consumer);
+				countScalar).For(consumer);
 
 			void test()
 			{
@@ -57588,7 +57588,7 @@ namespace ObservableComputations.Test
 			var testing = source.Taking<Item>(
 				startIndex,
 				countScalar,
-				capacity).IsNeededFor(consumer);
+				capacity).For(consumer);
 
 			void test()
 			{
@@ -57656,7 +57656,7 @@ namespace ObservableComputations.Test
 			Consumer consumer = new Consumer();
 			var testing = source.Taking<Item>(
 				startIndex,
-				countScalar).IsNeededFor(consumer);
+				countScalar).For(consumer);
 
 			void test()
 			{
@@ -57724,7 +57724,7 @@ namespace ObservableComputations.Test
 			Consumer consumer = new Consumer();
 			var testing = source.Taking<Item>(
 				startIndex,
-				count).IsNeededFor(consumer);
+				count).For(consumer);
 
 			void test()
 			{
@@ -57787,7 +57787,7 @@ namespace ObservableComputations.Test
 			Consumer consumer = new Consumer();
 			var testing = source.Taking<Item>(
 				startIndex,
-				count).IsNeededFor(consumer);
+				count).For(consumer);
 
 			void test()
 			{
@@ -57853,7 +57853,7 @@ namespace ObservableComputations.Test
 			Consumer consumer = new Consumer();
 			var testing = sourceScalar.TakingWhile<Item>(
 				predicateExpression,
-				capacity).IsNeededFor(consumer);
+				capacity).For(consumer);
 
 			void test()
 			{
@@ -57919,7 +57919,7 @@ namespace ObservableComputations.Test
 			System.Linq.Expressions.Expression<System.Func<Item, int, bool>> predicateExpression = (i, ind) => i.Active;
 			Consumer consumer = new Consumer();
 			var testing = sourceScalar.TakingWhile<Item>(
-				predicateExpression).IsNeededFor(consumer);
+				predicateExpression).For(consumer);
 
 			void test()
 			{
@@ -57987,7 +57987,7 @@ namespace ObservableComputations.Test
 			Consumer consumer = new Consumer();
 			var testing = sourceScalar.TakingWhile<Item>(
 				predicateExpression,
-				capacity).IsNeededFor(consumer);
+				capacity).For(consumer);
 
 			void test()
 			{
@@ -58053,7 +58053,7 @@ namespace ObservableComputations.Test
 			System.Linq.Expressions.Expression<System.Func<Item, int, bool>> predicateExpression = (i, ind) => i.Active;
 			Consumer consumer = new Consumer();
 			var testing = sourceScalar.TakingWhile<Item>(
-				predicateExpression).IsNeededFor(consumer);
+				predicateExpression).For(consumer);
 
 			void test()
 			{
@@ -58121,7 +58121,7 @@ namespace ObservableComputations.Test
 			Consumer consumer = new Consumer();
 			var testing = source.TakingWhile<Item>(
 				predicateExpression,
-				capacity).IsNeededFor(consumer);
+				capacity).For(consumer);
 
 			void test()
 			{
@@ -58182,7 +58182,7 @@ namespace ObservableComputations.Test
 			System.Linq.Expressions.Expression<System.Func<Item, int, bool>> predicateExpression = (i, ind) => i.Active;
 			Consumer consumer = new Consumer();
 			var testing = source.TakingWhile<Item>(
-				predicateExpression).IsNeededFor(consumer);
+				predicateExpression).For(consumer);
 
 			void test()
 			{
@@ -58245,7 +58245,7 @@ namespace ObservableComputations.Test
 			Consumer consumer = new Consumer();
 			var testing = source.TakingWhile<Item>(
 				predicateExpression,
-				capacity).IsNeededFor(consumer);
+				capacity).For(consumer);
 
 			void test()
 			{
@@ -58306,7 +58306,7 @@ namespace ObservableComputations.Test
 			System.Linq.Expressions.Expression<System.Func<Item, int, bool>> predicateExpression = (i, ind) => i.Active;
 			Consumer consumer = new Consumer();
 			var testing = source.TakingWhile<Item>(
-				predicateExpression).IsNeededFor(consumer);
+				predicateExpression).For(consumer);
 
 			void test()
 			{
@@ -58369,7 +58369,7 @@ namespace ObservableComputations.Test
 			Consumer consumer = new Consumer();
 			var testing = sourceScalar.TakingWhile<Item>(
 				predicateExpression,
-				capacity).IsNeededFor(consumer);
+				capacity).For(consumer);
 
 			void test()
 			{
@@ -58435,7 +58435,7 @@ namespace ObservableComputations.Test
 			System.Linq.Expressions.Expression<System.Func<Item, bool>> predicateExpression = i => i.Active;
 			Consumer consumer = new Consumer();
 			var testing = sourceScalar.TakingWhile<Item>(
-				predicateExpression).IsNeededFor(consumer);
+				predicateExpression).For(consumer);
 
 			void test()
 			{
@@ -58503,7 +58503,7 @@ namespace ObservableComputations.Test
 			Consumer consumer = new Consumer();
 			var testing = sourceScalar.TakingWhile<Item>(
 				predicateExpression,
-				capacity).IsNeededFor(consumer);
+				capacity).For(consumer);
 
 			void test()
 			{
@@ -58569,7 +58569,7 @@ namespace ObservableComputations.Test
 			System.Linq.Expressions.Expression<System.Func<Item, bool>> predicateExpression = i => i.Active;
 			Consumer consumer = new Consumer();
 			var testing = sourceScalar.TakingWhile<Item>(
-				predicateExpression).IsNeededFor(consumer);
+				predicateExpression).For(consumer);
 
 			void test()
 			{
@@ -58637,7 +58637,7 @@ namespace ObservableComputations.Test
 			Consumer consumer = new Consumer();
 			var testing = source.TakingWhile<Item>(
 				predicateExpression,
-				capacity).IsNeededFor(consumer);
+				capacity).For(consumer);
 
 			void test()
 			{
@@ -58698,7 +58698,7 @@ namespace ObservableComputations.Test
 			System.Linq.Expressions.Expression<System.Func<Item, bool>> predicateExpression = i => i.Active;
 			Consumer consumer = new Consumer();
 			var testing = source.TakingWhile<Item>(
-				predicateExpression).IsNeededFor(consumer);
+				predicateExpression).For(consumer);
 
 			void test()
 			{
@@ -58761,7 +58761,7 @@ namespace ObservableComputations.Test
 			Consumer consumer = new Consumer();
 			var testing = source.TakingWhile<Item>(
 				predicateExpression,
-				capacity).IsNeededFor(consumer);
+				capacity).For(consumer);
 
 			void test()
 			{
@@ -58822,7 +58822,7 @@ namespace ObservableComputations.Test
 			System.Linq.Expressions.Expression<System.Func<Item, bool>> predicateExpression = i => i.Active;
 			Consumer consumer = new Consumer();
 			var testing = source.TakingWhile<Item>(
-				predicateExpression).IsNeededFor(consumer);
+				predicateExpression).For(consumer);
 
 			void test()
 			{
@@ -58890,7 +58890,7 @@ namespace ObservableComputations.Test
 			var testing = source.ThenOrdering<int, int>(
 				orderingValueSelectorExpression,
 				sortDirectionScalar,
-				comparerScalar).IsNeededFor(consumer);
+				comparerScalar).For(consumer);
 
 			void test()
 			{
@@ -58963,7 +58963,7 @@ namespace ObservableComputations.Test
 			Consumer consumer = new Consumer();
 			var testing = source.ThenOrdering<int, int>(
 				orderingValueSelectorExpression,
-				sortDirectionScalar).IsNeededFor(consumer);
+				sortDirectionScalar).For(consumer);
 
 			void test()
 			{
@@ -59031,7 +59031,7 @@ namespace ObservableComputations.Test
 			Consumer consumer = new Consumer();
 			var testing = source.ThenOrdering<int, int>(
 				orderingValueSelectorExpression,
-				comparerScalar).IsNeededFor(consumer);
+				comparerScalar).For(consumer);
 
 			void test()
 			{
@@ -59097,7 +59097,7 @@ namespace ObservableComputations.Test
 			System.Linq.Expressions.Expression<System.Func<int, int>> orderingValueSelectorExpression = i => i;
 			Consumer consumer = new Consumer();
 			var testing = source.ThenOrdering<int, int>(
-				orderingValueSelectorExpression).IsNeededFor(consumer);
+				orderingValueSelectorExpression).For(consumer);
 
 			void test()
 			{
@@ -59162,7 +59162,7 @@ namespace ObservableComputations.Test
 			var testing = source.ThenOrdering<int, int>(
 				orderingValueSelectorExpression,
 				sortDirection,
-				comparerScalar).IsNeededFor(consumer);
+				comparerScalar).For(consumer);
 
 			void test()
 			{
@@ -59230,7 +59230,7 @@ namespace ObservableComputations.Test
 			Consumer consumer = new Consumer();
 			var testing = source.ThenOrdering<int, int>(
 				orderingValueSelectorExpression,
-				sortDirection).IsNeededFor(consumer);
+				sortDirection).For(consumer);
 
 			void test()
 			{
@@ -59295,7 +59295,7 @@ namespace ObservableComputations.Test
 			var testing = source.ThenOrdering<int, int>(
 				orderingValueSelectorExpression,
 				sortDirectionScalar,
-				comparer).IsNeededFor(consumer);
+				comparer).For(consumer);
 
 			void test()
 			{
@@ -59363,7 +59363,7 @@ namespace ObservableComputations.Test
 			Consumer consumer = new Consumer();
 			var testing = source.ThenOrdering<int, int>(
 				orderingValueSelectorExpression,
-				comparer).IsNeededFor(consumer);
+				comparer).For(consumer);
 
 			void test()
 			{
@@ -59428,7 +59428,7 @@ namespace ObservableComputations.Test
 			var testing = source.ThenOrdering<int, int>(
 				orderingValueSelectorExpression,
 				sortDirection,
-				comparer).IsNeededFor(consumer);
+				comparer).For(consumer);
 
 			void test()
 			{
@@ -59493,7 +59493,7 @@ namespace ObservableComputations.Test
 			var testing = sourceScalar.ThenOrdering<int, int>(
 				orderingValueSelectorExpression,
 				sortDirectionScalar,
-				comparerScalar).IsNeededFor(consumer);
+				comparerScalar).For(consumer);
 
 			void test()
 			{
@@ -59571,7 +59571,7 @@ namespace ObservableComputations.Test
 			Consumer consumer = new Consumer();
 			var testing = sourceScalar.ThenOrdering<int, int>(
 				orderingValueSelectorExpression,
-				sortDirectionScalar).IsNeededFor(consumer);
+				sortDirectionScalar).For(consumer);
 
 			void test()
 			{
@@ -59644,7 +59644,7 @@ namespace ObservableComputations.Test
 			Consumer consumer = new Consumer();
 			var testing = sourceScalar.ThenOrdering<int, int>(
 				orderingValueSelectorExpression,
-				comparerScalar).IsNeededFor(consumer);
+				comparerScalar).For(consumer);
 
 			void test()
 			{
@@ -59715,7 +59715,7 @@ namespace ObservableComputations.Test
 			System.Linq.Expressions.Expression<System.Func<int, int>> orderingValueSelectorExpression = i => i;
 			Consumer consumer = new Consumer();
 			var testing = sourceScalar.ThenOrdering<int, int>(
-				orderingValueSelectorExpression).IsNeededFor(consumer);
+				orderingValueSelectorExpression).For(consumer);
 
 			void test()
 			{
@@ -59785,7 +59785,7 @@ namespace ObservableComputations.Test
 			var testing = sourceScalar.ThenOrdering<int, int>(
 				orderingValueSelectorExpression,
 				sortDirection,
-				comparerScalar).IsNeededFor(consumer);
+				comparerScalar).For(consumer);
 
 			void test()
 			{
@@ -59858,7 +59858,7 @@ namespace ObservableComputations.Test
 			Consumer consumer = new Consumer();
 			var testing = sourceScalar.ThenOrdering<int, int>(
 				orderingValueSelectorExpression,
-				sortDirection).IsNeededFor(consumer);
+				sortDirection).For(consumer);
 
 			void test()
 			{
@@ -59928,7 +59928,7 @@ namespace ObservableComputations.Test
 			var testing = sourceScalar.ThenOrdering<int, int>(
 				orderingValueSelectorExpression,
 				sortDirectionScalar,
-				comparer).IsNeededFor(consumer);
+				comparer).For(consumer);
 
 			void test()
 			{
@@ -60001,7 +60001,7 @@ namespace ObservableComputations.Test
 			Consumer consumer = new Consumer();
 			var testing = sourceScalar.ThenOrdering<int, int>(
 				orderingValueSelectorExpression,
-				comparer).IsNeededFor(consumer);
+				comparer).For(consumer);
 
 			void test()
 			{
@@ -60071,7 +60071,7 @@ namespace ObservableComputations.Test
 			var testing = sourceScalar.ThenOrdering<int, int>(
 				orderingValueSelectorExpression,
 				sortDirection,
-				comparer).IsNeededFor(consumer);
+				comparer).For(consumer);
 
 			void test()
 			{
@@ -60142,7 +60142,7 @@ namespace ObservableComputations.Test
 			Consumer consumer = new Consumer();
 			var testing = sourcesScalar.Uniting<Item>(
 				equalityComparerScalar,
-				capacity).IsNeededFor(consumer);
+				capacity).For(consumer);
 
 			void test()
 			{
@@ -60198,7 +60198,7 @@ namespace ObservableComputations.Test
 			Scalar<System.Collections.Generic.IEqualityComparer<Item>> equalityComparerScalar = getScalar<System.Collections.Generic.IEqualityComparer<Item>>(EqualityComparer<Item>.Default);
 			Consumer consumer = new Consumer();
 			var testing = sourcesScalar.Uniting<Item>(
-				equalityComparerScalar).IsNeededFor(consumer);
+				equalityComparerScalar).For(consumer);
 
 			void test()
 			{
@@ -60254,7 +60254,7 @@ namespace ObservableComputations.Test
 			int capacity = 0;
 			Consumer consumer = new Consumer();
 			var testing = sourcesScalar.Uniting<Item>(
-				capacity).IsNeededFor(consumer);
+				capacity).For(consumer);
 
 			void test()
 			{
@@ -60303,7 +60303,7 @@ namespace ObservableComputations.Test
 		{
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> sourcesScalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getCollectionsOfItems());
 			Consumer consumer = new Consumer();
-			var testing = sourcesScalar.Uniting<Item>().IsNeededFor(consumer);
+			var testing = sourcesScalar.Uniting<Item>().For(consumer);
 
 			void test()
 			{
@@ -60356,7 +60356,7 @@ namespace ObservableComputations.Test
 			Consumer consumer = new Consumer();
 			var testing = sourcesScalar.Uniting<Item>(
 				equalityComparerScalar,
-				capacity).IsNeededFor(consumer);
+				capacity).For(consumer);
 
 			void test()
 			{
@@ -60412,7 +60412,7 @@ namespace ObservableComputations.Test
 			Scalar<System.Collections.Generic.IEqualityComparer<Item>> equalityComparerScalar = getScalar<System.Collections.Generic.IEqualityComparer<Item>>(EqualityComparer<Item>.Default);
 			Consumer consumer = new Consumer();
 			var testing = sourcesScalar.Uniting<Item>(
-				equalityComparerScalar).IsNeededFor(consumer);
+				equalityComparerScalar).For(consumer);
 
 			void test()
 			{
@@ -60468,7 +60468,7 @@ namespace ObservableComputations.Test
 			int capacity = 0;
 			Consumer consumer = new Consumer();
 			var testing = sourcesScalar.Uniting<Item>(
-				capacity).IsNeededFor(consumer);
+				capacity).For(consumer);
 
 			void test()
 			{
@@ -60517,7 +60517,7 @@ namespace ObservableComputations.Test
 		{
 			Scalar<ObservableCollection<ObservableCollection<Item>>> sourcesScalar = getScalar<ObservableCollection<ObservableCollection<Item>>>(getCollectionsOfItems());
 			Consumer consumer = new Consumer();
-			var testing = sourcesScalar.Uniting<Item>().IsNeededFor(consumer);
+			var testing = sourcesScalar.Uniting<Item>().For(consumer);
 
 			void test()
 			{
@@ -60570,7 +60570,7 @@ namespace ObservableComputations.Test
 			Consumer consumer = new Consumer();
 			var testing = sources.Uniting<Item>(
 				equalityComparerScalar,
-				capacity).IsNeededFor(consumer);
+				capacity).For(consumer);
 
 			void test()
 			{
@@ -60621,7 +60621,7 @@ namespace ObservableComputations.Test
 			Scalar<System.Collections.Generic.IEqualityComparer<Item>> equalityComparerScalar = getScalar<System.Collections.Generic.IEqualityComparer<Item>>(EqualityComparer<Item>.Default);
 			Consumer consumer = new Consumer();
 			var testing = sources.Uniting<Item>(
-				equalityComparerScalar).IsNeededFor(consumer);
+				equalityComparerScalar).For(consumer);
 
 			void test()
 			{
@@ -60672,7 +60672,7 @@ namespace ObservableComputations.Test
 			int capacity = 0;
 			Consumer consumer = new Consumer();
 			var testing = sources.Uniting<Item>(
-				capacity).IsNeededFor(consumer);
+				capacity).For(consumer);
 
 			void test()
 			{
@@ -60716,7 +60716,7 @@ namespace ObservableComputations.Test
 		{
 			System.Collections.Specialized.INotifyCollectionChanged sources = getCollectionsOfItems();
 			Consumer consumer = new Consumer();
-			var testing = sources.Uniting<Item>().IsNeededFor(consumer);
+			var testing = sources.Uniting<Item>().For(consumer);
 
 			void test()
 			{
@@ -60764,7 +60764,7 @@ namespace ObservableComputations.Test
 			Consumer consumer = new Consumer();
 			var testing = sources.Uniting<Item>(
 				equalityComparerScalar,
-				capacity).IsNeededFor(consumer);
+				capacity).For(consumer);
 
 			void test()
 			{
@@ -60815,7 +60815,7 @@ namespace ObservableComputations.Test
 			Scalar<System.Collections.Generic.IEqualityComparer<Item>> equalityComparerScalar = getScalar<System.Collections.Generic.IEqualityComparer<Item>>(EqualityComparer<Item>.Default);
 			Consumer consumer = new Consumer();
 			var testing = sources.Uniting<Item>(
-				equalityComparerScalar).IsNeededFor(consumer);
+				equalityComparerScalar).For(consumer);
 
 			void test()
 			{
@@ -60866,7 +60866,7 @@ namespace ObservableComputations.Test
 			int capacity = 0;
 			Consumer consumer = new Consumer();
 			var testing = sources.Uniting<Item>(
-				capacity).IsNeededFor(consumer);
+				capacity).For(consumer);
 
 			void test()
 			{
@@ -60910,7 +60910,7 @@ namespace ObservableComputations.Test
 		{
 			ObservableCollection<ObservableCollection<Item>> sources = getCollectionsOfItems();
 			Consumer consumer = new Consumer();
-			var testing = sources.Uniting<Item>().IsNeededFor(consumer);
+			var testing = sources.Uniting<Item>().For(consumer);
 
 			void test()
 			{
@@ -60958,7 +60958,7 @@ namespace ObservableComputations.Test
 			Consumer consumer = new Consumer();
 			var testing = sources.Uniting<Item>(
 				equalityComparer,
-				capacity).IsNeededFor(consumer);
+				capacity).For(consumer);
 
 			void test()
 			{
@@ -61004,7 +61004,7 @@ namespace ObservableComputations.Test
 			System.Collections.Generic.IEqualityComparer<Item> equalityComparer = EqualityComparer<Item>.Default;
 			Consumer consumer = new Consumer();
 			var testing = sources.Uniting<Item>(
-				equalityComparer).IsNeededFor(consumer);
+				equalityComparer).For(consumer);
 
 			void test()
 			{
@@ -61052,7 +61052,7 @@ namespace ObservableComputations.Test
 			Consumer consumer = new Consumer();
 			var testing = sources.Uniting<Item>(
 				equalityComparer,
-				capacity).IsNeededFor(consumer);
+				capacity).For(consumer);
 
 			void test()
 			{
@@ -61098,7 +61098,7 @@ namespace ObservableComputations.Test
 			System.Collections.Generic.IEqualityComparer<Item> equalityComparer = EqualityComparer<Item>.Default;
 			Consumer consumer = new Consumer();
 			var testing = sources.Uniting<Item>(
-				equalityComparer).IsNeededFor(consumer);
+				equalityComparer).For(consumer);
 
 			void test()
 			{
@@ -61146,7 +61146,7 @@ namespace ObservableComputations.Test
 			Consumer consumer = new Consumer();
 			var testing = sourcesScalar.Uniting<Item>(
 				equalityComparer,
-				capacity).IsNeededFor(consumer);
+				capacity).For(consumer);
 
 			void test()
 			{
@@ -61197,7 +61197,7 @@ namespace ObservableComputations.Test
 			System.Collections.Generic.IEqualityComparer<Item> equalityComparer = EqualityComparer<Item>.Default;
 			Consumer consumer = new Consumer();
 			var testing = sourcesScalar.Uniting<Item>(
-				equalityComparer).IsNeededFor(consumer);
+				equalityComparer).For(consumer);
 
 			void test()
 			{
@@ -61250,7 +61250,7 @@ namespace ObservableComputations.Test
 			Consumer consumer = new Consumer();
 			var testing = sourcesScalar.Uniting<Item>(
 				equalityComparer,
-				capacity).IsNeededFor(consumer);
+				capacity).For(consumer);
 
 			void test()
 			{
@@ -61301,7 +61301,7 @@ namespace ObservableComputations.Test
 			System.Collections.Generic.IEqualityComparer<Item> equalityComparer = EqualityComparer<Item>.Default;
 			Consumer consumer = new Consumer();
 			var testing = sourcesScalar.Uniting<Item>(
-				equalityComparer).IsNeededFor(consumer);
+				equalityComparer).For(consumer);
 
 			void test()
 			{
@@ -61356,7 +61356,7 @@ namespace ObservableComputations.Test
 			var testing = source1.Uniting<Item>(
 				source2,
 				equalityComparer,
-				capacity).IsNeededFor(consumer);
+				capacity).For(consumer);
 
 			void test()
 			{
@@ -61460,7 +61460,7 @@ namespace ObservableComputations.Test
 			Consumer consumer = new Consumer();
 			var testing = source1.Uniting<Item>(
 				source2,
-				equalityComparer).IsNeededFor(consumer);
+				equalityComparer).For(consumer);
 
 			void test()
 			{
@@ -61564,7 +61564,7 @@ namespace ObservableComputations.Test
 			Consumer consumer = new Consumer();
 			var testing = source1.Uniting<Item>(
 				source2,
-				capacity).IsNeededFor(consumer);
+				capacity).For(consumer);
 
 			void test()
 			{
@@ -61666,7 +61666,7 @@ namespace ObservableComputations.Test
 			System.Collections.Specialized.INotifyCollectionChanged source2 = getItems();
 			Consumer consumer = new Consumer();
 			var testing = source1.Uniting<Item>(
-				source2).IsNeededFor(consumer);
+				source2).For(consumer);
 
 			void test()
 			{
@@ -61772,7 +61772,7 @@ namespace ObservableComputations.Test
 			var testing = source1.Uniting<Item>(
 				source2,
 				equalityComparer,
-				capacity).IsNeededFor(consumer);
+				capacity).For(consumer);
 
 			void test()
 			{
@@ -61876,7 +61876,7 @@ namespace ObservableComputations.Test
 			Consumer consumer = new Consumer();
 			var testing = source1.Uniting<Item>(
 				source2,
-				equalityComparer).IsNeededFor(consumer);
+				equalityComparer).For(consumer);
 
 			void test()
 			{
@@ -61980,7 +61980,7 @@ namespace ObservableComputations.Test
 			Consumer consumer = new Consumer();
 			var testing = source1.Uniting<Item>(
 				source2,
-				capacity).IsNeededFor(consumer);
+				capacity).For(consumer);
 
 			void test()
 			{
@@ -62082,7 +62082,7 @@ namespace ObservableComputations.Test
 			ObservableCollection<Item> source2 = getItems();
 			Consumer consumer = new Consumer();
 			var testing = source1.Uniting<Item>(
-				source2).IsNeededFor(consumer);
+				source2).For(consumer);
 
 			void test()
 			{
@@ -62188,7 +62188,7 @@ namespace ObservableComputations.Test
 			var testing = source1.Uniting<Item>(
 				source2,
 				equalityComparer,
-				capacity).IsNeededFor(consumer);
+				capacity).For(consumer);
 
 			void test()
 			{
@@ -62292,7 +62292,7 @@ namespace ObservableComputations.Test
 			Consumer consumer = new Consumer();
 			var testing = source1.Uniting<Item>(
 				source2,
-				equalityComparer).IsNeededFor(consumer);
+				equalityComparer).For(consumer);
 
 			void test()
 			{
@@ -62396,7 +62396,7 @@ namespace ObservableComputations.Test
 			Consumer consumer = new Consumer();
 			var testing = source1.Uniting<Item>(
 				source2,
-				capacity).IsNeededFor(consumer);
+				capacity).For(consumer);
 
 			void test()
 			{
@@ -62498,7 +62498,7 @@ namespace ObservableComputations.Test
 			System.Collections.Specialized.INotifyCollectionChanged source2 = getItems();
 			Consumer consumer = new Consumer();
 			var testing = source1.Uniting<Item>(
-				source2).IsNeededFor(consumer);
+				source2).For(consumer);
 
 			void test()
 			{
@@ -62604,7 +62604,7 @@ namespace ObservableComputations.Test
 			var testing = source1.Uniting<Item>(
 				source2,
 				equalityComparer,
-				capacity).IsNeededFor(consumer);
+				capacity).For(consumer);
 
 			void test()
 			{
@@ -62708,7 +62708,7 @@ namespace ObservableComputations.Test
 			Consumer consumer = new Consumer();
 			var testing = source1.Uniting<Item>(
 				source2,
-				equalityComparer).IsNeededFor(consumer);
+				equalityComparer).For(consumer);
 
 			void test()
 			{
@@ -62812,7 +62812,7 @@ namespace ObservableComputations.Test
 			Consumer consumer = new Consumer();
 			var testing = source1.Uniting<Item>(
 				source2,
-				capacity).IsNeededFor(consumer);
+				capacity).For(consumer);
 
 			void test()
 			{
@@ -62914,7 +62914,7 @@ namespace ObservableComputations.Test
 			ObservableCollection<Item> source2 = getItems();
 			Consumer consumer = new Consumer();
 			var testing = source1.Uniting<Item>(
-				source2).IsNeededFor(consumer);
+				source2).For(consumer);
 
 			void test()
 			{
@@ -63020,7 +63020,7 @@ namespace ObservableComputations.Test
 			var testing = source1Scalar.Uniting<Item>(
 				source2,
 				equalityComparer,
-				capacity).IsNeededFor(consumer);
+				capacity).For(consumer);
 
 			void test()
 			{
@@ -63129,7 +63129,7 @@ namespace ObservableComputations.Test
 			Consumer consumer = new Consumer();
 			var testing = source1Scalar.Uniting<Item>(
 				source2,
-				equalityComparer).IsNeededFor(consumer);
+				equalityComparer).For(consumer);
 
 			void test()
 			{
@@ -63238,7 +63238,7 @@ namespace ObservableComputations.Test
 			Consumer consumer = new Consumer();
 			var testing = source1Scalar.Uniting<Item>(
 				source2,
-				capacity).IsNeededFor(consumer);
+				capacity).For(consumer);
 
 			void test()
 			{
@@ -63345,7 +63345,7 @@ namespace ObservableComputations.Test
 			System.Collections.Specialized.INotifyCollectionChanged source2 = getItems();
 			Consumer consumer = new Consumer();
 			var testing = source1Scalar.Uniting<Item>(
-				source2).IsNeededFor(consumer);
+				source2).For(consumer);
 
 			void test()
 			{
@@ -63456,7 +63456,7 @@ namespace ObservableComputations.Test
 			var testing = source1Scalar.Uniting<Item>(
 				source2,
 				equalityComparer,
-				capacity).IsNeededFor(consumer);
+				capacity).For(consumer);
 
 			void test()
 			{
@@ -63565,7 +63565,7 @@ namespace ObservableComputations.Test
 			Consumer consumer = new Consumer();
 			var testing = source1Scalar.Uniting<Item>(
 				source2,
-				equalityComparer).IsNeededFor(consumer);
+				equalityComparer).For(consumer);
 
 			void test()
 			{
@@ -63674,7 +63674,7 @@ namespace ObservableComputations.Test
 			Consumer consumer = new Consumer();
 			var testing = source1Scalar.Uniting<Item>(
 				source2,
-				capacity).IsNeededFor(consumer);
+				capacity).For(consumer);
 
 			void test()
 			{
@@ -63781,7 +63781,7 @@ namespace ObservableComputations.Test
 			ObservableCollection<Item> source2 = getItems();
 			Consumer consumer = new Consumer();
 			var testing = source1Scalar.Uniting<Item>(
-				source2).IsNeededFor(consumer);
+				source2).For(consumer);
 
 			void test()
 			{
@@ -63892,7 +63892,7 @@ namespace ObservableComputations.Test
 			var testing = source1Scalar.Uniting<Item>(
 				source2,
 				equalityComparer,
-				capacity).IsNeededFor(consumer);
+				capacity).For(consumer);
 
 			void test()
 			{
@@ -64001,7 +64001,7 @@ namespace ObservableComputations.Test
 			Consumer consumer = new Consumer();
 			var testing = source1Scalar.Uniting<Item>(
 				source2,
-				equalityComparer).IsNeededFor(consumer);
+				equalityComparer).For(consumer);
 
 			void test()
 			{
@@ -64110,7 +64110,7 @@ namespace ObservableComputations.Test
 			Consumer consumer = new Consumer();
 			var testing = source1Scalar.Uniting<Item>(
 				source2,
-				capacity).IsNeededFor(consumer);
+				capacity).For(consumer);
 
 			void test()
 			{
@@ -64217,7 +64217,7 @@ namespace ObservableComputations.Test
 			System.Collections.Specialized.INotifyCollectionChanged source2 = getItems();
 			Consumer consumer = new Consumer();
 			var testing = source1Scalar.Uniting<Item>(
-				source2).IsNeededFor(consumer);
+				source2).For(consumer);
 
 			void test()
 			{
@@ -64328,7 +64328,7 @@ namespace ObservableComputations.Test
 			var testing = source1Scalar.Uniting<Item>(
 				source2,
 				equalityComparer,
-				capacity).IsNeededFor(consumer);
+				capacity).For(consumer);
 
 			void test()
 			{
@@ -64437,7 +64437,7 @@ namespace ObservableComputations.Test
 			Consumer consumer = new Consumer();
 			var testing = source1Scalar.Uniting<Item>(
 				source2,
-				equalityComparer).IsNeededFor(consumer);
+				equalityComparer).For(consumer);
 
 			void test()
 			{
@@ -64546,7 +64546,7 @@ namespace ObservableComputations.Test
 			Consumer consumer = new Consumer();
 			var testing = source1Scalar.Uniting<Item>(
 				source2,
-				capacity).IsNeededFor(consumer);
+				capacity).For(consumer);
 
 			void test()
 			{
@@ -64653,7 +64653,7 @@ namespace ObservableComputations.Test
 			ObservableCollection<Item> source2 = getItems();
 			Consumer consumer = new Consumer();
 			var testing = source1Scalar.Uniting<Item>(
-				source2).IsNeededFor(consumer);
+				source2).For(consumer);
 
 			void test()
 			{
@@ -64764,7 +64764,7 @@ namespace ObservableComputations.Test
 			var testing = source1Scalar.Uniting<Item>(
 				source2Scalar,
 				equalityComparer,
-				capacity).IsNeededFor(consumer);
+				capacity).For(consumer);
 
 			void test()
 			{
@@ -64878,7 +64878,7 @@ namespace ObservableComputations.Test
 			Consumer consumer = new Consumer();
 			var testing = source1Scalar.Uniting<Item>(
 				source2Scalar,
-				equalityComparer).IsNeededFor(consumer);
+				equalityComparer).For(consumer);
 
 			void test()
 			{
@@ -64992,7 +64992,7 @@ namespace ObservableComputations.Test
 			Consumer consumer = new Consumer();
 			var testing = source1Scalar.Uniting<Item>(
 				source2Scalar,
-				capacity).IsNeededFor(consumer);
+				capacity).For(consumer);
 
 			void test()
 			{
@@ -65104,7 +65104,7 @@ namespace ObservableComputations.Test
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> source2Scalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
 			Consumer consumer = new Consumer();
 			var testing = source1Scalar.Uniting<Item>(
-				source2Scalar).IsNeededFor(consumer);
+				source2Scalar).For(consumer);
 
 			void test()
 			{
@@ -65220,7 +65220,7 @@ namespace ObservableComputations.Test
 			var testing = source1Scalar.Uniting<Item>(
 				source2Scalar,
 				equalityComparer,
-				capacity).IsNeededFor(consumer);
+				capacity).For(consumer);
 
 			void test()
 			{
@@ -65334,7 +65334,7 @@ namespace ObservableComputations.Test
 			Consumer consumer = new Consumer();
 			var testing = source1Scalar.Uniting<Item>(
 				source2Scalar,
-				equalityComparer).IsNeededFor(consumer);
+				equalityComparer).For(consumer);
 
 			void test()
 			{
@@ -65448,7 +65448,7 @@ namespace ObservableComputations.Test
 			Consumer consumer = new Consumer();
 			var testing = source1Scalar.Uniting<Item>(
 				source2Scalar,
-				capacity).IsNeededFor(consumer);
+				capacity).For(consumer);
 
 			void test()
 			{
@@ -65560,7 +65560,7 @@ namespace ObservableComputations.Test
 			Scalar<ObservableCollection<Item>> source2Scalar = getScalar<ObservableCollection<Item>>(getItems());
 			Consumer consumer = new Consumer();
 			var testing = source1Scalar.Uniting<Item>(
-				source2Scalar).IsNeededFor(consumer);
+				source2Scalar).For(consumer);
 
 			void test()
 			{
@@ -65676,7 +65676,7 @@ namespace ObservableComputations.Test
 			var testing = source1Scalar.Uniting<Item>(
 				source2Scalar,
 				equalityComparer,
-				capacity).IsNeededFor(consumer);
+				capacity).For(consumer);
 
 			void test()
 			{
@@ -65790,7 +65790,7 @@ namespace ObservableComputations.Test
 			Consumer consumer = new Consumer();
 			var testing = source1Scalar.Uniting<Item>(
 				source2Scalar,
-				equalityComparer).IsNeededFor(consumer);
+				equalityComparer).For(consumer);
 
 			void test()
 			{
@@ -65904,7 +65904,7 @@ namespace ObservableComputations.Test
 			Consumer consumer = new Consumer();
 			var testing = source1Scalar.Uniting<Item>(
 				source2Scalar,
-				capacity).IsNeededFor(consumer);
+				capacity).For(consumer);
 
 			void test()
 			{
@@ -66016,7 +66016,7 @@ namespace ObservableComputations.Test
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> source2Scalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
 			Consumer consumer = new Consumer();
 			var testing = source1Scalar.Uniting<Item>(
-				source2Scalar).IsNeededFor(consumer);
+				source2Scalar).For(consumer);
 
 			void test()
 			{
@@ -66132,7 +66132,7 @@ namespace ObservableComputations.Test
 			var testing = source1Scalar.Uniting<Item>(
 				source2Scalar,
 				equalityComparer,
-				capacity).IsNeededFor(consumer);
+				capacity).For(consumer);
 
 			void test()
 			{
@@ -66246,7 +66246,7 @@ namespace ObservableComputations.Test
 			Consumer consumer = new Consumer();
 			var testing = source1Scalar.Uniting<Item>(
 				source2Scalar,
-				equalityComparer).IsNeededFor(consumer);
+				equalityComparer).For(consumer);
 
 			void test()
 			{
@@ -66360,7 +66360,7 @@ namespace ObservableComputations.Test
 			Consumer consumer = new Consumer();
 			var testing = source1Scalar.Uniting<Item>(
 				source2Scalar,
-				capacity).IsNeededFor(consumer);
+				capacity).For(consumer);
 
 			void test()
 			{
@@ -66472,7 +66472,7 @@ namespace ObservableComputations.Test
 			Scalar<ObservableCollection<Item>> source2Scalar = getScalar<ObservableCollection<Item>>(getItems());
 			Consumer consumer = new Consumer();
 			var testing = source1Scalar.Uniting<Item>(
-				source2Scalar).IsNeededFor(consumer);
+				source2Scalar).For(consumer);
 
 			void test()
 			{
@@ -66588,7 +66588,7 @@ namespace ObservableComputations.Test
 			var testing = source1.Uniting<Item>(
 				source2Scalar,
 				equalityComparer,
-				capacity).IsNeededFor(consumer);
+				capacity).For(consumer);
 
 			void test()
 			{
@@ -66697,7 +66697,7 @@ namespace ObservableComputations.Test
 			Consumer consumer = new Consumer();
 			var testing = source1.Uniting<Item>(
 				source2Scalar,
-				equalityComparer).IsNeededFor(consumer);
+				equalityComparer).For(consumer);
 
 			void test()
 			{
@@ -66806,7 +66806,7 @@ namespace ObservableComputations.Test
 			Consumer consumer = new Consumer();
 			var testing = source1.Uniting<Item>(
 				source2Scalar,
-				capacity).IsNeededFor(consumer);
+				capacity).For(consumer);
 
 			void test()
 			{
@@ -66913,7 +66913,7 @@ namespace ObservableComputations.Test
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> source2Scalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
 			Consumer consumer = new Consumer();
 			var testing = source1.Uniting<Item>(
-				source2Scalar).IsNeededFor(consumer);
+				source2Scalar).For(consumer);
 
 			void test()
 			{
@@ -67024,7 +67024,7 @@ namespace ObservableComputations.Test
 			var testing = source1.Uniting<Item>(
 				source2Scalar,
 				equalityComparer,
-				capacity).IsNeededFor(consumer);
+				capacity).For(consumer);
 
 			void test()
 			{
@@ -67133,7 +67133,7 @@ namespace ObservableComputations.Test
 			Consumer consumer = new Consumer();
 			var testing = source1.Uniting<Item>(
 				source2Scalar,
-				equalityComparer).IsNeededFor(consumer);
+				equalityComparer).For(consumer);
 
 			void test()
 			{
@@ -67242,7 +67242,7 @@ namespace ObservableComputations.Test
 			Consumer consumer = new Consumer();
 			var testing = source1.Uniting<Item>(
 				source2Scalar,
-				capacity).IsNeededFor(consumer);
+				capacity).For(consumer);
 
 			void test()
 			{
@@ -67349,7 +67349,7 @@ namespace ObservableComputations.Test
 			Scalar<ObservableCollection<Item>> source2Scalar = getScalar<ObservableCollection<Item>>(getItems());
 			Consumer consumer = new Consumer();
 			var testing = source1.Uniting<Item>(
-				source2Scalar).IsNeededFor(consumer);
+				source2Scalar).For(consumer);
 
 			void test()
 			{
@@ -67460,7 +67460,7 @@ namespace ObservableComputations.Test
 			var testing = source1.Uniting<Item>(
 				source2Scalar,
 				equalityComparer,
-				capacity).IsNeededFor(consumer);
+				capacity).For(consumer);
 
 			void test()
 			{
@@ -67569,7 +67569,7 @@ namespace ObservableComputations.Test
 			Consumer consumer = new Consumer();
 			var testing = source1.Uniting<Item>(
 				source2Scalar,
-				equalityComparer).IsNeededFor(consumer);
+				equalityComparer).For(consumer);
 
 			void test()
 			{
@@ -67678,7 +67678,7 @@ namespace ObservableComputations.Test
 			Consumer consumer = new Consumer();
 			var testing = source1.Uniting<Item>(
 				source2Scalar,
-				capacity).IsNeededFor(consumer);
+				capacity).For(consumer);
 
 			void test()
 			{
@@ -67785,7 +67785,7 @@ namespace ObservableComputations.Test
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> source2Scalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
 			Consumer consumer = new Consumer();
 			var testing = source1.Uniting<Item>(
-				source2Scalar).IsNeededFor(consumer);
+				source2Scalar).For(consumer);
 
 			void test()
 			{
@@ -67896,7 +67896,7 @@ namespace ObservableComputations.Test
 			var testing = source1.Uniting<Item>(
 				source2Scalar,
 				equalityComparer,
-				capacity).IsNeededFor(consumer);
+				capacity).For(consumer);
 
 			void test()
 			{
@@ -68005,7 +68005,7 @@ namespace ObservableComputations.Test
 			Consumer consumer = new Consumer();
 			var testing = source1.Uniting<Item>(
 				source2Scalar,
-				equalityComparer).IsNeededFor(consumer);
+				equalityComparer).For(consumer);
 
 			void test()
 			{
@@ -68114,7 +68114,7 @@ namespace ObservableComputations.Test
 			Consumer consumer = new Consumer();
 			var testing = source1.Uniting<Item>(
 				source2Scalar,
-				capacity).IsNeededFor(consumer);
+				capacity).For(consumer);
 
 			void test()
 			{
@@ -68221,7 +68221,7 @@ namespace ObservableComputations.Test
 			Scalar<ObservableCollection<Item>> source2Scalar = getScalar<ObservableCollection<Item>>(getItems());
 			Consumer consumer = new Consumer();
 			var testing = source1.Uniting<Item>(
-				source2Scalar).IsNeededFor(consumer);
+				source2Scalar).For(consumer);
 
 			void test()
 			{
@@ -68332,7 +68332,7 @@ namespace ObservableComputations.Test
 			var testing = source1.Uniting<Item>(
 				source2,
 				equalityComparerScalar,
-				capacity).IsNeededFor(consumer);
+				capacity).For(consumer);
 
 			void test()
 			{
@@ -68441,7 +68441,7 @@ namespace ObservableComputations.Test
 			Consumer consumer = new Consumer();
 			var testing = source1.Uniting<Item>(
 				source2,
-				equalityComparerScalar).IsNeededFor(consumer);
+				equalityComparerScalar).For(consumer);
 
 			void test()
 			{
@@ -68552,7 +68552,7 @@ namespace ObservableComputations.Test
 			var testing = source1.Uniting<Item>(
 				source2,
 				equalityComparerScalar,
-				capacity).IsNeededFor(consumer);
+				capacity).For(consumer);
 
 			void test()
 			{
@@ -68661,7 +68661,7 @@ namespace ObservableComputations.Test
 			Consumer consumer = new Consumer();
 			var testing = source1.Uniting<Item>(
 				source2,
-				equalityComparerScalar).IsNeededFor(consumer);
+				equalityComparerScalar).For(consumer);
 
 			void test()
 			{
@@ -68772,7 +68772,7 @@ namespace ObservableComputations.Test
 			var testing = source1.Uniting<Item>(
 				source2,
 				equalityComparerScalar,
-				capacity).IsNeededFor(consumer);
+				capacity).For(consumer);
 
 			void test()
 			{
@@ -68881,7 +68881,7 @@ namespace ObservableComputations.Test
 			Consumer consumer = new Consumer();
 			var testing = source1.Uniting<Item>(
 				source2,
-				equalityComparerScalar).IsNeededFor(consumer);
+				equalityComparerScalar).For(consumer);
 
 			void test()
 			{
@@ -68992,7 +68992,7 @@ namespace ObservableComputations.Test
 			var testing = source1.Uniting<Item>(
 				source2,
 				equalityComparerScalar,
-				capacity).IsNeededFor(consumer);
+				capacity).For(consumer);
 
 			void test()
 			{
@@ -69101,7 +69101,7 @@ namespace ObservableComputations.Test
 			Consumer consumer = new Consumer();
 			var testing = source1.Uniting<Item>(
 				source2,
-				equalityComparerScalar).IsNeededFor(consumer);
+				equalityComparerScalar).For(consumer);
 
 			void test()
 			{
@@ -69212,7 +69212,7 @@ namespace ObservableComputations.Test
 			var testing = source1Scalar.Uniting<Item>(
 				source2,
 				equalityComparerScalar,
-				capacity).IsNeededFor(consumer);
+				capacity).For(consumer);
 
 			void test()
 			{
@@ -69326,7 +69326,7 @@ namespace ObservableComputations.Test
 			Consumer consumer = new Consumer();
 			var testing = source1Scalar.Uniting<Item>(
 				source2,
-				equalityComparerScalar).IsNeededFor(consumer);
+				equalityComparerScalar).For(consumer);
 
 			void test()
 			{
@@ -69442,7 +69442,7 @@ namespace ObservableComputations.Test
 			var testing = source1Scalar.Uniting<Item>(
 				source2,
 				equalityComparerScalar,
-				capacity).IsNeededFor(consumer);
+				capacity).For(consumer);
 
 			void test()
 			{
@@ -69556,7 +69556,7 @@ namespace ObservableComputations.Test
 			Consumer consumer = new Consumer();
 			var testing = source1Scalar.Uniting<Item>(
 				source2,
-				equalityComparerScalar).IsNeededFor(consumer);
+				equalityComparerScalar).For(consumer);
 
 			void test()
 			{
@@ -69672,7 +69672,7 @@ namespace ObservableComputations.Test
 			var testing = source1Scalar.Uniting<Item>(
 				source2,
 				equalityComparerScalar,
-				capacity).IsNeededFor(consumer);
+				capacity).For(consumer);
 
 			void test()
 			{
@@ -69786,7 +69786,7 @@ namespace ObservableComputations.Test
 			Consumer consumer = new Consumer();
 			var testing = source1Scalar.Uniting<Item>(
 				source2,
-				equalityComparerScalar).IsNeededFor(consumer);
+				equalityComparerScalar).For(consumer);
 
 			void test()
 			{
@@ -69902,7 +69902,7 @@ namespace ObservableComputations.Test
 			var testing = source1Scalar.Uniting<Item>(
 				source2,
 				equalityComparerScalar,
-				capacity).IsNeededFor(consumer);
+				capacity).For(consumer);
 
 			void test()
 			{
@@ -70016,7 +70016,7 @@ namespace ObservableComputations.Test
 			Consumer consumer = new Consumer();
 			var testing = source1Scalar.Uniting<Item>(
 				source2,
-				equalityComparerScalar).IsNeededFor(consumer);
+				equalityComparerScalar).For(consumer);
 
 			void test()
 			{
@@ -70132,7 +70132,7 @@ namespace ObservableComputations.Test
 			var testing = source1Scalar.Uniting<Item>(
 				source2Scalar,
 				equalityComparerScalar,
-				capacity).IsNeededFor(consumer);
+				capacity).For(consumer);
 
 			void test()
 			{
@@ -70251,7 +70251,7 @@ namespace ObservableComputations.Test
 			Consumer consumer = new Consumer();
 			var testing = source1Scalar.Uniting<Item>(
 				source2Scalar,
-				equalityComparerScalar).IsNeededFor(consumer);
+				equalityComparerScalar).For(consumer);
 
 			void test()
 			{
@@ -70372,7 +70372,7 @@ namespace ObservableComputations.Test
 			var testing = source1Scalar.Uniting<Item>(
 				source2Scalar,
 				equalityComparerScalar,
-				capacity).IsNeededFor(consumer);
+				capacity).For(consumer);
 
 			void test()
 			{
@@ -70491,7 +70491,7 @@ namespace ObservableComputations.Test
 			Consumer consumer = new Consumer();
 			var testing = source1Scalar.Uniting<Item>(
 				source2Scalar,
-				equalityComparerScalar).IsNeededFor(consumer);
+				equalityComparerScalar).For(consumer);
 
 			void test()
 			{
@@ -70612,7 +70612,7 @@ namespace ObservableComputations.Test
 			var testing = source1Scalar.Uniting<Item>(
 				source2Scalar,
 				equalityComparerScalar,
-				capacity).IsNeededFor(consumer);
+				capacity).For(consumer);
 
 			void test()
 			{
@@ -70731,7 +70731,7 @@ namespace ObservableComputations.Test
 			Consumer consumer = new Consumer();
 			var testing = source1Scalar.Uniting<Item>(
 				source2Scalar,
-				equalityComparerScalar).IsNeededFor(consumer);
+				equalityComparerScalar).For(consumer);
 
 			void test()
 			{
@@ -70852,7 +70852,7 @@ namespace ObservableComputations.Test
 			var testing = source1Scalar.Uniting<Item>(
 				source2Scalar,
 				equalityComparerScalar,
-				capacity).IsNeededFor(consumer);
+				capacity).For(consumer);
 
 			void test()
 			{
@@ -70971,7 +70971,7 @@ namespace ObservableComputations.Test
 			Consumer consumer = new Consumer();
 			var testing = source1Scalar.Uniting<Item>(
 				source2Scalar,
-				equalityComparerScalar).IsNeededFor(consumer);
+				equalityComparerScalar).For(consumer);
 
 			void test()
 			{
@@ -71092,7 +71092,7 @@ namespace ObservableComputations.Test
 			var testing = source1.Uniting<Item>(
 				source2Scalar,
 				equalityComparerScalar,
-				capacity).IsNeededFor(consumer);
+				capacity).For(consumer);
 
 			void test()
 			{
@@ -71206,7 +71206,7 @@ namespace ObservableComputations.Test
 			Consumer consumer = new Consumer();
 			var testing = source1.Uniting<Item>(
 				source2Scalar,
-				equalityComparerScalar).IsNeededFor(consumer);
+				equalityComparerScalar).For(consumer);
 
 			void test()
 			{
@@ -71322,7 +71322,7 @@ namespace ObservableComputations.Test
 			var testing = source1.Uniting<Item>(
 				source2Scalar,
 				equalityComparerScalar,
-				capacity).IsNeededFor(consumer);
+				capacity).For(consumer);
 
 			void test()
 			{
@@ -71436,7 +71436,7 @@ namespace ObservableComputations.Test
 			Consumer consumer = new Consumer();
 			var testing = source1.Uniting<Item>(
 				source2Scalar,
-				equalityComparerScalar).IsNeededFor(consumer);
+				equalityComparerScalar).For(consumer);
 
 			void test()
 			{
@@ -71552,7 +71552,7 @@ namespace ObservableComputations.Test
 			var testing = source1.Uniting<Item>(
 				source2Scalar,
 				equalityComparerScalar,
-				capacity).IsNeededFor(consumer);
+				capacity).For(consumer);
 
 			void test()
 			{
@@ -71666,7 +71666,7 @@ namespace ObservableComputations.Test
 			Consumer consumer = new Consumer();
 			var testing = source1.Uniting<Item>(
 				source2Scalar,
-				equalityComparerScalar).IsNeededFor(consumer);
+				equalityComparerScalar).For(consumer);
 
 			void test()
 			{
@@ -71782,7 +71782,7 @@ namespace ObservableComputations.Test
 			var testing = source1.Uniting<Item>(
 				source2Scalar,
 				equalityComparerScalar,
-				capacity).IsNeededFor(consumer);
+				capacity).For(consumer);
 
 			void test()
 			{
@@ -71896,7 +71896,7 @@ namespace ObservableComputations.Test
 			Consumer consumer = new Consumer();
 			var testing = source1.Uniting<Item>(
 				source2Scalar,
-				equalityComparerScalar).IsNeededFor(consumer);
+				equalityComparerScalar).For(consumer);
 
 			void test()
 			{
@@ -72011,7 +72011,7 @@ namespace ObservableComputations.Test
 			System.Collections.Specialized.INotifyCollectionChanged rightSource = getItems();
 			Consumer consumer = new Consumer();
 			var testing = leftSourceScalar.Zipping<Item, Item>(
-				rightSource).IsNeededFor(consumer);
+				rightSource).For(consumer);
 
 			void test()
 			{
@@ -72086,7 +72086,7 @@ namespace ObservableComputations.Test
 			ObservableCollection<Item> rightSource = getItems();
 			Consumer consumer = new Consumer();
 			var testing = leftSourceScalar.Zipping<Item, Item>(
-				rightSource).IsNeededFor(consumer);
+				rightSource).For(consumer);
 
 			void test()
 			{
@@ -72161,7 +72161,7 @@ namespace ObservableComputations.Test
 			System.Collections.Specialized.INotifyCollectionChanged rightSource = getItems();
 			Consumer consumer = new Consumer();
 			var testing = leftSourceScalar.Zipping<Item, Item>(
-				rightSource).IsNeededFor(consumer);
+				rightSource).For(consumer);
 
 			void test()
 			{
@@ -72236,7 +72236,7 @@ namespace ObservableComputations.Test
 			ObservableCollection<Item> rightSource = getItems();
 			Consumer consumer = new Consumer();
 			var testing = leftSourceScalar.Zipping<Item, Item>(
-				rightSource).IsNeededFor(consumer);
+				rightSource).For(consumer);
 
 			void test()
 			{
@@ -72311,7 +72311,7 @@ namespace ObservableComputations.Test
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> rightSourceScalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
 			Consumer consumer = new Consumer();
 			var testing = leftSourceScalar.Zipping<Item, Item>(
-				rightSourceScalar).IsNeededFor(consumer);
+				rightSourceScalar).For(consumer);
 
 			void test()
 			{
@@ -72391,7 +72391,7 @@ namespace ObservableComputations.Test
 			Scalar<ObservableCollection<Item>> rightSourceScalar = getScalar<ObservableCollection<Item>>(getItems());
 			Consumer consumer = new Consumer();
 			var testing = leftSourceScalar.Zipping<Item, Item>(
-				rightSourceScalar).IsNeededFor(consumer);
+				rightSourceScalar).For(consumer);
 
 			void test()
 			{
@@ -72471,7 +72471,7 @@ namespace ObservableComputations.Test
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> rightSourceScalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
 			Consumer consumer = new Consumer();
 			var testing = leftSourceScalar.Zipping<Item, Item>(
-				rightSourceScalar).IsNeededFor(consumer);
+				rightSourceScalar).For(consumer);
 
 			void test()
 			{
@@ -72551,7 +72551,7 @@ namespace ObservableComputations.Test
 			Scalar<ObservableCollection<Item>> rightSourceScalar = getScalar<ObservableCollection<Item>>(getItems());
 			Consumer consumer = new Consumer();
 			var testing = leftSourceScalar.Zipping<Item, Item>(
-				rightSourceScalar).IsNeededFor(consumer);
+				rightSourceScalar).For(consumer);
 
 			void test()
 			{
@@ -72631,7 +72631,7 @@ namespace ObservableComputations.Test
 			System.Collections.Specialized.INotifyCollectionChanged rightSource = getItems();
 			Consumer consumer = new Consumer();
 			var testing = leftSource.Zipping<Item, Item>(
-				rightSource).IsNeededFor(consumer);
+				rightSource).For(consumer);
 
 			void test()
 			{
@@ -72701,7 +72701,7 @@ namespace ObservableComputations.Test
 			ObservableCollection<Item> rightSource = getItems();
 			Consumer consumer = new Consumer();
 			var testing = leftSource.Zipping<Item, Item>(
-				rightSource).IsNeededFor(consumer);
+				rightSource).For(consumer);
 
 			void test()
 			{
@@ -72771,7 +72771,7 @@ namespace ObservableComputations.Test
 			System.Collections.Specialized.INotifyCollectionChanged rightSource = getItems();
 			Consumer consumer = new Consumer();
 			var testing = leftSource.Zipping<Item, Item>(
-				rightSource).IsNeededFor(consumer);
+				rightSource).For(consumer);
 
 			void test()
 			{
@@ -72841,7 +72841,7 @@ namespace ObservableComputations.Test
 			ObservableCollection<Item> rightSource = getItems();
 			Consumer consumer = new Consumer();
 			var testing = leftSource.Zipping<Item, Item>(
-				rightSource).IsNeededFor(consumer);
+				rightSource).For(consumer);
 
 			void test()
 			{
@@ -72911,7 +72911,7 @@ namespace ObservableComputations.Test
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> rightSourceScalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
 			Consumer consumer = new Consumer();
 			var testing = leftSource.Zipping<Item, Item>(
-				rightSourceScalar).IsNeededFor(consumer);
+				rightSourceScalar).For(consumer);
 
 			void test()
 			{
@@ -72986,7 +72986,7 @@ namespace ObservableComputations.Test
 			Scalar<ObservableCollection<Item>> rightSourceScalar = getScalar<ObservableCollection<Item>>(getItems());
 			Consumer consumer = new Consumer();
 			var testing = leftSource.Zipping<Item, Item>(
-				rightSourceScalar).IsNeededFor(consumer);
+				rightSourceScalar).For(consumer);
 
 			void test()
 			{
@@ -73061,7 +73061,7 @@ namespace ObservableComputations.Test
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> rightSourceScalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
 			Consumer consumer = new Consumer();
 			var testing = leftSource.Zipping<Item, Item>(
-				rightSourceScalar).IsNeededFor(consumer);
+				rightSourceScalar).For(consumer);
 
 			void test()
 			{
@@ -73136,7 +73136,7 @@ namespace ObservableComputations.Test
 			Scalar<ObservableCollection<Item>> rightSourceScalar = getScalar<ObservableCollection<Item>>(getItems());
 			Consumer consumer = new Consumer();
 			var testing = leftSource.Zipping<Item, Item>(
-				rightSourceScalar).IsNeededFor(consumer);
+				rightSourceScalar).For(consumer);
 
 			void test()
 			{

@@ -34,7 +34,7 @@ namespace ObservableComputations.Test
 
 			if (index >= items.Count) return;
 
-			OfTypeComputing<DerivedItem> ofTypeComputing = items.OfTypeComputing<DerivedItem>().IsNeededFor(consumer);
+			OfTypeComputing<DerivedItem> ofTypeComputing = items.OfTypeComputing<DerivedItem>().For(consumer);
 			ofTypeComputing.ValidateConsistency();
 			if (index < items.Count) items[index] = newItem >= 0 ? (newItem == 1 ? new DerivedItem() : new BaseItem()) : null;
 			ofTypeComputing.ValidateConsistency();			
@@ -53,7 +53,7 @@ namespace ObservableComputations.Test
 
 			if (index >= items.Count) return;
 
-			OfTypeComputing<DerivedItem> ofTypeComputing = items.OfTypeComputing<DerivedItem>().IsNeededFor(consumer);
+			OfTypeComputing<DerivedItem> ofTypeComputing = items.OfTypeComputing<DerivedItem>().For(consumer);
 			ofTypeComputing.ValidateConsistency();
 			items.RemoveAt(index);
 			ofTypeComputing.ValidateConsistency();			
@@ -73,7 +73,7 @@ namespace ObservableComputations.Test
 
 			if (index > items.Count) return;
 
-			OfTypeComputing<DerivedItem> ofTypeComputing = items.OfTypeComputing<DerivedItem>().IsNeededFor(consumer);
+			OfTypeComputing<DerivedItem> ofTypeComputing = items.OfTypeComputing<DerivedItem>().For(consumer);
 			ofTypeComputing.ValidateConsistency();
 			items.Insert(index, newItem >= 0 ? (newItem == 1 ? new DerivedItem() : new BaseItem()) : null);
 			ofTypeComputing.ValidateConsistency();			
@@ -93,7 +93,7 @@ namespace ObservableComputations.Test
 
 			if (oldIndex >= items.Count || newIndex >= items.Count) return;
 
-			OfTypeComputing<DerivedItem> ofTypeComputing = items.OfTypeComputing<DerivedItem>().IsNeededFor(consumer);
+			OfTypeComputing<DerivedItem> ofTypeComputing = items.OfTypeComputing<DerivedItem>().For(consumer);
 			ofTypeComputing.ValidateConsistency();
 			items.Move(oldIndex, newIndex);
 			ofTypeComputing.ValidateConsistency();			

@@ -65,7 +65,7 @@ namespace ObservableComputations.Test
 				trace(testNum = "1", values, index, value, indexOld, indexNew);
 				items = getObservableCollection(values);
 
-				averaging = items.Averaging<int, double>().IsNeededFor(consumer);
+				averaging = items.Averaging<int, double>().For(consumer);
 				//averaging.ValidateConsistency();
 				validate(averaging, items);
 
@@ -73,7 +73,7 @@ namespace ObservableComputations.Test
 				{
 					trace(testNum = "2", values, index, value, indexOld, indexNew);
 					items = getObservableCollection(values);
-					Averaging<int, double> averageComputing1 = items.Averaging<int, double>().IsNeededFor(consumer);
+					Averaging<int, double> averageComputing1 = items.Averaging<int, double>().For(consumer);
 					items.RemoveAt(index);
 					//averageComputing1.ValidateConsistency();
 					validate(averageComputing1, items);
@@ -86,7 +86,7 @@ namespace ObservableComputations.Test
 					{
 						trace(testNum = "8", values, index, value, indexOld, indexNew);
 						items = getObservableCollection(values);
-						Averaging<int, double> averageComputing1 = items.Averaging<int, double>().IsNeededFor(consumer);
+						Averaging<int, double> averageComputing1 = items.Averaging<int, double>().For(consumer);
 						items.Insert(index, value);
 						//averageComputing1.ValidateConsistency();
 						validate(averageComputing1, items);
@@ -101,7 +101,7 @@ namespace ObservableComputations.Test
 					{
 						trace(testNum = "3", values, index, value, indexOld, indexNew);
 						items = getObservableCollection(values);
-						Averaging<int, double> averageComputing2 = items.Averaging<int, double>().IsNeededFor(consumer);
+						Averaging<int, double> averageComputing2 = items.Averaging<int, double>().For(consumer);
 						items[index] = value;
 						//averageComputing2.ValidateConsistency();
 						validate(averageComputing2, items);
@@ -116,7 +116,7 @@ namespace ObservableComputations.Test
 					{
 						trace(testNum = "7", values, index, value, indexOld, indexNew);
 						items = getObservableCollection(values);
-						Averaging<int, double> averageComputing2 = items.Averaging<int, double>().IsNeededFor(consumer);
+						Averaging<int, double> averageComputing2 = items.Averaging<int, double>().For(consumer);
 						items.Move(indexOld, indexNew);
 						//averageComputing2.ValidateConsistency();
 						validate(averageComputing2, items);

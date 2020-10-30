@@ -27,7 +27,7 @@ namespace ObservableComputations.Test
 				{
 					item.ProcessedAsOld = true;
 					Assert.AreEqual(item.Token, returnValue);
-				}).IsNeededFor(consumer);
+				}).For(consumer);
 		}
 
 		[Test]

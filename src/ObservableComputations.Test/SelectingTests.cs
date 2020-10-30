@@ -63,7 +63,7 @@ namespace ObservableComputations.Test
 			ObservableCollection<Item> items = new ObservableCollection<Item>();
 
             Consumer consumer = new Consumer();
-			Selecting<Item, int> selecting = items.Selecting(item => item.Num).IsNeededFor(consumer);
+			Selecting<Item, int> selecting = items.Selecting(item => item.Num).For(consumer);
 			selecting.ValidateConsistency();
             consumer.Dispose();
 		}
@@ -86,7 +86,7 @@ namespace ObservableComputations.Test
 			);
 
             Consumer consumer = new Consumer();
-			Selecting<Item, int> selecting = items.Selecting(item => item.Num).IsNeededFor(consumer);
+			Selecting<Item, int> selecting = items.Selecting(item => item.Num).For(consumer);
 			selecting.ValidateConsistency();
 			items[index].Num = newValue;
 			selecting.ValidateConsistency();
@@ -110,7 +110,7 @@ namespace ObservableComputations.Test
 			);
 
             Consumer consumer = new Consumer();
-			Selecting<Item, int> selecting = items.Selecting(item => item.Num).IsNeededFor(consumer);
+			Selecting<Item, int> selecting = items.Selecting(item => item.Num).For(consumer);
 			selecting.ValidateConsistency();
 			items.RemoveAt(index);
 			selecting.ValidateConsistency();
@@ -129,7 +129,7 @@ namespace ObservableComputations.Test
 			);
 
             Consumer consumer = new Consumer();
-			Selecting<Item, int> selecting = items.Selecting(item => item.Num).IsNeededFor(consumer);
+			Selecting<Item, int> selecting = items.Selecting(item => item.Num).For(consumer);
 			selecting.ValidateConsistency();
 			items.RemoveAt(0);
 			selecting.ValidateConsistency();
@@ -154,7 +154,7 @@ namespace ObservableComputations.Test
 			);
 
             Consumer consumer = new Consumer();
-			Selecting<Item, int> selecting = items.Selecting(item => item.Num).IsNeededFor(consumer);
+			Selecting<Item, int> selecting = items.Selecting(item => item.Num).For(consumer);
 			selecting.ValidateConsistency();
 			items.Insert(index, new Item(newValue));
 			selecting.ValidateConsistency();
@@ -169,7 +169,7 @@ namespace ObservableComputations.Test
 			);
 
             Consumer consumer = new Consumer();
-			Selecting<Item, int> selecting = items.Selecting(item => item.Num).IsNeededFor(consumer);
+			Selecting<Item, int> selecting = items.Selecting(item => item.Num).For(consumer);
 			selecting.ValidateConsistency();
 			items.Insert(0, new Item(newValue));
 			selecting.ValidateConsistency();
@@ -194,7 +194,7 @@ namespace ObservableComputations.Test
 			);
 
             Consumer consumer = new Consumer();
-			Selecting<Item, int> selecting = items.Selecting(item => item.Num).IsNeededFor(consumer);
+			Selecting<Item, int> selecting = items.Selecting(item => item.Num).For(consumer);
 			selecting.ValidateConsistency();
 			items.Move(oldIndex, newIndex);
 			selecting.ValidateConsistency();
@@ -219,7 +219,7 @@ namespace ObservableComputations.Test
 			);
 
             Consumer consumer = new Consumer();
-			Selecting<Item, int> selecting = items.Selecting(item => item.Num).IsNeededFor(consumer);
+			Selecting<Item, int> selecting = items.Selecting(item => item.Num).For(consumer);
 			selecting.ValidateConsistency();
 			items[index] = new Item(newValue);
 			selecting.ValidateConsistency();
@@ -243,7 +243,7 @@ namespace ObservableComputations.Test
             );
 
             Consumer consumer = new Consumer();
-            Selecting<Item, int> selecting = items.Selecting(item => items.Selecting(i => i).Count + item.Num).IsNeededFor(consumer);
+            Selecting<Item, int> selecting = items.Selecting(item => items.Selecting(i => i).Count + item.Num).For(consumer);
 
             Assert.IsTrue(new int[]{5, 6, 7, 8, 9}.SequenceEqual(selecting));
             consumer.Dispose();
@@ -267,7 +267,7 @@ namespace ObservableComputations.Test
             );
 
             Consumer consumer = new Consumer();
-            var selecting = items.Selecting(item => items.Selecting(i => i)).IsNeededFor(consumer);
+            var selecting = items.Selecting(item => items.Selecting(i => i)).For(consumer);
 
             consumer.Dispose();
 
@@ -296,7 +296,7 @@ namespace ObservableComputations.Test
             );
 
             Consumer consumer = new Consumer();
-            Selecting<Item, int> selecting = items.Selecting(item => items.Selecting(i => item).Count + item.Num).IsNeededFor(consumer);
+            Selecting<Item, int> selecting = items.Selecting(item => items.Selecting(i => item).Count + item.Num).For(consumer);
 
             Assert.IsTrue(new int[]{5, 6, 7, 8, 9}.SequenceEqual(selecting));
             consumer.Dispose();
@@ -324,7 +324,7 @@ namespace ObservableComputations.Test
 			Action action = () =>
 			{
                 Consumer consumer = new Consumer();
-				Selecting<Item, int> selecting = items.Selecting(item => item.Num).IsNeededFor(consumer);
+				Selecting<Item, int> selecting = items.Selecting(item => item.Num).For(consumer);
                 consumer.Dispose();
 				selectingWeakReference = new WeakReference<Selecting<Item, int>>(selecting);
 			};
@@ -365,7 +365,7 @@ namespace ObservableComputations.Test
             Action action = () =>
             {
                 Consumer consumer = new Consumer();
-                Selecting<Item, int> selecting = items.Selecting(item => items.Selecting(i => i).Count + item.Num).IsNeededFor(consumer);
+                Selecting<Item, int> selecting = items.Selecting(item => items.Selecting(i => i).Count + item.Num).For(consumer);
                 consumer.Dispose();
                 selectingWeakReference = new WeakReference<Selecting<Item, int>>(selecting);
             };
@@ -406,7 +406,7 @@ namespace ObservableComputations.Test
             Action action = () =>
             {
                 Consumer consumer = new Consumer();
-                Selecting<Item, int> selecting = items.Selecting(item => items.Selecting(i => item).Count + item.Num).IsNeededFor(consumer);
+                Selecting<Item, int> selecting = items.Selecting(item => items.Selecting(i => item).Count + item.Num).For(consumer);
                 consumer.Dispose();
                 selectingWeakReference = new WeakReference<Selecting<Item, int>>(selecting);
             };
@@ -447,7 +447,7 @@ namespace ObservableComputations.Test
             Action action = () =>
             {
                 Consumer consumer = new Consumer();
-                Selecting<Item, int> selecting = items.Selecting(item => item).Selecting(item => item).Selecting(item => item.Num).IsNeededFor(consumer);
+                Selecting<Item, int> selecting = items.Selecting(item => item).Selecting(item => item).Selecting(item => item.Num).For(consumer);
                 Assert.IsTrue(new int[]{0, 1, 2, 3, 4}.SequenceEqual(selecting));
                 consumer.Dispose();
                 selectingWeakReference = new WeakReference<Selecting<Item, int>>(selecting);
@@ -492,7 +492,7 @@ namespace ObservableComputations.Test
                 Selecting<Item, Item> selecting1 = items.Selecting(item => item);
                 Selecting<Item, Item> selecting2 = items.Selecting(item => item);
                 Scalar<INotifyCollectionChanged> sourceScalar = new Scalar<INotifyCollectionChanged>(selecting1); 
-                Selecting<Item, int> selecting = sourceScalar.Selecting<Item, int>(item => item.Num).IsNeededFor(consumer);
+                Selecting<Item, int> selecting = sourceScalar.Selecting<Item, int>(item => item.Num).For(consumer);
                 sourceScalar.Change(selecting2);
                 Assert.IsTrue(new int[]{0, 1, 2, 3, 4}.SequenceEqual(selecting));
                 consumer.Dispose();
@@ -538,7 +538,7 @@ namespace ObservableComputations.Test
                 Selecting<Item, Item> selecting1 = items.Selecting(item => item);
                 Selecting<Item, Item> selecting2 = items.Selecting(item => item);
                 Scalar<INotifyCollectionChanged> sourceScalar = new Scalar<INotifyCollectionChanged>(null); 
-                Selecting<Item, int> selecting = sourceScalar.Selecting<Item, Item>(item => item).Selecting(item => item.Num).IsNeededFor(consumer);
+                Selecting<Item, int> selecting = sourceScalar.Selecting<Item, Item>(item => item).Selecting(item => item.Num).For(consumer);
                 sourceScalar.Change(selecting1);
                 sourceScalar.Change(selecting2);
                 Assert.IsTrue(new int[]{0, 1, 2, 3, 4}.SequenceEqual(selecting));

@@ -86,7 +86,7 @@ namespace ObservableComputations
         {
             _getValueExpressionWatcher.Dispose();
             EventUnsubscriber.QueueSubscriptions(_getValueExpressionWatcher._propertyChangedEventSubscriptions, _getValueExpressionWatcher._methodChangedEventSubscriptions);
-            Utils.RemoveDownstreamConsumedComputing(_getValueExpressionWatcher, this);            
+            Utils.removeDownstreamConsumedComputing(_getValueExpressionWatcher, this);            
             Utils.uninitializeNestedComputings(_nestedComputings, this);
             setValue(default);
         }

@@ -601,12 +601,12 @@ namespace ObservableComputations
 
         void IRightSourceIndexerPropertyTracker.HandleSourcePropertyChanged(object sender, PropertyChangedEventArgs propertyChangedEventArgs)
         {
-            Utils.HandleSourcePropertyChanged(propertyChangedEventArgs, ref _rigthtSourceIndexerPropertyChangedEventRaised);
+            Utils.handleSourcePropertyChanged(propertyChangedEventArgs, ref _rigthtSourceIndexerPropertyChangedEventRaised);
         }
 
         void ILeftSourceIndexerPropertyTracker.HandleSourcePropertyChanged(object sender, PropertyChangedEventArgs propertyChangedEventArgs)
         {
-            Utils.HandleSourcePropertyChanged(propertyChangedEventArgs, ref _leftSourceIndexerPropertyChangedEventRaised);
+            Utils.handleSourcePropertyChanged(propertyChangedEventArgs, ref _leftSourceIndexerPropertyChangedEventRaised);
         }
 
         #endregion

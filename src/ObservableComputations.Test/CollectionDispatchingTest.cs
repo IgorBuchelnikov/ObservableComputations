@@ -21,10 +21,10 @@ namespace ObservableComputations.Test
 			{
 				_num = num;
 				_num2 = num2;
-				_numCompToConsDispatching = new PropertyDispatching<Item, int>(() => Num, consuminingDispatcher, computingDispatcher).IsNeededFor(Consumer);
-				_num2ConsToCompDispatching = new PropertyDispatching<Item, int>(() => Num2, computingDispatcher, consuminingDispatcher).IsNeededFor(Consumer);
-				_numCompToConsScalarDispatching = new Computing<int>(() => Num).ScalarDispatching(consuminingDispatcher, computingDispatcher).IsNeededFor(Consumer);				
-                _num2ConsToCompScalarDispatching = new Computing<int>(() => Num2).ScalarDispatching(computingDispatcher, consuminingDispatcher).IsNeededFor(Consumer);
+				_numCompToConsDispatching = new PropertyDispatching<Item, int>(() => Num, consuminingDispatcher, computingDispatcher).For(Consumer);
+				_num2ConsToCompDispatching = new PropertyDispatching<Item, int>(() => Num2, computingDispatcher, consuminingDispatcher).For(Consumer);
+				_numCompToConsScalarDispatching = new Computing<int>(() => Num).ScalarDispatching(consuminingDispatcher, computingDispatcher).For(Consumer);				
+                _num2ConsToCompScalarDispatching = new Computing<int>(() => Num2).ScalarDispatching(computingDispatcher, consuminingDispatcher).For(Consumer);
                 
                 
                 _num2ConsToCompDispatching.PropertyChanged += (sender, args) =>
@@ -122,7 +122,7 @@ namespace ObservableComputations.Test
                     i.Num % 3 == 0 
                     || i.Num2ConsToCompDispatching.Value % 5 == 0
                     || i.Num2ConsToCompScalarDispatching.Value % 5 == 0);
-				var dispatchingfilteredNums = filteredNums.CollectionDispatching(consuminingDispatcher, computingDispatcher).IsNeededFor(consumer);
+				var dispatchingfilteredNums = filteredNums.CollectionDispatching(consuminingDispatcher, computingDispatcher).For(consumer);
 
                 dispatchingfilteredNums.CollectionChanged += (sender, args) =>
                 {

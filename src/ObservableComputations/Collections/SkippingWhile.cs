@@ -142,7 +142,7 @@ namespace ObservableComputations
             Consumer consumer = new Consumer();
 
 			// ReSharper disable once AssignNullToNotNullAttribute
-			if (!this.SequenceEqual(source.SkipWhile((si, i) => new Computing<bool>(_predicateExpression.ApplyParameters(si, i)).IsNeededFor(consumer).Value)))
+			if (!this.SequenceEqual(source.SkipWhile((si, i) => new Computing<bool>(_predicateExpression.ApplyParameters(si, i)).For(consumer).Value)))
 			{
 				throw new ObservableComputationsException(this, "Consistency violation: SkippingWhile.1");
 			}

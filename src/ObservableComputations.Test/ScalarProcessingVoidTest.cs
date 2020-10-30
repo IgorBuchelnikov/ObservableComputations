@@ -21,7 +21,7 @@ namespace ObservableComputations.Test
 			itemScalar.ScalarProcessing((i, current) =>
 			{
 				i.ProcessedAsNew = true;
-			}).IsNeededFor(consumer);
+			}).For(consumer);
 			Assert.IsTrue(item.ProcessedAsNew);
 			item = new Item();
 			itemScalar.Change(item);

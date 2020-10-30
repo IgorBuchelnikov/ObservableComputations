@@ -322,7 +322,7 @@ namespace ObservableComputations
 			if (_sourceInitialized)
 			{
                 Utils.disposeExpressionItemInfos(_itemInfos, _outerKeySelectorExpressionСallCount, this);
-                Utils.RemoveDownstreamConsumedComputing(_itemInfos, this);
+                Utils.removeDownstreamConsumedComputing(_itemInfos, this);
 
                 Utils.disposeSource(
                     _outerSourceScalar, 
@@ -584,7 +584,7 @@ namespace ObservableComputations
 
 		private void expressionWatcher_OnValueChanged(ExpressionWatcher expressionWatcher, object sender, EventArgs eventArgs)
 		{
-            Utils.ProcessSourceItemChange(
+            Utils.processSourceItemChange(
                 expressionWatcher, 
                 sender, 
                 eventArgs, 

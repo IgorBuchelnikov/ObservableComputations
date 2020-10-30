@@ -67,13 +67,13 @@ namespace ObservableComputations.Test
 					{
 						trace(testNum = "2", count, index, indexOld, indexNew, pageSize, currentPage);
 						items = getObservableCollection(count);
-						paging = items.Paging(pageSize).IsNeededFor(consumer);
+						paging = items.Paging(pageSize).For(consumer);
 						paging.ValidateConsistency();						
 						consumer.Dispose();
 
 						trace(testNum = "3", count, index, indexOld, indexNew, pageSize, currentPage);
 						items = getObservableCollection(count);
-						paging = items.Paging(pageSize).IsNeededFor(consumer);
+						paging = items.Paging(pageSize).For(consumer);
 						paging.CurrentPage = currentPage;
 						paging.ValidateConsistency();						
 						consumer.Dispose();
@@ -82,7 +82,7 @@ namespace ObservableComputations.Test
 						{
 							trace(testNum = "4", count, index, indexOld, indexNew, pageSize, currentPage);
 							items = getObservableCollection(count);
-							Paging<Item> paging1 = items.Paging(pageSize, currentPage).IsNeededFor(consumer);
+							Paging<Item> paging1 = items.Paging(pageSize, currentPage).For(consumer);
 							items.RemoveAt(index);
 							paging1.ValidateConsistency();							
 							consumer.Dispose();
@@ -92,7 +92,7 @@ namespace ObservableComputations.Test
 						{
 							trace(testNum = "5", count, index, indexOld, indexNew, pageSize, currentPage);
 							items = getObservableCollection(count);
-							Paging<Item> paging1 = items.Paging(pageSize, currentPage).IsNeededFor(consumer);
+							Paging<Item> paging1 = items.Paging(pageSize, currentPage).For(consumer);
 							items.Insert(index, new Item());
 							paging1.ValidateConsistency();							
 							consumer.Dispose();
@@ -102,7 +102,7 @@ namespace ObservableComputations.Test
 						{
 							trace(testNum = "6", count, index, indexOld, indexNew, pageSize, currentPage);
 							items = getObservableCollection(count);
-							Paging<Item> paging1 = items.Paging(pageSize, currentPage).IsNeededFor(consumer);
+							Paging<Item> paging1 = items.Paging(pageSize, currentPage).For(consumer);
 							items[index] = new Item();
 							paging1.ValidateConsistency();							
 							consumer.Dispose();
@@ -114,7 +114,7 @@ namespace ObservableComputations.Test
 							{
 								trace(testNum = "7", count, index, indexOld, indexNew, pageSize, currentPage);
 								items = getObservableCollection(count);
-								Paging<Item> paging1 = items.Paging(pageSize, currentPage).IsNeededFor(consumer);
+								Paging<Item> paging1 = items.Paging(pageSize, currentPage).For(consumer);
 								items.Move(indexOld, indexNew);
 								paging1.ValidateConsistency();								
 								consumer.Dispose();
@@ -171,7 +171,7 @@ namespace ObservableComputations.Test
 		{
 			ObservableCollection<int> items = new ObservableCollection<int>(Enumerable.Range(1, 100));
 
-			Paging<int> paging = items.Paging(2).IsNeededFor(consumer);
+			Paging<int> paging = items.Paging(2).For(consumer);
 			paging.ValidateConsistency();			
 
 			void test()
@@ -245,7 +245,7 @@ namespace ObservableComputations.Test
 		public void PagingTest_02()
 		{
 			Scalar<ObservableCollection<int>> items = new Scalar<ObservableCollection<int>>(null);
-			Paging<int> paging = items.Paging(2).IsNeededFor(consumer);
+			Paging<int> paging = items.Paging(2).For(consumer);
 			paging.ValidateConsistency();	
 						
 			items.Change(new ObservableCollection<int>(Enumerable.Range(1, 100)));

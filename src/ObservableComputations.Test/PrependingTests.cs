@@ -48,7 +48,7 @@ namespace ObservableComputations.Test
 		{
 			ObservableCollection<Item> items = new ObservableCollection<Item>();
 
-			Prepending<Item> prepending = items.Prepending(new Item()).IsNeededFor(consumer);
+			Prepending<Item> prepending = items.Prepending(new Item()).For(consumer);
 			prepending.ValidateConsistency();			
 			consumer.Dispose();
 		}
@@ -69,7 +69,7 @@ namespace ObservableComputations.Test
 				}
 			);
 
-			Prepending<Item> prepending = items.Prepending(new Item()).IsNeededFor(consumer);
+			Prepending<Item> prepending = items.Prepending(new Item()).For(consumer);
 			prepending.ValidateConsistency();
 			items.RemoveAt(index);
 			prepending.ValidateConsistency();			
@@ -87,7 +87,7 @@ namespace ObservableComputations.Test
 
 			);
 
-			Prepending<Item> prepending = items.Prepending(new Item()).IsNeededFor(consumer);
+			Prepending<Item> prepending = items.Prepending(new Item()).For(consumer);
 			prepending.ValidateConsistency();
 			items.RemoveAt(0);
 			prepending.ValidateConsistency();			
@@ -109,7 +109,7 @@ namespace ObservableComputations.Test
 				}
 			);
 
-			Prepending<Item> prepending = items.Prepending(new Item()).IsNeededFor(consumer);
+			Prepending<Item> prepending = items.Prepending(new Item()).For(consumer);
 			prepending.ValidateConsistency();
 			items.Insert(index, new Item());
 			prepending.ValidateConsistency();			
@@ -121,7 +121,7 @@ namespace ObservableComputations.Test
 		{
 			ObservableCollection<Item> items = new ObservableCollection<Item>();
 
-			Prepending<Item> prepending = items.Prepending(new Item()).IsNeededFor(consumer);
+			Prepending<Item> prepending = items.Prepending(new Item()).For(consumer);
 			prepending.ValidateConsistency();
 			items.Insert(0, new Item());
 			prepending.ValidateConsistency();			
@@ -144,7 +144,7 @@ namespace ObservableComputations.Test
 				}
 			);
 
-			Prepending<Item> prepending = items.Prepending(new Item()).IsNeededFor(consumer);
+			Prepending<Item> prepending = items.Prepending(new Item()).For(consumer);
 			prepending.ValidateConsistency();
 			items.Move(oldIndex, newIndex);
 			prepending.ValidateConsistency();			
@@ -166,7 +166,7 @@ namespace ObservableComputations.Test
 				}
 			);
 
-			Prepending<Item> prepending = items.Prepending(new Item()).IsNeededFor(consumer);
+			Prepending<Item> prepending = items.Prepending(new Item()).For(consumer);
 			prepending.ValidateConsistency();
 			items[index] = new Item();
 			prepending.ValidateConsistency();			

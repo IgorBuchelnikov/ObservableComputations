@@ -44,7 +44,7 @@ namespace ObservableComputations.Test
 		{
 			bool raised = false;
 			Order order = new Order();
-			Differing<string> computing = new Differing<string>(new Computing<string>(() => order.Num)).IsNeededFor(consumer);
+			Differing<string> computing = new Differing<string>(new Computing<string>(() => order.Num)).For(consumer);
 			computing.PropertyChanged += (sender, args) => { if (args.PropertyName == "Value") raised = true; };
 
 			order.Num = "1";

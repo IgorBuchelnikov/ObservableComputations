@@ -111,7 +111,7 @@ namespace ObservableComputations.Test
                 }
             );
 
-            Filtering<Item> filtering = items.Filtering(i => i.IsActive).IsNeededFor(consumer);
+            Filtering<Item> filtering = items.Filtering(i => i.IsActive).For(consumer);
             items[2].SpecialChangeIsActive();
             filtering.ValidateConsistency();
             consumer.Dispose();
@@ -133,7 +133,7 @@ namespace ObservableComputations.Test
             );
 
             bool removed = false;
-            Filtering<Item> filtering = items.Filtering(i => i.IsActive).IsNeededFor(consumer);
+            Filtering<Item> filtering = items.Filtering(i => i.IsActive).For(consumer);
             filtering.CollectionChanged += (sender, args) =>
             {
                 if (!removed)
@@ -153,7 +153,7 @@ namespace ObservableComputations.Test
         {
             Item.LastNum = 3;
             Item item = new Item(false);
-            var comp = new Computing<int>(() => item.ActualNumComputing.Value).IsNeededFor(consumer);
+            var comp = new Computing<int>(() => item.ActualNumComputing.Value).For(consumer);
             
             Assert.IsTrue(comp.Value == 3);
             Assert.IsTrue(item.NumComputing.IsActive);
@@ -182,7 +182,7 @@ namespace ObservableComputations.Test
                 }
             );
 
-            var sel = items.Selecting(i => i.ActualNumComputing.Value).IsNeededFor(consumer);
+            var sel = items.Selecting(i => i.ActualNumComputing.Value).For(consumer);
             
             Assert.IsTrue(sel[0] == 3);
             Assert.IsTrue(items[0].NumComputing.IsActive);

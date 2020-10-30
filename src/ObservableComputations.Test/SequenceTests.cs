@@ -33,7 +33,7 @@ namespace ObservableComputations.Test
 			Count countInstance = new Count();
 			int count = initialCount;
 			countInstance.CountValue = count;
-			SequenceComputing sequenceComputing = Expr.Is(() => countInstance.CountValue).Computing().SequenceComputing().IsNeededFor(consumer);
+			SequenceComputing sequenceComputing = Expr.Is(() => countInstance.CountValue).Computing().SequenceComputing().For(consumer);
 			sequenceComputing.ValidateConsistency();
 					
 			void test()

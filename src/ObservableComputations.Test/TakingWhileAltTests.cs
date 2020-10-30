@@ -87,8 +87,8 @@ namespace ObservableComputations.Test
                               zipping.Filtering<ZipPair<int, Item>>(i => 
                                       !i.RightItem.IsActive).SetDebugTag("FilteringInner")
                                   .Selecting(zp1 => zp1.LeftItem).SetDebugTag("SelectingInner").Using(ii => ii.Count > 0 ? ii.Minimazing().SetDebugTag("Minimazing").Value : items.Count).SetDebugTag("UsingMinimazing").Value).SetDebugTag("FilteringOuter")
-                ).SetDebugTag("ZippingUsing").IsNeededFor(consumer).Value
-                .Selecting(zp => zp.RightItem).SetDebugTag("SelectingOuter").IsNeededFor(consumer);
+                ).SetDebugTag("ZippingUsing").For(consumer).Value
+                .Selecting(zp => zp.RightItem).SetDebugTag("SelectingOuter").For(consumer);
         }
 
         [Test, Combinatorial]

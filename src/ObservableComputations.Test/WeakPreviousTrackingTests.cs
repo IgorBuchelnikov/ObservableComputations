@@ -44,7 +44,7 @@ namespace ObservableComputations.Test
 		{
 			bool raised = false;
 			Order order = new Order();
-			WeakPreviousTracking<Order> computing = new WeakPreviousTracking<Order>(new Computing<Order>(() => order.ParentOrder)).IsNeededFor(consumer);
+			WeakPreviousTracking<Order> computing = new WeakPreviousTracking<Order>(new Computing<Order>(() => order.ParentOrder)).For(consumer);
 			bool
                 result = true;
 			Order previousOrder = null;

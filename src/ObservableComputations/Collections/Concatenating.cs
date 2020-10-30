@@ -268,7 +268,7 @@ namespace ObservableComputations
 				itemInfo.SourceAsINotifyPropertyChanged = (INotifyPropertyChanged) source;
 
 				itemInfo.SourcePropertyChangedEventHandler = (sender, args) =>				
-                    Utils.HandleSourcePropertyChanged(args, ref itemInfo.IndexerPropertyChangedEventRaised);
+                    Utils.handleSourcePropertyChanged(args, ref itemInfo.IndexerPropertyChangedEventRaised);
 				
 				itemInfo.SourceAsINotifyPropertyChanged.PropertyChanged +=
                     itemInfo.SourcePropertyChangedEventHandler;
@@ -673,7 +673,7 @@ namespace ObservableComputations
 
         void ISourceIndexerPropertyTracker.HandleSourcePropertyChanged(object sender, PropertyChangedEventArgs propertyChangedEventArgs)
         {
-            Utils.HandleSourcePropertyChanged(propertyChangedEventArgs, ref _indexerPropertyChangedEventRaised);
+            Utils.handleSourcePropertyChanged(propertyChangedEventArgs, ref _indexerPropertyChangedEventRaised);
         }
 
         #endregion

@@ -24,7 +24,7 @@ namespace ObservableComputations.Test
 				(item, current) =>
 				{
 					item.ProcessedAsOld = true;
-				}).IsNeededFor(consumer);
+				}).For(consumer);
 		}
 
 

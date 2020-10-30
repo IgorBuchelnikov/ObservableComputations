@@ -100,7 +100,7 @@ namespace ObservableComputations.Test
 			{
 				trace(testNum = "1", itemsCounts, index, itemsCount, indexOld, indexNew);
 				items = getObservableCollections(itemsCounts);
-				concatenating = items.Concatenating().IsNeededFor(consumer);
+				concatenating = items.Concatenating().For(consumer);
 				concatenating.ValidateConsistency();				
 				consumer.Dispose();
 
@@ -108,7 +108,7 @@ namespace ObservableComputations.Test
 				{
 					trace(testNum = "2", itemsCounts, index, itemsCount, indexOld, indexNew);
 					items = getObservableCollections(itemsCounts);
-					Concatenating<Item> concating1 = items.Concatenating().IsNeededFor(consumer);
+					Concatenating<Item> concating1 = items.Concatenating().For(consumer);
 					items.RemoveAt(index);
 					concating1.ValidateConsistency();					
 					consumer.Dispose();
@@ -120,7 +120,7 @@ namespace ObservableComputations.Test
 					{
 						trace(testNum = "11", itemsCounts, index, itemsCount, indexOld, indexNew);
 						items = getObservableCollections(itemsCounts);
-						Concatenating<Item> concating2 = items.Concatenating().IsNeededFor(consumer);
+						Concatenating<Item> concating2 = items.Concatenating().For(consumer);
 						items.Insert(index, getObservableCollection(itemsCount));
 						concating2.ValidateConsistency();						
 						consumer.Dispose();
@@ -131,7 +131,7 @@ namespace ObservableComputations.Test
 				{
 					trace(testNum = "6", itemsCounts, index, itemsCount, indexOld, indexNew);
 					items = getObservableCollections(itemsCounts);
-					Concatenating<Item> concating3 = items.Concatenating().IsNeededFor(consumer);
+					Concatenating<Item> concating3 = items.Concatenating().For(consumer);
 					items[index] = new ObservableCollection<Item>();
 					concating3.ValidateConsistency();					
 					consumer.Dispose();
@@ -140,7 +140,7 @@ namespace ObservableComputations.Test
 					{
 						trace(testNum = "3", itemsCounts, index, itemsCount, indexOld, indexNew);
 						items = getObservableCollections(itemsCounts);
-						Concatenating<Item> concating2 = items.Concatenating().IsNeededFor(consumer);
+						Concatenating<Item> concating2 = items.Concatenating().For(consumer);
 						items[index] = getObservableCollection(itemsCount);
 						concating2.ValidateConsistency();						
 						consumer.Dispose();
@@ -152,7 +152,7 @@ namespace ObservableComputations.Test
 				{
 					trace(testNum = "4", itemsCounts, index, itemsCount, indexOld, indexNew);
 					items = getObservableCollections(itemsCounts);
-					Concatenating<Item> concating1 = items.Concatenating().IsNeededFor(consumer);
+					Concatenating<Item> concating1 = items.Concatenating().For(consumer);
 					items[index] = null;
 					concating1.ValidateConsistency();					
 					consumer.Dispose();
@@ -161,7 +161,7 @@ namespace ObservableComputations.Test
 					{
 						trace(testNum = "5", itemsCounts, index, itemsCount, indexOld, indexNew);
 						items = getObservableCollections(itemsCounts);
-						Concatenating<Item> concating2 = items.Concatenating().IsNeededFor(consumer);
+						Concatenating<Item> concating2 = items.Concatenating().For(consumer);
 						items[index] = getObservableCollection(itemsCount);
 						concating2.ValidateConsistency();						
 						consumer.Dispose();
@@ -175,7 +175,7 @@ namespace ObservableComputations.Test
 					{
 						trace(testNum = "6", itemsCounts, index, itemsCount, indexOld, indexNew);
 						items = getObservableCollections(itemsCounts);
-						Concatenating<Item> concating2 = items.Concatenating().IsNeededFor(consumer);
+						Concatenating<Item> concating2 = items.Concatenating().For(consumer);
 						items.Move(indexOld, indexNew);
 						concating2.ValidateConsistency();						
 						consumer.Dispose();
@@ -191,7 +191,7 @@ namespace ObservableComputations.Test
 					{
 						trace(testNum = "7", itemsCounts, index, itemsCount, indexOld, indexNew);
 						items = getObservableCollections(itemsCounts);
-						Concatenating<Item> concating1 = items.Concatenating().IsNeededFor(consumer);
+						Concatenating<Item> concating1 = items.Concatenating().For(consumer);
 						items[index1].RemoveAt(index);
 						concating1.ValidateConsistency();						
 						consumer.Dispose();
@@ -201,7 +201,7 @@ namespace ObservableComputations.Test
 					{
 						trace(testNum = "12", itemsCounts, index, itemsCount, indexOld, indexNew);
 						items = getObservableCollections(itemsCounts);
-						Concatenating<Item> concating1 = items.Concatenating().IsNeededFor(consumer);
+						Concatenating<Item> concating1 = items.Concatenating().For(consumer);
 						items[index1].Insert(index, new Item());
 						concating1.ValidateConsistency();						
 						consumer.Dispose();
@@ -211,14 +211,14 @@ namespace ObservableComputations.Test
 					{
 						trace(testNum = "4", itemsCounts, index, itemsCount, indexOld, indexNew);
 						items = getObservableCollections(itemsCounts);
-						Concatenating<Item> concating3 = items.Concatenating().IsNeededFor(consumer);
+						Concatenating<Item> concating3 = items.Concatenating().For(consumer);
 						items[index1][index] = null;
 						concating3.ValidateConsistency();						
 						consumer.Dispose();
 
 						trace(testNum = "9", itemsCounts, index, itemsCount, indexOld, indexNew);
 						items = getObservableCollections(itemsCounts);
-						Concatenating<Item> concating2 = items.Concatenating().IsNeededFor(consumer);
+						Concatenating<Item> concating2 = items.Concatenating().For(consumer);
 						items[index1][index] = new Item();
 						concating2.ValidateConsistency();						
 						consumer.Dispose();
@@ -230,7 +230,7 @@ namespace ObservableComputations.Test
 						{
 							trace(testNum = "10", itemsCounts, index, itemsCount, indexOld, indexNew);
 							items = getObservableCollections(itemsCounts);
-							Concatenating<Item> concating2 = items.Concatenating().IsNeededFor(consumer);
+							Concatenating<Item> concating2 = items.Concatenating().For(consumer);
 							items[index1].Move(indexOld, indexNew);
 							concating2.ValidateConsistency();							
 							consumer.Dispose();

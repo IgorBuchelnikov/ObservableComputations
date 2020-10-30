@@ -25,7 +25,7 @@ namespace ObservableComputations.Test
 				Assert.AreEqual(current.ValueObject, token);
 				i.ProcessedAsNew = true;
 				return i.Token;
-			}).IsNeededFor(consumer);
+			}).For(consumer);
 			Assert.IsTrue(item.ProcessedAsNew);
 			token = item.Token;
 			item = new Item();

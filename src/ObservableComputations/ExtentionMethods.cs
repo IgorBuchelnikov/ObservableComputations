@@ -429,7 +429,7 @@ namespace ObservableComputations
 		}
 
         [ObservableComputationsCall]
-        public static TComputing IsNeededFor<TComputing>(this TComputing computing, Consumer consumer)
+        public static TComputing For<TComputing>(this TComputing computing, Consumer consumer)
             where TComputing : IComputing
         {
             ((IComputingInternal) computing).AddConsumer(consumer);

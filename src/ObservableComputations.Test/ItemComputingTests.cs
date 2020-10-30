@@ -47,7 +47,7 @@ namespace ObservableComputations.Test
 				}
 			);
 
-			ItemComputing<Item> itemComputing = items.ItemComputing(computingIndex).IsNeededFor(consumer);
+			ItemComputing<Item> itemComputing = items.ItemComputing(computingIndex).For(consumer);
 			itemComputing.ValidateConsistency();
 			items.RemoveAt(index);
 			itemComputing.ValidateConsistency();			
@@ -65,7 +65,7 @@ namespace ObservableComputations.Test
 				}
 			);
 
-			ItemComputing<Item> itemComputing = items.ItemComputing(computingIndex).IsNeededFor(consumer);
+			ItemComputing<Item> itemComputing = items.ItemComputing(computingIndex).For(consumer);
 			itemComputing.ValidateConsistency();
 			items.RemoveAt(0);
 			itemComputing.ValidateConsistency();			
@@ -88,7 +88,7 @@ namespace ObservableComputations.Test
 				}
 			);
 
-			ItemComputing<Item> itemComputing = items.ItemComputing(computingIndex).IsNeededFor(consumer);
+			ItemComputing<Item> itemComputing = items.ItemComputing(computingIndex).For(consumer);
 			itemComputing.ValidateConsistency();
 			items.Insert(index, new Item());
 			itemComputing.ValidateConsistency();			
@@ -101,7 +101,7 @@ namespace ObservableComputations.Test
 		{
 			ObservableCollection<Item> items = new ObservableCollection<Item>();
 
-			ItemComputing<Item> itemComputing = items.ItemComputing(computingIndex).IsNeededFor(consumer);
+			ItemComputing<Item> itemComputing = items.ItemComputing(computingIndex).For(consumer);
 			itemComputing.ValidateConsistency();
 			items.Insert(0, new Item());
 			itemComputing.ValidateConsistency();			
@@ -125,7 +125,7 @@ namespace ObservableComputations.Test
 				}
 			);
 
-			ItemComputing<Item> itemComputing = items.ItemComputing(computingIndex).IsNeededFor(consumer);
+			ItemComputing<Item> itemComputing = items.ItemComputing(computingIndex).For(consumer);
 			itemComputing.ValidateConsistency();
 			items.Move(oldIndex, newIndex);
 			itemComputing.ValidateConsistency();			
@@ -148,7 +148,7 @@ namespace ObservableComputations.Test
 				}
 			);
 
-			ItemComputing<Item> itemComputing = items.ItemComputing(computingIndex).IsNeededFor(consumer);
+			ItemComputing<Item> itemComputing = items.ItemComputing(computingIndex).For(consumer);
 			itemComputing.ValidateConsistency();
 			items[index] = new Item();
 			itemComputing.ValidateConsistency();			

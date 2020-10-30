@@ -62,7 +62,7 @@ namespace ObservableComputations.Test
 		{
 			ObservableCollection<Item> items = new ObservableCollection<Item>();
 
-			ContainsComputing<Item> anyComputing = items.ContainsComputing(new Item(true)).IsNeededFor(consumer);
+			ContainsComputing<Item> anyComputing = items.ContainsComputing(new Item(true)).For(consumer);
 			anyComputing.ValidateConsistency();			
 			consumer.Dispose();
 		}
@@ -88,7 +88,7 @@ namespace ObservableComputations.Test
 
 			);
 
-			ContainsComputing<Item> anyComputing = items.ContainsComputing(new Item(true)).IsNeededFor(consumer);
+			ContainsComputing<Item> anyComputing = items.ContainsComputing(new Item(true)).For(consumer);
 			anyComputing.ValidateConsistency();
 			items.RemoveAt(index);
 			anyComputing.ValidateConsistency();			
@@ -107,7 +107,7 @@ namespace ObservableComputations.Test
 
 			);
 
-			ContainsComputing<Item> anyComputing = items.ContainsComputing(new Item(true)).IsNeededFor(consumer);
+			ContainsComputing<Item> anyComputing = items.ContainsComputing(new Item(true)).For(consumer);
 			anyComputing.ValidateConsistency();
 			items.RemoveAt(0);
 			anyComputing.ValidateConsistency();			
@@ -136,7 +136,7 @@ namespace ObservableComputations.Test
 
 			);
 
-			ContainsComputing<Item> anyComputing = items.ContainsComputing(new Item(true)).IsNeededFor(consumer);
+			ContainsComputing<Item> anyComputing = items.ContainsComputing(new Item(true)).For(consumer);
 			anyComputing.ValidateConsistency();
 			items.Insert(index, new Item(newValue));
 			anyComputing.ValidateConsistency();			
@@ -150,7 +150,7 @@ namespace ObservableComputations.Test
 			ObservableCollection<Item> items = new ObservableCollection<Item>(
 			);
 
-			ContainsComputing<Item> anyComputing = items.ContainsComputing(new Item(true)).IsNeededFor(consumer);
+			ContainsComputing<Item> anyComputing = items.ContainsComputing(new Item(true)).For(consumer);
 			anyComputing.ValidateConsistency();
 			items.Insert(0, new Item(newValue));
 			anyComputing.ValidateConsistency();			
@@ -179,7 +179,7 @@ namespace ObservableComputations.Test
 
 			);
 
-			ContainsComputing<Item> anyComputing = items.ContainsComputing(new Item(true)).IsNeededFor(consumer);
+			ContainsComputing<Item> anyComputing = items.ContainsComputing(new Item(true)).For(consumer);
 			anyComputing.ValidateConsistency();
 			items.Move(oldIndex, newIndex);
 			anyComputing.ValidateConsistency();			
@@ -208,7 +208,7 @@ namespace ObservableComputations.Test
 
 			);
 
-			ContainsComputing<Item> anyComputing = items.ContainsComputing(new Item(true)).IsNeededFor(consumer);
+			ContainsComputing<Item> anyComputing = items.ContainsComputing(new Item(true)).For(consumer);
 			anyComputing.ValidateConsistency();
 			items[index] = new Item(itemNew);
 			anyComputing.ValidateConsistency();			

@@ -44,7 +44,7 @@ namespace ObservableComputations.Test
 		{
 			bool raised = false;
 			Order order = new Order();
-			Computing<string> computing = new Computing<string>(() => order.Num).IsNeededFor(consumer);
+			Computing<string> computing = new Computing<string>(() => order.Num).For(consumer);
 			computing.PropertyChanged += (sender, args) => { if (args.PropertyName == "Value") raised = true; };
 			order.Num = "1";
 			Assert.IsTrue(raised);

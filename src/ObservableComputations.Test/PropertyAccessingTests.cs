@@ -49,7 +49,7 @@ namespace ObservableComputations.Test
 		public void TestRaiseValueChanged()
 		{
 			Order order = new Order();
-			var propertyAccessing = order.PropertyAccessing<string>("Num").IsNeededFor(consumer);
+			var propertyAccessing = order.PropertyAccessing<string>("Num").For(consumer);
 			string result = null;
 			bool raised = false;
 
@@ -81,7 +81,7 @@ namespace ObservableComputations.Test
 		public void TestRaiseValueChanged2()
 		{
 			Order order = new Order();
-			var propertyAccessing = new Computing<Order>(() => order.ParentOrder).PropertyAccessing<string>("Num").IsNeededFor(consumer);
+			var propertyAccessing = new Computing<Order>(() => order.ParentOrder).PropertyAccessing<string>("Num").For(consumer);
 			string result = null;
 			bool raised = false;
 

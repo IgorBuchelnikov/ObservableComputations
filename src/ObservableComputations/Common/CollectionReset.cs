@@ -22,7 +22,7 @@ namespace ObservableComputations
         #region Implementation of IProcessable
         public void Process(Queue<IProcessable>[] deferredProcessings)
         {
-            Utils.ClearDefferedProcessings(deferredProcessings);
+            Utils.clearDefferedProcessings(deferredProcessings);
 
             Action?.Invoke();
             CanInitializeFromSource.InitializeFromSource();

@@ -234,7 +234,7 @@ namespace ObservableComputations
                     _itemInfos,
                     _keySelectorExpressionСallCount,
                     this);
-                Utils.RemoveDownstreamConsumedComputing(_itemInfos, this);
+                Utils.removeDownstreamConsumedComputing(_itemInfos, this);
 
                 Utils.disposeSource(
                     _sourceScalar, 
@@ -389,7 +389,7 @@ namespace ObservableComputations
 
         private void keyExpressionWatcher_OnValueChanged(ExpressionWatcher expressionWatcher, object sender, EventArgs eventArgs)
 		{
-            Utils.ProcessSourceItemChange(
+            Utils.processSourceItemChange(
                 expressionWatcher, 
                 sender, 
                 eventArgs, 
@@ -598,7 +598,7 @@ namespace ObservableComputations
 
         void IComputingInternal.AddConsumer(Consumer addingConsumer)
         {
-            Utils.AddComsumer(
+            Utils.addComsumer(
                 addingConsumer, 
                 _consumers,
                 _downstreamConsumedComputings, 
@@ -613,7 +613,7 @@ namespace ObservableComputations
 
         void IComputingInternal.RemoveConsumer(Consumer removingConsumer)
         {
-            Utils.RemoveConsumer(
+            Utils.removeConsumer(
                 removingConsumer, 
                 _consumers, 
                 _downstreamConsumedComputings, 
@@ -627,7 +627,7 @@ namespace ObservableComputations
 
         void IComputingInternal.AddDownstreamConsumedComputing(IComputingInternal computing)
         {
-            Utils.AddDownstreamConsumedComputing(
+            Utils.addDownstreamConsumedComputing(
                 computing, 
                 _downstreamConsumedComputings, 
                 _consumers, 
@@ -641,7 +641,7 @@ namespace ObservableComputations
 
         void IComputingInternal.RemoveDownstreamConsumedComputing(IComputingInternal computing)
         {
-            Utils.RemoveDownstreamConsumedComputing(
+            Utils.removeDownstreamConsumedComputing(
                 computing, 
                 _downstreamConsumedComputings, 
                 this, 

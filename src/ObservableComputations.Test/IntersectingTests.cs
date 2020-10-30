@@ -98,7 +98,7 @@ namespace ObservableComputations.Test
 				trace(testNum = "1", ids1, ids2, newItemId, index, indexOld, indexNew);
 				items1 = getObservableCollection(ids1);
 				items2 = getObservableCollection(ids2);
-				intersecting = items1.Intersecting(items2).IsNeededFor(consumer);
+				intersecting = items1.Intersecting(items2).For(consumer);
 				intersecting.ValidateConsistency();				
 				consumer.Dispose();
 
@@ -107,7 +107,7 @@ namespace ObservableComputations.Test
 					trace(testNum = "2", ids1, ids2, newItemId, index, indexOld, indexNew);
 					items1 = getObservableCollection(ids1);
 					items2 = getObservableCollection(ids2);
-					intersecting = items1.Intersecting(items2).IsNeededFor(consumer);
+					intersecting = items1.Intersecting(items2).For(consumer);
 					items1.RemoveAt(index);
 					intersecting.ValidateConsistency();					
 					consumer.Dispose();
@@ -118,7 +118,7 @@ namespace ObservableComputations.Test
 					trace(testNum = "3", ids1, ids2, newItemId, index, indexOld, indexNew);
 					items1 = getObservableCollection(ids1);
 					items2 = getObservableCollection(ids2);
-					intersecting = items1.Intersecting(items2).IsNeededFor(consumer);
+					intersecting = items1.Intersecting(items2).For(consumer);
 					items2.RemoveAt(index);
 					intersecting.ValidateConsistency();					
 					consumer.Dispose();
@@ -131,7 +131,7 @@ namespace ObservableComputations.Test
 						trace(testNum = "4", ids1, ids2, newItemId, index, indexOld, indexNew);
 						items1 = getObservableCollection(ids1);
 						items2 = getObservableCollection(ids2);
-						intersecting = items1.Intersecting(items2).IsNeededFor(consumer);
+						intersecting = items1.Intersecting(items2).For(consumer);
 						items1.Insert(index, new Item(newItemId));
 						intersecting.ValidateConsistency();						
 						consumer.Dispose();
@@ -146,7 +146,7 @@ namespace ObservableComputations.Test
 						trace(testNum = "5", ids1, ids2, newItemId, index, indexOld, indexNew);
 						items1 = getObservableCollection(ids1);
 						items2 = getObservableCollection(ids2);
-						intersecting = items1.Intersecting(items2).IsNeededFor(consumer);
+						intersecting = items1.Intersecting(items2).For(consumer);
 						items2.Insert(index, new Item(newItemId));
 						intersecting.ValidateConsistency();						
 						consumer.Dispose();
@@ -160,7 +160,7 @@ namespace ObservableComputations.Test
 						trace(testNum = "6", ids1, ids2, newItemId, index, indexOld, indexNew);
 						items1 = getObservableCollection(ids1);
 						items2 = getObservableCollection(ids2);
-						intersecting = items1.Intersecting(items2).IsNeededFor(consumer);
+						intersecting = items1.Intersecting(items2).For(consumer);
 						items1[index] = new Item(newItemId);
 						intersecting.ValidateConsistency();						
 						consumer.Dispose();
@@ -174,7 +174,7 @@ namespace ObservableComputations.Test
 						trace(testNum = "7", ids1, ids2, newItemId, index, indexOld, indexNew);
 						items1 = getObservableCollection(ids1);
 						items2 = getObservableCollection(ids2);
-						intersecting = items1.Intersecting(items2).IsNeededFor(consumer);
+						intersecting = items1.Intersecting(items2).For(consumer);
 						items2[index] = new Item(newItemId);
 						intersecting.ValidateConsistency();						
 						consumer.Dispose();
@@ -188,7 +188,7 @@ namespace ObservableComputations.Test
 						trace(testNum = "8", ids1, ids2, newItemId, index, indexOld, indexNew);
 						items1 = getObservableCollection(ids1);
 						items2 = getObservableCollection(ids2);
-						intersecting = items1.Intersecting(items2).IsNeededFor(consumer);
+						intersecting = items1.Intersecting(items2).For(consumer);
 						items1.Move(indexOld, indexNew);
 						intersecting.ValidateConsistency();						
 						consumer.Dispose();
@@ -202,7 +202,7 @@ namespace ObservableComputations.Test
 						trace(testNum = "9", ids1, ids2, newItemId, index, indexOld, indexNew);
 						items1 = getObservableCollection(ids1);
 						items2 = getObservableCollection(ids2);
-						intersecting = items1.Intersecting(items2).IsNeededFor(consumer);
+						intersecting = items1.Intersecting(items2).For(consumer);
 						items2.Move(indexOld, indexNew);
 						intersecting.ValidateConsistency();						
 						consumer.Dispose();

@@ -100,7 +100,7 @@ namespace ObservableComputations.Test
 			{
 				trace(testNum = "1", itemsCounts, index, itemsCount, indexOld, indexNew);
 				items = getObservableCollections(itemsCounts);
-				uniting = items.Uniting().IsNeededFor(consumer);
+				uniting = items.Uniting().For(consumer);
 				uniting.ValidateConsistency();				
 				consumer.Dispose();
 
@@ -108,7 +108,7 @@ namespace ObservableComputations.Test
 				{
 					trace(testNum = "2", itemsCounts, index, itemsCount, indexOld, indexNew);
 					items = getObservableCollections(itemsCounts);
-					Uniting<Item> uniting1 = items.Uniting().IsNeededFor(consumer);
+					Uniting<Item> uniting1 = items.Uniting().For(consumer);
 					items.RemoveAt(index);
 					uniting1.ValidateConsistency();					
 					consumer.Dispose();
@@ -120,7 +120,7 @@ namespace ObservableComputations.Test
 					{
 						trace(testNum = "11", itemsCounts, index, itemsCount, indexOld, indexNew);
 						items = getObservableCollections(itemsCounts);
-						Uniting<Item> uniting2 = items.Uniting().IsNeededFor(consumer);
+						Uniting<Item> uniting2 = items.Uniting().For(consumer);
 						items.Insert(index, getObservableCollection(itemsCount));
 						uniting2.ValidateConsistency();						
 						consumer.Dispose();
@@ -131,7 +131,7 @@ namespace ObservableComputations.Test
 				{
 					trace(testNum = "6", itemsCounts, index, itemsCount, indexOld, indexNew);
 					items = getObservableCollections(itemsCounts);
-					Uniting<Item> uniting3 = items.Uniting().IsNeededFor(consumer);
+					Uniting<Item> uniting3 = items.Uniting().For(consumer);
 					items[index] = new ObservableCollection<Item>();
 					uniting3.ValidateConsistency();					
 					consumer.Dispose();
@@ -140,7 +140,7 @@ namespace ObservableComputations.Test
 					{
 						trace(testNum = "3", itemsCounts, index, itemsCount, indexOld, indexNew);
 						items = getObservableCollections(itemsCounts);
-						Uniting<Item> uniting2 = items.Uniting().IsNeededFor(consumer);
+						Uniting<Item> uniting2 = items.Uniting().For(consumer);
 						items[index] = getObservableCollection(itemsCount);
 						uniting2.ValidateConsistency();						
 						consumer.Dispose();
@@ -152,7 +152,7 @@ namespace ObservableComputations.Test
 				{
 					trace(testNum = "4", itemsCounts, index, itemsCount, indexOld, indexNew);
 					items = getObservableCollections(itemsCounts);
-					Uniting<Item> uniting1 = items.Uniting().IsNeededFor(consumer);
+					Uniting<Item> uniting1 = items.Uniting().For(consumer);
 					items[index] = null;
 					uniting1.ValidateConsistency();					
 					consumer.Dispose();
@@ -161,7 +161,7 @@ namespace ObservableComputations.Test
 					{
 						trace(testNum = "5", itemsCounts, index, itemsCount, indexOld, indexNew);
 						items = getObservableCollections(itemsCounts);
-						Uniting<Item> uniting2 = items.Uniting().IsNeededFor(consumer);
+						Uniting<Item> uniting2 = items.Uniting().For(consumer);
 						items[index] = getObservableCollection(itemsCount);
 						uniting2.ValidateConsistency();						
 						consumer.Dispose();
@@ -175,7 +175,7 @@ namespace ObservableComputations.Test
 					{
 						trace(testNum = "6", itemsCounts, index, itemsCount, indexOld, indexNew);
 						items = getObservableCollections(itemsCounts);
-						Uniting<Item> uniting2 = items.Uniting().IsNeededFor(consumer);
+						Uniting<Item> uniting2 = items.Uniting().For(consumer);
 						items.Move(indexOld, indexNew);
 						uniting2.ValidateConsistency();						
 						consumer.Dispose();
@@ -191,7 +191,7 @@ namespace ObservableComputations.Test
 					{
 						trace(testNum = "7", itemsCounts, index, itemsCount, indexOld, indexNew);
 						items = getObservableCollections(itemsCounts);
-						Uniting<Item> uniting1 = items.Uniting().IsNeededFor(consumer);
+						Uniting<Item> uniting1 = items.Uniting().For(consumer);
 						items[index1].RemoveAt(index);
 						uniting1.ValidateConsistency();						
 						consumer.Dispose();
@@ -201,7 +201,7 @@ namespace ObservableComputations.Test
 					{
 						trace(testNum = "12", itemsCounts, index, itemsCount, indexOld, indexNew);
 						items = getObservableCollections(itemsCounts);
-						Uniting<Item> uniting1 = items.Uniting().IsNeededFor(consumer);
+						Uniting<Item> uniting1 = items.Uniting().For(consumer);
 						items[index1].Insert(index, new Item());
 						uniting1.ValidateConsistency();						
 						consumer.Dispose();
@@ -211,14 +211,14 @@ namespace ObservableComputations.Test
 					{
 						trace(testNum = "4", itemsCounts, index, itemsCount, indexOld, indexNew);
 						items = getObservableCollections(itemsCounts);
-						Uniting<Item> uniting3 = items.Uniting().IsNeededFor(consumer);
+						Uniting<Item> uniting3 = items.Uniting().For(consumer);
 						items[index1][index] = null;
 						uniting3.ValidateConsistency();						
 						consumer.Dispose();
 
 						trace(testNum = "9", itemsCounts, index, itemsCount, indexOld, indexNew);
 						items = getObservableCollections(itemsCounts);
-						Uniting<Item> uniting2 = items.Uniting().IsNeededFor(consumer);
+						Uniting<Item> uniting2 = items.Uniting().For(consumer);
 						items[index1][index] = new Item();
 						uniting2.ValidateConsistency();						
 						consumer.Dispose();
@@ -230,7 +230,7 @@ namespace ObservableComputations.Test
 						{
 							trace(testNum = "10", itemsCounts, index, itemsCount, indexOld, indexNew);
 							items = getObservableCollections(itemsCounts);
-							Uniting<Item> uniting2 = items.Uniting().IsNeededFor(consumer);
+							Uniting<Item> uniting2 = items.Uniting().For(consumer);
 							items[index1].Move(indexOld, indexNew);
 							uniting2.ValidateConsistency();							
 							consumer.Dispose();

@@ -164,7 +164,7 @@ namespace ObservableComputations.Test
 
 		private MinimazingOrMaximazing<int> getMinimazingOrMaximazing(ObservableCollection<int> items, MinimazingOrMaximazingMode mode)
 		{
-			return mode == MinimazingOrMaximazingMode.Maximazing ? items.Maximazing().IsNeededFor(consumer) : items.Minimazing().IsNeededFor(consumer);
+			return mode == MinimazingOrMaximazingMode.Maximazing ? items.Maximazing().For(consumer) : items.Minimazing().For(consumer);
 		}
 
 		private int getResult(ObservableCollection<int> items, MinimazingOrMaximazingMode mode)

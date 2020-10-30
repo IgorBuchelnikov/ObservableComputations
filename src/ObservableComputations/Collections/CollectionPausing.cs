@@ -154,21 +154,24 @@ namespace ObservableComputations
 		[ObservableComputationsCall]
 		public CollectionPausing(
 			INotifyCollectionChanged source,
-			bool initialIsPaused = false)
+			bool initialIsPaused = false,
+            CollectionPausingResumeType resumeType = CollectionPausingResumeType.Reset)
 		{
 			_isPaused = initialIsPaused;
 			_source = source;
-            _thisAsSourceCollectionChangeProcessor = this;
+            _resumeType = resumeType;
+            _thisAsSourceCollectionChangeProcessor = this;          
         }
-
 
 		[ObservableComputationsCall]
 		public CollectionPausing(
 			IReadScalar<INotifyCollectionChanged> sourceScalar,
-			bool initialIsPaused = false)
+			bool initialIsPaused = false,
+            CollectionPausingResumeType resumeType = CollectionPausingResumeType.Reset)
 		{
 			_isPaused = initialIsPaused;
 			_sourceScalar = sourceScalar;
+            _resumeType = resumeType;
             _thisAsSourceCollectionChangeProcessor = this;
 		}
 

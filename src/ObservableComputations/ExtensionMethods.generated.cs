@@ -819,12 +819,38 @@ namespace ObservableComputations
 		[ObservableComputationsCall]
 		public static ObservableComputations.CollectionPausing<TSourceItem> CollectionPausing<TSourceItem>(this
 			 System.Collections.Specialized.INotifyCollectionChanged source,
+			 bool initialIsPaused,
+			 ObservableComputations.CollectionPausingResumeType resumeType)
+			
+		{
+			return new ObservableComputations.CollectionPausing<TSourceItem>(
+				source: source,
+				initialIsPaused: initialIsPaused,
+				resumeType: resumeType);
+		}
+
+		[ObservableComputationsCall]
+		public static ObservableComputations.CollectionPausing<TSourceItem> CollectionPausing<TSourceItem>(this
+			 System.Collections.Specialized.INotifyCollectionChanged source,
 			 bool initialIsPaused)
 			
 		{
 			return new ObservableComputations.CollectionPausing<TSourceItem>(
 				source: source,
-				initialIsPaused: initialIsPaused);
+				initialIsPaused: initialIsPaused,
+				resumeType: CollectionPausingResumeType.Reset);
+		}
+
+		[ObservableComputationsCall]
+		public static ObservableComputations.CollectionPausing<TSourceItem> CollectionPausing<TSourceItem>(this
+			 System.Collections.Specialized.INotifyCollectionChanged source,
+			 ObservableComputations.CollectionPausingResumeType resumeType)
+			
+		{
+			return new ObservableComputations.CollectionPausing<TSourceItem>(
+				source: source,
+				initialIsPaused: false,
+				resumeType: resumeType);
 		}
 
 		[ObservableComputationsCall]
@@ -834,7 +860,21 @@ namespace ObservableComputations
 		{
 			return new ObservableComputations.CollectionPausing<TSourceItem>(
 				source: source,
-				initialIsPaused: false);
+				initialIsPaused: false,
+				resumeType: CollectionPausingResumeType.Reset);
+		}
+
+		[ObservableComputationsCall]
+		public static ObservableComputations.CollectionPausing<TSourceItem> CollectionPausing<TSourceItem>(this
+			 ObservableCollection<TSourceItem> source,
+			 bool initialIsPaused,
+			 ObservableComputations.CollectionPausingResumeType resumeType)
+			
+		{
+			return new ObservableComputations.CollectionPausing<TSourceItem>(
+				source: source,
+				initialIsPaused: initialIsPaused,
+				resumeType: resumeType);
 		}
 
 		[ObservableComputationsCall]
@@ -845,7 +885,20 @@ namespace ObservableComputations
 		{
 			return new ObservableComputations.CollectionPausing<TSourceItem>(
 				source: source,
-				initialIsPaused: initialIsPaused);
+				initialIsPaused: initialIsPaused,
+				resumeType: CollectionPausingResumeType.Reset);
+		}
+
+		[ObservableComputationsCall]
+		public static ObservableComputations.CollectionPausing<TSourceItem> CollectionPausing<TSourceItem>(this
+			 ObservableCollection<TSourceItem> source,
+			 ObservableComputations.CollectionPausingResumeType resumeType)
+			
+		{
+			return new ObservableComputations.CollectionPausing<TSourceItem>(
+				source: source,
+				initialIsPaused: false,
+				resumeType: resumeType);
 		}
 
 		[ObservableComputationsCall]
@@ -855,7 +908,21 @@ namespace ObservableComputations
 		{
 			return new ObservableComputations.CollectionPausing<TSourceItem>(
 				source: source,
-				initialIsPaused: false);
+				initialIsPaused: false,
+				resumeType: CollectionPausingResumeType.Reset);
+		}
+
+		[ObservableComputationsCall]
+		public static ObservableComputations.CollectionPausing<TSourceItem> CollectionPausing<TSourceItem>(this
+			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar,
+			 bool initialIsPaused,
+			 ObservableComputations.CollectionPausingResumeType resumeType)
+			
+		{
+			return new ObservableComputations.CollectionPausing<TSourceItem>(
+				sourceScalar: sourceScalar,
+				initialIsPaused: initialIsPaused,
+				resumeType: resumeType);
 		}
 
 		[ObservableComputationsCall]
@@ -866,7 +933,20 @@ namespace ObservableComputations
 		{
 			return new ObservableComputations.CollectionPausing<TSourceItem>(
 				sourceScalar: sourceScalar,
-				initialIsPaused: initialIsPaused);
+				initialIsPaused: initialIsPaused,
+				resumeType: CollectionPausingResumeType.Reset);
+		}
+
+		[ObservableComputationsCall]
+		public static ObservableComputations.CollectionPausing<TSourceItem> CollectionPausing<TSourceItem>(this
+			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar,
+			 ObservableComputations.CollectionPausingResumeType resumeType)
+			
+		{
+			return new ObservableComputations.CollectionPausing<TSourceItem>(
+				sourceScalar: sourceScalar,
+				initialIsPaused: false,
+				resumeType: resumeType);
 		}
 
 		[ObservableComputationsCall]
@@ -876,7 +956,21 @@ namespace ObservableComputations
 		{
 			return new ObservableComputations.CollectionPausing<TSourceItem>(
 				sourceScalar: sourceScalar,
-				initialIsPaused: false);
+				initialIsPaused: false,
+				resumeType: CollectionPausingResumeType.Reset);
+		}
+
+		[ObservableComputationsCall]
+		public static ObservableComputations.CollectionPausing<TSourceItem> CollectionPausing<TSourceItem>(this
+			 ObservableComputations.IReadScalar<ObservableCollection<TSourceItem>> sourceScalar,
+			 bool initialIsPaused,
+			 ObservableComputations.CollectionPausingResumeType resumeType)
+			
+		{
+			return new ObservableComputations.CollectionPausing<TSourceItem>(
+				sourceScalar: sourceScalar,
+				initialIsPaused: initialIsPaused,
+				resumeType: resumeType);
 		}
 
 		[ObservableComputationsCall]
@@ -887,7 +981,20 @@ namespace ObservableComputations
 		{
 			return new ObservableComputations.CollectionPausing<TSourceItem>(
 				sourceScalar: sourceScalar,
-				initialIsPaused: initialIsPaused);
+				initialIsPaused: initialIsPaused,
+				resumeType: CollectionPausingResumeType.Reset);
+		}
+
+		[ObservableComputationsCall]
+		public static ObservableComputations.CollectionPausing<TSourceItem> CollectionPausing<TSourceItem>(this
+			 ObservableComputations.IReadScalar<ObservableCollection<TSourceItem>> sourceScalar,
+			 ObservableComputations.CollectionPausingResumeType resumeType)
+			
+		{
+			return new ObservableComputations.CollectionPausing<TSourceItem>(
+				sourceScalar: sourceScalar,
+				initialIsPaused: false,
+				resumeType: resumeType);
 		}
 
 		[ObservableComputationsCall]
@@ -897,7 +1004,21 @@ namespace ObservableComputations
 		{
 			return new ObservableComputations.CollectionPausing<TSourceItem>(
 				sourceScalar: sourceScalar,
-				initialIsPaused: false);
+				initialIsPaused: false,
+				resumeType: CollectionPausingResumeType.Reset);
+		}
+
+		[ObservableComputationsCall]
+		public static ObservableComputations.CollectionPausing<TSourceItem> CollectionPausing<TSourceItem>(this
+			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> sourceExpression,
+			 bool initialIsPaused,
+			 ObservableComputations.CollectionPausingResumeType resumeType)
+			
+		{
+			return new ObservableComputations.CollectionPausing<TSourceItem>(
+				sourceScalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(sourceExpression),
+				initialIsPaused: initialIsPaused,
+				resumeType: resumeType);
 		}
 
 		[ObservableComputationsCall]
@@ -908,7 +1029,20 @@ namespace ObservableComputations
 		{
 			return new ObservableComputations.CollectionPausing<TSourceItem>(
 				sourceScalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(sourceExpression),
-				initialIsPaused: initialIsPaused);
+				initialIsPaused: initialIsPaused,
+				resumeType: CollectionPausingResumeType.Reset);
+		}
+
+		[ObservableComputationsCall]
+		public static ObservableComputations.CollectionPausing<TSourceItem> CollectionPausing<TSourceItem>(this
+			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> sourceExpression,
+			 ObservableComputations.CollectionPausingResumeType resumeType)
+			
+		{
+			return new ObservableComputations.CollectionPausing<TSourceItem>(
+				sourceScalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(sourceExpression),
+				initialIsPaused: false,
+				resumeType: resumeType);
 		}
 
 		[ObservableComputationsCall]
@@ -918,7 +1052,21 @@ namespace ObservableComputations
 		{
 			return new ObservableComputations.CollectionPausing<TSourceItem>(
 				sourceScalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(sourceExpression),
-				initialIsPaused: false);
+				initialIsPaused: false,
+				resumeType: CollectionPausingResumeType.Reset);
+		}
+
+		[ObservableComputationsCall]
+		public static ObservableComputations.CollectionPausing<TSourceItem> CollectionPausing<TSourceItem>(this
+			 Expression<Func<ObservableCollection<TSourceItem>>> sourceExpression,
+			 bool initialIsPaused,
+			 ObservableComputations.CollectionPausingResumeType resumeType)
+			
+		{
+			return new ObservableComputations.CollectionPausing<TSourceItem>(
+				sourceScalar: new Computing<ObservableCollection<TSourceItem>>(sourceExpression),
+				initialIsPaused: initialIsPaused,
+				resumeType: resumeType);
 		}
 
 		[ObservableComputationsCall]
@@ -929,7 +1077,20 @@ namespace ObservableComputations
 		{
 			return new ObservableComputations.CollectionPausing<TSourceItem>(
 				sourceScalar: new Computing<ObservableCollection<TSourceItem>>(sourceExpression),
-				initialIsPaused: initialIsPaused);
+				initialIsPaused: initialIsPaused,
+				resumeType: CollectionPausingResumeType.Reset);
+		}
+
+		[ObservableComputationsCall]
+		public static ObservableComputations.CollectionPausing<TSourceItem> CollectionPausing<TSourceItem>(this
+			 Expression<Func<ObservableCollection<TSourceItem>>> sourceExpression,
+			 ObservableComputations.CollectionPausingResumeType resumeType)
+			
+		{
+			return new ObservableComputations.CollectionPausing<TSourceItem>(
+				sourceScalar: new Computing<ObservableCollection<TSourceItem>>(sourceExpression),
+				initialIsPaused: false,
+				resumeType: resumeType);
 		}
 
 		[ObservableComputationsCall]
@@ -939,7 +1100,8 @@ namespace ObservableComputations
 		{
 			return new ObservableComputations.CollectionPausing<TSourceItem>(
 				sourceScalar: new Computing<ObservableCollection<TSourceItem>>(sourceExpression),
-				initialIsPaused: false);
+				initialIsPaused: false,
+				resumeType: CollectionPausingResumeType.Reset);
 		}
 
 		[ObservableComputationsCall]

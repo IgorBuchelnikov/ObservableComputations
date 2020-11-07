@@ -280,6 +280,95 @@ namespace ObservableComputations
 
         #endregion
 
+        #region Default value conrol
+
+        private TValue _defaultValue;
+        private IReadScalar<TValue> _defaultValueScalar;
+        private bool _isDefaulted;
+        public TValue DefaultValue
+        {
+            get => _defaultValue;
+            private set
+            {
+                _defaultValue = value;
+                PropertyChanged?.Invoke(this, Utils.DefaultValuePropertyChangedEventArgs);
+            }
+        }
+
+        public IReadScalar<TValue> DefaultValueScalar
+        {
+            get => _defaultValueScalar;
+            private set
+            {
+                _defaultValueScalar = value;
+                PropertyChanged?.Invoke(this, Utils.DefaultValueScalarPropertyChangedEventArgs);
+            }
+        }
+
+        public bool IsDefaulted
+        {
+            get => _isDefaulted;
+            protected set
+            {
+                _isDefaulted = value;
+                PropertyChanged?.Invoke(this, Utils.IsDefaultedPropertyChangedEventArgs);
+            }
+        }
+
+        #region Implementation of IScalarComputingInternal<TValue>
+
+        internal void SetDefaultValue(TValue defaultValue)
+        {
+            Action action = () =>
+            {
+                DefaultValue = defaultValue;
+                if (_isDefaulted) setValue(_defaultValue);
+            };
+
+
+            Utils.processChange(
+                null, 
+                null, 
+                action,
+                ref _isConsistent, 
+                ref _handledEventSender, 
+                ref _handledEventArgs, 
+                0, 1,
+                ref _deferredProcessings, this);
+        }
+
+        internal void SetDefaultValue(IReadScalar<TValue> defaultValueScalar)
+        {
+            Action action = () =>
+            {
+                (_defaultValueScalar as IComputingInternal)?.RemoveDownstreamConsumedComputing(this);
+                DefaultValueScalar = defaultValueScalar;
+
+                if (_isActive) 
+                    (_defaultValueScalar as IComputingInternal)?.AddDownstreamConsumedComputing(this);
+                
+                DefaultValue = defaultValueScalar.Value;
+                if (_isDefaulted) 
+                    setValue(_defaultValue);
+            };
+
+
+            Utils.processChange(
+                null, 
+                null, 
+                action,
+                ref _isConsistent, 
+                ref _handledEventSender, 
+                ref _handledEventArgs, 
+                0, 1,
+                ref _deferredProcessings, this);
+        }
+
+        #endregion 
+        
+
+        #endregion
+
 		#region INotifyPropertyChanged imlementation
 		public event PropertyChangedEventHandler PropertyChanged;
 		#endregion
@@ -295,7 +384,7 @@ namespace ObservableComputations
         }
 
         #endregion
-	}
+    }
 }
 
 

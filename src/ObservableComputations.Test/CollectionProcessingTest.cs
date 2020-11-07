@@ -18,16 +18,27 @@ namespace ObservableComputations.Test
 		private static CollectionProcessing<Item, object> getCollectionProcessing(ObservableCollection<Item> items, Consumer consumer)
 		{
 			return items.CollectionProcessing(
-				(item, current) =>
-				{
-					item.ProcessedAsNew = true;
-					return item.Token;
-				},
-				(item, current, returnValue) =>
-				{
-					item.ProcessedAsOld = true;
-					Assert.AreEqual(item.Token, returnValue);
-				}).For(consumer);
+                (newItems, current) =>
+                {
+                    object[] tokens = new object[newItems.Length];
+                    for (var index = 0; index < newItems.Length; index++)
+                    {
+                        Item newItem = newItems[index];
+                        newItem.ProcessedAsNew = true;
+                        tokens[index] = newItem.Token;
+                    }
+
+                    return tokens; 
+                },
+				(oldItems, current, returnValues) =>
+                {
+                    for (var index = 0; index < oldItems.Length; index++)
+                    {
+                        Item oldItem = oldItems[index];
+                        oldItem.ProcessedAsOld = true;
+                        Assert.AreEqual(oldItem.Token, returnValues[index]);
+                    }
+                }).For(consumer);
 		}
 
 		[Test]

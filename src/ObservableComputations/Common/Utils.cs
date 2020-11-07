@@ -1154,5 +1154,8 @@ namespace ObservableComputations
 		internal static readonly NotifyCollectionChangedEventArgs ResetNotifyCollectionChangedEventArgs = new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Reset);
         internal static readonly PropertyChangedEventArgs IsActivePropertyChangedEventArgs = new PropertyChangedEventArgs("IsActive");
         internal static readonly PropertyChangedEventArgs ResumeTypePropertyChangedEventArgs = new PropertyChangedEventArgs("ResumeType");
+        internal static readonly PropertyChangedEventArgs DefaultValueScalarPropertyChangedEventArgs = new PropertyChangedEventArgs("DefaultValueScalar");
+        internal static readonly PropertyChangedEventArgs DefaultValuePropertyChangedEventArgs = new PropertyChangedEventArgs("DefaultValue");
+        internal static readonly PropertyChangedEventArgs IsDefaultedPropertyChangedEventArgs = new PropertyChangedEventArgs("IsDefaulted");
     }
 }

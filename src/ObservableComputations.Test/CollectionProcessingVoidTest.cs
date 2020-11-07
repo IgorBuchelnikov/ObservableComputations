@@ -17,13 +17,19 @@ namespace ObservableComputations.Test
 		private static CollectionProcessingVoid<Item> getCollectionProcessing(ObservableCollection<Item> items, Consumer consumer)
 		{
 			return items.CollectionProcessing(
-				(item, current) =>
+				(newItems, current) =>
 				{
-					item.ProcessedAsNew = true;
+                    foreach (Item newItem in newItems)
+                    {
+                        newItem.ProcessedAsNew = true;
+                    }
 				},
-				(item, current) =>
+				(oldItems, current) =>
 				{
-					item.ProcessedAsOld = true;
+                    foreach (Item newItem in oldItems)
+                    {
+                        newItem.ProcessedAsOld = true;
+                    }
 				}).For(consumer);
 		}
 

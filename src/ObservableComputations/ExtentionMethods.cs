@@ -172,9 +172,9 @@ namespace ObservableComputations
 		[ObservableComputationsCall]
 		public static ObservableComputations.CollectionProcessing<TSourceItem, TReturnValue> CollectionProcessing<TSourceItem, TReturnValue>(this
 			System.Collections.Specialized.INotifyCollectionChanged source,
-			System.Func<TSourceItem, ICollectionComputing, TReturnValue> newItemProcessor = null,
-			System.Action<TSourceItem, ICollectionComputing, TReturnValue> oldItemProcessor = null,
-			System.Action<TSourceItem, ICollectionComputing, TReturnValue> moveItemProcessor = null)
+			System.Func<TSourceItem[], ICollectionProcessing, TReturnValue[]> newItemProcessor = null,
+			System.Action<TSourceItem[], ICollectionProcessing, TReturnValue[]> oldItemProcessor = null,
+			System.Action<TSourceItem, ICollectionProcessing, TReturnValue> moveItemProcessor = null)
 			
 		{
 			return new ObservableComputations.CollectionProcessing<TSourceItem, TReturnValue>(
@@ -187,9 +187,9 @@ namespace ObservableComputations
 		[ObservableComputationsCall]
 		public static ObservableComputations.CollectionProcessing<TSourceItem, TReturnValue> CollectionProcessing<TSourceItem, TReturnValue>(this
 			ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar,
-			System.Func<TSourceItem, ICollectionComputing, TReturnValue> newItemProcessor = null,
-			System.Action<TSourceItem, ICollectionComputing, TReturnValue> oldItemProcessor = null,
-			System.Action<TSourceItem, ICollectionComputing, TReturnValue> moveItemProcessor = null)
+			System.Func<TSourceItem[], ICollectionProcessing, TReturnValue[]> newItemProcessor = null,
+			System.Action<TSourceItem[], ICollectionProcessing, TReturnValue[]> oldItemProcessor = null,
+			System.Action<TSourceItem, ICollectionProcessing, TReturnValue> moveItemProcessor = null)
 			
 		{
 			return new ObservableComputations.CollectionProcessing<TSourceItem, TReturnValue>(
@@ -201,9 +201,9 @@ namespace ObservableComputations
 		[ObservableComputationsCall]
 		public static ObservableComputations.CollectionProcessing<TSourceItem, TReturnValue> CollectionProcessing<TSourceItem, TReturnValue>(this
 			Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> getSourceExpression,
-			System.Func<TSourceItem, ICollectionComputing, TReturnValue> newItemProcessor = null,
-			System.Action<TSourceItem, ICollectionComputing, TReturnValue> oldItemProcessor = null,
-			System.Action<TSourceItem, ICollectionComputing, TReturnValue> moveItemProcessor = null)
+			System.Func<TSourceItem[], ICollectionProcessing, TReturnValue[]> newItemProcessor = null,
+			System.Action<TSourceItem[], ICollectionProcessing, TReturnValue[]> oldItemProcessor = null,
+			System.Action<TSourceItem, ICollectionProcessing, TReturnValue> moveItemProcessor = null)
 			
 		{
 			return new ObservableComputations.CollectionProcessing<TSourceItem, TReturnValue>(
@@ -216,8 +216,8 @@ namespace ObservableComputations
 		[ObservableComputationsCall]
 		public static ObservableComputations.CollectionProcessingVoid<TSourceItem> CollectionProcessing<TSourceItem>(this
 			System.Collections.Specialized.INotifyCollectionChanged source,
-			System.Action<TSourceItem, CollectionProcessingVoid<TSourceItem>> newItemProcessor = null,
-			System.Action<TSourceItem, CollectionProcessingVoid<TSourceItem>> oldItemProcessor = null,
+			System.Action<TSourceItem[], CollectionProcessingVoid<TSourceItem>> newItemProcessor = null,
+			System.Action<TSourceItem[], CollectionProcessingVoid<TSourceItem>> oldItemProcessor = null,
 			System.Action<TSourceItem, CollectionProcessingVoid<TSourceItem>> moveItemProcessor = null)
 			
 		{
@@ -231,8 +231,8 @@ namespace ObservableComputations
 		[ObservableComputationsCall]
 		public static ObservableComputations.CollectionProcessingVoid<TSourceItem> CollectionProcessing<TSourceItem>(this
 			ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar,
-			System.Action<TSourceItem, CollectionProcessingVoid<TSourceItem>> newItemProcessor = null,
-			System.Action<TSourceItem, CollectionProcessingVoid<TSourceItem>> oldItemProcessor = null,
+			System.Action<TSourceItem[], CollectionProcessingVoid<TSourceItem>> newItemProcessor = null,
+			System.Action<TSourceItem[], CollectionProcessingVoid<TSourceItem>> oldItemProcessor = null,
 			System.Action<TSourceItem, CollectionProcessingVoid<TSourceItem>> moveItemProcessor = null)
 			
 		{
@@ -246,8 +246,8 @@ namespace ObservableComputations
 		[ObservableComputationsCall]
 		public static ObservableComputations.CollectionProcessingVoid<TSourceItem> CollectionProcessing<TSourceItem>(this
 			Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> getSourceExpression,
-			System.Action<TSourceItem, CollectionProcessingVoid<TSourceItem>> newItemProcessor = null,
-			System.Action<TSourceItem, CollectionProcessingVoid<TSourceItem>> oldItemProcessor = null,
+			System.Action<TSourceItem[], CollectionProcessingVoid<TSourceItem>> newItemProcessor = null,
+			System.Action<TSourceItem[], CollectionProcessingVoid<TSourceItem>> oldItemProcessor = null,
 			System.Action<TSourceItem, CollectionProcessingVoid<TSourceItem>> moveItemProcessor = null)
 			
 		{
@@ -263,9 +263,9 @@ namespace ObservableComputations
 		[ObservableComputationsCall]
 		public static ObservableComputations.CollectionProcessing<TSourceItem, TReturnValue> CollectionProcessing<TSourceItem, TReturnValue>(this
 			ObservableCollection<TSourceItem> source,
-			System.Func<TSourceItem, ICollectionComputing, TReturnValue> newItemProcessor = null,
-			System.Action<TSourceItem, ICollectionComputing, TReturnValue> oldItemProcessor = null,
-			System.Action<TSourceItem, ICollectionComputing, TReturnValue> moveItemProcessor = null)
+			System.Func<TSourceItem[], ICollectionProcessing, TReturnValue[]> newItemProcessor = null,
+			System.Action<TSourceItem[], ICollectionProcessing, TReturnValue[]> oldItemProcessor = null,
+			System.Action<TSourceItem, ICollectionProcessing, TReturnValue> moveItemProcessor = null)
 			
 		{
 			return new ObservableComputations.CollectionProcessing<TSourceItem, TReturnValue>(
@@ -278,9 +278,9 @@ namespace ObservableComputations
 		[ObservableComputationsCall]
 		public static ObservableComputations.CollectionProcessing<TSourceItem, TReturnValue> CollectionProcessing<TSourceItem, TReturnValue>(this
 			ObservableComputations.IReadScalar<ObservableCollection<TSourceItem>> sourceScalar,
-			System.Func<TSourceItem, ICollectionComputing, TReturnValue> newItemProcessor = null,
-			System.Action<TSourceItem, ICollectionComputing, TReturnValue> oldItemProcessor = null,
-			System.Action<TSourceItem, ICollectionComputing, TReturnValue> moveItemProcessor = null)
+			System.Func<TSourceItem[], ICollectionProcessing, TReturnValue[]> newItemProcessor = null,
+			System.Action<TSourceItem[], ICollectionProcessing, TReturnValue[]> oldItemProcessor = null,
+			System.Action<TSourceItem, ICollectionProcessing, TReturnValue> moveItemProcessor = null)
 			
 		{
 			return new ObservableComputations.CollectionProcessing<TSourceItem, TReturnValue>(
@@ -292,9 +292,9 @@ namespace ObservableComputations
 		[ObservableComputationsCall]
 		public static ObservableComputations.CollectionProcessing<TSourceItem, TReturnValue> CollectionProcessing<TSourceItem, TReturnValue>(this
 			Expression<Func<ObservableCollection<TSourceItem>>> getSourceExpression,
-			System.Func<TSourceItem, ICollectionComputing, TReturnValue> newItemProcessor = null,
-			System.Action<TSourceItem, ICollectionComputing, TReturnValue> oldItemProcessor = null,
-			System.Action<TSourceItem, ICollectionComputing, TReturnValue> moveItemProcessor = null)
+			System.Func<TSourceItem[], ICollectionProcessing, TReturnValue[]> newItemProcessor = null,
+			System.Action<TSourceItem[], ICollectionProcessing, TReturnValue[]> oldItemProcessor = null,
+			System.Action<TSourceItem, ICollectionProcessing, TReturnValue> moveItemProcessor = null)
 			
 		{
 			return new ObservableComputations.CollectionProcessing<TSourceItem, TReturnValue>(
@@ -307,8 +307,8 @@ namespace ObservableComputations
 		[ObservableComputationsCall]
 		public static ObservableComputations.CollectionProcessingVoid<TSourceItem> CollectionProcessing<TSourceItem>(this
 			ObservableCollection<TSourceItem> source,
-			System.Action<TSourceItem, CollectionProcessingVoid<TSourceItem>> newItemProcessor = null,
-			System.Action<TSourceItem, CollectionProcessingVoid<TSourceItem>> oldItemProcessor = null,
+			System.Action<TSourceItem[], CollectionProcessingVoid<TSourceItem>> newItemProcessor = null,
+			System.Action<TSourceItem[], CollectionProcessingVoid<TSourceItem>> oldItemProcessor = null,
 			System.Action<TSourceItem, CollectionProcessingVoid<TSourceItem>> moveItemProcessor = null)
 			
 		{
@@ -322,8 +322,8 @@ namespace ObservableComputations
 		[ObservableComputationsCall]
 		public static ObservableComputations.CollectionProcessingVoid<TSourceItem> CollectionProcessing<TSourceItem>(this
 			ObservableComputations.IReadScalar<ObservableCollection<TSourceItem>> sourceScalar,
-			System.Action<TSourceItem, CollectionProcessingVoid<TSourceItem>> newItemProcessor = null,
-			System.Action<TSourceItem, CollectionProcessingVoid<TSourceItem>> oldItemProcessor = null,
+			System.Action<TSourceItem[], CollectionProcessingVoid<TSourceItem>> newItemProcessor = null,
+			System.Action<TSourceItem[], CollectionProcessingVoid<TSourceItem>> oldItemProcessor = null,
 			System.Action<TSourceItem, CollectionProcessingVoid<TSourceItem>> moveItemProcessor = null)
 			
 		{
@@ -337,8 +337,8 @@ namespace ObservableComputations
 		[ObservableComputationsCall]
 		public static ObservableComputations.CollectionProcessingVoid<TSourceItem> CollectionProcessing<TSourceItem>(this
 			Expression<Func<ObservableCollection<TSourceItem>>> getSourceExpression,
-			System.Action<TSourceItem, CollectionProcessingVoid<TSourceItem>> newItemProcessor = null,
-			System.Action<TSourceItem, CollectionProcessingVoid<TSourceItem>> oldItemProcessor = null,
+			System.Action<TSourceItem[], CollectionProcessingVoid<TSourceItem>> newItemProcessor = null,
+			System.Action<TSourceItem[], CollectionProcessingVoid<TSourceItem>> oldItemProcessor = null,
 			System.Action<TSourceItem, CollectionProcessingVoid<TSourceItem>> moveItemProcessor = null)
 			
 		{
@@ -442,6 +442,30 @@ namespace ObservableComputations
         {
             computing.DebugTag = debugTag;
             return computing;
+        }
+
+        [ObservableComputationsCall]
+        public static TScalarComputing SetDefaultValue<TScalarComputing, TValue>(this TScalarComputing scalarComputing, TValue defaultValue)
+            where TScalarComputing : ScalarComputing<TValue>
+        {
+            scalarComputing.SetDefaultValue(defaultValue);
+            return scalarComputing;
+        }
+
+        [ObservableComputationsCall]
+        public static TScalarComputing SetDefaultValue<TScalarComputing, TValue>(this TScalarComputing scalarComputing, IReadScalar<TValue> defaultValueScalar)
+            where TScalarComputing : ScalarComputing<TValue>
+        {
+            scalarComputing.SetDefaultValue(defaultValueScalar);
+            return scalarComputing;
+        }
+
+        [ObservableComputationsCall]
+        public static TScalarComputing SetDefaultValue<TScalarComputing, TValue>(this TScalarComputing scalarComputing, Expression<Func<TValue>> getValueExpression)
+            where TScalarComputing : ScalarComputing<TValue>
+        {
+            scalarComputing.SetDefaultValue(new Computing<TValue>(getValueExpression));
+            return scalarComputing;
         }
 	}
 }

@@ -59,6 +59,8 @@ namespace ObservableComputations
 
             if (_isActive)
             {
+                _value = _defaultValue;
+
                 void readAndSubscribe()
                 {
                     TResult newValue = _scalar.Value;
@@ -77,7 +79,7 @@ namespace ObservableComputations
             }
             else
             {
-                void setNewValue() => setValue(default);
+                void setNewValue() => setDefaultValue();
                 _destinationDispatcher.Invoke(setNewValue, this);
             }
         }
@@ -94,11 +96,13 @@ namespace ObservableComputations
 
         internal override void addToUpstreamComputings(IComputingInternal computing)
         {
+            base.addToUpstreamComputings(computing);
             (_scalar as IComputingInternal)?.AddDownstreamConsumedComputing(computing);
         }
 
         internal override void removeFromUpstreamComputings(IComputingInternal computing)
         {
+            base.removeFromUpstreamComputings(computing);
             (_scalar as IComputingInternal)?.RemoveDownstreamConsumedComputing(computing);
         }
 

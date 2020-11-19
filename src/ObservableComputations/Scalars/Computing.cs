@@ -88,15 +88,17 @@ namespace ObservableComputations
             EventUnsubscriber.QueueSubscriptions(_getValueExpressionWatcher._propertyChangedEventSubscriptions, _getValueExpressionWatcher._methodChangedEventSubscriptions);
             Utils.removeDownstreamConsumedComputing(_getValueExpressionWatcher, this);            
             Utils.uninitializeNestedComputings(_nestedComputings, this);
-            setValue(default);
+            setDefaultValue();
         }
 
         internal override void addToUpstreamComputings(IComputingInternal computing)
         {
+            base.addToUpstreamComputings(computing);
         }
 
         internal override void removeFromUpstreamComputings(IComputingInternal computing)
         {
+            base.removeFromUpstreamComputings(computing);
         }
 
         #endregion

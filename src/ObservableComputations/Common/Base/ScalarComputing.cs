@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Runtime.InteropServices.WindowsRuntime;
 
 namespace ObservableComputations
 {
@@ -88,7 +89,7 @@ namespace ObservableComputations
 		public object NewValueObject => _newValue;
 
 
-		protected void setValue(TValue value)
+		protected void setValue(TValue value, bool setIsDefaultedFalse = true)
         {
             void perform()
             {
@@ -100,6 +101,12 @@ namespace ObservableComputations
                 PropertyChanged?.Invoke(this, Utils.ValuePropertyChangedEventArgs);
                 PropertyChanged?.Invoke(this, Utils.ValueObjectPropertyChangedEventArgs);
                 PostValueChanged?.Invoke(this, null);
+
+                if (setIsDefaultedFalse && _isDefaulted)
+                {
+                    _isDefaulted = false;
+                    PropertyChanged?.Invoke(this, Utils.IsDefaultedPropertyChangedEventArgs);
+                }
             }
 
             if (Configuration.TrackComputingsExecutingUserCode)
@@ -172,8 +179,16 @@ namespace ObservableComputations
         protected abstract void initializeFromSource();
         protected abstract void initialize();
         protected abstract void uninitialize();
-        internal abstract void addToUpstreamComputings(IComputingInternal computing);
-        internal abstract void removeFromUpstreamComputings(IComputingInternal computing);
+
+        internal virtual void addToUpstreamComputings(IComputingInternal computing)
+        {
+            (_defaultValueScalar as IComputingInternal)?.AddDownstreamConsumedComputing(this);
+        }
+
+        internal virtual void removeFromUpstreamComputings(IComputingInternal computing)
+        {
+            (_defaultValueScalar as IComputingInternal)?.RemoveDownstreamConsumedComputing(this);
+        }
 
 
         protected List<Consumer> _consumers = new List<Consumer>();
@@ -282,74 +297,102 @@ namespace ObservableComputations
 
         #region Default value conrol
 
-        private TValue _defaultValue;
+        protected TValue _defaultValue;
         private IReadScalar<TValue> _defaultValueScalar;
         private bool _isDefaulted;
         public TValue DefaultValue
         {
-            get => _defaultValue;
-            private set
+            get { return _defaultValue; }
+            set
             {
-                _defaultValue = value;
-                PropertyChanged?.Invoke(this, Utils.DefaultValuePropertyChangedEventArgs);
+                Action action = () =>
+                {
+                    _defaultValue = value;
+                    if (_isDefaulted) setValue(_defaultValue);
+                    PropertyChanged?.Invoke(this, Utils.DefaultValuePropertyChangedEventArgs);
+                };
+
+
+                Utils.processChange(
+                    null, 
+                    null, 
+                    action,
+                    ref _isConsistent, 
+                    ref _handledEventSender, 
+                    ref _handledEventArgs, 
+                    0, 1,
+                    ref _deferredProcessings, this);
             }
         }
 
         public IReadScalar<TValue> DefaultValueScalar
         {
-            get => _defaultValueScalar;
-            private set
+            get { return _defaultValueScalar; }
+            set
             {
-                _defaultValueScalar = value;
-                PropertyChanged?.Invoke(this, Utils.DefaultValueScalarPropertyChangedEventArgs);
-            }
-        }
+                Action action = () =>
+                {
+                    if (_isActive)
+                    {
+                        unsubscribeDefaultValueScalar();
+                        (_defaultValueScalar as IComputingInternal)?.RemoveDownstreamConsumedComputing(this);
+                    }
 
-        public bool IsDefaulted
-        {
-            get => _isDefaulted;
-            protected set
-            {
-                _isDefaulted = value;
-                PropertyChanged?.Invoke(this, Utils.IsDefaultedPropertyChangedEventArgs);
-            }
-        }
+                    _defaultValueScalar = value;
 
-        #region Implementation of IScalarComputingInternal<TValue>
-
-        internal void SetDefaultValue(TValue defaultValue)
-        {
-            Action action = () =>
-            {
-                DefaultValue = defaultValue;
-                if (_isDefaulted) setValue(_defaultValue);
-            };
-
-
-            Utils.processChange(
-                null, 
-                null, 
-                action,
-                ref _isConsistent, 
-                ref _handledEventSender, 
-                ref _handledEventArgs, 
-                0, 1,
-                ref _deferredProcessings, this);
-        }
-
-        internal void SetDefaultValue(IReadScalar<TValue> defaultValueScalar)
-        {
-            Action action = () =>
-            {
-                (_defaultValueScalar as IComputingInternal)?.RemoveDownstreamConsumedComputing(this);
-                DefaultValueScalar = defaultValueScalar;
-
-                if (_isActive) 
-                    (_defaultValueScalar as IComputingInternal)?.AddDownstreamConsumedComputing(this);
+                    if (_isActive)
+                    {
+                        (_defaultValueScalar as IComputingInternal)?.AddDownstreamConsumedComputing(this);
+                        subscribeDefaultValueScalar();
+                    }
                 
-                DefaultValue = defaultValueScalar.Value;
+                    _defaultValue = _defaultValueScalar.Value;
+                    if (_isDefaulted) setValue(_defaultValue);
+                    PropertyChanged?.Invoke(this, Utils.DefaultValuePropertyChangedEventArgs);
+                    PropertyChanged?.Invoke(this, Utils.DefaultValueScalarPropertyChangedEventArgs);
+                };
+
+                Utils.processChange(
+                    null, 
+                    null, 
+                    action,
+                    ref _isConsistent, 
+                    ref _handledEventSender, 
+                    ref _handledEventArgs, 
+                    0, 1,
+                    ref _deferredProcessings, this);
+            }
+        }
+
+        public bool IsDefaulted => _isDefaulted;
+
+        protected void setDefaultValue()
+        {
+            if (_isDefaulted) return;
+            _isDefaulted = true;
+            setValue(_defaultValue, false);
+            PropertyChanged?.Invoke(this, Utils.IsDefaultedPropertyChangedEventArgs);
+        }
+
+
+        protected void subscribeDefaultValueScalar()
+        {
+            _defaultValueScalar.PropertyChanged += defaultValueScalarPropertyChangedHandler;
+        }
+
+        protected void unsubscribeDefaultValueScalar()
+        {
+            _defaultValueScalar.PropertyChanged -= defaultValueScalarPropertyChangedHandler;
+        }
+
+        private void defaultValueScalarPropertyChangedHandler(object sender, PropertyChangedEventArgs e)
+        {
+            if (e.PropertyName != nameof(IReadScalar<TValue>.Value)) return;
+
+            Action action = () =>
+            {
                 if (_isDefaulted) 
-                    setValue(_defaultValue);
+                    setValue(_defaultValueScalar.Value);
             };
 
 
@@ -365,9 +408,6 @@ namespace ObservableComputations
         }
 
         #endregion 
-        
-
-        #endregion
 
 		#region INotifyPropertyChanged imlementation
 		public event PropertyChangedEventHandler PropertyChanged;

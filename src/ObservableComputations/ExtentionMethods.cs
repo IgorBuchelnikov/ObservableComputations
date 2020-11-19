@@ -448,7 +448,7 @@ namespace ObservableComputations
         public static TScalarComputing SetDefaultValue<TScalarComputing, TValue>(this TScalarComputing scalarComputing, TValue defaultValue)
             where TScalarComputing : ScalarComputing<TValue>
         {
-            scalarComputing.SetDefaultValue(defaultValue);
+            scalarComputing.DefaultValue = defaultValue;
             return scalarComputing;
         }
 
@@ -456,7 +456,7 @@ namespace ObservableComputations
         public static TScalarComputing SetDefaultValue<TScalarComputing, TValue>(this TScalarComputing scalarComputing, IReadScalar<TValue> defaultValueScalar)
             where TScalarComputing : ScalarComputing<TValue>
         {
-            scalarComputing.SetDefaultValue(defaultValueScalar);
+            scalarComputing.DefaultValueScalar = defaultValueScalar;
             return scalarComputing;
         }
 

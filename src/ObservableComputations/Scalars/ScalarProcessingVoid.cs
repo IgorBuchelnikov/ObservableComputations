@@ -98,11 +98,13 @@ namespace ObservableComputations
 
         internal override void addToUpstreamComputings(IComputingInternal computing)
         {
+            base.addToUpstreamComputings(computing);
             (_scalar as IComputingInternal)?.AddDownstreamConsumedComputing(computing);
         }
 
         internal override void removeFromUpstreamComputings(IComputingInternal computing)
         {
+            base.removeFromUpstreamComputings(computing);
             (_scalar as IComputingInternal)?.RemoveDownstreamConsumedComputing(computing);
         }
 

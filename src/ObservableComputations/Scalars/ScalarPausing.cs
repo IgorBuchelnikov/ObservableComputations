@@ -190,7 +190,7 @@ namespace ObservableComputations
             }
             else
             {
-                setValue(default);
+                setDefaultValue();
             }
         }
 
@@ -206,6 +206,7 @@ namespace ObservableComputations
 
         internal override void addToUpstreamComputings(IComputingInternal computing)
         {
+            base.addToUpstreamComputings(computing);
             (_scalar as IComputingInternal)?.AddDownstreamConsumedComputing(computing);
             (_isPausedScalar as IComputingInternal)?.AddDownstreamConsumedComputing(computing);
             (_lastChangesToApplyOnResumeCountScalar as IComputingInternal)?.AddDownstreamConsumedComputing(computing);
@@ -213,6 +214,7 @@ namespace ObservableComputations
 
         internal override void removeFromUpstreamComputings(IComputingInternal computing)
         {
+            base.removeFromUpstreamComputings(computing);
             (_scalar as IComputingInternal)?.RemoveDownstreamConsumedComputing(computing);
             (_isPausedScalar as IComputingInternal)?.RemoveDownstreamConsumedComputing(computing);
             (_lastChangesToApplyOnResumeCountScalar as IComputingInternal)?.RemoveDownstreamConsumedComputing(computing);

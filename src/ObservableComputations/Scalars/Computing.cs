@@ -44,7 +44,7 @@ namespace ObservableComputations
                 ref _isConsistent, 
                 ref _handledEventSender, 
                 ref _handledEventArgs, 
-                0, 1,
+                0, _deferredQueuesCount,
                 ref _deferredProcessings, 
                 this,
                 false);
@@ -93,12 +93,12 @@ namespace ObservableComputations
 
         internal override void addToUpstreamComputings(IComputingInternal computing)
         {
-            base.addToUpstreamComputings(computing);
+
         }
 
         internal override void removeFromUpstreamComputings(IComputingInternal computing)
         {
-            base.removeFromUpstreamComputings(computing);
+
         }
 
         #endregion

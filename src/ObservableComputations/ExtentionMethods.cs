@@ -443,29 +443,5 @@ namespace ObservableComputations
             computing.DebugTag = debugTag;
             return computing;
         }
-
-        [ObservableComputationsCall]
-        public static TScalarComputing SetDefaultValue<TScalarComputing, TValue>(this TScalarComputing scalarComputing, TValue defaultValue)
-            where TScalarComputing : ScalarComputing<TValue>
-        {
-            scalarComputing.DefaultValue = defaultValue;
-            return scalarComputing;
-        }
-
-        [ObservableComputationsCall]
-        public static TScalarComputing SetDefaultValue<TScalarComputing, TValue>(this TScalarComputing scalarComputing, IReadScalar<TValue> defaultValueScalar)
-            where TScalarComputing : ScalarComputing<TValue>
-        {
-            scalarComputing.DefaultValueScalar = defaultValueScalar;
-            return scalarComputing;
-        }
-
-        [ObservableComputationsCall]
-        public static TScalarComputing SetDefaultValue<TScalarComputing, TValue>(this TScalarComputing scalarComputing, Expression<Func<TValue>> getValueExpression)
-            where TScalarComputing : ScalarComputing<TValue>
-        {
-            scalarComputing.SetDefaultValue(new Computing<TValue>(getValueExpression));
-            return scalarComputing;
-        }
 	}
 }

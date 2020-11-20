@@ -39,7 +39,7 @@ namespace ObservableComputations
                     ref _isConsistent, 
                     ref _handledEventSender, 
                     ref _handledEventArgs, 
-                    0, 2,
+                    0, _deferredQueuesCount,
                     ref _deferredProcessings, this);
 			}
 		}
@@ -108,7 +108,7 @@ namespace ObservableComputations
                     ref _isConsistent, 
                     ref _handledEventSender, 
                     ref _handledEventArgs, 
-                    0, 2,
+                    0, _deferredQueuesCount,
                     ref _deferredProcessings, this);
             }
 		}
@@ -311,7 +311,7 @@ namespace ObservableComputations
                 ref _isConsistent, 
                 ref _handledEventSender, 
                 ref _handledEventArgs, 
-                0, 2,
+                0, _deferredQueuesCount,
                 ref _deferredProcessings, this);
         }
 
@@ -344,7 +344,7 @@ namespace ObservableComputations
                 ref _isConsistent, 
                 ref _handledEventSender, 
                 ref _handledEventArgs, 
-                0, 2,
+                0, _deferredQueuesCount,
                 ref _deferredProcessings, this);
 		}
 

@@ -138,7 +138,7 @@ namespace ObservableComputations
                 ref _isConsistent, 
                 ref _handledEventSender, 
                 ref _handledEventArgs, 
-                0, 2,
+                0, _deferredQueuesCount,
                 ref _deferredProcessings, this);
 		}
 
@@ -286,7 +286,6 @@ namespace ObservableComputations
 
         internal override void addToUpstreamComputings(IComputingInternal computing)
         {
-            base.addToUpstreamComputings(computing);
             (_source as IComputingInternal)?.AddDownstreamConsumedComputing(computing);
             (_sourceScalar as IComputingInternal)?.AddDownstreamConsumedComputing(computing);
             (_indexValueScalar as IComputingInternal)?.AddDownstreamConsumedComputing(computing);
@@ -294,7 +293,6 @@ namespace ObservableComputations
 
         internal override void removeFromUpstreamComputings(IComputingInternal computing)        
         {
-            base.removeFromUpstreamComputings(computing);
             (_source as IComputingInternal)?.RemoveDownstreamConsumedComputing(computing);
             (_sourceScalar as IComputingInternal)?.RemoveDownstreamConsumedComputing(computing);
             (_indexValueScalar as IComputingInternal)?.RemoveDownstreamConsumedComputing(computing);

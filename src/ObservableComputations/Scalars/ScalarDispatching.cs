@@ -42,7 +42,7 @@ namespace ObservableComputations
                 ref _isConsistent, 
                 ref _handledEventSender, 
                 ref _handledEventArgs, 
-                0, 1,
+                0, _deferredQueuesCount,
                 ref _deferredProcessings, this);
 		}
 
@@ -59,8 +59,6 @@ namespace ObservableComputations
 
             if (_isActive)
             {
-                _value = _defaultValue;
-
                 void readAndSubscribe()
                 {
                     TResult newValue = _scalar.Value;
@@ -96,13 +94,11 @@ namespace ObservableComputations
 
         internal override void addToUpstreamComputings(IComputingInternal computing)
         {
-            base.addToUpstreamComputings(computing);
             (_scalar as IComputingInternal)?.AddDownstreamConsumedComputing(computing);
         }
 
         internal override void removeFromUpstreamComputings(IComputingInternal computing)
         {
-            base.removeFromUpstreamComputings(computing);
             (_scalar as IComputingInternal)?.RemoveDownstreamConsumedComputing(computing);
         }
 

@@ -168,12 +168,10 @@ namespace ObservableComputations
 
         internal override void addToUpstreamComputings(IComputingInternal computing)
         {
-            base.addToUpstreamComputings(computing);
         }
 
         internal override void removeFromUpstreamComputings(IComputingInternal computing)
         {
-            base.removeFromUpstreamComputings(computing);
         }
 
         #endregion

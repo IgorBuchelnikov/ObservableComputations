@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Concurrent;
-using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Threading;
 
@@ -17,18 +16,6 @@ namespace ObservableComputations
             Handler = handler;
         } 
 
-    }
-
-    internal struct CollectionChangedEventSubscription
-    {
-        public INotifyCollectionChanged Source;
-        public NotifyCollectionChangedEventHandler Handler;
-
-        public CollectionChangedEventSubscription(INotifyCollectionChanged source, NotifyCollectionChangedEventHandler handler)
-        {
-            Source = source;
-            Handler = handler;
-        }
     }
 
     internal struct MethodChangedEventSubscription
@@ -58,55 +45,68 @@ namespace ObservableComputations
 	internal static class EventUnsubscriber
 	{
         static ConcurrentQueue<Subscriptions> _subscriptionsQueue = new ConcurrentQueue<Subscriptions>();	
-        private static ManualResetEventSlim _newSubscriptionManualResetEvent = new ManualResetEventSlim(false);
-		internal static Thread _thread;
+        private static ManualResetEventSlim[] _newSubscriptionManualResetEvents;
+		internal static Thread[] __threads;
+        private static int _threadsCount;
 
 		public static void QueueSubscriptions(
             PropertyChangedEventSubscription[] propertyChangedEventSubscriptions,
             MethodChangedEventSubscription[] methodChangedEventSubscriptions)
 		{
             _subscriptionsQueue.Enqueue(new Subscriptions(propertyChangedEventSubscriptions, methodChangedEventSubscriptions));
-			_newSubscriptionManualResetEvent.Set();
+            for (int index = 0; index < _threadsCount; index++)            
+                _newSubscriptionManualResetEvents[index].Set();
 		}
 
 		static EventUnsubscriber()
-		{
-			_thread = new Thread(() =>
-			{
-				while (true)
-				{
-					_newSubscriptionManualResetEvent.Wait();
-					_newSubscriptionManualResetEvent.Reset();
+        {
+            _threadsCount = Configuration.EventUnsubscriberThreadsCount;
+            _newSubscriptionManualResetEvents = new ManualResetEventSlim[_threadsCount];
+            __threads = new Thread[_threadsCount];
 
-					while (_subscriptionsQueue.TryDequeue(out Subscriptions subscriptions))
-					{
-                        for (int i = 0; i < subscriptions.PropertyChangedEventSubscriptions.Length; i++)
+            ParameterizedThreadStart threadStart = 
+                state =>
+                {
+                    int index = (int) state;
+                    while (true)
+                    {
+                        _newSubscriptionManualResetEvents[index].Wait();
+                        _newSubscriptionManualResetEvents[index].Reset();
+
+                        while (_subscriptionsQueue.TryDequeue(out Subscriptions subscriptions))
                         {
-                            PropertyChangedEventSubscription propertyChangedEventSubscription =
-                                subscriptions.PropertyChangedEventSubscriptions[i];
+                            for (int i = 0; i < subscriptions.PropertyChangedEventSubscriptions.Length; i++)
+                            {
+                                PropertyChangedEventSubscription propertyChangedEventSubscription =
+                                    subscriptions.PropertyChangedEventSubscriptions[i];
 
-                            if (propertyChangedEventSubscription.Handler != null)
-                                propertyChangedEventSubscription.Source.PropertyChanged -=
-                                    propertyChangedEventSubscription.Handler;
+                                if (propertyChangedEventSubscription.Handler != null)
+                                    propertyChangedEventSubscription.Source.PropertyChanged -=
+                                        propertyChangedEventSubscription.Handler;
+                            }
+
+                            for (int i = 0; i < subscriptions.MethodChangedEventSubscriptions.Length; i++)
+                            {
+                                MethodChangedEventSubscription methodChangedEventSubscription =
+                                    subscriptions.MethodChangedEventSubscriptions[i];
+
+                                if (methodChangedEventSubscription.Handler != null)
+                                    methodChangedEventSubscription.Source.MethodChanged -=
+                                        methodChangedEventSubscription.Handler;
+                            }
                         }
+                    }
 
-                        for (int i = 0; i < subscriptions.MethodChangedEventSubscriptions.Length; i++)
-                        {
-                            MethodChangedEventSubscription methodChangedEventSubscription =
-                                subscriptions.MethodChangedEventSubscriptions[i];
+                };
 
-                            if (methodChangedEventSubscription.Handler != null)
-                                methodChangedEventSubscription.Source.MethodChanged -=
-                                    methodChangedEventSubscription.Handler;
-                        }
-					}
-				}
-
-			});
-
-			_thread.Name = "ObservableComputations events unsubscriber";
-            _thread.IsBackground = true;
-			_thread.Start();
+            for (int index = 0; index < _threadsCount; index++)
+            {
+                _newSubscriptionManualResetEvents[index] = new ManualResetEventSlim(false);
+                __threads[index] = new Thread(threadStart);
+                __threads[index].Name = "ObservableComputations events unsubscriber";
+                __threads[index].IsBackground = true;
+                __threads[index].Start(index);
+            }
 		}
 	}
 }

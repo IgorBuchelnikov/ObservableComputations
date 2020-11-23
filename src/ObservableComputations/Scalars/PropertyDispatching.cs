@@ -11,9 +11,9 @@ namespace ObservableComputations
 	{
 		public THolder PropertyHolder => _propertyHolder;
 		public Expression<Func<TResult>>  PropertyExpression => _propertyExpression;
-		public IDispatcher SourceDispatcher => _sourceDispatcher;
-		public IDispatcher DestinationDispatcher => _destinationDispatcher;
-		public IPropertySourceDispatcher PropertySourceDispatcher => _propertySourceDispatcher;
+		public IOcDispatcher SourceOcDispatcher => _sourceOcDispatcher;
+		public IOcDispatcher DestinationOcDispatcher => _destinationOcDispatcher;
+		public IPropertySourceOcDispatcher PropertySourceOcDispatcher => _propertySourceOcDispatcher;
 
         private static ConcurrentDictionary<PropertyInfo, PropertyAccessors>
 			_propertyAccessors =
@@ -22,9 +22,9 @@ namespace ObservableComputations
 		private THolder _propertyHolder;
 		private Expression<Func<TResult>> _propertyExpression;
 
-		private IDispatcher _sourceDispatcher;
-		private IDispatcher _destinationDispatcher;
-		private IPropertySourceDispatcher _propertySourceDispatcher;
+		private IOcDispatcher _sourceOcDispatcher;
+		private IOcDispatcher _destinationOcDispatcher;
+		private IPropertySourceOcDispatcher _propertySourceOcDispatcher;
 
 		private Action<THolder, TResult> _setter;
 		private Func<THolder, TResult> _getter;
@@ -33,11 +33,11 @@ namespace ObservableComputations
 		[ObservableComputationsCall]
 		public PropertyDispatching(
 			Expression<Func<TResult>> propertyExpression,
-			IDispatcher destinationDispatcher,
-			IDispatcher sourceDispatcher = null) : this()
+			IOcDispatcher destinationOcDispatcher,
+			IOcDispatcher sourceOcDispatcher = null) : this()
 		{
-			_sourceDispatcher = sourceDispatcher;
-			_destinationDispatcher = destinationDispatcher;
+			_sourceOcDispatcher = sourceOcDispatcher;
+			_destinationOcDispatcher = destinationOcDispatcher;
             _propertyExpression = propertyExpression;
 
             lockChangeSetValueHandle();
@@ -46,11 +46,11 @@ namespace ObservableComputations
         [ObservableComputationsCall]
 		public PropertyDispatching(
 			Expression<Func<TResult>> propertyExpression,
-			IDispatcher destinationDispatcher,
-			IPropertySourceDispatcher sourceDispatcher) : this()
+			IOcDispatcher destinationOcDispatcher,
+			IPropertySourceOcDispatcher sourceOcDispatcher) : this()
 		{
-			_propertySourceDispatcher = sourceDispatcher;
-			_destinationDispatcher = destinationDispatcher;
+			_propertySourceOcDispatcher = sourceOcDispatcher;
+			_destinationOcDispatcher = destinationOcDispatcher;
             _propertyExpression = propertyExpression;
             lockChangeSetValueHandle();
         }
@@ -72,7 +72,7 @@ namespace ObservableComputations
 		private void handlePropertyHolderPropertyChanged(object sender, PropertyChangedEventArgs e)
 		{
             TResult value = getValue();
-            _destinationDispatcher.Invoke(() => setValue(value), this);
+            _destinationOcDispatcher.Invoke(() => setValue(value), this);
 		}
 
 		private TResult getValue()
@@ -142,8 +142,8 @@ namespace ObservableComputations
             {
                 void set() => _setter(_propertyHolder, value);
 
-                if (_sourceDispatcher != null) _sourceDispatcher.Invoke(set, this);
-                else if (_propertySourceDispatcher != null) _propertySourceDispatcher.Invoke(set, this, false, value);
+                if (_sourceOcDispatcher != null) _sourceOcDispatcher.Invoke(set, this);
+                else if (_propertySourceOcDispatcher != null) _propertySourceOcDispatcher.Invoke(set, this, false, value);
                 else set();
             };
 
@@ -153,11 +153,11 @@ namespace ObservableComputations
 			{
                 TResult value = getValue();
 				_propertyHolder.PropertyChanged += handlePropertyHolderPropertyChanged;
-				_destinationDispatcher.Invoke(() => setValue(value), this);
+				_destinationOcDispatcher.Invoke(() => setValue(value), this);
 			}
 
-			if (_sourceDispatcher != null) _sourceDispatcher.Invoke(readAndSubscribe, this);
-			else if (_propertySourceDispatcher != null) _propertySourceDispatcher.Invoke(readAndSubscribe, this, true, null);
+			if (_sourceOcDispatcher != null) _sourceOcDispatcher.Invoke(readAndSubscribe, this);
+			else if (_propertySourceOcDispatcher != null) _propertySourceOcDispatcher.Invoke(readAndSubscribe, this, true, null);
             else readAndSubscribe();
 		}
 

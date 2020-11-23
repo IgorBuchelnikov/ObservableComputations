@@ -4,30 +4,30 @@
 
 //namespace ObservableComputations.Common
 //{
-//	public class ThrottlingDispatcher : IDispatcher, IDisposable
+//	public class ThrottlingOcDispatcher : IOcDispatcher, IDisposable
 //	{
-//		public IDispatcher DestinationDispatcher => _destinationDispatcher;
+//		public IOcDispatcher DestinationOcDispatcher => _destinationOcDispatcher;
 //		public TimeSpan TimeSpan => _timeSpan;
 
 //		Subject<Action> _actions;
 //		private IDisposable _cleanUp;
-//		private readonly IDispatcher _destinationDispatcher;
+//		private readonly IOcDispatcher _destinationOcDispatcher;
 //		private readonly TimeSpan _timeSpan;
 
-//		public ThrottlingDispatcher(TimeSpan timeSpan, IDispatcher destinationDispatcher)
+//		public ThrottlingOcDispatcher(TimeSpan timeSpan, IOcDispatcher destinationOcDispatcher)
 //		{
 //			_timeSpan = timeSpan;
-//			_destinationDispatcher = destinationDispatcher;
+//			_destinationOcDispatcher = destinationOcDispatcher;
 
 //			_actions = new Subject<Action>();
 //			_cleanUp = _actions.Throttle(timeSpan).Subscribe(action =>
 //			{
-//				_destinationDispatcher.Invoke(action, this);
+//				_destinationOcDispatcher.Invoke(action, this);
 
 //			});
 //		}
 
-//		#region Implementation of IDispatcher
+//		#region Implementation of IOcDispatcher
 
 //		public void Invoke(Action action, object context)
 //		{

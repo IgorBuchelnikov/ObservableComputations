@@ -1157,5 +1157,6 @@ namespace ObservableComputations
         internal static readonly PropertyChangedEventArgs DefaultValueScalarPropertyChangedEventArgs = new PropertyChangedEventArgs("DefaultValueScalar");
         internal static readonly PropertyChangedEventArgs DefaultValuePropertyChangedEventArgs = new PropertyChangedEventArgs("DefaultValue");
         internal static readonly PropertyChangedEventArgs IsDefaultedPropertyChangedEventArgs = new PropertyChangedEventArgs("IsDefaulted");
+        internal static readonly PropertyChangedEventArgs IsDisposedPropertyChangedEventArgs = new PropertyChangedEventArgs("IsDisposed");
     }
 }

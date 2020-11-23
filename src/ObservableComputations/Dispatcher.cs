@@ -3,7 +3,9 @@ using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
+using System.Globalization;
 using System.Threading;
+using ThreadState = System.Threading.ThreadState;
 
 namespace ObservableComputations
 {
@@ -14,41 +16,41 @@ namespace ObservableComputations
 		public object State => _state;
 		public string CallStackTrace => _callStackTrace;
 		public object Context => _context;
-		public Dispatcher Dispatcher => _dispatcher;
+		public OcDispatcher OcDispatcher => _ocDispatcher;
 
 		private Action _action;
 		private Action<object> _actionWithState;
 		private object _state;
 		private string _callStackTrace;
 		private object _context;
-		private Dispatcher _dispatcher;
+		private OcDispatcher _ocDispatcher;
 
-		internal Invocation(Action action, Dispatcher dispatcher, object context = null) : this()
+		internal Invocation(Action action, OcDispatcher ocDispatcher, object context = null) : this()
 		{
 			_action = action;
-			_dispatcher = dispatcher;
+			_ocDispatcher = ocDispatcher;
 			_context = context;
 
-			if (Configuration.SaveDispatcherInvocationStackTrace)
+			if (Configuration.SaveOcDispatcherInvocationStackTrace)
 				_callStackTrace = Environment.StackTrace;
 		}
 
-		internal Invocation(Action<object> actionWithState, object state, Dispatcher dispatcher, IComputing context = null) : this()
+		internal Invocation(Action<object> actionWithState, object state, OcDispatcher ocDispatcher, IComputing context = null) : this()
 		{
 			_actionWithState = actionWithState;
 			_state = state;
-			_dispatcher = dispatcher;
+			_ocDispatcher = ocDispatcher;
 			_context = context;
 
-			if (Configuration.SaveDispatcherInvocationStackTrace)
+			if (Configuration.SaveOcDispatcherInvocationStackTrace)
 				_callStackTrace = Environment.StackTrace;
 		}
 
 		internal void DoOther()
 		{
-			if (Configuration.TrackDispatcherInvocations)
+			if (Configuration.TrackOcDispatcherInvocations)
 			{
-				DebugInfo._executingDispatcherInvocations.TryGetValue(_dispatcher._thread, out Stack<Invocation> invocations);
+				DebugInfo._executingOcDispatcherInvocations.TryGetValue(_ocDispatcher._thread, out Stack<Invocation> invocations);
                 // ReSharper disable once PossibleNullReferenceException
                 invocations.Push(this);
 
@@ -70,17 +72,17 @@ namespace ObservableComputations
 
 		internal void Do()
 		{
-			if (Configuration.TrackDispatcherInvocations)
+			if (Configuration.TrackOcDispatcherInvocations)
 			{
-				DebugInfo._executingDispatcherInvocations[_dispatcher._thread] = _dispatcher._invocations;
-				_dispatcher._invocations.Push(this);
+				DebugInfo._executingOcDispatcherInvocations[_ocDispatcher._thread] = _ocDispatcher._invocations;
+				_ocDispatcher._invocations.Push(this);
 
 				if (_action != null)
 					_action();
 				else
 					_actionWithState(_state);
 
-				DebugInfo._executingDispatcherInvocations.TryRemove(_dispatcher._thread, out _);
+				DebugInfo._executingOcDispatcherInvocations.TryRemove(_ocDispatcher._thread, out _);
 			}
 			else
 			{
@@ -109,7 +111,7 @@ namespace ObservableComputations
 		public event PropertyChangedEventHandler PropertyChanged;
 	}
 
-    public class Dispatcher : IDisposable, IDispatcher
+    public class OcDispatcher : IDisposable, IOcDispatcher
     {
         ConcurrentQueue<Invocation> _invocationQueue = new ConcurrentQueue<Invocation>();
         private ManualResetEventSlim _newInvocationManualResetEvent = new ManualResetEventSlim(false);
@@ -118,7 +120,6 @@ namespace ObservableComputations
         private int _managedThreadId;
         internal Stack<Invocation> _invocations = new Stack<Invocation>();
 
-        public Thread Thread => _thread;
         public bool Disposed => !_alive;
 
         private void queueInvocation(Action action, object context = null)
@@ -135,7 +136,7 @@ namespace ObservableComputations
             _newInvocationManualResetEvent.Set();
         }
 
-        public Dispatcher(string threadName = null)
+        public OcDispatcher()
         {
             _thread = new Thread(() =>
             {
@@ -152,16 +153,87 @@ namespace ObservableComputations
 
             });
 
-            _thread.Name = threadName ?? "ObservableComputations.Worker";
+            _thread.Name = "ObservableComputations.OcDispatcher";
             _managedThreadId = _thread.ManagedThreadId;
             _thread.Start();
         }
+
+        public string ThreadName
+        {
+            get => _thread.Name;
+            set => _thread.Name = value;
+        }
+
+        public CultureInfo ThreadCurrentCulture
+        {
+            get => _thread.CurrentCulture;
+            set => _thread.CurrentCulture = value;
+        }
+
+        public CultureInfo ThreadCurrentUICulture
+        {
+            get => _thread.CurrentUICulture;
+            set => _thread.CurrentUICulture = value;
+        }
+
+        public bool ThreadIsAlive
+        {
+            get => _thread.IsAlive;
+        }
+
+        public ExecutionContext ThreadExecutionContext
+        {
+            get => _thread.ExecutionContext;
+        }
+
+        public bool ThreadIsBackground
+        {
+            get => _thread.IsBackground;
+            set => _thread.IsBackground = value;
+        }
+
+        public int ManagedThreadId
+        {
+            get => _thread.ManagedThreadId;
+        }
+
+        public ThreadPriority ThreadPriority
+        {
+            get => _thread.Priority;
+            set => _thread.Priority = value;
+        }
+
+        public ThreadState ThreadState
+        {
+            get => _thread.ThreadState;
+        }
+
+        public void DisableThreadComObjectEagerCleanup()
+        {
+            _thread.DisableComObjectEagerCleanup();
+        }
+
+        public ApartmentState GetThreadApartmentState()
+        {
+            return _thread.GetApartmentState();
+        }
+
+        public void SetThreadApartmentState(ApartmentState state)
+        {
+            _thread.SetApartmentState(state);
+        }
+
+        public bool TrySetThreadApartmentState(ApartmentState state)
+        {
+            return _thread.TrySetApartmentState(state);
+        }
+
 
         public TimeSpan DoOthers(TimeSpan timeSpan)
         {
             if (_managedThreadId != Thread.CurrentThread.ManagedThreadId)
                 throw new ObservableComputationsException(
-                    "Dispatcher.DoOthers method can only be called from the same thread that is associated with this Dispatcher.");
+                    "OcDispatcher.DoOthers method can only be called from the same thread that is associated with this OcDispatcher.");
 
             Stopwatch stopwatch = Stopwatch.StartNew();
             while (_invocationQueue.TryDequeue(out Invocation invocation))
@@ -178,7 +250,7 @@ namespace ObservableComputations
         {
             if (_thread != Thread.CurrentThread)
                 throw new ObservableComputationsException(
-                    "Dispatcher.DoOthers method can only be called from the same thread that is associated with this Dispatcher.");
+                    "OcDispatcher.DoOthers method can only be called from the same thread that is associated with this OcDispatcher.");
 
             int counter = 0;
             while (_invocationQueue.TryDequeue(out Invocation invocation))
@@ -195,7 +267,7 @@ namespace ObservableComputations
         {
             if (_thread != Thread.CurrentThread)
                 throw new ObservableComputationsException(
-                    "Dispatcher.DoOthers method can only be called from the same thread that is associated with this Dispatcher.");
+                    "OcDispatcher.DoOthers method can only be called from the same thread that is associated with this OcDispatcher.");
 
             while (_invocationQueue.TryDequeue(out Invocation invocation))
             {
@@ -209,7 +281,7 @@ namespace ObservableComputations
             _newInvocationManualResetEvent.Set();
         }
 
-        void IDispatcher.Invoke(Action action, object context)
+        void IOcDispatcher.Invoke(Action action, object context)
         {
             if (!_alive) return;
 
@@ -339,7 +411,7 @@ namespace ObservableComputations
 
         public override string ToString()
         {
-            return $"ObservableComputations.Dispatcher Thread.Name = {Thread.Name}";
+            return $"ObservableComputations.OcDispatcher Thread.Name = {_thread.Name}";
         }
 
         #endregion

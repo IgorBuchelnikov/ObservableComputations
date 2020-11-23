@@ -17,19 +17,19 @@ namespace ObservableComputations.Test
 		public class Item : INotifyPropertyChanged
 		{
             public Consumer Consumer = new Consumer();
-			public Item(int num, int num2, Dispatcher consuminingDispatcher, Dispatcher computingDispatcher)
+			public Item(int num, int num2, OcDispatcher consuminingOcDispatcher, OcDispatcher computingOcDispatcher)
 			{
 				_num = num;
 				_num2 = num2;
-				_numCompToConsDispatching = new PropertyDispatching<Item, int>(() => Num, consuminingDispatcher, computingDispatcher).For(Consumer);
-				_num2ConsToCompDispatching = new PropertyDispatching<Item, int>(() => Num2, computingDispatcher, consuminingDispatcher).For(Consumer);
-				_numCompToConsScalarDispatching = new Computing<int>(() => Num).ScalarDispatching(consuminingDispatcher, computingDispatcher).For(Consumer);				
-                _num2ConsToCompScalarDispatching = new Computing<int>(() => Num2).ScalarDispatching(computingDispatcher, consuminingDispatcher).For(Consumer);
+				_numCompToConsDispatching = new PropertyDispatching<Item, int>(() => Num, consuminingOcDispatcher, computingOcDispatcher).For(Consumer);
+				_num2ConsToCompDispatching = new PropertyDispatching<Item, int>(() => Num2, computingOcDispatcher, consuminingOcDispatcher).For(Consumer);
+				_numCompToConsScalarDispatching = new Computing<int>(() => Num).ScalarDispatching(consuminingOcDispatcher, computingOcDispatcher).For(Consumer);				
+                _num2ConsToCompScalarDispatching = new Computing<int>(() => Num2).ScalarDispatching(computingOcDispatcher, consuminingOcDispatcher).For(Consumer);
                 
                 
                 _num2ConsToCompDispatching.PropertyChanged += (sender, args) =>
                 {
-                    if (Thread.CurrentThread != computingDispatcher.Thread)
+                    if (Thread.CurrentThread != computingOcDispatcher._thread)
                     {
                         throw new Exception("Wrong thread");
                     }
@@ -37,7 +37,7 @@ namespace ObservableComputations.Test
                 
                 _num2ConsToCompScalarDispatching.PropertyChanged += (sender, args) =>
                 {
-                    if (Thread.CurrentThread != computingDispatcher.Thread)
+                    if (Thread.CurrentThread != computingOcDispatcher._thread)
                     {
                         throw new Exception("Wrong thread");
                     }
@@ -45,7 +45,7 @@ namespace ObservableComputations.Test
 
                 _numCompToConsDispatching.PropertyChanged += (sender, args) =>
                 {
-                    if (Thread.CurrentThread != consuminingDispatcher.Thread)
+                    if (Thread.CurrentThread != consuminingOcDispatcher._thread)
                     {
                         throw new Exception("Wrong thread");
                     }
@@ -53,7 +53,7 @@ namespace ObservableComputations.Test
 
                 _numCompToConsScalarDispatching.PropertyChanged += (sender, args) =>
                 {
-                    if (Thread.CurrentThread != consuminingDispatcher.Thread)
+                    if (Thread.CurrentThread != consuminingOcDispatcher._thread)
                     {
                         throw new Exception("Wrong thread");
                     }
@@ -113,8 +113,10 @@ namespace ObservableComputations.Test
 		{
 			for (int j = 0; j < 1000000; j++)
             {
-                Dispatcher consuminingDispatcher = new Dispatcher("coNSuminingDispatcher");
-				Dispatcher computingDispatcher = new Dispatcher("coMPutingDispatcher");
+                OcDispatcher consuminingOcDispatcher = new OcDispatcher();
+                consuminingOcDispatcher.ThreadName = "coNSuminingOcDispatcher";
+				OcDispatcher computingOcDispatcher = new OcDispatcher();
+                computingOcDispatcher.ThreadName = "coMPutingOcDispatcher";
                 Consumer consumer = new Consumer();
 
 				var nums = new ObservableCollection<Item>();
@@ -122,12 +124,12 @@ namespace ObservableComputations.Test
                     i.Num % 3 == 0 
                     || i.Num2ConsToCompDispatching.Value % 5 == 0
                     || i.Num2ConsToCompScalarDispatching.Value % 5 == 0);
-				var dispatchingfilteredNums = filteredNums.CollectionDispatching(consuminingDispatcher, computingDispatcher).For(consumer);
+				var dispatchingfilteredNums = filteredNums.CollectionDispatching(consuminingOcDispatcher, computingOcDispatcher).For(consumer);
 
                 dispatchingfilteredNums.CollectionChanged += (sender, args) =>
                 {
                     
-                    if (Thread.CurrentThread != consuminingDispatcher.Thread)
+                    if (Thread.CurrentThread != consuminingOcDispatcher._thread)
                     {
                         throw new Exception("Wrong thread");
                     }
@@ -135,7 +137,7 @@ namespace ObservableComputations.Test
 
                 ((INotifyPropertyChanged) dispatchingfilteredNums).PropertyChanged += (sender, args) =>
                 {
-                    if (Thread.CurrentThread != consuminingDispatcher.Thread)
+                    if (Thread.CurrentThread != consuminingOcDispatcher._thread)
                     {
                         throw new Exception("Wrong thread");
                     }
@@ -144,7 +146,7 @@ namespace ObservableComputations.Test
                 filteredNums.CollectionChanged += (sender, args) =>
                 {
                     
-                    if (Thread.CurrentThread != computingDispatcher.Thread)
+                    if (Thread.CurrentThread != computingOcDispatcher._thread)
                     {
                         throw new Exception("Wrong thread");
                     }
@@ -152,7 +154,7 @@ namespace ObservableComputations.Test
 
                 ((INotifyPropertyChanged) filteredNums).PropertyChanged += (sender, args) =>
                 {
-                    if (Thread.CurrentThread != computingDispatcher.Thread)
+                    if (Thread.CurrentThread != computingOcDispatcher._thread)
                     {
                         throw new Exception("Wrong thread");
                     }
@@ -182,15 +184,15 @@ namespace ObservableComputations.Test
 						switch (action)
 						{
 							case NotifyCollectionChangedAction.Add:
-                                computingDispatcher.Invoke(() =>
+                                computingOcDispatcher.Invoke(() =>
                                 {
                                     int upperIndex = nums.Count > 0 ? nums.Count - 1 : 0;
                                     int index = random.Next(0, upperIndex);
-                                    nums.Insert(index, new Item(random.Next(Int32.MinValue, int.MaxValue), random.Next(Int32.MinValue, int.MaxValue), consuminingDispatcher, computingDispatcher));
+                                    nums.Insert(index, new Item(random.Next(Int32.MinValue, int.MaxValue), random.Next(Int32.MinValue, int.MaxValue), consuminingOcDispatcher, computingOcDispatcher));
                                 });
                                 break;
 							case NotifyCollectionChangedAction.Remove:
-                                computingDispatcher.Invoke(() =>
+                                computingOcDispatcher.Invoke(() =>
                                 {
                                     int upperIndex = nums.Count - 1;
                                     if (upperIndex > 0)
@@ -203,21 +205,21 @@ namespace ObservableComputations.Test
                                 });
                                 break;
 							case NotifyCollectionChangedAction.Replace:
-                                computingDispatcher.Invoke(() =>
+                                computingOcDispatcher.Invoke(() =>
                                 {
                                     int upperIndex = nums.Count - 1;
                                     if (upperIndex > 0)
                                     {
                                         int index = random.Next(0, upperIndex);
                                         Item item = nums[index];
-                                        nums[index] = new Item(random.Next(Int32.MinValue, int.MaxValue), random.Next(Int32.MinValue, int.MaxValue), consuminingDispatcher, computingDispatcher);
+                                        nums[index] = new Item(random.Next(Int32.MinValue, int.MaxValue), random.Next(Int32.MinValue, int.MaxValue), consuminingOcDispatcher, computingOcDispatcher);
                                         item.Consumer.Dispose();
                                     }
 
                                 });
                                 break;
 							case NotifyCollectionChangedAction.Move:
-                                computingDispatcher.Invoke(() =>
+                                computingOcDispatcher.Invoke(() =>
                                 {
                                     int upperIndex = nums.Count - 1;
                                     if (upperIndex > 0)
@@ -229,7 +231,7 @@ namespace ObservableComputations.Test
                                 });
                                 break;
 							case NotifyCollectionChangedAction.Reset:
-                                computingDispatcher.Invoke(() =>
+                                computingOcDispatcher.Invoke(() =>
                                 {
                                     Item[] items = nums.ToArray();
                                     nums.Clear();
@@ -261,7 +263,7 @@ namespace ObservableComputations.Test
                     {
                         Thread.Sleep(random.Next(0, 3));
 
-                        consuminingDispatcher.Invoke(() =>
+                        consuminingOcDispatcher.Invoke(() =>
                         {
                             int dispatchingfilteredNumsCount = dispatchingfilteredNums.Count;
                             if (dispatchingfilteredNumsCount > 0)
@@ -286,7 +288,7 @@ namespace ObservableComputations.Test
                     {
                         Thread.Sleep(random.Next(0, 3));
 
-                        consuminingDispatcher.Invoke(() =>
+                        consuminingOcDispatcher.Invoke(() =>
                         {
                             int dispatchingfilteredNumsCount = dispatchingfilteredNums.Count;
                             if (dispatchingfilteredNumsCount > 0)
@@ -319,11 +321,11 @@ namespace ObservableComputations.Test
 					num2ValueChangerThreads[i].Join();
 				}
 
-				//consuminingDispatcherInvoker.Join();
+				//consuminingOcDispatcherInvoker.Join();
 
-				consuminingDispatcher.Invoke(() => {});
-				computingDispatcher.Invoke(() => {});
-				consuminingDispatcher.Invoke(() => {});
+				consuminingOcDispatcher.Invoke(() => {});
+				computingOcDispatcher.Invoke(() => {});
+				consuminingOcDispatcher.Invoke(() => {});
 
                 Assert.IsTrue(nums.Where(i => i.Num % 3 == 0 || i.Num2 % 5 == 0).SequenceEqual(dispatchingfilteredNums));
                 Assert.IsTrue(nums.Where(i => 
@@ -334,7 +336,7 @@ namespace ObservableComputations.Test
                 foreach (Item item in nums)
                     item.Consumer.Dispose();
 
-                consuminingDispatcher.Invoke(() =>
+                consuminingOcDispatcher.Invoke(() =>
                 {
                     consumer.Dispose();
                 });

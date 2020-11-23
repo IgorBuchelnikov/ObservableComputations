@@ -4,14 +4,18 @@ using System.ComponentModel;
 
 namespace ObservableComputations
 {
-	public interface IComputing : IHasTags, IConsistent
+	public interface IComputing : IHasTags, IConsistent, IEventHandler
 	{
 		string InstantiatingStackTrace { get; }
 		IComputing UserCodeIsCalledFrom { get; }
-		object HandledEventSender { get;  }
-		EventArgs HandledEventArgs { get;  }
         bool IsActive { get; }
 	}
+
+    public interface IEventHandler
+    {
+        object HandledEventSender { get; }
+        EventArgs HandledEventArgs { get; }   
+    }
 
     internal interface IComputingInternal : IComputing, ICanInitializeFromSource
     {

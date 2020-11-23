@@ -123,10 +123,16 @@ namespace ObservableComputations
 
 			int sourceCount = _sourceCopy.Count;
 			int index = 0;
+            int thisCount = Count;
 			for (var sourceIndex = _lowerIndex; sourceIndex < sourceCount && sourceIndex < _upperIndex; sourceIndex++)
 			{
 				TSourceItem sourceItem = _sourceCopy[sourceIndex];
-				baseSetItem(index++, sourceItem);
+                index++;
+
+                if (thisCount > index)
+				    baseSetItem(index, sourceItem);
+                else
+                    baseInsertItem(index, sourceItem);
 			}
 
 			int count = Count;

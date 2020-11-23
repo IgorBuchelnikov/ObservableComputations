@@ -6,11 +6,11 @@ namespace ObservableComputations
 	public class ScalarDispatching<TResult> : ScalarComputing<TResult>
 	{
 		public IReadScalar<TResult> Scalar => _scalar;
-		public IDispatcher DestinationDispatcher => _destinationDispatcher;
-		public IDispatcher SourceDispatcher => _sourceDispatcher;
+		public IOcDispatcher DestinationOcDispatcher => _destinationOcDispatcher;
+		public IOcDispatcher SourceOcDispatcher => _sourceOcDispatcher;
 
-		private IDispatcher _destinationDispatcher;
-		private IDispatcher _sourceDispatcher;
+		private IOcDispatcher _destinationOcDispatcher;
+		private IOcDispatcher _sourceOcDispatcher;
 
 		private IReadScalar<TResult> _scalar;
         private Action _changeValueAction;
@@ -18,18 +18,18 @@ namespace ObservableComputations
 		[ObservableComputationsCall]
 		public ScalarDispatching(
 			IReadScalar<TResult> scalar, 
-			IDispatcher destinationDispatcher,
-			IDispatcher sourceDispatcher = null)
+			IOcDispatcher destinationOcDispatcher,
+			IOcDispatcher sourceOcDispatcher = null)
 		{
-			_destinationDispatcher = destinationDispatcher;
+			_destinationOcDispatcher = destinationOcDispatcher;
             _scalar = scalar;
-            _sourceDispatcher = sourceDispatcher;
+            _sourceOcDispatcher = sourceOcDispatcher;
             _changeValueAction = () =>
             {
                 TResult newValue = _scalar.Value;
                 void setNewValue() => setValue(newValue);
 
-                _destinationDispatcher.Invoke(setNewValue, this);
+                _destinationOcDispatcher.Invoke(setNewValue, this);
             };
         }
 
@@ -65,11 +65,11 @@ namespace ObservableComputations
                     void setNewValue() => setValue(newValue);
 
                     _scalar.PropertyChanged += handleScalarPropertyChanged;
-                    _destinationDispatcher.Invoke(setNewValue, this);
+                    _destinationOcDispatcher.Invoke(setNewValue, this);
                 }
 
-                if (_sourceDispatcher != null)
-                    _sourceDispatcher.Invoke(readAndSubscribe, this);
+                if (_sourceOcDispatcher != null)
+                    _sourceOcDispatcher.Invoke(readAndSubscribe, this);
                 else
                     readAndSubscribe();
 
@@ -78,7 +78,7 @@ namespace ObservableComputations
             else
             {
                 void setNewValue() => setDefaultValue();
-                _destinationDispatcher.Invoke(setNewValue, this);
+                _destinationOcDispatcher.Invoke(setNewValue, this);
             }
         }
 

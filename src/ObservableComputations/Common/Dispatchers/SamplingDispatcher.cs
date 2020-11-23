@@ -4,30 +4,30 @@
 
 //namespace ObservableComputations.Common
 //{
-//	public class SamplingDispatcher : IDispatcher, IDisposable
+//	public class SamplingOcDispatcher : IOcDispatcher, IDisposable
 //	{
-//		public IDispatcher DestinationDispatcher => _destinationDispatcher;
+//		public IOcDispatcher DestinationOcDispatcher => _destinationOcDispatcher;
 //		public TimeSpan Interval => _interval;
 
 //		Subject<Action> _actions;
 //		private IDisposable _cleanUp;
-//		private readonly IDispatcher _destinationDispatcher;
+//		private readonly IOcDispatcher _destinationOcDispatcher;
 //		private readonly TimeSpan _interval;
 
-//		public SamplingDispatcher(TimeSpan interval, IDispatcher destinationDispatcher)
+//		public SamplingOcDispatcher(TimeSpan interval, IOcDispatcher destinationOcDispatcher)
 //		{
 //			_interval = interval;
-//			_destinationDispatcher = destinationDispatcher;
+//			_destinationOcDispatcher = destinationOcDispatcher;
 
 //			_actions = new Subject<Action>();
 //			_cleanUp = _actions.Sample(interval).Subscribe(action =>
 //			{
-//				_destinationDispatcher.Invoke(action, this);
+//				_destinationOcDispatcher.Invoke(action, this);
 
 //			});
 //		}
 
-//		#region Implementation of IDispatcher
+//		#region Implementation of IOcDispatcher
 
 //		public void Invoke(Action action, object context)
 //		{

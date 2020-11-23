@@ -3,12 +3,12 @@ using System.Collections.Specialized;
 
 namespace ObservableComputations
 {
-	public interface IDispatcher
+	public interface IOcDispatcher
 	{
 		void Invoke(Action action, object context);
 	}
 
-	public interface ICollectionDestinationDispatcher
+	public interface ICollectionDestinationOcDispatcher
 	{
 		void InvokeCollectionChange(
 			Action action, 
@@ -26,7 +26,7 @@ namespace ObservableComputations
 
 	}
 
-	public interface IPropertySourceDispatcher
+	public interface IPropertySourceOcDispatcher
 	{
 		/// <summary>
 		/// 

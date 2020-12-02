@@ -5,13 +5,14 @@ namespace ObservableComputations
 {
 	public interface IOcDispatcher
 	{
-		void Invoke(Action action, object context);
+		void Invoke(Action action, int priority, object context);
 	}
 
 	public interface ICollectionDestinationOcDispatcher
 	{
 		void InvokeCollectionChange(
 			Action action, 
+            int priority, 
 			ICollectionComputing collectionDispatching,
 			NotifyCollectionChangedAction notifyCollectionChangedAction,
 			object newItem,
@@ -20,10 +21,9 @@ namespace ObservableComputations
 			int oldIndex);
 
         void InvokeInitialization(
-            Action action, 
+            Action action,
+            int priority, 
             ICollectionComputing collectionDispatching);
-
-
 	}
 
 	public interface IPropertySourceOcDispatcher

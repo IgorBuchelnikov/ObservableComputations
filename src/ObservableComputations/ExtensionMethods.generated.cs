@@ -2002,63 +2002,6 @@ namespace ObservableComputations
 		}
 
 		#endregion
-		#region CollectionDisposing
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.CollectionDisposing<TSourceItem> CollectionDisposing<TSourceItem>(this
-			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar)
-			
-		{
-			return new ObservableComputations.CollectionDisposing<TSourceItem>(
-				sourceScalar: sourceScalar);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.CollectionDisposing<TSourceItem> CollectionDisposing<TSourceItem>(this
-			 ObservableComputations.IReadScalar<ObservableCollection<TSourceItem>> sourceScalar)
-			
-		{
-			return new ObservableComputations.CollectionDisposing<TSourceItem>(
-				sourceScalar: sourceScalar);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.CollectionDisposing<TSourceItem> CollectionDisposing<TSourceItem>(this
-			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> sourceExpression)
-			
-		{
-			return new ObservableComputations.CollectionDisposing<TSourceItem>(
-				sourceScalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(sourceExpression));
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.CollectionDisposing<TSourceItem> CollectionDisposing<TSourceItem>(this
-			 Expression<Func<ObservableCollection<TSourceItem>>> sourceExpression)
-			
-		{
-			return new ObservableComputations.CollectionDisposing<TSourceItem>(
-				sourceScalar: new Computing<ObservableCollection<TSourceItem>>(sourceExpression));
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.CollectionDisposing<TSourceItem> CollectionDisposing<TSourceItem>(this
-			 System.Collections.Specialized.INotifyCollectionChanged source)
-			
-		{
-			return new ObservableComputations.CollectionDisposing<TSourceItem>(
-				source: source);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.CollectionDisposing<TSourceItem> CollectionDisposing<TSourceItem>(this
-			 ObservableCollection<TSourceItem> source)
-			
-		{
-			return new ObservableComputations.CollectionDisposing<TSourceItem>(
-				source: source);
-		}
-
-		#endregion
 		#region CollectionPausing
 
 		[ObservableComputationsCall]
@@ -24254,27 +24197,6 @@ namespace ObservableComputations
 				sourceOcDispatcher: null,
 				dispatcherPriorities: null,
 				dispatcherParameters: null);
-		}
-
-		#endregion
-		#region ScalarDisposing
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.ScalarDisposing<TValue> ScalarDisposing<TValue>(this
-			 ObservableComputations.IReadScalar<TValue> scalar)
-			
-		{
-			return new ObservableComputations.ScalarDisposing<TValue>(
-				scalar: scalar);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.ScalarDisposing<TValue> ScalarDisposing<TValue>(this
-			 Expression<Func<TValue>> scalar)
-			
-		{
-			return new ObservableComputations.ScalarDisposing<TValue>(
-				scalar: new Computing<TValue>(scalar));
 		}
 
 		#endregion

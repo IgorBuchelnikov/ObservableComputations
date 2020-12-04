@@ -37,6 +37,8 @@
                     if (name.Contains("CollectionProcessing")
                         || name.Contains("ScalarProcessing")
                         || name.Contains("PropertyDispatching")
+                        || name.Contains("CollectionDisposing")
+                        || name.Contains("ScalarDisposing")
                         || name.Contains("Crossing"))
                         continue;
 

@@ -324,7 +324,7 @@ namespace ObservableComputations
             queueInvocation(action, priority, context);
         }
 
-        public void BeginInvoke(Action action, int priority)
+        public void BeginInvoke(Action action, int priority = 0)
         {
             if (!_alive) return;
 
@@ -337,7 +337,7 @@ namespace ObservableComputations
             queueInvocation(action, priority);
         }
 
-        public void BeginInvoke(Action<object> action, int priority, object state)
+        public void BeginInvoke(Action<object> action, object state, int priority = 0)
         {
             if (!_alive) return;
 
@@ -350,7 +350,7 @@ namespace ObservableComputations
             queueInvocation(action, priority, state);                        
         }
 
-        public void Invoke(Action action, int priority)
+        public void Invoke(Action action, int priority = 0)
         {
             if (!_alive) return;
 
@@ -375,7 +375,7 @@ namespace ObservableComputations
 
         }
 
-        public void Invoke(Action<object> action, int priority, object state)
+        public void Invoke(Action<object> action, object state, int priority = 0)
         {
             if (!_alive) return;
 
@@ -399,22 +399,22 @@ namespace ObservableComputations
             manualResetEvent.Dispose();
         }
 
-        public TResult Invoke<TResult>(Func<TResult> func, int priority)
+        public TResult Invoke<TResult>(Func<TResult> func, int priority = 0)
         {
             TResult result = default;
             Invoke(() => { result = func(); }, priority);
             return result;
         }
 
-        public TResult Invoke<TResult>(Func<object, TResult> func, int priority, object state)
+        public TResult Invoke<TResult>(Func<object, TResult> func, object state, int priority = 0)
         {
             TResult result = default;
-            Invoke(s => { result = func(s); }, priority, state);
+            Invoke(s => { result = func(s); }, state, priority);
 
             return result;
         }
 
-        public InvocationResult<TResult> BeginInvoke<TResult>(Func<TResult> func, int priority)
+        public InvocationResult<TResult> BeginInvoke<TResult>(Func<TResult> func, int priority = 0)
         {
             if (!_alive) return default;
 
@@ -424,12 +424,12 @@ namespace ObservableComputations
             return invocationResult;
         }
 
-        public InvocationResult<TResult> BeginInvoke<TResult>(Func<object, TResult> func, int priority, object state)
+        public InvocationResult<TResult> BeginInvoke<TResult>(Func<object, TResult> func, object state, int priority = 0)
         {
             if (!_alive) return default;
 
             InvocationResult<TResult> invocationResult = new InvocationResult<TResult>();
-           BeginInvoke(s => { invocationResult.Result = func(s); }, priority, state);
+           BeginInvoke(s => { invocationResult.Result = func(s); }, state, priority);
 
             return invocationResult;
         }

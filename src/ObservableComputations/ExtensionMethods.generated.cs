@@ -517,13 +517,110 @@ namespace ObservableComputations
 		public static ObservableComputations.CollectionDispatching<TSourceItem> CollectionDispatching<TSourceItem>(this
 			 System.Collections.Specialized.INotifyCollectionChanged source,
 			 ObservableComputations.IOcDispatcher destinationOcDispatcher,
+			 ObservableComputations.IOcDispatcher sourceOcDispatcher,
+			 ObservableComputations.DispatcherPriorities? dispatcherPriorities,
+			 ObservableComputations.DispatcherParameters? dispatcherParameters)
+			
+		{
+			return new ObservableComputations.CollectionDispatching<TSourceItem>(
+				source: source,
+				destinationOcDispatcher: destinationOcDispatcher,
+				sourceOcDispatcher: sourceOcDispatcher,
+				dispatcherPriorities: dispatcherPriorities,
+				dispatcherParameters: dispatcherParameters);
+		}
+
+		[ObservableComputationsCall]
+		public static ObservableComputations.CollectionDispatching<TSourceItem> CollectionDispatching<TSourceItem>(this
+			 System.Collections.Specialized.INotifyCollectionChanged source,
+			 ObservableComputations.IOcDispatcher destinationOcDispatcher,
+			 ObservableComputations.IOcDispatcher sourceOcDispatcher,
+			 ObservableComputations.DispatcherPriorities? dispatcherPriorities)
+			
+		{
+			return new ObservableComputations.CollectionDispatching<TSourceItem>(
+				source: source,
+				destinationOcDispatcher: destinationOcDispatcher,
+				sourceOcDispatcher: sourceOcDispatcher,
+				dispatcherPriorities: dispatcherPriorities,
+				dispatcherParameters: null);
+		}
+
+		[ObservableComputationsCall]
+		public static ObservableComputations.CollectionDispatching<TSourceItem> CollectionDispatching<TSourceItem>(this
+			 System.Collections.Specialized.INotifyCollectionChanged source,
+			 ObservableComputations.IOcDispatcher destinationOcDispatcher,
+			 ObservableComputations.IOcDispatcher sourceOcDispatcher,
+			 ObservableComputations.DispatcherParameters? dispatcherParameters)
+			
+		{
+			return new ObservableComputations.CollectionDispatching<TSourceItem>(
+				source: source,
+				destinationOcDispatcher: destinationOcDispatcher,
+				sourceOcDispatcher: sourceOcDispatcher,
+				dispatcherPriorities: null,
+				dispatcherParameters: dispatcherParameters);
+		}
+
+		[ObservableComputationsCall]
+		public static ObservableComputations.CollectionDispatching<TSourceItem> CollectionDispatching<TSourceItem>(this
+			 System.Collections.Specialized.INotifyCollectionChanged source,
+			 ObservableComputations.IOcDispatcher destinationOcDispatcher,
 			 ObservableComputations.IOcDispatcher sourceOcDispatcher)
 			
 		{
 			return new ObservableComputations.CollectionDispatching<TSourceItem>(
 				source: source,
 				destinationOcDispatcher: destinationOcDispatcher,
-				sourceOcDispatcher: sourceOcDispatcher);
+				sourceOcDispatcher: sourceOcDispatcher,
+				dispatcherPriorities: null,
+				dispatcherParameters: null);
+		}
+
+		[ObservableComputationsCall]
+		public static ObservableComputations.CollectionDispatching<TSourceItem> CollectionDispatching<TSourceItem>(this
+			 System.Collections.Specialized.INotifyCollectionChanged source,
+			 ObservableComputations.IOcDispatcher destinationOcDispatcher,
+			 ObservableComputations.DispatcherPriorities? dispatcherPriorities,
+			 ObservableComputations.DispatcherParameters? dispatcherParameters)
+			
+		{
+			return new ObservableComputations.CollectionDispatching<TSourceItem>(
+				source: source,
+				destinationOcDispatcher: destinationOcDispatcher,
+				sourceOcDispatcher: null,
+				dispatcherPriorities: dispatcherPriorities,
+				dispatcherParameters: dispatcherParameters);
+		}
+
+		[ObservableComputationsCall]
+		public static ObservableComputations.CollectionDispatching<TSourceItem> CollectionDispatching<TSourceItem>(this
+			 System.Collections.Specialized.INotifyCollectionChanged source,
+			 ObservableComputations.IOcDispatcher destinationOcDispatcher,
+			 ObservableComputations.DispatcherPriorities? dispatcherPriorities)
+			
+		{
+			return new ObservableComputations.CollectionDispatching<TSourceItem>(
+				source: source,
+				destinationOcDispatcher: destinationOcDispatcher,
+				sourceOcDispatcher: null,
+				dispatcherPriorities: dispatcherPriorities,
+				dispatcherParameters: null);
+		}
+
+		[ObservableComputationsCall]
+		public static ObservableComputations.CollectionDispatching<TSourceItem> CollectionDispatching<TSourceItem>(this
+			 System.Collections.Specialized.INotifyCollectionChanged source,
+			 ObservableComputations.IOcDispatcher destinationOcDispatcher,
+			 ObservableComputations.DispatcherParameters? dispatcherParameters)
+			
+		{
+			return new ObservableComputations.CollectionDispatching<TSourceItem>(
+				source: source,
+				destinationOcDispatcher: destinationOcDispatcher,
+				sourceOcDispatcher: null,
+				dispatcherPriorities: null,
+				dispatcherParameters: dispatcherParameters);
 		}
 
 		[ObservableComputationsCall]
@@ -535,7 +632,58 @@ namespace ObservableComputations
 			return new ObservableComputations.CollectionDispatching<TSourceItem>(
 				source: source,
 				destinationOcDispatcher: destinationOcDispatcher,
-				sourceOcDispatcher: null);
+				sourceOcDispatcher: null,
+				dispatcherPriorities: null,
+				dispatcherParameters: null);
+		}
+
+		[ObservableComputationsCall]
+		public static ObservableComputations.CollectionDispatching<TSourceItem> CollectionDispatching<TSourceItem>(this
+			 ObservableCollection<TSourceItem> source,
+			 ObservableComputations.IOcDispatcher destinationOcDispatcher,
+			 ObservableComputations.IOcDispatcher sourceOcDispatcher,
+			 ObservableComputations.DispatcherPriorities? dispatcherPriorities,
+			 ObservableComputations.DispatcherParameters? dispatcherParameters)
+			
+		{
+			return new ObservableComputations.CollectionDispatching<TSourceItem>(
+				source: source,
+				destinationOcDispatcher: destinationOcDispatcher,
+				sourceOcDispatcher: sourceOcDispatcher,
+				dispatcherPriorities: dispatcherPriorities,
+				dispatcherParameters: dispatcherParameters);
+		}
+
+		[ObservableComputationsCall]
+		public static ObservableComputations.CollectionDispatching<TSourceItem> CollectionDispatching<TSourceItem>(this
+			 ObservableCollection<TSourceItem> source,
+			 ObservableComputations.IOcDispatcher destinationOcDispatcher,
+			 ObservableComputations.IOcDispatcher sourceOcDispatcher,
+			 ObservableComputations.DispatcherPriorities? dispatcherPriorities)
+			
+		{
+			return new ObservableComputations.CollectionDispatching<TSourceItem>(
+				source: source,
+				destinationOcDispatcher: destinationOcDispatcher,
+				sourceOcDispatcher: sourceOcDispatcher,
+				dispatcherPriorities: dispatcherPriorities,
+				dispatcherParameters: null);
+		}
+
+		[ObservableComputationsCall]
+		public static ObservableComputations.CollectionDispatching<TSourceItem> CollectionDispatching<TSourceItem>(this
+			 ObservableCollection<TSourceItem> source,
+			 ObservableComputations.IOcDispatcher destinationOcDispatcher,
+			 ObservableComputations.IOcDispatcher sourceOcDispatcher,
+			 ObservableComputations.DispatcherParameters? dispatcherParameters)
+			
+		{
+			return new ObservableComputations.CollectionDispatching<TSourceItem>(
+				source: source,
+				destinationOcDispatcher: destinationOcDispatcher,
+				sourceOcDispatcher: sourceOcDispatcher,
+				dispatcherPriorities: null,
+				dispatcherParameters: dispatcherParameters);
 		}
 
 		[ObservableComputationsCall]
@@ -548,7 +696,55 @@ namespace ObservableComputations
 			return new ObservableComputations.CollectionDispatching<TSourceItem>(
 				source: source,
 				destinationOcDispatcher: destinationOcDispatcher,
-				sourceOcDispatcher: sourceOcDispatcher);
+				sourceOcDispatcher: sourceOcDispatcher,
+				dispatcherPriorities: null,
+				dispatcherParameters: null);
+		}
+
+		[ObservableComputationsCall]
+		public static ObservableComputations.CollectionDispatching<TSourceItem> CollectionDispatching<TSourceItem>(this
+			 ObservableCollection<TSourceItem> source,
+			 ObservableComputations.IOcDispatcher destinationOcDispatcher,
+			 ObservableComputations.DispatcherPriorities? dispatcherPriorities,
+			 ObservableComputations.DispatcherParameters? dispatcherParameters)
+			
+		{
+			return new ObservableComputations.CollectionDispatching<TSourceItem>(
+				source: source,
+				destinationOcDispatcher: destinationOcDispatcher,
+				sourceOcDispatcher: null,
+				dispatcherPriorities: dispatcherPriorities,
+				dispatcherParameters: dispatcherParameters);
+		}
+
+		[ObservableComputationsCall]
+		public static ObservableComputations.CollectionDispatching<TSourceItem> CollectionDispatching<TSourceItem>(this
+			 ObservableCollection<TSourceItem> source,
+			 ObservableComputations.IOcDispatcher destinationOcDispatcher,
+			 ObservableComputations.DispatcherPriorities? dispatcherPriorities)
+			
+		{
+			return new ObservableComputations.CollectionDispatching<TSourceItem>(
+				source: source,
+				destinationOcDispatcher: destinationOcDispatcher,
+				sourceOcDispatcher: null,
+				dispatcherPriorities: dispatcherPriorities,
+				dispatcherParameters: null);
+		}
+
+		[ObservableComputationsCall]
+		public static ObservableComputations.CollectionDispatching<TSourceItem> CollectionDispatching<TSourceItem>(this
+			 ObservableCollection<TSourceItem> source,
+			 ObservableComputations.IOcDispatcher destinationOcDispatcher,
+			 ObservableComputations.DispatcherParameters? dispatcherParameters)
+			
+		{
+			return new ObservableComputations.CollectionDispatching<TSourceItem>(
+				source: source,
+				destinationOcDispatcher: destinationOcDispatcher,
+				sourceOcDispatcher: null,
+				dispatcherPriorities: null,
+				dispatcherParameters: dispatcherParameters);
 		}
 
 		[ObservableComputationsCall]
@@ -560,7 +756,58 @@ namespace ObservableComputations
 			return new ObservableComputations.CollectionDispatching<TSourceItem>(
 				source: source,
 				destinationOcDispatcher: destinationOcDispatcher,
-				sourceOcDispatcher: null);
+				sourceOcDispatcher: null,
+				dispatcherPriorities: null,
+				dispatcherParameters: null);
+		}
+
+		[ObservableComputationsCall]
+		public static ObservableComputations.CollectionDispatching<TSourceItem> CollectionDispatching<TSourceItem>(this
+			 System.Collections.Specialized.INotifyCollectionChanged source,
+			 ObservableComputations.ICollectionDestinationOcDispatcher destinationOcDispatcher,
+			 ObservableComputations.IOcDispatcher sourceOcDispatcher,
+			 ObservableComputations.DispatcherPriorities? dispatcherPriorities,
+			 ObservableComputations.DispatcherParameters? dispatcherParameters)
+			
+		{
+			return new ObservableComputations.CollectionDispatching<TSourceItem>(
+				source: source,
+				destinationOcDispatcher: destinationOcDispatcher,
+				sourceOcDispatcher: sourceOcDispatcher,
+				dispatcherPriorities: dispatcherPriorities,
+				dispatcherParameters: dispatcherParameters);
+		}
+
+		[ObservableComputationsCall]
+		public static ObservableComputations.CollectionDispatching<TSourceItem> CollectionDispatching<TSourceItem>(this
+			 System.Collections.Specialized.INotifyCollectionChanged source,
+			 ObservableComputations.ICollectionDestinationOcDispatcher destinationOcDispatcher,
+			 ObservableComputations.IOcDispatcher sourceOcDispatcher,
+			 ObservableComputations.DispatcherPriorities? dispatcherPriorities)
+			
+		{
+			return new ObservableComputations.CollectionDispatching<TSourceItem>(
+				source: source,
+				destinationOcDispatcher: destinationOcDispatcher,
+				sourceOcDispatcher: sourceOcDispatcher,
+				dispatcherPriorities: dispatcherPriorities,
+				dispatcherParameters: null);
+		}
+
+		[ObservableComputationsCall]
+		public static ObservableComputations.CollectionDispatching<TSourceItem> CollectionDispatching<TSourceItem>(this
+			 System.Collections.Specialized.INotifyCollectionChanged source,
+			 ObservableComputations.ICollectionDestinationOcDispatcher destinationOcDispatcher,
+			 ObservableComputations.IOcDispatcher sourceOcDispatcher,
+			 ObservableComputations.DispatcherParameters? dispatcherParameters)
+			
+		{
+			return new ObservableComputations.CollectionDispatching<TSourceItem>(
+				source: source,
+				destinationOcDispatcher: destinationOcDispatcher,
+				sourceOcDispatcher: sourceOcDispatcher,
+				dispatcherPriorities: null,
+				dispatcherParameters: dispatcherParameters);
 		}
 
 		[ObservableComputationsCall]
@@ -573,7 +820,55 @@ namespace ObservableComputations
 			return new ObservableComputations.CollectionDispatching<TSourceItem>(
 				source: source,
 				destinationOcDispatcher: destinationOcDispatcher,
-				sourceOcDispatcher: sourceOcDispatcher);
+				sourceOcDispatcher: sourceOcDispatcher,
+				dispatcherPriorities: null,
+				dispatcherParameters: null);
+		}
+
+		[ObservableComputationsCall]
+		public static ObservableComputations.CollectionDispatching<TSourceItem> CollectionDispatching<TSourceItem>(this
+			 System.Collections.Specialized.INotifyCollectionChanged source,
+			 ObservableComputations.ICollectionDestinationOcDispatcher destinationOcDispatcher,
+			 ObservableComputations.DispatcherPriorities? dispatcherPriorities,
+			 ObservableComputations.DispatcherParameters? dispatcherParameters)
+			
+		{
+			return new ObservableComputations.CollectionDispatching<TSourceItem>(
+				source: source,
+				destinationOcDispatcher: destinationOcDispatcher,
+				sourceOcDispatcher: null,
+				dispatcherPriorities: dispatcherPriorities,
+				dispatcherParameters: dispatcherParameters);
+		}
+
+		[ObservableComputationsCall]
+		public static ObservableComputations.CollectionDispatching<TSourceItem> CollectionDispatching<TSourceItem>(this
+			 System.Collections.Specialized.INotifyCollectionChanged source,
+			 ObservableComputations.ICollectionDestinationOcDispatcher destinationOcDispatcher,
+			 ObservableComputations.DispatcherPriorities? dispatcherPriorities)
+			
+		{
+			return new ObservableComputations.CollectionDispatching<TSourceItem>(
+				source: source,
+				destinationOcDispatcher: destinationOcDispatcher,
+				sourceOcDispatcher: null,
+				dispatcherPriorities: dispatcherPriorities,
+				dispatcherParameters: null);
+		}
+
+		[ObservableComputationsCall]
+		public static ObservableComputations.CollectionDispatching<TSourceItem> CollectionDispatching<TSourceItem>(this
+			 System.Collections.Specialized.INotifyCollectionChanged source,
+			 ObservableComputations.ICollectionDestinationOcDispatcher destinationOcDispatcher,
+			 ObservableComputations.DispatcherParameters? dispatcherParameters)
+			
+		{
+			return new ObservableComputations.CollectionDispatching<TSourceItem>(
+				source: source,
+				destinationOcDispatcher: destinationOcDispatcher,
+				sourceOcDispatcher: null,
+				dispatcherPriorities: null,
+				dispatcherParameters: dispatcherParameters);
 		}
 
 		[ObservableComputationsCall]
@@ -585,7 +880,58 @@ namespace ObservableComputations
 			return new ObservableComputations.CollectionDispatching<TSourceItem>(
 				source: source,
 				destinationOcDispatcher: destinationOcDispatcher,
-				sourceOcDispatcher: null);
+				sourceOcDispatcher: null,
+				dispatcherPriorities: null,
+				dispatcherParameters: null);
+		}
+
+		[ObservableComputationsCall]
+		public static ObservableComputations.CollectionDispatching<TSourceItem> CollectionDispatching<TSourceItem>(this
+			 ObservableCollection<TSourceItem> source,
+			 ObservableComputations.ICollectionDestinationOcDispatcher destinationOcDispatcher,
+			 ObservableComputations.IOcDispatcher sourceOcDispatcher,
+			 ObservableComputations.DispatcherPriorities? dispatcherPriorities,
+			 ObservableComputations.DispatcherParameters? dispatcherParameters)
+			
+		{
+			return new ObservableComputations.CollectionDispatching<TSourceItem>(
+				source: source,
+				destinationOcDispatcher: destinationOcDispatcher,
+				sourceOcDispatcher: sourceOcDispatcher,
+				dispatcherPriorities: dispatcherPriorities,
+				dispatcherParameters: dispatcherParameters);
+		}
+
+		[ObservableComputationsCall]
+		public static ObservableComputations.CollectionDispatching<TSourceItem> CollectionDispatching<TSourceItem>(this
+			 ObservableCollection<TSourceItem> source,
+			 ObservableComputations.ICollectionDestinationOcDispatcher destinationOcDispatcher,
+			 ObservableComputations.IOcDispatcher sourceOcDispatcher,
+			 ObservableComputations.DispatcherPriorities? dispatcherPriorities)
+			
+		{
+			return new ObservableComputations.CollectionDispatching<TSourceItem>(
+				source: source,
+				destinationOcDispatcher: destinationOcDispatcher,
+				sourceOcDispatcher: sourceOcDispatcher,
+				dispatcherPriorities: dispatcherPriorities,
+				dispatcherParameters: null);
+		}
+
+		[ObservableComputationsCall]
+		public static ObservableComputations.CollectionDispatching<TSourceItem> CollectionDispatching<TSourceItem>(this
+			 ObservableCollection<TSourceItem> source,
+			 ObservableComputations.ICollectionDestinationOcDispatcher destinationOcDispatcher,
+			 ObservableComputations.IOcDispatcher sourceOcDispatcher,
+			 ObservableComputations.DispatcherParameters? dispatcherParameters)
+			
+		{
+			return new ObservableComputations.CollectionDispatching<TSourceItem>(
+				source: source,
+				destinationOcDispatcher: destinationOcDispatcher,
+				sourceOcDispatcher: sourceOcDispatcher,
+				dispatcherPriorities: null,
+				dispatcherParameters: dispatcherParameters);
 		}
 
 		[ObservableComputationsCall]
@@ -598,7 +944,55 @@ namespace ObservableComputations
 			return new ObservableComputations.CollectionDispatching<TSourceItem>(
 				source: source,
 				destinationOcDispatcher: destinationOcDispatcher,
-				sourceOcDispatcher: sourceOcDispatcher);
+				sourceOcDispatcher: sourceOcDispatcher,
+				dispatcherPriorities: null,
+				dispatcherParameters: null);
+		}
+
+		[ObservableComputationsCall]
+		public static ObservableComputations.CollectionDispatching<TSourceItem> CollectionDispatching<TSourceItem>(this
+			 ObservableCollection<TSourceItem> source,
+			 ObservableComputations.ICollectionDestinationOcDispatcher destinationOcDispatcher,
+			 ObservableComputations.DispatcherPriorities? dispatcherPriorities,
+			 ObservableComputations.DispatcherParameters? dispatcherParameters)
+			
+		{
+			return new ObservableComputations.CollectionDispatching<TSourceItem>(
+				source: source,
+				destinationOcDispatcher: destinationOcDispatcher,
+				sourceOcDispatcher: null,
+				dispatcherPriorities: dispatcherPriorities,
+				dispatcherParameters: dispatcherParameters);
+		}
+
+		[ObservableComputationsCall]
+		public static ObservableComputations.CollectionDispatching<TSourceItem> CollectionDispatching<TSourceItem>(this
+			 ObservableCollection<TSourceItem> source,
+			 ObservableComputations.ICollectionDestinationOcDispatcher destinationOcDispatcher,
+			 ObservableComputations.DispatcherPriorities? dispatcherPriorities)
+			
+		{
+			return new ObservableComputations.CollectionDispatching<TSourceItem>(
+				source: source,
+				destinationOcDispatcher: destinationOcDispatcher,
+				sourceOcDispatcher: null,
+				dispatcherPriorities: dispatcherPriorities,
+				dispatcherParameters: null);
+		}
+
+		[ObservableComputationsCall]
+		public static ObservableComputations.CollectionDispatching<TSourceItem> CollectionDispatching<TSourceItem>(this
+			 ObservableCollection<TSourceItem> source,
+			 ObservableComputations.ICollectionDestinationOcDispatcher destinationOcDispatcher,
+			 ObservableComputations.DispatcherParameters? dispatcherParameters)
+			
+		{
+			return new ObservableComputations.CollectionDispatching<TSourceItem>(
+				source: source,
+				destinationOcDispatcher: destinationOcDispatcher,
+				sourceOcDispatcher: null,
+				dispatcherPriorities: null,
+				dispatcherParameters: dispatcherParameters);
 		}
 
 		[ObservableComputationsCall]
@@ -610,7 +1004,58 @@ namespace ObservableComputations
 			return new ObservableComputations.CollectionDispatching<TSourceItem>(
 				source: source,
 				destinationOcDispatcher: destinationOcDispatcher,
-				sourceOcDispatcher: null);
+				sourceOcDispatcher: null,
+				dispatcherPriorities: null,
+				dispatcherParameters: null);
+		}
+
+		[ObservableComputationsCall]
+		public static ObservableComputations.CollectionDispatching<TSourceItem> CollectionDispatching<TSourceItem>(this
+			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar,
+			 ObservableComputations.IOcDispatcher destinationOcDispatcher,
+			 ObservableComputations.IOcDispatcher sourceOcDispatcher,
+			 ObservableComputations.DispatcherPriorities? dispatcherPriorities,
+			 ObservableComputations.DispatcherParameters? dispatcherParameters)
+			
+		{
+			return new ObservableComputations.CollectionDispatching<TSourceItem>(
+				sourceScalar: sourceScalar,
+				destinationOcDispatcher: destinationOcDispatcher,
+				sourceOcDispatcher: sourceOcDispatcher,
+				dispatcherPriorities: dispatcherPriorities,
+				dispatcherParameters: dispatcherParameters);
+		}
+
+		[ObservableComputationsCall]
+		public static ObservableComputations.CollectionDispatching<TSourceItem> CollectionDispatching<TSourceItem>(this
+			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar,
+			 ObservableComputations.IOcDispatcher destinationOcDispatcher,
+			 ObservableComputations.IOcDispatcher sourceOcDispatcher,
+			 ObservableComputations.DispatcherPriorities? dispatcherPriorities)
+			
+		{
+			return new ObservableComputations.CollectionDispatching<TSourceItem>(
+				sourceScalar: sourceScalar,
+				destinationOcDispatcher: destinationOcDispatcher,
+				sourceOcDispatcher: sourceOcDispatcher,
+				dispatcherPriorities: dispatcherPriorities,
+				dispatcherParameters: null);
+		}
+
+		[ObservableComputationsCall]
+		public static ObservableComputations.CollectionDispatching<TSourceItem> CollectionDispatching<TSourceItem>(this
+			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar,
+			 ObservableComputations.IOcDispatcher destinationOcDispatcher,
+			 ObservableComputations.IOcDispatcher sourceOcDispatcher,
+			 ObservableComputations.DispatcherParameters? dispatcherParameters)
+			
+		{
+			return new ObservableComputations.CollectionDispatching<TSourceItem>(
+				sourceScalar: sourceScalar,
+				destinationOcDispatcher: destinationOcDispatcher,
+				sourceOcDispatcher: sourceOcDispatcher,
+				dispatcherPriorities: null,
+				dispatcherParameters: dispatcherParameters);
 		}
 
 		[ObservableComputationsCall]
@@ -623,7 +1068,55 @@ namespace ObservableComputations
 			return new ObservableComputations.CollectionDispatching<TSourceItem>(
 				sourceScalar: sourceScalar,
 				destinationOcDispatcher: destinationOcDispatcher,
-				sourceOcDispatcher: sourceOcDispatcher);
+				sourceOcDispatcher: sourceOcDispatcher,
+				dispatcherPriorities: null,
+				dispatcherParameters: null);
+		}
+
+		[ObservableComputationsCall]
+		public static ObservableComputations.CollectionDispatching<TSourceItem> CollectionDispatching<TSourceItem>(this
+			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar,
+			 ObservableComputations.IOcDispatcher destinationOcDispatcher,
+			 ObservableComputations.DispatcherPriorities? dispatcherPriorities,
+			 ObservableComputations.DispatcherParameters? dispatcherParameters)
+			
+		{
+			return new ObservableComputations.CollectionDispatching<TSourceItem>(
+				sourceScalar: sourceScalar,
+				destinationOcDispatcher: destinationOcDispatcher,
+				sourceOcDispatcher: null,
+				dispatcherPriorities: dispatcherPriorities,
+				dispatcherParameters: dispatcherParameters);
+		}
+
+		[ObservableComputationsCall]
+		public static ObservableComputations.CollectionDispatching<TSourceItem> CollectionDispatching<TSourceItem>(this
+			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar,
+			 ObservableComputations.IOcDispatcher destinationOcDispatcher,
+			 ObservableComputations.DispatcherPriorities? dispatcherPriorities)
+			
+		{
+			return new ObservableComputations.CollectionDispatching<TSourceItem>(
+				sourceScalar: sourceScalar,
+				destinationOcDispatcher: destinationOcDispatcher,
+				sourceOcDispatcher: null,
+				dispatcherPriorities: dispatcherPriorities,
+				dispatcherParameters: null);
+		}
+
+		[ObservableComputationsCall]
+		public static ObservableComputations.CollectionDispatching<TSourceItem> CollectionDispatching<TSourceItem>(this
+			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar,
+			 ObservableComputations.IOcDispatcher destinationOcDispatcher,
+			 ObservableComputations.DispatcherParameters? dispatcherParameters)
+			
+		{
+			return new ObservableComputations.CollectionDispatching<TSourceItem>(
+				sourceScalar: sourceScalar,
+				destinationOcDispatcher: destinationOcDispatcher,
+				sourceOcDispatcher: null,
+				dispatcherPriorities: null,
+				dispatcherParameters: dispatcherParameters);
 		}
 
 		[ObservableComputationsCall]
@@ -635,7 +1128,58 @@ namespace ObservableComputations
 			return new ObservableComputations.CollectionDispatching<TSourceItem>(
 				sourceScalar: sourceScalar,
 				destinationOcDispatcher: destinationOcDispatcher,
-				sourceOcDispatcher: null);
+				sourceOcDispatcher: null,
+				dispatcherPriorities: null,
+				dispatcherParameters: null);
+		}
+
+		[ObservableComputationsCall]
+		public static ObservableComputations.CollectionDispatching<TSourceItem> CollectionDispatching<TSourceItem>(this
+			 ObservableComputations.IReadScalar<ObservableCollection<TSourceItem>> sourceScalar,
+			 ObservableComputations.IOcDispatcher destinationOcDispatcher,
+			 ObservableComputations.IOcDispatcher sourceOcDispatcher,
+			 ObservableComputations.DispatcherPriorities? dispatcherPriorities,
+			 ObservableComputations.DispatcherParameters? dispatcherParameters)
+			
+		{
+			return new ObservableComputations.CollectionDispatching<TSourceItem>(
+				sourceScalar: sourceScalar,
+				destinationOcDispatcher: destinationOcDispatcher,
+				sourceOcDispatcher: sourceOcDispatcher,
+				dispatcherPriorities: dispatcherPriorities,
+				dispatcherParameters: dispatcherParameters);
+		}
+
+		[ObservableComputationsCall]
+		public static ObservableComputations.CollectionDispatching<TSourceItem> CollectionDispatching<TSourceItem>(this
+			 ObservableComputations.IReadScalar<ObservableCollection<TSourceItem>> sourceScalar,
+			 ObservableComputations.IOcDispatcher destinationOcDispatcher,
+			 ObservableComputations.IOcDispatcher sourceOcDispatcher,
+			 ObservableComputations.DispatcherPriorities? dispatcherPriorities)
+			
+		{
+			return new ObservableComputations.CollectionDispatching<TSourceItem>(
+				sourceScalar: sourceScalar,
+				destinationOcDispatcher: destinationOcDispatcher,
+				sourceOcDispatcher: sourceOcDispatcher,
+				dispatcherPriorities: dispatcherPriorities,
+				dispatcherParameters: null);
+		}
+
+		[ObservableComputationsCall]
+		public static ObservableComputations.CollectionDispatching<TSourceItem> CollectionDispatching<TSourceItem>(this
+			 ObservableComputations.IReadScalar<ObservableCollection<TSourceItem>> sourceScalar,
+			 ObservableComputations.IOcDispatcher destinationOcDispatcher,
+			 ObservableComputations.IOcDispatcher sourceOcDispatcher,
+			 ObservableComputations.DispatcherParameters? dispatcherParameters)
+			
+		{
+			return new ObservableComputations.CollectionDispatching<TSourceItem>(
+				sourceScalar: sourceScalar,
+				destinationOcDispatcher: destinationOcDispatcher,
+				sourceOcDispatcher: sourceOcDispatcher,
+				dispatcherPriorities: null,
+				dispatcherParameters: dispatcherParameters);
 		}
 
 		[ObservableComputationsCall]
@@ -648,7 +1192,55 @@ namespace ObservableComputations
 			return new ObservableComputations.CollectionDispatching<TSourceItem>(
 				sourceScalar: sourceScalar,
 				destinationOcDispatcher: destinationOcDispatcher,
-				sourceOcDispatcher: sourceOcDispatcher);
+				sourceOcDispatcher: sourceOcDispatcher,
+				dispatcherPriorities: null,
+				dispatcherParameters: null);
+		}
+
+		[ObservableComputationsCall]
+		public static ObservableComputations.CollectionDispatching<TSourceItem> CollectionDispatching<TSourceItem>(this
+			 ObservableComputations.IReadScalar<ObservableCollection<TSourceItem>> sourceScalar,
+			 ObservableComputations.IOcDispatcher destinationOcDispatcher,
+			 ObservableComputations.DispatcherPriorities? dispatcherPriorities,
+			 ObservableComputations.DispatcherParameters? dispatcherParameters)
+			
+		{
+			return new ObservableComputations.CollectionDispatching<TSourceItem>(
+				sourceScalar: sourceScalar,
+				destinationOcDispatcher: destinationOcDispatcher,
+				sourceOcDispatcher: null,
+				dispatcherPriorities: dispatcherPriorities,
+				dispatcherParameters: dispatcherParameters);
+		}
+
+		[ObservableComputationsCall]
+		public static ObservableComputations.CollectionDispatching<TSourceItem> CollectionDispatching<TSourceItem>(this
+			 ObservableComputations.IReadScalar<ObservableCollection<TSourceItem>> sourceScalar,
+			 ObservableComputations.IOcDispatcher destinationOcDispatcher,
+			 ObservableComputations.DispatcherPriorities? dispatcherPriorities)
+			
+		{
+			return new ObservableComputations.CollectionDispatching<TSourceItem>(
+				sourceScalar: sourceScalar,
+				destinationOcDispatcher: destinationOcDispatcher,
+				sourceOcDispatcher: null,
+				dispatcherPriorities: dispatcherPriorities,
+				dispatcherParameters: null);
+		}
+
+		[ObservableComputationsCall]
+		public static ObservableComputations.CollectionDispatching<TSourceItem> CollectionDispatching<TSourceItem>(this
+			 ObservableComputations.IReadScalar<ObservableCollection<TSourceItem>> sourceScalar,
+			 ObservableComputations.IOcDispatcher destinationOcDispatcher,
+			 ObservableComputations.DispatcherParameters? dispatcherParameters)
+			
+		{
+			return new ObservableComputations.CollectionDispatching<TSourceItem>(
+				sourceScalar: sourceScalar,
+				destinationOcDispatcher: destinationOcDispatcher,
+				sourceOcDispatcher: null,
+				dispatcherPriorities: null,
+				dispatcherParameters: dispatcherParameters);
 		}
 
 		[ObservableComputationsCall]
@@ -660,7 +1252,58 @@ namespace ObservableComputations
 			return new ObservableComputations.CollectionDispatching<TSourceItem>(
 				sourceScalar: sourceScalar,
 				destinationOcDispatcher: destinationOcDispatcher,
-				sourceOcDispatcher: null);
+				sourceOcDispatcher: null,
+				dispatcherPriorities: null,
+				dispatcherParameters: null);
+		}
+
+		[ObservableComputationsCall]
+		public static ObservableComputations.CollectionDispatching<TSourceItem> CollectionDispatching<TSourceItem>(this
+			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> sourceExpression,
+			 ObservableComputations.IOcDispatcher destinationOcDispatcher,
+			 ObservableComputations.IOcDispatcher sourceOcDispatcher,
+			 ObservableComputations.DispatcherPriorities? dispatcherPriorities,
+			 ObservableComputations.DispatcherParameters? dispatcherParameters)
+			
+		{
+			return new ObservableComputations.CollectionDispatching<TSourceItem>(
+				sourceScalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(sourceExpression),
+				destinationOcDispatcher: destinationOcDispatcher,
+				sourceOcDispatcher: sourceOcDispatcher,
+				dispatcherPriorities: dispatcherPriorities,
+				dispatcherParameters: dispatcherParameters);
+		}
+
+		[ObservableComputationsCall]
+		public static ObservableComputations.CollectionDispatching<TSourceItem> CollectionDispatching<TSourceItem>(this
+			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> sourceExpression,
+			 ObservableComputations.IOcDispatcher destinationOcDispatcher,
+			 ObservableComputations.IOcDispatcher sourceOcDispatcher,
+			 ObservableComputations.DispatcherPriorities? dispatcherPriorities)
+			
+		{
+			return new ObservableComputations.CollectionDispatching<TSourceItem>(
+				sourceScalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(sourceExpression),
+				destinationOcDispatcher: destinationOcDispatcher,
+				sourceOcDispatcher: sourceOcDispatcher,
+				dispatcherPriorities: dispatcherPriorities,
+				dispatcherParameters: null);
+		}
+
+		[ObservableComputationsCall]
+		public static ObservableComputations.CollectionDispatching<TSourceItem> CollectionDispatching<TSourceItem>(this
+			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> sourceExpression,
+			 ObservableComputations.IOcDispatcher destinationOcDispatcher,
+			 ObservableComputations.IOcDispatcher sourceOcDispatcher,
+			 ObservableComputations.DispatcherParameters? dispatcherParameters)
+			
+		{
+			return new ObservableComputations.CollectionDispatching<TSourceItem>(
+				sourceScalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(sourceExpression),
+				destinationOcDispatcher: destinationOcDispatcher,
+				sourceOcDispatcher: sourceOcDispatcher,
+				dispatcherPriorities: null,
+				dispatcherParameters: dispatcherParameters);
 		}
 
 		[ObservableComputationsCall]
@@ -673,7 +1316,55 @@ namespace ObservableComputations
 			return new ObservableComputations.CollectionDispatching<TSourceItem>(
 				sourceScalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(sourceExpression),
 				destinationOcDispatcher: destinationOcDispatcher,
-				sourceOcDispatcher: sourceOcDispatcher);
+				sourceOcDispatcher: sourceOcDispatcher,
+				dispatcherPriorities: null,
+				dispatcherParameters: null);
+		}
+
+		[ObservableComputationsCall]
+		public static ObservableComputations.CollectionDispatching<TSourceItem> CollectionDispatching<TSourceItem>(this
+			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> sourceExpression,
+			 ObservableComputations.IOcDispatcher destinationOcDispatcher,
+			 ObservableComputations.DispatcherPriorities? dispatcherPriorities,
+			 ObservableComputations.DispatcherParameters? dispatcherParameters)
+			
+		{
+			return new ObservableComputations.CollectionDispatching<TSourceItem>(
+				sourceScalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(sourceExpression),
+				destinationOcDispatcher: destinationOcDispatcher,
+				sourceOcDispatcher: null,
+				dispatcherPriorities: dispatcherPriorities,
+				dispatcherParameters: dispatcherParameters);
+		}
+
+		[ObservableComputationsCall]
+		public static ObservableComputations.CollectionDispatching<TSourceItem> CollectionDispatching<TSourceItem>(this
+			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> sourceExpression,
+			 ObservableComputations.IOcDispatcher destinationOcDispatcher,
+			 ObservableComputations.DispatcherPriorities? dispatcherPriorities)
+			
+		{
+			return new ObservableComputations.CollectionDispatching<TSourceItem>(
+				sourceScalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(sourceExpression),
+				destinationOcDispatcher: destinationOcDispatcher,
+				sourceOcDispatcher: null,
+				dispatcherPriorities: dispatcherPriorities,
+				dispatcherParameters: null);
+		}
+
+		[ObservableComputationsCall]
+		public static ObservableComputations.CollectionDispatching<TSourceItem> CollectionDispatching<TSourceItem>(this
+			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> sourceExpression,
+			 ObservableComputations.IOcDispatcher destinationOcDispatcher,
+			 ObservableComputations.DispatcherParameters? dispatcherParameters)
+			
+		{
+			return new ObservableComputations.CollectionDispatching<TSourceItem>(
+				sourceScalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(sourceExpression),
+				destinationOcDispatcher: destinationOcDispatcher,
+				sourceOcDispatcher: null,
+				dispatcherPriorities: null,
+				dispatcherParameters: dispatcherParameters);
 		}
 
 		[ObservableComputationsCall]
@@ -685,7 +1376,58 @@ namespace ObservableComputations
 			return new ObservableComputations.CollectionDispatching<TSourceItem>(
 				sourceScalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(sourceExpression),
 				destinationOcDispatcher: destinationOcDispatcher,
-				sourceOcDispatcher: null);
+				sourceOcDispatcher: null,
+				dispatcherPriorities: null,
+				dispatcherParameters: null);
+		}
+
+		[ObservableComputationsCall]
+		public static ObservableComputations.CollectionDispatching<TSourceItem> CollectionDispatching<TSourceItem>(this
+			 Expression<Func<ObservableCollection<TSourceItem>>> sourceExpression,
+			 ObservableComputations.IOcDispatcher destinationOcDispatcher,
+			 ObservableComputations.IOcDispatcher sourceOcDispatcher,
+			 ObservableComputations.DispatcherPriorities? dispatcherPriorities,
+			 ObservableComputations.DispatcherParameters? dispatcherParameters)
+			
+		{
+			return new ObservableComputations.CollectionDispatching<TSourceItem>(
+				sourceScalar: new Computing<ObservableCollection<TSourceItem>>(sourceExpression),
+				destinationOcDispatcher: destinationOcDispatcher,
+				sourceOcDispatcher: sourceOcDispatcher,
+				dispatcherPriorities: dispatcherPriorities,
+				dispatcherParameters: dispatcherParameters);
+		}
+
+		[ObservableComputationsCall]
+		public static ObservableComputations.CollectionDispatching<TSourceItem> CollectionDispatching<TSourceItem>(this
+			 Expression<Func<ObservableCollection<TSourceItem>>> sourceExpression,
+			 ObservableComputations.IOcDispatcher destinationOcDispatcher,
+			 ObservableComputations.IOcDispatcher sourceOcDispatcher,
+			 ObservableComputations.DispatcherPriorities? dispatcherPriorities)
+			
+		{
+			return new ObservableComputations.CollectionDispatching<TSourceItem>(
+				sourceScalar: new Computing<ObservableCollection<TSourceItem>>(sourceExpression),
+				destinationOcDispatcher: destinationOcDispatcher,
+				sourceOcDispatcher: sourceOcDispatcher,
+				dispatcherPriorities: dispatcherPriorities,
+				dispatcherParameters: null);
+		}
+
+		[ObservableComputationsCall]
+		public static ObservableComputations.CollectionDispatching<TSourceItem> CollectionDispatching<TSourceItem>(this
+			 Expression<Func<ObservableCollection<TSourceItem>>> sourceExpression,
+			 ObservableComputations.IOcDispatcher destinationOcDispatcher,
+			 ObservableComputations.IOcDispatcher sourceOcDispatcher,
+			 ObservableComputations.DispatcherParameters? dispatcherParameters)
+			
+		{
+			return new ObservableComputations.CollectionDispatching<TSourceItem>(
+				sourceScalar: new Computing<ObservableCollection<TSourceItem>>(sourceExpression),
+				destinationOcDispatcher: destinationOcDispatcher,
+				sourceOcDispatcher: sourceOcDispatcher,
+				dispatcherPriorities: null,
+				dispatcherParameters: dispatcherParameters);
 		}
 
 		[ObservableComputationsCall]
@@ -698,7 +1440,55 @@ namespace ObservableComputations
 			return new ObservableComputations.CollectionDispatching<TSourceItem>(
 				sourceScalar: new Computing<ObservableCollection<TSourceItem>>(sourceExpression),
 				destinationOcDispatcher: destinationOcDispatcher,
-				sourceOcDispatcher: sourceOcDispatcher);
+				sourceOcDispatcher: sourceOcDispatcher,
+				dispatcherPriorities: null,
+				dispatcherParameters: null);
+		}
+
+		[ObservableComputationsCall]
+		public static ObservableComputations.CollectionDispatching<TSourceItem> CollectionDispatching<TSourceItem>(this
+			 Expression<Func<ObservableCollection<TSourceItem>>> sourceExpression,
+			 ObservableComputations.IOcDispatcher destinationOcDispatcher,
+			 ObservableComputations.DispatcherPriorities? dispatcherPriorities,
+			 ObservableComputations.DispatcherParameters? dispatcherParameters)
+			
+		{
+			return new ObservableComputations.CollectionDispatching<TSourceItem>(
+				sourceScalar: new Computing<ObservableCollection<TSourceItem>>(sourceExpression),
+				destinationOcDispatcher: destinationOcDispatcher,
+				sourceOcDispatcher: null,
+				dispatcherPriorities: dispatcherPriorities,
+				dispatcherParameters: dispatcherParameters);
+		}
+
+		[ObservableComputationsCall]
+		public static ObservableComputations.CollectionDispatching<TSourceItem> CollectionDispatching<TSourceItem>(this
+			 Expression<Func<ObservableCollection<TSourceItem>>> sourceExpression,
+			 ObservableComputations.IOcDispatcher destinationOcDispatcher,
+			 ObservableComputations.DispatcherPriorities? dispatcherPriorities)
+			
+		{
+			return new ObservableComputations.CollectionDispatching<TSourceItem>(
+				sourceScalar: new Computing<ObservableCollection<TSourceItem>>(sourceExpression),
+				destinationOcDispatcher: destinationOcDispatcher,
+				sourceOcDispatcher: null,
+				dispatcherPriorities: dispatcherPriorities,
+				dispatcherParameters: null);
+		}
+
+		[ObservableComputationsCall]
+		public static ObservableComputations.CollectionDispatching<TSourceItem> CollectionDispatching<TSourceItem>(this
+			 Expression<Func<ObservableCollection<TSourceItem>>> sourceExpression,
+			 ObservableComputations.IOcDispatcher destinationOcDispatcher,
+			 ObservableComputations.DispatcherParameters? dispatcherParameters)
+			
+		{
+			return new ObservableComputations.CollectionDispatching<TSourceItem>(
+				sourceScalar: new Computing<ObservableCollection<TSourceItem>>(sourceExpression),
+				destinationOcDispatcher: destinationOcDispatcher,
+				sourceOcDispatcher: null,
+				dispatcherPriorities: null,
+				dispatcherParameters: dispatcherParameters);
 		}
 
 		[ObservableComputationsCall]
@@ -710,7 +1500,58 @@ namespace ObservableComputations
 			return new ObservableComputations.CollectionDispatching<TSourceItem>(
 				sourceScalar: new Computing<ObservableCollection<TSourceItem>>(sourceExpression),
 				destinationOcDispatcher: destinationOcDispatcher,
-				sourceOcDispatcher: null);
+				sourceOcDispatcher: null,
+				dispatcherPriorities: null,
+				dispatcherParameters: null);
+		}
+
+		[ObservableComputationsCall]
+		public static ObservableComputations.CollectionDispatching<TSourceItem> CollectionDispatching<TSourceItem>(this
+			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar,
+			 ObservableComputations.ICollectionDestinationOcDispatcher destinationOcDispatcher,
+			 ObservableComputations.IOcDispatcher sourceOcDispatcher,
+			 ObservableComputations.DispatcherPriorities? dispatcherPriorities,
+			 ObservableComputations.DispatcherParameters? dispatcherParameters)
+			
+		{
+			return new ObservableComputations.CollectionDispatching<TSourceItem>(
+				sourceScalar: sourceScalar,
+				destinationOcDispatcher: destinationOcDispatcher,
+				sourceOcDispatcher: sourceOcDispatcher,
+				dispatcherPriorities: dispatcherPriorities,
+				dispatcherParameters: dispatcherParameters);
+		}
+
+		[ObservableComputationsCall]
+		public static ObservableComputations.CollectionDispatching<TSourceItem> CollectionDispatching<TSourceItem>(this
+			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar,
+			 ObservableComputations.ICollectionDestinationOcDispatcher destinationOcDispatcher,
+			 ObservableComputations.IOcDispatcher sourceOcDispatcher,
+			 ObservableComputations.DispatcherPriorities? dispatcherPriorities)
+			
+		{
+			return new ObservableComputations.CollectionDispatching<TSourceItem>(
+				sourceScalar: sourceScalar,
+				destinationOcDispatcher: destinationOcDispatcher,
+				sourceOcDispatcher: sourceOcDispatcher,
+				dispatcherPriorities: dispatcherPriorities,
+				dispatcherParameters: null);
+		}
+
+		[ObservableComputationsCall]
+		public static ObservableComputations.CollectionDispatching<TSourceItem> CollectionDispatching<TSourceItem>(this
+			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar,
+			 ObservableComputations.ICollectionDestinationOcDispatcher destinationOcDispatcher,
+			 ObservableComputations.IOcDispatcher sourceOcDispatcher,
+			 ObservableComputations.DispatcherParameters? dispatcherParameters)
+			
+		{
+			return new ObservableComputations.CollectionDispatching<TSourceItem>(
+				sourceScalar: sourceScalar,
+				destinationOcDispatcher: destinationOcDispatcher,
+				sourceOcDispatcher: sourceOcDispatcher,
+				dispatcherPriorities: null,
+				dispatcherParameters: dispatcherParameters);
 		}
 
 		[ObservableComputationsCall]
@@ -723,7 +1564,55 @@ namespace ObservableComputations
 			return new ObservableComputations.CollectionDispatching<TSourceItem>(
 				sourceScalar: sourceScalar,
 				destinationOcDispatcher: destinationOcDispatcher,
-				sourceOcDispatcher: sourceOcDispatcher);
+				sourceOcDispatcher: sourceOcDispatcher,
+				dispatcherPriorities: null,
+				dispatcherParameters: null);
+		}
+
+		[ObservableComputationsCall]
+		public static ObservableComputations.CollectionDispatching<TSourceItem> CollectionDispatching<TSourceItem>(this
+			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar,
+			 ObservableComputations.ICollectionDestinationOcDispatcher destinationOcDispatcher,
+			 ObservableComputations.DispatcherPriorities? dispatcherPriorities,
+			 ObservableComputations.DispatcherParameters? dispatcherParameters)
+			
+		{
+			return new ObservableComputations.CollectionDispatching<TSourceItem>(
+				sourceScalar: sourceScalar,
+				destinationOcDispatcher: destinationOcDispatcher,
+				sourceOcDispatcher: null,
+				dispatcherPriorities: dispatcherPriorities,
+				dispatcherParameters: dispatcherParameters);
+		}
+
+		[ObservableComputationsCall]
+		public static ObservableComputations.CollectionDispatching<TSourceItem> CollectionDispatching<TSourceItem>(this
+			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar,
+			 ObservableComputations.ICollectionDestinationOcDispatcher destinationOcDispatcher,
+			 ObservableComputations.DispatcherPriorities? dispatcherPriorities)
+			
+		{
+			return new ObservableComputations.CollectionDispatching<TSourceItem>(
+				sourceScalar: sourceScalar,
+				destinationOcDispatcher: destinationOcDispatcher,
+				sourceOcDispatcher: null,
+				dispatcherPriorities: dispatcherPriorities,
+				dispatcherParameters: null);
+		}
+
+		[ObservableComputationsCall]
+		public static ObservableComputations.CollectionDispatching<TSourceItem> CollectionDispatching<TSourceItem>(this
+			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar,
+			 ObservableComputations.ICollectionDestinationOcDispatcher destinationOcDispatcher,
+			 ObservableComputations.DispatcherParameters? dispatcherParameters)
+			
+		{
+			return new ObservableComputations.CollectionDispatching<TSourceItem>(
+				sourceScalar: sourceScalar,
+				destinationOcDispatcher: destinationOcDispatcher,
+				sourceOcDispatcher: null,
+				dispatcherPriorities: null,
+				dispatcherParameters: dispatcherParameters);
 		}
 
 		[ObservableComputationsCall]
@@ -735,7 +1624,58 @@ namespace ObservableComputations
 			return new ObservableComputations.CollectionDispatching<TSourceItem>(
 				sourceScalar: sourceScalar,
 				destinationOcDispatcher: destinationOcDispatcher,
-				sourceOcDispatcher: null);
+				sourceOcDispatcher: null,
+				dispatcherPriorities: null,
+				dispatcherParameters: null);
+		}
+
+		[ObservableComputationsCall]
+		public static ObservableComputations.CollectionDispatching<TSourceItem> CollectionDispatching<TSourceItem>(this
+			 ObservableComputations.IReadScalar<ObservableCollection<TSourceItem>> sourceScalar,
+			 ObservableComputations.ICollectionDestinationOcDispatcher destinationOcDispatcher,
+			 ObservableComputations.IOcDispatcher sourceOcDispatcher,
+			 ObservableComputations.DispatcherPriorities? dispatcherPriorities,
+			 ObservableComputations.DispatcherParameters? dispatcherParameters)
+			
+		{
+			return new ObservableComputations.CollectionDispatching<TSourceItem>(
+				sourceScalar: sourceScalar,
+				destinationOcDispatcher: destinationOcDispatcher,
+				sourceOcDispatcher: sourceOcDispatcher,
+				dispatcherPriorities: dispatcherPriorities,
+				dispatcherParameters: dispatcherParameters);
+		}
+
+		[ObservableComputationsCall]
+		public static ObservableComputations.CollectionDispatching<TSourceItem> CollectionDispatching<TSourceItem>(this
+			 ObservableComputations.IReadScalar<ObservableCollection<TSourceItem>> sourceScalar,
+			 ObservableComputations.ICollectionDestinationOcDispatcher destinationOcDispatcher,
+			 ObservableComputations.IOcDispatcher sourceOcDispatcher,
+			 ObservableComputations.DispatcherPriorities? dispatcherPriorities)
+			
+		{
+			return new ObservableComputations.CollectionDispatching<TSourceItem>(
+				sourceScalar: sourceScalar,
+				destinationOcDispatcher: destinationOcDispatcher,
+				sourceOcDispatcher: sourceOcDispatcher,
+				dispatcherPriorities: dispatcherPriorities,
+				dispatcherParameters: null);
+		}
+
+		[ObservableComputationsCall]
+		public static ObservableComputations.CollectionDispatching<TSourceItem> CollectionDispatching<TSourceItem>(this
+			 ObservableComputations.IReadScalar<ObservableCollection<TSourceItem>> sourceScalar,
+			 ObservableComputations.ICollectionDestinationOcDispatcher destinationOcDispatcher,
+			 ObservableComputations.IOcDispatcher sourceOcDispatcher,
+			 ObservableComputations.DispatcherParameters? dispatcherParameters)
+			
+		{
+			return new ObservableComputations.CollectionDispatching<TSourceItem>(
+				sourceScalar: sourceScalar,
+				destinationOcDispatcher: destinationOcDispatcher,
+				sourceOcDispatcher: sourceOcDispatcher,
+				dispatcherPriorities: null,
+				dispatcherParameters: dispatcherParameters);
 		}
 
 		[ObservableComputationsCall]
@@ -748,7 +1688,55 @@ namespace ObservableComputations
 			return new ObservableComputations.CollectionDispatching<TSourceItem>(
 				sourceScalar: sourceScalar,
 				destinationOcDispatcher: destinationOcDispatcher,
-				sourceOcDispatcher: sourceOcDispatcher);
+				sourceOcDispatcher: sourceOcDispatcher,
+				dispatcherPriorities: null,
+				dispatcherParameters: null);
+		}
+
+		[ObservableComputationsCall]
+		public static ObservableComputations.CollectionDispatching<TSourceItem> CollectionDispatching<TSourceItem>(this
+			 ObservableComputations.IReadScalar<ObservableCollection<TSourceItem>> sourceScalar,
+			 ObservableComputations.ICollectionDestinationOcDispatcher destinationOcDispatcher,
+			 ObservableComputations.DispatcherPriorities? dispatcherPriorities,
+			 ObservableComputations.DispatcherParameters? dispatcherParameters)
+			
+		{
+			return new ObservableComputations.CollectionDispatching<TSourceItem>(
+				sourceScalar: sourceScalar,
+				destinationOcDispatcher: destinationOcDispatcher,
+				sourceOcDispatcher: null,
+				dispatcherPriorities: dispatcherPriorities,
+				dispatcherParameters: dispatcherParameters);
+		}
+
+		[ObservableComputationsCall]
+		public static ObservableComputations.CollectionDispatching<TSourceItem> CollectionDispatching<TSourceItem>(this
+			 ObservableComputations.IReadScalar<ObservableCollection<TSourceItem>> sourceScalar,
+			 ObservableComputations.ICollectionDestinationOcDispatcher destinationOcDispatcher,
+			 ObservableComputations.DispatcherPriorities? dispatcherPriorities)
+			
+		{
+			return new ObservableComputations.CollectionDispatching<TSourceItem>(
+				sourceScalar: sourceScalar,
+				destinationOcDispatcher: destinationOcDispatcher,
+				sourceOcDispatcher: null,
+				dispatcherPriorities: dispatcherPriorities,
+				dispatcherParameters: null);
+		}
+
+		[ObservableComputationsCall]
+		public static ObservableComputations.CollectionDispatching<TSourceItem> CollectionDispatching<TSourceItem>(this
+			 ObservableComputations.IReadScalar<ObservableCollection<TSourceItem>> sourceScalar,
+			 ObservableComputations.ICollectionDestinationOcDispatcher destinationOcDispatcher,
+			 ObservableComputations.DispatcherParameters? dispatcherParameters)
+			
+		{
+			return new ObservableComputations.CollectionDispatching<TSourceItem>(
+				sourceScalar: sourceScalar,
+				destinationOcDispatcher: destinationOcDispatcher,
+				sourceOcDispatcher: null,
+				dispatcherPriorities: null,
+				dispatcherParameters: dispatcherParameters);
 		}
 
 		[ObservableComputationsCall]
@@ -760,7 +1748,58 @@ namespace ObservableComputations
 			return new ObservableComputations.CollectionDispatching<TSourceItem>(
 				sourceScalar: sourceScalar,
 				destinationOcDispatcher: destinationOcDispatcher,
-				sourceOcDispatcher: null);
+				sourceOcDispatcher: null,
+				dispatcherPriorities: null,
+				dispatcherParameters: null);
+		}
+
+		[ObservableComputationsCall]
+		public static ObservableComputations.CollectionDispatching<TSourceItem> CollectionDispatching<TSourceItem>(this
+			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> sourceExpression,
+			 ObservableComputations.ICollectionDestinationOcDispatcher destinationOcDispatcher,
+			 ObservableComputations.IOcDispatcher sourceOcDispatcher,
+			 ObservableComputations.DispatcherPriorities? dispatcherPriorities,
+			 ObservableComputations.DispatcherParameters? dispatcherParameters)
+			
+		{
+			return new ObservableComputations.CollectionDispatching<TSourceItem>(
+				sourceScalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(sourceExpression),
+				destinationOcDispatcher: destinationOcDispatcher,
+				sourceOcDispatcher: sourceOcDispatcher,
+				dispatcherPriorities: dispatcherPriorities,
+				dispatcherParameters: dispatcherParameters);
+		}
+
+		[ObservableComputationsCall]
+		public static ObservableComputations.CollectionDispatching<TSourceItem> CollectionDispatching<TSourceItem>(this
+			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> sourceExpression,
+			 ObservableComputations.ICollectionDestinationOcDispatcher destinationOcDispatcher,
+			 ObservableComputations.IOcDispatcher sourceOcDispatcher,
+			 ObservableComputations.DispatcherPriorities? dispatcherPriorities)
+			
+		{
+			return new ObservableComputations.CollectionDispatching<TSourceItem>(
+				sourceScalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(sourceExpression),
+				destinationOcDispatcher: destinationOcDispatcher,
+				sourceOcDispatcher: sourceOcDispatcher,
+				dispatcherPriorities: dispatcherPriorities,
+				dispatcherParameters: null);
+		}
+
+		[ObservableComputationsCall]
+		public static ObservableComputations.CollectionDispatching<TSourceItem> CollectionDispatching<TSourceItem>(this
+			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> sourceExpression,
+			 ObservableComputations.ICollectionDestinationOcDispatcher destinationOcDispatcher,
+			 ObservableComputations.IOcDispatcher sourceOcDispatcher,
+			 ObservableComputations.DispatcherParameters? dispatcherParameters)
+			
+		{
+			return new ObservableComputations.CollectionDispatching<TSourceItem>(
+				sourceScalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(sourceExpression),
+				destinationOcDispatcher: destinationOcDispatcher,
+				sourceOcDispatcher: sourceOcDispatcher,
+				dispatcherPriorities: null,
+				dispatcherParameters: dispatcherParameters);
 		}
 
 		[ObservableComputationsCall]
@@ -773,7 +1812,55 @@ namespace ObservableComputations
 			return new ObservableComputations.CollectionDispatching<TSourceItem>(
 				sourceScalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(sourceExpression),
 				destinationOcDispatcher: destinationOcDispatcher,
-				sourceOcDispatcher: sourceOcDispatcher);
+				sourceOcDispatcher: sourceOcDispatcher,
+				dispatcherPriorities: null,
+				dispatcherParameters: null);
+		}
+
+		[ObservableComputationsCall]
+		public static ObservableComputations.CollectionDispatching<TSourceItem> CollectionDispatching<TSourceItem>(this
+			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> sourceExpression,
+			 ObservableComputations.ICollectionDestinationOcDispatcher destinationOcDispatcher,
+			 ObservableComputations.DispatcherPriorities? dispatcherPriorities,
+			 ObservableComputations.DispatcherParameters? dispatcherParameters)
+			
+		{
+			return new ObservableComputations.CollectionDispatching<TSourceItem>(
+				sourceScalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(sourceExpression),
+				destinationOcDispatcher: destinationOcDispatcher,
+				sourceOcDispatcher: null,
+				dispatcherPriorities: dispatcherPriorities,
+				dispatcherParameters: dispatcherParameters);
+		}
+
+		[ObservableComputationsCall]
+		public static ObservableComputations.CollectionDispatching<TSourceItem> CollectionDispatching<TSourceItem>(this
+			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> sourceExpression,
+			 ObservableComputations.ICollectionDestinationOcDispatcher destinationOcDispatcher,
+			 ObservableComputations.DispatcherPriorities? dispatcherPriorities)
+			
+		{
+			return new ObservableComputations.CollectionDispatching<TSourceItem>(
+				sourceScalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(sourceExpression),
+				destinationOcDispatcher: destinationOcDispatcher,
+				sourceOcDispatcher: null,
+				dispatcherPriorities: dispatcherPriorities,
+				dispatcherParameters: null);
+		}
+
+		[ObservableComputationsCall]
+		public static ObservableComputations.CollectionDispatching<TSourceItem> CollectionDispatching<TSourceItem>(this
+			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> sourceExpression,
+			 ObservableComputations.ICollectionDestinationOcDispatcher destinationOcDispatcher,
+			 ObservableComputations.DispatcherParameters? dispatcherParameters)
+			
+		{
+			return new ObservableComputations.CollectionDispatching<TSourceItem>(
+				sourceScalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(sourceExpression),
+				destinationOcDispatcher: destinationOcDispatcher,
+				sourceOcDispatcher: null,
+				dispatcherPriorities: null,
+				dispatcherParameters: dispatcherParameters);
 		}
 
 		[ObservableComputationsCall]
@@ -785,7 +1872,58 @@ namespace ObservableComputations
 			return new ObservableComputations.CollectionDispatching<TSourceItem>(
 				sourceScalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(sourceExpression),
 				destinationOcDispatcher: destinationOcDispatcher,
-				sourceOcDispatcher: null);
+				sourceOcDispatcher: null,
+				dispatcherPriorities: null,
+				dispatcherParameters: null);
+		}
+
+		[ObservableComputationsCall]
+		public static ObservableComputations.CollectionDispatching<TSourceItem> CollectionDispatching<TSourceItem>(this
+			 Expression<Func<ObservableCollection<TSourceItem>>> sourceExpression,
+			 ObservableComputations.ICollectionDestinationOcDispatcher destinationOcDispatcher,
+			 ObservableComputations.IOcDispatcher sourceOcDispatcher,
+			 ObservableComputations.DispatcherPriorities? dispatcherPriorities,
+			 ObservableComputations.DispatcherParameters? dispatcherParameters)
+			
+		{
+			return new ObservableComputations.CollectionDispatching<TSourceItem>(
+				sourceScalar: new Computing<ObservableCollection<TSourceItem>>(sourceExpression),
+				destinationOcDispatcher: destinationOcDispatcher,
+				sourceOcDispatcher: sourceOcDispatcher,
+				dispatcherPriorities: dispatcherPriorities,
+				dispatcherParameters: dispatcherParameters);
+		}
+
+		[ObservableComputationsCall]
+		public static ObservableComputations.CollectionDispatching<TSourceItem> CollectionDispatching<TSourceItem>(this
+			 Expression<Func<ObservableCollection<TSourceItem>>> sourceExpression,
+			 ObservableComputations.ICollectionDestinationOcDispatcher destinationOcDispatcher,
+			 ObservableComputations.IOcDispatcher sourceOcDispatcher,
+			 ObservableComputations.DispatcherPriorities? dispatcherPriorities)
+			
+		{
+			return new ObservableComputations.CollectionDispatching<TSourceItem>(
+				sourceScalar: new Computing<ObservableCollection<TSourceItem>>(sourceExpression),
+				destinationOcDispatcher: destinationOcDispatcher,
+				sourceOcDispatcher: sourceOcDispatcher,
+				dispatcherPriorities: dispatcherPriorities,
+				dispatcherParameters: null);
+		}
+
+		[ObservableComputationsCall]
+		public static ObservableComputations.CollectionDispatching<TSourceItem> CollectionDispatching<TSourceItem>(this
+			 Expression<Func<ObservableCollection<TSourceItem>>> sourceExpression,
+			 ObservableComputations.ICollectionDestinationOcDispatcher destinationOcDispatcher,
+			 ObservableComputations.IOcDispatcher sourceOcDispatcher,
+			 ObservableComputations.DispatcherParameters? dispatcherParameters)
+			
+		{
+			return new ObservableComputations.CollectionDispatching<TSourceItem>(
+				sourceScalar: new Computing<ObservableCollection<TSourceItem>>(sourceExpression),
+				destinationOcDispatcher: destinationOcDispatcher,
+				sourceOcDispatcher: sourceOcDispatcher,
+				dispatcherPriorities: null,
+				dispatcherParameters: dispatcherParameters);
 		}
 
 		[ObservableComputationsCall]
@@ -798,7 +1936,55 @@ namespace ObservableComputations
 			return new ObservableComputations.CollectionDispatching<TSourceItem>(
 				sourceScalar: new Computing<ObservableCollection<TSourceItem>>(sourceExpression),
 				destinationOcDispatcher: destinationOcDispatcher,
-				sourceOcDispatcher: sourceOcDispatcher);
+				sourceOcDispatcher: sourceOcDispatcher,
+				dispatcherPriorities: null,
+				dispatcherParameters: null);
+		}
+
+		[ObservableComputationsCall]
+		public static ObservableComputations.CollectionDispatching<TSourceItem> CollectionDispatching<TSourceItem>(this
+			 Expression<Func<ObservableCollection<TSourceItem>>> sourceExpression,
+			 ObservableComputations.ICollectionDestinationOcDispatcher destinationOcDispatcher,
+			 ObservableComputations.DispatcherPriorities? dispatcherPriorities,
+			 ObservableComputations.DispatcherParameters? dispatcherParameters)
+			
+		{
+			return new ObservableComputations.CollectionDispatching<TSourceItem>(
+				sourceScalar: new Computing<ObservableCollection<TSourceItem>>(sourceExpression),
+				destinationOcDispatcher: destinationOcDispatcher,
+				sourceOcDispatcher: null,
+				dispatcherPriorities: dispatcherPriorities,
+				dispatcherParameters: dispatcherParameters);
+		}
+
+		[ObservableComputationsCall]
+		public static ObservableComputations.CollectionDispatching<TSourceItem> CollectionDispatching<TSourceItem>(this
+			 Expression<Func<ObservableCollection<TSourceItem>>> sourceExpression,
+			 ObservableComputations.ICollectionDestinationOcDispatcher destinationOcDispatcher,
+			 ObservableComputations.DispatcherPriorities? dispatcherPriorities)
+			
+		{
+			return new ObservableComputations.CollectionDispatching<TSourceItem>(
+				sourceScalar: new Computing<ObservableCollection<TSourceItem>>(sourceExpression),
+				destinationOcDispatcher: destinationOcDispatcher,
+				sourceOcDispatcher: null,
+				dispatcherPriorities: dispatcherPriorities,
+				dispatcherParameters: null);
+		}
+
+		[ObservableComputationsCall]
+		public static ObservableComputations.CollectionDispatching<TSourceItem> CollectionDispatching<TSourceItem>(this
+			 Expression<Func<ObservableCollection<TSourceItem>>> sourceExpression,
+			 ObservableComputations.ICollectionDestinationOcDispatcher destinationOcDispatcher,
+			 ObservableComputations.DispatcherParameters? dispatcherParameters)
+			
+		{
+			return new ObservableComputations.CollectionDispatching<TSourceItem>(
+				sourceScalar: new Computing<ObservableCollection<TSourceItem>>(sourceExpression),
+				destinationOcDispatcher: destinationOcDispatcher,
+				sourceOcDispatcher: null,
+				dispatcherPriorities: null,
+				dispatcherParameters: dispatcherParameters);
 		}
 
 		[ObservableComputationsCall]
@@ -810,7 +1996,66 @@ namespace ObservableComputations
 			return new ObservableComputations.CollectionDispatching<TSourceItem>(
 				sourceScalar: new Computing<ObservableCollection<TSourceItem>>(sourceExpression),
 				destinationOcDispatcher: destinationOcDispatcher,
-				sourceOcDispatcher: null);
+				sourceOcDispatcher: null,
+				dispatcherPriorities: null,
+				dispatcherParameters: null);
+		}
+
+		#endregion
+		#region CollectionDisposing
+
+		[ObservableComputationsCall]
+		public static ObservableComputations.CollectionDisposing<TSourceItem> CollectionDisposing<TSourceItem>(this
+			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar)
+			
+		{
+			return new ObservableComputations.CollectionDisposing<TSourceItem>(
+				sourceScalar: sourceScalar);
+		}
+
+		[ObservableComputationsCall]
+		public static ObservableComputations.CollectionDisposing<TSourceItem> CollectionDisposing<TSourceItem>(this
+			 ObservableComputations.IReadScalar<ObservableCollection<TSourceItem>> sourceScalar)
+			
+		{
+			return new ObservableComputations.CollectionDisposing<TSourceItem>(
+				sourceScalar: sourceScalar);
+		}
+
+		[ObservableComputationsCall]
+		public static ObservableComputations.CollectionDisposing<TSourceItem> CollectionDisposing<TSourceItem>(this
+			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> sourceExpression)
+			
+		{
+			return new ObservableComputations.CollectionDisposing<TSourceItem>(
+				sourceScalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(sourceExpression));
+		}
+
+		[ObservableComputationsCall]
+		public static ObservableComputations.CollectionDisposing<TSourceItem> CollectionDisposing<TSourceItem>(this
+			 Expression<Func<ObservableCollection<TSourceItem>>> sourceExpression)
+			
+		{
+			return new ObservableComputations.CollectionDisposing<TSourceItem>(
+				sourceScalar: new Computing<ObservableCollection<TSourceItem>>(sourceExpression));
+		}
+
+		[ObservableComputationsCall]
+		public static ObservableComputations.CollectionDisposing<TSourceItem> CollectionDisposing<TSourceItem>(this
+			 System.Collections.Specialized.INotifyCollectionChanged source)
+			
+		{
+			return new ObservableComputations.CollectionDisposing<TSourceItem>(
+				source: source);
+		}
+
+		[ObservableComputationsCall]
+		public static ObservableComputations.CollectionDisposing<TSourceItem> CollectionDisposing<TSourceItem>(this
+			 ObservableCollection<TSourceItem> source)
+			
+		{
+			return new ObservableComputations.CollectionDisposing<TSourceItem>(
+				source: source);
 		}
 
 		#endregion
@@ -22767,13 +24012,110 @@ namespace ObservableComputations
 		public static ObservableComputations.ScalarDispatching<TResult> ScalarDispatching<TResult>(this
 			 ObservableComputations.IReadScalar<TResult> scalar,
 			 ObservableComputations.IOcDispatcher destinationOcDispatcher,
+			 ObservableComputations.IOcDispatcher sourceOcDispatcher,
+			 ObservableComputations.DispatcherPriorities? dispatcherPriorities,
+			 ObservableComputations.DispatcherParameters? dispatcherParameters)
+			
+		{
+			return new ObservableComputations.ScalarDispatching<TResult>(
+				scalar: scalar,
+				destinationOcDispatcher: destinationOcDispatcher,
+				sourceOcDispatcher: sourceOcDispatcher,
+				dispatcherPriorities: dispatcherPriorities,
+				dispatcherParameters: dispatcherParameters);
+		}
+
+		[ObservableComputationsCall]
+		public static ObservableComputations.ScalarDispatching<TResult> ScalarDispatching<TResult>(this
+			 ObservableComputations.IReadScalar<TResult> scalar,
+			 ObservableComputations.IOcDispatcher destinationOcDispatcher,
+			 ObservableComputations.IOcDispatcher sourceOcDispatcher,
+			 ObservableComputations.DispatcherPriorities? dispatcherPriorities)
+			
+		{
+			return new ObservableComputations.ScalarDispatching<TResult>(
+				scalar: scalar,
+				destinationOcDispatcher: destinationOcDispatcher,
+				sourceOcDispatcher: sourceOcDispatcher,
+				dispatcherPriorities: dispatcherPriorities,
+				dispatcherParameters: null);
+		}
+
+		[ObservableComputationsCall]
+		public static ObservableComputations.ScalarDispatching<TResult> ScalarDispatching<TResult>(this
+			 ObservableComputations.IReadScalar<TResult> scalar,
+			 ObservableComputations.IOcDispatcher destinationOcDispatcher,
+			 ObservableComputations.IOcDispatcher sourceOcDispatcher,
+			 ObservableComputations.DispatcherParameters? dispatcherParameters)
+			
+		{
+			return new ObservableComputations.ScalarDispatching<TResult>(
+				scalar: scalar,
+				destinationOcDispatcher: destinationOcDispatcher,
+				sourceOcDispatcher: sourceOcDispatcher,
+				dispatcherPriorities: null,
+				dispatcherParameters: dispatcherParameters);
+		}
+
+		[ObservableComputationsCall]
+		public static ObservableComputations.ScalarDispatching<TResult> ScalarDispatching<TResult>(this
+			 ObservableComputations.IReadScalar<TResult> scalar,
+			 ObservableComputations.IOcDispatcher destinationOcDispatcher,
 			 ObservableComputations.IOcDispatcher sourceOcDispatcher)
 			
 		{
 			return new ObservableComputations.ScalarDispatching<TResult>(
 				scalar: scalar,
 				destinationOcDispatcher: destinationOcDispatcher,
-				sourceOcDispatcher: sourceOcDispatcher);
+				sourceOcDispatcher: sourceOcDispatcher,
+				dispatcherPriorities: null,
+				dispatcherParameters: null);
+		}
+
+		[ObservableComputationsCall]
+		public static ObservableComputations.ScalarDispatching<TResult> ScalarDispatching<TResult>(this
+			 ObservableComputations.IReadScalar<TResult> scalar,
+			 ObservableComputations.IOcDispatcher destinationOcDispatcher,
+			 ObservableComputations.DispatcherPriorities? dispatcherPriorities,
+			 ObservableComputations.DispatcherParameters? dispatcherParameters)
+			
+		{
+			return new ObservableComputations.ScalarDispatching<TResult>(
+				scalar: scalar,
+				destinationOcDispatcher: destinationOcDispatcher,
+				sourceOcDispatcher: null,
+				dispatcherPriorities: dispatcherPriorities,
+				dispatcherParameters: dispatcherParameters);
+		}
+
+		[ObservableComputationsCall]
+		public static ObservableComputations.ScalarDispatching<TResult> ScalarDispatching<TResult>(this
+			 ObservableComputations.IReadScalar<TResult> scalar,
+			 ObservableComputations.IOcDispatcher destinationOcDispatcher,
+			 ObservableComputations.DispatcherPriorities? dispatcherPriorities)
+			
+		{
+			return new ObservableComputations.ScalarDispatching<TResult>(
+				scalar: scalar,
+				destinationOcDispatcher: destinationOcDispatcher,
+				sourceOcDispatcher: null,
+				dispatcherPriorities: dispatcherPriorities,
+				dispatcherParameters: null);
+		}
+
+		[ObservableComputationsCall]
+		public static ObservableComputations.ScalarDispatching<TResult> ScalarDispatching<TResult>(this
+			 ObservableComputations.IReadScalar<TResult> scalar,
+			 ObservableComputations.IOcDispatcher destinationOcDispatcher,
+			 ObservableComputations.DispatcherParameters? dispatcherParameters)
+			
+		{
+			return new ObservableComputations.ScalarDispatching<TResult>(
+				scalar: scalar,
+				destinationOcDispatcher: destinationOcDispatcher,
+				sourceOcDispatcher: null,
+				dispatcherPriorities: null,
+				dispatcherParameters: dispatcherParameters);
 		}
 
 		[ObservableComputationsCall]
@@ -22785,7 +24127,58 @@ namespace ObservableComputations
 			return new ObservableComputations.ScalarDispatching<TResult>(
 				scalar: scalar,
 				destinationOcDispatcher: destinationOcDispatcher,
-				sourceOcDispatcher: null);
+				sourceOcDispatcher: null,
+				dispatcherPriorities: null,
+				dispatcherParameters: null);
+		}
+
+		[ObservableComputationsCall]
+		public static ObservableComputations.ScalarDispatching<TResult> ScalarDispatching<TResult>(this
+			 Expression<Func<TResult>> scalar,
+			 ObservableComputations.IOcDispatcher destinationOcDispatcher,
+			 ObservableComputations.IOcDispatcher sourceOcDispatcher,
+			 ObservableComputations.DispatcherPriorities? dispatcherPriorities,
+			 ObservableComputations.DispatcherParameters? dispatcherParameters)
+			
+		{
+			return new ObservableComputations.ScalarDispatching<TResult>(
+				scalar: new Computing<TResult>(scalar),
+				destinationOcDispatcher: destinationOcDispatcher,
+				sourceOcDispatcher: sourceOcDispatcher,
+				dispatcherPriorities: dispatcherPriorities,
+				dispatcherParameters: dispatcherParameters);
+		}
+
+		[ObservableComputationsCall]
+		public static ObservableComputations.ScalarDispatching<TResult> ScalarDispatching<TResult>(this
+			 Expression<Func<TResult>> scalar,
+			 ObservableComputations.IOcDispatcher destinationOcDispatcher,
+			 ObservableComputations.IOcDispatcher sourceOcDispatcher,
+			 ObservableComputations.DispatcherPriorities? dispatcherPriorities)
+			
+		{
+			return new ObservableComputations.ScalarDispatching<TResult>(
+				scalar: new Computing<TResult>(scalar),
+				destinationOcDispatcher: destinationOcDispatcher,
+				sourceOcDispatcher: sourceOcDispatcher,
+				dispatcherPriorities: dispatcherPriorities,
+				dispatcherParameters: null);
+		}
+
+		[ObservableComputationsCall]
+		public static ObservableComputations.ScalarDispatching<TResult> ScalarDispatching<TResult>(this
+			 Expression<Func<TResult>> scalar,
+			 ObservableComputations.IOcDispatcher destinationOcDispatcher,
+			 ObservableComputations.IOcDispatcher sourceOcDispatcher,
+			 ObservableComputations.DispatcherParameters? dispatcherParameters)
+			
+		{
+			return new ObservableComputations.ScalarDispatching<TResult>(
+				scalar: new Computing<TResult>(scalar),
+				destinationOcDispatcher: destinationOcDispatcher,
+				sourceOcDispatcher: sourceOcDispatcher,
+				dispatcherPriorities: null,
+				dispatcherParameters: dispatcherParameters);
 		}
 
 		[ObservableComputationsCall]
@@ -22798,7 +24191,55 @@ namespace ObservableComputations
 			return new ObservableComputations.ScalarDispatching<TResult>(
 				scalar: new Computing<TResult>(scalar),
 				destinationOcDispatcher: destinationOcDispatcher,
-				sourceOcDispatcher: sourceOcDispatcher);
+				sourceOcDispatcher: sourceOcDispatcher,
+				dispatcherPriorities: null,
+				dispatcherParameters: null);
+		}
+
+		[ObservableComputationsCall]
+		public static ObservableComputations.ScalarDispatching<TResult> ScalarDispatching<TResult>(this
+			 Expression<Func<TResult>> scalar,
+			 ObservableComputations.IOcDispatcher destinationOcDispatcher,
+			 ObservableComputations.DispatcherPriorities? dispatcherPriorities,
+			 ObservableComputations.DispatcherParameters? dispatcherParameters)
+			
+		{
+			return new ObservableComputations.ScalarDispatching<TResult>(
+				scalar: new Computing<TResult>(scalar),
+				destinationOcDispatcher: destinationOcDispatcher,
+				sourceOcDispatcher: null,
+				dispatcherPriorities: dispatcherPriorities,
+				dispatcherParameters: dispatcherParameters);
+		}
+
+		[ObservableComputationsCall]
+		public static ObservableComputations.ScalarDispatching<TResult> ScalarDispatching<TResult>(this
+			 Expression<Func<TResult>> scalar,
+			 ObservableComputations.IOcDispatcher destinationOcDispatcher,
+			 ObservableComputations.DispatcherPriorities? dispatcherPriorities)
+			
+		{
+			return new ObservableComputations.ScalarDispatching<TResult>(
+				scalar: new Computing<TResult>(scalar),
+				destinationOcDispatcher: destinationOcDispatcher,
+				sourceOcDispatcher: null,
+				dispatcherPriorities: dispatcherPriorities,
+				dispatcherParameters: null);
+		}
+
+		[ObservableComputationsCall]
+		public static ObservableComputations.ScalarDispatching<TResult> ScalarDispatching<TResult>(this
+			 Expression<Func<TResult>> scalar,
+			 ObservableComputations.IOcDispatcher destinationOcDispatcher,
+			 ObservableComputations.DispatcherParameters? dispatcherParameters)
+			
+		{
+			return new ObservableComputations.ScalarDispatching<TResult>(
+				scalar: new Computing<TResult>(scalar),
+				destinationOcDispatcher: destinationOcDispatcher,
+				sourceOcDispatcher: null,
+				dispatcherPriorities: null,
+				dispatcherParameters: dispatcherParameters);
 		}
 
 		[ObservableComputationsCall]
@@ -22810,7 +24251,30 @@ namespace ObservableComputations
 			return new ObservableComputations.ScalarDispatching<TResult>(
 				scalar: new Computing<TResult>(scalar),
 				destinationOcDispatcher: destinationOcDispatcher,
-				sourceOcDispatcher: null);
+				sourceOcDispatcher: null,
+				dispatcherPriorities: null,
+				dispatcherParameters: null);
+		}
+
+		#endregion
+		#region ScalarDisposing
+
+		[ObservableComputationsCall]
+		public static ObservableComputations.ScalarDisposing<TValue> ScalarDisposing<TValue>(this
+			 ObservableComputations.IReadScalar<TValue> scalar)
+			
+		{
+			return new ObservableComputations.ScalarDisposing<TValue>(
+				scalar: scalar);
+		}
+
+		[ObservableComputationsCall]
+		public static ObservableComputations.ScalarDisposing<TValue> ScalarDisposing<TValue>(this
+			 Expression<Func<TValue>> scalar)
+			
+		{
+			return new ObservableComputations.ScalarDisposing<TValue>(
+				scalar: new Computing<TValue>(scalar));
 		}
 
 		#endregion

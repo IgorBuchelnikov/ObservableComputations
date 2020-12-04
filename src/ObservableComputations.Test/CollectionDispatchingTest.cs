@@ -189,7 +189,7 @@ namespace ObservableComputations.Test
                                     int upperIndex = nums.Count > 0 ? nums.Count - 1 : 0;
                                     int index = random.Next(0, upperIndex);
                                     nums.Insert(index, new Item(random.Next(Int32.MinValue, int.MaxValue), random.Next(Int32.MinValue, int.MaxValue), consuminingOcDispatcher, computingOcDispatcher));
-                                });
+                                }, 0);
                                 break;
 							case NotifyCollectionChangedAction.Remove:
                                 computingOcDispatcher.Invoke(() =>
@@ -202,7 +202,7 @@ namespace ObservableComputations.Test
                                         nums.RemoveAt(index);
                                         item.Consumer.Dispose();
                                     }
-                                });
+                                }, 0);
                                 break;
 							case NotifyCollectionChangedAction.Replace:
                                 computingOcDispatcher.Invoke(() =>
@@ -216,7 +216,7 @@ namespace ObservableComputations.Test
                                         item.Consumer.Dispose();
                                     }
 
-                                });
+                                }, 0);
                                 break;
 							case NotifyCollectionChangedAction.Move:
                                 computingOcDispatcher.Invoke(() =>
@@ -228,7 +228,7 @@ namespace ObservableComputations.Test
                                         int indexTo = random.Next(0, upperIndex);
                                         nums.Move(indexFrom, indexTo);
                                     }
-                                });
+                                }, 0);
                                 break;
 							case NotifyCollectionChangedAction.Reset:
                                 computingOcDispatcher.Invoke(() =>
@@ -237,7 +237,7 @@ namespace ObservableComputations.Test
                                     nums.Clear();
                                     foreach (Item item in items)
                                         item.Consumer.Dispose();
-                                });
+                                }, 0);
 
                                 break;
 							default:
@@ -269,7 +269,7 @@ namespace ObservableComputations.Test
                             if (dispatchingfilteredNumsCount > 0)
                                 dispatchingfilteredNums[random.Next(0, dispatchingfilteredNumsCount - 1)].NumCompToConsDispatching.Value =
                                     random.Next(Int32.MinValue, int.MaxValue);
-                        });
+                        }, 0);
 
                     }
                 };
@@ -294,7 +294,7 @@ namespace ObservableComputations.Test
                             if (dispatchingfilteredNumsCount > 0)
                                 dispatchingfilteredNums[random.Next(0, dispatchingfilteredNumsCount - 1)].Num2 =
                                     random.Next(Int32.MinValue, int.MaxValue);
-                        });
+                        }, 0);
 
                     }
                 };
@@ -323,9 +323,9 @@ namespace ObservableComputations.Test
 
 				//consuminingOcDispatcherInvoker.Join();
 
-				consuminingOcDispatcher.Invoke(() => {});
-				computingOcDispatcher.Invoke(() => {});
-				consuminingOcDispatcher.Invoke(() => {});
+				consuminingOcDispatcher.Invoke(() => {}, 0);
+				computingOcDispatcher.Invoke(() => {}, 0);
+				consuminingOcDispatcher.Invoke(() => {}, 0);
 
                 Assert.IsTrue(nums.Where(i => i.Num % 3 == 0 || i.Num2 % 5 == 0).SequenceEqual(dispatchingfilteredNums));
                 Assert.IsTrue(nums.Where(i => 
@@ -339,7 +339,7 @@ namespace ObservableComputations.Test
                 consuminingOcDispatcher.Invoke(() =>
                 {
                     consumer.Dispose();
-                });
+                }, 0);
 
                 
                 Debug.Print("!!!!!");

@@ -9,17 +9,27 @@ namespace ObservableComputations
 		public IOcDispatcher DestinationOcDispatcher => _destinationOcDispatcher;
 		public IOcDispatcher SourceOcDispatcher => _sourceOcDispatcher;
 
+        // ReSharper disable once UnusedMember.Local
+        private DispatcherPriorities DispatcherPriorities => _dispatcherPriorities;
+        // ReSharper disable once UnusedMember.Local
+        private DispatcherParameters DispatcherParameters => _dispatcherParameters;
+
 		private IOcDispatcher _destinationOcDispatcher;
 		private IOcDispatcher _sourceOcDispatcher;
 
 		private IReadScalar<TResult> _scalar;
         private Action _changeValueAction;
 
+        private DispatcherPriorities _dispatcherPriorities;
+        private DispatcherParameters _dispatcherParameters;
+
 		[ObservableComputationsCall]
 		public ScalarDispatching(
 			IReadScalar<TResult> scalar, 
 			IOcDispatcher destinationOcDispatcher,
-			IOcDispatcher sourceOcDispatcher = null)
+			IOcDispatcher sourceOcDispatcher = null,
+            DispatcherPriorities? dispatcherPriorities = null,
+            DispatcherParameters? dispatcherParameters = null)
 		{
 			_destinationOcDispatcher = destinationOcDispatcher;
             _scalar = scalar;
@@ -29,8 +39,15 @@ namespace ObservableComputations
                 TResult newValue = _scalar.Value;
                 void setNewValue() => setValue(newValue);
 
-                _destinationOcDispatcher.Invoke(setNewValue, this);
+                _destinationOcDispatcher.Invoke(
+                    setNewValue, 
+                    _dispatcherPriorities._distinationDispatcherPriority,
+                    _dispatcherParameters._distinationDispatcherParameter,
+                    this);
             };
+
+            _dispatcherPriorities = dispatcherPriorities ?? new DispatcherPriorities(0, 0);
+            _dispatcherParameters = dispatcherParameters ?? new DispatcherParameters(null, null);
         }
 
 		private void handleScalarPropertyChanged(object sender, PropertyChangedEventArgs e)
@@ -65,11 +82,19 @@ namespace ObservableComputations
                     void setNewValue() => setValue(newValue);
 
                     _scalar.PropertyChanged += handleScalarPropertyChanged;
-                    _destinationOcDispatcher.Invoke(setNewValue, this);
+                    _destinationOcDispatcher.Invoke(
+                        setNewValue, 
+                        _dispatcherPriorities._distinationDispatcherPriority,
+                        _dispatcherParameters._distinationDispatcherParameter, 
+                        this);
                 }
 
                 if (_sourceOcDispatcher != null)
-                    _sourceOcDispatcher.Invoke(readAndSubscribe, this);
+                    _sourceOcDispatcher.Invoke(
+                        readAndSubscribe, 
+                        _dispatcherPriorities._sourceDispatcherPriority,
+                        _dispatcherParameters._sourceDispatcherParameter, 
+                        this);
                 else
                     readAndSubscribe();
 
@@ -78,7 +103,11 @@ namespace ObservableComputations
             else
             {
                 void setNewValue() => setDefaultValue();
-                _destinationOcDispatcher.Invoke(setNewValue, this);
+                _destinationOcDispatcher.Invoke(
+                    setNewValue, 
+                    _dispatcherPriorities._distinationDispatcherPriority,
+                    _dispatcherParameters._distinationDispatcherParameter,  
+                    this);
             }
         }
 

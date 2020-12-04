@@ -14,6 +14,10 @@ namespace ObservableComputations
 		public IOcDispatcher SourceOcDispatcher => _sourceOcDispatcher;
 		public IOcDispatcher DestinationOcDispatcher => _destinationOcDispatcher;
 		public IPropertySourceOcDispatcher PropertySourceOcDispatcher => _propertySourceOcDispatcher;
+        // ReSharper disable once UnusedMember.Local
+        private DispatcherPriorities DispatcherPriorities => _dispatcherPriorities;
+        // ReSharper disable once UnusedMember.Local
+        private DispatcherParameters DispatcherParameters => _dispatcherParameters;
 
         private static ConcurrentDictionary<PropertyInfo, PropertyAccessors>
 			_propertyAccessors =
@@ -29,16 +33,23 @@ namespace ObservableComputations
 		private Action<THolder, TResult> _setter;
 		private Func<THolder, TResult> _getter;
 
+        private DispatcherPriorities _dispatcherPriorities;
+        private DispatcherParameters _dispatcherParameters;
 
 		[ObservableComputationsCall]
 		public PropertyDispatching(
 			Expression<Func<TResult>> propertyExpression,
 			IOcDispatcher destinationOcDispatcher,
-			IOcDispatcher sourceOcDispatcher = null) : this()
+			IOcDispatcher sourceOcDispatcher = null,
+            DispatcherPriorities? dispatcherPriorities = null,
+            DispatcherParameters? dispatcherParameters = null) : this()
 		{
 			_sourceOcDispatcher = sourceOcDispatcher;
 			_destinationOcDispatcher = destinationOcDispatcher;
             _propertyExpression = propertyExpression;
+
+            _dispatcherPriorities = dispatcherPriorities ?? new DispatcherPriorities(0, 0);
+            _dispatcherParameters = dispatcherParameters ?? new DispatcherParameters(null, null);
 
             lockChangeSetValueHandle();
         }
@@ -72,7 +83,11 @@ namespace ObservableComputations
 		private void handlePropertyHolderPropertyChanged(object sender, PropertyChangedEventArgs e)
 		{
             TResult value = getValue();
-            _destinationOcDispatcher.Invoke(() => setValue(value), this);
+            _destinationOcDispatcher.Invoke(
+                () => setValue(value), 
+                _dispatcherPriorities._distinationDispatcherPriority,
+                _dispatcherParameters._distinationDispatcherParameter, 
+                this);
 		}
 
 		private TResult getValue()
@@ -142,8 +157,17 @@ namespace ObservableComputations
             {
                 void set() => _setter(_propertyHolder, value);
 
-                if (_sourceOcDispatcher != null) _sourceOcDispatcher.Invoke(set, this);
-                else if (_propertySourceOcDispatcher != null) _propertySourceOcDispatcher.Invoke(set, this, false, value);
+                if (_sourceOcDispatcher != null) _sourceOcDispatcher.Invoke(
+                    set, 
+                    _dispatcherPriorities._sourceDispatcherPriority,
+                    _dispatcherParameters._sourceDispatcherParameter, 
+                    this);
+                else if (_propertySourceOcDispatcher != null) 
+                    _propertySourceOcDispatcher.Invoke(
+                        set, 
+                        _dispatcherPriorities._sourceDispatcherPriority,
+                        _dispatcherParameters._sourceDispatcherParameter,  
+                        this, false, value);
                 else set();
             };
 
@@ -153,11 +177,24 @@ namespace ObservableComputations
 			{
                 TResult value = getValue();
 				_propertyHolder.PropertyChanged += handlePropertyHolderPropertyChanged;
-				_destinationOcDispatcher.Invoke(() => setValue(value), this);
+				_destinationOcDispatcher.Invoke(
+                    () => setValue(value), 
+                    _dispatcherPriorities._distinationDispatcherPriority,
+                    _dispatcherParameters._distinationDispatcherParameter, 
+                    this);
 			}
 
-			if (_sourceOcDispatcher != null) _sourceOcDispatcher.Invoke(readAndSubscribe, this);
-			else if (_propertySourceOcDispatcher != null) _propertySourceOcDispatcher.Invoke(readAndSubscribe, this, true, null);
+			if (_sourceOcDispatcher != null) _sourceOcDispatcher.Invoke(
+                readAndSubscribe, 
+                _dispatcherPriorities._sourceDispatcherPriority,
+                _dispatcherParameters._sourceDispatcherParameter, 
+                this);
+			else if (_propertySourceOcDispatcher != null) 
+                _propertySourceOcDispatcher.Invoke(
+                    readAndSubscribe, 
+                    _dispatcherPriorities._sourceDispatcherPriority,
+                    _dispatcherParameters._sourceDispatcherParameter,  
+                    this, true, null);
             else readAndSubscribe();
 		}
 

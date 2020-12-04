@@ -19,7 +19,7 @@ ObservableComputations is not analog of [Reactive Extensions](https://github.com
 * [Reactive Extensions](https://github.com/dotnet/reactive) library provides the stream of events. ObservableComputations library provides not only the stream of data change events, but currently computed data.
 
 Some of the tasks that you solved using [Reactive Extensions](https://github.com/dotnet/reactive) are now easier and more efficient to solve using ObservableComputations. You can use ObservableComputations separately or in cooperation with [Reactive Extensions](https://github.com/dotnet/reactive). Observable Computations will not replace [Reactive Extensions](https://github.com/dotnet/reactive):
-* when time related processing of events (Throttle, Buffer) needed. ObservableComputation allows you to implement time-related handling of [CollectionChanged](https://docs.microsoft.com/en-us/dotnet/api/system.collections.specialized.inotifycollectionchanged.collectionchanged?view=netframework-4.8) and [PropertyChanged](https://docs.microsoft.com/en-us/dotnet/api/system.componentmodel.inotifypropertychanged.propertychanged?view=netframework-4.8) events by cooperation with [Reactive Extentions](https://github.com/dotnet/reactive) (see the example [here](#variants-of-the-implementation-of-the-idispatcher-interface-and-other-similar-interfaces));
+* when time related processing of events (Throttle, Buffer) needed. ObservableComputation allows you to implement time-related handling of [CollectionChanged](https://docs.microsoft.com/en-us/dotnet/api/system.collections.specialized.inotifycollectionchanged.collectionchanged?view=netframework-4.8) and [PropertyChanged](https://docs.microsoft.com/en-us/dotnet/api/system.componentmodel.inotifypropertychanged.propertychanged?view=netframework-4.8) events by cooperation with [Reactive Extentions](https://github.com/dotnet/reactive) (see the example [here](#variants-of-the-implementation-of-the-iocDispatcher-interface-and-other-similar-interfaces));
 * when processing events not related to data (for example, keystrokes), especially when combining these events. Example of cooperation ObservableComputations with combination [Reactive Extensions](https://github.com/dotnet/reactive) operators see [here](#isconsistent-property-and-inconsistency-exception);
 * when working with asynchronous operations ([Observable.FromAsyncPattern method](https://docs.microsoft.com/en-us/previous-versions/dotnet/reactive-extensions/hh229052(v%3Dvs.103))).
 
@@ -1630,7 +1630,7 @@ Use code includes:
 
 * Handlers of changes of computation results was described in the ["Modifying computations"](#processing-changes-of-computation-results). 
 
-* Code called using the methods [*Dispatcher.Invoke* and *Dispatcher.BeginInvoke*](#using-the-dispatcher-class).
+* Code called using the methods [*OcDispatcher.Invoke* and *OcDispatcher.BeginInvoke*](#using-the-ocDispatcher-class).
 
 Here is the code illustrating debugging of arbitrary expressions (other types of code can be debugged by the same way):
 
@@ -1724,18 +1724,18 @@ namespace ObservableComputationsExamples
 		{
 			Configuration.SaveInstantiatingStackTrace = true;
 			Configuration.TrackComputingsExecutingUserCode = true;
-			Configuration.SaveDispatcherInvocationStackTrace = true;
-			Configuration.TrackDispatcherInvocations = true;
+			Configuration.SaveOcDispatcherInvocationStackTrace = true;
+			Configuration.TrackOcDispatcherInvocations = true;
 
 			ValueProvider valueProvider = new ValueProvider(){Value = 2};
 			
-			Dispatcher dispatcher = new Dispatcher();
+			OcDispatcher ocDispatcher = new OcDispatcher();
 
 			System.AppDomain.CurrentDomain.UnhandledException += (sender, eventArgs) =>
 			{
-				Console.WriteLine($"Exception stacktrace:\n{DebugInfo.ExecutingDispatcherInvocations[dispatcher.Thread].Peek().CallStackTrace}");
+				Console.WriteLine($"Exception stacktrace:\n{DebugInfo.ExecutingOcDispatcherInvocations[ocDispatcher.Thread].Peek().CallStackTrace}");
 				Console.WriteLine($"\nComputing which caused the exception has been instantiated by the following stacktrace :\n{DebugInfo.ComputingsExecutingUserCode[Thread.CurrentThread].InstantiatingStackTrace}");
-				Console.WriteLine($"\nDispatch computing which caused the exception has been instantiated by the following stacktrace :\n{((IComputing) DebugInfo.ExecutingDispatcherInvocations[dispatcher.Thread].Peek().Context).InstantiatingStackTrace}");
+				Console.WriteLine($"\nDispatch computing which caused the exception has been instantiated by the following stacktrace :\n{((IComputing) DebugInfo.ExecutingOcDispatcherInvocations[ocDispatcher.Thread].Peek().Context).InstantiatingStackTrace}");
 
 				Thread.CurrentThread.IsBackground = true;
 
@@ -1743,7 +1743,7 @@ namespace ObservableComputationsExamples
 					Thread.Sleep(TimeSpan.FromHours(1));
 			};
 
-			ScalarDispatching<int> valueProviderDispatching = valueProvider.ScalarDispatching(dispatcher);
+			ScalarDispatching<int> valueProviderDispatching = valueProvider.ScalarDispatching(ocDispatcher);
 
 			Computing<decimal> computing1 = new Computing<decimal>(() => 1 / valueProviderDispatching.Value);
 			Computing<decimal> computing2 = new Computing<decimal>(() => 1 / (valueProviderDispatching.Value - 1));
@@ -1766,9 +1766,9 @@ namespace ObservableComputationsExamples
 ```
 This example is similar to the previous one, except
 * Properties that contain exception information
-* Setting configuration parameters *Configuration.SaveDispatcherInvocationStackTrace* and *Configuration.TrackDispatcherInvocations*
+* Setting configuration parameters *Configuration.SaveOcDispatcherInvocationStackTrace* and *Configuration.TrackOcDispatcherInvocations*
 
-*DebugInfo.ExecutingDispatcherInvocations [dispatcher.Thread]* is of type Stack&lt;Invocation&gt;. The stack will contain more than one element if you called the *Dispatcher.DoOthers* method.
+*DebugInfo.ExecutingOcDispatcherInvocations [ocDispatcher.Thread]* is of type Stack&lt;Invocation&gt;. The stack will contain more than one element if you called the *OcDispatcher.DoOthers* method.
 
 ### Inconsistency exception
 
@@ -2106,12 +2106,12 @@ namespace ObservableComputationsExample
 				{
 					Order order = new Order(i);
 					order.Paid = Convert.ToBoolean(random.Next(0, 3));
-					this.Dispatcher.Invoke(() => Orders.Add(order), DispatcherPriority.Background);
+					this.OcDispatcher.Invoke(() => Orders.Add(order), OcDispatcherPriority.Background);
 				}
 
-				this.Dispatcher.Invoke(
+				this.OcDispatcher.Invoke(
 					() => uc_LoadingIndicator.Visibility = Visibility.Hidden, 
-					DispatcherPriority.Background);
+					OcDispatcherPriority.Background);
 			});
 
 			thread.Start();
@@ -2205,7 +2205,7 @@ using System.Threading;
 using System.Windows;
 using System.Windows.Threading;
 using ObservableComputations;
-using Dispatcher = System.Windows.Threading.Dispatcher;
+using OcDispatcher = System.Windows.Threading.OcDispatcher;
 
 namespace ObservableComputationsExample
 {
@@ -2215,21 +2215,21 @@ namespace ObservableComputationsExample
 		public ObservableCollection<Order> PaidOrders { get; }
 		public ObservableCollection<Order> UnpaidOrders { get; }
 
-		// Dispatcher for computations in the background thread
-		ObservableComputations.Dispatcher _ocDispatcher = new ObservableComputations.Dispatcher();
+		// OcDispatcher for computations in the background thread
+		ObservableComputations.OcDispatcher _ocOcDispatcher = new ObservableComputations.OcDispatcher();
 
 		public MainWindow()
 		{
 			Orders = new ObservableCollection<Order>();
 
-			WpfOcDispatcher wpfOcDispatcher = new WpfOcDispatcher(this.Dispatcher);
+			WpfOcOcDispatcher wpfOcOcDispatcher = new WpfOcOcDispatcher(this.OcDispatcher);
 
 			fillOrdersFromDb();
 
 			PaidOrders = 
-				Orders.CollectionDispatching(_ocDispatcher) // direct the computation to the background thread
+				Orders.CollectionDispatching(_ocOcDispatcher) // direct the computation to the background thread
 				.Filtering(o => o.Paid)
-				.CollectionDispatching(wpfOcDispatcher, _ocDispatcher); // return the computation to the main thread from the background one
+				.CollectionDispatching(wpfOcOcDispatcher, _ocOcDispatcher); // return the computation to the main thread from the background one
 
 			UnpaidOrders = Orders.Filtering(o => !o.Paid);
 
@@ -2244,13 +2244,13 @@ namespace ObservableComputationsExample
 			{
 				Order order = new Order(i);
 				order.Paid = Convert.ToBoolean(random.Next(0, 3));
-				this.Dispatcher.Invoke(() => Orders.Add(order), DispatcherPriority.Background);
+				this.OcDispatcher.Invoke(() => Orders.Add(order), OcDispatcherPriority.Background);
 			}
 		}
 
 		private void mainWindow_OnClosed(object sender, EventArgs e)
 		{
-			_ocDispatcher.Dispose();
+			_ocOcDispatcher.Dispose();
 		}
 	}
 
@@ -2277,20 +2277,20 @@ namespace ObservableComputationsExample
 		public event PropertyChangedEventHandler PropertyChanged;
 	}
 
-	public class WpfOcDispatcher : IDispatcher
+	public class WpfOcOcDispatcher : IOcDispatcher
 	{
-		private Dispatcher _dispatcher;
+		private OcDispatcher _ocDispatcher;
 
-		public WpfOcDispatcher(Dispatcher dispatcher)
+		public WpfOcOcDispatcher(OcDispatcher ocDispatcher)
 		{
-			_dispatcher = dispatcher;
+			_ocDispatcher = ocDispatcher;
 		}
 
-		#region Implementation of IDispatcher
+		#region Implementation of IOcDispatcher
 
 		public void Invoke(Action action, object context)
 		{
-			_dispatcher.BeginInvoke(action, DispatcherPriority.Background);
+			_ocDispatcher.BeginInvoke(action, OcDispatcherPriority.Background);
 		}
 
 		#endregion
@@ -2298,10 +2298,10 @@ namespace ObservableComputationsExample
 }
 ```
 In this example, we load data from the database in the main thread, but filtering the source collection *Orders* to receive paid orders (*PaidOrders*) is performed in the background thread.
-*ObservableComputations.Dispatcher* class is very similar to the class [System.Windows.Threading.Dispatcher](https://docs.microsoft.com/en-us/dotnet/api/system.windows.threading.dispatcher?view=netcore- 3.1). *ObservableComputations.Dispatcher* class is associated with a single thread. In this thread, you can execute delegates by calling *ObservableComputations.Dispatcher.Invoke* and *ObservableComputations.Dispatcher.BeginInvoke* methods.
-The *CollectionDispatching* method redirects all changes of the source collection to the target dispatcher thread (*distinationDispatcher* parameter).
-When the *CollectionDispatching* method is called, the source collection is enumerated (*Orders* or *Orders.CollectionDispatching(_ocDispatcher) .Filtering (o => o.Paid)*) and its event is subscribed to [CollectionChanged](https: // docs. microsoft.com/en-us/dotnet/api/system.collections.specialized.inotifycollectionchanged.collectionchanged?view=netcore-3.1). However, the source collection should not be changed. When calling *.CollectionDispatching (_ocDispatcher)*, the collection *Orders* does not change. When calling *.CollectionDispatching (wpfOcDispatcher, _ocDispatcher)* collection *Orders.CollectionDispatching (_ocDispatcher) .Filtering (o => o.Paid)* may change in the *_ocDispatcher* thread, but since we pass *_ocDispatcher* to the *sourceDispatcher* parameter, then the enumeration of the collection of the source and subscription to its  [CollectionChanged](https://docs.microsoft.com/en-us/dotnet/api/system.collections.specialized.inotifycollectionchanged.collectionchanged?view=netcore-3.1) event occurs in the thread of *_ocDispatcher*, which guarantees that there are no changes to the source collection during enumeration. Since when calling *.CollectionDispatching(_ocDispatcher)*, the *Orders* collection does not change, then passing *wpfOcDispatcher* to the *sourceDispatcher* parameter makes no sense, especially since at the time of calling *.CollectionDispatching (_ocDispatcher)* we are in the thread of *wpfOcDispatcher*. In most cases, unnecessarily passing the *sourceDispatcher* parameter will not result in a loss of workability, unless performance is slightly affected.
-Note the need to call *_ocDispatcher.Dispose ()*.
+*ObservableComputations.OcDispatcher* class is very similar to the class [System.Windows.Threading.OcDispatcher](https://docs.microsoft.com/en-us/dotnet/api/system.windows.threading.ocDispatcher?view=netcore- 3.1). *ObservableComputations.OcDispatcher* class is associated with a single thread. In this thread, you can execute delegates by calling *ObservableComputations.OcDispatcher.Invoke* and *ObservableComputations.OcDispatcher.BeginInvoke* methods.
+The *CollectionDispatching* method redirects all changes of the source collection to the target ocDispatcher thread (*distinationOcDispatcher* parameter).
+When the *CollectionDispatching* method is called, the source collection is enumerated (*Orders* or *Orders.CollectionDispatching(_ocOcDispatcher) .Filtering (o => o.Paid)*) and its event is subscribed to [CollectionChanged](https: // docs. microsoft.com/en-us/dotnet/api/system.collections.specialized.inotifycollectionchanged.collectionchanged?view=netcore-3.1). However, the source collection should not be changed. When calling *.CollectionDispatching (_ocOcDispatcher)*, the collection *Orders* does not change. When calling *.CollectionDispatching (wpfOcOcDispatcher, _ocOcDispatcher)* collection *Orders.CollectionDispatching (_ocOcDispatcher) .Filtering (o => o.Paid)* may change in the *_ocOcDispatcher* thread, but since we pass *_ocOcDispatcher* to the *sourceOcDispatcher* parameter, then the enumeration of the collection of the source and subscription to its  [CollectionChanged](https://docs.microsoft.com/en-us/dotnet/api/system.collections.specialized.inotifycollectionchanged.collectionchanged?view=netcore-3.1) event occurs in the thread of *_ocOcDispatcher*, which guarantees that there are no changes to the source collection during enumeration. Since when calling *.CollectionDispatching(_ocOcDispatcher)*, the *Orders* collection does not change, then passing *wpfOcOcDispatcher* to the *sourceOcDispatcher* parameter makes no sense, especially since at the time of calling *.CollectionDispatching (_ocOcDispatcher)* we are in the thread of *wpfOcOcDispatcher*. In most cases, unnecessarily passing the *sourceOcDispatcher* parameter will not result in a loss of workability, unless performance is slightly affected.
+Note the need to call *_ocOcDispatcher.Dispose ()*.
 The above example is not the only design option. Here is another option (XAML is the same as in the previous example):
  ```csharp
 using System;
@@ -2311,7 +2311,7 @@ using System.Threading;
 using System.Windows;
 using System.Windows.Threading;
 using ObservableComputations;
-using Dispatcher = System.Windows.Threading.Dispatcher;
+using OcDispatcher = System.Windows.Threading.OcDispatcher;
 
 namespace ObservableComputationsExample
 {
@@ -2321,14 +2321,14 @@ namespace ObservableComputationsExample
 		public ObservableCollection<Order> PaidOrders { get; }
 		public ObservableCollection<Order> UnpaidOrders { get; }
 
-		WpfOcDispatcher _wpfOcDispatcher;
+		WpfOcOcDispatcher _wpfOcOcDispatcher;
 		
-		// Dispatcher for computations in the background thread
-		ObservableComputations.Dispatcher _ocDispatcher = new ObservableComputations.Dispatcher();
+		// OcDispatcher for computations in the background thread
+		ObservableComputations.OcDispatcher _ocOcDispatcher = new ObservableComputations.OcDispatcher();
 
 		public MainWindow()
 		{
-			_wpfOcDispatcher = new WpfOcDispatcher(this.Dispatcher);
+			_wpfOcOcDispatcher = new WpfOcOcDispatcher(this.OcDispatcher);
 			
 			Orders = new ObservableCollection<Order>();
 
@@ -2337,12 +2337,12 @@ namespace ObservableComputationsExample
 			PaidOrders = 
 				Orders
 				.Filtering(o => o.Paid)
-				.CollectionDispatching(_wpfOcDispatcher, _ocDispatcher); // return the computation to the main thread from the background one
+				.CollectionDispatching(_wpfOcOcDispatcher, _ocOcDispatcher); // return the computation to the main thread from the background one
 
 			UnpaidOrders = 
 				Orders
 				.Filtering(o => !o.Paid)
-				.CollectionDispatching(_wpfOcDispatcher, _ocDispatcher); // return the computation to the main thread from the background one
+				.CollectionDispatching(_wpfOcOcDispatcher, _ocOcDispatcher); // return the computation to the main thread from the background one
 
 			InitializeComponent();
 		}
@@ -2357,12 +2357,12 @@ namespace ObservableComputationsExample
 				{
 					Order order = new Order(i);
 					order.Paid = Convert.ToBoolean(random.Next(0, 3));
-					_ocDispatcher.Invoke(() => Orders.Add(order));
+					_ocOcDispatcher.Invoke(() => Orders.Add(order));
 				}
 
-				this.Dispatcher.Invoke(
+				this.OcDispatcher.Invoke(
 					() => uc_LoadingIndicator.Visibility = Visibility.Hidden, 
-					DispatcherPriority.Background);
+					OcDispatcherPriority.Background);
 			});
 
 			thread.Start();
@@ -2370,7 +2370,7 @@ namespace ObservableComputationsExample
 
 		private void mainWindow_OnClosed(object sender, EventArgs e)
 		{
-			_ocDispatcher.Dispose();
+			_ocOcDispatcher.Dispose();
 		}		
 	}
 
@@ -2397,20 +2397,20 @@ namespace ObservableComputationsExample
 		public event PropertyChangedEventHandler PropertyChanged;
 	}
 
-	public class WpfOcDispatcher : IDispatcher
+	public class WpfOcOcDispatcher : IOcDispatcher
 	{
-		private Dispatcher _dispatcher;
+		private OcDispatcher _ocDispatcher;
 
-		public WpfOcDispatcher(Dispatcher dispatcher)
+		public WpfOcOcDispatcher(OcDispatcher ocDispatcher)
 		{
-			_dispatcher = dispatcher;
+			_ocDispatcher = ocDispatcher;
 		}
 
-		#region Implementation of IDispatcher
+		#region Implementation of IOcDispatcher
 
 		public void Invoke(Action action, object context)
 		{
-			_dispatcher.BeginInvoke(action, DispatcherPriority.Background);
+			_ocDispatcher.BeginInvoke(action, OcDispatcherPriority.Background);
 		}
 
 		#endregion
@@ -2488,7 +2488,7 @@ using System.Threading;
 using System.Windows;
 using System.Windows.Threading;
 using ObservableComputations;
-using Dispatcher = System.Windows.Threading.Dispatcher;
+using OcDispatcher = System.Windows.Threading.OcDispatcher;
 
 namespace ObservableComputationsExample
 {
@@ -2498,23 +2498,23 @@ namespace ObservableComputationsExample
 		public ObservableCollection<Order> PaidOrders { get; }
 		public ObservableCollection<Order> UnpaidOrders { get; }
 
-		WpfOcDispatcher _wpfOcDispatcher;
+		WpfOcOcDispatcher _wpfOcOcDispatcher;
 
 		public MainWindow()
 		{
-			_wpfOcDispatcher = new WpfOcDispatcher(this.Dispatcher);
+			_wpfOcOcDispatcher = new WpfOcOcDispatcher(this.OcDispatcher);
 			
 			Orders = new ObservableCollection<Order>();
 
 			PaidOrders = 
 				Orders
 				.Filtering(o => o.Paid)
-				.CollectionDispatching(_wpfOcDispatcher); // direct the computation to the main thread
+				.CollectionDispatching(_wpfOcOcDispatcher); // direct the computation to the main thread
 
 			UnpaidOrders = 
 				Orders
 				.Filtering(o => !o.Paid)
-				.CollectionDispatching(_wpfOcDispatcher); // direct the computation to the main thread
+				.CollectionDispatching(_wpfOcOcDispatcher); // direct the computation to the main thread
 
 			InitializeComponent();
 
@@ -2534,9 +2534,9 @@ namespace ObservableComputationsExample
 					Orders.Add(order);
 				}
 
-				this.Dispatcher.Invoke(
+				this.OcDispatcher.Invoke(
 					() => uc_LoadingIndicator.Visibility = Visibility.Hidden, 
-					DispatcherPriority.Background);
+					OcDispatcherPriority.Background);
 			});
 
 			thread.Start();
@@ -2566,20 +2566,20 @@ namespace ObservableComputationsExample
 		public event PropertyChangedEventHandler PropertyChanged;
 	}
 
-	public class WpfOcDispatcher : IDispatcher
+	public class WpfOcOcDispatcher : IOcDispatcher
 	{
-		private Dispatcher _dispatcher;
+		private OcDispatcher _ocDispatcher;
 
-		public WpfOcDispatcher(Dispatcher dispatcher)
+		public WpfOcOcDispatcher(OcDispatcher ocDispatcher)
 		{
-			_dispatcher = dispatcher;
+			_ocDispatcher = ocDispatcher;
 		}
 
-		#region Implementation of IDispatcher
+		#region Implementation of IOcDispatcher
 
 		public void Invoke(Action action, object context)
 		{
-			_dispatcher.BeginInvoke(action, DispatcherPriority.Background);
+			_ocDispatcher.BeginInvoke(action, OcDispatcherPriority.Background);
 		}
 
 		#endregion
@@ -2662,7 +2662,7 @@ using System.Windows;
 using System.Windows.Input;
 using System.Windows.Threading;
 using ObservableComputations;
-using Dispatcher = System.Windows.Threading.Dispatcher;
+using OcDispatcher = System.Windows.Threading.OcDispatcher;
 
 namespace ObservableComputationsExample
 {
@@ -2672,23 +2672,23 @@ namespace ObservableComputationsExample
 		public ObservableCollection<Order> PaidOrders { get; }
 		public ObservableCollection<Order> UnpaidOrders { get; }
 
-		// Dispatcher for computations in the background thread
-		ObservableComputations.Dispatcher _ocDispatcher = new ObservableComputations.Dispatcher();
+		// OcDispatcher for computations in the background thread
+		ObservableComputations.OcDispatcher _ocOcDispatcher = new ObservableComputations.OcDispatcher();
 		
-		WpfOcDispatcher _wpfOcDispatcher;
+		WpfOcOcDispatcher _wpfOcOcDispatcher;
 
 		public MainWindow()
 		{
-			_wpfOcDispatcher = new WpfOcDispatcher(this.Dispatcher);
+			_wpfOcOcDispatcher = new WpfOcOcDispatcher(this.OcDispatcher);
 			
 			Orders = new ObservableCollection<Order>();
 			
 			fillOrdersFromDb();			
 
 			PaidOrders = 
-				Orders.CollectionDispatching(_ocDispatcher) // direct the computation to the background thread
+				Orders.CollectionDispatching(_ocOcDispatcher) // direct the computation to the background thread
 				.Filtering(o => o.PaidPropertyDispatching.Value)
-				.CollectionDispatching(_wpfOcDispatcher); // return the computation to the main thread
+				.CollectionDispatching(_wpfOcOcDispatcher); // return the computation to the main thread
 
 			UnpaidOrders = Orders.Filtering(o => !o.Paid);
 
@@ -2703,14 +2703,14 @@ namespace ObservableComputationsExample
 				Random random = new Random();
 				for (int i = 0; i < 5000; i++)
 				{
-					Order order = new Order(i, _ocDispatcher, _wpfOcDispatcher);
+					Order order = new Order(i, _ocOcDispatcher, _wpfOcOcDispatcher);
 					order.Paid = Convert.ToBoolean(random.Next(0, 3));
-					this.Dispatcher.Invoke(() => Orders.Add(order), DispatcherPriority.Background);
+					this.OcDispatcher.Invoke(() => Orders.Add(order), OcDispatcherPriority.Background);
 				}
 
-				this.Dispatcher.Invoke(
+				this.OcDispatcher.Invoke(
 					() => uc_LoadingIndicator.Visibility = Visibility.Hidden, 
-					DispatcherPriority.Background);
+					OcDispatcherPriority.Background);
 			});
 
 			thread.Start();
@@ -2723,16 +2723,16 @@ namespace ObservableComputationsExample
 
 		private void mainWindow_OnClosed(object sender, EventArgs e)
 		{
-			_ocDispatcher.Dispose();
+			_ocOcDispatcher.Dispose();
 		}
 	}
 
 	public class Order : INotifyPropertyChanged
 	{
-		public Order(int num, IDispatcher backgroundDispatcher, IDispatcher wpfDispatcher)
+		public Order(int num, IOcDispatcher backgroundOcDispatcher, IOcDispatcher wpfOcDispatcher)
 		{
 			Num = num;
-			PaidPropertyDispatching = new PropertyDispatching<Order, bool>(() => Paid, backgroundDispatcher, wpfDispatcher);
+			PaidPropertyDispatching = new PropertyDispatching<Order, bool>(() => Paid, backgroundOcDispatcher, wpfOcDispatcher);
 
 		}
 
@@ -2754,27 +2754,27 @@ namespace ObservableComputationsExample
 		public event PropertyChangedEventHandler PropertyChanged;
 	}
 
-	public class WpfOcDispatcher : IDispatcher
+	public class WpfOcOcDispatcher : IOcDispatcher
 	{
-		private Dispatcher _dispatcher;
+		private OcDispatcher _ocDispatcher;
 
-		public WpfOcDispatcher(Dispatcher dispatcher)
+		public WpfOcOcDispatcher(OcDispatcher ocDispatcher)
 		{
-			_dispatcher = dispatcher;
+			_ocDispatcher = ocDispatcher;
 		}
 
-		#region Implementation of IDispatcher
+		#region Implementation of IOcDispatcher
 
 		public void Invoke(Action action, object context)
 		{
-			_dispatcher.BeginInvoke(action, DispatcherPriority.Background);
+			_ocDispatcher.BeginInvoke(action, OcDispatcherPriority.Background);
 		}
 
 		#endregion
 	}
 }
 ```
-In this example, when we double-click on an unpaid order, we make it paid. Since the *Paid* property in this case changes in the main thread, we cannot read it in the background thread of *_ocDispatcher*. In order to read this property in the background thread of *_ocDispatcher*, it is necessary to dispatch changes of that property into that thread. This is done using the  *PropertyDispatching&lt;THolder, TResult&gt;* class. Similar to the *CollectionDispatching* method, the constructor of the *PropertyDispatching&lt;THolder, TResult&gt;* class has the required parameter *destinationDispatcher* and the optional parameter *sourceDispatcher*. The difference is that instead of enumerating the source collection and subscribing to the [CollectionChanged](https://docs.microsoft.com/en-us/dotnet/api/system.collections.specialized.inotifycollectionchanged.collectionchanged?view=netcore- 3.1) event, the property value is read and the [PropertyChanged](https://docs.microsoft.com/en-us/dotnet/api/system.componentmodel.inotifypropertychanged.propertychanged?view=netcore-3.1) event is subscribed. Another difference is that the value passed to the *sourceDispatcher* parameter is used to dispatch the property value change (setter of *PropertyDispatching&lt;THolder, TResult&gt;.Value*) to the *sourceDispatcher* thread, if this change is made in another thread.
+In this example, when we double-click on an unpaid order, we make it paid. Since the *Paid* property in this case changes in the main thread, we cannot read it in the background thread of *_ocOcDispatcher*. In order to read this property in the background thread of *_ocOcDispatcher*, it is necessary to dispatch changes of that property into that thread. This is done using the  *PropertyDispatching&lt;THolder, TResult&gt;* class. Similar to the *CollectionDispatching* method, the constructor of the *PropertyDispatching&lt;THolder, TResult&gt;* class has the required parameter *destinationOcDispatcher* and the optional parameter *sourceOcDispatcher*. The difference is that instead of enumerating the source collection and subscribing to the [CollectionChanged](https://docs.microsoft.com/en-us/dotnet/api/system.collections.specialized.inotifycollectionchanged.collectionchanged?view=netcore- 3.1) event, the property value is read and the [PropertyChanged](https://docs.microsoft.com/en-us/dotnet/api/system.componentmodel.inotifypropertychanged.propertychanged?view=netcore-3.1) event is subscribed. Another difference is that the value passed to the *sourceOcDispatcher* parameter is used to dispatch the property value change (setter of *PropertyDispatching&lt;THolder, TResult&gt;.Value*) to the *sourceOcDispatcher* thread, if this change is made in another thread.
 The above example is not the only design option. Here is another option (XAML has not changed):  
 ```csharp
 using System;
@@ -2785,7 +2785,7 @@ using System.Windows;
 using System.Windows.Input;
 using System.Windows.Threading;
 using ObservableComputations;
-using Dispatcher = System.Windows.Threading.Dispatcher;
+using OcDispatcher = System.Windows.Threading.OcDispatcher;
 
 namespace ObservableComputationsExample
 {
@@ -2795,14 +2795,14 @@ namespace ObservableComputationsExample
 		public ObservableCollection<Order> PaidOrders { get; }
 		public ObservableCollection<Order> UnpaidOrders { get; }
 
-		// Dispatcher for computations in the background thread
-		ObservableComputations.Dispatcher _ocDispatcher = new ObservableComputations.Dispatcher();
+		// OcDispatcher for computations in the background thread
+		ObservableComputations.OcDispatcher _ocOcDispatcher = new ObservableComputations.OcDispatcher();
 		
-		WpfOcDispatcher _wpfOcDispatcher;
+		WpfOcOcDispatcher _wpfOcOcDispatcher;
 
 		public MainWindow()
 		{
-			_wpfOcDispatcher = new WpfOcDispatcher(this.Dispatcher);
+			_wpfOcOcDispatcher = new WpfOcOcDispatcher(this.OcDispatcher);
 			
 			Orders = new ObservableCollection<Order>();
 			
@@ -2811,12 +2811,12 @@ namespace ObservableComputationsExample
 			PaidOrders = 
 				Orders
 				.Filtering(o => o.PaidPropertyDispatching.Value)
-				.CollectionDispatching(_wpfOcDispatcher, _ocDispatcher); // direct the computation to the main thread from the background one
+				.CollectionDispatching(_wpfOcOcDispatcher, _ocOcDispatcher); // direct the computation to the main thread from the background one
 
 			UnpaidOrders = 
 				Orders
 				.Filtering(o => !o.PaidPropertyDispatching.Value)
-				.CollectionDispatching(_wpfOcDispatcher, _ocDispatcher); // direct the computation to the main thread from the background one
+				.CollectionDispatching(_wpfOcOcDispatcher, _ocOcDispatcher); // direct the computation to the main thread from the background one
 
 			InitializeComponent();
 		}
@@ -2829,14 +2829,14 @@ namespace ObservableComputationsExample
 				Random random = new Random();
 				for (int i = 0; i < 5000; i++)
 				{
-					Order order = new Order(i, _ocDispatcher, _wpfOcDispatcher);
+					Order order = new Order(i, _ocOcDispatcher, _wpfOcOcDispatcher);
 					order.Paid = Convert.ToBoolean(random.Next(0, 3));
-					_ocDispatcher.Invoke(() => Orders.Add(order));
+					_ocOcDispatcher.Invoke(() => Orders.Add(order));
 				}
 
-				this.Dispatcher.Invoke(
+				this.OcDispatcher.Invoke(
 					() => uc_LoadingIndicator.Visibility = Visibility.Hidden, 
-					DispatcherPriority.Background);
+					OcDispatcherPriority.Background);
 			});
 
 			thread.Start();
@@ -2849,16 +2849,16 @@ namespace ObservableComputationsExample
 
 		private void mainWindow_OnClosed(object sender, EventArgs e)
 		{
-			_ocDispatcher.Dispose();
+			_ocOcDispatcher.Dispose();
 		}
 	}
 
 	public class Order : INotifyPropertyChanged
 	{
-		public Order(int num, IDispatcher backgroundDispatcher, IDispatcher wpfDispatcher)
+		public Order(int num, IOcDispatcher backgroundOcDispatcher, IOcDispatcher wpfOcDispatcher)
 		{
 			Num = num;
-			PaidPropertyDispatching = new PropertyDispatching<Order, bool>(() => Paid, backgroundDispatcher, wpfDispatcher);
+			PaidPropertyDispatching = new PropertyDispatching<Order, bool>(() => Paid, backgroundOcDispatcher, wpfOcDispatcher);
 
 		}
 
@@ -2880,20 +2880,20 @@ namespace ObservableComputationsExample
 		public event PropertyChangedEventHandler PropertyChanged;
 	}
 
-	public class WpfOcDispatcher : IDispatcher
+	public class WpfOcOcDispatcher : IOcDispatcher
 	{
-		private Dispatcher _dispatcher;
+		private OcDispatcher _ocDispatcher;
 
-		public WpfOcDispatcher(Dispatcher dispatcher)
+		public WpfOcOcDispatcher(OcDispatcher ocDispatcher)
 		{
-			_dispatcher = dispatcher;
+			_ocDispatcher = ocDispatcher;
 		}
 
-		#region Implementation of IDispatcher
+		#region Implementation of IOcDispatcher
 
 		public void Invoke(Action action, object context)
 		{
-			_dispatcher.Invoke(action, DispatcherPriority.Background);
+			_ocDispatcher.Invoke(action, OcDispatcherPriority.Background);
 		}
 
 		#endregion
@@ -2911,7 +2911,7 @@ using System.Windows;
 using System.Windows.Input;
 using System.Windows.Threading;
 using ObservableComputations;
-using Dispatcher = System.Windows.Threading.Dispatcher;
+using OcDispatcher = System.Windows.Threading.OcDispatcher;
 
 namespace ObservableComputationsExample
 {
@@ -2921,26 +2921,26 @@ namespace ObservableComputationsExample
 		public ObservableCollection<Order> PaidOrders { get; }
 		public ObservableCollection<Order> UnpaidOrders { get; }
 
-		// Dispatcher for computations in the background thread
-		ObservableComputations.Dispatcher _ocDispatcher = new ObservableComputations.Dispatcher();
+		// OcDispatcher for computations in the background thread
+		ObservableComputations.OcDispatcher _ocOcDispatcher = new ObservableComputations.OcDispatcher();
 		
-		WpfOcDispatcher _wpfOcDispatcher;
+		WpfOcOcDispatcher _wpfOcOcDispatcher;
 
 		public MainWindow()
 		{
-			_wpfOcDispatcher = new WpfOcDispatcher(this.Dispatcher);
+			_wpfOcOcDispatcher = new WpfOcOcDispatcher(this.OcDispatcher);
 			
 			Orders = new ObservableCollection<Order>();
 
 			PaidOrders = 
 				Orders
 				.Filtering(o => o.PaidPropertyDispatching.Value)
-				.CollectionDispatching(_wpfOcDispatcher); // direct the computation to the main thread
+				.CollectionDispatching(_wpfOcOcDispatcher); // direct the computation to the main thread
 
 			UnpaidOrders = 
 				Orders
 				.Filtering(o => !o.PaidPropertyDispatching.Value)
-				.CollectionDispatching(_wpfOcDispatcher); // direct the computation to the main thread
+				.CollectionDispatching(_wpfOcOcDispatcher); // direct the computation to the main thread
 
 			InitializeComponent();
 
@@ -2955,14 +2955,14 @@ namespace ObservableComputationsExample
 				Random random = new Random();
 				for (int i = 0; i < 5000; i++)
 				{
-					Order order = new Order(i, _ocDispatcher, _wpfOcDispatcher);
+					Order order = new Order(i, _ocOcDispatcher, _wpfOcOcDispatcher);
 					order.Paid = Convert.ToBoolean(random.Next(0, 3));
-					_ocDispatcher.Invoke(() => Orders.Add(order));
+					_ocOcDispatcher.Invoke(() => Orders.Add(order));
 				}
 
-				this.Dispatcher.Invoke(
+				this.OcDispatcher.Invoke(
 					() => uc_LoadingIndicator.Visibility = Visibility.Hidden, 
-					DispatcherPriority.Background);
+					OcDispatcherPriority.Background);
 			});
 
 			thread.Start();
@@ -2975,16 +2975,16 @@ namespace ObservableComputationsExample
 
 		private void mainWindow_OnClosed(object sender, EventArgs e)
 		{
-			_ocDispatcher.Dispose();
+			_ocOcDispatcher.Dispose();
 		}
 	}
 
 	public class Order : INotifyPropertyChanged
 	{
-		public Order(int num, IDispatcher backgroundDispatcher, IDispatcher wpfDispatcher)
+		public Order(int num, IOcDispatcher backgroundOcDispatcher, IOcDispatcher wpfOcDispatcher)
 		{
 			Num = num;
-			PaidPropertyDispatching = new PropertyDispatching<Order, bool>(() => Paid, backgroundDispatcher, wpfDispatcher);
+			PaidPropertyDispatching = new PropertyDispatching<Order, bool>(() => Paid, backgroundOcDispatcher, wpfOcDispatcher);
 
 		}
 
@@ -3006,20 +3006,20 @@ namespace ObservableComputationsExample
 		public event PropertyChangedEventHandler PropertyChanged;
 	}
 
-	public class WpfOcDispatcher : IDispatcher
+	public class WpfOcOcDispatcher : IOcDispatcher
 	{
-		private Dispatcher _dispatcher;
+		private OcDispatcher _ocDispatcher;
 
-		public WpfOcDispatcher(Dispatcher dispatcher)
+		public WpfOcOcDispatcher(OcDispatcher ocDispatcher)
 		{
-			_dispatcher = dispatcher;
+			_ocDispatcher = ocDispatcher;
 		}
 
-		#region Implementation of IDispatcher
+		#region Implementation of IOcDispatcher
 
 		public void Invoke(Action action, object context)
 		{
-			_dispatcher.Invoke(action, DispatcherPriority.Background);
+			_ocDispatcher.Invoke(action, OcDispatcherPriority.Background);
 		}
 
 		#endregion
@@ -3033,59 +3033,59 @@ namespace ObservableComputationsExample
 ### Parallel computations in background threads
 In the previous examples, we saw how the computation is performed in one background thread. Using the dispatch methods described above, it is possible to organize computations in several background threads, the results of which are concurrently combined in another thread (main or background).
 
-### Using the *Dispatcher* class
-The class *Dispatcher* has methods that you can call if necessary
-* *Invoke* and *BeginInvoke* - for synchronous and asynchronous execution of a delegate in the thread of an instance of *Dispatcher* class, for example, for changing the source data for computations performed in the thread of an instance of *Dispatcher* class. After calling *Dispose* method, these methods return control without executing the delegate passed and without throwing an exception.
+### Using the *OcDispatcher* class
+The class *OcDispatcher* has methods that you can call if necessary
+* *Invoke* and *BeginInvoke* - for synchronous and asynchronous execution of a delegate in the thread of an instance of *OcDispatcher* class, for example, for changing the source data for computations performed in the thread of an instance of *OcDispatcher* class. After calling *Dispose* method, these methods return control without executing the delegate passed and without throwing an exception.
 * *DoOthers* - if the delegate passed to the *Invoke* or *BeginInvoke* methods takes a long time, when *DoOthers* is called, other delegates are called. It is possible to set the maximum number of delegates that should be executed or the approximate maximum time for their execution.
 
-### Variants of the implementation of the IDispatcher interface and other similar interfaces
-So far, we have used a very simple implementation of the *IDispatcher* interface. For example, this:
+### Variants of the implementation of the IOcDispatcher interface and other similar interfaces
+So far, we have used a very simple implementation of the *IOcDispatcher* interface. For example, this:
 ```csharp
-public class WpfOcDispatcher : IDispatcher
+public class WpfOcOcDispatcher : IOcDispatcher
 {
-   private Dispatcher _dispatcher;
+   private OcDispatcher _ocDispatcher;
 
-   public WpfOcDispatcher(System.Windows.Threading.Dispatcher dispatcher)
+   public WpfOcOcDispatcher(System.Windows.Threading.OcDispatcher ocDispatcher)
    {
-      _dispatcher = dispatcher;
+      _ocDispatcher = ocDispatcher;
    }
 
-   #region Implementation of IDispatcher
+   #region Implementation of IOcDispatcher
 
    public void Invoke(Action action, object context)
    {
-      _dispatcher.Invoke(action, DispatcherPriority.Background);
+      _ocDispatcher.Invoke(action, OcDispatcherPriority.Background);
    }
 
    #endregion
 }
 ```
-In this implementation, the [System.Windows.Threading.Dispatcher.Invoke](https://docs.microsoft.com/en-us/dotnet/api/system.windows.threading.dispatcher.invoke?view=netcore-3.1) method is called. In other implementations, we called [System.Windows.Threading.Dispatcher.BeginInvoke]([System.Windows.Threading.Dispatcher.Invoke](https://docs.microsoft.com/en-us/dotnet/api/system.windows.threading.dispatcher.invoke?view=netcore-3.1)). The implementation options are not limited to this, for example, you can use an implementation that will buffer a collection changes using [Reactive Extensions](https://github.com/dotnet/reactive):
+In this implementation, the [System.Windows.Threading.OcDispatcher.Invoke](https://docs.microsoft.com/en-us/dotnet/api/system.windows.threading.ocDispatcher.invoke?view=netcore-3.1) method is called. In other implementations, we called [System.Windows.Threading.OcDispatcher.BeginInvoke]([System.Windows.Threading.OcDispatcher.Invoke](https://docs.microsoft.com/en-us/dotnet/api/system.windows.threading.ocDispatcher.invoke?view=netcore-3.1)). The implementation options are not limited to this, for example, you can use an implementation that will buffer a collection changes using [Reactive Extensions](https://github.com/dotnet/reactive):
 ```csharp
-public class WpfOcDispatcher : IDispatcher, IDisposable
+public class WpfOcOcDispatcher : IOcDispatcher, IDisposable
 {
 	Subject<Action> _actions;
 
-	private System.Windows.Dispatcher _dispatcher;
+	private System.Windows.OcDispatcher _ocDispatcher;
 
-	public WpfOcDispatcher(System.Windows.Dispatcher dispatcher)
+	public WpfOcOcDispatcher(System.Windows.OcDispatcher ocDispatcher)
 	{
-		_dispatcher = dispatcher;
+		_ocDispatcher = ocDispatcher;
 
 		_actions = new Subject<Action>();
 		_actions.Buffer(TimeSpan.FromMilliseconds(300)).Subscribe(actions =>
 		{
-			_dispatcher.Invoke(() =>
+			_ocDispatcher.Invoke(() =>
 			{
 				for (var index = 0; index < actions.Count; index++)
 				{
 					actions[index]();
 				}
-			}, DispatcherPriority.Background);
+			}, OcDispatcherPriority.Background);
 		});
 	}
 
-	#region Implementation of IDispatcher
+	#region Implementation of IOcDispatcher
 
 	public void Invoke(Action action, object context)
 	{
@@ -3105,26 +3105,26 @@ public class WpfOcDispatcher : IDispatcher, IDisposable
 }
 ```
 
-When dispatching properties (*PropertyDispatching*) and *IReadScalar&lt;TValue&gt;* (*ScalarDispatching*), ThrottlingDispatcher can be useful:
+When dispatching properties (*PropertyDispatching*) and *IReadScalar&lt;TValue&gt;* (*ScalarDispatching*), ThrottlingOcDispatcher can be useful:
 ```csharp
-public class ThrottlingDispatcher : IDispatcher, IDisposable
+public class ThrottlingOcDispatcher : IOcDispatcher, IDisposable
 {
 	Subject<Action> _actions;
 
-	private System.Windows.Dispatcher _dispatcher;
+	private System.Windows.OcDispatcher _ocDispatcher;
 
-	public WpfOcDispatcher(System.Windows.Dispatcher dispatcher)
+	public WpfOcOcDispatcher(System.Windows.OcDispatcher ocDispatcher)
 	{
-		_dispatcher = dispatcher;
+		_ocDispatcher = ocDispatcher;
 
 		_actions = new Subject<Action>();
 		_actions.Throttle(TimeSpan.FromMilliseconds(300)).Subscribe(action =>
 		{
-			_dispatcher.Invoke(action, DispatcherPriority.Background);
+			_ocDispatcher.Invoke(action, OcDispatcherPriority.Background);
 		});
 	}
 
-	#region Implementation of IDispatcher
+	#region Implementation of IOcDispatcher
 
 	public void Invoke(Action action, object context)
 	{
@@ -3144,10 +3144,10 @@ public class ThrottlingDispatcher : IDispatcher, IDisposable
 }
 ```
 
-It may be necessary to implement depending on what changes are made by the *action* delegate passed to the *Invoke* method. To do this, you can analyze the *context* parameter passed to the *IDispatcher.Invoke* method or use the following interfaces instead of *IDispatcher* interface:
+It may be necessary to implement depending on what changes are made by the *action* delegate passed to the *Invoke* method. To do this, you can analyze the *context* parameter passed to the *IOcDispatcher.Invoke* method or use the following interfaces instead of *IOcDispatcher* interface:
 
 ```csharp
-	public interface ICollectionDestinationDispatcher
+	public interface ICollectionDestinationOcDispatcher
 	{
 		void Invoke(
 			Action action, 
@@ -3159,7 +3159,7 @@ It may be necessary to implement depending on what changes are made by the *acti
 			int oldIndex);
 	}
 
-	public interface IPropertySourceDispatcher
+	public interface IPropertySourceOcDispatcher
 	{
 		/// <summary>
 		/// 
@@ -3191,14 +3191,14 @@ namespace ObservableComputationsExamples
 {
 	class Program
 	{
-		static ObservableComputations.Dispatcher _backgroundDispatcher = new ObservableComputations.Dispatcher();
+		static ObservableComputations.OcDispatcher _backgroundOcDispatcher = new ObservableComputations.OcDispatcher();
 		
-		static ObservableComputations.Dispatcher _mainDispatcher = new ObservableComputations.Dispatcher();
+		static ObservableComputations.OcDispatcher _mainOcDispatcher = new ObservableComputations.OcDispatcher();
 		static ObservableCollection<Order> Orders;
 
 		static void Main(string[] args)
 		{
-			_mainDispatcher.Invoke(() =>
+			_mainOcDispatcher.Invoke(() =>
 			{
 				ObservableCollection<Order> paidOrders;
 				ObservableCollection<Order> unpaidOrders;
@@ -3206,10 +3206,10 @@ namespace ObservableComputationsExamples
 				Orders = new ObservableCollection<Order>();
 
 				paidOrders =
-					Orders.CollectionDispatching(_backgroundDispatcher)  // direct the computation to the background thread
+					Orders.CollectionDispatching(_backgroundOcDispatcher)  // direct the computation to the background thread
 					.Filtering(o => o.PaidPropertyDispatching.Value)
-					.CollectionDispatching(_mainDispatcher,
-						_backgroundDispatcher); // return the computation to the main thread from the background one
+					.CollectionDispatching(_mainOcDispatcher,
+						_backgroundOcDispatcher); // return the computation to the main thread from the background one
 
 				unpaidOrders = Orders.Filtering(o => !o.Paid);
 
@@ -3237,9 +3237,9 @@ namespace ObservableComputationsExamples
 				Random random = new Random();
 				for (int i = 0; i < 5000; i++)
 				{
-					Order order = new Order(i, _backgroundDispatcher, _mainDispatcher);
+					Order order = new Order(i, _backgroundOcDispatcher, _mainOcDispatcher);
 					order.Paid = Convert.ToBoolean(random.Next(0, 3));
-					_mainDispatcher.Invoke(() => Orders.Add(order));
+					_mainOcDispatcher.Invoke(() => Orders.Add(order));
 				}
 			});
 
@@ -3249,10 +3249,10 @@ namespace ObservableComputationsExamples
 
 	public class Order : INotifyPropertyChanged
 	{
-		public Order(int num, IDispatcher backgroundDispatcher, IDispatcher mainDispatcher)
+		public Order(int num, IOcDispatcher backgroundOcDispatcher, IOcDispatcher mainOcDispatcher)
 		{
 			Num = num;
-			PaidPropertyDispatching = new PropertyDispatching<Order, bool>(() => Paid, backgroundDispatcher, mainDispatcher);
+			PaidPropertyDispatching = new PropertyDispatching<Order, bool>(() => Paid, backgroundOcDispatcher, mainOcDispatcher);
 
 		}
 

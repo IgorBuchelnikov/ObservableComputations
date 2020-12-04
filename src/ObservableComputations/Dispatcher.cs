@@ -311,7 +311,7 @@ namespace ObservableComputations
             _disposeManualResetEvent.Wait();
         }
 
-        void IOcDispatcher.Invoke(Action action, int priority, object context)
+        void IOcDispatcher.Invoke(Action action, int priority, object parameter, object context)
         {
             if (!_alive) return;
 

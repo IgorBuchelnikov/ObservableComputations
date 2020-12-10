@@ -27,7 +27,7 @@ namespace ObservableComputations
                 if (_isPausedScalar != null) 
                     throw new ObservableComputationsException("Modifying of IsPaused property is controlled by IsPausedScalar");
 				
-                _resuming = _isPaused != value && value;
+                _resuming = _isPaused != value && !value;
 				_isPaused = value;
 				OnPropertyChanged(Utils.PausedPropertyChangedEventArgs);
 
@@ -178,22 +178,26 @@ namespace ObservableComputations
 		[ObservableComputationsCall]
 		public CollectionPausing(
 			INotifyCollectionChanged source,
-			IReadScalar<bool> isPausedScalar)
+			IReadScalar<bool> isPausedScalar,
+            CollectionPausingResumeType resumeType = CollectionPausingResumeType.Reset)
 		{
 			_isPausedScalar = isPausedScalar;
 			_source = source;
             _thisAsSourceCollectionChangeProcessor = this;
+            _resumeType = resumeType;
 		}
 
 		[ObservableComputationsCall]
 		public CollectionPausing(
 			IReadScalar<INotifyCollectionChanged> sourceScalar,
-			IReadScalar<bool> isPausedScalar)
+			IReadScalar<bool> isPausedScalar,
+            CollectionPausingResumeType resumeType = CollectionPausingResumeType.Reset)
 		{
 			_isPausedScalar = isPausedScalar;
 			_sourceScalar = sourceScalar;
             _thisAsSourceCollectionChangeProcessor = this;
-		}
+            _resumeType = resumeType;
+        }
 
         private void initializeIsPausedScalar()
         {
@@ -207,13 +211,13 @@ namespace ObservableComputations
 		private void handleIsPausedScalarValueChanged(object sender, PropertyChangedEventArgs e)
 		{
 			if (e.PropertyName != nameof(IReadScalar<object>.Value)) return;
-            checkConsistent(sender, e);
+            if (_sourceInitialized) checkConsistent(sender, e);
 
 			_handledEventSender = sender;
 			_handledEventArgs = e;
 
 			bool newValue = _isPausedScalar.Value;
-			_resuming = _isPaused != newValue && newValue;
+			_resuming = _isPaused != newValue && !newValue;
 			_isPaused = newValue;
 
 			if (_resuming) resume();

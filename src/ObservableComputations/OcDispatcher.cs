@@ -25,24 +25,29 @@ namespace ObservableComputations
 		private object _context;
 		private OcDispatcher _ocDispatcher;
         internal InvocationStatus InvocationStatus;
+        internal ManualResetEventSlim _doneManualResetEvent;
 
-		internal Invocation(Action action, OcDispatcher ocDispatcher, InvocationStatus invocationStatus, object context = null) : this()
+		internal Invocation(Action action, OcDispatcher ocDispatcher, InvocationStatus invocationStatus, object context = null, ManualResetEventSlim doneManualResetEvent = null) : this()
 		{
 			_action = action;
 			_ocDispatcher = ocDispatcher;
 			_context = context;
             InvocationStatus = invocationStatus;
+            _doneManualResetEvent = doneManualResetEvent;
 
 			if (Configuration.SaveOcDispatcherInvocationStackTrace)
 				_callStackTrace = Environment.StackTrace;
 		}
 
-		internal Invocation(Action<object> actionWithState, object state, OcDispatcher ocDispatcher, InvocationStatus invocationStatus, IComputing context = null) : this()
+		internal Invocation(Action<object> actionWithState, object state, OcDispatcher ocDispatcher, InvocationStatus invocationStatus, IComputing context = null, ManualResetEventSlim doneManualResetEvent = null) : this()
 		{
 			_actionWithState = actionWithState;
 			_state = state;
 			_ocDispatcher = ocDispatcher;
 			_context = context;
+            InvocationStatus = invocationStatus;
+            _doneManualResetEvent = doneManualResetEvent;
+
 
 			if (Configuration.SaveOcDispatcherInvocationStackTrace)
 				_callStackTrace = Environment.StackTrace;
@@ -69,19 +74,21 @@ namespace ObservableComputations
 				else
 					_actionWithState(_state);
 
-                if (InvocationStatus != null) 
-                    InvocationStatus.Done = true;
-
                 if (nestedInvocation) invocations.Pop();
 				else DebugInfo._executingOcDispatcherInvocations.TryRemove(_ocDispatcher._thread, out _);
-			}
+            }
 			else
 			{
 				if (_action != null)
 					_action();
 				else
 					_actionWithState(_state);				
-			}          
+			}  
+
+            if (InvocationStatus != null) 
+                InvocationStatus.Done = true; 
+            
+            _doneManualResetEvent?.Set();
 		}
 	}
 
@@ -111,7 +118,6 @@ namespace ObservableComputations
     {
         ConcurrentQueue<Invocation>[] _invocationQueues;
         private ManualResetEventSlim _newInvocationManualResetEvent = new ManualResetEventSlim(false);
-        private ManualResetEventSlim _disposedManualResetEvent = new ManualResetEventSlim(false);
         private bool _isAlive = true;
         private bool _isDisposed = false;
         internal Thread _thread;
@@ -135,16 +141,16 @@ namespace ObservableComputations
             }
         }
 
-        private void queueInvocation(Action action, int priority, InvocationStatus invocationStatus = null, object context = null)
+        private void queueInvocation(Action action, int priority, InvocationStatus invocationStatus = null, object context = null, ManualResetEventSlim doneManualResetEvent = null)
         {
-            Invocation invocation = new Invocation(action, this, invocationStatus, context);
+            Invocation invocation = new Invocation(action, this, invocationStatus, context, doneManualResetEvent);
             _invocationQueues[priority].Enqueue(invocation);
             _newInvocationManualResetEvent.Set();
         }
 
-        private void queueInvocation(Action<object> action, int priority, object state, InvocationStatus invocationStatus = null, IComputing computing = null)
+        private void queueInvocation(Action<object> action, int priority, object state, InvocationStatus invocationStatus = null, IComputing computing = null, ManualResetEventSlim doneManualResetEvent = null)
         {
-            Invocation invocation = new Invocation(action, state, this, invocationStatus, computing);
+            Invocation invocation = new Invocation(action, state, this, invocationStatus, computing, doneManualResetEvent);
             _invocationQueues[priority].Enqueue(invocation);
             _newInvocationManualResetEvent.Set();
         }
@@ -163,7 +169,6 @@ namespace ObservableComputations
 
             _thread = new Thread(() =>
             {
-
                 int highestPriority = prioritiesNumber - 1;
                 while (_isAlive)
                 {
@@ -174,11 +179,7 @@ namespace ObservableComputations
                 }
 
                 _isDisposed = true;
-                _disposedManualResetEvent.Set();
-                Thread.Sleep(5000);
                 _newInvocationManualResetEvent.Dispose();
-                _disposedManualResetEvent.Dispose();
-
             });
 
             _thread.SetApartmentState(threadApartmentState);
@@ -207,11 +208,12 @@ namespace ObservableComputations
             }
         }
 
-        private void checkNewInvocationBehaviour()
+        private bool checkNewInvocationBehaviour()
         {
             if (_newInvocationBehaviour == NewInvocationBehaviour.ThrowException)
                 throw new ObservableComputationsException("New invocations is not allowed");
-            
+
+            return _newInvocationBehaviour == NewInvocationBehaviour.Ignore;
         }
 
 
@@ -290,8 +292,12 @@ namespace ObservableComputations
             for (var index = 0; index < _invocationQueues.Length; index++)
             {
                 ConcurrentQueue<Invocation> invocationQueue = _invocationQueues[index];
-                while (invocationQueue.TryDequeue(out _))
+                while (invocationQueue.TryDequeue(out Invocation invocation))
                 {
+                    if (invocation.InvocationStatus != null) 
+                        invocation.InvocationStatus.Done = true;
+
+                    invocation._doneManualResetEvent?.Set();
                 }
             }
         }
@@ -343,24 +349,14 @@ namespace ObservableComputations
 
         void IOcDispatcher.Invoke(Action action, int priority, object parameter, object context)
         {
-            if (_newInvocationBehaviour == NewInvocationBehaviour.Ignore) return;
-            checkNewInvocationBehaviour();
-
-            if (!_isAlive) return;
-
-            if (_thread == Thread.CurrentThread)
-            {
-                action();
-                return;
-            }
+            if (checkNewInvocationBehaviour()) return;
 
             queueInvocation(action, priority, null, context);
         }
 
         public void BeginInvoke(Action action, int priority = 0)
         {
-            if (_newInvocationBehaviour == NewInvocationBehaviour.Ignore) return;
-            checkNewInvocationBehaviour();
+            if (checkNewInvocationBehaviour()) return;
 
             if (_thread == Thread.CurrentThread)
             {
@@ -373,8 +369,7 @@ namespace ObservableComputations
 
         public void BeginInvoke(Action<object> action, object state, int priority = 0)
         {
-            if (_newInvocationBehaviour == NewInvocationBehaviour.Ignore) return;
-            checkNewInvocationBehaviour();
+            if (checkNewInvocationBehaviour()) return;
 
             if (_thread == Thread.CurrentThread)
             {
@@ -387,8 +382,7 @@ namespace ObservableComputations
 
         public void Invoke(Action action, int priority = 0)
         {
-            if (_newInvocationBehaviour == NewInvocationBehaviour.Ignore) return;
-            checkNewInvocationBehaviour();
+            if (checkNewInvocationBehaviour()) return;
 
             if (_thread == Thread.CurrentThread)
             {
@@ -398,25 +392,16 @@ namespace ObservableComputations
                 return;
             }
 
-            ManualResetEvent manualResetEvent = new ManualResetEvent(false);
+            ManualResetEventSlim manualResetEvent = new ManualResetEventSlim(false);
 
-            Action actionWithManualResetEvent = () =>
-            {
-                action();
-                // ReSharper disable once AccessToDisposedClosure
-                manualResetEvent.Set();
-            };
-
-            queueInvocation(actionWithManualResetEvent, priority);
-            manualResetEvent.WaitOne();
+            queueInvocation(action, priority, doneManualResetEvent: manualResetEvent);
+            manualResetEvent.Wait();
             manualResetEvent.Dispose();
-
         }
 
         public void Invoke(Action<object> action, object state, int priority = 0)
         {
-            if (_newInvocationBehaviour == NewInvocationBehaviour.Ignore) return;
-            checkNewInvocationBehaviour();
+            if (checkNewInvocationBehaviour()) return;
 
             if (_thread == Thread.CurrentThread)
             {
@@ -426,17 +411,10 @@ namespace ObservableComputations
                 return;
             }
 
-            ManualResetEvent manualResetEvent = new ManualResetEvent(false);
+            ManualResetEventSlim manualResetEvent = new ManualResetEventSlim(false);
 
-            Action<object> actionWithManualResetEvent = s =>
-            {
-                action(s);
-                // ReSharper disable once AccessToDisposedClosure
-                manualResetEvent.Set();
-            };
-
-            queueInvocation(actionWithManualResetEvent, priority, state);
-            manualResetEvent.WaitOne();
+            queueInvocation(action, priority, state, doneManualResetEvent: manualResetEvent);
+            manualResetEvent.Wait();
             manualResetEvent.Dispose();
         }
 
@@ -457,8 +435,7 @@ namespace ObservableComputations
 
         public InvocationResult<TResult> BeginInvoke<TResult>(Func<TResult> func, int priority = 0)
         {
-            if (_newInvocationBehaviour == NewInvocationBehaviour.Ignore) return default;
-            checkNewInvocationBehaviour();
+            if (checkNewInvocationBehaviour()) return default;
 
             InvocationResult<TResult> invocationResult = new InvocationResult<TResult>();
             BeginInvoke(() => { invocationResult.Result = func(); }, priority);
@@ -468,8 +445,7 @@ namespace ObservableComputations
 
         public InvocationResult<TResult> BeginInvoke<TResult>(Func<object, TResult> func, object state, int priority = 0)
         {
-            if (_newInvocationBehaviour == NewInvocationBehaviour.Ignore) return default;
-            checkNewInvocationBehaviour();
+            if (checkNewInvocationBehaviour()) return default;
 
             InvocationResult<TResult> invocationResult = new InvocationResult<TResult>();
            BeginInvoke(s => { invocationResult.Result = func(s); }, state, priority);

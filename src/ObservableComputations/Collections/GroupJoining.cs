@@ -297,7 +297,7 @@ namespace ObservableComputations
 				if (_equalityComparerScalar != null)
 					initializeGrouping(_innerSource, _innerKeySelector, _equalityComparerScalar);
 				else
-					initializeGrouping(_innerSource, _innerKeySelector, _equalityComparer);               
+					initializeGrouping(_innerSource, _innerKeySelector, _equalityComparer);			   
 			}
 
 			_keyPositions = new Dictionary<TKey, List<OuterItemInfo>>(_grouping._equalityComparer);
@@ -440,7 +440,7 @@ namespace ObservableComputations
 			if (!Utils.preHandleSourceCollectionChanged(
 				sender, 
 				e, 
-				_outerRootSourceWrapper,                 
+				_outerRootSourceWrapper,				 
 				ref _lastProcessedSourceChangeMarker, 
 				_outerSourceAsList, 
 				ref _isConsistent,
@@ -574,7 +574,7 @@ namespace ObservableComputations
 			((IComputingInternal) _grouping).AddDownstreamConsumedComputing(computing);
 		}
 
-		internal override void removeFromUpstreamComputings(IComputingInternal computing)        
+		internal override void removeFromUpstreamComputings(IComputingInternal computing)		
 		{
 			(_outerSource as IComputingInternal)?.RemoveDownstreamConsumedComputing(computing);
 			(_outerSourceScalar as IComputingInternal)?.RemoveDownstreamConsumedComputing(computing);
@@ -754,11 +754,11 @@ namespace ObservableComputations
 
 			//result = outerSource.GroupJoin(innerSource, outerKeySelector, innerKeySelector, 
 			//	(outerItem, innerItems) =>
-		 //            new
-		 //            {
-		 //                Key = outerItem,
-		 //                InnerItems = innerItems
-		 //            }
+		 //			new
+		 //			{
+		 //				Key = outerItem,
+		 //				InnerItems = innerItems
+		 //			}
 			//	, equalityComparer).ToList();
 
 			var result = outerSource.Select(oi => 

@@ -180,7 +180,7 @@ namespace ObservableComputations
 					1, _deferredQueuesCount, 
 					this)) return;
 	
-			_thisAsSourceCollectionChangeProcessor.processSourceCollectionChanged(sender,e);      
+			_thisAsSourceCollectionChangeProcessor.processSourceCollectionChanged(sender,e);	  
 		   
 			Utils.postHandleChange(
 				ref _handledEventSender,
@@ -238,7 +238,7 @@ namespace ObservableComputations
 		}
 
 
-		internal override void removeFromUpstreamComputings(IComputingInternal computing)        
+		internal override void removeFromUpstreamComputings(IComputingInternal computing)		
 		{
 			(_source as IComputingInternal)?.RemoveDownstreamConsumedComputing(computing);
 			(_sourceScalar as IComputingInternal)?.RemoveDownstreamConsumedComputing(computing);

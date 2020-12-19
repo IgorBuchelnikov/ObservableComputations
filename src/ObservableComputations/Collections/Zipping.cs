@@ -547,7 +547,7 @@ namespace ObservableComputations
 			(_rightSourceScalar as IComputingInternal)?.AddDownstreamConsumedComputing(computing);
 		}
 
-		internal override void removeFromUpstreamComputings(IComputingInternal computing)        
+		internal override void removeFromUpstreamComputings(IComputingInternal computing)		
 		{
 			(_leftSource as IComputingInternal)?.RemoveDownstreamConsumedComputing(computing);
 			(_rightSource as IComputingInternal)?.RemoveDownstreamConsumedComputing(computing);
@@ -660,7 +660,7 @@ namespace ObservableComputations
 
 		public override string ToString()
 		{
-			return $"ZipPair: ItemLeft = {(LeftItem != null ? $"{LeftItem.ToString()}" : "null")}    ItemRight = {(RightItem != null ? $"{RightItem.ToString()}" : "null")}";
+			return $"ZipPair: ItemLeft = {(LeftItem != null ? $"{LeftItem.ToString()}" : "null")}	ItemRight = {(RightItem != null ? $"{RightItem.ToString()}" : "null")}";
 		}
 	}
 

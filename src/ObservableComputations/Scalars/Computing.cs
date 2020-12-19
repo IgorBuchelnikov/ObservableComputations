@@ -14,50 +14,50 @@ namespace ObservableComputations
 		// ReSharper disable once PrivateFieldCanBeConvertedToLocalVariable
 		private ExpressionWatcher _getValueExpressionWatcher;
 
-        private List<IComputingInternal> _nestedComputings;
-        private ExpressionWatcher.ExpressionInfo _expressionInfo;
-        private Action _changeValueAction;
+		private List<IComputingInternal> _nestedComputings;
+		private ExpressionWatcher.ExpressionInfo _expressionInfo;
+		private Action _changeValueAction;
 
 		[ObservableComputationsCall]
 		public Computing(
 			Expression<Func<TResult>> getValueExpression)
 		{
-            _changeValueAction = () => setValue(getResult());
+			_changeValueAction = () => setValue(getResult());
 			_getValueExpressionOriginal = getValueExpression;
 
-            CallToConstantConverter callToConstantConverter = new CallToConstantConverter(_getValueExpressionOriginal.Parameters);
-            Expression<Func<TResult>> getValueExpression1 =
-                (Expression<Func<TResult>>) callToConstantConverter.Visit(_getValueExpressionOriginal);
-            // ReSharper disable once PossibleNullReferenceException
-            _getValueFunc = getValueExpression1.Compile();
-            _expressionInfo = ExpressionWatcher.GetExpressionInfo(getValueExpression1);
-            _nestedComputings = callToConstantConverter.NestedComputings;
+			CallToConstantConverter callToConstantConverter = new CallToConstantConverter(_getValueExpressionOriginal.Parameters);
+			Expression<Func<TResult>> getValueExpression1 =
+				(Expression<Func<TResult>>) callToConstantConverter.Visit(_getValueExpressionOriginal);
+			// ReSharper disable once PossibleNullReferenceException
+			_getValueFunc = getValueExpression1.Compile();
+			_expressionInfo = ExpressionWatcher.GetExpressionInfo(getValueExpression1);
+			_nestedComputings = callToConstantConverter.NestedComputings;
 		}
 
 		private void getValueExpressionWatcherOnValueChanged(ExpressionWatcher expressionWatcher, object sender, EventArgs eventArgs)
-        {
-            Utils.processExpressionWatcherNestedComputings(expressionWatcher, this);
-            Utils.processChange(
-                sender, 
-                eventArgs, 
-                _changeValueAction,
-                ref _isConsistent, 
-                ref _handledEventSender, 
-                ref _handledEventArgs, 
-                0, _deferredQueuesCount,
-                ref _deferredProcessings, 
-                this,
-                false);
-        }
+		{
+			Utils.processExpressionWatcherNestedComputings(expressionWatcher, this);
+			Utils.processChange(
+				sender, 
+				eventArgs, 
+				_changeValueAction,
+				ref _isConsistent, 
+				ref _handledEventSender, 
+				ref _handledEventArgs, 
+				0, _deferredQueuesCount,
+				ref _deferredProcessings, 
+				this,
+				false);
+		}
 
 		private TResult getResult()
 		{
 			TResult result;
 			if (Configuration.TrackComputingsExecutingUserCode)
 			{
-                var currentThread = Utils.startComputingExecutingUserCode(out var computing, out _userCodeIsCalledFrom, this);
+				var currentThread = Utils.startComputingExecutingUserCode(out var computing, out _userCodeIsCalledFrom, this);
 				result = _getValueFunc();
-                Utils.endComputingExecutingUserCode(computing, currentThread, out _userCodeIsCalledFrom);
+				Utils.endComputingExecutingUserCode(computing, currentThread, out _userCodeIsCalledFrom);
 			}
 			else
 			{
@@ -67,40 +67,40 @@ namespace ObservableComputations
 			return result;
 		}
 
-        #region Overrides of ScalarComputing<TResult>
+		#region Overrides of ScalarComputing<TResult>
 
-        protected override void initializeFromSource()
-        {
-        }
+		protected override void initializeFromSource()
+		{
+		}
 
-        protected override void initialize()
-        {
-            Utils.initializeNestedComputings(_nestedComputings, this);
-            _getValueExpressionWatcher = new ExpressionWatcher(_expressionInfo);
-            Utils.initializeExpressionWatcherCurrentComputings(_getValueExpressionWatcher, _expressionInfo._callCount, this);
-            _getValueExpressionWatcher.ValueChanged = getValueExpressionWatcherOnValueChanged;
-            setValue(getResult());
-        }
+		protected override void initialize()
+		{
+			Utils.initializeNestedComputings(_nestedComputings, this);
+			_getValueExpressionWatcher = new ExpressionWatcher(_expressionInfo);
+			Utils.initializeExpressionWatcherCurrentComputings(_getValueExpressionWatcher, _expressionInfo._callCount, this);
+			_getValueExpressionWatcher.ValueChanged = getValueExpressionWatcherOnValueChanged;
+			setValue(getResult());
+		}
 
-        protected override void uninitialize()
-        {
-            _getValueExpressionWatcher.Dispose();
-            EventUnsubscriber.QueueSubscriptions(_getValueExpressionWatcher._propertyChangedEventSubscriptions, _getValueExpressionWatcher._methodChangedEventSubscriptions);
-            Utils.removeDownstreamConsumedComputing(_getValueExpressionWatcher, this);            
-            Utils.uninitializeNestedComputings(_nestedComputings, this);
-            setDefaultValue();
-        }
+		protected override void uninitialize()
+		{
+			_getValueExpressionWatcher.Dispose();
+			EventUnsubscriber.QueueSubscriptions(_getValueExpressionWatcher._propertyChangedEventSubscriptions, _getValueExpressionWatcher._methodChangedEventSubscriptions);
+			Utils.removeDownstreamConsumedComputing(_getValueExpressionWatcher, this);			
+			Utils.uninitializeNestedComputings(_nestedComputings, this);
+			setDefaultValue();
+		}
 
-        internal override void addToUpstreamComputings(IComputingInternal computing)
-        {
+		internal override void addToUpstreamComputings(IComputingInternal computing)
+		{
 
-        }
+		}
 
-        internal override void removeFromUpstreamComputings(IComputingInternal computing)
-        {
+		internal override void removeFromUpstreamComputings(IComputingInternal computing)
+		{
 
-        }
+		}
 
-        #endregion
-    }
+		#endregion
+	}
 }

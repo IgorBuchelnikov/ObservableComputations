@@ -62,21 +62,21 @@ namespace ObservableComputations
 		private IHasChangeMarker _sourceAsIHasChangeMarker;
 		private bool _lastProcessedSourceChangeMarker;
 
-        private ISourceCollectionChangeProcessor _thisAsSourceCollectionChangeProcessor;
-        private PropertyChangedEventHandler _comparerScalarValueChangedHandler;
+		private ISourceCollectionChangeProcessor _thisAsSourceCollectionChangeProcessor;
+		private PropertyChangedEventHandler _comparerScalarValueChangedHandler;
 
-        private void initializeComparer()
+		private void initializeComparer()
 		{
 			if (_comparerScalar != null)
 			{
-                _comparerScalarValueChangedHandler = getScalarValueChangedHandler(
-                    () => { _comparer = _comparerScalar.Value ?? Comparer<TSourceItem>.Default; });
+				_comparerScalarValueChangedHandler = getScalarValueChangedHandler(
+					() => { _comparer = _comparerScalar.Value ?? Comparer<TSourceItem>.Default; });
 
 				_comparerScalar.PropertyChanged += _comparerScalarValueChangedHandler;
 				_comparer = _comparerScalar.Value;
 			}
 
-            if (_comparer == null)
+			if (_comparer == null)
 			{
 				_comparer = Comparer<TSourceItem>.Default;
 			}
@@ -115,7 +115,7 @@ namespace ObservableComputations
 			IComparer<TSourceItem> comparer = null,
 			TSourceItem defaultValue = default(TSourceItem)) : this(mode, Utils.getCapacity(source))
 		{
-			_source = source;       
+			_source = source;	   
 			_comparer = comparer;
 			_defaultValue = defaultValue;
 		}
@@ -148,43 +148,43 @@ namespace ObservableComputations
 					break;
 			}
 
-            _thisAsSourceCollectionChangeProcessor = this;
-            _deferredQueuesCount = 2;
+			_thisAsSourceCollectionChangeProcessor = this;
+			_deferredQueuesCount = 2;
 		}
 
 
-        protected override void initializeFromSource()
+		protected override void initializeFromSource()
 		{
 			if (_sourceInitialized)
 			{
 				_source.CollectionChanged -= handleSourceCollectionChanged;
 
-                if (_sourceAsINotifyPropertyChanged != null)
-                {
-                    _sourceAsINotifyPropertyChanged.PropertyChanged -=
-                        ((ISourceIndexerPropertyTracker) this).HandleSourcePropertyChanged;
-                    _sourceAsINotifyPropertyChanged = null;
-                }
+				if (_sourceAsINotifyPropertyChanged != null)
+				{
+					_sourceAsINotifyPropertyChanged.PropertyChanged -=
+						((ISourceIndexerPropertyTracker) this).HandleSourcePropertyChanged;
+					_sourceAsINotifyPropertyChanged = null;
+				}
 
-			    _sourceCopy = new List<TSourceItem>(Utils.getCapacity(_sourceScalar, _source));
-                _sourceInitialized = false;
-            }
+				_sourceCopy = new List<TSourceItem>(Utils.getCapacity(_sourceScalar, _source));
+				_sourceInitialized = false;
+			}
 
-            Utils.changeSource(ref _source, _sourceScalar, _downstreamConsumedComputings, _consumers, this,
-                out _sourceAsList, true);
+			Utils.changeSource(ref _source, _sourceScalar, _downstreamConsumedComputings, _consumers, this,
+				out _sourceAsList, true);
 
 			if (_source != null && _isActive)
 			{
-                Utils.initializeFromHasChangeMarker(
-                    out _sourceAsIHasChangeMarker, 
-                    _sourceAsList, 
-                    ref _lastProcessedSourceChangeMarker, 
-                    ref _sourceAsINotifyPropertyChanged,
-                    (ISourceIndexerPropertyTracker)this);
+				Utils.initializeFromHasChangeMarker(
+					out _sourceAsIHasChangeMarker, 
+					_sourceAsList, 
+					ref _lastProcessedSourceChangeMarker, 
+					ref _sourceAsINotifyPropertyChanged,
+					(ISourceIndexerPropertyTracker)this);
 
 				_source.CollectionChanged += handleSourceCollectionChanged;
-                _sourceInitialized = true;
-            }
+				_sourceInitialized = true;
+			}
 
 			recalculateValue(true);
 		}
@@ -197,23 +197,23 @@ namespace ObservableComputations
 			{
 				// ReSharper disable once PossibleNullReferenceException
 				TSourceItem value;
-                value = initializeSourceItems ? _sourceAsList[0] : _sourceCopy[0];
-                _valueCount = 1;
+				value = initializeSourceItems ? _sourceAsList[0] : _sourceCopy[0];
+				_valueCount = 1;
 
 				if (initializeSourceItems) _sourceCopy.Add(value);
 				for (int sourceIndex = 1; sourceIndex < count; sourceIndex++)
 				{
 					TSourceItem sourceItem;
 					if (initializeSourceItems)
-                    {
-                        // ReSharper disable once PossibleNullReferenceException
-                        sourceItem = _sourceAsList[sourceIndex];
-                        _sourceCopy.Add(sourceItem);
-                    }
-                    else
-                    {
-                        sourceItem = _sourceCopy[sourceIndex];
-                    }
+					{
+						// ReSharper disable once PossibleNullReferenceException
+						sourceItem = _sourceAsList[sourceIndex];
+						_sourceCopy.Add(sourceItem);
+					}
+					else
+					{
+						sourceItem = _sourceCopy[sourceIndex];
+					}
 
 					int compareResult = _comparer.Compare(sourceItem, value);
 					if (_checkCompareResult(compareResult))
@@ -244,166 +244,166 @@ namespace ObservableComputations
 				}
 				setValue(_defaultValue);
 			}
-        }
+		}
 
 
 		private void handleSourceCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
 		{
-            if (!Utils.preHandleSourceCollectionChanged(
-                sender, 
-                e, 
-                ref _isConsistent, 
-                ref _indexerPropertyChangedEventRaised, 
-                ref _lastProcessedSourceChangeMarker, 
-                _sourceAsIHasChangeMarker, 
-                ref _handledEventSender, 
-                ref _handledEventArgs,
-                ref _deferredProcessings,
-                1, _deferredQueuesCount, this)) return;
+			if (!Utils.preHandleSourceCollectionChanged(
+				sender, 
+				e, 
+				ref _isConsistent, 
+				ref _indexerPropertyChangedEventRaised, 
+				ref _lastProcessedSourceChangeMarker, 
+				_sourceAsIHasChangeMarker, 
+				ref _handledEventSender, 
+				ref _handledEventArgs,
+				ref _deferredProcessings,
+				1, _deferredQueuesCount, this)) return;
 
-            _thisAsSourceCollectionChangeProcessor.processSourceCollectionChanged(sender, e);
+			_thisAsSourceCollectionChangeProcessor.processSourceCollectionChanged(sender, e);
 
-            Utils.postHandleChange(
-                ref _handledEventSender,
-                ref _handledEventArgs,
-                _deferredProcessings,
-                ref _isConsistent,
-                this);
+			Utils.postHandleChange(
+				ref _handledEventSender,
+				ref _handledEventArgs,
+				_deferredProcessings,
+				ref _isConsistent,
+				this);
 		}
 
-        void ISourceCollectionChangeProcessor.processSourceCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
-        {
-            switch (e.Action)
-            {
-                case NotifyCollectionChangedAction.Add:
-                    //if (e.NewItems.Count > 1) throw new ObservableComputationsException(this, "Adding of multiple items is not supported");
-                    int newIndex = e.NewStartingIndex;
-                    TSourceItem addedSourceItem = (TSourceItem) e.NewItems[0];
-                    _sourceCopy.Insert(newIndex, addedSourceItem);
+		void ISourceCollectionChangeProcessor.processSourceCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
+		{
+			switch (e.Action)
+			{
+				case NotifyCollectionChangedAction.Add:
+					//if (e.NewItems.Count > 1) throw new ObservableComputationsException(this, "Adding of multiple items is not supported");
+					int newIndex = e.NewStartingIndex;
+					TSourceItem addedSourceItem = (TSourceItem) e.NewItems[0];
+					_sourceCopy.Insert(newIndex, addedSourceItem);
 
-                    if (!_isDefaulted)
-                    {
-                        int compareResult = _comparer.Compare(addedSourceItem, _value);
-                        if (_checkCompareResult(compareResult))
-                        {
-                            _valueCount = 1;
-                            setValue(addedSourceItem);
-                        }
-                        else if (compareResult == 0)
-                        {
-                            _valueCount++;
-                        }
-                    }
-                    else
-                    {
-                        _isDefaulted = false;
-                        raisePropertyChanged(nameof(IsDefaulted));
-                        _valueCount = 1;
-                        setValue(addedSourceItem);
-                    }
+					if (!_isDefaulted)
+					{
+						int compareResult = _comparer.Compare(addedSourceItem, _value);
+						if (_checkCompareResult(compareResult))
+						{
+							_valueCount = 1;
+							setValue(addedSourceItem);
+						}
+						else if (compareResult == 0)
+						{
+							_valueCount++;
+						}
+					}
+					else
+					{
+						_isDefaulted = false;
+						raisePropertyChanged(nameof(IsDefaulted));
+						_valueCount = 1;
+						setValue(addedSourceItem);
+					}
 
-                    break;
-                case NotifyCollectionChangedAction.Remove:
-                    //if (e.OldItems.Count > 1) throw new ObservableComputationsException(this, "Removing of multiple items is not supported");
-                    int oldStartingIndex = e.OldStartingIndex;
-                    TSourceItem removingSourceItem = (TSourceItem) e.OldItems[0];
-                    _sourceCopy.RemoveAt(oldStartingIndex);
+					break;
+				case NotifyCollectionChangedAction.Remove:
+					//if (e.OldItems.Count > 1) throw new ObservableComputationsException(this, "Removing of multiple items is not supported");
+					int oldStartingIndex = e.OldStartingIndex;
+					TSourceItem removingSourceItem = (TSourceItem) e.OldItems[0];
+					_sourceCopy.RemoveAt(oldStartingIndex);
 
-                    if (_comparer.Compare(removingSourceItem, _value) == 0)
-                    {
-                        _valueCount--;
-                        if (_valueCount == 0)
-                        {
-                            recalculateValue();
-                        }
-                    }
+					if (_comparer.Compare(removingSourceItem, _value) == 0)
+					{
+						_valueCount--;
+						if (_valueCount == 0)
+						{
+							recalculateValue();
+						}
+					}
 
-                    break;
-                case NotifyCollectionChangedAction.Replace:
-                    //if (e.NewItems.Count > 1) throw new ObservableComputationsException(this, "Replacing of multiple items is not supported");
-                    int replacingSourceIndex = e.NewStartingIndex;
-                    TSourceItem newItem = (TSourceItem) e.NewItems[0];
-                    TSourceItem oldItem = (TSourceItem) e.OldItems[0];
-                    _sourceCopy[replacingSourceIndex] = newItem;
+					break;
+				case NotifyCollectionChangedAction.Replace:
+					//if (e.NewItems.Count > 1) throw new ObservableComputationsException(this, "Replacing of multiple items is not supported");
+					int replacingSourceIndex = e.NewStartingIndex;
+					TSourceItem newItem = (TSourceItem) e.NewItems[0];
+					TSourceItem oldItem = (TSourceItem) e.OldItems[0];
+					_sourceCopy[replacingSourceIndex] = newItem;
 
-                    int newCompareResult = _comparer.Compare(newItem, _value);
-                    int oldCompareResult = _comparer.Compare(oldItem, _value);
+					int newCompareResult = _comparer.Compare(newItem, _value);
+					int oldCompareResult = _comparer.Compare(oldItem, _value);
 
-                    if (_checkCompareResult(newCompareResult))
-                    {
-                        _valueCount = 1;
-                        setValue(newItem);
-                    }
-                    else if (_antiCheckCompareResult(newCompareResult))
-                    {
-                        if (oldCompareResult == 0)
-                        {
-                            _valueCount--;
-                            if (_valueCount == 0)
-                            {
-                                recalculateValue();
-                            }
-                        }
-                    }
-                    else //if (newCompareResult == 0)
-                    {
-                        if (_antiCheckCompareResult(oldCompareResult))
-                        {
-                            _valueCount++;
-                        }
-                    }
+					if (_checkCompareResult(newCompareResult))
+					{
+						_valueCount = 1;
+						setValue(newItem);
+					}
+					else if (_antiCheckCompareResult(newCompareResult))
+					{
+						if (oldCompareResult == 0)
+						{
+							_valueCount--;
+							if (_valueCount == 0)
+							{
+								recalculateValue();
+							}
+						}
+					}
+					else //if (newCompareResult == 0)
+					{
+						if (_antiCheckCompareResult(oldCompareResult))
+						{
+							_valueCount++;
+						}
+					}
 
-                    break;
-                case NotifyCollectionChangedAction.Move:
-                    int oldStartingIndex1 = e.OldStartingIndex;
-                    int newStartingIndex1 = e.NewStartingIndex;
-                    if (oldStartingIndex1 == newStartingIndex1) return;
-                    TSourceItem movingSourceItem = (TSourceItem) e.NewItems[0];
-                    _sourceCopy.RemoveAt(oldStartingIndex1);
-                    _sourceCopy.Insert(newStartingIndex1, movingSourceItem);
-                    break;
-                case NotifyCollectionChangedAction.Reset:
-                    initializeFromSource();
-                    break;
-            }
-        }
+					break;
+				case NotifyCollectionChangedAction.Move:
+					int oldStartingIndex1 = e.OldStartingIndex;
+					int newStartingIndex1 = e.NewStartingIndex;
+					if (oldStartingIndex1 == newStartingIndex1) return;
+					TSourceItem movingSourceItem = (TSourceItem) e.NewItems[0];
+					_sourceCopy.RemoveAt(oldStartingIndex1);
+					_sourceCopy.Insert(newStartingIndex1, movingSourceItem);
+					break;
+				case NotifyCollectionChangedAction.Reset:
+					initializeFromSource();
+					break;
+			}
+		}
 
-        internal override void addToUpstreamComputings(IComputingInternal computing)
-        {
-            (_source as IComputingInternal)?.AddDownstreamConsumedComputing(computing);
-            (_sourceScalar as IComputingInternal)?.AddDownstreamConsumedComputing(computing);
-            (_comparerScalar as IComputingInternal)?.AddDownstreamConsumedComputing(computing);
-        }
+		internal override void addToUpstreamComputings(IComputingInternal computing)
+		{
+			(_source as IComputingInternal)?.AddDownstreamConsumedComputing(computing);
+			(_sourceScalar as IComputingInternal)?.AddDownstreamConsumedComputing(computing);
+			(_comparerScalar as IComputingInternal)?.AddDownstreamConsumedComputing(computing);
+		}
 
-        internal override void removeFromUpstreamComputings(IComputingInternal computing)        
-        {
-            (_source as IComputingInternal)?.RemoveDownstreamConsumedComputing(computing);
-            (_sourceScalar as IComputingInternal)?.RemoveDownstreamConsumedComputing(computing);
-            (_comparerScalar as IComputingInternal)?.RemoveDownstreamConsumedComputing(computing);
-        }
+		internal override void removeFromUpstreamComputings(IComputingInternal computing)		
+		{
+			(_source as IComputingInternal)?.RemoveDownstreamConsumedComputing(computing);
+			(_sourceScalar as IComputingInternal)?.RemoveDownstreamConsumedComputing(computing);
+			(_comparerScalar as IComputingInternal)?.RemoveDownstreamConsumedComputing(computing);
+		}
 
-        protected override void initialize()
-        {
-            Utils.initializeSourceScalar(_sourceScalar, ref _source, scalarValueChangedHandler);
-            initializeComparer();
-        }
+		protected override void initialize()
+		{
+			Utils.initializeSourceScalar(_sourceScalar, ref _source, scalarValueChangedHandler);
+			initializeComparer();
+		}
 
-        protected override void uninitialize()
-        {
-            Utils.uninitializeSourceScalar(_sourceScalar, scalarValueChangedHandler, ref _source);
-            if (_comparerScalar != null)
-                _comparerScalar.PropertyChanged -= _comparerScalarValueChangedHandler;
-            
-        }
+		protected override void uninitialize()
+		{
+			Utils.uninitializeSourceScalar(_sourceScalar, scalarValueChangedHandler, ref _source);
+			if (_comparerScalar != null)
+				_comparerScalar.PropertyChanged -= _comparerScalarValueChangedHandler;
+			
+		}
 
-        #region Implementation of ISourceIndexerPropertyTracker
+		#region Implementation of ISourceIndexerPropertyTracker
 
-        void ISourceIndexerPropertyTracker.HandleSourcePropertyChanged(object sender, PropertyChangedEventArgs propertyChangedEventArgs)
-        {
-            Utils.handleSourcePropertyChanged(propertyChangedEventArgs, ref _indexerPropertyChangedEventRaised);
-        }
+		void ISourceIndexerPropertyTracker.HandleSourcePropertyChanged(object sender, PropertyChangedEventArgs propertyChangedEventArgs)
+		{
+			Utils.handleSourcePropertyChanged(propertyChangedEventArgs, ref _indexerPropertyChangedEventRaised);
+		}
 
-        #endregion
+		#endregion
 
 		public void ValidateConsistency()
 		{

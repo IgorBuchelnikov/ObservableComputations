@@ -36,8 +36,8 @@ namespace ObservableComputations
 
 		internal TResult _defaultValue;
 
-        private Action _changeValueAction;
-        private Action _changeHolderAction;
+		private Action _changeValueAction;
+		private Action _changeHolderAction;
 
 		private enum PropertyInfoGettingType
 		{
@@ -60,7 +60,7 @@ namespace ObservableComputations
 			_propertyInfoGettingType = PropertyInfoGettingType.PropertyName;
 			_propertyName = propertyName;
 			_defaultValue = defaultValue;
-            _propertyHolder = _propertyHolderScalar.Value;
+			_propertyHolder = _propertyHolderScalar.Value;
 		}
 
 		[ObservableComputationsCall]
@@ -74,7 +74,7 @@ namespace ObservableComputations
 			_propertyName = propertyName;
 			_bindingAttr = bindingAttr;
 			_defaultValue = defaultValue;
-            _propertyHolder = _propertyHolderScalar.Value;
+			_propertyHolder = _propertyHolderScalar.Value;
 		}
 
 		[ObservableComputationsCall]
@@ -88,7 +88,7 @@ namespace ObservableComputations
 			_propertyName = propertyName;
 			_returnType = returnType;
 			_defaultValue = defaultValue;
-            _propertyHolder = _propertyHolderScalar.Value;
+			_propertyHolder = _propertyHolderScalar.Value;
 		}
 
 		[ObservableComputationsCall]
@@ -104,7 +104,7 @@ namespace ObservableComputations
 			_returnType = returnType;
 			_types = types;
 			_defaultValue = defaultValue;
-            _propertyHolder = _propertyHolderScalar.Value;
+			_propertyHolder = _propertyHolderScalar.Value;
 		}
 
 		[ObservableComputationsCall]
@@ -122,7 +122,7 @@ namespace ObservableComputations
 			_modifiers = modifiers;
 			_types = types;
 			_defaultValue = defaultValue;
-            _propertyHolder = _propertyHolderScalar.Value;
+			_propertyHolder = _propertyHolderScalar.Value;
 		}
 
 		[ObservableComputationsCall]
@@ -144,7 +144,7 @@ namespace ObservableComputations
 			_modifiers = modifiers;
 			_types = types;
 			_defaultValue = defaultValue;
-            _propertyHolder = _propertyHolderScalar.Value;
+			_propertyHolder = _propertyHolderScalar.Value;
 		}
 
 		[ObservableComputationsCall]
@@ -156,7 +156,7 @@ namespace ObservableComputations
 			_propertyInfoGettingType = PropertyInfoGettingType.PropertyInfoPredicate;
 			_propertyInfoPredicate = propertyInfoPredicate;
 			_defaultValue = defaultValue;
-            _propertyHolder = _propertyHolderScalar.Value;
+			_propertyHolder = _propertyHolderScalar.Value;
 		}
 
 		[ObservableComputationsCall]
@@ -170,7 +170,7 @@ namespace ObservableComputations
 			_propertyInfoPredicate = propertyInfoPredicate;
 			_bindingAttr = bindingAttr;
 			_defaultValue = defaultValue;
-            _propertyHolder = _propertyHolderScalar.Value;
+			_propertyHolder = _propertyHolderScalar.Value;
 		}
 
 		private PropertyAccessing(
@@ -188,7 +188,7 @@ namespace ObservableComputations
 			_propertyInfoGettingType = PropertyInfoGettingType.PropertyName;
 			_propertyName = propertyName;
 			_defaultValue = defaultValue;
-            _propertyHolder = propertyHolder;
+			_propertyHolder = propertyHolder;
 		}
 
 		[ObservableComputationsCall]
@@ -202,7 +202,7 @@ namespace ObservableComputations
 			_propertyName = propertyName;
 			_bindingAttr = bindingAttr;
 			_defaultValue = defaultValue;
-            _propertyHolder = propertyHolder;
+			_propertyHolder = propertyHolder;
 		}
 
 		[ObservableComputationsCall]
@@ -216,7 +216,7 @@ namespace ObservableComputations
 			_propertyName = propertyName;
 			_returnType = returnType;
 			_defaultValue = defaultValue;
-            _propertyHolder = propertyHolder;
+			_propertyHolder = propertyHolder;
 		}
 
 		[ObservableComputationsCall]
@@ -232,7 +232,7 @@ namespace ObservableComputations
 			_returnType = returnType;
 			_types = types;
 			_defaultValue = defaultValue;
-            _propertyHolder = propertyHolder;
+			_propertyHolder = propertyHolder;
 		}
 
 		[ObservableComputationsCall]
@@ -250,7 +250,7 @@ namespace ObservableComputations
 			_modifiers = modifiers;
 			_types = types;
 			_defaultValue = defaultValue;
-            _propertyHolder = propertyHolder;
+			_propertyHolder = propertyHolder;
 		}
 
 		[ObservableComputationsCall]
@@ -272,7 +272,7 @@ namespace ObservableComputations
 			_modifiers = modifiers;
 			_types = types;
 			_defaultValue = defaultValue;
-            _propertyHolder = propertyHolder;
+			_propertyHolder = propertyHolder;
 		}
 
 		[ObservableComputationsCall]
@@ -284,7 +284,7 @@ namespace ObservableComputations
 			_propertyInfoGettingType = PropertyInfoGettingType.PropertyInfoPredicate;
 			_propertyInfoPredicate = propertyInfoPredicate;
 			_defaultValue = defaultValue;
-            _propertyHolder = propertyHolder;
+			_propertyHolder = propertyHolder;
 		}
 
 		[ObservableComputationsCall]
@@ -298,19 +298,19 @@ namespace ObservableComputations
 			_propertyInfoPredicate = propertyInfoPredicate;
 			_bindingAttr = bindingAttr;
 			_defaultValue = defaultValue;
-            _propertyHolder = propertyHolder;
+			_propertyHolder = propertyHolder;
 		}
 
 		private PropertyAccessing()
 		{
 			_setValueAction = result => _propertyInfo.SetValue(_propertyHolder, result);
-            _changeValueAction = () => 	setValue((TResult) _propertyInfo.GetValue(_propertyHolder));
-            _changeHolderAction = () => {            
-                if (_propertyHolder != null)
-                    _propertyHolder.PropertyChanged -= handlePropertyHolderPropertyChanged;
-                _propertyHolder = _propertyHolderScalar.Value;
-                registerPropertyHolder();
-            };
+			_changeValueAction = () => 	setValue((TResult) _propertyInfo.GetValue(_propertyHolder));
+			_changeHolderAction = () => {			
+				if (_propertyHolder != null)
+					_propertyHolder.PropertyChanged -= handlePropertyHolderPropertyChanged;
+				_propertyHolder = _propertyHolderScalar.Value;
+				registerPropertyHolder();
+			};
 		}
 
 		private void registerPropertyHolder()
@@ -377,86 +377,86 @@ namespace ObservableComputations
 
 		private void handlePropertyHolderPropertyChanged(object sender, PropertyChangedEventArgs e)
 		{
-            Utils.processChange(
-                sender, 
-                e, 
-                _changeValueAction,
-                ref _isConsistent, 
-                ref _handledEventSender, 
-                ref _handledEventArgs, 
-                0, _deferredQueuesCount,
-                ref _deferredProcessings, 
-                this,
-                false);
+			Utils.processChange(
+				sender, 
+				e, 
+				_changeValueAction,
+				ref _isConsistent, 
+				ref _handledEventSender, 
+				ref _handledEventArgs, 
+				0, _deferredQueuesCount,
+				ref _deferredProcessings, 
+				this,
+				false);
 		}
 
 		private void handlePropertyHolderScalarPropertyChanged(object sender, PropertyChangedEventArgs e)
 		{
-            Utils.processChange(
-                sender, 
-                e, 
-                _changeHolderAction,
-                ref _isConsistent, 
-                ref _handledEventSender, 
-                ref _handledEventArgs, 
-                0, _deferredQueuesCount,
-                ref _deferredProcessings, this);
+			Utils.processChange(
+				sender, 
+				e, 
+				_changeHolderAction,
+				ref _isConsistent, 
+				ref _handledEventSender, 
+				ref _handledEventArgs, 
+				0, _deferredQueuesCount,
+				ref _deferredProcessings, this);
 		}
 
-        private bool _initializedFromSource;
-        #region Overrides of ScalarComputing<TResult>
+		private bool _initializedFromSource;
+		#region Overrides of ScalarComputing<TResult>
 
-        protected override void initializeFromSource()
-        {
-            if (_initializedFromSource)
-            {
-                if (_propertyHolderScalar != null)
-                {
-                    _propertyHolderScalar.PropertyChanged -= handlePropertyHolderScalarPropertyChanged;
-                    _propertyHolder = null;
-                }
+		protected override void initializeFromSource()
+		{
+			if (_initializedFromSource)
+			{
+				if (_propertyHolderScalar != null)
+				{
+					_propertyHolderScalar.PropertyChanged -= handlePropertyHolderScalarPropertyChanged;
+					_propertyHolder = null;
+				}
 
-                if (_propertyHolder != null)
-                    _propertyHolder.PropertyChanged -= handlePropertyHolderPropertyChanged;
+				if (_propertyHolder != null)
+					_propertyHolder.PropertyChanged -= handlePropertyHolderPropertyChanged;
 
-                _initializedFromSource = false;
-            }
+				_initializedFromSource = false;
+			}
 
-            if (_isActive)
-            {
-                if (_propertyHolderScalar != null)
-                {
-                    _propertyHolderScalar.PropertyChanged += handlePropertyHolderScalarPropertyChanged;
-                    _propertyHolder = _propertyHolderScalar.Value;
-                }
+			if (_isActive)
+			{
+				if (_propertyHolderScalar != null)
+				{
+					_propertyHolderScalar.PropertyChanged += handlePropertyHolderScalarPropertyChanged;
+					_propertyHolder = _propertyHolderScalar.Value;
+				}
 
-                registerPropertyHolder();
-                _initializedFromSource = true;
-            }
-            else
-            {
-                setDefaultValue();
-            }
-        }
+				registerPropertyHolder();
+				_initializedFromSource = true;
+			}
+			else
+			{
+				setDefaultValue();
+			}
+		}
 
-        protected override void initialize()
-        {    
-        }
+		protected override void initialize()
+		{	
+		}
 
-        protected override void uninitialize()
-        {
-        }
+		protected override void uninitialize()
+		{
+		}
 
-        internal override void addToUpstreamComputings(IComputingInternal computing)
-        {
-            (_propertyHolderScalar as IComputingInternal)?.AddDownstreamConsumedComputing(computing);
-        }
+		internal override void addToUpstreamComputings(IComputingInternal computing)
+		{
+			(_propertyHolderScalar as IComputingInternal)?.AddDownstreamConsumedComputing(computing);
+		}
 
-        internal override void removeFromUpstreamComputings(IComputingInternal computing)
-        {
-            (_propertyHolderScalar as IComputingInternal)?.RemoveDownstreamConsumedComputing(computing);
-        }
+		internal override void removeFromUpstreamComputings(IComputingInternal computing)
+		{
+			(_propertyHolderScalar as IComputingInternal)?.RemoveDownstreamConsumedComputing(computing);
+		}
 
-        #endregion
-    }
+		#endregion
+	}
 }

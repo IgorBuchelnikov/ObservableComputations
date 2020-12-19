@@ -50,7 +50,7 @@ namespace ObservableComputations
 		{
 			_destinationOcDispatcher = destinationOcDispatcher;
 			_sourceOcDispatcher = sourceOcDispatcher;
-			_source = source;        }
+			_source = source;		}
 
 		[ObservableComputationsCall]
 		public CollectionDispatching(

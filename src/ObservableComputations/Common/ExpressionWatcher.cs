@@ -650,7 +650,7 @@ namespace ObservableComputations
 			public ProcessChangeTask(
 #if DEBUG
 				Root root,
-#endif               
+#endif			   
 				object sender, 
 				EventArgs args, 
 				CallTreeNode node)

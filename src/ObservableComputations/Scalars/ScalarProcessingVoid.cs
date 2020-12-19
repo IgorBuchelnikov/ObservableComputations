@@ -12,7 +12,7 @@ namespace ObservableComputations
 
 		private Action<TValue, ScalarProcessingVoid<TValue>> _newValueProcessor;
 
-        private Action _changeValueAction;
+		private Action _changeValueAction;
 
 		[ObservableComputationsCall]
 		public ScalarProcessingVoid(
@@ -33,34 +33,34 @@ namespace ObservableComputations
 			_scalar = scalar;
 			_scalar.PropertyChanged += handleScalarPropertyChanged;
 
-            _changeValueAction = () =>
-            {
-                TValue newValue = _scalar.Value;
-                processNewValue(newValue);
-                setValue(newValue);
-            };
+			_changeValueAction = () =>
+			{
+				TValue newValue = _scalar.Value;
+				processNewValue(newValue);
+				setValue(newValue);
+			};
 		}
 
 		private void handleScalarPropertyChanged(object sender, PropertyChangedEventArgs e)
 		{
-            Utils.processChange(
-                sender, 
-                e, 
-                _changeValueAction,
-                ref _isConsistent, 
-                ref _handledEventSender, 
-                ref _handledEventArgs, 
-                0, _deferredQueuesCount,
-                ref _deferredProcessings, this);
+			Utils.processChange(
+				sender, 
+				e, 
+				_changeValueAction,
+				ref _isConsistent, 
+				ref _handledEventSender, 
+				ref _handledEventArgs, 
+				0, _deferredQueuesCount,
+				ref _deferredProcessings, this);
 		}
 
 		private void processNewValue(TValue newValue)
 		{
 			if (Configuration.TrackComputingsExecutingUserCode)
 			{
-                var currentThread = Utils.startComputingExecutingUserCode(out var computing, out _userCodeIsCalledFrom, this);
+				var currentThread = Utils.startComputingExecutingUserCode(out var computing, out _userCodeIsCalledFrom, this);
 				_newValueProcessor(newValue, this);
-                Utils.endComputingExecutingUserCode(computing, currentThread, out _userCodeIsCalledFrom);
+				Utils.endComputingExecutingUserCode(computing, currentThread, out _userCodeIsCalledFrom);
 			}
 			else
 			{
@@ -68,44 +68,44 @@ namespace ObservableComputations
 			}
 		}
 
-        private bool _initializedFromSource;
-        #region Overrides of ScalarComputing<TResult>
+		private bool _initializedFromSource;
+		#region Overrides of ScalarComputing<TResult>
 
-        protected override void initializeFromSource()
-        {
-            if (_initializedFromSource)
-            {
-                _scalar.PropertyChanged -= handleScalarPropertyChanged;
-                _initializedFromSource = false;
-            }
+		protected override void initializeFromSource()
+		{
+			if (_initializedFromSource)
+			{
+				_scalar.PropertyChanged -= handleScalarPropertyChanged;
+				_initializedFromSource = false;
+			}
 
-            if (_isActive)
-            {
-                _scalar.PropertyChanged += handleScalarPropertyChanged;
-                _initializedFromSource = true;
-            }
-        }
+			if (_isActive)
+			{
+				_scalar.PropertyChanged += handleScalarPropertyChanged;
+				_initializedFromSource = true;
+			}
+		}
 
-        protected override void initialize()
-        {
+		protected override void initialize()
+		{
 
-        }
+		}
 
-        protected override void uninitialize()
-        {
+		protected override void uninitialize()
+		{
 
-        }
+		}
 
-        internal override void addToUpstreamComputings(IComputingInternal computing)
-        {
-            (_scalar as IComputingInternal)?.AddDownstreamConsumedComputing(computing);
-        }
+		internal override void addToUpstreamComputings(IComputingInternal computing)
+		{
+			(_scalar as IComputingInternal)?.AddDownstreamConsumedComputing(computing);
+		}
 
-        internal override void removeFromUpstreamComputings(IComputingInternal computing)
-        {
-            (_scalar as IComputingInternal)?.RemoveDownstreamConsumedComputing(computing);
-        }
+		internal override void removeFromUpstreamComputings(IComputingInternal computing)
+		{
+			(_scalar as IComputingInternal)?.RemoveDownstreamConsumedComputing(computing);
+		}
 
-        #endregion
-    }
+		#endregion
+	}
 }

@@ -409,7 +409,7 @@ namespace ObservableComputations
 			(_equalityComparerScalar as IComputingInternal)?.AddDownstreamConsumedComputing(computing);
 		}
 
-		internal override void removeFromUpstreamComputings(IComputingInternal computing)        
+		internal override void removeFromUpstreamComputings(IComputingInternal computing)		
 		{
 			(_source as IComputingInternal)?.RemoveDownstreamConsumedComputing(computing);
 			(_sourceScalar as IComputingInternal)?.RemoveDownstreamConsumedComputing(computing);
@@ -466,7 +466,7 @@ namespace ObservableComputations
 					handleSourceCollectionChanged);
 
 				_resultPositions = new Positions<Position>(new List<Position>(_initialResultCapacity));
-				_nullGroup = null;            
+				_nullGroup = null;			
 				_groupDictionary = new Dictionary<TKey, Group<TSourceItem, TKey>>(_equalityComparer);	
 				_items.Clear();
 
@@ -558,7 +558,7 @@ namespace ObservableComputations
 			if (removeFromSourcePositions)
 			{
 				_sourcePositions.Remove(sourceIndex);				
-			}                              
+			}							  
 		}
 
 		private void addSourceItemToGroup(

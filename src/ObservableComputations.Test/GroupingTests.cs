@@ -12,7 +12,7 @@ namespace ObservableComputations.Test
 	[TestFixture]
 	public class GroupingTests
 	{
-        Consumer consumer = new Consumer();
+		Consumer consumer = new Consumer();
 
 		public class Item : INotifyPropertyChanged
 		{

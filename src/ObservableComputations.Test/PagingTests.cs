@@ -139,7 +139,7 @@ namespace ObservableComputations.Test
 		{
 			string traceString = getTraceString(num, count, index, indexOld, indexNew, pageSize, currentPage);
 
-			if (traceString == "#3.   count=4    index=4  indexOld=4   indexNew=4    pageSize=3   currentPage=2")
+			if (traceString == "#3.   count=4	index=4  indexOld=4   indexNew=4	pageSize=3   currentPage=2")
 			{
 				
 			}
@@ -148,7 +148,7 @@ namespace ObservableComputations.Test
 		private static string getTraceString(string num, int count, int index, int indexOld, int indexNew, int pageSize, int currentPage)
 		{
 			return string.Format(
-				"#{4}.   count={0}    index={1}  indexOld={2}   indexNew={3}    pageSize={5}   currentPage={6}",
+				"#{4}.   count={0}	index={1}  indexOld={2}   indexNew={3}	pageSize={5}   currentPage={6}",
 				count,
 				index,
 				indexOld,

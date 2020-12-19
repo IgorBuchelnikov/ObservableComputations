@@ -10,7 +10,7 @@ namespace ObservableComputations
 {
 	public class LastComputing<TSourceItem> : ItemComputing<TSourceItem>
 	{
-        [ObservableComputationsCall]
+		[ObservableComputationsCall]
 		public LastComputing(
 			IReadScalar<INotifyCollectionChanged> sourceScalar,
 			TSourceItem defaultValue = default(TSourceItem)) : base(sourceScalar, getIndex(sourceScalar), defaultValue)

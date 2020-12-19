@@ -183,7 +183,7 @@ namespace ObservableComputations.Test
 						items2 = getObservableCollection(ids2);
 						groupJoining = items1.GroupJoining(items2, item1 => item1.Id, item2 => item2.Id).For(consumer);
 						items1[index].Id = newItemId;
-						groupJoining.ValidateConsistency();                        
+						groupJoining.ValidateConsistency();						
 						consumer.Dispose();
 					}
 				}

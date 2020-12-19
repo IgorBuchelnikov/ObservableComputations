@@ -377,7 +377,7 @@ namespace ObservableComputations
 				return;
 			}
 
-			queueInvocation(action, priority, state);                        
+			queueInvocation(action, priority, state);						
 		}
 
 		public void Invoke(Action action, int priority = 0)

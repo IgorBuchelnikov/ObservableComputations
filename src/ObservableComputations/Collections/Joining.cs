@@ -86,12 +86,12 @@ namespace ObservableComputations
 		//private List<LeftItemInfo> _leftItemInfos;
 		//private sealed class LeftItemInfo
 		//{
-		//    public bool Defaulted; // for left join
+		//	public bool Defaulted; // for left join
 
-		//    public LeftItemInfo(bool defaulted)
-		//    {
-		//        Defaulted = defaulted;
-		//    }
+		//	public LeftItemInfo(bool defaulted)
+		//	{
+		//		Defaulted = defaulted;
+		//	}
 		//}
 
 		public Action<JoinPair<TLeftSourceItem, TRightSourceItem>, TLeftSourceItem> SetLeftItemRequestHandler
@@ -166,62 +166,62 @@ namespace ObservableComputations
 
 		//[ObservableComputationsCall]
 		//public Joining(
-		//    IReadScalar<INotifyCollectionChanged> leftSourceScalar,
-		//    IReadScalar<INotifyCollectionChanged> rightSourceScalar,
-		//    Expression<Func<TLeftSourceItem, TRightSourceItem, bool>> predicateExpression,
-		//    TRightSourceItem defaultRightSourceItemForLeftJoin,
-		//    int capacity = 0) : this(predicateExpression, Utils.getCapacity(leftSourceScalar) * Utils.getCapacity(rightSourceScalar), capacity)
+		//	IReadScalar<INotifyCollectionChanged> leftSourceScalar,
+		//	IReadScalar<INotifyCollectionChanged> rightSourceScalar,
+		//	Expression<Func<TLeftSourceItem, TRightSourceItem, bool>> predicateExpression,
+		//	TRightSourceItem defaultRightSourceItemForLeftJoin,
+		//	int capacity = 0) : this(predicateExpression, Utils.getCapacity(leftSourceScalar) * Utils.getCapacity(rightSourceScalar), capacity)
 		//{
-		//    _leftSourceScalar = leftSourceScalar;
-		//    _rightSourceScalar = rightSourceScalar;
-		//    _isLeft = true;
-		//    _defaultRightSourceItemForLeftJoin = defaultRightSourceItemForLeftJoin;
-		//    _leftItemInfos = new List<LeftItemInfo>(Utils.getCapacity(leftSourceScalar));
+		//	_leftSourceScalar = leftSourceScalar;
+		//	_rightSourceScalar = rightSourceScalar;
+		//	_isLeft = true;
+		//	_defaultRightSourceItemForLeftJoin = defaultRightSourceItemForLeftJoin;
+		//	_leftItemInfos = new List<LeftItemInfo>(Utils.getCapacity(leftSourceScalar));
 		//}
 
 		//[ObservableComputationsCall]
 		//public Joining(
-		//    INotifyCollectionChanged leftSource,
-		//    IReadScalar<INotifyCollectionChanged> rightSourceScalar,
-		//    Expression<Func<TLeftSourceItem, TRightSourceItem, bool>> predicateExpression,
-		//    TRightSourceItem defaultRightSourceItemForLeftJoin,
-		//    int capacity = 0) : this(predicateExpression, Utils.getCapacity(leftSource) * Utils.getCapacity(rightSourceScalar), capacity)
+		//	INotifyCollectionChanged leftSource,
+		//	IReadScalar<INotifyCollectionChanged> rightSourceScalar,
+		//	Expression<Func<TLeftSourceItem, TRightSourceItem, bool>> predicateExpression,
+		//	TRightSourceItem defaultRightSourceItemForLeftJoin,
+		//	int capacity = 0) : this(predicateExpression, Utils.getCapacity(leftSource) * Utils.getCapacity(rightSourceScalar), capacity)
 		//{
-		//    _leftSource = leftSource;
-		//    _rightSourceScalar = rightSourceScalar;
-		//    _isLeft = true;
-		//    _defaultRightSourceItemForLeftJoin = defaultRightSourceItemForLeftJoin;
-		//    _leftItemInfos = new List<LeftItemInfo>( Utils.getCapacity(leftSource));
+		//	_leftSource = leftSource;
+		//	_rightSourceScalar = rightSourceScalar;
+		//	_isLeft = true;
+		//	_defaultRightSourceItemForLeftJoin = defaultRightSourceItemForLeftJoin;
+		//	_leftItemInfos = new List<LeftItemInfo>( Utils.getCapacity(leftSource));
 		//}
 
 		//[ObservableComputationsCall]
 		//public Joining(
-		//    IReadScalar<INotifyCollectionChanged> leftSourceScalar,
-		//    INotifyCollectionChanged rightSource,
-		//    Expression<Func<TLeftSourceItem, TRightSourceItem, bool>> predicateExpression,
-		//    TRightSourceItem defaultRightSourceItemForLeftJoin,
-		//    int capacity = 0) : this(predicateExpression, Utils.getCapacity(leftSourceScalar) * Utils.getCapacity(rightSource), capacity)
+		//	IReadScalar<INotifyCollectionChanged> leftSourceScalar,
+		//	INotifyCollectionChanged rightSource,
+		//	Expression<Func<TLeftSourceItem, TRightSourceItem, bool>> predicateExpression,
+		//	TRightSourceItem defaultRightSourceItemForLeftJoin,
+		//	int capacity = 0) : this(predicateExpression, Utils.getCapacity(leftSourceScalar) * Utils.getCapacity(rightSource), capacity)
 		//{
-		//    _leftSourceScalar = leftSourceScalar;
-		//    _rightSource = rightSource;
-		//    _isLeft = true;
-		//    _defaultRightSourceItemForLeftJoin = defaultRightSourceItemForLeftJoin;
-		//    _leftItemInfos = new List<LeftItemInfo>(Utils.getCapacity(leftSourceScalar));
+		//	_leftSourceScalar = leftSourceScalar;
+		//	_rightSource = rightSource;
+		//	_isLeft = true;
+		//	_defaultRightSourceItemForLeftJoin = defaultRightSourceItemForLeftJoin;
+		//	_leftItemInfos = new List<LeftItemInfo>(Utils.getCapacity(leftSourceScalar));
 		//}
 
 		//[ObservableComputationsCall]
 		//public Joining(
-		//    INotifyCollectionChanged leftSource,
-		//    INotifyCollectionChanged rightSource,
-		//    Expression<Func<TLeftSourceItem, TRightSourceItem, bool>> predicateExpression,
-		//    TRightSourceItem defaultRightSourceItemForLeftJoin,
-		//    int capacity = 0) : this(predicateExpression, Utils.getCapacity(leftSource) * Utils.getCapacity(rightSource), capacity)
+		//	INotifyCollectionChanged leftSource,
+		//	INotifyCollectionChanged rightSource,
+		//	Expression<Func<TLeftSourceItem, TRightSourceItem, bool>> predicateExpression,
+		//	TRightSourceItem defaultRightSourceItemForLeftJoin,
+		//	int capacity = 0) : this(predicateExpression, Utils.getCapacity(leftSource) * Utils.getCapacity(rightSource), capacity)
 		//{
-		//    _leftSource = leftSource;
-		//    _rightSource = rightSource;
-		//    _isLeft = true;
-		//    _defaultRightSourceItemForLeftJoin = defaultRightSourceItemForLeftJoin;
-		//    _leftItemInfos = new List<LeftItemInfo>( Utils.getCapacity(leftSource));
+		//	_leftSource = leftSource;
+		//	_rightSource = rightSource;
+		//	_isLeft = true;
+		//	_defaultRightSourceItemForLeftJoin = defaultRightSourceItemForLeftJoin;
+		//	_leftItemInfos = new List<LeftItemInfo>( Utils.getCapacity(leftSource));
 		//}
 
 		private Joining(Expression<Func<TLeftSourceItem, TRightSourceItem, bool>> predicateExpression,
@@ -361,13 +361,13 @@ namespace ObservableComputations
 
 					//if (_isLeft)
 					//{
-					//    if (!anyAdded)
-					//    {
-					//        doRegisterSourceItem(_defaultRightSourceItemForLeftJoin, true);
-					//        _leftItemInfos.Add(new LeftItemInfo(true));
-					//    }
+					//	if (!anyAdded)
+					//	{
+					//		doRegisterSourceItem(_defaultRightSourceItemForLeftJoin, true);
+					//		_leftItemInfos.Add(new LeftItemInfo(true));
+					//	}
 
-					//    _leftItemInfos.Add(new LeftItemInfo(true));
+					//	_leftItemInfos.Add(new LeftItemInfo(true));
 					//}
 				}
 
@@ -448,11 +448,11 @@ namespace ObservableComputations
 							TRightSourceItem rightSourceItem = _rightSourceCopy[rightSourceIndex];
 							processAddSourceItem(addedLeftSourceItem, rightSourceItem, baseIndex + rightSourceIndex);
 							//if (processAddSourceItem(addedLeftSourceItem, rightSourceItem, baseIndex + rightSourceIndex))
-							//    anyAdded = true;
+							//	anyAdded = true;
 						}
 
 						//if (_isLeft && !anyAdded)
-						//    processAddSourceItem(addedLeftSourceItem, _defaultRightSourceItemForLeftJoin, baseIndex);
+						//	processAddSourceItem(addedLeftSourceItem, _defaultRightSourceItemForLeftJoin, baseIndex);
 						break;
 					case NotifyCollectionChangedAction.Remove:
 						int oldIndex = e.OldStartingIndex;
@@ -462,9 +462,9 @@ namespace ObservableComputations
 
 						//if (_isLeft)
 						//{
-						//    LeftItemInfo leftItemInfo = _leftItemInfos[oldIndex];
-						//    if (leftItemInfo.Defaulted)  unregisterSourceItem(baseIndex1);
-						//    _leftItemInfos.RemoveAt(oldIndex);
+						//	LeftItemInfo leftItemInfo = _leftItemInfos[oldIndex];
+						//	if (leftItemInfo.Defaulted)  unregisterSourceItem(baseIndex1);
+						//	_leftItemInfos.RemoveAt(oldIndex);
 						//}
 
 						for (int innerSourceIndex = count1 - 1; innerSourceIndex >= 0; innerSourceIndex--)
@@ -478,9 +478,9 @@ namespace ObservableComputations
 							TLeftSourceItem leftSourceItem = (TLeftSourceItem) e.NewItems[0];
 							_leftSourceCopy.RemoveAt(oldIndex1);
 							_leftSourceCopy.Insert(newIndex1, leftSourceItem);
-							//    LeftItemInfo leftItemInfo = _leftItemInfos[oldIndex1];
-							//    _leftItemInfos.RemoveAt(oldIndex1);
-							//    _leftItemInfos.Insert(newIndex1, leftItemInfo);
+							//	LeftItemInfo leftItemInfo = _leftItemInfos[oldIndex1];
+							//	_leftItemInfos.RemoveAt(oldIndex1);
+							//	_leftItemInfos.Insert(newIndex1, leftItemInfo);
 
 							int count3 = _rightSourceCopy.Count;
 							int oldResultIndex = oldIndex1 * count3;
@@ -599,7 +599,7 @@ namespace ObservableComputations
 								this);
 
 							if (replace)
-								this[replacingItemInfo.FilteredPosition.Index].setRightItem(sourceRightItem3);	                        
+								this[replacingItemInfo.FilteredPosition.Index].setRightItem(sourceRightItem3);							
 
 							index2 = index2 + rightSourceCount2;
 						}
@@ -1020,7 +1020,7 @@ namespace ObservableComputations
 
 		public override string ToString()
 		{
-			return $"JoinPair: LeftItem = {(LeftItem != null ? $"{LeftItem.ToString()}" : "null")}    RightItem = {(RightItem != null ? $"{RightItem.ToString()}" : "null")}";
+			return $"JoinPair: LeftItem = {(LeftItem != null ? $"{LeftItem.ToString()}" : "null")}	RightItem = {(RightItem != null ? $"{RightItem.ToString()}" : "null")}";
 		}
 
 		public event PropertyChangedEventHandler PropertyChanged;

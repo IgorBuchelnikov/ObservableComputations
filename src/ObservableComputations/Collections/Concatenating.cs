@@ -145,7 +145,7 @@ namespace ObservableComputations
 					}
 
 					if (itemInfo.SourceScalar != null)
-						itemInfo.SourceScalar.PropertyChanged -= itemInfo.SourceScalarPropertyChangedEventHandler;                   
+						itemInfo.SourceScalar.PropertyChanged -= itemInfo.SourceScalarPropertyChangedEventHandler;				   
 				}
 
 				Utils.initializeItemInfos(
@@ -281,7 +281,7 @@ namespace ObservableComputations
 				if (sourceAsIHasChangeMarker != null)
 				{
 					itemInfo.LastProcessedSourceChangeMarker = sourceAsIHasChangeMarker.ChangeMarker;
-				}              
+				}			  
 			}
 
 			initializeSourceCopy(itemInfo);
@@ -581,7 +581,7 @@ namespace ObservableComputations
 			processSourceUpstreamComputings(computing, true);
 		}
 
-		internal override void removeFromUpstreamComputings(IComputingInternal computing)        
+		internal override void removeFromUpstreamComputings(IComputingInternal computing)		
 		{
 			(_sources as IComputingInternal)?.RemoveDownstreamConsumedComputing(computing);
 			(_sourcesScalar as IComputingInternal)?.RemoveDownstreamConsumedComputing(computing);

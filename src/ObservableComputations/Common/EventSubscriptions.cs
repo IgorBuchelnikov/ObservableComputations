@@ -54,7 +54,7 @@ namespace ObservableComputations
 			MethodChangedEventSubscription[] methodChangedEventSubscriptions)
 		{
 			_subscriptionsQueue.Enqueue(new Subscriptions(propertyChangedEventSubscriptions, methodChangedEventSubscriptions));
-			for (int index = 0; index < _threadsCount; index++)            
+			for (int index = 0; index < _threadsCount; index++)			
 				_newSubscriptionManualResetEvents[index].Set();
 		}
 

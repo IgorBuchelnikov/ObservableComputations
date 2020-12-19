@@ -177,7 +177,7 @@ namespace ObservableComputations.Test
 					{
 						trace(testNum = "10", ids1, ids2, newItemId, index, indexOld, indexNew);
 						items1 = getObservableCollection(ids1);
-						if (items1[index] == null) continue;                      
+						if (items1[index] == null) continue;					  
 						items2 = getObservableCollection(ids2);
 						joining = items1.Joining(items2, (item1, item2) => item1 != null && item2 != null && item1.Id == item2.Id).For(consumer);
 						items1[index].Id = newItemId;

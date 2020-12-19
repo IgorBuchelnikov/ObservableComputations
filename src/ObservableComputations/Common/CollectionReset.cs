@@ -3,34 +3,34 @@ using System.Collections.Generic;
 
 namespace ObservableComputations
 {
-    internal class CollectionReset : IProcessable
-    {
-        private object _eventSender;
-        private EventArgs _eventArgs;
-        internal Action Action;
-        internal ICanInitializeFromSource CanInitializeFromSource;
+	internal class CollectionReset : IProcessable
+	{
+		private object _eventSender;
+		private EventArgs _eventArgs;
+		internal Action Action;
+		internal ICanInitializeFromSource CanInitializeFromSource;
 
-        public CollectionReset(object eventSender, EventArgs eventArgs, ICanInitializeFromSource canInitializeFromSource, Action action)
-        {
-            _eventSender = eventSender;
-            _eventArgs = eventArgs;
-            CanInitializeFromSource = canInitializeFromSource;
-            Action = action;
-        }
+		public CollectionReset(object eventSender, EventArgs eventArgs, ICanInitializeFromSource canInitializeFromSource, Action action)
+		{
+			_eventSender = eventSender;
+			_eventArgs = eventArgs;
+			CanInitializeFromSource = canInitializeFromSource;
+			Action = action;
+		}
 
-        #region Implementation of IProcessable
-        public void Process(Queue<IProcessable>[] deferredProcessings)
-        {
-            Utils.clearDefferedProcessings(deferredProcessings);
+		#region Implementation of IProcessable
+		public void Process(Queue<IProcessable>[] deferredProcessings)
+		{
+			Utils.clearDefferedProcessings(deferredProcessings);
 
-            Action?.Invoke();
-            CanInitializeFromSource.InitializeFromSource();
-        }
+			Action?.Invoke();
+			CanInitializeFromSource.InitializeFromSource();
+		}
 
-        #endregion
+		#endregion
 
-        public object EventSender => _eventSender;
-        public EventArgs EventArgs => _eventArgs;
-    }
+		public object EventSender => _eventSender;
+		public EventArgs EventArgs => _eventArgs;
+	}
 }
 

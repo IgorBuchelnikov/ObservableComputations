@@ -430,7 +430,7 @@ namespace ObservableComputations.Test
 			case "System.Linq.Expressions.Expression<System.Func<TSourceItem, int, System.Collections.Specialized.INotifyCollectionChanged>>":
 				result =  "(i, ind) => i.Items";
 				break;
-			case "ObservableComputations.IReadScalar<TResult>":             
+			case "ObservableComputations.IReadScalar<TResult>":
 				break;
 			default:
 				throw new Exception($"Unexpected type {type}");

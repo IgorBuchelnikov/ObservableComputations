@@ -160,7 +160,7 @@ namespace ObservableComputations
 			_isPaused = initialIsPaused;
 			_source = source;
 			_resumeType = resumeType;
-			_thisAsSourceCollectionChangeProcessor = this;          
+			_thisAsSourceCollectionChangeProcessor = this;		  
 		}
 
 		[ObservableComputationsCall]
@@ -369,7 +369,7 @@ namespace ObservableComputations
 			(_isPausedScalar as IComputingInternal)?.AddDownstreamConsumedComputing(computing);
 		}
 
-		internal override void removeFromUpstreamComputings(IComputingInternal computing)        
+		internal override void removeFromUpstreamComputings(IComputingInternal computing)		
 		{
 			(_source as IComputingInternal)?.RemoveDownstreamConsumedComputing(computing);
 			(_sourceScalar as IComputingInternal)?.RemoveDownstreamConsumedComputing(computing);
@@ -377,7 +377,7 @@ namespace ObservableComputations
 		}
 
 		protected override void initialize()
-		{     
+		{	 
 			Utils.initializeSourceScalar(_sourceScalar, ref _source, scalarValueChangedHandler);
 			initializeIsPausedScalar();
 		}

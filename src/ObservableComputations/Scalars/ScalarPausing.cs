@@ -19,7 +19,7 @@ namespace ObservableComputations
 
 		private bool _resuming;
 
-        private Action _changeValueAction;
+		private Action _changeValueAction;
 
 		public int? LastChangesCountOnResume
 		{
@@ -39,7 +39,7 @@ namespace ObservableComputations
 			set
 			{
 				if (_isPausedScalar != null) throw new ObservableComputationsException("Modifying of IsPaused property is controlled by IsPausedScalar");
-                checkConsistent(null, null);
+				checkConsistent(null, null);
 
 				_resuming = _isPaused != value && value;
 				_isPaused = value;
@@ -65,24 +65,24 @@ namespace ObservableComputations
 			{
 				defferedScalarAction = _defferedScalarActions.Dequeue();
 				if (i >= startIndex)
-                {
-                    _handledEventSender = defferedScalarAction.EventSender;
-                    _handledEventArgs = defferedScalarAction.PropertyChangedEventAgs;
+				{
+					_handledEventSender = defferedScalarAction.EventSender;
+					_handledEventArgs = defferedScalarAction.PropertyChangedEventAgs;
 
-                    setValue(defferedScalarAction.Value);
+					setValue(defferedScalarAction.Value);
 
-                    _handledEventSender = null;
-                    _handledEventArgs = null;
-                }
+					_handledEventSender = null;
+					_handledEventArgs = null;
+				}
 			}
 			_resuming = false;
 
-            Utils.postHandleChange(
-                ref _handledEventSender,
-                ref _handledEventArgs,
-                _deferredProcessings,
-                ref _isConsistent,
-                this);
+			Utils.postHandleChange(
+				ref _handledEventSender,
+				ref _handledEventArgs,
+				_deferredProcessings,
+				ref _isConsistent,
+				this);
 		}
 
 		Queue<DefferedScalarAction<TResult>> _defferedScalarActions = new Queue<DefferedScalarAction<TResult>>();
@@ -93,7 +93,7 @@ namespace ObservableComputations
 			IReadScalar<TResult> scalar,
 			bool initialIsPaused = false,
 			int? lastChangesToApplyOnResumeCount = null) : this()
-        {
+		{
 			_isPaused = initialIsPaused;
 			_lastChangesToApplyOnResumeCount = lastChangesToApplyOnResumeCount;
 			_scalar = scalar;
@@ -107,7 +107,7 @@ namespace ObservableComputations
 		{
 			_isPausedScalar = isPausedScalar;
 			_lastChangesToApplyOnResumeCount = lastChangesToApplyOnResumeCount;
-            _scalar = scalar;
+			_scalar = scalar;
 		}
 
 		[ObservableComputationsCall]
@@ -118,7 +118,7 @@ namespace ObservableComputations
 		{
 			_isPausedScalar = isPausedScalar;
 			_lastChangesToApplyOnResumeCountScalar = lastChangesToApplyOnResumeCountScalar;
-            _scalar = scalar;
+			_scalar = scalar;
 		}
 
 		[ObservableComputationsCall]
@@ -129,96 +129,96 @@ namespace ObservableComputations
 		{
 			_isPaused = initialIsPaused;
 			_lastChangesToApplyOnResumeCountScalar = lastChangesToApplyOnResumeCountScalar;
-            _scalar = scalar;
+			_scalar = scalar;
 		}
 
-        private ScalarPausing()
-        {
-            _changeValueAction = () => setValue(_scalar.Value);
-        }
+		private ScalarPausing()
+		{
+			_changeValueAction = () => setValue(_scalar.Value);
+		}
 
-        private void initializeIsPauserScalar()
-        {
-            if (_isPausedScalar != null)
-            {
-                _isPausedScalar.PropertyChanged += handleIsPausedScalarValueChanged;
-                _isPaused = _isPausedScalar.Value;
-            }
-        }
+		private void initializeIsPauserScalar()
+		{
+			if (_isPausedScalar != null)
+			{
+				_isPausedScalar.PropertyChanged += handleIsPausedScalarValueChanged;
+				_isPaused = _isPausedScalar.Value;
+			}
+		}
 
-        private void initializeLastChangesCountOnResumeScalar()
-        {
-            if (_lastChangesToApplyOnResumeCountScalar != null)
-            {
-                _lastChangesToApplyOnResumeCountScalar.PropertyChanged += handleLastChangesToApplyOnResumeCountScalarValueChanged;
-                _lastChangesToApplyOnResumeCount = _lastChangesToApplyOnResumeCountScalar.Value;
-            }
-        }
+		private void initializeLastChangesCountOnResumeScalar()
+		{
+			if (_lastChangesToApplyOnResumeCountScalar != null)
+			{
+				_lastChangesToApplyOnResumeCountScalar.PropertyChanged += handleLastChangesToApplyOnResumeCountScalarValueChanged;
+				_lastChangesToApplyOnResumeCount = _lastChangesToApplyOnResumeCountScalar.Value;
+			}
+		}
 
-        private bool _initializedFromSource;
+		private bool _initializedFromSource;
 
-        protected override void initializeFromSource()
-        {
-            if (_initializedFromSource)
-            {
-                _scalar.PropertyChanged -= handleScalarPropertyChanged;
+		protected override void initializeFromSource()
+		{
+			if (_initializedFromSource)
+			{
+				_scalar.PropertyChanged -= handleScalarPropertyChanged;
 
-                if (_isPausedScalar != null)
-                {
-                    _isPausedScalar.PropertyChanged -= handleIsPausedScalarValueChanged;			
-                }
+				if (_isPausedScalar != null)
+				{
+					_isPausedScalar.PropertyChanged -= handleIsPausedScalarValueChanged;			
+				}
 
-                if (_lastChangesToApplyOnResumeCountScalar != null)
-                {
-                    _lastChangesToApplyOnResumeCountScalar.PropertyChanged -= handleLastChangesToApplyOnResumeCountScalarValueChanged;			
-                }
+				if (_lastChangesToApplyOnResumeCountScalar != null)
+				{
+					_lastChangesToApplyOnResumeCountScalar.PropertyChanged -= handleLastChangesToApplyOnResumeCountScalarValueChanged;			
+				}
 
-                _defferedScalarActions.Clear();
-                _initializedFromSource = false;
-            }
+				_defferedScalarActions.Clear();
+				_initializedFromSource = false;
+			}
 
-            if (_isActive)
-            {
-			    if (_isPaused) _defferedScalarActions.Enqueue(new DefferedScalarAction<TResult>(null, null, _scalar.Value));
-			    else setValue(_scalar.Value);
+			if (_isActive)
+			{
+				if (_isPaused) _defferedScalarActions.Enqueue(new DefferedScalarAction<TResult>(null, null, _scalar.Value));
+				else setValue(_scalar.Value);
 
-			    _scalar.PropertyChanged += handleScalarPropertyChanged;
+				_scalar.PropertyChanged += handleScalarPropertyChanged;
 
-                initializeIsPauserScalar();
-                initializeLastChangesCountOnResumeScalar();
-                _initializedFromSource = true;
-            }
-            else
-            {
-                setDefaultValue();
-            }
-        }
+				initializeIsPauserScalar();
+				initializeLastChangesCountOnResumeScalar();
+				_initializedFromSource = true;
+			}
+			else
+			{
+				setDefaultValue();
+			}
+		}
 
-        protected override void initialize()
+		protected override void initialize()
 		{
 
-        }
+		}
 
-        protected override void uninitialize()
-        {
+		protected override void uninitialize()
+		{
 
-        }
+		}
 
-        internal override void addToUpstreamComputings(IComputingInternal computing)
-        {
-            (_scalar as IComputingInternal)?.AddDownstreamConsumedComputing(computing);
-            (_isPausedScalar as IComputingInternal)?.AddDownstreamConsumedComputing(computing);
-            (_lastChangesToApplyOnResumeCountScalar as IComputingInternal)?.AddDownstreamConsumedComputing(computing);
-        }
+		internal override void addToUpstreamComputings(IComputingInternal computing)
+		{
+			(_scalar as IComputingInternal)?.AddDownstreamConsumedComputing(computing);
+			(_isPausedScalar as IComputingInternal)?.AddDownstreamConsumedComputing(computing);
+			(_lastChangesToApplyOnResumeCountScalar as IComputingInternal)?.AddDownstreamConsumedComputing(computing);
+		}
 
-        internal override void removeFromUpstreamComputings(IComputingInternal computing)
-        {
-            (_scalar as IComputingInternal)?.RemoveDownstreamConsumedComputing(computing);
-            (_isPausedScalar as IComputingInternal)?.RemoveDownstreamConsumedComputing(computing);
-            (_lastChangesToApplyOnResumeCountScalar as IComputingInternal)?.RemoveDownstreamConsumedComputing(computing);
-        }
+		internal override void removeFromUpstreamComputings(IComputingInternal computing)
+		{
+			(_scalar as IComputingInternal)?.RemoveDownstreamConsumedComputing(computing);
+			(_isPausedScalar as IComputingInternal)?.RemoveDownstreamConsumedComputing(computing);
+			(_lastChangesToApplyOnResumeCountScalar as IComputingInternal)?.RemoveDownstreamConsumedComputing(computing);
+		}
 
-  //      private void handleScalarPropertyChanged(object sender, PropertyChangedEventArgs e)
+  //	  private void handleScalarPropertyChanged(object sender, PropertyChangedEventArgs e)
 		//{
 		//	if (e.PropertyName != nameof(IReadScalar<TResult>.Value)) return;
 		//	handleScalarPropertyChanged(sender, e, _scalar.Value);
@@ -227,17 +227,17 @@ namespace ObservableComputations
 		private void handleScalarPropertyChanged(object sender, PropertyChangedEventArgs e)
 		{
 			if (_isPaused) 
-                _defferedScalarActions.Enqueue(new DefferedScalarAction<TResult>(sender, e, _scalar.Value));
-			else             
-                Utils.processChange(
-                    sender, 
-                    e, 
-                    _changeValueAction,
-                    ref _isConsistent, 
-                    ref _handledEventSender, 
-                    ref _handledEventArgs, 
-                    0, _deferredQueuesCount,
-                    ref _deferredProcessings, this);
+				_defferedScalarActions.Enqueue(new DefferedScalarAction<TResult>(sender, e, _scalar.Value));
+			else			 
+				Utils.processChange(
+					sender, 
+					e, 
+					_changeValueAction,
+					ref _isConsistent, 
+					ref _handledEventSender, 
+					ref _handledEventArgs, 
+					0, _deferredQueuesCount,
+					ref _deferredProcessings, this);
 
 		}
 

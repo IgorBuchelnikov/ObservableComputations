@@ -149,7 +149,7 @@ namespace ObservableComputations
 						MemberInfo memberExpressionMember = memberExpression.Member;
 						Type declaringType = memberExpressionMember.DeclaringType;
 						// ReSharper disable once PossibleNullReferenceException
-						if (declaringType.IsConstructedGenericType 					                                                 
+						if (declaringType.IsConstructedGenericType 																	 
 							&& declaringType.GetGenericTypeDefinition() == typeof(Nullable<>)
 							&& memberExpressionMember.Name == "Value")
 						{
@@ -387,10 +387,10 @@ namespace ObservableComputations
 			(_sourceScalar as IComputingInternal)?.AddDownstreamConsumedComputing(computing);
 		}
 
-		internal override void removeFromUpstreamComputings(IComputingInternal computing)        
+		internal override void removeFromUpstreamComputings(IComputingInternal computing)		
 		{
 			(_source as IComputingInternal)?.RemoveDownstreamConsumedComputing(computing);
-			(_sourceScalar as IComputingInternal)?.RemoveDownstreamConsumedComputing(computing);          
+			(_sourceScalar as IComputingInternal)?.RemoveDownstreamConsumedComputing(computing);		  
 		}
 
 		void IFiltering<TSourceItem>.expressionWatcher_OnValueChanged(ExpressionWatcher expressionWatcher, object sender, EventArgs eventArgs)

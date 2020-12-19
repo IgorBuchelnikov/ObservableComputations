@@ -13,7 +13,7 @@ namespace ObservableComputations
 		private Func<TValue, IScalarComputing, TReturnValue, TReturnValue> _newValueProcessor;
 
 		private TReturnValue _returnValue;
-        private Action _changeValueAction;
+		private Action _changeValueAction;
 
 		[ObservableComputationsCall]
 		public ScalarProcessing(
@@ -34,33 +34,33 @@ namespace ObservableComputations
 		{
 			_scalar = scalar;
 
-            _changeValueAction = () =>
-            {
-                _returnValue = processNewValue(_scalar.Value);
-                setValue(_returnValue);
-            };
+			_changeValueAction = () =>
+			{
+				_returnValue = processNewValue(_scalar.Value);
+				setValue(_returnValue);
+			};
 		}
 
 		private void handleScalarPropertyChanged(object sender, PropertyChangedEventArgs e)
 		{
-            Utils.processChange(
-                sender, 
-                e, 
-                _changeValueAction,
-                ref _isConsistent, 
-                ref _handledEventSender, 
-                ref _handledEventArgs, 
-                0, _deferredQueuesCount,
-                ref _deferredProcessings, this);
+			Utils.processChange(
+				sender, 
+				e, 
+				_changeValueAction,
+				ref _isConsistent, 
+				ref _handledEventSender, 
+				ref _handledEventArgs, 
+				0, _deferredQueuesCount,
+				ref _deferredProcessings, this);
 		}
 
 		private TReturnValue processNewValue(TValue newValue)
 		{
 			if (Configuration.TrackComputingsExecutingUserCode)
 			{
-                var currentThread = Utils.startComputingExecutingUserCode(out var computing, out _userCodeIsCalledFrom, this);
+				var currentThread = Utils.startComputingExecutingUserCode(out var computing, out _userCodeIsCalledFrom, this);
 				TReturnValue returnValue = _newValueProcessor(newValue, this, _returnValue);
-                Utils.endComputingExecutingUserCode(computing, currentThread, out _userCodeIsCalledFrom);
+				Utils.endComputingExecutingUserCode(computing, currentThread, out _userCodeIsCalledFrom);
 
 				return returnValue;
 			}
@@ -70,48 +70,48 @@ namespace ObservableComputations
 			}
 		}
 
-        private bool _initializedFromSource;
-        #region Overrides of ScalarComputing<TResult>
+		private bool _initializedFromSource;
+		#region Overrides of ScalarComputing<TResult>
 
-        protected override void initializeFromSource()
-        {
-            if (_initializedFromSource)
-            {
-                _scalar.PropertyChanged -= handleScalarPropertyChanged;
-                _initializedFromSource = false;
-            }
+		protected override void initializeFromSource()
+		{
+			if (_initializedFromSource)
+			{
+				_scalar.PropertyChanged -= handleScalarPropertyChanged;
+				_initializedFromSource = false;
+			}
 
-            if (_isActive)
-            {
-                _scalar.PropertyChanged += handleScalarPropertyChanged;
-                _initializedFromSource = true;
-            }
-            else
-            {
-                setDefaultValue();
-            }
-        }
+			if (_isActive)
+			{
+				_scalar.PropertyChanged += handleScalarPropertyChanged;
+				_initializedFromSource = true;
+			}
+			else
+			{
+				setDefaultValue();
+			}
+		}
 
-        protected override void initialize()
-        {
+		protected override void initialize()
+		{
 
-        }
+		}
 
-        protected override void uninitialize()
-        {
-            
-        }
+		protected override void uninitialize()
+		{
+			
+		}
 
-        internal override void addToUpstreamComputings(IComputingInternal computing)
-        {
-            (_scalar as IComputingInternal)?.AddDownstreamConsumedComputing(computing);
-        }
+		internal override void addToUpstreamComputings(IComputingInternal computing)
+		{
+			(_scalar as IComputingInternal)?.AddDownstreamConsumedComputing(computing);
+		}
 
-        internal override void removeFromUpstreamComputings(IComputingInternal computing)
-        {
-            (_scalar as IComputingInternal)?.RemoveDownstreamConsumedComputing(computing);
-        }
+		internal override void removeFromUpstreamComputings(IComputingInternal computing)
+		{
+			(_scalar as IComputingInternal)?.RemoveDownstreamConsumedComputing(computing);
+		}
 
-        #endregion
-    }
+		#endregion
+	}
 }

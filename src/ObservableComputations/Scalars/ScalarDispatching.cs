@@ -9,128 +9,128 @@ namespace ObservableComputations
 		public IOcDispatcher DestinationOcDispatcher => _destinationOcDispatcher;
 		public IOcDispatcher SourceOcDispatcher => _sourceOcDispatcher;
 
-        // ReSharper disable once UnusedMember.Local
-        private DispatcherPriorities DispatcherPriorities => _dispatcherPriorities;
-        // ReSharper disable once UnusedMember.Local
-        private DispatcherParameters DispatcherParameters => _dispatcherParameters;
+		// ReSharper disable once UnusedMember.Local
+		private DispatcherPriorities DispatcherPriorities => _dispatcherPriorities;
+		// ReSharper disable once UnusedMember.Local
+		private DispatcherParameters DispatcherParameters => _dispatcherParameters;
 
 		private IOcDispatcher _destinationOcDispatcher;
 		private IOcDispatcher _sourceOcDispatcher;
 
 		private IReadScalar<TResult> _scalar;
-        private Action _changeValueAction;
+		private Action _changeValueAction;
 
-        private DispatcherPriorities _dispatcherPriorities;
-        private DispatcherParameters _dispatcherParameters;
+		private DispatcherPriorities _dispatcherPriorities;
+		private DispatcherParameters _dispatcherParameters;
 
 		[ObservableComputationsCall]
 		public ScalarDispatching(
 			IReadScalar<TResult> scalar, 
 			IOcDispatcher destinationOcDispatcher,
 			IOcDispatcher sourceOcDispatcher = null,
-            DispatcherPriorities? dispatcherPriorities = null,
-            DispatcherParameters? dispatcherParameters = null)
+			DispatcherPriorities? dispatcherPriorities = null,
+			DispatcherParameters? dispatcherParameters = null)
 		{
 			_destinationOcDispatcher = destinationOcDispatcher;
-            _scalar = scalar;
-            _sourceOcDispatcher = sourceOcDispatcher;
-            _changeValueAction = () =>
-            {
-                TResult newValue = _scalar.Value;
-                void setNewValue() => setValue(newValue);
+			_scalar = scalar;
+			_sourceOcDispatcher = sourceOcDispatcher;
+			_changeValueAction = () =>
+			{
+				TResult newValue = _scalar.Value;
+				void setNewValue() => setValue(newValue);
 
-                _destinationOcDispatcher.Invoke(
-                    setNewValue, 
-                    _dispatcherPriorities._distinationDispatcherPriority,
-                    _dispatcherParameters._distinationDispatcherParameter,
-                    this);
-            };
+				_destinationOcDispatcher.Invoke(
+					setNewValue, 
+					_dispatcherPriorities._distinationDispatcherPriority,
+					_dispatcherParameters._distinationDispatcherParameter,
+					this);
+			};
 
-            _dispatcherPriorities = dispatcherPriorities ?? new DispatcherPriorities(0, 0);
-            _dispatcherParameters = dispatcherParameters ?? new DispatcherParameters(null, null);
-        }
+			_dispatcherPriorities = dispatcherPriorities ?? new DispatcherPriorities(0, 0);
+			_dispatcherParameters = dispatcherParameters ?? new DispatcherParameters(null, null);
+		}
 
 		private void handleScalarPropertyChanged(object sender, PropertyChangedEventArgs e)
 		{
-            Utils.processChange(
-                sender, 
-                e, 
-                _changeValueAction,
-                ref _isConsistent, 
-                ref _handledEventSender, 
-                ref _handledEventArgs, 
-                0, _deferredQueuesCount,
-                ref _deferredProcessings, this);
+			Utils.processChange(
+				sender, 
+				e, 
+				_changeValueAction,
+				ref _isConsistent, 
+				ref _handledEventSender, 
+				ref _handledEventArgs, 
+				0, _deferredQueuesCount,
+				ref _deferredProcessings, this);
 		}
 
-        private bool _initializedFromSource;
-        #region Overrides of ScalarComputing<TResult>
+		private bool _initializedFromSource;
+		#region Overrides of ScalarComputing<TResult>
 
-        protected override void initializeFromSource()
-        {
-            if (_initializedFromSource)
-            {
-                _scalar.PropertyChanged -= handleScalarPropertyChanged;
-                _initializedFromSource = false;
-            }
+		protected override void initializeFromSource()
+		{
+			if (_initializedFromSource)
+			{
+				_scalar.PropertyChanged -= handleScalarPropertyChanged;
+				_initializedFromSource = false;
+			}
 
-            if (_isActive)
-            {
-                void readAndSubscribe()
-                {
-                    TResult newValue = _scalar.Value;
-                    void setNewValue() => setValue(newValue);
+			if (_isActive)
+			{
+				void readAndSubscribe()
+				{
+					TResult newValue = _scalar.Value;
+					void setNewValue() => setValue(newValue);
 
-                    _scalar.PropertyChanged += handleScalarPropertyChanged;
-                    _destinationOcDispatcher.Invoke(
-                        setNewValue, 
-                        _dispatcherPriorities._distinationDispatcherPriority,
-                        _dispatcherParameters._distinationDispatcherParameter, 
-                        this);
-                }
+					_scalar.PropertyChanged += handleScalarPropertyChanged;
+					_destinationOcDispatcher.Invoke(
+						setNewValue, 
+						_dispatcherPriorities._distinationDispatcherPriority,
+						_dispatcherParameters._distinationDispatcherParameter, 
+						this);
+				}
 
-                if (_sourceOcDispatcher != null)
-                    _sourceOcDispatcher.Invoke(
-                        readAndSubscribe, 
-                        _dispatcherPriorities._sourceDispatcherPriority,
-                        _dispatcherParameters._sourceDispatcherParameter, 
-                        this);
-                else
-                    readAndSubscribe();
+				if (_sourceOcDispatcher != null)
+					_sourceOcDispatcher.Invoke(
+						readAndSubscribe, 
+						_dispatcherPriorities._sourceDispatcherPriority,
+						_dispatcherParameters._sourceDispatcherParameter, 
+						this);
+				else
+					readAndSubscribe();
 
-                _initializedFromSource = true;
-            }
-            else
-            {
-                void setNewValue() => setDefaultValue();
-                _destinationOcDispatcher.Invoke(
-                    setNewValue, 
-                    _dispatcherPriorities._distinationDispatcherPriority,
-                    _dispatcherParameters._distinationDispatcherParameter,  
-                    this);
-            }
-        }
+				_initializedFromSource = true;
+			}
+			else
+			{
+				void setNewValue() => setDefaultValue();
+				_destinationOcDispatcher.Invoke(
+					setNewValue, 
+					_dispatcherPriorities._distinationDispatcherPriority,
+					_dispatcherParameters._distinationDispatcherParameter,  
+					this);
+			}
+		}
 
-        protected override void initialize()
-        {
+		protected override void initialize()
+		{
 
-        }
+		}
 
-        protected override void uninitialize()
-        {
+		protected override void uninitialize()
+		{
 
-        }
+		}
 
-        internal override void addToUpstreamComputings(IComputingInternal computing)
-        {
-            (_scalar as IComputingInternal)?.AddDownstreamConsumedComputing(computing);
-        }
+		internal override void addToUpstreamComputings(IComputingInternal computing)
+		{
+			(_scalar as IComputingInternal)?.AddDownstreamConsumedComputing(computing);
+		}
 
-        internal override void removeFromUpstreamComputings(IComputingInternal computing)
-        {
-            (_scalar as IComputingInternal)?.RemoveDownstreamConsumedComputing(computing);
-        }
+		internal override void removeFromUpstreamComputings(IComputingInternal computing)
+		{
+			(_scalar as IComputingInternal)?.RemoveDownstreamConsumedComputing(computing);
+		}
 
-        #endregion
-    }
+		#endregion
+	}
 }

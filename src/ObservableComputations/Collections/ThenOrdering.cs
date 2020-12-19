@@ -261,7 +261,7 @@ namespace ObservableComputations
 			(_comparerScalar as IComputingInternal)?.AddDownstreamConsumedComputing(computing);
 		}
 
-		internal override void removeFromUpstreamComputings(IComputingInternal computing)        
+		internal override void removeFromUpstreamComputings(IComputingInternal computing)		
 		{
 			(_source as IComputingInternal)?.RemoveDownstreamConsumedComputing(computing);
 			(_sourceScalar as IComputingInternal)?.RemoveDownstreamConsumedComputing(computing);

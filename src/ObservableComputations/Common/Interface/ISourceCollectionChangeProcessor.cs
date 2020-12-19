@@ -3,9 +3,9 @@
 namespace ObservableComputations
 {
 
-    internal interface ISourceCollectionChangeProcessor : ICanInitializeFromSource
-    {
-        void processSourceCollectionChanged(object sender, NotifyCollectionChangedEventArgs e);
-    }
+	internal interface ISourceCollectionChangeProcessor : ICanInitializeFromSource
+	{
+		void processSourceCollectionChanged(object sender, NotifyCollectionChangedEventArgs e);
+	}
 
 }

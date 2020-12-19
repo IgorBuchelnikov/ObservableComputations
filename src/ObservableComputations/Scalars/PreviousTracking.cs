@@ -12,96 +12,96 @@ namespace ObservableComputations
 		private IReadScalar<TResult> _scalar;
 		private TResult _previousValue;
 		private bool _isEverChanged;
-        private Action _changeValueAction;
+		private Action _changeValueAction;
 
 
 		[ObservableComputationsCall]
 		public PreviousTracking(
 			IReadScalar<TResult> scalar)
 		{
-            _changeValueAction = () =>
-            {
-                TResult newValue = _scalar.Value;
-                _previousValue = _value;
+			_changeValueAction = () =>
+			{
+				TResult newValue = _scalar.Value;
+				_previousValue = _value;
 
-                if (!_isEverChanged)
-                {
-                    _isEverChanged = true;
-                    raisePropertyChanged(Utils.IsEverChangedPropertyChangedEventArgs);
-                }
+				if (!_isEverChanged)
+				{
+					_isEverChanged = true;
+					raisePropertyChanged(Utils.IsEverChangedPropertyChangedEventArgs);
+				}
 
-                raisePropertyChanged(Utils.PreviousValuePropertyChangedEventArgs);
-                setValue(newValue);
-            };
+				raisePropertyChanged(Utils.PreviousValuePropertyChangedEventArgs);
+				setValue(newValue);
+			};
 
 			_scalar = scalar;
 		}
 
 		private void handleScalarPropertyChanged(object sender, PropertyChangedEventArgs e)
 		{
-            Utils.processChange(
-                sender, 
-                e, 
-                _changeValueAction,
-                ref _isConsistent, 
-                ref _handledEventSender, 
-                ref _handledEventArgs, 
-                0, _deferredQueuesCount,
-                ref _deferredProcessings, this);
+			Utils.processChange(
+				sender, 
+				e, 
+				_changeValueAction,
+				ref _isConsistent, 
+				ref _handledEventSender, 
+				ref _handledEventArgs, 
+				0, _deferredQueuesCount,
+				ref _deferredProcessings, this);
 		}
 
-        private bool _initializedFromSource;
-        #region Overrides of ScalarComputing<TResult>
+		private bool _initializedFromSource;
+		#region Overrides of ScalarComputing<TResult>
 
-        protected override void initializeFromSource()
-        {
-            if (_initializedFromSource)
-            {
-                _scalar.PropertyChanged -= handleScalarPropertyChanged;
-                _initializedFromSource = false;
-            }
+		protected override void initializeFromSource()
+		{
+			if (_initializedFromSource)
+			{
+				_scalar.PropertyChanged -= handleScalarPropertyChanged;
+				_initializedFromSource = false;
+			}
 
-            if (_isActive)
-            {
-                _scalar.PropertyChanged += handleScalarPropertyChanged;
-                setValue(_scalar.Value);
-                _initializedFromSource = true;
-            }
-            else
-            {
-                if (_isEverChanged)
-                {
-                    _isEverChanged = false;
-                    raisePropertyChanged(Utils.IsEverChangedPropertyChangedEventArgs);
-                }
+			if (_isActive)
+			{
+				_scalar.PropertyChanged += handleScalarPropertyChanged;
+				setValue(_scalar.Value);
+				_initializedFromSource = true;
+			}
+			else
+			{
+				if (_isEverChanged)
+				{
+					_isEverChanged = false;
+					raisePropertyChanged(Utils.IsEverChangedPropertyChangedEventArgs);
+				}
 
-                setDefaultValue();
+				setDefaultValue();
 
-                _previousValue = default;
-                raisePropertyChanged(Utils.PreviousValuePropertyChangedEventArgs);
-            }
-        }
+				_previousValue = default;
+				raisePropertyChanged(Utils.PreviousValuePropertyChangedEventArgs);
+			}
+		}
 
-        protected override void initialize()
-        {
+		protected override void initialize()
+		{
 
-        }
+		}
 
-        protected override void uninitialize()
-        {
+		protected override void uninitialize()
+		{
 
-        }
+		}
 
-        internal override void addToUpstreamComputings(IComputingInternal computing)
-        {
-            (_scalar as IComputingInternal)?.AddDownstreamConsumedComputing(computing);
-        }
+		internal override void addToUpstreamComputings(IComputingInternal computing)
+		{
+			(_scalar as IComputingInternal)?.AddDownstreamConsumedComputing(computing);
+		}
 
-        internal override void removeFromUpstreamComputings(IComputingInternal computing)
-        {
-            (_scalar as IComputingInternal)?.RemoveDownstreamConsumedComputing(computing);
-        }
+		internal override void removeFromUpstreamComputings(IComputingInternal computing)
+		{
+			(_scalar as IComputingInternal)?.RemoveDownstreamConsumedComputing(computing);
+		}
 
-        #endregion
-    }
+		#endregion
+	}
 }

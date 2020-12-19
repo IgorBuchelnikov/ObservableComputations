@@ -655,7 +655,9 @@ namespace ObservableComputations
 				EventArgs args, 
 				CallTreeNode node)
 			{
+#if DEBUG
 				Root = root;
+#endif
 				Sender = sender;
 				Args = args;
 				Node = node;
@@ -732,8 +734,12 @@ namespace ObservableComputations
 							string propertyName = node._call.Name;
 							node._propertyChangedEventHandler = (sender, args) =>
 							{
-								if (!_disposed && args.PropertyName == propertyName) 
+								if (!_disposed && args.PropertyName == propertyName)
+#if DEBUG
 									processChange(node, root, sender, args);
+#else
+									processChange(node, sender, args);
+#endif
 							};
 
 							notifyPropertyChanged.PropertyChanged += node._propertyChangedEventHandler;
@@ -758,7 +764,11 @@ namespace ObservableComputations
 									}
 
 									if (args.ArgumentsPredicate(argumentValues))
+#if DEBUG
 										processChange(node, root, sender, args);
+#else
+										processChange(node, sender, args);
+#endif
 								}
 
 							};
@@ -772,8 +782,12 @@ namespace ObservableComputations
 						{
 							node._callArgumentChangedEventHandler = (ew, sender, args) =>
 							{
-								if (!_disposed) 
+								if (!_disposed)
+#if DEBUG
 									processChange(node, root, sender, args);
+#else
+									processChange(node, sender, args);
+#endif
 
 							};
 
@@ -796,7 +810,12 @@ namespace ObservableComputations
 
 		}
 
+
+#if DEBUG
 		private void processChange(CallTreeNode node, Root root, object sender, EventArgs args)
+#else
+		private void processChange(CallTreeNode node, object sender, EventArgs args)
+#endif
 		{
 			if (_processingChange)
 			{
@@ -1364,11 +1383,7 @@ namespace ObservableComputations
 				for (var index = 0; index < length; index++)
 				{
 					ConstantCallTrees constantCallTree = _constantCallTrees[index];
-#if DEBUG
 					workWithCallTrees(constantCallTree.CallTrees, null, WorkWithCallTreeNodeType.Dispose);
-#else
-					workWithCallTrees(constantCallTree.CallTrees, null, workType);
-#endif
 				}
 			}
 
@@ -1380,11 +1395,7 @@ namespace ObservableComputations
 					ParameterCallTrees parameterCallTree = _parameterCallTrees[index];
 					if (_parameterValues[parameterCallTree.ParameterIndex] is INotifyPropertyChanged)
 					{
-#if DEBUG
 						workWithCallTrees(parameterCallTree.CallTrees, null, WorkWithCallTreeNodeType.Dispose);
-#else
-					workWithCallTrees(parameterCallTree.CallTrees, null, workType);
-#endif
 					}
 				}
 			}
@@ -1393,11 +1404,7 @@ namespace ObservableComputations
 			{		
 				foreach (ExpressionCallTrees expressionCallTree in _expressionCallTrees)
 				{
-#if DEBUG
-					workWithCallTrees(expressionCallTree.CallTrees, null, WorkWithCallTreeNodeType.Dispose);				
-#else
-					workWithCallTrees(expressionCallTree.CallTrees, null, workType);
-#endif	
+					workWithCallTrees(expressionCallTree.CallTrees, null, WorkWithCallTreeNodeType.Dispose);
 					expressionCallTree.ExpressionWatcher.Dispose();
 				}
 			}

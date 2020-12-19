@@ -15,44 +15,44 @@ namespace ObservableComputations
 		public SequenceComputing(IReadScalar<int> countScalar)
 		{
 			_countScalar = countScalar;
-            _deferredQueuesCount = 1;
-        }
+			_deferredQueuesCount = 1;
+		}
 
 		private void handleCountChanged(object sender, PropertyChangedEventArgs e)
 		{
 			int newCount = _countScalar.Value;
 
-            Action action = () =>
-            {
-			    if (_count < newCount)
-			    {
-				    for (int item = _count; item < newCount; item++)
-				    {
-					    baseInsertItem(item, item);
-				    }	
-				    
-				    _count = newCount;
-			    }
-			    else if (_count > newCount)
-			    {
-				    for (int itemIndex = _count - 1; itemIndex > newCount - 1; itemIndex--)
-				    {
-					    baseRemoveItem(itemIndex);
-				    }	
-				    
-				    _count = newCount;
-			    }
-            };
+			Action action = () =>
+			{
+				if (_count < newCount)
+				{
+					for (int item = _count; item < newCount; item++)
+					{
+						baseInsertItem(item, item);
+					}	
+					
+					_count = newCount;
+				}
+				else if (_count > newCount)
+				{
+					for (int itemIndex = _count - 1; itemIndex > newCount - 1; itemIndex--)
+					{
+						baseRemoveItem(itemIndex);
+					}	
+					
+					_count = newCount;
+				}
+			};
 
-            Utils.processChange(
-                sender, 
-                e, 
-                action,
-                ref _isConsistent, 
-                ref _handledEventSender, 
-                ref _handledEventArgs, 
-                0, _deferredQueuesCount,
-                ref _deferredProcessings, this);
+			Utils.processChange(
+				sender, 
+				e, 
+				action,
+				ref _isConsistent, 
+				ref _handledEventSender, 
+				ref _handledEventArgs, 
+				0, _deferredQueuesCount,
+				ref _deferredProcessings, this);
 		}
 
 		// ReSharper disable once InconsistentNaming
@@ -67,40 +67,40 @@ namespace ObservableComputations
 			}
 		}
 
-        #region Overrides of CollectionComputing<int>
+		#region Overrides of CollectionComputing<int>
 
-        protected override void initializeFromSource()
-        {
-        }
+		protected override void initializeFromSource()
+		{
+		}
 
-        protected override void initialize()
-        {
-            _count = _countScalar.Value;
+		protected override void initialize()
+		{
+			_count = _countScalar.Value;
 
-            for (int item = 0; item < _count; item++)
-            {
-                baseInsertItem(item, item);
-            }
+			for (int item = 0; item < _count; item++)
+			{
+				baseInsertItem(item, item);
+			}
 
-            _countScalar.PropertyChanged += handleCountChanged;
-        }
+			_countScalar.PropertyChanged += handleCountChanged;
+		}
 
-        protected override void uninitialize()
-        {
-            _countScalar.PropertyChanged -= handleCountChanged;
-            baseClearItems();
-        }
+		protected override void uninitialize()
+		{
+			_countScalar.PropertyChanged -= handleCountChanged;
+			baseClearItems();
+		}
 
-        internal override void addToUpstreamComputings(IComputingInternal computing)
-        {
-            (_countScalar as IComputingInternal)?.AddDownstreamConsumedComputing(computing);
-        }
+		internal override void addToUpstreamComputings(IComputingInternal computing)
+		{
+			(_countScalar as IComputingInternal)?.AddDownstreamConsumedComputing(computing);
+		}
 
-        internal override void removeFromUpstreamComputings(IComputingInternal computing)
-        {
-            (_countScalar as IComputingInternal)?.RemoveDownstreamConsumedComputing(computing);
-        }
+		internal override void removeFromUpstreamComputings(IComputingInternal computing)
+		{
+			(_countScalar as IComputingInternal)?.RemoveDownstreamConsumedComputing(computing);
+		}
 
-        #endregion
-    }
+		#endregion
+	}
 }

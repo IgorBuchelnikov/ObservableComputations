@@ -6,7 +6,7 @@ namespace ObservableComputations.Test
 	[TestFixture]
 	public class ItemComputingTests
 	{
-        Consumer consumer = new Consumer();
+		Consumer consumer = new Consumer();
 
 		public class Item
 		{

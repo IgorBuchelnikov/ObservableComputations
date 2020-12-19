@@ -9,14 +9,14 @@ namespace ObservableComputations
 	internal sealed class CallToConstantConverter : ExpressionVisitor
 	{
 		private readonly IEnumerable<ParameterExpression> _parameterExpressions;
-        public List<IComputingInternal> NestedComputings;
+		public List<IComputingInternal> NestedComputings;
 
 		public bool ContainsParametrizedObservableComputationCalls;
 
 		public CallToConstantConverter(IEnumerable<ParameterExpression> parameterExpressions = null)
 		{
 			_parameterExpressions = parameterExpressions;
-            NestedComputings = new List<IComputingInternal>();
+			NestedComputings = new List<IComputingInternal>();
 		}
 
 		#region Overrides of ExpressionVisitor
@@ -47,22 +47,22 @@ namespace ObservableComputations
 			return base.VisitMethodCall(node);
 		}
 
-        protected override Expression VisitConstant(ConstantExpression node)
-        {
-            if (node.Value is IComputingInternal computing)
-                NestedComputings.Add(computing);
+		protected override Expression VisitConstant(ConstantExpression node)
+		{
+			if (node.Value is IComputingInternal computing)
+				NestedComputings.Add(computing);
 
-            return base.VisitConstant(node);
-        }
+			return base.VisitConstant(node);
+		}
 
-        private ConstantExpression getConstantExpression(Expression node)
+		private ConstantExpression getConstantExpression(Expression node)
 		{
 			ConstantExpression getConstantExpressionLocal()
-            {
-                IComputingInternal nestedComputing = (IComputingInternal) Expression.Lambda(node).Compile().DynamicInvoke();
-                NestedComputings.Add(nestedComputing);
-                return Expression.Constant(nestedComputing, node.Type);
-            }
+			{
+				IComputingInternal nestedComputing = (IComputingInternal) Expression.Lambda(node).Compile().DynamicInvoke();
+				NestedComputings.Add(nestedComputing);
+				return Expression.Constant(nestedComputing, node.Type);
+			}
 
 			if (_parameterExpressions != null)
 			{

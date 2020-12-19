@@ -85,8 +85,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<Selecting<Item, int>>)sourceScalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestAggregating02()
@@ -151,8 +151,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<Selecting<Item, int>>)sourceScalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestAggregating03()
@@ -212,8 +212,8 @@ namespace ObservableComputations.Test
 			}
 
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestAggregating04()
@@ -273,8 +273,8 @@ namespace ObservableComputations.Test
 			}
 
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		#endregion
 		#region AllComputing
 
@@ -342,8 +342,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<System.Collections.Specialized.INotifyCollectionChanged>)sourceScalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestAllComputing02()
@@ -408,8 +408,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<ObservableCollection<Item>>)sourceScalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestAllComputing03()
@@ -469,8 +469,8 @@ namespace ObservableComputations.Test
 			}
 
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestAllComputing04()
@@ -530,8 +530,8 @@ namespace ObservableComputations.Test
 			}
 
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		#endregion
 		#region AnyComputing
 
@@ -599,8 +599,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<System.Collections.Specialized.INotifyCollectionChanged>)sourceScalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestAnyComputing02()
@@ -665,8 +665,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<ObservableCollection<Item>>)sourceScalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestAnyComputing03()
@@ -726,8 +726,8 @@ namespace ObservableComputations.Test
 			}
 
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestAnyComputing04()
@@ -787,8 +787,8 @@ namespace ObservableComputations.Test
 			}
 
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		#endregion
 		#region Appending
 
@@ -851,8 +851,8 @@ namespace ObservableComputations.Test
 			}
 
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestAppending02()
@@ -912,8 +912,8 @@ namespace ObservableComputations.Test
 			}
 
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestAppending03()
@@ -978,8 +978,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<Item>)itemScalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestAppending04()
@@ -1044,8 +1044,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<Item>)itemScalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestAppending05()
@@ -1110,8 +1110,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<System.Collections.Specialized.INotifyCollectionChanged>)sourceScalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestAppending06()
@@ -1176,8 +1176,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<ObservableCollection<Item>>)sourceScalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestAppending07()
@@ -1247,8 +1247,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<System.Collections.Specialized.INotifyCollectionChanged>)sourceScalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestAppending08()
@@ -1318,8 +1318,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<ObservableCollection<Item>>)sourceScalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		#endregion
 		#region Averaging
 
@@ -1385,8 +1385,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<Selecting<Item, int>>)sourceScalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestAveraging02()
@@ -1449,8 +1449,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<Selecting<Item, int>>)sourceScalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestAveraging03()
@@ -1508,8 +1508,8 @@ namespace ObservableComputations.Test
 			}
 
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestAveraging04()
@@ -1567,8 +1567,8 @@ namespace ObservableComputations.Test
 			}
 
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		#endregion
 		#region Casting
 
@@ -1634,8 +1634,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<System.Collections.Specialized.INotifyCollectionChanged>)sourceScalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestCasting02()
@@ -1693,8 +1693,8 @@ namespace ObservableComputations.Test
 			}
 
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		#endregion
 		#region Concatenating
 
@@ -1745,8 +1745,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<System.Collections.Specialized.INotifyCollectionChanged>)sourcesScalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestConcatenating02()
@@ -1794,8 +1794,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<ObservableCollection<ObservableCollection<Item>>>)sourcesScalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestConcatenating03()
@@ -1838,8 +1838,8 @@ namespace ObservableComputations.Test
 			}
 
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestConcatenating04()
@@ -1882,8 +1882,8 @@ namespace ObservableComputations.Test
 			}
 
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestConcatenating05()
@@ -1984,8 +1984,8 @@ namespace ObservableComputations.Test
 			}
 
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestConcatenating06()
@@ -2086,8 +2086,8 @@ namespace ObservableComputations.Test
 			}
 
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestConcatenating07()
@@ -2188,8 +2188,8 @@ namespace ObservableComputations.Test
 			}
 
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestConcatenating08()
@@ -2290,8 +2290,8 @@ namespace ObservableComputations.Test
 			}
 
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestConcatenating09()
@@ -2397,8 +2397,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<System.Collections.Specialized.INotifyCollectionChanged>)source1Scalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestConcatenating10()
@@ -2504,8 +2504,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<System.Collections.Specialized.INotifyCollectionChanged>)source1Scalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestConcatenating11()
@@ -2611,8 +2611,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<ObservableCollection<Item>>)source1Scalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestConcatenating12()
@@ -2718,8 +2718,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<ObservableCollection<Item>>)source1Scalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestConcatenating13()
@@ -2830,8 +2830,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<System.Collections.Specialized.INotifyCollectionChanged>)source2Scalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestConcatenating14()
@@ -2942,8 +2942,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<ObservableCollection<Item>>)source2Scalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestConcatenating15()
@@ -3054,8 +3054,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<System.Collections.Specialized.INotifyCollectionChanged>)source2Scalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestConcatenating16()
@@ -3166,8 +3166,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<ObservableCollection<Item>>)source2Scalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestConcatenating17()
@@ -3273,8 +3273,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<System.Collections.Specialized.INotifyCollectionChanged>)source2Scalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestConcatenating18()
@@ -3380,8 +3380,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<ObservableCollection<Item>>)source2Scalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestConcatenating19()
@@ -3487,8 +3487,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<System.Collections.Specialized.INotifyCollectionChanged>)source2Scalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestConcatenating20()
@@ -3594,8 +3594,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<ObservableCollection<Item>>)source2Scalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		#endregion
 		#region ContainsComputing
 
@@ -3673,8 +3673,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<System.Collections.Specialized.INotifyCollectionChanged>)sourceScalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestContainsComputing02()
@@ -3744,8 +3744,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<System.Collections.Specialized.INotifyCollectionChanged>)sourceScalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestContainsComputing03()
@@ -3820,8 +3820,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<ObservableCollection<Item>>)sourceScalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestContainsComputing04()
@@ -3891,8 +3891,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<ObservableCollection<Item>>)sourceScalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestContainsComputing05()
@@ -3962,8 +3962,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<System.Collections.Specialized.INotifyCollectionChanged>)sourceScalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestContainsComputing06()
@@ -4028,8 +4028,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<System.Collections.Specialized.INotifyCollectionChanged>)sourceScalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestContainsComputing07()
@@ -4099,8 +4099,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<ObservableCollection<Item>>)sourceScalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestContainsComputing08()
@@ -4165,8 +4165,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<ObservableCollection<Item>>)sourceScalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestContainsComputing09()
@@ -4238,8 +4238,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<System.Collections.Specialized.INotifyCollectionChanged>)sourceScalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestContainsComputing10()
@@ -4311,8 +4311,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<ObservableCollection<Item>>)sourceScalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestContainsComputing11()
@@ -4379,8 +4379,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<System.Collections.Specialized.INotifyCollectionChanged>)sourceScalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestContainsComputing12()
@@ -4447,8 +4447,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<ObservableCollection<Item>>)sourceScalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestContainsComputing13()
@@ -4518,8 +4518,8 @@ namespace ObservableComputations.Test
 
 			((Scalar<System.Collections.Generic.IEqualityComparer<Item>>)equalityComparerScalar).Touch();
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestContainsComputing14()
@@ -4584,8 +4584,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<Item>)itemScalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestContainsComputing15()
@@ -4655,8 +4655,8 @@ namespace ObservableComputations.Test
 
 			((Scalar<System.Collections.Generic.IEqualityComparer<Item>>)equalityComparerScalar).Touch();
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestContainsComputing16()
@@ -4721,8 +4721,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<Item>)itemScalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestContainsComputing17()
@@ -4787,8 +4787,8 @@ namespace ObservableComputations.Test
 
 			((Scalar<System.Collections.Generic.IEqualityComparer<Item>>)equalityComparerScalar).Touch();
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestContainsComputing18()
@@ -4848,8 +4848,8 @@ namespace ObservableComputations.Test
 			}
 
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestContainsComputing19()
@@ -4914,8 +4914,8 @@ namespace ObservableComputations.Test
 
 			((Scalar<System.Collections.Generic.IEqualityComparer<Item>>)equalityComparerScalar).Touch();
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestContainsComputing20()
@@ -4975,8 +4975,8 @@ namespace ObservableComputations.Test
 			}
 
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestContainsComputing21()
@@ -5043,8 +5043,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<Item>)itemScalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestContainsComputing22()
@@ -5111,8 +5111,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<Item>)itemScalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestContainsComputing23()
@@ -5174,8 +5174,8 @@ namespace ObservableComputations.Test
 			}
 
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestContainsComputing24()
@@ -5237,8 +5237,8 @@ namespace ObservableComputations.Test
 			}
 
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		#endregion
 		#region Dictionaring
 
@@ -5310,8 +5310,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<System.Collections.Specialized.INotifyCollectionChanged>)sourceScalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestDictionaring02()
@@ -5378,8 +5378,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<System.Collections.Specialized.INotifyCollectionChanged>)sourceScalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestDictionaring03()
@@ -5448,8 +5448,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<ObservableCollection<Item>>)sourceScalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestDictionaring04()
@@ -5516,8 +5516,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<ObservableCollection<Item>>)sourceScalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestDictionaring05()
@@ -5581,8 +5581,8 @@ namespace ObservableComputations.Test
 			}
 
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestDictionaring06()
@@ -5644,8 +5644,8 @@ namespace ObservableComputations.Test
 			}
 
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestDictionaring07()
@@ -5709,8 +5709,8 @@ namespace ObservableComputations.Test
 			}
 
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestDictionaring08()
@@ -5772,8 +5772,8 @@ namespace ObservableComputations.Test
 			}
 
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestDictionaring09()
@@ -5847,8 +5847,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<System.Collections.Specialized.INotifyCollectionChanged>)sourceScalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestDictionaring10()
@@ -5922,8 +5922,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<ObservableCollection<Item>>)sourceScalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestDictionaring11()
@@ -5992,8 +5992,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<System.Collections.Generic.IEqualityComparer<int>>)equalityComparerScalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestDictionaring12()
@@ -6062,8 +6062,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<System.Collections.Generic.IEqualityComparer<int>>)equalityComparerScalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		#endregion
 		#region Distincting
 
@@ -6138,8 +6138,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<System.Collections.Specialized.INotifyCollectionChanged>)sourceScalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestDistincting02()
@@ -6209,8 +6209,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<System.Collections.Specialized.INotifyCollectionChanged>)sourceScalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestDistincting03()
@@ -6275,8 +6275,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<System.Collections.Specialized.INotifyCollectionChanged>)sourceScalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestDistincting04()
@@ -6339,8 +6339,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<System.Collections.Specialized.INotifyCollectionChanged>)sourceScalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestDistincting05()
@@ -6412,8 +6412,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<ObservableCollection<Item>>)sourceScalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestDistincting06()
@@ -6483,8 +6483,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<ObservableCollection<Item>>)sourceScalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestDistincting07()
@@ -6549,8 +6549,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<ObservableCollection<Item>>)sourceScalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestDistincting08()
@@ -6613,8 +6613,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<ObservableCollection<Item>>)sourceScalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestDistincting09()
@@ -6681,8 +6681,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<System.Collections.Generic.IEqualityComparer<Item>>)equalityComparerScalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestDistincting10()
@@ -6747,8 +6747,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<System.Collections.Generic.IEqualityComparer<Item>>)equalityComparerScalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestDistincting11()
@@ -6808,8 +6808,8 @@ namespace ObservableComputations.Test
 			}
 
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestDistincting12()
@@ -6867,8 +6867,8 @@ namespace ObservableComputations.Test
 			}
 
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestDistincting13()
@@ -6935,8 +6935,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<System.Collections.Generic.IEqualityComparer<Item>>)equalityComparerScalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestDistincting14()
@@ -7001,8 +7001,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<System.Collections.Generic.IEqualityComparer<Item>>)equalityComparerScalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestDistincting15()
@@ -7062,8 +7062,8 @@ namespace ObservableComputations.Test
 			}
 
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestDistincting16()
@@ -7121,8 +7121,8 @@ namespace ObservableComputations.Test
 			}
 
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestDistincting17()
@@ -7184,8 +7184,8 @@ namespace ObservableComputations.Test
 			}
 
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestDistincting18()
@@ -7245,8 +7245,8 @@ namespace ObservableComputations.Test
 			}
 
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestDistincting19()
@@ -7308,8 +7308,8 @@ namespace ObservableComputations.Test
 			}
 
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestDistincting20()
@@ -7369,8 +7369,8 @@ namespace ObservableComputations.Test
 			}
 
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestDistincting21()
@@ -7437,8 +7437,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<System.Collections.Specialized.INotifyCollectionChanged>)sourceScalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestDistincting22()
@@ -7503,8 +7503,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<System.Collections.Specialized.INotifyCollectionChanged>)sourceScalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestDistincting23()
@@ -7571,8 +7571,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<ObservableCollection<Item>>)sourceScalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestDistincting24()
@@ -7637,8 +7637,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<ObservableCollection<Item>>)sourceScalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		#endregion
 		#region Excepting
 
@@ -7759,8 +7759,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<System.Collections.Specialized.INotifyCollectionChanged>)source2Scalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestExcepting02()
@@ -7876,8 +7876,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<System.Collections.Specialized.INotifyCollectionChanged>)source2Scalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestExcepting03()
@@ -7990,8 +7990,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<System.Collections.Specialized.INotifyCollectionChanged>)source2Scalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestExcepting04()
@@ -8102,8 +8102,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<System.Collections.Specialized.INotifyCollectionChanged>)source2Scalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestExcepting05()
@@ -8221,8 +8221,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<ObservableCollection<Item>>)source2Scalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestExcepting06()
@@ -8338,8 +8338,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<ObservableCollection<Item>>)source2Scalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestExcepting07()
@@ -8452,8 +8452,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<ObservableCollection<Item>>)source2Scalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestExcepting08()
@@ -8564,8 +8564,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<ObservableCollection<Item>>)source2Scalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestExcepting09()
@@ -8683,8 +8683,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<System.Collections.Specialized.INotifyCollectionChanged>)source2Scalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestExcepting10()
@@ -8800,8 +8800,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<System.Collections.Specialized.INotifyCollectionChanged>)source2Scalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestExcepting11()
@@ -8914,8 +8914,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<System.Collections.Specialized.INotifyCollectionChanged>)source2Scalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestExcepting12()
@@ -9026,8 +9026,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<System.Collections.Specialized.INotifyCollectionChanged>)source2Scalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestExcepting13()
@@ -9145,8 +9145,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<ObservableCollection<Item>>)source2Scalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestExcepting14()
@@ -9262,8 +9262,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<ObservableCollection<Item>>)source2Scalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestExcepting15()
@@ -9376,8 +9376,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<ObservableCollection<Item>>)source2Scalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestExcepting16()
@@ -9488,8 +9488,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<ObservableCollection<Item>>)source2Scalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestExcepting17()
@@ -9602,8 +9602,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<System.Collections.Specialized.INotifyCollectionChanged>)source1Scalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestExcepting18()
@@ -9714,8 +9714,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<System.Collections.Specialized.INotifyCollectionChanged>)source1Scalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestExcepting19()
@@ -9823,8 +9823,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<System.Collections.Specialized.INotifyCollectionChanged>)source1Scalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestExcepting20()
@@ -9930,8 +9930,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<System.Collections.Specialized.INotifyCollectionChanged>)source1Scalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestExcepting21()
@@ -10044,8 +10044,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<System.Collections.Specialized.INotifyCollectionChanged>)source1Scalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestExcepting22()
@@ -10156,8 +10156,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<System.Collections.Specialized.INotifyCollectionChanged>)source1Scalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestExcepting23()
@@ -10265,8 +10265,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<System.Collections.Specialized.INotifyCollectionChanged>)source1Scalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestExcepting24()
@@ -10372,8 +10372,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<System.Collections.Specialized.INotifyCollectionChanged>)source1Scalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestExcepting25()
@@ -10486,8 +10486,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<ObservableCollection<Item>>)source1Scalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestExcepting26()
@@ -10598,8 +10598,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<ObservableCollection<Item>>)source1Scalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestExcepting27()
@@ -10707,8 +10707,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<ObservableCollection<Item>>)source1Scalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestExcepting28()
@@ -10814,8 +10814,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<ObservableCollection<Item>>)source1Scalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestExcepting29()
@@ -10928,8 +10928,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<ObservableCollection<Item>>)source1Scalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestExcepting30()
@@ -11040,8 +11040,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<ObservableCollection<Item>>)source1Scalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestExcepting31()
@@ -11149,8 +11149,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<ObservableCollection<Item>>)source1Scalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestExcepting32()
@@ -11256,8 +11256,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<ObservableCollection<Item>>)source1Scalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestExcepting33()
@@ -11367,8 +11367,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<System.Collections.Specialized.INotifyCollectionChanged>)source1Scalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestExcepting34()
@@ -11476,8 +11476,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<System.Collections.Specialized.INotifyCollectionChanged>)source1Scalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestExcepting35()
@@ -11587,8 +11587,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<System.Collections.Specialized.INotifyCollectionChanged>)source1Scalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestExcepting36()
@@ -11696,8 +11696,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<System.Collections.Specialized.INotifyCollectionChanged>)source1Scalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestExcepting37()
@@ -11807,8 +11807,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<ObservableCollection<Item>>)source1Scalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestExcepting38()
@@ -11916,8 +11916,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<ObservableCollection<Item>>)source1Scalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestExcepting39()
@@ -12027,8 +12027,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<ObservableCollection<Item>>)source1Scalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestExcepting40()
@@ -12136,8 +12136,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<ObservableCollection<Item>>)source1Scalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestExcepting41()
@@ -12252,8 +12252,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<System.Collections.Specialized.INotifyCollectionChanged>)source2Scalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestExcepting42()
@@ -12366,8 +12366,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<System.Collections.Specialized.INotifyCollectionChanged>)source2Scalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestExcepting43()
@@ -12482,8 +12482,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<ObservableCollection<Item>>)source2Scalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestExcepting44()
@@ -12596,8 +12596,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<ObservableCollection<Item>>)source2Scalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestExcepting45()
@@ -12712,8 +12712,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<System.Collections.Specialized.INotifyCollectionChanged>)source2Scalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestExcepting46()
@@ -12826,8 +12826,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<System.Collections.Specialized.INotifyCollectionChanged>)source2Scalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestExcepting47()
@@ -12942,8 +12942,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<ObservableCollection<Item>>)source2Scalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestExcepting48()
@@ -13056,8 +13056,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<ObservableCollection<Item>>)source2Scalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestExcepting49()
@@ -13170,8 +13170,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<System.Collections.Specialized.INotifyCollectionChanged>)source2Scalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestExcepting50()
@@ -13282,8 +13282,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<System.Collections.Specialized.INotifyCollectionChanged>)source2Scalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestExcepting51()
@@ -13391,8 +13391,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<System.Collections.Specialized.INotifyCollectionChanged>)source2Scalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestExcepting52()
@@ -13498,8 +13498,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<System.Collections.Specialized.INotifyCollectionChanged>)source2Scalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestExcepting53()
@@ -13612,8 +13612,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<ObservableCollection<Item>>)source2Scalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestExcepting54()
@@ -13724,8 +13724,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<ObservableCollection<Item>>)source2Scalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestExcepting55()
@@ -13833,8 +13833,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<ObservableCollection<Item>>)source2Scalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestExcepting56()
@@ -13940,8 +13940,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<ObservableCollection<Item>>)source2Scalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestExcepting57()
@@ -14054,8 +14054,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<System.Collections.Specialized.INotifyCollectionChanged>)source2Scalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestExcepting58()
@@ -14166,8 +14166,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<System.Collections.Specialized.INotifyCollectionChanged>)source2Scalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestExcepting59()
@@ -14275,8 +14275,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<System.Collections.Specialized.INotifyCollectionChanged>)source2Scalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestExcepting60()
@@ -14382,8 +14382,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<System.Collections.Specialized.INotifyCollectionChanged>)source2Scalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestExcepting61()
@@ -14496,8 +14496,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<ObservableCollection<Item>>)source2Scalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestExcepting62()
@@ -14608,8 +14608,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<ObservableCollection<Item>>)source2Scalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestExcepting63()
@@ -14717,8 +14717,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<ObservableCollection<Item>>)source2Scalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestExcepting64()
@@ -14824,8 +14824,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<ObservableCollection<Item>>)source2Scalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestExcepting65()
@@ -14933,8 +14933,8 @@ namespace ObservableComputations.Test
 
 			((Scalar<System.Collections.Generic.IEqualityComparer<Item>>)equalityComparerScalar).Touch();
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestExcepting66()
@@ -15040,8 +15040,8 @@ namespace ObservableComputations.Test
 
 			((Scalar<System.Collections.Generic.IEqualityComparer<Item>>)equalityComparerScalar).Touch();
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestExcepting67()
@@ -15144,8 +15144,8 @@ namespace ObservableComputations.Test
 			}
 
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestExcepting68()
@@ -15246,8 +15246,8 @@ namespace ObservableComputations.Test
 			}
 
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestExcepting69()
@@ -15355,8 +15355,8 @@ namespace ObservableComputations.Test
 
 			((Scalar<System.Collections.Generic.IEqualityComparer<Item>>)equalityComparerScalar).Touch();
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestExcepting70()
@@ -15462,8 +15462,8 @@ namespace ObservableComputations.Test
 
 			((Scalar<System.Collections.Generic.IEqualityComparer<Item>>)equalityComparerScalar).Touch();
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestExcepting71()
@@ -15566,8 +15566,8 @@ namespace ObservableComputations.Test
 			}
 
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestExcepting72()
@@ -15668,8 +15668,8 @@ namespace ObservableComputations.Test
 			}
 
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestExcepting73()
@@ -15777,8 +15777,8 @@ namespace ObservableComputations.Test
 
 			((Scalar<System.Collections.Generic.IEqualityComparer<Item>>)equalityComparerScalar).Touch();
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestExcepting74()
@@ -15884,8 +15884,8 @@ namespace ObservableComputations.Test
 
 			((Scalar<System.Collections.Generic.IEqualityComparer<Item>>)equalityComparerScalar).Touch();
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestExcepting75()
@@ -15988,8 +15988,8 @@ namespace ObservableComputations.Test
 			}
 
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestExcepting76()
@@ -16090,8 +16090,8 @@ namespace ObservableComputations.Test
 			}
 
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestExcepting77()
@@ -16199,8 +16199,8 @@ namespace ObservableComputations.Test
 
 			((Scalar<System.Collections.Generic.IEqualityComparer<Item>>)equalityComparerScalar).Touch();
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestExcepting78()
@@ -16306,8 +16306,8 @@ namespace ObservableComputations.Test
 
 			((Scalar<System.Collections.Generic.IEqualityComparer<Item>>)equalityComparerScalar).Touch();
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestExcepting79()
@@ -16410,8 +16410,8 @@ namespace ObservableComputations.Test
 			}
 
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestExcepting80()
@@ -16512,8 +16512,8 @@ namespace ObservableComputations.Test
 			}
 
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestExcepting81()
@@ -16618,8 +16618,8 @@ namespace ObservableComputations.Test
 			}
 
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestExcepting82()
@@ -16722,8 +16722,8 @@ namespace ObservableComputations.Test
 			}
 
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestExcepting83()
@@ -16828,8 +16828,8 @@ namespace ObservableComputations.Test
 			}
 
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestExcepting84()
@@ -16932,8 +16932,8 @@ namespace ObservableComputations.Test
 			}
 
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestExcepting85()
@@ -17038,8 +17038,8 @@ namespace ObservableComputations.Test
 			}
 
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestExcepting86()
@@ -17142,8 +17142,8 @@ namespace ObservableComputations.Test
 			}
 
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestExcepting87()
@@ -17248,8 +17248,8 @@ namespace ObservableComputations.Test
 			}
 
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestExcepting88()
@@ -17352,8 +17352,8 @@ namespace ObservableComputations.Test
 			}
 
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestExcepting89()
@@ -17463,8 +17463,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<System.Collections.Specialized.INotifyCollectionChanged>)source2Scalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestExcepting90()
@@ -17572,8 +17572,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<System.Collections.Specialized.INotifyCollectionChanged>)source2Scalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestExcepting91()
@@ -17683,8 +17683,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<ObservableCollection<Item>>)source2Scalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestExcepting92()
@@ -17792,8 +17792,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<ObservableCollection<Item>>)source2Scalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestExcepting93()
@@ -17903,8 +17903,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<System.Collections.Specialized.INotifyCollectionChanged>)source2Scalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestExcepting94()
@@ -18012,8 +18012,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<System.Collections.Specialized.INotifyCollectionChanged>)source2Scalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestExcepting95()
@@ -18123,8 +18123,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<ObservableCollection<Item>>)source2Scalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestExcepting96()
@@ -18232,8 +18232,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<ObservableCollection<Item>>)source2Scalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		#endregion
 		#region Extending
 
@@ -18299,8 +18299,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<System.Collections.Specialized.INotifyCollectionChanged>)sourceScalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestExtending02()
@@ -18363,8 +18363,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<ObservableCollection<Item>>)sourceScalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestExtending03()
@@ -18422,8 +18422,8 @@ namespace ObservableComputations.Test
 			}
 
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestExtending04()
@@ -18481,8 +18481,8 @@ namespace ObservableComputations.Test
 			}
 
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		#endregion
 		#region Filtering
 
@@ -18552,8 +18552,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<System.Collections.Specialized.INotifyCollectionChanged>)sourceScalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestFiltering02()
@@ -18618,8 +18618,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<System.Collections.Specialized.INotifyCollectionChanged>)sourceScalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestFiltering03()
@@ -18686,8 +18686,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<ObservableCollection<Item>>)sourceScalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestFiltering04()
@@ -18752,8 +18752,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<ObservableCollection<Item>>)sourceScalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestFiltering05()
@@ -18815,8 +18815,8 @@ namespace ObservableComputations.Test
 			}
 
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestFiltering06()
@@ -18876,8 +18876,8 @@ namespace ObservableComputations.Test
 			}
 
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestFiltering07()
@@ -18939,8 +18939,8 @@ namespace ObservableComputations.Test
 			}
 
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestFiltering08()
@@ -19000,8 +19000,8 @@ namespace ObservableComputations.Test
 			}
 
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		#endregion
 		#region FirstComputing
 
@@ -19069,8 +19069,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<System.Collections.Specialized.INotifyCollectionChanged>)sourceScalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestFirstComputing02()
@@ -19133,8 +19133,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<System.Collections.Specialized.INotifyCollectionChanged>)sourceScalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestFirstComputing03()
@@ -19199,8 +19199,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<ObservableCollection<Item>>)sourceScalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestFirstComputing04()
@@ -19263,8 +19263,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<ObservableCollection<Item>>)sourceScalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestFirstComputing05()
@@ -19324,8 +19324,8 @@ namespace ObservableComputations.Test
 			}
 
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestFirstComputing06()
@@ -19383,8 +19383,8 @@ namespace ObservableComputations.Test
 			}
 
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestFirstComputing07()
@@ -19444,8 +19444,8 @@ namespace ObservableComputations.Test
 			}
 
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestFirstComputing08()
@@ -19503,8 +19503,8 @@ namespace ObservableComputations.Test
 			}
 
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		#endregion
 		#region Grouping
 
@@ -19581,8 +19581,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<System.Collections.Specialized.INotifyCollectionChanged>)sourceScalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestGrouping02()
@@ -19654,8 +19654,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<System.Collections.Specialized.INotifyCollectionChanged>)sourceScalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestGrouping03()
@@ -19722,8 +19722,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<System.Collections.Specialized.INotifyCollectionChanged>)sourceScalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestGrouping04()
@@ -19788,8 +19788,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<System.Collections.Specialized.INotifyCollectionChanged>)sourceScalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestGrouping05()
@@ -19863,8 +19863,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<ObservableCollection<Item>>)sourceScalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestGrouping06()
@@ -19936,8 +19936,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<ObservableCollection<Item>>)sourceScalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestGrouping07()
@@ -20004,8 +20004,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<ObservableCollection<Item>>)sourceScalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestGrouping08()
@@ -20070,8 +20070,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<ObservableCollection<Item>>)sourceScalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestGrouping09()
@@ -20140,8 +20140,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<System.Collections.Generic.IEqualityComparer<int>>)equalityComparerScalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestGrouping10()
@@ -20208,8 +20208,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<System.Collections.Generic.IEqualityComparer<int>>)equalityComparerScalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestGrouping11()
@@ -20271,8 +20271,8 @@ namespace ObservableComputations.Test
 			}
 
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestGrouping12()
@@ -20332,8 +20332,8 @@ namespace ObservableComputations.Test
 			}
 
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestGrouping13()
@@ -20402,8 +20402,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<System.Collections.Generic.IEqualityComparer<int>>)equalityComparerScalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestGrouping14()
@@ -20470,8 +20470,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<System.Collections.Generic.IEqualityComparer<int>>)equalityComparerScalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestGrouping15()
@@ -20533,8 +20533,8 @@ namespace ObservableComputations.Test
 			}
 
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestGrouping16()
@@ -20594,8 +20594,8 @@ namespace ObservableComputations.Test
 			}
 
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestGrouping17()
@@ -20664,8 +20664,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<System.Collections.Specialized.INotifyCollectionChanged>)sourceScalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestGrouping18()
@@ -20732,8 +20732,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<System.Collections.Specialized.INotifyCollectionChanged>)sourceScalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestGrouping19()
@@ -20802,8 +20802,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<ObservableCollection<Item>>)sourceScalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestGrouping20()
@@ -20870,8 +20870,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<ObservableCollection<Item>>)sourceScalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestGrouping21()
@@ -20935,8 +20935,8 @@ namespace ObservableComputations.Test
 			}
 
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestGrouping22()
@@ -20998,8 +20998,8 @@ namespace ObservableComputations.Test
 			}
 
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestGrouping23()
@@ -21063,8 +21063,8 @@ namespace ObservableComputations.Test
 			}
 
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestGrouping24()
@@ -21126,8 +21126,8 @@ namespace ObservableComputations.Test
 			}
 
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		#endregion
 		#region GroupJoining
 
@@ -21252,8 +21252,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<System.Collections.Specialized.INotifyCollectionChanged>)innerSourceScalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestGroupJoining02()
@@ -21368,8 +21368,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<System.Collections.Specialized.INotifyCollectionChanged>)innerSourceScalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestGroupJoining03()
@@ -21491,8 +21491,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<ObservableCollection<Item>>)innerSourceScalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestGroupJoining04()
@@ -21607,8 +21607,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<ObservableCollection<Item>>)innerSourceScalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestGroupJoining05()
@@ -21730,8 +21730,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<System.Collections.Specialized.INotifyCollectionChanged>)innerSourceScalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestGroupJoining06()
@@ -21846,8 +21846,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<System.Collections.Specialized.INotifyCollectionChanged>)innerSourceScalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestGroupJoining07()
@@ -21969,8 +21969,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<ObservableCollection<Item>>)innerSourceScalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestGroupJoining08()
@@ -22085,8 +22085,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<ObservableCollection<Item>>)innerSourceScalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestGroupJoining09()
@@ -22203,8 +22203,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<System.Collections.Specialized.INotifyCollectionChanged>)outerSourceScalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestGroupJoining10()
@@ -22314,8 +22314,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<System.Collections.Specialized.INotifyCollectionChanged>)outerSourceScalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestGroupJoining11()
@@ -22432,8 +22432,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<System.Collections.Specialized.INotifyCollectionChanged>)outerSourceScalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestGroupJoining12()
@@ -22543,8 +22543,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<System.Collections.Specialized.INotifyCollectionChanged>)outerSourceScalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestGroupJoining13()
@@ -22661,8 +22661,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<ObservableCollection<Item>>)outerSourceScalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestGroupJoining14()
@@ -22772,8 +22772,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<ObservableCollection<Item>>)outerSourceScalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestGroupJoining15()
@@ -22890,8 +22890,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<ObservableCollection<Item>>)outerSourceScalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestGroupJoining16()
@@ -23001,8 +23001,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<ObservableCollection<Item>>)outerSourceScalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestGroupJoining17()
@@ -23114,8 +23114,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<System.Collections.Specialized.INotifyCollectionChanged>)outerSourceScalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestGroupJoining18()
@@ -23227,8 +23227,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<System.Collections.Specialized.INotifyCollectionChanged>)outerSourceScalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestGroupJoining19()
@@ -23340,8 +23340,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<ObservableCollection<Item>>)outerSourceScalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestGroupJoining20()
@@ -23453,8 +23453,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<ObservableCollection<Item>>)outerSourceScalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestGroupJoining21()
@@ -23571,8 +23571,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<System.Collections.Specialized.INotifyCollectionChanged>)innerSourceScalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestGroupJoining22()
@@ -23689,8 +23689,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<ObservableCollection<Item>>)innerSourceScalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestGroupJoining23()
@@ -23807,8 +23807,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<System.Collections.Specialized.INotifyCollectionChanged>)innerSourceScalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestGroupJoining24()
@@ -23925,8 +23925,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<ObservableCollection<Item>>)innerSourceScalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestGroupJoining25()
@@ -24043,8 +24043,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<System.Collections.Specialized.INotifyCollectionChanged>)innerSourceScalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestGroupJoining26()
@@ -24154,8 +24154,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<System.Collections.Specialized.INotifyCollectionChanged>)innerSourceScalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestGroupJoining27()
@@ -24272,8 +24272,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<ObservableCollection<Item>>)innerSourceScalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestGroupJoining28()
@@ -24383,8 +24383,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<ObservableCollection<Item>>)innerSourceScalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestGroupJoining29()
@@ -24501,8 +24501,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<System.Collections.Specialized.INotifyCollectionChanged>)innerSourceScalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestGroupJoining30()
@@ -24612,8 +24612,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<System.Collections.Specialized.INotifyCollectionChanged>)innerSourceScalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestGroupJoining31()
@@ -24730,8 +24730,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<ObservableCollection<Item>>)innerSourceScalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestGroupJoining32()
@@ -24841,8 +24841,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<ObservableCollection<Item>>)innerSourceScalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestGroupJoining33()
@@ -24954,8 +24954,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<System.Collections.Generic.IEqualityComparer<int>>)equalityComparerScalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestGroupJoining34()
@@ -25060,8 +25060,8 @@ namespace ObservableComputations.Test
 			}
 
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestGroupJoining35()
@@ -25173,8 +25173,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<System.Collections.Generic.IEqualityComparer<int>>)equalityComparerScalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestGroupJoining36()
@@ -25279,8 +25279,8 @@ namespace ObservableComputations.Test
 			}
 
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestGroupJoining37()
@@ -25392,8 +25392,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<System.Collections.Generic.IEqualityComparer<int>>)equalityComparerScalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestGroupJoining38()
@@ -25498,8 +25498,8 @@ namespace ObservableComputations.Test
 			}
 
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestGroupJoining39()
@@ -25611,8 +25611,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<System.Collections.Generic.IEqualityComparer<int>>)equalityComparerScalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestGroupJoining40()
@@ -25717,8 +25717,8 @@ namespace ObservableComputations.Test
 			}
 
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestGroupJoining41()
@@ -25825,8 +25825,8 @@ namespace ObservableComputations.Test
 			}
 
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestGroupJoining42()
@@ -25933,8 +25933,8 @@ namespace ObservableComputations.Test
 			}
 
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestGroupJoining43()
@@ -26041,8 +26041,8 @@ namespace ObservableComputations.Test
 			}
 
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestGroupJoining44()
@@ -26149,8 +26149,8 @@ namespace ObservableComputations.Test
 			}
 
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestGroupJoining45()
@@ -26262,8 +26262,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<System.Collections.Specialized.INotifyCollectionChanged>)innerSourceScalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestGroupJoining46()
@@ -26375,8 +26375,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<ObservableCollection<Item>>)innerSourceScalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestGroupJoining47()
@@ -26488,8 +26488,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<System.Collections.Specialized.INotifyCollectionChanged>)innerSourceScalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestGroupJoining48()
@@ -26601,8 +26601,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<ObservableCollection<Item>>)innerSourceScalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		#endregion
 		#region HashSetting
 
@@ -26672,8 +26672,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<System.Collections.Specialized.INotifyCollectionChanged>)sourceScalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestHashSetting02()
@@ -26738,8 +26738,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<System.Collections.Specialized.INotifyCollectionChanged>)sourceScalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestHashSetting03()
@@ -26806,8 +26806,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<ObservableCollection<Item>>)sourceScalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestHashSetting04()
@@ -26872,8 +26872,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<ObservableCollection<Item>>)sourceScalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestHashSetting05()
@@ -26935,8 +26935,8 @@ namespace ObservableComputations.Test
 			}
 
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestHashSetting06()
@@ -26996,8 +26996,8 @@ namespace ObservableComputations.Test
 			}
 
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestHashSetting07()
@@ -27059,8 +27059,8 @@ namespace ObservableComputations.Test
 			}
 
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestHashSetting08()
@@ -27120,8 +27120,8 @@ namespace ObservableComputations.Test
 			}
 
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestHashSetting09()
@@ -27193,8 +27193,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<System.Collections.Specialized.INotifyCollectionChanged>)sourceScalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestHashSetting10()
@@ -27266,8 +27266,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<ObservableCollection<Item>>)sourceScalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestHashSetting11()
@@ -27334,8 +27334,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<System.Collections.Generic.IEqualityComparer<int>>)equalityComparerScalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestHashSetting12()
@@ -27402,8 +27402,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<System.Collections.Generic.IEqualityComparer<int>>)equalityComparerScalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		#endregion
 		#region IndicesComputing
 
@@ -27473,8 +27473,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<System.Collections.Specialized.INotifyCollectionChanged>)sourceScalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestIndicesComputing02()
@@ -27539,8 +27539,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<System.Collections.Specialized.INotifyCollectionChanged>)sourceScalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestIndicesComputing03()
@@ -27607,8 +27607,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<ObservableCollection<Item>>)sourceScalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestIndicesComputing04()
@@ -27673,8 +27673,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<ObservableCollection<Item>>)sourceScalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestIndicesComputing05()
@@ -27736,8 +27736,8 @@ namespace ObservableComputations.Test
 			}
 
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestIndicesComputing06()
@@ -27797,8 +27797,8 @@ namespace ObservableComputations.Test
 			}
 
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestIndicesComputing07()
@@ -27860,8 +27860,8 @@ namespace ObservableComputations.Test
 			}
 
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestIndicesComputing08()
@@ -27921,8 +27921,8 @@ namespace ObservableComputations.Test
 			}
 
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		#endregion
 		#region Intersecting
 
@@ -28043,8 +28043,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<System.Collections.Specialized.INotifyCollectionChanged>)source2Scalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestIntersecting02()
@@ -28160,8 +28160,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<System.Collections.Specialized.INotifyCollectionChanged>)source2Scalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestIntersecting03()
@@ -28274,8 +28274,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<System.Collections.Specialized.INotifyCollectionChanged>)source2Scalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestIntersecting04()
@@ -28386,8 +28386,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<System.Collections.Specialized.INotifyCollectionChanged>)source2Scalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestIntersecting05()
@@ -28505,8 +28505,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<ObservableCollection<Item>>)source2Scalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestIntersecting06()
@@ -28622,8 +28622,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<ObservableCollection<Item>>)source2Scalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestIntersecting07()
@@ -28736,8 +28736,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<ObservableCollection<Item>>)source2Scalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestIntersecting08()
@@ -28848,8 +28848,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<ObservableCollection<Item>>)source2Scalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestIntersecting09()
@@ -28967,8 +28967,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<System.Collections.Specialized.INotifyCollectionChanged>)source2Scalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestIntersecting10()
@@ -29084,8 +29084,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<System.Collections.Specialized.INotifyCollectionChanged>)source2Scalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestIntersecting11()
@@ -29198,8 +29198,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<System.Collections.Specialized.INotifyCollectionChanged>)source2Scalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestIntersecting12()
@@ -29310,8 +29310,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<System.Collections.Specialized.INotifyCollectionChanged>)source2Scalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestIntersecting13()
@@ -29429,8 +29429,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<ObservableCollection<Item>>)source2Scalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestIntersecting14()
@@ -29546,8 +29546,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<ObservableCollection<Item>>)source2Scalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestIntersecting15()
@@ -29660,8 +29660,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<ObservableCollection<Item>>)source2Scalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestIntersecting16()
@@ -29772,8 +29772,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<ObservableCollection<Item>>)source2Scalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestIntersecting17()
@@ -29886,8 +29886,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<System.Collections.Specialized.INotifyCollectionChanged>)source1Scalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestIntersecting18()
@@ -29998,8 +29998,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<System.Collections.Specialized.INotifyCollectionChanged>)source1Scalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestIntersecting19()
@@ -30107,8 +30107,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<System.Collections.Specialized.INotifyCollectionChanged>)source1Scalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestIntersecting20()
@@ -30214,8 +30214,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<System.Collections.Specialized.INotifyCollectionChanged>)source1Scalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestIntersecting21()
@@ -30328,8 +30328,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<System.Collections.Specialized.INotifyCollectionChanged>)source1Scalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestIntersecting22()
@@ -30440,8 +30440,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<System.Collections.Specialized.INotifyCollectionChanged>)source1Scalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestIntersecting23()
@@ -30549,8 +30549,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<System.Collections.Specialized.INotifyCollectionChanged>)source1Scalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestIntersecting24()
@@ -30656,8 +30656,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<System.Collections.Specialized.INotifyCollectionChanged>)source1Scalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestIntersecting25()
@@ -30770,8 +30770,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<ObservableCollection<Item>>)source1Scalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestIntersecting26()
@@ -30882,8 +30882,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<ObservableCollection<Item>>)source1Scalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestIntersecting27()
@@ -30991,8 +30991,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<ObservableCollection<Item>>)source1Scalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestIntersecting28()
@@ -31098,8 +31098,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<ObservableCollection<Item>>)source1Scalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestIntersecting29()
@@ -31212,8 +31212,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<ObservableCollection<Item>>)source1Scalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestIntersecting30()
@@ -31324,8 +31324,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<ObservableCollection<Item>>)source1Scalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestIntersecting31()
@@ -31433,8 +31433,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<ObservableCollection<Item>>)source1Scalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestIntersecting32()
@@ -31540,8 +31540,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<ObservableCollection<Item>>)source1Scalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestIntersecting33()
@@ -31651,8 +31651,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<System.Collections.Specialized.INotifyCollectionChanged>)source1Scalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestIntersecting34()
@@ -31760,8 +31760,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<System.Collections.Specialized.INotifyCollectionChanged>)source1Scalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestIntersecting35()
@@ -31871,8 +31871,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<System.Collections.Specialized.INotifyCollectionChanged>)source1Scalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestIntersecting36()
@@ -31980,8 +31980,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<System.Collections.Specialized.INotifyCollectionChanged>)source1Scalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestIntersecting37()
@@ -32091,8 +32091,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<ObservableCollection<Item>>)source1Scalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestIntersecting38()
@@ -32200,8 +32200,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<ObservableCollection<Item>>)source1Scalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestIntersecting39()
@@ -32311,8 +32311,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<ObservableCollection<Item>>)source1Scalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestIntersecting40()
@@ -32420,8 +32420,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<ObservableCollection<Item>>)source1Scalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestIntersecting41()
@@ -32536,8 +32536,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<System.Collections.Specialized.INotifyCollectionChanged>)source2Scalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestIntersecting42()
@@ -32650,8 +32650,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<System.Collections.Specialized.INotifyCollectionChanged>)source2Scalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestIntersecting43()
@@ -32766,8 +32766,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<ObservableCollection<Item>>)source2Scalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestIntersecting44()
@@ -32880,8 +32880,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<ObservableCollection<Item>>)source2Scalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestIntersecting45()
@@ -32996,8 +32996,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<System.Collections.Specialized.INotifyCollectionChanged>)source2Scalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestIntersecting46()
@@ -33110,8 +33110,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<System.Collections.Specialized.INotifyCollectionChanged>)source2Scalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestIntersecting47()
@@ -33226,8 +33226,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<ObservableCollection<Item>>)source2Scalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestIntersecting48()
@@ -33340,8 +33340,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<ObservableCollection<Item>>)source2Scalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestIntersecting49()
@@ -33454,8 +33454,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<System.Collections.Specialized.INotifyCollectionChanged>)source2Scalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestIntersecting50()
@@ -33566,8 +33566,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<System.Collections.Specialized.INotifyCollectionChanged>)source2Scalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestIntersecting51()
@@ -33675,8 +33675,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<System.Collections.Specialized.INotifyCollectionChanged>)source2Scalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestIntersecting52()
@@ -33782,8 +33782,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<System.Collections.Specialized.INotifyCollectionChanged>)source2Scalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestIntersecting53()
@@ -33896,8 +33896,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<ObservableCollection<Item>>)source2Scalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestIntersecting54()
@@ -34008,8 +34008,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<ObservableCollection<Item>>)source2Scalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestIntersecting55()
@@ -34117,8 +34117,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<ObservableCollection<Item>>)source2Scalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestIntersecting56()
@@ -34224,8 +34224,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<ObservableCollection<Item>>)source2Scalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestIntersecting57()
@@ -34338,8 +34338,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<System.Collections.Specialized.INotifyCollectionChanged>)source2Scalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestIntersecting58()
@@ -34450,8 +34450,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<System.Collections.Specialized.INotifyCollectionChanged>)source2Scalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestIntersecting59()
@@ -34559,8 +34559,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<System.Collections.Specialized.INotifyCollectionChanged>)source2Scalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestIntersecting60()
@@ -34666,8 +34666,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<System.Collections.Specialized.INotifyCollectionChanged>)source2Scalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestIntersecting61()
@@ -34780,8 +34780,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<ObservableCollection<Item>>)source2Scalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestIntersecting62()
@@ -34892,8 +34892,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<ObservableCollection<Item>>)source2Scalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestIntersecting63()
@@ -35001,8 +35001,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<ObservableCollection<Item>>)source2Scalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestIntersecting64()
@@ -35108,8 +35108,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<ObservableCollection<Item>>)source2Scalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestIntersecting65()
@@ -35217,8 +35217,8 @@ namespace ObservableComputations.Test
 
 			((Scalar<System.Collections.Generic.IEqualityComparer<Item>>)equalityComparerScalar).Touch();
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestIntersecting66()
@@ -35324,8 +35324,8 @@ namespace ObservableComputations.Test
 
 			((Scalar<System.Collections.Generic.IEqualityComparer<Item>>)equalityComparerScalar).Touch();
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestIntersecting67()
@@ -35428,8 +35428,8 @@ namespace ObservableComputations.Test
 			}
 
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestIntersecting68()
@@ -35530,8 +35530,8 @@ namespace ObservableComputations.Test
 			}
 
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestIntersecting69()
@@ -35639,8 +35639,8 @@ namespace ObservableComputations.Test
 
 			((Scalar<System.Collections.Generic.IEqualityComparer<Item>>)equalityComparerScalar).Touch();
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestIntersecting70()
@@ -35746,8 +35746,8 @@ namespace ObservableComputations.Test
 
 			((Scalar<System.Collections.Generic.IEqualityComparer<Item>>)equalityComparerScalar).Touch();
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestIntersecting71()
@@ -35850,8 +35850,8 @@ namespace ObservableComputations.Test
 			}
 
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestIntersecting72()
@@ -35952,8 +35952,8 @@ namespace ObservableComputations.Test
 			}
 
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestIntersecting73()
@@ -36061,8 +36061,8 @@ namespace ObservableComputations.Test
 
 			((Scalar<System.Collections.Generic.IEqualityComparer<Item>>)equalityComparerScalar).Touch();
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestIntersecting74()
@@ -36168,8 +36168,8 @@ namespace ObservableComputations.Test
 
 			((Scalar<System.Collections.Generic.IEqualityComparer<Item>>)equalityComparerScalar).Touch();
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestIntersecting75()
@@ -36272,8 +36272,8 @@ namespace ObservableComputations.Test
 			}
 
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestIntersecting76()
@@ -36374,8 +36374,8 @@ namespace ObservableComputations.Test
 			}
 
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestIntersecting77()
@@ -36483,8 +36483,8 @@ namespace ObservableComputations.Test
 
 			((Scalar<System.Collections.Generic.IEqualityComparer<Item>>)equalityComparerScalar).Touch();
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestIntersecting78()
@@ -36590,8 +36590,8 @@ namespace ObservableComputations.Test
 
 			((Scalar<System.Collections.Generic.IEqualityComparer<Item>>)equalityComparerScalar).Touch();
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestIntersecting79()
@@ -36694,8 +36694,8 @@ namespace ObservableComputations.Test
 			}
 
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestIntersecting80()
@@ -36796,8 +36796,8 @@ namespace ObservableComputations.Test
 			}
 
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestIntersecting81()
@@ -36902,8 +36902,8 @@ namespace ObservableComputations.Test
 			}
 
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestIntersecting82()
@@ -37006,8 +37006,8 @@ namespace ObservableComputations.Test
 			}
 
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestIntersecting83()
@@ -37112,8 +37112,8 @@ namespace ObservableComputations.Test
 			}
 
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestIntersecting84()
@@ -37216,8 +37216,8 @@ namespace ObservableComputations.Test
 			}
 
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestIntersecting85()
@@ -37322,8 +37322,8 @@ namespace ObservableComputations.Test
 			}
 
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestIntersecting86()
@@ -37426,8 +37426,8 @@ namespace ObservableComputations.Test
 			}
 
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestIntersecting87()
@@ -37532,8 +37532,8 @@ namespace ObservableComputations.Test
 			}
 
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestIntersecting88()
@@ -37636,8 +37636,8 @@ namespace ObservableComputations.Test
 			}
 
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestIntersecting89()
@@ -37747,8 +37747,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<System.Collections.Specialized.INotifyCollectionChanged>)source2Scalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestIntersecting90()
@@ -37856,8 +37856,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<System.Collections.Specialized.INotifyCollectionChanged>)source2Scalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestIntersecting91()
@@ -37967,8 +37967,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<ObservableCollection<Item>>)source2Scalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestIntersecting92()
@@ -38076,8 +38076,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<ObservableCollection<Item>>)source2Scalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestIntersecting93()
@@ -38187,8 +38187,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<System.Collections.Specialized.INotifyCollectionChanged>)source2Scalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestIntersecting94()
@@ -38296,8 +38296,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<System.Collections.Specialized.INotifyCollectionChanged>)source2Scalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestIntersecting95()
@@ -38407,8 +38407,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<ObservableCollection<Item>>)source2Scalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestIntersecting96()
@@ -38516,8 +38516,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<ObservableCollection<Item>>)source2Scalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		#endregion
 		#region ItemComputing
 
@@ -38587,8 +38587,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<System.Collections.Specialized.INotifyCollectionChanged>)sourceScalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestItemComputing02()
@@ -38653,8 +38653,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<System.Collections.Specialized.INotifyCollectionChanged>)sourceScalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestItemComputing03()
@@ -38721,8 +38721,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<ObservableCollection<Item>>)sourceScalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestItemComputing04()
@@ -38787,8 +38787,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<ObservableCollection<Item>>)sourceScalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestItemComputing05()
@@ -38860,8 +38860,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<System.Collections.Specialized.INotifyCollectionChanged>)sourceScalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestItemComputing06()
@@ -38931,8 +38931,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<System.Collections.Specialized.INotifyCollectionChanged>)sourceScalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestItemComputing07()
@@ -39004,8 +39004,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<ObservableCollection<Item>>)sourceScalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestItemComputing08()
@@ -39075,8 +39075,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<ObservableCollection<Item>>)sourceScalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestItemComputing09()
@@ -39138,8 +39138,8 @@ namespace ObservableComputations.Test
 			}
 
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestItemComputing10()
@@ -39199,8 +39199,8 @@ namespace ObservableComputations.Test
 			}
 
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestItemComputing11()
@@ -39262,8 +39262,8 @@ namespace ObservableComputations.Test
 			}
 
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestItemComputing12()
@@ -39323,8 +39323,8 @@ namespace ObservableComputations.Test
 			}
 
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestItemComputing13()
@@ -39391,8 +39391,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<int>)indexScalar).Change(1);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestItemComputing14()
@@ -39457,8 +39457,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<int>)indexScalar).Change(1);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestItemComputing15()
@@ -39525,8 +39525,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<int>)indexScalar).Change(1);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestItemComputing16()
@@ -39591,8 +39591,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<int>)indexScalar).Change(1);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		#endregion
 		#region Joining
 
@@ -39678,8 +39678,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<System.Collections.Specialized.INotifyCollectionChanged>)rightSourceScalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestJoining02()
@@ -39760,8 +39760,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<System.Collections.Specialized.INotifyCollectionChanged>)rightSourceScalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestJoining03()
@@ -39844,8 +39844,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<ObservableCollection<Item>>)rightSourceScalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestJoining04()
@@ -39926,8 +39926,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<ObservableCollection<Item>>)rightSourceScalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestJoining05()
@@ -40010,8 +40010,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<System.Collections.Specialized.INotifyCollectionChanged>)rightSourceScalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestJoining06()
@@ -40092,8 +40092,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<System.Collections.Specialized.INotifyCollectionChanged>)rightSourceScalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestJoining07()
@@ -40176,8 +40176,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<ObservableCollection<Item>>)rightSourceScalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestJoining08()
@@ -40258,8 +40258,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<ObservableCollection<Item>>)rightSourceScalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestJoining09()
@@ -40337,8 +40337,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<System.Collections.Specialized.INotifyCollectionChanged>)rightSourceScalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestJoining10()
@@ -40414,8 +40414,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<System.Collections.Specialized.INotifyCollectionChanged>)rightSourceScalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestJoining11()
@@ -40493,8 +40493,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<ObservableCollection<Item>>)rightSourceScalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestJoining12()
@@ -40570,8 +40570,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<ObservableCollection<Item>>)rightSourceScalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestJoining13()
@@ -40649,8 +40649,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<System.Collections.Specialized.INotifyCollectionChanged>)rightSourceScalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestJoining14()
@@ -40726,8 +40726,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<System.Collections.Specialized.INotifyCollectionChanged>)rightSourceScalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestJoining15()
@@ -40805,8 +40805,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<ObservableCollection<Item>>)rightSourceScalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestJoining16()
@@ -40882,8 +40882,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<ObservableCollection<Item>>)rightSourceScalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestJoining17()
@@ -40961,8 +40961,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<System.Collections.Specialized.INotifyCollectionChanged>)leftSourceScalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestJoining18()
@@ -41038,8 +41038,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<System.Collections.Specialized.INotifyCollectionChanged>)leftSourceScalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestJoining19()
@@ -41117,8 +41117,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<System.Collections.Specialized.INotifyCollectionChanged>)leftSourceScalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestJoining20()
@@ -41194,8 +41194,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<System.Collections.Specialized.INotifyCollectionChanged>)leftSourceScalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestJoining21()
@@ -41273,8 +41273,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<ObservableCollection<Item>>)leftSourceScalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestJoining22()
@@ -41350,8 +41350,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<ObservableCollection<Item>>)leftSourceScalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestJoining23()
@@ -41429,8 +41429,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<ObservableCollection<Item>>)leftSourceScalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestJoining24()
@@ -41506,8 +41506,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<ObservableCollection<Item>>)leftSourceScalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestJoining25()
@@ -41580,8 +41580,8 @@ namespace ObservableComputations.Test
 			}
 
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestJoining26()
@@ -41652,8 +41652,8 @@ namespace ObservableComputations.Test
 			}
 
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestJoining27()
@@ -41726,8 +41726,8 @@ namespace ObservableComputations.Test
 			}
 
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestJoining28()
@@ -41798,8 +41798,8 @@ namespace ObservableComputations.Test
 			}
 
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestJoining29()
@@ -41872,8 +41872,8 @@ namespace ObservableComputations.Test
 			}
 
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestJoining30()
@@ -41944,8 +41944,8 @@ namespace ObservableComputations.Test
 			}
 
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestJoining31()
@@ -42018,8 +42018,8 @@ namespace ObservableComputations.Test
 			}
 
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestJoining32()
@@ -42090,8 +42090,8 @@ namespace ObservableComputations.Test
 			}
 
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		#endregion
 		#region LastComputing
 
@@ -42159,8 +42159,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<System.Collections.Specialized.INotifyCollectionChanged>)sourceScalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestLastComputing02()
@@ -42223,8 +42223,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<System.Collections.Specialized.INotifyCollectionChanged>)sourceScalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestLastComputing03()
@@ -42289,8 +42289,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<ObservableCollection<Item>>)sourceScalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestLastComputing04()
@@ -42353,8 +42353,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<ObservableCollection<Item>>)sourceScalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestLastComputing05()
@@ -42414,8 +42414,8 @@ namespace ObservableComputations.Test
 			}
 
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestLastComputing06()
@@ -42473,8 +42473,8 @@ namespace ObservableComputations.Test
 			}
 
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestLastComputing07()
@@ -42534,8 +42534,8 @@ namespace ObservableComputations.Test
 			}
 
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestLastComputing08()
@@ -42593,8 +42593,8 @@ namespace ObservableComputations.Test
 			}
 
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		#endregion
 		#region Maximazing
 
@@ -42664,8 +42664,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<Selecting<Item, int>>)sourceScalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestMaximazing02()
@@ -42730,8 +42730,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<Selecting<Item, int>>)sourceScalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestMaximazing03()
@@ -42796,8 +42796,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<Selecting<Item, int>>)sourceScalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestMaximazing04()
@@ -42860,8 +42860,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<Selecting<Item, int>>)sourceScalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestMaximazing05()
@@ -42928,8 +42928,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<Selecting<Item, int>>)sourceScalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestMaximazing06()
@@ -42994,8 +42994,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<Selecting<Item, int>>)sourceScalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestMaximazing07()
@@ -43060,8 +43060,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<Selecting<Item, int>>)sourceScalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestMaximazing08()
@@ -43124,8 +43124,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<Selecting<Item, int>>)sourceScalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestMaximazing09()
@@ -43197,8 +43197,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<Selecting<Item, int>>)sourceScalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestMaximazing10()
@@ -43268,8 +43268,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<Selecting<Item, int>>)sourceScalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestMaximazing11()
@@ -43341,8 +43341,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<Selecting<Item, int>>)sourceScalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestMaximazing12()
@@ -43412,8 +43412,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<Selecting<Item, int>>)sourceScalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestMaximazing13()
@@ -43475,8 +43475,8 @@ namespace ObservableComputations.Test
 			}
 
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestMaximazing14()
@@ -43536,8 +43536,8 @@ namespace ObservableComputations.Test
 			}
 
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestMaximazing15()
@@ -43597,8 +43597,8 @@ namespace ObservableComputations.Test
 			}
 
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestMaximazing16()
@@ -43656,8 +43656,8 @@ namespace ObservableComputations.Test
 			}
 
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestMaximazing17()
@@ -43719,8 +43719,8 @@ namespace ObservableComputations.Test
 			}
 
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestMaximazing18()
@@ -43780,8 +43780,8 @@ namespace ObservableComputations.Test
 			}
 
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestMaximazing19()
@@ -43841,8 +43841,8 @@ namespace ObservableComputations.Test
 			}
 
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestMaximazing20()
@@ -43900,8 +43900,8 @@ namespace ObservableComputations.Test
 			}
 
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestMaximazing21()
@@ -43968,8 +43968,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<System.Collections.Generic.IComparer<int>>)comparerScalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestMaximazing22()
@@ -44034,8 +44034,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<System.Collections.Generic.IComparer<int>>)comparerScalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestMaximazing23()
@@ -44102,8 +44102,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<System.Collections.Generic.IComparer<int>>)comparerScalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestMaximazing24()
@@ -44168,8 +44168,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<System.Collections.Generic.IComparer<int>>)comparerScalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		#endregion
 		#region Minimazing
 
@@ -44239,8 +44239,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<Selecting<Item, int>>)sourceScalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestMinimazing02()
@@ -44305,8 +44305,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<Selecting<Item, int>>)sourceScalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestMinimazing03()
@@ -44371,8 +44371,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<Selecting<Item, int>>)sourceScalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestMinimazing04()
@@ -44435,8 +44435,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<Selecting<Item, int>>)sourceScalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestMinimazing05()
@@ -44503,8 +44503,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<Selecting<Item, int>>)sourceScalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestMinimazing06()
@@ -44569,8 +44569,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<Selecting<Item, int>>)sourceScalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestMinimazing07()
@@ -44635,8 +44635,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<Selecting<Item, int>>)sourceScalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestMinimazing08()
@@ -44699,8 +44699,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<Selecting<Item, int>>)sourceScalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestMinimazing09()
@@ -44772,8 +44772,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<Selecting<Item, int>>)sourceScalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestMinimazing10()
@@ -44843,8 +44843,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<Selecting<Item, int>>)sourceScalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestMinimazing11()
@@ -44916,8 +44916,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<Selecting<Item, int>>)sourceScalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestMinimazing12()
@@ -44987,8 +44987,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<Selecting<Item, int>>)sourceScalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestMinimazing13()
@@ -45050,8 +45050,8 @@ namespace ObservableComputations.Test
 			}
 
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestMinimazing14()
@@ -45111,8 +45111,8 @@ namespace ObservableComputations.Test
 			}
 
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestMinimazing15()
@@ -45172,8 +45172,8 @@ namespace ObservableComputations.Test
 			}
 
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestMinimazing16()
@@ -45231,8 +45231,8 @@ namespace ObservableComputations.Test
 			}
 
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestMinimazing17()
@@ -45294,8 +45294,8 @@ namespace ObservableComputations.Test
 			}
 
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestMinimazing18()
@@ -45355,8 +45355,8 @@ namespace ObservableComputations.Test
 			}
 
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestMinimazing19()
@@ -45416,8 +45416,8 @@ namespace ObservableComputations.Test
 			}
 
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestMinimazing20()
@@ -45475,8 +45475,8 @@ namespace ObservableComputations.Test
 			}
 
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestMinimazing21()
@@ -45543,8 +45543,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<System.Collections.Generic.IComparer<int>>)comparerScalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestMinimazing22()
@@ -45609,8 +45609,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<System.Collections.Generic.IComparer<int>>)comparerScalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestMinimazing23()
@@ -45677,8 +45677,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<System.Collections.Generic.IComparer<int>>)comparerScalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestMinimazing24()
@@ -45743,8 +45743,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<System.Collections.Generic.IComparer<int>>)comparerScalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		#endregion
 		#region OfTypeComputing
 
@@ -45810,8 +45810,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<System.Collections.Specialized.INotifyCollectionChanged>)sourceScalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestOfTypeComputing02()
@@ -45869,8 +45869,8 @@ namespace ObservableComputations.Test
 			}
 
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		#endregion
 		#region Ordering
 
@@ -45947,8 +45947,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<System.Collections.Generic.IComparer<int>>)comparerScalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestOrdering02()
@@ -46015,8 +46015,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<System.ComponentModel.ListSortDirection>)sortDirectionScalar).Change(System.ComponentModel.ListSortDirection.Descending);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestOrdering03()
@@ -46083,8 +46083,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<System.Collections.Generic.IComparer<int>>)comparerScalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestOrdering04()
@@ -46144,8 +46144,8 @@ namespace ObservableComputations.Test
 			}
 
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestOrdering05()
@@ -46219,8 +46219,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<System.Collections.Generic.IComparer<int>>)comparerScalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestOrdering06()
@@ -46287,8 +46287,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<System.ComponentModel.ListSortDirection>)sortDirectionScalar).Change(System.ComponentModel.ListSortDirection.Descending);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestOrdering07()
@@ -46355,8 +46355,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<System.Collections.Generic.IComparer<int>>)comparerScalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestOrdering08()
@@ -46416,8 +46416,8 @@ namespace ObservableComputations.Test
 			}
 
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestOrdering09()
@@ -46486,8 +46486,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<System.Collections.Generic.IComparer<int>>)comparerScalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestOrdering10()
@@ -46549,8 +46549,8 @@ namespace ObservableComputations.Test
 			}
 
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestOrdering11()
@@ -46619,8 +46619,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<System.Collections.Generic.IComparer<int>>)comparerScalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestOrdering12()
@@ -46682,8 +46682,8 @@ namespace ObservableComputations.Test
 			}
 
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestOrdering13()
@@ -46752,8 +46752,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<System.ComponentModel.ListSortDirection>)sortDirectionScalar).Change(System.ComponentModel.ListSortDirection.Descending);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestOrdering14()
@@ -46815,8 +46815,8 @@ namespace ObservableComputations.Test
 			}
 
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestOrdering15()
@@ -46885,8 +46885,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<System.ComponentModel.ListSortDirection>)sortDirectionScalar).Change(System.ComponentModel.ListSortDirection.Descending);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestOrdering16()
@@ -46948,8 +46948,8 @@ namespace ObservableComputations.Test
 			}
 
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestOrdering17()
@@ -47013,8 +47013,8 @@ namespace ObservableComputations.Test
 			}
 
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestOrdering18()
@@ -47078,8 +47078,8 @@ namespace ObservableComputations.Test
 			}
 
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestOrdering19()
@@ -47158,8 +47158,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<Selecting<Item, int>>)sourceScalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestOrdering20()
@@ -47231,8 +47231,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<Selecting<Item, int>>)sourceScalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestOrdering21()
@@ -47304,8 +47304,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<Selecting<Item, int>>)sourceScalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestOrdering22()
@@ -47370,8 +47370,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<Selecting<Item, int>>)sourceScalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestOrdering23()
@@ -47450,8 +47450,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<Selecting<Item, int>>)sourceScalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestOrdering24()
@@ -47523,8 +47523,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<Selecting<Item, int>>)sourceScalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestOrdering25()
@@ -47596,8 +47596,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<Selecting<Item, int>>)sourceScalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestOrdering26()
@@ -47662,8 +47662,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<Selecting<Item, int>>)sourceScalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestOrdering27()
@@ -47737,8 +47737,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<Selecting<Item, int>>)sourceScalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestOrdering28()
@@ -47805,8 +47805,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<Selecting<Item, int>>)sourceScalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestOrdering29()
@@ -47880,8 +47880,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<Selecting<Item, int>>)sourceScalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestOrdering30()
@@ -47948,8 +47948,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<Selecting<Item, int>>)sourceScalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestOrdering31()
@@ -48023,8 +48023,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<Selecting<Item, int>>)sourceScalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestOrdering32()
@@ -48091,8 +48091,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<Selecting<Item, int>>)sourceScalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestOrdering33()
@@ -48166,8 +48166,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<Selecting<Item, int>>)sourceScalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestOrdering34()
@@ -48234,8 +48234,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<Selecting<Item, int>>)sourceScalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestOrdering35()
@@ -48304,8 +48304,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<Selecting<Item, int>>)sourceScalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestOrdering36()
@@ -48374,8 +48374,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<Selecting<Item, int>>)sourceScalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		#endregion
 		#region Paging
 
@@ -48440,8 +48440,8 @@ namespace ObservableComputations.Test
 			}
 
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestPaging02()
@@ -48501,8 +48501,8 @@ namespace ObservableComputations.Test
 			}
 
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestPaging03()
@@ -48564,8 +48564,8 @@ namespace ObservableComputations.Test
 			}
 
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestPaging04()
@@ -48625,8 +48625,8 @@ namespace ObservableComputations.Test
 			}
 
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestPaging05()
@@ -48693,8 +48693,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<System.Collections.Specialized.INotifyCollectionChanged>)sourceScalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestPaging06()
@@ -48759,8 +48759,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<System.Collections.Specialized.INotifyCollectionChanged>)sourceScalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestPaging07()
@@ -48827,8 +48827,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<ObservableCollection<Item>>)sourceScalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestPaging08()
@@ -48893,8 +48893,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<ObservableCollection<Item>>)sourceScalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestPaging09()
@@ -48961,8 +48961,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<int>)pageSizeScalar).Change(1);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestPaging10()
@@ -49027,8 +49027,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<int>)pageSizeScalar).Change(1);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestPaging11()
@@ -49095,8 +49095,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<int>)pageSizeScalar).Change(1);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestPaging12()
@@ -49161,8 +49161,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<int>)pageSizeScalar).Change(1);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestPaging13()
@@ -49234,8 +49234,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<System.Collections.Specialized.INotifyCollectionChanged>)sourceScalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestPaging14()
@@ -49305,8 +49305,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<System.Collections.Specialized.INotifyCollectionChanged>)sourceScalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestPaging15()
@@ -49378,8 +49378,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<ObservableCollection<Item>>)sourceScalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestPaging16()
@@ -49449,8 +49449,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<ObservableCollection<Item>>)sourceScalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestPaging17()
@@ -49522,8 +49522,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<int>)currentPageScalar).Change(1);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestPaging18()
@@ -49595,8 +49595,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<int>)currentPageScalar).Change(1);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestPaging19()
@@ -49673,8 +49673,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<System.Collections.Specialized.INotifyCollectionChanged>)sourceScalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestPaging20()
@@ -49751,8 +49751,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<ObservableCollection<Item>>)sourceScalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestPaging21()
@@ -49819,8 +49819,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<int>)currentPageScalar).Change(1);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestPaging22()
@@ -49887,8 +49887,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<int>)currentPageScalar).Change(1);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestPaging23()
@@ -49960,8 +49960,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<System.Collections.Specialized.INotifyCollectionChanged>)sourceScalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestPaging24()
@@ -50033,8 +50033,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<ObservableCollection<Item>>)sourceScalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		#endregion
 		#region PredicateGroupJoining
 
@@ -50150,8 +50150,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<System.Collections.Specialized.INotifyCollectionChanged>)innerSourceScalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestPredicateGroupJoining02()
@@ -50264,8 +50264,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<ObservableCollection<Item>>)innerSourceScalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestPredicateGroupJoining03()
@@ -50378,8 +50378,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<System.Collections.Specialized.INotifyCollectionChanged>)innerSourceScalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestPredicateGroupJoining04()
@@ -50492,8 +50492,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<ObservableCollection<Item>>)innerSourceScalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestPredicateGroupJoining05()
@@ -50601,8 +50601,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<System.Collections.Specialized.INotifyCollectionChanged>)outerSourceScalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestPredicateGroupJoining06()
@@ -50710,8 +50710,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<System.Collections.Specialized.INotifyCollectionChanged>)outerSourceScalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestPredicateGroupJoining07()
@@ -50819,8 +50819,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<ObservableCollection<Item>>)outerSourceScalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestPredicateGroupJoining08()
@@ -50928,8 +50928,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<ObservableCollection<Item>>)outerSourceScalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestPredicateGroupJoining09()
@@ -51037,8 +51037,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<System.Collections.Specialized.INotifyCollectionChanged>)innerSourceScalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestPredicateGroupJoining10()
@@ -51146,8 +51146,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<ObservableCollection<Item>>)innerSourceScalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestPredicateGroupJoining11()
@@ -51255,8 +51255,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<System.Collections.Specialized.INotifyCollectionChanged>)innerSourceScalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestPredicateGroupJoining12()
@@ -51364,8 +51364,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<ObservableCollection<Item>>)innerSourceScalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestPredicateGroupJoining13()
@@ -51468,8 +51468,8 @@ namespace ObservableComputations.Test
 			}
 
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestPredicateGroupJoining14()
@@ -51572,8 +51572,8 @@ namespace ObservableComputations.Test
 			}
 
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestPredicateGroupJoining15()
@@ -51676,8 +51676,8 @@ namespace ObservableComputations.Test
 			}
 
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestPredicateGroupJoining16()
@@ -51780,8 +51780,8 @@ namespace ObservableComputations.Test
 			}
 
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		#endregion
 		#region Prepending
 
@@ -51854,8 +51854,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<System.Collections.Specialized.INotifyCollectionChanged>)sourceScalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestPrepending02()
@@ -51925,8 +51925,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<ObservableCollection<Item>>)sourceScalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestPrepending03()
@@ -51991,8 +51991,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<Item>)itemScalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestPrepending04()
@@ -52057,8 +52057,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<Item>)itemScalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestPrepending05()
@@ -52118,8 +52118,8 @@ namespace ObservableComputations.Test
 			}
 
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestPrepending06()
@@ -52179,8 +52179,8 @@ namespace ObservableComputations.Test
 			}
 
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestPrepending07()
@@ -52245,8 +52245,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<System.Collections.Specialized.INotifyCollectionChanged>)sourceScalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestPrepending08()
@@ -52311,8 +52311,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<ObservableCollection<Item>>)sourceScalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		#endregion
 		#region Reversing
 
@@ -52378,8 +52378,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<System.Collections.Specialized.INotifyCollectionChanged>)sourceScalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestReversing02()
@@ -52442,8 +52442,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<ObservableCollection<Item>>)sourceScalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestReversing03()
@@ -52501,8 +52501,8 @@ namespace ObservableComputations.Test
 			}
 
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestReversing04()
@@ -52560,8 +52560,8 @@ namespace ObservableComputations.Test
 			}
 
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		#endregion
 		#region Selecting
 
@@ -52629,8 +52629,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<System.Collections.Specialized.INotifyCollectionChanged>)sourceScalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestSelecting02()
@@ -52695,8 +52695,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<ObservableCollection<Item>>)sourceScalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestSelecting03()
@@ -52756,8 +52756,8 @@ namespace ObservableComputations.Test
 			}
 
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestSelecting04()
@@ -52817,8 +52817,8 @@ namespace ObservableComputations.Test
 			}
 
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		#endregion
 		#region SelectingMany
 
@@ -52886,8 +52886,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<System.Collections.Specialized.INotifyCollectionChanged>)sourceScalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestSelectingMany02()
@@ -52952,8 +52952,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<ObservableCollection<Item>>)sourceScalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestSelectingMany03()
@@ -53013,8 +53013,8 @@ namespace ObservableComputations.Test
 			}
 
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestSelectingMany04()
@@ -53074,8 +53074,8 @@ namespace ObservableComputations.Test
 			}
 
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestSelectingMany05()
@@ -53140,8 +53140,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<System.Collections.Specialized.INotifyCollectionChanged>)sourceScalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestSelectingMany06()
@@ -53206,8 +53206,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<ObservableCollection<Item>>)sourceScalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestSelectingMany07()
@@ -53267,8 +53267,8 @@ namespace ObservableComputations.Test
 			}
 
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestSelectingMany08()
@@ -53328,8 +53328,8 @@ namespace ObservableComputations.Test
 			}
 
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		#endregion
 		#region SequenceComputing
 
@@ -53354,8 +53354,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<int>)countScalar).Change(4);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		#endregion
 		#region Skipping
 
@@ -53430,8 +53430,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<System.Collections.Specialized.INotifyCollectionChanged>)sourceScalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestSkipping02()
@@ -53501,8 +53501,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<System.Collections.Specialized.INotifyCollectionChanged>)sourceScalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestSkipping03()
@@ -53574,8 +53574,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<ObservableCollection<Item>>)sourceScalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestSkipping04()
@@ -53645,8 +53645,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<ObservableCollection<Item>>)sourceScalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestSkipping05()
@@ -53713,8 +53713,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<int>)countScalar).Change(4);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestSkipping06()
@@ -53779,8 +53779,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<int>)countScalar).Change(4);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestSkipping07()
@@ -53847,8 +53847,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<int>)countScalar).Change(4);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestSkipping08()
@@ -53913,8 +53913,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<int>)countScalar).Change(4);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestSkipping09()
@@ -53981,8 +53981,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<System.Collections.Specialized.INotifyCollectionChanged>)sourceScalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestSkipping10()
@@ -54047,8 +54047,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<System.Collections.Specialized.INotifyCollectionChanged>)sourceScalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestSkipping11()
@@ -54115,8 +54115,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<ObservableCollection<Item>>)sourceScalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestSkipping12()
@@ -54181,8 +54181,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<ObservableCollection<Item>>)sourceScalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestSkipping13()
@@ -54244,8 +54244,8 @@ namespace ObservableComputations.Test
 			}
 
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestSkipping14()
@@ -54305,8 +54305,8 @@ namespace ObservableComputations.Test
 			}
 
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestSkipping15()
@@ -54368,8 +54368,8 @@ namespace ObservableComputations.Test
 			}
 
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestSkipping16()
@@ -54429,8 +54429,8 @@ namespace ObservableComputations.Test
 			}
 
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		#endregion
 		#region SkippingWhile
 
@@ -54500,8 +54500,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<System.Collections.Specialized.INotifyCollectionChanged>)sourceScalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestSkippingWhile02()
@@ -54566,8 +54566,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<System.Collections.Specialized.INotifyCollectionChanged>)sourceScalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestSkippingWhile03()
@@ -54634,8 +54634,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<ObservableCollection<Item>>)sourceScalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestSkippingWhile04()
@@ -54700,8 +54700,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<ObservableCollection<Item>>)sourceScalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestSkippingWhile05()
@@ -54763,8 +54763,8 @@ namespace ObservableComputations.Test
 			}
 
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestSkippingWhile06()
@@ -54824,8 +54824,8 @@ namespace ObservableComputations.Test
 			}
 
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestSkippingWhile07()
@@ -54887,8 +54887,8 @@ namespace ObservableComputations.Test
 			}
 
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestSkippingWhile08()
@@ -54948,8 +54948,8 @@ namespace ObservableComputations.Test
 			}
 
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestSkippingWhile09()
@@ -55016,8 +55016,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<System.Collections.Specialized.INotifyCollectionChanged>)sourceScalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestSkippingWhile10()
@@ -55082,8 +55082,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<System.Collections.Specialized.INotifyCollectionChanged>)sourceScalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestSkippingWhile11()
@@ -55150,8 +55150,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<ObservableCollection<Item>>)sourceScalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestSkippingWhile12()
@@ -55216,8 +55216,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<ObservableCollection<Item>>)sourceScalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestSkippingWhile13()
@@ -55279,8 +55279,8 @@ namespace ObservableComputations.Test
 			}
 
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestSkippingWhile14()
@@ -55340,8 +55340,8 @@ namespace ObservableComputations.Test
 			}
 
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestSkippingWhile15()
@@ -55403,8 +55403,8 @@ namespace ObservableComputations.Test
 			}
 
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestSkippingWhile16()
@@ -55464,8 +55464,8 @@ namespace ObservableComputations.Test
 			}
 
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		#endregion
 		#region StringsConcatenating
 
@@ -55540,8 +55540,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<Selecting<Item, string>>)sourceScalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestStringsConcatenating02()
@@ -55604,8 +55604,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<Selecting<Item, string>>)sourceScalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestStringsConcatenating03()
@@ -55672,8 +55672,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<string>)separatorScalar).Change("&&");
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestStringsConcatenating04()
@@ -55731,8 +55731,8 @@ namespace ObservableComputations.Test
 			}
 
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestStringsConcatenating05()
@@ -55792,8 +55792,8 @@ namespace ObservableComputations.Test
 			}
 
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestStringsConcatenating06()
@@ -55858,8 +55858,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<Selecting<Item, string>>)sourceScalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		#endregion
 		#region Summarizing
 
@@ -55925,8 +55925,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<Selecting<Item, int>>)sourceScalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestSummarizing02()
@@ -55989,8 +55989,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<Selecting<Item, int>>)sourceScalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestSummarizing03()
@@ -56048,8 +56048,8 @@ namespace ObservableComputations.Test
 			}
 
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestSummarizing04()
@@ -56107,8 +56107,8 @@ namespace ObservableComputations.Test
 			}
 
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		#endregion
 		#region Taking
 
@@ -56190,8 +56190,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<System.Collections.Specialized.INotifyCollectionChanged>)sourceScalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestTaking02()
@@ -56268,8 +56268,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<System.Collections.Specialized.INotifyCollectionChanged>)sourceScalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestTaking03()
@@ -56348,8 +56348,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<ObservableCollection<Item>>)sourceScalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestTaking04()
@@ -56426,8 +56426,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<ObservableCollection<Item>>)sourceScalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestTaking05()
@@ -56499,8 +56499,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<System.Collections.Specialized.INotifyCollectionChanged>)sourceScalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestTaking06()
@@ -56572,8 +56572,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<ObservableCollection<Item>>)sourceScalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestTaking07()
@@ -56647,8 +56647,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<System.Collections.Specialized.INotifyCollectionChanged>)sourceScalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestTaking08()
@@ -56720,8 +56720,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<System.Collections.Specialized.INotifyCollectionChanged>)sourceScalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestTaking09()
@@ -56795,8 +56795,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<ObservableCollection<Item>>)sourceScalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestTaking10()
@@ -56868,8 +56868,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<ObservableCollection<Item>>)sourceScalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestTaking11()
@@ -56936,8 +56936,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<System.Collections.Specialized.INotifyCollectionChanged>)sourceScalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestTaking12()
@@ -57004,8 +57004,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<ObservableCollection<Item>>)sourceScalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestTaking13()
@@ -57079,8 +57079,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<int>)countScalar).Change(4);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestTaking14()
@@ -57152,8 +57152,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<int>)countScalar).Change(4);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestTaking15()
@@ -57227,8 +57227,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<int>)countScalar).Change(4);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestTaking16()
@@ -57300,8 +57300,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<int>)countScalar).Change(4);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestTaking17()
@@ -57368,8 +57368,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<int>)startIndexScalar).Change(1);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestTaking18()
@@ -57436,8 +57436,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<int>)startIndexScalar).Change(1);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestTaking19()
@@ -57506,8 +57506,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<int>)countScalar).Change(4);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestTaking20()
@@ -57574,8 +57574,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<int>)countScalar).Change(4);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestTaking21()
@@ -57644,8 +57644,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<int>)countScalar).Change(4);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestTaking22()
@@ -57712,8 +57712,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<int>)countScalar).Change(4);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestTaking23()
@@ -57775,8 +57775,8 @@ namespace ObservableComputations.Test
 			}
 
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestTaking24()
@@ -57838,8 +57838,8 @@ namespace ObservableComputations.Test
 			}
 
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		#endregion
 		#region TakingWhile
 
@@ -57909,8 +57909,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<System.Collections.Specialized.INotifyCollectionChanged>)sourceScalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestTakingWhile02()
@@ -57975,8 +57975,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<System.Collections.Specialized.INotifyCollectionChanged>)sourceScalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestTakingWhile03()
@@ -58043,8 +58043,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<ObservableCollection<Item>>)sourceScalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestTakingWhile04()
@@ -58109,8 +58109,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<ObservableCollection<Item>>)sourceScalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestTakingWhile05()
@@ -58172,8 +58172,8 @@ namespace ObservableComputations.Test
 			}
 
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestTakingWhile06()
@@ -58233,8 +58233,8 @@ namespace ObservableComputations.Test
 			}
 
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestTakingWhile07()
@@ -58296,8 +58296,8 @@ namespace ObservableComputations.Test
 			}
 
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestTakingWhile08()
@@ -58357,8 +58357,8 @@ namespace ObservableComputations.Test
 			}
 
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestTakingWhile09()
@@ -58425,8 +58425,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<System.Collections.Specialized.INotifyCollectionChanged>)sourceScalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestTakingWhile10()
@@ -58491,8 +58491,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<System.Collections.Specialized.INotifyCollectionChanged>)sourceScalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestTakingWhile11()
@@ -58559,8 +58559,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<ObservableCollection<Item>>)sourceScalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestTakingWhile12()
@@ -58625,8 +58625,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<ObservableCollection<Item>>)sourceScalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestTakingWhile13()
@@ -58688,8 +58688,8 @@ namespace ObservableComputations.Test
 			}
 
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestTakingWhile14()
@@ -58749,8 +58749,8 @@ namespace ObservableComputations.Test
 			}
 
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestTakingWhile15()
@@ -58812,8 +58812,8 @@ namespace ObservableComputations.Test
 			}
 
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestTakingWhile16()
@@ -58873,8 +58873,8 @@ namespace ObservableComputations.Test
 			}
 
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		#endregion
 		#region ThenOrdering
 
@@ -58951,8 +58951,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<System.Collections.Generic.IComparer<int>>)comparerScalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestThenOrdering02()
@@ -59019,8 +59019,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<System.ComponentModel.ListSortDirection>)sortDirectionScalar).Change(System.ComponentModel.ListSortDirection.Descending);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestThenOrdering03()
@@ -59087,8 +59087,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<System.Collections.Generic.IComparer<int>>)comparerScalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestThenOrdering04()
@@ -59148,8 +59148,8 @@ namespace ObservableComputations.Test
 			}
 
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestThenOrdering05()
@@ -59218,8 +59218,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<System.Collections.Generic.IComparer<int>>)comparerScalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestThenOrdering06()
@@ -59281,8 +59281,8 @@ namespace ObservableComputations.Test
 			}
 
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestThenOrdering07()
@@ -59351,8 +59351,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<System.ComponentModel.ListSortDirection>)sortDirectionScalar).Change(System.ComponentModel.ListSortDirection.Descending);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestThenOrdering08()
@@ -59414,8 +59414,8 @@ namespace ObservableComputations.Test
 			}
 
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestThenOrdering09()
@@ -59479,8 +59479,8 @@ namespace ObservableComputations.Test
 			}
 
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestThenOrdering10()
@@ -59559,8 +59559,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<ObservableComputations.IOrdering<int>>)sourceScalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestThenOrdering11()
@@ -59632,8 +59632,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<ObservableComputations.IOrdering<int>>)sourceScalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestThenOrdering12()
@@ -59705,8 +59705,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<ObservableComputations.IOrdering<int>>)sourceScalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestThenOrdering13()
@@ -59771,8 +59771,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<ObservableComputations.IOrdering<int>>)sourceScalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestThenOrdering14()
@@ -59846,8 +59846,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<ObservableComputations.IOrdering<int>>)sourceScalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestThenOrdering15()
@@ -59914,8 +59914,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<ObservableComputations.IOrdering<int>>)sourceScalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestThenOrdering16()
@@ -59989,8 +59989,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<ObservableComputations.IOrdering<int>>)sourceScalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestThenOrdering17()
@@ -60057,8 +60057,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<ObservableComputations.IOrdering<int>>)sourceScalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestThenOrdering18()
@@ -60127,8 +60127,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<ObservableComputations.IOrdering<int>>)sourceScalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		#endregion
 		#region Uniting
 
@@ -60188,8 +60188,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<System.Collections.Specialized.INotifyCollectionChanged>)sourcesScalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestUniting02()
@@ -60244,8 +60244,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<System.Collections.Specialized.INotifyCollectionChanged>)sourcesScalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestUniting03()
@@ -60295,8 +60295,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<System.Collections.Specialized.INotifyCollectionChanged>)sourcesScalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestUniting04()
@@ -60344,8 +60344,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<System.Collections.Specialized.INotifyCollectionChanged>)sourcesScalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestUniting05()
@@ -60402,8 +60402,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<ObservableCollection<ObservableCollection<Item>>>)sourcesScalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestUniting06()
@@ -60458,8 +60458,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<ObservableCollection<ObservableCollection<Item>>>)sourcesScalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestUniting07()
@@ -60509,8 +60509,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<ObservableCollection<ObservableCollection<Item>>>)sourcesScalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestUniting08()
@@ -60558,8 +60558,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<ObservableCollection<ObservableCollection<Item>>>)sourcesScalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestUniting09()
@@ -60611,8 +60611,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<System.Collections.Generic.IEqualityComparer<Item>>)equalityComparerScalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestUniting10()
@@ -60662,8 +60662,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<System.Collections.Generic.IEqualityComparer<Item>>)equalityComparerScalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestUniting11()
@@ -60708,8 +60708,8 @@ namespace ObservableComputations.Test
 			}
 
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestUniting12()
@@ -60752,8 +60752,8 @@ namespace ObservableComputations.Test
 			}
 
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestUniting13()
@@ -60805,8 +60805,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<System.Collections.Generic.IEqualityComparer<Item>>)equalityComparerScalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestUniting14()
@@ -60856,8 +60856,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<System.Collections.Generic.IEqualityComparer<Item>>)equalityComparerScalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestUniting15()
@@ -60902,8 +60902,8 @@ namespace ObservableComputations.Test
 			}
 
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestUniting16()
@@ -60946,8 +60946,8 @@ namespace ObservableComputations.Test
 			}
 
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestUniting17()
@@ -60994,8 +60994,8 @@ namespace ObservableComputations.Test
 			}
 
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestUniting18()
@@ -61040,8 +61040,8 @@ namespace ObservableComputations.Test
 			}
 
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestUniting19()
@@ -61088,8 +61088,8 @@ namespace ObservableComputations.Test
 			}
 
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestUniting20()
@@ -61134,8 +61134,8 @@ namespace ObservableComputations.Test
 			}
 
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestUniting21()
@@ -61187,8 +61187,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<System.Collections.Specialized.INotifyCollectionChanged>)sourcesScalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestUniting22()
@@ -61238,8 +61238,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<System.Collections.Specialized.INotifyCollectionChanged>)sourcesScalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestUniting23()
@@ -61291,8 +61291,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<ObservableCollection<ObservableCollection<Item>>>)sourcesScalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestUniting24()
@@ -61342,8 +61342,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<ObservableCollection<ObservableCollection<Item>>>)sourcesScalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestUniting25()
@@ -61448,8 +61448,8 @@ namespace ObservableComputations.Test
 			}
 
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestUniting26()
@@ -61552,8 +61552,8 @@ namespace ObservableComputations.Test
 			}
 
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestUniting27()
@@ -61656,8 +61656,8 @@ namespace ObservableComputations.Test
 			}
 
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestUniting28()
@@ -61758,8 +61758,8 @@ namespace ObservableComputations.Test
 			}
 
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestUniting29()
@@ -61864,8 +61864,8 @@ namespace ObservableComputations.Test
 			}
 
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestUniting30()
@@ -61968,8 +61968,8 @@ namespace ObservableComputations.Test
 			}
 
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestUniting31()
@@ -62072,8 +62072,8 @@ namespace ObservableComputations.Test
 			}
 
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestUniting32()
@@ -62174,8 +62174,8 @@ namespace ObservableComputations.Test
 			}
 
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestUniting33()
@@ -62280,8 +62280,8 @@ namespace ObservableComputations.Test
 			}
 
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestUniting34()
@@ -62384,8 +62384,8 @@ namespace ObservableComputations.Test
 			}
 
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestUniting35()
@@ -62488,8 +62488,8 @@ namespace ObservableComputations.Test
 			}
 
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestUniting36()
@@ -62590,8 +62590,8 @@ namespace ObservableComputations.Test
 			}
 
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestUniting37()
@@ -62696,8 +62696,8 @@ namespace ObservableComputations.Test
 			}
 
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestUniting38()
@@ -62800,8 +62800,8 @@ namespace ObservableComputations.Test
 			}
 
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestUniting39()
@@ -62904,8 +62904,8 @@ namespace ObservableComputations.Test
 			}
 
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestUniting40()
@@ -63006,8 +63006,8 @@ namespace ObservableComputations.Test
 			}
 
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestUniting41()
@@ -63117,8 +63117,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<System.Collections.Specialized.INotifyCollectionChanged>)source1Scalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestUniting42()
@@ -63226,8 +63226,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<System.Collections.Specialized.INotifyCollectionChanged>)source1Scalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestUniting43()
@@ -63335,8 +63335,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<System.Collections.Specialized.INotifyCollectionChanged>)source1Scalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestUniting44()
@@ -63442,8 +63442,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<System.Collections.Specialized.INotifyCollectionChanged>)source1Scalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestUniting45()
@@ -63553,8 +63553,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<System.Collections.Specialized.INotifyCollectionChanged>)source1Scalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestUniting46()
@@ -63662,8 +63662,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<System.Collections.Specialized.INotifyCollectionChanged>)source1Scalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestUniting47()
@@ -63771,8 +63771,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<System.Collections.Specialized.INotifyCollectionChanged>)source1Scalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestUniting48()
@@ -63878,8 +63878,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<System.Collections.Specialized.INotifyCollectionChanged>)source1Scalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestUniting49()
@@ -63989,8 +63989,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<ObservableCollection<Item>>)source1Scalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestUniting50()
@@ -64098,8 +64098,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<ObservableCollection<Item>>)source1Scalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestUniting51()
@@ -64207,8 +64207,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<ObservableCollection<Item>>)source1Scalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestUniting52()
@@ -64314,8 +64314,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<ObservableCollection<Item>>)source1Scalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestUniting53()
@@ -64425,8 +64425,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<ObservableCollection<Item>>)source1Scalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestUniting54()
@@ -64534,8 +64534,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<ObservableCollection<Item>>)source1Scalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestUniting55()
@@ -64643,8 +64643,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<ObservableCollection<Item>>)source1Scalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestUniting56()
@@ -64750,8 +64750,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<ObservableCollection<Item>>)source1Scalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestUniting57()
@@ -64866,8 +64866,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<System.Collections.Specialized.INotifyCollectionChanged>)source2Scalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestUniting58()
@@ -64980,8 +64980,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<System.Collections.Specialized.INotifyCollectionChanged>)source2Scalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestUniting59()
@@ -65094,8 +65094,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<System.Collections.Specialized.INotifyCollectionChanged>)source2Scalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestUniting60()
@@ -65206,8 +65206,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<System.Collections.Specialized.INotifyCollectionChanged>)source2Scalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestUniting61()
@@ -65322,8 +65322,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<ObservableCollection<Item>>)source2Scalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestUniting62()
@@ -65436,8 +65436,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<ObservableCollection<Item>>)source2Scalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestUniting63()
@@ -65550,8 +65550,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<ObservableCollection<Item>>)source2Scalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestUniting64()
@@ -65662,8 +65662,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<ObservableCollection<Item>>)source2Scalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestUniting65()
@@ -65778,8 +65778,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<System.Collections.Specialized.INotifyCollectionChanged>)source2Scalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestUniting66()
@@ -65892,8 +65892,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<System.Collections.Specialized.INotifyCollectionChanged>)source2Scalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestUniting67()
@@ -66006,8 +66006,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<System.Collections.Specialized.INotifyCollectionChanged>)source2Scalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestUniting68()
@@ -66118,8 +66118,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<System.Collections.Specialized.INotifyCollectionChanged>)source2Scalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestUniting69()
@@ -66234,8 +66234,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<ObservableCollection<Item>>)source2Scalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestUniting70()
@@ -66348,8 +66348,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<ObservableCollection<Item>>)source2Scalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestUniting71()
@@ -66462,8 +66462,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<ObservableCollection<Item>>)source2Scalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestUniting72()
@@ -66574,8 +66574,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<ObservableCollection<Item>>)source2Scalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestUniting73()
@@ -66685,8 +66685,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<System.Collections.Specialized.INotifyCollectionChanged>)source2Scalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestUniting74()
@@ -66794,8 +66794,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<System.Collections.Specialized.INotifyCollectionChanged>)source2Scalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestUniting75()
@@ -66903,8 +66903,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<System.Collections.Specialized.INotifyCollectionChanged>)source2Scalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestUniting76()
@@ -67010,8 +67010,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<System.Collections.Specialized.INotifyCollectionChanged>)source2Scalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestUniting77()
@@ -67121,8 +67121,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<ObservableCollection<Item>>)source2Scalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestUniting78()
@@ -67230,8 +67230,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<ObservableCollection<Item>>)source2Scalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestUniting79()
@@ -67339,8 +67339,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<ObservableCollection<Item>>)source2Scalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestUniting80()
@@ -67446,8 +67446,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<ObservableCollection<Item>>)source2Scalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestUniting81()
@@ -67557,8 +67557,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<System.Collections.Specialized.INotifyCollectionChanged>)source2Scalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestUniting82()
@@ -67666,8 +67666,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<System.Collections.Specialized.INotifyCollectionChanged>)source2Scalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestUniting83()
@@ -67775,8 +67775,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<System.Collections.Specialized.INotifyCollectionChanged>)source2Scalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestUniting84()
@@ -67882,8 +67882,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<System.Collections.Specialized.INotifyCollectionChanged>)source2Scalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestUniting85()
@@ -67993,8 +67993,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<ObservableCollection<Item>>)source2Scalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestUniting86()
@@ -68102,8 +68102,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<ObservableCollection<Item>>)source2Scalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestUniting87()
@@ -68211,8 +68211,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<ObservableCollection<Item>>)source2Scalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestUniting88()
@@ -68318,8 +68318,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<ObservableCollection<Item>>)source2Scalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestUniting89()
@@ -68429,8 +68429,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<System.Collections.Generic.IEqualityComparer<Item>>)equalityComparerScalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestUniting90()
@@ -68538,8 +68538,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<System.Collections.Generic.IEqualityComparer<Item>>)equalityComparerScalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestUniting91()
@@ -68649,8 +68649,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<System.Collections.Generic.IEqualityComparer<Item>>)equalityComparerScalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestUniting92()
@@ -68758,8 +68758,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<System.Collections.Generic.IEqualityComparer<Item>>)equalityComparerScalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestUniting93()
@@ -68869,8 +68869,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<System.Collections.Generic.IEqualityComparer<Item>>)equalityComparerScalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestUniting94()
@@ -68978,8 +68978,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<System.Collections.Generic.IEqualityComparer<Item>>)equalityComparerScalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestUniting95()
@@ -69089,8 +69089,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<System.Collections.Generic.IEqualityComparer<Item>>)equalityComparerScalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestUniting96()
@@ -69198,8 +69198,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<System.Collections.Generic.IEqualityComparer<Item>>)equalityComparerScalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestUniting97()
@@ -69314,8 +69314,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<System.Collections.Specialized.INotifyCollectionChanged>)source1Scalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestUniting98()
@@ -69428,8 +69428,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<System.Collections.Specialized.INotifyCollectionChanged>)source1Scalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestUniting99()
@@ -69544,8 +69544,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<System.Collections.Specialized.INotifyCollectionChanged>)source1Scalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestUniting100()
@@ -69658,8 +69658,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<System.Collections.Specialized.INotifyCollectionChanged>)source1Scalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestUniting101()
@@ -69774,8 +69774,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<ObservableCollection<Item>>)source1Scalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestUniting102()
@@ -69888,8 +69888,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<ObservableCollection<Item>>)source1Scalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestUniting103()
@@ -70004,8 +70004,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<ObservableCollection<Item>>)source1Scalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestUniting104()
@@ -70118,8 +70118,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<ObservableCollection<Item>>)source1Scalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestUniting105()
@@ -70239,8 +70239,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<System.Collections.Specialized.INotifyCollectionChanged>)source2Scalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestUniting106()
@@ -70358,8 +70358,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<System.Collections.Specialized.INotifyCollectionChanged>)source2Scalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestUniting107()
@@ -70479,8 +70479,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<ObservableCollection<Item>>)source2Scalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestUniting108()
@@ -70598,8 +70598,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<ObservableCollection<Item>>)source2Scalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestUniting109()
@@ -70719,8 +70719,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<System.Collections.Specialized.INotifyCollectionChanged>)source2Scalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestUniting110()
@@ -70838,8 +70838,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<System.Collections.Specialized.INotifyCollectionChanged>)source2Scalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestUniting111()
@@ -70959,8 +70959,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<ObservableCollection<Item>>)source2Scalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestUniting112()
@@ -71078,8 +71078,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<ObservableCollection<Item>>)source2Scalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestUniting113()
@@ -71194,8 +71194,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<System.Collections.Specialized.INotifyCollectionChanged>)source2Scalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestUniting114()
@@ -71308,8 +71308,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<System.Collections.Specialized.INotifyCollectionChanged>)source2Scalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestUniting115()
@@ -71424,8 +71424,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<ObservableCollection<Item>>)source2Scalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestUniting116()
@@ -71538,8 +71538,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<ObservableCollection<Item>>)source2Scalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestUniting117()
@@ -71654,8 +71654,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<System.Collections.Specialized.INotifyCollectionChanged>)source2Scalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestUniting118()
@@ -71768,8 +71768,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<System.Collections.Specialized.INotifyCollectionChanged>)source2Scalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestUniting119()
@@ -71884,8 +71884,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<ObservableCollection<Item>>)source2Scalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestUniting120()
@@ -71998,8 +71998,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<ObservableCollection<Item>>)source2Scalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		#endregion
 		#region Zipping
 
@@ -72076,8 +72076,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<System.Collections.Specialized.INotifyCollectionChanged>)leftSourceScalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestZipping02()
@@ -72151,8 +72151,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<System.Collections.Specialized.INotifyCollectionChanged>)leftSourceScalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestZipping03()
@@ -72226,8 +72226,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<ObservableCollection<Item>>)leftSourceScalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestZipping04()
@@ -72301,8 +72301,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<ObservableCollection<Item>>)leftSourceScalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestZipping05()
@@ -72381,8 +72381,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<System.Collections.Specialized.INotifyCollectionChanged>)rightSourceScalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestZipping06()
@@ -72461,8 +72461,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<ObservableCollection<Item>>)rightSourceScalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestZipping07()
@@ -72541,8 +72541,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<System.Collections.Specialized.INotifyCollectionChanged>)rightSourceScalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestZipping08()
@@ -72621,8 +72621,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<ObservableCollection<Item>>)rightSourceScalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestZipping09()
@@ -72691,8 +72691,8 @@ namespace ObservableComputations.Test
 			}
 
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestZipping10()
@@ -72761,8 +72761,8 @@ namespace ObservableComputations.Test
 			}
 
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestZipping11()
@@ -72831,8 +72831,8 @@ namespace ObservableComputations.Test
 			}
 
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestZipping12()
@@ -72901,8 +72901,8 @@ namespace ObservableComputations.Test
 			}
 
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestZipping13()
@@ -72976,8 +72976,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<System.Collections.Specialized.INotifyCollectionChanged>)rightSourceScalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestZipping14()
@@ -73051,8 +73051,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<ObservableCollection<Item>>)rightSourceScalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestZipping15()
@@ -73126,8 +73126,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<System.Collections.Specialized.INotifyCollectionChanged>)rightSourceScalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		
 		[Test]
 		public void TestZipping16()
@@ -73201,8 +73201,8 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<ObservableCollection<Item>>)rightSourceScalar).Change(null);
 			test();
-		    consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 		#endregion
 	}
 }

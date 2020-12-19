@@ -11,7 +11,7 @@ namespace ObservableComputations.Test
 	[TestFixture]
 	public class ThenOrderingOrderingTests
 	{
-        Consumer consumer = new Consumer();
+		Consumer consumer = new Consumer();
 
 		public class Item : INotifyPropertyChanged, IEquatable<Item>
 		{
@@ -599,14 +599,14 @@ namespace ObservableComputations.Test
 		{
 			string traceString = getTraceString(num, orderNums, orderNums2, orderNums3, listSortDirection, listSortDirection2, index, orderNum, orderNum2, orderNum3, indexOld, indexNew);
 
-            if (traceString == "#8. OrderNums1=-1  OrderNums2=-1  OrderNums3=-1  index=0  orderNum=0  orderNum2=0  orderNum3=0  indexOld=0   indexNew=0 listSortDirection=Ascending   listSortDirection2=Ascending")
-            {
-                return true;
-            }
+			if (traceString == "#8. OrderNums1=-1  OrderNums2=-1  OrderNums3=-1  index=0  orderNum=0  orderNum2=0  orderNum3=0  indexOld=0   indexNew=0 listSortDirection=Ascending   listSortDirection2=Ascending")
+			{
+				return true;
+			}
 
-            return false;
+			return false;
 
-            return true;
+			return true;
 		}
 
 		private static string getTraceString(string num, int[] orderNums, int[] orderNums2, int[] orderNums3, ListSortDirection listSortDirection, ListSortDirection listSortDirection2, int index, int orderNum, int orderNum2, int orderNum3, int indexOld, int indexNew)
@@ -655,7 +655,7 @@ namespace ObservableComputations.Test
 			listSortDirectionScalar.Change(ListSortDirection.Descending);
 			ordering.ValidateConsistency();
 			ordering1.ValidateConsistency();
-            consumer.Dispose();
+			consumer.Dispose();
 		}
 
 		#endregion

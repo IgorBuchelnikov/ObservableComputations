@@ -9,7 +9,7 @@ namespace ObservableComputations.Test
 	[TestFixture]
 	public class AllComputingTests
 	{
-        Consumer consumer = new Consumer();
+		Consumer consumer = new Consumer();
 
 		public class Item : INotifyPropertyChanged
 		{

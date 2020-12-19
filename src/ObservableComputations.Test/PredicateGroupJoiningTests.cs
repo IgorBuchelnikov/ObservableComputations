@@ -14,7 +14,7 @@ namespace ObservableComputations.Test
 	[TestFixture]
 	public class PredicateGroupJoiningTests
 	{
-        Consumer consumer = new Consumer();
+		Consumer consumer = new Consumer();
 
 		public class Item : INotifyPropertyChanged
 		{

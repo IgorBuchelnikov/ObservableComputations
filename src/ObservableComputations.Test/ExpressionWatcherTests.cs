@@ -78,7 +78,7 @@ namespace ObservableComputations.Test
 			}
 			#endregion
 
-            public Delegate[] GetPropertyChangedInvocationList => PropertyChanged.GetInvocationList();
+			public Delegate[] GetPropertyChangedInvocationList => PropertyChanged.GetInvocationList();
 
 			public event EventHandler<MethodChangedEventArgs> MethodChanged;
 		}
@@ -183,33 +183,33 @@ namespace ObservableComputations.Test
 			Assert.IsTrue(raised);
 		}
 
-        [Test]
-        public void TestRaiseValueChanged63()
-        {
-            bool raised = false;
-            Item item = new Item();
-            item.Num = "777";
-            Expression<Func<int, string>> expression = n => (item.Num == "777" ? item.GetChild("888" + n) : item.GetChild("000")).Num;
-            ExpressionWatcher expressionWatcher = new ExpressionWatcher(
-                ExpressionWatcher.GetExpressionInfo(expression), new object[]{1});
-            expressionWatcher.ValueChanged = (ew, sender, eventArgs) => { raised = true; };
-            item.GetChild("888" + 1).Num = "888";
-            Assert.IsTrue(raised);
-        }
+		[Test]
+		public void TestRaiseValueChanged63()
+		{
+			bool raised = false;
+			Item item = new Item();
+			item.Num = "777";
+			Expression<Func<int, string>> expression = n => (item.Num == "777" ? item.GetChild("888" + n) : item.GetChild("000")).Num;
+			ExpressionWatcher expressionWatcher = new ExpressionWatcher(
+				ExpressionWatcher.GetExpressionInfo(expression), new object[]{1});
+			expressionWatcher.ValueChanged = (ew, sender, eventArgs) => { raised = true; };
+			item.GetChild("888" + 1).Num = "888";
+			Assert.IsTrue(raised);
+		}
 
-        [Test]
-        public void TestRaiseValueChanged64()
-        {
-            bool raised = false;
-            Item item = new Item();
-            item.Num = "777" + 1;
-            Expression<Func<int, string>> expression = n => (item.Num == "777" + n ? item.GetChild("888") : item.GetChild("000")).Num;
-            ExpressionWatcher expressionWatcher = new ExpressionWatcher(
-                ExpressionWatcher.GetExpressionInfo(expression), new object[]{1});
-            expressionWatcher.ValueChanged = (ew, sender, eventArgs) => { raised = true; };
-            item.GetChild("888").Num = "888";
-            Assert.IsTrue(raised);
-        }
+		[Test]
+		public void TestRaiseValueChanged64()
+		{
+			bool raised = false;
+			Item item = new Item();
+			item.Num = "777" + 1;
+			Expression<Func<int, string>> expression = n => (item.Num == "777" + n ? item.GetChild("888") : item.GetChild("000")).Num;
+			ExpressionWatcher expressionWatcher = new ExpressionWatcher(
+				ExpressionWatcher.GetExpressionInfo(expression), new object[]{1});
+			expressionWatcher.ValueChanged = (ew, sender, eventArgs) => { raised = true; };
+			item.GetChild("888").Num = "888";
+			Assert.IsTrue(raised);
+		}
 
 
 		[Test]
@@ -319,20 +319,20 @@ namespace ObservableComputations.Test
 			Assert.IsTrue(raised);
 		}
 
-        //[Test]
-        //public void TestWeakEventHandler()
-        //{
-        //	bool raised = false;
-        //	Item item = new Item();
-        //	PropertyChangedEventHandler handler = (sender, args) => raised = true;
-        //	WeakPropertyChangedEventHandler weakPropertyChangedEventHandler = new WeakPropertyChangedEventHandler(handler);
-        //	item.PropertyChanged += weakPropertyChangedEventHandler.Handle;
-        //	item.Num = "1";
-        //	Assert.IsTrue(raised);
-        //	raised = false;
-        //	item.PropertyChanged -= weakPropertyChangedEventHandler.Handle;
-        //	item.Num = "3";
-        //	Assert.IsFalse(raised);
-        //}
-    }
+		//[Test]
+		//public void TestWeakEventHandler()
+		//{
+		//	bool raised = false;
+		//	Item item = new Item();
+		//	PropertyChangedEventHandler handler = (sender, args) => raised = true;
+		//	WeakPropertyChangedEventHandler weakPropertyChangedEventHandler = new WeakPropertyChangedEventHandler(handler);
+		//	item.PropertyChanged += weakPropertyChangedEventHandler.Handle;
+		//	item.Num = "1";
+		//	Assert.IsTrue(raised);
+		//	raised = false;
+		//	item.PropertyChanged -= weakPropertyChangedEventHandler.Handle;
+		//	item.Num = "3";
+		//	Assert.IsFalse(raised);
+		//}
+	}
 }

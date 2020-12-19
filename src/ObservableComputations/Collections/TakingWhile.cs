@@ -84,10 +84,10 @@ namespace ObservableComputations
 
 			return getFiltering(zipping, zipPairNotPredicateExpression, countComputing, capacity);
 
-            //return () => (INotifyCollectionChanged)Expr.Is(() => (INotifyCollectionChanged)getSource.Computing().Using(sc =>
-            //            Expr.Is(() => ((IList)sc.Value).Count).SequenceComputing()
-            //                .Zipping<int, TSourceItem>(() => sc.Value)).Value).Computing().Using(zipping => zipping.Value.Filtering<ZipPair<int, TSourceItem>>(zp => zp.ItemLeft < zipping.Value.Filtering(zipPairNotPredicateExpression).Selecting(zp1 => zp1.ItemLeft).Minimazing(() => (((IList)zipping.Value).Count)).Value)).Value;
-        }
+			//return () => (INotifyCollectionChanged)Expr.Is(() => (INotifyCollectionChanged)getSource.Computing().Using(sc =>
+			//            Expr.Is(() => ((IList)sc.Value).Count).SequenceComputing()
+			//                .Zipping<int, TSourceItem>(() => sc.Value)).Value).Computing().Using(zipping => zipping.Value.Filtering<ZipPair<int, TSourceItem>>(zp => zp.ItemLeft < zipping.Value.Filtering(zipPairNotPredicateExpression).Selecting(zp1 => zp1.ItemLeft).Minimazing(() => (((IList)zipping.Value).Count)).Value)).Value;
+		}
 
 		private static Filtering<ZipPair<int, TSourceItem>> getFiltering(
 			Zipping<int, TSourceItem> zipping, 
@@ -96,13 +96,13 @@ namespace ObservableComputations
 			int capacity)
 		{
 			return zipping.Filtering(zp => 
-                zp.LeftItem < 
-                    zipping
-                    .Filtering(zipPairNotPredicateExpression, capacity)
-                    .Selecting(zp1 => zp1.LeftItem)
-                    .Using(ic => ic.Count > 0 ? ic.Minimazing<int>().Value : countComputing.Value)
-                    .Value, 
-                capacity);
+				zp.LeftItem < 
+					zipping
+					.Filtering(zipPairNotPredicateExpression, capacity)
+					.Selecting(zp1 => zp1.LeftItem)
+					.Using(ic => ic.Count > 0 ? ic.Minimazing<int>().Value : countComputing.Value)
+					.Value, 
+				capacity);
 		}
 
 		private static INotifyCollectionChanged getSource(
@@ -147,7 +147,7 @@ namespace ObservableComputations
 		public new void ValidateConsistency()
 		{
 			IList<TSourceItem> source = _sourceScalarTakingWhile.getValue(_sourceTakingWhile, new ObservableCollection<TSourceItem>()) as IList<TSourceItem>;
-            Consumer consumer = new Consumer();
+			Consumer consumer = new Consumer();
 
 			// ReSharper disable once AssignNullToNotNullAttribute
 			if (!this.SequenceEqual(source.TakeWhile((si, i) => new Computing<bool>(_predicateExpression.ApplyParameters(si, i)).For(consumer).Value)))

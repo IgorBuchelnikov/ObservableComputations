@@ -9,7 +9,7 @@ namespace ObservableComputations.Test
 	[TestFixture]
 	public class SummarizingTests
 	{
-        Consumer consumer = new Consumer();
+		Consumer consumer = new Consumer();
 
 		TextFileOutput _textFileOutputLog = new TextFileOutput(@"D:\Summarizing_Deep.log");
 		TextFileOutput _textFileOutputTime = new TextFileOutput(@"D:\Summarizing_Deep_Time.log");
@@ -66,7 +66,7 @@ namespace ObservableComputations.Test
 				summarizing = items.Summarizing().For(consumer);
 				validateSummarizingConsistency(summarizing, items);
 				Assert.AreEqual(summarizing.Value, items.Sum());
-                consumer.Dispose();
+				consumer.Dispose();
 
 				for (index = 0; index < values.Length; index++)
 				{
@@ -76,7 +76,7 @@ namespace ObservableComputations.Test
 					items.RemoveAt(index);
 					validateSummarizingConsistency(summarizing1, items);
 					Assert.AreEqual(summarizing1.Value, items.Sum());
-                    consumer.Dispose();
+					consumer.Dispose();
 				}
 
 				for (index = 0; index <= values.Length; index++)
@@ -89,7 +89,7 @@ namespace ObservableComputations.Test
 						items.Insert(index, value);
 						validateSummarizingConsistency(summarizing1, items);
 						Assert.AreEqual(summarizing1.Value, items.Sum());
-                        consumer.Dispose();
+						consumer.Dispose();
 					}
 				}
 
@@ -104,7 +104,7 @@ namespace ObservableComputations.Test
 						items[index] = value;
 						validateSummarizingConsistency(summarizing2, items);
 						Assert.AreEqual(summarizing2.Value, items.Sum());
-                        consumer.Dispose();
+						consumer.Dispose();
 
 					}
 				}
@@ -119,7 +119,7 @@ namespace ObservableComputations.Test
 						items.Move(indexOld, indexNew);
 						validateSummarizingConsistency(summarizing2, items);
 						Assert.AreEqual(summarizing2.Value, items.Sum());
-                        consumer.Dispose();
+						consumer.Dispose();
 					}
 				}
 			}

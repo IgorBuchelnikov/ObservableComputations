@@ -8,7 +8,7 @@ namespace ObservableComputations.Test
 	[TestFixture]
 	public class PreviousTrackingTests
 	{
-        Consumer consumer = new Consumer();
+		Consumer consumer = new Consumer();
 
 		public class Order : INotifyPropertyChanged
 		{
@@ -58,7 +58,7 @@ namespace ObservableComputations.Test
 			Assert.IsTrue(computing.IsEverChanged);
 			Assert.IsTrue(computing.Value == "2");
 
-            consumer.Dispose();
+			consumer.Dispose();
 		}
 	}
 }

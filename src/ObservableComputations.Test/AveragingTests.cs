@@ -47,7 +47,7 @@ namespace ObservableComputations.Test
 			}
 		}
 
-        Consumer consumer = new Consumer();
+		Consumer consumer = new Consumer();
 
 		private void test(int[] values)
 		{
@@ -77,7 +77,7 @@ namespace ObservableComputations.Test
 					items.RemoveAt(index);
 					//averageComputing1.ValidateConsistency();
 					validate(averageComputing1, items);
-                    consumer.Dispose();
+					consumer.Dispose();
 				}
 
 				for (index = 0; index <= values.Length; index++)
@@ -90,7 +90,7 @@ namespace ObservableComputations.Test
 						items.Insert(index, value);
 						//averageComputing1.ValidateConsistency();
 						validate(averageComputing1, items);
-                        consumer.Dispose();
+						consumer.Dispose();
 					}
 				}
 
@@ -105,7 +105,7 @@ namespace ObservableComputations.Test
 						items[index] = value;
 						//averageComputing2.ValidateConsistency();
 						validate(averageComputing2, items);
-                        consumer.Dispose();
+						consumer.Dispose();
 
 					}
 				}
@@ -120,7 +120,7 @@ namespace ObservableComputations.Test
 						items.Move(indexOld, indexNew);
 						//averageComputing2.ValidateConsistency();
 						validate(averageComputing2, items);
-                        consumer.Dispose();
+						consumer.Dispose();
 					}
 				}
 			}
@@ -139,7 +139,7 @@ namespace ObservableComputations.Test
 		{
 			if (items.Count > 0) Assert.AreEqual(averaging.Value, items.Average());
 			else Assert.AreEqual(averaging.Value, double.NaN);
-            consumer.Dispose();
+			consumer.Dispose();
 		}
 
 		private void trace(string testNum, int[] values, int index, int value, int indexOld, int indexNew)

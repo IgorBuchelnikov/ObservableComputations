@@ -12,8 +12,8 @@ namespace ObservableComputations
 	{
 		void InvokeCollectionChange(
 			Action action, 
-            int priority, 
-            object parameter,
+			int priority, 
+			object parameter,
 			ICollectionComputing context,
 			NotifyCollectionChangedAction notifyCollectionChangedAction,
 			object newItem,
@@ -21,11 +21,11 @@ namespace ObservableComputations
 			int newIndex,
 			int oldIndex);
 
-        void InvokeInitialization(
-            Action action,
-            int priority, 
-            object parameter,
-            ICollectionComputing context);
+		void InvokeInitialization(
+			Action action,
+			int priority, 
+			object parameter,
+			ICollectionComputing context);
 	}
 
 	public interface IPropertySourceOcDispatcher
@@ -39,8 +39,8 @@ namespace ObservableComputations
 		/// <param name="newValue">new value if setter of Value property is called </param>
 		void Invoke(
 			Action action, 
-            int priority, 
-            object parameter,
+			int priority, 
+			object parameter,
 			IComputing propertyDispatching,
 			bool initializing,
 			object newValue);

@@ -8,7 +8,7 @@ namespace ObservableComputations.Test
 	[TestFixture]
 	public class WeakPreviousTrackingTests
 	{
-        Consumer consumer = new Consumer();
+		Consumer consumer = new Consumer();
 
 		public class Order : INotifyPropertyChanged
 		{
@@ -46,9 +46,9 @@ namespace ObservableComputations.Test
 			Order order = new Order();
 			WeakPreviousTracking<Order> computing = new WeakPreviousTracking<Order>(new Computing<Order>(() => order.ParentOrder)).For(consumer);
 			bool
-                result = true;
+				result = true;
 			Order previousOrder = null;
-            bool isEverchanged = true;
+			bool isEverchanged = true;
 
 			computing.PropertyChanged += (sender, eventArgs) =>
 			{
@@ -79,9 +79,9 @@ namespace ObservableComputations.Test
 			previousOrder = order.ParentOrder;
 			order.ParentOrder = new Order();
 
-            isEverchanged = false;
-            result = true;
-            consumer.Dispose();
+			isEverchanged = false;
+			result = true;
+			consumer.Dispose();
 		}
 
 	}

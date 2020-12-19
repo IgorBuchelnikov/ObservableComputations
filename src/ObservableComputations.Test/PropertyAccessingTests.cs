@@ -8,7 +8,7 @@ namespace ObservableComputations.Test
 	[TestFixture]
 	public class PropertyAccessingTests
 	{
-        Consumer consumer = new Consumer();
+		Consumer consumer = new Consumer();
 
 		public class Order : INotifyPropertyChanged
 		{
@@ -73,8 +73,8 @@ namespace ObservableComputations.Test
 			Assert.IsTrue(raised);
 			Assert.IsTrue(propertyAccessing.Value == result);
 
-            result = null;
-            consumer.Dispose();
+			result = null;
+			consumer.Dispose();
 		}
 
 		[Test]
@@ -129,8 +129,8 @@ namespace ObservableComputations.Test
 			Assert.AreEqual(propertyAccessing.Value, result);
 			raised = false;
 
-            result = null;
-            consumer.Dispose();
+			result = null;
+			consumer.Dispose();
 		}
 
 	}

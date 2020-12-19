@@ -9,7 +9,7 @@ namespace ObservableComputations.Test
 	[TestFixture]
 	public class AppendingTests
 	{
-        Consumer consumer = new Consumer();
+		Consumer consumer = new Consumer();
 
 		public class Item : INotifyPropertyChanged
 		{
@@ -148,7 +148,7 @@ namespace ObservableComputations.Test
 			appending.ValidateConsistency();
 			items.Move(oldIndex, newIndex);
 			appending.ValidateConsistency();		
-		    consumer.Dispose();
+			consumer.Dispose();
 		}
 
 		[Test, Combinatorial]

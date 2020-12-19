@@ -6,8 +6,8 @@ using System.Linq.Expressions;
 
 namespace ObservableComputations
 {
-    public class Selecting<TSourceItem, TResultItem> : CollectionComputing<TResultItem>, IHasSourceCollections, ISourceItemChangeProcessor, ISourceCollectionChangeProcessor
-    {
+	public class Selecting<TSourceItem, TResultItem> : CollectionComputing<TResultItem>, IHasSourceCollections, ISourceItemChangeProcessor, ISourceCollectionChangeProcessor
+	{
 		// ReSharper disable once MemberCanBePrivate.Global
 		public IReadScalar<INotifyCollectionChanged> SourceScalar => _sourceScalar;
 
@@ -28,7 +28,7 @@ namespace ObservableComputations
 
 		private Expression<Func<TSourceItem, TResultItem>> _selectorExpression;
 		private ExpressionWatcher.ExpressionInfo _selectorExpressionInfo;
-        private int _selectorExpressionСallCount;
+		private int _selectorExpressionСallCount;
 
 		private bool _selectorContainsParametrizedObservableComputationsCalls;
 
@@ -42,15 +42,15 @@ namespace ObservableComputations
 		internal INotifyCollectionChanged _source;
 		private Func<TSourceItem, TResultItem> _selectorFunc;
 
-        private List<IComputingInternal> _nestedComputings;
+		private List<IComputingInternal> _nestedComputings;
 
-        private ISourceCollectionChangeProcessor _thisAsSourceCollectionChangeProcessor;
-        private ISourceItemChangeProcessor _thisAsSourceItemChangeProcessor;
+		private ISourceCollectionChangeProcessor _thisAsSourceCollectionChangeProcessor;
+		private ISourceItemChangeProcessor _thisAsSourceItemChangeProcessor;
 
 		private sealed class ItemInfo : ExpressionItemInfo
 		{
 			public Func<TResultItem> SelectorFunc;
-        }
+		}
 
 		[ObservableComputationsCall]
 		public Selecting(
@@ -69,218 +69,218 @@ namespace ObservableComputations
 		}
 
 		private Selecting(Expression<Func<TSourceItem, TResultItem>> selectorExpression, int capacity) : base(capacity)
-        {
-            Utils.construct(
-                selectorExpression, 
-                capacity, 
-                out _itemInfos, 
-                out _sourcePositions, 
-                out _selectorExpressionOriginal, 
-                out _selectorExpression, 
-                out _selectorContainsParametrizedObservableComputationsCalls, 
-                ref _selectorExpressionInfo, 
-                ref _selectorExpressionСallCount, 
-                ref _selectorFunc, 
-                ref _nestedComputings);
+		{
+			Utils.construct(
+				selectorExpression, 
+				capacity, 
+				out _itemInfos, 
+				out _sourcePositions, 
+				out _selectorExpressionOriginal, 
+				out _selectorExpression, 
+				out _selectorContainsParametrizedObservableComputationsCalls, 
+				ref _selectorExpressionInfo, 
+				ref _selectorExpressionСallCount, 
+				ref _selectorFunc, 
+				ref _nestedComputings);
 
-            _deferredQueuesCount = 3;
-            _thisAsSourceCollectionChangeProcessor = this;
-            _thisAsSourceItemChangeProcessor = this;
-        }
+			_deferredQueuesCount = 3;
+			_thisAsSourceCollectionChangeProcessor = this;
+			_thisAsSourceItemChangeProcessor = this;
+		}
 
-        protected override void initializeFromSource()
-        {
-            int originalCount = _items.Count;
+		protected override void initializeFromSource()
+		{
+			int originalCount = _items.Count;
 
-            if (_sourceInitialized)
-            {
-                Utils.disposeExpressionItemInfos(_itemInfos, _selectorExpressionСallCount, this);
-                Utils.removeDownstreamConsumedComputing(_itemInfos, this);
+			if (_sourceInitialized)
+			{
+				Utils.disposeExpressionItemInfos(_itemInfos, _selectorExpressionСallCount, this);
+				Utils.removeDownstreamConsumedComputing(_itemInfos, this);
 
-                Utils.disposeSource(
-                    _sourceScalar, 
-                    _source,
-                    out _itemInfos,
-                    out _sourcePositions, 
-                    _sourceAsList, 
-                    handleSourceCollectionChanged);
+				Utils.disposeSource(
+					_sourceScalar, 
+					_source,
+					out _itemInfos,
+					out _sourcePositions, 
+					_sourceAsList, 
+					handleSourceCollectionChanged);
 
-                _sourceInitialized = false;
-            }
+				_sourceInitialized = false;
+			}
 
-            Utils.changeSource(ref _source, _sourceScalar, _downstreamConsumedComputings, _consumers, this, out _sourceAsList, false);
+			Utils.changeSource(ref _source, _sourceScalar, _downstreamConsumedComputings, _consumers, this, out _sourceAsList, false);
 
-            if (_source != null && _isActive)
-            {
-                Utils.initializeFromObservableCollectionWithChangeMarker(
-                    _source, 
-                    ref _sourceAsList, 
-                    ref _rootSourceWrapper, 
-                    ref _lastProcessedSourceChangeMarker);
+			if (_source != null && _isActive)
+			{
+				Utils.initializeFromObservableCollectionWithChangeMarker(
+					_source, 
+					ref _sourceAsList, 
+					ref _rootSourceWrapper, 
+					ref _lastProcessedSourceChangeMarker);
 
-                int count = _sourceAsList.Count;
+				int count = _sourceAsList.Count;
 
-                TSourceItem[] sourceCopy = new TSourceItem[count];
-                _sourceAsList.CopyTo(sourceCopy, 0);
+				TSourceItem[] sourceCopy = new TSourceItem[count];
+				_sourceAsList.CopyTo(sourceCopy, 0);
 
-                _sourceAsList.CollectionChanged += handleSourceCollectionChanged;
+				_sourceAsList.CollectionChanged += handleSourceCollectionChanged;
 
-                int sourceIndex;
-                for (sourceIndex = 0; sourceIndex < count; sourceIndex++)
-                {
-                    TSourceItem sourceItem = sourceCopy[sourceIndex];
-                    ItemInfo itemInfo = registerSourceItem(sourceItem, sourceIndex);
+				int sourceIndex;
+				for (sourceIndex = 0; sourceIndex < count; sourceIndex++)
+				{
+					TSourceItem sourceItem = sourceCopy[sourceIndex];
+					ItemInfo itemInfo = registerSourceItem(sourceItem, sourceIndex);
 
-                    if (originalCount > sourceIndex)
-                        _items[sourceIndex] = applySelector(itemInfo, sourceItem);
-                    else
-                        _items.Insert(sourceIndex, applySelector(itemInfo, sourceItem));
-                }
+					if (originalCount > sourceIndex)
+						_items[sourceIndex] = applySelector(itemInfo, sourceItem);
+					else
+						_items.Insert(sourceIndex, applySelector(itemInfo, sourceItem));
+				}
 
-                for (int index = originalCount - 1; index >= sourceIndex; index--)
-                {
-                    _items.RemoveAt(index);
-                }
+				for (int index = originalCount - 1; index >= sourceIndex; index--)
+				{
+					_items.RemoveAt(index);
+				}
 
-                _sourceInitialized = true;
-            }
-            else
-            {
-                _items.Clear();
-            }
+				_sourceInitialized = true;
+			}
+			else
+			{
+				_items.Clear();
+			}
 
-            reset();
-        }
+			reset();
+		}
 
-        protected override void initialize()
-        {
-            Utils.initializeSourceScalar(_sourceScalar, ref _source, scalarValueChangedHandler);
-            Utils.initializeNestedComputings(_nestedComputings, this);
-        }
+		protected override void initialize()
+		{
+			Utils.initializeSourceScalar(_sourceScalar, ref _source, scalarValueChangedHandler);
+			Utils.initializeNestedComputings(_nestedComputings, this);
+		}
 
-        protected override void uninitialize()
-        {
-            Utils.uninitializeSourceScalar(_sourceScalar, scalarValueChangedHandler, ref _source);
-            Utils.uninitializeNestedComputings(_nestedComputings, this);
-        }
+		protected override void uninitialize()
+		{
+			Utils.uninitializeSourceScalar(_sourceScalar, scalarValueChangedHandler, ref _source);
+			Utils.uninitializeNestedComputings(_nestedComputings, this);
+		}
 
-        protected void handleSourceCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
+		protected void handleSourceCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
 		{
 			if (!Utils.preHandleSourceCollectionChanged(
-                    sender, 
-                    e, 
-                    _rootSourceWrapper, 
-                    ref _lastProcessedSourceChangeMarker, 
-                    _sourceAsList, 
-                    ref _isConsistent,
-                    this,
-                    ref _handledEventSender,
-                    ref _handledEventArgs,
-                    ref _deferredProcessings,
-                    1, _deferredQueuesCount, 
-                    this)) return;
+					sender, 
+					e, 
+					_rootSourceWrapper, 
+					ref _lastProcessedSourceChangeMarker, 
+					_sourceAsList, 
+					ref _isConsistent,
+					this,
+					ref _handledEventSender,
+					ref _handledEventArgs,
+					ref _deferredProcessings,
+					1, _deferredQueuesCount, 
+					this)) return;
 	
 			_thisAsSourceCollectionChangeProcessor.processSourceCollectionChanged(sender,e);      
-           
-            Utils.postHandleChange(
-                ref _handledEventSender,
-                ref _handledEventArgs,
-                _deferredProcessings,
-                ref _isConsistent,
-                this);
+		   
+			Utils.postHandleChange(
+				ref _handledEventSender,
+				ref _handledEventArgs,
+				_deferredProcessings,
+				ref _isConsistent,
+				this);
 		}
 
-        void ISourceCollectionChangeProcessor.processSourceCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
-        {
-            ItemInfo itemInfo;
-            switch (e.Action)
-            {
-                case NotifyCollectionChangedAction.Add:
-                    int newStartingIndex = e.NewStartingIndex;
-                    TSourceItem addedItem = (TSourceItem) e.NewItems[0];
-                    itemInfo = registerSourceItem(addedItem, newStartingIndex);
-                    baseInsertItem(newStartingIndex, applySelector(itemInfo, addedItem));
-                    break;
-                case NotifyCollectionChangedAction.Remove:
-                    int oldStartingIndex = e.OldStartingIndex;
-                    unregisterSourceItem(oldStartingIndex);
-                    baseRemoveItem(oldStartingIndex);
-                    break;
-                case NotifyCollectionChangedAction.Replace:
-                    int newStartingIndex1 = e.NewStartingIndex;
-                    TSourceItem newItem = (TSourceItem) e.NewItems[0];
-                    ItemInfo replacingItemInfo = _itemInfos[newStartingIndex1];
-                    unregisterSourceItem(newStartingIndex1, true);
-                    itemInfo = registerSourceItem(newItem, newStartingIndex1, replacingItemInfo);
-                    baseSetItem(newStartingIndex1, applySelector(itemInfo, newItem));
-                    break;
-                case NotifyCollectionChangedAction.Move:
-                    int oldStartingIndex2 = e.OldStartingIndex;
-                    int newStartingIndex2 = e.NewStartingIndex;
-                    if (oldStartingIndex2 != newStartingIndex2)
-                    {
-                        _sourcePositions.Move(oldStartingIndex2, newStartingIndex2);
-                        baseMoveItem(oldStartingIndex2, newStartingIndex2);
-                    }
-
-                    break;
-                case NotifyCollectionChangedAction.Reset:
-                    initializeFromSource();
-                    break;
-            }
-        }
-
-        internal override void addToUpstreamComputings(IComputingInternal computing)
-        {
-            (_source as IComputingInternal)?.AddDownstreamConsumedComputing(computing);
-            (_sourceScalar as IComputingInternal)?.AddDownstreamConsumedComputing(computing);
-            Utils.addDownstreamConsumedComputing(_itemInfos, this);
-        }
-
-
-        internal override void removeFromUpstreamComputings(IComputingInternal computing)        
-        {
-            (_source as IComputingInternal)?.RemoveDownstreamConsumedComputing(computing);
-            (_sourceScalar as IComputingInternal)?.RemoveDownstreamConsumedComputing(computing);
-            Utils.removeDownstreamConsumedComputing(_itemInfos, this);
-        }
-
-        private void expressionWatcher_OnValueChanged(ExpressionWatcher expressionWatcher, object sender, EventArgs eventArgs)
+		void ISourceCollectionChangeProcessor.processSourceCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
 		{
-            Utils.processSourceItemChange(
-                expressionWatcher, 
-                sender, 
-                eventArgs, 
-                _rootSourceWrapper, 
-                _sourceAsList, 
-                _lastProcessedSourceChangeMarker, 
-                _thisAsSourceItemChangeProcessor,
-                ref _isConsistent,
-                ref _handledEventSender,
-                ref _handledEventArgs,
-                ref _deferredProcessings, 
-                2, _deferredQueuesCount, this);
+			ItemInfo itemInfo;
+			switch (e.Action)
+			{
+				case NotifyCollectionChangedAction.Add:
+					int newStartingIndex = e.NewStartingIndex;
+					TSourceItem addedItem = (TSourceItem) e.NewItems[0];
+					itemInfo = registerSourceItem(addedItem, newStartingIndex);
+					baseInsertItem(newStartingIndex, applySelector(itemInfo, addedItem));
+					break;
+				case NotifyCollectionChangedAction.Remove:
+					int oldStartingIndex = e.OldStartingIndex;
+					unregisterSourceItem(oldStartingIndex);
+					baseRemoveItem(oldStartingIndex);
+					break;
+				case NotifyCollectionChangedAction.Replace:
+					int newStartingIndex1 = e.NewStartingIndex;
+					TSourceItem newItem = (TSourceItem) e.NewItems[0];
+					ItemInfo replacingItemInfo = _itemInfos[newStartingIndex1];
+					unregisterSourceItem(newStartingIndex1, true);
+					itemInfo = registerSourceItem(newItem, newStartingIndex1, replacingItemInfo);
+					baseSetItem(newStartingIndex1, applySelector(itemInfo, newItem));
+					break;
+				case NotifyCollectionChangedAction.Move:
+					int oldStartingIndex2 = e.OldStartingIndex;
+					int newStartingIndex2 = e.NewStartingIndex;
+					if (oldStartingIndex2 != newStartingIndex2)
+					{
+						_sourcePositions.Move(oldStartingIndex2, newStartingIndex2);
+						baseMoveItem(oldStartingIndex2, newStartingIndex2);
+					}
+
+					break;
+				case NotifyCollectionChangedAction.Reset:
+					initializeFromSource();
+					break;
+			}
 		}
 
-        private ItemInfo registerSourceItem(TSourceItem sourceItem, int index, ItemInfo itemInfo = null)
+		internal override void addToUpstreamComputings(IComputingInternal computing)
+		{
+			(_source as IComputingInternal)?.AddDownstreamConsumedComputing(computing);
+			(_sourceScalar as IComputingInternal)?.AddDownstreamConsumedComputing(computing);
+			Utils.addDownstreamConsumedComputing(_itemInfos, this);
+		}
+
+
+		internal override void removeFromUpstreamComputings(IComputingInternal computing)        
+		{
+			(_source as IComputingInternal)?.RemoveDownstreamConsumedComputing(computing);
+			(_sourceScalar as IComputingInternal)?.RemoveDownstreamConsumedComputing(computing);
+			Utils.removeDownstreamConsumedComputing(_itemInfos, this);
+		}
+
+		private void expressionWatcher_OnValueChanged(ExpressionWatcher expressionWatcher, object sender, EventArgs eventArgs)
+		{
+			Utils.processSourceItemChange(
+				expressionWatcher, 
+				sender, 
+				eventArgs, 
+				_rootSourceWrapper, 
+				_sourceAsList, 
+				_lastProcessedSourceChangeMarker, 
+				_thisAsSourceItemChangeProcessor,
+				ref _isConsistent,
+				ref _handledEventSender,
+				ref _handledEventArgs,
+				ref _deferredProcessings, 
+				2, _deferredQueuesCount, this);
+		}
+
+		private ItemInfo registerSourceItem(TSourceItem sourceItem, int index, ItemInfo itemInfo = null)
 		{
 			itemInfo = itemInfo == null ? _sourcePositions.Insert(index) : _itemInfos[index];
 
 			ExpressionWatcher watcher;
 
-            Utils.getItemInfoContent(
-                new object[]{sourceItem}, 
-                out watcher, 
-                out Func<TResultItem> predicateFunc, 
-                out List<IComputingInternal> nestedComputings,
-                _selectorExpression,
-                out _selectorExpressionСallCount,
-                this,
-                _selectorContainsParametrizedObservableComputationsCalls,
-                _selectorExpressionInfo);
+			Utils.getItemInfoContent(
+				new object[]{sourceItem}, 
+				out watcher, 
+				out Func<TResultItem> predicateFunc, 
+				out List<IComputingInternal> nestedComputings,
+				_selectorExpression,
+				out _selectorExpressionСallCount,
+				this,
+				_selectorContainsParametrizedObservableComputationsCalls,
+				_selectorExpressionInfo);
 
-            itemInfo.SelectorFunc = predicateFunc;
-            itemInfo.NestedComputings = nestedComputings;
+			itemInfo.SelectorFunc = predicateFunc;
+			itemInfo.NestedComputings = nestedComputings;
 			watcher.ValueChanged = expressionWatcher_OnValueChanged;
 			itemInfo.ExpressionWatcher = watcher;
 			watcher._position = itemInfo;
@@ -288,33 +288,33 @@ namespace ObservableComputations
 			return itemInfo;
 		}
 
-        void ISourceItemChangeProcessor.ProcessSourceItemChange(ExpressionWatcher expressionWatcher)
-        {
-            if (expressionWatcher._disposed) return;
-            int sourceIndex = expressionWatcher._position.Index;
-            baseSetItem(sourceIndex, applySelector((ItemInfo)expressionWatcher._position, _sourceAsList[sourceIndex]));
-        }
-
-        private void unregisterSourceItem(int index, bool replacing = false)
-        {
-            Utils.disposeExpressionWatcher(_itemInfos[index].ExpressionWatcher, _itemInfos[index].NestedComputings, this,
-                _selectorContainsParametrizedObservableComputationsCalls);
-
-            if (!replacing) _sourcePositions.Remove(index);
-        }
-
-        private TResultItem applySelector(ItemInfo itemInfo, TSourceItem sourceItem)
+		void ISourceItemChangeProcessor.ProcessSourceItemChange(ExpressionWatcher expressionWatcher)
 		{
-            TResultItem getValue() =>
-                _selectorContainsParametrizedObservableComputationsCalls
-                    ? itemInfo.SelectorFunc()
-                    : _selectorFunc(sourceItem);
+			if (expressionWatcher._disposed) return;
+			int sourceIndex = expressionWatcher._position.Index;
+			baseSetItem(sourceIndex, applySelector((ItemInfo)expressionWatcher._position, _sourceAsList[sourceIndex]));
+		}
 
-            if (Configuration.TrackComputingsExecutingUserCode)
+		private void unregisterSourceItem(int index, bool replacing = false)
+		{
+			Utils.disposeExpressionWatcher(_itemInfos[index].ExpressionWatcher, _itemInfos[index].NestedComputings, this,
+				_selectorContainsParametrizedObservableComputationsCalls);
+
+			if (!replacing) _sourcePositions.Remove(index);
+		}
+
+		private TResultItem applySelector(ItemInfo itemInfo, TSourceItem sourceItem)
+		{
+			TResultItem getValue() =>
+				_selectorContainsParametrizedObservableComputationsCalls
+					? itemInfo.SelectorFunc()
+					: _selectorFunc(sourceItem);
+
+			if (Configuration.TrackComputingsExecutingUserCode)
 			{
-                var currentThread = Utils.startComputingExecutingUserCode(out var computing, out _userCodeIsCalledFrom, this);		
+				var currentThread = Utils.startComputingExecutingUserCode(out var computing, out _userCodeIsCalledFrom, this);		
 				TResultItem result = getValue();
-                Utils.endComputingExecutingUserCode(computing, currentThread, out _userCodeIsCalledFrom);
+				Utils.endComputingExecutingUserCode(computing, currentThread, out _userCodeIsCalledFrom);
 				return result;
 			}
 
@@ -359,5 +359,5 @@ namespace ObservableComputations
 				}
 			}
 		}
-    }
+	}
 }

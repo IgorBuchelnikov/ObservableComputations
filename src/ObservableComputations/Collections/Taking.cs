@@ -158,94 +158,94 @@ namespace ObservableComputations
 			IReadScalar<int> startIndexScalar,
 			IReadScalar<int> countScalar,
 			int capacity)
-        {
-            Zipping<int, TSourceItem> zipping = 
-                new Computing<int>(() => sourceScalar.Value != null ? ((IList) sourceScalar.Value).Count : 0)
-                .SequenceComputing()
-                .Zipping<int, TSourceItem>(sourceScalar);
+		{
+			Zipping<int, TSourceItem> zipping = 
+				new Computing<int>(() => sourceScalar.Value != null ? ((IList) sourceScalar.Value).Count : 0)
+				.SequenceComputing()
+				.Zipping<int, TSourceItem>(sourceScalar);
 
-            return zipping.Filtering(zp => zp.LeftItem >= startIndexScalar.Value && zp.LeftItem < startIndexScalar.Value + countScalar.Value, capacity);
-        }
+			return zipping.Filtering(zp => zp.LeftItem >= startIndexScalar.Value && zp.LeftItem < startIndexScalar.Value + countScalar.Value, capacity);
+		}
 
 		private static INotifyCollectionChanged getSource(
 			IReadScalar<INotifyCollectionChanged> sourceScalar, 
 			IReadScalar<int> startIndexScalar,
 			int count)
-        {
-            Zipping<int, TSourceItem> zipping = 
-                new Computing<int>(() => sourceScalar.Value != null ? ((IList) sourceScalar.Value).Count : 0)
-                .SequenceComputing()
-                .Zipping<int, TSourceItem>(sourceScalar);
+		{
+			Zipping<int, TSourceItem> zipping = 
+				new Computing<int>(() => sourceScalar.Value != null ? ((IList) sourceScalar.Value).Count : 0)
+				.SequenceComputing()
+				.Zipping<int, TSourceItem>(sourceScalar);
 
-            return zipping.Filtering(zp => zp.LeftItem >= startIndexScalar.Value && zp.LeftItem < startIndexScalar.Value + count, count);
-        }
+			return zipping.Filtering(zp => zp.LeftItem >= startIndexScalar.Value && zp.LeftItem < startIndexScalar.Value + count, count);
+		}
 
 		private static INotifyCollectionChanged getSource(
 			IReadScalar<INotifyCollectionChanged> sourceScalar, 
 			int startIndex,
 			IReadScalar<int> countScalar,
 			int capacity)
-        {
-            Zipping<int, TSourceItem> zipping = 
-                new Computing<int>(() => sourceScalar.Value != null ? ((IList) sourceScalar.Value).Count : 0)
-                .SequenceComputing()
-                .Zipping<int, TSourceItem>(sourceScalar);
-            return zipping.Filtering(zp => zp.LeftItem >= startIndex && zp.LeftItem < startIndex + countScalar.Value, capacity);
-        }
+		{
+			Zipping<int, TSourceItem> zipping = 
+				new Computing<int>(() => sourceScalar.Value != null ? ((IList) sourceScalar.Value).Count : 0)
+				.SequenceComputing()
+				.Zipping<int, TSourceItem>(sourceScalar);
+			return zipping.Filtering(zp => zp.LeftItem >= startIndex && zp.LeftItem < startIndex + countScalar.Value, capacity);
+		}
 
 		private static INotifyCollectionChanged getSource(
 			IReadScalar<INotifyCollectionChanged> sourceScalar, 
 			int startIndex,
 			int count)
-        {
-            Zipping<int, TSourceItem> zipping = 
-                new Computing<int>(() => sourceScalar.Value != null ? ((IList) sourceScalar.Value).Count : 0)
-                .SequenceComputing()
-                .Zipping<int, TSourceItem>(sourceScalar);
-            return zipping.Filtering(zp => zp.LeftItem >= startIndex && zp.LeftItem < startIndex + count, count);
-        }
+		{
+			Zipping<int, TSourceItem> zipping = 
+				new Computing<int>(() => sourceScalar.Value != null ? ((IList) sourceScalar.Value).Count : 0)
+				.SequenceComputing()
+				.Zipping<int, TSourceItem>(sourceScalar);
+			return zipping.Filtering(zp => zp.LeftItem >= startIndex && zp.LeftItem < startIndex + count, count);
+		}
 
 		private static INotifyCollectionChanged getSource(
 			INotifyCollectionChanged source, 
 			IReadScalar<int> startIndexScalar,
 			IReadScalar<int> countScalar,
 			int capacity)
-        {
-            Zipping<int, TSourceItem> zipping = new Computing<int>(() => ((IList) source).Count).SequenceComputing()
-                .Zipping<int, TSourceItem>(source);
-            return zipping.Filtering(zp => zp.LeftItem >= startIndexScalar.Value && zp.LeftItem < startIndexScalar.Value + countScalar.Value, capacity);
-        }
+		{
+			Zipping<int, TSourceItem> zipping = new Computing<int>(() => ((IList) source).Count).SequenceComputing()
+				.Zipping<int, TSourceItem>(source);
+			return zipping.Filtering(zp => zp.LeftItem >= startIndexScalar.Value && zp.LeftItem < startIndexScalar.Value + countScalar.Value, capacity);
+		}
 
 		private static INotifyCollectionChanged getSource(
 			INotifyCollectionChanged source, 
 			IReadScalar<int> startIndexScalar,
 			int count)
-        {
-            Zipping<int, TSourceItem> zipping = new Computing<int>(() => ((IList) source).Count).SequenceComputing()
-                .Zipping<int, TSourceItem>(source);
-            return zipping.Filtering(zp => zp.LeftItem >= startIndexScalar.Value && zp.LeftItem < startIndexScalar.Value + count, count);
-        }
+		{
+			Zipping<int, TSourceItem> zipping = new Computing<int>(() => ((IList) source).Count).SequenceComputing()
+				.Zipping<int, TSourceItem>(source);
+			return zipping.Filtering(zp => zp.LeftItem >= startIndexScalar.Value && zp.LeftItem < startIndexScalar.Value + count, count);
+		}
 
 		private static INotifyCollectionChanged getSource(
 			INotifyCollectionChanged source, 
 			int startIndex,
 			IReadScalar<int> countScalar,
 			int capacity)
-        {
-            Zipping<int, TSourceItem> zipping = new Computing<int>(() => ((IList) source).Count).SequenceComputing()
-                .Zipping<int, TSourceItem>(source);
-            return zipping.Filtering(zp => zp.LeftItem >= startIndex && zp.LeftItem < startIndex + countScalar.Value, capacity);
-        }
+		{
+			Zipping<int, TSourceItem> zipping = new Computing<int>(() => ((IList) source).Count).SequenceComputing()
+				.Zipping<int, TSourceItem>(source);
+			return zipping.Filtering(zp => zp.LeftItem >= startIndex && zp.LeftItem < startIndex + countScalar.Value, capacity);
+		}
 
 		private static INotifyCollectionChanged getSource(
 			INotifyCollectionChanged source, 
 			int startIndex,
 			int count)
-        {
-            Zipping<int, TSourceItem> zipping = new Computing<int>(() => ((IList) source).Count).SequenceComputing()
-                .Zipping<int, TSourceItem>(source);
-            return zipping.Filtering(zp => zp.LeftItem >= startIndex && zp.LeftItem < startIndex + count, count);
-        }
+		{
+			Zipping<int, TSourceItem> zipping = new Computing<int>(() => ((IList) source).Count).SequenceComputing()
+				.Zipping<int, TSourceItem>(source);
+			return zipping.Filtering(zp => zp.LeftItem >= startIndex && zp.LeftItem < startIndex + count, count);
+		}
 
 		public new void ValidateConsistency()
 		{

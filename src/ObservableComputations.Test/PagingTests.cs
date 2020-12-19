@@ -12,7 +12,7 @@ namespace ObservableComputations.Test
 	[TestFixture]
 	public class PagingTests
 	{
-        Consumer consumer = new Consumer();
+		Consumer consumer = new Consumer();
 
 		public class Item 
 		{
@@ -238,7 +238,7 @@ namespace ObservableComputations.Test
 			paging.CurrentPage = 3;
 			test();
 
-            consumer.Dispose();
+			consumer.Dispose();
 		}
 
 		[Test]
@@ -249,7 +249,7 @@ namespace ObservableComputations.Test
 			paging.ValidateConsistency();	
 						
 			items.Change(new ObservableCollection<int>(Enumerable.Range(1, 100)));
-            paging.ValidateConsistency();
+			paging.ValidateConsistency();
 
 			void test()
 			{
@@ -317,7 +317,7 @@ namespace ObservableComputations.Test
 			paging.CurrentPage = 4;
 			test();
 
-            consumer.Dispose();
+			consumer.Dispose();
 		}
 	}
 }

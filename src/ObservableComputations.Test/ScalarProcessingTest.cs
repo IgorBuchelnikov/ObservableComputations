@@ -5,7 +5,7 @@ namespace ObservableComputations.Test
 	[TestFixture]
 	public class ScalarProcessingTest
 	{
-        Consumer consumer = new Consumer();
+		Consumer consumer = new Consumer();
 
 		public class Item
 		{
@@ -31,7 +31,7 @@ namespace ObservableComputations.Test
 			item = new Item();
 			itemScalar.Change(item);
 			Assert.IsTrue(item.ProcessedAsNew);
-            consumer.Dispose();
+			consumer.Dispose();
 		}
 	}
 }

@@ -3,11 +3,11 @@ using System.Reflection;
 
 namespace ObservableComputations.ExtentionMethods
 {
-    internal static partial class ExtensionMethods
-    {
-	    public static bool IsReadOnly(this MemberInfo memberInfo)
-        {
-            PropertyInfo propertyInfo = memberInfo as PropertyInfo;
+	internal static partial class ExtensionMethods
+	{
+		public static bool IsReadOnly(this MemberInfo memberInfo)
+		{
+			PropertyInfo propertyInfo = memberInfo as PropertyInfo;
 			if (propertyInfo != null)
 			{
 				return !propertyInfo.CanWrite;
@@ -26,7 +26,7 @@ namespace ObservableComputations.ExtentionMethods
 				}
 			}
 
-        }
+		}
 
-    }
+	}
 }

@@ -6,7 +6,7 @@ namespace ObservableComputations.Test
 	[TestFixture]
 	class SequenceTests
 	{
-        Consumer consumer = new Consumer();
+		Consumer consumer = new Consumer();
 
 		class Count : INotifyPropertyChanged
 		{
@@ -53,7 +53,7 @@ namespace ObservableComputations.Test
 
 			test();
 
-            consumer.Dispose();
+			consumer.Dispose();
 
 		}
 	}

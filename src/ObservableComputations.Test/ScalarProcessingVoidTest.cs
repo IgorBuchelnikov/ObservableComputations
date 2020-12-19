@@ -5,7 +5,7 @@ namespace ObservableComputations.Test
 	[TestFixture]
 	public class ScalarProcessingVoidTest
 	{
-        Consumer consumer = new Consumer();
+		Consumer consumer = new Consumer();
 
 		public class Item
 		{
@@ -26,7 +26,7 @@ namespace ObservableComputations.Test
 			item = new Item();
 			itemScalar.Change(item);
 			itemScalar.Change(item);
-            consumer.Dispose();
+			consumer.Dispose();
 		}
 	}
 }

@@ -8,33 +8,33 @@ namespace ObservableComputations
 	{
 		string InstantiatingStackTrace { get; }
 		IComputing UserCodeIsCalledFrom { get; }
-        bool IsActive { get; }
+		bool IsActive { get; }
 	}
 
-    public interface IEventHandler
-    {
-        object HandledEventSender { get; }
-        EventArgs HandledEventArgs { get; }   
-    }
+	public interface IEventHandler
+	{
+		object HandledEventSender { get; }
+		EventArgs HandledEventArgs { get; }   
+	}
 
-    internal interface IComputingInternal : IComputing, ICanInitializeFromSource
-    {
-        void AddConsumer(Consumer addingConsumer);
-        void RemoveConsumer(Consumer removingConsumer);
-        void AddDownstreamConsumedComputing(IComputingInternal computing);
-        void RemoveDownstreamConsumedComputing(IComputingInternal computing);
-        IEnumerable<Consumer> Consumers { get; }
-        void RaiseConsistencyRestored();
-        void AddToUpstreamComputings(IComputingInternal computing);
-        void RemoveFromUpstreamComputings(IComputingInternal computing);
-        void Initialize();
-        void Uninitialize();
-        void OnPropertyChanged(PropertyChangedEventArgs propertyChangedEventArgs);
-        void SetIsActive(bool value);
-    }
+	internal interface IComputingInternal : IComputing, ICanInitializeFromSource
+	{
+		void AddConsumer(Consumer addingConsumer);
+		void RemoveConsumer(Consumer removingConsumer);
+		void AddDownstreamConsumedComputing(IComputingInternal computing);
+		void RemoveDownstreamConsumedComputing(IComputingInternal computing);
+		IEnumerable<Consumer> Consumers { get; }
+		void RaiseConsistencyRestored();
+		void AddToUpstreamComputings(IComputingInternal computing);
+		void RemoveFromUpstreamComputings(IComputingInternal computing);
+		void Initialize();
+		void Uninitialize();
+		void OnPropertyChanged(PropertyChangedEventArgs propertyChangedEventArgs);
+		void SetIsActive(bool value);
+	}
 
-    internal interface ICanInitializeFromSource
-    {
-        void InitializeFromSource();
-    }
+	internal interface ICanInitializeFromSource
+	{
+		void InitializeFromSource();
+	}
 }

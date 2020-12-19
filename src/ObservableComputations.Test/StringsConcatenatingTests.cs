@@ -10,7 +10,7 @@ namespace ObservableComputations.Test
 	[TestFixture]
 	public class StringsConcatenatingTests
 	{
-        Consumer consumer = new Consumer();
+		Consumer consumer = new Consumer();
 
 		TextFileOutput _textFileOutputLog = new TextFileOutput(@"D:\Projects\NevaPolimer\Concatenating_Deep.log");
 		TextFileOutput _textFileOutputTime = new TextFileOutput(@"D:\Projects\NevaPolimer\Concatenating_Deep_Time.log");
@@ -171,7 +171,7 @@ namespace ObservableComputations.Test
 			stringsConcatenating.ValidateConsistency();
 			separatorScalar.Change("^&");
 			stringsConcatenating.ValidateConsistency();
-            consumer.Dispose();
+			consumer.Dispose();
 		}
 
 		private void trace(string num, int[] charsCounts, int index, int charsCount, int indexOld,

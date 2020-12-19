@@ -8,7 +8,7 @@ namespace ObservableComputations.Test
 	[TestFixture]
 	public class DifferingTests
 	{
-        Consumer consumer = new Consumer();
+		Consumer consumer = new Consumer();
 
 		public class Order : INotifyPropertyChanged
 		{
@@ -57,7 +57,7 @@ namespace ObservableComputations.Test
 			order.Num = "2";
 			Assert.IsTrue(raised);
 
-            consumer.Dispose();
+			consumer.Dispose();
 		}
 	}
 }

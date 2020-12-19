@@ -29,60 +29,60 @@ namespace ObservableComputations
 		private IHasChangeMarker _sourceAsIHasChangeMarker;
 		private bool _lastProcessedSourceChangeMarker;
 
-        private ISourceCollectionChangeProcessor _thisAsSourceCollectionChangeProcessor;
+		private ISourceCollectionChangeProcessor _thisAsSourceCollectionChangeProcessor;
 
 		[ObservableComputationsCall]
 		public Casting(
 			IReadScalar<INotifyCollectionChanged> sourceScalar) : base(Utils.getCapacity(sourceScalar))
 		{
 			_sourceScalar = sourceScalar;
-            _thisAsSourceCollectionChangeProcessor = this;
-        }
+			_thisAsSourceCollectionChangeProcessor = this;
+		}
 
 		[ObservableComputationsCall]
 		public Casting(
 			INotifyCollectionChanged source) : base(Utils.getCapacity(source))
 		{
 			_source = source;
-            _thisAsSourceCollectionChangeProcessor = this;
-        }
+			_thisAsSourceCollectionChangeProcessor = this;
+		}
 
-        protected override void initializeFromSource()
+		protected override void initializeFromSource()
 		{
 			int originalCount = _items.Count;
 
 			if (_sourceInitialized)
 			{	
-                _source.CollectionChanged -= handleSourceCollectionChanged;
+				_source.CollectionChanged -= handleSourceCollectionChanged;
 
-                if (_sourceAsINotifyPropertyChanged != null)
-                {
-                    _sourceAsINotifyPropertyChanged.PropertyChanged -=
-                        ((ISourceIndexerPropertyTracker) this).HandleSourcePropertyChanged;
-                    _sourceAsINotifyPropertyChanged = null;
-                }
+				if (_sourceAsINotifyPropertyChanged != null)
+				{
+					_sourceAsINotifyPropertyChanged.PropertyChanged -=
+						((ISourceIndexerPropertyTracker) this).HandleSourcePropertyChanged;
+					_sourceAsINotifyPropertyChanged = null;
+				}
 
-                _sourceInitialized = false;
-            }
+				_sourceInitialized = false;
+			}
 
-            Utils.changeSource(ref _source, _sourceScalar, _downstreamConsumedComputings, _consumers, this,
-                out _sourceAsList, true);
+			Utils.changeSource(ref _source, _sourceScalar, _downstreamConsumedComputings, _consumers, this,
+				out _sourceAsList, true);
 
 			if (_sourceAsList != null && _isActive)
 			{
-                Utils.initializeFromHasChangeMarker(
-                    out _sourceAsIHasChangeMarker, 
-                    _sourceAsList, 
-                    ref _lastProcessedSourceChangeMarker, 
-                    ref _sourceAsINotifyPropertyChanged,
-                    (ISourceIndexerPropertyTracker)this);
+				Utils.initializeFromHasChangeMarker(
+					out _sourceAsIHasChangeMarker, 
+					_sourceAsList, 
+					ref _lastProcessedSourceChangeMarker, 
+					ref _sourceAsINotifyPropertyChanged,
+					(ISourceIndexerPropertyTracker)this);
 
 
 				int count = _sourceAsList.Count;
-                object[] sourceCopy = new object[count];
-                _sourceAsList.CopyTo(sourceCopy, 0);
+				object[] sourceCopy = new object[count];
+				_sourceAsList.CopyTo(sourceCopy, 0);
 
-                _source.CollectionChanged += handleSourceCollectionChanged;
+				_source.CollectionChanged += handleSourceCollectionChanged;
 
 				int sourceIndex;
 				for (sourceIndex = 0; sourceIndex < count; sourceIndex++)
@@ -98,8 +98,8 @@ namespace ObservableComputations
 					_items.RemoveAt(index);
 				}
 
-                _sourceInitialized = true;
-            }			
+				_sourceInitialized = true;
+			}			
 			else
 			{
 				_items.Clear();
@@ -110,91 +110,91 @@ namespace ObservableComputations
 
 		private void handleSourceCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
 		{
-            if (!Utils.preHandleSourceCollectionChanged(
-                sender, 
-                e, 
-                ref _isConsistent, 
-                ref _indexerPropertyChangedEventRaised, 
-                ref _lastProcessedSourceChangeMarker, 
-                _sourceAsIHasChangeMarker, 
-                ref _handledEventSender, 
-                ref _handledEventArgs,
-                ref _deferredProcessings,
-                1, _deferredQueuesCount, this)) return;
+			if (!Utils.preHandleSourceCollectionChanged(
+				sender, 
+				e, 
+				ref _isConsistent, 
+				ref _indexerPropertyChangedEventRaised, 
+				ref _lastProcessedSourceChangeMarker, 
+				_sourceAsIHasChangeMarker, 
+				ref _handledEventSender, 
+				ref _handledEventArgs,
+				ref _deferredProcessings,
+				1, _deferredQueuesCount, this)) return;
 
-            _thisAsSourceCollectionChangeProcessor.processSourceCollectionChanged(sender, e);
+			_thisAsSourceCollectionChangeProcessor.processSourceCollectionChanged(sender, e);
 
-            Utils.postHandleChange(
-                ref _handledEventSender,
-                ref _handledEventArgs,
-                _deferredProcessings,
-                ref _isConsistent,
-                this);
+			Utils.postHandleChange(
+				ref _handledEventSender,
+				ref _handledEventArgs,
+				_deferredProcessings,
+				ref _isConsistent,
+				this);
 		}
 
-        void ISourceCollectionChangeProcessor.processSourceCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
-        {
-            switch (e.Action)
-            {
-                case NotifyCollectionChangedAction.Add:
-                    IList newItems = e.NewItems;
-                    //if (newItems.Count > 1) throw new ObservableComputationsException(this, "Adding of multiple items is not supported");
-                    baseInsertItem(e.NewStartingIndex, (TResultItem) newItems[0]);
-                    break;
-                case NotifyCollectionChangedAction.Remove:
-                    //if (e.OldItems.Count > 1) throw new ObservableComputationsException(this, "Removing of multiple items is not supported");
-                    baseRemoveItem(e.OldStartingIndex);
-                    break;
-                case NotifyCollectionChangedAction.Move:
-                    int oldStartingIndex = e.OldStartingIndex;
-                    int newStartingIndex = e.NewStartingIndex;
-                    if (oldStartingIndex != newStartingIndex)
-                    {
-                        baseMoveItem(oldStartingIndex, newStartingIndex);
-                    }
+		void ISourceCollectionChangeProcessor.processSourceCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
+		{
+			switch (e.Action)
+			{
+				case NotifyCollectionChangedAction.Add:
+					IList newItems = e.NewItems;
+					//if (newItems.Count > 1) throw new ObservableComputationsException(this, "Adding of multiple items is not supported");
+					baseInsertItem(e.NewStartingIndex, (TResultItem) newItems[0]);
+					break;
+				case NotifyCollectionChangedAction.Remove:
+					//if (e.OldItems.Count > 1) throw new ObservableComputationsException(this, "Removing of multiple items is not supported");
+					baseRemoveItem(e.OldStartingIndex);
+					break;
+				case NotifyCollectionChangedAction.Move:
+					int oldStartingIndex = e.OldStartingIndex;
+					int newStartingIndex = e.NewStartingIndex;
+					if (oldStartingIndex != newStartingIndex)
+					{
+						baseMoveItem(oldStartingIndex, newStartingIndex);
+					}
 
-                    break;
-                case NotifyCollectionChangedAction.Replace:
-                    IList newItems1 = e.NewItems;
-                    //if (newItems1.Count > 1) throw new ObservableComputationsException(this, "Replacing of multiple items is not supported");
-                    baseSetItem(e.NewStartingIndex, (TResultItem) newItems1[0]);
-                    break;
-                case NotifyCollectionChangedAction.Reset:
-                    initializeFromSource();
-                    break;
-            }
-        }
+					break;
+				case NotifyCollectionChangedAction.Replace:
+					IList newItems1 = e.NewItems;
+					//if (newItems1.Count > 1) throw new ObservableComputationsException(this, "Replacing of multiple items is not supported");
+					baseSetItem(e.NewStartingIndex, (TResultItem) newItems1[0]);
+					break;
+				case NotifyCollectionChangedAction.Reset:
+					initializeFromSource();
+					break;
+			}
+		}
 
-        internal override void addToUpstreamComputings(IComputingInternal computing)
-        {
-            (_source as IComputingInternal)?.AddDownstreamConsumedComputing(computing);
-            (_sourceScalar as IComputingInternal)?.AddDownstreamConsumedComputing(computing);
-        }
+		internal override void addToUpstreamComputings(IComputingInternal computing)
+		{
+			(_source as IComputingInternal)?.AddDownstreamConsumedComputing(computing);
+			(_sourceScalar as IComputingInternal)?.AddDownstreamConsumedComputing(computing);
+		}
 
-        internal override void removeFromUpstreamComputings(IComputingInternal computing)        
-        {
-            (_source as IComputingInternal)?.RemoveDownstreamConsumedComputing(computing);
-            (_sourceScalar as IComputingInternal)?.RemoveDownstreamConsumedComputing(computing);
-        }
+		internal override void removeFromUpstreamComputings(IComputingInternal computing)        
+		{
+			(_source as IComputingInternal)?.RemoveDownstreamConsumedComputing(computing);
+			(_sourceScalar as IComputingInternal)?.RemoveDownstreamConsumedComputing(computing);
+		}
 
-        protected override void initialize()
-        {
-            Utils.initializeSourceScalar(_sourceScalar, ref _source, scalarValueChangedHandler);
-        }
+		protected override void initialize()
+		{
+			Utils.initializeSourceScalar(_sourceScalar, ref _source, scalarValueChangedHandler);
+		}
 
-        protected override void uninitialize()
-        {
-            Utils.uninitializeSourceScalar(_sourceScalar, scalarValueChangedHandler, ref _source);
-        }
+		protected override void uninitialize()
+		{
+			Utils.uninitializeSourceScalar(_sourceScalar, scalarValueChangedHandler, ref _source);
+		}
 
-        #region Implementation of ISourceIndexerPropertyTracker
+		#region Implementation of ISourceIndexerPropertyTracker
 
-        void ISourceIndexerPropertyTracker.HandleSourcePropertyChanged(object sender, PropertyChangedEventArgs propertyChangedEventArgs)
-        {
-            Utils.handleSourcePropertyChanged(propertyChangedEventArgs, ref _indexerPropertyChangedEventRaised);
-        }
+		void ISourceIndexerPropertyTracker.HandleSourcePropertyChanged(object sender, PropertyChangedEventArgs propertyChangedEventArgs)
+		{
+			Utils.handleSourcePropertyChanged(propertyChangedEventArgs, ref _indexerPropertyChangedEventRaised);
+		}
 
-        #endregion
+		#endregion
 
 		public void ValidateConsistency()
 		{
@@ -210,5 +210,5 @@ namespace ObservableComputations
 				if (!resultItem.IsSameAs(sourceItem)) throw new ObservableComputationsException(this, "Consistency violation: Casting.2");
 			}
 		}
-    }
+	}
 }

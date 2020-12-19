@@ -39,14 +39,14 @@ namespace ObservableComputations.Test
 				}
 			}
 
-            public PropertyChangedEventHandler ProgressChangedEventHandler
-            {
-                get
-                {
-                    PropertyChangedEventHandler onPropertyChanged = PropertyChanged;
-                    return onPropertyChanged;
-                }
-            }
+			public PropertyChangedEventHandler ProgressChangedEventHandler
+			{
+				get
+				{
+					PropertyChangedEventHandler onPropertyChanged = PropertyChanged;
+					return onPropertyChanged;
+				}
+			}
 
 
 

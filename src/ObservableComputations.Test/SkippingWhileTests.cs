@@ -9,7 +9,7 @@ namespace ObservableComputations.Test
 	[TestFixture]
 	public class SkippingWhileTests
 	{
-        Consumer consumer = new Consumer();
+		Consumer consumer = new Consumer();
 
 		public class Item : INotifyPropertyChanged
 		{
@@ -296,7 +296,7 @@ namespace ObservableComputations.Test
 
 			skippingWhile.ValidateConsistency();
 			skippingWhile2.ValidateConsistency();
-            consumer.Dispose();
+			consumer.Dispose();
 		}
 
 		public class Param : INotifyPropertyChanged

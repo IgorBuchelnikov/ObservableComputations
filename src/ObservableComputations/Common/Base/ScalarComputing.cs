@@ -8,8 +8,8 @@ namespace ObservableComputations
 	{
 		public string DebugTag {get; set;}
 		public object Tag {get; set;}
-        internal Queue<IProcessable>[] _deferredProcessings;
-        protected int _deferredQueuesCount = 1;
+		internal Queue<IProcessable>[] _deferredProcessings;
+		protected int _deferredQueuesCount = 1;
 
 		public ScalarComputing()
 		{
@@ -45,9 +45,9 @@ namespace ObservableComputations
 			{
 				if (Configuration.TrackComputingsExecutingUserCode)
 				{
-                    var currentThread = Utils.startComputingExecutingUserCode(out var computing, out _userCodeIsCalledFrom, this);
+					var currentThread = Utils.startComputingExecutingUserCode(out var computing, out _userCodeIsCalledFrom, this);
 					_setValueAction(value);
-                    Utils.endComputingExecutingUserCode(computing, currentThread, out _userCodeIsCalledFrom);
+					Utils.endComputingExecutingUserCode(computing, currentThread, out _userCodeIsCalledFrom);
 					return;
 				}
 
@@ -89,36 +89,36 @@ namespace ObservableComputations
 
 
 		protected void setValue(TValue value, bool setIsDefaultedFalse = true)
-        {
-            void perform()
-            {
-                _newValue = value;
-                PreValueChanged?.Invoke(this, null);
+		{
+			void perform()
+			{
+				_newValue = value;
+				PreValueChanged?.Invoke(this, null);
 
-                _value = value;
+				_value = value;
 
-                PropertyChanged?.Invoke(this, Utils.ValuePropertyChangedEventArgs);
-                PropertyChanged?.Invoke(this, Utils.ValueObjectPropertyChangedEventArgs);
-                PostValueChanged?.Invoke(this, null);
+				PropertyChanged?.Invoke(this, Utils.ValuePropertyChangedEventArgs);
+				PropertyChanged?.Invoke(this, Utils.ValueObjectPropertyChangedEventArgs);
+				PostValueChanged?.Invoke(this, null);
 
-                if (setIsDefaultedFalse && _isDefaulted)
-                {
-                    _isDefaulted = false;
-                    PropertyChanged?.Invoke(this, Utils.IsDefaultedPropertyChangedEventArgs);
-                }
-            }
+				if (setIsDefaultedFalse && _isDefaulted)
+				{
+					_isDefaulted = false;
+					PropertyChanged?.Invoke(this, Utils.IsDefaultedPropertyChangedEventArgs);
+				}
+			}
 
-            if (Configuration.TrackComputingsExecutingUserCode)
-            {
-                var currentThread = Utils.startComputingExecutingUserCode(out var computing, out _userCodeIsCalledFrom, this);
-                perform();
-                Utils.endComputingExecutingUserCode(computing, currentThread, out _userCodeIsCalledFrom);
-            }
-            else
-            {
-                perform();
-            }
-        }
+			if (Configuration.TrackComputingsExecutingUserCode)
+			{
+				var currentThread = Utils.startComputingExecutingUserCode(out var computing, out _userCodeIsCalledFrom, this);
+				perform();
+				Utils.endComputingExecutingUserCode(computing, currentThread, out _userCodeIsCalledFrom);
+			}
+			else
+			{
+				perform();
+			}
+		}
 
 		protected void checkConsistent(object sender, EventArgs eventArgs)
 		{
@@ -142,182 +142,182 @@ namespace ObservableComputations
 			PropertyChanged?.Invoke(this, eventArgs);
 		}
 
-        private Action _scalarValueChangedHandlerAction;
+		private Action _scalarValueChangedHandlerAction;
 
-        protected PropertyChangedEventHandler getScalarValueChangedHandler(Action action = null)
-        {
-            return (sender, args) =>
-            {
-                _scalarValueChangedHandlerAction = action;
-                scalarValueChangedHandler(sender, args);
-                _scalarValueChangedHandlerAction = null;
-            };
-        }
+		protected PropertyChangedEventHandler getScalarValueChangedHandler(Action action = null)
+		{
+			return (sender, args) =>
+			{
+				_scalarValueChangedHandlerAction = action;
+				scalarValueChangedHandler(sender, args);
+				_scalarValueChangedHandlerAction = null;
+			};
+		}
 
-        protected void scalarValueChangedHandler(object sender, PropertyChangedEventArgs args)
-        {
-            Utils.processResetChange(
-                sender, 
-                args, 
-                ref _isConsistent, 
-                ref _handledEventSender, 
-                ref _handledEventArgs, 
-                _scalarValueChangedHandlerAction, 
-                _deferredQueuesCount,
-                ref _deferredProcessings, this);
-        }
+		protected void scalarValueChangedHandler(object sender, PropertyChangedEventArgs args)
+		{
+			Utils.processResetChange(
+				sender, 
+				args, 
+				ref _isConsistent, 
+				ref _handledEventSender, 
+				ref _handledEventArgs, 
+				_scalarValueChangedHandlerAction, 
+				_deferredQueuesCount,
+				ref _deferredProcessings, this);
+		}
 
 		protected bool _isConsistent = true;
 		private readonly string _instantiatingStackTrace;
 		public bool IsConsistent => _isConsistent;
 		public event EventHandler ConsistencyRestored;
 
-        protected bool _isActive;
-        public bool IsActive => _isActive;
+		protected bool _isActive;
+		public bool IsActive => _isActive;
 
-        protected abstract void initializeFromSource();
-        protected abstract void initialize();
-        protected abstract void uninitialize();
+		protected abstract void initializeFromSource();
+		protected abstract void initialize();
+		protected abstract void uninitialize();
 
-        internal abstract void addToUpstreamComputings(IComputingInternal computing);
-        internal abstract void removeFromUpstreamComputings(IComputingInternal computing);
+		internal abstract void addToUpstreamComputings(IComputingInternal computing);
+		internal abstract void removeFromUpstreamComputings(IComputingInternal computing);
 
 
-        protected List<Consumer> _consumers = new List<Consumer>();
-        internal  List<IComputingInternal> _downstreamConsumedComputings = new List<IComputingInternal>();
+		protected List<Consumer> _consumers = new List<Consumer>();
+		internal  List<IComputingInternal> _downstreamConsumedComputings = new List<IComputingInternal>();
 
-        #region Implementation of IComputingInternal
-        IEnumerable<Consumer> IComputingInternal.Consumers => _consumers;
+		#region Implementation of IComputingInternal
+		IEnumerable<Consumer> IComputingInternal.Consumers => _consumers;
 
-        void IComputingInternal.AddToUpstreamComputings(IComputingInternal computing)
-        {
-            addToUpstreamComputings(computing);
-        }
+		void IComputingInternal.AddToUpstreamComputings(IComputingInternal computing)
+		{
+			addToUpstreamComputings(computing);
+		}
 
-        void IComputingInternal.RemoveFromUpstreamComputings(IComputingInternal computing)
-        {
-            removeFromUpstreamComputings(computing);
-        }
+		void IComputingInternal.RemoveFromUpstreamComputings(IComputingInternal computing)
+		{
+			removeFromUpstreamComputings(computing);
+		}
 
-        void IComputingInternal.Initialize()
-        {
-            initialize();
-        }
+		void IComputingInternal.Initialize()
+		{
+			initialize();
+		}
 
-        void IComputingInternal.Uninitialize()
-        {
-            uninitialize();
-        }
+		void IComputingInternal.Uninitialize()
+		{
+			uninitialize();
+		}
 
-        void ICanInitializeFromSource.InitializeFromSource()
-        {
-            initializeFromSource();
-        }
+		void ICanInitializeFromSource.InitializeFromSource()
+		{
+			initializeFromSource();
+		}
 
-        void IComputingInternal.OnPropertyChanged(PropertyChangedEventArgs propertyChangedEventArgs)
-        {
-            raisePropertyChanged(propertyChangedEventArgs);
-        }
+		void IComputingInternal.OnPropertyChanged(PropertyChangedEventArgs propertyChangedEventArgs)
+		{
+			raisePropertyChanged(propertyChangedEventArgs);
+		}
 
-        public void SetIsActive(bool value)
-        {
-            _isActive = value;
-        }
+		public void SetIsActive(bool value)
+		{
+			_isActive = value;
+		}
 
-        void IComputingInternal.AddConsumer(Consumer addingConsumer)
-        {
-            Utils.addComsumer(
-                addingConsumer, 
-                _consumers,
-                _downstreamConsumedComputings, 
-                this, 
-                ref _isConsistent,
-                ref _handledEventSender,
-                ref _handledEventArgs,
-                ref _deferredProcessings,
-                _deferredQueuesCount);
-        }
+		void IComputingInternal.AddConsumer(Consumer addingConsumer)
+		{
+			Utils.addComsumer(
+				addingConsumer, 
+				_consumers,
+				_downstreamConsumedComputings, 
+				this, 
+				ref _isConsistent,
+				ref _handledEventSender,
+				ref _handledEventArgs,
+				ref _deferredProcessings,
+				_deferredQueuesCount);
+		}
 
-        void IComputingInternal.RemoveConsumer(Consumer removingConsumer)
-        {
-            Utils.removeConsumer(
-                removingConsumer, 
-                _consumers, 
-                _downstreamConsumedComputings, 
-                this,
-                ref _isConsistent,
-                ref _handledEventSender,
-                ref _handledEventArgs,
-                _deferredProcessings,
-                _deferredQueuesCount);
-        }
+		void IComputingInternal.RemoveConsumer(Consumer removingConsumer)
+		{
+			Utils.removeConsumer(
+				removingConsumer, 
+				_consumers, 
+				_downstreamConsumedComputings, 
+				this,
+				ref _isConsistent,
+				ref _handledEventSender,
+				ref _handledEventArgs,
+				_deferredProcessings,
+				_deferredQueuesCount);
+		}
 
-        void IComputingInternal.AddDownstreamConsumedComputing(IComputingInternal computing)
-        {
-            Utils.addDownstreamConsumedComputing(
-                computing, 
-                _downstreamConsumedComputings, 
-                _consumers, 
-                this,
-                ref _isConsistent,
-                ref _handledEventSender,
-                ref _handledEventArgs,
-                ref _deferredProcessings,
-                _deferredQueuesCount);
-        }
+		void IComputingInternal.AddDownstreamConsumedComputing(IComputingInternal computing)
+		{
+			Utils.addDownstreamConsumedComputing(
+				computing, 
+				_downstreamConsumedComputings, 
+				_consumers, 
+				this,
+				ref _isConsistent,
+				ref _handledEventSender,
+				ref _handledEventArgs,
+				ref _deferredProcessings,
+				_deferredQueuesCount);
+		}
 
-        void IComputingInternal.RemoveDownstreamConsumedComputing(IComputingInternal computing)
-        {
-            Utils.removeDownstreamConsumedComputing(
-                computing, 
-                _downstreamConsumedComputings, 
-                this, 
-                ref _isConsistent,
-                _consumers,
-                ref _handledEventSender,
-                ref _handledEventArgs,
-                _deferredProcessings,
-                _deferredQueuesCount);
-        }
+		void IComputingInternal.RemoveDownstreamConsumedComputing(IComputingInternal computing)
+		{
+			Utils.removeDownstreamConsumedComputing(
+				computing, 
+				_downstreamConsumedComputings, 
+				this, 
+				ref _isConsistent,
+				_consumers,
+				ref _handledEventSender,
+				ref _handledEventArgs,
+				_deferredProcessings,
+				_deferredQueuesCount);
+		}
 
-        void IComputingInternal.RaiseConsistencyRestored()
-        {
-            raiseConsistencyRestored();
-        }
+		void IComputingInternal.RaiseConsistencyRestored()
+		{
+			raiseConsistencyRestored();
+		}
 
-        #endregion
+		#endregion
 
-        #region Default value conrol
+		#region Default value conrol
 
-        protected bool _isDefaulted = true;
-        public bool IsDefaulted => _isDefaulted;
+		protected bool _isDefaulted = true;
+		public bool IsDefaulted => _isDefaulted;
 
-        protected void setDefaultValue()
-        {
-            if (_isDefaulted) return;
-            _isDefaulted = true;
-            setValue(default, false);
-            PropertyChanged?.Invoke(this, Utils.IsDefaultedPropertyChangedEventArgs);
-        }
+		protected void setDefaultValue()
+		{
+			if (_isDefaulted) return;
+			_isDefaulted = true;
+			setValue(default, false);
+			PropertyChanged?.Invoke(this, Utils.IsDefaultedPropertyChangedEventArgs);
+		}
 
-        #endregion 
+		#endregion 
 
 		#region INotifyPropertyChanged imlementation
 		public event PropertyChangedEventHandler PropertyChanged;
 		#endregion
 
-        #region Overrides of Object
+		#region Overrides of Object
 
-        public override string ToString()
-        {
-            if (!string.IsNullOrEmpty(DebugTag))
-                return $"{DebugTag} ({base.ToString()})";
+		public override string ToString()
+		{
+			if (!string.IsNullOrEmpty(DebugTag))
+				return $"{DebugTag} ({base.ToString()})";
 
-            return base.ToString();
-        }
+			return base.ToString();
+		}
 
-        #endregion
-    }
+		#endregion
+	}
 }
 
 

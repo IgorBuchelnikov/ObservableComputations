@@ -9,7 +9,7 @@ namespace ObservableComputations.Test
 	[TestFixture]
 	public class TakingWhileTests
 	{
-        Consumer consumer = new Consumer();
+		Consumer consumer = new Consumer();
 
 		public class Item : INotifyPropertyChanged
 		{
@@ -64,7 +64,7 @@ namespace ObservableComputations.Test
 
 			TakingWhile<Item> takingWhile = items.TakingWhile(item => item.IsActive).For(consumer);
 			takingWhile.ValidateConsistency();		
-		    consumer.Dispose();
+			consumer.Dispose();
 		}
 
 		[Test, Combinatorial]
@@ -296,7 +296,7 @@ namespace ObservableComputations.Test
 
 			takingWhile.ValidateConsistency();
 			takingWhile2.ValidateConsistency();
-            consumer.Dispose();
+			consumer.Dispose();
 		}
 
 		public class Param : INotifyPropertyChanged

@@ -76,7 +76,7 @@ fixed: debuging</PackageReleaseNotes>
     <Compile Update="ExtensionMethods.generated.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
-      <DependentUpon>ExtensionMethods.tt</DependentUpon>
+      <DependentUpon>ExtensionMethods.ttinclude</DependentUpon>
     </Compile>
   </ItemGroup>   
 </Project>

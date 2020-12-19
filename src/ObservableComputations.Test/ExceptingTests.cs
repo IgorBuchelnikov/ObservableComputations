@@ -13,7 +13,7 @@ namespace ObservableComputations.Test
 	[TestFixture]
 	public class ExceptingTests
 	{
-        Consumer consumer = new Consumer();
+		Consumer consumer = new Consumer();
 
 		public class Item : INotifyPropertyChanged
 		{
@@ -227,7 +227,7 @@ namespace ObservableComputations.Test
 		{
 			string traceString = getTraceString(num, ids1, ids2, newId, index, indexOld, indexNew);
 			if (traceString == "#9. ItemsCounts1=1   ItemsCounts2=2 " +
-			    "index=2  indexOld=0   indexNew=1")
+				"index=2  indexOld=0   indexNew=1")
 			{
 				Debugger.Break();
 			}

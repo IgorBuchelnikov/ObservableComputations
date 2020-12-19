@@ -11,7 +11,7 @@ namespace ObservableComputations.Test
 	[TestFixture]
 	public class FilteringTests
 	{
-        Consumer consumer = new Consumer();
+		Consumer consumer = new Consumer();
 
 		public class Item : INotifyPropertyChanged
 		{
@@ -261,48 +261,48 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 
-        [Test]
-        public void SubExpessing()
-        {
-            Param param = new Param();
-            ObservableCollection<Item> items = new ObservableCollection<Item>(
-                new[]
-                {
-                    new Item(true),
-                    new Item(false),
-                    new Item(true),
-                    new Item(false),
-                    new Item(true)
-                }
-            );
+		[Test]
+		public void SubExpessing()
+		{
+			Param param = new Param();
+			ObservableCollection<Item> items = new ObservableCollection<Item>(
+				new[]
+				{
+					new Item(true),
+					new Item(false),
+					new Item(true),
+					new Item(false),
+					new Item(true)
+				}
+			);
 
-            Filtering<Item> filtering = Expr.Is(() => items).Computing().Filtering(item =>
-                Expr.Is(() => param.Value
-                    ? (ObservableCollection<Item>)items.Filtering(item1 => true)
-                    : items.Filtering(item1 => item1.IsActive == item.IsActive)).Computing().Value.Count == 3).For(consumer);
+			Filtering<Item> filtering = Expr.Is(() => items).Computing().Filtering(item =>
+				Expr.Is(() => param.Value
+					? (ObservableCollection<Item>)items.Filtering(item1 => true)
+					: items.Filtering(item1 => item1.IsActive == item.IsActive)).Computing().Value.Count == 3).For(consumer);
 
-            Filtering<Item> filtering2 = items.Filtering(item =>
-                (param.Value
-                    ? items.Filtering(item1 => true)
-                    : items.Filtering(item1 => item1.IsActive == item.IsActive)).Count == 3).For(consumer);
+			Filtering<Item> filtering2 = items.Filtering(item =>
+				(param.Value
+					? items.Filtering(item1 => true)
+					: items.Filtering(item1 => item1.IsActive == item.IsActive)).Count == 3).For(consumer);
 
-            Expression<Func<ObservableCollection<Item>>> expression = () => param.Value
-                ? (ObservableCollection<Item>)items.Filtering(item1 => true)
-                : items.Filtering(item1 => item1.IsActive == false);
+			Expression<Func<ObservableCollection<Item>>> expression = () => param.Value
+				? (ObservableCollection<Item>)items.Filtering(item1 => true)
+				: items.Filtering(item1 => item1.IsActive == false);
 
-            Selecting<Item, bool> selecting = expression.Computing().Selecting(item => item.IsActive).For(consumer);
+			Selecting<Item, bool> selecting = expression.Computing().Selecting(item => item.IsActive).For(consumer);
 
-            filtering.ValidateConsistency();
-            filtering2.ValidateConsistency();
+			filtering.ValidateConsistency();
+			filtering2.ValidateConsistency();
 
-            param.Value = true;
+			param.Value = true;
 
-            filtering.ValidateConsistency();
-            filtering2.ValidateConsistency();
-            consumer.Dispose();
-        }
+			filtering.ValidateConsistency();
+			filtering2.ValidateConsistency();
+			consumer.Dispose();
+		}
 
-        public class Param : INotifyPropertyChanged
+		public class Param : INotifyPropertyChanged
 		{
 			private bool _value;
 

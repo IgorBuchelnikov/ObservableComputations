@@ -22,112 +22,112 @@ namespace ObservableComputations
 			get => _isPaused;
 			set
 			{
-                checkConsistent(null, null);
+				checkConsistent(null, null);
 				
-                if (_isPausedScalar != null) 
-                    throw new ObservableComputationsException("Modifying of IsPaused property is controlled by IsPausedScalar");
+				if (_isPausedScalar != null) 
+					throw new ObservableComputationsException("Modifying of IsPaused property is controlled by IsPausedScalar");
 				
-                _resuming = _isPaused != value && !value;
+				_resuming = _isPaused != value && !value;
 				_isPaused = value;
 				OnPropertyChanged(Utils.PausedPropertyChangedEventArgs);
 
 				if (_resuming) resume();
-            }
+			}
 		}
 
-        public CollectionPausingResumeType ResumeType
-        {
-            get => _resumeType;
-            set
-            {
-                if (_isPaused)
-                {
-                    if (_resumeType == CollectionPausingResumeType.Reset 
-                        && value == CollectionPausingResumeType.ReplayChanges)
-                        throw new ObservableComputationsException(this, "It is imposible to change ResumeType from Reset to ReplayChanges while IsPaused is true");
+		public CollectionPausingResumeType ResumeType
+		{
+			get => _resumeType;
+			set
+			{
+				if (_isPaused)
+				{
+					if (_resumeType == CollectionPausingResumeType.Reset 
+						&& value == CollectionPausingResumeType.ReplayChanges)
+						throw new ObservableComputationsException(this, "It is imposible to change ResumeType from Reset to ReplayChanges while IsPaused is true");
 
-                    if (_resumeType == CollectionPausingResumeType.ReplayChanges
-                        && value == CollectionPausingResumeType.Reset)
-                        _defferedCollectionActions.Clear();
+					if (_resumeType == CollectionPausingResumeType.ReplayChanges
+						&& value == CollectionPausingResumeType.Reset)
+						_defferedCollectionActions.Clear();
 
-                }
+				}
 
-                _resumeType = value;
-                OnPropertyChanged(Utils.ResumeTypePropertyChangedEventArgs);
-            }
-        }
+				_resumeType = value;
+				OnPropertyChanged(Utils.ResumeTypePropertyChangedEventArgs);
+			}
+		}
 
 		private void resume()
 		{
 			_isConsistent = false;
-            if (_resumeType == CollectionPausingResumeType.ReplayChanges)
-            {
-			    DefferedCollectionAction<TSourceItem> defferedCollectionAction;
-			    int count = _defferedCollectionActions.Count;
+			if (_resumeType == CollectionPausingResumeType.ReplayChanges)
+			{
+				DefferedCollectionAction<TSourceItem> defferedCollectionAction;
+				int count = _defferedCollectionActions.Count;
 
 
 
-			    for (int i = 0; i < count; i++)
-			    {
-				    defferedCollectionAction = _defferedCollectionActions.Dequeue();
-				    if (defferedCollectionAction.NotifyCollectionChangedEventAgs != null)
-					    handleSourceCollectionChanged(defferedCollectionAction.EventSender,
-						    defferedCollectionAction.NotifyCollectionChangedEventAgs);
-				    else if (defferedCollectionAction.Clear)
-				    {
-					    _items.Clear();
-				    }
-				    else if (defferedCollectionAction.Reset)
-				    {
-					    _handledEventSender = defferedCollectionAction.EventSender;
-					    _handledEventArgs = defferedCollectionAction.EventArgs;
+				for (int i = 0; i < count; i++)
+				{
+					defferedCollectionAction = _defferedCollectionActions.Dequeue();
+					if (defferedCollectionAction.NotifyCollectionChangedEventAgs != null)
+						handleSourceCollectionChanged(defferedCollectionAction.EventSender,
+							defferedCollectionAction.NotifyCollectionChangedEventAgs);
+					else if (defferedCollectionAction.Clear)
+					{
+						_items.Clear();
+					}
+					else if (defferedCollectionAction.Reset)
+					{
+						_handledEventSender = defferedCollectionAction.EventSender;
+						_handledEventArgs = defferedCollectionAction.EventArgs;
 
-					    reset();
+						reset();
 
-					    _handledEventSender = null;
-					    _handledEventArgs = null;
-				    }
-				    else if (defferedCollectionAction.NewItems != null)
-				    {
-					    int originalCount = _items.Count;
-					    TSourceItem[] newItems = defferedCollectionAction.NewItems;
-					    int count1 = newItems.Length;
-					    int sourceIndex;
-					    for (sourceIndex = 0; sourceIndex < count1; sourceIndex++)
-					    {
-						    if (originalCount > sourceIndex)
-							    _items[sourceIndex] = newItems[sourceIndex];
-						    else
-							    _items.Insert(sourceIndex, newItems[sourceIndex]);
-					    }
+						_handledEventSender = null;
+						_handledEventArgs = null;
+					}
+					else if (defferedCollectionAction.NewItems != null)
+					{
+						int originalCount = _items.Count;
+						TSourceItem[] newItems = defferedCollectionAction.NewItems;
+						int count1 = newItems.Length;
+						int sourceIndex;
+						for (sourceIndex = 0; sourceIndex < count1; sourceIndex++)
+						{
+							if (originalCount > sourceIndex)
+								_items[sourceIndex] = newItems[sourceIndex];
+							else
+								_items.Insert(sourceIndex, newItems[sourceIndex]);
+						}
 
-					    for (int index = originalCount - 1; index >= sourceIndex; index--)
-					    {
-						    _items.RemoveAt(index);
-					    }
-				    }
-			    }
+						for (int index = originalCount - 1; index >= sourceIndex; index--)
+						{
+							_items.RemoveAt(index);
+						}
+					}
+				}
 
-			    _resuming = false;
+				_resuming = false;
 
-                Utils.postHandleChange(
-                    ref _handledEventSender,
-                    ref _handledEventArgs,
-                    _deferredProcessings,
-                    ref _isConsistent,
-                    this);
-            }
-            else //if (_resumeType == CollectionPausingResumeType.Reset)
-            {
-                initializeFromSource();
-            }
+				Utils.postHandleChange(
+					ref _handledEventSender,
+					ref _handledEventArgs,
+					_deferredProcessings,
+					ref _isConsistent,
+					this);
+			}
+			else //if (_resumeType == CollectionPausingResumeType.Reset)
+			{
+				initializeFromSource();
+			}
 
-            Utils.postHandleChange(
-                ref _handledEventSender,
-                ref _handledEventArgs,
-                _deferredProcessings,
-                ref _isConsistent,
-                this);
+			Utils.postHandleChange(
+				ref _handledEventSender,
+				ref _handledEventArgs,
+				_deferredProcessings,
+				ref _isConsistent,
+				this);
 		}
 
 		private INotifyCollectionChanged _source;
@@ -145,9 +145,9 @@ namespace ObservableComputations
 		private bool _lastProcessedSourceChangeMarker;
 		private bool _isPaused;
 		private bool _resuming;
-        private CollectionPausingResumeType _resumeType;
+		private CollectionPausingResumeType _resumeType;
 
-        private ISourceCollectionChangeProcessor _thisAsSourceCollectionChangeProcessor;
+		private ISourceCollectionChangeProcessor _thisAsSourceCollectionChangeProcessor;
 
 		Queue<DefferedCollectionAction<TSourceItem>> _defferedCollectionActions = new Queue<DefferedCollectionAction<TSourceItem>>();
 
@@ -155,63 +155,63 @@ namespace ObservableComputations
 		public CollectionPausing(
 			INotifyCollectionChanged source,
 			bool initialIsPaused = false,
-            CollectionPausingResumeType resumeType = CollectionPausingResumeType.Reset)
+			CollectionPausingResumeType resumeType = CollectionPausingResumeType.Reset)
 		{
 			_isPaused = initialIsPaused;
 			_source = source;
-            _resumeType = resumeType;
-            _thisAsSourceCollectionChangeProcessor = this;          
-        }
+			_resumeType = resumeType;
+			_thisAsSourceCollectionChangeProcessor = this;          
+		}
 
 		[ObservableComputationsCall]
 		public CollectionPausing(
 			IReadScalar<INotifyCollectionChanged> sourceScalar,
 			bool initialIsPaused = false,
-            CollectionPausingResumeType resumeType = CollectionPausingResumeType.Reset)
+			CollectionPausingResumeType resumeType = CollectionPausingResumeType.Reset)
 		{
 			_isPaused = initialIsPaused;
 			_sourceScalar = sourceScalar;
-            _resumeType = resumeType;
-            _thisAsSourceCollectionChangeProcessor = this;
+			_resumeType = resumeType;
+			_thisAsSourceCollectionChangeProcessor = this;
 		}
 
 		[ObservableComputationsCall]
 		public CollectionPausing(
 			INotifyCollectionChanged source,
 			IReadScalar<bool> isPausedScalar,
-            CollectionPausingResumeType resumeType = CollectionPausingResumeType.Reset)
+			CollectionPausingResumeType resumeType = CollectionPausingResumeType.Reset)
 		{
 			_isPausedScalar = isPausedScalar;
 			_source = source;
-            _thisAsSourceCollectionChangeProcessor = this;
-            _resumeType = resumeType;
+			_thisAsSourceCollectionChangeProcessor = this;
+			_resumeType = resumeType;
 		}
 
 		[ObservableComputationsCall]
 		public CollectionPausing(
 			IReadScalar<INotifyCollectionChanged> sourceScalar,
 			IReadScalar<bool> isPausedScalar,
-            CollectionPausingResumeType resumeType = CollectionPausingResumeType.Reset)
+			CollectionPausingResumeType resumeType = CollectionPausingResumeType.Reset)
 		{
 			_isPausedScalar = isPausedScalar;
 			_sourceScalar = sourceScalar;
-            _thisAsSourceCollectionChangeProcessor = this;
-            _resumeType = resumeType;
-        }
+			_thisAsSourceCollectionChangeProcessor = this;
+			_resumeType = resumeType;
+		}
 
-        private void initializeIsPausedScalar()
-        {
-            if (_isPausedScalar != null)
-            {
-                _isPausedScalar.PropertyChanged += handleIsPausedScalarValueChanged;
-                _isPaused = _isPausedScalar.Value;
-            }
-        }
+		private void initializeIsPausedScalar()
+		{
+			if (_isPausedScalar != null)
+			{
+				_isPausedScalar.PropertyChanged += handleIsPausedScalarValueChanged;
+				_isPaused = _isPausedScalar.Value;
+			}
+		}
 
 		private void handleIsPausedScalarValueChanged(object sender, PropertyChangedEventArgs e)
 		{
 			if (e.PropertyName != nameof(IReadScalar<object>.Value)) return;
-            if (_sourceInitialized) checkConsistent(sender, e);
+			if (_sourceInitialized) checkConsistent(sender, e);
 
 			_handledEventSender = sender;
 			_handledEventArgs = e;
@@ -226,35 +226,35 @@ namespace ObservableComputations
 			_handledEventArgs = null;
 		}
 
-        protected override void initializeFromSource()
+		protected override void initializeFromSource()
 		{
 			int originalCount = _items.Count;
 
 			if (_sourceInitialized)
 			{		
-                _source.CollectionChanged -= handleSourceCollectionChanged;
+				_source.CollectionChanged -= handleSourceCollectionChanged;
 
-                if (_sourceAsINotifyPropertyChanged != null)
-                {
-                    _sourceAsINotifyPropertyChanged.PropertyChanged -=
-                        ((ISourceIndexerPropertyTracker) this).HandleSourcePropertyChanged;
-                    _sourceAsINotifyPropertyChanged = null;
-                }
+				if (_sourceAsINotifyPropertyChanged != null)
+				{
+					_sourceAsINotifyPropertyChanged.PropertyChanged -=
+						((ISourceIndexerPropertyTracker) this).HandleSourcePropertyChanged;
+					_sourceAsINotifyPropertyChanged = null;
+				}
 
-                _sourceInitialized = false;
-            }
+				_sourceInitialized = false;
+			}
 
-            Utils.changeSource(ref _source, _sourceScalar, _downstreamConsumedComputings, _consumers, this,
-                out _sourceAsList, true);
+			Utils.changeSource(ref _source, _sourceScalar, _downstreamConsumedComputings, _consumers, this,
+				out _sourceAsList, true);
 
 			if (_sourceAsList != null && _isActive)
 			{
-                Utils.initializeFromHasChangeMarker(
-                    out _sourceAsIHasChangeMarker, 
-                    _sourceAsList, 
-                    ref _lastProcessedSourceChangeMarker, 
-                    ref _sourceAsINotifyPropertyChanged,
-                    (ISourceIndexerPropertyTracker)this);
+				Utils.initializeFromHasChangeMarker(
+					out _sourceAsIHasChangeMarker, 
+					_sourceAsList, 
+					ref _lastProcessedSourceChangeMarker, 
+					ref _sourceAsINotifyPropertyChanged,
+					(ISourceIndexerPropertyTracker)this);
 
 				int sourceIndex = 0;
 
@@ -263,10 +263,10 @@ namespace ObservableComputations
 				else
 				{
 					int count = _sourceAsList.Count;
-                    TSourceItem[] sourceCopy = new TSourceItem[count];
-                    _sourceAsList.CopyTo(sourceCopy, 0);
+					TSourceItem[] sourceCopy = new TSourceItem[count];
+					_sourceAsList.CopyTo(sourceCopy, 0);
 
-                    _source.CollectionChanged += handleSourceCollectionChanged;
+					_source.CollectionChanged += handleSourceCollectionChanged;
 
 					for (; sourceIndex < count; sourceIndex++)
 					{
@@ -284,9 +284,9 @@ namespace ObservableComputations
 						_items.RemoveAt(index);
 					}
 				}
-          
-                _sourceInitialized = true;
-            }			
+		  
+				_sourceInitialized = true;
+			}			
 			else 
 			{
 				if (_isPaused)
@@ -303,99 +303,99 @@ namespace ObservableComputations
 
 		private void handleSourceCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
 		{
-            if (!Utils.preHandleSourceCollectionChanged(
-                sender, 
-                e, 
-                ref _isConsistent, 
-                ref _indexerPropertyChangedEventRaised, 
-                ref _lastProcessedSourceChangeMarker, 
-                _sourceAsIHasChangeMarker, 
-                ref _handledEventSender, 
-                ref _handledEventArgs,
-                ref _deferredProcessings,
-                1, _deferredQueuesCount, this)) return;
+			if (!Utils.preHandleSourceCollectionChanged(
+				sender, 
+				e, 
+				ref _isConsistent, 
+				ref _indexerPropertyChangedEventRaised, 
+				ref _lastProcessedSourceChangeMarker, 
+				_sourceAsIHasChangeMarker, 
+				ref _handledEventSender, 
+				ref _handledEventArgs,
+				ref _deferredProcessings,
+				1, _deferredQueuesCount, this)) return;
 
 			_isConsistent = !_resuming && !_isPaused;
 
-            _thisAsSourceCollectionChangeProcessor.processSourceCollectionChanged(sender, e);
+			_thisAsSourceCollectionChangeProcessor.processSourceCollectionChanged(sender, e);
 
-            Utils.postHandleChange(
-                ref _handledEventSender,
-                ref _handledEventArgs,
-                _deferredProcessings,
-                ref _isConsistent,
-                this);
+			Utils.postHandleChange(
+				ref _handledEventSender,
+				ref _handledEventArgs,
+				_deferredProcessings,
+				ref _isConsistent,
+				this);
 		}
 
-        void ISourceCollectionChangeProcessor.processSourceCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
-        {
-            if (_isPaused && e.Action != NotifyCollectionChangedAction.Reset)
-            {
-                _defferedCollectionActions.Enqueue(new DefferedCollectionAction<TSourceItem>(sender, e));
-                return;
-            }
+		void ISourceCollectionChangeProcessor.processSourceCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
+		{
+			if (_isPaused && e.Action != NotifyCollectionChangedAction.Reset)
+			{
+				_defferedCollectionActions.Enqueue(new DefferedCollectionAction<TSourceItem>(sender, e));
+				return;
+			}
 
-            switch (e.Action)
-            {
-                case NotifyCollectionChangedAction.Add:
-                    //if (e.NewItems.Count > 1) throw new ObservableComputationsException("Adding of multiple items is not supported");
-                    baseInsertItem(e.NewStartingIndex, (TSourceItem) e.NewItems[0]);
-                    break;
-                case NotifyCollectionChangedAction.Remove:
-                    // (e.OldItems.Count > 1) throw new ObservableComputationsException("Removing of multiple items is not supported");
-                    baseRemoveItem(e.OldStartingIndex);
-                    break;
-                case NotifyCollectionChangedAction.Replace:
-                    //if (e.NewItems.Count > 1) throw new ObservableComputationsException("Replacing of multiple items is not supported");
-                    baseSetItem(e.NewStartingIndex, (TSourceItem) e.NewItems[0]);
-                    break;
-                case NotifyCollectionChangedAction.Move:
-                    int oldStartingIndex1 = e.OldStartingIndex;
-                    int newStartingIndex1 = e.NewStartingIndex;
-                    if (oldStartingIndex1 != newStartingIndex1)
-                        baseMoveItem(oldStartingIndex1, newStartingIndex1);
+			switch (e.Action)
+			{
+				case NotifyCollectionChangedAction.Add:
+					//if (e.NewItems.Count > 1) throw new ObservableComputationsException("Adding of multiple items is not supported");
+					baseInsertItem(e.NewStartingIndex, (TSourceItem) e.NewItems[0]);
+					break;
+				case NotifyCollectionChangedAction.Remove:
+					// (e.OldItems.Count > 1) throw new ObservableComputationsException("Removing of multiple items is not supported");
+					baseRemoveItem(e.OldStartingIndex);
+					break;
+				case NotifyCollectionChangedAction.Replace:
+					//if (e.NewItems.Count > 1) throw new ObservableComputationsException("Replacing of multiple items is not supported");
+					baseSetItem(e.NewStartingIndex, (TSourceItem) e.NewItems[0]);
+					break;
+				case NotifyCollectionChangedAction.Move:
+					int oldStartingIndex1 = e.OldStartingIndex;
+					int newStartingIndex1 = e.NewStartingIndex;
+					if (oldStartingIndex1 != newStartingIndex1)
+						baseMoveItem(oldStartingIndex1, newStartingIndex1);
 
-                    break;
-                case NotifyCollectionChangedAction.Reset:
-                    initializeFromSource();
-                    break;
-            }
-        }
+					break;
+				case NotifyCollectionChangedAction.Reset:
+					initializeFromSource();
+					break;
+			}
+		}
 
-        internal override void addToUpstreamComputings(IComputingInternal computing)
-        {
-            (_source as IComputingInternal)?.AddDownstreamConsumedComputing(computing);
-            (_sourceScalar as IComputingInternal)?.AddDownstreamConsumedComputing(computing);
-            (_isPausedScalar as IComputingInternal)?.AddDownstreamConsumedComputing(computing);
-        }
+		internal override void addToUpstreamComputings(IComputingInternal computing)
+		{
+			(_source as IComputingInternal)?.AddDownstreamConsumedComputing(computing);
+			(_sourceScalar as IComputingInternal)?.AddDownstreamConsumedComputing(computing);
+			(_isPausedScalar as IComputingInternal)?.AddDownstreamConsumedComputing(computing);
+		}
 
-        internal override void removeFromUpstreamComputings(IComputingInternal computing)        
-        {
-            (_source as IComputingInternal)?.RemoveDownstreamConsumedComputing(computing);
-            (_sourceScalar as IComputingInternal)?.RemoveDownstreamConsumedComputing(computing);
-            (_isPausedScalar as IComputingInternal)?.RemoveDownstreamConsumedComputing(computing);
-        }
+		internal override void removeFromUpstreamComputings(IComputingInternal computing)        
+		{
+			(_source as IComputingInternal)?.RemoveDownstreamConsumedComputing(computing);
+			(_sourceScalar as IComputingInternal)?.RemoveDownstreamConsumedComputing(computing);
+			(_isPausedScalar as IComputingInternal)?.RemoveDownstreamConsumedComputing(computing);
+		}
 
-        protected override void initialize()
-        {     
-            Utils.initializeSourceScalar(_sourceScalar, ref _source, scalarValueChangedHandler);
-            initializeIsPausedScalar();
-        }
+		protected override void initialize()
+		{     
+			Utils.initializeSourceScalar(_sourceScalar, ref _source, scalarValueChangedHandler);
+			initializeIsPausedScalar();
+		}
 
-        protected override void uninitialize()
-        {
-            Utils.uninitializeSourceScalar(_sourceScalar, scalarValueChangedHandler, ref _source);
-            if (_isPausedScalar != null) _isPausedScalar.PropertyChanged -= handleIsPausedScalarValueChanged;
-        }
+		protected override void uninitialize()
+		{
+			Utils.uninitializeSourceScalar(_sourceScalar, scalarValueChangedHandler, ref _source);
+			if (_isPausedScalar != null) _isPausedScalar.PropertyChanged -= handleIsPausedScalarValueChanged;
+		}
 
-        #region Implementation of ISourceIndexerPropertyTracker
+		#region Implementation of ISourceIndexerPropertyTracker
 
-        void ISourceIndexerPropertyTracker.HandleSourcePropertyChanged(object sender, PropertyChangedEventArgs propertyChangedEventArgs)
-        {
-            Utils.handleSourcePropertyChanged(propertyChangedEventArgs, ref _indexerPropertyChangedEventRaised);
-        }
+		void ISourceIndexerPropertyTracker.HandleSourcePropertyChanged(object sender, PropertyChangedEventArgs propertyChangedEventArgs)
+		{
+			Utils.handleSourcePropertyChanged(propertyChangedEventArgs, ref _indexerPropertyChangedEventRaised);
+		}
 
-        #endregion
+		#endregion
 	}
 
 	internal struct DefferedCollectionAction<TSourceItem>
@@ -441,9 +441,9 @@ namespace ObservableComputations
 		}
 	}
 
-    public enum CollectionPausingResumeType
-    {
-        Reset,
-        ReplayChanges
-    }
+	public enum CollectionPausingResumeType
+	{
+		Reset,
+		ReplayChanges
+	}
 }

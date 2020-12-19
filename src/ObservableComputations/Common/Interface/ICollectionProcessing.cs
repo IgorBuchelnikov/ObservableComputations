@@ -2,7 +2,7 @@
 {
 	public interface ICollectionProcessing : ICollectionComputing
 	{
-        bool Initializing { get; }
+		bool Initializing { get; }
 	}
 
 }

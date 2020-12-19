@@ -12,7 +12,7 @@ namespace ObservableComputations.Test
 	[TestFixture]
 	public class SelectingManyTests
 	{
-        Consumer consumer = new Consumer();
+		Consumer consumer = new Consumer();
 
 		public class Item : INotifyPropertyChanged
 		{
@@ -209,7 +209,7 @@ namespace ObservableComputations.Test
 						SelectingMany<Item, Item> concating3 = items.SelectingMany<Item, Item>(i => i.Items).For(consumer);
 						items[index1].Items[index] = null;
 						concating3.ValidateConsistency();	
-                        consumer.Dispose();
+						consumer.Dispose();
 
 						trace(testNum = "9", itemsCounts, index, itemsCount, indexOld, indexNew);
 						items = getObservableCollections(itemsCounts);

@@ -6,13 +6,13 @@ using System.Reflection;
 
 namespace ObservableComputations.ExtentionMethods
 {
-    internal static partial class ExtensionMethods
-    {
-	    // ReSharper disable once UnusedMember.Local
-	    public static string debugView(this object viewingObject, bool lineBreaks = false, string tabsIndentation = "")
-	    {
-		    string lineBreak = lineBreaks ? "\n" : string.Empty;
-		    switch (viewingObject)
+	internal static partial class ExtensionMethods
+	{
+		// ReSharper disable once UnusedMember.Local
+		public static string debugView(this object viewingObject, bool lineBreaks = false, string tabsIndentation = "")
+		{
+			string lineBreak = lineBreaks ? "\n" : string.Empty;
+			switch (viewingObject)
 			{
 				case Boolean elementary:
 					return $"{viewingObject.GetType().Name}: {elementary.ToString()}";
@@ -82,22 +82,22 @@ namespace ObservableComputations.ExtentionMethods
 
 						return string.Join($"{lineBreak}", members);						
 					}
-		    }
-	    }
+			}
+		}
 
-	    public static bool IsSameAs(this object object1, object object2)
-        {
+		public static bool IsSameAs(this object object1, object object2)
+		{
 			return 
 				object1 == null && object2 == null
 					? true
 					: (object1 == null && object2 != null) || (object1 != null && object2 == null)
 						? false
 						: object1.Equals(object2);
-        }
+		}
 
-	    public static TResult GetValueAs<TArgument, TResult>(this TArgument argument, Func<TArgument, TResult> getValueFunc)
-        {
+		public static TResult GetValueAs<TArgument, TResult>(this TArgument argument, Func<TArgument, TResult> getValueFunc)
+		{
 			return getValueFunc(argument);
-        }
-    }
+		}
+	}
 }

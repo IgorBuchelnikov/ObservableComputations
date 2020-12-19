@@ -139,7 +139,7 @@ namespace ObservableComputations
 		public new void ValidateConsistency()
 		{
 			IList<TSourceItem> source = _sourceScalarSkippingWhile.getValue(_sourceSkippingWhile, new ObservableCollection<TSourceItem>()) as IList<TSourceItem>;
-            Consumer consumer = new Consumer();
+			Consumer consumer = new Consumer();
 
 			// ReSharper disable once AssignNullToNotNullAttribute
 			if (!this.SequenceEqual(source.SkipWhile((si, i) => new Computing<bool>(_predicateExpression.ApplyParameters(si, i)).For(consumer).Value)))
@@ -147,7 +147,7 @@ namespace ObservableComputations
 				throw new ObservableComputationsException(this, "Consistency violation: SkippingWhile.1");
 			}
 
-            consumer.Dispose();
-        }
+			consumer.Dispose();
+		}
 	}
 }

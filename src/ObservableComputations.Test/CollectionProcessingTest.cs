@@ -6,7 +6,7 @@ namespace ObservableComputations.Test
 	[TestFixture]
 	public class CollectionProcessingTest
 	{
-        Consumer consumer = new Consumer();
+		Consumer consumer = new Consumer();
 
 		public class Item
 		{
@@ -18,27 +18,27 @@ namespace ObservableComputations.Test
 		private static CollectionProcessing<Item, object> getCollectionProcessing(ObservableCollection<Item> items, Consumer consumer)
 		{
 			return items.CollectionProcessing(
-                (newItems, current) =>
-                {
-                    object[] tokens = new object[newItems.Length];
-                    for (var index = 0; index < newItems.Length; index++)
-                    {
-                        Item newItem = newItems[index];
-                        newItem.ProcessedAsNew = true;
-                        tokens[index] = newItem.Token;
-                    }
+				(newItems, current) =>
+				{
+					object[] tokens = new object[newItems.Length];
+					for (var index = 0; index < newItems.Length; index++)
+					{
+						Item newItem = newItems[index];
+						newItem.ProcessedAsNew = true;
+						tokens[index] = newItem.Token;
+					}
 
-                    return tokens; 
-                },
+					return tokens; 
+				},
 				(oldItems, current, returnValues) =>
-                {
-                    for (var index = 0; index < oldItems.Length; index++)
-                    {
-                        Item oldItem = oldItems[index];
-                        oldItem.ProcessedAsOld = true;
-                        Assert.AreEqual(oldItem.Token, returnValues[index]);
-                    }
-                }).For(consumer);
+				{
+					for (var index = 0; index < oldItems.Length; index++)
+					{
+						Item oldItem = oldItems[index];
+						oldItem.ProcessedAsOld = true;
+						Assert.AreEqual(oldItem.Token, returnValues[index]);
+					}
+				}).For(consumer);
 		}
 
 		[Test]
@@ -70,7 +70,7 @@ namespace ObservableComputations.Test
 			items.RemoveAt(index);
 			Assert.IsTrue(sourceCollection[index].ProcessedAsNew);
 			Assert.IsTrue(sourceCollection[index].ProcessedAsOld);
-            consumer.Dispose();
+			consumer.Dispose();
 		}
 
 		[Test, Combinatorial]
@@ -88,7 +88,7 @@ namespace ObservableComputations.Test
 			items.RemoveAt(0);
 			Assert.IsTrue(item.ProcessedAsNew);
 			Assert.IsTrue(item.ProcessedAsOld);
-            consumer.Dispose();
+			consumer.Dispose();
 		}
 
 		[Test, Combinatorial]
@@ -112,7 +112,7 @@ namespace ObservableComputations.Test
 			items.Insert(index, item);
 			Assert.IsTrue(item.ProcessedAsNew);
 			Assert.IsFalse(item.ProcessedAsOld);
-            consumer.Dispose();
+			consumer.Dispose();
 		}
 
 		[Test, Combinatorial]
@@ -126,7 +126,7 @@ namespace ObservableComputations.Test
 			items.Insert(0, item);
 			Assert.IsTrue(item.ProcessedAsNew);
 			Assert.IsFalse(item.ProcessedAsOld);
-            consumer.Dispose();
+			consumer.Dispose();
 		}
 
 		[Test, Combinatorial]
@@ -150,7 +150,7 @@ namespace ObservableComputations.Test
 			items.Move(oldIndex, newIndex);
 			Assert.IsTrue(sourceCollection[oldIndex].ProcessedAsNew);
 			Assert.IsFalse(sourceCollection[oldIndex].ProcessedAsOld);
-            consumer.Dispose();
+			consumer.Dispose();
 		}
 
 		[Test, Combinatorial]
@@ -175,7 +175,7 @@ namespace ObservableComputations.Test
 			Assert.IsTrue(sourceCollection[index].ProcessedAsOld);
 			Assert.IsTrue(items[index].ProcessedAsNew);
 			Assert.IsFalse(items[index].ProcessedAsOld);
-            consumer.Dispose();
+			consumer.Dispose();
 		}	
 	}
 }

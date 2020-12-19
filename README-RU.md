@@ -347,7 +347,7 @@ public interface IReadScalar<out TValue> : System.ComponentModel.INotifyProperty
 		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom><font color="#000000"><br></font></td>
 	</tr>
 	<tr>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" height="32" align="left" valign=bottom><font color="#000000">ObservableCollection<br>    .Count property</font></td>
+		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" height="32" align="left" valign=bottom><font color="#000000">ObservableCollection<br>	.Count property</font></td>
 		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom><font color="#000000">Count</font></td>
 		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom><font color="#000000"><br></font></td>
 		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom><font color="#000000"><br></font></td>
@@ -698,7 +698,7 @@ namespace ObservableComputationsExamples
 
 			// Здесь мы начинаем использовать ObservableComputations!
 			ContainsComputing<Person> isLoggedInPersonHockeyPlayer =
-			    hockeyTeam.ContainsComputing(loginManager.LoggedInPerson);
+				hockeyTeam.ContainsComputing(loginManager.LoggedInPerson);
 
 			isLoggedInPersonHockeyPlayer.PropertyChanged += (sender, eventArgs) =>
 			{
@@ -709,10 +709,10 @@ namespace ObservableComputationsExamples
 			};
 
 			// Start the changing...
-			hockeyTeam.RemoveAt(0);           // 🙂
-			hockeyTeam.Add(allPersons[0]);    // 🙂
+			hockeyTeam.RemoveAt(0);		   // 🙂
+			hockeyTeam.Add(allPersons[0]);	// 🙂
 			loginManager.LoggedInPerson = allPersons[4];  // 🙁!
-            
+			
 			Console.ReadLine();
 		}
 	}
@@ -783,10 +783,10 @@ namespace ObservableComputationsExamples
 			loginManager.LoggedInPerson = allPersons[0];
 
 			//********************************************
-			// We start using ObservableComputations here!			    
+			// We start using ObservableComputations here!				
 			ContainsComputing<Person> isLoggedInPersonHockeyPlayer =
-			    hockeyTeam.ContainsComputing<Person>(new Computing(
-			    	() => loginManager.LoggedInPerson));
+				hockeyTeam.ContainsComputing<Person>(new Computing(
+					() => loginManager.LoggedInPerson));
 
 			isLoggedInPersonHockeyPlayer.PropertyChanged += (sender, eventArgs) =>
 			{
@@ -797,8 +797,8 @@ namespace ObservableComputationsExamples
 			};
 
 			// Start the changing...
-			hockeyTeam.RemoveAt(0);           // 🙂
-			hockeyTeam.Add(allPersons[0]);    // 🙂
+			hockeyTeam.RemoveAt(0);		   // 🙂
+			hockeyTeam.Add(allPersons[0]);	// 🙂
 			loginManager.LoggedInPerson = allPersons[4];  // 🙂!!!
 
 			Console.ReadLine();
@@ -812,7 +812,7 @@ namespace ObservableComputationsExamples
 Код выше может быть укорочен:  
   ```csharp
 ContainsComputing<Person> isLoggedInPersonHockeyPlayer =
-    hockeyTeam.ContainsComputing(() => loginManager.LoggedInPerson);
+	hockeyTeam.ContainsComputing(() => loginManager.LoggedInPerson);
 ```
 При использовании этой перегруженной версии метода *ContainsComputing*, переменные *loggedInPersonExpression* и *isLoggedInPersonHockeyPlayer* больше не нужны. Эта перегруженная версии метода *ContainsComputing* создаёт *Computing&lt;Person&gt;* "за ценой".
 
@@ -820,8 +820,8 @@ ContainsComputing<Person> isLoggedInPersonHockeyPlayer =
 
 ```csharp
 ContainsComputing<Person> isLoggedInPersonHockeyPlayer =
-    hockeyTeam.ContainsComputing<Person>(
-        Expr.Is(() => loginManager.LoggedInPerson).Computing());
+	hockeyTeam.ContainsComputing<Person>(
+		Expr.Is(() => loginManager.LoggedInPerson).Computing());
 ```
 
 Первоначальный вариант может быть полезен, если Вы хотите переиспользовать *new Computing(() => loginManager.LoggedInPerson)* для других вычислений помимо *isLoggedInPersonHockeyPlayer*. Первый укороченный вариант не позволяет этого. Укороченные варианты могут быть полезны для [expression-bodied properties and methods](https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/statements-expressions-operators/expression-bodied-members).
@@ -918,18 +918,18 @@ namespace ObservableComputationsExamples
 			loginManager.LoggedInPerson = allPersons[0];
 
 			HockeyTeamManager hockeyTeamManager = new HockeyTeamManager();
-	    
+		
 			Expression<Func<ObservableCollection<Person>>> hockeyTeamInterestedExpression =
-			    () => hockeyTeamManager.HockeyTeamInterested;
+				() => hockeyTeamManager.HockeyTeamInterested;
 
 			//********************************************
 			// We start using ObservableComputations here!	
 			Computing<ObservableCollection<Person>> hockeyTeamInterestedComputing =
-			    hockeyTeamInterestedExpression.Computing();
+				hockeyTeamInterestedExpression.Computing();
 
 			ContainsComputing<Person> isLoggedInPersonHockeyPlayer =
 				hockeyTeamInterestedComputing.ContainsComputing(
-				    () => loginManager.LoggedInPerson);
+					() => loginManager.LoggedInPerson);
 
 			isLoggedInPersonHockeyPlayer.PropertyChanged += (sender, eventArgs) =>
 			{
@@ -941,11 +941,11 @@ namespace ObservableComputationsExamples
 
 			// Start the changing...
 			hockeyTeamManager.HockeyTeamInterested = hockeyTeam1;
-			hockeyTeamManager.HockeyTeamInterested.RemoveAt(0);           
+			hockeyTeamManager.HockeyTeamInterested.RemoveAt(0);		   
 			hockeyTeamManager.HockeyTeamInterested.Add(allPersons[0]);  
 			loginManager.LoggedInPerson = allPersons[4]; 
 			loginManager.LoggedInPerson = allPersons[2];
-			hockeyTeamManager.HockeyTeamInterested = hockeyTeam2;         
+			hockeyTeamManager.HockeyTeamInterested = hockeyTeam2;		 
 			hockeyTeamManager.HockeyTeamInterested.Add(allPersons[2]);  
 
 			Console.ReadLine();
@@ -957,25 +957,25 @@ namespace ObservableComputationsExamples
 Как и в предыдущем разделе код выше может быть укорочен:
 ```csharp
 Expression<Func<ObservableCollection<Person>>> hockeyTeamInterestedExpression =
-    () => hockeyTeamManager.HockeyTeamInterested;
+	() => hockeyTeamManager.HockeyTeamInterested;
 
 ContainsComputing<Person> isLoggedInPersonHockeyPlayer =
    hockeyTeamInterestedExpression
-      .ContainsComputing(() => loginManager.LoggedInPerson);
+	.ContainsComputing(() => loginManager.LoggedInPerson);
 ```
 
 или:
 ```csharp
 ContainsComputing<Person> isLoggedInPersonHockeyPlayer =
    Expr.Is(() => hockeyTeamManager.HockeyTeamInterested)
-      .ContainsComputing(() => loginManager.LoggedInPerson);
+	.ContainsComputing(() => loginManager.LoggedInPerson);
 ```
 
 или:  
 ```csharp
 ContainsComputing<Person> isLoggedInPersonHockeyPlayer =
 	new Computing<ObservableCollection<Person>>(
-	    () => hockeyTeamManager.HockeyTeamInterested)
+		() => hockeyTeamManager.HockeyTeamInterested)
 	.ContainsComputing<Person>(
 		() => loginManager.LoggedInPerson);
 ```
@@ -985,7 +985,7 @@ ContainsComputing<Person> isLoggedInPersonHockeyPlayer =
 ContainsComputing<Person> isLoggedInPersonHockeyPlayer =
 	Expr.Is(() => hockeyTeamManager.HockeyTeamInterested).Computing()
 	.ContainsComputing(
-	    () => loginManager.LoggedInPerson);
+		() => loginManager.LoggedInPerson);
 ```
 
 Конечно, Вы можете использовать более сложное выражение чем "*() => hockeyTeamManager.HockeyTeamInterested* для передачи в качестве аргумента в любой [метод расширения](https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/classes-and-structs/extension-methods) ObservableComputations.
@@ -994,7 +994,7 @@ ContainsComputing<Person> isLoggedInPersonHockeyPlayer =
 Мы продолжаем рассматривать пример из [предыдущего раздела](#передача-аргументов-как-обозреваемых). Мы использовали следующий код для того чтобы отследить изменения в *hockeyTeamManager.HockeyTeamInterested*:
 ```csharp
 new Computing<ObservableCollection<Person>>(
-    () => hockeyTeamManager.HockeyTeamInterested)
+	() => hockeyTeamManager.HockeyTeamInterested)
 ```
 
 Может показаться на первый взгляд, что следующий код будет работать и *isLoggedInPersonHockeyPlayer* будет отражать изменения в *hockeyTeamManager.HockeyTeamInterested*:
@@ -1002,7 +1002,7 @@ new Computing<ObservableCollection<Person>>(
 ```csharp
 Computing<bool> isLoggedInPersonHockeyPlayer = new Computing<bool>(() => 
    hockeyTeamManager.HockeyTeamInterested.ContainsComputing(
-      () => loginManager.LoggedInPerson).Value);
+	() => loginManager.LoggedInPerson).Value);
 ```
  
 В этом коде *"hockeyTeamManager.HockeyTeamInterested"* передан в [метод расширения](https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/classes-and-structs/extension-methods) *ContainsComputing* как [не обозреваемый](#передача-аргументов-как-не-обозреваемых), и не имеет значения, что  *"hockeyTeamManager.HockeyTeamInterested"* это часть выражения переданного в конструктор класса *Computing&lt;bool&gt;*, изменения в *"hockeyTeamManager.HockeyTeamInterested"* не будут отражаться в *isLoggedInPersonHockeyPlayer*. Правило обозреваемых и не обозреваемых аргументов применяется только в одном направлении: от вложенных (обёрнутых) к внешним (оборачивающим) вызовам. Другими словами, правило обозреваемых и не обозреваемых аргументов всегда справедливо, независимо от того является ли вычисление корневым или вложенным.
@@ -1523,8 +1523,8 @@ namespace ObservableComputationsExamples
 						//...
 						break;
 					case NotifyCollectionChangedAction.Replace:
-                        Debug.Assert(orderedRelations.IsConsistent == false);					
-					    // HERE IS THE FIX !!!
+						Debug.Assert(orderedRelations.IsConsistent == false);					
+						// HERE IS THE FIX !!!
 						orderedRelations.ConsistencyRestored += (o, args1) =>
 						{
 							Relation oldItem = (Relation) eventArgs.OldItems[0];
@@ -1591,7 +1591,7 @@ namespace ObservableComputationsExamples
 					h => orderedRelations.CollectionChanged += h,
 					h => orderedRelations.CollectionChanged -= h)
 				.Where(e => e.EventArgs.Action == NotifyCollectionChangedAction.Replace)
-				.Zip(Observable.FromEventPattern<EventHandler, EventArgs>(               
+				.Zip(Observable.FromEventPattern<EventHandler, EventArgs>(			   
 					h => orderedRelations.ConsistencyRestored += h,
 					h => orderedRelations.ConsistencyRestored -= h), 
 					(collectionChangedEventPattern, consistencyRestoredEventPattern) =>
@@ -1898,8 +1898,8 @@ namespace ObservableComputationsExamples
 
 			Computing<double> priceDiscounted 
 				= new Computing<double>(() => order.Discount 
-				    ? order.Price - order.Price * 0.1 
-				    : order.Price);
+					? order.Price - order.Price * 0.1 
+					: order.Price);
 
 			priceDiscounted.PropertyChanged += (sender, eventArgs) =>
 			{
@@ -1975,10 +1975,10 @@ namespace ObservableComputationsExamples
 
 			Computing<double> priceDiscounted 
 				= new Computing<double>(() => order.Discount 
-				    ? order.Price - order.Price * 0.1 
-				    : order.Price);
+					? order.Price - order.Price * 0.1 
+					: order.Price);
 
-                        // HERE IS THE FIX!
+						// HERE IS THE FIX!
 			priceDiscounted.PostValueChanged += (sender, eventArgs) =>
 			{
 				Console.WriteLine(messageForUser.Value);
@@ -3054,14 +3054,14 @@ public class WpfOcOcDispatcher : IOcDispatcher
 
    public WpfOcOcDispatcher(System.Windows.Threading.OcDispatcher ocDispatcher)
    {
-      _ocDispatcher = ocDispatcher;
+	_ocDispatcher = ocDispatcher;
    }
 
    #region Implementation of IOcDispatcher
 
    public void Invoke(Action action, object context)
    {
-      _ocDispatcher.Invoke(action, OcDispatcherPriority.Background);
+	_ocDispatcher.Invoke(action, OcDispatcherPriority.Background);
    }
 
    #endregion
@@ -3407,8 +3407,8 @@ args =>
    string roomId = (string) args[0];
    DateTime dateTime = (DateTime) args[1];
    return
-      roomId == roomReservation.RoomId
-      && roomReservation.From < dateTime && dateTime < roomReservation.To;
+	roomId == roomReservation.RoomId
+	&& roomReservation.From < dateTime && dateTime < roomReservation.To;
 }
 ```
 Данное свойство определяет какие значения должны иметь аргументы в вызове метода, так чтобы возвращаемое значение этого вызова изменилось.
@@ -3497,8 +3497,8 @@ namespace ObservableComputationsExamples
 
 ```csharp
 ObservableCollection<Order> filteredByTypeOrders =  orders
-    .Joining(selectedOrderTypes, (o, ot) => o.Type == ot)
-    .Selecting(oot => oot.OuterItem);
+	.Joining(selectedOrderTypes, (o, ot) => o.Type == ot)
+	.Selecting(oot => oot.OuterItem);
 ```
 
 Это вычисление имеет преимущество в производительности и потреблении памяти. 
@@ -3881,7 +3881,7 @@ namespace ObservableComputationsExamples
 					// first step
 					Summarizing<decimal> totalPrice 
 						= Lines.Selecting(l => l.Price).Summarizing(); 
-					    
+						
 					// second step
 					_priceWithDiscount = new Computing<decimal>(
 						() => totalPrice.Value - totalPrice.Value * Discount);

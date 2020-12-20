@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Threading;
 
 namespace ObservableComputations
 {
@@ -45,29 +46,36 @@ namespace ObservableComputations
 			{
 				if (Configuration.TrackComputingsExecutingUserCode)
 				{
-					var currentThread = Utils.startComputingExecutingUserCode(out var computing, out _userCodeIsCalledFrom, this);
-					_setValueAction(value);
-					Utils.endComputingExecutingUserCode(computing, currentThread, out _userCodeIsCalledFrom);
+					Thread currentThread = Thread.CurrentThread;
+					DebugInfo._computingsExecutingUserCode.TryGetValue(currentThread, out IComputing computing);
+					DebugInfo._computingsExecutingUserCode[currentThread] = this;	
+					_userCodeIsCalledFrom = computing;
+				
+					_setValueRequestHandler(value);
+
+					if (computing == null) DebugInfo._computingsExecutingUserCode.TryRemove(currentThread, out IComputing _);
+					else DebugInfo._computingsExecutingUserCode[currentThread] = computing;
+					_userCodeIsCalledFrom = null;
 					return;
 				}
 
-				_setValueAction(value);
+				_setValueRequestHandler(value);
 			}
 		}
 
 		#endregion
 
-		protected Action<TValue> _setValueAction;
+		protected Action<TValue> _setValueRequestHandler;
 
-		public Action<TValue> SetValueAction
+		public Action<TValue> SetValueRequestHandler
 		{
-			get => _setValueAction;
+			get => _setValueRequestHandler;
 			set
 			{
-				if (_setValueAction != value)
+				if (_setValueRequestHandler != value)
 				{
-					_setValueAction = value;
-					PropertyChanged?.Invoke(this, Utils.SetValueActionPropertyChangedEventArgs);
+					_setValueRequestHandler = value;
+					PropertyChanged?.Invoke(this, Utils.SetValueRequestHandlerPropertyChangedEventArgs);
 				}
 			}
 		}

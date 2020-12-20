@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.ComponentModel;
+using System.Threading;
 using INotifyPropertyChanged = System.ComponentModel.INotifyPropertyChanged;
 
 namespace ObservableComputations
@@ -24,28 +25,28 @@ namespace ObservableComputations
 		public ReadOnlyCollection<INotifyCollectionChanged> SourceCollections => new ReadOnlyCollection<INotifyCollectionChanged>(new []{LeftSource, RightSource});
 		public ReadOnlyCollection<IReadScalar<INotifyCollectionChanged>> SourceCollectionScalars => new ReadOnlyCollection<IReadScalar<INotifyCollectionChanged>>(new []{LeftSourceScalar, RightSourceScalar});
 
-		public Action<ZipPair<TLeftSourceItem, TRightSourceItem>, TLeftSourceItem> ZipPairSetLeftItemAction
+		public Action<ZipPair<TLeftSourceItem, TRightSourceItem>, TLeftSourceItem> ZipPairSetLeftItemRequestHandler
 		{
-			get => _zipPairSetLeftItemAction;
+			get => _zipPairSetLeftItemRequestHandler;
 			set
 			{
-				if (_zipPairSetLeftItemAction != value)
+				if (_zipPairSetLeftItemRequestHandler != value)
 				{
-					_zipPairSetLeftItemAction = value;
-					OnPropertyChanged(Utils.ZipPairSetLeftItemActionPropertyChangedEventArgs);
+					_zipPairSetLeftItemRequestHandler = value;
+					OnPropertyChanged(Utils.ZipPairSetLeftItemRequestHandlerPropertyChangedEventArgs);
 				}
 			}
 		}
 
-		public Action<ZipPair<TLeftSourceItem, TRightSourceItem>, TRightSourceItem> ZipPairSetRightItemAction
+		public Action<ZipPair<TLeftSourceItem, TRightSourceItem>, TRightSourceItem> ZipPairSetRightItemRequestHandler
 		{
-			get => _zipPairSetRightItemAction;
+			get => _zipPairSetRightItemRequestHandler;
 			set
 			{
-				if (_zipPairSetRightItemAction != value)
+				if (_zipPairSetRightItemRequestHandler != value)
 				{
-					_zipPairSetRightItemAction = value;
-					OnPropertyChanged(Utils.ZipPairSetRightItemActionPropertyChangedEventArgs);
+					_zipPairSetRightItemRequestHandler = value;
+					OnPropertyChanged(Utils.ZipPairSetRightItemRequestHandlerPropertyChangedEventArgs);
 				}
 			}
 		}
@@ -57,8 +58,8 @@ namespace ObservableComputations
 		private IList<TRightSourceItem> _rightSourceAsList;
 
 
-		internal Action<ZipPair<TLeftSourceItem, TRightSourceItem>, TLeftSourceItem> _zipPairSetLeftItemAction;
-		internal Action<ZipPair<TLeftSourceItem, TRightSourceItem>, TRightSourceItem> _zipPairSetRightItemAction;
+		internal Action<ZipPair<TLeftSourceItem, TRightSourceItem>, TLeftSourceItem> _zipPairSetLeftItemRequestHandler;
+		internal Action<ZipPair<TLeftSourceItem, TRightSourceItem>, TRightSourceItem> _zipPairSetRightItemRequestHandler;
 		private readonly IReadScalar<INotifyCollectionChanged> _leftSourceScalar;
 		private readonly IReadScalar<INotifyCollectionChanged> _rightSourceScalar;
 		private INotifyCollectionChanged _leftSource;
@@ -620,7 +621,25 @@ namespace ObservableComputations
 		{
 			get => _leftItem;
 			// ReSharper disable once MemberCanBePrivate.Global
-			set => _zipping._zipPairSetLeftItemAction(this, value);
+			set
+			{
+				if (Configuration.TrackComputingsExecutingUserCode)
+				{
+					Thread currentThread = Thread.CurrentThread;
+					DebugInfo._computingsExecutingUserCode.TryGetValue(currentThread, out IComputing computing);
+					DebugInfo._computingsExecutingUserCode[currentThread] = _zipping;	
+					_zipping._userCodeIsCalledFrom = computing;
+				
+					_zipping._zipPairSetLeftItemRequestHandler(this, value);
+
+					if (computing == null) DebugInfo._computingsExecutingUserCode.TryRemove(currentThread, out IComputing _);
+					else DebugInfo._computingsExecutingUserCode[currentThread] = computing;
+					_zipping._userCodeIsCalledFrom = null;
+					return;
+				}
+
+				_zipping._zipPairSetLeftItemRequestHandler(this, value);
+			}
 		}
 
 		private TRightSourceItem _rightItem;
@@ -628,7 +647,25 @@ namespace ObservableComputations
 		{
 			get => _rightItem;
 			// ReSharper disable once MemberCanBePrivate.Global
-			set =>  _zipping._zipPairSetRightItemAction(this, value);
+			set
+			{
+				if (Configuration.TrackComputingsExecutingUserCode)
+				{
+					Thread currentThread = Thread.CurrentThread;
+					DebugInfo._computingsExecutingUserCode.TryGetValue(currentThread, out IComputing computing);
+					DebugInfo._computingsExecutingUserCode[currentThread] = _zipping;	
+					_zipping._userCodeIsCalledFrom = computing;
+				
+					_zipping._zipPairSetRightItemRequestHandler(this, value);
+
+					if (computing == null) DebugInfo._computingsExecutingUserCode.TryRemove(currentThread, out IComputing _);
+					else DebugInfo._computingsExecutingUserCode[currentThread] = computing;
+					_zipping._userCodeIsCalledFrom = null;
+					return;
+				}
+
+				_zipping._zipPairSetRightItemRequestHandler(this, value);
+			}
 		}
 
 		internal void setItemLeft(TLeftSourceItem itemLeft)

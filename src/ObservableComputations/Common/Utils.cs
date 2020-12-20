@@ -1118,32 +1118,31 @@ namespace ObservableComputations
 			}
 		}
 
-		internal static readonly PropertyChangedEventArgs InsertItemIntoGroupActionPropertyChangedEventArgs = new PropertyChangedEventArgs("InsertItemIntoGroupAction");
-		internal static readonly PropertyChangedEventArgs RemoveItemFromGroupActionPropertyChangedEventArgs = new PropertyChangedEventArgs("RemoveItemFromGroupAction");
-		internal static readonly PropertyChangedEventArgs SetGroupItemActionPropertyChangedEventArgs = new PropertyChangedEventArgs("SetGroupItemAction");
-		internal static readonly PropertyChangedEventArgs MoveItemInGroupActionPropertyChangedEventArgs = new PropertyChangedEventArgs("MoveItemInGroupAction");
-		internal static readonly PropertyChangedEventArgs ClearGroupItemsActionPropertyChangedEventArgs = new PropertyChangedEventArgs("ClearGroupItemsAction");
+		internal static readonly PropertyChangedEventArgs InsertItemIntoGroupRequestHandlerPropertyChangedEventArgs = new PropertyChangedEventArgs("InsertItemIntoGroupRequestHandler");
+		internal static readonly PropertyChangedEventArgs RemoveItemFromGroupRequestHandlerPropertyChangedEventArgs = new PropertyChangedEventArgs("RemoveItemFromGroupRequestHandler");
+		internal static readonly PropertyChangedEventArgs SetGroupItemRequestHandlerPropertyChangedEventArgs = new PropertyChangedEventArgs("SetGroupItemRequestHandler");
+		internal static readonly PropertyChangedEventArgs MoveItemInGroupRequestHandlerPropertyChangedEventArgs = new PropertyChangedEventArgs("MoveItemInGroupRequestHandler");
+		internal static readonly PropertyChangedEventArgs ClearGroupItemsRequestHandlerPropertyChangedEventArgs = new PropertyChangedEventArgs("ClearGroupItemsRequestHandler");
 		internal static readonly PropertyChangedEventArgs OuterItemPropertyChangedEventArgs = new PropertyChangedEventArgs("OuterItem");
 		internal static readonly PropertyChangedEventArgs KeyPropertyChangedEventArgs = new PropertyChangedEventArgs("Key");
 		internal static readonly PropertyChangedEventArgs SetLeftItemRequestHandlerPropertyChangedEventArgs = new PropertyChangedEventArgs("SetLeftItemRequestHandler");
 		internal static readonly PropertyChangedEventArgs SetRightItemRequestHandlerPropertyChangedEventArgs = new PropertyChangedEventArgs("SetRightItemRequestHandler");
-		internal static readonly PropertyChangedEventArgs ZipPairSetLeftItemActionPropertyChangedEventArgs = new PropertyChangedEventArgs("ZipPairSetLeftItemAction");
-		internal static readonly PropertyChangedEventArgs ZipPairSetRightItemActionPropertyChangedEventArgs = new PropertyChangedEventArgs("ZipPairSetRightItemAction");
+		internal static readonly PropertyChangedEventArgs ZipPairSetLeftItemRequestHandlerPropertyChangedEventArgs = new PropertyChangedEventArgs("ZipPairSetLeftItemRequestHandler");
+		internal static readonly PropertyChangedEventArgs ZipPairSetRightItemRequestHandlerPropertyChangedEventArgs = new PropertyChangedEventArgs("ZipPairSetRightItemRequestHandler");
 		internal static readonly PropertyChangedEventArgs LeftItemPropertyChangedEventArgs = new PropertyChangedEventArgs("LeftItem");
 		internal static readonly PropertyChangedEventArgs RightItemPropertyChangedEventArgs = new PropertyChangedEventArgs("RightItem");
-		internal static readonly PropertyChangedEventArgs InsertItemActionPropertyChangedEventArgs = new PropertyChangedEventArgs("InsertItemAction");
-		internal static readonly PropertyChangedEventArgs AddItemActionPropertyChangedEventArgs = new PropertyChangedEventArgs("AddItemAction");
-		internal static readonly PropertyChangedEventArgs RemoveItemActionPropertyChangedEventArgs = new PropertyChangedEventArgs("RemoveItemAction");
-		internal static readonly PropertyChangedEventArgs RemoveItemFuncPropertyChangedEventArgs = new PropertyChangedEventArgs("RemoveItemFunc");
-		internal static readonly PropertyChangedEventArgs SetItemActionPropertyChangedEventArgs = new PropertyChangedEventArgs("SetItemAction");
-		internal static readonly PropertyChangedEventArgs MoveItemActionPropertyChangedEventArgs = new PropertyChangedEventArgs("MoveItemAction");
-		internal static readonly PropertyChangedEventArgs ClearItemsActionPropertyChangedEventArgs = new PropertyChangedEventArgs("ClearItemsAction");
+		internal static readonly PropertyChangedEventArgs InsertItemRequestHandlerPropertyChangedEventArgs = new PropertyChangedEventArgs("InsertItemRequestHandler");
+		internal static readonly PropertyChangedEventArgs AddItemRequestHandlerPropertyChangedEventArgs = new PropertyChangedEventArgs("AddItemRequestHandler");
+		internal static readonly PropertyChangedEventArgs RemoveItemRequestHandlerPropertyChangedEventArgs = new PropertyChangedEventArgs("RemoveItemRequestHandler");
+		internal static readonly PropertyChangedEventArgs SetItemRequestHandlerPropertyChangedEventArgs = new PropertyChangedEventArgs("SetItemRequestHandler");
+		internal static readonly PropertyChangedEventArgs MoveItemRequestHandlerPropertyChangedEventArgs = new PropertyChangedEventArgs("MoveItemRequestHandler");
+		internal static readonly PropertyChangedEventArgs ClearItemsRequestHandlerPropertyChangedEventArgs = new PropertyChangedEventArgs("ClearItemsRequestHandler");
 		internal static readonly PropertyChangedEventArgs ValuePropertyChangedEventArgs = new PropertyChangedEventArgs("Value");
 		internal static readonly PropertyChangedEventArgs ResultPropertyChangedEventArgs = new PropertyChangedEventArgs("Result");
 		internal static readonly PropertyChangedEventArgs CountPropertyChangedEventArgs = new PropertyChangedEventArgs("Count");
 		internal static readonly PropertyChangedEventArgs IndexerPropertyChangedEventArgs = new PropertyChangedEventArgs("Item[]");
 		internal static readonly PropertyChangedEventArgs ValueObjectPropertyChangedEventArgs = new PropertyChangedEventArgs("ValueObject");
-		internal static readonly PropertyChangedEventArgs SetValueActionPropertyChangedEventArgs = new PropertyChangedEventArgs("SetValueAction");
+		internal static readonly PropertyChangedEventArgs SetValueRequestHandlerPropertyChangedEventArgs = new PropertyChangedEventArgs("SetValueRequestHandler");
 		internal static readonly PropertyChangedEventArgs IsDisabledPropertyChangedEventArgs = new PropertyChangedEventArgs("IsDisabled");
 		internal static readonly PropertyChangedEventArgs PreviousValuePropertyChangedEventArgs = new PropertyChangedEventArgs("PreviousValue");
 		internal static readonly PropertyChangedEventArgs IsEverChangedPropertyChangedEventArgs = new PropertyChangedEventArgs("IsEverChanged");
@@ -1154,8 +1153,6 @@ namespace ObservableComputations
 		internal static readonly NotifyCollectionChangedEventArgs ResetNotifyCollectionChangedEventArgs = new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Reset);
 		internal static readonly PropertyChangedEventArgs IsActivePropertyChangedEventArgs = new PropertyChangedEventArgs("IsActive");
 		internal static readonly PropertyChangedEventArgs ResumeTypePropertyChangedEventArgs = new PropertyChangedEventArgs("ResumeType");
-		internal static readonly PropertyChangedEventArgs DefaultValueScalarPropertyChangedEventArgs = new PropertyChangedEventArgs("DefaultValueScalar");
-		internal static readonly PropertyChangedEventArgs DefaultValuePropertyChangedEventArgs = new PropertyChangedEventArgs("DefaultValue");
 		internal static readonly PropertyChangedEventArgs IsDefaultedPropertyChangedEventArgs = new PropertyChangedEventArgs("IsDefaulted");
 		internal static readonly PropertyChangedEventArgs IsDisposedPropertyChangedEventArgs = new PropertyChangedEventArgs("IsDisposed");
 	}

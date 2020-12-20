@@ -5,6 +5,7 @@ using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Threading;
 using INotifyPropertyChanged = System.ComponentModel.INotifyPropertyChanged;
 
 namespace ObservableComputations
@@ -107,7 +108,7 @@ namespace ObservableComputations
 			}
 		}
 
-		public Action<JoinPair<TLeftSourceItem, TRightSourceItem>, TRightSourceItem> SetRightItemAction
+		public Action<JoinPair<TLeftSourceItem, TRightSourceItem>, TRightSourceItem> SetRightItemRequestHandler
 		{
 			get => _setRightItemRequestHandler;
 			set
@@ -961,14 +962,50 @@ namespace ObservableComputations
 		{
 			get => _leftItem;
 			// ReSharper disable once MemberCanBePrivate.Global
-			set => _joining._setLeftItemRequestHandler(this, value);
+			set
+			{
+				if (Configuration.TrackComputingsExecutingUserCode)
+				{
+					Thread currentThread = Thread.CurrentThread;
+					DebugInfo._computingsExecutingUserCode.TryGetValue(currentThread, out IComputing computing);
+					DebugInfo._computingsExecutingUserCode[currentThread] = _joining;	
+					_joining._userCodeIsCalledFrom = computing;
+				
+					_joining._setLeftItemRequestHandler(this, value);
+
+					if (computing == null) DebugInfo._computingsExecutingUserCode.TryRemove(currentThread, out IComputing _);
+					else DebugInfo._computingsExecutingUserCode[currentThread] = computing;
+					_joining._userCodeIsCalledFrom = null;
+					return;
+				}
+
+				_joining._setLeftItemRequestHandler(this, value);
+			}
 		}
 
 		public TRightSourceItem RightItem
 		{
 			get => _rightItem;
 			// ReSharper disable once MemberCanBePrivate.Global
-			set =>_joining._setRightItemRequestHandler(this, value);
+			set
+			{
+				if (Configuration.TrackComputingsExecutingUserCode)
+				{
+					Thread currentThread = Thread.CurrentThread;
+					DebugInfo._computingsExecutingUserCode.TryGetValue(currentThread, out IComputing computing);
+					DebugInfo._computingsExecutingUserCode[currentThread] = _joining;	
+					_joining._userCodeIsCalledFrom = computing;
+				
+					_joining._setRightItemRequestHandler(this, value);
+
+					if (computing == null) DebugInfo._computingsExecutingUserCode.TryRemove(currentThread, out IComputing _);
+					else DebugInfo._computingsExecutingUserCode[currentThread] = computing;
+					_joining._userCodeIsCalledFrom = null;
+					return;
+				}
+
+				_joining._setRightItemRequestHandler(this, value);
+			}
 		}
 
 		readonly EqualityComparer<TLeftSourceItem> _leftSourceItemEqualityComparer = EqualityComparer<TLeftSourceItem>.Default;

@@ -5,6 +5,7 @@ using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Linq.Expressions;
+using System.Threading;
 using ObservableComputations.ExtentionMethods;
 
 namespace ObservableComputations
@@ -56,64 +57,64 @@ namespace ObservableComputations
 		private ISourceCollectionChangeProcessor _thisAsSourceCollectionChangeProcessor;
 		private Queue<IProcessable>[] _deferredProcessings;
 
-		private Action<TKey, TValue> _addItemAction;
-		public Action<TKey, TValue> AddItemAction
+		private Action<TKey, TValue> _addItemRequestHandler;
+		public Action<TKey, TValue> AddItemRequestHandler
 		{
 			// ReSharper disable once MemberCanBePrivate.Global
-			get => _addItemAction;
+			get => _addItemRequestHandler;
 			set
 			{
-				if (_addItemAction != value)
+				if (_addItemRequestHandler != value)
 				{
-					_addItemAction = value;
-					onPropertyChanged(Utils.AddItemActionPropertyChangedEventArgs);
+					_addItemRequestHandler = value;
+					onPropertyChanged(Utils.AddItemRequestHandlerPropertyChangedEventArgs);
 				}
 
 			}
 		}
 
-		private Func<TKey, bool> _removeItemFunc;
-		public Func<TKey, bool> RemoveItemFunc
+		private Func<TKey, bool> _removeItemRequestHandler;
+		public Func<TKey, bool> RemoveItemRequestHandler
 		{
 			// ReSharper disable once MemberCanBePrivate.Global
-			get => _removeItemFunc;
+			get => _removeItemRequestHandler;
 			set
 			{
-				if (_removeItemFunc != value)
+				if (_removeItemRequestHandler != value)
 				{
-					_removeItemFunc = value;
-					onPropertyChanged(Utils.RemoveItemFuncPropertyChangedEventArgs);
+					_removeItemRequestHandler = value;
+					onPropertyChanged(Utils.RemoveItemRequestHandlerPropertyChangedEventArgs);
 				}
 			}
 		}
 
-		private Action<TKey, TValue> _setItemAction;
+		private Action<TKey, TValue> _setItemRequestHandler;
 		// ReSharper disable once MemberCanBePrivate.Global
-		public Action<TKey, TValue> SetItemAction
+		public Action<TKey, TValue> SetItemRequestHandler
 		{
-			get => _setItemAction;
+			get => _setItemRequestHandler;
 			set
 			{
-				if (_setItemAction != value)
+				if (_setItemRequestHandler != value)
 				{
-					_setItemAction = value;
-					onPropertyChanged(Utils.SetItemActionPropertyChangedEventArgs);
+					_setItemRequestHandler = value;
+					onPropertyChanged(Utils.SetItemRequestHandlerPropertyChangedEventArgs);
 				}
 			}
 		}
 
-		private Action _clearItemsAction;
+		private Action _clearItemsRequestHandler;
 
 		// ReSharper disable once MemberCanBePrivate.Global
-		public Action ClearItemsAction
+		public Action ClearItemsRequestHandler
 		{
-			get => _clearItemsAction;
+			get => _clearItemsRequestHandler;
 			set
 			{
-				if (_clearItemsAction != value)
+				if (_clearItemsRequestHandler != value)
 				{
-					_clearItemsAction = value;
-					onPropertyChanged(Utils.ClearItemsActionPropertyChangedEventArgs);
+					_clearItemsRequestHandler = value;
+					onPropertyChanged(Utils.ClearItemsRequestHandlerPropertyChangedEventArgs);
 				}
 			}
 		}
@@ -868,7 +869,22 @@ namespace ObservableComputations
 
 		public void Clear()
 		{
-			_clearItemsAction();
+			if (Configuration.TrackComputingsExecutingUserCode)
+			{
+				Thread currentThread = Thread.CurrentThread;
+				DebugInfo._computingsExecutingUserCode.TryGetValue(currentThread, out IComputing computing);
+				DebugInfo._computingsExecutingUserCode[currentThread] = this;	
+				_userCodeIsCalledFrom = computing;
+			
+				_clearItemsRequestHandler();
+
+				if (computing == null) DebugInfo._computingsExecutingUserCode.TryRemove(currentThread, out IComputing _);
+				else DebugInfo._computingsExecutingUserCode[currentThread] = computing;
+				_userCodeIsCalledFrom = null;
+				return;
+			}
+
+			_clearItemsRequestHandler();
 		}
 
 		public bool Contains(KeyValuePair<TKey, TValue> item)
@@ -904,7 +920,22 @@ namespace ObservableComputations
 
 		public void Add(TKey key, TValue value)
 		{
-			_addItemAction(key, value);
+			if (Configuration.TrackComputingsExecutingUserCode)
+			{
+				Thread currentThread = Thread.CurrentThread;
+				DebugInfo._computingsExecutingUserCode.TryGetValue(currentThread, out IComputing computing);
+				DebugInfo._computingsExecutingUserCode[currentThread] = this;	
+				_userCodeIsCalledFrom = computing;
+			
+				_addItemRequestHandler(key, value);
+
+				if (computing == null) DebugInfo._computingsExecutingUserCode.TryRemove(currentThread, out IComputing _);
+				else DebugInfo._computingsExecutingUserCode[currentThread] = computing;
+				_userCodeIsCalledFrom = null;
+				return;
+			}
+
+			_addItemRequestHandler(key, value);
 		}
 
 		public bool ContainsKey(TKey key)
@@ -914,7 +945,22 @@ namespace ObservableComputations
 
 		public bool Remove(TKey key)
 		{
-			return _removeItemFunc(key);
+			if (Configuration.TrackComputingsExecutingUserCode)
+			{
+				Thread currentThread = Thread.CurrentThread;
+				DebugInfo._computingsExecutingUserCode.TryGetValue(currentThread, out IComputing computing);
+				DebugInfo._computingsExecutingUserCode[currentThread] = this;	
+				_userCodeIsCalledFrom = computing;
+				
+				bool result =  _removeItemRequestHandler(key);
+
+				if (computing == null) DebugInfo._computingsExecutingUserCode.TryRemove(currentThread, out IComputing _);
+				else DebugInfo._computingsExecutingUserCode[currentThread] = computing;
+				_userCodeIsCalledFrom = null;
+				return result;
+			}
+
+			return _removeItemRequestHandler(key);
 		}
 
 		public bool TryGetValue(TKey key, out TValue value)
@@ -925,7 +971,25 @@ namespace ObservableComputations
 		public TValue this[TKey key]
 		{
 			get => _dictionary[key];
-			set => _setItemAction(key, value);
+			set
+			{
+				if (Configuration.TrackComputingsExecutingUserCode)
+				{
+					Thread currentThread = Thread.CurrentThread;
+					DebugInfo._computingsExecutingUserCode.TryGetValue(currentThread, out IComputing computing);
+					DebugInfo._computingsExecutingUserCode[currentThread] = this;	
+					_userCodeIsCalledFrom = computing;
+				
+					_setItemRequestHandler(key, value);
+
+					if (computing == null) DebugInfo._computingsExecutingUserCode.TryRemove(currentThread, out IComputing _);
+					else DebugInfo._computingsExecutingUserCode[currentThread] = computing;
+					_userCodeIsCalledFrom = null;
+					return;
+				}
+
+				_setItemRequestHandler(key, value);
+			}
 		}
 
 		public ICollection<TKey> Keys => _dictionary.Keys;

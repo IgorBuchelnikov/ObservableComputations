@@ -303,7 +303,7 @@ namespace ObservableComputations
 
 		private PropertyAccessing()
 		{
-			_setValueAction = result => _propertyInfo.SetValue(_propertyHolder, result);
+			_setValueRequestHandler = result => _propertyInfo.SetValue(_propertyHolder, result);
 			_changeValueAction = () => 	setValue((TResult) _propertyInfo.GetValue(_propertyHolder));
 			_changeHolderAction = () => {			
 				if (_propertyHolder != null)

@@ -74,9 +74,9 @@ namespace ObservableComputations
 		{
 			PropertyChanged += (sender, args) =>
 			{
-				if (args == Utils.SetValueActionPropertyChangedEventArgs)
+				if (args == Utils.SetValueRequestHandlerPropertyChangedEventArgs)
 					throw new ObjectDisposedException(
-						$"Cannot set property {nameof(PropertyDispatching<THolder, TResult>)}.{nameof(SetValueAction)}, since that it is predefined");
+						$"Cannot set property {nameof(PropertyDispatching<THolder, TResult>)}.{nameof(SetValueRequestHandler)}, since that it is predefined");
 			};
 		}
 
@@ -153,7 +153,7 @@ namespace ObservableComputations
 
 			_getter = propertyAcessors.Getter;
 			_setter = propertyAcessors.Setter;
-			_setValueAction = value =>
+			_setValueRequestHandler = value =>
 			{
 				void set() => _setter(_propertyHolder, value);
 

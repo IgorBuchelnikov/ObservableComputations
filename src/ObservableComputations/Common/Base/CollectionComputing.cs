@@ -32,91 +32,79 @@ namespace ObservableComputations
 		public event EventHandler PostCollectionChanged;
 
 
-		private Action<int, TItem> _insertItemAction;
-		public Action<int, TItem> InsertItemAction
+		private Action<int, TItem> _insertItemRequestHandler;
+		public Action<int, TItem> InsertItemRequestHandler
 		{
 			// ReSharper disable once MemberCanBePrivate.Global
-			get => _insertItemAction;
+			get => _insertItemRequestHandler;
 			set
 			{
-				if (_insertItemAction != value)
+				if (_insertItemRequestHandler != value)
 				{
-					_insertItemAction = value;
-					OnPropertyChanged(Utils.InsertItemActionPropertyChangedEventArgs);
+					_insertItemRequestHandler = value;
+					OnPropertyChanged(Utils.InsertItemRequestHandlerPropertyChangedEventArgs);
 				}
 
 			}
 		}
 
-		#region Overrides of Object
 
-		public override string ToString()
-		{
-			if (!string.IsNullOrEmpty(DebugTag))
-				return $"{DebugTag} ({base.ToString()})";
-
-			return base.ToString();
-		}
-
-		#endregion
-
-		private Action<int> _removeItemAction;
-		public Action<int> RemoveItemAction
+		public Action<int> RemoveItemRequestHandler
 		{
 			// ReSharper disable once MemberCanBePrivate.Global
-			get => _removeItemAction;
+			get => _removeItemRequestHandler;
 			set
 			{
-				if (_removeItemAction != value)
+				if (_removeItemRequestHandler != value)
 				{
-					_removeItemAction = value;
-					OnPropertyChanged(Utils.RemoveItemActionPropertyChangedEventArgs);
+					_removeItemRequestHandler = value;
+					OnPropertyChanged(Utils.RemoveItemRequestHandlerPropertyChangedEventArgs);
 				}
 			}
 		}
 
-		private Action<int, TItem> _setItemAction;
+		private Action<int, TItem> _setItemRequestHandler;
 		// ReSharper disable once MemberCanBePrivate.Global
-		public Action<int, TItem> SetItemAction
+		public Action<int, TItem> SetItemRequestHandler
 		{
-			get => _setItemAction;
+			get => _setItemRequestHandler;
 			set
 			{
-				if (_setItemAction != value)
+				if (_setItemRequestHandler != value)
 				{
-					_setItemAction = value;
-					OnPropertyChanged(Utils.SetItemActionPropertyChangedEventArgs);
+					_setItemRequestHandler = value;
+					OnPropertyChanged(Utils.SetItemRequestHandlerPropertyChangedEventArgs);
 				}
 			}
 		}
 
-		private Action<int, int> _moveItemAction;
+		private Action<int, int> _moveItemRequestHandler;
 		// ReSharper disable once MemberCanBePrivate.Global
-		public Action<int, int> MoveItemAction
+		public Action<int, int> MoveItemRequestHandler
 		{
-			get => _moveItemAction;
+			get => _moveItemRequestHandler;
 			set
 			{
-				if (_moveItemAction != value)
+				if (_moveItemRequestHandler != value)
 				{
-					_moveItemAction = value;
-					OnPropertyChanged(Utils.MoveItemActionPropertyChangedEventArgs);
+					_moveItemRequestHandler = value;
+					OnPropertyChanged(Utils.MoveItemRequestHandlerPropertyChangedEventArgs);
 				}
 			}
 		}
 
-		private Action _clearItemsAction;
+		private Action _clearItemsRequestHandler;
 
 		// ReSharper disable once MemberCanBePrivate.Global
-		public Action ClearItemsAction
+		public Action ClearItemsRequestHandler
 		{
-			get => _clearItemsAction;
+			get => _clearItemsRequestHandler;
 			set
 			{
-				if (_clearItemsAction != value)
+				if (_clearItemsRequestHandler != value)
 				{
-					_clearItemsAction = value;
-					OnPropertyChanged(Utils.ClearItemsActionPropertyChangedEventArgs);
+					_clearItemsRequestHandler = value;
+					OnPropertyChanged(Utils.ClearItemsRequestHandlerPropertyChangedEventArgs);
 				}
 			}
 		}
@@ -131,7 +119,7 @@ namespace ObservableComputations
 				DebugInfo._computingsExecutingUserCode[currentThread] = this;	
 				_userCodeIsCalledFrom = computing;
 				
-				_insertItemAction(index, item);
+				_insertItemRequestHandler(index, item);
 
 				if (computing == null) DebugInfo._computingsExecutingUserCode.TryRemove(currentThread, out IComputing _);
 				else DebugInfo._computingsExecutingUserCode[currentThread] = computing;
@@ -139,7 +127,7 @@ namespace ObservableComputations
 				return;
 			}
 
-			_insertItemAction(index, item);
+			_insertItemRequestHandler(index, item);
 		}
 
 		protected override void MoveItem(int oldIndex, int newIndex)
@@ -151,7 +139,7 @@ namespace ObservableComputations
 				DebugInfo._computingsExecutingUserCode[currentThread] = this;	
 				_userCodeIsCalledFrom = computing;
 
-				_moveItemAction(oldIndex, newIndex);
+				_moveItemRequestHandler(oldIndex, newIndex);
 
 				if (computing == null) DebugInfo._computingsExecutingUserCode.TryRemove(currentThread, out IComputing _);
 				else DebugInfo._computingsExecutingUserCode[currentThread] = computing;
@@ -159,7 +147,7 @@ namespace ObservableComputations
 				return;
 			}
 
-			_moveItemAction(oldIndex, newIndex);
+			_moveItemRequestHandler(oldIndex, newIndex);
 		}
 
 		protected override void RemoveItem(int index)
@@ -171,7 +159,7 @@ namespace ObservableComputations
 				DebugInfo._computingsExecutingUserCode[currentThread] = this;	
 				_userCodeIsCalledFrom = computing;
 
-				_removeItemAction(index);
+				_removeItemRequestHandler(index);
 
 				if (computing == null) DebugInfo._computingsExecutingUserCode.TryRemove(currentThread, out IComputing _);
 				else DebugInfo._computingsExecutingUserCode[currentThread] = computing;
@@ -179,7 +167,7 @@ namespace ObservableComputations
 				return;
 			}
 
-			_removeItemAction(index);
+			_removeItemRequestHandler(index);
 		}
 
 		protected override void SetItem(int index, TItem item)
@@ -191,7 +179,7 @@ namespace ObservableComputations
 				DebugInfo._computingsExecutingUserCode[currentThread] = this;	
 				_userCodeIsCalledFrom = computing;
 
-				_setItemAction(index, item);
+				_setItemRequestHandler(index, item);
 
 				if (computing == null) DebugInfo._computingsExecutingUserCode.TryRemove(currentThread, out IComputing _);
 				else DebugInfo._computingsExecutingUserCode[currentThread] = computing;
@@ -199,7 +187,7 @@ namespace ObservableComputations
 				return;
 			}
 
-			_setItemAction(index, item);
+			_setItemRequestHandler(index, item);
 		}
 
 		protected override void ClearItems()
@@ -211,7 +199,7 @@ namespace ObservableComputations
 				DebugInfo._computingsExecutingUserCode[currentThread] = this;	
 				_userCodeIsCalledFrom = computing;
 
-				_clearItemsAction();
+				_clearItemsRequestHandler();
 
 				if (computing == null) DebugInfo._computingsExecutingUserCode.TryRemove(currentThread, out IComputing _);
 				else DebugInfo._computingsExecutingUserCode[currentThread] = computing;
@@ -219,10 +207,11 @@ namespace ObservableComputations
 				return;
 			}
 
-			_clearItemsAction();
+			_clearItemsRequestHandler();
 		}
 		#endregion
 
+		private Action<int> _removeItemRequestHandler;
 		NotifyCollectionChangedAction? _currentChange;
 		TItem _newItem;
 		int _oldIndex = -1;
@@ -581,6 +570,18 @@ namespace ObservableComputations
 
 		internal abstract void addToUpstreamComputings(IComputingInternal computing);
 		internal abstract void removeFromUpstreamComputings(IComputingInternal computing);
+
+		#region Overrides of Object
+
+		public override string ToString()
+		{
+			if (!string.IsNullOrEmpty(DebugTag))
+				return $"{DebugTag} ({base.ToString()})";
+
+			return base.ToString();
+		}
+
+		#endregion
 	}
 
 }

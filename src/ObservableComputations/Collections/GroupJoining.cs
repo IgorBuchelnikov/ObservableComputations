@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Threading;
 
 namespace ObservableComputations
 {
@@ -30,68 +31,68 @@ namespace ObservableComputations
 		public ReadOnlyCollection<INotifyCollectionChanged> SourceCollections => new ReadOnlyCollection<INotifyCollectionChanged>(new []{OuterSource, InnerSource});
 		public ReadOnlyCollection<IReadScalar<INotifyCollectionChanged>> SourceCollectionScalars => new ReadOnlyCollection<IReadScalar<INotifyCollectionChanged>>(new []{OuterSourceScalar, InnerSourceScalar});
 
-		public Action<JoinGroup<TOuterSourceItem, TInnerSourceItem, TKey>, int, TInnerSourceItem> InsertItemIntoGroupAction
+		public Action<JoinGroup<TOuterSourceItem, TInnerSourceItem, TKey>, int, TInnerSourceItem> InsertItemIntoGroupRequestHandler
 		{
-			get => _insertItemIntoGroupAction;
+			get => _insertItemIntoGroupRequestHandler;
 			set
 			{
-				if (_insertItemIntoGroupAction != value)
+				if (_insertItemIntoGroupRequestHandler != value)
 				{
-					_insertItemIntoGroupAction = value;
-					OnPropertyChanged(Utils.InsertItemIntoGroupActionPropertyChangedEventArgs);
+					_insertItemIntoGroupRequestHandler = value;
+					OnPropertyChanged(Utils.InsertItemIntoGroupRequestHandlerPropertyChangedEventArgs);
 				}
 
 			}
 		}
 
-		public Action<JoinGroup<TOuterSourceItem, TInnerSourceItem, TKey>, int> RemoveItemFromGroupAction
+		public Action<JoinGroup<TOuterSourceItem, TInnerSourceItem, TKey>, int> RemoveItemFromGroupRequestHandler
 		{
-			get => _removeItemFromGroupAction;
+			get => _removeItemFromGroupRequestHandler;
 			set
 			{
-				if (_removeItemFromGroupAction != value)
+				if (_removeItemFromGroupRequestHandler != value)
 				{
-					_removeItemFromGroupAction = value;
-					OnPropertyChanged(Utils.RemoveItemFromGroupActionPropertyChangedEventArgs);
+					_removeItemFromGroupRequestHandler = value;
+					OnPropertyChanged(Utils.RemoveItemFromGroupRequestHandlerPropertyChangedEventArgs);
 				}
 			}
 		}
 
-		public Action<JoinGroup<TOuterSourceItem, TInnerSourceItem, TKey>, int, int> MoveItemInGroupAction
+		public Action<JoinGroup<TOuterSourceItem, TInnerSourceItem, TKey>, int, int> MoveItemInGroupRequestHandler
 		{
-			get => _moveItemInGroupAction;
+			get => _moveItemInGroupRequestHandler;
 			set
 			{
-				if (_moveItemInGroupAction != value)
+				if (_moveItemInGroupRequestHandler != value)
 				{
-					_moveItemInGroupAction = value;
-					OnPropertyChanged(Utils.MoveItemInGroupActionPropertyChangedEventArgs);
+					_moveItemInGroupRequestHandler = value;
+					OnPropertyChanged(Utils.MoveItemInGroupRequestHandlerPropertyChangedEventArgs);
 				}
 			}
 		}
 
-		public Action<JoinGroup<TOuterSourceItem, TInnerSourceItem, TKey>> ClearGroupItemsAction
+		public Action<JoinGroup<TOuterSourceItem, TInnerSourceItem, TKey>> ClearGroupItemsRequestHandler
 		{
-			get => _clearGroupItemsAction;
+			get => _clearGroupItemsRequestHandler;
 			set
 			{
-				if (_clearGroupItemsAction != value)
+				if (_clearGroupItemsRequestHandler != value)
 				{
-					_clearGroupItemsAction = value;
-					OnPropertyChanged(Utils.ClearGroupItemsActionPropertyChangedEventArgs);
+					_clearGroupItemsRequestHandler = value;
+					OnPropertyChanged(Utils.ClearGroupItemsRequestHandlerPropertyChangedEventArgs);
 				}
 			}
 		}
 
-		public Action<JoinGroup<TOuterSourceItem, TInnerSourceItem, TKey>, int, TInnerSourceItem> SetGroupItemAction
+		public Action<JoinGroup<TOuterSourceItem, TInnerSourceItem, TKey>, int, TInnerSourceItem> SetGroupItemRequestHandler
 		{
-			get => _setGroupItemAction;
+			get => _setGroupItemRequestHandler;
 			set
 			{
-				if (_setGroupItemAction != value)
+				if (_setGroupItemRequestHandler != value)
 				{
-					_setGroupItemAction = value;
-					OnPropertyChanged(Utils.SetGroupItemActionPropertyChangedEventArgs);
+					_setGroupItemRequestHandler = value;
+					OnPropertyChanged(Utils.SetGroupItemRequestHandlerPropertyChangedEventArgs);
 				}
 			}
 		}
@@ -104,11 +105,11 @@ namespace ObservableComputations
 		private readonly ExpressionWatcher.ExpressionInfo _outerKeySelectorExpressionInfo;
 		private readonly bool _outerKeySelectorExpressionContainsParametrizedObservableComputationsCalls;
 
-		internal Action<JoinGroup<TOuterSourceItem, TInnerSourceItem, TKey>, int, TInnerSourceItem> _insertItemIntoGroupAction;
-		internal Action<JoinGroup<TOuterSourceItem, TInnerSourceItem, TKey>, int> _removeItemFromGroupAction;
-		internal Action<JoinGroup<TOuterSourceItem, TInnerSourceItem, TKey>, int, TInnerSourceItem> _setGroupItemAction;
-		internal Action<JoinGroup<TOuterSourceItem, TInnerSourceItem, TKey>, int, int> _moveItemInGroupAction;
-		internal Action<JoinGroup<TOuterSourceItem, TInnerSourceItem, TKey>> _clearGroupItemsAction;
+		internal Action<JoinGroup<TOuterSourceItem, TInnerSourceItem, TKey>, int, TInnerSourceItem> _insertItemIntoGroupRequestHandler;
+		internal Action<JoinGroup<TOuterSourceItem, TInnerSourceItem, TKey>, int> _removeItemFromGroupRequestHandler;
+		internal Action<JoinGroup<TOuterSourceItem, TInnerSourceItem, TKey>, int, TInnerSourceItem> _setGroupItemRequestHandler;
+		internal Action<JoinGroup<TOuterSourceItem, TInnerSourceItem, TKey>, int, int> _moveItemInGroupRequestHandler;
+		internal Action<JoinGroup<TOuterSourceItem, TInnerSourceItem, TKey>> _clearGroupItemsRequestHandler;
 
 		Grouping<TInnerSourceItem, TKey> _grouping;
 
@@ -900,27 +901,102 @@ namespace ObservableComputations
 
 		protected override void InsertItem(int index, TInnerSourceItem item)
 		{
-			_groupJoining._insertItemIntoGroupAction(this, index, item);
+			if (Configuration.TrackComputingsExecutingUserCode)
+			{
+				Thread currentThread = Thread.CurrentThread;
+				DebugInfo._computingsExecutingUserCode.TryGetValue(currentThread, out IComputing computing);
+				DebugInfo._computingsExecutingUserCode[currentThread] = this;	
+				_userCodeIsCalledFrom = computing;
+			
+				_groupJoining._insertItemIntoGroupRequestHandler(this, index, item);
+
+				if (computing == null) DebugInfo._computingsExecutingUserCode.TryRemove(currentThread, out IComputing _);
+				else DebugInfo._computingsExecutingUserCode[currentThread] = computing;
+				_userCodeIsCalledFrom = null;
+				return;
+			}
+
+			_groupJoining._insertItemIntoGroupRequestHandler(this, index, item);
 		}
 
 		protected override void MoveItem(int oldIndex, int newIndex)
 		{
-			_groupJoining._moveItemInGroupAction(this, oldIndex, newIndex);
+			if (Configuration.TrackComputingsExecutingUserCode)
+			{
+				Thread currentThread = Thread.CurrentThread;
+				DebugInfo._computingsExecutingUserCode.TryGetValue(currentThread, out IComputing computing);
+				DebugInfo._computingsExecutingUserCode[currentThread] = this;	
+				_userCodeIsCalledFrom = computing;
+			
+				_groupJoining._moveItemInGroupRequestHandler(this, oldIndex, newIndex);;
+
+				if (computing == null) DebugInfo._computingsExecutingUserCode.TryRemove(currentThread, out IComputing _);
+				else DebugInfo._computingsExecutingUserCode[currentThread] = computing;
+				_userCodeIsCalledFrom = null;
+				return;
+			}
+
+			_groupJoining._moveItemInGroupRequestHandler(this, oldIndex, newIndex);
 		}
 
 		protected override void RemoveItem(int index)
 		{
-			_groupJoining._removeItemFromGroupAction(this, index);
+			if (Configuration.TrackComputingsExecutingUserCode)
+			{
+				Thread currentThread = Thread.CurrentThread;
+				DebugInfo._computingsExecutingUserCode.TryGetValue(currentThread, out IComputing computing);
+				DebugInfo._computingsExecutingUserCode[currentThread] = this;	
+				_userCodeIsCalledFrom = computing;
+			
+				_groupJoining._removeItemFromGroupRequestHandler(this, index);
+
+				if (computing == null) DebugInfo._computingsExecutingUserCode.TryRemove(currentThread, out IComputing _);
+				else DebugInfo._computingsExecutingUserCode[currentThread] = computing;
+				_userCodeIsCalledFrom = null;
+				return;
+			}
+
+			_groupJoining._removeItemFromGroupRequestHandler(this, index);
 		}
 
 		protected override void SetItem(int index, TInnerSourceItem item)
 		{
-			_groupJoining._setGroupItemAction(this, index, item);
+			if (Configuration.TrackComputingsExecutingUserCode)
+			{
+				Thread currentThread = Thread.CurrentThread;
+				DebugInfo._computingsExecutingUserCode.TryGetValue(currentThread, out IComputing computing);
+				DebugInfo._computingsExecutingUserCode[currentThread] = this;	
+				_userCodeIsCalledFrom = computing;
+			
+				_groupJoining._setGroupItemRequestHandler(this, index, item);
+
+				if (computing == null) DebugInfo._computingsExecutingUserCode.TryRemove(currentThread, out IComputing _);
+				else DebugInfo._computingsExecutingUserCode[currentThread] = computing;
+				_userCodeIsCalledFrom = null;
+				return;
+			}
+
+			_groupJoining._setGroupItemRequestHandler(this, index, item);
 		}
 
 		protected override void ClearItems()
 		{
-			_groupJoining._clearGroupItemsAction(this);
+			if (Configuration.TrackComputingsExecutingUserCode)
+			{
+				Thread currentThread = Thread.CurrentThread;
+				DebugInfo._computingsExecutingUserCode.TryGetValue(currentThread, out IComputing computing);
+				DebugInfo._computingsExecutingUserCode[currentThread] = this;	
+				_userCodeIsCalledFrom = computing;
+			
+				_groupJoining._clearGroupItemsRequestHandler(this);
+
+				if (computing == null) DebugInfo._computingsExecutingUserCode.TryRemove(currentThread, out IComputing _);
+				else DebugInfo._computingsExecutingUserCode[currentThread] = computing;
+				_userCodeIsCalledFrom = null;
+				return;
+			}
+
+			_groupJoining._clearGroupItemsRequestHandler(this);
 		}
 		#endregion
 

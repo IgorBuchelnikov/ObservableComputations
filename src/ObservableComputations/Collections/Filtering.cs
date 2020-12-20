@@ -115,14 +115,14 @@ namespace ObservableComputations
 				constructInsertOrRemoveActionsVisitor.TransformSourceItemIntoMember;
 			if (transformSourceItemIntoMember != null)
 			{
-				InsertItemAction = (index, item) => transformSourceItemIntoMember(item);
+				InsertItemRequestHandler = (index, item) => transformSourceItemIntoMember(item);
 			}
 
 			Action<TSourceItem> transformSourceItemNotIntoMember =
 				constructInsertOrRemoveActionsVisitor.TransformSourceItemIntoNotMember;
 			if (transformSourceItemNotIntoMember != null)
 			{
-				RemoveItemAction = index => transformSourceItemNotIntoMember(this[index]);
+				RemoveItemRequestHandler = index => transformSourceItemNotIntoMember(this[index]);
 			}
 
 			return this;

@@ -6,7 +6,6 @@ using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Linq.Expressions;
 using System.Threading;
-using ObservableComputations.ExtentionMethods;
 
 namespace ObservableComputations
 {
@@ -49,12 +48,12 @@ namespace ObservableComputations
 
 		public event EventHandler ConsistencyRestored;
 
-		private List<IComputingInternal> _keyNestedComputings;
-		private List<IComputingInternal> _valueNestedComputings;
+		private readonly List<IComputingInternal> _keyNestedComputings;
+		private readonly List<IComputingInternal> _valueNestedComputings;
 
-		private ISourceItemKeyChangeProcessor _thisAsSourceItemKeyChangeProcessor;
-		private ISourceItemValueChangeProcessor _thisAsSourceValueItemChangeProcessor;
-		private ISourceCollectionChangeProcessor _thisAsSourceCollectionChangeProcessor;
+		private readonly ISourceItemKeyChangeProcessor _thisAsSourceItemKeyChangeProcessor;
+		private readonly ISourceItemValueChangeProcessor _thisAsSourceValueItemChangeProcessor;
+		private readonly ISourceCollectionChangeProcessor _thisAsSourceCollectionChangeProcessor;
 		private Queue<IProcessable>[] _deferredProcessings;
 
 		private Action<TKey, TValue> _addItemRequestHandler;
@@ -125,14 +124,14 @@ namespace ObservableComputations
 		private readonly Expression<Func<TSourceItem, TKey>> _keySelectorExpression;
 		private readonly Expression<Func<TSourceItem, TKey>> _keySelectorExpressionOriginal;
 		private readonly ExpressionWatcher.ExpressionInfo _keySelectorExpressionInfo;
-		private int _keySelectorExpressionСallCount;
+		private int _keySelectorExpressionCallCount;
 
 		private readonly bool _keySelectorContainsParametrizedObservableComputationsCalls;
 
 		private readonly Expression<Func<TSourceItem, TValue>> _valueSelectorExpression;
 		private readonly Expression<Func<TSourceItem, TValue>> _valueSelectorExpressionOriginal;
 		private readonly ExpressionWatcher.ExpressionInfo _valueSelectorExpressionInfo;
-		private int _valueSelectorExpressionСallCount;
+		private int _valueSelectorExpressionCallCount;
 
 		private readonly bool _valueSelectorContainsParametrizedObservableComputationsCalls;
 
@@ -179,7 +178,7 @@ namespace ObservableComputations
 				out _keySelectorExpression, 
 				out _keySelectorContainsParametrizedObservableComputationsCalls, 
 				ref _keySelectorExpressionInfo, 
-				ref _keySelectorExpressionСallCount, 
+				ref _keySelectorExpressionCallCount, 
 				ref _keySelectorFunc, 
 				ref _keyNestedComputings);
 
@@ -189,7 +188,7 @@ namespace ObservableComputations
 				out _valueSelectorExpression, 
 				out _valueSelectorContainsParametrizedObservableComputationsCalls, 
 				ref _valueSelectorExpressionInfo, 
-				ref _valueSelectorExpressionСallCount, 
+				ref _valueSelectorExpressionCallCount, 
 				ref _valueSelectorFunc, 
 				ref _valueNestedComputings);
 
@@ -273,8 +272,8 @@ namespace ObservableComputations
 			{
 				Utils.disposeKeyValueExpressionItemInfos(
 					_itemInfos,
-					_keySelectorExpressionСallCount,
-					_valueSelectorExpressionСallCount,
+					_keySelectorExpressionCallCount,
+					_valueSelectorExpressionCallCount,
 					this);
 
 				Utils.removeDownstreamConsumedComputing(_itemInfos, this);
@@ -307,7 +306,6 @@ namespace ObservableComputations
 				_sourceAsList.CopyTo(sourceCopy, 0);
 
 				_sourceAsList.CollectionChanged += handleSourceCollectionChanged;
-
 				for (int index = 0; index < count; index++)
 				{
 					TSourceItem sourceItem = sourceCopy[index];
@@ -348,7 +346,7 @@ namespace ObservableComputations
 				out Func<TValue> func,
 				out List<IComputingInternal> nestedComputings,
 				_valueSelectorExpression,
-				out _valueSelectorExpressionСallCount,
+				out _valueSelectorExpressionCallCount,
 				this,
 				_valueSelectorContainsParametrizedObservableComputationsCalls,
 				_valueSelectorExpressionInfo);
@@ -369,7 +367,7 @@ namespace ObservableComputations
 				out Func<TKey> func,
 				out List<IComputingInternal> nestedComputings,
 				_keySelectorExpression,
-				out _keySelectorExpressionСallCount,
+				out _keySelectorExpressionCallCount,
 				this,
 				_keySelectorContainsParametrizedObservableComputationsCalls,
 				_keySelectorExpressionInfo);
@@ -391,7 +389,6 @@ namespace ObservableComputations
 				ref _lastProcessedSourceChangeMarker, 
 				_sourceAsList, 
 				ref _isConsistent,
-				this,
 				ref _handledEventSender,
 				ref _handledEventArgs,
 				ref _deferredProcessings,
@@ -539,7 +536,7 @@ namespace ObservableComputations
 
 			if (Configuration.TrackComputingsExecutingUserCode)
 			{
-				var currentThread = Utils.startComputingExecutingUserCode(out var computing, out _userCodeIsCalledFrom, this);
+				Thread currentThread = Utils.startComputingExecutingUserCode(out IComputing computing, out _userCodeIsCalledFrom, this);
 				TKey result = getValue();
 				Utils.endComputingExecutingUserCode(computing, currentThread, out _userCodeIsCalledFrom);
 				return result;
@@ -559,7 +556,7 @@ namespace ObservableComputations
 
 			if (Configuration.TrackComputingsExecutingUserCode)
 			{
-				var currentThread = Utils.startComputingExecutingUserCode(out var computing, out _userCodeIsCalledFrom, this);
+				Thread currentThread = Utils.startComputingExecutingUserCode(out IComputing computing, out _userCodeIsCalledFrom, this);
 				TValue result = getValue();
 				Utils.endComputingExecutingUserCode(computing, currentThread, out _userCodeIsCalledFrom);
 
@@ -780,7 +777,7 @@ namespace ObservableComputations
 
 		void IComputingInternal.AddConsumer(Consumer addingConsumer)
 		{
-			Utils.addComsumer(
+			Utils.addConsumer(
 				addingConsumer, 
 				_consumers,
 				_downstreamConsumedComputings, 

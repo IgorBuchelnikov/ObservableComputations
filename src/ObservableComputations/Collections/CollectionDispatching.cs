@@ -22,7 +22,7 @@ namespace ObservableComputations
 
 		private INotifyCollectionChanged _source;
 		private IList<TSourceItem> _sourceAsList;
-		private IReadScalar<INotifyCollectionChanged> _sourceScalar;
+		private readonly IReadScalar<INotifyCollectionChanged> _sourceScalar;
 
 		private bool _sourceInitialized;
 
@@ -30,14 +30,14 @@ namespace ObservableComputations
 		private INotifyPropertyChanged _sourceAsINotifyPropertyChanged;
 
 		private readonly IOcDispatcher _destinationOcDispatcher;
-		private ICollectionDestinationOcDispatcher _collectionDestinationOcDispatcher;
-		private IOcDispatcher _sourceOcDispatcher;
+		private readonly ICollectionDestinationOcDispatcher _collectionDestinationOcDispatcher;
+		private readonly IOcDispatcher _sourceOcDispatcher;
 
 		private IHasChangeMarker _sourceAsIHasChangeMarker;
 		private bool _lastProcessedSourceChangeMarker;
 
-		private DispatcherPriorities _dispatcherPriorities;
-		private DispatcherParameters _dispatcherParameters;
+		private readonly DispatcherPriorities _dispatcherPriorities;
+		private readonly DispatcherParameters _dispatcherParameters;
 
 		[ObservableComputationsCall]
 		public CollectionDispatching(
@@ -121,13 +121,13 @@ namespace ObservableComputations
 			if (_destinationOcDispatcher != null)
 				_destinationOcDispatcher.Invoke(
 					() => doInitializeFromSource(sender, e), 
-					_dispatcherPriorities._distinationDispatcherPriority,
+					_dispatcherPriorities._destinationDispatcherPriority,
 					_dispatcherParameters._distinationDispatcherParameter,
 					this);
 			else
 				_collectionDestinationOcDispatcher.InvokeInitialization(
 					() => doInitializeFromSource(sender, e), 
-					_dispatcherPriorities._distinationDispatcherPriority,
+					_dispatcherPriorities._destinationDispatcherPriority,
 					_dispatcherParameters._distinationDispatcherParameter,
 					this);
 		}
@@ -169,7 +169,7 @@ namespace ObservableComputations
 
 			if (_sourceAsList != null && _isActive)
 			{
-				void readAndSubscibe()
+				void readAndSubscribe()
 				{
 					Utils.initializeFromHasChangeMarker(
 						out _sourceAsIHasChangeMarker, 
@@ -184,20 +184,18 @@ namespace ObservableComputations
 
 					_source.CollectionChanged += handleSourceCollectionChanged;
 
-					Action resetAction = () =>
+					void resetAction()
 					{
 						_handledEventSender = sender;
 						_handledEventArgs = e;
 
 						int sourceIndex = 0;
-
-						for (var index = 0; index < count; index++)
+						for (int index = 0; index < count; index++)
 						{
-							TSourceItem sourceItem = sourceCopy[index];
 							if (originalCount > sourceIndex)
-								_items[sourceIndex] = sourceItem;
+								_items[sourceIndex] = sourceCopy[index];
 							else
-								_items.Insert(sourceIndex, sourceItem);
+								_items.Insert(sourceIndex, sourceCopy[index]);
 
 							sourceIndex++;
 						}
@@ -211,17 +209,17 @@ namespace ObservableComputations
 
 						_handledEventSender = null;
 						_handledEventArgs = null;
-					};
+					}
 
 					if (_destinationOcDispatcher != null) 
 						_destinationOcDispatcher.Invoke(
 							resetAction, 
-							_dispatcherPriorities._distinationDispatcherPriority,
+							_dispatcherPriorities._destinationDispatcherPriority,
 							_dispatcherParameters._distinationDispatcherParameter,
 							this);
 					else _collectionDestinationOcDispatcher.InvokeCollectionChange(
 						resetAction, 
-						_dispatcherPriorities._distinationDispatcherPriority,
+						_dispatcherPriorities._destinationDispatcherPriority,
 						_dispatcherParameters._distinationDispatcherParameter, 
 						this, 
 						NotifyCollectionChangedAction.Reset, 
@@ -230,35 +228,35 @@ namespace ObservableComputations
 
 				if (_sourceOcDispatcher != null)
 					_sourceOcDispatcher.Invoke(
-						readAndSubscibe, 
+						readAndSubscribe, 
 						_dispatcherPriorities._sourceDispatcherPriority,
 						_dispatcherParameters._sourceDispatcherParameter,
 						this);
 				else
-					readAndSubscibe();
+					readAndSubscribe();
 	 
 				_sourceInitialized = true;
 			}
 			else
 			{
-				Action clearItemsAction = () =>
+				void clearItemsAction()
 				{
 					_handledEventSender = sender;
 					_handledEventArgs = e;
 					baseClearItems();
 					_handledEventSender = null;
 					_handledEventArgs = null;
-				};
+				}
 
 				if (_destinationOcDispatcher != null) 
 					_destinationOcDispatcher.Invoke(
 						clearItemsAction, 
-						_dispatcherPriorities._distinationDispatcherPriority,
+						_dispatcherPriorities._destinationDispatcherPriority,
 						_dispatcherParameters._distinationDispatcherParameter,
 						this);
 				else _collectionDestinationOcDispatcher.InvokeCollectionChange(
 					clearItemsAction, 
-					_dispatcherPriorities._distinationDispatcherPriority,
+					_dispatcherPriorities._destinationDispatcherPriority,
 					_dispatcherParameters._distinationDispatcherParameter, 
 					this, NotifyCollectionChangedAction.Reset, 
 					null, null, 0, 0);
@@ -285,13 +283,13 @@ namespace ObservableComputations
 					if (_destinationOcDispatcher != null) 
 						_destinationOcDispatcher.Invoke(
 							add, 
-							_dispatcherPriorities._distinationDispatcherPriority,
+							_dispatcherPriorities._destinationDispatcherPriority,
 							_dispatcherParameters._distinationDispatcherParameter,
 							this);
 					else
 						_collectionDestinationOcDispatcher.InvokeCollectionChange(
 							add, 
-							_dispatcherPriorities._distinationDispatcherPriority,
+							_dispatcherPriorities._destinationDispatcherPriority,
 							_dispatcherParameters._distinationDispatcherParameter, 
 							this, 
 							NotifyCollectionChangedAction.Add,
@@ -311,13 +309,13 @@ namespace ObservableComputations
 					if (_destinationOcDispatcher != null) 
 						_destinationOcDispatcher.Invoke(
 							remove, 
-							_dispatcherPriorities._distinationDispatcherPriority,
+							_dispatcherPriorities._destinationDispatcherPriority,
 							_dispatcherParameters._distinationDispatcherParameter,
 							this);
 					else
 						_collectionDestinationOcDispatcher.InvokeCollectionChange(
 							remove, 
-							_dispatcherPriorities._distinationDispatcherPriority,
+							_dispatcherPriorities._destinationDispatcherPriority,
 							_dispatcherParameters._distinationDispatcherParameter, 
 							this, 
 							NotifyCollectionChangedAction.Remove,
@@ -335,13 +333,13 @@ namespace ObservableComputations
 					if (_destinationOcDispatcher != null) 
 						_destinationOcDispatcher.Invoke(
 							replace, 
-							_dispatcherPriorities._distinationDispatcherPriority,
+							_dispatcherPriorities._destinationDispatcherPriority,
 							_dispatcherParameters._distinationDispatcherParameter,
 							this);
 					else
 						_collectionDestinationOcDispatcher.InvokeCollectionChange(
 							replace, 
-							_dispatcherPriorities._distinationDispatcherPriority,
+							_dispatcherPriorities._destinationDispatcherPriority,
 							_dispatcherParameters._distinationDispatcherParameter, 
 							this, 
 							NotifyCollectionChangedAction.Replace,
@@ -361,13 +359,13 @@ namespace ObservableComputations
 					if (_destinationOcDispatcher != null) 
 						_destinationOcDispatcher.Invoke(
 							move, 
-							_dispatcherPriorities._distinationDispatcherPriority,
+							_dispatcherPriorities._destinationDispatcherPriority,
 							_dispatcherParameters._distinationDispatcherParameter,
 							this);
 					else
 						_collectionDestinationOcDispatcher.InvokeCollectionChange(
 							move, 
-							_dispatcherPriorities._distinationDispatcherPriority,
+							_dispatcherPriorities._destinationDispatcherPriority,
 							_dispatcherParameters._distinationDispatcherParameter, 
 							this, 
 							NotifyCollectionChangedAction.Move,
@@ -468,15 +466,15 @@ namespace ObservableComputations
 	public struct DispatcherPriorities
 	{
 		internal readonly int _sourceDispatcherPriority;
-		internal readonly int _distinationDispatcherPriority;
+		internal readonly int _destinationDispatcherPriority;
 
 		public int? SourceDispatcherPriority => _sourceDispatcherPriority;
-		public int? DistinationDispatcherPriority => _distinationDispatcherPriority;
+		public int? DestinationDispatcherPriority => _destinationDispatcherPriority;
 
-		public DispatcherPriorities(int sourceDispatcherPriority, int distinationDispatcherPriority)
+		public DispatcherPriorities(int sourceDispatcherPriority, int destinationDispatcherPriority)
 		{
 			_sourceDispatcherPriority = sourceDispatcherPriority;
-			_distinationDispatcherPriority = distinationDispatcherPriority;
+			_destinationDispatcherPriority = destinationDispatcherPriority;
 		}
 	}
 

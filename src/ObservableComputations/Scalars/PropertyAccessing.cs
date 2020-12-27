@@ -19,25 +19,25 @@ namespace ObservableComputations
 		// ReSharper disable once MemberCanBeProtected.Global
 		public TResult DefaultValue => _defaultValue;
 
-		private IReadScalar<INotifyPropertyChanged> _propertyHolderScalar;
+		private readonly IReadScalar<INotifyPropertyChanged> _propertyHolderScalar;
 		private INotifyPropertyChanged _propertyHolder;
 		private Type _propertyHolderType;
 
-		private PropertyInfoGettingType _propertyInfoGettingType;
+		private readonly PropertyInfoGettingType _propertyInfoGettingType;
 
-		private string _propertyName;
-		private BindingFlags _bindingAttr;
-		private Binder _binder;
-		private Type _returnType;
-		private Type[] _types;
-		private ParameterModifier[] _modifiers;
-		private Func<PropertyInfo, bool> _propertyInfoPredicate;
+		private readonly string _propertyName;
+		private readonly BindingFlags _bindingAttr;
+		private readonly Binder _binder;
+		private readonly Type _returnType;
+		private readonly Type[] _types;
+		private readonly ParameterModifier[] _modifiers;
+		private readonly Func<PropertyInfo, bool> _propertyInfoPredicate;
 		private PropertyInfo _propertyInfo;
 
 		internal TResult _defaultValue;
 
-		private Action _changeValueAction;
-		private Action _changeHolderAction;
+		private readonly Action _changeValueAction;
+		private readonly Action _changeHolderAction;
 
 		private enum PropertyInfoGettingType
 		{

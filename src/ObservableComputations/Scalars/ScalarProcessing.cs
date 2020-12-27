@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel;
+using System.Threading;
 
 namespace ObservableComputations
 {
@@ -8,12 +9,12 @@ namespace ObservableComputations
 		public IReadScalar<TValue> Scalar => _scalar;
 		public Func<TValue, IScalarComputing, TReturnValue, TReturnValue> NewValueProcessor => _newValueProcessor;
 
-		private IReadScalar<TValue> _scalar;
+		private readonly IReadScalar<TValue> _scalar;
 
-		private Func<TValue, IScalarComputing, TReturnValue, TReturnValue> _newValueProcessor;
+		private readonly Func<TValue, IScalarComputing, TReturnValue, TReturnValue> _newValueProcessor;
 
 		private TReturnValue _returnValue;
-		private Action _changeValueAction;
+		private readonly Action _changeValueAction;
 
 		[ObservableComputationsCall]
 		public ScalarProcessing(
@@ -58,7 +59,7 @@ namespace ObservableComputations
 		{
 			if (Configuration.TrackComputingsExecutingUserCode)
 			{
-				var currentThread = Utils.startComputingExecutingUserCode(out var computing, out _userCodeIsCalledFrom, this);
+				Thread currentThread = Utils.startComputingExecutingUserCode(out IComputing computing, out _userCodeIsCalledFrom, this);
 				TReturnValue returnValue = _newValueProcessor(newValue, this, _returnValue);
 				Utils.endComputingExecutingUserCode(computing, currentThread, out _userCodeIsCalledFrom);
 

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.Linq.Expressions;
+using System.Threading;
 
 namespace ObservableComputations
 {
@@ -26,11 +27,11 @@ namespace ObservableComputations
 		private Positions<ItemInfo> _sourcePositions;
 		private List<ItemInfo> _itemInfos;
 
-		private Expression<Func<TSourceItem, TResultItem>> _selectorExpression;
-		private ExpressionWatcher.ExpressionInfo _selectorExpressionInfo;
-		private int _selectorExpressionСallCount;
+		private readonly Expression<Func<TSourceItem, TResultItem>> _selectorExpression;
+		private readonly ExpressionWatcher.ExpressionInfo _selectorExpressionInfo;
+		private int _selectorExpressionCallCount;
 
-		private bool _selectorContainsParametrizedObservableComputationsCalls;
+		private readonly bool _selectorContainsParametrizedObservableComputationsCalls;
 
 		private ObservableCollectionWithChangeMarker<TSourceItem> _sourceAsList;
 		bool _rootSourceWrapper;
@@ -38,14 +39,14 @@ namespace ObservableComputations
 
 		private bool _sourceInitialized;
 		private readonly IReadScalar<INotifyCollectionChanged> _sourceScalar;
-		private Expression<Func<TSourceItem, TResultItem>> _selectorExpressionOriginal;
+		private readonly Expression<Func<TSourceItem, TResultItem>> _selectorExpressionOriginal;
 		internal INotifyCollectionChanged _source;
-		private Func<TSourceItem, TResultItem> _selectorFunc;
+		private readonly Func<TSourceItem, TResultItem> _selectorFunc;
 
-		private List<IComputingInternal> _nestedComputings;
+		private readonly List<IComputingInternal> _nestedComputings;
 
-		private ISourceCollectionChangeProcessor _thisAsSourceCollectionChangeProcessor;
-		private ISourceItemChangeProcessor _thisAsSourceItemChangeProcessor;
+		private readonly ISourceCollectionChangeProcessor _thisAsSourceCollectionChangeProcessor;
+		private readonly ISourceItemChangeProcessor _thisAsSourceItemChangeProcessor;
 
 		private sealed class ItemInfo : ExpressionItemInfo
 		{
@@ -79,7 +80,7 @@ namespace ObservableComputations
 				out _selectorExpression, 
 				out _selectorContainsParametrizedObservableComputationsCalls, 
 				ref _selectorExpressionInfo, 
-				ref _selectorExpressionСallCount, 
+				ref _selectorExpressionCallCount, 
 				ref _selectorFunc, 
 				ref _nestedComputings);
 
@@ -94,7 +95,7 @@ namespace ObservableComputations
 
 			if (_sourceInitialized)
 			{
-				Utils.disposeExpressionItemInfos(_itemInfos, _selectorExpressionСallCount, this);
+				Utils.disposeExpressionItemInfos(_itemInfos, _selectorExpressionCallCount, this);
 				Utils.removeDownstreamConsumedComputing(_itemInfos, this);
 
 				Utils.disposeSource(
@@ -128,19 +129,16 @@ namespace ObservableComputations
 				int sourceIndex;
 				for (sourceIndex = 0; sourceIndex < count; sourceIndex++)
 				{
-					TSourceItem sourceItem = sourceCopy[sourceIndex];
-					ItemInfo itemInfo = registerSourceItem(sourceItem, sourceIndex);
+					ItemInfo itemInfo = registerSourceItem(sourceCopy[sourceIndex], sourceIndex);
 
 					if (originalCount > sourceIndex)
-						_items[sourceIndex] = applySelector(itemInfo, sourceItem);
+						_items[sourceIndex] = applySelector(itemInfo, sourceCopy[sourceIndex]);
 					else
-						_items.Insert(sourceIndex, applySelector(itemInfo, sourceItem));
+						_items.Insert(sourceIndex, applySelector(itemInfo, sourceCopy[sourceIndex]));
 				}
 
 				for (int index = originalCount - 1; index >= sourceIndex; index--)
-				{
 					_items.RemoveAt(index);
-				}
 
 				_sourceInitialized = true;
 			}
@@ -173,7 +171,6 @@ namespace ObservableComputations
 					ref _lastProcessedSourceChangeMarker, 
 					_sourceAsList, 
 					ref _isConsistent,
-					this,
 					ref _handledEventSender,
 					ref _handledEventArgs,
 					ref _deferredProcessings,
@@ -266,15 +263,13 @@ namespace ObservableComputations
 		{
 			itemInfo = itemInfo == null ? _sourcePositions.Insert(index) : _itemInfos[index];
 
-			ExpressionWatcher watcher;
-
 			Utils.getItemInfoContent(
 				new object[]{sourceItem}, 
-				out watcher, 
+				out ExpressionWatcher watcher, 
 				out Func<TResultItem> predicateFunc, 
 				out List<IComputingInternal> nestedComputings,
 				_selectorExpression,
-				out _selectorExpressionСallCount,
+				out _selectorExpressionCallCount,
 				this,
 				_selectorContainsParametrizedObservableComputationsCalls,
 				_selectorExpressionInfo);
@@ -312,7 +307,7 @@ namespace ObservableComputations
 
 			if (Configuration.TrackComputingsExecutingUserCode)
 			{
-				var currentThread = Utils.startComputingExecutingUserCode(out var computing, out _userCodeIsCalledFrom, this);		
+				Thread currentThread = Utils.startComputingExecutingUserCode(out IComputing computing, out _userCodeIsCalledFrom, this);		
 				TResultItem result = getValue();
 				Utils.endComputingExecutingUserCode(computing, currentThread, out _userCodeIsCalledFrom);
 				return result;

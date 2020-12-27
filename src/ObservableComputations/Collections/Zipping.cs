@@ -70,8 +70,8 @@ namespace ObservableComputations
 		private bool _leftSourceIndexerPropertyChangedEventRaised;
 		private INotifyPropertyChanged _leftSourceAsINotifyPropertyChanged;
 
-		private bool _rigthtSourceIndexerPropertyChangedEventRaised;
-		private INotifyPropertyChanged _rigthSourceAsINotifyPropertyChanged;
+		private bool _rightSourceIndexerPropertyChangedEventRaised;
+		private INotifyPropertyChanged _rightSourceAsINotifyPropertyChanged;
 
 		private IHasChangeMarker _leftSourceAsIHasChangeMarker;
 		private bool _lastProcessedLeftSourceChangeMarker;
@@ -81,7 +81,7 @@ namespace ObservableComputations
 
 		private bool _sourceInitialized;
 
-		private ISourceCollectionChangeProcessor _thisAsSourceCollectionChangeProcessor;
+		private readonly ISourceCollectionChangeProcessor _thisAsSourceCollectionChangeProcessor;
 
 		[ObservableComputationsCall]
 		public Zipping(
@@ -174,11 +174,11 @@ namespace ObservableComputations
 				if (_rightSource != null)
 				{
 					_rightSource.CollectionChanged -= handleLeftSourceCollectionChanged;
-					if (_rigthSourceAsINotifyPropertyChanged != null)
+					if (_rightSourceAsINotifyPropertyChanged != null)
 					{
-						_rigthSourceAsINotifyPropertyChanged.PropertyChanged -=
+						_rightSourceAsINotifyPropertyChanged.PropertyChanged -=
 							((IRightSourceIndexerPropertyTracker) this).HandleSourcePropertyChanged;
-						_rigthSourceAsINotifyPropertyChanged = null;
+						_rightSourceAsINotifyPropertyChanged = null;
 					}
 				}
 
@@ -208,7 +208,7 @@ namespace ObservableComputations
 					out _rightSourceAsHasChangeMarker, 
 					_rightSourceAsList, 
 					ref _lastProcessedRightSourceChangeMarker, 
-					ref _rigthSourceAsINotifyPropertyChanged,
+					ref _rightSourceAsINotifyPropertyChanged,
 					(IRightSourceIndexerPropertyTracker)this);
 
 
@@ -222,17 +222,17 @@ namespace ObservableComputations
 				for (sourceIndex = 0; sourceIndex < countLeft; sourceIndex++)
 				{
 					if (sourceIndex < countRight)
-					{								
-						ZipPair<TLeftSourceItem, TRightSourceItem> zipPair = 
-							new ZipPair<TLeftSourceItem, TRightSourceItem>(
+					{
+						if (originalCount > sourceIndex)
+							_items[sourceIndex] = new ZipPair<TLeftSourceItem, TRightSourceItem>(
 								this, 
 								_leftSourceCopy[sourceIndex], 
 								_rightSourceCopy[sourceIndex]);
-						
-						if (originalCount > sourceIndex)
-							_items[sourceIndex] = zipPair;
 						else
-							_items.Insert(sourceIndex, zipPair);					
+							_items.Insert(sourceIndex, new ZipPair<TLeftSourceItem, TRightSourceItem>(
+								this, 
+								_leftSourceCopy[sourceIndex], 
+								_rightSourceCopy[sourceIndex]));					
 					}
 					else
 					{
@@ -241,9 +241,7 @@ namespace ObservableComputations
 				}
 
 				for (int index = originalCount - 1; index >= sourceIndex; index--)
-				{
 					_items.RemoveAt(index);
-				}
 
 				_leftSource.CollectionChanged += handleLeftSourceCollectionChanged;				
 				_rightSource.CollectionChanged += handleRightSourceCollectionChanged;
@@ -395,12 +393,8 @@ namespace ObservableComputations
 							}
 
 							for (int sourceIndex = lowerIndex; sourceIndex <= upperIndex; sourceIndex++)
-							{
 								if (sourceIndex < count)
-								{
 									this[sourceIndex].setItemLeft(_leftSourceCopy[sourceIndex]);
-								}
-							}
 						}
 
 						break;
@@ -422,17 +416,12 @@ namespace ObservableComputations
 					{
 						if (sourceIndex < countLeft)
 						{
-							TRightSourceItem sourceItemRight = _rightSourceCopy[sourceIndex];
 							if (sourceIndex < Count)
-							{
-								this[sourceIndex].setItemRight(sourceItemRight);
-							}
+								this[sourceIndex].setItemRight(_rightSourceCopy[sourceIndex]);
 							else
-							{
 								baseInsertItem(sourceIndex,
 									new ZipPair<TLeftSourceItem, TRightSourceItem>(this, _leftSourceCopy[sourceIndex],
-										sourceItemRight));
-							}
+										_rightSourceCopy[sourceIndex]));
 						}
 						else
 						{
@@ -502,12 +491,8 @@ namespace ObservableComputations
 					}
 
 					for (int sourceIndex = lowerIndex; sourceIndex <= upperIndex; sourceIndex++)
-					{
 						if (sourceIndex < thisCount)
-						{
 							this[sourceIndex].setItemRight(_rightSourceCopy[sourceIndex]);
-						}
-					}
 
 					break;
 				case NotifyCollectionChangedAction.Reset:
@@ -522,7 +507,7 @@ namespace ObservableComputations
 				sender, 
 				e, 
 				ref _isConsistent, 
-				ref _rigthtSourceIndexerPropertyChangedEventRaised, 
+				ref _rightSourceIndexerPropertyChangedEventRaised, 
 				ref _lastProcessedRightSourceChangeMarker, 
 				_rightSourceAsHasChangeMarker, 
 				ref _handledEventSender, 
@@ -602,7 +587,7 @@ namespace ObservableComputations
 
 		void IRightSourceIndexerPropertyTracker.HandleSourcePropertyChanged(object sender, PropertyChangedEventArgs propertyChangedEventArgs)
 		{
-			Utils.handleSourcePropertyChanged(propertyChangedEventArgs, ref _rigthtSourceIndexerPropertyChangedEventRaised);
+			Utils.handleSourcePropertyChanged(propertyChangedEventArgs, ref _rightSourceIndexerPropertyChangedEventRaised);
 		}
 
 		void ILeftSourceIndexerPropertyTracker.HandleSourcePropertyChanged(object sender, PropertyChangedEventArgs propertyChangedEventArgs)

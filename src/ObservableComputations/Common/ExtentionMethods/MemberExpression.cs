@@ -1,11 +1,11 @@
 ﻿using System.Linq.Expressions;
 using System.Reflection;
 
-namespace ObservableComputations.ExtentionMethods
+namespace ObservableComputations
 {
-	internal static partial class ExtensionMethods
+	internal static partial class InternalExtensionMethods
 	{
-		public static bool IsStatic(this MemberExpression memberExpression)
+		internal static bool IsStatic(this MemberExpression memberExpression)
 		{
 			FieldInfo fieldInfo = memberExpression.Member as FieldInfo;
 			PropertyInfo propertyInfo = memberExpression.Member as PropertyInfo;

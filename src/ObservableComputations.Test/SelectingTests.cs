@@ -267,7 +267,7 @@ namespace ObservableComputations.Test
 			);
 
 			Consumer consumer = new Consumer();
-			var selecting = items.Selecting(item => items.Selecting(i => i)).For(consumer);
+			Selecting<Item, Selecting<Item, Item>> selecting = items.Selecting(item => items.Selecting(i => i)).For(consumer);
 
 			consumer.Dispose();
 

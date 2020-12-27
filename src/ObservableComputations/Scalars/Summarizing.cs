@@ -42,7 +42,7 @@ namespace ObservableComputations
 			Func<TSourceItem, TSourceItem, TSourceItem> aggregateFunc =
 				(Func<TSourceItem, TSourceItem, TSourceItem>) Expression
 					.Lambda(Expression.Add(aggregateParameterExpression, sourceItemParameterExpression),
-						new[]{sourceItemParameterExpression, aggregateParameterExpression}).Compile();
+						new[] {sourceItemParameterExpression, aggregateParameterExpression}).Compile();
 
 			Func<TSourceItem, TSourceItem, TSourceItem> deaggregateFunc =
 				(Func<TSourceItem, TSourceItem, TSourceItem>) Expression
@@ -61,10 +61,7 @@ namespace ObservableComputations
 			// ReSharper disable once PossibleNullReferenceException
 			int sourceCount = source.Count;
 			for (int index = 0; index < sourceCount; index++)
-			{
-				TSourceItem sourceItem = source[index];
-				result = aggregateFunc(result, sourceItem);
-			}
+				result = aggregateFunc(result, source[index]);
 
 			if (!Value.Equals(result))
 				throw new ObservableComputationsException(this, "Consistency violation: Summarizing.1");

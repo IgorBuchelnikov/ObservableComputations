@@ -6,7 +6,6 @@ using System.ComponentModel;
 using System.Linq.Expressions;
 using System.Threading;
 using ObservableComputations.Common;
-using ObservableComputations.ExtentionMethods;
 
 namespace ObservableComputations
 {
@@ -52,15 +51,15 @@ namespace ObservableComputations
 
 		internal static void disposeExpressionItemInfos<TItemInfo>(
 			List<TItemInfo> itemInfos,
-			int expressionСallCount,
+			int expressionCallCount,
 			IComputingInternal computing)
 			where TItemInfo : ExpressionItemInfo
 		{
 
-			disposeExpressionItemInfos(itemInfos, expressionСallCount,
+			disposeExpressionItemInfos(itemInfos, expressionCallCount,
 				(callIndexTotal, itemInfo, propertyChangedEventSubscriptions, methodChangedEventSubscriptions) =>
 				{
-					int newCallIndexTotal = disposeExpressionWatcher(expressionСallCount, itemInfo.ExpressionWatcher, callIndexTotal, propertyChangedEventSubscriptions, methodChangedEventSubscriptions);
+					int newCallIndexTotal = disposeExpressionWatcher(expressionCallCount, itemInfo.ExpressionWatcher, callIndexTotal, propertyChangedEventSubscriptions, methodChangedEventSubscriptions);
 					disposeNestedComputings(computing, itemInfo.NestedComputings);
 					return newCallIndexTotal;
 				});
@@ -68,17 +67,17 @@ namespace ObservableComputations
 
 		internal static void disposeKeyValueExpressionItemInfos<TKey, TValue>(
 			List<KeyValueExpressionItemInfo<TKey, TValue>> itemInfos,
-			int keyExpressionСallCount,
-			int valueExpressionСallCount,
+			int keyExpressionCallCount,
+			int valueExpressionCallCount,
 			IComputingInternal computing)
  
 		{
-			disposeExpressionItemInfos(itemInfos, keyExpressionСallCount + valueExpressionСallCount,
+			disposeExpressionItemInfos(itemInfos, keyExpressionCallCount + valueExpressionCallCount,
 				(callIndexTotal, itemInfo, propertyChangedEventSubscriptions, methodChangedEventSubscriptions) =>
 				{
-					int newCallIndexTotal = disposeExpressionWatcher(keyExpressionСallCount, itemInfo.KeyExpressionWatcher, callIndexTotal, propertyChangedEventSubscriptions, methodChangedEventSubscriptions);
+					int newCallIndexTotal = disposeExpressionWatcher(keyExpressionCallCount, itemInfo.KeyExpressionWatcher, callIndexTotal, propertyChangedEventSubscriptions, methodChangedEventSubscriptions);
 					disposeNestedComputings(computing, itemInfo.KeyNestedComputings);
-					newCallIndexTotal = disposeExpressionWatcher(valueExpressionСallCount, itemInfo.ValueExpressionWatcher, newCallIndexTotal, propertyChangedEventSubscriptions, methodChangedEventSubscriptions);
+					newCallIndexTotal = disposeExpressionWatcher(valueExpressionCallCount, itemInfo.ValueExpressionWatcher, newCallIndexTotal, propertyChangedEventSubscriptions, methodChangedEventSubscriptions);
 					disposeNestedComputings(computing, itemInfo.ValueNestedComputings);
 					return newCallIndexTotal;
 				});
@@ -86,12 +85,12 @@ namespace ObservableComputations
 
 		internal static void disposeExpressionItemInfos<TItemInfo>(
 			List<TItemInfo> itemInfos,
-			int expressionСallCount,
+			int expressionCallCount,
 			Func<int, TItemInfo, PropertyChangedEventSubscription[], MethodChangedEventSubscription[], int> disposeItemInfo)
 		{
 			int itemInfosCount = itemInfos.Count;
 
-			int callCount = expressionСallCount * itemInfosCount;
+			int callCount = expressionCallCount * itemInfosCount;
 
 			PropertyChangedEventSubscription[] propertyChangedEventSubscriptions =
 				new PropertyChangedEventSubscription[callCount];
@@ -100,10 +99,9 @@ namespace ObservableComputations
 				new MethodChangedEventSubscription[callCount];
 
 			int callIndexTotal = 0;
-			for (var index = 0; index < itemInfosCount; index++)
-			{
-				callIndexTotal = disposeItemInfo(callIndexTotal, itemInfos[index], propertyChangedEventSubscriptions, methodChangedEventSubscriptions);
-			}
+			for (int index = 0; index < itemInfosCount; index++)
+				callIndexTotal = disposeItemInfo(callIndexTotal, itemInfos[index], propertyChangedEventSubscriptions,
+					methodChangedEventSubscriptions);
 
 			EventUnsubscriber.QueueSubscriptions(propertyChangedEventSubscriptions, methodChangedEventSubscriptions);
 		}
@@ -113,20 +111,19 @@ namespace ObservableComputations
 			if (nestedComputings != null)
 			{
 				int nestedComputingsCount = nestedComputings.Count;
-				for (var computingIndex = 0; computingIndex < nestedComputingsCount; computingIndex++)
+				for (int computingIndex = 0; computingIndex < nestedComputingsCount; computingIndex++)
 					nestedComputings[computingIndex].RemoveDownstreamConsumedComputing(computing);
 			}
 		}
 
-		internal static int disposeExpressionWatcher(int expressionСallCount, ExpressionWatcher expressionWatcher,
+		internal static int disposeExpressionWatcher(int expressionCallCount, ExpressionWatcher expressionWatcher,
 			int callIndexTotal, PropertyChangedEventSubscription[] propertyChangedEventSubscriptions,
 			MethodChangedEventSubscription[] methodChangedEventSubscriptions) 
 		{
-			int callIndex;
 			expressionWatcher.Dispose();
-			int nextUpperCallIndexTotal = callIndexTotal + expressionСallCount;
+			int nextUpperCallIndexTotal = callIndexTotal + expressionCallCount;
 
-			callIndex = 0;
+			int callIndex = 0;
 			for (; callIndexTotal < nextUpperCallIndexTotal; callIndexTotal++)
 			{
 				propertyChangedEventSubscriptions[callIndexTotal] =
@@ -179,7 +176,7 @@ namespace ObservableComputations
 				sourceAsList.CollectionChanged -= sourceNotifyCollectionChangedEventHandler;
 
 			if (sourceAsList is IRootSourceWrapper rootSourceWrapper)
-				rootSourceWrapper.Unitialize();
+				rootSourceWrapper.Uninitialize();
 		}
 
 		internal static void initializeItemInfos<TItemInfo>(int capacity, out List<TItemInfo> itemInfos, out Positions<TItemInfo> sourcePositions)
@@ -211,7 +208,7 @@ namespace ObservableComputations
 
 			if (originalSource != newSource)
 			{
-				for (var index = 0; index < downstreamConsumedComputings.Count; index++)
+				for (int index = 0; index < downstreamConsumedComputings.Count; index++)
 				{
 					IComputingInternal downstreamConsumedComputing = downstreamConsumedComputings[index];
 					originalSource?.RemoveDownstreamConsumedComputing(downstreamConsumedComputing);
@@ -261,7 +258,7 @@ namespace ObservableComputations
 			if (nestedComputings != null)
 			{
 				int nestedComputingsCount = nestedComputings.Count;
-				for (var computingIndex = 0; computingIndex < nestedComputingsCount; computingIndex++)
+				for (int computingIndex = 0; computingIndex < nestedComputingsCount; computingIndex++)
 					nestedComputings[computingIndex].AddDownstreamConsumedComputing(computing);
 			}
 		}
@@ -271,7 +268,7 @@ namespace ObservableComputations
 			if (computingInternals != null)
 			{
 				int nestedComputingsCount = computingInternals.Count;
-				for (var computingIndex = 0; computingIndex < nestedComputingsCount; computingIndex++)
+				for (int computingIndex = 0; computingIndex < nestedComputingsCount; computingIndex++)
 					computingInternals[computingIndex].RemoveDownstreamConsumedComputing(computing);
 			}
 		}
@@ -398,12 +395,12 @@ namespace ObservableComputations
 			out Expression<TExpression> expression,
 			out bool expressionContainsParametrizedObservableComputationsCalls,
 			ref ExpressionWatcher.ExpressionInfo expressionInfo,
-			ref int expressionСallCount,
+			ref int expressionCallCount,
 			ref TExpression func,
 			ref List<IComputingInternal> nestedComputing) where TItemInfo : Position, new()
 		{
 			construct(capacity, out itemInfos, out sourcePositions);
-			construct(expressionToProcess, out expressionOriginal, out expression, out expressionContainsParametrizedObservableComputationsCalls, ref expressionInfo, ref expressionСallCount, ref func, ref nestedComputing);
+			construct(expressionToProcess, out expressionOriginal, out expression, out expressionContainsParametrizedObservableComputationsCalls, ref expressionInfo, ref expressionCallCount, ref func, ref nestedComputing);
 		}
 
 		internal static void construct<TItemInfo>(int capacity, out List<TItemInfo> itemInfos, out Positions<TItemInfo> sourcePositions)
@@ -418,7 +415,7 @@ namespace ObservableComputations
 			out Expression<TExpression> expression,
 			out bool expressionContainsParametrizedObservableComputationsCalls,
 			ref ExpressionWatcher.ExpressionInfo expressionInfo,
-			ref int expressionСallCount,
+			ref int expressionCallCount,
 			ref TExpression func,
 			ref List<IComputingInternal> nestedComputing)
 		{
@@ -434,7 +431,7 @@ namespace ObservableComputations
 			if (!expressionContainsParametrizedObservableComputationsCalls)
 			{
 				expressionInfo = ExpressionWatcher.GetExpressionInfo(expression);
-				expressionСallCount = expressionInfo._callCount;
+				expressionCallCount = expressionInfo._callCount;
 				// ReSharper disable once PossibleNullReferenceException
 				func = expression.Compile();
 				nestedComputing = callToConstantConverter.NestedComputings;
@@ -609,17 +606,17 @@ namespace ObservableComputations
 			out TExpressionCompiled func,
 			out List<IComputingInternal> nestedComputings,
 			Expression<TExpression> expression,
-			out int expressionСallCount,
+			out int expressionCallCount,
 			IComputingInternal current,
 			bool expressionContainsParametrizedLiveLinqCalls,
-			ExpressionWatcher.ExpressionInfo orderingValueSelectorExpressionInfo)
+			ExpressionWatcher.ExpressionInfo valueSelectorExpressionInfo)
 		{
 			if (!expressionContainsParametrizedLiveLinqCalls)
 			{
-				watcher = new ExpressionWatcher(orderingValueSelectorExpressionInfo, sourceItems);
+				watcher = new ExpressionWatcher(valueSelectorExpressionInfo, sourceItems);
 				func = default(TExpressionCompiled);
 				nestedComputings = null;
-				expressionСallCount = orderingValueSelectorExpressionInfo._callCount;
+				expressionCallCount = valueSelectorExpressionInfo._callCount;
 			}
 			else
 			{
@@ -635,32 +632,32 @@ namespace ObservableComputations
 				nestedComputings = callToConstantConverter.NestedComputings;
 				int nestedComputingsCount = nestedComputings.Count;
 
-				for (var computingIndex = 0; computingIndex < nestedComputingsCount; computingIndex++)
+				for (int computingIndex = 0; computingIndex < nestedComputingsCount; computingIndex++)
 					nestedComputings[computingIndex].AddDownstreamConsumedComputing(current);
 
 				ExpressionWatcher.ExpressionInfo expressionInfo =
 					ExpressionWatcher.GetExpressionInfo(predicateExpression);
 				watcher = new ExpressionWatcher(expressionInfo);
 
-				expressionСallCount = expressionInfo._callCount;
+				expressionCallCount = expressionInfo._callCount;
 			}
 
-			initializeExpressionWatcherCurrentComputings(watcher, expressionСallCount, current);
+			initializeExpressionWatcherCurrentComputings(watcher, expressionCallCount, current);
 		}
 
 		internal static void initializeExpressionWatcherCurrentComputings(
 			ExpressionWatcher watcher, 
-			int expressionСallCount, 
+			int expressionCallCount, 
 			IComputingInternal current)
 		{
-			for (var computingIndex = 0; computingIndex < expressionСallCount; computingIndex++)
+			for (int computingIndex = 0; computingIndex < expressionCallCount; computingIndex++)
 				watcher._currentComputings[computingIndex]?.AddDownstreamConsumedComputing(current);
 		}
 
 		internal static void itemInfoRemoveDownstreamConsumedComputing(List<IComputingInternal> nestedComputings, IComputingInternal current)
 		{
 			int nestedComputingsCount = nestedComputings.Count;
-			for (var computingIndex = 0; computingIndex < nestedComputingsCount; computingIndex++)
+			for (int computingIndex = 0; computingIndex < nestedComputingsCount; computingIndex++)
 				nestedComputings[computingIndex].RemoveDownstreamConsumedComputing(current);
 		}
 
@@ -673,7 +670,7 @@ namespace ObservableComputations
 			orderingValues = new List<TOrderingValue>(sourceCapacity);
 		}
 
-		internal static void addComsumer(
+		internal static void addConsumer(
 			Consumer addingConsumer,
 			List<Consumer> consumers,
 			List<IComputingInternal> downstreamConsumedComputings,
@@ -687,10 +684,9 @@ namespace ObservableComputations
 			processChange(null, null, () =>
 			{
 				int consumersCount = consumers.Count;
-				for (var index = 0; index < consumersCount; index++)
-				{
-					if (consumers[index] == addingConsumer) return;
-				}
+				for (int index = 0; index < consumersCount; index++)
+					if (consumers[index] == addingConsumer)
+						return;
 
 				consumers.Add(addingConsumer);
 				addingConsumer.AddComputing(current);
@@ -742,7 +738,7 @@ namespace ObservableComputations
 						current.Uninitialize();
 						current.OnPropertyChanged(IsActivePropertyChangedEventArgs);  
 						// ReSharper disable once AccessToModifiedClosure
-						clearDefferedProcessings(deferredProcessings, 0);						
+						clearDeferredProcessings(deferredProcessings, 0);						
 					}
 				},
 				ref isConsistent,
@@ -810,7 +806,7 @@ namespace ObservableComputations
 						current.Uninitialize();
 						current.OnPropertyChanged(IsActivePropertyChangedEventArgs);
 						// ReSharper disable once AccessToModifiedClosure
-						clearDefferedProcessings(deferredProcessings, 0);
+						clearDeferredProcessings(deferredProcessings, 0);
 					}
 					else
 						current.RemoveFromUpstreamComputings(computing);
@@ -865,7 +861,7 @@ namespace ObservableComputations
 				indexerPropertyChangedEventRaised = true;
 		}
 
-		internal static void clearDefferedProcessings(Queue<IProcessable>[] deferredProcessings, int fromIndex = 1)
+		internal static void clearDeferredProcessings(Queue<IProcessable>[] deferredProcessings, int fromIndex = 1)
 		{
 			if (deferredProcessings == null) return;
 
@@ -875,16 +871,15 @@ namespace ObservableComputations
 
 		internal static bool preHandleSourceCollectionChanged<TSourceItem>(
 			object sender,
-			NotifyCollectionChangedEventArgs e, 
-			bool rootSourceWrapper, 
+			NotifyCollectionChangedEventArgs e,
+			bool rootSourceWrapper,
 			ref bool lastProcessedSourceChangeMarker,
-			ObservableCollectionWithChangeMarker<TSourceItem> sourceAsList, 
-			ref bool isConsistent, 
-			IComputingInternal computing,
-			ref object handledEventSender, 
+			ObservableCollectionWithChangeMarker<TSourceItem> sourceAsList,
+			ref bool isConsistent,
+			ref object handledEventSender,
 			ref EventArgs handledEventArgs,
-			ref Queue<IProcessable>[] deferredProcessings, 
-			int deferredSourceCollectionChangedEventProcessingsIndex, 
+			ref Queue<IProcessable>[] deferredProcessings,
+			int deferredSourceCollectionChangedEventProcessingsIndex,
 			int deferredProcessingsCount,
 			ISourceCollectionChangeProcessor sourceCollectionChangeProcessor)
 		{
@@ -918,7 +913,7 @@ namespace ObservableComputations
 			if (isConsistent)
 			{
 				if (e.Action == NotifyCollectionChangedAction.Reset)
-					clearDefferedProcessings(deferredProcessings);
+					clearDeferredProcessings(deferredProcessings);
 
 				handledEventSender = sender;
 				handledEventArgs = e;
@@ -1079,7 +1074,7 @@ namespace ObservableComputations
 		internal static void removeDownstreamConsumedComputing(ExpressionWatcher watcher, IComputingInternal current)
 		{
 			int currentComputingsLength = watcher._currentComputings.Length;
-			for (var computingIndex = 0; computingIndex < currentComputingsLength; computingIndex++)
+			for (int computingIndex = 0; computingIndex < currentComputingsLength; computingIndex++)
 				watcher._currentComputings[computingIndex]?.RemoveDownstreamConsumedComputing(current);
 		}
 
@@ -1087,9 +1082,7 @@ namespace ObservableComputations
 		{
 			int itemInfosCount = itemInfos.Count;
 			for (int index = 0; index < itemInfosCount; index++)
-			{
 				removeDownstreamConsumedComputing(itemInfos[index].ExpressionWatcher, current);
-			}
 		}
 
 		internal static void removeDownstreamConsumedComputing<TKey, TValue>(List<KeyValueExpressionItemInfo<TKey, TValue>> itemInfos, IComputingInternal current)
@@ -1097,15 +1090,16 @@ namespace ObservableComputations
 			int itemInfosCount = itemInfos.Count;
 			for (int index = 0; index < itemInfosCount; index++)
 			{
-				removeDownstreamConsumedComputing(itemInfos[index].KeyExpressionWatcher, current);
-				removeDownstreamConsumedComputing(itemInfos[index].ValueExpressionWatcher, current);
+				KeyValueExpressionItemInfo<TKey, TValue> itemInfo = itemInfos[index];
+				removeDownstreamConsumedComputing(itemInfo.KeyExpressionWatcher, current);
+				removeDownstreamConsumedComputing(itemInfo.ValueExpressionWatcher, current);
 			}
 		}
 
 		internal static void addDownstreamConsumedComputing(ExpressionWatcher watcher, IComputingInternal current)
 		{
 			int currentComputingsLength = watcher._currentComputings.Length;
-			for (var computingIndex = 0; computingIndex < currentComputingsLength; computingIndex++)
+			for (int computingIndex = 0; computingIndex < currentComputingsLength; computingIndex++)
 				watcher._currentComputings[computingIndex]?.AddDownstreamConsumedComputing(current);
 		}
 
@@ -1113,9 +1107,7 @@ namespace ObservableComputations
 		{
 			int itemInfosCount = itemInfos.Count;
 			for (int index = 0; index < itemInfosCount; index++)
-			{
 				addDownstreamConsumedComputing(itemInfos[index].ExpressionWatcher, current);
-			}
 		}
 
 		internal static readonly PropertyChangedEventArgs InsertItemIntoGroupRequestHandlerPropertyChangedEventArgs = new PropertyChangedEventArgs("InsertItemIntoGroupRequestHandler");

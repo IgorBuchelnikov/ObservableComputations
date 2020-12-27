@@ -4,12 +4,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 
-namespace ObservableComputations.ExtentionMethods
+namespace ObservableComputations
 {
-	internal static partial class ExtensionMethods
+	internal static partial class InternalExtensionMethods
 	{
 		// ReSharper disable once UnusedMember.Local
-		public static string debugView(this object viewingObject, bool lineBreaks = false, string tabsIndentation = "")
+		internal static string debugView(this object viewingObject, bool lineBreaks = false, string tabsIndentation = "")
 		{
 			string lineBreak = lineBreaks ? "\n" : string.Empty;
 			switch (viewingObject)
@@ -85,7 +85,7 @@ namespace ObservableComputations.ExtentionMethods
 			}
 		}
 
-		public static bool IsSameAs(this object object1, object object2)
+		internal static bool IsSameAs(this object object1, object object2)
 		{
 			return 
 				object1 == null && object2 == null
@@ -95,7 +95,7 @@ namespace ObservableComputations.ExtentionMethods
 						: object1.Equals(object2);
 		}
 
-		public static TResult GetValueAs<TArgument, TResult>(this TArgument argument, Func<TArgument, TResult> getValueFunc)
+		internal static TResult GetValueAs<TArgument, TResult>(this TArgument argument, Func<TArgument, TResult> getValueFunc)
 		{
 			return getValueFunc(argument);
 		}

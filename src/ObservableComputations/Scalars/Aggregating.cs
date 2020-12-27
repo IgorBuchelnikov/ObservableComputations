@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.ComponentModel;
+using System.Threading;
 
 namespace ObservableComputations
 {
@@ -37,7 +38,7 @@ namespace ObservableComputations
 		private IHasChangeMarker _sourceAsIHasChangeMarker;
 		private bool _lastProcessedSourceChangeMarker;
 
-		private ISourceCollectionChangeProcessor _thisAsSourceCollectionChangeProcessor;
+		private readonly ISourceCollectionChangeProcessor _thisAsSourceCollectionChangeProcessor;
 
 		[ObservableComputationsCall]
 		public Aggregating(
@@ -106,10 +107,7 @@ namespace ObservableComputations
 				TResult value = default(TResult);
 				int count = _sourceAsList.Count;
 				for (int index = 0; index < count; index++)
-				{
-					TSourceItem sourceItem = _sourceAsList[index];
-					value = aggregate(sourceItem, value);
-				}
+					value = aggregate(_sourceAsList[index], value);
 				setValue(value);
 
 				_sourceInitialized = true;
@@ -175,7 +173,7 @@ namespace ObservableComputations
 		{
 			if (Configuration.TrackComputingsExecutingUserCode)
 			{
-				var currentThread = Utils.startComputingExecutingUserCode(out var computing, out _userCodeIsCalledFrom, this);
+				Thread currentThread = Utils.startComputingExecutingUserCode(out IComputing computing, out _userCodeIsCalledFrom, this);
 				TResult result = _aggregateFunc(addedSourceItem, value);
 				Utils.endComputingExecutingUserCode(computing, currentThread, out _userCodeIsCalledFrom);
 				return result;
@@ -188,7 +186,7 @@ namespace ObservableComputations
 		{
 			if (Configuration.TrackComputingsExecutingUserCode)
 			{
-				var currentThread = Utils.startComputingExecutingUserCode(out var computing, out _userCodeIsCalledFrom, this);
+				Thread currentThread = Utils.startComputingExecutingUserCode(out IComputing computing, out _userCodeIsCalledFrom, this);
 				TResult result = _deaggregateFunc(removedSourceItem, value);
 				Utils.endComputingExecutingUserCode(computing, currentThread, out _userCodeIsCalledFrom);
 				return result;
@@ -229,10 +227,7 @@ namespace ObservableComputations
 			TResult result = default(TResult);
 
 			for (int i = 0; i < sourceCount; i++)
-			{
-				TSourceItem sourceItem = source[i];
-				result = _aggregateFunc(sourceItem, result);
-			}
+				result = _aggregateFunc(source[i], result);
 
 			// ReSharper disable once PossibleNullReferenceException
 			if (!result.Equals(_value)) throw new ObservableComputationsException(this, "Consistency violation: Aggregating.3");

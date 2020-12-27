@@ -119,12 +119,12 @@ namespace ObservableComputations.Test
 				computingOcDispatcher.ThreadName = "coMPutingOcDispatcher";
 				Consumer consumer = new Consumer();
 
-				var nums = new ObservableCollection<Item>();
-				var filteredNums = nums.Filtering(i => 
+				ObservableCollection<Item> nums = new ObservableCollection<Item>();
+				Filtering<Item> filteredNums = nums.Filtering(i => 
 					i.Num % 3 == 0 
 					|| i.Num2ConsToCompDispatching.Value % 5 == 0
 					|| i.Num2ConsToCompScalarDispatching.Value % 5 == 0);
-				var dispatchingfilteredNums = filteredNums.CollectionDispatching(consuminingOcDispatcher, computingOcDispatcher).For(consumer);
+				CollectionDispatching<Item> dispatchingfilteredNums = filteredNums.CollectionDispatching(consuminingOcDispatcher, computingOcDispatcher).For(consumer);
 
 				dispatchingfilteredNums.CollectionChanged += (sender, args) =>
 				{

@@ -29,7 +29,7 @@ namespace ObservableComputations
 
 		private IHasChangeMarker _sourceAsIHasChangeMarker;
 		private bool _lastProcessedSourceChangeMarker;
-		private ISourceCollectionChangeProcessor _thisAsSourceCollectionChangeProcessor;
+		private readonly ISourceCollectionChangeProcessor _thisAsSourceCollectionChangeProcessor;
 
 		[ObservableComputationsCall]
 		public Extending(
@@ -87,24 +87,18 @@ namespace ObservableComputations
 
 				int sourceIndex;
 				for (sourceIndex = 0; sourceIndex < count; sourceIndex++)
-				{
 					if (originalCount > sourceIndex)
 						_items[sourceIndex] = (TSourceItem)sourceCopy[sourceIndex];
 					else
 						_items.Insert(sourceIndex, (TSourceItem)sourceCopy[sourceIndex]);
-				}
 
 				for (int index = originalCount - 1; index >= sourceIndex; index--)
-				{
 					_items.RemoveAt(index);
-				}
 
 				_sourceInitialized = true;
 			}			
 			else
-			{
 				_items.Clear();
-			}
 
 			reset();
 		}

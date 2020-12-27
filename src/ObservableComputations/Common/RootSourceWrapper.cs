@@ -6,7 +6,7 @@ namespace ObservableComputations
 {
 	internal interface IRootSourceWrapper
 	{
-		void Unitialize();
+		void Uninitialize();
 	}
 
 	internal sealed class RootSourceWrapper<TSourceItem> : ObservableCollectionWithChangeMarker<TSourceItem>, IRootSourceWrapper
@@ -17,8 +17,8 @@ namespace ObservableComputations
 		private bool _sourceInitialized;
 
 		private bool _indexerPropertyChangedEventRaised;
-		private INotifyPropertyChanged _sourceAsINotifyPropertyChanged;
-		private IList<TSourceItem> _items;
+		private readonly INotifyPropertyChanged _sourceAsINotifyPropertyChanged;
+		private readonly IList<TSourceItem> _items;
 
 		internal RootSourceWrapper(
 			INotifyCollectionChanged source)
@@ -32,16 +32,14 @@ namespace ObservableComputations
 
 		private void initialize()
 		{
-			_sourceAsINotifyPropertyChanged.PropertyChanged += handleSourcePropetyChanged;
+			_sourceAsINotifyPropertyChanged.PropertyChanged += handleSourcePropertyChanged;
 
 			int count = _sourceAsList.Count;
 			if (count > 0)
 			{
 				int sourceIndex;
 				for (sourceIndex = 0; sourceIndex < count; sourceIndex++)
-				{
 					_items.Insert(sourceIndex, _sourceAsList[sourceIndex]);
-				}
 			}
 
 			_source.CollectionChanged += handleSourceCollectionChanged;		
@@ -53,19 +51,13 @@ namespace ObservableComputations
 			int count = _sourceAsList.Count;
 			int sourceIndex;
 			for (sourceIndex = 0; sourceIndex < count; sourceIndex++)
-			{
-				TSourceItem sourceItem = _sourceAsList[sourceIndex];
-
 				if (originalCount > sourceIndex)
-					_items[sourceIndex] = sourceItem;
+					_items[sourceIndex] = _sourceAsList[sourceIndex];
 				else
-					_items.Insert(sourceIndex, sourceItem);
-			}
+					_items.Insert(sourceIndex, _sourceAsList[sourceIndex]);
 
 			for (int index = originalCount - 1; index >= sourceIndex; index--)
-			{
 				_items.RemoveAt(index);
-			}
 
 			CheckReentrancy();
 			OnPropertyChanged(Utils.CountPropertyChangedEventArgs);
@@ -73,13 +65,13 @@ namespace ObservableComputations
 			OnCollectionChanged(Utils.ResetNotifyCollectionChangedEventArgs);
 		}
 
-		void IRootSourceWrapper.Unitialize()
+		void IRootSourceWrapper.Uninitialize()
 		{
-			_sourceAsINotifyPropertyChanged.PropertyChanged -= handleSourcePropetyChanged;
+			_sourceAsINotifyPropertyChanged.PropertyChanged -= handleSourcePropertyChanged;
 			_source.CollectionChanged -= handleSourceCollectionChanged;
 		}
 
-		private void handleSourcePropetyChanged(object sender, PropertyChangedEventArgs args)
+		private void handleSourcePropertyChanged(object sender, PropertyChangedEventArgs args)
 		{
 			if (args.PropertyName == "Item[]") _indexerPropertyChangedEventRaised = true; // ObservableCollection raises this before CollectionChanged event raising
 		}

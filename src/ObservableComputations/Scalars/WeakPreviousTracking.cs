@@ -24,8 +24,8 @@ namespace ObservableComputations
 		private TResult _previousValue;
 		private bool _isEverChanged;
 
-		private IReadScalar<TResult> _scalar;
-		private Action _changeValueAction;
+		private readonly IReadScalar<TResult> _scalar;
+		private readonly Action _changeValueAction;
 
 
 		[ObservableComputationsCall]

@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.ComponentModel;
-using ObservableComputations.ExtentionMethods;
 
 namespace ObservableComputations
 {
@@ -47,8 +46,8 @@ namespace ObservableComputations
 
 		List<TSourceItem> _sourceCopy;
 
-		private ISourceCollectionChangeProcessor _thisAsSourceCollectionChangeProcessor;
-		Action _changeIndexAction;
+		private readonly ISourceCollectionChangeProcessor _thisAsSourceCollectionChangeProcessor;
+		readonly Action _changeIndexAction;
 
 		private void initializeIndexScalar()
 		{

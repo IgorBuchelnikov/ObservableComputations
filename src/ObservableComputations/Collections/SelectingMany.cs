@@ -5,7 +5,6 @@ using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.Linq;
 using System.Linq.Expressions;
-using ObservableComputations.ExtentionMethods;
 
 namespace ObservableComputations
 {
@@ -141,7 +140,7 @@ namespace ObservableComputations
 
 			List<TResultItem> result = new List<TResultItem>();
 			// ReSharper disable once PossibleNullReferenceException
-			for (var index = 0; index < source.Count; index++)
+			for (int index = 0; index < source.Count; index++)
 			{
 				TSourceItem sourceItem = source[index];
 				// ReSharper disable once PossibleNullReferenceException

@@ -5,7 +5,6 @@ using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.Linq;
 using System.Linq.Expressions;
-using ObservableComputations.ExtentionMethods;
 
 namespace ObservableComputations
 {
@@ -129,13 +128,13 @@ namespace ObservableComputations
 			Func<TOuterSourceItem, TInnerSourceItem, bool> joinPredicate = _joinPredicateExpression.Compile();
 
 			var result = outerSource.Select(outerItem => 
-			new
-			{
-				Key = outerItem,
-				InnerItems = innerSource.Where(innerItem => joinPredicate(outerItem, innerItem)).ToArray()
-			}).ToList();
+				new
+				{
+					Key = outerItem,
+					InnerItems = innerSource.Where(innerItem => joinPredicate(outerItem, innerItem)).ToArray()
+				}).ToList();
 
-			if (Count !=  result.Count())
+			if (Count !=  result.Count)
 				throw new ObservableComputationsException(this, "Consistency violation: PredicateGroupJoining.1");
 
 			for (int index = 0; index < result.Count; index++)

@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Reflection;
 
-namespace ObservableComputations.ExtentionMethods
+namespace ObservableComputations
 {
-	internal static partial class ExtensionMethods
+	internal static partial class InternalExtensionMethods
 	{
-		public static bool IsReadOnly(this MemberInfo memberInfo)
+		internal static bool IsReadOnly(this MemberInfo memberInfo)
 		{
 			PropertyInfo propertyInfo = memberInfo as PropertyInfo;
 			if (propertyInfo != null)
@@ -22,10 +22,9 @@ namespace ObservableComputations.ExtentionMethods
 				}
 				else
 				{
-					throw new Exception("Неизвестный наследник MemberInfo");
+					throw new Exception("Unknown MemberInfo");
 				}
 			}
-
 		}
 
 	}

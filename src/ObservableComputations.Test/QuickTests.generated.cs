@@ -12,7 +12,6 @@ using System.ComponentModel;
 using System.Collections.ObjectModel;
 using NUnit.Framework;
 using ObservableComputations;
-using ObservableComputations.ExtentionMethods;
 
 namespace ObservableComputations.Test
 {

@@ -6,7 +6,6 @@ using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Linq.Expressions;
 using System.Threading;
-using ObservableComputations.ExtentionMethods;
 
 namespace ObservableComputations
 {
@@ -43,10 +42,10 @@ namespace ObservableComputations
 
 		public event EventHandler ConsistencyRestored;
 
-		private List<IComputingInternal> _keyNestedComputings;
+		private readonly List<IComputingInternal> _keyNestedComputings;
 
-		private ISourceItemChangeProcessor _thisAsSourceItemKeyChangeProcessor;
-		private ISourceCollectionChangeProcessor _thisAsSourceCollectionChangeProcessor;
+		private readonly ISourceItemChangeProcessor _thisAsSourceItemKeyChangeProcessor;
+		private readonly ISourceCollectionChangeProcessor _thisAsSourceCollectionChangeProcessor;
 		private Queue<IProcessable>[] _deferredProcessings;
 
 
@@ -103,7 +102,7 @@ namespace ObservableComputations
 		private readonly Expression<Func<TSourceItem, TKey>> _keySelectorExpression;
 		private readonly Expression<Func<TSourceItem, TKey>> _keySelectorExpressionOriginal;
 		private readonly ExpressionWatcher.ExpressionInfo _keySelectorExpressionInfo;
-		private int _keySelectorExpressionСallCount;
+		private int _keySelectorExpressionCallCount;
 
 		private readonly bool _keySelectorContainsParametrizedObservableComputationsCalls;
 
@@ -154,7 +153,7 @@ namespace ObservableComputations
 				out _keySelectorExpression, 
 				out _keySelectorContainsParametrizedObservableComputationsCalls, 
 				ref _keySelectorExpressionInfo, 
-				ref _keySelectorExpressionСallCount, 
+				ref _keySelectorExpressionCallCount, 
 				ref _keySelectorFunc, 
 				ref _keyNestedComputings);
 
@@ -233,7 +232,7 @@ namespace ObservableComputations
 			{
 				Utils.disposeExpressionItemInfos(
 					_itemInfos,
-					_keySelectorExpressionСallCount,
+					_keySelectorExpressionCallCount,
 					this);
 				Utils.removeDownstreamConsumedComputing(_itemInfos, this);
 
@@ -268,9 +267,7 @@ namespace ObservableComputations
 				for (int index = 0; index < count; index++)
 				{
 					TSourceItem sourceItem = _sourceAsList[index];
-					ItemInfo itemInfo = registerSourceItem(sourceItem, index);
-					TKey key = applyKeySelector(itemInfo, sourceItem);
-					baseAddItem(key);
+					baseAddItem(applyKeySelector(registerSourceItem(sourceItem, index), sourceItem));
 				}
 
 				_sourceInitialized = true;
@@ -303,7 +300,7 @@ namespace ObservableComputations
 				out Func<TKey> func,
 				out List<IComputingInternal> nestedComputings,
 				_keySelectorExpression,
-				out _keySelectorExpressionСallCount,
+				out _keySelectorExpressionCallCount,
 				this,
 				_keySelectorContainsParametrizedObservableComputationsCalls,
 				_keySelectorExpressionInfo);
@@ -325,7 +322,6 @@ namespace ObservableComputations
 				ref _lastProcessedSourceChangeMarker, 
 				_sourceAsList, 
 				ref _isConsistent,
-				this,
 				ref _handledEventSender,
 				ref _handledEventArgs,
 				ref _deferredProcessings,
@@ -430,7 +426,7 @@ namespace ObservableComputations
 
 			if (Configuration.TrackComputingsExecutingUserCode)
 			{
-				var currentThread = Utils.startComputingExecutingUserCode(out var computing, out _userCodeIsCalledFrom, this);
+				Thread currentThread = Utils.startComputingExecutingUserCode(out IComputing computing, out _userCodeIsCalledFrom, this);
 				TKey result = getValue();
 				Utils.endComputingExecutingUserCode(computing, currentThread, out _userCodeIsCalledFrom);
 				return result;
@@ -447,9 +443,8 @@ namespace ObservableComputations
 			onPropertyChanged(Utils.CountPropertyChangedEventArgs);
 			onPropertyChanged(Utils.IndexerPropertyChangedEventArgs);
 			if (MethodChanged != null)
-			{
 				MethodChanged(this, new MethodChangedEventArgs("Contains", args => true));
-			}
+			
 
 		}
 
@@ -458,10 +453,8 @@ namespace ObservableComputations
 			_hashSet.Add(key);
 			onPropertyChanged(Utils.CountPropertyChangedEventArgs);
 			onPropertyChanged(Utils.IndexerPropertyChangedEventArgs);
-			if (MethodChanged != null)
-			{
+			if (MethodChanged != null)			
 				MethodChanged(this, new MethodChangedEventArgs("Contains", args => _equalityComparer.Equals(key, (TKey)args[0])));
-			}
 		}
 
 		private void baseRemoveItem(TKey key)
@@ -470,9 +463,7 @@ namespace ObservableComputations
 			onPropertyChanged(Utils.CountPropertyChangedEventArgs);
 			onPropertyChanged(Utils.IndexerPropertyChangedEventArgs);
 			if (MethodChanged != null)
-			{
 				MethodChanged(this, new MethodChangedEventArgs("Contains", args => _equalityComparer.Equals(key, (TKey)args[0])));
-			}
 		}
 
 		protected void checkConsistent(object sender, EventArgs eventArgs)
@@ -599,7 +590,7 @@ namespace ObservableComputations
 
 		void IComputingInternal.AddConsumer(Consumer addingConsumer)
 		{
-			Utils.addComsumer(
+			Utils.addConsumer(
 				addingConsumer, 
 				_consumers,
 				_downstreamConsumedComputings, 

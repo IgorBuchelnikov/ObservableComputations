@@ -5,9 +5,9 @@ namespace ObservableComputations.Common
 {
 	internal class Processable : IProcessable
 	{
-		private object _eventSender;
-		private EventArgs _eventArgs;
-		private Action _action;
+		private readonly object _eventSender;
+		private readonly EventArgs _eventArgs;
+		private readonly Action _action;
 
 		public Processable(object eventSender, EventArgs eventArgs, Action action)
 		{

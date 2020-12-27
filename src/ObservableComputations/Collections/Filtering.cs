@@ -5,7 +5,7 @@ using System.Collections.Specialized;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
-using ObservableComputations.ExtentionMethods;
+using System.Threading;
 
 namespace ObservableComputations
 {
@@ -34,11 +34,11 @@ namespace ObservableComputations
 		public ReadOnlyCollection<INotifyCollectionChanged> SourceCollections => new ReadOnlyCollection<INotifyCollectionChanged>(new []{Source});
 		public ReadOnlyCollection<IReadScalar<INotifyCollectionChanged>> SourceCollectionScalars => new ReadOnlyCollection<IReadScalar<INotifyCollectionChanged>>(new []{SourceScalar});
 
-		private List<IComputingInternal> _nestedComputings;
+		private readonly List<IComputingInternal> _nestedComputings;
 
 		private readonly Expression<Func<TSourceItem, bool>> _predicateExpression;
 		private readonly Expression<Func<TSourceItem, bool>> _predicateExpressionOriginal;
-		private int _predicateExpressionСallCount;
+		private int _predicateExpressionCallCount;
 
 		private Positions<Position> _filteredPositions;	
 		private Positions<FilteringItemInfo> _sourcePositions;
@@ -57,8 +57,8 @@ namespace ObservableComputations
 		private readonly IReadScalar<INotifyCollectionChanged> _sourceScalar;
 		internal INotifyCollectionChanged _source;
 		private readonly Func<TSourceItem, bool> _predicateFunc;
-		private IFiltering<TSourceItem> _thisAsFiltering;
-		private ISourceItemChangeProcessor _thisAsSourceItemChangeProcessor;
+		private readonly IFiltering<TSourceItem> _thisAsFiltering;
+		private readonly ISourceItemChangeProcessor _thisAsSourceItemChangeProcessor;
 
 		[ObservableComputationsCall]
 		public Filtering(
@@ -90,7 +90,7 @@ namespace ObservableComputations
 				out _predicateExpression, 
 				out _predicateContainsParametrizedObservableComputationsCalls, 
 				ref _predicateExpressionInfo, 
-				ref _predicateExpressionСallCount, 
+				ref _predicateExpressionCallCount, 
 				ref _predicateFunc, 
 				ref _nestedComputings);
 
@@ -210,7 +210,7 @@ namespace ObservableComputations
 
 			if (_sourceInitialized)
 			{
-				Utils.disposeExpressionItemInfos(_itemInfos, _predicateExpressionСallCount, this);
+				Utils.disposeExpressionItemInfos(_itemInfos, _predicateExpressionCallCount, this);
 				Utils.removeDownstreamConsumedComputing(_itemInfos, this);
 
 				_filteredPositions = new Positions<Position>(new List<Position>(_initialCapacity));	
@@ -304,7 +304,6 @@ namespace ObservableComputations
 				ref _lastProcessedSourceChangeMarker, 
 				_sourceAsList, 
 				ref _isConsistent,
-				this,
 				ref _handledEventSender,
 				ref _handledEventArgs,
 				ref _deferredProcessings,
@@ -339,7 +338,7 @@ namespace ObservableComputations
 						out Func<bool> newPredicateFunc,
 						out List<IComputingInternal> nestedComputings,
 						_predicateExpression,
-						out _predicateExpressionСallCount,
+						out _predicateExpressionCallCount,
 						this,
 						_predicateContainsParametrizedObservableComputationsCalls,
 						_predicateExpressionInfo);
@@ -369,10 +368,10 @@ namespace ObservableComputations
 					TSourceItem replacingSourceItem = (TSourceItem) e.NewItems[0];
 
 					FilteringItemInfo replacingItemInfo = _itemInfos[sourceIndex];
-					var replace = FilteringUtils.ProcessReplaceSourceItem(replacingItemInfo, replacingSourceItem,
+					bool replace = FilteringUtils.ProcessReplaceSourceItem(replacingItemInfo, replacingSourceItem,
 						new object[]{replacingSourceItem},
 						sourceIndex, _predicateContainsParametrizedObservableComputationsCalls, _predicateExpression,
-						out _predicateExpressionСallCount, _predicateExpressionInfo, _itemInfos, _filteredPositions,
+						out _predicateExpressionCallCount, _predicateExpressionInfo, _itemInfos, _filteredPositions,
 						_thisAsFiltering, this);
 
 					if (replace)
@@ -419,8 +418,8 @@ namespace ObservableComputations
 
 			if (Configuration.TrackComputingsExecutingUserCode)
 			{
-				var currentThread = Utils.startComputingExecutingUserCode(out var computing, out _userCodeIsCalledFrom, this);
-				var result = getValue();
+				Thread currentThread = Utils.startComputingExecutingUserCode(out IComputing computing, out _userCodeIsCalledFrom, this);
+				bool result = getValue();
 				Utils.endComputingExecutingUserCode(computing, currentThread, out _userCodeIsCalledFrom);
 				return result;
 			}
@@ -443,7 +442,7 @@ namespace ObservableComputations
 					out predicateFunc, 
 					out nestedComputings,
 					_predicateExpression,
-					out _predicateExpressionСallCount,
+					out _predicateExpressionCallCount,
 					this,
 					_predicateContainsParametrizedObservableComputationsCalls,
 					_predicateExpressionInfo);	
@@ -550,8 +549,7 @@ namespace ObservableComputations
 
 				if (_source != null)
 				{
-					Position nextFilteredItemPosition;
-					nextFilteredItemPosition = _filteredPositions.List[count];
+					Position nextFilteredItemPosition = _filteredPositions.List[count];
 					for (int sourceIndex = source.Count - 1; sourceIndex >= 0; sourceIndex--)
 					{
 						TSourceItem sourceItem = source[sourceIndex];
@@ -654,7 +652,6 @@ namespace ObservableComputations
 				FilteringItemInfo itemInfoOfOldSourceIndex = filteringItemInfos[oldSourceIndex];
 				FilteringItemInfo itemInfoOfNewSourceIndex = filteringItemInfos[newSourceIndex1];
 
-				Position newPosition1;
 				Position nextPosition1;
 
 				Position itemInfoOfOldSourceIndexFilteredPosition = itemInfoOfOldSourceIndex.FilteredPosition;
@@ -665,7 +662,7 @@ namespace ObservableComputations
 					int oldFilteredIndex = itemInfoOfOldSourceIndexFilteredPosition.Index;
 					int newFilteredIndex1;
 
-					newPosition1 = itemInfoOfOldSourceIndexFilteredPosition;
+					Position newPosition1 = itemInfoOfOldSourceIndexFilteredPosition;
 					if (itemInfoOfNewSourceIndexFilteredPosition == null)
 					{
 						//nextPositionIndex = itemInfoOfNewSourceIndex.NextFilteredItemIndex;
@@ -736,7 +733,7 @@ namespace ObservableComputations
 					current.baseInsertItem(newIndex, sourceItem);
 					return true;
 				}
-				else // if (oldPredicaeValue)
+				else // if (oldPredicateValue)
 				{
 					int index = itemInfo.FilteredPosition.Index;
 					filteredPositions.Remove(index);
@@ -756,7 +753,7 @@ namespace ObservableComputations
 			object[] sourceItems,
 			int sourceIndex, bool predicateContainsParametrizedObservableComputationsCalls,
 			Expression<TExpression> predicateExpression,
-			out int predicateExpressionСallCount,
+			out int predicateExpressionCallCount,
 			ExpressionWatcher.ExpressionInfo orderingValueSelectorExpressionInfo,
 			List<FilteringItemInfo> filteringItemInfos,
 			Positions<Position> filteredPositions, IFiltering<TSourceItem> thisAsFiltering,
@@ -772,7 +769,7 @@ namespace ObservableComputations
 				out Func<bool> predicateFunc,
 				out List<IComputingInternal> nestedComputings1,
 				predicateExpression,
-				out predicateExpressionСallCount,
+				out predicateExpressionCallCount,
 				thisAsFiltering,
 				predicateContainsParametrizedObservableComputationsCalls,
 				orderingValueSelectorExpressionInfo);

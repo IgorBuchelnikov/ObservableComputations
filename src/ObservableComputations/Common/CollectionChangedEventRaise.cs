@@ -6,8 +6,8 @@ namespace ObservableComputations
 {
 	internal class CollectionChangedEventRaise : IProcessable
 	{
-		private object _eventSender;
-		private NotifyCollectionChangedEventArgs _eventArgs;
+		private readonly object _eventSender;
+		private readonly NotifyCollectionChangedEventArgs _eventArgs;
 		internal ISourceCollectionChangeProcessor SourceCollectionChangeProcessor;
 
 		public CollectionChangedEventRaise(object eventSender, NotifyCollectionChangedEventArgs eventArgs, ISourceCollectionChangeProcessor sourceCollectionChangeProcessor)

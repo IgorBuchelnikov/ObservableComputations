@@ -44,10 +44,10 @@ namespace ObservableComputations
 
 	internal static class EventUnsubscriber
 	{
-		static ConcurrentQueue<Subscriptions> _subscriptionsQueue = new ConcurrentQueue<Subscriptions>();	
-		private static ManualResetEventSlim[] _newSubscriptionManualResetEvents;
+		static readonly ConcurrentQueue<Subscriptions> _subscriptionsQueue = new ConcurrentQueue<Subscriptions>();	
+		private static readonly ManualResetEventSlim[] _newSubscriptionManualResetEvents;
 		internal static Thread[] __threads;
-		private static int _threadsCount;
+		private static readonly int _threadsCount;
 
 		public static void QueueSubscriptions(
 			PropertyChangedEventSubscription[] propertyChangedEventSubscriptions,
@@ -64,47 +64,41 @@ namespace ObservableComputations
 			_newSubscriptionManualResetEvents = new ManualResetEventSlim[_threadsCount];
 			__threads = new Thread[_threadsCount];
 
-			ParameterizedThreadStart threadStart = 
-				state =>
+			void threadStart(object state)
+			{
+				int index = (int) state;
+				while (true)
 				{
-					int index = (int) state;
-					while (true)
+					_newSubscriptionManualResetEvents[index].Wait();
+					_newSubscriptionManualResetEvents[index].Reset();
+
+					while (_subscriptionsQueue.TryDequeue(out Subscriptions subscriptions))
 					{
-						_newSubscriptionManualResetEvents[index].Wait();
-						_newSubscriptionManualResetEvents[index].Reset();
-
-						while (_subscriptionsQueue.TryDequeue(out Subscriptions subscriptions))
+						for (int i = 0; i < subscriptions.PropertyChangedEventSubscriptions.Length; i++)
 						{
-							for (int i = 0; i < subscriptions.PropertyChangedEventSubscriptions.Length; i++)
-							{
-								PropertyChangedEventSubscription propertyChangedEventSubscription =
-									subscriptions.PropertyChangedEventSubscriptions[i];
+							PropertyChangedEventSubscription propertyChangedEventSubscription = subscriptions.PropertyChangedEventSubscriptions[i];
 
-								if (propertyChangedEventSubscription.Handler != null)
-									propertyChangedEventSubscription.Source.PropertyChanged -=
-										propertyChangedEventSubscription.Handler;
-							}
+							if (propertyChangedEventSubscription.Handler != null) propertyChangedEventSubscription.Source.PropertyChanged -= propertyChangedEventSubscription.Handler;
+						}
 
-							for (int i = 0; i < subscriptions.MethodChangedEventSubscriptions.Length; i++)
-							{
-								MethodChangedEventSubscription methodChangedEventSubscription =
-									subscriptions.MethodChangedEventSubscriptions[i];
+						for (int i = 0; i < subscriptions.MethodChangedEventSubscriptions.Length; i++)
+						{
+							MethodChangedEventSubscription methodChangedEventSubscription = subscriptions.MethodChangedEventSubscriptions[i];
 
-								if (methodChangedEventSubscription.Handler != null)
-									methodChangedEventSubscription.Source.MethodChanged -=
-										methodChangedEventSubscription.Handler;
-							}
+							if (methodChangedEventSubscription.Handler != null) methodChangedEventSubscription.Source.MethodChanged -= methodChangedEventSubscription.Handler;
 						}
 					}
-
-				};
+				}
+			}
 
 			for (int index = 0; index < _threadsCount; index++)
 			{
 				_newSubscriptionManualResetEvents[index] = new ManualResetEventSlim(false);
-				__threads[index] = new Thread(threadStart);
-				__threads[index].Name = "ObservableComputations events unsubscriber";
-				__threads[index].IsBackground = true;
+				__threads[index] = new Thread(threadStart)
+				{
+					Name = $"ObservableComputations events unsubscriber #{index}",
+					IsBackground = true
+				};
 				__threads[index].Start(index);
 			}
 		}

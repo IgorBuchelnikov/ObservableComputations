@@ -137,8 +137,7 @@ namespace ObservableComputations.Test
 
 		private void validate(Averaging<int, double> averaging, ObservableCollection<int> items)
 		{
-			if (items.Count > 0) Assert.AreEqual(averaging.Value, items.Average());
-			else Assert.AreEqual(averaging.Value, double.NaN);
+			Assert.AreEqual(averaging.Value, items.Count > 0 ? items.Average() : double.NaN);
 			consumer.Dispose();
 		}
 

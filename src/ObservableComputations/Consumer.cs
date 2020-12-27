@@ -6,7 +6,7 @@ namespace ObservableComputations
 	public class Consumer : IDisposable
 	{
 		List<IComputingInternal> _computings = new List<IComputingInternal>();
-		private object _tag;
+		private readonly object _tag;
 		public object Tag => _tag;
 
 		public Consumer(object tag = null)
@@ -18,12 +18,8 @@ namespace ObservableComputations
 		public void Dispose()
 		{
 			int computingsCount = _computings.Count;
-			for (var index = computingsCount - 1; index >= 0; index--)
-			{
-				IComputingInternal computing = _computings[index];
-				computing.RemoveConsumer(this);
-
-			}
+			for (int index = computingsCount - 1; index >= 0; index--)
+				_computings[index].RemoveConsumer(this);
 
 			_computings = new List<IComputingInternal>();
 		}

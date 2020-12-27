@@ -7,19 +7,19 @@ namespace ObservableComputations
 	public class ScalarPausing<TResult> : ScalarComputing<TResult>
 	{
 		public IReadScalar<TResult> Scalar => _scalar;
-		private IReadScalar<TResult> _scalar;
+		private readonly IReadScalar<TResult> _scalar;
 		public IReadScalar<bool> IsPausedScalar => _isPausedScalar;
 		public IReadScalar<int?> LastChangesToApplyOnResumeCountScalar => _lastChangesToApplyOnResumeCountScalar;
 
 		public bool Resuming => _resuming;
 
-		private IReadScalar<bool> _isPausedScalar;
+		private readonly IReadScalar<bool> _isPausedScalar;
 
-		private IReadScalar<int?> _lastChangesToApplyOnResumeCountScalar;
+		private readonly IReadScalar<int?> _lastChangesToApplyOnResumeCountScalar;
 
 		private bool _resuming;
 
-		private Action _changeValueAction;
+		private readonly Action _changeValueAction;
 
 		public int? LastChangesCountOnResume
 		{
@@ -57,19 +57,18 @@ namespace ObservableComputations
 		{
 			_isConsistent = false;
 
-			DefferedScalarAction<TResult> defferedScalarAction;
-			int count = _defferedScalarActions.Count;
+			int count = _deferredScalarActions.Count;
 			int startIndex = count - _lastChangesToApplyOnResumeCount ?? count;
 
 			for (int i = 0; i < count; i++)
 			{
-				defferedScalarAction = _defferedScalarActions.Dequeue();
+				DeferredScalarAction<TResult> deferredScalarAction = _deferredScalarActions.Dequeue();
 				if (i >= startIndex)
 				{
-					_handledEventSender = defferedScalarAction.EventSender;
-					_handledEventArgs = defferedScalarAction.PropertyChangedEventAgs;
+					_handledEventSender = deferredScalarAction.EventSender;
+					_handledEventArgs = deferredScalarAction.PropertyChangedEventAgs;
 
-					setValue(defferedScalarAction.Value);
+					setValue(deferredScalarAction.Value);
 
 					_handledEventSender = null;
 					_handledEventArgs = null;
@@ -85,7 +84,7 @@ namespace ObservableComputations
 				this);
 		}
 
-		Queue<DefferedScalarAction<TResult>> _defferedScalarActions = new Queue<DefferedScalarAction<TResult>>();
+		readonly Queue<DeferredScalarAction<TResult>> _deferredScalarActions = new Queue<DeferredScalarAction<TResult>>();
 		private int? _lastChangesToApplyOnResumeCount;
 
 		[ObservableComputationsCall]
@@ -173,13 +172,13 @@ namespace ObservableComputations
 					_lastChangesToApplyOnResumeCountScalar.PropertyChanged -= handleLastChangesToApplyOnResumeCountScalarValueChanged;			
 				}
 
-				_defferedScalarActions.Clear();
+				_deferredScalarActions.Clear();
 				_initializedFromSource = false;
 			}
 
 			if (_isActive)
 			{
-				if (_isPaused) _defferedScalarActions.Enqueue(new DefferedScalarAction<TResult>(null, null, _scalar.Value));
+				if (_isPaused) _deferredScalarActions.Enqueue(new DeferredScalarAction<TResult>(null, null, _scalar.Value));
 				else setValue(_scalar.Value);
 
 				_scalar.PropertyChanged += handleScalarPropertyChanged;
@@ -227,7 +226,7 @@ namespace ObservableComputations
 		private void handleScalarPropertyChanged(object sender, PropertyChangedEventArgs e)
 		{
 			if (_isPaused) 
-				_defferedScalarActions.Enqueue(new DefferedScalarAction<TResult>(sender, e, _scalar.Value));
+				_deferredScalarActions.Enqueue(new DeferredScalarAction<TResult>(sender, e, _scalar.Value));
 			else			 
 				Utils.processChange(
 					sender, 
@@ -278,13 +277,13 @@ namespace ObservableComputations
 		}
 	}
 
-	internal struct DefferedScalarAction<TResult>
+	internal struct DeferredScalarAction<TResult>
 	{
 		public object EventSender;
 		public PropertyChangedEventArgs PropertyChangedEventAgs;
 		public TResult Value;
 
-		public DefferedScalarAction(object eventSender, PropertyChangedEventArgs eventAgs, TResult value)
+		public DeferredScalarAction(object eventSender, PropertyChangedEventArgs eventAgs, TResult value)
 		{
 			EventSender = eventSender;
 			PropertyChangedEventAgs = eventAgs;

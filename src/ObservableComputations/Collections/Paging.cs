@@ -26,11 +26,12 @@ namespace ObservableComputations
 
 				int newPageSize = value;
 
-				Action action = () => {
+				void action()
+				{
 					int originalPageSize = _pageSize;
 					_pageSize = newPageSize;
 					processPageSizeChanged(originalPageSize);
-				};
+				}
 
 				Utils.processChange(
 					null, 
@@ -63,13 +64,10 @@ namespace ObservableComputations
 			if (originalPageSize < _pageSize)
 			{
 				int index = originalPageSize;
-				for (var sourceIndex = originalUpperIndex;
+				for (int sourceIndex = originalUpperIndex;
 					sourceIndex < sourceCount && sourceIndex < _upperIndex;
 					sourceIndex++)
-				{
-					TSourceItem sourceItem = _sourceCopy[sourceIndex];
-					baseInsertItem(index++, sourceItem);
-				}
+					baseInsertItem(index++, _sourceCopy[sourceIndex]);
 			}
 			else if (originalPageSize > _pageSize)
 			{
@@ -91,15 +89,15 @@ namespace ObservableComputations
 			get => _currentPage;
 			set
 			{
-				if (_currentPageScalar != null) throw new ObservableComputationsException("Modifying of CurrentPage property is controlled by CurrentPagecalar");
+				if (_currentPageScalar != null) throw new ObservableComputationsException("Modifying of CurrentPage property is controlled by CurrentPageScalar");
 
-				var newCurrentPage = value;
+				int newCurrentPage = value;
 
-				Action action = () =>
+				void action()
 				{
 					_currentPage = newCurrentPage;
-					processCurentPageChanged();
-				};
+					processCurrentPageChanged();
+				}
 
 				Utils.processChange(
 					null, 
@@ -113,7 +111,7 @@ namespace ObservableComputations
 			}
 		}
 
-		private void processCurentPageChanged()
+		private void processCurrentPageChanged()
 		{
 			if (_currentPage < 1) _currentPage = 1;
 			if (_currentPage > _pageCount) _currentPage = _pageCount;
@@ -124,15 +122,15 @@ namespace ObservableComputations
 			int sourceCount = _sourceCopy.Count;
 			int index = 0;
 			int thisCount = Count;
-			for (var sourceIndex = _lowerIndex; sourceIndex < sourceCount && sourceIndex < _upperIndex; sourceIndex++)
-			{
-				TSourceItem sourceItem = _sourceCopy[sourceIndex];
-				index++;
 
+			for (int sourceIndex = _lowerIndex; sourceIndex < sourceCount && sourceIndex < _upperIndex; sourceIndex++)
+			{
 				if (thisCount > index)
-					baseSetItem(index, sourceItem);
+					baseSetItem(index, _sourceCopy[sourceIndex]);
 				else
-					baseInsertItem(index, sourceItem);
+					baseInsertItem(index, _sourceCopy[sourceIndex]);
+
+				index++;
 			}
 
 			int count = Count;
@@ -157,9 +155,9 @@ namespace ObservableComputations
 		private bool _indexerPropertyChangedEventRaised;
 		private INotifyPropertyChanged _sourceAsINotifyPropertyChanged;
 
-		private IReadScalar<int> _pageSizeScalar;
+		private readonly IReadScalar<int> _pageSizeScalar;
 
-		private IReadScalar<int> _currentPageScalar;
+		private readonly IReadScalar<int> _currentPageScalar;
 
 		private IHasChangeMarker _sourceAsIHasChangeMarker;
 		private bool _lastProcessedSourceChangeMarker;
@@ -171,7 +169,7 @@ namespace ObservableComputations
 		private int _lowerIndex;
 		private int _upperIndex;
 
-		private ISourceCollectionChangeProcessor _thisAsSourceCollectionChangeProcessor;
+		private readonly ISourceCollectionChangeProcessor _thisAsSourceCollectionChangeProcessor;
 
 
 		[ObservableComputationsCall]
@@ -302,13 +300,14 @@ namespace ObservableComputations
 		private void handlePageSizeScalarValueChanged(object sender, PropertyChangedEventArgs e)
 		{
 			int pageSize = _pageSizeScalar.Value;
-			Action action = () =>
+
+			void action()
 			{
 				int originalPageSize = _pageSize;
 				_pageSize = pageSize;
 				checkPageSize();
 				processPageSizeChanged(originalPageSize);
-			};
+			}
 
 			Utils.processChange(
 				sender, 
@@ -335,13 +334,13 @@ namespace ObservableComputations
 		private void handleCurrentPageScalarValueChanged(object sender, PropertyChangedEventArgs e)
 		{
 			int currentPage = _currentPageScalar.Value;
-			Action action = () =>
-			{
 
+			void action()
+			{
 				_currentPage = currentPage;
 				checkCurrentPage();
-				processCurentPageChanged();
-			};
+				processCurrentPageChanged();
+			}
 
 			Utils.processChange(
 				sender, 
@@ -403,7 +402,7 @@ namespace ObservableComputations
 				_lowerIndex = _pageSize * (_currentPage - 1);
 				_upperIndex = _lowerIndex + _pageSize;
 	
-				for (var sourceIndex = _lowerIndex; sourceIndex < count && sourceIndex < _upperIndex; sourceIndex++)
+				for (int sourceIndex = _lowerIndex; sourceIndex < count && sourceIndex < _upperIndex; sourceIndex++)
 				{
 					if (originalCount > sourceIndex)
 						_items[newIndex++] = _sourceCopy[sourceIndex];
@@ -505,7 +504,7 @@ namespace ObservableComputations
 					break;
 				case NotifyCollectionChangedAction.Remove:
 					// (e.OldItems.Count > 1) throw new ObservableComputationsException("Removing of multiple items is not supported");
-					var oldStartingIndex = e.OldStartingIndex;
+					int oldStartingIndex = e.OldStartingIndex;
 					_sourceCopy.RemoveAt(oldStartingIndex);
 					int originalPageCount1 = _pageCount;
 					int originalCurrentPage1 = _currentPage;
@@ -541,12 +540,11 @@ namespace ObservableComputations
 
 						int index = 0;
 
-						for (var sourceIndex = _lowerIndex;
+						for (int sourceIndex = _lowerIndex;
 							sourceIndex < sourceCount && sourceIndex < _upperIndex;
 							sourceIndex++)
 						{
-							TSourceItem sourceItem = _sourceCopy[sourceIndex];
-							baseInsertItem(index++, sourceItem);
+							baseInsertItem(index++, _sourceCopy[sourceIndex]);
 						}
 					}
 
@@ -679,7 +677,7 @@ namespace ObservableComputations
 			int pageSize = PageSize;
 			int startIndex =  (CurrentPage - 1) * pageSize;
 
-			if (_source != null || (_sourceScalar != null && _sourceScalar.Value != null))
+			if (_source != null || (_sourceScalar?.Value != null))
 			{
 				if (_lowerIndex != PageSize * (CurrentPage - 1))
 					throw new ObservableComputationsException(this, "Consistency violation: Paging.2");

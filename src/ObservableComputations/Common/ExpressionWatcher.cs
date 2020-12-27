@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq.Expressions;
 using System.Reflection;
-using ObservableComputations.ExtentionMethods;
 
 namespace ObservableComputations
 {
@@ -15,7 +14,7 @@ namespace ObservableComputations
 		internal IComputingInternal[] _oldComputings;
 		internal IComputingInternal[] _currentComputings;
 		internal bool _computingsChanged;
-		private ExpressionWatcher _rootExpressionWatcher;
+		private readonly ExpressionWatcher _rootExpressionWatcher;
 
 		internal class Raise : IProcessable
 		{
@@ -262,14 +261,13 @@ namespace ObservableComputations
 		{
 			CallPathsConstructor callPathsConstructor =  new CallPathsConstructor(expression);
 			callPathsConstructor.Visit(expression);
-			int count;
 
-			count = callPathsConstructor.ConstantCallPaths.Count;
+			int count = callPathsConstructor.ConstantCallPaths.Count;
 			ConstantCallTreesInfo[] constantsCallTreesInfo = null;
 			if (count > 0)
 			{
 				constantsCallTreesInfo = new ConstantCallTreesInfo[count];
-				for (var index = 0; index < count; index++)
+				for (int index = 0; index < count; index++)
 				{
 					ConstantCallPaths constantCallPaths = callPathsConstructor.ConstantCallPaths[index];
 					constantsCallTreesInfo[index] = new ConstantCallTreesInfo(constantCallPaths.ConstantValue, getCallTrees(constantCallPaths.CallPaths, ref callIndex));
@@ -281,7 +279,7 @@ namespace ObservableComputations
 			if (count > 0)
 			{
 				parameterCallTreesInfo = new ParameterCallTreesInfo[count];
-				for (var index = 0; index < count; index++)
+				for (int index = 0; index < count; index++)
 				{
 					ParameterCallPaths parameterCallPaths = callPathsConstructor.ParameterCallPaths[index];
 					parameterCallTreesInfo[index] = new ParameterCallTreesInfo(parameterCallPaths.ParameterIndex, getCallTrees(parameterCallPaths.CallPaths, ref callIndex));
@@ -293,7 +291,7 @@ namespace ObservableComputations
 			if (count > 0)
 			{
 				expressionCallTreesInfo = new ExpressionCallTreesInfo[count];
-				for (var index = 0; index < count; index++)
+				for (int index = 0; index < count; index++)
 				{
 					ExpressionCallPaths expressionCallPaths = callPathsConstructor.ExpressionCallPaths[index];
 					expressionCallTreesInfo[index] = new ExpressionCallTreesInfo(GetExpressionInfo(expressionCallPaths.Expression, ref callIndex), getCallTrees(expressionCallPaths.CallPaths, ref callIndex));
@@ -363,7 +361,7 @@ namespace ObservableComputations
 			{
 				length = parameterCallTreesInfo.Length;
 				_parameterCallTrees = new ParameterCallTrees[length];
-				for (var index = 0; index < length; index++)
+				for (int index = 0; index < length; index++)
 				{
 					ParameterCallTreesInfo parameterCallTreesInfoItem = parameterCallTreesInfo[index];
 					int callTreesCount = parameterCallTreesInfoItem.CallTrees.Count;
@@ -383,7 +381,7 @@ namespace ObservableComputations
 				}
 
 				length = _parameterCallTrees.Length;
-				for (var index= 0; index < length; index++)
+				for (int index= 0; index < length; index++)
 				{
 					ParameterCallTrees parameterCallTree = _parameterCallTrees[index];
 					object parameterValue = parameterValues[parameterCallTree.ParameterIndex];
@@ -403,7 +401,7 @@ namespace ObservableComputations
 			
 			length = expressionCallTreesInfo.Length;
 			_expressionCallTrees = new ExpressionCallTrees[length];
-			for (var index = 0; index < length; index++)
+			for (int index = 0; index < length; index++)
 			{
 				ExpressionCallTreesInfo expressionCallTreesInfoItem = expressionCallTreesInfo[index];
 				ExpressionWatcher expressionWatcher = new ExpressionWatcher(
@@ -414,7 +412,7 @@ namespace ObservableComputations
 					_oldComputings, 
 					_currentComputings,
 					_rootExpressionWatcher);
-				expressionWatcher.complileExpressionToWatch();
+				expressionWatcher.compileExpressionToWatch();
 
 				int callTreesCount = expressionCallTreesInfoItem.CallTrees.Count;
 				CallTreeNode[] callTrees = new CallTreeNode[callTreesCount];
@@ -477,7 +475,7 @@ namespace ObservableComputations
 		{
 			int length = constantCallTreesInfo.Length;
 			_constantCallTrees = new ConstantCallTrees[length];
-			for (var index = 0; index < length; index++)
+			for (int index = 0; index < length; index++)
 			{
 				ConstantCallTreesInfo constantCallTreesInfoItem = constantCallTreesInfo[index];
 				int callTreesCount = constantCallTreesInfoItem.CallTrees.Count;
@@ -497,7 +495,7 @@ namespace ObservableComputations
 			}
 
 			length = _constantCallTrees.Length;
-			for (var index = 0; index < length; index++)
+			for (int index = 0; index < length; index++)
 			{
 				ConstantCallTrees constantCallTree = _constantCallTrees[index];
 #if DEBUG
@@ -517,7 +515,7 @@ namespace ObservableComputations
 
 		private Delegate _expressionToWatchCompiled;
 
-		private void complileExpressionToWatch()
+		private void compileExpressionToWatch()
 		{
 			_expressionToWatchCompiled = ExpressionToWatch.Compile();
 		}
@@ -618,21 +616,15 @@ namespace ObservableComputations
 		private void workWithCallTrees(CallTreeNode[] trees, Root root, WorkWithCallTreeNodeType workType)
 		{
 			int treesCount = trees.Length;
-			for (var index = 0; index < treesCount; index++)
-			{
-				CallTreeNode tree = trees[index];
-				workWithCallTreeNode(tree, root?.Value, root, workType);
-			}
+			for (int index = 0; index < treesCount; index++)
+				workWithCallTreeNode(trees[index], root?.Value, root, workType);
 		}
 #else
 		private void workWithCallTrees(CallTreeNode[] trees, object root, WorkWithCallTreeNodeType workType)
 		{
 			int treesCount = trees.Length;
 			for (int index = 0; index < treesCount; index++)
-			{
-				CallTreeNode tree = trees[index];
-				workWithCallTreeNode(tree, root, workType);
-			}	
+				workWithCallTreeNode(trees[index], root, workType);	
 		}
 #endif
 
@@ -665,9 +657,9 @@ namespace ObservableComputations
 #if DEBUG
 			internal Root Root;
 #endif
-			internal object Sender;
-			internal EventArgs Args;
-			internal CallTreeNode Node;
+			internal readonly object Sender;
+			internal readonly EventArgs Args;
+			internal readonly CallTreeNode Node;
 		}
 
 #if DEBUG
@@ -686,8 +678,7 @@ namespace ObservableComputations
 						int callArgumentsLength = nodeCallArguments.Length;
 						for (int index = 0; index < callArgumentsLength; index++)
 						{
-							ExpressionWatcher expressionWatcher = nodeCallArguments[index];
-							expressionWatcher.Dispose();
+							nodeCallArguments[index].Dispose();
 						}
 					}
 				}
@@ -747,8 +738,7 @@ namespace ObservableComputations
 						}
 						break;
 					case CallType.Method:
-						INotifyMethodChanged notifyMethodChanged = node._holder as INotifyMethodChanged;
-						if (notifyMethodChanged != null)
+						if (node._holder is INotifyMethodChanged notifyMethodChanged)
 						{
 							CallTreeNode nodeCopy = node;
 							node._methodChangedEventHandler = (sender, args) =>
@@ -757,11 +747,8 @@ namespace ObservableComputations
 								{
 									int length = nodeCopy._call.GetArgumentValues.Length;
 									object[] argumentValues = new object[length];
-									for (var index = 0; index < length; index++)
-									{
-										Delegate callGetArgumentValue = nodeCopy._call.GetArgumentValues[index];
-										argumentValues[index] = callGetArgumentValue.DynamicInvoke(_parameterValues);
-									}
+									for (int index = 0; index < length; index++)
+										argumentValues[index] = nodeCopy._call.GetArgumentValues[index].DynamicInvoke(_parameterValues);
 
 									if (args.ArgumentsPredicate(argumentValues))
 #if DEBUG
@@ -793,9 +780,7 @@ namespace ObservableComputations
 
 							int callArgumentsLength = nodeCallArguments.Length;
 							for (int index = 0; index < callArgumentsLength; index++)
-							{
 								nodeCallArguments[index].ValueChanged = node._callArgumentChangedEventHandler;
-							}
 						}
 						break;
 				}			
@@ -889,11 +874,9 @@ namespace ObservableComputations
 								int length = node._call.GetArgumentValues.Length;
 								object[] args = new object[length + 1];
 								args[0] = nodeHolder;
-								for (var index = 0; index < length; index++)
-								{
-									Delegate callGetArgumentValue = node._call.GetArgumentValues[index];
-									args[index + 1] = callGetArgumentValue.DynamicInvoke(_parameterValues);
-								}
+								for (int index = 0; index < length; index++)
+									args[index + 1] = node._call.GetArgumentValues[index]
+										.DynamicInvoke(_parameterValues);
 
 								value = node._call.GetMethodValue.DynamicInvoke(args);
 								break;
@@ -911,14 +894,11 @@ namespace ObservableComputations
 					{
 						int childrenCount = nodeChildrenLength;
 						for (int index = 0; index < childrenCount; index++)
-						{
-							CallTreeNode child = nodeChildren[index];
-	#if DEBUG
-							workWithCallTreeNode(child, value, root, workType);
-	#else
-							workWithCallTreeNode(child, value, workType);
-	#endif
-						}
+#if DEBUG
+							workWithCallTreeNode(nodeChildren[index], value, root, workType);
+#else
+							workWithCallTreeNode(nodeChildren[index], value, workType);
+#endif						
 					}			
 				}
 			}
@@ -987,7 +967,7 @@ namespace ObservableComputations
 			public override Expression Visit(Expression node)
 			{
 				int visitedExpressionsCount = _visitedExpressions.Count;
-				for (var index = 0; index < visitedExpressionsCount; index++)
+				for (int index = 0; index < visitedExpressionsCount; index++)
 				{
 					if (_visitedExpressions[index] == node)
 					{
@@ -1072,7 +1052,7 @@ namespace ObservableComputations
 					{
 						memberCallPaths = null;
 						int count = ParameterCallPaths.Count;
-						for (var index = 0; index < count; index++)
+						for (int index = 0; index < count; index++)
 						{
 							ParameterCallPaths parameterCallPaths = ParameterCallPaths[index];
 							if (parameterCallPaths.ParameterIndex == parameterIndex)
@@ -1101,7 +1081,7 @@ namespace ObservableComputations
 					{
 						memberCallPaths = null;
 						int count = ConstantCallPaths.Count;
-						for (var index = 0; index < count; index++)
+						for (int index = 0; index < count; index++)
 						{
 							ConstantCallPaths constantCallPaths = ConstantCallPaths[index];
 							if (ReferenceEquals(constantCallPaths.ConstantValue, key))
@@ -1193,11 +1173,10 @@ namespace ObservableComputations
 				ParameterExpression[] arguments = new ParameterExpression[node.Arguments.Count + 1];
 				ParameterExpression[] parameters = new ParameterExpression[node.Arguments.Count];
 				arguments[0] = methodHolderParameter;
-				for (var index = 0; index < node.Arguments.Count; index++)
+				for (int index = 0; index < node.Arguments.Count; index++)
 				{
-					Expression nodeArgument = node.Arguments[index];
 					//argumentNum++;
-					ParameterExpression parameterExpression = Expression.Parameter(nodeArgument.Type);
+					ParameterExpression parameterExpression = Expression.Parameter(node.Arguments[index].Type);
 					arguments[index + 1] = parameterExpression;
 					parameters[index] = parameterExpression;
 				}
@@ -1273,18 +1252,16 @@ namespace ObservableComputations
 				_call.Index = callIndex++;
 				_children = children;
 
-				ExpressionInfo[] callArgumentExpressionInfos;
 				if (_call.Arguments != null)
 				{
 					int argumentsLength = _call.Arguments.Count;
 					if (argumentsLength > 0)
 					{
-						callArgumentExpressionInfos =  new ExpressionInfo[_call.Arguments.Count];
+						ExpressionInfo[] callArgumentExpressionInfos = new ExpressionInfo[_call.Arguments.Count];
 
-						for (var index = 0; index < argumentsLength; index++)
-						{
-							callArgumentExpressionInfos[index] = GetExpressionInfo(_call.Arguments[index], ref callIndex);
-						}
+						for (int index = 0; index < argumentsLength; index++)
+							callArgumentExpressionInfos[index] =
+								GetExpressionInfo(_call.Arguments[index], ref callIndex);
 
 						_call.ArgumentExpressionInfos = callArgumentExpressionInfos;
 					}
@@ -1303,11 +1280,10 @@ namespace ObservableComputations
 				if (childrenCount > 0)
 				{
 					childNodes = new CallTreeNode[childrenCount];
-					for (var index = 0; index < childrenCount; index++)
-					{
-						CallTreeNodeInfo callTreeNodeInfo = _children[index];
-						childNodes[index] = callTreeNodeInfo.getCallTreeNode(parameterValues, propertyChangedEventSubscriptions, methodChangedEventSubscription, oldComputings, currentComputings, rootExpressionWatcher);
-					}
+					for (int index = 0; index < childrenCount; index++)
+						childNodes[index] = _children[index].getCallTreeNode(parameterValues,
+							propertyChangedEventSubscriptions, methodChangedEventSubscription, oldComputings,
+							currentComputings, rootExpressionWatcher);
 				}
 
 				ExpressionWatcher[] callArguments = null;
@@ -1318,17 +1294,15 @@ namespace ObservableComputations
 					{
 						callArguments =  new ExpressionWatcher[_call.Arguments.Count];
 
-						for (var index = 0; index < argumentsLength; index++)
-						{
+						for (int index = 0; index < argumentsLength; index++)
 							callArguments[index] = new ExpressionWatcher(
-								parameterValues, 
-								_call.ArgumentExpressionInfos[index], 
-								propertyChangedEventSubscriptions, 
-								methodChangedEventSubscription, 
-								oldComputings, 
+								parameterValues,
+								_call.ArgumentExpressionInfos[index],
+								propertyChangedEventSubscriptions,
+								methodChangedEventSubscription,
+								oldComputings,
 								currentComputings,
 								rootExpressionWatcher);
-						}
 					}
 					
 				}
@@ -1380,23 +1354,18 @@ namespace ObservableComputations
 			if (_constantCallTrees != null)
 			{
 				int length = _constantCallTrees.Length;
-				for (var index = 0; index < length; index++)
-				{
-					ConstantCallTrees constantCallTree = _constantCallTrees[index];
-					workWithCallTrees(constantCallTree.CallTrees, null, WorkWithCallTreeNodeType.Dispose);
-				}
+				for (int index = 0; index < length; index++)
+					workWithCallTrees(_constantCallTrees[index].CallTrees, null, WorkWithCallTreeNodeType.Dispose);
 			}
 
 			if (_parameterCallTrees != null)
 			{
 				int length = _parameterCallTrees.Length;
-				for (var index = 0; index < length; index++)
+				for (int index = 0; index < length; index++)
 				{
 					ParameterCallTrees parameterCallTree = _parameterCallTrees[index];
 					if (_parameterValues[parameterCallTree.ParameterIndex] is INotifyPropertyChanged)
-					{
 						workWithCallTrees(parameterCallTree.CallTrees, null, WorkWithCallTreeNodeType.Dispose);
-					}
 				}
 			}
 

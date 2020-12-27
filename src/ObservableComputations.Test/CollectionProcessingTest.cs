@@ -21,7 +21,7 @@ namespace ObservableComputations.Test
 				(newItems, current) =>
 				{
 					object[] tokens = new object[newItems.Length];
-					for (var index = 0; index < newItems.Length; index++)
+					for (int index = 0; index < newItems.Length; index++)
 					{
 						Item newItem = newItems[index];
 						newItem.ProcessedAsNew = true;
@@ -32,7 +32,7 @@ namespace ObservableComputations.Test
 				},
 				(oldItems, current, returnValues) =>
 				{
-					for (var index = 0; index < oldItems.Length; index++)
+					for (int index = 0; index < oldItems.Length; index++)
 					{
 						Item oldItem = oldItems[index];
 						oldItem.ProcessedAsOld = true;

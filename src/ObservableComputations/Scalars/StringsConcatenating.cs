@@ -47,7 +47,7 @@ namespace ObservableComputations
 		private IHasChangeMarker _sourceAsIHasChangeMarker;
 		private bool _lastProcessedSourceChangeMarker;
 
-		private ISourceCollectionChangeProcessor _thisAsSourceCollectionChangeProcessor;
+		private readonly ISourceCollectionChangeProcessor _thisAsSourceCollectionChangeProcessor;
 		private int _sourceCount;
 		private PropertyChangedEventHandler _handleSeparatorScalarValueChanged;
 
@@ -177,22 +177,17 @@ namespace ObservableComputations
 						separatorCharIndex < oldSeparatorLength 
 							&& separatorCharIndex  < _separatorLength; 
 						separatorCharIndex++)
-					{
-						_valueStringBuilder[separatorRangePosition.PlainIndex + incrementSum + separatorCharIndex] = _separator[separatorCharIndex];
-					}
+						_valueStringBuilder[separatorRangePosition.PlainIndex + incrementSum + separatorCharIndex] =
+							_separator[separatorCharIndex];
 
 					if (_separatorLength < oldSeparatorLength)
-					{
 						_valueStringBuilder.Remove(
 							separatorRangePosition.PlainIndex + incrementSum + _separatorLength,
 							-lengthIncrement);
-					}
 					else if (_separatorLength > oldSeparatorLength)
-					{
 						_valueStringBuilder.Insert(
 							separatorRangePosition.PlainIndex + incrementSum + oldSeparatorLength,
 							_separator.Substring(oldSeparatorLength, lengthIncrement));
-					}
 
 					itemRangePosition.PlainIndex = itemRangePosition.PlainIndex + incrementSum;
 					separatorRangePosition.PlainIndex = itemRangePosition.PlainIndex + incrementSum;
@@ -256,7 +251,7 @@ namespace ObservableComputations
 						_resultRangePositions.List[e.NewStartingIndex * 2];
 					string newSourceItem = (string) newItems1[0];
 					int replacingSourceItemLength = replacingItemRangePosition.Length;
-					int newSourceItemLength = newSourceItem != null ? newSourceItem.Length : 0;
+					int newSourceItemLength = newSourceItem?.Length ?? 0;
 
 					int plainIndex = replacingItemRangePosition.PlainIndex;
 					for (
@@ -264,25 +259,19 @@ namespace ObservableComputations
 						charIndex < replacingSourceItemLength
 						&& charIndex < newSourceItemLength;
 						charIndex++)
-					{
 						// ReSharper disable once PossibleNullReferenceException
 						_valueStringBuilder[plainIndex + charIndex] = newSourceItem[charIndex];
-					}
 
 					if (newSourceItemLength < replacingSourceItemLength)
-					{
 						_valueStringBuilder.Remove(
 							plainIndex + newSourceItemLength,
 							replacingSourceItemLength - newSourceItemLength);
-					}
 					else if (newSourceItemLength > replacingSourceItemLength)
-					{
 						_valueStringBuilder.Insert(
 							plainIndex + replacingSourceItemLength,
 							// ReSharper disable once PossibleNullReferenceException
 							newSourceItem.Substring(replacingSourceItemLength,
 								newSourceItemLength - replacingSourceItemLength));
-					}
 
 					_resultRangePositions.ModifyLength(replacingItemRangePosition.Index,
 						newSourceItemLength - replacingSourceItemLength);
@@ -357,7 +346,7 @@ namespace ObservableComputations
 				string sourceItem = sourceCopy[sourceIndex];
 				_valueStringBuilder.Append(sourceItem);
 				// ReSharper disable once ReturnValueOfPureMethodIsNotUsed
-				_resultRangePositions.Add(sourceItem != null ? sourceItem.Length : 0);
+				_resultRangePositions.Add(sourceItem?.Length ?? 0);
 
 				if (sourceIndex != _sourceCount - 1)
 				{

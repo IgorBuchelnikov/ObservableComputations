@@ -18,12 +18,12 @@ namespace ObservableComputations
 		public object Context => _context;
 		public OcDispatcher OcDispatcher => _ocDispatcher;
 
-		private Action _action;
-		private Action<object> _actionWithState;
-		private object _state;
-		private string _callStackTrace;
-		private object _context;
-		private OcDispatcher _ocDispatcher;
+		private readonly Action _action;
+		private readonly Action<object> _actionWithState;
+		private readonly object _state;
+		private readonly string _callStackTrace;
+		private readonly object _context;
+		private readonly OcDispatcher _ocDispatcher;
 		internal InvocationStatus InvocationStatus;
 		internal ManualResetEventSlim _doneManualResetEvent;
 
@@ -58,8 +58,7 @@ namespace ObservableComputations
 			if (Configuration.TrackOcDispatcherInvocations)
 			{
 				bool nestedInvocation = true;
-				Stack<Invocation> invocations;
-				if (!DebugInfo._executingOcDispatcherInvocations.TryGetValue(_ocDispatcher._thread, out invocations))
+				if (!DebugInfo._executingOcDispatcherInvocations.TryGetValue(_ocDispatcher._thread, out Stack<Invocation> invocations))
 				{
 					nestedInvocation = false;
 					invocations = _ocDispatcher._invocations;
@@ -116,10 +115,10 @@ namespace ObservableComputations
 
 	public class OcDispatcher : IDisposable, IOcDispatcher
 	{
-		ConcurrentQueue<Invocation>[] _invocationQueues;
-		private ManualResetEventSlim _newInvocationManualResetEvent = new ManualResetEventSlim(false);
+		readonly ConcurrentQueue<Invocation>[] _invocationQueues;
+		private readonly ManualResetEventSlim _newInvocationManualResetEvent = new ManualResetEventSlim(false);
 		private bool _isAlive = true;
-		private bool _isDisposed = false;
+		private bool _isDisposed ;
 		internal Thread _thread;
 		internal Stack<Invocation> _invocations = new Stack<Invocation>();
 		private NewInvocationBehaviour _newInvocationBehaviour;
@@ -127,7 +126,7 @@ namespace ObservableComputations
 		public bool IsAlive => _isAlive;
 		public bool IsDisposed => _isDisposed;
 
-		private string _instantiatingStackTrace;
+		private readonly string _instantiatingStackTrace;
 		public string InstantiatingStackTrace => _instantiatingStackTrace;
 
 		public NewInvocationBehaviour NewInvocationBehaviour
@@ -188,23 +187,20 @@ namespace ObservableComputations
 
 		private void processQueues(int highestPriority, Func<int, bool> stop)
 		{
-			int priority;
 			bool processed = true;
 			int count = 0;
-			Invocation invocation;
 			while (processed)
 			{
 				processed = false;
+				int priority;
 				for (priority = highestPriority; priority >= 0; priority--)
-				{
-					if (_invocationQueues[priority].TryDequeue(out invocation))
+					if (_invocationQueues[priority].TryDequeue(out Invocation invocation))
 					{
 						invocation.Do();
 						count++;
 						processed = stop == null || !stop(count);
 						break;
 					}
-				}
 			}
 		}
 
@@ -235,15 +231,9 @@ namespace ObservableComputations
 			set => _thread.CurrentUICulture = value;
 		}
 
-		public bool ThreadIsAlive
-		{
-			get => _thread.IsAlive;
-		}
+		public bool ThreadIsAlive => _thread.IsAlive;
 
-		public ExecutionContext ThreadExecutionContext
-		{
-			get => _thread.ExecutionContext;
-		}
+		public ExecutionContext ThreadExecutionContext => _thread.ExecutionContext;
 
 		public bool ThreadIsBackground
 		{
@@ -251,10 +241,7 @@ namespace ObservableComputations
 			set => _thread.IsBackground = value;
 		}
 
-		public int ManagedThreadId
-		{
-			get => _thread.ManagedThreadId;
-		}
+		public int ManagedThreadId => _thread.ManagedThreadId;
 
 		public ThreadPriority ThreadPriority
 		{
@@ -262,10 +249,7 @@ namespace ObservableComputations
 			set => _thread.Priority = value;
 		}
 
-		public ThreadState ThreadState
-		{
-			get => _thread.ThreadState;
-		}
+		public ThreadState ThreadState => _thread.ThreadState;
 
 		public void DisableThreadComObjectEagerCleanup()
 		{
@@ -289,7 +273,7 @@ namespace ObservableComputations
 
 		public void ClearQueues()
 		{
-			for (var index = 0; index < _invocationQueues.Length; index++)
+			for (int index = 0; index < _invocationQueues.Length; index++)
 			{
 				ConcurrentQueue<Invocation> invocationQueue = _invocationQueues[index];
 				while (invocationQueue.TryDequeue(out Invocation invocation))

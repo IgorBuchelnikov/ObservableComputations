@@ -31,7 +31,7 @@ namespace ObservableComputations
 		private IHasChangeMarker _sourcesAsIHasChangeMarker;
 		private bool _lastProcessedSourcesChangeMarker;
 
-		private ISourceCollectionChangeProcessor _thisAsSourceCollectionChangeProcessor;
+		private readonly ISourceCollectionChangeProcessor _thisAsSourceCollectionChangeProcessor;
 
 		private sealed class ItemInfo : RangePosition, ISourceCollectionChangeProcessor
 		{
@@ -90,10 +90,10 @@ namespace ObservableComputations
 			int result = 0;
 
 			int listCount = list.Count;
-			for (var index= 0; index < listCount; index++)
+			for (int index= 0; index < listCount; index++)
 			{
 				object innerList = list[index];
-				result = result + (innerList is IHasCapacity capacity ? capacity.Capacity : (innerList is IReadScalar<object> scalar ? (IList)scalar.Value : (IList)innerList)?.Count ?? 0);
+				result = result + (list[index] is IHasCapacity capacity ? capacity.Capacity : (innerList is IReadScalar<object> scalar ? (IList)scalar.Value : (IList)innerList)?.Count ?? 0);
 			}
 
 			return result;
@@ -131,6 +131,7 @@ namespace ObservableComputations
 			if (_sourceInitialized)
 			{
 				int itemInfosCount = _itemInfos.Count;
+
 				for (int index = 0; index < itemInfosCount; index++)
 				{
 					ItemInfo itemInfo = _itemInfos[index];
@@ -182,11 +183,12 @@ namespace ObservableComputations
 				int count = _sourcesAsList.Count;
 				object[] sourcesCopy = new object[count];
 				_sourcesAsList.CopyTo(sourcesCopy, 0);
+
 				for (int index = 0; index < count; index++)
 				{
 					object sourceItemObject = sourcesCopy[index];
-					IReadScalar<object> sourceItemScalar = sourceItemObject as IReadScalar<object>;
-					IList sourceItem = sourceItemScalar != null ? (IList)sourceItemScalar.Value : (IList) sourceItemObject;
+					IList sourceItem = sourceItemObject is IReadScalar<object> sourceItemScalar 
+						? (IList)sourceItemScalar.Value : (IList) sourceItemObject;
 					int sourceItemCount = sourceItem?.Count ?? 0;
 					ItemInfo itemInfo = _sourceRangePositions.Add(sourceItemCount);
 					registerSourceItem(sourceItemObject, itemInfo);
@@ -194,7 +196,6 @@ namespace ObservableComputations
 
 					for (int sourceSourceIndex = 0; sourceSourceIndex < sourceItemCount; sourceSourceIndex++)
 					{
-
 						if (originalCount > plainIndex)
 							// ReSharper disable once PossibleNullReferenceException
 							_items[plainIndex++] = sourceCopy[sourceSourceIndex];
@@ -205,9 +206,8 @@ namespace ObservableComputations
 				}
 
 				for (int index = originalCount - 1; index >= plainIndex; index--)
-				{
 					_items.RemoveAt(index);
-				}
+
 
 				_sources.CollectionChanged += handleSourcesCollectionChanged;
 				_sourceInitialized = true;
@@ -460,12 +460,8 @@ namespace ObservableComputations
 					IList<TSourceItem> sourceCopy = itemInfo.SourceCopy;
 					count = sourceCopy?.Count ?? 0;
 					_sourceRangePositions.ModifyLength(newStartingIndex, count);
-					for (int index = 0; index < count; index++)
-					{
-						// ReSharper disable once PossibleNullReferenceException
-						TSourceItem item = sourceCopy[index];
-						baseInsertItem(rangePositionPlainIndex1 + index, item);
-					}
+					for (int index = 0; index < count; index++)				
+						baseInsertItem(rangePositionPlainIndex1 + index, sourceCopy[index]);
 
 					break;
 				case NotifyCollectionChangedAction.Remove:
@@ -478,9 +474,7 @@ namespace ObservableComputations
 
 					count = removedItem?.Count ?? 0;
 					for (int index = count - 1; index >= 0; index--)
-					{
 						baseRemoveItem(rangePositionPlainIndex + index);
-					}
 
 					break;
 				case NotifyCollectionChangedAction.Replace:
@@ -513,19 +507,11 @@ namespace ObservableComputations
 							count = movingItem?.Count ?? 0;
 
 							if (oldIndex < newIndex)
-							{
 								for (int index = 0; index < count; index++)
-								{
 									baseMoveItem(oldPlainIndex, newPlainIndex + newRangePositionLength - 1);
-								}
-							}
 							else
-							{
 								for (int index = 0; index < count; index++)
-								{
 									baseMoveItem(oldPlainIndex + index, newPlainIndex + index);
-								}
-							}
 						}
 
 						_sourceRangePositions.Move(oldItemInfo.Index, newRangePosition.Index);
@@ -546,30 +532,17 @@ namespace ObservableComputations
 			int rangePositionLength = itemInfo.Length;
 			int rangePositionPlainIndex = itemInfo.PlainIndex;
 			for (i = 0; i < rangePositionLength && i < newItemCount; i++)
-			{
-
-				// ReSharper disable once PossibleNullReferenceException
 				baseSetItem(rangePositionPlainIndex + i, newItem[i]);
-			}
 			
 			if (rangePositionLength > newItemCount)
-			{
 				for (i = rangePositionLength - newItemCount - 1; i >= 0; i--)
-				{
 					baseRemoveItem(rangePositionPlainIndex + newItemCount + i);
-				}
-			}
 			else if (rangePositionLength < newItemCount)
-			{
 				for (i = 0; i < newItemCount - rangePositionLength; i++)
-				{
-				
 					baseInsertItem(
 						rangePositionPlainIndex + rangePositionLength + i,
 						// ReSharper disable once PossibleNullReferenceException
 						newItem[rangePositionLength + i]);
-				}				
-			}
 
 			_sourceRangePositions.ModifyLength(itemInfo.Index, newItemCount - rangePositionLength);
 		}
@@ -590,16 +563,15 @@ namespace ObservableComputations
 
 		private void processSourceUpstreamComputings(IComputingInternal computing, bool addOrRemove)
 		{
-			IList sourceAsList = _sources as IList;
-			if (sourceAsList != null)
+			if (_sources is IList sourceAsList)
 			{
 				int count = sourceAsList.Count;
 				for (int sourceIndex = 0; sourceIndex < count; sourceIndex++)
 				{
-					IReadScalar<IComputingInternal> sourceScalar = sourceAsList[sourceIndex] as IReadScalar<IComputingInternal>;
-					IComputingInternal computingInternal =
-						sourceScalar != null ? sourceScalar.Value : (sourceAsList[sourceIndex] as IComputingInternal);
-					
+					IComputingInternal computingInternal = sourceAsList[sourceIndex] is IReadScalar<IComputingInternal> sourceScalar 
+						? sourceScalar.Value 
+						: (sourceAsList[sourceIndex] as IComputingInternal);
+
 					if (addOrRemove)
 						computingInternal?.AddDownstreamConsumedComputing(computing);
 					else
@@ -632,16 +604,14 @@ namespace ObservableComputations
 				int sourcesCount = sources.Count;
 				for (int sourceIndex = 0; sourceIndex < sourcesCount; sourceIndex++)
 				{
-					IList source = sources[sourceIndex] is IReadScalar<object> scalar ? (IList)scalar.Value : (IList)sources[sourceIndex];
+					object sourceItem = sources[sourceIndex];
+					IList source = sourceItem is IReadScalar<object> scalar ? (IList)scalar.Value : (IList)sourceItem;
 					int plainIndex = index;
 
 					int sourceCount = source?.Count ?? 0;
 					for (int sourceItemIndex = 0; sourceItemIndex < sourceCount; sourceItemIndex++)
 					{
-						// ReSharper disable once PossibleNullReferenceException
-						TSourceItem sourceItem = (TSourceItem) source[sourceItemIndex];
-
-						if (!EqualityComparer<TSourceItem>.Default.Equals(this[index], sourceItem))
+						if (!EqualityComparer<TSourceItem>.Default.Equals(this[index], (TSourceItem) source[sourceItemIndex]))
 							throw new ObservableComputationsException(this, "Consistency violation: Concatenating.2");
 
 						index++;

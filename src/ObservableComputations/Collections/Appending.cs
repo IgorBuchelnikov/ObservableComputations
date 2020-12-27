@@ -95,8 +95,7 @@ namespace ObservableComputations
 
 			TSourceItem item = _itemScalar.getValue(Item);
 
-			List<TSourceItem> result = new List<TSourceItem>(source);
-			result.Add(item);
+			List<TSourceItem> result = new List<TSourceItem>(source) {item};
 
 			if (!this.SequenceEqual(result))
 				throw new ObservableComputationsException(this, "Consistency violation: Appending.1");

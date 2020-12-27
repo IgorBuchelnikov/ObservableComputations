@@ -126,21 +126,21 @@ namespace ObservableComputations
 		readonly List<OuterItemInfo> _nullKeyPositions = new List<OuterItemInfo>();
 
 		private bool _lastProcessedSourceChangeMarker;
-		private ISourceCollectionChangeProcessor _thisAsSourceCollectionChangeProcessor;
+		private readonly ISourceCollectionChangeProcessor _thisAsSourceCollectionChangeProcessor;
 		private readonly IReadScalar<INotifyCollectionChanged> _outerSourceScalar;
 		private INotifyCollectionChanged _outerSource;
 		private readonly Expression<Func<TOuterSourceItem, TKey>> _outerKeySelectorExpressionOriginal;
 
-		private IReadScalar<INotifyCollectionChanged> _innerSourceScalar;
-		private INotifyCollectionChanged _innerSource;
-		private Expression<Func<TInnerSourceItem, TKey>> _innerKeySelector;
-		IReadScalar<IEqualityComparer<TKey>> _equalityComparerScalar;
-		private IEqualityComparer<TKey> _equalityComparer;
+		private readonly IReadScalar<INotifyCollectionChanged> _innerSourceScalar;
+		private readonly INotifyCollectionChanged _innerSource;
+		private readonly Expression<Func<TInnerSourceItem, TKey>> _innerKeySelector;
+		readonly IReadScalar<IEqualityComparer<TKey>> _equalityComparerScalar;
+		private readonly IEqualityComparer<TKey> _equalityComparer;
 
-		private List<IComputingInternal> _nestedComputings;
-		private int _outerKeySelectorExpressionСallCount;
+		private readonly List<IComputingInternal> _nestedComputings;
+		private int _outerKeySelectorExpressionCallCount;
 
-		private ISourceItemChangeProcessor _thisAsSourceItemChangeProcessor;
+		private readonly ISourceItemChangeProcessor _thisAsSourceItemChangeProcessor;
 
 		private sealed class OuterItemInfo : ExpressionItemInfo
 		{
@@ -322,7 +322,7 @@ namespace ObservableComputations
 
 			if (_sourceInitialized)
 			{
-				Utils.disposeExpressionItemInfos(_itemInfos, _outerKeySelectorExpressionСallCount, this);
+				Utils.disposeExpressionItemInfos(_itemInfos, _outerKeySelectorExpressionCallCount, this);
 				Utils.removeDownstreamConsumedComputing(_itemInfos, this);
 
 				Utils.disposeSource(
@@ -357,21 +357,16 @@ namespace ObservableComputations
 
 				int sourceIndex;
 				for (sourceIndex = 0; sourceIndex < count; sourceIndex++)
-				{
 					registerOuterSourceItem(outerSourceCopy[sourceIndex], sourceIndex, originalCount);
-				}
+				
 
 				for (int index = originalCount - 1; index >= sourceIndex; index--)
-				{
-					_items.RemoveAt(index);
-				}
+					_items.RemoveAt(index);				
 
 				_sourceInitialized = true;
 			}
 			else
-			{
 				_items.Clear();
-			}
 
 			reset();
 		}
@@ -393,7 +388,7 @@ namespace ObservableComputations
 				out _outerKeySelectorExpression, 
 				out _outerKeySelectorExpressionContainsParametrizedObservableComputationsCalls, 
 				ref _outerKeySelectorExpressionInfo, 
-				ref _outerKeySelectorExpressionСallCount, 
+				ref _outerKeySelectorExpressionCallCount, 
 				ref _outerKeySelectorFunc, 
 				ref _nestedComputings);
 
@@ -445,7 +440,6 @@ namespace ObservableComputations
 				ref _lastProcessedSourceChangeMarker, 
 				_outerSourceAsList, 
 				ref _isConsistent,
-				this,
 				ref _handledEventSender,
 				ref _handledEventArgs,
 				ref _deferredProcessings,
@@ -490,7 +484,7 @@ namespace ObservableComputations
 							out Func<TKey> outerKeySelectorFunc,
 							out List<IComputingInternal> nestedComputings,
 							_outerKeySelectorExpression,
-							out _outerKeySelectorExpressionСallCount,
+							out _outerKeySelectorExpressionCallCount,
 							this,
 							_outerKeySelectorExpressionContainsParametrizedObservableComputationsCalls,
 							_outerKeySelectorExpressionInfo);
@@ -540,10 +534,7 @@ namespace ObservableComputations
 						{
 							int positionsCount = positions.Count;
 							for (int index = 0; index < positionsCount; index++)
-							{
-								OuterItemInfo position = positions[index];
-								this[position.Index].setGroup(addedGroup);
-							}
+								this[positions[index].Index].setGroup(addedGroup);						
 						}
 						break;
 					case NotifyCollectionChangedAction.Remove:
@@ -555,10 +546,7 @@ namespace ObservableComputations
 						{
 							int positions1Count = positions1.Count;
 							for (int index = 0; index < positions1Count; index++)
-							{
-								Position position = positions1[index];
-								this[position.Index].setGroup(null);
-							}
+								this[positions1[index].Index].setGroup(null);							
 						}
 						break;
 					case NotifyCollectionChangedAction.Reset:
@@ -623,7 +611,7 @@ namespace ObservableComputations
 				out Func<TKey> outerKeySelectorFunc, 
 				out List<IComputingInternal> nestedComputings,
 				_outerKeySelectorExpression,
-				out _outerKeySelectorExpressionСallCount,
+				out _outerKeySelectorExpressionCallCount,
 				this,
 				_outerKeySelectorExpressionContainsParametrizedObservableComputationsCalls,
 				_outerKeySelectorExpressionInfo);
@@ -637,7 +625,7 @@ namespace ObservableComputations
 			outerSourceItemPosition.ExpressionWatcher = watcher;
 			outerSourceItemPosition.SelectorFunc = outerKeySelectorFunc;
 			JoinGroup<TOuterSourceItem, TInnerSourceItem, TKey> joinGroup = new JoinGroup<TOuterSourceItem, TInnerSourceItem, TKey>(
-				outerSourceItem, this, group, outerSourceItemPosition, key);
+				outerSourceItem, this, group, key);
 			//group.JoinGroupsPositions.Add(outerSourceItemPosition);
 
 			watcher.ValueChanged = expressionWatcher_OnValueChanged;
@@ -689,7 +677,7 @@ namespace ObservableComputations
 
 			if (Configuration.TrackComputingsExecutingUserCode)
 			{
-				var currentThread = Utils.startComputingExecutingUserCode(out var computing, out _userCodeIsCalledFrom, this);
+				Thread currentThread = Utils.startComputingExecutingUserCode(out IComputing computing, out _userCodeIsCalledFrom, this);
 				TKey result = getValue();
 				Utils.endComputingExecutingUserCode(computing, currentThread, out _userCodeIsCalledFrom);
 				return result;
@@ -709,7 +697,7 @@ namespace ObservableComputations
 
 			if (Configuration.TrackComputingsExecutingUserCode)
 			{
-				var currentThread = Utils.startComputingExecutingUserCode(out var computing, out _userCodeIsCalledFrom, this);
+				Thread currentThread = Utils.startComputingExecutingUserCode(out IComputing computing, out _userCodeIsCalledFrom, this);
 				TKey result = getValue();
 				Utils.endComputingExecutingUserCode(computing, currentThread, out _userCodeIsCalledFrom);
 				return result;
@@ -769,7 +757,7 @@ namespace ObservableComputations
 					InnerItems = innerSource.Where(ii => equalityComparer.Equals(outerKeySelector(oi), innerKeySelector(ii)))
 				}).ToList();
 
-			if (Count !=  result.Count())
+			if (Count !=  result.Count)
 				throw new ObservableComputationsException(this, "Consistency violation: GroupJoining.1");
 
 			for (int index = 0; index < result.Count; index++)
@@ -853,7 +841,6 @@ namespace ObservableComputations
 		public GroupJoining<TOuterSourceItem, TInnerSourceItem, TKey> GroupJoining => _groupJoining;
 
 		Group<TInnerSourceItem, TKey> _group;
-		internal readonly Position _outerSourceItemPosition;
 
 		internal TOuterSourceItem _outerItem;
 
@@ -861,12 +848,10 @@ namespace ObservableComputations
 			TOuterSourceItem outerSourceItem,
 			GroupJoining<TOuterSourceItem, TInnerSourceItem, TKey> groupJoining,
 			Group<TInnerSourceItem, TKey> group,
-			Position outerSourceItemPosition,
 			TKey key)
 		{
 			_outerItem = outerSourceItem;
 			_groupJoining = groupJoining;
-			_outerSourceItemPosition = outerSourceItemPosition;
 			_key = key;
 			_group = group;
 			initializeFromGroup();
@@ -887,10 +872,7 @@ namespace ObservableComputations
 			{
 				int count = _group.Count;
 				for (int index = 0; index < count; index++)
-				{
-					TInnerSourceItem innerSourceItem = _group[index];
-					insertItem(index, innerSourceItem);
-				}
+					insertItem(index, _group[index]);
 
 				if (_group._copies == null) _group._copies = new List<CollectionComputingChild<TInnerSourceItem>>();
 				_group._copies.Add(this);
@@ -928,7 +910,7 @@ namespace ObservableComputations
 				DebugInfo._computingsExecutingUserCode[currentThread] = this;	
 				_userCodeIsCalledFrom = computing;
 			
-				_groupJoining._moveItemInGroupRequestHandler(this, oldIndex, newIndex);;
+				_groupJoining._moveItemInGroupRequestHandler(this, oldIndex, newIndex);
 
 				if (computing == null) DebugInfo._computingsExecutingUserCode.TryRemove(currentThread, out IComputing _);
 				else DebugInfo._computingsExecutingUserCode[currentThread] = computing;

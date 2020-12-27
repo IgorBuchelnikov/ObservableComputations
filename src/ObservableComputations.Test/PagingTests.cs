@@ -254,7 +254,7 @@ namespace ObservableComputations.Test
 			void test()
 			{
 				paging.ValidateConsistency();
-				var sourceScalarValue = items.Value;
+				ObservableCollection<int> sourceScalarValue = items.Value;
 
 				if (sourceScalarValue != null)
 				{		

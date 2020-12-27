@@ -14,14 +14,14 @@ namespace ObservableComputations
 		// ReSharper disable once UnusedMember.Local
 		private DispatcherParameters DispatcherParameters => _dispatcherParameters;
 
-		private IOcDispatcher _destinationOcDispatcher;
-		private IOcDispatcher _sourceOcDispatcher;
+		private readonly IOcDispatcher _destinationOcDispatcher;
+		private readonly IOcDispatcher _sourceOcDispatcher;
 
-		private IReadScalar<TResult> _scalar;
-		private Action _changeValueAction;
+		private readonly IReadScalar<TResult> _scalar;
+		private readonly Action _changeValueAction;
 
-		private DispatcherPriorities _dispatcherPriorities;
-		private DispatcherParameters _dispatcherParameters;
+		private readonly DispatcherPriorities _dispatcherPriorities;
+		private readonly DispatcherParameters _dispatcherParameters;
 
 		[ObservableComputationsCall]
 		public ScalarDispatching(
@@ -41,7 +41,7 @@ namespace ObservableComputations
 
 				_destinationOcDispatcher.Invoke(
 					setNewValue, 
-					_dispatcherPriorities._distinationDispatcherPriority,
+					_dispatcherPriorities._destinationDispatcherPriority,
 					_dispatcherParameters._distinationDispatcherParameter,
 					this);
 			};
@@ -84,7 +84,7 @@ namespace ObservableComputations
 					_scalar.PropertyChanged += handleScalarPropertyChanged;
 					_destinationOcDispatcher.Invoke(
 						setNewValue, 
-						_dispatcherPriorities._distinationDispatcherPriority,
+						_dispatcherPriorities._destinationDispatcherPriority,
 						_dispatcherParameters._distinationDispatcherParameter, 
 						this);
 				}
@@ -105,7 +105,7 @@ namespace ObservableComputations
 				void setNewValue() => setDefaultValue();
 				_destinationOcDispatcher.Invoke(
 					setNewValue, 
-					_dispatcherPriorities._distinationDispatcherPriority,
+					_dispatcherPriorities._destinationDispatcherPriority,
 					_dispatcherParameters._distinationDispatcherParameter,  
 					this);
 			}

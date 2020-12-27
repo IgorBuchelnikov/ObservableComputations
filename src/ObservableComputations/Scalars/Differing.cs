@@ -9,13 +9,13 @@ namespace ObservableComputations
 		public IReadScalar<TResult> Scalar => _scalar;
 		public IEqualityComparer<TResult> EqualityComparer =>_equalityComparer;
 
-		private IReadScalar<TResult> _scalar;
+		private readonly IReadScalar<TResult> _scalar;
 		private IEqualityComparer<TResult> _equalityComparer;
 
 
 		private readonly IReadScalar<IEqualityComparer<TResult>> _equalityComparerScalar;
-		private Action _changeValueAction;
-		private Action _setEqualityComparerAction;
+		private readonly Action _changeValueAction;
+		private readonly Action _setEqualityComparerAction;
 
 		[ObservableComputationsCall]
 		public Differing(

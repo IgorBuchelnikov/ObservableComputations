@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Linq;
+using System.Threading;
 
 namespace ObservableComputations
 {
@@ -40,7 +41,7 @@ namespace ObservableComputations
 		private bool _indexerPropertyChangedEventRaised;
 		private INotifyPropertyChanged _sourceAsINotifyPropertyChanged;
 
-		private ISourceCollectionChangeProcessor _thisAsSourceCollectionChangeProcessor;
+		private readonly ISourceCollectionChangeProcessor _thisAsSourceCollectionChangeProcessor;
 		private bool _initializing;
 
 		[ObservableComputationsCall]
@@ -83,9 +84,8 @@ namespace ObservableComputations
 
 				int count = Count;
 				for (int i = 0; i < count; i++)
-				{
 					baseRemoveItem(0);
-				}
+
 				if (_oldItemsProcessor != null) processOldItems(_sourceAsList.ToArray(), this.ToArray());
 				_sourceInitialized = false;
 			}
@@ -115,11 +115,8 @@ namespace ObservableComputations
 					returnValues = processNewItems(sourceCopy);
 
 				for (int index = 0; index < count; index++)
-				{
-					TReturnValue returnValue = returnValues != null ? returnValues[index] : default;
-					baseInsertItem(index, returnValue);
-				}
-		  
+					baseInsertItem(index, returnValues != null ? returnValues[index] : default);
+
 				_sourceInitialized = true;
 			}
 
@@ -199,7 +196,7 @@ namespace ObservableComputations
 		{
 			if (Configuration.TrackComputingsExecutingUserCode)
 			{
-				var currentThread = Utils.startComputingExecutingUserCode(out var computing, out _userCodeIsCalledFrom, this);
+				Thread currentThread = Utils.startComputingExecutingUserCode(out IComputing computing, out _userCodeIsCalledFrom, this);
 				TReturnValue[] returnValues = _newItemsProcessor(sourceItems, this);
 				Utils.endComputingExecutingUserCode(computing, currentThread, out _userCodeIsCalledFrom);
 				return returnValues;
@@ -212,7 +209,7 @@ namespace ObservableComputations
 		{
 			if (Configuration.TrackComputingsExecutingUserCode)
 			{
-				var currentThread = Utils.startComputingExecutingUserCode(out var computing, out _userCodeIsCalledFrom, this);
+				Thread currentThread = Utils.startComputingExecutingUserCode(out IComputing computing, out _userCodeIsCalledFrom, this);
 				_oldItemsProcessor(sourceItems, this, returnValues);
 				Utils.endComputingExecutingUserCode(computing, currentThread, out _userCodeIsCalledFrom);
 				return;
@@ -226,7 +223,7 @@ namespace ObservableComputations
 		{
 			if (Configuration.TrackComputingsExecutingUserCode)
 			{
-				var currentThread = Utils.startComputingExecutingUserCode(out var computing, out _userCodeIsCalledFrom, this);
+				Thread currentThread = Utils.startComputingExecutingUserCode(out IComputing computing, out _userCodeIsCalledFrom, this);
 				_moveItemProcessor(sourceItem, this, returnValue);
 				Utils.endComputingExecutingUserCode(computing, currentThread, out _userCodeIsCalledFrom);
 				return;

@@ -44,11 +44,11 @@ namespace ObservableComputations
 		public Func<TLeftSourceItem, TRightSourceItem, bool> PredicateFunc => _predicateFunc;
 
 
-		private List<IComputingInternal> _nestedComputings;
+		private readonly List<IComputingInternal> _nestedComputings;
 
 		private readonly Expression<Func<TLeftSourceItem, TRightSourceItem, bool>> _predicateExpression;
 		private readonly Expression<Func<TLeftSourceItem, TRightSourceItem, bool>> _predicateExpressionOriginal;
-		private int _predicateExpressionСallCount;
+		private int _predicateExpressionCallCount;
 
 		private Positions<Position> _filteredPositions;
 		private Positions<FilteringItemInfo> _sourcePositions;
@@ -69,18 +69,18 @@ namespace ObservableComputations
 
 		private readonly bool _predicateContainsParametrizedObservableComputationsCalls;
 
-		private ISourceCollectionChangeProcessor _thisAsSourceCollectionChangeProcessor;
-		private IReadScalar<INotifyCollectionChanged> _leftSourceScalar;
+		private readonly ISourceCollectionChangeProcessor _thisAsSourceCollectionChangeProcessor;
+		private readonly IReadScalar<INotifyCollectionChanged> _leftSourceScalar;
 		internal INotifyCollectionChanged _leftSource;
 		private readonly IReadScalar<INotifyCollectionChanged> _rightSourceScalar;
 		internal INotifyCollectionChanged _rightSource;
 
 		private readonly Func<TLeftSourceItem, TRightSourceItem, bool> _predicateFunc;
-		private IFiltering<JoinPair<TLeftSourceItem, TRightSourceItem>> _thisAsFiltering;
+		private readonly IFiltering<JoinPair<TLeftSourceItem, TRightSourceItem>> _thisAsFiltering;
 		internal Action<JoinPair<TLeftSourceItem, TRightSourceItem>, TLeftSourceItem> _setLeftItemRequestHandler;
 		internal Action<JoinPair<TLeftSourceItem, TRightSourceItem>, TRightSourceItem> _setRightItemRequestHandler;
 
-		private ISourceItemChangeProcessor _thisAsSourceItemChangeProcessor;
+		private readonly ISourceItemChangeProcessor _thisAsSourceItemChangeProcessor;
 		//private bool _isLeft;
 		//private TRightSourceItem _defaultRightSourceItemForLeftJoin;
 
@@ -237,7 +237,7 @@ namespace ObservableComputations
 				out _predicateExpression,
 				out _predicateContainsParametrizedObservableComputationsCalls,
 				ref _predicateExpressionInfo,
-				ref _predicateExpressionСallCount,
+				ref _predicateExpressionCallCount,
 				ref _predicateFunc,
 				ref _nestedComputings);
 
@@ -257,7 +257,7 @@ namespace ObservableComputations
 
 			if (_sourceInitialized)
 			{
-				Utils.disposeExpressionItemInfos(_itemInfos, _predicateExpressionСallCount, this);
+				Utils.disposeExpressionItemInfos(_itemInfos, _predicateExpressionCallCount, this);
 				Utils.removeDownstreamConsumedComputing(_itemInfos, this);
 
 				//int leftCapacity = Utils.getCapacity(_leftSourceScalar, _leftSource);
@@ -314,13 +314,14 @@ namespace ObservableComputations
 
 				int insertingIndex = 0;
 				int leftSourceIndex;
-				int rightSourceIndex;
 
 				for (leftSourceIndex = 0; leftSourceIndex < leftCount; leftSourceIndex++)
 				{
 					TLeftSourceItem leftSourceItem = _leftSourceCopy[leftSourceIndex];
 
 					//bool anyAdded = false;
+
+					int rightSourceIndex;
 
 					int doRegisterSourceItem(TRightSourceItem rightSourceItem)
 					{
@@ -354,11 +355,9 @@ namespace ObservableComputations
 					}
 
 					for (rightSourceIndex = 0; rightSourceIndex < rightCount; rightSourceIndex++)
-					{
 						insertingIndex = doRegisterSourceItem(
 							// ReSharper disable once PossibleNullReferenceException
 							_rightSourceCopy[rightSourceIndex]);
-					}
 
 					//if (_isLeft)
 					//{
@@ -373,9 +372,7 @@ namespace ObservableComputations
 				}
 
 				for (int index = originalCount - 1; index >= insertingIndex; index--)
-				{
 					_items.RemoveAt(index);
-				}
 
 				_sourceInitialized = true;
 
@@ -413,7 +410,6 @@ namespace ObservableComputations
 				ref _lastProcessedLeftSourceChangeMarker, 
 				_leftSourceAsList, 
 				ref _isConsistent,
-				this,
 				ref _handledEventSender,
 				ref _handledEventArgs,
 				ref _deferredProcessings,
@@ -445,12 +441,7 @@ namespace ObservableComputations
 
 						//bool anyAdded = false;
 						for (int rightSourceIndex = 0; rightSourceIndex < count; rightSourceIndex++)
-						{
-							TRightSourceItem rightSourceItem = _rightSourceCopy[rightSourceIndex];
-							processAddSourceItem(addedLeftSourceItem, rightSourceItem, baseIndex + rightSourceIndex);
-							//if (processAddSourceItem(addedLeftSourceItem, rightSourceItem, baseIndex + rightSourceIndex))
-							//	anyAdded = true;
-						}
+							processAddSourceItem(addedLeftSourceItem, _rightSourceCopy[rightSourceIndex], baseIndex + rightSourceIndex);
 
 						//if (_isLeft && !anyAdded)
 						//	processAddSourceItem(addedLeftSourceItem, _defaultRightSourceItemForLeftJoin, baseIndex);
@@ -487,21 +478,13 @@ namespace ObservableComputations
 							int oldResultIndex = oldIndex1 * count3;
 							int newBaseIndex = newIndex1 * count3;
 							if (oldIndex1 < newIndex1)
-							{
 								for (int index = 0; index < count3; index++)
-								{
 									FilteringUtils.ProcessMoveSourceItems(oldResultIndex, newBaseIndex + count3 - 1, _itemInfos,
 										_filteredPositions, _sourcePositions, this);
-								}
-							}
 							else
-							{
 								for (int index = 0; index < count3; index++)
-								{
 									FilteringUtils.ProcessMoveSourceItems(oldResultIndex + index, newBaseIndex + index, _itemInfos,
 										_filteredPositions, _sourcePositions, this);
-								}
-							}
 						}
 
 						break;
@@ -527,7 +510,7 @@ namespace ObservableComputations
 								baseIndex2 + rightSourceIndex,
 								_predicateContainsParametrizedObservableComputationsCalls,
 								_predicateExpression,
-								out _predicateExpressionСallCount,
+								out _predicateExpressionCallCount,
 								_predicateExpressionInfo,
 								_itemInfos,
 								_filteredPositions,
@@ -554,8 +537,7 @@ namespace ObservableComputations
 						int innerSourceCount1 = _rightSourceCopy.Count;
 						for (int leftSourceIndex = 0; leftSourceIndex < outerSourceCount1; leftSourceIndex++)
 						{
-							TLeftSourceItem sourceLeftItem = _leftSourceCopy[leftSourceIndex];
-							processAddSourceItem(sourceLeftItem, sourceRightItem, index1);
+							processAddSourceItem(_leftSourceCopy[leftSourceIndex], sourceRightItem, index1);
 							index1 = index1 + innerSourceCount1;
 						}
 						break;
@@ -585,14 +567,14 @@ namespace ObservableComputations
 							TLeftSourceItem leftSourceItem = _leftSourceCopy[leftSourceIndex];
 							FilteringItemInfo replacingItemInfo = _itemInfos[index2];
 
-							var replace = FilteringUtils.ProcessReplaceSourceItem(
+							bool replace = FilteringUtils.ProcessReplaceSourceItem(
 								replacingItemInfo, 
 								new JoinPair<TLeftSourceItem, TRightSourceItem>(leftSourceItem, sourceRightItem3, this), 
 								new object[]{leftSourceItem, sourceRightItem3}, 
 								index2, 
 								_predicateContainsParametrizedObservableComputationsCalls, 
 								_predicateExpression, 
-								out _predicateExpressionСallCount, 
+								out _predicateExpressionCallCount, 
 								_predicateExpressionInfo, 
 								_itemInfos, 
 								_filteredPositions, 
@@ -619,8 +601,7 @@ namespace ObservableComputations
 							int leftSourceCount = _leftSourceCopy.Count;
 							int rightSourceCount = _rightSourceCopy.Count;
 							for (int leftSourceIndex = 0; leftSourceIndex < leftSourceCount; leftSourceIndex++)
-							{
-					
+							{					
 								FilteringUtils.ProcessMoveSourceItems(index + oldIndex, index + newIndex, _itemInfos, _filteredPositions, _sourcePositions, this);
 								index = index + rightSourceCount;
 							}
@@ -635,7 +616,6 @@ namespace ObservableComputations
 		private /*bool*/ void processAddSourceItem(TLeftSourceItem leftSourceItem, TRightSourceItem rightSourceItem, int newSourceIndex)
 		{
 			Position newItemPosition = null;
-			Position nextItemPosition;
 
 			int? newFilteredIndex = null;
 
@@ -645,13 +625,13 @@ namespace ObservableComputations
 				out Func<bool> newPredicateFunc,
 				out List<IComputingInternal> nestedComputings,
 				_predicateExpression,
-				out _predicateExpressionСallCount,
+				out _predicateExpressionCallCount,
 				this,
 				_predicateContainsParametrizedObservableComputationsCalls,
 				_predicateExpressionInfo);
 
 			bool predicateValue = applyPredicate(leftSourceItem, rightSourceItem, newPredicateFunc);
-			nextItemPosition = FilteringUtils.processAddSourceItem(newSourceIndex, predicateValue, ref newItemPosition,
+			Position nextItemPosition = FilteringUtils.processAddSourceItem(newSourceIndex, predicateValue, ref newItemPosition,
 				ref newFilteredIndex, _itemInfos, _filteredPositions, Count);
 
 			registerSourceItem(leftSourceItem, rightSourceItem, newSourceIndex, newItemPosition, nextItemPosition,
@@ -677,7 +657,6 @@ namespace ObservableComputations
 				ref _lastProcessedRightSourceChangeMarker, 
 				_rightSourceAsList, 
 				ref _isConsistent,
-				this,
 				ref _handledEventSender,
 				ref _handledEventArgs,
 				ref _deferredProcessings,
@@ -757,8 +736,8 @@ namespace ObservableComputations
 
 			if (Configuration.TrackComputingsExecutingUserCode)
 			{
-				var currentThread =
-					Utils.startComputingExecutingUserCode(out var computing, out _userCodeIsCalledFrom, this);
+				Thread currentThread =
+					Utils.startComputingExecutingUserCode(out IComputing computing, out _userCodeIsCalledFrom, this);
 				bool result = getValue();
 				Utils.endComputingExecutingUserCode(computing, currentThread, out _userCodeIsCalledFrom);
 				return result;
@@ -776,8 +755,8 @@ namespace ObservableComputations
 
 			if (Configuration.TrackComputingsExecutingUserCode)
 			{
-				var currentThread = Utils.startComputingExecutingUserCode(out var computing, out _userCodeIsCalledFrom, this);
-				var result = getValue();
+				Thread currentThread = Utils.startComputingExecutingUserCode(out IComputing computing, out _userCodeIsCalledFrom, this);
+				bool result = getValue();
 				Utils.endComputingExecutingUserCode(computing, currentThread, out _userCodeIsCalledFrom);
 				return result;
 			}
@@ -800,7 +779,7 @@ namespace ObservableComputations
 					out predicateFunc,
 					out nestedComputings,
 					_predicateExpression,
-					out _predicateExpressionСallCount,
+					out _predicateExpressionCallCount,
 					this,
 					_predicateContainsParametrizedObservableComputationsCalls,
 					_predicateExpressionInfo);
@@ -881,11 +860,10 @@ namespace ObservableComputations
 				{
 					TLeftSourceItem leftSourceItem = leftSource[leftSourceIndex];
 
-
 					for (int rightSourceIndex = 0; rightSourceIndex < rightSource.Count; rightSourceIndex++)
 					{
 						TRightSourceItem rightSourceItem = rightSource[rightSourceIndex];
-						var internalIndex = leftSourceIndex * rightSource.Count + rightSourceIndex;
+						int internalIndex = leftSourceIndex * rightSource.Count + rightSourceIndex;
 						FilteringItemInfo itemInfo = _itemInfos[internalIndex];
 						if (predicate(leftSourceItem, rightSourceItem))
 						{
@@ -928,9 +906,8 @@ namespace ObservableComputations
 					{
 						throw new ObservableComputationsException(this, "Consistency violation: Joining.6");
 					}
-					
-					Position nextFilteredItemPosition;
-					nextFilteredItemPosition = _filteredPositions.List[count];
+
+					Position nextFilteredItemPosition = _filteredPositions.List[count];
 					for (int leftSourceIndex = leftSource.Count - 1; leftSourceIndex >= 0; leftSourceIndex--)
 					{
 						TLeftSourceItem leftSourceItem = leftSource[leftSourceIndex];
@@ -939,7 +916,7 @@ namespace ObservableComputations
 						for (int rightSourceIndex = rightSource.Count - 1; rightSourceIndex >= 0; rightSourceIndex--)
 						{
 							TRightSourceItem rightSourceItem = rightSource[rightSourceIndex];
-							var internalIndex = leftSourceIndex * rightSource.Count + rightSourceIndex;
+							int internalIndex = leftSourceIndex * rightSource.Count + rightSourceIndex;
 							FilteringItemInfo itemInfo = _itemInfos[internalIndex];
 
 							if (itemInfo.NextFilteredItemPosition != nextFilteredItemPosition)
@@ -1014,7 +991,7 @@ namespace ObservableComputations
 		internal TLeftSourceItem _leftItem;
 
 		internal TRightSourceItem _rightItem;
-		private Joining<TLeftSourceItem, TRightSourceItem> _joining;
+		private readonly Joining<TLeftSourceItem, TRightSourceItem> _joining;
 
 		// ReSharper disable once UnusedMember.Local
 		private Joining<TLeftSourceItem, TRightSourceItem> Joining => _joining;

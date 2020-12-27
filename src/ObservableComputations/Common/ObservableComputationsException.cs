@@ -20,8 +20,8 @@ namespace ObservableComputations
 
 	public class ObservableComputationsInconsistencyException : ObservableComputationsException
 	{
-		private object _eventSender;
-		private EventArgs _eventArgs;
+		private readonly object _eventSender;
+		private readonly EventArgs _eventArgs;
 
 		public object EventSender => _eventSender;
 		public EventArgs EventArgs => _eventArgs;

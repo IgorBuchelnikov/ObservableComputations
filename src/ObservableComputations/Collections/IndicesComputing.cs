@@ -5,7 +5,6 @@ using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.Linq;
 using System.Linq.Expressions;
-using ObservableComputations.ExtentionMethods;
 
 namespace ObservableComputations
 {
@@ -99,12 +98,8 @@ namespace ObservableComputations
 
 			// ReSharper disable once PossibleNullReferenceException
 			for (int i = 0; i < source.Count; i++)
-			{
 				if (predicate(source[i]))
-				{
 					result.Add(i);
-				}
-			}
 
 			if (!this.SequenceEqual(result)) throw new ObservableComputationsException(this, "Consistency violation: IndicesComputing.1");
 		}

@@ -106,7 +106,7 @@ namespace ObservableComputations
 		bool _rootSourceWrapper;
 
 		private bool _lastProcessedSourceChangeMarker;
-		private ISourceCollectionChangeProcessor _thisAsSourceCollectionChangeProcessor;
+		private readonly ISourceCollectionChangeProcessor _thisAsSourceCollectionChangeProcessor;
 
 		private bool _sourceInitialized;
 
@@ -129,15 +129,15 @@ namespace ObservableComputations
 		internal INotifyCollectionChanged _source;
 		internal readonly Expression<Func<TSourceItem, TKey>> _keySelectorExpression;
 		internal readonly Expression<Func<TSourceItem, TKey>> _keySelectorExpressionOriginal;
-		private int _keySelectorExpressionСallCount;
+		private int _keySelectorExpressionCallCount;
 
 		internal readonly IReadScalar<IEqualityComparer<TKey>> _equalityComparerScalar;
 		internal IEqualityComparer<TKey> _equalityComparer;
 		private readonly Func<TSourceItem, TKey> _keySelectorFunc;
 
-		private List<IComputingInternal> _nestedComputings;
+		private readonly List<IComputingInternal> _nestedComputings;
 
-		private ISourceItemChangeProcessor _thisAsSourceItemChangeProcessor;
+		private readonly ISourceItemChangeProcessor _thisAsSourceItemChangeProcessor;
 
 		private sealed class ItemInfo : ExpressionItemInfo
 		{
@@ -209,7 +209,7 @@ namespace ObservableComputations
 				out _keySelectorExpression, 
 				out _keySelectorExpressionContainsParametrizedObservableComputationsCalls, 
 				ref _keySelectorExpressionInfo, 
-				ref _keySelectorExpressionСallCount, 
+				ref _keySelectorExpressionCallCount, 
 				ref _keySelectorFunc, 
 				ref _nestedComputings);
 
@@ -244,7 +244,6 @@ namespace ObservableComputations
 				ref _lastProcessedSourceChangeMarker, 
 				_sourceAsList, 
 				ref _isConsistent,
-				this,
 				ref _handledEventSender,
 				ref _handledEventArgs,
 				ref _deferredProcessings,
@@ -284,7 +283,7 @@ namespace ObservableComputations
 						out Func<TKey> selectorFunc,
 						out List<IComputingInternal> nestedComputings,
 						_keySelectorExpression,
-						out _keySelectorExpressionСallCount,
+						out _keySelectorExpressionCallCount,
 						this,
 						_keySelectorExpressionContainsParametrizedObservableComputationsCalls,
 						_keySelectorExpressionInfo);
@@ -302,13 +301,11 @@ namespace ObservableComputations
 						watcher.ValueChanged = expressionWatcher_OnValueChanged;
 						watcher._position = oldExpressionWatcher._position;
 
-						Group<TSourceItem, TKey> @group;
-
-						@group = key != null
+						Group<TSourceItem, TKey> group = key != null
 							? _groupDictionary[key]
 							: _nullGroup;
 
-						@group.baseSetItem(findIndexInGroup(replacingSourceIndex, @group), newItem);
+						group.baseSetItem(findIndexInGroup(replacingSourceIndex, group), newItem);
 					}
 					else
 					{
@@ -324,9 +321,7 @@ namespace ObservableComputations
 					{
 						ItemInfo itemInfo = _itemInfos[oldStartingIndex];
 
-						Group<TSourceItem, TKey> group1;
-
-						group1 = itemInfo.Key != null
+						Group<TSourceItem, TKey> group1 = itemInfo.Key != null
 							? _groupDictionary[itemInfo.Key]
 							: _nullGroup;
 
@@ -455,7 +450,7 @@ namespace ObservableComputations
 		{			
 			if (_sourceInitialized)
 			{
-				Utils.disposeExpressionItemInfos(_itemInfos, _keySelectorExpressionСallCount, this);
+				Utils.disposeExpressionItemInfos(_itemInfos, _keySelectorExpressionCallCount, this);
 				Utils.removeDownstreamConsumedComputing(_itemInfos, this);
 
 				Utils.disposeSource(
@@ -491,10 +486,7 @@ namespace ObservableComputations
 				_sourceAsList.CollectionChanged += handleSourceCollectionChanged;
 
 				for (int index = 0; index < count; index++)
-				{
-					TSourceItem sourceItem = sourceCopy[index];
-					registerSourceItem(sourceItem, true, _sourcePositions.Insert(index), true);
-				}
+					registerSourceItem(sourceCopy[index], true, _sourcePositions.Insert(index), true);
 
 				_sourceInitialized = true;
 			}			
@@ -529,7 +521,7 @@ namespace ObservableComputations
 				out Func<TKey> selectorFunc, 
 				out List<IComputingInternal> nestedComputings,
 				_keySelectorExpression,
-				out _keySelectorExpressionСallCount,
+				out _keySelectorExpressionCallCount,
 				this,
 				_keySelectorExpressionContainsParametrizedObservableComputationsCalls,
 				_keySelectorExpressionInfo);
@@ -572,9 +564,7 @@ namespace ObservableComputations
 			if ((key != null && !_groupDictionary.ContainsKey(key))
 				|| (key == null && _nullGroup == null))
 			{
-				Position resultItemPosition;
-
-				resultItemPosition = !addNewToEnd 
+				Position resultItemPosition = !addNewToEnd 
 					? _resultPositions.Insert(findInsertingResultIndex(sourceItemPosition.Index)) 
 					: _resultPositions.Add();
 
@@ -592,9 +582,7 @@ namespace ObservableComputations
 			}
 			else
 			{
-				Group<TSourceItem, TKey> existingGroup;
-
-				existingGroup = key != null
+				Group<TSourceItem, TKey> existingGroup = key != null
 					? _groupDictionary[key]
 					: _nullGroup;
 
@@ -607,7 +595,7 @@ namespace ObservableComputations
 			}
 		}
 
-		internal virtual Group<TSourceItem, TKey> getNewGroup(TSourceItem sourceItem, Position sourceItemPosition, TKey key, Position resultItemPosition)
+		internal Group<TSourceItem, TKey> getNewGroup(TSourceItem sourceItem, Position sourceItemPosition, TKey key, Position resultItemPosition)
 		{
 			return new Group<TSourceItem, TKey>(this, key, resultItemPosition, sourceItemPosition, sourceItem);
 		}
@@ -685,7 +673,7 @@ namespace ObservableComputations
 		// binary search
 		private static int findInsertingIndexInGroup(
 			int sourceIndex,
-			Group<TSourceItem, TKey> @group,
+			Group<TSourceItem, TKey> group,
 			int lowerIndex,
 			int upperIndex)
 		{
@@ -693,7 +681,6 @@ namespace ObservableComputations
 
 			do
 			{
-				int middleIndex;
 				int length = upperIndex - lowerIndex + 1;
 				if (length == 0)
 				{
@@ -701,7 +688,7 @@ namespace ObservableComputations
 				}
 				else
 				{
-					List<Position> groupSourcePositions = @group._sourcePositions;
+					List<Position> groupSourcePositions = group._sourcePositions;
 					if (length == 1)
 					{
 						newIndex = groupSourcePositions[lowerIndex].Index > sourceIndex ? lowerIndex : lowerIndex + 1;
@@ -716,7 +703,7 @@ namespace ObservableComputations
 					}
 					else
 					{
-						middleIndex = lowerIndex + (length >> 1);
+						int middleIndex = lowerIndex + (length >> 1);
 
 						int middleSourceIndex = groupSourcePositions[middleIndex].Index;
 						int increment = (middleSourceIndex < sourceIndex ? 1 : -1);
@@ -748,25 +735,24 @@ namespace ObservableComputations
 
 		private static int findInsertingIndexInGroup(
 			int sourceIndex,
-			Group<TSourceItem, TKey> @group)
+			Group<TSourceItem, TKey> group)
 		{
 			return findInsertingIndexInGroup(
 				sourceIndex, 
-				@group, 
-				0, @group._sourcePositions.Count - 1);
+				group, 
+				0, group._sourcePositions.Count - 1);
 		}
 
 		private static int findIndexInGroup(
 			int sourceIndex,
-			Group<TSourceItem, TKey> @group)
+			Group<TSourceItem, TKey> group)
 		{
 			int lowerIndex = 0;
-			List<Position> groupSourcePositions = @group._sourcePositions;
+			List<Position> groupSourcePositions = group._sourcePositions;
 			int upperIndex = groupSourcePositions.Count - 1;
 
 			do
 			{
-				int middleIndex;
 				int length = upperIndex - lowerIndex + 1;
 				/*if (length == 0)
 				{
@@ -785,7 +771,7 @@ namespace ObservableComputations
 				}
 				else
 				{
-					middleIndex = lowerIndex + (length >> 1);
+					int middleIndex = lowerIndex + (length >> 1);
 
 					int middleSourceIndex = groupSourcePositions[middleIndex].Index;
 
@@ -809,7 +795,6 @@ namespace ObservableComputations
 			int? resultIndex;
 			do
 			{
-				int middleIndex;
 				int length = upperIndex - lowerIndex + 1;
 				if (length == 0)
 				{
@@ -835,7 +820,7 @@ namespace ObservableComputations
 					}
 					else
 					{
-						middleIndex = lowerIndex + (length >> 1);
+						int middleIndex = lowerIndex + (length >> 1);
 
 						int middleSourceIndex = this[middleIndex]._sourcePositions[0].Index;
 						int increment = (middleSourceIndex < sourceIndex ? 1 : -1);
@@ -875,8 +860,7 @@ namespace ObservableComputations
 
 		private void removeSourceItemFromGroup(int sourceIndex, TKey key)
 		{
-			Group<TSourceItem, TKey> removingGroup;
-			removingGroup = key != null ? _groupDictionary[key] : _nullGroup;
+			Group<TSourceItem, TKey> removingGroup = key != null ? _groupDictionary[key] : _nullGroup;
 
 			int indexInDistinctingValueInfoSourcePositions = findIndexInGroup(sourceIndex, removingGroup);
 			removingGroup._sourcePositions.RemoveAt(
@@ -907,7 +891,7 @@ namespace ObservableComputations
 
 			if (Configuration.TrackComputingsExecutingUserCode)
 			{
-				var currentThread = Utils.startComputingExecutingUserCode(out var computing, out _userCodeIsCalledFrom, this);
+				Thread currentThread = Utils.startComputingExecutingUserCode(out IComputing computing, out _userCodeIsCalledFrom, this);
 				TKey result = getValue();
 				Utils.endComputingExecutingUserCode(computing, currentThread, out _userCodeIsCalledFrom);
 				return result;
@@ -920,7 +904,7 @@ namespace ObservableComputations
 		{
 			if (Configuration.TrackComputingsExecutingUserCode)
 			{
-				var currentThread = Utils.startComputingExecutingUserCode(out var computing, out _userCodeIsCalledFrom, this);
+				Thread currentThread = Utils.startComputingExecutingUserCode(out IComputing computing, out _userCodeIsCalledFrom, this);
 				TKey result = applyKeySelector(index);
 				Utils.endComputingExecutingUserCode(computing, currentThread, out _userCodeIsCalledFrom);
 				return result;
@@ -938,7 +922,7 @@ namespace ObservableComputations
 
 			if (Configuration.TrackComputingsExecutingUserCode)
 			{
-				var currentThread = Utils.startComputingExecutingUserCode(out var computing, out _userCodeIsCalledFrom, this);
+				Thread currentThread = Utils.startComputingExecutingUserCode(out IComputing computing, out _userCodeIsCalledFrom, this);
 				TKey result = getValue();
 				Utils.endComputingExecutingUserCode(computing, currentThread, out _userCodeIsCalledFrom);
 				return result;
@@ -953,7 +937,7 @@ namespace ObservableComputations
 			key == null
 				? _nullGroup
 				: _groupDictionary.TryGetValue(key, out Group<TSourceItem, TKey> group)
-					? @group
+					? group
 					: null;
 
 		public void ValidateConsistency()
@@ -999,34 +983,34 @@ namespace ObservableComputations
 
 			for (int thisIndex = 0; thisIndex < Count; thisIndex++)
 			{
-				Group<TSourceItem, TKey> @group = this[thisIndex];
+				Group<TSourceItem, TKey> group = this[thisIndex];
 				Tuple<TKey, List<Tuple<TSourceItem, int>>> resultItem = result[thisIndex];
 
-				if (!equalityComparer.Equals(@group.Key, resultItem.Item1)) throw new ObservableComputationsException(this, "Consistency violation: Grouping.4");
-				if (@group.Count != resultItem.Item2.Count) throw new ObservableComputationsException(this, "Consistency violation: Grouping.5");
+				if (!equalityComparer.Equals(group.Key, resultItem.Item1)) throw new ObservableComputationsException(this, "Consistency violation: Grouping.4");
+				if (group.Count != resultItem.Item2.Count) throw new ObservableComputationsException(this, "Consistency violation: Grouping.5");
 
-				for (int groupIndex = 0; groupIndex < @group.Count; groupIndex++)
+				for (int groupIndex = 0; groupIndex < group.Count; groupIndex++)
 				{
-					TSourceItem sourceItem = @group[groupIndex];
+					TSourceItem sourceItem = group[groupIndex];
 					Tuple<TSourceItem, int> resultItemItem = resultItem.Item2[groupIndex];
 
 					if (!EqualityComparer<TSourceItem>.Default.Equals(sourceItem, resultItemItem.Item1)) throw new ObservableComputationsException(this, "Consistency violation: Grouping.6");
-					if (@group._sourcePositions[groupIndex].Index != resultItemItem.Item2) throw new ObservableComputationsException(this, "Consistency violation: Grouping.7");
+					if (group._sourcePositions[groupIndex].Index != resultItemItem.Item2) throw new ObservableComputationsException(this, "Consistency violation: Grouping.7");
 				}
 
-				if (@group._position.Index != thisIndex) throw new ObservableComputationsException(this, "Consistency violation: Grouping.8");
+				if (group._position.Index != thisIndex) throw new ObservableComputationsException(this, "Consistency violation: Grouping.8");
 
 				if (resultItem.Item1 != null)
 				{
 					Group<TSourceItem, TKey> groupFromDictionary = _groupDictionary[resultItem.Item1];
-					if (groupFromDictionary != @group) throw new ObservableComputationsException(this, "Consistency violation: Grouping.9");					
+					if (groupFromDictionary != group) throw new ObservableComputationsException(this, "Consistency violation: Grouping.9");					
 				}
 				else
 				{
-					if (_nullGroup != @group) throw new ObservableComputationsException(this, "Consistency violation: Grouping.10");	
+					if (_nullGroup != group) throw new ObservableComputationsException(this, "Consistency violation: Grouping.10");	
 				}
 
-				if (!_resultPositions.List.Contains(@group._position))
+				if (!_resultPositions.List.Contains(group._position))
 					throw new ObservableComputationsException(this, "Consistency violation: Grouping.12");
 
 			}		
@@ -1068,10 +1052,7 @@ namespace ObservableComputations
 				insertItemNotExtended(index, item);
 				int copiesCount = _copies.Count;
 				for (int index1 = 0; index1 < copiesCount; index1++)
-				{
-					CollectionComputingChild<TSourceItem> copy = _copies[index1];
-					copy.insertItem(index, item);
-				}
+					_copies[index1].insertItem(index, item);				
 			}
 		}
 
@@ -1086,10 +1067,8 @@ namespace ObservableComputations
 				moveItemNotExtended(oldIndex, newIndex);
 				int copiesCount = _copies.Count;
 				for (int index = 0; index < copiesCount; index++)
-				{
-					CollectionComputingChild<TSourceItem> copy = _copies[index];
-					copy.moveItem(oldIndex, newIndex);
-				}
+					_copies[index].moveItem(oldIndex, newIndex);
+				
 			}
 		}
 
@@ -1104,10 +1083,7 @@ namespace ObservableComputations
 				removeItemNotExtended(index);
 				int copiesCount = _copies.Count;
 				for (int index1 = 0; index1 < copiesCount; index1++)
-				{
-					CollectionComputingChild<TSourceItem> copy = _copies[index1];
-					copy.removeItem(index);
-				}
+					 _copies[index1].removeItem(index);				
 			}
 		}
 

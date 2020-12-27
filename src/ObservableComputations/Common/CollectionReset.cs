@@ -5,8 +5,8 @@ namespace ObservableComputations
 {
 	internal class CollectionReset : IProcessable
 	{
-		private object _eventSender;
-		private EventArgs _eventArgs;
+		private readonly object _eventSender;
+		private readonly EventArgs _eventArgs;
 		internal Action Action;
 		internal ICanInitializeFromSource CanInitializeFromSource;
 
@@ -21,7 +21,7 @@ namespace ObservableComputations
 		#region Implementation of IProcessable
 		public void Process(Queue<IProcessable>[] deferredProcessings)
 		{
-			Utils.clearDefferedProcessings(deferredProcessings);
+			Utils.clearDeferredProcessings(deferredProcessings);
 
 			Action?.Invoke();
 			CanInitializeFromSource.InitializeFromSource();

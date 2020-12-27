@@ -211,7 +211,8 @@ namespace ObservableComputations
 			return new ObservableComputations.CollectionProcessing<TSourceItem, TReturnValue>(
 				sourceScalar: sourceScalar,
 				newItemProcessor: newItemProcessor,
-				oldItemProcessor: oldItemProcessor);
+				oldItemProcessor: oldItemProcessor,
+				moveItemProcessor: moveItemProcessor);
 		}
 
 		[ObservableComputationsCall]
@@ -327,7 +328,8 @@ namespace ObservableComputations
 			return new ObservableComputations.CollectionProcessing<TSourceItem, TReturnValue>(
 				sourceScalar: sourceScalar,
 				newItemProcessor: newItemProcessor,
-				oldItemProcessor: oldItemProcessor);
+				oldItemProcessor: oldItemProcessor,
+				moveItemProcessor: moveItemProcessor);
 		}
 
 		[ObservableComputationsCall]

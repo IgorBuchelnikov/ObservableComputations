@@ -3,6 +3,7 @@ using System.Collections.Concurrent;
 using System.ComponentModel;
 using System.Linq.Expressions;
 using System.Reflection;
+using System.Threading;
 
 namespace ObservableComputations
 {
@@ -19,22 +20,22 @@ namespace ObservableComputations
 		// ReSharper disable once UnusedMember.Local
 		private DispatcherParameters DispatcherParameters => _dispatcherParameters;
 
-		private static ConcurrentDictionary<PropertyInfo, PropertyAccessors>
+		private static readonly ConcurrentDictionary<PropertyInfo, PropertyAccessors>
 			_propertyAccessors =
 				new ConcurrentDictionary<PropertyInfo, PropertyAccessors>();
 		
 		private THolder _propertyHolder;
-		private Expression<Func<TResult>> _propertyExpression;
+		private readonly Expression<Func<TResult>> _propertyExpression;
 
-		private IOcDispatcher _sourceOcDispatcher;
-		private IOcDispatcher _destinationOcDispatcher;
-		private IPropertySourceOcDispatcher _propertySourceOcDispatcher;
+		private readonly IOcDispatcher _sourceOcDispatcher;
+		private readonly IOcDispatcher _destinationOcDispatcher;
+		private readonly IPropertySourceOcDispatcher _propertySourceOcDispatcher;
 
 		private Action<THolder, TResult> _setter;
 		private Func<THolder, TResult> _getter;
 
-		private DispatcherPriorities _dispatcherPriorities;
-		private DispatcherParameters _dispatcherParameters;
+		private readonly DispatcherPriorities _dispatcherPriorities;
+		private readonly DispatcherParameters _dispatcherParameters;
 
 		[ObservableComputationsCall]
 		public PropertyDispatching(
@@ -85,7 +86,7 @@ namespace ObservableComputations
 			TResult value = getValue();
 			_destinationOcDispatcher.Invoke(
 				() => setValue(value), 
-				_dispatcherPriorities._distinationDispatcherPriority,
+				_dispatcherPriorities._destinationDispatcherPriority,
 				_dispatcherParameters._distinationDispatcherParameter, 
 				this);
 		}
@@ -97,7 +98,7 @@ namespace ObservableComputations
 			if (Configuration.TrackComputingsExecutingUserCode)
 			{
 
-				var currentThread = Utils.startComputingExecutingUserCode(out var computing, out _userCodeIsCalledFrom, this);
+				Thread currentThread = Utils.startComputingExecutingUserCode(out IComputing computing, out _userCodeIsCalledFrom, this);
 				value = _getter(_propertyHolder);
 				Utils.endComputingExecutingUserCode(computing, currentThread, out _userCodeIsCalledFrom);
 			}
@@ -117,8 +118,8 @@ namespace ObservableComputations
 				Setter = setter;
 			}
 
-			public Func<THolder, TResult> Getter;
-			public Action<THolder, TResult> Setter;
+			public readonly Func<THolder, TResult> Getter;
+			public readonly Action<THolder, TResult> Setter;
 		}
 
 		#region Overrides of ScalarComputing<TResult>
@@ -133,26 +134,25 @@ namespace ObservableComputations
 			MemberExpression memberExpression = (MemberExpression) _propertyExpression.Body;
 
 			PropertyInfo propertyInfo = (PropertyInfo) ((MemberExpression) _propertyExpression.Body).Member;
-			PropertyAccessors propertyAcessors;
 
-			if (!_propertyAccessors.TryGetValue(propertyInfo, out propertyAcessors))
+			if (!_propertyAccessors.TryGetValue(propertyInfo, out PropertyAccessors propertyAccessors))
 			{
 				ParameterExpression valueParameterExpression = Expression.Parameter(typeof(TResult));
 				ParameterExpression holderParameterExpression = Expression.Parameter(typeof(THolder));
-				var setter = Expression.Lambda<Action<THolder, TResult>>(
+				Action<THolder, TResult> setter = Expression.Lambda<Action<THolder, TResult>>(
 					Expression.Assign(Expression.Property(holderParameterExpression, propertyInfo), valueParameterExpression),
 					holderParameterExpression, valueParameterExpression).Compile();
 
-				var getter = Expression.Lambda<Func<THolder, TResult>>(
+				Func<THolder, TResult> getter = Expression.Lambda<Func<THolder, TResult>>(
 					Expression.Property(holderParameterExpression, propertyInfo),
 					holderParameterExpression).Compile();
 
-				propertyAcessors = new PropertyAccessors(getter, setter);
-				_propertyAccessors.TryAdd(propertyInfo, propertyAcessors);
+				propertyAccessors = new PropertyAccessors(getter, setter);
+				_propertyAccessors.TryAdd(propertyInfo, propertyAccessors);
 			}
 
-			_getter = propertyAcessors.Getter;
-			_setter = propertyAcessors.Setter;
+			_getter = propertyAccessors.Getter;
+			_setter = propertyAccessors.Setter;
 			_setValueRequestHandler = value =>
 			{
 				void set() => _setter(_propertyHolder, value);
@@ -179,7 +179,7 @@ namespace ObservableComputations
 				_propertyHolder.PropertyChanged += handlePropertyHolderPropertyChanged;
 				_destinationOcDispatcher.Invoke(
 					() => setValue(value), 
-					_dispatcherPriorities._distinationDispatcherPriority,
+					_dispatcherPriorities._destinationDispatcherPriority,
 					_dispatcherParameters._distinationDispatcherParameter, 
 					this);
 			}

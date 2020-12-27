@@ -153,7 +153,7 @@ namespace ObservableComputations.Test
 		{
 			Item.LastNum = 3;
 			Item item = new Item(false);
-			var comp = new Computing<int>(() => item.ActualNumComputing.Value).For(consumer);
+			Computing<int> comp = new Computing<int>(() => item.ActualNumComputing.Value).For(consumer);
 			
 			Assert.IsTrue(comp.Value == 3);
 			Assert.IsTrue(item.NumComputing.IsActive);
@@ -182,7 +182,7 @@ namespace ObservableComputations.Test
 				}
 			);
 
-			var sel = items.Selecting(i => i.ActualNumComputing.Value).For(consumer);
+			Selecting<Item, int> sel = items.Selecting(i => i.ActualNumComputing.Value).For(consumer);
 			
 			Assert.IsTrue(sel[0] == 3);
 			Assert.IsTrue(items[0].NumComputing.IsActive);

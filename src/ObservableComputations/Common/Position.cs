@@ -179,18 +179,17 @@ namespace ObservableComputations
 				: currentIndex > 0 
 					? List[currentIndex - 1].PlainIndex + List[currentIndex - 1].Length
 					: 0;
-			var lengthsLength = lengths.Length;
-			for (var index = 0; index < lengthsLength; index++)
+			int lengthsLength = lengths.Length;
+			for (int index = 0; index < lengthsLength; index++)
 			{
 				int length = lengths[index];
-				TRangePosition newRangePosition = new TRangePosition
+
+				List.Insert(currentIndex, new TRangePosition
 				{
 					Index = currentIndex,
 					PlainIndex = startPlainIndex + lengthsSum,
 					Length = length
-				};
-
-				List.Insert(currentIndex, newRangePosition);
+				});
 				lengthsSum = lengthsSum + length;
 				currentIndex++;
 			}

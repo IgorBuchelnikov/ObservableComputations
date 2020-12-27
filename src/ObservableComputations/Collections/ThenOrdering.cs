@@ -5,6 +5,7 @@ using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Threading;
 using INotifyPropertyChanged = System.ComponentModel.INotifyPropertyChanged;
 
 namespace ObservableComputations
@@ -42,7 +43,7 @@ namespace ObservableComputations
 		bool _rootSourceWrapper;
 
 		private bool _lastProcessedSourceChangeMarker;
-		private ISourceCollectionChangeProcessor _thisAsSourceCollectionChangeProcessor;
+		private readonly ISourceCollectionChangeProcessor _thisAsSourceCollectionChangeProcessor;
 
 		private Positions<OrderedItemInfo<TOrderingValue>> _orderedPositions;
 		private Positions<OrderingItemInfo<TOrderingValue>> _sourcePositions;
@@ -76,9 +77,9 @@ namespace ObservableComputations
 		private int _thenOrderingsCount;
 		private List<IThenOrderingInternal<TSourceItem>> _thenOrderings;
 
-		private int _orderingValueSelectorExpressionСallCount;
-		private List<IComputingInternal> _nestedComputings;
-		private ISourceItemChangeProcessor _thisAsSourceItemChangeProcessor;
+		private int _orderingValueSelectorExpressionCallCount;
+		private readonly List<IComputingInternal> _nestedComputings;
+		private readonly ISourceItemChangeProcessor _thisAsSourceItemChangeProcessor;
 
 		private void initializeComparer()
 		{
@@ -218,7 +219,7 @@ namespace ObservableComputations
 				out _orderingValueSelectorExpression, 
 				out _orderingValueSelectorContainsParametrizedObservableComputationsCalls, 
 				ref _orderingValueSelectorExpressionInfo, 
-				ref _orderingValueSelectorExpressionСallCount, 
+				ref _orderingValueSelectorExpressionCallCount, 
 				ref _orderingValueSelectorFunc, 
 				ref _nestedComputings);
 
@@ -274,7 +275,7 @@ namespace ObservableComputations
 
 			if (_sourceInitialized)
 			{
-				Utils.disposeExpressionItemInfos(_itemInfos, _orderingValueSelectorExpressionСallCount, this);
+				Utils.disposeExpressionItemInfos(_itemInfos, _orderingValueSelectorExpressionCallCount, this);
 				Utils.removeDownstreamConsumedComputing(_itemInfos, this);
 
 				int capacity = Utils.disposeSource(
@@ -348,8 +349,8 @@ namespace ObservableComputations
 
 		private struct Range
 		{
-			public int sourceLowerIndex;
-			public int sourceUpperIndex;
+			public readonly int sourceLowerIndex;
+			public readonly int sourceUpperIndex;
 
 			public Range(int sourceLowerIndex, int sourceUpperIndex)
 			{
@@ -368,7 +369,7 @@ namespace ObservableComputations
 				out Func<TOrderingValue> getOrderingValueFunc, 
 				out List<IComputingInternal> nestedComputings,
 				_orderingValueSelectorExpression,
-				out _orderingValueSelectorExpressionСallCount,
+				out _orderingValueSelectorExpressionCallCount,
 				this,
 				_orderingValueSelectorContainsParametrizedObservableComputationsCalls,
 				_orderingValueSelectorExpressionInfo);
@@ -488,7 +489,7 @@ namespace ObservableComputations
 
 			if (Configuration.TrackComputingsExecutingUserCode)
 			{
-				var currentThread = Utils.startComputingExecutingUserCode(out var computing, out _userCodeIsCalledFrom, this);
+				Thread currentThread = Utils.startComputingExecutingUserCode(out IComputing computing, out _userCodeIsCalledFrom, this);
 				TOrderingValue result = getValue();
 				Utils.endComputingExecutingUserCode(computing, currentThread, out _userCodeIsCalledFrom);
 				return result;
@@ -511,7 +512,7 @@ namespace ObservableComputations
 
 			if (Configuration.TrackComputingsExecutingUserCode)
 			{
-				var currentThread = Utils.startComputingExecutingUserCode(out var computing, out _userCodeIsCalledFrom, this);
+				Thread currentThread = Utils.startComputingExecutingUserCode(out IComputing computing, out _userCodeIsCalledFrom, this);
 				TOrderingValue result = getValue();
 				Utils.endComputingExecutingUserCode(computing, currentThread, out _userCodeIsCalledFrom);
 				return result;
@@ -529,7 +530,7 @@ namespace ObservableComputations
 
 			if (Configuration.TrackComputingsExecutingUserCode)
 			{
-				var currentThread = Utils.startComputingExecutingUserCode(out var computing, out _userCodeIsCalledFrom, this);
+				Thread currentThread = Utils.startComputingExecutingUserCode(out IComputing computing, out _userCodeIsCalledFrom, this);
 				TOrderingValue result = getValue();
 				Utils.endComputingExecutingUserCode(computing, currentThread, out _userCodeIsCalledFrom);
 				return result;
@@ -547,7 +548,6 @@ namespace ObservableComputations
 				ref _lastProcessedSourceChangeMarker, 
 				_sourceAsList, 
 				ref _isConsistent,
-				this,
 				ref _handledEventSender,
 				ref _handledEventArgs,
 				ref _deferredProcessings,
@@ -593,7 +593,7 @@ namespace ObservableComputations
 						out Func<TOrderingValue> newGetOrderingValueFunc,
 						out List<IComputingInternal> nestedComputings,
 						_orderingValueSelectorExpression,
-						out _orderingValueSelectorExpressionСallCount,
+						out _orderingValueSelectorExpressionCallCount,
 						this,
 						_orderingValueSelectorContainsParametrizedObservableComputationsCalls,
 						_orderingValueSelectorExpressionInfo);
@@ -649,8 +649,7 @@ namespace ObservableComputations
 				int processedThenOrderingsCount = 0;
 				for (int thenOrderingIndex = 0; thenOrderingIndex < _thenOrderingsCount; thenOrderingIndex++)
 				{
-					IThenOrderingInternal<TSourceItem> thenOrdering = _thenOrderings[thenOrderingIndex];
-					thenOrdering.ProcessSourceItemChange(newOrderedIndex, sourceItem);
+					_thenOrderings[thenOrderingIndex].ProcessSourceItemChange(newOrderedIndex, sourceItem);
 					processedThenOrderingsCount++;
 					if (processedThenOrderingsCount == _thenOrderingsCount) break;
 				}
@@ -737,26 +736,14 @@ namespace ObservableComputations
 
 			do
 			{
-				TOrderingValue middleItemOrderingValue;
-				int middleIndex;
-
-				TSourceItem nextAfterMiddleItem;
-				TOrderingValue nextAfterMiddleItemOrderingValue;
-				int nextAfterMiddleIndex;
 
 				int length = upperIndex - lowerIndex + 1;
 				if (length <= 2)
 				{
 					if (length == 2)
 					{
-						TOrderingValue upperItemOrderingValue;
-						upperItemOrderingValue = _orderingValues[upperIndex];
-
-						TOrderingValue lowerItemOrderingValue;
-						lowerItemOrderingValue = _orderingValues[lowerIndex];
-
-						int comparisonWithUpperItem = _comparer.Compare(orderingValue, upperItemOrderingValue);
-						int comparisonWithLowerEntity = _comparer.Compare(orderingValue, lowerItemOrderingValue);
+						int comparisonWithUpperItem = _comparer.Compare(orderingValue, _orderingValues[upperIndex]);
+						int comparisonWithLowerEntity = _comparer.Compare(orderingValue, _orderingValues[lowerIndex]);
 
 						if (comparisonWithUpperItem < 0 && comparisonWithLowerEntity < 0)
 						{
@@ -773,10 +760,10 @@ namespace ObservableComputations
 					}
 					else if (length == 1) // currentUpperIndex == currentLowerIndex
 					{
-						TOrderingValue itemOrderingValue;
-						itemOrderingValue = _orderingValues[lowerIndex];
-						int comparisonWithUpperItem = _comparer.Compare(orderingValue, itemOrderingValue);
-						newIndex = getNearIndex(comparisonWithUpperItem, lowerIndex);
+;
+						newIndex = getNearIndex(
+							_comparer.Compare(orderingValue, 
+							_orderingValues[lowerIndex]), lowerIndex);
 					}
 					else if (length == 0) // _temporarilyDisorderedStartsWithIndex == 0
 					{
@@ -787,9 +774,9 @@ namespace ObservableComputations
 					return newIndex;
 				}
 
-				middleIndex = lowerIndex + (length >> 1);
+				int middleIndex = lowerIndex + (length >> 1);
 
-				middleItemOrderingValue = _orderingValues[middleIndex];
+				TOrderingValue middleItemOrderingValue = _orderingValues[middleIndex];
 
 				int comparisonWithMiddleItem = _comparer.Compare(orderingValue, middleItemOrderingValue);
 
@@ -800,7 +787,9 @@ namespace ObservableComputations
 				}
 
 				int nextAfterMiddleIncrement = comparisonWithMiddleItem * (_sortDirection == ListSortDirection.Descending ? -1 : 1);
-				nextAfterMiddleIndex = middleIndex;
+				int nextAfterMiddleIndex = middleIndex;
+				TSourceItem nextAfterMiddleItem;
+				TOrderingValue nextAfterMiddleItemOrderingValue;
 				do
 				{
 					nextAfterMiddleIndex = nextAfterMiddleIndex + nextAfterMiddleIncrement;
@@ -835,13 +824,9 @@ namespace ObservableComputations
 					else
 					{
 						if (nextAfterMiddleIncrement > 0)
-						{
 							lowerIndex = nextAfterMiddleIndex;
-						}
 						else
-						{
 							upperIndex = nextAfterMiddleIndex;
-						}
 					}
 				}
 				else
@@ -911,12 +896,12 @@ namespace ObservableComputations
 				int equalOrderingValueItemsCount = 0;
 				RangePosition rangePosition = null;
 
-				RangePosition sourceRangePosition;
 				int nextRangeIndex = 0;
 
 				int count = Count;
 				for (int orderedIndex = 0; orderedIndex < count; orderedIndex++)
 				{
+					RangePosition sourceRangePosition;
 					if (orderedIndex > 0)
 					{
 						int previousOrderedIndex = orderedIndex - 1;
@@ -1017,7 +1002,7 @@ namespace ObservableComputations
 					{
 						nextAfterMiddleIndex = nextAfterMiddleIndex - 1;
 						if (_comparer.Compare(getOrderingValueByOrderedIndex(nextAfterMiddleIndex), middleItemOrderingValue) == 0)
-							@from = nextAfterMiddleIndex;
+							from = nextAfterMiddleIndex;
 						else
 							break;	
 					} while (
@@ -1036,7 +1021,7 @@ namespace ObservableComputations
 					} while (
 						nextAfterMiddleIndex != upperIndex);
 
-					return new OrderingIndicesRange(@from, to);
+					return new OrderingIndicesRange(from, to);
 				}
 				else
 				{
@@ -1125,9 +1110,7 @@ namespace ObservableComputations
 						List<TSourceItem> orderedBuffer = new List<TSourceItem>();
 
 						for (int i = bufferLastSourceIndex - buffer.Count + 1 ; i <= bufferLastSourceIndex; i++)
-						{
 							orderedBuffer.Add(this[i]);
-						}
 
 						List<TSourceItem> bufferCopy = buffer.ToList();
 						int orderedBufferCount = orderedBuffer.Count;
@@ -1178,8 +1161,7 @@ namespace ObservableComputations
 			List<IComparer<TOrderingValue>> ancestorComparers = new List<IComparer<TOrderingValue>>();
 			List<ListSortDirection> ancestorListSortDirections = new List<ListSortDirection>();
 			List<Func<TSourceItem, TOrderingValue>> ancestorOrderingValueSelectorFuncs = new List<Func<TSourceItem, TOrderingValue>>();
-			IOrdering<TSourceItem> ancestor;
-			ancestor = this;
+			IOrdering<TSourceItem> ancestor = this;
 
 			do
 			{
@@ -1204,11 +1186,9 @@ namespace ObservableComputations
 				}				
 			} while (ancestor != null);
 
-			IOrderedEnumerable<TSourceItem> result;
-			result = 
-				ancestorListSortDirections[ancestorComparers.Count - 1] == ListSortDirection.Ascending 
-					? source.OrderBy(ancestorOrderingValueSelectorFuncs[ancestorComparers.Count - 1], ancestorComparers[ancestorComparers.Count - 1]) 
-					: source.OrderByDescending(ancestorOrderingValueSelectorFuncs[ancestorComparers.Count - 1], ancestorComparers[ancestorComparers.Count - 1]);
+			IOrderedEnumerable<TSourceItem> result = ancestorListSortDirections[ancestorComparers.Count - 1] == ListSortDirection.Ascending 
+				? source.OrderBy(ancestorOrderingValueSelectorFuncs[ancestorComparers.Count - 1], ancestorComparers[ancestorComparers.Count - 1]) 
+				: source.OrderByDescending(ancestorOrderingValueSelectorFuncs[ancestorComparers.Count - 1], ancestorComparers[ancestorComparers.Count - 1]);
 
 
 			for (int i = ancestorComparers.Count - 2; i >= 0; i--)

@@ -4,7 +4,6 @@ using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Linq;
-using ObservableComputations.ExtentionMethods;
 
 namespace ObservableComputations
 {
@@ -53,7 +52,7 @@ namespace ObservableComputations
 		private readonly MinimazingOrMaximazingMode _mode;
 		private INotifyCollectionChanged _source;
 		private IComparer<TSourceItem> _comparer;
-		private TSourceItem _defaultValue;
+		private readonly TSourceItem _defaultValue;
 		private bool _isDefaulted;
 
 		private bool _indexerPropertyChangedEventRaised;
@@ -62,7 +61,7 @@ namespace ObservableComputations
 		private IHasChangeMarker _sourceAsIHasChangeMarker;
 		private bool _lastProcessedSourceChangeMarker;
 
-		private ISourceCollectionChangeProcessor _thisAsSourceCollectionChangeProcessor;
+		private readonly ISourceCollectionChangeProcessor _thisAsSourceCollectionChangeProcessor;
 		private PropertyChangedEventHandler _comparerScalarValueChangedHandler;
 
 		private void initializeComparer()
@@ -196,8 +195,7 @@ namespace ObservableComputations
 			if (count > 0)
 			{
 				// ReSharper disable once PossibleNullReferenceException
-				TSourceItem value;
-				value = initializeSourceItems ? _sourceAsList[0] : _sourceCopy[0];
+				TSourceItem value = initializeSourceItems ? _sourceAsList[0] : _sourceCopy[0];
 				_valueCount = 1;
 
 				if (initializeSourceItems) _sourceCopy.Add(value);
@@ -211,9 +209,7 @@ namespace ObservableComputations
 						_sourceCopy.Add(sourceItem);
 					}
 					else
-					{
 						sourceItem = _sourceCopy[sourceIndex];
-					}
 
 					int compareResult = _comparer.Compare(sourceItem, value);
 					if (_checkCompareResult(compareResult))
@@ -221,10 +217,7 @@ namespace ObservableComputations
 						value = sourceItem;
 						_valueCount = 1;
 					}
-					else if (compareResult == 0)
-					{
-						_valueCount++;
-					}
+					else if (compareResult == 0) _valueCount++;
 				}
 
 				if (_isDefaulted)

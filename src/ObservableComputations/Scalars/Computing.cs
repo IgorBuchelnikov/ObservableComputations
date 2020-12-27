@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
+using System.Threading;
 
 namespace ObservableComputations
 {
@@ -10,13 +11,13 @@ namespace ObservableComputations
 
 		private readonly Expression<Func<TResult>> _getValueExpressionOriginal;
 		//private readonly Expression<Func<TResult>> _getValueExpression;
-		private Func<TResult> _getValueFunc;
+		private readonly Func<TResult> _getValueFunc;
 		// ReSharper disable once PrivateFieldCanBeConvertedToLocalVariable
 		private ExpressionWatcher _getValueExpressionWatcher;
 
-		private List<IComputingInternal> _nestedComputings;
-		private ExpressionWatcher.ExpressionInfo _expressionInfo;
-		private Action _changeValueAction;
+		private readonly List<IComputingInternal> _nestedComputings;
+		private readonly ExpressionWatcher.ExpressionInfo _expressionInfo;
+		private readonly Action _changeValueAction;
 
 		[ObservableComputationsCall]
 		public Computing(
@@ -55,7 +56,7 @@ namespace ObservableComputations
 			TResult result;
 			if (Configuration.TrackComputingsExecutingUserCode)
 			{
-				var currentThread = Utils.startComputingExecutingUserCode(out var computing, out _userCodeIsCalledFrom, this);
+				Thread currentThread = Utils.startComputingExecutingUserCode(out IComputing computing, out _userCodeIsCalledFrom, this);
 				result = _getValueFunc();
 				Utils.endComputingExecutingUserCode(computing, currentThread, out _userCodeIsCalledFrom);
 			}

@@ -1,20 +1,16 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Collections.Specialized;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ObservableComputations
 {
 	public class CollectionDisposing<TSourceItem> : CollectionProcessingVoid<TSourceItem>
-		where TSourceItem :IDisposable
+		where TSourceItem : IDisposable
 	{
-		public CollectionDisposing(IReadScalar<INotifyCollectionChanged> sourceScalar) : base(sourceScalar, null, getOldItemsProcessor(), null)
+		public CollectionDisposing(IReadScalar<INotifyCollectionChanged> sourceScalar) : base(sourceScalar, null, getOldItemsProcessor())
 		{
 		}
 
-		public CollectionDisposing(INotifyCollectionChanged source) : base(source, null, getOldItemsProcessor(), null)
+		public CollectionDisposing(INotifyCollectionChanged source) : base(source, null, getOldItemsProcessor())
 		{
 		}
 
@@ -23,7 +19,7 @@ namespace ObservableComputations
 			return (oldItems, _) =>
 			{
 				int oldItemsLength = oldItems.Length;
-				for (var index = 0; index < oldItemsLength; index++)
+				for (int index = 0; index < oldItemsLength; index++)
 				{
 					oldItems[index].Dispose();
 				}

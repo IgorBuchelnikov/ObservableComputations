@@ -1,5 +1,4 @@
-﻿using System;
-using System.ComponentModel;
+﻿using System.ComponentModel;
 
 namespace ObservableComputations
 {
@@ -22,27 +21,23 @@ namespace ObservableComputations
 		{
 			int newCount = _countScalar.Value;
 
-			Action action = () =>
+			void action()
 			{
 				if (_count < newCount)
 				{
 					for (int item = _count; item < newCount; item++)
-					{
 						baseInsertItem(item, item);
-					}	
-					
+
 					_count = newCount;
 				}
 				else if (_count > newCount)
 				{
 					for (int itemIndex = _count - 1; itemIndex > newCount - 1; itemIndex--)
-					{
 						baseRemoveItem(itemIndex);
-					}	
-					
+
 					_count = newCount;
 				}
-			};
+			}
 
 			Utils.processChange(
 				sender, 
@@ -78,9 +73,7 @@ namespace ObservableComputations
 			_count = _countScalar.Value;
 
 			for (int item = 0; item < _count; item++)
-			{
 				baseInsertItem(item, item);
-			}
 
 			_countScalar.PropertyChanged += handleCountChanged;
 		}

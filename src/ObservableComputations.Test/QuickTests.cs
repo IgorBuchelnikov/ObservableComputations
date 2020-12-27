@@ -55,14 +55,7 @@ namespace ObservableComputations.Test
 
 			public ObservableCollection<Item> Items
 			{
-				get
-				{
-					if (_items == null)
-					{
-						_items = new ObservableCollection<Item>{_item1, _item3, _item5, _item7};
-					}
-					return _items;
-				}
+				get { return _items ?? (_items = new ObservableCollection<Item> {_item1, _item3, _item5, _item7}); }
 			}
 
 			public event PropertyChangedEventHandler PropertyChanged;

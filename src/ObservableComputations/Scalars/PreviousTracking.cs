@@ -9,10 +9,10 @@ namespace ObservableComputations
 		public TResult PreviousValue => _previousValue;
 		public bool IsEverChanged => _isEverChanged;
 
-		private IReadScalar<TResult> _scalar;
+		private readonly IReadScalar<TResult> _scalar;
 		private TResult _previousValue;
 		private bool _isEverChanged;
-		private Action _changeValueAction;
+		private readonly Action _changeValueAction;
 
 
 		[ObservableComputationsCall]

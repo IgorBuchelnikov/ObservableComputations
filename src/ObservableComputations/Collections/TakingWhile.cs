@@ -5,7 +5,6 @@ using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.Linq;
 using System.Linq.Expressions;
-using ObservableComputations.ExtentionMethods;
 
 namespace ObservableComputations
 {
@@ -100,7 +99,7 @@ namespace ObservableComputations
 					zipping
 					.Filtering(zipPairNotPredicateExpression, capacity)
 					.Selecting(zp1 => zp1.LeftItem)
-					.Using(ic => ic.Count > 0 ? ic.Minimazing<int>().Value : countComputing.Value)
+					.Using(ic => ic.Count > 0 ? ic.Minimazing().Value : countComputing.Value)
 					.Value, 
 				capacity);
 		}

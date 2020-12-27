@@ -7,7 +7,6 @@ using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Linq.Expressions;
 using System.Threading;
-using ObservableComputations.ExtentionMethods;
 
 namespace ObservableComputations
 {
@@ -50,12 +49,12 @@ namespace ObservableComputations
 
 		public event EventHandler ConsistencyRestored;
 
-		private List<IComputingInternal> _keyNestedComputings;
-		private List<IComputingInternal> _valueNestedComputings;
+		private readonly List<IComputingInternal> _keyNestedComputings;
+		private readonly List<IComputingInternal> _valueNestedComputings;
 
-		private ISourceItemKeyChangeProcessor _thisAsSourceItemKeyChangeProcessor;
-		private ISourceItemValueChangeProcessor _thisAsSourceValueItemChangeProcessor;
-		private ISourceCollectionChangeProcessor _thisAsSourceCollectionChangeProcessor;
+		private readonly ISourceItemKeyChangeProcessor _thisAsSourceItemKeyChangeProcessor;
+		private readonly ISourceItemValueChangeProcessor _thisAsSourceValueItemChangeProcessor;
+		private readonly ISourceCollectionChangeProcessor _thisAsSourceCollectionChangeProcessor;
 
 		internal Queue<IProcessable>[] _deferredProcessings;
 
@@ -309,7 +308,6 @@ namespace ObservableComputations
 				_sourceAsList.CopyTo(sourceCopy, 0);
 
 				_sourceAsList.CollectionChanged += handleSourceCollectionChanged;
-
 				for (int index = 0; index < count; index++)
 				{
 					TSourceItem sourceItem = sourceCopy[index];
@@ -394,7 +392,6 @@ namespace ObservableComputations
 				ref _lastProcessedSourceChangeMarker, 
 				_sourceAsList, 
 				ref _isConsistent,
-				this,
 				ref _handledEventSender,
 				ref _handledEventArgs,
 				ref _deferredProcessings,
@@ -543,7 +540,7 @@ namespace ObservableComputations
 
 			if (Configuration.TrackComputingsExecutingUserCode)
 			{
-				var currentThread = Utils.startComputingExecutingUserCode(out var computing, out _userCodeIsCalledFrom, this);
+				Thread currentThread = Utils.startComputingExecutingUserCode(out IComputing computing, out _userCodeIsCalledFrom, this);
 				TKey result = getValue();
 				Utils.endComputingExecutingUserCode(computing, currentThread, out _userCodeIsCalledFrom);
 				return result;
@@ -563,7 +560,7 @@ namespace ObservableComputations
 
 			if (Configuration.TrackComputingsExecutingUserCode)
 			{
-				var currentThread = Utils.startComputingExecutingUserCode(out var computing, out _userCodeIsCalledFrom, this);
+				Thread currentThread = Utils.startComputingExecutingUserCode(out IComputing computing, out _userCodeIsCalledFrom, this);
 				TValue result = getValue();
 				Utils.endComputingExecutingUserCode(computing, currentThread, out _userCodeIsCalledFrom);
 
@@ -784,7 +781,7 @@ namespace ObservableComputations
 
 		void IComputingInternal.AddConsumer(Consumer addingConsumer)
 		{
-			Utils.addComsumer(
+			Utils.addConsumer(
 				addingConsumer, 
 				_consumers,
 				_downstreamConsumedComputings, 

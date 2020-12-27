@@ -44,11 +44,11 @@ namespace ObservableComputations
 				{
 					if (_resumeType == CollectionPausingResumeType.Reset 
 						&& value == CollectionPausingResumeType.ReplayChanges)
-						throw new ObservableComputationsException(this, "It is imposible to change ResumeType from Reset to ReplayChanges while IsPaused is true");
+						throw new ObservableComputationsException(this, "It is impossible to change ResumeType from Reset to ReplayChanges while IsPaused is true");
 
 					if (_resumeType == CollectionPausingResumeType.ReplayChanges
 						&& value == CollectionPausingResumeType.Reset)
-						_defferedCollectionActions.Clear();
+						_deferredCollectionActions.Clear();
 
 				}
 
@@ -62,35 +62,32 @@ namespace ObservableComputations
 			_isConsistent = false;
 			if (_resumeType == CollectionPausingResumeType.ReplayChanges)
 			{
-				DefferedCollectionAction<TSourceItem> defferedCollectionAction;
-				int count = _defferedCollectionActions.Count;
-
-
+				int count = _deferredCollectionActions.Count;
 
 				for (int i = 0; i < count; i++)
 				{
-					defferedCollectionAction = _defferedCollectionActions.Dequeue();
-					if (defferedCollectionAction.NotifyCollectionChangedEventAgs != null)
-						handleSourceCollectionChanged(defferedCollectionAction.EventSender,
-							defferedCollectionAction.NotifyCollectionChangedEventAgs);
-					else if (defferedCollectionAction.Clear)
+					DeferredCollectionAction<TSourceItem> deferredCollectionAction = _deferredCollectionActions.Dequeue();
+					if (deferredCollectionAction.NotifyCollectionChangedEventAgs != null)
+						handleSourceCollectionChanged(deferredCollectionAction.EventSender,
+							deferredCollectionAction.NotifyCollectionChangedEventAgs);
+					else if (deferredCollectionAction.Clear)
 					{
 						_items.Clear();
 					}
-					else if (defferedCollectionAction.Reset)
+					else if (deferredCollectionAction.Reset)
 					{
-						_handledEventSender = defferedCollectionAction.EventSender;
-						_handledEventArgs = defferedCollectionAction.EventArgs;
+						_handledEventSender = deferredCollectionAction.EventSender;
+						_handledEventArgs = deferredCollectionAction.EventArgs;
 
 						reset();
 
 						_handledEventSender = null;
 						_handledEventArgs = null;
 					}
-					else if (defferedCollectionAction.NewItems != null)
+					else if (deferredCollectionAction.NewItems != null)
 					{
 						int originalCount = _items.Count;
-						TSourceItem[] newItems = defferedCollectionAction.NewItems;
+						TSourceItem[] newItems = deferredCollectionAction.NewItems;
 						int count1 = newItems.Length;
 						int sourceIndex;
 						for (sourceIndex = 0; sourceIndex < count1; sourceIndex++)
@@ -132,9 +129,9 @@ namespace ObservableComputations
 
 		private INotifyCollectionChanged _source;
 		private IList<TSourceItem> _sourceAsList;
-		private IReadScalar<INotifyCollectionChanged> _sourceScalar;
+		private readonly IReadScalar<INotifyCollectionChanged> _sourceScalar;
 
-		private IReadScalar<bool> _isPausedScalar;
+		private readonly IReadScalar<bool> _isPausedScalar;
 
 		private bool _sourceInitialized;
 
@@ -147,9 +144,9 @@ namespace ObservableComputations
 		private bool _resuming;
 		private CollectionPausingResumeType _resumeType;
 
-		private ISourceCollectionChangeProcessor _thisAsSourceCollectionChangeProcessor;
+		private readonly ISourceCollectionChangeProcessor _thisAsSourceCollectionChangeProcessor;
 
-		Queue<DefferedCollectionAction<TSourceItem>> _defferedCollectionActions = new Queue<DefferedCollectionAction<TSourceItem>>();
+		readonly Queue<DeferredCollectionAction<TSourceItem>> _deferredCollectionActions = new Queue<DeferredCollectionAction<TSourceItem>>();
 
 		[ObservableComputationsCall]
 		public CollectionPausing(
@@ -259,7 +256,7 @@ namespace ObservableComputations
 				int sourceIndex = 0;
 
 				if (_isPaused)
-					_defferedCollectionActions.Enqueue(new DefferedCollectionAction<TSourceItem>(_sourceAsList.ToArray()));
+					_deferredCollectionActions.Enqueue(new DeferredCollectionAction<TSourceItem>(_sourceAsList.ToArray()));
 				else
 				{
 					int count = _sourceAsList.Count;
@@ -290,13 +287,13 @@ namespace ObservableComputations
 			else 
 			{
 				if (_isPaused)
-					_defferedCollectionActions.Enqueue(new DefferedCollectionAction<TSourceItem>(true));
+					_deferredCollectionActions.Enqueue(new DeferredCollectionAction<TSourceItem>(true));
 				else
 					_items.Clear();
 			}
 
 			if (_isPaused)
-				_defferedCollectionActions.Enqueue(new DefferedCollectionAction<TSourceItem>(true, _handledEventSender, _handledEventArgs));
+				_deferredCollectionActions.Enqueue(new DeferredCollectionAction<TSourceItem>(true, _handledEventSender, _handledEventArgs));
 			else
 				reset();
 		}
@@ -331,7 +328,7 @@ namespace ObservableComputations
 		{
 			if (_isPaused && e.Action != NotifyCollectionChangedAction.Reset)
 			{
-				_defferedCollectionActions.Enqueue(new DefferedCollectionAction<TSourceItem>(sender, e));
+				_deferredCollectionActions.Enqueue(new DeferredCollectionAction<TSourceItem>(sender, e));
 				return;
 			}
 
@@ -398,42 +395,32 @@ namespace ObservableComputations
 		#endregion
 	}
 
-	internal struct DefferedCollectionAction<TSourceItem>
+	internal struct DeferredCollectionAction<TSourceItem>
 	{
 		public object EventSender;
-		public NotifyCollectionChangedEventArgs NotifyCollectionChangedEventAgs;
+		public readonly NotifyCollectionChangedEventArgs NotifyCollectionChangedEventAgs;
 		public EventArgs EventArgs;
-		public TSourceItem NewItem;
-		public int NewItemIndex;
 		public TSourceItem[] NewItems;
 		public bool Clear;
 		public bool Reset;
 
-		public DefferedCollectionAction(object eventSender, NotifyCollectionChangedEventArgs eventAgs) : this()
+		public DeferredCollectionAction(object eventSender, NotifyCollectionChangedEventArgs eventAgs) : this()
 		{
 			EventSender = eventSender;
 			NotifyCollectionChangedEventAgs = eventAgs;
 		}
 
-		public DefferedCollectionAction(object eventSender, EventArgs eventArgs, TSourceItem newItem, int newItemIndex) : this()
-		{
-			EventSender = eventSender;
-			EventArgs = eventArgs;
-			NewItem = newItem;
-			NewItemIndex = -newItemIndex;
-		}
-
-		public DefferedCollectionAction(TSourceItem[] newItems) : this()
+		public DeferredCollectionAction(TSourceItem[] newItems) : this()
 		{
 			NewItems = newItems;
 		}
 
-		public DefferedCollectionAction(bool clear) : this()
+		public DeferredCollectionAction(bool clear) : this()
 		{
 			Clear = clear;
 		}
 
-		public DefferedCollectionAction(bool reset, object eventSender, EventArgs eventArgs) : this()
+		public DeferredCollectionAction(bool reset, object eventSender, EventArgs eventArgs) : this()
 		{
 			Reset = reset;
 			EventSender = eventSender;

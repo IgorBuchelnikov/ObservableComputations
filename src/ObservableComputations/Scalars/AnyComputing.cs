@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.Linq.Expressions;
+using System.Threading;
 
 namespace ObservableComputations
 {
@@ -20,7 +21,7 @@ namespace ObservableComputations
 		public ReadOnlyCollection<INotifyCollectionChanged> SourceCollections => new ReadOnlyCollection<INotifyCollectionChanged>(new []{Source});
 		public ReadOnlyCollection<IReadScalar<INotifyCollectionChanged>> SourceCollectionScalars => new ReadOnlyCollection<IReadScalar<INotifyCollectionChanged>>(new []{SourceScalar});
 
-		private ISourceCollectionChangeProcessor _thisAsSourceCollectionChangeProcessor;
+		private readonly ISourceCollectionChangeProcessor _thisAsSourceCollectionChangeProcessor;
 		// ReSharper disable once MemberCanBePrivate.Global
 		public Func<TSourceItem, bool> PredicateFunc => _predicateFunc;
 
@@ -50,10 +51,10 @@ namespace ObservableComputations
 		private bool _lastProcessedSourceChangeMarker;
 
 		private int _predicatePassedCount;
-		private List<IComputingInternal> _nestedComputings;
+		private readonly List<IComputingInternal> _nestedComputings;
 
-		private int _predicateExpressionСallCount;
-		private ISourceItemChangeProcessor _thisAsSourceItemChangeProcessor;
+		private int _predicateExpressionCallCount;
+		private readonly ISourceItemChangeProcessor _thisAsSourceItemChangeProcessor;
 
 		private readonly bool _predicateContainsParametrizedObservableComputationCalls;
 		[ObservableComputationsCall]
@@ -83,7 +84,7 @@ namespace ObservableComputations
 				out _predicateExpression, 
 				out _predicateContainsParametrizedObservableComputationCalls, 
 				ref _predicateExpressionInfo, 
-				ref _predicateExpressionСallCount, 
+				ref _predicateExpressionCallCount, 
 				ref _predicateFunc, 
 				ref _nestedComputings);
 
@@ -109,7 +110,6 @@ namespace ObservableComputations
 				ref _lastProcessedSourceChangeMarker, 
 				_sourceAsList, 
 				ref _isConsistent,
-				this,
 				ref _handledEventSender,
 				ref _handledEventArgs,
 				ref _deferredProcessings,
@@ -171,16 +171,14 @@ namespace ObservableComputations
 
 					if (replacingItemInfo.PredicateResult) _predicatePassedCount--;
 
-					ExpressionWatcher watcher;
-					Func<bool> predicateFunc;
 					TSourceItem replacingSourceItem = (TSourceItem) e.NewItems[0];
 					Utils.getItemInfoContent(
 						new object[] {replacingSourceItem},
-						out watcher,
-						out predicateFunc,
+						out ExpressionWatcher watcher,
+						out Func<bool> predicateFunc,
 						out List<IComputingInternal> nestedComputings1,
 						_predicateExpression,
-						out _predicateExpressionСallCount,
+						out _predicateExpressionCallCount,
 						this,
 						_predicateContainsParametrizedObservableComputationCalls,
 						_predicateExpressionInfo);
@@ -234,7 +232,7 @@ namespace ObservableComputations
 		{
 			if (_sourceInitialized)
 			{
-				Utils.disposeExpressionItemInfos(_itemInfos, _predicateExpressionСallCount, this);
+				Utils.disposeExpressionItemInfos(_itemInfos, _predicateExpressionCallCount, this);
 				Utils.removeDownstreamConsumedComputing(_itemInfos, this);
 
 				Utils.disposeSource(
@@ -297,7 +295,7 @@ namespace ObservableComputations
 
 			if (Configuration.TrackComputingsExecutingUserCode)
 			{
-				var currentThread = Utils.startComputingExecutingUserCode(out var computing, out _userCodeIsCalledFrom, this);
+				Thread currentThread = Utils.startComputingExecutingUserCode(out IComputing computing, out _userCodeIsCalledFrom, this);
 				bool result = getValue();
 				Utils.endComputingExecutingUserCode(computing, currentThread, out _userCodeIsCalledFrom);
 				return result;
@@ -315,8 +313,8 @@ namespace ObservableComputations
 
 			if (Configuration.TrackComputingsExecutingUserCode)
 			{
-				var currentThread = Utils.startComputingExecutingUserCode(out var computing, out _userCodeIsCalledFrom, this);
-				var result = getValue();
+				Thread currentThread = Utils.startComputingExecutingUserCode(out IComputing computing, out _userCodeIsCalledFrom, this);
+				bool result = getValue();
 				Utils.endComputingExecutingUserCode(computing, currentThread, out _userCodeIsCalledFrom);
 				return result;
 			}
@@ -334,7 +332,7 @@ namespace ObservableComputations
 				out Func<bool> predicateFunc, 
 				out List<IComputingInternal> nestedComputings,
 				_predicateExpression,
-				out _predicateExpressionСallCount,
+				out _predicateExpressionCallCount,
 				this,
 				_predicateContainsParametrizedObservableComputationCalls,
 				_predicateExpressionInfo);	

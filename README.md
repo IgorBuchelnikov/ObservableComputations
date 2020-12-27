@@ -29,7 +29,9 @@ Some of the tasks that you solved using [Reactive Extensions](https://github.com
 
 The [ReactiveUI](https://github.com/reactiveui/ReactiveUI) library (and its [DynamicData](https://github.com/reactiveui/DynamicData) sub-library) are not abstracted from the [INotifyPropertyChanged](https://docs.microsoft.com/en-us/dotnet/api/system.componentmodel.inotifypropertychanged?view=netframework-4.8) and [INotifyCollectionChanged](https://docs.microsoft.com/en-us/dotnet/api/system.collections.specialized.inotifycollectionchanged?view=netframework-4.8) interfaces and when working with these interfaces allows you to do much the same things as ObservableComputations, but ObservableComputations are less verbose, easier to use, more declarative, less touches the source data. Why?
 
-* Reactivity of ObservableComputations is based on two events only: [CollectionChanged](https://docs.microsoft.com/en-us/dotnet/api/system.collections.specialized.inotifycollectionchanged.collectionchanged?view=netframework-4.8) and [PropertyChanged](https://docs.microsoft.com/en-us/dotnet/api/system.componentmodel.inotifypropertychanged.propertychanged?view=netframework-4.8). This reactivity is native to ObservableComputations. Reactivity of [ReactiveUI](https://github.com/reactiveui/ReactiveUI) is based on interfaces inherited from [Reactive Extentions](https://github.com/dotnet/reactive): [IObserver&lt;T&gt;](https://docs.microsoft.com/en-us/dotnet/api/system.iobserver-1?view=netframework-4.8), [IObservable&lt;T&gt;](https://docs.microsoft.com/en-us/dotnet/api/system.iobservable-1?view=netframework-4.8,), as well as additional interfaces for working with collections (included in [DynamicData](https://github.com/reactiveui/DynamicData)): [IChangeSet](https://github.com/reactiveui/DynamicData/blob/master/src/DynamicData/IChangeSet.cs) and [IChangeSet&lt;TObject&gt;](https://github.com/reactiveui/DynamicData/blob/master/src/DynamicData/List/IChangeSet.cs). [ReactiveUI](https://github.com/reactiveui/ReactiveUI) performs bidirectional conversion between these interfaces and  [INotifyPropertyChanged](https://docs.microsoft.com/en-us/dotnet/api/system.componentmodel.inotifypropertychanged?view=netframework-4.8) and [INotifyCollectionChanged](https://docs.microsoft.com/en-us/dotnet/api/system.collections.specialized.inotifycollectionchanged?view=netframework-4.8) interfaces. Even with this conversion, [INotifyPropertyChanged](https://docs.microsoft.com/en-us/dotnet/api/system.componentmodel.inotifypropertychanged?view=netframework-4.8) and [INotifyCollectionChanged](https://docs.microsoft.com/en-us/dotnet/api/system.collections.specialized.inotifycollectionchanged?view=netframework-4.8) interfaces look alien in [ReactiveUI](https://github.com/reactiveui/ReactiveUI). (Offtopic: If you need [ReactiveUI](https://github.com/reactiveui/ReactiveUI) features that are not included in ObservableComputations, you can get them using this conversion. You can also use [ReactiveList](https://reactiveui.net/docs/handbook/obsolete/collections/reactive-list) as a source collection for ObservableComputations.)
+* Reactivity of ObservableComputations is based on two events only: [CollectionChanged](https://docs.microsoft.com/en-us/dotnet/api/system.collections.specialized.inotifycollectionchanged.collectionchanged?view=netframework-4.8) and [PropertyChanged](https://docs.microsoft.com/en-us/dotnet/api/system.componentmodel.inotifypropertychanged.propertychanged?view=netframework-4.8). This reactivity is native to ObservableComputations. Reactivity of [ReactiveUI](https://github.com/reactiveui/ReactiveUI) is based on interfaces inherited from [Reactive Extentions](https://github.com/dotnet/reactive): [IObserver&lt;T&gt;](https://docs.microsoft.com/en-us/dotnet/api/system.iobserver-1?view=netframework-4.8), [IObservable&lt;T&gt;](https://docs.microsoft.com/en-us/dotnet/api/system.iobservable-1?view=netframework-4.8,), as well as additional interfaces for working with collections (included in [DynamicData](https://github.com/reactiveui/DynamicData)): [IChangeSet](https://github.com/reactiveui/DynamicData/blob/master/src/DynamicData/IChangeSet.cs) and [IChangeSet&lt;TObject&gt;](https://github.com/reactiveui/DynamicData/blob/master/src/DynamicData/List/IChangeSet.cs). [ReactiveUI](https://github.com/reactiveui/ReactiveUI) performs bidirectional conversion between these interfaces and  [INotifyPropertyChanged](https://docs.microsoft.com/en-us/dotnet/api/system.componentmodel.inotifypropertychanged?view=netframework-4.8) and [INotifyCollectionChanged](https://docs.microsoft.com/en-us/dotnet/api/system.collections.specialized.inotifycollectionchanged?view=netframework-4.8) interfaces. Even with this conversion, [INotifyPropertyChanged](https://docs.microsoft.com/en-us/dotnet/api/system.componentmodel.inotifypropertychanged?view=netframework-4.8) and [INotifyCollectionChanged](https://docs.microsoft.com/en-us/dotnet/api/system.collections.specialized.inotifycollectionchanged?view=netframework-4.8) interfaces look alien in [ReactiveUI](https://github.com/reactiveui/ReactiveUI). (Offtopic: If you need [ReactiveUI](https://github.com/reactiveui/ReactiveUI) features that are not included in ObservableComputations, you can get them using this conversion. You can also use [ReactiveList](https://reactiveui.net/docs/handbook/obsolete/collections/reactive-list) as a source collection for ObservableComputations.
+* ObservableComputations does not require source collections to be unique or have the Id property in them. Instead, ObservableComputations will preserve the order of the elements of the source collection in the computed collection.
+* ObservableComputations is more like standart [LINQ](https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/concepts/linq/).
 * [INotifyPropertyChanged](https://docs.microsoft.com/en-us/dotnet/api/system.componentmodel.inotifypropertychanged?view=netframework-4.8) and [INotifyCollectionChanged](https://docs.microsoft.com/en-us/dotnet/api/system.collections.specialized.inotifycollectionchanged?view=netframework-4.8) interfaces are tightly integrated into Microsoft's UI platforms ([WPF](https://docs.microsoft.com/en-us/dotnet/desktop-wpf/data/data-binding-overview), [Xamarin](https://docs.microsoft.com/en-us/xamarin/xamarin-forms/app-fundamentals/data-binding/basic-bindings), [Blazor](https://demos.telerik.com/blazor-ui/grid/observable-data)).
 
 You can compare these library and ObservableComputations in action, see [ObservableComputations.Samples](https://github.com/IgorBuchelnikov/ObservableComputations.Samples).
@@ -39,6 +41,10 @@ ObservableComputations library is ready to use in production. All essential func
 
 The current version uses weak event handlers [CollectionChanged](https://docs.microsoft.com/en-us/dotnet/api/system.collections.specialized.inotifycollectionchanged.collectionchanged?view=netframework-4.8) and [PropertyChanged]( https://docs.microsoft.com/en-us/dotnet/api/system.componentmodel.inotifypropertychanged.propertychanged?view=netframework-4.8) (weak events on the subscriber side). The event is unsubscribed from the weak handler in the finalizer of the ObservableComputations class. In most cases, this mechanism works correctly, but in some cases (presumably highly loaded WPF applications) object finalizers are not called and instances of the ObservableComputations classes accumulate in the f-reachible queue, leading to memory leaks. I'm currently working on switching to strong event handlers and adding an explicit unsubscribe API.
 
+## Unit test coverage
+
+The code is covered by unit tests by?% According to JetBrains DotCover. Does all the tests take? hours.
+
 ## How to install?
 ObservableComputations is available on [NuGet](https://www.nuget.org/packages/ObservableComputations/).
 
@@ -46,11 +52,12 @@ ObservableComputations is available on [NuGet](https://www.nuget.org/packages/Ob
 You can [create issue](https://github.com/IgorBuchelnikov/ObservableComputations/issues/new) or [contact me via e-mail](mailto:igor_buchelnikov_github@mail.ru).
 
 ## How can I help the project?
-Documentation comments and corrections are welcome. Demo projects, blog posts and tutorials are needed.
+Documentation comments and corrections are welcome. Demo projects, blog posts and tutorials are needed. A pretty icon is needed.
 
 ## Quick start
 ### Sample application  
-[ObservableComputations.Samples](https://github.com/IgorBuchelnikov/ObservableComputations.Samples)
+* [Samples](https://github.com/IgorBuchelnikov/ObservableComputations.Samples)
+* [Dynamic Trader](https://github.com/IgorBuchelnikov/Dynamic.Trader)
 
 ### [LINQ](https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/concepts/linq/) methods analogs
 ```csharp
@@ -98,7 +105,12 @@ namespace ObservableComputationsExamples
 				});
 
 			// We start using ObservableComputations here!
-			Filtering<Order> expensiveOrders = orders.Filtering(o => o.Price > 25); 
+			OcConsumer consumer = new OcConsumer();
+
+			Filtering<Order> expensiveOrders = 
+				orders
+					.Filtering(o => o.Price > 25)
+					.For(consumer); 
 			
 			Debug.Assert(expensiveOrders is ObservableCollection<Order>);
 			
@@ -121,6 +133,8 @@ namespace ObservableComputationsExamples
 			checkFiltering(orders, expensiveOrders); // Prints "True"
 
 			Console.ReadLine();
+
+			consumer.Dispose();
 		}
 
 		static void checkFiltering(
@@ -136,7 +150,7 @@ namespace ObservableComputationsExamples
 As you can see *Filtering* extension method is analog of *Where* method from [LINQ](https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/concepts/linq/). *Filtering* extension method returns instance of *Filtering&lt;Order&gt;* class. *Filtering&lt;TSourceItem&gt;* class implements [INotifyCollectionChanged](https://docs.microsoft.com/en-us/dotnet/api/system.collections.specialized.inotifycollectionchanged?view=netframework-4.8) interface and derived from [ObservableCollection&lt;TSourceItem&gt;](https://docs.microsoft.com/en-us/dotnet/api/system.collections.objectmodel.observablecollection-1?view=netframework-4.8). Examining code above you can see *expensiveOrders* is not recomputed from scratch every time when the *orders* collection change or  *Price* property of some order changed, in the *expensiveOrders* collection occurs only that changes, that relevant to particular change in the *orders* collection or *Price* property of some order. [Referring reactive programming terminology, this behavior defines change propagation algorithm as "push"](https://en.wikipedia.org/wiki/Reactive_programming#Change_propagation_algorithms).
 
 
-In the code above, during the execution of *Filtering* extension method  (during the creation of an instance of *Filtering&lt;Order&gt;* class), following events are subscribed: the  [CollectionChanged](https://docs.microsoft.com/en-us/dotnet/api/system.collections.specialized.inotifycollectionchanged.collectionchanged?view=netframework-4.8) event of *orders* collection and [PropertyChanged](https://docs.microsoft.com/en-us/dotnet/api/system.componentmodel.inotifypropertychanged.propertychanged?view=netframework-4.8) event of every instance of the *Order* class. ObservableComputations performs weak subscriptions only (**weak event pattern**), so the *expensiveOrders* can be garbage collected, while the *orders* will remain alive.
+In the code above, during the execution of *For* extension method, following events are subscribed: the  [CollectionChanged](https://docs.microsoft.com/en-us/dotnet/api/system.collections.specialized.inotifycollectionchanged.collectionchanged?view=netframework-4.8) event of *orders* collection and [PropertyChanged](https://docs.microsoft.com/en-us/dotnet/api/system.componentmodel.inotifypropertychanged.propertychanged?view=netframework-4.8) event of every instance of the *Order* class. During the execution of the *consumer.Dispose()* method, events are unsubscribed.
 
 Complexity of predicate expression passed to *Filtering* method (*o => o.Price > 25*) is not limited. The expression can contain results of any ObservableComputations methods, including [LINQ](https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/concepts/linq/) analogs.
 
@@ -145,7 +159,6 @@ Complexity of predicate expression passed to *Filtering* method (*o => o.Price >
 using System;
 using System.ComponentModel;
 using System.Diagnostics;
-using System.Linq.Expressions;
 using ObservableComputations;
 
 namespace ObservableComputationsExamples
@@ -190,8 +203,10 @@ namespace ObservableComputationsExamples
 			Order order = new Order{Num = 1, Price = 100, Discount = 10};
 
 			// We start using ObservableComputations here!
-			Computing<decimal> discountedPriceComputing = new Computing(
-				() => order.Price - order.Price * order.Discount / 100);
+			OcConsumer consumer = new OcConsumer();
+
+			Computing<decimal> discountedPriceComputing = new Computing<decimal>(
+				() => order.Price - order.Price * order.Discount / 100).For(consumer);
 				
 			Debug.Assert(discountedPriceComputing is INotifyPropertyChanged);
 
@@ -211,6 +226,8 @@ namespace ObservableComputationsExamples
 			order.Discount = 15;
 
 			Console.ReadLine();
+
+			consumer.Dispose();
 		}
 
 		static void printDiscountedPrice(Computing<decimal> discountedPriceComputing)
@@ -222,7 +239,7 @@ namespace ObservableComputationsExamples
 ```
 In this code sample we observe value of discounted price expression. *Computing&lt;TResult&gt;* class implements [INotifyPropertyChanged](https://docs.microsoft.com/en-us/dotnet/api/system.componentmodel.inotifypropertychanged?view=netframework-4.8) interface. Complexity of expression to observe is not limited. The expression can contain results of any ObservableComputations methods, including [LINQ](https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/concepts/linq/) analogs.
 
-Same as in the previous example [PropertyChanged](https://docs.microsoft.com/en-us/dotnet/api/system.componentmodel.inotifypropertychanged.propertychanged?view=netframework-4.8) event of *Order* class instance is subscribed weakly (**weak event pattern**).
+Same as in the previous example during the execution of *For* [extension method](https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/classes-and-structs/extension-methods) [PropertyChanged](https://docs.microsoft.com/en-us/dotnet/api/system.componentmodel.inotifypropertychanged.propertychanged?view=netframework-4.8) event of *Order* class instance is subscribed. During the execution of the *consumer.Dispose()* method, events are unsubscribed.
 
 If you want *() => order.Price - order.Price * order.Discount / 100* to be a pure function, no problem:  
   
@@ -232,7 +249,7 @@ Expression<Func<Order, decimal>> discountedPriceExpression =
 	
 // We start using ObservableComputations here!
 Computing<decimal> discountedPriceComputing = 
-	order.Using(discountedPriceExpression);
+	order.Using(discountedPriceExpression).For(consumer);
 ```
 Now *discountedPriceExpression* can be reused for other instances of *Order* class.
 

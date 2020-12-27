@@ -191,11 +191,11 @@ namespace ObservableComputations
 		internal abstract void removeFromUpstreamComputings(IComputingInternal computing);
 
 
-		protected List<Consumer> _consumers = new List<Consumer>();
+		protected List<OcConsumer> _consumers = new List<OcConsumer>();
 		internal  List<IComputingInternal> _downstreamConsumedComputings = new List<IComputingInternal>();
 
 		#region Implementation of IComputingInternal
-		IEnumerable<Consumer> IComputingInternal.Consumers => _consumers;
+		IEnumerable<OcConsumer> IComputingInternal.Consumers => _consumers;
 
 		void IComputingInternal.AddToUpstreamComputings(IComputingInternal computing)
 		{
@@ -232,10 +232,10 @@ namespace ObservableComputations
 			_isActive = value;
 		}
 
-		void IComputingInternal.AddConsumer(Consumer addingConsumer)
+		void IComputingInternal.AddConsumer(OcConsumer addingOcConsumer)
 		{
 			Utils.addConsumer(
-				addingConsumer, 
+				addingOcConsumer, 
 				_consumers,
 				_downstreamConsumedComputings, 
 				this, 
@@ -246,10 +246,10 @@ namespace ObservableComputations
 				_deferredQueuesCount);
 		}
 
-		void IComputingInternal.RemoveConsumer(Consumer removingConsumer)
+		void IComputingInternal.RemoveConsumer(OcConsumer removingOcConsumer)
 		{
 			Utils.removeConsumer(
-				removingConsumer, 
+				removingOcConsumer, 
 				_consumers, 
 				_downstreamConsumedComputings, 
 				this,

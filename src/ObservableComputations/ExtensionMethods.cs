@@ -497,10 +497,10 @@ namespace ObservableComputations
 		}
 
 		[ObservableComputationsCall]
-		public static TComputing For<TComputing>(this TComputing computing, Consumer consumer)
+		public static TComputing For<TComputing>(this TComputing computing, OcConsumer ocConsumer)
 			where TComputing : IComputing
 		{
-			((IComputingInternal) computing).AddConsumer(consumer);
+			((IComputingInternal) computing).AddConsumer(ocConsumer);
 			return computing;
 		}
 

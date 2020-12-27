@@ -9,7 +9,7 @@
 
 ## Что такое ObservableComputations?
 
-Это кросс-платформенная .NET библиотека для вычислений, аргументами и результатами которых являются объекты реализующие интерфейсы [INotifyPropertyChanged](https://docs.microsoft.com/en-us/dotnet/api/system.componentmodel.inotifypropertychanged?view=netframework-4.8) и [INotifyCollectionChanged](https://docs.microsoft.com/en-us/dotnet/api/system.collections.specialized.inotifycollectionchanged?view=netframework-4.8) ([ObservableCollection](https://docs.microsoft.com/en-us/dotnet/api/system.collections.objectmodel.observablecollection-1?view=netframework-4.8)). Вычисления включают в себя те же вычисления которые есть в [LINQ](https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/concepts/linq/), вычисление произвольного выражения и некоторые дополнительные возможности. Вычисления реализованы как [методы расширения](https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/classes-and-structs/extension-methods), подобно [LINQ](https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/concepts/linq/) методам. Вы можете комбинировать вызовы [методов расширения](https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/classes-and-structs/extension-methods) ObservavleComputations (цепочка вызовов и вложенные вызовы), как Вы это делаете в [LINQ](https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/concepts/linq/). Поддерживаются вычисления в фоновых потоках, в том числе параллельные, а также обработка событий [CollectionChanged](https://docs.microsoft.com/en-us/dotnet/api/system.collections.specialized.inotifycollectionchanged.collectionchanged?view=netframework-4.8) и [PropertyChanged](https://docs.microsoft.com/en-us/dotnet/api/system.componentmodel.inotifypropertychanged.propertychanged?view=netframework-4.8) связанный со временем. ObservableComputations это простая в использовании и мощная реализация [парадигмы реактивного программирования](https://en.wikipedia.org/wiki/Reactive_programming). С ObservableComputations, Ваш код будет более соответствовать функциональному стилю, чем при использовании стандартного [LINQ](https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/concepts/linq/).
+Это кросс-платформенная .NET библиотека для вычислений, аргументами и результатами которых являются объекты реализующие интерфейсы [INotifyPropertyChanged](https://docs.microsoft.com/en-us/dotnet/api/system.componentmodel.inotifypropertychanged?view=netframework-4.8) и [INotifyCollectionChanged](https://docs.microsoft.com/en-us/dotnet/api/system.collections.specialized.inotifycollectionchanged?view=netframework-4.8) ([ObservableCollection](https://docs.microsoft.com/en-us/dotnet/api/system.collections.objectmodel.observablecollection-1?view=netframework-4.8)). Вычисления включают в себя те же вычисления которые есть в [LINQ](https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/concepts/linq/), вычисление произвольного выражения и некоторые дополнительные возможности. Вычисления реализованы как [методы расширения](https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/classes-and-structs/extension-methods), подобно [LINQ](https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/concepts/linq/) методам. Вы можете комбинировать вызовы [методов расширения](https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/classes-and-structs/extension-methods) ObservavleComputations (цепочка вызовов и вложенные вызовы), как Вы это делаете в [LINQ](https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/concepts/linq/). Поддерживаются вычисления в фоновых потоках, в том числе параллельные, а также обработка событий [CollectionChanged](https://docs.microsoft.com/en-us/dotnet/api/system.collections.specialized.inotifycollectionchanged.collectionchanged?view=netframework-4.8) и [PropertyChanged](https://docs.microsoft.com/en-us/dotnet/api/system.componentmodel.inotifypropertychanged.propertychanged?view=netframework-4.8) связанная со временем. ObservableComputations это простая в использовании и мощная реализация [парадигмы реактивного программирования](https://en.wikipedia.org/wiki/Reactive_programming). С ObservableComputations, Ваш код будет более соответствовать функциональному стилю, чем при использовании стандартного [LINQ](https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/concepts/linq/).
 
 ## Аналоги
 
@@ -31,7 +31,9 @@ ObservableComputations не является аналогом [Reactive Extentio
 
 Библиотека [ReactiveUI](https://github.com/reactiveui/ReactiveUI) (и её подбиблиотека [DynamicData](https://github.com/reactiveui/DynamicData)) не абстрагированы от интерфейсов [INotifyPropertyChanged](https://docs.microsoft.com/en-us/dotnet/api/system.componentmodel.inotifypropertychanged?view=netframework-4.8) и [INotifyCollectionChanged](https://docs.microsoft.com/en-us/dotnet/api/system.collections.specialized.inotifycollectionchanged?view=netframework-4.8) и при работе с этими интерфейсами позволяет делать примерно тоже самое что и ObservableComputations, но ObservableComputations менее многословна, проще в использовании, более декларативна, меньше дергает исходные данные. Почему?
 
-* Реактивность ObservableComputations основана только на двух событиях: [CollectionChanged](https://docs.microsoft.com/en-us/dotnet/api/system.collections.specialized.inotifycollectionchanged.collectionchanged?view=netframework-4.8) и [PropertyChanged](https://docs.microsoft.com/en-us/dotnet/api/system.componentmodel.inotifypropertychanged.propertychanged?view=netframework-4.8). Такая реактивность является "родной" для ObservableComputations. Реактивность [ReactiveUI](https://github.com/reactiveui/ReactiveUI) основана на интерфейсах унаследованных от [Reactive Extentions](https://github.com/dotnet/reactive): [IObserver&lt;T&gt;](https://docs.microsoft.com/en-us/dotnet/api/system.iobserver-1?view=netframework-4.8), [IObservable&lt;T&gt;](https://docs.microsoft.com/en-us/dotnet/api/system.iobservable-1?view=netframework-4.8,), а также дополнительных интерфейсах для работы с коллекциями (содержащиеся в [DynamicData](https://github.com/reactiveui/DynamicData)): [IChangeSet](https://github.com/reactiveui/DynamicData/blob/master/src/DynamicData/IChangeSet.cs) и [IChangeSet&lt;TObject&gt;](https://github.com/reactiveui/DynamicData/blob/master/src/DynamicData/List/IChangeSet.cs). [ReactiveUI](https://github.com/reactiveui/ReactiveUI) осуществляет двунаправленное преобразование между этими интерфейсами и интерфейсами [INotifyPropertyChanged](https://docs.microsoft.com/en-us/dotnet/api/system.componentmodel.inotifypropertychanged?view=netframework-4.8) и [INotifyCollectionChanged](https://docs.microsoft.com/en-us/dotnet/api/system.collections.specialized.inotifycollectionchanged?view=netframework-4.8). Даже с учётом этого преобразования интерфейсы [INotifyPropertyChanged](https://docs.microsoft.com/en-us/dotnet/api/system.componentmodel.inotifypropertychanged?view=netframework-4.8) и [INotifyCollectionChanged](https://docs.microsoft.com/en-us/dotnet/api/system.collections.specialized.inotifycollectionchanged?view=netframework-4.8) выглядят чужеродными для [ReactiveUI](https://github.com/reactiveui/ReactiveUI). (Отступление: Если Вам нужны функции [ReactiveUI](https://github.com/reactiveui/ReactiveUI), которые отсутсвуют в ObservableComputations, Вы можете получить их используя это преобразовние. Также Вы можете использовать [ReactiveList](https://reactiveui.net/docs/handbook/obsolete/collections/reactive-list) как коллекцию-источник для ObservableComputations.)
+* Реактивность ObservableComputations основана только на двух событиях: [CollectionChanged](https://docs.microsoft.com/en-us/dotnet/api/system.collections.specialized.inotifycollectionchanged.collectionchanged?view=netframework-4.8) и [PropertyChanged](https://docs.microsoft.com/en-us/dotnet/api/system.componentmodel.inotifypropertychanged.propertychanged?view=netframework-4.8). Такая реактивность является "родной" для ObservableComputations. Реактивность [ReactiveUI](https://github.com/reactiveui/ReactiveUI) основана на интерфейсах унаследованных от [Reactive Extentions](https://github.com/dotnet/reactive): [IObserver&lt;T&gt;](https://docs.microsoft.com/en-us/dotnet/api/system.iobserver-1?view=netframework-4.8), [IObservable&lt;T&gt;](https://docs.microsoft.com/en-us/dotnet/api/system.iobservable-1?view=netframework-4.8,), а также дополнительных интерфейсах для работы с коллекциями (содержащиеся в [DynamicData](https://github.com/reactiveui/DynamicData)): [IChangeSet](https://github.com/reactiveui/DynamicData/blob/master/src/DynamicData/IChangeSet.cs) и [IChangeSet&lt;TObject&gt;](https://github.com/reactiveui/DynamicData/blob/master/src/DynamicData/List/IChangeSet.cs). [ReactiveUI](https://github.com/reactiveui/ReactiveUI) осуществляет двунаправленное преобразование между этими интерфейсами и интерфейсами [INotifyPropertyChanged](https://docs.microsoft.com/en-us/dotnet/api/system.componentmodel.inotifypropertychanged?view=netframework-4.8) и [INotifyCollectionChanged](https://docs.microsoft.com/en-us/dotnet/api/system.collections.specialized.inotifycollectionchanged?view=netframework-4.8). Даже с учётом этого преобразования интерфейсы [INotifyPropertyChanged](https://docs.microsoft.com/en-us/dotnet/api/system.componentmodel.inotifypropertychanged?view=netframework-4.8) и [INotifyCollectionChanged](https://docs.microsoft.com/en-us/dotnet/api/system.collections.specialized.inotifycollectionchanged?view=netframework-4.8) выглядят чужеродными для [ReactiveUI](https://github.com/reactiveui/ReactiveUI). (Отступление: Если Вам нужны функции [ReactiveUI](https://github.com/reactiveui/ReactiveUI), которые отсутсвуют в ObservableComputations, Вы можете получить их используя это преобразовние. Также Вы можете использовать [ReactiveList](https://reactiveui.net/docs/handbook/obsolete/collections/reactive-list) как коллекцию-источник для ObservableComputations.
+* ObservableComputations не требует уникальности коллекций-источников и наличия в них всойства Id. Вместо этого ObservableComputations сохраниет порядок элементов коллекции источника в вычисленной коллекции. 
+* ObservableComputations больше похожа на обычный [LINQ](https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/concepts/linq/).
 * Интерфейсы [INotifyPropertyChanged](https://docs.microsoft.com/en-us/dotnet/api/system.componentmodel.inotifypropertychanged?view=netframework-4.8) и [INotifyCollectionChanged](https://docs.microsoft.com/en-us/dotnet/api/system.collections.specialized.inotifycollectionchanged?view=netframework-4.8) тесно интегрированы в UI платформы от Microsoft ([WPF](https://docs.microsoft.com/en-us/dotnet/desktop-wpf/data/data-binding-overview), [Xamarin](https://docs.microsoft.com/en-us/xamarin/xamarin-forms/app-fundamentals/data-binding/basic-bindings), [Blazor](https://demos.telerik.com/blazor-ui/grid/observable-data)).
 
  Вы можете сравнить эти библиотеки и ObservableComputations в действии, см. [ObservableComputations.Samples](https://github.com/IgorBuchelnikov/ObservableComputations.Samples).
@@ -41,6 +43,10 @@ ObservableComputations не является аналогом [Reactive Extentio
 ObservableComputations готова к использованию в производственном окружении. Все необходимые функции реализованы и покрыты unit-тестами. 
 
 В текущей версии используюстся слабые обработчики событий [CollectionChanged](https://docs.microsoft.com/en-us/dotnet/api/system.collections.specialized.inotifycollectionchanged.collectionchanged?view=netframework-4.8) и [PropertyChanged](https://docs.microsoft.com/en-us/dotnet/api/system.componentmodel.inotifypropertychanged.propertychanged?view=netframework-4.8) (слабые события на стороне подписчика). Отписка события от слабого обработчика происходит в финализаторе класса ObservableComputations. В большинстве случаев данный механизм работает корректно, но в некоторых случаях (предположительно высоконагруженные WPF приложения) финализаторы объектов не вызываются и экземпляры классов ObservableComputations накапливаются в f-reachible queue, что приводит к утечке памяти. В настоящий момент я работаю над переводом на сильные обработчики событий и добавлением API для явной отписки.
+
+## Покрытие Unit-тестами
+
+Код покрыт unit-тестами на ?% по данным JetBrains DotCover. Выполенение всех тестов занимает ? часов.
 
 ## Как установить?
 
@@ -52,11 +58,12 @@ ObservableComputations готова к использованию в произ�
 
 ## Как я могу помочь проекту?
 
-Приветствуются комментарии и замечания к документации. Нужны демо проекты, посты в блогах и руководства. 
+Приветствуются комментарии и замечания к документации. Нужны демо проекты, посты в блогах и руководства. Нужна красивая иконка.
 
 ##  Быстрый старт
 ### Пример приложения 
-https://github.com/IgorBuchelnikov/ObservableComputations.Samples
+* [Samples](https://github.com/IgorBuchelnikov/ObservableComputations.Samples)
+* [Dynamic Trader](https://github.com/IgorBuchelnikov/Dynamic.Trader)
 
 ### Аналоги [LINQ](https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/concepts/linq/) методов
 ```csharp
@@ -103,8 +110,13 @@ namespace ObservableComputationsExamples
 					new Order{Num = 7, Price = 80}
 				});
 
-			// Здесь мы начинаем использовать ObservableComputations!
-			Filtering<Order> expensiveOrders = orders.Filtering(o => o.Price > 25); 
+			// We start using ObservableComputations here!
+			OcConsumer consumer = new OcConsumer();
+
+			Filtering<Order> expensiveOrders = 
+				orders
+					.Filtering(o => o.Price > 25)
+					.For(consumer); 
 			
 			Debug.Assert(expensiveOrders is ObservableCollection<Order>);
 			
@@ -127,6 +139,8 @@ namespace ObservableComputationsExamples
 			checkFiltering(orders, expensiveOrders); // Prints "True"
 
 			Console.ReadLine();
+
+			consumer.Dispose();
 		}
 
 		static void checkFiltering(
@@ -141,7 +155,7 @@ namespace ObservableComputationsExamples
 ```
 Как Вы видите [метод расширения](https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/classes-and-structs/extension-methods) *Filtering* это аналог метода *Where* из [LINQ](https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/concepts/linq/). [Метод расширения](https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/classes-and-structs/extension-methods) *Filtering* возвращает экземпляр класса *Filtering&lt;Order&gt;*. Класс *Filtering&lt;TSourceItem&gt;* реализует интерфейс [INotifyCollectionChanged](https://docs.microsoft.com/en-us/dotnet/api/system.collections.specialized.inotifycollectionchanged?view=netframework-4.8) и наследуется от [ObservableCollection&lt;TSourceItem&gt;](https://docs.microsoft.com/en-us/dotnet/api/system.collections.objectmodel.observablecollection-1?view=netframework-4.8). Изучая код выше Вы увидите, что *expensiveOrders* не перевычисляется заново каждый раз когда коллекция *orders* меняется или меняется свойство *Price* какого-либо заказа, в коллекции *expensiveOrders* проиходят только те изменения, которые отражают отдельное изменение в коллекции *orders* или отдельное изменение свойства *Price* какого-либо заказа. [Согласно терминологии реактивного программирования, такое поведение определяет модель распространения изменений, как "push"](https://en.wikipedia.org/wiki/Reactive_programming#Change_propagation_algorithms).
 
-В коде выше, во время выполнения [метода расширения](https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/classes-and-structs/extension-methods) *Filtering*(во время сождания экземпляра класса *Filtering&lt;Order&gt;*), проихходит подписка на следующие события: событие [CollectionChanged](https://docs.microsoft.com/en-us/dotnet/api/system.collections.specialized.inotifycollectionchanged.collectionchanged?view=netframework-4.8) коллекции *orders* и событие [PropertyChanged](https://docs.microsoft.com/en-us/dotnet/api/system.componentmodel.inotifypropertychanged.propertychanged?view=netframework-4.8) каждго экземпляра класса *Order*. ObservableComputations выполняет только слабые подписка (**weak event pattern**), поэтому *expensiveOrders* может быть выгружен из памяти сборщиком мусора, в то время как *orders* останется в памяти.
+В коде выше, во время выполнения [метода расширения](https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/classes-and-structs/extension-methods) *For*, проиходит подписка на следующие события: событие [CollectionChanged](https://docs.microsoft.com/en-us/dotnet/api/system.collections.specialized.inotifycollectionchanged.collectionchanged?view=netframework-4.8) коллекции *orders* и событие [PropertyChanged](https://docs.microsoft.com/en-us/dotnet/api/system.componentmodel.inotifypropertychanged.propertychanged?view=netframework-4.8) каждго экземпляра класса *Order*. Во время выполнения метода *consumer.Dispose()* происходит отписка от событий.
 
 Сложность выражения предиката переданного в [метод расширения](https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/classes-and-structs/extension-methods) *Filtering* (*o => o.Price > 25*) не ограничена. Выражение может включать в себя результаты вызовов методов ObservavleComputations, включая аналоги [LINQ](https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/concepts/linq/).
 
@@ -150,7 +164,6 @@ namespace ObservableComputationsExamples
 using System;
 using System.ComponentModel;
 using System.Diagnostics;
-using System.Linq.Expressions;
 using ObservableComputations;
 
 namespace ObservableComputationsExamples
@@ -194,9 +207,11 @@ namespace ObservableComputationsExamples
 
 			Order order = new Order{Num = 1, Price = 100, Discount = 10};
 
-			// Здесь мы начинаем использовать ObservableComputations!
-			Computing<decimal> discountedPriceComputing = new Computing(
-				() => order.Price - order.Price * order.Discount / 100);
+			// We start using ObservableComputations here!
+			OcConsumer consumer = new OcConsumer();
+
+			Computing<decimal> discountedPriceComputing = new Computing<decimal>(
+				() => order.Price - order.Price * order.Discount / 100).For(consumer);
 				
 			Debug.Assert(discountedPriceComputing is INotifyPropertyChanged);
 
@@ -216,6 +231,8 @@ namespace ObservableComputationsExamples
 			order.Discount = 15;
 
 			Console.ReadLine();
+
+			consumer.Dispose();
 		}
 
 		static void printDiscountedPrice(Computing<decimal> discountedPriceComputing)
@@ -227,7 +244,7 @@ namespace ObservableComputationsExamples
 ```
 В этом примере кода мы следим за значением выражения цены со скидкой. Класс *Computing&lt;TResult&gt;* реализует интерфейс [INotifyPropertyChanged](https://docs.microsoft.com/en-us/dotnet/api/system.componentmodel.inotifypropertychanged?view=netframework-4.8). Сложность отслеживаемого выражения не ограничена. Выражение может включать в себя результаты вызовов методов ObservavleComputations, включая аналоги [LINQ](https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/concepts/linq/).
 
-Так же как в предыдущем примере происходит слабая подписка (**weak event pattern**) на событие [PropertyChanged](https://docs.microsoft.com/en-us/dotnet/api/system.componentmodel.inotifypropertychanged.propertychanged?view=netframework-4.8) экземпляра класса *Order*.
+Так же как в предыдущем примере во время выполнения [метода расширения](https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/classes-and-structs/extension-methods) *For* происходит подписка на событие [PropertyChanged](https://docs.microsoft.com/en-us/dotnet/api/system.componentmodel.inotifypropertychanged.propertychanged?view=netframework-4.8) экземпляра класса *Order*. Во время выполнения метода *consumer.Dispose()* происходит отписка от событий.
 
 Если Вы хотите чтобы выражение *() => order.Price - order.Price * order.Discount / 100*  было чистой функцией, нет проблем:  
   
@@ -237,7 +254,7 @@ Expression<Func<Order, decimal>> discountedPriceExpression =
 	
 // Здесь мы начинаем использовать ObservableComputations!
 Computing<decimal> discountedPriceComputing = 
-	order.Using(discountedPriceExpression);
+	order.Using(discountedPriceExpression).For(consumer);
 ```
 Теперь выражение *discountedPriceExpression* может быть использовано для других экземпляров класса *Order*.
 

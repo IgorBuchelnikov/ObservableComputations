@@ -146,10 +146,10 @@ namespace ObservableComputations
 		public new void ValidateConsistency()
 		{
 			IList<TSourceItem> source = _sourceScalarTakingWhile.getValue(_sourceTakingWhile, new ObservableCollection<TSourceItem>()) as IList<TSourceItem>;
-			Consumer consumer = new Consumer();
+			OcConsumer ocConsumer = new OcConsumer();
 
 			// ReSharper disable once AssignNullToNotNullAttribute
-			if (!this.SequenceEqual(source.TakeWhile((si, i) => new Computing<bool>(_predicateExpression.ApplyParameters(si, i)).For(consumer).Value)))
+			if (!this.SequenceEqual(source.TakeWhile((si, i) => new Computing<bool>(_predicateExpression.ApplyParameters(si, i)).For(ocConsumer).Value)))
 			{
 				throw new ObservableComputationsException(this, "Consistency violation: TakingWhile.1");
 			}

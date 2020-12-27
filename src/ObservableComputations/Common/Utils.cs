@@ -196,7 +196,7 @@ namespace ObservableComputations
 		internal static void changeSource<TSource, TSourceAsList>(ref TSource source,
 			IReadScalar<INotifyCollectionChanged> sourceScalar,
 			List<IComputingInternal> downstreamConsumedComputings,
-			List<Consumer> consumers,
+			List<OcConsumer> consumers,
 			IComputingInternal computing,
 			out TSourceAsList sourceAsList,
 			bool setSourceAsList)
@@ -671,8 +671,8 @@ namespace ObservableComputations
 		}
 
 		internal static void addConsumer(
-			Consumer addingConsumer,
-			List<Consumer> consumers,
+			OcConsumer addingOcConsumer,
+			List<OcConsumer> consumers,
 			List<IComputingInternal> downstreamConsumedComputings,
 			IComputingInternal current,
 			ref bool isConsistent,
@@ -685,11 +685,11 @@ namespace ObservableComputations
 			{
 				int consumersCount = consumers.Count;
 				for (int index = 0; index < consumersCount; index++)
-					if (consumers[index] == addingConsumer)
+					if (consumers[index] == addingOcConsumer)
 						return;
 
-				consumers.Add(addingConsumer);
-				addingConsumer.AddComputing(current);
+				consumers.Add(addingOcConsumer);
+				addingOcConsumer.AddComputing(current);
 
 				if (consumers.Count == 1)
 				{
@@ -716,8 +716,8 @@ namespace ObservableComputations
 		}
 
 		internal static void removeConsumer(
-			Consumer removingConsumer, 
-			List<Consumer> consumers, 
+			OcConsumer removingOcConsumer, 
+			List<OcConsumer> consumers, 
 			List<IComputingInternal> downstreamConsumedComputings, 
 			IComputingInternal current,
 			ref bool isConsistent,
@@ -728,7 +728,7 @@ namespace ObservableComputations
 		{
 			processChange(null, null, () =>
 				{
-					consumers.Remove(removingConsumer);
+					consumers.Remove(removingOcConsumer);
 
 					if (consumers.Count == 0 && downstreamConsumedComputings.Count == 0)
 					{
@@ -752,7 +752,7 @@ namespace ObservableComputations
 		internal static void addDownstreamConsumedComputing(
 			IComputingInternal computing,
 			List<IComputingInternal> downstreamConsumedComputings,
-			List<Consumer> consumers,
+			List<OcConsumer> consumers,
 			IComputingInternal current,
 			ref bool isConsistent,
 			ref object handledEventSender,
@@ -788,7 +788,7 @@ namespace ObservableComputations
 			List<IComputingInternal> downstreamConsumedComputings, 
 			IComputingInternal current, 
 			ref bool isConsistent,
-			List<Consumer> consumers,
+			List<OcConsumer> consumers,
 			ref object handledEventSender,
 			ref EventArgs handledEventArgs,
 			Queue<IProcessable>[] deferredProcessings,

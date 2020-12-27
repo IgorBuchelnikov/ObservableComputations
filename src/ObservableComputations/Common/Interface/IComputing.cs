@@ -19,11 +19,11 @@ namespace ObservableComputations
 
 	internal interface IComputingInternal : IComputing, ICanInitializeFromSource
 	{
-		void AddConsumer(Consumer addingConsumer);
-		void RemoveConsumer(Consumer removingConsumer);
+		void AddConsumer(OcConsumer addingOcConsumer);
+		void RemoveConsumer(OcConsumer removingOcConsumer);
 		void AddDownstreamConsumedComputing(IComputingInternal computing);
 		void RemoveDownstreamConsumedComputing(IComputingInternal computing);
-		IEnumerable<Consumer> Consumers { get; }
+		IEnumerable<OcConsumer> Consumers { get; }
 		void RaiseConsistencyRestored();
 		void AddToUpstreamComputings(IComputingInternal computing);
 		void RemoveFromUpstreamComputings(IComputingInternal computing);

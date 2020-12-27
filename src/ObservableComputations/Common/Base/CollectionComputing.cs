@@ -451,7 +451,7 @@ namespace ObservableComputations
 			ConsistencyRestored?.Invoke(this, null);
 		}
 
-		protected List<Consumer> _consumers = new List<Consumer>();
+		protected List<OcConsumer> _consumers = new List<OcConsumer>();
 		internal  List<IComputingInternal> _downstreamConsumedComputings = new List<IComputingInternal>();
 		protected bool _isActive;
 		public bool IsActive => _isActive;
@@ -460,7 +460,7 @@ namespace ObservableComputations
 			new ReadOnlyCollection<object>(_consumers.Union(_downstreamConsumedComputings.SelectMany(c => c.Consumers.Select(cons => cons.Tag))).ToList());
 
 		#region Implementation of IComputingInternal
-		IEnumerable<Consumer> IComputingInternal.Consumers => _consumers;
+		IEnumerable<OcConsumer> IComputingInternal.Consumers => _consumers;
 
 		void IComputingInternal.AddToUpstreamComputings(IComputingInternal computing)
 		{
@@ -497,10 +497,10 @@ namespace ObservableComputations
 			_isActive = value;
 		}
 
-		void IComputingInternal.AddConsumer(Consumer addingConsumer)
+		void IComputingInternal.AddConsumer(OcConsumer addingOcConsumer)
 		{
 			Utils.addConsumer(
-				addingConsumer, 
+				addingOcConsumer, 
 				_consumers,
 				_downstreamConsumedComputings, 
 				this, 
@@ -512,10 +512,10 @@ namespace ObservableComputations
 		}
 
 
-		void IComputingInternal.RemoveConsumer(Consumer removingConsumer)
+		void IComputingInternal.RemoveConsumer(OcConsumer removingOcConsumer)
 		{
 			Utils.removeConsumer(
-				removingConsumer, 
+				removingOcConsumer, 
 				_consumers, 
 				_downstreamConsumedComputings, 
 				this,

@@ -3,13 +3,13 @@ using System.Collections.Generic;
 
 namespace ObservableComputations
 {
-	public class Consumer : IDisposable
+	public class OcConsumer : IDisposable
 	{
 		List<IComputingInternal> _computings = new List<IComputingInternal>();
 		private readonly object _tag;
 		public object Tag => _tag;
 
-		public Consumer(object tag = null)
+		public OcConsumer(object tag = null)
 		{
 			_tag = tag;
 		}

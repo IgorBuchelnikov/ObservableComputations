@@ -21,8 +21,8 @@ namespace ObservableComputations.Test
 	public partial class QuickTests
 	{
 <#
-	foreach (var extentionMethodGroup in 
-		GetExtentionMethods().Where(em => 
+	foreach (var extensionMethodGroup in 
+		GetExtensionMethods().Where(em => 
 			em.Name != "Using" 
 			&& em.Name != "Computing"
 			&& em.Name != "Differing"
@@ -40,25 +40,25 @@ namespace ObservableComputations.Test
 	{
 
 #>
-		#region <#=extentionMethodGroup.Key#>
+		#region <#=extensionMethodGroup.Key#>
 
 <#
 
 		int testNum = 0;
-		foreach (ExtentionMethod extentionMethod in extentionMethodGroup)
+		foreach (ExtensionMethod extensionMethod in extensionMethodGroup)
 		{
 			testNum++;
 #>
 		
 		[Test]
-		public void Test<#=extentionMethod.Name#><#=testNum.ToString("00")#>()
+		public void Test<#=extensionMethod.Name#><#=testNum.ToString("00")#>()
 		{
 <#
 			List<(string, string, string, string, string)> arguments = new List<(string, string, string, string, string)>();
-			var signatureArguments = extentionMethod.ArgumentsWithoutDefaultValue;
-			foreach (ExtentionMethodArgument argument in signatureArguments )
+			var signatureArguments = extensionMethod.ArgumentsWithoutDefaultValue;
+			foreach (ExtensionMethodArgument argument in signatureArguments )
 			{
-				(string, string, string, string) argumentValue = getArgumentValue(argument.Type, argument.Name, extentionMethod.Name);
+				(string, string, string, string) argumentValue = getArgumentValue(argument.Type, argument.Name, extensionMethod.Name);
 				arguments.Add((argumentValue.Item3, argument.Name, argumentValue.Item1, argumentValue.Item2, argumentValue.Item4));
 			}
 
@@ -69,10 +69,10 @@ namespace ObservableComputations.Test
 <#
 			}
 
-			string genericParamsValues = getTestType(extentionMethod.GenericParameters, extentionMethod.Name);
+			string genericParamsValues = getTestType(extensionMethod.GenericParameters, extensionMethod.Name);
 #>
 			OcConsumer consumer = new OcConsumer();
-			var testing = <#=arguments.First().Item2#>.<#=extentionMethod.Name#><#=genericParamsValues#>(<#=arguments.Count == 1 ? ").For(consumer);" : ""#>
+			var testing = <#=arguments.First().Item2#>.<#=extensionMethod.Name#><#=genericParamsValues#>(<#=arguments.Count == 1 ? ").For(consumer);" : ""#>
 <#
 			int index = 0;
 			foreach (var argument in arguments.Skip(1))
@@ -209,7 +209,7 @@ namespace ObservableComputations.Test
 			((Scalar<<#=argument.Item5#>>)<#=argument.Item2#>).Touch();
 			test();
 <#				
-				IEnumerable<string> scalarAlternativeValues = getScalarAlternativeValues(argument.Item5, argument.Item2, extentionMethod.Name);
+				IEnumerable<string> scalarAlternativeValues = getScalarAlternativeValues(argument.Item5, argument.Item2, extensionMethod.Name);
 
 				foreach (var scalarAlternativeValue in scalarAlternativeValues)
 				{
@@ -237,16 +237,16 @@ namespace ObservableComputations.Test
 		return name[0].ToString().ToLower() + name.Substring(1, name.Length - 1);
 	}
 
-	private string getTestType(string type, string extentionMethodName)
+	private string getTestType(string type, string extensionMethodName)
 	{
 		type = type.Replace("TSourceItem, TResult, TResult", "int, int, int");
-		if (extentionMethodName == "Aggregating") type = type.Replace("TSourceItem, TResult", "int, int");
-		if (extentionMethodName == "Maximazing" 
-			|| extentionMethodName == "Minimazing"
-			|| extentionMethodName == "Summarizing"
-			|| extentionMethodName == "Averaging"
-			|| extentionMethodName == "Ordering"
-			|| extentionMethodName == "ThenOrdering") 
+		if (extensionMethodName == "Aggregating") type = type.Replace("TSourceItem, TResult", "int, int");
+		if (extensionMethodName == "Maximazing" 
+			|| extensionMethodName == "Minimazing"
+			|| extensionMethodName == "Summarizing"
+			|| extensionMethodName == "Averaging"
+			|| extensionMethodName == "Ordering"
+			|| extensionMethodName == "ThenOrdering") 
 			type = type.Replace("TSourceItem", "int");
 		type = type.Replace("TSourceItem1", "Item");
 		type = type.Replace("TSourceItem2", "Item");
@@ -259,7 +259,7 @@ namespace ObservableComputations.Test
 		type = type.Replace("TKey", "int");
 		type = type.Replace("TValue", "int");
 		type = type.Replace("TOrderingValue", "int");
-		if (extentionMethodName == "Averaging") 
+		if (extensionMethodName == "Averaging") 
 			type = type.Replace("TResult", "double");
 		else
 			type = type.Replace("TResult", "int");
@@ -273,7 +273,7 @@ namespace ObservableComputations.Test
 		return type;
 	}
 
-	private (string, string, string, string) getArgumentValue(string type, string argumentName, string extentionMethodName)
+	private (string, string, string, string) getArgumentValue(string type, string argumentName, string extensionMethodName)
 	{
 		string checkingType = type;
 		string result = null;
@@ -287,7 +287,7 @@ namespace ObservableComputations.Test
 		{
 			checkingType = matchCollection[0].Groups["scalarType"].Value;
 			scalar = true;
-			if (extentionMethodName == "Paging")
+			if (extensionMethodName == "Paging")
 			{
 			}
 		}
@@ -295,18 +295,18 @@ namespace ObservableComputations.Test
 		switch (checkingType)
 		{
 			case "System.Collections.Specialized.INotifyCollectionChanged":
-				if (extentionMethodName == "Aggregating" 
-					|| extentionMethodName == "Maximazing"
-					|| extentionMethodName == "Minimazing"
-					|| extentionMethodName == "Summarizing"
-					|| extentionMethodName == "Averaging"
-					|| extentionMethodName == "Ordering")
+				if (extensionMethodName == "Aggregating" 
+					|| extensionMethodName == "Maximazing"
+					|| extensionMethodName == "Minimazing"
+					|| extensionMethodName == "Summarizing"
+					|| extensionMethodName == "Averaging"
+					|| extensionMethodName == "Ordering")
 				{
 					result = "getItems().Selecting(i => i.Num)";
 					variableType = "Selecting<Item, int>";
 					sourceAccessor = "?.Source";
 				}
-				else if (extentionMethodName == "StringsConcatenating")
+				else if (extensionMethodName == "StringsConcatenating")
 				{
 					result = "getItems().Selecting(i => i.Num.ToString())";
 					variableType = "Selecting<Item, string>";
@@ -324,19 +324,19 @@ namespace ObservableComputations.Test
 			case "ObservableCollection<TLeftSourceItem>":
 			case "ObservableCollection<TRightSourceItem>":
 			case "ObservableCollection<TSourceItem>":
-				if (extentionMethodName == "Aggregating"					
-					|| extentionMethodName == "Maximazing"
-					|| extentionMethodName == "Minimazing"
-					|| extentionMethodName == "Summarizing"
-					|| extentionMethodName == "Averaging"
-					|| extentionMethodName == "Ordering")
+				if (extensionMethodName == "Aggregating"					
+					|| extensionMethodName == "Maximazing"
+					|| extensionMethodName == "Minimazing"
+					|| extensionMethodName == "Summarizing"
+					|| extensionMethodName == "Averaging"
+					|| extensionMethodName == "Ordering")
 				{
 					result = "getItems().Selecting(i => i.Num)";
 					variableType = "Selecting<Item, int>";
 					sourceAccessor = "?.Source";
 					checkingType = "ObservableCollection<int>";
 				}
-				else if (extentionMethodName == "StringsConcatenating")
+				else if (extensionMethodName == "StringsConcatenating")
 				{
 					result = "getItems().Selecting(i => i.Num.ToString())";
 					variableType = "Selecting<Item, string>";
@@ -352,11 +352,11 @@ namespace ObservableComputations.Test
 				result = "getCollectionsOfItems()";
 				break;
 			case "TSourceItem":
-				if (extentionMethodName == "Maximazing"
-					|| extentionMethodName == "Minimazing")
+				if (extensionMethodName == "Maximazing"
+					|| extensionMethodName == "Minimazing")
 					result = "0";
-				else if (extentionMethodName == "FirstComputing"
-					|| extentionMethodName == "LastComputing")
+				else if (extensionMethodName == "FirstComputing"
+					|| extensionMethodName == "LastComputing")
 					result = "null";
 				else
 					result = "new QuickTests.Item(1, true)";
@@ -438,21 +438,21 @@ namespace ObservableComputations.Test
 		string scalarType;
 		if (variableType == null)
 		{
-			variableType = getTestType(type, extentionMethodName);
-			scalarType = getTestType(checkingType, extentionMethodName);
+			variableType = getTestType(type, extensionMethodName);
+			scalarType = getTestType(checkingType, extensionMethodName);
 			if (scalar) result = $"getScalar<{scalarType}>({result})";
 		}
 		else
 		{
 			if (scalar) result = $"getScalar<{variableType}>({result})";
 			scalarType = variableType;
-			variableType = scalar ? $"IReadScalar<{getTestType(checkingType, extentionMethodName)}>" : variableType;
+			variableType = scalar ? $"IReadScalar<{getTestType(checkingType, extensionMethodName)}>" : variableType;
 		}
 
 		return (result, sourceAccessor, variableType, scalarType);
 	}
 
-	private IEnumerable<string> getScalarAlternativeValues(string scalarType, string argumentName, string extentionMethodName)
+	private IEnumerable<string> getScalarAlternativeValues(string scalarType, string argumentName, string extensionMethodName)
 	{
 		List<string> result = new List<string>();
 
@@ -464,19 +464,19 @@ namespace ObservableComputations.Test
 				result.Add("null");
 				break;
 			case "Item":
-				if (extentionMethodName == "Maximazing"
-					|| extentionMethodName == "Minimazing")
+				if (extensionMethodName == "Maximazing"
+					|| extensionMethodName == "Minimazing")
 					result.Add("1");
-				else if (extentionMethodName == "FirstComputing"
-					|| extentionMethodName == "LastComputing")
+				else if (extensionMethodName == "FirstComputing"
+					|| extensionMethodName == "LastComputing")
 					result.Add("new QuickTests.Item(1, true)");
 				else
 					result.Add("null");
 				break;
 			case "System.Collections.Generic.IEqualityComparer<Item>":
-				if (extentionMethodName != "ContainsComputing"
-					&& extentionMethodName != "Excepting"
-					&& extentionMethodName != "Intersecting") 
+				if (extensionMethodName != "ContainsComputing"
+					&& extensionMethodName != "Excepting"
+					&& extensionMethodName != "Intersecting") 
 					result.Add("null");
 				break;
 			case "System.Collections.Generic.IEqualityComparer<int>":

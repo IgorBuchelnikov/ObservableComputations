@@ -15,23 +15,23 @@
 
 Ближайщими аналогами ObservableComputations являются следующие библиотеки: [Obtics](https://archive.codeplex.com/?p=obtics), [OLinq](https://github.com/wasabii/OLinq), [NFM.Expressions](https://github.com/NMFCode/NMF), [BindableLinq](https://github.com/svn2github/bindablelinq), [ContinuousLinq](https://github.com/ismell/Continuous-LINQ).
 
-### [Reactive Extentions](https://github.com/dotnet/reactive)
-ObservableComputations не является аналогом [Reactive Extentions](https://github.com/dotnet/reactive). Вот главные отличия ObservableComputations от  [Reactive Extentions](https://github.com/dotnet/reactive):
+### [Reactive Extensions](https://github.com/dotnet/reactive)
+ObservableComputations не является аналогом [Reactive Extensions](https://github.com/dotnet/reactive). Вот главные отличия ObservableComputations от  [Reactive Extensions](https://github.com/dotnet/reactive):
 
-* [Reactive Extentions](https://github.com/dotnet/reactive) абстрагирован от конкретного события и от семантики событий: это библиотека для обработки всех возможных событий. Reactive Extentions обрабатывает все события одинаковым образом, а вся специфика только в пользовательском коде. ObservableComputations сфокусирован только на двух событиях:  [CollectionChanged](https://docs.microsoft.com/en-us/dotnet/api/system.collections.specialized.inotifycollectionchanged.collectionchanged?view=netframework-4.8) и [PropertyChanged](https://docs.microsoft.com/en-us/dotnet/api/system.componentmodel.inotifypropertychanged.propertychanged?view=netframework-4.8) и приносит большую пользу обрабатывая их. 
-* Библиотека [Reactive Extentions](https://github.com/dotnet/reactive) предоставляет поток событий. ObservableComputations предоставляет не только поток событий изменения данных, но вычисленные в данный момент данные. 
+* [Reactive Extensions](https://github.com/dotnet/reactive) абстрагирован от конкретного события и от семантики событий: это библиотека для обработки всех возможных событий. Reactive Extensions обрабатывает все события одинаковым образом, а вся специфика только в пользовательском коде. ObservableComputations сфокусирован только на двух событиях:  [CollectionChanged](https://docs.microsoft.com/en-us/dotnet/api/system.collections.specialized.inotifycollectionchanged.collectionchanged?view=netframework-4.8) и [PropertyChanged](https://docs.microsoft.com/en-us/dotnet/api/system.componentmodel.inotifypropertychanged.propertychanged?view=netframework-4.8) и приносит большую пользу обрабатывая их. 
+* Библиотека [Reactive Extensions](https://github.com/dotnet/reactive) предоставляет поток событий. ObservableComputations предоставляет не только поток событий изменения данных, но вычисленные в данный момент данные. 
 
-Часть задач, которые Вы решали с помощью [Reactive Extentions](https://github.com/dotnet/reactive), теперь проще и эффективней решить с помощью ObservableComputations. Вы можете использовать ObservableComputations отдельно или вместе с [Reactive Extentions](https://github.com/dotnet/reactive). ObservableComputations не заменит [Reactive Extentions](https://github.com/dotnet/reactive):
- 
-* при обработке событий связанной со временем (Throttle, Buffer). ObservableComputation позволяет реализовать связанную со временем обработку событий [CollectionChanged](https://docs.microsoft.com/en-us/dotnet/api/system.collections.specialized.inotifycollectionchanged.collectionchanged?view=netframework-4.8) и [PropertyChanged](https://docs.microsoft.com/en-us/dotnet/api/system.componentmodel.inotifypropertychanged.propertychanged?view=netframework-4.8) путем взаимодествия с [Reactive Extentions](https://github.com/dotnet/reactive) (смотрите пример [здесь](#варианты-реализации-интерфейса-iocDispatcher-и-других-аналогичных-интерфейсов));
-* при обработке событий не связанных с данными (например, нажатие клавиш), особенно при необходимости комбинировать эти события. Пример взаимодействия ObservableComputations с оператороми комбинирования [Reactive Extentions](https://github.com/dotnet/reactive) смотрите [здесь](#исключение-при-нарушении-целостности);
+Часть задач, которые Вы решали с помощью [Reactive Extensions](https://github.com/dotnet/reactive), теперь проще и эффективней решить с помощью ObservableComputations. Вы можете использовать ObservableComputations отдельно или вместе с [Reactive Extensions](https://github.com/dotnet/reactive). ObservableComputations не заменит [Reactive Extensions](https://github.com/dotnet/reactive):
+
+* при обработке событий связанной со временем (Throttle, Buffer). ObservableComputation позволяет реализовать связанную со временем обработку событий [CollectionChanged](https://docs.microsoft.com/en-us/dotnet/api/system.collections.specialized.inotifycollectionchanged.collectionchanged?view=netframework-4.8) и [PropertyChanged](https://docs.microsoft.com/en-us/dotnet/api/system.componentmodel.inotifypropertychanged.propertychanged?view=netframework-4.8) путем взаимодествия с [Reactive Extensions](https://github.com/dotnet/reactive) (смотрите пример [здесь](#варианты-реализации-интерфейса-iocDispatcher-и-других-аналогичных-интерфейсов));
+* при обработке событий не связанных с данными (например, нажатие клавиш), особенно при необходимости комбинировать эти события. Пример взаимодействия ObservableComputations с оператороми комбинирования [Reactive Extensions](https://github.com/dotnet/reactive) смотрите [здесь](#исключение-при-нарушении-целостности);
 * при работе с асихронными операциями ([метод Observable.FromAsyncPattern](https://docs.microsoft.com/en-us/previous-versions/dotnet/reactive-extensions/hh229052(v%3Dvs.103))).
- 
+
 ### [ReactiveUI](https://github.com/reactiveui/ReactiveUI) и [DynamicData](https://github.com/reactiveui/DynamicData)
 
 Библиотека [ReactiveUI](https://github.com/reactiveui/ReactiveUI) (и её подбиблиотека [DynamicData](https://github.com/reactiveui/DynamicData)) не абстрагированы от интерфейсов [INotifyPropertyChanged](https://docs.microsoft.com/en-us/dotnet/api/system.componentmodel.inotifypropertychanged?view=netframework-4.8) и [INotifyCollectionChanged](https://docs.microsoft.com/en-us/dotnet/api/system.collections.specialized.inotifycollectionchanged?view=netframework-4.8) и при работе с этими интерфейсами позволяет делать примерно тоже самое что и ObservableComputations, но ObservableComputations менее многословна, проще в использовании, более декларативна, меньше дергает исходные данные. Почему?
 
-* Реактивность ObservableComputations основана только на двух событиях: [CollectionChanged](https://docs.microsoft.com/en-us/dotnet/api/system.collections.specialized.inotifycollectionchanged.collectionchanged?view=netframework-4.8) и [PropertyChanged](https://docs.microsoft.com/en-us/dotnet/api/system.componentmodel.inotifypropertychanged.propertychanged?view=netframework-4.8). Такая реактивность является "родной" для ObservableComputations. Реактивность [ReactiveUI](https://github.com/reactiveui/ReactiveUI) основана на интерфейсах унаследованных от [Reactive Extentions](https://github.com/dotnet/reactive): [IObserver&lt;T&gt;](https://docs.microsoft.com/en-us/dotnet/api/system.iobserver-1?view=netframework-4.8), [IObservable&lt;T&gt;](https://docs.microsoft.com/en-us/dotnet/api/system.iobservable-1?view=netframework-4.8,), а также дополнительных интерфейсах для работы с коллекциями (содержащиеся в [DynamicData](https://github.com/reactiveui/DynamicData)): [IChangeSet](https://github.com/reactiveui/DynamicData/blob/master/src/DynamicData/IChangeSet.cs) и [IChangeSet&lt;TObject&gt;](https://github.com/reactiveui/DynamicData/blob/master/src/DynamicData/List/IChangeSet.cs). [ReactiveUI](https://github.com/reactiveui/ReactiveUI) осуществляет двунаправленное преобразование между этими интерфейсами и интерфейсами [INotifyPropertyChanged](https://docs.microsoft.com/en-us/dotnet/api/system.componentmodel.inotifypropertychanged?view=netframework-4.8) и [INotifyCollectionChanged](https://docs.microsoft.com/en-us/dotnet/api/system.collections.specialized.inotifycollectionchanged?view=netframework-4.8). Даже с учётом этого преобразования интерфейсы [INotifyPropertyChanged](https://docs.microsoft.com/en-us/dotnet/api/system.componentmodel.inotifypropertychanged?view=netframework-4.8) и [INotifyCollectionChanged](https://docs.microsoft.com/en-us/dotnet/api/system.collections.specialized.inotifycollectionchanged?view=netframework-4.8) выглядят чужеродными для [ReactiveUI](https://github.com/reactiveui/ReactiveUI). (Отступление: Если Вам нужны функции [ReactiveUI](https://github.com/reactiveui/ReactiveUI), которые отсутсвуют в ObservableComputations, Вы можете получить их используя это преобразовние. Также Вы можете использовать [ReactiveList](https://reactiveui.net/docs/handbook/obsolete/collections/reactive-list) как коллекцию-источник для ObservableComputations.
+* Реактивность ObservableComputations основана только на двух событиях: [CollectionChanged](https://docs.microsoft.com/en-us/dotnet/api/system.collections.specialized.inotifycollectionchanged.collectionchanged?view=netframework-4.8) и [PropertyChanged](https://docs.microsoft.com/en-us/dotnet/api/system.componentmodel.inotifypropertychanged.propertychanged?view=netframework-4.8). Такая реактивность является "родной" для ObservableComputations. Реактивность [ReactiveUI](https://github.com/reactiveui/ReactiveUI) основана на интерфейсах унаследованных от [Reactive Extensions](https://github.com/dotnet/reactive): [IObserver&lt;T&gt;](https://docs.microsoft.com/en-us/dotnet/api/system.iobserver-1?view=netframework-4.8), [IObservable&lt;T&gt;](https://docs.microsoft.com/en-us/dotnet/api/system.iobservable-1?view=netframework-4.8,), а также дополнительных интерфейсах для работы с коллекциями (содержащиеся в [DynamicData](https://github.com/reactiveui/DynamicData)): [IChangeSet](https://github.com/reactiveui/DynamicData/blob/master/src/DynamicData/IChangeSet.cs) и [IChangeSet&lt;TObject&gt;](https://github.com/reactiveui/DynamicData/blob/master/src/DynamicData/List/IChangeSet.cs). [ReactiveUI](https://github.com/reactiveui/ReactiveUI) осуществляет двунаправленное преобразование между этими интерфейсами и интерфейсами [INotifyPropertyChanged](https://docs.microsoft.com/en-us/dotnet/api/system.componentmodel.inotifypropertychanged?view=netframework-4.8) и [INotifyCollectionChanged](https://docs.microsoft.com/en-us/dotnet/api/system.collections.specialized.inotifycollectionchanged?view=netframework-4.8). Даже с учётом этого преобразования интерфейсы [INotifyPropertyChanged](https://docs.microsoft.com/en-us/dotnet/api/system.componentmodel.inotifypropertychanged?view=netframework-4.8) и [INotifyCollectionChanged](https://docs.microsoft.com/en-us/dotnet/api/system.collections.specialized.inotifycollectionchanged?view=netframework-4.8) выглядят чужеродными для [ReactiveUI](https://github.com/reactiveui/ReactiveUI). (Отступление: Если Вам нужны функции [ReactiveUI](https://github.com/reactiveui/ReactiveUI), которые отсутсвуют в ObservableComputations, Вы можете получить их используя это преобразовние. Также Вы можете использовать [ReactiveList](https://reactiveui.net/docs/handbook/obsolete/collections/reactive-list) как коллекцию-источник для ObservableComputations.
 * ObservableComputations не требует уникальности коллекций-источников и наличия в них всойства Id. Вместо этого ObservableComputations сохраниет порядок элементов коллекции источника в вычисленной коллекции. 
 * ObservableComputations больше похожа на обычный [LINQ](https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/concepts/linq/).
 * Интерфейсы [INotifyPropertyChanged](https://docs.microsoft.com/en-us/dotnet/api/system.componentmodel.inotifypropertychanged?view=netframework-4.8) и [INotifyCollectionChanged](https://docs.microsoft.com/en-us/dotnet/api/system.collections.specialized.inotifycollectionchanged?view=netframework-4.8) тесно интегрированы в UI платформы от Microsoft ([WPF](https://docs.microsoft.com/en-us/dotnet/desktop-wpf/data/data-binding-overview), [Xamarin](https://docs.microsoft.com/en-us/xamarin/xamarin-forms/app-fundamentals/data-binding/basic-bindings), [Blazor](https://demos.telerik.com/blazor-ui/grid/observable-data)).
@@ -247,7 +247,7 @@ namespace ObservableComputationsExamples
 Так же как в предыдущем примере во время выполнения [метода расширения](https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/classes-and-structs/extension-methods) *For* происходит подписка на событие [PropertyChanged](https://docs.microsoft.com/en-us/dotnet/api/system.componentmodel.inotifypropertychanged.propertychanged?view=netframework-4.8) экземпляра класса *Order*. Во время выполнения метода *consumer.Dispose()* происходит отписка от событий.
 
 Если Вы хотите чтобы выражение *() => order.Price - order.Price * order.Discount / 100*  было чистой функцией, нет проблем:  
-  
+
 ```csharp
 Expression<Func<Order, decimal>> discountedPriceExpression = 
 	o => o.Price - o.Price * o.Discount / 100;
@@ -830,7 +830,7 @@ namespace ObservableComputationsExamples
   ```csharp
 ContainsComputing<Person> isLoggedInPersonHockeyPlayer =
 	hockeyTeam.ContainsComputing(() => loginManager.LoggedInPerson);
-```
+  ```
 При использовании этой перегруженной версии метода *ContainsComputing*, переменные *loggedInPersonExpression* и *isLoggedInPersonHockeyPlayer* больше не нужны. Эта перегруженная версии метода *ContainsComputing* создаёт *Computing&lt;Person&gt;* "за ценой".
 
 Другой укороченный вариант:
@@ -848,7 +848,7 @@ ContainsComputing<Person> isLoggedInPersonHockeyPlayer =
 ### Передача коллекции источника как обозреваемого аргумента
 Как Вы видите все вызовы [LINQ](https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/concepts/linq/) подобных [методов расширения ](https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/classes-and-structs/extension-methods) ObservableComputations в общем виде могут быть представлены как
 ```csharp
-sourceCollection.ExtentionMethodName(arg1, arg2, ...);
+sourceCollection.ExtensionMethodName(arg1, arg2, ...);
 ```
 *sourceCollection* это первый аргумент в объявлении [метода расширения](https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/classes-and-structs/extension-methods). Поэтому подобно другим аргументам он тоже может быть передан как  [не обозреваемый](#передача-аргументов-как-не-обозреваемых) и как [обозреваемый](#передача-аргументов-как-обозреваемых). До сих пор мы передавали коллекцию источник как не обозреваемый аргумент (это было простое выражение состоящее из одной переменной, конечно вы можете использовать более сложные выражения, суть остаётся та же). Теперь давайте попробуем передать коллекцию источник как обозреваемый аргумент:  
 
@@ -1021,7 +1021,7 @@ Computing<bool> isLoggedInPersonHockeyPlayer = new Computing<bool>(() =>
    hockeyTeamManager.HockeyTeamInterested.ContainsComputing(
 	() => loginManager.LoggedInPerson).Value);
 ```
- 
+
 В этом коде *"hockeyTeamManager.HockeyTeamInterested"* передан в [метод расширения](https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/classes-and-structs/extension-methods) *ContainsComputing* как [не обозреваемый](#передача-аргументов-как-не-обозреваемых), и не имеет значения, что  *"hockeyTeamManager.HockeyTeamInterested"* это часть выражения переданного в конструктор класса *Computing&lt;bool&gt;*, изменения в *"hockeyTeamManager.HockeyTeamInterested"* не будут отражаться в *isLoggedInPersonHockeyPlayer*. Правило обозреваемых и не обозреваемых аргументов применяется только в одном направлении: от вложенных (обёрнутых) к внешним (оборачивающим) вызовам. Другими словами, правило обозреваемых и не обозреваемых аргументов всегда справедливо, независимо от того является ли вычисление корневым или вложенным.
 
 Вот другой пример:
@@ -1168,58 +1168,13 @@ namespace ObservableComputationsExamples
 }
 ```
 
-В коде выше мы создаём вычисление *stepansOrders* (заказы Степана). Мы устанавливаем делегат, в качестве значения свойства *stepansOrders.InsertItemAction* для того чтобы определить как изменить коллекцию *orders* и *order*, который нужно добавить, так чтобы он был включён в вычисление *stepansOrders*.
+В коде выше мы создаём вычисление *stepansOrders* (заказы Степана). Мы устанавливаем делегат, в качестве значения свойства *stepansOrders.InsertItemRequestHandler* для того чтобы определить как изменить коллекцию *orders* и *order*, который нужно добавить, так чтобы он был включён в вычисление *stepansOrders*.
 
 Обратите внимание на то, что [метод Add](https://docs.microsoft.com/en-us/dotnet/api/system.collections.generic.icollection-1.add?view=netframework-4.8#System_Collections_Generic_ICollection_1_Add__0_) это член интерфейса [ICollection&lt;T&gt; interface](https://docs.microsoft.com/en-us/dotnet/api/system.collections.generic.icollection-1?view=netframework-4.8).
 
-Данная возможность может быть полезна если Вы передаёте *stepansOrders* в код, который абстрагирован от того, чем является *stepansOrders*: вычислением или обычной коллекцией. Этот код знает только то, что *stepansOrders* реализует [ICollection&lt;T&gt; interface](https://docs.microsoft.com/en-us/dotnet/api/system.collections.generic.icollection-1?view=netframework-4.8) и иногда хочет добавлять заказы в *stepansOrders*. Таким кодом, например, может [привязка данных в WPF](https://docs.microsoft.com/en-us/dotnet/api/system.windows.data.bindingmode?view=netframework-4.8#System_Windows_Data_BindingMode_TwoWay).
+Данная возможность может быть полезна если Вы передаёте *stepansOrders* в код, который абстрагирован от того, чем является *stepansOrders*: вычислением или обычной коллекцией. Этот код знает только то, что *stepansOrders* реализует [ICollection&lt;T&gt; interface](https://docs.microsoft.com/en-us/dotnet/api/system.collections.generic.icollection-1?view=netframework-4.8) и иногда хочет добавлять заказы в *stepansOrders*. Таким кодом, например, может [двунаправленная привязка данных в WPF ](https://docs.microsoft.com/en-us/dotnet/api/system.windows.data.bindingmode?view=netframework-4.8#System_Windows_Data_BindingMode_TwoWay) или привязка к свойству ItemsSource у [DataGrid](https://docs.microsoft.com/en-us/dotnet/api/system.windows.controls.datagrid?view=net-5.0).
 
-Свойства аналогичные *InsertItemAction* существуют и для других операций изменения 
-
-* [*CollectionComputing&lt;TValue&gt;.Value*](#полный-список-операторов) :
-   * [Add](https://docs.microsoft.com/en-us/dotnet/api/system.collections.generic.icollection-1.add?view=netcore-3.1) и [Insert](https://docs.microsoft.com/en-us/dotnet/api/system.collections.generic.list-1.insert?view=netcore-3.1): *InsertItemAction*
-   * [Remove](https://docs.microsoft.com/en-us/dotnet/api/system.collections.generic.icollection-1.remove?view=netframework-4.8): *RemoveItemAction*, 
-   * [Set (Replace)](https://docs.microsoft.com/en-us/dotnet/api/system.collections.objectmodel.collection-1.item?view=netframework-4.8#System_Collections_ObjectModel_Collection_1_Item_System_Int32_): *SetItemAction*,
-   * [Move](https://docs.microsoft.com/en-us/dotnet/api/system.collections.objectmodel.observablecollection-1.move?view=netframework-4.8): *MoveItemAction*,
-   * [Clear](https://docs.microsoft.com/en-us/dotnet/api/system.collections.generic.icollection-1.clear?view=netframework-4.8): *ClearItemsAction*.
-* [*ScalarComputing&lt;TValue&gt;.Value*](#полный-список-операторов) : 
-  * *SetValueAction*.
-* *Dictionaring* и *ConcurentDictionaring* :
-  * [Add](https://docs.microsoft.com/en-us/dotnet/api/system.collections.generic.idictionary-2.add?view=netcore-3.1): *AddItemAction*,
-  * [Remove](https://docs.microsoft.com/en-us/dotnet/api/system.collections.generic.idictionary-2.remove?view=netcore-3.1): *RemoveItemAction*,
-  * [Set](https://docs.microsoft.com/en-us/dotnet/api/system.collections.generic.idictionary-2.item?view=netcore-3.1): *SetItemAction*
-  * [Clear](https://docs.microsoft.com/en-us/dotnet/api/system.collections.generic.icollection-1.clear?view=netframework-4.8): *ClearItemsAction*.
-* HashSetting :
-   * [Add](https://docs.microsoft.com/en-us/dotnet/api/system.collections.generic.icollection-1.add?view=netcore-3.1): *AddItemAction*,
-   * [Remove](https://docs.microsoft.com/en-us/dotnet/api/system.collections.generic.icollection-1.remove?view=netframework-4.8): *RemoveItemAction*, 
-   * [Clear](https://docs.microsoft.com/en-us/dotnet/api/system.collections.generic.icollection-1.clear?view=netframework-4.8): *ClearItemsAction*. 
-
-### Блокировка установки значений свойств обработчиков запросов на изменение результатов вычислений
-
-Свойства обработчиков запросов на изменение вычислений являются публичными. По умолчанию любой код, который имеет ссылку на вычисление может установить или перезаписать значение этого свойства. Есть возможность управлять возможностью установки значений этих свойств с помощью 
-
-* методов класса [*CollectionComputing&lt;TSourceItem&gt;*](#полный-список-операторов):
-  * void LockModifyChangeAction(CollectionChangeAction collectionChangeAction, object key)
-  * void UnlockModifyChangeAction(CollectionChangeAction collectionChangeAction, object key)
-  * bool IsModifyChangeActionLocked(CollectionChangeAction collectionChangeAction)
-* методов класса [*ScalarComputing&lt;TValue&gt;*](#полный-список-операторов):
-  * void LockModifySetValueAction(object key)
-  * void UnlockModifySetValueAction(object key)
-  * bool IsModifySetValueActionLocked()
-* методов класса [*Grouping&lt;TSourceItem, TKey&gt;*](#полный-список-операторов):
-  * void LockModifyGroupChangeAction(CollectionChangeAction collectionChangeAction, object key)
-  * void UnlockModifyGroupChangeAction(CollectionChangeAction collectionChangeAction, object key)
-  * bool IsModifyGroupChangeActionLocked(CollectionChangeAction collectionChangeAction) 
-* методов классов *Dictionaring* и *ConcurentDictionaring*:
-  * void LockModifyChangeAction(DictionaryChangeAction dictionaryChangeAction, object key)
-  * void UnlockModifyChangeAction(DictionaryChangeAction dictionaryChangeAction, object key)
-  * bool IsModifyChangeActionLocked(DictionaryChangeAction dictionaryChangeAction)
-* методов классов *HashSetting*:
-  * void LockModifyChangeAction(HashSetChangeAction hashSetChangeAction, object key)
-  * void UnlockModifyChangeAction(HashSetChangeAction hashSetChangeAction, object key)
-  * bool IsModifyChangeActionLocked(HashSetChangeAction hashSetChangeAction)  
-
-
+Свойства аналогичные *InsertItemRequestHandler* существуют и для других операций (remove, set, move, clear). Все свойства имеют постфикс "*RequestHandler*".
 
 ## Обработка изменений результатов вычислений
 ### Обработка измениний в ObservableCollection&lt;T&gt;
@@ -1309,33 +1264,31 @@ namespace ObservableComputationsExamples
 }
 ```
 
-Делегат переданный в параметр *newItemProcessor* вызывается 
+Делегат переданный в параметр *newItemsProcessor* вызывается 
 
-* при инстанцировании класса *CollectionProcessing&lt;TSourceItem, TReturnValue&gt;* (если коллекция-источник (*clients*) содержит элементы в момент инстанцирования), 
+* при активации экземпляра класса *CollectionProcessing&lt;TSourceItem, TReturnValue&gt;* (если коллекция-источник (*onlineClients*) содержит элементы в момент активации), 
 * при добавление элементов в коллекцию-источник, 
 * при замене элемента в коллекции-источнике,
+* при [reset](https://docs.microsoft.com/en-us/dotnet/api/system.collections.specialized.notifycollectionchangedaction?view=net-5.0) коллекции источника и она сожежит элемнты после [reset](https://docs.microsoft.com/en-us/dotnet/api/system.collections.specialized.notifycollectionchangedaction?view=net-5.0),
 * в случае если [коллекция-источник передана как скаляр](#передача-коллекции-источника-как-обозреваемого-аргумента) (*IReadScalar&lt;TValue&gt;*), и у него меняется значение свойства *Value* на коллекцию, которая сожержит элементы.
 
 
 Делегат переданный в параметр *oldItemProcessor* вызывается 
 
+* при деактивации экземпляра класса *CollectionProcessing&lt;TSourceItem, TReturnValue&gt;*,
 * при удалении элементов в коллекции-источнике,   
 * при замене элемента в коллекции-источнике (установка элемента коллекции по индексу), 
-* при очистке коллекции источника (метод Clear()).
+* при [reset](https://docs.microsoft.com/en-us/dotnet/api/system.collections.specialized.notifycollectionchangedaction?view=net-5.0) коллекции источника ([метод Clear()](https://docs.microsoft.com/en-us/dotnet/api/system.collections.objectmodel.collection-1.clear?view=net-5.0)).
 * в случае если [коллекция-источник передана как скаляр](#передача-коллекции-источника-как-обозреваемого-аргумента) (*IReadScalar&lt;TValue&gt;*), и у него меняется значение свойства *Value*.
 
 Есть также возможность передать делегат *moveItemProcessor* для обработки события перемещения элемента в коллекции-источнике.
 
-Для того чтобы избежать выгрузки из памяти экземпляра класса *CollectionProcessing&lt;TSourceItem, TReturnValue&gt;* сборщиком мусора, сохраните ссылку на него в объекте, который имеет подходящее время жизни.
-
-Значение возвращаемое делегатом переданным в параметр *newItemProcessor*, может также использоваться для сохранения ссылок во избежании выгрузки из памяти сборщиком мусора, например, если при добавлении элементов в коллекцию создаются экземпляры классов [Binding](#Binding), [CollectionProcessing](#обработка-измениний-в-observablecollectiont) или [ScalarProcessing](#jбработка-измениний-в-ireadscalartvalue).
-
-Существует также перегруженная версия метода *CollectionProcessing*, которая принимает делегат *newItemProcessor*, возвращающий пустое значение (void).
+Существует также перегруженная версия метода *CollectionProcessing*, которая принимает делегат *newItemsProcessor*, возвращающий пустое значение (void).
 
 ### Обработка изменений в IReadScalar&lt;TValue&gt;
 
-*IReadScalar&lt;TValue&gt;* упоминается в первый раз [здесь](#полный-список-операторов). Вы можете обрабатывать изменение значения свойства Value, подписавшись на событие [PropertyChanged](https://docs.microsoft.com/en-us/dotnet/api/system.componentmodel.inotifypropertychanged.propertychanged?view=netframework-4.8), по аналогии с обработкой изменений в ObservableCollection&lt;T&gt; ObservableComputations позволяет обрабатывать изменения в *IReadScalar&lt;TValue&gt;* проще и эффективнее:  
-  
+*IReadScalar&lt;TValue&gt;* упоминается в первый раз [здесь](#полный-список-операторов). Вы можете обрабатывать изменение значения свойства *Value*, подписавшись на событие [PropertyChanged](https://docs.microsoft.com/en-us/dotnet/api/system.componentmodel.inotifypropertychanged.propertychanged?view=netframework-4.8), но по аналогии с обработкой изменений в ObservableCollection&lt;T&gt; ObservableComputations позволяет обрабатывать изменения в *IReadScalar&lt;TValue&gt;* проще и эффективнее:  
+
 ```csharp
 using System;
 using System.ComponentModel;
@@ -1408,14 +1361,15 @@ namespace ObservableComputationsExamples
 		}
 	}
 }
-```  
+```
 
-Для того чтобы избежать выгрузки из памяти экземпляра класса *ScalarProcessing&lt;TValue&gt;* сборщиком мусора, сохраните ссылку на него в объекте, который имеет подходящее время жизни.
+Существует также перегруженная версия метода *ScalarProcessing*, которая принимает делегат *newValueProcessor*, возвращающий не пустое значение. 
 
-Существует также перегруженная версия метода *ScalarProcessing*, которая принимает делегат *newValueProcessor*, возвращающий не пустое значение. Это значение может использоваться для освобождения ресурсов ([IDisposable](https://docs.microsoft.com/en-us/dotnet/api/system.idisposable?view=netframework-4.8)) или для сохранения ссылок во избежании выгрузки из памяти сборщиком мусора, например, если в делегате *newValueProcessor* создаются экземпляры классов [Binding](#Binding), [CollectionProcessing](#обработка-измениний-в-observablecollectiont) или [ScalarProcessing](#jбработка-измениний-в-ireadscalartvalue).
+## Отложенная обработка изменений в источниках
+Когда выполняется обработчик события PropetyChanged или CollectionChanged вычисления, это вычисление обрабатывает некоторое изменение источника и находится в несогласованном состоянии (IsConsistent == false). Все изменения источников, внесенные в это время, будут отложены до тех пор, пока вычисление не завершит обработку исходного изменения источника.
 
-## Свойство IsConsistent и исключение при нарушении целостности
-Сценарий описанный в этом разделе очень специфичен. Возможно Вы никогда его не встретите. Однако если Вы хотите быть полностью готовыми прочтите его. Рассмотрим следующий код:
+Рассмотрим следующий код:
+
 ```csharp
 using System;
 using System.Collections.ObjectModel;
@@ -1483,153 +1437,7 @@ namespace ObservableComputationsExamples
 }
 ```
 
-В коде у нас есть коллекция отношений: *relations*. Коллекция имеет избыточность: если коллекция имеет отношение  A к B типа "Родитель", она должна содержать соответствующее отношение: B к A типа "Ребёнок", и наоборот. Также мы имеем вычисляемую упорядоченную  коллекцию отношений *orderedRelations*. Наша задачу поддержать целостность коллекции отношений: если кто-то меняет мы должны отреагировать и восстановить целостность. Представьте, что единственным способом сделать является подписка на событие CollectionChanged коллекции *orderedRelations* (по каким-то причинам мы не можем подписаться на событие CollectionChanged коллекции *relations*). В коде выше мы предполагаем только один тип изменений: Replace.
-Код выше не работает: строка "*relations.Remove(new Relation{From = oldItem.To, To = oldItem.From, Type = invertRelationType(oldItem.Type)});*" выбрасывает:
-> ObservableComputations.Common.ObservableComputationsException: 'The source collection has been changed. It is not possible to process this change, as the processing of the previous change is not completed. Make the change on ConsistencyRestored event raising (after Consistent property becomes true). This exception is fatal and cannot be handled as the inner state is damaged.'
-
-> ObservableComputations.Common.ObservableComputationsException: 'Коллекция источник была изменена. Невозможно обработать это измение, так как обработка предыдущего изменения не завершена. Сделайте это изменение после возниковения события ConsistencyRestored (после того как Consistent станет равным true). Это исключение фотально и не может быть обработано, так как внутреннее состояние повреждено.'
-
-Почему? Когда в коллекции *relations* заменяется элемент, коллекция *orderedRelations* производит не только замену, но и, дополнительно, последующе перемещение элемента, для того, чтобы поддержать порядок. После замены и перед перемещением,  коллекция *orderedRelations* не находится в целостном состоянии и поэтому не может обрабатывать любые другие изменения в коллекции *relations*. Вот исправленный код:  
-  
-```csharp
-using System;
-using System.Collections.ObjectModel;
-using System.Collections.Specialized;
-using ObservableComputations;
-
-namespace ObservableComputationsExamples
-{
-	public enum RelationType { Parent, Child }
-
-	public struct Relation
-	{
-		public string From {get; set;}
-		public string To {get; set;}
-		public RelationType Type {get; set;}
-	}
-
-	class Program
-	{
-		static void Main(string[] args)
-		{
-			RelationType invertRelationType(RelationType relationType)
-			{
-				return relationType == RelationType.Child ? RelationType.Parent : RelationType.Child;
-			}
-
-			ObservableCollection<Relation> relations = 
-				new ObservableCollection<Relation>(new []
-				{
-					new Relation{From = "Valentin", To = "Filipp", Type = RelationType.Child},
-					new Relation{From = "Filipp", To = "Valentin", Type = RelationType.Parent},
-
-					new Relation{From = "Olga", To = "Evgeny", Type = RelationType.Child},
-					new Relation{From = "Evgeny", To = "Olga", Type = RelationType.Parent}
-				});
-
-			var orderedRelations = relations.Ordering(r => r.From);
-
-			orderedRelations.CollectionChanged += (sender, eventArgs) =>
-			{
-				switch (eventArgs.Action)
-				{
-					case NotifyCollectionChangedAction.Add:
-						//...
-						break;
-					case NotifyCollectionChangedAction.Remove:
-						//...
-						break;
-					case NotifyCollectionChangedAction.Replace:
-						Debug.Assert(orderedRelations.IsConsistent == false);					
-						// HERE IS THE FIX !!!
-						orderedRelations.ConsistencyRestored += (o, args1) =>
-						{
-							Relation oldItem = (Relation) eventArgs.OldItems[0];
-							relations.Remove(new Relation{From = oldItem.To, To = oldItem.From, Type = invertRelationType(oldItem.Type)});
-
-							Relation newItem = (Relation) eventArgs.NewItems[0];
-							relations.Add(new Relation{From = newItem.To, To = newItem.From, Type = invertRelationType(newItem.Type)});
-						};
-
-						break;
-				}
-			};
-
-			relations[0] = new Relation{From = "Arseny", To = "Dmitry", Type = RelationType.Parent};
-
-			Console.ReadLine();
-		}
-	}
-}
-```
-В исправленном коде, мы откладываем восстановление целостности коллекции *relations* пока не произойдет событие *ConsistencyRestored* коллекции *orderedRelations*. 
-Для упрощения мы не отписываемся от события ConsistencyRestored, поэтому мы будем накапливать обработчики события ConsistencyRestoreds. Для того чтобы исправить это мы должны вручную отписываться от события ConsistencyRestored или использовать [Reactive Extensions](https://github.com/dotnet/reactive):
-
-```csharp
-using System;
-using System.Collections.ObjectModel;
-using System.Collections.Specialized;
-using System.Reactive.Linq;
-using ObservableComputations;
-
-namespace ObservableComputationsExamples
-{
-	public enum RelationType { Parent, Child }
-
-	public struct Relation
-	{
-		public string From {get; set;}
-		public string To {get; set;}
-		public RelationType Type {get; set;}
-	}
-
-	class Program
-	{
-		static void Main(string[] args)
-		{
-			RelationType invertRelationType(RelationType relationType)
-			{
-				return relationType == RelationType.Child ? RelationType.Parent : RelationType.Child;
-			}
-
-			ObservableCollection<Relation> relations = 
-				new ObservableCollection<Relation>(new []
-				{
-					new Relation{From = "Valentin", To = "Filipp", Type = RelationType.Child},
-					new Relation{From = "Filipp", To = "Valentin", Type = RelationType.Parent},
-
-					new Relation{From = "Olga", To = "Evgeny", Type = RelationType.Child},
-					new Relation{From = "Evgeny", To = "Olga", Type = RelationType.Parent}
-				});
-
-			Ordering<Relation, string> orderedRelations = relations.Ordering(r => r.From);
-
-			Observable.FromEventPattern<NotifyCollectionChangedEventHandler, NotifyCollectionChangedEventArgs>(
-					h => orderedRelations.CollectionChanged += h,
-					h => orderedRelations.CollectionChanged -= h)
-				.Where(e => e.EventArgs.Action == NotifyCollectionChangedAction.Replace)
-				.Zip(Observable.FromEventPattern<EventHandler, EventArgs>(			   
-					h => orderedRelations.ConsistencyRestored += h,
-					h => orderedRelations.ConsistencyRestored -= h), 
-					(collectionChangedEventPattern, consistencyRestoredEventPattern) =>
-						collectionChangedEventPattern.EventArgs)
-				.Subscribe(collectionChangedEventArgs => {
-					Relation oldItem = (Relation) collectionChangedEventArgs.OldItems[0];
-					relations.Remove(new Relation{From = oldItem.To, To = oldItem.From, Type = invertRelationType(oldItem.Type)});
-
-					Relation newItem = (Relation) collectionChangedEventArgs.NewItems[0];
-					relations.Add(new Relation{From = newItem.To, To = newItem.From, Type = invertRelationType(newItem.Type)});
-				});
-
-			relations[0] = new Relation{From = "Arseny", To = "Dmitry", Type = RelationType.Parent};
-
-			Console.ReadLine();
-		}
-	}
-}
-```
-
-Отладка исключения при нарушении целостности описана [здесь](#исключение-при-нарушении-целостности).
+В коде у нас есть коллекция отношений: *relations*. Коллекция имеет избыточность: если коллекция имеет отношение  A к B типа "Родитель", она должна содержать соответствующее отношение: B к A типа "Ребёнок", и наоборот. Также мы имеем вычисляемую упорядоченную  коллекцию отношений *orderedRelations*. Наша задача поддержать целостность коллекции отношений: если кто-то меняет мы должны отреагировать и восстановить целостность. Представьте, что единственным способом сделать это является подписка на событие CollectionChanged коллекции *orderedRelations* (по каким-то причинам мы не можем подписаться на событие CollectionChanged коллекции *relations*). В коде выше мы предполагаем только один тип изменений: Add.
 
 ## Отладка
 
@@ -1706,7 +1514,11 @@ namespace ObservableComputationsExamples
 }
 ```
 
-Как Вы видите *exception.StackTrace* указывает на строку, которая вызвала исключение: *valueProvider.Value = new Random().Next(0, 1);*. Эта строка не указывает на вычисление, которое вызвало исключение: *computing1* or *computing2*. Чтобы определить исключение, которое вызвало исключение мы должны взглянуть на свойство *DebugInfo.ComputingsExecutingUserCode[Thread.CurrentThread].InstantiatingStackTrace*. Это свойство содержит трассировку стека инстанцирования вычисления. По умолчанию ObservableComputations не сохранияет трассировки стека инстанцирования вычислений по соображениям производительности. Чтобы сохранять эти трассирвки стека используйте свойство *Configuration.SaveInstantiatingStackTrace*. По умолчанию ObservableComputations не следит за вычислениями выполняющими пользовательский код по соображениям производительности. Для того чтобы следить за вычислениями выполняющими пользовательский код используйте свойство *Configuration.TrackComputingsExecutingUserCode*. Если пользовательский код был вызван из пользовательского кода другого вычисления, то *DebugInfo.ComputingsExecutingUserCode[Thread.CurrentThread].UserCodeIsCalledFrom* будет указывать на это вычисление.
+Как Вы видите *exception.StackTrace* указывает на строку, которая вызвала исключение: *valueProvider.Value = new Random().Next(0, 1);*. Эта строка не указывает на вычисление, которое вызвало исключение: *computing1* or *computing2*. Чтобы определить исключение, которое вызвало исключение мы должны взглянуть на свойство *DebugInfo.ComputingsExecutingUserCode[Thread.CurrentThread].InstantiatingStackTrace*. Это свойство содержит трассировку стека инстанцирования вычисления. 
+
+По умолчанию ObservableComputations не сохранияет трассировки стека инстанцирования вычислений по соображениям производительности. Чтобы сохранять эти трассирвки стека используйте свойство *Configuration.SaveInstantiatingStackTrace*. 
+
+По умолчанию ObservableComputations не следит за вычислениями выполняющими пользовательский код по соображениям производительности. Для того чтобы следить за вычислениями выполняющими пользовательский код используйте свойство *Configuration.TrackComputingsExecutingUserCode*. Если пользовательский код был вызван из пользовательского кода другого вычисления, то *DebugInfo.ComputingsExecutingUserCode[Thread.CurrentThread].UserCodeIsCalledFrom* будет указывать на это вычисление.
 
 Все необработанные исключения выброшенные в пользовательском коде фатальны, так как внутреннее состояние вычисление становится повреждённым. Обратите внимание на проверки на null.
 
@@ -1789,84 +1601,7 @@ namespace ObservableComputationsExamples
 * Свойств, которые содержат информацю об исключении
 * Установки параметров конфигурации *Configuration.SaveOcDispatcherInvocationStackTrace* и *Configuration.TrackOcDispatcherInvocations*
 
-*DebugInfo.ExecutingOcDispatcherInvocations[ocDispatcher.Thread]* имеет тип Stack&lt;Invocation&gt;. Стек будет содержать более одного элемента, если вы вызывали метод *OcDispatcher.DoOthers*.
-
-### Исключение при нарушении целостности
-
-Исключение при нарушении целостности было описано в разделе ["Свойство IsConsistent и исключение при нарушении целостности"](#свойство IsConsistent-и-исключение-при-нарушении-целостности).
-В следующем примере, мы пытаемся сделать скидку для дорогих заказов: мы уменьшаем цену заказа до минимального значения, кратного сотне:
-
-```csharp
-using System;
-using System.Collections.ObjectModel;
-using System.Collections.Specialized;
-using System.ComponentModel;
-using ObservableComputations;
-
-namespace ObservableComputationsExamples
-{
-	public class Order : INotifyPropertyChanged
-	{
-		public event PropertyChangedEventHandler PropertyChanged;
-
-		private decimal _price;
-		public decimal Price
-		{
-			get => _price;
-			set
-			{
-				_price = value;
-				PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Price)));
-			}
-		}
-	}
-
-	class Program
-	{
-		static void Main(string[] args)
-		{
-			Configuration.SaveInstantiatingStackTrace = true;
-
-			ObservableCollection<Order> orders = 
-				new ObservableCollection<Order>();
-
-			Filtering<Order> ordinaryOrders = orders.Filtering(o => o.Price <= 25000);
-
-			Filtering<Order> expensiveOrders = orders.Filtering(o => o.Price > 25000); 
-
-			expensiveOrders.CollectionChanged += (sender, eventArgs) =>
-			{
-				switch (eventArgs.Action)
-				{
-					case NotifyCollectionChangedAction.Add:
-						Order addedOrder = (Order) eventArgs.NewItems[0];
-						addedOrder.Price = Math.Truncate(addedOrder.Price / 100) * 100;
-						break;
-				}
-			};
-
-			try
-			{
-				orders.Add(new Order(){Price = 35397});
-			}
-			catch (ObservableComputationsInconsistencyException exception)
-			{
-				Console.WriteLine($"Exception stacktrace:\n{exception.StackTrace}");
-				Console.WriteLine($"\nComputing which caused the exception has been instantiated by the following stacktrace :\n{exception.Computing.InstantiatingStackTrace}");
-				Console.WriteLine($"\nSender for the event that cannot be processed is :\n{exception.EventSender.ToStringSafe()}");
-				Console.WriteLine($"\nArgs for the event that cannot be processed is :\n{exception.EventArgs.ToStringAlt()}");
-				Console.WriteLine($"\nSender of event now processing is :\n{exception.Computing.HandledEventSender.ToStringSafe()}");
-				Console.WriteLine($"\nArgs for the event that is currently being processed is :\n{exception.Computing.HandledEventArgs.ToStringAlt()}");
-
-			}
-
-			Console.ReadLine();
-		}
-	}
-}
-```
-
-Как Вы видите *exception.StackTrace* указывает на строку, которая вызвала исключение: *orders.Add(new Order(){Price = 35397});*. Эта строка не указывает на вычисление, которое вызвало исключение: *ordinaryOrders* or *expensiveOrders*. Чтобы определить исключение, которое вызвало исключение мы должны взглянуть на свойство *exception.Computing.InstantiatingStackTrace*. Это свойство содержит трассировку стека инстанцирования вычисления. По умолчанию ObservableComputations не сохраняет трассировки стека инстанцирования вычислений по соображениям производительности. Чтобы сохранять эти трассирвки стека используйте свойство *Configuration.SaveInstantiatingStackTrace*.
+*DebugInfo.ExecutingOcDispatcherInvocations[ocDispatcher.ManagedThreadId]* имеет тип Stack&lt;Invocation&gt;. Стек будет содержать более одного элемента, если вы вызывали метод *OcDispatcher.DoOthers*.
 
 ## Дополнительные события для обработки изменений: PreCollectionChanged, PreValueChanged, PostCollectionChanged, PostValueChanged
 ```csharp
@@ -2022,7 +1757,7 @@ namespace ObservableComputationsExamples
 ### Потокобезопасность
 [*CollectionComputing&lt;TSourceItem&gt;*](#полный-список-операторов)) и [*ScalarComputing&lt;TSourceItem&gt;*](#полный-список-операторов))
 
-* поддерживают несколько читающих потоков одновременно, если во время чтения не меняются пишущим потоком. Исключение: вычисление *ConcurrentDictionaring*, которое поддреживает одновременное чтение и изменение. 
+* поддерживают несколько читающих потоков одновременно, если во время чтения не меняются пишущим потоком. Исключение: вычисление *ConcurrentDictionaring*, которое поддреживает одновременно несколько читающих потоков и один пишущий. 
 * не поддерживают одновременные изменения несколькими пишущими потоками. 
 
 Вычисления изменяются пишущим потоком когда обрабатывают события [CollectionChanged](https://docs.microsoft.com/en-us/dotnet/api/system.collections.specialized.inotifycollectionchanged.collectionchanged?view=netframework-4.8) и [PropertyChanged](https://docs.microsoft.com/en-us/dotnet/api/system.componentmodel.inotifypropertychanged.propertychanged?view=netframework-4.8) объектов-источников.
@@ -2320,11 +2055,12 @@ namespace ObservableComputationsExample
 ```
 В этом примере мы грузим данные из БД в главном потоке, но фильтрация коллекции-источника *Orders* для получения оплаченных заказов (*PaidOrders*) производится в фоновом потоке.   
 Класс *ObservableComputations.OcDispatcher* очень похож на класс [System.Windows.Threading.OcDispatcher](https://docs.microsoft.com/en-us/dotnet/api/system.windows.threading.ocDispatcher?view=netcore-3.1). Класс *ObservableComputations.OcDispatcher* ассоциирован с единственным потоком. В этом потоке вы можете выполнять делегаты, вызывая методы *ObservableComputations.OcDispatcher.Invoke* и *ObservableComputations.OcDispatcher.BeginInvoke*. 
-Метод *CollectionDispatching* перенаправляет все изменения коллекции источника в поток целевого диспетчера (параметр *distinationOcDispatcher*). 
-В момент вызова метода *CollectionDispatching* происходит перечисление коллекции-источника (*Orders* или *Orders.CollectionDispatching(_ocOcDispatcher).Filtering(o => o.Paid)*) и подписка на её событие [CollectionChanged](https://docs.microsoft.com/en-us/dotnet/api/system.collections.specialized.inotifycollectionchanged.collectionchanged?view=netcore-3.1). При этом коллекция-источник не должна меняться. При вызове *.CollectionDispatching(_ocOcDispatcher)*, коллекция *Orders* не меняется. При вызове *.CollectionDispatching(wpfOcOcDispatcher, _ocOcDispatcher)* коллекция *Orders.CollectionDispatching(_ocOcDispatcher).Filtering(o => o.Paid)* может меняться в потоке *_ocOcDispatcher*, но так как мы передаём *_ocOcDispatcher* в параметр *sourceOcDispatcher*, то перечисление коллекции-источника и подписка на её событие [CollectionChanged](https://docs.microsoft.com/en-us/dotnet/api/system.collections.specialized.inotifycollectionchanged.collectionchanged?view=netcore-3.1) происходит в потоке *_ocOcDispatcher*, что гарантирует отсутствие изменений коллекции-источника при перечислении. Так как при вызове *.CollectionDispatching(_ocOcDispatcher)*, коллекция *Orders* не меняется, то передавать *wpfOcOcDispatcher* в параметр *sourceOcDispatcher* смысла нет, тем более что в момент вызова *.CollectionDispatching(_ocOcDispatcher)* мы и так находимся в потоке *wpfOcOcDispatcher*. В большинстве случаев излишняя передача параметра *sourceOcDispatcher* не приведёт к потере работоспособности, разве что немного пострадает производительность.
+Метод *CollectionDispatching* перенаправляет все изменения коллекции источника в поток целевого диспетчера (параметр *distinationDispatcher*). 
+В момент вызова метода *CollectionDispatching* происходит перечисление коллекции-источника (*Orders* или *Orders.CollectionDispatching(_ocDispatcher).Filtering(o => o.Paid)*) и подписка на её событие [CollectionChanged](https://docs.microsoft.com/en-us/dotnet/api/system.collections.specialized.inotifycollectionchanged.collectionchanged?view=netcore-3.1). При этом коллекция-источник не должна меняться. При вызове *.CollectionDispatching(_ocDispatcher)*, коллекция *Orders* не меняется. При вызове *.CollectionDispatching(wpfOcDispatcher, _ocDispatcher)* коллекция *Orders.CollectionDispatching(_ocDispatcher).Filtering(o => o.Paid)* может меняться в потоке *_ocOcDispatcher*, но так как мы передаём *_ocDispatcher* в параметр *sourceOcDispatcher*, то перечисление коллекции-источника и подписка на её событие [CollectionChanged](https://docs.microsoft.com/en-us/dotnet/api/system.collections.specialized.inotifycollectionchanged.collectionchanged?view=netcore-3.1) происходит в потоке *_ocDispatcher*, что гарантирует отсутствие изменений коллекции-источника при перечислении. Так как при вызове *.CollectionDispatching(_ocDispatcher)*, коллекция *Orders* не меняется, то передавать *wpfOcDispatcher* в параметр *sourceOcDispatcher* смысла нет, тем более что в момент вызова *.CollectionDispatching(_ocDispatcher)* мы и так находимся в потоке *wpfOcDispatcher*. В большинстве случаев излишняя передача параметра *sourceDispatcher* не приведёт к потере работоспособности, разве что немного пострадает производительность.
 Перечисление коллекции-источника происходит также в случае если [коллекция-источник передана как обозреваемый аргумент](#передача-коллекции-источника-как-обозреваемого-аргумента) и изменила своё значение.
-Обратите внимание на необходимость вызова *_ocOcDispatcher.Dispose()*.
+Обратите внимание на необходимость вызова *_ocDispatcher.Dispose()*.
 Приведённый выше пример не является единственным вариантом проектирования. Вот ещё один вариант (XAML такой же как в предыдущем примере):
+
  ```csharp
 using System;
 using System.Collections.ObjectModel;
@@ -2437,7 +2173,7 @@ namespace ObservableComputationsExample
 		#endregion
 	}
 }
-```
+ ```
 
 И ещё:
 ```xml
@@ -2798,8 +2534,14 @@ namespace ObservableComputationsExample
 }
 ```
 
-В этом примере при двойном щелчке мышью по неоплаченному заказу мы делаем его оплаченным. Так как свойство *Paid* в этом случае меняется в главном потоке, то мы не можем читать его в фоновом потоке *_ocOcDispatcher*. Для того чтобы читать это свойство в фоновом потоке *_ocOcDispatcher*, необходимо диспетчеризировать изменения этого сойства в этот поток. Это происходит с помощью класса *PropertyDispatching&lt;THolder, TResult&gt;*. Аналогично методу *CollectionDispatching*, конструктор класса *PropertyDispatching&lt;THolder, TResult&gt;* имеет обязательный параметр *destinationOcDispatcher* и опциональный параметр *sourceOcDispatcher*. Отличие в том, что вместо перчисления коллекции-источника и подписки на событие [CollectionChanged](https://docs.microsoft.com/en-us/dotnet/api/system.collections.specialized.inotifycollectionchanged.collectionchanged?view=netcore-3.1), происходит считывание значения свойства и подписка на событие [PropertyChanged](https://docs.microsoft.com/en-us/dotnet/api/system.componentmodel.inotifypropertychanged.propertychanged?view=netcore-3.1). Ещё одно отличие состоит в том, что значение переданное в параметр *sourceOcDispatcher*, используется для диспетчеризации изменения значения свойства (сеттер *PropertyDispatching&lt;THolder, TResult&gt;.Value*) в поток *sourceOcDispatcher*, в случае если это изменение далается в другом потоке. 
-Приведённый выше пример не является единственным вариантом проектирования. Вот ещё один вариант (XAML не изменился):
+В этом примере при двойном щелчке мышью по неоплаченному заказу мы делаем его оплаченным. Так как свойство *Paid* в этом случае меняется в главном потоке, то мы не можем читать его в фоновом потоке *_ocOcDispatcher*. Для того чтобы читать это свойство в фоновом потоке *_ocOcDispatcher*, необходимо диспетчеризировать изменения этого сойства в этот поток. Это происходит с помощью класса *PropertyDispatching&lt;THolder, TResult&gt;*. Аналогично методу *CollectionDispatching*, конструктор класса *PropertyDispatching&lt;THolder, TResult&gt;* имеет обязательный параметр *destinationOcDispatcher* и опциональный параметр *sourceOcDispatcher*. Отличие в том, что 
+
+* вместо перчисления коллекции-источника и подписки на событие [CollectionChanged](https://docs.microsoft.com/en-us/dotnet/api/system.collections.specialized.inotifycollectionchanged.collectionchanged?view=netcore-3.1), происходит считывание значения свойства и подписка на событие [PropertyChanged](https://docs.microsoft.com/en-us/dotnet/api/system.componentmodel.inotifypropertychanged.propertychanged?view=netcore-3.1). 
+
+* значение переданное в параметр *sourceOcDispatcher*, используется для диспетчеризации изменения значения свойства (сеттер *PropertyDispatching&lt;THolder, TResult&gt;.Value*) в поток *sourceOcDispatcher*, в случае если это изменение далается в другом потоке. 
+
+  Приведённый выше пример не является единственным вариантом проектирования. Вот ещё один вариант (XAML не изменился):
+
 ```csharp
 using System;
 using System.Collections.ObjectModel;
@@ -3052,7 +2794,7 @@ namespace ObservableComputationsExample
 ```
 
 ### Диспетчеризация *IReadScalar&lt;TValue&gt;*
-*IReadScalar&lt;TValue&gt;* впервые был упомянут [здесь](#полный-список-операторов). Кроме метода *CollectionDispatching*, ObservableComputations содержит метод *ScalarDispatching*. Его использование полностью аналогично использованию *CollectionDispatching*. С помощью *ScalarDispatching* можно организовать [диспетчеризацию свойств](#диспетчеризация-свойств), но с помощью класса *PropertyDispatching&lt;THolder, TResult&gt;* она проще и быстрее.
+*IReadScalar&lt;TValue&gt;* впервые был упомянут [здесь](#полный-список-операторов). Кроме метода *CollectionDispatching*, ObservableComputations содержит метод *ScalarDispatching*. Его использование полностью аналогично использованию *PropertyDispatching*, но с помощью *PropertyDispatching* Вы можете диспетчеризовать не только свойства. С помощью *ScalarDispatching* можно организовать [диспетчеризацию свойств](#диспетчеризация-свойств), но с помощью класса *PropertyDispatching&lt;THolder, TResult&gt;* она проще и быстрее.
 
 ### Параллельные вычисления в фоновых потоках
 В предыдущих примерах мы увидели как происходит вычисление в одном фоновом потоке. Использую методы диспетчиризации описанные выше есть возможность организовать вычисления в нескольких фоновых потоках, результаты которых конкурентно объединяются в другом потоке (главном или фоновом).
@@ -3684,7 +3426,7 @@ differingSinComputing: -0,5 <br>
 
 ### Ленивая инициализация вычислений
 Если некоторое вычисление необходимо только для некоторых сценариев, либо Вы ходите отложить инициализацию до того момента когда вычисление потребуется, Вам подходит ленивая инициализация. Вот пример:  
-  
+
 ```csharp
 private Computing<string> _valueComputing;
 public Computing<string> ValueComputing => _valueComputing = 
@@ -4224,9 +3966,9 @@ PropertyAccessing<decimal> priceReflectedComputing
 Если ссылка на объект, у которого вычисляется значение свойства, является null, то *PropertyAccessing&lt;TResult&gt;.Value* возвращает значение по умолчанию для *TResult*. Вы можете изменить это значение передавая параметр *defaultValue*.
 
 ## Binding
-  
+
 Класс и [метод расширения](https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/classes-and-structs/extension-methods) *Binding* позволяет связать два произвольных выражения. Первое выражение это источник. Второе выражение является целевым. Сложность выражений не ограничена. Первое выражение передаётся как [дерево выражений](https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/concepts/expression-trees/). Второе выражение передаётся как [делегат](https://docs.microsoft.com/en-us/dotnet/api/system.delegate?view=netframework-4.8). Когда значение выражения источника меняется, новое значение присваивается целевому выражению:  
-  
+
 ```csharp
 using System;
 using System.ComponentModel;

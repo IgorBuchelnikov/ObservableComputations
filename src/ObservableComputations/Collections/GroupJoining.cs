@@ -677,9 +677,9 @@ namespace ObservableComputations
 
 			if (Configuration.TrackComputingsExecutingUserCode)
 			{
-				Thread currentThread = Utils.startComputingExecutingUserCode(out IComputing computing, out _userCodeIsCalledFrom, this);
+				int currentThreadId = Utils.startComputingExecutingUserCode(out IComputing computing, out _userCodeIsCalledFrom, this);
 				TKey result = getValue();
-				Utils.endComputingExecutingUserCode(computing, currentThread, out _userCodeIsCalledFrom);
+				Utils.endComputingExecutingUserCode(computing, currentThreadId, out _userCodeIsCalledFrom);
 				return result;
 			}
 
@@ -697,9 +697,9 @@ namespace ObservableComputations
 
 			if (Configuration.TrackComputingsExecutingUserCode)
 			{
-				Thread currentThread = Utils.startComputingExecutingUserCode(out IComputing computing, out _userCodeIsCalledFrom, this);
+				int currentThreadId = Utils.startComputingExecutingUserCode(out IComputing computing, out _userCodeIsCalledFrom, this);
 				TKey result = getValue();
-				Utils.endComputingExecutingUserCode(computing, currentThread, out _userCodeIsCalledFrom);
+				Utils.endComputingExecutingUserCode(computing, currentThreadId, out _userCodeIsCalledFrom);
 				return result;
 			}
 
@@ -885,16 +885,9 @@ namespace ObservableComputations
 		{
 			if (Configuration.TrackComputingsExecutingUserCode)
 			{
-				Thread currentThread = Thread.CurrentThread;
-				DebugInfo._computingsExecutingUserCode.TryGetValue(currentThread, out IComputing computing);
-				DebugInfo._computingsExecutingUserCode[currentThread] = this;	
-				_userCodeIsCalledFrom = computing;
-			
+				int currentThreadId = Utils.startComputingExecutingUserCode(out IComputing computing, out _userCodeIsCalledFrom, this);
 				_groupJoining._insertItemIntoGroupRequestHandler(this, index, item);
-
-				if (computing == null) DebugInfo._computingsExecutingUserCode.TryRemove(currentThread, out IComputing _);
-				else DebugInfo._computingsExecutingUserCode[currentThread] = computing;
-				_userCodeIsCalledFrom = null;
+				Utils.endComputingExecutingUserCode(computing, currentThreadId, out _userCodeIsCalledFrom);
 				return;
 			}
 
@@ -905,16 +898,9 @@ namespace ObservableComputations
 		{
 			if (Configuration.TrackComputingsExecutingUserCode)
 			{
-				Thread currentThread = Thread.CurrentThread;
-				DebugInfo._computingsExecutingUserCode.TryGetValue(currentThread, out IComputing computing);
-				DebugInfo._computingsExecutingUserCode[currentThread] = this;	
-				_userCodeIsCalledFrom = computing;
-			
+				int currentThreadId = Utils.startComputingExecutingUserCode(out IComputing computing, out _userCodeIsCalledFrom, this);
 				_groupJoining._moveItemInGroupRequestHandler(this, oldIndex, newIndex);
-
-				if (computing == null) DebugInfo._computingsExecutingUserCode.TryRemove(currentThread, out IComputing _);
-				else DebugInfo._computingsExecutingUserCode[currentThread] = computing;
-				_userCodeIsCalledFrom = null;
+				Utils.endComputingExecutingUserCode(computing, currentThreadId, out _userCodeIsCalledFrom);
 				return;
 			}
 
@@ -925,16 +911,9 @@ namespace ObservableComputations
 		{
 			if (Configuration.TrackComputingsExecutingUserCode)
 			{
-				Thread currentThread = Thread.CurrentThread;
-				DebugInfo._computingsExecutingUserCode.TryGetValue(currentThread, out IComputing computing);
-				DebugInfo._computingsExecutingUserCode[currentThread] = this;	
-				_userCodeIsCalledFrom = computing;
-			
+				int currentThreadId = Utils.startComputingExecutingUserCode(out IComputing computing, out _userCodeIsCalledFrom, this);
 				_groupJoining._removeItemFromGroupRequestHandler(this, index);
-
-				if (computing == null) DebugInfo._computingsExecutingUserCode.TryRemove(currentThread, out IComputing _);
-				else DebugInfo._computingsExecutingUserCode[currentThread] = computing;
-				_userCodeIsCalledFrom = null;
+				Utils.endComputingExecutingUserCode(computing, currentThreadId, out _userCodeIsCalledFrom);
 				return;
 			}
 
@@ -945,16 +924,9 @@ namespace ObservableComputations
 		{
 			if (Configuration.TrackComputingsExecutingUserCode)
 			{
-				Thread currentThread = Thread.CurrentThread;
-				DebugInfo._computingsExecutingUserCode.TryGetValue(currentThread, out IComputing computing);
-				DebugInfo._computingsExecutingUserCode[currentThread] = this;	
-				_userCodeIsCalledFrom = computing;
-			
+				int currentThreadId = Utils.startComputingExecutingUserCode(out IComputing computing, out _userCodeIsCalledFrom, this);
 				_groupJoining._setGroupItemRequestHandler(this, index, item);
-
-				if (computing == null) DebugInfo._computingsExecutingUserCode.TryRemove(currentThread, out IComputing _);
-				else DebugInfo._computingsExecutingUserCode[currentThread] = computing;
-				_userCodeIsCalledFrom = null;
+				Utils.endComputingExecutingUserCode(computing, currentThreadId, out _userCodeIsCalledFrom);
 				return;
 			}
 
@@ -965,16 +937,9 @@ namespace ObservableComputations
 		{
 			if (Configuration.TrackComputingsExecutingUserCode)
 			{
-				Thread currentThread = Thread.CurrentThread;
-				DebugInfo._computingsExecutingUserCode.TryGetValue(currentThread, out IComputing computing);
-				DebugInfo._computingsExecutingUserCode[currentThread] = this;	
-				_userCodeIsCalledFrom = computing;
-			
+				int currentThreadId = Utils.startComputingExecutingUserCode(out IComputing computing, out _userCodeIsCalledFrom, this);
 				_groupJoining._clearGroupItemsRequestHandler(this);
-
-				if (computing == null) DebugInfo._computingsExecutingUserCode.TryRemove(currentThread, out IComputing _);
-				else DebugInfo._computingsExecutingUserCode[currentThread] = computing;
-				_userCodeIsCalledFrom = null;
+				Utils.endComputingExecutingUserCode(computing, currentThreadId, out _userCodeIsCalledFrom);
 				return;
 			}
 

@@ -6,7 +6,7 @@ namespace ObservableComputations.Test
 	[TestFixture]
 	public class DistinctingTests
 	{
-		Consumer consumer = new Consumer();
+		OcConsumer consumer = new OcConsumer();
 
 		[Test]
 		public void Distincting_Initialization_01()

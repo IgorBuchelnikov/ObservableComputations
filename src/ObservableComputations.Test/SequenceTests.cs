@@ -6,7 +6,7 @@ namespace ObservableComputations.Test
 	[TestFixture]
 	class SequenceTests
 	{
-		Consumer consumer = new Consumer();
+		OcConsumer consumer = new OcConsumer();
 
 		class Count : INotifyPropertyChanged
 		{

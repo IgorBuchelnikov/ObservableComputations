@@ -42,6 +42,10 @@
 						|| name.Contains("Crossing"))
 						continue;
 
+					if (name.Contains("CollectionDispatching"))
+					{
+					}
+
 					string genericParameters = string.Empty;
 					string genericConstraints = string.Empty;
 					if (classInFile.FullName.Contains("<"))
@@ -65,7 +69,7 @@
 						if (constructor.Access == EnvDTE.vsCMAccess.vsCMAccessPrivate) continue;
 
 						List<ExtentionMethodArgumentVariants> variantsList = new List<ExtentionMethodArgumentVariants>();
-						if (constructor.Parameters.Count >= 7) continue;
+						//if (constructor.Parameters.Count >= 7) continue;
 
 						foreach (CodeElement parameterCodeElement in constructor.Parameters)
 						{
@@ -259,7 +263,25 @@
 						classExtentionMethods.AddRange(constructorExtentionMethods);
 					}
 
-					result.AddRange(classExtentionMethods.Distinct());
+					var filtered = classExtentionMethods
+						.Distinct()
+						.Where(em => 
+						!(
+							!em.ArgumentsWithoutDefaultValue.Any(ema => ema.Name == "destinationOcDispatcher")
+							&& em.ArgumentsWithoutDefaultValue.Any(ema => ema.Name == "sourceOcDispatcher"))
+						&& !(
+							!em.ArgumentsWithoutDefaultValue.Any(ema => ema.Name == "destinationOcDispatcherPriority")
+							&& em.ArgumentsWithoutDefaultValue.Any(ema => ema.Name == "sourceOcDispatcherPriority"))
+						&& !(
+							!em.ArgumentsWithoutDefaultValue.Any(ema => ema.Name == "destinationOcDispatcherParameter")
+							&& em.ArgumentsWithoutDefaultValue.Any(ema => ema.Name == "sourceOcDispatcherParameter")))
+						.ToArray();
+
+					if (filtered.Length != classExtentionMethods.Count)
+					{
+					}
+
+					result.AddRange(filtered);
 				}
 			}
 
@@ -278,11 +300,12 @@
 		public string Name;
 		public string GenericConstraints;
 		public List<ExtentionMethodArgument> Arguments = new List<ExtentionMethodArgument>();
+		public IEnumerable<ExtentionMethodArgument> ArgumentsWithoutDefaultValue => Arguments.Where(a => a.DefaultValue == null);
 
 		public override bool Equals(object obj)
 		{
 			ExtentionMethod other = (ExtentionMethod)obj;
-			return other.Name == Name && Arguments.Where(a => a.DefaultValue == null).SequenceEqual(other.Arguments.Where(a => a.DefaultValue == null));
+			return other.Name == Name && ArgumentsWithoutDefaultValue.SequenceEqual(other.ArgumentsWithoutDefaultValue);
 		}
 
 		public ExtentionMethod(string name, string typeName, string genericParameters, string genericConstraints, params ExtentionMethodArgument[] arguments)

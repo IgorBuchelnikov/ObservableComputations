@@ -736,10 +736,10 @@ namespace ObservableComputations
 
 			if (Configuration.TrackComputingsExecutingUserCode)
 			{
-				Thread currentThread =
+				int currentThreadId =
 					Utils.startComputingExecutingUserCode(out IComputing computing, out _userCodeIsCalledFrom, this);
 				bool result = getValue();
-				Utils.endComputingExecutingUserCode(computing, currentThread, out _userCodeIsCalledFrom);
+				Utils.endComputingExecutingUserCode(computing, currentThreadId, out _userCodeIsCalledFrom);
 				return result;
 			}
 
@@ -755,9 +755,9 @@ namespace ObservableComputations
 
 			if (Configuration.TrackComputingsExecutingUserCode)
 			{
-				Thread currentThread = Utils.startComputingExecutingUserCode(out IComputing computing, out _userCodeIsCalledFrom, this);
+				int currentThreadId = Utils.startComputingExecutingUserCode(out IComputing computing, out _userCodeIsCalledFrom, this);
 				bool result = getValue();
-				Utils.endComputingExecutingUserCode(computing, currentThread, out _userCodeIsCalledFrom);
+				Utils.endComputingExecutingUserCode(computing, currentThreadId, out _userCodeIsCalledFrom);
 				return result;
 			}
 
@@ -943,16 +943,9 @@ namespace ObservableComputations
 			{
 				if (Configuration.TrackComputingsExecutingUserCode)
 				{
-					Thread currentThread = Thread.CurrentThread;
-					DebugInfo._computingsExecutingUserCode.TryGetValue(currentThread, out IComputing computing);
-					DebugInfo._computingsExecutingUserCode[currentThread] = _joining;	
-					_joining._userCodeIsCalledFrom = computing;
-				
+					int currentThreadId = Utils.startComputingExecutingUserCode(out IComputing computing, out _joining._userCodeIsCalledFrom, _joining);
 					_joining._setLeftItemRequestHandler(this, value);
-
-					if (computing == null) DebugInfo._computingsExecutingUserCode.TryRemove(currentThread, out IComputing _);
-					else DebugInfo._computingsExecutingUserCode[currentThread] = computing;
-					_joining._userCodeIsCalledFrom = null;
+					Utils.endComputingExecutingUserCode(computing, currentThreadId, out _joining._userCodeIsCalledFrom);
 					return;
 				}
 
@@ -968,16 +961,9 @@ namespace ObservableComputations
 			{
 				if (Configuration.TrackComputingsExecutingUserCode)
 				{
-					Thread currentThread = Thread.CurrentThread;
-					DebugInfo._computingsExecutingUserCode.TryGetValue(currentThread, out IComputing computing);
-					DebugInfo._computingsExecutingUserCode[currentThread] = _joining;	
-					_joining._userCodeIsCalledFrom = computing;
-				
+					int currentThreadId = Utils.startComputingExecutingUserCode(out IComputing computing, out _joining._userCodeIsCalledFrom, _joining);
 					_joining._setRightItemRequestHandler(this, value);
-
-					if (computing == null) DebugInfo._computingsExecutingUserCode.TryRemove(currentThread, out IComputing _);
-					else DebugInfo._computingsExecutingUserCode[currentThread] = computing;
-					_joining._userCodeIsCalledFrom = null;
+					Utils.endComputingExecutingUserCode(computing, currentThreadId, out _joining._userCodeIsCalledFrom);
 					return;
 				}
 

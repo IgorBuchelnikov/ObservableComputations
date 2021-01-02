@@ -369,22 +369,22 @@ namespace ObservableComputations
 		}
 
 
-		internal static void endComputingExecutingUserCode(IComputing computing, Thread currentThread,
+		internal static void endComputingExecutingUserCode(IComputing computing, int currentThreadId,
 			out IComputing userCodeIsCalledFrom)
 		{
-			if (computing == null) DebugInfo._computingsExecutingUserCode.TryRemove(currentThread, out IComputing _);
-			else DebugInfo._computingsExecutingUserCode[currentThread] = computing;
+			if (computing == null) DebugInfo._computingsExecutingUserCode.TryRemove(currentThreadId, out IComputing _);
+			else DebugInfo._computingsExecutingUserCode[currentThreadId] = computing;
 			userCodeIsCalledFrom = null;
 		}
 
-		internal static Thread startComputingExecutingUserCode(out IComputing computing,
+		internal static int startComputingExecutingUserCode(out IComputing computing,
 			out IComputing userCodeIsCalledFrom, IComputing current)
 		{
-			Thread currentThread = Thread.CurrentThread;
-			DebugInfo._computingsExecutingUserCode.TryGetValue(currentThread, out computing);
-			DebugInfo._computingsExecutingUserCode[currentThread] = current;
+			int currentThreadId = Thread.CurrentThread.ManagedThreadId;
+			DebugInfo._computingsExecutingUserCode.TryGetValue(currentThreadId, out computing);
+			DebugInfo._computingsExecutingUserCode[currentThreadId] = current;
 			userCodeIsCalledFrom = computing;
-			return currentThread;
+			return currentThreadId;
 		}
 
 		internal static void construct<TItemInfo, TExpression>(Expression<TExpression> expressionToProcess,
@@ -1119,8 +1119,6 @@ namespace ObservableComputations
 		internal static readonly PropertyChangedEventArgs KeyPropertyChangedEventArgs = new PropertyChangedEventArgs("Key");
 		internal static readonly PropertyChangedEventArgs SetLeftItemRequestHandlerPropertyChangedEventArgs = new PropertyChangedEventArgs("SetLeftItemRequestHandler");
 		internal static readonly PropertyChangedEventArgs SetRightItemRequestHandlerPropertyChangedEventArgs = new PropertyChangedEventArgs("SetRightItemRequestHandler");
-		internal static readonly PropertyChangedEventArgs ZipPairSetLeftItemRequestHandlerPropertyChangedEventArgs = new PropertyChangedEventArgs("ZipPairSetLeftItemRequestHandler");
-		internal static readonly PropertyChangedEventArgs ZipPairSetRightItemRequestHandlerPropertyChangedEventArgs = new PropertyChangedEventArgs("ZipPairSetRightItemRequestHandler");
 		internal static readonly PropertyChangedEventArgs LeftItemPropertyChangedEventArgs = new PropertyChangedEventArgs("LeftItem");
 		internal static readonly PropertyChangedEventArgs RightItemPropertyChangedEventArgs = new PropertyChangedEventArgs("RightItem");
 		internal static readonly PropertyChangedEventArgs InsertItemRequestHandlerPropertyChangedEventArgs = new PropertyChangedEventArgs("InsertItemRequestHandler");

@@ -47,9 +47,9 @@ namespace ObservableComputations
 		[ObservableComputationsCall]
 		public CollectionProcessingVoid(
 			IReadScalar<INotifyCollectionChanged> sourceScalar,
-			Action<TSourceItem[], CollectionProcessingVoid<TSourceItem>> newItemProcessor = null,
-			Action<TSourceItem[], CollectionProcessingVoid<TSourceItem>> oldItemProcessor = null,
-			Action<TSourceItem, CollectionProcessingVoid<TSourceItem>> moveItemProcessor = null) : this(newItemProcessor, oldItemProcessor, moveItemProcessor, Utils.getCapacity(sourceScalar))
+			Action<TSourceItem[], CollectionProcessingVoid<TSourceItem>> newItemsProcessor = null,
+			Action<TSourceItem[], CollectionProcessingVoid<TSourceItem>> oldItemsProcessor = null,
+			Action<TSourceItem, CollectionProcessingVoid<TSourceItem>> moveItemProcessor = null) : this(newItemsProcessor, oldItemsProcessor, moveItemProcessor, Utils.getCapacity(sourceScalar))
 		{
 			_sourceScalar = sourceScalar;
 			_thisAsSourceCollectionChangeProcessor = this;
@@ -58,9 +58,9 @@ namespace ObservableComputations
 		[ObservableComputationsCall]
 		public CollectionProcessingVoid(
 			INotifyCollectionChanged source,
-			Action<TSourceItem[], CollectionProcessingVoid<TSourceItem>> newItemProcessor = null,
-			Action<TSourceItem[], CollectionProcessingVoid<TSourceItem>> oldItemProcessor = null,
-			Action<TSourceItem, CollectionProcessingVoid<TSourceItem>> moveItemProcessor = null) : this(newItemProcessor, oldItemProcessor, moveItemProcessor, Utils.getCapacity(source))
+			Action<TSourceItem[], CollectionProcessingVoid<TSourceItem>> newItemsProcessor = null,
+			Action<TSourceItem[], CollectionProcessingVoid<TSourceItem>> oldItemsProcessor = null,
+			Action<TSourceItem, CollectionProcessingVoid<TSourceItem>> moveItemProcessor = null) : this(newItemsProcessor, oldItemsProcessor, moveItemProcessor, Utils.getCapacity(source))
 		{
 			_source = source;
 			_thisAsSourceCollectionChangeProcessor = this;
@@ -197,9 +197,9 @@ namespace ObservableComputations
 		{
 			if (Configuration.TrackComputingsExecutingUserCode)
 			{
-				Thread currentThread = Utils.startComputingExecutingUserCode(out IComputing computing, out _userCodeIsCalledFrom, this);
+				int currentThreadId = Utils.startComputingExecutingUserCode(out IComputing computing, out _userCodeIsCalledFrom, this);
 				_newItemsProcessor(sourceItems, this);
-				Utils.endComputingExecutingUserCode(computing, currentThread, out _userCodeIsCalledFrom);
+				Utils.endComputingExecutingUserCode(computing, currentThreadId, out _userCodeIsCalledFrom);
 				return;
 			}
 
@@ -210,9 +210,9 @@ namespace ObservableComputations
 		{
 			if (Configuration.TrackComputingsExecutingUserCode)
 			{
-				Thread currentThread = Utils.startComputingExecutingUserCode(out IComputing computing, out _userCodeIsCalledFrom, this);
+				int currentThreadId = Utils.startComputingExecutingUserCode(out IComputing computing, out _userCodeIsCalledFrom, this);
 				_oldItemsProcessor(sourceItems, this);
-				Utils.endComputingExecutingUserCode(computing, currentThread, out _userCodeIsCalledFrom);
+				Utils.endComputingExecutingUserCode(computing, currentThreadId, out _userCodeIsCalledFrom);
 				return;
 			}
 
@@ -224,9 +224,9 @@ namespace ObservableComputations
 		{
 			if (Configuration.TrackComputingsExecutingUserCode)
 			{
-				Thread currentThread = Utils.startComputingExecutingUserCode(out IComputing computing, out _userCodeIsCalledFrom, this);
+				int currentThreadId = Utils.startComputingExecutingUserCode(out IComputing computing, out _userCodeIsCalledFrom, this);
 				_moveItemProcessor(sourceItem, this);
-				Utils.endComputingExecutingUserCode(computing, currentThread, out _userCodeIsCalledFrom);
+				Utils.endComputingExecutingUserCode(computing, currentThreadId, out _userCodeIsCalledFrom);
 				return;
 			}
 

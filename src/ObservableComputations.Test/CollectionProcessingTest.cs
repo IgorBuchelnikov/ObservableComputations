@@ -6,7 +6,7 @@ namespace ObservableComputations.Test
 	[TestFixture]
 	public class CollectionProcessingTest
 	{
-		Consumer consumer = new Consumer();
+		OcConsumer consumer = new OcConsumer();
 
 		public class Item
 		{
@@ -15,7 +15,7 @@ namespace ObservableComputations.Test
 			public object Token = new object();
 		}
 
-		private static CollectionProcessing<Item, object> getCollectionProcessing(ObservableCollection<Item> items, Consumer consumer)
+		private static CollectionProcessing<Item, object> getCollectionProcessing(ObservableCollection<Item> items, OcConsumer consumer)
 		{
 			return items.CollectionProcessing(
 				(newItems, current) =>

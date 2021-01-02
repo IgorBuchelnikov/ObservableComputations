@@ -16,15 +16,15 @@ namespace ObservableComputations.Test
 	{
 		public class Item : INotifyPropertyChanged
 		{
-			public Consumer Consumer = new Consumer();
+			public OcConsumer OcConsumer = new OcConsumer();
 			public Item(int num, int num2, OcDispatcher consuminingOcDispatcher, OcDispatcher computingOcDispatcher)
 			{
 				_num = num;
 				_num2 = num2;
-				_numCompToConsDispatching = new PropertyDispatching<Item, int>(() => Num, consuminingOcDispatcher, computingOcDispatcher).For(Consumer);
-				_num2ConsToCompDispatching = new PropertyDispatching<Item, int>(() => Num2, computingOcDispatcher, consuminingOcDispatcher).For(Consumer);
-				_numCompToConsScalarDispatching = new Computing<int>(() => Num).ScalarDispatching(consuminingOcDispatcher, computingOcDispatcher).For(Consumer);				
-				_num2ConsToCompScalarDispatching = new Computing<int>(() => Num2).ScalarDispatching(computingOcDispatcher, consuminingOcDispatcher).For(Consumer);
+				_numCompToConsDispatching = new PropertyDispatching<Item, int>(() => Num, consuminingOcDispatcher, computingOcDispatcher).For(OcConsumer);
+				_num2ConsToCompDispatching = new PropertyDispatching<Item, int>(() => Num2, computingOcDispatcher, consuminingOcDispatcher).For(OcConsumer);
+				_numCompToConsScalarDispatching = new Computing<int>(() => Num).ScalarDispatching(consuminingOcDispatcher, computingOcDispatcher).For(OcConsumer);				
+				_num2ConsToCompScalarDispatching = new Computing<int>(() => Num2).ScalarDispatching(computingOcDispatcher, consuminingOcDispatcher).For(OcConsumer);
 				
 				
 				_num2ConsToCompDispatching.PropertyChanged += (sender, args) =>
@@ -117,7 +117,7 @@ namespace ObservableComputations.Test
 				consuminingOcDispatcher.ThreadName = "coNSuminingOcDispatcher";
 				OcDispatcher computingOcDispatcher = new OcDispatcher();
 				computingOcDispatcher.ThreadName = "coMPutingOcDispatcher";
-				Consumer consumer = new Consumer();
+				OcConsumer consumer = new OcConsumer();
 
 				ObservableCollection<Item> nums = new ObservableCollection<Item>();
 				Filtering<Item> filteredNums = nums.Filtering(i => 
@@ -200,7 +200,7 @@ namespace ObservableComputations.Test
 										int index = random.Next(0, upperIndex);
 										Item item = nums[index];
 										nums.RemoveAt(index);
-										item.Consumer.Dispose();
+										item.OcConsumer.Dispose();
 									}
 								}, 0);
 								break;
@@ -213,7 +213,7 @@ namespace ObservableComputations.Test
 										int index = random.Next(0, upperIndex);
 										Item item = nums[index];
 										nums[index] = new Item(random.Next(Int32.MinValue, int.MaxValue), random.Next(Int32.MinValue, int.MaxValue), consuminingOcDispatcher, computingOcDispatcher);
-										item.Consumer.Dispose();
+										item.OcConsumer.Dispose();
 									}
 
 								}, 0);
@@ -236,7 +236,7 @@ namespace ObservableComputations.Test
 									Item[] items = nums.ToArray();
 									nums.Clear();
 									foreach (Item item in items)
-										item.Consumer.Dispose();
+										item.OcConsumer.Dispose();
 								}, 0);
 
 								break;
@@ -334,7 +334,7 @@ namespace ObservableComputations.Test
 					|| i.Num2ConsToCompScalarDispatching.Value % 5 == 0).SequenceEqual(dispatchingfilteredNums));
 
 				foreach (Item item in nums)
-					item.Consumer.Dispose();
+					item.OcConsumer.Dispose();
 
 				consuminingOcDispatcher.Invoke(() =>
 				{

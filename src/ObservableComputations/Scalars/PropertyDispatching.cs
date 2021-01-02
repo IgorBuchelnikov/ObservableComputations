@@ -15,10 +15,10 @@ namespace ObservableComputations
 		public IOcDispatcher SourceOcDispatcher => _sourceOcDispatcher;
 		public IOcDispatcher DestinationOcDispatcher => _destinationOcDispatcher;
 		public IPropertySourceOcDispatcher PropertySourceOcDispatcher => _propertySourceOcDispatcher;
-		// ReSharper disable once UnusedMember.Local
-		private DispatcherPriorities DispatcherPriorities => _dispatcherPriorities;
-		// ReSharper disable once UnusedMember.Local
-		private DispatcherParameters DispatcherParameters => _dispatcherParameters;
+		public int DestinationOcDispatcherPriority => _destinationOcDispatcherPriority;
+		public int SourceOcDispatcherPriority => _sourceOcDispatcherPriority;
+		public object DestinationOcDispatcherParameter => _destinationOcDispatcherParameter;
+		public object SourceOcDispatcherParameter => _sourceOcDispatcherParameter;
 
 		private static readonly ConcurrentDictionary<PropertyInfo, PropertyAccessors>
 			_propertyAccessors =
@@ -34,23 +34,29 @@ namespace ObservableComputations
 		private Action<THolder, TResult> _setter;
 		private Func<THolder, TResult> _getter;
 
-		private readonly DispatcherPriorities _dispatcherPriorities;
-		private readonly DispatcherParameters _dispatcherParameters;
+		private readonly int _destinationOcDispatcherPriority;
+		private readonly int _sourceOcDispatcherPriority;
+		private readonly object _destinationOcDispatcherParameter;
+		private readonly object _sourceOcDispatcherParameter;
 
 		[ObservableComputationsCall]
 		public PropertyDispatching(
 			Expression<Func<TResult>> propertyExpression,
 			IOcDispatcher destinationOcDispatcher,
 			IOcDispatcher sourceOcDispatcher = null,
-			DispatcherPriorities? dispatcherPriorities = null,
-			DispatcherParameters? dispatcherParameters = null) : this()
+			int destinationOcDispatcherPriority = 0,
+			int sourceOcDispatcherPriority = 0,
+			object destinationOcDispatcherParameter = null,
+			object sourceOcDispatcherParameter = null) : this()
 		{
 			_sourceOcDispatcher = sourceOcDispatcher;
 			_destinationOcDispatcher = destinationOcDispatcher;
 			_propertyExpression = propertyExpression;
 
-			_dispatcherPriorities = dispatcherPriorities ?? new DispatcherPriorities(0, 0);
-			_dispatcherParameters = dispatcherParameters ?? new DispatcherParameters(null, null);
+			_destinationOcDispatcherPriority = destinationOcDispatcherPriority;
+			_sourceOcDispatcherPriority = sourceOcDispatcherPriority;
+			_destinationOcDispatcherParameter = destinationOcDispatcherParameter;
+			_sourceOcDispatcherParameter = sourceOcDispatcherParameter;
 
 			lockChangeSetValueHandle();
 		}
@@ -86,8 +92,8 @@ namespace ObservableComputations
 			TResult value = getValue();
 			_destinationOcDispatcher.Invoke(
 				() => setValue(value), 
-				_dispatcherPriorities._destinationDispatcherPriority,
-				_dispatcherParameters._distinationDispatcherParameter, 
+				_destinationOcDispatcherPriority,
+				_destinationOcDispatcherParameter, 
 				this);
 		}
 
@@ -98,9 +104,9 @@ namespace ObservableComputations
 			if (Configuration.TrackComputingsExecutingUserCode)
 			{
 
-				Thread currentThread = Utils.startComputingExecutingUserCode(out IComputing computing, out _userCodeIsCalledFrom, this);
+				int currentThreadId = Utils.startComputingExecutingUserCode(out IComputing computing, out _userCodeIsCalledFrom, this);
 				value = _getter(_propertyHolder);
-				Utils.endComputingExecutingUserCode(computing, currentThread, out _userCodeIsCalledFrom);
+				Utils.endComputingExecutingUserCode(computing, currentThreadId, out _userCodeIsCalledFrom);
 			}
 			else
 			{
@@ -159,14 +165,14 @@ namespace ObservableComputations
 
 				if (_sourceOcDispatcher != null) _sourceOcDispatcher.Invoke(
 					set, 
-					_dispatcherPriorities._sourceDispatcherPriority,
-					_dispatcherParameters._sourceDispatcherParameter, 
+					_sourceOcDispatcherPriority,
+					_sourceOcDispatcherParameter, 
 					this);
 				else if (_propertySourceOcDispatcher != null) 
 					_propertySourceOcDispatcher.Invoke(
 						set, 
-						_dispatcherPriorities._sourceDispatcherPriority,
-						_dispatcherParameters._sourceDispatcherParameter,  
+						_sourceOcDispatcherPriority,
+						_sourceOcDispatcherParameter,  
 						this, false, value);
 				else set();
 			};
@@ -179,21 +185,21 @@ namespace ObservableComputations
 				_propertyHolder.PropertyChanged += handlePropertyHolderPropertyChanged;
 				_destinationOcDispatcher.Invoke(
 					() => setValue(value), 
-					_dispatcherPriorities._destinationDispatcherPriority,
-					_dispatcherParameters._distinationDispatcherParameter, 
+					_destinationOcDispatcherPriority,
+					_destinationOcDispatcherParameter, 
 					this);
 			}
 
 			if (_sourceOcDispatcher != null) _sourceOcDispatcher.Invoke(
 				readAndSubscribe, 
-				_dispatcherPriorities._sourceDispatcherPriority,
-				_dispatcherParameters._sourceDispatcherParameter, 
+				_sourceOcDispatcherPriority,
+				_sourceOcDispatcherParameter, 
 				this);
 			else if (_propertySourceOcDispatcher != null) 
 				_propertySourceOcDispatcher.Invoke(
 					readAndSubscribe, 
-					_dispatcherPriorities._sourceDispatcherPriority,
-					_dispatcherParameters._sourceDispatcherParameter,  
+					_sourceOcDispatcherPriority,
+					_sourceOcDispatcherParameter,  
 					this, true, null);
 			else readAndSubscribe();
 		}

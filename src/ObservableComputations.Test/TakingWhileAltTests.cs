@@ -13,7 +13,7 @@ namespace ObservableComputations.Test
 	[TestFixture]
 	public class TakingWhileAltTests
 	{
-		Consumer consumer = new Consumer();
+		OcConsumer consumer = new OcConsumer();
 
 		public class Item : INotifyPropertyChanged
 		{

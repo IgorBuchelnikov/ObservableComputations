@@ -11,7 +11,7 @@ namespace ObservableComputations.Test
 	[TestFixture]
 	public class ThenOrderingOrderingTests
 	{
-		Consumer consumer = new Consumer();
+		OcConsumer consumer = new OcConsumer();
 
 		public class Item : INotifyPropertyChanged, IEquatable<Item>
 		{

@@ -6,7 +6,7 @@ namespace ObservableComputations.Test
 	[TestFixture]
 	public class TakingTests
 	{
-		Consumer consumer = new Consumer();
+		OcConsumer consumer = new OcConsumer();
 
 		public class Item
 		{

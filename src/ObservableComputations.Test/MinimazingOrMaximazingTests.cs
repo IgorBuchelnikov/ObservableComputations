@@ -9,7 +9,7 @@ namespace ObservableComputations.Test
 	[TestFixture]
 	public class MinimazingOrMaximazingTests
 	{
-		Consumer consumer = new Consumer();
+		OcConsumer consumer = new OcConsumer();
 
 		TextFileOutput _textFileOutputLog = new TextFileOutput(@"D:\MinimazingOrMaximazing_Deep.log");
 		TextFileOutput _textFileOutputTime = new TextFileOutput(@"D:\MinimazingOrMaximazing_Deep_Time.log");

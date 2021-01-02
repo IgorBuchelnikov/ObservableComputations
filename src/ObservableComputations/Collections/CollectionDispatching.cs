@@ -17,8 +17,10 @@ namespace ObservableComputations
 		public ReadOnlyCollection<INotifyCollectionChanged> SourceCollections => new ReadOnlyCollection<INotifyCollectionChanged>(new []{Source});
 		public ReadOnlyCollection<IReadScalar<INotifyCollectionChanged>> SourceCollectionScalars => new ReadOnlyCollection<IReadScalar<INotifyCollectionChanged>>(new []{SourceScalar});
 
-		private DispatcherPriorities DispatcherPriorities => _dispatcherPriorities;
-		private DispatcherParameters DispatcherParameters => _dispatcherParameters;
+		public int DestinationOcDispatcherPriority => _destinationOcDispatcherPriority;
+		public int SourceOcDispatcherPriority => _sourceOcDispatcherPriority;
+		public object DestinationOcDispatcherParameter => _destinationOcDispatcherParameter;
+		public object SourceOcDispatcherParameter => _sourceOcDispatcherParameter;
 
 		private INotifyCollectionChanged _source;
 		private IList<TSourceItem> _sourceAsList;
@@ -36,17 +38,22 @@ namespace ObservableComputations
 		private IHasChangeMarker _sourceAsIHasChangeMarker;
 		private bool _lastProcessedSourceChangeMarker;
 
-		private readonly DispatcherPriorities _dispatcherPriorities;
-		private readonly DispatcherParameters _dispatcherParameters;
+		private readonly int _destinationOcDispatcherPriority;
+		private readonly int _sourceOcDispatcherPriority;
+		private readonly object _destinationOcDispatcherParameter;
+		private readonly object _sourceOcDispatcherParameter;
+
 
 		[ObservableComputationsCall]
 		public CollectionDispatching(
 			INotifyCollectionChanged source,
 			IOcDispatcher destinationOcDispatcher,
 			IOcDispatcher sourceOcDispatcher = null,
-			DispatcherPriorities? dispatcherPriorities = null,
-			DispatcherParameters? dispatcherParameters = null) 
-			: this(dispatcherPriorities, dispatcherParameters)
+			int destinationOcDispatcherPriority = 0,
+			int sourceOcDispatcherPriority = 0,
+			object destinationOcDispatcherParameter = null,
+			object sourceOcDispatcherParameter = null) 
+			: this(destinationOcDispatcherPriority, sourceOcDispatcherPriority, destinationOcDispatcherParameter, sourceOcDispatcherParameter)
 		{
 			_destinationOcDispatcher = destinationOcDispatcher;
 			_sourceOcDispatcher = sourceOcDispatcher;
@@ -57,9 +64,11 @@ namespace ObservableComputations
 			INotifyCollectionChanged source,
 			ICollectionDestinationOcDispatcher destinationOcDispatcher,
 			IOcDispatcher sourceOcDispatcher = null,
-			DispatcherPriorities? dispatcherPriorities = null,
-			DispatcherParameters? dispatcherParameters = null)
-			: this(dispatcherPriorities, dispatcherParameters)
+			int destinationOcDispatcherPriority = 0,
+			int sourceOcDispatcherPriority = 0,
+			object destinationOcDispatcherParameter = null,
+			object sourceOcDispatcherParameter = null)
+			: this(destinationOcDispatcherPriority, sourceOcDispatcherPriority, destinationOcDispatcherParameter, sourceOcDispatcherParameter)
 		{
 			_collectionDestinationOcDispatcher = destinationOcDispatcher;
 			_sourceOcDispatcher = sourceOcDispatcher;
@@ -76,9 +85,11 @@ namespace ObservableComputations
 			IReadScalar<INotifyCollectionChanged> sourceScalar,
 			IOcDispatcher destinationOcDispatcher,
 			IOcDispatcher sourceOcDispatcher = null,
-			DispatcherPriorities? dispatcherPriorities = null,
-			DispatcherParameters? dispatcherParameters = null)
-			: this(dispatcherPriorities, dispatcherParameters)
+			int destinationOcDispatcherPriority = 0,
+			int sourceOcDispatcherPriority = 0,
+			object destinationOcDispatcherParameter = null,
+			object sourceOcDispatcherParameter = null)
+			: this(destinationOcDispatcherPriority, sourceOcDispatcherPriority, destinationOcDispatcherParameter, sourceOcDispatcherParameter)
 		{
 			_destinationOcDispatcher = destinationOcDispatcher;
 			_sourceOcDispatcher = sourceOcDispatcher;
@@ -90,19 +101,27 @@ namespace ObservableComputations
 			IReadScalar<INotifyCollectionChanged> sourceScalar,
 			ICollectionDestinationOcDispatcher destinationOcDispatcher,
 			IOcDispatcher sourceOcDispatcher = null,
-			DispatcherPriorities? dispatcherPriorities = null,
-			DispatcherParameters? dispatcherParameters = null)
-			: this(dispatcherPriorities, dispatcherParameters)
+			int destinationOcDispatcherPriority = 0,
+			int sourceOcDispatcherPriority = 0,
+			object destinationOcDispatcherParameter = null,
+			object sourceOcDispatcherParameter = null)
+			: this(destinationOcDispatcherPriority, sourceOcDispatcherPriority, destinationOcDispatcherParameter, sourceOcDispatcherParameter)
 		{
 			_collectionDestinationOcDispatcher = destinationOcDispatcher;
 			_sourceOcDispatcher = sourceOcDispatcher;
 			_sourceScalar = sourceScalar;
 		}
 
-		private CollectionDispatching(DispatcherPriorities? dispatcherPriorities, DispatcherParameters? dispatcherParameters)
+		private CollectionDispatching(			
+			int destinationOcDispatcherPriority = 0,
+			int sourceOcDispatcherPriority = 0,
+			object destinationOcDispatcherParameter = null,
+			object sourceOcDispatcherParameter = null)
 		{
-			_dispatcherPriorities = dispatcherPriorities ?? new DispatcherPriorities(0, 0);
-			_dispatcherParameters = dispatcherParameters ?? new DispatcherParameters(null, null);
+			_destinationOcDispatcherPriority = destinationOcDispatcherPriority;
+			_sourceOcDispatcherPriority = sourceOcDispatcherPriority;
+			_destinationOcDispatcherParameter = destinationOcDispatcherParameter;
+			_sourceOcDispatcherParameter = sourceOcDispatcherParameter;
 		}
 
 		private void handleSourceScalarValueChanged(object sender, PropertyChangedEventArgs e)
@@ -121,14 +140,14 @@ namespace ObservableComputations
 			if (_destinationOcDispatcher != null)
 				_destinationOcDispatcher.Invoke(
 					() => doInitializeFromSource(sender, e), 
-					_dispatcherPriorities._destinationDispatcherPriority,
-					_dispatcherParameters._distinationDispatcherParameter,
+					_destinationOcDispatcherPriority,
+					_destinationOcDispatcherParameter,
 					this);
 			else
 				_collectionDestinationOcDispatcher.InvokeInitialization(
 					() => doInitializeFromSource(sender, e), 
-					_dispatcherPriorities._destinationDispatcherPriority,
-					_dispatcherParameters._distinationDispatcherParameter,
+					_destinationOcDispatcherPriority,
+					_destinationOcDispatcherParameter,
 					this);
 		}
 
@@ -157,8 +176,8 @@ namespace ObservableComputations
 				if (_sourceOcDispatcher != null)
 					_sourceOcDispatcher.Invoke(
 						uninitializeSource, 
-						_dispatcherPriorities._sourceDispatcherPriority,
-						_dispatcherParameters._sourceDispatcherParameter,
+						_sourceOcDispatcherPriority,
+						_sourceOcDispatcherParameter,
 						this);
 				else
 					uninitializeSource();
@@ -214,13 +233,13 @@ namespace ObservableComputations
 					if (_destinationOcDispatcher != null) 
 						_destinationOcDispatcher.Invoke(
 							resetAction, 
-							_dispatcherPriorities._destinationDispatcherPriority,
-							_dispatcherParameters._distinationDispatcherParameter,
+							_destinationOcDispatcherPriority,
+							_destinationOcDispatcherParameter,
 							this);
 					else _collectionDestinationOcDispatcher.InvokeCollectionChange(
 						resetAction, 
-						_dispatcherPriorities._destinationDispatcherPriority,
-						_dispatcherParameters._distinationDispatcherParameter, 
+						_destinationOcDispatcherPriority,
+						_destinationOcDispatcherParameter, 
 						this, 
 						NotifyCollectionChangedAction.Reset, 
 						null, null, 0, 0);
@@ -229,8 +248,8 @@ namespace ObservableComputations
 				if (_sourceOcDispatcher != null)
 					_sourceOcDispatcher.Invoke(
 						readAndSubscribe, 
-						_dispatcherPriorities._sourceDispatcherPriority,
-						_dispatcherParameters._sourceDispatcherParameter,
+						_sourceOcDispatcherPriority,
+						_sourceOcDispatcherParameter,
 						this);
 				else
 					readAndSubscribe();
@@ -251,13 +270,13 @@ namespace ObservableComputations
 				if (_destinationOcDispatcher != null) 
 					_destinationOcDispatcher.Invoke(
 						clearItemsAction, 
-						_dispatcherPriorities._destinationDispatcherPriority,
-						_dispatcherParameters._distinationDispatcherParameter,
+						_destinationOcDispatcherPriority,
+						_destinationOcDispatcherParameter,
 						this);
 				else _collectionDestinationOcDispatcher.InvokeCollectionChange(
 					clearItemsAction, 
-					_dispatcherPriorities._destinationDispatcherPriority,
-					_dispatcherParameters._distinationDispatcherParameter, 
+					_destinationOcDispatcherPriority,
+					_destinationOcDispatcherParameter, 
 					this, NotifyCollectionChangedAction.Reset, 
 					null, null, 0, 0);
 			}
@@ -283,14 +302,14 @@ namespace ObservableComputations
 					if (_destinationOcDispatcher != null) 
 						_destinationOcDispatcher.Invoke(
 							add, 
-							_dispatcherPriorities._destinationDispatcherPriority,
-							_dispatcherParameters._distinationDispatcherParameter,
+							_destinationOcDispatcherPriority,
+							_destinationOcDispatcherParameter,
 							this);
 					else
 						_collectionDestinationOcDispatcher.InvokeCollectionChange(
 							add, 
-							_dispatcherPriorities._destinationDispatcherPriority,
-							_dispatcherParameters._distinationDispatcherParameter, 
+							_destinationOcDispatcherPriority,
+							_destinationOcDispatcherParameter, 
 							this, 
 							NotifyCollectionChangedAction.Add,
 							(TSourceItem) e.NewItems[0], null, 
@@ -309,14 +328,14 @@ namespace ObservableComputations
 					if (_destinationOcDispatcher != null) 
 						_destinationOcDispatcher.Invoke(
 							remove, 
-							_dispatcherPriorities._destinationDispatcherPriority,
-							_dispatcherParameters._distinationDispatcherParameter,
+							_destinationOcDispatcherPriority,
+							_destinationOcDispatcherParameter,
 							this);
 					else
 						_collectionDestinationOcDispatcher.InvokeCollectionChange(
 							remove, 
-							_dispatcherPriorities._destinationDispatcherPriority,
-							_dispatcherParameters._distinationDispatcherParameter, 
+							_destinationOcDispatcherPriority,
+							_destinationOcDispatcherParameter, 
 							this, 
 							NotifyCollectionChangedAction.Remove,
 							null, e.OldItems[0], 0, e.OldStartingIndex);
@@ -333,14 +352,14 @@ namespace ObservableComputations
 					if (_destinationOcDispatcher != null) 
 						_destinationOcDispatcher.Invoke(
 							replace, 
-							_dispatcherPriorities._destinationDispatcherPriority,
-							_dispatcherParameters._distinationDispatcherParameter,
+							_destinationOcDispatcherPriority,
+							_destinationOcDispatcherParameter,
 							this);
 					else
 						_collectionDestinationOcDispatcher.InvokeCollectionChange(
 							replace, 
-							_dispatcherPriorities._destinationDispatcherPriority,
-							_dispatcherParameters._distinationDispatcherParameter, 
+							_destinationOcDispatcherPriority,
+							_destinationOcDispatcherParameter, 
 							this, 
 							NotifyCollectionChangedAction.Replace,
 							(TSourceItem) e.NewItems[0], (TSourceItem) e.OldItems[0], 
@@ -359,14 +378,14 @@ namespace ObservableComputations
 					if (_destinationOcDispatcher != null) 
 						_destinationOcDispatcher.Invoke(
 							move, 
-							_dispatcherPriorities._destinationDispatcherPriority,
-							_dispatcherParameters._distinationDispatcherParameter,
+							_destinationOcDispatcherPriority,
+							_destinationOcDispatcherParameter,
 							this);
 					else
 						_collectionDestinationOcDispatcher.InvokeCollectionChange(
 							move, 
-							_dispatcherPriorities._destinationDispatcherPriority,
-							_dispatcherParameters._distinationDispatcherParameter, 
+							_destinationOcDispatcherPriority,
+							_destinationOcDispatcherParameter, 
 							this, 
 							NotifyCollectionChangedAction.Move,
 							(TSourceItem) e.NewItems[0], (TSourceItem) e.OldItems[0], 
@@ -403,8 +422,8 @@ namespace ObservableComputations
 			if (_sourceOcDispatcher != null)
 				_sourceOcDispatcher.Invoke(
 					perform, 
-					_dispatcherPriorities._sourceDispatcherPriority,
-					_dispatcherParameters._sourceDispatcherParameter,
+					_sourceOcDispatcherPriority,
+					_sourceOcDispatcherParameter,
 					this);
 			else
 				perform();
@@ -421,8 +440,8 @@ namespace ObservableComputations
 			if (_sourceOcDispatcher != null)
 				_sourceOcDispatcher.Invoke(
 					perform, 
-					_dispatcherPriorities._sourceDispatcherPriority,
-					_dispatcherParameters._sourceDispatcherParameter,
+					_sourceOcDispatcherPriority,
+					_sourceOcDispatcherParameter,
 					this);
 			else
 				perform();
@@ -438,8 +457,8 @@ namespace ObservableComputations
 			if (_sourceOcDispatcher != null)
 				_sourceOcDispatcher.Invoke(
 					perform, 
-					_dispatcherPriorities._sourceDispatcherPriority,
-					_dispatcherParameters._sourceDispatcherParameter,
+					_sourceOcDispatcherPriority,
+					_sourceOcDispatcherParameter,
 					this);
 			else
 				perform();
@@ -455,41 +474,11 @@ namespace ObservableComputations
 			if (_sourceOcDispatcher != null)
 				_sourceOcDispatcher.Invoke(
 					perform, 
-					_dispatcherPriorities._sourceDispatcherPriority,
-					_dispatcherParameters._sourceDispatcherParameter,
+					_sourceOcDispatcherPriority,
+					_sourceOcDispatcherParameter,
 					this);
 			else
 				perform();
-		}
-	}
-
-	public struct DispatcherPriorities
-	{
-		internal readonly int _sourceDispatcherPriority;
-		internal readonly int _destinationDispatcherPriority;
-
-		public int? SourceDispatcherPriority => _sourceDispatcherPriority;
-		public int? DestinationDispatcherPriority => _destinationDispatcherPriority;
-
-		public DispatcherPriorities(int sourceDispatcherPriority, int destinationDispatcherPriority)
-		{
-			_sourceDispatcherPriority = sourceDispatcherPriority;
-			_destinationDispatcherPriority = destinationDispatcherPriority;
-		}
-	}
-
-	public struct DispatcherParameters
-	{
-		internal readonly object _sourceDispatcherParameter;
-		internal readonly object _distinationDispatcherParameter;
-
-		public object SourceDispatcherParameter => _sourceDispatcherParameter;
-		public object DistinationDispatcherParameter => _distinationDispatcherParameter;
-
-		public DispatcherParameters(object sourceDispatcherParameter, object distinationDispatcherParameter)
-		{
-			_sourceDispatcherParameter = sourceDispatcherParameter;
-			_distinationDispatcherParameter = distinationDispatcherParameter;
 		}
 	}
 }

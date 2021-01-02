@@ -47,7 +47,7 @@ namespace ObservableComputations.Test
 			}
 		}
 
-		Consumer consumer = new Consumer();
+		OcConsumer consumer = new OcConsumer();
 
 		private void test(int[] values)
 		{

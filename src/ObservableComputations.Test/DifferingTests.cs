@@ -8,7 +8,7 @@ namespace ObservableComputations.Test
 	[TestFixture]
 	public class DifferingTests
 	{
-		Consumer consumer = new Consumer();
+		OcConsumer consumer = new OcConsumer();
 
 		public class Order : INotifyPropertyChanged
 		{

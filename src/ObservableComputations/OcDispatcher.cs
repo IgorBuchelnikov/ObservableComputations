@@ -58,11 +58,11 @@ namespace ObservableComputations
 			if (Configuration.TrackOcDispatcherInvocations)
 			{
 				bool nestedInvocation = true;
-				if (!DebugInfo._executingOcDispatcherInvocations.TryGetValue(_ocDispatcher._thread, out Stack<Invocation> invocations))
+				if (!DebugInfo._executingOcDispatcherInvocations.TryGetValue(_ocDispatcher._managedThreadId, out Stack<Invocation> invocations))
 				{
 					nestedInvocation = false;
 					invocations = _ocDispatcher._invocations;
-					DebugInfo._executingOcDispatcherInvocations[_ocDispatcher._thread] = invocations;
+					DebugInfo._executingOcDispatcherInvocations[_ocDispatcher._managedThreadId] = invocations;
 				}
 
 				// ReSharper disable once PossibleNullReferenceException
@@ -74,7 +74,7 @@ namespace ObservableComputations
 					_actionWithState(_state);
 
 				if (nestedInvocation) invocations.Pop();
-				else DebugInfo._executingOcDispatcherInvocations.TryRemove(_ocDispatcher._thread, out _);
+				else DebugInfo._executingOcDispatcherInvocations.TryRemove(_ocDispatcher._managedThreadId, out _);
 			}
 			else
 			{
@@ -120,6 +120,7 @@ namespace ObservableComputations
 		private bool _isAlive = true;
 		private bool _isDisposed ;
 		internal Thread _thread;
+		internal int _managedThreadId;
 		internal Stack<Invocation> _invocations = new Stack<Invocation>();
 		private NewInvocationBehaviour _newInvocationBehaviour;
 
@@ -181,6 +182,7 @@ namespace ObservableComputations
 				_newInvocationManualResetEvent.Dispose();
 			});
 
+			_managedThreadId = _thread.ManagedThreadId;
 			_thread.SetApartmentState(threadApartmentState);
 			_thread.Start();
 		}
@@ -241,7 +243,7 @@ namespace ObservableComputations
 			set => _thread.IsBackground = value;
 		}
 
-		public int ManagedThreadId => _thread.ManagedThreadId;
+		public int ManagedThreadId => _managedThreadId;
 
 		public ThreadPriority ThreadPriority
 		{

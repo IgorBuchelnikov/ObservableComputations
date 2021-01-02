@@ -47,9 +47,9 @@ namespace ObservableComputations
 		[ObservableComputationsCall]
 		public CollectionProcessing(
 			IReadScalar<INotifyCollectionChanged> sourceScalar,
-			Func<TSourceItem[], ICollectionProcessing, TReturnValue[]> newItemProcessor = null,
-			Action<TSourceItem[], ICollectionProcessing, TReturnValue[]> oldItemProcessor = null,
-			Action<TSourceItem, ICollectionProcessing, TReturnValue> moveItemProcessor = null) : this(newItemProcessor, oldItemProcessor, moveItemProcessor, Utils.getCapacity(sourceScalar))
+			Func<TSourceItem[], ICollectionProcessing, TReturnValue[]> newItemsProcessor = null,
+			Action<TSourceItem[], ICollectionProcessing, TReturnValue[]> oldItemsProcessor = null,
+			Action<TSourceItem, ICollectionProcessing, TReturnValue> moveItemProcessor = null) : this(newItemsProcessor, oldItemsProcessor, moveItemProcessor, Utils.getCapacity(sourceScalar))
 		{
 			_sourceScalar = sourceScalar;
 		}
@@ -57,9 +57,9 @@ namespace ObservableComputations
 		[ObservableComputationsCall]
 		public CollectionProcessing(
 			INotifyCollectionChanged source,
-			Func<TSourceItem[], ICollectionProcessing, TReturnValue[]> newItemProcessor = null,
-			Action<TSourceItem[], ICollectionProcessing, TReturnValue[]> oldItemProcessor = null,
-			Action<TSourceItem, ICollectionProcessing, TReturnValue> moveItemProcessor = null) : this(newItemProcessor, oldItemProcessor, moveItemProcessor, Utils.getCapacity(source))
+			Func<TSourceItem[], ICollectionProcessing, TReturnValue[]> newItemsProcessor = null,
+			Action<TSourceItem[], ICollectionProcessing, TReturnValue[]> oldItemsProcessor = null,
+			Action<TSourceItem, ICollectionProcessing, TReturnValue> moveItemProcessor = null) : this(newItemsProcessor, oldItemsProcessor, moveItemProcessor, Utils.getCapacity(source))
 		{
 			_source = source;
 		}
@@ -196,9 +196,9 @@ namespace ObservableComputations
 		{
 			if (Configuration.TrackComputingsExecutingUserCode)
 			{
-				Thread currentThread = Utils.startComputingExecutingUserCode(out IComputing computing, out _userCodeIsCalledFrom, this);
+				int currentThreadId = Utils.startComputingExecutingUserCode(out IComputing computing, out _userCodeIsCalledFrom, this);
 				TReturnValue[] returnValues = _newItemsProcessor(sourceItems, this);
-				Utils.endComputingExecutingUserCode(computing, currentThread, out _userCodeIsCalledFrom);
+				Utils.endComputingExecutingUserCode(computing, currentThreadId, out _userCodeIsCalledFrom);
 				return returnValues;
 			}
 
@@ -209,9 +209,9 @@ namespace ObservableComputations
 		{
 			if (Configuration.TrackComputingsExecutingUserCode)
 			{
-				Thread currentThread = Utils.startComputingExecutingUserCode(out IComputing computing, out _userCodeIsCalledFrom, this);
+				int currentThreadId = Utils.startComputingExecutingUserCode(out IComputing computing, out _userCodeIsCalledFrom, this);
 				_oldItemsProcessor(sourceItems, this, returnValues);
-				Utils.endComputingExecutingUserCode(computing, currentThread, out _userCodeIsCalledFrom);
+				Utils.endComputingExecutingUserCode(computing, currentThreadId, out _userCodeIsCalledFrom);
 				return;
 			}
 
@@ -223,9 +223,9 @@ namespace ObservableComputations
 		{
 			if (Configuration.TrackComputingsExecutingUserCode)
 			{
-				Thread currentThread = Utils.startComputingExecutingUserCode(out IComputing computing, out _userCodeIsCalledFrom, this);
+				int currentThreadId = Utils.startComputingExecutingUserCode(out IComputing computing, out _userCodeIsCalledFrom, this);
 				_moveItemProcessor(sourceItem, this, returnValue);
-				Utils.endComputingExecutingUserCode(computing, currentThread, out _userCodeIsCalledFrom);
+				Utils.endComputingExecutingUserCode(computing, currentThreadId, out _userCodeIsCalledFrom);
 				return;
 			}
 

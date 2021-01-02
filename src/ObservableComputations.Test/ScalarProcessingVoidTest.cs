@@ -5,7 +5,7 @@ namespace ObservableComputations.Test
 	[TestFixture]
 	public class ScalarProcessingVoidTest
 	{
-		Consumer consumer = new Consumer();
+		OcConsumer consumer = new OcConsumer();
 
 		public class Item
 		{

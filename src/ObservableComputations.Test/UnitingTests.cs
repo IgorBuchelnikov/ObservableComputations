@@ -12,7 +12,7 @@ namespace ObservableComputations.Test
 	[TestFixture]
 	public class UnitingTests
 	{
-		Consumer consumer = new Consumer();
+		OcConsumer consumer = new OcConsumer();
 
 		public class Item : INotifyPropertyChanged
 		{

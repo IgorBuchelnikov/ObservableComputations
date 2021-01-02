@@ -6,7 +6,7 @@ namespace ObservableComputations.Test
 	[TestFixture]
 	public class CastingTests
 	{
-		Consumer consumer = new Consumer();
+		OcConsumer consumer = new OcConsumer();
 
 		class BaseItem{}
 		class DerivedItem : BaseItem{}

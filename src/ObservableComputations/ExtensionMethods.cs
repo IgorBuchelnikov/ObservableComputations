@@ -195,8 +195,8 @@ namespace ObservableComputations
 		{
 			return new ObservableComputations.CollectionProcessing<TSourceItem, TReturnValue>(
 				source: source,
-				newItemProcessor: newItemProcessor,
-				oldItemProcessor: oldItemProcessor,
+				newItemsProcessor: newItemProcessor,
+				oldItemsProcessor: oldItemProcessor,
 				moveItemProcessor: moveItemProcessor);
 		}
 
@@ -210,8 +210,8 @@ namespace ObservableComputations
 		{
 			return new ObservableComputations.CollectionProcessing<TSourceItem, TReturnValue>(
 				sourceScalar: sourceScalar,
-				newItemProcessor: newItemProcessor,
-				oldItemProcessor: oldItemProcessor,
+				newItemsProcessor: newItemProcessor,
+				oldItemsProcessor: oldItemProcessor,
 				moveItemProcessor: moveItemProcessor);
 		}
 
@@ -225,8 +225,8 @@ namespace ObservableComputations
 		{
 			return new ObservableComputations.CollectionProcessing<TSourceItem, TReturnValue>(
 				sourceScalar: new Computing<INotifyCollectionChanged>(getSourceExpression),
-				newItemProcessor: newItemProcessor,
-				oldItemProcessor: oldItemProcessor,
+				newItemsProcessor: newItemProcessor,
+				oldItemsProcessor: oldItemProcessor,
 				moveItemProcessor: moveItemProcessor);
 		}
 
@@ -240,8 +240,8 @@ namespace ObservableComputations
 		{
 			return new ObservableComputations.CollectionProcessingVoid<TSourceItem>(
 				source: source,
-				newItemProcessor: newItemProcessor,
-				oldItemProcessor: oldItemProcessor,
+				newItemsProcessor: newItemProcessor,
+				oldItemsProcessor: oldItemProcessor,
 				moveItemProcessor: moveItemProcessor);
 		}
 
@@ -255,8 +255,8 @@ namespace ObservableComputations
 		{
 			return new ObservableComputations.CollectionProcessingVoid<TSourceItem>(
 				sourceScalar: sourceScalar,
-				newItemProcessor: newItemProcessor,
-				oldItemProcessor: oldItemProcessor,
+				newItemsProcessor: newItemProcessor,
+				oldItemsProcessor: oldItemProcessor,
 				moveItemProcessor: moveItemProcessor);
 		}
 
@@ -270,8 +270,8 @@ namespace ObservableComputations
 		{
 			return new ObservableComputations.CollectionProcessingVoid<TSourceItem>(
 				sourceScalar: new Computing<INotifyCollectionChanged>(getSourceExpression),
-				newItemProcessor: newItemProcessor,
-				oldItemProcessor: oldItemProcessor,
+				newItemsProcessor: newItemProcessor,
+				oldItemsProcessor: oldItemProcessor,
 				moveItemProcessor: moveItemProcessor);
 		}
 
@@ -312,8 +312,8 @@ namespace ObservableComputations
 		{
 			return new ObservableComputations.CollectionProcessing<TSourceItem, TReturnValue>(
 				source: source,
-				newItemProcessor: newItemProcessor,
-				oldItemProcessor: oldItemProcessor,
+				newItemsProcessor: newItemProcessor,
+				oldItemsProcessor: oldItemProcessor,
 				moveItemProcessor: moveItemProcessor);
 		}
 
@@ -327,8 +327,8 @@ namespace ObservableComputations
 		{
 			return new ObservableComputations.CollectionProcessing<TSourceItem, TReturnValue>(
 				sourceScalar: sourceScalar,
-				newItemProcessor: newItemProcessor,
-				oldItemProcessor: oldItemProcessor,
+				newItemsProcessor: newItemProcessor,
+				oldItemsProcessor: oldItemProcessor,
 				moveItemProcessor: moveItemProcessor);
 		}
 
@@ -342,8 +342,8 @@ namespace ObservableComputations
 		{
 			return new ObservableComputations.CollectionProcessing<TSourceItem, TReturnValue>(
 				sourceScalar: new Computing<ObservableCollection<TSourceItem>>(getSourceExpression),
-				newItemProcessor: newItemProcessor,
-				oldItemProcessor: oldItemProcessor,
+				newItemsProcessor: newItemProcessor,
+				oldItemsProcessor: oldItemProcessor,
 				moveItemProcessor: moveItemProcessor);
 		}
 
@@ -357,8 +357,8 @@ namespace ObservableComputations
 		{
 			return new ObservableComputations.CollectionProcessingVoid<TSourceItem>(
 				source: source,
-				newItemProcessor: newItemProcessor,
-				oldItemProcessor: oldItemProcessor,
+				newItemsProcessor: newItemProcessor,
+				oldItemsProcessor: oldItemProcessor,
 				moveItemProcessor: moveItemProcessor);
 		}
 
@@ -372,8 +372,8 @@ namespace ObservableComputations
 		{
 			return new ObservableComputations.CollectionProcessingVoid<TSourceItem>(
 				sourceScalar: sourceScalar,
-				newItemProcessor: newItemProcessor,
-				oldItemProcessor: oldItemProcessor,
+				newItemsProcessor: newItemProcessor,
+				oldItemsProcessor: oldItemProcessor,
 				moveItemProcessor: moveItemProcessor);
 		}
 
@@ -387,8 +387,8 @@ namespace ObservableComputations
 		{
 			return new ObservableComputations.CollectionProcessingVoid<TSourceItem>(
 				sourceScalar: new Computing<ObservableCollection<TSourceItem>>(getSourceExpression),
-				newItemProcessor: newItemProcessor,
-				oldItemProcessor: oldItemProcessor,
+				newItemsProcessor: newItemProcessor,
+				oldItemsProcessor: oldItemProcessor,
 				moveItemProcessor: moveItemProcessor);
 		}
 

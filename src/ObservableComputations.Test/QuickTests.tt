@@ -55,7 +55,7 @@ namespace ObservableComputations.Test
 		{
 <#
 			List<(string, string, string, string, string)> arguments = new List<(string, string, string, string, string)>();
-			var signatureArguments = extentionMethod.Arguments.Where(a => a.DefaultValue == null);
+			var signatureArguments = extentionMethod.ArgumentsWithoutDefaultValue;
 			foreach (ExtentionMethodArgument argument in signatureArguments )
 			{
 				(string, string, string, string) argumentValue = getArgumentValue(argument.Type, argument.Name, extentionMethod.Name);
@@ -71,7 +71,7 @@ namespace ObservableComputations.Test
 
 			string genericParamsValues = getTestType(extentionMethod.GenericParameters, extentionMethod.Name);
 #>
-			Consumer consumer = new Consumer();
+			OcConsumer consumer = new OcConsumer();
 			var testing = <#=arguments.First().Item2#>.<#=extentionMethod.Name#><#=genericParamsValues#>(<#=arguments.Count == 1 ? ").For(consumer);" : ""#>
 <#
 			int index = 0;

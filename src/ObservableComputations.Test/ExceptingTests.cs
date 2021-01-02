@@ -13,7 +13,7 @@ namespace ObservableComputations.Test
 	[TestFixture]
 	public class ExceptingTests
 	{
-		Consumer consumer = new Consumer();
+		OcConsumer consumer = new OcConsumer();
 
 		public class Item : INotifyPropertyChanged
 		{

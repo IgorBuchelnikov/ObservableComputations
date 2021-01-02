@@ -33,9 +33,6 @@ namespace ObservableComputations
 
 	foreach (var extentionMethodGroup in extentionMethodGroups)
 	{
-		if (extentionMethodGroup.Key == "Grouping")
-		{
-		}
 #>
 		#region <#=extentionMethodGroup.Key#>
 
@@ -50,7 +47,7 @@ namespace ObservableComputations
 		public static <#=extentionMethod.TypeName#> <#=extentionMethod.Name#><#=extentionMethod.GenericParameters#>(this
 <#
 			int index = 0;
-			var signatureArguments = extentionMethod.Arguments.Where(a => a.DefaultValue == null);
+			var signatureArguments = extentionMethod.ArgumentsWithoutDefaultValue;
 			foreach (ExtentionMethodArgument argument in signatureArguments )
 			{
 #>
@@ -59,8 +56,7 @@ namespace ObservableComputations
 				index++;
 			}
 
-#>			<#=extentionMethod.GenericConstraints#>
-		{
+#><#=extentionMethod.GenericConstraints#>		{
 			return new <#=extentionMethod.TypeName#>(
 <#
 			index = 0;

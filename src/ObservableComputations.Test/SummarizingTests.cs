@@ -9,7 +9,7 @@ namespace ObservableComputations.Test
 	[TestFixture]
 	public class SummarizingTests
 	{
-		Consumer consumer = new Consumer();
+		OcConsumer consumer = new OcConsumer();
 
 		TextFileOutput _textFileOutputLog = new TextFileOutput(@"D:\Summarizing_Deep.log");
 		TextFileOutput _textFileOutputTime = new TextFileOutput(@"D:\Summarizing_Deep_Time.log");

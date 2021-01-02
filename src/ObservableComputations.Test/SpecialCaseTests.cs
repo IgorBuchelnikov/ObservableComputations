@@ -15,7 +15,7 @@ namespace ObservableComputations.Test
 	{
 
 
-		Consumer consumer = new Consumer();
+		OcConsumer consumer = new OcConsumer();
 
 		public class Item : INotifyPropertyChanged
 		{

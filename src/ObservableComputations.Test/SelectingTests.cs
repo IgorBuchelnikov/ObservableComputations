@@ -13,7 +13,7 @@ namespace ObservableComputations.Test
 	[TestFixture]
 	public class SelectingTests
 	{
-		Consumer consumer = new Consumer();
+		OcConsumer consumer = new OcConsumer();
 
 		public class Item : INotifyPropertyChanged
 		{
@@ -62,7 +62,7 @@ namespace ObservableComputations.Test
 		{
 			ObservableCollection<Item> items = new ObservableCollection<Item>();
 
-			Consumer consumer = new Consumer();
+			OcConsumer consumer = new OcConsumer();
 			Selecting<Item, int> selecting = items.Selecting(item => item.Num).For(consumer);
 			selecting.ValidateConsistency();
 			consumer.Dispose();
@@ -85,7 +85,7 @@ namespace ObservableComputations.Test
 
 			);
 
-			Consumer consumer = new Consumer();
+			OcConsumer consumer = new OcConsumer();
 			Selecting<Item, int> selecting = items.Selecting(item => item.Num).For(consumer);
 			selecting.ValidateConsistency();
 			items[index].Num = newValue;
@@ -109,7 +109,7 @@ namespace ObservableComputations.Test
 
 			);
 
-			Consumer consumer = new Consumer();
+			OcConsumer consumer = new OcConsumer();
 			Selecting<Item, int> selecting = items.Selecting(item => item.Num).For(consumer);
 			selecting.ValidateConsistency();
 			items.RemoveAt(index);
@@ -128,7 +128,7 @@ namespace ObservableComputations.Test
 
 			);
 
-			Consumer consumer = new Consumer();
+			OcConsumer consumer = new OcConsumer();
 			Selecting<Item, int> selecting = items.Selecting(item => item.Num).For(consumer);
 			selecting.ValidateConsistency();
 			items.RemoveAt(0);
@@ -153,7 +153,7 @@ namespace ObservableComputations.Test
 
 			);
 
-			Consumer consumer = new Consumer();
+			OcConsumer consumer = new OcConsumer();
 			Selecting<Item, int> selecting = items.Selecting(item => item.Num).For(consumer);
 			selecting.ValidateConsistency();
 			items.Insert(index, new Item(newValue));
@@ -168,7 +168,7 @@ namespace ObservableComputations.Test
 			ObservableCollection<Item> items = new ObservableCollection<Item>(
 			);
 
-			Consumer consumer = new Consumer();
+			OcConsumer consumer = new OcConsumer();
 			Selecting<Item, int> selecting = items.Selecting(item => item.Num).For(consumer);
 			selecting.ValidateConsistency();
 			items.Insert(0, new Item(newValue));
@@ -193,7 +193,7 @@ namespace ObservableComputations.Test
 
 			);
 
-			Consumer consumer = new Consumer();
+			OcConsumer consumer = new OcConsumer();
 			Selecting<Item, int> selecting = items.Selecting(item => item.Num).For(consumer);
 			selecting.ValidateConsistency();
 			items.Move(oldIndex, newIndex);
@@ -218,7 +218,7 @@ namespace ObservableComputations.Test
 
 			);
 
-			Consumer consumer = new Consumer();
+			OcConsumer consumer = new OcConsumer();
 			Selecting<Item, int> selecting = items.Selecting(item => item.Num).For(consumer);
 			selecting.ValidateConsistency();
 			items[index] = new Item(newValue);
@@ -242,7 +242,7 @@ namespace ObservableComputations.Test
 
 			);
 
-			Consumer consumer = new Consumer();
+			OcConsumer consumer = new OcConsumer();
 			Selecting<Item, int> selecting = items.Selecting(item => items.Selecting(i => i).Count + item.Num).For(consumer);
 
 			Assert.IsTrue(new int[]{5, 6, 7, 8, 9}.SequenceEqual(selecting));
@@ -266,7 +266,7 @@ namespace ObservableComputations.Test
 
 			);
 
-			Consumer consumer = new Consumer();
+			OcConsumer consumer = new OcConsumer();
 			Selecting<Item, Selecting<Item, Item>> selecting = items.Selecting(item => items.Selecting(i => i)).For(consumer);
 
 			consumer.Dispose();
@@ -295,7 +295,7 @@ namespace ObservableComputations.Test
 
 			);
 
-			Consumer consumer = new Consumer();
+			OcConsumer consumer = new OcConsumer();
 			Selecting<Item, int> selecting = items.Selecting(item => items.Selecting(i => item).Count + item.Num).For(consumer);
 
 			Assert.IsTrue(new int[]{5, 6, 7, 8, 9}.SequenceEqual(selecting));
@@ -323,7 +323,7 @@ namespace ObservableComputations.Test
 
 			Action action = () =>
 			{
-				Consumer consumer = new Consumer();
+				OcConsumer consumer = new OcConsumer();
 				Selecting<Item, int> selecting = items.Selecting(item => item.Num).For(consumer);
 				consumer.Dispose();
 				selectingWeakReference = new WeakReference<Selecting<Item, int>>(selecting);
@@ -364,7 +364,7 @@ namespace ObservableComputations.Test
 
 			Action action = () =>
 			{
-				Consumer consumer = new Consumer();
+				OcConsumer consumer = new OcConsumer();
 				Selecting<Item, int> selecting = items.Selecting(item => items.Selecting(i => i).Count + item.Num).For(consumer);
 				consumer.Dispose();
 				selectingWeakReference = new WeakReference<Selecting<Item, int>>(selecting);
@@ -405,7 +405,7 @@ namespace ObservableComputations.Test
 
 			Action action = () =>
 			{
-				Consumer consumer = new Consumer();
+				OcConsumer consumer = new OcConsumer();
 				Selecting<Item, int> selecting = items.Selecting(item => items.Selecting(i => item).Count + item.Num).For(consumer);
 				consumer.Dispose();
 				selectingWeakReference = new WeakReference<Selecting<Item, int>>(selecting);
@@ -446,7 +446,7 @@ namespace ObservableComputations.Test
 
 			Action action = () =>
 			{
-				Consumer consumer = new Consumer();
+				OcConsumer consumer = new OcConsumer();
 				Selecting<Item, int> selecting = items.Selecting(item => item).Selecting(item => item).Selecting(item => item.Num).For(consumer);
 				Assert.IsTrue(new int[]{0, 1, 2, 3, 4}.SequenceEqual(selecting));
 				consumer.Dispose();
@@ -488,7 +488,7 @@ namespace ObservableComputations.Test
 
 			Action action = () =>
 			{
-				Consumer consumer = new Consumer();
+				OcConsumer consumer = new OcConsumer();
 				Selecting<Item, Item> selecting1 = items.Selecting(item => item);
 				Selecting<Item, Item> selecting2 = items.Selecting(item => item);
 				Scalar<INotifyCollectionChanged> sourceScalar = new Scalar<INotifyCollectionChanged>(selecting1); 
@@ -534,7 +534,7 @@ namespace ObservableComputations.Test
 
 			Action action = () =>
 			{
-				Consumer consumer = new Consumer();
+				OcConsumer consumer = new OcConsumer();
 				Selecting<Item, Item> selecting1 = items.Selecting(item => item);
 				Selecting<Item, Item> selecting2 = items.Selecting(item => item);
 				Scalar<INotifyCollectionChanged> sourceScalar = new Scalar<INotifyCollectionChanged>(null); 

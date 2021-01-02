@@ -6,7 +6,7 @@ namespace ObservableComputations.Test
 	[TestFixture]
 	public class CollectionProcessingVoidTest
 	{
-		Consumer consumer = new Consumer();
+		OcConsumer consumer = new OcConsumer();
 
 		public class Item
 		{
@@ -14,7 +14,7 @@ namespace ObservableComputations.Test
 			public bool ProcessedAsOld;
 		}
 
-		private static CollectionProcessingVoid<Item> getCollectionProcessing(ObservableCollection<Item> items, Consumer consumer)
+		private static CollectionProcessingVoid<Item> getCollectionProcessing(ObservableCollection<Item> items, OcConsumer consumer)
 		{
 			return items.CollectionProcessing(
 				(newItems, current) =>

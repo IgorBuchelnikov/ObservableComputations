@@ -6,10 +6,10 @@ namespace ObservableComputations
 {
 	public static class DebugInfo
 	{
-		internal static ConcurrentDictionary<Thread, IComputing> _computingsExecutingUserCode = new ConcurrentDictionary<Thread, IComputing>();
-		public static IReadOnlyDictionary<Thread, IComputing> ComputingsExecutingUserCode => _computingsExecutingUserCode;
+		internal static ConcurrentDictionary<int, IComputing> _computingsExecutingUserCode = new ConcurrentDictionary<int, IComputing>();
+		public static IReadOnlyDictionary<int, IComputing> ComputingsExecutingUserCode => _computingsExecutingUserCode;
 
-		internal static ConcurrentDictionary<Thread, Stack<Invocation>> _executingOcDispatcherInvocations = new ConcurrentDictionary<Thread, Stack<Invocation>>();
-		public static IReadOnlyDictionary<Thread, Stack<Invocation>> ExecutingOcDispatcherInvocations => _executingOcDispatcherInvocations;
+		internal static ConcurrentDictionary<int, Stack<Invocation>> _executingOcDispatcherInvocations = new ConcurrentDictionary<int, Stack<Invocation>>();
+		public static IReadOnlyDictionary<int, Stack<Invocation>> ExecutingOcDispatcherInvocations => _executingOcDispatcherInvocations;
 	}
 }

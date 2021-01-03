@@ -36,11 +36,6 @@ The [ReactiveUI](https://github.com/reactiveui/ReactiveUI) library (and its [Dyn
 
 You can compare these library and ObservableComputations in action, see [ObservableComputations.Samples](https://github.com/IgorBuchelnikov/ObservableComputations.Samples).
 
-## Status
-ObservableComputations library is ready to use in production. All essential functions is implemented and covered by unit-tests. 
-
-The current version uses weak event handlers [CollectionChanged](https://docs.microsoft.com/en-us/dotnet/api/system.collections.specialized.inotifycollectionchanged.collectionchanged?view=netframework-4.8) and [PropertyChanged]( https://docs.microsoft.com/en-us/dotnet/api/system.componentmodel.inotifypropertychanged.propertychanged?view=netframework-4.8) (weak events on the subscriber side). The event is unsubscribed from the weak handler in the finalizer of the ObservableComputations class. In most cases, this mechanism works correctly, but in some cases (presumably highly loaded WPF applications) object finalizers are not called and instances of the ObservableComputations classes accumulate in the f-reachible queue, leading to memory leaks. I'm currently working on switching to strong event handlers and adding an explicit unsubscribe API.
-
 ## Unit test coverage
 
 The code is covered by unit tests by?% According to JetBrains DotCover. Does all the tests take? hours.
@@ -671,8 +666,126 @@ For the all computations having parameter of type [INotifyCollectionChanged](htt
 
 For the all computations having parameter of type  *IReadScalar*&lt;[INotifyCollectionChanged](https://docs.microsoft.com/en-us/dotnet/api/system.collections.specialized.inotifycollectionchanged?view=netframework-4.8)&gt;: null value of *IReadScalar*&lt;[INotifyCollectionChanged](https://docs.microsoft.com/en-us/dotnet/api/system.collections.specialized.inotifycollectionchanged?view=netframework-4.8)&gt;.*Value* property is treated as empty collection.
 
+## Two computation states: active and inactive
+
+In order for a computation to handle changes in its sources, it must subscribe to the PropertyChanged and CollectionChanged events of its sources. In this case, the computation is in the active state (IsActive == true). When you subscribe to an event, a link is created from the event source (computation source) to the event handler delegate. The delegate itself, in turn, refers to the object in the context of which it is executed (computation). Therefore, when active, computation sources refer to a computation. The computation also links to sources. This means that during garbage collection, an active computation can only be unloaded from memory together with its sources. In other words, in an active state, a computation can be unloaded from memory only if there are no references to either computation or sources. Sometimes situations arise when sources are needed (there are links to them), but the computation is no longer needed and must be unloaded from memory. This is only possible if the computation is unsubscribed from the PropertyChanged and CollectionChanged events of their sources. In this case, the computation is in an inactive state. In the inactive state, collection computations are empty, and scalar computations return a default value.
+
+ObservableComputations has an API for controlling computation activity. The basic idea behind this is that when someone needs a computation, it is active. If no one needs the computation, it becomes inactive. The objects that may need computations are instances of the *OcConsumer* class:
+
+```c#
+using System;
+using System.Collections.ObjectModel;
+using System.ComponentModel;
+using System.Diagnostics;
+using System.Linq;
+using ObservableComputations;
+
+namespace ObservableComputationsExamples
+{
+	public class Order : INotifyPropertyChanged
+	{
+		public event PropertyChangedEventHandler PropertyChanged;
+
+		public int Num {get; set;}
+
+		private decimal _price;
+		public decimal Price
+		{
+			get => _price;
+			set
+			{
+				_price = value;
+				PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Price)));
+			}
+		}
+	}
+
+	class Program
+	{
+		static void Main(string[] args)
+		{
+			ObservableCollection<Order> orders = 
+				new ObservableCollection<Order>(new []
+				{
+					new Order{Num = 1, Price = 15},
+					new Order{Num = 2, Price = 15},
+					new Order{Num = 3, Price = 25},
+					new Order{Num = 4, Price = 27},
+					new Order{Num = 5, Price = 30},
+					new Order{Num = 6, Price = 75},
+					new Order{Num = 7, Price = 80}
+				});
+
+			// We start using ObservableComputations here!
+			OcConsumer consumer = new OcConsumer();
+
+			Selecting<Order, decimal> highPrices = 
+				orders
+					.Filtering(o => o.Price > 25)
+                	.Selecting(o => o.Price);
+            
+            // Computations is not active
+            Debug.Assert(!highPrices.IsActive);
+            Debug.Assert(!((Filtering<Order>)highPrices.Source).IsActive);
+            
+            check(orders, highPrices); // Prints "False"
+                  
+            // Now we make computations active
+			highPrices.For(consumer); // Selecting and Filtering computations is needed for consumer
+            
+            // Computations is active
+            Debug.Assert(highPrices.IsActive);
+            Debug.Assert(((Filtering<Order>)highPrices.Source).IsActive);
+            
+            check(orders, highPrices); // Prints "True"            
+			
+			Debug.Assert(highPrices is ObservableCollection<decimal>);
+			
+			check(orders, highPrices); // Prints "True"
+
+			highPrices.CollectionChanged += (sender, eventArgs) =>
+			{
+				// see the changes (add, remove, replace, move, reset) here			
+				check(orders, highPrices); // Prints "True"
+			};
+
+			// Start the changing...
+			orders.Add(new Order{Num = 8, Price = 30});
+			orders.Add(new Order{Num = 9, Price = 10});
+			orders[0].Price = 60;
+			orders[4].Price = 10;
+			orders.Move(5, 1);
+			orders[1] = new Order{Num = 10, Price = 17};
+
+			check(orders, highPrices); // Prints "True"
+            
+			consumer.Dispose(); // the consumer no longer needs its computations
+            
+            check(orders, highPrices); // Prints "False"
+            
+            // Computations is not active
+            Debug.Assert(!highPrices.IsActive);
+            Debug.Assert(!((Filtering<Order>)highPrices.Source).IsActive);            
+            
+ 			Console.ReadLine();           
+		}
+
+		static void check(
+			ObservableCollection<Order> orders, 
+			Selecting<Order, decimal> expensiveOrders)
+		{
+			Console.WriteLine(expensiveOrders.SequenceEqual(
+				orders.Where(o => o.Price > 25).Select(o => o.Price)));
+		}
+	}
+}
+```
+
+Notice the call to the *For* extension method. This extension method can be called on all computation instances. If the source of the computation is another computation, that also becomes needed for the consumer. The *OcConsumer* class implements the [IDisposable](https://docs.microsoft.com/en-us/dotnet/api/system.idisposable?view=net-5.0) interface. When *consumer.Dispose()* is called, the *consumer* discards all of its computation. One instance of *OcConsumer* may need multiple computations. Computation may be needed for multiple instances of *OcConsume* .When all instances of *OcConsumer* abandon the computation, it becomes inactive. The above can be illustrated with a state diagram:
+![](https://raw.githubusercontent.com/IgorBuchelnikov/ObservableComputations/master/doc/Observable%20computation%20life%20cycle.png)
 
 ## Passing arguments as non-observables and observables
+
 ObservableComputations extension method arguments can be passed by two ways: as non-observables and observables.
 
 ### Passing arguments as non-observables
@@ -1664,7 +1777,7 @@ namespace ObservableComputationsExamples
 			Relation relation = new Relation{From = "Arseny", To = "Dmitry", Type = RelationType.Parent};
 			relations.Add(relation); 
 			// at this point orderedRelations has completed processing of change "relations.Add(relation);". 
-            // All deferred changes habe been processed also 
+            // All deferred changes have been processed also 
 			// so following assertion is passes
 			Debug.Assert(orderedRelations.Contains(relation.CorrespondingRelation));
 
@@ -3663,7 +3776,7 @@ Sometimes handling of every [PropertyChanged](https://docs.microsoft.com/en-us/d
 If, after instantiating the collection computation class (e.g. *Filtering*), it is expected that the collection will grow significantly, it makes sense to pass the *capacity* argument to the constructor to reserve memory for the collection.
 
 ### Use computations in background threads
-See details [here](#multithreading).
+Remember about [YGNI](https://en.wikipedia.org/wiki/You_aren%27t_gonna_need_it) whenever you want to develop design with computations in background threads. Computations in background threads in described [here](#multithreading).
 
 ### Pausing
 

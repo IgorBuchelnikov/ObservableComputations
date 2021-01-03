@@ -107,7 +107,7 @@ namespace ObservableComputations.Test
 		{
 			Random random =  new Random();
 
-			for (int i1 = 0; i1 < 10000; i1++)
+			for (int i1 = 0; i1 < 5000; i1++)
 			{
 				int itemCount = random.Next(4, 7);
 				int[] orderNums1 = new int[itemCount];
@@ -129,7 +129,7 @@ namespace ObservableComputations.Test
 		{
 			Random random =  new Random();
 
-			for (int i1 = 0; i1 < 10000; i1++)
+			for (int i1 = 0; i1 < 5000; i1++)
 			{
 				int itemCount = random.Next(4, 7);
 				//int itemCount = 3;

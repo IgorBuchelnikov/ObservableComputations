@@ -71,6 +71,7 @@ namespace ObservableComputations.Test
 			Assert.IsTrue(sourceCollection[index].ProcessedAsNew);
 			Assert.IsTrue(sourceCollection[index].ProcessedAsOld);
 			consumer.Dispose();
+
 		}
 
 		[Test, Combinatorial]
@@ -176,6 +177,35 @@ namespace ObservableComputations.Test
 			Assert.IsTrue(items[index].ProcessedAsNew);
 			Assert.IsFalse(items[index].ProcessedAsOld);
 			consumer.Dispose();
+		}	
+
+		[Test, Combinatorial]
+		public void CollectionProcessing_Dispose()
+		{
+			Item[] sourceCollection = new[]
+			{
+				new Item(),
+				new Item(),
+				new Item(),
+				new Item(),
+				new Item()
+			};
+
+			ObservableCollection<Item> items = new ObservableCollection<Item>(
+				sourceCollection);
+
+			CollectionProcessing<Item, object> collectionProcessing = getCollectionProcessing(items, consumer);
+			foreach (Item item in sourceCollection)
+			{
+				Assert.IsTrue(item.ProcessedAsNew);
+			}			
+			
+			consumer.Dispose();
+			foreach (Item item in sourceCollection)
+			{
+				Assert.IsTrue(item.ProcessedAsNew);
+				Assert.IsFalse(item.ProcessedAsOld);				
+			}
 		}	
 	}
 }

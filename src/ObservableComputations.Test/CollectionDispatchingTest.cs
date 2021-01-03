@@ -111,7 +111,7 @@ namespace ObservableComputations.Test
 		[Test]
 		public void TestCollectionDispatchingTest()
 		{
-			for (int j = 0; j < 1000000; j++)
+			for (int j = 0; j < 1000; j++)
 			{
 				OcDispatcher consuminingOcDispatcher = new OcDispatcher();
 				consuminingOcDispatcher.ThreadName = "coNSuminingOcDispatcher";

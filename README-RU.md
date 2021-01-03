@@ -667,8 +667,129 @@ public interface IReadScalar<out TValue> : System.ComponentModel.INotifyProperty
 
 
 
+## Два состояния вычисления: активное и не активное
+
+Для того чтобы вычисление обрабатывало изменения в своих источниках, оно должно быть подписано на события PropertyChanged и CollectionChanged своих источников. В этом случае вычисление находится в активном состояние (IsActive == true). При подписке на событие возникает ссылка от источника события (источника вычисления) к делегату обработчика события. Сам делегат в свою очередь ссылается на объект в контексте которого он выполняется (вычисление). Таким образом в активном состоянии источники вычисления ссылаются на вычисление. Вычисление также ссылается на источники.  Это означается, при сборке мусора в активном состоянии вычисление может выгрузиться из памяти только вместе со своими источниками. Иными словами в активном состоянии вычислении может выгрузиться из памяти только если нет ссылок ни на вычисление, ни на источники. Иногда возникает ситуации, когда источники нужны (на них есть ссылки), а вычисление уже не нужно и его необходимо выгрузить из памяти. Это возможно только, если вычисление отпишется от событий PropertyChanged и CollectionChanged своих источников. В этом случае вычисление находится в не активном состоянии. В неактивном состоянии вычисления-коллекции пусты, а вычисления-скаляры имеют значение по умолчанию.
+
+ObservableComputations имеет API для управления активностью вычислений. Основная идея этого состоит в том, что когда вычисление кому-то нужно, оно активно. Если вычисление никому не нужно, оно становится неактивным. Объектами, которые могут наждаться в вычислениях, являются экземпляры класса *OcConsumer*:
+
+```c#
+using System;
+using System.Collections.ObjectModel;
+using System.ComponentModel;
+using System.Diagnostics;
+using System.Linq;
+using ObservableComputations;
+
+namespace ObservableComputationsExamples
+{
+	public class Order : INotifyPropertyChanged
+	{
+		public event PropertyChangedEventHandler PropertyChanged;
+
+		public int Num {get; set;}
+
+		private decimal _price;
+		public decimal Price
+		{
+			get => _price;
+			set
+			{
+				_price = value;
+				PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Price)));
+			}
+		}
+	}
+
+	class Program
+	{
+		static void Main(string[] args)
+		{
+			ObservableCollection<Order> orders = 
+				new ObservableCollection<Order>(new []
+				{
+					new Order{Num = 1, Price = 15},
+					new Order{Num = 2, Price = 15},
+					new Order{Num = 3, Price = 25},
+					new Order{Num = 4, Price = 27},
+					new Order{Num = 5, Price = 30},
+					new Order{Num = 6, Price = 75},
+					new Order{Num = 7, Price = 80}
+				});
+
+			// We start using ObservableComputations here!
+			OcConsumer consumer = new OcConsumer();
+
+			Selecting<Order, decimal> expensiveOrders = 
+				orders
+					.Filtering(o => o.Price > 25)
+                	.Selecting(o => o.Price);
+            
+            // Computations is not active
+            Debug.Assert(!expensiveOrders.IsActive);
+            Debug.Assert(!((Filtering<Order)expensiveOrders.Source).IsActive);
+            
+            checkFiltering(orders, expensiveOrders); // Prints "False"
+                  
+            // Now we make computations active
+			expensiveOrders.For(consumer); // Selecting and Filtering computations is needed for consumer
+            
+            // Computations is active
+            Debug.Assert(expensiveOrders.IsActive);
+            Debug.Assert(((Filtering<Order)expensiveOrders.Source).IsActive);
+            
+            checkFiltering(orders, expensiveOrders); // Prints "True"            
+			
+			Debug.Assert(expensiveOrders is ObservableCollection<Order>);
+			
+			checkFiltering(orders, expensiveOrders); // Prints "True"
+
+			expensiveOrders.CollectionChanged += (sender, eventArgs) =>
+			{
+				// see the changes (add, remove, replace, move, reset) here			
+				checkFiltering(orders, expensiveOrders); // Prints "True"
+			};
+
+			// Start the changing...
+			orders.Add(new Order{Num = 8, Price = 30});
+			orders.Add(new Order{Num = 9, Price = 10});
+			orders[0].Price = 60;
+			orders[4].Price = 10;
+			orders.Move(5, 1);
+			orders[1] = new Order{Num = 10, Price = 17};
+
+			checkFiltering(orders, expensiveOrders); // Prints "True"
+            
+			consumer.Dispose(); // the consumer no longer needs its computations
+            
+            checkFiltering(orders, expensiveOrders); // Prints "False"
+            
+            // Computations is not active
+            Debug.Assert(!expensiveOrders.IsActive);
+            Debug.Assert(!((Filtering<Order)expensiveOrders.Source).IsActive);            
+            
+ 			Console.ReadLine();           
+		}
+
+		static void checkFiltering(
+			ObservableCollection<Order> orders, 
+			Filtering<Order> expensiveOrders)
+		{
+			Console.WriteLine(expensiveOrders.SequenceEqual(
+				orders.Where(o => o.Price > 25)));
+		}
+	}
+}
+```
+
+Обратите внимание на вызов метода расширения *For*. Этот метод расширения можно вызвать для всех экземпляров вычислений. Если источником вычисления является другое вычисление, оно также становится необходимым для потребителя. 
+
+Класс *OcConsumer* реализует интерфейс [IDisposable](https://docs.microsoft.com/en-us/dotnet/api/system.idisposable?view=net-5.0). При вызове *consumer.Dispose()* *consumer* отказывается от всех свих вычислений. 
+*OcConsumer* может нуждаться в нескольких вычисления
+
 ## Передача аргументов как обозреваемых и не обозреваемых
-Аргументы [методов расширения](https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/classes-and-structs/extension-methods) ObservableComputations могут быть переданы двуми путями: как обозреваемые и как не обозреваемые.
+
+Аргументы [методов расширения](https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/classes-and-structs/extension-methods) ObservableComputations могут быть переданы двумя путями: как обозреваемые и как не обозреваемые.
 
 ### Передача аргументов как не обозреваемых
 ```csharp

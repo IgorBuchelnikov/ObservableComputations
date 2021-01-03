@@ -695,15 +695,15 @@ namespace ObservableComputations
 				{
 					if (downstreamConsumedComputings.Count == 0)
 					{
-						current.SetInitializationInProgress(true);
-						current.OnPropertyChanged(InitializationInProgressPropertyChangedEventArgs);
+						current.SetActivationInProgress(true);
+						current.OnPropertyChanged(ActivationInProgressPropertyChangedEventArgs);
 						current.SetIsActive(true);
 						current.Initialize();
 						current.AddToUpstreamComputings(current);
 						current.InitializeFromSource();
 						current.OnPropertyChanged(IsActivePropertyChangedEventArgs);
-						current.SetInitializationInProgress(false);
-						current.OnPropertyChanged(InitializationInProgressPropertyChangedEventArgs);
+						current.SetActivationInProgress(false);
+						current.OnPropertyChanged(ActivationInProgressPropertyChangedEventArgs);
 					}
 					else
 					{
@@ -736,16 +736,16 @@ namespace ObservableComputations
 
 					if (consumers.Count == 0 && downstreamConsumedComputings.Count == 0)
 					{
-						current.SetUninitializationInProgress(true);
-						current.OnPropertyChanged(UninitializationInProgressPropertyChangedEventArgs);
+						current.SetInactivationInProgress(true);
+						current.OnPropertyChanged(InactivationInProgressPropertyChangedEventArgs);
 						current.SetIsActive(false);
 						current.InitializeFromSource();
 						current.RemoveFromUpstreamComputings(current);
 						current.Uninitialize();
 
 						current.OnPropertyChanged(IsActivePropertyChangedEventArgs); 
-						current.SetUninitializationInProgress(false);
-						current.OnPropertyChanged(UninitializationInProgressPropertyChangedEventArgs);
+						current.SetInactivationInProgress(false);
+						current.OnPropertyChanged(InactivationInProgressPropertyChangedEventArgs);
 						// ReSharper disable once AccessToModifiedClosure
 						clearDeferredProcessings(deferredProcessings, 0);						
 					}
@@ -775,15 +775,15 @@ namespace ObservableComputations
 
 					if (downstreamConsumedComputings.Count == 1 && consumers.Count == 0)
 					{
-						current.SetInitializationInProgress(true);
-						current.OnPropertyChanged(InitializationInProgressPropertyChangedEventArgs);
+						current.SetActivationInProgress(true);
+						current.OnPropertyChanged(ActivationInProgressPropertyChangedEventArgs);
 						current.SetIsActive(true);
 						current.Initialize();
 						current.AddToUpstreamComputings(computing);
 						current.InitializeFromSource();
 						current.OnPropertyChanged(IsActivePropertyChangedEventArgs);
-						current.SetInitializationInProgress(false);
-						current.OnPropertyChanged(InitializationInProgressPropertyChangedEventArgs);
+						current.SetActivationInProgress(false);
+						current.OnPropertyChanged(ActivationInProgressPropertyChangedEventArgs);
 					}
 					else
 						current.AddToUpstreamComputings(computing);
@@ -813,15 +813,15 @@ namespace ObservableComputations
 
 					if (consumers.Count == 0 && downstreamConsumedComputings.Count == 0)
 					{
-						current.SetUninitializationInProgress(true);
-						current.OnPropertyChanged(UninitializationInProgressPropertyChangedEventArgs);
+						current.SetInactivationInProgress(true);
+						current.OnPropertyChanged(InactivationInProgressPropertyChangedEventArgs);
 						current.SetIsActive(false);
 						current.InitializeFromSource();
 						current.RemoveFromUpstreamComputings(computing);
 						current.Uninitialize();
 						current.OnPropertyChanged(IsActivePropertyChangedEventArgs);
-						current.SetUninitializationInProgress(false);
-						current.OnPropertyChanged(UninitializationInProgressPropertyChangedEventArgs);
+						current.SetInactivationInProgress(false);
+						current.OnPropertyChanged(InactivationInProgressPropertyChangedEventArgs);
 						// ReSharper disable once AccessToModifiedClosure
 						clearDeferredProcessings(deferredProcessings, 0);
 					}
@@ -1162,8 +1162,8 @@ namespace ObservableComputations
 		internal static readonly PropertyChangedEventArgs ResumeTypePropertyChangedEventArgs = new PropertyChangedEventArgs("ResumeType");
 		internal static readonly PropertyChangedEventArgs IsDefaultedPropertyChangedEventArgs = new PropertyChangedEventArgs("IsDefaulted");
 		internal static readonly PropertyChangedEventArgs IsDisposedPropertyChangedEventArgs = new PropertyChangedEventArgs("IsDisposed");
-		internal static readonly PropertyChangedEventArgs InitializationInProgressPropertyChangedEventArgs = new PropertyChangedEventArgs("InitializationInProgress");
-		internal static readonly PropertyChangedEventArgs UninitializationInProgressPropertyChangedEventArgs = new PropertyChangedEventArgs("UninitializationInProgress");
+		internal static readonly PropertyChangedEventArgs ActivationInProgressPropertyChangedEventArgs = new PropertyChangedEventArgs("ActivationInProgress");
+		internal static readonly PropertyChangedEventArgs InactivationInProgressPropertyChangedEventArgs = new PropertyChangedEventArgs("InactivationInProgress");
 
 	}
 }

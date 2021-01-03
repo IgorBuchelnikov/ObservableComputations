@@ -9,8 +9,8 @@ namespace ObservableComputations
 		string InstantiatingStackTrace { get; }
 		IComputing UserCodeIsCalledFrom { get; }
 		bool IsActive { get; }
-		bool InitializationInProgress {get; }
-		bool UninitializationInProgress {get; }
+		bool ActivationInProgress {get; }
+		bool InactivationInProgress {get; }
 	}
 
 	public interface IEventHandler
@@ -33,8 +33,8 @@ namespace ObservableComputations
 		void Uninitialize();
 		void OnPropertyChanged(PropertyChangedEventArgs propertyChangedEventArgs);
 		void SetIsActive(bool value);
-		void SetUninitializationInProgress(bool value);
-		void SetInitializationInProgress(bool value);
+		void SetInactivationInProgress(bool value);
+		void SetActivationInProgress(bool value);
 	}
 
 	internal interface ICanInitializeFromSource

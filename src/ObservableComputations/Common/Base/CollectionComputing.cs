@@ -420,15 +420,15 @@ namespace ObservableComputations
 
 		bool _initializationInProgress;
 		bool _uninitializationInProgress;
-		public bool InitializationInProgress => _initializationInProgress;
-		public bool UninitializationInProgress => _uninitializationInProgress;
+		public bool ActivationInProgress => _initializationInProgress;
+		public bool InactivationInProgress => _uninitializationInProgress;
 
-		void IComputingInternal.SetUninitializationInProgress(bool value)
+		void IComputingInternal.SetInactivationInProgress(bool value)
 		{
 			_uninitializationInProgress = value;
 		}
 
-		void IComputingInternal.SetInitializationInProgress(bool value)
+		void IComputingInternal.SetActivationInProgress(bool value)
 		{
 			_initializationInProgress = value;
 		}

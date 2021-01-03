@@ -30,8 +30,8 @@ namespace ObservableComputations
 		public bool IsActive => Parent.IsActive;
 
 
-		public bool InitializationInProgress => Parent.InitializationInProgress;
-		public bool UninitializationInProgress => Parent.UninitializationInProgress;
+		public bool ActivationInProgress => Parent.ActivationInProgress;
+		public bool InactivationInProgress => Parent.InactivationInProgress;
 
 		protected internal void insertItem(int index, TItem item)
 		{

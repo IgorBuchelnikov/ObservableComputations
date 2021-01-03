@@ -3122,7 +3122,7 @@ public class WpfOcOcDispatcher : IOcDispatcher
    #endregion
 }
 ```
-В этой реализации вызывается метод [System.Windows.Threading.OcDispatcher.Invoke](https://docs.microsoft.com/en-us/dotnet/api/system.windows.threading.ocDispatcher.invoke?view=netcore-3.1). В других реализациях мы вызывали [System.Windows.Threading.OcDispatcher.BeginInvoke]([System.Windows.Threading.OcDispatcher.Invoke](https://docs.microsoft.com/en-us/dotnet/api/system.windows.threading.ocDispatcher.invoke?view=netcore-3.1)). На этом варианты реализации не ограничиваются, например, вы можете использвать реализацию, которая будет буферизировать изменеия коллекции c помощью [Reactive Extensions](https://github.com/dotnet/reactive):  
+В этой реализации вызывается метод [System.Windows.Threading.OcDispatcher.Invoke](https://docs.microsoft.com/en-us/dotnet/api/system.windows.threading.Dispatcher.invoke?view=netcore-3.1). В других реализациях мы вызывали [System.Windows.Threading.OcDispatcher.BeginInvoke]([System.Windows.Threading.OcDispatcher.Invoke](https://docs.microsoft.com/en-us/dotnet/api/system.windows.threading.Dispatcher.invoke?view=netcore-3.1)). На этом варианты реализации не ограничиваются, например, вы можете использвать реализацию, которая будет буферизировать изменеия коллекции c помощью [Reactive Extensions](https://github.com/dotnet/reactive):  
 ```csharp
 public class WpfOcOcDispatcher : IOcDispatcher, IDisposable
 {

@@ -1,6 +1,5 @@
 ﻿using System;
 using System.ComponentModel;
-using System.Threading;
 
 namespace ObservableComputations
 {
@@ -13,33 +12,30 @@ namespace ObservableComputations
 
 		private readonly Action<TValue, ScalarProcessingVoid<TValue>> _newValueProcessor;
 
-		private readonly Action _changeValueAction;
-
 		[ObservableComputationsCall]
 		public ScalarProcessingVoid(
 			IReadScalar<TValue> scalar,
-			Action<TValue, ScalarProcessingVoid<TValue>> newValueProcessor,
-			bool processNow = true) : this(scalar)
+			Action<TValue, ScalarProcessingVoid<TValue>> newValueProcessor) : this(scalar)
 		{
 			_newValueProcessor = newValueProcessor;
-			TValue scalarValue = scalar.Value;
-			if (processNow) processNewValue(scalarValue);
-			setValue(scalarValue);
 		}
-
 
 		private ScalarProcessingVoid(
 			IReadScalar<TValue> scalar)
 		{
 			_scalar = scalar;
-			_scalar.PropertyChanged += handleScalarPropertyChanged;
+		}
 
-			_changeValueAction = () =>
-			{
-				TValue newValue = _scalar.Value;
-				processNewValue(newValue);
-				setValue(newValue);
-			};
+		private void setNewValue()
+		{
+			TValue newValue = _scalar.Value;
+			setNewValue(newValue);
+		}
+
+		private void setNewValue(TValue newValue)
+		{
+			processNewValue(newValue);
+			setValue(newValue);
 		}
 
 		private void handleScalarPropertyChanged(object sender, PropertyChangedEventArgs e)
@@ -47,7 +43,7 @@ namespace ObservableComputations
 			Utils.processChange(
 				sender, 
 				e, 
-				_changeValueAction,
+				setNewValue,
 				ref _isConsistent, 
 				ref _handledEventSender, 
 				ref _handledEventArgs, 
@@ -82,8 +78,19 @@ namespace ObservableComputations
 
 			if (_isActive)
 			{
+				if (_scalar is IComputing scalarComputing)
+				{
+					if (scalarComputing.IsActive) setNewValue(_scalar.Value);
+				}
+				else
+					setNewValue(_scalar.Value);
+
 				_scalar.PropertyChanged += handleScalarPropertyChanged;
 				_initializedFromSource = true;
+			}
+			else
+			{
+				setDefaultValue();
 			}
 		}
 

@@ -25556,7 +25556,7 @@ namespace ObservableComputations
 			return new ObservableComputations.ScalarPausing<TResult>(
 				scalar: scalar,
 				initialIsPaused: initialIsPaused,
-				lastChangesToApplyOnResumeCount: null);
+				lastChangesToApplyOnResumeCount: 1);
 		}
 
 		[ObservableComputationsCall]
@@ -25577,7 +25577,7 @@ namespace ObservableComputations
 			return new ObservableComputations.ScalarPausing<TResult>(
 				scalar: scalar,
 				initialIsPaused: false,
-				lastChangesToApplyOnResumeCount: null);
+				lastChangesToApplyOnResumeCount: 1);
 		}
 
 		[ObservableComputationsCall]
@@ -25600,7 +25600,7 @@ namespace ObservableComputations
 			return new ObservableComputations.ScalarPausing<TResult>(
 				scalar: new Computing<TResult>(scalar),
 				initialIsPaused: initialIsPaused,
-				lastChangesToApplyOnResumeCount: null);
+				lastChangesToApplyOnResumeCount: 1);
 		}
 
 		[ObservableComputationsCall]
@@ -25621,7 +25621,7 @@ namespace ObservableComputations
 			return new ObservableComputations.ScalarPausing<TResult>(
 				scalar: new Computing<TResult>(scalar),
 				initialIsPaused: false,
-				lastChangesToApplyOnResumeCount: null);
+				lastChangesToApplyOnResumeCount: 1);
 		}
 
 		[ObservableComputationsCall]

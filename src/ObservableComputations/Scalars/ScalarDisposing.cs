@@ -4,7 +4,7 @@ namespace ObservableComputations
 {
 	public class ScalarDisposing<TValue> : ScalarProcessingVoid<TValue> where TValue : IDisposable
 	{
-		public ScalarDisposing(IReadScalar<TValue> scalar) : base(scalar, getNewValueProcessor(), false)
+		public ScalarDisposing(IReadScalar<TValue> scalar) : base(scalar, getNewValueProcessor())
 		{
 		}
 

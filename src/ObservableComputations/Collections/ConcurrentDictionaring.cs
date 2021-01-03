@@ -6,7 +6,6 @@ using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Linq.Expressions;
-using System.Threading;
 
 namespace ObservableComputations
 {
@@ -706,6 +705,21 @@ namespace ObservableComputations
 		internal  List<IComputingInternal> _downstreamConsumedComputings = new List<IComputingInternal>();
 		protected bool _isActive;
 		public bool IsActive => _isActive;
+
+		bool _initializationInProgress;
+		bool _uninitializationInProgress;
+		public bool InitializationInProgress => _initializationInProgress;
+		public bool UninitializationInProgress => _uninitializationInProgress;
+
+		void IComputingInternal.SetUninitializationInProgress(bool value)
+		{
+			_uninitializationInProgress = value;
+		}
+
+		void IComputingInternal.SetInitializationInProgress(bool value)
+		{
+			_initializationInProgress = value;
+		}
 
 		private void handleSourceScalarValueChanged(object sender,  PropertyChangedEventArgs e)
 		{

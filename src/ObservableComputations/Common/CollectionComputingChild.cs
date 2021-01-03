@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Specialized;
-using System.Threading;
 
 namespace ObservableComputations
 {
@@ -29,6 +28,10 @@ namespace ObservableComputations
 		public object HandledEventSender => Parent.HandledEventSender;
 		public EventArgs HandledEventArgs => Parent.HandledEventArgs;
 		public bool IsActive => Parent.IsActive;
+
+
+		public bool InitializationInProgress => Parent.InitializationInProgress;
+		public bool UninitializationInProgress => Parent.UninitializationInProgress;
 
 		protected internal void insertItem(int index, TItem item)
 		{

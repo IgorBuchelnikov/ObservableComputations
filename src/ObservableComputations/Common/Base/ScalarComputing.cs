@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Threading;
 
 namespace ObservableComputations
 {
@@ -175,6 +174,21 @@ namespace ObservableComputations
 
 		protected bool _isActive;
 		public bool IsActive => _isActive;
+
+		bool _initializationInProgress;
+		bool _uninitializationInProgress;
+		public bool InitializationInProgress => _initializationInProgress;
+		public bool UninitializationInProgress => _uninitializationInProgress;
+
+		void IComputingInternal.SetUninitializationInProgress(bool value)
+		{
+			_uninitializationInProgress = value;
+		}
+
+		void IComputingInternal.SetInitializationInProgress(bool value)
+		{
+			_initializationInProgress = value;
+		}
 
 		protected abstract void initializeFromSource();
 		protected abstract void initialize();

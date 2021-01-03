@@ -25,6 +25,8 @@ namespace ObservableComputations
 
 		public bool IsDisposed => _isDisposed;
 
+		private OcConsumer _consumer = new OcConsumer("Binding consumer");
+
 		[ObservableComputationsCall]
 		public Binding(IReadScalar<TValue> sourceScalar, Action<TValue, Binding<TValue>> modifyTargetAction, bool applyNow = true)
 		{
@@ -41,6 +43,7 @@ namespace ObservableComputations
 		{
 			_modifyTargetAction = modifyTargetAction;
 			_sourceScalar = sourceScalar;
+			(_sourceScalar as IComputing)?.For(_consumer);
 
 			_gettingExpressionValueHandlePropertyChanged = (sender, args) =>
 			{
@@ -90,6 +93,7 @@ namespace ObservableComputations
 		public void Dispose()
 		{
 			_isDisposed = true;
+			_consumer.Dispose();
 			_sourceScalar.PropertyChanged -= _gettingExpressionValueHandlePropertyChanged;
 			PropertyChanged?.Invoke(this, Utils.IsDisposedPropertyChangedEventArgs);
 		}

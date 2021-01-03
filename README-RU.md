@@ -1176,8 +1176,8 @@ namespace ObservableComputationsExamples
 
 Свойства аналогичные *InsertItemRequestHandler* существуют и для других операций (remove, set, move, clear). Все свойства имеют постфикс "*RequestHandler*".
 
-## Обработка изменений результатов вычислений
-### Обработка измениний в ObservableCollection&lt;T&gt;
+## Пользовательская обработка изменений
+### Обработка изменений в ObservableCollection&lt;T&gt;
 
 Иногда возникает необходимость производить какие-либо действия 
 * с добавляемыми в коллекцию элементами
@@ -1365,8 +1365,177 @@ namespace ObservableComputationsExamples
 
 Существует также перегруженная версия метода *ScalarProcessing*, которая принимает делегат *newValueProcessor*, возвращающий не пустое значение. 
 
-## Отложенная обработка изменений в источниках
-Когда выполняется обработчик события PropetyChanged или CollectionChanged вычисления, это вычисление обрабатывает некоторое изменение источника и находится в несогласованном состоянии (IsConsistent == false). Все изменения источников, внесенные в это время, будут отложены до тех пор, пока вычисление не завершит обработку исходного изменения источника.
+### Disposing
+
+If items in your collection implements [IDisposable](https://docs.microsoft.com/en-us/dotnet/api/system.idisposable?view=net-5.0) you may need  to call [Dispose](https://docs.microsoft.com/en-us/dotnet/api/system.idisposable.dispose?view=net-5.0) method for each item leaving the collection. You may use *CollectionProcessing* to achieve this as we did in the [previous section](#change-handling-in-observablecollectiont).  Another variant is to use *CollectionDisposing* method:
+
+```c#
+using System;
+using System.Collections.ObjectModel;
+using System.ComponentModel;
+using ObservableComputations;
+
+namespace ObservableComputationsExamples
+{
+	public class Client : INotifyPropertyChanged
+	{
+		public string Name { get; set; }
+
+		private bool _online;
+
+		public bool Online
+		{
+			get => _online;
+			set
+			{
+				_online = value;
+				PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Online)));
+			}
+		}
+
+		public event PropertyChangedEventHandler PropertyChanged;
+	}
+
+	public class NetworkChannel : IDisposable
+	{
+		public NetworkChannel(string clientName)
+		{
+			ClientName = clientName;
+			Console.WriteLine($"NetworkChannel to {ClientName} has been created");
+		}
+
+		public string ClientName { get; set; }
+
+		public void Dispose()
+		{
+			Console.WriteLine($"NetworkChannel to {ClientName} has been disposed");
+		}
+	}
+
+	class Program
+	{
+		static void Main(string[] args)
+		{
+			ObservableCollection<Client> clients = new ObservableCollection<Client>(new Client[]
+			{
+				new Client(){Name  = "Sergey", Online = false},
+				new Client(){Name  = "Evgeney", Online = true},
+				new Client(){Name  = "Anatoley", Online = false}
+			});
+            
+            OcConsumer consumer = new OcConsumer();
+
+			Filtering<Client> onlineClients = clients.Filtering(c => c.Online);
+
+			onlineClients
+            .CollectionProcessing(
+				(newClients, collectionProcessing) =>
+				{
+					NetworkChannel[] networkChannels = new NetworkChannel[newClients.Length];
+					for (var index = 0; index < newClients.Length; index++)
+					{
+						Client newClient = newClients[index];
+						NetworkChannel networkChannel = new NetworkChannel(newClient.Name);
+						networkChannels[index] = networkChannel;
+					}
+
+					return networkChannels;
+				})
+            .CollectionDisposing()
+            .For(consumer);
+					
+			clients[2].Online = true;
+			clients.RemoveAt(1);
+
+			Console.ReadLine();
+            
+            consumer.Dispose();
+		}
+	}
+}
+```
+
+*ScalarDisposing* extension method allow you to dispose old values of *IReadScalar<TValue>*:
+
+```c#
+using System;
+using System.ComponentModel;
+using ObservableComputations;
+
+namespace ObservableComputationsExamples
+{
+	public class Client : INotifyPropertyChanged
+	{
+		private NetworkChannel _networkChannel;
+
+		public NetworkChannel NetworkChannel
+		{
+			get => _networkChannel;
+			set
+			{
+				_networkChannel = value;
+				PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(NetworkChannel)));
+			}
+		}
+
+		public event PropertyChangedEventHandler PropertyChanged;
+	}
+
+	public class NetworkChannel : IDisposable
+	{
+		public NetworkChannel(int num)
+		{
+			Num = num;
+			
+		}
+
+		public int Num { get; set; }
+
+		public void Open()
+		{
+			Console.WriteLine($"NetworkChannel #{Num} has been opened");
+		}
+
+		public void Dispose()
+		{
+			Console.WriteLine($"NetworkChannel #{Num} has been disposed");
+		}
+	}
+
+	class Program
+	{
+		static void Main(string[] args)
+		{
+			var networkChannel  = new NetworkChannel(1);
+			Client client = new Client() {NetworkChannel = networkChannel};
+
+			Computing<NetworkChannel> networkChannelComputing 
+				= new Computing<NetworkChannel>(() => client.NetworkChannel);
+
+			OcConsumer consumer = new OcConsumer();
+
+			networkChannelComputing.ScalarProcessing(
+				(networkChannel1, scalarProcessing) =>
+				{
+					// networkChannel1 is new NetworkChannel
+					networkChannel1.Open();
+				})
+            .ScalarDisposing()
+			.For(consumer);
+
+			client.NetworkChannel = new NetworkChannel(2);
+			client.NetworkChannel = new NetworkChannel(3);
+
+			Console.ReadLine();
+
+			consumer.Dispose();
+		}
+	}
+}
+```
+
+## Обработка накладывающихся изменений
+Когда выполняется обработчик события PropetyChanged или CollectionChanged вычисления, это вычисление обрабатывает некоторое изменение источника и находится в несогласованном состоянии (IsConsistent == false). Все изменения источников, внесенные в это время (накладывающиеся изменения), будут отложены до тех пор, пока вычисление не завершит обработку исходного изменения источника.
 
 Рассмотрим следующий код:
 
@@ -2059,6 +2228,9 @@ namespace ObservableComputationsExample
 В момент вызова метода *CollectionDispatching* происходит перечисление коллекции-источника (*Orders* или *Orders.CollectionDispatching(_ocDispatcher).Filtering(o => o.Paid)*) и подписка на её событие [CollectionChanged](https://docs.microsoft.com/en-us/dotnet/api/system.collections.specialized.inotifycollectionchanged.collectionchanged?view=netcore-3.1). При этом коллекция-источник не должна меняться. При вызове *.CollectionDispatching(_ocDispatcher)*, коллекция *Orders* не меняется. При вызове *.CollectionDispatching(wpfOcDispatcher, _ocDispatcher)* коллекция *Orders.CollectionDispatching(_ocDispatcher).Filtering(o => o.Paid)* может меняться в потоке *_ocOcDispatcher*, но так как мы передаём *_ocDispatcher* в параметр *sourceOcDispatcher*, то перечисление коллекции-источника и подписка на её событие [CollectionChanged](https://docs.microsoft.com/en-us/dotnet/api/system.collections.specialized.inotifycollectionchanged.collectionchanged?view=netcore-3.1) происходит в потоке *_ocDispatcher*, что гарантирует отсутствие изменений коллекции-источника при перечислении. Так как при вызове *.CollectionDispatching(_ocDispatcher)*, коллекция *Orders* не меняется, то передавать *wpfOcDispatcher* в параметр *sourceOcDispatcher* смысла нет, тем более что в момент вызова *.CollectionDispatching(_ocDispatcher)* мы и так находимся в потоке *wpfOcDispatcher*. В большинстве случаев излишняя передача параметра *sourceDispatcher* не приведёт к потере работоспособности, разве что немного пострадает производительность.
 Перечисление коллекции-источника происходит также в случае если [коллекция-источник передана как обозреваемый аргумент](#передача-коллекции-источника-как-обозреваемого-аргумента) и изменила своё значение.
 Обратите внимание на необходимость вызова *_ocDispatcher.Dispose()*.
+
+Обратите внимание  *DispatcherPriority.Background* iпередаётся через параметр *destinationOcDispatcherPriority* метода расшерения *CollectionDispatching* в метод *WpfOcDispatcher.Invoke*.
+
 Приведённый выше пример не является единственным вариантом проектирования. Вот ещё один вариант (XAML такой же как в предыдущем примере):
 
  ```csharp
@@ -2537,10 +2709,11 @@ namespace ObservableComputationsExample
 В этом примере при двойном щелчке мышью по неоплаченному заказу мы делаем его оплаченным. Так как свойство *Paid* в этом случае меняется в главном потоке, то мы не можем читать его в фоновом потоке *_ocOcDispatcher*. Для того чтобы читать это свойство в фоновом потоке *_ocOcDispatcher*, необходимо диспетчеризировать изменения этого сойства в этот поток. Это происходит с помощью класса *PropertyDispatching&lt;THolder, TResult&gt;*. Аналогично методу *CollectionDispatching*, конструктор класса *PropertyDispatching&lt;THolder, TResult&gt;* имеет обязательный параметр *destinationOcDispatcher* и опциональный параметр *sourceOcDispatcher*. Отличие в том, что 
 
 * вместо перчисления коллекции-источника и подписки на событие [CollectionChanged](https://docs.microsoft.com/en-us/dotnet/api/system.collections.specialized.inotifycollectionchanged.collectionchanged?view=netcore-3.1), происходит считывание значения свойства и подписка на событие [PropertyChanged](https://docs.microsoft.com/en-us/dotnet/api/system.componentmodel.inotifypropertychanged.propertychanged?view=netcore-3.1). 
-
 * значение переданное в параметр *sourceOcDispatcher*, используется для диспетчеризации изменения значения свойства (сеттер *PropertyDispatching&lt;THolder, TResult&gt;.Value*) в поток *sourceOcDispatcher*, в случае если это изменение далается в другом потоке. 
 
-  Приведённый выше пример не является единственным вариантом проектирования. Вот ещё один вариант (XAML не изменился):
+Обратите внимание как *DispatcherPriority.Background* передаётся через параметр *sourceOcDispatcherPriority* конструктора класса *PropertyDispatching* в метод *WpfOcDispatcher.Invoke*.
+
+Приведённый выше пример не является единственным вариантом проектирования. Вот ещё один вариант (XAML не изменился):
 
 ```csharp
 using System;
@@ -2943,7 +3116,12 @@ public class ThrottlingOcDispatcher : IOcDispatcher, IDisposable
 	}
 ```
 
+### Приоритизация в класса *OcDispatcher* class
+
+Класс *OcDispatcher* может выполнять приоритетную обработку переданных ему делегатов, так же как и WPFs [Dispatcher](https://docs.microsoft.com/en-us/dotnet/api/system.windows.threading.dispatcher?view=net -5,0). По умолчанию *OcDispatcher* имеет только 1 приоритет, но у конструктора этого класса есть параметр количества возможных приоритетов: *prioritiesNumber*. В предыдущих примерах вы видели, как установить приоритет пользовательской реализации интерфейса *IOcDispatcher* (*WpfOcDispatcher*) в вызовах методов диспетчеризации (*CollectionDispatching*, *ScalarDispatching*, *PropertyDispatching*). Вы можете установить приоритет для экземпляра класса *OcDispatcher* таким же образом: через параметры *destinationOcDispatcherPriority* или *sourceOcDispatcherPriority* методов диспетчеризации. Приоритет по умолчанию самый низкий: 0; Количество или возможные приоритеты *OcDispatcher* должны быть минимальными, чтобы минимизировать накладные расходы.
+
 ### Запуск в консольном приложении
+
 Предыдущие примеры были примерами WPF приложения. Аналогичные примеры можно запустить и в консольном приложении. Это может понадобиться для Unit-тестов.
 
 ```csharp
@@ -3421,6 +3599,109 @@ sinComputing: -0,5 <br>
 differingSinComputing: -0,5 <br>
 
 Иногда обработка каждого события [PropertyChanged](https://docs.microsoft.com/en-us/dotnet/api/system.componentmodel.inotifypropertychanged.propertychanged?view=netframework-4.8) занимает много времени и может подвесить пользовательский интерфейс (перерисовка, перевычисление). Используйте метод расширения Differing, чтобы уменьшить этот эффект.
+
+### Временная остановка и возобновление вычислений
+
+Если Вам необходимо произвести много изменений в исходных данных и Вы не хотите обрабатывать каждое изменение в Ваших вычислениях, Вы можете временно приостановить вычисление (поставить на паузу).
+
+```c#
+using System;
+using System.Collections.ObjectModel;
+using System.ComponentModel;
+using System.Diagnostics;
+using System.Linq;
+using ObservableComputations;
+
+namespace ObservableComputationsExamples
+{
+	public class Order : INotifyPropertyChanged
+	{
+		public event PropertyChangedEventHandler PropertyChanged;
+
+		public int Num {get; set;}
+
+		private decimal _price;
+		public decimal Price
+		{
+			get => _price;
+			set
+			{
+				_price = value;
+				PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Price)));
+			}
+		}
+	}
+
+	class Program
+	{
+		static void Main(string[] args)
+		{
+			ObservableCollection<Order> orders = 
+				new ObservableCollection<Order>(new []
+				{
+					new Order{Num = 1, Price = 15},
+					new Order{Num = 2, Price = 15},
+					new Order{Num = 3, Price = 25},
+					new Order{Num = 4, Price = 27},
+					new Order{Num = 5, Price = 30},
+					new Order{Num = 6, Price = 75},
+					new Order{Num = 7, Price = 80}
+				});
+
+			// We start using ObservableComputations here!
+			OcConsumer consumer = new OcConsumer();
+
+			CollectionPausing<Order> ordersPausing = orders.CollectionPausing();
+
+			Filtering<Order> expensiveOrders = 
+				ordersPausing
+					.Filtering(o => o.Price > 25)
+					.For(consumer); 
+			
+			Debug.Assert(expensiveOrders is ObservableCollection<Order>);
+			
+			checkFiltering(orders, expensiveOrders); // Prints "True"
+
+			expensiveOrders.CollectionChanged += (sender, eventArgs) =>
+			{
+				// see the changes (add, remove, replace, move, reset) here			
+				checkFiltering(orders, expensiveOrders); // Prints "True"
+			};
+
+			// Start the changing...
+			orders.Add(new Order{Num = 8, Price = 30});
+			orders.Add(new Order{Num = 9, Price = 10});
+
+			// Start many changes...
+			ordersPausing.IsPaused = true;
+            
+			for (int i = 10; i < 1000; i++)
+				orders.Add(new Order{Num = i, Price = 30});
+
+			checkFiltering(orders, expensiveOrders); // Prints "False"
+
+			ordersPausing.IsPaused = false;
+
+			checkFiltering(orders, expensiveOrders); // Prints "True"
+
+			Console.ReadLine();
+
+			consumer.Dispose();
+		}
+
+		static void checkFiltering(
+			ObservableCollection<Order> orders, 
+			Filtering<Order> expensiveOrders)
+		{
+			Console.WriteLine(expensiveOrders.SequenceEqual(
+				orders.Where(o => o.Price > 25)));
+		}
+	}
+}
+```
+
+Обратите внимание, что во время вызова "*ordersPausing.IsPaused = false;*" *ordersPausing* генерирует событие[CollectionChanged](https://docs.microsoft.com/en-us/dotnet/api/system.collections.specialized.inotifycollectionchanged.collectionchanged?view=net-5.0) с [NotifyCollectionChangedAction.Reset](https://docs.microsoft.com/en-us/dotnet/api/system.collections.specialized.notifycollectionchangedaction?view=net-5.0#reset). Это поведение по умолчанию. Вы можете установить значение параметра *resumeType* метода расширения *CollectionPausing* в *CollectionPausingResumeType.ReplayChanges* и вместо [NotifyCollectionChangedAction.Reset](https://docs.microsoft.com/en-us/dotnet/api/system.collections.specialized.notifycollectionchangedaction?view=net-5.0#reset) *ordersPausing* воспроизведёт всю последовательность изменений, которые были сделаны за время паузы.
+ObservableComputations также включает в себя метод расширения *ScalarPausing*. Его использование аналогично. Вместо *CollectionPausingResumeType* *ScalarPausing* позволяет установить сколько последних изменений будет воспроизведено при возобновлении. Значение по умолчанию 1. null соответствует всем изменениям.
 
 ## Советы по проектированию
 
@@ -4036,8 +4317,6 @@ namespace ObservableComputationsExamples
 В коде выше мы связываем *order.DeliveryAddress* и *assignedDeliveryCar.DestinationAddress*. *order.DeliveryAddress* является источником связывания. *assignedDeliveryCar.DestinationAddress* является целью связывания.
 
 [Метод расширения](https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/classes-and-structs/extension-methods) *Binding* расширяет *IReadScalar&lt;TValue&gt;*, экземпляр которого является источником связывания. 
-
-Для того чтобы избежать выгрузки из памяти экземпляра класса *Binding* сборщиком мусора, сохраните ссылку на него в объекте, который имеет подходящее время жизни.
 
 ## Могу ли я использовать [IList&lt;T&gt;](https://docs.microsoft.com/en-us/dotnet/api/system.collections.generic.ilist-1?view=netframework-4.8) с ObservableComputations?
 Если у Вас есть коллекция реализующая [IList&lt;T&gt;](https://docs.microsoft.com/en-us/dotnet/api/system.collections.generic.ilist-1?view=netframework-4.8), но не реализующая [INotifyColectionChanged](https://docs.microsoft.com/en-us/dotnet/api/system.collections.specialized.inotifycollectionchanged?view=netframework-4.8) (на пример [List&lt;T&gt;](https://docs.microsoft.com/en-us/dotnet/api/system.collections.generic.list-1?view=netframework-4.8)), Вы можете использовать её с ObservableComputations. См. 

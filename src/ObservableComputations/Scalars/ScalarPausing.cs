@@ -91,7 +91,7 @@ namespace ObservableComputations
 		public ScalarPausing(
 			IReadScalar<TResult> scalar,
 			bool initialIsPaused = false,
-			int? lastChangesToApplyOnResumeCount = null) : this()
+			int? lastChangesToApplyOnResumeCount = 1) : this()
 		{
 			_isPaused = initialIsPaused;
 			_lastChangesToApplyOnResumeCount = lastChangesToApplyOnResumeCount;

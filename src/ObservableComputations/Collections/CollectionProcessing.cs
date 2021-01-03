@@ -4,11 +4,10 @@ using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Linq;
-using System.Threading;
 
 namespace ObservableComputations
 {
-	public class CollectionProcessing<TSourceItem, TReturnValue> : CollectionComputing<TReturnValue>, ICollectionProcessing, IHasSourceCollections, ISourceIndexerPropertyTracker, ISourceCollectionChangeProcessor
+	public class CollectionProcessing<TSourceItem, TReturnValue> : CollectionComputing<TReturnValue>, IHasSourceCollections, ISourceIndexerPropertyTracker, ISourceCollectionChangeProcessor
 	{
 		// ReSharper disable once MemberCanBePrivate.Global
 		public IReadScalar<INotifyCollectionChanged> SourceScalar => _sourceScalar;
@@ -16,18 +15,16 @@ namespace ObservableComputations
 		// ReSharper disable once MemberCanBePrivate.Global
 		public INotifyCollectionChanged Source => _source;
 
-		public bool Initializing => _initializing;
-
 		public ReadOnlyCollection<INotifyCollectionChanged> SourceCollections => new ReadOnlyCollection<INotifyCollectionChanged>(new []{Source});
 		public ReadOnlyCollection<IReadScalar<INotifyCollectionChanged>> SourceCollectionScalars => new ReadOnlyCollection<IReadScalar<INotifyCollectionChanged>>(new []{SourceScalar});
 
-		public Func<TSourceItem[], ICollectionProcessing, TReturnValue[]> NewItemsProcessor => _newItemsProcessor;
-		public Action<TSourceItem[], ICollectionProcessing, TReturnValue[]> OldItemsProcessor => _oldItemsProcessor;
-		public Action<TSourceItem, ICollectionProcessing, TReturnValue> MoveItemProcessor => _moveItemProcessor;
+		public Func<TSourceItem[], ICollectionComputing, TReturnValue[]> NewItemsProcessor => _newItemsProcessor;
+		public Action<TSourceItem[], ICollectionComputing, TReturnValue[]> OldItemsProcessor => _oldItemsProcessor;
+		public Action<TSourceItem, ICollectionComputing, TReturnValue> MoveItemProcessor => _moveItemProcessor;
 
-		private readonly Func<TSourceItem[], ICollectionProcessing, TReturnValue[]> _newItemsProcessor;
-		private readonly Action<TSourceItem[], ICollectionProcessing, TReturnValue[]> _oldItemsProcessor;
-		private readonly Action<TSourceItem, ICollectionProcessing, TReturnValue> _moveItemProcessor;
+		private readonly Func<TSourceItem[], ICollectionComputing, TReturnValue[]> _newItemsProcessor;
+		private readonly Action<TSourceItem[], ICollectionComputing, TReturnValue[]> _oldItemsProcessor;
+		private readonly Action<TSourceItem, ICollectionComputing, TReturnValue> _moveItemProcessor;
 
 
 		private IList<TSourceItem> _sourceAsList;
@@ -42,14 +39,13 @@ namespace ObservableComputations
 		private INotifyPropertyChanged _sourceAsINotifyPropertyChanged;
 
 		private readonly ISourceCollectionChangeProcessor _thisAsSourceCollectionChangeProcessor;
-		private bool _initializing;
 
 		[ObservableComputationsCall]
 		public CollectionProcessing(
 			IReadScalar<INotifyCollectionChanged> sourceScalar,
-			Func<TSourceItem[], ICollectionProcessing, TReturnValue[]> newItemsProcessor = null,
-			Action<TSourceItem[], ICollectionProcessing, TReturnValue[]> oldItemsProcessor = null,
-			Action<TSourceItem, ICollectionProcessing, TReturnValue> moveItemProcessor = null) : this(newItemsProcessor, oldItemsProcessor, moveItemProcessor, Utils.getCapacity(sourceScalar))
+			Func<TSourceItem[], ICollectionComputing, TReturnValue[]> newItemsProcessor = null,
+			Action<TSourceItem[], ICollectionComputing, TReturnValue[]> oldItemsProcessor = null,
+			Action<TSourceItem, ICollectionComputing, TReturnValue> moveItemProcessor = null) : this(newItemsProcessor, oldItemsProcessor, moveItemProcessor, Utils.getCapacity(sourceScalar))
 		{
 			_sourceScalar = sourceScalar;
 		}
@@ -57,17 +53,17 @@ namespace ObservableComputations
 		[ObservableComputationsCall]
 		public CollectionProcessing(
 			INotifyCollectionChanged source,
-			Func<TSourceItem[], ICollectionProcessing, TReturnValue[]> newItemsProcessor = null,
-			Action<TSourceItem[], ICollectionProcessing, TReturnValue[]> oldItemsProcessor = null,
-			Action<TSourceItem, ICollectionProcessing, TReturnValue> moveItemProcessor = null) : this(newItemsProcessor, oldItemsProcessor, moveItemProcessor, Utils.getCapacity(source))
+			Func<TSourceItem[], ICollectionComputing, TReturnValue[]> newItemsProcessor = null,
+			Action<TSourceItem[], ICollectionComputing, TReturnValue[]> oldItemsProcessor = null,
+			Action<TSourceItem, ICollectionComputing, TReturnValue> moveItemProcessor = null) : this(newItemsProcessor, oldItemsProcessor, moveItemProcessor, Utils.getCapacity(source))
 		{
 			_source = source;
 		}
 
 		private CollectionProcessing(
-			Func<TSourceItem[], ICollectionProcessing, TReturnValue[]> newItemsProcessor,
-			Action<TSourceItem[], ICollectionProcessing, TReturnValue[]> oldItemsProcessor,
-			Action<TSourceItem, ICollectionProcessing, TReturnValue> moveItemProcessor, 
+			Func<TSourceItem[], ICollectionComputing, TReturnValue[]> newItemsProcessor,
+			Action<TSourceItem[], ICollectionComputing, TReturnValue[]> oldItemsProcessor,
+			Action<TSourceItem, ICollectionComputing, TReturnValue> moveItemProcessor, 
 			int capacity) : base(capacity)
 		{
 			_newItemsProcessor = newItemsProcessor;
@@ -90,7 +86,6 @@ namespace ObservableComputations
 				_sourceInitialized = false;
 			}
 
-			_initializing = true;
 			Utils.changeSource(ref _source, _sourceScalar, _downstreamConsumedComputings, _consumers, this,
 				out _sourceAsList, true);
 
@@ -119,8 +114,6 @@ namespace ObservableComputations
 
 				_sourceInitialized = true;
 			}
-
-			_initializing = false;
 		}
 
 

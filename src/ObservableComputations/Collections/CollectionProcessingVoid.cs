@@ -4,19 +4,16 @@ using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Linq;
-using System.Threading;
 
 namespace ObservableComputations
 {
-	public class CollectionProcessingVoid<TSourceItem> : CollectionComputing<TSourceItem>, ICollectionProcessing, IHasSourceCollections, ISourceIndexerPropertyTracker, ISourceCollectionChangeProcessor
+	public class CollectionProcessingVoid<TSourceItem> : CollectionComputing<TSourceItem>, IHasSourceCollections, ISourceIndexerPropertyTracker, ISourceCollectionChangeProcessor
 	{
 		// ReSharper disable once MemberCanBePrivate.Global
 		public IReadScalar<INotifyCollectionChanged> SourceScalar => _sourceScalar;
 
 		// ReSharper disable once MemberCanBePrivate.Global
 		public INotifyCollectionChanged Source => _source;
-
-		public bool Initializing => _initializing;
 
 		public ReadOnlyCollection<INotifyCollectionChanged> SourceCollections => new ReadOnlyCollection<INotifyCollectionChanged>(new []{Source});
 		public ReadOnlyCollection<IReadScalar<INotifyCollectionChanged>> SourceCollectionScalars => new ReadOnlyCollection<IReadScalar<INotifyCollectionChanged>>(new []{SourceScalar});
@@ -28,7 +25,6 @@ namespace ObservableComputations
 		private readonly Action<TSourceItem[], CollectionProcessingVoid<TSourceItem>> _newItemsProcessor;
 		private readonly Action<TSourceItem[], CollectionProcessingVoid<TSourceItem>> _oldItemsProcessor;
 		private readonly Action<TSourceItem, CollectionProcessingVoid<TSourceItem>> _moveItemProcessor;
-
 
 		private IList<TSourceItem> _sourceAsList;
 		private IHasChangeMarker _sourceAsIHasChangeMarker;
@@ -42,7 +38,6 @@ namespace ObservableComputations
 		private INotifyPropertyChanged _sourceAsINotifyPropertyChanged;
 
 		private readonly ISourceCollectionChangeProcessor _thisAsSourceCollectionChangeProcessor;
-		private bool _initializing;
 
 		[ObservableComputationsCall]
 		public CollectionProcessingVoid(
@@ -95,7 +90,6 @@ namespace ObservableComputations
 				_sourceInitialized = false;
 			}
 
-			_initializing = true;
 			Utils.changeSource(ref _source, _sourceScalar, _downstreamConsumedComputings, _consumers, this,
 				out _sourceAsList, true);
 
@@ -123,8 +117,6 @@ namespace ObservableComputations
 			 
 				_sourceInitialized = true;
 			}
-
-			_initializing = false;
 		}
 
 		private void handleSourceCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)

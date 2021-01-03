@@ -2257,7 +2257,6 @@ using System.Threading;
 using System.Windows;
 using System.Windows.Threading;
 using ObservableComputations;
-using OcDispatcher = System.Windows.Threading.OcDispatcher;
 
 namespace ObservableComputationsExample
 {
@@ -2350,7 +2349,7 @@ namespace ObservableComputationsExample
 }
 ```
 В этом примере мы грузим данные из БД в главном потоке, но фильтрация коллекции-источника *Orders* для получения оплаченных заказов (*PaidOrders*) производится в фоновом потоке.   
-Класс *ObservableComputations.OcDispatcher* очень похож на класс [System.Windows.Threading.OcDispatcher](https://docs.microsoft.com/en-us/dotnet/api/system.windows.threading.ocDispatcher?view=netcore-3.1). Класс *ObservableComputations.OcDispatcher* ассоциирован с единственным потоком. В этом потоке вы можете выполнять делегаты, вызывая методы *ObservableComputations.OcDispatcher.Invoke* и *ObservableComputations.OcDispatcher.BeginInvoke*. 
+Класс *ObservableComputations.OcDispatcher* очень похож на класс [System.Windows.Threading.Dispatcher](https://docs.microsoft.com/en-us/dotnet/api/system.windows.threading.Dispatcher?view=netcore-3.1). Класс *ObservableComputations.OcDispatcher* ассоциирован с единственным потоком. В этом потоке вы можете выполнять делегаты, вызывая методы *ObservableComputations.OcDispatcher.Invoke* и *ObservableComputations.OcDispatcher.BeginInvoke*. 
 Метод *CollectionDispatching* перенаправляет все изменения коллекции источника в поток целевого диспетчера (параметр *distinationDispatcher*). 
 В момент вызова метода *CollectionDispatching* происходит перечисление коллекции-источника (*Orders* или *Orders.CollectionDispatching(_ocDispatcher).Filtering(o => o.Paid)*) и подписка на её событие [CollectionChanged](https://docs.microsoft.com/en-us/dotnet/api/system.collections.specialized.inotifycollectionchanged.collectionchanged?view=netcore-3.1). При этом коллекция-источник не должна меняться. При вызове *.CollectionDispatching(_ocDispatcher)*, коллекция *Orders* не меняется. При вызове *.CollectionDispatching(wpfOcDispatcher, _ocDispatcher)* коллекция *Orders.CollectionDispatching(_ocDispatcher).Filtering(o => o.Paid)* может меняться в потоке *_ocOcDispatcher*, но так как мы передаём *_ocDispatcher* в параметр *sourceOcDispatcher*, то перечисление коллекции-источника и подписка на её событие [CollectionChanged](https://docs.microsoft.com/en-us/dotnet/api/system.collections.specialized.inotifycollectionchanged.collectionchanged?view=netcore-3.1) происходит в потоке *_ocDispatcher*, что гарантирует отсутствие изменений коллекции-источника при перечислении. Так как при вызове *.CollectionDispatching(_ocDispatcher)*, коллекция *Orders* не меняется, то передавать *wpfOcDispatcher* в параметр *sourceOcDispatcher* смысла нет, тем более что в момент вызова *.CollectionDispatching(_ocDispatcher)* мы и так находимся в потоке *wpfOcDispatcher*. В большинстве случаев излишняя передача параметра *sourceDispatcher* не приведёт к потере работоспособности, разве что немного пострадает производительность.
 Перечисление коллекции-источника происходит также в случае если [коллекция-источник передана как обозреваемый аргумент](#передача-коллекции-источника-как-обозреваемого-аргумента) и изменила своё значение.
@@ -2368,7 +2367,6 @@ using System.Threading;
 using System.Windows;
 using System.Windows.Threading;
 using ObservableComputations;
-using OcDispatcher = System.Windows.Threading.OcDispatcher;
 
 namespace ObservableComputationsExample
 {
@@ -2544,7 +2542,6 @@ using System.Threading;
 using System.Windows;
 using System.Windows.Threading;
 using ObservableComputations;
-using OcDispatcher = System.Windows.Threading.OcDispatcher;
 
 namespace ObservableComputationsExample
 {
@@ -3126,7 +3123,7 @@ public class WpfOcOcDispatcher : IOcDispatcher
    #endregion
 }
 ```
-В этой реализации вызывается метод [System.Windows.Threading.OcDispatcher.Invoke](https://docs.microsoft.com/en-us/dotnet/api/system.windows.threading.Dispatcher.invoke?view=netcore-3.1). В других реализациях мы вызывали [System.Windows.Threading.OcDispatcher.BeginInvoke]([System.Windows.Threading.OcDispatcher.Invoke](https://docs.microsoft.com/en-us/dotnet/api/system.windows.threading.Dispatcher.invoke?view=netcore-3.1)). На этом варианты реализации не ограничиваются, например, вы можете использвать реализацию, которая будет буферизировать изменеия коллекции c помощью [Reactive Extensions](https://github.com/dotnet/reactive):  
+В этой реализации вызывается метод [System.Windows.Threading.Dispatcher.Invoke](https://docs.microsoft.com/en-us/dotnet/api/system.windows.threading.Dispatcher.invoke?view=netcore-3.1). В других реализациях мы вызывали [System.Windows.Threading.Dispatcher.BeginInvoke]([System.Windows.Threading.Dispatcher.Invoke](https://docs.microsoft.com/en-us/dotnet/api/system.windows.threading.Dispatcher.invoke?view=netcore-3.1)). На этом варианты реализации не ограничиваются, например, вы можете использвать реализацию, которая будет буферизировать изменеия коллекции c помощью [Reactive Extensions](https://github.com/dotnet/reactive):  
 ```csharp
 public class WpfOcOcDispatcher : IOcDispatcher, IDisposable
 {

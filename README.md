@@ -1392,7 +1392,8 @@ namespace ObservableComputationsExamples
 			{
 				new Client(){Name  = "Sergey", Online = false},
 				new Client(){Name  = "Evgeney", Online = true},
-				new Client(){Name  = "Anatoley", Online = false}
+				new Client(){Name  = "Anatoley", Online = false},
+				new Client(){Name  = "Timofey", Online = true}
 			});
             
             OcConsumer consumer = new OcConsumer();
@@ -1422,9 +1423,9 @@ namespace ObservableComputationsExamples
 			clients[2].Online = true;
 			clients.RemoveAt(1);
 
-			Console.ReadLine();
-            
             consumer.Dispose();
+
+			Console.ReadLine();          
 		}
 	}
 }
@@ -1524,10 +1525,10 @@ namespace ObservableComputationsExamples
 
 			client.NetworkChannel = new NetworkChannel(2);
 			client.NetworkChannel = new NetworkChannel(3);
-            
-			Console.ReadLine();  
-            
+           
 			consumer.Dispose();
+
+			Console.ReadLine();             
 		}
 	}
 }

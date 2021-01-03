@@ -78,11 +78,12 @@ namespace ObservableComputations
 			{
 				_source.CollectionChanged -= handleSourceCollectionChanged;
 
+				if (_oldItemsProcessor != null) processOldItems(_sourceAsList.ToArray(), this.ToArray());
+
 				int count = Count;
 				for (int i = 0; i < count; i++)
 					baseRemoveItem(0);
 
-				if (_oldItemsProcessor != null) processOldItems(_sourceAsList.ToArray(), this.ToArray());
 				_sourceInitialized = false;
 			}
 

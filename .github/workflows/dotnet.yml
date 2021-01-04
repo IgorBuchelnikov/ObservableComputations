@@ -19,6 +19,8 @@ jobs:
         dotnet-version: 3.1.301
     - name: Restore dependencies
       run: dotnet restore
+    - name: Debug
+      run: pwd
     - name: Build
       run: dotnet build --no-restore
     - name: Test

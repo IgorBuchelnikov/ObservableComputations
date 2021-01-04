@@ -26,9 +26,9 @@ namespace ObservableComputations.Test
 				},
 				(oldItems, current) =>
 				{
-					foreach (Item newItem in oldItems)
+					foreach (Item oldItem in oldItems)
 					{
-						newItem.ProcessedAsOld = true;
+						oldItem.ProcessedAsOld = true;
 					}
 				}).For(consumer);
 		}
@@ -190,13 +190,14 @@ namespace ObservableComputations.Test
 			foreach (Item item in sourceCollection)
 			{
 				Assert.IsTrue(item.ProcessedAsNew);
+				Assert.IsFalse(item.ProcessedAsOld);
 			}			
 			
 			consumer.Dispose();
 			foreach (Item item in sourceCollection)
 			{
 				Assert.IsTrue(item.ProcessedAsNew);
-				Assert.IsFalse(item.ProcessedAsOld);				
+				Assert.IsTrue(item.ProcessedAsOld);				
 			}
 		}	
 	}

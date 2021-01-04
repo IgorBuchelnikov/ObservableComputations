@@ -20,8 +20,8 @@ jobs:
     - name: Debug pwd
       run: pwd    
     - name: Restore dependencies
-      run: dotnet restore
+      run: dotnet restore ./src
     - name: Build
-      run: dotnet build --no-restore
+      run: dotnet build ./src --no-restore
     - name: Test
-      run: dotnet test --no-build --verbosity normal
+      run: dotnet test ./src/ObservableComputations.Test/ObservableComputations.Test.csproj --no-build --verbosity normal

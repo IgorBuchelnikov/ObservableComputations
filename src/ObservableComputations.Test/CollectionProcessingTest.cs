@@ -198,13 +198,14 @@ namespace ObservableComputations.Test
 			foreach (Item item in sourceCollection)
 			{
 				Assert.IsTrue(item.ProcessedAsNew);
+				Assert.IsFalse(item.ProcessedAsOld);	
 			}			
 			
 			consumer.Dispose();
 			foreach (Item item in sourceCollection)
 			{
 				Assert.IsTrue(item.ProcessedAsNew);
-				Assert.IsFalse(item.ProcessedAsOld);				
+				Assert.IsTrue(item.ProcessedAsOld);				
 			}
 		}	
 	}

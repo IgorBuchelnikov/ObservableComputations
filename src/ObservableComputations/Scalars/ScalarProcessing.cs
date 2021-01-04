@@ -6,22 +6,24 @@ namespace ObservableComputations
 	public class ScalarProcessing<TValue, TReturnValue> : ScalarComputing<TReturnValue>
 	{
 		public IReadScalar<TValue> Scalar => _scalar;
-		public Func<TValue, IScalarComputing, TReturnValue, TReturnValue> NewValueProcessor => _newValueProcessor;
+		public Func<TValue, IScalarComputing, TReturnValue> NewValueProcessor => _newValueProcessor;
 
 		private readonly IReadScalar<TValue> _scalar;
 
-		private readonly Func<TValue, IScalarComputing, TReturnValue, TReturnValue> _newValueProcessor;
+		private readonly Func<TValue, IScalarComputing, TReturnValue> _newValueProcessor;
+		private readonly Action<TValue, IScalarComputing, TReturnValue> _oldValueProcessor;
 
-		private TReturnValue _returnValue;
+		private TValue _oldValue;
 
 		[ObservableComputationsCall]
 		public ScalarProcessing(
 			IReadScalar<TValue> scalar,
-			Func<TValue, IScalarComputing, TReturnValue, TReturnValue> newValueProcessor) : this(scalar)
+			Func<TValue, IScalarComputing, TReturnValue> newValueProcessor,
+			Action<TValue, IScalarComputing, TReturnValue> oldValueProcessor = null) : this(scalar)
 		{
 			_newValueProcessor = newValueProcessor;
+			_oldValueProcessor = oldValueProcessor;
 		}
-
 
 		private ScalarProcessing(
 			IReadScalar<TValue> scalar)
@@ -29,16 +31,17 @@ namespace ObservableComputations
 			_scalar = scalar;
 		}
 
-		private void setNewValue()
+		private void updateValue()
 		{
-			TValue scalarValue = _scalar.Value;
-			setNewValue(scalarValue);
+			processOldValue(_oldValue);
+			setNewValue();
 		}
 
-		private void setNewValue(TValue scalarValue)
+		private void setNewValue()
 		{
-			_returnValue = processNewValue(scalarValue);
-			setValue(_returnValue);
+			TValue newValue = _scalar.Value;
+			_oldValue = newValue;
+			setValue(processNewValue(newValue));
 		}
 
 		private void handleScalarPropertyChanged(object sender, PropertyChangedEventArgs e)
@@ -48,7 +51,7 @@ namespace ObservableComputations
 			Utils.processChange(
 				sender, 
 				e, 
-				setNewValue,
+				updateValue,
 				ref _isConsistent, 
 				ref _handledEventSender, 
 				ref _handledEventArgs, 
@@ -61,14 +64,31 @@ namespace ObservableComputations
 			if (Configuration.TrackComputingsExecutingUserCode)
 			{
 				int currentThreadId = Utils.startComputingExecutingUserCode(out IComputing computing, out _userCodeIsCalledFrom, this);
-				TReturnValue returnValue = _newValueProcessor(newValue, this, _returnValue);
+				TReturnValue returnValue = _newValueProcessor(newValue, this);
 				Utils.endComputingExecutingUserCode(computing, currentThreadId, out _userCodeIsCalledFrom);
 
 				return returnValue;
 			}
 			else
 			{
-				return _newValueProcessor(newValue, this, _returnValue);
+				return _newValueProcessor(newValue, this);
+			}
+		}
+
+		private void processOldValue(TValue oldValue)
+		{
+			if (_oldValueProcessor == null) return;
+
+			if (Configuration.TrackComputingsExecutingUserCode)
+			{
+				int currentThreadId = Utils.startComputingExecutingUserCode(out IComputing computing, out _userCodeIsCalledFrom, this);
+				_oldValueProcessor(oldValue, this, _value);
+				Utils.endComputingExecutingUserCode(computing, currentThreadId, out _userCodeIsCalledFrom);
+
+			}
+			else
+			{
+				 _oldValueProcessor(oldValue, this, _value);
 			}
 		}
 
@@ -80,7 +100,7 @@ namespace ObservableComputations
 			if (_initializedFromSource)
 			{
 				_scalar.PropertyChanged -= handleScalarPropertyChanged;
-				setNewValue(default);
+				processOldValue(_oldValue);
 				_initializedFromSource = false;
 			}
 
@@ -88,10 +108,10 @@ namespace ObservableComputations
 			{
 				if (_scalar is IComputing scalarComputing)
 				{
-					if (scalarComputing.IsActive) setNewValue(_scalar.Value);
+					if (scalarComputing.IsActive) setNewValue();
 				}
 				else
-					setNewValue(_scalar.Value);
+					setNewValue();
 
 				_scalar.PropertyChanged += handleScalarPropertyChanged;
 				_initializedFromSource = true;

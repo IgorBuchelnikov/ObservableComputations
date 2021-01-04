@@ -65,24 +65,28 @@ namespace ObservableComputations
 		#region ScalarProcessing
 		[ObservableComputationsCall]
 		public static ObservableComputations.ScalarProcessing<TValue, TReturnValue> ScalarProcessing<TValue, TReturnValue>(this
-			 ObservableComputations.IReadScalar<TValue> scalar,
-			 System.Func<TValue, IScalarComputing, TReturnValue, TReturnValue> newValueProcessor)
+			ObservableComputations.IReadScalar<TValue> scalar,
+			Func<TValue, IScalarComputing, TReturnValue> newValueProcessor,
+			Action<TValue, IScalarComputing, TReturnValue> oldValueProcessor = null)
 			
 		{
 			return new ObservableComputations.ScalarProcessing<TValue, TReturnValue>(
 				scalar: scalar,
-				newValueProcessor: newValueProcessor);
+				newValueProcessor: newValueProcessor,
+				oldValueProcessor : oldValueProcessor);
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.ScalarProcessingVoid<TValue> ScalarProcessing<TValue>(this
 			 ObservableComputations.IReadScalar<TValue> scalar,
-			 System.Action<TValue, ScalarProcessingVoid<TValue>> newValueProcessor)
+			Action<TValue, ScalarProcessingVoid<TValue>> newValueProcessor = null,
+			Action<TValue, ScalarProcessingVoid<TValue>> oldValueProcessor = null)
 			
 		{
 			return new ObservableComputations.ScalarProcessingVoid<TValue>(
 				scalar: scalar,
-				newValueProcessor: newValueProcessor);
+				newValueProcessor: newValueProcessor,
+				oldValueProcessor : oldValueProcessor);
 		}
 
 		[ObservableComputationsCall]
@@ -99,23 +103,27 @@ namespace ObservableComputations
 		[ObservableComputationsCall]
 		public static ObservableComputations.ScalarProcessing<TValue, TReturnValue> ScalarProcessing<TValue, TReturnValue>(this
 			Expression<Func<TValue>> getValueExpression,
-			System.Func<TValue, IScalarComputing, TReturnValue, TReturnValue> newValueProcessor)
+			Func<TValue, IScalarComputing, TReturnValue> newValueProcessor,
+			Action<TValue, IScalarComputing, TReturnValue> oldValueProcessor = null)
 			
 		{
 			return new ObservableComputations.ScalarProcessing<TValue, TReturnValue>(
 				scalar: new Computing<TValue>(getValueExpression),
-				newValueProcessor: newValueProcessor);
+				newValueProcessor: newValueProcessor,
+				oldValueProcessor : oldValueProcessor);
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.ScalarProcessingVoid<TValue> ScalarProcessing<TValue>(this
 			Expression<Func<TValue>> getValueExpression,
-			System.Action<TValue, ScalarProcessingVoid<TValue>> newValueProcessor)
+			Action<TValue, ScalarProcessingVoid<TValue>> newValueProcessor = null,
+			Action<TValue, ScalarProcessingVoid<TValue>> oldValueProcessor = null)
 
 		{
 			return new ObservableComputations.ScalarProcessingVoid<TValue>(
 				scalar: new Computing<TValue>(getValueExpression),
-				newValueProcessor: newValueProcessor);
+				newValueProcessor: newValueProcessor,
+				oldValueProcessor : oldValueProcessor);
 		}
 		[ObservableComputationsCall]
 		public static ObservableComputations.ScalarDisposing<TValue> ScalarDisposing<TValue>(this

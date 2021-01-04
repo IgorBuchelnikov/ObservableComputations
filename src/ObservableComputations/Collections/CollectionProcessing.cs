@@ -43,7 +43,7 @@ namespace ObservableComputations
 		[ObservableComputationsCall]
 		public CollectionProcessing(
 			IReadScalar<INotifyCollectionChanged> sourceScalar,
-			Func<TSourceItem[], ICollectionComputing, TReturnValue[]> newItemsProcessor = null,
+			Func<TSourceItem[], ICollectionComputing, TReturnValue[]> newItemsProcessor,
 			Action<TSourceItem[], ICollectionComputing, TReturnValue[]> oldItemsProcessor = null,
 			Action<TSourceItem, ICollectionComputing, TReturnValue> moveItemProcessor = null) : this(newItemsProcessor, oldItemsProcessor, moveItemProcessor, Utils.getCapacity(sourceScalar))
 		{
@@ -53,7 +53,7 @@ namespace ObservableComputations
 		[ObservableComputationsCall]
 		public CollectionProcessing(
 			INotifyCollectionChanged source,
-			Func<TSourceItem[], ICollectionComputing, TReturnValue[]> newItemsProcessor = null,
+			Func<TSourceItem[], ICollectionComputing, TReturnValue[]> newItemsProcessor,
 			Action<TSourceItem[], ICollectionComputing, TReturnValue[]> oldItemsProcessor = null,
 			Action<TSourceItem, ICollectionComputing, TReturnValue> moveItemProcessor = null) : this(newItemsProcessor, oldItemsProcessor, moveItemProcessor, Utils.getCapacity(source))
 		{
@@ -149,7 +149,7 @@ namespace ObservableComputations
 				case NotifyCollectionChangedAction.Add:
 					int newStartingIndex = e.NewStartingIndex;
 					TSourceItem addedItem = (TSourceItem) e.NewItems[0];
-					TReturnValue returnValue = _newItemsProcessor != null ? processNewItems(new []{addedItem})[0] : default(TReturnValue);
+					TReturnValue returnValue = processNewItems(new []{addedItem})[0];
 					baseInsertItem(newStartingIndex, returnValue);
 					raiseConsistencyRestored();
 					break;
@@ -166,7 +166,7 @@ namespace ObservableComputations
 					TSourceItem newItem = _sourceAsList[newStartingIndex1];
 					TReturnValue returnValueOld = this[newStartingIndex1];
 
-					TReturnValue returnValue2 = _newItemsProcessor != null ? processNewItems(new []{newItem})[0] : default;
+					TReturnValue returnValue2 = processNewItems(new []{newItem})[0];
 					baseSetItem(newStartingIndex1, returnValue2);
 					if (_oldItemsProcessor != null) processOldItems(new []{oldItem}, new []{returnValueOld});
 					break;

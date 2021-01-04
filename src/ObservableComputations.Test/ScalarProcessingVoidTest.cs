@@ -10,6 +10,7 @@ namespace ObservableComputations.Test
 		public class Item
 		{
 			public bool ProcessedAsNew;
+			public bool ProcessedAsOld;
 		}
 
 
@@ -18,15 +19,26 @@ namespace ObservableComputations.Test
 		{
 			Item item = new Item();
 			Scalar<Item> itemScalar = new Scalar<Item>(item);
-			itemScalar.ScalarProcessing((i, current) =>
-			{
-				i.ProcessedAsNew = true;
-			}).For(consumer);
+			itemScalar.ScalarProcessing(
+				(newItem, current) =>
+				{
+					newItem.ProcessedAsNew = true;
+				},
+				(oldItem, current) =>
+				{
+					oldItem.ProcessedAsOld = true;
+				}).For(consumer);
 			Assert.IsTrue(item.ProcessedAsNew);
-			item = new Item();
-			itemScalar.Change(item);
-			itemScalar.Change(item);
+			Item newItem1 = new Item();
+			itemScalar.Change(newItem1);
+			Assert.IsTrue(item.ProcessedAsNew);
+			Assert.IsTrue(item.ProcessedAsOld);
+			Assert.IsTrue(newItem1.ProcessedAsNew);
 			consumer.Dispose();
+			Assert.IsTrue(item.ProcessedAsNew);
+			Assert.IsTrue(item.ProcessedAsOld);
+			Assert.IsTrue(newItem1.ProcessedAsNew);
+			Assert.IsTrue(newItem1.ProcessedAsOld);
 		}
 	}
 }

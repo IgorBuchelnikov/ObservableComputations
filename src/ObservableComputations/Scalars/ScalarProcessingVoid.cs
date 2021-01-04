@@ -7,17 +7,21 @@ namespace ObservableComputations
 	{
 		public IReadScalar<TValue> Scalar => _scalar;
 		public Action<TValue, ScalarProcessingVoid<TValue>> NewValueProcessor => _newValueProcessor;
+		public Action<TValue, ScalarProcessingVoid<TValue>> OldValueProcessor => _oldValueProcessor;
 
 		private readonly IReadScalar<TValue> _scalar;
 
 		private readonly Action<TValue, ScalarProcessingVoid<TValue>> _newValueProcessor;
+		private readonly Action<TValue, ScalarProcessingVoid<TValue>> _oldValueProcessor;
 
 		[ObservableComputationsCall]
 		public ScalarProcessingVoid(
 			IReadScalar<TValue> scalar,
-			Action<TValue, ScalarProcessingVoid<TValue>> newValueProcessor) : this(scalar)
+			Action<TValue, ScalarProcessingVoid<TValue>> newValueProcessor = null,
+			Action<TValue, ScalarProcessingVoid<TValue>> oldValueProcessor = null) : this(scalar)
 		{
 			_newValueProcessor = newValueProcessor;
+			_oldValueProcessor = oldValueProcessor;
 		}
 
 		private ScalarProcessingVoid(
@@ -26,24 +30,26 @@ namespace ObservableComputations
 			_scalar = scalar;
 		}
 
+		private void updateValue()
+		{
+			processOldValue(_value);
+			setNewValue();
+		}
+
 		private void setNewValue()
 		{
 			TValue newValue = _scalar.Value;
-			setNewValue(newValue);
+			setValue(newValue);
+			processNewValue(newValue);
 		}
 
-		private void setNewValue(TValue newValue)
-		{
-			processNewValue(newValue);
-			setValue(newValue);
-		}
 
 		private void handleScalarPropertyChanged(object sender, PropertyChangedEventArgs e)
 		{
 			Utils.processChange(
 				sender, 
 				e, 
-				setNewValue,
+				updateValue,
 				ref _isConsistent, 
 				ref _handledEventSender, 
 				ref _handledEventArgs, 
@@ -53,6 +59,8 @@ namespace ObservableComputations
 
 		private void processNewValue(TValue newValue)
 		{
+			if (_newValueProcessor ==  null) return;
+
 			if (Configuration.TrackComputingsExecutingUserCode)
 			{
 				int currentThreadId = Utils.startComputingExecutingUserCode(out IComputing computing, out _userCodeIsCalledFrom, this);
@@ -65,6 +73,22 @@ namespace ObservableComputations
 			}
 		}
 
+		private void processOldValue(TValue oldValue)
+		{
+			if (_oldValueProcessor ==  null) return;
+
+			if (Configuration.TrackComputingsExecutingUserCode)
+			{
+				int currentThreadId = Utils.startComputingExecutingUserCode(out IComputing computing, out _userCodeIsCalledFrom, this);
+				_oldValueProcessor(oldValue, this);
+				Utils.endComputingExecutingUserCode(computing, currentThreadId, out _userCodeIsCalledFrom);
+			}
+			else
+			{
+				_oldValueProcessor(oldValue, this);
+			}
+		}
+
 		private bool _initializedFromSource;
 		#region Overrides of ScalarComputing<TResult>
 
@@ -73,7 +97,7 @@ namespace ObservableComputations
 			if (_initializedFromSource)
 			{
 				_scalar.PropertyChanged -= handleScalarPropertyChanged;
-				setNewValue(default);
+				processOldValue(_value);
 				_initializedFromSource = false;
 			}
 
@@ -81,10 +105,10 @@ namespace ObservableComputations
 			{
 				if (_scalar is IComputing scalarComputing)
 				{
-					if (scalarComputing.IsActive) setNewValue(_scalar.Value);
+					if (scalarComputing.IsActive) setNewValue();
 				}
 				else
-					setNewValue(_scalar.Value);
+					setNewValue();
 
 				_scalar.PropertyChanged += handleScalarPropertyChanged;
 				_initializedFromSource = true;

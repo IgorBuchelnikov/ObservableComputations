@@ -19,7 +19,7 @@ ObservableComputations is not analog of [Reactive Extensions](https://github.com
 * [Reactive Extensions](https://github.com/dotnet/reactive) library provides a stream of events. ObservableComputations library provides not only the stream of data change events but currently computed data.
 
 Some of the tasks that you solved using [Reactive Extensions](https://github.com/dotnet/reactive) are now easier and more efficient to solve using ObservableComputations. You can use ObservableComputations separately or in cooperation with [Reactive Extensions](https://github.com/dotnet/reactive). Observable Computations will not replace [Reactive Extensions](https://github.com/dotnet/reactive):
-* when time-related processing of events (Throttle, Buffer) needed. ObservableComputation allows you to implement time-related handling of [CollectionChanged](https://docs.microsoft.com/en-us/dotnet/api/system.collections.specialized.inotifycollectionchanged.collectionchanged?view=netframework-4.8) and [PropertyChanged](https://docs.microsoft.com/en-us/dotnet/api/system.componentmodel.inotifypropertychanged.propertychanged?view=netframework-4.8) events by cooperation with [Reactive Extensions](https://github.com/dotnet/reactive) (see the example [here](#variants-of-the-implementation-of-the-iocDispatcher-interface-and-other-similar-interfaces));
+* when time-related processing of events (Throttle, Buffer) needed. ObservableComputations allow you to implement time-related handling of [CollectionChanged](https://docs.microsoft.com/en-us/dotnet/api/system.collections.specialized.inotifycollectionchanged.collectionchanged?view=netframework-4.8) and [PropertyChanged](https://docs.microsoft.com/en-us/dotnet/api/system.componentmodel.inotifypropertychanged.propertychanged?view=netframework-4.8) events by cooperation with [Reactive Extensions](https://github.com/dotnet/reactive) (see the example [here](#variants-of-the-implementation-of-the-iocDispatcher-interface-and-other-similar-interfaces));
 * when processing events not related to data (for example, keystrokes), especially when combining these events. Example of cooperation ObservableComputations with combination [Reactive Extensions](https://github.com/dotnet/reactive) operators see [here](#isconsistent-property-and-inconsistency-exception);
 * when working with asynchronous operations ([Observable.FromAsyncPattern method](https://docs.microsoft.com/en-us/previous-versions/dotnet/reactive-extensions/hh229052(v%3Dvs.103))).
 
@@ -34,7 +34,11 @@ The [ReactiveUI](https://github.com/reactiveui/ReactiveUI) library (and its [Dyn
 * ObservableComputations is more like standard [LINQ](https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/concepts/linq/).
 * [INotifyPropertyChanged](https://docs.microsoft.com/en-us/dotnet/api/system.componentmodel.inotifypropertychanged?view=netframework-4.8) and [INotifyCollectionChanged](https://docs.microsoft.com/en-us/dotnet/api/system.collections.specialized.inotifycollectionchanged?view=netframework-4.8) interfaces are tightly integrated into Microsoft's UI platforms ([WPF](https://docs.microsoft.com/en-us/dotnet/desktop-wpf/data/data-binding-overview), [Xamarin](https://docs.microsoft.com/en-us/xamarin/xamarin-forms/app-fundamentals/data-binding/basic-bindings), [Blazor](https://demos.telerik.com/blazor-ui/grid/observable-data)).
 
-You can compare these library and ObservableComputations in action, see [ObservableComputations.Samples](https://github.com/IgorBuchelnikov/ObservableComputations.Samples).
+You can compare these libraries and ObservableComputations in action, see
+
+* [Dynamic Trader](https://github.com/IgorBuchelnikov/Dynamic.Trader),
+
+* [Samples](https://github.com/IgorBuchelnikov/ObservableComputations.Samples).
 
 ## Unit test coverage
 
@@ -44,7 +48,10 @@ The code is covered by unit tests by?% According to JetBrains DotCover. All the 
 ObservableComputations is available on [NuGet](https://www.nuget.org/packages/ObservableComputations/).
 
 ## How can I get help?
-You can [create an issue](https://github.com/IgorBuchelnikov/ObservableComputations/issues/new) or [contact me via e-mail](mailto:igor_buchelnikov_github@mail.ru).
+* [create GitHub issue](https://github.com/IgorBuchelnikov/ObservableComputations/issues/new),
+* [create GitHub discussion](https://github.com/IgorBuchelnikov/ObservableComputations/discussions/new),
+
+* [contact me via e-mail](mailto:igor_buchelnikov_github@mail.ru).
 
 ## How can I help the project?
 Documentation comments and corrections are welcome. Demo projects, blog posts, and tutorials are needed. A pretty icon is needed.

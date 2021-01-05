@@ -25,10 +25,16 @@ namespace ObservableComputations.Test
 		public void TestAggregating01()
 		{
 			IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar = getScalar<Selecting<Item, int>>(getItems().Selecting(i => i.Num));
-			(System.Func<int, int, int> aggregateFunc, System.Func<int, int, int> deaggregateFunc) funcs = ((i, r) => i + r, (i, r) => r - i);
+			System.Func<int, int, int> aggregateFunc = (i, r) => i + r;
+			System.Func<int, int, int> deaggregateFunc = (i, r) => r - i;
 			OcConsumer consumer = new OcConsumer();
 			var testing = sourceScalar.Aggregating<int, int>(
-				funcs).For(consumer);
+				aggregateFunc,
+				deaggregateFunc).For(consumer);
+
+			Assert.AreEqual(sourceScalar, testing.SourceScalar);
+			Assert.AreEqual(aggregateFunc, testing.AggregateFunc);
+			Assert.AreEqual(deaggregateFunc, testing.DeaggregateFunc);
 
 			void test()
 			{
@@ -91,10 +97,16 @@ namespace ObservableComputations.Test
 		public void TestAggregating02()
 		{
 			IReadScalar<ObservableCollection<int>> sourceScalar = getScalar<Selecting<Item, int>>(getItems().Selecting(i => i.Num));
-			(System.Func<int, int, int> aggregateFunc, System.Func<int, int, int> deaggregateFunc) funcs = ((i, r) => i + r, (i, r) => r - i);
+			System.Func<int, int, int> aggregateFunc = (i, r) => i + r;
+			System.Func<int, int, int> deaggregateFunc = (i, r) => r - i;
 			OcConsumer consumer = new OcConsumer();
 			var testing = sourceScalar.Aggregating<int, int>(
-				funcs).For(consumer);
+				aggregateFunc,
+				deaggregateFunc).For(consumer);
+
+			Assert.AreEqual(sourceScalar, testing.SourceScalar);
+			Assert.AreEqual(aggregateFunc, testing.AggregateFunc);
+			Assert.AreEqual(deaggregateFunc, testing.DeaggregateFunc);
 
 			void test()
 			{
@@ -157,10 +169,16 @@ namespace ObservableComputations.Test
 		public void TestAggregating03()
 		{
 			Selecting<Item, int> source = getItems().Selecting(i => i.Num);
-			(System.Func<int, int, int> aggregateFunc, System.Func<int, int, int> deaggregateFunc) funcs = ((i, r) => i + r, (i, r) => r - i);
+			System.Func<int, int, int> aggregateFunc = (i, r) => i + r;
+			System.Func<int, int, int> deaggregateFunc = (i, r) => r - i;
 			OcConsumer consumer = new OcConsumer();
 			var testing = source.Aggregating<int, int>(
-				funcs).For(consumer);
+				aggregateFunc,
+				deaggregateFunc).For(consumer);
+
+			Assert.AreEqual(source, testing.Source);
+			Assert.AreEqual(aggregateFunc, testing.AggregateFunc);
+			Assert.AreEqual(deaggregateFunc, testing.DeaggregateFunc);
 
 			void test()
 			{
@@ -218,10 +236,16 @@ namespace ObservableComputations.Test
 		public void TestAggregating04()
 		{
 			Selecting<Item, int> source = getItems().Selecting(i => i.Num);
-			(System.Func<int, int, int> aggregateFunc, System.Func<int, int, int> deaggregateFunc) funcs = ((i, r) => i + r, (i, r) => r - i);
+			System.Func<int, int, int> aggregateFunc = (i, r) => i + r;
+			System.Func<int, int, int> deaggregateFunc = (i, r) => r - i;
 			OcConsumer consumer = new OcConsumer();
 			var testing = source.Aggregating<int, int>(
-				funcs).For(consumer);
+				aggregateFunc,
+				deaggregateFunc).For(consumer);
+
+			Assert.AreEqual(source, testing.Source);
+			Assert.AreEqual(aggregateFunc, testing.AggregateFunc);
+			Assert.AreEqual(deaggregateFunc, testing.DeaggregateFunc);
 
 			void test()
 			{
@@ -286,6 +310,9 @@ namespace ObservableComputations.Test
 			OcConsumer consumer = new OcConsumer();
 			var testing = sourceScalar.AllComputing<Item>(
 				predicateExpression).For(consumer);
+
+			Assert.AreEqual(sourceScalar, testing.SourceScalar);
+			Assert.AreEqual(predicateExpression, testing.PredicateExpression);
 
 			void test()
 			{
@@ -353,6 +380,9 @@ namespace ObservableComputations.Test
 			var testing = sourceScalar.AllComputing<Item>(
 				predicateExpression).For(consumer);
 
+			Assert.AreEqual(sourceScalar, testing.SourceScalar);
+			Assert.AreEqual(predicateExpression, testing.PredicateExpression);
+
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -419,6 +449,9 @@ namespace ObservableComputations.Test
 			var testing = source.AllComputing<Item>(
 				predicateExpression).For(consumer);
 
+			Assert.AreEqual(source, testing.Source);
+			Assert.AreEqual(predicateExpression, testing.PredicateExpression);
+
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -479,6 +512,9 @@ namespace ObservableComputations.Test
 			OcConsumer consumer = new OcConsumer();
 			var testing = source.AllComputing<Item>(
 				predicateExpression).For(consumer);
+
+			Assert.AreEqual(source, testing.Source);
+			Assert.AreEqual(predicateExpression, testing.PredicateExpression);
 
 			void test()
 			{
@@ -543,6 +579,9 @@ namespace ObservableComputations.Test
 			OcConsumer consumer = new OcConsumer();
 			var testing = sourceScalar.AnyComputing<Item>(
 				predicateExpression).For(consumer);
+
+			Assert.AreEqual(sourceScalar, testing.SourceScalar);
+			Assert.AreEqual(predicateExpression, testing.PredicateExpression);
 
 			void test()
 			{
@@ -610,6 +649,9 @@ namespace ObservableComputations.Test
 			var testing = sourceScalar.AnyComputing<Item>(
 				predicateExpression).For(consumer);
 
+			Assert.AreEqual(sourceScalar, testing.SourceScalar);
+			Assert.AreEqual(predicateExpression, testing.PredicateExpression);
+
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -676,6 +718,9 @@ namespace ObservableComputations.Test
 			var testing = source.AnyComputing<Item>(
 				predicateExpression).For(consumer);
 
+			Assert.AreEqual(source, testing.Source);
+			Assert.AreEqual(predicateExpression, testing.PredicateExpression);
+
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -736,6 +781,9 @@ namespace ObservableComputations.Test
 			OcConsumer consumer = new OcConsumer();
 			var testing = source.AnyComputing<Item>(
 				predicateExpression).For(consumer);
+
+			Assert.AreEqual(source, testing.Source);
+			Assert.AreEqual(predicateExpression, testing.PredicateExpression);
 
 			void test()
 			{
@@ -801,6 +849,9 @@ namespace ObservableComputations.Test
 			var testing = source.Appending<Item>(
 				item).For(consumer);
 
+			Assert.AreEqual(source, testing.Source);
+			Assert.AreEqual(item, testing.Item);
+
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -862,6 +913,9 @@ namespace ObservableComputations.Test
 			var testing = source.Appending<Item>(
 				item).For(consumer);
 
+			Assert.AreEqual(source, testing.Source);
+			Assert.AreEqual(item, testing.Item);
+
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -922,6 +976,9 @@ namespace ObservableComputations.Test
 			OcConsumer consumer = new OcConsumer();
 			var testing = source.Appending<Item>(
 				itemScalar).For(consumer);
+
+			Assert.AreEqual(source, testing.Source);
+			Assert.AreEqual(itemScalar, testing.ItemScalar);
 
 			void test()
 			{
@@ -989,6 +1046,9 @@ namespace ObservableComputations.Test
 			var testing = source.Appending<Item>(
 				itemScalar).For(consumer);
 
+			Assert.AreEqual(source, testing.Source);
+			Assert.AreEqual(itemScalar, testing.ItemScalar);
+
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -1054,6 +1114,9 @@ namespace ObservableComputations.Test
 			OcConsumer consumer = new OcConsumer();
 			var testing = sourceScalar.Appending<Item>(
 				item).For(consumer);
+
+			Assert.AreEqual(sourceScalar, testing.SourceScalar);
+			Assert.AreEqual(item, testing.Item);
 
 			void test()
 			{
@@ -1121,6 +1184,9 @@ namespace ObservableComputations.Test
 			var testing = sourceScalar.Appending<Item>(
 				item).For(consumer);
 
+			Assert.AreEqual(sourceScalar, testing.SourceScalar);
+			Assert.AreEqual(item, testing.Item);
+
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -1186,6 +1252,9 @@ namespace ObservableComputations.Test
 			OcConsumer consumer = new OcConsumer();
 			var testing = sourceScalar.Appending<Item>(
 				itemScalar).For(consumer);
+
+			Assert.AreEqual(sourceScalar, testing.SourceScalar);
+			Assert.AreEqual(itemScalar, testing.ItemScalar);
 
 			void test()
 			{
@@ -1257,6 +1326,9 @@ namespace ObservableComputations.Test
 			OcConsumer consumer = new OcConsumer();
 			var testing = sourceScalar.Appending<Item>(
 				itemScalar).For(consumer);
+
+			Assert.AreEqual(sourceScalar, testing.SourceScalar);
+			Assert.AreEqual(itemScalar, testing.ItemScalar);
 
 			void test()
 			{
@@ -1330,6 +1402,8 @@ namespace ObservableComputations.Test
 			OcConsumer consumer = new OcConsumer();
 			var testing = sourceScalar.Averaging<int, double>().For(consumer);
 
+			Assert.AreEqual(sourceScalar, testing.SourceScalar);
+
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -1393,6 +1467,8 @@ namespace ObservableComputations.Test
 			IReadScalar<ObservableCollection<int>> sourceScalar = getScalar<Selecting<Item, int>>(getItems().Selecting(i => i.Num));
 			OcConsumer consumer = new OcConsumer();
 			var testing = sourceScalar.Averaging<int, double>().For(consumer);
+
+			Assert.AreEqual(sourceScalar, testing.SourceScalar);
 
 			void test()
 			{
@@ -1458,6 +1534,8 @@ namespace ObservableComputations.Test
 			OcConsumer consumer = new OcConsumer();
 			var testing = source.Averaging<int, double>().For(consumer);
 
+			Assert.AreEqual(source, testing.Source);
+
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -1516,6 +1594,8 @@ namespace ObservableComputations.Test
 			Selecting<Item, int> source = getItems().Selecting(i => i.Num);
 			OcConsumer consumer = new OcConsumer();
 			var testing = source.Averaging<int, double>().For(consumer);
+
+			Assert.AreEqual(source, testing.Source);
 
 			void test()
 			{
@@ -1578,6 +1658,8 @@ namespace ObservableComputations.Test
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
 			OcConsumer consumer = new OcConsumer();
 			var testing = sourceScalar.Casting<object>().For(consumer);
+
+			Assert.AreEqual(sourceScalar, testing.SourceScalar);
 
 			void test()
 			{
@@ -1643,6 +1725,8 @@ namespace ObservableComputations.Test
 			OcConsumer consumer = new OcConsumer();
 			var testing = source.Casting<object>().For(consumer);
 
+			Assert.AreEqual(source, testing.Source);
+
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -1701,48 +1785,65 @@ namespace ObservableComputations.Test
 		[Test]
 		public void TestConcatenating01()
 		{
-			Scalar<System.Collections.Specialized.INotifyCollectionChanged> sourcesScalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getCollectionsOfItems());
+			Scalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
 			OcConsumer consumer = new OcConsumer();
-			var testing = sourcesScalar.Concatenating<Item>().For(consumer);
+			var testing = sourceScalar.Concatenating<Item>().For(consumer);
+
+			Assert.AreEqual(sourceScalar, testing.SourceScalar);
 
 			void test()
 			{
 				testing.ValidateConsistency();
-				var sourcesScalarValue = ((ObservableCollection<ObservableCollection<Item>>)((System.Collections.Specialized.INotifyCollectionChanged)sourcesScalar.Value));
-				
-				if (sourcesScalarValue != null)
-				{
-					sourcesScalarValue.Insert(0, new ObservableCollection<Item>(new []{new Item(1, true)}));
+				var sourceScalarValue = ((ObservableCollection<Item>)((System.Collections.Specialized.INotifyCollectionChanged)sourceScalar.Value));
+
+				if (sourceScalarValue != null)
+				{		
+					sourceScalarValue.Insert(2, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
-					sourcesScalarValue.RemoveAt(1);
+					sourceScalarValue[3] = new QuickTests.Item(7, true);
 					testing.ValidateConsistency();
-					sourcesScalarValue.Move(0, 1);
+					sourceScalarValue.RemoveAt(3);
+					testing.ValidateConsistency();
+					sourceScalarValue.Move(1, 3);
+					testing.ValidateConsistency();
+					sourceScalarValue[2].Active = !sourceScalarValue[2].Active;
+					testing.ValidateConsistency();
+					sourceScalarValue[2].Num = sourceScalarValue[2].Num + 1;
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(1);
+					testing.ValidateConsistency();
+					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					sourceScalarValue.Insert(0, new QuickTests.Item(2, true));
 					testing.ValidateConsistency();
 				}
 
-
 				IList listSource;
-				listSource = ((IList)((System.Collections.Specialized.INotifyCollectionChanged)sourcesScalar.Value));
+				listSource = ((IList)((System.Collections.Specialized.INotifyCollectionChanged)sourceScalar.Value));
 				if (listSource != null)
 				{
 					listSource.Clear();
 					testing.ValidateConsistency();
 				}
 
-				if (sourcesScalarValue != null)
+				if (sourceScalarValue != null)
 				{
-					sourcesScalarValue.Insert(0, new ObservableCollection<Item>(new []{new Item(1, true), new Item(2, true), new Item(3, true), new Item(4, true), new Item(5, true)}));
-					sourcesScalarValue.Insert(0, new ObservableCollection<Item>(new []{new Item(6, true), new Item(7, true), new Item(8, true), new Item(8, true), new Item(10, true)}));
+					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
+					sourceScalarValue.Insert(1, new QuickTests.Item(2, true));
+					sourceScalarValue.Insert(2, new QuickTests.Item(3, true));
+					sourceScalarValue.Insert(3, new QuickTests.Item(3, true));
+					sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
-
 			}
 
 			test();
 
-			((Scalar<System.Collections.Specialized.INotifyCollectionChanged>)sourcesScalar).Touch();
+			((Scalar<System.Collections.Specialized.INotifyCollectionChanged>)sourceScalar).Touch();
 			test();
-			((Scalar<System.Collections.Specialized.INotifyCollectionChanged>)sourcesScalar).Change(null);
+			((Scalar<System.Collections.Specialized.INotifyCollectionChanged>)sourceScalar).Change(null);
 			test();
 			consumer.Dispose();
 		}
@@ -1750,48 +1851,65 @@ namespace ObservableComputations.Test
 		[Test]
 		public void TestConcatenating02()
 		{
-			Scalar<ObservableCollection<ObservableCollection<Item>>> sourcesScalar = getScalar<ObservableCollection<ObservableCollection<Item>>>(getCollectionsOfItems());
+			Scalar<ObservableCollection<Item>> sourceScalar = getScalar<ObservableCollection<Item>>(getItems());
 			OcConsumer consumer = new OcConsumer();
-			var testing = sourcesScalar.Concatenating<Item>().For(consumer);
+			var testing = sourceScalar.Concatenating<Item>().For(consumer);
+
+			Assert.AreEqual(sourceScalar, testing.SourceScalar);
 
 			void test()
 			{
 				testing.ValidateConsistency();
-				var sourcesScalarValue = ((ObservableCollection<ObservableCollection<Item>>)((ObservableCollection<ObservableCollection<Item>>)sourcesScalar.Value));
-				
-				if (sourcesScalarValue != null)
-				{
-					sourcesScalarValue.Insert(0, new ObservableCollection<Item>(new []{new Item(1, true)}));
+				var sourceScalarValue = ((ObservableCollection<Item>)((ObservableCollection<Item>)sourceScalar.Value));
+
+				if (sourceScalarValue != null)
+				{		
+					sourceScalarValue.Insert(2, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
-					sourcesScalarValue.RemoveAt(1);
+					sourceScalarValue[3] = new QuickTests.Item(7, true);
 					testing.ValidateConsistency();
-					sourcesScalarValue.Move(0, 1);
+					sourceScalarValue.RemoveAt(3);
+					testing.ValidateConsistency();
+					sourceScalarValue.Move(1, 3);
+					testing.ValidateConsistency();
+					sourceScalarValue[2].Active = !sourceScalarValue[2].Active;
+					testing.ValidateConsistency();
+					sourceScalarValue[2].Num = sourceScalarValue[2].Num + 1;
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(1);
+					testing.ValidateConsistency();
+					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					sourceScalarValue.Insert(0, new QuickTests.Item(2, true));
 					testing.ValidateConsistency();
 				}
 
-
 				IList listSource;
-				listSource = ((IList)((ObservableCollection<ObservableCollection<Item>>)sourcesScalar.Value));
+				listSource = ((IList)((ObservableCollection<Item>)sourceScalar.Value));
 				if (listSource != null)
 				{
 					listSource.Clear();
 					testing.ValidateConsistency();
 				}
 
-				if (sourcesScalarValue != null)
+				if (sourceScalarValue != null)
 				{
-					sourcesScalarValue.Insert(0, new ObservableCollection<Item>(new []{new Item(1, true), new Item(2, true), new Item(3, true), new Item(4, true), new Item(5, true)}));
-					sourcesScalarValue.Insert(0, new ObservableCollection<Item>(new []{new Item(6, true), new Item(7, true), new Item(8, true), new Item(8, true), new Item(10, true)}));
+					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
+					sourceScalarValue.Insert(1, new QuickTests.Item(2, true));
+					sourceScalarValue.Insert(2, new QuickTests.Item(3, true));
+					sourceScalarValue.Insert(3, new QuickTests.Item(3, true));
+					sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
-
 			}
 
 			test();
 
-			((Scalar<ObservableCollection<ObservableCollection<Item>>>)sourcesScalar).Touch();
+			((Scalar<ObservableCollection<Item>>)sourceScalar).Touch();
 			test();
-			((Scalar<ObservableCollection<ObservableCollection<Item>>>)sourcesScalar).Change(null);
+			((Scalar<ObservableCollection<Item>>)sourceScalar).Change(null);
 			test();
 			consumer.Dispose();
 		}
@@ -1799,41 +1917,58 @@ namespace ObservableComputations.Test
 		[Test]
 		public void TestConcatenating03()
 		{
-			System.Collections.Specialized.INotifyCollectionChanged sources = getCollectionsOfItems();
+			System.Collections.Specialized.INotifyCollectionChanged source = getItems();
 			OcConsumer consumer = new OcConsumer();
-			var testing = sources.Concatenating<Item>().For(consumer);
+			var testing = source.Concatenating<Item>().For(consumer);
+
+			Assert.AreEqual(source, testing.Source);
 
 			void test()
 			{
 				testing.ValidateConsistency();
-				var sourcesValue = ((ObservableCollection<ObservableCollection<Item>>)((System.Collections.Specialized.INotifyCollectionChanged)sources));
-				
-				if (sourcesValue != null)
-				{
-					sourcesValue.Insert(0, new ObservableCollection<Item>(new []{new Item(1, true)}));
+				var sourceValue = ((ObservableCollection<Item>)((System.Collections.Specialized.INotifyCollectionChanged)source));
+
+				if (sourceValue != null)
+				{		
+					sourceValue.Insert(2, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
-					sourcesValue.RemoveAt(1);
+					sourceValue[3] = new QuickTests.Item(7, true);
 					testing.ValidateConsistency();
-					sourcesValue.Move(0, 1);
+					sourceValue.RemoveAt(3);
+					testing.ValidateConsistency();
+					sourceValue.Move(1, 3);
+					testing.ValidateConsistency();
+					sourceValue[2].Active = !sourceValue[2].Active;
+					testing.ValidateConsistency();
+					sourceValue[2].Num = sourceValue[2].Num + 1;
+					testing.ValidateConsistency();
+					sourceValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceValue.RemoveAt(1);
+					testing.ValidateConsistency();
+					sourceValue.Insert(0, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					sourceValue.Insert(0, new QuickTests.Item(2, true));
 					testing.ValidateConsistency();
 				}
 
-
 				IList listSource;
-				listSource = ((IList)((System.Collections.Specialized.INotifyCollectionChanged)sources));
+				listSource = ((IList)((System.Collections.Specialized.INotifyCollectionChanged)source));
 				if (listSource != null)
 				{
 					listSource.Clear();
 					testing.ValidateConsistency();
 				}
 
-				if (sourcesValue != null)
+				if (sourceValue != null)
 				{
-					sourcesValue.Insert(0, new ObservableCollection<Item>(new []{new Item(1, true), new Item(2, true), new Item(3, true), new Item(4, true), new Item(5, true)}));
-					sourcesValue.Insert(0, new ObservableCollection<Item>(new []{new Item(6, true), new Item(7, true), new Item(8, true), new Item(8, true), new Item(10, true)}));
+					sourceValue.Insert(0, new QuickTests.Item(1, true));
+					sourceValue.Insert(1, new QuickTests.Item(2, true));
+					sourceValue.Insert(2, new QuickTests.Item(3, true));
+					sourceValue.Insert(3, new QuickTests.Item(3, true));
+					sourceValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
-
 			}
 
 			test();
@@ -1843,41 +1978,58 @@ namespace ObservableComputations.Test
 		[Test]
 		public void TestConcatenating04()
 		{
-			ObservableCollection<ObservableCollection<Item>> sources = getCollectionsOfItems();
+			ObservableCollection<Item> source = getItems();
 			OcConsumer consumer = new OcConsumer();
-			var testing = sources.Concatenating<Item>().For(consumer);
+			var testing = source.Concatenating<Item>().For(consumer);
+
+			Assert.AreEqual(source, testing.Source);
 
 			void test()
 			{
 				testing.ValidateConsistency();
-				var sourcesValue = ((ObservableCollection<ObservableCollection<Item>>)((ObservableCollection<ObservableCollection<Item>>)sources));
-				
-				if (sourcesValue != null)
-				{
-					sourcesValue.Insert(0, new ObservableCollection<Item>(new []{new Item(1, true)}));
+				var sourceValue = ((ObservableCollection<Item>)((ObservableCollection<Item>)source));
+
+				if (sourceValue != null)
+				{		
+					sourceValue.Insert(2, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
-					sourcesValue.RemoveAt(1);
+					sourceValue[3] = new QuickTests.Item(7, true);
 					testing.ValidateConsistency();
-					sourcesValue.Move(0, 1);
+					sourceValue.RemoveAt(3);
+					testing.ValidateConsistency();
+					sourceValue.Move(1, 3);
+					testing.ValidateConsistency();
+					sourceValue[2].Active = !sourceValue[2].Active;
+					testing.ValidateConsistency();
+					sourceValue[2].Num = sourceValue[2].Num + 1;
+					testing.ValidateConsistency();
+					sourceValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceValue.RemoveAt(1);
+					testing.ValidateConsistency();
+					sourceValue.Insert(0, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					sourceValue.Insert(0, new QuickTests.Item(2, true));
 					testing.ValidateConsistency();
 				}
 
-
 				IList listSource;
-				listSource = ((IList)((ObservableCollection<ObservableCollection<Item>>)sources));
+				listSource = ((IList)((ObservableCollection<Item>)source));
 				if (listSource != null)
 				{
 					listSource.Clear();
 					testing.ValidateConsistency();
 				}
 
-				if (sourcesValue != null)
+				if (sourceValue != null)
 				{
-					sourcesValue.Insert(0, new ObservableCollection<Item>(new []{new Item(1, true), new Item(2, true), new Item(3, true), new Item(4, true), new Item(5, true)}));
-					sourcesValue.Insert(0, new ObservableCollection<Item>(new []{new Item(6, true), new Item(7, true), new Item(8, true), new Item(8, true), new Item(10, true)}));
+					sourceValue.Insert(0, new QuickTests.Item(1, true));
+					sourceValue.Insert(1, new QuickTests.Item(2, true));
+					sourceValue.Insert(2, new QuickTests.Item(3, true));
+					sourceValue.Insert(3, new QuickTests.Item(3, true));
+					sourceValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
-
 			}
 
 			test();
@@ -1892,6 +2044,7 @@ namespace ObservableComputations.Test
 			OcConsumer consumer = new OcConsumer();
 			var testing = source1.Concatenating<Item>(
 				source2).For(consumer);
+
 
 			void test()
 			{
@@ -1995,6 +2148,7 @@ namespace ObservableComputations.Test
 			var testing = source1.Concatenating<Item>(
 				source2).For(consumer);
 
+
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -2096,6 +2250,7 @@ namespace ObservableComputations.Test
 			OcConsumer consumer = new OcConsumer();
 			var testing = source1.Concatenating<Item>(
 				source2).For(consumer);
+
 
 			void test()
 			{
@@ -2199,6 +2354,7 @@ namespace ObservableComputations.Test
 			var testing = source1.Concatenating<Item>(
 				source2).For(consumer);
 
+
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -2300,6 +2456,7 @@ namespace ObservableComputations.Test
 			OcConsumer consumer = new OcConsumer();
 			var testing = source1Scalar.Concatenating<Item>(
 				source2).For(consumer);
+
 
 			void test()
 			{
@@ -2408,6 +2565,7 @@ namespace ObservableComputations.Test
 			var testing = source1Scalar.Concatenating<Item>(
 				source2).For(consumer);
 
+
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -2514,6 +2672,7 @@ namespace ObservableComputations.Test
 			OcConsumer consumer = new OcConsumer();
 			var testing = source1Scalar.Concatenating<Item>(
 				source2).For(consumer);
+
 
 			void test()
 			{
@@ -2622,6 +2781,7 @@ namespace ObservableComputations.Test
 			var testing = source1Scalar.Concatenating<Item>(
 				source2).For(consumer);
 
+
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -2728,6 +2888,7 @@ namespace ObservableComputations.Test
 			OcConsumer consumer = new OcConsumer();
 			var testing = source1Scalar.Concatenating<Item>(
 				source2Scalar).For(consumer);
+
 
 			void test()
 			{
@@ -2841,6 +3002,7 @@ namespace ObservableComputations.Test
 			var testing = source1Scalar.Concatenating<Item>(
 				source2Scalar).For(consumer);
 
+
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -2952,6 +3114,7 @@ namespace ObservableComputations.Test
 			OcConsumer consumer = new OcConsumer();
 			var testing = source1Scalar.Concatenating<Item>(
 				source2Scalar).For(consumer);
+
 
 			void test()
 			{
@@ -3065,6 +3228,7 @@ namespace ObservableComputations.Test
 			var testing = source1Scalar.Concatenating<Item>(
 				source2Scalar).For(consumer);
 
+
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -3177,6 +3341,7 @@ namespace ObservableComputations.Test
 			var testing = source1.Concatenating<Item>(
 				source2Scalar).For(consumer);
 
+
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -3283,6 +3448,7 @@ namespace ObservableComputations.Test
 			OcConsumer consumer = new OcConsumer();
 			var testing = source1.Concatenating<Item>(
 				source2Scalar).For(consumer);
+
 
 			void test()
 			{
@@ -3391,6 +3557,7 @@ namespace ObservableComputations.Test
 			var testing = source1.Concatenating<Item>(
 				source2Scalar).For(consumer);
 
+
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -3497,6 +3664,7 @@ namespace ObservableComputations.Test
 			OcConsumer consumer = new OcConsumer();
 			var testing = source1.Concatenating<Item>(
 				source2Scalar).For(consumer);
+
 
 			void test()
 			{
@@ -3610,6 +3778,10 @@ namespace ObservableComputations.Test
 				itemScalar,
 				equalityComparerScalar).For(consumer);
 
+			Assert.AreEqual(sourceScalar, testing.SourceScalar);
+			Assert.AreEqual(itemScalar, testing.ItemScalar);
+			Assert.AreEqual(equalityComparerScalar, testing.EqualityComparerScalar);
+
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -3684,6 +3856,9 @@ namespace ObservableComputations.Test
 			var testing = sourceScalar.ContainsComputing<Item>(
 				itemScalar).For(consumer);
 
+			Assert.AreEqual(sourceScalar, testing.SourceScalar);
+			Assert.AreEqual(itemScalar, testing.ItemScalar);
+
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -3756,6 +3931,10 @@ namespace ObservableComputations.Test
 			var testing = sourceScalar.ContainsComputing<Item>(
 				itemScalar,
 				equalityComparerScalar).For(consumer);
+
+			Assert.AreEqual(sourceScalar, testing.SourceScalar);
+			Assert.AreEqual(itemScalar, testing.ItemScalar);
+			Assert.AreEqual(equalityComparerScalar, testing.EqualityComparerScalar);
 
 			void test()
 			{
@@ -3831,6 +4010,9 @@ namespace ObservableComputations.Test
 			var testing = sourceScalar.ContainsComputing<Item>(
 				itemScalar).For(consumer);
 
+			Assert.AreEqual(sourceScalar, testing.SourceScalar);
+			Assert.AreEqual(itemScalar, testing.ItemScalar);
+
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -3904,6 +4086,10 @@ namespace ObservableComputations.Test
 				item,
 				equalityComparerScalar).For(consumer);
 
+			Assert.AreEqual(sourceScalar, testing.SourceScalar);
+			Assert.AreEqual(item, testing.Item);
+			Assert.AreEqual(equalityComparerScalar, testing.EqualityComparerScalar);
+
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -3973,6 +4159,9 @@ namespace ObservableComputations.Test
 			var testing = sourceScalar.ContainsComputing<Item>(
 				item).For(consumer);
 
+			Assert.AreEqual(sourceScalar, testing.SourceScalar);
+			Assert.AreEqual(item, testing.Item);
+
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -4040,6 +4229,10 @@ namespace ObservableComputations.Test
 			var testing = sourceScalar.ContainsComputing<Item>(
 				item,
 				equalityComparerScalar).For(consumer);
+
+			Assert.AreEqual(sourceScalar, testing.SourceScalar);
+			Assert.AreEqual(item, testing.Item);
+			Assert.AreEqual(equalityComparerScalar, testing.EqualityComparerScalar);
 
 			void test()
 			{
@@ -4110,6 +4303,9 @@ namespace ObservableComputations.Test
 			var testing = sourceScalar.ContainsComputing<Item>(
 				item).For(consumer);
 
+			Assert.AreEqual(sourceScalar, testing.SourceScalar);
+			Assert.AreEqual(item, testing.Item);
+
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -4177,6 +4373,10 @@ namespace ObservableComputations.Test
 			var testing = sourceScalar.ContainsComputing<Item>(
 				itemScalar,
 				equalityComparer).For(consumer);
+
+			Assert.AreEqual(sourceScalar, testing.SourceScalar);
+			Assert.AreEqual(itemScalar, testing.ItemScalar);
+			Assert.AreEqual(equalityComparer, testing.EqualityComparer);
 
 			void test()
 			{
@@ -4251,6 +4451,10 @@ namespace ObservableComputations.Test
 				itemScalar,
 				equalityComparer).For(consumer);
 
+			Assert.AreEqual(sourceScalar, testing.SourceScalar);
+			Assert.AreEqual(itemScalar, testing.ItemScalar);
+			Assert.AreEqual(equalityComparer, testing.EqualityComparer);
+
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -4324,6 +4528,10 @@ namespace ObservableComputations.Test
 				item,
 				equalityComparer).For(consumer);
 
+			Assert.AreEqual(sourceScalar, testing.SourceScalar);
+			Assert.AreEqual(item, testing.Item);
+			Assert.AreEqual(equalityComparer, testing.EqualityComparer);
+
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -4392,6 +4600,10 @@ namespace ObservableComputations.Test
 				item,
 				equalityComparer).For(consumer);
 
+			Assert.AreEqual(sourceScalar, testing.SourceScalar);
+			Assert.AreEqual(item, testing.Item);
+			Assert.AreEqual(equalityComparer, testing.EqualityComparer);
+
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -4459,6 +4671,10 @@ namespace ObservableComputations.Test
 			var testing = source.ContainsComputing<Item>(
 				itemScalar,
 				equalityComparerScalar).For(consumer);
+
+			Assert.AreEqual(source, testing.Source);
+			Assert.AreEqual(itemScalar, testing.ItemScalar);
+			Assert.AreEqual(equalityComparerScalar, testing.EqualityComparerScalar);
 
 			void test()
 			{
@@ -4529,6 +4745,9 @@ namespace ObservableComputations.Test
 			var testing = source.ContainsComputing<Item>(
 				itemScalar).For(consumer);
 
+			Assert.AreEqual(source, testing.Source);
+			Assert.AreEqual(itemScalar, testing.ItemScalar);
+
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -4596,6 +4815,10 @@ namespace ObservableComputations.Test
 			var testing = source.ContainsComputing<Item>(
 				itemScalar,
 				equalityComparerScalar).For(consumer);
+
+			Assert.AreEqual(source, testing.Source);
+			Assert.AreEqual(itemScalar, testing.ItemScalar);
+			Assert.AreEqual(equalityComparerScalar, testing.EqualityComparerScalar);
 
 			void test()
 			{
@@ -4666,6 +4889,9 @@ namespace ObservableComputations.Test
 			var testing = source.ContainsComputing<Item>(
 				itemScalar).For(consumer);
 
+			Assert.AreEqual(source, testing.Source);
+			Assert.AreEqual(itemScalar, testing.ItemScalar);
+
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -4734,6 +4960,10 @@ namespace ObservableComputations.Test
 				item,
 				equalityComparerScalar).For(consumer);
 
+			Assert.AreEqual(source, testing.Source);
+			Assert.AreEqual(item, testing.Item);
+			Assert.AreEqual(equalityComparerScalar, testing.EqualityComparerScalar);
+
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -4798,6 +5028,9 @@ namespace ObservableComputations.Test
 			var testing = source.ContainsComputing<Item>(
 				item).For(consumer);
 
+			Assert.AreEqual(source, testing.Source);
+			Assert.AreEqual(item, testing.Item);
+
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -4860,6 +5093,10 @@ namespace ObservableComputations.Test
 			var testing = source.ContainsComputing<Item>(
 				item,
 				equalityComparerScalar).For(consumer);
+
+			Assert.AreEqual(source, testing.Source);
+			Assert.AreEqual(item, testing.Item);
+			Assert.AreEqual(equalityComparerScalar, testing.EqualityComparerScalar);
 
 			void test()
 			{
@@ -4925,6 +5162,9 @@ namespace ObservableComputations.Test
 			var testing = source.ContainsComputing<Item>(
 				item).For(consumer);
 
+			Assert.AreEqual(source, testing.Source);
+			Assert.AreEqual(item, testing.Item);
+
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -4987,6 +5227,10 @@ namespace ObservableComputations.Test
 			var testing = source.ContainsComputing<Item>(
 				itemScalar,
 				equalityComparer).For(consumer);
+
+			Assert.AreEqual(source, testing.Source);
+			Assert.AreEqual(itemScalar, testing.ItemScalar);
+			Assert.AreEqual(equalityComparer, testing.EqualityComparer);
 
 			void test()
 			{
@@ -5056,6 +5300,10 @@ namespace ObservableComputations.Test
 				itemScalar,
 				equalityComparer).For(consumer);
 
+			Assert.AreEqual(source, testing.Source);
+			Assert.AreEqual(itemScalar, testing.ItemScalar);
+			Assert.AreEqual(equalityComparer, testing.EqualityComparer);
+
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -5124,6 +5372,10 @@ namespace ObservableComputations.Test
 				item,
 				equalityComparer).For(consumer);
 
+			Assert.AreEqual(source, testing.Source);
+			Assert.AreEqual(item, testing.Item);
+			Assert.AreEqual(equalityComparer, testing.EqualityComparer);
+
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -5186,6 +5438,10 @@ namespace ObservableComputations.Test
 			var testing = source.ContainsComputing<Item>(
 				item,
 				equalityComparer).For(consumer);
+
+			Assert.AreEqual(source, testing.Source);
+			Assert.AreEqual(item, testing.Item);
+			Assert.AreEqual(equalityComparer, testing.EqualityComparer);
 
 			void test()
 			{
@@ -5255,6 +5511,11 @@ namespace ObservableComputations.Test
 				valueSelectorExpression,
 				equalityComparer).For(consumer);
 
+			Assert.AreEqual(sourceScalar, testing.SourceScalar);
+			Assert.AreEqual(keySelectorExpression, testing.KeySelectorExpression);
+			Assert.AreEqual(valueSelectorExpression, testing.ValueSelectorExpression);
+			Assert.AreEqual(equalityComparer, testing.EqualityComparer);
+
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -5322,6 +5583,10 @@ namespace ObservableComputations.Test
 			var testing = sourceScalar.Dictionaring<Item, int, int>(
 				keySelectorExpression,
 				valueSelectorExpression).For(consumer);
+
+			Assert.AreEqual(sourceScalar, testing.SourceScalar);
+			Assert.AreEqual(keySelectorExpression, testing.KeySelectorExpression);
+			Assert.AreEqual(valueSelectorExpression, testing.ValueSelectorExpression);
 
 			void test()
 			{
@@ -5393,6 +5658,11 @@ namespace ObservableComputations.Test
 				valueSelectorExpression,
 				equalityComparer).For(consumer);
 
+			Assert.AreEqual(sourceScalar, testing.SourceScalar);
+			Assert.AreEqual(keySelectorExpression, testing.KeySelectorExpression);
+			Assert.AreEqual(valueSelectorExpression, testing.ValueSelectorExpression);
+			Assert.AreEqual(equalityComparer, testing.EqualityComparer);
+
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -5460,6 +5730,10 @@ namespace ObservableComputations.Test
 			var testing = sourceScalar.Dictionaring<Item, int, int>(
 				keySelectorExpression,
 				valueSelectorExpression).For(consumer);
+
+			Assert.AreEqual(sourceScalar, testing.SourceScalar);
+			Assert.AreEqual(keySelectorExpression, testing.KeySelectorExpression);
+			Assert.AreEqual(valueSelectorExpression, testing.ValueSelectorExpression);
 
 			void test()
 			{
@@ -5531,6 +5805,11 @@ namespace ObservableComputations.Test
 				valueSelectorExpression,
 				equalityComparer).For(consumer);
 
+			Assert.AreEqual(source, testing.Source);
+			Assert.AreEqual(keySelectorExpression, testing.KeySelectorExpression);
+			Assert.AreEqual(valueSelectorExpression, testing.ValueSelectorExpression);
+			Assert.AreEqual(equalityComparer, testing.EqualityComparer);
+
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -5593,6 +5872,10 @@ namespace ObservableComputations.Test
 			var testing = source.Dictionaring<Item, int, int>(
 				keySelectorExpression,
 				valueSelectorExpression).For(consumer);
+
+			Assert.AreEqual(source, testing.Source);
+			Assert.AreEqual(keySelectorExpression, testing.KeySelectorExpression);
+			Assert.AreEqual(valueSelectorExpression, testing.ValueSelectorExpression);
 
 			void test()
 			{
@@ -5659,6 +5942,11 @@ namespace ObservableComputations.Test
 				valueSelectorExpression,
 				equalityComparer).For(consumer);
 
+			Assert.AreEqual(source, testing.Source);
+			Assert.AreEqual(keySelectorExpression, testing.KeySelectorExpression);
+			Assert.AreEqual(valueSelectorExpression, testing.ValueSelectorExpression);
+			Assert.AreEqual(equalityComparer, testing.EqualityComparer);
+
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -5721,6 +6009,10 @@ namespace ObservableComputations.Test
 			var testing = source.Dictionaring<Item, int, int>(
 				keySelectorExpression,
 				valueSelectorExpression).For(consumer);
+
+			Assert.AreEqual(source, testing.Source);
+			Assert.AreEqual(keySelectorExpression, testing.KeySelectorExpression);
+			Assert.AreEqual(valueSelectorExpression, testing.ValueSelectorExpression);
 
 			void test()
 			{
@@ -5786,6 +6078,11 @@ namespace ObservableComputations.Test
 				keySelectorExpression,
 				valueSelectorExpression,
 				equalityComparerScalar).For(consumer);
+
+			Assert.AreEqual(sourceScalar, testing.SourceScalar);
+			Assert.AreEqual(keySelectorExpression, testing.KeySelectorExpression);
+			Assert.AreEqual(valueSelectorExpression, testing.ValueSelectorExpression);
+			Assert.AreEqual(equalityComparerScalar, testing.EqualityComparerScalar);
 
 			void test()
 			{
@@ -5862,6 +6159,11 @@ namespace ObservableComputations.Test
 				valueSelectorExpression,
 				equalityComparerScalar).For(consumer);
 
+			Assert.AreEqual(sourceScalar, testing.SourceScalar);
+			Assert.AreEqual(keySelectorExpression, testing.KeySelectorExpression);
+			Assert.AreEqual(valueSelectorExpression, testing.ValueSelectorExpression);
+			Assert.AreEqual(equalityComparerScalar, testing.EqualityComparerScalar);
+
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -5937,6 +6239,11 @@ namespace ObservableComputations.Test
 				valueSelectorExpression,
 				equalityComparerScalar).For(consumer);
 
+			Assert.AreEqual(source, testing.Source);
+			Assert.AreEqual(keySelectorExpression, testing.KeySelectorExpression);
+			Assert.AreEqual(valueSelectorExpression, testing.ValueSelectorExpression);
+			Assert.AreEqual(equalityComparerScalar, testing.EqualityComparerScalar);
+
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -6007,6 +6314,11 @@ namespace ObservableComputations.Test
 				valueSelectorExpression,
 				equalityComparerScalar).For(consumer);
 
+			Assert.AreEqual(source, testing.Source);
+			Assert.AreEqual(keySelectorExpression, testing.KeySelectorExpression);
+			Assert.AreEqual(valueSelectorExpression, testing.ValueSelectorExpression);
+			Assert.AreEqual(equalityComparerScalar, testing.EqualityComparerScalar);
+
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -6072,11 +6384,15 @@ namespace ObservableComputations.Test
 		{
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
 			Scalar<System.Collections.Generic.IEqualityComparer<Item>> equalityComparerScalar = getScalar<System.Collections.Generic.IEqualityComparer<Item>>(EqualityComparer<Item>.Default);
-			int capacity = 0;
+			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = sourceScalar.Distincting<Item>(
 				equalityComparerScalar,
-				capacity).For(consumer);
+				initialCapacity).For(consumer);
+
+			Assert.AreEqual(sourceScalar, testing.SourceScalar);
+			Assert.AreEqual(equalityComparerScalar, testing.EqualityComparerScalar);
+			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
 
 			void test()
 			{
@@ -6149,6 +6465,9 @@ namespace ObservableComputations.Test
 			var testing = sourceScalar.Distincting<Item>(
 				equalityComparerScalar).For(consumer);
 
+			Assert.AreEqual(sourceScalar, testing.SourceScalar);
+			Assert.AreEqual(equalityComparerScalar, testing.EqualityComparerScalar);
+
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -6215,10 +6534,13 @@ namespace ObservableComputations.Test
 		public void TestDistincting03()
 		{
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
-			int capacity = 0;
+			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = sourceScalar.Distincting<Item>(
-				capacity).For(consumer);
+				initialCapacity).For(consumer);
+
+			Assert.AreEqual(sourceScalar, testing.SourceScalar);
+			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
 
 			void test()
 			{
@@ -6284,6 +6606,8 @@ namespace ObservableComputations.Test
 			OcConsumer consumer = new OcConsumer();
 			var testing = sourceScalar.Distincting<Item>().For(consumer);
 
+			Assert.AreEqual(sourceScalar, testing.SourceScalar);
+
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -6346,11 +6670,15 @@ namespace ObservableComputations.Test
 		{
 			Scalar<ObservableCollection<Item>> sourceScalar = getScalar<ObservableCollection<Item>>(getItems());
 			Scalar<System.Collections.Generic.IEqualityComparer<Item>> equalityComparerScalar = getScalar<System.Collections.Generic.IEqualityComparer<Item>>(EqualityComparer<Item>.Default);
-			int capacity = 0;
+			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = sourceScalar.Distincting<Item>(
 				equalityComparerScalar,
-				capacity).For(consumer);
+				initialCapacity).For(consumer);
+
+			Assert.AreEqual(sourceScalar, testing.SourceScalar);
+			Assert.AreEqual(equalityComparerScalar, testing.EqualityComparerScalar);
+			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
 
 			void test()
 			{
@@ -6423,6 +6751,9 @@ namespace ObservableComputations.Test
 			var testing = sourceScalar.Distincting<Item>(
 				equalityComparerScalar).For(consumer);
 
+			Assert.AreEqual(sourceScalar, testing.SourceScalar);
+			Assert.AreEqual(equalityComparerScalar, testing.EqualityComparerScalar);
+
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -6489,10 +6820,13 @@ namespace ObservableComputations.Test
 		public void TestDistincting07()
 		{
 			Scalar<ObservableCollection<Item>> sourceScalar = getScalar<ObservableCollection<Item>>(getItems());
-			int capacity = 0;
+			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = sourceScalar.Distincting<Item>(
-				capacity).For(consumer);
+				initialCapacity).For(consumer);
+
+			Assert.AreEqual(sourceScalar, testing.SourceScalar);
+			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
 
 			void test()
 			{
@@ -6558,6 +6892,8 @@ namespace ObservableComputations.Test
 			OcConsumer consumer = new OcConsumer();
 			var testing = sourceScalar.Distincting<Item>().For(consumer);
 
+			Assert.AreEqual(sourceScalar, testing.SourceScalar);
+
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -6620,11 +6956,15 @@ namespace ObservableComputations.Test
 		{
 			System.Collections.Specialized.INotifyCollectionChanged source = getItems();
 			Scalar<System.Collections.Generic.IEqualityComparer<Item>> equalityComparerScalar = getScalar<System.Collections.Generic.IEqualityComparer<Item>>(EqualityComparer<Item>.Default);
-			int capacity = 0;
+			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = source.Distincting<Item>(
 				equalityComparerScalar,
-				capacity).For(consumer);
+				initialCapacity).For(consumer);
+
+			Assert.AreEqual(source, testing.Source);
+			Assert.AreEqual(equalityComparerScalar, testing.EqualityComparerScalar);
+			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
 
 			void test()
 			{
@@ -6692,6 +7032,9 @@ namespace ObservableComputations.Test
 			var testing = source.Distincting<Item>(
 				equalityComparerScalar).For(consumer);
 
+			Assert.AreEqual(source, testing.Source);
+			Assert.AreEqual(equalityComparerScalar, testing.EqualityComparerScalar);
+
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -6753,10 +7096,13 @@ namespace ObservableComputations.Test
 		public void TestDistincting11()
 		{
 			System.Collections.Specialized.INotifyCollectionChanged source = getItems();
-			int capacity = 0;
+			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = source.Distincting<Item>(
-				capacity).For(consumer);
+				initialCapacity).For(consumer);
+
+			Assert.AreEqual(source, testing.Source);
+			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
 
 			void test()
 			{
@@ -6817,6 +7163,8 @@ namespace ObservableComputations.Test
 			OcConsumer consumer = new OcConsumer();
 			var testing = source.Distincting<Item>().For(consumer);
 
+			Assert.AreEqual(source, testing.Source);
+
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -6874,11 +7222,15 @@ namespace ObservableComputations.Test
 		{
 			ObservableCollection<Item> source = getItems();
 			Scalar<System.Collections.Generic.IEqualityComparer<Item>> equalityComparerScalar = getScalar<System.Collections.Generic.IEqualityComparer<Item>>(EqualityComparer<Item>.Default);
-			int capacity = 0;
+			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = source.Distincting<Item>(
 				equalityComparerScalar,
-				capacity).For(consumer);
+				initialCapacity).For(consumer);
+
+			Assert.AreEqual(source, testing.Source);
+			Assert.AreEqual(equalityComparerScalar, testing.EqualityComparerScalar);
+			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
 
 			void test()
 			{
@@ -6946,6 +7298,9 @@ namespace ObservableComputations.Test
 			var testing = source.Distincting<Item>(
 				equalityComparerScalar).For(consumer);
 
+			Assert.AreEqual(source, testing.Source);
+			Assert.AreEqual(equalityComparerScalar, testing.EqualityComparerScalar);
+
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -7007,10 +7362,13 @@ namespace ObservableComputations.Test
 		public void TestDistincting15()
 		{
 			ObservableCollection<Item> source = getItems();
-			int capacity = 0;
+			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = source.Distincting<Item>(
-				capacity).For(consumer);
+				initialCapacity).For(consumer);
+
+			Assert.AreEqual(source, testing.Source);
+			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
 
 			void test()
 			{
@@ -7071,6 +7429,8 @@ namespace ObservableComputations.Test
 			OcConsumer consumer = new OcConsumer();
 			var testing = source.Distincting<Item>().For(consumer);
 
+			Assert.AreEqual(source, testing.Source);
+
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -7128,11 +7488,15 @@ namespace ObservableComputations.Test
 		{
 			System.Collections.Specialized.INotifyCollectionChanged source = getItems();
 			System.Collections.Generic.IEqualityComparer<Item> equalityComparer = EqualityComparer<Item>.Default;
-			int capacity = 0;
+			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = source.Distincting<Item>(
 				equalityComparer,
-				capacity).For(consumer);
+				initialCapacity).For(consumer);
+
+			Assert.AreEqual(source, testing.Source);
+			Assert.AreEqual(equalityComparer, testing.EqualityComparer);
+			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
 
 			void test()
 			{
@@ -7195,6 +7559,9 @@ namespace ObservableComputations.Test
 			var testing = source.Distincting<Item>(
 				equalityComparer).For(consumer);
 
+			Assert.AreEqual(source, testing.Source);
+			Assert.AreEqual(equalityComparer, testing.EqualityComparer);
+
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -7252,11 +7619,15 @@ namespace ObservableComputations.Test
 		{
 			ObservableCollection<Item> source = getItems();
 			System.Collections.Generic.IEqualityComparer<Item> equalityComparer = EqualityComparer<Item>.Default;
-			int capacity = 0;
+			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = source.Distincting<Item>(
 				equalityComparer,
-				capacity).For(consumer);
+				initialCapacity).For(consumer);
+
+			Assert.AreEqual(source, testing.Source);
+			Assert.AreEqual(equalityComparer, testing.EqualityComparer);
+			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
 
 			void test()
 			{
@@ -7319,6 +7690,9 @@ namespace ObservableComputations.Test
 			var testing = source.Distincting<Item>(
 				equalityComparer).For(consumer);
 
+			Assert.AreEqual(source, testing.Source);
+			Assert.AreEqual(equalityComparer, testing.EqualityComparer);
+
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -7376,11 +7750,15 @@ namespace ObservableComputations.Test
 		{
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
 			System.Collections.Generic.IEqualityComparer<Item> equalityComparer = EqualityComparer<Item>.Default;
-			int capacity = 0;
+			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = sourceScalar.Distincting<Item>(
 				equalityComparer,
-				capacity).For(consumer);
+				initialCapacity).For(consumer);
+
+			Assert.AreEqual(sourceScalar, testing.SourceScalar);
+			Assert.AreEqual(equalityComparer, testing.EqualityComparer);
+			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
 
 			void test()
 			{
@@ -7448,6 +7826,9 @@ namespace ObservableComputations.Test
 			var testing = sourceScalar.Distincting<Item>(
 				equalityComparer).For(consumer);
 
+			Assert.AreEqual(sourceScalar, testing.SourceScalar);
+			Assert.AreEqual(equalityComparer, testing.EqualityComparer);
+
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -7510,11 +7891,15 @@ namespace ObservableComputations.Test
 		{
 			Scalar<ObservableCollection<Item>> sourceScalar = getScalar<ObservableCollection<Item>>(getItems());
 			System.Collections.Generic.IEqualityComparer<Item> equalityComparer = EqualityComparer<Item>.Default;
-			int capacity = 0;
+			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = sourceScalar.Distincting<Item>(
 				equalityComparer,
-				capacity).For(consumer);
+				initialCapacity).For(consumer);
+
+			Assert.AreEqual(sourceScalar, testing.SourceScalar);
+			Assert.AreEqual(equalityComparer, testing.EqualityComparer);
+			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
 
 			void test()
 			{
@@ -7582,6 +7967,9 @@ namespace ObservableComputations.Test
 			var testing = sourceScalar.Distincting<Item>(
 				equalityComparer).For(consumer);
 
+			Assert.AreEqual(sourceScalar, testing.SourceScalar);
+			Assert.AreEqual(equalityComparer, testing.EqualityComparer);
+
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -7648,12 +8036,17 @@ namespace ObservableComputations.Test
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> source1Scalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> source2Scalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
 			Scalar<System.Collections.Generic.IEqualityComparer<Item>> equalityComparerScalar = getScalar<System.Collections.Generic.IEqualityComparer<Item>>(EqualityComparer<Item>.Default);
-			int capacity = 0;
+			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = source1Scalar.Excepting<Item>(
 				source2Scalar,
 				equalityComparerScalar,
-				capacity).For(consumer);
+				initialCapacity).For(consumer);
+
+			Assert.AreEqual(source1Scalar, testing.Source1Scalar);
+			Assert.AreEqual(source2Scalar, testing.Source2Scalar);
+			Assert.AreEqual(equalityComparerScalar, testing.EqualityComparerScalar);
+			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
 
 			void test()
 			{
@@ -7772,6 +8165,10 @@ namespace ObservableComputations.Test
 				source2Scalar,
 				equalityComparerScalar).For(consumer);
 
+			Assert.AreEqual(source1Scalar, testing.Source1Scalar);
+			Assert.AreEqual(source2Scalar, testing.Source2Scalar);
+			Assert.AreEqual(equalityComparerScalar, testing.EqualityComparerScalar);
+
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -7883,11 +8280,15 @@ namespace ObservableComputations.Test
 		{
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> source1Scalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> source2Scalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
-			int capacity = 0;
+			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = source1Scalar.Excepting<Item>(
 				source2Scalar,
-				capacity).For(consumer);
+				initialCapacity).For(consumer);
+
+			Assert.AreEqual(source1Scalar, testing.Source1Scalar);
+			Assert.AreEqual(source2Scalar, testing.Source2Scalar);
+			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
 
 			void test()
 			{
@@ -8001,6 +8402,9 @@ namespace ObservableComputations.Test
 			var testing = source1Scalar.Excepting<Item>(
 				source2Scalar).For(consumer);
 
+			Assert.AreEqual(source1Scalar, testing.Source1Scalar);
+			Assert.AreEqual(source2Scalar, testing.Source2Scalar);
+
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -8110,12 +8514,17 @@ namespace ObservableComputations.Test
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> source1Scalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
 			Scalar<ObservableCollection<Item>> source2Scalar = getScalar<ObservableCollection<Item>>(getItems());
 			Scalar<System.Collections.Generic.IEqualityComparer<Item>> equalityComparerScalar = getScalar<System.Collections.Generic.IEqualityComparer<Item>>(EqualityComparer<Item>.Default);
-			int capacity = 0;
+			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = source1Scalar.Excepting<Item>(
 				source2Scalar,
 				equalityComparerScalar,
-				capacity).For(consumer);
+				initialCapacity).For(consumer);
+
+			Assert.AreEqual(source1Scalar, testing.Source1Scalar);
+			Assert.AreEqual(source2Scalar, testing.Source2Scalar);
+			Assert.AreEqual(equalityComparerScalar, testing.EqualityComparerScalar);
+			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
 
 			void test()
 			{
@@ -8234,6 +8643,10 @@ namespace ObservableComputations.Test
 				source2Scalar,
 				equalityComparerScalar).For(consumer);
 
+			Assert.AreEqual(source1Scalar, testing.Source1Scalar);
+			Assert.AreEqual(source2Scalar, testing.Source2Scalar);
+			Assert.AreEqual(equalityComparerScalar, testing.EqualityComparerScalar);
+
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -8345,11 +8758,15 @@ namespace ObservableComputations.Test
 		{
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> source1Scalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
 			Scalar<ObservableCollection<Item>> source2Scalar = getScalar<ObservableCollection<Item>>(getItems());
-			int capacity = 0;
+			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = source1Scalar.Excepting<Item>(
 				source2Scalar,
-				capacity).For(consumer);
+				initialCapacity).For(consumer);
+
+			Assert.AreEqual(source1Scalar, testing.Source1Scalar);
+			Assert.AreEqual(source2Scalar, testing.Source2Scalar);
+			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
 
 			void test()
 			{
@@ -8463,6 +8880,9 @@ namespace ObservableComputations.Test
 			var testing = source1Scalar.Excepting<Item>(
 				source2Scalar).For(consumer);
 
+			Assert.AreEqual(source1Scalar, testing.Source1Scalar);
+			Assert.AreEqual(source2Scalar, testing.Source2Scalar);
+
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -8572,12 +8992,17 @@ namespace ObservableComputations.Test
 			Scalar<ObservableCollection<Item>> source1Scalar = getScalar<ObservableCollection<Item>>(getItems());
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> source2Scalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
 			Scalar<System.Collections.Generic.IEqualityComparer<Item>> equalityComparerScalar = getScalar<System.Collections.Generic.IEqualityComparer<Item>>(EqualityComparer<Item>.Default);
-			int capacity = 0;
+			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = source1Scalar.Excepting<Item>(
 				source2Scalar,
 				equalityComparerScalar,
-				capacity).For(consumer);
+				initialCapacity).For(consumer);
+
+			Assert.AreEqual(source1Scalar, testing.Source1Scalar);
+			Assert.AreEqual(source2Scalar, testing.Source2Scalar);
+			Assert.AreEqual(equalityComparerScalar, testing.EqualityComparerScalar);
+			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
 
 			void test()
 			{
@@ -8696,6 +9121,10 @@ namespace ObservableComputations.Test
 				source2Scalar,
 				equalityComparerScalar).For(consumer);
 
+			Assert.AreEqual(source1Scalar, testing.Source1Scalar);
+			Assert.AreEqual(source2Scalar, testing.Source2Scalar);
+			Assert.AreEqual(equalityComparerScalar, testing.EqualityComparerScalar);
+
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -8807,11 +9236,15 @@ namespace ObservableComputations.Test
 		{
 			Scalar<ObservableCollection<Item>> source1Scalar = getScalar<ObservableCollection<Item>>(getItems());
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> source2Scalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
-			int capacity = 0;
+			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = source1Scalar.Excepting<Item>(
 				source2Scalar,
-				capacity).For(consumer);
+				initialCapacity).For(consumer);
+
+			Assert.AreEqual(source1Scalar, testing.Source1Scalar);
+			Assert.AreEqual(source2Scalar, testing.Source2Scalar);
+			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
 
 			void test()
 			{
@@ -8925,6 +9358,9 @@ namespace ObservableComputations.Test
 			var testing = source1Scalar.Excepting<Item>(
 				source2Scalar).For(consumer);
 
+			Assert.AreEqual(source1Scalar, testing.Source1Scalar);
+			Assert.AreEqual(source2Scalar, testing.Source2Scalar);
+
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -9034,12 +9470,17 @@ namespace ObservableComputations.Test
 			Scalar<ObservableCollection<Item>> source1Scalar = getScalar<ObservableCollection<Item>>(getItems());
 			Scalar<ObservableCollection<Item>> source2Scalar = getScalar<ObservableCollection<Item>>(getItems());
 			Scalar<System.Collections.Generic.IEqualityComparer<Item>> equalityComparerScalar = getScalar<System.Collections.Generic.IEqualityComparer<Item>>(EqualityComparer<Item>.Default);
-			int capacity = 0;
+			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = source1Scalar.Excepting<Item>(
 				source2Scalar,
 				equalityComparerScalar,
-				capacity).For(consumer);
+				initialCapacity).For(consumer);
+
+			Assert.AreEqual(source1Scalar, testing.Source1Scalar);
+			Assert.AreEqual(source2Scalar, testing.Source2Scalar);
+			Assert.AreEqual(equalityComparerScalar, testing.EqualityComparerScalar);
+			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
 
 			void test()
 			{
@@ -9158,6 +9599,10 @@ namespace ObservableComputations.Test
 				source2Scalar,
 				equalityComparerScalar).For(consumer);
 
+			Assert.AreEqual(source1Scalar, testing.Source1Scalar);
+			Assert.AreEqual(source2Scalar, testing.Source2Scalar);
+			Assert.AreEqual(equalityComparerScalar, testing.EqualityComparerScalar);
+
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -9269,11 +9714,15 @@ namespace ObservableComputations.Test
 		{
 			Scalar<ObservableCollection<Item>> source1Scalar = getScalar<ObservableCollection<Item>>(getItems());
 			Scalar<ObservableCollection<Item>> source2Scalar = getScalar<ObservableCollection<Item>>(getItems());
-			int capacity = 0;
+			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = source1Scalar.Excepting<Item>(
 				source2Scalar,
-				capacity).For(consumer);
+				initialCapacity).For(consumer);
+
+			Assert.AreEqual(source1Scalar, testing.Source1Scalar);
+			Assert.AreEqual(source2Scalar, testing.Source2Scalar);
+			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
 
 			void test()
 			{
@@ -9387,6 +9836,9 @@ namespace ObservableComputations.Test
 			var testing = source1Scalar.Excepting<Item>(
 				source2Scalar).For(consumer);
 
+			Assert.AreEqual(source1Scalar, testing.Source1Scalar);
+			Assert.AreEqual(source2Scalar, testing.Source2Scalar);
+
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -9496,12 +9948,17 @@ namespace ObservableComputations.Test
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> source1Scalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
 			System.Collections.Specialized.INotifyCollectionChanged source2 = getItems();
 			Scalar<System.Collections.Generic.IEqualityComparer<Item>> equalityComparerScalar = getScalar<System.Collections.Generic.IEqualityComparer<Item>>(EqualityComparer<Item>.Default);
-			int capacity = 0;
+			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = source1Scalar.Excepting<Item>(
 				source2,
 				equalityComparerScalar,
-				capacity).For(consumer);
+				initialCapacity).For(consumer);
+
+			Assert.AreEqual(source1Scalar, testing.Source1Scalar);
+			Assert.AreEqual(source2, testing.Source2);
+			Assert.AreEqual(equalityComparerScalar, testing.EqualityComparerScalar);
+			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
 
 			void test()
 			{
@@ -9615,6 +10072,10 @@ namespace ObservableComputations.Test
 				source2,
 				equalityComparerScalar).For(consumer);
 
+			Assert.AreEqual(source1Scalar, testing.Source1Scalar);
+			Assert.AreEqual(source2, testing.Source2);
+			Assert.AreEqual(equalityComparerScalar, testing.EqualityComparerScalar);
+
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -9721,11 +10182,15 @@ namespace ObservableComputations.Test
 		{
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> source1Scalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
 			System.Collections.Specialized.INotifyCollectionChanged source2 = getItems();
-			int capacity = 0;
+			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = source1Scalar.Excepting<Item>(
 				source2,
-				capacity).For(consumer);
+				initialCapacity).For(consumer);
+
+			Assert.AreEqual(source1Scalar, testing.Source1Scalar);
+			Assert.AreEqual(source2, testing.Source2);
+			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
 
 			void test()
 			{
@@ -9834,6 +10299,9 @@ namespace ObservableComputations.Test
 			var testing = source1Scalar.Excepting<Item>(
 				source2).For(consumer);
 
+			Assert.AreEqual(source1Scalar, testing.Source1Scalar);
+			Assert.AreEqual(source2, testing.Source2);
+
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -9938,12 +10406,17 @@ namespace ObservableComputations.Test
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> source1Scalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
 			ObservableCollection<Item> source2 = getItems();
 			Scalar<System.Collections.Generic.IEqualityComparer<Item>> equalityComparerScalar = getScalar<System.Collections.Generic.IEqualityComparer<Item>>(EqualityComparer<Item>.Default);
-			int capacity = 0;
+			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = source1Scalar.Excepting<Item>(
 				source2,
 				equalityComparerScalar,
-				capacity).For(consumer);
+				initialCapacity).For(consumer);
+
+			Assert.AreEqual(source1Scalar, testing.Source1Scalar);
+			Assert.AreEqual(source2, testing.Source2);
+			Assert.AreEqual(equalityComparerScalar, testing.EqualityComparerScalar);
+			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
 
 			void test()
 			{
@@ -10057,6 +10530,10 @@ namespace ObservableComputations.Test
 				source2,
 				equalityComparerScalar).For(consumer);
 
+			Assert.AreEqual(source1Scalar, testing.Source1Scalar);
+			Assert.AreEqual(source2, testing.Source2);
+			Assert.AreEqual(equalityComparerScalar, testing.EqualityComparerScalar);
+
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -10163,11 +10640,15 @@ namespace ObservableComputations.Test
 		{
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> source1Scalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
 			ObservableCollection<Item> source2 = getItems();
-			int capacity = 0;
+			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = source1Scalar.Excepting<Item>(
 				source2,
-				capacity).For(consumer);
+				initialCapacity).For(consumer);
+
+			Assert.AreEqual(source1Scalar, testing.Source1Scalar);
+			Assert.AreEqual(source2, testing.Source2);
+			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
 
 			void test()
 			{
@@ -10276,6 +10757,9 @@ namespace ObservableComputations.Test
 			var testing = source1Scalar.Excepting<Item>(
 				source2).For(consumer);
 
+			Assert.AreEqual(source1Scalar, testing.Source1Scalar);
+			Assert.AreEqual(source2, testing.Source2);
+
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -10380,12 +10864,17 @@ namespace ObservableComputations.Test
 			Scalar<ObservableCollection<Item>> source1Scalar = getScalar<ObservableCollection<Item>>(getItems());
 			System.Collections.Specialized.INotifyCollectionChanged source2 = getItems();
 			Scalar<System.Collections.Generic.IEqualityComparer<Item>> equalityComparerScalar = getScalar<System.Collections.Generic.IEqualityComparer<Item>>(EqualityComparer<Item>.Default);
-			int capacity = 0;
+			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = source1Scalar.Excepting<Item>(
 				source2,
 				equalityComparerScalar,
-				capacity).For(consumer);
+				initialCapacity).For(consumer);
+
+			Assert.AreEqual(source1Scalar, testing.Source1Scalar);
+			Assert.AreEqual(source2, testing.Source2);
+			Assert.AreEqual(equalityComparerScalar, testing.EqualityComparerScalar);
+			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
 
 			void test()
 			{
@@ -10499,6 +10988,10 @@ namespace ObservableComputations.Test
 				source2,
 				equalityComparerScalar).For(consumer);
 
+			Assert.AreEqual(source1Scalar, testing.Source1Scalar);
+			Assert.AreEqual(source2, testing.Source2);
+			Assert.AreEqual(equalityComparerScalar, testing.EqualityComparerScalar);
+
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -10605,11 +11098,15 @@ namespace ObservableComputations.Test
 		{
 			Scalar<ObservableCollection<Item>> source1Scalar = getScalar<ObservableCollection<Item>>(getItems());
 			System.Collections.Specialized.INotifyCollectionChanged source2 = getItems();
-			int capacity = 0;
+			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = source1Scalar.Excepting<Item>(
 				source2,
-				capacity).For(consumer);
+				initialCapacity).For(consumer);
+
+			Assert.AreEqual(source1Scalar, testing.Source1Scalar);
+			Assert.AreEqual(source2, testing.Source2);
+			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
 
 			void test()
 			{
@@ -10718,6 +11215,9 @@ namespace ObservableComputations.Test
 			var testing = source1Scalar.Excepting<Item>(
 				source2).For(consumer);
 
+			Assert.AreEqual(source1Scalar, testing.Source1Scalar);
+			Assert.AreEqual(source2, testing.Source2);
+
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -10822,12 +11322,17 @@ namespace ObservableComputations.Test
 			Scalar<ObservableCollection<Item>> source1Scalar = getScalar<ObservableCollection<Item>>(getItems());
 			ObservableCollection<Item> source2 = getItems();
 			Scalar<System.Collections.Generic.IEqualityComparer<Item>> equalityComparerScalar = getScalar<System.Collections.Generic.IEqualityComparer<Item>>(EqualityComparer<Item>.Default);
-			int capacity = 0;
+			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = source1Scalar.Excepting<Item>(
 				source2,
 				equalityComparerScalar,
-				capacity).For(consumer);
+				initialCapacity).For(consumer);
+
+			Assert.AreEqual(source1Scalar, testing.Source1Scalar);
+			Assert.AreEqual(source2, testing.Source2);
+			Assert.AreEqual(equalityComparerScalar, testing.EqualityComparerScalar);
+			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
 
 			void test()
 			{
@@ -10941,6 +11446,10 @@ namespace ObservableComputations.Test
 				source2,
 				equalityComparerScalar).For(consumer);
 
+			Assert.AreEqual(source1Scalar, testing.Source1Scalar);
+			Assert.AreEqual(source2, testing.Source2);
+			Assert.AreEqual(equalityComparerScalar, testing.EqualityComparerScalar);
+
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -11047,11 +11556,15 @@ namespace ObservableComputations.Test
 		{
 			Scalar<ObservableCollection<Item>> source1Scalar = getScalar<ObservableCollection<Item>>(getItems());
 			ObservableCollection<Item> source2 = getItems();
-			int capacity = 0;
+			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = source1Scalar.Excepting<Item>(
 				source2,
-				capacity).For(consumer);
+				initialCapacity).For(consumer);
+
+			Assert.AreEqual(source1Scalar, testing.Source1Scalar);
+			Assert.AreEqual(source2, testing.Source2);
+			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
 
 			void test()
 			{
@@ -11160,6 +11673,9 @@ namespace ObservableComputations.Test
 			var testing = source1Scalar.Excepting<Item>(
 				source2).For(consumer);
 
+			Assert.AreEqual(source1Scalar, testing.Source1Scalar);
+			Assert.AreEqual(source2, testing.Source2);
+
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -11264,12 +11780,17 @@ namespace ObservableComputations.Test
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> source1Scalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
 			System.Collections.Specialized.INotifyCollectionChanged source2 = getItems();
 			System.Collections.Generic.IEqualityComparer<Item> equalityComparer = EqualityComparer<Item>.Default;
-			int capacity = 0;
+			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = source1Scalar.Excepting<Item>(
 				source2,
 				equalityComparer,
-				capacity).For(consumer);
+				initialCapacity).For(consumer);
+
+			Assert.AreEqual(source1Scalar, testing.Source1Scalar);
+			Assert.AreEqual(source2, testing.Source2);
+			Assert.AreEqual(equalityComparer, testing.EqualityComparer);
+			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
 
 			void test()
 			{
@@ -11380,6 +11901,10 @@ namespace ObservableComputations.Test
 				source2,
 				equalityComparer).For(consumer);
 
+			Assert.AreEqual(source1Scalar, testing.Source1Scalar);
+			Assert.AreEqual(source2, testing.Source2);
+			Assert.AreEqual(equalityComparer, testing.EqualityComparer);
+
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -11484,12 +12009,17 @@ namespace ObservableComputations.Test
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> source1Scalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
 			ObservableCollection<Item> source2 = getItems();
 			System.Collections.Generic.IEqualityComparer<Item> equalityComparer = EqualityComparer<Item>.Default;
-			int capacity = 0;
+			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = source1Scalar.Excepting<Item>(
 				source2,
 				equalityComparer,
-				capacity).For(consumer);
+				initialCapacity).For(consumer);
+
+			Assert.AreEqual(source1Scalar, testing.Source1Scalar);
+			Assert.AreEqual(source2, testing.Source2);
+			Assert.AreEqual(equalityComparer, testing.EqualityComparer);
+			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
 
 			void test()
 			{
@@ -11600,6 +12130,10 @@ namespace ObservableComputations.Test
 				source2,
 				equalityComparer).For(consumer);
 
+			Assert.AreEqual(source1Scalar, testing.Source1Scalar);
+			Assert.AreEqual(source2, testing.Source2);
+			Assert.AreEqual(equalityComparer, testing.EqualityComparer);
+
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -11704,12 +12238,17 @@ namespace ObservableComputations.Test
 			Scalar<ObservableCollection<Item>> source1Scalar = getScalar<ObservableCollection<Item>>(getItems());
 			System.Collections.Specialized.INotifyCollectionChanged source2 = getItems();
 			System.Collections.Generic.IEqualityComparer<Item> equalityComparer = EqualityComparer<Item>.Default;
-			int capacity = 0;
+			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = source1Scalar.Excepting<Item>(
 				source2,
 				equalityComparer,
-				capacity).For(consumer);
+				initialCapacity).For(consumer);
+
+			Assert.AreEqual(source1Scalar, testing.Source1Scalar);
+			Assert.AreEqual(source2, testing.Source2);
+			Assert.AreEqual(equalityComparer, testing.EqualityComparer);
+			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
 
 			void test()
 			{
@@ -11820,6 +12359,10 @@ namespace ObservableComputations.Test
 				source2,
 				equalityComparer).For(consumer);
 
+			Assert.AreEqual(source1Scalar, testing.Source1Scalar);
+			Assert.AreEqual(source2, testing.Source2);
+			Assert.AreEqual(equalityComparer, testing.EqualityComparer);
+
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -11924,12 +12467,17 @@ namespace ObservableComputations.Test
 			Scalar<ObservableCollection<Item>> source1Scalar = getScalar<ObservableCollection<Item>>(getItems());
 			ObservableCollection<Item> source2 = getItems();
 			System.Collections.Generic.IEqualityComparer<Item> equalityComparer = EqualityComparer<Item>.Default;
-			int capacity = 0;
+			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = source1Scalar.Excepting<Item>(
 				source2,
 				equalityComparer,
-				capacity).For(consumer);
+				initialCapacity).For(consumer);
+
+			Assert.AreEqual(source1Scalar, testing.Source1Scalar);
+			Assert.AreEqual(source2, testing.Source2);
+			Assert.AreEqual(equalityComparer, testing.EqualityComparer);
+			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
 
 			void test()
 			{
@@ -12040,6 +12588,10 @@ namespace ObservableComputations.Test
 				source2,
 				equalityComparer).For(consumer);
 
+			Assert.AreEqual(source1Scalar, testing.Source1Scalar);
+			Assert.AreEqual(source2, testing.Source2);
+			Assert.AreEqual(equalityComparer, testing.EqualityComparer);
+
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -12144,12 +12696,17 @@ namespace ObservableComputations.Test
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> source1Scalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> source2Scalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
 			System.Collections.Generic.IEqualityComparer<Item> equalityComparer = EqualityComparer<Item>.Default;
-			int capacity = 0;
+			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = source1Scalar.Excepting<Item>(
 				source2Scalar,
 				equalityComparer,
-				capacity).For(consumer);
+				initialCapacity).For(consumer);
+
+			Assert.AreEqual(source1Scalar, testing.Source1Scalar);
+			Assert.AreEqual(source2Scalar, testing.Source2Scalar);
+			Assert.AreEqual(equalityComparer, testing.EqualityComparer);
+			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
 
 			void test()
 			{
@@ -12265,6 +12822,10 @@ namespace ObservableComputations.Test
 				source2Scalar,
 				equalityComparer).For(consumer);
 
+			Assert.AreEqual(source1Scalar, testing.Source1Scalar);
+			Assert.AreEqual(source2Scalar, testing.Source2Scalar);
+			Assert.AreEqual(equalityComparer, testing.EqualityComparer);
+
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -12374,12 +12935,17 @@ namespace ObservableComputations.Test
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> source1Scalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
 			Scalar<ObservableCollection<Item>> source2Scalar = getScalar<ObservableCollection<Item>>(getItems());
 			System.Collections.Generic.IEqualityComparer<Item> equalityComparer = EqualityComparer<Item>.Default;
-			int capacity = 0;
+			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = source1Scalar.Excepting<Item>(
 				source2Scalar,
 				equalityComparer,
-				capacity).For(consumer);
+				initialCapacity).For(consumer);
+
+			Assert.AreEqual(source1Scalar, testing.Source1Scalar);
+			Assert.AreEqual(source2Scalar, testing.Source2Scalar);
+			Assert.AreEqual(equalityComparer, testing.EqualityComparer);
+			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
 
 			void test()
 			{
@@ -12495,6 +13061,10 @@ namespace ObservableComputations.Test
 				source2Scalar,
 				equalityComparer).For(consumer);
 
+			Assert.AreEqual(source1Scalar, testing.Source1Scalar);
+			Assert.AreEqual(source2Scalar, testing.Source2Scalar);
+			Assert.AreEqual(equalityComparer, testing.EqualityComparer);
+
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -12604,12 +13174,17 @@ namespace ObservableComputations.Test
 			Scalar<ObservableCollection<Item>> source1Scalar = getScalar<ObservableCollection<Item>>(getItems());
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> source2Scalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
 			System.Collections.Generic.IEqualityComparer<Item> equalityComparer = EqualityComparer<Item>.Default;
-			int capacity = 0;
+			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = source1Scalar.Excepting<Item>(
 				source2Scalar,
 				equalityComparer,
-				capacity).For(consumer);
+				initialCapacity).For(consumer);
+
+			Assert.AreEqual(source1Scalar, testing.Source1Scalar);
+			Assert.AreEqual(source2Scalar, testing.Source2Scalar);
+			Assert.AreEqual(equalityComparer, testing.EqualityComparer);
+			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
 
 			void test()
 			{
@@ -12725,6 +13300,10 @@ namespace ObservableComputations.Test
 				source2Scalar,
 				equalityComparer).For(consumer);
 
+			Assert.AreEqual(source1Scalar, testing.Source1Scalar);
+			Assert.AreEqual(source2Scalar, testing.Source2Scalar);
+			Assert.AreEqual(equalityComparer, testing.EqualityComparer);
+
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -12834,12 +13413,17 @@ namespace ObservableComputations.Test
 			Scalar<ObservableCollection<Item>> source1Scalar = getScalar<ObservableCollection<Item>>(getItems());
 			Scalar<ObservableCollection<Item>> source2Scalar = getScalar<ObservableCollection<Item>>(getItems());
 			System.Collections.Generic.IEqualityComparer<Item> equalityComparer = EqualityComparer<Item>.Default;
-			int capacity = 0;
+			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = source1Scalar.Excepting<Item>(
 				source2Scalar,
 				equalityComparer,
-				capacity).For(consumer);
+				initialCapacity).For(consumer);
+
+			Assert.AreEqual(source1Scalar, testing.Source1Scalar);
+			Assert.AreEqual(source2Scalar, testing.Source2Scalar);
+			Assert.AreEqual(equalityComparer, testing.EqualityComparer);
+			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
 
 			void test()
 			{
@@ -12955,6 +13539,10 @@ namespace ObservableComputations.Test
 				source2Scalar,
 				equalityComparer).For(consumer);
 
+			Assert.AreEqual(source1Scalar, testing.Source1Scalar);
+			Assert.AreEqual(source2Scalar, testing.Source2Scalar);
+			Assert.AreEqual(equalityComparer, testing.EqualityComparer);
+
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -13064,12 +13652,17 @@ namespace ObservableComputations.Test
 			System.Collections.Specialized.INotifyCollectionChanged source1 = getItems();
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> source2Scalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
 			Scalar<System.Collections.Generic.IEqualityComparer<Item>> equalityComparerScalar = getScalar<System.Collections.Generic.IEqualityComparer<Item>>(EqualityComparer<Item>.Default);
-			int capacity = 0;
+			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = source1.Excepting<Item>(
 				source2Scalar,
 				equalityComparerScalar,
-				capacity).For(consumer);
+				initialCapacity).For(consumer);
+
+			Assert.AreEqual(source1, testing.Source1);
+			Assert.AreEqual(source2Scalar, testing.Source2Scalar);
+			Assert.AreEqual(equalityComparerScalar, testing.EqualityComparerScalar);
+			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
 
 			void test()
 			{
@@ -13183,6 +13776,10 @@ namespace ObservableComputations.Test
 				source2Scalar,
 				equalityComparerScalar).For(consumer);
 
+			Assert.AreEqual(source1, testing.Source1);
+			Assert.AreEqual(source2Scalar, testing.Source2Scalar);
+			Assert.AreEqual(equalityComparerScalar, testing.EqualityComparerScalar);
+
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -13289,11 +13886,15 @@ namespace ObservableComputations.Test
 		{
 			System.Collections.Specialized.INotifyCollectionChanged source1 = getItems();
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> source2Scalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
-			int capacity = 0;
+			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = source1.Excepting<Item>(
 				source2Scalar,
-				capacity).For(consumer);
+				initialCapacity).For(consumer);
+
+			Assert.AreEqual(source1, testing.Source1);
+			Assert.AreEqual(source2Scalar, testing.Source2Scalar);
+			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
 
 			void test()
 			{
@@ -13402,6 +14003,9 @@ namespace ObservableComputations.Test
 			var testing = source1.Excepting<Item>(
 				source2Scalar).For(consumer);
 
+			Assert.AreEqual(source1, testing.Source1);
+			Assert.AreEqual(source2Scalar, testing.Source2Scalar);
+
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -13506,12 +14110,17 @@ namespace ObservableComputations.Test
 			System.Collections.Specialized.INotifyCollectionChanged source1 = getItems();
 			Scalar<ObservableCollection<Item>> source2Scalar = getScalar<ObservableCollection<Item>>(getItems());
 			Scalar<System.Collections.Generic.IEqualityComparer<Item>> equalityComparerScalar = getScalar<System.Collections.Generic.IEqualityComparer<Item>>(EqualityComparer<Item>.Default);
-			int capacity = 0;
+			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = source1.Excepting<Item>(
 				source2Scalar,
 				equalityComparerScalar,
-				capacity).For(consumer);
+				initialCapacity).For(consumer);
+
+			Assert.AreEqual(source1, testing.Source1);
+			Assert.AreEqual(source2Scalar, testing.Source2Scalar);
+			Assert.AreEqual(equalityComparerScalar, testing.EqualityComparerScalar);
+			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
 
 			void test()
 			{
@@ -13625,6 +14234,10 @@ namespace ObservableComputations.Test
 				source2Scalar,
 				equalityComparerScalar).For(consumer);
 
+			Assert.AreEqual(source1, testing.Source1);
+			Assert.AreEqual(source2Scalar, testing.Source2Scalar);
+			Assert.AreEqual(equalityComparerScalar, testing.EqualityComparerScalar);
+
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -13731,11 +14344,15 @@ namespace ObservableComputations.Test
 		{
 			System.Collections.Specialized.INotifyCollectionChanged source1 = getItems();
 			Scalar<ObservableCollection<Item>> source2Scalar = getScalar<ObservableCollection<Item>>(getItems());
-			int capacity = 0;
+			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = source1.Excepting<Item>(
 				source2Scalar,
-				capacity).For(consumer);
+				initialCapacity).For(consumer);
+
+			Assert.AreEqual(source1, testing.Source1);
+			Assert.AreEqual(source2Scalar, testing.Source2Scalar);
+			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
 
 			void test()
 			{
@@ -13844,6 +14461,9 @@ namespace ObservableComputations.Test
 			var testing = source1.Excepting<Item>(
 				source2Scalar).For(consumer);
 
+			Assert.AreEqual(source1, testing.Source1);
+			Assert.AreEqual(source2Scalar, testing.Source2Scalar);
+
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -13948,12 +14568,17 @@ namespace ObservableComputations.Test
 			ObservableCollection<Item> source1 = getItems();
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> source2Scalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
 			Scalar<System.Collections.Generic.IEqualityComparer<Item>> equalityComparerScalar = getScalar<System.Collections.Generic.IEqualityComparer<Item>>(EqualityComparer<Item>.Default);
-			int capacity = 0;
+			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = source1.Excepting<Item>(
 				source2Scalar,
 				equalityComparerScalar,
-				capacity).For(consumer);
+				initialCapacity).For(consumer);
+
+			Assert.AreEqual(source1, testing.Source1);
+			Assert.AreEqual(source2Scalar, testing.Source2Scalar);
+			Assert.AreEqual(equalityComparerScalar, testing.EqualityComparerScalar);
+			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
 
 			void test()
 			{
@@ -14067,6 +14692,10 @@ namespace ObservableComputations.Test
 				source2Scalar,
 				equalityComparerScalar).For(consumer);
 
+			Assert.AreEqual(source1, testing.Source1);
+			Assert.AreEqual(source2Scalar, testing.Source2Scalar);
+			Assert.AreEqual(equalityComparerScalar, testing.EqualityComparerScalar);
+
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -14173,11 +14802,15 @@ namespace ObservableComputations.Test
 		{
 			ObservableCollection<Item> source1 = getItems();
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> source2Scalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
-			int capacity = 0;
+			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = source1.Excepting<Item>(
 				source2Scalar,
-				capacity).For(consumer);
+				initialCapacity).For(consumer);
+
+			Assert.AreEqual(source1, testing.Source1);
+			Assert.AreEqual(source2Scalar, testing.Source2Scalar);
+			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
 
 			void test()
 			{
@@ -14286,6 +14919,9 @@ namespace ObservableComputations.Test
 			var testing = source1.Excepting<Item>(
 				source2Scalar).For(consumer);
 
+			Assert.AreEqual(source1, testing.Source1);
+			Assert.AreEqual(source2Scalar, testing.Source2Scalar);
+
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -14390,12 +15026,17 @@ namespace ObservableComputations.Test
 			ObservableCollection<Item> source1 = getItems();
 			Scalar<ObservableCollection<Item>> source2Scalar = getScalar<ObservableCollection<Item>>(getItems());
 			Scalar<System.Collections.Generic.IEqualityComparer<Item>> equalityComparerScalar = getScalar<System.Collections.Generic.IEqualityComparer<Item>>(EqualityComparer<Item>.Default);
-			int capacity = 0;
+			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = source1.Excepting<Item>(
 				source2Scalar,
 				equalityComparerScalar,
-				capacity).For(consumer);
+				initialCapacity).For(consumer);
+
+			Assert.AreEqual(source1, testing.Source1);
+			Assert.AreEqual(source2Scalar, testing.Source2Scalar);
+			Assert.AreEqual(equalityComparerScalar, testing.EqualityComparerScalar);
+			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
 
 			void test()
 			{
@@ -14509,6 +15150,10 @@ namespace ObservableComputations.Test
 				source2Scalar,
 				equalityComparerScalar).For(consumer);
 
+			Assert.AreEqual(source1, testing.Source1);
+			Assert.AreEqual(source2Scalar, testing.Source2Scalar);
+			Assert.AreEqual(equalityComparerScalar, testing.EqualityComparerScalar);
+
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -14615,11 +15260,15 @@ namespace ObservableComputations.Test
 		{
 			ObservableCollection<Item> source1 = getItems();
 			Scalar<ObservableCollection<Item>> source2Scalar = getScalar<ObservableCollection<Item>>(getItems());
-			int capacity = 0;
+			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = source1.Excepting<Item>(
 				source2Scalar,
-				capacity).For(consumer);
+				initialCapacity).For(consumer);
+
+			Assert.AreEqual(source1, testing.Source1);
+			Assert.AreEqual(source2Scalar, testing.Source2Scalar);
+			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
 
 			void test()
 			{
@@ -14728,6 +15377,9 @@ namespace ObservableComputations.Test
 			var testing = source1.Excepting<Item>(
 				source2Scalar).For(consumer);
 
+			Assert.AreEqual(source1, testing.Source1);
+			Assert.AreEqual(source2Scalar, testing.Source2Scalar);
+
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -14832,12 +15484,17 @@ namespace ObservableComputations.Test
 			System.Collections.Specialized.INotifyCollectionChanged source1 = getItems();
 			System.Collections.Specialized.INotifyCollectionChanged source2 = getItems();
 			Scalar<System.Collections.Generic.IEqualityComparer<Item>> equalityComparerScalar = getScalar<System.Collections.Generic.IEqualityComparer<Item>>(EqualityComparer<Item>.Default);
-			int capacity = 0;
+			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = source1.Excepting<Item>(
 				source2,
 				equalityComparerScalar,
-				capacity).For(consumer);
+				initialCapacity).For(consumer);
+
+			Assert.AreEqual(source1, testing.Source1);
+			Assert.AreEqual(source2, testing.Source2);
+			Assert.AreEqual(equalityComparerScalar, testing.EqualityComparerScalar);
+			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
 
 			void test()
 			{
@@ -14946,6 +15603,10 @@ namespace ObservableComputations.Test
 				source2,
 				equalityComparerScalar).For(consumer);
 
+			Assert.AreEqual(source1, testing.Source1);
+			Assert.AreEqual(source2, testing.Source2);
+			Assert.AreEqual(equalityComparerScalar, testing.EqualityComparerScalar);
+
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -15047,11 +15708,15 @@ namespace ObservableComputations.Test
 		{
 			System.Collections.Specialized.INotifyCollectionChanged source1 = getItems();
 			System.Collections.Specialized.INotifyCollectionChanged source2 = getItems();
-			int capacity = 0;
+			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = source1.Excepting<Item>(
 				source2,
-				capacity).For(consumer);
+				initialCapacity).For(consumer);
+
+			Assert.AreEqual(source1, testing.Source1);
+			Assert.AreEqual(source2, testing.Source2);
+			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
 
 			void test()
 			{
@@ -15155,6 +15820,9 @@ namespace ObservableComputations.Test
 			var testing = source1.Excepting<Item>(
 				source2).For(consumer);
 
+			Assert.AreEqual(source1, testing.Source1);
+			Assert.AreEqual(source2, testing.Source2);
+
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -15254,12 +15922,17 @@ namespace ObservableComputations.Test
 			System.Collections.Specialized.INotifyCollectionChanged source1 = getItems();
 			ObservableCollection<Item> source2 = getItems();
 			Scalar<System.Collections.Generic.IEqualityComparer<Item>> equalityComparerScalar = getScalar<System.Collections.Generic.IEqualityComparer<Item>>(EqualityComparer<Item>.Default);
-			int capacity = 0;
+			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = source1.Excepting<Item>(
 				source2,
 				equalityComparerScalar,
-				capacity).For(consumer);
+				initialCapacity).For(consumer);
+
+			Assert.AreEqual(source1, testing.Source1);
+			Assert.AreEqual(source2, testing.Source2);
+			Assert.AreEqual(equalityComparerScalar, testing.EqualityComparerScalar);
+			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
 
 			void test()
 			{
@@ -15368,6 +16041,10 @@ namespace ObservableComputations.Test
 				source2,
 				equalityComparerScalar).For(consumer);
 
+			Assert.AreEqual(source1, testing.Source1);
+			Assert.AreEqual(source2, testing.Source2);
+			Assert.AreEqual(equalityComparerScalar, testing.EqualityComparerScalar);
+
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -15469,11 +16146,15 @@ namespace ObservableComputations.Test
 		{
 			System.Collections.Specialized.INotifyCollectionChanged source1 = getItems();
 			ObservableCollection<Item> source2 = getItems();
-			int capacity = 0;
+			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = source1.Excepting<Item>(
 				source2,
-				capacity).For(consumer);
+				initialCapacity).For(consumer);
+
+			Assert.AreEqual(source1, testing.Source1);
+			Assert.AreEqual(source2, testing.Source2);
+			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
 
 			void test()
 			{
@@ -15577,6 +16258,9 @@ namespace ObservableComputations.Test
 			var testing = source1.Excepting<Item>(
 				source2).For(consumer);
 
+			Assert.AreEqual(source1, testing.Source1);
+			Assert.AreEqual(source2, testing.Source2);
+
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -15676,12 +16360,17 @@ namespace ObservableComputations.Test
 			ObservableCollection<Item> source1 = getItems();
 			System.Collections.Specialized.INotifyCollectionChanged source2 = getItems();
 			Scalar<System.Collections.Generic.IEqualityComparer<Item>> equalityComparerScalar = getScalar<System.Collections.Generic.IEqualityComparer<Item>>(EqualityComparer<Item>.Default);
-			int capacity = 0;
+			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = source1.Excepting<Item>(
 				source2,
 				equalityComparerScalar,
-				capacity).For(consumer);
+				initialCapacity).For(consumer);
+
+			Assert.AreEqual(source1, testing.Source1);
+			Assert.AreEqual(source2, testing.Source2);
+			Assert.AreEqual(equalityComparerScalar, testing.EqualityComparerScalar);
+			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
 
 			void test()
 			{
@@ -15790,6 +16479,10 @@ namespace ObservableComputations.Test
 				source2,
 				equalityComparerScalar).For(consumer);
 
+			Assert.AreEqual(source1, testing.Source1);
+			Assert.AreEqual(source2, testing.Source2);
+			Assert.AreEqual(equalityComparerScalar, testing.EqualityComparerScalar);
+
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -15891,11 +16584,15 @@ namespace ObservableComputations.Test
 		{
 			ObservableCollection<Item> source1 = getItems();
 			System.Collections.Specialized.INotifyCollectionChanged source2 = getItems();
-			int capacity = 0;
+			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = source1.Excepting<Item>(
 				source2,
-				capacity).For(consumer);
+				initialCapacity).For(consumer);
+
+			Assert.AreEqual(source1, testing.Source1);
+			Assert.AreEqual(source2, testing.Source2);
+			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
 
 			void test()
 			{
@@ -15999,6 +16696,9 @@ namespace ObservableComputations.Test
 			var testing = source1.Excepting<Item>(
 				source2).For(consumer);
 
+			Assert.AreEqual(source1, testing.Source1);
+			Assert.AreEqual(source2, testing.Source2);
+
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -16098,12 +16798,17 @@ namespace ObservableComputations.Test
 			ObservableCollection<Item> source1 = getItems();
 			ObservableCollection<Item> source2 = getItems();
 			Scalar<System.Collections.Generic.IEqualityComparer<Item>> equalityComparerScalar = getScalar<System.Collections.Generic.IEqualityComparer<Item>>(EqualityComparer<Item>.Default);
-			int capacity = 0;
+			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = source1.Excepting<Item>(
 				source2,
 				equalityComparerScalar,
-				capacity).For(consumer);
+				initialCapacity).For(consumer);
+
+			Assert.AreEqual(source1, testing.Source1);
+			Assert.AreEqual(source2, testing.Source2);
+			Assert.AreEqual(equalityComparerScalar, testing.EqualityComparerScalar);
+			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
 
 			void test()
 			{
@@ -16212,6 +16917,10 @@ namespace ObservableComputations.Test
 				source2,
 				equalityComparerScalar).For(consumer);
 
+			Assert.AreEqual(source1, testing.Source1);
+			Assert.AreEqual(source2, testing.Source2);
+			Assert.AreEqual(equalityComparerScalar, testing.EqualityComparerScalar);
+
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -16313,11 +17022,15 @@ namespace ObservableComputations.Test
 		{
 			ObservableCollection<Item> source1 = getItems();
 			ObservableCollection<Item> source2 = getItems();
-			int capacity = 0;
+			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = source1.Excepting<Item>(
 				source2,
-				capacity).For(consumer);
+				initialCapacity).For(consumer);
+
+			Assert.AreEqual(source1, testing.Source1);
+			Assert.AreEqual(source2, testing.Source2);
+			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
 
 			void test()
 			{
@@ -16421,6 +17134,9 @@ namespace ObservableComputations.Test
 			var testing = source1.Excepting<Item>(
 				source2).For(consumer);
 
+			Assert.AreEqual(source1, testing.Source1);
+			Assert.AreEqual(source2, testing.Source2);
+
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -16520,12 +17236,17 @@ namespace ObservableComputations.Test
 			System.Collections.Specialized.INotifyCollectionChanged source1 = getItems();
 			System.Collections.Specialized.INotifyCollectionChanged source2 = getItems();
 			System.Collections.Generic.IEqualityComparer<Item> equalityComparer = EqualityComparer<Item>.Default;
-			int capacity = 0;
+			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = source1.Excepting<Item>(
 				source2,
 				equalityComparer,
-				capacity).For(consumer);
+				initialCapacity).For(consumer);
+
+			Assert.AreEqual(source1, testing.Source1);
+			Assert.AreEqual(source2, testing.Source2);
+			Assert.AreEqual(equalityComparer, testing.EqualityComparer);
+			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
 
 			void test()
 			{
@@ -16631,6 +17352,10 @@ namespace ObservableComputations.Test
 				source2,
 				equalityComparer).For(consumer);
 
+			Assert.AreEqual(source1, testing.Source1);
+			Assert.AreEqual(source2, testing.Source2);
+			Assert.AreEqual(equalityComparer, testing.EqualityComparer);
+
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -16730,12 +17455,17 @@ namespace ObservableComputations.Test
 			System.Collections.Specialized.INotifyCollectionChanged source1 = getItems();
 			ObservableCollection<Item> source2 = getItems();
 			System.Collections.Generic.IEqualityComparer<Item> equalityComparer = EqualityComparer<Item>.Default;
-			int capacity = 0;
+			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = source1.Excepting<Item>(
 				source2,
 				equalityComparer,
-				capacity).For(consumer);
+				initialCapacity).For(consumer);
+
+			Assert.AreEqual(source1, testing.Source1);
+			Assert.AreEqual(source2, testing.Source2);
+			Assert.AreEqual(equalityComparer, testing.EqualityComparer);
+			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
 
 			void test()
 			{
@@ -16841,6 +17571,10 @@ namespace ObservableComputations.Test
 				source2,
 				equalityComparer).For(consumer);
 
+			Assert.AreEqual(source1, testing.Source1);
+			Assert.AreEqual(source2, testing.Source2);
+			Assert.AreEqual(equalityComparer, testing.EqualityComparer);
+
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -16940,12 +17674,17 @@ namespace ObservableComputations.Test
 			ObservableCollection<Item> source1 = getItems();
 			System.Collections.Specialized.INotifyCollectionChanged source2 = getItems();
 			System.Collections.Generic.IEqualityComparer<Item> equalityComparer = EqualityComparer<Item>.Default;
-			int capacity = 0;
+			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = source1.Excepting<Item>(
 				source2,
 				equalityComparer,
-				capacity).For(consumer);
+				initialCapacity).For(consumer);
+
+			Assert.AreEqual(source1, testing.Source1);
+			Assert.AreEqual(source2, testing.Source2);
+			Assert.AreEqual(equalityComparer, testing.EqualityComparer);
+			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
 
 			void test()
 			{
@@ -17051,6 +17790,10 @@ namespace ObservableComputations.Test
 				source2,
 				equalityComparer).For(consumer);
 
+			Assert.AreEqual(source1, testing.Source1);
+			Assert.AreEqual(source2, testing.Source2);
+			Assert.AreEqual(equalityComparer, testing.EqualityComparer);
+
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -17150,12 +17893,17 @@ namespace ObservableComputations.Test
 			ObservableCollection<Item> source1 = getItems();
 			ObservableCollection<Item> source2 = getItems();
 			System.Collections.Generic.IEqualityComparer<Item> equalityComparer = EqualityComparer<Item>.Default;
-			int capacity = 0;
+			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = source1.Excepting<Item>(
 				source2,
 				equalityComparer,
-				capacity).For(consumer);
+				initialCapacity).For(consumer);
+
+			Assert.AreEqual(source1, testing.Source1);
+			Assert.AreEqual(source2, testing.Source2);
+			Assert.AreEqual(equalityComparer, testing.EqualityComparer);
+			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
 
 			void test()
 			{
@@ -17261,6 +18009,10 @@ namespace ObservableComputations.Test
 				source2,
 				equalityComparer).For(consumer);
 
+			Assert.AreEqual(source1, testing.Source1);
+			Assert.AreEqual(source2, testing.Source2);
+			Assert.AreEqual(equalityComparer, testing.EqualityComparer);
+
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -17360,12 +18112,17 @@ namespace ObservableComputations.Test
 			System.Collections.Specialized.INotifyCollectionChanged source1 = getItems();
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> source2Scalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
 			System.Collections.Generic.IEqualityComparer<Item> equalityComparer = EqualityComparer<Item>.Default;
-			int capacity = 0;
+			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = source1.Excepting<Item>(
 				source2Scalar,
 				equalityComparer,
-				capacity).For(consumer);
+				initialCapacity).For(consumer);
+
+			Assert.AreEqual(source1, testing.Source1);
+			Assert.AreEqual(source2Scalar, testing.Source2Scalar);
+			Assert.AreEqual(equalityComparer, testing.EqualityComparer);
+			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
 
 			void test()
 			{
@@ -17476,6 +18233,10 @@ namespace ObservableComputations.Test
 				source2Scalar,
 				equalityComparer).For(consumer);
 
+			Assert.AreEqual(source1, testing.Source1);
+			Assert.AreEqual(source2Scalar, testing.Source2Scalar);
+			Assert.AreEqual(equalityComparer, testing.EqualityComparer);
+
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -17580,12 +18341,17 @@ namespace ObservableComputations.Test
 			System.Collections.Specialized.INotifyCollectionChanged source1 = getItems();
 			Scalar<ObservableCollection<Item>> source2Scalar = getScalar<ObservableCollection<Item>>(getItems());
 			System.Collections.Generic.IEqualityComparer<Item> equalityComparer = EqualityComparer<Item>.Default;
-			int capacity = 0;
+			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = source1.Excepting<Item>(
 				source2Scalar,
 				equalityComparer,
-				capacity).For(consumer);
+				initialCapacity).For(consumer);
+
+			Assert.AreEqual(source1, testing.Source1);
+			Assert.AreEqual(source2Scalar, testing.Source2Scalar);
+			Assert.AreEqual(equalityComparer, testing.EqualityComparer);
+			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
 
 			void test()
 			{
@@ -17696,6 +18462,10 @@ namespace ObservableComputations.Test
 				source2Scalar,
 				equalityComparer).For(consumer);
 
+			Assert.AreEqual(source1, testing.Source1);
+			Assert.AreEqual(source2Scalar, testing.Source2Scalar);
+			Assert.AreEqual(equalityComparer, testing.EqualityComparer);
+
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -17800,12 +18570,17 @@ namespace ObservableComputations.Test
 			ObservableCollection<Item> source1 = getItems();
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> source2Scalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
 			System.Collections.Generic.IEqualityComparer<Item> equalityComparer = EqualityComparer<Item>.Default;
-			int capacity = 0;
+			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = source1.Excepting<Item>(
 				source2Scalar,
 				equalityComparer,
-				capacity).For(consumer);
+				initialCapacity).For(consumer);
+
+			Assert.AreEqual(source1, testing.Source1);
+			Assert.AreEqual(source2Scalar, testing.Source2Scalar);
+			Assert.AreEqual(equalityComparer, testing.EqualityComparer);
+			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
 
 			void test()
 			{
@@ -17916,6 +18691,10 @@ namespace ObservableComputations.Test
 				source2Scalar,
 				equalityComparer).For(consumer);
 
+			Assert.AreEqual(source1, testing.Source1);
+			Assert.AreEqual(source2Scalar, testing.Source2Scalar);
+			Assert.AreEqual(equalityComparer, testing.EqualityComparer);
+
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -18020,12 +18799,17 @@ namespace ObservableComputations.Test
 			ObservableCollection<Item> source1 = getItems();
 			Scalar<ObservableCollection<Item>> source2Scalar = getScalar<ObservableCollection<Item>>(getItems());
 			System.Collections.Generic.IEqualityComparer<Item> equalityComparer = EqualityComparer<Item>.Default;
-			int capacity = 0;
+			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = source1.Excepting<Item>(
 				source2Scalar,
 				equalityComparer,
-				capacity).For(consumer);
+				initialCapacity).For(consumer);
+
+			Assert.AreEqual(source1, testing.Source1);
+			Assert.AreEqual(source2Scalar, testing.Source2Scalar);
+			Assert.AreEqual(equalityComparer, testing.EqualityComparer);
+			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
 
 			void test()
 			{
@@ -18136,6 +18920,10 @@ namespace ObservableComputations.Test
 				source2Scalar,
 				equalityComparer).For(consumer);
 
+			Assert.AreEqual(source1, testing.Source1);
+			Assert.AreEqual(source2Scalar, testing.Source2Scalar);
+			Assert.AreEqual(equalityComparer, testing.EqualityComparer);
+
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -18244,6 +19032,8 @@ namespace ObservableComputations.Test
 			OcConsumer consumer = new OcConsumer();
 			var testing = sourceScalar.Extending<Item>().For(consumer);
 
+			Assert.AreEqual(sourceScalar, testing.SourceScalar);
+
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -18307,6 +19097,8 @@ namespace ObservableComputations.Test
 			Scalar<ObservableCollection<Item>> sourceScalar = getScalar<ObservableCollection<Item>>(getItems());
 			OcConsumer consumer = new OcConsumer();
 			var testing = sourceScalar.Extending<Item>().For(consumer);
+
+			Assert.AreEqual(sourceScalar, testing.SourceScalar);
 
 			void test()
 			{
@@ -18372,6 +19164,8 @@ namespace ObservableComputations.Test
 			OcConsumer consumer = new OcConsumer();
 			var testing = source.Extending<Item>().For(consumer);
 
+			Assert.AreEqual(source, testing.Source);
+
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -18430,6 +19224,8 @@ namespace ObservableComputations.Test
 			ObservableCollection<Item> source = getItems();
 			OcConsumer consumer = new OcConsumer();
 			var testing = source.Extending<Item>().For(consumer);
+
+			Assert.AreEqual(source, testing.Source);
 
 			void test()
 			{
@@ -18491,11 +19287,15 @@ namespace ObservableComputations.Test
 		{
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
 			System.Linq.Expressions.Expression<System.Func<Item, bool>> predicateExpression = i => i.Active;
-			int capacity = 0;
+			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = sourceScalar.Filtering<Item>(
 				predicateExpression,
-				capacity).For(consumer);
+				initialCapacity).For(consumer);
+
+			Assert.AreEqual(sourceScalar, testing.SourceScalar);
+			Assert.AreEqual(predicateExpression, testing.PredicateExpression);
+			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
 
 			void test()
 			{
@@ -18563,6 +19363,9 @@ namespace ObservableComputations.Test
 			var testing = sourceScalar.Filtering<Item>(
 				predicateExpression).For(consumer);
 
+			Assert.AreEqual(sourceScalar, testing.SourceScalar);
+			Assert.AreEqual(predicateExpression, testing.PredicateExpression);
+
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -18625,11 +19428,15 @@ namespace ObservableComputations.Test
 		{
 			Scalar<ObservableCollection<Item>> sourceScalar = getScalar<ObservableCollection<Item>>(getItems());
 			System.Linq.Expressions.Expression<System.Func<Item, bool>> predicateExpression = i => i.Active;
-			int capacity = 0;
+			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = sourceScalar.Filtering<Item>(
 				predicateExpression,
-				capacity).For(consumer);
+				initialCapacity).For(consumer);
+
+			Assert.AreEqual(sourceScalar, testing.SourceScalar);
+			Assert.AreEqual(predicateExpression, testing.PredicateExpression);
+			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
 
 			void test()
 			{
@@ -18697,6 +19504,9 @@ namespace ObservableComputations.Test
 			var testing = sourceScalar.Filtering<Item>(
 				predicateExpression).For(consumer);
 
+			Assert.AreEqual(sourceScalar, testing.SourceScalar);
+			Assert.AreEqual(predicateExpression, testing.PredicateExpression);
+
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -18759,11 +19569,15 @@ namespace ObservableComputations.Test
 		{
 			System.Collections.Specialized.INotifyCollectionChanged source = getItems();
 			System.Linq.Expressions.Expression<System.Func<Item, bool>> predicateExpression = i => i.Active;
-			int capacity = 0;
+			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = source.Filtering<Item>(
 				predicateExpression,
-				capacity).For(consumer);
+				initialCapacity).For(consumer);
+
+			Assert.AreEqual(source, testing.Source);
+			Assert.AreEqual(predicateExpression, testing.PredicateExpression);
+			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
 
 			void test()
 			{
@@ -18826,6 +19640,9 @@ namespace ObservableComputations.Test
 			var testing = source.Filtering<Item>(
 				predicateExpression).For(consumer);
 
+			Assert.AreEqual(source, testing.Source);
+			Assert.AreEqual(predicateExpression, testing.PredicateExpression);
+
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -18883,11 +19700,15 @@ namespace ObservableComputations.Test
 		{
 			ObservableCollection<Item> source = getItems();
 			System.Linq.Expressions.Expression<System.Func<Item, bool>> predicateExpression = i => i.Active;
-			int capacity = 0;
+			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = source.Filtering<Item>(
 				predicateExpression,
-				capacity).For(consumer);
+				initialCapacity).For(consumer);
+
+			Assert.AreEqual(source, testing.Source);
+			Assert.AreEqual(predicateExpression, testing.PredicateExpression);
+			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
 
 			void test()
 			{
@@ -18949,6 +19770,9 @@ namespace ObservableComputations.Test
 			OcConsumer consumer = new OcConsumer();
 			var testing = source.Filtering<Item>(
 				predicateExpression).For(consumer);
+
+			Assert.AreEqual(source, testing.Source);
+			Assert.AreEqual(predicateExpression, testing.PredicateExpression);
 
 			void test()
 			{
@@ -19014,6 +19838,9 @@ namespace ObservableComputations.Test
 			var testing = sourceScalar.FirstComputing<Item>(
 				defaultValue).For(consumer);
 
+			Assert.AreEqual(sourceScalar, testing.SourceScalar);
+			Assert.AreEqual(defaultValue, testing.DefaultValue);
+
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -19077,6 +19904,8 @@ namespace ObservableComputations.Test
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
 			OcConsumer consumer = new OcConsumer();
 			var testing = sourceScalar.FirstComputing<Item>().For(consumer);
+
+			Assert.AreEqual(sourceScalar, testing.SourceScalar);
 
 			void test()
 			{
@@ -19144,6 +19973,9 @@ namespace ObservableComputations.Test
 			var testing = sourceScalar.FirstComputing<Item>(
 				defaultValue).For(consumer);
 
+			Assert.AreEqual(sourceScalar, testing.SourceScalar);
+			Assert.AreEqual(defaultValue, testing.DefaultValue);
+
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -19207,6 +20039,8 @@ namespace ObservableComputations.Test
 			Scalar<ObservableCollection<Item>> sourceScalar = getScalar<ObservableCollection<Item>>(getItems());
 			OcConsumer consumer = new OcConsumer();
 			var testing = sourceScalar.FirstComputing<Item>().For(consumer);
+
+			Assert.AreEqual(sourceScalar, testing.SourceScalar);
 
 			void test()
 			{
@@ -19274,6 +20108,9 @@ namespace ObservableComputations.Test
 			var testing = source.FirstComputing<Item>(
 				defaultValue).For(consumer);
 
+			Assert.AreEqual(source, testing.Source);
+			Assert.AreEqual(defaultValue, testing.DefaultValue);
+
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -19332,6 +20169,8 @@ namespace ObservableComputations.Test
 			System.Collections.Specialized.INotifyCollectionChanged source = getItems();
 			OcConsumer consumer = new OcConsumer();
 			var testing = source.FirstComputing<Item>().For(consumer);
+
+			Assert.AreEqual(source, testing.Source);
 
 			void test()
 			{
@@ -19394,6 +20233,9 @@ namespace ObservableComputations.Test
 			var testing = source.FirstComputing<Item>(
 				defaultValue).For(consumer);
 
+			Assert.AreEqual(source, testing.Source);
+			Assert.AreEqual(defaultValue, testing.DefaultValue);
+
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -19452,6 +20294,8 @@ namespace ObservableComputations.Test
 			ObservableCollection<Item> source = getItems();
 			OcConsumer consumer = new OcConsumer();
 			var testing = source.FirstComputing<Item>().For(consumer);
+
+			Assert.AreEqual(source, testing.Source);
 
 			void test()
 			{
@@ -19514,12 +20358,17 @@ namespace ObservableComputations.Test
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
 			System.Linq.Expressions.Expression<System.Func<Item, int>> keySelectorExpression = i => i.Id;
 			Scalar<System.Collections.Generic.IEqualityComparer<int>> equalityComparerScalar = getScalar<System.Collections.Generic.IEqualityComparer<int>>(EqualityComparer<int>.Default);
-			int capacity = 0;
+			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = sourceScalar.Grouping<Item, int>(
 				keySelectorExpression,
 				equalityComparerScalar,
-				capacity).For(consumer);
+				initialCapacity).For(consumer);
+
+			Assert.AreEqual(sourceScalar, testing.SourceScalar);
+			Assert.AreEqual(keySelectorExpression, testing.KeySelectorExpression);
+			Assert.AreEqual(equalityComparerScalar, testing.EqualityComparerScalar);
+			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
 
 			void test()
 			{
@@ -19594,6 +20443,10 @@ namespace ObservableComputations.Test
 				keySelectorExpression,
 				equalityComparerScalar).For(consumer);
 
+			Assert.AreEqual(sourceScalar, testing.SourceScalar);
+			Assert.AreEqual(keySelectorExpression, testing.KeySelectorExpression);
+			Assert.AreEqual(equalityComparerScalar, testing.EqualityComparerScalar);
+
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -19661,11 +20514,15 @@ namespace ObservableComputations.Test
 		{
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
 			System.Linq.Expressions.Expression<System.Func<Item, int>> keySelectorExpression = i => i.Id;
-			int capacity = 0;
+			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = sourceScalar.Grouping<Item, int>(
 				keySelectorExpression,
-				capacity).For(consumer);
+				initialCapacity).For(consumer);
+
+			Assert.AreEqual(sourceScalar, testing.SourceScalar);
+			Assert.AreEqual(keySelectorExpression, testing.KeySelectorExpression);
+			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
 
 			void test()
 			{
@@ -19733,6 +20590,9 @@ namespace ObservableComputations.Test
 			var testing = sourceScalar.Grouping<Item, int>(
 				keySelectorExpression).For(consumer);
 
+			Assert.AreEqual(sourceScalar, testing.SourceScalar);
+			Assert.AreEqual(keySelectorExpression, testing.KeySelectorExpression);
+
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -19796,12 +20656,17 @@ namespace ObservableComputations.Test
 			Scalar<ObservableCollection<Item>> sourceScalar = getScalar<ObservableCollection<Item>>(getItems());
 			System.Linq.Expressions.Expression<System.Func<Item, int>> keySelectorExpression = i => i.Id;
 			Scalar<System.Collections.Generic.IEqualityComparer<int>> equalityComparerScalar = getScalar<System.Collections.Generic.IEqualityComparer<int>>(EqualityComparer<int>.Default);
-			int capacity = 0;
+			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = sourceScalar.Grouping<Item, int>(
 				keySelectorExpression,
 				equalityComparerScalar,
-				capacity).For(consumer);
+				initialCapacity).For(consumer);
+
+			Assert.AreEqual(sourceScalar, testing.SourceScalar);
+			Assert.AreEqual(keySelectorExpression, testing.KeySelectorExpression);
+			Assert.AreEqual(equalityComparerScalar, testing.EqualityComparerScalar);
+			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
 
 			void test()
 			{
@@ -19876,6 +20741,10 @@ namespace ObservableComputations.Test
 				keySelectorExpression,
 				equalityComparerScalar).For(consumer);
 
+			Assert.AreEqual(sourceScalar, testing.SourceScalar);
+			Assert.AreEqual(keySelectorExpression, testing.KeySelectorExpression);
+			Assert.AreEqual(equalityComparerScalar, testing.EqualityComparerScalar);
+
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -19943,11 +20812,15 @@ namespace ObservableComputations.Test
 		{
 			Scalar<ObservableCollection<Item>> sourceScalar = getScalar<ObservableCollection<Item>>(getItems());
 			System.Linq.Expressions.Expression<System.Func<Item, int>> keySelectorExpression = i => i.Id;
-			int capacity = 0;
+			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = sourceScalar.Grouping<Item, int>(
 				keySelectorExpression,
-				capacity).For(consumer);
+				initialCapacity).For(consumer);
+
+			Assert.AreEqual(sourceScalar, testing.SourceScalar);
+			Assert.AreEqual(keySelectorExpression, testing.KeySelectorExpression);
+			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
 
 			void test()
 			{
@@ -20015,6 +20888,9 @@ namespace ObservableComputations.Test
 			var testing = sourceScalar.Grouping<Item, int>(
 				keySelectorExpression).For(consumer);
 
+			Assert.AreEqual(sourceScalar, testing.SourceScalar);
+			Assert.AreEqual(keySelectorExpression, testing.KeySelectorExpression);
+
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -20078,12 +20954,17 @@ namespace ObservableComputations.Test
 			System.Collections.Specialized.INotifyCollectionChanged source = getItems();
 			System.Linq.Expressions.Expression<System.Func<Item, int>> keySelectorExpression = i => i.Id;
 			Scalar<System.Collections.Generic.IEqualityComparer<int>> equalityComparerScalar = getScalar<System.Collections.Generic.IEqualityComparer<int>>(EqualityComparer<int>.Default);
-			int capacity = 0;
+			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = source.Grouping<Item, int>(
 				keySelectorExpression,
 				equalityComparerScalar,
-				capacity).For(consumer);
+				initialCapacity).For(consumer);
+
+			Assert.AreEqual(source, testing.Source);
+			Assert.AreEqual(keySelectorExpression, testing.KeySelectorExpression);
+			Assert.AreEqual(equalityComparerScalar, testing.EqualityComparerScalar);
+			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
 
 			void test()
 			{
@@ -20153,6 +21034,10 @@ namespace ObservableComputations.Test
 				keySelectorExpression,
 				equalityComparerScalar).For(consumer);
 
+			Assert.AreEqual(source, testing.Source);
+			Assert.AreEqual(keySelectorExpression, testing.KeySelectorExpression);
+			Assert.AreEqual(equalityComparerScalar, testing.EqualityComparerScalar);
+
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -20215,11 +21100,15 @@ namespace ObservableComputations.Test
 		{
 			System.Collections.Specialized.INotifyCollectionChanged source = getItems();
 			System.Linq.Expressions.Expression<System.Func<Item, int>> keySelectorExpression = i => i.Id;
-			int capacity = 0;
+			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = source.Grouping<Item, int>(
 				keySelectorExpression,
-				capacity).For(consumer);
+				initialCapacity).For(consumer);
+
+			Assert.AreEqual(source, testing.Source);
+			Assert.AreEqual(keySelectorExpression, testing.KeySelectorExpression);
+			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
 
 			void test()
 			{
@@ -20282,6 +21171,9 @@ namespace ObservableComputations.Test
 			var testing = source.Grouping<Item, int>(
 				keySelectorExpression).For(consumer);
 
+			Assert.AreEqual(source, testing.Source);
+			Assert.AreEqual(keySelectorExpression, testing.KeySelectorExpression);
+
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -20340,12 +21232,17 @@ namespace ObservableComputations.Test
 			ObservableCollection<Item> source = getItems();
 			System.Linq.Expressions.Expression<System.Func<Item, int>> keySelectorExpression = i => i.Id;
 			Scalar<System.Collections.Generic.IEqualityComparer<int>> equalityComparerScalar = getScalar<System.Collections.Generic.IEqualityComparer<int>>(EqualityComparer<int>.Default);
-			int capacity = 0;
+			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = source.Grouping<Item, int>(
 				keySelectorExpression,
 				equalityComparerScalar,
-				capacity).For(consumer);
+				initialCapacity).For(consumer);
+
+			Assert.AreEqual(source, testing.Source);
+			Assert.AreEqual(keySelectorExpression, testing.KeySelectorExpression);
+			Assert.AreEqual(equalityComparerScalar, testing.EqualityComparerScalar);
+			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
 
 			void test()
 			{
@@ -20415,6 +21312,10 @@ namespace ObservableComputations.Test
 				keySelectorExpression,
 				equalityComparerScalar).For(consumer);
 
+			Assert.AreEqual(source, testing.Source);
+			Assert.AreEqual(keySelectorExpression, testing.KeySelectorExpression);
+			Assert.AreEqual(equalityComparerScalar, testing.EqualityComparerScalar);
+
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -20477,11 +21378,15 @@ namespace ObservableComputations.Test
 		{
 			ObservableCollection<Item> source = getItems();
 			System.Linq.Expressions.Expression<System.Func<Item, int>> keySelectorExpression = i => i.Id;
-			int capacity = 0;
+			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = source.Grouping<Item, int>(
 				keySelectorExpression,
-				capacity).For(consumer);
+				initialCapacity).For(consumer);
+
+			Assert.AreEqual(source, testing.Source);
+			Assert.AreEqual(keySelectorExpression, testing.KeySelectorExpression);
+			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
 
 			void test()
 			{
@@ -20544,6 +21449,9 @@ namespace ObservableComputations.Test
 			var testing = source.Grouping<Item, int>(
 				keySelectorExpression).For(consumer);
 
+			Assert.AreEqual(source, testing.Source);
+			Assert.AreEqual(keySelectorExpression, testing.KeySelectorExpression);
+
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -20602,12 +21510,17 @@ namespace ObservableComputations.Test
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
 			System.Linq.Expressions.Expression<System.Func<Item, int>> keySelectorExpression = i => i.Id;
 			System.Collections.Generic.IEqualityComparer<int> equalityComparer = EqualityComparer<int>.Default;
-			int capacity = 0;
+			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = sourceScalar.Grouping<Item, int>(
 				keySelectorExpression,
 				equalityComparer,
-				capacity).For(consumer);
+				initialCapacity).For(consumer);
+
+			Assert.AreEqual(sourceScalar, testing.SourceScalar);
+			Assert.AreEqual(keySelectorExpression, testing.KeySelectorExpression);
+			Assert.AreEqual(equalityComparer, testing.EqualityComparer);
+			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
 
 			void test()
 			{
@@ -20677,6 +21590,10 @@ namespace ObservableComputations.Test
 				keySelectorExpression,
 				equalityComparer).For(consumer);
 
+			Assert.AreEqual(sourceScalar, testing.SourceScalar);
+			Assert.AreEqual(keySelectorExpression, testing.KeySelectorExpression);
+			Assert.AreEqual(equalityComparer, testing.EqualityComparer);
+
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -20740,12 +21657,17 @@ namespace ObservableComputations.Test
 			Scalar<ObservableCollection<Item>> sourceScalar = getScalar<ObservableCollection<Item>>(getItems());
 			System.Linq.Expressions.Expression<System.Func<Item, int>> keySelectorExpression = i => i.Id;
 			System.Collections.Generic.IEqualityComparer<int> equalityComparer = EqualityComparer<int>.Default;
-			int capacity = 0;
+			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = sourceScalar.Grouping<Item, int>(
 				keySelectorExpression,
 				equalityComparer,
-				capacity).For(consumer);
+				initialCapacity).For(consumer);
+
+			Assert.AreEqual(sourceScalar, testing.SourceScalar);
+			Assert.AreEqual(keySelectorExpression, testing.KeySelectorExpression);
+			Assert.AreEqual(equalityComparer, testing.EqualityComparer);
+			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
 
 			void test()
 			{
@@ -20815,6 +21737,10 @@ namespace ObservableComputations.Test
 				keySelectorExpression,
 				equalityComparer).For(consumer);
 
+			Assert.AreEqual(sourceScalar, testing.SourceScalar);
+			Assert.AreEqual(keySelectorExpression, testing.KeySelectorExpression);
+			Assert.AreEqual(equalityComparer, testing.EqualityComparer);
+
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -20878,12 +21804,17 @@ namespace ObservableComputations.Test
 			System.Collections.Specialized.INotifyCollectionChanged source = getItems();
 			System.Linq.Expressions.Expression<System.Func<Item, int>> keySelectorExpression = i => i.Id;
 			System.Collections.Generic.IEqualityComparer<int> equalityComparer = EqualityComparer<int>.Default;
-			int capacity = 0;
+			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = source.Grouping<Item, int>(
 				keySelectorExpression,
 				equalityComparer,
-				capacity).For(consumer);
+				initialCapacity).For(consumer);
+
+			Assert.AreEqual(source, testing.Source);
+			Assert.AreEqual(keySelectorExpression, testing.KeySelectorExpression);
+			Assert.AreEqual(equalityComparer, testing.EqualityComparer);
+			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
 
 			void test()
 			{
@@ -20948,6 +21879,10 @@ namespace ObservableComputations.Test
 				keySelectorExpression,
 				equalityComparer).For(consumer);
 
+			Assert.AreEqual(source, testing.Source);
+			Assert.AreEqual(keySelectorExpression, testing.KeySelectorExpression);
+			Assert.AreEqual(equalityComparer, testing.EqualityComparer);
+
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -21006,12 +21941,17 @@ namespace ObservableComputations.Test
 			ObservableCollection<Item> source = getItems();
 			System.Linq.Expressions.Expression<System.Func<Item, int>> keySelectorExpression = i => i.Id;
 			System.Collections.Generic.IEqualityComparer<int> equalityComparer = EqualityComparer<int>.Default;
-			int capacity = 0;
+			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = source.Grouping<Item, int>(
 				keySelectorExpression,
 				equalityComparer,
-				capacity).For(consumer);
+				initialCapacity).For(consumer);
+
+			Assert.AreEqual(source, testing.Source);
+			Assert.AreEqual(keySelectorExpression, testing.KeySelectorExpression);
+			Assert.AreEqual(equalityComparer, testing.EqualityComparer);
+			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
 
 			void test()
 			{
@@ -21075,6 +22015,10 @@ namespace ObservableComputations.Test
 			var testing = source.Grouping<Item, int>(
 				keySelectorExpression,
 				equalityComparer).For(consumer);
+
+			Assert.AreEqual(source, testing.Source);
+			Assert.AreEqual(keySelectorExpression, testing.KeySelectorExpression);
+			Assert.AreEqual(equalityComparer, testing.EqualityComparer);
 
 			void test()
 			{
@@ -21145,6 +22089,12 @@ namespace ObservableComputations.Test
 				outerKeySelector,
 				innerKeySelector,
 				equalityComparerScalar).For(consumer);
+
+			Assert.AreEqual(outerSourceScalar, testing.OuterSourceScalar);
+			Assert.AreEqual(innerSourceScalar, testing.InnerSourceScalar);
+			Assert.AreEqual(outerKeySelector, testing.OuterKeySelector);
+			Assert.AreEqual(innerKeySelector, testing.InnerKeySelector);
+			Assert.AreEqual(equalityComparerScalar, testing.EqualityComparerScalar);
 
 			void test()
 			{
@@ -21267,6 +22217,11 @@ namespace ObservableComputations.Test
 				outerKeySelector,
 				innerKeySelector).For(consumer);
 
+			Assert.AreEqual(outerSourceScalar, testing.OuterSourceScalar);
+			Assert.AreEqual(innerSourceScalar, testing.InnerSourceScalar);
+			Assert.AreEqual(outerKeySelector, testing.OuterKeySelector);
+			Assert.AreEqual(innerKeySelector, testing.InnerKeySelector);
+
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -21384,6 +22339,12 @@ namespace ObservableComputations.Test
 				outerKeySelector,
 				innerKeySelector,
 				equalityComparerScalar).For(consumer);
+
+			Assert.AreEqual(outerSourceScalar, testing.OuterSourceScalar);
+			Assert.AreEqual(innerSourceScalar, testing.InnerSourceScalar);
+			Assert.AreEqual(outerKeySelector, testing.OuterKeySelector);
+			Assert.AreEqual(innerKeySelector, testing.InnerKeySelector);
+			Assert.AreEqual(equalityComparerScalar, testing.EqualityComparerScalar);
 
 			void test()
 			{
@@ -21506,6 +22467,11 @@ namespace ObservableComputations.Test
 				outerKeySelector,
 				innerKeySelector).For(consumer);
 
+			Assert.AreEqual(outerSourceScalar, testing.OuterSourceScalar);
+			Assert.AreEqual(innerSourceScalar, testing.InnerSourceScalar);
+			Assert.AreEqual(outerKeySelector, testing.OuterKeySelector);
+			Assert.AreEqual(innerKeySelector, testing.InnerKeySelector);
+
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -21623,6 +22589,12 @@ namespace ObservableComputations.Test
 				outerKeySelector,
 				innerKeySelector,
 				equalityComparerScalar).For(consumer);
+
+			Assert.AreEqual(outerSourceScalar, testing.OuterSourceScalar);
+			Assert.AreEqual(innerSourceScalar, testing.InnerSourceScalar);
+			Assert.AreEqual(outerKeySelector, testing.OuterKeySelector);
+			Assert.AreEqual(innerKeySelector, testing.InnerKeySelector);
+			Assert.AreEqual(equalityComparerScalar, testing.EqualityComparerScalar);
 
 			void test()
 			{
@@ -21745,6 +22717,11 @@ namespace ObservableComputations.Test
 				outerKeySelector,
 				innerKeySelector).For(consumer);
 
+			Assert.AreEqual(outerSourceScalar, testing.OuterSourceScalar);
+			Assert.AreEqual(innerSourceScalar, testing.InnerSourceScalar);
+			Assert.AreEqual(outerKeySelector, testing.OuterKeySelector);
+			Assert.AreEqual(innerKeySelector, testing.InnerKeySelector);
+
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -21862,6 +22839,12 @@ namespace ObservableComputations.Test
 				outerKeySelector,
 				innerKeySelector,
 				equalityComparerScalar).For(consumer);
+
+			Assert.AreEqual(outerSourceScalar, testing.OuterSourceScalar);
+			Assert.AreEqual(innerSourceScalar, testing.InnerSourceScalar);
+			Assert.AreEqual(outerKeySelector, testing.OuterKeySelector);
+			Assert.AreEqual(innerKeySelector, testing.InnerKeySelector);
+			Assert.AreEqual(equalityComparerScalar, testing.EqualityComparerScalar);
 
 			void test()
 			{
@@ -21984,6 +22967,11 @@ namespace ObservableComputations.Test
 				outerKeySelector,
 				innerKeySelector).For(consumer);
 
+			Assert.AreEqual(outerSourceScalar, testing.OuterSourceScalar);
+			Assert.AreEqual(innerSourceScalar, testing.InnerSourceScalar);
+			Assert.AreEqual(outerKeySelector, testing.OuterKeySelector);
+			Assert.AreEqual(innerKeySelector, testing.InnerKeySelector);
+
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -22102,6 +23090,12 @@ namespace ObservableComputations.Test
 				innerKeySelector,
 				equalityComparerScalar).For(consumer);
 
+			Assert.AreEqual(outerSourceScalar, testing.OuterSourceScalar);
+			Assert.AreEqual(innerSource, testing.InnerSource);
+			Assert.AreEqual(outerKeySelector, testing.OuterKeySelector);
+			Assert.AreEqual(innerKeySelector, testing.InnerKeySelector);
+			Assert.AreEqual(equalityComparerScalar, testing.EqualityComparerScalar);
+
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -22218,6 +23212,11 @@ namespace ObservableComputations.Test
 				outerKeySelector,
 				innerKeySelector).For(consumer);
 
+			Assert.AreEqual(outerSourceScalar, testing.OuterSourceScalar);
+			Assert.AreEqual(innerSource, testing.InnerSource);
+			Assert.AreEqual(outerKeySelector, testing.OuterKeySelector);
+			Assert.AreEqual(innerKeySelector, testing.InnerKeySelector);
+
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -22330,6 +23329,12 @@ namespace ObservableComputations.Test
 				outerKeySelector,
 				innerKeySelector,
 				equalityComparerScalar).For(consumer);
+
+			Assert.AreEqual(outerSourceScalar, testing.OuterSourceScalar);
+			Assert.AreEqual(innerSource, testing.InnerSource);
+			Assert.AreEqual(outerKeySelector, testing.OuterKeySelector);
+			Assert.AreEqual(innerKeySelector, testing.InnerKeySelector);
+			Assert.AreEqual(equalityComparerScalar, testing.EqualityComparerScalar);
 
 			void test()
 			{
@@ -22447,6 +23452,11 @@ namespace ObservableComputations.Test
 				outerKeySelector,
 				innerKeySelector).For(consumer);
 
+			Assert.AreEqual(outerSourceScalar, testing.OuterSourceScalar);
+			Assert.AreEqual(innerSource, testing.InnerSource);
+			Assert.AreEqual(outerKeySelector, testing.OuterKeySelector);
+			Assert.AreEqual(innerKeySelector, testing.InnerKeySelector);
+
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -22559,6 +23569,12 @@ namespace ObservableComputations.Test
 				outerKeySelector,
 				innerKeySelector,
 				equalityComparerScalar).For(consumer);
+
+			Assert.AreEqual(outerSourceScalar, testing.OuterSourceScalar);
+			Assert.AreEqual(innerSource, testing.InnerSource);
+			Assert.AreEqual(outerKeySelector, testing.OuterKeySelector);
+			Assert.AreEqual(innerKeySelector, testing.InnerKeySelector);
+			Assert.AreEqual(equalityComparerScalar, testing.EqualityComparerScalar);
 
 			void test()
 			{
@@ -22676,6 +23692,11 @@ namespace ObservableComputations.Test
 				outerKeySelector,
 				innerKeySelector).For(consumer);
 
+			Assert.AreEqual(outerSourceScalar, testing.OuterSourceScalar);
+			Assert.AreEqual(innerSource, testing.InnerSource);
+			Assert.AreEqual(outerKeySelector, testing.OuterKeySelector);
+			Assert.AreEqual(innerKeySelector, testing.InnerKeySelector);
+
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -22788,6 +23809,12 @@ namespace ObservableComputations.Test
 				outerKeySelector,
 				innerKeySelector,
 				equalityComparerScalar).For(consumer);
+
+			Assert.AreEqual(outerSourceScalar, testing.OuterSourceScalar);
+			Assert.AreEqual(innerSource, testing.InnerSource);
+			Assert.AreEqual(outerKeySelector, testing.OuterKeySelector);
+			Assert.AreEqual(innerKeySelector, testing.InnerKeySelector);
+			Assert.AreEqual(equalityComparerScalar, testing.EqualityComparerScalar);
 
 			void test()
 			{
@@ -22905,6 +23932,11 @@ namespace ObservableComputations.Test
 				outerKeySelector,
 				innerKeySelector).For(consumer);
 
+			Assert.AreEqual(outerSourceScalar, testing.OuterSourceScalar);
+			Assert.AreEqual(innerSource, testing.InnerSource);
+			Assert.AreEqual(outerKeySelector, testing.OuterKeySelector);
+			Assert.AreEqual(innerKeySelector, testing.InnerKeySelector);
+
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -23017,6 +24049,12 @@ namespace ObservableComputations.Test
 				outerKeySelector,
 				innerKeySelector,
 				equalityComparer).For(consumer);
+
+			Assert.AreEqual(outerSourceScalar, testing.OuterSourceScalar);
+			Assert.AreEqual(innerSource, testing.InnerSource);
+			Assert.AreEqual(outerKeySelector, testing.OuterKeySelector);
+			Assert.AreEqual(innerKeySelector, testing.InnerKeySelector);
+			Assert.AreEqual(equalityComparer, testing.EqualityComparer);
 
 			void test()
 			{
@@ -23131,6 +24169,12 @@ namespace ObservableComputations.Test
 				innerKeySelector,
 				equalityComparer).For(consumer);
 
+			Assert.AreEqual(outerSourceScalar, testing.OuterSourceScalar);
+			Assert.AreEqual(innerSource, testing.InnerSource);
+			Assert.AreEqual(outerKeySelector, testing.OuterKeySelector);
+			Assert.AreEqual(innerKeySelector, testing.InnerKeySelector);
+			Assert.AreEqual(equalityComparer, testing.EqualityComparer);
+
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -23243,6 +24287,12 @@ namespace ObservableComputations.Test
 				outerKeySelector,
 				innerKeySelector,
 				equalityComparer).For(consumer);
+
+			Assert.AreEqual(outerSourceScalar, testing.OuterSourceScalar);
+			Assert.AreEqual(innerSource, testing.InnerSource);
+			Assert.AreEqual(outerKeySelector, testing.OuterKeySelector);
+			Assert.AreEqual(innerKeySelector, testing.InnerKeySelector);
+			Assert.AreEqual(equalityComparer, testing.EqualityComparer);
 
 			void test()
 			{
@@ -23357,6 +24407,12 @@ namespace ObservableComputations.Test
 				innerKeySelector,
 				equalityComparer).For(consumer);
 
+			Assert.AreEqual(outerSourceScalar, testing.OuterSourceScalar);
+			Assert.AreEqual(innerSource, testing.InnerSource);
+			Assert.AreEqual(outerKeySelector, testing.OuterKeySelector);
+			Assert.AreEqual(innerKeySelector, testing.InnerKeySelector);
+			Assert.AreEqual(equalityComparer, testing.EqualityComparer);
+
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -23469,6 +24525,12 @@ namespace ObservableComputations.Test
 				outerKeySelector,
 				innerKeySelector,
 				equalityComparer).For(consumer);
+
+			Assert.AreEqual(outerSourceScalar, testing.OuterSourceScalar);
+			Assert.AreEqual(innerSourceScalar, testing.InnerSourceScalar);
+			Assert.AreEqual(outerKeySelector, testing.OuterKeySelector);
+			Assert.AreEqual(innerKeySelector, testing.InnerKeySelector);
+			Assert.AreEqual(equalityComparer, testing.EqualityComparer);
 
 			void test()
 			{
@@ -23588,6 +24650,12 @@ namespace ObservableComputations.Test
 				innerKeySelector,
 				equalityComparer).For(consumer);
 
+			Assert.AreEqual(outerSourceScalar, testing.OuterSourceScalar);
+			Assert.AreEqual(innerSourceScalar, testing.InnerSourceScalar);
+			Assert.AreEqual(outerKeySelector, testing.OuterKeySelector);
+			Assert.AreEqual(innerKeySelector, testing.InnerKeySelector);
+			Assert.AreEqual(equalityComparer, testing.EqualityComparer);
+
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -23705,6 +24773,12 @@ namespace ObservableComputations.Test
 				outerKeySelector,
 				innerKeySelector,
 				equalityComparer).For(consumer);
+
+			Assert.AreEqual(outerSourceScalar, testing.OuterSourceScalar);
+			Assert.AreEqual(innerSourceScalar, testing.InnerSourceScalar);
+			Assert.AreEqual(outerKeySelector, testing.OuterKeySelector);
+			Assert.AreEqual(innerKeySelector, testing.InnerKeySelector);
+			Assert.AreEqual(equalityComparer, testing.EqualityComparer);
 
 			void test()
 			{
@@ -23824,6 +24898,12 @@ namespace ObservableComputations.Test
 				innerKeySelector,
 				equalityComparer).For(consumer);
 
+			Assert.AreEqual(outerSourceScalar, testing.OuterSourceScalar);
+			Assert.AreEqual(innerSourceScalar, testing.InnerSourceScalar);
+			Assert.AreEqual(outerKeySelector, testing.OuterKeySelector);
+			Assert.AreEqual(innerKeySelector, testing.InnerKeySelector);
+			Assert.AreEqual(equalityComparer, testing.EqualityComparer);
+
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -23942,6 +25022,12 @@ namespace ObservableComputations.Test
 				innerKeySelector,
 				equalityComparerScalar).For(consumer);
 
+			Assert.AreEqual(outerSource, testing.OuterSource);
+			Assert.AreEqual(innerSourceScalar, testing.InnerSourceScalar);
+			Assert.AreEqual(outerKeySelector, testing.OuterKeySelector);
+			Assert.AreEqual(innerKeySelector, testing.InnerKeySelector);
+			Assert.AreEqual(equalityComparerScalar, testing.EqualityComparerScalar);
+
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -24058,6 +25144,11 @@ namespace ObservableComputations.Test
 				outerKeySelector,
 				innerKeySelector).For(consumer);
 
+			Assert.AreEqual(outerSource, testing.OuterSource);
+			Assert.AreEqual(innerSourceScalar, testing.InnerSourceScalar);
+			Assert.AreEqual(outerKeySelector, testing.OuterKeySelector);
+			Assert.AreEqual(innerKeySelector, testing.InnerKeySelector);
+
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -24170,6 +25261,12 @@ namespace ObservableComputations.Test
 				outerKeySelector,
 				innerKeySelector,
 				equalityComparerScalar).For(consumer);
+
+			Assert.AreEqual(outerSource, testing.OuterSource);
+			Assert.AreEqual(innerSourceScalar, testing.InnerSourceScalar);
+			Assert.AreEqual(outerKeySelector, testing.OuterKeySelector);
+			Assert.AreEqual(innerKeySelector, testing.InnerKeySelector);
+			Assert.AreEqual(equalityComparerScalar, testing.EqualityComparerScalar);
 
 			void test()
 			{
@@ -24287,6 +25384,11 @@ namespace ObservableComputations.Test
 				outerKeySelector,
 				innerKeySelector).For(consumer);
 
+			Assert.AreEqual(outerSource, testing.OuterSource);
+			Assert.AreEqual(innerSourceScalar, testing.InnerSourceScalar);
+			Assert.AreEqual(outerKeySelector, testing.OuterKeySelector);
+			Assert.AreEqual(innerKeySelector, testing.InnerKeySelector);
+
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -24399,6 +25501,12 @@ namespace ObservableComputations.Test
 				outerKeySelector,
 				innerKeySelector,
 				equalityComparerScalar).For(consumer);
+
+			Assert.AreEqual(outerSource, testing.OuterSource);
+			Assert.AreEqual(innerSourceScalar, testing.InnerSourceScalar);
+			Assert.AreEqual(outerKeySelector, testing.OuterKeySelector);
+			Assert.AreEqual(innerKeySelector, testing.InnerKeySelector);
+			Assert.AreEqual(equalityComparerScalar, testing.EqualityComparerScalar);
 
 			void test()
 			{
@@ -24516,6 +25624,11 @@ namespace ObservableComputations.Test
 				outerKeySelector,
 				innerKeySelector).For(consumer);
 
+			Assert.AreEqual(outerSource, testing.OuterSource);
+			Assert.AreEqual(innerSourceScalar, testing.InnerSourceScalar);
+			Assert.AreEqual(outerKeySelector, testing.OuterKeySelector);
+			Assert.AreEqual(innerKeySelector, testing.InnerKeySelector);
+
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -24628,6 +25741,12 @@ namespace ObservableComputations.Test
 				outerKeySelector,
 				innerKeySelector,
 				equalityComparerScalar).For(consumer);
+
+			Assert.AreEqual(outerSource, testing.OuterSource);
+			Assert.AreEqual(innerSourceScalar, testing.InnerSourceScalar);
+			Assert.AreEqual(outerKeySelector, testing.OuterKeySelector);
+			Assert.AreEqual(innerKeySelector, testing.InnerKeySelector);
+			Assert.AreEqual(equalityComparerScalar, testing.EqualityComparerScalar);
 
 			void test()
 			{
@@ -24745,6 +25864,11 @@ namespace ObservableComputations.Test
 				outerKeySelector,
 				innerKeySelector).For(consumer);
 
+			Assert.AreEqual(outerSource, testing.OuterSource);
+			Assert.AreEqual(innerSourceScalar, testing.InnerSourceScalar);
+			Assert.AreEqual(outerKeySelector, testing.OuterKeySelector);
+			Assert.AreEqual(innerKeySelector, testing.InnerKeySelector);
+
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -24858,6 +25982,12 @@ namespace ObservableComputations.Test
 				innerKeySelector,
 				equalityComparerScalar).For(consumer);
 
+			Assert.AreEqual(outerSource, testing.OuterSource);
+			Assert.AreEqual(innerSource, testing.InnerSource);
+			Assert.AreEqual(outerKeySelector, testing.OuterKeySelector);
+			Assert.AreEqual(innerKeySelector, testing.InnerKeySelector);
+			Assert.AreEqual(equalityComparerScalar, testing.EqualityComparerScalar);
+
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -24969,6 +26099,11 @@ namespace ObservableComputations.Test
 				outerKeySelector,
 				innerKeySelector).For(consumer);
 
+			Assert.AreEqual(outerSource, testing.OuterSource);
+			Assert.AreEqual(innerSource, testing.InnerSource);
+			Assert.AreEqual(outerKeySelector, testing.OuterKeySelector);
+			Assert.AreEqual(innerKeySelector, testing.InnerKeySelector);
+
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -25076,6 +26211,12 @@ namespace ObservableComputations.Test
 				outerKeySelector,
 				innerKeySelector,
 				equalityComparerScalar).For(consumer);
+
+			Assert.AreEqual(outerSource, testing.OuterSource);
+			Assert.AreEqual(innerSource, testing.InnerSource);
+			Assert.AreEqual(outerKeySelector, testing.OuterKeySelector);
+			Assert.AreEqual(innerKeySelector, testing.InnerKeySelector);
+			Assert.AreEqual(equalityComparerScalar, testing.EqualityComparerScalar);
 
 			void test()
 			{
@@ -25188,6 +26329,11 @@ namespace ObservableComputations.Test
 				outerKeySelector,
 				innerKeySelector).For(consumer);
 
+			Assert.AreEqual(outerSource, testing.OuterSource);
+			Assert.AreEqual(innerSource, testing.InnerSource);
+			Assert.AreEqual(outerKeySelector, testing.OuterKeySelector);
+			Assert.AreEqual(innerKeySelector, testing.InnerKeySelector);
+
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -25295,6 +26441,12 @@ namespace ObservableComputations.Test
 				outerKeySelector,
 				innerKeySelector,
 				equalityComparerScalar).For(consumer);
+
+			Assert.AreEqual(outerSource, testing.OuterSource);
+			Assert.AreEqual(innerSource, testing.InnerSource);
+			Assert.AreEqual(outerKeySelector, testing.OuterKeySelector);
+			Assert.AreEqual(innerKeySelector, testing.InnerKeySelector);
+			Assert.AreEqual(equalityComparerScalar, testing.EqualityComparerScalar);
 
 			void test()
 			{
@@ -25407,6 +26559,11 @@ namespace ObservableComputations.Test
 				outerKeySelector,
 				innerKeySelector).For(consumer);
 
+			Assert.AreEqual(outerSource, testing.OuterSource);
+			Assert.AreEqual(innerSource, testing.InnerSource);
+			Assert.AreEqual(outerKeySelector, testing.OuterKeySelector);
+			Assert.AreEqual(innerKeySelector, testing.InnerKeySelector);
+
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -25514,6 +26671,12 @@ namespace ObservableComputations.Test
 				outerKeySelector,
 				innerKeySelector,
 				equalityComparerScalar).For(consumer);
+
+			Assert.AreEqual(outerSource, testing.OuterSource);
+			Assert.AreEqual(innerSource, testing.InnerSource);
+			Assert.AreEqual(outerKeySelector, testing.OuterKeySelector);
+			Assert.AreEqual(innerKeySelector, testing.InnerKeySelector);
+			Assert.AreEqual(equalityComparerScalar, testing.EqualityComparerScalar);
 
 			void test()
 			{
@@ -25626,6 +26789,11 @@ namespace ObservableComputations.Test
 				outerKeySelector,
 				innerKeySelector).For(consumer);
 
+			Assert.AreEqual(outerSource, testing.OuterSource);
+			Assert.AreEqual(innerSource, testing.InnerSource);
+			Assert.AreEqual(outerKeySelector, testing.OuterKeySelector);
+			Assert.AreEqual(innerKeySelector, testing.InnerKeySelector);
+
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -25733,6 +26901,12 @@ namespace ObservableComputations.Test
 				outerKeySelector,
 				innerKeySelector,
 				equalityComparer).For(consumer);
+
+			Assert.AreEqual(outerSource, testing.OuterSource);
+			Assert.AreEqual(innerSource, testing.InnerSource);
+			Assert.AreEqual(outerKeySelector, testing.OuterKeySelector);
+			Assert.AreEqual(innerKeySelector, testing.InnerKeySelector);
+			Assert.AreEqual(equalityComparer, testing.EqualityComparer);
 
 			void test()
 			{
@@ -25842,6 +27016,12 @@ namespace ObservableComputations.Test
 				innerKeySelector,
 				equalityComparer).For(consumer);
 
+			Assert.AreEqual(outerSource, testing.OuterSource);
+			Assert.AreEqual(innerSource, testing.InnerSource);
+			Assert.AreEqual(outerKeySelector, testing.OuterKeySelector);
+			Assert.AreEqual(innerKeySelector, testing.InnerKeySelector);
+			Assert.AreEqual(equalityComparer, testing.EqualityComparer);
+
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -25949,6 +27129,12 @@ namespace ObservableComputations.Test
 				outerKeySelector,
 				innerKeySelector,
 				equalityComparer).For(consumer);
+
+			Assert.AreEqual(outerSource, testing.OuterSource);
+			Assert.AreEqual(innerSource, testing.InnerSource);
+			Assert.AreEqual(outerKeySelector, testing.OuterKeySelector);
+			Assert.AreEqual(innerKeySelector, testing.InnerKeySelector);
+			Assert.AreEqual(equalityComparer, testing.EqualityComparer);
 
 			void test()
 			{
@@ -26058,6 +27244,12 @@ namespace ObservableComputations.Test
 				innerKeySelector,
 				equalityComparer).For(consumer);
 
+			Assert.AreEqual(outerSource, testing.OuterSource);
+			Assert.AreEqual(innerSource, testing.InnerSource);
+			Assert.AreEqual(outerKeySelector, testing.OuterKeySelector);
+			Assert.AreEqual(innerKeySelector, testing.InnerKeySelector);
+			Assert.AreEqual(equalityComparer, testing.EqualityComparer);
+
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -26165,6 +27357,12 @@ namespace ObservableComputations.Test
 				outerKeySelector,
 				innerKeySelector,
 				equalityComparer).For(consumer);
+
+			Assert.AreEqual(outerSource, testing.OuterSource);
+			Assert.AreEqual(innerSourceScalar, testing.InnerSourceScalar);
+			Assert.AreEqual(outerKeySelector, testing.OuterKeySelector);
+			Assert.AreEqual(innerKeySelector, testing.InnerKeySelector);
+			Assert.AreEqual(equalityComparer, testing.EqualityComparer);
 
 			void test()
 			{
@@ -26279,6 +27477,12 @@ namespace ObservableComputations.Test
 				innerKeySelector,
 				equalityComparer).For(consumer);
 
+			Assert.AreEqual(outerSource, testing.OuterSource);
+			Assert.AreEqual(innerSourceScalar, testing.InnerSourceScalar);
+			Assert.AreEqual(outerKeySelector, testing.OuterKeySelector);
+			Assert.AreEqual(innerKeySelector, testing.InnerKeySelector);
+			Assert.AreEqual(equalityComparer, testing.EqualityComparer);
+
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -26391,6 +27595,12 @@ namespace ObservableComputations.Test
 				outerKeySelector,
 				innerKeySelector,
 				equalityComparer).For(consumer);
+
+			Assert.AreEqual(outerSource, testing.OuterSource);
+			Assert.AreEqual(innerSourceScalar, testing.InnerSourceScalar);
+			Assert.AreEqual(outerKeySelector, testing.OuterKeySelector);
+			Assert.AreEqual(innerKeySelector, testing.InnerKeySelector);
+			Assert.AreEqual(equalityComparer, testing.EqualityComparer);
 
 			void test()
 			{
@@ -26505,6 +27715,12 @@ namespace ObservableComputations.Test
 				innerKeySelector,
 				equalityComparer).For(consumer);
 
+			Assert.AreEqual(outerSource, testing.OuterSource);
+			Assert.AreEqual(innerSourceScalar, testing.InnerSourceScalar);
+			Assert.AreEqual(outerKeySelector, testing.OuterKeySelector);
+			Assert.AreEqual(innerKeySelector, testing.InnerKeySelector);
+			Assert.AreEqual(equalityComparer, testing.EqualityComparer);
+
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -26617,6 +27833,10 @@ namespace ObservableComputations.Test
 				keySelectorExpression,
 				equalityComparer).For(consumer);
 
+			Assert.AreEqual(sourceScalar, testing.SourceScalar);
+			Assert.AreEqual(keySelectorExpression, testing.KeySelectorExpression);
+			Assert.AreEqual(equalityComparer, testing.EqualityComparer);
+
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -26682,6 +27902,9 @@ namespace ObservableComputations.Test
 			OcConsumer consumer = new OcConsumer();
 			var testing = sourceScalar.HashSetting<Item, int>(
 				keySelectorExpression).For(consumer);
+
+			Assert.AreEqual(sourceScalar, testing.SourceScalar);
+			Assert.AreEqual(keySelectorExpression, testing.KeySelectorExpression);
 
 			void test()
 			{
@@ -26751,6 +27974,10 @@ namespace ObservableComputations.Test
 				keySelectorExpression,
 				equalityComparer).For(consumer);
 
+			Assert.AreEqual(sourceScalar, testing.SourceScalar);
+			Assert.AreEqual(keySelectorExpression, testing.KeySelectorExpression);
+			Assert.AreEqual(equalityComparer, testing.EqualityComparer);
+
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -26816,6 +28043,9 @@ namespace ObservableComputations.Test
 			OcConsumer consumer = new OcConsumer();
 			var testing = sourceScalar.HashSetting<Item, int>(
 				keySelectorExpression).For(consumer);
+
+			Assert.AreEqual(sourceScalar, testing.SourceScalar);
+			Assert.AreEqual(keySelectorExpression, testing.KeySelectorExpression);
 
 			void test()
 			{
@@ -26885,6 +28115,10 @@ namespace ObservableComputations.Test
 				keySelectorExpression,
 				equalityComparer).For(consumer);
 
+			Assert.AreEqual(source, testing.Source);
+			Assert.AreEqual(keySelectorExpression, testing.KeySelectorExpression);
+			Assert.AreEqual(equalityComparer, testing.EqualityComparer);
+
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -26945,6 +28179,9 @@ namespace ObservableComputations.Test
 			OcConsumer consumer = new OcConsumer();
 			var testing = source.HashSetting<Item, int>(
 				keySelectorExpression).For(consumer);
+
+			Assert.AreEqual(source, testing.Source);
+			Assert.AreEqual(keySelectorExpression, testing.KeySelectorExpression);
 
 			void test()
 			{
@@ -27009,6 +28246,10 @@ namespace ObservableComputations.Test
 				keySelectorExpression,
 				equalityComparer).For(consumer);
 
+			Assert.AreEqual(source, testing.Source);
+			Assert.AreEqual(keySelectorExpression, testing.KeySelectorExpression);
+			Assert.AreEqual(equalityComparer, testing.EqualityComparer);
+
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -27069,6 +28310,9 @@ namespace ObservableComputations.Test
 			OcConsumer consumer = new OcConsumer();
 			var testing = source.HashSetting<Item, int>(
 				keySelectorExpression).For(consumer);
+
+			Assert.AreEqual(source, testing.Source);
+			Assert.AreEqual(keySelectorExpression, testing.KeySelectorExpression);
 
 			void test()
 			{
@@ -27132,6 +28376,10 @@ namespace ObservableComputations.Test
 			var testing = sourceScalar.HashSetting<Item, int>(
 				keySelectorExpression,
 				equalityComparerScalar).For(consumer);
+
+			Assert.AreEqual(sourceScalar, testing.SourceScalar);
+			Assert.AreEqual(keySelectorExpression, testing.KeySelectorExpression);
+			Assert.AreEqual(equalityComparerScalar, testing.EqualityComparerScalar);
 
 			void test()
 			{
@@ -27206,6 +28454,10 @@ namespace ObservableComputations.Test
 				keySelectorExpression,
 				equalityComparerScalar).For(consumer);
 
+			Assert.AreEqual(sourceScalar, testing.SourceScalar);
+			Assert.AreEqual(keySelectorExpression, testing.KeySelectorExpression);
+			Assert.AreEqual(equalityComparerScalar, testing.EqualityComparerScalar);
+
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -27279,6 +28531,10 @@ namespace ObservableComputations.Test
 				keySelectorExpression,
 				equalityComparerScalar).For(consumer);
 
+			Assert.AreEqual(source, testing.Source);
+			Assert.AreEqual(keySelectorExpression, testing.KeySelectorExpression);
+			Assert.AreEqual(equalityComparerScalar, testing.EqualityComparerScalar);
+
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -27347,6 +28603,10 @@ namespace ObservableComputations.Test
 				keySelectorExpression,
 				equalityComparerScalar).For(consumer);
 
+			Assert.AreEqual(source, testing.Source);
+			Assert.AreEqual(keySelectorExpression, testing.KeySelectorExpression);
+			Assert.AreEqual(equalityComparerScalar, testing.EqualityComparerScalar);
+
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -27412,11 +28672,15 @@ namespace ObservableComputations.Test
 		{
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
 			System.Linq.Expressions.Expression<System.Func<Item, bool>> predicateExpression = i => i.Active;
-			int capacity = 0;
+			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = sourceScalar.IndicesComputing<Item>(
 				predicateExpression,
-				capacity).For(consumer);
+				initialCapacity).For(consumer);
+
+			Assert.AreEqual(sourceScalar, testing.SourceScalar);
+			Assert.AreEqual(predicateExpression, testing.PredicateExpression);
+			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
 
 			void test()
 			{
@@ -27484,6 +28748,9 @@ namespace ObservableComputations.Test
 			var testing = sourceScalar.IndicesComputing<Item>(
 				predicateExpression).For(consumer);
 
+			Assert.AreEqual(sourceScalar, testing.SourceScalar);
+			Assert.AreEqual(predicateExpression, testing.PredicateExpression);
+
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -27546,11 +28813,15 @@ namespace ObservableComputations.Test
 		{
 			Scalar<ObservableCollection<Item>> sourceScalar = getScalar<ObservableCollection<Item>>(getItems());
 			System.Linq.Expressions.Expression<System.Func<Item, bool>> predicateExpression = i => i.Active;
-			int capacity = 0;
+			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = sourceScalar.IndicesComputing<Item>(
 				predicateExpression,
-				capacity).For(consumer);
+				initialCapacity).For(consumer);
+
+			Assert.AreEqual(sourceScalar, testing.SourceScalar);
+			Assert.AreEqual(predicateExpression, testing.PredicateExpression);
+			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
 
 			void test()
 			{
@@ -27618,6 +28889,9 @@ namespace ObservableComputations.Test
 			var testing = sourceScalar.IndicesComputing<Item>(
 				predicateExpression).For(consumer);
 
+			Assert.AreEqual(sourceScalar, testing.SourceScalar);
+			Assert.AreEqual(predicateExpression, testing.PredicateExpression);
+
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -27680,11 +28954,15 @@ namespace ObservableComputations.Test
 		{
 			System.Collections.Specialized.INotifyCollectionChanged source = getItems();
 			System.Linq.Expressions.Expression<System.Func<Item, bool>> predicateExpression = i => i.Active;
-			int capacity = 0;
+			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = source.IndicesComputing<Item>(
 				predicateExpression,
-				capacity).For(consumer);
+				initialCapacity).For(consumer);
+
+			Assert.AreEqual(source, testing.Source);
+			Assert.AreEqual(predicateExpression, testing.PredicateExpression);
+			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
 
 			void test()
 			{
@@ -27747,6 +29025,9 @@ namespace ObservableComputations.Test
 			var testing = source.IndicesComputing<Item>(
 				predicateExpression).For(consumer);
 
+			Assert.AreEqual(source, testing.Source);
+			Assert.AreEqual(predicateExpression, testing.PredicateExpression);
+
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -27804,11 +29085,15 @@ namespace ObservableComputations.Test
 		{
 			ObservableCollection<Item> source = getItems();
 			System.Linq.Expressions.Expression<System.Func<Item, bool>> predicateExpression = i => i.Active;
-			int capacity = 0;
+			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = source.IndicesComputing<Item>(
 				predicateExpression,
-				capacity).For(consumer);
+				initialCapacity).For(consumer);
+
+			Assert.AreEqual(source, testing.Source);
+			Assert.AreEqual(predicateExpression, testing.PredicateExpression);
+			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
 
 			void test()
 			{
@@ -27871,6 +29156,9 @@ namespace ObservableComputations.Test
 			var testing = source.IndicesComputing<Item>(
 				predicateExpression).For(consumer);
 
+			Assert.AreEqual(source, testing.Source);
+			Assert.AreEqual(predicateExpression, testing.PredicateExpression);
+
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -27932,12 +29220,17 @@ namespace ObservableComputations.Test
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> source1Scalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> source2Scalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
 			Scalar<System.Collections.Generic.IEqualityComparer<Item>> equalityComparerScalar = getScalar<System.Collections.Generic.IEqualityComparer<Item>>(EqualityComparer<Item>.Default);
-			int capacity = 0;
+			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = source1Scalar.Intersecting<Item>(
 				source2Scalar,
 				equalityComparerScalar,
-				capacity).For(consumer);
+				initialCapacity).For(consumer);
+
+			Assert.AreEqual(source1Scalar, testing.Source1Scalar);
+			Assert.AreEqual(source2Scalar, testing.Source2Scalar);
+			Assert.AreEqual(equalityComparerScalar, testing.EqualityComparerScalar);
+			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
 
 			void test()
 			{
@@ -28056,6 +29349,10 @@ namespace ObservableComputations.Test
 				source2Scalar,
 				equalityComparerScalar).For(consumer);
 
+			Assert.AreEqual(source1Scalar, testing.Source1Scalar);
+			Assert.AreEqual(source2Scalar, testing.Source2Scalar);
+			Assert.AreEqual(equalityComparerScalar, testing.EqualityComparerScalar);
+
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -28167,11 +29464,15 @@ namespace ObservableComputations.Test
 		{
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> source1Scalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> source2Scalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
-			int capacity = 0;
+			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = source1Scalar.Intersecting<Item>(
 				source2Scalar,
-				capacity).For(consumer);
+				initialCapacity).For(consumer);
+
+			Assert.AreEqual(source1Scalar, testing.Source1Scalar);
+			Assert.AreEqual(source2Scalar, testing.Source2Scalar);
+			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
 
 			void test()
 			{
@@ -28285,6 +29586,9 @@ namespace ObservableComputations.Test
 			var testing = source1Scalar.Intersecting<Item>(
 				source2Scalar).For(consumer);
 
+			Assert.AreEqual(source1Scalar, testing.Source1Scalar);
+			Assert.AreEqual(source2Scalar, testing.Source2Scalar);
+
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -28394,12 +29698,17 @@ namespace ObservableComputations.Test
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> source1Scalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
 			Scalar<ObservableCollection<Item>> source2Scalar = getScalar<ObservableCollection<Item>>(getItems());
 			Scalar<System.Collections.Generic.IEqualityComparer<Item>> equalityComparerScalar = getScalar<System.Collections.Generic.IEqualityComparer<Item>>(EqualityComparer<Item>.Default);
-			int capacity = 0;
+			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = source1Scalar.Intersecting<Item>(
 				source2Scalar,
 				equalityComparerScalar,
-				capacity).For(consumer);
+				initialCapacity).For(consumer);
+
+			Assert.AreEqual(source1Scalar, testing.Source1Scalar);
+			Assert.AreEqual(source2Scalar, testing.Source2Scalar);
+			Assert.AreEqual(equalityComparerScalar, testing.EqualityComparerScalar);
+			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
 
 			void test()
 			{
@@ -28518,6 +29827,10 @@ namespace ObservableComputations.Test
 				source2Scalar,
 				equalityComparerScalar).For(consumer);
 
+			Assert.AreEqual(source1Scalar, testing.Source1Scalar);
+			Assert.AreEqual(source2Scalar, testing.Source2Scalar);
+			Assert.AreEqual(equalityComparerScalar, testing.EqualityComparerScalar);
+
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -28629,11 +29942,15 @@ namespace ObservableComputations.Test
 		{
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> source1Scalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
 			Scalar<ObservableCollection<Item>> source2Scalar = getScalar<ObservableCollection<Item>>(getItems());
-			int capacity = 0;
+			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = source1Scalar.Intersecting<Item>(
 				source2Scalar,
-				capacity).For(consumer);
+				initialCapacity).For(consumer);
+
+			Assert.AreEqual(source1Scalar, testing.Source1Scalar);
+			Assert.AreEqual(source2Scalar, testing.Source2Scalar);
+			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
 
 			void test()
 			{
@@ -28747,6 +30064,9 @@ namespace ObservableComputations.Test
 			var testing = source1Scalar.Intersecting<Item>(
 				source2Scalar).For(consumer);
 
+			Assert.AreEqual(source1Scalar, testing.Source1Scalar);
+			Assert.AreEqual(source2Scalar, testing.Source2Scalar);
+
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -28856,12 +30176,17 @@ namespace ObservableComputations.Test
 			Scalar<ObservableCollection<Item>> source1Scalar = getScalar<ObservableCollection<Item>>(getItems());
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> source2Scalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
 			Scalar<System.Collections.Generic.IEqualityComparer<Item>> equalityComparerScalar = getScalar<System.Collections.Generic.IEqualityComparer<Item>>(EqualityComparer<Item>.Default);
-			int capacity = 0;
+			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = source1Scalar.Intersecting<Item>(
 				source2Scalar,
 				equalityComparerScalar,
-				capacity).For(consumer);
+				initialCapacity).For(consumer);
+
+			Assert.AreEqual(source1Scalar, testing.Source1Scalar);
+			Assert.AreEqual(source2Scalar, testing.Source2Scalar);
+			Assert.AreEqual(equalityComparerScalar, testing.EqualityComparerScalar);
+			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
 
 			void test()
 			{
@@ -28980,6 +30305,10 @@ namespace ObservableComputations.Test
 				source2Scalar,
 				equalityComparerScalar).For(consumer);
 
+			Assert.AreEqual(source1Scalar, testing.Source1Scalar);
+			Assert.AreEqual(source2Scalar, testing.Source2Scalar);
+			Assert.AreEqual(equalityComparerScalar, testing.EqualityComparerScalar);
+
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -29091,11 +30420,15 @@ namespace ObservableComputations.Test
 		{
 			Scalar<ObservableCollection<Item>> source1Scalar = getScalar<ObservableCollection<Item>>(getItems());
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> source2Scalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
-			int capacity = 0;
+			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = source1Scalar.Intersecting<Item>(
 				source2Scalar,
-				capacity).For(consumer);
+				initialCapacity).For(consumer);
+
+			Assert.AreEqual(source1Scalar, testing.Source1Scalar);
+			Assert.AreEqual(source2Scalar, testing.Source2Scalar);
+			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
 
 			void test()
 			{
@@ -29209,6 +30542,9 @@ namespace ObservableComputations.Test
 			var testing = source1Scalar.Intersecting<Item>(
 				source2Scalar).For(consumer);
 
+			Assert.AreEqual(source1Scalar, testing.Source1Scalar);
+			Assert.AreEqual(source2Scalar, testing.Source2Scalar);
+
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -29318,12 +30654,17 @@ namespace ObservableComputations.Test
 			Scalar<ObservableCollection<Item>> source1Scalar = getScalar<ObservableCollection<Item>>(getItems());
 			Scalar<ObservableCollection<Item>> source2Scalar = getScalar<ObservableCollection<Item>>(getItems());
 			Scalar<System.Collections.Generic.IEqualityComparer<Item>> equalityComparerScalar = getScalar<System.Collections.Generic.IEqualityComparer<Item>>(EqualityComparer<Item>.Default);
-			int capacity = 0;
+			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = source1Scalar.Intersecting<Item>(
 				source2Scalar,
 				equalityComparerScalar,
-				capacity).For(consumer);
+				initialCapacity).For(consumer);
+
+			Assert.AreEqual(source1Scalar, testing.Source1Scalar);
+			Assert.AreEqual(source2Scalar, testing.Source2Scalar);
+			Assert.AreEqual(equalityComparerScalar, testing.EqualityComparerScalar);
+			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
 
 			void test()
 			{
@@ -29442,6 +30783,10 @@ namespace ObservableComputations.Test
 				source2Scalar,
 				equalityComparerScalar).For(consumer);
 
+			Assert.AreEqual(source1Scalar, testing.Source1Scalar);
+			Assert.AreEqual(source2Scalar, testing.Source2Scalar);
+			Assert.AreEqual(equalityComparerScalar, testing.EqualityComparerScalar);
+
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -29553,11 +30898,15 @@ namespace ObservableComputations.Test
 		{
 			Scalar<ObservableCollection<Item>> source1Scalar = getScalar<ObservableCollection<Item>>(getItems());
 			Scalar<ObservableCollection<Item>> source2Scalar = getScalar<ObservableCollection<Item>>(getItems());
-			int capacity = 0;
+			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = source1Scalar.Intersecting<Item>(
 				source2Scalar,
-				capacity).For(consumer);
+				initialCapacity).For(consumer);
+
+			Assert.AreEqual(source1Scalar, testing.Source1Scalar);
+			Assert.AreEqual(source2Scalar, testing.Source2Scalar);
+			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
 
 			void test()
 			{
@@ -29671,6 +31020,9 @@ namespace ObservableComputations.Test
 			var testing = source1Scalar.Intersecting<Item>(
 				source2Scalar).For(consumer);
 
+			Assert.AreEqual(source1Scalar, testing.Source1Scalar);
+			Assert.AreEqual(source2Scalar, testing.Source2Scalar);
+
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -29780,12 +31132,17 @@ namespace ObservableComputations.Test
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> source1Scalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
 			System.Collections.Specialized.INotifyCollectionChanged source2 = getItems();
 			Scalar<System.Collections.Generic.IEqualityComparer<Item>> equalityComparerScalar = getScalar<System.Collections.Generic.IEqualityComparer<Item>>(EqualityComparer<Item>.Default);
-			int capacity = 0;
+			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = source1Scalar.Intersecting<Item>(
 				source2,
 				equalityComparerScalar,
-				capacity).For(consumer);
+				initialCapacity).For(consumer);
+
+			Assert.AreEqual(source1Scalar, testing.Source1Scalar);
+			Assert.AreEqual(source2, testing.Source2);
+			Assert.AreEqual(equalityComparerScalar, testing.EqualityComparerScalar);
+			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
 
 			void test()
 			{
@@ -29899,6 +31256,10 @@ namespace ObservableComputations.Test
 				source2,
 				equalityComparerScalar).For(consumer);
 
+			Assert.AreEqual(source1Scalar, testing.Source1Scalar);
+			Assert.AreEqual(source2, testing.Source2);
+			Assert.AreEqual(equalityComparerScalar, testing.EqualityComparerScalar);
+
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -30005,11 +31366,15 @@ namespace ObservableComputations.Test
 		{
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> source1Scalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
 			System.Collections.Specialized.INotifyCollectionChanged source2 = getItems();
-			int capacity = 0;
+			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = source1Scalar.Intersecting<Item>(
 				source2,
-				capacity).For(consumer);
+				initialCapacity).For(consumer);
+
+			Assert.AreEqual(source1Scalar, testing.Source1Scalar);
+			Assert.AreEqual(source2, testing.Source2);
+			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
 
 			void test()
 			{
@@ -30118,6 +31483,9 @@ namespace ObservableComputations.Test
 			var testing = source1Scalar.Intersecting<Item>(
 				source2).For(consumer);
 
+			Assert.AreEqual(source1Scalar, testing.Source1Scalar);
+			Assert.AreEqual(source2, testing.Source2);
+
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -30222,12 +31590,17 @@ namespace ObservableComputations.Test
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> source1Scalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
 			ObservableCollection<Item> source2 = getItems();
 			Scalar<System.Collections.Generic.IEqualityComparer<Item>> equalityComparerScalar = getScalar<System.Collections.Generic.IEqualityComparer<Item>>(EqualityComparer<Item>.Default);
-			int capacity = 0;
+			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = source1Scalar.Intersecting<Item>(
 				source2,
 				equalityComparerScalar,
-				capacity).For(consumer);
+				initialCapacity).For(consumer);
+
+			Assert.AreEqual(source1Scalar, testing.Source1Scalar);
+			Assert.AreEqual(source2, testing.Source2);
+			Assert.AreEqual(equalityComparerScalar, testing.EqualityComparerScalar);
+			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
 
 			void test()
 			{
@@ -30341,6 +31714,10 @@ namespace ObservableComputations.Test
 				source2,
 				equalityComparerScalar).For(consumer);
 
+			Assert.AreEqual(source1Scalar, testing.Source1Scalar);
+			Assert.AreEqual(source2, testing.Source2);
+			Assert.AreEqual(equalityComparerScalar, testing.EqualityComparerScalar);
+
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -30447,11 +31824,15 @@ namespace ObservableComputations.Test
 		{
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> source1Scalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
 			ObservableCollection<Item> source2 = getItems();
-			int capacity = 0;
+			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = source1Scalar.Intersecting<Item>(
 				source2,
-				capacity).For(consumer);
+				initialCapacity).For(consumer);
+
+			Assert.AreEqual(source1Scalar, testing.Source1Scalar);
+			Assert.AreEqual(source2, testing.Source2);
+			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
 
 			void test()
 			{
@@ -30560,6 +31941,9 @@ namespace ObservableComputations.Test
 			var testing = source1Scalar.Intersecting<Item>(
 				source2).For(consumer);
 
+			Assert.AreEqual(source1Scalar, testing.Source1Scalar);
+			Assert.AreEqual(source2, testing.Source2);
+
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -30664,12 +32048,17 @@ namespace ObservableComputations.Test
 			Scalar<ObservableCollection<Item>> source1Scalar = getScalar<ObservableCollection<Item>>(getItems());
 			System.Collections.Specialized.INotifyCollectionChanged source2 = getItems();
 			Scalar<System.Collections.Generic.IEqualityComparer<Item>> equalityComparerScalar = getScalar<System.Collections.Generic.IEqualityComparer<Item>>(EqualityComparer<Item>.Default);
-			int capacity = 0;
+			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = source1Scalar.Intersecting<Item>(
 				source2,
 				equalityComparerScalar,
-				capacity).For(consumer);
+				initialCapacity).For(consumer);
+
+			Assert.AreEqual(source1Scalar, testing.Source1Scalar);
+			Assert.AreEqual(source2, testing.Source2);
+			Assert.AreEqual(equalityComparerScalar, testing.EqualityComparerScalar);
+			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
 
 			void test()
 			{
@@ -30783,6 +32172,10 @@ namespace ObservableComputations.Test
 				source2,
 				equalityComparerScalar).For(consumer);
 
+			Assert.AreEqual(source1Scalar, testing.Source1Scalar);
+			Assert.AreEqual(source2, testing.Source2);
+			Assert.AreEqual(equalityComparerScalar, testing.EqualityComparerScalar);
+
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -30889,11 +32282,15 @@ namespace ObservableComputations.Test
 		{
 			Scalar<ObservableCollection<Item>> source1Scalar = getScalar<ObservableCollection<Item>>(getItems());
 			System.Collections.Specialized.INotifyCollectionChanged source2 = getItems();
-			int capacity = 0;
+			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = source1Scalar.Intersecting<Item>(
 				source2,
-				capacity).For(consumer);
+				initialCapacity).For(consumer);
+
+			Assert.AreEqual(source1Scalar, testing.Source1Scalar);
+			Assert.AreEqual(source2, testing.Source2);
+			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
 
 			void test()
 			{
@@ -31002,6 +32399,9 @@ namespace ObservableComputations.Test
 			var testing = source1Scalar.Intersecting<Item>(
 				source2).For(consumer);
 
+			Assert.AreEqual(source1Scalar, testing.Source1Scalar);
+			Assert.AreEqual(source2, testing.Source2);
+
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -31106,12 +32506,17 @@ namespace ObservableComputations.Test
 			Scalar<ObservableCollection<Item>> source1Scalar = getScalar<ObservableCollection<Item>>(getItems());
 			ObservableCollection<Item> source2 = getItems();
 			Scalar<System.Collections.Generic.IEqualityComparer<Item>> equalityComparerScalar = getScalar<System.Collections.Generic.IEqualityComparer<Item>>(EqualityComparer<Item>.Default);
-			int capacity = 0;
+			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = source1Scalar.Intersecting<Item>(
 				source2,
 				equalityComparerScalar,
-				capacity).For(consumer);
+				initialCapacity).For(consumer);
+
+			Assert.AreEqual(source1Scalar, testing.Source1Scalar);
+			Assert.AreEqual(source2, testing.Source2);
+			Assert.AreEqual(equalityComparerScalar, testing.EqualityComparerScalar);
+			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
 
 			void test()
 			{
@@ -31225,6 +32630,10 @@ namespace ObservableComputations.Test
 				source2,
 				equalityComparerScalar).For(consumer);
 
+			Assert.AreEqual(source1Scalar, testing.Source1Scalar);
+			Assert.AreEqual(source2, testing.Source2);
+			Assert.AreEqual(equalityComparerScalar, testing.EqualityComparerScalar);
+
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -31331,11 +32740,15 @@ namespace ObservableComputations.Test
 		{
 			Scalar<ObservableCollection<Item>> source1Scalar = getScalar<ObservableCollection<Item>>(getItems());
 			ObservableCollection<Item> source2 = getItems();
-			int capacity = 0;
+			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = source1Scalar.Intersecting<Item>(
 				source2,
-				capacity).For(consumer);
+				initialCapacity).For(consumer);
+
+			Assert.AreEqual(source1Scalar, testing.Source1Scalar);
+			Assert.AreEqual(source2, testing.Source2);
+			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
 
 			void test()
 			{
@@ -31444,6 +32857,9 @@ namespace ObservableComputations.Test
 			var testing = source1Scalar.Intersecting<Item>(
 				source2).For(consumer);
 
+			Assert.AreEqual(source1Scalar, testing.Source1Scalar);
+			Assert.AreEqual(source2, testing.Source2);
+
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -31548,12 +32964,17 @@ namespace ObservableComputations.Test
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> source1Scalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
 			System.Collections.Specialized.INotifyCollectionChanged source2 = getItems();
 			System.Collections.Generic.IEqualityComparer<Item> equalityComparer = EqualityComparer<Item>.Default;
-			int capacity = 0;
+			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = source1Scalar.Intersecting<Item>(
 				source2,
 				equalityComparer,
-				capacity).For(consumer);
+				initialCapacity).For(consumer);
+
+			Assert.AreEqual(source1Scalar, testing.Source1Scalar);
+			Assert.AreEqual(source2, testing.Source2);
+			Assert.AreEqual(equalityComparer, testing.EqualityComparer);
+			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
 
 			void test()
 			{
@@ -31664,6 +33085,10 @@ namespace ObservableComputations.Test
 				source2,
 				equalityComparer).For(consumer);
 
+			Assert.AreEqual(source1Scalar, testing.Source1Scalar);
+			Assert.AreEqual(source2, testing.Source2);
+			Assert.AreEqual(equalityComparer, testing.EqualityComparer);
+
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -31768,12 +33193,17 @@ namespace ObservableComputations.Test
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> source1Scalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
 			ObservableCollection<Item> source2 = getItems();
 			System.Collections.Generic.IEqualityComparer<Item> equalityComparer = EqualityComparer<Item>.Default;
-			int capacity = 0;
+			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = source1Scalar.Intersecting<Item>(
 				source2,
 				equalityComparer,
-				capacity).For(consumer);
+				initialCapacity).For(consumer);
+
+			Assert.AreEqual(source1Scalar, testing.Source1Scalar);
+			Assert.AreEqual(source2, testing.Source2);
+			Assert.AreEqual(equalityComparer, testing.EqualityComparer);
+			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
 
 			void test()
 			{
@@ -31884,6 +33314,10 @@ namespace ObservableComputations.Test
 				source2,
 				equalityComparer).For(consumer);
 
+			Assert.AreEqual(source1Scalar, testing.Source1Scalar);
+			Assert.AreEqual(source2, testing.Source2);
+			Assert.AreEqual(equalityComparer, testing.EqualityComparer);
+
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -31988,12 +33422,17 @@ namespace ObservableComputations.Test
 			Scalar<ObservableCollection<Item>> source1Scalar = getScalar<ObservableCollection<Item>>(getItems());
 			System.Collections.Specialized.INotifyCollectionChanged source2 = getItems();
 			System.Collections.Generic.IEqualityComparer<Item> equalityComparer = EqualityComparer<Item>.Default;
-			int capacity = 0;
+			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = source1Scalar.Intersecting<Item>(
 				source2,
 				equalityComparer,
-				capacity).For(consumer);
+				initialCapacity).For(consumer);
+
+			Assert.AreEqual(source1Scalar, testing.Source1Scalar);
+			Assert.AreEqual(source2, testing.Source2);
+			Assert.AreEqual(equalityComparer, testing.EqualityComparer);
+			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
 
 			void test()
 			{
@@ -32104,6 +33543,10 @@ namespace ObservableComputations.Test
 				source2,
 				equalityComparer).For(consumer);
 
+			Assert.AreEqual(source1Scalar, testing.Source1Scalar);
+			Assert.AreEqual(source2, testing.Source2);
+			Assert.AreEqual(equalityComparer, testing.EqualityComparer);
+
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -32208,12 +33651,17 @@ namespace ObservableComputations.Test
 			Scalar<ObservableCollection<Item>> source1Scalar = getScalar<ObservableCollection<Item>>(getItems());
 			ObservableCollection<Item> source2 = getItems();
 			System.Collections.Generic.IEqualityComparer<Item> equalityComparer = EqualityComparer<Item>.Default;
-			int capacity = 0;
+			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = source1Scalar.Intersecting<Item>(
 				source2,
 				equalityComparer,
-				capacity).For(consumer);
+				initialCapacity).For(consumer);
+
+			Assert.AreEqual(source1Scalar, testing.Source1Scalar);
+			Assert.AreEqual(source2, testing.Source2);
+			Assert.AreEqual(equalityComparer, testing.EqualityComparer);
+			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
 
 			void test()
 			{
@@ -32324,6 +33772,10 @@ namespace ObservableComputations.Test
 				source2,
 				equalityComparer).For(consumer);
 
+			Assert.AreEqual(source1Scalar, testing.Source1Scalar);
+			Assert.AreEqual(source2, testing.Source2);
+			Assert.AreEqual(equalityComparer, testing.EqualityComparer);
+
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -32428,12 +33880,17 @@ namespace ObservableComputations.Test
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> source1Scalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> source2Scalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
 			System.Collections.Generic.IEqualityComparer<Item> equalityComparer = EqualityComparer<Item>.Default;
-			int capacity = 0;
+			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = source1Scalar.Intersecting<Item>(
 				source2Scalar,
 				equalityComparer,
-				capacity).For(consumer);
+				initialCapacity).For(consumer);
+
+			Assert.AreEqual(source1Scalar, testing.Source1Scalar);
+			Assert.AreEqual(source2Scalar, testing.Source2Scalar);
+			Assert.AreEqual(equalityComparer, testing.EqualityComparer);
+			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
 
 			void test()
 			{
@@ -32549,6 +34006,10 @@ namespace ObservableComputations.Test
 				source2Scalar,
 				equalityComparer).For(consumer);
 
+			Assert.AreEqual(source1Scalar, testing.Source1Scalar);
+			Assert.AreEqual(source2Scalar, testing.Source2Scalar);
+			Assert.AreEqual(equalityComparer, testing.EqualityComparer);
+
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -32658,12 +34119,17 @@ namespace ObservableComputations.Test
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> source1Scalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
 			Scalar<ObservableCollection<Item>> source2Scalar = getScalar<ObservableCollection<Item>>(getItems());
 			System.Collections.Generic.IEqualityComparer<Item> equalityComparer = EqualityComparer<Item>.Default;
-			int capacity = 0;
+			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = source1Scalar.Intersecting<Item>(
 				source2Scalar,
 				equalityComparer,
-				capacity).For(consumer);
+				initialCapacity).For(consumer);
+
+			Assert.AreEqual(source1Scalar, testing.Source1Scalar);
+			Assert.AreEqual(source2Scalar, testing.Source2Scalar);
+			Assert.AreEqual(equalityComparer, testing.EqualityComparer);
+			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
 
 			void test()
 			{
@@ -32779,6 +34245,10 @@ namespace ObservableComputations.Test
 				source2Scalar,
 				equalityComparer).For(consumer);
 
+			Assert.AreEqual(source1Scalar, testing.Source1Scalar);
+			Assert.AreEqual(source2Scalar, testing.Source2Scalar);
+			Assert.AreEqual(equalityComparer, testing.EqualityComparer);
+
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -32888,12 +34358,17 @@ namespace ObservableComputations.Test
 			Scalar<ObservableCollection<Item>> source1Scalar = getScalar<ObservableCollection<Item>>(getItems());
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> source2Scalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
 			System.Collections.Generic.IEqualityComparer<Item> equalityComparer = EqualityComparer<Item>.Default;
-			int capacity = 0;
+			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = source1Scalar.Intersecting<Item>(
 				source2Scalar,
 				equalityComparer,
-				capacity).For(consumer);
+				initialCapacity).For(consumer);
+
+			Assert.AreEqual(source1Scalar, testing.Source1Scalar);
+			Assert.AreEqual(source2Scalar, testing.Source2Scalar);
+			Assert.AreEqual(equalityComparer, testing.EqualityComparer);
+			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
 
 			void test()
 			{
@@ -33009,6 +34484,10 @@ namespace ObservableComputations.Test
 				source2Scalar,
 				equalityComparer).For(consumer);
 
+			Assert.AreEqual(source1Scalar, testing.Source1Scalar);
+			Assert.AreEqual(source2Scalar, testing.Source2Scalar);
+			Assert.AreEqual(equalityComparer, testing.EqualityComparer);
+
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -33118,12 +34597,17 @@ namespace ObservableComputations.Test
 			Scalar<ObservableCollection<Item>> source1Scalar = getScalar<ObservableCollection<Item>>(getItems());
 			Scalar<ObservableCollection<Item>> source2Scalar = getScalar<ObservableCollection<Item>>(getItems());
 			System.Collections.Generic.IEqualityComparer<Item> equalityComparer = EqualityComparer<Item>.Default;
-			int capacity = 0;
+			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = source1Scalar.Intersecting<Item>(
 				source2Scalar,
 				equalityComparer,
-				capacity).For(consumer);
+				initialCapacity).For(consumer);
+
+			Assert.AreEqual(source1Scalar, testing.Source1Scalar);
+			Assert.AreEqual(source2Scalar, testing.Source2Scalar);
+			Assert.AreEqual(equalityComparer, testing.EqualityComparer);
+			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
 
 			void test()
 			{
@@ -33239,6 +34723,10 @@ namespace ObservableComputations.Test
 				source2Scalar,
 				equalityComparer).For(consumer);
 
+			Assert.AreEqual(source1Scalar, testing.Source1Scalar);
+			Assert.AreEqual(source2Scalar, testing.Source2Scalar);
+			Assert.AreEqual(equalityComparer, testing.EqualityComparer);
+
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -33348,12 +34836,17 @@ namespace ObservableComputations.Test
 			System.Collections.Specialized.INotifyCollectionChanged source1 = getItems();
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> source2Scalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
 			Scalar<System.Collections.Generic.IEqualityComparer<Item>> equalityComparerScalar = getScalar<System.Collections.Generic.IEqualityComparer<Item>>(EqualityComparer<Item>.Default);
-			int capacity = 0;
+			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = source1.Intersecting<Item>(
 				source2Scalar,
 				equalityComparerScalar,
-				capacity).For(consumer);
+				initialCapacity).For(consumer);
+
+			Assert.AreEqual(source1, testing.Source1);
+			Assert.AreEqual(source2Scalar, testing.Source2Scalar);
+			Assert.AreEqual(equalityComparerScalar, testing.EqualityComparerScalar);
+			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
 
 			void test()
 			{
@@ -33467,6 +34960,10 @@ namespace ObservableComputations.Test
 				source2Scalar,
 				equalityComparerScalar).For(consumer);
 
+			Assert.AreEqual(source1, testing.Source1);
+			Assert.AreEqual(source2Scalar, testing.Source2Scalar);
+			Assert.AreEqual(equalityComparerScalar, testing.EqualityComparerScalar);
+
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -33573,11 +35070,15 @@ namespace ObservableComputations.Test
 		{
 			System.Collections.Specialized.INotifyCollectionChanged source1 = getItems();
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> source2Scalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
-			int capacity = 0;
+			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = source1.Intersecting<Item>(
 				source2Scalar,
-				capacity).For(consumer);
+				initialCapacity).For(consumer);
+
+			Assert.AreEqual(source1, testing.Source1);
+			Assert.AreEqual(source2Scalar, testing.Source2Scalar);
+			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
 
 			void test()
 			{
@@ -33686,6 +35187,9 @@ namespace ObservableComputations.Test
 			var testing = source1.Intersecting<Item>(
 				source2Scalar).For(consumer);
 
+			Assert.AreEqual(source1, testing.Source1);
+			Assert.AreEqual(source2Scalar, testing.Source2Scalar);
+
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -33790,12 +35294,17 @@ namespace ObservableComputations.Test
 			System.Collections.Specialized.INotifyCollectionChanged source1 = getItems();
 			Scalar<ObservableCollection<Item>> source2Scalar = getScalar<ObservableCollection<Item>>(getItems());
 			Scalar<System.Collections.Generic.IEqualityComparer<Item>> equalityComparerScalar = getScalar<System.Collections.Generic.IEqualityComparer<Item>>(EqualityComparer<Item>.Default);
-			int capacity = 0;
+			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = source1.Intersecting<Item>(
 				source2Scalar,
 				equalityComparerScalar,
-				capacity).For(consumer);
+				initialCapacity).For(consumer);
+
+			Assert.AreEqual(source1, testing.Source1);
+			Assert.AreEqual(source2Scalar, testing.Source2Scalar);
+			Assert.AreEqual(equalityComparerScalar, testing.EqualityComparerScalar);
+			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
 
 			void test()
 			{
@@ -33909,6 +35418,10 @@ namespace ObservableComputations.Test
 				source2Scalar,
 				equalityComparerScalar).For(consumer);
 
+			Assert.AreEqual(source1, testing.Source1);
+			Assert.AreEqual(source2Scalar, testing.Source2Scalar);
+			Assert.AreEqual(equalityComparerScalar, testing.EqualityComparerScalar);
+
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -34015,11 +35528,15 @@ namespace ObservableComputations.Test
 		{
 			System.Collections.Specialized.INotifyCollectionChanged source1 = getItems();
 			Scalar<ObservableCollection<Item>> source2Scalar = getScalar<ObservableCollection<Item>>(getItems());
-			int capacity = 0;
+			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = source1.Intersecting<Item>(
 				source2Scalar,
-				capacity).For(consumer);
+				initialCapacity).For(consumer);
+
+			Assert.AreEqual(source1, testing.Source1);
+			Assert.AreEqual(source2Scalar, testing.Source2Scalar);
+			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
 
 			void test()
 			{
@@ -34128,6 +35645,9 @@ namespace ObservableComputations.Test
 			var testing = source1.Intersecting<Item>(
 				source2Scalar).For(consumer);
 
+			Assert.AreEqual(source1, testing.Source1);
+			Assert.AreEqual(source2Scalar, testing.Source2Scalar);
+
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -34232,12 +35752,17 @@ namespace ObservableComputations.Test
 			ObservableCollection<Item> source1 = getItems();
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> source2Scalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
 			Scalar<System.Collections.Generic.IEqualityComparer<Item>> equalityComparerScalar = getScalar<System.Collections.Generic.IEqualityComparer<Item>>(EqualityComparer<Item>.Default);
-			int capacity = 0;
+			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = source1.Intersecting<Item>(
 				source2Scalar,
 				equalityComparerScalar,
-				capacity).For(consumer);
+				initialCapacity).For(consumer);
+
+			Assert.AreEqual(source1, testing.Source1);
+			Assert.AreEqual(source2Scalar, testing.Source2Scalar);
+			Assert.AreEqual(equalityComparerScalar, testing.EqualityComparerScalar);
+			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
 
 			void test()
 			{
@@ -34351,6 +35876,10 @@ namespace ObservableComputations.Test
 				source2Scalar,
 				equalityComparerScalar).For(consumer);
 
+			Assert.AreEqual(source1, testing.Source1);
+			Assert.AreEqual(source2Scalar, testing.Source2Scalar);
+			Assert.AreEqual(equalityComparerScalar, testing.EqualityComparerScalar);
+
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -34457,11 +35986,15 @@ namespace ObservableComputations.Test
 		{
 			ObservableCollection<Item> source1 = getItems();
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> source2Scalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
-			int capacity = 0;
+			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = source1.Intersecting<Item>(
 				source2Scalar,
-				capacity).For(consumer);
+				initialCapacity).For(consumer);
+
+			Assert.AreEqual(source1, testing.Source1);
+			Assert.AreEqual(source2Scalar, testing.Source2Scalar);
+			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
 
 			void test()
 			{
@@ -34570,6 +36103,9 @@ namespace ObservableComputations.Test
 			var testing = source1.Intersecting<Item>(
 				source2Scalar).For(consumer);
 
+			Assert.AreEqual(source1, testing.Source1);
+			Assert.AreEqual(source2Scalar, testing.Source2Scalar);
+
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -34674,12 +36210,17 @@ namespace ObservableComputations.Test
 			ObservableCollection<Item> source1 = getItems();
 			Scalar<ObservableCollection<Item>> source2Scalar = getScalar<ObservableCollection<Item>>(getItems());
 			Scalar<System.Collections.Generic.IEqualityComparer<Item>> equalityComparerScalar = getScalar<System.Collections.Generic.IEqualityComparer<Item>>(EqualityComparer<Item>.Default);
-			int capacity = 0;
+			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = source1.Intersecting<Item>(
 				source2Scalar,
 				equalityComparerScalar,
-				capacity).For(consumer);
+				initialCapacity).For(consumer);
+
+			Assert.AreEqual(source1, testing.Source1);
+			Assert.AreEqual(source2Scalar, testing.Source2Scalar);
+			Assert.AreEqual(equalityComparerScalar, testing.EqualityComparerScalar);
+			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
 
 			void test()
 			{
@@ -34793,6 +36334,10 @@ namespace ObservableComputations.Test
 				source2Scalar,
 				equalityComparerScalar).For(consumer);
 
+			Assert.AreEqual(source1, testing.Source1);
+			Assert.AreEqual(source2Scalar, testing.Source2Scalar);
+			Assert.AreEqual(equalityComparerScalar, testing.EqualityComparerScalar);
+
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -34899,11 +36444,15 @@ namespace ObservableComputations.Test
 		{
 			ObservableCollection<Item> source1 = getItems();
 			Scalar<ObservableCollection<Item>> source2Scalar = getScalar<ObservableCollection<Item>>(getItems());
-			int capacity = 0;
+			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = source1.Intersecting<Item>(
 				source2Scalar,
-				capacity).For(consumer);
+				initialCapacity).For(consumer);
+
+			Assert.AreEqual(source1, testing.Source1);
+			Assert.AreEqual(source2Scalar, testing.Source2Scalar);
+			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
 
 			void test()
 			{
@@ -35012,6 +36561,9 @@ namespace ObservableComputations.Test
 			var testing = source1.Intersecting<Item>(
 				source2Scalar).For(consumer);
 
+			Assert.AreEqual(source1, testing.Source1);
+			Assert.AreEqual(source2Scalar, testing.Source2Scalar);
+
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -35116,12 +36668,17 @@ namespace ObservableComputations.Test
 			System.Collections.Specialized.INotifyCollectionChanged source1 = getItems();
 			System.Collections.Specialized.INotifyCollectionChanged source2 = getItems();
 			Scalar<System.Collections.Generic.IEqualityComparer<Item>> equalityComparerScalar = getScalar<System.Collections.Generic.IEqualityComparer<Item>>(EqualityComparer<Item>.Default);
-			int capacity = 0;
+			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = source1.Intersecting<Item>(
 				source2,
 				equalityComparerScalar,
-				capacity).For(consumer);
+				initialCapacity).For(consumer);
+
+			Assert.AreEqual(source1, testing.Source1);
+			Assert.AreEqual(source2, testing.Source2);
+			Assert.AreEqual(equalityComparerScalar, testing.EqualityComparerScalar);
+			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
 
 			void test()
 			{
@@ -35230,6 +36787,10 @@ namespace ObservableComputations.Test
 				source2,
 				equalityComparerScalar).For(consumer);
 
+			Assert.AreEqual(source1, testing.Source1);
+			Assert.AreEqual(source2, testing.Source2);
+			Assert.AreEqual(equalityComparerScalar, testing.EqualityComparerScalar);
+
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -35331,11 +36892,15 @@ namespace ObservableComputations.Test
 		{
 			System.Collections.Specialized.INotifyCollectionChanged source1 = getItems();
 			System.Collections.Specialized.INotifyCollectionChanged source2 = getItems();
-			int capacity = 0;
+			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = source1.Intersecting<Item>(
 				source2,
-				capacity).For(consumer);
+				initialCapacity).For(consumer);
+
+			Assert.AreEqual(source1, testing.Source1);
+			Assert.AreEqual(source2, testing.Source2);
+			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
 
 			void test()
 			{
@@ -35439,6 +37004,9 @@ namespace ObservableComputations.Test
 			var testing = source1.Intersecting<Item>(
 				source2).For(consumer);
 
+			Assert.AreEqual(source1, testing.Source1);
+			Assert.AreEqual(source2, testing.Source2);
+
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -35538,12 +37106,17 @@ namespace ObservableComputations.Test
 			System.Collections.Specialized.INotifyCollectionChanged source1 = getItems();
 			ObservableCollection<Item> source2 = getItems();
 			Scalar<System.Collections.Generic.IEqualityComparer<Item>> equalityComparerScalar = getScalar<System.Collections.Generic.IEqualityComparer<Item>>(EqualityComparer<Item>.Default);
-			int capacity = 0;
+			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = source1.Intersecting<Item>(
 				source2,
 				equalityComparerScalar,
-				capacity).For(consumer);
+				initialCapacity).For(consumer);
+
+			Assert.AreEqual(source1, testing.Source1);
+			Assert.AreEqual(source2, testing.Source2);
+			Assert.AreEqual(equalityComparerScalar, testing.EqualityComparerScalar);
+			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
 
 			void test()
 			{
@@ -35652,6 +37225,10 @@ namespace ObservableComputations.Test
 				source2,
 				equalityComparerScalar).For(consumer);
 
+			Assert.AreEqual(source1, testing.Source1);
+			Assert.AreEqual(source2, testing.Source2);
+			Assert.AreEqual(equalityComparerScalar, testing.EqualityComparerScalar);
+
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -35753,11 +37330,15 @@ namespace ObservableComputations.Test
 		{
 			System.Collections.Specialized.INotifyCollectionChanged source1 = getItems();
 			ObservableCollection<Item> source2 = getItems();
-			int capacity = 0;
+			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = source1.Intersecting<Item>(
 				source2,
-				capacity).For(consumer);
+				initialCapacity).For(consumer);
+
+			Assert.AreEqual(source1, testing.Source1);
+			Assert.AreEqual(source2, testing.Source2);
+			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
 
 			void test()
 			{
@@ -35861,6 +37442,9 @@ namespace ObservableComputations.Test
 			var testing = source1.Intersecting<Item>(
 				source2).For(consumer);
 
+			Assert.AreEqual(source1, testing.Source1);
+			Assert.AreEqual(source2, testing.Source2);
+
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -35960,12 +37544,17 @@ namespace ObservableComputations.Test
 			ObservableCollection<Item> source1 = getItems();
 			System.Collections.Specialized.INotifyCollectionChanged source2 = getItems();
 			Scalar<System.Collections.Generic.IEqualityComparer<Item>> equalityComparerScalar = getScalar<System.Collections.Generic.IEqualityComparer<Item>>(EqualityComparer<Item>.Default);
-			int capacity = 0;
+			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = source1.Intersecting<Item>(
 				source2,
 				equalityComparerScalar,
-				capacity).For(consumer);
+				initialCapacity).For(consumer);
+
+			Assert.AreEqual(source1, testing.Source1);
+			Assert.AreEqual(source2, testing.Source2);
+			Assert.AreEqual(equalityComparerScalar, testing.EqualityComparerScalar);
+			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
 
 			void test()
 			{
@@ -36074,6 +37663,10 @@ namespace ObservableComputations.Test
 				source2,
 				equalityComparerScalar).For(consumer);
 
+			Assert.AreEqual(source1, testing.Source1);
+			Assert.AreEqual(source2, testing.Source2);
+			Assert.AreEqual(equalityComparerScalar, testing.EqualityComparerScalar);
+
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -36175,11 +37768,15 @@ namespace ObservableComputations.Test
 		{
 			ObservableCollection<Item> source1 = getItems();
 			System.Collections.Specialized.INotifyCollectionChanged source2 = getItems();
-			int capacity = 0;
+			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = source1.Intersecting<Item>(
 				source2,
-				capacity).For(consumer);
+				initialCapacity).For(consumer);
+
+			Assert.AreEqual(source1, testing.Source1);
+			Assert.AreEqual(source2, testing.Source2);
+			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
 
 			void test()
 			{
@@ -36283,6 +37880,9 @@ namespace ObservableComputations.Test
 			var testing = source1.Intersecting<Item>(
 				source2).For(consumer);
 
+			Assert.AreEqual(source1, testing.Source1);
+			Assert.AreEqual(source2, testing.Source2);
+
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -36382,12 +37982,17 @@ namespace ObservableComputations.Test
 			ObservableCollection<Item> source1 = getItems();
 			ObservableCollection<Item> source2 = getItems();
 			Scalar<System.Collections.Generic.IEqualityComparer<Item>> equalityComparerScalar = getScalar<System.Collections.Generic.IEqualityComparer<Item>>(EqualityComparer<Item>.Default);
-			int capacity = 0;
+			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = source1.Intersecting<Item>(
 				source2,
 				equalityComparerScalar,
-				capacity).For(consumer);
+				initialCapacity).For(consumer);
+
+			Assert.AreEqual(source1, testing.Source1);
+			Assert.AreEqual(source2, testing.Source2);
+			Assert.AreEqual(equalityComparerScalar, testing.EqualityComparerScalar);
+			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
 
 			void test()
 			{
@@ -36496,6 +38101,10 @@ namespace ObservableComputations.Test
 				source2,
 				equalityComparerScalar).For(consumer);
 
+			Assert.AreEqual(source1, testing.Source1);
+			Assert.AreEqual(source2, testing.Source2);
+			Assert.AreEqual(equalityComparerScalar, testing.EqualityComparerScalar);
+
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -36597,11 +38206,15 @@ namespace ObservableComputations.Test
 		{
 			ObservableCollection<Item> source1 = getItems();
 			ObservableCollection<Item> source2 = getItems();
-			int capacity = 0;
+			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = source1.Intersecting<Item>(
 				source2,
-				capacity).For(consumer);
+				initialCapacity).For(consumer);
+
+			Assert.AreEqual(source1, testing.Source1);
+			Assert.AreEqual(source2, testing.Source2);
+			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
 
 			void test()
 			{
@@ -36705,6 +38318,9 @@ namespace ObservableComputations.Test
 			var testing = source1.Intersecting<Item>(
 				source2).For(consumer);
 
+			Assert.AreEqual(source1, testing.Source1);
+			Assert.AreEqual(source2, testing.Source2);
+
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -36804,12 +38420,17 @@ namespace ObservableComputations.Test
 			System.Collections.Specialized.INotifyCollectionChanged source1 = getItems();
 			System.Collections.Specialized.INotifyCollectionChanged source2 = getItems();
 			System.Collections.Generic.IEqualityComparer<Item> equalityComparer = EqualityComparer<Item>.Default;
-			int capacity = 0;
+			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = source1.Intersecting<Item>(
 				source2,
 				equalityComparer,
-				capacity).For(consumer);
+				initialCapacity).For(consumer);
+
+			Assert.AreEqual(source1, testing.Source1);
+			Assert.AreEqual(source2, testing.Source2);
+			Assert.AreEqual(equalityComparer, testing.EqualityComparer);
+			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
 
 			void test()
 			{
@@ -36915,6 +38536,10 @@ namespace ObservableComputations.Test
 				source2,
 				equalityComparer).For(consumer);
 
+			Assert.AreEqual(source1, testing.Source1);
+			Assert.AreEqual(source2, testing.Source2);
+			Assert.AreEqual(equalityComparer, testing.EqualityComparer);
+
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -37014,12 +38639,17 @@ namespace ObservableComputations.Test
 			System.Collections.Specialized.INotifyCollectionChanged source1 = getItems();
 			ObservableCollection<Item> source2 = getItems();
 			System.Collections.Generic.IEqualityComparer<Item> equalityComparer = EqualityComparer<Item>.Default;
-			int capacity = 0;
+			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = source1.Intersecting<Item>(
 				source2,
 				equalityComparer,
-				capacity).For(consumer);
+				initialCapacity).For(consumer);
+
+			Assert.AreEqual(source1, testing.Source1);
+			Assert.AreEqual(source2, testing.Source2);
+			Assert.AreEqual(equalityComparer, testing.EqualityComparer);
+			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
 
 			void test()
 			{
@@ -37125,6 +38755,10 @@ namespace ObservableComputations.Test
 				source2,
 				equalityComparer).For(consumer);
 
+			Assert.AreEqual(source1, testing.Source1);
+			Assert.AreEqual(source2, testing.Source2);
+			Assert.AreEqual(equalityComparer, testing.EqualityComparer);
+
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -37224,12 +38858,17 @@ namespace ObservableComputations.Test
 			ObservableCollection<Item> source1 = getItems();
 			System.Collections.Specialized.INotifyCollectionChanged source2 = getItems();
 			System.Collections.Generic.IEqualityComparer<Item> equalityComparer = EqualityComparer<Item>.Default;
-			int capacity = 0;
+			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = source1.Intersecting<Item>(
 				source2,
 				equalityComparer,
-				capacity).For(consumer);
+				initialCapacity).For(consumer);
+
+			Assert.AreEqual(source1, testing.Source1);
+			Assert.AreEqual(source2, testing.Source2);
+			Assert.AreEqual(equalityComparer, testing.EqualityComparer);
+			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
 
 			void test()
 			{
@@ -37335,6 +38974,10 @@ namespace ObservableComputations.Test
 				source2,
 				equalityComparer).For(consumer);
 
+			Assert.AreEqual(source1, testing.Source1);
+			Assert.AreEqual(source2, testing.Source2);
+			Assert.AreEqual(equalityComparer, testing.EqualityComparer);
+
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -37434,12 +39077,17 @@ namespace ObservableComputations.Test
 			ObservableCollection<Item> source1 = getItems();
 			ObservableCollection<Item> source2 = getItems();
 			System.Collections.Generic.IEqualityComparer<Item> equalityComparer = EqualityComparer<Item>.Default;
-			int capacity = 0;
+			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = source1.Intersecting<Item>(
 				source2,
 				equalityComparer,
-				capacity).For(consumer);
+				initialCapacity).For(consumer);
+
+			Assert.AreEqual(source1, testing.Source1);
+			Assert.AreEqual(source2, testing.Source2);
+			Assert.AreEqual(equalityComparer, testing.EqualityComparer);
+			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
 
 			void test()
 			{
@@ -37545,6 +39193,10 @@ namespace ObservableComputations.Test
 				source2,
 				equalityComparer).For(consumer);
 
+			Assert.AreEqual(source1, testing.Source1);
+			Assert.AreEqual(source2, testing.Source2);
+			Assert.AreEqual(equalityComparer, testing.EqualityComparer);
+
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -37644,12 +39296,17 @@ namespace ObservableComputations.Test
 			System.Collections.Specialized.INotifyCollectionChanged source1 = getItems();
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> source2Scalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
 			System.Collections.Generic.IEqualityComparer<Item> equalityComparer = EqualityComparer<Item>.Default;
-			int capacity = 0;
+			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = source1.Intersecting<Item>(
 				source2Scalar,
 				equalityComparer,
-				capacity).For(consumer);
+				initialCapacity).For(consumer);
+
+			Assert.AreEqual(source1, testing.Source1);
+			Assert.AreEqual(source2Scalar, testing.Source2Scalar);
+			Assert.AreEqual(equalityComparer, testing.EqualityComparer);
+			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
 
 			void test()
 			{
@@ -37760,6 +39417,10 @@ namespace ObservableComputations.Test
 				source2Scalar,
 				equalityComparer).For(consumer);
 
+			Assert.AreEqual(source1, testing.Source1);
+			Assert.AreEqual(source2Scalar, testing.Source2Scalar);
+			Assert.AreEqual(equalityComparer, testing.EqualityComparer);
+
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -37864,12 +39525,17 @@ namespace ObservableComputations.Test
 			System.Collections.Specialized.INotifyCollectionChanged source1 = getItems();
 			Scalar<ObservableCollection<Item>> source2Scalar = getScalar<ObservableCollection<Item>>(getItems());
 			System.Collections.Generic.IEqualityComparer<Item> equalityComparer = EqualityComparer<Item>.Default;
-			int capacity = 0;
+			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = source1.Intersecting<Item>(
 				source2Scalar,
 				equalityComparer,
-				capacity).For(consumer);
+				initialCapacity).For(consumer);
+
+			Assert.AreEqual(source1, testing.Source1);
+			Assert.AreEqual(source2Scalar, testing.Source2Scalar);
+			Assert.AreEqual(equalityComparer, testing.EqualityComparer);
+			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
 
 			void test()
 			{
@@ -37980,6 +39646,10 @@ namespace ObservableComputations.Test
 				source2Scalar,
 				equalityComparer).For(consumer);
 
+			Assert.AreEqual(source1, testing.Source1);
+			Assert.AreEqual(source2Scalar, testing.Source2Scalar);
+			Assert.AreEqual(equalityComparer, testing.EqualityComparer);
+
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -38084,12 +39754,17 @@ namespace ObservableComputations.Test
 			ObservableCollection<Item> source1 = getItems();
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> source2Scalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
 			System.Collections.Generic.IEqualityComparer<Item> equalityComparer = EqualityComparer<Item>.Default;
-			int capacity = 0;
+			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = source1.Intersecting<Item>(
 				source2Scalar,
 				equalityComparer,
-				capacity).For(consumer);
+				initialCapacity).For(consumer);
+
+			Assert.AreEqual(source1, testing.Source1);
+			Assert.AreEqual(source2Scalar, testing.Source2Scalar);
+			Assert.AreEqual(equalityComparer, testing.EqualityComparer);
+			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
 
 			void test()
 			{
@@ -38200,6 +39875,10 @@ namespace ObservableComputations.Test
 				source2Scalar,
 				equalityComparer).For(consumer);
 
+			Assert.AreEqual(source1, testing.Source1);
+			Assert.AreEqual(source2Scalar, testing.Source2Scalar);
+			Assert.AreEqual(equalityComparer, testing.EqualityComparer);
+
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -38304,12 +39983,17 @@ namespace ObservableComputations.Test
 			ObservableCollection<Item> source1 = getItems();
 			Scalar<ObservableCollection<Item>> source2Scalar = getScalar<ObservableCollection<Item>>(getItems());
 			System.Collections.Generic.IEqualityComparer<Item> equalityComparer = EqualityComparer<Item>.Default;
-			int capacity = 0;
+			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = source1.Intersecting<Item>(
 				source2Scalar,
 				equalityComparer,
-				capacity).For(consumer);
+				initialCapacity).For(consumer);
+
+			Assert.AreEqual(source1, testing.Source1);
+			Assert.AreEqual(source2Scalar, testing.Source2Scalar);
+			Assert.AreEqual(equalityComparer, testing.EqualityComparer);
+			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
 
 			void test()
 			{
@@ -38419,6 +40103,10 @@ namespace ObservableComputations.Test
 			var testing = source1.Intersecting<Item>(
 				source2Scalar,
 				equalityComparer).For(consumer);
+
+			Assert.AreEqual(source1, testing.Source1);
+			Assert.AreEqual(source2Scalar, testing.Source2Scalar);
+			Assert.AreEqual(equalityComparer, testing.EqualityComparer);
 
 			void test()
 			{
@@ -38532,6 +40220,10 @@ namespace ObservableComputations.Test
 				index,
 				defaultValue).For(consumer);
 
+			Assert.AreEqual(sourceScalar, testing.SourceScalar);
+			Assert.AreEqual(index, testing.Index);
+			Assert.AreEqual(defaultValue, testing.DefaultValue);
+
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -38597,6 +40289,9 @@ namespace ObservableComputations.Test
 			OcConsumer consumer = new OcConsumer();
 			var testing = sourceScalar.ItemComputing<Item>(
 				index).For(consumer);
+
+			Assert.AreEqual(sourceScalar, testing.SourceScalar);
+			Assert.AreEqual(index, testing.Index);
 
 			void test()
 			{
@@ -38666,6 +40361,10 @@ namespace ObservableComputations.Test
 				index,
 				defaultValue).For(consumer);
 
+			Assert.AreEqual(sourceScalar, testing.SourceScalar);
+			Assert.AreEqual(index, testing.Index);
+			Assert.AreEqual(defaultValue, testing.DefaultValue);
+
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -38731,6 +40430,9 @@ namespace ObservableComputations.Test
 			OcConsumer consumer = new OcConsumer();
 			var testing = sourceScalar.ItemComputing<Item>(
 				index).For(consumer);
+
+			Assert.AreEqual(sourceScalar, testing.SourceScalar);
+			Assert.AreEqual(index, testing.Index);
 
 			void test()
 			{
@@ -38799,6 +40501,10 @@ namespace ObservableComputations.Test
 			var testing = sourceScalar.ItemComputing<Item>(
 				indexScalar,
 				defaultValue).For(consumer);
+
+			Assert.AreEqual(sourceScalar, testing.SourceScalar);
+			Assert.AreEqual(indexScalar, testing.IndexScalar);
+			Assert.AreEqual(defaultValue, testing.DefaultValue);
 
 			void test()
 			{
@@ -38870,6 +40576,9 @@ namespace ObservableComputations.Test
 			OcConsumer consumer = new OcConsumer();
 			var testing = sourceScalar.ItemComputing<Item>(
 				indexScalar).For(consumer);
+
+			Assert.AreEqual(sourceScalar, testing.SourceScalar);
+			Assert.AreEqual(indexScalar, testing.IndexScalar);
 
 			void test()
 			{
@@ -38944,6 +40653,10 @@ namespace ObservableComputations.Test
 				indexScalar,
 				defaultValue).For(consumer);
 
+			Assert.AreEqual(sourceScalar, testing.SourceScalar);
+			Assert.AreEqual(indexScalar, testing.IndexScalar);
+			Assert.AreEqual(defaultValue, testing.DefaultValue);
+
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -39014,6 +40727,9 @@ namespace ObservableComputations.Test
 			OcConsumer consumer = new OcConsumer();
 			var testing = sourceScalar.ItemComputing<Item>(
 				indexScalar).For(consumer);
+
+			Assert.AreEqual(sourceScalar, testing.SourceScalar);
+			Assert.AreEqual(indexScalar, testing.IndexScalar);
 
 			void test()
 			{
@@ -39088,6 +40804,10 @@ namespace ObservableComputations.Test
 				index,
 				defaultValue).For(consumer);
 
+			Assert.AreEqual(source, testing.Source);
+			Assert.AreEqual(index, testing.Index);
+			Assert.AreEqual(defaultValue, testing.DefaultValue);
+
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -39148,6 +40868,9 @@ namespace ObservableComputations.Test
 			OcConsumer consumer = new OcConsumer();
 			var testing = source.ItemComputing<Item>(
 				index).For(consumer);
+
+			Assert.AreEqual(source, testing.Source);
+			Assert.AreEqual(index, testing.Index);
 
 			void test()
 			{
@@ -39212,6 +40935,10 @@ namespace ObservableComputations.Test
 				index,
 				defaultValue).For(consumer);
 
+			Assert.AreEqual(source, testing.Source);
+			Assert.AreEqual(index, testing.Index);
+			Assert.AreEqual(defaultValue, testing.DefaultValue);
+
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -39272,6 +40999,9 @@ namespace ObservableComputations.Test
 			OcConsumer consumer = new OcConsumer();
 			var testing = source.ItemComputing<Item>(
 				index).For(consumer);
+
+			Assert.AreEqual(source, testing.Source);
+			Assert.AreEqual(index, testing.Index);
 
 			void test()
 			{
@@ -39335,6 +41065,10 @@ namespace ObservableComputations.Test
 			var testing = source.ItemComputing<Item>(
 				indexScalar,
 				defaultValue).For(consumer);
+
+			Assert.AreEqual(source, testing.Source);
+			Assert.AreEqual(indexScalar, testing.IndexScalar);
+			Assert.AreEqual(defaultValue, testing.DefaultValue);
 
 			void test()
 			{
@@ -39401,6 +41135,9 @@ namespace ObservableComputations.Test
 			OcConsumer consumer = new OcConsumer();
 			var testing = source.ItemComputing<Item>(
 				indexScalar).For(consumer);
+
+			Assert.AreEqual(source, testing.Source);
+			Assert.AreEqual(indexScalar, testing.IndexScalar);
 
 			void test()
 			{
@@ -39470,6 +41207,10 @@ namespace ObservableComputations.Test
 				indexScalar,
 				defaultValue).For(consumer);
 
+			Assert.AreEqual(source, testing.Source);
+			Assert.AreEqual(indexScalar, testing.IndexScalar);
+			Assert.AreEqual(defaultValue, testing.DefaultValue);
+
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -39535,6 +41276,9 @@ namespace ObservableComputations.Test
 			OcConsumer consumer = new OcConsumer();
 			var testing = source.ItemComputing<Item>(
 				indexScalar).For(consumer);
+
+			Assert.AreEqual(source, testing.Source);
+			Assert.AreEqual(indexScalar, testing.IndexScalar);
 
 			void test()
 			{
@@ -39602,12 +41346,17 @@ namespace ObservableComputations.Test
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> leftSourceScalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> rightSourceScalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
 			System.Linq.Expressions.Expression<System.Func<Item, Item, bool>> predicateExpression = (i1, i2) => i1.Num == i2.Num;
-			int capacity = 0;
+			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = leftSourceScalar.Joining<Item, Item>(
 				rightSourceScalar,
 				predicateExpression,
-				capacity).For(consumer);
+				initialCapacity).For(consumer);
+
+			Assert.AreEqual(leftSourceScalar, testing.LeftSourceScalar);
+			Assert.AreEqual(rightSourceScalar, testing.RightSourceScalar);
+			Assert.AreEqual(predicateExpression, testing.PredicateExpression);
+			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
 
 			void test()
 			{
@@ -39691,6 +41440,10 @@ namespace ObservableComputations.Test
 				rightSourceScalar,
 				predicateExpression).For(consumer);
 
+			Assert.AreEqual(leftSourceScalar, testing.LeftSourceScalar);
+			Assert.AreEqual(rightSourceScalar, testing.RightSourceScalar);
+			Assert.AreEqual(predicateExpression, testing.PredicateExpression);
+
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -39768,12 +41521,17 @@ namespace ObservableComputations.Test
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> leftSourceScalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
 			Scalar<ObservableCollection<Item>> rightSourceScalar = getScalar<ObservableCollection<Item>>(getItems());
 			System.Linq.Expressions.Expression<System.Func<Item, Item, bool>> predicateExpression = (i1, i2) => i1.Num == i2.Num;
-			int capacity = 0;
+			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = leftSourceScalar.Joining<Item, Item>(
 				rightSourceScalar,
 				predicateExpression,
-				capacity).For(consumer);
+				initialCapacity).For(consumer);
+
+			Assert.AreEqual(leftSourceScalar, testing.LeftSourceScalar);
+			Assert.AreEqual(rightSourceScalar, testing.RightSourceScalar);
+			Assert.AreEqual(predicateExpression, testing.PredicateExpression);
+			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
 
 			void test()
 			{
@@ -39857,6 +41615,10 @@ namespace ObservableComputations.Test
 				rightSourceScalar,
 				predicateExpression).For(consumer);
 
+			Assert.AreEqual(leftSourceScalar, testing.LeftSourceScalar);
+			Assert.AreEqual(rightSourceScalar, testing.RightSourceScalar);
+			Assert.AreEqual(predicateExpression, testing.PredicateExpression);
+
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -39934,12 +41696,17 @@ namespace ObservableComputations.Test
 			Scalar<ObservableCollection<Item>> leftSourceScalar = getScalar<ObservableCollection<Item>>(getItems());
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> rightSourceScalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
 			System.Linq.Expressions.Expression<System.Func<Item, Item, bool>> predicateExpression = (i1, i2) => i1.Num == i2.Num;
-			int capacity = 0;
+			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = leftSourceScalar.Joining<Item, Item>(
 				rightSourceScalar,
 				predicateExpression,
-				capacity).For(consumer);
+				initialCapacity).For(consumer);
+
+			Assert.AreEqual(leftSourceScalar, testing.LeftSourceScalar);
+			Assert.AreEqual(rightSourceScalar, testing.RightSourceScalar);
+			Assert.AreEqual(predicateExpression, testing.PredicateExpression);
+			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
 
 			void test()
 			{
@@ -40023,6 +41790,10 @@ namespace ObservableComputations.Test
 				rightSourceScalar,
 				predicateExpression).For(consumer);
 
+			Assert.AreEqual(leftSourceScalar, testing.LeftSourceScalar);
+			Assert.AreEqual(rightSourceScalar, testing.RightSourceScalar);
+			Assert.AreEqual(predicateExpression, testing.PredicateExpression);
+
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -40100,12 +41871,17 @@ namespace ObservableComputations.Test
 			Scalar<ObservableCollection<Item>> leftSourceScalar = getScalar<ObservableCollection<Item>>(getItems());
 			Scalar<ObservableCollection<Item>> rightSourceScalar = getScalar<ObservableCollection<Item>>(getItems());
 			System.Linq.Expressions.Expression<System.Func<Item, Item, bool>> predicateExpression = (i1, i2) => i1.Num == i2.Num;
-			int capacity = 0;
+			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = leftSourceScalar.Joining<Item, Item>(
 				rightSourceScalar,
 				predicateExpression,
-				capacity).For(consumer);
+				initialCapacity).For(consumer);
+
+			Assert.AreEqual(leftSourceScalar, testing.LeftSourceScalar);
+			Assert.AreEqual(rightSourceScalar, testing.RightSourceScalar);
+			Assert.AreEqual(predicateExpression, testing.PredicateExpression);
+			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
 
 			void test()
 			{
@@ -40189,6 +41965,10 @@ namespace ObservableComputations.Test
 				rightSourceScalar,
 				predicateExpression).For(consumer);
 
+			Assert.AreEqual(leftSourceScalar, testing.LeftSourceScalar);
+			Assert.AreEqual(rightSourceScalar, testing.RightSourceScalar);
+			Assert.AreEqual(predicateExpression, testing.PredicateExpression);
+
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -40266,12 +42046,17 @@ namespace ObservableComputations.Test
 			System.Collections.Specialized.INotifyCollectionChanged leftSource = getItems();
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> rightSourceScalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
 			System.Linq.Expressions.Expression<System.Func<Item, Item, bool>> predicateExpression = (i1, i2) => i1.Num == i2.Num;
-			int capacity = 0;
+			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = leftSource.Joining<Item, Item>(
 				rightSourceScalar,
 				predicateExpression,
-				capacity).For(consumer);
+				initialCapacity).For(consumer);
+
+			Assert.AreEqual(leftSource, testing.LeftSource);
+			Assert.AreEqual(rightSourceScalar, testing.RightSourceScalar);
+			Assert.AreEqual(predicateExpression, testing.PredicateExpression);
+			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
 
 			void test()
 			{
@@ -40350,6 +42135,10 @@ namespace ObservableComputations.Test
 				rightSourceScalar,
 				predicateExpression).For(consumer);
 
+			Assert.AreEqual(leftSource, testing.LeftSource);
+			Assert.AreEqual(rightSourceScalar, testing.RightSourceScalar);
+			Assert.AreEqual(predicateExpression, testing.PredicateExpression);
+
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -40422,12 +42211,17 @@ namespace ObservableComputations.Test
 			System.Collections.Specialized.INotifyCollectionChanged leftSource = getItems();
 			Scalar<ObservableCollection<Item>> rightSourceScalar = getScalar<ObservableCollection<Item>>(getItems());
 			System.Linq.Expressions.Expression<System.Func<Item, Item, bool>> predicateExpression = (i1, i2) => i1.Num == i2.Num;
-			int capacity = 0;
+			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = leftSource.Joining<Item, Item>(
 				rightSourceScalar,
 				predicateExpression,
-				capacity).For(consumer);
+				initialCapacity).For(consumer);
+
+			Assert.AreEqual(leftSource, testing.LeftSource);
+			Assert.AreEqual(rightSourceScalar, testing.RightSourceScalar);
+			Assert.AreEqual(predicateExpression, testing.PredicateExpression);
+			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
 
 			void test()
 			{
@@ -40506,6 +42300,10 @@ namespace ObservableComputations.Test
 				rightSourceScalar,
 				predicateExpression).For(consumer);
 
+			Assert.AreEqual(leftSource, testing.LeftSource);
+			Assert.AreEqual(rightSourceScalar, testing.RightSourceScalar);
+			Assert.AreEqual(predicateExpression, testing.PredicateExpression);
+
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -40578,12 +42376,17 @@ namespace ObservableComputations.Test
 			ObservableCollection<Item> leftSource = getItems();
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> rightSourceScalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
 			System.Linq.Expressions.Expression<System.Func<Item, Item, bool>> predicateExpression = (i1, i2) => i1.Num == i2.Num;
-			int capacity = 0;
+			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = leftSource.Joining<Item, Item>(
 				rightSourceScalar,
 				predicateExpression,
-				capacity).For(consumer);
+				initialCapacity).For(consumer);
+
+			Assert.AreEqual(leftSource, testing.LeftSource);
+			Assert.AreEqual(rightSourceScalar, testing.RightSourceScalar);
+			Assert.AreEqual(predicateExpression, testing.PredicateExpression);
+			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
 
 			void test()
 			{
@@ -40662,6 +42465,10 @@ namespace ObservableComputations.Test
 				rightSourceScalar,
 				predicateExpression).For(consumer);
 
+			Assert.AreEqual(leftSource, testing.LeftSource);
+			Assert.AreEqual(rightSourceScalar, testing.RightSourceScalar);
+			Assert.AreEqual(predicateExpression, testing.PredicateExpression);
+
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -40734,12 +42541,17 @@ namespace ObservableComputations.Test
 			ObservableCollection<Item> leftSource = getItems();
 			Scalar<ObservableCollection<Item>> rightSourceScalar = getScalar<ObservableCollection<Item>>(getItems());
 			System.Linq.Expressions.Expression<System.Func<Item, Item, bool>> predicateExpression = (i1, i2) => i1.Num == i2.Num;
-			int capacity = 0;
+			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = leftSource.Joining<Item, Item>(
 				rightSourceScalar,
 				predicateExpression,
-				capacity).For(consumer);
+				initialCapacity).For(consumer);
+
+			Assert.AreEqual(leftSource, testing.LeftSource);
+			Assert.AreEqual(rightSourceScalar, testing.RightSourceScalar);
+			Assert.AreEqual(predicateExpression, testing.PredicateExpression);
+			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
 
 			void test()
 			{
@@ -40818,6 +42630,10 @@ namespace ObservableComputations.Test
 				rightSourceScalar,
 				predicateExpression).For(consumer);
 
+			Assert.AreEqual(leftSource, testing.LeftSource);
+			Assert.AreEqual(rightSourceScalar, testing.RightSourceScalar);
+			Assert.AreEqual(predicateExpression, testing.PredicateExpression);
+
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -40890,12 +42706,17 @@ namespace ObservableComputations.Test
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> leftSourceScalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
 			System.Collections.Specialized.INotifyCollectionChanged rightSource = getItems();
 			System.Linq.Expressions.Expression<System.Func<Item, Item, bool>> predicateExpression = (i1, i2) => i1.Num == i2.Num;
-			int capacity = 0;
+			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = leftSourceScalar.Joining<Item, Item>(
 				rightSource,
 				predicateExpression,
-				capacity).For(consumer);
+				initialCapacity).For(consumer);
+
+			Assert.AreEqual(leftSourceScalar, testing.LeftSourceScalar);
+			Assert.AreEqual(rightSource, testing.RightSource);
+			Assert.AreEqual(predicateExpression, testing.PredicateExpression);
+			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
 
 			void test()
 			{
@@ -40974,6 +42795,10 @@ namespace ObservableComputations.Test
 				rightSource,
 				predicateExpression).For(consumer);
 
+			Assert.AreEqual(leftSourceScalar, testing.LeftSourceScalar);
+			Assert.AreEqual(rightSource, testing.RightSource);
+			Assert.AreEqual(predicateExpression, testing.PredicateExpression);
+
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -41046,12 +42871,17 @@ namespace ObservableComputations.Test
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> leftSourceScalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
 			ObservableCollection<Item> rightSource = getItems();
 			System.Linq.Expressions.Expression<System.Func<Item, Item, bool>> predicateExpression = (i1, i2) => i1.Num == i2.Num;
-			int capacity = 0;
+			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = leftSourceScalar.Joining<Item, Item>(
 				rightSource,
 				predicateExpression,
-				capacity).For(consumer);
+				initialCapacity).For(consumer);
+
+			Assert.AreEqual(leftSourceScalar, testing.LeftSourceScalar);
+			Assert.AreEqual(rightSource, testing.RightSource);
+			Assert.AreEqual(predicateExpression, testing.PredicateExpression);
+			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
 
 			void test()
 			{
@@ -41130,6 +42960,10 @@ namespace ObservableComputations.Test
 				rightSource,
 				predicateExpression).For(consumer);
 
+			Assert.AreEqual(leftSourceScalar, testing.LeftSourceScalar);
+			Assert.AreEqual(rightSource, testing.RightSource);
+			Assert.AreEqual(predicateExpression, testing.PredicateExpression);
+
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -41202,12 +43036,17 @@ namespace ObservableComputations.Test
 			Scalar<ObservableCollection<Item>> leftSourceScalar = getScalar<ObservableCollection<Item>>(getItems());
 			System.Collections.Specialized.INotifyCollectionChanged rightSource = getItems();
 			System.Linq.Expressions.Expression<System.Func<Item, Item, bool>> predicateExpression = (i1, i2) => i1.Num == i2.Num;
-			int capacity = 0;
+			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = leftSourceScalar.Joining<Item, Item>(
 				rightSource,
 				predicateExpression,
-				capacity).For(consumer);
+				initialCapacity).For(consumer);
+
+			Assert.AreEqual(leftSourceScalar, testing.LeftSourceScalar);
+			Assert.AreEqual(rightSource, testing.RightSource);
+			Assert.AreEqual(predicateExpression, testing.PredicateExpression);
+			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
 
 			void test()
 			{
@@ -41286,6 +43125,10 @@ namespace ObservableComputations.Test
 				rightSource,
 				predicateExpression).For(consumer);
 
+			Assert.AreEqual(leftSourceScalar, testing.LeftSourceScalar);
+			Assert.AreEqual(rightSource, testing.RightSource);
+			Assert.AreEqual(predicateExpression, testing.PredicateExpression);
+
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -41358,12 +43201,17 @@ namespace ObservableComputations.Test
 			Scalar<ObservableCollection<Item>> leftSourceScalar = getScalar<ObservableCollection<Item>>(getItems());
 			ObservableCollection<Item> rightSource = getItems();
 			System.Linq.Expressions.Expression<System.Func<Item, Item, bool>> predicateExpression = (i1, i2) => i1.Num == i2.Num;
-			int capacity = 0;
+			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = leftSourceScalar.Joining<Item, Item>(
 				rightSource,
 				predicateExpression,
-				capacity).For(consumer);
+				initialCapacity).For(consumer);
+
+			Assert.AreEqual(leftSourceScalar, testing.LeftSourceScalar);
+			Assert.AreEqual(rightSource, testing.RightSource);
+			Assert.AreEqual(predicateExpression, testing.PredicateExpression);
+			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
 
 			void test()
 			{
@@ -41442,6 +43290,10 @@ namespace ObservableComputations.Test
 				rightSource,
 				predicateExpression).For(consumer);
 
+			Assert.AreEqual(leftSourceScalar, testing.LeftSourceScalar);
+			Assert.AreEqual(rightSource, testing.RightSource);
+			Assert.AreEqual(predicateExpression, testing.PredicateExpression);
+
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -41514,12 +43366,17 @@ namespace ObservableComputations.Test
 			System.Collections.Specialized.INotifyCollectionChanged leftSource = getItems();
 			System.Collections.Specialized.INotifyCollectionChanged rightSource = getItems();
 			System.Linq.Expressions.Expression<System.Func<Item, Item, bool>> predicateExpression = (i1, i2) => i1.Num == i2.Num;
-			int capacity = 0;
+			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = leftSource.Joining<Item, Item>(
 				rightSource,
 				predicateExpression,
-				capacity).For(consumer);
+				initialCapacity).For(consumer);
+
+			Assert.AreEqual(leftSource, testing.LeftSource);
+			Assert.AreEqual(rightSource, testing.RightSource);
+			Assert.AreEqual(predicateExpression, testing.PredicateExpression);
+			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
 
 			void test()
 			{
@@ -41593,6 +43450,10 @@ namespace ObservableComputations.Test
 				rightSource,
 				predicateExpression).For(consumer);
 
+			Assert.AreEqual(leftSource, testing.LeftSource);
+			Assert.AreEqual(rightSource, testing.RightSource);
+			Assert.AreEqual(predicateExpression, testing.PredicateExpression);
+
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -41660,12 +43521,17 @@ namespace ObservableComputations.Test
 			System.Collections.Specialized.INotifyCollectionChanged leftSource = getItems();
 			ObservableCollection<Item> rightSource = getItems();
 			System.Linq.Expressions.Expression<System.Func<Item, Item, bool>> predicateExpression = (i1, i2) => i1.Num == i2.Num;
-			int capacity = 0;
+			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = leftSource.Joining<Item, Item>(
 				rightSource,
 				predicateExpression,
-				capacity).For(consumer);
+				initialCapacity).For(consumer);
+
+			Assert.AreEqual(leftSource, testing.LeftSource);
+			Assert.AreEqual(rightSource, testing.RightSource);
+			Assert.AreEqual(predicateExpression, testing.PredicateExpression);
+			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
 
 			void test()
 			{
@@ -41739,6 +43605,10 @@ namespace ObservableComputations.Test
 				rightSource,
 				predicateExpression).For(consumer);
 
+			Assert.AreEqual(leftSource, testing.LeftSource);
+			Assert.AreEqual(rightSource, testing.RightSource);
+			Assert.AreEqual(predicateExpression, testing.PredicateExpression);
+
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -41806,12 +43676,17 @@ namespace ObservableComputations.Test
 			ObservableCollection<Item> leftSource = getItems();
 			System.Collections.Specialized.INotifyCollectionChanged rightSource = getItems();
 			System.Linq.Expressions.Expression<System.Func<Item, Item, bool>> predicateExpression = (i1, i2) => i1.Num == i2.Num;
-			int capacity = 0;
+			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = leftSource.Joining<Item, Item>(
 				rightSource,
 				predicateExpression,
-				capacity).For(consumer);
+				initialCapacity).For(consumer);
+
+			Assert.AreEqual(leftSource, testing.LeftSource);
+			Assert.AreEqual(rightSource, testing.RightSource);
+			Assert.AreEqual(predicateExpression, testing.PredicateExpression);
+			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
 
 			void test()
 			{
@@ -41885,6 +43760,10 @@ namespace ObservableComputations.Test
 				rightSource,
 				predicateExpression).For(consumer);
 
+			Assert.AreEqual(leftSource, testing.LeftSource);
+			Assert.AreEqual(rightSource, testing.RightSource);
+			Assert.AreEqual(predicateExpression, testing.PredicateExpression);
+
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -41952,12 +43831,17 @@ namespace ObservableComputations.Test
 			ObservableCollection<Item> leftSource = getItems();
 			ObservableCollection<Item> rightSource = getItems();
 			System.Linq.Expressions.Expression<System.Func<Item, Item, bool>> predicateExpression = (i1, i2) => i1.Num == i2.Num;
-			int capacity = 0;
+			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = leftSource.Joining<Item, Item>(
 				rightSource,
 				predicateExpression,
-				capacity).For(consumer);
+				initialCapacity).For(consumer);
+
+			Assert.AreEqual(leftSource, testing.LeftSource);
+			Assert.AreEqual(rightSource, testing.RightSource);
+			Assert.AreEqual(predicateExpression, testing.PredicateExpression);
+			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
 
 			void test()
 			{
@@ -42030,6 +43914,10 @@ namespace ObservableComputations.Test
 			var testing = leftSource.Joining<Item, Item>(
 				rightSource,
 				predicateExpression).For(consumer);
+
+			Assert.AreEqual(leftSource, testing.LeftSource);
+			Assert.AreEqual(rightSource, testing.RightSource);
+			Assert.AreEqual(predicateExpression, testing.PredicateExpression);
 
 			void test()
 			{
@@ -42104,6 +43992,9 @@ namespace ObservableComputations.Test
 			var testing = sourceScalar.LastComputing<Item>(
 				defaultValue).For(consumer);
 
+			Assert.AreEqual(sourceScalar, testing.SourceScalar);
+			Assert.AreEqual(defaultValue, testing.DefaultValue);
+
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -42167,6 +44058,8 @@ namespace ObservableComputations.Test
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
 			OcConsumer consumer = new OcConsumer();
 			var testing = sourceScalar.LastComputing<Item>().For(consumer);
+
+			Assert.AreEqual(sourceScalar, testing.SourceScalar);
 
 			void test()
 			{
@@ -42234,6 +44127,9 @@ namespace ObservableComputations.Test
 			var testing = sourceScalar.LastComputing<Item>(
 				defaultValue).For(consumer);
 
+			Assert.AreEqual(sourceScalar, testing.SourceScalar);
+			Assert.AreEqual(defaultValue, testing.DefaultValue);
+
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -42297,6 +44193,8 @@ namespace ObservableComputations.Test
 			Scalar<ObservableCollection<Item>> sourceScalar = getScalar<ObservableCollection<Item>>(getItems());
 			OcConsumer consumer = new OcConsumer();
 			var testing = sourceScalar.LastComputing<Item>().For(consumer);
+
+			Assert.AreEqual(sourceScalar, testing.SourceScalar);
 
 			void test()
 			{
@@ -42364,6 +44262,9 @@ namespace ObservableComputations.Test
 			var testing = source.LastComputing<Item>(
 				defaultValue).For(consumer);
 
+			Assert.AreEqual(source, testing.Source);
+			Assert.AreEqual(defaultValue, testing.DefaultValue);
+
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -42422,6 +44323,8 @@ namespace ObservableComputations.Test
 			System.Collections.Specialized.INotifyCollectionChanged source = getItems();
 			OcConsumer consumer = new OcConsumer();
 			var testing = source.LastComputing<Item>().For(consumer);
+
+			Assert.AreEqual(source, testing.Source);
 
 			void test()
 			{
@@ -42484,6 +44387,9 @@ namespace ObservableComputations.Test
 			var testing = source.LastComputing<Item>(
 				defaultValue).For(consumer);
 
+			Assert.AreEqual(source, testing.Source);
+			Assert.AreEqual(defaultValue, testing.DefaultValue);
+
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -42542,6 +44448,8 @@ namespace ObservableComputations.Test
 			ObservableCollection<Item> source = getItems();
 			OcConsumer consumer = new OcConsumer();
 			var testing = source.LastComputing<Item>().For(consumer);
+
+			Assert.AreEqual(source, testing.Source);
 
 			void test()
 			{
@@ -42609,6 +44517,10 @@ namespace ObservableComputations.Test
 				comparer,
 				defaultValue).For(consumer);
 
+			Assert.AreEqual(sourceScalar, testing.SourceScalar);
+			Assert.AreEqual(comparer, testing.Comparer);
+			Assert.AreEqual(defaultValue, testing.DefaultValue);
+
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -42674,6 +44586,9 @@ namespace ObservableComputations.Test
 			OcConsumer consumer = new OcConsumer();
 			var testing = sourceScalar.Maximazing<int>(
 				comparer).For(consumer);
+
+			Assert.AreEqual(sourceScalar, testing.SourceScalar);
+			Assert.AreEqual(comparer, testing.Comparer);
 
 			void test()
 			{
@@ -42741,6 +44656,9 @@ namespace ObservableComputations.Test
 			var testing = sourceScalar.Maximazing<int>(
 				defaultValue).For(consumer);
 
+			Assert.AreEqual(sourceScalar, testing.SourceScalar);
+			Assert.AreEqual(defaultValue, testing.DefaultValue);
+
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -42804,6 +44722,8 @@ namespace ObservableComputations.Test
 			IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar = getScalar<Selecting<Item, int>>(getItems().Selecting(i => i.Num));
 			OcConsumer consumer = new OcConsumer();
 			var testing = sourceScalar.Maximazing<int>().For(consumer);
+
+			Assert.AreEqual(sourceScalar, testing.SourceScalar);
 
 			void test()
 			{
@@ -42873,6 +44793,10 @@ namespace ObservableComputations.Test
 				comparer,
 				defaultValue).For(consumer);
 
+			Assert.AreEqual(sourceScalar, testing.SourceScalar);
+			Assert.AreEqual(comparer, testing.Comparer);
+			Assert.AreEqual(defaultValue, testing.DefaultValue);
+
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -42938,6 +44862,9 @@ namespace ObservableComputations.Test
 			OcConsumer consumer = new OcConsumer();
 			var testing = sourceScalar.Maximazing<int>(
 				comparer).For(consumer);
+
+			Assert.AreEqual(sourceScalar, testing.SourceScalar);
+			Assert.AreEqual(comparer, testing.Comparer);
 
 			void test()
 			{
@@ -43005,6 +44932,9 @@ namespace ObservableComputations.Test
 			var testing = sourceScalar.Maximazing<int>(
 				defaultValue).For(consumer);
 
+			Assert.AreEqual(sourceScalar, testing.SourceScalar);
+			Assert.AreEqual(defaultValue, testing.DefaultValue);
+
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -43068,6 +44998,8 @@ namespace ObservableComputations.Test
 			IReadScalar<ObservableCollection<int>> sourceScalar = getScalar<Selecting<Item, int>>(getItems().Selecting(i => i.Num));
 			OcConsumer consumer = new OcConsumer();
 			var testing = sourceScalar.Maximazing<int>().For(consumer);
+
+			Assert.AreEqual(sourceScalar, testing.SourceScalar);
 
 			void test()
 			{
@@ -43136,6 +45068,10 @@ namespace ObservableComputations.Test
 			var testing = sourceScalar.Maximazing<int>(
 				comparerScalar,
 				defaultValue).For(consumer);
+
+			Assert.AreEqual(sourceScalar, testing.SourceScalar);
+			Assert.AreEqual(comparerScalar, testing.ComparerScalar);
+			Assert.AreEqual(defaultValue, testing.DefaultValue);
 
 			void test()
 			{
@@ -43207,6 +45143,9 @@ namespace ObservableComputations.Test
 			OcConsumer consumer = new OcConsumer();
 			var testing = sourceScalar.Maximazing<int>(
 				comparerScalar).For(consumer);
+
+			Assert.AreEqual(sourceScalar, testing.SourceScalar);
+			Assert.AreEqual(comparerScalar, testing.ComparerScalar);
 
 			void test()
 			{
@@ -43281,6 +45220,10 @@ namespace ObservableComputations.Test
 				comparerScalar,
 				defaultValue).For(consumer);
 
+			Assert.AreEqual(sourceScalar, testing.SourceScalar);
+			Assert.AreEqual(comparerScalar, testing.ComparerScalar);
+			Assert.AreEqual(defaultValue, testing.DefaultValue);
+
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -43351,6 +45294,9 @@ namespace ObservableComputations.Test
 			OcConsumer consumer = new OcConsumer();
 			var testing = sourceScalar.Maximazing<int>(
 				comparerScalar).For(consumer);
+
+			Assert.AreEqual(sourceScalar, testing.SourceScalar);
+			Assert.AreEqual(comparerScalar, testing.ComparerScalar);
 
 			void test()
 			{
@@ -43425,6 +45371,10 @@ namespace ObservableComputations.Test
 				comparer,
 				defaultValue).For(consumer);
 
+			Assert.AreEqual(source, testing.Source);
+			Assert.AreEqual(comparer, testing.Comparer);
+			Assert.AreEqual(defaultValue, testing.DefaultValue);
+
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -43485,6 +45435,9 @@ namespace ObservableComputations.Test
 			OcConsumer consumer = new OcConsumer();
 			var testing = source.Maximazing<int>(
 				comparer).For(consumer);
+
+			Assert.AreEqual(source, testing.Source);
+			Assert.AreEqual(comparer, testing.Comparer);
 
 			void test()
 			{
@@ -43547,6 +45500,9 @@ namespace ObservableComputations.Test
 			var testing = source.Maximazing<int>(
 				defaultValue).For(consumer);
 
+			Assert.AreEqual(source, testing.Source);
+			Assert.AreEqual(defaultValue, testing.DefaultValue);
+
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -43605,6 +45561,8 @@ namespace ObservableComputations.Test
 			Selecting<Item, int> source = getItems().Selecting(i => i.Num);
 			OcConsumer consumer = new OcConsumer();
 			var testing = source.Maximazing<int>().For(consumer);
+
+			Assert.AreEqual(source, testing.Source);
 
 			void test()
 			{
@@ -43669,6 +45627,10 @@ namespace ObservableComputations.Test
 				comparer,
 				defaultValue).For(consumer);
 
+			Assert.AreEqual(source, testing.Source);
+			Assert.AreEqual(comparer, testing.Comparer);
+			Assert.AreEqual(defaultValue, testing.DefaultValue);
+
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -43729,6 +45691,9 @@ namespace ObservableComputations.Test
 			OcConsumer consumer = new OcConsumer();
 			var testing = source.Maximazing<int>(
 				comparer).For(consumer);
+
+			Assert.AreEqual(source, testing.Source);
+			Assert.AreEqual(comparer, testing.Comparer);
 
 			void test()
 			{
@@ -43791,6 +45756,9 @@ namespace ObservableComputations.Test
 			var testing = source.Maximazing<int>(
 				defaultValue).For(consumer);
 
+			Assert.AreEqual(source, testing.Source);
+			Assert.AreEqual(defaultValue, testing.DefaultValue);
+
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -43849,6 +45817,8 @@ namespace ObservableComputations.Test
 			Selecting<Item, int> source = getItems().Selecting(i => i.Num);
 			OcConsumer consumer = new OcConsumer();
 			var testing = source.Maximazing<int>().For(consumer);
+
+			Assert.AreEqual(source, testing.Source);
 
 			void test()
 			{
@@ -43912,6 +45882,10 @@ namespace ObservableComputations.Test
 			var testing = source.Maximazing<int>(
 				comparerScalar,
 				defaultValue).For(consumer);
+
+			Assert.AreEqual(source, testing.Source);
+			Assert.AreEqual(comparerScalar, testing.ComparerScalar);
+			Assert.AreEqual(defaultValue, testing.DefaultValue);
 
 			void test()
 			{
@@ -43978,6 +45952,9 @@ namespace ObservableComputations.Test
 			OcConsumer consumer = new OcConsumer();
 			var testing = source.Maximazing<int>(
 				comparerScalar).For(consumer);
+
+			Assert.AreEqual(source, testing.Source);
+			Assert.AreEqual(comparerScalar, testing.ComparerScalar);
 
 			void test()
 			{
@@ -44047,6 +46024,10 @@ namespace ObservableComputations.Test
 				comparerScalar,
 				defaultValue).For(consumer);
 
+			Assert.AreEqual(source, testing.Source);
+			Assert.AreEqual(comparerScalar, testing.ComparerScalar);
+			Assert.AreEqual(defaultValue, testing.DefaultValue);
+
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -44112,6 +46093,9 @@ namespace ObservableComputations.Test
 			OcConsumer consumer = new OcConsumer();
 			var testing = source.Maximazing<int>(
 				comparerScalar).For(consumer);
+
+			Assert.AreEqual(source, testing.Source);
+			Assert.AreEqual(comparerScalar, testing.ComparerScalar);
 
 			void test()
 			{
@@ -44184,6 +46168,10 @@ namespace ObservableComputations.Test
 				comparer,
 				defaultValue).For(consumer);
 
+			Assert.AreEqual(sourceScalar, testing.SourceScalar);
+			Assert.AreEqual(comparer, testing.Comparer);
+			Assert.AreEqual(defaultValue, testing.DefaultValue);
+
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -44249,6 +46237,9 @@ namespace ObservableComputations.Test
 			OcConsumer consumer = new OcConsumer();
 			var testing = sourceScalar.Minimazing<int>(
 				comparer).For(consumer);
+
+			Assert.AreEqual(sourceScalar, testing.SourceScalar);
+			Assert.AreEqual(comparer, testing.Comparer);
 
 			void test()
 			{
@@ -44316,6 +46307,9 @@ namespace ObservableComputations.Test
 			var testing = sourceScalar.Minimazing<int>(
 				defaultValue).For(consumer);
 
+			Assert.AreEqual(sourceScalar, testing.SourceScalar);
+			Assert.AreEqual(defaultValue, testing.DefaultValue);
+
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -44379,6 +46373,8 @@ namespace ObservableComputations.Test
 			IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar = getScalar<Selecting<Item, int>>(getItems().Selecting(i => i.Num));
 			OcConsumer consumer = new OcConsumer();
 			var testing = sourceScalar.Minimazing<int>().For(consumer);
+
+			Assert.AreEqual(sourceScalar, testing.SourceScalar);
 
 			void test()
 			{
@@ -44448,6 +46444,10 @@ namespace ObservableComputations.Test
 				comparer,
 				defaultValue).For(consumer);
 
+			Assert.AreEqual(sourceScalar, testing.SourceScalar);
+			Assert.AreEqual(comparer, testing.Comparer);
+			Assert.AreEqual(defaultValue, testing.DefaultValue);
+
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -44513,6 +46513,9 @@ namespace ObservableComputations.Test
 			OcConsumer consumer = new OcConsumer();
 			var testing = sourceScalar.Minimazing<int>(
 				comparer).For(consumer);
+
+			Assert.AreEqual(sourceScalar, testing.SourceScalar);
+			Assert.AreEqual(comparer, testing.Comparer);
 
 			void test()
 			{
@@ -44580,6 +46583,9 @@ namespace ObservableComputations.Test
 			var testing = sourceScalar.Minimazing<int>(
 				defaultValue).For(consumer);
 
+			Assert.AreEqual(sourceScalar, testing.SourceScalar);
+			Assert.AreEqual(defaultValue, testing.DefaultValue);
+
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -44643,6 +46649,8 @@ namespace ObservableComputations.Test
 			IReadScalar<ObservableCollection<int>> sourceScalar = getScalar<Selecting<Item, int>>(getItems().Selecting(i => i.Num));
 			OcConsumer consumer = new OcConsumer();
 			var testing = sourceScalar.Minimazing<int>().For(consumer);
+
+			Assert.AreEqual(sourceScalar, testing.SourceScalar);
 
 			void test()
 			{
@@ -44711,6 +46719,10 @@ namespace ObservableComputations.Test
 			var testing = sourceScalar.Minimazing<int>(
 				comparerScalar,
 				defaultValue).For(consumer);
+
+			Assert.AreEqual(sourceScalar, testing.SourceScalar);
+			Assert.AreEqual(comparerScalar, testing.ComparerScalar);
+			Assert.AreEqual(defaultValue, testing.DefaultValue);
 
 			void test()
 			{
@@ -44782,6 +46794,9 @@ namespace ObservableComputations.Test
 			OcConsumer consumer = new OcConsumer();
 			var testing = sourceScalar.Minimazing<int>(
 				comparerScalar).For(consumer);
+
+			Assert.AreEqual(sourceScalar, testing.SourceScalar);
+			Assert.AreEqual(comparerScalar, testing.ComparerScalar);
 
 			void test()
 			{
@@ -44856,6 +46871,10 @@ namespace ObservableComputations.Test
 				comparerScalar,
 				defaultValue).For(consumer);
 
+			Assert.AreEqual(sourceScalar, testing.SourceScalar);
+			Assert.AreEqual(comparerScalar, testing.ComparerScalar);
+			Assert.AreEqual(defaultValue, testing.DefaultValue);
+
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -44926,6 +46945,9 @@ namespace ObservableComputations.Test
 			OcConsumer consumer = new OcConsumer();
 			var testing = sourceScalar.Minimazing<int>(
 				comparerScalar).For(consumer);
+
+			Assert.AreEqual(sourceScalar, testing.SourceScalar);
+			Assert.AreEqual(comparerScalar, testing.ComparerScalar);
 
 			void test()
 			{
@@ -45000,6 +47022,10 @@ namespace ObservableComputations.Test
 				comparer,
 				defaultValue).For(consumer);
 
+			Assert.AreEqual(source, testing.Source);
+			Assert.AreEqual(comparer, testing.Comparer);
+			Assert.AreEqual(defaultValue, testing.DefaultValue);
+
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -45060,6 +47086,9 @@ namespace ObservableComputations.Test
 			OcConsumer consumer = new OcConsumer();
 			var testing = source.Minimazing<int>(
 				comparer).For(consumer);
+
+			Assert.AreEqual(source, testing.Source);
+			Assert.AreEqual(comparer, testing.Comparer);
 
 			void test()
 			{
@@ -45122,6 +47151,9 @@ namespace ObservableComputations.Test
 			var testing = source.Minimazing<int>(
 				defaultValue).For(consumer);
 
+			Assert.AreEqual(source, testing.Source);
+			Assert.AreEqual(defaultValue, testing.DefaultValue);
+
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -45180,6 +47212,8 @@ namespace ObservableComputations.Test
 			Selecting<Item, int> source = getItems().Selecting(i => i.Num);
 			OcConsumer consumer = new OcConsumer();
 			var testing = source.Minimazing<int>().For(consumer);
+
+			Assert.AreEqual(source, testing.Source);
 
 			void test()
 			{
@@ -45244,6 +47278,10 @@ namespace ObservableComputations.Test
 				comparer,
 				defaultValue).For(consumer);
 
+			Assert.AreEqual(source, testing.Source);
+			Assert.AreEqual(comparer, testing.Comparer);
+			Assert.AreEqual(defaultValue, testing.DefaultValue);
+
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -45304,6 +47342,9 @@ namespace ObservableComputations.Test
 			OcConsumer consumer = new OcConsumer();
 			var testing = source.Minimazing<int>(
 				comparer).For(consumer);
+
+			Assert.AreEqual(source, testing.Source);
+			Assert.AreEqual(comparer, testing.Comparer);
 
 			void test()
 			{
@@ -45366,6 +47407,9 @@ namespace ObservableComputations.Test
 			var testing = source.Minimazing<int>(
 				defaultValue).For(consumer);
 
+			Assert.AreEqual(source, testing.Source);
+			Assert.AreEqual(defaultValue, testing.DefaultValue);
+
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -45424,6 +47468,8 @@ namespace ObservableComputations.Test
 			Selecting<Item, int> source = getItems().Selecting(i => i.Num);
 			OcConsumer consumer = new OcConsumer();
 			var testing = source.Minimazing<int>().For(consumer);
+
+			Assert.AreEqual(source, testing.Source);
 
 			void test()
 			{
@@ -45487,6 +47533,10 @@ namespace ObservableComputations.Test
 			var testing = source.Minimazing<int>(
 				comparerScalar,
 				defaultValue).For(consumer);
+
+			Assert.AreEqual(source, testing.Source);
+			Assert.AreEqual(comparerScalar, testing.ComparerScalar);
+			Assert.AreEqual(defaultValue, testing.DefaultValue);
 
 			void test()
 			{
@@ -45553,6 +47603,9 @@ namespace ObservableComputations.Test
 			OcConsumer consumer = new OcConsumer();
 			var testing = source.Minimazing<int>(
 				comparerScalar).For(consumer);
+
+			Assert.AreEqual(source, testing.Source);
+			Assert.AreEqual(comparerScalar, testing.ComparerScalar);
 
 			void test()
 			{
@@ -45622,6 +47675,10 @@ namespace ObservableComputations.Test
 				comparerScalar,
 				defaultValue).For(consumer);
 
+			Assert.AreEqual(source, testing.Source);
+			Assert.AreEqual(comparerScalar, testing.ComparerScalar);
+			Assert.AreEqual(defaultValue, testing.DefaultValue);
+
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -45687,6 +47744,9 @@ namespace ObservableComputations.Test
 			OcConsumer consumer = new OcConsumer();
 			var testing = source.Minimazing<int>(
 				comparerScalar).For(consumer);
+
+			Assert.AreEqual(source, testing.Source);
+			Assert.AreEqual(comparerScalar, testing.ComparerScalar);
 
 			void test()
 			{
@@ -45755,6 +47815,8 @@ namespace ObservableComputations.Test
 			OcConsumer consumer = new OcConsumer();
 			var testing = sourceScalar.OfTypeComputing<object>().For(consumer);
 
+			Assert.AreEqual(sourceScalar, testing.SourceScalar);
+
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -45818,6 +47880,8 @@ namespace ObservableComputations.Test
 			System.Collections.Specialized.INotifyCollectionChanged source = getItems();
 			OcConsumer consumer = new OcConsumer();
 			var testing = source.OfTypeComputing<object>().For(consumer);
+
+			Assert.AreEqual(source, testing.Source);
 
 			void test()
 			{
@@ -45886,6 +47950,11 @@ namespace ObservableComputations.Test
 				orderingValueSelectorExpression,
 				sortDirectionScalar,
 				comparerScalar).For(consumer);
+
+			Assert.AreEqual(source, testing.Source);
+			Assert.AreEqual(orderingValueSelectorExpression, testing.OrderingValueSelectorExpression);
+			Assert.AreEqual(sortDirectionScalar, testing.SortDirectionScalar);
+			Assert.AreEqual(comparerScalar, testing.ComparerScalar);
 
 			void test()
 			{
@@ -45960,6 +48029,10 @@ namespace ObservableComputations.Test
 				orderingValueSelectorExpression,
 				sortDirectionScalar).For(consumer);
 
+			Assert.AreEqual(source, testing.Source);
+			Assert.AreEqual(orderingValueSelectorExpression, testing.OrderingValueSelectorExpression);
+			Assert.AreEqual(sortDirectionScalar, testing.SortDirectionScalar);
+
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -46028,6 +48101,10 @@ namespace ObservableComputations.Test
 				orderingValueSelectorExpression,
 				comparerScalar).For(consumer);
 
+			Assert.AreEqual(source, testing.Source);
+			Assert.AreEqual(orderingValueSelectorExpression, testing.OrderingValueSelectorExpression);
+			Assert.AreEqual(comparerScalar, testing.ComparerScalar);
+
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -46094,6 +48171,9 @@ namespace ObservableComputations.Test
 			var testing = source.Ordering<int, int>(
 				orderingValueSelectorExpression).For(consumer);
 
+			Assert.AreEqual(source, testing.Source);
+			Assert.AreEqual(orderingValueSelectorExpression, testing.OrderingValueSelectorExpression);
+
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -46158,6 +48238,11 @@ namespace ObservableComputations.Test
 				orderingValueSelectorExpression,
 				sortDirectionScalar,
 				comparerScalar).For(consumer);
+
+			Assert.AreEqual(source, testing.Source);
+			Assert.AreEqual(orderingValueSelectorExpression, testing.OrderingValueSelectorExpression);
+			Assert.AreEqual(sortDirectionScalar, testing.SortDirectionScalar);
+			Assert.AreEqual(comparerScalar, testing.ComparerScalar);
 
 			void test()
 			{
@@ -46232,6 +48317,10 @@ namespace ObservableComputations.Test
 				orderingValueSelectorExpression,
 				sortDirectionScalar).For(consumer);
 
+			Assert.AreEqual(source, testing.Source);
+			Assert.AreEqual(orderingValueSelectorExpression, testing.OrderingValueSelectorExpression);
+			Assert.AreEqual(sortDirectionScalar, testing.SortDirectionScalar);
+
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -46300,6 +48389,10 @@ namespace ObservableComputations.Test
 				orderingValueSelectorExpression,
 				comparerScalar).For(consumer);
 
+			Assert.AreEqual(source, testing.Source);
+			Assert.AreEqual(orderingValueSelectorExpression, testing.OrderingValueSelectorExpression);
+			Assert.AreEqual(comparerScalar, testing.ComparerScalar);
+
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -46366,6 +48459,9 @@ namespace ObservableComputations.Test
 			var testing = source.Ordering<int, int>(
 				orderingValueSelectorExpression).For(consumer);
 
+			Assert.AreEqual(source, testing.Source);
+			Assert.AreEqual(orderingValueSelectorExpression, testing.OrderingValueSelectorExpression);
+
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -46430,6 +48526,11 @@ namespace ObservableComputations.Test
 				orderingValueSelectorExpression,
 				sortDirection,
 				comparerScalar).For(consumer);
+
+			Assert.AreEqual(source, testing.Source);
+			Assert.AreEqual(orderingValueSelectorExpression, testing.OrderingValueSelectorExpression);
+			Assert.AreEqual(sortDirection, testing.SortDirection);
+			Assert.AreEqual(comparerScalar, testing.ComparerScalar);
 
 			void test()
 			{
@@ -46499,6 +48600,10 @@ namespace ObservableComputations.Test
 				orderingValueSelectorExpression,
 				sortDirection).For(consumer);
 
+			Assert.AreEqual(source, testing.Source);
+			Assert.AreEqual(orderingValueSelectorExpression, testing.OrderingValueSelectorExpression);
+			Assert.AreEqual(sortDirection, testing.SortDirection);
+
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -46563,6 +48668,11 @@ namespace ObservableComputations.Test
 				orderingValueSelectorExpression,
 				sortDirection,
 				comparerScalar).For(consumer);
+
+			Assert.AreEqual(source, testing.Source);
+			Assert.AreEqual(orderingValueSelectorExpression, testing.OrderingValueSelectorExpression);
+			Assert.AreEqual(sortDirection, testing.SortDirection);
+			Assert.AreEqual(comparerScalar, testing.ComparerScalar);
 
 			void test()
 			{
@@ -46632,6 +48742,10 @@ namespace ObservableComputations.Test
 				orderingValueSelectorExpression,
 				sortDirection).For(consumer);
 
+			Assert.AreEqual(source, testing.Source);
+			Assert.AreEqual(orderingValueSelectorExpression, testing.OrderingValueSelectorExpression);
+			Assert.AreEqual(sortDirection, testing.SortDirection);
+
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -46696,6 +48810,11 @@ namespace ObservableComputations.Test
 				orderingValueSelectorExpression,
 				sortDirectionScalar,
 				comparer).For(consumer);
+
+			Assert.AreEqual(source, testing.Source);
+			Assert.AreEqual(orderingValueSelectorExpression, testing.OrderingValueSelectorExpression);
+			Assert.AreEqual(sortDirectionScalar, testing.SortDirectionScalar);
+			Assert.AreEqual(comparer, testing.Comparer);
 
 			void test()
 			{
@@ -46765,6 +48884,10 @@ namespace ObservableComputations.Test
 				orderingValueSelectorExpression,
 				comparer).For(consumer);
 
+			Assert.AreEqual(source, testing.Source);
+			Assert.AreEqual(orderingValueSelectorExpression, testing.OrderingValueSelectorExpression);
+			Assert.AreEqual(comparer, testing.Comparer);
+
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -46829,6 +48952,11 @@ namespace ObservableComputations.Test
 				orderingValueSelectorExpression,
 				sortDirectionScalar,
 				comparer).For(consumer);
+
+			Assert.AreEqual(source, testing.Source);
+			Assert.AreEqual(orderingValueSelectorExpression, testing.OrderingValueSelectorExpression);
+			Assert.AreEqual(sortDirectionScalar, testing.SortDirectionScalar);
+			Assert.AreEqual(comparer, testing.Comparer);
 
 			void test()
 			{
@@ -46898,6 +49026,10 @@ namespace ObservableComputations.Test
 				orderingValueSelectorExpression,
 				comparer).For(consumer);
 
+			Assert.AreEqual(source, testing.Source);
+			Assert.AreEqual(orderingValueSelectorExpression, testing.OrderingValueSelectorExpression);
+			Assert.AreEqual(comparer, testing.Comparer);
+
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -46962,6 +49094,11 @@ namespace ObservableComputations.Test
 				orderingValueSelectorExpression,
 				sortDirection,
 				comparer).For(consumer);
+
+			Assert.AreEqual(source, testing.Source);
+			Assert.AreEqual(orderingValueSelectorExpression, testing.OrderingValueSelectorExpression);
+			Assert.AreEqual(sortDirection, testing.SortDirection);
+			Assert.AreEqual(comparer, testing.Comparer);
 
 			void test()
 			{
@@ -47028,6 +49165,11 @@ namespace ObservableComputations.Test
 				sortDirection,
 				comparer).For(consumer);
 
+			Assert.AreEqual(source, testing.Source);
+			Assert.AreEqual(orderingValueSelectorExpression, testing.OrderingValueSelectorExpression);
+			Assert.AreEqual(sortDirection, testing.SortDirection);
+			Assert.AreEqual(comparer, testing.Comparer);
+
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -47092,6 +49234,11 @@ namespace ObservableComputations.Test
 				orderingValueSelectorExpression,
 				sortDirectionScalar,
 				comparerScalar).For(consumer);
+
+			Assert.AreEqual(sourceScalar, testing.SourceScalar);
+			Assert.AreEqual(orderingValueSelectorExpression, testing.OrderingValueSelectorExpression);
+			Assert.AreEqual(sortDirectionScalar, testing.SortDirectionScalar);
+			Assert.AreEqual(comparerScalar, testing.ComparerScalar);
 
 			void test()
 			{
@@ -47171,6 +49318,10 @@ namespace ObservableComputations.Test
 				orderingValueSelectorExpression,
 				sortDirectionScalar).For(consumer);
 
+			Assert.AreEqual(sourceScalar, testing.SourceScalar);
+			Assert.AreEqual(orderingValueSelectorExpression, testing.OrderingValueSelectorExpression);
+			Assert.AreEqual(sortDirectionScalar, testing.SortDirectionScalar);
+
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -47244,6 +49395,10 @@ namespace ObservableComputations.Test
 				orderingValueSelectorExpression,
 				comparerScalar).For(consumer);
 
+			Assert.AreEqual(sourceScalar, testing.SourceScalar);
+			Assert.AreEqual(orderingValueSelectorExpression, testing.OrderingValueSelectorExpression);
+			Assert.AreEqual(comparerScalar, testing.ComparerScalar);
+
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -47315,6 +49470,9 @@ namespace ObservableComputations.Test
 			var testing = sourceScalar.Ordering<int, int>(
 				orderingValueSelectorExpression).For(consumer);
 
+			Assert.AreEqual(sourceScalar, testing.SourceScalar);
+			Assert.AreEqual(orderingValueSelectorExpression, testing.OrderingValueSelectorExpression);
+
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -47384,6 +49542,11 @@ namespace ObservableComputations.Test
 				orderingValueSelectorExpression,
 				sortDirectionScalar,
 				comparerScalar).For(consumer);
+
+			Assert.AreEqual(sourceScalar, testing.SourceScalar);
+			Assert.AreEqual(orderingValueSelectorExpression, testing.OrderingValueSelectorExpression);
+			Assert.AreEqual(sortDirectionScalar, testing.SortDirectionScalar);
+			Assert.AreEqual(comparerScalar, testing.ComparerScalar);
 
 			void test()
 			{
@@ -47463,6 +49626,10 @@ namespace ObservableComputations.Test
 				orderingValueSelectorExpression,
 				sortDirectionScalar).For(consumer);
 
+			Assert.AreEqual(sourceScalar, testing.SourceScalar);
+			Assert.AreEqual(orderingValueSelectorExpression, testing.OrderingValueSelectorExpression);
+			Assert.AreEqual(sortDirectionScalar, testing.SortDirectionScalar);
+
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -47536,6 +49703,10 @@ namespace ObservableComputations.Test
 				orderingValueSelectorExpression,
 				comparerScalar).For(consumer);
 
+			Assert.AreEqual(sourceScalar, testing.SourceScalar);
+			Assert.AreEqual(orderingValueSelectorExpression, testing.OrderingValueSelectorExpression);
+			Assert.AreEqual(comparerScalar, testing.ComparerScalar);
+
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -47607,6 +49778,9 @@ namespace ObservableComputations.Test
 			var testing = sourceScalar.Ordering<int, int>(
 				orderingValueSelectorExpression).For(consumer);
 
+			Assert.AreEqual(sourceScalar, testing.SourceScalar);
+			Assert.AreEqual(orderingValueSelectorExpression, testing.OrderingValueSelectorExpression);
+
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -47676,6 +49850,11 @@ namespace ObservableComputations.Test
 				orderingValueSelectorExpression,
 				sortDirection,
 				comparerScalar).For(consumer);
+
+			Assert.AreEqual(sourceScalar, testing.SourceScalar);
+			Assert.AreEqual(orderingValueSelectorExpression, testing.OrderingValueSelectorExpression);
+			Assert.AreEqual(sortDirection, testing.SortDirection);
+			Assert.AreEqual(comparerScalar, testing.ComparerScalar);
 
 			void test()
 			{
@@ -47750,6 +49929,10 @@ namespace ObservableComputations.Test
 				orderingValueSelectorExpression,
 				sortDirection).For(consumer);
 
+			Assert.AreEqual(sourceScalar, testing.SourceScalar);
+			Assert.AreEqual(orderingValueSelectorExpression, testing.OrderingValueSelectorExpression);
+			Assert.AreEqual(sortDirection, testing.SortDirection);
+
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -47819,6 +50002,11 @@ namespace ObservableComputations.Test
 				orderingValueSelectorExpression,
 				sortDirection,
 				comparerScalar).For(consumer);
+
+			Assert.AreEqual(sourceScalar, testing.SourceScalar);
+			Assert.AreEqual(orderingValueSelectorExpression, testing.OrderingValueSelectorExpression);
+			Assert.AreEqual(sortDirection, testing.SortDirection);
+			Assert.AreEqual(comparerScalar, testing.ComparerScalar);
 
 			void test()
 			{
@@ -47893,6 +50081,10 @@ namespace ObservableComputations.Test
 				orderingValueSelectorExpression,
 				sortDirection).For(consumer);
 
+			Assert.AreEqual(sourceScalar, testing.SourceScalar);
+			Assert.AreEqual(orderingValueSelectorExpression, testing.OrderingValueSelectorExpression);
+			Assert.AreEqual(sortDirection, testing.SortDirection);
+
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -47962,6 +50154,11 @@ namespace ObservableComputations.Test
 				orderingValueSelectorExpression,
 				sortDirectionScalar,
 				comparer).For(consumer);
+
+			Assert.AreEqual(sourceScalar, testing.SourceScalar);
+			Assert.AreEqual(orderingValueSelectorExpression, testing.OrderingValueSelectorExpression);
+			Assert.AreEqual(sortDirectionScalar, testing.SortDirectionScalar);
+			Assert.AreEqual(comparer, testing.Comparer);
 
 			void test()
 			{
@@ -48036,6 +50233,10 @@ namespace ObservableComputations.Test
 				orderingValueSelectorExpression,
 				comparer).For(consumer);
 
+			Assert.AreEqual(sourceScalar, testing.SourceScalar);
+			Assert.AreEqual(orderingValueSelectorExpression, testing.OrderingValueSelectorExpression);
+			Assert.AreEqual(comparer, testing.Comparer);
+
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -48105,6 +50306,11 @@ namespace ObservableComputations.Test
 				orderingValueSelectorExpression,
 				sortDirectionScalar,
 				comparer).For(consumer);
+
+			Assert.AreEqual(sourceScalar, testing.SourceScalar);
+			Assert.AreEqual(orderingValueSelectorExpression, testing.OrderingValueSelectorExpression);
+			Assert.AreEqual(sortDirectionScalar, testing.SortDirectionScalar);
+			Assert.AreEqual(comparer, testing.Comparer);
 
 			void test()
 			{
@@ -48179,6 +50385,10 @@ namespace ObservableComputations.Test
 				orderingValueSelectorExpression,
 				comparer).For(consumer);
 
+			Assert.AreEqual(sourceScalar, testing.SourceScalar);
+			Assert.AreEqual(orderingValueSelectorExpression, testing.OrderingValueSelectorExpression);
+			Assert.AreEqual(comparer, testing.Comparer);
+
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -48249,6 +50459,11 @@ namespace ObservableComputations.Test
 				sortDirection,
 				comparer).For(consumer);
 
+			Assert.AreEqual(sourceScalar, testing.SourceScalar);
+			Assert.AreEqual(orderingValueSelectorExpression, testing.OrderingValueSelectorExpression);
+			Assert.AreEqual(sortDirection, testing.SortDirection);
+			Assert.AreEqual(comparer, testing.Comparer);
+
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -48318,6 +50533,11 @@ namespace ObservableComputations.Test
 				orderingValueSelectorExpression,
 				sortDirection,
 				comparer).For(consumer);
+
+			Assert.AreEqual(sourceScalar, testing.SourceScalar);
+			Assert.AreEqual(orderingValueSelectorExpression, testing.OrderingValueSelectorExpression);
+			Assert.AreEqual(sortDirection, testing.SortDirection);
+			Assert.AreEqual(comparer, testing.Comparer);
 
 			void test()
 			{
@@ -48390,6 +50610,9 @@ namespace ObservableComputations.Test
 				pageSize,
 				initialPage).For(consumer);
 
+			Assert.AreEqual(source, testing.Source);
+			Assert.AreEqual(pageSize, testing.PageSize);
+
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -48450,6 +50673,9 @@ namespace ObservableComputations.Test
 			OcConsumer consumer = new OcConsumer();
 			var testing = source.Paging<Item>(
 				pageSize).For(consumer);
+
+			Assert.AreEqual(source, testing.Source);
+			Assert.AreEqual(pageSize, testing.PageSize);
 
 			void test()
 			{
@@ -48514,6 +50740,9 @@ namespace ObservableComputations.Test
 				pageSize,
 				initialPage).For(consumer);
 
+			Assert.AreEqual(source, testing.Source);
+			Assert.AreEqual(pageSize, testing.PageSize);
+
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -48574,6 +50803,9 @@ namespace ObservableComputations.Test
 			OcConsumer consumer = new OcConsumer();
 			var testing = source.Paging<Item>(
 				pageSize).For(consumer);
+
+			Assert.AreEqual(source, testing.Source);
+			Assert.AreEqual(pageSize, testing.PageSize);
 
 			void test()
 			{
@@ -48637,6 +50869,9 @@ namespace ObservableComputations.Test
 			var testing = sourceScalar.Paging<Item>(
 				pageSize,
 				initialPage).For(consumer);
+
+			Assert.AreEqual(sourceScalar, testing.SourceScalar);
+			Assert.AreEqual(pageSize, testing.PageSize);
 
 			void test()
 			{
@@ -48703,6 +50938,9 @@ namespace ObservableComputations.Test
 			OcConsumer consumer = new OcConsumer();
 			var testing = sourceScalar.Paging<Item>(
 				pageSize).For(consumer);
+
+			Assert.AreEqual(sourceScalar, testing.SourceScalar);
+			Assert.AreEqual(pageSize, testing.PageSize);
 
 			void test()
 			{
@@ -48772,6 +51010,9 @@ namespace ObservableComputations.Test
 				pageSize,
 				initialPage).For(consumer);
 
+			Assert.AreEqual(sourceScalar, testing.SourceScalar);
+			Assert.AreEqual(pageSize, testing.PageSize);
+
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -48837,6 +51078,9 @@ namespace ObservableComputations.Test
 			OcConsumer consumer = new OcConsumer();
 			var testing = sourceScalar.Paging<Item>(
 				pageSize).For(consumer);
+
+			Assert.AreEqual(sourceScalar, testing.SourceScalar);
+			Assert.AreEqual(pageSize, testing.PageSize);
 
 			void test()
 			{
@@ -48906,6 +51150,9 @@ namespace ObservableComputations.Test
 				pageSizeScalar,
 				initialPage).For(consumer);
 
+			Assert.AreEqual(source, testing.Source);
+			Assert.AreEqual(pageSizeScalar, testing.PageSizeScalar);
+
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -48971,6 +51218,9 @@ namespace ObservableComputations.Test
 			OcConsumer consumer = new OcConsumer();
 			var testing = source.Paging<Item>(
 				pageSizeScalar).For(consumer);
+
+			Assert.AreEqual(source, testing.Source);
+			Assert.AreEqual(pageSizeScalar, testing.PageSizeScalar);
 
 			void test()
 			{
@@ -49040,6 +51290,9 @@ namespace ObservableComputations.Test
 				pageSizeScalar,
 				initialPage).For(consumer);
 
+			Assert.AreEqual(source, testing.Source);
+			Assert.AreEqual(pageSizeScalar, testing.PageSizeScalar);
+
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -49105,6 +51358,9 @@ namespace ObservableComputations.Test
 			OcConsumer consumer = new OcConsumer();
 			var testing = source.Paging<Item>(
 				pageSizeScalar).For(consumer);
+
+			Assert.AreEqual(source, testing.Source);
+			Assert.AreEqual(pageSizeScalar, testing.PageSizeScalar);
 
 			void test()
 			{
@@ -49173,6 +51429,9 @@ namespace ObservableComputations.Test
 			var testing = sourceScalar.Paging<Item>(
 				pageSizeScalar,
 				initialPage).For(consumer);
+
+			Assert.AreEqual(sourceScalar, testing.SourceScalar);
+			Assert.AreEqual(pageSizeScalar, testing.PageSizeScalar);
 
 			void test()
 			{
@@ -49244,6 +51503,9 @@ namespace ObservableComputations.Test
 			OcConsumer consumer = new OcConsumer();
 			var testing = sourceScalar.Paging<Item>(
 				pageSizeScalar).For(consumer);
+
+			Assert.AreEqual(sourceScalar, testing.SourceScalar);
+			Assert.AreEqual(pageSizeScalar, testing.PageSizeScalar);
 
 			void test()
 			{
@@ -49318,6 +51580,9 @@ namespace ObservableComputations.Test
 				pageSizeScalar,
 				initialPage).For(consumer);
 
+			Assert.AreEqual(sourceScalar, testing.SourceScalar);
+			Assert.AreEqual(pageSizeScalar, testing.PageSizeScalar);
+
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -49388,6 +51653,9 @@ namespace ObservableComputations.Test
 			OcConsumer consumer = new OcConsumer();
 			var testing = sourceScalar.Paging<Item>(
 				pageSizeScalar).For(consumer);
+
+			Assert.AreEqual(sourceScalar, testing.SourceScalar);
+			Assert.AreEqual(pageSizeScalar, testing.PageSizeScalar);
 
 			void test()
 			{
@@ -49462,6 +51730,10 @@ namespace ObservableComputations.Test
 				pageSizeScalar,
 				currentPageScalar).For(consumer);
 
+			Assert.AreEqual(source, testing.Source);
+			Assert.AreEqual(pageSizeScalar, testing.PageSizeScalar);
+			Assert.AreEqual(currentPageScalar, testing.CurrentPageScalar);
+
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -49535,6 +51807,10 @@ namespace ObservableComputations.Test
 				pageSizeScalar,
 				currentPageScalar).For(consumer);
 
+			Assert.AreEqual(source, testing.Source);
+			Assert.AreEqual(pageSizeScalar, testing.PageSizeScalar);
+			Assert.AreEqual(currentPageScalar, testing.CurrentPageScalar);
+
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -49607,6 +51883,10 @@ namespace ObservableComputations.Test
 			var testing = sourceScalar.Paging<Item>(
 				pageSizeScalar,
 				currentPageScalar).For(consumer);
+
+			Assert.AreEqual(sourceScalar, testing.SourceScalar);
+			Assert.AreEqual(pageSizeScalar, testing.PageSizeScalar);
+			Assert.AreEqual(currentPageScalar, testing.CurrentPageScalar);
 
 			void test()
 			{
@@ -49686,6 +51966,10 @@ namespace ObservableComputations.Test
 				pageSizeScalar,
 				currentPageScalar).For(consumer);
 
+			Assert.AreEqual(sourceScalar, testing.SourceScalar);
+			Assert.AreEqual(pageSizeScalar, testing.PageSizeScalar);
+			Assert.AreEqual(currentPageScalar, testing.CurrentPageScalar);
+
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -49764,6 +52048,10 @@ namespace ObservableComputations.Test
 				pageSize,
 				currentPageScalar).For(consumer);
 
+			Assert.AreEqual(source, testing.Source);
+			Assert.AreEqual(pageSize, testing.PageSize);
+			Assert.AreEqual(currentPageScalar, testing.CurrentPageScalar);
+
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -49832,6 +52120,10 @@ namespace ObservableComputations.Test
 				pageSize,
 				currentPageScalar).For(consumer);
 
+			Assert.AreEqual(source, testing.Source);
+			Assert.AreEqual(pageSize, testing.PageSize);
+			Assert.AreEqual(currentPageScalar, testing.CurrentPageScalar);
+
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -49899,6 +52191,10 @@ namespace ObservableComputations.Test
 			var testing = sourceScalar.Paging<Item>(
 				pageSize,
 				currentPageScalar).For(consumer);
+
+			Assert.AreEqual(sourceScalar, testing.SourceScalar);
+			Assert.AreEqual(pageSize, testing.PageSize);
+			Assert.AreEqual(currentPageScalar, testing.CurrentPageScalar);
 
 			void test()
 			{
@@ -49972,6 +52268,10 @@ namespace ObservableComputations.Test
 			var testing = sourceScalar.Paging<Item>(
 				pageSize,
 				currentPageScalar).For(consumer);
+
+			Assert.AreEqual(sourceScalar, testing.SourceScalar);
+			Assert.AreEqual(pageSize, testing.PageSize);
+			Assert.AreEqual(currentPageScalar, testing.CurrentPageScalar);
 
 			void test()
 			{
@@ -50048,6 +52348,10 @@ namespace ObservableComputations.Test
 			var testing = outerSourceScalar.PredicateGroupJoining<Item, Item>(
 				innerSourceScalar,
 				joinPredicateExpression).For(consumer);
+
+			Assert.AreEqual(outerSourceScalar, testing.OuterSourceScalar);
+			Assert.AreEqual(innerSourceScalar, testing.InnerSourceScalar);
+			Assert.AreEqual(joinPredicateExpression, testing.JoinPredicateExpression);
 
 			void test()
 			{
@@ -50163,6 +52467,10 @@ namespace ObservableComputations.Test
 				innerSourceScalar,
 				joinPredicateExpression).For(consumer);
 
+			Assert.AreEqual(outerSourceScalar, testing.OuterSourceScalar);
+			Assert.AreEqual(innerSourceScalar, testing.InnerSourceScalar);
+			Assert.AreEqual(joinPredicateExpression, testing.JoinPredicateExpression);
+
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -50276,6 +52584,10 @@ namespace ObservableComputations.Test
 			var testing = outerSourceScalar.PredicateGroupJoining<Item, Item>(
 				innerSourceScalar,
 				joinPredicateExpression).For(consumer);
+
+			Assert.AreEqual(outerSourceScalar, testing.OuterSourceScalar);
+			Assert.AreEqual(innerSourceScalar, testing.InnerSourceScalar);
+			Assert.AreEqual(joinPredicateExpression, testing.JoinPredicateExpression);
 
 			void test()
 			{
@@ -50391,6 +52703,10 @@ namespace ObservableComputations.Test
 				innerSourceScalar,
 				joinPredicateExpression).For(consumer);
 
+			Assert.AreEqual(outerSourceScalar, testing.OuterSourceScalar);
+			Assert.AreEqual(innerSourceScalar, testing.InnerSourceScalar);
+			Assert.AreEqual(joinPredicateExpression, testing.JoinPredicateExpression);
+
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -50505,6 +52821,10 @@ namespace ObservableComputations.Test
 				innerSource,
 				joinPredicateExpression).For(consumer);
 
+			Assert.AreEqual(outerSourceScalar, testing.OuterSourceScalar);
+			Assert.AreEqual(innerSource, testing.InnerSource);
+			Assert.AreEqual(joinPredicateExpression, testing.JoinPredicateExpression);
+
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -50613,6 +52933,10 @@ namespace ObservableComputations.Test
 			var testing = outerSourceScalar.PredicateGroupJoining<Item, Item>(
 				innerSource,
 				joinPredicateExpression).For(consumer);
+
+			Assert.AreEqual(outerSourceScalar, testing.OuterSourceScalar);
+			Assert.AreEqual(innerSource, testing.InnerSource);
+			Assert.AreEqual(joinPredicateExpression, testing.JoinPredicateExpression);
 
 			void test()
 			{
@@ -50723,6 +53047,10 @@ namespace ObservableComputations.Test
 				innerSource,
 				joinPredicateExpression).For(consumer);
 
+			Assert.AreEqual(outerSourceScalar, testing.OuterSourceScalar);
+			Assert.AreEqual(innerSource, testing.InnerSource);
+			Assert.AreEqual(joinPredicateExpression, testing.JoinPredicateExpression);
+
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -50831,6 +53159,10 @@ namespace ObservableComputations.Test
 			var testing = outerSourceScalar.PredicateGroupJoining<Item, Item>(
 				innerSource,
 				joinPredicateExpression).For(consumer);
+
+			Assert.AreEqual(outerSourceScalar, testing.OuterSourceScalar);
+			Assert.AreEqual(innerSource, testing.InnerSource);
+			Assert.AreEqual(joinPredicateExpression, testing.JoinPredicateExpression);
 
 			void test()
 			{
@@ -50941,6 +53273,10 @@ namespace ObservableComputations.Test
 				innerSourceScalar,
 				joinPredicateExpression).For(consumer);
 
+			Assert.AreEqual(outerSource, testing.OuterSource);
+			Assert.AreEqual(innerSourceScalar, testing.InnerSourceScalar);
+			Assert.AreEqual(joinPredicateExpression, testing.JoinPredicateExpression);
+
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -51049,6 +53385,10 @@ namespace ObservableComputations.Test
 			var testing = outerSource.PredicateGroupJoining<Item, Item>(
 				innerSourceScalar,
 				joinPredicateExpression).For(consumer);
+
+			Assert.AreEqual(outerSource, testing.OuterSource);
+			Assert.AreEqual(innerSourceScalar, testing.InnerSourceScalar);
+			Assert.AreEqual(joinPredicateExpression, testing.JoinPredicateExpression);
 
 			void test()
 			{
@@ -51159,6 +53499,10 @@ namespace ObservableComputations.Test
 				innerSourceScalar,
 				joinPredicateExpression).For(consumer);
 
+			Assert.AreEqual(outerSource, testing.OuterSource);
+			Assert.AreEqual(innerSourceScalar, testing.InnerSourceScalar);
+			Assert.AreEqual(joinPredicateExpression, testing.JoinPredicateExpression);
+
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -51267,6 +53611,10 @@ namespace ObservableComputations.Test
 			var testing = outerSource.PredicateGroupJoining<Item, Item>(
 				innerSourceScalar,
 				joinPredicateExpression).For(consumer);
+
+			Assert.AreEqual(outerSource, testing.OuterSource);
+			Assert.AreEqual(innerSourceScalar, testing.InnerSourceScalar);
+			Assert.AreEqual(joinPredicateExpression, testing.JoinPredicateExpression);
 
 			void test()
 			{
@@ -51377,6 +53725,10 @@ namespace ObservableComputations.Test
 				innerSource,
 				joinPredicateExpression).For(consumer);
 
+			Assert.AreEqual(outerSource, testing.OuterSource);
+			Assert.AreEqual(innerSource, testing.InnerSource);
+			Assert.AreEqual(joinPredicateExpression, testing.JoinPredicateExpression);
+
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -51480,6 +53832,10 @@ namespace ObservableComputations.Test
 			var testing = outerSource.PredicateGroupJoining<Item, Item>(
 				innerSource,
 				joinPredicateExpression).For(consumer);
+
+			Assert.AreEqual(outerSource, testing.OuterSource);
+			Assert.AreEqual(innerSource, testing.InnerSource);
+			Assert.AreEqual(joinPredicateExpression, testing.JoinPredicateExpression);
 
 			void test()
 			{
@@ -51585,6 +53941,10 @@ namespace ObservableComputations.Test
 				innerSource,
 				joinPredicateExpression).For(consumer);
 
+			Assert.AreEqual(outerSource, testing.OuterSource);
+			Assert.AreEqual(innerSource, testing.InnerSource);
+			Assert.AreEqual(joinPredicateExpression, testing.JoinPredicateExpression);
+
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -51688,6 +54048,10 @@ namespace ObservableComputations.Test
 			var testing = outerSource.PredicateGroupJoining<Item, Item>(
 				innerSource,
 				joinPredicateExpression).For(consumer);
+
+			Assert.AreEqual(outerSource, testing.OuterSource);
+			Assert.AreEqual(innerSource, testing.InnerSource);
+			Assert.AreEqual(joinPredicateExpression, testing.JoinPredicateExpression);
 
 			void test()
 			{
@@ -51794,6 +54158,9 @@ namespace ObservableComputations.Test
 			var testing = sourceScalar.Prepending<Item>(
 				itemScalar).For(consumer);
 
+			Assert.AreEqual(sourceScalar, testing.SourceScalar);
+			Assert.AreEqual(itemScalar, testing.ItemScalar);
+
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -51864,6 +54231,9 @@ namespace ObservableComputations.Test
 			OcConsumer consumer = new OcConsumer();
 			var testing = sourceScalar.Prepending<Item>(
 				itemScalar).For(consumer);
+
+			Assert.AreEqual(sourceScalar, testing.SourceScalar);
+			Assert.AreEqual(itemScalar, testing.ItemScalar);
 
 			void test()
 			{
@@ -51936,6 +54306,9 @@ namespace ObservableComputations.Test
 			var testing = source.Prepending<Item>(
 				itemScalar).For(consumer);
 
+			Assert.AreEqual(source, testing.Source);
+			Assert.AreEqual(itemScalar, testing.ItemScalar);
+
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -52001,6 +54374,9 @@ namespace ObservableComputations.Test
 			OcConsumer consumer = new OcConsumer();
 			var testing = source.Prepending<Item>(
 				itemScalar).For(consumer);
+
+			Assert.AreEqual(source, testing.Source);
+			Assert.AreEqual(itemScalar, testing.ItemScalar);
 
 			void test()
 			{
@@ -52068,6 +54444,9 @@ namespace ObservableComputations.Test
 			var testing = source.Prepending<Item>(
 				item).For(consumer);
 
+			Assert.AreEqual(source, testing.Source);
+			Assert.AreEqual(item, testing.Item);
+
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -52129,6 +54508,9 @@ namespace ObservableComputations.Test
 			var testing = source.Prepending<Item>(
 				item).For(consumer);
 
+			Assert.AreEqual(source, testing.Source);
+			Assert.AreEqual(item, testing.Item);
+
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -52189,6 +54571,9 @@ namespace ObservableComputations.Test
 			OcConsumer consumer = new OcConsumer();
 			var testing = sourceScalar.Prepending<Item>(
 				item).For(consumer);
+
+			Assert.AreEqual(sourceScalar, testing.SourceScalar);
+			Assert.AreEqual(item, testing.Item);
 
 			void test()
 			{
@@ -52255,6 +54640,9 @@ namespace ObservableComputations.Test
 			OcConsumer consumer = new OcConsumer();
 			var testing = sourceScalar.Prepending<Item>(
 				item).For(consumer);
+
+			Assert.AreEqual(sourceScalar, testing.SourceScalar);
+			Assert.AreEqual(item, testing.Item);
 
 			void test()
 			{
@@ -52323,6 +54711,8 @@ namespace ObservableComputations.Test
 			OcConsumer consumer = new OcConsumer();
 			var testing = sourceScalar.Reversing<Item>().For(consumer);
 
+			Assert.AreEqual(sourceScalar, testing.SourceScalar);
+
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -52386,6 +54776,8 @@ namespace ObservableComputations.Test
 			Scalar<ObservableCollection<Item>> sourceScalar = getScalar<ObservableCollection<Item>>(getItems());
 			OcConsumer consumer = new OcConsumer();
 			var testing = sourceScalar.Reversing<Item>().For(consumer);
+
+			Assert.AreEqual(sourceScalar, testing.SourceScalar);
 
 			void test()
 			{
@@ -52451,6 +54843,8 @@ namespace ObservableComputations.Test
 			OcConsumer consumer = new OcConsumer();
 			var testing = source.Reversing<Item>().For(consumer);
 
+			Assert.AreEqual(source, testing.Source);
+
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -52509,6 +54903,8 @@ namespace ObservableComputations.Test
 			ObservableCollection<Item> source = getItems();
 			OcConsumer consumer = new OcConsumer();
 			var testing = source.Reversing<Item>().For(consumer);
+
+			Assert.AreEqual(source, testing.Source);
 
 			void test()
 			{
@@ -52573,6 +54969,9 @@ namespace ObservableComputations.Test
 			OcConsumer consumer = new OcConsumer();
 			var testing = sourceScalar.Selecting<Item, object>(
 				selectorExpression).For(consumer);
+
+			Assert.AreEqual(sourceScalar, testing.SourceScalar);
+			Assert.AreEqual(selectorExpression, testing.SelectorExpression);
 
 			void test()
 			{
@@ -52640,6 +55039,9 @@ namespace ObservableComputations.Test
 			var testing = sourceScalar.Selecting<Item, object>(
 				selectorExpression).For(consumer);
 
+			Assert.AreEqual(sourceScalar, testing.SourceScalar);
+			Assert.AreEqual(selectorExpression, testing.SelectorExpression);
+
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -52706,6 +55108,9 @@ namespace ObservableComputations.Test
 			var testing = source.Selecting<Item, object>(
 				selectorExpression).For(consumer);
 
+			Assert.AreEqual(source, testing.Source);
+			Assert.AreEqual(selectorExpression, testing.SelectorExpression);
+
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -52766,6 +55171,9 @@ namespace ObservableComputations.Test
 			OcConsumer consumer = new OcConsumer();
 			var testing = source.Selecting<Item, object>(
 				selectorExpression).For(consumer);
+
+			Assert.AreEqual(source, testing.Source);
+			Assert.AreEqual(selectorExpression, testing.SelectorExpression);
 
 			void test()
 			{
@@ -52830,6 +55238,9 @@ namespace ObservableComputations.Test
 			OcConsumer consumer = new OcConsumer();
 			var testing = sourceScalar.SelectingMany<Item, object>(
 				selectorExpression).For(consumer);
+
+			Assert.AreEqual(sourceScalar, testing.SourceScalar);
+			Assert.AreEqual(selectorExpression, testing.SelectorExpression);
 
 			void test()
 			{
@@ -52897,6 +55308,9 @@ namespace ObservableComputations.Test
 			var testing = sourceScalar.SelectingMany<Item, object>(
 				selectorExpression).For(consumer);
 
+			Assert.AreEqual(sourceScalar, testing.SourceScalar);
+			Assert.AreEqual(selectorExpression, testing.SelectorExpression);
+
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -52963,6 +55377,9 @@ namespace ObservableComputations.Test
 			var testing = source.SelectingMany<Item, object>(
 				selectorExpression).For(consumer);
 
+			Assert.AreEqual(source, testing.Source);
+			Assert.AreEqual(selectorExpression, testing.SelectorExpression);
+
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -53024,6 +55441,9 @@ namespace ObservableComputations.Test
 			var testing = source.SelectingMany<Item, object>(
 				selectorExpression).For(consumer);
 
+			Assert.AreEqual(source, testing.Source);
+			Assert.AreEqual(selectorExpression, testing.SelectorExpression);
+
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -53084,6 +55504,9 @@ namespace ObservableComputations.Test
 			OcConsumer consumer = new OcConsumer();
 			var testing = sourceScalar.SelectingMany<Item, object>(
 				selectorExpression).For(consumer);
+
+			Assert.AreEqual(sourceScalar, testing.SourceScalar);
+			Assert.AreEqual(selectorExpression, testing.SelectorExpression);
 
 			void test()
 			{
@@ -53151,6 +55574,9 @@ namespace ObservableComputations.Test
 			var testing = sourceScalar.SelectingMany<Item, object>(
 				selectorExpression).For(consumer);
 
+			Assert.AreEqual(sourceScalar, testing.SourceScalar);
+			Assert.AreEqual(selectorExpression, testing.SelectorExpression);
+
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -53217,6 +55643,9 @@ namespace ObservableComputations.Test
 			var testing = source.SelectingMany<Item, object>(
 				selectorExpression).For(consumer);
 
+			Assert.AreEqual(source, testing.Source);
+			Assert.AreEqual(selectorExpression, testing.SelectorExpression);
+
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -53277,6 +55706,9 @@ namespace ObservableComputations.Test
 			OcConsumer consumer = new OcConsumer();
 			var testing = source.SelectingMany<Item, object>(
 				selectorExpression).For(consumer);
+
+			Assert.AreEqual(source, testing.Source);
+			Assert.AreEqual(selectorExpression, testing.SelectorExpression);
 
 			void test()
 			{
@@ -53340,6 +55772,8 @@ namespace ObservableComputations.Test
 			OcConsumer consumer = new OcConsumer();
 			var testing = countScalar.SequenceComputing().For(consumer);
 
+			Assert.AreEqual(countScalar, testing.CountScalar);
+
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -53364,11 +55798,15 @@ namespace ObservableComputations.Test
 		{
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
 			Scalar<int> countScalar = getScalar<int>(3);
-			int capacity = 0;
+			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = sourceScalar.Skipping<Item>(
 				countScalar,
-				capacity).For(consumer);
+				initialCapacity).For(consumer);
+
+			Assert.AreEqual(sourceScalar, testing.SourceScalar);
+			Assert.AreEqual(countScalar, testing.CountScalar);
+			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
 
 			void test()
 			{
@@ -53441,6 +55879,9 @@ namespace ObservableComputations.Test
 			var testing = sourceScalar.Skipping<Item>(
 				countScalar).For(consumer);
 
+			Assert.AreEqual(sourceScalar, testing.SourceScalar);
+			Assert.AreEqual(countScalar, testing.CountScalar);
+
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -53508,11 +55949,15 @@ namespace ObservableComputations.Test
 		{
 			Scalar<ObservableCollection<Item>> sourceScalar = getScalar<ObservableCollection<Item>>(getItems());
 			Scalar<int> countScalar = getScalar<int>(3);
-			int capacity = 0;
+			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = sourceScalar.Skipping<Item>(
 				countScalar,
-				capacity).For(consumer);
+				initialCapacity).For(consumer);
+
+			Assert.AreEqual(sourceScalar, testing.SourceScalar);
+			Assert.AreEqual(countScalar, testing.CountScalar);
+			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
 
 			void test()
 			{
@@ -53585,6 +56030,9 @@ namespace ObservableComputations.Test
 			var testing = sourceScalar.Skipping<Item>(
 				countScalar).For(consumer);
 
+			Assert.AreEqual(sourceScalar, testing.SourceScalar);
+			Assert.AreEqual(countScalar, testing.CountScalar);
+
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -53652,11 +56100,15 @@ namespace ObservableComputations.Test
 		{
 			System.Collections.Specialized.INotifyCollectionChanged source = getItems();
 			Scalar<int> countScalar = getScalar<int>(3);
-			int capacity = 0;
+			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = source.Skipping<Item>(
 				countScalar,
-				capacity).For(consumer);
+				initialCapacity).For(consumer);
+
+			Assert.AreEqual(source, testing.Source);
+			Assert.AreEqual(countScalar, testing.CountScalar);
+			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
 
 			void test()
 			{
@@ -53724,6 +56176,9 @@ namespace ObservableComputations.Test
 			var testing = source.Skipping<Item>(
 				countScalar).For(consumer);
 
+			Assert.AreEqual(source, testing.Source);
+			Assert.AreEqual(countScalar, testing.CountScalar);
+
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -53786,11 +56241,15 @@ namespace ObservableComputations.Test
 		{
 			ObservableCollection<Item> source = getItems();
 			Scalar<int> countScalar = getScalar<int>(3);
-			int capacity = 0;
+			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = source.Skipping<Item>(
 				countScalar,
-				capacity).For(consumer);
+				initialCapacity).For(consumer);
+
+			Assert.AreEqual(source, testing.Source);
+			Assert.AreEqual(countScalar, testing.CountScalar);
+			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
 
 			void test()
 			{
@@ -53858,6 +56317,9 @@ namespace ObservableComputations.Test
 			var testing = source.Skipping<Item>(
 				countScalar).For(consumer);
 
+			Assert.AreEqual(source, testing.Source);
+			Assert.AreEqual(countScalar, testing.CountScalar);
+
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -53920,11 +56382,15 @@ namespace ObservableComputations.Test
 		{
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
 			int count = 3;
-			int capacity = 0;
+			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = sourceScalar.Skipping<Item>(
 				count,
-				capacity).For(consumer);
+				initialCapacity).For(consumer);
+
+			Assert.AreEqual(sourceScalar, testing.SourceScalar);
+			Assert.AreEqual(count, testing.Count);
+			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
 
 			void test()
 			{
@@ -53992,6 +56458,9 @@ namespace ObservableComputations.Test
 			var testing = sourceScalar.Skipping<Item>(
 				count).For(consumer);
 
+			Assert.AreEqual(sourceScalar, testing.SourceScalar);
+			Assert.AreEqual(count, testing.Count);
+
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -54054,11 +56523,15 @@ namespace ObservableComputations.Test
 		{
 			Scalar<ObservableCollection<Item>> sourceScalar = getScalar<ObservableCollection<Item>>(getItems());
 			int count = 3;
-			int capacity = 0;
+			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = sourceScalar.Skipping<Item>(
 				count,
-				capacity).For(consumer);
+				initialCapacity).For(consumer);
+
+			Assert.AreEqual(sourceScalar, testing.SourceScalar);
+			Assert.AreEqual(count, testing.Count);
+			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
 
 			void test()
 			{
@@ -54126,6 +56599,9 @@ namespace ObservableComputations.Test
 			var testing = sourceScalar.Skipping<Item>(
 				count).For(consumer);
 
+			Assert.AreEqual(sourceScalar, testing.SourceScalar);
+			Assert.AreEqual(count, testing.Count);
+
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -54188,11 +56664,15 @@ namespace ObservableComputations.Test
 		{
 			System.Collections.Specialized.INotifyCollectionChanged source = getItems();
 			int count = 3;
-			int capacity = 0;
+			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = source.Skipping<Item>(
 				count,
-				capacity).For(consumer);
+				initialCapacity).For(consumer);
+
+			Assert.AreEqual(source, testing.Source);
+			Assert.AreEqual(count, testing.Count);
+			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
 
 			void test()
 			{
@@ -54255,6 +56735,9 @@ namespace ObservableComputations.Test
 			var testing = source.Skipping<Item>(
 				count).For(consumer);
 
+			Assert.AreEqual(source, testing.Source);
+			Assert.AreEqual(count, testing.Count);
+
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -54312,11 +56795,15 @@ namespace ObservableComputations.Test
 		{
 			ObservableCollection<Item> source = getItems();
 			int count = 3;
-			int capacity = 0;
+			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = source.Skipping<Item>(
 				count,
-				capacity).For(consumer);
+				initialCapacity).For(consumer);
+
+			Assert.AreEqual(source, testing.Source);
+			Assert.AreEqual(count, testing.Count);
+			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
 
 			void test()
 			{
@@ -54379,6 +56866,9 @@ namespace ObservableComputations.Test
 			var testing = source.Skipping<Item>(
 				count).For(consumer);
 
+			Assert.AreEqual(source, testing.Source);
+			Assert.AreEqual(count, testing.Count);
+
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -54439,11 +56929,15 @@ namespace ObservableComputations.Test
 		{
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
 			System.Linq.Expressions.Expression<System.Func<Item, int, bool>> predicateExpression = (i, ind) => i.Active;
-			int capacity = 0;
+			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = sourceScalar.SkippingWhile<Item>(
 				predicateExpression,
-				capacity).For(consumer);
+				initialCapacity).For(consumer);
+
+			Assert.AreEqual(sourceScalar, testing.SourceScalar);
+			Assert.AreEqual(predicateExpression, testing.PredicateExpression);
+			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
 
 			void test()
 			{
@@ -54511,6 +57005,9 @@ namespace ObservableComputations.Test
 			var testing = sourceScalar.SkippingWhile<Item>(
 				predicateExpression).For(consumer);
 
+			Assert.AreEqual(sourceScalar, testing.SourceScalar);
+			Assert.AreEqual(predicateExpression, testing.PredicateExpression);
+
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -54573,11 +57070,15 @@ namespace ObservableComputations.Test
 		{
 			Scalar<ObservableCollection<Item>> sourceScalar = getScalar<ObservableCollection<Item>>(getItems());
 			System.Linq.Expressions.Expression<System.Func<Item, int, bool>> predicateExpression = (i, ind) => i.Active;
-			int capacity = 0;
+			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = sourceScalar.SkippingWhile<Item>(
 				predicateExpression,
-				capacity).For(consumer);
+				initialCapacity).For(consumer);
+
+			Assert.AreEqual(sourceScalar, testing.SourceScalar);
+			Assert.AreEqual(predicateExpression, testing.PredicateExpression);
+			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
 
 			void test()
 			{
@@ -54645,6 +57146,9 @@ namespace ObservableComputations.Test
 			var testing = sourceScalar.SkippingWhile<Item>(
 				predicateExpression).For(consumer);
 
+			Assert.AreEqual(sourceScalar, testing.SourceScalar);
+			Assert.AreEqual(predicateExpression, testing.PredicateExpression);
+
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -54707,11 +57211,15 @@ namespace ObservableComputations.Test
 		{
 			System.Collections.Specialized.INotifyCollectionChanged source = getItems();
 			System.Linq.Expressions.Expression<System.Func<Item, int, bool>> predicateExpression = (i, ind) => i.Active;
-			int capacity = 0;
+			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = source.SkippingWhile<Item>(
 				predicateExpression,
-				capacity).For(consumer);
+				initialCapacity).For(consumer);
+
+			Assert.AreEqual(source, testing.Source);
+			Assert.AreEqual(predicateExpression, testing.PredicateExpression);
+			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
 
 			void test()
 			{
@@ -54774,6 +57282,9 @@ namespace ObservableComputations.Test
 			var testing = source.SkippingWhile<Item>(
 				predicateExpression).For(consumer);
 
+			Assert.AreEqual(source, testing.Source);
+			Assert.AreEqual(predicateExpression, testing.PredicateExpression);
+
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -54831,11 +57342,15 @@ namespace ObservableComputations.Test
 		{
 			ObservableCollection<Item> source = getItems();
 			System.Linq.Expressions.Expression<System.Func<Item, int, bool>> predicateExpression = (i, ind) => i.Active;
-			int capacity = 0;
+			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = source.SkippingWhile<Item>(
 				predicateExpression,
-				capacity).For(consumer);
+				initialCapacity).For(consumer);
+
+			Assert.AreEqual(source, testing.Source);
+			Assert.AreEqual(predicateExpression, testing.PredicateExpression);
+			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
 
 			void test()
 			{
@@ -54898,6 +57413,9 @@ namespace ObservableComputations.Test
 			var testing = source.SkippingWhile<Item>(
 				predicateExpression).For(consumer);
 
+			Assert.AreEqual(source, testing.Source);
+			Assert.AreEqual(predicateExpression, testing.PredicateExpression);
+
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -54955,11 +57473,15 @@ namespace ObservableComputations.Test
 		{
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
 			System.Linq.Expressions.Expression<System.Func<Item, bool>> predicateExpression = i => i.Active;
-			int capacity = 0;
+			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = sourceScalar.SkippingWhile<Item>(
 				predicateExpression,
-				capacity).For(consumer);
+				initialCapacity).For(consumer);
+
+			Assert.AreEqual(sourceScalar, testing.SourceScalar);
+			Assert.AreEqual(predicateExpression, testing.PredicateExpression);
+			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
 
 			void test()
 			{
@@ -55027,6 +57549,9 @@ namespace ObservableComputations.Test
 			var testing = sourceScalar.SkippingWhile<Item>(
 				predicateExpression).For(consumer);
 
+			Assert.AreEqual(sourceScalar, testing.SourceScalar);
+			Assert.AreEqual(predicateExpression, testing.PredicateExpression);
+
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -55089,11 +57614,15 @@ namespace ObservableComputations.Test
 		{
 			Scalar<ObservableCollection<Item>> sourceScalar = getScalar<ObservableCollection<Item>>(getItems());
 			System.Linq.Expressions.Expression<System.Func<Item, bool>> predicateExpression = i => i.Active;
-			int capacity = 0;
+			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = sourceScalar.SkippingWhile<Item>(
 				predicateExpression,
-				capacity).For(consumer);
+				initialCapacity).For(consumer);
+
+			Assert.AreEqual(sourceScalar, testing.SourceScalar);
+			Assert.AreEqual(predicateExpression, testing.PredicateExpression);
+			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
 
 			void test()
 			{
@@ -55161,6 +57690,9 @@ namespace ObservableComputations.Test
 			var testing = sourceScalar.SkippingWhile<Item>(
 				predicateExpression).For(consumer);
 
+			Assert.AreEqual(sourceScalar, testing.SourceScalar);
+			Assert.AreEqual(predicateExpression, testing.PredicateExpression);
+
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -55223,11 +57755,15 @@ namespace ObservableComputations.Test
 		{
 			System.Collections.Specialized.INotifyCollectionChanged source = getItems();
 			System.Linq.Expressions.Expression<System.Func<Item, bool>> predicateExpression = i => i.Active;
-			int capacity = 0;
+			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = source.SkippingWhile<Item>(
 				predicateExpression,
-				capacity).For(consumer);
+				initialCapacity).For(consumer);
+
+			Assert.AreEqual(source, testing.Source);
+			Assert.AreEqual(predicateExpression, testing.PredicateExpression);
+			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
 
 			void test()
 			{
@@ -55290,6 +57826,9 @@ namespace ObservableComputations.Test
 			var testing = source.SkippingWhile<Item>(
 				predicateExpression).For(consumer);
 
+			Assert.AreEqual(source, testing.Source);
+			Assert.AreEqual(predicateExpression, testing.PredicateExpression);
+
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -55347,11 +57886,15 @@ namespace ObservableComputations.Test
 		{
 			ObservableCollection<Item> source = getItems();
 			System.Linq.Expressions.Expression<System.Func<Item, bool>> predicateExpression = i => i.Active;
-			int capacity = 0;
+			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = source.SkippingWhile<Item>(
 				predicateExpression,
-				capacity).For(consumer);
+				initialCapacity).For(consumer);
+
+			Assert.AreEqual(source, testing.Source);
+			Assert.AreEqual(predicateExpression, testing.PredicateExpression);
+			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
 
 			void test()
 			{
@@ -55413,6 +57956,9 @@ namespace ObservableComputations.Test
 			OcConsumer consumer = new OcConsumer();
 			var testing = source.SkippingWhile<Item>(
 				predicateExpression).For(consumer);
+
+			Assert.AreEqual(source, testing.Source);
+			Assert.AreEqual(predicateExpression, testing.PredicateExpression);
 
 			void test()
 			{
@@ -55477,6 +58023,9 @@ namespace ObservableComputations.Test
 			OcConsumer consumer = new OcConsumer();
 			var testing = sourceScalar.StringsConcatenating(
 				separatorScalar).For(consumer);
+
+			Assert.AreEqual(sourceScalar, testing.SourceScalar);
+			Assert.AreEqual(separatorScalar, testing.SeparatorScalar);
 
 			void test()
 			{
@@ -55549,6 +58098,8 @@ namespace ObservableComputations.Test
 			OcConsumer consumer = new OcConsumer();
 			var testing = sourceScalar.StringsConcatenating().For(consumer);
 
+			Assert.AreEqual(sourceScalar, testing.SourceScalar);
+
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -55614,6 +58165,9 @@ namespace ObservableComputations.Test
 			OcConsumer consumer = new OcConsumer();
 			var testing = source.StringsConcatenating(
 				separatorScalar).For(consumer);
+
+			Assert.AreEqual(source, testing.Source);
+			Assert.AreEqual(separatorScalar, testing.SeparatorScalar);
 
 			void test()
 			{
@@ -55681,6 +58235,8 @@ namespace ObservableComputations.Test
 			OcConsumer consumer = new OcConsumer();
 			var testing = source.StringsConcatenating().For(consumer);
 
+			Assert.AreEqual(source, testing.Source);
+
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -55742,6 +58298,9 @@ namespace ObservableComputations.Test
 			var testing = source.StringsConcatenating(
 				separator).For(consumer);
 
+			Assert.AreEqual(source, testing.Source);
+			Assert.AreEqual(separator, testing.Separator);
+
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -55802,6 +58361,9 @@ namespace ObservableComputations.Test
 			OcConsumer consumer = new OcConsumer();
 			var testing = sourceScalar.StringsConcatenating(
 				separator).For(consumer);
+
+			Assert.AreEqual(sourceScalar, testing.SourceScalar);
+			Assert.AreEqual(separator, testing.Separator);
 
 			void test()
 			{
@@ -55870,6 +58432,8 @@ namespace ObservableComputations.Test
 			OcConsumer consumer = new OcConsumer();
 			var testing = sourceScalar.Summarizing<int>().For(consumer);
 
+			Assert.AreEqual(sourceScalar, testing.SourceScalar);
+
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -55933,6 +58497,8 @@ namespace ObservableComputations.Test
 			IReadScalar<ObservableCollection<int>> sourceScalar = getScalar<Selecting<Item, int>>(getItems().Selecting(i => i.Num));
 			OcConsumer consumer = new OcConsumer();
 			var testing = sourceScalar.Summarizing<int>().For(consumer);
+
+			Assert.AreEqual(sourceScalar, testing.SourceScalar);
 
 			void test()
 			{
@@ -55998,6 +58564,8 @@ namespace ObservableComputations.Test
 			OcConsumer consumer = new OcConsumer();
 			var testing = source.Summarizing<int>().For(consumer);
 
+			Assert.AreEqual(source, testing.Source);
+
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -56056,6 +58624,8 @@ namespace ObservableComputations.Test
 			Selecting<Item, int> source = getItems().Selecting(i => i.Num);
 			OcConsumer consumer = new OcConsumer();
 			var testing = source.Summarizing<int>().For(consumer);
+
+			Assert.AreEqual(source, testing.Source);
 
 			void test()
 			{
@@ -56118,12 +58688,17 @@ namespace ObservableComputations.Test
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
 			Scalar<int> startIndexScalar = getScalar<int>(0);
 			Scalar<int> countScalar = getScalar<int>(3);
-			int capacity = 0;
+			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = sourceScalar.Taking<Item>(
 				startIndexScalar,
 				countScalar,
-				capacity).For(consumer);
+				initialCapacity).For(consumer);
+
+			Assert.AreEqual(sourceScalar, testing.SourceScalar);
+			Assert.AreEqual(startIndexScalar, testing.StartIndexScalar);
+			Assert.AreEqual(countScalar, testing.CountScalar);
+			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
 
 			void test()
 			{
@@ -56203,6 +58778,10 @@ namespace ObservableComputations.Test
 				startIndexScalar,
 				countScalar).For(consumer);
 
+			Assert.AreEqual(sourceScalar, testing.SourceScalar);
+			Assert.AreEqual(startIndexScalar, testing.StartIndexScalar);
+			Assert.AreEqual(countScalar, testing.CountScalar);
+
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -56276,12 +58855,17 @@ namespace ObservableComputations.Test
 			Scalar<ObservableCollection<Item>> sourceScalar = getScalar<ObservableCollection<Item>>(getItems());
 			Scalar<int> startIndexScalar = getScalar<int>(0);
 			Scalar<int> countScalar = getScalar<int>(3);
-			int capacity = 0;
+			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = sourceScalar.Taking<Item>(
 				startIndexScalar,
 				countScalar,
-				capacity).For(consumer);
+				initialCapacity).For(consumer);
+
+			Assert.AreEqual(sourceScalar, testing.SourceScalar);
+			Assert.AreEqual(startIndexScalar, testing.StartIndexScalar);
+			Assert.AreEqual(countScalar, testing.CountScalar);
+			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
 
 			void test()
 			{
@@ -56361,6 +58945,10 @@ namespace ObservableComputations.Test
 				startIndexScalar,
 				countScalar).For(consumer);
 
+			Assert.AreEqual(sourceScalar, testing.SourceScalar);
+			Assert.AreEqual(startIndexScalar, testing.StartIndexScalar);
+			Assert.AreEqual(countScalar, testing.CountScalar);
+
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -56439,6 +59027,10 @@ namespace ObservableComputations.Test
 				startIndexScalar,
 				count).For(consumer);
 
+			Assert.AreEqual(sourceScalar, testing.SourceScalar);
+			Assert.AreEqual(startIndexScalar, testing.StartIndexScalar);
+			Assert.AreEqual(count, testing.Count);
+
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -56512,6 +59104,10 @@ namespace ObservableComputations.Test
 				startIndexScalar,
 				count).For(consumer);
 
+			Assert.AreEqual(sourceScalar, testing.SourceScalar);
+			Assert.AreEqual(startIndexScalar, testing.StartIndexScalar);
+			Assert.AreEqual(count, testing.Count);
+
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -56580,12 +59176,17 @@ namespace ObservableComputations.Test
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
 			int startIndex = 0;
 			Scalar<int> countScalar = getScalar<int>(3);
-			int capacity = 0;
+			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = sourceScalar.Taking<Item>(
 				startIndex,
 				countScalar,
-				capacity).For(consumer);
+				initialCapacity).For(consumer);
+
+			Assert.AreEqual(sourceScalar, testing.SourceScalar);
+			Assert.AreEqual(startIndex, testing.StartIndex);
+			Assert.AreEqual(countScalar, testing.CountScalar);
+			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
 
 			void test()
 			{
@@ -56660,6 +59261,10 @@ namespace ObservableComputations.Test
 				startIndex,
 				countScalar).For(consumer);
 
+			Assert.AreEqual(sourceScalar, testing.SourceScalar);
+			Assert.AreEqual(startIndex, testing.StartIndex);
+			Assert.AreEqual(countScalar, testing.CountScalar);
+
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -56728,12 +59333,17 @@ namespace ObservableComputations.Test
 			Scalar<ObservableCollection<Item>> sourceScalar = getScalar<ObservableCollection<Item>>(getItems());
 			int startIndex = 0;
 			Scalar<int> countScalar = getScalar<int>(3);
-			int capacity = 0;
+			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = sourceScalar.Taking<Item>(
 				startIndex,
 				countScalar,
-				capacity).For(consumer);
+				initialCapacity).For(consumer);
+
+			Assert.AreEqual(sourceScalar, testing.SourceScalar);
+			Assert.AreEqual(startIndex, testing.StartIndex);
+			Assert.AreEqual(countScalar, testing.CountScalar);
+			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
 
 			void test()
 			{
@@ -56808,6 +59418,10 @@ namespace ObservableComputations.Test
 				startIndex,
 				countScalar).For(consumer);
 
+			Assert.AreEqual(sourceScalar, testing.SourceScalar);
+			Assert.AreEqual(startIndex, testing.StartIndex);
+			Assert.AreEqual(countScalar, testing.CountScalar);
+
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -56881,6 +59495,10 @@ namespace ObservableComputations.Test
 				startIndex,
 				count).For(consumer);
 
+			Assert.AreEqual(sourceScalar, testing.SourceScalar);
+			Assert.AreEqual(startIndex, testing.StartIndex);
+			Assert.AreEqual(count, testing.Count);
+
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -56949,6 +59567,10 @@ namespace ObservableComputations.Test
 				startIndex,
 				count).For(consumer);
 
+			Assert.AreEqual(sourceScalar, testing.SourceScalar);
+			Assert.AreEqual(startIndex, testing.StartIndex);
+			Assert.AreEqual(count, testing.Count);
+
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -57012,12 +59634,17 @@ namespace ObservableComputations.Test
 			System.Collections.Specialized.INotifyCollectionChanged source = getItems();
 			Scalar<int> startIndexScalar = getScalar<int>(0);
 			Scalar<int> countScalar = getScalar<int>(3);
-			int capacity = 0;
+			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = source.Taking<Item>(
 				startIndexScalar,
 				countScalar,
-				capacity).For(consumer);
+				initialCapacity).For(consumer);
+
+			Assert.AreEqual(source, testing.Source);
+			Assert.AreEqual(startIndexScalar, testing.StartIndexScalar);
+			Assert.AreEqual(countScalar, testing.CountScalar);
+			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
 
 			void test()
 			{
@@ -57092,6 +59719,10 @@ namespace ObservableComputations.Test
 				startIndexScalar,
 				countScalar).For(consumer);
 
+			Assert.AreEqual(source, testing.Source);
+			Assert.AreEqual(startIndexScalar, testing.StartIndexScalar);
+			Assert.AreEqual(countScalar, testing.CountScalar);
+
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -57160,12 +59791,17 @@ namespace ObservableComputations.Test
 			ObservableCollection<Item> source = getItems();
 			Scalar<int> startIndexScalar = getScalar<int>(0);
 			Scalar<int> countScalar = getScalar<int>(3);
-			int capacity = 0;
+			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = source.Taking<Item>(
 				startIndexScalar,
 				countScalar,
-				capacity).For(consumer);
+				initialCapacity).For(consumer);
+
+			Assert.AreEqual(source, testing.Source);
+			Assert.AreEqual(startIndexScalar, testing.StartIndexScalar);
+			Assert.AreEqual(countScalar, testing.CountScalar);
+			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
 
 			void test()
 			{
@@ -57240,6 +59876,10 @@ namespace ObservableComputations.Test
 				startIndexScalar,
 				countScalar).For(consumer);
 
+			Assert.AreEqual(source, testing.Source);
+			Assert.AreEqual(startIndexScalar, testing.StartIndexScalar);
+			Assert.AreEqual(countScalar, testing.CountScalar);
+
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -57313,6 +59953,10 @@ namespace ObservableComputations.Test
 				startIndexScalar,
 				count).For(consumer);
 
+			Assert.AreEqual(source, testing.Source);
+			Assert.AreEqual(startIndexScalar, testing.StartIndexScalar);
+			Assert.AreEqual(count, testing.Count);
+
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -57381,6 +60025,10 @@ namespace ObservableComputations.Test
 				startIndexScalar,
 				count).For(consumer);
 
+			Assert.AreEqual(source, testing.Source);
+			Assert.AreEqual(startIndexScalar, testing.StartIndexScalar);
+			Assert.AreEqual(count, testing.Count);
+
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -57444,12 +60092,17 @@ namespace ObservableComputations.Test
 			System.Collections.Specialized.INotifyCollectionChanged source = getItems();
 			int startIndex = 0;
 			Scalar<int> countScalar = getScalar<int>(3);
-			int capacity = 0;
+			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = source.Taking<Item>(
 				startIndex,
 				countScalar,
-				capacity).For(consumer);
+				initialCapacity).For(consumer);
+
+			Assert.AreEqual(source, testing.Source);
+			Assert.AreEqual(startIndex, testing.StartIndex);
+			Assert.AreEqual(countScalar, testing.CountScalar);
+			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
 
 			void test()
 			{
@@ -57519,6 +60172,10 @@ namespace ObservableComputations.Test
 				startIndex,
 				countScalar).For(consumer);
 
+			Assert.AreEqual(source, testing.Source);
+			Assert.AreEqual(startIndex, testing.StartIndex);
+			Assert.AreEqual(countScalar, testing.CountScalar);
+
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -57582,12 +60239,17 @@ namespace ObservableComputations.Test
 			ObservableCollection<Item> source = getItems();
 			int startIndex = 0;
 			Scalar<int> countScalar = getScalar<int>(3);
-			int capacity = 0;
+			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = source.Taking<Item>(
 				startIndex,
 				countScalar,
-				capacity).For(consumer);
+				initialCapacity).For(consumer);
+
+			Assert.AreEqual(source, testing.Source);
+			Assert.AreEqual(startIndex, testing.StartIndex);
+			Assert.AreEqual(countScalar, testing.CountScalar);
+			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
 
 			void test()
 			{
@@ -57657,6 +60319,10 @@ namespace ObservableComputations.Test
 				startIndex,
 				countScalar).For(consumer);
 
+			Assert.AreEqual(source, testing.Source);
+			Assert.AreEqual(startIndex, testing.StartIndex);
+			Assert.AreEqual(countScalar, testing.CountScalar);
+
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -57725,6 +60391,10 @@ namespace ObservableComputations.Test
 				startIndex,
 				count).For(consumer);
 
+			Assert.AreEqual(source, testing.Source);
+			Assert.AreEqual(startIndex, testing.StartIndex);
+			Assert.AreEqual(count, testing.Count);
+
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -57788,6 +60458,10 @@ namespace ObservableComputations.Test
 				startIndex,
 				count).For(consumer);
 
+			Assert.AreEqual(source, testing.Source);
+			Assert.AreEqual(startIndex, testing.StartIndex);
+			Assert.AreEqual(count, testing.Count);
+
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -57848,11 +60522,15 @@ namespace ObservableComputations.Test
 		{
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
 			System.Linq.Expressions.Expression<System.Func<Item, int, bool>> predicateExpression = (i, ind) => i.Active;
-			int capacity = 0;
+			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = sourceScalar.TakingWhile<Item>(
 				predicateExpression,
-				capacity).For(consumer);
+				initialCapacity).For(consumer);
+
+			Assert.AreEqual(sourceScalar, testing.SourceScalar);
+			Assert.AreEqual(predicateExpression, testing.PredicateExpression);
+			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
 
 			void test()
 			{
@@ -57920,6 +60598,9 @@ namespace ObservableComputations.Test
 			var testing = sourceScalar.TakingWhile<Item>(
 				predicateExpression).For(consumer);
 
+			Assert.AreEqual(sourceScalar, testing.SourceScalar);
+			Assert.AreEqual(predicateExpression, testing.PredicateExpression);
+
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -57982,11 +60663,15 @@ namespace ObservableComputations.Test
 		{
 			Scalar<ObservableCollection<Item>> sourceScalar = getScalar<ObservableCollection<Item>>(getItems());
 			System.Linq.Expressions.Expression<System.Func<Item, int, bool>> predicateExpression = (i, ind) => i.Active;
-			int capacity = 0;
+			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = sourceScalar.TakingWhile<Item>(
 				predicateExpression,
-				capacity).For(consumer);
+				initialCapacity).For(consumer);
+
+			Assert.AreEqual(sourceScalar, testing.SourceScalar);
+			Assert.AreEqual(predicateExpression, testing.PredicateExpression);
+			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
 
 			void test()
 			{
@@ -58054,6 +60739,9 @@ namespace ObservableComputations.Test
 			var testing = sourceScalar.TakingWhile<Item>(
 				predicateExpression).For(consumer);
 
+			Assert.AreEqual(sourceScalar, testing.SourceScalar);
+			Assert.AreEqual(predicateExpression, testing.PredicateExpression);
+
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -58116,11 +60804,15 @@ namespace ObservableComputations.Test
 		{
 			System.Collections.Specialized.INotifyCollectionChanged source = getItems();
 			System.Linq.Expressions.Expression<System.Func<Item, int, bool>> predicateExpression = (i, ind) => i.Active;
-			int capacity = 0;
+			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = source.TakingWhile<Item>(
 				predicateExpression,
-				capacity).For(consumer);
+				initialCapacity).For(consumer);
+
+			Assert.AreEqual(source, testing.Source);
+			Assert.AreEqual(predicateExpression, testing.PredicateExpression);
+			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
 
 			void test()
 			{
@@ -58183,6 +60875,9 @@ namespace ObservableComputations.Test
 			var testing = source.TakingWhile<Item>(
 				predicateExpression).For(consumer);
 
+			Assert.AreEqual(source, testing.Source);
+			Assert.AreEqual(predicateExpression, testing.PredicateExpression);
+
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -58240,11 +60935,15 @@ namespace ObservableComputations.Test
 		{
 			ObservableCollection<Item> source = getItems();
 			System.Linq.Expressions.Expression<System.Func<Item, int, bool>> predicateExpression = (i, ind) => i.Active;
-			int capacity = 0;
+			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = source.TakingWhile<Item>(
 				predicateExpression,
-				capacity).For(consumer);
+				initialCapacity).For(consumer);
+
+			Assert.AreEqual(source, testing.Source);
+			Assert.AreEqual(predicateExpression, testing.PredicateExpression);
+			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
 
 			void test()
 			{
@@ -58307,6 +61006,9 @@ namespace ObservableComputations.Test
 			var testing = source.TakingWhile<Item>(
 				predicateExpression).For(consumer);
 
+			Assert.AreEqual(source, testing.Source);
+			Assert.AreEqual(predicateExpression, testing.PredicateExpression);
+
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -58364,11 +61066,15 @@ namespace ObservableComputations.Test
 		{
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
 			System.Linq.Expressions.Expression<System.Func<Item, bool>> predicateExpression = i => i.Active;
-			int capacity = 0;
+			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = sourceScalar.TakingWhile<Item>(
 				predicateExpression,
-				capacity).For(consumer);
+				initialCapacity).For(consumer);
+
+			Assert.AreEqual(sourceScalar, testing.SourceScalar);
+			Assert.AreEqual(predicateExpression, testing.PredicateExpression);
+			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
 
 			void test()
 			{
@@ -58436,6 +61142,9 @@ namespace ObservableComputations.Test
 			var testing = sourceScalar.TakingWhile<Item>(
 				predicateExpression).For(consumer);
 
+			Assert.AreEqual(sourceScalar, testing.SourceScalar);
+			Assert.AreEqual(predicateExpression, testing.PredicateExpression);
+
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -58498,11 +61207,15 @@ namespace ObservableComputations.Test
 		{
 			Scalar<ObservableCollection<Item>> sourceScalar = getScalar<ObservableCollection<Item>>(getItems());
 			System.Linq.Expressions.Expression<System.Func<Item, bool>> predicateExpression = i => i.Active;
-			int capacity = 0;
+			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = sourceScalar.TakingWhile<Item>(
 				predicateExpression,
-				capacity).For(consumer);
+				initialCapacity).For(consumer);
+
+			Assert.AreEqual(sourceScalar, testing.SourceScalar);
+			Assert.AreEqual(predicateExpression, testing.PredicateExpression);
+			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
 
 			void test()
 			{
@@ -58570,6 +61283,9 @@ namespace ObservableComputations.Test
 			var testing = sourceScalar.TakingWhile<Item>(
 				predicateExpression).For(consumer);
 
+			Assert.AreEqual(sourceScalar, testing.SourceScalar);
+			Assert.AreEqual(predicateExpression, testing.PredicateExpression);
+
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -58632,11 +61348,15 @@ namespace ObservableComputations.Test
 		{
 			System.Collections.Specialized.INotifyCollectionChanged source = getItems();
 			System.Linq.Expressions.Expression<System.Func<Item, bool>> predicateExpression = i => i.Active;
-			int capacity = 0;
+			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = source.TakingWhile<Item>(
 				predicateExpression,
-				capacity).For(consumer);
+				initialCapacity).For(consumer);
+
+			Assert.AreEqual(source, testing.Source);
+			Assert.AreEqual(predicateExpression, testing.PredicateExpression);
+			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
 
 			void test()
 			{
@@ -58699,6 +61419,9 @@ namespace ObservableComputations.Test
 			var testing = source.TakingWhile<Item>(
 				predicateExpression).For(consumer);
 
+			Assert.AreEqual(source, testing.Source);
+			Assert.AreEqual(predicateExpression, testing.PredicateExpression);
+
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -58756,11 +61479,15 @@ namespace ObservableComputations.Test
 		{
 			ObservableCollection<Item> source = getItems();
 			System.Linq.Expressions.Expression<System.Func<Item, bool>> predicateExpression = i => i.Active;
-			int capacity = 0;
+			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = source.TakingWhile<Item>(
 				predicateExpression,
-				capacity).For(consumer);
+				initialCapacity).For(consumer);
+
+			Assert.AreEqual(source, testing.Source);
+			Assert.AreEqual(predicateExpression, testing.PredicateExpression);
+			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
 
 			void test()
 			{
@@ -58822,6 +61549,9 @@ namespace ObservableComputations.Test
 			OcConsumer consumer = new OcConsumer();
 			var testing = source.TakingWhile<Item>(
 				predicateExpression).For(consumer);
+
+			Assert.AreEqual(source, testing.Source);
+			Assert.AreEqual(predicateExpression, testing.PredicateExpression);
 
 			void test()
 			{
@@ -58890,6 +61620,11 @@ namespace ObservableComputations.Test
 				orderingValueSelectorExpression,
 				sortDirectionScalar,
 				comparerScalar).For(consumer);
+
+			Assert.AreEqual(source, testing.Source);
+			Assert.AreEqual(orderingValueSelectorExpression, testing.OrderingValueSelectorExpression);
+			Assert.AreEqual(sortDirectionScalar, testing.SortDirectionScalar);
+			Assert.AreEqual(comparerScalar, testing.ComparerScalar);
 
 			void test()
 			{
@@ -58964,6 +61699,10 @@ namespace ObservableComputations.Test
 				orderingValueSelectorExpression,
 				sortDirectionScalar).For(consumer);
 
+			Assert.AreEqual(source, testing.Source);
+			Assert.AreEqual(orderingValueSelectorExpression, testing.OrderingValueSelectorExpression);
+			Assert.AreEqual(sortDirectionScalar, testing.SortDirectionScalar);
+
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -59032,6 +61771,10 @@ namespace ObservableComputations.Test
 				orderingValueSelectorExpression,
 				comparerScalar).For(consumer);
 
+			Assert.AreEqual(source, testing.Source);
+			Assert.AreEqual(orderingValueSelectorExpression, testing.OrderingValueSelectorExpression);
+			Assert.AreEqual(comparerScalar, testing.ComparerScalar);
+
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -59098,6 +61841,9 @@ namespace ObservableComputations.Test
 			var testing = source.ThenOrdering<int, int>(
 				orderingValueSelectorExpression).For(consumer);
 
+			Assert.AreEqual(source, testing.Source);
+			Assert.AreEqual(orderingValueSelectorExpression, testing.OrderingValueSelectorExpression);
+
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -59162,6 +61908,11 @@ namespace ObservableComputations.Test
 				orderingValueSelectorExpression,
 				sortDirection,
 				comparerScalar).For(consumer);
+
+			Assert.AreEqual(source, testing.Source);
+			Assert.AreEqual(orderingValueSelectorExpression, testing.OrderingValueSelectorExpression);
+			Assert.AreEqual(sortDirection, testing.SortDirection);
+			Assert.AreEqual(comparerScalar, testing.ComparerScalar);
 
 			void test()
 			{
@@ -59231,6 +61982,10 @@ namespace ObservableComputations.Test
 				orderingValueSelectorExpression,
 				sortDirection).For(consumer);
 
+			Assert.AreEqual(source, testing.Source);
+			Assert.AreEqual(orderingValueSelectorExpression, testing.OrderingValueSelectorExpression);
+			Assert.AreEqual(sortDirection, testing.SortDirection);
+
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -59295,6 +62050,11 @@ namespace ObservableComputations.Test
 				orderingValueSelectorExpression,
 				sortDirectionScalar,
 				comparer).For(consumer);
+
+			Assert.AreEqual(source, testing.Source);
+			Assert.AreEqual(orderingValueSelectorExpression, testing.OrderingValueSelectorExpression);
+			Assert.AreEqual(sortDirectionScalar, testing.SortDirectionScalar);
+			Assert.AreEqual(comparer, testing.Comparer);
 
 			void test()
 			{
@@ -59364,6 +62124,10 @@ namespace ObservableComputations.Test
 				orderingValueSelectorExpression,
 				comparer).For(consumer);
 
+			Assert.AreEqual(source, testing.Source);
+			Assert.AreEqual(orderingValueSelectorExpression, testing.OrderingValueSelectorExpression);
+			Assert.AreEqual(comparer, testing.Comparer);
+
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -59429,6 +62193,11 @@ namespace ObservableComputations.Test
 				sortDirection,
 				comparer).For(consumer);
 
+			Assert.AreEqual(source, testing.Source);
+			Assert.AreEqual(orderingValueSelectorExpression, testing.OrderingValueSelectorExpression);
+			Assert.AreEqual(sortDirection, testing.SortDirection);
+			Assert.AreEqual(comparer, testing.Comparer);
+
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -59493,6 +62262,11 @@ namespace ObservableComputations.Test
 				orderingValueSelectorExpression,
 				sortDirectionScalar,
 				comparerScalar).For(consumer);
+
+			Assert.AreEqual(sourceScalar, testing.SourceScalar);
+			Assert.AreEqual(orderingValueSelectorExpression, testing.OrderingValueSelectorExpression);
+			Assert.AreEqual(sortDirectionScalar, testing.SortDirectionScalar);
+			Assert.AreEqual(comparerScalar, testing.ComparerScalar);
 
 			void test()
 			{
@@ -59572,6 +62346,10 @@ namespace ObservableComputations.Test
 				orderingValueSelectorExpression,
 				sortDirectionScalar).For(consumer);
 
+			Assert.AreEqual(sourceScalar, testing.SourceScalar);
+			Assert.AreEqual(orderingValueSelectorExpression, testing.OrderingValueSelectorExpression);
+			Assert.AreEqual(sortDirectionScalar, testing.SortDirectionScalar);
+
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -59645,6 +62423,10 @@ namespace ObservableComputations.Test
 				orderingValueSelectorExpression,
 				comparerScalar).For(consumer);
 
+			Assert.AreEqual(sourceScalar, testing.SourceScalar);
+			Assert.AreEqual(orderingValueSelectorExpression, testing.OrderingValueSelectorExpression);
+			Assert.AreEqual(comparerScalar, testing.ComparerScalar);
+
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -59716,6 +62498,9 @@ namespace ObservableComputations.Test
 			var testing = sourceScalar.ThenOrdering<int, int>(
 				orderingValueSelectorExpression).For(consumer);
 
+			Assert.AreEqual(sourceScalar, testing.SourceScalar);
+			Assert.AreEqual(orderingValueSelectorExpression, testing.OrderingValueSelectorExpression);
+
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -59785,6 +62570,11 @@ namespace ObservableComputations.Test
 				orderingValueSelectorExpression,
 				sortDirection,
 				comparerScalar).For(consumer);
+
+			Assert.AreEqual(sourceScalar, testing.SourceScalar);
+			Assert.AreEqual(orderingValueSelectorExpression, testing.OrderingValueSelectorExpression);
+			Assert.AreEqual(sortDirection, testing.SortDirection);
+			Assert.AreEqual(comparerScalar, testing.ComparerScalar);
 
 			void test()
 			{
@@ -59859,6 +62649,10 @@ namespace ObservableComputations.Test
 				orderingValueSelectorExpression,
 				sortDirection).For(consumer);
 
+			Assert.AreEqual(sourceScalar, testing.SourceScalar);
+			Assert.AreEqual(orderingValueSelectorExpression, testing.OrderingValueSelectorExpression);
+			Assert.AreEqual(sortDirection, testing.SortDirection);
+
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -59928,6 +62722,11 @@ namespace ObservableComputations.Test
 				orderingValueSelectorExpression,
 				sortDirectionScalar,
 				comparer).For(consumer);
+
+			Assert.AreEqual(sourceScalar, testing.SourceScalar);
+			Assert.AreEqual(orderingValueSelectorExpression, testing.OrderingValueSelectorExpression);
+			Assert.AreEqual(sortDirectionScalar, testing.SortDirectionScalar);
+			Assert.AreEqual(comparer, testing.Comparer);
 
 			void test()
 			{
@@ -60002,6 +62801,10 @@ namespace ObservableComputations.Test
 				orderingValueSelectorExpression,
 				comparer).For(consumer);
 
+			Assert.AreEqual(sourceScalar, testing.SourceScalar);
+			Assert.AreEqual(orderingValueSelectorExpression, testing.OrderingValueSelectorExpression);
+			Assert.AreEqual(comparer, testing.Comparer);
+
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -60072,6 +62875,11 @@ namespace ObservableComputations.Test
 				sortDirection,
 				comparer).For(consumer);
 
+			Assert.AreEqual(sourceScalar, testing.SourceScalar);
+			Assert.AreEqual(orderingValueSelectorExpression, testing.OrderingValueSelectorExpression);
+			Assert.AreEqual(sortDirection, testing.SortDirection);
+			Assert.AreEqual(comparer, testing.Comparer);
+
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -60135,45 +62943,64 @@ namespace ObservableComputations.Test
 		[Test]
 		public void TestUniting01()
 		{
-			Scalar<System.Collections.Specialized.INotifyCollectionChanged> sourcesScalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getCollectionsOfItems());
+			Scalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
 			Scalar<System.Collections.Generic.IEqualityComparer<Item>> equalityComparerScalar = getScalar<System.Collections.Generic.IEqualityComparer<Item>>(EqualityComparer<Item>.Default);
-			int capacity = 0;
+			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
-			var testing = sourcesScalar.Uniting<Item>(
+			var testing = sourceScalar.Uniting<Item>(
 				equalityComparerScalar,
-				capacity).For(consumer);
+				initialCapacity).For(consumer);
+
+			Assert.AreEqual(sourceScalar, testing.SourceScalar);
+			Assert.AreEqual(equalityComparerScalar, testing.EqualityComparerScalar);
+			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
 
 			void test()
 			{
 				testing.ValidateConsistency();
-				var sourcesScalarValue = ((ObservableCollection<ObservableCollection<Item>>)((System.Collections.Specialized.INotifyCollectionChanged)sourcesScalar.Value));
-				
-				if (sourcesScalarValue != null)
-				{
-					sourcesScalarValue.Insert(0, new ObservableCollection<Item>(new []{new Item(1, true)}));
+				var sourceScalarValue = ((ObservableCollection<Item>)((System.Collections.Specialized.INotifyCollectionChanged)sourceScalar.Value));
+
+				if (sourceScalarValue != null)
+				{		
+					sourceScalarValue.Insert(2, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
-					sourcesScalarValue.RemoveAt(1);
+					sourceScalarValue[3] = new QuickTests.Item(7, true);
 					testing.ValidateConsistency();
-					sourcesScalarValue.Move(0, 1);
+					sourceScalarValue.RemoveAt(3);
+					testing.ValidateConsistency();
+					sourceScalarValue.Move(1, 3);
+					testing.ValidateConsistency();
+					sourceScalarValue[2].Active = !sourceScalarValue[2].Active;
+					testing.ValidateConsistency();
+					sourceScalarValue[2].Num = sourceScalarValue[2].Num + 1;
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(1);
+					testing.ValidateConsistency();
+					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					sourceScalarValue.Insert(0, new QuickTests.Item(2, true));
 					testing.ValidateConsistency();
 				}
 
-
 				IList listSource;
-				listSource = ((IList)((System.Collections.Specialized.INotifyCollectionChanged)sourcesScalar.Value));
+				listSource = ((IList)((System.Collections.Specialized.INotifyCollectionChanged)sourceScalar.Value));
 				if (listSource != null)
 				{
 					listSource.Clear();
 					testing.ValidateConsistency();
 				}
 
-				if (sourcesScalarValue != null)
+				if (sourceScalarValue != null)
 				{
-					sourcesScalarValue.Insert(0, new ObservableCollection<Item>(new []{new Item(1, true), new Item(2, true), new Item(3, true), new Item(4, true), new Item(5, true)}));
-					sourcesScalarValue.Insert(0, new ObservableCollection<Item>(new []{new Item(6, true), new Item(7, true), new Item(8, true), new Item(8, true), new Item(10, true)}));
+					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
+					sourceScalarValue.Insert(1, new QuickTests.Item(2, true));
+					sourceScalarValue.Insert(2, new QuickTests.Item(3, true));
+					sourceScalarValue.Insert(3, new QuickTests.Item(3, true));
+					sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
-
 			}
 
 			test();
@@ -60183,9 +63010,9 @@ namespace ObservableComputations.Test
 			((Scalar<System.Collections.Generic.IEqualityComparer<Item>>)equalityComparerScalar).Change(null);
 			test();
 
-			((Scalar<System.Collections.Specialized.INotifyCollectionChanged>)sourcesScalar).Touch();
+			((Scalar<System.Collections.Specialized.INotifyCollectionChanged>)sourceScalar).Touch();
 			test();
-			((Scalar<System.Collections.Specialized.INotifyCollectionChanged>)sourcesScalar).Change(null);
+			((Scalar<System.Collections.Specialized.INotifyCollectionChanged>)sourceScalar).Change(null);
 			test();
 			consumer.Dispose();
 		}
@@ -60193,43 +63020,61 @@ namespace ObservableComputations.Test
 		[Test]
 		public void TestUniting02()
 		{
-			Scalar<System.Collections.Specialized.INotifyCollectionChanged> sourcesScalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getCollectionsOfItems());
+			Scalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
 			Scalar<System.Collections.Generic.IEqualityComparer<Item>> equalityComparerScalar = getScalar<System.Collections.Generic.IEqualityComparer<Item>>(EqualityComparer<Item>.Default);
 			OcConsumer consumer = new OcConsumer();
-			var testing = sourcesScalar.Uniting<Item>(
+			var testing = sourceScalar.Uniting<Item>(
 				equalityComparerScalar).For(consumer);
+
+			Assert.AreEqual(sourceScalar, testing.SourceScalar);
+			Assert.AreEqual(equalityComparerScalar, testing.EqualityComparerScalar);
 
 			void test()
 			{
 				testing.ValidateConsistency();
-				var sourcesScalarValue = ((ObservableCollection<ObservableCollection<Item>>)((System.Collections.Specialized.INotifyCollectionChanged)sourcesScalar.Value));
-				
-				if (sourcesScalarValue != null)
-				{
-					sourcesScalarValue.Insert(0, new ObservableCollection<Item>(new []{new Item(1, true)}));
+				var sourceScalarValue = ((ObservableCollection<Item>)((System.Collections.Specialized.INotifyCollectionChanged)sourceScalar.Value));
+
+				if (sourceScalarValue != null)
+				{		
+					sourceScalarValue.Insert(2, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
-					sourcesScalarValue.RemoveAt(1);
+					sourceScalarValue[3] = new QuickTests.Item(7, true);
 					testing.ValidateConsistency();
-					sourcesScalarValue.Move(0, 1);
+					sourceScalarValue.RemoveAt(3);
+					testing.ValidateConsistency();
+					sourceScalarValue.Move(1, 3);
+					testing.ValidateConsistency();
+					sourceScalarValue[2].Active = !sourceScalarValue[2].Active;
+					testing.ValidateConsistency();
+					sourceScalarValue[2].Num = sourceScalarValue[2].Num + 1;
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(1);
+					testing.ValidateConsistency();
+					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					sourceScalarValue.Insert(0, new QuickTests.Item(2, true));
 					testing.ValidateConsistency();
 				}
 
-
 				IList listSource;
-				listSource = ((IList)((System.Collections.Specialized.INotifyCollectionChanged)sourcesScalar.Value));
+				listSource = ((IList)((System.Collections.Specialized.INotifyCollectionChanged)sourceScalar.Value));
 				if (listSource != null)
 				{
 					listSource.Clear();
 					testing.ValidateConsistency();
 				}
 
-				if (sourcesScalarValue != null)
+				if (sourceScalarValue != null)
 				{
-					sourcesScalarValue.Insert(0, new ObservableCollection<Item>(new []{new Item(1, true), new Item(2, true), new Item(3, true), new Item(4, true), new Item(5, true)}));
-					sourcesScalarValue.Insert(0, new ObservableCollection<Item>(new []{new Item(6, true), new Item(7, true), new Item(8, true), new Item(8, true), new Item(10, true)}));
+					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
+					sourceScalarValue.Insert(1, new QuickTests.Item(2, true));
+					sourceScalarValue.Insert(2, new QuickTests.Item(3, true));
+					sourceScalarValue.Insert(3, new QuickTests.Item(3, true));
+					sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
-
 			}
 
 			test();
@@ -60239,9 +63084,9 @@ namespace ObservableComputations.Test
 			((Scalar<System.Collections.Generic.IEqualityComparer<Item>>)equalityComparerScalar).Change(null);
 			test();
 
-			((Scalar<System.Collections.Specialized.INotifyCollectionChanged>)sourcesScalar).Touch();
+			((Scalar<System.Collections.Specialized.INotifyCollectionChanged>)sourceScalar).Touch();
 			test();
-			((Scalar<System.Collections.Specialized.INotifyCollectionChanged>)sourcesScalar).Change(null);
+			((Scalar<System.Collections.Specialized.INotifyCollectionChanged>)sourceScalar).Change(null);
 			test();
 			consumer.Dispose();
 		}
@@ -60249,50 +63094,68 @@ namespace ObservableComputations.Test
 		[Test]
 		public void TestUniting03()
 		{
-			Scalar<System.Collections.Specialized.INotifyCollectionChanged> sourcesScalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getCollectionsOfItems());
-			int capacity = 0;
+			Scalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
+			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
-			var testing = sourcesScalar.Uniting<Item>(
-				capacity).For(consumer);
+			var testing = sourceScalar.Uniting<Item>(
+				initialCapacity).For(consumer);
+
+			Assert.AreEqual(sourceScalar, testing.SourceScalar);
+			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
 
 			void test()
 			{
 				testing.ValidateConsistency();
-				var sourcesScalarValue = ((ObservableCollection<ObservableCollection<Item>>)((System.Collections.Specialized.INotifyCollectionChanged)sourcesScalar.Value));
-				
-				if (sourcesScalarValue != null)
-				{
-					sourcesScalarValue.Insert(0, new ObservableCollection<Item>(new []{new Item(1, true)}));
+				var sourceScalarValue = ((ObservableCollection<Item>)((System.Collections.Specialized.INotifyCollectionChanged)sourceScalar.Value));
+
+				if (sourceScalarValue != null)
+				{		
+					sourceScalarValue.Insert(2, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
-					sourcesScalarValue.RemoveAt(1);
+					sourceScalarValue[3] = new QuickTests.Item(7, true);
 					testing.ValidateConsistency();
-					sourcesScalarValue.Move(0, 1);
+					sourceScalarValue.RemoveAt(3);
+					testing.ValidateConsistency();
+					sourceScalarValue.Move(1, 3);
+					testing.ValidateConsistency();
+					sourceScalarValue[2].Active = !sourceScalarValue[2].Active;
+					testing.ValidateConsistency();
+					sourceScalarValue[2].Num = sourceScalarValue[2].Num + 1;
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(1);
+					testing.ValidateConsistency();
+					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					sourceScalarValue.Insert(0, new QuickTests.Item(2, true));
 					testing.ValidateConsistency();
 				}
 
-
 				IList listSource;
-				listSource = ((IList)((System.Collections.Specialized.INotifyCollectionChanged)sourcesScalar.Value));
+				listSource = ((IList)((System.Collections.Specialized.INotifyCollectionChanged)sourceScalar.Value));
 				if (listSource != null)
 				{
 					listSource.Clear();
 					testing.ValidateConsistency();
 				}
 
-				if (sourcesScalarValue != null)
+				if (sourceScalarValue != null)
 				{
-					sourcesScalarValue.Insert(0, new ObservableCollection<Item>(new []{new Item(1, true), new Item(2, true), new Item(3, true), new Item(4, true), new Item(5, true)}));
-					sourcesScalarValue.Insert(0, new ObservableCollection<Item>(new []{new Item(6, true), new Item(7, true), new Item(8, true), new Item(8, true), new Item(10, true)}));
+					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
+					sourceScalarValue.Insert(1, new QuickTests.Item(2, true));
+					sourceScalarValue.Insert(2, new QuickTests.Item(3, true));
+					sourceScalarValue.Insert(3, new QuickTests.Item(3, true));
+					sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
-
 			}
 
 			test();
 
-			((Scalar<System.Collections.Specialized.INotifyCollectionChanged>)sourcesScalar).Touch();
+			((Scalar<System.Collections.Specialized.INotifyCollectionChanged>)sourceScalar).Touch();
 			test();
-			((Scalar<System.Collections.Specialized.INotifyCollectionChanged>)sourcesScalar).Change(null);
+			((Scalar<System.Collections.Specialized.INotifyCollectionChanged>)sourceScalar).Change(null);
 			test();
 			consumer.Dispose();
 		}
@@ -60300,48 +63163,65 @@ namespace ObservableComputations.Test
 		[Test]
 		public void TestUniting04()
 		{
-			Scalar<System.Collections.Specialized.INotifyCollectionChanged> sourcesScalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getCollectionsOfItems());
+			Scalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
 			OcConsumer consumer = new OcConsumer();
-			var testing = sourcesScalar.Uniting<Item>().For(consumer);
+			var testing = sourceScalar.Uniting<Item>().For(consumer);
+
+			Assert.AreEqual(sourceScalar, testing.SourceScalar);
 
 			void test()
 			{
 				testing.ValidateConsistency();
-				var sourcesScalarValue = ((ObservableCollection<ObservableCollection<Item>>)((System.Collections.Specialized.INotifyCollectionChanged)sourcesScalar.Value));
-				
-				if (sourcesScalarValue != null)
-				{
-					sourcesScalarValue.Insert(0, new ObservableCollection<Item>(new []{new Item(1, true)}));
+				var sourceScalarValue = ((ObservableCollection<Item>)((System.Collections.Specialized.INotifyCollectionChanged)sourceScalar.Value));
+
+				if (sourceScalarValue != null)
+				{		
+					sourceScalarValue.Insert(2, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
-					sourcesScalarValue.RemoveAt(1);
+					sourceScalarValue[3] = new QuickTests.Item(7, true);
 					testing.ValidateConsistency();
-					sourcesScalarValue.Move(0, 1);
+					sourceScalarValue.RemoveAt(3);
+					testing.ValidateConsistency();
+					sourceScalarValue.Move(1, 3);
+					testing.ValidateConsistency();
+					sourceScalarValue[2].Active = !sourceScalarValue[2].Active;
+					testing.ValidateConsistency();
+					sourceScalarValue[2].Num = sourceScalarValue[2].Num + 1;
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(1);
+					testing.ValidateConsistency();
+					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					sourceScalarValue.Insert(0, new QuickTests.Item(2, true));
 					testing.ValidateConsistency();
 				}
 
-
 				IList listSource;
-				listSource = ((IList)((System.Collections.Specialized.INotifyCollectionChanged)sourcesScalar.Value));
+				listSource = ((IList)((System.Collections.Specialized.INotifyCollectionChanged)sourceScalar.Value));
 				if (listSource != null)
 				{
 					listSource.Clear();
 					testing.ValidateConsistency();
 				}
 
-				if (sourcesScalarValue != null)
+				if (sourceScalarValue != null)
 				{
-					sourcesScalarValue.Insert(0, new ObservableCollection<Item>(new []{new Item(1, true), new Item(2, true), new Item(3, true), new Item(4, true), new Item(5, true)}));
-					sourcesScalarValue.Insert(0, new ObservableCollection<Item>(new []{new Item(6, true), new Item(7, true), new Item(8, true), new Item(8, true), new Item(10, true)}));
+					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
+					sourceScalarValue.Insert(1, new QuickTests.Item(2, true));
+					sourceScalarValue.Insert(2, new QuickTests.Item(3, true));
+					sourceScalarValue.Insert(3, new QuickTests.Item(3, true));
+					sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
-
 			}
 
 			test();
 
-			((Scalar<System.Collections.Specialized.INotifyCollectionChanged>)sourcesScalar).Touch();
+			((Scalar<System.Collections.Specialized.INotifyCollectionChanged>)sourceScalar).Touch();
 			test();
-			((Scalar<System.Collections.Specialized.INotifyCollectionChanged>)sourcesScalar).Change(null);
+			((Scalar<System.Collections.Specialized.INotifyCollectionChanged>)sourceScalar).Change(null);
 			test();
 			consumer.Dispose();
 		}
@@ -60349,45 +63229,64 @@ namespace ObservableComputations.Test
 		[Test]
 		public void TestUniting05()
 		{
-			Scalar<ObservableCollection<ObservableCollection<Item>>> sourcesScalar = getScalar<ObservableCollection<ObservableCollection<Item>>>(getCollectionsOfItems());
+			Scalar<ObservableCollection<Item>> sourceScalar = getScalar<ObservableCollection<Item>>(getItems());
 			Scalar<System.Collections.Generic.IEqualityComparer<Item>> equalityComparerScalar = getScalar<System.Collections.Generic.IEqualityComparer<Item>>(EqualityComparer<Item>.Default);
-			int capacity = 0;
+			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
-			var testing = sourcesScalar.Uniting<Item>(
+			var testing = sourceScalar.Uniting<Item>(
 				equalityComparerScalar,
-				capacity).For(consumer);
+				initialCapacity).For(consumer);
+
+			Assert.AreEqual(sourceScalar, testing.SourceScalar);
+			Assert.AreEqual(equalityComparerScalar, testing.EqualityComparerScalar);
+			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
 
 			void test()
 			{
 				testing.ValidateConsistency();
-				var sourcesScalarValue = ((ObservableCollection<ObservableCollection<Item>>)((ObservableCollection<ObservableCollection<Item>>)sourcesScalar.Value));
-				
-				if (sourcesScalarValue != null)
-				{
-					sourcesScalarValue.Insert(0, new ObservableCollection<Item>(new []{new Item(1, true)}));
+				var sourceScalarValue = ((ObservableCollection<Item>)((ObservableCollection<Item>)sourceScalar.Value));
+
+				if (sourceScalarValue != null)
+				{		
+					sourceScalarValue.Insert(2, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
-					sourcesScalarValue.RemoveAt(1);
+					sourceScalarValue[3] = new QuickTests.Item(7, true);
 					testing.ValidateConsistency();
-					sourcesScalarValue.Move(0, 1);
+					sourceScalarValue.RemoveAt(3);
+					testing.ValidateConsistency();
+					sourceScalarValue.Move(1, 3);
+					testing.ValidateConsistency();
+					sourceScalarValue[2].Active = !sourceScalarValue[2].Active;
+					testing.ValidateConsistency();
+					sourceScalarValue[2].Num = sourceScalarValue[2].Num + 1;
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(1);
+					testing.ValidateConsistency();
+					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					sourceScalarValue.Insert(0, new QuickTests.Item(2, true));
 					testing.ValidateConsistency();
 				}
 
-
 				IList listSource;
-				listSource = ((IList)((ObservableCollection<ObservableCollection<Item>>)sourcesScalar.Value));
+				listSource = ((IList)((ObservableCollection<Item>)sourceScalar.Value));
 				if (listSource != null)
 				{
 					listSource.Clear();
 					testing.ValidateConsistency();
 				}
 
-				if (sourcesScalarValue != null)
+				if (sourceScalarValue != null)
 				{
-					sourcesScalarValue.Insert(0, new ObservableCollection<Item>(new []{new Item(1, true), new Item(2, true), new Item(3, true), new Item(4, true), new Item(5, true)}));
-					sourcesScalarValue.Insert(0, new ObservableCollection<Item>(new []{new Item(6, true), new Item(7, true), new Item(8, true), new Item(8, true), new Item(10, true)}));
+					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
+					sourceScalarValue.Insert(1, new QuickTests.Item(2, true));
+					sourceScalarValue.Insert(2, new QuickTests.Item(3, true));
+					sourceScalarValue.Insert(3, new QuickTests.Item(3, true));
+					sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
-
 			}
 
 			test();
@@ -60397,9 +63296,9 @@ namespace ObservableComputations.Test
 			((Scalar<System.Collections.Generic.IEqualityComparer<Item>>)equalityComparerScalar).Change(null);
 			test();
 
-			((Scalar<ObservableCollection<ObservableCollection<Item>>>)sourcesScalar).Touch();
+			((Scalar<ObservableCollection<Item>>)sourceScalar).Touch();
 			test();
-			((Scalar<ObservableCollection<ObservableCollection<Item>>>)sourcesScalar).Change(null);
+			((Scalar<ObservableCollection<Item>>)sourceScalar).Change(null);
 			test();
 			consumer.Dispose();
 		}
@@ -60407,43 +63306,61 @@ namespace ObservableComputations.Test
 		[Test]
 		public void TestUniting06()
 		{
-			Scalar<ObservableCollection<ObservableCollection<Item>>> sourcesScalar = getScalar<ObservableCollection<ObservableCollection<Item>>>(getCollectionsOfItems());
+			Scalar<ObservableCollection<Item>> sourceScalar = getScalar<ObservableCollection<Item>>(getItems());
 			Scalar<System.Collections.Generic.IEqualityComparer<Item>> equalityComparerScalar = getScalar<System.Collections.Generic.IEqualityComparer<Item>>(EqualityComparer<Item>.Default);
 			OcConsumer consumer = new OcConsumer();
-			var testing = sourcesScalar.Uniting<Item>(
+			var testing = sourceScalar.Uniting<Item>(
 				equalityComparerScalar).For(consumer);
+
+			Assert.AreEqual(sourceScalar, testing.SourceScalar);
+			Assert.AreEqual(equalityComparerScalar, testing.EqualityComparerScalar);
 
 			void test()
 			{
 				testing.ValidateConsistency();
-				var sourcesScalarValue = ((ObservableCollection<ObservableCollection<Item>>)((ObservableCollection<ObservableCollection<Item>>)sourcesScalar.Value));
-				
-				if (sourcesScalarValue != null)
-				{
-					sourcesScalarValue.Insert(0, new ObservableCollection<Item>(new []{new Item(1, true)}));
+				var sourceScalarValue = ((ObservableCollection<Item>)((ObservableCollection<Item>)sourceScalar.Value));
+
+				if (sourceScalarValue != null)
+				{		
+					sourceScalarValue.Insert(2, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
-					sourcesScalarValue.RemoveAt(1);
+					sourceScalarValue[3] = new QuickTests.Item(7, true);
 					testing.ValidateConsistency();
-					sourcesScalarValue.Move(0, 1);
+					sourceScalarValue.RemoveAt(3);
+					testing.ValidateConsistency();
+					sourceScalarValue.Move(1, 3);
+					testing.ValidateConsistency();
+					sourceScalarValue[2].Active = !sourceScalarValue[2].Active;
+					testing.ValidateConsistency();
+					sourceScalarValue[2].Num = sourceScalarValue[2].Num + 1;
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(1);
+					testing.ValidateConsistency();
+					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					sourceScalarValue.Insert(0, new QuickTests.Item(2, true));
 					testing.ValidateConsistency();
 				}
 
-
 				IList listSource;
-				listSource = ((IList)((ObservableCollection<ObservableCollection<Item>>)sourcesScalar.Value));
+				listSource = ((IList)((ObservableCollection<Item>)sourceScalar.Value));
 				if (listSource != null)
 				{
 					listSource.Clear();
 					testing.ValidateConsistency();
 				}
 
-				if (sourcesScalarValue != null)
+				if (sourceScalarValue != null)
 				{
-					sourcesScalarValue.Insert(0, new ObservableCollection<Item>(new []{new Item(1, true), new Item(2, true), new Item(3, true), new Item(4, true), new Item(5, true)}));
-					sourcesScalarValue.Insert(0, new ObservableCollection<Item>(new []{new Item(6, true), new Item(7, true), new Item(8, true), new Item(8, true), new Item(10, true)}));
+					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
+					sourceScalarValue.Insert(1, new QuickTests.Item(2, true));
+					sourceScalarValue.Insert(2, new QuickTests.Item(3, true));
+					sourceScalarValue.Insert(3, new QuickTests.Item(3, true));
+					sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
-
 			}
 
 			test();
@@ -60453,9 +63370,9 @@ namespace ObservableComputations.Test
 			((Scalar<System.Collections.Generic.IEqualityComparer<Item>>)equalityComparerScalar).Change(null);
 			test();
 
-			((Scalar<ObservableCollection<ObservableCollection<Item>>>)sourcesScalar).Touch();
+			((Scalar<ObservableCollection<Item>>)sourceScalar).Touch();
 			test();
-			((Scalar<ObservableCollection<ObservableCollection<Item>>>)sourcesScalar).Change(null);
+			((Scalar<ObservableCollection<Item>>)sourceScalar).Change(null);
 			test();
 			consumer.Dispose();
 		}
@@ -60463,50 +63380,68 @@ namespace ObservableComputations.Test
 		[Test]
 		public void TestUniting07()
 		{
-			Scalar<ObservableCollection<ObservableCollection<Item>>> sourcesScalar = getScalar<ObservableCollection<ObservableCollection<Item>>>(getCollectionsOfItems());
-			int capacity = 0;
+			Scalar<ObservableCollection<Item>> sourceScalar = getScalar<ObservableCollection<Item>>(getItems());
+			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
-			var testing = sourcesScalar.Uniting<Item>(
-				capacity).For(consumer);
+			var testing = sourceScalar.Uniting<Item>(
+				initialCapacity).For(consumer);
+
+			Assert.AreEqual(sourceScalar, testing.SourceScalar);
+			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
 
 			void test()
 			{
 				testing.ValidateConsistency();
-				var sourcesScalarValue = ((ObservableCollection<ObservableCollection<Item>>)((ObservableCollection<ObservableCollection<Item>>)sourcesScalar.Value));
-				
-				if (sourcesScalarValue != null)
-				{
-					sourcesScalarValue.Insert(0, new ObservableCollection<Item>(new []{new Item(1, true)}));
+				var sourceScalarValue = ((ObservableCollection<Item>)((ObservableCollection<Item>)sourceScalar.Value));
+
+				if (sourceScalarValue != null)
+				{		
+					sourceScalarValue.Insert(2, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
-					sourcesScalarValue.RemoveAt(1);
+					sourceScalarValue[3] = new QuickTests.Item(7, true);
 					testing.ValidateConsistency();
-					sourcesScalarValue.Move(0, 1);
+					sourceScalarValue.RemoveAt(3);
+					testing.ValidateConsistency();
+					sourceScalarValue.Move(1, 3);
+					testing.ValidateConsistency();
+					sourceScalarValue[2].Active = !sourceScalarValue[2].Active;
+					testing.ValidateConsistency();
+					sourceScalarValue[2].Num = sourceScalarValue[2].Num + 1;
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(1);
+					testing.ValidateConsistency();
+					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					sourceScalarValue.Insert(0, new QuickTests.Item(2, true));
 					testing.ValidateConsistency();
 				}
 
-
 				IList listSource;
-				listSource = ((IList)((ObservableCollection<ObservableCollection<Item>>)sourcesScalar.Value));
+				listSource = ((IList)((ObservableCollection<Item>)sourceScalar.Value));
 				if (listSource != null)
 				{
 					listSource.Clear();
 					testing.ValidateConsistency();
 				}
 
-				if (sourcesScalarValue != null)
+				if (sourceScalarValue != null)
 				{
-					sourcesScalarValue.Insert(0, new ObservableCollection<Item>(new []{new Item(1, true), new Item(2, true), new Item(3, true), new Item(4, true), new Item(5, true)}));
-					sourcesScalarValue.Insert(0, new ObservableCollection<Item>(new []{new Item(6, true), new Item(7, true), new Item(8, true), new Item(8, true), new Item(10, true)}));
+					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
+					sourceScalarValue.Insert(1, new QuickTests.Item(2, true));
+					sourceScalarValue.Insert(2, new QuickTests.Item(3, true));
+					sourceScalarValue.Insert(3, new QuickTests.Item(3, true));
+					sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
-
 			}
 
 			test();
 
-			((Scalar<ObservableCollection<ObservableCollection<Item>>>)sourcesScalar).Touch();
+			((Scalar<ObservableCollection<Item>>)sourceScalar).Touch();
 			test();
-			((Scalar<ObservableCollection<ObservableCollection<Item>>>)sourcesScalar).Change(null);
+			((Scalar<ObservableCollection<Item>>)sourceScalar).Change(null);
 			test();
 			consumer.Dispose();
 		}
@@ -60514,48 +63449,65 @@ namespace ObservableComputations.Test
 		[Test]
 		public void TestUniting08()
 		{
-			Scalar<ObservableCollection<ObservableCollection<Item>>> sourcesScalar = getScalar<ObservableCollection<ObservableCollection<Item>>>(getCollectionsOfItems());
+			Scalar<ObservableCollection<Item>> sourceScalar = getScalar<ObservableCollection<Item>>(getItems());
 			OcConsumer consumer = new OcConsumer();
-			var testing = sourcesScalar.Uniting<Item>().For(consumer);
+			var testing = sourceScalar.Uniting<Item>().For(consumer);
+
+			Assert.AreEqual(sourceScalar, testing.SourceScalar);
 
 			void test()
 			{
 				testing.ValidateConsistency();
-				var sourcesScalarValue = ((ObservableCollection<ObservableCollection<Item>>)((ObservableCollection<ObservableCollection<Item>>)sourcesScalar.Value));
-				
-				if (sourcesScalarValue != null)
-				{
-					sourcesScalarValue.Insert(0, new ObservableCollection<Item>(new []{new Item(1, true)}));
+				var sourceScalarValue = ((ObservableCollection<Item>)((ObservableCollection<Item>)sourceScalar.Value));
+
+				if (sourceScalarValue != null)
+				{		
+					sourceScalarValue.Insert(2, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
-					sourcesScalarValue.RemoveAt(1);
+					sourceScalarValue[3] = new QuickTests.Item(7, true);
 					testing.ValidateConsistency();
-					sourcesScalarValue.Move(0, 1);
+					sourceScalarValue.RemoveAt(3);
+					testing.ValidateConsistency();
+					sourceScalarValue.Move(1, 3);
+					testing.ValidateConsistency();
+					sourceScalarValue[2].Active = !sourceScalarValue[2].Active;
+					testing.ValidateConsistency();
+					sourceScalarValue[2].Num = sourceScalarValue[2].Num + 1;
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(1);
+					testing.ValidateConsistency();
+					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					sourceScalarValue.Insert(0, new QuickTests.Item(2, true));
 					testing.ValidateConsistency();
 				}
 
-
 				IList listSource;
-				listSource = ((IList)((ObservableCollection<ObservableCollection<Item>>)sourcesScalar.Value));
+				listSource = ((IList)((ObservableCollection<Item>)sourceScalar.Value));
 				if (listSource != null)
 				{
 					listSource.Clear();
 					testing.ValidateConsistency();
 				}
 
-				if (sourcesScalarValue != null)
+				if (sourceScalarValue != null)
 				{
-					sourcesScalarValue.Insert(0, new ObservableCollection<Item>(new []{new Item(1, true), new Item(2, true), new Item(3, true), new Item(4, true), new Item(5, true)}));
-					sourcesScalarValue.Insert(0, new ObservableCollection<Item>(new []{new Item(6, true), new Item(7, true), new Item(8, true), new Item(8, true), new Item(10, true)}));
+					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
+					sourceScalarValue.Insert(1, new QuickTests.Item(2, true));
+					sourceScalarValue.Insert(2, new QuickTests.Item(3, true));
+					sourceScalarValue.Insert(3, new QuickTests.Item(3, true));
+					sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
-
 			}
 
 			test();
 
-			((Scalar<ObservableCollection<ObservableCollection<Item>>>)sourcesScalar).Touch();
+			((Scalar<ObservableCollection<Item>>)sourceScalar).Touch();
 			test();
-			((Scalar<ObservableCollection<ObservableCollection<Item>>>)sourcesScalar).Change(null);
+			((Scalar<ObservableCollection<Item>>)sourceScalar).Change(null);
 			test();
 			consumer.Dispose();
 		}
@@ -60563,45 +63515,64 @@ namespace ObservableComputations.Test
 		[Test]
 		public void TestUniting09()
 		{
-			System.Collections.Specialized.INotifyCollectionChanged sources = getCollectionsOfItems();
+			System.Collections.Specialized.INotifyCollectionChanged source = getItems();
 			Scalar<System.Collections.Generic.IEqualityComparer<Item>> equalityComparerScalar = getScalar<System.Collections.Generic.IEqualityComparer<Item>>(EqualityComparer<Item>.Default);
-			int capacity = 0;
+			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
-			var testing = sources.Uniting<Item>(
+			var testing = source.Uniting<Item>(
 				equalityComparerScalar,
-				capacity).For(consumer);
+				initialCapacity).For(consumer);
+
+			Assert.AreEqual(source, testing.Source);
+			Assert.AreEqual(equalityComparerScalar, testing.EqualityComparerScalar);
+			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
 
 			void test()
 			{
 				testing.ValidateConsistency();
-				var sourcesValue = ((ObservableCollection<ObservableCollection<Item>>)((System.Collections.Specialized.INotifyCollectionChanged)sources));
-				
-				if (sourcesValue != null)
-				{
-					sourcesValue.Insert(0, new ObservableCollection<Item>(new []{new Item(1, true)}));
+				var sourceValue = ((ObservableCollection<Item>)((System.Collections.Specialized.INotifyCollectionChanged)source));
+
+				if (sourceValue != null)
+				{		
+					sourceValue.Insert(2, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
-					sourcesValue.RemoveAt(1);
+					sourceValue[3] = new QuickTests.Item(7, true);
 					testing.ValidateConsistency();
-					sourcesValue.Move(0, 1);
+					sourceValue.RemoveAt(3);
+					testing.ValidateConsistency();
+					sourceValue.Move(1, 3);
+					testing.ValidateConsistency();
+					sourceValue[2].Active = !sourceValue[2].Active;
+					testing.ValidateConsistency();
+					sourceValue[2].Num = sourceValue[2].Num + 1;
+					testing.ValidateConsistency();
+					sourceValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceValue.RemoveAt(1);
+					testing.ValidateConsistency();
+					sourceValue.Insert(0, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					sourceValue.Insert(0, new QuickTests.Item(2, true));
 					testing.ValidateConsistency();
 				}
 
-
 				IList listSource;
-				listSource = ((IList)((System.Collections.Specialized.INotifyCollectionChanged)sources));
+				listSource = ((IList)((System.Collections.Specialized.INotifyCollectionChanged)source));
 				if (listSource != null)
 				{
 					listSource.Clear();
 					testing.ValidateConsistency();
 				}
 
-				if (sourcesValue != null)
+				if (sourceValue != null)
 				{
-					sourcesValue.Insert(0, new ObservableCollection<Item>(new []{new Item(1, true), new Item(2, true), new Item(3, true), new Item(4, true), new Item(5, true)}));
-					sourcesValue.Insert(0, new ObservableCollection<Item>(new []{new Item(6, true), new Item(7, true), new Item(8, true), new Item(8, true), new Item(10, true)}));
+					sourceValue.Insert(0, new QuickTests.Item(1, true));
+					sourceValue.Insert(1, new QuickTests.Item(2, true));
+					sourceValue.Insert(2, new QuickTests.Item(3, true));
+					sourceValue.Insert(3, new QuickTests.Item(3, true));
+					sourceValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
-
 			}
 
 			test();
@@ -60616,43 +63587,61 @@ namespace ObservableComputations.Test
 		[Test]
 		public void TestUniting10()
 		{
-			System.Collections.Specialized.INotifyCollectionChanged sources = getCollectionsOfItems();
+			System.Collections.Specialized.INotifyCollectionChanged source = getItems();
 			Scalar<System.Collections.Generic.IEqualityComparer<Item>> equalityComparerScalar = getScalar<System.Collections.Generic.IEqualityComparer<Item>>(EqualityComparer<Item>.Default);
 			OcConsumer consumer = new OcConsumer();
-			var testing = sources.Uniting<Item>(
+			var testing = source.Uniting<Item>(
 				equalityComparerScalar).For(consumer);
+
+			Assert.AreEqual(source, testing.Source);
+			Assert.AreEqual(equalityComparerScalar, testing.EqualityComparerScalar);
 
 			void test()
 			{
 				testing.ValidateConsistency();
-				var sourcesValue = ((ObservableCollection<ObservableCollection<Item>>)((System.Collections.Specialized.INotifyCollectionChanged)sources));
-				
-				if (sourcesValue != null)
-				{
-					sourcesValue.Insert(0, new ObservableCollection<Item>(new []{new Item(1, true)}));
+				var sourceValue = ((ObservableCollection<Item>)((System.Collections.Specialized.INotifyCollectionChanged)source));
+
+				if (sourceValue != null)
+				{		
+					sourceValue.Insert(2, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
-					sourcesValue.RemoveAt(1);
+					sourceValue[3] = new QuickTests.Item(7, true);
 					testing.ValidateConsistency();
-					sourcesValue.Move(0, 1);
+					sourceValue.RemoveAt(3);
+					testing.ValidateConsistency();
+					sourceValue.Move(1, 3);
+					testing.ValidateConsistency();
+					sourceValue[2].Active = !sourceValue[2].Active;
+					testing.ValidateConsistency();
+					sourceValue[2].Num = sourceValue[2].Num + 1;
+					testing.ValidateConsistency();
+					sourceValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceValue.RemoveAt(1);
+					testing.ValidateConsistency();
+					sourceValue.Insert(0, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					sourceValue.Insert(0, new QuickTests.Item(2, true));
 					testing.ValidateConsistency();
 				}
 
-
 				IList listSource;
-				listSource = ((IList)((System.Collections.Specialized.INotifyCollectionChanged)sources));
+				listSource = ((IList)((System.Collections.Specialized.INotifyCollectionChanged)source));
 				if (listSource != null)
 				{
 					listSource.Clear();
 					testing.ValidateConsistency();
 				}
 
-				if (sourcesValue != null)
+				if (sourceValue != null)
 				{
-					sourcesValue.Insert(0, new ObservableCollection<Item>(new []{new Item(1, true), new Item(2, true), new Item(3, true), new Item(4, true), new Item(5, true)}));
-					sourcesValue.Insert(0, new ObservableCollection<Item>(new []{new Item(6, true), new Item(7, true), new Item(8, true), new Item(8, true), new Item(10, true)}));
+					sourceValue.Insert(0, new QuickTests.Item(1, true));
+					sourceValue.Insert(1, new QuickTests.Item(2, true));
+					sourceValue.Insert(2, new QuickTests.Item(3, true));
+					sourceValue.Insert(3, new QuickTests.Item(3, true));
+					sourceValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
-
 			}
 
 			test();
@@ -60667,43 +63656,61 @@ namespace ObservableComputations.Test
 		[Test]
 		public void TestUniting11()
 		{
-			System.Collections.Specialized.INotifyCollectionChanged sources = getCollectionsOfItems();
-			int capacity = 0;
+			System.Collections.Specialized.INotifyCollectionChanged source = getItems();
+			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
-			var testing = sources.Uniting<Item>(
-				capacity).For(consumer);
+			var testing = source.Uniting<Item>(
+				initialCapacity).For(consumer);
+
+			Assert.AreEqual(source, testing.Source);
+			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
 
 			void test()
 			{
 				testing.ValidateConsistency();
-				var sourcesValue = ((ObservableCollection<ObservableCollection<Item>>)((System.Collections.Specialized.INotifyCollectionChanged)sources));
-				
-				if (sourcesValue != null)
-				{
-					sourcesValue.Insert(0, new ObservableCollection<Item>(new []{new Item(1, true)}));
+				var sourceValue = ((ObservableCollection<Item>)((System.Collections.Specialized.INotifyCollectionChanged)source));
+
+				if (sourceValue != null)
+				{		
+					sourceValue.Insert(2, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
-					sourcesValue.RemoveAt(1);
+					sourceValue[3] = new QuickTests.Item(7, true);
 					testing.ValidateConsistency();
-					sourcesValue.Move(0, 1);
+					sourceValue.RemoveAt(3);
+					testing.ValidateConsistency();
+					sourceValue.Move(1, 3);
+					testing.ValidateConsistency();
+					sourceValue[2].Active = !sourceValue[2].Active;
+					testing.ValidateConsistency();
+					sourceValue[2].Num = sourceValue[2].Num + 1;
+					testing.ValidateConsistency();
+					sourceValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceValue.RemoveAt(1);
+					testing.ValidateConsistency();
+					sourceValue.Insert(0, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					sourceValue.Insert(0, new QuickTests.Item(2, true));
 					testing.ValidateConsistency();
 				}
 
-
 				IList listSource;
-				listSource = ((IList)((System.Collections.Specialized.INotifyCollectionChanged)sources));
+				listSource = ((IList)((System.Collections.Specialized.INotifyCollectionChanged)source));
 				if (listSource != null)
 				{
 					listSource.Clear();
 					testing.ValidateConsistency();
 				}
 
-				if (sourcesValue != null)
+				if (sourceValue != null)
 				{
-					sourcesValue.Insert(0, new ObservableCollection<Item>(new []{new Item(1, true), new Item(2, true), new Item(3, true), new Item(4, true), new Item(5, true)}));
-					sourcesValue.Insert(0, new ObservableCollection<Item>(new []{new Item(6, true), new Item(7, true), new Item(8, true), new Item(8, true), new Item(10, true)}));
+					sourceValue.Insert(0, new QuickTests.Item(1, true));
+					sourceValue.Insert(1, new QuickTests.Item(2, true));
+					sourceValue.Insert(2, new QuickTests.Item(3, true));
+					sourceValue.Insert(3, new QuickTests.Item(3, true));
+					sourceValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
-
 			}
 
 			test();
@@ -60713,41 +63720,58 @@ namespace ObservableComputations.Test
 		[Test]
 		public void TestUniting12()
 		{
-			System.Collections.Specialized.INotifyCollectionChanged sources = getCollectionsOfItems();
+			System.Collections.Specialized.INotifyCollectionChanged source = getItems();
 			OcConsumer consumer = new OcConsumer();
-			var testing = sources.Uniting<Item>().For(consumer);
+			var testing = source.Uniting<Item>().For(consumer);
+
+			Assert.AreEqual(source, testing.Source);
 
 			void test()
 			{
 				testing.ValidateConsistency();
-				var sourcesValue = ((ObservableCollection<ObservableCollection<Item>>)((System.Collections.Specialized.INotifyCollectionChanged)sources));
-				
-				if (sourcesValue != null)
-				{
-					sourcesValue.Insert(0, new ObservableCollection<Item>(new []{new Item(1, true)}));
+				var sourceValue = ((ObservableCollection<Item>)((System.Collections.Specialized.INotifyCollectionChanged)source));
+
+				if (sourceValue != null)
+				{		
+					sourceValue.Insert(2, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
-					sourcesValue.RemoveAt(1);
+					sourceValue[3] = new QuickTests.Item(7, true);
 					testing.ValidateConsistency();
-					sourcesValue.Move(0, 1);
+					sourceValue.RemoveAt(3);
+					testing.ValidateConsistency();
+					sourceValue.Move(1, 3);
+					testing.ValidateConsistency();
+					sourceValue[2].Active = !sourceValue[2].Active;
+					testing.ValidateConsistency();
+					sourceValue[2].Num = sourceValue[2].Num + 1;
+					testing.ValidateConsistency();
+					sourceValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceValue.RemoveAt(1);
+					testing.ValidateConsistency();
+					sourceValue.Insert(0, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					sourceValue.Insert(0, new QuickTests.Item(2, true));
 					testing.ValidateConsistency();
 				}
 
-
 				IList listSource;
-				listSource = ((IList)((System.Collections.Specialized.INotifyCollectionChanged)sources));
+				listSource = ((IList)((System.Collections.Specialized.INotifyCollectionChanged)source));
 				if (listSource != null)
 				{
 					listSource.Clear();
 					testing.ValidateConsistency();
 				}
 
-				if (sourcesValue != null)
+				if (sourceValue != null)
 				{
-					sourcesValue.Insert(0, new ObservableCollection<Item>(new []{new Item(1, true), new Item(2, true), new Item(3, true), new Item(4, true), new Item(5, true)}));
-					sourcesValue.Insert(0, new ObservableCollection<Item>(new []{new Item(6, true), new Item(7, true), new Item(8, true), new Item(8, true), new Item(10, true)}));
+					sourceValue.Insert(0, new QuickTests.Item(1, true));
+					sourceValue.Insert(1, new QuickTests.Item(2, true));
+					sourceValue.Insert(2, new QuickTests.Item(3, true));
+					sourceValue.Insert(3, new QuickTests.Item(3, true));
+					sourceValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
-
 			}
 
 			test();
@@ -60757,45 +63781,64 @@ namespace ObservableComputations.Test
 		[Test]
 		public void TestUniting13()
 		{
-			ObservableCollection<ObservableCollection<Item>> sources = getCollectionsOfItems();
+			ObservableCollection<Item> source = getItems();
 			Scalar<System.Collections.Generic.IEqualityComparer<Item>> equalityComparerScalar = getScalar<System.Collections.Generic.IEqualityComparer<Item>>(EqualityComparer<Item>.Default);
-			int capacity = 0;
+			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
-			var testing = sources.Uniting<Item>(
+			var testing = source.Uniting<Item>(
 				equalityComparerScalar,
-				capacity).For(consumer);
+				initialCapacity).For(consumer);
+
+			Assert.AreEqual(source, testing.Source);
+			Assert.AreEqual(equalityComparerScalar, testing.EqualityComparerScalar);
+			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
 
 			void test()
 			{
 				testing.ValidateConsistency();
-				var sourcesValue = ((ObservableCollection<ObservableCollection<Item>>)((ObservableCollection<ObservableCollection<Item>>)sources));
-				
-				if (sourcesValue != null)
-				{
-					sourcesValue.Insert(0, new ObservableCollection<Item>(new []{new Item(1, true)}));
+				var sourceValue = ((ObservableCollection<Item>)((ObservableCollection<Item>)source));
+
+				if (sourceValue != null)
+				{		
+					sourceValue.Insert(2, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
-					sourcesValue.RemoveAt(1);
+					sourceValue[3] = new QuickTests.Item(7, true);
 					testing.ValidateConsistency();
-					sourcesValue.Move(0, 1);
+					sourceValue.RemoveAt(3);
+					testing.ValidateConsistency();
+					sourceValue.Move(1, 3);
+					testing.ValidateConsistency();
+					sourceValue[2].Active = !sourceValue[2].Active;
+					testing.ValidateConsistency();
+					sourceValue[2].Num = sourceValue[2].Num + 1;
+					testing.ValidateConsistency();
+					sourceValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceValue.RemoveAt(1);
+					testing.ValidateConsistency();
+					sourceValue.Insert(0, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					sourceValue.Insert(0, new QuickTests.Item(2, true));
 					testing.ValidateConsistency();
 				}
 
-
 				IList listSource;
-				listSource = ((IList)((ObservableCollection<ObservableCollection<Item>>)sources));
+				listSource = ((IList)((ObservableCollection<Item>)source));
 				if (listSource != null)
 				{
 					listSource.Clear();
 					testing.ValidateConsistency();
 				}
 
-				if (sourcesValue != null)
+				if (sourceValue != null)
 				{
-					sourcesValue.Insert(0, new ObservableCollection<Item>(new []{new Item(1, true), new Item(2, true), new Item(3, true), new Item(4, true), new Item(5, true)}));
-					sourcesValue.Insert(0, new ObservableCollection<Item>(new []{new Item(6, true), new Item(7, true), new Item(8, true), new Item(8, true), new Item(10, true)}));
+					sourceValue.Insert(0, new QuickTests.Item(1, true));
+					sourceValue.Insert(1, new QuickTests.Item(2, true));
+					sourceValue.Insert(2, new QuickTests.Item(3, true));
+					sourceValue.Insert(3, new QuickTests.Item(3, true));
+					sourceValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
-
 			}
 
 			test();
@@ -60810,43 +63853,61 @@ namespace ObservableComputations.Test
 		[Test]
 		public void TestUniting14()
 		{
-			ObservableCollection<ObservableCollection<Item>> sources = getCollectionsOfItems();
+			ObservableCollection<Item> source = getItems();
 			Scalar<System.Collections.Generic.IEqualityComparer<Item>> equalityComparerScalar = getScalar<System.Collections.Generic.IEqualityComparer<Item>>(EqualityComparer<Item>.Default);
 			OcConsumer consumer = new OcConsumer();
-			var testing = sources.Uniting<Item>(
+			var testing = source.Uniting<Item>(
 				equalityComparerScalar).For(consumer);
+
+			Assert.AreEqual(source, testing.Source);
+			Assert.AreEqual(equalityComparerScalar, testing.EqualityComparerScalar);
 
 			void test()
 			{
 				testing.ValidateConsistency();
-				var sourcesValue = ((ObservableCollection<ObservableCollection<Item>>)((ObservableCollection<ObservableCollection<Item>>)sources));
-				
-				if (sourcesValue != null)
-				{
-					sourcesValue.Insert(0, new ObservableCollection<Item>(new []{new Item(1, true)}));
+				var sourceValue = ((ObservableCollection<Item>)((ObservableCollection<Item>)source));
+
+				if (sourceValue != null)
+				{		
+					sourceValue.Insert(2, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
-					sourcesValue.RemoveAt(1);
+					sourceValue[3] = new QuickTests.Item(7, true);
 					testing.ValidateConsistency();
-					sourcesValue.Move(0, 1);
+					sourceValue.RemoveAt(3);
+					testing.ValidateConsistency();
+					sourceValue.Move(1, 3);
+					testing.ValidateConsistency();
+					sourceValue[2].Active = !sourceValue[2].Active;
+					testing.ValidateConsistency();
+					sourceValue[2].Num = sourceValue[2].Num + 1;
+					testing.ValidateConsistency();
+					sourceValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceValue.RemoveAt(1);
+					testing.ValidateConsistency();
+					sourceValue.Insert(0, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					sourceValue.Insert(0, new QuickTests.Item(2, true));
 					testing.ValidateConsistency();
 				}
 
-
 				IList listSource;
-				listSource = ((IList)((ObservableCollection<ObservableCollection<Item>>)sources));
+				listSource = ((IList)((ObservableCollection<Item>)source));
 				if (listSource != null)
 				{
 					listSource.Clear();
 					testing.ValidateConsistency();
 				}
 
-				if (sourcesValue != null)
+				if (sourceValue != null)
 				{
-					sourcesValue.Insert(0, new ObservableCollection<Item>(new []{new Item(1, true), new Item(2, true), new Item(3, true), new Item(4, true), new Item(5, true)}));
-					sourcesValue.Insert(0, new ObservableCollection<Item>(new []{new Item(6, true), new Item(7, true), new Item(8, true), new Item(8, true), new Item(10, true)}));
+					sourceValue.Insert(0, new QuickTests.Item(1, true));
+					sourceValue.Insert(1, new QuickTests.Item(2, true));
+					sourceValue.Insert(2, new QuickTests.Item(3, true));
+					sourceValue.Insert(3, new QuickTests.Item(3, true));
+					sourceValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
-
 			}
 
 			test();
@@ -60861,43 +63922,61 @@ namespace ObservableComputations.Test
 		[Test]
 		public void TestUniting15()
 		{
-			ObservableCollection<ObservableCollection<Item>> sources = getCollectionsOfItems();
-			int capacity = 0;
+			ObservableCollection<Item> source = getItems();
+			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
-			var testing = sources.Uniting<Item>(
-				capacity).For(consumer);
+			var testing = source.Uniting<Item>(
+				initialCapacity).For(consumer);
+
+			Assert.AreEqual(source, testing.Source);
+			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
 
 			void test()
 			{
 				testing.ValidateConsistency();
-				var sourcesValue = ((ObservableCollection<ObservableCollection<Item>>)((ObservableCollection<ObservableCollection<Item>>)sources));
-				
-				if (sourcesValue != null)
-				{
-					sourcesValue.Insert(0, new ObservableCollection<Item>(new []{new Item(1, true)}));
+				var sourceValue = ((ObservableCollection<Item>)((ObservableCollection<Item>)source));
+
+				if (sourceValue != null)
+				{		
+					sourceValue.Insert(2, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
-					sourcesValue.RemoveAt(1);
+					sourceValue[3] = new QuickTests.Item(7, true);
 					testing.ValidateConsistency();
-					sourcesValue.Move(0, 1);
+					sourceValue.RemoveAt(3);
+					testing.ValidateConsistency();
+					sourceValue.Move(1, 3);
+					testing.ValidateConsistency();
+					sourceValue[2].Active = !sourceValue[2].Active;
+					testing.ValidateConsistency();
+					sourceValue[2].Num = sourceValue[2].Num + 1;
+					testing.ValidateConsistency();
+					sourceValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceValue.RemoveAt(1);
+					testing.ValidateConsistency();
+					sourceValue.Insert(0, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					sourceValue.Insert(0, new QuickTests.Item(2, true));
 					testing.ValidateConsistency();
 				}
 
-
 				IList listSource;
-				listSource = ((IList)((ObservableCollection<ObservableCollection<Item>>)sources));
+				listSource = ((IList)((ObservableCollection<Item>)source));
 				if (listSource != null)
 				{
 					listSource.Clear();
 					testing.ValidateConsistency();
 				}
 
-				if (sourcesValue != null)
+				if (sourceValue != null)
 				{
-					sourcesValue.Insert(0, new ObservableCollection<Item>(new []{new Item(1, true), new Item(2, true), new Item(3, true), new Item(4, true), new Item(5, true)}));
-					sourcesValue.Insert(0, new ObservableCollection<Item>(new []{new Item(6, true), new Item(7, true), new Item(8, true), new Item(8, true), new Item(10, true)}));
+					sourceValue.Insert(0, new QuickTests.Item(1, true));
+					sourceValue.Insert(1, new QuickTests.Item(2, true));
+					sourceValue.Insert(2, new QuickTests.Item(3, true));
+					sourceValue.Insert(3, new QuickTests.Item(3, true));
+					sourceValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
-
 			}
 
 			test();
@@ -60907,41 +63986,58 @@ namespace ObservableComputations.Test
 		[Test]
 		public void TestUniting16()
 		{
-			ObservableCollection<ObservableCollection<Item>> sources = getCollectionsOfItems();
+			ObservableCollection<Item> source = getItems();
 			OcConsumer consumer = new OcConsumer();
-			var testing = sources.Uniting<Item>().For(consumer);
+			var testing = source.Uniting<Item>().For(consumer);
+
+			Assert.AreEqual(source, testing.Source);
 
 			void test()
 			{
 				testing.ValidateConsistency();
-				var sourcesValue = ((ObservableCollection<ObservableCollection<Item>>)((ObservableCollection<ObservableCollection<Item>>)sources));
-				
-				if (sourcesValue != null)
-				{
-					sourcesValue.Insert(0, new ObservableCollection<Item>(new []{new Item(1, true)}));
+				var sourceValue = ((ObservableCollection<Item>)((ObservableCollection<Item>)source));
+
+				if (sourceValue != null)
+				{		
+					sourceValue.Insert(2, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
-					sourcesValue.RemoveAt(1);
+					sourceValue[3] = new QuickTests.Item(7, true);
 					testing.ValidateConsistency();
-					sourcesValue.Move(0, 1);
+					sourceValue.RemoveAt(3);
+					testing.ValidateConsistency();
+					sourceValue.Move(1, 3);
+					testing.ValidateConsistency();
+					sourceValue[2].Active = !sourceValue[2].Active;
+					testing.ValidateConsistency();
+					sourceValue[2].Num = sourceValue[2].Num + 1;
+					testing.ValidateConsistency();
+					sourceValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceValue.RemoveAt(1);
+					testing.ValidateConsistency();
+					sourceValue.Insert(0, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					sourceValue.Insert(0, new QuickTests.Item(2, true));
 					testing.ValidateConsistency();
 				}
 
-
 				IList listSource;
-				listSource = ((IList)((ObservableCollection<ObservableCollection<Item>>)sources));
+				listSource = ((IList)((ObservableCollection<Item>)source));
 				if (listSource != null)
 				{
 					listSource.Clear();
 					testing.ValidateConsistency();
 				}
 
-				if (sourcesValue != null)
+				if (sourceValue != null)
 				{
-					sourcesValue.Insert(0, new ObservableCollection<Item>(new []{new Item(1, true), new Item(2, true), new Item(3, true), new Item(4, true), new Item(5, true)}));
-					sourcesValue.Insert(0, new ObservableCollection<Item>(new []{new Item(6, true), new Item(7, true), new Item(8, true), new Item(8, true), new Item(10, true)}));
+					sourceValue.Insert(0, new QuickTests.Item(1, true));
+					sourceValue.Insert(1, new QuickTests.Item(2, true));
+					sourceValue.Insert(2, new QuickTests.Item(3, true));
+					sourceValue.Insert(3, new QuickTests.Item(3, true));
+					sourceValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
-
 			}
 
 			test();
@@ -60951,45 +64047,64 @@ namespace ObservableComputations.Test
 		[Test]
 		public void TestUniting17()
 		{
-			System.Collections.Specialized.INotifyCollectionChanged sources = getCollectionsOfItems();
+			System.Collections.Specialized.INotifyCollectionChanged source = getItems();
 			System.Collections.Generic.IEqualityComparer<Item> equalityComparer = EqualityComparer<Item>.Default;
-			int capacity = 0;
+			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
-			var testing = sources.Uniting<Item>(
+			var testing = source.Uniting<Item>(
 				equalityComparer,
-				capacity).For(consumer);
+				initialCapacity).For(consumer);
+
+			Assert.AreEqual(source, testing.Source);
+			Assert.AreEqual(equalityComparer, testing.EqualityComparer);
+			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
 
 			void test()
 			{
 				testing.ValidateConsistency();
-				var sourcesValue = ((ObservableCollection<ObservableCollection<Item>>)((System.Collections.Specialized.INotifyCollectionChanged)sources));
-				
-				if (sourcesValue != null)
-				{
-					sourcesValue.Insert(0, new ObservableCollection<Item>(new []{new Item(1, true)}));
+				var sourceValue = ((ObservableCollection<Item>)((System.Collections.Specialized.INotifyCollectionChanged)source));
+
+				if (sourceValue != null)
+				{		
+					sourceValue.Insert(2, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
-					sourcesValue.RemoveAt(1);
+					sourceValue[3] = new QuickTests.Item(7, true);
 					testing.ValidateConsistency();
-					sourcesValue.Move(0, 1);
+					sourceValue.RemoveAt(3);
+					testing.ValidateConsistency();
+					sourceValue.Move(1, 3);
+					testing.ValidateConsistency();
+					sourceValue[2].Active = !sourceValue[2].Active;
+					testing.ValidateConsistency();
+					sourceValue[2].Num = sourceValue[2].Num + 1;
+					testing.ValidateConsistency();
+					sourceValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceValue.RemoveAt(1);
+					testing.ValidateConsistency();
+					sourceValue.Insert(0, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					sourceValue.Insert(0, new QuickTests.Item(2, true));
 					testing.ValidateConsistency();
 				}
 
-
 				IList listSource;
-				listSource = ((IList)((System.Collections.Specialized.INotifyCollectionChanged)sources));
+				listSource = ((IList)((System.Collections.Specialized.INotifyCollectionChanged)source));
 				if (listSource != null)
 				{
 					listSource.Clear();
 					testing.ValidateConsistency();
 				}
 
-				if (sourcesValue != null)
+				if (sourceValue != null)
 				{
-					sourcesValue.Insert(0, new ObservableCollection<Item>(new []{new Item(1, true), new Item(2, true), new Item(3, true), new Item(4, true), new Item(5, true)}));
-					sourcesValue.Insert(0, new ObservableCollection<Item>(new []{new Item(6, true), new Item(7, true), new Item(8, true), new Item(8, true), new Item(10, true)}));
+					sourceValue.Insert(0, new QuickTests.Item(1, true));
+					sourceValue.Insert(1, new QuickTests.Item(2, true));
+					sourceValue.Insert(2, new QuickTests.Item(3, true));
+					sourceValue.Insert(3, new QuickTests.Item(3, true));
+					sourceValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
-
 			}
 
 			test();
@@ -60999,43 +64114,61 @@ namespace ObservableComputations.Test
 		[Test]
 		public void TestUniting18()
 		{
-			System.Collections.Specialized.INotifyCollectionChanged sources = getCollectionsOfItems();
+			System.Collections.Specialized.INotifyCollectionChanged source = getItems();
 			System.Collections.Generic.IEqualityComparer<Item> equalityComparer = EqualityComparer<Item>.Default;
 			OcConsumer consumer = new OcConsumer();
-			var testing = sources.Uniting<Item>(
+			var testing = source.Uniting<Item>(
 				equalityComparer).For(consumer);
+
+			Assert.AreEqual(source, testing.Source);
+			Assert.AreEqual(equalityComparer, testing.EqualityComparer);
 
 			void test()
 			{
 				testing.ValidateConsistency();
-				var sourcesValue = ((ObservableCollection<ObservableCollection<Item>>)((System.Collections.Specialized.INotifyCollectionChanged)sources));
-				
-				if (sourcesValue != null)
-				{
-					sourcesValue.Insert(0, new ObservableCollection<Item>(new []{new Item(1, true)}));
+				var sourceValue = ((ObservableCollection<Item>)((System.Collections.Specialized.INotifyCollectionChanged)source));
+
+				if (sourceValue != null)
+				{		
+					sourceValue.Insert(2, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
-					sourcesValue.RemoveAt(1);
+					sourceValue[3] = new QuickTests.Item(7, true);
 					testing.ValidateConsistency();
-					sourcesValue.Move(0, 1);
+					sourceValue.RemoveAt(3);
+					testing.ValidateConsistency();
+					sourceValue.Move(1, 3);
+					testing.ValidateConsistency();
+					sourceValue[2].Active = !sourceValue[2].Active;
+					testing.ValidateConsistency();
+					sourceValue[2].Num = sourceValue[2].Num + 1;
+					testing.ValidateConsistency();
+					sourceValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceValue.RemoveAt(1);
+					testing.ValidateConsistency();
+					sourceValue.Insert(0, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					sourceValue.Insert(0, new QuickTests.Item(2, true));
 					testing.ValidateConsistency();
 				}
 
-
 				IList listSource;
-				listSource = ((IList)((System.Collections.Specialized.INotifyCollectionChanged)sources));
+				listSource = ((IList)((System.Collections.Specialized.INotifyCollectionChanged)source));
 				if (listSource != null)
 				{
 					listSource.Clear();
 					testing.ValidateConsistency();
 				}
 
-				if (sourcesValue != null)
+				if (sourceValue != null)
 				{
-					sourcesValue.Insert(0, new ObservableCollection<Item>(new []{new Item(1, true), new Item(2, true), new Item(3, true), new Item(4, true), new Item(5, true)}));
-					sourcesValue.Insert(0, new ObservableCollection<Item>(new []{new Item(6, true), new Item(7, true), new Item(8, true), new Item(8, true), new Item(10, true)}));
+					sourceValue.Insert(0, new QuickTests.Item(1, true));
+					sourceValue.Insert(1, new QuickTests.Item(2, true));
+					sourceValue.Insert(2, new QuickTests.Item(3, true));
+					sourceValue.Insert(3, new QuickTests.Item(3, true));
+					sourceValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
-
 			}
 
 			test();
@@ -61045,45 +64178,64 @@ namespace ObservableComputations.Test
 		[Test]
 		public void TestUniting19()
 		{
-			ObservableCollection<ObservableCollection<Item>> sources = getCollectionsOfItems();
+			ObservableCollection<Item> source = getItems();
 			System.Collections.Generic.IEqualityComparer<Item> equalityComparer = EqualityComparer<Item>.Default;
-			int capacity = 0;
+			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
-			var testing = sources.Uniting<Item>(
+			var testing = source.Uniting<Item>(
 				equalityComparer,
-				capacity).For(consumer);
+				initialCapacity).For(consumer);
+
+			Assert.AreEqual(source, testing.Source);
+			Assert.AreEqual(equalityComparer, testing.EqualityComparer);
+			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
 
 			void test()
 			{
 				testing.ValidateConsistency();
-				var sourcesValue = ((ObservableCollection<ObservableCollection<Item>>)((ObservableCollection<ObservableCollection<Item>>)sources));
-				
-				if (sourcesValue != null)
-				{
-					sourcesValue.Insert(0, new ObservableCollection<Item>(new []{new Item(1, true)}));
+				var sourceValue = ((ObservableCollection<Item>)((ObservableCollection<Item>)source));
+
+				if (sourceValue != null)
+				{		
+					sourceValue.Insert(2, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
-					sourcesValue.RemoveAt(1);
+					sourceValue[3] = new QuickTests.Item(7, true);
 					testing.ValidateConsistency();
-					sourcesValue.Move(0, 1);
+					sourceValue.RemoveAt(3);
+					testing.ValidateConsistency();
+					sourceValue.Move(1, 3);
+					testing.ValidateConsistency();
+					sourceValue[2].Active = !sourceValue[2].Active;
+					testing.ValidateConsistency();
+					sourceValue[2].Num = sourceValue[2].Num + 1;
+					testing.ValidateConsistency();
+					sourceValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceValue.RemoveAt(1);
+					testing.ValidateConsistency();
+					sourceValue.Insert(0, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					sourceValue.Insert(0, new QuickTests.Item(2, true));
 					testing.ValidateConsistency();
 				}
 
-
 				IList listSource;
-				listSource = ((IList)((ObservableCollection<ObservableCollection<Item>>)sources));
+				listSource = ((IList)((ObservableCollection<Item>)source));
 				if (listSource != null)
 				{
 					listSource.Clear();
 					testing.ValidateConsistency();
 				}
 
-				if (sourcesValue != null)
+				if (sourceValue != null)
 				{
-					sourcesValue.Insert(0, new ObservableCollection<Item>(new []{new Item(1, true), new Item(2, true), new Item(3, true), new Item(4, true), new Item(5, true)}));
-					sourcesValue.Insert(0, new ObservableCollection<Item>(new []{new Item(6, true), new Item(7, true), new Item(8, true), new Item(8, true), new Item(10, true)}));
+					sourceValue.Insert(0, new QuickTests.Item(1, true));
+					sourceValue.Insert(1, new QuickTests.Item(2, true));
+					sourceValue.Insert(2, new QuickTests.Item(3, true));
+					sourceValue.Insert(3, new QuickTests.Item(3, true));
+					sourceValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
-
 			}
 
 			test();
@@ -61093,43 +64245,61 @@ namespace ObservableComputations.Test
 		[Test]
 		public void TestUniting20()
 		{
-			ObservableCollection<ObservableCollection<Item>> sources = getCollectionsOfItems();
+			ObservableCollection<Item> source = getItems();
 			System.Collections.Generic.IEqualityComparer<Item> equalityComparer = EqualityComparer<Item>.Default;
 			OcConsumer consumer = new OcConsumer();
-			var testing = sources.Uniting<Item>(
+			var testing = source.Uniting<Item>(
 				equalityComparer).For(consumer);
+
+			Assert.AreEqual(source, testing.Source);
+			Assert.AreEqual(equalityComparer, testing.EqualityComparer);
 
 			void test()
 			{
 				testing.ValidateConsistency();
-				var sourcesValue = ((ObservableCollection<ObservableCollection<Item>>)((ObservableCollection<ObservableCollection<Item>>)sources));
-				
-				if (sourcesValue != null)
-				{
-					sourcesValue.Insert(0, new ObservableCollection<Item>(new []{new Item(1, true)}));
+				var sourceValue = ((ObservableCollection<Item>)((ObservableCollection<Item>)source));
+
+				if (sourceValue != null)
+				{		
+					sourceValue.Insert(2, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
-					sourcesValue.RemoveAt(1);
+					sourceValue[3] = new QuickTests.Item(7, true);
 					testing.ValidateConsistency();
-					sourcesValue.Move(0, 1);
+					sourceValue.RemoveAt(3);
+					testing.ValidateConsistency();
+					sourceValue.Move(1, 3);
+					testing.ValidateConsistency();
+					sourceValue[2].Active = !sourceValue[2].Active;
+					testing.ValidateConsistency();
+					sourceValue[2].Num = sourceValue[2].Num + 1;
+					testing.ValidateConsistency();
+					sourceValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceValue.RemoveAt(1);
+					testing.ValidateConsistency();
+					sourceValue.Insert(0, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					sourceValue.Insert(0, new QuickTests.Item(2, true));
 					testing.ValidateConsistency();
 				}
 
-
 				IList listSource;
-				listSource = ((IList)((ObservableCollection<ObservableCollection<Item>>)sources));
+				listSource = ((IList)((ObservableCollection<Item>)source));
 				if (listSource != null)
 				{
 					listSource.Clear();
 					testing.ValidateConsistency();
 				}
 
-				if (sourcesValue != null)
+				if (sourceValue != null)
 				{
-					sourcesValue.Insert(0, new ObservableCollection<Item>(new []{new Item(1, true), new Item(2, true), new Item(3, true), new Item(4, true), new Item(5, true)}));
-					sourcesValue.Insert(0, new ObservableCollection<Item>(new []{new Item(6, true), new Item(7, true), new Item(8, true), new Item(8, true), new Item(10, true)}));
+					sourceValue.Insert(0, new QuickTests.Item(1, true));
+					sourceValue.Insert(1, new QuickTests.Item(2, true));
+					sourceValue.Insert(2, new QuickTests.Item(3, true));
+					sourceValue.Insert(3, new QuickTests.Item(3, true));
+					sourceValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
-
 			}
 
 			test();
@@ -61139,52 +64309,71 @@ namespace ObservableComputations.Test
 		[Test]
 		public void TestUniting21()
 		{
-			Scalar<System.Collections.Specialized.INotifyCollectionChanged> sourcesScalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getCollectionsOfItems());
+			Scalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
 			System.Collections.Generic.IEqualityComparer<Item> equalityComparer = EqualityComparer<Item>.Default;
-			int capacity = 0;
+			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
-			var testing = sourcesScalar.Uniting<Item>(
+			var testing = sourceScalar.Uniting<Item>(
 				equalityComparer,
-				capacity).For(consumer);
+				initialCapacity).For(consumer);
+
+			Assert.AreEqual(sourceScalar, testing.SourceScalar);
+			Assert.AreEqual(equalityComparer, testing.EqualityComparer);
+			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
 
 			void test()
 			{
 				testing.ValidateConsistency();
-				var sourcesScalarValue = ((ObservableCollection<ObservableCollection<Item>>)((System.Collections.Specialized.INotifyCollectionChanged)sourcesScalar.Value));
-				
-				if (sourcesScalarValue != null)
-				{
-					sourcesScalarValue.Insert(0, new ObservableCollection<Item>(new []{new Item(1, true)}));
+				var sourceScalarValue = ((ObservableCollection<Item>)((System.Collections.Specialized.INotifyCollectionChanged)sourceScalar.Value));
+
+				if (sourceScalarValue != null)
+				{		
+					sourceScalarValue.Insert(2, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
-					sourcesScalarValue.RemoveAt(1);
+					sourceScalarValue[3] = new QuickTests.Item(7, true);
 					testing.ValidateConsistency();
-					sourcesScalarValue.Move(0, 1);
+					sourceScalarValue.RemoveAt(3);
+					testing.ValidateConsistency();
+					sourceScalarValue.Move(1, 3);
+					testing.ValidateConsistency();
+					sourceScalarValue[2].Active = !sourceScalarValue[2].Active;
+					testing.ValidateConsistency();
+					sourceScalarValue[2].Num = sourceScalarValue[2].Num + 1;
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(1);
+					testing.ValidateConsistency();
+					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					sourceScalarValue.Insert(0, new QuickTests.Item(2, true));
 					testing.ValidateConsistency();
 				}
 
-
 				IList listSource;
-				listSource = ((IList)((System.Collections.Specialized.INotifyCollectionChanged)sourcesScalar.Value));
+				listSource = ((IList)((System.Collections.Specialized.INotifyCollectionChanged)sourceScalar.Value));
 				if (listSource != null)
 				{
 					listSource.Clear();
 					testing.ValidateConsistency();
 				}
 
-				if (sourcesScalarValue != null)
+				if (sourceScalarValue != null)
 				{
-					sourcesScalarValue.Insert(0, new ObservableCollection<Item>(new []{new Item(1, true), new Item(2, true), new Item(3, true), new Item(4, true), new Item(5, true)}));
-					sourcesScalarValue.Insert(0, new ObservableCollection<Item>(new []{new Item(6, true), new Item(7, true), new Item(8, true), new Item(8, true), new Item(10, true)}));
+					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
+					sourceScalarValue.Insert(1, new QuickTests.Item(2, true));
+					sourceScalarValue.Insert(2, new QuickTests.Item(3, true));
+					sourceScalarValue.Insert(3, new QuickTests.Item(3, true));
+					sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
-
 			}
 
 			test();
 
-			((Scalar<System.Collections.Specialized.INotifyCollectionChanged>)sourcesScalar).Touch();
+			((Scalar<System.Collections.Specialized.INotifyCollectionChanged>)sourceScalar).Touch();
 			test();
-			((Scalar<System.Collections.Specialized.INotifyCollectionChanged>)sourcesScalar).Change(null);
+			((Scalar<System.Collections.Specialized.INotifyCollectionChanged>)sourceScalar).Change(null);
 			test();
 			consumer.Dispose();
 		}
@@ -61192,50 +64381,68 @@ namespace ObservableComputations.Test
 		[Test]
 		public void TestUniting22()
 		{
-			Scalar<System.Collections.Specialized.INotifyCollectionChanged> sourcesScalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getCollectionsOfItems());
+			Scalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
 			System.Collections.Generic.IEqualityComparer<Item> equalityComparer = EqualityComparer<Item>.Default;
 			OcConsumer consumer = new OcConsumer();
-			var testing = sourcesScalar.Uniting<Item>(
+			var testing = sourceScalar.Uniting<Item>(
 				equalityComparer).For(consumer);
+
+			Assert.AreEqual(sourceScalar, testing.SourceScalar);
+			Assert.AreEqual(equalityComparer, testing.EqualityComparer);
 
 			void test()
 			{
 				testing.ValidateConsistency();
-				var sourcesScalarValue = ((ObservableCollection<ObservableCollection<Item>>)((System.Collections.Specialized.INotifyCollectionChanged)sourcesScalar.Value));
-				
-				if (sourcesScalarValue != null)
-				{
-					sourcesScalarValue.Insert(0, new ObservableCollection<Item>(new []{new Item(1, true)}));
+				var sourceScalarValue = ((ObservableCollection<Item>)((System.Collections.Specialized.INotifyCollectionChanged)sourceScalar.Value));
+
+				if (sourceScalarValue != null)
+				{		
+					sourceScalarValue.Insert(2, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
-					sourcesScalarValue.RemoveAt(1);
+					sourceScalarValue[3] = new QuickTests.Item(7, true);
 					testing.ValidateConsistency();
-					sourcesScalarValue.Move(0, 1);
+					sourceScalarValue.RemoveAt(3);
+					testing.ValidateConsistency();
+					sourceScalarValue.Move(1, 3);
+					testing.ValidateConsistency();
+					sourceScalarValue[2].Active = !sourceScalarValue[2].Active;
+					testing.ValidateConsistency();
+					sourceScalarValue[2].Num = sourceScalarValue[2].Num + 1;
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(1);
+					testing.ValidateConsistency();
+					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					sourceScalarValue.Insert(0, new QuickTests.Item(2, true));
 					testing.ValidateConsistency();
 				}
 
-
 				IList listSource;
-				listSource = ((IList)((System.Collections.Specialized.INotifyCollectionChanged)sourcesScalar.Value));
+				listSource = ((IList)((System.Collections.Specialized.INotifyCollectionChanged)sourceScalar.Value));
 				if (listSource != null)
 				{
 					listSource.Clear();
 					testing.ValidateConsistency();
 				}
 
-				if (sourcesScalarValue != null)
+				if (sourceScalarValue != null)
 				{
-					sourcesScalarValue.Insert(0, new ObservableCollection<Item>(new []{new Item(1, true), new Item(2, true), new Item(3, true), new Item(4, true), new Item(5, true)}));
-					sourcesScalarValue.Insert(0, new ObservableCollection<Item>(new []{new Item(6, true), new Item(7, true), new Item(8, true), new Item(8, true), new Item(10, true)}));
+					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
+					sourceScalarValue.Insert(1, new QuickTests.Item(2, true));
+					sourceScalarValue.Insert(2, new QuickTests.Item(3, true));
+					sourceScalarValue.Insert(3, new QuickTests.Item(3, true));
+					sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
-
 			}
 
 			test();
 
-			((Scalar<System.Collections.Specialized.INotifyCollectionChanged>)sourcesScalar).Touch();
+			((Scalar<System.Collections.Specialized.INotifyCollectionChanged>)sourceScalar).Touch();
 			test();
-			((Scalar<System.Collections.Specialized.INotifyCollectionChanged>)sourcesScalar).Change(null);
+			((Scalar<System.Collections.Specialized.INotifyCollectionChanged>)sourceScalar).Change(null);
 			test();
 			consumer.Dispose();
 		}
@@ -61243,52 +64450,71 @@ namespace ObservableComputations.Test
 		[Test]
 		public void TestUniting23()
 		{
-			Scalar<ObservableCollection<ObservableCollection<Item>>> sourcesScalar = getScalar<ObservableCollection<ObservableCollection<Item>>>(getCollectionsOfItems());
+			Scalar<ObservableCollection<Item>> sourceScalar = getScalar<ObservableCollection<Item>>(getItems());
 			System.Collections.Generic.IEqualityComparer<Item> equalityComparer = EqualityComparer<Item>.Default;
-			int capacity = 0;
+			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
-			var testing = sourcesScalar.Uniting<Item>(
+			var testing = sourceScalar.Uniting<Item>(
 				equalityComparer,
-				capacity).For(consumer);
+				initialCapacity).For(consumer);
+
+			Assert.AreEqual(sourceScalar, testing.SourceScalar);
+			Assert.AreEqual(equalityComparer, testing.EqualityComparer);
+			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
 
 			void test()
 			{
 				testing.ValidateConsistency();
-				var sourcesScalarValue = ((ObservableCollection<ObservableCollection<Item>>)((ObservableCollection<ObservableCollection<Item>>)sourcesScalar.Value));
-				
-				if (sourcesScalarValue != null)
-				{
-					sourcesScalarValue.Insert(0, new ObservableCollection<Item>(new []{new Item(1, true)}));
+				var sourceScalarValue = ((ObservableCollection<Item>)((ObservableCollection<Item>)sourceScalar.Value));
+
+				if (sourceScalarValue != null)
+				{		
+					sourceScalarValue.Insert(2, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
-					sourcesScalarValue.RemoveAt(1);
+					sourceScalarValue[3] = new QuickTests.Item(7, true);
 					testing.ValidateConsistency();
-					sourcesScalarValue.Move(0, 1);
+					sourceScalarValue.RemoveAt(3);
+					testing.ValidateConsistency();
+					sourceScalarValue.Move(1, 3);
+					testing.ValidateConsistency();
+					sourceScalarValue[2].Active = !sourceScalarValue[2].Active;
+					testing.ValidateConsistency();
+					sourceScalarValue[2].Num = sourceScalarValue[2].Num + 1;
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(1);
+					testing.ValidateConsistency();
+					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					sourceScalarValue.Insert(0, new QuickTests.Item(2, true));
 					testing.ValidateConsistency();
 				}
 
-
 				IList listSource;
-				listSource = ((IList)((ObservableCollection<ObservableCollection<Item>>)sourcesScalar.Value));
+				listSource = ((IList)((ObservableCollection<Item>)sourceScalar.Value));
 				if (listSource != null)
 				{
 					listSource.Clear();
 					testing.ValidateConsistency();
 				}
 
-				if (sourcesScalarValue != null)
+				if (sourceScalarValue != null)
 				{
-					sourcesScalarValue.Insert(0, new ObservableCollection<Item>(new []{new Item(1, true), new Item(2, true), new Item(3, true), new Item(4, true), new Item(5, true)}));
-					sourcesScalarValue.Insert(0, new ObservableCollection<Item>(new []{new Item(6, true), new Item(7, true), new Item(8, true), new Item(8, true), new Item(10, true)}));
+					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
+					sourceScalarValue.Insert(1, new QuickTests.Item(2, true));
+					sourceScalarValue.Insert(2, new QuickTests.Item(3, true));
+					sourceScalarValue.Insert(3, new QuickTests.Item(3, true));
+					sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
-
 			}
 
 			test();
 
-			((Scalar<ObservableCollection<ObservableCollection<Item>>>)sourcesScalar).Touch();
+			((Scalar<ObservableCollection<Item>>)sourceScalar).Touch();
 			test();
-			((Scalar<ObservableCollection<ObservableCollection<Item>>>)sourcesScalar).Change(null);
+			((Scalar<ObservableCollection<Item>>)sourceScalar).Change(null);
 			test();
 			consumer.Dispose();
 		}
@@ -61296,50 +64522,68 @@ namespace ObservableComputations.Test
 		[Test]
 		public void TestUniting24()
 		{
-			Scalar<ObservableCollection<ObservableCollection<Item>>> sourcesScalar = getScalar<ObservableCollection<ObservableCollection<Item>>>(getCollectionsOfItems());
+			Scalar<ObservableCollection<Item>> sourceScalar = getScalar<ObservableCollection<Item>>(getItems());
 			System.Collections.Generic.IEqualityComparer<Item> equalityComparer = EqualityComparer<Item>.Default;
 			OcConsumer consumer = new OcConsumer();
-			var testing = sourcesScalar.Uniting<Item>(
+			var testing = sourceScalar.Uniting<Item>(
 				equalityComparer).For(consumer);
+
+			Assert.AreEqual(sourceScalar, testing.SourceScalar);
+			Assert.AreEqual(equalityComparer, testing.EqualityComparer);
 
 			void test()
 			{
 				testing.ValidateConsistency();
-				var sourcesScalarValue = ((ObservableCollection<ObservableCollection<Item>>)((ObservableCollection<ObservableCollection<Item>>)sourcesScalar.Value));
-				
-				if (sourcesScalarValue != null)
-				{
-					sourcesScalarValue.Insert(0, new ObservableCollection<Item>(new []{new Item(1, true)}));
+				var sourceScalarValue = ((ObservableCollection<Item>)((ObservableCollection<Item>)sourceScalar.Value));
+
+				if (sourceScalarValue != null)
+				{		
+					sourceScalarValue.Insert(2, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
-					sourcesScalarValue.RemoveAt(1);
+					sourceScalarValue[3] = new QuickTests.Item(7, true);
 					testing.ValidateConsistency();
-					sourcesScalarValue.Move(0, 1);
+					sourceScalarValue.RemoveAt(3);
+					testing.ValidateConsistency();
+					sourceScalarValue.Move(1, 3);
+					testing.ValidateConsistency();
+					sourceScalarValue[2].Active = !sourceScalarValue[2].Active;
+					testing.ValidateConsistency();
+					sourceScalarValue[2].Num = sourceScalarValue[2].Num + 1;
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(1);
+					testing.ValidateConsistency();
+					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					sourceScalarValue.Insert(0, new QuickTests.Item(2, true));
 					testing.ValidateConsistency();
 				}
 
-
 				IList listSource;
-				listSource = ((IList)((ObservableCollection<ObservableCollection<Item>>)sourcesScalar.Value));
+				listSource = ((IList)((ObservableCollection<Item>)sourceScalar.Value));
 				if (listSource != null)
 				{
 					listSource.Clear();
 					testing.ValidateConsistency();
 				}
 
-				if (sourcesScalarValue != null)
+				if (sourceScalarValue != null)
 				{
-					sourcesScalarValue.Insert(0, new ObservableCollection<Item>(new []{new Item(1, true), new Item(2, true), new Item(3, true), new Item(4, true), new Item(5, true)}));
-					sourcesScalarValue.Insert(0, new ObservableCollection<Item>(new []{new Item(6, true), new Item(7, true), new Item(8, true), new Item(8, true), new Item(10, true)}));
+					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
+					sourceScalarValue.Insert(1, new QuickTests.Item(2, true));
+					sourceScalarValue.Insert(2, new QuickTests.Item(3, true));
+					sourceScalarValue.Insert(3, new QuickTests.Item(3, true));
+					sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
-
 			}
 
 			test();
 
-			((Scalar<ObservableCollection<ObservableCollection<Item>>>)sourcesScalar).Touch();
+			((Scalar<ObservableCollection<Item>>)sourceScalar).Touch();
 			test();
-			((Scalar<ObservableCollection<ObservableCollection<Item>>>)sourcesScalar).Change(null);
+			((Scalar<ObservableCollection<Item>>)sourceScalar).Change(null);
 			test();
 			consumer.Dispose();
 		}
@@ -61350,12 +64594,15 @@ namespace ObservableComputations.Test
 			System.Collections.Specialized.INotifyCollectionChanged source1 = getItems();
 			System.Collections.Specialized.INotifyCollectionChanged source2 = getItems();
 			System.Collections.Generic.IEqualityComparer<Item> equalityComparer = EqualityComparer<Item>.Default;
-			int capacity = 0;
+			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = source1.Uniting<Item>(
 				source2,
 				equalityComparer,
-				capacity).For(consumer);
+				initialCapacity).For(consumer);
+
+			Assert.AreEqual(equalityComparer, testing.EqualityComparer);
+			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
 
 			void test()
 			{
@@ -61461,6 +64708,8 @@ namespace ObservableComputations.Test
 				source2,
 				equalityComparer).For(consumer);
 
+			Assert.AreEqual(equalityComparer, testing.EqualityComparer);
+
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -61559,11 +64808,13 @@ namespace ObservableComputations.Test
 		{
 			System.Collections.Specialized.INotifyCollectionChanged source1 = getItems();
 			System.Collections.Specialized.INotifyCollectionChanged source2 = getItems();
-			int capacity = 0;
+			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = source1.Uniting<Item>(
 				source2,
-				capacity).For(consumer);
+				initialCapacity).For(consumer);
+
+			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
 
 			void test()
 			{
@@ -61667,6 +64918,7 @@ namespace ObservableComputations.Test
 			var testing = source1.Uniting<Item>(
 				source2).For(consumer);
 
+
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -61766,12 +65018,15 @@ namespace ObservableComputations.Test
 			System.Collections.Specialized.INotifyCollectionChanged source1 = getItems();
 			ObservableCollection<Item> source2 = getItems();
 			System.Collections.Generic.IEqualityComparer<Item> equalityComparer = EqualityComparer<Item>.Default;
-			int capacity = 0;
+			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = source1.Uniting<Item>(
 				source2,
 				equalityComparer,
-				capacity).For(consumer);
+				initialCapacity).For(consumer);
+
+			Assert.AreEqual(equalityComparer, testing.EqualityComparer);
+			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
 
 			void test()
 			{
@@ -61877,6 +65132,8 @@ namespace ObservableComputations.Test
 				source2,
 				equalityComparer).For(consumer);
 
+			Assert.AreEqual(equalityComparer, testing.EqualityComparer);
+
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -61975,11 +65232,13 @@ namespace ObservableComputations.Test
 		{
 			System.Collections.Specialized.INotifyCollectionChanged source1 = getItems();
 			ObservableCollection<Item> source2 = getItems();
-			int capacity = 0;
+			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = source1.Uniting<Item>(
 				source2,
-				capacity).For(consumer);
+				initialCapacity).For(consumer);
+
+			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
 
 			void test()
 			{
@@ -62083,6 +65342,7 @@ namespace ObservableComputations.Test
 			var testing = source1.Uniting<Item>(
 				source2).For(consumer);
 
+
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -62182,12 +65442,15 @@ namespace ObservableComputations.Test
 			ObservableCollection<Item> source1 = getItems();
 			System.Collections.Specialized.INotifyCollectionChanged source2 = getItems();
 			System.Collections.Generic.IEqualityComparer<Item> equalityComparer = EqualityComparer<Item>.Default;
-			int capacity = 0;
+			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = source1.Uniting<Item>(
 				source2,
 				equalityComparer,
-				capacity).For(consumer);
+				initialCapacity).For(consumer);
+
+			Assert.AreEqual(equalityComparer, testing.EqualityComparer);
+			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
 
 			void test()
 			{
@@ -62293,6 +65556,8 @@ namespace ObservableComputations.Test
 				source2,
 				equalityComparer).For(consumer);
 
+			Assert.AreEqual(equalityComparer, testing.EqualityComparer);
+
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -62391,11 +65656,13 @@ namespace ObservableComputations.Test
 		{
 			ObservableCollection<Item> source1 = getItems();
 			System.Collections.Specialized.INotifyCollectionChanged source2 = getItems();
-			int capacity = 0;
+			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = source1.Uniting<Item>(
 				source2,
-				capacity).For(consumer);
+				initialCapacity).For(consumer);
+
+			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
 
 			void test()
 			{
@@ -62499,6 +65766,7 @@ namespace ObservableComputations.Test
 			var testing = source1.Uniting<Item>(
 				source2).For(consumer);
 
+
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -62598,12 +65866,15 @@ namespace ObservableComputations.Test
 			ObservableCollection<Item> source1 = getItems();
 			ObservableCollection<Item> source2 = getItems();
 			System.Collections.Generic.IEqualityComparer<Item> equalityComparer = EqualityComparer<Item>.Default;
-			int capacity = 0;
+			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = source1.Uniting<Item>(
 				source2,
 				equalityComparer,
-				capacity).For(consumer);
+				initialCapacity).For(consumer);
+
+			Assert.AreEqual(equalityComparer, testing.EqualityComparer);
+			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
 
 			void test()
 			{
@@ -62709,6 +65980,8 @@ namespace ObservableComputations.Test
 				source2,
 				equalityComparer).For(consumer);
 
+			Assert.AreEqual(equalityComparer, testing.EqualityComparer);
+
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -62807,11 +66080,13 @@ namespace ObservableComputations.Test
 		{
 			ObservableCollection<Item> source1 = getItems();
 			ObservableCollection<Item> source2 = getItems();
-			int capacity = 0;
+			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = source1.Uniting<Item>(
 				source2,
-				capacity).For(consumer);
+				initialCapacity).For(consumer);
+
+			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
 
 			void test()
 			{
@@ -62915,6 +66190,7 @@ namespace ObservableComputations.Test
 			var testing = source1.Uniting<Item>(
 				source2).For(consumer);
 
+
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -63014,12 +66290,15 @@ namespace ObservableComputations.Test
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> source1Scalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
 			System.Collections.Specialized.INotifyCollectionChanged source2 = getItems();
 			System.Collections.Generic.IEqualityComparer<Item> equalityComparer = EqualityComparer<Item>.Default;
-			int capacity = 0;
+			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = source1Scalar.Uniting<Item>(
 				source2,
 				equalityComparer,
-				capacity).For(consumer);
+				initialCapacity).For(consumer);
+
+			Assert.AreEqual(equalityComparer, testing.EqualityComparer);
+			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
 
 			void test()
 			{
@@ -63130,6 +66409,8 @@ namespace ObservableComputations.Test
 				source2,
 				equalityComparer).For(consumer);
 
+			Assert.AreEqual(equalityComparer, testing.EqualityComparer);
+
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -63233,11 +66514,13 @@ namespace ObservableComputations.Test
 		{
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> source1Scalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
 			System.Collections.Specialized.INotifyCollectionChanged source2 = getItems();
-			int capacity = 0;
+			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = source1Scalar.Uniting<Item>(
 				source2,
-				capacity).For(consumer);
+				initialCapacity).For(consumer);
+
+			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
 
 			void test()
 			{
@@ -63346,6 +66629,7 @@ namespace ObservableComputations.Test
 			var testing = source1Scalar.Uniting<Item>(
 				source2).For(consumer);
 
+
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -63450,12 +66734,15 @@ namespace ObservableComputations.Test
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> source1Scalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
 			ObservableCollection<Item> source2 = getItems();
 			System.Collections.Generic.IEqualityComparer<Item> equalityComparer = EqualityComparer<Item>.Default;
-			int capacity = 0;
+			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = source1Scalar.Uniting<Item>(
 				source2,
 				equalityComparer,
-				capacity).For(consumer);
+				initialCapacity).For(consumer);
+
+			Assert.AreEqual(equalityComparer, testing.EqualityComparer);
+			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
 
 			void test()
 			{
@@ -63566,6 +66853,8 @@ namespace ObservableComputations.Test
 				source2,
 				equalityComparer).For(consumer);
 
+			Assert.AreEqual(equalityComparer, testing.EqualityComparer);
+
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -63669,11 +66958,13 @@ namespace ObservableComputations.Test
 		{
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> source1Scalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
 			ObservableCollection<Item> source2 = getItems();
-			int capacity = 0;
+			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = source1Scalar.Uniting<Item>(
 				source2,
-				capacity).For(consumer);
+				initialCapacity).For(consumer);
+
+			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
 
 			void test()
 			{
@@ -63782,6 +67073,7 @@ namespace ObservableComputations.Test
 			var testing = source1Scalar.Uniting<Item>(
 				source2).For(consumer);
 
+
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -63886,12 +67178,15 @@ namespace ObservableComputations.Test
 			Scalar<ObservableCollection<Item>> source1Scalar = getScalar<ObservableCollection<Item>>(getItems());
 			System.Collections.Specialized.INotifyCollectionChanged source2 = getItems();
 			System.Collections.Generic.IEqualityComparer<Item> equalityComparer = EqualityComparer<Item>.Default;
-			int capacity = 0;
+			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = source1Scalar.Uniting<Item>(
 				source2,
 				equalityComparer,
-				capacity).For(consumer);
+				initialCapacity).For(consumer);
+
+			Assert.AreEqual(equalityComparer, testing.EqualityComparer);
+			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
 
 			void test()
 			{
@@ -64002,6 +67297,8 @@ namespace ObservableComputations.Test
 				source2,
 				equalityComparer).For(consumer);
 
+			Assert.AreEqual(equalityComparer, testing.EqualityComparer);
+
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -64105,11 +67402,13 @@ namespace ObservableComputations.Test
 		{
 			Scalar<ObservableCollection<Item>> source1Scalar = getScalar<ObservableCollection<Item>>(getItems());
 			System.Collections.Specialized.INotifyCollectionChanged source2 = getItems();
-			int capacity = 0;
+			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = source1Scalar.Uniting<Item>(
 				source2,
-				capacity).For(consumer);
+				initialCapacity).For(consumer);
+
+			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
 
 			void test()
 			{
@@ -64218,6 +67517,7 @@ namespace ObservableComputations.Test
 			var testing = source1Scalar.Uniting<Item>(
 				source2).For(consumer);
 
+
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -64322,12 +67622,15 @@ namespace ObservableComputations.Test
 			Scalar<ObservableCollection<Item>> source1Scalar = getScalar<ObservableCollection<Item>>(getItems());
 			ObservableCollection<Item> source2 = getItems();
 			System.Collections.Generic.IEqualityComparer<Item> equalityComparer = EqualityComparer<Item>.Default;
-			int capacity = 0;
+			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = source1Scalar.Uniting<Item>(
 				source2,
 				equalityComparer,
-				capacity).For(consumer);
+				initialCapacity).For(consumer);
+
+			Assert.AreEqual(equalityComparer, testing.EqualityComparer);
+			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
 
 			void test()
 			{
@@ -64438,6 +67741,8 @@ namespace ObservableComputations.Test
 				source2,
 				equalityComparer).For(consumer);
 
+			Assert.AreEqual(equalityComparer, testing.EqualityComparer);
+
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -64541,11 +67846,13 @@ namespace ObservableComputations.Test
 		{
 			Scalar<ObservableCollection<Item>> source1Scalar = getScalar<ObservableCollection<Item>>(getItems());
 			ObservableCollection<Item> source2 = getItems();
-			int capacity = 0;
+			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = source1Scalar.Uniting<Item>(
 				source2,
-				capacity).For(consumer);
+				initialCapacity).For(consumer);
+
+			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
 
 			void test()
 			{
@@ -64654,6 +67961,7 @@ namespace ObservableComputations.Test
 			var testing = source1Scalar.Uniting<Item>(
 				source2).For(consumer);
 
+
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -64758,12 +68066,15 @@ namespace ObservableComputations.Test
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> source1Scalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> source2Scalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
 			System.Collections.Generic.IEqualityComparer<Item> equalityComparer = EqualityComparer<Item>.Default;
-			int capacity = 0;
+			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = source1Scalar.Uniting<Item>(
 				source2Scalar,
 				equalityComparer,
-				capacity).For(consumer);
+				initialCapacity).For(consumer);
+
+			Assert.AreEqual(equalityComparer, testing.EqualityComparer);
+			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
 
 			void test()
 			{
@@ -64879,6 +68190,8 @@ namespace ObservableComputations.Test
 				source2Scalar,
 				equalityComparer).For(consumer);
 
+			Assert.AreEqual(equalityComparer, testing.EqualityComparer);
+
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -64987,11 +68300,13 @@ namespace ObservableComputations.Test
 		{
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> source1Scalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> source2Scalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
-			int capacity = 0;
+			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = source1Scalar.Uniting<Item>(
 				source2Scalar,
-				capacity).For(consumer);
+				initialCapacity).For(consumer);
+
+			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
 
 			void test()
 			{
@@ -65105,6 +68420,7 @@ namespace ObservableComputations.Test
 			var testing = source1Scalar.Uniting<Item>(
 				source2Scalar).For(consumer);
 
+
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -65214,12 +68530,15 @@ namespace ObservableComputations.Test
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> source1Scalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
 			Scalar<ObservableCollection<Item>> source2Scalar = getScalar<ObservableCollection<Item>>(getItems());
 			System.Collections.Generic.IEqualityComparer<Item> equalityComparer = EqualityComparer<Item>.Default;
-			int capacity = 0;
+			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = source1Scalar.Uniting<Item>(
 				source2Scalar,
 				equalityComparer,
-				capacity).For(consumer);
+				initialCapacity).For(consumer);
+
+			Assert.AreEqual(equalityComparer, testing.EqualityComparer);
+			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
 
 			void test()
 			{
@@ -65335,6 +68654,8 @@ namespace ObservableComputations.Test
 				source2Scalar,
 				equalityComparer).For(consumer);
 
+			Assert.AreEqual(equalityComparer, testing.EqualityComparer);
+
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -65443,11 +68764,13 @@ namespace ObservableComputations.Test
 		{
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> source1Scalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
 			Scalar<ObservableCollection<Item>> source2Scalar = getScalar<ObservableCollection<Item>>(getItems());
-			int capacity = 0;
+			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = source1Scalar.Uniting<Item>(
 				source2Scalar,
-				capacity).For(consumer);
+				initialCapacity).For(consumer);
+
+			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
 
 			void test()
 			{
@@ -65561,6 +68884,7 @@ namespace ObservableComputations.Test
 			var testing = source1Scalar.Uniting<Item>(
 				source2Scalar).For(consumer);
 
+
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -65670,12 +68994,15 @@ namespace ObservableComputations.Test
 			Scalar<ObservableCollection<Item>> source1Scalar = getScalar<ObservableCollection<Item>>(getItems());
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> source2Scalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
 			System.Collections.Generic.IEqualityComparer<Item> equalityComparer = EqualityComparer<Item>.Default;
-			int capacity = 0;
+			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = source1Scalar.Uniting<Item>(
 				source2Scalar,
 				equalityComparer,
-				capacity).For(consumer);
+				initialCapacity).For(consumer);
+
+			Assert.AreEqual(equalityComparer, testing.EqualityComparer);
+			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
 
 			void test()
 			{
@@ -65791,6 +69118,8 @@ namespace ObservableComputations.Test
 				source2Scalar,
 				equalityComparer).For(consumer);
 
+			Assert.AreEqual(equalityComparer, testing.EqualityComparer);
+
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -65899,11 +69228,13 @@ namespace ObservableComputations.Test
 		{
 			Scalar<ObservableCollection<Item>> source1Scalar = getScalar<ObservableCollection<Item>>(getItems());
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> source2Scalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
-			int capacity = 0;
+			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = source1Scalar.Uniting<Item>(
 				source2Scalar,
-				capacity).For(consumer);
+				initialCapacity).For(consumer);
+
+			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
 
 			void test()
 			{
@@ -66017,6 +69348,7 @@ namespace ObservableComputations.Test
 			var testing = source1Scalar.Uniting<Item>(
 				source2Scalar).For(consumer);
 
+
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -66126,12 +69458,15 @@ namespace ObservableComputations.Test
 			Scalar<ObservableCollection<Item>> source1Scalar = getScalar<ObservableCollection<Item>>(getItems());
 			Scalar<ObservableCollection<Item>> source2Scalar = getScalar<ObservableCollection<Item>>(getItems());
 			System.Collections.Generic.IEqualityComparer<Item> equalityComparer = EqualityComparer<Item>.Default;
-			int capacity = 0;
+			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = source1Scalar.Uniting<Item>(
 				source2Scalar,
 				equalityComparer,
-				capacity).For(consumer);
+				initialCapacity).For(consumer);
+
+			Assert.AreEqual(equalityComparer, testing.EqualityComparer);
+			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
 
 			void test()
 			{
@@ -66247,6 +69582,8 @@ namespace ObservableComputations.Test
 				source2Scalar,
 				equalityComparer).For(consumer);
 
+			Assert.AreEqual(equalityComparer, testing.EqualityComparer);
+
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -66355,11 +69692,13 @@ namespace ObservableComputations.Test
 		{
 			Scalar<ObservableCollection<Item>> source1Scalar = getScalar<ObservableCollection<Item>>(getItems());
 			Scalar<ObservableCollection<Item>> source2Scalar = getScalar<ObservableCollection<Item>>(getItems());
-			int capacity = 0;
+			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = source1Scalar.Uniting<Item>(
 				source2Scalar,
-				capacity).For(consumer);
+				initialCapacity).For(consumer);
+
+			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
 
 			void test()
 			{
@@ -66473,6 +69812,7 @@ namespace ObservableComputations.Test
 			var testing = source1Scalar.Uniting<Item>(
 				source2Scalar).For(consumer);
 
+
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -66582,12 +69922,15 @@ namespace ObservableComputations.Test
 			System.Collections.Specialized.INotifyCollectionChanged source1 = getItems();
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> source2Scalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
 			System.Collections.Generic.IEqualityComparer<Item> equalityComparer = EqualityComparer<Item>.Default;
-			int capacity = 0;
+			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = source1.Uniting<Item>(
 				source2Scalar,
 				equalityComparer,
-				capacity).For(consumer);
+				initialCapacity).For(consumer);
+
+			Assert.AreEqual(equalityComparer, testing.EqualityComparer);
+			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
 
 			void test()
 			{
@@ -66698,6 +70041,8 @@ namespace ObservableComputations.Test
 				source2Scalar,
 				equalityComparer).For(consumer);
 
+			Assert.AreEqual(equalityComparer, testing.EqualityComparer);
+
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -66801,11 +70146,13 @@ namespace ObservableComputations.Test
 		{
 			System.Collections.Specialized.INotifyCollectionChanged source1 = getItems();
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> source2Scalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
-			int capacity = 0;
+			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = source1.Uniting<Item>(
 				source2Scalar,
-				capacity).For(consumer);
+				initialCapacity).For(consumer);
+
+			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
 
 			void test()
 			{
@@ -66914,6 +70261,7 @@ namespace ObservableComputations.Test
 			var testing = source1.Uniting<Item>(
 				source2Scalar).For(consumer);
 
+
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -67018,12 +70366,15 @@ namespace ObservableComputations.Test
 			System.Collections.Specialized.INotifyCollectionChanged source1 = getItems();
 			Scalar<ObservableCollection<Item>> source2Scalar = getScalar<ObservableCollection<Item>>(getItems());
 			System.Collections.Generic.IEqualityComparer<Item> equalityComparer = EqualityComparer<Item>.Default;
-			int capacity = 0;
+			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = source1.Uniting<Item>(
 				source2Scalar,
 				equalityComparer,
-				capacity).For(consumer);
+				initialCapacity).For(consumer);
+
+			Assert.AreEqual(equalityComparer, testing.EqualityComparer);
+			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
 
 			void test()
 			{
@@ -67134,6 +70485,8 @@ namespace ObservableComputations.Test
 				source2Scalar,
 				equalityComparer).For(consumer);
 
+			Assert.AreEqual(equalityComparer, testing.EqualityComparer);
+
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -67237,11 +70590,13 @@ namespace ObservableComputations.Test
 		{
 			System.Collections.Specialized.INotifyCollectionChanged source1 = getItems();
 			Scalar<ObservableCollection<Item>> source2Scalar = getScalar<ObservableCollection<Item>>(getItems());
-			int capacity = 0;
+			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = source1.Uniting<Item>(
 				source2Scalar,
-				capacity).For(consumer);
+				initialCapacity).For(consumer);
+
+			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
 
 			void test()
 			{
@@ -67350,6 +70705,7 @@ namespace ObservableComputations.Test
 			var testing = source1.Uniting<Item>(
 				source2Scalar).For(consumer);
 
+
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -67454,12 +70810,15 @@ namespace ObservableComputations.Test
 			ObservableCollection<Item> source1 = getItems();
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> source2Scalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
 			System.Collections.Generic.IEqualityComparer<Item> equalityComparer = EqualityComparer<Item>.Default;
-			int capacity = 0;
+			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = source1.Uniting<Item>(
 				source2Scalar,
 				equalityComparer,
-				capacity).For(consumer);
+				initialCapacity).For(consumer);
+
+			Assert.AreEqual(equalityComparer, testing.EqualityComparer);
+			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
 
 			void test()
 			{
@@ -67570,6 +70929,8 @@ namespace ObservableComputations.Test
 				source2Scalar,
 				equalityComparer).For(consumer);
 
+			Assert.AreEqual(equalityComparer, testing.EqualityComparer);
+
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -67673,11 +71034,13 @@ namespace ObservableComputations.Test
 		{
 			ObservableCollection<Item> source1 = getItems();
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> source2Scalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
-			int capacity = 0;
+			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = source1.Uniting<Item>(
 				source2Scalar,
-				capacity).For(consumer);
+				initialCapacity).For(consumer);
+
+			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
 
 			void test()
 			{
@@ -67786,6 +71149,7 @@ namespace ObservableComputations.Test
 			var testing = source1.Uniting<Item>(
 				source2Scalar).For(consumer);
 
+
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -67890,12 +71254,15 @@ namespace ObservableComputations.Test
 			ObservableCollection<Item> source1 = getItems();
 			Scalar<ObservableCollection<Item>> source2Scalar = getScalar<ObservableCollection<Item>>(getItems());
 			System.Collections.Generic.IEqualityComparer<Item> equalityComparer = EqualityComparer<Item>.Default;
-			int capacity = 0;
+			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = source1.Uniting<Item>(
 				source2Scalar,
 				equalityComparer,
-				capacity).For(consumer);
+				initialCapacity).For(consumer);
+
+			Assert.AreEqual(equalityComparer, testing.EqualityComparer);
+			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
 
 			void test()
 			{
@@ -68006,6 +71373,8 @@ namespace ObservableComputations.Test
 				source2Scalar,
 				equalityComparer).For(consumer);
 
+			Assert.AreEqual(equalityComparer, testing.EqualityComparer);
+
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -68109,11 +71478,13 @@ namespace ObservableComputations.Test
 		{
 			ObservableCollection<Item> source1 = getItems();
 			Scalar<ObservableCollection<Item>> source2Scalar = getScalar<ObservableCollection<Item>>(getItems());
-			int capacity = 0;
+			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = source1.Uniting<Item>(
 				source2Scalar,
-				capacity).For(consumer);
+				initialCapacity).For(consumer);
+
+			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
 
 			void test()
 			{
@@ -68222,6 +71593,7 @@ namespace ObservableComputations.Test
 			var testing = source1.Uniting<Item>(
 				source2Scalar).For(consumer);
 
+
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -68326,12 +71698,15 @@ namespace ObservableComputations.Test
 			System.Collections.Specialized.INotifyCollectionChanged source1 = getItems();
 			System.Collections.Specialized.INotifyCollectionChanged source2 = getItems();
 			Scalar<System.Collections.Generic.IEqualityComparer<Item>> equalityComparerScalar = getScalar<System.Collections.Generic.IEqualityComparer<Item>>(EqualityComparer<Item>.Default);
-			int capacity = 0;
+			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = source1.Uniting<Item>(
 				source2,
 				equalityComparerScalar,
-				capacity).For(consumer);
+				initialCapacity).For(consumer);
+
+			Assert.AreEqual(equalityComparerScalar, testing.EqualityComparerScalar);
+			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
 
 			void test()
 			{
@@ -68442,6 +71817,8 @@ namespace ObservableComputations.Test
 				source2,
 				equalityComparerScalar).For(consumer);
 
+			Assert.AreEqual(equalityComparerScalar, testing.EqualityComparerScalar);
+
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -68546,12 +71923,15 @@ namespace ObservableComputations.Test
 			System.Collections.Specialized.INotifyCollectionChanged source1 = getItems();
 			ObservableCollection<Item> source2 = getItems();
 			Scalar<System.Collections.Generic.IEqualityComparer<Item>> equalityComparerScalar = getScalar<System.Collections.Generic.IEqualityComparer<Item>>(EqualityComparer<Item>.Default);
-			int capacity = 0;
+			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = source1.Uniting<Item>(
 				source2,
 				equalityComparerScalar,
-				capacity).For(consumer);
+				initialCapacity).For(consumer);
+
+			Assert.AreEqual(equalityComparerScalar, testing.EqualityComparerScalar);
+			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
 
 			void test()
 			{
@@ -68662,6 +72042,8 @@ namespace ObservableComputations.Test
 				source2,
 				equalityComparerScalar).For(consumer);
 
+			Assert.AreEqual(equalityComparerScalar, testing.EqualityComparerScalar);
+
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -68766,12 +72148,15 @@ namespace ObservableComputations.Test
 			ObservableCollection<Item> source1 = getItems();
 			System.Collections.Specialized.INotifyCollectionChanged source2 = getItems();
 			Scalar<System.Collections.Generic.IEqualityComparer<Item>> equalityComparerScalar = getScalar<System.Collections.Generic.IEqualityComparer<Item>>(EqualityComparer<Item>.Default);
-			int capacity = 0;
+			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = source1.Uniting<Item>(
 				source2,
 				equalityComparerScalar,
-				capacity).For(consumer);
+				initialCapacity).For(consumer);
+
+			Assert.AreEqual(equalityComparerScalar, testing.EqualityComparerScalar);
+			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
 
 			void test()
 			{
@@ -68882,6 +72267,8 @@ namespace ObservableComputations.Test
 				source2,
 				equalityComparerScalar).For(consumer);
 
+			Assert.AreEqual(equalityComparerScalar, testing.EqualityComparerScalar);
+
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -68986,12 +72373,15 @@ namespace ObservableComputations.Test
 			ObservableCollection<Item> source1 = getItems();
 			ObservableCollection<Item> source2 = getItems();
 			Scalar<System.Collections.Generic.IEqualityComparer<Item>> equalityComparerScalar = getScalar<System.Collections.Generic.IEqualityComparer<Item>>(EqualityComparer<Item>.Default);
-			int capacity = 0;
+			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = source1.Uniting<Item>(
 				source2,
 				equalityComparerScalar,
-				capacity).For(consumer);
+				initialCapacity).For(consumer);
+
+			Assert.AreEqual(equalityComparerScalar, testing.EqualityComparerScalar);
+			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
 
 			void test()
 			{
@@ -69102,6 +72492,8 @@ namespace ObservableComputations.Test
 				source2,
 				equalityComparerScalar).For(consumer);
 
+			Assert.AreEqual(equalityComparerScalar, testing.EqualityComparerScalar);
+
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -69206,12 +72598,15 @@ namespace ObservableComputations.Test
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> source1Scalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
 			System.Collections.Specialized.INotifyCollectionChanged source2 = getItems();
 			Scalar<System.Collections.Generic.IEqualityComparer<Item>> equalityComparerScalar = getScalar<System.Collections.Generic.IEqualityComparer<Item>>(EqualityComparer<Item>.Default);
-			int capacity = 0;
+			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = source1Scalar.Uniting<Item>(
 				source2,
 				equalityComparerScalar,
-				capacity).For(consumer);
+				initialCapacity).For(consumer);
+
+			Assert.AreEqual(equalityComparerScalar, testing.EqualityComparerScalar);
+			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
 
 			void test()
 			{
@@ -69327,6 +72722,8 @@ namespace ObservableComputations.Test
 				source2,
 				equalityComparerScalar).For(consumer);
 
+			Assert.AreEqual(equalityComparerScalar, testing.EqualityComparerScalar);
+
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -69436,12 +72833,15 @@ namespace ObservableComputations.Test
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> source1Scalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
 			ObservableCollection<Item> source2 = getItems();
 			Scalar<System.Collections.Generic.IEqualityComparer<Item>> equalityComparerScalar = getScalar<System.Collections.Generic.IEqualityComparer<Item>>(EqualityComparer<Item>.Default);
-			int capacity = 0;
+			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = source1Scalar.Uniting<Item>(
 				source2,
 				equalityComparerScalar,
-				capacity).For(consumer);
+				initialCapacity).For(consumer);
+
+			Assert.AreEqual(equalityComparerScalar, testing.EqualityComparerScalar);
+			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
 
 			void test()
 			{
@@ -69557,6 +72957,8 @@ namespace ObservableComputations.Test
 				source2,
 				equalityComparerScalar).For(consumer);
 
+			Assert.AreEqual(equalityComparerScalar, testing.EqualityComparerScalar);
+
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -69666,12 +73068,15 @@ namespace ObservableComputations.Test
 			Scalar<ObservableCollection<Item>> source1Scalar = getScalar<ObservableCollection<Item>>(getItems());
 			System.Collections.Specialized.INotifyCollectionChanged source2 = getItems();
 			Scalar<System.Collections.Generic.IEqualityComparer<Item>> equalityComparerScalar = getScalar<System.Collections.Generic.IEqualityComparer<Item>>(EqualityComparer<Item>.Default);
-			int capacity = 0;
+			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = source1Scalar.Uniting<Item>(
 				source2,
 				equalityComparerScalar,
-				capacity).For(consumer);
+				initialCapacity).For(consumer);
+
+			Assert.AreEqual(equalityComparerScalar, testing.EqualityComparerScalar);
+			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
 
 			void test()
 			{
@@ -69787,6 +73192,8 @@ namespace ObservableComputations.Test
 				source2,
 				equalityComparerScalar).For(consumer);
 
+			Assert.AreEqual(equalityComparerScalar, testing.EqualityComparerScalar);
+
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -69896,12 +73303,15 @@ namespace ObservableComputations.Test
 			Scalar<ObservableCollection<Item>> source1Scalar = getScalar<ObservableCollection<Item>>(getItems());
 			ObservableCollection<Item> source2 = getItems();
 			Scalar<System.Collections.Generic.IEqualityComparer<Item>> equalityComparerScalar = getScalar<System.Collections.Generic.IEqualityComparer<Item>>(EqualityComparer<Item>.Default);
-			int capacity = 0;
+			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = source1Scalar.Uniting<Item>(
 				source2,
 				equalityComparerScalar,
-				capacity).For(consumer);
+				initialCapacity).For(consumer);
+
+			Assert.AreEqual(equalityComparerScalar, testing.EqualityComparerScalar);
+			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
 
 			void test()
 			{
@@ -70017,6 +73427,8 @@ namespace ObservableComputations.Test
 				source2,
 				equalityComparerScalar).For(consumer);
 
+			Assert.AreEqual(equalityComparerScalar, testing.EqualityComparerScalar);
+
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -70126,12 +73538,15 @@ namespace ObservableComputations.Test
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> source1Scalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> source2Scalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
 			Scalar<System.Collections.Generic.IEqualityComparer<Item>> equalityComparerScalar = getScalar<System.Collections.Generic.IEqualityComparer<Item>>(EqualityComparer<Item>.Default);
-			int capacity = 0;
+			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = source1Scalar.Uniting<Item>(
 				source2Scalar,
 				equalityComparerScalar,
-				capacity).For(consumer);
+				initialCapacity).For(consumer);
+
+			Assert.AreEqual(equalityComparerScalar, testing.EqualityComparerScalar);
+			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
 
 			void test()
 			{
@@ -70252,6 +73667,8 @@ namespace ObservableComputations.Test
 				source2Scalar,
 				equalityComparerScalar).For(consumer);
 
+			Assert.AreEqual(equalityComparerScalar, testing.EqualityComparerScalar);
+
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -70366,12 +73783,15 @@ namespace ObservableComputations.Test
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> source1Scalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
 			Scalar<ObservableCollection<Item>> source2Scalar = getScalar<ObservableCollection<Item>>(getItems());
 			Scalar<System.Collections.Generic.IEqualityComparer<Item>> equalityComparerScalar = getScalar<System.Collections.Generic.IEqualityComparer<Item>>(EqualityComparer<Item>.Default);
-			int capacity = 0;
+			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = source1Scalar.Uniting<Item>(
 				source2Scalar,
 				equalityComparerScalar,
-				capacity).For(consumer);
+				initialCapacity).For(consumer);
+
+			Assert.AreEqual(equalityComparerScalar, testing.EqualityComparerScalar);
+			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
 
 			void test()
 			{
@@ -70492,6 +73912,8 @@ namespace ObservableComputations.Test
 				source2Scalar,
 				equalityComparerScalar).For(consumer);
 
+			Assert.AreEqual(equalityComparerScalar, testing.EqualityComparerScalar);
+
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -70606,12 +74028,15 @@ namespace ObservableComputations.Test
 			Scalar<ObservableCollection<Item>> source1Scalar = getScalar<ObservableCollection<Item>>(getItems());
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> source2Scalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
 			Scalar<System.Collections.Generic.IEqualityComparer<Item>> equalityComparerScalar = getScalar<System.Collections.Generic.IEqualityComparer<Item>>(EqualityComparer<Item>.Default);
-			int capacity = 0;
+			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = source1Scalar.Uniting<Item>(
 				source2Scalar,
 				equalityComparerScalar,
-				capacity).For(consumer);
+				initialCapacity).For(consumer);
+
+			Assert.AreEqual(equalityComparerScalar, testing.EqualityComparerScalar);
+			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
 
 			void test()
 			{
@@ -70732,6 +74157,8 @@ namespace ObservableComputations.Test
 				source2Scalar,
 				equalityComparerScalar).For(consumer);
 
+			Assert.AreEqual(equalityComparerScalar, testing.EqualityComparerScalar);
+
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -70846,12 +74273,15 @@ namespace ObservableComputations.Test
 			Scalar<ObservableCollection<Item>> source1Scalar = getScalar<ObservableCollection<Item>>(getItems());
 			Scalar<ObservableCollection<Item>> source2Scalar = getScalar<ObservableCollection<Item>>(getItems());
 			Scalar<System.Collections.Generic.IEqualityComparer<Item>> equalityComparerScalar = getScalar<System.Collections.Generic.IEqualityComparer<Item>>(EqualityComparer<Item>.Default);
-			int capacity = 0;
+			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = source1Scalar.Uniting<Item>(
 				source2Scalar,
 				equalityComparerScalar,
-				capacity).For(consumer);
+				initialCapacity).For(consumer);
+
+			Assert.AreEqual(equalityComparerScalar, testing.EqualityComparerScalar);
+			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
 
 			void test()
 			{
@@ -70972,6 +74402,8 @@ namespace ObservableComputations.Test
 				source2Scalar,
 				equalityComparerScalar).For(consumer);
 
+			Assert.AreEqual(equalityComparerScalar, testing.EqualityComparerScalar);
+
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -71086,12 +74518,15 @@ namespace ObservableComputations.Test
 			System.Collections.Specialized.INotifyCollectionChanged source1 = getItems();
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> source2Scalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
 			Scalar<System.Collections.Generic.IEqualityComparer<Item>> equalityComparerScalar = getScalar<System.Collections.Generic.IEqualityComparer<Item>>(EqualityComparer<Item>.Default);
-			int capacity = 0;
+			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = source1.Uniting<Item>(
 				source2Scalar,
 				equalityComparerScalar,
-				capacity).For(consumer);
+				initialCapacity).For(consumer);
+
+			Assert.AreEqual(equalityComparerScalar, testing.EqualityComparerScalar);
+			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
 
 			void test()
 			{
@@ -71207,6 +74642,8 @@ namespace ObservableComputations.Test
 				source2Scalar,
 				equalityComparerScalar).For(consumer);
 
+			Assert.AreEqual(equalityComparerScalar, testing.EqualityComparerScalar);
+
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -71316,12 +74753,15 @@ namespace ObservableComputations.Test
 			System.Collections.Specialized.INotifyCollectionChanged source1 = getItems();
 			Scalar<ObservableCollection<Item>> source2Scalar = getScalar<ObservableCollection<Item>>(getItems());
 			Scalar<System.Collections.Generic.IEqualityComparer<Item>> equalityComparerScalar = getScalar<System.Collections.Generic.IEqualityComparer<Item>>(EqualityComparer<Item>.Default);
-			int capacity = 0;
+			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = source1.Uniting<Item>(
 				source2Scalar,
 				equalityComparerScalar,
-				capacity).For(consumer);
+				initialCapacity).For(consumer);
+
+			Assert.AreEqual(equalityComparerScalar, testing.EqualityComparerScalar);
+			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
 
 			void test()
 			{
@@ -71437,6 +74877,8 @@ namespace ObservableComputations.Test
 				source2Scalar,
 				equalityComparerScalar).For(consumer);
 
+			Assert.AreEqual(equalityComparerScalar, testing.EqualityComparerScalar);
+
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -71546,12 +74988,15 @@ namespace ObservableComputations.Test
 			ObservableCollection<Item> source1 = getItems();
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> source2Scalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
 			Scalar<System.Collections.Generic.IEqualityComparer<Item>> equalityComparerScalar = getScalar<System.Collections.Generic.IEqualityComparer<Item>>(EqualityComparer<Item>.Default);
-			int capacity = 0;
+			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = source1.Uniting<Item>(
 				source2Scalar,
 				equalityComparerScalar,
-				capacity).For(consumer);
+				initialCapacity).For(consumer);
+
+			Assert.AreEqual(equalityComparerScalar, testing.EqualityComparerScalar);
+			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
 
 			void test()
 			{
@@ -71667,6 +75112,8 @@ namespace ObservableComputations.Test
 				source2Scalar,
 				equalityComparerScalar).For(consumer);
 
+			Assert.AreEqual(equalityComparerScalar, testing.EqualityComparerScalar);
+
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -71776,12 +75223,15 @@ namespace ObservableComputations.Test
 			ObservableCollection<Item> source1 = getItems();
 			Scalar<ObservableCollection<Item>> source2Scalar = getScalar<ObservableCollection<Item>>(getItems());
 			Scalar<System.Collections.Generic.IEqualityComparer<Item>> equalityComparerScalar = getScalar<System.Collections.Generic.IEqualityComparer<Item>>(EqualityComparer<Item>.Default);
-			int capacity = 0;
+			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = source1.Uniting<Item>(
 				source2Scalar,
 				equalityComparerScalar,
-				capacity).For(consumer);
+				initialCapacity).For(consumer);
+
+			Assert.AreEqual(equalityComparerScalar, testing.EqualityComparerScalar);
+			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
 
 			void test()
 			{
@@ -71896,6 +75346,8 @@ namespace ObservableComputations.Test
 			var testing = source1.Uniting<Item>(
 				source2Scalar,
 				equalityComparerScalar).For(consumer);
+
+			Assert.AreEqual(equalityComparerScalar, testing.EqualityComparerScalar);
 
 			void test()
 			{
@@ -72012,6 +75464,9 @@ namespace ObservableComputations.Test
 			var testing = leftSourceScalar.Zipping<Item, Item>(
 				rightSource).For(consumer);
 
+			Assert.AreEqual(leftSourceScalar, testing.LeftSourceScalar);
+			Assert.AreEqual(rightSource, testing.RightSource);
+
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -72086,6 +75541,9 @@ namespace ObservableComputations.Test
 			OcConsumer consumer = new OcConsumer();
 			var testing = leftSourceScalar.Zipping<Item, Item>(
 				rightSource).For(consumer);
+
+			Assert.AreEqual(leftSourceScalar, testing.LeftSourceScalar);
+			Assert.AreEqual(rightSource, testing.RightSource);
 
 			void test()
 			{
@@ -72162,6 +75620,9 @@ namespace ObservableComputations.Test
 			var testing = leftSourceScalar.Zipping<Item, Item>(
 				rightSource).For(consumer);
 
+			Assert.AreEqual(leftSourceScalar, testing.LeftSourceScalar);
+			Assert.AreEqual(rightSource, testing.RightSource);
+
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -72237,6 +75698,9 @@ namespace ObservableComputations.Test
 			var testing = leftSourceScalar.Zipping<Item, Item>(
 				rightSource).For(consumer);
 
+			Assert.AreEqual(leftSourceScalar, testing.LeftSourceScalar);
+			Assert.AreEqual(rightSource, testing.RightSource);
+
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -72311,6 +75775,9 @@ namespace ObservableComputations.Test
 			OcConsumer consumer = new OcConsumer();
 			var testing = leftSourceScalar.Zipping<Item, Item>(
 				rightSourceScalar).For(consumer);
+
+			Assert.AreEqual(leftSourceScalar, testing.LeftSourceScalar);
+			Assert.AreEqual(rightSourceScalar, testing.RightSourceScalar);
 
 			void test()
 			{
@@ -72392,6 +75859,9 @@ namespace ObservableComputations.Test
 			var testing = leftSourceScalar.Zipping<Item, Item>(
 				rightSourceScalar).For(consumer);
 
+			Assert.AreEqual(leftSourceScalar, testing.LeftSourceScalar);
+			Assert.AreEqual(rightSourceScalar, testing.RightSourceScalar);
+
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -72471,6 +75941,9 @@ namespace ObservableComputations.Test
 			OcConsumer consumer = new OcConsumer();
 			var testing = leftSourceScalar.Zipping<Item, Item>(
 				rightSourceScalar).For(consumer);
+
+			Assert.AreEqual(leftSourceScalar, testing.LeftSourceScalar);
+			Assert.AreEqual(rightSourceScalar, testing.RightSourceScalar);
 
 			void test()
 			{
@@ -72552,6 +76025,9 @@ namespace ObservableComputations.Test
 			var testing = leftSourceScalar.Zipping<Item, Item>(
 				rightSourceScalar).For(consumer);
 
+			Assert.AreEqual(leftSourceScalar, testing.LeftSourceScalar);
+			Assert.AreEqual(rightSourceScalar, testing.RightSourceScalar);
+
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -72632,6 +76108,9 @@ namespace ObservableComputations.Test
 			var testing = leftSource.Zipping<Item, Item>(
 				rightSource).For(consumer);
 
+			Assert.AreEqual(leftSource, testing.LeftSource);
+			Assert.AreEqual(rightSource, testing.RightSource);
+
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -72701,6 +76180,9 @@ namespace ObservableComputations.Test
 			OcConsumer consumer = new OcConsumer();
 			var testing = leftSource.Zipping<Item, Item>(
 				rightSource).For(consumer);
+
+			Assert.AreEqual(leftSource, testing.LeftSource);
+			Assert.AreEqual(rightSource, testing.RightSource);
 
 			void test()
 			{
@@ -72772,6 +76254,9 @@ namespace ObservableComputations.Test
 			var testing = leftSource.Zipping<Item, Item>(
 				rightSource).For(consumer);
 
+			Assert.AreEqual(leftSource, testing.LeftSource);
+			Assert.AreEqual(rightSource, testing.RightSource);
+
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -72842,6 +76327,9 @@ namespace ObservableComputations.Test
 			var testing = leftSource.Zipping<Item, Item>(
 				rightSource).For(consumer);
 
+			Assert.AreEqual(leftSource, testing.LeftSource);
+			Assert.AreEqual(rightSource, testing.RightSource);
+
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -72911,6 +76399,9 @@ namespace ObservableComputations.Test
 			OcConsumer consumer = new OcConsumer();
 			var testing = leftSource.Zipping<Item, Item>(
 				rightSourceScalar).For(consumer);
+
+			Assert.AreEqual(leftSource, testing.LeftSource);
+			Assert.AreEqual(rightSourceScalar, testing.RightSourceScalar);
 
 			void test()
 			{
@@ -72987,6 +76478,9 @@ namespace ObservableComputations.Test
 			var testing = leftSource.Zipping<Item, Item>(
 				rightSourceScalar).For(consumer);
 
+			Assert.AreEqual(leftSource, testing.LeftSource);
+			Assert.AreEqual(rightSourceScalar, testing.RightSourceScalar);
+
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -73062,6 +76556,9 @@ namespace ObservableComputations.Test
 			var testing = leftSource.Zipping<Item, Item>(
 				rightSourceScalar).For(consumer);
 
+			Assert.AreEqual(leftSource, testing.LeftSource);
+			Assert.AreEqual(rightSourceScalar, testing.RightSourceScalar);
+
 			void test()
 			{
 				testing.ValidateConsistency();
@@ -73136,6 +76633,9 @@ namespace ObservableComputations.Test
 			OcConsumer consumer = new OcConsumer();
 			var testing = leftSource.Zipping<Item, Item>(
 				rightSourceScalar).For(consumer);
+
+			Assert.AreEqual(leftSource, testing.LeftSource);
+			Assert.AreEqual(rightSourceScalar, testing.RightSourceScalar);
 
 			void test()
 			{

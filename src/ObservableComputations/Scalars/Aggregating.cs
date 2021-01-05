@@ -42,32 +42,26 @@ namespace ObservableComputations
 		[ObservableComputationsCall]
 		public Aggregating(
 			IReadScalar<INotifyCollectionChanged> sourceScalar,
-			(Func<TSourceItem, TResult, TResult> aggregateFunc,
-			Func<TSourceItem, TResult, TResult> deaggregateFunc) funcs) : this(funcs)
+			Func<TSourceItem, TResult, TResult> aggregateFunc,
+			Func<TSourceItem, TResult, TResult> deaggregateFunc) : this(aggregateFunc, deaggregateFunc)
 		{
 			_sourceScalar = sourceScalar;
-			//_sourceScalarPropertyChangedEventHandler = handleSourceScalarValueChanged;
-			//_sourceScalarWeakPropertyChangedEventHandler = new WeakPropertyChangedEventHandler(_sourceScalarPropertyChangedEventHandler);
-			//_sourceScalar.PropertyChanged += _sourceScalarWeakPropertyChangedEventHandler.Handle;
-
-			//initializeFromSource();
 		}
 
 		[ObservableComputationsCall]
 		public Aggregating(
 			INotifyCollectionChanged source,
-			(Func<TSourceItem, TResult, TResult> aggregateFunc,
-			Func<TSourceItem, TResult, TResult> deaggregateFunc) funcs)
-			: this(funcs)
+			Func<TSourceItem, TResult, TResult> aggregateFunc,
+			Func<TSourceItem, TResult, TResult> deaggregateFunc)
+			: this(aggregateFunc, deaggregateFunc)
 		{
 			_source = source;
-			//initializeFromSource();
 		}
 
-		private Aggregating((Func<TSourceItem, TResult, TResult> aggregateFunc, Func<TSourceItem, TResult, TResult> deaggregateFunc) funcs)
+		private Aggregating(Func<TSourceItem, TResult, TResult> aggregateFunc, Func<TSourceItem, TResult, TResult> deaggregateFunc)
 		{
-			_aggregateFunc = funcs.aggregateFunc;
-			_deaggregateFunc = funcs.deaggregateFunc;
+			_aggregateFunc = aggregateFunc;
+			_deaggregateFunc = deaggregateFunc;
 			_thisAsSourceCollectionChangeProcessor = this;
 		}
 

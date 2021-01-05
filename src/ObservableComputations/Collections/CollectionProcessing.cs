@@ -64,7 +64,7 @@ namespace ObservableComputations
 			Func<TSourceItem[], ICollectionComputing, TReturnValue[]> newItemsProcessor,
 			Action<TSourceItem[], ICollectionComputing, TReturnValue[]> oldItemsProcessor,
 			Action<TSourceItem, ICollectionComputing, TReturnValue> moveItemProcessor, 
-			int capacity) : base(capacity)
+			int initialCapacity) : base(initialCapacity)
 		{
 			_newItemsProcessor = newItemsProcessor;
 			_oldItemsProcessor = oldItemsProcessor;

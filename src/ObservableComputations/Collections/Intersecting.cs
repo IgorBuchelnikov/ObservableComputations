@@ -37,11 +37,11 @@ namespace ObservableComputations
 			IReadScalar<INotifyCollectionChanged> source1Scalar,
 			IReadScalar<INotifyCollectionChanged> source2Scalar,
 			IReadScalar<IEqualityComparer<TSourceItem>> equalityComparerScalar = null,
-			int capacity = 0) 
+			int initialCapacity = 0) 
 			: base(
 				getSource(source1Scalar, source2Scalar, equalityComparerScalar),
 				equalityComparerScalar,
-				capacity)
+				initialCapacity)
 		{
 			_source1Scalar = source1Scalar;
 			_source2Scalar = source2Scalar;
@@ -53,11 +53,11 @@ namespace ObservableComputations
 			IReadScalar<INotifyCollectionChanged> source1Scalar,
 			INotifyCollectionChanged source2,
 			IReadScalar<IEqualityComparer<TSourceItem>> equalityComparerScalar = null,
-			int capacity = 0) 
+			int initialCapacity = 0) 
 			: base(
 				getSource(source1Scalar, source2, equalityComparerScalar),
 				equalityComparerScalar,
-				capacity)
+				initialCapacity)
 		{
 			_source1Scalar = source1Scalar;
 			_source2 = source2;
@@ -69,11 +69,11 @@ namespace ObservableComputations
 			IReadScalar<INotifyCollectionChanged> source1Scalar,
 			INotifyCollectionChanged source2,
 			IEqualityComparer<TSourceItem> equalityComparer = null,
-			int capacity = 0) 
+			int initialCapacity = 0) 
 			: base(
 				getSource(source1Scalar, source2, equalityComparer),
 				equalityComparer,
-				capacity)
+				initialCapacity)
 		{
 			_source1Scalar = source1Scalar;
 			_source2 = source2;
@@ -85,11 +85,11 @@ namespace ObservableComputations
 			IReadScalar<INotifyCollectionChanged> source1Scalar,
 			IReadScalar<INotifyCollectionChanged> source2Scalar,
 			IEqualityComparer<TSourceItem> equalityComparer = null,
-			int capacity = 0) 
+			int initialCapacity = 0) 
 			: base(
 				getSource(source1Scalar, source2Scalar, equalityComparer),
 				equalityComparer,
-				capacity)
+				initialCapacity)
 		{
 			_source1Scalar = source1Scalar;
 			_source2Scalar = source2Scalar;
@@ -101,11 +101,11 @@ namespace ObservableComputations
 			INotifyCollectionChanged source1,
 			IReadScalar<INotifyCollectionChanged> source2Scalar,
 			IReadScalar<IEqualityComparer<TSourceItem>> equalityComparerScalar = null,
-			int capacity = 0) 
+			int initialCapacity = 0) 
 			: base(
 				getSource(source1, source2Scalar, equalityComparerScalar),
 				equalityComparerScalar,
-				capacity)
+				initialCapacity)
 		{
 			_source1 = source1;
 			_source2Scalar = source2Scalar;
@@ -117,11 +117,11 @@ namespace ObservableComputations
 			INotifyCollectionChanged source1,
 			INotifyCollectionChanged source2,
 			IReadScalar<IEqualityComparer<TSourceItem>> equalityComparerScalar = null,
-			int capacity = 0) 
+			int initialCapacity = 0) 
 			: base(
 				getSource(source1, source2, equalityComparerScalar),
 				equalityComparerScalar,
-				capacity)
+				initialCapacity)
 		{
 			_source1 = source1;
 			_source2 = source2;
@@ -133,11 +133,11 @@ namespace ObservableComputations
 			INotifyCollectionChanged source1,
 			INotifyCollectionChanged source2,
 			IEqualityComparer<TSourceItem> equalityComparer = null,
-			int capacity = 0) 
+			int initialCapacity = 0) 
 			: base(
 				getSource(source1, source2, equalityComparer),
 				equalityComparer,
-				capacity)
+				initialCapacity)
 		{
 			_source1 = source1;
 			_source2 = source2;
@@ -149,11 +149,11 @@ namespace ObservableComputations
 			INotifyCollectionChanged source1,
 			IReadScalar<INotifyCollectionChanged> source2Scalar,
 			IEqualityComparer<TSourceItem> equalityComparer = null,
-			int capacity = 0) 
+			int initialCapacity = 0) 
 			: base(
 				getSource(source1, source2Scalar, equalityComparer),
 				equalityComparer,
-				capacity)
+				initialCapacity)
 		{
 			_source1 = source1;
 			_source2Scalar = source2Scalar;

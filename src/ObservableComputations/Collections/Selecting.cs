@@ -68,11 +68,11 @@ namespace ObservableComputations
 			_source = source;
 		}
 
-		private Selecting(Expression<Func<TSourceItem, TResultItem>> selectorExpression, int capacity) : base(capacity)
+		private Selecting(Expression<Func<TSourceItem, TResultItem>> selectorExpression, int initialCapacity) : base(initialCapacity)
 		{
 			Utils.construct(
 				selectorExpression, 
-				capacity, 
+				initialCapacity, 
 				out _itemInfos, 
 				out _sourcePositions, 
 				out _selectorExpressionOriginal, 

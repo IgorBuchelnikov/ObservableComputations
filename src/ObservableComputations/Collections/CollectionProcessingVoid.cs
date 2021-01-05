@@ -65,7 +65,7 @@ namespace ObservableComputations
 			Action<TSourceItem[], CollectionProcessingVoid<TSourceItem>> newItemsProcessor,
 			Action<TSourceItem[], CollectionProcessingVoid<TSourceItem>> oldItemsProcessor,
 			Action<TSourceItem, CollectionProcessingVoid<TSourceItem>> moveItemProcessor, 
-			int capacity) : base(capacity)
+			int initialCapacity) : base(initialCapacity)
 		{
 			_newItemsProcessor = newItemsProcessor;
 			_oldItemsProcessor = oldItemsProcessor;

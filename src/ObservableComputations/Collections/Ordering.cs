@@ -16,7 +16,7 @@ namespace ObservableComputations
 		public IReadScalar<INotifyCollectionChanged> SourceScalar => _sourceScalar;
 
 		// ReSharper disable once MemberCanBePrivate.Global
-		public Expression<Func<TSourceItem, TOrderingValue>> OrderingValueSelector => _orderingValueSelectorExpressionOriginal;
+		public Expression<Func<TSourceItem, TOrderingValue>> OrderingValueSelectorExpression => _orderingValueSelectorExpressionOriginal;
 
 		// ReSharper disable once MemberCanBePrivate.Global
 		public IReadScalar<ListSortDirection> SortDirectionScalar => _sortDirectionScalar;

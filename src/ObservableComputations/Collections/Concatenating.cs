@@ -9,21 +9,21 @@ namespace ObservableComputations
 	public class Concatenating<TSourceItem> : CollectionComputing<TSourceItem>, IHasSourceCollections, ISourceIndexerPropertyTracker, ISourceCollectionChangeProcessor
 	{
 		// ReSharper disable once MemberCanBePrivate.Global
-		public IReadScalar<INotifyCollectionChanged> SourcesScalar => _sourcesScalar;
+		public IReadScalar<INotifyCollectionChanged> SourceScalar => _sourceScalar;
 
 		// ReSharper disable once MemberCanBePrivate.Global
-		public INotifyCollectionChanged Sources => _sources;
+		public INotifyCollectionChanged Source => _source;
 
-		public ReadOnlyCollection<INotifyCollectionChanged> SourceCollections => new ReadOnlyCollection<INotifyCollectionChanged>(new []{Sources});
-		public ReadOnlyCollection<IReadScalar<INotifyCollectionChanged>> SourceCollectionScalars => new ReadOnlyCollection<IReadScalar<INotifyCollectionChanged>>(new []{SourcesScalar});
+		public ReadOnlyCollection<INotifyCollectionChanged> SourceCollections => new ReadOnlyCollection<INotifyCollectionChanged>(new []{Source});
+		public ReadOnlyCollection<IReadScalar<INotifyCollectionChanged>> SourceCollectionScalars => new ReadOnlyCollection<IReadScalar<INotifyCollectionChanged>>(new []{SourceScalar});
 
 		private IList _sourcesAsList;
 		private bool _sourceInitialized;
 
 		RangePositions<ItemInfo> _sourceRangePositions;
 		List<ItemInfo> _itemInfos;
-		private readonly IReadScalar<INotifyCollectionChanged> _sourcesScalar;
-		private INotifyCollectionChanged _sources;
+		private readonly IReadScalar<INotifyCollectionChanged> _sourceScalar;
+		private INotifyCollectionChanged _source;
 
 		private bool _indexerPropertyChangedEventRaised;
 		private INotifyPropertyChanged _sourcesAsINotifyPropertyChanged;
@@ -62,38 +62,38 @@ namespace ObservableComputations
 			#endregion
 		}
 
-		private Concatenating(int capacity) : base(capacity)
+		private Concatenating(int initialCapacity) : base(initialCapacity)
 		{
-			Utils.initializeItemInfos(capacity,out _itemInfos, out _sourceRangePositions);
+			Utils.initializeItemInfos(initialCapacity, out _itemInfos, out _sourceRangePositions);
 			_thisAsSourceCollectionChangeProcessor = this;
 		}
 
 		[ObservableComputationsCall]
 		public Concatenating(
-			IReadScalar<INotifyCollectionChanged> sourcesScalar) : this(calculateCapacity(sourcesScalar.Value))
+			IReadScalar<INotifyCollectionChanged> sourceScalar) : this(calculateCapacity(sourceScalar.Value))
 		{		
-			_sourcesScalar = sourcesScalar;
+			_sourceScalar = sourceScalar;
 		}
 
 		[ObservableComputationsCall]
 		public Concatenating(
-			INotifyCollectionChanged sources) : this(calculateCapacity(sources))
+			INotifyCollectionChanged source) : this(calculateCapacity(source))
 		{
-			_sources = sources;
+			_source = source;
 		}
 
-		private static int calculateCapacity(INotifyCollectionChanged sources)
+		private static int calculateCapacity(INotifyCollectionChanged source)
 		{
-			if (sources == null) return 0;
+			if (source == null) return 0;
 
-			IList list = (IList)sources;
+			IList list = (IList)source;
 			int result = 0;
 
 			int listCount = list.Count;
 			for (int index= 0; index < listCount; index++)
 			{
 				object innerList = list[index];
-				result = result + (list[index] is IHasCapacity capacity ? capacity.Capacity : (innerList is IReadScalar<object> scalar ? (IList)scalar.Value : (IList)innerList)?.Count ?? 0);
+				result = result + (list[index] is IHasCapacity initialCapacity ? initialCapacity.Capacity : (innerList is IReadScalar<object> scalar ? (IList)scalar.Value : (IList)innerList)?.Count ?? 0);
 			}
 
 			return result;
@@ -150,11 +150,11 @@ namespace ObservableComputations
 				}
 
 				Utils.initializeItemInfos(
-					Utils.getCapacity(_sourcesScalar, _sources),
+					Utils.getCapacity(_sourceScalar, _source),
 					out _itemInfos,
 					out _sourceRangePositions);
 
-				_sources.CollectionChanged -= handleSourcesCollectionChanged;
+				_source.CollectionChanged -= HandleSourceCollectionChanged;
 
 				if (_sourcesAsINotifyPropertyChanged != null)
 				{
@@ -166,10 +166,10 @@ namespace ObservableComputations
 				_sourceInitialized = false;
 			}
 
-			Utils.changeSource(ref _sources, _sourcesScalar, _downstreamConsumedComputings, _consumers, this,
+			Utils.changeSource(ref _source, _sourceScalar, _downstreamConsumedComputings, _consumers, this,
 				out _sourcesAsList, true);
 
-			if (_sources != null && _isActive)
+			if (_source != null && _isActive)
 			{
 				Utils.initializeFromHasChangeMarker(
 					out _sourcesAsIHasChangeMarker, 
@@ -209,7 +209,7 @@ namespace ObservableComputations
 					_items.RemoveAt(index);
 
 
-				_sources.CollectionChanged += handleSourcesCollectionChanged;
+				_source.CollectionChanged += HandleSourceCollectionChanged;
 				_sourceInitialized = true;
 			}
 			else
@@ -418,7 +418,7 @@ namespace ObservableComputations
 			replaceItem(itemInfo.SourceCopy, itemInfo);
 		}
 
-		private void handleSourcesCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
+		private void HandleSourceCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
 		{
 			if (!Utils.preHandleSourceCollectionChanged(
 				sender, 
@@ -549,21 +549,21 @@ namespace ObservableComputations
 
 		internal override void addToUpstreamComputings(IComputingInternal computing)
 		{
-			(_sources as IComputingInternal)?.AddDownstreamConsumedComputing(computing);
-			(_sourcesScalar as IComputingInternal)?.AddDownstreamConsumedComputing(computing);
+			(_source as IComputingInternal)?.AddDownstreamConsumedComputing(computing);
+			(_sourceScalar as IComputingInternal)?.AddDownstreamConsumedComputing(computing);
 			processSourceUpstreamComputings(computing, true);
 		}
 
 		internal override void removeFromUpstreamComputings(IComputingInternal computing)		
 		{
-			(_sources as IComputingInternal)?.RemoveDownstreamConsumedComputing(computing);
-			(_sourcesScalar as IComputingInternal)?.RemoveDownstreamConsumedComputing(computing);
+			(_source as IComputingInternal)?.RemoveDownstreamConsumedComputing(computing);
+			(_sourceScalar as IComputingInternal)?.RemoveDownstreamConsumedComputing(computing);
 			processSourceUpstreamComputings(computing, false);
 		}
 
 		private void processSourceUpstreamComputings(IComputingInternal computing, bool addOrRemove)
 		{
-			if (_sources is IList sourceAsList)
+			if (_source is IList sourceAsList)
 			{
 				int count = sourceAsList.Count;
 				for (int sourceIndex = 0; sourceIndex < count; sourceIndex++)
@@ -582,18 +582,18 @@ namespace ObservableComputations
 
 		protected override void initialize()
 		{
-			Utils.initializeSourceScalar(_sourcesScalar, ref _sources, scalarValueChangedHandler);
+			Utils.initializeSourceScalar(_sourceScalar, ref _source, scalarValueChangedHandler);
 		}
 
 		protected override void uninitialize()
 		{
-			Utils.uninitializeSourceScalar(_sourcesScalar, scalarValueChangedHandler, ref _sources);
+			Utils.uninitializeSourceScalar(_sourceScalar, scalarValueChangedHandler, ref _source);
 		}
 
 		public void ValidateConsistency()
 		{
 			_sourceRangePositions.ValidateConsistency();
-			IList sources = _sourcesScalar.getValue(_sources, new ObservableCollection<ObservableCollection<TSourceItem>>()) as IList;
+			IList sources = _sourceScalar.getValue(_source, new ObservableCollection<ObservableCollection<TSourceItem>>()) as IList;
 			// ReSharper disable once PossibleNullReferenceException
 			if (_itemInfos.Count != sources.Count) throw new ObservableComputationsException(this, "Consistency violation: Concatenating.1");
 

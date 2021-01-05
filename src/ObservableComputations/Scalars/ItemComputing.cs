@@ -11,7 +11,7 @@ namespace ObservableComputations
 		public IReadScalar<INotifyCollectionChanged> SourceScalar => _sourceScalar;
 
 		// ReSharper disable once MemberCanBePrivate.Global
-		public IReadScalar<int> IndexValueScalar => _indexValueScalar;
+		public IReadScalar<int> IndexScalar => _indexScalar;
 
 		public INotifyCollectionChanged Source => _source;
 
@@ -33,7 +33,7 @@ namespace ObservableComputations
 		private IList<TSourceItem> _sourceAsList;
 
 		private bool _sourceInitialized;
-		private readonly IReadScalar<int> _indexValueScalar;
+		private readonly IReadScalar<int> _indexScalar;
 		private int _index;
 		private bool _isDefaulted;
 		internal TSourceItem _defaultValue;
@@ -51,10 +51,10 @@ namespace ObservableComputations
 
 		private void initializeIndexScalar()
 		{
-			if (_indexValueScalar != null)
+			if (_indexScalar != null)
 			{
-				_indexValueScalar.PropertyChanged += handleIndexScalarValueChanged;
-				_index = _indexValueScalar.Value;
+				_indexScalar.PropertyChanged += HandleIndexScalarChanged;
+				_index = _indexScalar.Value;
 			}
 
 		}
@@ -84,7 +84,7 @@ namespace ObservableComputations
 
 			_defaultValue = defaultValue;
 
-			_indexValueScalar = indexScalar;
+			_indexScalar = indexScalar;
 			//initializeIndexScalar();
 
 			//initializeFromSource();
@@ -110,7 +110,7 @@ namespace ObservableComputations
 		{
 			_source = source;
 			_defaultValue = defaultValue;
-			_indexValueScalar = indexScalar;
+			_indexScalar = indexScalar;
 			
 			//initializeIndexScalar();
 			//initializeFromSource();
@@ -121,14 +121,14 @@ namespace ObservableComputations
 			_thisAsSourceCollectionChangeProcessor = this;
 			_changeIndexAction = () =>
 			{
-				_index = _indexValueScalar.Value;
+				_index = _indexScalar.Value;
 				recalculateValue();
 			};
 			_deferredQueuesCount = 2;
 		}
 
 
-		private void handleIndexScalarValueChanged(object sender, PropertyChangedEventArgs e)
+		private void HandleIndexScalarChanged(object sender, PropertyChangedEventArgs e)
 		{
 			Utils.processChange(
 				sender, 
@@ -287,14 +287,14 @@ namespace ObservableComputations
 		{
 			(_source as IComputingInternal)?.AddDownstreamConsumedComputing(computing);
 			(_sourceScalar as IComputingInternal)?.AddDownstreamConsumedComputing(computing);
-			(_indexValueScalar as IComputingInternal)?.AddDownstreamConsumedComputing(computing);
+			(_indexScalar as IComputingInternal)?.AddDownstreamConsumedComputing(computing);
 		}
 
 		internal override void removeFromUpstreamComputings(IComputingInternal computing)		
 		{
 			(_source as IComputingInternal)?.RemoveDownstreamConsumedComputing(computing);
 			(_sourceScalar as IComputingInternal)?.RemoveDownstreamConsumedComputing(computing);
-			(_indexValueScalar as IComputingInternal)?.RemoveDownstreamConsumedComputing(computing);
+			(_indexScalar as IComputingInternal)?.RemoveDownstreamConsumedComputing(computing);
 		}
 
 		protected override void initialize()
@@ -306,8 +306,8 @@ namespace ObservableComputations
 		protected override void uninitialize()
 		{
 			Utils.uninitializeSourceScalar(_sourceScalar, scalarValueChangedHandler, ref _source);
-			if (_indexValueScalar != null) 
-				_indexValueScalar.PropertyChanged -= handleIndexScalarValueChanged;
+			if (_indexScalar != null) 
+				_indexScalar.PropertyChanged -= HandleIndexScalarChanged;
 		}
 
 		#region Implementation of ISourceIndexerPropertyTracker
@@ -323,7 +323,7 @@ namespace ObservableComputations
 		public void ValidateConsistency()
 		{
 			IList<TSourceItem> source = _sourceScalar.getValue(_source, new ObservableCollection<TSourceItem>()) as IList<TSourceItem>;
-			int index = _indexValueScalar.getValue(_index);
+			int index = _indexScalar.getValue(_index);
 			TSourceItem defaultValue = _defaultValue;
 
 			// ReSharper disable once PossibleNullReferenceException

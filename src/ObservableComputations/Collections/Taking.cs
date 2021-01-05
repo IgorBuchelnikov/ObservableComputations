@@ -25,6 +25,8 @@ namespace ObservableComputations
 		public new ReadOnlyCollection<INotifyCollectionChanged> SourceCollections => new ReadOnlyCollection<INotifyCollectionChanged>(new []{Source});
 		public new ReadOnlyCollection<IReadScalar<INotifyCollectionChanged>> SourceCollectionScalars => new ReadOnlyCollection<IReadScalar<INotifyCollectionChanged>>(new []{SourceScalar});
 
+		public override int InitialCapacity => ((CollectionComputing<TSourceItem>)_source)._initialCapacity;
+
 		// ReSharper disable once MemberCanBePrivate.Global
 		public int StartIndex => _startIndex;
 		private readonly IReadScalar<INotifyCollectionChanged> _sourceScalarTaking;
@@ -42,9 +44,9 @@ namespace ObservableComputations
 			IReadScalar<INotifyCollectionChanged> sourceScalar, 
 			IReadScalar<int> startIndexScalar,
 			IReadScalar<int> countScalar,
-			int capacity = 0)
+			int initialCapacity = 0)
 			: base(
-				getSource(sourceScalar, startIndexScalar, countScalar, capacity),
+				getSource(sourceScalar, startIndexScalar, countScalar, initialCapacity),
 				zipPair => zipPair.RightItem)
 		{
 			_sourceScalarTaking = sourceScalar;
@@ -71,9 +73,9 @@ namespace ObservableComputations
 			IReadScalar<INotifyCollectionChanged> sourceScalar, 
 			int startIndex,
 			IReadScalar<int> countScalar,
-			int capacity = 0)
+			int initialCapacity = 0)
 			: base(
-				getSource(sourceScalar, startIndex, countScalar, capacity),
+				getSource(sourceScalar, startIndex, countScalar, initialCapacity),
 				zipPair => zipPair.RightItem)
 		{
 			_sourceScalarTaking = sourceScalar;
@@ -100,9 +102,9 @@ namespace ObservableComputations
 			INotifyCollectionChanged source, 
 			IReadScalar<int> startIndexScalar,
 			IReadScalar<int> countScalar,
-			int capacity = 0)
+			int initialCapacity = 0)
 			: base(
-				getSource(source, startIndexScalar, countScalar, capacity),
+				getSource(source, startIndexScalar, countScalar, initialCapacity),
 				zipPair => zipPair.RightItem)
 		{
 			_sourceTaking = source;
@@ -129,9 +131,9 @@ namespace ObservableComputations
 			INotifyCollectionChanged source, 
 			int startIndex,
 			IReadScalar<int> countScalar,
-			int capacity = 0)
+			int initialCapacity = 0)
 			: base(
-				getSource(source, startIndex, countScalar, capacity),
+				getSource(source, startIndex, countScalar, initialCapacity),
 				zipPair => zipPair.RightItem)
 		{
 			_sourceTaking = source;
@@ -157,14 +159,14 @@ namespace ObservableComputations
 			IReadScalar<INotifyCollectionChanged> sourceScalar, 
 			IReadScalar<int> startIndexScalar,
 			IReadScalar<int> countScalar,
-			int capacity)
+			int initialCapacity)
 		{
 			Zipping<int, TSourceItem> zipping = 
 				new Computing<int>(() => sourceScalar.Value != null ? ((IList) sourceScalar.Value).Count : 0)
 				.SequenceComputing()
 				.Zipping<int, TSourceItem>(sourceScalar);
 
-			return zipping.Filtering(zp => zp.LeftItem >= startIndexScalar.Value && zp.LeftItem < startIndexScalar.Value + countScalar.Value, capacity);
+			return zipping.Filtering(zp => zp.LeftItem >= startIndexScalar.Value && zp.LeftItem < startIndexScalar.Value + countScalar.Value, initialCapacity);
 		}
 
 		private static INotifyCollectionChanged getSource(
@@ -184,13 +186,13 @@ namespace ObservableComputations
 			IReadScalar<INotifyCollectionChanged> sourceScalar, 
 			int startIndex,
 			IReadScalar<int> countScalar,
-			int capacity)
+			int initialCapacity)
 		{
 			Zipping<int, TSourceItem> zipping = 
 				new Computing<int>(() => sourceScalar.Value != null ? ((IList) sourceScalar.Value).Count : 0)
 				.SequenceComputing()
 				.Zipping<int, TSourceItem>(sourceScalar);
-			return zipping.Filtering(zp => zp.LeftItem >= startIndex && zp.LeftItem < startIndex + countScalar.Value, capacity);
+			return zipping.Filtering(zp => zp.LeftItem >= startIndex && zp.LeftItem < startIndex + countScalar.Value, initialCapacity);
 		}
 
 		private static INotifyCollectionChanged getSource(
@@ -209,11 +211,11 @@ namespace ObservableComputations
 			INotifyCollectionChanged source, 
 			IReadScalar<int> startIndexScalar,
 			IReadScalar<int> countScalar,
-			int capacity)
+			int initialCapacity)
 		{
 			Zipping<int, TSourceItem> zipping = new Computing<int>(() => ((IList) source).Count).SequenceComputing()
 				.Zipping<int, TSourceItem>(source);
-			return zipping.Filtering(zp => zp.LeftItem >= startIndexScalar.Value && zp.LeftItem < startIndexScalar.Value + countScalar.Value, capacity);
+			return zipping.Filtering(zp => zp.LeftItem >= startIndexScalar.Value && zp.LeftItem < startIndexScalar.Value + countScalar.Value, initialCapacity);
 		}
 
 		private static INotifyCollectionChanged getSource(
@@ -230,11 +232,11 @@ namespace ObservableComputations
 			INotifyCollectionChanged source, 
 			int startIndex,
 			IReadScalar<int> countScalar,
-			int capacity)
+			int initialCapacity)
 		{
 			Zipping<int, TSourceItem> zipping = new Computing<int>(() => ((IList) source).Count).SequenceComputing()
 				.Zipping<int, TSourceItem>(source);
-			return zipping.Filtering(zp => zp.LeftItem >= startIndex && zp.LeftItem < startIndex + countScalar.Value, capacity);
+			return zipping.Filtering(zp => zp.LeftItem >= startIndex && zp.LeftItem < startIndex + countScalar.Value, initialCapacity);
 		}
 
 		private static INotifyCollectionChanged getSource(

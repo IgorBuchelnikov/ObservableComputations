@@ -33,6 +33,8 @@ namespace ObservableComputations
 		public ReadOnlyCollection<INotifyCollectionChanged> SourceCollections => new ReadOnlyCollection<INotifyCollectionChanged>(new []{Source});
 		public ReadOnlyCollection<IReadScalar<INotifyCollectionChanged>> SourceCollectionScalars => new ReadOnlyCollection<IReadScalar<INotifyCollectionChanged>>(new []{SourceScalar});
 
+		public override int InitialCapacity => _initialCapacity;
+
 		private readonly List<IComputingInternal> _nestedComputings;
 
 		private readonly Expression<Func<TSourceItem, bool>> _predicateExpression;
@@ -63,7 +65,7 @@ namespace ObservableComputations
 		public Filtering(
 			IReadScalar<INotifyCollectionChanged> sourceScalar, 
 			Expression<Func<TSourceItem, bool>> predicateExpression,
-			int capacity = 0) : this(predicateExpression, Utils.getCapacity(sourceScalar), capacity)
+			int initialCapacity = 0) : this(predicateExpression, Utils.getCapacity(sourceScalar), initialCapacity)
 		{
 			_sourceScalar = sourceScalar;
 		}
@@ -72,13 +74,13 @@ namespace ObservableComputations
 		public Filtering(
 			INotifyCollectionChanged source,
 			Expression<Func<TSourceItem, bool>> predicateExpression,
-			int capacity = 0) : this(predicateExpression, Utils.getCapacity(source), capacity)
+			int initialCapacity = 0) : this(predicateExpression, Utils.getCapacity(source), initialCapacity)
 		{
 			_source = source;
 		}
 
 		private Filtering(Expression<Func<TSourceItem, bool>> predicateExpression, 
-			int sourceCapacity, int capacity) : base(capacity)
+			int sourceCapacity, int initialCapacity) : base(initialCapacity)
 		{
 			Utils.construct(
 				predicateExpression, 
@@ -97,7 +99,7 @@ namespace ObservableComputations
 
 			_thisAsFiltering = this;
 			_thisAsSourceItemChangeProcessor = this;
-			_initialCapacity = capacity;
+			_initialCapacity = initialCapacity;
 			_filteredPositions = new Positions<Position>(new List<Position>(_initialCapacity));	
 		}
 

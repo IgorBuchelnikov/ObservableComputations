@@ -22,6 +22,8 @@ namespace ObservableComputations
 		public new ReadOnlyCollection<INotifyCollectionChanged> SourceCollections => new ReadOnlyCollection<INotifyCollectionChanged>(new []{Source});
 		public new ReadOnlyCollection<IReadScalar<INotifyCollectionChanged>> SourceCollectionScalars => new ReadOnlyCollection<IReadScalar<INotifyCollectionChanged>>(new []{SourceScalar});
 
+		public override int InitialCapacity => ((CollectionComputing<TSourceItem>)_source)._initialCapacity;
+
 		private readonly IReadScalar<INotifyCollectionChanged> _sourceScalarSkipping;
 		private readonly INotifyCollectionChanged _sourceSkipping;
 		private readonly IReadScalar<int> _countScalar;
@@ -33,12 +35,12 @@ namespace ObservableComputations
 		public Skipping(
 			IReadScalar<INotifyCollectionChanged> sourceScalar, 
 			IReadScalar<int> countScalar,
-			int capacity = 0) : 
+			int initialCapacity = 0) : 
 			base(
 				sourceScalar,
 				countScalar,
 				getCount(sourceScalar),
-				capacity)
+				initialCapacity)
 		{
 			_sourceScalarSkipping = sourceScalar;
 			_countScalar = countScalar;
@@ -48,12 +50,12 @@ namespace ObservableComputations
 		public Skipping(
 			INotifyCollectionChanged source, 
 			IReadScalar<int> countScalar,
-			int capacity = 0) : 
+			int initialCapacity = 0) : 
 			base(
 				source,
 				countScalar,
 				getCount(source),
-				capacity)
+				initialCapacity)
 		{
 			_sourceSkipping = source;
 			_countScalar = countScalar;
@@ -63,12 +65,12 @@ namespace ObservableComputations
 		public Skipping(
 			IReadScalar<INotifyCollectionChanged> sourceScalar, 
 			int count,
-			int capacity = 0) : 
+			int initialCapacity = 0) : 
 			base(
 				sourceScalar,
 				count,
 				getCount(sourceScalar),
-				capacity)
+				initialCapacity)
 		{
 			_sourceScalarSkipping = sourceScalar;
 			_countSkipping = count;
@@ -78,12 +80,12 @@ namespace ObservableComputations
 		public Skipping(
 			INotifyCollectionChanged source, 
 			int count,
-			int capacity = 0) : 
+			int initialCapacity = 0) : 
 			base(
 				source,
 				count,
 				getCount(source),
-				capacity)
+				initialCapacity)
 		{
 			_sourceSkipping = source;
 			_countSkipping = count;

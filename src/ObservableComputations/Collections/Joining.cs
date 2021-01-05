@@ -38,6 +38,7 @@ namespace ObservableComputations
 		// ReSharper disable once MemberCanBePrivate.Global
 		public Func<TLeftSourceItem, TRightSourceItem, bool> PredicateFunc => _predicateFunc;
 
+		public override int InitialCapacity => _initialCapacity;
 
 		private readonly List<IComputingInternal> _nestedComputings;
 
@@ -121,7 +122,7 @@ namespace ObservableComputations
 			IReadScalar<INotifyCollectionChanged> leftSourceScalar,
 			IReadScalar<INotifyCollectionChanged> rightSourceScalar,
 			Expression<Func<TLeftSourceItem, TRightSourceItem, bool>> predicateExpression,
-			int capacity = 0) : this(predicateExpression, Utils.getCapacity(leftSourceScalar) * Utils.getCapacity(rightSourceScalar), capacity)
+			int initialCapacity = 0) : this(predicateExpression, Utils.getCapacity(leftSourceScalar) * Utils.getCapacity(rightSourceScalar), initialCapacity)
 		{
 			_leftSourceScalar = leftSourceScalar;
 			_rightSourceScalar = rightSourceScalar;
@@ -132,7 +133,7 @@ namespace ObservableComputations
 			INotifyCollectionChanged leftSource,
 			IReadScalar<INotifyCollectionChanged> rightSourceScalar,
 			Expression<Func<TLeftSourceItem, TRightSourceItem, bool>> predicateExpression,
-			int capacity = 0) : this(predicateExpression, Utils.getCapacity(leftSource) * Utils.getCapacity(rightSourceScalar), capacity)
+			int initialCapacity = 0) : this(predicateExpression, Utils.getCapacity(leftSource) * Utils.getCapacity(rightSourceScalar), initialCapacity)
 		{
 			_leftSource = leftSource;
 			_rightSourceScalar = rightSourceScalar;
@@ -143,7 +144,7 @@ namespace ObservableComputations
 			IReadScalar<INotifyCollectionChanged> leftSourceScalar,
 			INotifyCollectionChanged rightSource,
 			Expression<Func<TLeftSourceItem, TRightSourceItem, bool>> predicateExpression,
-			int capacity = 0) : this(predicateExpression, Utils.getCapacity(leftSourceScalar) * Utils.getCapacity(rightSource), capacity)
+			int initialCapacity = 0) : this(predicateExpression, Utils.getCapacity(leftSourceScalar) * Utils.getCapacity(rightSource), initialCapacity)
 		{
 			_leftSourceScalar = leftSourceScalar;
 			_rightSource = rightSource;
@@ -154,7 +155,7 @@ namespace ObservableComputations
 			INotifyCollectionChanged leftSource,
 			INotifyCollectionChanged rightSource,
 			Expression<Func<TLeftSourceItem, TRightSourceItem, bool>> predicateExpression,
-			int capacity = 0) : this(predicateExpression, Utils.getCapacity(leftSource) * Utils.getCapacity(rightSource), capacity)
+			int initialCapacity = 0) : this(predicateExpression, Utils.getCapacity(leftSource) * Utils.getCapacity(rightSource), initialCapacity)
 		{
 			_leftSource = leftSource;
 			_rightSource = rightSource;
@@ -166,7 +167,7 @@ namespace ObservableComputations
 		//	IReadScalar<INotifyCollectionChanged> rightSourceScalar,
 		//	Expression<Func<TLeftSourceItem, TRightSourceItem, bool>> predicateExpression,
 		//	TRightSourceItem defaultRightSourceItemForLeftJoin,
-		//	int capacity = 0) : this(predicateExpression, Utils.getCapacity(leftSourceScalar) * Utils.getCapacity(rightSourceScalar), capacity)
+		//	int initialCapacity = 0) : this(predicateExpression, Utils.getCapacity(leftSourceScalar) * Utils.getCapacity(rightSourceScalar), initialCapacity)
 		//{
 		//	_leftSourceScalar = leftSourceScalar;
 		//	_rightSourceScalar = rightSourceScalar;
@@ -181,7 +182,7 @@ namespace ObservableComputations
 		//	IReadScalar<INotifyCollectionChanged> rightSourceScalar,
 		//	Expression<Func<TLeftSourceItem, TRightSourceItem, bool>> predicateExpression,
 		//	TRightSourceItem defaultRightSourceItemForLeftJoin,
-		//	int capacity = 0) : this(predicateExpression, Utils.getCapacity(leftSource) * Utils.getCapacity(rightSourceScalar), capacity)
+		//	int initialCapacity = 0) : this(predicateExpression, Utils.getCapacity(leftSource) * Utils.getCapacity(rightSourceScalar), initialCapacity)
 		//{
 		//	_leftSource = leftSource;
 		//	_rightSourceScalar = rightSourceScalar;
@@ -196,7 +197,7 @@ namespace ObservableComputations
 		//	INotifyCollectionChanged rightSource,
 		//	Expression<Func<TLeftSourceItem, TRightSourceItem, bool>> predicateExpression,
 		//	TRightSourceItem defaultRightSourceItemForLeftJoin,
-		//	int capacity = 0) : this(predicateExpression, Utils.getCapacity(leftSourceScalar) * Utils.getCapacity(rightSource), capacity)
+		//	int initialCapacity = 0) : this(predicateExpression, Utils.getCapacity(leftSourceScalar) * Utils.getCapacity(rightSource), initialCapacity)
 		//{
 		//	_leftSourceScalar = leftSourceScalar;
 		//	_rightSource = rightSource;
@@ -211,7 +212,7 @@ namespace ObservableComputations
 		//	INotifyCollectionChanged rightSource,
 		//	Expression<Func<TLeftSourceItem, TRightSourceItem, bool>> predicateExpression,
 		//	TRightSourceItem defaultRightSourceItemForLeftJoin,
-		//	int capacity = 0) : this(predicateExpression, Utils.getCapacity(leftSource) * Utils.getCapacity(rightSource), capacity)
+		//	int initialCapacity = 0) : this(predicateExpression, Utils.getCapacity(leftSource) * Utils.getCapacity(rightSource), initialCapacity)
 		//{
 		//	_leftSource = leftSource;
 		//	_rightSource = rightSource;
@@ -221,7 +222,7 @@ namespace ObservableComputations
 		//}
 
 		private Joining(Expression<Func<TLeftSourceItem, TRightSourceItem, bool>> predicateExpression,
-			int sourceCapacity, int capacity) : base(capacity)
+			int sourceCapacity, int initialCapacity) : base(initialCapacity)
 		{
 			Utils.construct(
 				predicateExpression,
@@ -240,7 +241,7 @@ namespace ObservableComputations
 			_thisAsSourceCollectionChangeProcessor = this;
 			_thisAsSourceItemChangeProcessor = this;
 
-			_initialCapacity = capacity;
+			_initialCapacity = initialCapacity;
 			_filteredPositions = new Positions<Position>(new List<Position>(_initialCapacity));
 
 			_deferredQueuesCount = 3;

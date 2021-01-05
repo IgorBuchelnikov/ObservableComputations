@@ -26,11 +26,13 @@ namespace ObservableComputations
 		private readonly IReadScalar<INotifyCollectionChanged> _sourceScalar;
 		private readonly INotifyCollectionChanged _source;
 
+		public override int InitialCapacity => ((CollectionComputing<TSourceItem>)_source)._initialCapacity;
+
 		[ObservableComputationsCall]
 		public Distincting(
 			IReadScalar<INotifyCollectionChanged> sourceScalar,
 			IReadScalar<IEqualityComparer<TSourceItem>> equalityComparerScalar = null,
-			int capacity = 0) : base(getSource(sourceScalar, equalityComparerScalar, capacity), g => g.Key)
+			int initialCapacity = 0) : base(getSource(sourceScalar, equalityComparerScalar, initialCapacity), g => g.Key)
 		{
 			_sourceScalar = sourceScalar;
 			_equalityComparerScalar = equalityComparerScalar;
@@ -40,7 +42,7 @@ namespace ObservableComputations
 		public Distincting(
 			INotifyCollectionChanged source,
 			IReadScalar<IEqualityComparer<TSourceItem>> equalityComparerScalar = null,
-			int capacity = 0) : base(getSource(source, equalityComparerScalar, capacity), g => g.Key)
+			int initialCapacity = 0) : base(getSource(source, equalityComparerScalar, initialCapacity), g => g.Key)
 		{
 			_source = source;
 			_equalityComparerScalar = equalityComparerScalar;
@@ -50,7 +52,7 @@ namespace ObservableComputations
 		public Distincting(
 			INotifyCollectionChanged source,
 			IEqualityComparer<TSourceItem> equalityComparer,
-			int capacity = 0) : base(getSource(source, equalityComparer, capacity), g => g.Key)
+			int initialCapacity = 0) : base(getSource(source, equalityComparer, initialCapacity), g => g.Key)
 		{
 			_source = source;
 			_equalityComparer = equalityComparer;
@@ -60,7 +62,7 @@ namespace ObservableComputations
 		public Distincting(
 			IReadScalar<INotifyCollectionChanged> sourceScalar,
 			IEqualityComparer<TSourceItem> equalityComparer = null,
-			int capacity = 0) : base(getSource(sourceScalar, equalityComparer, capacity), g => g.Key)
+			int initialCapacity = 0) : base(getSource(sourceScalar, equalityComparer, initialCapacity), g => g.Key)
 		{
 			_sourceScalar = sourceScalar;
 			_equalityComparer = equalityComparer;
@@ -69,26 +71,26 @@ namespace ObservableComputations
 		private static INotifyCollectionChanged getSource(
 			IReadScalar<INotifyCollectionChanged> sourceScalar,
 			IReadScalar<IEqualityComparer<TSourceItem>> equalityComparerScalar,
-			int capacity) =>
-			sourceScalar.Grouping<TSourceItem, TSourceItem>(sourceItem => sourceItem, equalityComparerScalar, capacity);
+			int initialCapacity) =>
+			sourceScalar.Grouping<TSourceItem, TSourceItem>(sourceItem => sourceItem, equalityComparerScalar, initialCapacity);
 
 		private static INotifyCollectionChanged getSource(
 			INotifyCollectionChanged source,
 			IReadScalar<IEqualityComparer<TSourceItem>> equalityComparerScalar,
-			int capacity) =>
-			source.Grouping<TSourceItem, TSourceItem>(sourceItem => sourceItem, equalityComparerScalar, capacity);
+			int initialCapacity) =>
+			source.Grouping<TSourceItem, TSourceItem>(sourceItem => sourceItem, equalityComparerScalar, initialCapacity);
 
 		private static INotifyCollectionChanged getSource(
 			INotifyCollectionChanged source,
 			IEqualityComparer<TSourceItem> equalityComparer,
-			int capacity) =>
-			source.Grouping<TSourceItem, TSourceItem>(sourceItem => sourceItem, equalityComparer, capacity);
+			int initialCapacity) =>
+			source.Grouping<TSourceItem, TSourceItem>(sourceItem => sourceItem, equalityComparer, initialCapacity);
 
 		private static INotifyCollectionChanged getSource(
 			IReadScalar<INotifyCollectionChanged> sourceScalar,
 			IEqualityComparer<TSourceItem> equalityComparer,
-			int capacity) =>
-			sourceScalar.Grouping<TSourceItem, TSourceItem>(sourceItem => sourceItem, equalityComparer, capacity);
+			int initialCapacity) =>
+			sourceScalar.Grouping<TSourceItem, TSourceItem>(sourceItem => sourceItem, equalityComparer, initialCapacity);
 
 		public new void ValidateConsistency()
 		{

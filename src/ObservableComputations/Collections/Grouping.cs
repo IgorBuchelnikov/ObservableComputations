@@ -28,6 +28,8 @@ namespace ObservableComputations
 		public ReadOnlyCollection<INotifyCollectionChanged> SourceCollections => new ReadOnlyCollection<INotifyCollectionChanged>(new []{Source});
 		public ReadOnlyCollection<IReadScalar<INotifyCollectionChanged>> SourceCollectionScalars => new ReadOnlyCollection<IReadScalar<INotifyCollectionChanged>>(new []{SourceScalar});
 
+		public override int InitialCapacity => _initialCapacity;
+
 		public Action<Group<TSourceItem, TKey>, int, TSourceItem> InsertItemIntoGroupRequestHandler
 		{
 			get => _insertItemIntoGroupRequestHandler;
@@ -149,7 +151,7 @@ namespace ObservableComputations
 			IReadScalar<INotifyCollectionChanged> sourceScalar,
 			Expression<Func<TSourceItem, TKey>> keySelectorExpression,
 			IReadScalar<IEqualityComparer<TKey>> equalityComparerScalar = null,
-			int capacity = 0) : this(keySelectorExpression, Utils.getCapacity(sourceScalar), capacity)
+			int initialCapacity = 0) : this(keySelectorExpression, Utils.getCapacity(sourceScalar), initialCapacity)
 		{
 			_equalityComparerScalar = equalityComparerScalar;
 			_sourceScalar = sourceScalar;
@@ -163,7 +165,7 @@ namespace ObservableComputations
 			INotifyCollectionChanged source,
 			Expression<Func<TSourceItem, TKey>> keySelectorExpression,
 			IReadScalar<IEqualityComparer<TKey>> equalityComparerScalar = null,
-			int capacity = 0) : this(keySelectorExpression, Utils.getCapacity(source), capacity)
+			int initialCapacity = 0) : this(keySelectorExpression, Utils.getCapacity(source), initialCapacity)
 		{
 			_equalityComparerScalar = equalityComparerScalar;
 			_source = source;
@@ -174,7 +176,7 @@ namespace ObservableComputations
 			IReadScalar<INotifyCollectionChanged> sourceScalar,
 			Expression<Func<TSourceItem, TKey>> keySelectorExpression,
 			IEqualityComparer<TKey> equalityComparer = null,
-			int capacity = 0) : this(keySelectorExpression, Utils.getCapacity(sourceScalar), capacity)
+			int initialCapacity = 0) : this(keySelectorExpression, Utils.getCapacity(sourceScalar), initialCapacity)
 		{
 			_equalityComparer = equalityComparer;
 			_sourceScalar = sourceScalar;
@@ -185,7 +187,7 @@ namespace ObservableComputations
 			INotifyCollectionChanged source,
 			Expression<Func<TSourceItem, TKey>> keySelectorExpression,
 			IEqualityComparer<TKey> equalityComparer = null,
-			int capacity = 0) : this(keySelectorExpression, Utils.getCapacity(source), capacity)
+			int initialCapacity = 0) : this(keySelectorExpression, Utils.getCapacity(source), initialCapacity)
 		{
 			_equalityComparer = equalityComparer;
 			_source = source;

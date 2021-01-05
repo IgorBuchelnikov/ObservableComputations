@@ -15,9 +15,9 @@ namespace ObservableComputations
 		internal Queue<IProcessable>[] _deferredProcessings;
 		protected int _deferredQueuesCount = 2; 
 
-		public CollectionComputing(int capacity = 0) : base(new List<TItem>(capacity))
+		public CollectionComputing(int initialCapacity = 0) : base(new List<TItem>(initialCapacity))
 		{
-			_initialCapacity = capacity;
+			_initialCapacity = initialCapacity;
 
 			if (Configuration.SaveInstantiatingStackTrace)
 			{
@@ -388,7 +388,8 @@ namespace ObservableComputations
 
 		public Type ItemType => typeof(TItem);
 
-		protected int _initialCapacity;
+		public virtual int InitialCapacity => _initialCapacity;
+		internal int _initialCapacity;
 
 		// ReSharper disable once MemberCanBePrivate.Global
 		public string InstantiatingStackTrace => _instantiatingStackTrace;

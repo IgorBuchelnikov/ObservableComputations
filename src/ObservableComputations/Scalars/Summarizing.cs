@@ -22,40 +22,73 @@ namespace ObservableComputations
 
 		[ObservableComputationsCall]
 		public Summarizing(
-			IReadScalar<INotifyCollectionChanged> sourceScalar) : base(sourceScalar, getSummarizingFuncs())
+			IReadScalar<INotifyCollectionChanged> sourceScalar) : base(sourceScalar, aggregateFunc, deaggregateFunc)
 		{
 			_sourceScalarSummarizing = sourceScalar;
 		}
 
 		[ObservableComputationsCall]
 		public Summarizing(
-			INotifyCollectionChanged source) : base(source, getSummarizingFuncs())
+			INotifyCollectionChanged source) : base(source, aggregateFunc, deaggregateFunc)
 		{
 			_sourceSummarizing = source;
 		}
 
-		private static (Func<TSourceItem, TSourceItem, TSourceItem> aggregateFunc, Func<TSourceItem, TSourceItem, TSourceItem> deaggregateFunc) getSummarizingFuncs()
+		private static Func<TSourceItem, TSourceItem, TSourceItem> _aggregateFunc;
+		private static Func<TSourceItem, TSourceItem, TSourceItem> aggregateFunc
 		{
-			ParameterExpression sourceItemParameterExpression = Expression.Parameter(typeof(TSourceItem), "sourceItem");
-			ParameterExpression aggregateParameterExpression = Expression.Parameter(typeof(TSourceItem), "aggregate");
+			get
+			{
+				if (_aggregateFunc != null) return _aggregateFunc;
 
-			Func<TSourceItem, TSourceItem, TSourceItem> aggregateFunc =
-				(Func<TSourceItem, TSourceItem, TSourceItem>) Expression
-					.Lambda(Expression.Add(aggregateParameterExpression, sourceItemParameterExpression),
-						new[] {sourceItemParameterExpression, aggregateParameterExpression}).Compile();
+				ParameterExpression sourceItemParameterExpression = Summarizing<TSourceItem>.sourceItemParameterExpression;
+				ParameterExpression aggregateParameterExpression = Summarizing<TSourceItem>.aggregateParameterExpression;
 
-			Func<TSourceItem, TSourceItem, TSourceItem> deaggregateFunc =
-				(Func<TSourceItem, TSourceItem, TSourceItem>) Expression
-					.Lambda(Expression.Subtract(aggregateParameterExpression, sourceItemParameterExpression),
-						new[] {sourceItemParameterExpression, aggregateParameterExpression}).Compile();
+				_aggregateFunc =
+					(Func<TSourceItem, TSourceItem, TSourceItem>) Expression
+						.Lambda(Expression.Add(aggregateParameterExpression, sourceItemParameterExpression),
+							new[] {sourceItemParameterExpression, aggregateParameterExpression}).Compile();
 
-			return (aggregateFunc, deaggregateFunc);
+
+				return _aggregateFunc;
+			}
 		}
+
+		private static ParameterExpression _aggregateParameterExpression;
+		private static ParameterExpression aggregateParameterExpression => 
+			_aggregateParameterExpression = _aggregateParameterExpression ?? Expression.Parameter(typeof(TSourceItem), "aggregate");
+
+		private static ParameterExpression _sourceItemParameterExpression;
+		private static ParameterExpression sourceItemParameterExpression => 
+			_sourceItemParameterExpression = _sourceItemParameterExpression ?? Expression.Parameter(typeof(TSourceItem), "sourceItem");
+
+
+		private static Func<TSourceItem, TSourceItem, TSourceItem> _deaggregateFunc;
+		private static Func<TSourceItem, TSourceItem, TSourceItem> deaggregateFunc
+		{
+			get
+			{
+				if (_deaggregateFunc != null) return _deaggregateFunc;
+
+				ParameterExpression sourceItemParameterExpression = Summarizing<TSourceItem>.sourceItemParameterExpression;
+				ParameterExpression aggregateParameterExpression = Summarizing<TSourceItem>.aggregateParameterExpression;
+
+				_deaggregateFunc =
+					(Func<TSourceItem, TSourceItem, TSourceItem>) Expression
+						.Lambda(Expression.Subtract(aggregateParameterExpression, sourceItemParameterExpression),
+							new[] {sourceItemParameterExpression, aggregateParameterExpression}).Compile();
+
+				return _deaggregateFunc;
+			}
+
+		}
+
+
+
 
 		public new void ValidateConsistency()
 		{
 			IList<TSourceItem> source = _sourceScalarSummarizing.getValue(_sourceSummarizing, new ObservableCollection<TSourceItem>()) as IList<TSourceItem>;
-			Func<TSourceItem, TSourceItem, TSourceItem> aggregateFunc = getSummarizingFuncs().aggregateFunc;
 
 			TSourceItem result = default(TSourceItem);
 			// ReSharper disable once PossibleNullReferenceException

@@ -21,61 +21,73 @@ namespace ObservableComputations
 		[ObservableComputationsCall]
 		public static ObservableComputations.Aggregating<TSourceItem, TResult> Aggregating<TSourceItem, TResult>(this
 			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar,
-			 (System.Func<TSourceItem, TResult, TResult> aggregateFunc, System.Func<TSourceItem, TResult, TResult> deaggregateFunc) funcs)
+			 System.Func<TSourceItem, TResult, TResult> aggregateFunc,
+			 System.Func<TSourceItem, TResult, TResult> deaggregateFunc)
 		{
 			return new ObservableComputations.Aggregating<TSourceItem, TResult>(
 				sourceScalar: sourceScalar,
-				funcs: funcs);
+				aggregateFunc: aggregateFunc,
+				deaggregateFunc: deaggregateFunc);
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.Aggregating<TSourceItem, TResult> Aggregating<TSourceItem, TResult>(this
 			 ObservableComputations.IReadScalar<ObservableCollection<TSourceItem>> sourceScalar,
-			 (System.Func<TSourceItem, TResult, TResult> aggregateFunc, System.Func<TSourceItem, TResult, TResult> deaggregateFunc) funcs)
+			 System.Func<TSourceItem, TResult, TResult> aggregateFunc,
+			 System.Func<TSourceItem, TResult, TResult> deaggregateFunc)
 		{
 			return new ObservableComputations.Aggregating<TSourceItem, TResult>(
 				sourceScalar: sourceScalar,
-				funcs: funcs);
+				aggregateFunc: aggregateFunc,
+				deaggregateFunc: deaggregateFunc);
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.Aggregating<TSourceItem, TResult> Aggregating<TSourceItem, TResult>(this
 			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> sourceExpression,
-			 (System.Func<TSourceItem, TResult, TResult> aggregateFunc, System.Func<TSourceItem, TResult, TResult> deaggregateFunc) funcs)
+			 System.Func<TSourceItem, TResult, TResult> aggregateFunc,
+			 System.Func<TSourceItem, TResult, TResult> deaggregateFunc)
 		{
 			return new ObservableComputations.Aggregating<TSourceItem, TResult>(
 				sourceScalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(sourceExpression),
-				funcs: funcs);
+				aggregateFunc: aggregateFunc,
+				deaggregateFunc: deaggregateFunc);
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.Aggregating<TSourceItem, TResult> Aggregating<TSourceItem, TResult>(this
 			 Expression<Func<ObservableCollection<TSourceItem>>> sourceExpression,
-			 (System.Func<TSourceItem, TResult, TResult> aggregateFunc, System.Func<TSourceItem, TResult, TResult> deaggregateFunc) funcs)
+			 System.Func<TSourceItem, TResult, TResult> aggregateFunc,
+			 System.Func<TSourceItem, TResult, TResult> deaggregateFunc)
 		{
 			return new ObservableComputations.Aggregating<TSourceItem, TResult>(
 				sourceScalar: new Computing<ObservableCollection<TSourceItem>>(sourceExpression),
-				funcs: funcs);
+				aggregateFunc: aggregateFunc,
+				deaggregateFunc: deaggregateFunc);
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.Aggregating<TSourceItem, TResult> Aggregating<TSourceItem, TResult>(this
 			 System.Collections.Specialized.INotifyCollectionChanged source,
-			 (System.Func<TSourceItem, TResult, TResult> aggregateFunc, System.Func<TSourceItem, TResult, TResult> deaggregateFunc) funcs)
+			 System.Func<TSourceItem, TResult, TResult> aggregateFunc,
+			 System.Func<TSourceItem, TResult, TResult> deaggregateFunc)
 		{
 			return new ObservableComputations.Aggregating<TSourceItem, TResult>(
 				source: source,
-				funcs: funcs);
+				aggregateFunc: aggregateFunc,
+				deaggregateFunc: deaggregateFunc);
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.Aggregating<TSourceItem, TResult> Aggregating<TSourceItem, TResult>(this
 			 ObservableCollection<TSourceItem> source,
-			 (System.Func<TSourceItem, TResult, TResult> aggregateFunc, System.Func<TSourceItem, TResult, TResult> deaggregateFunc) funcs)
+			 System.Func<TSourceItem, TResult, TResult> aggregateFunc,
+			 System.Func<TSourceItem, TResult, TResult> deaggregateFunc)
 		{
 			return new ObservableComputations.Aggregating<TSourceItem, TResult>(
 				source: source,
-				funcs: funcs);
+				aggregateFunc: aggregateFunc,
+				deaggregateFunc: deaggregateFunc);
 		}
 
 		#endregion
@@ -4810,7 +4822,7 @@ namespace ObservableComputations
 			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> sourcesScalar)
 		{
 			return new ObservableComputations.Concatenating<TSourceItem>(
-				sourcesScalar: sourcesScalar);
+				sourceScalar: sourcesScalar);
 		}
 
 		[ObservableComputationsCall]
@@ -4818,7 +4830,7 @@ namespace ObservableComputations
 			 ObservableComputations.IReadScalar<ObservableCollection<ObservableCollection<TSourceItem>>> sourcesScalar)
 		{
 			return new ObservableComputations.Concatenating<TSourceItem>(
-				sourcesScalar: sourcesScalar);
+				sourceScalar: sourcesScalar);
 		}
 
 		[ObservableComputationsCall]
@@ -4826,7 +4838,7 @@ namespace ObservableComputations
 			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> sourcesExpression)
 		{
 			return new ObservableComputations.Concatenating<TSourceItem>(
-				sourcesScalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(sourcesExpression));
+				sourceScalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(sourcesExpression));
 		}
 
 		[ObservableComputationsCall]
@@ -4834,7 +4846,7 @@ namespace ObservableComputations
 			 Expression<Func<ObservableCollection<ObservableCollection<TSourceItem>>>> sourcesExpression)
 		{
 			return new ObservableComputations.Concatenating<TSourceItem>(
-				sourcesScalar: new Computing<ObservableCollection<ObservableCollection<TSourceItem>>>(sourcesExpression));
+				sourceScalar: new Computing<ObservableCollection<ObservableCollection<TSourceItem>>>(sourcesExpression));
 		}
 
 		[ObservableComputationsCall]
@@ -4842,7 +4854,7 @@ namespace ObservableComputations
 			 System.Collections.Specialized.INotifyCollectionChanged sources)
 		{
 			return new ObservableComputations.Concatenating<TSourceItem>(
-				sources: sources);
+				source: sources);
 		}
 
 		[ObservableComputationsCall]
@@ -4850,7 +4862,7 @@ namespace ObservableComputations
 			 ObservableCollection<ObservableCollection<TSourceItem>> sources)
 		{
 			return new ObservableComputations.Concatenating<TSourceItem>(
-				sources: sources);
+				source: sources);
 		}
 
 		[ObservableComputationsCall]
@@ -6816,12 +6828,12 @@ namespace ObservableComputations
 		public static ObservableComputations.Distincting<TSourceItem> Distincting<TSourceItem>(this
 			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar,
 			 ObservableComputations.IReadScalar<System.Collections.Generic.IEqualityComparer<TSourceItem>> equalityComparerScalar,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Distincting<TSourceItem>(
 				sourceScalar: sourceScalar,
 				equalityComparerScalar: equalityComparerScalar,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -6832,18 +6844,18 @@ namespace ObservableComputations
 			return new ObservableComputations.Distincting<TSourceItem>(
 				sourceScalar: sourceScalar,
 				equalityComparerScalar: equalityComparerScalar,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.Distincting<TSourceItem> Distincting<TSourceItem>(this
 			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Distincting<TSourceItem>(
 				sourceScalar: sourceScalar,
 				equalityComparerScalar: null,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -6853,19 +6865,19 @@ namespace ObservableComputations
 			return new ObservableComputations.Distincting<TSourceItem>(
 				sourceScalar: sourceScalar,
 				equalityComparerScalar: null,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.Distincting<TSourceItem> Distincting<TSourceItem>(this
 			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar,
 			 Expression<Func<System.Collections.Generic.IEqualityComparer<TSourceItem>>> equalityComparerExpression,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Distincting<TSourceItem>(
 				sourceScalar: sourceScalar,
 				equalityComparerScalar: new Computing<System.Collections.Generic.IEqualityComparer<TSourceItem>>(equalityComparerExpression),
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -6876,19 +6888,19 @@ namespace ObservableComputations
 			return new ObservableComputations.Distincting<TSourceItem>(
 				sourceScalar: sourceScalar,
 				equalityComparerScalar: new Computing<System.Collections.Generic.IEqualityComparer<TSourceItem>>(equalityComparerExpression),
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.Distincting<TSourceItem> Distincting<TSourceItem>(this
 			 ObservableComputations.IReadScalar<ObservableCollection<TSourceItem>> sourceScalar,
 			 ObservableComputations.IReadScalar<System.Collections.Generic.IEqualityComparer<TSourceItem>> equalityComparerScalar,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Distincting<TSourceItem>(
 				sourceScalar: sourceScalar,
 				equalityComparerScalar: equalityComparerScalar,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -6899,18 +6911,18 @@ namespace ObservableComputations
 			return new ObservableComputations.Distincting<TSourceItem>(
 				sourceScalar: sourceScalar,
 				equalityComparerScalar: equalityComparerScalar,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.Distincting<TSourceItem> Distincting<TSourceItem>(this
 			 ObservableComputations.IReadScalar<ObservableCollection<TSourceItem>> sourceScalar,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Distincting<TSourceItem>(
 				sourceScalar: sourceScalar,
 				equalityComparerScalar: null,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -6920,19 +6932,19 @@ namespace ObservableComputations
 			return new ObservableComputations.Distincting<TSourceItem>(
 				sourceScalar: sourceScalar,
 				equalityComparerScalar: null,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.Distincting<TSourceItem> Distincting<TSourceItem>(this
 			 ObservableComputations.IReadScalar<ObservableCollection<TSourceItem>> sourceScalar,
 			 Expression<Func<System.Collections.Generic.IEqualityComparer<TSourceItem>>> equalityComparerExpression,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Distincting<TSourceItem>(
 				sourceScalar: sourceScalar,
 				equalityComparerScalar: new Computing<System.Collections.Generic.IEqualityComparer<TSourceItem>>(equalityComparerExpression),
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -6943,19 +6955,19 @@ namespace ObservableComputations
 			return new ObservableComputations.Distincting<TSourceItem>(
 				sourceScalar: sourceScalar,
 				equalityComparerScalar: new Computing<System.Collections.Generic.IEqualityComparer<TSourceItem>>(equalityComparerExpression),
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.Distincting<TSourceItem> Distincting<TSourceItem>(this
 			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> sourceExpression,
 			 ObservableComputations.IReadScalar<System.Collections.Generic.IEqualityComparer<TSourceItem>> equalityComparerScalar,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Distincting<TSourceItem>(
 				sourceScalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(sourceExpression),
 				equalityComparerScalar: equalityComparerScalar,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -6966,18 +6978,18 @@ namespace ObservableComputations
 			return new ObservableComputations.Distincting<TSourceItem>(
 				sourceScalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(sourceExpression),
 				equalityComparerScalar: equalityComparerScalar,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.Distincting<TSourceItem> Distincting<TSourceItem>(this
 			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> sourceExpression,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Distincting<TSourceItem>(
 				sourceScalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(sourceExpression),
 				equalityComparerScalar: null,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -6987,19 +6999,19 @@ namespace ObservableComputations
 			return new ObservableComputations.Distincting<TSourceItem>(
 				sourceScalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(sourceExpression),
 				equalityComparerScalar: null,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.Distincting<TSourceItem> Distincting<TSourceItem>(this
 			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> sourceExpression,
 			 Expression<Func<System.Collections.Generic.IEqualityComparer<TSourceItem>>> equalityComparerExpression,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Distincting<TSourceItem>(
 				sourceScalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(sourceExpression),
 				equalityComparerScalar: new Computing<System.Collections.Generic.IEqualityComparer<TSourceItem>>(equalityComparerExpression),
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -7010,19 +7022,19 @@ namespace ObservableComputations
 			return new ObservableComputations.Distincting<TSourceItem>(
 				sourceScalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(sourceExpression),
 				equalityComparerScalar: new Computing<System.Collections.Generic.IEqualityComparer<TSourceItem>>(equalityComparerExpression),
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.Distincting<TSourceItem> Distincting<TSourceItem>(this
 			 Expression<Func<ObservableCollection<TSourceItem>>> sourceExpression,
 			 ObservableComputations.IReadScalar<System.Collections.Generic.IEqualityComparer<TSourceItem>> equalityComparerScalar,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Distincting<TSourceItem>(
 				sourceScalar: new Computing<ObservableCollection<TSourceItem>>(sourceExpression),
 				equalityComparerScalar: equalityComparerScalar,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -7033,18 +7045,18 @@ namespace ObservableComputations
 			return new ObservableComputations.Distincting<TSourceItem>(
 				sourceScalar: new Computing<ObservableCollection<TSourceItem>>(sourceExpression),
 				equalityComparerScalar: equalityComparerScalar,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.Distincting<TSourceItem> Distincting<TSourceItem>(this
 			 Expression<Func<ObservableCollection<TSourceItem>>> sourceExpression,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Distincting<TSourceItem>(
 				sourceScalar: new Computing<ObservableCollection<TSourceItem>>(sourceExpression),
 				equalityComparerScalar: null,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -7054,19 +7066,19 @@ namespace ObservableComputations
 			return new ObservableComputations.Distincting<TSourceItem>(
 				sourceScalar: new Computing<ObservableCollection<TSourceItem>>(sourceExpression),
 				equalityComparerScalar: null,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.Distincting<TSourceItem> Distincting<TSourceItem>(this
 			 Expression<Func<ObservableCollection<TSourceItem>>> sourceExpression,
 			 Expression<Func<System.Collections.Generic.IEqualityComparer<TSourceItem>>> equalityComparerExpression,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Distincting<TSourceItem>(
 				sourceScalar: new Computing<ObservableCollection<TSourceItem>>(sourceExpression),
 				equalityComparerScalar: new Computing<System.Collections.Generic.IEqualityComparer<TSourceItem>>(equalityComparerExpression),
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -7077,19 +7089,19 @@ namespace ObservableComputations
 			return new ObservableComputations.Distincting<TSourceItem>(
 				sourceScalar: new Computing<ObservableCollection<TSourceItem>>(sourceExpression),
 				equalityComparerScalar: new Computing<System.Collections.Generic.IEqualityComparer<TSourceItem>>(equalityComparerExpression),
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.Distincting<TSourceItem> Distincting<TSourceItem>(this
 			 System.Collections.Specialized.INotifyCollectionChanged source,
 			 ObservableComputations.IReadScalar<System.Collections.Generic.IEqualityComparer<TSourceItem>> equalityComparerScalar,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Distincting<TSourceItem>(
 				source: source,
 				equalityComparerScalar: equalityComparerScalar,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -7100,18 +7112,18 @@ namespace ObservableComputations
 			return new ObservableComputations.Distincting<TSourceItem>(
 				source: source,
 				equalityComparerScalar: equalityComparerScalar,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.Distincting<TSourceItem> Distincting<TSourceItem>(this
 			 System.Collections.Specialized.INotifyCollectionChanged source,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Distincting<TSourceItem>(
 				source: source,
 				equalityComparerScalar: null,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -7121,19 +7133,19 @@ namespace ObservableComputations
 			return new ObservableComputations.Distincting<TSourceItem>(
 				source: source,
 				equalityComparerScalar: null,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.Distincting<TSourceItem> Distincting<TSourceItem>(this
 			 System.Collections.Specialized.INotifyCollectionChanged source,
 			 Expression<Func<System.Collections.Generic.IEqualityComparer<TSourceItem>>> equalityComparerExpression,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Distincting<TSourceItem>(
 				source: source,
 				equalityComparerScalar: new Computing<System.Collections.Generic.IEqualityComparer<TSourceItem>>(equalityComparerExpression),
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -7144,19 +7156,19 @@ namespace ObservableComputations
 			return new ObservableComputations.Distincting<TSourceItem>(
 				source: source,
 				equalityComparerScalar: new Computing<System.Collections.Generic.IEqualityComparer<TSourceItem>>(equalityComparerExpression),
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.Distincting<TSourceItem> Distincting<TSourceItem>(this
 			 ObservableCollection<TSourceItem> source,
 			 ObservableComputations.IReadScalar<System.Collections.Generic.IEqualityComparer<TSourceItem>> equalityComparerScalar,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Distincting<TSourceItem>(
 				source: source,
 				equalityComparerScalar: equalityComparerScalar,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -7167,18 +7179,18 @@ namespace ObservableComputations
 			return new ObservableComputations.Distincting<TSourceItem>(
 				source: source,
 				equalityComparerScalar: equalityComparerScalar,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.Distincting<TSourceItem> Distincting<TSourceItem>(this
 			 ObservableCollection<TSourceItem> source,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Distincting<TSourceItem>(
 				source: source,
 				equalityComparerScalar: null,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -7188,19 +7200,19 @@ namespace ObservableComputations
 			return new ObservableComputations.Distincting<TSourceItem>(
 				source: source,
 				equalityComparerScalar: null,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.Distincting<TSourceItem> Distincting<TSourceItem>(this
 			 ObservableCollection<TSourceItem> source,
 			 Expression<Func<System.Collections.Generic.IEqualityComparer<TSourceItem>>> equalityComparerExpression,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Distincting<TSourceItem>(
 				source: source,
 				equalityComparerScalar: new Computing<System.Collections.Generic.IEqualityComparer<TSourceItem>>(equalityComparerExpression),
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -7211,19 +7223,19 @@ namespace ObservableComputations
 			return new ObservableComputations.Distincting<TSourceItem>(
 				source: source,
 				equalityComparerScalar: new Computing<System.Collections.Generic.IEqualityComparer<TSourceItem>>(equalityComparerExpression),
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.Distincting<TSourceItem> Distincting<TSourceItem>(this
 			 System.Collections.Specialized.INotifyCollectionChanged source,
 			 System.Collections.Generic.IEqualityComparer<TSourceItem> equalityComparer,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Distincting<TSourceItem>(
 				source: source,
 				equalityComparer: equalityComparer,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -7234,19 +7246,19 @@ namespace ObservableComputations
 			return new ObservableComputations.Distincting<TSourceItem>(
 				source: source,
 				equalityComparer: equalityComparer,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.Distincting<TSourceItem> Distincting<TSourceItem>(this
 			 ObservableCollection<TSourceItem> source,
 			 System.Collections.Generic.IEqualityComparer<TSourceItem> equalityComparer,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Distincting<TSourceItem>(
 				source: source,
 				equalityComparer: equalityComparer,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -7257,19 +7269,19 @@ namespace ObservableComputations
 			return new ObservableComputations.Distincting<TSourceItem>(
 				source: source,
 				equalityComparer: equalityComparer,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.Distincting<TSourceItem> Distincting<TSourceItem>(this
 			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar,
 			 System.Collections.Generic.IEqualityComparer<TSourceItem> equalityComparer,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Distincting<TSourceItem>(
 				sourceScalar: sourceScalar,
 				equalityComparer: equalityComparer,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -7280,19 +7292,19 @@ namespace ObservableComputations
 			return new ObservableComputations.Distincting<TSourceItem>(
 				sourceScalar: sourceScalar,
 				equalityComparer: equalityComparer,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.Distincting<TSourceItem> Distincting<TSourceItem>(this
 			 ObservableComputations.IReadScalar<ObservableCollection<TSourceItem>> sourceScalar,
 			 System.Collections.Generic.IEqualityComparer<TSourceItem> equalityComparer,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Distincting<TSourceItem>(
 				sourceScalar: sourceScalar,
 				equalityComparer: equalityComparer,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -7303,19 +7315,19 @@ namespace ObservableComputations
 			return new ObservableComputations.Distincting<TSourceItem>(
 				sourceScalar: sourceScalar,
 				equalityComparer: equalityComparer,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.Distincting<TSourceItem> Distincting<TSourceItem>(this
 			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> sourceExpression,
 			 System.Collections.Generic.IEqualityComparer<TSourceItem> equalityComparer,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Distincting<TSourceItem>(
 				sourceScalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(sourceExpression),
 				equalityComparer: equalityComparer,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -7326,19 +7338,19 @@ namespace ObservableComputations
 			return new ObservableComputations.Distincting<TSourceItem>(
 				sourceScalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(sourceExpression),
 				equalityComparer: equalityComparer,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.Distincting<TSourceItem> Distincting<TSourceItem>(this
 			 Expression<Func<ObservableCollection<TSourceItem>>> sourceExpression,
 			 System.Collections.Generic.IEqualityComparer<TSourceItem> equalityComparer,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Distincting<TSourceItem>(
 				sourceScalar: new Computing<ObservableCollection<TSourceItem>>(sourceExpression),
 				equalityComparer: equalityComparer,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -7349,7 +7361,7 @@ namespace ObservableComputations
 			return new ObservableComputations.Distincting<TSourceItem>(
 				sourceScalar: new Computing<ObservableCollection<TSourceItem>>(sourceExpression),
 				equalityComparer: equalityComparer,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		#endregion
@@ -7360,13 +7372,13 @@ namespace ObservableComputations
 			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> source1Scalar,
 			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> source2Scalar,
 			 ObservableComputations.IReadScalar<System.Collections.Generic.IEqualityComparer<TSourceItem>> equalityComparerScalar,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Excepting<TSourceItem>(
 				source1Scalar: source1Scalar,
 				source2Scalar: source2Scalar,
 				equalityComparerScalar: equalityComparerScalar,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -7379,20 +7391,20 @@ namespace ObservableComputations
 				source1Scalar: source1Scalar,
 				source2Scalar: source2Scalar,
 				equalityComparerScalar: equalityComparerScalar,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.Excepting<TSourceItem> Excepting<TSourceItem>(this
 			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> source1Scalar,
 			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> source2Scalar,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Excepting<TSourceItem>(
 				source1Scalar: source1Scalar,
 				source2Scalar: source2Scalar,
 				equalityComparerScalar: null,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -7404,7 +7416,7 @@ namespace ObservableComputations
 				source1Scalar: source1Scalar,
 				source2Scalar: source2Scalar,
 				equalityComparerScalar: null,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
@@ -7412,13 +7424,13 @@ namespace ObservableComputations
 			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> source1Scalar,
 			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> source2Scalar,
 			 Expression<Func<System.Collections.Generic.IEqualityComparer<TSourceItem>>> equalityComparerExpression,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Excepting<TSourceItem>(
 				source1Scalar: source1Scalar,
 				source2Scalar: source2Scalar,
 				equalityComparerScalar: new Computing<System.Collections.Generic.IEqualityComparer<TSourceItem>>(equalityComparerExpression),
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -7431,7 +7443,7 @@ namespace ObservableComputations
 				source1Scalar: source1Scalar,
 				source2Scalar: source2Scalar,
 				equalityComparerScalar: new Computing<System.Collections.Generic.IEqualityComparer<TSourceItem>>(equalityComparerExpression),
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
@@ -7439,13 +7451,13 @@ namespace ObservableComputations
 			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> source1Scalar,
 			 ObservableComputations.IReadScalar<ObservableCollection<TSourceItem>> source2Scalar,
 			 ObservableComputations.IReadScalar<System.Collections.Generic.IEqualityComparer<TSourceItem>> equalityComparerScalar,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Excepting<TSourceItem>(
 				source1Scalar: source1Scalar,
 				source2Scalar: source2Scalar,
 				equalityComparerScalar: equalityComparerScalar,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -7458,20 +7470,20 @@ namespace ObservableComputations
 				source1Scalar: source1Scalar,
 				source2Scalar: source2Scalar,
 				equalityComparerScalar: equalityComparerScalar,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.Excepting<TSourceItem> Excepting<TSourceItem>(this
 			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> source1Scalar,
 			 ObservableComputations.IReadScalar<ObservableCollection<TSourceItem>> source2Scalar,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Excepting<TSourceItem>(
 				source1Scalar: source1Scalar,
 				source2Scalar: source2Scalar,
 				equalityComparerScalar: null,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -7483,7 +7495,7 @@ namespace ObservableComputations
 				source1Scalar: source1Scalar,
 				source2Scalar: source2Scalar,
 				equalityComparerScalar: null,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
@@ -7491,13 +7503,13 @@ namespace ObservableComputations
 			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> source1Scalar,
 			 ObservableComputations.IReadScalar<ObservableCollection<TSourceItem>> source2Scalar,
 			 Expression<Func<System.Collections.Generic.IEqualityComparer<TSourceItem>>> equalityComparerExpression,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Excepting<TSourceItem>(
 				source1Scalar: source1Scalar,
 				source2Scalar: source2Scalar,
 				equalityComparerScalar: new Computing<System.Collections.Generic.IEqualityComparer<TSourceItem>>(equalityComparerExpression),
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -7510,7 +7522,7 @@ namespace ObservableComputations
 				source1Scalar: source1Scalar,
 				source2Scalar: source2Scalar,
 				equalityComparerScalar: new Computing<System.Collections.Generic.IEqualityComparer<TSourceItem>>(equalityComparerExpression),
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
@@ -7518,13 +7530,13 @@ namespace ObservableComputations
 			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> source1Scalar,
 			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> source2Expression,
 			 ObservableComputations.IReadScalar<System.Collections.Generic.IEqualityComparer<TSourceItem>> equalityComparerScalar,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Excepting<TSourceItem>(
 				source1Scalar: source1Scalar,
 				source2Scalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(source2Expression),
 				equalityComparerScalar: equalityComparerScalar,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -7537,20 +7549,20 @@ namespace ObservableComputations
 				source1Scalar: source1Scalar,
 				source2Scalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(source2Expression),
 				equalityComparerScalar: equalityComparerScalar,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.Excepting<TSourceItem> Excepting<TSourceItem>(this
 			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> source1Scalar,
 			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> source2Expression,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Excepting<TSourceItem>(
 				source1Scalar: source1Scalar,
 				source2Scalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(source2Expression),
 				equalityComparerScalar: null,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -7562,7 +7574,7 @@ namespace ObservableComputations
 				source1Scalar: source1Scalar,
 				source2Scalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(source2Expression),
 				equalityComparerScalar: null,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
@@ -7570,13 +7582,13 @@ namespace ObservableComputations
 			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> source1Scalar,
 			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> source2Expression,
 			 Expression<Func<System.Collections.Generic.IEqualityComparer<TSourceItem>>> equalityComparerExpression,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Excepting<TSourceItem>(
 				source1Scalar: source1Scalar,
 				source2Scalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(source2Expression),
 				equalityComparerScalar: new Computing<System.Collections.Generic.IEqualityComparer<TSourceItem>>(equalityComparerExpression),
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -7589,7 +7601,7 @@ namespace ObservableComputations
 				source1Scalar: source1Scalar,
 				source2Scalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(source2Expression),
 				equalityComparerScalar: new Computing<System.Collections.Generic.IEqualityComparer<TSourceItem>>(equalityComparerExpression),
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
@@ -7597,13 +7609,13 @@ namespace ObservableComputations
 			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> source1Scalar,
 			 Expression<Func<ObservableCollection<TSourceItem>>> source2Expression,
 			 ObservableComputations.IReadScalar<System.Collections.Generic.IEqualityComparer<TSourceItem>> equalityComparerScalar,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Excepting<TSourceItem>(
 				source1Scalar: source1Scalar,
 				source2Scalar: new Computing<ObservableCollection<TSourceItem>>(source2Expression),
 				equalityComparerScalar: equalityComparerScalar,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -7616,20 +7628,20 @@ namespace ObservableComputations
 				source1Scalar: source1Scalar,
 				source2Scalar: new Computing<ObservableCollection<TSourceItem>>(source2Expression),
 				equalityComparerScalar: equalityComparerScalar,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.Excepting<TSourceItem> Excepting<TSourceItem>(this
 			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> source1Scalar,
 			 Expression<Func<ObservableCollection<TSourceItem>>> source2Expression,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Excepting<TSourceItem>(
 				source1Scalar: source1Scalar,
 				source2Scalar: new Computing<ObservableCollection<TSourceItem>>(source2Expression),
 				equalityComparerScalar: null,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -7641,7 +7653,7 @@ namespace ObservableComputations
 				source1Scalar: source1Scalar,
 				source2Scalar: new Computing<ObservableCollection<TSourceItem>>(source2Expression),
 				equalityComparerScalar: null,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
@@ -7649,13 +7661,13 @@ namespace ObservableComputations
 			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> source1Scalar,
 			 Expression<Func<ObservableCollection<TSourceItem>>> source2Expression,
 			 Expression<Func<System.Collections.Generic.IEqualityComparer<TSourceItem>>> equalityComparerExpression,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Excepting<TSourceItem>(
 				source1Scalar: source1Scalar,
 				source2Scalar: new Computing<ObservableCollection<TSourceItem>>(source2Expression),
 				equalityComparerScalar: new Computing<System.Collections.Generic.IEqualityComparer<TSourceItem>>(equalityComparerExpression),
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -7668,7 +7680,7 @@ namespace ObservableComputations
 				source1Scalar: source1Scalar,
 				source2Scalar: new Computing<ObservableCollection<TSourceItem>>(source2Expression),
 				equalityComparerScalar: new Computing<System.Collections.Generic.IEqualityComparer<TSourceItem>>(equalityComparerExpression),
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
@@ -7676,13 +7688,13 @@ namespace ObservableComputations
 			 ObservableComputations.IReadScalar<ObservableCollection<TSourceItem>> source1Scalar,
 			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> source2Scalar,
 			 ObservableComputations.IReadScalar<System.Collections.Generic.IEqualityComparer<TSourceItem>> equalityComparerScalar,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Excepting<TSourceItem>(
 				source1Scalar: source1Scalar,
 				source2Scalar: source2Scalar,
 				equalityComparerScalar: equalityComparerScalar,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -7695,20 +7707,20 @@ namespace ObservableComputations
 				source1Scalar: source1Scalar,
 				source2Scalar: source2Scalar,
 				equalityComparerScalar: equalityComparerScalar,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.Excepting<TSourceItem> Excepting<TSourceItem>(this
 			 ObservableComputations.IReadScalar<ObservableCollection<TSourceItem>> source1Scalar,
 			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> source2Scalar,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Excepting<TSourceItem>(
 				source1Scalar: source1Scalar,
 				source2Scalar: source2Scalar,
 				equalityComparerScalar: null,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -7720,7 +7732,7 @@ namespace ObservableComputations
 				source1Scalar: source1Scalar,
 				source2Scalar: source2Scalar,
 				equalityComparerScalar: null,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
@@ -7728,13 +7740,13 @@ namespace ObservableComputations
 			 ObservableComputations.IReadScalar<ObservableCollection<TSourceItem>> source1Scalar,
 			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> source2Scalar,
 			 Expression<Func<System.Collections.Generic.IEqualityComparer<TSourceItem>>> equalityComparerExpression,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Excepting<TSourceItem>(
 				source1Scalar: source1Scalar,
 				source2Scalar: source2Scalar,
 				equalityComparerScalar: new Computing<System.Collections.Generic.IEqualityComparer<TSourceItem>>(equalityComparerExpression),
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -7747,7 +7759,7 @@ namespace ObservableComputations
 				source1Scalar: source1Scalar,
 				source2Scalar: source2Scalar,
 				equalityComparerScalar: new Computing<System.Collections.Generic.IEqualityComparer<TSourceItem>>(equalityComparerExpression),
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
@@ -7755,13 +7767,13 @@ namespace ObservableComputations
 			 ObservableComputations.IReadScalar<ObservableCollection<TSourceItem>> source1Scalar,
 			 ObservableComputations.IReadScalar<ObservableCollection<TSourceItem>> source2Scalar,
 			 ObservableComputations.IReadScalar<System.Collections.Generic.IEqualityComparer<TSourceItem>> equalityComparerScalar,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Excepting<TSourceItem>(
 				source1Scalar: source1Scalar,
 				source2Scalar: source2Scalar,
 				equalityComparerScalar: equalityComparerScalar,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -7774,20 +7786,20 @@ namespace ObservableComputations
 				source1Scalar: source1Scalar,
 				source2Scalar: source2Scalar,
 				equalityComparerScalar: equalityComparerScalar,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.Excepting<TSourceItem> Excepting<TSourceItem>(this
 			 ObservableComputations.IReadScalar<ObservableCollection<TSourceItem>> source1Scalar,
 			 ObservableComputations.IReadScalar<ObservableCollection<TSourceItem>> source2Scalar,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Excepting<TSourceItem>(
 				source1Scalar: source1Scalar,
 				source2Scalar: source2Scalar,
 				equalityComparerScalar: null,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -7799,7 +7811,7 @@ namespace ObservableComputations
 				source1Scalar: source1Scalar,
 				source2Scalar: source2Scalar,
 				equalityComparerScalar: null,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
@@ -7807,13 +7819,13 @@ namespace ObservableComputations
 			 ObservableComputations.IReadScalar<ObservableCollection<TSourceItem>> source1Scalar,
 			 ObservableComputations.IReadScalar<ObservableCollection<TSourceItem>> source2Scalar,
 			 Expression<Func<System.Collections.Generic.IEqualityComparer<TSourceItem>>> equalityComparerExpression,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Excepting<TSourceItem>(
 				source1Scalar: source1Scalar,
 				source2Scalar: source2Scalar,
 				equalityComparerScalar: new Computing<System.Collections.Generic.IEqualityComparer<TSourceItem>>(equalityComparerExpression),
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -7826,7 +7838,7 @@ namespace ObservableComputations
 				source1Scalar: source1Scalar,
 				source2Scalar: source2Scalar,
 				equalityComparerScalar: new Computing<System.Collections.Generic.IEqualityComparer<TSourceItem>>(equalityComparerExpression),
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
@@ -7834,13 +7846,13 @@ namespace ObservableComputations
 			 ObservableComputations.IReadScalar<ObservableCollection<TSourceItem>> source1Scalar,
 			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> source2Expression,
 			 ObservableComputations.IReadScalar<System.Collections.Generic.IEqualityComparer<TSourceItem>> equalityComparerScalar,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Excepting<TSourceItem>(
 				source1Scalar: source1Scalar,
 				source2Scalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(source2Expression),
 				equalityComparerScalar: equalityComparerScalar,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -7853,20 +7865,20 @@ namespace ObservableComputations
 				source1Scalar: source1Scalar,
 				source2Scalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(source2Expression),
 				equalityComparerScalar: equalityComparerScalar,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.Excepting<TSourceItem> Excepting<TSourceItem>(this
 			 ObservableComputations.IReadScalar<ObservableCollection<TSourceItem>> source1Scalar,
 			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> source2Expression,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Excepting<TSourceItem>(
 				source1Scalar: source1Scalar,
 				source2Scalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(source2Expression),
 				equalityComparerScalar: null,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -7878,7 +7890,7 @@ namespace ObservableComputations
 				source1Scalar: source1Scalar,
 				source2Scalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(source2Expression),
 				equalityComparerScalar: null,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
@@ -7886,13 +7898,13 @@ namespace ObservableComputations
 			 ObservableComputations.IReadScalar<ObservableCollection<TSourceItem>> source1Scalar,
 			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> source2Expression,
 			 Expression<Func<System.Collections.Generic.IEqualityComparer<TSourceItem>>> equalityComparerExpression,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Excepting<TSourceItem>(
 				source1Scalar: source1Scalar,
 				source2Scalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(source2Expression),
 				equalityComparerScalar: new Computing<System.Collections.Generic.IEqualityComparer<TSourceItem>>(equalityComparerExpression),
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -7905,7 +7917,7 @@ namespace ObservableComputations
 				source1Scalar: source1Scalar,
 				source2Scalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(source2Expression),
 				equalityComparerScalar: new Computing<System.Collections.Generic.IEqualityComparer<TSourceItem>>(equalityComparerExpression),
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
@@ -7913,13 +7925,13 @@ namespace ObservableComputations
 			 ObservableComputations.IReadScalar<ObservableCollection<TSourceItem>> source1Scalar,
 			 Expression<Func<ObservableCollection<TSourceItem>>> source2Expression,
 			 ObservableComputations.IReadScalar<System.Collections.Generic.IEqualityComparer<TSourceItem>> equalityComparerScalar,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Excepting<TSourceItem>(
 				source1Scalar: source1Scalar,
 				source2Scalar: new Computing<ObservableCollection<TSourceItem>>(source2Expression),
 				equalityComparerScalar: equalityComparerScalar,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -7932,20 +7944,20 @@ namespace ObservableComputations
 				source1Scalar: source1Scalar,
 				source2Scalar: new Computing<ObservableCollection<TSourceItem>>(source2Expression),
 				equalityComparerScalar: equalityComparerScalar,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.Excepting<TSourceItem> Excepting<TSourceItem>(this
 			 ObservableComputations.IReadScalar<ObservableCollection<TSourceItem>> source1Scalar,
 			 Expression<Func<ObservableCollection<TSourceItem>>> source2Expression,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Excepting<TSourceItem>(
 				source1Scalar: source1Scalar,
 				source2Scalar: new Computing<ObservableCollection<TSourceItem>>(source2Expression),
 				equalityComparerScalar: null,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -7957,7 +7969,7 @@ namespace ObservableComputations
 				source1Scalar: source1Scalar,
 				source2Scalar: new Computing<ObservableCollection<TSourceItem>>(source2Expression),
 				equalityComparerScalar: null,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
@@ -7965,13 +7977,13 @@ namespace ObservableComputations
 			 ObservableComputations.IReadScalar<ObservableCollection<TSourceItem>> source1Scalar,
 			 Expression<Func<ObservableCollection<TSourceItem>>> source2Expression,
 			 Expression<Func<System.Collections.Generic.IEqualityComparer<TSourceItem>>> equalityComparerExpression,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Excepting<TSourceItem>(
 				source1Scalar: source1Scalar,
 				source2Scalar: new Computing<ObservableCollection<TSourceItem>>(source2Expression),
 				equalityComparerScalar: new Computing<System.Collections.Generic.IEqualityComparer<TSourceItem>>(equalityComparerExpression),
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -7984,7 +7996,7 @@ namespace ObservableComputations
 				source1Scalar: source1Scalar,
 				source2Scalar: new Computing<ObservableCollection<TSourceItem>>(source2Expression),
 				equalityComparerScalar: new Computing<System.Collections.Generic.IEqualityComparer<TSourceItem>>(equalityComparerExpression),
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
@@ -7992,13 +8004,13 @@ namespace ObservableComputations
 			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> source1Expression,
 			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> source2Scalar,
 			 ObservableComputations.IReadScalar<System.Collections.Generic.IEqualityComparer<TSourceItem>> equalityComparerScalar,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Excepting<TSourceItem>(
 				source1Scalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(source1Expression),
 				source2Scalar: source2Scalar,
 				equalityComparerScalar: equalityComparerScalar,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -8011,20 +8023,20 @@ namespace ObservableComputations
 				source1Scalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(source1Expression),
 				source2Scalar: source2Scalar,
 				equalityComparerScalar: equalityComparerScalar,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.Excepting<TSourceItem> Excepting<TSourceItem>(this
 			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> source1Expression,
 			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> source2Scalar,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Excepting<TSourceItem>(
 				source1Scalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(source1Expression),
 				source2Scalar: source2Scalar,
 				equalityComparerScalar: null,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -8036,7 +8048,7 @@ namespace ObservableComputations
 				source1Scalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(source1Expression),
 				source2Scalar: source2Scalar,
 				equalityComparerScalar: null,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
@@ -8044,13 +8056,13 @@ namespace ObservableComputations
 			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> source1Expression,
 			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> source2Scalar,
 			 Expression<Func<System.Collections.Generic.IEqualityComparer<TSourceItem>>> equalityComparerExpression,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Excepting<TSourceItem>(
 				source1Scalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(source1Expression),
 				source2Scalar: source2Scalar,
 				equalityComparerScalar: new Computing<System.Collections.Generic.IEqualityComparer<TSourceItem>>(equalityComparerExpression),
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -8063,7 +8075,7 @@ namespace ObservableComputations
 				source1Scalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(source1Expression),
 				source2Scalar: source2Scalar,
 				equalityComparerScalar: new Computing<System.Collections.Generic.IEqualityComparer<TSourceItem>>(equalityComparerExpression),
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
@@ -8071,13 +8083,13 @@ namespace ObservableComputations
 			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> source1Expression,
 			 ObservableComputations.IReadScalar<ObservableCollection<TSourceItem>> source2Scalar,
 			 ObservableComputations.IReadScalar<System.Collections.Generic.IEqualityComparer<TSourceItem>> equalityComparerScalar,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Excepting<TSourceItem>(
 				source1Scalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(source1Expression),
 				source2Scalar: source2Scalar,
 				equalityComparerScalar: equalityComparerScalar,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -8090,20 +8102,20 @@ namespace ObservableComputations
 				source1Scalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(source1Expression),
 				source2Scalar: source2Scalar,
 				equalityComparerScalar: equalityComparerScalar,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.Excepting<TSourceItem> Excepting<TSourceItem>(this
 			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> source1Expression,
 			 ObservableComputations.IReadScalar<ObservableCollection<TSourceItem>> source2Scalar,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Excepting<TSourceItem>(
 				source1Scalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(source1Expression),
 				source2Scalar: source2Scalar,
 				equalityComparerScalar: null,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -8115,7 +8127,7 @@ namespace ObservableComputations
 				source1Scalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(source1Expression),
 				source2Scalar: source2Scalar,
 				equalityComparerScalar: null,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
@@ -8123,13 +8135,13 @@ namespace ObservableComputations
 			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> source1Expression,
 			 ObservableComputations.IReadScalar<ObservableCollection<TSourceItem>> source2Scalar,
 			 Expression<Func<System.Collections.Generic.IEqualityComparer<TSourceItem>>> equalityComparerExpression,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Excepting<TSourceItem>(
 				source1Scalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(source1Expression),
 				source2Scalar: source2Scalar,
 				equalityComparerScalar: new Computing<System.Collections.Generic.IEqualityComparer<TSourceItem>>(equalityComparerExpression),
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -8142,7 +8154,7 @@ namespace ObservableComputations
 				source1Scalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(source1Expression),
 				source2Scalar: source2Scalar,
 				equalityComparerScalar: new Computing<System.Collections.Generic.IEqualityComparer<TSourceItem>>(equalityComparerExpression),
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
@@ -8150,13 +8162,13 @@ namespace ObservableComputations
 			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> source1Expression,
 			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> source2Expression,
 			 ObservableComputations.IReadScalar<System.Collections.Generic.IEqualityComparer<TSourceItem>> equalityComparerScalar,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Excepting<TSourceItem>(
 				source1Scalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(source1Expression),
 				source2Scalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(source2Expression),
 				equalityComparerScalar: equalityComparerScalar,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -8169,20 +8181,20 @@ namespace ObservableComputations
 				source1Scalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(source1Expression),
 				source2Scalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(source2Expression),
 				equalityComparerScalar: equalityComparerScalar,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.Excepting<TSourceItem> Excepting<TSourceItem>(this
 			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> source1Expression,
 			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> source2Expression,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Excepting<TSourceItem>(
 				source1Scalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(source1Expression),
 				source2Scalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(source2Expression),
 				equalityComparerScalar: null,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -8194,7 +8206,7 @@ namespace ObservableComputations
 				source1Scalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(source1Expression),
 				source2Scalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(source2Expression),
 				equalityComparerScalar: null,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
@@ -8202,13 +8214,13 @@ namespace ObservableComputations
 			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> source1Expression,
 			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> source2Expression,
 			 Expression<Func<System.Collections.Generic.IEqualityComparer<TSourceItem>>> equalityComparerExpression,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Excepting<TSourceItem>(
 				source1Scalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(source1Expression),
 				source2Scalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(source2Expression),
 				equalityComparerScalar: new Computing<System.Collections.Generic.IEqualityComparer<TSourceItem>>(equalityComparerExpression),
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -8221,7 +8233,7 @@ namespace ObservableComputations
 				source1Scalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(source1Expression),
 				source2Scalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(source2Expression),
 				equalityComparerScalar: new Computing<System.Collections.Generic.IEqualityComparer<TSourceItem>>(equalityComparerExpression),
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
@@ -8229,13 +8241,13 @@ namespace ObservableComputations
 			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> source1Expression,
 			 Expression<Func<ObservableCollection<TSourceItem>>> source2Expression,
 			 ObservableComputations.IReadScalar<System.Collections.Generic.IEqualityComparer<TSourceItem>> equalityComparerScalar,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Excepting<TSourceItem>(
 				source1Scalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(source1Expression),
 				source2Scalar: new Computing<ObservableCollection<TSourceItem>>(source2Expression),
 				equalityComparerScalar: equalityComparerScalar,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -8248,20 +8260,20 @@ namespace ObservableComputations
 				source1Scalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(source1Expression),
 				source2Scalar: new Computing<ObservableCollection<TSourceItem>>(source2Expression),
 				equalityComparerScalar: equalityComparerScalar,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.Excepting<TSourceItem> Excepting<TSourceItem>(this
 			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> source1Expression,
 			 Expression<Func<ObservableCollection<TSourceItem>>> source2Expression,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Excepting<TSourceItem>(
 				source1Scalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(source1Expression),
 				source2Scalar: new Computing<ObservableCollection<TSourceItem>>(source2Expression),
 				equalityComparerScalar: null,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -8273,7 +8285,7 @@ namespace ObservableComputations
 				source1Scalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(source1Expression),
 				source2Scalar: new Computing<ObservableCollection<TSourceItem>>(source2Expression),
 				equalityComparerScalar: null,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
@@ -8281,13 +8293,13 @@ namespace ObservableComputations
 			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> source1Expression,
 			 Expression<Func<ObservableCollection<TSourceItem>>> source2Expression,
 			 Expression<Func<System.Collections.Generic.IEqualityComparer<TSourceItem>>> equalityComparerExpression,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Excepting<TSourceItem>(
 				source1Scalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(source1Expression),
 				source2Scalar: new Computing<ObservableCollection<TSourceItem>>(source2Expression),
 				equalityComparerScalar: new Computing<System.Collections.Generic.IEqualityComparer<TSourceItem>>(equalityComparerExpression),
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -8300,7 +8312,7 @@ namespace ObservableComputations
 				source1Scalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(source1Expression),
 				source2Scalar: new Computing<ObservableCollection<TSourceItem>>(source2Expression),
 				equalityComparerScalar: new Computing<System.Collections.Generic.IEqualityComparer<TSourceItem>>(equalityComparerExpression),
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
@@ -8308,13 +8320,13 @@ namespace ObservableComputations
 			 Expression<Func<ObservableCollection<TSourceItem>>> source1Expression,
 			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> source2Scalar,
 			 ObservableComputations.IReadScalar<System.Collections.Generic.IEqualityComparer<TSourceItem>> equalityComparerScalar,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Excepting<TSourceItem>(
 				source1Scalar: new Computing<ObservableCollection<TSourceItem>>(source1Expression),
 				source2Scalar: source2Scalar,
 				equalityComparerScalar: equalityComparerScalar,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -8327,20 +8339,20 @@ namespace ObservableComputations
 				source1Scalar: new Computing<ObservableCollection<TSourceItem>>(source1Expression),
 				source2Scalar: source2Scalar,
 				equalityComparerScalar: equalityComparerScalar,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.Excepting<TSourceItem> Excepting<TSourceItem>(this
 			 Expression<Func<ObservableCollection<TSourceItem>>> source1Expression,
 			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> source2Scalar,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Excepting<TSourceItem>(
 				source1Scalar: new Computing<ObservableCollection<TSourceItem>>(source1Expression),
 				source2Scalar: source2Scalar,
 				equalityComparerScalar: null,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -8352,7 +8364,7 @@ namespace ObservableComputations
 				source1Scalar: new Computing<ObservableCollection<TSourceItem>>(source1Expression),
 				source2Scalar: source2Scalar,
 				equalityComparerScalar: null,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
@@ -8360,13 +8372,13 @@ namespace ObservableComputations
 			 Expression<Func<ObservableCollection<TSourceItem>>> source1Expression,
 			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> source2Scalar,
 			 Expression<Func<System.Collections.Generic.IEqualityComparer<TSourceItem>>> equalityComparerExpression,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Excepting<TSourceItem>(
 				source1Scalar: new Computing<ObservableCollection<TSourceItem>>(source1Expression),
 				source2Scalar: source2Scalar,
 				equalityComparerScalar: new Computing<System.Collections.Generic.IEqualityComparer<TSourceItem>>(equalityComparerExpression),
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -8379,7 +8391,7 @@ namespace ObservableComputations
 				source1Scalar: new Computing<ObservableCollection<TSourceItem>>(source1Expression),
 				source2Scalar: source2Scalar,
 				equalityComparerScalar: new Computing<System.Collections.Generic.IEqualityComparer<TSourceItem>>(equalityComparerExpression),
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
@@ -8387,13 +8399,13 @@ namespace ObservableComputations
 			 Expression<Func<ObservableCollection<TSourceItem>>> source1Expression,
 			 ObservableComputations.IReadScalar<ObservableCollection<TSourceItem>> source2Scalar,
 			 ObservableComputations.IReadScalar<System.Collections.Generic.IEqualityComparer<TSourceItem>> equalityComparerScalar,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Excepting<TSourceItem>(
 				source1Scalar: new Computing<ObservableCollection<TSourceItem>>(source1Expression),
 				source2Scalar: source2Scalar,
 				equalityComparerScalar: equalityComparerScalar,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -8406,20 +8418,20 @@ namespace ObservableComputations
 				source1Scalar: new Computing<ObservableCollection<TSourceItem>>(source1Expression),
 				source2Scalar: source2Scalar,
 				equalityComparerScalar: equalityComparerScalar,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.Excepting<TSourceItem> Excepting<TSourceItem>(this
 			 Expression<Func<ObservableCollection<TSourceItem>>> source1Expression,
 			 ObservableComputations.IReadScalar<ObservableCollection<TSourceItem>> source2Scalar,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Excepting<TSourceItem>(
 				source1Scalar: new Computing<ObservableCollection<TSourceItem>>(source1Expression),
 				source2Scalar: source2Scalar,
 				equalityComparerScalar: null,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -8431,7 +8443,7 @@ namespace ObservableComputations
 				source1Scalar: new Computing<ObservableCollection<TSourceItem>>(source1Expression),
 				source2Scalar: source2Scalar,
 				equalityComparerScalar: null,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
@@ -8439,13 +8451,13 @@ namespace ObservableComputations
 			 Expression<Func<ObservableCollection<TSourceItem>>> source1Expression,
 			 ObservableComputations.IReadScalar<ObservableCollection<TSourceItem>> source2Scalar,
 			 Expression<Func<System.Collections.Generic.IEqualityComparer<TSourceItem>>> equalityComparerExpression,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Excepting<TSourceItem>(
 				source1Scalar: new Computing<ObservableCollection<TSourceItem>>(source1Expression),
 				source2Scalar: source2Scalar,
 				equalityComparerScalar: new Computing<System.Collections.Generic.IEqualityComparer<TSourceItem>>(equalityComparerExpression),
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -8458,7 +8470,7 @@ namespace ObservableComputations
 				source1Scalar: new Computing<ObservableCollection<TSourceItem>>(source1Expression),
 				source2Scalar: source2Scalar,
 				equalityComparerScalar: new Computing<System.Collections.Generic.IEqualityComparer<TSourceItem>>(equalityComparerExpression),
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
@@ -8466,13 +8478,13 @@ namespace ObservableComputations
 			 Expression<Func<ObservableCollection<TSourceItem>>> source1Expression,
 			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> source2Expression,
 			 ObservableComputations.IReadScalar<System.Collections.Generic.IEqualityComparer<TSourceItem>> equalityComparerScalar,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Excepting<TSourceItem>(
 				source1Scalar: new Computing<ObservableCollection<TSourceItem>>(source1Expression),
 				source2Scalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(source2Expression),
 				equalityComparerScalar: equalityComparerScalar,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -8485,20 +8497,20 @@ namespace ObservableComputations
 				source1Scalar: new Computing<ObservableCollection<TSourceItem>>(source1Expression),
 				source2Scalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(source2Expression),
 				equalityComparerScalar: equalityComparerScalar,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.Excepting<TSourceItem> Excepting<TSourceItem>(this
 			 Expression<Func<ObservableCollection<TSourceItem>>> source1Expression,
 			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> source2Expression,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Excepting<TSourceItem>(
 				source1Scalar: new Computing<ObservableCollection<TSourceItem>>(source1Expression),
 				source2Scalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(source2Expression),
 				equalityComparerScalar: null,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -8510,7 +8522,7 @@ namespace ObservableComputations
 				source1Scalar: new Computing<ObservableCollection<TSourceItem>>(source1Expression),
 				source2Scalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(source2Expression),
 				equalityComparerScalar: null,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
@@ -8518,13 +8530,13 @@ namespace ObservableComputations
 			 Expression<Func<ObservableCollection<TSourceItem>>> source1Expression,
 			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> source2Expression,
 			 Expression<Func<System.Collections.Generic.IEqualityComparer<TSourceItem>>> equalityComparerExpression,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Excepting<TSourceItem>(
 				source1Scalar: new Computing<ObservableCollection<TSourceItem>>(source1Expression),
 				source2Scalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(source2Expression),
 				equalityComparerScalar: new Computing<System.Collections.Generic.IEqualityComparer<TSourceItem>>(equalityComparerExpression),
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -8537,7 +8549,7 @@ namespace ObservableComputations
 				source1Scalar: new Computing<ObservableCollection<TSourceItem>>(source1Expression),
 				source2Scalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(source2Expression),
 				equalityComparerScalar: new Computing<System.Collections.Generic.IEqualityComparer<TSourceItem>>(equalityComparerExpression),
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
@@ -8545,13 +8557,13 @@ namespace ObservableComputations
 			 Expression<Func<ObservableCollection<TSourceItem>>> source1Expression,
 			 Expression<Func<ObservableCollection<TSourceItem>>> source2Expression,
 			 ObservableComputations.IReadScalar<System.Collections.Generic.IEqualityComparer<TSourceItem>> equalityComparerScalar,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Excepting<TSourceItem>(
 				source1Scalar: new Computing<ObservableCollection<TSourceItem>>(source1Expression),
 				source2Scalar: new Computing<ObservableCollection<TSourceItem>>(source2Expression),
 				equalityComparerScalar: equalityComparerScalar,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -8564,20 +8576,20 @@ namespace ObservableComputations
 				source1Scalar: new Computing<ObservableCollection<TSourceItem>>(source1Expression),
 				source2Scalar: new Computing<ObservableCollection<TSourceItem>>(source2Expression),
 				equalityComparerScalar: equalityComparerScalar,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.Excepting<TSourceItem> Excepting<TSourceItem>(this
 			 Expression<Func<ObservableCollection<TSourceItem>>> source1Expression,
 			 Expression<Func<ObservableCollection<TSourceItem>>> source2Expression,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Excepting<TSourceItem>(
 				source1Scalar: new Computing<ObservableCollection<TSourceItem>>(source1Expression),
 				source2Scalar: new Computing<ObservableCollection<TSourceItem>>(source2Expression),
 				equalityComparerScalar: null,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -8589,7 +8601,7 @@ namespace ObservableComputations
 				source1Scalar: new Computing<ObservableCollection<TSourceItem>>(source1Expression),
 				source2Scalar: new Computing<ObservableCollection<TSourceItem>>(source2Expression),
 				equalityComparerScalar: null,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
@@ -8597,13 +8609,13 @@ namespace ObservableComputations
 			 Expression<Func<ObservableCollection<TSourceItem>>> source1Expression,
 			 Expression<Func<ObservableCollection<TSourceItem>>> source2Expression,
 			 Expression<Func<System.Collections.Generic.IEqualityComparer<TSourceItem>>> equalityComparerExpression,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Excepting<TSourceItem>(
 				source1Scalar: new Computing<ObservableCollection<TSourceItem>>(source1Expression),
 				source2Scalar: new Computing<ObservableCollection<TSourceItem>>(source2Expression),
 				equalityComparerScalar: new Computing<System.Collections.Generic.IEqualityComparer<TSourceItem>>(equalityComparerExpression),
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -8616,7 +8628,7 @@ namespace ObservableComputations
 				source1Scalar: new Computing<ObservableCollection<TSourceItem>>(source1Expression),
 				source2Scalar: new Computing<ObservableCollection<TSourceItem>>(source2Expression),
 				equalityComparerScalar: new Computing<System.Collections.Generic.IEqualityComparer<TSourceItem>>(equalityComparerExpression),
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
@@ -8624,13 +8636,13 @@ namespace ObservableComputations
 			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> source1Scalar,
 			 System.Collections.Specialized.INotifyCollectionChanged source2,
 			 ObservableComputations.IReadScalar<System.Collections.Generic.IEqualityComparer<TSourceItem>> equalityComparerScalar,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Excepting<TSourceItem>(
 				source1Scalar: source1Scalar,
 				source2: source2,
 				equalityComparerScalar: equalityComparerScalar,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -8643,20 +8655,20 @@ namespace ObservableComputations
 				source1Scalar: source1Scalar,
 				source2: source2,
 				equalityComparerScalar: equalityComparerScalar,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.Excepting<TSourceItem> Excepting<TSourceItem>(this
 			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> source1Scalar,
 			 System.Collections.Specialized.INotifyCollectionChanged source2,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Excepting<TSourceItem>(
 				source1Scalar: source1Scalar,
 				source2: source2,
 				equalityComparerScalar: null,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -8668,7 +8680,7 @@ namespace ObservableComputations
 				source1Scalar: source1Scalar,
 				source2: source2,
 				equalityComparerScalar: null,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
@@ -8676,13 +8688,13 @@ namespace ObservableComputations
 			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> source1Scalar,
 			 System.Collections.Specialized.INotifyCollectionChanged source2,
 			 Expression<Func<System.Collections.Generic.IEqualityComparer<TSourceItem>>> equalityComparerExpression,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Excepting<TSourceItem>(
 				source1Scalar: source1Scalar,
 				source2: source2,
 				equalityComparerScalar: new Computing<System.Collections.Generic.IEqualityComparer<TSourceItem>>(equalityComparerExpression),
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -8695,7 +8707,7 @@ namespace ObservableComputations
 				source1Scalar: source1Scalar,
 				source2: source2,
 				equalityComparerScalar: new Computing<System.Collections.Generic.IEqualityComparer<TSourceItem>>(equalityComparerExpression),
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
@@ -8703,13 +8715,13 @@ namespace ObservableComputations
 			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> source1Scalar,
 			 ObservableCollection<TSourceItem> source2,
 			 ObservableComputations.IReadScalar<System.Collections.Generic.IEqualityComparer<TSourceItem>> equalityComparerScalar,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Excepting<TSourceItem>(
 				source1Scalar: source1Scalar,
 				source2: source2,
 				equalityComparerScalar: equalityComparerScalar,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -8722,20 +8734,20 @@ namespace ObservableComputations
 				source1Scalar: source1Scalar,
 				source2: source2,
 				equalityComparerScalar: equalityComparerScalar,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.Excepting<TSourceItem> Excepting<TSourceItem>(this
 			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> source1Scalar,
 			 ObservableCollection<TSourceItem> source2,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Excepting<TSourceItem>(
 				source1Scalar: source1Scalar,
 				source2: source2,
 				equalityComparerScalar: null,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -8747,7 +8759,7 @@ namespace ObservableComputations
 				source1Scalar: source1Scalar,
 				source2: source2,
 				equalityComparerScalar: null,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
@@ -8755,13 +8767,13 @@ namespace ObservableComputations
 			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> source1Scalar,
 			 ObservableCollection<TSourceItem> source2,
 			 Expression<Func<System.Collections.Generic.IEqualityComparer<TSourceItem>>> equalityComparerExpression,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Excepting<TSourceItem>(
 				source1Scalar: source1Scalar,
 				source2: source2,
 				equalityComparerScalar: new Computing<System.Collections.Generic.IEqualityComparer<TSourceItem>>(equalityComparerExpression),
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -8774,7 +8786,7 @@ namespace ObservableComputations
 				source1Scalar: source1Scalar,
 				source2: source2,
 				equalityComparerScalar: new Computing<System.Collections.Generic.IEqualityComparer<TSourceItem>>(equalityComparerExpression),
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
@@ -8782,13 +8794,13 @@ namespace ObservableComputations
 			 ObservableComputations.IReadScalar<ObservableCollection<TSourceItem>> source1Scalar,
 			 System.Collections.Specialized.INotifyCollectionChanged source2,
 			 ObservableComputations.IReadScalar<System.Collections.Generic.IEqualityComparer<TSourceItem>> equalityComparerScalar,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Excepting<TSourceItem>(
 				source1Scalar: source1Scalar,
 				source2: source2,
 				equalityComparerScalar: equalityComparerScalar,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -8801,20 +8813,20 @@ namespace ObservableComputations
 				source1Scalar: source1Scalar,
 				source2: source2,
 				equalityComparerScalar: equalityComparerScalar,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.Excepting<TSourceItem> Excepting<TSourceItem>(this
 			 ObservableComputations.IReadScalar<ObservableCollection<TSourceItem>> source1Scalar,
 			 System.Collections.Specialized.INotifyCollectionChanged source2,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Excepting<TSourceItem>(
 				source1Scalar: source1Scalar,
 				source2: source2,
 				equalityComparerScalar: null,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -8826,7 +8838,7 @@ namespace ObservableComputations
 				source1Scalar: source1Scalar,
 				source2: source2,
 				equalityComparerScalar: null,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
@@ -8834,13 +8846,13 @@ namespace ObservableComputations
 			 ObservableComputations.IReadScalar<ObservableCollection<TSourceItem>> source1Scalar,
 			 System.Collections.Specialized.INotifyCollectionChanged source2,
 			 Expression<Func<System.Collections.Generic.IEqualityComparer<TSourceItem>>> equalityComparerExpression,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Excepting<TSourceItem>(
 				source1Scalar: source1Scalar,
 				source2: source2,
 				equalityComparerScalar: new Computing<System.Collections.Generic.IEqualityComparer<TSourceItem>>(equalityComparerExpression),
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -8853,7 +8865,7 @@ namespace ObservableComputations
 				source1Scalar: source1Scalar,
 				source2: source2,
 				equalityComparerScalar: new Computing<System.Collections.Generic.IEqualityComparer<TSourceItem>>(equalityComparerExpression),
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
@@ -8861,13 +8873,13 @@ namespace ObservableComputations
 			 ObservableComputations.IReadScalar<ObservableCollection<TSourceItem>> source1Scalar,
 			 ObservableCollection<TSourceItem> source2,
 			 ObservableComputations.IReadScalar<System.Collections.Generic.IEqualityComparer<TSourceItem>> equalityComparerScalar,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Excepting<TSourceItem>(
 				source1Scalar: source1Scalar,
 				source2: source2,
 				equalityComparerScalar: equalityComparerScalar,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -8880,20 +8892,20 @@ namespace ObservableComputations
 				source1Scalar: source1Scalar,
 				source2: source2,
 				equalityComparerScalar: equalityComparerScalar,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.Excepting<TSourceItem> Excepting<TSourceItem>(this
 			 ObservableComputations.IReadScalar<ObservableCollection<TSourceItem>> source1Scalar,
 			 ObservableCollection<TSourceItem> source2,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Excepting<TSourceItem>(
 				source1Scalar: source1Scalar,
 				source2: source2,
 				equalityComparerScalar: null,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -8905,7 +8917,7 @@ namespace ObservableComputations
 				source1Scalar: source1Scalar,
 				source2: source2,
 				equalityComparerScalar: null,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
@@ -8913,13 +8925,13 @@ namespace ObservableComputations
 			 ObservableComputations.IReadScalar<ObservableCollection<TSourceItem>> source1Scalar,
 			 ObservableCollection<TSourceItem> source2,
 			 Expression<Func<System.Collections.Generic.IEqualityComparer<TSourceItem>>> equalityComparerExpression,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Excepting<TSourceItem>(
 				source1Scalar: source1Scalar,
 				source2: source2,
 				equalityComparerScalar: new Computing<System.Collections.Generic.IEqualityComparer<TSourceItem>>(equalityComparerExpression),
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -8932,7 +8944,7 @@ namespace ObservableComputations
 				source1Scalar: source1Scalar,
 				source2: source2,
 				equalityComparerScalar: new Computing<System.Collections.Generic.IEqualityComparer<TSourceItem>>(equalityComparerExpression),
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
@@ -8940,13 +8952,13 @@ namespace ObservableComputations
 			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> source1Expression,
 			 System.Collections.Specialized.INotifyCollectionChanged source2,
 			 ObservableComputations.IReadScalar<System.Collections.Generic.IEqualityComparer<TSourceItem>> equalityComparerScalar,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Excepting<TSourceItem>(
 				source1Scalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(source1Expression),
 				source2: source2,
 				equalityComparerScalar: equalityComparerScalar,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -8959,20 +8971,20 @@ namespace ObservableComputations
 				source1Scalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(source1Expression),
 				source2: source2,
 				equalityComparerScalar: equalityComparerScalar,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.Excepting<TSourceItem> Excepting<TSourceItem>(this
 			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> source1Expression,
 			 System.Collections.Specialized.INotifyCollectionChanged source2,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Excepting<TSourceItem>(
 				source1Scalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(source1Expression),
 				source2: source2,
 				equalityComparerScalar: null,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -8984,7 +8996,7 @@ namespace ObservableComputations
 				source1Scalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(source1Expression),
 				source2: source2,
 				equalityComparerScalar: null,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
@@ -8992,13 +9004,13 @@ namespace ObservableComputations
 			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> source1Expression,
 			 System.Collections.Specialized.INotifyCollectionChanged source2,
 			 Expression<Func<System.Collections.Generic.IEqualityComparer<TSourceItem>>> equalityComparerExpression,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Excepting<TSourceItem>(
 				source1Scalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(source1Expression),
 				source2: source2,
 				equalityComparerScalar: new Computing<System.Collections.Generic.IEqualityComparer<TSourceItem>>(equalityComparerExpression),
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -9011,7 +9023,7 @@ namespace ObservableComputations
 				source1Scalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(source1Expression),
 				source2: source2,
 				equalityComparerScalar: new Computing<System.Collections.Generic.IEqualityComparer<TSourceItem>>(equalityComparerExpression),
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
@@ -9019,13 +9031,13 @@ namespace ObservableComputations
 			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> source1Expression,
 			 ObservableCollection<TSourceItem> source2,
 			 ObservableComputations.IReadScalar<System.Collections.Generic.IEqualityComparer<TSourceItem>> equalityComparerScalar,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Excepting<TSourceItem>(
 				source1Scalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(source1Expression),
 				source2: source2,
 				equalityComparerScalar: equalityComparerScalar,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -9038,20 +9050,20 @@ namespace ObservableComputations
 				source1Scalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(source1Expression),
 				source2: source2,
 				equalityComparerScalar: equalityComparerScalar,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.Excepting<TSourceItem> Excepting<TSourceItem>(this
 			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> source1Expression,
 			 ObservableCollection<TSourceItem> source2,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Excepting<TSourceItem>(
 				source1Scalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(source1Expression),
 				source2: source2,
 				equalityComparerScalar: null,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -9063,7 +9075,7 @@ namespace ObservableComputations
 				source1Scalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(source1Expression),
 				source2: source2,
 				equalityComparerScalar: null,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
@@ -9071,13 +9083,13 @@ namespace ObservableComputations
 			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> source1Expression,
 			 ObservableCollection<TSourceItem> source2,
 			 Expression<Func<System.Collections.Generic.IEqualityComparer<TSourceItem>>> equalityComparerExpression,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Excepting<TSourceItem>(
 				source1Scalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(source1Expression),
 				source2: source2,
 				equalityComparerScalar: new Computing<System.Collections.Generic.IEqualityComparer<TSourceItem>>(equalityComparerExpression),
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -9090,7 +9102,7 @@ namespace ObservableComputations
 				source1Scalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(source1Expression),
 				source2: source2,
 				equalityComparerScalar: new Computing<System.Collections.Generic.IEqualityComparer<TSourceItem>>(equalityComparerExpression),
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
@@ -9098,13 +9110,13 @@ namespace ObservableComputations
 			 Expression<Func<ObservableCollection<TSourceItem>>> source1Expression,
 			 System.Collections.Specialized.INotifyCollectionChanged source2,
 			 ObservableComputations.IReadScalar<System.Collections.Generic.IEqualityComparer<TSourceItem>> equalityComparerScalar,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Excepting<TSourceItem>(
 				source1Scalar: new Computing<ObservableCollection<TSourceItem>>(source1Expression),
 				source2: source2,
 				equalityComparerScalar: equalityComparerScalar,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -9117,20 +9129,20 @@ namespace ObservableComputations
 				source1Scalar: new Computing<ObservableCollection<TSourceItem>>(source1Expression),
 				source2: source2,
 				equalityComparerScalar: equalityComparerScalar,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.Excepting<TSourceItem> Excepting<TSourceItem>(this
 			 Expression<Func<ObservableCollection<TSourceItem>>> source1Expression,
 			 System.Collections.Specialized.INotifyCollectionChanged source2,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Excepting<TSourceItem>(
 				source1Scalar: new Computing<ObservableCollection<TSourceItem>>(source1Expression),
 				source2: source2,
 				equalityComparerScalar: null,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -9142,7 +9154,7 @@ namespace ObservableComputations
 				source1Scalar: new Computing<ObservableCollection<TSourceItem>>(source1Expression),
 				source2: source2,
 				equalityComparerScalar: null,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
@@ -9150,13 +9162,13 @@ namespace ObservableComputations
 			 Expression<Func<ObservableCollection<TSourceItem>>> source1Expression,
 			 System.Collections.Specialized.INotifyCollectionChanged source2,
 			 Expression<Func<System.Collections.Generic.IEqualityComparer<TSourceItem>>> equalityComparerExpression,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Excepting<TSourceItem>(
 				source1Scalar: new Computing<ObservableCollection<TSourceItem>>(source1Expression),
 				source2: source2,
 				equalityComparerScalar: new Computing<System.Collections.Generic.IEqualityComparer<TSourceItem>>(equalityComparerExpression),
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -9169,7 +9181,7 @@ namespace ObservableComputations
 				source1Scalar: new Computing<ObservableCollection<TSourceItem>>(source1Expression),
 				source2: source2,
 				equalityComparerScalar: new Computing<System.Collections.Generic.IEqualityComparer<TSourceItem>>(equalityComparerExpression),
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
@@ -9177,13 +9189,13 @@ namespace ObservableComputations
 			 Expression<Func<ObservableCollection<TSourceItem>>> source1Expression,
 			 ObservableCollection<TSourceItem> source2,
 			 ObservableComputations.IReadScalar<System.Collections.Generic.IEqualityComparer<TSourceItem>> equalityComparerScalar,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Excepting<TSourceItem>(
 				source1Scalar: new Computing<ObservableCollection<TSourceItem>>(source1Expression),
 				source2: source2,
 				equalityComparerScalar: equalityComparerScalar,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -9196,20 +9208,20 @@ namespace ObservableComputations
 				source1Scalar: new Computing<ObservableCollection<TSourceItem>>(source1Expression),
 				source2: source2,
 				equalityComparerScalar: equalityComparerScalar,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.Excepting<TSourceItem> Excepting<TSourceItem>(this
 			 Expression<Func<ObservableCollection<TSourceItem>>> source1Expression,
 			 ObservableCollection<TSourceItem> source2,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Excepting<TSourceItem>(
 				source1Scalar: new Computing<ObservableCollection<TSourceItem>>(source1Expression),
 				source2: source2,
 				equalityComparerScalar: null,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -9221,7 +9233,7 @@ namespace ObservableComputations
 				source1Scalar: new Computing<ObservableCollection<TSourceItem>>(source1Expression),
 				source2: source2,
 				equalityComparerScalar: null,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
@@ -9229,13 +9241,13 @@ namespace ObservableComputations
 			 Expression<Func<ObservableCollection<TSourceItem>>> source1Expression,
 			 ObservableCollection<TSourceItem> source2,
 			 Expression<Func<System.Collections.Generic.IEqualityComparer<TSourceItem>>> equalityComparerExpression,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Excepting<TSourceItem>(
 				source1Scalar: new Computing<ObservableCollection<TSourceItem>>(source1Expression),
 				source2: source2,
 				equalityComparerScalar: new Computing<System.Collections.Generic.IEqualityComparer<TSourceItem>>(equalityComparerExpression),
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -9248,7 +9260,7 @@ namespace ObservableComputations
 				source1Scalar: new Computing<ObservableCollection<TSourceItem>>(source1Expression),
 				source2: source2,
 				equalityComparerScalar: new Computing<System.Collections.Generic.IEqualityComparer<TSourceItem>>(equalityComparerExpression),
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
@@ -9256,13 +9268,13 @@ namespace ObservableComputations
 			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> source1Scalar,
 			 System.Collections.Specialized.INotifyCollectionChanged source2,
 			 System.Collections.Generic.IEqualityComparer<TSourceItem> equalityComparer,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Excepting<TSourceItem>(
 				source1Scalar: source1Scalar,
 				source2: source2,
 				equalityComparer: equalityComparer,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -9275,7 +9287,7 @@ namespace ObservableComputations
 				source1Scalar: source1Scalar,
 				source2: source2,
 				equalityComparer: equalityComparer,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
@@ -9283,13 +9295,13 @@ namespace ObservableComputations
 			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> source1Scalar,
 			 ObservableCollection<TSourceItem> source2,
 			 System.Collections.Generic.IEqualityComparer<TSourceItem> equalityComparer,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Excepting<TSourceItem>(
 				source1Scalar: source1Scalar,
 				source2: source2,
 				equalityComparer: equalityComparer,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -9302,7 +9314,7 @@ namespace ObservableComputations
 				source1Scalar: source1Scalar,
 				source2: source2,
 				equalityComparer: equalityComparer,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
@@ -9310,13 +9322,13 @@ namespace ObservableComputations
 			 ObservableComputations.IReadScalar<ObservableCollection<TSourceItem>> source1Scalar,
 			 System.Collections.Specialized.INotifyCollectionChanged source2,
 			 System.Collections.Generic.IEqualityComparer<TSourceItem> equalityComparer,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Excepting<TSourceItem>(
 				source1Scalar: source1Scalar,
 				source2: source2,
 				equalityComparer: equalityComparer,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -9329,7 +9341,7 @@ namespace ObservableComputations
 				source1Scalar: source1Scalar,
 				source2: source2,
 				equalityComparer: equalityComparer,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
@@ -9337,13 +9349,13 @@ namespace ObservableComputations
 			 ObservableComputations.IReadScalar<ObservableCollection<TSourceItem>> source1Scalar,
 			 ObservableCollection<TSourceItem> source2,
 			 System.Collections.Generic.IEqualityComparer<TSourceItem> equalityComparer,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Excepting<TSourceItem>(
 				source1Scalar: source1Scalar,
 				source2: source2,
 				equalityComparer: equalityComparer,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -9356,7 +9368,7 @@ namespace ObservableComputations
 				source1Scalar: source1Scalar,
 				source2: source2,
 				equalityComparer: equalityComparer,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
@@ -9364,13 +9376,13 @@ namespace ObservableComputations
 			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> source1Expression,
 			 System.Collections.Specialized.INotifyCollectionChanged source2,
 			 System.Collections.Generic.IEqualityComparer<TSourceItem> equalityComparer,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Excepting<TSourceItem>(
 				source1Scalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(source1Expression),
 				source2: source2,
 				equalityComparer: equalityComparer,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -9383,7 +9395,7 @@ namespace ObservableComputations
 				source1Scalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(source1Expression),
 				source2: source2,
 				equalityComparer: equalityComparer,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
@@ -9391,13 +9403,13 @@ namespace ObservableComputations
 			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> source1Expression,
 			 ObservableCollection<TSourceItem> source2,
 			 System.Collections.Generic.IEqualityComparer<TSourceItem> equalityComparer,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Excepting<TSourceItem>(
 				source1Scalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(source1Expression),
 				source2: source2,
 				equalityComparer: equalityComparer,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -9410,7 +9422,7 @@ namespace ObservableComputations
 				source1Scalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(source1Expression),
 				source2: source2,
 				equalityComparer: equalityComparer,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
@@ -9418,13 +9430,13 @@ namespace ObservableComputations
 			 Expression<Func<ObservableCollection<TSourceItem>>> source1Expression,
 			 System.Collections.Specialized.INotifyCollectionChanged source2,
 			 System.Collections.Generic.IEqualityComparer<TSourceItem> equalityComparer,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Excepting<TSourceItem>(
 				source1Scalar: new Computing<ObservableCollection<TSourceItem>>(source1Expression),
 				source2: source2,
 				equalityComparer: equalityComparer,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -9437,7 +9449,7 @@ namespace ObservableComputations
 				source1Scalar: new Computing<ObservableCollection<TSourceItem>>(source1Expression),
 				source2: source2,
 				equalityComparer: equalityComparer,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
@@ -9445,13 +9457,13 @@ namespace ObservableComputations
 			 Expression<Func<ObservableCollection<TSourceItem>>> source1Expression,
 			 ObservableCollection<TSourceItem> source2,
 			 System.Collections.Generic.IEqualityComparer<TSourceItem> equalityComparer,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Excepting<TSourceItem>(
 				source1Scalar: new Computing<ObservableCollection<TSourceItem>>(source1Expression),
 				source2: source2,
 				equalityComparer: equalityComparer,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -9464,7 +9476,7 @@ namespace ObservableComputations
 				source1Scalar: new Computing<ObservableCollection<TSourceItem>>(source1Expression),
 				source2: source2,
 				equalityComparer: equalityComparer,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
@@ -9472,13 +9484,13 @@ namespace ObservableComputations
 			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> source1Scalar,
 			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> source2Scalar,
 			 System.Collections.Generic.IEqualityComparer<TSourceItem> equalityComparer,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Excepting<TSourceItem>(
 				source1Scalar: source1Scalar,
 				source2Scalar: source2Scalar,
 				equalityComparer: equalityComparer,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -9491,7 +9503,7 @@ namespace ObservableComputations
 				source1Scalar: source1Scalar,
 				source2Scalar: source2Scalar,
 				equalityComparer: equalityComparer,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
@@ -9499,13 +9511,13 @@ namespace ObservableComputations
 			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> source1Scalar,
 			 ObservableComputations.IReadScalar<ObservableCollection<TSourceItem>> source2Scalar,
 			 System.Collections.Generic.IEqualityComparer<TSourceItem> equalityComparer,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Excepting<TSourceItem>(
 				source1Scalar: source1Scalar,
 				source2Scalar: source2Scalar,
 				equalityComparer: equalityComparer,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -9518,7 +9530,7 @@ namespace ObservableComputations
 				source1Scalar: source1Scalar,
 				source2Scalar: source2Scalar,
 				equalityComparer: equalityComparer,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
@@ -9526,13 +9538,13 @@ namespace ObservableComputations
 			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> source1Scalar,
 			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> source2Expression,
 			 System.Collections.Generic.IEqualityComparer<TSourceItem> equalityComparer,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Excepting<TSourceItem>(
 				source1Scalar: source1Scalar,
 				source2Scalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(source2Expression),
 				equalityComparer: equalityComparer,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -9545,7 +9557,7 @@ namespace ObservableComputations
 				source1Scalar: source1Scalar,
 				source2Scalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(source2Expression),
 				equalityComparer: equalityComparer,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
@@ -9553,13 +9565,13 @@ namespace ObservableComputations
 			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> source1Scalar,
 			 Expression<Func<ObservableCollection<TSourceItem>>> source2Expression,
 			 System.Collections.Generic.IEqualityComparer<TSourceItem> equalityComparer,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Excepting<TSourceItem>(
 				source1Scalar: source1Scalar,
 				source2Scalar: new Computing<ObservableCollection<TSourceItem>>(source2Expression),
 				equalityComparer: equalityComparer,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -9572,7 +9584,7 @@ namespace ObservableComputations
 				source1Scalar: source1Scalar,
 				source2Scalar: new Computing<ObservableCollection<TSourceItem>>(source2Expression),
 				equalityComparer: equalityComparer,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
@@ -9580,13 +9592,13 @@ namespace ObservableComputations
 			 ObservableComputations.IReadScalar<ObservableCollection<TSourceItem>> source1Scalar,
 			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> source2Scalar,
 			 System.Collections.Generic.IEqualityComparer<TSourceItem> equalityComparer,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Excepting<TSourceItem>(
 				source1Scalar: source1Scalar,
 				source2Scalar: source2Scalar,
 				equalityComparer: equalityComparer,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -9599,7 +9611,7 @@ namespace ObservableComputations
 				source1Scalar: source1Scalar,
 				source2Scalar: source2Scalar,
 				equalityComparer: equalityComparer,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
@@ -9607,13 +9619,13 @@ namespace ObservableComputations
 			 ObservableComputations.IReadScalar<ObservableCollection<TSourceItem>> source1Scalar,
 			 ObservableComputations.IReadScalar<ObservableCollection<TSourceItem>> source2Scalar,
 			 System.Collections.Generic.IEqualityComparer<TSourceItem> equalityComparer,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Excepting<TSourceItem>(
 				source1Scalar: source1Scalar,
 				source2Scalar: source2Scalar,
 				equalityComparer: equalityComparer,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -9626,7 +9638,7 @@ namespace ObservableComputations
 				source1Scalar: source1Scalar,
 				source2Scalar: source2Scalar,
 				equalityComparer: equalityComparer,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
@@ -9634,13 +9646,13 @@ namespace ObservableComputations
 			 ObservableComputations.IReadScalar<ObservableCollection<TSourceItem>> source1Scalar,
 			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> source2Expression,
 			 System.Collections.Generic.IEqualityComparer<TSourceItem> equalityComparer,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Excepting<TSourceItem>(
 				source1Scalar: source1Scalar,
 				source2Scalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(source2Expression),
 				equalityComparer: equalityComparer,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -9653,7 +9665,7 @@ namespace ObservableComputations
 				source1Scalar: source1Scalar,
 				source2Scalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(source2Expression),
 				equalityComparer: equalityComparer,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
@@ -9661,13 +9673,13 @@ namespace ObservableComputations
 			 ObservableComputations.IReadScalar<ObservableCollection<TSourceItem>> source1Scalar,
 			 Expression<Func<ObservableCollection<TSourceItem>>> source2Expression,
 			 System.Collections.Generic.IEqualityComparer<TSourceItem> equalityComparer,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Excepting<TSourceItem>(
 				source1Scalar: source1Scalar,
 				source2Scalar: new Computing<ObservableCollection<TSourceItem>>(source2Expression),
 				equalityComparer: equalityComparer,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -9680,7 +9692,7 @@ namespace ObservableComputations
 				source1Scalar: source1Scalar,
 				source2Scalar: new Computing<ObservableCollection<TSourceItem>>(source2Expression),
 				equalityComparer: equalityComparer,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
@@ -9688,13 +9700,13 @@ namespace ObservableComputations
 			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> source1Expression,
 			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> source2Scalar,
 			 System.Collections.Generic.IEqualityComparer<TSourceItem> equalityComparer,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Excepting<TSourceItem>(
 				source1Scalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(source1Expression),
 				source2Scalar: source2Scalar,
 				equalityComparer: equalityComparer,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -9707,7 +9719,7 @@ namespace ObservableComputations
 				source1Scalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(source1Expression),
 				source2Scalar: source2Scalar,
 				equalityComparer: equalityComparer,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
@@ -9715,13 +9727,13 @@ namespace ObservableComputations
 			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> source1Expression,
 			 ObservableComputations.IReadScalar<ObservableCollection<TSourceItem>> source2Scalar,
 			 System.Collections.Generic.IEqualityComparer<TSourceItem> equalityComparer,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Excepting<TSourceItem>(
 				source1Scalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(source1Expression),
 				source2Scalar: source2Scalar,
 				equalityComparer: equalityComparer,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -9734,7 +9746,7 @@ namespace ObservableComputations
 				source1Scalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(source1Expression),
 				source2Scalar: source2Scalar,
 				equalityComparer: equalityComparer,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
@@ -9742,13 +9754,13 @@ namespace ObservableComputations
 			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> source1Expression,
 			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> source2Expression,
 			 System.Collections.Generic.IEqualityComparer<TSourceItem> equalityComparer,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Excepting<TSourceItem>(
 				source1Scalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(source1Expression),
 				source2Scalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(source2Expression),
 				equalityComparer: equalityComparer,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -9761,7 +9773,7 @@ namespace ObservableComputations
 				source1Scalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(source1Expression),
 				source2Scalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(source2Expression),
 				equalityComparer: equalityComparer,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
@@ -9769,13 +9781,13 @@ namespace ObservableComputations
 			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> source1Expression,
 			 Expression<Func<ObservableCollection<TSourceItem>>> source2Expression,
 			 System.Collections.Generic.IEqualityComparer<TSourceItem> equalityComparer,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Excepting<TSourceItem>(
 				source1Scalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(source1Expression),
 				source2Scalar: new Computing<ObservableCollection<TSourceItem>>(source2Expression),
 				equalityComparer: equalityComparer,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -9788,7 +9800,7 @@ namespace ObservableComputations
 				source1Scalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(source1Expression),
 				source2Scalar: new Computing<ObservableCollection<TSourceItem>>(source2Expression),
 				equalityComparer: equalityComparer,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
@@ -9796,13 +9808,13 @@ namespace ObservableComputations
 			 Expression<Func<ObservableCollection<TSourceItem>>> source1Expression,
 			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> source2Scalar,
 			 System.Collections.Generic.IEqualityComparer<TSourceItem> equalityComparer,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Excepting<TSourceItem>(
 				source1Scalar: new Computing<ObservableCollection<TSourceItem>>(source1Expression),
 				source2Scalar: source2Scalar,
 				equalityComparer: equalityComparer,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -9815,7 +9827,7 @@ namespace ObservableComputations
 				source1Scalar: new Computing<ObservableCollection<TSourceItem>>(source1Expression),
 				source2Scalar: source2Scalar,
 				equalityComparer: equalityComparer,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
@@ -9823,13 +9835,13 @@ namespace ObservableComputations
 			 Expression<Func<ObservableCollection<TSourceItem>>> source1Expression,
 			 ObservableComputations.IReadScalar<ObservableCollection<TSourceItem>> source2Scalar,
 			 System.Collections.Generic.IEqualityComparer<TSourceItem> equalityComparer,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Excepting<TSourceItem>(
 				source1Scalar: new Computing<ObservableCollection<TSourceItem>>(source1Expression),
 				source2Scalar: source2Scalar,
 				equalityComparer: equalityComparer,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -9842,7 +9854,7 @@ namespace ObservableComputations
 				source1Scalar: new Computing<ObservableCollection<TSourceItem>>(source1Expression),
 				source2Scalar: source2Scalar,
 				equalityComparer: equalityComparer,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
@@ -9850,13 +9862,13 @@ namespace ObservableComputations
 			 Expression<Func<ObservableCollection<TSourceItem>>> source1Expression,
 			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> source2Expression,
 			 System.Collections.Generic.IEqualityComparer<TSourceItem> equalityComparer,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Excepting<TSourceItem>(
 				source1Scalar: new Computing<ObservableCollection<TSourceItem>>(source1Expression),
 				source2Scalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(source2Expression),
 				equalityComparer: equalityComparer,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -9869,7 +9881,7 @@ namespace ObservableComputations
 				source1Scalar: new Computing<ObservableCollection<TSourceItem>>(source1Expression),
 				source2Scalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(source2Expression),
 				equalityComparer: equalityComparer,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
@@ -9877,13 +9889,13 @@ namespace ObservableComputations
 			 Expression<Func<ObservableCollection<TSourceItem>>> source1Expression,
 			 Expression<Func<ObservableCollection<TSourceItem>>> source2Expression,
 			 System.Collections.Generic.IEqualityComparer<TSourceItem> equalityComparer,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Excepting<TSourceItem>(
 				source1Scalar: new Computing<ObservableCollection<TSourceItem>>(source1Expression),
 				source2Scalar: new Computing<ObservableCollection<TSourceItem>>(source2Expression),
 				equalityComparer: equalityComparer,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -9896,7 +9908,7 @@ namespace ObservableComputations
 				source1Scalar: new Computing<ObservableCollection<TSourceItem>>(source1Expression),
 				source2Scalar: new Computing<ObservableCollection<TSourceItem>>(source2Expression),
 				equalityComparer: equalityComparer,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
@@ -9904,13 +9916,13 @@ namespace ObservableComputations
 			 System.Collections.Specialized.INotifyCollectionChanged source1,
 			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> source2Scalar,
 			 ObservableComputations.IReadScalar<System.Collections.Generic.IEqualityComparer<TSourceItem>> equalityComparerScalar,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Excepting<TSourceItem>(
 				source1: source1,
 				source2Scalar: source2Scalar,
 				equalityComparerScalar: equalityComparerScalar,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -9923,20 +9935,20 @@ namespace ObservableComputations
 				source1: source1,
 				source2Scalar: source2Scalar,
 				equalityComparerScalar: equalityComparerScalar,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.Excepting<TSourceItem> Excepting<TSourceItem>(this
 			 System.Collections.Specialized.INotifyCollectionChanged source1,
 			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> source2Scalar,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Excepting<TSourceItem>(
 				source1: source1,
 				source2Scalar: source2Scalar,
 				equalityComparerScalar: null,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -9948,7 +9960,7 @@ namespace ObservableComputations
 				source1: source1,
 				source2Scalar: source2Scalar,
 				equalityComparerScalar: null,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
@@ -9956,13 +9968,13 @@ namespace ObservableComputations
 			 System.Collections.Specialized.INotifyCollectionChanged source1,
 			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> source2Scalar,
 			 Expression<Func<System.Collections.Generic.IEqualityComparer<TSourceItem>>> equalityComparerExpression,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Excepting<TSourceItem>(
 				source1: source1,
 				source2Scalar: source2Scalar,
 				equalityComparerScalar: new Computing<System.Collections.Generic.IEqualityComparer<TSourceItem>>(equalityComparerExpression),
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -9975,7 +9987,7 @@ namespace ObservableComputations
 				source1: source1,
 				source2Scalar: source2Scalar,
 				equalityComparerScalar: new Computing<System.Collections.Generic.IEqualityComparer<TSourceItem>>(equalityComparerExpression),
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
@@ -9983,13 +9995,13 @@ namespace ObservableComputations
 			 System.Collections.Specialized.INotifyCollectionChanged source1,
 			 ObservableComputations.IReadScalar<ObservableCollection<TSourceItem>> source2Scalar,
 			 ObservableComputations.IReadScalar<System.Collections.Generic.IEqualityComparer<TSourceItem>> equalityComparerScalar,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Excepting<TSourceItem>(
 				source1: source1,
 				source2Scalar: source2Scalar,
 				equalityComparerScalar: equalityComparerScalar,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -10002,20 +10014,20 @@ namespace ObservableComputations
 				source1: source1,
 				source2Scalar: source2Scalar,
 				equalityComparerScalar: equalityComparerScalar,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.Excepting<TSourceItem> Excepting<TSourceItem>(this
 			 System.Collections.Specialized.INotifyCollectionChanged source1,
 			 ObservableComputations.IReadScalar<ObservableCollection<TSourceItem>> source2Scalar,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Excepting<TSourceItem>(
 				source1: source1,
 				source2Scalar: source2Scalar,
 				equalityComparerScalar: null,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -10027,7 +10039,7 @@ namespace ObservableComputations
 				source1: source1,
 				source2Scalar: source2Scalar,
 				equalityComparerScalar: null,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
@@ -10035,13 +10047,13 @@ namespace ObservableComputations
 			 System.Collections.Specialized.INotifyCollectionChanged source1,
 			 ObservableComputations.IReadScalar<ObservableCollection<TSourceItem>> source2Scalar,
 			 Expression<Func<System.Collections.Generic.IEqualityComparer<TSourceItem>>> equalityComparerExpression,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Excepting<TSourceItem>(
 				source1: source1,
 				source2Scalar: source2Scalar,
 				equalityComparerScalar: new Computing<System.Collections.Generic.IEqualityComparer<TSourceItem>>(equalityComparerExpression),
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -10054,7 +10066,7 @@ namespace ObservableComputations
 				source1: source1,
 				source2Scalar: source2Scalar,
 				equalityComparerScalar: new Computing<System.Collections.Generic.IEqualityComparer<TSourceItem>>(equalityComparerExpression),
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
@@ -10062,13 +10074,13 @@ namespace ObservableComputations
 			 System.Collections.Specialized.INotifyCollectionChanged source1,
 			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> source2Expression,
 			 ObservableComputations.IReadScalar<System.Collections.Generic.IEqualityComparer<TSourceItem>> equalityComparerScalar,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Excepting<TSourceItem>(
 				source1: source1,
 				source2Scalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(source2Expression),
 				equalityComparerScalar: equalityComparerScalar,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -10081,20 +10093,20 @@ namespace ObservableComputations
 				source1: source1,
 				source2Scalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(source2Expression),
 				equalityComparerScalar: equalityComparerScalar,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.Excepting<TSourceItem> Excepting<TSourceItem>(this
 			 System.Collections.Specialized.INotifyCollectionChanged source1,
 			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> source2Expression,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Excepting<TSourceItem>(
 				source1: source1,
 				source2Scalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(source2Expression),
 				equalityComparerScalar: null,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -10106,7 +10118,7 @@ namespace ObservableComputations
 				source1: source1,
 				source2Scalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(source2Expression),
 				equalityComparerScalar: null,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
@@ -10114,13 +10126,13 @@ namespace ObservableComputations
 			 System.Collections.Specialized.INotifyCollectionChanged source1,
 			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> source2Expression,
 			 Expression<Func<System.Collections.Generic.IEqualityComparer<TSourceItem>>> equalityComparerExpression,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Excepting<TSourceItem>(
 				source1: source1,
 				source2Scalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(source2Expression),
 				equalityComparerScalar: new Computing<System.Collections.Generic.IEqualityComparer<TSourceItem>>(equalityComparerExpression),
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -10133,7 +10145,7 @@ namespace ObservableComputations
 				source1: source1,
 				source2Scalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(source2Expression),
 				equalityComparerScalar: new Computing<System.Collections.Generic.IEqualityComparer<TSourceItem>>(equalityComparerExpression),
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
@@ -10141,13 +10153,13 @@ namespace ObservableComputations
 			 System.Collections.Specialized.INotifyCollectionChanged source1,
 			 Expression<Func<ObservableCollection<TSourceItem>>> source2Expression,
 			 ObservableComputations.IReadScalar<System.Collections.Generic.IEqualityComparer<TSourceItem>> equalityComparerScalar,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Excepting<TSourceItem>(
 				source1: source1,
 				source2Scalar: new Computing<ObservableCollection<TSourceItem>>(source2Expression),
 				equalityComparerScalar: equalityComparerScalar,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -10160,20 +10172,20 @@ namespace ObservableComputations
 				source1: source1,
 				source2Scalar: new Computing<ObservableCollection<TSourceItem>>(source2Expression),
 				equalityComparerScalar: equalityComparerScalar,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.Excepting<TSourceItem> Excepting<TSourceItem>(this
 			 System.Collections.Specialized.INotifyCollectionChanged source1,
 			 Expression<Func<ObservableCollection<TSourceItem>>> source2Expression,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Excepting<TSourceItem>(
 				source1: source1,
 				source2Scalar: new Computing<ObservableCollection<TSourceItem>>(source2Expression),
 				equalityComparerScalar: null,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -10185,7 +10197,7 @@ namespace ObservableComputations
 				source1: source1,
 				source2Scalar: new Computing<ObservableCollection<TSourceItem>>(source2Expression),
 				equalityComparerScalar: null,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
@@ -10193,13 +10205,13 @@ namespace ObservableComputations
 			 System.Collections.Specialized.INotifyCollectionChanged source1,
 			 Expression<Func<ObservableCollection<TSourceItem>>> source2Expression,
 			 Expression<Func<System.Collections.Generic.IEqualityComparer<TSourceItem>>> equalityComparerExpression,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Excepting<TSourceItem>(
 				source1: source1,
 				source2Scalar: new Computing<ObservableCollection<TSourceItem>>(source2Expression),
 				equalityComparerScalar: new Computing<System.Collections.Generic.IEqualityComparer<TSourceItem>>(equalityComparerExpression),
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -10212,7 +10224,7 @@ namespace ObservableComputations
 				source1: source1,
 				source2Scalar: new Computing<ObservableCollection<TSourceItem>>(source2Expression),
 				equalityComparerScalar: new Computing<System.Collections.Generic.IEqualityComparer<TSourceItem>>(equalityComparerExpression),
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
@@ -10220,13 +10232,13 @@ namespace ObservableComputations
 			 ObservableCollection<TSourceItem> source1,
 			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> source2Scalar,
 			 ObservableComputations.IReadScalar<System.Collections.Generic.IEqualityComparer<TSourceItem>> equalityComparerScalar,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Excepting<TSourceItem>(
 				source1: source1,
 				source2Scalar: source2Scalar,
 				equalityComparerScalar: equalityComparerScalar,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -10239,20 +10251,20 @@ namespace ObservableComputations
 				source1: source1,
 				source2Scalar: source2Scalar,
 				equalityComparerScalar: equalityComparerScalar,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.Excepting<TSourceItem> Excepting<TSourceItem>(this
 			 ObservableCollection<TSourceItem> source1,
 			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> source2Scalar,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Excepting<TSourceItem>(
 				source1: source1,
 				source2Scalar: source2Scalar,
 				equalityComparerScalar: null,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -10264,7 +10276,7 @@ namespace ObservableComputations
 				source1: source1,
 				source2Scalar: source2Scalar,
 				equalityComparerScalar: null,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
@@ -10272,13 +10284,13 @@ namespace ObservableComputations
 			 ObservableCollection<TSourceItem> source1,
 			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> source2Scalar,
 			 Expression<Func<System.Collections.Generic.IEqualityComparer<TSourceItem>>> equalityComparerExpression,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Excepting<TSourceItem>(
 				source1: source1,
 				source2Scalar: source2Scalar,
 				equalityComparerScalar: new Computing<System.Collections.Generic.IEqualityComparer<TSourceItem>>(equalityComparerExpression),
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -10291,7 +10303,7 @@ namespace ObservableComputations
 				source1: source1,
 				source2Scalar: source2Scalar,
 				equalityComparerScalar: new Computing<System.Collections.Generic.IEqualityComparer<TSourceItem>>(equalityComparerExpression),
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
@@ -10299,13 +10311,13 @@ namespace ObservableComputations
 			 ObservableCollection<TSourceItem> source1,
 			 ObservableComputations.IReadScalar<ObservableCollection<TSourceItem>> source2Scalar,
 			 ObservableComputations.IReadScalar<System.Collections.Generic.IEqualityComparer<TSourceItem>> equalityComparerScalar,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Excepting<TSourceItem>(
 				source1: source1,
 				source2Scalar: source2Scalar,
 				equalityComparerScalar: equalityComparerScalar,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -10318,20 +10330,20 @@ namespace ObservableComputations
 				source1: source1,
 				source2Scalar: source2Scalar,
 				equalityComparerScalar: equalityComparerScalar,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.Excepting<TSourceItem> Excepting<TSourceItem>(this
 			 ObservableCollection<TSourceItem> source1,
 			 ObservableComputations.IReadScalar<ObservableCollection<TSourceItem>> source2Scalar,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Excepting<TSourceItem>(
 				source1: source1,
 				source2Scalar: source2Scalar,
 				equalityComparerScalar: null,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -10343,7 +10355,7 @@ namespace ObservableComputations
 				source1: source1,
 				source2Scalar: source2Scalar,
 				equalityComparerScalar: null,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
@@ -10351,13 +10363,13 @@ namespace ObservableComputations
 			 ObservableCollection<TSourceItem> source1,
 			 ObservableComputations.IReadScalar<ObservableCollection<TSourceItem>> source2Scalar,
 			 Expression<Func<System.Collections.Generic.IEqualityComparer<TSourceItem>>> equalityComparerExpression,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Excepting<TSourceItem>(
 				source1: source1,
 				source2Scalar: source2Scalar,
 				equalityComparerScalar: new Computing<System.Collections.Generic.IEqualityComparer<TSourceItem>>(equalityComparerExpression),
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -10370,7 +10382,7 @@ namespace ObservableComputations
 				source1: source1,
 				source2Scalar: source2Scalar,
 				equalityComparerScalar: new Computing<System.Collections.Generic.IEqualityComparer<TSourceItem>>(equalityComparerExpression),
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
@@ -10378,13 +10390,13 @@ namespace ObservableComputations
 			 ObservableCollection<TSourceItem> source1,
 			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> source2Expression,
 			 ObservableComputations.IReadScalar<System.Collections.Generic.IEqualityComparer<TSourceItem>> equalityComparerScalar,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Excepting<TSourceItem>(
 				source1: source1,
 				source2Scalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(source2Expression),
 				equalityComparerScalar: equalityComparerScalar,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -10397,20 +10409,20 @@ namespace ObservableComputations
 				source1: source1,
 				source2Scalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(source2Expression),
 				equalityComparerScalar: equalityComparerScalar,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.Excepting<TSourceItem> Excepting<TSourceItem>(this
 			 ObservableCollection<TSourceItem> source1,
 			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> source2Expression,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Excepting<TSourceItem>(
 				source1: source1,
 				source2Scalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(source2Expression),
 				equalityComparerScalar: null,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -10422,7 +10434,7 @@ namespace ObservableComputations
 				source1: source1,
 				source2Scalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(source2Expression),
 				equalityComparerScalar: null,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
@@ -10430,13 +10442,13 @@ namespace ObservableComputations
 			 ObservableCollection<TSourceItem> source1,
 			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> source2Expression,
 			 Expression<Func<System.Collections.Generic.IEqualityComparer<TSourceItem>>> equalityComparerExpression,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Excepting<TSourceItem>(
 				source1: source1,
 				source2Scalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(source2Expression),
 				equalityComparerScalar: new Computing<System.Collections.Generic.IEqualityComparer<TSourceItem>>(equalityComparerExpression),
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -10449,7 +10461,7 @@ namespace ObservableComputations
 				source1: source1,
 				source2Scalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(source2Expression),
 				equalityComparerScalar: new Computing<System.Collections.Generic.IEqualityComparer<TSourceItem>>(equalityComparerExpression),
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
@@ -10457,13 +10469,13 @@ namespace ObservableComputations
 			 ObservableCollection<TSourceItem> source1,
 			 Expression<Func<ObservableCollection<TSourceItem>>> source2Expression,
 			 ObservableComputations.IReadScalar<System.Collections.Generic.IEqualityComparer<TSourceItem>> equalityComparerScalar,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Excepting<TSourceItem>(
 				source1: source1,
 				source2Scalar: new Computing<ObservableCollection<TSourceItem>>(source2Expression),
 				equalityComparerScalar: equalityComparerScalar,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -10476,20 +10488,20 @@ namespace ObservableComputations
 				source1: source1,
 				source2Scalar: new Computing<ObservableCollection<TSourceItem>>(source2Expression),
 				equalityComparerScalar: equalityComparerScalar,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.Excepting<TSourceItem> Excepting<TSourceItem>(this
 			 ObservableCollection<TSourceItem> source1,
 			 Expression<Func<ObservableCollection<TSourceItem>>> source2Expression,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Excepting<TSourceItem>(
 				source1: source1,
 				source2Scalar: new Computing<ObservableCollection<TSourceItem>>(source2Expression),
 				equalityComparerScalar: null,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -10501,7 +10513,7 @@ namespace ObservableComputations
 				source1: source1,
 				source2Scalar: new Computing<ObservableCollection<TSourceItem>>(source2Expression),
 				equalityComparerScalar: null,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
@@ -10509,13 +10521,13 @@ namespace ObservableComputations
 			 ObservableCollection<TSourceItem> source1,
 			 Expression<Func<ObservableCollection<TSourceItem>>> source2Expression,
 			 Expression<Func<System.Collections.Generic.IEqualityComparer<TSourceItem>>> equalityComparerExpression,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Excepting<TSourceItem>(
 				source1: source1,
 				source2Scalar: new Computing<ObservableCollection<TSourceItem>>(source2Expression),
 				equalityComparerScalar: new Computing<System.Collections.Generic.IEqualityComparer<TSourceItem>>(equalityComparerExpression),
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -10528,7 +10540,7 @@ namespace ObservableComputations
 				source1: source1,
 				source2Scalar: new Computing<ObservableCollection<TSourceItem>>(source2Expression),
 				equalityComparerScalar: new Computing<System.Collections.Generic.IEqualityComparer<TSourceItem>>(equalityComparerExpression),
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
@@ -10536,13 +10548,13 @@ namespace ObservableComputations
 			 System.Collections.Specialized.INotifyCollectionChanged source1,
 			 System.Collections.Specialized.INotifyCollectionChanged source2,
 			 ObservableComputations.IReadScalar<System.Collections.Generic.IEqualityComparer<TSourceItem>> equalityComparerScalar,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Excepting<TSourceItem>(
 				source1: source1,
 				source2: source2,
 				equalityComparerScalar: equalityComparerScalar,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -10555,20 +10567,20 @@ namespace ObservableComputations
 				source1: source1,
 				source2: source2,
 				equalityComparerScalar: equalityComparerScalar,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.Excepting<TSourceItem> Excepting<TSourceItem>(this
 			 System.Collections.Specialized.INotifyCollectionChanged source1,
 			 System.Collections.Specialized.INotifyCollectionChanged source2,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Excepting<TSourceItem>(
 				source1: source1,
 				source2: source2,
 				equalityComparerScalar: null,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -10580,7 +10592,7 @@ namespace ObservableComputations
 				source1: source1,
 				source2: source2,
 				equalityComparerScalar: null,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
@@ -10588,13 +10600,13 @@ namespace ObservableComputations
 			 System.Collections.Specialized.INotifyCollectionChanged source1,
 			 System.Collections.Specialized.INotifyCollectionChanged source2,
 			 Expression<Func<System.Collections.Generic.IEqualityComparer<TSourceItem>>> equalityComparerExpression,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Excepting<TSourceItem>(
 				source1: source1,
 				source2: source2,
 				equalityComparerScalar: new Computing<System.Collections.Generic.IEqualityComparer<TSourceItem>>(equalityComparerExpression),
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -10607,7 +10619,7 @@ namespace ObservableComputations
 				source1: source1,
 				source2: source2,
 				equalityComparerScalar: new Computing<System.Collections.Generic.IEqualityComparer<TSourceItem>>(equalityComparerExpression),
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
@@ -10615,13 +10627,13 @@ namespace ObservableComputations
 			 System.Collections.Specialized.INotifyCollectionChanged source1,
 			 ObservableCollection<TSourceItem> source2,
 			 ObservableComputations.IReadScalar<System.Collections.Generic.IEqualityComparer<TSourceItem>> equalityComparerScalar,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Excepting<TSourceItem>(
 				source1: source1,
 				source2: source2,
 				equalityComparerScalar: equalityComparerScalar,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -10634,20 +10646,20 @@ namespace ObservableComputations
 				source1: source1,
 				source2: source2,
 				equalityComparerScalar: equalityComparerScalar,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.Excepting<TSourceItem> Excepting<TSourceItem>(this
 			 System.Collections.Specialized.INotifyCollectionChanged source1,
 			 ObservableCollection<TSourceItem> source2,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Excepting<TSourceItem>(
 				source1: source1,
 				source2: source2,
 				equalityComparerScalar: null,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -10659,7 +10671,7 @@ namespace ObservableComputations
 				source1: source1,
 				source2: source2,
 				equalityComparerScalar: null,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
@@ -10667,13 +10679,13 @@ namespace ObservableComputations
 			 System.Collections.Specialized.INotifyCollectionChanged source1,
 			 ObservableCollection<TSourceItem> source2,
 			 Expression<Func<System.Collections.Generic.IEqualityComparer<TSourceItem>>> equalityComparerExpression,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Excepting<TSourceItem>(
 				source1: source1,
 				source2: source2,
 				equalityComparerScalar: new Computing<System.Collections.Generic.IEqualityComparer<TSourceItem>>(equalityComparerExpression),
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -10686,7 +10698,7 @@ namespace ObservableComputations
 				source1: source1,
 				source2: source2,
 				equalityComparerScalar: new Computing<System.Collections.Generic.IEqualityComparer<TSourceItem>>(equalityComparerExpression),
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
@@ -10694,13 +10706,13 @@ namespace ObservableComputations
 			 ObservableCollection<TSourceItem> source1,
 			 System.Collections.Specialized.INotifyCollectionChanged source2,
 			 ObservableComputations.IReadScalar<System.Collections.Generic.IEqualityComparer<TSourceItem>> equalityComparerScalar,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Excepting<TSourceItem>(
 				source1: source1,
 				source2: source2,
 				equalityComparerScalar: equalityComparerScalar,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -10713,20 +10725,20 @@ namespace ObservableComputations
 				source1: source1,
 				source2: source2,
 				equalityComparerScalar: equalityComparerScalar,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.Excepting<TSourceItem> Excepting<TSourceItem>(this
 			 ObservableCollection<TSourceItem> source1,
 			 System.Collections.Specialized.INotifyCollectionChanged source2,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Excepting<TSourceItem>(
 				source1: source1,
 				source2: source2,
 				equalityComparerScalar: null,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -10738,7 +10750,7 @@ namespace ObservableComputations
 				source1: source1,
 				source2: source2,
 				equalityComparerScalar: null,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
@@ -10746,13 +10758,13 @@ namespace ObservableComputations
 			 ObservableCollection<TSourceItem> source1,
 			 System.Collections.Specialized.INotifyCollectionChanged source2,
 			 Expression<Func<System.Collections.Generic.IEqualityComparer<TSourceItem>>> equalityComparerExpression,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Excepting<TSourceItem>(
 				source1: source1,
 				source2: source2,
 				equalityComparerScalar: new Computing<System.Collections.Generic.IEqualityComparer<TSourceItem>>(equalityComparerExpression),
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -10765,7 +10777,7 @@ namespace ObservableComputations
 				source1: source1,
 				source2: source2,
 				equalityComparerScalar: new Computing<System.Collections.Generic.IEqualityComparer<TSourceItem>>(equalityComparerExpression),
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
@@ -10773,13 +10785,13 @@ namespace ObservableComputations
 			 ObservableCollection<TSourceItem> source1,
 			 ObservableCollection<TSourceItem> source2,
 			 ObservableComputations.IReadScalar<System.Collections.Generic.IEqualityComparer<TSourceItem>> equalityComparerScalar,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Excepting<TSourceItem>(
 				source1: source1,
 				source2: source2,
 				equalityComparerScalar: equalityComparerScalar,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -10792,20 +10804,20 @@ namespace ObservableComputations
 				source1: source1,
 				source2: source2,
 				equalityComparerScalar: equalityComparerScalar,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.Excepting<TSourceItem> Excepting<TSourceItem>(this
 			 ObservableCollection<TSourceItem> source1,
 			 ObservableCollection<TSourceItem> source2,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Excepting<TSourceItem>(
 				source1: source1,
 				source2: source2,
 				equalityComparerScalar: null,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -10817,7 +10829,7 @@ namespace ObservableComputations
 				source1: source1,
 				source2: source2,
 				equalityComparerScalar: null,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
@@ -10825,13 +10837,13 @@ namespace ObservableComputations
 			 ObservableCollection<TSourceItem> source1,
 			 ObservableCollection<TSourceItem> source2,
 			 Expression<Func<System.Collections.Generic.IEqualityComparer<TSourceItem>>> equalityComparerExpression,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Excepting<TSourceItem>(
 				source1: source1,
 				source2: source2,
 				equalityComparerScalar: new Computing<System.Collections.Generic.IEqualityComparer<TSourceItem>>(equalityComparerExpression),
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -10844,7 +10856,7 @@ namespace ObservableComputations
 				source1: source1,
 				source2: source2,
 				equalityComparerScalar: new Computing<System.Collections.Generic.IEqualityComparer<TSourceItem>>(equalityComparerExpression),
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
@@ -10852,13 +10864,13 @@ namespace ObservableComputations
 			 System.Collections.Specialized.INotifyCollectionChanged source1,
 			 System.Collections.Specialized.INotifyCollectionChanged source2,
 			 System.Collections.Generic.IEqualityComparer<TSourceItem> equalityComparer,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Excepting<TSourceItem>(
 				source1: source1,
 				source2: source2,
 				equalityComparer: equalityComparer,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -10871,7 +10883,7 @@ namespace ObservableComputations
 				source1: source1,
 				source2: source2,
 				equalityComparer: equalityComparer,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
@@ -10879,13 +10891,13 @@ namespace ObservableComputations
 			 System.Collections.Specialized.INotifyCollectionChanged source1,
 			 ObservableCollection<TSourceItem> source2,
 			 System.Collections.Generic.IEqualityComparer<TSourceItem> equalityComparer,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Excepting<TSourceItem>(
 				source1: source1,
 				source2: source2,
 				equalityComparer: equalityComparer,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -10898,7 +10910,7 @@ namespace ObservableComputations
 				source1: source1,
 				source2: source2,
 				equalityComparer: equalityComparer,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
@@ -10906,13 +10918,13 @@ namespace ObservableComputations
 			 ObservableCollection<TSourceItem> source1,
 			 System.Collections.Specialized.INotifyCollectionChanged source2,
 			 System.Collections.Generic.IEqualityComparer<TSourceItem> equalityComparer,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Excepting<TSourceItem>(
 				source1: source1,
 				source2: source2,
 				equalityComparer: equalityComparer,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -10925,7 +10937,7 @@ namespace ObservableComputations
 				source1: source1,
 				source2: source2,
 				equalityComparer: equalityComparer,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
@@ -10933,13 +10945,13 @@ namespace ObservableComputations
 			 ObservableCollection<TSourceItem> source1,
 			 ObservableCollection<TSourceItem> source2,
 			 System.Collections.Generic.IEqualityComparer<TSourceItem> equalityComparer,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Excepting<TSourceItem>(
 				source1: source1,
 				source2: source2,
 				equalityComparer: equalityComparer,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -10952,7 +10964,7 @@ namespace ObservableComputations
 				source1: source1,
 				source2: source2,
 				equalityComparer: equalityComparer,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
@@ -10960,13 +10972,13 @@ namespace ObservableComputations
 			 System.Collections.Specialized.INotifyCollectionChanged source1,
 			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> source2Scalar,
 			 System.Collections.Generic.IEqualityComparer<TSourceItem> equalityComparer,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Excepting<TSourceItem>(
 				source1: source1,
 				source2Scalar: source2Scalar,
 				equalityComparer: equalityComparer,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -10979,7 +10991,7 @@ namespace ObservableComputations
 				source1: source1,
 				source2Scalar: source2Scalar,
 				equalityComparer: equalityComparer,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
@@ -10987,13 +10999,13 @@ namespace ObservableComputations
 			 System.Collections.Specialized.INotifyCollectionChanged source1,
 			 ObservableComputations.IReadScalar<ObservableCollection<TSourceItem>> source2Scalar,
 			 System.Collections.Generic.IEqualityComparer<TSourceItem> equalityComparer,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Excepting<TSourceItem>(
 				source1: source1,
 				source2Scalar: source2Scalar,
 				equalityComparer: equalityComparer,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -11006,7 +11018,7 @@ namespace ObservableComputations
 				source1: source1,
 				source2Scalar: source2Scalar,
 				equalityComparer: equalityComparer,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
@@ -11014,13 +11026,13 @@ namespace ObservableComputations
 			 System.Collections.Specialized.INotifyCollectionChanged source1,
 			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> source2Expression,
 			 System.Collections.Generic.IEqualityComparer<TSourceItem> equalityComparer,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Excepting<TSourceItem>(
 				source1: source1,
 				source2Scalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(source2Expression),
 				equalityComparer: equalityComparer,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -11033,7 +11045,7 @@ namespace ObservableComputations
 				source1: source1,
 				source2Scalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(source2Expression),
 				equalityComparer: equalityComparer,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
@@ -11041,13 +11053,13 @@ namespace ObservableComputations
 			 System.Collections.Specialized.INotifyCollectionChanged source1,
 			 Expression<Func<ObservableCollection<TSourceItem>>> source2Expression,
 			 System.Collections.Generic.IEqualityComparer<TSourceItem> equalityComparer,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Excepting<TSourceItem>(
 				source1: source1,
 				source2Scalar: new Computing<ObservableCollection<TSourceItem>>(source2Expression),
 				equalityComparer: equalityComparer,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -11060,7 +11072,7 @@ namespace ObservableComputations
 				source1: source1,
 				source2Scalar: new Computing<ObservableCollection<TSourceItem>>(source2Expression),
 				equalityComparer: equalityComparer,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
@@ -11068,13 +11080,13 @@ namespace ObservableComputations
 			 ObservableCollection<TSourceItem> source1,
 			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> source2Scalar,
 			 System.Collections.Generic.IEqualityComparer<TSourceItem> equalityComparer,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Excepting<TSourceItem>(
 				source1: source1,
 				source2Scalar: source2Scalar,
 				equalityComparer: equalityComparer,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -11087,7 +11099,7 @@ namespace ObservableComputations
 				source1: source1,
 				source2Scalar: source2Scalar,
 				equalityComparer: equalityComparer,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
@@ -11095,13 +11107,13 @@ namespace ObservableComputations
 			 ObservableCollection<TSourceItem> source1,
 			 ObservableComputations.IReadScalar<ObservableCollection<TSourceItem>> source2Scalar,
 			 System.Collections.Generic.IEqualityComparer<TSourceItem> equalityComparer,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Excepting<TSourceItem>(
 				source1: source1,
 				source2Scalar: source2Scalar,
 				equalityComparer: equalityComparer,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -11114,7 +11126,7 @@ namespace ObservableComputations
 				source1: source1,
 				source2Scalar: source2Scalar,
 				equalityComparer: equalityComparer,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
@@ -11122,13 +11134,13 @@ namespace ObservableComputations
 			 ObservableCollection<TSourceItem> source1,
 			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> source2Expression,
 			 System.Collections.Generic.IEqualityComparer<TSourceItem> equalityComparer,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Excepting<TSourceItem>(
 				source1: source1,
 				source2Scalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(source2Expression),
 				equalityComparer: equalityComparer,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -11141,7 +11153,7 @@ namespace ObservableComputations
 				source1: source1,
 				source2Scalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(source2Expression),
 				equalityComparer: equalityComparer,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
@@ -11149,13 +11161,13 @@ namespace ObservableComputations
 			 ObservableCollection<TSourceItem> source1,
 			 Expression<Func<ObservableCollection<TSourceItem>>> source2Expression,
 			 System.Collections.Generic.IEqualityComparer<TSourceItem> equalityComparer,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Excepting<TSourceItem>(
 				source1: source1,
 				source2Scalar: new Computing<ObservableCollection<TSourceItem>>(source2Expression),
 				equalityComparer: equalityComparer,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -11168,7 +11180,7 @@ namespace ObservableComputations
 				source1: source1,
 				source2Scalar: new Computing<ObservableCollection<TSourceItem>>(source2Expression),
 				equalityComparer: equalityComparer,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		#endregion
@@ -11229,12 +11241,12 @@ namespace ObservableComputations
 		public static ObservableComputations.Filtering<TSourceItem> Filtering<TSourceItem>(this
 			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar,
 			 System.Linq.Expressions.Expression<System.Func<TSourceItem, bool>> predicateExpression,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Filtering<TSourceItem>(
 				sourceScalar: sourceScalar,
 				predicateExpression: predicateExpression,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -11245,19 +11257,19 @@ namespace ObservableComputations
 			return new ObservableComputations.Filtering<TSourceItem>(
 				sourceScalar: sourceScalar,
 				predicateExpression: predicateExpression,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.Filtering<TSourceItem> Filtering<TSourceItem>(this
 			 ObservableComputations.IReadScalar<ObservableCollection<TSourceItem>> sourceScalar,
 			 System.Linq.Expressions.Expression<System.Func<TSourceItem, bool>> predicateExpression,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Filtering<TSourceItem>(
 				sourceScalar: sourceScalar,
 				predicateExpression: predicateExpression,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -11268,19 +11280,19 @@ namespace ObservableComputations
 			return new ObservableComputations.Filtering<TSourceItem>(
 				sourceScalar: sourceScalar,
 				predicateExpression: predicateExpression,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.Filtering<TSourceItem> Filtering<TSourceItem>(this
 			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> sourceExpression,
 			 System.Linq.Expressions.Expression<System.Func<TSourceItem, bool>> predicateExpression,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Filtering<TSourceItem>(
 				sourceScalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(sourceExpression),
 				predicateExpression: predicateExpression,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -11291,19 +11303,19 @@ namespace ObservableComputations
 			return new ObservableComputations.Filtering<TSourceItem>(
 				sourceScalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(sourceExpression),
 				predicateExpression: predicateExpression,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.Filtering<TSourceItem> Filtering<TSourceItem>(this
 			 Expression<Func<ObservableCollection<TSourceItem>>> sourceExpression,
 			 System.Linq.Expressions.Expression<System.Func<TSourceItem, bool>> predicateExpression,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Filtering<TSourceItem>(
 				sourceScalar: new Computing<ObservableCollection<TSourceItem>>(sourceExpression),
 				predicateExpression: predicateExpression,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -11314,19 +11326,19 @@ namespace ObservableComputations
 			return new ObservableComputations.Filtering<TSourceItem>(
 				sourceScalar: new Computing<ObservableCollection<TSourceItem>>(sourceExpression),
 				predicateExpression: predicateExpression,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.Filtering<TSourceItem> Filtering<TSourceItem>(this
 			 System.Collections.Specialized.INotifyCollectionChanged source,
 			 System.Linq.Expressions.Expression<System.Func<TSourceItem, bool>> predicateExpression,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Filtering<TSourceItem>(
 				source: source,
 				predicateExpression: predicateExpression,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -11337,19 +11349,19 @@ namespace ObservableComputations
 			return new ObservableComputations.Filtering<TSourceItem>(
 				source: source,
 				predicateExpression: predicateExpression,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.Filtering<TSourceItem> Filtering<TSourceItem>(this
 			 ObservableCollection<TSourceItem> source,
 			 System.Linq.Expressions.Expression<System.Func<TSourceItem, bool>> predicateExpression,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Filtering<TSourceItem>(
 				source: source,
 				predicateExpression: predicateExpression,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -11360,7 +11372,7 @@ namespace ObservableComputations
 			return new ObservableComputations.Filtering<TSourceItem>(
 				source: source,
 				predicateExpression: predicateExpression,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		#endregion
@@ -11488,13 +11500,13 @@ namespace ObservableComputations
 			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar,
 			 System.Linq.Expressions.Expression<System.Func<TSourceItem, TKey>> keySelectorExpression,
 			 ObservableComputations.IReadScalar<System.Collections.Generic.IEqualityComparer<TKey>> equalityComparerScalar,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Grouping<TSourceItem, TKey>(
 				sourceScalar: sourceScalar,
 				keySelectorExpression: keySelectorExpression,
 				equalityComparerScalar: equalityComparerScalar,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -11507,20 +11519,20 @@ namespace ObservableComputations
 				sourceScalar: sourceScalar,
 				keySelectorExpression: keySelectorExpression,
 				equalityComparerScalar: equalityComparerScalar,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.Grouping<TSourceItem, TKey> Grouping<TSourceItem, TKey>(this
 			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar,
 			 System.Linq.Expressions.Expression<System.Func<TSourceItem, TKey>> keySelectorExpression,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Grouping<TSourceItem, TKey>(
 				sourceScalar: sourceScalar,
 				keySelectorExpression: keySelectorExpression,
 				equalityComparerScalar: null,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -11532,7 +11544,7 @@ namespace ObservableComputations
 				sourceScalar: sourceScalar,
 				keySelectorExpression: keySelectorExpression,
 				equalityComparerScalar: null,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
@@ -11540,13 +11552,13 @@ namespace ObservableComputations
 			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar,
 			 System.Linq.Expressions.Expression<System.Func<TSourceItem, TKey>> keySelectorExpression,
 			 Expression<Func<System.Collections.Generic.IEqualityComparer<TKey>>> equalityComparerExpression,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Grouping<TSourceItem, TKey>(
 				sourceScalar: sourceScalar,
 				keySelectorExpression: keySelectorExpression,
 				equalityComparerScalar: new Computing<System.Collections.Generic.IEqualityComparer<TKey>>(equalityComparerExpression),
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -11559,7 +11571,7 @@ namespace ObservableComputations
 				sourceScalar: sourceScalar,
 				keySelectorExpression: keySelectorExpression,
 				equalityComparerScalar: new Computing<System.Collections.Generic.IEqualityComparer<TKey>>(equalityComparerExpression),
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
@@ -11567,13 +11579,13 @@ namespace ObservableComputations
 			 ObservableComputations.IReadScalar<ObservableCollection<TSourceItem>> sourceScalar,
 			 System.Linq.Expressions.Expression<System.Func<TSourceItem, TKey>> keySelectorExpression,
 			 ObservableComputations.IReadScalar<System.Collections.Generic.IEqualityComparer<TKey>> equalityComparerScalar,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Grouping<TSourceItem, TKey>(
 				sourceScalar: sourceScalar,
 				keySelectorExpression: keySelectorExpression,
 				equalityComparerScalar: equalityComparerScalar,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -11586,20 +11598,20 @@ namespace ObservableComputations
 				sourceScalar: sourceScalar,
 				keySelectorExpression: keySelectorExpression,
 				equalityComparerScalar: equalityComparerScalar,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.Grouping<TSourceItem, TKey> Grouping<TSourceItem, TKey>(this
 			 ObservableComputations.IReadScalar<ObservableCollection<TSourceItem>> sourceScalar,
 			 System.Linq.Expressions.Expression<System.Func<TSourceItem, TKey>> keySelectorExpression,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Grouping<TSourceItem, TKey>(
 				sourceScalar: sourceScalar,
 				keySelectorExpression: keySelectorExpression,
 				equalityComparerScalar: null,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -11611,7 +11623,7 @@ namespace ObservableComputations
 				sourceScalar: sourceScalar,
 				keySelectorExpression: keySelectorExpression,
 				equalityComparerScalar: null,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
@@ -11619,13 +11631,13 @@ namespace ObservableComputations
 			 ObservableComputations.IReadScalar<ObservableCollection<TSourceItem>> sourceScalar,
 			 System.Linq.Expressions.Expression<System.Func<TSourceItem, TKey>> keySelectorExpression,
 			 Expression<Func<System.Collections.Generic.IEqualityComparer<TKey>>> equalityComparerExpression,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Grouping<TSourceItem, TKey>(
 				sourceScalar: sourceScalar,
 				keySelectorExpression: keySelectorExpression,
 				equalityComparerScalar: new Computing<System.Collections.Generic.IEqualityComparer<TKey>>(equalityComparerExpression),
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -11638,7 +11650,7 @@ namespace ObservableComputations
 				sourceScalar: sourceScalar,
 				keySelectorExpression: keySelectorExpression,
 				equalityComparerScalar: new Computing<System.Collections.Generic.IEqualityComparer<TKey>>(equalityComparerExpression),
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
@@ -11646,13 +11658,13 @@ namespace ObservableComputations
 			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> sourceExpression,
 			 System.Linq.Expressions.Expression<System.Func<TSourceItem, TKey>> keySelectorExpression,
 			 ObservableComputations.IReadScalar<System.Collections.Generic.IEqualityComparer<TKey>> equalityComparerScalar,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Grouping<TSourceItem, TKey>(
 				sourceScalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(sourceExpression),
 				keySelectorExpression: keySelectorExpression,
 				equalityComparerScalar: equalityComparerScalar,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -11665,20 +11677,20 @@ namespace ObservableComputations
 				sourceScalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(sourceExpression),
 				keySelectorExpression: keySelectorExpression,
 				equalityComparerScalar: equalityComparerScalar,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.Grouping<TSourceItem, TKey> Grouping<TSourceItem, TKey>(this
 			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> sourceExpression,
 			 System.Linq.Expressions.Expression<System.Func<TSourceItem, TKey>> keySelectorExpression,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Grouping<TSourceItem, TKey>(
 				sourceScalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(sourceExpression),
 				keySelectorExpression: keySelectorExpression,
 				equalityComparerScalar: null,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -11690,7 +11702,7 @@ namespace ObservableComputations
 				sourceScalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(sourceExpression),
 				keySelectorExpression: keySelectorExpression,
 				equalityComparerScalar: null,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
@@ -11698,13 +11710,13 @@ namespace ObservableComputations
 			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> sourceExpression,
 			 System.Linq.Expressions.Expression<System.Func<TSourceItem, TKey>> keySelectorExpression,
 			 Expression<Func<System.Collections.Generic.IEqualityComparer<TKey>>> equalityComparerExpression,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Grouping<TSourceItem, TKey>(
 				sourceScalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(sourceExpression),
 				keySelectorExpression: keySelectorExpression,
 				equalityComparerScalar: new Computing<System.Collections.Generic.IEqualityComparer<TKey>>(equalityComparerExpression),
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -11717,7 +11729,7 @@ namespace ObservableComputations
 				sourceScalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(sourceExpression),
 				keySelectorExpression: keySelectorExpression,
 				equalityComparerScalar: new Computing<System.Collections.Generic.IEqualityComparer<TKey>>(equalityComparerExpression),
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
@@ -11725,13 +11737,13 @@ namespace ObservableComputations
 			 Expression<Func<ObservableCollection<TSourceItem>>> sourceExpression,
 			 System.Linq.Expressions.Expression<System.Func<TSourceItem, TKey>> keySelectorExpression,
 			 ObservableComputations.IReadScalar<System.Collections.Generic.IEqualityComparer<TKey>> equalityComparerScalar,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Grouping<TSourceItem, TKey>(
 				sourceScalar: new Computing<ObservableCollection<TSourceItem>>(sourceExpression),
 				keySelectorExpression: keySelectorExpression,
 				equalityComparerScalar: equalityComparerScalar,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -11744,20 +11756,20 @@ namespace ObservableComputations
 				sourceScalar: new Computing<ObservableCollection<TSourceItem>>(sourceExpression),
 				keySelectorExpression: keySelectorExpression,
 				equalityComparerScalar: equalityComparerScalar,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.Grouping<TSourceItem, TKey> Grouping<TSourceItem, TKey>(this
 			 Expression<Func<ObservableCollection<TSourceItem>>> sourceExpression,
 			 System.Linq.Expressions.Expression<System.Func<TSourceItem, TKey>> keySelectorExpression,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Grouping<TSourceItem, TKey>(
 				sourceScalar: new Computing<ObservableCollection<TSourceItem>>(sourceExpression),
 				keySelectorExpression: keySelectorExpression,
 				equalityComparerScalar: null,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -11769,7 +11781,7 @@ namespace ObservableComputations
 				sourceScalar: new Computing<ObservableCollection<TSourceItem>>(sourceExpression),
 				keySelectorExpression: keySelectorExpression,
 				equalityComparerScalar: null,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
@@ -11777,13 +11789,13 @@ namespace ObservableComputations
 			 Expression<Func<ObservableCollection<TSourceItem>>> sourceExpression,
 			 System.Linq.Expressions.Expression<System.Func<TSourceItem, TKey>> keySelectorExpression,
 			 Expression<Func<System.Collections.Generic.IEqualityComparer<TKey>>> equalityComparerExpression,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Grouping<TSourceItem, TKey>(
 				sourceScalar: new Computing<ObservableCollection<TSourceItem>>(sourceExpression),
 				keySelectorExpression: keySelectorExpression,
 				equalityComparerScalar: new Computing<System.Collections.Generic.IEqualityComparer<TKey>>(equalityComparerExpression),
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -11796,7 +11808,7 @@ namespace ObservableComputations
 				sourceScalar: new Computing<ObservableCollection<TSourceItem>>(sourceExpression),
 				keySelectorExpression: keySelectorExpression,
 				equalityComparerScalar: new Computing<System.Collections.Generic.IEqualityComparer<TKey>>(equalityComparerExpression),
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
@@ -11804,13 +11816,13 @@ namespace ObservableComputations
 			 System.Collections.Specialized.INotifyCollectionChanged source,
 			 System.Linq.Expressions.Expression<System.Func<TSourceItem, TKey>> keySelectorExpression,
 			 ObservableComputations.IReadScalar<System.Collections.Generic.IEqualityComparer<TKey>> equalityComparerScalar,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Grouping<TSourceItem, TKey>(
 				source: source,
 				keySelectorExpression: keySelectorExpression,
 				equalityComparerScalar: equalityComparerScalar,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -11823,20 +11835,20 @@ namespace ObservableComputations
 				source: source,
 				keySelectorExpression: keySelectorExpression,
 				equalityComparerScalar: equalityComparerScalar,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.Grouping<TSourceItem, TKey> Grouping<TSourceItem, TKey>(this
 			 System.Collections.Specialized.INotifyCollectionChanged source,
 			 System.Linq.Expressions.Expression<System.Func<TSourceItem, TKey>> keySelectorExpression,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Grouping<TSourceItem, TKey>(
 				source: source,
 				keySelectorExpression: keySelectorExpression,
 				equalityComparerScalar: null,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -11848,7 +11860,7 @@ namespace ObservableComputations
 				source: source,
 				keySelectorExpression: keySelectorExpression,
 				equalityComparerScalar: null,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
@@ -11856,13 +11868,13 @@ namespace ObservableComputations
 			 System.Collections.Specialized.INotifyCollectionChanged source,
 			 System.Linq.Expressions.Expression<System.Func<TSourceItem, TKey>> keySelectorExpression,
 			 Expression<Func<System.Collections.Generic.IEqualityComparer<TKey>>> equalityComparerExpression,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Grouping<TSourceItem, TKey>(
 				source: source,
 				keySelectorExpression: keySelectorExpression,
 				equalityComparerScalar: new Computing<System.Collections.Generic.IEqualityComparer<TKey>>(equalityComparerExpression),
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -11875,7 +11887,7 @@ namespace ObservableComputations
 				source: source,
 				keySelectorExpression: keySelectorExpression,
 				equalityComparerScalar: new Computing<System.Collections.Generic.IEqualityComparer<TKey>>(equalityComparerExpression),
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
@@ -11883,13 +11895,13 @@ namespace ObservableComputations
 			 ObservableCollection<TSourceItem> source,
 			 System.Linq.Expressions.Expression<System.Func<TSourceItem, TKey>> keySelectorExpression,
 			 ObservableComputations.IReadScalar<System.Collections.Generic.IEqualityComparer<TKey>> equalityComparerScalar,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Grouping<TSourceItem, TKey>(
 				source: source,
 				keySelectorExpression: keySelectorExpression,
 				equalityComparerScalar: equalityComparerScalar,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -11902,20 +11914,20 @@ namespace ObservableComputations
 				source: source,
 				keySelectorExpression: keySelectorExpression,
 				equalityComparerScalar: equalityComparerScalar,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.Grouping<TSourceItem, TKey> Grouping<TSourceItem, TKey>(this
 			 ObservableCollection<TSourceItem> source,
 			 System.Linq.Expressions.Expression<System.Func<TSourceItem, TKey>> keySelectorExpression,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Grouping<TSourceItem, TKey>(
 				source: source,
 				keySelectorExpression: keySelectorExpression,
 				equalityComparerScalar: null,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -11927,7 +11939,7 @@ namespace ObservableComputations
 				source: source,
 				keySelectorExpression: keySelectorExpression,
 				equalityComparerScalar: null,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
@@ -11935,13 +11947,13 @@ namespace ObservableComputations
 			 ObservableCollection<TSourceItem> source,
 			 System.Linq.Expressions.Expression<System.Func<TSourceItem, TKey>> keySelectorExpression,
 			 Expression<Func<System.Collections.Generic.IEqualityComparer<TKey>>> equalityComparerExpression,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Grouping<TSourceItem, TKey>(
 				source: source,
 				keySelectorExpression: keySelectorExpression,
 				equalityComparerScalar: new Computing<System.Collections.Generic.IEqualityComparer<TKey>>(equalityComparerExpression),
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -11954,7 +11966,7 @@ namespace ObservableComputations
 				source: source,
 				keySelectorExpression: keySelectorExpression,
 				equalityComparerScalar: new Computing<System.Collections.Generic.IEqualityComparer<TKey>>(equalityComparerExpression),
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
@@ -11962,13 +11974,13 @@ namespace ObservableComputations
 			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar,
 			 System.Linq.Expressions.Expression<System.Func<TSourceItem, TKey>> keySelectorExpression,
 			 System.Collections.Generic.IEqualityComparer<TKey> equalityComparer,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Grouping<TSourceItem, TKey>(
 				sourceScalar: sourceScalar,
 				keySelectorExpression: keySelectorExpression,
 				equalityComparer: equalityComparer,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -11981,7 +11993,7 @@ namespace ObservableComputations
 				sourceScalar: sourceScalar,
 				keySelectorExpression: keySelectorExpression,
 				equalityComparer: equalityComparer,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
@@ -11989,13 +12001,13 @@ namespace ObservableComputations
 			 ObservableComputations.IReadScalar<ObservableCollection<TSourceItem>> sourceScalar,
 			 System.Linq.Expressions.Expression<System.Func<TSourceItem, TKey>> keySelectorExpression,
 			 System.Collections.Generic.IEqualityComparer<TKey> equalityComparer,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Grouping<TSourceItem, TKey>(
 				sourceScalar: sourceScalar,
 				keySelectorExpression: keySelectorExpression,
 				equalityComparer: equalityComparer,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -12008,7 +12020,7 @@ namespace ObservableComputations
 				sourceScalar: sourceScalar,
 				keySelectorExpression: keySelectorExpression,
 				equalityComparer: equalityComparer,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
@@ -12016,13 +12028,13 @@ namespace ObservableComputations
 			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> sourceExpression,
 			 System.Linq.Expressions.Expression<System.Func<TSourceItem, TKey>> keySelectorExpression,
 			 System.Collections.Generic.IEqualityComparer<TKey> equalityComparer,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Grouping<TSourceItem, TKey>(
 				sourceScalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(sourceExpression),
 				keySelectorExpression: keySelectorExpression,
 				equalityComparer: equalityComparer,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -12035,7 +12047,7 @@ namespace ObservableComputations
 				sourceScalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(sourceExpression),
 				keySelectorExpression: keySelectorExpression,
 				equalityComparer: equalityComparer,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
@@ -12043,13 +12055,13 @@ namespace ObservableComputations
 			 Expression<Func<ObservableCollection<TSourceItem>>> sourceExpression,
 			 System.Linq.Expressions.Expression<System.Func<TSourceItem, TKey>> keySelectorExpression,
 			 System.Collections.Generic.IEqualityComparer<TKey> equalityComparer,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Grouping<TSourceItem, TKey>(
 				sourceScalar: new Computing<ObservableCollection<TSourceItem>>(sourceExpression),
 				keySelectorExpression: keySelectorExpression,
 				equalityComparer: equalityComparer,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -12062,7 +12074,7 @@ namespace ObservableComputations
 				sourceScalar: new Computing<ObservableCollection<TSourceItem>>(sourceExpression),
 				keySelectorExpression: keySelectorExpression,
 				equalityComparer: equalityComparer,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
@@ -12070,13 +12082,13 @@ namespace ObservableComputations
 			 System.Collections.Specialized.INotifyCollectionChanged source,
 			 System.Linq.Expressions.Expression<System.Func<TSourceItem, TKey>> keySelectorExpression,
 			 System.Collections.Generic.IEqualityComparer<TKey> equalityComparer,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Grouping<TSourceItem, TKey>(
 				source: source,
 				keySelectorExpression: keySelectorExpression,
 				equalityComparer: equalityComparer,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -12089,7 +12101,7 @@ namespace ObservableComputations
 				source: source,
 				keySelectorExpression: keySelectorExpression,
 				equalityComparer: equalityComparer,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
@@ -12097,13 +12109,13 @@ namespace ObservableComputations
 			 ObservableCollection<TSourceItem> source,
 			 System.Linq.Expressions.Expression<System.Func<TSourceItem, TKey>> keySelectorExpression,
 			 System.Collections.Generic.IEqualityComparer<TKey> equalityComparer,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Grouping<TSourceItem, TKey>(
 				source: source,
 				keySelectorExpression: keySelectorExpression,
 				equalityComparer: equalityComparer,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -12116,7 +12128,7 @@ namespace ObservableComputations
 				source: source,
 				keySelectorExpression: keySelectorExpression,
 				equalityComparer: equalityComparer,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		#endregion
@@ -14682,12 +14694,12 @@ namespace ObservableComputations
 		public static ObservableComputations.IndicesComputing<TSourceItem> IndicesComputing<TSourceItem>(this
 			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar,
 			 System.Linq.Expressions.Expression<System.Func<TSourceItem, bool>> predicateExpression,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.IndicesComputing<TSourceItem>(
 				sourceScalar: sourceScalar,
 				predicateExpression: predicateExpression,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -14698,19 +14710,19 @@ namespace ObservableComputations
 			return new ObservableComputations.IndicesComputing<TSourceItem>(
 				sourceScalar: sourceScalar,
 				predicateExpression: predicateExpression,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.IndicesComputing<TSourceItem> IndicesComputing<TSourceItem>(this
 			 ObservableComputations.IReadScalar<ObservableCollection<TSourceItem>> sourceScalar,
 			 System.Linq.Expressions.Expression<System.Func<TSourceItem, bool>> predicateExpression,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.IndicesComputing<TSourceItem>(
 				sourceScalar: sourceScalar,
 				predicateExpression: predicateExpression,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -14721,19 +14733,19 @@ namespace ObservableComputations
 			return new ObservableComputations.IndicesComputing<TSourceItem>(
 				sourceScalar: sourceScalar,
 				predicateExpression: predicateExpression,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.IndicesComputing<TSourceItem> IndicesComputing<TSourceItem>(this
 			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> sourceExpression,
 			 System.Linq.Expressions.Expression<System.Func<TSourceItem, bool>> predicateExpression,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.IndicesComputing<TSourceItem>(
 				sourceScalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(sourceExpression),
 				predicateExpression: predicateExpression,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -14744,19 +14756,19 @@ namespace ObservableComputations
 			return new ObservableComputations.IndicesComputing<TSourceItem>(
 				sourceScalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(sourceExpression),
 				predicateExpression: predicateExpression,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.IndicesComputing<TSourceItem> IndicesComputing<TSourceItem>(this
 			 Expression<Func<ObservableCollection<TSourceItem>>> sourceExpression,
 			 System.Linq.Expressions.Expression<System.Func<TSourceItem, bool>> predicateExpression,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.IndicesComputing<TSourceItem>(
 				sourceScalar: new Computing<ObservableCollection<TSourceItem>>(sourceExpression),
 				predicateExpression: predicateExpression,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -14767,19 +14779,19 @@ namespace ObservableComputations
 			return new ObservableComputations.IndicesComputing<TSourceItem>(
 				sourceScalar: new Computing<ObservableCollection<TSourceItem>>(sourceExpression),
 				predicateExpression: predicateExpression,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.IndicesComputing<TSourceItem> IndicesComputing<TSourceItem>(this
 			 System.Collections.Specialized.INotifyCollectionChanged source,
 			 System.Linq.Expressions.Expression<System.Func<TSourceItem, bool>> predicateExpression,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.IndicesComputing<TSourceItem>(
 				source: source,
 				predicateExpression: predicateExpression,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -14790,19 +14802,19 @@ namespace ObservableComputations
 			return new ObservableComputations.IndicesComputing<TSourceItem>(
 				source: source,
 				predicateExpression: predicateExpression,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.IndicesComputing<TSourceItem> IndicesComputing<TSourceItem>(this
 			 ObservableCollection<TSourceItem> source,
 			 System.Linq.Expressions.Expression<System.Func<TSourceItem, bool>> predicateExpression,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.IndicesComputing<TSourceItem>(
 				source: source,
 				predicateExpression: predicateExpression,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -14813,7 +14825,7 @@ namespace ObservableComputations
 			return new ObservableComputations.IndicesComputing<TSourceItem>(
 				source: source,
 				predicateExpression: predicateExpression,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		#endregion
@@ -14824,13 +14836,13 @@ namespace ObservableComputations
 			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> source1Scalar,
 			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> source2Scalar,
 			 ObservableComputations.IReadScalar<System.Collections.Generic.IEqualityComparer<TSourceItem>> equalityComparerScalar,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Intersecting<TSourceItem>(
 				source1Scalar: source1Scalar,
 				source2Scalar: source2Scalar,
 				equalityComparerScalar: equalityComparerScalar,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -14843,20 +14855,20 @@ namespace ObservableComputations
 				source1Scalar: source1Scalar,
 				source2Scalar: source2Scalar,
 				equalityComparerScalar: equalityComparerScalar,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.Intersecting<TSourceItem> Intersecting<TSourceItem>(this
 			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> source1Scalar,
 			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> source2Scalar,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Intersecting<TSourceItem>(
 				source1Scalar: source1Scalar,
 				source2Scalar: source2Scalar,
 				equalityComparerScalar: null,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -14868,7 +14880,7 @@ namespace ObservableComputations
 				source1Scalar: source1Scalar,
 				source2Scalar: source2Scalar,
 				equalityComparerScalar: null,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
@@ -14876,13 +14888,13 @@ namespace ObservableComputations
 			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> source1Scalar,
 			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> source2Scalar,
 			 Expression<Func<System.Collections.Generic.IEqualityComparer<TSourceItem>>> equalityComparerExpression,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Intersecting<TSourceItem>(
 				source1Scalar: source1Scalar,
 				source2Scalar: source2Scalar,
 				equalityComparerScalar: new Computing<System.Collections.Generic.IEqualityComparer<TSourceItem>>(equalityComparerExpression),
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -14895,7 +14907,7 @@ namespace ObservableComputations
 				source1Scalar: source1Scalar,
 				source2Scalar: source2Scalar,
 				equalityComparerScalar: new Computing<System.Collections.Generic.IEqualityComparer<TSourceItem>>(equalityComparerExpression),
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
@@ -14903,13 +14915,13 @@ namespace ObservableComputations
 			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> source1Scalar,
 			 ObservableComputations.IReadScalar<ObservableCollection<TSourceItem>> source2Scalar,
 			 ObservableComputations.IReadScalar<System.Collections.Generic.IEqualityComparer<TSourceItem>> equalityComparerScalar,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Intersecting<TSourceItem>(
 				source1Scalar: source1Scalar,
 				source2Scalar: source2Scalar,
 				equalityComparerScalar: equalityComparerScalar,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -14922,20 +14934,20 @@ namespace ObservableComputations
 				source1Scalar: source1Scalar,
 				source2Scalar: source2Scalar,
 				equalityComparerScalar: equalityComparerScalar,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.Intersecting<TSourceItem> Intersecting<TSourceItem>(this
 			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> source1Scalar,
 			 ObservableComputations.IReadScalar<ObservableCollection<TSourceItem>> source2Scalar,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Intersecting<TSourceItem>(
 				source1Scalar: source1Scalar,
 				source2Scalar: source2Scalar,
 				equalityComparerScalar: null,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -14947,7 +14959,7 @@ namespace ObservableComputations
 				source1Scalar: source1Scalar,
 				source2Scalar: source2Scalar,
 				equalityComparerScalar: null,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
@@ -14955,13 +14967,13 @@ namespace ObservableComputations
 			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> source1Scalar,
 			 ObservableComputations.IReadScalar<ObservableCollection<TSourceItem>> source2Scalar,
 			 Expression<Func<System.Collections.Generic.IEqualityComparer<TSourceItem>>> equalityComparerExpression,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Intersecting<TSourceItem>(
 				source1Scalar: source1Scalar,
 				source2Scalar: source2Scalar,
 				equalityComparerScalar: new Computing<System.Collections.Generic.IEqualityComparer<TSourceItem>>(equalityComparerExpression),
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -14974,7 +14986,7 @@ namespace ObservableComputations
 				source1Scalar: source1Scalar,
 				source2Scalar: source2Scalar,
 				equalityComparerScalar: new Computing<System.Collections.Generic.IEqualityComparer<TSourceItem>>(equalityComparerExpression),
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
@@ -14982,13 +14994,13 @@ namespace ObservableComputations
 			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> source1Scalar,
 			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> source2Expression,
 			 ObservableComputations.IReadScalar<System.Collections.Generic.IEqualityComparer<TSourceItem>> equalityComparerScalar,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Intersecting<TSourceItem>(
 				source1Scalar: source1Scalar,
 				source2Scalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(source2Expression),
 				equalityComparerScalar: equalityComparerScalar,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -15001,20 +15013,20 @@ namespace ObservableComputations
 				source1Scalar: source1Scalar,
 				source2Scalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(source2Expression),
 				equalityComparerScalar: equalityComparerScalar,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.Intersecting<TSourceItem> Intersecting<TSourceItem>(this
 			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> source1Scalar,
 			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> source2Expression,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Intersecting<TSourceItem>(
 				source1Scalar: source1Scalar,
 				source2Scalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(source2Expression),
 				equalityComparerScalar: null,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -15026,7 +15038,7 @@ namespace ObservableComputations
 				source1Scalar: source1Scalar,
 				source2Scalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(source2Expression),
 				equalityComparerScalar: null,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
@@ -15034,13 +15046,13 @@ namespace ObservableComputations
 			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> source1Scalar,
 			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> source2Expression,
 			 Expression<Func<System.Collections.Generic.IEqualityComparer<TSourceItem>>> equalityComparerExpression,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Intersecting<TSourceItem>(
 				source1Scalar: source1Scalar,
 				source2Scalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(source2Expression),
 				equalityComparerScalar: new Computing<System.Collections.Generic.IEqualityComparer<TSourceItem>>(equalityComparerExpression),
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -15053,7 +15065,7 @@ namespace ObservableComputations
 				source1Scalar: source1Scalar,
 				source2Scalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(source2Expression),
 				equalityComparerScalar: new Computing<System.Collections.Generic.IEqualityComparer<TSourceItem>>(equalityComparerExpression),
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
@@ -15061,13 +15073,13 @@ namespace ObservableComputations
 			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> source1Scalar,
 			 Expression<Func<ObservableCollection<TSourceItem>>> source2Expression,
 			 ObservableComputations.IReadScalar<System.Collections.Generic.IEqualityComparer<TSourceItem>> equalityComparerScalar,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Intersecting<TSourceItem>(
 				source1Scalar: source1Scalar,
 				source2Scalar: new Computing<ObservableCollection<TSourceItem>>(source2Expression),
 				equalityComparerScalar: equalityComparerScalar,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -15080,20 +15092,20 @@ namespace ObservableComputations
 				source1Scalar: source1Scalar,
 				source2Scalar: new Computing<ObservableCollection<TSourceItem>>(source2Expression),
 				equalityComparerScalar: equalityComparerScalar,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.Intersecting<TSourceItem> Intersecting<TSourceItem>(this
 			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> source1Scalar,
 			 Expression<Func<ObservableCollection<TSourceItem>>> source2Expression,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Intersecting<TSourceItem>(
 				source1Scalar: source1Scalar,
 				source2Scalar: new Computing<ObservableCollection<TSourceItem>>(source2Expression),
 				equalityComparerScalar: null,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -15105,7 +15117,7 @@ namespace ObservableComputations
 				source1Scalar: source1Scalar,
 				source2Scalar: new Computing<ObservableCollection<TSourceItem>>(source2Expression),
 				equalityComparerScalar: null,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
@@ -15113,13 +15125,13 @@ namespace ObservableComputations
 			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> source1Scalar,
 			 Expression<Func<ObservableCollection<TSourceItem>>> source2Expression,
 			 Expression<Func<System.Collections.Generic.IEqualityComparer<TSourceItem>>> equalityComparerExpression,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Intersecting<TSourceItem>(
 				source1Scalar: source1Scalar,
 				source2Scalar: new Computing<ObservableCollection<TSourceItem>>(source2Expression),
 				equalityComparerScalar: new Computing<System.Collections.Generic.IEqualityComparer<TSourceItem>>(equalityComparerExpression),
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -15132,7 +15144,7 @@ namespace ObservableComputations
 				source1Scalar: source1Scalar,
 				source2Scalar: new Computing<ObservableCollection<TSourceItem>>(source2Expression),
 				equalityComparerScalar: new Computing<System.Collections.Generic.IEqualityComparer<TSourceItem>>(equalityComparerExpression),
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
@@ -15140,13 +15152,13 @@ namespace ObservableComputations
 			 ObservableComputations.IReadScalar<ObservableCollection<TSourceItem>> source1Scalar,
 			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> source2Scalar,
 			 ObservableComputations.IReadScalar<System.Collections.Generic.IEqualityComparer<TSourceItem>> equalityComparerScalar,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Intersecting<TSourceItem>(
 				source1Scalar: source1Scalar,
 				source2Scalar: source2Scalar,
 				equalityComparerScalar: equalityComparerScalar,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -15159,20 +15171,20 @@ namespace ObservableComputations
 				source1Scalar: source1Scalar,
 				source2Scalar: source2Scalar,
 				equalityComparerScalar: equalityComparerScalar,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.Intersecting<TSourceItem> Intersecting<TSourceItem>(this
 			 ObservableComputations.IReadScalar<ObservableCollection<TSourceItem>> source1Scalar,
 			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> source2Scalar,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Intersecting<TSourceItem>(
 				source1Scalar: source1Scalar,
 				source2Scalar: source2Scalar,
 				equalityComparerScalar: null,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -15184,7 +15196,7 @@ namespace ObservableComputations
 				source1Scalar: source1Scalar,
 				source2Scalar: source2Scalar,
 				equalityComparerScalar: null,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
@@ -15192,13 +15204,13 @@ namespace ObservableComputations
 			 ObservableComputations.IReadScalar<ObservableCollection<TSourceItem>> source1Scalar,
 			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> source2Scalar,
 			 Expression<Func<System.Collections.Generic.IEqualityComparer<TSourceItem>>> equalityComparerExpression,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Intersecting<TSourceItem>(
 				source1Scalar: source1Scalar,
 				source2Scalar: source2Scalar,
 				equalityComparerScalar: new Computing<System.Collections.Generic.IEqualityComparer<TSourceItem>>(equalityComparerExpression),
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -15211,7 +15223,7 @@ namespace ObservableComputations
 				source1Scalar: source1Scalar,
 				source2Scalar: source2Scalar,
 				equalityComparerScalar: new Computing<System.Collections.Generic.IEqualityComparer<TSourceItem>>(equalityComparerExpression),
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
@@ -15219,13 +15231,13 @@ namespace ObservableComputations
 			 ObservableComputations.IReadScalar<ObservableCollection<TSourceItem>> source1Scalar,
 			 ObservableComputations.IReadScalar<ObservableCollection<TSourceItem>> source2Scalar,
 			 ObservableComputations.IReadScalar<System.Collections.Generic.IEqualityComparer<TSourceItem>> equalityComparerScalar,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Intersecting<TSourceItem>(
 				source1Scalar: source1Scalar,
 				source2Scalar: source2Scalar,
 				equalityComparerScalar: equalityComparerScalar,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -15238,20 +15250,20 @@ namespace ObservableComputations
 				source1Scalar: source1Scalar,
 				source2Scalar: source2Scalar,
 				equalityComparerScalar: equalityComparerScalar,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.Intersecting<TSourceItem> Intersecting<TSourceItem>(this
 			 ObservableComputations.IReadScalar<ObservableCollection<TSourceItem>> source1Scalar,
 			 ObservableComputations.IReadScalar<ObservableCollection<TSourceItem>> source2Scalar,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Intersecting<TSourceItem>(
 				source1Scalar: source1Scalar,
 				source2Scalar: source2Scalar,
 				equalityComparerScalar: null,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -15263,7 +15275,7 @@ namespace ObservableComputations
 				source1Scalar: source1Scalar,
 				source2Scalar: source2Scalar,
 				equalityComparerScalar: null,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
@@ -15271,13 +15283,13 @@ namespace ObservableComputations
 			 ObservableComputations.IReadScalar<ObservableCollection<TSourceItem>> source1Scalar,
 			 ObservableComputations.IReadScalar<ObservableCollection<TSourceItem>> source2Scalar,
 			 Expression<Func<System.Collections.Generic.IEqualityComparer<TSourceItem>>> equalityComparerExpression,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Intersecting<TSourceItem>(
 				source1Scalar: source1Scalar,
 				source2Scalar: source2Scalar,
 				equalityComparerScalar: new Computing<System.Collections.Generic.IEqualityComparer<TSourceItem>>(equalityComparerExpression),
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -15290,7 +15302,7 @@ namespace ObservableComputations
 				source1Scalar: source1Scalar,
 				source2Scalar: source2Scalar,
 				equalityComparerScalar: new Computing<System.Collections.Generic.IEqualityComparer<TSourceItem>>(equalityComparerExpression),
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
@@ -15298,13 +15310,13 @@ namespace ObservableComputations
 			 ObservableComputations.IReadScalar<ObservableCollection<TSourceItem>> source1Scalar,
 			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> source2Expression,
 			 ObservableComputations.IReadScalar<System.Collections.Generic.IEqualityComparer<TSourceItem>> equalityComparerScalar,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Intersecting<TSourceItem>(
 				source1Scalar: source1Scalar,
 				source2Scalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(source2Expression),
 				equalityComparerScalar: equalityComparerScalar,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -15317,20 +15329,20 @@ namespace ObservableComputations
 				source1Scalar: source1Scalar,
 				source2Scalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(source2Expression),
 				equalityComparerScalar: equalityComparerScalar,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.Intersecting<TSourceItem> Intersecting<TSourceItem>(this
 			 ObservableComputations.IReadScalar<ObservableCollection<TSourceItem>> source1Scalar,
 			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> source2Expression,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Intersecting<TSourceItem>(
 				source1Scalar: source1Scalar,
 				source2Scalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(source2Expression),
 				equalityComparerScalar: null,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -15342,7 +15354,7 @@ namespace ObservableComputations
 				source1Scalar: source1Scalar,
 				source2Scalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(source2Expression),
 				equalityComparerScalar: null,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
@@ -15350,13 +15362,13 @@ namespace ObservableComputations
 			 ObservableComputations.IReadScalar<ObservableCollection<TSourceItem>> source1Scalar,
 			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> source2Expression,
 			 Expression<Func<System.Collections.Generic.IEqualityComparer<TSourceItem>>> equalityComparerExpression,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Intersecting<TSourceItem>(
 				source1Scalar: source1Scalar,
 				source2Scalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(source2Expression),
 				equalityComparerScalar: new Computing<System.Collections.Generic.IEqualityComparer<TSourceItem>>(equalityComparerExpression),
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -15369,7 +15381,7 @@ namespace ObservableComputations
 				source1Scalar: source1Scalar,
 				source2Scalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(source2Expression),
 				equalityComparerScalar: new Computing<System.Collections.Generic.IEqualityComparer<TSourceItem>>(equalityComparerExpression),
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
@@ -15377,13 +15389,13 @@ namespace ObservableComputations
 			 ObservableComputations.IReadScalar<ObservableCollection<TSourceItem>> source1Scalar,
 			 Expression<Func<ObservableCollection<TSourceItem>>> source2Expression,
 			 ObservableComputations.IReadScalar<System.Collections.Generic.IEqualityComparer<TSourceItem>> equalityComparerScalar,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Intersecting<TSourceItem>(
 				source1Scalar: source1Scalar,
 				source2Scalar: new Computing<ObservableCollection<TSourceItem>>(source2Expression),
 				equalityComparerScalar: equalityComparerScalar,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -15396,20 +15408,20 @@ namespace ObservableComputations
 				source1Scalar: source1Scalar,
 				source2Scalar: new Computing<ObservableCollection<TSourceItem>>(source2Expression),
 				equalityComparerScalar: equalityComparerScalar,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.Intersecting<TSourceItem> Intersecting<TSourceItem>(this
 			 ObservableComputations.IReadScalar<ObservableCollection<TSourceItem>> source1Scalar,
 			 Expression<Func<ObservableCollection<TSourceItem>>> source2Expression,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Intersecting<TSourceItem>(
 				source1Scalar: source1Scalar,
 				source2Scalar: new Computing<ObservableCollection<TSourceItem>>(source2Expression),
 				equalityComparerScalar: null,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -15421,7 +15433,7 @@ namespace ObservableComputations
 				source1Scalar: source1Scalar,
 				source2Scalar: new Computing<ObservableCollection<TSourceItem>>(source2Expression),
 				equalityComparerScalar: null,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
@@ -15429,13 +15441,13 @@ namespace ObservableComputations
 			 ObservableComputations.IReadScalar<ObservableCollection<TSourceItem>> source1Scalar,
 			 Expression<Func<ObservableCollection<TSourceItem>>> source2Expression,
 			 Expression<Func<System.Collections.Generic.IEqualityComparer<TSourceItem>>> equalityComparerExpression,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Intersecting<TSourceItem>(
 				source1Scalar: source1Scalar,
 				source2Scalar: new Computing<ObservableCollection<TSourceItem>>(source2Expression),
 				equalityComparerScalar: new Computing<System.Collections.Generic.IEqualityComparer<TSourceItem>>(equalityComparerExpression),
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -15448,7 +15460,7 @@ namespace ObservableComputations
 				source1Scalar: source1Scalar,
 				source2Scalar: new Computing<ObservableCollection<TSourceItem>>(source2Expression),
 				equalityComparerScalar: new Computing<System.Collections.Generic.IEqualityComparer<TSourceItem>>(equalityComparerExpression),
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
@@ -15456,13 +15468,13 @@ namespace ObservableComputations
 			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> source1Expression,
 			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> source2Scalar,
 			 ObservableComputations.IReadScalar<System.Collections.Generic.IEqualityComparer<TSourceItem>> equalityComparerScalar,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Intersecting<TSourceItem>(
 				source1Scalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(source1Expression),
 				source2Scalar: source2Scalar,
 				equalityComparerScalar: equalityComparerScalar,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -15475,20 +15487,20 @@ namespace ObservableComputations
 				source1Scalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(source1Expression),
 				source2Scalar: source2Scalar,
 				equalityComparerScalar: equalityComparerScalar,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.Intersecting<TSourceItem> Intersecting<TSourceItem>(this
 			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> source1Expression,
 			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> source2Scalar,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Intersecting<TSourceItem>(
 				source1Scalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(source1Expression),
 				source2Scalar: source2Scalar,
 				equalityComparerScalar: null,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -15500,7 +15512,7 @@ namespace ObservableComputations
 				source1Scalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(source1Expression),
 				source2Scalar: source2Scalar,
 				equalityComparerScalar: null,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
@@ -15508,13 +15520,13 @@ namespace ObservableComputations
 			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> source1Expression,
 			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> source2Scalar,
 			 Expression<Func<System.Collections.Generic.IEqualityComparer<TSourceItem>>> equalityComparerExpression,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Intersecting<TSourceItem>(
 				source1Scalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(source1Expression),
 				source2Scalar: source2Scalar,
 				equalityComparerScalar: new Computing<System.Collections.Generic.IEqualityComparer<TSourceItem>>(equalityComparerExpression),
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -15527,7 +15539,7 @@ namespace ObservableComputations
 				source1Scalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(source1Expression),
 				source2Scalar: source2Scalar,
 				equalityComparerScalar: new Computing<System.Collections.Generic.IEqualityComparer<TSourceItem>>(equalityComparerExpression),
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
@@ -15535,13 +15547,13 @@ namespace ObservableComputations
 			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> source1Expression,
 			 ObservableComputations.IReadScalar<ObservableCollection<TSourceItem>> source2Scalar,
 			 ObservableComputations.IReadScalar<System.Collections.Generic.IEqualityComparer<TSourceItem>> equalityComparerScalar,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Intersecting<TSourceItem>(
 				source1Scalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(source1Expression),
 				source2Scalar: source2Scalar,
 				equalityComparerScalar: equalityComparerScalar,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -15554,20 +15566,20 @@ namespace ObservableComputations
 				source1Scalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(source1Expression),
 				source2Scalar: source2Scalar,
 				equalityComparerScalar: equalityComparerScalar,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.Intersecting<TSourceItem> Intersecting<TSourceItem>(this
 			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> source1Expression,
 			 ObservableComputations.IReadScalar<ObservableCollection<TSourceItem>> source2Scalar,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Intersecting<TSourceItem>(
 				source1Scalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(source1Expression),
 				source2Scalar: source2Scalar,
 				equalityComparerScalar: null,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -15579,7 +15591,7 @@ namespace ObservableComputations
 				source1Scalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(source1Expression),
 				source2Scalar: source2Scalar,
 				equalityComparerScalar: null,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
@@ -15587,13 +15599,13 @@ namespace ObservableComputations
 			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> source1Expression,
 			 ObservableComputations.IReadScalar<ObservableCollection<TSourceItem>> source2Scalar,
 			 Expression<Func<System.Collections.Generic.IEqualityComparer<TSourceItem>>> equalityComparerExpression,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Intersecting<TSourceItem>(
 				source1Scalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(source1Expression),
 				source2Scalar: source2Scalar,
 				equalityComparerScalar: new Computing<System.Collections.Generic.IEqualityComparer<TSourceItem>>(equalityComparerExpression),
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -15606,7 +15618,7 @@ namespace ObservableComputations
 				source1Scalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(source1Expression),
 				source2Scalar: source2Scalar,
 				equalityComparerScalar: new Computing<System.Collections.Generic.IEqualityComparer<TSourceItem>>(equalityComparerExpression),
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
@@ -15614,13 +15626,13 @@ namespace ObservableComputations
 			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> source1Expression,
 			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> source2Expression,
 			 ObservableComputations.IReadScalar<System.Collections.Generic.IEqualityComparer<TSourceItem>> equalityComparerScalar,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Intersecting<TSourceItem>(
 				source1Scalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(source1Expression),
 				source2Scalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(source2Expression),
 				equalityComparerScalar: equalityComparerScalar,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -15633,20 +15645,20 @@ namespace ObservableComputations
 				source1Scalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(source1Expression),
 				source2Scalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(source2Expression),
 				equalityComparerScalar: equalityComparerScalar,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.Intersecting<TSourceItem> Intersecting<TSourceItem>(this
 			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> source1Expression,
 			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> source2Expression,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Intersecting<TSourceItem>(
 				source1Scalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(source1Expression),
 				source2Scalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(source2Expression),
 				equalityComparerScalar: null,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -15658,7 +15670,7 @@ namespace ObservableComputations
 				source1Scalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(source1Expression),
 				source2Scalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(source2Expression),
 				equalityComparerScalar: null,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
@@ -15666,13 +15678,13 @@ namespace ObservableComputations
 			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> source1Expression,
 			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> source2Expression,
 			 Expression<Func<System.Collections.Generic.IEqualityComparer<TSourceItem>>> equalityComparerExpression,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Intersecting<TSourceItem>(
 				source1Scalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(source1Expression),
 				source2Scalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(source2Expression),
 				equalityComparerScalar: new Computing<System.Collections.Generic.IEqualityComparer<TSourceItem>>(equalityComparerExpression),
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -15685,7 +15697,7 @@ namespace ObservableComputations
 				source1Scalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(source1Expression),
 				source2Scalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(source2Expression),
 				equalityComparerScalar: new Computing<System.Collections.Generic.IEqualityComparer<TSourceItem>>(equalityComparerExpression),
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
@@ -15693,13 +15705,13 @@ namespace ObservableComputations
 			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> source1Expression,
 			 Expression<Func<ObservableCollection<TSourceItem>>> source2Expression,
 			 ObservableComputations.IReadScalar<System.Collections.Generic.IEqualityComparer<TSourceItem>> equalityComparerScalar,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Intersecting<TSourceItem>(
 				source1Scalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(source1Expression),
 				source2Scalar: new Computing<ObservableCollection<TSourceItem>>(source2Expression),
 				equalityComparerScalar: equalityComparerScalar,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -15712,20 +15724,20 @@ namespace ObservableComputations
 				source1Scalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(source1Expression),
 				source2Scalar: new Computing<ObservableCollection<TSourceItem>>(source2Expression),
 				equalityComparerScalar: equalityComparerScalar,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.Intersecting<TSourceItem> Intersecting<TSourceItem>(this
 			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> source1Expression,
 			 Expression<Func<ObservableCollection<TSourceItem>>> source2Expression,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Intersecting<TSourceItem>(
 				source1Scalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(source1Expression),
 				source2Scalar: new Computing<ObservableCollection<TSourceItem>>(source2Expression),
 				equalityComparerScalar: null,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -15737,7 +15749,7 @@ namespace ObservableComputations
 				source1Scalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(source1Expression),
 				source2Scalar: new Computing<ObservableCollection<TSourceItem>>(source2Expression),
 				equalityComparerScalar: null,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
@@ -15745,13 +15757,13 @@ namespace ObservableComputations
 			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> source1Expression,
 			 Expression<Func<ObservableCollection<TSourceItem>>> source2Expression,
 			 Expression<Func<System.Collections.Generic.IEqualityComparer<TSourceItem>>> equalityComparerExpression,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Intersecting<TSourceItem>(
 				source1Scalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(source1Expression),
 				source2Scalar: new Computing<ObservableCollection<TSourceItem>>(source2Expression),
 				equalityComparerScalar: new Computing<System.Collections.Generic.IEqualityComparer<TSourceItem>>(equalityComparerExpression),
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -15764,7 +15776,7 @@ namespace ObservableComputations
 				source1Scalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(source1Expression),
 				source2Scalar: new Computing<ObservableCollection<TSourceItem>>(source2Expression),
 				equalityComparerScalar: new Computing<System.Collections.Generic.IEqualityComparer<TSourceItem>>(equalityComparerExpression),
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
@@ -15772,13 +15784,13 @@ namespace ObservableComputations
 			 Expression<Func<ObservableCollection<TSourceItem>>> source1Expression,
 			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> source2Scalar,
 			 ObservableComputations.IReadScalar<System.Collections.Generic.IEqualityComparer<TSourceItem>> equalityComparerScalar,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Intersecting<TSourceItem>(
 				source1Scalar: new Computing<ObservableCollection<TSourceItem>>(source1Expression),
 				source2Scalar: source2Scalar,
 				equalityComparerScalar: equalityComparerScalar,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -15791,20 +15803,20 @@ namespace ObservableComputations
 				source1Scalar: new Computing<ObservableCollection<TSourceItem>>(source1Expression),
 				source2Scalar: source2Scalar,
 				equalityComparerScalar: equalityComparerScalar,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.Intersecting<TSourceItem> Intersecting<TSourceItem>(this
 			 Expression<Func<ObservableCollection<TSourceItem>>> source1Expression,
 			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> source2Scalar,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Intersecting<TSourceItem>(
 				source1Scalar: new Computing<ObservableCollection<TSourceItem>>(source1Expression),
 				source2Scalar: source2Scalar,
 				equalityComparerScalar: null,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -15816,7 +15828,7 @@ namespace ObservableComputations
 				source1Scalar: new Computing<ObservableCollection<TSourceItem>>(source1Expression),
 				source2Scalar: source2Scalar,
 				equalityComparerScalar: null,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
@@ -15824,13 +15836,13 @@ namespace ObservableComputations
 			 Expression<Func<ObservableCollection<TSourceItem>>> source1Expression,
 			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> source2Scalar,
 			 Expression<Func<System.Collections.Generic.IEqualityComparer<TSourceItem>>> equalityComparerExpression,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Intersecting<TSourceItem>(
 				source1Scalar: new Computing<ObservableCollection<TSourceItem>>(source1Expression),
 				source2Scalar: source2Scalar,
 				equalityComparerScalar: new Computing<System.Collections.Generic.IEqualityComparer<TSourceItem>>(equalityComparerExpression),
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -15843,7 +15855,7 @@ namespace ObservableComputations
 				source1Scalar: new Computing<ObservableCollection<TSourceItem>>(source1Expression),
 				source2Scalar: source2Scalar,
 				equalityComparerScalar: new Computing<System.Collections.Generic.IEqualityComparer<TSourceItem>>(equalityComparerExpression),
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
@@ -15851,13 +15863,13 @@ namespace ObservableComputations
 			 Expression<Func<ObservableCollection<TSourceItem>>> source1Expression,
 			 ObservableComputations.IReadScalar<ObservableCollection<TSourceItem>> source2Scalar,
 			 ObservableComputations.IReadScalar<System.Collections.Generic.IEqualityComparer<TSourceItem>> equalityComparerScalar,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Intersecting<TSourceItem>(
 				source1Scalar: new Computing<ObservableCollection<TSourceItem>>(source1Expression),
 				source2Scalar: source2Scalar,
 				equalityComparerScalar: equalityComparerScalar,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -15870,20 +15882,20 @@ namespace ObservableComputations
 				source1Scalar: new Computing<ObservableCollection<TSourceItem>>(source1Expression),
 				source2Scalar: source2Scalar,
 				equalityComparerScalar: equalityComparerScalar,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.Intersecting<TSourceItem> Intersecting<TSourceItem>(this
 			 Expression<Func<ObservableCollection<TSourceItem>>> source1Expression,
 			 ObservableComputations.IReadScalar<ObservableCollection<TSourceItem>> source2Scalar,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Intersecting<TSourceItem>(
 				source1Scalar: new Computing<ObservableCollection<TSourceItem>>(source1Expression),
 				source2Scalar: source2Scalar,
 				equalityComparerScalar: null,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -15895,7 +15907,7 @@ namespace ObservableComputations
 				source1Scalar: new Computing<ObservableCollection<TSourceItem>>(source1Expression),
 				source2Scalar: source2Scalar,
 				equalityComparerScalar: null,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
@@ -15903,13 +15915,13 @@ namespace ObservableComputations
 			 Expression<Func<ObservableCollection<TSourceItem>>> source1Expression,
 			 ObservableComputations.IReadScalar<ObservableCollection<TSourceItem>> source2Scalar,
 			 Expression<Func<System.Collections.Generic.IEqualityComparer<TSourceItem>>> equalityComparerExpression,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Intersecting<TSourceItem>(
 				source1Scalar: new Computing<ObservableCollection<TSourceItem>>(source1Expression),
 				source2Scalar: source2Scalar,
 				equalityComparerScalar: new Computing<System.Collections.Generic.IEqualityComparer<TSourceItem>>(equalityComparerExpression),
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -15922,7 +15934,7 @@ namespace ObservableComputations
 				source1Scalar: new Computing<ObservableCollection<TSourceItem>>(source1Expression),
 				source2Scalar: source2Scalar,
 				equalityComparerScalar: new Computing<System.Collections.Generic.IEqualityComparer<TSourceItem>>(equalityComparerExpression),
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
@@ -15930,13 +15942,13 @@ namespace ObservableComputations
 			 Expression<Func<ObservableCollection<TSourceItem>>> source1Expression,
 			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> source2Expression,
 			 ObservableComputations.IReadScalar<System.Collections.Generic.IEqualityComparer<TSourceItem>> equalityComparerScalar,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Intersecting<TSourceItem>(
 				source1Scalar: new Computing<ObservableCollection<TSourceItem>>(source1Expression),
 				source2Scalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(source2Expression),
 				equalityComparerScalar: equalityComparerScalar,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -15949,20 +15961,20 @@ namespace ObservableComputations
 				source1Scalar: new Computing<ObservableCollection<TSourceItem>>(source1Expression),
 				source2Scalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(source2Expression),
 				equalityComparerScalar: equalityComparerScalar,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.Intersecting<TSourceItem> Intersecting<TSourceItem>(this
 			 Expression<Func<ObservableCollection<TSourceItem>>> source1Expression,
 			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> source2Expression,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Intersecting<TSourceItem>(
 				source1Scalar: new Computing<ObservableCollection<TSourceItem>>(source1Expression),
 				source2Scalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(source2Expression),
 				equalityComparerScalar: null,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -15974,7 +15986,7 @@ namespace ObservableComputations
 				source1Scalar: new Computing<ObservableCollection<TSourceItem>>(source1Expression),
 				source2Scalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(source2Expression),
 				equalityComparerScalar: null,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
@@ -15982,13 +15994,13 @@ namespace ObservableComputations
 			 Expression<Func<ObservableCollection<TSourceItem>>> source1Expression,
 			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> source2Expression,
 			 Expression<Func<System.Collections.Generic.IEqualityComparer<TSourceItem>>> equalityComparerExpression,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Intersecting<TSourceItem>(
 				source1Scalar: new Computing<ObservableCollection<TSourceItem>>(source1Expression),
 				source2Scalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(source2Expression),
 				equalityComparerScalar: new Computing<System.Collections.Generic.IEqualityComparer<TSourceItem>>(equalityComparerExpression),
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -16001,7 +16013,7 @@ namespace ObservableComputations
 				source1Scalar: new Computing<ObservableCollection<TSourceItem>>(source1Expression),
 				source2Scalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(source2Expression),
 				equalityComparerScalar: new Computing<System.Collections.Generic.IEqualityComparer<TSourceItem>>(equalityComparerExpression),
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
@@ -16009,13 +16021,13 @@ namespace ObservableComputations
 			 Expression<Func<ObservableCollection<TSourceItem>>> source1Expression,
 			 Expression<Func<ObservableCollection<TSourceItem>>> source2Expression,
 			 ObservableComputations.IReadScalar<System.Collections.Generic.IEqualityComparer<TSourceItem>> equalityComparerScalar,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Intersecting<TSourceItem>(
 				source1Scalar: new Computing<ObservableCollection<TSourceItem>>(source1Expression),
 				source2Scalar: new Computing<ObservableCollection<TSourceItem>>(source2Expression),
 				equalityComparerScalar: equalityComparerScalar,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -16028,20 +16040,20 @@ namespace ObservableComputations
 				source1Scalar: new Computing<ObservableCollection<TSourceItem>>(source1Expression),
 				source2Scalar: new Computing<ObservableCollection<TSourceItem>>(source2Expression),
 				equalityComparerScalar: equalityComparerScalar,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.Intersecting<TSourceItem> Intersecting<TSourceItem>(this
 			 Expression<Func<ObservableCollection<TSourceItem>>> source1Expression,
 			 Expression<Func<ObservableCollection<TSourceItem>>> source2Expression,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Intersecting<TSourceItem>(
 				source1Scalar: new Computing<ObservableCollection<TSourceItem>>(source1Expression),
 				source2Scalar: new Computing<ObservableCollection<TSourceItem>>(source2Expression),
 				equalityComparerScalar: null,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -16053,7 +16065,7 @@ namespace ObservableComputations
 				source1Scalar: new Computing<ObservableCollection<TSourceItem>>(source1Expression),
 				source2Scalar: new Computing<ObservableCollection<TSourceItem>>(source2Expression),
 				equalityComparerScalar: null,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
@@ -16061,13 +16073,13 @@ namespace ObservableComputations
 			 Expression<Func<ObservableCollection<TSourceItem>>> source1Expression,
 			 Expression<Func<ObservableCollection<TSourceItem>>> source2Expression,
 			 Expression<Func<System.Collections.Generic.IEqualityComparer<TSourceItem>>> equalityComparerExpression,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Intersecting<TSourceItem>(
 				source1Scalar: new Computing<ObservableCollection<TSourceItem>>(source1Expression),
 				source2Scalar: new Computing<ObservableCollection<TSourceItem>>(source2Expression),
 				equalityComparerScalar: new Computing<System.Collections.Generic.IEqualityComparer<TSourceItem>>(equalityComparerExpression),
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -16080,7 +16092,7 @@ namespace ObservableComputations
 				source1Scalar: new Computing<ObservableCollection<TSourceItem>>(source1Expression),
 				source2Scalar: new Computing<ObservableCollection<TSourceItem>>(source2Expression),
 				equalityComparerScalar: new Computing<System.Collections.Generic.IEqualityComparer<TSourceItem>>(equalityComparerExpression),
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
@@ -16088,13 +16100,13 @@ namespace ObservableComputations
 			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> source1Scalar,
 			 System.Collections.Specialized.INotifyCollectionChanged source2,
 			 ObservableComputations.IReadScalar<System.Collections.Generic.IEqualityComparer<TSourceItem>> equalityComparerScalar,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Intersecting<TSourceItem>(
 				source1Scalar: source1Scalar,
 				source2: source2,
 				equalityComparerScalar: equalityComparerScalar,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -16107,20 +16119,20 @@ namespace ObservableComputations
 				source1Scalar: source1Scalar,
 				source2: source2,
 				equalityComparerScalar: equalityComparerScalar,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.Intersecting<TSourceItem> Intersecting<TSourceItem>(this
 			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> source1Scalar,
 			 System.Collections.Specialized.INotifyCollectionChanged source2,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Intersecting<TSourceItem>(
 				source1Scalar: source1Scalar,
 				source2: source2,
 				equalityComparerScalar: null,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -16132,7 +16144,7 @@ namespace ObservableComputations
 				source1Scalar: source1Scalar,
 				source2: source2,
 				equalityComparerScalar: null,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
@@ -16140,13 +16152,13 @@ namespace ObservableComputations
 			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> source1Scalar,
 			 System.Collections.Specialized.INotifyCollectionChanged source2,
 			 Expression<Func<System.Collections.Generic.IEqualityComparer<TSourceItem>>> equalityComparerExpression,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Intersecting<TSourceItem>(
 				source1Scalar: source1Scalar,
 				source2: source2,
 				equalityComparerScalar: new Computing<System.Collections.Generic.IEqualityComparer<TSourceItem>>(equalityComparerExpression),
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -16159,7 +16171,7 @@ namespace ObservableComputations
 				source1Scalar: source1Scalar,
 				source2: source2,
 				equalityComparerScalar: new Computing<System.Collections.Generic.IEqualityComparer<TSourceItem>>(equalityComparerExpression),
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
@@ -16167,13 +16179,13 @@ namespace ObservableComputations
 			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> source1Scalar,
 			 ObservableCollection<TSourceItem> source2,
 			 ObservableComputations.IReadScalar<System.Collections.Generic.IEqualityComparer<TSourceItem>> equalityComparerScalar,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Intersecting<TSourceItem>(
 				source1Scalar: source1Scalar,
 				source2: source2,
 				equalityComparerScalar: equalityComparerScalar,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -16186,20 +16198,20 @@ namespace ObservableComputations
 				source1Scalar: source1Scalar,
 				source2: source2,
 				equalityComparerScalar: equalityComparerScalar,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.Intersecting<TSourceItem> Intersecting<TSourceItem>(this
 			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> source1Scalar,
 			 ObservableCollection<TSourceItem> source2,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Intersecting<TSourceItem>(
 				source1Scalar: source1Scalar,
 				source2: source2,
 				equalityComparerScalar: null,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -16211,7 +16223,7 @@ namespace ObservableComputations
 				source1Scalar: source1Scalar,
 				source2: source2,
 				equalityComparerScalar: null,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
@@ -16219,13 +16231,13 @@ namespace ObservableComputations
 			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> source1Scalar,
 			 ObservableCollection<TSourceItem> source2,
 			 Expression<Func<System.Collections.Generic.IEqualityComparer<TSourceItem>>> equalityComparerExpression,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Intersecting<TSourceItem>(
 				source1Scalar: source1Scalar,
 				source2: source2,
 				equalityComparerScalar: new Computing<System.Collections.Generic.IEqualityComparer<TSourceItem>>(equalityComparerExpression),
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -16238,7 +16250,7 @@ namespace ObservableComputations
 				source1Scalar: source1Scalar,
 				source2: source2,
 				equalityComparerScalar: new Computing<System.Collections.Generic.IEqualityComparer<TSourceItem>>(equalityComparerExpression),
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
@@ -16246,13 +16258,13 @@ namespace ObservableComputations
 			 ObservableComputations.IReadScalar<ObservableCollection<TSourceItem>> source1Scalar,
 			 System.Collections.Specialized.INotifyCollectionChanged source2,
 			 ObservableComputations.IReadScalar<System.Collections.Generic.IEqualityComparer<TSourceItem>> equalityComparerScalar,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Intersecting<TSourceItem>(
 				source1Scalar: source1Scalar,
 				source2: source2,
 				equalityComparerScalar: equalityComparerScalar,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -16265,20 +16277,20 @@ namespace ObservableComputations
 				source1Scalar: source1Scalar,
 				source2: source2,
 				equalityComparerScalar: equalityComparerScalar,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.Intersecting<TSourceItem> Intersecting<TSourceItem>(this
 			 ObservableComputations.IReadScalar<ObservableCollection<TSourceItem>> source1Scalar,
 			 System.Collections.Specialized.INotifyCollectionChanged source2,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Intersecting<TSourceItem>(
 				source1Scalar: source1Scalar,
 				source2: source2,
 				equalityComparerScalar: null,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -16290,7 +16302,7 @@ namespace ObservableComputations
 				source1Scalar: source1Scalar,
 				source2: source2,
 				equalityComparerScalar: null,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
@@ -16298,13 +16310,13 @@ namespace ObservableComputations
 			 ObservableComputations.IReadScalar<ObservableCollection<TSourceItem>> source1Scalar,
 			 System.Collections.Specialized.INotifyCollectionChanged source2,
 			 Expression<Func<System.Collections.Generic.IEqualityComparer<TSourceItem>>> equalityComparerExpression,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Intersecting<TSourceItem>(
 				source1Scalar: source1Scalar,
 				source2: source2,
 				equalityComparerScalar: new Computing<System.Collections.Generic.IEqualityComparer<TSourceItem>>(equalityComparerExpression),
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -16317,7 +16329,7 @@ namespace ObservableComputations
 				source1Scalar: source1Scalar,
 				source2: source2,
 				equalityComparerScalar: new Computing<System.Collections.Generic.IEqualityComparer<TSourceItem>>(equalityComparerExpression),
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
@@ -16325,13 +16337,13 @@ namespace ObservableComputations
 			 ObservableComputations.IReadScalar<ObservableCollection<TSourceItem>> source1Scalar,
 			 ObservableCollection<TSourceItem> source2,
 			 ObservableComputations.IReadScalar<System.Collections.Generic.IEqualityComparer<TSourceItem>> equalityComparerScalar,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Intersecting<TSourceItem>(
 				source1Scalar: source1Scalar,
 				source2: source2,
 				equalityComparerScalar: equalityComparerScalar,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -16344,20 +16356,20 @@ namespace ObservableComputations
 				source1Scalar: source1Scalar,
 				source2: source2,
 				equalityComparerScalar: equalityComparerScalar,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.Intersecting<TSourceItem> Intersecting<TSourceItem>(this
 			 ObservableComputations.IReadScalar<ObservableCollection<TSourceItem>> source1Scalar,
 			 ObservableCollection<TSourceItem> source2,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Intersecting<TSourceItem>(
 				source1Scalar: source1Scalar,
 				source2: source2,
 				equalityComparerScalar: null,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -16369,7 +16381,7 @@ namespace ObservableComputations
 				source1Scalar: source1Scalar,
 				source2: source2,
 				equalityComparerScalar: null,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
@@ -16377,13 +16389,13 @@ namespace ObservableComputations
 			 ObservableComputations.IReadScalar<ObservableCollection<TSourceItem>> source1Scalar,
 			 ObservableCollection<TSourceItem> source2,
 			 Expression<Func<System.Collections.Generic.IEqualityComparer<TSourceItem>>> equalityComparerExpression,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Intersecting<TSourceItem>(
 				source1Scalar: source1Scalar,
 				source2: source2,
 				equalityComparerScalar: new Computing<System.Collections.Generic.IEqualityComparer<TSourceItem>>(equalityComparerExpression),
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -16396,7 +16408,7 @@ namespace ObservableComputations
 				source1Scalar: source1Scalar,
 				source2: source2,
 				equalityComparerScalar: new Computing<System.Collections.Generic.IEqualityComparer<TSourceItem>>(equalityComparerExpression),
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
@@ -16404,13 +16416,13 @@ namespace ObservableComputations
 			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> source1Expression,
 			 System.Collections.Specialized.INotifyCollectionChanged source2,
 			 ObservableComputations.IReadScalar<System.Collections.Generic.IEqualityComparer<TSourceItem>> equalityComparerScalar,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Intersecting<TSourceItem>(
 				source1Scalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(source1Expression),
 				source2: source2,
 				equalityComparerScalar: equalityComparerScalar,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -16423,20 +16435,20 @@ namespace ObservableComputations
 				source1Scalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(source1Expression),
 				source2: source2,
 				equalityComparerScalar: equalityComparerScalar,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.Intersecting<TSourceItem> Intersecting<TSourceItem>(this
 			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> source1Expression,
 			 System.Collections.Specialized.INotifyCollectionChanged source2,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Intersecting<TSourceItem>(
 				source1Scalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(source1Expression),
 				source2: source2,
 				equalityComparerScalar: null,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -16448,7 +16460,7 @@ namespace ObservableComputations
 				source1Scalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(source1Expression),
 				source2: source2,
 				equalityComparerScalar: null,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
@@ -16456,13 +16468,13 @@ namespace ObservableComputations
 			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> source1Expression,
 			 System.Collections.Specialized.INotifyCollectionChanged source2,
 			 Expression<Func<System.Collections.Generic.IEqualityComparer<TSourceItem>>> equalityComparerExpression,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Intersecting<TSourceItem>(
 				source1Scalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(source1Expression),
 				source2: source2,
 				equalityComparerScalar: new Computing<System.Collections.Generic.IEqualityComparer<TSourceItem>>(equalityComparerExpression),
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -16475,7 +16487,7 @@ namespace ObservableComputations
 				source1Scalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(source1Expression),
 				source2: source2,
 				equalityComparerScalar: new Computing<System.Collections.Generic.IEqualityComparer<TSourceItem>>(equalityComparerExpression),
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
@@ -16483,13 +16495,13 @@ namespace ObservableComputations
 			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> source1Expression,
 			 ObservableCollection<TSourceItem> source2,
 			 ObservableComputations.IReadScalar<System.Collections.Generic.IEqualityComparer<TSourceItem>> equalityComparerScalar,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Intersecting<TSourceItem>(
 				source1Scalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(source1Expression),
 				source2: source2,
 				equalityComparerScalar: equalityComparerScalar,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -16502,20 +16514,20 @@ namespace ObservableComputations
 				source1Scalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(source1Expression),
 				source2: source2,
 				equalityComparerScalar: equalityComparerScalar,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.Intersecting<TSourceItem> Intersecting<TSourceItem>(this
 			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> source1Expression,
 			 ObservableCollection<TSourceItem> source2,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Intersecting<TSourceItem>(
 				source1Scalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(source1Expression),
 				source2: source2,
 				equalityComparerScalar: null,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -16527,7 +16539,7 @@ namespace ObservableComputations
 				source1Scalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(source1Expression),
 				source2: source2,
 				equalityComparerScalar: null,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
@@ -16535,13 +16547,13 @@ namespace ObservableComputations
 			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> source1Expression,
 			 ObservableCollection<TSourceItem> source2,
 			 Expression<Func<System.Collections.Generic.IEqualityComparer<TSourceItem>>> equalityComparerExpression,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Intersecting<TSourceItem>(
 				source1Scalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(source1Expression),
 				source2: source2,
 				equalityComparerScalar: new Computing<System.Collections.Generic.IEqualityComparer<TSourceItem>>(equalityComparerExpression),
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -16554,7 +16566,7 @@ namespace ObservableComputations
 				source1Scalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(source1Expression),
 				source2: source2,
 				equalityComparerScalar: new Computing<System.Collections.Generic.IEqualityComparer<TSourceItem>>(equalityComparerExpression),
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
@@ -16562,13 +16574,13 @@ namespace ObservableComputations
 			 Expression<Func<ObservableCollection<TSourceItem>>> source1Expression,
 			 System.Collections.Specialized.INotifyCollectionChanged source2,
 			 ObservableComputations.IReadScalar<System.Collections.Generic.IEqualityComparer<TSourceItem>> equalityComparerScalar,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Intersecting<TSourceItem>(
 				source1Scalar: new Computing<ObservableCollection<TSourceItem>>(source1Expression),
 				source2: source2,
 				equalityComparerScalar: equalityComparerScalar,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -16581,20 +16593,20 @@ namespace ObservableComputations
 				source1Scalar: new Computing<ObservableCollection<TSourceItem>>(source1Expression),
 				source2: source2,
 				equalityComparerScalar: equalityComparerScalar,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.Intersecting<TSourceItem> Intersecting<TSourceItem>(this
 			 Expression<Func<ObservableCollection<TSourceItem>>> source1Expression,
 			 System.Collections.Specialized.INotifyCollectionChanged source2,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Intersecting<TSourceItem>(
 				source1Scalar: new Computing<ObservableCollection<TSourceItem>>(source1Expression),
 				source2: source2,
 				equalityComparerScalar: null,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -16606,7 +16618,7 @@ namespace ObservableComputations
 				source1Scalar: new Computing<ObservableCollection<TSourceItem>>(source1Expression),
 				source2: source2,
 				equalityComparerScalar: null,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
@@ -16614,13 +16626,13 @@ namespace ObservableComputations
 			 Expression<Func<ObservableCollection<TSourceItem>>> source1Expression,
 			 System.Collections.Specialized.INotifyCollectionChanged source2,
 			 Expression<Func<System.Collections.Generic.IEqualityComparer<TSourceItem>>> equalityComparerExpression,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Intersecting<TSourceItem>(
 				source1Scalar: new Computing<ObservableCollection<TSourceItem>>(source1Expression),
 				source2: source2,
 				equalityComparerScalar: new Computing<System.Collections.Generic.IEqualityComparer<TSourceItem>>(equalityComparerExpression),
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -16633,7 +16645,7 @@ namespace ObservableComputations
 				source1Scalar: new Computing<ObservableCollection<TSourceItem>>(source1Expression),
 				source2: source2,
 				equalityComparerScalar: new Computing<System.Collections.Generic.IEqualityComparer<TSourceItem>>(equalityComparerExpression),
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
@@ -16641,13 +16653,13 @@ namespace ObservableComputations
 			 Expression<Func<ObservableCollection<TSourceItem>>> source1Expression,
 			 ObservableCollection<TSourceItem> source2,
 			 ObservableComputations.IReadScalar<System.Collections.Generic.IEqualityComparer<TSourceItem>> equalityComparerScalar,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Intersecting<TSourceItem>(
 				source1Scalar: new Computing<ObservableCollection<TSourceItem>>(source1Expression),
 				source2: source2,
 				equalityComparerScalar: equalityComparerScalar,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -16660,20 +16672,20 @@ namespace ObservableComputations
 				source1Scalar: new Computing<ObservableCollection<TSourceItem>>(source1Expression),
 				source2: source2,
 				equalityComparerScalar: equalityComparerScalar,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.Intersecting<TSourceItem> Intersecting<TSourceItem>(this
 			 Expression<Func<ObservableCollection<TSourceItem>>> source1Expression,
 			 ObservableCollection<TSourceItem> source2,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Intersecting<TSourceItem>(
 				source1Scalar: new Computing<ObservableCollection<TSourceItem>>(source1Expression),
 				source2: source2,
 				equalityComparerScalar: null,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -16685,7 +16697,7 @@ namespace ObservableComputations
 				source1Scalar: new Computing<ObservableCollection<TSourceItem>>(source1Expression),
 				source2: source2,
 				equalityComparerScalar: null,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
@@ -16693,13 +16705,13 @@ namespace ObservableComputations
 			 Expression<Func<ObservableCollection<TSourceItem>>> source1Expression,
 			 ObservableCollection<TSourceItem> source2,
 			 Expression<Func<System.Collections.Generic.IEqualityComparer<TSourceItem>>> equalityComparerExpression,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Intersecting<TSourceItem>(
 				source1Scalar: new Computing<ObservableCollection<TSourceItem>>(source1Expression),
 				source2: source2,
 				equalityComparerScalar: new Computing<System.Collections.Generic.IEqualityComparer<TSourceItem>>(equalityComparerExpression),
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -16712,7 +16724,7 @@ namespace ObservableComputations
 				source1Scalar: new Computing<ObservableCollection<TSourceItem>>(source1Expression),
 				source2: source2,
 				equalityComparerScalar: new Computing<System.Collections.Generic.IEqualityComparer<TSourceItem>>(equalityComparerExpression),
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
@@ -16720,13 +16732,13 @@ namespace ObservableComputations
 			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> source1Scalar,
 			 System.Collections.Specialized.INotifyCollectionChanged source2,
 			 System.Collections.Generic.IEqualityComparer<TSourceItem> equalityComparer,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Intersecting<TSourceItem>(
 				source1Scalar: source1Scalar,
 				source2: source2,
 				equalityComparer: equalityComparer,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -16739,7 +16751,7 @@ namespace ObservableComputations
 				source1Scalar: source1Scalar,
 				source2: source2,
 				equalityComparer: equalityComparer,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
@@ -16747,13 +16759,13 @@ namespace ObservableComputations
 			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> source1Scalar,
 			 ObservableCollection<TSourceItem> source2,
 			 System.Collections.Generic.IEqualityComparer<TSourceItem> equalityComparer,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Intersecting<TSourceItem>(
 				source1Scalar: source1Scalar,
 				source2: source2,
 				equalityComparer: equalityComparer,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -16766,7 +16778,7 @@ namespace ObservableComputations
 				source1Scalar: source1Scalar,
 				source2: source2,
 				equalityComparer: equalityComparer,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
@@ -16774,13 +16786,13 @@ namespace ObservableComputations
 			 ObservableComputations.IReadScalar<ObservableCollection<TSourceItem>> source1Scalar,
 			 System.Collections.Specialized.INotifyCollectionChanged source2,
 			 System.Collections.Generic.IEqualityComparer<TSourceItem> equalityComparer,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Intersecting<TSourceItem>(
 				source1Scalar: source1Scalar,
 				source2: source2,
 				equalityComparer: equalityComparer,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -16793,7 +16805,7 @@ namespace ObservableComputations
 				source1Scalar: source1Scalar,
 				source2: source2,
 				equalityComparer: equalityComparer,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
@@ -16801,13 +16813,13 @@ namespace ObservableComputations
 			 ObservableComputations.IReadScalar<ObservableCollection<TSourceItem>> source1Scalar,
 			 ObservableCollection<TSourceItem> source2,
 			 System.Collections.Generic.IEqualityComparer<TSourceItem> equalityComparer,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Intersecting<TSourceItem>(
 				source1Scalar: source1Scalar,
 				source2: source2,
 				equalityComparer: equalityComparer,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -16820,7 +16832,7 @@ namespace ObservableComputations
 				source1Scalar: source1Scalar,
 				source2: source2,
 				equalityComparer: equalityComparer,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
@@ -16828,13 +16840,13 @@ namespace ObservableComputations
 			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> source1Expression,
 			 System.Collections.Specialized.INotifyCollectionChanged source2,
 			 System.Collections.Generic.IEqualityComparer<TSourceItem> equalityComparer,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Intersecting<TSourceItem>(
 				source1Scalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(source1Expression),
 				source2: source2,
 				equalityComparer: equalityComparer,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -16847,7 +16859,7 @@ namespace ObservableComputations
 				source1Scalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(source1Expression),
 				source2: source2,
 				equalityComparer: equalityComparer,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
@@ -16855,13 +16867,13 @@ namespace ObservableComputations
 			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> source1Expression,
 			 ObservableCollection<TSourceItem> source2,
 			 System.Collections.Generic.IEqualityComparer<TSourceItem> equalityComparer,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Intersecting<TSourceItem>(
 				source1Scalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(source1Expression),
 				source2: source2,
 				equalityComparer: equalityComparer,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -16874,7 +16886,7 @@ namespace ObservableComputations
 				source1Scalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(source1Expression),
 				source2: source2,
 				equalityComparer: equalityComparer,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
@@ -16882,13 +16894,13 @@ namespace ObservableComputations
 			 Expression<Func<ObservableCollection<TSourceItem>>> source1Expression,
 			 System.Collections.Specialized.INotifyCollectionChanged source2,
 			 System.Collections.Generic.IEqualityComparer<TSourceItem> equalityComparer,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Intersecting<TSourceItem>(
 				source1Scalar: new Computing<ObservableCollection<TSourceItem>>(source1Expression),
 				source2: source2,
 				equalityComparer: equalityComparer,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -16901,7 +16913,7 @@ namespace ObservableComputations
 				source1Scalar: new Computing<ObservableCollection<TSourceItem>>(source1Expression),
 				source2: source2,
 				equalityComparer: equalityComparer,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
@@ -16909,13 +16921,13 @@ namespace ObservableComputations
 			 Expression<Func<ObservableCollection<TSourceItem>>> source1Expression,
 			 ObservableCollection<TSourceItem> source2,
 			 System.Collections.Generic.IEqualityComparer<TSourceItem> equalityComparer,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Intersecting<TSourceItem>(
 				source1Scalar: new Computing<ObservableCollection<TSourceItem>>(source1Expression),
 				source2: source2,
 				equalityComparer: equalityComparer,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -16928,7 +16940,7 @@ namespace ObservableComputations
 				source1Scalar: new Computing<ObservableCollection<TSourceItem>>(source1Expression),
 				source2: source2,
 				equalityComparer: equalityComparer,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
@@ -16936,13 +16948,13 @@ namespace ObservableComputations
 			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> source1Scalar,
 			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> source2Scalar,
 			 System.Collections.Generic.IEqualityComparer<TSourceItem> equalityComparer,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Intersecting<TSourceItem>(
 				source1Scalar: source1Scalar,
 				source2Scalar: source2Scalar,
 				equalityComparer: equalityComparer,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -16955,7 +16967,7 @@ namespace ObservableComputations
 				source1Scalar: source1Scalar,
 				source2Scalar: source2Scalar,
 				equalityComparer: equalityComparer,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
@@ -16963,13 +16975,13 @@ namespace ObservableComputations
 			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> source1Scalar,
 			 ObservableComputations.IReadScalar<ObservableCollection<TSourceItem>> source2Scalar,
 			 System.Collections.Generic.IEqualityComparer<TSourceItem> equalityComparer,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Intersecting<TSourceItem>(
 				source1Scalar: source1Scalar,
 				source2Scalar: source2Scalar,
 				equalityComparer: equalityComparer,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -16982,7 +16994,7 @@ namespace ObservableComputations
 				source1Scalar: source1Scalar,
 				source2Scalar: source2Scalar,
 				equalityComparer: equalityComparer,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
@@ -16990,13 +17002,13 @@ namespace ObservableComputations
 			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> source1Scalar,
 			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> source2Expression,
 			 System.Collections.Generic.IEqualityComparer<TSourceItem> equalityComparer,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Intersecting<TSourceItem>(
 				source1Scalar: source1Scalar,
 				source2Scalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(source2Expression),
 				equalityComparer: equalityComparer,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -17009,7 +17021,7 @@ namespace ObservableComputations
 				source1Scalar: source1Scalar,
 				source2Scalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(source2Expression),
 				equalityComparer: equalityComparer,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
@@ -17017,13 +17029,13 @@ namespace ObservableComputations
 			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> source1Scalar,
 			 Expression<Func<ObservableCollection<TSourceItem>>> source2Expression,
 			 System.Collections.Generic.IEqualityComparer<TSourceItem> equalityComparer,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Intersecting<TSourceItem>(
 				source1Scalar: source1Scalar,
 				source2Scalar: new Computing<ObservableCollection<TSourceItem>>(source2Expression),
 				equalityComparer: equalityComparer,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -17036,7 +17048,7 @@ namespace ObservableComputations
 				source1Scalar: source1Scalar,
 				source2Scalar: new Computing<ObservableCollection<TSourceItem>>(source2Expression),
 				equalityComparer: equalityComparer,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
@@ -17044,13 +17056,13 @@ namespace ObservableComputations
 			 ObservableComputations.IReadScalar<ObservableCollection<TSourceItem>> source1Scalar,
 			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> source2Scalar,
 			 System.Collections.Generic.IEqualityComparer<TSourceItem> equalityComparer,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Intersecting<TSourceItem>(
 				source1Scalar: source1Scalar,
 				source2Scalar: source2Scalar,
 				equalityComparer: equalityComparer,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -17063,7 +17075,7 @@ namespace ObservableComputations
 				source1Scalar: source1Scalar,
 				source2Scalar: source2Scalar,
 				equalityComparer: equalityComparer,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
@@ -17071,13 +17083,13 @@ namespace ObservableComputations
 			 ObservableComputations.IReadScalar<ObservableCollection<TSourceItem>> source1Scalar,
 			 ObservableComputations.IReadScalar<ObservableCollection<TSourceItem>> source2Scalar,
 			 System.Collections.Generic.IEqualityComparer<TSourceItem> equalityComparer,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Intersecting<TSourceItem>(
 				source1Scalar: source1Scalar,
 				source2Scalar: source2Scalar,
 				equalityComparer: equalityComparer,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -17090,7 +17102,7 @@ namespace ObservableComputations
 				source1Scalar: source1Scalar,
 				source2Scalar: source2Scalar,
 				equalityComparer: equalityComparer,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
@@ -17098,13 +17110,13 @@ namespace ObservableComputations
 			 ObservableComputations.IReadScalar<ObservableCollection<TSourceItem>> source1Scalar,
 			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> source2Expression,
 			 System.Collections.Generic.IEqualityComparer<TSourceItem> equalityComparer,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Intersecting<TSourceItem>(
 				source1Scalar: source1Scalar,
 				source2Scalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(source2Expression),
 				equalityComparer: equalityComparer,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -17117,7 +17129,7 @@ namespace ObservableComputations
 				source1Scalar: source1Scalar,
 				source2Scalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(source2Expression),
 				equalityComparer: equalityComparer,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
@@ -17125,13 +17137,13 @@ namespace ObservableComputations
 			 ObservableComputations.IReadScalar<ObservableCollection<TSourceItem>> source1Scalar,
 			 Expression<Func<ObservableCollection<TSourceItem>>> source2Expression,
 			 System.Collections.Generic.IEqualityComparer<TSourceItem> equalityComparer,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Intersecting<TSourceItem>(
 				source1Scalar: source1Scalar,
 				source2Scalar: new Computing<ObservableCollection<TSourceItem>>(source2Expression),
 				equalityComparer: equalityComparer,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -17144,7 +17156,7 @@ namespace ObservableComputations
 				source1Scalar: source1Scalar,
 				source2Scalar: new Computing<ObservableCollection<TSourceItem>>(source2Expression),
 				equalityComparer: equalityComparer,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
@@ -17152,13 +17164,13 @@ namespace ObservableComputations
 			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> source1Expression,
 			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> source2Scalar,
 			 System.Collections.Generic.IEqualityComparer<TSourceItem> equalityComparer,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Intersecting<TSourceItem>(
 				source1Scalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(source1Expression),
 				source2Scalar: source2Scalar,
 				equalityComparer: equalityComparer,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -17171,7 +17183,7 @@ namespace ObservableComputations
 				source1Scalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(source1Expression),
 				source2Scalar: source2Scalar,
 				equalityComparer: equalityComparer,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
@@ -17179,13 +17191,13 @@ namespace ObservableComputations
 			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> source1Expression,
 			 ObservableComputations.IReadScalar<ObservableCollection<TSourceItem>> source2Scalar,
 			 System.Collections.Generic.IEqualityComparer<TSourceItem> equalityComparer,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Intersecting<TSourceItem>(
 				source1Scalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(source1Expression),
 				source2Scalar: source2Scalar,
 				equalityComparer: equalityComparer,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -17198,7 +17210,7 @@ namespace ObservableComputations
 				source1Scalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(source1Expression),
 				source2Scalar: source2Scalar,
 				equalityComparer: equalityComparer,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
@@ -17206,13 +17218,13 @@ namespace ObservableComputations
 			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> source1Expression,
 			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> source2Expression,
 			 System.Collections.Generic.IEqualityComparer<TSourceItem> equalityComparer,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Intersecting<TSourceItem>(
 				source1Scalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(source1Expression),
 				source2Scalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(source2Expression),
 				equalityComparer: equalityComparer,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -17225,7 +17237,7 @@ namespace ObservableComputations
 				source1Scalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(source1Expression),
 				source2Scalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(source2Expression),
 				equalityComparer: equalityComparer,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
@@ -17233,13 +17245,13 @@ namespace ObservableComputations
 			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> source1Expression,
 			 Expression<Func<ObservableCollection<TSourceItem>>> source2Expression,
 			 System.Collections.Generic.IEqualityComparer<TSourceItem> equalityComparer,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Intersecting<TSourceItem>(
 				source1Scalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(source1Expression),
 				source2Scalar: new Computing<ObservableCollection<TSourceItem>>(source2Expression),
 				equalityComparer: equalityComparer,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -17252,7 +17264,7 @@ namespace ObservableComputations
 				source1Scalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(source1Expression),
 				source2Scalar: new Computing<ObservableCollection<TSourceItem>>(source2Expression),
 				equalityComparer: equalityComparer,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
@@ -17260,13 +17272,13 @@ namespace ObservableComputations
 			 Expression<Func<ObservableCollection<TSourceItem>>> source1Expression,
 			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> source2Scalar,
 			 System.Collections.Generic.IEqualityComparer<TSourceItem> equalityComparer,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Intersecting<TSourceItem>(
 				source1Scalar: new Computing<ObservableCollection<TSourceItem>>(source1Expression),
 				source2Scalar: source2Scalar,
 				equalityComparer: equalityComparer,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -17279,7 +17291,7 @@ namespace ObservableComputations
 				source1Scalar: new Computing<ObservableCollection<TSourceItem>>(source1Expression),
 				source2Scalar: source2Scalar,
 				equalityComparer: equalityComparer,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
@@ -17287,13 +17299,13 @@ namespace ObservableComputations
 			 Expression<Func<ObservableCollection<TSourceItem>>> source1Expression,
 			 ObservableComputations.IReadScalar<ObservableCollection<TSourceItem>> source2Scalar,
 			 System.Collections.Generic.IEqualityComparer<TSourceItem> equalityComparer,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Intersecting<TSourceItem>(
 				source1Scalar: new Computing<ObservableCollection<TSourceItem>>(source1Expression),
 				source2Scalar: source2Scalar,
 				equalityComparer: equalityComparer,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -17306,7 +17318,7 @@ namespace ObservableComputations
 				source1Scalar: new Computing<ObservableCollection<TSourceItem>>(source1Expression),
 				source2Scalar: source2Scalar,
 				equalityComparer: equalityComparer,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
@@ -17314,13 +17326,13 @@ namespace ObservableComputations
 			 Expression<Func<ObservableCollection<TSourceItem>>> source1Expression,
 			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> source2Expression,
 			 System.Collections.Generic.IEqualityComparer<TSourceItem> equalityComparer,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Intersecting<TSourceItem>(
 				source1Scalar: new Computing<ObservableCollection<TSourceItem>>(source1Expression),
 				source2Scalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(source2Expression),
 				equalityComparer: equalityComparer,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -17333,7 +17345,7 @@ namespace ObservableComputations
 				source1Scalar: new Computing<ObservableCollection<TSourceItem>>(source1Expression),
 				source2Scalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(source2Expression),
 				equalityComparer: equalityComparer,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
@@ -17341,13 +17353,13 @@ namespace ObservableComputations
 			 Expression<Func<ObservableCollection<TSourceItem>>> source1Expression,
 			 Expression<Func<ObservableCollection<TSourceItem>>> source2Expression,
 			 System.Collections.Generic.IEqualityComparer<TSourceItem> equalityComparer,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Intersecting<TSourceItem>(
 				source1Scalar: new Computing<ObservableCollection<TSourceItem>>(source1Expression),
 				source2Scalar: new Computing<ObservableCollection<TSourceItem>>(source2Expression),
 				equalityComparer: equalityComparer,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -17360,7 +17372,7 @@ namespace ObservableComputations
 				source1Scalar: new Computing<ObservableCollection<TSourceItem>>(source1Expression),
 				source2Scalar: new Computing<ObservableCollection<TSourceItem>>(source2Expression),
 				equalityComparer: equalityComparer,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
@@ -17368,13 +17380,13 @@ namespace ObservableComputations
 			 System.Collections.Specialized.INotifyCollectionChanged source1,
 			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> source2Scalar,
 			 ObservableComputations.IReadScalar<System.Collections.Generic.IEqualityComparer<TSourceItem>> equalityComparerScalar,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Intersecting<TSourceItem>(
 				source1: source1,
 				source2Scalar: source2Scalar,
 				equalityComparerScalar: equalityComparerScalar,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -17387,20 +17399,20 @@ namespace ObservableComputations
 				source1: source1,
 				source2Scalar: source2Scalar,
 				equalityComparerScalar: equalityComparerScalar,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.Intersecting<TSourceItem> Intersecting<TSourceItem>(this
 			 System.Collections.Specialized.INotifyCollectionChanged source1,
 			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> source2Scalar,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Intersecting<TSourceItem>(
 				source1: source1,
 				source2Scalar: source2Scalar,
 				equalityComparerScalar: null,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -17412,7 +17424,7 @@ namespace ObservableComputations
 				source1: source1,
 				source2Scalar: source2Scalar,
 				equalityComparerScalar: null,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
@@ -17420,13 +17432,13 @@ namespace ObservableComputations
 			 System.Collections.Specialized.INotifyCollectionChanged source1,
 			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> source2Scalar,
 			 Expression<Func<System.Collections.Generic.IEqualityComparer<TSourceItem>>> equalityComparerExpression,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Intersecting<TSourceItem>(
 				source1: source1,
 				source2Scalar: source2Scalar,
 				equalityComparerScalar: new Computing<System.Collections.Generic.IEqualityComparer<TSourceItem>>(equalityComparerExpression),
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -17439,7 +17451,7 @@ namespace ObservableComputations
 				source1: source1,
 				source2Scalar: source2Scalar,
 				equalityComparerScalar: new Computing<System.Collections.Generic.IEqualityComparer<TSourceItem>>(equalityComparerExpression),
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
@@ -17447,13 +17459,13 @@ namespace ObservableComputations
 			 System.Collections.Specialized.INotifyCollectionChanged source1,
 			 ObservableComputations.IReadScalar<ObservableCollection<TSourceItem>> source2Scalar,
 			 ObservableComputations.IReadScalar<System.Collections.Generic.IEqualityComparer<TSourceItem>> equalityComparerScalar,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Intersecting<TSourceItem>(
 				source1: source1,
 				source2Scalar: source2Scalar,
 				equalityComparerScalar: equalityComparerScalar,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -17466,20 +17478,20 @@ namespace ObservableComputations
 				source1: source1,
 				source2Scalar: source2Scalar,
 				equalityComparerScalar: equalityComparerScalar,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.Intersecting<TSourceItem> Intersecting<TSourceItem>(this
 			 System.Collections.Specialized.INotifyCollectionChanged source1,
 			 ObservableComputations.IReadScalar<ObservableCollection<TSourceItem>> source2Scalar,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Intersecting<TSourceItem>(
 				source1: source1,
 				source2Scalar: source2Scalar,
 				equalityComparerScalar: null,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -17491,7 +17503,7 @@ namespace ObservableComputations
 				source1: source1,
 				source2Scalar: source2Scalar,
 				equalityComparerScalar: null,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
@@ -17499,13 +17511,13 @@ namespace ObservableComputations
 			 System.Collections.Specialized.INotifyCollectionChanged source1,
 			 ObservableComputations.IReadScalar<ObservableCollection<TSourceItem>> source2Scalar,
 			 Expression<Func<System.Collections.Generic.IEqualityComparer<TSourceItem>>> equalityComparerExpression,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Intersecting<TSourceItem>(
 				source1: source1,
 				source2Scalar: source2Scalar,
 				equalityComparerScalar: new Computing<System.Collections.Generic.IEqualityComparer<TSourceItem>>(equalityComparerExpression),
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -17518,7 +17530,7 @@ namespace ObservableComputations
 				source1: source1,
 				source2Scalar: source2Scalar,
 				equalityComparerScalar: new Computing<System.Collections.Generic.IEqualityComparer<TSourceItem>>(equalityComparerExpression),
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
@@ -17526,13 +17538,13 @@ namespace ObservableComputations
 			 System.Collections.Specialized.INotifyCollectionChanged source1,
 			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> source2Expression,
 			 ObservableComputations.IReadScalar<System.Collections.Generic.IEqualityComparer<TSourceItem>> equalityComparerScalar,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Intersecting<TSourceItem>(
 				source1: source1,
 				source2Scalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(source2Expression),
 				equalityComparerScalar: equalityComparerScalar,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -17545,20 +17557,20 @@ namespace ObservableComputations
 				source1: source1,
 				source2Scalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(source2Expression),
 				equalityComparerScalar: equalityComparerScalar,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.Intersecting<TSourceItem> Intersecting<TSourceItem>(this
 			 System.Collections.Specialized.INotifyCollectionChanged source1,
 			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> source2Expression,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Intersecting<TSourceItem>(
 				source1: source1,
 				source2Scalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(source2Expression),
 				equalityComparerScalar: null,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -17570,7 +17582,7 @@ namespace ObservableComputations
 				source1: source1,
 				source2Scalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(source2Expression),
 				equalityComparerScalar: null,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
@@ -17578,13 +17590,13 @@ namespace ObservableComputations
 			 System.Collections.Specialized.INotifyCollectionChanged source1,
 			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> source2Expression,
 			 Expression<Func<System.Collections.Generic.IEqualityComparer<TSourceItem>>> equalityComparerExpression,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Intersecting<TSourceItem>(
 				source1: source1,
 				source2Scalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(source2Expression),
 				equalityComparerScalar: new Computing<System.Collections.Generic.IEqualityComparer<TSourceItem>>(equalityComparerExpression),
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -17597,7 +17609,7 @@ namespace ObservableComputations
 				source1: source1,
 				source2Scalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(source2Expression),
 				equalityComparerScalar: new Computing<System.Collections.Generic.IEqualityComparer<TSourceItem>>(equalityComparerExpression),
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
@@ -17605,13 +17617,13 @@ namespace ObservableComputations
 			 System.Collections.Specialized.INotifyCollectionChanged source1,
 			 Expression<Func<ObservableCollection<TSourceItem>>> source2Expression,
 			 ObservableComputations.IReadScalar<System.Collections.Generic.IEqualityComparer<TSourceItem>> equalityComparerScalar,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Intersecting<TSourceItem>(
 				source1: source1,
 				source2Scalar: new Computing<ObservableCollection<TSourceItem>>(source2Expression),
 				equalityComparerScalar: equalityComparerScalar,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -17624,20 +17636,20 @@ namespace ObservableComputations
 				source1: source1,
 				source2Scalar: new Computing<ObservableCollection<TSourceItem>>(source2Expression),
 				equalityComparerScalar: equalityComparerScalar,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.Intersecting<TSourceItem> Intersecting<TSourceItem>(this
 			 System.Collections.Specialized.INotifyCollectionChanged source1,
 			 Expression<Func<ObservableCollection<TSourceItem>>> source2Expression,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Intersecting<TSourceItem>(
 				source1: source1,
 				source2Scalar: new Computing<ObservableCollection<TSourceItem>>(source2Expression),
 				equalityComparerScalar: null,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -17649,7 +17661,7 @@ namespace ObservableComputations
 				source1: source1,
 				source2Scalar: new Computing<ObservableCollection<TSourceItem>>(source2Expression),
 				equalityComparerScalar: null,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
@@ -17657,13 +17669,13 @@ namespace ObservableComputations
 			 System.Collections.Specialized.INotifyCollectionChanged source1,
 			 Expression<Func<ObservableCollection<TSourceItem>>> source2Expression,
 			 Expression<Func<System.Collections.Generic.IEqualityComparer<TSourceItem>>> equalityComparerExpression,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Intersecting<TSourceItem>(
 				source1: source1,
 				source2Scalar: new Computing<ObservableCollection<TSourceItem>>(source2Expression),
 				equalityComparerScalar: new Computing<System.Collections.Generic.IEqualityComparer<TSourceItem>>(equalityComparerExpression),
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -17676,7 +17688,7 @@ namespace ObservableComputations
 				source1: source1,
 				source2Scalar: new Computing<ObservableCollection<TSourceItem>>(source2Expression),
 				equalityComparerScalar: new Computing<System.Collections.Generic.IEqualityComparer<TSourceItem>>(equalityComparerExpression),
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
@@ -17684,13 +17696,13 @@ namespace ObservableComputations
 			 ObservableCollection<TSourceItem> source1,
 			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> source2Scalar,
 			 ObservableComputations.IReadScalar<System.Collections.Generic.IEqualityComparer<TSourceItem>> equalityComparerScalar,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Intersecting<TSourceItem>(
 				source1: source1,
 				source2Scalar: source2Scalar,
 				equalityComparerScalar: equalityComparerScalar,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -17703,20 +17715,20 @@ namespace ObservableComputations
 				source1: source1,
 				source2Scalar: source2Scalar,
 				equalityComparerScalar: equalityComparerScalar,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.Intersecting<TSourceItem> Intersecting<TSourceItem>(this
 			 ObservableCollection<TSourceItem> source1,
 			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> source2Scalar,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Intersecting<TSourceItem>(
 				source1: source1,
 				source2Scalar: source2Scalar,
 				equalityComparerScalar: null,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -17728,7 +17740,7 @@ namespace ObservableComputations
 				source1: source1,
 				source2Scalar: source2Scalar,
 				equalityComparerScalar: null,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
@@ -17736,13 +17748,13 @@ namespace ObservableComputations
 			 ObservableCollection<TSourceItem> source1,
 			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> source2Scalar,
 			 Expression<Func<System.Collections.Generic.IEqualityComparer<TSourceItem>>> equalityComparerExpression,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Intersecting<TSourceItem>(
 				source1: source1,
 				source2Scalar: source2Scalar,
 				equalityComparerScalar: new Computing<System.Collections.Generic.IEqualityComparer<TSourceItem>>(equalityComparerExpression),
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -17755,7 +17767,7 @@ namespace ObservableComputations
 				source1: source1,
 				source2Scalar: source2Scalar,
 				equalityComparerScalar: new Computing<System.Collections.Generic.IEqualityComparer<TSourceItem>>(equalityComparerExpression),
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
@@ -17763,13 +17775,13 @@ namespace ObservableComputations
 			 ObservableCollection<TSourceItem> source1,
 			 ObservableComputations.IReadScalar<ObservableCollection<TSourceItem>> source2Scalar,
 			 ObservableComputations.IReadScalar<System.Collections.Generic.IEqualityComparer<TSourceItem>> equalityComparerScalar,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Intersecting<TSourceItem>(
 				source1: source1,
 				source2Scalar: source2Scalar,
 				equalityComparerScalar: equalityComparerScalar,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -17782,20 +17794,20 @@ namespace ObservableComputations
 				source1: source1,
 				source2Scalar: source2Scalar,
 				equalityComparerScalar: equalityComparerScalar,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.Intersecting<TSourceItem> Intersecting<TSourceItem>(this
 			 ObservableCollection<TSourceItem> source1,
 			 ObservableComputations.IReadScalar<ObservableCollection<TSourceItem>> source2Scalar,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Intersecting<TSourceItem>(
 				source1: source1,
 				source2Scalar: source2Scalar,
 				equalityComparerScalar: null,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -17807,7 +17819,7 @@ namespace ObservableComputations
 				source1: source1,
 				source2Scalar: source2Scalar,
 				equalityComparerScalar: null,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
@@ -17815,13 +17827,13 @@ namespace ObservableComputations
 			 ObservableCollection<TSourceItem> source1,
 			 ObservableComputations.IReadScalar<ObservableCollection<TSourceItem>> source2Scalar,
 			 Expression<Func<System.Collections.Generic.IEqualityComparer<TSourceItem>>> equalityComparerExpression,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Intersecting<TSourceItem>(
 				source1: source1,
 				source2Scalar: source2Scalar,
 				equalityComparerScalar: new Computing<System.Collections.Generic.IEqualityComparer<TSourceItem>>(equalityComparerExpression),
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -17834,7 +17846,7 @@ namespace ObservableComputations
 				source1: source1,
 				source2Scalar: source2Scalar,
 				equalityComparerScalar: new Computing<System.Collections.Generic.IEqualityComparer<TSourceItem>>(equalityComparerExpression),
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
@@ -17842,13 +17854,13 @@ namespace ObservableComputations
 			 ObservableCollection<TSourceItem> source1,
 			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> source2Expression,
 			 ObservableComputations.IReadScalar<System.Collections.Generic.IEqualityComparer<TSourceItem>> equalityComparerScalar,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Intersecting<TSourceItem>(
 				source1: source1,
 				source2Scalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(source2Expression),
 				equalityComparerScalar: equalityComparerScalar,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -17861,20 +17873,20 @@ namespace ObservableComputations
 				source1: source1,
 				source2Scalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(source2Expression),
 				equalityComparerScalar: equalityComparerScalar,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.Intersecting<TSourceItem> Intersecting<TSourceItem>(this
 			 ObservableCollection<TSourceItem> source1,
 			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> source2Expression,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Intersecting<TSourceItem>(
 				source1: source1,
 				source2Scalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(source2Expression),
 				equalityComparerScalar: null,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -17886,7 +17898,7 @@ namespace ObservableComputations
 				source1: source1,
 				source2Scalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(source2Expression),
 				equalityComparerScalar: null,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
@@ -17894,13 +17906,13 @@ namespace ObservableComputations
 			 ObservableCollection<TSourceItem> source1,
 			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> source2Expression,
 			 Expression<Func<System.Collections.Generic.IEqualityComparer<TSourceItem>>> equalityComparerExpression,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Intersecting<TSourceItem>(
 				source1: source1,
 				source2Scalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(source2Expression),
 				equalityComparerScalar: new Computing<System.Collections.Generic.IEqualityComparer<TSourceItem>>(equalityComparerExpression),
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -17913,7 +17925,7 @@ namespace ObservableComputations
 				source1: source1,
 				source2Scalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(source2Expression),
 				equalityComparerScalar: new Computing<System.Collections.Generic.IEqualityComparer<TSourceItem>>(equalityComparerExpression),
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
@@ -17921,13 +17933,13 @@ namespace ObservableComputations
 			 ObservableCollection<TSourceItem> source1,
 			 Expression<Func<ObservableCollection<TSourceItem>>> source2Expression,
 			 ObservableComputations.IReadScalar<System.Collections.Generic.IEqualityComparer<TSourceItem>> equalityComparerScalar,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Intersecting<TSourceItem>(
 				source1: source1,
 				source2Scalar: new Computing<ObservableCollection<TSourceItem>>(source2Expression),
 				equalityComparerScalar: equalityComparerScalar,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -17940,20 +17952,20 @@ namespace ObservableComputations
 				source1: source1,
 				source2Scalar: new Computing<ObservableCollection<TSourceItem>>(source2Expression),
 				equalityComparerScalar: equalityComparerScalar,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.Intersecting<TSourceItem> Intersecting<TSourceItem>(this
 			 ObservableCollection<TSourceItem> source1,
 			 Expression<Func<ObservableCollection<TSourceItem>>> source2Expression,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Intersecting<TSourceItem>(
 				source1: source1,
 				source2Scalar: new Computing<ObservableCollection<TSourceItem>>(source2Expression),
 				equalityComparerScalar: null,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -17965,7 +17977,7 @@ namespace ObservableComputations
 				source1: source1,
 				source2Scalar: new Computing<ObservableCollection<TSourceItem>>(source2Expression),
 				equalityComparerScalar: null,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
@@ -17973,13 +17985,13 @@ namespace ObservableComputations
 			 ObservableCollection<TSourceItem> source1,
 			 Expression<Func<ObservableCollection<TSourceItem>>> source2Expression,
 			 Expression<Func<System.Collections.Generic.IEqualityComparer<TSourceItem>>> equalityComparerExpression,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Intersecting<TSourceItem>(
 				source1: source1,
 				source2Scalar: new Computing<ObservableCollection<TSourceItem>>(source2Expression),
 				equalityComparerScalar: new Computing<System.Collections.Generic.IEqualityComparer<TSourceItem>>(equalityComparerExpression),
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -17992,7 +18004,7 @@ namespace ObservableComputations
 				source1: source1,
 				source2Scalar: new Computing<ObservableCollection<TSourceItem>>(source2Expression),
 				equalityComparerScalar: new Computing<System.Collections.Generic.IEqualityComparer<TSourceItem>>(equalityComparerExpression),
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
@@ -18000,13 +18012,13 @@ namespace ObservableComputations
 			 System.Collections.Specialized.INotifyCollectionChanged source1,
 			 System.Collections.Specialized.INotifyCollectionChanged source2,
 			 ObservableComputations.IReadScalar<System.Collections.Generic.IEqualityComparer<TSourceItem>> equalityComparerScalar,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Intersecting<TSourceItem>(
 				source1: source1,
 				source2: source2,
 				equalityComparerScalar: equalityComparerScalar,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -18019,20 +18031,20 @@ namespace ObservableComputations
 				source1: source1,
 				source2: source2,
 				equalityComparerScalar: equalityComparerScalar,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.Intersecting<TSourceItem> Intersecting<TSourceItem>(this
 			 System.Collections.Specialized.INotifyCollectionChanged source1,
 			 System.Collections.Specialized.INotifyCollectionChanged source2,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Intersecting<TSourceItem>(
 				source1: source1,
 				source2: source2,
 				equalityComparerScalar: null,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -18044,7 +18056,7 @@ namespace ObservableComputations
 				source1: source1,
 				source2: source2,
 				equalityComparerScalar: null,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
@@ -18052,13 +18064,13 @@ namespace ObservableComputations
 			 System.Collections.Specialized.INotifyCollectionChanged source1,
 			 System.Collections.Specialized.INotifyCollectionChanged source2,
 			 Expression<Func<System.Collections.Generic.IEqualityComparer<TSourceItem>>> equalityComparerExpression,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Intersecting<TSourceItem>(
 				source1: source1,
 				source2: source2,
 				equalityComparerScalar: new Computing<System.Collections.Generic.IEqualityComparer<TSourceItem>>(equalityComparerExpression),
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -18071,7 +18083,7 @@ namespace ObservableComputations
 				source1: source1,
 				source2: source2,
 				equalityComparerScalar: new Computing<System.Collections.Generic.IEqualityComparer<TSourceItem>>(equalityComparerExpression),
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
@@ -18079,13 +18091,13 @@ namespace ObservableComputations
 			 System.Collections.Specialized.INotifyCollectionChanged source1,
 			 ObservableCollection<TSourceItem> source2,
 			 ObservableComputations.IReadScalar<System.Collections.Generic.IEqualityComparer<TSourceItem>> equalityComparerScalar,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Intersecting<TSourceItem>(
 				source1: source1,
 				source2: source2,
 				equalityComparerScalar: equalityComparerScalar,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -18098,20 +18110,20 @@ namespace ObservableComputations
 				source1: source1,
 				source2: source2,
 				equalityComparerScalar: equalityComparerScalar,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.Intersecting<TSourceItem> Intersecting<TSourceItem>(this
 			 System.Collections.Specialized.INotifyCollectionChanged source1,
 			 ObservableCollection<TSourceItem> source2,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Intersecting<TSourceItem>(
 				source1: source1,
 				source2: source2,
 				equalityComparerScalar: null,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -18123,7 +18135,7 @@ namespace ObservableComputations
 				source1: source1,
 				source2: source2,
 				equalityComparerScalar: null,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
@@ -18131,13 +18143,13 @@ namespace ObservableComputations
 			 System.Collections.Specialized.INotifyCollectionChanged source1,
 			 ObservableCollection<TSourceItem> source2,
 			 Expression<Func<System.Collections.Generic.IEqualityComparer<TSourceItem>>> equalityComparerExpression,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Intersecting<TSourceItem>(
 				source1: source1,
 				source2: source2,
 				equalityComparerScalar: new Computing<System.Collections.Generic.IEqualityComparer<TSourceItem>>(equalityComparerExpression),
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -18150,7 +18162,7 @@ namespace ObservableComputations
 				source1: source1,
 				source2: source2,
 				equalityComparerScalar: new Computing<System.Collections.Generic.IEqualityComparer<TSourceItem>>(equalityComparerExpression),
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
@@ -18158,13 +18170,13 @@ namespace ObservableComputations
 			 ObservableCollection<TSourceItem> source1,
 			 System.Collections.Specialized.INotifyCollectionChanged source2,
 			 ObservableComputations.IReadScalar<System.Collections.Generic.IEqualityComparer<TSourceItem>> equalityComparerScalar,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Intersecting<TSourceItem>(
 				source1: source1,
 				source2: source2,
 				equalityComparerScalar: equalityComparerScalar,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -18177,20 +18189,20 @@ namespace ObservableComputations
 				source1: source1,
 				source2: source2,
 				equalityComparerScalar: equalityComparerScalar,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.Intersecting<TSourceItem> Intersecting<TSourceItem>(this
 			 ObservableCollection<TSourceItem> source1,
 			 System.Collections.Specialized.INotifyCollectionChanged source2,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Intersecting<TSourceItem>(
 				source1: source1,
 				source2: source2,
 				equalityComparerScalar: null,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -18202,7 +18214,7 @@ namespace ObservableComputations
 				source1: source1,
 				source2: source2,
 				equalityComparerScalar: null,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
@@ -18210,13 +18222,13 @@ namespace ObservableComputations
 			 ObservableCollection<TSourceItem> source1,
 			 System.Collections.Specialized.INotifyCollectionChanged source2,
 			 Expression<Func<System.Collections.Generic.IEqualityComparer<TSourceItem>>> equalityComparerExpression,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Intersecting<TSourceItem>(
 				source1: source1,
 				source2: source2,
 				equalityComparerScalar: new Computing<System.Collections.Generic.IEqualityComparer<TSourceItem>>(equalityComparerExpression),
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -18229,7 +18241,7 @@ namespace ObservableComputations
 				source1: source1,
 				source2: source2,
 				equalityComparerScalar: new Computing<System.Collections.Generic.IEqualityComparer<TSourceItem>>(equalityComparerExpression),
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
@@ -18237,13 +18249,13 @@ namespace ObservableComputations
 			 ObservableCollection<TSourceItem> source1,
 			 ObservableCollection<TSourceItem> source2,
 			 ObservableComputations.IReadScalar<System.Collections.Generic.IEqualityComparer<TSourceItem>> equalityComparerScalar,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Intersecting<TSourceItem>(
 				source1: source1,
 				source2: source2,
 				equalityComparerScalar: equalityComparerScalar,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -18256,20 +18268,20 @@ namespace ObservableComputations
 				source1: source1,
 				source2: source2,
 				equalityComparerScalar: equalityComparerScalar,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.Intersecting<TSourceItem> Intersecting<TSourceItem>(this
 			 ObservableCollection<TSourceItem> source1,
 			 ObservableCollection<TSourceItem> source2,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Intersecting<TSourceItem>(
 				source1: source1,
 				source2: source2,
 				equalityComparerScalar: null,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -18281,7 +18293,7 @@ namespace ObservableComputations
 				source1: source1,
 				source2: source2,
 				equalityComparerScalar: null,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
@@ -18289,13 +18301,13 @@ namespace ObservableComputations
 			 ObservableCollection<TSourceItem> source1,
 			 ObservableCollection<TSourceItem> source2,
 			 Expression<Func<System.Collections.Generic.IEqualityComparer<TSourceItem>>> equalityComparerExpression,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Intersecting<TSourceItem>(
 				source1: source1,
 				source2: source2,
 				equalityComparerScalar: new Computing<System.Collections.Generic.IEqualityComparer<TSourceItem>>(equalityComparerExpression),
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -18308,7 +18320,7 @@ namespace ObservableComputations
 				source1: source1,
 				source2: source2,
 				equalityComparerScalar: new Computing<System.Collections.Generic.IEqualityComparer<TSourceItem>>(equalityComparerExpression),
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
@@ -18316,13 +18328,13 @@ namespace ObservableComputations
 			 System.Collections.Specialized.INotifyCollectionChanged source1,
 			 System.Collections.Specialized.INotifyCollectionChanged source2,
 			 System.Collections.Generic.IEqualityComparer<TSourceItem> equalityComparer,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Intersecting<TSourceItem>(
 				source1: source1,
 				source2: source2,
 				equalityComparer: equalityComparer,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -18335,7 +18347,7 @@ namespace ObservableComputations
 				source1: source1,
 				source2: source2,
 				equalityComparer: equalityComparer,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
@@ -18343,13 +18355,13 @@ namespace ObservableComputations
 			 System.Collections.Specialized.INotifyCollectionChanged source1,
 			 ObservableCollection<TSourceItem> source2,
 			 System.Collections.Generic.IEqualityComparer<TSourceItem> equalityComparer,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Intersecting<TSourceItem>(
 				source1: source1,
 				source2: source2,
 				equalityComparer: equalityComparer,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -18362,7 +18374,7 @@ namespace ObservableComputations
 				source1: source1,
 				source2: source2,
 				equalityComparer: equalityComparer,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
@@ -18370,13 +18382,13 @@ namespace ObservableComputations
 			 ObservableCollection<TSourceItem> source1,
 			 System.Collections.Specialized.INotifyCollectionChanged source2,
 			 System.Collections.Generic.IEqualityComparer<TSourceItem> equalityComparer,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Intersecting<TSourceItem>(
 				source1: source1,
 				source2: source2,
 				equalityComparer: equalityComparer,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -18389,7 +18401,7 @@ namespace ObservableComputations
 				source1: source1,
 				source2: source2,
 				equalityComparer: equalityComparer,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
@@ -18397,13 +18409,13 @@ namespace ObservableComputations
 			 ObservableCollection<TSourceItem> source1,
 			 ObservableCollection<TSourceItem> source2,
 			 System.Collections.Generic.IEqualityComparer<TSourceItem> equalityComparer,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Intersecting<TSourceItem>(
 				source1: source1,
 				source2: source2,
 				equalityComparer: equalityComparer,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -18416,7 +18428,7 @@ namespace ObservableComputations
 				source1: source1,
 				source2: source2,
 				equalityComparer: equalityComparer,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
@@ -18424,13 +18436,13 @@ namespace ObservableComputations
 			 System.Collections.Specialized.INotifyCollectionChanged source1,
 			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> source2Scalar,
 			 System.Collections.Generic.IEqualityComparer<TSourceItem> equalityComparer,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Intersecting<TSourceItem>(
 				source1: source1,
 				source2Scalar: source2Scalar,
 				equalityComparer: equalityComparer,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -18443,7 +18455,7 @@ namespace ObservableComputations
 				source1: source1,
 				source2Scalar: source2Scalar,
 				equalityComparer: equalityComparer,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
@@ -18451,13 +18463,13 @@ namespace ObservableComputations
 			 System.Collections.Specialized.INotifyCollectionChanged source1,
 			 ObservableComputations.IReadScalar<ObservableCollection<TSourceItem>> source2Scalar,
 			 System.Collections.Generic.IEqualityComparer<TSourceItem> equalityComparer,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Intersecting<TSourceItem>(
 				source1: source1,
 				source2Scalar: source2Scalar,
 				equalityComparer: equalityComparer,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -18470,7 +18482,7 @@ namespace ObservableComputations
 				source1: source1,
 				source2Scalar: source2Scalar,
 				equalityComparer: equalityComparer,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
@@ -18478,13 +18490,13 @@ namespace ObservableComputations
 			 System.Collections.Specialized.INotifyCollectionChanged source1,
 			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> source2Expression,
 			 System.Collections.Generic.IEqualityComparer<TSourceItem> equalityComparer,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Intersecting<TSourceItem>(
 				source1: source1,
 				source2Scalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(source2Expression),
 				equalityComparer: equalityComparer,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -18497,7 +18509,7 @@ namespace ObservableComputations
 				source1: source1,
 				source2Scalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(source2Expression),
 				equalityComparer: equalityComparer,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
@@ -18505,13 +18517,13 @@ namespace ObservableComputations
 			 System.Collections.Specialized.INotifyCollectionChanged source1,
 			 Expression<Func<ObservableCollection<TSourceItem>>> source2Expression,
 			 System.Collections.Generic.IEqualityComparer<TSourceItem> equalityComparer,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Intersecting<TSourceItem>(
 				source1: source1,
 				source2Scalar: new Computing<ObservableCollection<TSourceItem>>(source2Expression),
 				equalityComparer: equalityComparer,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -18524,7 +18536,7 @@ namespace ObservableComputations
 				source1: source1,
 				source2Scalar: new Computing<ObservableCollection<TSourceItem>>(source2Expression),
 				equalityComparer: equalityComparer,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
@@ -18532,13 +18544,13 @@ namespace ObservableComputations
 			 ObservableCollection<TSourceItem> source1,
 			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> source2Scalar,
 			 System.Collections.Generic.IEqualityComparer<TSourceItem> equalityComparer,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Intersecting<TSourceItem>(
 				source1: source1,
 				source2Scalar: source2Scalar,
 				equalityComparer: equalityComparer,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -18551,7 +18563,7 @@ namespace ObservableComputations
 				source1: source1,
 				source2Scalar: source2Scalar,
 				equalityComparer: equalityComparer,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
@@ -18559,13 +18571,13 @@ namespace ObservableComputations
 			 ObservableCollection<TSourceItem> source1,
 			 ObservableComputations.IReadScalar<ObservableCollection<TSourceItem>> source2Scalar,
 			 System.Collections.Generic.IEqualityComparer<TSourceItem> equalityComparer,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Intersecting<TSourceItem>(
 				source1: source1,
 				source2Scalar: source2Scalar,
 				equalityComparer: equalityComparer,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -18578,7 +18590,7 @@ namespace ObservableComputations
 				source1: source1,
 				source2Scalar: source2Scalar,
 				equalityComparer: equalityComparer,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
@@ -18586,13 +18598,13 @@ namespace ObservableComputations
 			 ObservableCollection<TSourceItem> source1,
 			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> source2Expression,
 			 System.Collections.Generic.IEqualityComparer<TSourceItem> equalityComparer,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Intersecting<TSourceItem>(
 				source1: source1,
 				source2Scalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(source2Expression),
 				equalityComparer: equalityComparer,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -18605,7 +18617,7 @@ namespace ObservableComputations
 				source1: source1,
 				source2Scalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(source2Expression),
 				equalityComparer: equalityComparer,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
@@ -18613,13 +18625,13 @@ namespace ObservableComputations
 			 ObservableCollection<TSourceItem> source1,
 			 Expression<Func<ObservableCollection<TSourceItem>>> source2Expression,
 			 System.Collections.Generic.IEqualityComparer<TSourceItem> equalityComparer,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Intersecting<TSourceItem>(
 				source1: source1,
 				source2Scalar: new Computing<ObservableCollection<TSourceItem>>(source2Expression),
 				equalityComparer: equalityComparer,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -18632,7 +18644,7 @@ namespace ObservableComputations
 				source1: source1,
 				source2Scalar: new Computing<ObservableCollection<TSourceItem>>(source2Expression),
 				equalityComparer: equalityComparer,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		#endregion
@@ -19060,13 +19072,13 @@ namespace ObservableComputations
 			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> leftSourceScalar,
 			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> rightSourceScalar,
 			 System.Linq.Expressions.Expression<System.Func<TLeftSourceItem, TRightSourceItem, bool>> predicateExpression,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Joining<TLeftSourceItem, TRightSourceItem>(
 				leftSourceScalar: leftSourceScalar,
 				rightSourceScalar: rightSourceScalar,
 				predicateExpression: predicateExpression,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -19079,7 +19091,7 @@ namespace ObservableComputations
 				leftSourceScalar: leftSourceScalar,
 				rightSourceScalar: rightSourceScalar,
 				predicateExpression: predicateExpression,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
@@ -19087,13 +19099,13 @@ namespace ObservableComputations
 			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> leftSourceScalar,
 			 ObservableComputations.IReadScalar<ObservableCollection<TRightSourceItem>> rightSourceScalar,
 			 System.Linq.Expressions.Expression<System.Func<TLeftSourceItem, TRightSourceItem, bool>> predicateExpression,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Joining<TLeftSourceItem, TRightSourceItem>(
 				leftSourceScalar: leftSourceScalar,
 				rightSourceScalar: rightSourceScalar,
 				predicateExpression: predicateExpression,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -19106,7 +19118,7 @@ namespace ObservableComputations
 				leftSourceScalar: leftSourceScalar,
 				rightSourceScalar: rightSourceScalar,
 				predicateExpression: predicateExpression,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
@@ -19114,13 +19126,13 @@ namespace ObservableComputations
 			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> leftSourceScalar,
 			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> rightSourceExpression,
 			 System.Linq.Expressions.Expression<System.Func<TLeftSourceItem, TRightSourceItem, bool>> predicateExpression,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Joining<TLeftSourceItem, TRightSourceItem>(
 				leftSourceScalar: leftSourceScalar,
 				rightSourceScalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(rightSourceExpression),
 				predicateExpression: predicateExpression,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -19133,7 +19145,7 @@ namespace ObservableComputations
 				leftSourceScalar: leftSourceScalar,
 				rightSourceScalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(rightSourceExpression),
 				predicateExpression: predicateExpression,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
@@ -19141,13 +19153,13 @@ namespace ObservableComputations
 			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> leftSourceScalar,
 			 Expression<Func<ObservableCollection<TRightSourceItem>>> rightSourceExpression,
 			 System.Linq.Expressions.Expression<System.Func<TLeftSourceItem, TRightSourceItem, bool>> predicateExpression,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Joining<TLeftSourceItem, TRightSourceItem>(
 				leftSourceScalar: leftSourceScalar,
 				rightSourceScalar: new Computing<ObservableCollection<TRightSourceItem>>(rightSourceExpression),
 				predicateExpression: predicateExpression,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -19160,7 +19172,7 @@ namespace ObservableComputations
 				leftSourceScalar: leftSourceScalar,
 				rightSourceScalar: new Computing<ObservableCollection<TRightSourceItem>>(rightSourceExpression),
 				predicateExpression: predicateExpression,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
@@ -19168,13 +19180,13 @@ namespace ObservableComputations
 			 ObservableComputations.IReadScalar<ObservableCollection<TLeftSourceItem>> leftSourceScalar,
 			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> rightSourceScalar,
 			 System.Linq.Expressions.Expression<System.Func<TLeftSourceItem, TRightSourceItem, bool>> predicateExpression,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Joining<TLeftSourceItem, TRightSourceItem>(
 				leftSourceScalar: leftSourceScalar,
 				rightSourceScalar: rightSourceScalar,
 				predicateExpression: predicateExpression,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -19187,7 +19199,7 @@ namespace ObservableComputations
 				leftSourceScalar: leftSourceScalar,
 				rightSourceScalar: rightSourceScalar,
 				predicateExpression: predicateExpression,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
@@ -19195,13 +19207,13 @@ namespace ObservableComputations
 			 ObservableComputations.IReadScalar<ObservableCollection<TLeftSourceItem>> leftSourceScalar,
 			 ObservableComputations.IReadScalar<ObservableCollection<TRightSourceItem>> rightSourceScalar,
 			 System.Linq.Expressions.Expression<System.Func<TLeftSourceItem, TRightSourceItem, bool>> predicateExpression,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Joining<TLeftSourceItem, TRightSourceItem>(
 				leftSourceScalar: leftSourceScalar,
 				rightSourceScalar: rightSourceScalar,
 				predicateExpression: predicateExpression,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -19214,7 +19226,7 @@ namespace ObservableComputations
 				leftSourceScalar: leftSourceScalar,
 				rightSourceScalar: rightSourceScalar,
 				predicateExpression: predicateExpression,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
@@ -19222,13 +19234,13 @@ namespace ObservableComputations
 			 ObservableComputations.IReadScalar<ObservableCollection<TLeftSourceItem>> leftSourceScalar,
 			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> rightSourceExpression,
 			 System.Linq.Expressions.Expression<System.Func<TLeftSourceItem, TRightSourceItem, bool>> predicateExpression,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Joining<TLeftSourceItem, TRightSourceItem>(
 				leftSourceScalar: leftSourceScalar,
 				rightSourceScalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(rightSourceExpression),
 				predicateExpression: predicateExpression,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -19241,7 +19253,7 @@ namespace ObservableComputations
 				leftSourceScalar: leftSourceScalar,
 				rightSourceScalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(rightSourceExpression),
 				predicateExpression: predicateExpression,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
@@ -19249,13 +19261,13 @@ namespace ObservableComputations
 			 ObservableComputations.IReadScalar<ObservableCollection<TLeftSourceItem>> leftSourceScalar,
 			 Expression<Func<ObservableCollection<TRightSourceItem>>> rightSourceExpression,
 			 System.Linq.Expressions.Expression<System.Func<TLeftSourceItem, TRightSourceItem, bool>> predicateExpression,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Joining<TLeftSourceItem, TRightSourceItem>(
 				leftSourceScalar: leftSourceScalar,
 				rightSourceScalar: new Computing<ObservableCollection<TRightSourceItem>>(rightSourceExpression),
 				predicateExpression: predicateExpression,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -19268,7 +19280,7 @@ namespace ObservableComputations
 				leftSourceScalar: leftSourceScalar,
 				rightSourceScalar: new Computing<ObservableCollection<TRightSourceItem>>(rightSourceExpression),
 				predicateExpression: predicateExpression,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
@@ -19276,13 +19288,13 @@ namespace ObservableComputations
 			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> leftSourceExpression,
 			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> rightSourceScalar,
 			 System.Linq.Expressions.Expression<System.Func<TLeftSourceItem, TRightSourceItem, bool>> predicateExpression,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Joining<TLeftSourceItem, TRightSourceItem>(
 				leftSourceScalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(leftSourceExpression),
 				rightSourceScalar: rightSourceScalar,
 				predicateExpression: predicateExpression,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -19295,7 +19307,7 @@ namespace ObservableComputations
 				leftSourceScalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(leftSourceExpression),
 				rightSourceScalar: rightSourceScalar,
 				predicateExpression: predicateExpression,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
@@ -19303,13 +19315,13 @@ namespace ObservableComputations
 			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> leftSourceExpression,
 			 ObservableComputations.IReadScalar<ObservableCollection<TRightSourceItem>> rightSourceScalar,
 			 System.Linq.Expressions.Expression<System.Func<TLeftSourceItem, TRightSourceItem, bool>> predicateExpression,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Joining<TLeftSourceItem, TRightSourceItem>(
 				leftSourceScalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(leftSourceExpression),
 				rightSourceScalar: rightSourceScalar,
 				predicateExpression: predicateExpression,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -19322,7 +19334,7 @@ namespace ObservableComputations
 				leftSourceScalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(leftSourceExpression),
 				rightSourceScalar: rightSourceScalar,
 				predicateExpression: predicateExpression,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
@@ -19330,13 +19342,13 @@ namespace ObservableComputations
 			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> leftSourceExpression,
 			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> rightSourceExpression,
 			 System.Linq.Expressions.Expression<System.Func<TLeftSourceItem, TRightSourceItem, bool>> predicateExpression,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Joining<TLeftSourceItem, TRightSourceItem>(
 				leftSourceScalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(leftSourceExpression),
 				rightSourceScalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(rightSourceExpression),
 				predicateExpression: predicateExpression,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -19349,7 +19361,7 @@ namespace ObservableComputations
 				leftSourceScalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(leftSourceExpression),
 				rightSourceScalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(rightSourceExpression),
 				predicateExpression: predicateExpression,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
@@ -19357,13 +19369,13 @@ namespace ObservableComputations
 			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> leftSourceExpression,
 			 Expression<Func<ObservableCollection<TRightSourceItem>>> rightSourceExpression,
 			 System.Linq.Expressions.Expression<System.Func<TLeftSourceItem, TRightSourceItem, bool>> predicateExpression,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Joining<TLeftSourceItem, TRightSourceItem>(
 				leftSourceScalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(leftSourceExpression),
 				rightSourceScalar: new Computing<ObservableCollection<TRightSourceItem>>(rightSourceExpression),
 				predicateExpression: predicateExpression,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -19376,7 +19388,7 @@ namespace ObservableComputations
 				leftSourceScalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(leftSourceExpression),
 				rightSourceScalar: new Computing<ObservableCollection<TRightSourceItem>>(rightSourceExpression),
 				predicateExpression: predicateExpression,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
@@ -19384,13 +19396,13 @@ namespace ObservableComputations
 			 Expression<Func<ObservableCollection<TLeftSourceItem>>> leftSourceExpression,
 			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> rightSourceScalar,
 			 System.Linq.Expressions.Expression<System.Func<TLeftSourceItem, TRightSourceItem, bool>> predicateExpression,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Joining<TLeftSourceItem, TRightSourceItem>(
 				leftSourceScalar: new Computing<ObservableCollection<TLeftSourceItem>>(leftSourceExpression),
 				rightSourceScalar: rightSourceScalar,
 				predicateExpression: predicateExpression,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -19403,7 +19415,7 @@ namespace ObservableComputations
 				leftSourceScalar: new Computing<ObservableCollection<TLeftSourceItem>>(leftSourceExpression),
 				rightSourceScalar: rightSourceScalar,
 				predicateExpression: predicateExpression,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
@@ -19411,13 +19423,13 @@ namespace ObservableComputations
 			 Expression<Func<ObservableCollection<TLeftSourceItem>>> leftSourceExpression,
 			 ObservableComputations.IReadScalar<ObservableCollection<TRightSourceItem>> rightSourceScalar,
 			 System.Linq.Expressions.Expression<System.Func<TLeftSourceItem, TRightSourceItem, bool>> predicateExpression,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Joining<TLeftSourceItem, TRightSourceItem>(
 				leftSourceScalar: new Computing<ObservableCollection<TLeftSourceItem>>(leftSourceExpression),
 				rightSourceScalar: rightSourceScalar,
 				predicateExpression: predicateExpression,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -19430,7 +19442,7 @@ namespace ObservableComputations
 				leftSourceScalar: new Computing<ObservableCollection<TLeftSourceItem>>(leftSourceExpression),
 				rightSourceScalar: rightSourceScalar,
 				predicateExpression: predicateExpression,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
@@ -19438,13 +19450,13 @@ namespace ObservableComputations
 			 Expression<Func<ObservableCollection<TLeftSourceItem>>> leftSourceExpression,
 			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> rightSourceExpression,
 			 System.Linq.Expressions.Expression<System.Func<TLeftSourceItem, TRightSourceItem, bool>> predicateExpression,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Joining<TLeftSourceItem, TRightSourceItem>(
 				leftSourceScalar: new Computing<ObservableCollection<TLeftSourceItem>>(leftSourceExpression),
 				rightSourceScalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(rightSourceExpression),
 				predicateExpression: predicateExpression,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -19457,7 +19469,7 @@ namespace ObservableComputations
 				leftSourceScalar: new Computing<ObservableCollection<TLeftSourceItem>>(leftSourceExpression),
 				rightSourceScalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(rightSourceExpression),
 				predicateExpression: predicateExpression,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
@@ -19465,13 +19477,13 @@ namespace ObservableComputations
 			 Expression<Func<ObservableCollection<TLeftSourceItem>>> leftSourceExpression,
 			 Expression<Func<ObservableCollection<TRightSourceItem>>> rightSourceExpression,
 			 System.Linq.Expressions.Expression<System.Func<TLeftSourceItem, TRightSourceItem, bool>> predicateExpression,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Joining<TLeftSourceItem, TRightSourceItem>(
 				leftSourceScalar: new Computing<ObservableCollection<TLeftSourceItem>>(leftSourceExpression),
 				rightSourceScalar: new Computing<ObservableCollection<TRightSourceItem>>(rightSourceExpression),
 				predicateExpression: predicateExpression,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -19484,7 +19496,7 @@ namespace ObservableComputations
 				leftSourceScalar: new Computing<ObservableCollection<TLeftSourceItem>>(leftSourceExpression),
 				rightSourceScalar: new Computing<ObservableCollection<TRightSourceItem>>(rightSourceExpression),
 				predicateExpression: predicateExpression,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
@@ -19492,13 +19504,13 @@ namespace ObservableComputations
 			 System.Collections.Specialized.INotifyCollectionChanged leftSource,
 			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> rightSourceScalar,
 			 System.Linq.Expressions.Expression<System.Func<TLeftSourceItem, TRightSourceItem, bool>> predicateExpression,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Joining<TLeftSourceItem, TRightSourceItem>(
 				leftSource: leftSource,
 				rightSourceScalar: rightSourceScalar,
 				predicateExpression: predicateExpression,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -19511,7 +19523,7 @@ namespace ObservableComputations
 				leftSource: leftSource,
 				rightSourceScalar: rightSourceScalar,
 				predicateExpression: predicateExpression,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
@@ -19519,13 +19531,13 @@ namespace ObservableComputations
 			 System.Collections.Specialized.INotifyCollectionChanged leftSource,
 			 ObservableComputations.IReadScalar<ObservableCollection<TRightSourceItem>> rightSourceScalar,
 			 System.Linq.Expressions.Expression<System.Func<TLeftSourceItem, TRightSourceItem, bool>> predicateExpression,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Joining<TLeftSourceItem, TRightSourceItem>(
 				leftSource: leftSource,
 				rightSourceScalar: rightSourceScalar,
 				predicateExpression: predicateExpression,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -19538,7 +19550,7 @@ namespace ObservableComputations
 				leftSource: leftSource,
 				rightSourceScalar: rightSourceScalar,
 				predicateExpression: predicateExpression,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
@@ -19546,13 +19558,13 @@ namespace ObservableComputations
 			 System.Collections.Specialized.INotifyCollectionChanged leftSource,
 			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> rightSourceExpression,
 			 System.Linq.Expressions.Expression<System.Func<TLeftSourceItem, TRightSourceItem, bool>> predicateExpression,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Joining<TLeftSourceItem, TRightSourceItem>(
 				leftSource: leftSource,
 				rightSourceScalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(rightSourceExpression),
 				predicateExpression: predicateExpression,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -19565,7 +19577,7 @@ namespace ObservableComputations
 				leftSource: leftSource,
 				rightSourceScalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(rightSourceExpression),
 				predicateExpression: predicateExpression,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
@@ -19573,13 +19585,13 @@ namespace ObservableComputations
 			 System.Collections.Specialized.INotifyCollectionChanged leftSource,
 			 Expression<Func<ObservableCollection<TRightSourceItem>>> rightSourceExpression,
 			 System.Linq.Expressions.Expression<System.Func<TLeftSourceItem, TRightSourceItem, bool>> predicateExpression,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Joining<TLeftSourceItem, TRightSourceItem>(
 				leftSource: leftSource,
 				rightSourceScalar: new Computing<ObservableCollection<TRightSourceItem>>(rightSourceExpression),
 				predicateExpression: predicateExpression,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -19592,7 +19604,7 @@ namespace ObservableComputations
 				leftSource: leftSource,
 				rightSourceScalar: new Computing<ObservableCollection<TRightSourceItem>>(rightSourceExpression),
 				predicateExpression: predicateExpression,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
@@ -19600,13 +19612,13 @@ namespace ObservableComputations
 			 ObservableCollection<TLeftSourceItem> leftSource,
 			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> rightSourceScalar,
 			 System.Linq.Expressions.Expression<System.Func<TLeftSourceItem, TRightSourceItem, bool>> predicateExpression,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Joining<TLeftSourceItem, TRightSourceItem>(
 				leftSource: leftSource,
 				rightSourceScalar: rightSourceScalar,
 				predicateExpression: predicateExpression,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -19619,7 +19631,7 @@ namespace ObservableComputations
 				leftSource: leftSource,
 				rightSourceScalar: rightSourceScalar,
 				predicateExpression: predicateExpression,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
@@ -19627,13 +19639,13 @@ namespace ObservableComputations
 			 ObservableCollection<TLeftSourceItem> leftSource,
 			 ObservableComputations.IReadScalar<ObservableCollection<TRightSourceItem>> rightSourceScalar,
 			 System.Linq.Expressions.Expression<System.Func<TLeftSourceItem, TRightSourceItem, bool>> predicateExpression,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Joining<TLeftSourceItem, TRightSourceItem>(
 				leftSource: leftSource,
 				rightSourceScalar: rightSourceScalar,
 				predicateExpression: predicateExpression,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -19646,7 +19658,7 @@ namespace ObservableComputations
 				leftSource: leftSource,
 				rightSourceScalar: rightSourceScalar,
 				predicateExpression: predicateExpression,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
@@ -19654,13 +19666,13 @@ namespace ObservableComputations
 			 ObservableCollection<TLeftSourceItem> leftSource,
 			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> rightSourceExpression,
 			 System.Linq.Expressions.Expression<System.Func<TLeftSourceItem, TRightSourceItem, bool>> predicateExpression,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Joining<TLeftSourceItem, TRightSourceItem>(
 				leftSource: leftSource,
 				rightSourceScalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(rightSourceExpression),
 				predicateExpression: predicateExpression,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -19673,7 +19685,7 @@ namespace ObservableComputations
 				leftSource: leftSource,
 				rightSourceScalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(rightSourceExpression),
 				predicateExpression: predicateExpression,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
@@ -19681,13 +19693,13 @@ namespace ObservableComputations
 			 ObservableCollection<TLeftSourceItem> leftSource,
 			 Expression<Func<ObservableCollection<TRightSourceItem>>> rightSourceExpression,
 			 System.Linq.Expressions.Expression<System.Func<TLeftSourceItem, TRightSourceItem, bool>> predicateExpression,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Joining<TLeftSourceItem, TRightSourceItem>(
 				leftSource: leftSource,
 				rightSourceScalar: new Computing<ObservableCollection<TRightSourceItem>>(rightSourceExpression),
 				predicateExpression: predicateExpression,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -19700,7 +19712,7 @@ namespace ObservableComputations
 				leftSource: leftSource,
 				rightSourceScalar: new Computing<ObservableCollection<TRightSourceItem>>(rightSourceExpression),
 				predicateExpression: predicateExpression,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
@@ -19708,13 +19720,13 @@ namespace ObservableComputations
 			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> leftSourceScalar,
 			 System.Collections.Specialized.INotifyCollectionChanged rightSource,
 			 System.Linq.Expressions.Expression<System.Func<TLeftSourceItem, TRightSourceItem, bool>> predicateExpression,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Joining<TLeftSourceItem, TRightSourceItem>(
 				leftSourceScalar: leftSourceScalar,
 				rightSource: rightSource,
 				predicateExpression: predicateExpression,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -19727,7 +19739,7 @@ namespace ObservableComputations
 				leftSourceScalar: leftSourceScalar,
 				rightSource: rightSource,
 				predicateExpression: predicateExpression,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
@@ -19735,13 +19747,13 @@ namespace ObservableComputations
 			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> leftSourceScalar,
 			 ObservableCollection<TRightSourceItem> rightSource,
 			 System.Linq.Expressions.Expression<System.Func<TLeftSourceItem, TRightSourceItem, bool>> predicateExpression,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Joining<TLeftSourceItem, TRightSourceItem>(
 				leftSourceScalar: leftSourceScalar,
 				rightSource: rightSource,
 				predicateExpression: predicateExpression,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -19754,7 +19766,7 @@ namespace ObservableComputations
 				leftSourceScalar: leftSourceScalar,
 				rightSource: rightSource,
 				predicateExpression: predicateExpression,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
@@ -19762,13 +19774,13 @@ namespace ObservableComputations
 			 ObservableComputations.IReadScalar<ObservableCollection<TLeftSourceItem>> leftSourceScalar,
 			 System.Collections.Specialized.INotifyCollectionChanged rightSource,
 			 System.Linq.Expressions.Expression<System.Func<TLeftSourceItem, TRightSourceItem, bool>> predicateExpression,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Joining<TLeftSourceItem, TRightSourceItem>(
 				leftSourceScalar: leftSourceScalar,
 				rightSource: rightSource,
 				predicateExpression: predicateExpression,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -19781,7 +19793,7 @@ namespace ObservableComputations
 				leftSourceScalar: leftSourceScalar,
 				rightSource: rightSource,
 				predicateExpression: predicateExpression,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
@@ -19789,13 +19801,13 @@ namespace ObservableComputations
 			 ObservableComputations.IReadScalar<ObservableCollection<TLeftSourceItem>> leftSourceScalar,
 			 ObservableCollection<TRightSourceItem> rightSource,
 			 System.Linq.Expressions.Expression<System.Func<TLeftSourceItem, TRightSourceItem, bool>> predicateExpression,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Joining<TLeftSourceItem, TRightSourceItem>(
 				leftSourceScalar: leftSourceScalar,
 				rightSource: rightSource,
 				predicateExpression: predicateExpression,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -19808,7 +19820,7 @@ namespace ObservableComputations
 				leftSourceScalar: leftSourceScalar,
 				rightSource: rightSource,
 				predicateExpression: predicateExpression,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
@@ -19816,13 +19828,13 @@ namespace ObservableComputations
 			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> leftSourceExpression,
 			 System.Collections.Specialized.INotifyCollectionChanged rightSource,
 			 System.Linq.Expressions.Expression<System.Func<TLeftSourceItem, TRightSourceItem, bool>> predicateExpression,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Joining<TLeftSourceItem, TRightSourceItem>(
 				leftSourceScalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(leftSourceExpression),
 				rightSource: rightSource,
 				predicateExpression: predicateExpression,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -19835,7 +19847,7 @@ namespace ObservableComputations
 				leftSourceScalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(leftSourceExpression),
 				rightSource: rightSource,
 				predicateExpression: predicateExpression,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
@@ -19843,13 +19855,13 @@ namespace ObservableComputations
 			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> leftSourceExpression,
 			 ObservableCollection<TRightSourceItem> rightSource,
 			 System.Linq.Expressions.Expression<System.Func<TLeftSourceItem, TRightSourceItem, bool>> predicateExpression,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Joining<TLeftSourceItem, TRightSourceItem>(
 				leftSourceScalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(leftSourceExpression),
 				rightSource: rightSource,
 				predicateExpression: predicateExpression,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -19862,7 +19874,7 @@ namespace ObservableComputations
 				leftSourceScalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(leftSourceExpression),
 				rightSource: rightSource,
 				predicateExpression: predicateExpression,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
@@ -19870,13 +19882,13 @@ namespace ObservableComputations
 			 Expression<Func<ObservableCollection<TLeftSourceItem>>> leftSourceExpression,
 			 System.Collections.Specialized.INotifyCollectionChanged rightSource,
 			 System.Linq.Expressions.Expression<System.Func<TLeftSourceItem, TRightSourceItem, bool>> predicateExpression,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Joining<TLeftSourceItem, TRightSourceItem>(
 				leftSourceScalar: new Computing<ObservableCollection<TLeftSourceItem>>(leftSourceExpression),
 				rightSource: rightSource,
 				predicateExpression: predicateExpression,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -19889,7 +19901,7 @@ namespace ObservableComputations
 				leftSourceScalar: new Computing<ObservableCollection<TLeftSourceItem>>(leftSourceExpression),
 				rightSource: rightSource,
 				predicateExpression: predicateExpression,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
@@ -19897,13 +19909,13 @@ namespace ObservableComputations
 			 Expression<Func<ObservableCollection<TLeftSourceItem>>> leftSourceExpression,
 			 ObservableCollection<TRightSourceItem> rightSource,
 			 System.Linq.Expressions.Expression<System.Func<TLeftSourceItem, TRightSourceItem, bool>> predicateExpression,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Joining<TLeftSourceItem, TRightSourceItem>(
 				leftSourceScalar: new Computing<ObservableCollection<TLeftSourceItem>>(leftSourceExpression),
 				rightSource: rightSource,
 				predicateExpression: predicateExpression,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -19916,7 +19928,7 @@ namespace ObservableComputations
 				leftSourceScalar: new Computing<ObservableCollection<TLeftSourceItem>>(leftSourceExpression),
 				rightSource: rightSource,
 				predicateExpression: predicateExpression,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
@@ -19924,13 +19936,13 @@ namespace ObservableComputations
 			 System.Collections.Specialized.INotifyCollectionChanged leftSource,
 			 System.Collections.Specialized.INotifyCollectionChanged rightSource,
 			 System.Linq.Expressions.Expression<System.Func<TLeftSourceItem, TRightSourceItem, bool>> predicateExpression,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Joining<TLeftSourceItem, TRightSourceItem>(
 				leftSource: leftSource,
 				rightSource: rightSource,
 				predicateExpression: predicateExpression,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -19943,7 +19955,7 @@ namespace ObservableComputations
 				leftSource: leftSource,
 				rightSource: rightSource,
 				predicateExpression: predicateExpression,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
@@ -19951,13 +19963,13 @@ namespace ObservableComputations
 			 System.Collections.Specialized.INotifyCollectionChanged leftSource,
 			 ObservableCollection<TRightSourceItem> rightSource,
 			 System.Linq.Expressions.Expression<System.Func<TLeftSourceItem, TRightSourceItem, bool>> predicateExpression,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Joining<TLeftSourceItem, TRightSourceItem>(
 				leftSource: leftSource,
 				rightSource: rightSource,
 				predicateExpression: predicateExpression,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -19970,7 +19982,7 @@ namespace ObservableComputations
 				leftSource: leftSource,
 				rightSource: rightSource,
 				predicateExpression: predicateExpression,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
@@ -19978,13 +19990,13 @@ namespace ObservableComputations
 			 ObservableCollection<TLeftSourceItem> leftSource,
 			 System.Collections.Specialized.INotifyCollectionChanged rightSource,
 			 System.Linq.Expressions.Expression<System.Func<TLeftSourceItem, TRightSourceItem, bool>> predicateExpression,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Joining<TLeftSourceItem, TRightSourceItem>(
 				leftSource: leftSource,
 				rightSource: rightSource,
 				predicateExpression: predicateExpression,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -19997,7 +20009,7 @@ namespace ObservableComputations
 				leftSource: leftSource,
 				rightSource: rightSource,
 				predicateExpression: predicateExpression,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
@@ -20005,13 +20017,13 @@ namespace ObservableComputations
 			 ObservableCollection<TLeftSourceItem> leftSource,
 			 ObservableCollection<TRightSourceItem> rightSource,
 			 System.Linq.Expressions.Expression<System.Func<TLeftSourceItem, TRightSourceItem, bool>> predicateExpression,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Joining<TLeftSourceItem, TRightSourceItem>(
 				leftSource: leftSource,
 				rightSource: rightSource,
 				predicateExpression: predicateExpression,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -20024,7 +20036,7 @@ namespace ObservableComputations
 				leftSource: leftSource,
 				rightSource: rightSource,
 				predicateExpression: predicateExpression,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		#endregion
@@ -26072,12 +26084,12 @@ namespace ObservableComputations
 		public static ObservableComputations.Skipping<TSourceItem> Skipping<TSourceItem>(this
 			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar,
 			 ObservableComputations.IReadScalar<int> countScalar,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Skipping<TSourceItem>(
 				sourceScalar: sourceScalar,
 				countScalar: countScalar,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -26088,19 +26100,19 @@ namespace ObservableComputations
 			return new ObservableComputations.Skipping<TSourceItem>(
 				sourceScalar: sourceScalar,
 				countScalar: countScalar,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.Skipping<TSourceItem> Skipping<TSourceItem>(this
 			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar,
 			 Expression<Func<int>> countExpression,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Skipping<TSourceItem>(
 				sourceScalar: sourceScalar,
 				countScalar: new Computing<int>(countExpression),
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -26111,19 +26123,19 @@ namespace ObservableComputations
 			return new ObservableComputations.Skipping<TSourceItem>(
 				sourceScalar: sourceScalar,
 				countScalar: new Computing<int>(countExpression),
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.Skipping<TSourceItem> Skipping<TSourceItem>(this
 			 ObservableComputations.IReadScalar<ObservableCollection<TSourceItem>> sourceScalar,
 			 ObservableComputations.IReadScalar<int> countScalar,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Skipping<TSourceItem>(
 				sourceScalar: sourceScalar,
 				countScalar: countScalar,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -26134,19 +26146,19 @@ namespace ObservableComputations
 			return new ObservableComputations.Skipping<TSourceItem>(
 				sourceScalar: sourceScalar,
 				countScalar: countScalar,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.Skipping<TSourceItem> Skipping<TSourceItem>(this
 			 ObservableComputations.IReadScalar<ObservableCollection<TSourceItem>> sourceScalar,
 			 Expression<Func<int>> countExpression,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Skipping<TSourceItem>(
 				sourceScalar: sourceScalar,
 				countScalar: new Computing<int>(countExpression),
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -26157,19 +26169,19 @@ namespace ObservableComputations
 			return new ObservableComputations.Skipping<TSourceItem>(
 				sourceScalar: sourceScalar,
 				countScalar: new Computing<int>(countExpression),
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.Skipping<TSourceItem> Skipping<TSourceItem>(this
 			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> sourceExpression,
 			 ObservableComputations.IReadScalar<int> countScalar,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Skipping<TSourceItem>(
 				sourceScalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(sourceExpression),
 				countScalar: countScalar,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -26180,19 +26192,19 @@ namespace ObservableComputations
 			return new ObservableComputations.Skipping<TSourceItem>(
 				sourceScalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(sourceExpression),
 				countScalar: countScalar,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.Skipping<TSourceItem> Skipping<TSourceItem>(this
 			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> sourceExpression,
 			 Expression<Func<int>> countExpression,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Skipping<TSourceItem>(
 				sourceScalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(sourceExpression),
 				countScalar: new Computing<int>(countExpression),
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -26203,19 +26215,19 @@ namespace ObservableComputations
 			return new ObservableComputations.Skipping<TSourceItem>(
 				sourceScalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(sourceExpression),
 				countScalar: new Computing<int>(countExpression),
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.Skipping<TSourceItem> Skipping<TSourceItem>(this
 			 Expression<Func<ObservableCollection<TSourceItem>>> sourceExpression,
 			 ObservableComputations.IReadScalar<int> countScalar,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Skipping<TSourceItem>(
 				sourceScalar: new Computing<ObservableCollection<TSourceItem>>(sourceExpression),
 				countScalar: countScalar,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -26226,19 +26238,19 @@ namespace ObservableComputations
 			return new ObservableComputations.Skipping<TSourceItem>(
 				sourceScalar: new Computing<ObservableCollection<TSourceItem>>(sourceExpression),
 				countScalar: countScalar,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.Skipping<TSourceItem> Skipping<TSourceItem>(this
 			 Expression<Func<ObservableCollection<TSourceItem>>> sourceExpression,
 			 Expression<Func<int>> countExpression,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Skipping<TSourceItem>(
 				sourceScalar: new Computing<ObservableCollection<TSourceItem>>(sourceExpression),
 				countScalar: new Computing<int>(countExpression),
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -26249,19 +26261,19 @@ namespace ObservableComputations
 			return new ObservableComputations.Skipping<TSourceItem>(
 				sourceScalar: new Computing<ObservableCollection<TSourceItem>>(sourceExpression),
 				countScalar: new Computing<int>(countExpression),
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.Skipping<TSourceItem> Skipping<TSourceItem>(this
 			 System.Collections.Specialized.INotifyCollectionChanged source,
 			 ObservableComputations.IReadScalar<int> countScalar,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Skipping<TSourceItem>(
 				source: source,
 				countScalar: countScalar,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -26272,19 +26284,19 @@ namespace ObservableComputations
 			return new ObservableComputations.Skipping<TSourceItem>(
 				source: source,
 				countScalar: countScalar,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.Skipping<TSourceItem> Skipping<TSourceItem>(this
 			 System.Collections.Specialized.INotifyCollectionChanged source,
 			 Expression<Func<int>> countExpression,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Skipping<TSourceItem>(
 				source: source,
 				countScalar: new Computing<int>(countExpression),
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -26295,19 +26307,19 @@ namespace ObservableComputations
 			return new ObservableComputations.Skipping<TSourceItem>(
 				source: source,
 				countScalar: new Computing<int>(countExpression),
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.Skipping<TSourceItem> Skipping<TSourceItem>(this
 			 ObservableCollection<TSourceItem> source,
 			 ObservableComputations.IReadScalar<int> countScalar,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Skipping<TSourceItem>(
 				source: source,
 				countScalar: countScalar,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -26318,19 +26330,19 @@ namespace ObservableComputations
 			return new ObservableComputations.Skipping<TSourceItem>(
 				source: source,
 				countScalar: countScalar,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.Skipping<TSourceItem> Skipping<TSourceItem>(this
 			 ObservableCollection<TSourceItem> source,
 			 Expression<Func<int>> countExpression,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Skipping<TSourceItem>(
 				source: source,
 				countScalar: new Computing<int>(countExpression),
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -26341,19 +26353,19 @@ namespace ObservableComputations
 			return new ObservableComputations.Skipping<TSourceItem>(
 				source: source,
 				countScalar: new Computing<int>(countExpression),
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.Skipping<TSourceItem> Skipping<TSourceItem>(this
 			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar,
 			 int count,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Skipping<TSourceItem>(
 				sourceScalar: sourceScalar,
 				count: count,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -26364,19 +26376,19 @@ namespace ObservableComputations
 			return new ObservableComputations.Skipping<TSourceItem>(
 				sourceScalar: sourceScalar,
 				count: count,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.Skipping<TSourceItem> Skipping<TSourceItem>(this
 			 ObservableComputations.IReadScalar<ObservableCollection<TSourceItem>> sourceScalar,
 			 int count,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Skipping<TSourceItem>(
 				sourceScalar: sourceScalar,
 				count: count,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -26387,19 +26399,19 @@ namespace ObservableComputations
 			return new ObservableComputations.Skipping<TSourceItem>(
 				sourceScalar: sourceScalar,
 				count: count,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.Skipping<TSourceItem> Skipping<TSourceItem>(this
 			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> sourceExpression,
 			 int count,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Skipping<TSourceItem>(
 				sourceScalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(sourceExpression),
 				count: count,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -26410,19 +26422,19 @@ namespace ObservableComputations
 			return new ObservableComputations.Skipping<TSourceItem>(
 				sourceScalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(sourceExpression),
 				count: count,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.Skipping<TSourceItem> Skipping<TSourceItem>(this
 			 Expression<Func<ObservableCollection<TSourceItem>>> sourceExpression,
 			 int count,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Skipping<TSourceItem>(
 				sourceScalar: new Computing<ObservableCollection<TSourceItem>>(sourceExpression),
 				count: count,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -26433,19 +26445,19 @@ namespace ObservableComputations
 			return new ObservableComputations.Skipping<TSourceItem>(
 				sourceScalar: new Computing<ObservableCollection<TSourceItem>>(sourceExpression),
 				count: count,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.Skipping<TSourceItem> Skipping<TSourceItem>(this
 			 System.Collections.Specialized.INotifyCollectionChanged source,
 			 int count,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Skipping<TSourceItem>(
 				source: source,
 				count: count,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -26456,19 +26468,19 @@ namespace ObservableComputations
 			return new ObservableComputations.Skipping<TSourceItem>(
 				source: source,
 				count: count,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.Skipping<TSourceItem> Skipping<TSourceItem>(this
 			 ObservableCollection<TSourceItem> source,
 			 int count,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Skipping<TSourceItem>(
 				source: source,
 				count: count,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -26479,7 +26491,7 @@ namespace ObservableComputations
 			return new ObservableComputations.Skipping<TSourceItem>(
 				source: source,
 				count: count,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		#endregion
@@ -26489,12 +26501,12 @@ namespace ObservableComputations
 		public static ObservableComputations.SkippingWhile<TSourceItem> SkippingWhile<TSourceItem>(this
 			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar,
 			 System.Linq.Expressions.Expression<System.Func<TSourceItem, int, bool>> predicateExpression,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.SkippingWhile<TSourceItem>(
 				sourceScalar: sourceScalar,
 				predicateExpression: predicateExpression,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -26505,19 +26517,19 @@ namespace ObservableComputations
 			return new ObservableComputations.SkippingWhile<TSourceItem>(
 				sourceScalar: sourceScalar,
 				predicateExpression: predicateExpression,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.SkippingWhile<TSourceItem> SkippingWhile<TSourceItem>(this
 			 ObservableComputations.IReadScalar<ObservableCollection<TSourceItem>> sourceScalar,
 			 System.Linq.Expressions.Expression<System.Func<TSourceItem, int, bool>> predicateExpression,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.SkippingWhile<TSourceItem>(
 				sourceScalar: sourceScalar,
 				predicateExpression: predicateExpression,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -26528,19 +26540,19 @@ namespace ObservableComputations
 			return new ObservableComputations.SkippingWhile<TSourceItem>(
 				sourceScalar: sourceScalar,
 				predicateExpression: predicateExpression,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.SkippingWhile<TSourceItem> SkippingWhile<TSourceItem>(this
 			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> sourceExpression,
 			 System.Linq.Expressions.Expression<System.Func<TSourceItem, int, bool>> predicateExpression,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.SkippingWhile<TSourceItem>(
 				sourceScalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(sourceExpression),
 				predicateExpression: predicateExpression,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -26551,19 +26563,19 @@ namespace ObservableComputations
 			return new ObservableComputations.SkippingWhile<TSourceItem>(
 				sourceScalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(sourceExpression),
 				predicateExpression: predicateExpression,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.SkippingWhile<TSourceItem> SkippingWhile<TSourceItem>(this
 			 Expression<Func<ObservableCollection<TSourceItem>>> sourceExpression,
 			 System.Linq.Expressions.Expression<System.Func<TSourceItem, int, bool>> predicateExpression,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.SkippingWhile<TSourceItem>(
 				sourceScalar: new Computing<ObservableCollection<TSourceItem>>(sourceExpression),
 				predicateExpression: predicateExpression,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -26574,19 +26586,19 @@ namespace ObservableComputations
 			return new ObservableComputations.SkippingWhile<TSourceItem>(
 				sourceScalar: new Computing<ObservableCollection<TSourceItem>>(sourceExpression),
 				predicateExpression: predicateExpression,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.SkippingWhile<TSourceItem> SkippingWhile<TSourceItem>(this
 			 System.Collections.Specialized.INotifyCollectionChanged source,
 			 System.Linq.Expressions.Expression<System.Func<TSourceItem, int, bool>> predicateExpression,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.SkippingWhile<TSourceItem>(
 				source: source,
 				predicateExpression: predicateExpression,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -26597,19 +26609,19 @@ namespace ObservableComputations
 			return new ObservableComputations.SkippingWhile<TSourceItem>(
 				source: source,
 				predicateExpression: predicateExpression,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.SkippingWhile<TSourceItem> SkippingWhile<TSourceItem>(this
 			 ObservableCollection<TSourceItem> source,
 			 System.Linq.Expressions.Expression<System.Func<TSourceItem, int, bool>> predicateExpression,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.SkippingWhile<TSourceItem>(
 				source: source,
 				predicateExpression: predicateExpression,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -26620,19 +26632,19 @@ namespace ObservableComputations
 			return new ObservableComputations.SkippingWhile<TSourceItem>(
 				source: source,
 				predicateExpression: predicateExpression,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.SkippingWhile<TSourceItem> SkippingWhile<TSourceItem>(this
 			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar,
 			 System.Linq.Expressions.Expression<System.Func<TSourceItem, bool>> predicateExpression,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.SkippingWhile<TSourceItem>(
 				sourceScalar: sourceScalar,
 				predicateExpression: predicateExpression,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -26643,19 +26655,19 @@ namespace ObservableComputations
 			return new ObservableComputations.SkippingWhile<TSourceItem>(
 				sourceScalar: sourceScalar,
 				predicateExpression: predicateExpression,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.SkippingWhile<TSourceItem> SkippingWhile<TSourceItem>(this
 			 ObservableComputations.IReadScalar<ObservableCollection<TSourceItem>> sourceScalar,
 			 System.Linq.Expressions.Expression<System.Func<TSourceItem, bool>> predicateExpression,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.SkippingWhile<TSourceItem>(
 				sourceScalar: sourceScalar,
 				predicateExpression: predicateExpression,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -26666,19 +26678,19 @@ namespace ObservableComputations
 			return new ObservableComputations.SkippingWhile<TSourceItem>(
 				sourceScalar: sourceScalar,
 				predicateExpression: predicateExpression,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.SkippingWhile<TSourceItem> SkippingWhile<TSourceItem>(this
 			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> sourceExpression,
 			 System.Linq.Expressions.Expression<System.Func<TSourceItem, bool>> predicateExpression,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.SkippingWhile<TSourceItem>(
 				sourceScalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(sourceExpression),
 				predicateExpression: predicateExpression,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -26689,19 +26701,19 @@ namespace ObservableComputations
 			return new ObservableComputations.SkippingWhile<TSourceItem>(
 				sourceScalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(sourceExpression),
 				predicateExpression: predicateExpression,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.SkippingWhile<TSourceItem> SkippingWhile<TSourceItem>(this
 			 Expression<Func<ObservableCollection<TSourceItem>>> sourceExpression,
 			 System.Linq.Expressions.Expression<System.Func<TSourceItem, bool>> predicateExpression,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.SkippingWhile<TSourceItem>(
 				sourceScalar: new Computing<ObservableCollection<TSourceItem>>(sourceExpression),
 				predicateExpression: predicateExpression,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -26712,19 +26724,19 @@ namespace ObservableComputations
 			return new ObservableComputations.SkippingWhile<TSourceItem>(
 				sourceScalar: new Computing<ObservableCollection<TSourceItem>>(sourceExpression),
 				predicateExpression: predicateExpression,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.SkippingWhile<TSourceItem> SkippingWhile<TSourceItem>(this
 			 System.Collections.Specialized.INotifyCollectionChanged source,
 			 System.Linq.Expressions.Expression<System.Func<TSourceItem, bool>> predicateExpression,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.SkippingWhile<TSourceItem>(
 				source: source,
 				predicateExpression: predicateExpression,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -26735,19 +26747,19 @@ namespace ObservableComputations
 			return new ObservableComputations.SkippingWhile<TSourceItem>(
 				source: source,
 				predicateExpression: predicateExpression,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.SkippingWhile<TSourceItem> SkippingWhile<TSourceItem>(this
 			 ObservableCollection<TSourceItem> source,
 			 System.Linq.Expressions.Expression<System.Func<TSourceItem, bool>> predicateExpression,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.SkippingWhile<TSourceItem>(
 				source: source,
 				predicateExpression: predicateExpression,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -26758,7 +26770,7 @@ namespace ObservableComputations
 			return new ObservableComputations.SkippingWhile<TSourceItem>(
 				source: source,
 				predicateExpression: predicateExpression,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		#endregion
@@ -26940,13 +26952,13 @@ namespace ObservableComputations
 			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar,
 			 ObservableComputations.IReadScalar<int> startIndexScalar,
 			 ObservableComputations.IReadScalar<int> countScalar,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Taking<TSourceItem>(
 				sourceScalar: sourceScalar,
 				startIndexScalar: startIndexScalar,
 				countScalar: countScalar,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -26959,7 +26971,7 @@ namespace ObservableComputations
 				sourceScalar: sourceScalar,
 				startIndexScalar: startIndexScalar,
 				countScalar: countScalar,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
@@ -26967,13 +26979,13 @@ namespace ObservableComputations
 			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar,
 			 ObservableComputations.IReadScalar<int> startIndexScalar,
 			 Expression<Func<int>> countExpression,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Taking<TSourceItem>(
 				sourceScalar: sourceScalar,
 				startIndexScalar: startIndexScalar,
 				countScalar: new Computing<int>(countExpression),
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -26986,7 +26998,7 @@ namespace ObservableComputations
 				sourceScalar: sourceScalar,
 				startIndexScalar: startIndexScalar,
 				countScalar: new Computing<int>(countExpression),
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
@@ -26994,13 +27006,13 @@ namespace ObservableComputations
 			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar,
 			 Expression<Func<int>> startIndexExpression,
 			 ObservableComputations.IReadScalar<int> countScalar,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Taking<TSourceItem>(
 				sourceScalar: sourceScalar,
 				startIndexScalar: new Computing<int>(startIndexExpression),
 				countScalar: countScalar,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -27013,7 +27025,7 @@ namespace ObservableComputations
 				sourceScalar: sourceScalar,
 				startIndexScalar: new Computing<int>(startIndexExpression),
 				countScalar: countScalar,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
@@ -27021,13 +27033,13 @@ namespace ObservableComputations
 			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar,
 			 Expression<Func<int>> startIndexExpression,
 			 Expression<Func<int>> countExpression,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Taking<TSourceItem>(
 				sourceScalar: sourceScalar,
 				startIndexScalar: new Computing<int>(startIndexExpression),
 				countScalar: new Computing<int>(countExpression),
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -27040,7 +27052,7 @@ namespace ObservableComputations
 				sourceScalar: sourceScalar,
 				startIndexScalar: new Computing<int>(startIndexExpression),
 				countScalar: new Computing<int>(countExpression),
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
@@ -27048,13 +27060,13 @@ namespace ObservableComputations
 			 ObservableComputations.IReadScalar<ObservableCollection<TSourceItem>> sourceScalar,
 			 ObservableComputations.IReadScalar<int> startIndexScalar,
 			 ObservableComputations.IReadScalar<int> countScalar,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Taking<TSourceItem>(
 				sourceScalar: sourceScalar,
 				startIndexScalar: startIndexScalar,
 				countScalar: countScalar,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -27067,7 +27079,7 @@ namespace ObservableComputations
 				sourceScalar: sourceScalar,
 				startIndexScalar: startIndexScalar,
 				countScalar: countScalar,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
@@ -27075,13 +27087,13 @@ namespace ObservableComputations
 			 ObservableComputations.IReadScalar<ObservableCollection<TSourceItem>> sourceScalar,
 			 ObservableComputations.IReadScalar<int> startIndexScalar,
 			 Expression<Func<int>> countExpression,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Taking<TSourceItem>(
 				sourceScalar: sourceScalar,
 				startIndexScalar: startIndexScalar,
 				countScalar: new Computing<int>(countExpression),
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -27094,7 +27106,7 @@ namespace ObservableComputations
 				sourceScalar: sourceScalar,
 				startIndexScalar: startIndexScalar,
 				countScalar: new Computing<int>(countExpression),
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
@@ -27102,13 +27114,13 @@ namespace ObservableComputations
 			 ObservableComputations.IReadScalar<ObservableCollection<TSourceItem>> sourceScalar,
 			 Expression<Func<int>> startIndexExpression,
 			 ObservableComputations.IReadScalar<int> countScalar,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Taking<TSourceItem>(
 				sourceScalar: sourceScalar,
 				startIndexScalar: new Computing<int>(startIndexExpression),
 				countScalar: countScalar,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -27121,7 +27133,7 @@ namespace ObservableComputations
 				sourceScalar: sourceScalar,
 				startIndexScalar: new Computing<int>(startIndexExpression),
 				countScalar: countScalar,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
@@ -27129,13 +27141,13 @@ namespace ObservableComputations
 			 ObservableComputations.IReadScalar<ObservableCollection<TSourceItem>> sourceScalar,
 			 Expression<Func<int>> startIndexExpression,
 			 Expression<Func<int>> countExpression,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Taking<TSourceItem>(
 				sourceScalar: sourceScalar,
 				startIndexScalar: new Computing<int>(startIndexExpression),
 				countScalar: new Computing<int>(countExpression),
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -27148,7 +27160,7 @@ namespace ObservableComputations
 				sourceScalar: sourceScalar,
 				startIndexScalar: new Computing<int>(startIndexExpression),
 				countScalar: new Computing<int>(countExpression),
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
@@ -27156,13 +27168,13 @@ namespace ObservableComputations
 			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> sourceExpression,
 			 ObservableComputations.IReadScalar<int> startIndexScalar,
 			 ObservableComputations.IReadScalar<int> countScalar,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Taking<TSourceItem>(
 				sourceScalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(sourceExpression),
 				startIndexScalar: startIndexScalar,
 				countScalar: countScalar,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -27175,7 +27187,7 @@ namespace ObservableComputations
 				sourceScalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(sourceExpression),
 				startIndexScalar: startIndexScalar,
 				countScalar: countScalar,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
@@ -27183,13 +27195,13 @@ namespace ObservableComputations
 			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> sourceExpression,
 			 ObservableComputations.IReadScalar<int> startIndexScalar,
 			 Expression<Func<int>> countExpression,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Taking<TSourceItem>(
 				sourceScalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(sourceExpression),
 				startIndexScalar: startIndexScalar,
 				countScalar: new Computing<int>(countExpression),
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -27202,7 +27214,7 @@ namespace ObservableComputations
 				sourceScalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(sourceExpression),
 				startIndexScalar: startIndexScalar,
 				countScalar: new Computing<int>(countExpression),
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
@@ -27210,13 +27222,13 @@ namespace ObservableComputations
 			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> sourceExpression,
 			 Expression<Func<int>> startIndexExpression,
 			 ObservableComputations.IReadScalar<int> countScalar,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Taking<TSourceItem>(
 				sourceScalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(sourceExpression),
 				startIndexScalar: new Computing<int>(startIndexExpression),
 				countScalar: countScalar,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -27229,7 +27241,7 @@ namespace ObservableComputations
 				sourceScalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(sourceExpression),
 				startIndexScalar: new Computing<int>(startIndexExpression),
 				countScalar: countScalar,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
@@ -27237,13 +27249,13 @@ namespace ObservableComputations
 			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> sourceExpression,
 			 Expression<Func<int>> startIndexExpression,
 			 Expression<Func<int>> countExpression,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Taking<TSourceItem>(
 				sourceScalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(sourceExpression),
 				startIndexScalar: new Computing<int>(startIndexExpression),
 				countScalar: new Computing<int>(countExpression),
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -27256,7 +27268,7 @@ namespace ObservableComputations
 				sourceScalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(sourceExpression),
 				startIndexScalar: new Computing<int>(startIndexExpression),
 				countScalar: new Computing<int>(countExpression),
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
@@ -27264,13 +27276,13 @@ namespace ObservableComputations
 			 Expression<Func<ObservableCollection<TSourceItem>>> sourceExpression,
 			 ObservableComputations.IReadScalar<int> startIndexScalar,
 			 ObservableComputations.IReadScalar<int> countScalar,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Taking<TSourceItem>(
 				sourceScalar: new Computing<ObservableCollection<TSourceItem>>(sourceExpression),
 				startIndexScalar: startIndexScalar,
 				countScalar: countScalar,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -27283,7 +27295,7 @@ namespace ObservableComputations
 				sourceScalar: new Computing<ObservableCollection<TSourceItem>>(sourceExpression),
 				startIndexScalar: startIndexScalar,
 				countScalar: countScalar,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
@@ -27291,13 +27303,13 @@ namespace ObservableComputations
 			 Expression<Func<ObservableCollection<TSourceItem>>> sourceExpression,
 			 ObservableComputations.IReadScalar<int> startIndexScalar,
 			 Expression<Func<int>> countExpression,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Taking<TSourceItem>(
 				sourceScalar: new Computing<ObservableCollection<TSourceItem>>(sourceExpression),
 				startIndexScalar: startIndexScalar,
 				countScalar: new Computing<int>(countExpression),
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -27310,7 +27322,7 @@ namespace ObservableComputations
 				sourceScalar: new Computing<ObservableCollection<TSourceItem>>(sourceExpression),
 				startIndexScalar: startIndexScalar,
 				countScalar: new Computing<int>(countExpression),
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
@@ -27318,13 +27330,13 @@ namespace ObservableComputations
 			 Expression<Func<ObservableCollection<TSourceItem>>> sourceExpression,
 			 Expression<Func<int>> startIndexExpression,
 			 ObservableComputations.IReadScalar<int> countScalar,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Taking<TSourceItem>(
 				sourceScalar: new Computing<ObservableCollection<TSourceItem>>(sourceExpression),
 				startIndexScalar: new Computing<int>(startIndexExpression),
 				countScalar: countScalar,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -27337,7 +27349,7 @@ namespace ObservableComputations
 				sourceScalar: new Computing<ObservableCollection<TSourceItem>>(sourceExpression),
 				startIndexScalar: new Computing<int>(startIndexExpression),
 				countScalar: countScalar,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
@@ -27345,13 +27357,13 @@ namespace ObservableComputations
 			 Expression<Func<ObservableCollection<TSourceItem>>> sourceExpression,
 			 Expression<Func<int>> startIndexExpression,
 			 Expression<Func<int>> countExpression,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Taking<TSourceItem>(
 				sourceScalar: new Computing<ObservableCollection<TSourceItem>>(sourceExpression),
 				startIndexScalar: new Computing<int>(startIndexExpression),
 				countScalar: new Computing<int>(countExpression),
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -27364,7 +27376,7 @@ namespace ObservableComputations
 				sourceScalar: new Computing<ObservableCollection<TSourceItem>>(sourceExpression),
 				startIndexScalar: new Computing<int>(startIndexExpression),
 				countScalar: new Computing<int>(countExpression),
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
@@ -27468,13 +27480,13 @@ namespace ObservableComputations
 			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar,
 			 int startIndex,
 			 ObservableComputations.IReadScalar<int> countScalar,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Taking<TSourceItem>(
 				sourceScalar: sourceScalar,
 				startIndex: startIndex,
 				countScalar: countScalar,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -27487,7 +27499,7 @@ namespace ObservableComputations
 				sourceScalar: sourceScalar,
 				startIndex: startIndex,
 				countScalar: countScalar,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
@@ -27495,13 +27507,13 @@ namespace ObservableComputations
 			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar,
 			 int startIndex,
 			 Expression<Func<int>> countExpression,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Taking<TSourceItem>(
 				sourceScalar: sourceScalar,
 				startIndex: startIndex,
 				countScalar: new Computing<int>(countExpression),
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -27514,7 +27526,7 @@ namespace ObservableComputations
 				sourceScalar: sourceScalar,
 				startIndex: startIndex,
 				countScalar: new Computing<int>(countExpression),
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
@@ -27522,13 +27534,13 @@ namespace ObservableComputations
 			 ObservableComputations.IReadScalar<ObservableCollection<TSourceItem>> sourceScalar,
 			 int startIndex,
 			 ObservableComputations.IReadScalar<int> countScalar,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Taking<TSourceItem>(
 				sourceScalar: sourceScalar,
 				startIndex: startIndex,
 				countScalar: countScalar,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -27541,7 +27553,7 @@ namespace ObservableComputations
 				sourceScalar: sourceScalar,
 				startIndex: startIndex,
 				countScalar: countScalar,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
@@ -27549,13 +27561,13 @@ namespace ObservableComputations
 			 ObservableComputations.IReadScalar<ObservableCollection<TSourceItem>> sourceScalar,
 			 int startIndex,
 			 Expression<Func<int>> countExpression,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Taking<TSourceItem>(
 				sourceScalar: sourceScalar,
 				startIndex: startIndex,
 				countScalar: new Computing<int>(countExpression),
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -27568,7 +27580,7 @@ namespace ObservableComputations
 				sourceScalar: sourceScalar,
 				startIndex: startIndex,
 				countScalar: new Computing<int>(countExpression),
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
@@ -27576,13 +27588,13 @@ namespace ObservableComputations
 			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> sourceExpression,
 			 int startIndex,
 			 ObservableComputations.IReadScalar<int> countScalar,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Taking<TSourceItem>(
 				sourceScalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(sourceExpression),
 				startIndex: startIndex,
 				countScalar: countScalar,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -27595,7 +27607,7 @@ namespace ObservableComputations
 				sourceScalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(sourceExpression),
 				startIndex: startIndex,
 				countScalar: countScalar,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
@@ -27603,13 +27615,13 @@ namespace ObservableComputations
 			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> sourceExpression,
 			 int startIndex,
 			 Expression<Func<int>> countExpression,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Taking<TSourceItem>(
 				sourceScalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(sourceExpression),
 				startIndex: startIndex,
 				countScalar: new Computing<int>(countExpression),
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -27622,7 +27634,7 @@ namespace ObservableComputations
 				sourceScalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(sourceExpression),
 				startIndex: startIndex,
 				countScalar: new Computing<int>(countExpression),
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
@@ -27630,13 +27642,13 @@ namespace ObservableComputations
 			 Expression<Func<ObservableCollection<TSourceItem>>> sourceExpression,
 			 int startIndex,
 			 ObservableComputations.IReadScalar<int> countScalar,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Taking<TSourceItem>(
 				sourceScalar: new Computing<ObservableCollection<TSourceItem>>(sourceExpression),
 				startIndex: startIndex,
 				countScalar: countScalar,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -27649,7 +27661,7 @@ namespace ObservableComputations
 				sourceScalar: new Computing<ObservableCollection<TSourceItem>>(sourceExpression),
 				startIndex: startIndex,
 				countScalar: countScalar,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
@@ -27657,13 +27669,13 @@ namespace ObservableComputations
 			 Expression<Func<ObservableCollection<TSourceItem>>> sourceExpression,
 			 int startIndex,
 			 Expression<Func<int>> countExpression,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Taking<TSourceItem>(
 				sourceScalar: new Computing<ObservableCollection<TSourceItem>>(sourceExpression),
 				startIndex: startIndex,
 				countScalar: new Computing<int>(countExpression),
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -27676,7 +27688,7 @@ namespace ObservableComputations
 				sourceScalar: new Computing<ObservableCollection<TSourceItem>>(sourceExpression),
 				startIndex: startIndex,
 				countScalar: new Computing<int>(countExpression),
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
@@ -27732,13 +27744,13 @@ namespace ObservableComputations
 			 System.Collections.Specialized.INotifyCollectionChanged source,
 			 ObservableComputations.IReadScalar<int> startIndexScalar,
 			 ObservableComputations.IReadScalar<int> countScalar,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Taking<TSourceItem>(
 				source: source,
 				startIndexScalar: startIndexScalar,
 				countScalar: countScalar,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -27751,7 +27763,7 @@ namespace ObservableComputations
 				source: source,
 				startIndexScalar: startIndexScalar,
 				countScalar: countScalar,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
@@ -27759,13 +27771,13 @@ namespace ObservableComputations
 			 System.Collections.Specialized.INotifyCollectionChanged source,
 			 ObservableComputations.IReadScalar<int> startIndexScalar,
 			 Expression<Func<int>> countExpression,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Taking<TSourceItem>(
 				source: source,
 				startIndexScalar: startIndexScalar,
 				countScalar: new Computing<int>(countExpression),
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -27778,7 +27790,7 @@ namespace ObservableComputations
 				source: source,
 				startIndexScalar: startIndexScalar,
 				countScalar: new Computing<int>(countExpression),
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
@@ -27786,13 +27798,13 @@ namespace ObservableComputations
 			 System.Collections.Specialized.INotifyCollectionChanged source,
 			 Expression<Func<int>> startIndexExpression,
 			 ObservableComputations.IReadScalar<int> countScalar,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Taking<TSourceItem>(
 				source: source,
 				startIndexScalar: new Computing<int>(startIndexExpression),
 				countScalar: countScalar,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -27805,7 +27817,7 @@ namespace ObservableComputations
 				source: source,
 				startIndexScalar: new Computing<int>(startIndexExpression),
 				countScalar: countScalar,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
@@ -27813,13 +27825,13 @@ namespace ObservableComputations
 			 System.Collections.Specialized.INotifyCollectionChanged source,
 			 Expression<Func<int>> startIndexExpression,
 			 Expression<Func<int>> countExpression,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Taking<TSourceItem>(
 				source: source,
 				startIndexScalar: new Computing<int>(startIndexExpression),
 				countScalar: new Computing<int>(countExpression),
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -27832,7 +27844,7 @@ namespace ObservableComputations
 				source: source,
 				startIndexScalar: new Computing<int>(startIndexExpression),
 				countScalar: new Computing<int>(countExpression),
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
@@ -27840,13 +27852,13 @@ namespace ObservableComputations
 			 ObservableCollection<TSourceItem> source,
 			 ObservableComputations.IReadScalar<int> startIndexScalar,
 			 ObservableComputations.IReadScalar<int> countScalar,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Taking<TSourceItem>(
 				source: source,
 				startIndexScalar: startIndexScalar,
 				countScalar: countScalar,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -27859,7 +27871,7 @@ namespace ObservableComputations
 				source: source,
 				startIndexScalar: startIndexScalar,
 				countScalar: countScalar,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
@@ -27867,13 +27879,13 @@ namespace ObservableComputations
 			 ObservableCollection<TSourceItem> source,
 			 ObservableComputations.IReadScalar<int> startIndexScalar,
 			 Expression<Func<int>> countExpression,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Taking<TSourceItem>(
 				source: source,
 				startIndexScalar: startIndexScalar,
 				countScalar: new Computing<int>(countExpression),
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -27886,7 +27898,7 @@ namespace ObservableComputations
 				source: source,
 				startIndexScalar: startIndexScalar,
 				countScalar: new Computing<int>(countExpression),
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
@@ -27894,13 +27906,13 @@ namespace ObservableComputations
 			 ObservableCollection<TSourceItem> source,
 			 Expression<Func<int>> startIndexExpression,
 			 ObservableComputations.IReadScalar<int> countScalar,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Taking<TSourceItem>(
 				source: source,
 				startIndexScalar: new Computing<int>(startIndexExpression),
 				countScalar: countScalar,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -27913,7 +27925,7 @@ namespace ObservableComputations
 				source: source,
 				startIndexScalar: new Computing<int>(startIndexExpression),
 				countScalar: countScalar,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
@@ -27921,13 +27933,13 @@ namespace ObservableComputations
 			 ObservableCollection<TSourceItem> source,
 			 Expression<Func<int>> startIndexExpression,
 			 Expression<Func<int>> countExpression,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Taking<TSourceItem>(
 				source: source,
 				startIndexScalar: new Computing<int>(startIndexExpression),
 				countScalar: new Computing<int>(countExpression),
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -27940,7 +27952,7 @@ namespace ObservableComputations
 				source: source,
 				startIndexScalar: new Computing<int>(startIndexExpression),
 				countScalar: new Computing<int>(countExpression),
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
@@ -27996,13 +28008,13 @@ namespace ObservableComputations
 			 System.Collections.Specialized.INotifyCollectionChanged source,
 			 int startIndex,
 			 ObservableComputations.IReadScalar<int> countScalar,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Taking<TSourceItem>(
 				source: source,
 				startIndex: startIndex,
 				countScalar: countScalar,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -28015,7 +28027,7 @@ namespace ObservableComputations
 				source: source,
 				startIndex: startIndex,
 				countScalar: countScalar,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
@@ -28023,13 +28035,13 @@ namespace ObservableComputations
 			 System.Collections.Specialized.INotifyCollectionChanged source,
 			 int startIndex,
 			 Expression<Func<int>> countExpression,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Taking<TSourceItem>(
 				source: source,
 				startIndex: startIndex,
 				countScalar: new Computing<int>(countExpression),
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -28042,7 +28054,7 @@ namespace ObservableComputations
 				source: source,
 				startIndex: startIndex,
 				countScalar: new Computing<int>(countExpression),
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
@@ -28050,13 +28062,13 @@ namespace ObservableComputations
 			 ObservableCollection<TSourceItem> source,
 			 int startIndex,
 			 ObservableComputations.IReadScalar<int> countScalar,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Taking<TSourceItem>(
 				source: source,
 				startIndex: startIndex,
 				countScalar: countScalar,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -28069,7 +28081,7 @@ namespace ObservableComputations
 				source: source,
 				startIndex: startIndex,
 				countScalar: countScalar,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
@@ -28077,13 +28089,13 @@ namespace ObservableComputations
 			 ObservableCollection<TSourceItem> source,
 			 int startIndex,
 			 Expression<Func<int>> countExpression,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Taking<TSourceItem>(
 				source: source,
 				startIndex: startIndex,
 				countScalar: new Computing<int>(countExpression),
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -28096,7 +28108,7 @@ namespace ObservableComputations
 				source: source,
 				startIndex: startIndex,
 				countScalar: new Computing<int>(countExpression),
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
@@ -28130,12 +28142,12 @@ namespace ObservableComputations
 		public static ObservableComputations.TakingWhile<TSourceItem> TakingWhile<TSourceItem>(this
 			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar,
 			 System.Linq.Expressions.Expression<System.Func<TSourceItem, int, bool>> predicateExpression,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.TakingWhile<TSourceItem>(
 				sourceScalar: sourceScalar,
 				predicateExpression: predicateExpression,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -28146,19 +28158,19 @@ namespace ObservableComputations
 			return new ObservableComputations.TakingWhile<TSourceItem>(
 				sourceScalar: sourceScalar,
 				predicateExpression: predicateExpression,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.TakingWhile<TSourceItem> TakingWhile<TSourceItem>(this
 			 ObservableComputations.IReadScalar<ObservableCollection<TSourceItem>> sourceScalar,
 			 System.Linq.Expressions.Expression<System.Func<TSourceItem, int, bool>> predicateExpression,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.TakingWhile<TSourceItem>(
 				sourceScalar: sourceScalar,
 				predicateExpression: predicateExpression,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -28169,19 +28181,19 @@ namespace ObservableComputations
 			return new ObservableComputations.TakingWhile<TSourceItem>(
 				sourceScalar: sourceScalar,
 				predicateExpression: predicateExpression,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.TakingWhile<TSourceItem> TakingWhile<TSourceItem>(this
 			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> sourceExpression,
 			 System.Linq.Expressions.Expression<System.Func<TSourceItem, int, bool>> predicateExpression,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.TakingWhile<TSourceItem>(
 				sourceScalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(sourceExpression),
 				predicateExpression: predicateExpression,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -28192,19 +28204,19 @@ namespace ObservableComputations
 			return new ObservableComputations.TakingWhile<TSourceItem>(
 				sourceScalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(sourceExpression),
 				predicateExpression: predicateExpression,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.TakingWhile<TSourceItem> TakingWhile<TSourceItem>(this
 			 Expression<Func<ObservableCollection<TSourceItem>>> sourceExpression,
 			 System.Linq.Expressions.Expression<System.Func<TSourceItem, int, bool>> predicateExpression,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.TakingWhile<TSourceItem>(
 				sourceScalar: new Computing<ObservableCollection<TSourceItem>>(sourceExpression),
 				predicateExpression: predicateExpression,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -28215,19 +28227,19 @@ namespace ObservableComputations
 			return new ObservableComputations.TakingWhile<TSourceItem>(
 				sourceScalar: new Computing<ObservableCollection<TSourceItem>>(sourceExpression),
 				predicateExpression: predicateExpression,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.TakingWhile<TSourceItem> TakingWhile<TSourceItem>(this
 			 System.Collections.Specialized.INotifyCollectionChanged source,
 			 System.Linq.Expressions.Expression<System.Func<TSourceItem, int, bool>> predicateExpression,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.TakingWhile<TSourceItem>(
 				source: source,
 				predicateExpression: predicateExpression,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -28238,19 +28250,19 @@ namespace ObservableComputations
 			return new ObservableComputations.TakingWhile<TSourceItem>(
 				source: source,
 				predicateExpression: predicateExpression,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.TakingWhile<TSourceItem> TakingWhile<TSourceItem>(this
 			 ObservableCollection<TSourceItem> source,
 			 System.Linq.Expressions.Expression<System.Func<TSourceItem, int, bool>> predicateExpression,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.TakingWhile<TSourceItem>(
 				source: source,
 				predicateExpression: predicateExpression,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -28261,19 +28273,19 @@ namespace ObservableComputations
 			return new ObservableComputations.TakingWhile<TSourceItem>(
 				source: source,
 				predicateExpression: predicateExpression,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.TakingWhile<TSourceItem> TakingWhile<TSourceItem>(this
 			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar,
 			 System.Linq.Expressions.Expression<System.Func<TSourceItem, bool>> predicateExpression,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.TakingWhile<TSourceItem>(
 				sourceScalar: sourceScalar,
 				predicateExpression: predicateExpression,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -28284,19 +28296,19 @@ namespace ObservableComputations
 			return new ObservableComputations.TakingWhile<TSourceItem>(
 				sourceScalar: sourceScalar,
 				predicateExpression: predicateExpression,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.TakingWhile<TSourceItem> TakingWhile<TSourceItem>(this
 			 ObservableComputations.IReadScalar<ObservableCollection<TSourceItem>> sourceScalar,
 			 System.Linq.Expressions.Expression<System.Func<TSourceItem, bool>> predicateExpression,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.TakingWhile<TSourceItem>(
 				sourceScalar: sourceScalar,
 				predicateExpression: predicateExpression,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -28307,19 +28319,19 @@ namespace ObservableComputations
 			return new ObservableComputations.TakingWhile<TSourceItem>(
 				sourceScalar: sourceScalar,
 				predicateExpression: predicateExpression,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.TakingWhile<TSourceItem> TakingWhile<TSourceItem>(this
 			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> sourceExpression,
 			 System.Linq.Expressions.Expression<System.Func<TSourceItem, bool>> predicateExpression,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.TakingWhile<TSourceItem>(
 				sourceScalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(sourceExpression),
 				predicateExpression: predicateExpression,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -28330,19 +28342,19 @@ namespace ObservableComputations
 			return new ObservableComputations.TakingWhile<TSourceItem>(
 				sourceScalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(sourceExpression),
 				predicateExpression: predicateExpression,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.TakingWhile<TSourceItem> TakingWhile<TSourceItem>(this
 			 Expression<Func<ObservableCollection<TSourceItem>>> sourceExpression,
 			 System.Linq.Expressions.Expression<System.Func<TSourceItem, bool>> predicateExpression,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.TakingWhile<TSourceItem>(
 				sourceScalar: new Computing<ObservableCollection<TSourceItem>>(sourceExpression),
 				predicateExpression: predicateExpression,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -28353,19 +28365,19 @@ namespace ObservableComputations
 			return new ObservableComputations.TakingWhile<TSourceItem>(
 				sourceScalar: new Computing<ObservableCollection<TSourceItem>>(sourceExpression),
 				predicateExpression: predicateExpression,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.TakingWhile<TSourceItem> TakingWhile<TSourceItem>(this
 			 System.Collections.Specialized.INotifyCollectionChanged source,
 			 System.Linq.Expressions.Expression<System.Func<TSourceItem, bool>> predicateExpression,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.TakingWhile<TSourceItem>(
 				source: source,
 				predicateExpression: predicateExpression,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -28376,19 +28388,19 @@ namespace ObservableComputations
 			return new ObservableComputations.TakingWhile<TSourceItem>(
 				source: source,
 				predicateExpression: predicateExpression,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.TakingWhile<TSourceItem> TakingWhile<TSourceItem>(this
 			 ObservableCollection<TSourceItem> source,
 			 System.Linq.Expressions.Expression<System.Func<TSourceItem, bool>> predicateExpression,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.TakingWhile<TSourceItem>(
 				source: source,
 				predicateExpression: predicateExpression,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -28399,7 +28411,7 @@ namespace ObservableComputations
 			return new ObservableComputations.TakingWhile<TSourceItem>(
 				source: source,
 				predicateExpression: predicateExpression,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		#endregion
@@ -29060,12 +29072,12 @@ namespace ObservableComputations
 		public static ObservableComputations.Uniting<TSourceItem> Uniting<TSourceItem>(this
 			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> sourcesScalar,
 			 ObservableComputations.IReadScalar<System.Collections.Generic.IEqualityComparer<TSourceItem>> equalityComparerScalar,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Uniting<TSourceItem>(
-				sourcesScalar: sourcesScalar,
+				sourceScalar: sourcesScalar,
 				equalityComparerScalar: equalityComparerScalar,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -29074,20 +29086,20 @@ namespace ObservableComputations
 			 ObservableComputations.IReadScalar<System.Collections.Generic.IEqualityComparer<TSourceItem>> equalityComparerScalar)
 		{
 			return new ObservableComputations.Uniting<TSourceItem>(
-				sourcesScalar: sourcesScalar,
+				sourceScalar: sourcesScalar,
 				equalityComparerScalar: equalityComparerScalar,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.Uniting<TSourceItem> Uniting<TSourceItem>(this
 			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> sourcesScalar,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Uniting<TSourceItem>(
-				sourcesScalar: sourcesScalar,
+				sourceScalar: sourcesScalar,
 				equalityComparerScalar: null,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -29095,21 +29107,21 @@ namespace ObservableComputations
 			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> sourcesScalar)
 		{
 			return new ObservableComputations.Uniting<TSourceItem>(
-				sourcesScalar: sourcesScalar,
+				sourceScalar: sourcesScalar,
 				equalityComparerScalar: null,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.Uniting<TSourceItem> Uniting<TSourceItem>(this
 			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> sourcesScalar,
 			 Expression<Func<System.Collections.Generic.IEqualityComparer<TSourceItem>>> equalityComparerExpression,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Uniting<TSourceItem>(
-				sourcesScalar: sourcesScalar,
+				sourceScalar: sourcesScalar,
 				equalityComparerScalar: new Computing<System.Collections.Generic.IEqualityComparer<TSourceItem>>(equalityComparerExpression),
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -29118,21 +29130,21 @@ namespace ObservableComputations
 			 Expression<Func<System.Collections.Generic.IEqualityComparer<TSourceItem>>> equalityComparerExpression)
 		{
 			return new ObservableComputations.Uniting<TSourceItem>(
-				sourcesScalar: sourcesScalar,
+				sourceScalar: sourcesScalar,
 				equalityComparerScalar: new Computing<System.Collections.Generic.IEqualityComparer<TSourceItem>>(equalityComparerExpression),
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.Uniting<TSourceItem> Uniting<TSourceItem>(this
 			 ObservableComputations.IReadScalar<ObservableCollection<ObservableCollection<TSourceItem>>> sourcesScalar,
 			 ObservableComputations.IReadScalar<System.Collections.Generic.IEqualityComparer<TSourceItem>> equalityComparerScalar,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Uniting<TSourceItem>(
-				sourcesScalar: sourcesScalar,
+				sourceScalar: sourcesScalar,
 				equalityComparerScalar: equalityComparerScalar,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -29141,20 +29153,20 @@ namespace ObservableComputations
 			 ObservableComputations.IReadScalar<System.Collections.Generic.IEqualityComparer<TSourceItem>> equalityComparerScalar)
 		{
 			return new ObservableComputations.Uniting<TSourceItem>(
-				sourcesScalar: sourcesScalar,
+				sourceScalar: sourcesScalar,
 				equalityComparerScalar: equalityComparerScalar,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.Uniting<TSourceItem> Uniting<TSourceItem>(this
 			 ObservableComputations.IReadScalar<ObservableCollection<ObservableCollection<TSourceItem>>> sourcesScalar,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Uniting<TSourceItem>(
-				sourcesScalar: sourcesScalar,
+				sourceScalar: sourcesScalar,
 				equalityComparerScalar: null,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -29162,21 +29174,21 @@ namespace ObservableComputations
 			 ObservableComputations.IReadScalar<ObservableCollection<ObservableCollection<TSourceItem>>> sourcesScalar)
 		{
 			return new ObservableComputations.Uniting<TSourceItem>(
-				sourcesScalar: sourcesScalar,
+				sourceScalar: sourcesScalar,
 				equalityComparerScalar: null,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.Uniting<TSourceItem> Uniting<TSourceItem>(this
 			 ObservableComputations.IReadScalar<ObservableCollection<ObservableCollection<TSourceItem>>> sourcesScalar,
 			 Expression<Func<System.Collections.Generic.IEqualityComparer<TSourceItem>>> equalityComparerExpression,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Uniting<TSourceItem>(
-				sourcesScalar: sourcesScalar,
+				sourceScalar: sourcesScalar,
 				equalityComparerScalar: new Computing<System.Collections.Generic.IEqualityComparer<TSourceItem>>(equalityComparerExpression),
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -29185,21 +29197,21 @@ namespace ObservableComputations
 			 Expression<Func<System.Collections.Generic.IEqualityComparer<TSourceItem>>> equalityComparerExpression)
 		{
 			return new ObservableComputations.Uniting<TSourceItem>(
-				sourcesScalar: sourcesScalar,
+				sourceScalar: sourcesScalar,
 				equalityComparerScalar: new Computing<System.Collections.Generic.IEqualityComparer<TSourceItem>>(equalityComparerExpression),
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.Uniting<TSourceItem> Uniting<TSourceItem>(this
 			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> sourcesExpression,
 			 ObservableComputations.IReadScalar<System.Collections.Generic.IEqualityComparer<TSourceItem>> equalityComparerScalar,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Uniting<TSourceItem>(
-				sourcesScalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(sourcesExpression),
+				sourceScalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(sourcesExpression),
 				equalityComparerScalar: equalityComparerScalar,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -29208,20 +29220,20 @@ namespace ObservableComputations
 			 ObservableComputations.IReadScalar<System.Collections.Generic.IEqualityComparer<TSourceItem>> equalityComparerScalar)
 		{
 			return new ObservableComputations.Uniting<TSourceItem>(
-				sourcesScalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(sourcesExpression),
+				sourceScalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(sourcesExpression),
 				equalityComparerScalar: equalityComparerScalar,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.Uniting<TSourceItem> Uniting<TSourceItem>(this
 			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> sourcesExpression,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Uniting<TSourceItem>(
-				sourcesScalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(sourcesExpression),
+				sourceScalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(sourcesExpression),
 				equalityComparerScalar: null,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -29229,21 +29241,21 @@ namespace ObservableComputations
 			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> sourcesExpression)
 		{
 			return new ObservableComputations.Uniting<TSourceItem>(
-				sourcesScalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(sourcesExpression),
+				sourceScalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(sourcesExpression),
 				equalityComparerScalar: null,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.Uniting<TSourceItem> Uniting<TSourceItem>(this
 			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> sourcesExpression,
 			 Expression<Func<System.Collections.Generic.IEqualityComparer<TSourceItem>>> equalityComparerExpression,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Uniting<TSourceItem>(
-				sourcesScalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(sourcesExpression),
+				sourceScalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(sourcesExpression),
 				equalityComparerScalar: new Computing<System.Collections.Generic.IEqualityComparer<TSourceItem>>(equalityComparerExpression),
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -29252,21 +29264,21 @@ namespace ObservableComputations
 			 Expression<Func<System.Collections.Generic.IEqualityComparer<TSourceItem>>> equalityComparerExpression)
 		{
 			return new ObservableComputations.Uniting<TSourceItem>(
-				sourcesScalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(sourcesExpression),
+				sourceScalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(sourcesExpression),
 				equalityComparerScalar: new Computing<System.Collections.Generic.IEqualityComparer<TSourceItem>>(equalityComparerExpression),
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.Uniting<TSourceItem> Uniting<TSourceItem>(this
 			 Expression<Func<ObservableCollection<ObservableCollection<TSourceItem>>>> sourcesExpression,
 			 ObservableComputations.IReadScalar<System.Collections.Generic.IEqualityComparer<TSourceItem>> equalityComparerScalar,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Uniting<TSourceItem>(
-				sourcesScalar: new Computing<ObservableCollection<ObservableCollection<TSourceItem>>>(sourcesExpression),
+				sourceScalar: new Computing<ObservableCollection<ObservableCollection<TSourceItem>>>(sourcesExpression),
 				equalityComparerScalar: equalityComparerScalar,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -29275,20 +29287,20 @@ namespace ObservableComputations
 			 ObservableComputations.IReadScalar<System.Collections.Generic.IEqualityComparer<TSourceItem>> equalityComparerScalar)
 		{
 			return new ObservableComputations.Uniting<TSourceItem>(
-				sourcesScalar: new Computing<ObservableCollection<ObservableCollection<TSourceItem>>>(sourcesExpression),
+				sourceScalar: new Computing<ObservableCollection<ObservableCollection<TSourceItem>>>(sourcesExpression),
 				equalityComparerScalar: equalityComparerScalar,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.Uniting<TSourceItem> Uniting<TSourceItem>(this
 			 Expression<Func<ObservableCollection<ObservableCollection<TSourceItem>>>> sourcesExpression,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Uniting<TSourceItem>(
-				sourcesScalar: new Computing<ObservableCollection<ObservableCollection<TSourceItem>>>(sourcesExpression),
+				sourceScalar: new Computing<ObservableCollection<ObservableCollection<TSourceItem>>>(sourcesExpression),
 				equalityComparerScalar: null,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -29296,21 +29308,21 @@ namespace ObservableComputations
 			 Expression<Func<ObservableCollection<ObservableCollection<TSourceItem>>>> sourcesExpression)
 		{
 			return new ObservableComputations.Uniting<TSourceItem>(
-				sourcesScalar: new Computing<ObservableCollection<ObservableCollection<TSourceItem>>>(sourcesExpression),
+				sourceScalar: new Computing<ObservableCollection<ObservableCollection<TSourceItem>>>(sourcesExpression),
 				equalityComparerScalar: null,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.Uniting<TSourceItem> Uniting<TSourceItem>(this
 			 Expression<Func<ObservableCollection<ObservableCollection<TSourceItem>>>> sourcesExpression,
 			 Expression<Func<System.Collections.Generic.IEqualityComparer<TSourceItem>>> equalityComparerExpression,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Uniting<TSourceItem>(
-				sourcesScalar: new Computing<ObservableCollection<ObservableCollection<TSourceItem>>>(sourcesExpression),
+				sourceScalar: new Computing<ObservableCollection<ObservableCollection<TSourceItem>>>(sourcesExpression),
 				equalityComparerScalar: new Computing<System.Collections.Generic.IEqualityComparer<TSourceItem>>(equalityComparerExpression),
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -29319,21 +29331,21 @@ namespace ObservableComputations
 			 Expression<Func<System.Collections.Generic.IEqualityComparer<TSourceItem>>> equalityComparerExpression)
 		{
 			return new ObservableComputations.Uniting<TSourceItem>(
-				sourcesScalar: new Computing<ObservableCollection<ObservableCollection<TSourceItem>>>(sourcesExpression),
+				sourceScalar: new Computing<ObservableCollection<ObservableCollection<TSourceItem>>>(sourcesExpression),
 				equalityComparerScalar: new Computing<System.Collections.Generic.IEqualityComparer<TSourceItem>>(equalityComparerExpression),
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.Uniting<TSourceItem> Uniting<TSourceItem>(this
 			 System.Collections.Specialized.INotifyCollectionChanged sources,
 			 ObservableComputations.IReadScalar<System.Collections.Generic.IEqualityComparer<TSourceItem>> equalityComparerScalar,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Uniting<TSourceItem>(
-				sources: sources,
+				source: sources,
 				equalityComparerScalar: equalityComparerScalar,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -29342,20 +29354,20 @@ namespace ObservableComputations
 			 ObservableComputations.IReadScalar<System.Collections.Generic.IEqualityComparer<TSourceItem>> equalityComparerScalar)
 		{
 			return new ObservableComputations.Uniting<TSourceItem>(
-				sources: sources,
+				source: sources,
 				equalityComparerScalar: equalityComparerScalar,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.Uniting<TSourceItem> Uniting<TSourceItem>(this
 			 System.Collections.Specialized.INotifyCollectionChanged sources,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Uniting<TSourceItem>(
-				sources: sources,
+				source: sources,
 				equalityComparerScalar: null,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -29363,21 +29375,21 @@ namespace ObservableComputations
 			 System.Collections.Specialized.INotifyCollectionChanged sources)
 		{
 			return new ObservableComputations.Uniting<TSourceItem>(
-				sources: sources,
+				source: sources,
 				equalityComparerScalar: null,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.Uniting<TSourceItem> Uniting<TSourceItem>(this
 			 System.Collections.Specialized.INotifyCollectionChanged sources,
 			 Expression<Func<System.Collections.Generic.IEqualityComparer<TSourceItem>>> equalityComparerExpression,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Uniting<TSourceItem>(
-				sources: sources,
+				source: sources,
 				equalityComparerScalar: new Computing<System.Collections.Generic.IEqualityComparer<TSourceItem>>(equalityComparerExpression),
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -29386,21 +29398,21 @@ namespace ObservableComputations
 			 Expression<Func<System.Collections.Generic.IEqualityComparer<TSourceItem>>> equalityComparerExpression)
 		{
 			return new ObservableComputations.Uniting<TSourceItem>(
-				sources: sources,
+				source: sources,
 				equalityComparerScalar: new Computing<System.Collections.Generic.IEqualityComparer<TSourceItem>>(equalityComparerExpression),
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.Uniting<TSourceItem> Uniting<TSourceItem>(this
 			 ObservableCollection<ObservableCollection<TSourceItem>> sources,
 			 ObservableComputations.IReadScalar<System.Collections.Generic.IEqualityComparer<TSourceItem>> equalityComparerScalar,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Uniting<TSourceItem>(
-				sources: sources,
+				source: sources,
 				equalityComparerScalar: equalityComparerScalar,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -29409,20 +29421,20 @@ namespace ObservableComputations
 			 ObservableComputations.IReadScalar<System.Collections.Generic.IEqualityComparer<TSourceItem>> equalityComparerScalar)
 		{
 			return new ObservableComputations.Uniting<TSourceItem>(
-				sources: sources,
+				source: sources,
 				equalityComparerScalar: equalityComparerScalar,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.Uniting<TSourceItem> Uniting<TSourceItem>(this
 			 ObservableCollection<ObservableCollection<TSourceItem>> sources,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Uniting<TSourceItem>(
-				sources: sources,
+				source: sources,
 				equalityComparerScalar: null,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -29430,21 +29442,21 @@ namespace ObservableComputations
 			 ObservableCollection<ObservableCollection<TSourceItem>> sources)
 		{
 			return new ObservableComputations.Uniting<TSourceItem>(
-				sources: sources,
+				source: sources,
 				equalityComparerScalar: null,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.Uniting<TSourceItem> Uniting<TSourceItem>(this
 			 ObservableCollection<ObservableCollection<TSourceItem>> sources,
 			 Expression<Func<System.Collections.Generic.IEqualityComparer<TSourceItem>>> equalityComparerExpression,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Uniting<TSourceItem>(
-				sources: sources,
+				source: sources,
 				equalityComparerScalar: new Computing<System.Collections.Generic.IEqualityComparer<TSourceItem>>(equalityComparerExpression),
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -29453,21 +29465,21 @@ namespace ObservableComputations
 			 Expression<Func<System.Collections.Generic.IEqualityComparer<TSourceItem>>> equalityComparerExpression)
 		{
 			return new ObservableComputations.Uniting<TSourceItem>(
-				sources: sources,
+				source: sources,
 				equalityComparerScalar: new Computing<System.Collections.Generic.IEqualityComparer<TSourceItem>>(equalityComparerExpression),
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.Uniting<TSourceItem> Uniting<TSourceItem>(this
 			 System.Collections.Specialized.INotifyCollectionChanged sources,
 			 System.Collections.Generic.IEqualityComparer<TSourceItem> equalityComparer,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Uniting<TSourceItem>(
-				sources: sources,
+				source: sources,
 				equalityComparer: equalityComparer,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -29476,21 +29488,21 @@ namespace ObservableComputations
 			 System.Collections.Generic.IEqualityComparer<TSourceItem> equalityComparer)
 		{
 			return new ObservableComputations.Uniting<TSourceItem>(
-				sources: sources,
+				source: sources,
 				equalityComparer: equalityComparer,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.Uniting<TSourceItem> Uniting<TSourceItem>(this
 			 ObservableCollection<ObservableCollection<TSourceItem>> sources,
 			 System.Collections.Generic.IEqualityComparer<TSourceItem> equalityComparer,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Uniting<TSourceItem>(
-				sources: sources,
+				source: sources,
 				equalityComparer: equalityComparer,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -29499,21 +29511,21 @@ namespace ObservableComputations
 			 System.Collections.Generic.IEqualityComparer<TSourceItem> equalityComparer)
 		{
 			return new ObservableComputations.Uniting<TSourceItem>(
-				sources: sources,
+				source: sources,
 				equalityComparer: equalityComparer,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.Uniting<TSourceItem> Uniting<TSourceItem>(this
 			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> sourcesScalar,
 			 System.Collections.Generic.IEqualityComparer<TSourceItem> equalityComparer,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Uniting<TSourceItem>(
-				sourcesScalar: sourcesScalar,
+				sourceScalar: sourcesScalar,
 				equalityComparer: equalityComparer,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -29522,21 +29534,21 @@ namespace ObservableComputations
 			 System.Collections.Generic.IEqualityComparer<TSourceItem> equalityComparer)
 		{
 			return new ObservableComputations.Uniting<TSourceItem>(
-				sourcesScalar: sourcesScalar,
+				sourceScalar: sourcesScalar,
 				equalityComparer: equalityComparer,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.Uniting<TSourceItem> Uniting<TSourceItem>(this
 			 ObservableComputations.IReadScalar<ObservableCollection<ObservableCollection<TSourceItem>>> sourcesScalar,
 			 System.Collections.Generic.IEqualityComparer<TSourceItem> equalityComparer,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Uniting<TSourceItem>(
-				sourcesScalar: sourcesScalar,
+				sourceScalar: sourcesScalar,
 				equalityComparer: equalityComparer,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -29545,21 +29557,21 @@ namespace ObservableComputations
 			 System.Collections.Generic.IEqualityComparer<TSourceItem> equalityComparer)
 		{
 			return new ObservableComputations.Uniting<TSourceItem>(
-				sourcesScalar: sourcesScalar,
+				sourceScalar: sourcesScalar,
 				equalityComparer: equalityComparer,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.Uniting<TSourceItem> Uniting<TSourceItem>(this
 			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> sourcesExpression,
 			 System.Collections.Generic.IEqualityComparer<TSourceItem> equalityComparer,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Uniting<TSourceItem>(
-				sourcesScalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(sourcesExpression),
+				sourceScalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(sourcesExpression),
 				equalityComparer: equalityComparer,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -29568,21 +29580,21 @@ namespace ObservableComputations
 			 System.Collections.Generic.IEqualityComparer<TSourceItem> equalityComparer)
 		{
 			return new ObservableComputations.Uniting<TSourceItem>(
-				sourcesScalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(sourcesExpression),
+				sourceScalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(sourcesExpression),
 				equalityComparer: equalityComparer,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.Uniting<TSourceItem> Uniting<TSourceItem>(this
 			 Expression<Func<ObservableCollection<ObservableCollection<TSourceItem>>>> sourcesExpression,
 			 System.Collections.Generic.IEqualityComparer<TSourceItem> equalityComparer,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Uniting<TSourceItem>(
-				sourcesScalar: new Computing<ObservableCollection<ObservableCollection<TSourceItem>>>(sourcesExpression),
+				sourceScalar: new Computing<ObservableCollection<ObservableCollection<TSourceItem>>>(sourcesExpression),
 				equalityComparer: equalityComparer,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -29591,9 +29603,9 @@ namespace ObservableComputations
 			 System.Collections.Generic.IEqualityComparer<TSourceItem> equalityComparer)
 		{
 			return new ObservableComputations.Uniting<TSourceItem>(
-				sourcesScalar: new Computing<ObservableCollection<ObservableCollection<TSourceItem>>>(sourcesExpression),
+				sourceScalar: new Computing<ObservableCollection<ObservableCollection<TSourceItem>>>(sourcesExpression),
 				equalityComparer: equalityComparer,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
@@ -29601,13 +29613,13 @@ namespace ObservableComputations
 			 System.Collections.Specialized.INotifyCollectionChanged source1,
 			 System.Collections.Specialized.INotifyCollectionChanged source2,
 			 System.Collections.Generic.IEqualityComparer<TSourceItem> equalityComparer,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Uniting<TSourceItem>(
 				source1: source1,
 				source2: source2,
 				equalityComparer: equalityComparer,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -29620,20 +29632,20 @@ namespace ObservableComputations
 				source1: source1,
 				source2: source2,
 				equalityComparer: equalityComparer,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.Uniting<TSourceItem> Uniting<TSourceItem>(this
 			 System.Collections.Specialized.INotifyCollectionChanged source1,
 			 System.Collections.Specialized.INotifyCollectionChanged source2,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Uniting<TSourceItem>(
 				source1: source1,
 				source2: source2,
 				equalityComparer: null,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -29645,7 +29657,7 @@ namespace ObservableComputations
 				source1: source1,
 				source2: source2,
 				equalityComparer: null,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
@@ -29653,13 +29665,13 @@ namespace ObservableComputations
 			 System.Collections.Specialized.INotifyCollectionChanged source1,
 			 ObservableCollection<TSourceItem> source2,
 			 System.Collections.Generic.IEqualityComparer<TSourceItem> equalityComparer,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Uniting<TSourceItem>(
 				source1: source1,
 				source2: source2,
 				equalityComparer: equalityComparer,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -29672,20 +29684,20 @@ namespace ObservableComputations
 				source1: source1,
 				source2: source2,
 				equalityComparer: equalityComparer,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.Uniting<TSourceItem> Uniting<TSourceItem>(this
 			 System.Collections.Specialized.INotifyCollectionChanged source1,
 			 ObservableCollection<TSourceItem> source2,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Uniting<TSourceItem>(
 				source1: source1,
 				source2: source2,
 				equalityComparer: null,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -29697,7 +29709,7 @@ namespace ObservableComputations
 				source1: source1,
 				source2: source2,
 				equalityComparer: null,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
@@ -29705,13 +29717,13 @@ namespace ObservableComputations
 			 ObservableCollection<TSourceItem> source1,
 			 System.Collections.Specialized.INotifyCollectionChanged source2,
 			 System.Collections.Generic.IEqualityComparer<TSourceItem> equalityComparer,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Uniting<TSourceItem>(
 				source1: source1,
 				source2: source2,
 				equalityComparer: equalityComparer,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -29724,20 +29736,20 @@ namespace ObservableComputations
 				source1: source1,
 				source2: source2,
 				equalityComparer: equalityComparer,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.Uniting<TSourceItem> Uniting<TSourceItem>(this
 			 ObservableCollection<TSourceItem> source1,
 			 System.Collections.Specialized.INotifyCollectionChanged source2,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Uniting<TSourceItem>(
 				source1: source1,
 				source2: source2,
 				equalityComparer: null,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -29749,7 +29761,7 @@ namespace ObservableComputations
 				source1: source1,
 				source2: source2,
 				equalityComparer: null,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
@@ -29757,13 +29769,13 @@ namespace ObservableComputations
 			 ObservableCollection<TSourceItem> source1,
 			 ObservableCollection<TSourceItem> source2,
 			 System.Collections.Generic.IEqualityComparer<TSourceItem> equalityComparer,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Uniting<TSourceItem>(
 				source1: source1,
 				source2: source2,
 				equalityComparer: equalityComparer,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -29776,20 +29788,20 @@ namespace ObservableComputations
 				source1: source1,
 				source2: source2,
 				equalityComparer: equalityComparer,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.Uniting<TSourceItem> Uniting<TSourceItem>(this
 			 ObservableCollection<TSourceItem> source1,
 			 ObservableCollection<TSourceItem> source2,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Uniting<TSourceItem>(
 				source1: source1,
 				source2: source2,
 				equalityComparer: null,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -29801,7 +29813,7 @@ namespace ObservableComputations
 				source1: source1,
 				source2: source2,
 				equalityComparer: null,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
@@ -29809,13 +29821,13 @@ namespace ObservableComputations
 			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> source1Scalar,
 			 System.Collections.Specialized.INotifyCollectionChanged source2,
 			 System.Collections.Generic.IEqualityComparer<TSourceItem> equalityComparer,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Uniting<TSourceItem>(
 				source1Scalar: source1Scalar,
 				source2: source2,
 				equalityComparer: equalityComparer,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -29828,20 +29840,20 @@ namespace ObservableComputations
 				source1Scalar: source1Scalar,
 				source2: source2,
 				equalityComparer: equalityComparer,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.Uniting<TSourceItem> Uniting<TSourceItem>(this
 			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> source1Scalar,
 			 System.Collections.Specialized.INotifyCollectionChanged source2,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Uniting<TSourceItem>(
 				source1Scalar: source1Scalar,
 				source2: source2,
 				equalityComparer: null,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -29853,7 +29865,7 @@ namespace ObservableComputations
 				source1Scalar: source1Scalar,
 				source2: source2,
 				equalityComparer: null,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
@@ -29861,13 +29873,13 @@ namespace ObservableComputations
 			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> source1Scalar,
 			 ObservableCollection<TSourceItem> source2,
 			 System.Collections.Generic.IEqualityComparer<TSourceItem> equalityComparer,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Uniting<TSourceItem>(
 				source1Scalar: source1Scalar,
 				source2: source2,
 				equalityComparer: equalityComparer,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -29880,20 +29892,20 @@ namespace ObservableComputations
 				source1Scalar: source1Scalar,
 				source2: source2,
 				equalityComparer: equalityComparer,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.Uniting<TSourceItem> Uniting<TSourceItem>(this
 			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> source1Scalar,
 			 ObservableCollection<TSourceItem> source2,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Uniting<TSourceItem>(
 				source1Scalar: source1Scalar,
 				source2: source2,
 				equalityComparer: null,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -29905,7 +29917,7 @@ namespace ObservableComputations
 				source1Scalar: source1Scalar,
 				source2: source2,
 				equalityComparer: null,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
@@ -29913,13 +29925,13 @@ namespace ObservableComputations
 			 ObservableComputations.IReadScalar<ObservableCollection<TSourceItem>> source1Scalar,
 			 System.Collections.Specialized.INotifyCollectionChanged source2,
 			 System.Collections.Generic.IEqualityComparer<TSourceItem> equalityComparer,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Uniting<TSourceItem>(
 				source1Scalar: source1Scalar,
 				source2: source2,
 				equalityComparer: equalityComparer,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -29932,20 +29944,20 @@ namespace ObservableComputations
 				source1Scalar: source1Scalar,
 				source2: source2,
 				equalityComparer: equalityComparer,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.Uniting<TSourceItem> Uniting<TSourceItem>(this
 			 ObservableComputations.IReadScalar<ObservableCollection<TSourceItem>> source1Scalar,
 			 System.Collections.Specialized.INotifyCollectionChanged source2,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Uniting<TSourceItem>(
 				source1Scalar: source1Scalar,
 				source2: source2,
 				equalityComparer: null,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -29957,7 +29969,7 @@ namespace ObservableComputations
 				source1Scalar: source1Scalar,
 				source2: source2,
 				equalityComparer: null,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
@@ -29965,13 +29977,13 @@ namespace ObservableComputations
 			 ObservableComputations.IReadScalar<ObservableCollection<TSourceItem>> source1Scalar,
 			 ObservableCollection<TSourceItem> source2,
 			 System.Collections.Generic.IEqualityComparer<TSourceItem> equalityComparer,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Uniting<TSourceItem>(
 				source1Scalar: source1Scalar,
 				source2: source2,
 				equalityComparer: equalityComparer,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -29984,20 +29996,20 @@ namespace ObservableComputations
 				source1Scalar: source1Scalar,
 				source2: source2,
 				equalityComparer: equalityComparer,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.Uniting<TSourceItem> Uniting<TSourceItem>(this
 			 ObservableComputations.IReadScalar<ObservableCollection<TSourceItem>> source1Scalar,
 			 ObservableCollection<TSourceItem> source2,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Uniting<TSourceItem>(
 				source1Scalar: source1Scalar,
 				source2: source2,
 				equalityComparer: null,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -30009,7 +30021,7 @@ namespace ObservableComputations
 				source1Scalar: source1Scalar,
 				source2: source2,
 				equalityComparer: null,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
@@ -30017,13 +30029,13 @@ namespace ObservableComputations
 			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> source1Expression,
 			 System.Collections.Specialized.INotifyCollectionChanged source2,
 			 System.Collections.Generic.IEqualityComparer<TSourceItem> equalityComparer,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Uniting<TSourceItem>(
 				source1Scalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(source1Expression),
 				source2: source2,
 				equalityComparer: equalityComparer,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -30036,20 +30048,20 @@ namespace ObservableComputations
 				source1Scalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(source1Expression),
 				source2: source2,
 				equalityComparer: equalityComparer,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.Uniting<TSourceItem> Uniting<TSourceItem>(this
 			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> source1Expression,
 			 System.Collections.Specialized.INotifyCollectionChanged source2,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Uniting<TSourceItem>(
 				source1Scalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(source1Expression),
 				source2: source2,
 				equalityComparer: null,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -30061,7 +30073,7 @@ namespace ObservableComputations
 				source1Scalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(source1Expression),
 				source2: source2,
 				equalityComparer: null,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
@@ -30069,13 +30081,13 @@ namespace ObservableComputations
 			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> source1Expression,
 			 ObservableCollection<TSourceItem> source2,
 			 System.Collections.Generic.IEqualityComparer<TSourceItem> equalityComparer,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Uniting<TSourceItem>(
 				source1Scalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(source1Expression),
 				source2: source2,
 				equalityComparer: equalityComparer,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -30088,20 +30100,20 @@ namespace ObservableComputations
 				source1Scalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(source1Expression),
 				source2: source2,
 				equalityComparer: equalityComparer,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.Uniting<TSourceItem> Uniting<TSourceItem>(this
 			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> source1Expression,
 			 ObservableCollection<TSourceItem> source2,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Uniting<TSourceItem>(
 				source1Scalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(source1Expression),
 				source2: source2,
 				equalityComparer: null,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -30113,7 +30125,7 @@ namespace ObservableComputations
 				source1Scalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(source1Expression),
 				source2: source2,
 				equalityComparer: null,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
@@ -30121,13 +30133,13 @@ namespace ObservableComputations
 			 Expression<Func<ObservableCollection<TSourceItem>>> source1Expression,
 			 System.Collections.Specialized.INotifyCollectionChanged source2,
 			 System.Collections.Generic.IEqualityComparer<TSourceItem> equalityComparer,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Uniting<TSourceItem>(
 				source1Scalar: new Computing<ObservableCollection<TSourceItem>>(source1Expression),
 				source2: source2,
 				equalityComparer: equalityComparer,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -30140,20 +30152,20 @@ namespace ObservableComputations
 				source1Scalar: new Computing<ObservableCollection<TSourceItem>>(source1Expression),
 				source2: source2,
 				equalityComparer: equalityComparer,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.Uniting<TSourceItem> Uniting<TSourceItem>(this
 			 Expression<Func<ObservableCollection<TSourceItem>>> source1Expression,
 			 System.Collections.Specialized.INotifyCollectionChanged source2,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Uniting<TSourceItem>(
 				source1Scalar: new Computing<ObservableCollection<TSourceItem>>(source1Expression),
 				source2: source2,
 				equalityComparer: null,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -30165,7 +30177,7 @@ namespace ObservableComputations
 				source1Scalar: new Computing<ObservableCollection<TSourceItem>>(source1Expression),
 				source2: source2,
 				equalityComparer: null,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
@@ -30173,13 +30185,13 @@ namespace ObservableComputations
 			 Expression<Func<ObservableCollection<TSourceItem>>> source1Expression,
 			 ObservableCollection<TSourceItem> source2,
 			 System.Collections.Generic.IEqualityComparer<TSourceItem> equalityComparer,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Uniting<TSourceItem>(
 				source1Scalar: new Computing<ObservableCollection<TSourceItem>>(source1Expression),
 				source2: source2,
 				equalityComparer: equalityComparer,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -30192,20 +30204,20 @@ namespace ObservableComputations
 				source1Scalar: new Computing<ObservableCollection<TSourceItem>>(source1Expression),
 				source2: source2,
 				equalityComparer: equalityComparer,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.Uniting<TSourceItem> Uniting<TSourceItem>(this
 			 Expression<Func<ObservableCollection<TSourceItem>>> source1Expression,
 			 ObservableCollection<TSourceItem> source2,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Uniting<TSourceItem>(
 				source1Scalar: new Computing<ObservableCollection<TSourceItem>>(source1Expression),
 				source2: source2,
 				equalityComparer: null,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -30217,7 +30229,7 @@ namespace ObservableComputations
 				source1Scalar: new Computing<ObservableCollection<TSourceItem>>(source1Expression),
 				source2: source2,
 				equalityComparer: null,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
@@ -30225,13 +30237,13 @@ namespace ObservableComputations
 			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> source1Scalar,
 			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> source2Scalar,
 			 System.Collections.Generic.IEqualityComparer<TSourceItem> equalityComparer,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Uniting<TSourceItem>(
 				source1Scalar: source1Scalar,
 				source2Scalar: source2Scalar,
 				equalityComparer: equalityComparer,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -30244,20 +30256,20 @@ namespace ObservableComputations
 				source1Scalar: source1Scalar,
 				source2Scalar: source2Scalar,
 				equalityComparer: equalityComparer,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.Uniting<TSourceItem> Uniting<TSourceItem>(this
 			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> source1Scalar,
 			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> source2Scalar,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Uniting<TSourceItem>(
 				source1Scalar: source1Scalar,
 				source2Scalar: source2Scalar,
 				equalityComparer: null,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -30269,7 +30281,7 @@ namespace ObservableComputations
 				source1Scalar: source1Scalar,
 				source2Scalar: source2Scalar,
 				equalityComparer: null,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
@@ -30277,13 +30289,13 @@ namespace ObservableComputations
 			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> source1Scalar,
 			 ObservableComputations.IReadScalar<ObservableCollection<TSourceItem>> source2Scalar,
 			 System.Collections.Generic.IEqualityComparer<TSourceItem> equalityComparer,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Uniting<TSourceItem>(
 				source1Scalar: source1Scalar,
 				source2Scalar: source2Scalar,
 				equalityComparer: equalityComparer,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -30296,20 +30308,20 @@ namespace ObservableComputations
 				source1Scalar: source1Scalar,
 				source2Scalar: source2Scalar,
 				equalityComparer: equalityComparer,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.Uniting<TSourceItem> Uniting<TSourceItem>(this
 			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> source1Scalar,
 			 ObservableComputations.IReadScalar<ObservableCollection<TSourceItem>> source2Scalar,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Uniting<TSourceItem>(
 				source1Scalar: source1Scalar,
 				source2Scalar: source2Scalar,
 				equalityComparer: null,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -30321,7 +30333,7 @@ namespace ObservableComputations
 				source1Scalar: source1Scalar,
 				source2Scalar: source2Scalar,
 				equalityComparer: null,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
@@ -30329,13 +30341,13 @@ namespace ObservableComputations
 			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> source1Scalar,
 			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> source2Expression,
 			 System.Collections.Generic.IEqualityComparer<TSourceItem> equalityComparer,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Uniting<TSourceItem>(
 				source1Scalar: source1Scalar,
 				source2Scalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(source2Expression),
 				equalityComparer: equalityComparer,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -30348,20 +30360,20 @@ namespace ObservableComputations
 				source1Scalar: source1Scalar,
 				source2Scalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(source2Expression),
 				equalityComparer: equalityComparer,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.Uniting<TSourceItem> Uniting<TSourceItem>(this
 			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> source1Scalar,
 			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> source2Expression,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Uniting<TSourceItem>(
 				source1Scalar: source1Scalar,
 				source2Scalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(source2Expression),
 				equalityComparer: null,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -30373,7 +30385,7 @@ namespace ObservableComputations
 				source1Scalar: source1Scalar,
 				source2Scalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(source2Expression),
 				equalityComparer: null,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
@@ -30381,13 +30393,13 @@ namespace ObservableComputations
 			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> source1Scalar,
 			 Expression<Func<ObservableCollection<TSourceItem>>> source2Expression,
 			 System.Collections.Generic.IEqualityComparer<TSourceItem> equalityComparer,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Uniting<TSourceItem>(
 				source1Scalar: source1Scalar,
 				source2Scalar: new Computing<ObservableCollection<TSourceItem>>(source2Expression),
 				equalityComparer: equalityComparer,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -30400,20 +30412,20 @@ namespace ObservableComputations
 				source1Scalar: source1Scalar,
 				source2Scalar: new Computing<ObservableCollection<TSourceItem>>(source2Expression),
 				equalityComparer: equalityComparer,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.Uniting<TSourceItem> Uniting<TSourceItem>(this
 			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> source1Scalar,
 			 Expression<Func<ObservableCollection<TSourceItem>>> source2Expression,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Uniting<TSourceItem>(
 				source1Scalar: source1Scalar,
 				source2Scalar: new Computing<ObservableCollection<TSourceItem>>(source2Expression),
 				equalityComparer: null,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -30425,7 +30437,7 @@ namespace ObservableComputations
 				source1Scalar: source1Scalar,
 				source2Scalar: new Computing<ObservableCollection<TSourceItem>>(source2Expression),
 				equalityComparer: null,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
@@ -30433,13 +30445,13 @@ namespace ObservableComputations
 			 ObservableComputations.IReadScalar<ObservableCollection<TSourceItem>> source1Scalar,
 			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> source2Scalar,
 			 System.Collections.Generic.IEqualityComparer<TSourceItem> equalityComparer,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Uniting<TSourceItem>(
 				source1Scalar: source1Scalar,
 				source2Scalar: source2Scalar,
 				equalityComparer: equalityComparer,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -30452,20 +30464,20 @@ namespace ObservableComputations
 				source1Scalar: source1Scalar,
 				source2Scalar: source2Scalar,
 				equalityComparer: equalityComparer,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.Uniting<TSourceItem> Uniting<TSourceItem>(this
 			 ObservableComputations.IReadScalar<ObservableCollection<TSourceItem>> source1Scalar,
 			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> source2Scalar,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Uniting<TSourceItem>(
 				source1Scalar: source1Scalar,
 				source2Scalar: source2Scalar,
 				equalityComparer: null,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -30477,7 +30489,7 @@ namespace ObservableComputations
 				source1Scalar: source1Scalar,
 				source2Scalar: source2Scalar,
 				equalityComparer: null,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
@@ -30485,13 +30497,13 @@ namespace ObservableComputations
 			 ObservableComputations.IReadScalar<ObservableCollection<TSourceItem>> source1Scalar,
 			 ObservableComputations.IReadScalar<ObservableCollection<TSourceItem>> source2Scalar,
 			 System.Collections.Generic.IEqualityComparer<TSourceItem> equalityComparer,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Uniting<TSourceItem>(
 				source1Scalar: source1Scalar,
 				source2Scalar: source2Scalar,
 				equalityComparer: equalityComparer,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -30504,20 +30516,20 @@ namespace ObservableComputations
 				source1Scalar: source1Scalar,
 				source2Scalar: source2Scalar,
 				equalityComparer: equalityComparer,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.Uniting<TSourceItem> Uniting<TSourceItem>(this
 			 ObservableComputations.IReadScalar<ObservableCollection<TSourceItem>> source1Scalar,
 			 ObservableComputations.IReadScalar<ObservableCollection<TSourceItem>> source2Scalar,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Uniting<TSourceItem>(
 				source1Scalar: source1Scalar,
 				source2Scalar: source2Scalar,
 				equalityComparer: null,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -30529,7 +30541,7 @@ namespace ObservableComputations
 				source1Scalar: source1Scalar,
 				source2Scalar: source2Scalar,
 				equalityComparer: null,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
@@ -30537,13 +30549,13 @@ namespace ObservableComputations
 			 ObservableComputations.IReadScalar<ObservableCollection<TSourceItem>> source1Scalar,
 			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> source2Expression,
 			 System.Collections.Generic.IEqualityComparer<TSourceItem> equalityComparer,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Uniting<TSourceItem>(
 				source1Scalar: source1Scalar,
 				source2Scalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(source2Expression),
 				equalityComparer: equalityComparer,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -30556,20 +30568,20 @@ namespace ObservableComputations
 				source1Scalar: source1Scalar,
 				source2Scalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(source2Expression),
 				equalityComparer: equalityComparer,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.Uniting<TSourceItem> Uniting<TSourceItem>(this
 			 ObservableComputations.IReadScalar<ObservableCollection<TSourceItem>> source1Scalar,
 			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> source2Expression,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Uniting<TSourceItem>(
 				source1Scalar: source1Scalar,
 				source2Scalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(source2Expression),
 				equalityComparer: null,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -30581,7 +30593,7 @@ namespace ObservableComputations
 				source1Scalar: source1Scalar,
 				source2Scalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(source2Expression),
 				equalityComparer: null,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
@@ -30589,13 +30601,13 @@ namespace ObservableComputations
 			 ObservableComputations.IReadScalar<ObservableCollection<TSourceItem>> source1Scalar,
 			 Expression<Func<ObservableCollection<TSourceItem>>> source2Expression,
 			 System.Collections.Generic.IEqualityComparer<TSourceItem> equalityComparer,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Uniting<TSourceItem>(
 				source1Scalar: source1Scalar,
 				source2Scalar: new Computing<ObservableCollection<TSourceItem>>(source2Expression),
 				equalityComparer: equalityComparer,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -30608,20 +30620,20 @@ namespace ObservableComputations
 				source1Scalar: source1Scalar,
 				source2Scalar: new Computing<ObservableCollection<TSourceItem>>(source2Expression),
 				equalityComparer: equalityComparer,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.Uniting<TSourceItem> Uniting<TSourceItem>(this
 			 ObservableComputations.IReadScalar<ObservableCollection<TSourceItem>> source1Scalar,
 			 Expression<Func<ObservableCollection<TSourceItem>>> source2Expression,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Uniting<TSourceItem>(
 				source1Scalar: source1Scalar,
 				source2Scalar: new Computing<ObservableCollection<TSourceItem>>(source2Expression),
 				equalityComparer: null,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -30633,7 +30645,7 @@ namespace ObservableComputations
 				source1Scalar: source1Scalar,
 				source2Scalar: new Computing<ObservableCollection<TSourceItem>>(source2Expression),
 				equalityComparer: null,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
@@ -30641,13 +30653,13 @@ namespace ObservableComputations
 			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> source1Expression,
 			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> source2Scalar,
 			 System.Collections.Generic.IEqualityComparer<TSourceItem> equalityComparer,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Uniting<TSourceItem>(
 				source1Scalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(source1Expression),
 				source2Scalar: source2Scalar,
 				equalityComparer: equalityComparer,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -30660,20 +30672,20 @@ namespace ObservableComputations
 				source1Scalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(source1Expression),
 				source2Scalar: source2Scalar,
 				equalityComparer: equalityComparer,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.Uniting<TSourceItem> Uniting<TSourceItem>(this
 			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> source1Expression,
 			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> source2Scalar,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Uniting<TSourceItem>(
 				source1Scalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(source1Expression),
 				source2Scalar: source2Scalar,
 				equalityComparer: null,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -30685,7 +30697,7 @@ namespace ObservableComputations
 				source1Scalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(source1Expression),
 				source2Scalar: source2Scalar,
 				equalityComparer: null,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
@@ -30693,13 +30705,13 @@ namespace ObservableComputations
 			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> source1Expression,
 			 ObservableComputations.IReadScalar<ObservableCollection<TSourceItem>> source2Scalar,
 			 System.Collections.Generic.IEqualityComparer<TSourceItem> equalityComparer,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Uniting<TSourceItem>(
 				source1Scalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(source1Expression),
 				source2Scalar: source2Scalar,
 				equalityComparer: equalityComparer,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -30712,20 +30724,20 @@ namespace ObservableComputations
 				source1Scalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(source1Expression),
 				source2Scalar: source2Scalar,
 				equalityComparer: equalityComparer,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.Uniting<TSourceItem> Uniting<TSourceItem>(this
 			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> source1Expression,
 			 ObservableComputations.IReadScalar<ObservableCollection<TSourceItem>> source2Scalar,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Uniting<TSourceItem>(
 				source1Scalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(source1Expression),
 				source2Scalar: source2Scalar,
 				equalityComparer: null,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -30737,7 +30749,7 @@ namespace ObservableComputations
 				source1Scalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(source1Expression),
 				source2Scalar: source2Scalar,
 				equalityComparer: null,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
@@ -30745,13 +30757,13 @@ namespace ObservableComputations
 			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> source1Expression,
 			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> source2Expression,
 			 System.Collections.Generic.IEqualityComparer<TSourceItem> equalityComparer,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Uniting<TSourceItem>(
 				source1Scalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(source1Expression),
 				source2Scalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(source2Expression),
 				equalityComparer: equalityComparer,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -30764,20 +30776,20 @@ namespace ObservableComputations
 				source1Scalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(source1Expression),
 				source2Scalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(source2Expression),
 				equalityComparer: equalityComparer,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.Uniting<TSourceItem> Uniting<TSourceItem>(this
 			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> source1Expression,
 			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> source2Expression,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Uniting<TSourceItem>(
 				source1Scalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(source1Expression),
 				source2Scalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(source2Expression),
 				equalityComparer: null,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -30789,7 +30801,7 @@ namespace ObservableComputations
 				source1Scalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(source1Expression),
 				source2Scalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(source2Expression),
 				equalityComparer: null,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
@@ -30797,13 +30809,13 @@ namespace ObservableComputations
 			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> source1Expression,
 			 Expression<Func<ObservableCollection<TSourceItem>>> source2Expression,
 			 System.Collections.Generic.IEqualityComparer<TSourceItem> equalityComparer,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Uniting<TSourceItem>(
 				source1Scalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(source1Expression),
 				source2Scalar: new Computing<ObservableCollection<TSourceItem>>(source2Expression),
 				equalityComparer: equalityComparer,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -30816,20 +30828,20 @@ namespace ObservableComputations
 				source1Scalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(source1Expression),
 				source2Scalar: new Computing<ObservableCollection<TSourceItem>>(source2Expression),
 				equalityComparer: equalityComparer,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.Uniting<TSourceItem> Uniting<TSourceItem>(this
 			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> source1Expression,
 			 Expression<Func<ObservableCollection<TSourceItem>>> source2Expression,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Uniting<TSourceItem>(
 				source1Scalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(source1Expression),
 				source2Scalar: new Computing<ObservableCollection<TSourceItem>>(source2Expression),
 				equalityComparer: null,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -30841,7 +30853,7 @@ namespace ObservableComputations
 				source1Scalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(source1Expression),
 				source2Scalar: new Computing<ObservableCollection<TSourceItem>>(source2Expression),
 				equalityComparer: null,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
@@ -30849,13 +30861,13 @@ namespace ObservableComputations
 			 Expression<Func<ObservableCollection<TSourceItem>>> source1Expression,
 			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> source2Scalar,
 			 System.Collections.Generic.IEqualityComparer<TSourceItem> equalityComparer,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Uniting<TSourceItem>(
 				source1Scalar: new Computing<ObservableCollection<TSourceItem>>(source1Expression),
 				source2Scalar: source2Scalar,
 				equalityComparer: equalityComparer,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -30868,20 +30880,20 @@ namespace ObservableComputations
 				source1Scalar: new Computing<ObservableCollection<TSourceItem>>(source1Expression),
 				source2Scalar: source2Scalar,
 				equalityComparer: equalityComparer,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.Uniting<TSourceItem> Uniting<TSourceItem>(this
 			 Expression<Func<ObservableCollection<TSourceItem>>> source1Expression,
 			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> source2Scalar,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Uniting<TSourceItem>(
 				source1Scalar: new Computing<ObservableCollection<TSourceItem>>(source1Expression),
 				source2Scalar: source2Scalar,
 				equalityComparer: null,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -30893,7 +30905,7 @@ namespace ObservableComputations
 				source1Scalar: new Computing<ObservableCollection<TSourceItem>>(source1Expression),
 				source2Scalar: source2Scalar,
 				equalityComparer: null,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
@@ -30901,13 +30913,13 @@ namespace ObservableComputations
 			 Expression<Func<ObservableCollection<TSourceItem>>> source1Expression,
 			 ObservableComputations.IReadScalar<ObservableCollection<TSourceItem>> source2Scalar,
 			 System.Collections.Generic.IEqualityComparer<TSourceItem> equalityComparer,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Uniting<TSourceItem>(
 				source1Scalar: new Computing<ObservableCollection<TSourceItem>>(source1Expression),
 				source2Scalar: source2Scalar,
 				equalityComparer: equalityComparer,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -30920,20 +30932,20 @@ namespace ObservableComputations
 				source1Scalar: new Computing<ObservableCollection<TSourceItem>>(source1Expression),
 				source2Scalar: source2Scalar,
 				equalityComparer: equalityComparer,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.Uniting<TSourceItem> Uniting<TSourceItem>(this
 			 Expression<Func<ObservableCollection<TSourceItem>>> source1Expression,
 			 ObservableComputations.IReadScalar<ObservableCollection<TSourceItem>> source2Scalar,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Uniting<TSourceItem>(
 				source1Scalar: new Computing<ObservableCollection<TSourceItem>>(source1Expression),
 				source2Scalar: source2Scalar,
 				equalityComparer: null,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -30945,7 +30957,7 @@ namespace ObservableComputations
 				source1Scalar: new Computing<ObservableCollection<TSourceItem>>(source1Expression),
 				source2Scalar: source2Scalar,
 				equalityComparer: null,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
@@ -30953,13 +30965,13 @@ namespace ObservableComputations
 			 Expression<Func<ObservableCollection<TSourceItem>>> source1Expression,
 			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> source2Expression,
 			 System.Collections.Generic.IEqualityComparer<TSourceItem> equalityComparer,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Uniting<TSourceItem>(
 				source1Scalar: new Computing<ObservableCollection<TSourceItem>>(source1Expression),
 				source2Scalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(source2Expression),
 				equalityComparer: equalityComparer,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -30972,20 +30984,20 @@ namespace ObservableComputations
 				source1Scalar: new Computing<ObservableCollection<TSourceItem>>(source1Expression),
 				source2Scalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(source2Expression),
 				equalityComparer: equalityComparer,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.Uniting<TSourceItem> Uniting<TSourceItem>(this
 			 Expression<Func<ObservableCollection<TSourceItem>>> source1Expression,
 			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> source2Expression,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Uniting<TSourceItem>(
 				source1Scalar: new Computing<ObservableCollection<TSourceItem>>(source1Expression),
 				source2Scalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(source2Expression),
 				equalityComparer: null,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -30997,7 +31009,7 @@ namespace ObservableComputations
 				source1Scalar: new Computing<ObservableCollection<TSourceItem>>(source1Expression),
 				source2Scalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(source2Expression),
 				equalityComparer: null,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
@@ -31005,13 +31017,13 @@ namespace ObservableComputations
 			 Expression<Func<ObservableCollection<TSourceItem>>> source1Expression,
 			 Expression<Func<ObservableCollection<TSourceItem>>> source2Expression,
 			 System.Collections.Generic.IEqualityComparer<TSourceItem> equalityComparer,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Uniting<TSourceItem>(
 				source1Scalar: new Computing<ObservableCollection<TSourceItem>>(source1Expression),
 				source2Scalar: new Computing<ObservableCollection<TSourceItem>>(source2Expression),
 				equalityComparer: equalityComparer,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -31024,20 +31036,20 @@ namespace ObservableComputations
 				source1Scalar: new Computing<ObservableCollection<TSourceItem>>(source1Expression),
 				source2Scalar: new Computing<ObservableCollection<TSourceItem>>(source2Expression),
 				equalityComparer: equalityComparer,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.Uniting<TSourceItem> Uniting<TSourceItem>(this
 			 Expression<Func<ObservableCollection<TSourceItem>>> source1Expression,
 			 Expression<Func<ObservableCollection<TSourceItem>>> source2Expression,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Uniting<TSourceItem>(
 				source1Scalar: new Computing<ObservableCollection<TSourceItem>>(source1Expression),
 				source2Scalar: new Computing<ObservableCollection<TSourceItem>>(source2Expression),
 				equalityComparer: null,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -31049,7 +31061,7 @@ namespace ObservableComputations
 				source1Scalar: new Computing<ObservableCollection<TSourceItem>>(source1Expression),
 				source2Scalar: new Computing<ObservableCollection<TSourceItem>>(source2Expression),
 				equalityComparer: null,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
@@ -31057,13 +31069,13 @@ namespace ObservableComputations
 			 System.Collections.Specialized.INotifyCollectionChanged source1,
 			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> source2Scalar,
 			 System.Collections.Generic.IEqualityComparer<TSourceItem> equalityComparer,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Uniting<TSourceItem>(
 				source1: source1,
 				source2Scalar: source2Scalar,
 				equalityComparer: equalityComparer,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -31076,20 +31088,20 @@ namespace ObservableComputations
 				source1: source1,
 				source2Scalar: source2Scalar,
 				equalityComparer: equalityComparer,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.Uniting<TSourceItem> Uniting<TSourceItem>(this
 			 System.Collections.Specialized.INotifyCollectionChanged source1,
 			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> source2Scalar,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Uniting<TSourceItem>(
 				source1: source1,
 				source2Scalar: source2Scalar,
 				equalityComparer: null,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -31101,7 +31113,7 @@ namespace ObservableComputations
 				source1: source1,
 				source2Scalar: source2Scalar,
 				equalityComparer: null,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
@@ -31109,13 +31121,13 @@ namespace ObservableComputations
 			 System.Collections.Specialized.INotifyCollectionChanged source1,
 			 ObservableComputations.IReadScalar<ObservableCollection<TSourceItem>> source2Scalar,
 			 System.Collections.Generic.IEqualityComparer<TSourceItem> equalityComparer,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Uniting<TSourceItem>(
 				source1: source1,
 				source2Scalar: source2Scalar,
 				equalityComparer: equalityComparer,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -31128,20 +31140,20 @@ namespace ObservableComputations
 				source1: source1,
 				source2Scalar: source2Scalar,
 				equalityComparer: equalityComparer,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.Uniting<TSourceItem> Uniting<TSourceItem>(this
 			 System.Collections.Specialized.INotifyCollectionChanged source1,
 			 ObservableComputations.IReadScalar<ObservableCollection<TSourceItem>> source2Scalar,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Uniting<TSourceItem>(
 				source1: source1,
 				source2Scalar: source2Scalar,
 				equalityComparer: null,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -31153,7 +31165,7 @@ namespace ObservableComputations
 				source1: source1,
 				source2Scalar: source2Scalar,
 				equalityComparer: null,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
@@ -31161,13 +31173,13 @@ namespace ObservableComputations
 			 System.Collections.Specialized.INotifyCollectionChanged source1,
 			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> source2Expression,
 			 System.Collections.Generic.IEqualityComparer<TSourceItem> equalityComparer,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Uniting<TSourceItem>(
 				source1: source1,
 				source2Scalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(source2Expression),
 				equalityComparer: equalityComparer,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -31180,20 +31192,20 @@ namespace ObservableComputations
 				source1: source1,
 				source2Scalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(source2Expression),
 				equalityComparer: equalityComparer,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.Uniting<TSourceItem> Uniting<TSourceItem>(this
 			 System.Collections.Specialized.INotifyCollectionChanged source1,
 			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> source2Expression,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Uniting<TSourceItem>(
 				source1: source1,
 				source2Scalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(source2Expression),
 				equalityComparer: null,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -31205,7 +31217,7 @@ namespace ObservableComputations
 				source1: source1,
 				source2Scalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(source2Expression),
 				equalityComparer: null,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
@@ -31213,13 +31225,13 @@ namespace ObservableComputations
 			 System.Collections.Specialized.INotifyCollectionChanged source1,
 			 Expression<Func<ObservableCollection<TSourceItem>>> source2Expression,
 			 System.Collections.Generic.IEqualityComparer<TSourceItem> equalityComparer,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Uniting<TSourceItem>(
 				source1: source1,
 				source2Scalar: new Computing<ObservableCollection<TSourceItem>>(source2Expression),
 				equalityComparer: equalityComparer,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -31232,20 +31244,20 @@ namespace ObservableComputations
 				source1: source1,
 				source2Scalar: new Computing<ObservableCollection<TSourceItem>>(source2Expression),
 				equalityComparer: equalityComparer,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.Uniting<TSourceItem> Uniting<TSourceItem>(this
 			 System.Collections.Specialized.INotifyCollectionChanged source1,
 			 Expression<Func<ObservableCollection<TSourceItem>>> source2Expression,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Uniting<TSourceItem>(
 				source1: source1,
 				source2Scalar: new Computing<ObservableCollection<TSourceItem>>(source2Expression),
 				equalityComparer: null,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -31257,7 +31269,7 @@ namespace ObservableComputations
 				source1: source1,
 				source2Scalar: new Computing<ObservableCollection<TSourceItem>>(source2Expression),
 				equalityComparer: null,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
@@ -31265,13 +31277,13 @@ namespace ObservableComputations
 			 ObservableCollection<TSourceItem> source1,
 			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> source2Scalar,
 			 System.Collections.Generic.IEqualityComparer<TSourceItem> equalityComparer,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Uniting<TSourceItem>(
 				source1: source1,
 				source2Scalar: source2Scalar,
 				equalityComparer: equalityComparer,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -31284,20 +31296,20 @@ namespace ObservableComputations
 				source1: source1,
 				source2Scalar: source2Scalar,
 				equalityComparer: equalityComparer,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.Uniting<TSourceItem> Uniting<TSourceItem>(this
 			 ObservableCollection<TSourceItem> source1,
 			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> source2Scalar,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Uniting<TSourceItem>(
 				source1: source1,
 				source2Scalar: source2Scalar,
 				equalityComparer: null,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -31309,7 +31321,7 @@ namespace ObservableComputations
 				source1: source1,
 				source2Scalar: source2Scalar,
 				equalityComparer: null,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
@@ -31317,13 +31329,13 @@ namespace ObservableComputations
 			 ObservableCollection<TSourceItem> source1,
 			 ObservableComputations.IReadScalar<ObservableCollection<TSourceItem>> source2Scalar,
 			 System.Collections.Generic.IEqualityComparer<TSourceItem> equalityComparer,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Uniting<TSourceItem>(
 				source1: source1,
 				source2Scalar: source2Scalar,
 				equalityComparer: equalityComparer,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -31336,20 +31348,20 @@ namespace ObservableComputations
 				source1: source1,
 				source2Scalar: source2Scalar,
 				equalityComparer: equalityComparer,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.Uniting<TSourceItem> Uniting<TSourceItem>(this
 			 ObservableCollection<TSourceItem> source1,
 			 ObservableComputations.IReadScalar<ObservableCollection<TSourceItem>> source2Scalar,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Uniting<TSourceItem>(
 				source1: source1,
 				source2Scalar: source2Scalar,
 				equalityComparer: null,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -31361,7 +31373,7 @@ namespace ObservableComputations
 				source1: source1,
 				source2Scalar: source2Scalar,
 				equalityComparer: null,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
@@ -31369,13 +31381,13 @@ namespace ObservableComputations
 			 ObservableCollection<TSourceItem> source1,
 			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> source2Expression,
 			 System.Collections.Generic.IEqualityComparer<TSourceItem> equalityComparer,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Uniting<TSourceItem>(
 				source1: source1,
 				source2Scalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(source2Expression),
 				equalityComparer: equalityComparer,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -31388,20 +31400,20 @@ namespace ObservableComputations
 				source1: source1,
 				source2Scalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(source2Expression),
 				equalityComparer: equalityComparer,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.Uniting<TSourceItem> Uniting<TSourceItem>(this
 			 ObservableCollection<TSourceItem> source1,
 			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> source2Expression,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Uniting<TSourceItem>(
 				source1: source1,
 				source2Scalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(source2Expression),
 				equalityComparer: null,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -31413,7 +31425,7 @@ namespace ObservableComputations
 				source1: source1,
 				source2Scalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(source2Expression),
 				equalityComparer: null,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
@@ -31421,13 +31433,13 @@ namespace ObservableComputations
 			 ObservableCollection<TSourceItem> source1,
 			 Expression<Func<ObservableCollection<TSourceItem>>> source2Expression,
 			 System.Collections.Generic.IEqualityComparer<TSourceItem> equalityComparer,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Uniting<TSourceItem>(
 				source1: source1,
 				source2Scalar: new Computing<ObservableCollection<TSourceItem>>(source2Expression),
 				equalityComparer: equalityComparer,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -31440,20 +31452,20 @@ namespace ObservableComputations
 				source1: source1,
 				source2Scalar: new Computing<ObservableCollection<TSourceItem>>(source2Expression),
 				equalityComparer: equalityComparer,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.Uniting<TSourceItem> Uniting<TSourceItem>(this
 			 ObservableCollection<TSourceItem> source1,
 			 Expression<Func<ObservableCollection<TSourceItem>>> source2Expression,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Uniting<TSourceItem>(
 				source1: source1,
 				source2Scalar: new Computing<ObservableCollection<TSourceItem>>(source2Expression),
 				equalityComparer: null,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -31465,7 +31477,7 @@ namespace ObservableComputations
 				source1: source1,
 				source2Scalar: new Computing<ObservableCollection<TSourceItem>>(source2Expression),
 				equalityComparer: null,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
@@ -31473,13 +31485,13 @@ namespace ObservableComputations
 			 System.Collections.Specialized.INotifyCollectionChanged source1,
 			 System.Collections.Specialized.INotifyCollectionChanged source2,
 			 ObservableComputations.IReadScalar<System.Collections.Generic.IEqualityComparer<TSourceItem>> equalityComparerScalar,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Uniting<TSourceItem>(
 				source1: source1,
 				source2: source2,
 				equalityComparerScalar: equalityComparerScalar,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -31492,7 +31504,7 @@ namespace ObservableComputations
 				source1: source1,
 				source2: source2,
 				equalityComparerScalar: equalityComparerScalar,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
@@ -31500,13 +31512,13 @@ namespace ObservableComputations
 			 System.Collections.Specialized.INotifyCollectionChanged source1,
 			 System.Collections.Specialized.INotifyCollectionChanged source2,
 			 Expression<Func<System.Collections.Generic.IEqualityComparer<TSourceItem>>> equalityComparerExpression,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Uniting<TSourceItem>(
 				source1: source1,
 				source2: source2,
 				equalityComparerScalar: new Computing<System.Collections.Generic.IEqualityComparer<TSourceItem>>(equalityComparerExpression),
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -31519,7 +31531,7 @@ namespace ObservableComputations
 				source1: source1,
 				source2: source2,
 				equalityComparerScalar: new Computing<System.Collections.Generic.IEqualityComparer<TSourceItem>>(equalityComparerExpression),
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
@@ -31527,13 +31539,13 @@ namespace ObservableComputations
 			 System.Collections.Specialized.INotifyCollectionChanged source1,
 			 ObservableCollection<TSourceItem> source2,
 			 ObservableComputations.IReadScalar<System.Collections.Generic.IEqualityComparer<TSourceItem>> equalityComparerScalar,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Uniting<TSourceItem>(
 				source1: source1,
 				source2: source2,
 				equalityComparerScalar: equalityComparerScalar,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -31546,7 +31558,7 @@ namespace ObservableComputations
 				source1: source1,
 				source2: source2,
 				equalityComparerScalar: equalityComparerScalar,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
@@ -31554,13 +31566,13 @@ namespace ObservableComputations
 			 System.Collections.Specialized.INotifyCollectionChanged source1,
 			 ObservableCollection<TSourceItem> source2,
 			 Expression<Func<System.Collections.Generic.IEqualityComparer<TSourceItem>>> equalityComparerExpression,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Uniting<TSourceItem>(
 				source1: source1,
 				source2: source2,
 				equalityComparerScalar: new Computing<System.Collections.Generic.IEqualityComparer<TSourceItem>>(equalityComparerExpression),
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -31573,7 +31585,7 @@ namespace ObservableComputations
 				source1: source1,
 				source2: source2,
 				equalityComparerScalar: new Computing<System.Collections.Generic.IEqualityComparer<TSourceItem>>(equalityComparerExpression),
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
@@ -31581,13 +31593,13 @@ namespace ObservableComputations
 			 ObservableCollection<TSourceItem> source1,
 			 System.Collections.Specialized.INotifyCollectionChanged source2,
 			 ObservableComputations.IReadScalar<System.Collections.Generic.IEqualityComparer<TSourceItem>> equalityComparerScalar,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Uniting<TSourceItem>(
 				source1: source1,
 				source2: source2,
 				equalityComparerScalar: equalityComparerScalar,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -31600,7 +31612,7 @@ namespace ObservableComputations
 				source1: source1,
 				source2: source2,
 				equalityComparerScalar: equalityComparerScalar,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
@@ -31608,13 +31620,13 @@ namespace ObservableComputations
 			 ObservableCollection<TSourceItem> source1,
 			 System.Collections.Specialized.INotifyCollectionChanged source2,
 			 Expression<Func<System.Collections.Generic.IEqualityComparer<TSourceItem>>> equalityComparerExpression,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Uniting<TSourceItem>(
 				source1: source1,
 				source2: source2,
 				equalityComparerScalar: new Computing<System.Collections.Generic.IEqualityComparer<TSourceItem>>(equalityComparerExpression),
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -31627,7 +31639,7 @@ namespace ObservableComputations
 				source1: source1,
 				source2: source2,
 				equalityComparerScalar: new Computing<System.Collections.Generic.IEqualityComparer<TSourceItem>>(equalityComparerExpression),
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
@@ -31635,13 +31647,13 @@ namespace ObservableComputations
 			 ObservableCollection<TSourceItem> source1,
 			 ObservableCollection<TSourceItem> source2,
 			 ObservableComputations.IReadScalar<System.Collections.Generic.IEqualityComparer<TSourceItem>> equalityComparerScalar,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Uniting<TSourceItem>(
 				source1: source1,
 				source2: source2,
 				equalityComparerScalar: equalityComparerScalar,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -31654,7 +31666,7 @@ namespace ObservableComputations
 				source1: source1,
 				source2: source2,
 				equalityComparerScalar: equalityComparerScalar,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
@@ -31662,13 +31674,13 @@ namespace ObservableComputations
 			 ObservableCollection<TSourceItem> source1,
 			 ObservableCollection<TSourceItem> source2,
 			 Expression<Func<System.Collections.Generic.IEqualityComparer<TSourceItem>>> equalityComparerExpression,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Uniting<TSourceItem>(
 				source1: source1,
 				source2: source2,
 				equalityComparerScalar: new Computing<System.Collections.Generic.IEqualityComparer<TSourceItem>>(equalityComparerExpression),
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -31681,7 +31693,7 @@ namespace ObservableComputations
 				source1: source1,
 				source2: source2,
 				equalityComparerScalar: new Computing<System.Collections.Generic.IEqualityComparer<TSourceItem>>(equalityComparerExpression),
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
@@ -31689,13 +31701,13 @@ namespace ObservableComputations
 			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> source1Scalar,
 			 System.Collections.Specialized.INotifyCollectionChanged source2,
 			 ObservableComputations.IReadScalar<System.Collections.Generic.IEqualityComparer<TSourceItem>> equalityComparerScalar,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Uniting<TSourceItem>(
 				source1Scalar: source1Scalar,
 				source2: source2,
 				equalityComparerScalar: equalityComparerScalar,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -31708,7 +31720,7 @@ namespace ObservableComputations
 				source1Scalar: source1Scalar,
 				source2: source2,
 				equalityComparerScalar: equalityComparerScalar,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
@@ -31716,13 +31728,13 @@ namespace ObservableComputations
 			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> source1Scalar,
 			 System.Collections.Specialized.INotifyCollectionChanged source2,
 			 Expression<Func<System.Collections.Generic.IEqualityComparer<TSourceItem>>> equalityComparerExpression,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Uniting<TSourceItem>(
 				source1Scalar: source1Scalar,
 				source2: source2,
 				equalityComparerScalar: new Computing<System.Collections.Generic.IEqualityComparer<TSourceItem>>(equalityComparerExpression),
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -31735,7 +31747,7 @@ namespace ObservableComputations
 				source1Scalar: source1Scalar,
 				source2: source2,
 				equalityComparerScalar: new Computing<System.Collections.Generic.IEqualityComparer<TSourceItem>>(equalityComparerExpression),
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
@@ -31743,13 +31755,13 @@ namespace ObservableComputations
 			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> source1Scalar,
 			 ObservableCollection<TSourceItem> source2,
 			 ObservableComputations.IReadScalar<System.Collections.Generic.IEqualityComparer<TSourceItem>> equalityComparerScalar,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Uniting<TSourceItem>(
 				source1Scalar: source1Scalar,
 				source2: source2,
 				equalityComparerScalar: equalityComparerScalar,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -31762,7 +31774,7 @@ namespace ObservableComputations
 				source1Scalar: source1Scalar,
 				source2: source2,
 				equalityComparerScalar: equalityComparerScalar,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
@@ -31770,13 +31782,13 @@ namespace ObservableComputations
 			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> source1Scalar,
 			 ObservableCollection<TSourceItem> source2,
 			 Expression<Func<System.Collections.Generic.IEqualityComparer<TSourceItem>>> equalityComparerExpression,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Uniting<TSourceItem>(
 				source1Scalar: source1Scalar,
 				source2: source2,
 				equalityComparerScalar: new Computing<System.Collections.Generic.IEqualityComparer<TSourceItem>>(equalityComparerExpression),
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -31789,7 +31801,7 @@ namespace ObservableComputations
 				source1Scalar: source1Scalar,
 				source2: source2,
 				equalityComparerScalar: new Computing<System.Collections.Generic.IEqualityComparer<TSourceItem>>(equalityComparerExpression),
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
@@ -31797,13 +31809,13 @@ namespace ObservableComputations
 			 ObservableComputations.IReadScalar<ObservableCollection<TSourceItem>> source1Scalar,
 			 System.Collections.Specialized.INotifyCollectionChanged source2,
 			 ObservableComputations.IReadScalar<System.Collections.Generic.IEqualityComparer<TSourceItem>> equalityComparerScalar,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Uniting<TSourceItem>(
 				source1Scalar: source1Scalar,
 				source2: source2,
 				equalityComparerScalar: equalityComparerScalar,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -31816,7 +31828,7 @@ namespace ObservableComputations
 				source1Scalar: source1Scalar,
 				source2: source2,
 				equalityComparerScalar: equalityComparerScalar,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
@@ -31824,13 +31836,13 @@ namespace ObservableComputations
 			 ObservableComputations.IReadScalar<ObservableCollection<TSourceItem>> source1Scalar,
 			 System.Collections.Specialized.INotifyCollectionChanged source2,
 			 Expression<Func<System.Collections.Generic.IEqualityComparer<TSourceItem>>> equalityComparerExpression,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Uniting<TSourceItem>(
 				source1Scalar: source1Scalar,
 				source2: source2,
 				equalityComparerScalar: new Computing<System.Collections.Generic.IEqualityComparer<TSourceItem>>(equalityComparerExpression),
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -31843,7 +31855,7 @@ namespace ObservableComputations
 				source1Scalar: source1Scalar,
 				source2: source2,
 				equalityComparerScalar: new Computing<System.Collections.Generic.IEqualityComparer<TSourceItem>>(equalityComparerExpression),
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
@@ -31851,13 +31863,13 @@ namespace ObservableComputations
 			 ObservableComputations.IReadScalar<ObservableCollection<TSourceItem>> source1Scalar,
 			 ObservableCollection<TSourceItem> source2,
 			 ObservableComputations.IReadScalar<System.Collections.Generic.IEqualityComparer<TSourceItem>> equalityComparerScalar,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Uniting<TSourceItem>(
 				source1Scalar: source1Scalar,
 				source2: source2,
 				equalityComparerScalar: equalityComparerScalar,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -31870,7 +31882,7 @@ namespace ObservableComputations
 				source1Scalar: source1Scalar,
 				source2: source2,
 				equalityComparerScalar: equalityComparerScalar,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
@@ -31878,13 +31890,13 @@ namespace ObservableComputations
 			 ObservableComputations.IReadScalar<ObservableCollection<TSourceItem>> source1Scalar,
 			 ObservableCollection<TSourceItem> source2,
 			 Expression<Func<System.Collections.Generic.IEqualityComparer<TSourceItem>>> equalityComparerExpression,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Uniting<TSourceItem>(
 				source1Scalar: source1Scalar,
 				source2: source2,
 				equalityComparerScalar: new Computing<System.Collections.Generic.IEqualityComparer<TSourceItem>>(equalityComparerExpression),
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -31897,7 +31909,7 @@ namespace ObservableComputations
 				source1Scalar: source1Scalar,
 				source2: source2,
 				equalityComparerScalar: new Computing<System.Collections.Generic.IEqualityComparer<TSourceItem>>(equalityComparerExpression),
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
@@ -31905,13 +31917,13 @@ namespace ObservableComputations
 			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> source1Expression,
 			 System.Collections.Specialized.INotifyCollectionChanged source2,
 			 ObservableComputations.IReadScalar<System.Collections.Generic.IEqualityComparer<TSourceItem>> equalityComparerScalar,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Uniting<TSourceItem>(
 				source1Scalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(source1Expression),
 				source2: source2,
 				equalityComparerScalar: equalityComparerScalar,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -31924,7 +31936,7 @@ namespace ObservableComputations
 				source1Scalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(source1Expression),
 				source2: source2,
 				equalityComparerScalar: equalityComparerScalar,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
@@ -31932,13 +31944,13 @@ namespace ObservableComputations
 			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> source1Expression,
 			 System.Collections.Specialized.INotifyCollectionChanged source2,
 			 Expression<Func<System.Collections.Generic.IEqualityComparer<TSourceItem>>> equalityComparerExpression,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Uniting<TSourceItem>(
 				source1Scalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(source1Expression),
 				source2: source2,
 				equalityComparerScalar: new Computing<System.Collections.Generic.IEqualityComparer<TSourceItem>>(equalityComparerExpression),
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -31951,7 +31963,7 @@ namespace ObservableComputations
 				source1Scalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(source1Expression),
 				source2: source2,
 				equalityComparerScalar: new Computing<System.Collections.Generic.IEqualityComparer<TSourceItem>>(equalityComparerExpression),
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
@@ -31959,13 +31971,13 @@ namespace ObservableComputations
 			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> source1Expression,
 			 ObservableCollection<TSourceItem> source2,
 			 ObservableComputations.IReadScalar<System.Collections.Generic.IEqualityComparer<TSourceItem>> equalityComparerScalar,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Uniting<TSourceItem>(
 				source1Scalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(source1Expression),
 				source2: source2,
 				equalityComparerScalar: equalityComparerScalar,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -31978,7 +31990,7 @@ namespace ObservableComputations
 				source1Scalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(source1Expression),
 				source2: source2,
 				equalityComparerScalar: equalityComparerScalar,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
@@ -31986,13 +31998,13 @@ namespace ObservableComputations
 			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> source1Expression,
 			 ObservableCollection<TSourceItem> source2,
 			 Expression<Func<System.Collections.Generic.IEqualityComparer<TSourceItem>>> equalityComparerExpression,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Uniting<TSourceItem>(
 				source1Scalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(source1Expression),
 				source2: source2,
 				equalityComparerScalar: new Computing<System.Collections.Generic.IEqualityComparer<TSourceItem>>(equalityComparerExpression),
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -32005,7 +32017,7 @@ namespace ObservableComputations
 				source1Scalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(source1Expression),
 				source2: source2,
 				equalityComparerScalar: new Computing<System.Collections.Generic.IEqualityComparer<TSourceItem>>(equalityComparerExpression),
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
@@ -32013,13 +32025,13 @@ namespace ObservableComputations
 			 Expression<Func<ObservableCollection<TSourceItem>>> source1Expression,
 			 System.Collections.Specialized.INotifyCollectionChanged source2,
 			 ObservableComputations.IReadScalar<System.Collections.Generic.IEqualityComparer<TSourceItem>> equalityComparerScalar,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Uniting<TSourceItem>(
 				source1Scalar: new Computing<ObservableCollection<TSourceItem>>(source1Expression),
 				source2: source2,
 				equalityComparerScalar: equalityComparerScalar,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -32032,7 +32044,7 @@ namespace ObservableComputations
 				source1Scalar: new Computing<ObservableCollection<TSourceItem>>(source1Expression),
 				source2: source2,
 				equalityComparerScalar: equalityComparerScalar,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
@@ -32040,13 +32052,13 @@ namespace ObservableComputations
 			 Expression<Func<ObservableCollection<TSourceItem>>> source1Expression,
 			 System.Collections.Specialized.INotifyCollectionChanged source2,
 			 Expression<Func<System.Collections.Generic.IEqualityComparer<TSourceItem>>> equalityComparerExpression,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Uniting<TSourceItem>(
 				source1Scalar: new Computing<ObservableCollection<TSourceItem>>(source1Expression),
 				source2: source2,
 				equalityComparerScalar: new Computing<System.Collections.Generic.IEqualityComparer<TSourceItem>>(equalityComparerExpression),
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -32059,7 +32071,7 @@ namespace ObservableComputations
 				source1Scalar: new Computing<ObservableCollection<TSourceItem>>(source1Expression),
 				source2: source2,
 				equalityComparerScalar: new Computing<System.Collections.Generic.IEqualityComparer<TSourceItem>>(equalityComparerExpression),
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
@@ -32067,13 +32079,13 @@ namespace ObservableComputations
 			 Expression<Func<ObservableCollection<TSourceItem>>> source1Expression,
 			 ObservableCollection<TSourceItem> source2,
 			 ObservableComputations.IReadScalar<System.Collections.Generic.IEqualityComparer<TSourceItem>> equalityComparerScalar,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Uniting<TSourceItem>(
 				source1Scalar: new Computing<ObservableCollection<TSourceItem>>(source1Expression),
 				source2: source2,
 				equalityComparerScalar: equalityComparerScalar,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -32086,7 +32098,7 @@ namespace ObservableComputations
 				source1Scalar: new Computing<ObservableCollection<TSourceItem>>(source1Expression),
 				source2: source2,
 				equalityComparerScalar: equalityComparerScalar,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
@@ -32094,13 +32106,13 @@ namespace ObservableComputations
 			 Expression<Func<ObservableCollection<TSourceItem>>> source1Expression,
 			 ObservableCollection<TSourceItem> source2,
 			 Expression<Func<System.Collections.Generic.IEqualityComparer<TSourceItem>>> equalityComparerExpression,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Uniting<TSourceItem>(
 				source1Scalar: new Computing<ObservableCollection<TSourceItem>>(source1Expression),
 				source2: source2,
 				equalityComparerScalar: new Computing<System.Collections.Generic.IEqualityComparer<TSourceItem>>(equalityComparerExpression),
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -32113,7 +32125,7 @@ namespace ObservableComputations
 				source1Scalar: new Computing<ObservableCollection<TSourceItem>>(source1Expression),
 				source2: source2,
 				equalityComparerScalar: new Computing<System.Collections.Generic.IEqualityComparer<TSourceItem>>(equalityComparerExpression),
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
@@ -32121,13 +32133,13 @@ namespace ObservableComputations
 			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> source1Scalar,
 			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> source2Scalar,
 			 ObservableComputations.IReadScalar<System.Collections.Generic.IEqualityComparer<TSourceItem>> equalityComparerScalar,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Uniting<TSourceItem>(
 				source1Scalar: source1Scalar,
 				source2Scalar: source2Scalar,
 				equalityComparerScalar: equalityComparerScalar,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -32140,7 +32152,7 @@ namespace ObservableComputations
 				source1Scalar: source1Scalar,
 				source2Scalar: source2Scalar,
 				equalityComparerScalar: equalityComparerScalar,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
@@ -32148,13 +32160,13 @@ namespace ObservableComputations
 			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> source1Scalar,
 			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> source2Scalar,
 			 Expression<Func<System.Collections.Generic.IEqualityComparer<TSourceItem>>> equalityComparerExpression,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Uniting<TSourceItem>(
 				source1Scalar: source1Scalar,
 				source2Scalar: source2Scalar,
 				equalityComparerScalar: new Computing<System.Collections.Generic.IEqualityComparer<TSourceItem>>(equalityComparerExpression),
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -32167,7 +32179,7 @@ namespace ObservableComputations
 				source1Scalar: source1Scalar,
 				source2Scalar: source2Scalar,
 				equalityComparerScalar: new Computing<System.Collections.Generic.IEqualityComparer<TSourceItem>>(equalityComparerExpression),
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
@@ -32175,13 +32187,13 @@ namespace ObservableComputations
 			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> source1Scalar,
 			 ObservableComputations.IReadScalar<ObservableCollection<TSourceItem>> source2Scalar,
 			 ObservableComputations.IReadScalar<System.Collections.Generic.IEqualityComparer<TSourceItem>> equalityComparerScalar,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Uniting<TSourceItem>(
 				source1Scalar: source1Scalar,
 				source2Scalar: source2Scalar,
 				equalityComparerScalar: equalityComparerScalar,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -32194,7 +32206,7 @@ namespace ObservableComputations
 				source1Scalar: source1Scalar,
 				source2Scalar: source2Scalar,
 				equalityComparerScalar: equalityComparerScalar,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
@@ -32202,13 +32214,13 @@ namespace ObservableComputations
 			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> source1Scalar,
 			 ObservableComputations.IReadScalar<ObservableCollection<TSourceItem>> source2Scalar,
 			 Expression<Func<System.Collections.Generic.IEqualityComparer<TSourceItem>>> equalityComparerExpression,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Uniting<TSourceItem>(
 				source1Scalar: source1Scalar,
 				source2Scalar: source2Scalar,
 				equalityComparerScalar: new Computing<System.Collections.Generic.IEqualityComparer<TSourceItem>>(equalityComparerExpression),
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -32221,7 +32233,7 @@ namespace ObservableComputations
 				source1Scalar: source1Scalar,
 				source2Scalar: source2Scalar,
 				equalityComparerScalar: new Computing<System.Collections.Generic.IEqualityComparer<TSourceItem>>(equalityComparerExpression),
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
@@ -32229,13 +32241,13 @@ namespace ObservableComputations
 			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> source1Scalar,
 			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> source2Expression,
 			 ObservableComputations.IReadScalar<System.Collections.Generic.IEqualityComparer<TSourceItem>> equalityComparerScalar,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Uniting<TSourceItem>(
 				source1Scalar: source1Scalar,
 				source2Scalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(source2Expression),
 				equalityComparerScalar: equalityComparerScalar,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -32248,7 +32260,7 @@ namespace ObservableComputations
 				source1Scalar: source1Scalar,
 				source2Scalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(source2Expression),
 				equalityComparerScalar: equalityComparerScalar,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
@@ -32256,13 +32268,13 @@ namespace ObservableComputations
 			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> source1Scalar,
 			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> source2Expression,
 			 Expression<Func<System.Collections.Generic.IEqualityComparer<TSourceItem>>> equalityComparerExpression,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Uniting<TSourceItem>(
 				source1Scalar: source1Scalar,
 				source2Scalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(source2Expression),
 				equalityComparerScalar: new Computing<System.Collections.Generic.IEqualityComparer<TSourceItem>>(equalityComparerExpression),
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -32275,7 +32287,7 @@ namespace ObservableComputations
 				source1Scalar: source1Scalar,
 				source2Scalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(source2Expression),
 				equalityComparerScalar: new Computing<System.Collections.Generic.IEqualityComparer<TSourceItem>>(equalityComparerExpression),
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
@@ -32283,13 +32295,13 @@ namespace ObservableComputations
 			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> source1Scalar,
 			 Expression<Func<ObservableCollection<TSourceItem>>> source2Expression,
 			 ObservableComputations.IReadScalar<System.Collections.Generic.IEqualityComparer<TSourceItem>> equalityComparerScalar,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Uniting<TSourceItem>(
 				source1Scalar: source1Scalar,
 				source2Scalar: new Computing<ObservableCollection<TSourceItem>>(source2Expression),
 				equalityComparerScalar: equalityComparerScalar,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -32302,7 +32314,7 @@ namespace ObservableComputations
 				source1Scalar: source1Scalar,
 				source2Scalar: new Computing<ObservableCollection<TSourceItem>>(source2Expression),
 				equalityComparerScalar: equalityComparerScalar,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
@@ -32310,13 +32322,13 @@ namespace ObservableComputations
 			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> source1Scalar,
 			 Expression<Func<ObservableCollection<TSourceItem>>> source2Expression,
 			 Expression<Func<System.Collections.Generic.IEqualityComparer<TSourceItem>>> equalityComparerExpression,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Uniting<TSourceItem>(
 				source1Scalar: source1Scalar,
 				source2Scalar: new Computing<ObservableCollection<TSourceItem>>(source2Expression),
 				equalityComparerScalar: new Computing<System.Collections.Generic.IEqualityComparer<TSourceItem>>(equalityComparerExpression),
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -32329,7 +32341,7 @@ namespace ObservableComputations
 				source1Scalar: source1Scalar,
 				source2Scalar: new Computing<ObservableCollection<TSourceItem>>(source2Expression),
 				equalityComparerScalar: new Computing<System.Collections.Generic.IEqualityComparer<TSourceItem>>(equalityComparerExpression),
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
@@ -32337,13 +32349,13 @@ namespace ObservableComputations
 			 ObservableComputations.IReadScalar<ObservableCollection<TSourceItem>> source1Scalar,
 			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> source2Scalar,
 			 ObservableComputations.IReadScalar<System.Collections.Generic.IEqualityComparer<TSourceItem>> equalityComparerScalar,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Uniting<TSourceItem>(
 				source1Scalar: source1Scalar,
 				source2Scalar: source2Scalar,
 				equalityComparerScalar: equalityComparerScalar,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -32356,7 +32368,7 @@ namespace ObservableComputations
 				source1Scalar: source1Scalar,
 				source2Scalar: source2Scalar,
 				equalityComparerScalar: equalityComparerScalar,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
@@ -32364,13 +32376,13 @@ namespace ObservableComputations
 			 ObservableComputations.IReadScalar<ObservableCollection<TSourceItem>> source1Scalar,
 			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> source2Scalar,
 			 Expression<Func<System.Collections.Generic.IEqualityComparer<TSourceItem>>> equalityComparerExpression,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Uniting<TSourceItem>(
 				source1Scalar: source1Scalar,
 				source2Scalar: source2Scalar,
 				equalityComparerScalar: new Computing<System.Collections.Generic.IEqualityComparer<TSourceItem>>(equalityComparerExpression),
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -32383,7 +32395,7 @@ namespace ObservableComputations
 				source1Scalar: source1Scalar,
 				source2Scalar: source2Scalar,
 				equalityComparerScalar: new Computing<System.Collections.Generic.IEqualityComparer<TSourceItem>>(equalityComparerExpression),
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
@@ -32391,13 +32403,13 @@ namespace ObservableComputations
 			 ObservableComputations.IReadScalar<ObservableCollection<TSourceItem>> source1Scalar,
 			 ObservableComputations.IReadScalar<ObservableCollection<TSourceItem>> source2Scalar,
 			 ObservableComputations.IReadScalar<System.Collections.Generic.IEqualityComparer<TSourceItem>> equalityComparerScalar,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Uniting<TSourceItem>(
 				source1Scalar: source1Scalar,
 				source2Scalar: source2Scalar,
 				equalityComparerScalar: equalityComparerScalar,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -32410,7 +32422,7 @@ namespace ObservableComputations
 				source1Scalar: source1Scalar,
 				source2Scalar: source2Scalar,
 				equalityComparerScalar: equalityComparerScalar,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
@@ -32418,13 +32430,13 @@ namespace ObservableComputations
 			 ObservableComputations.IReadScalar<ObservableCollection<TSourceItem>> source1Scalar,
 			 ObservableComputations.IReadScalar<ObservableCollection<TSourceItem>> source2Scalar,
 			 Expression<Func<System.Collections.Generic.IEqualityComparer<TSourceItem>>> equalityComparerExpression,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Uniting<TSourceItem>(
 				source1Scalar: source1Scalar,
 				source2Scalar: source2Scalar,
 				equalityComparerScalar: new Computing<System.Collections.Generic.IEqualityComparer<TSourceItem>>(equalityComparerExpression),
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -32437,7 +32449,7 @@ namespace ObservableComputations
 				source1Scalar: source1Scalar,
 				source2Scalar: source2Scalar,
 				equalityComparerScalar: new Computing<System.Collections.Generic.IEqualityComparer<TSourceItem>>(equalityComparerExpression),
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
@@ -32445,13 +32457,13 @@ namespace ObservableComputations
 			 ObservableComputations.IReadScalar<ObservableCollection<TSourceItem>> source1Scalar,
 			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> source2Expression,
 			 ObservableComputations.IReadScalar<System.Collections.Generic.IEqualityComparer<TSourceItem>> equalityComparerScalar,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Uniting<TSourceItem>(
 				source1Scalar: source1Scalar,
 				source2Scalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(source2Expression),
 				equalityComparerScalar: equalityComparerScalar,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -32464,7 +32476,7 @@ namespace ObservableComputations
 				source1Scalar: source1Scalar,
 				source2Scalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(source2Expression),
 				equalityComparerScalar: equalityComparerScalar,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
@@ -32472,13 +32484,13 @@ namespace ObservableComputations
 			 ObservableComputations.IReadScalar<ObservableCollection<TSourceItem>> source1Scalar,
 			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> source2Expression,
 			 Expression<Func<System.Collections.Generic.IEqualityComparer<TSourceItem>>> equalityComparerExpression,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Uniting<TSourceItem>(
 				source1Scalar: source1Scalar,
 				source2Scalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(source2Expression),
 				equalityComparerScalar: new Computing<System.Collections.Generic.IEqualityComparer<TSourceItem>>(equalityComparerExpression),
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -32491,7 +32503,7 @@ namespace ObservableComputations
 				source1Scalar: source1Scalar,
 				source2Scalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(source2Expression),
 				equalityComparerScalar: new Computing<System.Collections.Generic.IEqualityComparer<TSourceItem>>(equalityComparerExpression),
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
@@ -32499,13 +32511,13 @@ namespace ObservableComputations
 			 ObservableComputations.IReadScalar<ObservableCollection<TSourceItem>> source1Scalar,
 			 Expression<Func<ObservableCollection<TSourceItem>>> source2Expression,
 			 ObservableComputations.IReadScalar<System.Collections.Generic.IEqualityComparer<TSourceItem>> equalityComparerScalar,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Uniting<TSourceItem>(
 				source1Scalar: source1Scalar,
 				source2Scalar: new Computing<ObservableCollection<TSourceItem>>(source2Expression),
 				equalityComparerScalar: equalityComparerScalar,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -32518,7 +32530,7 @@ namespace ObservableComputations
 				source1Scalar: source1Scalar,
 				source2Scalar: new Computing<ObservableCollection<TSourceItem>>(source2Expression),
 				equalityComparerScalar: equalityComparerScalar,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
@@ -32526,13 +32538,13 @@ namespace ObservableComputations
 			 ObservableComputations.IReadScalar<ObservableCollection<TSourceItem>> source1Scalar,
 			 Expression<Func<ObservableCollection<TSourceItem>>> source2Expression,
 			 Expression<Func<System.Collections.Generic.IEqualityComparer<TSourceItem>>> equalityComparerExpression,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Uniting<TSourceItem>(
 				source1Scalar: source1Scalar,
 				source2Scalar: new Computing<ObservableCollection<TSourceItem>>(source2Expression),
 				equalityComparerScalar: new Computing<System.Collections.Generic.IEqualityComparer<TSourceItem>>(equalityComparerExpression),
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -32545,7 +32557,7 @@ namespace ObservableComputations
 				source1Scalar: source1Scalar,
 				source2Scalar: new Computing<ObservableCollection<TSourceItem>>(source2Expression),
 				equalityComparerScalar: new Computing<System.Collections.Generic.IEqualityComparer<TSourceItem>>(equalityComparerExpression),
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
@@ -32553,13 +32565,13 @@ namespace ObservableComputations
 			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> source1Expression,
 			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> source2Scalar,
 			 ObservableComputations.IReadScalar<System.Collections.Generic.IEqualityComparer<TSourceItem>> equalityComparerScalar,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Uniting<TSourceItem>(
 				source1Scalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(source1Expression),
 				source2Scalar: source2Scalar,
 				equalityComparerScalar: equalityComparerScalar,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -32572,7 +32584,7 @@ namespace ObservableComputations
 				source1Scalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(source1Expression),
 				source2Scalar: source2Scalar,
 				equalityComparerScalar: equalityComparerScalar,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
@@ -32580,13 +32592,13 @@ namespace ObservableComputations
 			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> source1Expression,
 			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> source2Scalar,
 			 Expression<Func<System.Collections.Generic.IEqualityComparer<TSourceItem>>> equalityComparerExpression,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Uniting<TSourceItem>(
 				source1Scalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(source1Expression),
 				source2Scalar: source2Scalar,
 				equalityComparerScalar: new Computing<System.Collections.Generic.IEqualityComparer<TSourceItem>>(equalityComparerExpression),
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -32599,7 +32611,7 @@ namespace ObservableComputations
 				source1Scalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(source1Expression),
 				source2Scalar: source2Scalar,
 				equalityComparerScalar: new Computing<System.Collections.Generic.IEqualityComparer<TSourceItem>>(equalityComparerExpression),
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
@@ -32607,13 +32619,13 @@ namespace ObservableComputations
 			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> source1Expression,
 			 ObservableComputations.IReadScalar<ObservableCollection<TSourceItem>> source2Scalar,
 			 ObservableComputations.IReadScalar<System.Collections.Generic.IEqualityComparer<TSourceItem>> equalityComparerScalar,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Uniting<TSourceItem>(
 				source1Scalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(source1Expression),
 				source2Scalar: source2Scalar,
 				equalityComparerScalar: equalityComparerScalar,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -32626,7 +32638,7 @@ namespace ObservableComputations
 				source1Scalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(source1Expression),
 				source2Scalar: source2Scalar,
 				equalityComparerScalar: equalityComparerScalar,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
@@ -32634,13 +32646,13 @@ namespace ObservableComputations
 			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> source1Expression,
 			 ObservableComputations.IReadScalar<ObservableCollection<TSourceItem>> source2Scalar,
 			 Expression<Func<System.Collections.Generic.IEqualityComparer<TSourceItem>>> equalityComparerExpression,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Uniting<TSourceItem>(
 				source1Scalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(source1Expression),
 				source2Scalar: source2Scalar,
 				equalityComparerScalar: new Computing<System.Collections.Generic.IEqualityComparer<TSourceItem>>(equalityComparerExpression),
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -32653,7 +32665,7 @@ namespace ObservableComputations
 				source1Scalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(source1Expression),
 				source2Scalar: source2Scalar,
 				equalityComparerScalar: new Computing<System.Collections.Generic.IEqualityComparer<TSourceItem>>(equalityComparerExpression),
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
@@ -32661,13 +32673,13 @@ namespace ObservableComputations
 			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> source1Expression,
 			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> source2Expression,
 			 ObservableComputations.IReadScalar<System.Collections.Generic.IEqualityComparer<TSourceItem>> equalityComparerScalar,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Uniting<TSourceItem>(
 				source1Scalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(source1Expression),
 				source2Scalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(source2Expression),
 				equalityComparerScalar: equalityComparerScalar,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -32680,7 +32692,7 @@ namespace ObservableComputations
 				source1Scalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(source1Expression),
 				source2Scalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(source2Expression),
 				equalityComparerScalar: equalityComparerScalar,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
@@ -32688,13 +32700,13 @@ namespace ObservableComputations
 			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> source1Expression,
 			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> source2Expression,
 			 Expression<Func<System.Collections.Generic.IEqualityComparer<TSourceItem>>> equalityComparerExpression,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Uniting<TSourceItem>(
 				source1Scalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(source1Expression),
 				source2Scalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(source2Expression),
 				equalityComparerScalar: new Computing<System.Collections.Generic.IEqualityComparer<TSourceItem>>(equalityComparerExpression),
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -32707,7 +32719,7 @@ namespace ObservableComputations
 				source1Scalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(source1Expression),
 				source2Scalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(source2Expression),
 				equalityComparerScalar: new Computing<System.Collections.Generic.IEqualityComparer<TSourceItem>>(equalityComparerExpression),
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
@@ -32715,13 +32727,13 @@ namespace ObservableComputations
 			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> source1Expression,
 			 Expression<Func<ObservableCollection<TSourceItem>>> source2Expression,
 			 ObservableComputations.IReadScalar<System.Collections.Generic.IEqualityComparer<TSourceItem>> equalityComparerScalar,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Uniting<TSourceItem>(
 				source1Scalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(source1Expression),
 				source2Scalar: new Computing<ObservableCollection<TSourceItem>>(source2Expression),
 				equalityComparerScalar: equalityComparerScalar,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -32734,7 +32746,7 @@ namespace ObservableComputations
 				source1Scalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(source1Expression),
 				source2Scalar: new Computing<ObservableCollection<TSourceItem>>(source2Expression),
 				equalityComparerScalar: equalityComparerScalar,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
@@ -32742,13 +32754,13 @@ namespace ObservableComputations
 			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> source1Expression,
 			 Expression<Func<ObservableCollection<TSourceItem>>> source2Expression,
 			 Expression<Func<System.Collections.Generic.IEqualityComparer<TSourceItem>>> equalityComparerExpression,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Uniting<TSourceItem>(
 				source1Scalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(source1Expression),
 				source2Scalar: new Computing<ObservableCollection<TSourceItem>>(source2Expression),
 				equalityComparerScalar: new Computing<System.Collections.Generic.IEqualityComparer<TSourceItem>>(equalityComparerExpression),
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -32761,7 +32773,7 @@ namespace ObservableComputations
 				source1Scalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(source1Expression),
 				source2Scalar: new Computing<ObservableCollection<TSourceItem>>(source2Expression),
 				equalityComparerScalar: new Computing<System.Collections.Generic.IEqualityComparer<TSourceItem>>(equalityComparerExpression),
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
@@ -32769,13 +32781,13 @@ namespace ObservableComputations
 			 Expression<Func<ObservableCollection<TSourceItem>>> source1Expression,
 			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> source2Scalar,
 			 ObservableComputations.IReadScalar<System.Collections.Generic.IEqualityComparer<TSourceItem>> equalityComparerScalar,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Uniting<TSourceItem>(
 				source1Scalar: new Computing<ObservableCollection<TSourceItem>>(source1Expression),
 				source2Scalar: source2Scalar,
 				equalityComparerScalar: equalityComparerScalar,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -32788,7 +32800,7 @@ namespace ObservableComputations
 				source1Scalar: new Computing<ObservableCollection<TSourceItem>>(source1Expression),
 				source2Scalar: source2Scalar,
 				equalityComparerScalar: equalityComparerScalar,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
@@ -32796,13 +32808,13 @@ namespace ObservableComputations
 			 Expression<Func<ObservableCollection<TSourceItem>>> source1Expression,
 			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> source2Scalar,
 			 Expression<Func<System.Collections.Generic.IEqualityComparer<TSourceItem>>> equalityComparerExpression,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Uniting<TSourceItem>(
 				source1Scalar: new Computing<ObservableCollection<TSourceItem>>(source1Expression),
 				source2Scalar: source2Scalar,
 				equalityComparerScalar: new Computing<System.Collections.Generic.IEqualityComparer<TSourceItem>>(equalityComparerExpression),
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -32815,7 +32827,7 @@ namespace ObservableComputations
 				source1Scalar: new Computing<ObservableCollection<TSourceItem>>(source1Expression),
 				source2Scalar: source2Scalar,
 				equalityComparerScalar: new Computing<System.Collections.Generic.IEqualityComparer<TSourceItem>>(equalityComparerExpression),
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
@@ -32823,13 +32835,13 @@ namespace ObservableComputations
 			 Expression<Func<ObservableCollection<TSourceItem>>> source1Expression,
 			 ObservableComputations.IReadScalar<ObservableCollection<TSourceItem>> source2Scalar,
 			 ObservableComputations.IReadScalar<System.Collections.Generic.IEqualityComparer<TSourceItem>> equalityComparerScalar,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Uniting<TSourceItem>(
 				source1Scalar: new Computing<ObservableCollection<TSourceItem>>(source1Expression),
 				source2Scalar: source2Scalar,
 				equalityComparerScalar: equalityComparerScalar,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -32842,7 +32854,7 @@ namespace ObservableComputations
 				source1Scalar: new Computing<ObservableCollection<TSourceItem>>(source1Expression),
 				source2Scalar: source2Scalar,
 				equalityComparerScalar: equalityComparerScalar,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
@@ -32850,13 +32862,13 @@ namespace ObservableComputations
 			 Expression<Func<ObservableCollection<TSourceItem>>> source1Expression,
 			 ObservableComputations.IReadScalar<ObservableCollection<TSourceItem>> source2Scalar,
 			 Expression<Func<System.Collections.Generic.IEqualityComparer<TSourceItem>>> equalityComparerExpression,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Uniting<TSourceItem>(
 				source1Scalar: new Computing<ObservableCollection<TSourceItem>>(source1Expression),
 				source2Scalar: source2Scalar,
 				equalityComparerScalar: new Computing<System.Collections.Generic.IEqualityComparer<TSourceItem>>(equalityComparerExpression),
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -32869,7 +32881,7 @@ namespace ObservableComputations
 				source1Scalar: new Computing<ObservableCollection<TSourceItem>>(source1Expression),
 				source2Scalar: source2Scalar,
 				equalityComparerScalar: new Computing<System.Collections.Generic.IEqualityComparer<TSourceItem>>(equalityComparerExpression),
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
@@ -32877,13 +32889,13 @@ namespace ObservableComputations
 			 Expression<Func<ObservableCollection<TSourceItem>>> source1Expression,
 			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> source2Expression,
 			 ObservableComputations.IReadScalar<System.Collections.Generic.IEqualityComparer<TSourceItem>> equalityComparerScalar,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Uniting<TSourceItem>(
 				source1Scalar: new Computing<ObservableCollection<TSourceItem>>(source1Expression),
 				source2Scalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(source2Expression),
 				equalityComparerScalar: equalityComparerScalar,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -32896,7 +32908,7 @@ namespace ObservableComputations
 				source1Scalar: new Computing<ObservableCollection<TSourceItem>>(source1Expression),
 				source2Scalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(source2Expression),
 				equalityComparerScalar: equalityComparerScalar,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
@@ -32904,13 +32916,13 @@ namespace ObservableComputations
 			 Expression<Func<ObservableCollection<TSourceItem>>> source1Expression,
 			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> source2Expression,
 			 Expression<Func<System.Collections.Generic.IEqualityComparer<TSourceItem>>> equalityComparerExpression,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Uniting<TSourceItem>(
 				source1Scalar: new Computing<ObservableCollection<TSourceItem>>(source1Expression),
 				source2Scalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(source2Expression),
 				equalityComparerScalar: new Computing<System.Collections.Generic.IEqualityComparer<TSourceItem>>(equalityComparerExpression),
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -32923,7 +32935,7 @@ namespace ObservableComputations
 				source1Scalar: new Computing<ObservableCollection<TSourceItem>>(source1Expression),
 				source2Scalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(source2Expression),
 				equalityComparerScalar: new Computing<System.Collections.Generic.IEqualityComparer<TSourceItem>>(equalityComparerExpression),
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
@@ -32931,13 +32943,13 @@ namespace ObservableComputations
 			 Expression<Func<ObservableCollection<TSourceItem>>> source1Expression,
 			 Expression<Func<ObservableCollection<TSourceItem>>> source2Expression,
 			 ObservableComputations.IReadScalar<System.Collections.Generic.IEqualityComparer<TSourceItem>> equalityComparerScalar,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Uniting<TSourceItem>(
 				source1Scalar: new Computing<ObservableCollection<TSourceItem>>(source1Expression),
 				source2Scalar: new Computing<ObservableCollection<TSourceItem>>(source2Expression),
 				equalityComparerScalar: equalityComparerScalar,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -32950,7 +32962,7 @@ namespace ObservableComputations
 				source1Scalar: new Computing<ObservableCollection<TSourceItem>>(source1Expression),
 				source2Scalar: new Computing<ObservableCollection<TSourceItem>>(source2Expression),
 				equalityComparerScalar: equalityComparerScalar,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
@@ -32958,13 +32970,13 @@ namespace ObservableComputations
 			 Expression<Func<ObservableCollection<TSourceItem>>> source1Expression,
 			 Expression<Func<ObservableCollection<TSourceItem>>> source2Expression,
 			 Expression<Func<System.Collections.Generic.IEqualityComparer<TSourceItem>>> equalityComparerExpression,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Uniting<TSourceItem>(
 				source1Scalar: new Computing<ObservableCollection<TSourceItem>>(source1Expression),
 				source2Scalar: new Computing<ObservableCollection<TSourceItem>>(source2Expression),
 				equalityComparerScalar: new Computing<System.Collections.Generic.IEqualityComparer<TSourceItem>>(equalityComparerExpression),
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -32977,7 +32989,7 @@ namespace ObservableComputations
 				source1Scalar: new Computing<ObservableCollection<TSourceItem>>(source1Expression),
 				source2Scalar: new Computing<ObservableCollection<TSourceItem>>(source2Expression),
 				equalityComparerScalar: new Computing<System.Collections.Generic.IEqualityComparer<TSourceItem>>(equalityComparerExpression),
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
@@ -32985,13 +32997,13 @@ namespace ObservableComputations
 			 System.Collections.Specialized.INotifyCollectionChanged source1,
 			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> source2Scalar,
 			 ObservableComputations.IReadScalar<System.Collections.Generic.IEqualityComparer<TSourceItem>> equalityComparerScalar,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Uniting<TSourceItem>(
 				source1: source1,
 				source2Scalar: source2Scalar,
 				equalityComparerScalar: equalityComparerScalar,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -33004,7 +33016,7 @@ namespace ObservableComputations
 				source1: source1,
 				source2Scalar: source2Scalar,
 				equalityComparerScalar: equalityComparerScalar,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
@@ -33012,13 +33024,13 @@ namespace ObservableComputations
 			 System.Collections.Specialized.INotifyCollectionChanged source1,
 			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> source2Scalar,
 			 Expression<Func<System.Collections.Generic.IEqualityComparer<TSourceItem>>> equalityComparerExpression,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Uniting<TSourceItem>(
 				source1: source1,
 				source2Scalar: source2Scalar,
 				equalityComparerScalar: new Computing<System.Collections.Generic.IEqualityComparer<TSourceItem>>(equalityComparerExpression),
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -33031,7 +33043,7 @@ namespace ObservableComputations
 				source1: source1,
 				source2Scalar: source2Scalar,
 				equalityComparerScalar: new Computing<System.Collections.Generic.IEqualityComparer<TSourceItem>>(equalityComparerExpression),
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
@@ -33039,13 +33051,13 @@ namespace ObservableComputations
 			 System.Collections.Specialized.INotifyCollectionChanged source1,
 			 ObservableComputations.IReadScalar<ObservableCollection<TSourceItem>> source2Scalar,
 			 ObservableComputations.IReadScalar<System.Collections.Generic.IEqualityComparer<TSourceItem>> equalityComparerScalar,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Uniting<TSourceItem>(
 				source1: source1,
 				source2Scalar: source2Scalar,
 				equalityComparerScalar: equalityComparerScalar,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -33058,7 +33070,7 @@ namespace ObservableComputations
 				source1: source1,
 				source2Scalar: source2Scalar,
 				equalityComparerScalar: equalityComparerScalar,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
@@ -33066,13 +33078,13 @@ namespace ObservableComputations
 			 System.Collections.Specialized.INotifyCollectionChanged source1,
 			 ObservableComputations.IReadScalar<ObservableCollection<TSourceItem>> source2Scalar,
 			 Expression<Func<System.Collections.Generic.IEqualityComparer<TSourceItem>>> equalityComparerExpression,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Uniting<TSourceItem>(
 				source1: source1,
 				source2Scalar: source2Scalar,
 				equalityComparerScalar: new Computing<System.Collections.Generic.IEqualityComparer<TSourceItem>>(equalityComparerExpression),
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -33085,7 +33097,7 @@ namespace ObservableComputations
 				source1: source1,
 				source2Scalar: source2Scalar,
 				equalityComparerScalar: new Computing<System.Collections.Generic.IEqualityComparer<TSourceItem>>(equalityComparerExpression),
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
@@ -33093,13 +33105,13 @@ namespace ObservableComputations
 			 System.Collections.Specialized.INotifyCollectionChanged source1,
 			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> source2Expression,
 			 ObservableComputations.IReadScalar<System.Collections.Generic.IEqualityComparer<TSourceItem>> equalityComparerScalar,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Uniting<TSourceItem>(
 				source1: source1,
 				source2Scalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(source2Expression),
 				equalityComparerScalar: equalityComparerScalar,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -33112,7 +33124,7 @@ namespace ObservableComputations
 				source1: source1,
 				source2Scalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(source2Expression),
 				equalityComparerScalar: equalityComparerScalar,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
@@ -33120,13 +33132,13 @@ namespace ObservableComputations
 			 System.Collections.Specialized.INotifyCollectionChanged source1,
 			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> source2Expression,
 			 Expression<Func<System.Collections.Generic.IEqualityComparer<TSourceItem>>> equalityComparerExpression,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Uniting<TSourceItem>(
 				source1: source1,
 				source2Scalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(source2Expression),
 				equalityComparerScalar: new Computing<System.Collections.Generic.IEqualityComparer<TSourceItem>>(equalityComparerExpression),
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -33139,7 +33151,7 @@ namespace ObservableComputations
 				source1: source1,
 				source2Scalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(source2Expression),
 				equalityComparerScalar: new Computing<System.Collections.Generic.IEqualityComparer<TSourceItem>>(equalityComparerExpression),
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
@@ -33147,13 +33159,13 @@ namespace ObservableComputations
 			 System.Collections.Specialized.INotifyCollectionChanged source1,
 			 Expression<Func<ObservableCollection<TSourceItem>>> source2Expression,
 			 ObservableComputations.IReadScalar<System.Collections.Generic.IEqualityComparer<TSourceItem>> equalityComparerScalar,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Uniting<TSourceItem>(
 				source1: source1,
 				source2Scalar: new Computing<ObservableCollection<TSourceItem>>(source2Expression),
 				equalityComparerScalar: equalityComparerScalar,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -33166,7 +33178,7 @@ namespace ObservableComputations
 				source1: source1,
 				source2Scalar: new Computing<ObservableCollection<TSourceItem>>(source2Expression),
 				equalityComparerScalar: equalityComparerScalar,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
@@ -33174,13 +33186,13 @@ namespace ObservableComputations
 			 System.Collections.Specialized.INotifyCollectionChanged source1,
 			 Expression<Func<ObservableCollection<TSourceItem>>> source2Expression,
 			 Expression<Func<System.Collections.Generic.IEqualityComparer<TSourceItem>>> equalityComparerExpression,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Uniting<TSourceItem>(
 				source1: source1,
 				source2Scalar: new Computing<ObservableCollection<TSourceItem>>(source2Expression),
 				equalityComparerScalar: new Computing<System.Collections.Generic.IEqualityComparer<TSourceItem>>(equalityComparerExpression),
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -33193,7 +33205,7 @@ namespace ObservableComputations
 				source1: source1,
 				source2Scalar: new Computing<ObservableCollection<TSourceItem>>(source2Expression),
 				equalityComparerScalar: new Computing<System.Collections.Generic.IEqualityComparer<TSourceItem>>(equalityComparerExpression),
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
@@ -33201,13 +33213,13 @@ namespace ObservableComputations
 			 ObservableCollection<TSourceItem> source1,
 			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> source2Scalar,
 			 ObservableComputations.IReadScalar<System.Collections.Generic.IEqualityComparer<TSourceItem>> equalityComparerScalar,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Uniting<TSourceItem>(
 				source1: source1,
 				source2Scalar: source2Scalar,
 				equalityComparerScalar: equalityComparerScalar,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -33220,7 +33232,7 @@ namespace ObservableComputations
 				source1: source1,
 				source2Scalar: source2Scalar,
 				equalityComparerScalar: equalityComparerScalar,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
@@ -33228,13 +33240,13 @@ namespace ObservableComputations
 			 ObservableCollection<TSourceItem> source1,
 			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> source2Scalar,
 			 Expression<Func<System.Collections.Generic.IEqualityComparer<TSourceItem>>> equalityComparerExpression,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Uniting<TSourceItem>(
 				source1: source1,
 				source2Scalar: source2Scalar,
 				equalityComparerScalar: new Computing<System.Collections.Generic.IEqualityComparer<TSourceItem>>(equalityComparerExpression),
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -33247,7 +33259,7 @@ namespace ObservableComputations
 				source1: source1,
 				source2Scalar: source2Scalar,
 				equalityComparerScalar: new Computing<System.Collections.Generic.IEqualityComparer<TSourceItem>>(equalityComparerExpression),
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
@@ -33255,13 +33267,13 @@ namespace ObservableComputations
 			 ObservableCollection<TSourceItem> source1,
 			 ObservableComputations.IReadScalar<ObservableCollection<TSourceItem>> source2Scalar,
 			 ObservableComputations.IReadScalar<System.Collections.Generic.IEqualityComparer<TSourceItem>> equalityComparerScalar,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Uniting<TSourceItem>(
 				source1: source1,
 				source2Scalar: source2Scalar,
 				equalityComparerScalar: equalityComparerScalar,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -33274,7 +33286,7 @@ namespace ObservableComputations
 				source1: source1,
 				source2Scalar: source2Scalar,
 				equalityComparerScalar: equalityComparerScalar,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
@@ -33282,13 +33294,13 @@ namespace ObservableComputations
 			 ObservableCollection<TSourceItem> source1,
 			 ObservableComputations.IReadScalar<ObservableCollection<TSourceItem>> source2Scalar,
 			 Expression<Func<System.Collections.Generic.IEqualityComparer<TSourceItem>>> equalityComparerExpression,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Uniting<TSourceItem>(
 				source1: source1,
 				source2Scalar: source2Scalar,
 				equalityComparerScalar: new Computing<System.Collections.Generic.IEqualityComparer<TSourceItem>>(equalityComparerExpression),
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -33301,7 +33313,7 @@ namespace ObservableComputations
 				source1: source1,
 				source2Scalar: source2Scalar,
 				equalityComparerScalar: new Computing<System.Collections.Generic.IEqualityComparer<TSourceItem>>(equalityComparerExpression),
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
@@ -33309,13 +33321,13 @@ namespace ObservableComputations
 			 ObservableCollection<TSourceItem> source1,
 			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> source2Expression,
 			 ObservableComputations.IReadScalar<System.Collections.Generic.IEqualityComparer<TSourceItem>> equalityComparerScalar,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Uniting<TSourceItem>(
 				source1: source1,
 				source2Scalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(source2Expression),
 				equalityComparerScalar: equalityComparerScalar,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -33328,7 +33340,7 @@ namespace ObservableComputations
 				source1: source1,
 				source2Scalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(source2Expression),
 				equalityComparerScalar: equalityComparerScalar,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
@@ -33336,13 +33348,13 @@ namespace ObservableComputations
 			 ObservableCollection<TSourceItem> source1,
 			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> source2Expression,
 			 Expression<Func<System.Collections.Generic.IEqualityComparer<TSourceItem>>> equalityComparerExpression,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Uniting<TSourceItem>(
 				source1: source1,
 				source2Scalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(source2Expression),
 				equalityComparerScalar: new Computing<System.Collections.Generic.IEqualityComparer<TSourceItem>>(equalityComparerExpression),
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -33355,7 +33367,7 @@ namespace ObservableComputations
 				source1: source1,
 				source2Scalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(source2Expression),
 				equalityComparerScalar: new Computing<System.Collections.Generic.IEqualityComparer<TSourceItem>>(equalityComparerExpression),
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
@@ -33363,13 +33375,13 @@ namespace ObservableComputations
 			 ObservableCollection<TSourceItem> source1,
 			 Expression<Func<ObservableCollection<TSourceItem>>> source2Expression,
 			 ObservableComputations.IReadScalar<System.Collections.Generic.IEqualityComparer<TSourceItem>> equalityComparerScalar,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Uniting<TSourceItem>(
 				source1: source1,
 				source2Scalar: new Computing<ObservableCollection<TSourceItem>>(source2Expression),
 				equalityComparerScalar: equalityComparerScalar,
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -33382,7 +33394,7 @@ namespace ObservableComputations
 				source1: source1,
 				source2Scalar: new Computing<ObservableCollection<TSourceItem>>(source2Expression),
 				equalityComparerScalar: equalityComparerScalar,
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
@@ -33390,13 +33402,13 @@ namespace ObservableComputations
 			 ObservableCollection<TSourceItem> source1,
 			 Expression<Func<ObservableCollection<TSourceItem>>> source2Expression,
 			 Expression<Func<System.Collections.Generic.IEqualityComparer<TSourceItem>>> equalityComparerExpression,
-			 int capacity)
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Uniting<TSourceItem>(
 				source1: source1,
 				source2Scalar: new Computing<ObservableCollection<TSourceItem>>(source2Expression),
 				equalityComparerScalar: new Computing<System.Collections.Generic.IEqualityComparer<TSourceItem>>(equalityComparerExpression),
-				capacity: capacity);
+				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
@@ -33409,7 +33421,7 @@ namespace ObservableComputations
 				source1: source1,
 				source2Scalar: new Computing<ObservableCollection<TSourceItem>>(source2Expression),
 				equalityComparerScalar: new Computing<System.Collections.Generic.IEqualityComparer<TSourceItem>>(equalityComparerExpression),
-				capacity: 0);
+				initialCapacity: 0);
 		}
 
 		#endregion

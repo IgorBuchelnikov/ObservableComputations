@@ -23,6 +23,8 @@ namespace ObservableComputations
 		// ReSharper disable once MemberCanBePrivate.Global
 		public new INotifyCollectionChanged Source => _source;
 
+		public override int InitialCapacity => ((CollectionComputing<TSourceItem>)_source)._initialCapacity;
+
 		public new ReadOnlyCollection<INotifyCollectionChanged> SourceCollections => new ReadOnlyCollection<INotifyCollectionChanged>(new []{Source});
 		public new ReadOnlyCollection<IReadScalar<INotifyCollectionChanged>> SourceCollectionScalars => new ReadOnlyCollection<IReadScalar<INotifyCollectionChanged>>(new []{SourceScalar});
 
@@ -30,7 +32,7 @@ namespace ObservableComputations
 		public IndicesComputing(
 			IReadScalar<INotifyCollectionChanged> sourceScalar, 
 			Expression<Func<TSourceItem, bool>> predicateExpression,
-			int capacity = 0) : base(getSource(sourceScalar, predicateExpression, capacity), pair => pair.LeftItem) 
+			int initialCapacity = 0) : base(getSource(sourceScalar, predicateExpression, initialCapacity), pair => pair.LeftItem) 
 		{
 			_predicateExpression = predicateExpression;
 			_sourceScalar = sourceScalar;
@@ -40,7 +42,7 @@ namespace ObservableComputations
 		public IndicesComputing(
 			INotifyCollectionChanged source, 
 			Expression<Func<TSourceItem, bool>> predicateExpression,
-			int capacity = 0) : base(getSource(source, predicateExpression, capacity), pair => pair.LeftItem) 
+			int initialCapacity = 0) : base(getSource(source, predicateExpression, initialCapacity), pair => pair.LeftItem) 
 		{
 			_predicateExpression = predicateExpression;
 			_source = source;
@@ -49,25 +51,25 @@ namespace ObservableComputations
 		private static INotifyCollectionChanged getSource(
 			IReadScalar<INotifyCollectionChanged> sourceScalar,
 			Expression<Func<TSourceItem, bool>> predicateExpression,
-			int capacity)
+			int initialCapacity)
 		{
 			Expression<Func<ZipPair<int, TSourceItem>, bool>> zipPairPredicateExpression = getZipPairPredicateExpression(predicateExpression);
 
 			return new Computing<int>(() => sourceScalar.Value != null ? ((IList) sourceScalar.Value).Count : 0).SequenceComputing()
 				.Zipping<int, TSourceItem>(sourceScalar)
-				.Filtering(zipPairPredicateExpression, capacity);
+				.Filtering(zipPairPredicateExpression, initialCapacity);
 		}
 
 		private static INotifyCollectionChanged getSource(
 			INotifyCollectionChanged source,
 			Expression<Func<TSourceItem, bool>> predicateExpression,
-			int capacity)
+			int initialCapacity)
 		{
 			Expression<Func<ZipPair<int, TSourceItem>, bool>> zipPairPredicateExpression = getZipPairPredicateExpression(predicateExpression);
 
 			return new Computing<int>(() => ((IList) source).Count).SequenceComputing()
 				.Zipping<int, TSourceItem>(source)
-				.Filtering(zipPairPredicateExpression, capacity);
+				.Filtering(zipPairPredicateExpression, initialCapacity);
 		}
 
 		private static Expression<Func<ZipPair<int, TSourceItem>, bool>> getZipPairPredicateExpression(Expression<Func<TSourceItem, bool>> predicateExpression)

@@ -21,6 +21,8 @@ namespace ObservableComputations
 		public new ReadOnlyCollection<INotifyCollectionChanged> SourceCollections => new ReadOnlyCollection<INotifyCollectionChanged>(new []{Source});
 		public new ReadOnlyCollection<IReadScalar<INotifyCollectionChanged>> SourceCollectionScalars => new ReadOnlyCollection<IReadScalar<INotifyCollectionChanged>>(new []{SourceScalar});
 
+		public override int InitialCapacity => ((CollectionComputing<TSourceItem>)_source)._initialCapacity;
+
 		private readonly IReadScalar<INotifyCollectionChanged> _sourceScalarTakingWhile;
 		private readonly INotifyCollectionChanged _sourceTakingWhile;
 		private readonly Expression<Func<TSourceItem, int, bool>> _predicateExpression;
@@ -31,9 +33,9 @@ namespace ObservableComputations
 		public TakingWhile(			
 			IReadScalar<INotifyCollectionChanged> sourceScalar, 
 			Expression<Func<TSourceItem, int, bool>> predicateExpression,
-			int capacity = 0)
+			int initialCapacity = 0)
 			: base(
-				getSource(sourceScalar, predicateExpression, capacity),
+				getSource(sourceScalar, predicateExpression, initialCapacity),
 				zipPair => zipPair.RightItem)
 		{
 			_sourceScalarTakingWhile = sourceScalar;
@@ -44,9 +46,9 @@ namespace ObservableComputations
 		public TakingWhile(			
 			INotifyCollectionChanged source, 
 			Expression<Func<TSourceItem, int, bool>> predicateExpression,
-			int capacity = 0)
+			int initialCapacity = 0)
 			: base(
-				getSource(source, predicateExpression, capacity),
+				getSource(source, predicateExpression, initialCapacity),
 				zipPair => zipPair.RightItem)
 		{
 			_sourceTakingWhile = source;
@@ -57,7 +59,7 @@ namespace ObservableComputations
 		public TakingWhile(
 			IReadScalar<INotifyCollectionChanged> sourceScalar, 
 			Expression<Func<TSourceItem, bool>> predicateExpression,
-			int capacity = 0) : this(sourceScalar, predicateExpression.getIndexedPredicate(), capacity)
+			int initialCapacity = 0) : this(sourceScalar, predicateExpression.getIndexedPredicate(), initialCapacity)
 		{
 		}
 
@@ -65,14 +67,14 @@ namespace ObservableComputations
 		public TakingWhile(
 			INotifyCollectionChanged source,
 			Expression<Func<TSourceItem, bool>> predicateExpression,
-			int capacity = 0) : this(source, predicateExpression.getIndexedPredicate(), capacity)
+			int initialCapacity = 0) : this(source, predicateExpression.getIndexedPredicate(), initialCapacity)
 		{
 		}
 
 		private static INotifyCollectionChanged getSource(
 			IReadScalar<INotifyCollectionChanged> sourceScalar, 
 			Expression<Func<TSourceItem, int, bool>> predicateExpression,
-			int capacity)
+			int initialCapacity)
 		{
 			Expression<Func<ZipPair<int, TSourceItem>, bool>> zipPairNotPredicateExpression = getZipPairNotPredicateExpression(predicateExpression);
 
@@ -81,7 +83,7 @@ namespace ObservableComputations
 			Zipping<int, TSourceItem> zipping = countComputing.SequenceComputing()
 				.Zipping<int, TSourceItem>(sourceScalar);
 
-			return getFiltering(zipping, zipPairNotPredicateExpression, countComputing, capacity);
+			return getFiltering(zipping, zipPairNotPredicateExpression, countComputing, initialCapacity);
 
 			//return () => (INotifyCollectionChanged)Expr.Is(() => (INotifyCollectionChanged)getSource.Computing().Using(sc =>
 			//			Expr.Is(() => ((IList)sc.Value).Count).SequenceComputing()
@@ -92,22 +94,22 @@ namespace ObservableComputations
 			Zipping<int, TSourceItem> zipping, 
 			Expression<Func<ZipPair<int, TSourceItem>, bool>> zipPairNotPredicateExpression, 
 			Computing<int> countComputing,
-			int capacity)
+			int initialCapacity)
 		{
 			return zipping.Filtering(zp => 
 				zp.LeftItem < 
 					zipping
-					.Filtering(zipPairNotPredicateExpression, capacity)
+					.Filtering(zipPairNotPredicateExpression, initialCapacity)
 					.Selecting(zp1 => zp1.LeftItem)
 					.Using(ic => ic.Count > 0 ? ic.Minimazing().Value : countComputing.Value)
 					.Value, 
-				capacity);
+				initialCapacity);
 		}
 
 		private static INotifyCollectionChanged getSource(
 			INotifyCollectionChanged source, 
 			Expression<Func<TSourceItem, int, bool>> predicateExpression,
-			int capacity)
+			int initialCapacity)
 		{
 			Expression<Func<ZipPair<int, TSourceItem>, bool>> zipPairNotPredicateExpression = getZipPairNotPredicateExpression(predicateExpression);
 
@@ -116,7 +118,7 @@ namespace ObservableComputations
 			Zipping<int, TSourceItem> zipping = countComputing.SequenceComputing()
 				.Zipping<int, TSourceItem>(source);
 
-			return getFiltering(zipping, zipPairNotPredicateExpression, countComputing, capacity);
+			return getFiltering(zipping, zipPairNotPredicateExpression, countComputing, initialCapacity);
 		}
 
 		private static Expression<Func<ZipPair<int, TSourceItem>, bool>> getZipPairNotPredicateExpression(Expression<Func<TSourceItem, int, bool>> predicateExpression)

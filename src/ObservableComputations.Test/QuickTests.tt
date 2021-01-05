@@ -54,31 +54,31 @@ namespace ObservableComputations.Test
 		public void Test<#=extensionMethod.Name#><#=testNum.ToString("00")#>()
 		{
 <#
-			List<(string, string, string, string, string)> arguments = new List<(string, string, string, string, string)>();
+			List<(string variableType, string name, string result, string sourceAccessor, string scalarType)> arguments = new List<(string variableType, string name, string result, string sourceAccessor, string scalarType)>();
 			var signatureArguments = extensionMethod.ArgumentsWithoutDefaultValue;
 			foreach (ExtensionMethodArgument argument in signatureArguments )
 			{
-				(string, string, string, string) argumentValue = getArgumentValue(argument.Type, argument.Name, extensionMethod.Name);
-				arguments.Add((argumentValue.Item3, argument.Name, argumentValue.Item1, argumentValue.Item2, argumentValue.Item4));
+				(string result, string sourceAccessor, string variableType, string scalarType) argumentValue = getArgumentValue(argument.Type, argument.Name, extensionMethod.Name);
+				arguments.Add((argumentValue.variableType, argument.Name, argumentValue.result, argumentValue.sourceAccessor, argumentValue.scalarType));
 			}
 
 			foreach (var argument in arguments)
 			{
 #>
-			<#=argument.Item1#> <#=argument.Item2#> = <#=argument.Item3#>;
+			<#=argument.variableType#> <#=argument.name#> = <#=argument.result#>;
 <#
 			}
 
 			string genericParamsValues = getTestType(extensionMethod.GenericParameters, extensionMethod.Name);
 #>
 			OcConsumer consumer = new OcConsumer();
-			var testing = <#=arguments.First().Item2#>.<#=extensionMethod.Name#><#=genericParamsValues#>(<#=arguments.Count == 1 ? ").For(consumer);" : ""#>
+			var testing = <#=arguments.First().name#>.<#=extensionMethod.Name#><#=genericParamsValues#>(<#=arguments.Count == 1 ? ").For(consumer);" : ""#>
 <#
 			int index = 0;
 			foreach (var argument in arguments.Skip(1))
 			{
 #>
-				<#=argument.Item2#><#=index == arguments.Count() - 2 ? ").For(consumer);" : ","#>
+				<#=argument.name#><#=index == arguments.Count() - 2 ? ").For(consumer);" : ","#>
 <#
 					index++;
 			}
@@ -92,29 +92,29 @@ namespace ObservableComputations.Test
 			{
 				string scalarValueAccessor = argument.Item1.Contains("Scalar") ? ".Value" : "";
 #>
-				var <#=argument.Item2#>Value = ((ObservableCollection<Item>)((<#=argument.Item5#>)<#=argument.Item2#><#=scalarValueAccessor#>)<#=argument.Item4#>);
+				var <#=argument.name#>Value = ((ObservableCollection<Item>)((<#=argument.scalarType#>)<#=argument.name#><#=scalarValueAccessor#>)<#=argument.sourceAccessor#>);
 
-				if (<#=argument.Item2#>Value != null)
+				if (<#=argument.name#>Value != null)
 				{		
-					<#=argument.Item2#>Value.Insert(2, new QuickTests.Item(1, true));
+					<#=argument.name#>Value.Insert(2, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
-					<#=argument.Item2#>Value[3] = new QuickTests.Item(7, true);
+					<#=argument.name#>Value[3] = new QuickTests.Item(7, true);
 					testing.ValidateConsistency();
-					<#=argument.Item2#>Value.RemoveAt(3);
+					<#=argument.name#>Value.RemoveAt(3);
 					testing.ValidateConsistency();
-					<#=argument.Item2#>Value.Move(1, 3);
+					<#=argument.name#>Value.Move(1, 3);
 					testing.ValidateConsistency();
-					<#=argument.Item2#>Value[2].Active = !<#=argument.Item2#>Value[2].Active;
+					<#=argument.name#>Value[2].Active = !<#=argument.name#>Value[2].Active;
 					testing.ValidateConsistency();
-					<#=argument.Item2#>Value[2].Num = <#=argument.Item2#>Value[2].Num + 1;
+					<#=argument.name#>Value[2].Num = <#=argument.name#>Value[2].Num + 1;
 					testing.ValidateConsistency();
-					<#=argument.Item2#>Value.RemoveAt(0);
+					<#=argument.name#>Value.RemoveAt(0);
 					testing.ValidateConsistency();
-					<#=argument.Item2#>Value.RemoveAt(1);
+					<#=argument.name#>Value.RemoveAt(1);
 					testing.ValidateConsistency();
-					<#=argument.Item2#>Value.Insert(0, new QuickTests.Item(1, true));
+					<#=argument.name#>Value.Insert(0, new QuickTests.Item(1, true));
 					testing.ValidateConsistency();
-					<#=argument.Item2#>Value.Insert(0, new QuickTests.Item(2, true));
+					<#=argument.name#>Value.Insert(0, new QuickTests.Item(2, true));
 					testing.ValidateConsistency();
 				}
 <#
@@ -125,15 +125,15 @@ namespace ObservableComputations.Test
 			{
 				string scalarValueAccessor = sourcesArgument.First().Item1.Contains("Scalar") ? ".Value" : "";
 #>
-				var <#=sourcesArgument.First().Item2#>Value = ((ObservableCollection<ObservableCollection<Item>>)((<#=sourcesArgument.First().Item5#>)<#=sourcesArgument.First().Item2#><#=scalarValueAccessor#>)<#=sourcesArgument.First().Item4#>);
+				var <#=sourcesArgument.First().name#>Value = ((ObservableCollection<ObservableCollection<Item>>)((<#=sourcesArgument.First().scalarType#>)<#=sourcesArgument.First().name#><#=scalarValueAccessor#>)<#=sourcesArgument.First().sourceAccessor#>);
 				
-				if (<#=sourcesArgument.First().Item2#>Value != null)
+				if (<#=sourcesArgument.First().name#>Value != null)
 				{
-					<#=sourcesArgument.First().Item2#>Value.Insert(0, new ObservableCollection<Item>(new []{new Item(1, true)}));
+					<#=sourcesArgument.First().name#>Value.Insert(0, new ObservableCollection<Item>(new []{new Item(1, true)}));
 					testing.ValidateConsistency();
-					<#=sourcesArgument.First().Item2#>Value.RemoveAt(1);
+					<#=sourcesArgument.First().name#>Value.RemoveAt(1);
 					testing.ValidateConsistency();
-					<#=sourcesArgument.First().Item2#>Value.Move(0, 1);
+					<#=sourcesArgument.First().name#>Value.Move(0, 1);
 					testing.ValidateConsistency();
 				}
 
@@ -149,7 +149,7 @@ namespace ObservableComputations.Test
 			{
 				string scalarValueAccessor = argument.Item1.Contains("Scalar") ? ".Value" : "";
 #>
-				listSource = ((IList)((<#=argument.Item5#>)<#=argument.Item2#><#=scalarValueAccessor#>)<#=argument.Item4#>);
+				listSource = ((IList)((<#=argument.scalarType#>)<#=argument.name#><#=scalarValueAccessor#>)<#=argument.sourceAccessor#>);
 				if (listSource != null)
 				{
 					listSource.Clear();
@@ -166,13 +166,13 @@ namespace ObservableComputations.Test
 			{
 				string scalarValueAccessor = argument.Item1.Contains("Scalar") ? ".Value" : "";
 #>
-				if (<#=argument.Item2#>Value != null)
+				if (<#=argument.name#>Value != null)
 				{
-					<#=argument.Item2#>Value.Insert(0, new QuickTests.Item(1, true));
-					<#=argument.Item2#>Value.Insert(1, new QuickTests.Item(2, true));
-					<#=argument.Item2#>Value.Insert(2, new QuickTests.Item(3, true));
-					<#=argument.Item2#>Value.Insert(3, new QuickTests.Item(3, true));
-					<#=argument.Item2#>Value.Insert(4, new QuickTests.Item(3, true));
+					<#=argument.name#>Value.Insert(0, new QuickTests.Item(1, true));
+					<#=argument.name#>Value.Insert(1, new QuickTests.Item(2, true));
+					<#=argument.name#>Value.Insert(2, new QuickTests.Item(3, true));
+					<#=argument.name#>Value.Insert(3, new QuickTests.Item(3, true));
+					<#=argument.name#>Value.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
 <#
@@ -182,10 +182,10 @@ namespace ObservableComputations.Test
 			{
 				string scalarValueAccessor = sourcesArgument.First().Item1.Contains("Scalar") ? ".Value" : "";
 #>
-				if (<#=sourcesArgument.First().Item2#>Value != null)
+				if (<#=sourcesArgument.First().name#>Value != null)
 				{
-					<#=sourcesArgument.First().Item2#>Value.Insert(0, new ObservableCollection<Item>(new []{new Item(1, true), new Item(2, true), new Item(3, true), new Item(4, true), new Item(5, true)}));
-					<#=sourcesArgument.First().Item2#>Value.Insert(0, new ObservableCollection<Item>(new []{new Item(6, true), new Item(7, true), new Item(8, true), new Item(8, true), new Item(10, true)}));
+					<#=sourcesArgument.First().name#>Value.Insert(0, new ObservableCollection<Item>(new []{new Item(1, true), new Item(2, true), new Item(3, true), new Item(4, true), new Item(5, true)}));
+					<#=sourcesArgument.First().name#>Value.Insert(0, new ObservableCollection<Item>(new []{new Item(6, true), new Item(7, true), new Item(8, true), new Item(8, true), new Item(10, true)}));
 					testing.ValidateConsistency();
 				}
 
@@ -206,15 +206,15 @@ namespace ObservableComputations.Test
 			{
 #>
 
-			((Scalar<<#=argument.Item5#>>)<#=argument.Item2#>).Touch();
+			((Scalar<<#=argument.scalarType#>>)<#=argument.name#>).Touch();
 			test();
 <#				
-				IEnumerable<string> scalarAlternativeValues = getScalarAlternativeValues(argument.Item5, argument.Item2, extensionMethod.Name);
+				IEnumerable<string> scalarAlternativeValues = getScalarAlternativeValues(argument.scalarType, argument.name, extensionMethod.Name);
 
 				foreach (var scalarAlternativeValue in scalarAlternativeValues)
 				{
 #>
-			((Scalar<<#=argument.Item5#>>)<#=argument.Item2#>).Change(<#=scalarAlternativeValue#>);
+			((Scalar<<#=argument.scalarType#>>)<#=argument.name#>).Change(<#=scalarAlternativeValue#>);
 			test();
 <#	
 				}
@@ -273,7 +273,7 @@ namespace ObservableComputations.Test
 		return type;
 	}
 
-	private (string, string, string, string) getArgumentValue(string type, string argumentName, string extensionMethodName)
+	private (string result, string sourceAccessor, string variableType, string scalarType) getArgumentValue(string type, string argumentName, string extensionMethodName)
 	{
 		string checkingType = type;
 		string result = null;

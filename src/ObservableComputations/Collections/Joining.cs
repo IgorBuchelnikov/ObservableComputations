@@ -24,10 +24,6 @@ namespace ObservableComputations
 		// ReSharper disable once MemberCanBePrivate.Global
 		public INotifyCollectionChanged RightSource => _rightSource;
 
-		// ReSharper disable once MemberCanBePrivate.Global
-		// ReSharper disable once UnassignedGetOnlyAutoProperty
-		public Expression<Func<TLeftSourceItem, TRightSourceItem, bool>> JoinPredicateExpression { get; }
-
 		public ReadOnlyCollection<INotifyCollectionChanged> SourceCollections =>
 			new ReadOnlyCollection<INotifyCollectionChanged>(new[] {LeftSource, RightSource});
 

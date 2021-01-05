@@ -8,17 +8,17 @@ namespace ObservableComputations
 	public class Distincting<TSourceItem> : Selecting<Group<TSourceItem, TSourceItem>, TSourceItem>, IHasSourceCollections
 	{
 		// ReSharper disable once UnusedMember.Local
-		private new IReadScalar<INotifyCollectionChanged> SourceScalar => _sourceScalar;
+		public override IReadScalar<INotifyCollectionChanged> SourceScalar => _sourceScalar;
 
-		public IReadScalar<IEqualityComparer<TSourceItem>> EqualityComparerScalar => _equalityComparerScalar;
+		public virtual IReadScalar<IEqualityComparer<TSourceItem>> EqualityComparerScalar => _equalityComparerScalar;
 
 		// ReSharper disable once MemberCanBePrivate.Global
-		public new INotifyCollectionChanged Source => _source;
+		public override INotifyCollectionChanged Source => _source;
 
-		public IEqualityComparer<TSourceItem> EqualityComparer => _equalityComparer;
+		public virtual IEqualityComparer<TSourceItem> EqualityComparer => _equalityComparer;
 
-		public new ReadOnlyCollection<INotifyCollectionChanged> SourceCollections => new ReadOnlyCollection<INotifyCollectionChanged>(new []{Source});
-		public new ReadOnlyCollection<IReadScalar<INotifyCollectionChanged>> SourceCollectionScalars => new ReadOnlyCollection<IReadScalar<INotifyCollectionChanged>>(new []{SourceScalar});
+		public override ReadOnlyCollection<INotifyCollectionChanged> Sources => new ReadOnlyCollection<INotifyCollectionChanged>(new []{Source});
+		public override ReadOnlyCollection<IReadScalar<INotifyCollectionChanged>> SourceScalars => new ReadOnlyCollection<IReadScalar<INotifyCollectionChanged>>(new []{SourceScalar});
 
 		protected IReadScalar<IEqualityComparer<TSourceItem>> _equalityComparerScalar;
 

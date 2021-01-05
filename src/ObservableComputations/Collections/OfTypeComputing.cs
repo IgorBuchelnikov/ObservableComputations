@@ -7,15 +7,15 @@ namespace ObservableComputations
 {
 	public class OfTypeComputing<TResultItem> : Casting<TResultItem>, IHasSourceCollections
 	{
-		public new IReadScalar<INotifyCollectionChanged> SourceScalar => _sourceScalarOfTypeComputing;
+		public override IReadScalar<INotifyCollectionChanged> SourceScalar => _sourceScalarOfTypeComputing;
 
 		// ReSharper disable once MemberCanBePrivate.Global
-		public new INotifyCollectionChanged Source => _sourceOfTypeComputing;
+		public override INotifyCollectionChanged Source => _sourceOfTypeComputing;
 		private readonly IReadScalar<INotifyCollectionChanged> _sourceScalarOfTypeComputing;
 		private readonly INotifyCollectionChanged _sourceOfTypeComputing;
 
-		public new ReadOnlyCollection<INotifyCollectionChanged> SourceCollections => new ReadOnlyCollection<INotifyCollectionChanged>(new []{Source});
-		public new ReadOnlyCollection<IReadScalar<INotifyCollectionChanged>> SourceCollectionScalars => new ReadOnlyCollection<IReadScalar<INotifyCollectionChanged>>(new []{SourceScalar});
+		public override ReadOnlyCollection<INotifyCollectionChanged> Sources => new ReadOnlyCollection<INotifyCollectionChanged>(new []{Source});
+		public override ReadOnlyCollection<IReadScalar<INotifyCollectionChanged>> SourceScalars => new ReadOnlyCollection<IReadScalar<INotifyCollectionChanged>>(new []{SourceScalar});
 
 		// ReSharper disable once MemberCanBePrivate.Global
 

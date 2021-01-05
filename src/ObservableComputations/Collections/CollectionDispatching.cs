@@ -8,14 +8,14 @@ namespace ObservableComputations
 {
 	public class CollectionDispatching<TSourceItem> : CollectionComputing<TSourceItem>, IHasSourceCollections, ISourceIndexerPropertyTracker
 	{
-		public INotifyCollectionChanged Source => _source;
-		public IReadScalar<INotifyCollectionChanged> SourceScalar => _sourceScalar;
+		public virtual INotifyCollectionChanged Source => _source;
+		public virtual IReadScalar<INotifyCollectionChanged> SourceScalar => _sourceScalar;
 		public ICollectionDestinationOcDispatcher CollectionDestinationOcDispatcher => _collectionDestinationOcDispatcher;
 		public IOcDispatcher DestinationOcDispatcher => _destinationOcDispatcher;
 		public IOcDispatcher SourceOcDispatcher => _sourceOcDispatcher;
 
-		public ReadOnlyCollection<INotifyCollectionChanged> SourceCollections => new ReadOnlyCollection<INotifyCollectionChanged>(new []{Source});
-		public ReadOnlyCollection<IReadScalar<INotifyCollectionChanged>> SourceCollectionScalars => new ReadOnlyCollection<IReadScalar<INotifyCollectionChanged>>(new []{SourceScalar});
+		public virtual ReadOnlyCollection<INotifyCollectionChanged> Sources => new ReadOnlyCollection<INotifyCollectionChanged>(new []{Source});
+		public virtual ReadOnlyCollection<IReadScalar<INotifyCollectionChanged>> SourceScalars => new ReadOnlyCollection<IReadScalar<INotifyCollectionChanged>>(new []{SourceScalar});
 
 		public int DestinationOcDispatcherPriority => _destinationOcDispatcherPriority;
 		public int SourceOcDispatcherPriority => _sourceOcDispatcherPriority;

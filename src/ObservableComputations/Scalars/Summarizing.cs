@@ -8,13 +8,13 @@ namespace ObservableComputations
 {
 	public class Summarizing<TSourceItem> : Aggregating<TSourceItem, TSourceItem>, IHasSourceCollections
 	{
-		public new IReadScalar<INotifyCollectionChanged> SourceScalar => _sourceScalarSummarizing;
+		public override IReadScalar<INotifyCollectionChanged> SourceScalar => _sourceScalarSummarizing;
 
-		public ReadOnlyCollection<INotifyCollectionChanged> SourceCollections => new ReadOnlyCollection<INotifyCollectionChanged>(new []{Source});
-		public ReadOnlyCollection<IReadScalar<INotifyCollectionChanged>> SourceCollectionScalars => new ReadOnlyCollection<IReadScalar<INotifyCollectionChanged>>(new []{SourceScalar});
+		public override ReadOnlyCollection<INotifyCollectionChanged> Sources => new ReadOnlyCollection<INotifyCollectionChanged>(new []{Source});
+		public override ReadOnlyCollection<IReadScalar<INotifyCollectionChanged>> SourceScalars => new ReadOnlyCollection<IReadScalar<INotifyCollectionChanged>>(new []{SourceScalar});
 
 		// ReSharper disable once MemberCanBePrivate.Global
-		public new INotifyCollectionChanged Source => _sourceSummarizing;
+		public override INotifyCollectionChanged Source => _sourceSummarizing;
 		private readonly IReadScalar<INotifyCollectionChanged> _sourceScalarSummarizing;
 		private readonly INotifyCollectionChanged _sourceSummarizing;
 

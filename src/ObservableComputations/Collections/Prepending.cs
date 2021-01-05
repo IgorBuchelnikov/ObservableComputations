@@ -7,19 +7,19 @@ namespace ObservableComputations
 {
 	public class Prepending<TSourceItem> : Concatenating<TSourceItem>, IHasSourceCollections
 	{
-		public IReadScalar<INotifyCollectionChanged> SourceScalar => _sourceScalar;
+		public override IReadScalar<INotifyCollectionChanged> SourceScalar => _sourceScalar;
 
 		// ReSharper disable once MemberCanBePrivate.Global
 		public IReadScalar<TSourceItem> ItemScalar => _itemScalar;
 
 		// ReSharper disable once MemberCanBePrivate.Global
-		public INotifyCollectionChanged Source => _source;
+		public override INotifyCollectionChanged Source => _source;
 
 		// ReSharper disable once MemberCanBePrivate.Global
 		public TSourceItem Item => _item;
 
-		public new ReadOnlyCollection<INotifyCollectionChanged> SourceCollections => new ReadOnlyCollection<INotifyCollectionChanged>(new []{Source});
-		public new ReadOnlyCollection<IReadScalar<INotifyCollectionChanged>> SourceCollectionScalars => new ReadOnlyCollection<IReadScalar<INotifyCollectionChanged>>(new []{SourceScalar});
+		public override ReadOnlyCollection<INotifyCollectionChanged> Sources => new ReadOnlyCollection<INotifyCollectionChanged>(new []{Source});
+		public override ReadOnlyCollection<IReadScalar<INotifyCollectionChanged>> SourceScalars => new ReadOnlyCollection<IReadScalar<INotifyCollectionChanged>>(new []{SourceScalar});
 
 		private readonly IReadScalar<INotifyCollectionChanged> _sourceScalar;
 		private readonly IReadScalar<TSourceItem> _itemScalar;

@@ -18,15 +18,15 @@ namespace ObservableComputations
 		public Expression<Func<TSourceItem, bool>> PredicateExpression => _predicateExpression;
 
 		// ReSharper disable once MemberCanBePrivate.Global
-		public new IReadScalar<INotifyCollectionChanged> SourceScalar => _sourceScalar;
+		public override IReadScalar<INotifyCollectionChanged> SourceScalar => _sourceScalar;
 
 		// ReSharper disable once MemberCanBePrivate.Global
-		public new INotifyCollectionChanged Source => _source;
+		public override INotifyCollectionChanged Source => _source;
 
 		public override int InitialCapacity => ((CollectionComputing<TSourceItem>)_source)._initialCapacity;
 
-		public new ReadOnlyCollection<INotifyCollectionChanged> SourceCollections => new ReadOnlyCollection<INotifyCollectionChanged>(new []{Source});
-		public new ReadOnlyCollection<IReadScalar<INotifyCollectionChanged>> SourceCollectionScalars => new ReadOnlyCollection<IReadScalar<INotifyCollectionChanged>>(new []{SourceScalar});
+		public override ReadOnlyCollection<INotifyCollectionChanged> Sources => new ReadOnlyCollection<INotifyCollectionChanged>(new []{Source});
+		public override ReadOnlyCollection<IReadScalar<INotifyCollectionChanged>> SourceScalars => new ReadOnlyCollection<IReadScalar<INotifyCollectionChanged>>(new []{SourceScalar});
 
 		[ObservableComputationsCall]
 		public IndicesComputing(

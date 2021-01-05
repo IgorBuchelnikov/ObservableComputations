@@ -13,18 +13,18 @@ namespace ObservableComputations
 		// ReSharper disable once MemberCanBePrivate.Global
 		public IReadScalar<INotifyCollectionChanged> Source2Scalar => _source2Scalar;
 
-		public new IReadScalar<IEqualityComparer<TSourceItem>> EqualityComparerScalar => _equalityComparerScalar;
+		public override IReadScalar<IEqualityComparer<TSourceItem>> EqualityComparerScalar => _equalityComparerScalar;
 
 		// ReSharper disable once MemberCanBePrivate.Global
-		public INotifyCollectionChanged Source1 => _source1;
+		public virtual INotifyCollectionChanged Source1 => _source1;
 
 		// ReSharper disable once MemberCanBePrivate.Global
-		public INotifyCollectionChanged Source2 => _source2;
+		public virtual INotifyCollectionChanged Source2 => _source2;
 
 		public new IEqualityComparer<TSourceItem> EqualityComparer => _equalityComparer;
 
-		public new ReadOnlyCollection<INotifyCollectionChanged> SourceCollections => new ReadOnlyCollection<INotifyCollectionChanged>(new []{Source1, Source2});
-		public new ReadOnlyCollection<IReadScalar<INotifyCollectionChanged>> SourceCollectionScalars => new ReadOnlyCollection<IReadScalar<INotifyCollectionChanged>>(new []{Source1Scalar, Source2Scalar});
+		public override ReadOnlyCollection<INotifyCollectionChanged> Sources => new ReadOnlyCollection<INotifyCollectionChanged>(new []{Source1, Source2});
+		public override ReadOnlyCollection<IReadScalar<INotifyCollectionChanged>> SourceScalars => new ReadOnlyCollection<IReadScalar<INotifyCollectionChanged>>(new []{Source1Scalar, Source2Scalar});
 
 		public override int InitialCapacity => ((CollectionComputing<TSourceItem>)_source)._initialCapacity;
 

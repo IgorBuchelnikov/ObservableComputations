@@ -8,10 +8,10 @@ namespace ObservableComputations
 {
 	public class Taking<TSourceItem> : Selecting<ZipPair<int, TSourceItem>, TSourceItem>, IHasSourceCollections
 	{
-		public new IReadScalar<INotifyCollectionChanged> SourceScalar => _sourceScalarTaking;
+		public override IReadScalar<INotifyCollectionChanged> SourceScalar => _sourceScalarTaking;
 
 		// ReSharper disable once MemberCanBePrivate.Global
-		public new INotifyCollectionChanged Source => _sourceTaking;
+		public override INotifyCollectionChanged Source => _sourceTaking;
 
 		// ReSharper disable once MemberCanBePrivate.Global
 		public IReadScalar<int> CountScalar => _countScalar;
@@ -22,8 +22,8 @@ namespace ObservableComputations
 		// ReSharper disable once MemberCanBePrivate.Global
 		public IReadScalar<int> StartIndexScalar => _startIndexScalar;
 
-		public new ReadOnlyCollection<INotifyCollectionChanged> SourceCollections => new ReadOnlyCollection<INotifyCollectionChanged>(new []{Source});
-		public new ReadOnlyCollection<IReadScalar<INotifyCollectionChanged>> SourceCollectionScalars => new ReadOnlyCollection<IReadScalar<INotifyCollectionChanged>>(new []{SourceScalar});
+		public override ReadOnlyCollection<INotifyCollectionChanged> Sources => new ReadOnlyCollection<INotifyCollectionChanged>(new []{Source});
+		public override ReadOnlyCollection<IReadScalar<INotifyCollectionChanged>> SourceScalars => new ReadOnlyCollection<IReadScalar<INotifyCollectionChanged>>(new []{SourceScalar});
 
 		public override int InitialCapacity => ((CollectionComputing<TSourceItem>)_source)._initialCapacity;
 

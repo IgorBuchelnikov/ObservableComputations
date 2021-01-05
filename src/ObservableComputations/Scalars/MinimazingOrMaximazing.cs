@@ -11,7 +11,7 @@ namespace ObservableComputations
 	{
 		// ReSharper disable once MemberCanBePrivate.Global
 		// ReSharper disable once ConvertToAutoProperty
-		public IReadScalar<INotifyCollectionChanged> SourceScalar => _sourceScalar;
+		public virtual IReadScalar<INotifyCollectionChanged> SourceScalar => _sourceScalar;
 
 		// ReSharper disable once MemberCanBePrivate.Global
 		public IReadScalar<IComparer<TSourceItem>> ComparerScalar => _comparerScalar;
@@ -20,7 +20,7 @@ namespace ObservableComputations
 		public MinimazingOrMaximazingMode Mode => _mode;
 
 		// ReSharper disable once MemberCanBePrivate.Global
-		public INotifyCollectionChanged Source => _source;
+		public virtual INotifyCollectionChanged Source => _source;
 
 		// ReSharper disable once MemberCanBePrivate.Global
 		public IComparer<TSourceItem> Comparer => _comparer;
@@ -31,8 +31,8 @@ namespace ObservableComputations
 		// ReSharper disable once MemberCanBePrivate.Global
 		public bool IsDefaulted => _isDefaulted;
 
-		public ReadOnlyCollection<INotifyCollectionChanged> SourceCollections => new ReadOnlyCollection<INotifyCollectionChanged>(new []{Source});
-		public ReadOnlyCollection<IReadScalar<INotifyCollectionChanged>> SourceCollectionScalars => new ReadOnlyCollection<IReadScalar<INotifyCollectionChanged>>(new []{SourceScalar});
+		public virtual ReadOnlyCollection<INotifyCollectionChanged> Sources => new ReadOnlyCollection<INotifyCollectionChanged>(new []{Source});
+		public virtual ReadOnlyCollection<IReadScalar<INotifyCollectionChanged>> SourceScalars => new ReadOnlyCollection<IReadScalar<INotifyCollectionChanged>>(new []{SourceScalar});
 
 		// ReSharper disable once StaticMemberInGenericType
 		private static readonly Func<int, bool> __checkCompareResultPositive = compareResult => compareResult > 0;

@@ -12,11 +12,11 @@ namespace ObservableComputations
 	// TODO если TKey это INotifyCollectionChanged реагировать на CollectionChanged 
 	public class Grouping<TSourceItem, TKey> : CollectionComputing<Group<TSourceItem, TKey>>, IHasSourceCollections, ISourceItemChangeProcessor, ISourceCollectionChangeProcessor
 	{
-		public IReadScalar<INotifyCollectionChanged> SourceScalar => _sourceScalar;
+		public virtual IReadScalar<INotifyCollectionChanged> SourceScalar => _sourceScalar;
 
 		public Expression<Func<TSourceItem, TKey>> KeySelectorExpression => _keySelectorExpressionOriginal;
 
-		public INotifyCollectionChanged Source => _source;
+		public virtual INotifyCollectionChanged Source => _source;
 
 		public IReadScalar<IEqualityComparer<TKey>> EqualityComparerScalar => _equalityComparerScalar;
 
@@ -25,8 +25,8 @@ namespace ObservableComputations
 		// ReSharper disable once MemberCanBePrivate.Global
 		public Func<TSourceItem, TKey> KeySelectorFunc => _keySelectorFunc;
 
-		public ReadOnlyCollection<INotifyCollectionChanged> SourceCollections => new ReadOnlyCollection<INotifyCollectionChanged>(new []{Source});
-		public ReadOnlyCollection<IReadScalar<INotifyCollectionChanged>> SourceCollectionScalars => new ReadOnlyCollection<IReadScalar<INotifyCollectionChanged>>(new []{SourceScalar});
+		public virtual ReadOnlyCollection<INotifyCollectionChanged> Sources => new ReadOnlyCollection<INotifyCollectionChanged>(new []{Source});
+		public virtual ReadOnlyCollection<IReadScalar<INotifyCollectionChanged>> SourceScalars => new ReadOnlyCollection<IReadScalar<INotifyCollectionChanged>>(new []{SourceScalar});
 
 		public override int InitialCapacity => _initialCapacity;
 

@@ -8,10 +8,10 @@ namespace ObservableComputations
 {
 	public class Skipping<TSourceItem> : Taking<TSourceItem>, IHasSourceCollections
 	{
-		public new IReadScalar<INotifyCollectionChanged> SourceScalar => _sourceScalarSkipping;
+		public override IReadScalar<INotifyCollectionChanged> SourceScalar => _sourceScalarSkipping;
 
 		// ReSharper disable once MemberCanBePrivate.Global
-		public new INotifyCollectionChanged Source => _sourceSkipping;
+		public override INotifyCollectionChanged Source => _sourceSkipping;
 
 		// ReSharper disable once MemberCanBePrivate.Global
 		public new IReadScalar<int> CountScalar => _countScalar;
@@ -19,8 +19,8 @@ namespace ObservableComputations
 		// ReSharper disable once MemberCanBePrivate.Global
 		public int CountSkipping => _countSkipping;
 
-		public new ReadOnlyCollection<INotifyCollectionChanged> SourceCollections => new ReadOnlyCollection<INotifyCollectionChanged>(new []{Source});
-		public new ReadOnlyCollection<IReadScalar<INotifyCollectionChanged>> SourceCollectionScalars => new ReadOnlyCollection<IReadScalar<INotifyCollectionChanged>>(new []{SourceScalar});
+		public override ReadOnlyCollection<INotifyCollectionChanged> Sources => new ReadOnlyCollection<INotifyCollectionChanged>(new []{Source});
+		public override ReadOnlyCollection<IReadScalar<INotifyCollectionChanged>> SourceScalars => new ReadOnlyCollection<IReadScalar<INotifyCollectionChanged>>(new []{SourceScalar});
 
 		public override int InitialCapacity => ((CollectionComputing<TSourceItem>)_source)._initialCapacity;
 

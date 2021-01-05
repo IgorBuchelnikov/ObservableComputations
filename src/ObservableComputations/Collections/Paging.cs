@@ -9,13 +9,13 @@ namespace ObservableComputations
 {
 	public class Paging<TSourceItem> : CollectionComputing<TSourceItem>, IHasSourceCollections, ISourceIndexerPropertyTracker, ISourceCollectionChangeProcessor
 	{
-		public INotifyCollectionChanged Source => _source;
-		public IReadScalar<INotifyCollectionChanged> SourceScalar => _sourceScalar;
+		public virtual INotifyCollectionChanged Source => _source;
+		public virtual IReadScalar<INotifyCollectionChanged> SourceScalar => _sourceScalar;
 		public IReadScalar<int> PageSizeScalar => _pageSizeScalar;
 		public IReadScalar<int> CurrentPageScalar => _currentPageScalar;
 
-		public ReadOnlyCollection<INotifyCollectionChanged> SourceCollections => new ReadOnlyCollection<INotifyCollectionChanged>(new []{Source});
-		public ReadOnlyCollection<IReadScalar<INotifyCollectionChanged>> SourceCollectionScalars => new ReadOnlyCollection<IReadScalar<INotifyCollectionChanged>>(new []{SourceScalar});
+		public virtual ReadOnlyCollection<INotifyCollectionChanged> Sources => new ReadOnlyCollection<INotifyCollectionChanged>(new []{Source});
+		public virtual ReadOnlyCollection<IReadScalar<INotifyCollectionChanged>> SourceScalars => new ReadOnlyCollection<IReadScalar<INotifyCollectionChanged>>(new []{SourceScalar});
 
 		public int PageSize
 		{

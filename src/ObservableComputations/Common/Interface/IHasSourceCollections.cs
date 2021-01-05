@@ -5,7 +5,7 @@ namespace ObservableComputations
 {
 	public interface IHasSourceCollections
 	{
-		ReadOnlyCollection<INotifyCollectionChanged> SourceCollections {get;}
-		ReadOnlyCollection<IReadScalar<INotifyCollectionChanged>> SourceCollectionScalars {get;}
+		ReadOnlyCollection<INotifyCollectionChanged> Sources {get;}
+		ReadOnlyCollection<IReadScalar<INotifyCollectionChanged>> SourceScalars {get;}
 	}
 }

@@ -9,13 +9,13 @@ namespace ObservableComputations
 {
 	public class ContainsComputing<TSourceItem> : AnyComputing<TSourceItem>, IHasSourceCollections
 	{
-		public IReadScalar<INotifyCollectionChanged> SourceScalar => _sourceScalarContainsComputing;
+		public override IReadScalar<INotifyCollectionChanged> SourceScalar => _sourceScalarContainsComputing;
 
 		// ReSharper disable once MemberCanBePrivate.Global
-		public INotifyCollectionChanged Source => _sourceContainsComputing;
+		public override INotifyCollectionChanged Source => _sourceContainsComputing;
 
-		public ReadOnlyCollection<INotifyCollectionChanged> SourceCollections => new ReadOnlyCollection<INotifyCollectionChanged>(new []{Source});
-		public ReadOnlyCollection<IReadScalar<INotifyCollectionChanged>> SourceCollectionScalars => new ReadOnlyCollection<IReadScalar<INotifyCollectionChanged>>(new []{SourceScalar});
+		public override ReadOnlyCollection<INotifyCollectionChanged> Sources => new ReadOnlyCollection<INotifyCollectionChanged>(new []{Source});
+		public override ReadOnlyCollection<IReadScalar<INotifyCollectionChanged>> SourceScalars => new ReadOnlyCollection<IReadScalar<INotifyCollectionChanged>>(new []{SourceScalar});
 
 		// ReSharper disable once MemberCanBePrivate.Global
 		public IReadScalar<TSourceItem> ItemScalar => _itemScalar;
@@ -24,10 +24,10 @@ namespace ObservableComputations
 		public TSourceItem Item => _item;
 
 		// ReSharper disable once MemberCanBePrivate.Global
-		public IReadScalar<IEqualityComparer<TSourceItem>> EqualityComparerScalar => _equalityComparerScalar;
+		public virtual IReadScalar<IEqualityComparer<TSourceItem>> EqualityComparerScalar => _equalityComparerScalar;
 
 		// ReSharper disable once MemberCanBePrivate.Global
-		public IEqualityComparer<TSourceItem> EqualityComparer => _equalityComparer;
+		public virtual IEqualityComparer<TSourceItem> EqualityComparer => _equalityComparer;
 		private readonly IReadScalar<INotifyCollectionChanged> _sourceScalarContainsComputing;
 		private readonly INotifyCollectionChanged _sourceContainsComputing;
 		private readonly IReadScalar<TSourceItem> _itemScalar;

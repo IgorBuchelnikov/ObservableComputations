@@ -10,16 +10,16 @@ namespace ObservableComputations
 	public class AllComputing<TSourceItem> : Computing<bool>, IHasSourceCollections
 	{
 		// ReSharper disable once MemberCanBePrivate.Global
-		public IReadScalar<INotifyCollectionChanged> SourceScalar => _sourceScalar;
+		public virtual IReadScalar<INotifyCollectionChanged> SourceScalar => _sourceScalar;
 
 		// ReSharper disable once MemberCanBePrivate.Global
-		public INotifyCollectionChanged Source => _source;
+		public virtual INotifyCollectionChanged Source => _source;
 
 		// ReSharper disable once MemberCanBePrivate.Global
 		public Expression<Func<TSourceItem, bool>> PredicateExpression => _predicateExpression;
 
-		public ReadOnlyCollection<INotifyCollectionChanged> SourceCollections => new ReadOnlyCollection<INotifyCollectionChanged>(new []{Source});
-		public ReadOnlyCollection<IReadScalar<INotifyCollectionChanged>> SourceCollectionScalars => new ReadOnlyCollection<IReadScalar<INotifyCollectionChanged>>(new []{SourceScalar});
+		public virtual ReadOnlyCollection<INotifyCollectionChanged> Sources => new ReadOnlyCollection<INotifyCollectionChanged>(new []{Source});
+		public virtual ReadOnlyCollection<IReadScalar<INotifyCollectionChanged>> SourceScalars => new ReadOnlyCollection<IReadScalar<INotifyCollectionChanged>>(new []{SourceScalar});
 
 		private readonly IReadScalar<INotifyCollectionChanged> _sourceScalar;
 		private readonly INotifyCollectionChanged _source;

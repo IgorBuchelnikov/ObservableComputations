@@ -10,8 +10,8 @@
 //{
 //	public class CollectionObserving<TSourceItem> : CollectionComputing<TSourceItem>, IHasSourceCollections
 //	{
-//		public INotifyCollectionChanged Source => _source;
-//		public IReadScalar<INotifyCollectionChanged> SourceScalar => _sourceScalar;
+//		public virtual INotifyCollectionChanged Source => _source;
+//		public virtual IReadScalar<INotifyCollectionChanged> SourceScalar => _sourceScalar;
 
 //		public ReadOnlyCollection<INotifyCollectionChanged> SourceCollections => new ReadOnlyCollection<INotifyCollectionChanged>(new []{Source});
 //		public ReadOnlyCollection<IReadScalar<INotifyCollectionChanged>> SourceCollectionScalars => new ReadOnlyCollection<IReadScalar<INotifyCollectionChanged>>(new []{SourceScalar});

@@ -819,22 +819,18 @@ namespace ObservableComputations
 #if DEBUG
 				workWithCallTreeNodeChildren(node, root, WorkWithCallTreeNodeType.UpdateSubscriptionAndHolder);
 				raiseValueChanged(root, sender, args);
-
 #else
-				raiseValueChanged(sender, args);
 				workWithCallTreeNodeChildren(node, WorkWithCallTreeNodeType.UpdateSubscriptionAndHolder);
+				raiseValueChanged(sender, args);
 #endif
-
 				if (_processChangeTasksQueue != null)
 				{
 					while (_processChangeTasksQueue.Count > 0)
 					{
-						ProcessChangeTask processChangeTask =
-							_processChangeTasksQueue.Dequeue();
+						ProcessChangeTask processChangeTask = _processChangeTasksQueue.Dequeue();
 						_computingsChanged = false;
 #if DEBUG
-						workWithCallTreeNodeChildren(processChangeTask.Node, processChangeTask.Root,
-							WorkWithCallTreeNodeType.UpdateSubscriptionAndHolder);
+						workWithCallTreeNodeChildren(processChangeTask.Node, processChangeTask.Root, WorkWithCallTreeNodeType.UpdateSubscriptionAndHolder);
 						raiseValueChanged(processChangeTask.Root, processChangeTask.Sender, processChangeTask.Args);
 #else
 						workWithCallTreeNodeChildren(processChangeTask.Node, WorkWithCallTreeNodeType.UpdateSubscriptionAndHolder);

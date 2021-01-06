@@ -55,6 +55,7 @@ namespace ObservableComputations.Test
 
 			propertyAccessing.PropertyChanged += (sender, eventArgs) =>
 			{
+				if (eventArgs.PropertyName != nameof(PropertyAccessing<string>.Value)) return;
 				string currentResult = propertyAccessing.Value;
 				raised = true;
 				Assert.IsTrue(currentResult == result);
@@ -87,6 +88,7 @@ namespace ObservableComputations.Test
 
 			propertyAccessing.PropertyChanged += (sender, eventArgs) =>
 			{
+				if (eventArgs.PropertyName != nameof(PropertyAccessing<string>.Value)) return;
 				string currentResult = propertyAccessing.Value;
 				raised = true;
 				Assert.AreEqual(currentResult, result);

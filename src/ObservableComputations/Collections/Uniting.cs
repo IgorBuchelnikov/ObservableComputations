@@ -18,8 +18,6 @@ namespace ObservableComputations
 
 		public new IEqualityComparer<TSourceItem> EqualityComparer => _equalityComparer;
 
-		public override int InitialCapacity => ((CollectionComputing<TSourceItem>)_source)._initialCapacity;
-
 		public override ReadOnlyCollection<INotifyCollectionChanged> Sources => new ReadOnlyCollection<INotifyCollectionChanged>(new []{Source});
 		public override ReadOnlyCollection<IReadScalar<INotifyCollectionChanged>> SourceScalars => new ReadOnlyCollection<IReadScalar<INotifyCollectionChanged>>(new []{SourceScalar});
 

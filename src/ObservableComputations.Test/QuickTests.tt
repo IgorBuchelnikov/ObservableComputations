@@ -47,6 +47,10 @@ namespace ObservableComputations.Test
 		foreach (ExtensionMethod extensionMethod in extensionMethodGroup)
 		{
 			testNum++;
+
+			if (extensionMethod.Name == "Uniting" && testNum == 101)
+			{
+			}
 #>
 		
 		[Test]
@@ -104,9 +108,9 @@ namespace ObservableComputations.Test
 			{
 				testing.ValidateConsistency();
 <#
-			foreach (var argument in arguments.Where(a => (a.Item2.Contains("source") || a.Item2.Contains("innerSource") || a.Item2.Contains("outerSource") || a.Item2.Contains("leftSource") || a.Item2.Contains("rightSource")) && !a.Item2.Contains("sources")))
+			foreach (var argument in arguments.Where(a => (a.name.Contains("source") || a.name.Contains("innerSource") || a.name.Contains("outerSource") || a.name.Contains("leftSource") || a.name.Contains("rightSource")) && !IsCollectionOfCollectionsArgument(extensionMethod.Name, a.name)))
 			{
-				string scalarValueAccessor = argument.Item1.Contains("Scalar") ? ".Value" : "";
+				string scalarValueAccessor = argument.variableType.Contains("Scalar") ? ".Value" : "";
 #>
 				var <#=argument.name#>Value = ((ObservableCollection<Item>)((<#=argument.scalarType#>)<#=argument.name#><#=scalarValueAccessor#>)<#=argument.sourceAccessor#>);
 
@@ -136,10 +140,10 @@ namespace ObservableComputations.Test
 <#
 			}
 
-			var sourcesArgument = arguments.Where(a => a.Item2.Contains("sources"));
+			var sourcesArgument = arguments.Where(a => IsCollectionOfCollectionsArgument(extensionMethod.Name, a.name));
 			if (sourcesArgument.Count() != 0)
 			{
-				string scalarValueAccessor = sourcesArgument.First().Item1.Contains("Scalar") ? ".Value" : "";
+				string scalarValueAccessor = sourcesArgument.First().variableType.Contains("Scalar") ? ".Value" : "";
 #>
 				var <#=sourcesArgument.First().name#>Value = ((ObservableCollection<ObservableCollection<Item>>)((<#=sourcesArgument.First().scalarType#>)<#=sourcesArgument.First().name#><#=scalarValueAccessor#>)<#=sourcesArgument.First().sourceAccessor#>);
 				
@@ -160,10 +164,10 @@ namespace ObservableComputations.Test
 
 				IList listSource;
 <#
-
-			foreach (var argument in arguments.Where(a => (a.Item2.Contains("source") || a.Item2.Contains("innerSource") || a.Item2.Contains("outerSource"))))
-			{
-				string scalarValueAccessor = argument.Item1.Contains("Scalar") ? ".Value" : "";
+			if (sourcesArgument.Count() == 0)
+				foreach (var argument in arguments.Where(a => (a.Item2.Contains("source") || a.Item2.Contains("innerSource") || a.Item2.Contains("outerSource"))))
+				{
+					string scalarValueAccessor = argument.Item1.Contains("Scalar") ? ".Value" : "";
 #>
 				listSource = ((IList)((<#=argument.scalarType#>)<#=argument.name#><#=scalarValueAccessor#>)<#=argument.sourceAccessor#>);
 				if (listSource != null)
@@ -173,14 +177,12 @@ namespace ObservableComputations.Test
 				}
 
 <#
-			}
+				}
 
-
-
-
-			foreach (var argument in arguments.Where(a => (a.Item2.Contains("source") || a.Item2.Contains("innerSource") || a.Item2.Contains("outerSource")) && !a.Item2.Contains("sources")))
-			{
-				string scalarValueAccessor = argument.Item1.Contains("Scalar") ? ".Value" : "";
+			if (sourcesArgument.Count() == 0)
+				foreach (var argument in arguments.Where(a => (a.Item2.Contains("source") || a.Item2.Contains("innerSource") || a.Item2.Contains("outerSource")) && !a.Item2.Contains("sources")))
+				{
+					string scalarValueAccessor = argument.Item1.Contains("Scalar") ? ".Value" : "";
 #>
 				if (<#=argument.name#>Value != null)
 				{
@@ -192,7 +194,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 				}
 <#
-			}
+				}
 
 			if (sourcesArgument.Count() != 0)
 			{
@@ -335,7 +337,8 @@ namespace ObservableComputations.Test
 				}
 				else
 				{
-					result = argumentName.Contains("sources") ? "getCollectionsOfItems()" : "getItems()";
+					result = IsCollectionOfCollectionsArgument(extensionMethodName, argumentName)
+						? "getCollectionsOfItems()" : "getItems()";
 				}
 				break;
 			case "ObservableCollection<TSourceItem1>":

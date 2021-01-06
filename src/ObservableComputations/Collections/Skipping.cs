@@ -14,81 +14,79 @@ namespace ObservableComputations
 		public override INotifyCollectionChanged Source => _sourceSkipping;
 
 		// ReSharper disable once MemberCanBePrivate.Global
-		public new IReadScalar<int> CountScalar => _countScalar;
+		public new IReadScalar<int> SkippingCountScalar => _skippingCountScalar;
 
 		// ReSharper disable once MemberCanBePrivate.Global
-		public int CountSkipping => _countSkipping;
+		public int SkippingCount => _skippingCount;
 
 		public override ReadOnlyCollection<INotifyCollectionChanged> Sources => new ReadOnlyCollection<INotifyCollectionChanged>(new []{Source});
 		public override ReadOnlyCollection<IReadScalar<INotifyCollectionChanged>> SourceScalars => new ReadOnlyCollection<IReadScalar<INotifyCollectionChanged>>(new []{SourceScalar});
 
-		public override int InitialCapacity => ((CollectionComputing<TSourceItem>)_source)._initialCapacity;
-
 		private readonly IReadScalar<INotifyCollectionChanged> _sourceScalarSkipping;
 		private readonly INotifyCollectionChanged _sourceSkipping;
-		private readonly IReadScalar<int> _countScalar;
-		private readonly int _countSkipping;
+		private readonly IReadScalar<int> _skippingCountScalar;
+		private readonly int _skippingCount;
 
 		// ReSharper disable once MemberCanBePrivate.Global
 
 		[ObservableComputationsCall]
 		public Skipping(
 			IReadScalar<INotifyCollectionChanged> sourceScalar, 
-			IReadScalar<int> countScalar,
+			IReadScalar<int> skippingCountScalar,
 			int initialCapacity = 0) : 
 			base(
 				sourceScalar,
-				countScalar,
+				skippingCountScalar,
 				getCount(sourceScalar),
 				initialCapacity)
 		{
 			_sourceScalarSkipping = sourceScalar;
-			_countScalar = countScalar;
+			_skippingCountScalar = skippingCountScalar;
 		}
 
 		[ObservableComputationsCall]
 		public Skipping(
 			INotifyCollectionChanged source, 
-			IReadScalar<int> countScalar,
+			IReadScalar<int> skippingCountScalar,
 			int initialCapacity = 0) : 
 			base(
 				source,
-				countScalar,
+				skippingCountScalar,
 				getCount(source),
 				initialCapacity)
 		{
 			_sourceSkipping = source;
-			_countScalar = countScalar;
+			_skippingCountScalar = skippingCountScalar;
 		}
 
 		[ObservableComputationsCall]
 		public Skipping(
 			IReadScalar<INotifyCollectionChanged> sourceScalar, 
-			int count,
+			int skippingCount,
 			int initialCapacity = 0) : 
 			base(
 				sourceScalar,
-				count,
+				skippingCount,
 				getCount(sourceScalar),
 				initialCapacity)
 		{
 			_sourceScalarSkipping = sourceScalar;
-			_countSkipping = count;
+			_skippingCount = skippingCount;
 		}
 
 		[ObservableComputationsCall]
 		public Skipping(
 			INotifyCollectionChanged source, 
-			int count,
+			int skippingCount,
 			int initialCapacity = 0) : 
 			base(
 				source,
-				count,
+				skippingCount,
 				getCount(source),
 				initialCapacity)
 		{
 			_sourceSkipping = source;
-			_countSkipping = count;
+			_skippingCount = skippingCount;
 		}
 
 		private static IReadScalar<int> getCount(IReadScalar<INotifyCollectionChanged> sourceScalar)
@@ -104,7 +102,7 @@ namespace ObservableComputations
 		public new void ValidateConsistency()
 		{
 			IList<TSourceItem> source = _sourceScalarSkipping.getValue(_sourceSkipping, new ObservableCollection<TSourceItem>()) as IList<TSourceItem>;
-			int count = _countScalar.getValue(_countSkipping);
+			int count = _skippingCountScalar.getValue(_skippingCount);
 
 			// ReSharper disable once AssignNullToNotNullAttribute
 			if (!this.SequenceEqual(source.Skip(count)))

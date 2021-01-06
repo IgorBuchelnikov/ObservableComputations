@@ -26,7 +26,7 @@ namespace ObservableComputations
 		public override ReadOnlyCollection<INotifyCollectionChanged> Sources => new ReadOnlyCollection<INotifyCollectionChanged>(new []{Source1, Source2});
 		public override ReadOnlyCollection<IReadScalar<INotifyCollectionChanged>> SourceScalars => new ReadOnlyCollection<IReadScalar<INotifyCollectionChanged>>(new []{Source1Scalar, Source2Scalar});
 
-		public override int InitialCapacity => ((CollectionComputing<TSourceItem>)_source)._initialCapacity;
+		public override int InitialCapacity => ((IHasInitialCapacity)base._source).InitialCapacity;
 
 		private readonly IReadScalar<INotifyCollectionChanged> _source1Scalar;
 		private readonly IReadScalar<INotifyCollectionChanged> _source2Scalar;

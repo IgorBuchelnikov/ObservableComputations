@@ -4819,50 +4819,50 @@ namespace ObservableComputations
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.Concatenating<TSourceItem> Concatenating<TSourceItem>(this
-			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> sourcesScalar)
+			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar)
 		{
 			return new ObservableComputations.Concatenating<TSourceItem>(
-				sourceScalar: sourcesScalar);
+				sourceScalar: sourceScalar);
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.Concatenating<TSourceItem> Concatenating<TSourceItem>(this
-			 ObservableComputations.IReadScalar<ObservableCollection<ObservableCollection<TSourceItem>>> sourcesScalar)
+			 ObservableComputations.IReadScalar<ObservableCollection<ObservableCollection<TSourceItem>>> sourceScalar)
 		{
 			return new ObservableComputations.Concatenating<TSourceItem>(
-				sourceScalar: sourcesScalar);
+				sourceScalar: sourceScalar);
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.Concatenating<TSourceItem> Concatenating<TSourceItem>(this
-			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> sourcesExpression)
+			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> sourceExpression)
 		{
 			return new ObservableComputations.Concatenating<TSourceItem>(
-				sourceScalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(sourcesExpression));
+				sourceScalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(sourceExpression));
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.Concatenating<TSourceItem> Concatenating<TSourceItem>(this
-			 Expression<Func<ObservableCollection<ObservableCollection<TSourceItem>>>> sourcesExpression)
+			 Expression<Func<ObservableCollection<ObservableCollection<TSourceItem>>>> sourceExpression)
 		{
 			return new ObservableComputations.Concatenating<TSourceItem>(
-				sourceScalar: new Computing<ObservableCollection<ObservableCollection<TSourceItem>>>(sourcesExpression));
+				sourceScalar: new Computing<ObservableCollection<ObservableCollection<TSourceItem>>>(sourceExpression));
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.Concatenating<TSourceItem> Concatenating<TSourceItem>(this
-			 System.Collections.Specialized.INotifyCollectionChanged sources)
+			 System.Collections.Specialized.INotifyCollectionChanged source)
 		{
 			return new ObservableComputations.Concatenating<TSourceItem>(
-				source: sources);
+				source: source);
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.Concatenating<TSourceItem> Concatenating<TSourceItem>(this
-			 ObservableCollection<ObservableCollection<TSourceItem>> sources)
+			 ObservableCollection<ObservableCollection<TSourceItem>> source)
 		{
 			return new ObservableComputations.Concatenating<TSourceItem>(
-				source: sources);
+				source: source);
 		}
 
 		[ObservableComputationsCall]
@@ -26001,61 +26001,61 @@ namespace ObservableComputations
 		[ObservableComputationsCall]
 		public static ObservableComputations.SelectingMany<TSourceItem, TResultItem> SelectingMany<TSourceItem, TResultItem>(this
 			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar,
-			 System.Linq.Expressions.Expression<System.Func<TSourceItem, int, System.Collections.Specialized.INotifyCollectionChanged>> selectorExpression)
+			 System.Linq.Expressions.Expression<System.Func<TSourceItem, int, System.Collections.Specialized.INotifyCollectionChanged>> selectorWithIndexExpression)
 		{
 			return new ObservableComputations.SelectingMany<TSourceItem, TResultItem>(
 				sourceScalar: sourceScalar,
-				selectorExpression: selectorExpression);
+				selectorWithIndexExpression: selectorWithIndexExpression);
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.SelectingMany<TSourceItem, TResultItem> SelectingMany<TSourceItem, TResultItem>(this
 			 ObservableComputations.IReadScalar<ObservableCollection<TSourceItem>> sourceScalar,
-			 System.Linq.Expressions.Expression<System.Func<TSourceItem, int, System.Collections.Specialized.INotifyCollectionChanged>> selectorExpression)
+			 System.Linq.Expressions.Expression<System.Func<TSourceItem, int, System.Collections.Specialized.INotifyCollectionChanged>> selectorWithIndexExpression)
 		{
 			return new ObservableComputations.SelectingMany<TSourceItem, TResultItem>(
 				sourceScalar: sourceScalar,
-				selectorExpression: selectorExpression);
+				selectorWithIndexExpression: selectorWithIndexExpression);
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.SelectingMany<TSourceItem, TResultItem> SelectingMany<TSourceItem, TResultItem>(this
 			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> sourceExpression,
-			 System.Linq.Expressions.Expression<System.Func<TSourceItem, int, System.Collections.Specialized.INotifyCollectionChanged>> selectorExpression)
+			 System.Linq.Expressions.Expression<System.Func<TSourceItem, int, System.Collections.Specialized.INotifyCollectionChanged>> selectorWithIndexExpression)
 		{
 			return new ObservableComputations.SelectingMany<TSourceItem, TResultItem>(
 				sourceScalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(sourceExpression),
-				selectorExpression: selectorExpression);
+				selectorWithIndexExpression: selectorWithIndexExpression);
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.SelectingMany<TSourceItem, TResultItem> SelectingMany<TSourceItem, TResultItem>(this
 			 Expression<Func<ObservableCollection<TSourceItem>>> sourceExpression,
-			 System.Linq.Expressions.Expression<System.Func<TSourceItem, int, System.Collections.Specialized.INotifyCollectionChanged>> selectorExpression)
+			 System.Linq.Expressions.Expression<System.Func<TSourceItem, int, System.Collections.Specialized.INotifyCollectionChanged>> selectorWithIndexExpression)
 		{
 			return new ObservableComputations.SelectingMany<TSourceItem, TResultItem>(
 				sourceScalar: new Computing<ObservableCollection<TSourceItem>>(sourceExpression),
-				selectorExpression: selectorExpression);
+				selectorWithIndexExpression: selectorWithIndexExpression);
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.SelectingMany<TSourceItem, TResultItem> SelectingMany<TSourceItem, TResultItem>(this
 			 System.Collections.Specialized.INotifyCollectionChanged source,
-			 System.Linq.Expressions.Expression<System.Func<TSourceItem, int, System.Collections.Specialized.INotifyCollectionChanged>> selectorExpression)
+			 System.Linq.Expressions.Expression<System.Func<TSourceItem, int, System.Collections.Specialized.INotifyCollectionChanged>> selectorWithIndexExpression)
 		{
 			return new ObservableComputations.SelectingMany<TSourceItem, TResultItem>(
 				source: source,
-				selectorExpression: selectorExpression);
+				selectorWithIndexExpression: selectorWithIndexExpression);
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.SelectingMany<TSourceItem, TResultItem> SelectingMany<TSourceItem, TResultItem>(this
 			 ObservableCollection<TSourceItem> source,
-			 System.Linq.Expressions.Expression<System.Func<TSourceItem, int, System.Collections.Specialized.INotifyCollectionChanged>> selectorExpression)
+			 System.Linq.Expressions.Expression<System.Func<TSourceItem, int, System.Collections.Specialized.INotifyCollectionChanged>> selectorWithIndexExpression)
 		{
 			return new ObservableComputations.SelectingMany<TSourceItem, TResultItem>(
 				source: source,
-				selectorExpression: selectorExpression);
+				selectorWithIndexExpression: selectorWithIndexExpression);
 		}
 
 		#endregion
@@ -26083,414 +26083,414 @@ namespace ObservableComputations
 		[ObservableComputationsCall]
 		public static ObservableComputations.Skipping<TSourceItem> Skipping<TSourceItem>(this
 			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar,
-			 ObservableComputations.IReadScalar<int> countScalar,
+			 ObservableComputations.IReadScalar<int> skippingCountScalar,
 			 int initialCapacity)
 		{
 			return new ObservableComputations.Skipping<TSourceItem>(
 				sourceScalar: sourceScalar,
-				countScalar: countScalar,
+				skippingCountScalar: skippingCountScalar,
 				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.Skipping<TSourceItem> Skipping<TSourceItem>(this
 			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar,
-			 ObservableComputations.IReadScalar<int> countScalar)
+			 ObservableComputations.IReadScalar<int> skippingCountScalar)
 		{
 			return new ObservableComputations.Skipping<TSourceItem>(
 				sourceScalar: sourceScalar,
-				countScalar: countScalar,
+				skippingCountScalar: skippingCountScalar,
 				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.Skipping<TSourceItem> Skipping<TSourceItem>(this
 			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar,
-			 Expression<Func<int>> countExpression,
+			 Expression<Func<int>> skippingCountExpression,
 			 int initialCapacity)
 		{
 			return new ObservableComputations.Skipping<TSourceItem>(
 				sourceScalar: sourceScalar,
-				countScalar: new Computing<int>(countExpression),
+				skippingCountScalar: new Computing<int>(skippingCountExpression),
 				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.Skipping<TSourceItem> Skipping<TSourceItem>(this
 			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar,
-			 Expression<Func<int>> countExpression)
+			 Expression<Func<int>> skippingCountExpression)
 		{
 			return new ObservableComputations.Skipping<TSourceItem>(
 				sourceScalar: sourceScalar,
-				countScalar: new Computing<int>(countExpression),
+				skippingCountScalar: new Computing<int>(skippingCountExpression),
 				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.Skipping<TSourceItem> Skipping<TSourceItem>(this
 			 ObservableComputations.IReadScalar<ObservableCollection<TSourceItem>> sourceScalar,
-			 ObservableComputations.IReadScalar<int> countScalar,
+			 ObservableComputations.IReadScalar<int> skippingCountScalar,
 			 int initialCapacity)
 		{
 			return new ObservableComputations.Skipping<TSourceItem>(
 				sourceScalar: sourceScalar,
-				countScalar: countScalar,
+				skippingCountScalar: skippingCountScalar,
 				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.Skipping<TSourceItem> Skipping<TSourceItem>(this
 			 ObservableComputations.IReadScalar<ObservableCollection<TSourceItem>> sourceScalar,
-			 ObservableComputations.IReadScalar<int> countScalar)
+			 ObservableComputations.IReadScalar<int> skippingCountScalar)
 		{
 			return new ObservableComputations.Skipping<TSourceItem>(
 				sourceScalar: sourceScalar,
-				countScalar: countScalar,
+				skippingCountScalar: skippingCountScalar,
 				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.Skipping<TSourceItem> Skipping<TSourceItem>(this
 			 ObservableComputations.IReadScalar<ObservableCollection<TSourceItem>> sourceScalar,
-			 Expression<Func<int>> countExpression,
+			 Expression<Func<int>> skippingCountExpression,
 			 int initialCapacity)
 		{
 			return new ObservableComputations.Skipping<TSourceItem>(
 				sourceScalar: sourceScalar,
-				countScalar: new Computing<int>(countExpression),
+				skippingCountScalar: new Computing<int>(skippingCountExpression),
 				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.Skipping<TSourceItem> Skipping<TSourceItem>(this
 			 ObservableComputations.IReadScalar<ObservableCollection<TSourceItem>> sourceScalar,
-			 Expression<Func<int>> countExpression)
+			 Expression<Func<int>> skippingCountExpression)
 		{
 			return new ObservableComputations.Skipping<TSourceItem>(
 				sourceScalar: sourceScalar,
-				countScalar: new Computing<int>(countExpression),
+				skippingCountScalar: new Computing<int>(skippingCountExpression),
 				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.Skipping<TSourceItem> Skipping<TSourceItem>(this
 			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> sourceExpression,
-			 ObservableComputations.IReadScalar<int> countScalar,
+			 ObservableComputations.IReadScalar<int> skippingCountScalar,
 			 int initialCapacity)
 		{
 			return new ObservableComputations.Skipping<TSourceItem>(
 				sourceScalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(sourceExpression),
-				countScalar: countScalar,
+				skippingCountScalar: skippingCountScalar,
 				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.Skipping<TSourceItem> Skipping<TSourceItem>(this
 			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> sourceExpression,
-			 ObservableComputations.IReadScalar<int> countScalar)
+			 ObservableComputations.IReadScalar<int> skippingCountScalar)
 		{
 			return new ObservableComputations.Skipping<TSourceItem>(
 				sourceScalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(sourceExpression),
-				countScalar: countScalar,
+				skippingCountScalar: skippingCountScalar,
 				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.Skipping<TSourceItem> Skipping<TSourceItem>(this
 			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> sourceExpression,
-			 Expression<Func<int>> countExpression,
+			 Expression<Func<int>> skippingCountExpression,
 			 int initialCapacity)
 		{
 			return new ObservableComputations.Skipping<TSourceItem>(
 				sourceScalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(sourceExpression),
-				countScalar: new Computing<int>(countExpression),
+				skippingCountScalar: new Computing<int>(skippingCountExpression),
 				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.Skipping<TSourceItem> Skipping<TSourceItem>(this
 			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> sourceExpression,
-			 Expression<Func<int>> countExpression)
+			 Expression<Func<int>> skippingCountExpression)
 		{
 			return new ObservableComputations.Skipping<TSourceItem>(
 				sourceScalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(sourceExpression),
-				countScalar: new Computing<int>(countExpression),
+				skippingCountScalar: new Computing<int>(skippingCountExpression),
 				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.Skipping<TSourceItem> Skipping<TSourceItem>(this
 			 Expression<Func<ObservableCollection<TSourceItem>>> sourceExpression,
-			 ObservableComputations.IReadScalar<int> countScalar,
+			 ObservableComputations.IReadScalar<int> skippingCountScalar,
 			 int initialCapacity)
 		{
 			return new ObservableComputations.Skipping<TSourceItem>(
 				sourceScalar: new Computing<ObservableCollection<TSourceItem>>(sourceExpression),
-				countScalar: countScalar,
+				skippingCountScalar: skippingCountScalar,
 				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.Skipping<TSourceItem> Skipping<TSourceItem>(this
 			 Expression<Func<ObservableCollection<TSourceItem>>> sourceExpression,
-			 ObservableComputations.IReadScalar<int> countScalar)
+			 ObservableComputations.IReadScalar<int> skippingCountScalar)
 		{
 			return new ObservableComputations.Skipping<TSourceItem>(
 				sourceScalar: new Computing<ObservableCollection<TSourceItem>>(sourceExpression),
-				countScalar: countScalar,
+				skippingCountScalar: skippingCountScalar,
 				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.Skipping<TSourceItem> Skipping<TSourceItem>(this
 			 Expression<Func<ObservableCollection<TSourceItem>>> sourceExpression,
-			 Expression<Func<int>> countExpression,
+			 Expression<Func<int>> skippingCountExpression,
 			 int initialCapacity)
 		{
 			return new ObservableComputations.Skipping<TSourceItem>(
 				sourceScalar: new Computing<ObservableCollection<TSourceItem>>(sourceExpression),
-				countScalar: new Computing<int>(countExpression),
+				skippingCountScalar: new Computing<int>(skippingCountExpression),
 				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.Skipping<TSourceItem> Skipping<TSourceItem>(this
 			 Expression<Func<ObservableCollection<TSourceItem>>> sourceExpression,
-			 Expression<Func<int>> countExpression)
+			 Expression<Func<int>> skippingCountExpression)
 		{
 			return new ObservableComputations.Skipping<TSourceItem>(
 				sourceScalar: new Computing<ObservableCollection<TSourceItem>>(sourceExpression),
-				countScalar: new Computing<int>(countExpression),
+				skippingCountScalar: new Computing<int>(skippingCountExpression),
 				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.Skipping<TSourceItem> Skipping<TSourceItem>(this
 			 System.Collections.Specialized.INotifyCollectionChanged source,
-			 ObservableComputations.IReadScalar<int> countScalar,
+			 ObservableComputations.IReadScalar<int> skippingCountScalar,
 			 int initialCapacity)
 		{
 			return new ObservableComputations.Skipping<TSourceItem>(
 				source: source,
-				countScalar: countScalar,
+				skippingCountScalar: skippingCountScalar,
 				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.Skipping<TSourceItem> Skipping<TSourceItem>(this
 			 System.Collections.Specialized.INotifyCollectionChanged source,
-			 ObservableComputations.IReadScalar<int> countScalar)
+			 ObservableComputations.IReadScalar<int> skippingCountScalar)
 		{
 			return new ObservableComputations.Skipping<TSourceItem>(
 				source: source,
-				countScalar: countScalar,
+				skippingCountScalar: skippingCountScalar,
 				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.Skipping<TSourceItem> Skipping<TSourceItem>(this
 			 System.Collections.Specialized.INotifyCollectionChanged source,
-			 Expression<Func<int>> countExpression,
+			 Expression<Func<int>> skippingCountExpression,
 			 int initialCapacity)
 		{
 			return new ObservableComputations.Skipping<TSourceItem>(
 				source: source,
-				countScalar: new Computing<int>(countExpression),
+				skippingCountScalar: new Computing<int>(skippingCountExpression),
 				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.Skipping<TSourceItem> Skipping<TSourceItem>(this
 			 System.Collections.Specialized.INotifyCollectionChanged source,
-			 Expression<Func<int>> countExpression)
+			 Expression<Func<int>> skippingCountExpression)
 		{
 			return new ObservableComputations.Skipping<TSourceItem>(
 				source: source,
-				countScalar: new Computing<int>(countExpression),
+				skippingCountScalar: new Computing<int>(skippingCountExpression),
 				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.Skipping<TSourceItem> Skipping<TSourceItem>(this
 			 ObservableCollection<TSourceItem> source,
-			 ObservableComputations.IReadScalar<int> countScalar,
+			 ObservableComputations.IReadScalar<int> skippingCountScalar,
 			 int initialCapacity)
 		{
 			return new ObservableComputations.Skipping<TSourceItem>(
 				source: source,
-				countScalar: countScalar,
+				skippingCountScalar: skippingCountScalar,
 				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.Skipping<TSourceItem> Skipping<TSourceItem>(this
 			 ObservableCollection<TSourceItem> source,
-			 ObservableComputations.IReadScalar<int> countScalar)
+			 ObservableComputations.IReadScalar<int> skippingCountScalar)
 		{
 			return new ObservableComputations.Skipping<TSourceItem>(
 				source: source,
-				countScalar: countScalar,
+				skippingCountScalar: skippingCountScalar,
 				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.Skipping<TSourceItem> Skipping<TSourceItem>(this
 			 ObservableCollection<TSourceItem> source,
-			 Expression<Func<int>> countExpression,
+			 Expression<Func<int>> skippingCountExpression,
 			 int initialCapacity)
 		{
 			return new ObservableComputations.Skipping<TSourceItem>(
 				source: source,
-				countScalar: new Computing<int>(countExpression),
+				skippingCountScalar: new Computing<int>(skippingCountExpression),
 				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.Skipping<TSourceItem> Skipping<TSourceItem>(this
 			 ObservableCollection<TSourceItem> source,
-			 Expression<Func<int>> countExpression)
+			 Expression<Func<int>> skippingCountExpression)
 		{
 			return new ObservableComputations.Skipping<TSourceItem>(
 				source: source,
-				countScalar: new Computing<int>(countExpression),
+				skippingCountScalar: new Computing<int>(skippingCountExpression),
 				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.Skipping<TSourceItem> Skipping<TSourceItem>(this
 			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar,
-			 int count,
+			 int skippingCount,
 			 int initialCapacity)
 		{
 			return new ObservableComputations.Skipping<TSourceItem>(
 				sourceScalar: sourceScalar,
-				count: count,
+				skippingCount: skippingCount,
 				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.Skipping<TSourceItem> Skipping<TSourceItem>(this
 			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar,
-			 int count)
+			 int skippingCount)
 		{
 			return new ObservableComputations.Skipping<TSourceItem>(
 				sourceScalar: sourceScalar,
-				count: count,
+				skippingCount: skippingCount,
 				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.Skipping<TSourceItem> Skipping<TSourceItem>(this
 			 ObservableComputations.IReadScalar<ObservableCollection<TSourceItem>> sourceScalar,
-			 int count,
+			 int skippingCount,
 			 int initialCapacity)
 		{
 			return new ObservableComputations.Skipping<TSourceItem>(
 				sourceScalar: sourceScalar,
-				count: count,
+				skippingCount: skippingCount,
 				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.Skipping<TSourceItem> Skipping<TSourceItem>(this
 			 ObservableComputations.IReadScalar<ObservableCollection<TSourceItem>> sourceScalar,
-			 int count)
+			 int skippingCount)
 		{
 			return new ObservableComputations.Skipping<TSourceItem>(
 				sourceScalar: sourceScalar,
-				count: count,
+				skippingCount: skippingCount,
 				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.Skipping<TSourceItem> Skipping<TSourceItem>(this
 			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> sourceExpression,
-			 int count,
+			 int skippingCount,
 			 int initialCapacity)
 		{
 			return new ObservableComputations.Skipping<TSourceItem>(
 				sourceScalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(sourceExpression),
-				count: count,
+				skippingCount: skippingCount,
 				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.Skipping<TSourceItem> Skipping<TSourceItem>(this
 			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> sourceExpression,
-			 int count)
+			 int skippingCount)
 		{
 			return new ObservableComputations.Skipping<TSourceItem>(
 				sourceScalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(sourceExpression),
-				count: count,
+				skippingCount: skippingCount,
 				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.Skipping<TSourceItem> Skipping<TSourceItem>(this
 			 Expression<Func<ObservableCollection<TSourceItem>>> sourceExpression,
-			 int count,
+			 int skippingCount,
 			 int initialCapacity)
 		{
 			return new ObservableComputations.Skipping<TSourceItem>(
 				sourceScalar: new Computing<ObservableCollection<TSourceItem>>(sourceExpression),
-				count: count,
+				skippingCount: skippingCount,
 				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.Skipping<TSourceItem> Skipping<TSourceItem>(this
 			 Expression<Func<ObservableCollection<TSourceItem>>> sourceExpression,
-			 int count)
+			 int skippingCount)
 		{
 			return new ObservableComputations.Skipping<TSourceItem>(
 				sourceScalar: new Computing<ObservableCollection<TSourceItem>>(sourceExpression),
-				count: count,
+				skippingCount: skippingCount,
 				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.Skipping<TSourceItem> Skipping<TSourceItem>(this
 			 System.Collections.Specialized.INotifyCollectionChanged source,
-			 int count,
+			 int skippingCount,
 			 int initialCapacity)
 		{
 			return new ObservableComputations.Skipping<TSourceItem>(
 				source: source,
-				count: count,
+				skippingCount: skippingCount,
 				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.Skipping<TSourceItem> Skipping<TSourceItem>(this
 			 System.Collections.Specialized.INotifyCollectionChanged source,
-			 int count)
+			 int skippingCount)
 		{
 			return new ObservableComputations.Skipping<TSourceItem>(
 				source: source,
-				count: count,
+				skippingCount: skippingCount,
 				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.Skipping<TSourceItem> Skipping<TSourceItem>(this
 			 ObservableCollection<TSourceItem> source,
-			 int count,
+			 int skippingCount,
 			 int initialCapacity)
 		{
 			return new ObservableComputations.Skipping<TSourceItem>(
 				source: source,
-				count: count,
+				skippingCount: skippingCount,
 				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.Skipping<TSourceItem> Skipping<TSourceItem>(this
 			 ObservableCollection<TSourceItem> source,
-			 int count)
+			 int skippingCount)
 		{
 			return new ObservableComputations.Skipping<TSourceItem>(
 				source: source,
-				count: count,
+				skippingCount: skippingCount,
 				initialCapacity: 0);
 		}
 
@@ -26500,138 +26500,138 @@ namespace ObservableComputations
 		[ObservableComputationsCall]
 		public static ObservableComputations.SkippingWhile<TSourceItem> SkippingWhile<TSourceItem>(this
 			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar,
-			 System.Linq.Expressions.Expression<System.Func<TSourceItem, int, bool>> predicateExpression,
+			 System.Linq.Expressions.Expression<System.Func<TSourceItem, int, bool>> indexedPredicateExpression,
 			 int initialCapacity)
 		{
 			return new ObservableComputations.SkippingWhile<TSourceItem>(
 				sourceScalar: sourceScalar,
-				predicateExpression: predicateExpression,
+				indexedPredicateExpression: indexedPredicateExpression,
 				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.SkippingWhile<TSourceItem> SkippingWhile<TSourceItem>(this
 			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar,
-			 System.Linq.Expressions.Expression<System.Func<TSourceItem, int, bool>> predicateExpression)
+			 System.Linq.Expressions.Expression<System.Func<TSourceItem, int, bool>> indexedPredicateExpression)
 		{
 			return new ObservableComputations.SkippingWhile<TSourceItem>(
 				sourceScalar: sourceScalar,
-				predicateExpression: predicateExpression,
+				indexedPredicateExpression: indexedPredicateExpression,
 				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.SkippingWhile<TSourceItem> SkippingWhile<TSourceItem>(this
 			 ObservableComputations.IReadScalar<ObservableCollection<TSourceItem>> sourceScalar,
-			 System.Linq.Expressions.Expression<System.Func<TSourceItem, int, bool>> predicateExpression,
+			 System.Linq.Expressions.Expression<System.Func<TSourceItem, int, bool>> indexedPredicateExpression,
 			 int initialCapacity)
 		{
 			return new ObservableComputations.SkippingWhile<TSourceItem>(
 				sourceScalar: sourceScalar,
-				predicateExpression: predicateExpression,
+				indexedPredicateExpression: indexedPredicateExpression,
 				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.SkippingWhile<TSourceItem> SkippingWhile<TSourceItem>(this
 			 ObservableComputations.IReadScalar<ObservableCollection<TSourceItem>> sourceScalar,
-			 System.Linq.Expressions.Expression<System.Func<TSourceItem, int, bool>> predicateExpression)
+			 System.Linq.Expressions.Expression<System.Func<TSourceItem, int, bool>> indexedPredicateExpression)
 		{
 			return new ObservableComputations.SkippingWhile<TSourceItem>(
 				sourceScalar: sourceScalar,
-				predicateExpression: predicateExpression,
+				indexedPredicateExpression: indexedPredicateExpression,
 				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.SkippingWhile<TSourceItem> SkippingWhile<TSourceItem>(this
 			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> sourceExpression,
-			 System.Linq.Expressions.Expression<System.Func<TSourceItem, int, bool>> predicateExpression,
+			 System.Linq.Expressions.Expression<System.Func<TSourceItem, int, bool>> indexedPredicateExpression,
 			 int initialCapacity)
 		{
 			return new ObservableComputations.SkippingWhile<TSourceItem>(
 				sourceScalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(sourceExpression),
-				predicateExpression: predicateExpression,
+				indexedPredicateExpression: indexedPredicateExpression,
 				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.SkippingWhile<TSourceItem> SkippingWhile<TSourceItem>(this
 			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> sourceExpression,
-			 System.Linq.Expressions.Expression<System.Func<TSourceItem, int, bool>> predicateExpression)
+			 System.Linq.Expressions.Expression<System.Func<TSourceItem, int, bool>> indexedPredicateExpression)
 		{
 			return new ObservableComputations.SkippingWhile<TSourceItem>(
 				sourceScalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(sourceExpression),
-				predicateExpression: predicateExpression,
+				indexedPredicateExpression: indexedPredicateExpression,
 				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.SkippingWhile<TSourceItem> SkippingWhile<TSourceItem>(this
 			 Expression<Func<ObservableCollection<TSourceItem>>> sourceExpression,
-			 System.Linq.Expressions.Expression<System.Func<TSourceItem, int, bool>> predicateExpression,
+			 System.Linq.Expressions.Expression<System.Func<TSourceItem, int, bool>> indexedPredicateExpression,
 			 int initialCapacity)
 		{
 			return new ObservableComputations.SkippingWhile<TSourceItem>(
 				sourceScalar: new Computing<ObservableCollection<TSourceItem>>(sourceExpression),
-				predicateExpression: predicateExpression,
+				indexedPredicateExpression: indexedPredicateExpression,
 				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.SkippingWhile<TSourceItem> SkippingWhile<TSourceItem>(this
 			 Expression<Func<ObservableCollection<TSourceItem>>> sourceExpression,
-			 System.Linq.Expressions.Expression<System.Func<TSourceItem, int, bool>> predicateExpression)
+			 System.Linq.Expressions.Expression<System.Func<TSourceItem, int, bool>> indexedPredicateExpression)
 		{
 			return new ObservableComputations.SkippingWhile<TSourceItem>(
 				sourceScalar: new Computing<ObservableCollection<TSourceItem>>(sourceExpression),
-				predicateExpression: predicateExpression,
+				indexedPredicateExpression: indexedPredicateExpression,
 				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.SkippingWhile<TSourceItem> SkippingWhile<TSourceItem>(this
 			 System.Collections.Specialized.INotifyCollectionChanged source,
-			 System.Linq.Expressions.Expression<System.Func<TSourceItem, int, bool>> predicateExpression,
+			 System.Linq.Expressions.Expression<System.Func<TSourceItem, int, bool>> indexedPredicateExpression,
 			 int initialCapacity)
 		{
 			return new ObservableComputations.SkippingWhile<TSourceItem>(
 				source: source,
-				predicateExpression: predicateExpression,
+				indexedPredicateExpression: indexedPredicateExpression,
 				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.SkippingWhile<TSourceItem> SkippingWhile<TSourceItem>(this
 			 System.Collections.Specialized.INotifyCollectionChanged source,
-			 System.Linq.Expressions.Expression<System.Func<TSourceItem, int, bool>> predicateExpression)
+			 System.Linq.Expressions.Expression<System.Func<TSourceItem, int, bool>> indexedPredicateExpression)
 		{
 			return new ObservableComputations.SkippingWhile<TSourceItem>(
 				source: source,
-				predicateExpression: predicateExpression,
+				indexedPredicateExpression: indexedPredicateExpression,
 				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.SkippingWhile<TSourceItem> SkippingWhile<TSourceItem>(this
 			 ObservableCollection<TSourceItem> source,
-			 System.Linq.Expressions.Expression<System.Func<TSourceItem, int, bool>> predicateExpression,
+			 System.Linq.Expressions.Expression<System.Func<TSourceItem, int, bool>> indexedPredicateExpression,
 			 int initialCapacity)
 		{
 			return new ObservableComputations.SkippingWhile<TSourceItem>(
 				source: source,
-				predicateExpression: predicateExpression,
+				indexedPredicateExpression: indexedPredicateExpression,
 				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.SkippingWhile<TSourceItem> SkippingWhile<TSourceItem>(this
 			 ObservableCollection<TSourceItem> source,
-			 System.Linq.Expressions.Expression<System.Func<TSourceItem, int, bool>> predicateExpression)
+			 System.Linq.Expressions.Expression<System.Func<TSourceItem, int, bool>> indexedPredicateExpression)
 		{
 			return new ObservableComputations.SkippingWhile<TSourceItem>(
 				source: source,
-				predicateExpression: predicateExpression,
+				indexedPredicateExpression: indexedPredicateExpression,
 				initialCapacity: 0);
 		}
 
@@ -28141,138 +28141,138 @@ namespace ObservableComputations
 		[ObservableComputationsCall]
 		public static ObservableComputations.TakingWhile<TSourceItem> TakingWhile<TSourceItem>(this
 			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar,
-			 System.Linq.Expressions.Expression<System.Func<TSourceItem, int, bool>> predicateExpression,
+			 System.Linq.Expressions.Expression<System.Func<TSourceItem, int, bool>> indexedPredicateExpression,
 			 int initialCapacity)
 		{
 			return new ObservableComputations.TakingWhile<TSourceItem>(
 				sourceScalar: sourceScalar,
-				predicateExpression: predicateExpression,
+				indexedPredicateExpression: indexedPredicateExpression,
 				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.TakingWhile<TSourceItem> TakingWhile<TSourceItem>(this
 			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar,
-			 System.Linq.Expressions.Expression<System.Func<TSourceItem, int, bool>> predicateExpression)
+			 System.Linq.Expressions.Expression<System.Func<TSourceItem, int, bool>> indexedPredicateExpression)
 		{
 			return new ObservableComputations.TakingWhile<TSourceItem>(
 				sourceScalar: sourceScalar,
-				predicateExpression: predicateExpression,
+				indexedPredicateExpression: indexedPredicateExpression,
 				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.TakingWhile<TSourceItem> TakingWhile<TSourceItem>(this
 			 ObservableComputations.IReadScalar<ObservableCollection<TSourceItem>> sourceScalar,
-			 System.Linq.Expressions.Expression<System.Func<TSourceItem, int, bool>> predicateExpression,
+			 System.Linq.Expressions.Expression<System.Func<TSourceItem, int, bool>> indexedPredicateExpression,
 			 int initialCapacity)
 		{
 			return new ObservableComputations.TakingWhile<TSourceItem>(
 				sourceScalar: sourceScalar,
-				predicateExpression: predicateExpression,
+				indexedPredicateExpression: indexedPredicateExpression,
 				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.TakingWhile<TSourceItem> TakingWhile<TSourceItem>(this
 			 ObservableComputations.IReadScalar<ObservableCollection<TSourceItem>> sourceScalar,
-			 System.Linq.Expressions.Expression<System.Func<TSourceItem, int, bool>> predicateExpression)
+			 System.Linq.Expressions.Expression<System.Func<TSourceItem, int, bool>> indexedPredicateExpression)
 		{
 			return new ObservableComputations.TakingWhile<TSourceItem>(
 				sourceScalar: sourceScalar,
-				predicateExpression: predicateExpression,
+				indexedPredicateExpression: indexedPredicateExpression,
 				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.TakingWhile<TSourceItem> TakingWhile<TSourceItem>(this
 			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> sourceExpression,
-			 System.Linq.Expressions.Expression<System.Func<TSourceItem, int, bool>> predicateExpression,
+			 System.Linq.Expressions.Expression<System.Func<TSourceItem, int, bool>> indexedPredicateExpression,
 			 int initialCapacity)
 		{
 			return new ObservableComputations.TakingWhile<TSourceItem>(
 				sourceScalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(sourceExpression),
-				predicateExpression: predicateExpression,
+				indexedPredicateExpression: indexedPredicateExpression,
 				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.TakingWhile<TSourceItem> TakingWhile<TSourceItem>(this
 			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> sourceExpression,
-			 System.Linq.Expressions.Expression<System.Func<TSourceItem, int, bool>> predicateExpression)
+			 System.Linq.Expressions.Expression<System.Func<TSourceItem, int, bool>> indexedPredicateExpression)
 		{
 			return new ObservableComputations.TakingWhile<TSourceItem>(
 				sourceScalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(sourceExpression),
-				predicateExpression: predicateExpression,
+				indexedPredicateExpression: indexedPredicateExpression,
 				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.TakingWhile<TSourceItem> TakingWhile<TSourceItem>(this
 			 Expression<Func<ObservableCollection<TSourceItem>>> sourceExpression,
-			 System.Linq.Expressions.Expression<System.Func<TSourceItem, int, bool>> predicateExpression,
+			 System.Linq.Expressions.Expression<System.Func<TSourceItem, int, bool>> indexedPredicateExpression,
 			 int initialCapacity)
 		{
 			return new ObservableComputations.TakingWhile<TSourceItem>(
 				sourceScalar: new Computing<ObservableCollection<TSourceItem>>(sourceExpression),
-				predicateExpression: predicateExpression,
+				indexedPredicateExpression: indexedPredicateExpression,
 				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.TakingWhile<TSourceItem> TakingWhile<TSourceItem>(this
 			 Expression<Func<ObservableCollection<TSourceItem>>> sourceExpression,
-			 System.Linq.Expressions.Expression<System.Func<TSourceItem, int, bool>> predicateExpression)
+			 System.Linq.Expressions.Expression<System.Func<TSourceItem, int, bool>> indexedPredicateExpression)
 		{
 			return new ObservableComputations.TakingWhile<TSourceItem>(
 				sourceScalar: new Computing<ObservableCollection<TSourceItem>>(sourceExpression),
-				predicateExpression: predicateExpression,
+				indexedPredicateExpression: indexedPredicateExpression,
 				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.TakingWhile<TSourceItem> TakingWhile<TSourceItem>(this
 			 System.Collections.Specialized.INotifyCollectionChanged source,
-			 System.Linq.Expressions.Expression<System.Func<TSourceItem, int, bool>> predicateExpression,
+			 System.Linq.Expressions.Expression<System.Func<TSourceItem, int, bool>> indexedPredicateExpression,
 			 int initialCapacity)
 		{
 			return new ObservableComputations.TakingWhile<TSourceItem>(
 				source: source,
-				predicateExpression: predicateExpression,
+				indexedPredicateExpression: indexedPredicateExpression,
 				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.TakingWhile<TSourceItem> TakingWhile<TSourceItem>(this
 			 System.Collections.Specialized.INotifyCollectionChanged source,
-			 System.Linq.Expressions.Expression<System.Func<TSourceItem, int, bool>> predicateExpression)
+			 System.Linq.Expressions.Expression<System.Func<TSourceItem, int, bool>> indexedPredicateExpression)
 		{
 			return new ObservableComputations.TakingWhile<TSourceItem>(
 				source: source,
-				predicateExpression: predicateExpression,
+				indexedPredicateExpression: indexedPredicateExpression,
 				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.TakingWhile<TSourceItem> TakingWhile<TSourceItem>(this
 			 ObservableCollection<TSourceItem> source,
-			 System.Linq.Expressions.Expression<System.Func<TSourceItem, int, bool>> predicateExpression,
+			 System.Linq.Expressions.Expression<System.Func<TSourceItem, int, bool>> indexedPredicateExpression,
 			 int initialCapacity)
 		{
 			return new ObservableComputations.TakingWhile<TSourceItem>(
 				source: source,
-				predicateExpression: predicateExpression,
+				indexedPredicateExpression: indexedPredicateExpression,
 				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.TakingWhile<TSourceItem> TakingWhile<TSourceItem>(this
 			 ObservableCollection<TSourceItem> source,
-			 System.Linq.Expressions.Expression<System.Func<TSourceItem, int, bool>> predicateExpression)
+			 System.Linq.Expressions.Expression<System.Func<TSourceItem, int, bool>> indexedPredicateExpression)
 		{
 			return new ObservableComputations.TakingWhile<TSourceItem>(
 				source: source,
-				predicateExpression: predicateExpression,
+				indexedPredicateExpression: indexedPredicateExpression,
 				initialCapacity: 0);
 		}
 
@@ -29070,540 +29070,540 @@ namespace ObservableComputations
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.Uniting<TSourceItem> Uniting<TSourceItem>(this
-			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> sourcesScalar,
+			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar,
 			 ObservableComputations.IReadScalar<System.Collections.Generic.IEqualityComparer<TSourceItem>> equalityComparerScalar,
 			 int initialCapacity)
 		{
 			return new ObservableComputations.Uniting<TSourceItem>(
-				sourceScalar: sourcesScalar,
+				sourceScalar: sourceScalar,
 				equalityComparerScalar: equalityComparerScalar,
 				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.Uniting<TSourceItem> Uniting<TSourceItem>(this
-			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> sourcesScalar,
+			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar,
 			 ObservableComputations.IReadScalar<System.Collections.Generic.IEqualityComparer<TSourceItem>> equalityComparerScalar)
 		{
 			return new ObservableComputations.Uniting<TSourceItem>(
-				sourceScalar: sourcesScalar,
+				sourceScalar: sourceScalar,
 				equalityComparerScalar: equalityComparerScalar,
 				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.Uniting<TSourceItem> Uniting<TSourceItem>(this
-			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> sourcesScalar,
+			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar,
 			 int initialCapacity)
 		{
 			return new ObservableComputations.Uniting<TSourceItem>(
-				sourceScalar: sourcesScalar,
+				sourceScalar: sourceScalar,
 				equalityComparerScalar: null,
 				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.Uniting<TSourceItem> Uniting<TSourceItem>(this
-			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> sourcesScalar)
+			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar)
 		{
 			return new ObservableComputations.Uniting<TSourceItem>(
-				sourceScalar: sourcesScalar,
+				sourceScalar: sourceScalar,
 				equalityComparerScalar: null,
 				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.Uniting<TSourceItem> Uniting<TSourceItem>(this
-			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> sourcesScalar,
+			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar,
 			 Expression<Func<System.Collections.Generic.IEqualityComparer<TSourceItem>>> equalityComparerExpression,
 			 int initialCapacity)
 		{
 			return new ObservableComputations.Uniting<TSourceItem>(
-				sourceScalar: sourcesScalar,
+				sourceScalar: sourceScalar,
 				equalityComparerScalar: new Computing<System.Collections.Generic.IEqualityComparer<TSourceItem>>(equalityComparerExpression),
 				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.Uniting<TSourceItem> Uniting<TSourceItem>(this
-			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> sourcesScalar,
+			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar,
 			 Expression<Func<System.Collections.Generic.IEqualityComparer<TSourceItem>>> equalityComparerExpression)
 		{
 			return new ObservableComputations.Uniting<TSourceItem>(
-				sourceScalar: sourcesScalar,
+				sourceScalar: sourceScalar,
 				equalityComparerScalar: new Computing<System.Collections.Generic.IEqualityComparer<TSourceItem>>(equalityComparerExpression),
 				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.Uniting<TSourceItem> Uniting<TSourceItem>(this
-			 ObservableComputations.IReadScalar<ObservableCollection<ObservableCollection<TSourceItem>>> sourcesScalar,
+			 ObservableComputations.IReadScalar<ObservableCollection<ObservableCollection<TSourceItem>>> sourceScalar,
 			 ObservableComputations.IReadScalar<System.Collections.Generic.IEqualityComparer<TSourceItem>> equalityComparerScalar,
 			 int initialCapacity)
 		{
 			return new ObservableComputations.Uniting<TSourceItem>(
-				sourceScalar: sourcesScalar,
+				sourceScalar: sourceScalar,
 				equalityComparerScalar: equalityComparerScalar,
 				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.Uniting<TSourceItem> Uniting<TSourceItem>(this
-			 ObservableComputations.IReadScalar<ObservableCollection<ObservableCollection<TSourceItem>>> sourcesScalar,
+			 ObservableComputations.IReadScalar<ObservableCollection<ObservableCollection<TSourceItem>>> sourceScalar,
 			 ObservableComputations.IReadScalar<System.Collections.Generic.IEqualityComparer<TSourceItem>> equalityComparerScalar)
 		{
 			return new ObservableComputations.Uniting<TSourceItem>(
-				sourceScalar: sourcesScalar,
+				sourceScalar: sourceScalar,
 				equalityComparerScalar: equalityComparerScalar,
 				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.Uniting<TSourceItem> Uniting<TSourceItem>(this
-			 ObservableComputations.IReadScalar<ObservableCollection<ObservableCollection<TSourceItem>>> sourcesScalar,
+			 ObservableComputations.IReadScalar<ObservableCollection<ObservableCollection<TSourceItem>>> sourceScalar,
 			 int initialCapacity)
 		{
 			return new ObservableComputations.Uniting<TSourceItem>(
-				sourceScalar: sourcesScalar,
+				sourceScalar: sourceScalar,
 				equalityComparerScalar: null,
 				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.Uniting<TSourceItem> Uniting<TSourceItem>(this
-			 ObservableComputations.IReadScalar<ObservableCollection<ObservableCollection<TSourceItem>>> sourcesScalar)
+			 ObservableComputations.IReadScalar<ObservableCollection<ObservableCollection<TSourceItem>>> sourceScalar)
 		{
 			return new ObservableComputations.Uniting<TSourceItem>(
-				sourceScalar: sourcesScalar,
+				sourceScalar: sourceScalar,
 				equalityComparerScalar: null,
 				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.Uniting<TSourceItem> Uniting<TSourceItem>(this
-			 ObservableComputations.IReadScalar<ObservableCollection<ObservableCollection<TSourceItem>>> sourcesScalar,
+			 ObservableComputations.IReadScalar<ObservableCollection<ObservableCollection<TSourceItem>>> sourceScalar,
 			 Expression<Func<System.Collections.Generic.IEqualityComparer<TSourceItem>>> equalityComparerExpression,
 			 int initialCapacity)
 		{
 			return new ObservableComputations.Uniting<TSourceItem>(
-				sourceScalar: sourcesScalar,
+				sourceScalar: sourceScalar,
 				equalityComparerScalar: new Computing<System.Collections.Generic.IEqualityComparer<TSourceItem>>(equalityComparerExpression),
 				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.Uniting<TSourceItem> Uniting<TSourceItem>(this
-			 ObservableComputations.IReadScalar<ObservableCollection<ObservableCollection<TSourceItem>>> sourcesScalar,
+			 ObservableComputations.IReadScalar<ObservableCollection<ObservableCollection<TSourceItem>>> sourceScalar,
 			 Expression<Func<System.Collections.Generic.IEqualityComparer<TSourceItem>>> equalityComparerExpression)
 		{
 			return new ObservableComputations.Uniting<TSourceItem>(
-				sourceScalar: sourcesScalar,
+				sourceScalar: sourceScalar,
 				equalityComparerScalar: new Computing<System.Collections.Generic.IEqualityComparer<TSourceItem>>(equalityComparerExpression),
 				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.Uniting<TSourceItem> Uniting<TSourceItem>(this
-			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> sourcesExpression,
+			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> sourceExpression,
 			 ObservableComputations.IReadScalar<System.Collections.Generic.IEqualityComparer<TSourceItem>> equalityComparerScalar,
 			 int initialCapacity)
 		{
 			return new ObservableComputations.Uniting<TSourceItem>(
-				sourceScalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(sourcesExpression),
+				sourceScalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(sourceExpression),
 				equalityComparerScalar: equalityComparerScalar,
 				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.Uniting<TSourceItem> Uniting<TSourceItem>(this
-			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> sourcesExpression,
+			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> sourceExpression,
 			 ObservableComputations.IReadScalar<System.Collections.Generic.IEqualityComparer<TSourceItem>> equalityComparerScalar)
 		{
 			return new ObservableComputations.Uniting<TSourceItem>(
-				sourceScalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(sourcesExpression),
+				sourceScalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(sourceExpression),
 				equalityComparerScalar: equalityComparerScalar,
 				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.Uniting<TSourceItem> Uniting<TSourceItem>(this
-			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> sourcesExpression,
+			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> sourceExpression,
 			 int initialCapacity)
 		{
 			return new ObservableComputations.Uniting<TSourceItem>(
-				sourceScalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(sourcesExpression),
+				sourceScalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(sourceExpression),
 				equalityComparerScalar: null,
 				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.Uniting<TSourceItem> Uniting<TSourceItem>(this
-			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> sourcesExpression)
+			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> sourceExpression)
 		{
 			return new ObservableComputations.Uniting<TSourceItem>(
-				sourceScalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(sourcesExpression),
+				sourceScalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(sourceExpression),
 				equalityComparerScalar: null,
 				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.Uniting<TSourceItem> Uniting<TSourceItem>(this
-			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> sourcesExpression,
+			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> sourceExpression,
 			 Expression<Func<System.Collections.Generic.IEqualityComparer<TSourceItem>>> equalityComparerExpression,
 			 int initialCapacity)
 		{
 			return new ObservableComputations.Uniting<TSourceItem>(
-				sourceScalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(sourcesExpression),
+				sourceScalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(sourceExpression),
 				equalityComparerScalar: new Computing<System.Collections.Generic.IEqualityComparer<TSourceItem>>(equalityComparerExpression),
 				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.Uniting<TSourceItem> Uniting<TSourceItem>(this
-			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> sourcesExpression,
+			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> sourceExpression,
 			 Expression<Func<System.Collections.Generic.IEqualityComparer<TSourceItem>>> equalityComparerExpression)
 		{
 			return new ObservableComputations.Uniting<TSourceItem>(
-				sourceScalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(sourcesExpression),
+				sourceScalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(sourceExpression),
 				equalityComparerScalar: new Computing<System.Collections.Generic.IEqualityComparer<TSourceItem>>(equalityComparerExpression),
 				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.Uniting<TSourceItem> Uniting<TSourceItem>(this
-			 Expression<Func<ObservableCollection<ObservableCollection<TSourceItem>>>> sourcesExpression,
+			 Expression<Func<ObservableCollection<ObservableCollection<TSourceItem>>>> sourceExpression,
 			 ObservableComputations.IReadScalar<System.Collections.Generic.IEqualityComparer<TSourceItem>> equalityComparerScalar,
 			 int initialCapacity)
 		{
 			return new ObservableComputations.Uniting<TSourceItem>(
-				sourceScalar: new Computing<ObservableCollection<ObservableCollection<TSourceItem>>>(sourcesExpression),
+				sourceScalar: new Computing<ObservableCollection<ObservableCollection<TSourceItem>>>(sourceExpression),
 				equalityComparerScalar: equalityComparerScalar,
 				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.Uniting<TSourceItem> Uniting<TSourceItem>(this
-			 Expression<Func<ObservableCollection<ObservableCollection<TSourceItem>>>> sourcesExpression,
+			 Expression<Func<ObservableCollection<ObservableCollection<TSourceItem>>>> sourceExpression,
 			 ObservableComputations.IReadScalar<System.Collections.Generic.IEqualityComparer<TSourceItem>> equalityComparerScalar)
 		{
 			return new ObservableComputations.Uniting<TSourceItem>(
-				sourceScalar: new Computing<ObservableCollection<ObservableCollection<TSourceItem>>>(sourcesExpression),
+				sourceScalar: new Computing<ObservableCollection<ObservableCollection<TSourceItem>>>(sourceExpression),
 				equalityComparerScalar: equalityComparerScalar,
 				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.Uniting<TSourceItem> Uniting<TSourceItem>(this
-			 Expression<Func<ObservableCollection<ObservableCollection<TSourceItem>>>> sourcesExpression,
+			 Expression<Func<ObservableCollection<ObservableCollection<TSourceItem>>>> sourceExpression,
 			 int initialCapacity)
 		{
 			return new ObservableComputations.Uniting<TSourceItem>(
-				sourceScalar: new Computing<ObservableCollection<ObservableCollection<TSourceItem>>>(sourcesExpression),
+				sourceScalar: new Computing<ObservableCollection<ObservableCollection<TSourceItem>>>(sourceExpression),
 				equalityComparerScalar: null,
 				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.Uniting<TSourceItem> Uniting<TSourceItem>(this
-			 Expression<Func<ObservableCollection<ObservableCollection<TSourceItem>>>> sourcesExpression)
+			 Expression<Func<ObservableCollection<ObservableCollection<TSourceItem>>>> sourceExpression)
 		{
 			return new ObservableComputations.Uniting<TSourceItem>(
-				sourceScalar: new Computing<ObservableCollection<ObservableCollection<TSourceItem>>>(sourcesExpression),
+				sourceScalar: new Computing<ObservableCollection<ObservableCollection<TSourceItem>>>(sourceExpression),
 				equalityComparerScalar: null,
 				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.Uniting<TSourceItem> Uniting<TSourceItem>(this
-			 Expression<Func<ObservableCollection<ObservableCollection<TSourceItem>>>> sourcesExpression,
+			 Expression<Func<ObservableCollection<ObservableCollection<TSourceItem>>>> sourceExpression,
 			 Expression<Func<System.Collections.Generic.IEqualityComparer<TSourceItem>>> equalityComparerExpression,
 			 int initialCapacity)
 		{
 			return new ObservableComputations.Uniting<TSourceItem>(
-				sourceScalar: new Computing<ObservableCollection<ObservableCollection<TSourceItem>>>(sourcesExpression),
+				sourceScalar: new Computing<ObservableCollection<ObservableCollection<TSourceItem>>>(sourceExpression),
 				equalityComparerScalar: new Computing<System.Collections.Generic.IEqualityComparer<TSourceItem>>(equalityComparerExpression),
 				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.Uniting<TSourceItem> Uniting<TSourceItem>(this
-			 Expression<Func<ObservableCollection<ObservableCollection<TSourceItem>>>> sourcesExpression,
+			 Expression<Func<ObservableCollection<ObservableCollection<TSourceItem>>>> sourceExpression,
 			 Expression<Func<System.Collections.Generic.IEqualityComparer<TSourceItem>>> equalityComparerExpression)
 		{
 			return new ObservableComputations.Uniting<TSourceItem>(
-				sourceScalar: new Computing<ObservableCollection<ObservableCollection<TSourceItem>>>(sourcesExpression),
+				sourceScalar: new Computing<ObservableCollection<ObservableCollection<TSourceItem>>>(sourceExpression),
 				equalityComparerScalar: new Computing<System.Collections.Generic.IEqualityComparer<TSourceItem>>(equalityComparerExpression),
 				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.Uniting<TSourceItem> Uniting<TSourceItem>(this
-			 System.Collections.Specialized.INotifyCollectionChanged sources,
+			 System.Collections.Specialized.INotifyCollectionChanged source,
 			 ObservableComputations.IReadScalar<System.Collections.Generic.IEqualityComparer<TSourceItem>> equalityComparerScalar,
 			 int initialCapacity)
 		{
 			return new ObservableComputations.Uniting<TSourceItem>(
-				source: sources,
+				source: source,
 				equalityComparerScalar: equalityComparerScalar,
 				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.Uniting<TSourceItem> Uniting<TSourceItem>(this
-			 System.Collections.Specialized.INotifyCollectionChanged sources,
+			 System.Collections.Specialized.INotifyCollectionChanged source,
 			 ObservableComputations.IReadScalar<System.Collections.Generic.IEqualityComparer<TSourceItem>> equalityComparerScalar)
 		{
 			return new ObservableComputations.Uniting<TSourceItem>(
-				source: sources,
+				source: source,
 				equalityComparerScalar: equalityComparerScalar,
 				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.Uniting<TSourceItem> Uniting<TSourceItem>(this
-			 System.Collections.Specialized.INotifyCollectionChanged sources,
+			 System.Collections.Specialized.INotifyCollectionChanged source,
 			 int initialCapacity)
 		{
 			return new ObservableComputations.Uniting<TSourceItem>(
-				source: sources,
+				source: source,
 				equalityComparerScalar: null,
 				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.Uniting<TSourceItem> Uniting<TSourceItem>(this
-			 System.Collections.Specialized.INotifyCollectionChanged sources)
+			 System.Collections.Specialized.INotifyCollectionChanged source)
 		{
 			return new ObservableComputations.Uniting<TSourceItem>(
-				source: sources,
+				source: source,
 				equalityComparerScalar: null,
 				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.Uniting<TSourceItem> Uniting<TSourceItem>(this
-			 System.Collections.Specialized.INotifyCollectionChanged sources,
+			 System.Collections.Specialized.INotifyCollectionChanged source,
 			 Expression<Func<System.Collections.Generic.IEqualityComparer<TSourceItem>>> equalityComparerExpression,
 			 int initialCapacity)
 		{
 			return new ObservableComputations.Uniting<TSourceItem>(
-				source: sources,
+				source: source,
 				equalityComparerScalar: new Computing<System.Collections.Generic.IEqualityComparer<TSourceItem>>(equalityComparerExpression),
 				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.Uniting<TSourceItem> Uniting<TSourceItem>(this
-			 System.Collections.Specialized.INotifyCollectionChanged sources,
+			 System.Collections.Specialized.INotifyCollectionChanged source,
 			 Expression<Func<System.Collections.Generic.IEqualityComparer<TSourceItem>>> equalityComparerExpression)
 		{
 			return new ObservableComputations.Uniting<TSourceItem>(
-				source: sources,
+				source: source,
 				equalityComparerScalar: new Computing<System.Collections.Generic.IEqualityComparer<TSourceItem>>(equalityComparerExpression),
 				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.Uniting<TSourceItem> Uniting<TSourceItem>(this
-			 ObservableCollection<ObservableCollection<TSourceItem>> sources,
+			 ObservableCollection<ObservableCollection<TSourceItem>> source,
 			 ObservableComputations.IReadScalar<System.Collections.Generic.IEqualityComparer<TSourceItem>> equalityComparerScalar,
 			 int initialCapacity)
 		{
 			return new ObservableComputations.Uniting<TSourceItem>(
-				source: sources,
+				source: source,
 				equalityComparerScalar: equalityComparerScalar,
 				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.Uniting<TSourceItem> Uniting<TSourceItem>(this
-			 ObservableCollection<ObservableCollection<TSourceItem>> sources,
+			 ObservableCollection<ObservableCollection<TSourceItem>> source,
 			 ObservableComputations.IReadScalar<System.Collections.Generic.IEqualityComparer<TSourceItem>> equalityComparerScalar)
 		{
 			return new ObservableComputations.Uniting<TSourceItem>(
-				source: sources,
+				source: source,
 				equalityComparerScalar: equalityComparerScalar,
 				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.Uniting<TSourceItem> Uniting<TSourceItem>(this
-			 ObservableCollection<ObservableCollection<TSourceItem>> sources,
+			 ObservableCollection<ObservableCollection<TSourceItem>> source,
 			 int initialCapacity)
 		{
 			return new ObservableComputations.Uniting<TSourceItem>(
-				source: sources,
+				source: source,
 				equalityComparerScalar: null,
 				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.Uniting<TSourceItem> Uniting<TSourceItem>(this
-			 ObservableCollection<ObservableCollection<TSourceItem>> sources)
+			 ObservableCollection<ObservableCollection<TSourceItem>> source)
 		{
 			return new ObservableComputations.Uniting<TSourceItem>(
-				source: sources,
+				source: source,
 				equalityComparerScalar: null,
 				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.Uniting<TSourceItem> Uniting<TSourceItem>(this
-			 ObservableCollection<ObservableCollection<TSourceItem>> sources,
+			 ObservableCollection<ObservableCollection<TSourceItem>> source,
 			 Expression<Func<System.Collections.Generic.IEqualityComparer<TSourceItem>>> equalityComparerExpression,
 			 int initialCapacity)
 		{
 			return new ObservableComputations.Uniting<TSourceItem>(
-				source: sources,
+				source: source,
 				equalityComparerScalar: new Computing<System.Collections.Generic.IEqualityComparer<TSourceItem>>(equalityComparerExpression),
 				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.Uniting<TSourceItem> Uniting<TSourceItem>(this
-			 ObservableCollection<ObservableCollection<TSourceItem>> sources,
+			 ObservableCollection<ObservableCollection<TSourceItem>> source,
 			 Expression<Func<System.Collections.Generic.IEqualityComparer<TSourceItem>>> equalityComparerExpression)
 		{
 			return new ObservableComputations.Uniting<TSourceItem>(
-				source: sources,
+				source: source,
 				equalityComparerScalar: new Computing<System.Collections.Generic.IEqualityComparer<TSourceItem>>(equalityComparerExpression),
 				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.Uniting<TSourceItem> Uniting<TSourceItem>(this
-			 System.Collections.Specialized.INotifyCollectionChanged sources,
+			 System.Collections.Specialized.INotifyCollectionChanged source,
 			 System.Collections.Generic.IEqualityComparer<TSourceItem> equalityComparer,
 			 int initialCapacity)
 		{
 			return new ObservableComputations.Uniting<TSourceItem>(
-				source: sources,
+				source: source,
 				equalityComparer: equalityComparer,
 				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.Uniting<TSourceItem> Uniting<TSourceItem>(this
-			 System.Collections.Specialized.INotifyCollectionChanged sources,
+			 System.Collections.Specialized.INotifyCollectionChanged source,
 			 System.Collections.Generic.IEqualityComparer<TSourceItem> equalityComparer)
 		{
 			return new ObservableComputations.Uniting<TSourceItem>(
-				source: sources,
+				source: source,
 				equalityComparer: equalityComparer,
 				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.Uniting<TSourceItem> Uniting<TSourceItem>(this
-			 ObservableCollection<ObservableCollection<TSourceItem>> sources,
+			 ObservableCollection<ObservableCollection<TSourceItem>> source,
 			 System.Collections.Generic.IEqualityComparer<TSourceItem> equalityComparer,
 			 int initialCapacity)
 		{
 			return new ObservableComputations.Uniting<TSourceItem>(
-				source: sources,
+				source: source,
 				equalityComparer: equalityComparer,
 				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.Uniting<TSourceItem> Uniting<TSourceItem>(this
-			 ObservableCollection<ObservableCollection<TSourceItem>> sources,
+			 ObservableCollection<ObservableCollection<TSourceItem>> source,
 			 System.Collections.Generic.IEqualityComparer<TSourceItem> equalityComparer)
 		{
 			return new ObservableComputations.Uniting<TSourceItem>(
-				source: sources,
+				source: source,
 				equalityComparer: equalityComparer,
 				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.Uniting<TSourceItem> Uniting<TSourceItem>(this
-			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> sourcesScalar,
+			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar,
 			 System.Collections.Generic.IEqualityComparer<TSourceItem> equalityComparer,
 			 int initialCapacity)
 		{
 			return new ObservableComputations.Uniting<TSourceItem>(
-				sourceScalar: sourcesScalar,
+				sourceScalar: sourceScalar,
 				equalityComparer: equalityComparer,
 				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.Uniting<TSourceItem> Uniting<TSourceItem>(this
-			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> sourcesScalar,
+			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar,
 			 System.Collections.Generic.IEqualityComparer<TSourceItem> equalityComparer)
 		{
 			return new ObservableComputations.Uniting<TSourceItem>(
-				sourceScalar: sourcesScalar,
+				sourceScalar: sourceScalar,
 				equalityComparer: equalityComparer,
 				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.Uniting<TSourceItem> Uniting<TSourceItem>(this
-			 ObservableComputations.IReadScalar<ObservableCollection<ObservableCollection<TSourceItem>>> sourcesScalar,
+			 ObservableComputations.IReadScalar<ObservableCollection<ObservableCollection<TSourceItem>>> sourceScalar,
 			 System.Collections.Generic.IEqualityComparer<TSourceItem> equalityComparer,
 			 int initialCapacity)
 		{
 			return new ObservableComputations.Uniting<TSourceItem>(
-				sourceScalar: sourcesScalar,
+				sourceScalar: sourceScalar,
 				equalityComparer: equalityComparer,
 				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.Uniting<TSourceItem> Uniting<TSourceItem>(this
-			 ObservableComputations.IReadScalar<ObservableCollection<ObservableCollection<TSourceItem>>> sourcesScalar,
+			 ObservableComputations.IReadScalar<ObservableCollection<ObservableCollection<TSourceItem>>> sourceScalar,
 			 System.Collections.Generic.IEqualityComparer<TSourceItem> equalityComparer)
 		{
 			return new ObservableComputations.Uniting<TSourceItem>(
-				sourceScalar: sourcesScalar,
+				sourceScalar: sourceScalar,
 				equalityComparer: equalityComparer,
 				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.Uniting<TSourceItem> Uniting<TSourceItem>(this
-			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> sourcesExpression,
+			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> sourceExpression,
 			 System.Collections.Generic.IEqualityComparer<TSourceItem> equalityComparer,
 			 int initialCapacity)
 		{
 			return new ObservableComputations.Uniting<TSourceItem>(
-				sourceScalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(sourcesExpression),
+				sourceScalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(sourceExpression),
 				equalityComparer: equalityComparer,
 				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.Uniting<TSourceItem> Uniting<TSourceItem>(this
-			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> sourcesExpression,
+			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> sourceExpression,
 			 System.Collections.Generic.IEqualityComparer<TSourceItem> equalityComparer)
 		{
 			return new ObservableComputations.Uniting<TSourceItem>(
-				sourceScalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(sourcesExpression),
+				sourceScalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(sourceExpression),
 				equalityComparer: equalityComparer,
 				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.Uniting<TSourceItem> Uniting<TSourceItem>(this
-			 Expression<Func<ObservableCollection<ObservableCollection<TSourceItem>>>> sourcesExpression,
+			 Expression<Func<ObservableCollection<ObservableCollection<TSourceItem>>>> sourceExpression,
 			 System.Collections.Generic.IEqualityComparer<TSourceItem> equalityComparer,
 			 int initialCapacity)
 		{
 			return new ObservableComputations.Uniting<TSourceItem>(
-				sourceScalar: new Computing<ObservableCollection<ObservableCollection<TSourceItem>>>(sourcesExpression),
+				sourceScalar: new Computing<ObservableCollection<ObservableCollection<TSourceItem>>>(sourceExpression),
 				equalityComparer: equalityComparer,
 				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.Uniting<TSourceItem> Uniting<TSourceItem>(this
-			 Expression<Func<ObservableCollection<ObservableCollection<TSourceItem>>>> sourcesExpression,
+			 Expression<Func<ObservableCollection<ObservableCollection<TSourceItem>>>> sourceExpression,
 			 System.Collections.Generic.IEqualityComparer<TSourceItem> equalityComparer)
 		{
 			return new ObservableComputations.Uniting<TSourceItem>(
-				sourceScalar: new Computing<ObservableCollection<ObservableCollection<TSourceItem>>>(sourcesExpression),
+				sourceScalar: new Computing<ObservableCollection<ObservableCollection<TSourceItem>>>(sourceExpression),
 				equalityComparer: equalityComparer,
 				initialCapacity: 0);
 		}

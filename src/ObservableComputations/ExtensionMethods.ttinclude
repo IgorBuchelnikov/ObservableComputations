@@ -80,7 +80,7 @@
 							variants.Name = parameter.Name;
 							variants.Type = parameter.Type.AsString;	
 
-							if (parameter.Name.Contains("sources") || parameter.Name.Contains("Sources"))
+							if (IsCollectionOfCollectionsArgument(name, parameter.Name))
 							{
 								variants.Types.Add(parameter.Type.AsString);
 								variants.Types.Add(parameter.Type.AsString.Replace("System.Collections.Specialized.INotifyCollectionChanged", "ObservableCollection<ObservableCollection<TSourceItem>>"));
@@ -370,5 +370,10 @@
 	public bool IsComputingArgument(ExtensionMethodArgument argument)
 	{
 		return argument.Type.Contains("Func") && argument.Type.Contains("Expression") && !ExpressionArgumentNames.Any(an => argument.Name.ToUpper().Contains(an));
+	}
+
+	public bool IsCollectionOfCollectionsArgument(string extensionMethodName, string argumentName)
+	{
+		return (extensionMethodName == "Concatenating" || extensionMethodName == "Uniting") && (argumentName == "source" || argumentName == "sourceScalar");
 	}
 #>

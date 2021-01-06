@@ -55,23 +55,23 @@ namespace ObservableComputations
 		[ObservableComputationsCall]
 		public SelectingMany(			
 			IReadScalar<INotifyCollectionChanged> sourceScalar, 
-			Expression<Func<TSourceItem, int, INotifyCollectionChanged>> selectorExpression)
+			Expression<Func<TSourceItem, int, INotifyCollectionChanged>> selectorWithIndexExpression)
 			: base(
-				getSource(sourceScalar, selectorExpression))
+				getSource(sourceScalar, selectorWithIndexExpression))
 		{
 			_sourceScalar = sourceScalar;
-			_selectorWithIndexExpression = selectorExpression;
+			_selectorWithIndexExpression = selectorWithIndexExpression;
 		}
 
 		[ObservableComputationsCall]
 		public SelectingMany(			
 			INotifyCollectionChanged source, 
-			Expression<Func<TSourceItem, int, INotifyCollectionChanged>> selectorExpression)
+			Expression<Func<TSourceItem, int, INotifyCollectionChanged>> selectorWithIndexExpression)
 			: base(
-				getSource(source, selectorExpression))
+				getSource(source, selectorWithIndexExpression))
 		{
 			_source = source;
-			_selectorWithIndexExpression = selectorExpression;
+			_selectorWithIndexExpression = selectorWithIndexExpression;
 		}
 
 		private static INotifyCollectionChanged getSource(

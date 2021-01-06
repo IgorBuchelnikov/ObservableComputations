@@ -23,7 +23,7 @@ namespace ObservableComputations
 		// ReSharper disable once MemberCanBePrivate.Global
 		public override INotifyCollectionChanged Source => _source;
 
-		public override int InitialCapacity => ((CollectionComputing<TSourceItem>)_source)._initialCapacity;
+		public override int InitialCapacity => ((IHasInitialCapacity)base._source).InitialCapacity;
 
 		public override ReadOnlyCollection<INotifyCollectionChanged> Sources => new ReadOnlyCollection<INotifyCollectionChanged>(new []{Source});
 		public override ReadOnlyCollection<IReadScalar<INotifyCollectionChanged>> SourceScalars => new ReadOnlyCollection<IReadScalar<INotifyCollectionChanged>>(new []{SourceScalar});

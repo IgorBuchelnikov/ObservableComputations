@@ -1785,7 +1785,7 @@ namespace ObservableComputations.Test
 		[Test]
 		public void TestConcatenating01()
 		{
-			Scalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
+			Scalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getCollectionsOfItems());
 			OcConsumer consumer = new OcConsumer();
 			var testing = sourceScalar.Concatenating<Item>().For(consumer);
 
@@ -1794,49 +1794,27 @@ namespace ObservableComputations.Test
 			void test()
 			{
 				testing.ValidateConsistency();
-				var sourceScalarValue = ((ObservableCollection<Item>)((System.Collections.Specialized.INotifyCollectionChanged)sourceScalar.Value));
-
+				var sourceScalarValue = ((ObservableCollection<ObservableCollection<Item>>)((System.Collections.Specialized.INotifyCollectionChanged)sourceScalar.Value));
+				
 				if (sourceScalarValue != null)
-				{		
-					sourceScalarValue.Insert(2, new QuickTests.Item(1, true));
-					testing.ValidateConsistency();
-					sourceScalarValue[3] = new QuickTests.Item(7, true);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(3);
-					testing.ValidateConsistency();
-					sourceScalarValue.Move(1, 3);
-					testing.ValidateConsistency();
-					sourceScalarValue[2].Active = !sourceScalarValue[2].Active;
-					testing.ValidateConsistency();
-					sourceScalarValue[2].Num = sourceScalarValue[2].Num + 1;
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
+				{
+					sourceScalarValue.Insert(0, new ObservableCollection<Item>(new []{new Item(1, true)}));
 					testing.ValidateConsistency();
 					sourceScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
-					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
-					testing.ValidateConsistency();
-					sourceScalarValue.Insert(0, new QuickTests.Item(2, true));
+					sourceScalarValue.Move(0, 1);
 					testing.ValidateConsistency();
 				}
+
 
 				IList listSource;
-				listSource = ((IList)((System.Collections.Specialized.INotifyCollectionChanged)sourceScalar.Value));
-				if (listSource != null)
+				if (sourceScalarValue != null)
 				{
-					listSource.Clear();
+					sourceScalarValue.Insert(0, new ObservableCollection<Item>(new []{new Item(1, true), new Item(2, true), new Item(3, true), new Item(4, true), new Item(5, true)}));
+					sourceScalarValue.Insert(0, new ObservableCollection<Item>(new []{new Item(6, true), new Item(7, true), new Item(8, true), new Item(8, true), new Item(10, true)}));
 					testing.ValidateConsistency();
 				}
 
-				if (sourceScalarValue != null)
-				{
-					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
-					sourceScalarValue.Insert(1, new QuickTests.Item(2, true));
-					sourceScalarValue.Insert(2, new QuickTests.Item(3, true));
-					sourceScalarValue.Insert(3, new QuickTests.Item(3, true));
-					sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
-					testing.ValidateConsistency();
-				}
 			}
 
 			test();
@@ -1851,7 +1829,7 @@ namespace ObservableComputations.Test
 		[Test]
 		public void TestConcatenating02()
 		{
-			Scalar<ObservableCollection<Item>> sourceScalar = getScalar<ObservableCollection<Item>>(getItems());
+			Scalar<ObservableCollection<ObservableCollection<Item>>> sourceScalar = getScalar<ObservableCollection<ObservableCollection<Item>>>(getCollectionsOfItems());
 			OcConsumer consumer = new OcConsumer();
 			var testing = sourceScalar.Concatenating<Item>().For(consumer);
 
@@ -1860,56 +1838,34 @@ namespace ObservableComputations.Test
 			void test()
 			{
 				testing.ValidateConsistency();
-				var sourceScalarValue = ((ObservableCollection<Item>)((ObservableCollection<Item>)sourceScalar.Value));
-
+				var sourceScalarValue = ((ObservableCollection<ObservableCollection<Item>>)((ObservableCollection<ObservableCollection<Item>>)sourceScalar.Value));
+				
 				if (sourceScalarValue != null)
-				{		
-					sourceScalarValue.Insert(2, new QuickTests.Item(1, true));
-					testing.ValidateConsistency();
-					sourceScalarValue[3] = new QuickTests.Item(7, true);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(3);
-					testing.ValidateConsistency();
-					sourceScalarValue.Move(1, 3);
-					testing.ValidateConsistency();
-					sourceScalarValue[2].Active = !sourceScalarValue[2].Active;
-					testing.ValidateConsistency();
-					sourceScalarValue[2].Num = sourceScalarValue[2].Num + 1;
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
+				{
+					sourceScalarValue.Insert(0, new ObservableCollection<Item>(new []{new Item(1, true)}));
 					testing.ValidateConsistency();
 					sourceScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
-					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
-					testing.ValidateConsistency();
-					sourceScalarValue.Insert(0, new QuickTests.Item(2, true));
+					sourceScalarValue.Move(0, 1);
 					testing.ValidateConsistency();
 				}
+
 
 				IList listSource;
-				listSource = ((IList)((ObservableCollection<Item>)sourceScalar.Value));
-				if (listSource != null)
+				if (sourceScalarValue != null)
 				{
-					listSource.Clear();
+					sourceScalarValue.Insert(0, new ObservableCollection<Item>(new []{new Item(1, true), new Item(2, true), new Item(3, true), new Item(4, true), new Item(5, true)}));
+					sourceScalarValue.Insert(0, new ObservableCollection<Item>(new []{new Item(6, true), new Item(7, true), new Item(8, true), new Item(8, true), new Item(10, true)}));
 					testing.ValidateConsistency();
 				}
 
-				if (sourceScalarValue != null)
-				{
-					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
-					sourceScalarValue.Insert(1, new QuickTests.Item(2, true));
-					sourceScalarValue.Insert(2, new QuickTests.Item(3, true));
-					sourceScalarValue.Insert(3, new QuickTests.Item(3, true));
-					sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
-					testing.ValidateConsistency();
-				}
 			}
 
 			test();
 
-			((Scalar<ObservableCollection<Item>>)sourceScalar).Touch();
+			((Scalar<ObservableCollection<ObservableCollection<Item>>>)sourceScalar).Touch();
 			test();
-			((Scalar<ObservableCollection<Item>>)sourceScalar).Change(null);
+			((Scalar<ObservableCollection<ObservableCollection<Item>>>)sourceScalar).Change(null);
 			test();
 			consumer.Dispose();
 		}
@@ -1917,7 +1873,7 @@ namespace ObservableComputations.Test
 		[Test]
 		public void TestConcatenating03()
 		{
-			System.Collections.Specialized.INotifyCollectionChanged source = getItems();
+			System.Collections.Specialized.INotifyCollectionChanged source = getCollectionsOfItems();
 			OcConsumer consumer = new OcConsumer();
 			var testing = source.Concatenating<Item>().For(consumer);
 
@@ -1926,49 +1882,27 @@ namespace ObservableComputations.Test
 			void test()
 			{
 				testing.ValidateConsistency();
-				var sourceValue = ((ObservableCollection<Item>)((System.Collections.Specialized.INotifyCollectionChanged)source));
-
+				var sourceValue = ((ObservableCollection<ObservableCollection<Item>>)((System.Collections.Specialized.INotifyCollectionChanged)source));
+				
 				if (sourceValue != null)
-				{		
-					sourceValue.Insert(2, new QuickTests.Item(1, true));
-					testing.ValidateConsistency();
-					sourceValue[3] = new QuickTests.Item(7, true);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(3);
-					testing.ValidateConsistency();
-					sourceValue.Move(1, 3);
-					testing.ValidateConsistency();
-					sourceValue[2].Active = !sourceValue[2].Active;
-					testing.ValidateConsistency();
-					sourceValue[2].Num = sourceValue[2].Num + 1;
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
+				{
+					sourceValue.Insert(0, new ObservableCollection<Item>(new []{new Item(1, true)}));
 					testing.ValidateConsistency();
 					sourceValue.RemoveAt(1);
 					testing.ValidateConsistency();
-					sourceValue.Insert(0, new QuickTests.Item(1, true));
-					testing.ValidateConsistency();
-					sourceValue.Insert(0, new QuickTests.Item(2, true));
+					sourceValue.Move(0, 1);
 					testing.ValidateConsistency();
 				}
+
 
 				IList listSource;
-				listSource = ((IList)((System.Collections.Specialized.INotifyCollectionChanged)source));
-				if (listSource != null)
+				if (sourceValue != null)
 				{
-					listSource.Clear();
+					sourceValue.Insert(0, new ObservableCollection<Item>(new []{new Item(1, true), new Item(2, true), new Item(3, true), new Item(4, true), new Item(5, true)}));
+					sourceValue.Insert(0, new ObservableCollection<Item>(new []{new Item(6, true), new Item(7, true), new Item(8, true), new Item(8, true), new Item(10, true)}));
 					testing.ValidateConsistency();
 				}
 
-				if (sourceValue != null)
-				{
-					sourceValue.Insert(0, new QuickTests.Item(1, true));
-					sourceValue.Insert(1, new QuickTests.Item(2, true));
-					sourceValue.Insert(2, new QuickTests.Item(3, true));
-					sourceValue.Insert(3, new QuickTests.Item(3, true));
-					sourceValue.Insert(4, new QuickTests.Item(3, true));
-					testing.ValidateConsistency();
-				}
 			}
 
 			test();
@@ -1978,7 +1912,7 @@ namespace ObservableComputations.Test
 		[Test]
 		public void TestConcatenating04()
 		{
-			ObservableCollection<Item> source = getItems();
+			ObservableCollection<ObservableCollection<Item>> source = getCollectionsOfItems();
 			OcConsumer consumer = new OcConsumer();
 			var testing = source.Concatenating<Item>().For(consumer);
 
@@ -1987,49 +1921,27 @@ namespace ObservableComputations.Test
 			void test()
 			{
 				testing.ValidateConsistency();
-				var sourceValue = ((ObservableCollection<Item>)((ObservableCollection<Item>)source));
-
+				var sourceValue = ((ObservableCollection<ObservableCollection<Item>>)((ObservableCollection<ObservableCollection<Item>>)source));
+				
 				if (sourceValue != null)
-				{		
-					sourceValue.Insert(2, new QuickTests.Item(1, true));
-					testing.ValidateConsistency();
-					sourceValue[3] = new QuickTests.Item(7, true);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(3);
-					testing.ValidateConsistency();
-					sourceValue.Move(1, 3);
-					testing.ValidateConsistency();
-					sourceValue[2].Active = !sourceValue[2].Active;
-					testing.ValidateConsistency();
-					sourceValue[2].Num = sourceValue[2].Num + 1;
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
+				{
+					sourceValue.Insert(0, new ObservableCollection<Item>(new []{new Item(1, true)}));
 					testing.ValidateConsistency();
 					sourceValue.RemoveAt(1);
 					testing.ValidateConsistency();
-					sourceValue.Insert(0, new QuickTests.Item(1, true));
-					testing.ValidateConsistency();
-					sourceValue.Insert(0, new QuickTests.Item(2, true));
+					sourceValue.Move(0, 1);
 					testing.ValidateConsistency();
 				}
+
 
 				IList listSource;
-				listSource = ((IList)((ObservableCollection<Item>)source));
-				if (listSource != null)
+				if (sourceValue != null)
 				{
-					listSource.Clear();
+					sourceValue.Insert(0, new ObservableCollection<Item>(new []{new Item(1, true), new Item(2, true), new Item(3, true), new Item(4, true), new Item(5, true)}));
+					sourceValue.Insert(0, new ObservableCollection<Item>(new []{new Item(6, true), new Item(7, true), new Item(8, true), new Item(8, true), new Item(10, true)}));
 					testing.ValidateConsistency();
 				}
 
-				if (sourceValue != null)
-				{
-					sourceValue.Insert(0, new QuickTests.Item(1, true));
-					sourceValue.Insert(1, new QuickTests.Item(2, true));
-					sourceValue.Insert(2, new QuickTests.Item(3, true));
-					sourceValue.Insert(3, new QuickTests.Item(3, true));
-					sourceValue.Insert(4, new QuickTests.Item(3, true));
-					testing.ValidateConsistency();
-				}
 			}
 
 			test();
@@ -55500,13 +55412,13 @@ namespace ObservableComputations.Test
 		public void TestSelectingMany05()
 		{
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
-			System.Linq.Expressions.Expression<System.Func<Item, int, System.Collections.Specialized.INotifyCollectionChanged>> selectorExpression = (i, ind) => i.Items;
+			System.Linq.Expressions.Expression<System.Func<Item, int, System.Collections.Specialized.INotifyCollectionChanged>> selectorWithIndexExpression = (i, ind) => i.Items;
 			OcConsumer consumer = new OcConsumer();
 			var testing = sourceScalar.SelectingMany<Item, object>(
-				selectorExpression).For(consumer);
+				selectorWithIndexExpression).For(consumer);
 
 			Assert.AreEqual(sourceScalar, testing.SourceScalar);
-			Assert.AreEqual(selectorExpression, testing.SelectorExpression);
+			Assert.AreEqual(selectorWithIndexExpression, testing.SelectorWithIndexExpression);
 
 			void test()
 			{
@@ -55569,13 +55481,13 @@ namespace ObservableComputations.Test
 		public void TestSelectingMany06()
 		{
 			Scalar<ObservableCollection<Item>> sourceScalar = getScalar<ObservableCollection<Item>>(getItems());
-			System.Linq.Expressions.Expression<System.Func<Item, int, System.Collections.Specialized.INotifyCollectionChanged>> selectorExpression = (i, ind) => i.Items;
+			System.Linq.Expressions.Expression<System.Func<Item, int, System.Collections.Specialized.INotifyCollectionChanged>> selectorWithIndexExpression = (i, ind) => i.Items;
 			OcConsumer consumer = new OcConsumer();
 			var testing = sourceScalar.SelectingMany<Item, object>(
-				selectorExpression).For(consumer);
+				selectorWithIndexExpression).For(consumer);
 
 			Assert.AreEqual(sourceScalar, testing.SourceScalar);
-			Assert.AreEqual(selectorExpression, testing.SelectorExpression);
+			Assert.AreEqual(selectorWithIndexExpression, testing.SelectorWithIndexExpression);
 
 			void test()
 			{
@@ -55638,13 +55550,13 @@ namespace ObservableComputations.Test
 		public void TestSelectingMany07()
 		{
 			System.Collections.Specialized.INotifyCollectionChanged source = getItems();
-			System.Linq.Expressions.Expression<System.Func<Item, int, System.Collections.Specialized.INotifyCollectionChanged>> selectorExpression = (i, ind) => i.Items;
+			System.Linq.Expressions.Expression<System.Func<Item, int, System.Collections.Specialized.INotifyCollectionChanged>> selectorWithIndexExpression = (i, ind) => i.Items;
 			OcConsumer consumer = new OcConsumer();
 			var testing = source.SelectingMany<Item, object>(
-				selectorExpression).For(consumer);
+				selectorWithIndexExpression).For(consumer);
 
 			Assert.AreEqual(source, testing.Source);
-			Assert.AreEqual(selectorExpression, testing.SelectorExpression);
+			Assert.AreEqual(selectorWithIndexExpression, testing.SelectorWithIndexExpression);
 
 			void test()
 			{
@@ -55702,13 +55614,13 @@ namespace ObservableComputations.Test
 		public void TestSelectingMany08()
 		{
 			ObservableCollection<Item> source = getItems();
-			System.Linq.Expressions.Expression<System.Func<Item, int, System.Collections.Specialized.INotifyCollectionChanged>> selectorExpression = (i, ind) => i.Items;
+			System.Linq.Expressions.Expression<System.Func<Item, int, System.Collections.Specialized.INotifyCollectionChanged>> selectorWithIndexExpression = (i, ind) => i.Items;
 			OcConsumer consumer = new OcConsumer();
 			var testing = source.SelectingMany<Item, object>(
-				selectorExpression).For(consumer);
+				selectorWithIndexExpression).For(consumer);
 
 			Assert.AreEqual(source, testing.Source);
-			Assert.AreEqual(selectorExpression, testing.SelectorExpression);
+			Assert.AreEqual(selectorWithIndexExpression, testing.SelectorWithIndexExpression);
 
 			void test()
 			{
@@ -55797,15 +55709,15 @@ namespace ObservableComputations.Test
 		public void TestSkipping01()
 		{
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
-			Scalar<int> countScalar = getScalar<int>(3);
+			Scalar<int> skippingCountScalar = getScalar<int>(0);
 			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = sourceScalar.Skipping<Item>(
-				countScalar,
+				skippingCountScalar,
 				initialCapacity).For(consumer);
 
 			Assert.AreEqual(sourceScalar, testing.SourceScalar);
-			Assert.AreEqual(countScalar, testing.CountScalar);
+			Assert.AreEqual(skippingCountScalar, testing.SkippingCountScalar);
 			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
 
 			void test()
@@ -55858,9 +55770,9 @@ namespace ObservableComputations.Test
 
 			test();
 
-			((Scalar<int>)countScalar).Touch();
+			((Scalar<int>)skippingCountScalar).Touch();
 			test();
-			((Scalar<int>)countScalar).Change(4);
+			((Scalar<int>)skippingCountScalar).Change(1);
 			test();
 
 			((Scalar<System.Collections.Specialized.INotifyCollectionChanged>)sourceScalar).Touch();
@@ -55874,13 +55786,13 @@ namespace ObservableComputations.Test
 		public void TestSkipping02()
 		{
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
-			Scalar<int> countScalar = getScalar<int>(3);
+			Scalar<int> skippingCountScalar = getScalar<int>(0);
 			OcConsumer consumer = new OcConsumer();
 			var testing = sourceScalar.Skipping<Item>(
-				countScalar).For(consumer);
+				skippingCountScalar).For(consumer);
 
 			Assert.AreEqual(sourceScalar, testing.SourceScalar);
-			Assert.AreEqual(countScalar, testing.CountScalar);
+			Assert.AreEqual(skippingCountScalar, testing.SkippingCountScalar);
 
 			void test()
 			{
@@ -55932,9 +55844,9 @@ namespace ObservableComputations.Test
 
 			test();
 
-			((Scalar<int>)countScalar).Touch();
+			((Scalar<int>)skippingCountScalar).Touch();
 			test();
-			((Scalar<int>)countScalar).Change(4);
+			((Scalar<int>)skippingCountScalar).Change(1);
 			test();
 
 			((Scalar<System.Collections.Specialized.INotifyCollectionChanged>)sourceScalar).Touch();
@@ -55948,15 +55860,15 @@ namespace ObservableComputations.Test
 		public void TestSkipping03()
 		{
 			Scalar<ObservableCollection<Item>> sourceScalar = getScalar<ObservableCollection<Item>>(getItems());
-			Scalar<int> countScalar = getScalar<int>(3);
+			Scalar<int> skippingCountScalar = getScalar<int>(0);
 			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = sourceScalar.Skipping<Item>(
-				countScalar,
+				skippingCountScalar,
 				initialCapacity).For(consumer);
 
 			Assert.AreEqual(sourceScalar, testing.SourceScalar);
-			Assert.AreEqual(countScalar, testing.CountScalar);
+			Assert.AreEqual(skippingCountScalar, testing.SkippingCountScalar);
 			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
 
 			void test()
@@ -56009,9 +55921,9 @@ namespace ObservableComputations.Test
 
 			test();
 
-			((Scalar<int>)countScalar).Touch();
+			((Scalar<int>)skippingCountScalar).Touch();
 			test();
-			((Scalar<int>)countScalar).Change(4);
+			((Scalar<int>)skippingCountScalar).Change(1);
 			test();
 
 			((Scalar<ObservableCollection<Item>>)sourceScalar).Touch();
@@ -56025,13 +55937,13 @@ namespace ObservableComputations.Test
 		public void TestSkipping04()
 		{
 			Scalar<ObservableCollection<Item>> sourceScalar = getScalar<ObservableCollection<Item>>(getItems());
-			Scalar<int> countScalar = getScalar<int>(3);
+			Scalar<int> skippingCountScalar = getScalar<int>(0);
 			OcConsumer consumer = new OcConsumer();
 			var testing = sourceScalar.Skipping<Item>(
-				countScalar).For(consumer);
+				skippingCountScalar).For(consumer);
 
 			Assert.AreEqual(sourceScalar, testing.SourceScalar);
-			Assert.AreEqual(countScalar, testing.CountScalar);
+			Assert.AreEqual(skippingCountScalar, testing.SkippingCountScalar);
 
 			void test()
 			{
@@ -56083,9 +55995,9 @@ namespace ObservableComputations.Test
 
 			test();
 
-			((Scalar<int>)countScalar).Touch();
+			((Scalar<int>)skippingCountScalar).Touch();
 			test();
-			((Scalar<int>)countScalar).Change(4);
+			((Scalar<int>)skippingCountScalar).Change(1);
 			test();
 
 			((Scalar<ObservableCollection<Item>>)sourceScalar).Touch();
@@ -56099,15 +56011,15 @@ namespace ObservableComputations.Test
 		public void TestSkipping05()
 		{
 			System.Collections.Specialized.INotifyCollectionChanged source = getItems();
-			Scalar<int> countScalar = getScalar<int>(3);
+			Scalar<int> skippingCountScalar = getScalar<int>(0);
 			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = source.Skipping<Item>(
-				countScalar,
+				skippingCountScalar,
 				initialCapacity).For(consumer);
 
 			Assert.AreEqual(source, testing.Source);
-			Assert.AreEqual(countScalar, testing.CountScalar);
+			Assert.AreEqual(skippingCountScalar, testing.SkippingCountScalar);
 			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
 
 			void test()
@@ -56160,9 +56072,9 @@ namespace ObservableComputations.Test
 
 			test();
 
-			((Scalar<int>)countScalar).Touch();
+			((Scalar<int>)skippingCountScalar).Touch();
 			test();
-			((Scalar<int>)countScalar).Change(4);
+			((Scalar<int>)skippingCountScalar).Change(1);
 			test();
 			consumer.Dispose();
 		}
@@ -56171,13 +56083,13 @@ namespace ObservableComputations.Test
 		public void TestSkipping06()
 		{
 			System.Collections.Specialized.INotifyCollectionChanged source = getItems();
-			Scalar<int> countScalar = getScalar<int>(3);
+			Scalar<int> skippingCountScalar = getScalar<int>(0);
 			OcConsumer consumer = new OcConsumer();
 			var testing = source.Skipping<Item>(
-				countScalar).For(consumer);
+				skippingCountScalar).For(consumer);
 
 			Assert.AreEqual(source, testing.Source);
-			Assert.AreEqual(countScalar, testing.CountScalar);
+			Assert.AreEqual(skippingCountScalar, testing.SkippingCountScalar);
 
 			void test()
 			{
@@ -56229,9 +56141,9 @@ namespace ObservableComputations.Test
 
 			test();
 
-			((Scalar<int>)countScalar).Touch();
+			((Scalar<int>)skippingCountScalar).Touch();
 			test();
-			((Scalar<int>)countScalar).Change(4);
+			((Scalar<int>)skippingCountScalar).Change(1);
 			test();
 			consumer.Dispose();
 		}
@@ -56240,15 +56152,15 @@ namespace ObservableComputations.Test
 		public void TestSkipping07()
 		{
 			ObservableCollection<Item> source = getItems();
-			Scalar<int> countScalar = getScalar<int>(3);
+			Scalar<int> skippingCountScalar = getScalar<int>(0);
 			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = source.Skipping<Item>(
-				countScalar,
+				skippingCountScalar,
 				initialCapacity).For(consumer);
 
 			Assert.AreEqual(source, testing.Source);
-			Assert.AreEqual(countScalar, testing.CountScalar);
+			Assert.AreEqual(skippingCountScalar, testing.SkippingCountScalar);
 			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
 
 			void test()
@@ -56301,9 +56213,9 @@ namespace ObservableComputations.Test
 
 			test();
 
-			((Scalar<int>)countScalar).Touch();
+			((Scalar<int>)skippingCountScalar).Touch();
 			test();
-			((Scalar<int>)countScalar).Change(4);
+			((Scalar<int>)skippingCountScalar).Change(1);
 			test();
 			consumer.Dispose();
 		}
@@ -56312,13 +56224,13 @@ namespace ObservableComputations.Test
 		public void TestSkipping08()
 		{
 			ObservableCollection<Item> source = getItems();
-			Scalar<int> countScalar = getScalar<int>(3);
+			Scalar<int> skippingCountScalar = getScalar<int>(0);
 			OcConsumer consumer = new OcConsumer();
 			var testing = source.Skipping<Item>(
-				countScalar).For(consumer);
+				skippingCountScalar).For(consumer);
 
 			Assert.AreEqual(source, testing.Source);
-			Assert.AreEqual(countScalar, testing.CountScalar);
+			Assert.AreEqual(skippingCountScalar, testing.SkippingCountScalar);
 
 			void test()
 			{
@@ -56370,9 +56282,9 @@ namespace ObservableComputations.Test
 
 			test();
 
-			((Scalar<int>)countScalar).Touch();
+			((Scalar<int>)skippingCountScalar).Touch();
 			test();
-			((Scalar<int>)countScalar).Change(4);
+			((Scalar<int>)skippingCountScalar).Change(1);
 			test();
 			consumer.Dispose();
 		}
@@ -56381,15 +56293,15 @@ namespace ObservableComputations.Test
 		public void TestSkipping09()
 		{
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
-			int count = 3;
+			int skippingCount = 0;
 			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = sourceScalar.Skipping<Item>(
-				count,
+				skippingCount,
 				initialCapacity).For(consumer);
 
 			Assert.AreEqual(sourceScalar, testing.SourceScalar);
-			Assert.AreEqual(count, testing.Count);
+			Assert.AreEqual(skippingCount, testing.SkippingCount);
 			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
 
 			void test()
@@ -56453,13 +56365,13 @@ namespace ObservableComputations.Test
 		public void TestSkipping10()
 		{
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
-			int count = 3;
+			int skippingCount = 0;
 			OcConsumer consumer = new OcConsumer();
 			var testing = sourceScalar.Skipping<Item>(
-				count).For(consumer);
+				skippingCount).For(consumer);
 
 			Assert.AreEqual(sourceScalar, testing.SourceScalar);
-			Assert.AreEqual(count, testing.Count);
+			Assert.AreEqual(skippingCount, testing.SkippingCount);
 
 			void test()
 			{
@@ -56522,15 +56434,15 @@ namespace ObservableComputations.Test
 		public void TestSkipping11()
 		{
 			Scalar<ObservableCollection<Item>> sourceScalar = getScalar<ObservableCollection<Item>>(getItems());
-			int count = 3;
+			int skippingCount = 0;
 			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = sourceScalar.Skipping<Item>(
-				count,
+				skippingCount,
 				initialCapacity).For(consumer);
 
 			Assert.AreEqual(sourceScalar, testing.SourceScalar);
-			Assert.AreEqual(count, testing.Count);
+			Assert.AreEqual(skippingCount, testing.SkippingCount);
 			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
 
 			void test()
@@ -56594,13 +56506,13 @@ namespace ObservableComputations.Test
 		public void TestSkipping12()
 		{
 			Scalar<ObservableCollection<Item>> sourceScalar = getScalar<ObservableCollection<Item>>(getItems());
-			int count = 3;
+			int skippingCount = 0;
 			OcConsumer consumer = new OcConsumer();
 			var testing = sourceScalar.Skipping<Item>(
-				count).For(consumer);
+				skippingCount).For(consumer);
 
 			Assert.AreEqual(sourceScalar, testing.SourceScalar);
-			Assert.AreEqual(count, testing.Count);
+			Assert.AreEqual(skippingCount, testing.SkippingCount);
 
 			void test()
 			{
@@ -56663,15 +56575,15 @@ namespace ObservableComputations.Test
 		public void TestSkipping13()
 		{
 			System.Collections.Specialized.INotifyCollectionChanged source = getItems();
-			int count = 3;
+			int skippingCount = 0;
 			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = source.Skipping<Item>(
-				count,
+				skippingCount,
 				initialCapacity).For(consumer);
 
 			Assert.AreEqual(source, testing.Source);
-			Assert.AreEqual(count, testing.Count);
+			Assert.AreEqual(skippingCount, testing.SkippingCount);
 			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
 
 			void test()
@@ -56730,13 +56642,13 @@ namespace ObservableComputations.Test
 		public void TestSkipping14()
 		{
 			System.Collections.Specialized.INotifyCollectionChanged source = getItems();
-			int count = 3;
+			int skippingCount = 0;
 			OcConsumer consumer = new OcConsumer();
 			var testing = source.Skipping<Item>(
-				count).For(consumer);
+				skippingCount).For(consumer);
 
 			Assert.AreEqual(source, testing.Source);
-			Assert.AreEqual(count, testing.Count);
+			Assert.AreEqual(skippingCount, testing.SkippingCount);
 
 			void test()
 			{
@@ -56794,15 +56706,15 @@ namespace ObservableComputations.Test
 		public void TestSkipping15()
 		{
 			ObservableCollection<Item> source = getItems();
-			int count = 3;
+			int skippingCount = 0;
 			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = source.Skipping<Item>(
-				count,
+				skippingCount,
 				initialCapacity).For(consumer);
 
 			Assert.AreEqual(source, testing.Source);
-			Assert.AreEqual(count, testing.Count);
+			Assert.AreEqual(skippingCount, testing.SkippingCount);
 			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
 
 			void test()
@@ -56861,13 +56773,13 @@ namespace ObservableComputations.Test
 		public void TestSkipping16()
 		{
 			ObservableCollection<Item> source = getItems();
-			int count = 3;
+			int skippingCount = 0;
 			OcConsumer consumer = new OcConsumer();
 			var testing = source.Skipping<Item>(
-				count).For(consumer);
+				skippingCount).For(consumer);
 
 			Assert.AreEqual(source, testing.Source);
-			Assert.AreEqual(count, testing.Count);
+			Assert.AreEqual(skippingCount, testing.SkippingCount);
 
 			void test()
 			{
@@ -56928,15 +56840,15 @@ namespace ObservableComputations.Test
 		public void TestSkippingWhile01()
 		{
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
-			System.Linq.Expressions.Expression<System.Func<Item, int, bool>> predicateExpression = (i, ind) => i.Active;
+			System.Linq.Expressions.Expression<System.Func<Item, int, bool>> indexedPredicateExpression = (i, ind) => i.Active;
 			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = sourceScalar.SkippingWhile<Item>(
-				predicateExpression,
+				indexedPredicateExpression,
 				initialCapacity).For(consumer);
 
 			Assert.AreEqual(sourceScalar, testing.SourceScalar);
-			Assert.AreEqual(predicateExpression, testing.PredicateExpression);
+			Assert.AreEqual(indexedPredicateExpression, testing.IndexedPredicateExpression);
 			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
 
 			void test()
@@ -57000,13 +56912,13 @@ namespace ObservableComputations.Test
 		public void TestSkippingWhile02()
 		{
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
-			System.Linq.Expressions.Expression<System.Func<Item, int, bool>> predicateExpression = (i, ind) => i.Active;
+			System.Linq.Expressions.Expression<System.Func<Item, int, bool>> indexedPredicateExpression = (i, ind) => i.Active;
 			OcConsumer consumer = new OcConsumer();
 			var testing = sourceScalar.SkippingWhile<Item>(
-				predicateExpression).For(consumer);
+				indexedPredicateExpression).For(consumer);
 
 			Assert.AreEqual(sourceScalar, testing.SourceScalar);
-			Assert.AreEqual(predicateExpression, testing.PredicateExpression);
+			Assert.AreEqual(indexedPredicateExpression, testing.IndexedPredicateExpression);
 
 			void test()
 			{
@@ -57069,15 +56981,15 @@ namespace ObservableComputations.Test
 		public void TestSkippingWhile03()
 		{
 			Scalar<ObservableCollection<Item>> sourceScalar = getScalar<ObservableCollection<Item>>(getItems());
-			System.Linq.Expressions.Expression<System.Func<Item, int, bool>> predicateExpression = (i, ind) => i.Active;
+			System.Linq.Expressions.Expression<System.Func<Item, int, bool>> indexedPredicateExpression = (i, ind) => i.Active;
 			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = sourceScalar.SkippingWhile<Item>(
-				predicateExpression,
+				indexedPredicateExpression,
 				initialCapacity).For(consumer);
 
 			Assert.AreEqual(sourceScalar, testing.SourceScalar);
-			Assert.AreEqual(predicateExpression, testing.PredicateExpression);
+			Assert.AreEqual(indexedPredicateExpression, testing.IndexedPredicateExpression);
 			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
 
 			void test()
@@ -57141,13 +57053,13 @@ namespace ObservableComputations.Test
 		public void TestSkippingWhile04()
 		{
 			Scalar<ObservableCollection<Item>> sourceScalar = getScalar<ObservableCollection<Item>>(getItems());
-			System.Linq.Expressions.Expression<System.Func<Item, int, bool>> predicateExpression = (i, ind) => i.Active;
+			System.Linq.Expressions.Expression<System.Func<Item, int, bool>> indexedPredicateExpression = (i, ind) => i.Active;
 			OcConsumer consumer = new OcConsumer();
 			var testing = sourceScalar.SkippingWhile<Item>(
-				predicateExpression).For(consumer);
+				indexedPredicateExpression).For(consumer);
 
 			Assert.AreEqual(sourceScalar, testing.SourceScalar);
-			Assert.AreEqual(predicateExpression, testing.PredicateExpression);
+			Assert.AreEqual(indexedPredicateExpression, testing.IndexedPredicateExpression);
 
 			void test()
 			{
@@ -57210,15 +57122,15 @@ namespace ObservableComputations.Test
 		public void TestSkippingWhile05()
 		{
 			System.Collections.Specialized.INotifyCollectionChanged source = getItems();
-			System.Linq.Expressions.Expression<System.Func<Item, int, bool>> predicateExpression = (i, ind) => i.Active;
+			System.Linq.Expressions.Expression<System.Func<Item, int, bool>> indexedPredicateExpression = (i, ind) => i.Active;
 			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = source.SkippingWhile<Item>(
-				predicateExpression,
+				indexedPredicateExpression,
 				initialCapacity).For(consumer);
 
 			Assert.AreEqual(source, testing.Source);
-			Assert.AreEqual(predicateExpression, testing.PredicateExpression);
+			Assert.AreEqual(indexedPredicateExpression, testing.IndexedPredicateExpression);
 			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
 
 			void test()
@@ -57277,13 +57189,13 @@ namespace ObservableComputations.Test
 		public void TestSkippingWhile06()
 		{
 			System.Collections.Specialized.INotifyCollectionChanged source = getItems();
-			System.Linq.Expressions.Expression<System.Func<Item, int, bool>> predicateExpression = (i, ind) => i.Active;
+			System.Linq.Expressions.Expression<System.Func<Item, int, bool>> indexedPredicateExpression = (i, ind) => i.Active;
 			OcConsumer consumer = new OcConsumer();
 			var testing = source.SkippingWhile<Item>(
-				predicateExpression).For(consumer);
+				indexedPredicateExpression).For(consumer);
 
 			Assert.AreEqual(source, testing.Source);
-			Assert.AreEqual(predicateExpression, testing.PredicateExpression);
+			Assert.AreEqual(indexedPredicateExpression, testing.IndexedPredicateExpression);
 
 			void test()
 			{
@@ -57341,15 +57253,15 @@ namespace ObservableComputations.Test
 		public void TestSkippingWhile07()
 		{
 			ObservableCollection<Item> source = getItems();
-			System.Linq.Expressions.Expression<System.Func<Item, int, bool>> predicateExpression = (i, ind) => i.Active;
+			System.Linq.Expressions.Expression<System.Func<Item, int, bool>> indexedPredicateExpression = (i, ind) => i.Active;
 			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = source.SkippingWhile<Item>(
-				predicateExpression,
+				indexedPredicateExpression,
 				initialCapacity).For(consumer);
 
 			Assert.AreEqual(source, testing.Source);
-			Assert.AreEqual(predicateExpression, testing.PredicateExpression);
+			Assert.AreEqual(indexedPredicateExpression, testing.IndexedPredicateExpression);
 			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
 
 			void test()
@@ -57408,13 +57320,13 @@ namespace ObservableComputations.Test
 		public void TestSkippingWhile08()
 		{
 			ObservableCollection<Item> source = getItems();
-			System.Linq.Expressions.Expression<System.Func<Item, int, bool>> predicateExpression = (i, ind) => i.Active;
+			System.Linq.Expressions.Expression<System.Func<Item, int, bool>> indexedPredicateExpression = (i, ind) => i.Active;
 			OcConsumer consumer = new OcConsumer();
 			var testing = source.SkippingWhile<Item>(
-				predicateExpression).For(consumer);
+				indexedPredicateExpression).For(consumer);
 
 			Assert.AreEqual(source, testing.Source);
-			Assert.AreEqual(predicateExpression, testing.PredicateExpression);
+			Assert.AreEqual(indexedPredicateExpression, testing.IndexedPredicateExpression);
 
 			void test()
 			{
@@ -60521,15 +60433,15 @@ namespace ObservableComputations.Test
 		public void TestTakingWhile01()
 		{
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
-			System.Linq.Expressions.Expression<System.Func<Item, int, bool>> predicateExpression = (i, ind) => i.Active;
+			System.Linq.Expressions.Expression<System.Func<Item, int, bool>> indexedPredicateExpression = (i, ind) => i.Active;
 			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = sourceScalar.TakingWhile<Item>(
-				predicateExpression,
+				indexedPredicateExpression,
 				initialCapacity).For(consumer);
 
 			Assert.AreEqual(sourceScalar, testing.SourceScalar);
-			Assert.AreEqual(predicateExpression, testing.PredicateExpression);
+			Assert.AreEqual(indexedPredicateExpression, testing.IndexedPredicateExpression);
 			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
 
 			void test()
@@ -60593,13 +60505,13 @@ namespace ObservableComputations.Test
 		public void TestTakingWhile02()
 		{
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
-			System.Linq.Expressions.Expression<System.Func<Item, int, bool>> predicateExpression = (i, ind) => i.Active;
+			System.Linq.Expressions.Expression<System.Func<Item, int, bool>> indexedPredicateExpression = (i, ind) => i.Active;
 			OcConsumer consumer = new OcConsumer();
 			var testing = sourceScalar.TakingWhile<Item>(
-				predicateExpression).For(consumer);
+				indexedPredicateExpression).For(consumer);
 
 			Assert.AreEqual(sourceScalar, testing.SourceScalar);
-			Assert.AreEqual(predicateExpression, testing.PredicateExpression);
+			Assert.AreEqual(indexedPredicateExpression, testing.IndexedPredicateExpression);
 
 			void test()
 			{
@@ -60662,15 +60574,15 @@ namespace ObservableComputations.Test
 		public void TestTakingWhile03()
 		{
 			Scalar<ObservableCollection<Item>> sourceScalar = getScalar<ObservableCollection<Item>>(getItems());
-			System.Linq.Expressions.Expression<System.Func<Item, int, bool>> predicateExpression = (i, ind) => i.Active;
+			System.Linq.Expressions.Expression<System.Func<Item, int, bool>> indexedPredicateExpression = (i, ind) => i.Active;
 			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = sourceScalar.TakingWhile<Item>(
-				predicateExpression,
+				indexedPredicateExpression,
 				initialCapacity).For(consumer);
 
 			Assert.AreEqual(sourceScalar, testing.SourceScalar);
-			Assert.AreEqual(predicateExpression, testing.PredicateExpression);
+			Assert.AreEqual(indexedPredicateExpression, testing.IndexedPredicateExpression);
 			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
 
 			void test()
@@ -60734,13 +60646,13 @@ namespace ObservableComputations.Test
 		public void TestTakingWhile04()
 		{
 			Scalar<ObservableCollection<Item>> sourceScalar = getScalar<ObservableCollection<Item>>(getItems());
-			System.Linq.Expressions.Expression<System.Func<Item, int, bool>> predicateExpression = (i, ind) => i.Active;
+			System.Linq.Expressions.Expression<System.Func<Item, int, bool>> indexedPredicateExpression = (i, ind) => i.Active;
 			OcConsumer consumer = new OcConsumer();
 			var testing = sourceScalar.TakingWhile<Item>(
-				predicateExpression).For(consumer);
+				indexedPredicateExpression).For(consumer);
 
 			Assert.AreEqual(sourceScalar, testing.SourceScalar);
-			Assert.AreEqual(predicateExpression, testing.PredicateExpression);
+			Assert.AreEqual(indexedPredicateExpression, testing.IndexedPredicateExpression);
 
 			void test()
 			{
@@ -60803,15 +60715,15 @@ namespace ObservableComputations.Test
 		public void TestTakingWhile05()
 		{
 			System.Collections.Specialized.INotifyCollectionChanged source = getItems();
-			System.Linq.Expressions.Expression<System.Func<Item, int, bool>> predicateExpression = (i, ind) => i.Active;
+			System.Linq.Expressions.Expression<System.Func<Item, int, bool>> indexedPredicateExpression = (i, ind) => i.Active;
 			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = source.TakingWhile<Item>(
-				predicateExpression,
+				indexedPredicateExpression,
 				initialCapacity).For(consumer);
 
 			Assert.AreEqual(source, testing.Source);
-			Assert.AreEqual(predicateExpression, testing.PredicateExpression);
+			Assert.AreEqual(indexedPredicateExpression, testing.IndexedPredicateExpression);
 			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
 
 			void test()
@@ -60870,13 +60782,13 @@ namespace ObservableComputations.Test
 		public void TestTakingWhile06()
 		{
 			System.Collections.Specialized.INotifyCollectionChanged source = getItems();
-			System.Linq.Expressions.Expression<System.Func<Item, int, bool>> predicateExpression = (i, ind) => i.Active;
+			System.Linq.Expressions.Expression<System.Func<Item, int, bool>> indexedPredicateExpression = (i, ind) => i.Active;
 			OcConsumer consumer = new OcConsumer();
 			var testing = source.TakingWhile<Item>(
-				predicateExpression).For(consumer);
+				indexedPredicateExpression).For(consumer);
 
 			Assert.AreEqual(source, testing.Source);
-			Assert.AreEqual(predicateExpression, testing.PredicateExpression);
+			Assert.AreEqual(indexedPredicateExpression, testing.IndexedPredicateExpression);
 
 			void test()
 			{
@@ -60934,15 +60846,15 @@ namespace ObservableComputations.Test
 		public void TestTakingWhile07()
 		{
 			ObservableCollection<Item> source = getItems();
-			System.Linq.Expressions.Expression<System.Func<Item, int, bool>> predicateExpression = (i, ind) => i.Active;
+			System.Linq.Expressions.Expression<System.Func<Item, int, bool>> indexedPredicateExpression = (i, ind) => i.Active;
 			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = source.TakingWhile<Item>(
-				predicateExpression,
+				indexedPredicateExpression,
 				initialCapacity).For(consumer);
 
 			Assert.AreEqual(source, testing.Source);
-			Assert.AreEqual(predicateExpression, testing.PredicateExpression);
+			Assert.AreEqual(indexedPredicateExpression, testing.IndexedPredicateExpression);
 			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
 
 			void test()
@@ -61001,13 +60913,13 @@ namespace ObservableComputations.Test
 		public void TestTakingWhile08()
 		{
 			ObservableCollection<Item> source = getItems();
-			System.Linq.Expressions.Expression<System.Func<Item, int, bool>> predicateExpression = (i, ind) => i.Active;
+			System.Linq.Expressions.Expression<System.Func<Item, int, bool>> indexedPredicateExpression = (i, ind) => i.Active;
 			OcConsumer consumer = new OcConsumer();
 			var testing = source.TakingWhile<Item>(
-				predicateExpression).For(consumer);
+				indexedPredicateExpression).For(consumer);
 
 			Assert.AreEqual(source, testing.Source);
-			Assert.AreEqual(predicateExpression, testing.PredicateExpression);
+			Assert.AreEqual(indexedPredicateExpression, testing.IndexedPredicateExpression);
 
 			void test()
 			{
@@ -62943,7 +62855,7 @@ namespace ObservableComputations.Test
 		[Test]
 		public void TestUniting01()
 		{
-			Scalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
+			Scalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getCollectionsOfItems());
 			Scalar<System.Collections.Generic.IEqualityComparer<Item>> equalityComparerScalar = getScalar<System.Collections.Generic.IEqualityComparer<Item>>(EqualityComparer<Item>.Default);
 			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
@@ -62958,49 +62870,27 @@ namespace ObservableComputations.Test
 			void test()
 			{
 				testing.ValidateConsistency();
-				var sourceScalarValue = ((ObservableCollection<Item>)((System.Collections.Specialized.INotifyCollectionChanged)sourceScalar.Value));
-
+				var sourceScalarValue = ((ObservableCollection<ObservableCollection<Item>>)((System.Collections.Specialized.INotifyCollectionChanged)sourceScalar.Value));
+				
 				if (sourceScalarValue != null)
-				{		
-					sourceScalarValue.Insert(2, new QuickTests.Item(1, true));
-					testing.ValidateConsistency();
-					sourceScalarValue[3] = new QuickTests.Item(7, true);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(3);
-					testing.ValidateConsistency();
-					sourceScalarValue.Move(1, 3);
-					testing.ValidateConsistency();
-					sourceScalarValue[2].Active = !sourceScalarValue[2].Active;
-					testing.ValidateConsistency();
-					sourceScalarValue[2].Num = sourceScalarValue[2].Num + 1;
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
+				{
+					sourceScalarValue.Insert(0, new ObservableCollection<Item>(new []{new Item(1, true)}));
 					testing.ValidateConsistency();
 					sourceScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
-					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
-					testing.ValidateConsistency();
-					sourceScalarValue.Insert(0, new QuickTests.Item(2, true));
+					sourceScalarValue.Move(0, 1);
 					testing.ValidateConsistency();
 				}
+
 
 				IList listSource;
-				listSource = ((IList)((System.Collections.Specialized.INotifyCollectionChanged)sourceScalar.Value));
-				if (listSource != null)
+				if (sourceScalarValue != null)
 				{
-					listSource.Clear();
+					sourceScalarValue.Insert(0, new ObservableCollection<Item>(new []{new Item(1, true), new Item(2, true), new Item(3, true), new Item(4, true), new Item(5, true)}));
+					sourceScalarValue.Insert(0, new ObservableCollection<Item>(new []{new Item(6, true), new Item(7, true), new Item(8, true), new Item(8, true), new Item(10, true)}));
 					testing.ValidateConsistency();
 				}
 
-				if (sourceScalarValue != null)
-				{
-					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
-					sourceScalarValue.Insert(1, new QuickTests.Item(2, true));
-					sourceScalarValue.Insert(2, new QuickTests.Item(3, true));
-					sourceScalarValue.Insert(3, new QuickTests.Item(3, true));
-					sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
-					testing.ValidateConsistency();
-				}
 			}
 
 			test();
@@ -63020,7 +62910,7 @@ namespace ObservableComputations.Test
 		[Test]
 		public void TestUniting02()
 		{
-			Scalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
+			Scalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getCollectionsOfItems());
 			Scalar<System.Collections.Generic.IEqualityComparer<Item>> equalityComparerScalar = getScalar<System.Collections.Generic.IEqualityComparer<Item>>(EqualityComparer<Item>.Default);
 			OcConsumer consumer = new OcConsumer();
 			var testing = sourceScalar.Uniting<Item>(
@@ -63032,49 +62922,27 @@ namespace ObservableComputations.Test
 			void test()
 			{
 				testing.ValidateConsistency();
-				var sourceScalarValue = ((ObservableCollection<Item>)((System.Collections.Specialized.INotifyCollectionChanged)sourceScalar.Value));
-
+				var sourceScalarValue = ((ObservableCollection<ObservableCollection<Item>>)((System.Collections.Specialized.INotifyCollectionChanged)sourceScalar.Value));
+				
 				if (sourceScalarValue != null)
-				{		
-					sourceScalarValue.Insert(2, new QuickTests.Item(1, true));
-					testing.ValidateConsistency();
-					sourceScalarValue[3] = new QuickTests.Item(7, true);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(3);
-					testing.ValidateConsistency();
-					sourceScalarValue.Move(1, 3);
-					testing.ValidateConsistency();
-					sourceScalarValue[2].Active = !sourceScalarValue[2].Active;
-					testing.ValidateConsistency();
-					sourceScalarValue[2].Num = sourceScalarValue[2].Num + 1;
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
+				{
+					sourceScalarValue.Insert(0, new ObservableCollection<Item>(new []{new Item(1, true)}));
 					testing.ValidateConsistency();
 					sourceScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
-					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
-					testing.ValidateConsistency();
-					sourceScalarValue.Insert(0, new QuickTests.Item(2, true));
+					sourceScalarValue.Move(0, 1);
 					testing.ValidateConsistency();
 				}
+
 
 				IList listSource;
-				listSource = ((IList)((System.Collections.Specialized.INotifyCollectionChanged)sourceScalar.Value));
-				if (listSource != null)
+				if (sourceScalarValue != null)
 				{
-					listSource.Clear();
+					sourceScalarValue.Insert(0, new ObservableCollection<Item>(new []{new Item(1, true), new Item(2, true), new Item(3, true), new Item(4, true), new Item(5, true)}));
+					sourceScalarValue.Insert(0, new ObservableCollection<Item>(new []{new Item(6, true), new Item(7, true), new Item(8, true), new Item(8, true), new Item(10, true)}));
 					testing.ValidateConsistency();
 				}
 
-				if (sourceScalarValue != null)
-				{
-					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
-					sourceScalarValue.Insert(1, new QuickTests.Item(2, true));
-					sourceScalarValue.Insert(2, new QuickTests.Item(3, true));
-					sourceScalarValue.Insert(3, new QuickTests.Item(3, true));
-					sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
-					testing.ValidateConsistency();
-				}
 			}
 
 			test();
@@ -63094,7 +62962,7 @@ namespace ObservableComputations.Test
 		[Test]
 		public void TestUniting03()
 		{
-			Scalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
+			Scalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getCollectionsOfItems());
 			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = sourceScalar.Uniting<Item>(
@@ -63106,49 +62974,27 @@ namespace ObservableComputations.Test
 			void test()
 			{
 				testing.ValidateConsistency();
-				var sourceScalarValue = ((ObservableCollection<Item>)((System.Collections.Specialized.INotifyCollectionChanged)sourceScalar.Value));
-
+				var sourceScalarValue = ((ObservableCollection<ObservableCollection<Item>>)((System.Collections.Specialized.INotifyCollectionChanged)sourceScalar.Value));
+				
 				if (sourceScalarValue != null)
-				{		
-					sourceScalarValue.Insert(2, new QuickTests.Item(1, true));
-					testing.ValidateConsistency();
-					sourceScalarValue[3] = new QuickTests.Item(7, true);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(3);
-					testing.ValidateConsistency();
-					sourceScalarValue.Move(1, 3);
-					testing.ValidateConsistency();
-					sourceScalarValue[2].Active = !sourceScalarValue[2].Active;
-					testing.ValidateConsistency();
-					sourceScalarValue[2].Num = sourceScalarValue[2].Num + 1;
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
+				{
+					sourceScalarValue.Insert(0, new ObservableCollection<Item>(new []{new Item(1, true)}));
 					testing.ValidateConsistency();
 					sourceScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
-					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
-					testing.ValidateConsistency();
-					sourceScalarValue.Insert(0, new QuickTests.Item(2, true));
+					sourceScalarValue.Move(0, 1);
 					testing.ValidateConsistency();
 				}
+
 
 				IList listSource;
-				listSource = ((IList)((System.Collections.Specialized.INotifyCollectionChanged)sourceScalar.Value));
-				if (listSource != null)
+				if (sourceScalarValue != null)
 				{
-					listSource.Clear();
+					sourceScalarValue.Insert(0, new ObservableCollection<Item>(new []{new Item(1, true), new Item(2, true), new Item(3, true), new Item(4, true), new Item(5, true)}));
+					sourceScalarValue.Insert(0, new ObservableCollection<Item>(new []{new Item(6, true), new Item(7, true), new Item(8, true), new Item(8, true), new Item(10, true)}));
 					testing.ValidateConsistency();
 				}
 
-				if (sourceScalarValue != null)
-				{
-					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
-					sourceScalarValue.Insert(1, new QuickTests.Item(2, true));
-					sourceScalarValue.Insert(2, new QuickTests.Item(3, true));
-					sourceScalarValue.Insert(3, new QuickTests.Item(3, true));
-					sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
-					testing.ValidateConsistency();
-				}
 			}
 
 			test();
@@ -63163,7 +63009,7 @@ namespace ObservableComputations.Test
 		[Test]
 		public void TestUniting04()
 		{
-			Scalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
+			Scalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getCollectionsOfItems());
 			OcConsumer consumer = new OcConsumer();
 			var testing = sourceScalar.Uniting<Item>().For(consumer);
 
@@ -63172,49 +63018,27 @@ namespace ObservableComputations.Test
 			void test()
 			{
 				testing.ValidateConsistency();
-				var sourceScalarValue = ((ObservableCollection<Item>)((System.Collections.Specialized.INotifyCollectionChanged)sourceScalar.Value));
-
+				var sourceScalarValue = ((ObservableCollection<ObservableCollection<Item>>)((System.Collections.Specialized.INotifyCollectionChanged)sourceScalar.Value));
+				
 				if (sourceScalarValue != null)
-				{		
-					sourceScalarValue.Insert(2, new QuickTests.Item(1, true));
-					testing.ValidateConsistency();
-					sourceScalarValue[3] = new QuickTests.Item(7, true);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(3);
-					testing.ValidateConsistency();
-					sourceScalarValue.Move(1, 3);
-					testing.ValidateConsistency();
-					sourceScalarValue[2].Active = !sourceScalarValue[2].Active;
-					testing.ValidateConsistency();
-					sourceScalarValue[2].Num = sourceScalarValue[2].Num + 1;
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
+				{
+					sourceScalarValue.Insert(0, new ObservableCollection<Item>(new []{new Item(1, true)}));
 					testing.ValidateConsistency();
 					sourceScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
-					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
-					testing.ValidateConsistency();
-					sourceScalarValue.Insert(0, new QuickTests.Item(2, true));
+					sourceScalarValue.Move(0, 1);
 					testing.ValidateConsistency();
 				}
+
 
 				IList listSource;
-				listSource = ((IList)((System.Collections.Specialized.INotifyCollectionChanged)sourceScalar.Value));
-				if (listSource != null)
+				if (sourceScalarValue != null)
 				{
-					listSource.Clear();
+					sourceScalarValue.Insert(0, new ObservableCollection<Item>(new []{new Item(1, true), new Item(2, true), new Item(3, true), new Item(4, true), new Item(5, true)}));
+					sourceScalarValue.Insert(0, new ObservableCollection<Item>(new []{new Item(6, true), new Item(7, true), new Item(8, true), new Item(8, true), new Item(10, true)}));
 					testing.ValidateConsistency();
 				}
 
-				if (sourceScalarValue != null)
-				{
-					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
-					sourceScalarValue.Insert(1, new QuickTests.Item(2, true));
-					sourceScalarValue.Insert(2, new QuickTests.Item(3, true));
-					sourceScalarValue.Insert(3, new QuickTests.Item(3, true));
-					sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
-					testing.ValidateConsistency();
-				}
 			}
 
 			test();
@@ -63229,7 +63053,7 @@ namespace ObservableComputations.Test
 		[Test]
 		public void TestUniting05()
 		{
-			Scalar<ObservableCollection<Item>> sourceScalar = getScalar<ObservableCollection<Item>>(getItems());
+			Scalar<ObservableCollection<ObservableCollection<Item>>> sourceScalar = getScalar<ObservableCollection<ObservableCollection<Item>>>(getCollectionsOfItems());
 			Scalar<System.Collections.Generic.IEqualityComparer<Item>> equalityComparerScalar = getScalar<System.Collections.Generic.IEqualityComparer<Item>>(EqualityComparer<Item>.Default);
 			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
@@ -63244,49 +63068,27 @@ namespace ObservableComputations.Test
 			void test()
 			{
 				testing.ValidateConsistency();
-				var sourceScalarValue = ((ObservableCollection<Item>)((ObservableCollection<Item>)sourceScalar.Value));
-
+				var sourceScalarValue = ((ObservableCollection<ObservableCollection<Item>>)((ObservableCollection<ObservableCollection<Item>>)sourceScalar.Value));
+				
 				if (sourceScalarValue != null)
-				{		
-					sourceScalarValue.Insert(2, new QuickTests.Item(1, true));
-					testing.ValidateConsistency();
-					sourceScalarValue[3] = new QuickTests.Item(7, true);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(3);
-					testing.ValidateConsistency();
-					sourceScalarValue.Move(1, 3);
-					testing.ValidateConsistency();
-					sourceScalarValue[2].Active = !sourceScalarValue[2].Active;
-					testing.ValidateConsistency();
-					sourceScalarValue[2].Num = sourceScalarValue[2].Num + 1;
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
+				{
+					sourceScalarValue.Insert(0, new ObservableCollection<Item>(new []{new Item(1, true)}));
 					testing.ValidateConsistency();
 					sourceScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
-					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
-					testing.ValidateConsistency();
-					sourceScalarValue.Insert(0, new QuickTests.Item(2, true));
+					sourceScalarValue.Move(0, 1);
 					testing.ValidateConsistency();
 				}
+
 
 				IList listSource;
-				listSource = ((IList)((ObservableCollection<Item>)sourceScalar.Value));
-				if (listSource != null)
+				if (sourceScalarValue != null)
 				{
-					listSource.Clear();
+					sourceScalarValue.Insert(0, new ObservableCollection<Item>(new []{new Item(1, true), new Item(2, true), new Item(3, true), new Item(4, true), new Item(5, true)}));
+					sourceScalarValue.Insert(0, new ObservableCollection<Item>(new []{new Item(6, true), new Item(7, true), new Item(8, true), new Item(8, true), new Item(10, true)}));
 					testing.ValidateConsistency();
 				}
 
-				if (sourceScalarValue != null)
-				{
-					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
-					sourceScalarValue.Insert(1, new QuickTests.Item(2, true));
-					sourceScalarValue.Insert(2, new QuickTests.Item(3, true));
-					sourceScalarValue.Insert(3, new QuickTests.Item(3, true));
-					sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
-					testing.ValidateConsistency();
-				}
 			}
 
 			test();
@@ -63296,9 +63098,9 @@ namespace ObservableComputations.Test
 			((Scalar<System.Collections.Generic.IEqualityComparer<Item>>)equalityComparerScalar).Change(null);
 			test();
 
-			((Scalar<ObservableCollection<Item>>)sourceScalar).Touch();
+			((Scalar<ObservableCollection<ObservableCollection<Item>>>)sourceScalar).Touch();
 			test();
-			((Scalar<ObservableCollection<Item>>)sourceScalar).Change(null);
+			((Scalar<ObservableCollection<ObservableCollection<Item>>>)sourceScalar).Change(null);
 			test();
 			consumer.Dispose();
 		}
@@ -63306,7 +63108,7 @@ namespace ObservableComputations.Test
 		[Test]
 		public void TestUniting06()
 		{
-			Scalar<ObservableCollection<Item>> sourceScalar = getScalar<ObservableCollection<Item>>(getItems());
+			Scalar<ObservableCollection<ObservableCollection<Item>>> sourceScalar = getScalar<ObservableCollection<ObservableCollection<Item>>>(getCollectionsOfItems());
 			Scalar<System.Collections.Generic.IEqualityComparer<Item>> equalityComparerScalar = getScalar<System.Collections.Generic.IEqualityComparer<Item>>(EqualityComparer<Item>.Default);
 			OcConsumer consumer = new OcConsumer();
 			var testing = sourceScalar.Uniting<Item>(
@@ -63318,49 +63120,27 @@ namespace ObservableComputations.Test
 			void test()
 			{
 				testing.ValidateConsistency();
-				var sourceScalarValue = ((ObservableCollection<Item>)((ObservableCollection<Item>)sourceScalar.Value));
-
+				var sourceScalarValue = ((ObservableCollection<ObservableCollection<Item>>)((ObservableCollection<ObservableCollection<Item>>)sourceScalar.Value));
+				
 				if (sourceScalarValue != null)
-				{		
-					sourceScalarValue.Insert(2, new QuickTests.Item(1, true));
-					testing.ValidateConsistency();
-					sourceScalarValue[3] = new QuickTests.Item(7, true);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(3);
-					testing.ValidateConsistency();
-					sourceScalarValue.Move(1, 3);
-					testing.ValidateConsistency();
-					sourceScalarValue[2].Active = !sourceScalarValue[2].Active;
-					testing.ValidateConsistency();
-					sourceScalarValue[2].Num = sourceScalarValue[2].Num + 1;
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
+				{
+					sourceScalarValue.Insert(0, new ObservableCollection<Item>(new []{new Item(1, true)}));
 					testing.ValidateConsistency();
 					sourceScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
-					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
-					testing.ValidateConsistency();
-					sourceScalarValue.Insert(0, new QuickTests.Item(2, true));
+					sourceScalarValue.Move(0, 1);
 					testing.ValidateConsistency();
 				}
+
 
 				IList listSource;
-				listSource = ((IList)((ObservableCollection<Item>)sourceScalar.Value));
-				if (listSource != null)
+				if (sourceScalarValue != null)
 				{
-					listSource.Clear();
+					sourceScalarValue.Insert(0, new ObservableCollection<Item>(new []{new Item(1, true), new Item(2, true), new Item(3, true), new Item(4, true), new Item(5, true)}));
+					sourceScalarValue.Insert(0, new ObservableCollection<Item>(new []{new Item(6, true), new Item(7, true), new Item(8, true), new Item(8, true), new Item(10, true)}));
 					testing.ValidateConsistency();
 				}
 
-				if (sourceScalarValue != null)
-				{
-					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
-					sourceScalarValue.Insert(1, new QuickTests.Item(2, true));
-					sourceScalarValue.Insert(2, new QuickTests.Item(3, true));
-					sourceScalarValue.Insert(3, new QuickTests.Item(3, true));
-					sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
-					testing.ValidateConsistency();
-				}
 			}
 
 			test();
@@ -63370,9 +63150,9 @@ namespace ObservableComputations.Test
 			((Scalar<System.Collections.Generic.IEqualityComparer<Item>>)equalityComparerScalar).Change(null);
 			test();
 
-			((Scalar<ObservableCollection<Item>>)sourceScalar).Touch();
+			((Scalar<ObservableCollection<ObservableCollection<Item>>>)sourceScalar).Touch();
 			test();
-			((Scalar<ObservableCollection<Item>>)sourceScalar).Change(null);
+			((Scalar<ObservableCollection<ObservableCollection<Item>>>)sourceScalar).Change(null);
 			test();
 			consumer.Dispose();
 		}
@@ -63380,7 +63160,7 @@ namespace ObservableComputations.Test
 		[Test]
 		public void TestUniting07()
 		{
-			Scalar<ObservableCollection<Item>> sourceScalar = getScalar<ObservableCollection<Item>>(getItems());
+			Scalar<ObservableCollection<ObservableCollection<Item>>> sourceScalar = getScalar<ObservableCollection<ObservableCollection<Item>>>(getCollectionsOfItems());
 			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = sourceScalar.Uniting<Item>(
@@ -63392,56 +63172,34 @@ namespace ObservableComputations.Test
 			void test()
 			{
 				testing.ValidateConsistency();
-				var sourceScalarValue = ((ObservableCollection<Item>)((ObservableCollection<Item>)sourceScalar.Value));
-
+				var sourceScalarValue = ((ObservableCollection<ObservableCollection<Item>>)((ObservableCollection<ObservableCollection<Item>>)sourceScalar.Value));
+				
 				if (sourceScalarValue != null)
-				{		
-					sourceScalarValue.Insert(2, new QuickTests.Item(1, true));
-					testing.ValidateConsistency();
-					sourceScalarValue[3] = new QuickTests.Item(7, true);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(3);
-					testing.ValidateConsistency();
-					sourceScalarValue.Move(1, 3);
-					testing.ValidateConsistency();
-					sourceScalarValue[2].Active = !sourceScalarValue[2].Active;
-					testing.ValidateConsistency();
-					sourceScalarValue[2].Num = sourceScalarValue[2].Num + 1;
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
+				{
+					sourceScalarValue.Insert(0, new ObservableCollection<Item>(new []{new Item(1, true)}));
 					testing.ValidateConsistency();
 					sourceScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
-					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
-					testing.ValidateConsistency();
-					sourceScalarValue.Insert(0, new QuickTests.Item(2, true));
+					sourceScalarValue.Move(0, 1);
 					testing.ValidateConsistency();
 				}
+
 
 				IList listSource;
-				listSource = ((IList)((ObservableCollection<Item>)sourceScalar.Value));
-				if (listSource != null)
+				if (sourceScalarValue != null)
 				{
-					listSource.Clear();
+					sourceScalarValue.Insert(0, new ObservableCollection<Item>(new []{new Item(1, true), new Item(2, true), new Item(3, true), new Item(4, true), new Item(5, true)}));
+					sourceScalarValue.Insert(0, new ObservableCollection<Item>(new []{new Item(6, true), new Item(7, true), new Item(8, true), new Item(8, true), new Item(10, true)}));
 					testing.ValidateConsistency();
 				}
 
-				if (sourceScalarValue != null)
-				{
-					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
-					sourceScalarValue.Insert(1, new QuickTests.Item(2, true));
-					sourceScalarValue.Insert(2, new QuickTests.Item(3, true));
-					sourceScalarValue.Insert(3, new QuickTests.Item(3, true));
-					sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
-					testing.ValidateConsistency();
-				}
 			}
 
 			test();
 
-			((Scalar<ObservableCollection<Item>>)sourceScalar).Touch();
+			((Scalar<ObservableCollection<ObservableCollection<Item>>>)sourceScalar).Touch();
 			test();
-			((Scalar<ObservableCollection<Item>>)sourceScalar).Change(null);
+			((Scalar<ObservableCollection<ObservableCollection<Item>>>)sourceScalar).Change(null);
 			test();
 			consumer.Dispose();
 		}
@@ -63449,7 +63207,7 @@ namespace ObservableComputations.Test
 		[Test]
 		public void TestUniting08()
 		{
-			Scalar<ObservableCollection<Item>> sourceScalar = getScalar<ObservableCollection<Item>>(getItems());
+			Scalar<ObservableCollection<ObservableCollection<Item>>> sourceScalar = getScalar<ObservableCollection<ObservableCollection<Item>>>(getCollectionsOfItems());
 			OcConsumer consumer = new OcConsumer();
 			var testing = sourceScalar.Uniting<Item>().For(consumer);
 
@@ -63458,56 +63216,34 @@ namespace ObservableComputations.Test
 			void test()
 			{
 				testing.ValidateConsistency();
-				var sourceScalarValue = ((ObservableCollection<Item>)((ObservableCollection<Item>)sourceScalar.Value));
-
+				var sourceScalarValue = ((ObservableCollection<ObservableCollection<Item>>)((ObservableCollection<ObservableCollection<Item>>)sourceScalar.Value));
+				
 				if (sourceScalarValue != null)
-				{		
-					sourceScalarValue.Insert(2, new QuickTests.Item(1, true));
-					testing.ValidateConsistency();
-					sourceScalarValue[3] = new QuickTests.Item(7, true);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(3);
-					testing.ValidateConsistency();
-					sourceScalarValue.Move(1, 3);
-					testing.ValidateConsistency();
-					sourceScalarValue[2].Active = !sourceScalarValue[2].Active;
-					testing.ValidateConsistency();
-					sourceScalarValue[2].Num = sourceScalarValue[2].Num + 1;
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
+				{
+					sourceScalarValue.Insert(0, new ObservableCollection<Item>(new []{new Item(1, true)}));
 					testing.ValidateConsistency();
 					sourceScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
-					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
-					testing.ValidateConsistency();
-					sourceScalarValue.Insert(0, new QuickTests.Item(2, true));
+					sourceScalarValue.Move(0, 1);
 					testing.ValidateConsistency();
 				}
+
 
 				IList listSource;
-				listSource = ((IList)((ObservableCollection<Item>)sourceScalar.Value));
-				if (listSource != null)
+				if (sourceScalarValue != null)
 				{
-					listSource.Clear();
+					sourceScalarValue.Insert(0, new ObservableCollection<Item>(new []{new Item(1, true), new Item(2, true), new Item(3, true), new Item(4, true), new Item(5, true)}));
+					sourceScalarValue.Insert(0, new ObservableCollection<Item>(new []{new Item(6, true), new Item(7, true), new Item(8, true), new Item(8, true), new Item(10, true)}));
 					testing.ValidateConsistency();
 				}
 
-				if (sourceScalarValue != null)
-				{
-					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
-					sourceScalarValue.Insert(1, new QuickTests.Item(2, true));
-					sourceScalarValue.Insert(2, new QuickTests.Item(3, true));
-					sourceScalarValue.Insert(3, new QuickTests.Item(3, true));
-					sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
-					testing.ValidateConsistency();
-				}
 			}
 
 			test();
 
-			((Scalar<ObservableCollection<Item>>)sourceScalar).Touch();
+			((Scalar<ObservableCollection<ObservableCollection<Item>>>)sourceScalar).Touch();
 			test();
-			((Scalar<ObservableCollection<Item>>)sourceScalar).Change(null);
+			((Scalar<ObservableCollection<ObservableCollection<Item>>>)sourceScalar).Change(null);
 			test();
 			consumer.Dispose();
 		}
@@ -63515,7 +63251,7 @@ namespace ObservableComputations.Test
 		[Test]
 		public void TestUniting09()
 		{
-			System.Collections.Specialized.INotifyCollectionChanged source = getItems();
+			System.Collections.Specialized.INotifyCollectionChanged source = getCollectionsOfItems();
 			Scalar<System.Collections.Generic.IEqualityComparer<Item>> equalityComparerScalar = getScalar<System.Collections.Generic.IEqualityComparer<Item>>(EqualityComparer<Item>.Default);
 			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
@@ -63530,49 +63266,27 @@ namespace ObservableComputations.Test
 			void test()
 			{
 				testing.ValidateConsistency();
-				var sourceValue = ((ObservableCollection<Item>)((System.Collections.Specialized.INotifyCollectionChanged)source));
-
+				var sourceValue = ((ObservableCollection<ObservableCollection<Item>>)((System.Collections.Specialized.INotifyCollectionChanged)source));
+				
 				if (sourceValue != null)
-				{		
-					sourceValue.Insert(2, new QuickTests.Item(1, true));
-					testing.ValidateConsistency();
-					sourceValue[3] = new QuickTests.Item(7, true);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(3);
-					testing.ValidateConsistency();
-					sourceValue.Move(1, 3);
-					testing.ValidateConsistency();
-					sourceValue[2].Active = !sourceValue[2].Active;
-					testing.ValidateConsistency();
-					sourceValue[2].Num = sourceValue[2].Num + 1;
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
+				{
+					sourceValue.Insert(0, new ObservableCollection<Item>(new []{new Item(1, true)}));
 					testing.ValidateConsistency();
 					sourceValue.RemoveAt(1);
 					testing.ValidateConsistency();
-					sourceValue.Insert(0, new QuickTests.Item(1, true));
-					testing.ValidateConsistency();
-					sourceValue.Insert(0, new QuickTests.Item(2, true));
+					sourceValue.Move(0, 1);
 					testing.ValidateConsistency();
 				}
+
 
 				IList listSource;
-				listSource = ((IList)((System.Collections.Specialized.INotifyCollectionChanged)source));
-				if (listSource != null)
+				if (sourceValue != null)
 				{
-					listSource.Clear();
+					sourceValue.Insert(0, new ObservableCollection<Item>(new []{new Item(1, true), new Item(2, true), new Item(3, true), new Item(4, true), new Item(5, true)}));
+					sourceValue.Insert(0, new ObservableCollection<Item>(new []{new Item(6, true), new Item(7, true), new Item(8, true), new Item(8, true), new Item(10, true)}));
 					testing.ValidateConsistency();
 				}
 
-				if (sourceValue != null)
-				{
-					sourceValue.Insert(0, new QuickTests.Item(1, true));
-					sourceValue.Insert(1, new QuickTests.Item(2, true));
-					sourceValue.Insert(2, new QuickTests.Item(3, true));
-					sourceValue.Insert(3, new QuickTests.Item(3, true));
-					sourceValue.Insert(4, new QuickTests.Item(3, true));
-					testing.ValidateConsistency();
-				}
 			}
 
 			test();
@@ -63587,7 +63301,7 @@ namespace ObservableComputations.Test
 		[Test]
 		public void TestUniting10()
 		{
-			System.Collections.Specialized.INotifyCollectionChanged source = getItems();
+			System.Collections.Specialized.INotifyCollectionChanged source = getCollectionsOfItems();
 			Scalar<System.Collections.Generic.IEqualityComparer<Item>> equalityComparerScalar = getScalar<System.Collections.Generic.IEqualityComparer<Item>>(EqualityComparer<Item>.Default);
 			OcConsumer consumer = new OcConsumer();
 			var testing = source.Uniting<Item>(
@@ -63599,49 +63313,27 @@ namespace ObservableComputations.Test
 			void test()
 			{
 				testing.ValidateConsistency();
-				var sourceValue = ((ObservableCollection<Item>)((System.Collections.Specialized.INotifyCollectionChanged)source));
-
+				var sourceValue = ((ObservableCollection<ObservableCollection<Item>>)((System.Collections.Specialized.INotifyCollectionChanged)source));
+				
 				if (sourceValue != null)
-				{		
-					sourceValue.Insert(2, new QuickTests.Item(1, true));
-					testing.ValidateConsistency();
-					sourceValue[3] = new QuickTests.Item(7, true);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(3);
-					testing.ValidateConsistency();
-					sourceValue.Move(1, 3);
-					testing.ValidateConsistency();
-					sourceValue[2].Active = !sourceValue[2].Active;
-					testing.ValidateConsistency();
-					sourceValue[2].Num = sourceValue[2].Num + 1;
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
+				{
+					sourceValue.Insert(0, new ObservableCollection<Item>(new []{new Item(1, true)}));
 					testing.ValidateConsistency();
 					sourceValue.RemoveAt(1);
 					testing.ValidateConsistency();
-					sourceValue.Insert(0, new QuickTests.Item(1, true));
-					testing.ValidateConsistency();
-					sourceValue.Insert(0, new QuickTests.Item(2, true));
+					sourceValue.Move(0, 1);
 					testing.ValidateConsistency();
 				}
+
 
 				IList listSource;
-				listSource = ((IList)((System.Collections.Specialized.INotifyCollectionChanged)source));
-				if (listSource != null)
+				if (sourceValue != null)
 				{
-					listSource.Clear();
+					sourceValue.Insert(0, new ObservableCollection<Item>(new []{new Item(1, true), new Item(2, true), new Item(3, true), new Item(4, true), new Item(5, true)}));
+					sourceValue.Insert(0, new ObservableCollection<Item>(new []{new Item(6, true), new Item(7, true), new Item(8, true), new Item(8, true), new Item(10, true)}));
 					testing.ValidateConsistency();
 				}
 
-				if (sourceValue != null)
-				{
-					sourceValue.Insert(0, new QuickTests.Item(1, true));
-					sourceValue.Insert(1, new QuickTests.Item(2, true));
-					sourceValue.Insert(2, new QuickTests.Item(3, true));
-					sourceValue.Insert(3, new QuickTests.Item(3, true));
-					sourceValue.Insert(4, new QuickTests.Item(3, true));
-					testing.ValidateConsistency();
-				}
 			}
 
 			test();
@@ -63656,7 +63348,7 @@ namespace ObservableComputations.Test
 		[Test]
 		public void TestUniting11()
 		{
-			System.Collections.Specialized.INotifyCollectionChanged source = getItems();
+			System.Collections.Specialized.INotifyCollectionChanged source = getCollectionsOfItems();
 			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = source.Uniting<Item>(
@@ -63668,49 +63360,27 @@ namespace ObservableComputations.Test
 			void test()
 			{
 				testing.ValidateConsistency();
-				var sourceValue = ((ObservableCollection<Item>)((System.Collections.Specialized.INotifyCollectionChanged)source));
-
+				var sourceValue = ((ObservableCollection<ObservableCollection<Item>>)((System.Collections.Specialized.INotifyCollectionChanged)source));
+				
 				if (sourceValue != null)
-				{		
-					sourceValue.Insert(2, new QuickTests.Item(1, true));
-					testing.ValidateConsistency();
-					sourceValue[3] = new QuickTests.Item(7, true);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(3);
-					testing.ValidateConsistency();
-					sourceValue.Move(1, 3);
-					testing.ValidateConsistency();
-					sourceValue[2].Active = !sourceValue[2].Active;
-					testing.ValidateConsistency();
-					sourceValue[2].Num = sourceValue[2].Num + 1;
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
+				{
+					sourceValue.Insert(0, new ObservableCollection<Item>(new []{new Item(1, true)}));
 					testing.ValidateConsistency();
 					sourceValue.RemoveAt(1);
 					testing.ValidateConsistency();
-					sourceValue.Insert(0, new QuickTests.Item(1, true));
-					testing.ValidateConsistency();
-					sourceValue.Insert(0, new QuickTests.Item(2, true));
+					sourceValue.Move(0, 1);
 					testing.ValidateConsistency();
 				}
+
 
 				IList listSource;
-				listSource = ((IList)((System.Collections.Specialized.INotifyCollectionChanged)source));
-				if (listSource != null)
+				if (sourceValue != null)
 				{
-					listSource.Clear();
+					sourceValue.Insert(0, new ObservableCollection<Item>(new []{new Item(1, true), new Item(2, true), new Item(3, true), new Item(4, true), new Item(5, true)}));
+					sourceValue.Insert(0, new ObservableCollection<Item>(new []{new Item(6, true), new Item(7, true), new Item(8, true), new Item(8, true), new Item(10, true)}));
 					testing.ValidateConsistency();
 				}
 
-				if (sourceValue != null)
-				{
-					sourceValue.Insert(0, new QuickTests.Item(1, true));
-					sourceValue.Insert(1, new QuickTests.Item(2, true));
-					sourceValue.Insert(2, new QuickTests.Item(3, true));
-					sourceValue.Insert(3, new QuickTests.Item(3, true));
-					sourceValue.Insert(4, new QuickTests.Item(3, true));
-					testing.ValidateConsistency();
-				}
 			}
 
 			test();
@@ -63720,7 +63390,7 @@ namespace ObservableComputations.Test
 		[Test]
 		public void TestUniting12()
 		{
-			System.Collections.Specialized.INotifyCollectionChanged source = getItems();
+			System.Collections.Specialized.INotifyCollectionChanged source = getCollectionsOfItems();
 			OcConsumer consumer = new OcConsumer();
 			var testing = source.Uniting<Item>().For(consumer);
 
@@ -63729,49 +63399,27 @@ namespace ObservableComputations.Test
 			void test()
 			{
 				testing.ValidateConsistency();
-				var sourceValue = ((ObservableCollection<Item>)((System.Collections.Specialized.INotifyCollectionChanged)source));
-
+				var sourceValue = ((ObservableCollection<ObservableCollection<Item>>)((System.Collections.Specialized.INotifyCollectionChanged)source));
+				
 				if (sourceValue != null)
-				{		
-					sourceValue.Insert(2, new QuickTests.Item(1, true));
-					testing.ValidateConsistency();
-					sourceValue[3] = new QuickTests.Item(7, true);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(3);
-					testing.ValidateConsistency();
-					sourceValue.Move(1, 3);
-					testing.ValidateConsistency();
-					sourceValue[2].Active = !sourceValue[2].Active;
-					testing.ValidateConsistency();
-					sourceValue[2].Num = sourceValue[2].Num + 1;
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
+				{
+					sourceValue.Insert(0, new ObservableCollection<Item>(new []{new Item(1, true)}));
 					testing.ValidateConsistency();
 					sourceValue.RemoveAt(1);
 					testing.ValidateConsistency();
-					sourceValue.Insert(0, new QuickTests.Item(1, true));
-					testing.ValidateConsistency();
-					sourceValue.Insert(0, new QuickTests.Item(2, true));
+					sourceValue.Move(0, 1);
 					testing.ValidateConsistency();
 				}
+
 
 				IList listSource;
-				listSource = ((IList)((System.Collections.Specialized.INotifyCollectionChanged)source));
-				if (listSource != null)
+				if (sourceValue != null)
 				{
-					listSource.Clear();
+					sourceValue.Insert(0, new ObservableCollection<Item>(new []{new Item(1, true), new Item(2, true), new Item(3, true), new Item(4, true), new Item(5, true)}));
+					sourceValue.Insert(0, new ObservableCollection<Item>(new []{new Item(6, true), new Item(7, true), new Item(8, true), new Item(8, true), new Item(10, true)}));
 					testing.ValidateConsistency();
 				}
 
-				if (sourceValue != null)
-				{
-					sourceValue.Insert(0, new QuickTests.Item(1, true));
-					sourceValue.Insert(1, new QuickTests.Item(2, true));
-					sourceValue.Insert(2, new QuickTests.Item(3, true));
-					sourceValue.Insert(3, new QuickTests.Item(3, true));
-					sourceValue.Insert(4, new QuickTests.Item(3, true));
-					testing.ValidateConsistency();
-				}
 			}
 
 			test();
@@ -63781,7 +63429,7 @@ namespace ObservableComputations.Test
 		[Test]
 		public void TestUniting13()
 		{
-			ObservableCollection<Item> source = getItems();
+			ObservableCollection<ObservableCollection<Item>> source = getCollectionsOfItems();
 			Scalar<System.Collections.Generic.IEqualityComparer<Item>> equalityComparerScalar = getScalar<System.Collections.Generic.IEqualityComparer<Item>>(EqualityComparer<Item>.Default);
 			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
@@ -63796,49 +63444,27 @@ namespace ObservableComputations.Test
 			void test()
 			{
 				testing.ValidateConsistency();
-				var sourceValue = ((ObservableCollection<Item>)((ObservableCollection<Item>)source));
-
+				var sourceValue = ((ObservableCollection<ObservableCollection<Item>>)((ObservableCollection<ObservableCollection<Item>>)source));
+				
 				if (sourceValue != null)
-				{		
-					sourceValue.Insert(2, new QuickTests.Item(1, true));
-					testing.ValidateConsistency();
-					sourceValue[3] = new QuickTests.Item(7, true);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(3);
-					testing.ValidateConsistency();
-					sourceValue.Move(1, 3);
-					testing.ValidateConsistency();
-					sourceValue[2].Active = !sourceValue[2].Active;
-					testing.ValidateConsistency();
-					sourceValue[2].Num = sourceValue[2].Num + 1;
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
+				{
+					sourceValue.Insert(0, new ObservableCollection<Item>(new []{new Item(1, true)}));
 					testing.ValidateConsistency();
 					sourceValue.RemoveAt(1);
 					testing.ValidateConsistency();
-					sourceValue.Insert(0, new QuickTests.Item(1, true));
-					testing.ValidateConsistency();
-					sourceValue.Insert(0, new QuickTests.Item(2, true));
+					sourceValue.Move(0, 1);
 					testing.ValidateConsistency();
 				}
+
 
 				IList listSource;
-				listSource = ((IList)((ObservableCollection<Item>)source));
-				if (listSource != null)
+				if (sourceValue != null)
 				{
-					listSource.Clear();
+					sourceValue.Insert(0, new ObservableCollection<Item>(new []{new Item(1, true), new Item(2, true), new Item(3, true), new Item(4, true), new Item(5, true)}));
+					sourceValue.Insert(0, new ObservableCollection<Item>(new []{new Item(6, true), new Item(7, true), new Item(8, true), new Item(8, true), new Item(10, true)}));
 					testing.ValidateConsistency();
 				}
 
-				if (sourceValue != null)
-				{
-					sourceValue.Insert(0, new QuickTests.Item(1, true));
-					sourceValue.Insert(1, new QuickTests.Item(2, true));
-					sourceValue.Insert(2, new QuickTests.Item(3, true));
-					sourceValue.Insert(3, new QuickTests.Item(3, true));
-					sourceValue.Insert(4, new QuickTests.Item(3, true));
-					testing.ValidateConsistency();
-				}
 			}
 
 			test();
@@ -63853,7 +63479,7 @@ namespace ObservableComputations.Test
 		[Test]
 		public void TestUniting14()
 		{
-			ObservableCollection<Item> source = getItems();
+			ObservableCollection<ObservableCollection<Item>> source = getCollectionsOfItems();
 			Scalar<System.Collections.Generic.IEqualityComparer<Item>> equalityComparerScalar = getScalar<System.Collections.Generic.IEqualityComparer<Item>>(EqualityComparer<Item>.Default);
 			OcConsumer consumer = new OcConsumer();
 			var testing = source.Uniting<Item>(
@@ -63865,49 +63491,27 @@ namespace ObservableComputations.Test
 			void test()
 			{
 				testing.ValidateConsistency();
-				var sourceValue = ((ObservableCollection<Item>)((ObservableCollection<Item>)source));
-
+				var sourceValue = ((ObservableCollection<ObservableCollection<Item>>)((ObservableCollection<ObservableCollection<Item>>)source));
+				
 				if (sourceValue != null)
-				{		
-					sourceValue.Insert(2, new QuickTests.Item(1, true));
-					testing.ValidateConsistency();
-					sourceValue[3] = new QuickTests.Item(7, true);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(3);
-					testing.ValidateConsistency();
-					sourceValue.Move(1, 3);
-					testing.ValidateConsistency();
-					sourceValue[2].Active = !sourceValue[2].Active;
-					testing.ValidateConsistency();
-					sourceValue[2].Num = sourceValue[2].Num + 1;
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
+				{
+					sourceValue.Insert(0, new ObservableCollection<Item>(new []{new Item(1, true)}));
 					testing.ValidateConsistency();
 					sourceValue.RemoveAt(1);
 					testing.ValidateConsistency();
-					sourceValue.Insert(0, new QuickTests.Item(1, true));
-					testing.ValidateConsistency();
-					sourceValue.Insert(0, new QuickTests.Item(2, true));
+					sourceValue.Move(0, 1);
 					testing.ValidateConsistency();
 				}
+
 
 				IList listSource;
-				listSource = ((IList)((ObservableCollection<Item>)source));
-				if (listSource != null)
+				if (sourceValue != null)
 				{
-					listSource.Clear();
+					sourceValue.Insert(0, new ObservableCollection<Item>(new []{new Item(1, true), new Item(2, true), new Item(3, true), new Item(4, true), new Item(5, true)}));
+					sourceValue.Insert(0, new ObservableCollection<Item>(new []{new Item(6, true), new Item(7, true), new Item(8, true), new Item(8, true), new Item(10, true)}));
 					testing.ValidateConsistency();
 				}
 
-				if (sourceValue != null)
-				{
-					sourceValue.Insert(0, new QuickTests.Item(1, true));
-					sourceValue.Insert(1, new QuickTests.Item(2, true));
-					sourceValue.Insert(2, new QuickTests.Item(3, true));
-					sourceValue.Insert(3, new QuickTests.Item(3, true));
-					sourceValue.Insert(4, new QuickTests.Item(3, true));
-					testing.ValidateConsistency();
-				}
 			}
 
 			test();
@@ -63922,7 +63526,7 @@ namespace ObservableComputations.Test
 		[Test]
 		public void TestUniting15()
 		{
-			ObservableCollection<Item> source = getItems();
+			ObservableCollection<ObservableCollection<Item>> source = getCollectionsOfItems();
 			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = source.Uniting<Item>(
@@ -63934,49 +63538,27 @@ namespace ObservableComputations.Test
 			void test()
 			{
 				testing.ValidateConsistency();
-				var sourceValue = ((ObservableCollection<Item>)((ObservableCollection<Item>)source));
-
+				var sourceValue = ((ObservableCollection<ObservableCollection<Item>>)((ObservableCollection<ObservableCollection<Item>>)source));
+				
 				if (sourceValue != null)
-				{		
-					sourceValue.Insert(2, new QuickTests.Item(1, true));
-					testing.ValidateConsistency();
-					sourceValue[3] = new QuickTests.Item(7, true);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(3);
-					testing.ValidateConsistency();
-					sourceValue.Move(1, 3);
-					testing.ValidateConsistency();
-					sourceValue[2].Active = !sourceValue[2].Active;
-					testing.ValidateConsistency();
-					sourceValue[2].Num = sourceValue[2].Num + 1;
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
+				{
+					sourceValue.Insert(0, new ObservableCollection<Item>(new []{new Item(1, true)}));
 					testing.ValidateConsistency();
 					sourceValue.RemoveAt(1);
 					testing.ValidateConsistency();
-					sourceValue.Insert(0, new QuickTests.Item(1, true));
-					testing.ValidateConsistency();
-					sourceValue.Insert(0, new QuickTests.Item(2, true));
+					sourceValue.Move(0, 1);
 					testing.ValidateConsistency();
 				}
+
 
 				IList listSource;
-				listSource = ((IList)((ObservableCollection<Item>)source));
-				if (listSource != null)
+				if (sourceValue != null)
 				{
-					listSource.Clear();
+					sourceValue.Insert(0, new ObservableCollection<Item>(new []{new Item(1, true), new Item(2, true), new Item(3, true), new Item(4, true), new Item(5, true)}));
+					sourceValue.Insert(0, new ObservableCollection<Item>(new []{new Item(6, true), new Item(7, true), new Item(8, true), new Item(8, true), new Item(10, true)}));
 					testing.ValidateConsistency();
 				}
 
-				if (sourceValue != null)
-				{
-					sourceValue.Insert(0, new QuickTests.Item(1, true));
-					sourceValue.Insert(1, new QuickTests.Item(2, true));
-					sourceValue.Insert(2, new QuickTests.Item(3, true));
-					sourceValue.Insert(3, new QuickTests.Item(3, true));
-					sourceValue.Insert(4, new QuickTests.Item(3, true));
-					testing.ValidateConsistency();
-				}
 			}
 
 			test();
@@ -63986,7 +63568,7 @@ namespace ObservableComputations.Test
 		[Test]
 		public void TestUniting16()
 		{
-			ObservableCollection<Item> source = getItems();
+			ObservableCollection<ObservableCollection<Item>> source = getCollectionsOfItems();
 			OcConsumer consumer = new OcConsumer();
 			var testing = source.Uniting<Item>().For(consumer);
 
@@ -63995,49 +63577,27 @@ namespace ObservableComputations.Test
 			void test()
 			{
 				testing.ValidateConsistency();
-				var sourceValue = ((ObservableCollection<Item>)((ObservableCollection<Item>)source));
-
+				var sourceValue = ((ObservableCollection<ObservableCollection<Item>>)((ObservableCollection<ObservableCollection<Item>>)source));
+				
 				if (sourceValue != null)
-				{		
-					sourceValue.Insert(2, new QuickTests.Item(1, true));
-					testing.ValidateConsistency();
-					sourceValue[3] = new QuickTests.Item(7, true);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(3);
-					testing.ValidateConsistency();
-					sourceValue.Move(1, 3);
-					testing.ValidateConsistency();
-					sourceValue[2].Active = !sourceValue[2].Active;
-					testing.ValidateConsistency();
-					sourceValue[2].Num = sourceValue[2].Num + 1;
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
+				{
+					sourceValue.Insert(0, new ObservableCollection<Item>(new []{new Item(1, true)}));
 					testing.ValidateConsistency();
 					sourceValue.RemoveAt(1);
 					testing.ValidateConsistency();
-					sourceValue.Insert(0, new QuickTests.Item(1, true));
-					testing.ValidateConsistency();
-					sourceValue.Insert(0, new QuickTests.Item(2, true));
+					sourceValue.Move(0, 1);
 					testing.ValidateConsistency();
 				}
+
 
 				IList listSource;
-				listSource = ((IList)((ObservableCollection<Item>)source));
-				if (listSource != null)
+				if (sourceValue != null)
 				{
-					listSource.Clear();
+					sourceValue.Insert(0, new ObservableCollection<Item>(new []{new Item(1, true), new Item(2, true), new Item(3, true), new Item(4, true), new Item(5, true)}));
+					sourceValue.Insert(0, new ObservableCollection<Item>(new []{new Item(6, true), new Item(7, true), new Item(8, true), new Item(8, true), new Item(10, true)}));
 					testing.ValidateConsistency();
 				}
 
-				if (sourceValue != null)
-				{
-					sourceValue.Insert(0, new QuickTests.Item(1, true));
-					sourceValue.Insert(1, new QuickTests.Item(2, true));
-					sourceValue.Insert(2, new QuickTests.Item(3, true));
-					sourceValue.Insert(3, new QuickTests.Item(3, true));
-					sourceValue.Insert(4, new QuickTests.Item(3, true));
-					testing.ValidateConsistency();
-				}
 			}
 
 			test();
@@ -64047,7 +63607,7 @@ namespace ObservableComputations.Test
 		[Test]
 		public void TestUniting17()
 		{
-			System.Collections.Specialized.INotifyCollectionChanged source = getItems();
+			System.Collections.Specialized.INotifyCollectionChanged source = getCollectionsOfItems();
 			System.Collections.Generic.IEqualityComparer<Item> equalityComparer = EqualityComparer<Item>.Default;
 			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
@@ -64062,49 +63622,27 @@ namespace ObservableComputations.Test
 			void test()
 			{
 				testing.ValidateConsistency();
-				var sourceValue = ((ObservableCollection<Item>)((System.Collections.Specialized.INotifyCollectionChanged)source));
-
+				var sourceValue = ((ObservableCollection<ObservableCollection<Item>>)((System.Collections.Specialized.INotifyCollectionChanged)source));
+				
 				if (sourceValue != null)
-				{		
-					sourceValue.Insert(2, new QuickTests.Item(1, true));
-					testing.ValidateConsistency();
-					sourceValue[3] = new QuickTests.Item(7, true);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(3);
-					testing.ValidateConsistency();
-					sourceValue.Move(1, 3);
-					testing.ValidateConsistency();
-					sourceValue[2].Active = !sourceValue[2].Active;
-					testing.ValidateConsistency();
-					sourceValue[2].Num = sourceValue[2].Num + 1;
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
+				{
+					sourceValue.Insert(0, new ObservableCollection<Item>(new []{new Item(1, true)}));
 					testing.ValidateConsistency();
 					sourceValue.RemoveAt(1);
 					testing.ValidateConsistency();
-					sourceValue.Insert(0, new QuickTests.Item(1, true));
-					testing.ValidateConsistency();
-					sourceValue.Insert(0, new QuickTests.Item(2, true));
+					sourceValue.Move(0, 1);
 					testing.ValidateConsistency();
 				}
+
 
 				IList listSource;
-				listSource = ((IList)((System.Collections.Specialized.INotifyCollectionChanged)source));
-				if (listSource != null)
+				if (sourceValue != null)
 				{
-					listSource.Clear();
+					sourceValue.Insert(0, new ObservableCollection<Item>(new []{new Item(1, true), new Item(2, true), new Item(3, true), new Item(4, true), new Item(5, true)}));
+					sourceValue.Insert(0, new ObservableCollection<Item>(new []{new Item(6, true), new Item(7, true), new Item(8, true), new Item(8, true), new Item(10, true)}));
 					testing.ValidateConsistency();
 				}
 
-				if (sourceValue != null)
-				{
-					sourceValue.Insert(0, new QuickTests.Item(1, true));
-					sourceValue.Insert(1, new QuickTests.Item(2, true));
-					sourceValue.Insert(2, new QuickTests.Item(3, true));
-					sourceValue.Insert(3, new QuickTests.Item(3, true));
-					sourceValue.Insert(4, new QuickTests.Item(3, true));
-					testing.ValidateConsistency();
-				}
 			}
 
 			test();
@@ -64114,7 +63652,7 @@ namespace ObservableComputations.Test
 		[Test]
 		public void TestUniting18()
 		{
-			System.Collections.Specialized.INotifyCollectionChanged source = getItems();
+			System.Collections.Specialized.INotifyCollectionChanged source = getCollectionsOfItems();
 			System.Collections.Generic.IEqualityComparer<Item> equalityComparer = EqualityComparer<Item>.Default;
 			OcConsumer consumer = new OcConsumer();
 			var testing = source.Uniting<Item>(
@@ -64126,49 +63664,27 @@ namespace ObservableComputations.Test
 			void test()
 			{
 				testing.ValidateConsistency();
-				var sourceValue = ((ObservableCollection<Item>)((System.Collections.Specialized.INotifyCollectionChanged)source));
-
+				var sourceValue = ((ObservableCollection<ObservableCollection<Item>>)((System.Collections.Specialized.INotifyCollectionChanged)source));
+				
 				if (sourceValue != null)
-				{		
-					sourceValue.Insert(2, new QuickTests.Item(1, true));
-					testing.ValidateConsistency();
-					sourceValue[3] = new QuickTests.Item(7, true);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(3);
-					testing.ValidateConsistency();
-					sourceValue.Move(1, 3);
-					testing.ValidateConsistency();
-					sourceValue[2].Active = !sourceValue[2].Active;
-					testing.ValidateConsistency();
-					sourceValue[2].Num = sourceValue[2].Num + 1;
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
+				{
+					sourceValue.Insert(0, new ObservableCollection<Item>(new []{new Item(1, true)}));
 					testing.ValidateConsistency();
 					sourceValue.RemoveAt(1);
 					testing.ValidateConsistency();
-					sourceValue.Insert(0, new QuickTests.Item(1, true));
-					testing.ValidateConsistency();
-					sourceValue.Insert(0, new QuickTests.Item(2, true));
+					sourceValue.Move(0, 1);
 					testing.ValidateConsistency();
 				}
+
 
 				IList listSource;
-				listSource = ((IList)((System.Collections.Specialized.INotifyCollectionChanged)source));
-				if (listSource != null)
+				if (sourceValue != null)
 				{
-					listSource.Clear();
+					sourceValue.Insert(0, new ObservableCollection<Item>(new []{new Item(1, true), new Item(2, true), new Item(3, true), new Item(4, true), new Item(5, true)}));
+					sourceValue.Insert(0, new ObservableCollection<Item>(new []{new Item(6, true), new Item(7, true), new Item(8, true), new Item(8, true), new Item(10, true)}));
 					testing.ValidateConsistency();
 				}
 
-				if (sourceValue != null)
-				{
-					sourceValue.Insert(0, new QuickTests.Item(1, true));
-					sourceValue.Insert(1, new QuickTests.Item(2, true));
-					sourceValue.Insert(2, new QuickTests.Item(3, true));
-					sourceValue.Insert(3, new QuickTests.Item(3, true));
-					sourceValue.Insert(4, new QuickTests.Item(3, true));
-					testing.ValidateConsistency();
-				}
 			}
 
 			test();
@@ -64178,7 +63694,7 @@ namespace ObservableComputations.Test
 		[Test]
 		public void TestUniting19()
 		{
-			ObservableCollection<Item> source = getItems();
+			ObservableCollection<ObservableCollection<Item>> source = getCollectionsOfItems();
 			System.Collections.Generic.IEqualityComparer<Item> equalityComparer = EqualityComparer<Item>.Default;
 			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
@@ -64193,49 +63709,27 @@ namespace ObservableComputations.Test
 			void test()
 			{
 				testing.ValidateConsistency();
-				var sourceValue = ((ObservableCollection<Item>)((ObservableCollection<Item>)source));
-
+				var sourceValue = ((ObservableCollection<ObservableCollection<Item>>)((ObservableCollection<ObservableCollection<Item>>)source));
+				
 				if (sourceValue != null)
-				{		
-					sourceValue.Insert(2, new QuickTests.Item(1, true));
-					testing.ValidateConsistency();
-					sourceValue[3] = new QuickTests.Item(7, true);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(3);
-					testing.ValidateConsistency();
-					sourceValue.Move(1, 3);
-					testing.ValidateConsistency();
-					sourceValue[2].Active = !sourceValue[2].Active;
-					testing.ValidateConsistency();
-					sourceValue[2].Num = sourceValue[2].Num + 1;
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
+				{
+					sourceValue.Insert(0, new ObservableCollection<Item>(new []{new Item(1, true)}));
 					testing.ValidateConsistency();
 					sourceValue.RemoveAt(1);
 					testing.ValidateConsistency();
-					sourceValue.Insert(0, new QuickTests.Item(1, true));
-					testing.ValidateConsistency();
-					sourceValue.Insert(0, new QuickTests.Item(2, true));
+					sourceValue.Move(0, 1);
 					testing.ValidateConsistency();
 				}
+
 
 				IList listSource;
-				listSource = ((IList)((ObservableCollection<Item>)source));
-				if (listSource != null)
+				if (sourceValue != null)
 				{
-					listSource.Clear();
+					sourceValue.Insert(0, new ObservableCollection<Item>(new []{new Item(1, true), new Item(2, true), new Item(3, true), new Item(4, true), new Item(5, true)}));
+					sourceValue.Insert(0, new ObservableCollection<Item>(new []{new Item(6, true), new Item(7, true), new Item(8, true), new Item(8, true), new Item(10, true)}));
 					testing.ValidateConsistency();
 				}
 
-				if (sourceValue != null)
-				{
-					sourceValue.Insert(0, new QuickTests.Item(1, true));
-					sourceValue.Insert(1, new QuickTests.Item(2, true));
-					sourceValue.Insert(2, new QuickTests.Item(3, true));
-					sourceValue.Insert(3, new QuickTests.Item(3, true));
-					sourceValue.Insert(4, new QuickTests.Item(3, true));
-					testing.ValidateConsistency();
-				}
 			}
 
 			test();
@@ -64245,7 +63739,7 @@ namespace ObservableComputations.Test
 		[Test]
 		public void TestUniting20()
 		{
-			ObservableCollection<Item> source = getItems();
+			ObservableCollection<ObservableCollection<Item>> source = getCollectionsOfItems();
 			System.Collections.Generic.IEqualityComparer<Item> equalityComparer = EqualityComparer<Item>.Default;
 			OcConsumer consumer = new OcConsumer();
 			var testing = source.Uniting<Item>(
@@ -64257,49 +63751,27 @@ namespace ObservableComputations.Test
 			void test()
 			{
 				testing.ValidateConsistency();
-				var sourceValue = ((ObservableCollection<Item>)((ObservableCollection<Item>)source));
-
+				var sourceValue = ((ObservableCollection<ObservableCollection<Item>>)((ObservableCollection<ObservableCollection<Item>>)source));
+				
 				if (sourceValue != null)
-				{		
-					sourceValue.Insert(2, new QuickTests.Item(1, true));
-					testing.ValidateConsistency();
-					sourceValue[3] = new QuickTests.Item(7, true);
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(3);
-					testing.ValidateConsistency();
-					sourceValue.Move(1, 3);
-					testing.ValidateConsistency();
-					sourceValue[2].Active = !sourceValue[2].Active;
-					testing.ValidateConsistency();
-					sourceValue[2].Num = sourceValue[2].Num + 1;
-					testing.ValidateConsistency();
-					sourceValue.RemoveAt(0);
+				{
+					sourceValue.Insert(0, new ObservableCollection<Item>(new []{new Item(1, true)}));
 					testing.ValidateConsistency();
 					sourceValue.RemoveAt(1);
 					testing.ValidateConsistency();
-					sourceValue.Insert(0, new QuickTests.Item(1, true));
-					testing.ValidateConsistency();
-					sourceValue.Insert(0, new QuickTests.Item(2, true));
+					sourceValue.Move(0, 1);
 					testing.ValidateConsistency();
 				}
+
 
 				IList listSource;
-				listSource = ((IList)((ObservableCollection<Item>)source));
-				if (listSource != null)
+				if (sourceValue != null)
 				{
-					listSource.Clear();
+					sourceValue.Insert(0, new ObservableCollection<Item>(new []{new Item(1, true), new Item(2, true), new Item(3, true), new Item(4, true), new Item(5, true)}));
+					sourceValue.Insert(0, new ObservableCollection<Item>(new []{new Item(6, true), new Item(7, true), new Item(8, true), new Item(8, true), new Item(10, true)}));
 					testing.ValidateConsistency();
 				}
 
-				if (sourceValue != null)
-				{
-					sourceValue.Insert(0, new QuickTests.Item(1, true));
-					sourceValue.Insert(1, new QuickTests.Item(2, true));
-					sourceValue.Insert(2, new QuickTests.Item(3, true));
-					sourceValue.Insert(3, new QuickTests.Item(3, true));
-					sourceValue.Insert(4, new QuickTests.Item(3, true));
-					testing.ValidateConsistency();
-				}
 			}
 
 			test();
@@ -64309,7 +63781,7 @@ namespace ObservableComputations.Test
 		[Test]
 		public void TestUniting21()
 		{
-			Scalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
+			Scalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getCollectionsOfItems());
 			System.Collections.Generic.IEqualityComparer<Item> equalityComparer = EqualityComparer<Item>.Default;
 			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
@@ -64324,49 +63796,27 @@ namespace ObservableComputations.Test
 			void test()
 			{
 				testing.ValidateConsistency();
-				var sourceScalarValue = ((ObservableCollection<Item>)((System.Collections.Specialized.INotifyCollectionChanged)sourceScalar.Value));
-
+				var sourceScalarValue = ((ObservableCollection<ObservableCollection<Item>>)((System.Collections.Specialized.INotifyCollectionChanged)sourceScalar.Value));
+				
 				if (sourceScalarValue != null)
-				{		
-					sourceScalarValue.Insert(2, new QuickTests.Item(1, true));
-					testing.ValidateConsistency();
-					sourceScalarValue[3] = new QuickTests.Item(7, true);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(3);
-					testing.ValidateConsistency();
-					sourceScalarValue.Move(1, 3);
-					testing.ValidateConsistency();
-					sourceScalarValue[2].Active = !sourceScalarValue[2].Active;
-					testing.ValidateConsistency();
-					sourceScalarValue[2].Num = sourceScalarValue[2].Num + 1;
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
+				{
+					sourceScalarValue.Insert(0, new ObservableCollection<Item>(new []{new Item(1, true)}));
 					testing.ValidateConsistency();
 					sourceScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
-					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
-					testing.ValidateConsistency();
-					sourceScalarValue.Insert(0, new QuickTests.Item(2, true));
+					sourceScalarValue.Move(0, 1);
 					testing.ValidateConsistency();
 				}
+
 
 				IList listSource;
-				listSource = ((IList)((System.Collections.Specialized.INotifyCollectionChanged)sourceScalar.Value));
-				if (listSource != null)
+				if (sourceScalarValue != null)
 				{
-					listSource.Clear();
+					sourceScalarValue.Insert(0, new ObservableCollection<Item>(new []{new Item(1, true), new Item(2, true), new Item(3, true), new Item(4, true), new Item(5, true)}));
+					sourceScalarValue.Insert(0, new ObservableCollection<Item>(new []{new Item(6, true), new Item(7, true), new Item(8, true), new Item(8, true), new Item(10, true)}));
 					testing.ValidateConsistency();
 				}
 
-				if (sourceScalarValue != null)
-				{
-					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
-					sourceScalarValue.Insert(1, new QuickTests.Item(2, true));
-					sourceScalarValue.Insert(2, new QuickTests.Item(3, true));
-					sourceScalarValue.Insert(3, new QuickTests.Item(3, true));
-					sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
-					testing.ValidateConsistency();
-				}
 			}
 
 			test();
@@ -64381,7 +63831,7 @@ namespace ObservableComputations.Test
 		[Test]
 		public void TestUniting22()
 		{
-			Scalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
+			Scalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getCollectionsOfItems());
 			System.Collections.Generic.IEqualityComparer<Item> equalityComparer = EqualityComparer<Item>.Default;
 			OcConsumer consumer = new OcConsumer();
 			var testing = sourceScalar.Uniting<Item>(
@@ -64393,49 +63843,27 @@ namespace ObservableComputations.Test
 			void test()
 			{
 				testing.ValidateConsistency();
-				var sourceScalarValue = ((ObservableCollection<Item>)((System.Collections.Specialized.INotifyCollectionChanged)sourceScalar.Value));
-
+				var sourceScalarValue = ((ObservableCollection<ObservableCollection<Item>>)((System.Collections.Specialized.INotifyCollectionChanged)sourceScalar.Value));
+				
 				if (sourceScalarValue != null)
-				{		
-					sourceScalarValue.Insert(2, new QuickTests.Item(1, true));
-					testing.ValidateConsistency();
-					sourceScalarValue[3] = new QuickTests.Item(7, true);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(3);
-					testing.ValidateConsistency();
-					sourceScalarValue.Move(1, 3);
-					testing.ValidateConsistency();
-					sourceScalarValue[2].Active = !sourceScalarValue[2].Active;
-					testing.ValidateConsistency();
-					sourceScalarValue[2].Num = sourceScalarValue[2].Num + 1;
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
+				{
+					sourceScalarValue.Insert(0, new ObservableCollection<Item>(new []{new Item(1, true)}));
 					testing.ValidateConsistency();
 					sourceScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
-					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
-					testing.ValidateConsistency();
-					sourceScalarValue.Insert(0, new QuickTests.Item(2, true));
+					sourceScalarValue.Move(0, 1);
 					testing.ValidateConsistency();
 				}
+
 
 				IList listSource;
-				listSource = ((IList)((System.Collections.Specialized.INotifyCollectionChanged)sourceScalar.Value));
-				if (listSource != null)
+				if (sourceScalarValue != null)
 				{
-					listSource.Clear();
+					sourceScalarValue.Insert(0, new ObservableCollection<Item>(new []{new Item(1, true), new Item(2, true), new Item(3, true), new Item(4, true), new Item(5, true)}));
+					sourceScalarValue.Insert(0, new ObservableCollection<Item>(new []{new Item(6, true), new Item(7, true), new Item(8, true), new Item(8, true), new Item(10, true)}));
 					testing.ValidateConsistency();
 				}
 
-				if (sourceScalarValue != null)
-				{
-					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
-					sourceScalarValue.Insert(1, new QuickTests.Item(2, true));
-					sourceScalarValue.Insert(2, new QuickTests.Item(3, true));
-					sourceScalarValue.Insert(3, new QuickTests.Item(3, true));
-					sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
-					testing.ValidateConsistency();
-				}
 			}
 
 			test();
@@ -64450,7 +63878,7 @@ namespace ObservableComputations.Test
 		[Test]
 		public void TestUniting23()
 		{
-			Scalar<ObservableCollection<Item>> sourceScalar = getScalar<ObservableCollection<Item>>(getItems());
+			Scalar<ObservableCollection<ObservableCollection<Item>>> sourceScalar = getScalar<ObservableCollection<ObservableCollection<Item>>>(getCollectionsOfItems());
 			System.Collections.Generic.IEqualityComparer<Item> equalityComparer = EqualityComparer<Item>.Default;
 			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
@@ -64465,56 +63893,34 @@ namespace ObservableComputations.Test
 			void test()
 			{
 				testing.ValidateConsistency();
-				var sourceScalarValue = ((ObservableCollection<Item>)((ObservableCollection<Item>)sourceScalar.Value));
-
+				var sourceScalarValue = ((ObservableCollection<ObservableCollection<Item>>)((ObservableCollection<ObservableCollection<Item>>)sourceScalar.Value));
+				
 				if (sourceScalarValue != null)
-				{		
-					sourceScalarValue.Insert(2, new QuickTests.Item(1, true));
-					testing.ValidateConsistency();
-					sourceScalarValue[3] = new QuickTests.Item(7, true);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(3);
-					testing.ValidateConsistency();
-					sourceScalarValue.Move(1, 3);
-					testing.ValidateConsistency();
-					sourceScalarValue[2].Active = !sourceScalarValue[2].Active;
-					testing.ValidateConsistency();
-					sourceScalarValue[2].Num = sourceScalarValue[2].Num + 1;
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
+				{
+					sourceScalarValue.Insert(0, new ObservableCollection<Item>(new []{new Item(1, true)}));
 					testing.ValidateConsistency();
 					sourceScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
-					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
-					testing.ValidateConsistency();
-					sourceScalarValue.Insert(0, new QuickTests.Item(2, true));
+					sourceScalarValue.Move(0, 1);
 					testing.ValidateConsistency();
 				}
+
 
 				IList listSource;
-				listSource = ((IList)((ObservableCollection<Item>)sourceScalar.Value));
-				if (listSource != null)
+				if (sourceScalarValue != null)
 				{
-					listSource.Clear();
+					sourceScalarValue.Insert(0, new ObservableCollection<Item>(new []{new Item(1, true), new Item(2, true), new Item(3, true), new Item(4, true), new Item(5, true)}));
+					sourceScalarValue.Insert(0, new ObservableCollection<Item>(new []{new Item(6, true), new Item(7, true), new Item(8, true), new Item(8, true), new Item(10, true)}));
 					testing.ValidateConsistency();
 				}
 
-				if (sourceScalarValue != null)
-				{
-					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
-					sourceScalarValue.Insert(1, new QuickTests.Item(2, true));
-					sourceScalarValue.Insert(2, new QuickTests.Item(3, true));
-					sourceScalarValue.Insert(3, new QuickTests.Item(3, true));
-					sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
-					testing.ValidateConsistency();
-				}
 			}
 
 			test();
 
-			((Scalar<ObservableCollection<Item>>)sourceScalar).Touch();
+			((Scalar<ObservableCollection<ObservableCollection<Item>>>)sourceScalar).Touch();
 			test();
-			((Scalar<ObservableCollection<Item>>)sourceScalar).Change(null);
+			((Scalar<ObservableCollection<ObservableCollection<Item>>>)sourceScalar).Change(null);
 			test();
 			consumer.Dispose();
 		}
@@ -64522,7 +63928,7 @@ namespace ObservableComputations.Test
 		[Test]
 		public void TestUniting24()
 		{
-			Scalar<ObservableCollection<Item>> sourceScalar = getScalar<ObservableCollection<Item>>(getItems());
+			Scalar<ObservableCollection<ObservableCollection<Item>>> sourceScalar = getScalar<ObservableCollection<ObservableCollection<Item>>>(getCollectionsOfItems());
 			System.Collections.Generic.IEqualityComparer<Item> equalityComparer = EqualityComparer<Item>.Default;
 			OcConsumer consumer = new OcConsumer();
 			var testing = sourceScalar.Uniting<Item>(
@@ -64534,56 +63940,34 @@ namespace ObservableComputations.Test
 			void test()
 			{
 				testing.ValidateConsistency();
-				var sourceScalarValue = ((ObservableCollection<Item>)((ObservableCollection<Item>)sourceScalar.Value));
-
+				var sourceScalarValue = ((ObservableCollection<ObservableCollection<Item>>)((ObservableCollection<ObservableCollection<Item>>)sourceScalar.Value));
+				
 				if (sourceScalarValue != null)
-				{		
-					sourceScalarValue.Insert(2, new QuickTests.Item(1, true));
-					testing.ValidateConsistency();
-					sourceScalarValue[3] = new QuickTests.Item(7, true);
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(3);
-					testing.ValidateConsistency();
-					sourceScalarValue.Move(1, 3);
-					testing.ValidateConsistency();
-					sourceScalarValue[2].Active = !sourceScalarValue[2].Active;
-					testing.ValidateConsistency();
-					sourceScalarValue[2].Num = sourceScalarValue[2].Num + 1;
-					testing.ValidateConsistency();
-					sourceScalarValue.RemoveAt(0);
+				{
+					sourceScalarValue.Insert(0, new ObservableCollection<Item>(new []{new Item(1, true)}));
 					testing.ValidateConsistency();
 					sourceScalarValue.RemoveAt(1);
 					testing.ValidateConsistency();
-					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
-					testing.ValidateConsistency();
-					sourceScalarValue.Insert(0, new QuickTests.Item(2, true));
+					sourceScalarValue.Move(0, 1);
 					testing.ValidateConsistency();
 				}
+
 
 				IList listSource;
-				listSource = ((IList)((ObservableCollection<Item>)sourceScalar.Value));
-				if (listSource != null)
+				if (sourceScalarValue != null)
 				{
-					listSource.Clear();
+					sourceScalarValue.Insert(0, new ObservableCollection<Item>(new []{new Item(1, true), new Item(2, true), new Item(3, true), new Item(4, true), new Item(5, true)}));
+					sourceScalarValue.Insert(0, new ObservableCollection<Item>(new []{new Item(6, true), new Item(7, true), new Item(8, true), new Item(8, true), new Item(10, true)}));
 					testing.ValidateConsistency();
 				}
 
-				if (sourceScalarValue != null)
-				{
-					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
-					sourceScalarValue.Insert(1, new QuickTests.Item(2, true));
-					sourceScalarValue.Insert(2, new QuickTests.Item(3, true));
-					sourceScalarValue.Insert(3, new QuickTests.Item(3, true));
-					sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
-					testing.ValidateConsistency();
-				}
 			}
 
 			test();
 
-			((Scalar<ObservableCollection<Item>>)sourceScalar).Touch();
+			((Scalar<ObservableCollection<ObservableCollection<Item>>>)sourceScalar).Touch();
 			test();
-			((Scalar<ObservableCollection<Item>>)sourceScalar).Change(null);
+			((Scalar<ObservableCollection<ObservableCollection<Item>>>)sourceScalar).Change(null);
 			test();
 			consumer.Dispose();
 		}

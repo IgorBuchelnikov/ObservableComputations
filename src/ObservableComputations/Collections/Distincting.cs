@@ -26,7 +26,7 @@ namespace ObservableComputations
 		private readonly IReadScalar<INotifyCollectionChanged> _sourceScalar;
 		private readonly INotifyCollectionChanged _source;
 
-		public override int InitialCapacity => ((CollectionComputing<TSourceItem>)_source)._initialCapacity;
+		public override int InitialCapacity => ((IHasInitialCapacity)base._source).InitialCapacity;
 
 		[ObservableComputationsCall]
 		public Distincting(

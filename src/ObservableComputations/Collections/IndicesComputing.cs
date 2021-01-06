@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Linq.Expressions;
 
@@ -91,7 +92,8 @@ namespace ObservableComputations
 			return zipPairPredicateExpression;
 		}
 
-		public new void ValidateConsistency()
+		[ExcludeFromCodeCoverage]
+		internal void ValidateConsistency()
 		{
 			IList<TSourceItem> source = _sourceScalar.getValue(_source, new ObservableCollection<TSourceItem>()) as IList<TSourceItem>;
 			Func<TSourceItem, bool> predicate = _predicateExpression.Compile();

@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel;
+using System.Diagnostics.CodeAnalysis;
 
 namespace ObservableComputations
 {
@@ -51,7 +52,8 @@ namespace ObservableComputations
 		}
 
 		// ReSharper disable once InconsistentNaming
-		public void ValidateConsistency()
+		[ExcludeFromCodeCoverage]
+		internal void ValidateConsistency()
 		{
 			int count =  _countScalar.Value;
 			if (Count != count) throw new ObservableComputationsException(this, "Consistency violation: SequenceComputing.1");

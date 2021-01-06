@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Linq.Expressions;
 
@@ -151,7 +152,8 @@ namespace ObservableComputations
 			return zipPairNotPredicateExpression;
 		}
 
-		public new void ValidateConsistency()
+		[ExcludeFromCodeCoverage]
+		internal void ValidateConsistency()
 		{
 			IList<TSourceItem> source = _sourceScalarTakingWhile.getValue(_sourceTakingWhile, new ObservableCollection<TSourceItem>()) as IList<TSourceItem>;
 			OcConsumer ocConsumer = new OcConsumer();

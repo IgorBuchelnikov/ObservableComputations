@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Linq.Expressions;
 
@@ -37,7 +38,8 @@ namespace ObservableComputations
 			return indexExpression.Computing();
 		}
 
-		public new void ValidateConsistency()
+		[ExcludeFromCodeCoverage]
+		internal void ValidateConsistency()
 		{
 			IList<TSourceItem> source = (IList<TSourceItem>) _sourceScalar.getValue(_source, new ObservableCollection<TSourceItem>());
 			TSourceItem defaultValue = _defaultValue;

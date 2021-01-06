@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 
 namespace ObservableComputations
@@ -99,7 +100,8 @@ namespace ObservableComputations
 			return Expr.Is(() => ((IList)source).Count).Computing();
 		}
 
-		public new void ValidateConsistency()
+		[ExcludeFromCodeCoverage]
+		internal void ValidateConsistency()
 		{
 			IList<TSourceItem> source = _sourceScalarSkipping.getValue(_sourceSkipping, new ObservableCollection<TSourceItem>()) as IList<TSourceItem>;
 			int count = _skippingCountScalar.getValue(_skippingCount);

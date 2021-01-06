@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Linq.Expressions;
 
@@ -62,7 +63,8 @@ namespace ObservableComputations
 					Expression.Convert(countExpression.Body, typeof(TResult))));
 		}
 
-		public void ValidateConsistency()
+		[ExcludeFromCodeCoverage]
+		internal void ValidateConsistency()
 		{
 			IList<int> source = _sourceScalar.getValue(_source, new ObservableCollection<int>()) as IList<int>;
 			Averaging<int, double> @this = this as Averaging<int, double>;

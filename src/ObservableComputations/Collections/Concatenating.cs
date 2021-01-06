@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.ComponentModel;
+using System.Diagnostics.CodeAnalysis;
 
 namespace ObservableComputations
 {
@@ -590,7 +591,8 @@ namespace ObservableComputations
 			Utils.uninitializeSourceScalar(_sourceScalar, scalarValueChangedHandler, ref _source);
 		}
 
-		public void ValidateConsistency()
+		[ExcludeFromCodeCoverage]
+		internal void ValidateConsistency()
 		{
 			_sourceRangePositions.ValidateConsistency();
 			IList sources = _sourceScalar.getValue(_source, new ObservableCollection<ObservableCollection<TSourceItem>>()) as IList;

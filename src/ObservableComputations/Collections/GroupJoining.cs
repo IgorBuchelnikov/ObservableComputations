@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Linq.Expressions;
 
@@ -723,6 +724,7 @@ namespace ObservableComputations
 		}
 
 		// ReSharper disable once InconsistentNaming
+		[ExcludeFromCodeCoverage]
 		internal void ValidateConsistency()
 		{
 			_outerSourceItemPositions.ValidateConsistency();

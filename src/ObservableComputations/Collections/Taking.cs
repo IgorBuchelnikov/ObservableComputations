@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 
 namespace ObservableComputations
@@ -249,7 +250,8 @@ namespace ObservableComputations
 			return zipping.Filtering(zp => zp.LeftItem >= startIndex && zp.LeftItem < startIndex + count, count);
 		}
 
-		public new void ValidateConsistency()
+		[ExcludeFromCodeCoverage]
+		internal void ValidateConsistency()
 		{
 			IList<TSourceItem> source = _sourceScalarTaking.getValue(_sourceTaking, new ObservableCollection<TSourceItem>()) as IList<TSourceItem>;
 			int startIndex = _startIndexScalar.getValue(_startIndex);

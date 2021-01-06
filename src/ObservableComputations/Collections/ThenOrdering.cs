@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.ComponentModel;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Linq.Expressions;
 using INotifyPropertyChanged = System.ComponentModel.INotifyPropertyChanged;
@@ -1054,7 +1055,14 @@ namespace ObservableComputations
 				&& _source.Compare(sourceIndex1, sourceIndex2);
 		}
 
-		public void ValidateConsistency()
+		[ExcludeFromCodeCoverage]
+		void IOrderingInternal<TSourceItem>.ValidateConsistency()
+		{
+			ValidateConsistency();
+		}
+
+		[ExcludeFromCodeCoverage]
+		internal void ValidateConsistency()
 		{
 			IComparer<TOrderingValue> comparer = _comparerScalar.getValue(_comparer) ?? Comparer<TOrderingValue>.Default;
 			ListSortDirection listSortDirection = _sortDirectionScalar.getValue(_sortDirection);

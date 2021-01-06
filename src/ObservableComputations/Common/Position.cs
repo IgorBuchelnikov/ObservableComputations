@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Diagnostics.Contracts;
 
 namespace ObservableComputations
@@ -96,7 +97,8 @@ namespace ObservableComputations
 
 		// ReSharper disable once PureAttributeOnVoidMethod
 		[Pure]
-		public void ValidateConsistency()
+		[ExcludeFromCodeCoverage]
+		internal void ValidateConsistency()
 		{
 			for (int index = 0; index < List.Count; index++)
 			{
@@ -362,7 +364,8 @@ namespace ObservableComputations
 
 		// ReSharper disable once PureAttributeOnVoidMethod
 		[Pure]
-		public void ValidateConsistency()
+		[ExcludeFromCodeCoverage]
+		internal void ValidateConsistency()
 		{
 			int plainIndex = 0;
 			for (int index = 0; index < List.Count; index++)

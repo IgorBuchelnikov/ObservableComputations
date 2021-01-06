@@ -2,6 +2,7 @@
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.ComponentModel;
+using System.Diagnostics.CodeAnalysis;
 
 namespace ObservableComputations
 {
@@ -195,7 +196,8 @@ namespace ObservableComputations
 
 		#endregion
 
-		public void ValidateConsistency()
+		[ExcludeFromCodeCoverage]
+		internal void ValidateConsistency()
 		{
 			IList source = _sourceScalar.getValue(_source, new ObservableCollection<object>()) as IList;
 			// ReSharper disable once PossibleNullReferenceException

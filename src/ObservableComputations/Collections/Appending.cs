@@ -8,7 +8,7 @@ namespace ObservableComputations
 {
 	public class Appending<TSourceItem> : Concatenating<TSourceItem>, IHasSourceCollections
 	{
-		public virtual IReadScalar<INotifyCollectionChanged> SourceScalar => _sourceScalar;
+		public override IReadScalar<INotifyCollectionChanged> SourceScalar => _sourceScalar;
 
 		// ReSharper disable once MemberCanBePrivate.Global\
 		// ReSharper disable once ConvertToAutoProperty

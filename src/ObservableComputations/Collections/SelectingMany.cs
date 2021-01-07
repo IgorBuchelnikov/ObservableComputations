@@ -17,7 +17,7 @@ namespace ObservableComputations
 		private readonly Expression<Func<TSourceItem, int, INotifyCollectionChanged>> _selectorWithIndexExpression;
 
 		// ReSharper disable once MemberCanBePrivate.Global
-		public virtual IReadScalar<INotifyCollectionChanged> SourceScalar => _sourceScalar;
+		public override IReadScalar<INotifyCollectionChanged> SourceScalar => _sourceScalar;
 
 		// ReSharper disable once MemberCanBePrivate.Global
 		public override INotifyCollectionChanged Source => _source;

@@ -9,20 +9,20 @@ namespace ObservableComputations
 	internal sealed class ExpressionWatcher
 	{
 		internal Position _position;
-		internal PropertyChangedEventSubscription[] _propertyChangedEventSubscriptions;
-		internal MethodChangedEventSubscription[] _methodChangedEventSubscriptions;
-		internal IComputingInternal[] _oldComputings;
-		internal IComputingInternal[] _currentComputings;
+		internal readonly PropertyChangedEventSubscription[] _propertyChangedEventSubscriptions;
+		internal readonly MethodChangedEventSubscription[] _methodChangedEventSubscriptions;
+		internal readonly IComputingInternal[] _oldComputings;
+		internal readonly IComputingInternal[] _currentComputings;
 		internal bool _computingsChanged;
 		private readonly ExpressionWatcher _rootExpressionWatcher;
 
 		internal class Raise : IProcessable
 		{
-			internal ExpressionWatcher ExpressionWatcher;
-			internal object _eventSender;
-			internal EventArgs _eventArgs;
-			internal ISourceItemChangeProcessor SourceItemChangeProcessor;
-			internal Type SourceItemChangeProcessorType;
+			private readonly ExpressionWatcher ExpressionWatcher;
+			private readonly object _eventSender;
+			private readonly EventArgs _eventArgs;
+			private readonly ISourceItemChangeProcessor SourceItemChangeProcessor;
+			private readonly Type SourceItemChangeProcessorType;
 
 			public Raise(ExpressionWatcher expressionWatcher, object eventSender, EventArgs eventArgs, ISourceItemChangeProcessor sourceItemChangeProcessor, Type sourceItemChangeProcessorType)
 			{
@@ -176,7 +176,7 @@ namespace ObservableComputations
 		public struct ConstantCallTreesInfo
 		{
 			public object ConstantValue;
-			public List<CallTreeNodeInfo> CallTrees;
+			public readonly List<CallTreeNodeInfo> CallTrees;
 
 			public ConstantCallTreesInfo(object constantValue, List<CallTreeNodeInfo> callTrees)
 			{
@@ -187,8 +187,8 @@ namespace ObservableComputations
 
 		public struct ParameterCallTreesInfo
 		{
-			public int ParameterIndex;
-			public List<CallTreeNodeInfo> CallTrees;
+			public readonly int ParameterIndex;
+			public readonly List<CallTreeNodeInfo> CallTrees;
 
 			public ParameterCallTreesInfo(int parameterIndex, List<CallTreeNodeInfo> callTrees)
 			{
@@ -200,7 +200,7 @@ namespace ObservableComputations
 		public struct ExpressionCallTreesInfo
 		{
 			public ExpressionInfo ExpressionInfo;
-			public List<CallTreeNodeInfo> CallTrees;
+			public readonly List<CallTreeNodeInfo> CallTrees;
 
 			public ExpressionCallTreesInfo(ExpressionInfo expressionInfo, List<CallTreeNodeInfo> callTrees)
 			{
@@ -212,8 +212,8 @@ namespace ObservableComputations
 		// ReSharper disable once MemberCanBePrivate.Global
 		public struct ConstantCallTrees
 		{
-			public object ConstantValue;
-			public CallTreeNode[] CallTrees;
+			public readonly object ConstantValue;
+			public readonly CallTreeNode[] CallTrees;
 
 			public ConstantCallTrees(object constantValue, CallTreeNode[] callTrees)
 			{
@@ -225,8 +225,8 @@ namespace ObservableComputations
 		// ReSharper disable once MemberCanBePrivate.Global
 		public struct ParameterCallTrees
 		{
-			public int ParameterIndex;
-			public CallTreeNode[] CallTrees;
+			public readonly int ParameterIndex;
+			public readonly CallTreeNode[] CallTrees;
 
 			public ParameterCallTrees(int parameterIndex, CallTreeNode[] callTrees)
 			{
@@ -238,8 +238,8 @@ namespace ObservableComputations
 		// ReSharper disable once MemberCanBePrivate.Global
 		public struct ExpressionCallTrees
 		{
-			public ExpressionWatcher ExpressionWatcher;
-			public CallTreeNode[] CallTrees;
+			public readonly ExpressionWatcher ExpressionWatcher;
+			public readonly CallTreeNode[] CallTrees;
 
 			public ExpressionCallTrees(ExpressionWatcher expressionWatcher, CallTreeNode[] callTrees) : this()
 			{
@@ -507,11 +507,11 @@ namespace ObservableComputations
 			}
 		}
 
-		internal object[] _parameterValues;
+		private readonly object[] _parameterValues;
 		public IEnumerable<object> ParameterValues => _parameterValues;
 
 		// ReSharper disable once MemberCanBePrivate.Global
-		public LambdaExpression ExpressionToWatch;
+		public readonly LambdaExpression ExpressionToWatch;
 
 		private Delegate _expressionToWatchCompiled;
 
@@ -629,7 +629,7 @@ namespace ObservableComputations
 #endif
 
 
-		internal enum WorkWithCallTreeNodeType
+		private enum WorkWithCallTreeNodeType
 		{
 			UpdateSubscriptionAndHolder,
 			Dispose
@@ -655,7 +655,7 @@ namespace ObservableComputations
 				Node = node;
 			}
 #if DEBUG
-			internal Root Root;
+			internal readonly Root Root;
 #endif
 			internal readonly object Sender;
 			internal readonly EventArgs Args;
@@ -903,8 +903,8 @@ namespace ObservableComputations
 
 		public struct ConstantCallPaths
 		{
-			public object ConstantValue;
-			public List<List<Call>> CallPaths;
+			public readonly object ConstantValue;
+			public readonly List<List<Call>> CallPaths;
 
 			public ConstantCallPaths(object constantValue, List<List<Call>> callPaths)
 			{
@@ -915,8 +915,8 @@ namespace ObservableComputations
 
 		public struct ParameterCallPaths
 		{
-			public int ParameterIndex;
-			public List<List<Call>> CallPaths;
+			public readonly int ParameterIndex;
+			public readonly List<List<Call>> CallPaths;
 
 			public ParameterCallPaths(int parameterIndex, List<List<Call>> callPaths)
 			{
@@ -1322,7 +1322,7 @@ namespace ObservableComputations
 
 			internal readonly CallTreeNode[] _children;
 
-			internal ExpressionWatcher[] _callArguments;
+			internal readonly ExpressionWatcher[] _callArguments;
 			internal Action<ExpressionWatcher, object, EventArgs> _callArgumentChangedEventHandler;
 
 			internal EventHandler<MethodChangedEventArgs> _methodChangedEventHandler;

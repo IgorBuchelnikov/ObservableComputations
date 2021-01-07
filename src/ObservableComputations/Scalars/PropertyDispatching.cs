@@ -115,7 +115,7 @@ namespace ObservableComputations
 			return value;
 		}
 
-		private struct PropertyAccessors
+		private readonly struct PropertyAccessors
 		{
 			public PropertyAccessors(Func<THolder, TResult> getter, Action<THolder, TResult> setter)
 			{

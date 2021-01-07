@@ -57,7 +57,7 @@ namespace ObservableComputations
 		private readonly bool _predicateContainsParametrizedObservableComputationsCalls;
 
 		private readonly IReadScalar<INotifyCollectionChanged> _sourceScalar;
-		internal INotifyCollectionChanged _source;
+		private INotifyCollectionChanged _source;
 		private readonly Func<TSourceItem, bool> _predicateFunc;
 		private readonly IFiltering<TSourceItem> _thisAsFiltering;
 		private readonly ISourceItemChangeProcessor _thisAsSourceItemChangeProcessor;

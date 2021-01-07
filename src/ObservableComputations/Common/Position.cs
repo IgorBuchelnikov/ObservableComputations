@@ -114,7 +114,7 @@ namespace ObservableComputations
 		public int Index;
 	}
 
-	internal struct RangePositions<TRangePosition> where TRangePosition : RangePosition, new()
+	internal readonly struct RangePositions<TRangePosition> where TRangePosition : RangePosition, new()
 	{
 		public readonly List<TRangePosition> List;
 

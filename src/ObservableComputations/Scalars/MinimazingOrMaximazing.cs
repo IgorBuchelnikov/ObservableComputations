@@ -29,9 +29,6 @@ namespace ObservableComputations
 		// ReSharper disable once MemberCanBePrivate.Global
 		public TSourceItem DefaultValue => _defaultValue;
 
-		// ReSharper disable once MemberCanBePrivate.Global
-		public bool IsDefaulted => _isDefaulted;
-
 		public virtual ReadOnlyCollection<INotifyCollectionChanged> Sources => new ReadOnlyCollection<INotifyCollectionChanged>(new []{Source});
 		public virtual ReadOnlyCollection<IReadScalar<INotifyCollectionChanged>> SourceScalars => new ReadOnlyCollection<IReadScalar<INotifyCollectionChanged>>(new []{SourceScalar});
 
@@ -54,7 +51,6 @@ namespace ObservableComputations
 		private INotifyCollectionChanged _source;
 		private IComparer<TSourceItem> _comparer;
 		private readonly TSourceItem _defaultValue;
-		private bool _isDefaulted;
 
 		private bool _indexerPropertyChangedEventRaised;
 		private INotifyPropertyChanged _sourceAsINotifyPropertyChanged;

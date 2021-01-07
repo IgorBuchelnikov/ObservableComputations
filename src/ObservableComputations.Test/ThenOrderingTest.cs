@@ -415,8 +415,6 @@ namespace ObservableComputations.Test
 			//	return true;
 			//}
 
-			return false;
-
 			return true;
 		}
 
@@ -603,8 +601,6 @@ namespace ObservableComputations.Test
 			{
 				return true;
 			}
-
-			return false;
 
 			return true;
 		}

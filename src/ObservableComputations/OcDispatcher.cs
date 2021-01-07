@@ -24,8 +24,8 @@ namespace ObservableComputations
 		private readonly string _callStackTrace;
 		private readonly object _context;
 		private readonly OcDispatcher _ocDispatcher;
-		internal InvocationStatus InvocationStatus;
-		internal ManualResetEventSlim _doneManualResetEvent;
+		internal readonly InvocationStatus InvocationStatus;
+		internal readonly ManualResetEventSlim _doneManualResetEvent;
 
 		internal Invocation(Action action, OcDispatcher ocDispatcher, InvocationStatus invocationStatus, object context = null, ManualResetEventSlim doneManualResetEvent = null) : this()
 		{
@@ -119,9 +119,9 @@ namespace ObservableComputations
 		private readonly ManualResetEventSlim _newInvocationManualResetEvent = new ManualResetEventSlim(false);
 		private bool _isAlive = true;
 		private bool _isDisposed ;
-		internal Thread _thread;
-		internal int _managedThreadId;
-		internal Stack<Invocation> _invocations = new Stack<Invocation>();
+		internal readonly Thread _thread;
+		internal readonly int _managedThreadId;
+		internal readonly Stack<Invocation> _invocations = new Stack<Invocation>();
 		private NewInvocationBehaviour _newInvocationBehaviour;
 
 		public bool IsAlive => _isAlive;

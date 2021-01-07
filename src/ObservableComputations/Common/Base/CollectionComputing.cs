@@ -11,7 +11,7 @@ namespace ObservableComputations
 	{
 		public string DebugTag {get; set;}
 		public object Tag {get; set;}
-		internal IList<TItem> _items;
+		internal readonly IList<TItem> _items;
 		internal Queue<IProcessable>[] _deferredProcessings;
 		protected int _deferredQueuesCount = 2; 
 
@@ -414,24 +414,24 @@ namespace ObservableComputations
 			ConsistencyRestored?.Invoke(this, null);
 		}
 
-		protected List<OcConsumer> _consumers = new List<OcConsumer>();
-		internal  List<IComputingInternal> _downstreamConsumedComputings = new List<IComputingInternal>();
+		protected readonly List<OcConsumer> _consumers = new List<OcConsumer>();
+		internal readonly List<IComputingInternal> _downstreamConsumedComputings = new List<IComputingInternal>();
 		protected bool _isActive;
 		public bool IsActive => _isActive;
 
-		bool _initializationInProgress;
-		bool _uninitializationInProgress;
-		public bool ActivationInProgress => _initializationInProgress;
-		public bool InactivationInProgress => _uninitializationInProgress;
+		bool _activationInProgress;
+		bool _inactivationInProgress;
+		public bool ActivationInProgress => _activationInProgress;
+		public bool InactivationInProgress => _inactivationInProgress;
 
 		void IComputingInternal.SetInactivationInProgress(bool value)
 		{
-			_uninitializationInProgress = value;
+			_inactivationInProgress = value;
 		}
 
 		void IComputingInternal.SetActivationInProgress(bool value)
 		{
-			_initializationInProgress = value;
+			_activationInProgress = value;
 		}
 
 		public ReadOnlyCollection<object> ConsumerTags =>

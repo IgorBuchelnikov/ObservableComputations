@@ -397,12 +397,12 @@ namespace ObservableComputations
 
 	internal struct DeferredCollectionAction<TSourceItem>
 	{
-		public object EventSender;
+		public readonly object EventSender;
 		public readonly NotifyCollectionChangedEventArgs NotifyCollectionChangedEventAgs;
-		public EventArgs EventArgs;
-		public TSourceItem[] NewItems;
-		public bool Clear;
-		public bool Reset;
+		public readonly EventArgs EventArgs;
+		public readonly TSourceItem[] NewItems;
+		public readonly bool Clear;
+		public readonly bool Reset;
 
 		public DeferredCollectionAction(object eventSender, NotifyCollectionChangedEventArgs eventAgs) : this()
 		{

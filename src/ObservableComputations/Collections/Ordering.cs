@@ -37,7 +37,7 @@ namespace ObservableComputations
 		public virtual ReadOnlyCollection<INotifyCollectionChanged> Sources => new ReadOnlyCollection<INotifyCollectionChanged>(new []{Source});
 		public virtual ReadOnlyCollection<IReadScalar<INotifyCollectionChanged>> SourceScalars => new ReadOnlyCollection<IReadScalar<INotifyCollectionChanged>>(new []{SourceScalar});
 
-		internal INotifyCollectionChanged _source;
+		private INotifyCollectionChanged _source;
 		private ObservableCollectionWithChangeMarker<TSourceItem> _sourceAsList;
 		bool _rootSourceWrapper;
 
@@ -651,15 +651,8 @@ namespace ObservableComputations
 
 			do
 			{
-				TOrderingValue middleItemOrderingValue;
-				int middleIndex;
-
 				TSourceItem nextAfterMiddleItem;
 				TOrderingValue nextAfterMiddleItemOrderingValue;
-
-				int comparisonWithMiddleItem;
-				int nextAfterMiddleIncrement;
-				int comparisonWithNextAfterMiddleItem;
 
 				int length = upperIndex - lowerIndex + 1;
 				if (length <= 2)
@@ -697,11 +690,11 @@ namespace ObservableComputations
 					return newIndex;
 				}
 
-				middleIndex = lowerIndex + (length >> 1);
+				var middleIndex = lowerIndex + (length >> 1);
 
-				middleItemOrderingValue = _orderingValues[middleIndex];
+				var middleItemOrderingValue = _orderingValues[middleIndex];
 
-				comparisonWithMiddleItem = _comparer.Compare(orderingValue, middleItemOrderingValue);
+				var comparisonWithMiddleItem = _comparer.Compare(orderingValue, middleItemOrderingValue);
 
 				if (comparisonWithMiddleItem == 0)
 				{
@@ -709,7 +702,7 @@ namespace ObservableComputations
 					return newIndex;
 				}
 
-				nextAfterMiddleIncrement = comparisonWithMiddleItem * (_sortDirection == ListSortDirection.Descending ? -1 : 1);
+				var nextAfterMiddleIncrement = comparisonWithMiddleItem * (_sortDirection == ListSortDirection.Descending ? -1 : 1);
 				int nextAfterMiddleIndex = middleIndex;
 				do
 				{
@@ -724,7 +717,7 @@ namespace ObservableComputations
 
 				if (nextAfterMiddleItem != null)
 				{
-					comparisonWithNextAfterMiddleItem = _comparer.Compare(orderingValue, nextAfterMiddleItemOrderingValue);
+					var comparisonWithNextAfterMiddleItem = _comparer.Compare(orderingValue, nextAfterMiddleItemOrderingValue);
 					int comparisonsSum = comparisonWithMiddleItem + comparisonWithNextAfterMiddleItem;
 
 					if (comparisonsSum >= -1 && comparisonsSum <= 1)
@@ -862,7 +855,7 @@ namespace ObservableComputations
 		{
 			int lowerIndex = 0;
 			int upperIndex = Count - 1;
-			int length = upperIndex - lowerIndex + 1;
+			int length = upperIndex + 1;
 
 			do
 			{
@@ -1069,7 +1062,7 @@ namespace ObservableComputations
 		}
 	}
 
-	public struct OrderingIndicesRange
+	public readonly struct OrderingIndicesRange
 	{
 		// ReSharper disable once UnusedAutoPropertyAccessor.Global
 		// ReSharper disable once MemberCanBePrivate.Global

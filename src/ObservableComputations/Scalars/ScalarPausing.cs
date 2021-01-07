@@ -279,9 +279,9 @@ namespace ObservableComputations
 
 	internal struct DeferredScalarAction<TResult>
 	{
-		public object EventSender;
-		public PropertyChangedEventArgs PropertyChangedEventAgs;
-		public TResult Value;
+		public readonly object EventSender;
+		public readonly PropertyChangedEventArgs PropertyChangedEventAgs;
+		public readonly TResult Value;
 
 		public DeferredScalarAction(object eventSender, PropertyChangedEventArgs eventAgs, TResult value)
 		{

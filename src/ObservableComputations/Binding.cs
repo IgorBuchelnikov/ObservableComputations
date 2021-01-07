@@ -25,7 +25,7 @@ namespace ObservableComputations
 
 		public bool IsDisposed => _isDisposed;
 
-		private OcConsumer _consumer = new OcConsumer("Binding consumer");
+		private readonly OcConsumer _consumer = new OcConsumer("Binding consumer");
 
 		[ObservableComputationsCall]
 		public Binding(IReadScalar<TValue> sourceScalar, Action<TValue, Binding<TValue>> modifyTargetAction, bool applyNow = true)

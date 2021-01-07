@@ -19,9 +19,6 @@ namespace ObservableComputations
 		// ReSharper disable once MemberCanBePrivate.Global
 		public int Index => _index;
 
-		// ReSharper disable once MemberCanBePrivate.Global
-		public bool IsDefaulted => _isDefaulted;
-
 		// ReSharper disable once MemberCanBeProtected.Global
 		public TSourceItem DefaultValue => _defaultValue;
 
@@ -36,8 +33,7 @@ namespace ObservableComputations
 		private bool _sourceInitialized;
 		private readonly IReadScalar<int> _indexScalar;
 		private int _index;
-		private bool _isDefaulted;
-		internal TSourceItem _defaultValue;
+		internal readonly TSourceItem _defaultValue;
 
 		private bool _indexerPropertyChangedEventRaised;
 		private INotifyPropertyChanged _sourceAsINotifyPropertyChanged;
@@ -182,10 +178,7 @@ namespace ObservableComputations
 
 			}
 			else
-			{
-				_isDefaulted = true;
-				setValue(_defaultValue);
-			}
+				setDefaultValue(_defaultValue);
 		}
 
 		private void recalculateValue()

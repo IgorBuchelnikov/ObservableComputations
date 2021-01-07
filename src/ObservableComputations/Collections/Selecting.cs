@@ -162,7 +162,7 @@ namespace ObservableComputations
 			Utils.uninitializeNestedComputings(_nestedComputings, this);
 		}
 
-		protected void handleSourceCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
+		private void handleSourceCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
 		{
 			if (!Utils.preHandleSourceCollectionChanged(
 					sender, 

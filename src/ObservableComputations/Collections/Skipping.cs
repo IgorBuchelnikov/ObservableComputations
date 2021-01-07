@@ -15,7 +15,7 @@ namespace ObservableComputations
 		public override INotifyCollectionChanged Source => _sourceSkipping;
 
 		// ReSharper disable once MemberCanBePrivate.Global
-		public new IReadScalar<int> SkippingCountScalar => _skippingCountScalar;
+		public IReadScalar<int> SkippingCountScalar => _skippingCountScalar;
 
 		// ReSharper disable once MemberCanBePrivate.Global
 		public int SkippingCount => _skippingCount;

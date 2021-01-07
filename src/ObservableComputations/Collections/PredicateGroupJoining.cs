@@ -169,6 +169,7 @@ namespace ObservableComputations
 	public class PredicateJoinGroup<TOuterSourceItem, TInnerSourceItem> : Filtering<TInnerSourceItem>
 	{
 		// ReSharper disable once MemberCanBePrivate.Global
+		// ReSharper disable once UnusedAutoPropertyAccessor.Global
 		public TOuterSourceItem Key { get; }
 
 		[ObservableComputationsCall]

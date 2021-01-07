@@ -8,7 +8,7 @@ namespace ObservableComputations
 	{
 		private readonly object _eventSender;
 		private readonly NotifyCollectionChangedEventArgs _eventArgs;
-		internal ISourceCollectionChangeProcessor SourceCollectionChangeProcessor;
+		private readonly ISourceCollectionChangeProcessor SourceCollectionChangeProcessor;
 
 		public CollectionChangedEventRaise(object eventSender, NotifyCollectionChangedEventArgs eventArgs, ISourceCollectionChangeProcessor sourceCollectionChangeProcessor)
 		{

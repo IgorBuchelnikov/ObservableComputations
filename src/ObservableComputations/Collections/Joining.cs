@@ -68,9 +68,9 @@ namespace ObservableComputations
 
 		private readonly ISourceCollectionChangeProcessor _thisAsSourceCollectionChangeProcessor;
 		private readonly IReadScalar<INotifyCollectionChanged> _leftSourceScalar;
-		internal INotifyCollectionChanged _leftSource;
+		private INotifyCollectionChanged _leftSource;
 		private readonly IReadScalar<INotifyCollectionChanged> _rightSourceScalar;
-		internal INotifyCollectionChanged _rightSource;
+		private INotifyCollectionChanged _rightSource;
 
 		private readonly Func<TLeftSourceItem, TRightSourceItem, bool> _predicateFunc;
 		private readonly IFiltering<JoinPair<TLeftSourceItem, TRightSourceItem>> _thisAsFiltering;

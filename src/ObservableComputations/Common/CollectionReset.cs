@@ -7,8 +7,8 @@ namespace ObservableComputations
 	{
 		private readonly object _eventSender;
 		private readonly EventArgs _eventArgs;
-		internal Action Action;
-		internal ICanInitializeFromSource CanInitializeFromSource;
+		private readonly Action Action;
+		private readonly ICanInitializeFromSource CanInitializeFromSource;
 
 		public CollectionReset(object eventSender, EventArgs eventArgs, ICanInitializeFromSource canInitializeFromSource, Action action)
 		{

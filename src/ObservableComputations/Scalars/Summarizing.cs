@@ -42,13 +42,13 @@ namespace ObservableComputations
 			{
 				if (_aggregateFunc != null) return _aggregateFunc;
 
-				ParameterExpression sourceItemParameterExpression = Summarizing<TSourceItem>.sourceItemParameterExpression;
-				ParameterExpression aggregateParameterExpression = Summarizing<TSourceItem>.aggregateParameterExpression;
+				ParameterExpression sourceItemParameterExpression1 = Summarizing<TSourceItem>.sourceItemParameterExpression;
+				ParameterExpression aggregateParameterExpression1 = Summarizing<TSourceItem>.aggregateParameterExpression;
 
 				_aggregateFunc =
 					(Func<TSourceItem, TSourceItem, TSourceItem>) Expression
-						.Lambda(Expression.Add(aggregateParameterExpression, sourceItemParameterExpression),
-							new[] {sourceItemParameterExpression, aggregateParameterExpression}).Compile();
+						.Lambda(Expression.Add(aggregateParameterExpression1, sourceItemParameterExpression1),
+							new[] {sourceItemParameterExpression1, aggregateParameterExpression1}).Compile();
 
 
 				return _aggregateFunc;
@@ -71,13 +71,13 @@ namespace ObservableComputations
 			{
 				if (_deaggregateFunc != null) return _deaggregateFunc;
 
-				ParameterExpression sourceItemParameterExpression = Summarizing<TSourceItem>.sourceItemParameterExpression;
-				ParameterExpression aggregateParameterExpression = Summarizing<TSourceItem>.aggregateParameterExpression;
+				ParameterExpression sourceItemParameterExpression1 = Summarizing<TSourceItem>.sourceItemParameterExpression;
+				ParameterExpression aggregateParameterExpression1 = Summarizing<TSourceItem>.aggregateParameterExpression;
 
 				_deaggregateFunc =
 					(Func<TSourceItem, TSourceItem, TSourceItem>) Expression
-						.Lambda(Expression.Subtract(aggregateParameterExpression, sourceItemParameterExpression),
-							new[] {sourceItemParameterExpression, aggregateParameterExpression}).Compile();
+						.Lambda(Expression.Subtract(aggregateParameterExpression1, sourceItemParameterExpression1),
+							new[] {sourceItemParameterExpression1, aggregateParameterExpression1}).Compile();
 
 				return _deaggregateFunc;
 			}

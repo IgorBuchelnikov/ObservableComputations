@@ -5,7 +5,6 @@ using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Linq.Expressions;
 using System.Threading;
-using ObservableComputations.Common;
 
 namespace ObservableComputations
 {
@@ -83,7 +82,7 @@ namespace ObservableComputations
 				});
 		}
 
-		internal static void disposeExpressionItemInfos<TItemInfo>(
+		private static void disposeExpressionItemInfos<TItemInfo>(
 			List<TItemInfo> itemInfos,
 			int expressionCallCount,
 			Func<int, TItemInfo, PropertyChangedEventSubscription[], MethodChangedEventSubscription[], int> disposeItemInfo)
@@ -116,7 +115,7 @@ namespace ObservableComputations
 			}
 		}
 
-		internal static int disposeExpressionWatcher(int expressionCallCount, ExpressionWatcher expressionWatcher,
+		private static int disposeExpressionWatcher(int expressionCallCount, ExpressionWatcher expressionWatcher,
 			int callIndexTotal, PropertyChangedEventSubscription[] propertyChangedEventSubscriptions,
 			MethodChangedEventSubscription[] methodChangedEventSubscriptions) 
 		{
@@ -159,7 +158,7 @@ namespace ObservableComputations
 			return sourceScalar != null ? getCapacity(sourceScalar) : getCapacity(source);
 		}
 
-		internal static void disposeSource<TItemInfo>(int capacity, out List<TItemInfo> itemInfos,
+		private static void disposeSource<TItemInfo>(int capacity, out List<TItemInfo> itemInfos,
 			out Positions<TItemInfo> sourcePositions, INotifyCollectionChanged sourceAsList,
 			NotifyCollectionChangedEventHandler sourceNotifyCollectionChangedEventHandler)
 			where TItemInfo : Position, new()
@@ -290,7 +289,7 @@ namespace ObservableComputations
 					$"The source collection has been changed. It is not possible to process this change (event sender = {sender.ToStringSafe(e => $"{e.ToString()} in sender.ToString()")}, event args = {eventArgs.ToStringAlt()}), as the processing of the previous change is not completed. Make the change on ConsistencyRestored event raising (after IsConsistent property becomes true). This exception is fatal and cannot be handled as the inner state is damaged.", sender, eventArgs);
 		}
 
-		internal static Queue<IProcessable> getOrInitializeDeferredProcessingsQueue(
+		private static Queue<IProcessable> getOrInitializeDeferredProcessingsQueue(
 			ref Queue<IProcessable>[] deferredProcessings,
 			int deferredSourceCollectionChangedEventProcessingsIndex, 
 			int deferredProcessingsCount)
@@ -325,7 +324,7 @@ namespace ObservableComputations
 			postHandleChange(out handledEventSender, out handledEventArgs);
 		}
 
-		internal static void processQueue(
+		private static void processQueue(
 			ref object handledEventSender, 
 			ref EventArgs handledEventArgs,
 			Queue<IProcessable>[] deferredProcessings, 
@@ -654,7 +653,7 @@ namespace ObservableComputations
 				watcher._currentComputings[computingIndex]?.AddDownstreamConsumedComputing(current);
 		}
 
-		internal static void itemInfoRemoveDownstreamConsumedComputing(List<IComputingInternal> nestedComputings, IComputingInternal current)
+		private static void itemInfoRemoveDownstreamConsumedComputing(List<IComputingInternal> nestedComputings, IComputingInternal current)
 		{
 			int nestedComputingsCount = nestedComputings.Count;
 			for (int computingIndex = 0; computingIndex < nestedComputingsCount; computingIndex++)
@@ -836,7 +835,7 @@ namespace ObservableComputations
 				current, false);
 		}
 
-		internal static void initializeSourceIndexerPropertyTracker<TSourceList, TSourceIndexerPropertyTracker>(
+		private static void initializeSourceIndexerPropertyTracker<TSourceList, TSourceIndexerPropertyTracker>(
 			out INotifyPropertyChanged sourceAsINotifyPropertyChanged,
 			TSourceIndexerPropertyTracker current,
 			TSourceList sourceAsList) 
@@ -1048,7 +1047,7 @@ namespace ObservableComputations
 				computing, propertyNameValue);
 		}
 
-		internal static void processChange(
+		private static void processChange(
 			object sender, 
 			EventArgs args, 
 			Action action,
@@ -1113,7 +1112,7 @@ namespace ObservableComputations
 			}
 		}
 
-		internal static void addDownstreamConsumedComputing(ExpressionWatcher watcher, IComputingInternal current)
+		private static void addDownstreamConsumedComputing(ExpressionWatcher watcher, IComputingInternal current)
 		{
 			int currentComputingsLength = watcher._currentComputings.Length;
 			for (int computingIndex = 0; computingIndex < currentComputingsLength; computingIndex++)
@@ -1158,12 +1157,12 @@ namespace ObservableComputations
 		internal static readonly PropertyChangedEventArgs PageSizePropertyChangedEventArgs = new PropertyChangedEventArgs("PageSize");
 		internal static readonly PropertyChangedEventArgs PausedPropertyChangedEventArgs = new PropertyChangedEventArgs("Paused");
 		internal static readonly NotifyCollectionChangedEventArgs ResetNotifyCollectionChangedEventArgs = new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Reset);
-		internal static readonly PropertyChangedEventArgs IsActivePropertyChangedEventArgs = new PropertyChangedEventArgs("IsActive");
+		private static readonly PropertyChangedEventArgs IsActivePropertyChangedEventArgs = new PropertyChangedEventArgs("IsActive");
 		internal static readonly PropertyChangedEventArgs ResumeTypePropertyChangedEventArgs = new PropertyChangedEventArgs("ResumeType");
 		internal static readonly PropertyChangedEventArgs IsDefaultedPropertyChangedEventArgs = new PropertyChangedEventArgs("IsDefaulted");
 		internal static readonly PropertyChangedEventArgs IsDisposedPropertyChangedEventArgs = new PropertyChangedEventArgs("IsDisposed");
-		internal static readonly PropertyChangedEventArgs ActivationInProgressPropertyChangedEventArgs = new PropertyChangedEventArgs("ActivationInProgress");
-		internal static readonly PropertyChangedEventArgs InactivationInProgressPropertyChangedEventArgs = new PropertyChangedEventArgs("InactivationInProgress");
+		private static readonly PropertyChangedEventArgs ActivationInProgressPropertyChangedEventArgs = new PropertyChangedEventArgs("ActivationInProgress");
+		private static readonly PropertyChangedEventArgs InactivationInProgressPropertyChangedEventArgs = new PropertyChangedEventArgs("InactivationInProgress");
 
 	}
 }

@@ -175,19 +175,19 @@ namespace ObservableComputations
 		protected bool _isActive;
 		public bool IsActive => _isActive;
 
-		bool _initializationInProgress;
-		bool _uninitializationInProgress;
-		public bool ActivationInProgress => _initializationInProgress;
-		public bool InactivationInProgress => _uninitializationInProgress;
+		bool _activationInProgress;
+		bool _inactivationInProgress;
+		public bool ActivationInProgress => _activationInProgress;
+		public bool InactivationInProgress => _inactivationInProgress;
 
 		void IComputingInternal.SetInactivationInProgress(bool value)
 		{
-			_uninitializationInProgress = value;
+			_inactivationInProgress = value;
 		}
 
 		void IComputingInternal.SetActivationInProgress(bool value)
 		{
-			_initializationInProgress = value;
+			_activationInProgress = value;
 		}
 
 		protected abstract void initializeFromSource();
@@ -198,8 +198,8 @@ namespace ObservableComputations
 		internal abstract void removeFromUpstreamComputings(IComputingInternal computing);
 
 
-		protected List<OcConsumer> _consumers = new List<OcConsumer>();
-		internal  List<IComputingInternal> _downstreamConsumedComputings = new List<IComputingInternal>();
+		protected readonly List<OcConsumer> _consumers = new List<OcConsumer>();
+		internal readonly List<IComputingInternal> _downstreamConsumedComputings = new List<IComputingInternal>();
 
 		#region Implementation of IComputingInternal
 		IEnumerable<OcConsumer> IComputingInternal.Consumers => _consumers;
@@ -307,11 +307,11 @@ namespace ObservableComputations
 		protected bool _isDefaulted = true;
 		public bool IsDefaulted => _isDefaulted;
 
-		protected void setDefaultValue()
+		protected void setDefaultValue(TValue value = default)
 		{
 			if (_isDefaulted) return;
 			_isDefaulted = true;
-			setValue(default, false);
+			setValue(value, false);
 			PropertyChanged?.Invoke(this, Utils.IsDefaultedPropertyChangedEventArgs);
 		}
 

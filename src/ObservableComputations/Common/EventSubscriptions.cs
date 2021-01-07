@@ -7,8 +7,8 @@ namespace ObservableComputations
 {
 	internal struct PropertyChangedEventSubscription
 	{
-		public INotifyPropertyChanged Source;
-		public PropertyChangedEventHandler Handler;
+		public readonly INotifyPropertyChanged Source;
+		public readonly PropertyChangedEventHandler Handler;
 
 		public PropertyChangedEventSubscription(INotifyPropertyChanged source, PropertyChangedEventHandler handler)
 		{
@@ -20,8 +20,8 @@ namespace ObservableComputations
 
 	internal struct MethodChangedEventSubscription
 	{
-		public INotifyMethodChanged Source;
-		public EventHandler<MethodChangedEventArgs> Handler;
+		public readonly INotifyMethodChanged Source;
+		public readonly EventHandler<MethodChangedEventArgs> Handler;
 
 		public MethodChangedEventSubscription(INotifyMethodChanged source, EventHandler<MethodChangedEventArgs> handler)
 		{
@@ -32,8 +32,8 @@ namespace ObservableComputations
 
 	internal struct Subscriptions
 	{
-		public PropertyChangedEventSubscription[] PropertyChangedEventSubscriptions;
-		public MethodChangedEventSubscription[] MethodChangedEventSubscriptions;
+		public readonly PropertyChangedEventSubscription[] PropertyChangedEventSubscriptions;
+		public readonly MethodChangedEventSubscription[] MethodChangedEventSubscriptions;
 
 		public Subscriptions(PropertyChangedEventSubscription[] propertyChangedEventSubscriptions, MethodChangedEventSubscription[] methodChangedEventSubscriptions)
 		{
@@ -46,7 +46,7 @@ namespace ObservableComputations
 	{
 		static readonly ConcurrentQueue<Subscriptions> _subscriptionsQueue = new ConcurrentQueue<Subscriptions>();	
 		private static readonly ManualResetEventSlim[] _newSubscriptionManualResetEvents;
-		internal static Thread[] __threads;
+		private readonly static Thread[] __threads;
 		private static readonly int _threadsCount;
 
 		public static void QueueSubscriptions(

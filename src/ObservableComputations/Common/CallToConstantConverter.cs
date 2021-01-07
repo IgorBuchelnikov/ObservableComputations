@@ -9,7 +9,7 @@ namespace ObservableComputations
 	internal sealed class CallToConstantConverter : ExpressionVisitor
 	{
 		private readonly IEnumerable<ParameterExpression> _parameterExpressions;
-		public List<IComputingInternal> NestedComputings;
+		public readonly List<IComputingInternal> NestedComputings;
 
 		public bool ContainsParametrizedObservableComputationCalls;
 

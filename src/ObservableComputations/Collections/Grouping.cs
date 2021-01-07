@@ -597,7 +597,7 @@ namespace ObservableComputations
 			}
 		}
 
-		internal Group<TSourceItem, TKey> getNewGroup(TSourceItem sourceItem, Position sourceItemPosition, TKey key, Position resultItemPosition)
+		private Group<TSourceItem, TKey> getNewGroup(TSourceItem sourceItem, Position sourceItemPosition, TKey key, Position resultItemPosition)
 		{
 			return new Group<TSourceItem, TKey>(this, key, resultItemPosition, sourceItemPosition, sourceItem);
 		}

@@ -56,7 +56,7 @@ namespace ObservableComputations
 		private readonly ISourceItemValueChangeProcessor _thisAsSourceValueItemChangeProcessor;
 		private readonly ISourceCollectionChangeProcessor _thisAsSourceCollectionChangeProcessor;
 
-		internal Queue<IProcessable>[] _deferredProcessings;
+		private Queue<IProcessable>[] _deferredProcessings;
 
 		private Action<TKey, TValue> _addItemRequestHandler;
 		public Action<TKey, TValue> AddItemRequestHandler
@@ -126,14 +126,14 @@ namespace ObservableComputations
 		private readonly Expression<Func<TSourceItem, TKey>> _keySelectorExpression;
 		private readonly Expression<Func<TSourceItem, TKey>> _keySelectorExpressionOriginal;
 		private readonly ExpressionWatcher.ExpressionInfo _keySelectorExpressionInfo;
-		private int _keySelectorExpressionСallCount;
+		private int _keySelectorExpressionCallCount;
 
 		private readonly bool _keySelectorContainsParametrizedObservableComputationsCalls;
 
 		private readonly Expression<Func<TSourceItem, TValue>> _valueSelectorExpression;
 		private readonly Expression<Func<TSourceItem, TValue>> _valueSelectorExpressionOriginal;
 		private readonly ExpressionWatcher.ExpressionInfo _valueSelectorExpressionInfo;
-		private int _valueSelectorExpressionСallCount;
+		private int _valueSelectorExpressionCallCount;
 
 		private readonly bool _valueSelectorContainsParametrizedObservableComputationsCalls;
 
@@ -151,14 +151,14 @@ namespace ObservableComputations
 		private readonly string _instantiatingStackTrace;
 		private bool _isConsistent = true;
 
-		internal readonly IReadScalar<IEqualityComparer<TKey>> _equalityComparerScalar;
-		internal IEqualityComparer<TKey> _equalityComparer;
+		private readonly IReadScalar<IEqualityComparer<TKey>> _equalityComparerScalar;
+		private IEqualityComparer<TKey> _equalityComparer;
 
 		private IComputing _userCodeIsCalledFrom;
 		public IComputing UserCodeIsCalledFrom => _userCodeIsCalledFrom;
 
-		internal object _handledEventSender;
-		internal EventArgs _handledEventArgs;
+		private object _handledEventSender;
+		private EventArgs _handledEventArgs;
 		public object HandledEventSender => _handledEventSender;
 		public EventArgs HandledEventArgs => _handledEventArgs;
 
@@ -180,7 +180,7 @@ namespace ObservableComputations
 				out _keySelectorExpression, 
 				out _keySelectorContainsParametrizedObservableComputationsCalls, 
 				ref _keySelectorExpressionInfo, 
-				ref _keySelectorExpressionСallCount, 
+				ref _keySelectorExpressionCallCount, 
 				ref _keySelectorFunc, 
 				ref _keyNestedComputings);
 
@@ -190,7 +190,7 @@ namespace ObservableComputations
 				out _valueSelectorExpression, 
 				out _valueSelectorContainsParametrizedObservableComputationsCalls, 
 				ref _valueSelectorExpressionInfo, 
-				ref _valueSelectorExpressionСallCount, 
+				ref _valueSelectorExpressionCallCount, 
 				ref _valueSelectorFunc, 
 				ref _valueNestedComputings);
 
@@ -274,8 +274,8 @@ namespace ObservableComputations
 			{
 				Utils.disposeKeyValueExpressionItemInfos(
 					_itemInfos,
-					_keySelectorExpressionСallCount,
-					_valueSelectorExpressionСallCount,
+					_keySelectorExpressionCallCount,
+					_valueSelectorExpressionCallCount,
 					this);
 
 				Utils.removeDownstreamConsumedComputing(_itemInfos, this);
@@ -349,7 +349,7 @@ namespace ObservableComputations
 				out Func<TValue> func,
 				out List<IComputingInternal> nestedComputings,
 				_valueSelectorExpression,
-				out _valueSelectorExpressionСallCount,
+				out _valueSelectorExpressionCallCount,
 				this,
 				_valueSelectorContainsParametrizedObservableComputationsCalls,
 				_valueSelectorExpressionInfo);
@@ -370,7 +370,7 @@ namespace ObservableComputations
 				out Func<TKey> func,
 				out List<IComputingInternal> nestedComputings,
 				_keySelectorExpression,
-				out _keySelectorExpressionСallCount,
+				out _keySelectorExpressionCallCount,
 				this,
 				_keySelectorContainsParametrizedObservableComputationsCalls,
 				_keySelectorExpressionInfo);
@@ -703,24 +703,24 @@ namespace ObservableComputations
 			}			
 		}
 
-		protected List<OcConsumer> _consumers = new List<OcConsumer>();
-		internal  List<IComputingInternal> _downstreamConsumedComputings = new List<IComputingInternal>();
-		protected bool _isActive;
+		private readonly List<OcConsumer> _consumers = new List<OcConsumer>();
+		private readonly List<IComputingInternal> _downstreamConsumedComputings = new List<IComputingInternal>();
+		private bool _isActive;
 		public bool IsActive => _isActive;
 
-		bool _initializationInProgress;
-		bool _uninitializationInProgress;
-		public bool ActivationInProgress => _initializationInProgress;
-		public bool InactivationInProgress => _uninitializationInProgress;
+		bool _activationInProgress;
+		bool _inactivationInProgress;
+		public bool ActivationInProgress => _activationInProgress;
+		public bool InactivationInProgress => _inactivationInProgress;
 
 		void IComputingInternal.SetInactivationInProgress(bool value)
 		{
-			_uninitializationInProgress = value;
+			_inactivationInProgress = value;
 		}
 
 		void IComputingInternal.SetActivationInProgress(bool value)
 		{
-			_initializationInProgress = value;
+			_activationInProgress = value;
 		}
 
 		private void handleSourceScalarValueChanged(object sender,  PropertyChangedEventArgs e)

@@ -19,7 +19,7 @@ namespace ObservableComputations.Test
 
 		public void AppentLine(string text)
 		{
-			bool success = false;
+			bool success;
 			do
 			{
 				try

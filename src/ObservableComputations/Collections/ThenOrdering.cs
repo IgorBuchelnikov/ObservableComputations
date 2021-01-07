@@ -38,7 +38,7 @@ namespace ObservableComputations
 		public virtual ReadOnlyCollection<IReadScalar<INotifyCollectionChanged>> SourceScalars => new ReadOnlyCollection<IReadScalar<INotifyCollectionChanged>>(new IReadScalar<INotifyCollectionChanged>[]{SourceScalar});
 
 
-		internal IOrderingInternal<TSourceItem> _source;
+		private IOrderingInternal<TSourceItem> _source;
 		private ObservableCollectionWithChangeMarker<TSourceItem> _sourceAsList;
 		bool _rootSourceWrapper;
 
@@ -69,9 +69,9 @@ namespace ObservableComputations
 		private readonly Expression<Func<TSourceItem, TOrderingValue>> _orderingValueSelectorExpressionOriginal;
 		private readonly IReadScalar<ListSortDirection> _sortDirectionScalar;
 		private readonly IReadScalar<IComparer<TOrderingValue>> _comparerScalar;
-		internal readonly Func<TSourceItem, TOrderingValue> _orderingValueSelectorFunc;
-		internal IComparer<TOrderingValue> _comparer;
-		internal ListSortDirection _sortDirection;
+		private readonly Func<TSourceItem, TOrderingValue> _orderingValueSelectorFunc;
+		private IComparer<TOrderingValue> _comparer;
+		private ListSortDirection _sortDirection;
 
 		private RangePositions<RangePosition> _equalOrderingValueRangePositions;
 		private int _thenOrderingsCount;
@@ -347,7 +347,7 @@ namespace ObservableComputations
 			reset();
 		}
 
-		private struct Range
+		private readonly struct Range
 		{
 			public readonly int sourceLowerIndex;
 			public readonly int sourceUpperIndex;
@@ -760,7 +760,6 @@ namespace ObservableComputations
 					}
 					else if (length == 1) // currentUpperIndex == currentLowerIndex
 					{
-;
 						newIndex = getNearIndex(
 							_comparer.Compare(orderingValue, 
 							_orderingValues[lowerIndex]), lowerIndex);
@@ -963,7 +962,7 @@ namespace ObservableComputations
 		{
 			int lowerIndex = 0;
 			int upperIndex = Count - 1;
-			int length = upperIndex - lowerIndex + 1;
+			int length = upperIndex + 1;
 
 			do
 			{

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace ObservableComputations.Common
+namespace ObservableComputations
 {
 	internal class Processable : IProcessable
 	{

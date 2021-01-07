@@ -34,7 +34,7 @@ namespace ObservableComputations
 		private readonly Func<PropertyInfo, bool> _propertyInfoPredicate;
 		private PropertyInfo _propertyInfo;
 
-		internal TResult _defaultValue;
+		private readonly TResult _defaultValue;
 
 		private readonly Action _changeValueAction;
 		private readonly Action _changeHolderAction;

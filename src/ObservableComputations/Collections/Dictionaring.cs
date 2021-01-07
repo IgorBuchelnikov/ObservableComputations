@@ -149,14 +149,14 @@ namespace ObservableComputations
 		private readonly string _instantiatingStackTrace;
 		private bool _isConsistent = true;
 
-		internal readonly IReadScalar<IEqualityComparer<TKey>> _equalityComparerScalar;
-		internal IEqualityComparer<TKey> _equalityComparer;
+		private readonly IReadScalar<IEqualityComparer<TKey>> _equalityComparerScalar;
+		private IEqualityComparer<TKey> _equalityComparer;
 
 		private IComputing _userCodeIsCalledFrom;
 		public IComputing UserCodeIsCalledFrom => _userCodeIsCalledFrom;
 
-		internal object _handledEventSender;
-		internal EventArgs _handledEventArgs;
+		private object _handledEventSender;
+		private EventArgs _handledEventArgs;
 		public object HandledEventSender => _handledEventSender;
 		public EventArgs HandledEventArgs => _handledEventArgs;
 
@@ -699,24 +699,24 @@ namespace ObservableComputations
 			}			
 		}
 
-		protected List<OcConsumer> _consumers = new List<OcConsumer>();
-		internal  List<IComputingInternal> _downstreamConsumedComputings = new List<IComputingInternal>();
-		protected bool _isActive;
+		private List<OcConsumer> _consumers = new List<OcConsumer>();
+		private readonly List<IComputingInternal> _downstreamConsumedComputings = new List<IComputingInternal>();
+		private bool _isActive;
 		public bool IsActive => _isActive;
 
-		bool _initializationInProgress;
-		bool _uninitializationInProgress;
-		public bool ActivationInProgress => _initializationInProgress;
-		public bool InactivationInProgress => _uninitializationInProgress;
+		bool _activationInProgress;
+		bool _inactivationInProgress;
+		public bool ActivationInProgress => _activationInProgress;
+		public bool InactivationInProgress => _inactivationInProgress;
 
 		void IComputingInternal.SetInactivationInProgress(bool value)
 		{
-			_uninitializationInProgress = value;
+			_inactivationInProgress = value;
 		}
 
 		void IComputingInternal.SetActivationInProgress(bool value)
 		{
-			_initializationInProgress = value;
+			_activationInProgress = value;
 		}
 
 		private void handleSourceScalarValueChanged(object sender,  PropertyChangedEventArgs e)

@@ -31,7 +31,6 @@ namespace ObservableComputations.Test
 				_numCompToConsScalarDispatching = new Computing<int>(() => Num).ScalarDispatching(consuminingOcDispatcher, computingOcDispatcher).For(ConsOcConsumer);				
 				_num2ConsToCompScalarDispatching = new Computing<int>(() => Num2).ScalarDispatching(computingOcDispatcher, consuminingOcDispatcher).For(CompOcConsumer);
 				
-				
 				_num2ConsToCompDispatching.PropertyChanged += (sender, args) =>
 				{
 					if (Thread.CurrentThread != computingOcDispatcher._thread)
@@ -114,251 +113,277 @@ namespace ObservableComputations.Test
 		}
 
 		[Test]
+		[Repeat(1)]
+		[Timeout(1000 * 60 * 60 * 20)]
 		public void TestCollectionDispatchingTest()
 		{
-			for (int j = 0; j < 10; j++)
+			OcDispatcher consuminingOcDispatcher = new OcDispatcher();
+			consuminingOcDispatcher.ThreadName = "coNSuminingOcDispatcher";
+			OcDispatcher computingOcDispatcher = new OcDispatcher();
+			computingOcDispatcher.ThreadName = "coMPutingOcDispatcher";
+			OcConsumer consumer = new OcConsumer();
+
+			ObservableCollection<Item> nums = new ObservableCollection<Item>();
+			Filtering<Item> filteredNums = nums.Filtering(i =>
+				i.Num % 3 == 0
+				|| i.Num2ConsToCompDispatching.Value % 5 == 0
+				|| i.Num2ConsToCompScalarDispatching.Value % 5 == 0);
+			CollectionDispatching<Item> dispatchingfilteredNums = filteredNums
+				.CollectionDispatching(consuminingOcDispatcher, computingOcDispatcher).For(consumer);
+
+			dispatchingfilteredNums.CollectionChanged += (sender, args) =>
 			{
-				OcDispatcher consuminingOcDispatcher = new OcDispatcher();
-				consuminingOcDispatcher.ThreadName = "coNSuminingOcDispatcher";
-				OcDispatcher computingOcDispatcher = new OcDispatcher();
-				computingOcDispatcher.ThreadName = "coMPutingOcDispatcher";
-				OcConsumer consumer = new OcConsumer();
 
-				ObservableCollection<Item> nums = new ObservableCollection<Item>();
-				Filtering<Item> filteredNums = nums.Filtering(i => 
-					i.Num % 3 == 0 
-					|| i.Num2ConsToCompDispatching.Value % 5 == 0
-					|| i.Num2ConsToCompScalarDispatching.Value % 5 == 0);
-				CollectionDispatching<Item> dispatchingfilteredNums = filteredNums.CollectionDispatching(consuminingOcDispatcher, computingOcDispatcher).For(consumer);
-
-				dispatchingfilteredNums.CollectionChanged += (sender, args) =>
+				if (Thread.CurrentThread != consuminingOcDispatcher._thread)
 				{
-					
-					if (Thread.CurrentThread != consuminingOcDispatcher._thread)
+					throw new Exception("Wrong thread");
+				}
+			};
+
+			((INotifyPropertyChanged)dispatchingfilteredNums).PropertyChanged += (sender, args) =>
+			{
+				if (Thread.CurrentThread != consuminingOcDispatcher._thread)
+				{
+					throw new Exception("Wrong thread");
+				}
+			};
+
+			filteredNums.CollectionChanged += (sender, args) =>
+			{
+
+				if (Thread.CurrentThread != computingOcDispatcher._thread)
+				{
+					throw new Exception("Wrong thread");
+				}
+			};
+
+			((INotifyPropertyChanged)filteredNums).PropertyChanged += (sender, args) =>
+			{
+				if (Thread.CurrentThread != computingOcDispatcher._thread)
+				{
+					throw new Exception("Wrong thread");
+				}
+			};
+
+			bool stop = false;
+
+			Random stopperRandom = new Random();
+			Thread stopper = new Thread(() =>
+			{
+				Thread.Sleep(TimeSpan.FromSeconds(stopperRandom.Next(2, 20)));
+				stop = true;
+			});
+
+			stopper.Start();
+
+			ThreadStart numsChangerThreadStart = () =>
+			{
+				Random random = new Random();
+				while (!stop)
+				{
+					Thread.Sleep(random.Next(0, 3));
+
+					int nextAction = random.Next(0, 20);
+					if (nextAction > 3) nextAction = nextAction == 4 ? 4 : 0;
+					NotifyCollectionChangedAction action = (NotifyCollectionChangedAction)nextAction;
+					switch (action)
 					{
-						throw new Exception("Wrong thread");
-					}
-				};
-
-				((INotifyPropertyChanged) dispatchingfilteredNums).PropertyChanged += (sender, args) =>
-				{
-					if (Thread.CurrentThread != consuminingOcDispatcher._thread)
-					{
-						throw new Exception("Wrong thread");
-					}
-				};
-
-				filteredNums.CollectionChanged += (sender, args) =>
-				{
-					
-					if (Thread.CurrentThread != computingOcDispatcher._thread)
-					{
-						throw new Exception("Wrong thread");
-					}
-				};
-
-				((INotifyPropertyChanged) filteredNums).PropertyChanged += (sender, args) =>
-				{
-					if (Thread.CurrentThread != computingOcDispatcher._thread)
-					{
-						throw new Exception("Wrong thread");
-					}
-				};
-				
-				bool stop = false;
-
-				Random stopperRandom = new Random();
-				Thread stopper = new Thread(() =>
-				{
-					Thread.Sleep(TimeSpan.FromSeconds(stopperRandom.Next(2, 20)));
-					stop = true;
-				});
-
-				stopper.Start();
-
-				ThreadStart numsChangerThreadStart = () =>
-				{
-					Random random =  new Random();
-					while (!stop)
-					{
-						Thread.Sleep(random.Next(0, 3));
-
-						int nextAction = random.Next(0, 20);
-						if (nextAction > 3) nextAction = nextAction == 4 ? 4 : 0;
-						NotifyCollectionChangedAction action = (NotifyCollectionChangedAction) nextAction;
-						switch (action)
-						{
-							case NotifyCollectionChangedAction.Add:
-								computingOcDispatcher.Invoke(() =>
+						case NotifyCollectionChangedAction.Add:
+							computingOcDispatcher.Invoke(() =>
+							{
+								int upperIndex = nums.Count > 0 ? nums.Count - 1 : 0;
+								int index = random.Next(0, upperIndex);
+								nums.Insert(index,
+									new Item(random.Next(Int32.MinValue, int.MaxValue),
+										random.Next(Int32.MinValue, int.MaxValue), consuminingOcDispatcher,
+										computingOcDispatcher));
+							}, 0);
+							break;
+						case NotifyCollectionChangedAction.Remove:
+							computingOcDispatcher.Invoke(() =>
+							{
+								int upperIndex = nums.Count - 1;
+								if (upperIndex > 0)
 								{
-									int upperIndex = nums.Count > 0 ? nums.Count - 1 : 0;
 									int index = random.Next(0, upperIndex);
-									nums.Insert(index, new Item(random.Next(Int32.MinValue, int.MaxValue), random.Next(Int32.MinValue, int.MaxValue), consuminingOcDispatcher, computingOcDispatcher));
-								}, 0);
-								break;
-							case NotifyCollectionChangedAction.Remove:
-								computingOcDispatcher.Invoke(() =>
+									Item item = nums[index];
+									nums.RemoveAt(index);
+									item.CompOcConsumer.Dispose();
+									consuminingOcDispatcher.BeginInvoke(() => item.ConsOcConsumer.Dispose());
+								}
+							}, 0);
+							break;
+						case NotifyCollectionChangedAction.Replace:
+							computingOcDispatcher.Invoke(() =>
+							{
+								int upperIndex = nums.Count - 1;
+								if (upperIndex > 0)
 								{
-									int upperIndex = nums.Count - 1;
-									if (upperIndex > 0)
-									{
-										int index = random.Next(0, upperIndex);
-										Item item = nums[index];
-										nums.RemoveAt(index);
-										item.CompOcConsumer.Dispose();
-										consuminingOcDispatcher.BeginInvoke(() => item.ConsOcConsumer.Dispose());
-									}
-								}, 0);
-								break;
-							case NotifyCollectionChangedAction.Replace:
-								computingOcDispatcher.Invoke(() =>
-								{
-									int upperIndex = nums.Count - 1;
-									if (upperIndex > 0)
-									{
-										int index = random.Next(0, upperIndex);
-										Item item = nums[index];
-										nums[index] = new Item(random.Next(Int32.MinValue, int.MaxValue), random.Next(Int32.MinValue, int.MaxValue), consuminingOcDispatcher, computingOcDispatcher);
-										item.CompOcConsumer.Dispose();
-										consuminingOcDispatcher.BeginInvoke(() => item.ConsOcConsumer.Dispose());
-									}
+									int index = random.Next(0, upperIndex);
+									Item item = nums[index];
+									nums[index] = new Item(random.Next(Int32.MinValue, int.MaxValue),
+										random.Next(Int32.MinValue, int.MaxValue), consuminingOcDispatcher,
+										computingOcDispatcher);
+									item.CompOcConsumer.Dispose();
+									consuminingOcDispatcher.BeginInvoke(() => item.ConsOcConsumer.Dispose());
+								}
 
-								}, 0);
-								break;
-							case NotifyCollectionChangedAction.Move:
-								computingOcDispatcher.Invoke(() =>
+							}, 0);
+							break;
+						case NotifyCollectionChangedAction.Move:
+							computingOcDispatcher.Invoke(() =>
+							{
+								int upperIndex = nums.Count - 1;
+								if (upperIndex > 0)
 								{
-									int upperIndex = nums.Count - 1;
-									if (upperIndex > 0)
-									{
-										int indexFrom = random.Next(0, upperIndex);
-										int indexTo = random.Next(0, upperIndex);
-										nums.Move(indexFrom, indexTo);
-									}
-								}, 0);
-								break;
-							case NotifyCollectionChangedAction.Reset:
-								computingOcDispatcher.Invoke(() =>
+									int indexFrom = random.Next(0, upperIndex);
+									int indexTo = random.Next(0, upperIndex);
+									nums.Move(indexFrom, indexTo);
+								}
+							}, 0);
+							break;
+						case NotifyCollectionChangedAction.Reset:
+							computingOcDispatcher.Invoke(() =>
+							{
+								Item[] items = nums.ToArray();
+								nums.Clear();
+								foreach (Item item in items)
 								{
-									Item[] items = nums.ToArray();
-									nums.Clear();
-									foreach (Item item in items)
-									{
-										item.CompOcConsumer.Dispose();
-										consuminingOcDispatcher.BeginInvoke(() => item.ConsOcConsumer.Dispose());
-									}
-								}, 0);
+									item.CompOcConsumer.Dispose();
+									consuminingOcDispatcher.BeginInvoke(() => item.ConsOcConsumer.Dispose());
+								}
+							}, 0);
 
-								break;
-							default:
-								throw new ArgumentOutOfRangeException();
-						}
-
+							break;
+						default:
+							throw new ArgumentOutOfRangeException();
 					}
-				};
 
-
-				int threadsCount = 10;   
-				Thread[] numsChangerThreads = new Thread[threadsCount];
-				for (int i = 0; i < threadsCount; i++)
-				{
-					numsChangerThreads[i] = new Thread(numsChangerThreadStart);
-					numsChangerThreads[i].Start();
 				}
+			};
 
-				ThreadStart numValueChangerThreadStart = () =>
-				{
-					Random random = new Random();
-					while (!stop)
-					{
-						Thread.Sleep(random.Next(0, 3));
 
-						consuminingOcDispatcher.Invoke(() =>
-						{
-							int dispatchingfilteredNumsCount = dispatchingfilteredNums.Count;
-							if (dispatchingfilteredNumsCount > 0)
-								dispatchingfilteredNums[random.Next(0, dispatchingfilteredNumsCount - 1)].NumCompToConsDispatching.Value =
-									random.Next(Int32.MinValue, int.MaxValue);
-						}, 0);
-
-					}
-				};
- 
-				Thread[] numValueChangerThreads = new Thread[threadsCount];
-				for (int i = 0; i < threadsCount; i++)
-				{
-					numValueChangerThreads[i] = new Thread(numValueChangerThreadStart);
-					numValueChangerThreads[i].Start();
-				}
-
-				ThreadStart num2ValueChangerThreadStart = () =>
-				{
-					Random random = new Random();
-					while (!stop)
-					{
-						Thread.Sleep(random.Next(0, 3));
-
-						consuminingOcDispatcher.Invoke(() =>
-						{
-							int dispatchingfilteredNumsCount = dispatchingfilteredNums.Count;
-							if (dispatchingfilteredNumsCount > 0)
-								dispatchingfilteredNums[random.Next(0, dispatchingfilteredNumsCount - 1)].Num2 =
-									random.Next(Int32.MinValue, int.MaxValue);
-						}, 0);
-
-					}
-				};
- 
-				Thread[] num2ValueChangerThreads = new Thread[threadsCount];
-				for (int i = 0; i < threadsCount; i++)
-				{
-					num2ValueChangerThreads[i] = new Thread(num2ValueChangerThreadStart);
-					num2ValueChangerThreads[i].Start();
-				}
-
-				for (int i = 0; i < threadsCount; i++)
-				{
-					numsChangerThreads[i].Join();
-				}
-
-				for (int i = 0; i < threadsCount; i++)
-				{
-					numValueChangerThreads[i].Join();
-				}
-
-				for (int i = 0; i < threadsCount; i++)
-				{
-					num2ValueChangerThreads[i].Join();
-				}
-
-				//consuminingOcDispatcherInvoker.Join();
-
-				consuminingOcDispatcher.Invoke(() => {}, 0);
-				computingOcDispatcher.Invoke(() => {}, 0);
-				consuminingOcDispatcher.Invoke(() => {}, 0);
-
-				Assert.IsTrue(nums.Where(i => i.Num % 3 == 0 || i.Num2 % 5 == 0).SequenceEqual(dispatchingfilteredNums));
-				Assert.IsTrue(nums.Where(i => 
-					i.NumCompToConsDispatching.Value % 3 == 0 
-					|| i.Num2ConsToCompDispatching.Value % 5 == 0
-					|| i.Num2ConsToCompScalarDispatching.Value % 5 == 0).SequenceEqual(dispatchingfilteredNums));
-
-				foreach (Item item in nums)
-				{
-					computingOcDispatcher.Invoke(() => item.CompOcConsumer.Dispose());
-					consuminingOcDispatcher.Invoke(() => item.ConsOcConsumer.Dispose());
-				}
-
-				consuminingOcDispatcher.Invoke(() =>
-				{
-					consumer.Dispose();
-				}, 0);
-
-				computingOcDispatcher.Dispose();
-				consuminingOcDispatcher.Dispose();
-
-				Debug.Print("!!!!!");
+			int threadsCount = 10;
+			Thread[] numsChangerThreads = new Thread[threadsCount];
+			for (int i = 0; i < threadsCount; i++)
+			{
+				numsChangerThreads[i] = new Thread(numsChangerThreadStart);
+				numsChangerThreads[i].Start();
 			}
+
+			ThreadStart numValueChangerThreadStart = () =>
+			{
+				Random random = new Random();
+				while (!stop)
+				{
+					Thread.Sleep(random.Next(0, 3));
+
+					consuminingOcDispatcher.Invoke(() =>
+					{
+						int dispatchingfilteredNumsCount = dispatchingfilteredNums.Count;
+						if (dispatchingfilteredNumsCount > 0)
+							dispatchingfilteredNums[random.Next(0, dispatchingfilteredNumsCount - 1)]
+									.NumCompToConsDispatching.Value =
+								random.Next(Int32.MinValue, int.MaxValue);
+					}, 0);
+
+				}
+			};
+
+			Thread[] numValueChangerThreads = new Thread[threadsCount];
+			for (int i = 0; i < threadsCount; i++)
+			{
+				numValueChangerThreads[i] = new Thread(numValueChangerThreadStart);
+				numValueChangerThreads[i].Start();
+			}
+
+			ThreadStart num2ValueChangerThreadStart = () =>
+			{
+				Random random = new Random();
+				while (!stop)
+				{
+					Thread.Sleep(random.Next(0, 3));
+
+					consuminingOcDispatcher.Invoke(() =>
+					{
+						int dispatchingfilteredNumsCount = dispatchingfilteredNums.Count;
+						if (dispatchingfilteredNumsCount > 0)
+							dispatchingfilteredNums[random.Next(0, dispatchingfilteredNumsCount - 1)].Num2 =
+								random.Next(Int32.MinValue, int.MaxValue);
+					}, 0);
+
+				}
+			};
+
+			Thread[] num2ValueChangerThreads = new Thread[threadsCount];
+			for (int i = 0; i < threadsCount; i++)
+			{
+				num2ValueChangerThreads[i] = new Thread(num2ValueChangerThreadStart);
+				num2ValueChangerThreads[i].Start();
+			}
+
+			for (int i = 0; i < threadsCount; i++)
+			{
+				numsChangerThreads[i].Join();
+			}
+
+			for (int i = 0; i < threadsCount; i++)
+			{
+				numValueChangerThreads[i].Join();
+			}
+
+
+			for (int i = 0; i < threadsCount; i++)
+			{
+				num2ValueChangerThreads[i].Join();
+			}
+
+			//consuminingOcDispatcherInvoker.Join();
+
+			consuminingOcDispatcher.Invoke(() => { }, 0);
+			computingOcDispatcher.Invoke(() => { }, 0);
+			consuminingOcDispatcher.Invoke(() => { }, 0);
+
+			Assert.IsTrue(nums.Where(i => i.Num % 3 == 0 || i.Num2 % 5 == 0).SequenceEqual(dispatchingfilteredNums));
+			Assert.IsTrue(nums.Where(i =>
+				i.NumCompToConsDispatching.Value % 3 == 0
+				|| i.Num2ConsToCompDispatching.Value % 5 == 0
+				|| i.Num2ConsToCompScalarDispatching.Value % 5 == 0).SequenceEqual(dispatchingfilteredNums));
+
+			foreach (Item item in nums)
+			{
+				computingOcDispatcher.Invoke(() => item.CompOcConsumer.Dispose());
+				consuminingOcDispatcher.Invoke(() => item.ConsOcConsumer.Dispose());
+			}
+
+			consuminingOcDispatcher.Invoke(() =>
+			{
+				consumer.Dispose();
+			}, 0);
+
+			ManualResetEventSlim computingOcDispatcherDisposed = new ManualResetEventSlim(false);
+			ManualResetEventSlim consuminingOcDispatcherDisposed = new ManualResetEventSlim(false);
+
+			computingOcDispatcher.DisposeFinished += (sender, args) => computingOcDispatcherDisposed.Set();
+			consuminingOcDispatcher.DisposeFinished += (sender, args) => consuminingOcDispatcherDisposed.Set();
+
+			computingOcDispatcher.Dispose();
+			consuminingOcDispatcher.Dispose();
+
+			computingOcDispatcherDisposed.Wait(30000);
+			consuminingOcDispatcherDisposed.Wait(30000);
+
+
+
+			if (!computingOcDispatcher.IsDisposed || !consuminingOcDispatcher.IsDisposed)
+			{
+				computingOcDispatcherDisposed.Dispose();
+				consuminingOcDispatcherDisposed.Dispose();
+				throw new Exception("dispose failed");
+			}
+
+			computingOcDispatcherDisposed.Dispose();
+			consuminingOcDispatcherDisposed.Dispose();
 		}
 	}
 }

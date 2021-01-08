@@ -127,6 +127,7 @@ namespace ObservableComputations
 		internal readonly int _managedThreadId;
 		internal readonly Stack<Invocation> _invocations = new Stack<Invocation>();
 		private NewInvocationBehaviour _newInvocationBehaviour;
+		public event EventHandler DisposeFinished;
 
 		public bool IsAlive => _isAlive;
 		public bool IsDisposed => _isDisposed;
@@ -184,6 +185,7 @@ namespace ObservableComputations
 
 				_isDisposed = true;
 				_newInvocationManualResetEvent.Dispose();
+				DisposeFinished?.Invoke(this, new EventArgs());
 			});
 
 			_managedThreadId = _thread.ManagedThreadId;

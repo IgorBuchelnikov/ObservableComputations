@@ -22,4 +22,6 @@ jobs:
     - name: Build
       run: dotnet build ./src --no-restore --framework netcoreapp2.0
     - name: Test
-      run: dotnet test ./src/ObservableComputations.Test/ObservableComputations.Test.csproj --no-build --verbosity normal
+      run: |
+        cd ./src/ObservableComputations.Test/
+        dotnet test

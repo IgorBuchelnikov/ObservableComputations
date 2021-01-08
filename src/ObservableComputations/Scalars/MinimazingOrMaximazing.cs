@@ -232,11 +232,7 @@ namespace ObservableComputations
 			else
 			{
 				if (!_isDefaulted)
-				{
-					_isDefaulted = true;
-					raisePropertyChanged(nameof(IsDefaulted));
-				}
-				setValue(_defaultValue);
+					setDefaultValue(_defaultValue);
 			}
 		}
 

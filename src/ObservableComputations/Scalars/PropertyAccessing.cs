@@ -336,7 +336,7 @@ namespace ObservableComputations
 
 			if (_propertyHolder == null)
 			{
-				setValue(_defaultValue);
+				setDefaultValue(_defaultValue);
 				return;
 			}
 
@@ -438,9 +438,7 @@ namespace ObservableComputations
 				_initializedFromSource = true;
 			}
 			else
-			{
-				setDefaultValue();
-			}
+				setDefaultValue(_defaultValue);
 		}
 
 		protected override void initialize()

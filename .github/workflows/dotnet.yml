@@ -17,11 +17,11 @@ jobs:
     - name: Setup .NET
       uses: actions/setup-dotnet@v1
       with:
-        dotnet-version: 2.0.3  
+        dotnet-version: 2.1.811  
     - name: Restore dependencies
       run: dotnet restore ./src
     - name: Build
-      run: dotnet build ./src --no-restore --framework netcoreapp2.0
+      run: dotnet build ./src --no-restore --framework netcoreapp2.1
     - name: Test
       run: |
         cd ./src/ObservableComputations.Test/
@@ -31,4 +31,4 @@ jobs:
       uses: coverallsapp/github-action@master
       with:
         github-token: ${{ secrets.GITHUB_TOKEN }}
-        path-to-lcov: ./ObservableComputations.Test/TestResults/coverage.netcoreapp2.0.info
+        path-to-lcov: ./ObservableComputations.Test/TestResults/coverage.netcoreapp2.1.info

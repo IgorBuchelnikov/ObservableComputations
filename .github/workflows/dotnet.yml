@@ -24,4 +24,5 @@ jobs:
     - name: Test
       run: |
         cd ./src/ObservableComputations.Test/
-        dotnet test --no-build --verbosity detailed
+        dotnet restore
+        dotnet test --no-build --verbosity normal

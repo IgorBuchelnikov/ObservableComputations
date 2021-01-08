@@ -149,7 +149,7 @@ namespace ObservableComputations
 			OnPropertyChanged(Utils.CurrentPagePropertyChangedEventArgs);
 		}
 
-		public int PageCount => _pageCount;
+		public int PageCount => _pageCount > 0 ? _pageCount : 1;
 		private INotifyCollectionChanged _source;
 		private IList<TSourceItem> _sourceAsList;
 		private List<TSourceItem> _sourceCopy;

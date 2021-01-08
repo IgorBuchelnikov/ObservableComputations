@@ -1066,7 +1066,7 @@ namespace ObservableComputations
 		}
 	}
 
-	public readonly struct OrderingIndicesRange
+	public struct OrderingIndicesRange
 	{
 		// ReSharper disable once UnusedAutoPropertyAccessor.Global
 		// ReSharper disable once MemberCanBePrivate.Global

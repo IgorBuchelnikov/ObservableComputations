@@ -929,7 +929,7 @@ namespace ObservableComputations
 			}
 		}
 
-		private readonly struct ExpressionCallPaths
+		private struct ExpressionCallPaths
 		{
 			public readonly LambdaExpression Expression;
 			public readonly List<List<Call>> CallPaths;

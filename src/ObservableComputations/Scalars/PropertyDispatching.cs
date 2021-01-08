@@ -119,7 +119,7 @@ namespace ObservableComputations
 			return value;
 		}
 
-		private readonly struct PropertyAccessors
+		private struct PropertyAccessors
 		{
 			public PropertyAccessors(Func<THolder, TResult> getter, Action<THolder, TResult> setter)
 			{

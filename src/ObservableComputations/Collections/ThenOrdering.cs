@@ -351,7 +351,7 @@ namespace ObservableComputations
 			reset();
 		}
 
-		private readonly struct Range
+		private struct Range
 		{
 			public readonly int sourceLowerIndex;
 			public readonly int sourceUpperIndex;

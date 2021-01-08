@@ -8,7 +8,7 @@ using System.Diagnostics.Contracts;
 
 namespace ObservableComputations
 {
-	internal readonly struct Positions<TPosition> where TPosition : Position, new()
+	internal struct Positions<TPosition> where TPosition : Position, new()
 	{
 		public readonly List<TPosition> List;
 
@@ -118,7 +118,7 @@ namespace ObservableComputations
 		public int Index;
 	}
 
-	internal readonly struct RangePositions<TRangePosition> where TRangePosition : RangePosition, new()
+	internal struct RangePositions<TRangePosition> where TRangePosition : RangePosition, new()
 	{
 		public readonly List<TRangePosition> List;
 

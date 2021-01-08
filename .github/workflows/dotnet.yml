@@ -32,4 +32,3 @@ jobs:
       with:
         github-token: ${{ secrets.GITHUB_TOKEN }}
         path-to-lcov: ./src/ObservableComputations.Test/TestResults/coverage.netcoreapp2.1.info
-

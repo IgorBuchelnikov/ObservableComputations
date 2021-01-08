@@ -18,17 +18,18 @@ jobs:
       uses: actions/setup-dotnet@v1
       with:
         dotnet-version: 2.1.811  
-    - name: Restore dependencies
-      run: dotnet restore ./src
-    - name: Build
-      run: dotnet build ./src --no-restore --framework netcoreapp2.1
+    #- name: Restore dependencies
+    #  run: dotnet restore ./src
+    #- name: Build
+    #  run: dotnet build ./src --no-restore --framework netcoreapp2.1
     - name: Test
       run: |
         cd ./src/ObservableComputations.Test/
         dotnet restore
-        dotnet test --framework netcoreapp2.1 --filter Name~Casting --verbosity normal /p:CollectCoverage=true /p:CoverletOutputFormat=lcov 
-    - name: Dubug
+        dotnet test --framework netcoreapp2.1 --filter Name~Casting --verbosity normal /p:CoverletOutput=TestResults/ /p:CollectCoverage=true /p:CoverletOutputFormat=lcov 
+    - name: Debug
       run: |
+        cd ObservableComputations.Test/TestResults/
         pwd
         ls         
     - name: Publish coverage report to coveralls.io

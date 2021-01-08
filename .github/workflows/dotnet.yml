@@ -9,7 +9,8 @@ on:
 jobs:
   build:
 
-    runs-on: self-hosted
+    # runs-on: self-hosted
+    runs-on: ubuntu-latest
     
     steps:
     - uses: actions/checkout@v2
@@ -25,4 +26,9 @@ jobs:
       run: |
         cd ./src/ObservableComputations.Test/
         dotnet restore
-        dotnet test --no-build --verbosity detailed
+        dotnet test --no-build --filter Name~Casting --verbosity normal /p:CollectCoverage=true /p:CoverletOutput=TestResults/ /p:CoverletOutputFormat=lcov 
+    - name: Publish coverage report to coveralls.io
+      uses: coverallsapp/github-action@master
+      with:
+        github-token: ${{ secrets.GITHUB_TOKEN }}
+        path-to-lcov: ./ObservableComputations.Test/TestResults/coverage.netcoreapp2.0.info

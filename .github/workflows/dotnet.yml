@@ -30,10 +30,11 @@ jobs:
     - name: Debug
       run: |
         find . -name "coverage.netcoreapp2.1.info"
-        cd src
+        cd src/ObservableComputations.Test
         pwd
         ls         
     - name: Publish coverage report to coveralls.io
       uses: coverallsapp/github-action@master
       with:
         github-token: ${{ secrets.GITHUB_TOKEN }}
+        path-to-lcov: ./src/ObservableComputations.Test/TestResults/coverage.netcoreapp2.1.info

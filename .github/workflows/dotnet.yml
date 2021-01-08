@@ -24,4 +24,4 @@ jobs:
     - name: Test
       run: |
         cd ./src/ObservableComputations.Test/
-        dotnet test
+        dotnet test --verbosity diag

@@ -10,7 +10,7 @@ jobs:
   build:
 
     runs-on: self-hosted
-
+    
     steps:
     - uses: actions/checkout@v2
     - name: Setup .NET

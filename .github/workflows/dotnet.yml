@@ -26,13 +26,7 @@ jobs:
       run: |
         cd ./src/ObservableComputations.Test/
         dotnet restore
-        dotnet test --framework netcoreapp2.1 --filter Name~Casting --verbosity normal /p:CoverletOutput=TestResults/ /p:CollectCoverage=true /p:CoverletOutputFormat=lcov 
-    - name: Debug
-      run: |
-        find . -name "coverage.netcoreapp2.1.info"
-        cd src/ObservableComputations.Test
-        pwd
-        ls         
+        dotnet test --framework netcoreapp2.1 --filter Name~CollectionDispatching --verbosity normal /p:CoverletOutput=TestResults/ /p:CollectCoverage=true /p:CoverletOutputFormat=lcov         
     - name: Publish coverage report to coveralls.io
       uses: coverallsapp/github-action@master
       with:

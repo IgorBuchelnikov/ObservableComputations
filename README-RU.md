@@ -38,9 +38,9 @@ ObservableComputations не является аналогом [Reactive Extensio
 
  Вы можете сравнить эти библиотеки и ObservableComputations в действии, см. [ObservableComputations.Samples](https://github.com/IgorBuchelnikov/ObservableComputations.Samples).
 
-## Покрытие Unit-тестами
+## Статус
 
-Код покрыт unit-тестами на ?% по данным JetBrains DotCover. Выполнение всех тестов занимает ? часов.
+Реализованы все функции и операторы, необходимые для разработки реальных приложений. Весь критичный код покрыт юнит-тестами. Я работаю над увеличением процента покрытия. 
 
 ## Как установить?
 

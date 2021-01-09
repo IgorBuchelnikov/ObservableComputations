@@ -23,7 +23,7 @@ ObservableComputations не является аналогом [Reactive Extensio
 
 Часть задач, которые Вы решали с помощью [Reactive Extensions](https://github.com/dotnet/reactive), теперь проще и эффективней решить с помощью ObservableComputations. Вы можете использовать ObservableComputations отдельно или вместе с [Reactive Extensions](https://github.com/dotnet/reactive). ObservableComputations не заменит [Reactive Extensions](https://github.com/dotnet/reactive):
 
-* при обработке событий связанной со временем (Throttle, Buffer). ObservableComputation позволяет реализовать связанную со временем обработку событий [CollectionChanged](https://docs.microsoft.com/en-us/dotnet/api/system.collections.specialized.inotifycollectionchanged.collectionchanged?view=netframework-4.8) и [PropertyChanged](https://docs.microsoft.com/en-us/dotnet/api/system.componentmodel.inotifypropertychanged.propertychanged?view=netframework-4.8) путем взаимодествия с [Reactive Extensions](https://github.com/dotnet/reactive) (смотрите пример [здесь](#варианты-реализации-интерфейса-iocDispatcher-и-других-аналогичных-интерфейсов));
+* при обработке событий связанной со временем (Throttle, Buffer). ObservableComputation позволяет реализовать связанную со временем обработку событий [CollectionChanged](https://docs.microsoft.com/en-us/dotnet/api/system.collections.specialized.inotifycollectionchanged.collectionchanged?view=netframework-4.8) и [PropertyChanged](https://docs.microsoft.com/en-us/dotnet/api/system.componentmodel.inotifypropertychanged.propertychanged?view=netframework-4.8) путем взаимодействия с [Reactive Extensions](https://github.com/dotnet/reactive) (смотрите пример [здесь](#варианты-реализации-интерфейса-iocDispatcher-и-других-аналогичных-интерфейсов));
 * при обработке событий не связанных с данными (например, нажатие клавиш), особенно при необходимости комбинировать эти события. Пример взаимодействия ObservableComputations с оператороми комбинирования [Reactive Extensions](https://github.com/dotnet/reactive) смотрите [здесь](#исключение-при-нарушении-целостности);
 * при работе с асихронными операциями ([метод Observable.FromAsyncPattern](https://docs.microsoft.com/en-us/previous-versions/dotnet/reactive-extensions/hh229052(v%3Dvs.103))).
 
@@ -2054,10 +2054,13 @@ namespace ObservableComputationsExamples
 ### Потокобезопасность
 [*CollectionComputing&lt;TSourceItem&gt;*](#полный-список-операторов)) и [*ScalarComputing&lt;TSourceItem&gt;*](#полный-список-операторов))
 
-* поддерживают несколько читающих потоков одновременно, если во время чтения не меняются пишущим потоком. Исключение: вычисление *ConcurrentDictionaring*, которое поддреживает одновременно несколько читающих потоков и один пишущий. 
+* поддерживают несколько читающих потоков одновременно, если во время чтения не меняются пишущим потоком. Исключение: вычисление *ConcurrentDictionaring*, которое поддерживает одновременно несколько читающих потоков и один пишущий. 
 * не поддерживают одновременные изменения несколькими пишущими потоками. 
 
-Вычисления изменяются пишущим потоком когда обрабатывают события [CollectionChanged](https://docs.microsoft.com/en-us/dotnet/api/system.collections.specialized.inotifycollectionchanged.collectionchanged?view=netframework-4.8) и [PropertyChanged](https://docs.microsoft.com/en-us/dotnet/api/system.componentmodel.inotifypropertychanged.propertychanged?view=netframework-4.8) объектов-источников.
+Вычисления изменяются пишущим потоком когда 
+
+* обрабатывают события [CollectionChanged](https://docs.microsoft.com/en-us/dotnet/api/system.collections.specialized.inotifycollectionchanged.collectionchanged?view=netframework-4.8) и [PropertyChanged](https://docs.microsoft.com/en-us/dotnet/api/system.componentmodel.inotifypropertychanged.propertychanged?view=netframework-4.8) объектов-источников
+* выполняется [активация или инактивация](#два-состояния-вычисления-активное-и-неактивное)
 
 ### Загрузка исходных данных в фоновом потоке
 Код окна WPF приложения:  
@@ -3124,15 +3127,20 @@ public class WpfOcOcDispatcher : IOcDispatcher
    #endregion
 }
 ```
-В этой реализации вызывается метод [System.Windows.Threading.Dispatcher.Invoke](https://docs.microsoft.com/en-us/dotnet/api/system.windows.threading.Dispatcher.invoke?view=netcore-3.1). В других реализациях мы вызывали [System.Windows.Threading.Dispatcher.BeginInvoke]([System.Windows.Threading.Dispatcher.Invoke](https://docs.microsoft.com/en-us/dotnet/api/system.windows.threading.Dispatcher.invoke?view=netcore-3.1)). На этом варианты реализации не ограничиваются, например, вы можете использвать реализацию, которая будет буферизировать изменеия коллекции c помощью [Reactive Extensions](https://github.com/dotnet/reactive):  
+В этой реализации вызывается метод [System.Windows.Threading.Dispatcher.Invoke](https://docs.microsoft.com/en-us/dotnet/api/system.windows.threading.Dispatcher.invoke?view=netcore-3.1). В других реализациях мы вызывали [System.Windows.Threading.Dispatcher.BeginInvoke]([System.Windows.Threading.Dispatcher.Invoke](https://docs.microsoft.com/en-us/dotnet/api/system.windows.threading.Dispatcher.invoke?view=netcore-3.1)). На этом варианты реализации не ограничиваются.
+
+#### Буферизация изменений
+
+Когда в коллекцию вносится много изменений за короткий промежуток времени, и вы не хотите делать отдельный вызов целевого диспетчера для каждого изменения, а хотите выполнить все изменения за 1 вызов целевого диспетчера (batching), вы можете использовать такую реализацию *IOcDispatcher*:
+
 ```csharp
 public class WpfOcOcDispatcher : IOcDispatcher, IDisposable
 {
 	Subject<Action> _actions;
 
-	private System.Windows.OcDispatcher _ocDispatcher;
+	private System.Windows.Dispatcher _ocDispatcher;
 
-	public WpfOcOcDispatcher(System.Windows.OcDispatcher ocDispatcher)
+	public WpfOcOcDispatcher(System.Windows.Dispatcher ocDispatcher)
 	{
 		_ocDispatcher = ocDispatcher;
 
@@ -3169,7 +3177,77 @@ public class WpfOcOcDispatcher : IOcDispatcher, IDisposable
 }
 ```
 
-При дисптчеризации свойств (*PropertyDispatching*) и *IReadScalar&lt;TValue&gt;* (*ScalarDispatching*) может быть полезен ThrottlingOcDispatcher:
+Другой вариант поставить на приостановить диспетчер на время изменений:
+
+```c#
+using System;
+using System.Collections.Generic;
+using System.Windows.Threading;
+using ObservableComputations;
+
+namespace Trader.Domain.Infrastucture
+{
+	public class WpfOcDispatcher : IOcDispatcher
+	{
+		private Dispatcher _dispatcher;
+
+		public List<Action> _deferredActions = new List<Action>();
+
+		private bool _isPaused;
+
+		public bool IsPaused
+		{
+			get => _isPaused;
+			set
+			{
+				if (_isPaused && !value)
+				{
+					_dispatcher.Invoke(() =>
+					{
+						foreach (Action deferredAction in _deferredActions)
+						{
+							deferredAction();
+						}
+					}, DispatcherPriority.Send);
+
+					_deferredActions.Clear();
+				}
+
+				_isPaused = value;
+			}
+		}
+
+		public WpfOcDispatcher(Dispatcher dispatcher)
+		{
+			_dispatcher = dispatcher;
+		}
+
+		#region Implementation of IDispatcher
+
+		public void Invoke(Action action, int priority, object parameter, object context)
+		{
+			if (_isPaused)
+			{
+				_deferredActions.Add(action);
+				return;
+			}
+
+			if (_dispatcher.CheckAccess())
+				action();
+			else
+				_dispatcher.Invoke(action, DispatcherPriority.Send);
+		}
+
+		#endregion
+	}
+}
+```
+
+Пример использования такого диспетчера см. [здесь](https://github.com/IgorBuchelnikov/Dynamic.Trader/blob/master/ObservableComputationsEdition/ComputationsInBackgroundThread/Trader.Domain/Infrastucture/WpfOcDispatcher.cs). 
+
+#### Подавление слишком частых изменений
+
+При диспетчеризации свойств (*PropertyDispatching*) и *IReadScalar&lt;TValue&gt;* (*ScalarDispatching*) может быть полезен *ThrottlingOcDispatcher* для подавления слишком частых изменений (например при пользовательском вводе):
 
 ```
 public class ThrottlingOcDispatcher : IOcDispatcher, IDisposable
@@ -3209,37 +3287,7 @@ public class ThrottlingOcDispatcher : IOcDispatcher, IDisposable
 }
 ```
 
-Может возникнуть необходимость в реализации завясящей от того, какие изменения прозводятся делегатом *action* переданным в метод *Invoke*. Для этого можно анализировать поараметр *context* передаваемый в метод *IOcDispatcher.Invoke* или использовать интерфейсы вместо интерфейса *IOcDispatcher*:
-
-```csharp
-	public interface ICollectionDestinationOcDispatcher
-	{
-		void Invoke(
-			Action action, 
-			ICollectionComputing collectionDispatching,
-			NotifyCollectionChangedAction notifyCollectionChangedAction,
-			object newItem,
-			object oldItem,
-			int newIndex,
-			int oldIndex);
-	}
-
-	public interface IPropertySourceOcDispatcher
-	{
-		/// <summary>
-		/// 
-		/// </summary>
-		/// <param name="action"></param>
-		/// <param name="propertyDispatching"></param>
-		/// <param name="initializing">false if setter of Value property is called</param>
-		/// <param name="newValue">new value if setter of Value property is called </param>
-		void Invoke(
-			Action action, 
-			IComputing propertyDispatching,
-			bool initializing,
-			object newValue);
-	}
-```
+Пример использования такого диспетчера см. [здесь](https://github.com/IgorBuchelnikov/Dynamic.Trader/blob/master/ObservableComputationsEdition/ComputationsInMainThread/Trader.Domain/Infrastucture/ThrottlingDispatcher.cs) and [здесь](https://github.com/IgorBuchelnikov/Dynamic.Trader/blob/master/ObservableComputationsEdition/ComputationsInBackgroundThread/Trader.Domain/Infrastucture/ThrottlingDispatcher.cs). 
 
 ### Приоритизация в класса *OcDispatcher* class
 

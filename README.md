@@ -2158,7 +2158,10 @@ Instead of  *priceDiscounted.PropertyChanged* we subscribe to *priceDiscounted.P
 * supports multiple reader threads simultaneously, as long there are no modifications made by the writer thread. Exclusion: *ConcurrentDictionaring* computation, which supports simultaneous multiple reader threads and single writer thread.
 * do not support simultaneous modifications by multiple writer threads. 
 
-The computations are modified by the writer thread while they handle [CollectionChanged](https://docs.microsoft.com/en-us/dotnet/api/system.collections.specialized.inotifycollectionchanged.collectionchanged?view=netframework-4.8) and [PropertyChanged](https://docs.microsoft.com/en-us/dotnet/api/system.componentmodel.inotifypropertychanged.propertychanged?view=netframework-4.8) events of source objects.
+The computations are modified by the writer thread 
+
+* while they handle [CollectionChanged](https://docs.microsoft.com/en-us/dotnet/api/system.collections.specialized.inotifycollectionchanged.collectionchanged?view=netframework-4.8) and [PropertyChanged](https://docs.microsoft.com/en-us/dotnet/api/system.componentmodel.inotifypropertychanged.propertychanged?view=netframework-4.8) events of source objects
+* [activation or inactivation](#two-computation-states-active-and-inactive) is being performed
 
 ### Loading source data in a background thread
 Code of the window of the WPF application:
@@ -3145,9 +3148,19 @@ public class WpfOcDispatcher : IOcDispatcher
     #endregion
 }
 ```
-In this implementation, the [System.Windows.Threading.Dispatcher.Invoke](https://docs.microsoft.com/en-us/dotnet/api/system.windows.threading.Dispatcher.invoke?view=netcore-3.1) method is called. In other implementations, we called [System.Windows.Threading.Dispatcher.BeginInvoke]([System.Windows.Threading.Dispatcher.Invoke](https://docs.microsoft.com/en-us/dotnet/api/system.windows.threading.Dispatcher.invoke?view=netcore-3.1)). The implementation options are not limited to this, for example, you can use an implementation that will buffer a collection changes using [Reactive Extensions](https://github.com/dotnet/reactive):
+In this implementation, the [System.Windows.Threading.Dispatcher.Invoke](https://docs.microsoft.com/en-us/dotnet/api/system.windows.threading.Dispatcher.invoke?view=netcore-3.1) method is called. In other implementations, we called [System.Windows.Threading.Dispatcher.BeginInvoke]([System.Windows.Threading.Dispatcher.Invoke](https://docs.microsoft.com/en-us/dotnet/api/system.windows.threading.Dispatcher.invoke?view=netcore-3.1)). The implementation options are not limited to this.
+
+#### Buffering changes
+
+When there are many changes to a collection in a short period of time and you do not want to make the separate invocation of  destination dispatcher for each change and want to batch changes you may use such implementation of IOcDispatcher:
+
 ```csharp
-public class WpfOcOcDispatcher : IOcDispatcher, IDisposable
+using System;
+using System.Reactive.Linq;
+using System.Reactive.Subjects;
+using ObservableComputations;
+
+public class WpfOcDispatcher : IOcDispatcher, IDisposable
 {
 	Subject<Action> _actions;
 
@@ -3190,7 +3203,78 @@ public class WpfOcOcDispatcher : IOcDispatcher, IDisposable
 }
 ```
 
-When dispatching properties (*PropertyDispatching*) and *IReadScalar&lt;TValue&gt;* (*ScalarDispatching*), ThrottlingOcDispatcher can be useful:
+Another option is to suspend the dispatcher during many changes to the collection:
+
+```c#
+using System;
+using System.Collections.Generic;
+using System.Windows.Threading;
+using ObservableComputations;
+
+namespace Trader.Domain.Infrastucture
+{
+	public class WpfOcDispatcher : IOcDispatcher
+	{
+		private Dispatcher _dispatcher;
+
+		public List<Action> _deferredActions = new List<Action>();
+
+		private bool _isPaused;
+
+		public bool IsPaused
+		{
+			get => _isPaused;
+			set
+			{
+				if (_isPaused && !value)
+				{
+					_dispatcher.Invoke(() =>
+					{
+						foreach (Action deferredAction in _deferredActions)
+						{
+							deferredAction();
+						}
+					}, DispatcherPriority.Send);
+
+					_deferredActions.Clear();
+				}
+
+				_isPaused = value;
+			}
+		}
+
+		public WpfOcDispatcher(Dispatcher dispatcher)
+		{
+			_dispatcher = dispatcher;
+		}
+
+		#region Implementation of IDispatcher
+
+		public void Invoke(Action action, int priority, object parameter, object context)
+		{
+			if (_isPaused)
+			{
+				_deferredActions.Add(action);
+				return;
+			}
+
+			if (_dispatcher.CheckAccess())
+				action();
+			else
+				_dispatcher.Invoke(action, DispatcherPriority.Send);
+		}
+
+		#endregion
+	}
+}
+```
+
+Usage example of this implementation see [here](https://github.com/IgorBuchelnikov/Dynamic.Trader/blob/master/ObservableComputationsEdition/ComputationsInBackgroundThread/Trader.Domain/Infrastucture/WpfOcDispatcher.cs).
+
+#### User input
+
+When dispatching properties (*PropertyDispatching*) and *IReadScalar&lt;TValue&gt;* (*ScalarDispatching*), ThrottlingOcDispatcher can be useful for suppressing overly frequent changes (for example a user input):
+
 ```csharp
 public class ThrottlingOcDispatcher : IOcDispatcher, IDisposable
 {
@@ -3229,49 +3313,7 @@ public class ThrottlingOcDispatcher : IOcDispatcher, IDisposable
 }
 ```
 
-It may be necessary to implement depending on what changes are made by the *action* delegate passed to the *Invoke* method. To do this, you can analyze the *context* parameter passed to the *IOcDispatcher.Invoke* method or use the following interfaces instead of *IOcDispatcher* interface:
-
-```csharp
-	public interface ICollectionDestinationOcDispatcher
-	{
-		void InvokeCollectionChange(
-			Action action, 
-			int priority, 
-			object parameter,
-			ICollectionComputing context,
-			NotifyCollectionChangedAction notifyCollectionChangedAction,
-			object newItem,
-			object oldItem,
-			int newIndex,
-			int oldIndex);
-
-		void InvokeInitialization(
-			Action action,
-			int priority, 
-			object parameter,
-			ICollectionComputing context);
-	}
-
-	public interface IPropertySourceOcDispatcher
-	{
-		/// <summary>
-		/// 
-		/// </summary>
-		/// <param name="action"></param>
-		/// <param name="propertyDispatching"></param>
-		/// <param name="initializing">false if setter of Value property is called</param>
-		/// <param name="newValue">new value if setter of Value property is called </param>
-		void Invoke(
-			Action action, 
-			int priority, 
-			object parameter,
-			IComputing propertyDispatching,
-			bool initializing,
-			object newValue);
-	}
-```
-
-
+Usage example of this implementation see [here](https://github.com/IgorBuchelnikov/Dynamic.Trader/blob/master/ObservableComputationsEdition/ComputationsInMainThread/Trader.Domain/Infrastucture/ThrottlingDispatcher.cs) and [here](https://github.com/IgorBuchelnikov/Dynamic.Trader/blob/master/ObservableComputationsEdition/ComputationsInBackgroundThread/Trader.Domain/Infrastucture/ThrottlingDispatcher.cs). 
 
 ### Prioritization in the *OcDispatcher* class
 

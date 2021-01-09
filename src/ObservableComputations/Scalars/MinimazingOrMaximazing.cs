@@ -224,7 +224,7 @@ namespace ObservableComputations
 				if (_isDefaulted)
 				{
 					_isDefaulted = false;
-					raisePropertyChanged(nameof(IsDefaulted));
+					raisePropertyChanged(Utils.IsDefaultedPropertyChangedEventArgs);
 				}
 
 				setValue(value);
@@ -287,7 +287,7 @@ namespace ObservableComputations
 					else
 					{
 						_isDefaulted = false;
-						raisePropertyChanged(nameof(IsDefaulted));
+						raisePropertyChanged(Utils.IsDefaultedPropertyChangedEventArgs);
 						_valueCount = 1;
 						setValue(addedSourceItem);
 					}

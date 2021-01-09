@@ -20,44 +20,48 @@ namespace ObservableComputations.Test
 	{
 		public class Item : INotifyPropertyChanged
 		{
-			public OcConsumer CompOcConsumer = new OcConsumer();
-			public OcConsumer ConsOcConsumer = new OcConsumer();
-			public Item(int num, int num2, OcDispatcher consuminingOcDispatcher, OcDispatcher computingOcDispatcher)
+			public OcConsumer Consumer = new OcConsumer();
+			public Item(int num, int num2, OcDispatcher mainOcDispatcher, OcDispatcher backgroundOcDispatcher)
 			{
 				_num = num;
 				_num2 = num2;
-				_numCompToConsDispatching = new PropertyDispatching<Item, int>(() => Num, consuminingOcDispatcher, computingOcDispatcher).For(ConsOcConsumer);
-				_num2ConsToCompDispatching = new PropertyDispatching<Item, int>(() => Num2, computingOcDispatcher, consuminingOcDispatcher).For(CompOcConsumer);
-				_numCompToConsScalarDispatching = new Computing<int>(() => Num).ScalarDispatching(consuminingOcDispatcher, computingOcDispatcher).For(ConsOcConsumer);				
-				_num2ConsToCompScalarDispatching = new Computing<int>(() => Num2).ScalarDispatching(computingOcDispatcher, consuminingOcDispatcher).For(CompOcConsumer);
+				_numBackgroundToMainDispatching = new PropertyDispatching<Item, int>(() => Num, mainOcDispatcher, backgroundOcDispatcher).For(Consumer);
+				_num2MainToBackgroundDispatching = new PropertyDispatching<Item, int>(() => Num2, backgroundOcDispatcher, mainOcDispatcher).For(Consumer);
+				_numBackgroundToMainScalarDispatching = new Computing<int>(() => Num).ScalarDispatching(mainOcDispatcher, backgroundOcDispatcher).For(Consumer);				
+				_num2MainToBackgroundScalarDispatching = new Computing<int>(() => Num2).ScalarDispatching(backgroundOcDispatcher, mainOcDispatcher).For(Consumer);
 				
-				_num2ConsToCompDispatching.PropertyChanged += (sender, args) =>
+				_numBackgroundToMainScalarDispatching.SetValueRequestHandler = i =>
 				{
-					if (Thread.CurrentThread != computingOcDispatcher._thread)
+					backgroundOcDispatcher.Invoke(() => Num = i);
+				};
+
+				_num2MainToBackgroundDispatching.PropertyChanged += (sender, args) =>
+				{
+					if (Thread.CurrentThread != backgroundOcDispatcher._thread)
 					{
 						throw new Exception("Wrong thread");
 					}
 				};
 				
-				_num2ConsToCompScalarDispatching.PropertyChanged += (sender, args) =>
+				_num2MainToBackgroundScalarDispatching.PropertyChanged += (sender, args) =>
 				{
-					if (Thread.CurrentThread != computingOcDispatcher._thread)
+					if (Thread.CurrentThread != backgroundOcDispatcher._thread)
 					{
 						throw new Exception("Wrong thread");
 					}
 				};
 
-				_numCompToConsDispatching.PropertyChanged += (sender, args) =>
+				_numBackgroundToMainDispatching.PropertyChanged += (sender, args) =>
 				{
-					if (Thread.CurrentThread != consuminingOcDispatcher._thread)
+					if (Thread.CurrentThread != mainOcDispatcher._thread)
 					{
 						throw new Exception("Wrong thread");
 					}
 				};
 
-				_numCompToConsScalarDispatching.PropertyChanged += (sender, args) =>
+				_numBackgroundToMainScalarDispatching.PropertyChanged += (sender, args) =>
 				{
-					if (Thread.CurrentThread != consuminingOcDispatcher._thread)
+					if (Thread.CurrentThread != mainOcDispatcher._thread)
 					{
 						throw new Exception("Wrong thread");
 					}
@@ -78,17 +82,17 @@ namespace ObservableComputations.Test
 				set => updatePropertyValue(ref _num2, value);
 			}
 
-			private PropertyDispatching<Item,int> _numCompToConsDispatching;
-			public PropertyDispatching<Item, int> NumCompToConsDispatching => _numCompToConsDispatching;
+			private PropertyDispatching<Item,int> _numBackgroundToMainDispatching;
+			public PropertyDispatching<Item, int> NumBackgroundToMainDispatching => _numBackgroundToMainDispatching;
 
-			private PropertyDispatching<Item,int> _num2ConsToCompDispatching;
-			public PropertyDispatching<Item, int> Num2ConsToCompDispatching => _num2ConsToCompDispatching;
+			private PropertyDispatching<Item,int> _num2MainToBackgroundDispatching;
+			public PropertyDispatching<Item, int> Num2MainToBackgroundDispatching => _num2MainToBackgroundDispatching;
 
-			private ScalarDispatching<int> _numCompToConsScalarDispatching;
-			public ScalarDispatching<int> NumCompToConsScalarDispatching => _numCompToConsScalarDispatching;
+			private ScalarDispatching<int> _numBackgroundToMainScalarDispatching;
+			public ScalarDispatching<int> NumBackgroundToMainScalarDispatching => _numBackgroundToMainScalarDispatching;
 
-			private ScalarDispatching<int> _num2ConsToCompScalarDispatching;
-			public ScalarDispatching<int> Num2ConsToCompScalarDispatching => _num2ConsToCompScalarDispatching;
+			private ScalarDispatching<int> _num2MainToBackgroundScalarDispatching;
+			public ScalarDispatching<int> Num2MainToBackgroundScalarDispatching => _num2MainToBackgroundScalarDispatching;
 
 
 			#region INotifyPropertyChanged imlementation
@@ -113,28 +117,27 @@ namespace ObservableComputations.Test
 		}
 
 		[Test]
-		[Repeat(10)]
+		[Repeat(100)]
 		[Timeout(1000 * 60 * 60 * 20)]
 		public void TestCollectionDispatchingTest()
 		{
-			OcDispatcher consuminingOcDispatcher = new OcDispatcher();
-			consuminingOcDispatcher.ThreadName = "coNSuminingOcDispatcher";
-			OcDispatcher computingOcDispatcher = new OcDispatcher();
-			computingOcDispatcher.ThreadName = "coMPutingOcDispatcher";
+			OcDispatcher mainOcDispatcher = new OcDispatcher();
+			mainOcDispatcher.ThreadName = "mainOcDispatcher";
+			OcDispatcher backgroundOcDispatcher = new OcDispatcher();
+			backgroundOcDispatcher.ThreadName = "backgroundOcDispatcher";
 			OcConsumer consumer = new OcConsumer();
 
 			ObservableCollection<Item> nums = new ObservableCollection<Item>();
 			Filtering<Item> filteredNums = nums.Filtering(i =>
 				i.Num % 3 == 0
-				|| i.Num2ConsToCompDispatching.Value % 5 == 0
-				|| i.Num2ConsToCompScalarDispatching.Value % 5 == 0);
+				|| i.Num2MainToBackgroundDispatching.Value % 5 == 0
+				|| i.Num2MainToBackgroundScalarDispatching.Value % 5 == 0);
 			CollectionDispatching<Item> dispatchingfilteredNums = filteredNums
-				.CollectionDispatching(consuminingOcDispatcher, computingOcDispatcher).For(consumer);
+				.CollectionDispatching(mainOcDispatcher, backgroundOcDispatcher).For(consumer);
 
 			dispatchingfilteredNums.CollectionChanged += (sender, args) =>
 			{
-
-				if (Thread.CurrentThread != consuminingOcDispatcher._thread)
+				if (Thread.CurrentThread != mainOcDispatcher._thread)
 				{
 					throw new Exception("Wrong thread");
 				}
@@ -142,7 +145,7 @@ namespace ObservableComputations.Test
 
 			((INotifyPropertyChanged)dispatchingfilteredNums).PropertyChanged += (sender, args) =>
 			{
-				if (Thread.CurrentThread != consuminingOcDispatcher._thread)
+				if (Thread.CurrentThread != mainOcDispatcher._thread)
 				{
 					throw new Exception("Wrong thread");
 				}
@@ -151,7 +154,7 @@ namespace ObservableComputations.Test
 			filteredNums.CollectionChanged += (sender, args) =>
 			{
 
-				if (Thread.CurrentThread != computingOcDispatcher._thread)
+				if (Thread.CurrentThread != backgroundOcDispatcher._thread)
 				{
 					throw new Exception("Wrong thread");
 				}
@@ -159,7 +162,7 @@ namespace ObservableComputations.Test
 
 			((INotifyPropertyChanged)filteredNums).PropertyChanged += (sender, args) =>
 			{
-				if (Thread.CurrentThread != computingOcDispatcher._thread)
+				if (Thread.CurrentThread != backgroundOcDispatcher._thread)
 				{
 					throw new Exception("Wrong thread");
 				}
@@ -189,18 +192,18 @@ namespace ObservableComputations.Test
 					switch (action)
 					{
 						case NotifyCollectionChangedAction.Add:
-							computingOcDispatcher.Invoke(() =>
+							backgroundOcDispatcher.Invoke(() =>
 							{
 								int upperIndex = nums.Count > 0 ? nums.Count - 1 : 0;
 								int index = random.Next(0, upperIndex);
 								nums.Insert(index,
 									new Item(random.Next(Int32.MinValue, int.MaxValue),
-										random.Next(Int32.MinValue, int.MaxValue), consuminingOcDispatcher,
-										computingOcDispatcher));
+										random.Next(Int32.MinValue, int.MaxValue), mainOcDispatcher,
+										backgroundOcDispatcher));
 							}, 0);
 							break;
 						case NotifyCollectionChangedAction.Remove:
-							computingOcDispatcher.Invoke(() =>
+							backgroundOcDispatcher.Invoke(() =>
 							{
 								int upperIndex = nums.Count - 1;
 								if (upperIndex > 0)
@@ -208,13 +211,12 @@ namespace ObservableComputations.Test
 									int index = random.Next(0, upperIndex);
 									Item item = nums[index];
 									nums.RemoveAt(index);
-									item.CompOcConsumer.Dispose();
-									consuminingOcDispatcher.BeginInvoke(() => item.ConsOcConsumer.Dispose());
+									item.Consumer.Dispose();
 								}
 							}, 0);
 							break;
 						case NotifyCollectionChangedAction.Replace:
-							computingOcDispatcher.Invoke(() =>
+							backgroundOcDispatcher.Invoke(() =>
 							{
 								int upperIndex = nums.Count - 1;
 								if (upperIndex > 0)
@@ -222,16 +224,15 @@ namespace ObservableComputations.Test
 									int index = random.Next(0, upperIndex);
 									Item item = nums[index];
 									nums[index] = new Item(random.Next(Int32.MinValue, int.MaxValue),
-										random.Next(Int32.MinValue, int.MaxValue), consuminingOcDispatcher,
-										computingOcDispatcher);
-									item.CompOcConsumer.Dispose();
-									consuminingOcDispatcher.BeginInvoke(() => item.ConsOcConsumer.Dispose());
+										random.Next(Int32.MinValue, int.MaxValue), mainOcDispatcher,
+										backgroundOcDispatcher);
+									item.Consumer.Dispose();
 								}
 
 							}, 0);
 							break;
 						case NotifyCollectionChangedAction.Move:
-							computingOcDispatcher.Invoke(() =>
+							backgroundOcDispatcher.Invoke(() =>
 							{
 								int upperIndex = nums.Count - 1;
 								if (upperIndex > 0)
@@ -243,14 +244,13 @@ namespace ObservableComputations.Test
 							}, 0);
 							break;
 						case NotifyCollectionChangedAction.Reset:
-							computingOcDispatcher.Invoke(() =>
+							backgroundOcDispatcher.Invoke(() =>
 							{
 								Item[] items = nums.ToArray();
 								nums.Clear();
 								foreach (Item item in items)
 								{
-									item.CompOcConsumer.Dispose();
-									consuminingOcDispatcher.BeginInvoke(() => item.ConsOcConsumer.Dispose());
+									item.Consumer.Dispose();
 								}
 							}, 0);
 
@@ -278,12 +278,12 @@ namespace ObservableComputations.Test
 				{
 					Thread.Sleep(random.Next(0, 3));
 
-					consuminingOcDispatcher.Invoke(() =>
+					mainOcDispatcher.Invoke(() =>
 					{
 						int dispatchingfilteredNumsCount = dispatchingfilteredNums.Count;
 						if (dispatchingfilteredNumsCount > 0)
 							dispatchingfilteredNums[random.Next(0, dispatchingfilteredNumsCount - 1)]
-									.NumCompToConsDispatching.Value =
+									.NumBackgroundToMainDispatching.Value =
 								random.Next(Int32.MinValue, int.MaxValue);
 					}, 0);
 
@@ -297,6 +297,33 @@ namespace ObservableComputations.Test
 				numValueChangerThreads[i].Start();
 			}
 
+			ThreadStart numValueChanger2ThreadStart = () =>
+			{
+				Random random = new Random();
+				while (!stop)
+				{
+					Thread.Sleep(random.Next(0, 3));
+
+					mainOcDispatcher.Invoke(() =>
+					{
+						int dispatchingfilteredNumsCount = dispatchingfilteredNums.Count;
+						if (dispatchingfilteredNumsCount > 0)
+							dispatchingfilteredNums[random.Next(0, dispatchingfilteredNumsCount - 1)]
+									.NumBackgroundToMainScalarDispatching.Value =
+								random.Next(Int32.MinValue, int.MaxValue);
+					});
+
+				}
+			};
+
+			Thread[] numValueChanger2Threads = new Thread[threadsCount];
+			for (int i = 0; i < threadsCount; i++)
+			{
+				numValueChanger2Threads[i] = new Thread(numValueChanger2ThreadStart);
+				numValueChanger2Threads[i].Start();
+			}
+
+
 			ThreadStart num2ValueChangerThreadStart = () =>
 			{
 				Random random = new Random();
@@ -304,13 +331,13 @@ namespace ObservableComputations.Test
 				{
 					Thread.Sleep(random.Next(0, 3));
 
-					consuminingOcDispatcher.Invoke(() =>
+					mainOcDispatcher.Invoke(() =>
 					{
 						int dispatchingfilteredNumsCount = dispatchingfilteredNums.Count;
 						if (dispatchingfilteredNumsCount > 0)
 							dispatchingfilteredNums[random.Next(0, dispatchingfilteredNumsCount - 1)].Num2 =
 								random.Next(Int32.MinValue, int.MaxValue);
-					}, 0);
+					});
 
 				}
 			};
@@ -332,6 +359,10 @@ namespace ObservableComputations.Test
 				numValueChangerThreads[i].Join();
 			}
 
+			for (int i = 0; i < threadsCount; i++)
+			{
+				numValueChanger2Threads[i].Join();
+			}
 
 			for (int i = 0; i < threadsCount; i++)
 			{
@@ -340,50 +371,45 @@ namespace ObservableComputations.Test
 
 			//consuminingOcDispatcherInvoker.Join();
 
-			consuminingOcDispatcher.Invoke(() => { }, 0);
-			computingOcDispatcher.Invoke(() => { }, 0);
-			consuminingOcDispatcher.Invoke(() => { }, 0);
+			mainOcDispatcher.Invoke(() => { });
+			backgroundOcDispatcher.Invoke(() => { });
+			mainOcDispatcher.Invoke(() => { });
 
 			Assert.IsTrue(nums.Where(i => i.Num % 3 == 0 || i.Num2 % 5 == 0).SequenceEqual(dispatchingfilteredNums));
 			Assert.IsTrue(nums.Where(i =>
-				i.NumCompToConsDispatching.Value % 3 == 0
-				|| i.Num2ConsToCompDispatching.Value % 5 == 0
-				|| i.Num2ConsToCompScalarDispatching.Value % 5 == 0).SequenceEqual(dispatchingfilteredNums));
+				i.Num % 3 == 0
+				|| i.NumBackgroundToMainDispatching.Value % 3 == 0
+				|| i.NumBackgroundToMainScalarDispatching.Value % 3 == 0
+				|| i.Num2 % 5 == 0
+				|| i.Num2MainToBackgroundDispatching.Value % 5 == 0
+				|| i.Num2MainToBackgroundScalarDispatching.Value % 5 == 0).SequenceEqual(dispatchingfilteredNums));
 
 			foreach (Item item in nums)
+				item.Consumer.Dispose();
+
+			mainOcDispatcher.Invoke(() => consumer.Dispose());
+			
+			ManualResetEventSlim backgroundOcDispatcherDisposedMru = new ManualResetEventSlim(false);
+			ManualResetEventSlim mainOcDispatcherDisposedMru = new ManualResetEventSlim(false);
+
+			backgroundOcDispatcher.DisposeFinished += (sender, args) => backgroundOcDispatcherDisposedMru.Set();
+			mainOcDispatcher.DisposeFinished += (sender, args) => mainOcDispatcherDisposedMru.Set();
+
+			backgroundOcDispatcher.Dispose();
+			mainOcDispatcher.Dispose();
+
+			backgroundOcDispatcherDisposedMru.Wait(30000);
+			mainOcDispatcherDisposedMru.Wait(30000);
+
+			if (!backgroundOcDispatcher.IsDisposed || !mainOcDispatcher.IsDisposed)
 			{
-				computingOcDispatcher.Invoke(() => item.CompOcConsumer.Dispose());
-				consuminingOcDispatcher.Invoke(() => item.ConsOcConsumer.Dispose());
-			}
-
-			consuminingOcDispatcher.Invoke(() =>
-			{
-				consumer.Dispose();
-			}, 0);
-
-			ManualResetEventSlim computingOcDispatcherDisposed = new ManualResetEventSlim(false);
-			ManualResetEventSlim consuminingOcDispatcherDisposed = new ManualResetEventSlim(false);
-
-			computingOcDispatcher.DisposeFinished += (sender, args) => computingOcDispatcherDisposed.Set();
-			consuminingOcDispatcher.DisposeFinished += (sender, args) => consuminingOcDispatcherDisposed.Set();
-
-			computingOcDispatcher.Dispose();
-			consuminingOcDispatcher.Dispose();
-
-			computingOcDispatcherDisposed.Wait(30000);
-			consuminingOcDispatcherDisposed.Wait(30000);
-
-
-
-			if (!computingOcDispatcher.IsDisposed || !consuminingOcDispatcher.IsDisposed)
-			{
-				computingOcDispatcherDisposed.Dispose();
-				consuminingOcDispatcherDisposed.Dispose();
+				backgroundOcDispatcherDisposedMru.Dispose();
+				mainOcDispatcherDisposedMru.Dispose();
 				throw new Exception("dispose failed");
 			}
 
-			computingOcDispatcherDisposed.Dispose();
-			consuminingOcDispatcherDisposed.Dispose();
+			backgroundOcDispatcherDisposedMru.Dispose();
+			mainOcDispatcherDisposedMru.Dispose();
 		}
 	}
 }

@@ -142,5 +142,14 @@ namespace ObservableComputations
 		}
 
 		#endregion
+
+		protected override void raisePropertyChanged(PropertyChangedEventArgs eventArgs)
+		{
+			_destinationOcDispatcher.Invoke(
+				() => base.raisePropertyChanged(eventArgs), 
+				_destinationOcDispatcherPriority,
+				_destinationOcDispatcherParameter,
+				this);
+		}
 	}
 }

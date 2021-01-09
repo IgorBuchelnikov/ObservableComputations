@@ -190,7 +190,7 @@ namespace ObservableComputations
 				if (_isDefaulted)
 				{
 					_isDefaulted = false;
-					raisePropertyChanged(nameof(IsDefaulted));
+					raisePropertyChanged(Utils.IsDefaultedPropertyChangedEventArgs);
 				}
 
 				setValue(_sourceCopy[_index]);
@@ -200,7 +200,7 @@ namespace ObservableComputations
 				if (!_isDefaulted)
 				{
 					_isDefaulted = true;
-					raisePropertyChanged(nameof(IsDefaulted));
+					raisePropertyChanged(Utils.IsDefaultedPropertyChangedEventArgs);
 				}
 
 				setValue(_defaultValue);

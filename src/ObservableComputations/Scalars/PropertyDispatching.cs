@@ -17,7 +17,6 @@ namespace ObservableComputations
 		public Expression<Func<TResult>>  PropertyExpression => _propertyExpression;
 		public IOcDispatcher SourceOcDispatcher => _sourceOcDispatcher;
 		public IOcDispatcher DestinationOcDispatcher => _destinationOcDispatcher;
-		public IPropertySourceOcDispatcher PropertySourceOcDispatcher => _propertySourceOcDispatcher;
 		public int DestinationOcDispatcherPriority => _destinationOcDispatcherPriority;
 		public int SourceOcDispatcherPriority => _sourceOcDispatcherPriority;
 		public object DestinationOcDispatcherParameter => _destinationOcDispatcherParameter;
@@ -32,7 +31,6 @@ namespace ObservableComputations
 
 		private readonly IOcDispatcher _sourceOcDispatcher;
 		private readonly IOcDispatcher _destinationOcDispatcher;
-		private readonly IPropertySourceOcDispatcher _propertySourceOcDispatcher;
 
 		private Action<THolder, TResult> _setter;
 		private Func<THolder, TResult> _getter;
@@ -64,17 +62,6 @@ namespace ObservableComputations
 			lockChangeSetValueHandle();
 		}
 
-		[ObservableComputationsCall]
-		public PropertyDispatching(
-			Expression<Func<TResult>> propertyExpression,
-			IOcDispatcher destinationOcDispatcher,
-			IPropertySourceOcDispatcher sourceOcDispatcher) : this()
-		{
-			_propertySourceOcDispatcher = sourceOcDispatcher;
-			_destinationOcDispatcher = destinationOcDispatcher;
-			_propertyExpression = propertyExpression;
-			lockChangeSetValueHandle();
-		}
 
 		private PropertyDispatching()
 		{
@@ -166,17 +153,12 @@ namespace ObservableComputations
 			{
 				void set() => _setter(_propertyHolder, value);
 
-				if (_sourceOcDispatcher != null) _sourceOcDispatcher.Invoke(
-					set, 
-					_sourceOcDispatcherPriority,
-					_sourceOcDispatcherParameter, 
-					this);
-				else if (_propertySourceOcDispatcher != null) 
-					_propertySourceOcDispatcher.Invoke(
+				if (_sourceOcDispatcher != null)
+					_sourceOcDispatcher.Invoke(
 						set, 
 						_sourceOcDispatcherPriority,
-						_sourceOcDispatcherParameter,  
-						this, false, value);
+						_sourceOcDispatcherParameter, 
+						this);
 				else set();
 			};
 
@@ -193,17 +175,12 @@ namespace ObservableComputations
 					this);
 			}
 
-			if (_sourceOcDispatcher != null) _sourceOcDispatcher.Invoke(
-				readAndSubscribe, 
-				_sourceOcDispatcherPriority,
-				_sourceOcDispatcherParameter, 
-				this);
-			else if (_propertySourceOcDispatcher != null) 
-				_propertySourceOcDispatcher.Invoke(
+			if (_sourceOcDispatcher != null)
+				_sourceOcDispatcher.Invoke(
 					readAndSubscribe, 
 					_sourceOcDispatcherPriority,
-					_sourceOcDispatcherParameter,  
-					this, true, null);
+					_sourceOcDispatcherParameter, 
+					this);
 			else readAndSubscribe();
 		}
 
@@ -221,5 +198,14 @@ namespace ObservableComputations
 		}
 
 		#endregion
+
+		protected override void raisePropertyChanged(PropertyChangedEventArgs eventArgs)
+		{
+			_destinationOcDispatcher.Invoke(
+				() => base.raisePropertyChanged(eventArgs), 
+				_destinationOcDispatcherPriority,
+				_destinationOcDispatcherParameter,
+				this);
+		}
 	}
 }

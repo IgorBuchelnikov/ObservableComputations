@@ -136,12 +136,7 @@ namespace ObservableComputations
 			ConsistencyRestored?.Invoke(this, null);
 		}
 
-		protected void raisePropertyChanged(string propertyName)
-		{
-			PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-		}
-
-		protected void raisePropertyChanged(PropertyChangedEventArgs eventArgs)
+		protected virtual void raisePropertyChanged(PropertyChangedEventArgs eventArgs)
 		{
 			PropertyChanged?.Invoke(this, eventArgs);
 		}

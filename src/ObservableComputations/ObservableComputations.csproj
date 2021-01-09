@@ -19,15 +19,25 @@
     <NeutralLanguage>en</NeutralLanguage>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
-    <PackageReleaseNotes>New features:
-— API for control over INotifyPropertyChanged, INotifyCollectionChanged, INotifyMethodChanged events subscription (weak event subscriptions were removed).
-— Computations in background threads, including parallel ones (CollectionDispatching, ScalarDispatching, PropertyDispatching operators).
-— Improved processing of overlapping changes (they are deferred instead of exception throwing).
-— Paging, CollectionDisposing, ScalarDisposing operators.
+    <PackageReleaseNotes>* New features:
+— API for control over INotifyPropertyChanged, INotifyCollectionChanged, INotifyMethodChanged events subscription (weak event subscriptions were removed). This feature fixes a memory leak in weak event subscriptions
+— Computations in background threads, including parallel ones (CollectionDispatching, ScalarDispatching, PropertyDispatching operators)
+— Improved processing of overlapping changes (they are deferred instead of the exception throwing)
+— Paging, CollectionDisposing, ScalarDisposing operators
 
-Many minor API changes and bug fixes.
+* .NET Core version is upgraded to 2.1
 
-</PackageReleaseNotes>
+* API changes:
+— ObservableComputations.ExtentionMethods namespace is renamed to ObservableComputations
+— ItemsProcessing operator is renamed to CollectionProcessing and API changed
+— ValuesProcessing operator is renamed to ScalarProcessing and API changed
+— ValuesProcessing operator is renamed to ScalarProcessing and API changed
+— Property names of computation result change request handlers is renamed to RequestHandler
+— Property names of computation result change request handlers is renamed to RequestHandler
+— Hashing is renamed to HashSetting
+— Other minor API changes
+
+* Many minor bug fixes</PackageReleaseNotes>
     <Version>2.0.0</Version>
     <AssemblyName>ObservableComputations</AssemblyName>
     <PackageId>ObservableComputations</PackageId>

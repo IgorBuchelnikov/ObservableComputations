@@ -462,7 +462,7 @@ namespace ObservableComputations
 
 		public static void Invoke(this IOcDispatcher ocDispatcher, Action action, int priority = 0, object context = null)
 		{
-			ocDispatcher.Invoke(action, priority, context);
+			ocDispatcher.Invoke(action, priority, null, context);
 		}
 
 		[ObservableComputationsCall]

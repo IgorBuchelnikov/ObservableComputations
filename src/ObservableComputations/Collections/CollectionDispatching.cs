@@ -393,11 +393,10 @@ namespace ObservableComputations
 				perform();
 		}
 
-
-		protected override void OnPropertyChanged(PropertyChangedEventArgs e)
+		protected override void raisePropertyChanged(PropertyChangedEventArgs e)
 		{
 			_destinationOcDispatcher.Invoke(
-				() => base.OnPropertyChanged(e), 
+				() => OnPropertyChanged(e), 
 				_destinationOcDispatcherPriority,
 				_destinationOcDispatcherParameter,
 				this);

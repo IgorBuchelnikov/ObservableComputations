@@ -471,7 +471,12 @@ namespace ObservableComputations
 
 		void IComputingInternal.OnPropertyChanged(PropertyChangedEventArgs propertyChangedEventArgs)
 		{
-			OnPropertyChanged(propertyChangedEventArgs);
+			raisePropertyChanged(propertyChangedEventArgs);
+		}
+
+		protected virtual void raisePropertyChanged(PropertyChangedEventArgs eventArgs)
+		{
+			OnPropertyChanged(eventArgs);
 		}
 
 		void IComputingInternal.SetIsActive(bool value)
@@ -548,6 +553,7 @@ namespace ObservableComputations
 				throw new ObservableComputationsInconsistencyException(this,
 					$"It is not possible to process this change (event sender = {sender.ToStringSafe(e => $"{e.ToString()} in sender.ToString()")}, event args = {eventArgs.ToStringAlt()}), as the processing of the previous change is not completed. Make the change on ConsistencyRestored event raising (after IsConsistent property becomes true). This exception is fatal and cannot be handled as the inner state is damaged.", sender, eventArgs);
 		}
+
 
 		#endregion
 

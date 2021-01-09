@@ -1264,7 +1264,7 @@ ObservableCollection<Order> filteredByTypeOrders =  orders.Filtering(o =>
 The only way to modify the result of a computation is to modify source data. Неre is the code:
 
 ```csharp
-ng System;
+using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Diagnostics;
@@ -1543,7 +1543,7 @@ There is also an overloaded version of the *ScalarProcessing* method that accept
 
 ### Disposing
 
-If items in your collection implement [IDisposable](https://docs.microsoft.com/en-us/dotnet/api/system.idisposable?view=net-5.0) you may need  to call [Dispose](https://docs.microsoft.com/en-us/dotnet/api/system.idisposable.dispose?view=net-5.0) method for each item leaving the collection. You may use *CollectionProcessing* to achieve this as we did in the [previous section](#change-handling-in-observablecollectiont).  Another variant is to use *CollectionDisposing* method:
+If items in your collection implement [IDisposable](https://docs.microsoft.com/en-us/dotnet/api/system.idisposable?view=net-5.0) you may need  to call [Dispose](https://docs.microsoft.com/en-us/dotnet/api/system.idisposable.dispose?view=net-5.0) method for each item leaving the collection (Remove, Replace, Clear). You may use *CollectionProcessing* to achieve this as we did in the [previous section](#change-handling-in-observablecollectiont).  Another variant is to use *CollectionDisposing* method:
 
 ```c#
 using System;
@@ -1711,7 +1711,7 @@ namespace ObservableComputationsExamples
 
 
 ## Overlapping changes processing
-When the handler of PropetyChanged or CollectionChanged event of computation is being executed that computation is in the process of some change of source and is in an inconsistent state (has IsConsistent == false). All the changes of sources made at that time (overlapping changes) will be deferred until the computation completes the processing of the original change of the source.
+When the handler of PropetyChanged or CollectionChanged event of computation is being executed that computation is in the process of some change of source and is in an inconsistent state (has *IsConsistent* == false). All the changes of sources made at that time (overlapping changes) will be deferred until the computation completes the processing of the original change of the source.
 Consider the following code:
 
 ```csharp
@@ -3152,7 +3152,7 @@ In this implementation, the [System.Windows.Threading.Dispatcher.Invoke](https:/
 
 #### Buffering changes
 
-When there are many changes to a collection in a short period of time and you do not want to make the separate invocation of  destination dispatcher for each change and want to batch changes you may use such implementation of IOcDispatcher:
+When there are many changes to a collection in a short period of time and you do not want to make the separate invocation of  destination dispatcher for each change and want to batch changes you may use such implementation of *IOcDispatcher*:
 
 ```csharp
 using System;
@@ -3164,22 +3164,22 @@ public class WpfOcDispatcher : IOcDispatcher, IDisposable
 {
 	Subject<Action> _actions;
 
-	private System.Windows.OcDispatcher _ocDispatcher;
+	private System.Windows.Dispatcher _dispatcher;
 
-	public WpfOcOcDispatcher(System.Windows.OcDispatcher ocDispatcher)
+	public WpfOcDispatcher(System.Windows.Dispatcher dispatcher)
 	{
-		_ocDispatcher = ocDispatcher;
+		_dispatcher = dispatcher;
 
 		_actions = new Subject<Action>();
 		_actions.Buffer(TimeSpan.FromMilliseconds(300)).Subscribe(actions =>
 		{
-			_ocDispatcher.Invoke(() =>
+			_dispatcher.Invoke(() =>
 			{
 				for (var index = 0; index < actions.Count; index++)
 				{
 					actions[index]();
 				}
-			}, OcDispatcherPriority.Background);
+			}, DispatcherPriority.Background);
 		});
 	}
 
@@ -3271,25 +3271,30 @@ namespace Trader.Domain.Infrastucture
 
 Usage example of this implementation see [here](https://github.com/IgorBuchelnikov/Dynamic.Trader/blob/master/ObservableComputationsEdition/ComputationsInBackgroundThread/Trader.Domain/Infrastucture/WpfOcDispatcher.cs).
 
-#### User input
+####  Suppressing overly frequent changes
 
 When dispatching properties (*PropertyDispatching*) and *IReadScalar&lt;TValue&gt;* (*ScalarDispatching*), ThrottlingOcDispatcher can be useful for suppressing overly frequent changes (for example a user input):
 
 ```csharp
+using System;
+using System.Reactive.Linq;
+using System.Reactive.Subjects;
+using ObservableComputations;
+
 public class ThrottlingOcDispatcher : IOcDispatcher, IDisposable
 {
 	Subject<Action> _actions;
 
-	private System.Windows.OcDispatcher _ocDispatcher;
+	private System.Windows.Dispatcher _dispatcher;
 
-	public WpfOcOcDispatcher(System.Windows.OcDispatcher ocDispatcher)
+	public WpfOcDispatcher(System.Windows.Dispatcher dispatcher)
 	{
-		_ocDispatcher = ocDispatcher;
+		_dispatcher = dispatcher;
 
 		_actions = new Subject<Action>();
 		_actions.Throttle(TimeSpan.FromMilliseconds(300)).Subscribe(action =>
 		{
-			_ocDispatcher.Invoke(action, OcDispatcherPriority.Background);
+			_dispatcher.Invoke(action, DispatcherPriority.Background);
 		});
 	}
 
@@ -3943,7 +3948,7 @@ If some computation is needed only for particular scenarios or you want delay in
 ```csharp
 private Computing<string> _valueComputing;
 public Computing<string> ValueComputing => _valueComputing = 
-   _valueComputing ?? new Computing<string>(() => Value);
+   _valueComputing ?? new Computing<string>(() => Value).For(_consumer);
 ```
 
 ### Use public read-only structures instead of encapsulated private members
@@ -4507,7 +4512,7 @@ namespace ObservableComputationsExamples
 The following code will not work correctly as changes in *manager.ProcessingOrder* is not reflected in *priceReflectedComputing* as the first argument of *PropertyAccessing* extension method is passed as **non-observable**:
 ```csharp
 PropertyAccessing<decimal> priceReflectedComputing 
-   = manager.ProcessingOrder.PropertyAccessing<decimal>(nameof(Order.Price));
+   = manager.ProcessingOrder.PropertyAccessing<decimal>(nameof(Order.Price)).For(consumer);
 ```
 
 If object reference for which a property value is being accessed is null *PropertyAccessing&lt;TResult&gt;.Value* returns the default value of *TResult*. You can modify that value by passing the *defaultValue* parameter.

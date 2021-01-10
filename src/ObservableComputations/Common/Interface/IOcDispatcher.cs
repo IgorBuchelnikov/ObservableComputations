@@ -10,6 +10,6 @@ namespace ObservableComputations
 {
 	public interface IOcDispatcher
 	{
-		void Invoke(Action action, int priority, object parameter, object context);
+		void Invoke(Action action, int priority = 0, object parameter = null, object context = null);
 	}
 }

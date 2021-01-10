@@ -131,9 +131,11 @@ namespace ObservableComputations
 			for (int sourceIndex = _lowerIndex; sourceIndex < sourceCount && sourceIndex < _upperIndex; sourceIndex++)
 			{
 				if (thisCount > index)
-					baseSetItem(index, _sourceCopy[sourceIndex]);
+					_items[index] = _sourceCopy[sourceIndex];
+					//baseSetItem(index, _sourceCopy[sourceIndex]);
 				else
-					baseInsertItem(index, _sourceCopy[sourceIndex]);
+					_items.Insert(index, _sourceCopy[sourceIndex]);
+					//baseInsertItem(index, _sourceCopy[sourceIndex]);
 
 				index++;
 			}
@@ -142,10 +144,10 @@ namespace ObservableComputations
 			int removingIndex = index;
 
 			for (; index < count; index++)
-			{
-				baseRemoveItem(removingIndex);
-			}
+				_items.RemoveAt(removingIndex);
+				//baseRemoveItem(removingIndex);
 
+			reset();
 			OnPropertyChanged(Utils.CurrentPagePropertyChangedEventArgs);
 		}
 

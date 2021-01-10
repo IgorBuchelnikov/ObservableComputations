@@ -460,9 +460,9 @@ namespace ObservableComputations
 			return computing;
 		}
 
-		public static void Invoke(this IOcDispatcher ocDispatcher, Action action, int priority = 0, object context = null)
+		public static void Invoke(this IOcDispatcher ocDispatcher, Action action, int priority = 0, object parameter = null, object context = null)
 		{
-			ocDispatcher.Invoke(action, priority, null, context);
+			ocDispatcher.Invoke(action, priority, parameter, context);
 		}
 
 		[ObservableComputationsCall]

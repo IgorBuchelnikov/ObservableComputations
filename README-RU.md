@@ -42,17 +42,24 @@ ObservableComputations не является аналогом [Reactive Extensio
 
 Реализованы все функции и операторы, необходимые для разработки реальных приложений. Весь критичный код покрыт юнит-тестами. Я работаю над увеличением процента покрытия. 
 
-## Как установить?
+## Где скачать? Как установить? Где посмотреть историю изменений?
 
-Библиотека ObservableComputations доступна на [NuGet](https://www.nuget.org/packages/ObservableComputations/).
+Все релизы ObservableComputations доступны на [NuGet](https://www.nuget.org/packages/ObservableComputations/). Там же можно посмотреть историю изменений в разделе Release Notes.
 
 ## Как получить помощь?
 
-Вы можете [создать issue](https://github.com/IgorBuchelnikov/ObservableComputations/issues/new) or [связаться со мной по электронной почте](mailto:igor_buchelnikov_github@mail.ru).
+* [создать GitHub issue](https://github.com/IgorBuchelnikov/ObservableComputations/issues/new) 
+* [создать GitHub discussion](https://github.com/IgorBuchelnikov/ObservableComputations/discussions/new)
+* [связаться со мной по электронной почте](mailto:igor_buchelnikov_github@mail.ru)
 
 ## Как я могу помочь проекту?
 
-Приветствуются комментарии и замечания к документации. Нужны демо проекты, посты в блогах и руководства. Нужна красивая иконка.
+* Приветствуются комментарии и замечания к документации
+
+* Нужны демо проекты, посты в блогах и руководства
+* Создайте xml документацию в коде
+
+* Нужна красивая иконка.
 
 ##  Быстрый старт
 ### Пример приложения 

@@ -44,17 +44,22 @@ You can compare these libraries and ObservableComputations in action, see
 
 All functions and operators needed to develop real applications have been implemented. All critical code is covered by unit tests. I'm working on increase percent of coverage now.
 
-## How to install?
-ObservableComputations is available on [NuGet](https://www.nuget.org/packages/ObservableComputations/).
+## Where can I download? How to install? Where can I see the change log? 
+
+All ObservableComputations releases are available at [NuGet](https://www.nuget.org/packages/ObservableComputations/). There you can also see the history of changes in the Release Notes section.
 
 ## How can I get help?
-* [create GitHub issue](https://github.com/IgorBuchelnikov/ObservableComputations/issues/new),
-* [create GitHub discussion](https://github.com/IgorBuchelnikov/ObservableComputations/discussions/new),
+* [create GitHub issue](https://github.com/IgorBuchelnikov/ObservableComputations/issues/new)
+* [create GitHub discussion](https://github.com/IgorBuchelnikov/ObservableComputations/discussions/new)
 
-* [contact me via e-mail](mailto:igor_buchelnikov_github@mail.ru).
+* [contact me via e-mail](mailto:igor_buchelnikov_github@mail.ru)
 
 ## How can I help the project?
-Documentation comments and corrections are welcome. Demo projects, blog posts, and tutorials are needed. A pretty icon is needed.
+* Documentation comments and corrections are welcome
+* Create xml documentation in the code
+
+* Demo projects, blog posts, and tutorials are needed
+* A pretty icon is needed
 
 ## Quick start
 ### Sample application  

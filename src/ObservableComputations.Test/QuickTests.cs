@@ -8,7 +8,7 @@ using INotifyPropertyChanged = System.ComponentModel.INotifyPropertyChanged;
 
 namespace ObservableComputations.Test
 {
-	public partial class QuickTests
+	public partial class QuickTests : TestBase
 	{
 		public class Item : INotifyPropertyChanged
 		{
@@ -101,6 +101,10 @@ namespace ObservableComputations.Test
 		public Scalar<TValue> getScalar<TValue>(TValue value)
 		{
 			return new Scalar<TValue>(value);
+		}
+
+		public QuickTests(bool debug) : base(debug)
+		{
 		}
 	}
 }

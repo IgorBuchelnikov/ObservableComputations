@@ -23,8 +23,9 @@ using ObservableComputations;
 
 namespace ObservableComputations.Test
 {
-	[TestFixture]
-	public partial class QuickTests
+	[TestFixture(false)]
+	[TestFixture(true)]
+	public partial class QuickTests : TestBase
 	{
 		#region Aggregating
 

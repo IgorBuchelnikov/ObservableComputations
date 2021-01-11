@@ -57,8 +57,8 @@ All ObservableComputations releases are available at [NuGet](https://www.nuget.o
 ## How can I help the project?
 * Documentation comments and corrections are welcome
 * Create xml documentation in the code
-
 * Demo projects, blog posts, and tutorials are needed
+* Create a unit test
 * A pretty icon is needed
 
 ## Quick start

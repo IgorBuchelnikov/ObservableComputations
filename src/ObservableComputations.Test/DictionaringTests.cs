@@ -96,8 +96,8 @@ namespace ObservableComputations.Test
 									_textFileOutputTime.AppentLine($"{stopwatch.Elapsed.TotalMinutes}: {counter}");
 								}
 							}
-#endif
 						}
+#endif
 					}
 				}
 			}

@@ -24,19 +24,29 @@ namespace ObservableComputations.Test
 					
 			test(new int[0]);
 
-			for (int v1 = -2; v1 <= 2; v1++)
+#if !TestCoverageAnalisis
+			int from = -2;
+			int to = 2;
+#else
+			int from = -1;
+			int to = 1;
+#endif
+
+
+			for (int v1 = from; v1 <= to; v1++)
 			{
 				test(new []{v1});
-				for (int v2 = -2; v2 <= 2; v2++)
+				for (int v2 = from; v2 <= to; v2++)
 				{
 					test(new []{v1, v2});
-					for (int v3 = -2; v3 <= 2; v3++)
+					for (int v3 = from; v3 <= to; v3++)
 					{
 						test(new []{v1, v2, v3});
-						for (int v4 = -2; v4 <= 2; v4++)
+#if !TestCoverageAnalisis
+						for (int v4 = from; v4 <= to; v4++)
 						{
 							test(new []{v1, v2, v3, v4});
-							for (int v5 = -2; v5 <= 2; v5++)
+							for (int v5 = from; v5 <= to; v5++)
 							{
 								test(new[] {v1, v2, v3, v4, v5});
 								counter++;
@@ -46,6 +56,7 @@ namespace ObservableComputations.Test
 								}
 							}
 						}
+#endif
 					}
 				}
 			}

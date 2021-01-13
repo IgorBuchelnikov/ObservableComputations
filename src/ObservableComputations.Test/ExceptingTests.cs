@@ -69,19 +69,30 @@ namespace ObservableComputations.Test
 		{			
 			test(new int[0], new int[0]);
 
-			for (int v1 = -1; v1 <= 3; v1++)
+#if !TestCoverageAnalisis
+			int from = -1;
+			int to = 3;
+#else
+			int from = -1;
+			int to = 2;
+#endif
+
+
+			for (int v1 = from; v1 <= to; v1++)
 			{
 				test(new []{v1}, new int[0]);
-				for (int v2 = -1; v2 <= 3; v2++)
+				for (int v2 = from; v2 <= to; v2++)
 				{
 					test(new []{v1}, new []{v2});
-					for (int v3 = -1; v3 <= 3; v3++)
+					for (int v3 = from; v3 <= to; v3++)
 					{
 						test(new []{v1, v3}, new []{v2});
-						for (int v4 = -1; v4 <= 3; v4++)
+#if !TestCoverageAnalisis
+						for (int v4 = from; v4 <= to; v4++)
 						{
 							test(new []{v1, v3}, new []{v2, v4});
 						}
+#endif
 					}
 				}
 			}

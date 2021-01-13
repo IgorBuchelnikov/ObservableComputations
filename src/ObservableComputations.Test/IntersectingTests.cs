@@ -76,11 +76,13 @@ namespace ObservableComputations.Test
 					test(new []{v1}, new []{v2});
 					for (int v3 = -1; v3 <= 3; v3++)
 					{
+#if !TestCoverageAnalisis
 						test(new []{v1, v3}, new []{v2});
 						for (int v4 = -1; v4 <= 3; v4++)
 						{
 							test(new []{v1, v3}, new []{v2, v4});
 						}
+#endif
 					}
 				}
 			}

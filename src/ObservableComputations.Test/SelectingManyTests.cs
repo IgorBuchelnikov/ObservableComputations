@@ -67,17 +67,26 @@ namespace ObservableComputations.Test
 			long counter = 0;
 			Stopwatch stopwatch = Stopwatch.StartNew();
 
-			//test(new int[0]);
+			test(new int[0]);
+
+#if !TestCoverageAnalisis
+			int from = 0;
+			int to = 4;
+#else
+			int from = 0;
+			int to = 2;
+#endif
 
 			for (int v1 = 0; v1 <= 4; v1++)
 			{
-				//test(new[] { v1 });
+				test(new[] { v1 });
 				for (int v2 = 0; v2 <= 4; v2++)
 				{
-					//test(new[] { v1, v2 });
+					test(new[] { v1, v2 });
 					for (int v3 = 0; v3 <= 4; v3++)
 					{
 						test(new[] { v1, v2, v3 });
+#if !TestCoverageAnalisis
 						for (int v4 = 0; v4 <= 4; v4++)
 						{
 							test(new[] { v1, v2, v3, v4 });
@@ -87,6 +96,7 @@ namespace ObservableComputations.Test
 								_textFileOutputTime.AppentLine($"{stopwatch.Elapsed.TotalMinutes}: {counter}");
 							}
 						}
+#endif
 					}
 				}
 			}

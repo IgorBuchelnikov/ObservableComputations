@@ -117,7 +117,7 @@ namespace ObservableComputations.Test
 		}
 
 		[Test]
-		[Repeat(100)]
+		[Repeat(5)]
 		[Timeout(1000 * 60 * 60 * 20)]
 		public void TestCollectionDispatchingTest()
 		{

@@ -7,8 +7,8 @@ using NUnit.Framework;
 
 namespace ObservableComputations.Test
 {
-	[TestFixture]
-	public class CollectionProcessingVoidTest
+	[TestFixture(false)]
+	public class CollectionProcessingVoidTest : TestBase
 	{
 		OcConsumer consumer = new OcConsumer();
 
@@ -203,6 +203,10 @@ namespace ObservableComputations.Test
 				Assert.IsTrue(item.ProcessedAsNew);
 				Assert.IsTrue(item.ProcessedAsOld);				
 			}
-		}	
+		}
+
+		public CollectionProcessingVoidTest(bool debug) : base(debug)
+		{
+		}
 	}
 }

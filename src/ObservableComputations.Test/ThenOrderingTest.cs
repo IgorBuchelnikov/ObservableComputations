@@ -12,8 +12,8 @@ using NUnit.Framework;
 
 namespace ObservableComputations.Test
 {
-	[TestFixture]
-	public class ThenOrderingOrderingTests
+	[TestFixture(false)]
+	public class ThenOrderingOrderingTests : TestBase
 	{
 		OcConsumer consumer = new OcConsumer();
 
@@ -680,5 +680,9 @@ namespace ObservableComputations.Test
 		}
 
 		#endregion
+
+		public ThenOrderingOrderingTests(bool debug) : base(debug)
+		{
+		}
 	}
 }

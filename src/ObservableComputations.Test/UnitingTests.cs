@@ -13,8 +13,8 @@ using NUnit.Framework;
 
 namespace ObservableComputations.Test
 {
-	[TestFixture]
-	public class UnitingTests
+	[TestFixture(false)]
+	public class UnitingTests : TestBase
 	{
 		OcConsumer consumer = new OcConsumer();
 
@@ -304,6 +304,10 @@ namespace ObservableComputations.Test
 			return itemsCount >= 0 
 				? new ObservableCollection<Item>(Enumerable.Range(1, itemsCount).Select(i => new Item()))
 				: null;
+		}
+
+		public UnitingTests(bool debug) : base(debug)
+		{
 		}
 	}
 }

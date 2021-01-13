@@ -13,8 +13,8 @@ using NUnit.Framework;
 
 namespace ObservableComputations.Test
 {
-	[TestFixture]
-	public class HashSettingTests
+	[TestFixture(false)]
+	public class HashSettingTests : TestBase
 	{
 		OcConsumer consumer = new OcConsumer();
 
@@ -230,6 +230,10 @@ namespace ObservableComputations.Test
 		private static ObservableCollection<Item> getObservableCollection(int[] values)
 		{
 			return new ObservableCollection<Item>(Enumerable.Range(0, values.Length).Select(n => new Item(){Key = n}));
+		}
+
+		public HashSettingTests(bool debug) : base(debug)
+		{
 		}
 	}
 }

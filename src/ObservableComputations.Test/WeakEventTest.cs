@@ -6,13 +6,17 @@ using NUnit.Framework;
 
 namespace ObservableComputations.Test
 {
-	[TestFixture]
-	class WeakEventTest
+	[TestFixture(false)]
+	class WeakEventTest : TestBase
 	{
 		[Test]
 		public void Test()
 		{
 
+		}
+
+		public WeakEventTest(bool debug) : base(debug)
+		{
 		}
 	}
 }

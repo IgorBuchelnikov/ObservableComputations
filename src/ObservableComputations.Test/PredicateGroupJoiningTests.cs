@@ -15,8 +15,8 @@ using NUnit.Framework;
 
 namespace ObservableComputations.Test
 {
-	[TestFixture]
-	public class PredicateGroupJoiningTests
+	[TestFixture(false)]
+	public class PredicateGroupJoiningTests : TestBase
 	{
 		OcConsumer consumer = new OcConsumer();
 
@@ -268,5 +268,8 @@ namespace ObservableComputations.Test
 		}
 
 
+		public PredicateGroupJoiningTests(bool debug) : base(debug)
+		{
+		}
 	}
 }

@@ -13,8 +13,8 @@ using NUnit.Framework;
 
 namespace ObservableComputations.Test
 {
-	[TestFixture]
-	public class GroupingTests
+	[TestFixture(false)]
+	public class GroupingTests : TestBase
 	{
 		OcConsumer consumer = new OcConsumer();
 
@@ -239,6 +239,10 @@ namespace ObservableComputations.Test
 		private static ObservableCollection<Item> getObservableCollection(int[] orderNums)
 		{
 			return new ObservableCollection<Item>(orderNums.Select(orderNum => new Item(orderNum >= 0 ? orderNum : (int?)null)));
+		}
+
+		public GroupingTests(bool debug) : base(debug)
+		{
 		}
 	}
 }

@@ -14,8 +14,8 @@ using NUnit.Framework;
 namespace ObservableComputations.Test
 {
 
-	[TestFixture]
-	public class ExceptingTests
+	[TestFixture(false)]
+	public class ExceptingTests : TestBase
 	{
 		OcConsumer consumer = new OcConsumer();
 
@@ -268,5 +268,8 @@ namespace ObservableComputations.Test
 		}
 
 
+		public ExceptingTests(bool debug) : base(debug)
+		{
+		}
 	}
 }

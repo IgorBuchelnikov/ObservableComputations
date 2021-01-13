@@ -15,8 +15,8 @@ using NUnit.Framework;
 
 namespace ObservableComputations.Test
 {
-	[TestFixture]
-	public class CollectionDispatchingTest
+	[TestFixture(false)]
+	public class CollectionDispatchingTest : TestBase
 	{
 		public class Item : INotifyPropertyChanged
 		{
@@ -410,6 +410,10 @@ namespace ObservableComputations.Test
 
 			backgroundOcDispatcherDisposedMru.Dispose();
 			mainOcDispatcherDisposedMru.Dispose();
+		}
+
+		public CollectionDispatchingTest(bool debug) : base(debug)
+		{
 		}
 	}
 }

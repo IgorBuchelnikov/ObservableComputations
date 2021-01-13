@@ -11,8 +11,8 @@ using NUnit.Framework;
 
 namespace ObservableComputations.Test
 {
-	[TestFixture]
-	public class ExpressionWatcherTests
+	[TestFixture(false)]
+	public class ExpressionWatcherTests : TestBase
 	{
 		public class Item : INotifyPropertyChanged, INotifyMethodChanged
 		{
@@ -338,5 +338,8 @@ namespace ObservableComputations.Test
 		//	item.Num = "3";
 		//	Assert.IsFalse(raised);
 		//}
+		public ExpressionWatcherTests(bool debug) : base(debug)
+		{
+		}
 	}
 }

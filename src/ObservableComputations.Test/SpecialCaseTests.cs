@@ -10,8 +10,8 @@ using NUnit.Framework;
 
 namespace ObservableComputations.Test
 {
-	[TestFixture]
-	class SpecialCaseTests
+	[TestFixture(false)]
+	public class SpecialCaseTests : TestBase
 	{
 
 
@@ -199,6 +199,10 @@ namespace ObservableComputations.Test
 			Assert.IsTrue(!items[0].NumComputing.IsActive);
 			Assert.IsTrue(!items[0].NumPlus1Computing.IsActive);
 
+		}
+
+		public SpecialCaseTests(bool debug) : base(debug)
+		{
 		}
 	}
 }

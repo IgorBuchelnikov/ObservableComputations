@@ -10,8 +10,8 @@ using NUnit.Framework;
 
 namespace ObservableComputations.Test
 {
-	[TestFixture]
-	public class MinimazingOrMaximazingTests
+	[TestFixture(false)]
+	public class MinimazingOrMaximazingTests : TestBase
 	{
 		OcConsumer consumer = new OcConsumer();
 
@@ -185,6 +185,10 @@ namespace ObservableComputations.Test
 		{
 			if (items.Count == 0) return 0;
 			return mode == MinimazingOrMaximazingMode.Maximazing ? items.Max() : items.Min();
+		}
+
+		public MinimazingOrMaximazingTests(bool debug) : base(debug)
+		{
 		}
 	}
 }

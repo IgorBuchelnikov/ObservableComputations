@@ -10,8 +10,8 @@ using NUnit.Framework;
 
 namespace ObservableComputations.Test
 {
-	[TestFixture]
-	public class LastComputingTests
+	[TestFixture(false)]
+	public class LastComputingTests : TestBase
 	{
 		OcConsumer consumer = new OcConsumer();
 
@@ -175,6 +175,10 @@ namespace ObservableComputations.Test
 			items[index] = new Item();
 			last.ValidateConsistency();			
 			consumer.Dispose();
-		}		
+		}
+
+		public LastComputingTests(bool debug) : base(debug)
+		{
+		}
 	}
 }

@@ -10,8 +10,8 @@ using NUnit.Framework;
 
 namespace ObservableComputations.Test
 {
-	[TestFixture]
-	public class AllComputingTests
+	[TestFixture(false)]
+	public class AllComputingTests : TestBase
 	{
 		OcConsumer consumer = new OcConsumer();
 
@@ -231,6 +231,10 @@ namespace ObservableComputations.Test
 			allComputing.ValidateConsistency();
 			items[index] = new Item(itemNew);
 			allComputing.ValidateConsistency();
-		}		
+		}
+
+		public AllComputingTests(bool debug) : base(debug)
+		{
+		}
 	}
 }

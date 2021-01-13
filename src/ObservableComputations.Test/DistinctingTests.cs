@@ -7,8 +7,8 @@ using NUnit.Framework;
 
 namespace ObservableComputations.Test
 {
-	[TestFixture]
-	public class DistinctingTests
+	[TestFixture(false)]
+	public class DistinctingTests : TestBase
 	{
 		OcConsumer consumer = new OcConsumer();
 
@@ -167,6 +167,10 @@ namespace ObservableComputations.Test
 			items[index] = itemNew;
 			distincting.ValidateConsistency();			
 			consumer.Dispose();
-		}		
+		}
+
+		public DistinctingTests(bool debug) : base(debug)
+		{
+		}
 	}
 }

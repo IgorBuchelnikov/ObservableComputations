@@ -14,8 +14,8 @@ using NUnit.Framework;
 
 namespace ObservableComputations.Test
 {
-	[TestFixture]
-	public class SelectingTests
+	[TestFixture(false)]
+	public class SelectingTests : TestBase
 	{
 		OcConsumer consumer = new OcConsumer();
 
@@ -562,6 +562,10 @@ namespace ObservableComputations.Test
 			GC.RemoveMemoryPressure(1024 * 1024 * 1024);
 
 			Assert.IsFalse(selectingWeakReference.TryGetTarget(out Selecting<Item, int> s));
+		}
+
+		public SelectingTests(bool debug) : base(debug)
+		{
 		}
 	}
 }

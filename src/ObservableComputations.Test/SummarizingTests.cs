@@ -10,8 +10,8 @@ using NUnit.Framework;
 
 namespace ObservableComputations.Test
 {
-	[TestFixture]
-	public class SummarizingTests
+	[TestFixture(false)]
+	public class SummarizingTests : TestBase
 	{
 		OcConsumer consumer = new OcConsumer();
 
@@ -306,5 +306,8 @@ namespace ObservableComputations.Test
 		//	Assert.Equals(summarizing.Value, items.Sum());
 		//}
 
+		public SummarizingTests(bool debug) : base(debug)
+		{
+		}
 	}
 }

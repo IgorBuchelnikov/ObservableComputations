@@ -10,8 +10,8 @@ using NUnit.Framework;
 
 namespace ObservableComputations.Test
 {
-	[TestFixture]
-	public class TakingWhileTests
+	[TestFixture(false)]
+	public class TakingWhileTests : TestBase
 	{
 		OcConsumer consumer = new OcConsumer();
 
@@ -321,5 +321,8 @@ namespace ObservableComputations.Test
 
 		}
 
+		public TakingWhileTests(bool debug) : base(debug)
+		{
+		}
 	}
 }

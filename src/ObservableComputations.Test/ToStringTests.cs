@@ -4,7 +4,7 @@
 
 namespace ObservableComputations.Test
 {
-	//[TestFixture]
+	//[TestFixture(false)]
 	//public class ToStringTests
 	//{
 	//	public class Item : INotifyPropertyChanged

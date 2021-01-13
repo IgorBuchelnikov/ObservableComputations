@@ -6,8 +6,8 @@ using NUnit.Framework;
 
 namespace ObservableComputations.Test
 {
-	[TestFixture]
-	public class ScalarProcessingVoidTest
+	[TestFixture(false)]
+	public class ScalarProcessingVoidTest : TestBase
 	{
 		OcConsumer consumer = new OcConsumer();
 
@@ -43,6 +43,10 @@ namespace ObservableComputations.Test
 			Assert.IsTrue(item.ProcessedAsOld);
 			Assert.IsTrue(newItem1.ProcessedAsNew);
 			Assert.IsTrue(newItem1.ProcessedAsOld);
+		}
+
+		public ScalarProcessingVoidTest(bool debug) : base(debug)
+		{
 		}
 	}
 }

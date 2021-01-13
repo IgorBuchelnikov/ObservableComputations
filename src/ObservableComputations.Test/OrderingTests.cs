@@ -13,8 +13,8 @@ using NUnit.Framework;
 
 namespace ObservableComputations.Test
 {
-	[TestFixture]
-	public class OrderingTests
+	[TestFixture(false)]
+	public class OrderingTests : TestBase
 	{
 		OcConsumer consumer = new OcConsumer();
 
@@ -550,5 +550,8 @@ namespace ObservableComputations.Test
 		//	Ordering<Item, int?> ordering = items.Ordering(i => i.OrderNum);
 		//	ordering.ValidateConsistency();
 		//}
+		public OrderingTests(bool debug) : base(debug)
+		{
+		}
 	}
 }

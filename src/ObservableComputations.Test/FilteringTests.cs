@@ -12,8 +12,8 @@ using NUnit.Framework;
 
 namespace ObservableComputations.Test
 {
-	[TestFixture]
-	public class FilteringTests
+	[TestFixture(false)]
+	public class FilteringTests : TestBase
 	{
 		OcConsumer consumer = new OcConsumer();
 
@@ -324,5 +324,8 @@ namespace ObservableComputations.Test
 
 		}
 
+		public FilteringTests(bool debug) : base(debug)
+		{
+		}
 	}
 }

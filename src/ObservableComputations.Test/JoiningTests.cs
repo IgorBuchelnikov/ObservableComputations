@@ -13,8 +13,8 @@ using NUnit.Framework;
 
 namespace ObservableComputations.Test
 {
-	[TestFixture]
-	public class JoiningTests
+	[TestFixture(false)]
+	public class JoiningTests : TestBase
 	{
 		OcConsumer consumer = new OcConsumer();
 
@@ -352,6 +352,10 @@ namespace ObservableComputations.Test
 
 			selectedOrderTypes.Add("C");
 			orders[0].Type = "C";		
+		}
+
+		public JoiningTests(bool debug) : base(debug)
+		{
 		}
 	}
 }

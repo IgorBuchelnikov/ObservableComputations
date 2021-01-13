@@ -13,8 +13,8 @@ using NUnit.Framework;
 
 namespace ObservableComputations.Test
 {
-	[TestFixture]
-	public class IntersectingTests
+	[TestFixture(false)]
+	public class IntersectingTests : TestBase
 	{
 		OcConsumer consumer = new OcConsumer();
 
@@ -254,6 +254,10 @@ namespace ObservableComputations.Test
 		private static ObservableCollection<Item> getObservableCollection(int[] ids)
 		{	
 			return new ObservableCollection<Item>(Enumerable.Range(0, ids.Length).Select(i => ids[i] >= 0 ? new Item(ids[i]) : null));
+		}
+
+		public IntersectingTests(bool debug) : base(debug)
+		{
 		}
 	}
 }

@@ -10,8 +10,8 @@ using NUnit.Framework;
 
 namespace ObservableComputations.Test
 {
-	[TestFixture]
-	public class ReversingTests
+	[TestFixture(false)]
+	public class ReversingTests : TestBase
 	{
 		OcConsumer consumer = new OcConsumer();
 
@@ -182,9 +182,11 @@ namespace ObservableComputations.Test
 			items[index] = new Item();
 			reversing.ValidateConsistency();			
 			consumer.Dispose();
-		}		
+		}
 
 
-
+		public ReversingTests(bool debug) : base(debug)
+		{
+		}
 	}
 }

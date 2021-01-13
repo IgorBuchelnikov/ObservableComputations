@@ -9,8 +9,8 @@ using NUnit.Framework;
 
 namespace ObservableComputations.Test
 {
-	[TestFixture]
-	public class DifferingTests
+	[TestFixture(false)]
+	public class DifferingTests : TestBase
 	{
 		OcConsumer consumer = new OcConsumer();
 
@@ -62,6 +62,10 @@ namespace ObservableComputations.Test
 			Assert.IsTrue(raised);
 
 			consumer.Dispose();
+		}
+
+		public DifferingTests(bool debug) : base(debug)
+		{
 		}
 	}
 }

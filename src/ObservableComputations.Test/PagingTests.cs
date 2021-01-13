@@ -9,8 +9,8 @@ using NUnit.Framework;
 
 namespace ObservableComputations.Test
 {
-	[TestFixture]
-	public class PagingTests
+	[TestFixture(false)]
+	public class PagingTests : TestBase
 	{
 		OcConsumer consumer = new OcConsumer();
 
@@ -318,6 +318,10 @@ namespace ObservableComputations.Test
 			test();
 
 			consumer.Dispose();
+		}
+
+		public PagingTests(bool debug) : base(debug)
+		{
 		}
 	}
 }

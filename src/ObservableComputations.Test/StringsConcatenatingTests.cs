@@ -11,8 +11,8 @@ using NUnit.Framework;
 namespace ObservableComputations.Test
 {
 	// TODO тестировать смену сепаратора
-	[TestFixture]
-	public class StringsConcatenatingTests
+	[TestFixture(false)]
+	public class StringsConcatenatingTests : TestBase
 	{
 		OcConsumer consumer = new OcConsumer();
 
@@ -227,5 +227,9 @@ namespace ObservableComputations.Test
 		}
 
 		public static string chars = "abcdefghigklmnopqrstuvwxyz";
+
+		public StringsConcatenatingTests(bool debug) : base(debug)
+		{
+		}
 	}
 }

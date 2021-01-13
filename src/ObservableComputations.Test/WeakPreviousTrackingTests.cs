@@ -9,8 +9,8 @@ using NUnit.Framework;
 
 namespace ObservableComputations.Test
 {
-	[TestFixture]
-	public class WeakPreviousTrackingTests
+	[TestFixture(false)]
+	public class WeakPreviousTrackingTests : TestBase
 	{
 		OcConsumer consumer = new OcConsumer();
 
@@ -88,5 +88,8 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 
+		public WeakPreviousTrackingTests(bool debug) : base(debug)
+		{
+		}
 	}
 }

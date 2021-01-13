@@ -7,8 +7,8 @@ using NUnit.Framework;
 
 namespace ObservableComputations.Test
 {
-	[TestFixture]
-	public class OfTypeComputingTests
+	[TestFixture(false)]
+	public class OfTypeComputingTests : TestBase
 	{
 		OcConsumer consumer = new OcConsumer();
 
@@ -102,6 +102,10 @@ namespace ObservableComputations.Test
 			items.Move(oldIndex, newIndex);
 			ofTypeComputing.ValidateConsistency();			
 			consumer.Dispose();
-		}	
+		}
+
+		public OfTypeComputingTests(bool debug) : base(debug)
+		{
+		}
 	}
 }

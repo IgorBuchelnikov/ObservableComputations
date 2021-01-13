@@ -13,8 +13,8 @@ using NUnit.Framework;
 
 namespace ObservableComputations.Test
 {
-	[TestFixture]
-	public class DictionaringTests
+	[TestFixture(false)]
+	public class DictionaringTests : TestBase
 	{
 		OcConsumer consumer = new OcConsumer();
 
@@ -237,6 +237,10 @@ namespace ObservableComputations.Test
 		private static ObservableCollection<Item> getObservableCollection(int[] values)
 		{
 			return new ObservableCollection<Item>(Enumerable.Range(0, values.Length).Select(n => new Item(){Key = n, Value = values[n]}));
+		}
+
+		public DictionaringTests(bool debug) : base(debug)
+		{
 		}
 	}
 }

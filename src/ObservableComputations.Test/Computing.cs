@@ -9,8 +9,8 @@ using NUnit.Framework;
 
 namespace ObservableComputations.Test
 {
-	[TestFixture]
-	public class ComputingTests
+	[TestFixture(false)]
+	public class ComputingTests : TestBase
 	{
 		OcConsumer consumer = new OcConsumer();
 
@@ -52,6 +52,10 @@ namespace ObservableComputations.Test
 			computing.PropertyChanged += (sender, args) => { if (args.PropertyName == "Value") raised = true; };
 			order.Num = "1";
 			Assert.IsTrue(raised);
+		}
+
+		public ComputingTests(bool debug) : base(debug)
+		{
 		}
 	}
 }

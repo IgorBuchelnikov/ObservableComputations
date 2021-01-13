@@ -13,8 +13,8 @@ using NUnit.Framework;
 
 namespace ObservableComputations.Test
 {
-	[TestFixture]
-	public class ZippingTests
+	[TestFixture(false)]
+	public class ZippingTests : TestBase
 	{
 		OcConsumer consumer = new OcConsumer();
 
@@ -218,6 +218,10 @@ namespace ObservableComputations.Test
 		private static ObservableCollection<Item> getObservableCollection(int itemsCounts)
 		{	
 			return new ObservableCollection<Item>(Enumerable.Range(0, itemsCounts).Select(i => new Item()));
+		}
+
+		public ZippingTests(bool debug) : base(debug)
+		{
 		}
 	}
 }

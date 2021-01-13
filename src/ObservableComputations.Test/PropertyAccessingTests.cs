@@ -9,8 +9,8 @@ using NUnit.Framework;
 
 namespace ObservableComputations.Test
 {
-	[TestFixture]
-	public class PropertyAccessingTests
+	[TestFixture(false)]
+	public class PropertyAccessingTests : TestBase
 	{
 		OcConsumer consumer = new OcConsumer();
 
@@ -139,5 +139,8 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 
+		public PropertyAccessingTests(bool debug) : base(debug)
+		{
+		}
 	}
 }

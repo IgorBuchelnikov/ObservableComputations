@@ -7,8 +7,8 @@ using NUnit.Framework;
 
 namespace ObservableComputations.Test
 {
-	[TestFixture]
-	public class CastingTests
+	[TestFixture(false)]
+	public class CastingTests : TestBase
 	{
 		OcConsumer consumer = new OcConsumer();
 
@@ -102,6 +102,10 @@ namespace ObservableComputations.Test
 			items.Move(oldIndex, newIndex);
 			casting.ValidateConsistency();			
 			consumer.Dispose();
-		}	
+		}
+
+		public CastingTests(bool debug) : base(debug)
+		{
+		}
 	}
 }

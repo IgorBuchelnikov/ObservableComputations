@@ -106,16 +106,14 @@ namespace ObservableComputations.Test
 		TextFileOutput _textFileOutputLog = new TextFileOutput(@"C:\ThenOrderingOrdering_Deep.log");
 		TextFileOutput _textFileOutputTime = new TextFileOutput(@"C:\ThenOrderingOrdering_Deep_Time.log");
 
+#if !TestCoverageAnalisis
 		[Test]
 		public void ThenOrderingOrdering_Random()
 		{
 			Random random =  new Random();
 
-#if !TestCoverageAnalisis
-			for (int i1 = 0; i1 < 5000; i1++)
-#else
-			for (int i1 = 0; i1 < 2; i1++)
-#endif
+
+			for (int i1 = 0; i1 < 50; i1++)
 			{
 				int itemCount = random.Next(4, 7);
 				int[] orderNums1 = new int[itemCount];
@@ -137,11 +135,9 @@ namespace ObservableComputations.Test
 		{
 			Random random =  new Random();
 
-#if !TestCoverageAnalisis
-			for (int i1 = 0; i1 < 5000; i1++)
-#else
-			for (int i1 = 0; i1 < 2; i1++)
-#endif
+			for (int i1 = 0; i1 < 50; i1++)
+
+
 			{
 				int itemCount = random.Next(4, 7);
 				//int itemCount = 3;
@@ -162,6 +158,7 @@ namespace ObservableComputations.Test
 				test(orderNums1, orderNums2, orderNums3, ListSortDirection.Descending, ListSortDirection.Descending);
 			}
 		}
+#endif
 
 		[Test]
 		public void ThenOrderingOrdering_Test()
@@ -194,9 +191,15 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 
+#if !TestCoverageAnalisis
 		[Test, Combinatorial]
 		public void ThenOrderingOrdering_Deep(
 			[Values(ListSortDirection.Ascending, ListSortDirection.Descending)] ListSortDirection listSortDirection)
+#else
+		[Test, Combinatorial]
+		public void ThenOrderingOrdering_Deep(
+			[Values(ListSortDirection.Ascending)] ListSortDirection listSortDirection)
+#endif
 		{
 			long counter = 0;
 			Stopwatch stopwatch = Stopwatch.StartNew();
@@ -232,10 +235,17 @@ namespace ObservableComputations.Test
 			}
 		}
 
+#if !TestCoverageAnalisis
 		[Test, Combinatorial]
 		public void ThenOrderingThenOrderingOrdering_Deep(
 			[Values(ListSortDirection.Ascending, ListSortDirection.Descending)] ListSortDirection listSortDirection,
 			[Values(ListSortDirection.Ascending, ListSortDirection.Descending)] ListSortDirection listSortDirection1)
+#else
+		[Test, Combinatorial]
+		public void ThenOrderingThenOrderingOrdering_Deep(
+			[Values(ListSortDirection.Ascending)] ListSortDirection listSortDirection,
+			[Values(ListSortDirection.Ascending)] ListSortDirection listSortDirection1)
+#endif
 		{
 			long counter = 0;
 			Stopwatch stopwatch = Stopwatch.StartNew();
@@ -476,7 +486,7 @@ namespace ObservableComputations.Test
 
 
 
-		#region ThenOrderingThenOrdering
+#region ThenOrderingThenOrdering
 		private void test(int[] orderNums, int[] orderNums2, int[] orderNums3, ListSortDirection listSortDirection, ListSortDirection listSortDirection2)
 		{
 			int index = 0;
@@ -679,7 +689,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 
-		#endregion
+#endregion
 
 		public ThenOrderingOrderingTests(bool debug) : base(debug)
 		{

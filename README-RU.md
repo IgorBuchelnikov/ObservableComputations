@@ -1,3 +1,5 @@
+[![Coverage Status](https://coveralls.io/repos/github/IgorBuchelnikov/ObservableComputations/badge.svg)](https://coveralls.io/github/IgorBuchelnikov/ObservableComputations)
+
 # ObservableComputations
 
 ## Что нужно знать для чтения этой статьи?

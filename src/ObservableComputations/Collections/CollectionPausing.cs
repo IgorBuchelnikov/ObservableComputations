@@ -26,16 +26,27 @@ namespace ObservableComputations
 			get => _isPaused;
 			set
 			{
-				checkConsistent(null, null);
-				
 				if (_isPausedScalar != null) 
 					throw new ObservableComputationsException("Modifying of IsPaused property is controlled by IsPausedScalar");
-				
-				_resuming = _isPaused != value && !value;
-				_isPaused = value;
-				OnPropertyChanged(Utils.PausedPropertyChangedEventArgs);
 
-				if (_resuming) resume();
+				void action()
+				{
+					_resuming = _isPaused != value && !value;
+					_isPaused = value;
+					OnPropertyChanged(Utils.IsPausedPropertyChangedEventArgs);
+
+					if (_resuming) resume();
+				}
+
+				Utils.processChange(
+					null, 
+					null, 
+					action,
+					ref _isConsistent, 
+					ref _handledEventSender, 
+					ref _handledEventArgs, 
+					0, _deferredQueuesCount,
+					ref _deferredProcessings, this);
 			}
 		}
 
@@ -63,7 +74,6 @@ namespace ObservableComputations
 
 		private void resume()
 		{
-			_isConsistent = false;
 			if (_resumeType == CollectionPausingResumeType.ReplayChanges)
 			{
 				int count = _deferredCollectionActions.Count;
@@ -71,9 +81,18 @@ namespace ObservableComputations
 				for (int i = 0; i < count; i++)
 				{
 					DeferredCollectionAction<TSourceItem> deferredCollectionAction = _deferredCollectionActions.Dequeue();
-					if (deferredCollectionAction.NotifyCollectionChangedEventAgs != null)
-						handleSourceCollectionChanged(deferredCollectionAction.EventSender,
-							deferredCollectionAction.NotifyCollectionChangedEventAgs);
+					if (deferredCollectionAction.NotifyCollectionChangedEventArgs != null)
+					{
+						_handledEventSender = deferredCollectionAction.EventSender;
+						_handledEventArgs = deferredCollectionAction.EventArgs;
+
+						_thisAsSourceCollectionChangeProcessor.processSourceCollectionChanged(
+							deferredCollectionAction.EventSender,
+							deferredCollectionAction.NotifyCollectionChangedEventArgs);
+
+						_handledEventSender = null;
+						_handledEventArgs = null;
+					}
 					else if (deferredCollectionAction.Clear)
 					{
 						_items.Clear();
@@ -109,6 +128,9 @@ namespace ObservableComputations
 					}
 				}
 
+				if (_sourceAsIHasChangeMarker != null)
+					_lastProcessedSourceChangeMarker = _sourceAsIHasChangeMarker.ChangeMarker;
+
 				_resuming = false;
 
 				Utils.postHandleChange(
@@ -122,13 +144,6 @@ namespace ObservableComputations
 			{
 				initializeFromSource();
 			}
-
-			Utils.postHandleChange(
-				ref _handledEventSender,
-				ref _handledEventArgs,
-				_deferredProcessings,
-				ref _isConsistent,
-				this);
 		}
 
 		private INotifyCollectionChanged _source;
@@ -260,7 +275,11 @@ namespace ObservableComputations
 				int sourceIndex = 0;
 
 				if (_isPaused)
-					_deferredCollectionActions.Enqueue(new DeferredCollectionAction<TSourceItem>(_sourceAsList.ToArray()));
+				{
+					_deferredCollectionActions.Enqueue(
+						new DeferredCollectionAction<TSourceItem>(_sourceAsList.ToArray()));
+					_source.CollectionChanged += handleSourceCollectionChanged;
+				}
 				else
 				{
 					int count = _sourceAsList.Count;
@@ -304,6 +323,13 @@ namespace ObservableComputations
 
 		private void handleSourceCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
 		{
+			if (_isPaused && e.Action != NotifyCollectionChangedAction.Reset)
+			{
+				_deferredCollectionActions.Enqueue(new DeferredCollectionAction<TSourceItem>(sender, e));
+				_indexerPropertyChangedEventRaised = false;
+				return;
+			}
+
 			if (!Utils.preHandleSourceCollectionChanged(
 				sender, 
 				e, 
@@ -315,8 +341,6 @@ namespace ObservableComputations
 				ref _handledEventArgs,
 				ref _deferredProcessings,
 				1, _deferredQueuesCount, this)) return;
-
-			_isConsistent = !_resuming && !_isPaused;
 
 			_thisAsSourceCollectionChangeProcessor.processSourceCollectionChanged(sender, e);
 
@@ -330,12 +354,6 @@ namespace ObservableComputations
 
 		void ISourceCollectionChangeProcessor.processSourceCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
 		{
-			if (_isPaused && e.Action != NotifyCollectionChangedAction.Reset)
-			{
-				_deferredCollectionActions.Enqueue(new DeferredCollectionAction<TSourceItem>(sender, e));
-				return;
-			}
-
 			switch (e.Action)
 			{
 				case NotifyCollectionChangedAction.Add:
@@ -387,6 +405,7 @@ namespace ObservableComputations
 		{
 			Utils.uninitializeSourceScalar(_sourceScalar, scalarValueChangedHandler, ref _source);
 			if (_isPausedScalar != null) _isPausedScalar.PropertyChanged -= handleIsPausedScalarValueChanged;
+			_deferredCollectionActions.Clear();
 		}
 
 		#region Implementation of ISourceIndexerPropertyTracker
@@ -397,21 +416,29 @@ namespace ObservableComputations
 		}
 
 		#endregion
+
+		internal void ValidateConsistency()
+		{
+			IList<TSourceItem> source = _sourceScalar.getValue(_source, new ObservableCollection<TSourceItem>()) as IList<TSourceItem>;
+			if (!IsPaused)
+				if (!source.SequenceEqual(this))
+					throw new ObservableComputationsException(this, "Consistency violation: CollectionPausing.1");
+		}
 	}
 
 	internal struct DeferredCollectionAction<TSourceItem>
 	{
 		public readonly object EventSender;
-		public readonly NotifyCollectionChangedEventArgs NotifyCollectionChangedEventAgs;
+		public readonly NotifyCollectionChangedEventArgs NotifyCollectionChangedEventArgs;
 		public readonly EventArgs EventArgs;
 		public readonly TSourceItem[] NewItems;
 		public readonly bool Clear;
 		public readonly bool Reset;
 
-		public DeferredCollectionAction(object eventSender, NotifyCollectionChangedEventArgs eventAgs) : this()
+		public DeferredCollectionAction(object eventSender, NotifyCollectionChangedEventArgs eventArgs) : this()
 		{
 			EventSender = eventSender;
-			NotifyCollectionChangedEventAgs = eventAgs;
+			NotifyCollectionChangedEventArgs = eventArgs;
 		}
 
 		public DeferredCollectionAction(TSourceItem[] newItems) : this()

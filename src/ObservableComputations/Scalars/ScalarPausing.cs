@@ -47,7 +47,7 @@ namespace ObservableComputations
 
 				_resuming = _isPaused != value && value;
 				_isPaused = value;
-				raisePropertyChanged(Utils.PausedPropertyChangedEventArgs);
+				raisePropertyChanged(Utils.IsPausedPropertyChangedEventArgs);
 
 				if (_resuming)
 				{

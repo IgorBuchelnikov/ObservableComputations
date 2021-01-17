@@ -36,8 +36,6 @@ namespace ObservableComputations.Test
 			&& em.Name != "CollectionDispatching"
 			&& em.Name != "ScalarDispatching"
 			&& em.Name != "ConcurrentDictionaring"
-			&& em.Name != "Crossing"
-			&& em.Name != "CollectionPausing"
 			&& em.Name != "ScalarPausing"
 			&& !em.Arguments.Any(ema => IsComputingArgument(ema)))
 		.GroupBy(em => em.Name).OrderBy(emg => emg.Key))
@@ -53,25 +51,35 @@ namespace ObservableComputations.Test
 		{
 			testNum++;
 
-			if (extensionMethod.Name == "Uniting" && testNum == 101)
+			if (extensionMethod.Name == "CollectionPausing")
 			{
 			}
-#>
-		
-		[Test]
-		public void Test<#=extensionMethod.Name#><#=testNum.ToString("00")#>()
-		{
-<#
-			List<(string variableType, string name, string result, string sourceAccessor, string scalarType)> arguments = new List<(string variableType, string name, string result, string sourceAccessor, string scalarType)>();
+
+			var arguments = new List<(string variableType, string name, string result, string sourceAccessor, string scalarType, bool isCombinatorical)>();
 			var signatureArguments = extensionMethod.ArgumentsWithoutDefaultValue;
 			foreach (ExtensionMethodArgument argument in signatureArguments )
 			{
-				(string result, string sourceAccessor, string variableType, string scalarType) argumentValue = getArgumentValue(argument.Type, argument.Name, extensionMethod.Name);
-				arguments.Add((argumentValue.variableType, argument.Name, argumentValue.result, argumentValue.sourceAccessor, argumentValue.scalarType));
+				var argumentValue = getArgumentValue(argument.Type, argument.Name, extensionMethod.Name);
+				arguments.Add((argumentValue.variableType, argument.Name, argumentValue.result, argumentValue.sourceAccessor, argumentValue.scalarType, argumentValue.isCombinatorical));
 			}
 
-			foreach (var argument in arguments)
+			var combinatoricalArguments = arguments.Where(a => a.isCombinatorical).ToArray();
+#>
+		
+		[Test, Combinatorial]
+		public void Test<#=extensionMethod.Name#><#=testNum.ToString("00")#>(<#=combinatoricalArguments.Length == 0 ? ")" : ""#>
+<#			
+			for (int combinatoricalArgumentIndex = 0; combinatoricalArgumentIndex < combinatoricalArguments.Length; combinatoricalArgumentIndex++)
 			{
+				var argument = combinatoricalArguments[combinatoricalArgumentIndex];
+#>			[Values(<#=string.Join(", ", getScalarAlternativeValues(argument.variableType, argument.name, extensionMethod.Name))#>)] <#=argument.variableType#> <#=argument.name#><#=combinatoricalArgumentIndex < combinatoricalArguments.Length - 1 ? ",\n" : ")\n"#><#
+			}
+#>
+		{
+<#
+			foreach (var argument in arguments.Where(a => !a.isCombinatorical))
+			{
+
 #>
 			<#=argument.variableType#> <#=argument.name#> = <#=argument.result#>;
 <#
@@ -101,6 +109,7 @@ namespace ObservableComputations.Test
 							&& (argument.name == "source1" || argument.name == "source2" || argument.name == "source1Scalar" || argument.name == "source2Scalar")
 						)
 						|| (extensionMethod.Name == "Paging" && argument.name == "initialPage")
+						|| (extensionMethod.Name == "CollectionPausing" && argument.name == "initialIsPaused")
 					)
 					continue;
 #>
@@ -301,7 +310,7 @@ namespace ObservableComputations.Test
 		return type;
 	}
 
-	private (string result, string sourceAccessor, string variableType, string scalarType) getArgumentValue(string type, string argumentName, string extensionMethodName)
+	private (string result, string sourceAccessor, string variableType, string scalarType, bool isCombinatorical) getArgumentValue(string type, string argumentName, string extensionMethodName)
 	{
 		string checkingType = type;
 		string result = null;
@@ -434,6 +443,9 @@ namespace ObservableComputations.Test
 				else if (argumentName.Contains("Capacity")) result = "100";
 				else result =  argumentName.Contains("count") ? "3" : "0";
 				break;
+			case "int?":
+				result = "null";
+				break;
 			case "ObservableComputations.IOrdering<TSourceItem>":
 				result =  "getItems().Selecting(i => i.Num).Ordering(i => i)";
 				sourceAccessor = ".GetValueAs(s => ((Ordering<int, int>)s)?.Source)?.GetValueAs(s => ((Selecting<Item, int>)s)?.Source)";
@@ -461,6 +473,12 @@ namespace ObservableComputations.Test
 				break;
 			case "ObservableComputations.IReadScalar<TResult>":
 				break;
+			case "bool":
+				result = "true";
+				break;
+			case "ObservableComputations.CollectionPausingResumeType":
+				result = "CollectionPausingResumeType.Reset";
+				break;
 			default:
 				throw new Exception($"Unexpected type {type}");
 		}
@@ -479,7 +497,7 @@ namespace ObservableComputations.Test
 			variableType = scalar ? $"IReadScalar<{getTestType(checkingType, extensionMethodName)}>" : variableType;
 		}
 
-		return (result, sourceAccessor, variableType, scalarType);
+		return (result, sourceAccessor, variableType, scalarType, isCombinatoricalArgument(type, argumentName, extensionMethodName));
 	}
 
 	private IEnumerable<string> getScalarAlternativeValues(string scalarType, string argumentName, string extensionMethodName)
@@ -521,6 +539,10 @@ namespace ObservableComputations.Test
 			case "int":
 				result.Add(argumentName.Contains("count") ? "4" : "1");
 				break;
+			case "int?":
+				result.Add("1");
+				result.Add("1");
+				break;
 			case "ObservableComputations.IOrdering<int>":
 				result.Add("null");
 				break;
@@ -537,11 +559,24 @@ namespace ObservableComputations.Test
 			case "Selecting<Item, string>":
 				result.Add("null");
 				break;
+			case "bool":
+				result.Add("false");
+				result.Add("true");
+				break;
+			case "ObservableComputations.CollectionPausingResumeType":
+				result.Add("CollectionPausingResumeType.ReplayChanges");
+				result.Add("CollectionPausingResumeType.Reset");
+				break;
 			default:
 				throw new Exception($"Unexpected scalar type {scalarType}");
 		}
 
 
 		return result;
+	}
+
+	private bool isCombinatoricalArgument(string type, string argumentName, string extensionMethodName)
+	{
+		return type == "bool" || type == "int" || type == "int?" || type == "ObservableComputations.CollectionPausingResumeType";
 	}
 #>

@@ -30,7 +30,7 @@ namespace ObservableComputations.Test
 		#region Aggregating
 
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestAggregating01()
 		{
 			IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar = getScalar<Selecting<Item, int>>(getItems().Selecting(i => i.Num));
@@ -102,7 +102,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestAggregating02()
 		{
 			IReadScalar<ObservableCollection<int>> sourceScalar = getScalar<Selecting<Item, int>>(getItems().Selecting(i => i.Num));
@@ -174,7 +174,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestAggregating03()
 		{
 			Selecting<Item, int> source = getItems().Selecting(i => i.Num);
@@ -241,7 +241,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestAggregating04()
 		{
 			Selecting<Item, int> source = getItems().Selecting(i => i.Num);
@@ -311,7 +311,7 @@ namespace ObservableComputations.Test
 		#region AllComputing
 
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestAllComputing01()
 		{
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
@@ -380,7 +380,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestAllComputing02()
 		{
 			Scalar<ObservableCollection<Item>> sourceScalar = getScalar<ObservableCollection<Item>>(getItems());
@@ -449,7 +449,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestAllComputing03()
 		{
 			System.Collections.Specialized.INotifyCollectionChanged source = getItems();
@@ -513,7 +513,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestAllComputing04()
 		{
 			ObservableCollection<Item> source = getItems();
@@ -580,7 +580,7 @@ namespace ObservableComputations.Test
 		#region AnyComputing
 
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestAnyComputing01()
 		{
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
@@ -649,7 +649,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestAnyComputing02()
 		{
 			Scalar<ObservableCollection<Item>> sourceScalar = getScalar<ObservableCollection<Item>>(getItems());
@@ -718,7 +718,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestAnyComputing03()
 		{
 			System.Collections.Specialized.INotifyCollectionChanged source = getItems();
@@ -782,7 +782,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestAnyComputing04()
 		{
 			ObservableCollection<Item> source = getItems();
@@ -849,7 +849,7 @@ namespace ObservableComputations.Test
 		#region Appending
 
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestAppending01()
 		{
 			System.Collections.Specialized.INotifyCollectionChanged source = getItems();
@@ -913,7 +913,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestAppending02()
 		{
 			ObservableCollection<Item> source = getItems();
@@ -977,7 +977,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestAppending03()
 		{
 			System.Collections.Specialized.INotifyCollectionChanged source = getItems();
@@ -1046,7 +1046,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestAppending04()
 		{
 			ObservableCollection<Item> source = getItems();
@@ -1115,7 +1115,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestAppending05()
 		{
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
@@ -1184,7 +1184,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestAppending06()
 		{
 			Scalar<ObservableCollection<Item>> sourceScalar = getScalar<ObservableCollection<Item>>(getItems());
@@ -1253,7 +1253,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestAppending07()
 		{
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
@@ -1327,7 +1327,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestAppending08()
 		{
 			Scalar<ObservableCollection<Item>> sourceScalar = getScalar<ObservableCollection<Item>>(getItems());
@@ -1404,7 +1404,7 @@ namespace ObservableComputations.Test
 		#region Averaging
 
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestAveraging01()
 		{
 			IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar = getScalar<Selecting<Item, int>>(getItems().Selecting(i => i.Num));
@@ -1470,7 +1470,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestAveraging02()
 		{
 			IReadScalar<ObservableCollection<int>> sourceScalar = getScalar<Selecting<Item, int>>(getItems().Selecting(i => i.Num));
@@ -1536,7 +1536,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestAveraging03()
 		{
 			Selecting<Item, int> source = getItems().Selecting(i => i.Num);
@@ -1597,7 +1597,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestAveraging04()
 		{
 			Selecting<Item, int> source = getItems().Selecting(i => i.Num);
@@ -1661,7 +1661,7 @@ namespace ObservableComputations.Test
 		#region Casting
 
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestCasting01()
 		{
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
@@ -1727,7 +1727,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestCasting02()
 		{
 			System.Collections.Specialized.INotifyCollectionChanged source = getItems();
@@ -1788,10 +1788,1669 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		#endregion
+		#region CollectionPausing
+
+		
+		[Test, Combinatorial]
+		public void TestCollectionPausing01(
+			[Values(false, true)] bool initialIsPaused,
+			[Values(CollectionPausingResumeType.ReplayChanges, CollectionPausingResumeType.Reset)] ObservableComputations.CollectionPausingResumeType resumeType)
+		{
+			System.Collections.Specialized.INotifyCollectionChanged source = getItems();
+			OcConsumer consumer = new OcConsumer();
+			var testing = source.CollectionPausing<Item>(
+				initialIsPaused,
+				resumeType).For(consumer);
+
+			Assert.AreEqual(source, testing.Source);
+			Assert.AreEqual(resumeType, testing.ResumeType);
+
+			void test()
+			{
+				testing.ValidateConsistency();
+				var sourceValue = ((ObservableCollection<Item>)((System.Collections.Specialized.INotifyCollectionChanged)source));
+
+				if (sourceValue != null)
+				{		
+					sourceValue.Insert(2, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					sourceValue[3] = new QuickTests.Item(7, true);
+					testing.ValidateConsistency();
+					sourceValue.RemoveAt(3);
+					testing.ValidateConsistency();
+					sourceValue.Move(1, 3);
+					testing.ValidateConsistency();
+					sourceValue[2].Active = !sourceValue[2].Active;
+					testing.ValidateConsistency();
+					sourceValue[2].Num = sourceValue[2].Num + 1;
+					testing.ValidateConsistency();
+					sourceValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceValue.RemoveAt(1);
+					testing.ValidateConsistency();
+					sourceValue.Insert(0, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					sourceValue.Insert(0, new QuickTests.Item(2, true));
+					testing.ValidateConsistency();
+				}
+
+				IList listSource;
+				listSource = ((IList)((System.Collections.Specialized.INotifyCollectionChanged)source));
+				if (listSource != null)
+				{
+					listSource.Clear();
+					testing.ValidateConsistency();
+				}
+
+				if (sourceValue != null)
+				{
+					sourceValue.Insert(0, new QuickTests.Item(1, true));
+					sourceValue.Insert(1, new QuickTests.Item(2, true));
+					sourceValue.Insert(2, new QuickTests.Item(3, true));
+					sourceValue.Insert(3, new QuickTests.Item(3, true));
+					sourceValue.Insert(4, new QuickTests.Item(3, true));
+					testing.ValidateConsistency();
+				}
+			}
+
+			test();
+			consumer.Dispose();
+		}
+		
+		[Test, Combinatorial]
+		public void TestCollectionPausing02(
+			[Values(false, true)] bool initialIsPaused)
+		{
+			System.Collections.Specialized.INotifyCollectionChanged source = getItems();
+			OcConsumer consumer = new OcConsumer();
+			var testing = source.CollectionPausing<Item>(
+				initialIsPaused).For(consumer);
+
+			Assert.AreEqual(source, testing.Source);
+
+			void test()
+			{
+				testing.ValidateConsistency();
+				var sourceValue = ((ObservableCollection<Item>)((System.Collections.Specialized.INotifyCollectionChanged)source));
+
+				if (sourceValue != null)
+				{		
+					sourceValue.Insert(2, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					sourceValue[3] = new QuickTests.Item(7, true);
+					testing.ValidateConsistency();
+					sourceValue.RemoveAt(3);
+					testing.ValidateConsistency();
+					sourceValue.Move(1, 3);
+					testing.ValidateConsistency();
+					sourceValue[2].Active = !sourceValue[2].Active;
+					testing.ValidateConsistency();
+					sourceValue[2].Num = sourceValue[2].Num + 1;
+					testing.ValidateConsistency();
+					sourceValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceValue.RemoveAt(1);
+					testing.ValidateConsistency();
+					sourceValue.Insert(0, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					sourceValue.Insert(0, new QuickTests.Item(2, true));
+					testing.ValidateConsistency();
+				}
+
+				IList listSource;
+				listSource = ((IList)((System.Collections.Specialized.INotifyCollectionChanged)source));
+				if (listSource != null)
+				{
+					listSource.Clear();
+					testing.ValidateConsistency();
+				}
+
+				if (sourceValue != null)
+				{
+					sourceValue.Insert(0, new QuickTests.Item(1, true));
+					sourceValue.Insert(1, new QuickTests.Item(2, true));
+					sourceValue.Insert(2, new QuickTests.Item(3, true));
+					sourceValue.Insert(3, new QuickTests.Item(3, true));
+					sourceValue.Insert(4, new QuickTests.Item(3, true));
+					testing.ValidateConsistency();
+				}
+			}
+
+			test();
+			consumer.Dispose();
+		}
+		
+		[Test, Combinatorial]
+		public void TestCollectionPausing03(
+			[Values(CollectionPausingResumeType.ReplayChanges, CollectionPausingResumeType.Reset)] ObservableComputations.CollectionPausingResumeType resumeType)
+		{
+			System.Collections.Specialized.INotifyCollectionChanged source = getItems();
+			OcConsumer consumer = new OcConsumer();
+			var testing = source.CollectionPausing<Item>(
+				resumeType).For(consumer);
+
+			Assert.AreEqual(source, testing.Source);
+			Assert.AreEqual(resumeType, testing.ResumeType);
+
+			void test()
+			{
+				testing.ValidateConsistency();
+				var sourceValue = ((ObservableCollection<Item>)((System.Collections.Specialized.INotifyCollectionChanged)source));
+
+				if (sourceValue != null)
+				{		
+					sourceValue.Insert(2, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					sourceValue[3] = new QuickTests.Item(7, true);
+					testing.ValidateConsistency();
+					sourceValue.RemoveAt(3);
+					testing.ValidateConsistency();
+					sourceValue.Move(1, 3);
+					testing.ValidateConsistency();
+					sourceValue[2].Active = !sourceValue[2].Active;
+					testing.ValidateConsistency();
+					sourceValue[2].Num = sourceValue[2].Num + 1;
+					testing.ValidateConsistency();
+					sourceValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceValue.RemoveAt(1);
+					testing.ValidateConsistency();
+					sourceValue.Insert(0, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					sourceValue.Insert(0, new QuickTests.Item(2, true));
+					testing.ValidateConsistency();
+				}
+
+				IList listSource;
+				listSource = ((IList)((System.Collections.Specialized.INotifyCollectionChanged)source));
+				if (listSource != null)
+				{
+					listSource.Clear();
+					testing.ValidateConsistency();
+				}
+
+				if (sourceValue != null)
+				{
+					sourceValue.Insert(0, new QuickTests.Item(1, true));
+					sourceValue.Insert(1, new QuickTests.Item(2, true));
+					sourceValue.Insert(2, new QuickTests.Item(3, true));
+					sourceValue.Insert(3, new QuickTests.Item(3, true));
+					sourceValue.Insert(4, new QuickTests.Item(3, true));
+					testing.ValidateConsistency();
+				}
+			}
+
+			test();
+			consumer.Dispose();
+		}
+		
+		[Test, Combinatorial]
+		public void TestCollectionPausing04()
+		{
+			System.Collections.Specialized.INotifyCollectionChanged source = getItems();
+			OcConsumer consumer = new OcConsumer();
+			var testing = source.CollectionPausing<Item>().For(consumer);
+
+			Assert.AreEqual(source, testing.Source);
+
+			void test()
+			{
+				testing.ValidateConsistency();
+				var sourceValue = ((ObservableCollection<Item>)((System.Collections.Specialized.INotifyCollectionChanged)source));
+
+				if (sourceValue != null)
+				{		
+					sourceValue.Insert(2, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					sourceValue[3] = new QuickTests.Item(7, true);
+					testing.ValidateConsistency();
+					sourceValue.RemoveAt(3);
+					testing.ValidateConsistency();
+					sourceValue.Move(1, 3);
+					testing.ValidateConsistency();
+					sourceValue[2].Active = !sourceValue[2].Active;
+					testing.ValidateConsistency();
+					sourceValue[2].Num = sourceValue[2].Num + 1;
+					testing.ValidateConsistency();
+					sourceValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceValue.RemoveAt(1);
+					testing.ValidateConsistency();
+					sourceValue.Insert(0, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					sourceValue.Insert(0, new QuickTests.Item(2, true));
+					testing.ValidateConsistency();
+				}
+
+				IList listSource;
+				listSource = ((IList)((System.Collections.Specialized.INotifyCollectionChanged)source));
+				if (listSource != null)
+				{
+					listSource.Clear();
+					testing.ValidateConsistency();
+				}
+
+				if (sourceValue != null)
+				{
+					sourceValue.Insert(0, new QuickTests.Item(1, true));
+					sourceValue.Insert(1, new QuickTests.Item(2, true));
+					sourceValue.Insert(2, new QuickTests.Item(3, true));
+					sourceValue.Insert(3, new QuickTests.Item(3, true));
+					sourceValue.Insert(4, new QuickTests.Item(3, true));
+					testing.ValidateConsistency();
+				}
+			}
+
+			test();
+			consumer.Dispose();
+		}
+		
+		[Test, Combinatorial]
+		public void TestCollectionPausing05(
+			[Values(false, true)] bool initialIsPaused,
+			[Values(CollectionPausingResumeType.ReplayChanges, CollectionPausingResumeType.Reset)] ObservableComputations.CollectionPausingResumeType resumeType)
+		{
+			ObservableCollection<Item> source = getItems();
+			OcConsumer consumer = new OcConsumer();
+			var testing = source.CollectionPausing<Item>(
+				initialIsPaused,
+				resumeType).For(consumer);
+
+			Assert.AreEqual(source, testing.Source);
+			Assert.AreEqual(resumeType, testing.ResumeType);
+
+			void test()
+			{
+				testing.ValidateConsistency();
+				var sourceValue = ((ObservableCollection<Item>)((ObservableCollection<Item>)source));
+
+				if (sourceValue != null)
+				{		
+					sourceValue.Insert(2, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					sourceValue[3] = new QuickTests.Item(7, true);
+					testing.ValidateConsistency();
+					sourceValue.RemoveAt(3);
+					testing.ValidateConsistency();
+					sourceValue.Move(1, 3);
+					testing.ValidateConsistency();
+					sourceValue[2].Active = !sourceValue[2].Active;
+					testing.ValidateConsistency();
+					sourceValue[2].Num = sourceValue[2].Num + 1;
+					testing.ValidateConsistency();
+					sourceValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceValue.RemoveAt(1);
+					testing.ValidateConsistency();
+					sourceValue.Insert(0, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					sourceValue.Insert(0, new QuickTests.Item(2, true));
+					testing.ValidateConsistency();
+				}
+
+				IList listSource;
+				listSource = ((IList)((ObservableCollection<Item>)source));
+				if (listSource != null)
+				{
+					listSource.Clear();
+					testing.ValidateConsistency();
+				}
+
+				if (sourceValue != null)
+				{
+					sourceValue.Insert(0, new QuickTests.Item(1, true));
+					sourceValue.Insert(1, new QuickTests.Item(2, true));
+					sourceValue.Insert(2, new QuickTests.Item(3, true));
+					sourceValue.Insert(3, new QuickTests.Item(3, true));
+					sourceValue.Insert(4, new QuickTests.Item(3, true));
+					testing.ValidateConsistency();
+				}
+			}
+
+			test();
+			consumer.Dispose();
+		}
+		
+		[Test, Combinatorial]
+		public void TestCollectionPausing06(
+			[Values(false, true)] bool initialIsPaused)
+		{
+			ObservableCollection<Item> source = getItems();
+			OcConsumer consumer = new OcConsumer();
+			var testing = source.CollectionPausing<Item>(
+				initialIsPaused).For(consumer);
+
+			Assert.AreEqual(source, testing.Source);
+
+			void test()
+			{
+				testing.ValidateConsistency();
+				var sourceValue = ((ObservableCollection<Item>)((ObservableCollection<Item>)source));
+
+				if (sourceValue != null)
+				{		
+					sourceValue.Insert(2, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					sourceValue[3] = new QuickTests.Item(7, true);
+					testing.ValidateConsistency();
+					sourceValue.RemoveAt(3);
+					testing.ValidateConsistency();
+					sourceValue.Move(1, 3);
+					testing.ValidateConsistency();
+					sourceValue[2].Active = !sourceValue[2].Active;
+					testing.ValidateConsistency();
+					sourceValue[2].Num = sourceValue[2].Num + 1;
+					testing.ValidateConsistency();
+					sourceValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceValue.RemoveAt(1);
+					testing.ValidateConsistency();
+					sourceValue.Insert(0, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					sourceValue.Insert(0, new QuickTests.Item(2, true));
+					testing.ValidateConsistency();
+				}
+
+				IList listSource;
+				listSource = ((IList)((ObservableCollection<Item>)source));
+				if (listSource != null)
+				{
+					listSource.Clear();
+					testing.ValidateConsistency();
+				}
+
+				if (sourceValue != null)
+				{
+					sourceValue.Insert(0, new QuickTests.Item(1, true));
+					sourceValue.Insert(1, new QuickTests.Item(2, true));
+					sourceValue.Insert(2, new QuickTests.Item(3, true));
+					sourceValue.Insert(3, new QuickTests.Item(3, true));
+					sourceValue.Insert(4, new QuickTests.Item(3, true));
+					testing.ValidateConsistency();
+				}
+			}
+
+			test();
+			consumer.Dispose();
+		}
+		
+		[Test, Combinatorial]
+		public void TestCollectionPausing07(
+			[Values(CollectionPausingResumeType.ReplayChanges, CollectionPausingResumeType.Reset)] ObservableComputations.CollectionPausingResumeType resumeType)
+		{
+			ObservableCollection<Item> source = getItems();
+			OcConsumer consumer = new OcConsumer();
+			var testing = source.CollectionPausing<Item>(
+				resumeType).For(consumer);
+
+			Assert.AreEqual(source, testing.Source);
+			Assert.AreEqual(resumeType, testing.ResumeType);
+
+			void test()
+			{
+				testing.ValidateConsistency();
+				var sourceValue = ((ObservableCollection<Item>)((ObservableCollection<Item>)source));
+
+				if (sourceValue != null)
+				{		
+					sourceValue.Insert(2, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					sourceValue[3] = new QuickTests.Item(7, true);
+					testing.ValidateConsistency();
+					sourceValue.RemoveAt(3);
+					testing.ValidateConsistency();
+					sourceValue.Move(1, 3);
+					testing.ValidateConsistency();
+					sourceValue[2].Active = !sourceValue[2].Active;
+					testing.ValidateConsistency();
+					sourceValue[2].Num = sourceValue[2].Num + 1;
+					testing.ValidateConsistency();
+					sourceValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceValue.RemoveAt(1);
+					testing.ValidateConsistency();
+					sourceValue.Insert(0, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					sourceValue.Insert(0, new QuickTests.Item(2, true));
+					testing.ValidateConsistency();
+				}
+
+				IList listSource;
+				listSource = ((IList)((ObservableCollection<Item>)source));
+				if (listSource != null)
+				{
+					listSource.Clear();
+					testing.ValidateConsistency();
+				}
+
+				if (sourceValue != null)
+				{
+					sourceValue.Insert(0, new QuickTests.Item(1, true));
+					sourceValue.Insert(1, new QuickTests.Item(2, true));
+					sourceValue.Insert(2, new QuickTests.Item(3, true));
+					sourceValue.Insert(3, new QuickTests.Item(3, true));
+					sourceValue.Insert(4, new QuickTests.Item(3, true));
+					testing.ValidateConsistency();
+				}
+			}
+
+			test();
+			consumer.Dispose();
+		}
+		
+		[Test, Combinatorial]
+		public void TestCollectionPausing08()
+		{
+			ObservableCollection<Item> source = getItems();
+			OcConsumer consumer = new OcConsumer();
+			var testing = source.CollectionPausing<Item>().For(consumer);
+
+			Assert.AreEqual(source, testing.Source);
+
+			void test()
+			{
+				testing.ValidateConsistency();
+				var sourceValue = ((ObservableCollection<Item>)((ObservableCollection<Item>)source));
+
+				if (sourceValue != null)
+				{		
+					sourceValue.Insert(2, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					sourceValue[3] = new QuickTests.Item(7, true);
+					testing.ValidateConsistency();
+					sourceValue.RemoveAt(3);
+					testing.ValidateConsistency();
+					sourceValue.Move(1, 3);
+					testing.ValidateConsistency();
+					sourceValue[2].Active = !sourceValue[2].Active;
+					testing.ValidateConsistency();
+					sourceValue[2].Num = sourceValue[2].Num + 1;
+					testing.ValidateConsistency();
+					sourceValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceValue.RemoveAt(1);
+					testing.ValidateConsistency();
+					sourceValue.Insert(0, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					sourceValue.Insert(0, new QuickTests.Item(2, true));
+					testing.ValidateConsistency();
+				}
+
+				IList listSource;
+				listSource = ((IList)((ObservableCollection<Item>)source));
+				if (listSource != null)
+				{
+					listSource.Clear();
+					testing.ValidateConsistency();
+				}
+
+				if (sourceValue != null)
+				{
+					sourceValue.Insert(0, new QuickTests.Item(1, true));
+					sourceValue.Insert(1, new QuickTests.Item(2, true));
+					sourceValue.Insert(2, new QuickTests.Item(3, true));
+					sourceValue.Insert(3, new QuickTests.Item(3, true));
+					sourceValue.Insert(4, new QuickTests.Item(3, true));
+					testing.ValidateConsistency();
+				}
+			}
+
+			test();
+			consumer.Dispose();
+		}
+		
+		[Test, Combinatorial]
+		public void TestCollectionPausing09(
+			[Values(false, true)] bool initialIsPaused,
+			[Values(CollectionPausingResumeType.ReplayChanges, CollectionPausingResumeType.Reset)] ObservableComputations.CollectionPausingResumeType resumeType)
+		{
+			Scalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
+			OcConsumer consumer = new OcConsumer();
+			var testing = sourceScalar.CollectionPausing<Item>(
+				initialIsPaused,
+				resumeType).For(consumer);
+
+			Assert.AreEqual(sourceScalar, testing.SourceScalar);
+			Assert.AreEqual(resumeType, testing.ResumeType);
+
+			void test()
+			{
+				testing.ValidateConsistency();
+				var sourceScalarValue = ((ObservableCollection<Item>)((System.Collections.Specialized.INotifyCollectionChanged)sourceScalar.Value));
+
+				if (sourceScalarValue != null)
+				{		
+					sourceScalarValue.Insert(2, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					sourceScalarValue[3] = new QuickTests.Item(7, true);
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(3);
+					testing.ValidateConsistency();
+					sourceScalarValue.Move(1, 3);
+					testing.ValidateConsistency();
+					sourceScalarValue[2].Active = !sourceScalarValue[2].Active;
+					testing.ValidateConsistency();
+					sourceScalarValue[2].Num = sourceScalarValue[2].Num + 1;
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(1);
+					testing.ValidateConsistency();
+					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					sourceScalarValue.Insert(0, new QuickTests.Item(2, true));
+					testing.ValidateConsistency();
+				}
+
+				IList listSource;
+				listSource = ((IList)((System.Collections.Specialized.INotifyCollectionChanged)sourceScalar.Value));
+				if (listSource != null)
+				{
+					listSource.Clear();
+					testing.ValidateConsistency();
+				}
+
+				if (sourceScalarValue != null)
+				{
+					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
+					sourceScalarValue.Insert(1, new QuickTests.Item(2, true));
+					sourceScalarValue.Insert(2, new QuickTests.Item(3, true));
+					sourceScalarValue.Insert(3, new QuickTests.Item(3, true));
+					sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
+					testing.ValidateConsistency();
+				}
+			}
+
+			test();
+
+			((Scalar<System.Collections.Specialized.INotifyCollectionChanged>)sourceScalar).Touch();
+			test();
+			((Scalar<System.Collections.Specialized.INotifyCollectionChanged>)sourceScalar).Change(null);
+			test();
+			consumer.Dispose();
+		}
+		
+		[Test, Combinatorial]
+		public void TestCollectionPausing10(
+			[Values(false, true)] bool initialIsPaused)
+		{
+			Scalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
+			OcConsumer consumer = new OcConsumer();
+			var testing = sourceScalar.CollectionPausing<Item>(
+				initialIsPaused).For(consumer);
+
+			Assert.AreEqual(sourceScalar, testing.SourceScalar);
+
+			void test()
+			{
+				testing.ValidateConsistency();
+				var sourceScalarValue = ((ObservableCollection<Item>)((System.Collections.Specialized.INotifyCollectionChanged)sourceScalar.Value));
+
+				if (sourceScalarValue != null)
+				{		
+					sourceScalarValue.Insert(2, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					sourceScalarValue[3] = new QuickTests.Item(7, true);
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(3);
+					testing.ValidateConsistency();
+					sourceScalarValue.Move(1, 3);
+					testing.ValidateConsistency();
+					sourceScalarValue[2].Active = !sourceScalarValue[2].Active;
+					testing.ValidateConsistency();
+					sourceScalarValue[2].Num = sourceScalarValue[2].Num + 1;
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(1);
+					testing.ValidateConsistency();
+					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					sourceScalarValue.Insert(0, new QuickTests.Item(2, true));
+					testing.ValidateConsistency();
+				}
+
+				IList listSource;
+				listSource = ((IList)((System.Collections.Specialized.INotifyCollectionChanged)sourceScalar.Value));
+				if (listSource != null)
+				{
+					listSource.Clear();
+					testing.ValidateConsistency();
+				}
+
+				if (sourceScalarValue != null)
+				{
+					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
+					sourceScalarValue.Insert(1, new QuickTests.Item(2, true));
+					sourceScalarValue.Insert(2, new QuickTests.Item(3, true));
+					sourceScalarValue.Insert(3, new QuickTests.Item(3, true));
+					sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
+					testing.ValidateConsistency();
+				}
+			}
+
+			test();
+
+			((Scalar<System.Collections.Specialized.INotifyCollectionChanged>)sourceScalar).Touch();
+			test();
+			((Scalar<System.Collections.Specialized.INotifyCollectionChanged>)sourceScalar).Change(null);
+			test();
+			consumer.Dispose();
+		}
+		
+		[Test, Combinatorial]
+		public void TestCollectionPausing11(
+			[Values(CollectionPausingResumeType.ReplayChanges, CollectionPausingResumeType.Reset)] ObservableComputations.CollectionPausingResumeType resumeType)
+		{
+			Scalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
+			OcConsumer consumer = new OcConsumer();
+			var testing = sourceScalar.CollectionPausing<Item>(
+				resumeType).For(consumer);
+
+			Assert.AreEqual(sourceScalar, testing.SourceScalar);
+			Assert.AreEqual(resumeType, testing.ResumeType);
+
+			void test()
+			{
+				testing.ValidateConsistency();
+				var sourceScalarValue = ((ObservableCollection<Item>)((System.Collections.Specialized.INotifyCollectionChanged)sourceScalar.Value));
+
+				if (sourceScalarValue != null)
+				{		
+					sourceScalarValue.Insert(2, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					sourceScalarValue[3] = new QuickTests.Item(7, true);
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(3);
+					testing.ValidateConsistency();
+					sourceScalarValue.Move(1, 3);
+					testing.ValidateConsistency();
+					sourceScalarValue[2].Active = !sourceScalarValue[2].Active;
+					testing.ValidateConsistency();
+					sourceScalarValue[2].Num = sourceScalarValue[2].Num + 1;
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(1);
+					testing.ValidateConsistency();
+					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					sourceScalarValue.Insert(0, new QuickTests.Item(2, true));
+					testing.ValidateConsistency();
+				}
+
+				IList listSource;
+				listSource = ((IList)((System.Collections.Specialized.INotifyCollectionChanged)sourceScalar.Value));
+				if (listSource != null)
+				{
+					listSource.Clear();
+					testing.ValidateConsistency();
+				}
+
+				if (sourceScalarValue != null)
+				{
+					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
+					sourceScalarValue.Insert(1, new QuickTests.Item(2, true));
+					sourceScalarValue.Insert(2, new QuickTests.Item(3, true));
+					sourceScalarValue.Insert(3, new QuickTests.Item(3, true));
+					sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
+					testing.ValidateConsistency();
+				}
+			}
+
+			test();
+
+			((Scalar<System.Collections.Specialized.INotifyCollectionChanged>)sourceScalar).Touch();
+			test();
+			((Scalar<System.Collections.Specialized.INotifyCollectionChanged>)sourceScalar).Change(null);
+			test();
+			consumer.Dispose();
+		}
+		
+		[Test, Combinatorial]
+		public void TestCollectionPausing12()
+		{
+			Scalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
+			OcConsumer consumer = new OcConsumer();
+			var testing = sourceScalar.CollectionPausing<Item>().For(consumer);
+
+			Assert.AreEqual(sourceScalar, testing.SourceScalar);
+
+			void test()
+			{
+				testing.ValidateConsistency();
+				var sourceScalarValue = ((ObservableCollection<Item>)((System.Collections.Specialized.INotifyCollectionChanged)sourceScalar.Value));
+
+				if (sourceScalarValue != null)
+				{		
+					sourceScalarValue.Insert(2, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					sourceScalarValue[3] = new QuickTests.Item(7, true);
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(3);
+					testing.ValidateConsistency();
+					sourceScalarValue.Move(1, 3);
+					testing.ValidateConsistency();
+					sourceScalarValue[2].Active = !sourceScalarValue[2].Active;
+					testing.ValidateConsistency();
+					sourceScalarValue[2].Num = sourceScalarValue[2].Num + 1;
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(1);
+					testing.ValidateConsistency();
+					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					sourceScalarValue.Insert(0, new QuickTests.Item(2, true));
+					testing.ValidateConsistency();
+				}
+
+				IList listSource;
+				listSource = ((IList)((System.Collections.Specialized.INotifyCollectionChanged)sourceScalar.Value));
+				if (listSource != null)
+				{
+					listSource.Clear();
+					testing.ValidateConsistency();
+				}
+
+				if (sourceScalarValue != null)
+				{
+					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
+					sourceScalarValue.Insert(1, new QuickTests.Item(2, true));
+					sourceScalarValue.Insert(2, new QuickTests.Item(3, true));
+					sourceScalarValue.Insert(3, new QuickTests.Item(3, true));
+					sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
+					testing.ValidateConsistency();
+				}
+			}
+
+			test();
+
+			((Scalar<System.Collections.Specialized.INotifyCollectionChanged>)sourceScalar).Touch();
+			test();
+			((Scalar<System.Collections.Specialized.INotifyCollectionChanged>)sourceScalar).Change(null);
+			test();
+			consumer.Dispose();
+		}
+		
+		[Test, Combinatorial]
+		public void TestCollectionPausing13(
+			[Values(false, true)] bool initialIsPaused,
+			[Values(CollectionPausingResumeType.ReplayChanges, CollectionPausingResumeType.Reset)] ObservableComputations.CollectionPausingResumeType resumeType)
+		{
+			Scalar<ObservableCollection<Item>> sourceScalar = getScalar<ObservableCollection<Item>>(getItems());
+			OcConsumer consumer = new OcConsumer();
+			var testing = sourceScalar.CollectionPausing<Item>(
+				initialIsPaused,
+				resumeType).For(consumer);
+
+			Assert.AreEqual(sourceScalar, testing.SourceScalar);
+			Assert.AreEqual(resumeType, testing.ResumeType);
+
+			void test()
+			{
+				testing.ValidateConsistency();
+				var sourceScalarValue = ((ObservableCollection<Item>)((ObservableCollection<Item>)sourceScalar.Value));
+
+				if (sourceScalarValue != null)
+				{		
+					sourceScalarValue.Insert(2, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					sourceScalarValue[3] = new QuickTests.Item(7, true);
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(3);
+					testing.ValidateConsistency();
+					sourceScalarValue.Move(1, 3);
+					testing.ValidateConsistency();
+					sourceScalarValue[2].Active = !sourceScalarValue[2].Active;
+					testing.ValidateConsistency();
+					sourceScalarValue[2].Num = sourceScalarValue[2].Num + 1;
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(1);
+					testing.ValidateConsistency();
+					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					sourceScalarValue.Insert(0, new QuickTests.Item(2, true));
+					testing.ValidateConsistency();
+				}
+
+				IList listSource;
+				listSource = ((IList)((ObservableCollection<Item>)sourceScalar.Value));
+				if (listSource != null)
+				{
+					listSource.Clear();
+					testing.ValidateConsistency();
+				}
+
+				if (sourceScalarValue != null)
+				{
+					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
+					sourceScalarValue.Insert(1, new QuickTests.Item(2, true));
+					sourceScalarValue.Insert(2, new QuickTests.Item(3, true));
+					sourceScalarValue.Insert(3, new QuickTests.Item(3, true));
+					sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
+					testing.ValidateConsistency();
+				}
+			}
+
+			test();
+
+			((Scalar<ObservableCollection<Item>>)sourceScalar).Touch();
+			test();
+			((Scalar<ObservableCollection<Item>>)sourceScalar).Change(null);
+			test();
+			consumer.Dispose();
+		}
+		
+		[Test, Combinatorial]
+		public void TestCollectionPausing14(
+			[Values(false, true)] bool initialIsPaused)
+		{
+			Scalar<ObservableCollection<Item>> sourceScalar = getScalar<ObservableCollection<Item>>(getItems());
+			OcConsumer consumer = new OcConsumer();
+			var testing = sourceScalar.CollectionPausing<Item>(
+				initialIsPaused).For(consumer);
+
+			Assert.AreEqual(sourceScalar, testing.SourceScalar);
+
+			void test()
+			{
+				testing.ValidateConsistency();
+				var sourceScalarValue = ((ObservableCollection<Item>)((ObservableCollection<Item>)sourceScalar.Value));
+
+				if (sourceScalarValue != null)
+				{		
+					sourceScalarValue.Insert(2, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					sourceScalarValue[3] = new QuickTests.Item(7, true);
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(3);
+					testing.ValidateConsistency();
+					sourceScalarValue.Move(1, 3);
+					testing.ValidateConsistency();
+					sourceScalarValue[2].Active = !sourceScalarValue[2].Active;
+					testing.ValidateConsistency();
+					sourceScalarValue[2].Num = sourceScalarValue[2].Num + 1;
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(1);
+					testing.ValidateConsistency();
+					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					sourceScalarValue.Insert(0, new QuickTests.Item(2, true));
+					testing.ValidateConsistency();
+				}
+
+				IList listSource;
+				listSource = ((IList)((ObservableCollection<Item>)sourceScalar.Value));
+				if (listSource != null)
+				{
+					listSource.Clear();
+					testing.ValidateConsistency();
+				}
+
+				if (sourceScalarValue != null)
+				{
+					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
+					sourceScalarValue.Insert(1, new QuickTests.Item(2, true));
+					sourceScalarValue.Insert(2, new QuickTests.Item(3, true));
+					sourceScalarValue.Insert(3, new QuickTests.Item(3, true));
+					sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
+					testing.ValidateConsistency();
+				}
+			}
+
+			test();
+
+			((Scalar<ObservableCollection<Item>>)sourceScalar).Touch();
+			test();
+			((Scalar<ObservableCollection<Item>>)sourceScalar).Change(null);
+			test();
+			consumer.Dispose();
+		}
+		
+		[Test, Combinatorial]
+		public void TestCollectionPausing15(
+			[Values(CollectionPausingResumeType.ReplayChanges, CollectionPausingResumeType.Reset)] ObservableComputations.CollectionPausingResumeType resumeType)
+		{
+			Scalar<ObservableCollection<Item>> sourceScalar = getScalar<ObservableCollection<Item>>(getItems());
+			OcConsumer consumer = new OcConsumer();
+			var testing = sourceScalar.CollectionPausing<Item>(
+				resumeType).For(consumer);
+
+			Assert.AreEqual(sourceScalar, testing.SourceScalar);
+			Assert.AreEqual(resumeType, testing.ResumeType);
+
+			void test()
+			{
+				testing.ValidateConsistency();
+				var sourceScalarValue = ((ObservableCollection<Item>)((ObservableCollection<Item>)sourceScalar.Value));
+
+				if (sourceScalarValue != null)
+				{		
+					sourceScalarValue.Insert(2, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					sourceScalarValue[3] = new QuickTests.Item(7, true);
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(3);
+					testing.ValidateConsistency();
+					sourceScalarValue.Move(1, 3);
+					testing.ValidateConsistency();
+					sourceScalarValue[2].Active = !sourceScalarValue[2].Active;
+					testing.ValidateConsistency();
+					sourceScalarValue[2].Num = sourceScalarValue[2].Num + 1;
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(1);
+					testing.ValidateConsistency();
+					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					sourceScalarValue.Insert(0, new QuickTests.Item(2, true));
+					testing.ValidateConsistency();
+				}
+
+				IList listSource;
+				listSource = ((IList)((ObservableCollection<Item>)sourceScalar.Value));
+				if (listSource != null)
+				{
+					listSource.Clear();
+					testing.ValidateConsistency();
+				}
+
+				if (sourceScalarValue != null)
+				{
+					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
+					sourceScalarValue.Insert(1, new QuickTests.Item(2, true));
+					sourceScalarValue.Insert(2, new QuickTests.Item(3, true));
+					sourceScalarValue.Insert(3, new QuickTests.Item(3, true));
+					sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
+					testing.ValidateConsistency();
+				}
+			}
+
+			test();
+
+			((Scalar<ObservableCollection<Item>>)sourceScalar).Touch();
+			test();
+			((Scalar<ObservableCollection<Item>>)sourceScalar).Change(null);
+			test();
+			consumer.Dispose();
+		}
+		
+		[Test, Combinatorial]
+		public void TestCollectionPausing16()
+		{
+			Scalar<ObservableCollection<Item>> sourceScalar = getScalar<ObservableCollection<Item>>(getItems());
+			OcConsumer consumer = new OcConsumer();
+			var testing = sourceScalar.CollectionPausing<Item>().For(consumer);
+
+			Assert.AreEqual(sourceScalar, testing.SourceScalar);
+
+			void test()
+			{
+				testing.ValidateConsistency();
+				var sourceScalarValue = ((ObservableCollection<Item>)((ObservableCollection<Item>)sourceScalar.Value));
+
+				if (sourceScalarValue != null)
+				{		
+					sourceScalarValue.Insert(2, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					sourceScalarValue[3] = new QuickTests.Item(7, true);
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(3);
+					testing.ValidateConsistency();
+					sourceScalarValue.Move(1, 3);
+					testing.ValidateConsistency();
+					sourceScalarValue[2].Active = !sourceScalarValue[2].Active;
+					testing.ValidateConsistency();
+					sourceScalarValue[2].Num = sourceScalarValue[2].Num + 1;
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(1);
+					testing.ValidateConsistency();
+					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					sourceScalarValue.Insert(0, new QuickTests.Item(2, true));
+					testing.ValidateConsistency();
+				}
+
+				IList listSource;
+				listSource = ((IList)((ObservableCollection<Item>)sourceScalar.Value));
+				if (listSource != null)
+				{
+					listSource.Clear();
+					testing.ValidateConsistency();
+				}
+
+				if (sourceScalarValue != null)
+				{
+					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
+					sourceScalarValue.Insert(1, new QuickTests.Item(2, true));
+					sourceScalarValue.Insert(2, new QuickTests.Item(3, true));
+					sourceScalarValue.Insert(3, new QuickTests.Item(3, true));
+					sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
+					testing.ValidateConsistency();
+				}
+			}
+
+			test();
+
+			((Scalar<ObservableCollection<Item>>)sourceScalar).Touch();
+			test();
+			((Scalar<ObservableCollection<Item>>)sourceScalar).Change(null);
+			test();
+			consumer.Dispose();
+		}
+		
+		[Test, Combinatorial]
+		public void TestCollectionPausing17(
+			[Values(CollectionPausingResumeType.ReplayChanges, CollectionPausingResumeType.Reset)] ObservableComputations.CollectionPausingResumeType resumeType)
+		{
+			System.Collections.Specialized.INotifyCollectionChanged source = getItems();
+			Scalar<bool> isPausedScalar = getScalar<bool>(true);
+			OcConsumer consumer = new OcConsumer();
+			var testing = source.CollectionPausing<Item>(
+				isPausedScalar,
+				resumeType).For(consumer);
+
+			Assert.AreEqual(source, testing.Source);
+			Assert.AreEqual(isPausedScalar, testing.IsPausedScalar);
+			Assert.AreEqual(resumeType, testing.ResumeType);
+
+			void test()
+			{
+				testing.ValidateConsistency();
+				var sourceValue = ((ObservableCollection<Item>)((System.Collections.Specialized.INotifyCollectionChanged)source));
+
+				if (sourceValue != null)
+				{		
+					sourceValue.Insert(2, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					sourceValue[3] = new QuickTests.Item(7, true);
+					testing.ValidateConsistency();
+					sourceValue.RemoveAt(3);
+					testing.ValidateConsistency();
+					sourceValue.Move(1, 3);
+					testing.ValidateConsistency();
+					sourceValue[2].Active = !sourceValue[2].Active;
+					testing.ValidateConsistency();
+					sourceValue[2].Num = sourceValue[2].Num + 1;
+					testing.ValidateConsistency();
+					sourceValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceValue.RemoveAt(1);
+					testing.ValidateConsistency();
+					sourceValue.Insert(0, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					sourceValue.Insert(0, new QuickTests.Item(2, true));
+					testing.ValidateConsistency();
+				}
+
+				IList listSource;
+				listSource = ((IList)((System.Collections.Specialized.INotifyCollectionChanged)source));
+				if (listSource != null)
+				{
+					listSource.Clear();
+					testing.ValidateConsistency();
+				}
+
+				if (sourceValue != null)
+				{
+					sourceValue.Insert(0, new QuickTests.Item(1, true));
+					sourceValue.Insert(1, new QuickTests.Item(2, true));
+					sourceValue.Insert(2, new QuickTests.Item(3, true));
+					sourceValue.Insert(3, new QuickTests.Item(3, true));
+					sourceValue.Insert(4, new QuickTests.Item(3, true));
+					testing.ValidateConsistency();
+				}
+			}
+
+			test();
+
+			((Scalar<bool>)isPausedScalar).Touch();
+			test();
+			((Scalar<bool>)isPausedScalar).Change(false);
+			test();
+			((Scalar<bool>)isPausedScalar).Change(true);
+			test();
+			consumer.Dispose();
+		}
+		
+		[Test, Combinatorial]
+		public void TestCollectionPausing18()
+		{
+			System.Collections.Specialized.INotifyCollectionChanged source = getItems();
+			Scalar<bool> isPausedScalar = getScalar<bool>(true);
+			OcConsumer consumer = new OcConsumer();
+			var testing = source.CollectionPausing<Item>(
+				isPausedScalar).For(consumer);
+
+			Assert.AreEqual(source, testing.Source);
+			Assert.AreEqual(isPausedScalar, testing.IsPausedScalar);
+
+			void test()
+			{
+				testing.ValidateConsistency();
+				var sourceValue = ((ObservableCollection<Item>)((System.Collections.Specialized.INotifyCollectionChanged)source));
+
+				if (sourceValue != null)
+				{		
+					sourceValue.Insert(2, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					sourceValue[3] = new QuickTests.Item(7, true);
+					testing.ValidateConsistency();
+					sourceValue.RemoveAt(3);
+					testing.ValidateConsistency();
+					sourceValue.Move(1, 3);
+					testing.ValidateConsistency();
+					sourceValue[2].Active = !sourceValue[2].Active;
+					testing.ValidateConsistency();
+					sourceValue[2].Num = sourceValue[2].Num + 1;
+					testing.ValidateConsistency();
+					sourceValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceValue.RemoveAt(1);
+					testing.ValidateConsistency();
+					sourceValue.Insert(0, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					sourceValue.Insert(0, new QuickTests.Item(2, true));
+					testing.ValidateConsistency();
+				}
+
+				IList listSource;
+				listSource = ((IList)((System.Collections.Specialized.INotifyCollectionChanged)source));
+				if (listSource != null)
+				{
+					listSource.Clear();
+					testing.ValidateConsistency();
+				}
+
+				if (sourceValue != null)
+				{
+					sourceValue.Insert(0, new QuickTests.Item(1, true));
+					sourceValue.Insert(1, new QuickTests.Item(2, true));
+					sourceValue.Insert(2, new QuickTests.Item(3, true));
+					sourceValue.Insert(3, new QuickTests.Item(3, true));
+					sourceValue.Insert(4, new QuickTests.Item(3, true));
+					testing.ValidateConsistency();
+				}
+			}
+
+			test();
+
+			((Scalar<bool>)isPausedScalar).Touch();
+			test();
+			((Scalar<bool>)isPausedScalar).Change(false);
+			test();
+			((Scalar<bool>)isPausedScalar).Change(true);
+			test();
+			consumer.Dispose();
+		}
+		
+		[Test, Combinatorial]
+		public void TestCollectionPausing19(
+			[Values(CollectionPausingResumeType.ReplayChanges, CollectionPausingResumeType.Reset)] ObservableComputations.CollectionPausingResumeType resumeType)
+		{
+			ObservableCollection<Item> source = getItems();
+			Scalar<bool> isPausedScalar = getScalar<bool>(true);
+			OcConsumer consumer = new OcConsumer();
+			var testing = source.CollectionPausing<Item>(
+				isPausedScalar,
+				resumeType).For(consumer);
+
+			Assert.AreEqual(source, testing.Source);
+			Assert.AreEqual(isPausedScalar, testing.IsPausedScalar);
+			Assert.AreEqual(resumeType, testing.ResumeType);
+
+			void test()
+			{
+				testing.ValidateConsistency();
+				var sourceValue = ((ObservableCollection<Item>)((ObservableCollection<Item>)source));
+
+				if (sourceValue != null)
+				{		
+					sourceValue.Insert(2, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					sourceValue[3] = new QuickTests.Item(7, true);
+					testing.ValidateConsistency();
+					sourceValue.RemoveAt(3);
+					testing.ValidateConsistency();
+					sourceValue.Move(1, 3);
+					testing.ValidateConsistency();
+					sourceValue[2].Active = !sourceValue[2].Active;
+					testing.ValidateConsistency();
+					sourceValue[2].Num = sourceValue[2].Num + 1;
+					testing.ValidateConsistency();
+					sourceValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceValue.RemoveAt(1);
+					testing.ValidateConsistency();
+					sourceValue.Insert(0, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					sourceValue.Insert(0, new QuickTests.Item(2, true));
+					testing.ValidateConsistency();
+				}
+
+				IList listSource;
+				listSource = ((IList)((ObservableCollection<Item>)source));
+				if (listSource != null)
+				{
+					listSource.Clear();
+					testing.ValidateConsistency();
+				}
+
+				if (sourceValue != null)
+				{
+					sourceValue.Insert(0, new QuickTests.Item(1, true));
+					sourceValue.Insert(1, new QuickTests.Item(2, true));
+					sourceValue.Insert(2, new QuickTests.Item(3, true));
+					sourceValue.Insert(3, new QuickTests.Item(3, true));
+					sourceValue.Insert(4, new QuickTests.Item(3, true));
+					testing.ValidateConsistency();
+				}
+			}
+
+			test();
+
+			((Scalar<bool>)isPausedScalar).Touch();
+			test();
+			((Scalar<bool>)isPausedScalar).Change(false);
+			test();
+			((Scalar<bool>)isPausedScalar).Change(true);
+			test();
+			consumer.Dispose();
+		}
+		
+		[Test, Combinatorial]
+		public void TestCollectionPausing20()
+		{
+			ObservableCollection<Item> source = getItems();
+			Scalar<bool> isPausedScalar = getScalar<bool>(true);
+			OcConsumer consumer = new OcConsumer();
+			var testing = source.CollectionPausing<Item>(
+				isPausedScalar).For(consumer);
+
+			Assert.AreEqual(source, testing.Source);
+			Assert.AreEqual(isPausedScalar, testing.IsPausedScalar);
+
+			void test()
+			{
+				testing.ValidateConsistency();
+				var sourceValue = ((ObservableCollection<Item>)((ObservableCollection<Item>)source));
+
+				if (sourceValue != null)
+				{		
+					sourceValue.Insert(2, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					sourceValue[3] = new QuickTests.Item(7, true);
+					testing.ValidateConsistency();
+					sourceValue.RemoveAt(3);
+					testing.ValidateConsistency();
+					sourceValue.Move(1, 3);
+					testing.ValidateConsistency();
+					sourceValue[2].Active = !sourceValue[2].Active;
+					testing.ValidateConsistency();
+					sourceValue[2].Num = sourceValue[2].Num + 1;
+					testing.ValidateConsistency();
+					sourceValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceValue.RemoveAt(1);
+					testing.ValidateConsistency();
+					sourceValue.Insert(0, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					sourceValue.Insert(0, new QuickTests.Item(2, true));
+					testing.ValidateConsistency();
+				}
+
+				IList listSource;
+				listSource = ((IList)((ObservableCollection<Item>)source));
+				if (listSource != null)
+				{
+					listSource.Clear();
+					testing.ValidateConsistency();
+				}
+
+				if (sourceValue != null)
+				{
+					sourceValue.Insert(0, new QuickTests.Item(1, true));
+					sourceValue.Insert(1, new QuickTests.Item(2, true));
+					sourceValue.Insert(2, new QuickTests.Item(3, true));
+					sourceValue.Insert(3, new QuickTests.Item(3, true));
+					sourceValue.Insert(4, new QuickTests.Item(3, true));
+					testing.ValidateConsistency();
+				}
+			}
+
+			test();
+
+			((Scalar<bool>)isPausedScalar).Touch();
+			test();
+			((Scalar<bool>)isPausedScalar).Change(false);
+			test();
+			((Scalar<bool>)isPausedScalar).Change(true);
+			test();
+			consumer.Dispose();
+		}
+		
+		[Test, Combinatorial]
+		public void TestCollectionPausing21(
+			[Values(CollectionPausingResumeType.ReplayChanges, CollectionPausingResumeType.Reset)] ObservableComputations.CollectionPausingResumeType resumeType)
+		{
+			Scalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
+			Scalar<bool> isPausedScalar = getScalar<bool>(true);
+			OcConsumer consumer = new OcConsumer();
+			var testing = sourceScalar.CollectionPausing<Item>(
+				isPausedScalar,
+				resumeType).For(consumer);
+
+			Assert.AreEqual(sourceScalar, testing.SourceScalar);
+			Assert.AreEqual(isPausedScalar, testing.IsPausedScalar);
+			Assert.AreEqual(resumeType, testing.ResumeType);
+
+			void test()
+			{
+				testing.ValidateConsistency();
+				var sourceScalarValue = ((ObservableCollection<Item>)((System.Collections.Specialized.INotifyCollectionChanged)sourceScalar.Value));
+
+				if (sourceScalarValue != null)
+				{		
+					sourceScalarValue.Insert(2, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					sourceScalarValue[3] = new QuickTests.Item(7, true);
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(3);
+					testing.ValidateConsistency();
+					sourceScalarValue.Move(1, 3);
+					testing.ValidateConsistency();
+					sourceScalarValue[2].Active = !sourceScalarValue[2].Active;
+					testing.ValidateConsistency();
+					sourceScalarValue[2].Num = sourceScalarValue[2].Num + 1;
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(1);
+					testing.ValidateConsistency();
+					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					sourceScalarValue.Insert(0, new QuickTests.Item(2, true));
+					testing.ValidateConsistency();
+				}
+
+				IList listSource;
+				listSource = ((IList)((System.Collections.Specialized.INotifyCollectionChanged)sourceScalar.Value));
+				if (listSource != null)
+				{
+					listSource.Clear();
+					testing.ValidateConsistency();
+				}
+
+				if (sourceScalarValue != null)
+				{
+					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
+					sourceScalarValue.Insert(1, new QuickTests.Item(2, true));
+					sourceScalarValue.Insert(2, new QuickTests.Item(3, true));
+					sourceScalarValue.Insert(3, new QuickTests.Item(3, true));
+					sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
+					testing.ValidateConsistency();
+				}
+			}
+
+			test();
+
+			((Scalar<bool>)isPausedScalar).Touch();
+			test();
+			((Scalar<bool>)isPausedScalar).Change(false);
+			test();
+			((Scalar<bool>)isPausedScalar).Change(true);
+			test();
+
+			((Scalar<System.Collections.Specialized.INotifyCollectionChanged>)sourceScalar).Touch();
+			test();
+			((Scalar<System.Collections.Specialized.INotifyCollectionChanged>)sourceScalar).Change(null);
+			test();
+			consumer.Dispose();
+		}
+		
+		[Test, Combinatorial]
+		public void TestCollectionPausing22()
+		{
+			Scalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
+			Scalar<bool> isPausedScalar = getScalar<bool>(true);
+			OcConsumer consumer = new OcConsumer();
+			var testing = sourceScalar.CollectionPausing<Item>(
+				isPausedScalar).For(consumer);
+
+			Assert.AreEqual(sourceScalar, testing.SourceScalar);
+			Assert.AreEqual(isPausedScalar, testing.IsPausedScalar);
+
+			void test()
+			{
+				testing.ValidateConsistency();
+				var sourceScalarValue = ((ObservableCollection<Item>)((System.Collections.Specialized.INotifyCollectionChanged)sourceScalar.Value));
+
+				if (sourceScalarValue != null)
+				{		
+					sourceScalarValue.Insert(2, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					sourceScalarValue[3] = new QuickTests.Item(7, true);
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(3);
+					testing.ValidateConsistency();
+					sourceScalarValue.Move(1, 3);
+					testing.ValidateConsistency();
+					sourceScalarValue[2].Active = !sourceScalarValue[2].Active;
+					testing.ValidateConsistency();
+					sourceScalarValue[2].Num = sourceScalarValue[2].Num + 1;
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(1);
+					testing.ValidateConsistency();
+					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					sourceScalarValue.Insert(0, new QuickTests.Item(2, true));
+					testing.ValidateConsistency();
+				}
+
+				IList listSource;
+				listSource = ((IList)((System.Collections.Specialized.INotifyCollectionChanged)sourceScalar.Value));
+				if (listSource != null)
+				{
+					listSource.Clear();
+					testing.ValidateConsistency();
+				}
+
+				if (sourceScalarValue != null)
+				{
+					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
+					sourceScalarValue.Insert(1, new QuickTests.Item(2, true));
+					sourceScalarValue.Insert(2, new QuickTests.Item(3, true));
+					sourceScalarValue.Insert(3, new QuickTests.Item(3, true));
+					sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
+					testing.ValidateConsistency();
+				}
+			}
+
+			test();
+
+			((Scalar<bool>)isPausedScalar).Touch();
+			test();
+			((Scalar<bool>)isPausedScalar).Change(false);
+			test();
+			((Scalar<bool>)isPausedScalar).Change(true);
+			test();
+
+			((Scalar<System.Collections.Specialized.INotifyCollectionChanged>)sourceScalar).Touch();
+			test();
+			((Scalar<System.Collections.Specialized.INotifyCollectionChanged>)sourceScalar).Change(null);
+			test();
+			consumer.Dispose();
+		}
+		
+		[Test, Combinatorial]
+		public void TestCollectionPausing23(
+			[Values(CollectionPausingResumeType.ReplayChanges, CollectionPausingResumeType.Reset)] ObservableComputations.CollectionPausingResumeType resumeType)
+		{
+			Scalar<ObservableCollection<Item>> sourceScalar = getScalar<ObservableCollection<Item>>(getItems());
+			Scalar<bool> isPausedScalar = getScalar<bool>(true);
+			OcConsumer consumer = new OcConsumer();
+			var testing = sourceScalar.CollectionPausing<Item>(
+				isPausedScalar,
+				resumeType).For(consumer);
+
+			Assert.AreEqual(sourceScalar, testing.SourceScalar);
+			Assert.AreEqual(isPausedScalar, testing.IsPausedScalar);
+			Assert.AreEqual(resumeType, testing.ResumeType);
+
+			void test()
+			{
+				testing.ValidateConsistency();
+				var sourceScalarValue = ((ObservableCollection<Item>)((ObservableCollection<Item>)sourceScalar.Value));
+
+				if (sourceScalarValue != null)
+				{		
+					sourceScalarValue.Insert(2, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					sourceScalarValue[3] = new QuickTests.Item(7, true);
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(3);
+					testing.ValidateConsistency();
+					sourceScalarValue.Move(1, 3);
+					testing.ValidateConsistency();
+					sourceScalarValue[2].Active = !sourceScalarValue[2].Active;
+					testing.ValidateConsistency();
+					sourceScalarValue[2].Num = sourceScalarValue[2].Num + 1;
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(1);
+					testing.ValidateConsistency();
+					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					sourceScalarValue.Insert(0, new QuickTests.Item(2, true));
+					testing.ValidateConsistency();
+				}
+
+				IList listSource;
+				listSource = ((IList)((ObservableCollection<Item>)sourceScalar.Value));
+				if (listSource != null)
+				{
+					listSource.Clear();
+					testing.ValidateConsistency();
+				}
+
+				if (sourceScalarValue != null)
+				{
+					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
+					sourceScalarValue.Insert(1, new QuickTests.Item(2, true));
+					sourceScalarValue.Insert(2, new QuickTests.Item(3, true));
+					sourceScalarValue.Insert(3, new QuickTests.Item(3, true));
+					sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
+					testing.ValidateConsistency();
+				}
+			}
+
+			test();
+
+			((Scalar<bool>)isPausedScalar).Touch();
+			test();
+			((Scalar<bool>)isPausedScalar).Change(false);
+			test();
+			((Scalar<bool>)isPausedScalar).Change(true);
+			test();
+
+			((Scalar<ObservableCollection<Item>>)sourceScalar).Touch();
+			test();
+			((Scalar<ObservableCollection<Item>>)sourceScalar).Change(null);
+			test();
+			consumer.Dispose();
+		}
+		
+		[Test, Combinatorial]
+		public void TestCollectionPausing24()
+		{
+			Scalar<ObservableCollection<Item>> sourceScalar = getScalar<ObservableCollection<Item>>(getItems());
+			Scalar<bool> isPausedScalar = getScalar<bool>(true);
+			OcConsumer consumer = new OcConsumer();
+			var testing = sourceScalar.CollectionPausing<Item>(
+				isPausedScalar).For(consumer);
+
+			Assert.AreEqual(sourceScalar, testing.SourceScalar);
+			Assert.AreEqual(isPausedScalar, testing.IsPausedScalar);
+
+			void test()
+			{
+				testing.ValidateConsistency();
+				var sourceScalarValue = ((ObservableCollection<Item>)((ObservableCollection<Item>)sourceScalar.Value));
+
+				if (sourceScalarValue != null)
+				{		
+					sourceScalarValue.Insert(2, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					sourceScalarValue[3] = new QuickTests.Item(7, true);
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(3);
+					testing.ValidateConsistency();
+					sourceScalarValue.Move(1, 3);
+					testing.ValidateConsistency();
+					sourceScalarValue[2].Active = !sourceScalarValue[2].Active;
+					testing.ValidateConsistency();
+					sourceScalarValue[2].Num = sourceScalarValue[2].Num + 1;
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(1);
+					testing.ValidateConsistency();
+					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					sourceScalarValue.Insert(0, new QuickTests.Item(2, true));
+					testing.ValidateConsistency();
+				}
+
+				IList listSource;
+				listSource = ((IList)((ObservableCollection<Item>)sourceScalar.Value));
+				if (listSource != null)
+				{
+					listSource.Clear();
+					testing.ValidateConsistency();
+				}
+
+				if (sourceScalarValue != null)
+				{
+					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
+					sourceScalarValue.Insert(1, new QuickTests.Item(2, true));
+					sourceScalarValue.Insert(2, new QuickTests.Item(3, true));
+					sourceScalarValue.Insert(3, new QuickTests.Item(3, true));
+					sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
+					testing.ValidateConsistency();
+				}
+			}
+
+			test();
+
+			((Scalar<bool>)isPausedScalar).Touch();
+			test();
+			((Scalar<bool>)isPausedScalar).Change(false);
+			test();
+			((Scalar<bool>)isPausedScalar).Change(true);
+			test();
+
+			((Scalar<ObservableCollection<Item>>)sourceScalar).Touch();
+			test();
+			((Scalar<ObservableCollection<Item>>)sourceScalar).Change(null);
+			test();
+			consumer.Dispose();
+		}
+		#endregion
 		#region Concatenating
 
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestConcatenating01()
 		{
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getCollectionsOfItems());
@@ -1835,7 +3494,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestConcatenating02()
 		{
 			Scalar<ObservableCollection<ObservableCollection<Item>>> sourceScalar = getScalar<ObservableCollection<ObservableCollection<Item>>>(getCollectionsOfItems());
@@ -1879,7 +3538,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestConcatenating03()
 		{
 			System.Collections.Specialized.INotifyCollectionChanged source = getCollectionsOfItems();
@@ -1918,7 +3577,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestConcatenating04()
 		{
 			ObservableCollection<ObservableCollection<Item>> source = getCollectionsOfItems();
@@ -1957,7 +3616,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestConcatenating05()
 		{
 			System.Collections.Specialized.INotifyCollectionChanged source1 = getItems();
@@ -2060,7 +3719,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestConcatenating06()
 		{
 			System.Collections.Specialized.INotifyCollectionChanged source1 = getItems();
@@ -2163,7 +3822,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestConcatenating07()
 		{
 			ObservableCollection<Item> source1 = getItems();
@@ -2266,7 +3925,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestConcatenating08()
 		{
 			ObservableCollection<Item> source1 = getItems();
@@ -2369,7 +4028,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestConcatenating09()
 		{
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> source1Scalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
@@ -2477,7 +4136,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestConcatenating10()
 		{
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> source1Scalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
@@ -2585,7 +4244,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestConcatenating11()
 		{
 			Scalar<ObservableCollection<Item>> source1Scalar = getScalar<ObservableCollection<Item>>(getItems());
@@ -2693,7 +4352,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestConcatenating12()
 		{
 			Scalar<ObservableCollection<Item>> source1Scalar = getScalar<ObservableCollection<Item>>(getItems());
@@ -2801,7 +4460,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestConcatenating13()
 		{
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> source1Scalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
@@ -2914,7 +4573,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestConcatenating14()
 		{
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> source1Scalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
@@ -3027,7 +4686,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestConcatenating15()
 		{
 			Scalar<ObservableCollection<Item>> source1Scalar = getScalar<ObservableCollection<Item>>(getItems());
@@ -3140,7 +4799,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestConcatenating16()
 		{
 			Scalar<ObservableCollection<Item>> source1Scalar = getScalar<ObservableCollection<Item>>(getItems());
@@ -3253,7 +4912,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestConcatenating17()
 		{
 			System.Collections.Specialized.INotifyCollectionChanged source1 = getItems();
@@ -3361,7 +5020,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestConcatenating18()
 		{
 			System.Collections.Specialized.INotifyCollectionChanged source1 = getItems();
@@ -3469,7 +5128,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestConcatenating19()
 		{
 			ObservableCollection<Item> source1 = getItems();
@@ -3577,7 +5236,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestConcatenating20()
 		{
 			ObservableCollection<Item> source1 = getItems();
@@ -3688,7 +5347,7 @@ namespace ObservableComputations.Test
 		#region ContainsComputing
 
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestContainsComputing01()
 		{
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
@@ -3768,7 +5427,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestContainsComputing02()
 		{
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
@@ -3842,7 +5501,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestContainsComputing03()
 		{
 			Scalar<ObservableCollection<Item>> sourceScalar = getScalar<ObservableCollection<Item>>(getItems());
@@ -3922,7 +5581,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestContainsComputing04()
 		{
 			Scalar<ObservableCollection<Item>> sourceScalar = getScalar<ObservableCollection<Item>>(getItems());
@@ -3996,7 +5655,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestContainsComputing05()
 		{
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
@@ -4071,7 +5730,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestContainsComputing06()
 		{
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
@@ -4140,7 +5799,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestContainsComputing07()
 		{
 			Scalar<ObservableCollection<Item>> sourceScalar = getScalar<ObservableCollection<Item>>(getItems());
@@ -4215,7 +5874,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestContainsComputing08()
 		{
 			Scalar<ObservableCollection<Item>> sourceScalar = getScalar<ObservableCollection<Item>>(getItems());
@@ -4284,7 +5943,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestContainsComputing09()
 		{
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
@@ -4361,7 +6020,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestContainsComputing10()
 		{
 			Scalar<ObservableCollection<Item>> sourceScalar = getScalar<ObservableCollection<Item>>(getItems());
@@ -4438,7 +6097,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestContainsComputing11()
 		{
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
@@ -4510,7 +6169,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestContainsComputing12()
 		{
 			Scalar<ObservableCollection<Item>> sourceScalar = getScalar<ObservableCollection<Item>>(getItems());
@@ -4582,7 +6241,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestContainsComputing13()
 		{
 			System.Collections.Specialized.INotifyCollectionChanged source = getItems();
@@ -4657,7 +6316,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestContainsComputing14()
 		{
 			System.Collections.Specialized.INotifyCollectionChanged source = getItems();
@@ -4726,7 +6385,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestContainsComputing15()
 		{
 			ObservableCollection<Item> source = getItems();
@@ -4801,7 +6460,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestContainsComputing16()
 		{
 			ObservableCollection<Item> source = getItems();
@@ -4870,7 +6529,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestContainsComputing17()
 		{
 			System.Collections.Specialized.INotifyCollectionChanged source = getItems();
@@ -4940,7 +6599,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestContainsComputing18()
 		{
 			System.Collections.Specialized.INotifyCollectionChanged source = getItems();
@@ -5004,7 +6663,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestContainsComputing19()
 		{
 			ObservableCollection<Item> source = getItems();
@@ -5074,7 +6733,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestContainsComputing20()
 		{
 			ObservableCollection<Item> source = getItems();
@@ -5138,7 +6797,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestContainsComputing21()
 		{
 			System.Collections.Specialized.INotifyCollectionChanged source = getItems();
@@ -5210,7 +6869,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestContainsComputing22()
 		{
 			ObservableCollection<Item> source = getItems();
@@ -5282,7 +6941,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestContainsComputing23()
 		{
 			System.Collections.Specialized.INotifyCollectionChanged source = getItems();
@@ -5349,7 +7008,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestContainsComputing24()
 		{
 			ObservableCollection<Item> source = getItems();
@@ -5419,7 +7078,7 @@ namespace ObservableComputations.Test
 		#region Dictionaring
 
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestDictionaring01()
 		{
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
@@ -5494,7 +7153,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestDictionaring02()
 		{
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
@@ -5566,7 +7225,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestDictionaring03()
 		{
 			Scalar<ObservableCollection<Item>> sourceScalar = getScalar<ObservableCollection<Item>>(getItems());
@@ -5641,7 +7300,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestDictionaring04()
 		{
 			Scalar<ObservableCollection<Item>> sourceScalar = getScalar<ObservableCollection<Item>>(getItems());
@@ -5713,7 +7372,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestDictionaring05()
 		{
 			System.Collections.Specialized.INotifyCollectionChanged source = getItems();
@@ -5783,7 +7442,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestDictionaring06()
 		{
 			System.Collections.Specialized.INotifyCollectionChanged source = getItems();
@@ -5850,7 +7509,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestDictionaring07()
 		{
 			ObservableCollection<Item> source = getItems();
@@ -5920,7 +7579,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestDictionaring08()
 		{
 			ObservableCollection<Item> source = getItems();
@@ -5987,7 +7646,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestDictionaring09()
 		{
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
@@ -6067,7 +7726,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestDictionaring10()
 		{
 			Scalar<ObservableCollection<Item>> sourceScalar = getScalar<ObservableCollection<Item>>(getItems());
@@ -6147,7 +7806,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestDictionaring11()
 		{
 			System.Collections.Specialized.INotifyCollectionChanged source = getItems();
@@ -6222,7 +7881,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestDictionaring12()
 		{
 			ObservableCollection<Item> source = getItems();
@@ -6300,12 +7959,12 @@ namespace ObservableComputations.Test
 		#region Distincting
 
 		
-		[Test]
-		public void TestDistincting01()
+		[Test, Combinatorial]
+		public void TestDistincting01(
+			[Values(1)] int initialCapacity)
 		{
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
 			Scalar<System.Collections.Generic.IEqualityComparer<Item>> equalityComparerScalar = getScalar<System.Collections.Generic.IEqualityComparer<Item>>(EqualityComparer<Item>.Default);
-			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = sourceScalar.Distincting<Item>(
 				equalityComparerScalar,
@@ -6377,7 +8036,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestDistincting02()
 		{
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
@@ -6451,11 +8110,11 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
-		public void TestDistincting03()
+		[Test, Combinatorial]
+		public void TestDistincting03(
+			[Values(1)] int initialCapacity)
 		{
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
-			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = sourceScalar.Distincting<Item>(
 				initialCapacity).For(consumer);
@@ -6520,7 +8179,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestDistincting04()
 		{
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
@@ -6586,12 +8245,12 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
-		public void TestDistincting05()
+		[Test, Combinatorial]
+		public void TestDistincting05(
+			[Values(1)] int initialCapacity)
 		{
 			Scalar<ObservableCollection<Item>> sourceScalar = getScalar<ObservableCollection<Item>>(getItems());
 			Scalar<System.Collections.Generic.IEqualityComparer<Item>> equalityComparerScalar = getScalar<System.Collections.Generic.IEqualityComparer<Item>>(EqualityComparer<Item>.Default);
-			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = sourceScalar.Distincting<Item>(
 				equalityComparerScalar,
@@ -6663,7 +8322,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestDistincting06()
 		{
 			Scalar<ObservableCollection<Item>> sourceScalar = getScalar<ObservableCollection<Item>>(getItems());
@@ -6737,11 +8396,11 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
-		public void TestDistincting07()
+		[Test, Combinatorial]
+		public void TestDistincting07(
+			[Values(1)] int initialCapacity)
 		{
 			Scalar<ObservableCollection<Item>> sourceScalar = getScalar<ObservableCollection<Item>>(getItems());
-			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = sourceScalar.Distincting<Item>(
 				initialCapacity).For(consumer);
@@ -6806,7 +8465,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestDistincting08()
 		{
 			Scalar<ObservableCollection<Item>> sourceScalar = getScalar<ObservableCollection<Item>>(getItems());
@@ -6872,12 +8531,12 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
-		public void TestDistincting09()
+		[Test, Combinatorial]
+		public void TestDistincting09(
+			[Values(1)] int initialCapacity)
 		{
 			System.Collections.Specialized.INotifyCollectionChanged source = getItems();
 			Scalar<System.Collections.Generic.IEqualityComparer<Item>> equalityComparerScalar = getScalar<System.Collections.Generic.IEqualityComparer<Item>>(EqualityComparer<Item>.Default);
-			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = source.Distincting<Item>(
 				equalityComparerScalar,
@@ -6944,7 +8603,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestDistincting10()
 		{
 			System.Collections.Specialized.INotifyCollectionChanged source = getItems();
@@ -7013,11 +8672,11 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
-		public void TestDistincting11()
+		[Test, Combinatorial]
+		public void TestDistincting11(
+			[Values(1)] int initialCapacity)
 		{
 			System.Collections.Specialized.INotifyCollectionChanged source = getItems();
-			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = source.Distincting<Item>(
 				initialCapacity).For(consumer);
@@ -7077,7 +8736,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestDistincting12()
 		{
 			System.Collections.Specialized.INotifyCollectionChanged source = getItems();
@@ -7138,12 +8797,12 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
-		public void TestDistincting13()
+		[Test, Combinatorial]
+		public void TestDistincting13(
+			[Values(1)] int initialCapacity)
 		{
 			ObservableCollection<Item> source = getItems();
 			Scalar<System.Collections.Generic.IEqualityComparer<Item>> equalityComparerScalar = getScalar<System.Collections.Generic.IEqualityComparer<Item>>(EqualityComparer<Item>.Default);
-			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = source.Distincting<Item>(
 				equalityComparerScalar,
@@ -7210,7 +8869,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestDistincting14()
 		{
 			ObservableCollection<Item> source = getItems();
@@ -7279,11 +8938,11 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
-		public void TestDistincting15()
+		[Test, Combinatorial]
+		public void TestDistincting15(
+			[Values(1)] int initialCapacity)
 		{
 			ObservableCollection<Item> source = getItems();
-			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = source.Distincting<Item>(
 				initialCapacity).For(consumer);
@@ -7343,7 +9002,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestDistincting16()
 		{
 			ObservableCollection<Item> source = getItems();
@@ -7404,12 +9063,12 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
-		public void TestDistincting17()
+		[Test, Combinatorial]
+		public void TestDistincting17(
+			[Values(1)] int initialCapacity)
 		{
 			System.Collections.Specialized.INotifyCollectionChanged source = getItems();
 			System.Collections.Generic.IEqualityComparer<Item> equalityComparer = EqualityComparer<Item>.Default;
-			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = source.Distincting<Item>(
 				equalityComparer,
@@ -7471,7 +9130,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestDistincting18()
 		{
 			System.Collections.Specialized.INotifyCollectionChanged source = getItems();
@@ -7535,12 +9194,12 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
-		public void TestDistincting19()
+		[Test, Combinatorial]
+		public void TestDistincting19(
+			[Values(1)] int initialCapacity)
 		{
 			ObservableCollection<Item> source = getItems();
 			System.Collections.Generic.IEqualityComparer<Item> equalityComparer = EqualityComparer<Item>.Default;
-			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = source.Distincting<Item>(
 				equalityComparer,
@@ -7602,7 +9261,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestDistincting20()
 		{
 			ObservableCollection<Item> source = getItems();
@@ -7666,12 +9325,12 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
-		public void TestDistincting21()
+		[Test, Combinatorial]
+		public void TestDistincting21(
+			[Values(1)] int initialCapacity)
 		{
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
 			System.Collections.Generic.IEqualityComparer<Item> equalityComparer = EqualityComparer<Item>.Default;
-			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = sourceScalar.Distincting<Item>(
 				equalityComparer,
@@ -7738,7 +9397,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestDistincting22()
 		{
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
@@ -7807,12 +9466,12 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
-		public void TestDistincting23()
+		[Test, Combinatorial]
+		public void TestDistincting23(
+			[Values(1)] int initialCapacity)
 		{
 			Scalar<ObservableCollection<Item>> sourceScalar = getScalar<ObservableCollection<Item>>(getItems());
 			System.Collections.Generic.IEqualityComparer<Item> equalityComparer = EqualityComparer<Item>.Default;
-			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = sourceScalar.Distincting<Item>(
 				equalityComparer,
@@ -7879,7 +9538,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestDistincting24()
 		{
 			Scalar<ObservableCollection<Item>> sourceScalar = getScalar<ObservableCollection<Item>>(getItems());
@@ -7951,13 +9610,13 @@ namespace ObservableComputations.Test
 		#region Excepting
 
 		
-		[Test]
-		public void TestExcepting01()
+		[Test, Combinatorial]
+		public void TestExcepting01(
+			[Values(1)] int initialCapacity)
 		{
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> source1Scalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> source2Scalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
 			Scalar<System.Collections.Generic.IEqualityComparer<Item>> equalityComparerScalar = getScalar<System.Collections.Generic.IEqualityComparer<Item>>(EqualityComparer<Item>.Default);
-			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = source1Scalar.Excepting<Item>(
 				source2Scalar,
@@ -8075,7 +9734,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestExcepting02()
 		{
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> source1Scalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
@@ -8196,12 +9855,12 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
-		public void TestExcepting03()
+		[Test, Combinatorial]
+		public void TestExcepting03(
+			[Values(1)] int initialCapacity)
 		{
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> source1Scalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> source2Scalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
-			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = source1Scalar.Excepting<Item>(
 				source2Scalar,
@@ -8314,7 +9973,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestExcepting04()
 		{
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> source1Scalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
@@ -8429,13 +10088,13 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
-		public void TestExcepting05()
+		[Test, Combinatorial]
+		public void TestExcepting05(
+			[Values(1)] int initialCapacity)
 		{
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> source1Scalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
 			Scalar<ObservableCollection<Item>> source2Scalar = getScalar<ObservableCollection<Item>>(getItems());
 			Scalar<System.Collections.Generic.IEqualityComparer<Item>> equalityComparerScalar = getScalar<System.Collections.Generic.IEqualityComparer<Item>>(EqualityComparer<Item>.Default);
-			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = source1Scalar.Excepting<Item>(
 				source2Scalar,
@@ -8553,7 +10212,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestExcepting06()
 		{
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> source1Scalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
@@ -8674,12 +10333,12 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
-		public void TestExcepting07()
+		[Test, Combinatorial]
+		public void TestExcepting07(
+			[Values(1)] int initialCapacity)
 		{
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> source1Scalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
 			Scalar<ObservableCollection<Item>> source2Scalar = getScalar<ObservableCollection<Item>>(getItems());
-			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = source1Scalar.Excepting<Item>(
 				source2Scalar,
@@ -8792,7 +10451,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestExcepting08()
 		{
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> source1Scalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
@@ -8907,13 +10566,13 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
-		public void TestExcepting09()
+		[Test, Combinatorial]
+		public void TestExcepting09(
+			[Values(1)] int initialCapacity)
 		{
 			Scalar<ObservableCollection<Item>> source1Scalar = getScalar<ObservableCollection<Item>>(getItems());
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> source2Scalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
 			Scalar<System.Collections.Generic.IEqualityComparer<Item>> equalityComparerScalar = getScalar<System.Collections.Generic.IEqualityComparer<Item>>(EqualityComparer<Item>.Default);
-			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = source1Scalar.Excepting<Item>(
 				source2Scalar,
@@ -9031,7 +10690,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestExcepting10()
 		{
 			Scalar<ObservableCollection<Item>> source1Scalar = getScalar<ObservableCollection<Item>>(getItems());
@@ -9152,12 +10811,12 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
-		public void TestExcepting11()
+		[Test, Combinatorial]
+		public void TestExcepting11(
+			[Values(1)] int initialCapacity)
 		{
 			Scalar<ObservableCollection<Item>> source1Scalar = getScalar<ObservableCollection<Item>>(getItems());
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> source2Scalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
-			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = source1Scalar.Excepting<Item>(
 				source2Scalar,
@@ -9270,7 +10929,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestExcepting12()
 		{
 			Scalar<ObservableCollection<Item>> source1Scalar = getScalar<ObservableCollection<Item>>(getItems());
@@ -9385,13 +11044,13 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
-		public void TestExcepting13()
+		[Test, Combinatorial]
+		public void TestExcepting13(
+			[Values(1)] int initialCapacity)
 		{
 			Scalar<ObservableCollection<Item>> source1Scalar = getScalar<ObservableCollection<Item>>(getItems());
 			Scalar<ObservableCollection<Item>> source2Scalar = getScalar<ObservableCollection<Item>>(getItems());
 			Scalar<System.Collections.Generic.IEqualityComparer<Item>> equalityComparerScalar = getScalar<System.Collections.Generic.IEqualityComparer<Item>>(EqualityComparer<Item>.Default);
-			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = source1Scalar.Excepting<Item>(
 				source2Scalar,
@@ -9509,7 +11168,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestExcepting14()
 		{
 			Scalar<ObservableCollection<Item>> source1Scalar = getScalar<ObservableCollection<Item>>(getItems());
@@ -9630,12 +11289,12 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
-		public void TestExcepting15()
+		[Test, Combinatorial]
+		public void TestExcepting15(
+			[Values(1)] int initialCapacity)
 		{
 			Scalar<ObservableCollection<Item>> source1Scalar = getScalar<ObservableCollection<Item>>(getItems());
 			Scalar<ObservableCollection<Item>> source2Scalar = getScalar<ObservableCollection<Item>>(getItems());
-			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = source1Scalar.Excepting<Item>(
 				source2Scalar,
@@ -9748,7 +11407,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestExcepting16()
 		{
 			Scalar<ObservableCollection<Item>> source1Scalar = getScalar<ObservableCollection<Item>>(getItems());
@@ -9863,13 +11522,13 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
-		public void TestExcepting17()
+		[Test, Combinatorial]
+		public void TestExcepting17(
+			[Values(1)] int initialCapacity)
 		{
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> source1Scalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
 			System.Collections.Specialized.INotifyCollectionChanged source2 = getItems();
 			Scalar<System.Collections.Generic.IEqualityComparer<Item>> equalityComparerScalar = getScalar<System.Collections.Generic.IEqualityComparer<Item>>(EqualityComparer<Item>.Default);
-			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = source1Scalar.Excepting<Item>(
 				source2,
@@ -9982,7 +11641,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestExcepting18()
 		{
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> source1Scalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
@@ -10098,12 +11757,12 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
-		public void TestExcepting19()
+		[Test, Combinatorial]
+		public void TestExcepting19(
+			[Values(1)] int initialCapacity)
 		{
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> source1Scalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
 			System.Collections.Specialized.INotifyCollectionChanged source2 = getItems();
-			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = source1Scalar.Excepting<Item>(
 				source2,
@@ -10211,7 +11870,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestExcepting20()
 		{
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> source1Scalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
@@ -10321,13 +11980,13 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
-		public void TestExcepting21()
+		[Test, Combinatorial]
+		public void TestExcepting21(
+			[Values(1)] int initialCapacity)
 		{
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> source1Scalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
 			ObservableCollection<Item> source2 = getItems();
 			Scalar<System.Collections.Generic.IEqualityComparer<Item>> equalityComparerScalar = getScalar<System.Collections.Generic.IEqualityComparer<Item>>(EqualityComparer<Item>.Default);
-			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = source1Scalar.Excepting<Item>(
 				source2,
@@ -10440,7 +12099,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestExcepting22()
 		{
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> source1Scalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
@@ -10556,12 +12215,12 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
-		public void TestExcepting23()
+		[Test, Combinatorial]
+		public void TestExcepting23(
+			[Values(1)] int initialCapacity)
 		{
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> source1Scalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
 			ObservableCollection<Item> source2 = getItems();
-			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = source1Scalar.Excepting<Item>(
 				source2,
@@ -10669,7 +12328,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestExcepting24()
 		{
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> source1Scalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
@@ -10779,13 +12438,13 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
-		public void TestExcepting25()
+		[Test, Combinatorial]
+		public void TestExcepting25(
+			[Values(1)] int initialCapacity)
 		{
 			Scalar<ObservableCollection<Item>> source1Scalar = getScalar<ObservableCollection<Item>>(getItems());
 			System.Collections.Specialized.INotifyCollectionChanged source2 = getItems();
 			Scalar<System.Collections.Generic.IEqualityComparer<Item>> equalityComparerScalar = getScalar<System.Collections.Generic.IEqualityComparer<Item>>(EqualityComparer<Item>.Default);
-			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = source1Scalar.Excepting<Item>(
 				source2,
@@ -10898,7 +12557,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestExcepting26()
 		{
 			Scalar<ObservableCollection<Item>> source1Scalar = getScalar<ObservableCollection<Item>>(getItems());
@@ -11014,12 +12673,12 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
-		public void TestExcepting27()
+		[Test, Combinatorial]
+		public void TestExcepting27(
+			[Values(1)] int initialCapacity)
 		{
 			Scalar<ObservableCollection<Item>> source1Scalar = getScalar<ObservableCollection<Item>>(getItems());
 			System.Collections.Specialized.INotifyCollectionChanged source2 = getItems();
-			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = source1Scalar.Excepting<Item>(
 				source2,
@@ -11127,7 +12786,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestExcepting28()
 		{
 			Scalar<ObservableCollection<Item>> source1Scalar = getScalar<ObservableCollection<Item>>(getItems());
@@ -11237,13 +12896,13 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
-		public void TestExcepting29()
+		[Test, Combinatorial]
+		public void TestExcepting29(
+			[Values(1)] int initialCapacity)
 		{
 			Scalar<ObservableCollection<Item>> source1Scalar = getScalar<ObservableCollection<Item>>(getItems());
 			ObservableCollection<Item> source2 = getItems();
 			Scalar<System.Collections.Generic.IEqualityComparer<Item>> equalityComparerScalar = getScalar<System.Collections.Generic.IEqualityComparer<Item>>(EqualityComparer<Item>.Default);
-			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = source1Scalar.Excepting<Item>(
 				source2,
@@ -11356,7 +13015,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestExcepting30()
 		{
 			Scalar<ObservableCollection<Item>> source1Scalar = getScalar<ObservableCollection<Item>>(getItems());
@@ -11472,12 +13131,12 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
-		public void TestExcepting31()
+		[Test, Combinatorial]
+		public void TestExcepting31(
+			[Values(1)] int initialCapacity)
 		{
 			Scalar<ObservableCollection<Item>> source1Scalar = getScalar<ObservableCollection<Item>>(getItems());
 			ObservableCollection<Item> source2 = getItems();
-			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = source1Scalar.Excepting<Item>(
 				source2,
@@ -11585,7 +13244,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestExcepting32()
 		{
 			Scalar<ObservableCollection<Item>> source1Scalar = getScalar<ObservableCollection<Item>>(getItems());
@@ -11695,13 +13354,13 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
-		public void TestExcepting33()
+		[Test, Combinatorial]
+		public void TestExcepting33(
+			[Values(1)] int initialCapacity)
 		{
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> source1Scalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
 			System.Collections.Specialized.INotifyCollectionChanged source2 = getItems();
 			System.Collections.Generic.IEqualityComparer<Item> equalityComparer = EqualityComparer<Item>.Default;
-			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = source1Scalar.Excepting<Item>(
 				source2,
@@ -11811,7 +13470,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestExcepting34()
 		{
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> source1Scalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
@@ -11924,13 +13583,13 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
-		public void TestExcepting35()
+		[Test, Combinatorial]
+		public void TestExcepting35(
+			[Values(1)] int initialCapacity)
 		{
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> source1Scalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
 			ObservableCollection<Item> source2 = getItems();
 			System.Collections.Generic.IEqualityComparer<Item> equalityComparer = EqualityComparer<Item>.Default;
-			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = source1Scalar.Excepting<Item>(
 				source2,
@@ -12040,7 +13699,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestExcepting36()
 		{
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> source1Scalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
@@ -12153,13 +13812,13 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
-		public void TestExcepting37()
+		[Test, Combinatorial]
+		public void TestExcepting37(
+			[Values(1)] int initialCapacity)
 		{
 			Scalar<ObservableCollection<Item>> source1Scalar = getScalar<ObservableCollection<Item>>(getItems());
 			System.Collections.Specialized.INotifyCollectionChanged source2 = getItems();
 			System.Collections.Generic.IEqualityComparer<Item> equalityComparer = EqualityComparer<Item>.Default;
-			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = source1Scalar.Excepting<Item>(
 				source2,
@@ -12269,7 +13928,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestExcepting38()
 		{
 			Scalar<ObservableCollection<Item>> source1Scalar = getScalar<ObservableCollection<Item>>(getItems());
@@ -12382,13 +14041,13 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
-		public void TestExcepting39()
+		[Test, Combinatorial]
+		public void TestExcepting39(
+			[Values(1)] int initialCapacity)
 		{
 			Scalar<ObservableCollection<Item>> source1Scalar = getScalar<ObservableCollection<Item>>(getItems());
 			ObservableCollection<Item> source2 = getItems();
 			System.Collections.Generic.IEqualityComparer<Item> equalityComparer = EqualityComparer<Item>.Default;
-			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = source1Scalar.Excepting<Item>(
 				source2,
@@ -12498,7 +14157,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestExcepting40()
 		{
 			Scalar<ObservableCollection<Item>> source1Scalar = getScalar<ObservableCollection<Item>>(getItems());
@@ -12611,13 +14270,13 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
-		public void TestExcepting41()
+		[Test, Combinatorial]
+		public void TestExcepting41(
+			[Values(1)] int initialCapacity)
 		{
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> source1Scalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> source2Scalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
 			System.Collections.Generic.IEqualityComparer<Item> equalityComparer = EqualityComparer<Item>.Default;
-			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = source1Scalar.Excepting<Item>(
 				source2Scalar,
@@ -12732,7 +14391,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestExcepting42()
 		{
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> source1Scalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
@@ -12850,13 +14509,13 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
-		public void TestExcepting43()
+		[Test, Combinatorial]
+		public void TestExcepting43(
+			[Values(1)] int initialCapacity)
 		{
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> source1Scalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
 			Scalar<ObservableCollection<Item>> source2Scalar = getScalar<ObservableCollection<Item>>(getItems());
 			System.Collections.Generic.IEqualityComparer<Item> equalityComparer = EqualityComparer<Item>.Default;
-			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = source1Scalar.Excepting<Item>(
 				source2Scalar,
@@ -12971,7 +14630,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestExcepting44()
 		{
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> source1Scalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
@@ -13089,13 +14748,13 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
-		public void TestExcepting45()
+		[Test, Combinatorial]
+		public void TestExcepting45(
+			[Values(1)] int initialCapacity)
 		{
 			Scalar<ObservableCollection<Item>> source1Scalar = getScalar<ObservableCollection<Item>>(getItems());
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> source2Scalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
 			System.Collections.Generic.IEqualityComparer<Item> equalityComparer = EqualityComparer<Item>.Default;
-			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = source1Scalar.Excepting<Item>(
 				source2Scalar,
@@ -13210,7 +14869,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestExcepting46()
 		{
 			Scalar<ObservableCollection<Item>> source1Scalar = getScalar<ObservableCollection<Item>>(getItems());
@@ -13328,13 +14987,13 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
-		public void TestExcepting47()
+		[Test, Combinatorial]
+		public void TestExcepting47(
+			[Values(1)] int initialCapacity)
 		{
 			Scalar<ObservableCollection<Item>> source1Scalar = getScalar<ObservableCollection<Item>>(getItems());
 			Scalar<ObservableCollection<Item>> source2Scalar = getScalar<ObservableCollection<Item>>(getItems());
 			System.Collections.Generic.IEqualityComparer<Item> equalityComparer = EqualityComparer<Item>.Default;
-			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = source1Scalar.Excepting<Item>(
 				source2Scalar,
@@ -13449,7 +15108,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestExcepting48()
 		{
 			Scalar<ObservableCollection<Item>> source1Scalar = getScalar<ObservableCollection<Item>>(getItems());
@@ -13567,13 +15226,13 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
-		public void TestExcepting49()
+		[Test, Combinatorial]
+		public void TestExcepting49(
+			[Values(1)] int initialCapacity)
 		{
 			System.Collections.Specialized.INotifyCollectionChanged source1 = getItems();
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> source2Scalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
 			Scalar<System.Collections.Generic.IEqualityComparer<Item>> equalityComparerScalar = getScalar<System.Collections.Generic.IEqualityComparer<Item>>(EqualityComparer<Item>.Default);
-			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = source1.Excepting<Item>(
 				source2Scalar,
@@ -13686,7 +15345,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestExcepting50()
 		{
 			System.Collections.Specialized.INotifyCollectionChanged source1 = getItems();
@@ -13802,12 +15461,12 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
-		public void TestExcepting51()
+		[Test, Combinatorial]
+		public void TestExcepting51(
+			[Values(1)] int initialCapacity)
 		{
 			System.Collections.Specialized.INotifyCollectionChanged source1 = getItems();
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> source2Scalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
-			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = source1.Excepting<Item>(
 				source2Scalar,
@@ -13915,7 +15574,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestExcepting52()
 		{
 			System.Collections.Specialized.INotifyCollectionChanged source1 = getItems();
@@ -14025,13 +15684,13 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
-		public void TestExcepting53()
+		[Test, Combinatorial]
+		public void TestExcepting53(
+			[Values(1)] int initialCapacity)
 		{
 			System.Collections.Specialized.INotifyCollectionChanged source1 = getItems();
 			Scalar<ObservableCollection<Item>> source2Scalar = getScalar<ObservableCollection<Item>>(getItems());
 			Scalar<System.Collections.Generic.IEqualityComparer<Item>> equalityComparerScalar = getScalar<System.Collections.Generic.IEqualityComparer<Item>>(EqualityComparer<Item>.Default);
-			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = source1.Excepting<Item>(
 				source2Scalar,
@@ -14144,7 +15803,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestExcepting54()
 		{
 			System.Collections.Specialized.INotifyCollectionChanged source1 = getItems();
@@ -14260,12 +15919,12 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
-		public void TestExcepting55()
+		[Test, Combinatorial]
+		public void TestExcepting55(
+			[Values(1)] int initialCapacity)
 		{
 			System.Collections.Specialized.INotifyCollectionChanged source1 = getItems();
 			Scalar<ObservableCollection<Item>> source2Scalar = getScalar<ObservableCollection<Item>>(getItems());
-			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = source1.Excepting<Item>(
 				source2Scalar,
@@ -14373,7 +16032,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestExcepting56()
 		{
 			System.Collections.Specialized.INotifyCollectionChanged source1 = getItems();
@@ -14483,13 +16142,13 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
-		public void TestExcepting57()
+		[Test, Combinatorial]
+		public void TestExcepting57(
+			[Values(1)] int initialCapacity)
 		{
 			ObservableCollection<Item> source1 = getItems();
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> source2Scalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
 			Scalar<System.Collections.Generic.IEqualityComparer<Item>> equalityComparerScalar = getScalar<System.Collections.Generic.IEqualityComparer<Item>>(EqualityComparer<Item>.Default);
-			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = source1.Excepting<Item>(
 				source2Scalar,
@@ -14602,7 +16261,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestExcepting58()
 		{
 			ObservableCollection<Item> source1 = getItems();
@@ -14718,12 +16377,12 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
-		public void TestExcepting59()
+		[Test, Combinatorial]
+		public void TestExcepting59(
+			[Values(1)] int initialCapacity)
 		{
 			ObservableCollection<Item> source1 = getItems();
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> source2Scalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
-			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = source1.Excepting<Item>(
 				source2Scalar,
@@ -14831,7 +16490,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestExcepting60()
 		{
 			ObservableCollection<Item> source1 = getItems();
@@ -14941,13 +16600,13 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
-		public void TestExcepting61()
+		[Test, Combinatorial]
+		public void TestExcepting61(
+			[Values(1)] int initialCapacity)
 		{
 			ObservableCollection<Item> source1 = getItems();
 			Scalar<ObservableCollection<Item>> source2Scalar = getScalar<ObservableCollection<Item>>(getItems());
 			Scalar<System.Collections.Generic.IEqualityComparer<Item>> equalityComparerScalar = getScalar<System.Collections.Generic.IEqualityComparer<Item>>(EqualityComparer<Item>.Default);
-			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = source1.Excepting<Item>(
 				source2Scalar,
@@ -15060,7 +16719,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestExcepting62()
 		{
 			ObservableCollection<Item> source1 = getItems();
@@ -15176,12 +16835,12 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
-		public void TestExcepting63()
+		[Test, Combinatorial]
+		public void TestExcepting63(
+			[Values(1)] int initialCapacity)
 		{
 			ObservableCollection<Item> source1 = getItems();
 			Scalar<ObservableCollection<Item>> source2Scalar = getScalar<ObservableCollection<Item>>(getItems());
-			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = source1.Excepting<Item>(
 				source2Scalar,
@@ -15289,7 +16948,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestExcepting64()
 		{
 			ObservableCollection<Item> source1 = getItems();
@@ -15399,13 +17058,13 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
-		public void TestExcepting65()
+		[Test, Combinatorial]
+		public void TestExcepting65(
+			[Values(1)] int initialCapacity)
 		{
 			System.Collections.Specialized.INotifyCollectionChanged source1 = getItems();
 			System.Collections.Specialized.INotifyCollectionChanged source2 = getItems();
 			Scalar<System.Collections.Generic.IEqualityComparer<Item>> equalityComparerScalar = getScalar<System.Collections.Generic.IEqualityComparer<Item>>(EqualityComparer<Item>.Default);
-			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = source1.Excepting<Item>(
 				source2,
@@ -15513,7 +17172,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestExcepting66()
 		{
 			System.Collections.Specialized.INotifyCollectionChanged source1 = getItems();
@@ -15624,12 +17283,12 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
-		public void TestExcepting67()
+		[Test, Combinatorial]
+		public void TestExcepting67(
+			[Values(1)] int initialCapacity)
 		{
 			System.Collections.Specialized.INotifyCollectionChanged source1 = getItems();
 			System.Collections.Specialized.INotifyCollectionChanged source2 = getItems();
-			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = source1.Excepting<Item>(
 				source2,
@@ -15732,7 +17391,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestExcepting68()
 		{
 			System.Collections.Specialized.INotifyCollectionChanged source1 = getItems();
@@ -15837,13 +17496,13 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
-		public void TestExcepting69()
+		[Test, Combinatorial]
+		public void TestExcepting69(
+			[Values(1)] int initialCapacity)
 		{
 			System.Collections.Specialized.INotifyCollectionChanged source1 = getItems();
 			ObservableCollection<Item> source2 = getItems();
 			Scalar<System.Collections.Generic.IEqualityComparer<Item>> equalityComparerScalar = getScalar<System.Collections.Generic.IEqualityComparer<Item>>(EqualityComparer<Item>.Default);
-			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = source1.Excepting<Item>(
 				source2,
@@ -15951,7 +17610,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestExcepting70()
 		{
 			System.Collections.Specialized.INotifyCollectionChanged source1 = getItems();
@@ -16062,12 +17721,12 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
-		public void TestExcepting71()
+		[Test, Combinatorial]
+		public void TestExcepting71(
+			[Values(1)] int initialCapacity)
 		{
 			System.Collections.Specialized.INotifyCollectionChanged source1 = getItems();
 			ObservableCollection<Item> source2 = getItems();
-			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = source1.Excepting<Item>(
 				source2,
@@ -16170,7 +17829,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestExcepting72()
 		{
 			System.Collections.Specialized.INotifyCollectionChanged source1 = getItems();
@@ -16275,13 +17934,13 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
-		public void TestExcepting73()
+		[Test, Combinatorial]
+		public void TestExcepting73(
+			[Values(1)] int initialCapacity)
 		{
 			ObservableCollection<Item> source1 = getItems();
 			System.Collections.Specialized.INotifyCollectionChanged source2 = getItems();
 			Scalar<System.Collections.Generic.IEqualityComparer<Item>> equalityComparerScalar = getScalar<System.Collections.Generic.IEqualityComparer<Item>>(EqualityComparer<Item>.Default);
-			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = source1.Excepting<Item>(
 				source2,
@@ -16389,7 +18048,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestExcepting74()
 		{
 			ObservableCollection<Item> source1 = getItems();
@@ -16500,12 +18159,12 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
-		public void TestExcepting75()
+		[Test, Combinatorial]
+		public void TestExcepting75(
+			[Values(1)] int initialCapacity)
 		{
 			ObservableCollection<Item> source1 = getItems();
 			System.Collections.Specialized.INotifyCollectionChanged source2 = getItems();
-			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = source1.Excepting<Item>(
 				source2,
@@ -16608,7 +18267,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestExcepting76()
 		{
 			ObservableCollection<Item> source1 = getItems();
@@ -16713,13 +18372,13 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
-		public void TestExcepting77()
+		[Test, Combinatorial]
+		public void TestExcepting77(
+			[Values(1)] int initialCapacity)
 		{
 			ObservableCollection<Item> source1 = getItems();
 			ObservableCollection<Item> source2 = getItems();
 			Scalar<System.Collections.Generic.IEqualityComparer<Item>> equalityComparerScalar = getScalar<System.Collections.Generic.IEqualityComparer<Item>>(EqualityComparer<Item>.Default);
-			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = source1.Excepting<Item>(
 				source2,
@@ -16827,7 +18486,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestExcepting78()
 		{
 			ObservableCollection<Item> source1 = getItems();
@@ -16938,12 +18597,12 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
-		public void TestExcepting79()
+		[Test, Combinatorial]
+		public void TestExcepting79(
+			[Values(1)] int initialCapacity)
 		{
 			ObservableCollection<Item> source1 = getItems();
 			ObservableCollection<Item> source2 = getItems();
-			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = source1.Excepting<Item>(
 				source2,
@@ -17046,7 +18705,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestExcepting80()
 		{
 			ObservableCollection<Item> source1 = getItems();
@@ -17151,13 +18810,13 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
-		public void TestExcepting81()
+		[Test, Combinatorial]
+		public void TestExcepting81(
+			[Values(1)] int initialCapacity)
 		{
 			System.Collections.Specialized.INotifyCollectionChanged source1 = getItems();
 			System.Collections.Specialized.INotifyCollectionChanged source2 = getItems();
 			System.Collections.Generic.IEqualityComparer<Item> equalityComparer = EqualityComparer<Item>.Default;
-			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = source1.Excepting<Item>(
 				source2,
@@ -17262,7 +18921,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestExcepting82()
 		{
 			System.Collections.Specialized.INotifyCollectionChanged source1 = getItems();
@@ -17370,13 +19029,13 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
-		public void TestExcepting83()
+		[Test, Combinatorial]
+		public void TestExcepting83(
+			[Values(1)] int initialCapacity)
 		{
 			System.Collections.Specialized.INotifyCollectionChanged source1 = getItems();
 			ObservableCollection<Item> source2 = getItems();
 			System.Collections.Generic.IEqualityComparer<Item> equalityComparer = EqualityComparer<Item>.Default;
-			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = source1.Excepting<Item>(
 				source2,
@@ -17481,7 +19140,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestExcepting84()
 		{
 			System.Collections.Specialized.INotifyCollectionChanged source1 = getItems();
@@ -17589,13 +19248,13 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
-		public void TestExcepting85()
+		[Test, Combinatorial]
+		public void TestExcepting85(
+			[Values(1)] int initialCapacity)
 		{
 			ObservableCollection<Item> source1 = getItems();
 			System.Collections.Specialized.INotifyCollectionChanged source2 = getItems();
 			System.Collections.Generic.IEqualityComparer<Item> equalityComparer = EqualityComparer<Item>.Default;
-			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = source1.Excepting<Item>(
 				source2,
@@ -17700,7 +19359,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestExcepting86()
 		{
 			ObservableCollection<Item> source1 = getItems();
@@ -17808,13 +19467,13 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
-		public void TestExcepting87()
+		[Test, Combinatorial]
+		public void TestExcepting87(
+			[Values(1)] int initialCapacity)
 		{
 			ObservableCollection<Item> source1 = getItems();
 			ObservableCollection<Item> source2 = getItems();
 			System.Collections.Generic.IEqualityComparer<Item> equalityComparer = EqualityComparer<Item>.Default;
-			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = source1.Excepting<Item>(
 				source2,
@@ -17919,7 +19578,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestExcepting88()
 		{
 			ObservableCollection<Item> source1 = getItems();
@@ -18027,13 +19686,13 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
-		public void TestExcepting89()
+		[Test, Combinatorial]
+		public void TestExcepting89(
+			[Values(1)] int initialCapacity)
 		{
 			System.Collections.Specialized.INotifyCollectionChanged source1 = getItems();
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> source2Scalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
 			System.Collections.Generic.IEqualityComparer<Item> equalityComparer = EqualityComparer<Item>.Default;
-			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = source1.Excepting<Item>(
 				source2Scalar,
@@ -18143,7 +19802,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestExcepting90()
 		{
 			System.Collections.Specialized.INotifyCollectionChanged source1 = getItems();
@@ -18256,13 +19915,13 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
-		public void TestExcepting91()
+		[Test, Combinatorial]
+		public void TestExcepting91(
+			[Values(1)] int initialCapacity)
 		{
 			System.Collections.Specialized.INotifyCollectionChanged source1 = getItems();
 			Scalar<ObservableCollection<Item>> source2Scalar = getScalar<ObservableCollection<Item>>(getItems());
 			System.Collections.Generic.IEqualityComparer<Item> equalityComparer = EqualityComparer<Item>.Default;
-			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = source1.Excepting<Item>(
 				source2Scalar,
@@ -18372,7 +20031,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestExcepting92()
 		{
 			System.Collections.Specialized.INotifyCollectionChanged source1 = getItems();
@@ -18485,13 +20144,13 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
-		public void TestExcepting93()
+		[Test, Combinatorial]
+		public void TestExcepting93(
+			[Values(1)] int initialCapacity)
 		{
 			ObservableCollection<Item> source1 = getItems();
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> source2Scalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
 			System.Collections.Generic.IEqualityComparer<Item> equalityComparer = EqualityComparer<Item>.Default;
-			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = source1.Excepting<Item>(
 				source2Scalar,
@@ -18601,7 +20260,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestExcepting94()
 		{
 			ObservableCollection<Item> source1 = getItems();
@@ -18714,13 +20373,13 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
-		public void TestExcepting95()
+		[Test, Combinatorial]
+		public void TestExcepting95(
+			[Values(1)] int initialCapacity)
 		{
 			ObservableCollection<Item> source1 = getItems();
 			Scalar<ObservableCollection<Item>> source2Scalar = getScalar<ObservableCollection<Item>>(getItems());
 			System.Collections.Generic.IEqualityComparer<Item> equalityComparer = EqualityComparer<Item>.Default;
-			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = source1.Excepting<Item>(
 				source2Scalar,
@@ -18830,7 +20489,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestExcepting96()
 		{
 			ObservableCollection<Item> source1 = getItems();
@@ -18946,7 +20605,7 @@ namespace ObservableComputations.Test
 		#region Extending
 
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestExtending01()
 		{
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
@@ -19012,7 +20671,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestExtending02()
 		{
 			Scalar<ObservableCollection<Item>> sourceScalar = getScalar<ObservableCollection<Item>>(getItems());
@@ -19078,7 +20737,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestExtending03()
 		{
 			System.Collections.Specialized.INotifyCollectionChanged source = getItems();
@@ -19139,7 +20798,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestExtending04()
 		{
 			ObservableCollection<Item> source = getItems();
@@ -19203,12 +20862,12 @@ namespace ObservableComputations.Test
 		#region Filtering
 
 		
-		[Test]
-		public void TestFiltering01()
+		[Test, Combinatorial]
+		public void TestFiltering01(
+			[Values(1)] int initialCapacity)
 		{
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
 			System.Linq.Expressions.Expression<System.Func<Item, bool>> predicateExpression = i => i.Active;
-			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = sourceScalar.Filtering<Item>(
 				predicateExpression,
@@ -19275,7 +20934,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestFiltering02()
 		{
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
@@ -19344,12 +21003,12 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
-		public void TestFiltering03()
+		[Test, Combinatorial]
+		public void TestFiltering03(
+			[Values(1)] int initialCapacity)
 		{
 			Scalar<ObservableCollection<Item>> sourceScalar = getScalar<ObservableCollection<Item>>(getItems());
 			System.Linq.Expressions.Expression<System.Func<Item, bool>> predicateExpression = i => i.Active;
-			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = sourceScalar.Filtering<Item>(
 				predicateExpression,
@@ -19416,7 +21075,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestFiltering04()
 		{
 			Scalar<ObservableCollection<Item>> sourceScalar = getScalar<ObservableCollection<Item>>(getItems());
@@ -19485,12 +21144,12 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
-		public void TestFiltering05()
+		[Test, Combinatorial]
+		public void TestFiltering05(
+			[Values(1)] int initialCapacity)
 		{
 			System.Collections.Specialized.INotifyCollectionChanged source = getItems();
 			System.Linq.Expressions.Expression<System.Func<Item, bool>> predicateExpression = i => i.Active;
-			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = source.Filtering<Item>(
 				predicateExpression,
@@ -19552,7 +21211,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestFiltering06()
 		{
 			System.Collections.Specialized.INotifyCollectionChanged source = getItems();
@@ -19616,12 +21275,12 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
-		public void TestFiltering07()
+		[Test, Combinatorial]
+		public void TestFiltering07(
+			[Values(1)] int initialCapacity)
 		{
 			ObservableCollection<Item> source = getItems();
 			System.Linq.Expressions.Expression<System.Func<Item, bool>> predicateExpression = i => i.Active;
-			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = source.Filtering<Item>(
 				predicateExpression,
@@ -19683,7 +21342,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestFiltering08()
 		{
 			ObservableCollection<Item> source = getItems();
@@ -19750,7 +21409,7 @@ namespace ObservableComputations.Test
 		#region FirstComputing
 
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestFirstComputing01()
 		{
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
@@ -19819,7 +21478,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestFirstComputing02()
 		{
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
@@ -19885,7 +21544,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestFirstComputing03()
 		{
 			Scalar<ObservableCollection<Item>> sourceScalar = getScalar<ObservableCollection<Item>>(getItems());
@@ -19954,7 +21613,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestFirstComputing04()
 		{
 			Scalar<ObservableCollection<Item>> sourceScalar = getScalar<ObservableCollection<Item>>(getItems());
@@ -20020,7 +21679,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestFirstComputing05()
 		{
 			System.Collections.Specialized.INotifyCollectionChanged source = getItems();
@@ -20084,7 +21743,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestFirstComputing06()
 		{
 			System.Collections.Specialized.INotifyCollectionChanged source = getItems();
@@ -20145,7 +21804,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestFirstComputing07()
 		{
 			ObservableCollection<Item> source = getItems();
@@ -20209,7 +21868,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestFirstComputing08()
 		{
 			ObservableCollection<Item> source = getItems();
@@ -20273,13 +21932,13 @@ namespace ObservableComputations.Test
 		#region Grouping
 
 		
-		[Test]
-		public void TestGrouping01()
+		[Test, Combinatorial]
+		public void TestGrouping01(
+			[Values(1)] int initialCapacity)
 		{
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
 			System.Linq.Expressions.Expression<System.Func<Item, int>> keySelectorExpression = i => i.Id;
 			Scalar<System.Collections.Generic.IEqualityComparer<int>> equalityComparerScalar = getScalar<System.Collections.Generic.IEqualityComparer<int>>(EqualityComparer<int>.Default);
-			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = sourceScalar.Grouping<Item, int>(
 				keySelectorExpression,
@@ -20353,7 +22012,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestGrouping02()
 		{
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
@@ -20430,12 +22089,12 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
-		public void TestGrouping03()
+		[Test, Combinatorial]
+		public void TestGrouping03(
+			[Values(1)] int initialCapacity)
 		{
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
 			System.Linq.Expressions.Expression<System.Func<Item, int>> keySelectorExpression = i => i.Id;
-			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = sourceScalar.Grouping<Item, int>(
 				keySelectorExpression,
@@ -20502,7 +22161,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestGrouping04()
 		{
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
@@ -20571,13 +22230,13 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
-		public void TestGrouping05()
+		[Test, Combinatorial]
+		public void TestGrouping05(
+			[Values(1)] int initialCapacity)
 		{
 			Scalar<ObservableCollection<Item>> sourceScalar = getScalar<ObservableCollection<Item>>(getItems());
 			System.Linq.Expressions.Expression<System.Func<Item, int>> keySelectorExpression = i => i.Id;
 			Scalar<System.Collections.Generic.IEqualityComparer<int>> equalityComparerScalar = getScalar<System.Collections.Generic.IEqualityComparer<int>>(EqualityComparer<int>.Default);
-			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = sourceScalar.Grouping<Item, int>(
 				keySelectorExpression,
@@ -20651,7 +22310,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestGrouping06()
 		{
 			Scalar<ObservableCollection<Item>> sourceScalar = getScalar<ObservableCollection<Item>>(getItems());
@@ -20728,12 +22387,12 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
-		public void TestGrouping07()
+		[Test, Combinatorial]
+		public void TestGrouping07(
+			[Values(1)] int initialCapacity)
 		{
 			Scalar<ObservableCollection<Item>> sourceScalar = getScalar<ObservableCollection<Item>>(getItems());
 			System.Linq.Expressions.Expression<System.Func<Item, int>> keySelectorExpression = i => i.Id;
-			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = sourceScalar.Grouping<Item, int>(
 				keySelectorExpression,
@@ -20800,7 +22459,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestGrouping08()
 		{
 			Scalar<ObservableCollection<Item>> sourceScalar = getScalar<ObservableCollection<Item>>(getItems());
@@ -20869,13 +22528,13 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
-		public void TestGrouping09()
+		[Test, Combinatorial]
+		public void TestGrouping09(
+			[Values(1)] int initialCapacity)
 		{
 			System.Collections.Specialized.INotifyCollectionChanged source = getItems();
 			System.Linq.Expressions.Expression<System.Func<Item, int>> keySelectorExpression = i => i.Id;
 			Scalar<System.Collections.Generic.IEqualityComparer<int>> equalityComparerScalar = getScalar<System.Collections.Generic.IEqualityComparer<int>>(EqualityComparer<int>.Default);
-			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = source.Grouping<Item, int>(
 				keySelectorExpression,
@@ -20944,7 +22603,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestGrouping10()
 		{
 			System.Collections.Specialized.INotifyCollectionChanged source = getItems();
@@ -21016,12 +22675,12 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
-		public void TestGrouping11()
+		[Test, Combinatorial]
+		public void TestGrouping11(
+			[Values(1)] int initialCapacity)
 		{
 			System.Collections.Specialized.INotifyCollectionChanged source = getItems();
 			System.Linq.Expressions.Expression<System.Func<Item, int>> keySelectorExpression = i => i.Id;
-			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = source.Grouping<Item, int>(
 				keySelectorExpression,
@@ -21083,7 +22742,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestGrouping12()
 		{
 			System.Collections.Specialized.INotifyCollectionChanged source = getItems();
@@ -21147,13 +22806,13 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
-		public void TestGrouping13()
+		[Test, Combinatorial]
+		public void TestGrouping13(
+			[Values(1)] int initialCapacity)
 		{
 			ObservableCollection<Item> source = getItems();
 			System.Linq.Expressions.Expression<System.Func<Item, int>> keySelectorExpression = i => i.Id;
 			Scalar<System.Collections.Generic.IEqualityComparer<int>> equalityComparerScalar = getScalar<System.Collections.Generic.IEqualityComparer<int>>(EqualityComparer<int>.Default);
-			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = source.Grouping<Item, int>(
 				keySelectorExpression,
@@ -21222,7 +22881,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestGrouping14()
 		{
 			ObservableCollection<Item> source = getItems();
@@ -21294,12 +22953,12 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
-		public void TestGrouping15()
+		[Test, Combinatorial]
+		public void TestGrouping15(
+			[Values(1)] int initialCapacity)
 		{
 			ObservableCollection<Item> source = getItems();
 			System.Linq.Expressions.Expression<System.Func<Item, int>> keySelectorExpression = i => i.Id;
-			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = source.Grouping<Item, int>(
 				keySelectorExpression,
@@ -21361,7 +23020,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestGrouping16()
 		{
 			ObservableCollection<Item> source = getItems();
@@ -21425,13 +23084,13 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
-		public void TestGrouping17()
+		[Test, Combinatorial]
+		public void TestGrouping17(
+			[Values(1)] int initialCapacity)
 		{
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
 			System.Linq.Expressions.Expression<System.Func<Item, int>> keySelectorExpression = i => i.Id;
 			System.Collections.Generic.IEqualityComparer<int> equalityComparer = EqualityComparer<int>.Default;
-			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = sourceScalar.Grouping<Item, int>(
 				keySelectorExpression,
@@ -21500,7 +23159,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestGrouping18()
 		{
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
@@ -21572,13 +23231,13 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
-		public void TestGrouping19()
+		[Test, Combinatorial]
+		public void TestGrouping19(
+			[Values(1)] int initialCapacity)
 		{
 			Scalar<ObservableCollection<Item>> sourceScalar = getScalar<ObservableCollection<Item>>(getItems());
 			System.Linq.Expressions.Expression<System.Func<Item, int>> keySelectorExpression = i => i.Id;
 			System.Collections.Generic.IEqualityComparer<int> equalityComparer = EqualityComparer<int>.Default;
-			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = sourceScalar.Grouping<Item, int>(
 				keySelectorExpression,
@@ -21647,7 +23306,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestGrouping20()
 		{
 			Scalar<ObservableCollection<Item>> sourceScalar = getScalar<ObservableCollection<Item>>(getItems());
@@ -21719,13 +23378,13 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
-		public void TestGrouping21()
+		[Test, Combinatorial]
+		public void TestGrouping21(
+			[Values(1)] int initialCapacity)
 		{
 			System.Collections.Specialized.INotifyCollectionChanged source = getItems();
 			System.Linq.Expressions.Expression<System.Func<Item, int>> keySelectorExpression = i => i.Id;
 			System.Collections.Generic.IEqualityComparer<int> equalityComparer = EqualityComparer<int>.Default;
-			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = source.Grouping<Item, int>(
 				keySelectorExpression,
@@ -21789,7 +23448,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestGrouping22()
 		{
 			System.Collections.Specialized.INotifyCollectionChanged source = getItems();
@@ -21856,13 +23515,13 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
-		public void TestGrouping23()
+		[Test, Combinatorial]
+		public void TestGrouping23(
+			[Values(1)] int initialCapacity)
 		{
 			ObservableCollection<Item> source = getItems();
 			System.Linq.Expressions.Expression<System.Func<Item, int>> keySelectorExpression = i => i.Id;
 			System.Collections.Generic.IEqualityComparer<int> equalityComparer = EqualityComparer<int>.Default;
-			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = source.Grouping<Item, int>(
 				keySelectorExpression,
@@ -21926,7 +23585,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestGrouping24()
 		{
 			ObservableCollection<Item> source = getItems();
@@ -21996,7 +23655,7 @@ namespace ObservableComputations.Test
 		#region GroupJoining
 
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestGroupJoining01()
 		{
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> outerSourceScalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
@@ -22125,7 +23784,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestGroupJoining02()
 		{
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> outerSourceScalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
@@ -22246,7 +23905,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestGroupJoining03()
 		{
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> outerSourceScalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
@@ -22375,7 +24034,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestGroupJoining04()
 		{
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> outerSourceScalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
@@ -22496,7 +24155,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestGroupJoining05()
 		{
 			Scalar<ObservableCollection<Item>> outerSourceScalar = getScalar<ObservableCollection<Item>>(getItems());
@@ -22625,7 +24284,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestGroupJoining06()
 		{
 			Scalar<ObservableCollection<Item>> outerSourceScalar = getScalar<ObservableCollection<Item>>(getItems());
@@ -22746,7 +24405,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestGroupJoining07()
 		{
 			Scalar<ObservableCollection<Item>> outerSourceScalar = getScalar<ObservableCollection<Item>>(getItems());
@@ -22875,7 +24534,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestGroupJoining08()
 		{
 			Scalar<ObservableCollection<Item>> outerSourceScalar = getScalar<ObservableCollection<Item>>(getItems());
@@ -22996,7 +24655,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestGroupJoining09()
 		{
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> outerSourceScalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
@@ -23120,7 +24779,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestGroupJoining10()
 		{
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> outerSourceScalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
@@ -23236,7 +24895,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestGroupJoining11()
 		{
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> outerSourceScalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
@@ -23360,7 +25019,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestGroupJoining12()
 		{
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> outerSourceScalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
@@ -23476,7 +25135,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestGroupJoining13()
 		{
 			Scalar<ObservableCollection<Item>> outerSourceScalar = getScalar<ObservableCollection<Item>>(getItems());
@@ -23600,7 +25259,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestGroupJoining14()
 		{
 			Scalar<ObservableCollection<Item>> outerSourceScalar = getScalar<ObservableCollection<Item>>(getItems());
@@ -23716,7 +25375,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestGroupJoining15()
 		{
 			Scalar<ObservableCollection<Item>> outerSourceScalar = getScalar<ObservableCollection<Item>>(getItems());
@@ -23840,7 +25499,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestGroupJoining16()
 		{
 			Scalar<ObservableCollection<Item>> outerSourceScalar = getScalar<ObservableCollection<Item>>(getItems());
@@ -23956,7 +25615,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestGroupJoining17()
 		{
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> outerSourceScalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
@@ -24075,7 +25734,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestGroupJoining18()
 		{
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> outerSourceScalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
@@ -24194,7 +25853,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestGroupJoining19()
 		{
 			Scalar<ObservableCollection<Item>> outerSourceScalar = getScalar<ObservableCollection<Item>>(getItems());
@@ -24313,7 +25972,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestGroupJoining20()
 		{
 			Scalar<ObservableCollection<Item>> outerSourceScalar = getScalar<ObservableCollection<Item>>(getItems());
@@ -24432,7 +26091,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestGroupJoining21()
 		{
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> outerSourceScalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
@@ -24556,7 +26215,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestGroupJoining22()
 		{
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> outerSourceScalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
@@ -24680,7 +26339,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestGroupJoining23()
 		{
 			Scalar<ObservableCollection<Item>> outerSourceScalar = getScalar<ObservableCollection<Item>>(getItems());
@@ -24804,7 +26463,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestGroupJoining24()
 		{
 			Scalar<ObservableCollection<Item>> outerSourceScalar = getScalar<ObservableCollection<Item>>(getItems());
@@ -24928,7 +26587,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestGroupJoining25()
 		{
 			System.Collections.Specialized.INotifyCollectionChanged outerSource = getItems();
@@ -25052,7 +26711,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestGroupJoining26()
 		{
 			System.Collections.Specialized.INotifyCollectionChanged outerSource = getItems();
@@ -25168,7 +26827,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestGroupJoining27()
 		{
 			System.Collections.Specialized.INotifyCollectionChanged outerSource = getItems();
@@ -25292,7 +26951,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestGroupJoining28()
 		{
 			System.Collections.Specialized.INotifyCollectionChanged outerSource = getItems();
@@ -25408,7 +27067,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestGroupJoining29()
 		{
 			ObservableCollection<Item> outerSource = getItems();
@@ -25532,7 +27191,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestGroupJoining30()
 		{
 			ObservableCollection<Item> outerSource = getItems();
@@ -25648,7 +27307,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestGroupJoining31()
 		{
 			ObservableCollection<Item> outerSource = getItems();
@@ -25772,7 +27431,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestGroupJoining32()
 		{
 			ObservableCollection<Item> outerSource = getItems();
@@ -25888,7 +27547,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestGroupJoining33()
 		{
 			System.Collections.Specialized.INotifyCollectionChanged outerSource = getItems();
@@ -26007,7 +27666,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestGroupJoining34()
 		{
 			System.Collections.Specialized.INotifyCollectionChanged outerSource = getItems();
@@ -26118,7 +27777,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestGroupJoining35()
 		{
 			System.Collections.Specialized.INotifyCollectionChanged outerSource = getItems();
@@ -26237,7 +27896,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestGroupJoining36()
 		{
 			System.Collections.Specialized.INotifyCollectionChanged outerSource = getItems();
@@ -26348,7 +28007,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestGroupJoining37()
 		{
 			ObservableCollection<Item> outerSource = getItems();
@@ -26467,7 +28126,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestGroupJoining38()
 		{
 			ObservableCollection<Item> outerSource = getItems();
@@ -26578,7 +28237,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestGroupJoining39()
 		{
 			ObservableCollection<Item> outerSource = getItems();
@@ -26697,7 +28356,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestGroupJoining40()
 		{
 			ObservableCollection<Item> outerSource = getItems();
@@ -26808,7 +28467,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestGroupJoining41()
 		{
 			System.Collections.Specialized.INotifyCollectionChanged outerSource = getItems();
@@ -26922,7 +28581,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestGroupJoining42()
 		{
 			System.Collections.Specialized.INotifyCollectionChanged outerSource = getItems();
@@ -27036,7 +28695,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestGroupJoining43()
 		{
 			ObservableCollection<Item> outerSource = getItems();
@@ -27150,7 +28809,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestGroupJoining44()
 		{
 			ObservableCollection<Item> outerSource = getItems();
@@ -27264,7 +28923,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestGroupJoining45()
 		{
 			System.Collections.Specialized.INotifyCollectionChanged outerSource = getItems();
@@ -27383,7 +29042,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestGroupJoining46()
 		{
 			System.Collections.Specialized.INotifyCollectionChanged outerSource = getItems();
@@ -27502,7 +29161,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestGroupJoining47()
 		{
 			ObservableCollection<Item> outerSource = getItems();
@@ -27621,7 +29280,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestGroupJoining48()
 		{
 			ObservableCollection<Item> outerSource = getItems();
@@ -27743,7 +29402,7 @@ namespace ObservableComputations.Test
 		#region HashSetting
 
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestHashSetting01()
 		{
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
@@ -27815,7 +29474,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestHashSetting02()
 		{
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
@@ -27884,7 +29543,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestHashSetting03()
 		{
 			Scalar<ObservableCollection<Item>> sourceScalar = getScalar<ObservableCollection<Item>>(getItems());
@@ -27956,7 +29615,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestHashSetting04()
 		{
 			Scalar<ObservableCollection<Item>> sourceScalar = getScalar<ObservableCollection<Item>>(getItems());
@@ -28025,7 +29684,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestHashSetting05()
 		{
 			System.Collections.Specialized.INotifyCollectionChanged source = getItems();
@@ -28092,7 +29751,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestHashSetting06()
 		{
 			System.Collections.Specialized.INotifyCollectionChanged source = getItems();
@@ -28156,7 +29815,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestHashSetting07()
 		{
 			ObservableCollection<Item> source = getItems();
@@ -28223,7 +29882,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestHashSetting08()
 		{
 			ObservableCollection<Item> source = getItems();
@@ -28287,7 +29946,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestHashSetting09()
 		{
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
@@ -28364,7 +30023,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestHashSetting10()
 		{
 			Scalar<ObservableCollection<Item>> sourceScalar = getScalar<ObservableCollection<Item>>(getItems());
@@ -28441,7 +30100,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestHashSetting11()
 		{
 			System.Collections.Specialized.INotifyCollectionChanged source = getItems();
@@ -28513,7 +30172,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestHashSetting12()
 		{
 			ObservableCollection<Item> source = getItems();
@@ -28588,12 +30247,12 @@ namespace ObservableComputations.Test
 		#region IndicesComputing
 
 		
-		[Test]
-		public void TestIndicesComputing01()
+		[Test, Combinatorial]
+		public void TestIndicesComputing01(
+			[Values(1)] int initialCapacity)
 		{
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
 			System.Linq.Expressions.Expression<System.Func<Item, bool>> predicateExpression = i => i.Active;
-			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = sourceScalar.IndicesComputing<Item>(
 				predicateExpression,
@@ -28660,7 +30319,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestIndicesComputing02()
 		{
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
@@ -28729,12 +30388,12 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
-		public void TestIndicesComputing03()
+		[Test, Combinatorial]
+		public void TestIndicesComputing03(
+			[Values(1)] int initialCapacity)
 		{
 			Scalar<ObservableCollection<Item>> sourceScalar = getScalar<ObservableCollection<Item>>(getItems());
 			System.Linq.Expressions.Expression<System.Func<Item, bool>> predicateExpression = i => i.Active;
-			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = sourceScalar.IndicesComputing<Item>(
 				predicateExpression,
@@ -28801,7 +30460,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestIndicesComputing04()
 		{
 			Scalar<ObservableCollection<Item>> sourceScalar = getScalar<ObservableCollection<Item>>(getItems());
@@ -28870,12 +30529,12 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
-		public void TestIndicesComputing05()
+		[Test, Combinatorial]
+		public void TestIndicesComputing05(
+			[Values(1)] int initialCapacity)
 		{
 			System.Collections.Specialized.INotifyCollectionChanged source = getItems();
 			System.Linq.Expressions.Expression<System.Func<Item, bool>> predicateExpression = i => i.Active;
-			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = source.IndicesComputing<Item>(
 				predicateExpression,
@@ -28937,7 +30596,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestIndicesComputing06()
 		{
 			System.Collections.Specialized.INotifyCollectionChanged source = getItems();
@@ -29001,12 +30660,12 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
-		public void TestIndicesComputing07()
+		[Test, Combinatorial]
+		public void TestIndicesComputing07(
+			[Values(1)] int initialCapacity)
 		{
 			ObservableCollection<Item> source = getItems();
 			System.Linq.Expressions.Expression<System.Func<Item, bool>> predicateExpression = i => i.Active;
-			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = source.IndicesComputing<Item>(
 				predicateExpression,
@@ -29068,7 +30727,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestIndicesComputing08()
 		{
 			ObservableCollection<Item> source = getItems();
@@ -29135,13 +30794,13 @@ namespace ObservableComputations.Test
 		#region Intersecting
 
 		
-		[Test]
-		public void TestIntersecting01()
+		[Test, Combinatorial]
+		public void TestIntersecting01(
+			[Values(1)] int initialCapacity)
 		{
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> source1Scalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> source2Scalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
 			Scalar<System.Collections.Generic.IEqualityComparer<Item>> equalityComparerScalar = getScalar<System.Collections.Generic.IEqualityComparer<Item>>(EqualityComparer<Item>.Default);
-			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = source1Scalar.Intersecting<Item>(
 				source2Scalar,
@@ -29259,7 +30918,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestIntersecting02()
 		{
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> source1Scalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
@@ -29380,12 +31039,12 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
-		public void TestIntersecting03()
+		[Test, Combinatorial]
+		public void TestIntersecting03(
+			[Values(1)] int initialCapacity)
 		{
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> source1Scalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> source2Scalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
-			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = source1Scalar.Intersecting<Item>(
 				source2Scalar,
@@ -29498,7 +31157,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestIntersecting04()
 		{
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> source1Scalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
@@ -29613,13 +31272,13 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
-		public void TestIntersecting05()
+		[Test, Combinatorial]
+		public void TestIntersecting05(
+			[Values(1)] int initialCapacity)
 		{
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> source1Scalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
 			Scalar<ObservableCollection<Item>> source2Scalar = getScalar<ObservableCollection<Item>>(getItems());
 			Scalar<System.Collections.Generic.IEqualityComparer<Item>> equalityComparerScalar = getScalar<System.Collections.Generic.IEqualityComparer<Item>>(EqualityComparer<Item>.Default);
-			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = source1Scalar.Intersecting<Item>(
 				source2Scalar,
@@ -29737,7 +31396,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestIntersecting06()
 		{
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> source1Scalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
@@ -29858,12 +31517,12 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
-		public void TestIntersecting07()
+		[Test, Combinatorial]
+		public void TestIntersecting07(
+			[Values(1)] int initialCapacity)
 		{
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> source1Scalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
 			Scalar<ObservableCollection<Item>> source2Scalar = getScalar<ObservableCollection<Item>>(getItems());
-			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = source1Scalar.Intersecting<Item>(
 				source2Scalar,
@@ -29976,7 +31635,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestIntersecting08()
 		{
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> source1Scalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
@@ -30091,13 +31750,13 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
-		public void TestIntersecting09()
+		[Test, Combinatorial]
+		public void TestIntersecting09(
+			[Values(1)] int initialCapacity)
 		{
 			Scalar<ObservableCollection<Item>> source1Scalar = getScalar<ObservableCollection<Item>>(getItems());
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> source2Scalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
 			Scalar<System.Collections.Generic.IEqualityComparer<Item>> equalityComparerScalar = getScalar<System.Collections.Generic.IEqualityComparer<Item>>(EqualityComparer<Item>.Default);
-			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = source1Scalar.Intersecting<Item>(
 				source2Scalar,
@@ -30215,7 +31874,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestIntersecting10()
 		{
 			Scalar<ObservableCollection<Item>> source1Scalar = getScalar<ObservableCollection<Item>>(getItems());
@@ -30336,12 +31995,12 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
-		public void TestIntersecting11()
+		[Test, Combinatorial]
+		public void TestIntersecting11(
+			[Values(1)] int initialCapacity)
 		{
 			Scalar<ObservableCollection<Item>> source1Scalar = getScalar<ObservableCollection<Item>>(getItems());
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> source2Scalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
-			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = source1Scalar.Intersecting<Item>(
 				source2Scalar,
@@ -30454,7 +32113,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestIntersecting12()
 		{
 			Scalar<ObservableCollection<Item>> source1Scalar = getScalar<ObservableCollection<Item>>(getItems());
@@ -30569,13 +32228,13 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
-		public void TestIntersecting13()
+		[Test, Combinatorial]
+		public void TestIntersecting13(
+			[Values(1)] int initialCapacity)
 		{
 			Scalar<ObservableCollection<Item>> source1Scalar = getScalar<ObservableCollection<Item>>(getItems());
 			Scalar<ObservableCollection<Item>> source2Scalar = getScalar<ObservableCollection<Item>>(getItems());
 			Scalar<System.Collections.Generic.IEqualityComparer<Item>> equalityComparerScalar = getScalar<System.Collections.Generic.IEqualityComparer<Item>>(EqualityComparer<Item>.Default);
-			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = source1Scalar.Intersecting<Item>(
 				source2Scalar,
@@ -30693,7 +32352,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestIntersecting14()
 		{
 			Scalar<ObservableCollection<Item>> source1Scalar = getScalar<ObservableCollection<Item>>(getItems());
@@ -30814,12 +32473,12 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
-		public void TestIntersecting15()
+		[Test, Combinatorial]
+		public void TestIntersecting15(
+			[Values(1)] int initialCapacity)
 		{
 			Scalar<ObservableCollection<Item>> source1Scalar = getScalar<ObservableCollection<Item>>(getItems());
 			Scalar<ObservableCollection<Item>> source2Scalar = getScalar<ObservableCollection<Item>>(getItems());
-			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = source1Scalar.Intersecting<Item>(
 				source2Scalar,
@@ -30932,7 +32591,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestIntersecting16()
 		{
 			Scalar<ObservableCollection<Item>> source1Scalar = getScalar<ObservableCollection<Item>>(getItems());
@@ -31047,13 +32706,13 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
-		public void TestIntersecting17()
+		[Test, Combinatorial]
+		public void TestIntersecting17(
+			[Values(1)] int initialCapacity)
 		{
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> source1Scalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
 			System.Collections.Specialized.INotifyCollectionChanged source2 = getItems();
 			Scalar<System.Collections.Generic.IEqualityComparer<Item>> equalityComparerScalar = getScalar<System.Collections.Generic.IEqualityComparer<Item>>(EqualityComparer<Item>.Default);
-			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = source1Scalar.Intersecting<Item>(
 				source2,
@@ -31166,7 +32825,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestIntersecting18()
 		{
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> source1Scalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
@@ -31282,12 +32941,12 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
-		public void TestIntersecting19()
+		[Test, Combinatorial]
+		public void TestIntersecting19(
+			[Values(1)] int initialCapacity)
 		{
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> source1Scalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
 			System.Collections.Specialized.INotifyCollectionChanged source2 = getItems();
-			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = source1Scalar.Intersecting<Item>(
 				source2,
@@ -31395,7 +33054,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestIntersecting20()
 		{
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> source1Scalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
@@ -31505,13 +33164,13 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
-		public void TestIntersecting21()
+		[Test, Combinatorial]
+		public void TestIntersecting21(
+			[Values(1)] int initialCapacity)
 		{
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> source1Scalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
 			ObservableCollection<Item> source2 = getItems();
 			Scalar<System.Collections.Generic.IEqualityComparer<Item>> equalityComparerScalar = getScalar<System.Collections.Generic.IEqualityComparer<Item>>(EqualityComparer<Item>.Default);
-			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = source1Scalar.Intersecting<Item>(
 				source2,
@@ -31624,7 +33283,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestIntersecting22()
 		{
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> source1Scalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
@@ -31740,12 +33399,12 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
-		public void TestIntersecting23()
+		[Test, Combinatorial]
+		public void TestIntersecting23(
+			[Values(1)] int initialCapacity)
 		{
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> source1Scalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
 			ObservableCollection<Item> source2 = getItems();
-			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = source1Scalar.Intersecting<Item>(
 				source2,
@@ -31853,7 +33512,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestIntersecting24()
 		{
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> source1Scalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
@@ -31963,13 +33622,13 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
-		public void TestIntersecting25()
+		[Test, Combinatorial]
+		public void TestIntersecting25(
+			[Values(1)] int initialCapacity)
 		{
 			Scalar<ObservableCollection<Item>> source1Scalar = getScalar<ObservableCollection<Item>>(getItems());
 			System.Collections.Specialized.INotifyCollectionChanged source2 = getItems();
 			Scalar<System.Collections.Generic.IEqualityComparer<Item>> equalityComparerScalar = getScalar<System.Collections.Generic.IEqualityComparer<Item>>(EqualityComparer<Item>.Default);
-			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = source1Scalar.Intersecting<Item>(
 				source2,
@@ -32082,7 +33741,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestIntersecting26()
 		{
 			Scalar<ObservableCollection<Item>> source1Scalar = getScalar<ObservableCollection<Item>>(getItems());
@@ -32198,12 +33857,12 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
-		public void TestIntersecting27()
+		[Test, Combinatorial]
+		public void TestIntersecting27(
+			[Values(1)] int initialCapacity)
 		{
 			Scalar<ObservableCollection<Item>> source1Scalar = getScalar<ObservableCollection<Item>>(getItems());
 			System.Collections.Specialized.INotifyCollectionChanged source2 = getItems();
-			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = source1Scalar.Intersecting<Item>(
 				source2,
@@ -32311,7 +33970,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestIntersecting28()
 		{
 			Scalar<ObservableCollection<Item>> source1Scalar = getScalar<ObservableCollection<Item>>(getItems());
@@ -32421,13 +34080,13 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
-		public void TestIntersecting29()
+		[Test, Combinatorial]
+		public void TestIntersecting29(
+			[Values(1)] int initialCapacity)
 		{
 			Scalar<ObservableCollection<Item>> source1Scalar = getScalar<ObservableCollection<Item>>(getItems());
 			ObservableCollection<Item> source2 = getItems();
 			Scalar<System.Collections.Generic.IEqualityComparer<Item>> equalityComparerScalar = getScalar<System.Collections.Generic.IEqualityComparer<Item>>(EqualityComparer<Item>.Default);
-			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = source1Scalar.Intersecting<Item>(
 				source2,
@@ -32540,7 +34199,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestIntersecting30()
 		{
 			Scalar<ObservableCollection<Item>> source1Scalar = getScalar<ObservableCollection<Item>>(getItems());
@@ -32656,12 +34315,12 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
-		public void TestIntersecting31()
+		[Test, Combinatorial]
+		public void TestIntersecting31(
+			[Values(1)] int initialCapacity)
 		{
 			Scalar<ObservableCollection<Item>> source1Scalar = getScalar<ObservableCollection<Item>>(getItems());
 			ObservableCollection<Item> source2 = getItems();
-			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = source1Scalar.Intersecting<Item>(
 				source2,
@@ -32769,7 +34428,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestIntersecting32()
 		{
 			Scalar<ObservableCollection<Item>> source1Scalar = getScalar<ObservableCollection<Item>>(getItems());
@@ -32879,13 +34538,13 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
-		public void TestIntersecting33()
+		[Test, Combinatorial]
+		public void TestIntersecting33(
+			[Values(1)] int initialCapacity)
 		{
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> source1Scalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
 			System.Collections.Specialized.INotifyCollectionChanged source2 = getItems();
 			System.Collections.Generic.IEqualityComparer<Item> equalityComparer = EqualityComparer<Item>.Default;
-			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = source1Scalar.Intersecting<Item>(
 				source2,
@@ -32995,7 +34654,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestIntersecting34()
 		{
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> source1Scalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
@@ -33108,13 +34767,13 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
-		public void TestIntersecting35()
+		[Test, Combinatorial]
+		public void TestIntersecting35(
+			[Values(1)] int initialCapacity)
 		{
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> source1Scalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
 			ObservableCollection<Item> source2 = getItems();
 			System.Collections.Generic.IEqualityComparer<Item> equalityComparer = EqualityComparer<Item>.Default;
-			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = source1Scalar.Intersecting<Item>(
 				source2,
@@ -33224,7 +34883,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestIntersecting36()
 		{
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> source1Scalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
@@ -33337,13 +34996,13 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
-		public void TestIntersecting37()
+		[Test, Combinatorial]
+		public void TestIntersecting37(
+			[Values(1)] int initialCapacity)
 		{
 			Scalar<ObservableCollection<Item>> source1Scalar = getScalar<ObservableCollection<Item>>(getItems());
 			System.Collections.Specialized.INotifyCollectionChanged source2 = getItems();
 			System.Collections.Generic.IEqualityComparer<Item> equalityComparer = EqualityComparer<Item>.Default;
-			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = source1Scalar.Intersecting<Item>(
 				source2,
@@ -33453,7 +35112,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestIntersecting38()
 		{
 			Scalar<ObservableCollection<Item>> source1Scalar = getScalar<ObservableCollection<Item>>(getItems());
@@ -33566,13 +35225,13 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
-		public void TestIntersecting39()
+		[Test, Combinatorial]
+		public void TestIntersecting39(
+			[Values(1)] int initialCapacity)
 		{
 			Scalar<ObservableCollection<Item>> source1Scalar = getScalar<ObservableCollection<Item>>(getItems());
 			ObservableCollection<Item> source2 = getItems();
 			System.Collections.Generic.IEqualityComparer<Item> equalityComparer = EqualityComparer<Item>.Default;
-			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = source1Scalar.Intersecting<Item>(
 				source2,
@@ -33682,7 +35341,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestIntersecting40()
 		{
 			Scalar<ObservableCollection<Item>> source1Scalar = getScalar<ObservableCollection<Item>>(getItems());
@@ -33795,13 +35454,13 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
-		public void TestIntersecting41()
+		[Test, Combinatorial]
+		public void TestIntersecting41(
+			[Values(1)] int initialCapacity)
 		{
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> source1Scalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> source2Scalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
 			System.Collections.Generic.IEqualityComparer<Item> equalityComparer = EqualityComparer<Item>.Default;
-			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = source1Scalar.Intersecting<Item>(
 				source2Scalar,
@@ -33916,7 +35575,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestIntersecting42()
 		{
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> source1Scalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
@@ -34034,13 +35693,13 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
-		public void TestIntersecting43()
+		[Test, Combinatorial]
+		public void TestIntersecting43(
+			[Values(1)] int initialCapacity)
 		{
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> source1Scalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
 			Scalar<ObservableCollection<Item>> source2Scalar = getScalar<ObservableCollection<Item>>(getItems());
 			System.Collections.Generic.IEqualityComparer<Item> equalityComparer = EqualityComparer<Item>.Default;
-			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = source1Scalar.Intersecting<Item>(
 				source2Scalar,
@@ -34155,7 +35814,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestIntersecting44()
 		{
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> source1Scalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
@@ -34273,13 +35932,13 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
-		public void TestIntersecting45()
+		[Test, Combinatorial]
+		public void TestIntersecting45(
+			[Values(1)] int initialCapacity)
 		{
 			Scalar<ObservableCollection<Item>> source1Scalar = getScalar<ObservableCollection<Item>>(getItems());
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> source2Scalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
 			System.Collections.Generic.IEqualityComparer<Item> equalityComparer = EqualityComparer<Item>.Default;
-			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = source1Scalar.Intersecting<Item>(
 				source2Scalar,
@@ -34394,7 +36053,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestIntersecting46()
 		{
 			Scalar<ObservableCollection<Item>> source1Scalar = getScalar<ObservableCollection<Item>>(getItems());
@@ -34512,13 +36171,13 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
-		public void TestIntersecting47()
+		[Test, Combinatorial]
+		public void TestIntersecting47(
+			[Values(1)] int initialCapacity)
 		{
 			Scalar<ObservableCollection<Item>> source1Scalar = getScalar<ObservableCollection<Item>>(getItems());
 			Scalar<ObservableCollection<Item>> source2Scalar = getScalar<ObservableCollection<Item>>(getItems());
 			System.Collections.Generic.IEqualityComparer<Item> equalityComparer = EqualityComparer<Item>.Default;
-			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = source1Scalar.Intersecting<Item>(
 				source2Scalar,
@@ -34633,7 +36292,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestIntersecting48()
 		{
 			Scalar<ObservableCollection<Item>> source1Scalar = getScalar<ObservableCollection<Item>>(getItems());
@@ -34751,13 +36410,13 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
-		public void TestIntersecting49()
+		[Test, Combinatorial]
+		public void TestIntersecting49(
+			[Values(1)] int initialCapacity)
 		{
 			System.Collections.Specialized.INotifyCollectionChanged source1 = getItems();
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> source2Scalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
 			Scalar<System.Collections.Generic.IEqualityComparer<Item>> equalityComparerScalar = getScalar<System.Collections.Generic.IEqualityComparer<Item>>(EqualityComparer<Item>.Default);
-			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = source1.Intersecting<Item>(
 				source2Scalar,
@@ -34870,7 +36529,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestIntersecting50()
 		{
 			System.Collections.Specialized.INotifyCollectionChanged source1 = getItems();
@@ -34986,12 +36645,12 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
-		public void TestIntersecting51()
+		[Test, Combinatorial]
+		public void TestIntersecting51(
+			[Values(1)] int initialCapacity)
 		{
 			System.Collections.Specialized.INotifyCollectionChanged source1 = getItems();
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> source2Scalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
-			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = source1.Intersecting<Item>(
 				source2Scalar,
@@ -35099,7 +36758,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestIntersecting52()
 		{
 			System.Collections.Specialized.INotifyCollectionChanged source1 = getItems();
@@ -35209,13 +36868,13 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
-		public void TestIntersecting53()
+		[Test, Combinatorial]
+		public void TestIntersecting53(
+			[Values(1)] int initialCapacity)
 		{
 			System.Collections.Specialized.INotifyCollectionChanged source1 = getItems();
 			Scalar<ObservableCollection<Item>> source2Scalar = getScalar<ObservableCollection<Item>>(getItems());
 			Scalar<System.Collections.Generic.IEqualityComparer<Item>> equalityComparerScalar = getScalar<System.Collections.Generic.IEqualityComparer<Item>>(EqualityComparer<Item>.Default);
-			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = source1.Intersecting<Item>(
 				source2Scalar,
@@ -35328,7 +36987,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestIntersecting54()
 		{
 			System.Collections.Specialized.INotifyCollectionChanged source1 = getItems();
@@ -35444,12 +37103,12 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
-		public void TestIntersecting55()
+		[Test, Combinatorial]
+		public void TestIntersecting55(
+			[Values(1)] int initialCapacity)
 		{
 			System.Collections.Specialized.INotifyCollectionChanged source1 = getItems();
 			Scalar<ObservableCollection<Item>> source2Scalar = getScalar<ObservableCollection<Item>>(getItems());
-			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = source1.Intersecting<Item>(
 				source2Scalar,
@@ -35557,7 +37216,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestIntersecting56()
 		{
 			System.Collections.Specialized.INotifyCollectionChanged source1 = getItems();
@@ -35667,13 +37326,13 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
-		public void TestIntersecting57()
+		[Test, Combinatorial]
+		public void TestIntersecting57(
+			[Values(1)] int initialCapacity)
 		{
 			ObservableCollection<Item> source1 = getItems();
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> source2Scalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
 			Scalar<System.Collections.Generic.IEqualityComparer<Item>> equalityComparerScalar = getScalar<System.Collections.Generic.IEqualityComparer<Item>>(EqualityComparer<Item>.Default);
-			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = source1.Intersecting<Item>(
 				source2Scalar,
@@ -35786,7 +37445,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestIntersecting58()
 		{
 			ObservableCollection<Item> source1 = getItems();
@@ -35902,12 +37561,12 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
-		public void TestIntersecting59()
+		[Test, Combinatorial]
+		public void TestIntersecting59(
+			[Values(1)] int initialCapacity)
 		{
 			ObservableCollection<Item> source1 = getItems();
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> source2Scalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
-			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = source1.Intersecting<Item>(
 				source2Scalar,
@@ -36015,7 +37674,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestIntersecting60()
 		{
 			ObservableCollection<Item> source1 = getItems();
@@ -36125,13 +37784,13 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
-		public void TestIntersecting61()
+		[Test, Combinatorial]
+		public void TestIntersecting61(
+			[Values(1)] int initialCapacity)
 		{
 			ObservableCollection<Item> source1 = getItems();
 			Scalar<ObservableCollection<Item>> source2Scalar = getScalar<ObservableCollection<Item>>(getItems());
 			Scalar<System.Collections.Generic.IEqualityComparer<Item>> equalityComparerScalar = getScalar<System.Collections.Generic.IEqualityComparer<Item>>(EqualityComparer<Item>.Default);
-			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = source1.Intersecting<Item>(
 				source2Scalar,
@@ -36244,7 +37903,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestIntersecting62()
 		{
 			ObservableCollection<Item> source1 = getItems();
@@ -36360,12 +38019,12 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
-		public void TestIntersecting63()
+		[Test, Combinatorial]
+		public void TestIntersecting63(
+			[Values(1)] int initialCapacity)
 		{
 			ObservableCollection<Item> source1 = getItems();
 			Scalar<ObservableCollection<Item>> source2Scalar = getScalar<ObservableCollection<Item>>(getItems());
-			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = source1.Intersecting<Item>(
 				source2Scalar,
@@ -36473,7 +38132,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestIntersecting64()
 		{
 			ObservableCollection<Item> source1 = getItems();
@@ -36583,13 +38242,13 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
-		public void TestIntersecting65()
+		[Test, Combinatorial]
+		public void TestIntersecting65(
+			[Values(1)] int initialCapacity)
 		{
 			System.Collections.Specialized.INotifyCollectionChanged source1 = getItems();
 			System.Collections.Specialized.INotifyCollectionChanged source2 = getItems();
 			Scalar<System.Collections.Generic.IEqualityComparer<Item>> equalityComparerScalar = getScalar<System.Collections.Generic.IEqualityComparer<Item>>(EqualityComparer<Item>.Default);
-			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = source1.Intersecting<Item>(
 				source2,
@@ -36697,7 +38356,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestIntersecting66()
 		{
 			System.Collections.Specialized.INotifyCollectionChanged source1 = getItems();
@@ -36808,12 +38467,12 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
-		public void TestIntersecting67()
+		[Test, Combinatorial]
+		public void TestIntersecting67(
+			[Values(1)] int initialCapacity)
 		{
 			System.Collections.Specialized.INotifyCollectionChanged source1 = getItems();
 			System.Collections.Specialized.INotifyCollectionChanged source2 = getItems();
-			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = source1.Intersecting<Item>(
 				source2,
@@ -36916,7 +38575,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestIntersecting68()
 		{
 			System.Collections.Specialized.INotifyCollectionChanged source1 = getItems();
@@ -37021,13 +38680,13 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
-		public void TestIntersecting69()
+		[Test, Combinatorial]
+		public void TestIntersecting69(
+			[Values(1)] int initialCapacity)
 		{
 			System.Collections.Specialized.INotifyCollectionChanged source1 = getItems();
 			ObservableCollection<Item> source2 = getItems();
 			Scalar<System.Collections.Generic.IEqualityComparer<Item>> equalityComparerScalar = getScalar<System.Collections.Generic.IEqualityComparer<Item>>(EqualityComparer<Item>.Default);
-			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = source1.Intersecting<Item>(
 				source2,
@@ -37135,7 +38794,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestIntersecting70()
 		{
 			System.Collections.Specialized.INotifyCollectionChanged source1 = getItems();
@@ -37246,12 +38905,12 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
-		public void TestIntersecting71()
+		[Test, Combinatorial]
+		public void TestIntersecting71(
+			[Values(1)] int initialCapacity)
 		{
 			System.Collections.Specialized.INotifyCollectionChanged source1 = getItems();
 			ObservableCollection<Item> source2 = getItems();
-			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = source1.Intersecting<Item>(
 				source2,
@@ -37354,7 +39013,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestIntersecting72()
 		{
 			System.Collections.Specialized.INotifyCollectionChanged source1 = getItems();
@@ -37459,13 +39118,13 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
-		public void TestIntersecting73()
+		[Test, Combinatorial]
+		public void TestIntersecting73(
+			[Values(1)] int initialCapacity)
 		{
 			ObservableCollection<Item> source1 = getItems();
 			System.Collections.Specialized.INotifyCollectionChanged source2 = getItems();
 			Scalar<System.Collections.Generic.IEqualityComparer<Item>> equalityComparerScalar = getScalar<System.Collections.Generic.IEqualityComparer<Item>>(EqualityComparer<Item>.Default);
-			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = source1.Intersecting<Item>(
 				source2,
@@ -37573,7 +39232,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestIntersecting74()
 		{
 			ObservableCollection<Item> source1 = getItems();
@@ -37684,12 +39343,12 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
-		public void TestIntersecting75()
+		[Test, Combinatorial]
+		public void TestIntersecting75(
+			[Values(1)] int initialCapacity)
 		{
 			ObservableCollection<Item> source1 = getItems();
 			System.Collections.Specialized.INotifyCollectionChanged source2 = getItems();
-			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = source1.Intersecting<Item>(
 				source2,
@@ -37792,7 +39451,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestIntersecting76()
 		{
 			ObservableCollection<Item> source1 = getItems();
@@ -37897,13 +39556,13 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
-		public void TestIntersecting77()
+		[Test, Combinatorial]
+		public void TestIntersecting77(
+			[Values(1)] int initialCapacity)
 		{
 			ObservableCollection<Item> source1 = getItems();
 			ObservableCollection<Item> source2 = getItems();
 			Scalar<System.Collections.Generic.IEqualityComparer<Item>> equalityComparerScalar = getScalar<System.Collections.Generic.IEqualityComparer<Item>>(EqualityComparer<Item>.Default);
-			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = source1.Intersecting<Item>(
 				source2,
@@ -38011,7 +39670,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestIntersecting78()
 		{
 			ObservableCollection<Item> source1 = getItems();
@@ -38122,12 +39781,12 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
-		public void TestIntersecting79()
+		[Test, Combinatorial]
+		public void TestIntersecting79(
+			[Values(1)] int initialCapacity)
 		{
 			ObservableCollection<Item> source1 = getItems();
 			ObservableCollection<Item> source2 = getItems();
-			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = source1.Intersecting<Item>(
 				source2,
@@ -38230,7 +39889,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestIntersecting80()
 		{
 			ObservableCollection<Item> source1 = getItems();
@@ -38335,13 +39994,13 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
-		public void TestIntersecting81()
+		[Test, Combinatorial]
+		public void TestIntersecting81(
+			[Values(1)] int initialCapacity)
 		{
 			System.Collections.Specialized.INotifyCollectionChanged source1 = getItems();
 			System.Collections.Specialized.INotifyCollectionChanged source2 = getItems();
 			System.Collections.Generic.IEqualityComparer<Item> equalityComparer = EqualityComparer<Item>.Default;
-			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = source1.Intersecting<Item>(
 				source2,
@@ -38446,7 +40105,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestIntersecting82()
 		{
 			System.Collections.Specialized.INotifyCollectionChanged source1 = getItems();
@@ -38554,13 +40213,13 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
-		public void TestIntersecting83()
+		[Test, Combinatorial]
+		public void TestIntersecting83(
+			[Values(1)] int initialCapacity)
 		{
 			System.Collections.Specialized.INotifyCollectionChanged source1 = getItems();
 			ObservableCollection<Item> source2 = getItems();
 			System.Collections.Generic.IEqualityComparer<Item> equalityComparer = EqualityComparer<Item>.Default;
-			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = source1.Intersecting<Item>(
 				source2,
@@ -38665,7 +40324,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestIntersecting84()
 		{
 			System.Collections.Specialized.INotifyCollectionChanged source1 = getItems();
@@ -38773,13 +40432,13 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
-		public void TestIntersecting85()
+		[Test, Combinatorial]
+		public void TestIntersecting85(
+			[Values(1)] int initialCapacity)
 		{
 			ObservableCollection<Item> source1 = getItems();
 			System.Collections.Specialized.INotifyCollectionChanged source2 = getItems();
 			System.Collections.Generic.IEqualityComparer<Item> equalityComparer = EqualityComparer<Item>.Default;
-			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = source1.Intersecting<Item>(
 				source2,
@@ -38884,7 +40543,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestIntersecting86()
 		{
 			ObservableCollection<Item> source1 = getItems();
@@ -38992,13 +40651,13 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
-		public void TestIntersecting87()
+		[Test, Combinatorial]
+		public void TestIntersecting87(
+			[Values(1)] int initialCapacity)
 		{
 			ObservableCollection<Item> source1 = getItems();
 			ObservableCollection<Item> source2 = getItems();
 			System.Collections.Generic.IEqualityComparer<Item> equalityComparer = EqualityComparer<Item>.Default;
-			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = source1.Intersecting<Item>(
 				source2,
@@ -39103,7 +40762,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestIntersecting88()
 		{
 			ObservableCollection<Item> source1 = getItems();
@@ -39211,13 +40870,13 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
-		public void TestIntersecting89()
+		[Test, Combinatorial]
+		public void TestIntersecting89(
+			[Values(1)] int initialCapacity)
 		{
 			System.Collections.Specialized.INotifyCollectionChanged source1 = getItems();
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> source2Scalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
 			System.Collections.Generic.IEqualityComparer<Item> equalityComparer = EqualityComparer<Item>.Default;
-			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = source1.Intersecting<Item>(
 				source2Scalar,
@@ -39327,7 +40986,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestIntersecting90()
 		{
 			System.Collections.Specialized.INotifyCollectionChanged source1 = getItems();
@@ -39440,13 +41099,13 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
-		public void TestIntersecting91()
+		[Test, Combinatorial]
+		public void TestIntersecting91(
+			[Values(1)] int initialCapacity)
 		{
 			System.Collections.Specialized.INotifyCollectionChanged source1 = getItems();
 			Scalar<ObservableCollection<Item>> source2Scalar = getScalar<ObservableCollection<Item>>(getItems());
 			System.Collections.Generic.IEqualityComparer<Item> equalityComparer = EqualityComparer<Item>.Default;
-			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = source1.Intersecting<Item>(
 				source2Scalar,
@@ -39556,7 +41215,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestIntersecting92()
 		{
 			System.Collections.Specialized.INotifyCollectionChanged source1 = getItems();
@@ -39669,13 +41328,13 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
-		public void TestIntersecting93()
+		[Test, Combinatorial]
+		public void TestIntersecting93(
+			[Values(1)] int initialCapacity)
 		{
 			ObservableCollection<Item> source1 = getItems();
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> source2Scalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
 			System.Collections.Generic.IEqualityComparer<Item> equalityComparer = EqualityComparer<Item>.Default;
-			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = source1.Intersecting<Item>(
 				source2Scalar,
@@ -39785,7 +41444,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestIntersecting94()
 		{
 			ObservableCollection<Item> source1 = getItems();
@@ -39898,13 +41557,13 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
-		public void TestIntersecting95()
+		[Test, Combinatorial]
+		public void TestIntersecting95(
+			[Values(1)] int initialCapacity)
 		{
 			ObservableCollection<Item> source1 = getItems();
 			Scalar<ObservableCollection<Item>> source2Scalar = getScalar<ObservableCollection<Item>>(getItems());
 			System.Collections.Generic.IEqualityComparer<Item> equalityComparer = EqualityComparer<Item>.Default;
-			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = source1.Intersecting<Item>(
 				source2Scalar,
@@ -40014,7 +41673,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestIntersecting96()
 		{
 			ObservableCollection<Item> source1 = getItems();
@@ -40130,11 +41789,11 @@ namespace ObservableComputations.Test
 		#region ItemComputing
 
 		
-		[Test]
-		public void TestItemComputing01()
+		[Test, Combinatorial]
+		public void TestItemComputing01(
+			[Values(1)] int index)
 		{
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
-			int index = 0;
 			Item defaultValue = new QuickTests.Item(1, true);
 			OcConsumer consumer = new OcConsumer();
 			var testing = sourceScalar.ItemComputing<Item>(
@@ -40202,11 +41861,11 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
-		public void TestItemComputing02()
+		[Test, Combinatorial]
+		public void TestItemComputing02(
+			[Values(1)] int index)
 		{
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
-			int index = 0;
 			OcConsumer consumer = new OcConsumer();
 			var testing = sourceScalar.ItemComputing<Item>(
 				index).For(consumer);
@@ -40271,11 +41930,11 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
-		public void TestItemComputing03()
+		[Test, Combinatorial]
+		public void TestItemComputing03(
+			[Values(1)] int index)
 		{
 			Scalar<ObservableCollection<Item>> sourceScalar = getScalar<ObservableCollection<Item>>(getItems());
-			int index = 0;
 			Item defaultValue = new QuickTests.Item(1, true);
 			OcConsumer consumer = new OcConsumer();
 			var testing = sourceScalar.ItemComputing<Item>(
@@ -40343,11 +42002,11 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
-		public void TestItemComputing04()
+		[Test, Combinatorial]
+		public void TestItemComputing04(
+			[Values(1)] int index)
 		{
 			Scalar<ObservableCollection<Item>> sourceScalar = getScalar<ObservableCollection<Item>>(getItems());
-			int index = 0;
 			OcConsumer consumer = new OcConsumer();
 			var testing = sourceScalar.ItemComputing<Item>(
 				index).For(consumer);
@@ -40412,7 +42071,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestItemComputing05()
 		{
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
@@ -40489,7 +42148,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestItemComputing06()
 		{
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
@@ -40563,7 +42222,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestItemComputing07()
 		{
 			Scalar<ObservableCollection<Item>> sourceScalar = getScalar<ObservableCollection<Item>>(getItems());
@@ -40640,7 +42299,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestItemComputing08()
 		{
 			Scalar<ObservableCollection<Item>> sourceScalar = getScalar<ObservableCollection<Item>>(getItems());
@@ -40714,11 +42373,11 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
-		public void TestItemComputing09()
+		[Test, Combinatorial]
+		public void TestItemComputing09(
+			[Values(1)] int index)
 		{
 			System.Collections.Specialized.INotifyCollectionChanged source = getItems();
-			int index = 0;
 			Item defaultValue = new QuickTests.Item(1, true);
 			OcConsumer consumer = new OcConsumer();
 			var testing = source.ItemComputing<Item>(
@@ -40781,11 +42440,11 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
-		public void TestItemComputing10()
+		[Test, Combinatorial]
+		public void TestItemComputing10(
+			[Values(1)] int index)
 		{
 			System.Collections.Specialized.INotifyCollectionChanged source = getItems();
-			int index = 0;
 			OcConsumer consumer = new OcConsumer();
 			var testing = source.ItemComputing<Item>(
 				index).For(consumer);
@@ -40845,11 +42504,11 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
-		public void TestItemComputing11()
+		[Test, Combinatorial]
+		public void TestItemComputing11(
+			[Values(1)] int index)
 		{
 			ObservableCollection<Item> source = getItems();
-			int index = 0;
 			Item defaultValue = new QuickTests.Item(1, true);
 			OcConsumer consumer = new OcConsumer();
 			var testing = source.ItemComputing<Item>(
@@ -40912,11 +42571,11 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
-		public void TestItemComputing12()
+		[Test, Combinatorial]
+		public void TestItemComputing12(
+			[Values(1)] int index)
 		{
 			ObservableCollection<Item> source = getItems();
-			int index = 0;
 			OcConsumer consumer = new OcConsumer();
 			var testing = source.ItemComputing<Item>(
 				index).For(consumer);
@@ -40976,7 +42635,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestItemComputing13()
 		{
 			System.Collections.Specialized.INotifyCollectionChanged source = getItems();
@@ -41048,7 +42707,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestItemComputing14()
 		{
 			System.Collections.Specialized.INotifyCollectionChanged source = getItems();
@@ -41117,7 +42776,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestItemComputing15()
 		{
 			ObservableCollection<Item> source = getItems();
@@ -41189,7 +42848,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestItemComputing16()
 		{
 			ObservableCollection<Item> source = getItems();
@@ -41261,13 +42920,13 @@ namespace ObservableComputations.Test
 		#region Joining
 
 		
-		[Test]
-		public void TestJoining01()
+		[Test, Combinatorial]
+		public void TestJoining01(
+			[Values(1)] int initialCapacity)
 		{
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> leftSourceScalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> rightSourceScalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
 			System.Linq.Expressions.Expression<System.Func<Item, Item, bool>> predicateExpression = (i1, i2) => i1.Num == i2.Num;
-			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = leftSourceScalar.Joining<Item, Item>(
 				rightSourceScalar,
@@ -41350,7 +43009,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestJoining02()
 		{
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> leftSourceScalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
@@ -41436,13 +43095,13 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
-		public void TestJoining03()
+		[Test, Combinatorial]
+		public void TestJoining03(
+			[Values(1)] int initialCapacity)
 		{
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> leftSourceScalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
 			Scalar<ObservableCollection<Item>> rightSourceScalar = getScalar<ObservableCollection<Item>>(getItems());
 			System.Linq.Expressions.Expression<System.Func<Item, Item, bool>> predicateExpression = (i1, i2) => i1.Num == i2.Num;
-			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = leftSourceScalar.Joining<Item, Item>(
 				rightSourceScalar,
@@ -41525,7 +43184,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestJoining04()
 		{
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> leftSourceScalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
@@ -41611,13 +43270,13 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
-		public void TestJoining05()
+		[Test, Combinatorial]
+		public void TestJoining05(
+			[Values(1)] int initialCapacity)
 		{
 			Scalar<ObservableCollection<Item>> leftSourceScalar = getScalar<ObservableCollection<Item>>(getItems());
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> rightSourceScalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
 			System.Linq.Expressions.Expression<System.Func<Item, Item, bool>> predicateExpression = (i1, i2) => i1.Num == i2.Num;
-			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = leftSourceScalar.Joining<Item, Item>(
 				rightSourceScalar,
@@ -41700,7 +43359,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestJoining06()
 		{
 			Scalar<ObservableCollection<Item>> leftSourceScalar = getScalar<ObservableCollection<Item>>(getItems());
@@ -41786,13 +43445,13 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
-		public void TestJoining07()
+		[Test, Combinatorial]
+		public void TestJoining07(
+			[Values(1)] int initialCapacity)
 		{
 			Scalar<ObservableCollection<Item>> leftSourceScalar = getScalar<ObservableCollection<Item>>(getItems());
 			Scalar<ObservableCollection<Item>> rightSourceScalar = getScalar<ObservableCollection<Item>>(getItems());
 			System.Linq.Expressions.Expression<System.Func<Item, Item, bool>> predicateExpression = (i1, i2) => i1.Num == i2.Num;
-			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = leftSourceScalar.Joining<Item, Item>(
 				rightSourceScalar,
@@ -41875,7 +43534,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestJoining08()
 		{
 			Scalar<ObservableCollection<Item>> leftSourceScalar = getScalar<ObservableCollection<Item>>(getItems());
@@ -41961,13 +43620,13 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
-		public void TestJoining09()
+		[Test, Combinatorial]
+		public void TestJoining09(
+			[Values(1)] int initialCapacity)
 		{
 			System.Collections.Specialized.INotifyCollectionChanged leftSource = getItems();
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> rightSourceScalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
 			System.Linq.Expressions.Expression<System.Func<Item, Item, bool>> predicateExpression = (i1, i2) => i1.Num == i2.Num;
-			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = leftSource.Joining<Item, Item>(
 				rightSourceScalar,
@@ -42045,7 +43704,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestJoining10()
 		{
 			System.Collections.Specialized.INotifyCollectionChanged leftSource = getItems();
@@ -42126,13 +43785,13 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
-		public void TestJoining11()
+		[Test, Combinatorial]
+		public void TestJoining11(
+			[Values(1)] int initialCapacity)
 		{
 			System.Collections.Specialized.INotifyCollectionChanged leftSource = getItems();
 			Scalar<ObservableCollection<Item>> rightSourceScalar = getScalar<ObservableCollection<Item>>(getItems());
 			System.Linq.Expressions.Expression<System.Func<Item, Item, bool>> predicateExpression = (i1, i2) => i1.Num == i2.Num;
-			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = leftSource.Joining<Item, Item>(
 				rightSourceScalar,
@@ -42210,7 +43869,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestJoining12()
 		{
 			System.Collections.Specialized.INotifyCollectionChanged leftSource = getItems();
@@ -42291,13 +43950,13 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
-		public void TestJoining13()
+		[Test, Combinatorial]
+		public void TestJoining13(
+			[Values(1)] int initialCapacity)
 		{
 			ObservableCollection<Item> leftSource = getItems();
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> rightSourceScalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
 			System.Linq.Expressions.Expression<System.Func<Item, Item, bool>> predicateExpression = (i1, i2) => i1.Num == i2.Num;
-			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = leftSource.Joining<Item, Item>(
 				rightSourceScalar,
@@ -42375,7 +44034,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestJoining14()
 		{
 			ObservableCollection<Item> leftSource = getItems();
@@ -42456,13 +44115,13 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
-		public void TestJoining15()
+		[Test, Combinatorial]
+		public void TestJoining15(
+			[Values(1)] int initialCapacity)
 		{
 			ObservableCollection<Item> leftSource = getItems();
 			Scalar<ObservableCollection<Item>> rightSourceScalar = getScalar<ObservableCollection<Item>>(getItems());
 			System.Linq.Expressions.Expression<System.Func<Item, Item, bool>> predicateExpression = (i1, i2) => i1.Num == i2.Num;
-			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = leftSource.Joining<Item, Item>(
 				rightSourceScalar,
@@ -42540,7 +44199,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestJoining16()
 		{
 			ObservableCollection<Item> leftSource = getItems();
@@ -42621,13 +44280,13 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
-		public void TestJoining17()
+		[Test, Combinatorial]
+		public void TestJoining17(
+			[Values(1)] int initialCapacity)
 		{
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> leftSourceScalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
 			System.Collections.Specialized.INotifyCollectionChanged rightSource = getItems();
 			System.Linq.Expressions.Expression<System.Func<Item, Item, bool>> predicateExpression = (i1, i2) => i1.Num == i2.Num;
-			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = leftSourceScalar.Joining<Item, Item>(
 				rightSource,
@@ -42705,7 +44364,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestJoining18()
 		{
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> leftSourceScalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
@@ -42786,13 +44445,13 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
-		public void TestJoining19()
+		[Test, Combinatorial]
+		public void TestJoining19(
+			[Values(1)] int initialCapacity)
 		{
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> leftSourceScalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
 			ObservableCollection<Item> rightSource = getItems();
 			System.Linq.Expressions.Expression<System.Func<Item, Item, bool>> predicateExpression = (i1, i2) => i1.Num == i2.Num;
-			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = leftSourceScalar.Joining<Item, Item>(
 				rightSource,
@@ -42870,7 +44529,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestJoining20()
 		{
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> leftSourceScalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
@@ -42951,13 +44610,13 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
-		public void TestJoining21()
+		[Test, Combinatorial]
+		public void TestJoining21(
+			[Values(1)] int initialCapacity)
 		{
 			Scalar<ObservableCollection<Item>> leftSourceScalar = getScalar<ObservableCollection<Item>>(getItems());
 			System.Collections.Specialized.INotifyCollectionChanged rightSource = getItems();
 			System.Linq.Expressions.Expression<System.Func<Item, Item, bool>> predicateExpression = (i1, i2) => i1.Num == i2.Num;
-			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = leftSourceScalar.Joining<Item, Item>(
 				rightSource,
@@ -43035,7 +44694,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestJoining22()
 		{
 			Scalar<ObservableCollection<Item>> leftSourceScalar = getScalar<ObservableCollection<Item>>(getItems());
@@ -43116,13 +44775,13 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
-		public void TestJoining23()
+		[Test, Combinatorial]
+		public void TestJoining23(
+			[Values(1)] int initialCapacity)
 		{
 			Scalar<ObservableCollection<Item>> leftSourceScalar = getScalar<ObservableCollection<Item>>(getItems());
 			ObservableCollection<Item> rightSource = getItems();
 			System.Linq.Expressions.Expression<System.Func<Item, Item, bool>> predicateExpression = (i1, i2) => i1.Num == i2.Num;
-			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = leftSourceScalar.Joining<Item, Item>(
 				rightSource,
@@ -43200,7 +44859,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestJoining24()
 		{
 			Scalar<ObservableCollection<Item>> leftSourceScalar = getScalar<ObservableCollection<Item>>(getItems());
@@ -43281,13 +44940,13 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
-		public void TestJoining25()
+		[Test, Combinatorial]
+		public void TestJoining25(
+			[Values(1)] int initialCapacity)
 		{
 			System.Collections.Specialized.INotifyCollectionChanged leftSource = getItems();
 			System.Collections.Specialized.INotifyCollectionChanged rightSource = getItems();
 			System.Linq.Expressions.Expression<System.Func<Item, Item, bool>> predicateExpression = (i1, i2) => i1.Num == i2.Num;
-			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = leftSource.Joining<Item, Item>(
 				rightSource,
@@ -43360,7 +45019,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestJoining26()
 		{
 			System.Collections.Specialized.INotifyCollectionChanged leftSource = getItems();
@@ -43436,13 +45095,13 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
-		public void TestJoining27()
+		[Test, Combinatorial]
+		public void TestJoining27(
+			[Values(1)] int initialCapacity)
 		{
 			System.Collections.Specialized.INotifyCollectionChanged leftSource = getItems();
 			ObservableCollection<Item> rightSource = getItems();
 			System.Linq.Expressions.Expression<System.Func<Item, Item, bool>> predicateExpression = (i1, i2) => i1.Num == i2.Num;
-			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = leftSource.Joining<Item, Item>(
 				rightSource,
@@ -43515,7 +45174,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestJoining28()
 		{
 			System.Collections.Specialized.INotifyCollectionChanged leftSource = getItems();
@@ -43591,13 +45250,13 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
-		public void TestJoining29()
+		[Test, Combinatorial]
+		public void TestJoining29(
+			[Values(1)] int initialCapacity)
 		{
 			ObservableCollection<Item> leftSource = getItems();
 			System.Collections.Specialized.INotifyCollectionChanged rightSource = getItems();
 			System.Linq.Expressions.Expression<System.Func<Item, Item, bool>> predicateExpression = (i1, i2) => i1.Num == i2.Num;
-			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = leftSource.Joining<Item, Item>(
 				rightSource,
@@ -43670,7 +45329,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestJoining30()
 		{
 			ObservableCollection<Item> leftSource = getItems();
@@ -43746,13 +45405,13 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
-		public void TestJoining31()
+		[Test, Combinatorial]
+		public void TestJoining31(
+			[Values(1)] int initialCapacity)
 		{
 			ObservableCollection<Item> leftSource = getItems();
 			ObservableCollection<Item> rightSource = getItems();
 			System.Linq.Expressions.Expression<System.Func<Item, Item, bool>> predicateExpression = (i1, i2) => i1.Num == i2.Num;
-			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = leftSource.Joining<Item, Item>(
 				rightSource,
@@ -43825,7 +45484,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestJoining32()
 		{
 			ObservableCollection<Item> leftSource = getItems();
@@ -43904,7 +45563,7 @@ namespace ObservableComputations.Test
 		#region LastComputing
 
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestLastComputing01()
 		{
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
@@ -43973,7 +45632,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestLastComputing02()
 		{
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
@@ -44039,7 +45698,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestLastComputing03()
 		{
 			Scalar<ObservableCollection<Item>> sourceScalar = getScalar<ObservableCollection<Item>>(getItems());
@@ -44108,7 +45767,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestLastComputing04()
 		{
 			Scalar<ObservableCollection<Item>> sourceScalar = getScalar<ObservableCollection<Item>>(getItems());
@@ -44174,7 +45833,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestLastComputing05()
 		{
 			System.Collections.Specialized.INotifyCollectionChanged source = getItems();
@@ -44238,7 +45897,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestLastComputing06()
 		{
 			System.Collections.Specialized.INotifyCollectionChanged source = getItems();
@@ -44299,7 +45958,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestLastComputing07()
 		{
 			ObservableCollection<Item> source = getItems();
@@ -44363,7 +46022,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestLastComputing08()
 		{
 			ObservableCollection<Item> source = getItems();
@@ -44427,7 +46086,7 @@ namespace ObservableComputations.Test
 		#region Maximazing
 
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestMaximazing01()
 		{
 			IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar = getScalar<Selecting<Item, int>>(getItems().Selecting(i => i.Num));
@@ -44499,7 +46158,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestMaximazing02()
 		{
 			IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar = getScalar<Selecting<Item, int>>(getItems().Selecting(i => i.Num));
@@ -44568,7 +46227,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestMaximazing03()
 		{
 			IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar = getScalar<Selecting<Item, int>>(getItems().Selecting(i => i.Num));
@@ -44637,7 +46296,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestMaximazing04()
 		{
 			IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar = getScalar<Selecting<Item, int>>(getItems().Selecting(i => i.Num));
@@ -44703,7 +46362,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestMaximazing05()
 		{
 			IReadScalar<ObservableCollection<int>> sourceScalar = getScalar<Selecting<Item, int>>(getItems().Selecting(i => i.Num));
@@ -44775,7 +46434,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestMaximazing06()
 		{
 			IReadScalar<ObservableCollection<int>> sourceScalar = getScalar<Selecting<Item, int>>(getItems().Selecting(i => i.Num));
@@ -44844,7 +46503,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestMaximazing07()
 		{
 			IReadScalar<ObservableCollection<int>> sourceScalar = getScalar<Selecting<Item, int>>(getItems().Selecting(i => i.Num));
@@ -44913,7 +46572,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestMaximazing08()
 		{
 			IReadScalar<ObservableCollection<int>> sourceScalar = getScalar<Selecting<Item, int>>(getItems().Selecting(i => i.Num));
@@ -44979,7 +46638,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestMaximazing09()
 		{
 			IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar = getScalar<Selecting<Item, int>>(getItems().Selecting(i => i.Num));
@@ -45056,7 +46715,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestMaximazing10()
 		{
 			IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar = getScalar<Selecting<Item, int>>(getItems().Selecting(i => i.Num));
@@ -45130,7 +46789,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestMaximazing11()
 		{
 			IReadScalar<ObservableCollection<int>> sourceScalar = getScalar<Selecting<Item, int>>(getItems().Selecting(i => i.Num));
@@ -45207,7 +46866,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestMaximazing12()
 		{
 			IReadScalar<ObservableCollection<int>> sourceScalar = getScalar<Selecting<Item, int>>(getItems().Selecting(i => i.Num));
@@ -45281,7 +46940,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestMaximazing13()
 		{
 			Selecting<Item, int> source = getItems().Selecting(i => i.Num);
@@ -45348,7 +47007,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestMaximazing14()
 		{
 			Selecting<Item, int> source = getItems().Selecting(i => i.Num);
@@ -45412,7 +47071,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestMaximazing15()
 		{
 			Selecting<Item, int> source = getItems().Selecting(i => i.Num);
@@ -45476,7 +47135,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestMaximazing16()
 		{
 			Selecting<Item, int> source = getItems().Selecting(i => i.Num);
@@ -45537,7 +47196,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestMaximazing17()
 		{
 			Selecting<Item, int> source = getItems().Selecting(i => i.Num);
@@ -45604,7 +47263,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestMaximazing18()
 		{
 			Selecting<Item, int> source = getItems().Selecting(i => i.Num);
@@ -45668,7 +47327,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestMaximazing19()
 		{
 			Selecting<Item, int> source = getItems().Selecting(i => i.Num);
@@ -45732,7 +47391,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestMaximazing20()
 		{
 			Selecting<Item, int> source = getItems().Selecting(i => i.Num);
@@ -45793,7 +47452,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestMaximazing21()
 		{
 			Selecting<Item, int> source = getItems().Selecting(i => i.Num);
@@ -45865,7 +47524,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestMaximazing22()
 		{
 			Selecting<Item, int> source = getItems().Selecting(i => i.Num);
@@ -45934,7 +47593,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestMaximazing23()
 		{
 			Selecting<Item, int> source = getItems().Selecting(i => i.Num);
@@ -46006,7 +47665,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestMaximazing24()
 		{
 			Selecting<Item, int> source = getItems().Selecting(i => i.Num);
@@ -46078,7 +47737,7 @@ namespace ObservableComputations.Test
 		#region Minimazing
 
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestMinimazing01()
 		{
 			IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar = getScalar<Selecting<Item, int>>(getItems().Selecting(i => i.Num));
@@ -46150,7 +47809,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestMinimazing02()
 		{
 			IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar = getScalar<Selecting<Item, int>>(getItems().Selecting(i => i.Num));
@@ -46219,7 +47878,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestMinimazing03()
 		{
 			IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar = getScalar<Selecting<Item, int>>(getItems().Selecting(i => i.Num));
@@ -46288,7 +47947,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestMinimazing04()
 		{
 			IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar = getScalar<Selecting<Item, int>>(getItems().Selecting(i => i.Num));
@@ -46354,7 +48013,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestMinimazing05()
 		{
 			IReadScalar<ObservableCollection<int>> sourceScalar = getScalar<Selecting<Item, int>>(getItems().Selecting(i => i.Num));
@@ -46426,7 +48085,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestMinimazing06()
 		{
 			IReadScalar<ObservableCollection<int>> sourceScalar = getScalar<Selecting<Item, int>>(getItems().Selecting(i => i.Num));
@@ -46495,7 +48154,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestMinimazing07()
 		{
 			IReadScalar<ObservableCollection<int>> sourceScalar = getScalar<Selecting<Item, int>>(getItems().Selecting(i => i.Num));
@@ -46564,7 +48223,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestMinimazing08()
 		{
 			IReadScalar<ObservableCollection<int>> sourceScalar = getScalar<Selecting<Item, int>>(getItems().Selecting(i => i.Num));
@@ -46630,7 +48289,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestMinimazing09()
 		{
 			IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar = getScalar<Selecting<Item, int>>(getItems().Selecting(i => i.Num));
@@ -46707,7 +48366,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestMinimazing10()
 		{
 			IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar = getScalar<Selecting<Item, int>>(getItems().Selecting(i => i.Num));
@@ -46781,7 +48440,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestMinimazing11()
 		{
 			IReadScalar<ObservableCollection<int>> sourceScalar = getScalar<Selecting<Item, int>>(getItems().Selecting(i => i.Num));
@@ -46858,7 +48517,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestMinimazing12()
 		{
 			IReadScalar<ObservableCollection<int>> sourceScalar = getScalar<Selecting<Item, int>>(getItems().Selecting(i => i.Num));
@@ -46932,7 +48591,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestMinimazing13()
 		{
 			Selecting<Item, int> source = getItems().Selecting(i => i.Num);
@@ -46999,7 +48658,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestMinimazing14()
 		{
 			Selecting<Item, int> source = getItems().Selecting(i => i.Num);
@@ -47063,7 +48722,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestMinimazing15()
 		{
 			Selecting<Item, int> source = getItems().Selecting(i => i.Num);
@@ -47127,7 +48786,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestMinimazing16()
 		{
 			Selecting<Item, int> source = getItems().Selecting(i => i.Num);
@@ -47188,7 +48847,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestMinimazing17()
 		{
 			Selecting<Item, int> source = getItems().Selecting(i => i.Num);
@@ -47255,7 +48914,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestMinimazing18()
 		{
 			Selecting<Item, int> source = getItems().Selecting(i => i.Num);
@@ -47319,7 +48978,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestMinimazing19()
 		{
 			Selecting<Item, int> source = getItems().Selecting(i => i.Num);
@@ -47383,7 +49042,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestMinimazing20()
 		{
 			Selecting<Item, int> source = getItems().Selecting(i => i.Num);
@@ -47444,7 +49103,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestMinimazing21()
 		{
 			Selecting<Item, int> source = getItems().Selecting(i => i.Num);
@@ -47516,7 +49175,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestMinimazing22()
 		{
 			Selecting<Item, int> source = getItems().Selecting(i => i.Num);
@@ -47585,7 +49244,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestMinimazing23()
 		{
 			Selecting<Item, int> source = getItems().Selecting(i => i.Num);
@@ -47657,7 +49316,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestMinimazing24()
 		{
 			Selecting<Item, int> source = getItems().Selecting(i => i.Num);
@@ -47729,7 +49388,7 @@ namespace ObservableComputations.Test
 		#region OfTypeComputing
 
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestOfTypeComputing01()
 		{
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
@@ -47795,7 +49454,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestOfTypeComputing02()
 		{
 			System.Collections.Specialized.INotifyCollectionChanged source = getItems();
@@ -47859,7 +49518,7 @@ namespace ObservableComputations.Test
 		#region Ordering
 
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestOrdering01()
 		{
 			Selecting<Item, int> source = getItems().Selecting(i => i.Num);
@@ -47939,7 +49598,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestOrdering02()
 		{
 			Selecting<Item, int> source = getItems().Selecting(i => i.Num);
@@ -48011,7 +49670,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestOrdering03()
 		{
 			Selecting<Item, int> source = getItems().Selecting(i => i.Num);
@@ -48083,7 +49742,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestOrdering04()
 		{
 			Selecting<Item, int> source = getItems().Selecting(i => i.Num);
@@ -48147,7 +49806,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestOrdering05()
 		{
 			Selecting<Item, int> source = getItems().Selecting(i => i.Num);
@@ -48227,7 +49886,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestOrdering06()
 		{
 			Selecting<Item, int> source = getItems().Selecting(i => i.Num);
@@ -48299,7 +49958,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestOrdering07()
 		{
 			Selecting<Item, int> source = getItems().Selecting(i => i.Num);
@@ -48371,7 +50030,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestOrdering08()
 		{
 			Selecting<Item, int> source = getItems().Selecting(i => i.Num);
@@ -48435,7 +50094,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestOrdering09()
 		{
 			Selecting<Item, int> source = getItems().Selecting(i => i.Num);
@@ -48510,7 +50169,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestOrdering10()
 		{
 			Selecting<Item, int> source = getItems().Selecting(i => i.Num);
@@ -48577,7 +50236,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestOrdering11()
 		{
 			Selecting<Item, int> source = getItems().Selecting(i => i.Num);
@@ -48652,7 +50311,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestOrdering12()
 		{
 			Selecting<Item, int> source = getItems().Selecting(i => i.Num);
@@ -48719,7 +50378,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestOrdering13()
 		{
 			Selecting<Item, int> source = getItems().Selecting(i => i.Num);
@@ -48794,7 +50453,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestOrdering14()
 		{
 			Selecting<Item, int> source = getItems().Selecting(i => i.Num);
@@ -48861,7 +50520,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestOrdering15()
 		{
 			Selecting<Item, int> source = getItems().Selecting(i => i.Num);
@@ -48936,7 +50595,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestOrdering16()
 		{
 			Selecting<Item, int> source = getItems().Selecting(i => i.Num);
@@ -49003,7 +50662,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestOrdering17()
 		{
 			Selecting<Item, int> source = getItems().Selecting(i => i.Num);
@@ -49073,7 +50732,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestOrdering18()
 		{
 			Selecting<Item, int> source = getItems().Selecting(i => i.Num);
@@ -49143,7 +50802,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestOrdering19()
 		{
 			IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar = getScalar<Selecting<Item, int>>(getItems().Selecting(i => i.Num));
@@ -49228,7 +50887,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestOrdering20()
 		{
 			IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar = getScalar<Selecting<Item, int>>(getItems().Selecting(i => i.Num));
@@ -49305,7 +50964,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestOrdering21()
 		{
 			IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar = getScalar<Selecting<Item, int>>(getItems().Selecting(i => i.Num));
@@ -49382,7 +51041,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestOrdering22()
 		{
 			IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar = getScalar<Selecting<Item, int>>(getItems().Selecting(i => i.Num));
@@ -49451,7 +51110,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestOrdering23()
 		{
 			IReadScalar<ObservableCollection<int>> sourceScalar = getScalar<Selecting<Item, int>>(getItems().Selecting(i => i.Num));
@@ -49536,7 +51195,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestOrdering24()
 		{
 			IReadScalar<ObservableCollection<int>> sourceScalar = getScalar<Selecting<Item, int>>(getItems().Selecting(i => i.Num));
@@ -49613,7 +51272,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestOrdering25()
 		{
 			IReadScalar<ObservableCollection<int>> sourceScalar = getScalar<Selecting<Item, int>>(getItems().Selecting(i => i.Num));
@@ -49690,7 +51349,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestOrdering26()
 		{
 			IReadScalar<ObservableCollection<int>> sourceScalar = getScalar<Selecting<Item, int>>(getItems().Selecting(i => i.Num));
@@ -49759,7 +51418,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestOrdering27()
 		{
 			IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar = getScalar<Selecting<Item, int>>(getItems().Selecting(i => i.Num));
@@ -49839,7 +51498,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestOrdering28()
 		{
 			IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar = getScalar<Selecting<Item, int>>(getItems().Selecting(i => i.Num));
@@ -49911,7 +51570,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestOrdering29()
 		{
 			IReadScalar<ObservableCollection<int>> sourceScalar = getScalar<Selecting<Item, int>>(getItems().Selecting(i => i.Num));
@@ -49991,7 +51650,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestOrdering30()
 		{
 			IReadScalar<ObservableCollection<int>> sourceScalar = getScalar<Selecting<Item, int>>(getItems().Selecting(i => i.Num));
@@ -50063,7 +51722,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestOrdering31()
 		{
 			IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar = getScalar<Selecting<Item, int>>(getItems().Selecting(i => i.Num));
@@ -50143,7 +51802,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestOrdering32()
 		{
 			IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar = getScalar<Selecting<Item, int>>(getItems().Selecting(i => i.Num));
@@ -50215,7 +51874,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestOrdering33()
 		{
 			IReadScalar<ObservableCollection<int>> sourceScalar = getScalar<Selecting<Item, int>>(getItems().Selecting(i => i.Num));
@@ -50295,7 +51954,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestOrdering34()
 		{
 			IReadScalar<ObservableCollection<int>> sourceScalar = getScalar<Selecting<Item, int>>(getItems().Selecting(i => i.Num));
@@ -50367,7 +52026,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestOrdering35()
 		{
 			IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar = getScalar<Selecting<Item, int>>(getItems().Selecting(i => i.Num));
@@ -50442,7 +52101,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestOrdering36()
 		{
 			IReadScalar<ObservableCollection<int>> sourceScalar = getScalar<Selecting<Item, int>>(getItems().Selecting(i => i.Num));
@@ -50520,12 +52179,12 @@ namespace ObservableComputations.Test
 		#region Paging
 
 		
-		[Test]
-		public void TestPaging01()
+		[Test, Combinatorial]
+		public void TestPaging01(
+			[Values(1)] int pageSize,
+			[Values(1)] int initialPage)
 		{
 			System.Collections.Specialized.INotifyCollectionChanged source = getItems();
-			int pageSize = 2;
-			int initialPage = 1;
 			OcConsumer consumer = new OcConsumer();
 			var testing = source.Paging<Item>(
 				pageSize,
@@ -50586,11 +52245,11 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
-		public void TestPaging02()
+		[Test, Combinatorial]
+		public void TestPaging02(
+			[Values(1)] int pageSize)
 		{
 			System.Collections.Specialized.INotifyCollectionChanged source = getItems();
-			int pageSize = 2;
 			OcConsumer consumer = new OcConsumer();
 			var testing = source.Paging<Item>(
 				pageSize).For(consumer);
@@ -50650,12 +52309,12 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
-		public void TestPaging03()
+		[Test, Combinatorial]
+		public void TestPaging03(
+			[Values(1)] int pageSize,
+			[Values(1)] int initialPage)
 		{
 			ObservableCollection<Item> source = getItems();
-			int pageSize = 2;
-			int initialPage = 1;
 			OcConsumer consumer = new OcConsumer();
 			var testing = source.Paging<Item>(
 				pageSize,
@@ -50716,11 +52375,11 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
-		public void TestPaging04()
+		[Test, Combinatorial]
+		public void TestPaging04(
+			[Values(1)] int pageSize)
 		{
 			ObservableCollection<Item> source = getItems();
-			int pageSize = 2;
 			OcConsumer consumer = new OcConsumer();
 			var testing = source.Paging<Item>(
 				pageSize).For(consumer);
@@ -50780,12 +52439,12 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
-		public void TestPaging05()
+		[Test, Combinatorial]
+		public void TestPaging05(
+			[Values(1)] int pageSize,
+			[Values(1)] int initialPage)
 		{
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
-			int pageSize = 2;
-			int initialPage = 1;
 			OcConsumer consumer = new OcConsumer();
 			var testing = sourceScalar.Paging<Item>(
 				pageSize,
@@ -50851,11 +52510,11 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
-		public void TestPaging06()
+		[Test, Combinatorial]
+		public void TestPaging06(
+			[Values(1)] int pageSize)
 		{
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
-			int pageSize = 2;
 			OcConsumer consumer = new OcConsumer();
 			var testing = sourceScalar.Paging<Item>(
 				pageSize).For(consumer);
@@ -50920,12 +52579,12 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
-		public void TestPaging07()
+		[Test, Combinatorial]
+		public void TestPaging07(
+			[Values(1)] int pageSize,
+			[Values(1)] int initialPage)
 		{
 			Scalar<ObservableCollection<Item>> sourceScalar = getScalar<ObservableCollection<Item>>(getItems());
-			int pageSize = 2;
-			int initialPage = 1;
 			OcConsumer consumer = new OcConsumer();
 			var testing = sourceScalar.Paging<Item>(
 				pageSize,
@@ -50991,11 +52650,11 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
-		public void TestPaging08()
+		[Test, Combinatorial]
+		public void TestPaging08(
+			[Values(1)] int pageSize)
 		{
 			Scalar<ObservableCollection<Item>> sourceScalar = getScalar<ObservableCollection<Item>>(getItems());
-			int pageSize = 2;
 			OcConsumer consumer = new OcConsumer();
 			var testing = sourceScalar.Paging<Item>(
 				pageSize).For(consumer);
@@ -51060,12 +52719,12 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
-		public void TestPaging09()
+		[Test, Combinatorial]
+		public void TestPaging09(
+			[Values(1)] int initialPage)
 		{
 			System.Collections.Specialized.INotifyCollectionChanged source = getItems();
 			Scalar<int> pageSizeScalar = getScalar<int>(2);
-			int initialPage = 1;
 			OcConsumer consumer = new OcConsumer();
 			var testing = source.Paging<Item>(
 				pageSizeScalar,
@@ -51131,7 +52790,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestPaging10()
 		{
 			System.Collections.Specialized.INotifyCollectionChanged source = getItems();
@@ -51200,12 +52859,12 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
-		public void TestPaging11()
+		[Test, Combinatorial]
+		public void TestPaging11(
+			[Values(1)] int initialPage)
 		{
 			ObservableCollection<Item> source = getItems();
 			Scalar<int> pageSizeScalar = getScalar<int>(2);
-			int initialPage = 1;
 			OcConsumer consumer = new OcConsumer();
 			var testing = source.Paging<Item>(
 				pageSizeScalar,
@@ -51271,7 +52930,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestPaging12()
 		{
 			ObservableCollection<Item> source = getItems();
@@ -51340,12 +52999,12 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
-		public void TestPaging13()
+		[Test, Combinatorial]
+		public void TestPaging13(
+			[Values(1)] int initialPage)
 		{
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
 			Scalar<int> pageSizeScalar = getScalar<int>(2);
-			int initialPage = 1;
 			OcConsumer consumer = new OcConsumer();
 			var testing = sourceScalar.Paging<Item>(
 				pageSizeScalar,
@@ -51416,7 +53075,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestPaging14()
 		{
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
@@ -51490,12 +53149,12 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
-		public void TestPaging15()
+		[Test, Combinatorial]
+		public void TestPaging15(
+			[Values(1)] int initialPage)
 		{
 			Scalar<ObservableCollection<Item>> sourceScalar = getScalar<ObservableCollection<Item>>(getItems());
 			Scalar<int> pageSizeScalar = getScalar<int>(2);
-			int initialPage = 1;
 			OcConsumer consumer = new OcConsumer();
 			var testing = sourceScalar.Paging<Item>(
 				pageSizeScalar,
@@ -51566,7 +53225,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestPaging16()
 		{
 			Scalar<ObservableCollection<Item>> sourceScalar = getScalar<ObservableCollection<Item>>(getItems());
@@ -51640,7 +53299,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestPaging17()
 		{
 			System.Collections.Specialized.INotifyCollectionChanged source = getItems();
@@ -51717,7 +53376,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestPaging18()
 		{
 			ObservableCollection<Item> source = getItems();
@@ -51794,7 +53453,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestPaging19()
 		{
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
@@ -51876,7 +53535,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestPaging20()
 		{
 			Scalar<ObservableCollection<Item>> sourceScalar = getScalar<ObservableCollection<Item>>(getItems());
@@ -51958,11 +53617,11 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
-		public void TestPaging21()
+		[Test, Combinatorial]
+		public void TestPaging21(
+			[Values(1)] int pageSize)
 		{
 			System.Collections.Specialized.INotifyCollectionChanged source = getItems();
-			int pageSize = 2;
 			Scalar<int> currentPageScalar = getScalar<int>(1);
 			OcConsumer consumer = new OcConsumer();
 			var testing = source.Paging<Item>(
@@ -52030,11 +53689,11 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
-		public void TestPaging22()
+		[Test, Combinatorial]
+		public void TestPaging22(
+			[Values(1)] int pageSize)
 		{
 			ObservableCollection<Item> source = getItems();
-			int pageSize = 2;
 			Scalar<int> currentPageScalar = getScalar<int>(1);
 			OcConsumer consumer = new OcConsumer();
 			var testing = source.Paging<Item>(
@@ -52102,11 +53761,11 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
-		public void TestPaging23()
+		[Test, Combinatorial]
+		public void TestPaging23(
+			[Values(1)] int pageSize)
 		{
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
-			int pageSize = 2;
 			Scalar<int> currentPageScalar = getScalar<int>(1);
 			OcConsumer consumer = new OcConsumer();
 			var testing = sourceScalar.Paging<Item>(
@@ -52179,11 +53838,11 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
-		public void TestPaging24()
+		[Test, Combinatorial]
+		public void TestPaging24(
+			[Values(1)] int pageSize)
 		{
 			Scalar<ObservableCollection<Item>> sourceScalar = getScalar<ObservableCollection<Item>>(getItems());
-			int pageSize = 2;
 			Scalar<int> currentPageScalar = getScalar<int>(1);
 			OcConsumer consumer = new OcConsumer();
 			var testing = sourceScalar.Paging<Item>(
@@ -52259,7 +53918,7 @@ namespace ObservableComputations.Test
 		#region PredicateGroupJoining
 
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestPredicateGroupJoining01()
 		{
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> outerSourceScalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
@@ -52377,7 +54036,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestPredicateGroupJoining02()
 		{
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> outerSourceScalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
@@ -52495,7 +54154,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestPredicateGroupJoining03()
 		{
 			Scalar<ObservableCollection<Item>> outerSourceScalar = getScalar<ObservableCollection<Item>>(getItems());
@@ -52613,7 +54272,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestPredicateGroupJoining04()
 		{
 			Scalar<ObservableCollection<Item>> outerSourceScalar = getScalar<ObservableCollection<Item>>(getItems());
@@ -52731,7 +54390,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestPredicateGroupJoining05()
 		{
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> outerSourceScalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
@@ -52844,7 +54503,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestPredicateGroupJoining06()
 		{
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> outerSourceScalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
@@ -52957,7 +54616,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestPredicateGroupJoining07()
 		{
 			Scalar<ObservableCollection<Item>> outerSourceScalar = getScalar<ObservableCollection<Item>>(getItems());
@@ -53070,7 +54729,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestPredicateGroupJoining08()
 		{
 			Scalar<ObservableCollection<Item>> outerSourceScalar = getScalar<ObservableCollection<Item>>(getItems());
@@ -53183,7 +54842,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestPredicateGroupJoining09()
 		{
 			System.Collections.Specialized.INotifyCollectionChanged outerSource = getItems();
@@ -53296,7 +54955,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestPredicateGroupJoining10()
 		{
 			System.Collections.Specialized.INotifyCollectionChanged outerSource = getItems();
@@ -53409,7 +55068,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestPredicateGroupJoining11()
 		{
 			ObservableCollection<Item> outerSource = getItems();
@@ -53522,7 +55181,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestPredicateGroupJoining12()
 		{
 			ObservableCollection<Item> outerSource = getItems();
@@ -53635,7 +55294,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestPredicateGroupJoining13()
 		{
 			System.Collections.Specialized.INotifyCollectionChanged outerSource = getItems();
@@ -53743,7 +55402,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestPredicateGroupJoining14()
 		{
 			System.Collections.Specialized.INotifyCollectionChanged outerSource = getItems();
@@ -53851,7 +55510,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestPredicateGroupJoining15()
 		{
 			ObservableCollection<Item> outerSource = getItems();
@@ -53959,7 +55618,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestPredicateGroupJoining16()
 		{
 			ObservableCollection<Item> outerSource = getItems();
@@ -54070,7 +55729,7 @@ namespace ObservableComputations.Test
 		#region Prepending
 
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestPrepending01()
 		{
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
@@ -54144,7 +55803,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestPrepending02()
 		{
 			Scalar<ObservableCollection<Item>> sourceScalar = getScalar<ObservableCollection<Item>>(getItems());
@@ -54218,7 +55877,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestPrepending03()
 		{
 			System.Collections.Specialized.INotifyCollectionChanged source = getItems();
@@ -54287,7 +55946,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestPrepending04()
 		{
 			ObservableCollection<Item> source = getItems();
@@ -54356,7 +56015,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestPrepending05()
 		{
 			System.Collections.Specialized.INotifyCollectionChanged source = getItems();
@@ -54420,7 +56079,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestPrepending06()
 		{
 			ObservableCollection<Item> source = getItems();
@@ -54484,7 +56143,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestPrepending07()
 		{
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
@@ -54553,7 +56212,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestPrepending08()
 		{
 			Scalar<ObservableCollection<Item>> sourceScalar = getScalar<ObservableCollection<Item>>(getItems());
@@ -54625,7 +56284,7 @@ namespace ObservableComputations.Test
 		#region Reversing
 
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestReversing01()
 		{
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
@@ -54691,7 +56350,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestReversing02()
 		{
 			Scalar<ObservableCollection<Item>> sourceScalar = getScalar<ObservableCollection<Item>>(getItems());
@@ -54757,7 +56416,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestReversing03()
 		{
 			System.Collections.Specialized.INotifyCollectionChanged source = getItems();
@@ -54818,7 +56477,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestReversing04()
 		{
 			ObservableCollection<Item> source = getItems();
@@ -54882,7 +56541,7 @@ namespace ObservableComputations.Test
 		#region Selecting
 
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestSelecting01()
 		{
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
@@ -54951,7 +56610,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestSelecting02()
 		{
 			Scalar<ObservableCollection<Item>> sourceScalar = getScalar<ObservableCollection<Item>>(getItems());
@@ -55020,7 +56679,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestSelecting03()
 		{
 			System.Collections.Specialized.INotifyCollectionChanged source = getItems();
@@ -55084,7 +56743,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestSelecting04()
 		{
 			ObservableCollection<Item> source = getItems();
@@ -55151,7 +56810,7 @@ namespace ObservableComputations.Test
 		#region SelectingMany
 
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestSelectingMany01()
 		{
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
@@ -55220,7 +56879,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestSelectingMany02()
 		{
 			Scalar<ObservableCollection<Item>> sourceScalar = getScalar<ObservableCollection<Item>>(getItems());
@@ -55289,7 +56948,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestSelectingMany03()
 		{
 			System.Collections.Specialized.INotifyCollectionChanged source = getItems();
@@ -55353,7 +57012,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestSelectingMany04()
 		{
 			ObservableCollection<Item> source = getItems();
@@ -55417,7 +57076,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestSelectingMany05()
 		{
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
@@ -55486,7 +57145,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestSelectingMany06()
 		{
 			Scalar<ObservableCollection<Item>> sourceScalar = getScalar<ObservableCollection<Item>>(getItems());
@@ -55555,7 +57214,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestSelectingMany07()
 		{
 			System.Collections.Specialized.INotifyCollectionChanged source = getItems();
@@ -55619,7 +57278,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestSelectingMany08()
 		{
 			ObservableCollection<Item> source = getItems();
@@ -55686,7 +57345,7 @@ namespace ObservableComputations.Test
 		#region SequenceComputing
 
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestSequenceComputing01()
 		{
 			Scalar<int> countScalar = getScalar<int>(3);
@@ -55714,12 +57373,12 @@ namespace ObservableComputations.Test
 		#region Skipping
 
 		
-		[Test]
-		public void TestSkipping01()
+		[Test, Combinatorial]
+		public void TestSkipping01(
+			[Values(1)] int initialCapacity)
 		{
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
 			Scalar<int> skippingCountScalar = getScalar<int>(0);
-			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = sourceScalar.Skipping<Item>(
 				skippingCountScalar,
@@ -55791,7 +57450,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestSkipping02()
 		{
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
@@ -55865,12 +57524,12 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
-		public void TestSkipping03()
+		[Test, Combinatorial]
+		public void TestSkipping03(
+			[Values(1)] int initialCapacity)
 		{
 			Scalar<ObservableCollection<Item>> sourceScalar = getScalar<ObservableCollection<Item>>(getItems());
 			Scalar<int> skippingCountScalar = getScalar<int>(0);
-			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = sourceScalar.Skipping<Item>(
 				skippingCountScalar,
@@ -55942,7 +57601,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestSkipping04()
 		{
 			Scalar<ObservableCollection<Item>> sourceScalar = getScalar<ObservableCollection<Item>>(getItems());
@@ -56016,12 +57675,12 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
-		public void TestSkipping05()
+		[Test, Combinatorial]
+		public void TestSkipping05(
+			[Values(1)] int initialCapacity)
 		{
 			System.Collections.Specialized.INotifyCollectionChanged source = getItems();
 			Scalar<int> skippingCountScalar = getScalar<int>(0);
-			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = source.Skipping<Item>(
 				skippingCountScalar,
@@ -56088,7 +57747,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestSkipping06()
 		{
 			System.Collections.Specialized.INotifyCollectionChanged source = getItems();
@@ -56157,12 +57816,12 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
-		public void TestSkipping07()
+		[Test, Combinatorial]
+		public void TestSkipping07(
+			[Values(1)] int initialCapacity)
 		{
 			ObservableCollection<Item> source = getItems();
 			Scalar<int> skippingCountScalar = getScalar<int>(0);
-			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = source.Skipping<Item>(
 				skippingCountScalar,
@@ -56229,7 +57888,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestSkipping08()
 		{
 			ObservableCollection<Item> source = getItems();
@@ -56298,12 +57957,12 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
-		public void TestSkipping09()
+		[Test, Combinatorial]
+		public void TestSkipping09(
+			[Values(1)] int skippingCount,
+			[Values(1)] int initialCapacity)
 		{
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
-			int skippingCount = 0;
-			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = sourceScalar.Skipping<Item>(
 				skippingCount,
@@ -56370,11 +58029,11 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
-		public void TestSkipping10()
+		[Test, Combinatorial]
+		public void TestSkipping10(
+			[Values(1)] int skippingCount)
 		{
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
-			int skippingCount = 0;
 			OcConsumer consumer = new OcConsumer();
 			var testing = sourceScalar.Skipping<Item>(
 				skippingCount).For(consumer);
@@ -56439,12 +58098,12 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
-		public void TestSkipping11()
+		[Test, Combinatorial]
+		public void TestSkipping11(
+			[Values(1)] int skippingCount,
+			[Values(1)] int initialCapacity)
 		{
 			Scalar<ObservableCollection<Item>> sourceScalar = getScalar<ObservableCollection<Item>>(getItems());
-			int skippingCount = 0;
-			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = sourceScalar.Skipping<Item>(
 				skippingCount,
@@ -56511,11 +58170,11 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
-		public void TestSkipping12()
+		[Test, Combinatorial]
+		public void TestSkipping12(
+			[Values(1)] int skippingCount)
 		{
 			Scalar<ObservableCollection<Item>> sourceScalar = getScalar<ObservableCollection<Item>>(getItems());
-			int skippingCount = 0;
 			OcConsumer consumer = new OcConsumer();
 			var testing = sourceScalar.Skipping<Item>(
 				skippingCount).For(consumer);
@@ -56580,12 +58239,12 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
-		public void TestSkipping13()
+		[Test, Combinatorial]
+		public void TestSkipping13(
+			[Values(1)] int skippingCount,
+			[Values(1)] int initialCapacity)
 		{
 			System.Collections.Specialized.INotifyCollectionChanged source = getItems();
-			int skippingCount = 0;
-			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = source.Skipping<Item>(
 				skippingCount,
@@ -56647,11 +58306,11 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
-		public void TestSkipping14()
+		[Test, Combinatorial]
+		public void TestSkipping14(
+			[Values(1)] int skippingCount)
 		{
 			System.Collections.Specialized.INotifyCollectionChanged source = getItems();
-			int skippingCount = 0;
 			OcConsumer consumer = new OcConsumer();
 			var testing = source.Skipping<Item>(
 				skippingCount).For(consumer);
@@ -56711,12 +58370,12 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
-		public void TestSkipping15()
+		[Test, Combinatorial]
+		public void TestSkipping15(
+			[Values(1)] int skippingCount,
+			[Values(1)] int initialCapacity)
 		{
 			ObservableCollection<Item> source = getItems();
-			int skippingCount = 0;
-			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = source.Skipping<Item>(
 				skippingCount,
@@ -56778,11 +58437,11 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
-		public void TestSkipping16()
+		[Test, Combinatorial]
+		public void TestSkipping16(
+			[Values(1)] int skippingCount)
 		{
 			ObservableCollection<Item> source = getItems();
-			int skippingCount = 0;
 			OcConsumer consumer = new OcConsumer();
 			var testing = source.Skipping<Item>(
 				skippingCount).For(consumer);
@@ -56845,12 +58504,12 @@ namespace ObservableComputations.Test
 		#region SkippingWhile
 
 		
-		[Test]
-		public void TestSkippingWhile01()
+		[Test, Combinatorial]
+		public void TestSkippingWhile01(
+			[Values(1)] int initialCapacity)
 		{
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
 			System.Linq.Expressions.Expression<System.Func<Item, int, bool>> indexedPredicateExpression = (i, ind) => i.Active;
-			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = sourceScalar.SkippingWhile<Item>(
 				indexedPredicateExpression,
@@ -56917,7 +58576,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestSkippingWhile02()
 		{
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
@@ -56986,12 +58645,12 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
-		public void TestSkippingWhile03()
+		[Test, Combinatorial]
+		public void TestSkippingWhile03(
+			[Values(1)] int initialCapacity)
 		{
 			Scalar<ObservableCollection<Item>> sourceScalar = getScalar<ObservableCollection<Item>>(getItems());
 			System.Linq.Expressions.Expression<System.Func<Item, int, bool>> indexedPredicateExpression = (i, ind) => i.Active;
-			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = sourceScalar.SkippingWhile<Item>(
 				indexedPredicateExpression,
@@ -57058,7 +58717,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestSkippingWhile04()
 		{
 			Scalar<ObservableCollection<Item>> sourceScalar = getScalar<ObservableCollection<Item>>(getItems());
@@ -57127,12 +58786,12 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
-		public void TestSkippingWhile05()
+		[Test, Combinatorial]
+		public void TestSkippingWhile05(
+			[Values(1)] int initialCapacity)
 		{
 			System.Collections.Specialized.INotifyCollectionChanged source = getItems();
 			System.Linq.Expressions.Expression<System.Func<Item, int, bool>> indexedPredicateExpression = (i, ind) => i.Active;
-			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = source.SkippingWhile<Item>(
 				indexedPredicateExpression,
@@ -57194,7 +58853,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestSkippingWhile06()
 		{
 			System.Collections.Specialized.INotifyCollectionChanged source = getItems();
@@ -57258,12 +58917,12 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
-		public void TestSkippingWhile07()
+		[Test, Combinatorial]
+		public void TestSkippingWhile07(
+			[Values(1)] int initialCapacity)
 		{
 			ObservableCollection<Item> source = getItems();
 			System.Linq.Expressions.Expression<System.Func<Item, int, bool>> indexedPredicateExpression = (i, ind) => i.Active;
-			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = source.SkippingWhile<Item>(
 				indexedPredicateExpression,
@@ -57325,7 +58984,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestSkippingWhile08()
 		{
 			ObservableCollection<Item> source = getItems();
@@ -57389,12 +59048,12 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
-		public void TestSkippingWhile09()
+		[Test, Combinatorial]
+		public void TestSkippingWhile09(
+			[Values(1)] int initialCapacity)
 		{
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
 			System.Linq.Expressions.Expression<System.Func<Item, bool>> predicateExpression = i => i.Active;
-			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = sourceScalar.SkippingWhile<Item>(
 				predicateExpression,
@@ -57461,7 +59120,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestSkippingWhile10()
 		{
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
@@ -57530,12 +59189,12 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
-		public void TestSkippingWhile11()
+		[Test, Combinatorial]
+		public void TestSkippingWhile11(
+			[Values(1)] int initialCapacity)
 		{
 			Scalar<ObservableCollection<Item>> sourceScalar = getScalar<ObservableCollection<Item>>(getItems());
 			System.Linq.Expressions.Expression<System.Func<Item, bool>> predicateExpression = i => i.Active;
-			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = sourceScalar.SkippingWhile<Item>(
 				predicateExpression,
@@ -57602,7 +59261,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestSkippingWhile12()
 		{
 			Scalar<ObservableCollection<Item>> sourceScalar = getScalar<ObservableCollection<Item>>(getItems());
@@ -57671,12 +59330,12 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
-		public void TestSkippingWhile13()
+		[Test, Combinatorial]
+		public void TestSkippingWhile13(
+			[Values(1)] int initialCapacity)
 		{
 			System.Collections.Specialized.INotifyCollectionChanged source = getItems();
 			System.Linq.Expressions.Expression<System.Func<Item, bool>> predicateExpression = i => i.Active;
-			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = source.SkippingWhile<Item>(
 				predicateExpression,
@@ -57738,7 +59397,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestSkippingWhile14()
 		{
 			System.Collections.Specialized.INotifyCollectionChanged source = getItems();
@@ -57802,12 +59461,12 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
-		public void TestSkippingWhile15()
+		[Test, Combinatorial]
+		public void TestSkippingWhile15(
+			[Values(1)] int initialCapacity)
 		{
 			ObservableCollection<Item> source = getItems();
 			System.Linq.Expressions.Expression<System.Func<Item, bool>> predicateExpression = i => i.Active;
-			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = source.SkippingWhile<Item>(
 				predicateExpression,
@@ -57869,7 +59528,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestSkippingWhile16()
 		{
 			ObservableCollection<Item> source = getItems();
@@ -57936,7 +59595,7 @@ namespace ObservableComputations.Test
 		#region StringsConcatenating
 
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestStringsConcatenating01()
 		{
 			IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar = getScalar<Selecting<Item, string>>(getItems().Selecting(i => i.Num.ToString()));
@@ -58012,7 +59671,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestStringsConcatenating02()
 		{
 			IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar = getScalar<Selecting<Item, string>>(getItems().Selecting(i => i.Num.ToString()));
@@ -58078,7 +59737,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestStringsConcatenating03()
 		{
 			Selecting<Item, string> source = getItems().Selecting(i => i.Num.ToString());
@@ -58149,7 +59808,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestStringsConcatenating04()
 		{
 			Selecting<Item, string> source = getItems().Selecting(i => i.Num.ToString());
@@ -58210,7 +59869,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestStringsConcatenating05()
 		{
 			Selecting<Item, string> source = getItems().Selecting(i => i.Num.ToString());
@@ -58274,7 +59933,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestStringsConcatenating06()
 		{
 			IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar = getScalar<Selecting<Item, string>>(getItems().Selecting(i => i.Num.ToString()));
@@ -58346,7 +60005,7 @@ namespace ObservableComputations.Test
 		#region Summarizing
 
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestSummarizing01()
 		{
 			IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar = getScalar<Selecting<Item, int>>(getItems().Selecting(i => i.Num));
@@ -58412,7 +60071,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestSummarizing02()
 		{
 			IReadScalar<ObservableCollection<int>> sourceScalar = getScalar<Selecting<Item, int>>(getItems().Selecting(i => i.Num));
@@ -58478,7 +60137,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestSummarizing03()
 		{
 			Selecting<Item, int> source = getItems().Selecting(i => i.Num);
@@ -58539,7 +60198,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestSummarizing04()
 		{
 			Selecting<Item, int> source = getItems().Selecting(i => i.Num);
@@ -58603,13 +60262,13 @@ namespace ObservableComputations.Test
 		#region Taking
 
 		
-		[Test]
-		public void TestTaking01()
+		[Test, Combinatorial]
+		public void TestTaking01(
+			[Values(1)] int initialCapacity)
 		{
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
 			Scalar<int> startIndexScalar = getScalar<int>(0);
 			Scalar<int> countScalar = getScalar<int>(3);
-			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = sourceScalar.Taking<Item>(
 				startIndexScalar,
@@ -58688,7 +60347,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestTaking02()
 		{
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
@@ -58770,13 +60429,13 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
-		public void TestTaking03()
+		[Test, Combinatorial]
+		public void TestTaking03(
+			[Values(1)] int initialCapacity)
 		{
 			Scalar<ObservableCollection<Item>> sourceScalar = getScalar<ObservableCollection<Item>>(getItems());
 			Scalar<int> startIndexScalar = getScalar<int>(0);
 			Scalar<int> countScalar = getScalar<int>(3);
-			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = sourceScalar.Taking<Item>(
 				startIndexScalar,
@@ -58855,7 +60514,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestTaking04()
 		{
 			Scalar<ObservableCollection<Item>> sourceScalar = getScalar<ObservableCollection<Item>>(getItems());
@@ -58937,12 +60596,12 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
-		public void TestTaking05()
+		[Test, Combinatorial]
+		public void TestTaking05(
+			[Values(4)] int count)
 		{
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
 			Scalar<int> startIndexScalar = getScalar<int>(0);
-			int count = 3;
 			OcConsumer consumer = new OcConsumer();
 			var testing = sourceScalar.Taking<Item>(
 				startIndexScalar,
@@ -59014,12 +60673,12 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
-		public void TestTaking06()
+		[Test, Combinatorial]
+		public void TestTaking06(
+			[Values(4)] int count)
 		{
 			Scalar<ObservableCollection<Item>> sourceScalar = getScalar<ObservableCollection<Item>>(getItems());
 			Scalar<int> startIndexScalar = getScalar<int>(0);
-			int count = 3;
 			OcConsumer consumer = new OcConsumer();
 			var testing = sourceScalar.Taking<Item>(
 				startIndexScalar,
@@ -59091,13 +60750,13 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
-		public void TestTaking07()
+		[Test, Combinatorial]
+		public void TestTaking07(
+			[Values(1)] int startIndex,
+			[Values(1)] int initialCapacity)
 		{
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
-			int startIndex = 0;
 			Scalar<int> countScalar = getScalar<int>(3);
-			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = sourceScalar.Taking<Item>(
 				startIndex,
@@ -59171,11 +60830,11 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
-		public void TestTaking08()
+		[Test, Combinatorial]
+		public void TestTaking08(
+			[Values(1)] int startIndex)
 		{
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
-			int startIndex = 0;
 			Scalar<int> countScalar = getScalar<int>(3);
 			OcConsumer consumer = new OcConsumer();
 			var testing = sourceScalar.Taking<Item>(
@@ -59248,13 +60907,13 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
-		public void TestTaking09()
+		[Test, Combinatorial]
+		public void TestTaking09(
+			[Values(1)] int startIndex,
+			[Values(1)] int initialCapacity)
 		{
 			Scalar<ObservableCollection<Item>> sourceScalar = getScalar<ObservableCollection<Item>>(getItems());
-			int startIndex = 0;
 			Scalar<int> countScalar = getScalar<int>(3);
-			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = sourceScalar.Taking<Item>(
 				startIndex,
@@ -59328,11 +60987,11 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
-		public void TestTaking10()
+		[Test, Combinatorial]
+		public void TestTaking10(
+			[Values(1)] int startIndex)
 		{
 			Scalar<ObservableCollection<Item>> sourceScalar = getScalar<ObservableCollection<Item>>(getItems());
-			int startIndex = 0;
 			Scalar<int> countScalar = getScalar<int>(3);
 			OcConsumer consumer = new OcConsumer();
 			var testing = sourceScalar.Taking<Item>(
@@ -59405,12 +61064,12 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
-		public void TestTaking11()
+		[Test, Combinatorial]
+		public void TestTaking11(
+			[Values(1)] int startIndex,
+			[Values(4)] int count)
 		{
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
-			int startIndex = 0;
-			int count = 3;
 			OcConsumer consumer = new OcConsumer();
 			var testing = sourceScalar.Taking<Item>(
 				startIndex,
@@ -59477,12 +61136,12 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
-		public void TestTaking12()
+		[Test, Combinatorial]
+		public void TestTaking12(
+			[Values(1)] int startIndex,
+			[Values(4)] int count)
 		{
 			Scalar<ObservableCollection<Item>> sourceScalar = getScalar<ObservableCollection<Item>>(getItems());
-			int startIndex = 0;
-			int count = 3;
 			OcConsumer consumer = new OcConsumer();
 			var testing = sourceScalar.Taking<Item>(
 				startIndex,
@@ -59549,13 +61208,13 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
-		public void TestTaking13()
+		[Test, Combinatorial]
+		public void TestTaking13(
+			[Values(1)] int initialCapacity)
 		{
 			System.Collections.Specialized.INotifyCollectionChanged source = getItems();
 			Scalar<int> startIndexScalar = getScalar<int>(0);
 			Scalar<int> countScalar = getScalar<int>(3);
-			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = source.Taking<Item>(
 				startIndexScalar,
@@ -59629,7 +61288,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestTaking14()
 		{
 			System.Collections.Specialized.INotifyCollectionChanged source = getItems();
@@ -59706,13 +61365,13 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
-		public void TestTaking15()
+		[Test, Combinatorial]
+		public void TestTaking15(
+			[Values(1)] int initialCapacity)
 		{
 			ObservableCollection<Item> source = getItems();
 			Scalar<int> startIndexScalar = getScalar<int>(0);
 			Scalar<int> countScalar = getScalar<int>(3);
-			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = source.Taking<Item>(
 				startIndexScalar,
@@ -59786,7 +61445,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestTaking16()
 		{
 			ObservableCollection<Item> source = getItems();
@@ -59863,12 +61522,12 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
-		public void TestTaking17()
+		[Test, Combinatorial]
+		public void TestTaking17(
+			[Values(4)] int count)
 		{
 			System.Collections.Specialized.INotifyCollectionChanged source = getItems();
 			Scalar<int> startIndexScalar = getScalar<int>(0);
-			int count = 3;
 			OcConsumer consumer = new OcConsumer();
 			var testing = source.Taking<Item>(
 				startIndexScalar,
@@ -59935,12 +61594,12 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
-		public void TestTaking18()
+		[Test, Combinatorial]
+		public void TestTaking18(
+			[Values(4)] int count)
 		{
 			ObservableCollection<Item> source = getItems();
 			Scalar<int> startIndexScalar = getScalar<int>(0);
-			int count = 3;
 			OcConsumer consumer = new OcConsumer();
 			var testing = source.Taking<Item>(
 				startIndexScalar,
@@ -60007,13 +61666,13 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
-		public void TestTaking19()
+		[Test, Combinatorial]
+		public void TestTaking19(
+			[Values(1)] int startIndex,
+			[Values(1)] int initialCapacity)
 		{
 			System.Collections.Specialized.INotifyCollectionChanged source = getItems();
-			int startIndex = 0;
 			Scalar<int> countScalar = getScalar<int>(3);
-			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = source.Taking<Item>(
 				startIndex,
@@ -60082,11 +61741,11 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
-		public void TestTaking20()
+		[Test, Combinatorial]
+		public void TestTaking20(
+			[Values(1)] int startIndex)
 		{
 			System.Collections.Specialized.INotifyCollectionChanged source = getItems();
-			int startIndex = 0;
 			Scalar<int> countScalar = getScalar<int>(3);
 			OcConsumer consumer = new OcConsumer();
 			var testing = source.Taking<Item>(
@@ -60154,13 +61813,13 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
-		public void TestTaking21()
+		[Test, Combinatorial]
+		public void TestTaking21(
+			[Values(1)] int startIndex,
+			[Values(1)] int initialCapacity)
 		{
 			ObservableCollection<Item> source = getItems();
-			int startIndex = 0;
 			Scalar<int> countScalar = getScalar<int>(3);
-			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = source.Taking<Item>(
 				startIndex,
@@ -60229,11 +61888,11 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
-		public void TestTaking22()
+		[Test, Combinatorial]
+		public void TestTaking22(
+			[Values(1)] int startIndex)
 		{
 			ObservableCollection<Item> source = getItems();
-			int startIndex = 0;
 			Scalar<int> countScalar = getScalar<int>(3);
 			OcConsumer consumer = new OcConsumer();
 			var testing = source.Taking<Item>(
@@ -60301,12 +61960,12 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
-		public void TestTaking23()
+		[Test, Combinatorial]
+		public void TestTaking23(
+			[Values(1)] int startIndex,
+			[Values(4)] int count)
 		{
 			System.Collections.Specialized.INotifyCollectionChanged source = getItems();
-			int startIndex = 0;
-			int count = 3;
 			OcConsumer consumer = new OcConsumer();
 			var testing = source.Taking<Item>(
 				startIndex,
@@ -60368,12 +62027,12 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
-		public void TestTaking24()
+		[Test, Combinatorial]
+		public void TestTaking24(
+			[Values(1)] int startIndex,
+			[Values(4)] int count)
 		{
 			ObservableCollection<Item> source = getItems();
-			int startIndex = 0;
-			int count = 3;
 			OcConsumer consumer = new OcConsumer();
 			var testing = source.Taking<Item>(
 				startIndex,
@@ -60438,12 +62097,12 @@ namespace ObservableComputations.Test
 		#region TakingWhile
 
 		
-		[Test]
-		public void TestTakingWhile01()
+		[Test, Combinatorial]
+		public void TestTakingWhile01(
+			[Values(1)] int initialCapacity)
 		{
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
 			System.Linq.Expressions.Expression<System.Func<Item, int, bool>> indexedPredicateExpression = (i, ind) => i.Active;
-			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = sourceScalar.TakingWhile<Item>(
 				indexedPredicateExpression,
@@ -60510,7 +62169,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestTakingWhile02()
 		{
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
@@ -60579,12 +62238,12 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
-		public void TestTakingWhile03()
+		[Test, Combinatorial]
+		public void TestTakingWhile03(
+			[Values(1)] int initialCapacity)
 		{
 			Scalar<ObservableCollection<Item>> sourceScalar = getScalar<ObservableCollection<Item>>(getItems());
 			System.Linq.Expressions.Expression<System.Func<Item, int, bool>> indexedPredicateExpression = (i, ind) => i.Active;
-			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = sourceScalar.TakingWhile<Item>(
 				indexedPredicateExpression,
@@ -60651,7 +62310,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestTakingWhile04()
 		{
 			Scalar<ObservableCollection<Item>> sourceScalar = getScalar<ObservableCollection<Item>>(getItems());
@@ -60720,12 +62379,12 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
-		public void TestTakingWhile05()
+		[Test, Combinatorial]
+		public void TestTakingWhile05(
+			[Values(1)] int initialCapacity)
 		{
 			System.Collections.Specialized.INotifyCollectionChanged source = getItems();
 			System.Linq.Expressions.Expression<System.Func<Item, int, bool>> indexedPredicateExpression = (i, ind) => i.Active;
-			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = source.TakingWhile<Item>(
 				indexedPredicateExpression,
@@ -60787,7 +62446,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestTakingWhile06()
 		{
 			System.Collections.Specialized.INotifyCollectionChanged source = getItems();
@@ -60851,12 +62510,12 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
-		public void TestTakingWhile07()
+		[Test, Combinatorial]
+		public void TestTakingWhile07(
+			[Values(1)] int initialCapacity)
 		{
 			ObservableCollection<Item> source = getItems();
 			System.Linq.Expressions.Expression<System.Func<Item, int, bool>> indexedPredicateExpression = (i, ind) => i.Active;
-			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = source.TakingWhile<Item>(
 				indexedPredicateExpression,
@@ -60918,7 +62577,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestTakingWhile08()
 		{
 			ObservableCollection<Item> source = getItems();
@@ -60982,12 +62641,12 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
-		public void TestTakingWhile09()
+		[Test, Combinatorial]
+		public void TestTakingWhile09(
+			[Values(1)] int initialCapacity)
 		{
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
 			System.Linq.Expressions.Expression<System.Func<Item, bool>> predicateExpression = i => i.Active;
-			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = sourceScalar.TakingWhile<Item>(
 				predicateExpression,
@@ -61054,7 +62713,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestTakingWhile10()
 		{
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
@@ -61123,12 +62782,12 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
-		public void TestTakingWhile11()
+		[Test, Combinatorial]
+		public void TestTakingWhile11(
+			[Values(1)] int initialCapacity)
 		{
 			Scalar<ObservableCollection<Item>> sourceScalar = getScalar<ObservableCollection<Item>>(getItems());
 			System.Linq.Expressions.Expression<System.Func<Item, bool>> predicateExpression = i => i.Active;
-			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = sourceScalar.TakingWhile<Item>(
 				predicateExpression,
@@ -61195,7 +62854,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestTakingWhile12()
 		{
 			Scalar<ObservableCollection<Item>> sourceScalar = getScalar<ObservableCollection<Item>>(getItems());
@@ -61264,12 +62923,12 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
-		public void TestTakingWhile13()
+		[Test, Combinatorial]
+		public void TestTakingWhile13(
+			[Values(1)] int initialCapacity)
 		{
 			System.Collections.Specialized.INotifyCollectionChanged source = getItems();
 			System.Linq.Expressions.Expression<System.Func<Item, bool>> predicateExpression = i => i.Active;
-			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = source.TakingWhile<Item>(
 				predicateExpression,
@@ -61331,7 +62990,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestTakingWhile14()
 		{
 			System.Collections.Specialized.INotifyCollectionChanged source = getItems();
@@ -61395,12 +63054,12 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
-		public void TestTakingWhile15()
+		[Test, Combinatorial]
+		public void TestTakingWhile15(
+			[Values(1)] int initialCapacity)
 		{
 			ObservableCollection<Item> source = getItems();
 			System.Linq.Expressions.Expression<System.Func<Item, bool>> predicateExpression = i => i.Active;
-			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = source.TakingWhile<Item>(
 				predicateExpression,
@@ -61462,7 +63121,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestTakingWhile16()
 		{
 			ObservableCollection<Item> source = getItems();
@@ -61529,7 +63188,7 @@ namespace ObservableComputations.Test
 		#region ThenOrdering
 
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestThenOrdering01()
 		{
 			ObservableComputations.IOrdering<int> source = getItems().Selecting(i => i.Num).Ordering(i => i);
@@ -61609,7 +63268,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestThenOrdering02()
 		{
 			ObservableComputations.IOrdering<int> source = getItems().Selecting(i => i.Num).Ordering(i => i);
@@ -61681,7 +63340,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestThenOrdering03()
 		{
 			ObservableComputations.IOrdering<int> source = getItems().Selecting(i => i.Num).Ordering(i => i);
@@ -61753,7 +63412,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestThenOrdering04()
 		{
 			ObservableComputations.IOrdering<int> source = getItems().Selecting(i => i.Num).Ordering(i => i);
@@ -61817,7 +63476,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestThenOrdering05()
 		{
 			ObservableComputations.IOrdering<int> source = getItems().Selecting(i => i.Num).Ordering(i => i);
@@ -61892,7 +63551,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestThenOrdering06()
 		{
 			ObservableComputations.IOrdering<int> source = getItems().Selecting(i => i.Num).Ordering(i => i);
@@ -61959,7 +63618,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestThenOrdering07()
 		{
 			ObservableComputations.IOrdering<int> source = getItems().Selecting(i => i.Num).Ordering(i => i);
@@ -62034,7 +63693,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestThenOrdering08()
 		{
 			ObservableComputations.IOrdering<int> source = getItems().Selecting(i => i.Num).Ordering(i => i);
@@ -62101,7 +63760,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestThenOrdering09()
 		{
 			ObservableComputations.IOrdering<int> source = getItems().Selecting(i => i.Num).Ordering(i => i);
@@ -62171,7 +63830,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestThenOrdering10()
 		{
 			Scalar<ObservableComputations.IOrdering<int>> sourceScalar = getScalar<ObservableComputations.IOrdering<int>>(getItems().Selecting(i => i.Num).Ordering(i => i));
@@ -62256,7 +63915,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestThenOrdering11()
 		{
 			Scalar<ObservableComputations.IOrdering<int>> sourceScalar = getScalar<ObservableComputations.IOrdering<int>>(getItems().Selecting(i => i.Num).Ordering(i => i));
@@ -62333,7 +63992,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestThenOrdering12()
 		{
 			Scalar<ObservableComputations.IOrdering<int>> sourceScalar = getScalar<ObservableComputations.IOrdering<int>>(getItems().Selecting(i => i.Num).Ordering(i => i));
@@ -62410,7 +64069,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestThenOrdering13()
 		{
 			Scalar<ObservableComputations.IOrdering<int>> sourceScalar = getScalar<ObservableComputations.IOrdering<int>>(getItems().Selecting(i => i.Num).Ordering(i => i));
@@ -62479,7 +64138,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestThenOrdering14()
 		{
 			Scalar<ObservableComputations.IOrdering<int>> sourceScalar = getScalar<ObservableComputations.IOrdering<int>>(getItems().Selecting(i => i.Num).Ordering(i => i));
@@ -62559,7 +64218,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestThenOrdering15()
 		{
 			Scalar<ObservableComputations.IOrdering<int>> sourceScalar = getScalar<ObservableComputations.IOrdering<int>>(getItems().Selecting(i => i.Num).Ordering(i => i));
@@ -62631,7 +64290,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestThenOrdering16()
 		{
 			Scalar<ObservableComputations.IOrdering<int>> sourceScalar = getScalar<ObservableComputations.IOrdering<int>>(getItems().Selecting(i => i.Num).Ordering(i => i));
@@ -62711,7 +64370,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestThenOrdering17()
 		{
 			Scalar<ObservableComputations.IOrdering<int>> sourceScalar = getScalar<ObservableComputations.IOrdering<int>>(getItems().Selecting(i => i.Num).Ordering(i => i));
@@ -62783,7 +64442,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestThenOrdering18()
 		{
 			Scalar<ObservableComputations.IOrdering<int>> sourceScalar = getScalar<ObservableComputations.IOrdering<int>>(getItems().Selecting(i => i.Num).Ordering(i => i));
@@ -62861,12 +64520,12 @@ namespace ObservableComputations.Test
 		#region Uniting
 
 		
-		[Test]
-		public void TestUniting01()
+		[Test, Combinatorial]
+		public void TestUniting01(
+			[Values(1)] int initialCapacity)
 		{
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getCollectionsOfItems());
 			Scalar<System.Collections.Generic.IEqualityComparer<Item>> equalityComparerScalar = getScalar<System.Collections.Generic.IEqualityComparer<Item>>(EqualityComparer<Item>.Default);
-			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = sourceScalar.Uniting<Item>(
 				equalityComparerScalar,
@@ -62916,7 +64575,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestUniting02()
 		{
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getCollectionsOfItems());
@@ -62968,11 +64627,11 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
-		public void TestUniting03()
+		[Test, Combinatorial]
+		public void TestUniting03(
+			[Values(1)] int initialCapacity)
 		{
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getCollectionsOfItems());
-			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = sourceScalar.Uniting<Item>(
 				initialCapacity).For(consumer);
@@ -63015,7 +64674,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestUniting04()
 		{
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getCollectionsOfItems());
@@ -63059,12 +64718,12 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
-		public void TestUniting05()
+		[Test, Combinatorial]
+		public void TestUniting05(
+			[Values(1)] int initialCapacity)
 		{
 			Scalar<ObservableCollection<ObservableCollection<Item>>> sourceScalar = getScalar<ObservableCollection<ObservableCollection<Item>>>(getCollectionsOfItems());
 			Scalar<System.Collections.Generic.IEqualityComparer<Item>> equalityComparerScalar = getScalar<System.Collections.Generic.IEqualityComparer<Item>>(EqualityComparer<Item>.Default);
-			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = sourceScalar.Uniting<Item>(
 				equalityComparerScalar,
@@ -63114,7 +64773,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestUniting06()
 		{
 			Scalar<ObservableCollection<ObservableCollection<Item>>> sourceScalar = getScalar<ObservableCollection<ObservableCollection<Item>>>(getCollectionsOfItems());
@@ -63166,11 +64825,11 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
-		public void TestUniting07()
+		[Test, Combinatorial]
+		public void TestUniting07(
+			[Values(1)] int initialCapacity)
 		{
 			Scalar<ObservableCollection<ObservableCollection<Item>>> sourceScalar = getScalar<ObservableCollection<ObservableCollection<Item>>>(getCollectionsOfItems());
-			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = sourceScalar.Uniting<Item>(
 				initialCapacity).For(consumer);
@@ -63213,7 +64872,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestUniting08()
 		{
 			Scalar<ObservableCollection<ObservableCollection<Item>>> sourceScalar = getScalar<ObservableCollection<ObservableCollection<Item>>>(getCollectionsOfItems());
@@ -63257,12 +64916,12 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
-		public void TestUniting09()
+		[Test, Combinatorial]
+		public void TestUniting09(
+			[Values(1)] int initialCapacity)
 		{
 			System.Collections.Specialized.INotifyCollectionChanged source = getCollectionsOfItems();
 			Scalar<System.Collections.Generic.IEqualityComparer<Item>> equalityComparerScalar = getScalar<System.Collections.Generic.IEqualityComparer<Item>>(EqualityComparer<Item>.Default);
-			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = source.Uniting<Item>(
 				equalityComparerScalar,
@@ -63307,7 +64966,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestUniting10()
 		{
 			System.Collections.Specialized.INotifyCollectionChanged source = getCollectionsOfItems();
@@ -63354,11 +65013,11 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
-		public void TestUniting11()
+		[Test, Combinatorial]
+		public void TestUniting11(
+			[Values(1)] int initialCapacity)
 		{
 			System.Collections.Specialized.INotifyCollectionChanged source = getCollectionsOfItems();
-			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = source.Uniting<Item>(
 				initialCapacity).For(consumer);
@@ -63396,7 +65055,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestUniting12()
 		{
 			System.Collections.Specialized.INotifyCollectionChanged source = getCollectionsOfItems();
@@ -63435,12 +65094,12 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
-		public void TestUniting13()
+		[Test, Combinatorial]
+		public void TestUniting13(
+			[Values(1)] int initialCapacity)
 		{
 			ObservableCollection<ObservableCollection<Item>> source = getCollectionsOfItems();
 			Scalar<System.Collections.Generic.IEqualityComparer<Item>> equalityComparerScalar = getScalar<System.Collections.Generic.IEqualityComparer<Item>>(EqualityComparer<Item>.Default);
-			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = source.Uniting<Item>(
 				equalityComparerScalar,
@@ -63485,7 +65144,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestUniting14()
 		{
 			ObservableCollection<ObservableCollection<Item>> source = getCollectionsOfItems();
@@ -63532,11 +65191,11 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
-		public void TestUniting15()
+		[Test, Combinatorial]
+		public void TestUniting15(
+			[Values(1)] int initialCapacity)
 		{
 			ObservableCollection<ObservableCollection<Item>> source = getCollectionsOfItems();
-			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = source.Uniting<Item>(
 				initialCapacity).For(consumer);
@@ -63574,7 +65233,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestUniting16()
 		{
 			ObservableCollection<ObservableCollection<Item>> source = getCollectionsOfItems();
@@ -63613,12 +65272,12 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
-		public void TestUniting17()
+		[Test, Combinatorial]
+		public void TestUniting17(
+			[Values(1)] int initialCapacity)
 		{
 			System.Collections.Specialized.INotifyCollectionChanged source = getCollectionsOfItems();
 			System.Collections.Generic.IEqualityComparer<Item> equalityComparer = EqualityComparer<Item>.Default;
-			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = source.Uniting<Item>(
 				equalityComparer,
@@ -63658,7 +65317,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestUniting18()
 		{
 			System.Collections.Specialized.INotifyCollectionChanged source = getCollectionsOfItems();
@@ -63700,12 +65359,12 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
-		public void TestUniting19()
+		[Test, Combinatorial]
+		public void TestUniting19(
+			[Values(1)] int initialCapacity)
 		{
 			ObservableCollection<ObservableCollection<Item>> source = getCollectionsOfItems();
 			System.Collections.Generic.IEqualityComparer<Item> equalityComparer = EqualityComparer<Item>.Default;
-			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = source.Uniting<Item>(
 				equalityComparer,
@@ -63745,7 +65404,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestUniting20()
 		{
 			ObservableCollection<ObservableCollection<Item>> source = getCollectionsOfItems();
@@ -63787,12 +65446,12 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
-		public void TestUniting21()
+		[Test, Combinatorial]
+		public void TestUniting21(
+			[Values(1)] int initialCapacity)
 		{
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getCollectionsOfItems());
 			System.Collections.Generic.IEqualityComparer<Item> equalityComparer = EqualityComparer<Item>.Default;
-			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = sourceScalar.Uniting<Item>(
 				equalityComparer,
@@ -63837,7 +65496,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestUniting22()
 		{
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getCollectionsOfItems());
@@ -63884,12 +65543,12 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
-		public void TestUniting23()
+		[Test, Combinatorial]
+		public void TestUniting23(
+			[Values(1)] int initialCapacity)
 		{
 			Scalar<ObservableCollection<ObservableCollection<Item>>> sourceScalar = getScalar<ObservableCollection<ObservableCollection<Item>>>(getCollectionsOfItems());
 			System.Collections.Generic.IEqualityComparer<Item> equalityComparer = EqualityComparer<Item>.Default;
-			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = sourceScalar.Uniting<Item>(
 				equalityComparer,
@@ -63934,7 +65593,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestUniting24()
 		{
 			Scalar<ObservableCollection<ObservableCollection<Item>>> sourceScalar = getScalar<ObservableCollection<ObservableCollection<Item>>>(getCollectionsOfItems());
@@ -63981,13 +65640,13 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
-		public void TestUniting25()
+		[Test, Combinatorial]
+		public void TestUniting25(
+			[Values(1)] int initialCapacity)
 		{
 			System.Collections.Specialized.INotifyCollectionChanged source1 = getItems();
 			System.Collections.Specialized.INotifyCollectionChanged source2 = getItems();
 			System.Collections.Generic.IEqualityComparer<Item> equalityComparer = EqualityComparer<Item>.Default;
-			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = source1.Uniting<Item>(
 				source2,
@@ -64090,7 +65749,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestUniting26()
 		{
 			System.Collections.Specialized.INotifyCollectionChanged source1 = getItems();
@@ -64196,12 +65855,12 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
-		public void TestUniting27()
+		[Test, Combinatorial]
+		public void TestUniting27(
+			[Values(1)] int initialCapacity)
 		{
 			System.Collections.Specialized.INotifyCollectionChanged source1 = getItems();
 			System.Collections.Specialized.INotifyCollectionChanged source2 = getItems();
-			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = source1.Uniting<Item>(
 				source2,
@@ -64302,7 +65961,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestUniting28()
 		{
 			System.Collections.Specialized.INotifyCollectionChanged source1 = getItems();
@@ -64405,13 +66064,13 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
-		public void TestUniting29()
+		[Test, Combinatorial]
+		public void TestUniting29(
+			[Values(1)] int initialCapacity)
 		{
 			System.Collections.Specialized.INotifyCollectionChanged source1 = getItems();
 			ObservableCollection<Item> source2 = getItems();
 			System.Collections.Generic.IEqualityComparer<Item> equalityComparer = EqualityComparer<Item>.Default;
-			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = source1.Uniting<Item>(
 				source2,
@@ -64514,7 +66173,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestUniting30()
 		{
 			System.Collections.Specialized.INotifyCollectionChanged source1 = getItems();
@@ -64620,12 +66279,12 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
-		public void TestUniting31()
+		[Test, Combinatorial]
+		public void TestUniting31(
+			[Values(1)] int initialCapacity)
 		{
 			System.Collections.Specialized.INotifyCollectionChanged source1 = getItems();
 			ObservableCollection<Item> source2 = getItems();
-			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = source1.Uniting<Item>(
 				source2,
@@ -64726,7 +66385,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestUniting32()
 		{
 			System.Collections.Specialized.INotifyCollectionChanged source1 = getItems();
@@ -64829,13 +66488,13 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
-		public void TestUniting33()
+		[Test, Combinatorial]
+		public void TestUniting33(
+			[Values(1)] int initialCapacity)
 		{
 			ObservableCollection<Item> source1 = getItems();
 			System.Collections.Specialized.INotifyCollectionChanged source2 = getItems();
 			System.Collections.Generic.IEqualityComparer<Item> equalityComparer = EqualityComparer<Item>.Default;
-			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = source1.Uniting<Item>(
 				source2,
@@ -64938,7 +66597,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestUniting34()
 		{
 			ObservableCollection<Item> source1 = getItems();
@@ -65044,12 +66703,12 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
-		public void TestUniting35()
+		[Test, Combinatorial]
+		public void TestUniting35(
+			[Values(1)] int initialCapacity)
 		{
 			ObservableCollection<Item> source1 = getItems();
 			System.Collections.Specialized.INotifyCollectionChanged source2 = getItems();
-			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = source1.Uniting<Item>(
 				source2,
@@ -65150,7 +66809,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestUniting36()
 		{
 			ObservableCollection<Item> source1 = getItems();
@@ -65253,13 +66912,13 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
-		public void TestUniting37()
+		[Test, Combinatorial]
+		public void TestUniting37(
+			[Values(1)] int initialCapacity)
 		{
 			ObservableCollection<Item> source1 = getItems();
 			ObservableCollection<Item> source2 = getItems();
 			System.Collections.Generic.IEqualityComparer<Item> equalityComparer = EqualityComparer<Item>.Default;
-			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = source1.Uniting<Item>(
 				source2,
@@ -65362,7 +67021,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestUniting38()
 		{
 			ObservableCollection<Item> source1 = getItems();
@@ -65468,12 +67127,12 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
-		public void TestUniting39()
+		[Test, Combinatorial]
+		public void TestUniting39(
+			[Values(1)] int initialCapacity)
 		{
 			ObservableCollection<Item> source1 = getItems();
 			ObservableCollection<Item> source2 = getItems();
-			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = source1.Uniting<Item>(
 				source2,
@@ -65574,7 +67233,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestUniting40()
 		{
 			ObservableCollection<Item> source1 = getItems();
@@ -65677,13 +67336,13 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
-		public void TestUniting41()
+		[Test, Combinatorial]
+		public void TestUniting41(
+			[Values(1)] int initialCapacity)
 		{
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> source1Scalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
 			System.Collections.Specialized.INotifyCollectionChanged source2 = getItems();
 			System.Collections.Generic.IEqualityComparer<Item> equalityComparer = EqualityComparer<Item>.Default;
-			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = source1Scalar.Uniting<Item>(
 				source2,
@@ -65791,7 +67450,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestUniting42()
 		{
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> source1Scalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
@@ -65902,12 +67561,12 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
-		public void TestUniting43()
+		[Test, Combinatorial]
+		public void TestUniting43(
+			[Values(1)] int initialCapacity)
 		{
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> source1Scalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
 			System.Collections.Specialized.INotifyCollectionChanged source2 = getItems();
-			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = source1Scalar.Uniting<Item>(
 				source2,
@@ -66013,7 +67672,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestUniting44()
 		{
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> source1Scalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
@@ -66121,13 +67780,13 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
-		public void TestUniting45()
+		[Test, Combinatorial]
+		public void TestUniting45(
+			[Values(1)] int initialCapacity)
 		{
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> source1Scalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
 			ObservableCollection<Item> source2 = getItems();
 			System.Collections.Generic.IEqualityComparer<Item> equalityComparer = EqualityComparer<Item>.Default;
-			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = source1Scalar.Uniting<Item>(
 				source2,
@@ -66235,7 +67894,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestUniting46()
 		{
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> source1Scalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
@@ -66346,12 +68005,12 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
-		public void TestUniting47()
+		[Test, Combinatorial]
+		public void TestUniting47(
+			[Values(1)] int initialCapacity)
 		{
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> source1Scalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
 			ObservableCollection<Item> source2 = getItems();
-			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = source1Scalar.Uniting<Item>(
 				source2,
@@ -66457,7 +68116,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestUniting48()
 		{
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> source1Scalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
@@ -66565,13 +68224,13 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
-		public void TestUniting49()
+		[Test, Combinatorial]
+		public void TestUniting49(
+			[Values(1)] int initialCapacity)
 		{
 			Scalar<ObservableCollection<Item>> source1Scalar = getScalar<ObservableCollection<Item>>(getItems());
 			System.Collections.Specialized.INotifyCollectionChanged source2 = getItems();
 			System.Collections.Generic.IEqualityComparer<Item> equalityComparer = EqualityComparer<Item>.Default;
-			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = source1Scalar.Uniting<Item>(
 				source2,
@@ -66679,7 +68338,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestUniting50()
 		{
 			Scalar<ObservableCollection<Item>> source1Scalar = getScalar<ObservableCollection<Item>>(getItems());
@@ -66790,12 +68449,12 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
-		public void TestUniting51()
+		[Test, Combinatorial]
+		public void TestUniting51(
+			[Values(1)] int initialCapacity)
 		{
 			Scalar<ObservableCollection<Item>> source1Scalar = getScalar<ObservableCollection<Item>>(getItems());
 			System.Collections.Specialized.INotifyCollectionChanged source2 = getItems();
-			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = source1Scalar.Uniting<Item>(
 				source2,
@@ -66901,7 +68560,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestUniting52()
 		{
 			Scalar<ObservableCollection<Item>> source1Scalar = getScalar<ObservableCollection<Item>>(getItems());
@@ -67009,13 +68668,13 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
-		public void TestUniting53()
+		[Test, Combinatorial]
+		public void TestUniting53(
+			[Values(1)] int initialCapacity)
 		{
 			Scalar<ObservableCollection<Item>> source1Scalar = getScalar<ObservableCollection<Item>>(getItems());
 			ObservableCollection<Item> source2 = getItems();
 			System.Collections.Generic.IEqualityComparer<Item> equalityComparer = EqualityComparer<Item>.Default;
-			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = source1Scalar.Uniting<Item>(
 				source2,
@@ -67123,7 +68782,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestUniting54()
 		{
 			Scalar<ObservableCollection<Item>> source1Scalar = getScalar<ObservableCollection<Item>>(getItems());
@@ -67234,12 +68893,12 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
-		public void TestUniting55()
+		[Test, Combinatorial]
+		public void TestUniting55(
+			[Values(1)] int initialCapacity)
 		{
 			Scalar<ObservableCollection<Item>> source1Scalar = getScalar<ObservableCollection<Item>>(getItems());
 			ObservableCollection<Item> source2 = getItems();
-			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = source1Scalar.Uniting<Item>(
 				source2,
@@ -67345,7 +69004,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestUniting56()
 		{
 			Scalar<ObservableCollection<Item>> source1Scalar = getScalar<ObservableCollection<Item>>(getItems());
@@ -67453,13 +69112,13 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
-		public void TestUniting57()
+		[Test, Combinatorial]
+		public void TestUniting57(
+			[Values(1)] int initialCapacity)
 		{
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> source1Scalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> source2Scalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
 			System.Collections.Generic.IEqualityComparer<Item> equalityComparer = EqualityComparer<Item>.Default;
-			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = source1Scalar.Uniting<Item>(
 				source2Scalar,
@@ -67572,7 +69231,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestUniting58()
 		{
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> source1Scalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
@@ -67688,12 +69347,12 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
-		public void TestUniting59()
+		[Test, Combinatorial]
+		public void TestUniting59(
+			[Values(1)] int initialCapacity)
 		{
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> source1Scalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> source2Scalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
-			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = source1Scalar.Uniting<Item>(
 				source2Scalar,
@@ -67804,7 +69463,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestUniting60()
 		{
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> source1Scalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
@@ -67917,13 +69576,13 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
-		public void TestUniting61()
+		[Test, Combinatorial]
+		public void TestUniting61(
+			[Values(1)] int initialCapacity)
 		{
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> source1Scalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
 			Scalar<ObservableCollection<Item>> source2Scalar = getScalar<ObservableCollection<Item>>(getItems());
 			System.Collections.Generic.IEqualityComparer<Item> equalityComparer = EqualityComparer<Item>.Default;
-			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = source1Scalar.Uniting<Item>(
 				source2Scalar,
@@ -68036,7 +69695,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestUniting62()
 		{
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> source1Scalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
@@ -68152,12 +69811,12 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
-		public void TestUniting63()
+		[Test, Combinatorial]
+		public void TestUniting63(
+			[Values(1)] int initialCapacity)
 		{
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> source1Scalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
 			Scalar<ObservableCollection<Item>> source2Scalar = getScalar<ObservableCollection<Item>>(getItems());
-			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = source1Scalar.Uniting<Item>(
 				source2Scalar,
@@ -68268,7 +69927,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestUniting64()
 		{
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> source1Scalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
@@ -68381,13 +70040,13 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
-		public void TestUniting65()
+		[Test, Combinatorial]
+		public void TestUniting65(
+			[Values(1)] int initialCapacity)
 		{
 			Scalar<ObservableCollection<Item>> source1Scalar = getScalar<ObservableCollection<Item>>(getItems());
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> source2Scalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
 			System.Collections.Generic.IEqualityComparer<Item> equalityComparer = EqualityComparer<Item>.Default;
-			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = source1Scalar.Uniting<Item>(
 				source2Scalar,
@@ -68500,7 +70159,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestUniting66()
 		{
 			Scalar<ObservableCollection<Item>> source1Scalar = getScalar<ObservableCollection<Item>>(getItems());
@@ -68616,12 +70275,12 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
-		public void TestUniting67()
+		[Test, Combinatorial]
+		public void TestUniting67(
+			[Values(1)] int initialCapacity)
 		{
 			Scalar<ObservableCollection<Item>> source1Scalar = getScalar<ObservableCollection<Item>>(getItems());
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> source2Scalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
-			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = source1Scalar.Uniting<Item>(
 				source2Scalar,
@@ -68732,7 +70391,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestUniting68()
 		{
 			Scalar<ObservableCollection<Item>> source1Scalar = getScalar<ObservableCollection<Item>>(getItems());
@@ -68845,13 +70504,13 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
-		public void TestUniting69()
+		[Test, Combinatorial]
+		public void TestUniting69(
+			[Values(1)] int initialCapacity)
 		{
 			Scalar<ObservableCollection<Item>> source1Scalar = getScalar<ObservableCollection<Item>>(getItems());
 			Scalar<ObservableCollection<Item>> source2Scalar = getScalar<ObservableCollection<Item>>(getItems());
 			System.Collections.Generic.IEqualityComparer<Item> equalityComparer = EqualityComparer<Item>.Default;
-			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = source1Scalar.Uniting<Item>(
 				source2Scalar,
@@ -68964,7 +70623,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestUniting70()
 		{
 			Scalar<ObservableCollection<Item>> source1Scalar = getScalar<ObservableCollection<Item>>(getItems());
@@ -69080,12 +70739,12 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
-		public void TestUniting71()
+		[Test, Combinatorial]
+		public void TestUniting71(
+			[Values(1)] int initialCapacity)
 		{
 			Scalar<ObservableCollection<Item>> source1Scalar = getScalar<ObservableCollection<Item>>(getItems());
 			Scalar<ObservableCollection<Item>> source2Scalar = getScalar<ObservableCollection<Item>>(getItems());
-			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = source1Scalar.Uniting<Item>(
 				source2Scalar,
@@ -69196,7 +70855,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestUniting72()
 		{
 			Scalar<ObservableCollection<Item>> source1Scalar = getScalar<ObservableCollection<Item>>(getItems());
@@ -69309,13 +70968,13 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
-		public void TestUniting73()
+		[Test, Combinatorial]
+		public void TestUniting73(
+			[Values(1)] int initialCapacity)
 		{
 			System.Collections.Specialized.INotifyCollectionChanged source1 = getItems();
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> source2Scalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
 			System.Collections.Generic.IEqualityComparer<Item> equalityComparer = EqualityComparer<Item>.Default;
-			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = source1.Uniting<Item>(
 				source2Scalar,
@@ -69423,7 +71082,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestUniting74()
 		{
 			System.Collections.Specialized.INotifyCollectionChanged source1 = getItems();
@@ -69534,12 +71193,12 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
-		public void TestUniting75()
+		[Test, Combinatorial]
+		public void TestUniting75(
+			[Values(1)] int initialCapacity)
 		{
 			System.Collections.Specialized.INotifyCollectionChanged source1 = getItems();
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> source2Scalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
-			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = source1.Uniting<Item>(
 				source2Scalar,
@@ -69645,7 +71304,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestUniting76()
 		{
 			System.Collections.Specialized.INotifyCollectionChanged source1 = getItems();
@@ -69753,13 +71412,13 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
-		public void TestUniting77()
+		[Test, Combinatorial]
+		public void TestUniting77(
+			[Values(1)] int initialCapacity)
 		{
 			System.Collections.Specialized.INotifyCollectionChanged source1 = getItems();
 			Scalar<ObservableCollection<Item>> source2Scalar = getScalar<ObservableCollection<Item>>(getItems());
 			System.Collections.Generic.IEqualityComparer<Item> equalityComparer = EqualityComparer<Item>.Default;
-			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = source1.Uniting<Item>(
 				source2Scalar,
@@ -69867,7 +71526,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestUniting78()
 		{
 			System.Collections.Specialized.INotifyCollectionChanged source1 = getItems();
@@ -69978,12 +71637,12 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
-		public void TestUniting79()
+		[Test, Combinatorial]
+		public void TestUniting79(
+			[Values(1)] int initialCapacity)
 		{
 			System.Collections.Specialized.INotifyCollectionChanged source1 = getItems();
 			Scalar<ObservableCollection<Item>> source2Scalar = getScalar<ObservableCollection<Item>>(getItems());
-			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = source1.Uniting<Item>(
 				source2Scalar,
@@ -70089,7 +71748,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestUniting80()
 		{
 			System.Collections.Specialized.INotifyCollectionChanged source1 = getItems();
@@ -70197,13 +71856,13 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
-		public void TestUniting81()
+		[Test, Combinatorial]
+		public void TestUniting81(
+			[Values(1)] int initialCapacity)
 		{
 			ObservableCollection<Item> source1 = getItems();
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> source2Scalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
 			System.Collections.Generic.IEqualityComparer<Item> equalityComparer = EqualityComparer<Item>.Default;
-			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = source1.Uniting<Item>(
 				source2Scalar,
@@ -70311,7 +71970,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestUniting82()
 		{
 			ObservableCollection<Item> source1 = getItems();
@@ -70422,12 +72081,12 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
-		public void TestUniting83()
+		[Test, Combinatorial]
+		public void TestUniting83(
+			[Values(1)] int initialCapacity)
 		{
 			ObservableCollection<Item> source1 = getItems();
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> source2Scalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
-			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = source1.Uniting<Item>(
 				source2Scalar,
@@ -70533,7 +72192,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestUniting84()
 		{
 			ObservableCollection<Item> source1 = getItems();
@@ -70641,13 +72300,13 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
-		public void TestUniting85()
+		[Test, Combinatorial]
+		public void TestUniting85(
+			[Values(1)] int initialCapacity)
 		{
 			ObservableCollection<Item> source1 = getItems();
 			Scalar<ObservableCollection<Item>> source2Scalar = getScalar<ObservableCollection<Item>>(getItems());
 			System.Collections.Generic.IEqualityComparer<Item> equalityComparer = EqualityComparer<Item>.Default;
-			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = source1.Uniting<Item>(
 				source2Scalar,
@@ -70755,7 +72414,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestUniting86()
 		{
 			ObservableCollection<Item> source1 = getItems();
@@ -70866,12 +72525,12 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
-		public void TestUniting87()
+		[Test, Combinatorial]
+		public void TestUniting87(
+			[Values(1)] int initialCapacity)
 		{
 			ObservableCollection<Item> source1 = getItems();
 			Scalar<ObservableCollection<Item>> source2Scalar = getScalar<ObservableCollection<Item>>(getItems());
-			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = source1.Uniting<Item>(
 				source2Scalar,
@@ -70977,7 +72636,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestUniting88()
 		{
 			ObservableCollection<Item> source1 = getItems();
@@ -71085,13 +72744,13 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
-		public void TestUniting89()
+		[Test, Combinatorial]
+		public void TestUniting89(
+			[Values(1)] int initialCapacity)
 		{
 			System.Collections.Specialized.INotifyCollectionChanged source1 = getItems();
 			System.Collections.Specialized.INotifyCollectionChanged source2 = getItems();
 			Scalar<System.Collections.Generic.IEqualityComparer<Item>> equalityComparerScalar = getScalar<System.Collections.Generic.IEqualityComparer<Item>>(EqualityComparer<Item>.Default);
-			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = source1.Uniting<Item>(
 				source2,
@@ -71199,7 +72858,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestUniting90()
 		{
 			System.Collections.Specialized.INotifyCollectionChanged source1 = getItems();
@@ -71310,13 +72969,13 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
-		public void TestUniting91()
+		[Test, Combinatorial]
+		public void TestUniting91(
+			[Values(1)] int initialCapacity)
 		{
 			System.Collections.Specialized.INotifyCollectionChanged source1 = getItems();
 			ObservableCollection<Item> source2 = getItems();
 			Scalar<System.Collections.Generic.IEqualityComparer<Item>> equalityComparerScalar = getScalar<System.Collections.Generic.IEqualityComparer<Item>>(EqualityComparer<Item>.Default);
-			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = source1.Uniting<Item>(
 				source2,
@@ -71424,7 +73083,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestUniting92()
 		{
 			System.Collections.Specialized.INotifyCollectionChanged source1 = getItems();
@@ -71535,13 +73194,13 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
-		public void TestUniting93()
+		[Test, Combinatorial]
+		public void TestUniting93(
+			[Values(1)] int initialCapacity)
 		{
 			ObservableCollection<Item> source1 = getItems();
 			System.Collections.Specialized.INotifyCollectionChanged source2 = getItems();
 			Scalar<System.Collections.Generic.IEqualityComparer<Item>> equalityComparerScalar = getScalar<System.Collections.Generic.IEqualityComparer<Item>>(EqualityComparer<Item>.Default);
-			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = source1.Uniting<Item>(
 				source2,
@@ -71649,7 +73308,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestUniting94()
 		{
 			ObservableCollection<Item> source1 = getItems();
@@ -71760,13 +73419,13 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
-		public void TestUniting95()
+		[Test, Combinatorial]
+		public void TestUniting95(
+			[Values(1)] int initialCapacity)
 		{
 			ObservableCollection<Item> source1 = getItems();
 			ObservableCollection<Item> source2 = getItems();
 			Scalar<System.Collections.Generic.IEqualityComparer<Item>> equalityComparerScalar = getScalar<System.Collections.Generic.IEqualityComparer<Item>>(EqualityComparer<Item>.Default);
-			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = source1.Uniting<Item>(
 				source2,
@@ -71874,7 +73533,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestUniting96()
 		{
 			ObservableCollection<Item> source1 = getItems();
@@ -71985,13 +73644,13 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
-		public void TestUniting97()
+		[Test, Combinatorial]
+		public void TestUniting97(
+			[Values(1)] int initialCapacity)
 		{
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> source1Scalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
 			System.Collections.Specialized.INotifyCollectionChanged source2 = getItems();
 			Scalar<System.Collections.Generic.IEqualityComparer<Item>> equalityComparerScalar = getScalar<System.Collections.Generic.IEqualityComparer<Item>>(EqualityComparer<Item>.Default);
-			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = source1Scalar.Uniting<Item>(
 				source2,
@@ -72104,7 +73763,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestUniting98()
 		{
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> source1Scalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
@@ -72220,13 +73879,13 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
-		public void TestUniting99()
+		[Test, Combinatorial]
+		public void TestUniting99(
+			[Values(1)] int initialCapacity)
 		{
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> source1Scalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
 			ObservableCollection<Item> source2 = getItems();
 			Scalar<System.Collections.Generic.IEqualityComparer<Item>> equalityComparerScalar = getScalar<System.Collections.Generic.IEqualityComparer<Item>>(EqualityComparer<Item>.Default);
-			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = source1Scalar.Uniting<Item>(
 				source2,
@@ -72339,7 +73998,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestUniting100()
 		{
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> source1Scalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
@@ -72455,13 +74114,13 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
-		public void TestUniting101()
+		[Test, Combinatorial]
+		public void TestUniting101(
+			[Values(1)] int initialCapacity)
 		{
 			Scalar<ObservableCollection<Item>> source1Scalar = getScalar<ObservableCollection<Item>>(getItems());
 			System.Collections.Specialized.INotifyCollectionChanged source2 = getItems();
 			Scalar<System.Collections.Generic.IEqualityComparer<Item>> equalityComparerScalar = getScalar<System.Collections.Generic.IEqualityComparer<Item>>(EqualityComparer<Item>.Default);
-			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = source1Scalar.Uniting<Item>(
 				source2,
@@ -72574,7 +74233,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestUniting102()
 		{
 			Scalar<ObservableCollection<Item>> source1Scalar = getScalar<ObservableCollection<Item>>(getItems());
@@ -72690,13 +74349,13 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
-		public void TestUniting103()
+		[Test, Combinatorial]
+		public void TestUniting103(
+			[Values(1)] int initialCapacity)
 		{
 			Scalar<ObservableCollection<Item>> source1Scalar = getScalar<ObservableCollection<Item>>(getItems());
 			ObservableCollection<Item> source2 = getItems();
 			Scalar<System.Collections.Generic.IEqualityComparer<Item>> equalityComparerScalar = getScalar<System.Collections.Generic.IEqualityComparer<Item>>(EqualityComparer<Item>.Default);
-			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = source1Scalar.Uniting<Item>(
 				source2,
@@ -72809,7 +74468,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestUniting104()
 		{
 			Scalar<ObservableCollection<Item>> source1Scalar = getScalar<ObservableCollection<Item>>(getItems());
@@ -72925,13 +74584,13 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
-		public void TestUniting105()
+		[Test, Combinatorial]
+		public void TestUniting105(
+			[Values(1)] int initialCapacity)
 		{
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> source1Scalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> source2Scalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
 			Scalar<System.Collections.Generic.IEqualityComparer<Item>> equalityComparerScalar = getScalar<System.Collections.Generic.IEqualityComparer<Item>>(EqualityComparer<Item>.Default);
-			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = source1Scalar.Uniting<Item>(
 				source2Scalar,
@@ -73049,7 +74708,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestUniting106()
 		{
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> source1Scalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
@@ -73170,13 +74829,13 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
-		public void TestUniting107()
+		[Test, Combinatorial]
+		public void TestUniting107(
+			[Values(1)] int initialCapacity)
 		{
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> source1Scalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
 			Scalar<ObservableCollection<Item>> source2Scalar = getScalar<ObservableCollection<Item>>(getItems());
 			Scalar<System.Collections.Generic.IEqualityComparer<Item>> equalityComparerScalar = getScalar<System.Collections.Generic.IEqualityComparer<Item>>(EqualityComparer<Item>.Default);
-			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = source1Scalar.Uniting<Item>(
 				source2Scalar,
@@ -73294,7 +74953,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestUniting108()
 		{
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> source1Scalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
@@ -73415,13 +75074,13 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
-		public void TestUniting109()
+		[Test, Combinatorial]
+		public void TestUniting109(
+			[Values(1)] int initialCapacity)
 		{
 			Scalar<ObservableCollection<Item>> source1Scalar = getScalar<ObservableCollection<Item>>(getItems());
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> source2Scalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
 			Scalar<System.Collections.Generic.IEqualityComparer<Item>> equalityComparerScalar = getScalar<System.Collections.Generic.IEqualityComparer<Item>>(EqualityComparer<Item>.Default);
-			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = source1Scalar.Uniting<Item>(
 				source2Scalar,
@@ -73539,7 +75198,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestUniting110()
 		{
 			Scalar<ObservableCollection<Item>> source1Scalar = getScalar<ObservableCollection<Item>>(getItems());
@@ -73660,13 +75319,13 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
-		public void TestUniting111()
+		[Test, Combinatorial]
+		public void TestUniting111(
+			[Values(1)] int initialCapacity)
 		{
 			Scalar<ObservableCollection<Item>> source1Scalar = getScalar<ObservableCollection<Item>>(getItems());
 			Scalar<ObservableCollection<Item>> source2Scalar = getScalar<ObservableCollection<Item>>(getItems());
 			Scalar<System.Collections.Generic.IEqualityComparer<Item>> equalityComparerScalar = getScalar<System.Collections.Generic.IEqualityComparer<Item>>(EqualityComparer<Item>.Default);
-			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = source1Scalar.Uniting<Item>(
 				source2Scalar,
@@ -73784,7 +75443,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestUniting112()
 		{
 			Scalar<ObservableCollection<Item>> source1Scalar = getScalar<ObservableCollection<Item>>(getItems());
@@ -73905,13 +75564,13 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
-		public void TestUniting113()
+		[Test, Combinatorial]
+		public void TestUniting113(
+			[Values(1)] int initialCapacity)
 		{
 			System.Collections.Specialized.INotifyCollectionChanged source1 = getItems();
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> source2Scalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
 			Scalar<System.Collections.Generic.IEqualityComparer<Item>> equalityComparerScalar = getScalar<System.Collections.Generic.IEqualityComparer<Item>>(EqualityComparer<Item>.Default);
-			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = source1.Uniting<Item>(
 				source2Scalar,
@@ -74024,7 +75683,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestUniting114()
 		{
 			System.Collections.Specialized.INotifyCollectionChanged source1 = getItems();
@@ -74140,13 +75799,13 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
-		public void TestUniting115()
+		[Test, Combinatorial]
+		public void TestUniting115(
+			[Values(1)] int initialCapacity)
 		{
 			System.Collections.Specialized.INotifyCollectionChanged source1 = getItems();
 			Scalar<ObservableCollection<Item>> source2Scalar = getScalar<ObservableCollection<Item>>(getItems());
 			Scalar<System.Collections.Generic.IEqualityComparer<Item>> equalityComparerScalar = getScalar<System.Collections.Generic.IEqualityComparer<Item>>(EqualityComparer<Item>.Default);
-			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = source1.Uniting<Item>(
 				source2Scalar,
@@ -74259,7 +75918,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestUniting116()
 		{
 			System.Collections.Specialized.INotifyCollectionChanged source1 = getItems();
@@ -74375,13 +76034,13 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
-		public void TestUniting117()
+		[Test, Combinatorial]
+		public void TestUniting117(
+			[Values(1)] int initialCapacity)
 		{
 			ObservableCollection<Item> source1 = getItems();
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> source2Scalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
 			Scalar<System.Collections.Generic.IEqualityComparer<Item>> equalityComparerScalar = getScalar<System.Collections.Generic.IEqualityComparer<Item>>(EqualityComparer<Item>.Default);
-			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = source1.Uniting<Item>(
 				source2Scalar,
@@ -74494,7 +76153,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestUniting118()
 		{
 			ObservableCollection<Item> source1 = getItems();
@@ -74610,13 +76269,13 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
-		public void TestUniting119()
+		[Test, Combinatorial]
+		public void TestUniting119(
+			[Values(1)] int initialCapacity)
 		{
 			ObservableCollection<Item> source1 = getItems();
 			Scalar<ObservableCollection<Item>> source2Scalar = getScalar<ObservableCollection<Item>>(getItems());
 			Scalar<System.Collections.Generic.IEqualityComparer<Item>> equalityComparerScalar = getScalar<System.Collections.Generic.IEqualityComparer<Item>>(EqualityComparer<Item>.Default);
-			int initialCapacity = 100;
 			OcConsumer consumer = new OcConsumer();
 			var testing = source1.Uniting<Item>(
 				source2Scalar,
@@ -74729,7 +76388,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestUniting120()
 		{
 			ObservableCollection<Item> source1 = getItems();
@@ -74848,7 +76507,7 @@ namespace ObservableComputations.Test
 		#region Zipping
 
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestZipping01()
 		{
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> leftSourceScalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
@@ -74926,7 +76585,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestZipping02()
 		{
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> leftSourceScalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
@@ -75004,7 +76663,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestZipping03()
 		{
 			Scalar<ObservableCollection<Item>> leftSourceScalar = getScalar<ObservableCollection<Item>>(getItems());
@@ -75082,7 +76741,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestZipping04()
 		{
 			Scalar<ObservableCollection<Item>> leftSourceScalar = getScalar<ObservableCollection<Item>>(getItems());
@@ -75160,7 +76819,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestZipping05()
 		{
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> leftSourceScalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
@@ -75243,7 +76902,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestZipping06()
 		{
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> leftSourceScalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
@@ -75326,7 +76985,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestZipping07()
 		{
 			Scalar<ObservableCollection<Item>> leftSourceScalar = getScalar<ObservableCollection<Item>>(getItems());
@@ -75409,7 +77068,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestZipping08()
 		{
 			Scalar<ObservableCollection<Item>> leftSourceScalar = getScalar<ObservableCollection<Item>>(getItems());
@@ -75492,7 +77151,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestZipping09()
 		{
 			System.Collections.Specialized.INotifyCollectionChanged leftSource = getItems();
@@ -75565,7 +77224,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestZipping10()
 		{
 			System.Collections.Specialized.INotifyCollectionChanged leftSource = getItems();
@@ -75638,7 +77297,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestZipping11()
 		{
 			ObservableCollection<Item> leftSource = getItems();
@@ -75711,7 +77370,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestZipping12()
 		{
 			ObservableCollection<Item> leftSource = getItems();
@@ -75784,7 +77443,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestZipping13()
 		{
 			System.Collections.Specialized.INotifyCollectionChanged leftSource = getItems();
@@ -75862,7 +77521,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestZipping14()
 		{
 			System.Collections.Specialized.INotifyCollectionChanged leftSource = getItems();
@@ -75940,7 +77599,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestZipping15()
 		{
 			ObservableCollection<Item> leftSource = getItems();
@@ -76018,7 +77677,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		
-		[Test]
+		[Test, Combinatorial]
 		public void TestZipping16()
 		{
 			ObservableCollection<Item> leftSource = getItems();

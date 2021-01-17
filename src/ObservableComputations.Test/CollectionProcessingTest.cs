@@ -2,12 +2,15 @@
 // Buchelnikov Igor Vladimirovich licenses this file to you under the MIT license.
 // The LICENSE file is located at https://github.com/IgorBuchelnikov/ObservableComputations/blob/master/LICENSE
 
+using System;
 using System.Collections.ObjectModel;
+using System.Linq;
 using NUnit.Framework;
 
 namespace ObservableComputations.Test
 {
 	[TestFixture(false)]
+	[TestFixture(true)]
 	public class CollectionProcessingTest : TestBase
 	{
 		OcConsumer consumer = new OcConsumer();
@@ -19,44 +22,7 @@ namespace ObservableComputations.Test
 			public object Token = new object();
 		}
 
-		private static CollectionProcessing<Item, object> getCollectionProcessing(ObservableCollection<Item> items, OcConsumer consumer)
-		{
-			return items.CollectionProcessing(
-				(newItems, current) =>
-				{
-					object[] tokens = new object[newItems.Length];
-					for (int index = 0; index < newItems.Length; index++)
-					{
-						Item newItem = newItems[index];
-						newItem.ProcessedAsNew = true;
-						tokens[index] = newItem.Token;
-					}
-
-					return tokens; 
-				},
-				(oldItems, current, returnValues) =>
-				{
-					for (int index = 0; index < oldItems.Length; index++)
-					{
-						Item oldItem = oldItems[index];
-						oldItem.ProcessedAsOld = true;
-						Assert.AreEqual(oldItem.Token, returnValues[index]);
-					}
-				}).For(consumer);
-		}
-
-		[Test]
-		public void CollectionProcessing_Initialization_01()
-		{
-			ObservableCollection<Item> items = new ObservableCollection<Item>();
-
-			CollectionProcessing<Item, object> collectionProcessing = getCollectionProcessing(items, consumer);
-		}
-
-
-		[Test, Combinatorial]
-		public void CollectionProcessing_Remove(
-			[Range(0, 4, 1)] int index)
+		public void TestCollectionProcessing1()
 		{
 			Item[] sourceCollection = new[]
 			{
@@ -70,148 +36,437 @@ namespace ObservableComputations.Test
 			ObservableCollection<Item> items = new ObservableCollection<Item>(
 				sourceCollection);
 
-			CollectionProcessing<Item, object> collectionProcessing = getCollectionProcessing(items, consumer);
-			items.RemoveAt(index);
-			Assert.IsTrue(sourceCollection[index].ProcessedAsNew);
-			Assert.IsTrue(sourceCollection[index].ProcessedAsOld);
-			consumer.Dispose();
-
-		}
-
-		[Test, Combinatorial]
-		public void CollectionProcessing_Remove1()
-		{
-			Item item = new Item();
-			ObservableCollection<Item> items = new ObservableCollection<Item>(
-				new[]
+			Func<Item[], ICollectionComputing, object[]> newItemProcessor = (newItems, current) =>
+			{
+				object[] tokens = new object[newItems.Length];
+				for (int index = 0; index < newItems.Length; index++)
 				{
-					item
+					Item newItem = newItems[index];
+					newItem.ProcessedAsNew = true;
+					tokens[index] = newItem.Token;
 				}
-			);
 
-			CollectionProcessing<Item, object> collectionProcessing = getCollectionProcessing(items, consumer);
+				return tokens; 
+			};
+
+			Action<Item[], ICollectionComputing, object[]> oldItemProcessor = (oldItems, current, returnValues) =>
+			{
+				for (int index = 0; index < oldItems.Length; index++)
+				{
+					Item oldItem = oldItems[index];
+					oldItem.ProcessedAsOld = true;
+					Assert.AreEqual(oldItem.Token, returnValues[index]);
+				}
+			};
+
+			Action<Item, ICollectionComputing, object> moveItemProcessor = (item, computing, arg3) =>
+			{
+
+			};
+
+			var collectionProcessing = items.CollectionProcessing(
+				newItemProcessor,
+				oldItemProcessor,
+				moveItemProcessor).For(consumer);
+
+			Assert.AreEqual(collectionProcessing.Source, items);
+			Assert.AreEqual(collectionProcessing.NewItemsProcessor, newItemProcessor);
+			Assert.AreEqual(collectionProcessing.OldItemsProcessor, oldItemProcessor);
+			Assert.AreEqual(collectionProcessing.MoveItemProcessor, moveItemProcessor);
+
+			Assert.IsTrue(items.All(item => item.ProcessedAsNew));
+
 			items.RemoveAt(0);
-			Assert.IsTrue(item.ProcessedAsNew);
-			Assert.IsTrue(item.ProcessedAsOld);
+			Assert.IsTrue(sourceCollection[0].ProcessedAsNew);
+			Assert.IsTrue(sourceCollection[0].ProcessedAsOld);
+
+			Item item1 = new Item();
+			items.Insert(0, item1);
+			Assert.IsTrue(item1.ProcessedAsNew);
+			Assert.IsFalse(item1.ProcessedAsOld);
+
+			items.Move(1, 2);
+
 			consumer.Dispose();
-		}
-
-		[Test, Combinatorial]
-		public void CollectionProcessing_Insert(
-			[Range(0, 4, 1)] int index)
-		{
-			Item[] sourceCollection = new[]
-			{
-				new Item(),
-				new Item(),
-				new Item(),
-				new Item(),
-				new Item()
-			};
-
-			ObservableCollection<Item> items = new ObservableCollection<Item>(
-				sourceCollection);
-
-			CollectionProcessing<Item, object> collectionProcessing = getCollectionProcessing(items, consumer);
-			Item item = new Item();
-			items.Insert(index, item);
-			Assert.IsTrue(item.ProcessedAsNew);
-			Assert.IsFalse(item.ProcessedAsOld);
-			consumer.Dispose();
-		}
-
-		[Test, Combinatorial]
-		public void CollectionProcessing_Insert1(
-			[Range(-1, 5)] int newValue)
-		{
-			ObservableCollection<Item> items = new ObservableCollection<Item>();
-
-			CollectionProcessing<Item, object> collectionProcessing = getCollectionProcessing(items, consumer);
-			Item item = new Item();
-			items.Insert(0, item);
-			Assert.IsTrue(item.ProcessedAsNew);
-			Assert.IsFalse(item.ProcessedAsOld);
-			consumer.Dispose();
-		}
-
-		[Test, Combinatorial]
-		public void CollectionProcessing_Move(
-			[Range(0, 4, 1)] int oldIndex,
-			[Range(0, 4, 1)] int newIndex)
-		{
-			Item[] sourceCollection = new[]
-			{
-				new Item(),
-				new Item(),
-				new Item(),
-				new Item(),
-				new Item()
-			};
-
-			ObservableCollection<Item> items = new ObservableCollection<Item>(
-				sourceCollection);
-
-			CollectionProcessing<Item, object> collectionProcessing = getCollectionProcessing(items, consumer);
-			items.Move(oldIndex, newIndex);
-			Assert.IsTrue(sourceCollection[oldIndex].ProcessedAsNew);
-			Assert.IsFalse(sourceCollection[oldIndex].ProcessedAsOld);
-			consumer.Dispose();
-		}
-
-		[Test, Combinatorial]
-		public void CollectionProcessing_Set(
-			[Range(0, 4, 1)] int index)
-		{
-			Item[] sourceCollection = new[]
-			{
-				new Item(),
-				new Item(),
-				new Item(),
-				new Item(),
-				new Item()
-			};
-
-			ObservableCollection<Item> items = new ObservableCollection<Item>(
-				sourceCollection);
-
-			CollectionProcessing<Item, object> collectionProcessing = getCollectionProcessing(items, consumer);
-			items[index] = new Item();
-			Assert.IsTrue(sourceCollection[index].ProcessedAsNew);
-			Assert.IsTrue(sourceCollection[index].ProcessedAsOld);
-			Assert.IsTrue(items[index].ProcessedAsNew);
-			Assert.IsFalse(items[index].ProcessedAsOld);
-			consumer.Dispose();
-		}	
-
-		[Test, Combinatorial]
-		public void CollectionProcessing_Dispose()
-		{
-			Item[] sourceCollection = new[]
-			{
-				new Item(),
-				new Item(),
-				new Item(),
-				new Item(),
-				new Item()
-			};
-
-			ObservableCollection<Item> items = new ObservableCollection<Item>(
-				sourceCollection);
-
-			CollectionProcessing<Item, object> collectionProcessing = getCollectionProcessing(items, consumer);
-			foreach (Item item in sourceCollection)
-			{
-				Assert.IsTrue(item.ProcessedAsNew);
-				Assert.IsFalse(item.ProcessedAsOld);	
-			}			
-			
-			consumer.Dispose();
-			foreach (Item item in sourceCollection)
+			foreach (Item item in items)
 			{
 				Assert.IsTrue(item.ProcessedAsNew);
 				Assert.IsTrue(item.ProcessedAsOld);				
 			}
 		}
+
+		public void CollectionProcessing2()
+			//IReadScalar<INotifyCollectionChanged> sourceScalar,
+			//Func<TSourceItem[], ICollectionComputing, TReturnValue[]> newItemProcessor = null,
+			//Action<TSourceItem[], ICollectionComputing, TReturnValue[]> oldItemProcessor = null,
+			//Action<TSourceItem, ICollectionComputing, TReturnValue> moveItemProcessor = null)
+			
+		{
+			Item[] sourceCollection = new[]
+			{
+				new Item(),
+				new Item(),
+				new Item(),
+				new Item(),
+				new Item()
+			};
+
+			ObservableCollection<Item> items = new ObservableCollection<Item>(
+				sourceCollection);
+
+			Scalar<ObservableCollection<Item>> itemsScalar = new Scalar<ObservableCollection<Item>>(items);
+
+			Func<Item[], ICollectionComputing, object[]> newItemProcessor = (newItems, current) =>
+			{
+				object[] tokens = new object[newItems.Length];
+				for (int index = 0; index < newItems.Length; index++)
+				{
+					Item newItem = newItems[index];
+					newItem.ProcessedAsNew = true;
+					tokens[index] = newItem.Token;
+				}
+
+				return tokens; 
+			};
+
+			Action<Item[], ICollectionComputing, object[]> oldItemProcessor = (oldItems, current, returnValues) =>
+			{
+				for (int index = 0; index < oldItems.Length; index++)
+				{
+					Item oldItem = oldItems[index];
+					oldItem.ProcessedAsOld = true;
+					Assert.AreEqual(oldItem.Token, returnValues[index]);
+				}
+			};
+
+			Action<Item, ICollectionComputing, object> moveItemProcessor = (item, computing, arg3) =>
+			{
+
+			};
+
+			var collectionProcessing = itemsScalar.CollectionProcessing(
+				newItemProcessor,
+				oldItemProcessor,
+				moveItemProcessor).For(consumer);
+
+			Assert.AreEqual(collectionProcessing.SourceScalar, itemsScalar);
+			Assert.AreEqual(collectionProcessing.NewItemsProcessor, newItemProcessor);
+			Assert.AreEqual(collectionProcessing.OldItemsProcessor, oldItemProcessor);
+			Assert.AreEqual(collectionProcessing.MoveItemProcessor, moveItemProcessor);
+
+			Assert.IsTrue(items.All(item => item.ProcessedAsNew));
+
+			items.RemoveAt(0);
+			Assert.IsTrue(sourceCollection[0].ProcessedAsNew);
+			Assert.IsTrue(sourceCollection[0].ProcessedAsOld);
+
+			Item item1 = new Item();
+			items.Insert(0, item1);
+			Assert.IsTrue(item1.ProcessedAsNew);
+			Assert.IsFalse(item1.ProcessedAsOld);
+
+			items.Move(1, 2);
+
+			consumer.Dispose();
+			foreach (Item item in items)
+			{
+				Assert.IsTrue(item.ProcessedAsNew);
+				Assert.IsTrue(item.ProcessedAsOld);				
+			}
+
+			itemsScalar.Touch();
+		}
+
+		public void CollectionProcessing3()
+		{
+			Item[] sourceCollection = new[]
+			{
+				new Item(),
+				new Item(),
+				new Item(),
+				new Item(),
+				new Item()
+			};
+
+			ObservableCollection<Item> items = new ObservableCollection<Item>(
+				sourceCollection);
+
+
+			Func<Item[], ICollectionComputing, object[]> newItemProcessor = (newItems, current) =>
+			{
+				object[] tokens = new object[newItems.Length];
+				for (int index = 0; index < newItems.Length; index++)
+				{
+					Item newItem = newItems[index];
+					newItem.ProcessedAsNew = true;
+					tokens[index] = newItem.Token;
+				}
+
+				return tokens; 
+			};
+
+			Action<Item[], ICollectionComputing, object[]> oldItemProcessor = (oldItems, current, returnValues) =>
+			{
+				for (int index = 0; index < oldItems.Length; index++)
+				{
+					Item oldItem = oldItems[index];
+					oldItem.ProcessedAsOld = true;
+					Assert.AreEqual(oldItem.Token, returnValues[index]);
+				}
+			};
+
+			Action<Item, ICollectionComputing, object> moveItemProcessor = (item, computing, arg3) =>
+			{
+
+			};
+
+			var collectionProcessing = Expr.Is(() => items).CollectionProcessing(
+				newItemProcessor,
+				oldItemProcessor,
+				moveItemProcessor).For(consumer);
+
+			Assert.AreEqual(collectionProcessing.NewItemsProcessor, newItemProcessor);
+			Assert.AreEqual(collectionProcessing.OldItemsProcessor, oldItemProcessor);
+			Assert.AreEqual(collectionProcessing.MoveItemProcessor, moveItemProcessor);
+
+			Assert.IsTrue(items.All(item => item.ProcessedAsNew));
+
+			items.RemoveAt(0);
+			Assert.IsTrue(sourceCollection[0].ProcessedAsNew);
+			Assert.IsTrue(sourceCollection[0].ProcessedAsOld);
+
+			Item item1 = new Item();
+			items.Insert(0, item1);
+			Assert.IsTrue(item1.ProcessedAsNew);
+			Assert.IsFalse(item1.ProcessedAsOld);
+
+			items.Move(1, 2);
+
+			consumer.Dispose();
+			foreach (Item item in items)
+			{
+				Assert.IsTrue(item.ProcessedAsNew);
+				Assert.IsTrue(item.ProcessedAsOld);				
+			}
+		}
+
+
+
+
+		public void TestCollectionProcessingVoid1()
+		{
+			Item[] sourceCollection = new[]
+			{
+				new Item(),
+				new Item(),
+				new Item(),
+				new Item(),
+				new Item()
+			};
+
+			ObservableCollection<Item> items = new ObservableCollection<Item>(
+				sourceCollection);
+
+			Action<Item[], CollectionProcessingVoid<Item>> newItemProcessor = (newItems, current) =>
+			{
+				for (int index = 0; index < newItems.Length; index++)
+				{
+					Item newItem = newItems[index];
+					newItem.ProcessedAsNew = true;
+				} ; 
+			};
+
+			Action<Item[], CollectionProcessingVoid<Item>> oldItemProcessor = (oldItems, current) =>
+			{
+				for (int index = 0; index < oldItems.Length; index++)
+				{
+					Item oldItem = oldItems[index];
+					oldItem.ProcessedAsOld = true;
+				}
+			};
+
+			Action<Item, CollectionProcessingVoid<Item>> moveItemProcessor = (item, computing) =>
+			{
+
+			};
+
+			var collectionProcessing = items.CollectionProcessing(
+				newItemProcessor,
+				oldItemProcessor,
+				moveItemProcessor).For(consumer);
+
+			Assert.AreEqual(collectionProcessing.Source, items);
+			Assert.AreEqual(collectionProcessing.NewItemsProcessor, newItemProcessor);
+			Assert.AreEqual(collectionProcessing.OldItemsProcessor, oldItemProcessor);
+			Assert.AreEqual(collectionProcessing.MoveItemProcessor, moveItemProcessor);
+
+			Assert.IsTrue(items.All(item => item.ProcessedAsNew));
+
+			items.RemoveAt(0);
+			Assert.IsTrue(sourceCollection[0].ProcessedAsNew);
+			Assert.IsTrue(sourceCollection[0].ProcessedAsOld);
+
+			Item item1 = new Item();
+			items.Insert(0, item1);
+			Assert.IsTrue(item1.ProcessedAsNew);
+			Assert.IsFalse(item1.ProcessedAsOld);
+
+			items.Move(1, 2);
+
+			consumer.Dispose();
+			foreach (Item item in items)
+			{
+				Assert.IsTrue(item.ProcessedAsNew);
+				Assert.IsTrue(item.ProcessedAsOld);				
+			}
+		}
+
+		public void CollectionProcessingVoid2()
+			//IReadScalar<INotifyCollectionChanged> sourceScalar,
+			//Func<TSourceItem[], ICollectionComputing, TReturnValue[]> newItemProcessor = null,
+			//Action<TSourceItem[], ICollectionComputing, TReturnValue[]> oldItemProcessor = null,
+			//Action<TSourceItem, ICollectionComputing, TReturnValue> moveItemProcessor = null)
+			
+		{
+			Item[] sourceCollection = new[]
+			{
+				new Item(),
+				new Item(),
+				new Item(),
+				new Item(),
+				new Item()
+			};
+
+			ObservableCollection<Item> items = new ObservableCollection<Item>(
+				sourceCollection);
+
+			Scalar<ObservableCollection<Item>> itemsScalar = new Scalar<ObservableCollection<Item>>(items);
+
+			Action<Item[], CollectionProcessingVoid<Item>> newItemProcessor = (newItems, current) =>
+			{
+				for (int index = 0; index < newItems.Length; index++)
+				{
+					Item newItem = newItems[index];
+					newItem.ProcessedAsNew = true;
+				} ; 
+			};
+
+			Action<Item[], CollectionProcessingVoid<Item>> oldItemProcessor = (oldItems, current) =>
+			{
+				for (int index = 0; index < oldItems.Length; index++)
+				{
+					Item oldItem = oldItems[index];
+					oldItem.ProcessedAsOld = true;
+				}
+			};
+
+			Action<Item, CollectionProcessingVoid<Item>> moveItemProcessor = (item, computing) =>
+			{
+
+			};
+
+			var collectionProcessing = itemsScalar.CollectionProcessing(
+				newItemProcessor,
+				oldItemProcessor,
+				moveItemProcessor).For(consumer);
+
+			Assert.AreEqual(collectionProcessing.SourceScalar, itemsScalar);
+			Assert.AreEqual(collectionProcessing.NewItemsProcessor, newItemProcessor);
+			Assert.AreEqual(collectionProcessing.OldItemsProcessor, oldItemProcessor);
+			Assert.AreEqual(collectionProcessing.MoveItemProcessor, moveItemProcessor);
+
+			Assert.IsTrue(items.All(item => item.ProcessedAsNew));
+
+			items.RemoveAt(0);
+			Assert.IsTrue(sourceCollection[0].ProcessedAsNew);
+			Assert.IsTrue(sourceCollection[0].ProcessedAsOld);
+
+			Item item1 = new Item();
+			items.Insert(0, item1);
+			Assert.IsTrue(item1.ProcessedAsNew);
+			Assert.IsFalse(item1.ProcessedAsOld);
+
+			items.Move(1, 2);
+
+			consumer.Dispose();
+			foreach (Item item in items)
+			{
+				Assert.IsTrue(item.ProcessedAsNew);
+				Assert.IsTrue(item.ProcessedAsOld);				
+			}
+
+			itemsScalar.Touch();
+		}
+
+		public void CollectionProcessingVoid3()
+		{
+			Item[] sourceCollection = new[]
+			{
+				new Item(),
+				new Item(),
+				new Item(),
+				new Item(),
+				new Item()
+			};
+
+			ObservableCollection<Item> items = new ObservableCollection<Item>(
+				sourceCollection);
+
+
+			Action<Item[], CollectionProcessingVoid<Item>> newItemProcessor = (newItems, current) =>
+			{
+				for (int index = 0; index < newItems.Length; index++)
+				{
+					Item newItem = newItems[index];
+					newItem.ProcessedAsNew = true;
+				} ; 
+			};
+
+			Action<Item[], CollectionProcessingVoid<Item>> oldItemProcessor = (oldItems, current) =>
+			{
+				for (int index = 0; index < oldItems.Length; index++)
+				{
+					Item oldItem = oldItems[index];
+					oldItem.ProcessedAsOld = true;
+				}
+			};
+
+			Action<Item, CollectionProcessingVoid<Item>> moveItemProcessor = (item, computing) =>
+			{
+
+			};
+
+			var collectionProcessing = Expr.Is(() => items).CollectionProcessing(
+				newItemProcessor,
+				oldItemProcessor,
+				moveItemProcessor).For(consumer);
+
+			Assert.AreEqual(collectionProcessing.NewItemsProcessor, newItemProcessor);
+			Assert.AreEqual(collectionProcessing.OldItemsProcessor, oldItemProcessor);
+			Assert.AreEqual(collectionProcessing.MoveItemProcessor, moveItemProcessor);
+
+			Assert.IsTrue(items.All(item => item.ProcessedAsNew));
+
+			items.RemoveAt(0);
+			Assert.IsTrue(sourceCollection[0].ProcessedAsNew);
+			Assert.IsTrue(sourceCollection[0].ProcessedAsOld);
+
+			Item item1 = new Item();
+			items.Insert(0, item1);
+			Assert.IsTrue(item1.ProcessedAsNew);
+			Assert.IsFalse(item1.ProcessedAsOld);
+
+			items.Move(1, 2);
+
+			consumer.Dispose();
+			foreach (Item item in items)
+			{
+				Assert.IsTrue(item.ProcessedAsNew);
+				Assert.IsTrue(item.ProcessedAsOld);				
+			}
+		}
+
+
 
 		public CollectionProcessingTest(bool debug) : base(debug)
 		{

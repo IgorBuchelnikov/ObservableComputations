@@ -2,8 +2,11 @@
 // Buchelnikov Igor Vladimirovich licenses this file to you under the MIT license.
 // The LICENSE file is located at https://github.com/IgorBuchelnikov/ObservableComputations/blob/master/LICENSE
 
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Linq;
+using System.Reflection;
 using System.Runtime.CompilerServices;
 using NUnit.Framework;
 
@@ -137,6 +140,29 @@ namespace ObservableComputations.Test
 
 			result = null;
 			consumer.Dispose();
+		}
+
+		private PropertyAccessing<string>[] getPropertyAccessings(Order order)
+		{
+			List<PropertyAccessing<string>> propertyAccessings = new List<PropertyAccessing<string>>();
+			propertyAccessings.Add(order.PropertyAccessing<string>("Num"));
+			propertyAccessings.Add(order.PropertyAccessing<string>("Num", typeof(string)));
+			propertyAccessings.Add(order.PropertyAccessing<string>("Num", typeof(string), new Type[0]));
+			propertyAccessings.Add(order.PropertyAccessing<string>("Num", typeof(string), new Type[0], new ParameterModifier[0]));
+			propertyAccessings.Add(order.PropertyAccessing<string>("Num", BindingFlags.Instance | BindingFlags.GetProperty));
+			propertyAccessings.Add(order.PropertyAccessing<string>("Num", BindingFlags.Instance | BindingFlags.GetProperty, null, typeof(string), new Type[0], new ParameterModifier[0]));
+			propertyAccessings.Add(order.PropertyAccessing<string>(pi => pi.Name == "Num"));
+			propertyAccessings.Add(order.PropertyAccessing<string>(pi => pi.Name == "Num", BindingFlags.Instance | BindingFlags.GetProperty));
+			propertyAccessings.Add(order.PropertyAccessing<string>("Num", (string)null));
+			propertyAccessings.Add(order.PropertyAccessing<string>("Num", typeof(string), (string)null));
+			propertyAccessings.Add(order.PropertyAccessing<string>("Num", typeof(string), new Type[0], (string)null));
+			propertyAccessings.Add(order.PropertyAccessing<string>("Num", typeof(string), new Type[0], new ParameterModifier[0], (string)null));
+			propertyAccessings.Add(order.PropertyAccessing<string>("Num", BindingFlags.Instance | BindingFlags.GetProperty, (string)null));
+			propertyAccessings.Add(order.PropertyAccessing<string>("Num", BindingFlags.Instance | BindingFlags.GetProperty, null, typeof(string), new Type[0], new ParameterModifier[0], (string)null));
+			propertyAccessings.Add(order.PropertyAccessing<string>(pi => pi.Name == "Num", (string)null));
+			propertyAccessings.Add(order.PropertyAccessing<string>(pi => pi.Name == "Num", BindingFlags.Instance | BindingFlags.GetProperty, (string)null));
+
+			return propertyAccessings.ToArray();
 		}
 
 		public PropertyAccessingTests(bool debug) : base(debug)

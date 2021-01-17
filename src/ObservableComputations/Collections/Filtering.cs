@@ -108,107 +108,108 @@ namespace ObservableComputations
 			_filteredPositions = new Positions<Position>(new List<Position>(_initialCapacity));	
 		}
 
-		[ObservableComputationsCall]
-		public Filtering<TSourceItem> TryConstructInsertOrRemoveRequestHandlers()
-		{
-			ConstructInsertOrRemoveActionsVisitor
-				constructInsertOrRemoveActionsVisitor =
-					new ConstructInsertOrRemoveActionsVisitor();
+		//TODO Uncomment new feature and write test
+		//[ObservableComputationsCall]
+		//public Filtering<TSourceItem> TryConstructInsertOrRemoveRequestHandlers()
+		//{
+		//	ConstructInsertOrRemoveActionsVisitor
+		//		constructInsertOrRemoveActionsVisitor =
+		//			new ConstructInsertOrRemoveActionsVisitor();
 
-			constructInsertOrRemoveActionsVisitor.Visit(_predicateExpressionOriginal);
+		//	constructInsertOrRemoveActionsVisitor.Visit(_predicateExpressionOriginal);
 
-			Action<TSourceItem> transformSourceItemIntoMember =
-				constructInsertOrRemoveActionsVisitor.TransformSourceItemIntoMember;
-			if (transformSourceItemIntoMember != null)
-			{
-				InsertItemRequestHandler = (index, item) => transformSourceItemIntoMember(item);
-			}
+		//	Action<TSourceItem> transformSourceItemIntoMember =
+		//		constructInsertOrRemoveActionsVisitor.TransformSourceItemIntoMember;
+		//	if (transformSourceItemIntoMember != null)
+		//	{
+		//		InsertItemRequestHandler = (index, item) => transformSourceItemIntoMember(item);
+		//	}
 
-			Action<TSourceItem> transformSourceItemNotIntoMember =
-				constructInsertOrRemoveActionsVisitor.TransformSourceItemIntoNotMember;
-			if (transformSourceItemNotIntoMember != null)
-			{
-				RemoveItemRequestHandler = index => transformSourceItemNotIntoMember(this[index]);
-			}
+		//	Action<TSourceItem> transformSourceItemNotIntoMember =
+		//		constructInsertOrRemoveActionsVisitor.TransformSourceItemIntoNotMember;
+		//	if (transformSourceItemNotIntoMember != null)
+		//	{
+		//		RemoveItemRequestHandler = index => transformSourceItemNotIntoMember(this[index]);
+		//	}
 
-			return this;
-		}
+		//	return this;
+		//}
 
-		private class ConstructInsertOrRemoveActionsVisitor : ExpressionVisitor
-		{
-			public Action<TSourceItem> TransformSourceItemIntoMember;
-			public Action<TSourceItem> TransformSourceItemIntoNotMember;
-			#region Overrides of ExpressionVisitor
+		//private class ConstructInsertOrRemoveActionsVisitor : ExpressionVisitor
+		//{
+		//	public Action<TSourceItem> TransformSourceItemIntoMember;
+		//	public Action<TSourceItem> TransformSourceItemIntoNotMember;
+		//	#region Overrides of ExpressionVisitor
 
-			//TODO !sourceItem.NullableProp.HasValue должно преобразооваться в sourceItem.NullableProp ==  null
-			// TODO обрабытывать выражения типа '25 == sourceItem.Id'
-			protected override Expression VisitBinary(BinaryExpression node) 
-			{
-				ExpressionType nodeType = node.NodeType;
-				if (nodeType == ExpressionType.Equal || nodeType == ExpressionType.NotEqual)
-				{
-					if (node.Left is MemberExpression memberExpression)
-					{
-						Expression rightExpression = node.Right;
+		//	//TODO !sourceItem.NullableProp.HasValue должно преобразооваться в sourceItem.NullableProp ==  null
+		//	// TODO обрабытывать выражения типа '25 == sourceItem.Id'
+		//	protected override Expression VisitBinary(BinaryExpression node) 
+		//	{
+		//		ExpressionType nodeType = node.NodeType;
+		//		if (nodeType == ExpressionType.Equal || nodeType == ExpressionType.NotEqual)
+		//		{
+		//			if (node.Left is MemberExpression memberExpression)
+		//			{
+		//				Expression rightExpression = node.Right;
 
-						// ReSharper disable once PossibleNullReferenceException
-						MemberInfo memberExpressionMember = memberExpression.Member;
-						Type declaringType = memberExpressionMember.DeclaringType;
-						// ReSharper disable once PossibleNullReferenceException
-						if (declaringType.IsConstructedGenericType 																	 
-							&& declaringType.GetGenericTypeDefinition() == typeof(Nullable<>)
-							&& memberExpressionMember.Name == "Value")
-						{
-							memberExpression = (MemberExpression) memberExpression.Expression;
-							rightExpression = Expression.Convert(rightExpression,
-								typeof (Nullable<>).MakeGenericType(node.Left.Type));
-						}
+		//				// ReSharper disable once PossibleNullReferenceException
+		//				MemberInfo memberExpressionMember = memberExpression.Member;
+		//				Type declaringType = memberExpressionMember.DeclaringType;
+		//				// ReSharper disable once PossibleNullReferenceException
+		//				if (declaringType.IsConstructedGenericType 																	 
+		//					&& declaringType.GetGenericTypeDefinition() == typeof(Nullable<>)
+		//					&& memberExpressionMember.Name == "Value")
+		//				{
+		//					memberExpression = (MemberExpression) memberExpression.Expression;
+		//					rightExpression = Expression.Convert(rightExpression,
+		//						typeof (Nullable<>).MakeGenericType(node.Left.Type));
+		//				}
 
-						ParameterExpression parameterExpression = getParameterExpression(memberExpression);
-						if (parameterExpression != null)
-						{
-							if (memberExpression.Type != rightExpression.Type)
-							{
-								rightExpression = Expression.Convert(rightExpression, memberExpression.Type);
-							}
+		//				ParameterExpression parameterExpression = getParameterExpression(memberExpression);
+		//				if (parameterExpression != null)
+		//				{
+		//					if (memberExpression.Type != rightExpression.Type)
+		//					{
+		//						rightExpression = Expression.Convert(rightExpression, memberExpression.Type);
+		//					}
 
-							if (!memberExpressionMember.IsReadOnly())
-							{
-								if (nodeType == ExpressionType.Equal)
-								{
-									TransformSourceItemIntoMember = Expression.Lambda<Action<TSourceItem>>(Expression.Assign(memberExpression, rightExpression), parameterExpression).Compile();	
-								}
-								else if (nodeType == ExpressionType.NotEqual)
-								{
-									TransformSourceItemIntoNotMember = Expression.Lambda<Action<TSourceItem>>(Expression.Assign(memberExpression, rightExpression), parameterExpression).Compile();	
-								}
-							}	
-						}						
-					}
-				}
+		//					if (!memberExpressionMember.IsReadOnly())
+		//					{
+		//						if (nodeType == ExpressionType.Equal)
+		//						{
+		//							TransformSourceItemIntoMember = Expression.Lambda<Action<TSourceItem>>(Expression.Assign(memberExpression, rightExpression), parameterExpression).Compile();	
+		//						}
+		//						else if (nodeType == ExpressionType.NotEqual)
+		//						{
+		//							TransformSourceItemIntoNotMember = Expression.Lambda<Action<TSourceItem>>(Expression.Assign(memberExpression, rightExpression), parameterExpression).Compile();	
+		//						}
+		//					}	
+		//				}						
+		//			}
+		//		}
 
-				return node;
-			}
+		//		return node;
+		//	}
 
 			 
-			private ParameterExpression getParameterExpression(MemberExpression memberExpression)
-			{
-				if (memberExpression.Expression is ParameterExpression parameterExpression)
-				{
-					return parameterExpression;
-				}
+		//	private ParameterExpression getParameterExpression(MemberExpression memberExpression)
+		//	{
+		//		if (memberExpression.Expression is ParameterExpression parameterExpression)
+		//		{
+		//			return parameterExpression;
+		//		}
 
-				if (memberExpression.Expression is MemberExpression expressionMemberExpression)
-				{
-					return getParameterExpression(expressionMemberExpression); // memberExpression.Expression может быть не MemberExpression				
-				}
+		//		if (memberExpression.Expression is MemberExpression expressionMemberExpression)
+		//		{
+		//			return getParameterExpression(expressionMemberExpression); // memberExpression.Expression может быть не MemberExpression				
+		//		}
 
-				return null;
-			}
+		//		return null;
+		//	}
 
 
-			#endregion
-		}
+		//	#endregion
+		//}
 
 		protected override void initializeFromSource()
 		{

@@ -64,6 +64,27 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 
+		[Test]
+		public void TestRaiseValueChanged2()
+		{
+			bool raised = false;
+			Order order = new Order();
+			Differing<string> computing = new Differing<string>(new Computing<string>(() => order.Num), EqualityComparer<string>.Default).For(consumer);
+			computing.PropertyChanged += (sender, args) => { if (args.PropertyName == "Value") raised = true; };
+
+			order.Num = "1";
+			Assert.IsTrue(raised);
+			raised = false;
+
+			order.Num = "1";
+			Assert.IsFalse(raised);
+
+			order.Num = "2";
+			Assert.IsTrue(raised);
+
+			consumer.Dispose();
+		}
+
 		public DifferingTests(bool debug) : base(debug)
 		{
 		}

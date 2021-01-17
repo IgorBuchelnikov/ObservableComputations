@@ -763,25 +763,26 @@ namespace ObservableComputations
 				: _sortDirection == ListSortDirection.Ascending ? index : index + 1;
 		}
 
-		internal int getOrderedIndexBySourceIndex(int sourceIndex)
-		{
-			return _itemInfos[sourceIndex].OrderedItemInfo.Index;
-		}
+		//TODO Uncomment new feature and write test
+		//internal int getOrderedIndexBySourceIndex(int sourceIndex)
+		//{
+		//	return _itemInfos[sourceIndex].OrderedItemInfo.Index;
+		//}
 
-		internal int getSourceIndexByOrderedIndex(int orderedIndex)
-		{
-			return  _orderedItemInfos[orderedIndex].ItemInfo.Index;	
-		}
+		//internal int getSourceIndexByOrderedIndex(int orderedIndex)
+		//{
+		//	return  _orderedItemInfos[orderedIndex].ItemInfo.Index;	
+		//}
 
-		public int GetOrderedIndexBySourceIndex(int sourceIndex)
-		{
-			return _itemInfos[sourceIndex].OrderedItemInfo.Index;
-		}
+		//public int GetOrderedIndexBySourceIndex(int sourceIndex)
+		//{
+		//	return _itemInfos[sourceIndex].OrderedItemInfo.Index;
+		//}
 
-		public int GetSourceIndexByOrderedIndex(int orderedIndex)
-		{
-			return _orderedItemInfos[orderedIndex].ItemInfo.Index;	
-		}
+		//public int GetSourceIndexByOrderedIndex(int orderedIndex)
+		//{
+		//	return _orderedItemInfos[orderedIndex].ItemInfo.Index;	
+		//}
 
 		//#region Implementation of IOrdering<TSourceItem>
 
@@ -855,85 +856,86 @@ namespace ObservableComputations
 			_thenOrderings.Remove(thenOrdering);
 		}
 
-		public OrderingIndicesRange? GetIndicesRangeOf(TOrderingValue orderingValue)
-		{
-			int lowerIndex = 0;
-			int upperIndex = Count - 1;
-			int length = upperIndex + 1;
+		//TODO Uncomment new feature and write test
+		//public OrderingIndicesRange? GetIndicesRangeOf(TOrderingValue orderingValue)
+		//{
+		//	int lowerIndex = 0;
+		//	int upperIndex = Count - 1;
+		//	int length = upperIndex + 1;
 
-			do
-			{
-				if (length == 0)
-				{
-					return null;
-				}
+		//	do
+		//	{
+		//		if (length == 0)
+		//		{
+		//			return null;
+		//		}
 
-				if (length == 1)
-				{
-					if (_comparer.Compare(orderingValue, GetOrderingValueByOrderedIndex(lowerIndex)) == 0)
-						return new OrderingIndicesRange(0, 0);
+		//		if (length == 1)
+		//		{
+		//			if (_comparer.Compare(orderingValue, GetOrderingValueByOrderedIndex(lowerIndex)) == 0)
+		//				return new OrderingIndicesRange(0, 0);
 
-					return null;
-				}
+		//			return null;
+		//		}
 
-				if (length == 2)
-				{
-					bool lower = _comparer.Compare(orderingValue, GetOrderingValueByOrderedIndex(lowerIndex)) == 0;
-					bool upper = _comparer.Compare(orderingValue, GetOrderingValueByOrderedIndex(upperIndex)) == 0;
+		//		if (length == 2)
+		//		{
+		//			bool lower = _comparer.Compare(orderingValue, GetOrderingValueByOrderedIndex(lowerIndex)) == 0;
+		//			bool upper = _comparer.Compare(orderingValue, GetOrderingValueByOrderedIndex(upperIndex)) == 0;
 
-					if (!upper && !lower) return null;
-					return new OrderingIndicesRange(lower ? 0 : 1, upper ? 0 : 1);
-				}
+		//			if (!upper && !lower) return null;
+		//			return new OrderingIndicesRange(lower ? 0 : 1, upper ? 0 : 1);
+		//		}
 
-				int middleIndex = lowerIndex + (length >> 1);
+		//		int middleIndex = lowerIndex + (length >> 1);
 
-				TOrderingValue middleItemOrderingValue = GetOrderingValueByOrderedIndex(middleIndex);
-				int comparisonWithMiddleItem = _comparer.Compare(orderingValue, middleItemOrderingValue);
+		//		TOrderingValue middleItemOrderingValue = GetOrderingValueByOrderedIndex(middleIndex);
+		//		int comparisonWithMiddleItem = _comparer.Compare(orderingValue, middleItemOrderingValue);
 
-				if (comparisonWithMiddleItem == 0)
-				{
-					int nextAfterMiddleIndex = middleIndex;
-					int from = middleIndex;
-					do
-					{
-						nextAfterMiddleIndex = nextAfterMiddleIndex - 1;
-						if (_comparer.Compare(GetOrderingValueByOrderedIndex(nextAfterMiddleIndex), middleItemOrderingValue) == 0)
-							from = nextAfterMiddleIndex;
-						else
-							break;	
-					} while (
-						nextAfterMiddleIndex != lowerIndex);
+		//		if (comparisonWithMiddleItem == 0)
+		//		{
+		//			int nextAfterMiddleIndex = middleIndex;
+		//			int from = middleIndex;
+		//			do
+		//			{
+		//				nextAfterMiddleIndex = nextAfterMiddleIndex - 1;
+		//				if (_comparer.Compare(GetOrderingValueByOrderedIndex(nextAfterMiddleIndex), middleItemOrderingValue) == 0)
+		//					from = nextAfterMiddleIndex;
+		//				else
+		//					break;	
+		//			} while (
+		//				nextAfterMiddleIndex != lowerIndex);
 
 
-					nextAfterMiddleIndex = middleIndex;
-					int to = middleIndex;
-					do
-					{
-						nextAfterMiddleIndex = nextAfterMiddleIndex + 1;
-						if (_comparer.Compare(GetOrderingValueByOrderedIndex(nextAfterMiddleIndex), middleItemOrderingValue) == 0)
-							to = nextAfterMiddleIndex;
-						else
-							break;	
-					} while (
-						nextAfterMiddleIndex != upperIndex);
+		//			nextAfterMiddleIndex = middleIndex;
+		//			int to = middleIndex;
+		//			do
+		//			{
+		//				nextAfterMiddleIndex = nextAfterMiddleIndex + 1;
+		//				if (_comparer.Compare(GetOrderingValueByOrderedIndex(nextAfterMiddleIndex), middleItemOrderingValue) == 0)
+		//					to = nextAfterMiddleIndex;
+		//				else
+		//					break;	
+		//			} while (
+		//				nextAfterMiddleIndex != upperIndex);
 
-					return new OrderingIndicesRange(from, to);
-				}
-				else
-				{
-					if (_sortDirection == ListSortDirection.Ascending)
-					{
-						if (comparisonWithMiddleItem > 0) lowerIndex = middleIndex;
-						else upperIndex = middleIndex;
-					}
-					else
-					{
-						if (comparisonWithMiddleItem > 0) upperIndex = middleIndex;
-						else lowerIndex = middleIndex;							
-					}
-				}
-			} while (true);
-		}
+		//			return new OrderingIndicesRange(from, to);
+		//		}
+		//		else
+		//		{
+		//			if (_sortDirection == ListSortDirection.Ascending)
+		//			{
+		//				if (comparisonWithMiddleItem > 0) lowerIndex = middleIndex;
+		//				else upperIndex = middleIndex;
+		//			}
+		//			else
+		//			{
+		//				if (comparisonWithMiddleItem > 0) upperIndex = middleIndex;
+		//				else lowerIndex = middleIndex;							
+		//			}
+		//		}
+		//	} while (true);
+		//}
 
 		RangePosition IOrderingInternal<TSourceItem>.GetRangePosition(int orderedIndex)
 		{

@@ -5344,6 +5344,887 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		#endregion
+		#region ConcurrentDictionaring
+
+		
+		[Test, Combinatorial]
+		public void TestConcurrentDictionaring01()
+		{
+			Scalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
+			System.Linq.Expressions.Expression<System.Func<Item, int>> keySelectorExpression = i => i.Id;
+			System.Linq.Expressions.Expression<System.Func<Item, int>> valueSelectorExpression = i => i.Num;
+			System.Collections.Generic.IEqualityComparer<int> equalityComparer = EqualityComparer<int>.Default;
+			OcConsumer consumer = new OcConsumer();
+			var testing = sourceScalar.ConcurrentDictionaring<Item, int, int>(
+				keySelectorExpression,
+				valueSelectorExpression,
+				equalityComparer).For(consumer);
+
+			Assert.AreEqual(sourceScalar, testing.SourceScalar);
+			Assert.AreEqual(keySelectorExpression, testing.KeySelectorExpression);
+			Assert.AreEqual(valueSelectorExpression, testing.ValueSelectorExpression);
+			Assert.AreEqual(equalityComparer, testing.EqualityComparer);
+
+			void test()
+			{
+				testing.ValidateConsistency();
+				var sourceScalarValue = ((ObservableCollection<Item>)((System.Collections.Specialized.INotifyCollectionChanged)sourceScalar.Value));
+
+				if (sourceScalarValue != null)
+				{		
+					sourceScalarValue.Insert(2, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					sourceScalarValue[3] = new QuickTests.Item(7, true);
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(3);
+					testing.ValidateConsistency();
+					sourceScalarValue.Move(1, 3);
+					testing.ValidateConsistency();
+					sourceScalarValue[2].Active = !sourceScalarValue[2].Active;
+					testing.ValidateConsistency();
+					sourceScalarValue[2].Num = sourceScalarValue[2].Num + 1;
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(1);
+					testing.ValidateConsistency();
+					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					sourceScalarValue.Insert(0, new QuickTests.Item(2, true));
+					testing.ValidateConsistency();
+				}
+
+				IList listSource;
+				listSource = ((IList)((System.Collections.Specialized.INotifyCollectionChanged)sourceScalar.Value));
+				if (listSource != null)
+				{
+					listSource.Clear();
+					testing.ValidateConsistency();
+				}
+
+				if (sourceScalarValue != null)
+				{
+					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
+					sourceScalarValue.Insert(1, new QuickTests.Item(2, true));
+					sourceScalarValue.Insert(2, new QuickTests.Item(3, true));
+					sourceScalarValue.Insert(3, new QuickTests.Item(3, true));
+					sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
+					testing.ValidateConsistency();
+				}
+			}
+
+			test();
+
+			((Scalar<System.Collections.Specialized.INotifyCollectionChanged>)sourceScalar).Touch();
+			test();
+			((Scalar<System.Collections.Specialized.INotifyCollectionChanged>)sourceScalar).Change(null);
+			test();
+			consumer.Dispose();
+		}
+		
+		[Test, Combinatorial]
+		public void TestConcurrentDictionaring02()
+		{
+			Scalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
+			System.Linq.Expressions.Expression<System.Func<Item, int>> keySelectorExpression = i => i.Id;
+			System.Linq.Expressions.Expression<System.Func<Item, int>> valueSelectorExpression = i => i.Num;
+			OcConsumer consumer = new OcConsumer();
+			var testing = sourceScalar.ConcurrentDictionaring<Item, int, int>(
+				keySelectorExpression,
+				valueSelectorExpression).For(consumer);
+
+			Assert.AreEqual(sourceScalar, testing.SourceScalar);
+			Assert.AreEqual(keySelectorExpression, testing.KeySelectorExpression);
+			Assert.AreEqual(valueSelectorExpression, testing.ValueSelectorExpression);
+
+			void test()
+			{
+				testing.ValidateConsistency();
+				var sourceScalarValue = ((ObservableCollection<Item>)((System.Collections.Specialized.INotifyCollectionChanged)sourceScalar.Value));
+
+				if (sourceScalarValue != null)
+				{		
+					sourceScalarValue.Insert(2, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					sourceScalarValue[3] = new QuickTests.Item(7, true);
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(3);
+					testing.ValidateConsistency();
+					sourceScalarValue.Move(1, 3);
+					testing.ValidateConsistency();
+					sourceScalarValue[2].Active = !sourceScalarValue[2].Active;
+					testing.ValidateConsistency();
+					sourceScalarValue[2].Num = sourceScalarValue[2].Num + 1;
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(1);
+					testing.ValidateConsistency();
+					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					sourceScalarValue.Insert(0, new QuickTests.Item(2, true));
+					testing.ValidateConsistency();
+				}
+
+				IList listSource;
+				listSource = ((IList)((System.Collections.Specialized.INotifyCollectionChanged)sourceScalar.Value));
+				if (listSource != null)
+				{
+					listSource.Clear();
+					testing.ValidateConsistency();
+				}
+
+				if (sourceScalarValue != null)
+				{
+					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
+					sourceScalarValue.Insert(1, new QuickTests.Item(2, true));
+					sourceScalarValue.Insert(2, new QuickTests.Item(3, true));
+					sourceScalarValue.Insert(3, new QuickTests.Item(3, true));
+					sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
+					testing.ValidateConsistency();
+				}
+			}
+
+			test();
+
+			((Scalar<System.Collections.Specialized.INotifyCollectionChanged>)sourceScalar).Touch();
+			test();
+			((Scalar<System.Collections.Specialized.INotifyCollectionChanged>)sourceScalar).Change(null);
+			test();
+			consumer.Dispose();
+		}
+		
+		[Test, Combinatorial]
+		public void TestConcurrentDictionaring03()
+		{
+			Scalar<ObservableCollection<Item>> sourceScalar = getScalar<ObservableCollection<Item>>(getItems());
+			System.Linq.Expressions.Expression<System.Func<Item, int>> keySelectorExpression = i => i.Id;
+			System.Linq.Expressions.Expression<System.Func<Item, int>> valueSelectorExpression = i => i.Num;
+			System.Collections.Generic.IEqualityComparer<int> equalityComparer = EqualityComparer<int>.Default;
+			OcConsumer consumer = new OcConsumer();
+			var testing = sourceScalar.ConcurrentDictionaring<Item, int, int>(
+				keySelectorExpression,
+				valueSelectorExpression,
+				equalityComparer).For(consumer);
+
+			Assert.AreEqual(sourceScalar, testing.SourceScalar);
+			Assert.AreEqual(keySelectorExpression, testing.KeySelectorExpression);
+			Assert.AreEqual(valueSelectorExpression, testing.ValueSelectorExpression);
+			Assert.AreEqual(equalityComparer, testing.EqualityComparer);
+
+			void test()
+			{
+				testing.ValidateConsistency();
+				var sourceScalarValue = ((ObservableCollection<Item>)((ObservableCollection<Item>)sourceScalar.Value));
+
+				if (sourceScalarValue != null)
+				{		
+					sourceScalarValue.Insert(2, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					sourceScalarValue[3] = new QuickTests.Item(7, true);
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(3);
+					testing.ValidateConsistency();
+					sourceScalarValue.Move(1, 3);
+					testing.ValidateConsistency();
+					sourceScalarValue[2].Active = !sourceScalarValue[2].Active;
+					testing.ValidateConsistency();
+					sourceScalarValue[2].Num = sourceScalarValue[2].Num + 1;
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(1);
+					testing.ValidateConsistency();
+					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					sourceScalarValue.Insert(0, new QuickTests.Item(2, true));
+					testing.ValidateConsistency();
+				}
+
+				IList listSource;
+				listSource = ((IList)((ObservableCollection<Item>)sourceScalar.Value));
+				if (listSource != null)
+				{
+					listSource.Clear();
+					testing.ValidateConsistency();
+				}
+
+				if (sourceScalarValue != null)
+				{
+					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
+					sourceScalarValue.Insert(1, new QuickTests.Item(2, true));
+					sourceScalarValue.Insert(2, new QuickTests.Item(3, true));
+					sourceScalarValue.Insert(3, new QuickTests.Item(3, true));
+					sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
+					testing.ValidateConsistency();
+				}
+			}
+
+			test();
+
+			((Scalar<ObservableCollection<Item>>)sourceScalar).Touch();
+			test();
+			((Scalar<ObservableCollection<Item>>)sourceScalar).Change(null);
+			test();
+			consumer.Dispose();
+		}
+		
+		[Test, Combinatorial]
+		public void TestConcurrentDictionaring04()
+		{
+			Scalar<ObservableCollection<Item>> sourceScalar = getScalar<ObservableCollection<Item>>(getItems());
+			System.Linq.Expressions.Expression<System.Func<Item, int>> keySelectorExpression = i => i.Id;
+			System.Linq.Expressions.Expression<System.Func<Item, int>> valueSelectorExpression = i => i.Num;
+			OcConsumer consumer = new OcConsumer();
+			var testing = sourceScalar.ConcurrentDictionaring<Item, int, int>(
+				keySelectorExpression,
+				valueSelectorExpression).For(consumer);
+
+			Assert.AreEqual(sourceScalar, testing.SourceScalar);
+			Assert.AreEqual(keySelectorExpression, testing.KeySelectorExpression);
+			Assert.AreEqual(valueSelectorExpression, testing.ValueSelectorExpression);
+
+			void test()
+			{
+				testing.ValidateConsistency();
+				var sourceScalarValue = ((ObservableCollection<Item>)((ObservableCollection<Item>)sourceScalar.Value));
+
+				if (sourceScalarValue != null)
+				{		
+					sourceScalarValue.Insert(2, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					sourceScalarValue[3] = new QuickTests.Item(7, true);
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(3);
+					testing.ValidateConsistency();
+					sourceScalarValue.Move(1, 3);
+					testing.ValidateConsistency();
+					sourceScalarValue[2].Active = !sourceScalarValue[2].Active;
+					testing.ValidateConsistency();
+					sourceScalarValue[2].Num = sourceScalarValue[2].Num + 1;
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(1);
+					testing.ValidateConsistency();
+					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					sourceScalarValue.Insert(0, new QuickTests.Item(2, true));
+					testing.ValidateConsistency();
+				}
+
+				IList listSource;
+				listSource = ((IList)((ObservableCollection<Item>)sourceScalar.Value));
+				if (listSource != null)
+				{
+					listSource.Clear();
+					testing.ValidateConsistency();
+				}
+
+				if (sourceScalarValue != null)
+				{
+					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
+					sourceScalarValue.Insert(1, new QuickTests.Item(2, true));
+					sourceScalarValue.Insert(2, new QuickTests.Item(3, true));
+					sourceScalarValue.Insert(3, new QuickTests.Item(3, true));
+					sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
+					testing.ValidateConsistency();
+				}
+			}
+
+			test();
+
+			((Scalar<ObservableCollection<Item>>)sourceScalar).Touch();
+			test();
+			((Scalar<ObservableCollection<Item>>)sourceScalar).Change(null);
+			test();
+			consumer.Dispose();
+		}
+		
+		[Test, Combinatorial]
+		public void TestConcurrentDictionaring05()
+		{
+			System.Collections.Specialized.INotifyCollectionChanged source = getItems();
+			System.Linq.Expressions.Expression<System.Func<Item, int>> keySelectorExpression = i => i.Id;
+			System.Linq.Expressions.Expression<System.Func<Item, int>> valueSelectorExpression = i => i.Num;
+			System.Collections.Generic.IEqualityComparer<int> equalityComparer = EqualityComparer<int>.Default;
+			OcConsumer consumer = new OcConsumer();
+			var testing = source.ConcurrentDictionaring<Item, int, int>(
+				keySelectorExpression,
+				valueSelectorExpression,
+				equalityComparer).For(consumer);
+
+			Assert.AreEqual(source, testing.Source);
+			Assert.AreEqual(keySelectorExpression, testing.KeySelectorExpression);
+			Assert.AreEqual(valueSelectorExpression, testing.ValueSelectorExpression);
+			Assert.AreEqual(equalityComparer, testing.EqualityComparer);
+
+			void test()
+			{
+				testing.ValidateConsistency();
+				var sourceValue = ((ObservableCollection<Item>)((System.Collections.Specialized.INotifyCollectionChanged)source));
+
+				if (sourceValue != null)
+				{		
+					sourceValue.Insert(2, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					sourceValue[3] = new QuickTests.Item(7, true);
+					testing.ValidateConsistency();
+					sourceValue.RemoveAt(3);
+					testing.ValidateConsistency();
+					sourceValue.Move(1, 3);
+					testing.ValidateConsistency();
+					sourceValue[2].Active = !sourceValue[2].Active;
+					testing.ValidateConsistency();
+					sourceValue[2].Num = sourceValue[2].Num + 1;
+					testing.ValidateConsistency();
+					sourceValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceValue.RemoveAt(1);
+					testing.ValidateConsistency();
+					sourceValue.Insert(0, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					sourceValue.Insert(0, new QuickTests.Item(2, true));
+					testing.ValidateConsistency();
+				}
+
+				IList listSource;
+				listSource = ((IList)((System.Collections.Specialized.INotifyCollectionChanged)source));
+				if (listSource != null)
+				{
+					listSource.Clear();
+					testing.ValidateConsistency();
+				}
+
+				if (sourceValue != null)
+				{
+					sourceValue.Insert(0, new QuickTests.Item(1, true));
+					sourceValue.Insert(1, new QuickTests.Item(2, true));
+					sourceValue.Insert(2, new QuickTests.Item(3, true));
+					sourceValue.Insert(3, new QuickTests.Item(3, true));
+					sourceValue.Insert(4, new QuickTests.Item(3, true));
+					testing.ValidateConsistency();
+				}
+			}
+
+			test();
+			consumer.Dispose();
+		}
+		
+		[Test, Combinatorial]
+		public void TestConcurrentDictionaring06()
+		{
+			System.Collections.Specialized.INotifyCollectionChanged source = getItems();
+			System.Linq.Expressions.Expression<System.Func<Item, int>> keySelectorExpression = i => i.Id;
+			System.Linq.Expressions.Expression<System.Func<Item, int>> valueSelectorExpression = i => i.Num;
+			OcConsumer consumer = new OcConsumer();
+			var testing = source.ConcurrentDictionaring<Item, int, int>(
+				keySelectorExpression,
+				valueSelectorExpression).For(consumer);
+
+			Assert.AreEqual(source, testing.Source);
+			Assert.AreEqual(keySelectorExpression, testing.KeySelectorExpression);
+			Assert.AreEqual(valueSelectorExpression, testing.ValueSelectorExpression);
+
+			void test()
+			{
+				testing.ValidateConsistency();
+				var sourceValue = ((ObservableCollection<Item>)((System.Collections.Specialized.INotifyCollectionChanged)source));
+
+				if (sourceValue != null)
+				{		
+					sourceValue.Insert(2, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					sourceValue[3] = new QuickTests.Item(7, true);
+					testing.ValidateConsistency();
+					sourceValue.RemoveAt(3);
+					testing.ValidateConsistency();
+					sourceValue.Move(1, 3);
+					testing.ValidateConsistency();
+					sourceValue[2].Active = !sourceValue[2].Active;
+					testing.ValidateConsistency();
+					sourceValue[2].Num = sourceValue[2].Num + 1;
+					testing.ValidateConsistency();
+					sourceValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceValue.RemoveAt(1);
+					testing.ValidateConsistency();
+					sourceValue.Insert(0, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					sourceValue.Insert(0, new QuickTests.Item(2, true));
+					testing.ValidateConsistency();
+				}
+
+				IList listSource;
+				listSource = ((IList)((System.Collections.Specialized.INotifyCollectionChanged)source));
+				if (listSource != null)
+				{
+					listSource.Clear();
+					testing.ValidateConsistency();
+				}
+
+				if (sourceValue != null)
+				{
+					sourceValue.Insert(0, new QuickTests.Item(1, true));
+					sourceValue.Insert(1, new QuickTests.Item(2, true));
+					sourceValue.Insert(2, new QuickTests.Item(3, true));
+					sourceValue.Insert(3, new QuickTests.Item(3, true));
+					sourceValue.Insert(4, new QuickTests.Item(3, true));
+					testing.ValidateConsistency();
+				}
+			}
+
+			test();
+			consumer.Dispose();
+		}
+		
+		[Test, Combinatorial]
+		public void TestConcurrentDictionaring07()
+		{
+			ObservableCollection<Item> source = getItems();
+			System.Linq.Expressions.Expression<System.Func<Item, int>> keySelectorExpression = i => i.Id;
+			System.Linq.Expressions.Expression<System.Func<Item, int>> valueSelectorExpression = i => i.Num;
+			System.Collections.Generic.IEqualityComparer<int> equalityComparer = EqualityComparer<int>.Default;
+			OcConsumer consumer = new OcConsumer();
+			var testing = source.ConcurrentDictionaring<Item, int, int>(
+				keySelectorExpression,
+				valueSelectorExpression,
+				equalityComparer).For(consumer);
+
+			Assert.AreEqual(source, testing.Source);
+			Assert.AreEqual(keySelectorExpression, testing.KeySelectorExpression);
+			Assert.AreEqual(valueSelectorExpression, testing.ValueSelectorExpression);
+			Assert.AreEqual(equalityComparer, testing.EqualityComparer);
+
+			void test()
+			{
+				testing.ValidateConsistency();
+				var sourceValue = ((ObservableCollection<Item>)((ObservableCollection<Item>)source));
+
+				if (sourceValue != null)
+				{		
+					sourceValue.Insert(2, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					sourceValue[3] = new QuickTests.Item(7, true);
+					testing.ValidateConsistency();
+					sourceValue.RemoveAt(3);
+					testing.ValidateConsistency();
+					sourceValue.Move(1, 3);
+					testing.ValidateConsistency();
+					sourceValue[2].Active = !sourceValue[2].Active;
+					testing.ValidateConsistency();
+					sourceValue[2].Num = sourceValue[2].Num + 1;
+					testing.ValidateConsistency();
+					sourceValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceValue.RemoveAt(1);
+					testing.ValidateConsistency();
+					sourceValue.Insert(0, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					sourceValue.Insert(0, new QuickTests.Item(2, true));
+					testing.ValidateConsistency();
+				}
+
+				IList listSource;
+				listSource = ((IList)((ObservableCollection<Item>)source));
+				if (listSource != null)
+				{
+					listSource.Clear();
+					testing.ValidateConsistency();
+				}
+
+				if (sourceValue != null)
+				{
+					sourceValue.Insert(0, new QuickTests.Item(1, true));
+					sourceValue.Insert(1, new QuickTests.Item(2, true));
+					sourceValue.Insert(2, new QuickTests.Item(3, true));
+					sourceValue.Insert(3, new QuickTests.Item(3, true));
+					sourceValue.Insert(4, new QuickTests.Item(3, true));
+					testing.ValidateConsistency();
+				}
+			}
+
+			test();
+			consumer.Dispose();
+		}
+		
+		[Test, Combinatorial]
+		public void TestConcurrentDictionaring08()
+		{
+			ObservableCollection<Item> source = getItems();
+			System.Linq.Expressions.Expression<System.Func<Item, int>> keySelectorExpression = i => i.Id;
+			System.Linq.Expressions.Expression<System.Func<Item, int>> valueSelectorExpression = i => i.Num;
+			OcConsumer consumer = new OcConsumer();
+			var testing = source.ConcurrentDictionaring<Item, int, int>(
+				keySelectorExpression,
+				valueSelectorExpression).For(consumer);
+
+			Assert.AreEqual(source, testing.Source);
+			Assert.AreEqual(keySelectorExpression, testing.KeySelectorExpression);
+			Assert.AreEqual(valueSelectorExpression, testing.ValueSelectorExpression);
+
+			void test()
+			{
+				testing.ValidateConsistency();
+				var sourceValue = ((ObservableCollection<Item>)((ObservableCollection<Item>)source));
+
+				if (sourceValue != null)
+				{		
+					sourceValue.Insert(2, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					sourceValue[3] = new QuickTests.Item(7, true);
+					testing.ValidateConsistency();
+					sourceValue.RemoveAt(3);
+					testing.ValidateConsistency();
+					sourceValue.Move(1, 3);
+					testing.ValidateConsistency();
+					sourceValue[2].Active = !sourceValue[2].Active;
+					testing.ValidateConsistency();
+					sourceValue[2].Num = sourceValue[2].Num + 1;
+					testing.ValidateConsistency();
+					sourceValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceValue.RemoveAt(1);
+					testing.ValidateConsistency();
+					sourceValue.Insert(0, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					sourceValue.Insert(0, new QuickTests.Item(2, true));
+					testing.ValidateConsistency();
+				}
+
+				IList listSource;
+				listSource = ((IList)((ObservableCollection<Item>)source));
+				if (listSource != null)
+				{
+					listSource.Clear();
+					testing.ValidateConsistency();
+				}
+
+				if (sourceValue != null)
+				{
+					sourceValue.Insert(0, new QuickTests.Item(1, true));
+					sourceValue.Insert(1, new QuickTests.Item(2, true));
+					sourceValue.Insert(2, new QuickTests.Item(3, true));
+					sourceValue.Insert(3, new QuickTests.Item(3, true));
+					sourceValue.Insert(4, new QuickTests.Item(3, true));
+					testing.ValidateConsistency();
+				}
+			}
+
+			test();
+			consumer.Dispose();
+		}
+		
+		[Test, Combinatorial]
+		public void TestConcurrentDictionaring09()
+		{
+			Scalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
+			System.Linq.Expressions.Expression<System.Func<Item, int>> keySelectorExpression = i => i.Id;
+			System.Linq.Expressions.Expression<System.Func<Item, int>> valueSelectorExpression = i => i.Num;
+			Scalar<System.Collections.Generic.IEqualityComparer<int>> equalityComparerScalar = getScalar<System.Collections.Generic.IEqualityComparer<int>>(EqualityComparer<int>.Default);
+			OcConsumer consumer = new OcConsumer();
+			var testing = sourceScalar.ConcurrentDictionaring<Item, int, int>(
+				keySelectorExpression,
+				valueSelectorExpression,
+				equalityComparerScalar).For(consumer);
+
+			Assert.AreEqual(sourceScalar, testing.SourceScalar);
+			Assert.AreEqual(keySelectorExpression, testing.KeySelectorExpression);
+			Assert.AreEqual(valueSelectorExpression, testing.ValueSelectorExpression);
+			Assert.AreEqual(equalityComparerScalar, testing.EqualityComparerScalar);
+
+			void test()
+			{
+				testing.ValidateConsistency();
+				var sourceScalarValue = ((ObservableCollection<Item>)((System.Collections.Specialized.INotifyCollectionChanged)sourceScalar.Value));
+
+				if (sourceScalarValue != null)
+				{		
+					sourceScalarValue.Insert(2, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					sourceScalarValue[3] = new QuickTests.Item(7, true);
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(3);
+					testing.ValidateConsistency();
+					sourceScalarValue.Move(1, 3);
+					testing.ValidateConsistency();
+					sourceScalarValue[2].Active = !sourceScalarValue[2].Active;
+					testing.ValidateConsistency();
+					sourceScalarValue[2].Num = sourceScalarValue[2].Num + 1;
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(1);
+					testing.ValidateConsistency();
+					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					sourceScalarValue.Insert(0, new QuickTests.Item(2, true));
+					testing.ValidateConsistency();
+				}
+
+				IList listSource;
+				listSource = ((IList)((System.Collections.Specialized.INotifyCollectionChanged)sourceScalar.Value));
+				if (listSource != null)
+				{
+					listSource.Clear();
+					testing.ValidateConsistency();
+				}
+
+				if (sourceScalarValue != null)
+				{
+					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
+					sourceScalarValue.Insert(1, new QuickTests.Item(2, true));
+					sourceScalarValue.Insert(2, new QuickTests.Item(3, true));
+					sourceScalarValue.Insert(3, new QuickTests.Item(3, true));
+					sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
+					testing.ValidateConsistency();
+				}
+			}
+
+			test();
+
+			((Scalar<System.Collections.Generic.IEqualityComparer<int>>)equalityComparerScalar).Touch();
+			test();
+			((Scalar<System.Collections.Generic.IEqualityComparer<int>>)equalityComparerScalar).Change(null);
+			test();
+
+			((Scalar<System.Collections.Specialized.INotifyCollectionChanged>)sourceScalar).Touch();
+			test();
+			((Scalar<System.Collections.Specialized.INotifyCollectionChanged>)sourceScalar).Change(null);
+			test();
+			consumer.Dispose();
+		}
+		
+		[Test, Combinatorial]
+		public void TestConcurrentDictionaring10()
+		{
+			Scalar<ObservableCollection<Item>> sourceScalar = getScalar<ObservableCollection<Item>>(getItems());
+			System.Linq.Expressions.Expression<System.Func<Item, int>> keySelectorExpression = i => i.Id;
+			System.Linq.Expressions.Expression<System.Func<Item, int>> valueSelectorExpression = i => i.Num;
+			Scalar<System.Collections.Generic.IEqualityComparer<int>> equalityComparerScalar = getScalar<System.Collections.Generic.IEqualityComparer<int>>(EqualityComparer<int>.Default);
+			OcConsumer consumer = new OcConsumer();
+			var testing = sourceScalar.ConcurrentDictionaring<Item, int, int>(
+				keySelectorExpression,
+				valueSelectorExpression,
+				equalityComparerScalar).For(consumer);
+
+			Assert.AreEqual(sourceScalar, testing.SourceScalar);
+			Assert.AreEqual(keySelectorExpression, testing.KeySelectorExpression);
+			Assert.AreEqual(valueSelectorExpression, testing.ValueSelectorExpression);
+			Assert.AreEqual(equalityComparerScalar, testing.EqualityComparerScalar);
+
+			void test()
+			{
+				testing.ValidateConsistency();
+				var sourceScalarValue = ((ObservableCollection<Item>)((ObservableCollection<Item>)sourceScalar.Value));
+
+				if (sourceScalarValue != null)
+				{		
+					sourceScalarValue.Insert(2, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					sourceScalarValue[3] = new QuickTests.Item(7, true);
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(3);
+					testing.ValidateConsistency();
+					sourceScalarValue.Move(1, 3);
+					testing.ValidateConsistency();
+					sourceScalarValue[2].Active = !sourceScalarValue[2].Active;
+					testing.ValidateConsistency();
+					sourceScalarValue[2].Num = sourceScalarValue[2].Num + 1;
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(1);
+					testing.ValidateConsistency();
+					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					sourceScalarValue.Insert(0, new QuickTests.Item(2, true));
+					testing.ValidateConsistency();
+				}
+
+				IList listSource;
+				listSource = ((IList)((ObservableCollection<Item>)sourceScalar.Value));
+				if (listSource != null)
+				{
+					listSource.Clear();
+					testing.ValidateConsistency();
+				}
+
+				if (sourceScalarValue != null)
+				{
+					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
+					sourceScalarValue.Insert(1, new QuickTests.Item(2, true));
+					sourceScalarValue.Insert(2, new QuickTests.Item(3, true));
+					sourceScalarValue.Insert(3, new QuickTests.Item(3, true));
+					sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
+					testing.ValidateConsistency();
+				}
+			}
+
+			test();
+
+			((Scalar<System.Collections.Generic.IEqualityComparer<int>>)equalityComparerScalar).Touch();
+			test();
+			((Scalar<System.Collections.Generic.IEqualityComparer<int>>)equalityComparerScalar).Change(null);
+			test();
+
+			((Scalar<ObservableCollection<Item>>)sourceScalar).Touch();
+			test();
+			((Scalar<ObservableCollection<Item>>)sourceScalar).Change(null);
+			test();
+			consumer.Dispose();
+		}
+		
+		[Test, Combinatorial]
+		public void TestConcurrentDictionaring11()
+		{
+			System.Collections.Specialized.INotifyCollectionChanged source = getItems();
+			System.Linq.Expressions.Expression<System.Func<Item, int>> keySelectorExpression = i => i.Id;
+			System.Linq.Expressions.Expression<System.Func<Item, int>> valueSelectorExpression = i => i.Num;
+			Scalar<System.Collections.Generic.IEqualityComparer<int>> equalityComparerScalar = getScalar<System.Collections.Generic.IEqualityComparer<int>>(EqualityComparer<int>.Default);
+			OcConsumer consumer = new OcConsumer();
+			var testing = source.ConcurrentDictionaring<Item, int, int>(
+				keySelectorExpression,
+				valueSelectorExpression,
+				equalityComparerScalar).For(consumer);
+
+			Assert.AreEqual(source, testing.Source);
+			Assert.AreEqual(keySelectorExpression, testing.KeySelectorExpression);
+			Assert.AreEqual(valueSelectorExpression, testing.ValueSelectorExpression);
+			Assert.AreEqual(equalityComparerScalar, testing.EqualityComparerScalar);
+
+			void test()
+			{
+				testing.ValidateConsistency();
+				var sourceValue = ((ObservableCollection<Item>)((System.Collections.Specialized.INotifyCollectionChanged)source));
+
+				if (sourceValue != null)
+				{		
+					sourceValue.Insert(2, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					sourceValue[3] = new QuickTests.Item(7, true);
+					testing.ValidateConsistency();
+					sourceValue.RemoveAt(3);
+					testing.ValidateConsistency();
+					sourceValue.Move(1, 3);
+					testing.ValidateConsistency();
+					sourceValue[2].Active = !sourceValue[2].Active;
+					testing.ValidateConsistency();
+					sourceValue[2].Num = sourceValue[2].Num + 1;
+					testing.ValidateConsistency();
+					sourceValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceValue.RemoveAt(1);
+					testing.ValidateConsistency();
+					sourceValue.Insert(0, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					sourceValue.Insert(0, new QuickTests.Item(2, true));
+					testing.ValidateConsistency();
+				}
+
+				IList listSource;
+				listSource = ((IList)((System.Collections.Specialized.INotifyCollectionChanged)source));
+				if (listSource != null)
+				{
+					listSource.Clear();
+					testing.ValidateConsistency();
+				}
+
+				if (sourceValue != null)
+				{
+					sourceValue.Insert(0, new QuickTests.Item(1, true));
+					sourceValue.Insert(1, new QuickTests.Item(2, true));
+					sourceValue.Insert(2, new QuickTests.Item(3, true));
+					sourceValue.Insert(3, new QuickTests.Item(3, true));
+					sourceValue.Insert(4, new QuickTests.Item(3, true));
+					testing.ValidateConsistency();
+				}
+			}
+
+			test();
+
+			((Scalar<System.Collections.Generic.IEqualityComparer<int>>)equalityComparerScalar).Touch();
+			test();
+			((Scalar<System.Collections.Generic.IEqualityComparer<int>>)equalityComparerScalar).Change(null);
+			test();
+			consumer.Dispose();
+		}
+		
+		[Test, Combinatorial]
+		public void TestConcurrentDictionaring12()
+		{
+			ObservableCollection<Item> source = getItems();
+			System.Linq.Expressions.Expression<System.Func<Item, int>> keySelectorExpression = i => i.Id;
+			System.Linq.Expressions.Expression<System.Func<Item, int>> valueSelectorExpression = i => i.Num;
+			Scalar<System.Collections.Generic.IEqualityComparer<int>> equalityComparerScalar = getScalar<System.Collections.Generic.IEqualityComparer<int>>(EqualityComparer<int>.Default);
+			OcConsumer consumer = new OcConsumer();
+			var testing = source.ConcurrentDictionaring<Item, int, int>(
+				keySelectorExpression,
+				valueSelectorExpression,
+				equalityComparerScalar).For(consumer);
+
+			Assert.AreEqual(source, testing.Source);
+			Assert.AreEqual(keySelectorExpression, testing.KeySelectorExpression);
+			Assert.AreEqual(valueSelectorExpression, testing.ValueSelectorExpression);
+			Assert.AreEqual(equalityComparerScalar, testing.EqualityComparerScalar);
+
+			void test()
+			{
+				testing.ValidateConsistency();
+				var sourceValue = ((ObservableCollection<Item>)((ObservableCollection<Item>)source));
+
+				if (sourceValue != null)
+				{		
+					sourceValue.Insert(2, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					sourceValue[3] = new QuickTests.Item(7, true);
+					testing.ValidateConsistency();
+					sourceValue.RemoveAt(3);
+					testing.ValidateConsistency();
+					sourceValue.Move(1, 3);
+					testing.ValidateConsistency();
+					sourceValue[2].Active = !sourceValue[2].Active;
+					testing.ValidateConsistency();
+					sourceValue[2].Num = sourceValue[2].Num + 1;
+					testing.ValidateConsistency();
+					sourceValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceValue.RemoveAt(1);
+					testing.ValidateConsistency();
+					sourceValue.Insert(0, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					sourceValue.Insert(0, new QuickTests.Item(2, true));
+					testing.ValidateConsistency();
+				}
+
+				IList listSource;
+				listSource = ((IList)((ObservableCollection<Item>)source));
+				if (listSource != null)
+				{
+					listSource.Clear();
+					testing.ValidateConsistency();
+				}
+
+				if (sourceValue != null)
+				{
+					sourceValue.Insert(0, new QuickTests.Item(1, true));
+					sourceValue.Insert(1, new QuickTests.Item(2, true));
+					sourceValue.Insert(2, new QuickTests.Item(3, true));
+					sourceValue.Insert(3, new QuickTests.Item(3, true));
+					sourceValue.Insert(4, new QuickTests.Item(3, true));
+					testing.ValidateConsistency();
+				}
+			}
+
+			test();
+
+			((Scalar<System.Collections.Generic.IEqualityComparer<int>>)equalityComparerScalar).Touch();
+			test();
+			((Scalar<System.Collections.Generic.IEqualityComparer<int>>)equalityComparerScalar).Change(null);
+			test();
+			consumer.Dispose();
+		}
+		#endregion
 		#region ContainsComputing
 
 		

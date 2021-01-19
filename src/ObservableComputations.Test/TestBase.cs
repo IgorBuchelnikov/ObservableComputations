@@ -22,9 +22,12 @@ namespace ObservableComputations.Test
 				Configuration.TrackComputingsExecutingUserCode = true;
 				Configuration.SaveOcDispatcherInvocationStackTrace = true;
 				Configuration.TrackOcDispatcherInvocations = true;
+			}
+			else
+			{
 #if UsefulTestsDetection
 				File.AppendAllLines("UsefulTests.txt", new []{"\n", GetType().Name});
-#endif
+#endif				
 			}
 
 
@@ -39,7 +42,7 @@ namespace ObservableComputations.Test
 				if (_lastVisitsTotal < pointCount.Code)
 				{
 					_lastVisitsTotal = pointCount.Code;
-					if (_debug) File.AppendAllLines("UsefulTests.txt", new []{test});
+					if (!_debug) File.AppendAllLines("UsefulTests.txt", new []{test});
 				}
 			}
 #endif

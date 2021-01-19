@@ -1,25 +1,89 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.IO;
 using System.Linq;
+using System.Security;
 using System.Text;
 using System.Threading.Tasks;
+using AltCover;
 
 namespace ObservableComputations.Test
 {
 	public class TestBase
 	{
+		bool _debug;
 		public TestBase(bool debug)
 		{
+			_debug = debug;
 			if (debug)
 			{
 				Configuration.SaveInstantiatingStackTrace = true;
 				Configuration.TrackComputingsExecutingUserCode = true;
 				Configuration.SaveOcDispatcherInvocationStackTrace = true;
 				Configuration.TrackOcDispatcherInvocations = true;
+#if UsefulTestsDetection
+				File.AppendAllLines("UsefulTests.txt", new []{"\n", GetType().Name});
+#endif
 			}
 
-			File.AppendAllLines("oc_tests.log", new []{$"{DateTime.Now.ToString("O")} {GetType().Name}"});
+
+		}
+
+		int _lastVisitsTotal= 0;
+		protected void writeUsefulTest(string test)
+		{
+#if UsefulTestsDetection
+			if (AltCover.Monitor.TryGetVisitTotals(out PointCount pointCount))
+			{
+				if (_lastVisitsTotal < pointCount.Code)
+				{
+					_lastVisitsTotal = pointCount.Code;
+					if (_debug) File.AppendAllLines("UsefulTests.txt", new []{test});
+				}
+			}
+#endif
+		}
+
+		protected string getTestString(int[] values)
+		{
+			return $"test(new int[]{{{string.Join(", ", values.Select(v => v.ToString()))}}});";
+		}
+
+		protected string getTestString(int[] ids1, int[] ids2)
+		{
+			return $"test(new int[]{{{string.Join(", ", ids1.Select(v => v.ToString()))}}}, new int[]{{{string.Join(", ", ids2.Select(v => v.ToString()))}}});";
+		}
+
+		protected string getTestString(int[] ids1, MinimazingOrMaximazingMode mode)
+		{
+			return $"test(new int[]{{{string.Join(", ", ids1.Select(v => v.ToString()))}}}, MinimazingOrMaximazingMode.{mode});";
+		}
+
+
+		protected string getTestString(int[] ids1, ListSortDirection mode)
+		{
+			return $"test(new int[]{{{string.Join(", ", ids1.Select(v => v.ToString()))}}}, ListSortDirection.{mode});";
+		}
+
+		protected string getTestString(int[] orderNums, int[] orderNums2, ListSortDirection listSortDirection)
+		{
+			return $"test(new int[]{{{string.Join(", ", orderNums.Select(v => v.ToString()))}}}, new int[]{{{string.Join(", ", orderNums2.Select(v => v.ToString()))}}}, ListSortDirection.{listSortDirection});";
+		}
+
+		protected string getTestString(int[] orderNums, int[] orderNums2, int[] orderNums3, ListSortDirection listSortDirection, ListSortDirection listSortDirection2)
+		{
+			return $"test(new int[]{{{string.Join(", ", orderNums.Select(v => v.ToString()))}}}, new int[]{{{string.Join(", ", orderNums2.Select(v => v.ToString()))}}}, new int[]{{{string.Join(", ", orderNums3.Select(v => v.ToString()))}}}, ListSortDirection.{listSortDirection}, ListSortDirection.{listSortDirection2});";
+		}
+
+		protected string getTestString(int count)
+		{
+			return $"test({count});";
+		}
+
+		protected string getTestString(int count1, int count2)
+		{
+			return $"test({count1}, {count2});";
 		}
 	}
 }

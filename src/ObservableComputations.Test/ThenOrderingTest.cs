@@ -106,14 +106,13 @@ namespace ObservableComputations.Test
 		TextFileOutput _textFileOutputLog = new TextFileOutput(@"C:\ThenOrderingOrdering_Deep.log");
 		TextFileOutput _textFileOutputTime = new TextFileOutput(@"C:\ThenOrderingOrdering_Deep_Time.log");
 
-#if !TestCoverageAnalisis
 		[Test]
 		public void ThenOrderingOrdering_Random()
 		{
 			Random random =  new Random();
 
 
-			for (int i1 = 0; i1 < 50; i1++)
+			for (int i1 = 0; i1 < 100; i1++)
 			{
 				int itemCount = random.Next(4, 7);
 				int[] orderNums1 = new int[itemCount];
@@ -135,9 +134,7 @@ namespace ObservableComputations.Test
 		{
 			Random random =  new Random();
 
-			for (int i1 = 0; i1 < 50; i1++)
-
-
+			for (int i1 = 0; i1 < 100; i1++)
 			{
 				int itemCount = random.Next(4, 7);
 				//int itemCount = 3;
@@ -158,7 +155,6 @@ namespace ObservableComputations.Test
 				test(orderNums1, orderNums2, orderNums3, ListSortDirection.Descending, ListSortDirection.Descending);
 			}
 		}
-#endif
 
 		[Test]
 		public void ThenOrderingOrdering_Test()
@@ -191,27 +187,16 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 
-#if !TestCoverageAnalisis
+
 		[Test, Combinatorial]
 		public void ThenOrderingOrdering_Deep(
 			[Values(ListSortDirection.Ascending, ListSortDirection.Descending)] ListSortDirection listSortDirection)
-#else
-		[Test, Combinatorial]
-		public void ThenOrderingOrdering_Deep(
-			[Values(ListSortDirection.Ascending)] ListSortDirection listSortDirection)
-#endif
 		{
 			long counter = 0;
 			Stopwatch stopwatch = Stopwatch.StartNew();
 
-#if !TestCoverageAnalisis
 			int from = -1;
 			int to = 3;
-#else
-			int from = -1;
-			int to = 2;
-#endif
-
 
 			for (int v1 = from; v1 <= to; v1++)
 			{
@@ -222,30 +207,23 @@ namespace ObservableComputations.Test
 					for (int v3 = from; v3 <= to; v3++)
 					{
 						test(new []{v1, v2, v3}, listSortDirection);
-#if !TestCoverageAnalisis
+
 						for (int v4 = from; v4 <= to; v4++)
 						{
 							test(new []{v1, v2, v3, v4}, listSortDirection);
 							counter++;
 							_textFileOutputTime.AppentLine($"{stopwatch.Elapsed.TotalMinutes}: {counter}");
 						}
-#endif
 					}
 				}
 			}
 		}
 
-#if !TestCoverageAnalisis
+
 		[Test, Combinatorial]
 		public void ThenOrderingThenOrderingOrdering_Deep(
 			[Values(ListSortDirection.Ascending, ListSortDirection.Descending)] ListSortDirection listSortDirection,
 			[Values(ListSortDirection.Ascending, ListSortDirection.Descending)] ListSortDirection listSortDirection1)
-#else
-		[Test, Combinatorial]
-		public void ThenOrderingThenOrderingOrdering_Deep(
-			[Values(ListSortDirection.Ascending)] ListSortDirection listSortDirection,
-			[Values(ListSortDirection.Ascending)] ListSortDirection listSortDirection1)
-#endif
 		{
 			long counter = 0;
 			Stopwatch stopwatch = Stopwatch.StartNew();
@@ -256,9 +234,8 @@ namespace ObservableComputations.Test
 				{
 					for (int v3 = -1; v3 <= 2; v3++)
 					{
-#if !TestCoverageAnalisis
 						test(new []{v1}, new []{v2}, new []{v3}, listSortDirection, listSortDirection1);
-#endif
+
 						for (int v4 = -1; v4 <= 2; v4++)
 						{
 							for (int v5 = -1; v5 <= 2; v5++)
@@ -438,13 +415,14 @@ namespace ObservableComputations.Test
 				throw new Exception(traceString, e);
 			}
 
+			writeUsefulTest(getTestString(orderNums, orderNums2, listSortDirection));
+
 		}
 
 		private bool traceThenOrderingOrdering(string num, int[] orderNums, int[] orderNums2, ListSortDirection listSortDirection, int index, int orderNum, int orderNum2, int indexOld,
 			int indexNew)
 		{
 			string traceString = getTraceString(num, orderNums, orderNums2, listSortDirection, index, orderNum, orderNum2, indexOld, indexNew);
-
 			//if (traceString == "#2. OrderNums1=-1,0,0  OrderNums2=-1,-1,-1  index=1  orderNum=0  orderNum2=0  indexOld=0   indexNew=0 listSortDirection=Ascending")
 			//{
 			//	return true;
@@ -625,13 +603,13 @@ namespace ObservableComputations.Test
 				throw new Exception(traceString, e);
 			}
 
+			writeUsefulTest(getTestString(orderNums, orderNums2, orderNums3, listSortDirection, listSortDirection2));
 		}
 
 		private bool traceThenOrderingThenOrderingOrdering(string num, int[] orderNums, int[] orderNums2, int[] orderNums3, ListSortDirection listSortDirection, ListSortDirection listSortDirection2, int index, int orderNum, int orderNum2, int orderNum3, int indexOld,
 			int indexNew)
 		{
 			string traceString = getTraceString(num, orderNums, orderNums2, orderNums3, listSortDirection, listSortDirection2, index, orderNum, orderNum2, orderNum3, indexOld, indexNew);
-
 			if (traceString == "#8. OrderNums1=-1  OrderNums2=-1  OrderNums3=-1  index=0  orderNum=0  orderNum2=0  orderNum3=0  indexOld=0   indexNew=0 listSortDirection=Ascending   listSortDirection2=Ascending")
 			{
 				return true;

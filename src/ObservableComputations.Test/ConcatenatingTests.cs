@@ -67,13 +67,9 @@ namespace ObservableComputations.Test
 
 			//test(new int[0]);
 
-#if !TestCoverageAnalisis
 			int from = -1;
 			int to = 4;
-#else
-			int from = -1;
-			int to = 3;
-#endif
+
 
 			for (int v1 = from; v1 <= to; v1++)
 			{
@@ -84,7 +80,6 @@ namespace ObservableComputations.Test
 					for (int v3 = from; v3 <= to; v3++)
 					{
 						test(new[] { v1, v2, v3 });
-#if !TestCoverageAnalisis
 						for (int v4 = from; v4 <= to; v4++)
 						{
 							test(new[] { v1, v2, v3, v4 });
@@ -94,7 +89,6 @@ namespace ObservableComputations.Test
 								_textFileOutputTime.AppentLine($"{stopwatch.Elapsed.TotalMinutes}: {counter}");
 							}
 						}
-#endif
 					}
 				}
 			}
@@ -270,6 +264,7 @@ namespace ObservableComputations.Test
 				throw new Exception(traceString, e);
 			}
 
+			writeUsefulTest(getTestString(itemsCounts));
 		}
 
 		private void trace(string num, int[] itemsCounts, int index, int itemsCount, int indexOld,

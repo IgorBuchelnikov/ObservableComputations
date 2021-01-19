@@ -80,19 +80,17 @@ namespace ObservableComputations.Test
 			{
 				for (int v2 = -1; v2 <= 3; v2++)
 				{
-#if !TestCoverageAnalisis
 					test(new []{v1, v2}, new int[0]);
 					test(new int[0], new []{v1, v2});
-#endif
+
 					for (int v3 = -1; v3 <= 3; v3++)
 					{
 						for (int v4 = -1; v4 <= 3; v4++)
 						{
 							test(new []{v1, v2, v3, v4}, new []{v1, v2, v3, v4});
-#if !TestCoverageAnalisis
+
 							test(new []{v1, v2, v3, v4}, new []{v1, v2});
 							test(new []{v1, v2}, new []{v1, v2, v3, v4});
-#endif
 						}
 					}
 				}
@@ -260,6 +258,8 @@ namespace ObservableComputations.Test
 				_textFileOutputLog.AppentLine(e.StackTrace);
 				throw new Exception(traceString, e);
 			}
+
+			writeUsefulTest(getTestString(ids1, ids2));
 		}
 
 		private void trace(string num, int[] ids1, int[] ids2, int newId, int index, int indexOld, int indexNew)

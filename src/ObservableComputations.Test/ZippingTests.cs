@@ -190,6 +190,8 @@ namespace ObservableComputations.Test
 				throw new Exception(traceString, e);
 			}
 
+			writeUsefulTest(getTestString(count1, count2));
+
 		}
 
 		private void trace(string num, int count1, int count2, int index, int indexOld, int indexNew)

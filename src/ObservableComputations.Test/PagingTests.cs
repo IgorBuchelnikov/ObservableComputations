@@ -132,6 +132,8 @@ namespace ObservableComputations.Test
 				throw new Exception(traceString, e);
 			}
 
+			writeUsefulTest(getTestString(count));
+
 		}
 
 		private void trace(string num, int count,  int index, int indexOld,

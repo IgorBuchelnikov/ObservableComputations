@@ -27,13 +27,8 @@ namespace ObservableComputations.Test
 			
 			test(new int[0], mode);
 
-#if !TestCoverageAnalisis
 			int from = -2;
 			int to = 2;
-#else
-			int from = -2;
-			int to = 0;
-#endif
 
 			for (int v1 = from; v1 <= to; v1++)
 			{
@@ -44,7 +39,7 @@ namespace ObservableComputations.Test
 					for (int v3 = from; v3 <= to; v3++)
 					{
 						test(new []{v1, v2, v3}, mode);
-#if !TestCoverageAnalisis
+
 						for (int v4 = from; v4 <= to; v4++)
 						{
 							test(new []{v1, v2, v3, v4}, mode);
@@ -58,7 +53,6 @@ namespace ObservableComputations.Test
 								}
 							}
 						}
-#endif
 					}
 				}
 			}
@@ -147,6 +141,7 @@ namespace ObservableComputations.Test
 				throw new Exception(traceString, e);
 			}
 
+			writeUsefulTest(getTestString(values, mode));
 		}
 
 		private void trace(string testNum, int[] values, int index, int value, int indexOld, int indexNew)

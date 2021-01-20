@@ -157,8 +157,6 @@ namespace ObservableComputationsExamples
 	}
 }
 ```
-<script src="https://gist.github.com/IgorBuchelnikov/59ad79c1abdb89cc4fe7fdd97f81f352.js"></script>
-
 As you can see *Filtering* extension method is an analog of *Where* method from [LINQ](https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/concepts/linq/). *Filtering* extension method returns an instance of *Filtering&lt;Order&gt;* class. *Filtering&lt;TSourceItem&gt;* class implements [INotifyCollectionChanged](https://docs.microsoft.com/en-us/dotnet/api/system.collections.specialized.inotifycollectionchanged?view=netframework-4.8) interface and derived from [ObservableCollection&lt;TSourceItem&gt;](https://docs.microsoft.com/en-us/dotnet/api/system.collections.objectmodel.observablecollection-1?view=netframework-4.8). Examining the code above you can see *expensiveOrders* is not recomputed from scratch whenever the *orders* collection change or  *Price* property of some order changed, in the *expensiveOrders* collection occurs only that changes, that relevant to a particular change in the *orders* collection or *Price* property of some order. [Referring to reactive programming terminology, this behavior defines the change propagation algorithm as "push"](https://en.wikipedia.org/wiki/Reactive_programming#Change_propagation_algorithms).
 
 

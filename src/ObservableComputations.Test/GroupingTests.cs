@@ -62,6 +62,7 @@ namespace ObservableComputations.Test
 		TextFileOutput _textFileOutputLog = new TextFileOutput(@"D:\Grouping_Deep.log");
 		TextFileOutput _textFileOutputTime = new TextFileOutput(@"D:\Grouping_Deep_Time.log");
 
+#if RunOnlyMinimalTestsToCover
 		[Test]
 		public void Grouping_Deep()
 		{
@@ -100,6 +101,7 @@ namespace ObservableComputations.Test
 				}
 			}
 		}
+#endif
 
 		private void test(int[] values)
 		{

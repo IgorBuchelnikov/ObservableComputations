@@ -51,6 +51,7 @@ namespace ObservableComputations.Test
 		TextFileOutput _textFileOutputLog = new TextFileOutput(@"D:\Projects\NevaPolimer\Hashing_Deep.log");
 		TextFileOutput _textFileOutputTime = new TextFileOutput(@"D:\Projects\NevaPolimer\Hashing_Deep_Time.log");
 
+#if RunOnlyMinimalTestsToCover
 		[Test]
 		public void Hashing_Deep()
 		{
@@ -89,6 +90,7 @@ namespace ObservableComputations.Test
 				}
 			}
 		}
+#endif
 
 		private void test(int[] values)
 		{

@@ -71,6 +71,7 @@ namespace ObservableComputations.Test
 		TextFileOutput _textFileOutputLog = new TextFileOutput(@"D:\Projects\NevaPolimer\Ordering_Deep.log");
 		TextFileOutput _textFileOutputTime = new TextFileOutput(@"D:\Projects\NevaPolimer\Ordering_Deep_Time.log");
 
+#if RunOnlyMinimalTestsToCover
 		[Test, Combinatorial]
 		public void Ordering_Deep(
 			[Values(ListSortDirection.Ascending, ListSortDirection.Descending)] ListSortDirection listSortDirection)
@@ -112,6 +113,7 @@ namespace ObservableComputations.Test
 				}
 			}
 		}
+#endif
 
 		private void test(int[] orderNums, ListSortDirection listSortDirection)
 		{

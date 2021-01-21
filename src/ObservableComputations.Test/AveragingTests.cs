@@ -16,6 +16,7 @@ namespace ObservableComputations.Test
 		TextFileOutput _textFileOutputLog = new TextFileOutput(@"D:\AverageComputing_Deep.log");
 		TextFileOutput _textFileOutputTime = new TextFileOutput(@"D:\AverageComputing_Deep_Time.log");
 
+#if RunOnlyMinimalTestsToCover
 		[Test]
 		public void AverageComputing_Deep()
 		{
@@ -54,6 +55,7 @@ namespace ObservableComputations.Test
 				}
 			}
 		}
+#endif
 
 		OcConsumer consumer = new OcConsumer();
 

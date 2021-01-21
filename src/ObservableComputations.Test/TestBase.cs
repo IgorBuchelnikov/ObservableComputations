@@ -12,6 +12,8 @@ namespace ObservableComputations.Test
 {
 	public class TestBase
 	{
+		public const string MinimalTestsToCoverFileName = "MinimalTestsToCover.generated.cs";
+
 		bool _debug;
 		public TestBase(bool debug)
 		{
@@ -25,7 +27,7 @@ namespace ObservableComputations.Test
 			}
 			else
 			{
-#if UsefulTestsDetection
+#if GeneratingMinimalTestsToCover
 				File.AppendAllLines("UsefulTests.txt", new []{"\n", GetType().Name});
 #endif				
 			}
@@ -36,7 +38,7 @@ namespace ObservableComputations.Test
 		int _lastVisitsTotal= 0;
 		protected void writeUsefulTest(string test)
 		{
-#if UsefulTestsDetection
+#if GeneratingMinimalTestsToCover
 			if (AltCover.Monitor.TryGetVisitTotals(out PointCount pointCount))
 			{
 				if (_lastVisitsTotal < pointCount.Code)

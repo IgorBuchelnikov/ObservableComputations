@@ -70,6 +70,7 @@ namespace ObservableComputations.Test
 		TextFileOutput _textFileOutputLog = new TextFileOutput(@"D:\Projects\NevaPolimer\PredicateGroupJoining_Deep.log");
 		TextFileOutput _textFileOutputTime = new TextFileOutput(@"D:\Projects\NevaPolimer\PredicateGroupJoining_Deep_Time.log");
 
+#if RunOnlyMinimalTestsToCover
 		[Test]
 		public void PredicateGroupJoining_Deep()
 		{		
@@ -99,6 +100,7 @@ namespace ObservableComputations.Test
 				}
 			}
 		}
+#endif
 
 		private void test(int[] ids1, int[] ids2)
 		{

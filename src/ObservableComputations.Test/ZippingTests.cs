@@ -54,6 +54,7 @@ namespace ObservableComputations.Test
 		TextFileOutput _textFileOutputLog = new TextFileOutput(@"D:\Projects\NevaPolimer\Zipping_Deep.log");
 		TextFileOutput _textFileOutputTime = new TextFileOutput(@"D:\Projects\NevaPolimer\Zipping_Deep_Time.log");
 
+#if RunOnlyMinimalTestsToCover
 		[Test, Combinatorial]
 		public void Zipping_Deep()
 		{			
@@ -65,6 +66,7 @@ namespace ObservableComputations.Test
 				}
 			}
 		}
+#endif
 
 		private void test(int count1, int count2)
 		{

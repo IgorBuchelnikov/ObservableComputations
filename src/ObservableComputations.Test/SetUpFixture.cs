@@ -36,6 +36,7 @@ namespace ObservableComputations.Test
 #if GeneratingMinimalTestsToCover
 			File.AppendAllText(TestBase.MinimalTestsToCoverFileName,
 @"
+	}
 }"			);
 #endif
 	    }

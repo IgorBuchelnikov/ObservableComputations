@@ -11,7 +11,7 @@ using NUnit.Framework;
 
 namespace ObservableComputations.Test
 {
-	public class OrderingThenOrderingThenOrderingTests : TestBase
+	public partial class OrderingThenOrderingThenOrderingTests : TestBase
 	{
 		OcConsumer consumer = new OcConsumer();
 
@@ -183,8 +183,6 @@ namespace ObservableComputations.Test
 					}
 				}
 			}
-
-			endDeepTest();
 		}
 #endif
 

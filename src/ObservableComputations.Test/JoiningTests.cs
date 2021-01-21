@@ -14,7 +14,7 @@ using NUnit.Framework;
 namespace ObservableComputations.Test
 {
 	[TestFixture(false)]
-	public class JoiningTests : TestBase
+	public partial class JoiningTests : TestBase
 	{
 		OcConsumer consumer = new OcConsumer();
 
@@ -91,8 +91,6 @@ namespace ObservableComputations.Test
 					}
 				}
 			}
-
-			endDeepTest();
 		}
 #endif
 

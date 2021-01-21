@@ -10,7 +10,7 @@ using NUnit.Framework;
 namespace ObservableComputations.Test
 {
 	[TestFixture(false)]
-	public class PagingTests : TestBase
+	public partial class PagingTests : TestBase
 	{
 		OcConsumer consumer = new OcConsumer();
 
@@ -46,9 +46,7 @@ namespace ObservableComputations.Test
 			for (int count = 0; count < 10; count++)
 			{
 				test(count);
-			}		
-
-			endDeepTest();
+			}
 		}
 #endif
 

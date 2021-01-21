@@ -14,7 +14,7 @@ using NUnit.Framework;
 namespace ObservableComputations.Test
 {
 	[TestFixture(false)]
-	public class HashSettingTests : TestBase
+	public partial class HashSettingTests : TestBase
 	{
 		OcConsumer consumer = new OcConsumer();
 
@@ -89,8 +89,6 @@ namespace ObservableComputations.Test
 					}
 				}
 			}
-
-			endDeepTest();
 		}
 #endif
 

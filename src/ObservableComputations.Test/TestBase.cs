@@ -14,6 +14,10 @@ namespace ObservableComputations.Test
 	{
 		public const string MinimalTestsToCoverFileName = "MinimalTestsToCover.generated.cs";
 
+#if GeneratingMinimalTestsToCover
+		public bool _firstTestClass = true;
+#endif	
+
 		bool _debug;
 		public TestBase(bool debug)
 		{
@@ -28,13 +32,30 @@ namespace ObservableComputations.Test
 			else
 			{
 #if GeneratingMinimalTestsToCover
-				File.AppendAllText(TestBase.MinimalTestsToCoverFileName,
-$@"	public partial class {GetType().Name}
+				if (GetType().Name != nameof(QuickTests))
+				{
+					if (!_firstTestClass)
+					{
+						File.AppendAllText(TestBase.MinimalTestsToCoverFileName,
+$@"
+		}}
+	}}	
+"						);
+					}
+					else
+					{
+						_firstTestClass = false;
+					}
+
+					File.AppendAllText(TestBase.MinimalTestsToCoverFileName,
+$@"
+	public partial class {GetType().Name}
 	{{
 		[Test]
 		public void MinimalTestToCover()
 		{{
-");
+"					);
+				}
 #endif				
 			}
 
@@ -97,15 +118,5 @@ $@"	public partial class {GetType().Name}
 			return $"test({count1}, {count2});";
 		}
 
-		protected void endDeepTest()
-		{
-#if GeneratingMinimalTestsToCover
-			File.AppendAllText(TestBase.MinimalTestsToCoverFileName,
-$@"
-		}}
-	}}	
-");
-#endif
-		}
 	}
 }

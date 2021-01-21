@@ -14,7 +14,7 @@ using NUnit.Framework;
 namespace ObservableComputations.Test
 {
 	[TestFixture(false)]
-	public class ZippingTests : TestBase
+	public partial class ZippingTests : TestBase
 	{
 		OcConsumer consumer = new OcConsumer();
 
@@ -65,8 +65,6 @@ namespace ObservableComputations.Test
 					test(v1, v2);
 				}
 			}
-
-			endDeepTest();
 		}
 #endif
 

@@ -12,7 +12,7 @@ namespace ObservableComputations.Test
 {
 	// TODO тестировать смену сепаратора
 	[TestFixture(false)]
-	public class StringsConcatenatingTests : TestBase
+	public partial class StringsConcatenatingTests : TestBase
 	{
 		OcConsumer consumer = new OcConsumer();
 
@@ -52,8 +52,6 @@ namespace ObservableComputations.Test
 					}
 				}
 			}
-
-			endDeepTest();
 		}
 #endif
 

@@ -15,7 +15,7 @@ namespace ObservableComputations.Test
 {
 
 	[TestFixture(false)]
-	public class ExceptingTests : TestBase
+	public partial class ExceptingTests : TestBase
 	{
 		OcConsumer consumer = new OcConsumer();
 
@@ -89,8 +89,6 @@ namespace ObservableComputations.Test
 					}
 				}
 			}
-
-			endDeepTest();
 		}
 #endif
 

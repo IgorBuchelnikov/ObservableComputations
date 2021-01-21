@@ -14,7 +14,7 @@ using NUnit.Framework;
 namespace ObservableComputations.Test
 {
 	[TestFixture(false)]
-	public class IntersectingTests : TestBase
+	public partial class IntersectingTests : TestBase
 	{
 		OcConsumer consumer = new OcConsumer();
 
@@ -85,8 +85,6 @@ namespace ObservableComputations.Test
 					}
 				}
 			}
-
-			endDeepTest();
 		}
 #endif
 

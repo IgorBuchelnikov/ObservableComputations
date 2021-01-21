@@ -11,7 +11,7 @@ using NUnit.Framework;
 namespace ObservableComputations.Test
 {
 	[TestFixture(false)]
-	public class AveragingTests : TestBase
+	public partial class AveragingTests : TestBase
 	{
 		TextFileOutput _textFileOutputLog = new TextFileOutput(@"D:\AverageComputing_Deep.log");
 		TextFileOutput _textFileOutputTime = new TextFileOutput(@"D:\AverageComputing_Deep_Time.log");
@@ -54,8 +54,6 @@ namespace ObservableComputations.Test
 					}
 				}
 			}
-
-			endDeepTest();
 		}
 #endif
 

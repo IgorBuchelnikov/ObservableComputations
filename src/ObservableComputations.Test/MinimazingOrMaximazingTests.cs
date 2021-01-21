@@ -11,7 +11,7 @@ using NUnit.Framework;
 namespace ObservableComputations.Test
 {
 	[TestFixture(false)]
-	public class MinimazingOrMaximazingTests : TestBase
+	public partial class MinimazingOrMaximazingTests : TestBase
 	{
 		OcConsumer consumer = new OcConsumer();
 
@@ -57,8 +57,6 @@ namespace ObservableComputations.Test
 					}
 				}
 			}
-
-			endDeepTest();
 		}
 #endif
 

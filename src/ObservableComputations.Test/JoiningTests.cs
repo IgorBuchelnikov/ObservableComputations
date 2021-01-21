@@ -68,7 +68,7 @@ namespace ObservableComputations.Test
 		TextFileOutput _textFileOutputLog = new TextFileOutput(@"D:\Projects\NevaPolimer\Joining_Deep.log");
 		TextFileOutput _textFileOutputTime = new TextFileOutput(@"D:\Projects\NevaPolimer\Joining_Deep_Time.log");
 
-#if RunOnlyMinimalTestsToCover
+#if !RunOnlyMinimalTestsToCover
 		[Test]
 		public void Joining_Deep()
 		{			
@@ -91,6 +91,8 @@ namespace ObservableComputations.Test
 					}
 				}
 			}
+
+			endDeepTest();
 		}
 #endif
 

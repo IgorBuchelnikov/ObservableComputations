@@ -59,7 +59,7 @@ namespace ObservableComputations.Test
 		TextFileOutput _textFileOutputLog = new TextFileOutput(@"D:\Projects\NevaPolimer\Concatenating_Deep.log");
 		TextFileOutput _textFileOutputTime = new TextFileOutput(@"D:\Projects\NevaPolimer\Concatenating_Deep_Time.log");
 
-#if RunOnlyMinimalTestsToCover
+#if !RunOnlyMinimalTestsToCover
 		[Test, Combinatorial]
 		public void Concating_Deep()
 		{
@@ -93,6 +93,8 @@ namespace ObservableComputations.Test
 					}
 				}
 			}
+
+			endDeepTest();
 		}
 #endif
 

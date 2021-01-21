@@ -18,7 +18,7 @@ namespace ObservableComputations.Test
 		TextFileOutput _textFileOutputLog = new TextFileOutput(@"D:\Summarizing_Deep.log");
 		TextFileOutput _textFileOutputTime = new TextFileOutput(@"D:\Summarizing_Deep_Time.log");
 
-#if RunOnlyMinimalTestsToCover
+#if !RunOnlyMinimalTestsToCover
 		[Test]
 		public void Summarizing_Deep()
 		{
@@ -55,6 +55,8 @@ namespace ObservableComputations.Test
 					}
 				}
 			}
+
+			endDeepTest();
 		}
 #endif
 

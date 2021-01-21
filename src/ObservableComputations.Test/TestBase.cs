@@ -28,7 +28,13 @@ namespace ObservableComputations.Test
 			else
 			{
 #if GeneratingMinimalTestsToCover
-				File.AppendAllLines("UsefulTests.txt", new []{"\n", GetType().Name});
+				File.AppendAllText(TestBase.MinimalTestsToCoverFileName,
+$@"	public partial class {GetType().Name}
+	{{
+		[Test]
+		public void MinimalTestToCover()
+		{{
+");
 #endif				
 			}
 
@@ -44,7 +50,7 @@ namespace ObservableComputations.Test
 				if (_lastVisitsTotal < pointCount.Code)
 				{
 					_lastVisitsTotal = pointCount.Code;
-					if (!_debug) File.AppendAllLines("UsefulTests.txt", new []{test});
+					if (!_debug) File.AppendAllLines(TestBase.MinimalTestsToCoverFileName, new []{test});
 				}
 			}
 #endif
@@ -52,33 +58,33 @@ namespace ObservableComputations.Test
 
 		protected string getTestString(int[] values)
 		{
-			return $"test(new int[]{{{string.Join(", ", values.Select(v => v.ToString()))}}});";
+			return $"			test(new int[]{{{string.Join(", ", values.Select(v => v.ToString()))}}});";
 		}
 
 		protected string getTestString(int[] ids1, int[] ids2)
 		{
-			return $"test(new int[]{{{string.Join(", ", ids1.Select(v => v.ToString()))}}}, new int[]{{{string.Join(", ", ids2.Select(v => v.ToString()))}}});";
+			return $"			test(new int[]{{{string.Join(", ", ids1.Select(v => v.ToString()))}}}, new int[]{{{string.Join(", ", ids2.Select(v => v.ToString()))}}});";
 		}
 
 		protected string getTestString(int[] ids1, MinimazingOrMaximazingMode mode)
 		{
-			return $"test(new int[]{{{string.Join(", ", ids1.Select(v => v.ToString()))}}}, MinimazingOrMaximazingMode.{mode});";
+			return $"			test(new int[]{{{string.Join(", ", ids1.Select(v => v.ToString()))}}}, MinimazingOrMaximazingMode.{mode});";
 		}
 
 
 		protected string getTestString(int[] ids1, ListSortDirection mode)
 		{
-			return $"test(new int[]{{{string.Join(", ", ids1.Select(v => v.ToString()))}}}, ListSortDirection.{mode});";
+			return $"			test(new int[]{{{string.Join(", ", ids1.Select(v => v.ToString()))}}}, ListSortDirection.{mode});";
 		}
 
 		protected string getTestString(int[] orderNums, int[] orderNums2, ListSortDirection listSortDirection)
 		{
-			return $"test(new int[]{{{string.Join(", ", orderNums.Select(v => v.ToString()))}}}, new int[]{{{string.Join(", ", orderNums2.Select(v => v.ToString()))}}}, ListSortDirection.{listSortDirection});";
+			return $"			test(new int[]{{{string.Join(", ", orderNums.Select(v => v.ToString()))}}}, new int[]{{{string.Join(", ", orderNums2.Select(v => v.ToString()))}}}, ListSortDirection.{listSortDirection});";
 		}
 
 		protected string getTestString(int[] orderNums, int[] orderNums2, int[] orderNums3, ListSortDirection listSortDirection, ListSortDirection listSortDirection2)
 		{
-			return $"test(new int[]{{{string.Join(", ", orderNums.Select(v => v.ToString()))}}}, new int[]{{{string.Join(", ", orderNums2.Select(v => v.ToString()))}}}, new int[]{{{string.Join(", ", orderNums3.Select(v => v.ToString()))}}}, ListSortDirection.{listSortDirection}, ListSortDirection.{listSortDirection2});";
+			return $"			test(new int[]{{{string.Join(", ", orderNums.Select(v => v.ToString()))}}}, new int[]{{{string.Join(", ", orderNums2.Select(v => v.ToString()))}}}, new int[]{{{string.Join(", ", orderNums3.Select(v => v.ToString()))}}}, ListSortDirection.{listSortDirection}, ListSortDirection.{listSortDirection2});";
 		}
 
 		protected string getTestString(int count)
@@ -89,6 +95,17 @@ namespace ObservableComputations.Test
 		protected string getTestString(int count1, int count2)
 		{
 			return $"test({count1}, {count2});";
+		}
+
+		protected void endDeepTest()
+		{
+#if GeneratingMinimalTestsToCover
+			File.AppendAllText(TestBase.MinimalTestsToCoverFileName,
+$@"
+		}}
+	}}	
+");
+#endif
 		}
 	}
 }

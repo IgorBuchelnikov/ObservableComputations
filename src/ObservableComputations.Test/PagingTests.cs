@@ -39,7 +39,7 @@ namespace ObservableComputations.Test
 		TextFileOutput _textFileOutputLog = new TextFileOutput(@"D:\Projects\NevaPolimer\Paging_Deep.log");
 		TextFileOutput _textFileOutputTime = new TextFileOutput(@"D:\Projects\NevaPolimer\Paging_Deep_Time.log");
 
-#if RunOnlyMinimalTestsToCover
+#if !RunOnlyMinimalTestsToCover
 		[Test, Combinatorial]
 		public void Paging_Deep()
 		{
@@ -47,6 +47,8 @@ namespace ObservableComputations.Test
 			{
 				test(count);
 			}		
+
+			endDeepTest();
 		}
 #endif
 

@@ -63,7 +63,7 @@ namespace ObservableComputations.Test
 		TextFileOutput _textFileOutputLog = new TextFileOutput(@"D:\Projects\NevaPolimer\Intersecting_Deep.log");
 		TextFileOutput _textFileOutputTime = new TextFileOutput(@"D:\Projects\NevaPolimer\Intersecting_Deep_Time.log");
 
-#if RunOnlyMinimalTestsToCover
+#if !RunOnlyMinimalTestsToCover
 		[Test]
 		public void Intersecting_Deep()
 		{			
@@ -85,6 +85,8 @@ namespace ObservableComputations.Test
 					}
 				}
 			}
+
+			endDeepTest();
 		}
 #endif
 

@@ -106,33 +106,6 @@ namespace ObservableComputations.Test
 
 
 		[Test]
-		public void ThenOrderingThenOrderingOrdering_Random()
-		{
-			Random random =  new Random();
-
-			for (int i1 = 0; i1 < 100; i1++)
-			{
-				int itemCount = random.Next(4, 7);
-				//int itemCount = 3;
-				int[] orderNums1 = new int[itemCount];
-				int[] orderNums2 = new int[itemCount];
-				int[] orderNums3 = new int[itemCount];
-
-				for (int i = 0; i < itemCount; i++)
-				{
-					orderNums1[i] = random.Next(-1, itemCount);
-					orderNums2[i] = random.Next(-1, itemCount);
-					orderNums3[i] = random.Next(-1, itemCount);
-				}
-
-				test(orderNums1, orderNums2, orderNums3, ListSortDirection.Ascending, ListSortDirection.Ascending);
-				test(orderNums1, orderNums2, orderNums3, ListSortDirection.Descending, ListSortDirection.Ascending);
-				test(orderNums1, orderNums2, orderNums3, ListSortDirection.Ascending, ListSortDirection.Descending);
-				test(orderNums1, orderNums2, orderNums3, ListSortDirection.Descending, ListSortDirection.Descending);
-			}
-		}
-
-				[Test]
 		public void ThenOrderingThenOrderingOrdering_Test()
 		{
 			int[] orderNums1 = {0,5,1,4,3,3};
@@ -155,7 +128,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 
-#if RunOnlyMinimalTestsToCover
+#if !RunOnlyMinimalTestsToCover
 		[Test, Combinatorial]
 		public void ThenOrderingThenOrderingOrdering_Deep(
 			[Values(ListSortDirection.Ascending, ListSortDirection.Descending)] ListSortDirection listSortDirection,
@@ -210,6 +183,8 @@ namespace ObservableComputations.Test
 					}
 				}
 			}
+
+			endDeepTest();
 		}
 #endif
 

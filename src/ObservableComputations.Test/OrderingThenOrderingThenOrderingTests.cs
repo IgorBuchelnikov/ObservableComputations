@@ -3,14 +3,12 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Diagnostics;
-using System.Linq;
 using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
 using NUnit.Framework;
 
 namespace ObservableComputations.Test
 {
+	[TestFixture(false)]
 	public partial class OrderingThenOrderingThenOrderingTests : TestBase
 	{
 		OcConsumer consumer = new OcConsumer();

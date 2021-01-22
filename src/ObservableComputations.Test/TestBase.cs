@@ -15,7 +15,7 @@ namespace ObservableComputations.Test
 		public const string MinimalTestsToCoverFileName = "MinimalTestsToCover.generated.cs";
 
 #if GeneratingMinimalTestsToCover
-		public bool _firstTestClass = true;
+		public static bool _firstTestClass = true;
 #endif	
 
 		bool _debug;
@@ -110,12 +110,12 @@ $@"
 
 		protected string getTestString(int count)
 		{
-			return $"test({count});";
+			return $"			test({count});";
 		}
 
 		protected string getTestString(int count1, int count2)
 		{
-			return $"test({count1}, {count2});";
+			return $"			test({count1}, {count2});";
 		}
 
 	}

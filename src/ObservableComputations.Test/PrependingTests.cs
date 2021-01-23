@@ -11,7 +11,7 @@ using NUnit.Framework;
 namespace ObservableComputations.Test
 {
 	[TestFixture(false)]
-	public class PrependingTests : TestBase
+	public partial class PrependingTests : TestBase
 	{
 		OcConsumer consumer = new OcConsumer();
 

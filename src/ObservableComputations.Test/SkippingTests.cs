@@ -8,7 +8,7 @@ using NUnit.Framework;
 namespace ObservableComputations.Test
 {
 	[TestFixture(false)]
-	public class SkippingTests : TestBase
+	public partial class SkippingTests : TestBase
 	{
 		OcConsumer consumer = new OcConsumer();
 

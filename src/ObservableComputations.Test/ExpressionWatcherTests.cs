@@ -12,7 +12,7 @@ using NUnit.Framework;
 namespace ObservableComputations.Test
 {
 	[TestFixture(false)]
-	public class ExpressionWatcherTests : TestBase
+	public partial class ExpressionWatcherTests : TestBase
 	{
 		public class Item : INotifyPropertyChanged, INotifyMethodChanged
 		{

@@ -11,7 +11,7 @@ using NUnit.Framework;
 namespace ObservableComputations.Test
 {
 	[TestFixture(false)]
-	public class SpecialCaseTests : TestBase
+	public partial class SpecialCaseTests : TestBase
 	{
 
 

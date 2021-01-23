@@ -16,7 +16,7 @@ using NUnit.Framework;
 namespace ObservableComputations.Test
 {
 	[TestFixture(false)]
-	public class CollectionDispatchingTest : TestBase
+	public partial class CollectionDispatchingTest : TestBase
 	{
 		public class Item : INotifyPropertyChanged
 		{

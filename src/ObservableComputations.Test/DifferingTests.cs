@@ -10,7 +10,7 @@ using NUnit.Framework;
 namespace ObservableComputations.Test
 {
 	[TestFixture(false)]
-	public class DifferingTests : TestBase
+	public partial class DifferingTests : TestBase
 	{
 		OcConsumer consumer = new OcConsumer();
 

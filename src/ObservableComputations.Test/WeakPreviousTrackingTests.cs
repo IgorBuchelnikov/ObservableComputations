@@ -10,7 +10,7 @@ using NUnit.Framework;
 namespace ObservableComputations.Test
 {
 	[TestFixture(false)]
-	public class WeakPreviousTrackingTests : TestBase
+	public partial class WeakPreviousTrackingTests : TestBase
 	{
 		OcConsumer consumer = new OcConsumer();
 

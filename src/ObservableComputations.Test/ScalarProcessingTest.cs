@@ -7,7 +7,7 @@ using NUnit.Framework;
 namespace ObservableComputations.Test
 {
 	[TestFixture(false)]
-	public class ScalarProcessingTest : TestBase
+	public partial class ScalarProcessingTest : TestBase
 	{
 		OcConsumer consumer = new OcConsumer();
 

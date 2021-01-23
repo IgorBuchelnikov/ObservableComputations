@@ -13,7 +13,7 @@ using NUnit.Framework;
 namespace ObservableComputations.Test
 {
 	[TestFixture(false)]
-	public class PropertyAccessingTests : TestBase
+	public partial class PropertyAccessingTests : TestBase
 	{
 		OcConsumer consumer = new OcConsumer();
 

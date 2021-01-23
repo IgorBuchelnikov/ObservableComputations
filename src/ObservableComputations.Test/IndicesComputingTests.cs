@@ -11,7 +11,7 @@ using NUnit.Framework;
 namespace ObservableComputations.Test
 {
 	[TestFixture(false)]
-	public class IndicesComputingTests : TestBase
+	public partial class IndicesComputingTests : TestBase
 	{
 		OcConsumer consumer = new OcConsumer();
 

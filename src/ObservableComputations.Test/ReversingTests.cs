@@ -11,7 +11,7 @@ using NUnit.Framework;
 namespace ObservableComputations.Test
 {
 	[TestFixture(false)]
-	public class ReversingTests : TestBase
+	public partial class ReversingTests : TestBase
 	{
 		OcConsumer consumer = new OcConsumer();
 

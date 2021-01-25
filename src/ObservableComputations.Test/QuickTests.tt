@@ -35,7 +35,7 @@ namespace ObservableComputations.Test
 			&& em.Name != "PropertyAccessing"
 			&& em.Name != "CollectionDispatching"
 			&& em.Name != "ScalarDispatching"
-			&& em.Name != "ScalarPausing"
+			//&& em.Name != "ScalarPausing"
 			&& !em.Arguments.Any(ema => IsComputingArgument(ema)))
 		.GroupBy(em => em.Name).OrderBy(emg => emg.Key))
 	{
@@ -50,16 +50,18 @@ namespace ObservableComputations.Test
 		{
 			testNum++;
 
-			if (extensionMethod.Name == "CollectionPausing")
+			if (extensionMethod.Name == "Aggregating")
 			{
 			}
 
-			var arguments = new List<(string variableType, string name, string result, string sourceAccessor, string scalarType, bool isCombinatorical)>();
+			var arguments = new List<(int argumentIndex, string variableType, string argumentType, string name, string result, string sourceAccessor, string scalarType, bool isCombinatorical)>();
 			var signatureArguments = extensionMethod.ArgumentsWithoutDefaultValue;
-			foreach (ExtensionMethodArgument argument in signatureArguments )
+			int index = 0;
+			foreach (ExtensionMethodArgument argument in signatureArguments)
 			{
 				var argumentValue = getArgumentValue(argument.Type, argument.Name, extensionMethod.Name);
-				arguments.Add((argumentValue.variableType, argument.Name, argumentValue.result, argumentValue.sourceAccessor, argumentValue.scalarType, argumentValue.isCombinatorical));
+				arguments.Add((index, argumentValue.variableType, argument.Type, argument.Name, argumentValue.result, argumentValue.sourceAccessor, argumentValue.scalarType, argumentValue.isCombinatorical));
+				index++;
 			}
 
 			var combinatoricalArguments = arguments.Where(a => a.isCombinatorical).ToArray();
@@ -89,7 +91,7 @@ namespace ObservableComputations.Test
 			OcConsumer consumer = new OcConsumer();
 			var testing = <#=arguments.First().name#>.<#=extensionMethod.Name#><#=genericParamsValues#>(<#=arguments.Count == 1 ? ").For(consumer);" : ""#>
 <#
-			int index = 0;
+			index = 0;
 			foreach (var argument in arguments.Skip(1))
 			{
 #>
@@ -121,7 +123,7 @@ namespace ObservableComputations.Test
 			{
 				testing.ValidateConsistency();
 <#
-			foreach (var argument in arguments.Where(a => (a.name.Contains("source") || a.name.Contains("innerSource") || a.name.Contains("outerSource") || a.name.Contains("leftSource") || a.name.Contains("rightSource")) && !IsCollectionOfCollectionsArgument(extensionMethod.Name, a.name)))
+			foreach (var argument in arguments.Where(a => IsCollectionArgument(extensionMethod.Name, a.name, a.argumentType)))
 			{
 				string scalarValueAccessor = argument.variableType.Contains("Scalar") ? ".Value" : "";
 #>
@@ -178,9 +180,9 @@ namespace ObservableComputations.Test
 				IList listSource;
 <#
 			if (sourcesArgument.Count() == 0)
-				foreach (var argument in arguments.Where(a => (a.Item2.Contains("source") || a.Item2.Contains("innerSource") || a.Item2.Contains("outerSource"))))
+				foreach (var argument in arguments.Where(a => (a.name.Contains("source") || a.name.Contains("innerSource") || a.name.Contains("outerSource"))))
 				{
-					string scalarValueAccessor = argument.Item1.Contains("Scalar") ? ".Value" : "";
+					string scalarValueAccessor = argument.variableType.Contains("Scalar") ? ".Value" : "";
 #>
 				listSource = ((IList)((<#=argument.scalarType#>)<#=argument.name#><#=scalarValueAccessor#>)<#=argument.sourceAccessor#>);
 				if (listSource != null)
@@ -193,9 +195,9 @@ namespace ObservableComputations.Test
 				}
 
 			if (sourcesArgument.Count() == 0)
-				foreach (var argument in arguments.Where(a => (a.Item2.Contains("source") || a.Item2.Contains("innerSource") || a.Item2.Contains("outerSource")) && !a.Item2.Contains("sources")))
+				foreach (var argument in arguments.Where(a => (a.name.Contains("source") || a.name.Contains("innerSource") || a.name.Contains("outerSource")) && !a.name.Contains("sources")))
 				{
-					string scalarValueAccessor = argument.Item1.Contains("Scalar") ? ".Value" : "";
+					string scalarValueAccessor = argument.variableType.Contains("Scalar") ? ".Value" : "";
 #>
 				if (<#=argument.name#>Value != null)
 				{
@@ -211,7 +213,7 @@ namespace ObservableComputations.Test
 
 			if (sourcesArgument.Count() != 0)
 			{
-				string scalarValueAccessor = sourcesArgument.First().Item1.Contains("Scalar") ? ".Value" : "";
+				string scalarValueAccessor = sourcesArgument.First().variableType.Contains("Scalar") ? ".Value" : "";
 #>
 				if (<#=sourcesArgument.First().name#>Value != null)
 				{
@@ -222,6 +224,20 @@ namespace ObservableComputations.Test
 
 <#
 			}
+
+			var scalarSourceNotCollectionArguments = arguments.Where(a => a.argumentIndex == 0 && a.name.ToUpper().Contains("SCALAR") && !IsCollectionArgument(extensionMethod.Name, a.name, a.scalarType));
+
+			foreach (var argument in scalarSourceNotCollectionArguments)
+			{
+				IEnumerable<string> scalarAlternativeValues = getScalarAlternativeValues(argument.scalarType, argument.name, extensionMethod.Name);
+
+				foreach (var scalarAlternativeValue in scalarAlternativeValues)
+				{
+#>
+				((Scalar<<#=argument.scalarType#>>)<#=argument.name#>).Change(<#=scalarAlternativeValue#>);
+<#
+				}
+			}
 #>
 			}
 
@@ -229,9 +245,9 @@ namespace ObservableComputations.Test
 <#
 
 
-			var scalarArguments = arguments.Where(a => a.Item2.ToUpper().Contains("SCALAR"));
-			var scalarSourceArguments = scalarArguments.Where(a => a.Item2.ToUpper().Contains("SOURCE"));
-			var scalarNotSourceArguments = scalarArguments.Where(a => !a.Item2.ToUpper().Contains("SOURCE"));
+			var scalarArguments = arguments.Where(a => a.name.ToUpper().Contains("SCALAR"));
+			var scalarSourceArguments = scalarArguments.Where(a => a.name.ToUpper().Contains("SOURCE"));
+			var scalarNotSourceArguments = scalarArguments.Where(a => a.argumentIndex > 0 && !a.name.ToUpper().Contains("SOURCE"));
 
 			foreach (var argument in scalarNotSourceArguments.Concat(scalarSourceArguments))
 			{
@@ -300,6 +316,7 @@ namespace ObservableComputations.Test
 		else
 			type = type.Replace("TResult", "int");
 		type = type.Replace("ObservableComputations.IReadScalar", "Scalar");
+		type = type.Replace("TResult", "int");
 		return type;
 	}
 
@@ -470,13 +487,14 @@ namespace ObservableComputations.Test
 			case "System.Linq.Expressions.Expression<System.Func<TSourceItem, int, System.Collections.Specialized.INotifyCollectionChanged>>":
 				result =  "(i, ind) => i.Items";
 				break;
-			case "ObservableComputations.IReadScalar<TResult>":
-				break;
 			case "bool":
 				result = "true";
 				break;
 			case "ObservableComputations.CollectionPausingResumeType":
 				result = "CollectionPausingResumeType.Reset";
+				break;
+			case "TResult":
+				result = "0";
 				break;
 			default:
 				throw new Exception($"Unexpected type {type}");

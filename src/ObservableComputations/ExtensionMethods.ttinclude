@@ -380,4 +380,18 @@
 	{
 		return (extensionMethodName == "Concatenating" || extensionMethodName == "Uniting") && (argumentName == "source" || argumentName == "sourceScalar");
 	}
+
+	public bool IsCollectionArgument(string extensionMethodName, string argumentName, string type)
+	{
+		return 
+			(type.Contains("INotifyCollectionChanged") 
+				|| type.Contains("ObservableCollection") 
+				|| type.Contains("IOrdering")) 
+			&& (argumentName.Contains("source") 
+				|| argumentName.Contains("innerSource") 
+				|| argumentName.Contains("outerSource") 
+				|| argumentName.Contains("leftSource") 
+				|| argumentName.Contains("rightSource")) 
+			&& !IsCollectionOfCollectionsArgument(extensionMethodName, argumentName);
+	}
 #>

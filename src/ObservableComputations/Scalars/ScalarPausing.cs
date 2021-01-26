@@ -13,6 +13,7 @@ namespace ObservableComputations
 		public IReadScalar<TResult> Scalar => _scalar;
 		private readonly IReadScalar<TResult> _scalar;
 		public IReadScalar<bool> IsPausedScalar => _isPausedScalar;
+		public int? LastChangesToApplyOnResumeCount => _lastChangesToApplyOnResumeCount;
 		public IReadScalar<int?> LastChangesToApplyOnResumeCountScalar => _lastChangesToApplyOnResumeCountScalar;
 
 		public bool Resuming => _resuming;
@@ -62,7 +63,7 @@ namespace ObservableComputations
 			_isConsistent = false;
 
 			int count = _deferredScalarActions.Count;
-			int startIndex = count - _lastChangesToApplyOnResumeCount ?? count;
+			int startIndex = count - (_lastChangesToApplyOnResumeCount ?? count);
 
 			for (int i = 0; i < count; i++)
 			{
@@ -106,7 +107,7 @@ namespace ObservableComputations
 		public ScalarPausing(
 			IReadScalar<TResult> scalar,
 			IReadScalar<bool> isPausedScalar,
-			int? lastChangesToApplyOnResumeCount = null)
+			int? lastChangesToApplyOnResumeCount = null) : this()
 		{
 			_isPausedScalar = isPausedScalar;
 			_lastChangesToApplyOnResumeCount = lastChangesToApplyOnResumeCount;
@@ -117,7 +118,7 @@ namespace ObservableComputations
 		public ScalarPausing(
 			IReadScalar<TResult> scalar,
 			IReadScalar<bool> isPausedScalar,
-			IReadScalar<int?> lastChangesToApplyOnResumeCountScalar)
+			IReadScalar<int?> lastChangesToApplyOnResumeCountScalar) : this()
 		{
 			_isPausedScalar = isPausedScalar;
 			_lastChangesToApplyOnResumeCountScalar = lastChangesToApplyOnResumeCountScalar;
@@ -128,7 +129,7 @@ namespace ObservableComputations
 		public ScalarPausing(
 			IReadScalar<TResult> scalar,
 			bool initialIsPaused,
-			IReadScalar<int?> lastChangesToApplyOnResumeCountScalar)
+			IReadScalar<int?> lastChangesToApplyOnResumeCountScalar) : this()
 		{
 			_isPaused = initialIsPaused;
 			_lastChangesToApplyOnResumeCountScalar = lastChangesToApplyOnResumeCountScalar;
@@ -254,7 +255,7 @@ namespace ObservableComputations
 			_handledEventArgs = e;
 
 			bool newValue = _isPausedScalar.Value;
-			_resuming = _isPaused != newValue && newValue;
+			_resuming = _isPaused != newValue && !newValue;
 			_isPaused = newValue;
 
 			if (_resuming) resume();
@@ -278,6 +279,17 @@ namespace ObservableComputations
 
 			_handledEventSender = null;
 			_handledEventArgs = null;
+		}
+
+		internal void ValidateConsistency()
+		{
+			if (!_isPaused)
+			{
+				if (!_value.Equals(_scalar.Value))
+				{
+					throw new ObservableComputationsException(this, "Consistency violation: ScalarPausing.1");
+				}
+			}
 		}
 	}
 

@@ -91,6 +91,7 @@ namespace ObservableComputations.Test
 					sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -163,6 +164,7 @@ namespace ObservableComputations.Test
 					sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -235,6 +237,7 @@ namespace ObservableComputations.Test
 					sourceValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -302,6 +305,7 @@ namespace ObservableComputations.Test
 					sourceValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -369,6 +373,7 @@ namespace ObservableComputations.Test
 					sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -438,6 +443,7 @@ namespace ObservableComputations.Test
 					sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -507,6 +513,7 @@ namespace ObservableComputations.Test
 					sourceValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -571,6 +578,7 @@ namespace ObservableComputations.Test
 					sourceValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -638,6 +646,7 @@ namespace ObservableComputations.Test
 					sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -707,6 +716,7 @@ namespace ObservableComputations.Test
 					sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -776,6 +786,7 @@ namespace ObservableComputations.Test
 					sourceValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -840,6 +851,7 @@ namespace ObservableComputations.Test
 					sourceValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -907,6 +919,7 @@ namespace ObservableComputations.Test
 					sourceValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -971,6 +984,7 @@ namespace ObservableComputations.Test
 					sourceValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -1035,6 +1049,7 @@ namespace ObservableComputations.Test
 					sourceValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -1104,6 +1119,7 @@ namespace ObservableComputations.Test
 					sourceValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -1173,6 +1189,7 @@ namespace ObservableComputations.Test
 					sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -1242,6 +1259,7 @@ namespace ObservableComputations.Test
 					sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -1311,6 +1329,7 @@ namespace ObservableComputations.Test
 					sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -1385,6 +1404,7 @@ namespace ObservableComputations.Test
 					sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -1459,6 +1479,7 @@ namespace ObservableComputations.Test
 					sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -1525,6 +1546,7 @@ namespace ObservableComputations.Test
 					sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -1591,6 +1613,7 @@ namespace ObservableComputations.Test
 					sourceValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -1652,6 +1675,7 @@ namespace ObservableComputations.Test
 					sourceValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -1716,6 +1740,7 @@ namespace ObservableComputations.Test
 					sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -1782,6 +1807,7 @@ namespace ObservableComputations.Test
 					sourceValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -1851,6 +1877,7 @@ namespace ObservableComputations.Test
 					sourceValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -1914,6 +1941,7 @@ namespace ObservableComputations.Test
 					sourceValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -1978,6 +2006,7 @@ namespace ObservableComputations.Test
 					sourceValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -2039,6 +2068,7 @@ namespace ObservableComputations.Test
 					sourceValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -2105,6 +2135,7 @@ namespace ObservableComputations.Test
 					sourceValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -2168,6 +2199,7 @@ namespace ObservableComputations.Test
 					sourceValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -2232,6 +2264,7 @@ namespace ObservableComputations.Test
 					sourceValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -2293,6 +2326,7 @@ namespace ObservableComputations.Test
 					sourceValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -2359,6 +2393,7 @@ namespace ObservableComputations.Test
 					sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -2427,6 +2462,7 @@ namespace ObservableComputations.Test
 					sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -2496,6 +2532,7 @@ namespace ObservableComputations.Test
 					sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -2562,6 +2599,7 @@ namespace ObservableComputations.Test
 					sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -2633,6 +2671,7 @@ namespace ObservableComputations.Test
 					sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -2701,6 +2740,7 @@ namespace ObservableComputations.Test
 					sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -2770,6 +2810,7 @@ namespace ObservableComputations.Test
 					sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -2836,6 +2877,7 @@ namespace ObservableComputations.Test
 					sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -2908,6 +2950,7 @@ namespace ObservableComputations.Test
 					sourceValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -2979,6 +3022,7 @@ namespace ObservableComputations.Test
 					sourceValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -3053,6 +3097,7 @@ namespace ObservableComputations.Test
 					sourceValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -3124,6 +3169,7 @@ namespace ObservableComputations.Test
 					sourceValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -3198,6 +3244,7 @@ namespace ObservableComputations.Test
 					sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -3274,6 +3321,7 @@ namespace ObservableComputations.Test
 					sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -3353,6 +3401,7 @@ namespace ObservableComputations.Test
 					sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -3429,6 +3478,7 @@ namespace ObservableComputations.Test
 					sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -3481,8 +3531,8 @@ namespace ObservableComputations.Test
 					sourceScalarValue.Insert(0, new ObservableCollection<Item>(new []{new Item(1, true), new Item(2, true), new Item(3, true), new Item(4, true), new Item(5, true)}));
 					sourceScalarValue.Insert(0, new ObservableCollection<Item>(new []{new Item(6, true), new Item(7, true), new Item(8, true), new Item(8, true), new Item(10, true)}));
 					testing.ValidateConsistency();
-				}
-
+				}				
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -3525,8 +3575,8 @@ namespace ObservableComputations.Test
 					sourceScalarValue.Insert(0, new ObservableCollection<Item>(new []{new Item(1, true), new Item(2, true), new Item(3, true), new Item(4, true), new Item(5, true)}));
 					sourceScalarValue.Insert(0, new ObservableCollection<Item>(new []{new Item(6, true), new Item(7, true), new Item(8, true), new Item(8, true), new Item(10, true)}));
 					testing.ValidateConsistency();
-				}
-
+				}				
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -3569,8 +3619,8 @@ namespace ObservableComputations.Test
 					sourceValue.Insert(0, new ObservableCollection<Item>(new []{new Item(1, true), new Item(2, true), new Item(3, true), new Item(4, true), new Item(5, true)}));
 					sourceValue.Insert(0, new ObservableCollection<Item>(new []{new Item(6, true), new Item(7, true), new Item(8, true), new Item(8, true), new Item(10, true)}));
 					testing.ValidateConsistency();
-				}
-
+				}				
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -3608,8 +3658,8 @@ namespace ObservableComputations.Test
 					sourceValue.Insert(0, new ObservableCollection<Item>(new []{new Item(1, true), new Item(2, true), new Item(3, true), new Item(4, true), new Item(5, true)}));
 					sourceValue.Insert(0, new ObservableCollection<Item>(new []{new Item(6, true), new Item(7, true), new Item(8, true), new Item(8, true), new Item(10, true)}));
 					testing.ValidateConsistency();
-				}
-
+				}				
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -3713,6 +3763,7 @@ namespace ObservableComputations.Test
 					source2Value.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -3816,6 +3867,7 @@ namespace ObservableComputations.Test
 					source2Value.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -3919,6 +3971,7 @@ namespace ObservableComputations.Test
 					source2Value.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -4022,6 +4075,7 @@ namespace ObservableComputations.Test
 					source2Value.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -4125,6 +4179,7 @@ namespace ObservableComputations.Test
 					source2Value.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -4233,6 +4288,7 @@ namespace ObservableComputations.Test
 					source2Value.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -4341,6 +4397,7 @@ namespace ObservableComputations.Test
 					source2Value.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -4449,6 +4506,7 @@ namespace ObservableComputations.Test
 					source2Value.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -4557,6 +4615,7 @@ namespace ObservableComputations.Test
 					source2ScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -4670,6 +4729,7 @@ namespace ObservableComputations.Test
 					source2ScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -4783,6 +4843,7 @@ namespace ObservableComputations.Test
 					source2ScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -4896,6 +4957,7 @@ namespace ObservableComputations.Test
 					source2ScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -5009,6 +5071,7 @@ namespace ObservableComputations.Test
 					source2ScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -5117,6 +5180,7 @@ namespace ObservableComputations.Test
 					source2ScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -5225,6 +5289,7 @@ namespace ObservableComputations.Test
 					source2ScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -5333,6 +5398,7 @@ namespace ObservableComputations.Test
 					source2ScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -5411,6 +5477,7 @@ namespace ObservableComputations.Test
 					sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -5483,6 +5550,7 @@ namespace ObservableComputations.Test
 					sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -5558,6 +5626,7 @@ namespace ObservableComputations.Test
 					sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -5630,6 +5699,7 @@ namespace ObservableComputations.Test
 					sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -5705,6 +5775,7 @@ namespace ObservableComputations.Test
 					sourceValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -5772,6 +5843,7 @@ namespace ObservableComputations.Test
 					sourceValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -5842,6 +5914,7 @@ namespace ObservableComputations.Test
 					sourceValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -5909,6 +5982,7 @@ namespace ObservableComputations.Test
 					sourceValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -5979,6 +6053,7 @@ namespace ObservableComputations.Test
 					sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -6059,6 +6134,7 @@ namespace ObservableComputations.Test
 					sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -6139,6 +6215,7 @@ namespace ObservableComputations.Test
 					sourceValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -6214,6 +6291,7 @@ namespace ObservableComputations.Test
 					sourceValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -6289,6 +6367,7 @@ namespace ObservableComputations.Test
 					sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -6366,6 +6445,7 @@ namespace ObservableComputations.Test
 					sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -6443,6 +6523,7 @@ namespace ObservableComputations.Test
 					sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -6520,6 +6601,7 @@ namespace ObservableComputations.Test
 					sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -6597,6 +6679,7 @@ namespace ObservableComputations.Test
 					sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -6669,6 +6752,7 @@ namespace ObservableComputations.Test
 					sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -6741,6 +6825,7 @@ namespace ObservableComputations.Test
 					sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -6813,6 +6898,7 @@ namespace ObservableComputations.Test
 					sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -6885,6 +6971,7 @@ namespace ObservableComputations.Test
 					sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -6962,6 +7049,7 @@ namespace ObservableComputations.Test
 					sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -7039,6 +7127,7 @@ namespace ObservableComputations.Test
 					sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -7111,6 +7200,7 @@ namespace ObservableComputations.Test
 					sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -7183,6 +7273,7 @@ namespace ObservableComputations.Test
 					sourceValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -7255,6 +7346,7 @@ namespace ObservableComputations.Test
 					sourceValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -7327,6 +7419,7 @@ namespace ObservableComputations.Test
 					sourceValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -7399,6 +7492,7 @@ namespace ObservableComputations.Test
 					sourceValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -7471,6 +7565,7 @@ namespace ObservableComputations.Test
 					sourceValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -7538,6 +7633,7 @@ namespace ObservableComputations.Test
 					sourceValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -7605,6 +7701,7 @@ namespace ObservableComputations.Test
 					sourceValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -7672,6 +7769,7 @@ namespace ObservableComputations.Test
 					sourceValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -7739,6 +7837,7 @@ namespace ObservableComputations.Test
 					sourceValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -7811,6 +7910,7 @@ namespace ObservableComputations.Test
 					sourceValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -7883,6 +7983,7 @@ namespace ObservableComputations.Test
 					sourceValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -7950,6 +8051,7 @@ namespace ObservableComputations.Test
 					sourceValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -8023,6 +8125,7 @@ namespace ObservableComputations.Test
 					sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -8095,6 +8198,7 @@ namespace ObservableComputations.Test
 					sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -8170,6 +8274,7 @@ namespace ObservableComputations.Test
 					sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -8242,6 +8347,7 @@ namespace ObservableComputations.Test
 					sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -8317,6 +8423,7 @@ namespace ObservableComputations.Test
 					sourceValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -8384,6 +8491,7 @@ namespace ObservableComputations.Test
 					sourceValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -8454,6 +8562,7 @@ namespace ObservableComputations.Test
 					sourceValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -8521,6 +8630,7 @@ namespace ObservableComputations.Test
 					sourceValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -8591,6 +8701,7 @@ namespace ObservableComputations.Test
 					sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -8671,6 +8782,7 @@ namespace ObservableComputations.Test
 					sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -8751,6 +8863,7 @@ namespace ObservableComputations.Test
 					sourceValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -8826,6 +8939,7 @@ namespace ObservableComputations.Test
 					sourceValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -8842,7 +8956,7 @@ namespace ObservableComputations.Test
 		
 		[Test, Combinatorial]
 		public void TestDistincting01(
-			[Values(1)] int initialCapacity)
+			[Values(1, 2, 3)] int initialCapacity)
 		{
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
 			Scalar<System.Collections.Generic.IEqualityComparer<Item>> equalityComparerScalar = getScalar<System.Collections.Generic.IEqualityComparer<Item>>(EqualityComparer<Item>.Default);
@@ -8901,6 +9015,7 @@ namespace ObservableComputations.Test
 					sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -8975,6 +9090,7 @@ namespace ObservableComputations.Test
 					sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -8993,7 +9109,7 @@ namespace ObservableComputations.Test
 		
 		[Test, Combinatorial]
 		public void TestDistincting03(
-			[Values(1)] int initialCapacity)
+			[Values(1, 2, 3)] int initialCapacity)
 		{
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
 			OcConsumer consumer = new OcConsumer();
@@ -9049,6 +9165,7 @@ namespace ObservableComputations.Test
 					sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -9115,6 +9232,7 @@ namespace ObservableComputations.Test
 					sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -9128,7 +9246,7 @@ namespace ObservableComputations.Test
 		
 		[Test, Combinatorial]
 		public void TestDistincting05(
-			[Values(1)] int initialCapacity)
+			[Values(1, 2, 3)] int initialCapacity)
 		{
 			Scalar<ObservableCollection<Item>> sourceScalar = getScalar<ObservableCollection<Item>>(getItems());
 			Scalar<System.Collections.Generic.IEqualityComparer<Item>> equalityComparerScalar = getScalar<System.Collections.Generic.IEqualityComparer<Item>>(EqualityComparer<Item>.Default);
@@ -9187,6 +9305,7 @@ namespace ObservableComputations.Test
 					sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -9261,6 +9380,7 @@ namespace ObservableComputations.Test
 					sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -9279,7 +9399,7 @@ namespace ObservableComputations.Test
 		
 		[Test, Combinatorial]
 		public void TestDistincting07(
-			[Values(1)] int initialCapacity)
+			[Values(1, 2, 3)] int initialCapacity)
 		{
 			Scalar<ObservableCollection<Item>> sourceScalar = getScalar<ObservableCollection<Item>>(getItems());
 			OcConsumer consumer = new OcConsumer();
@@ -9335,6 +9455,7 @@ namespace ObservableComputations.Test
 					sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -9401,6 +9522,7 @@ namespace ObservableComputations.Test
 					sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -9414,7 +9536,7 @@ namespace ObservableComputations.Test
 		
 		[Test, Combinatorial]
 		public void TestDistincting09(
-			[Values(1)] int initialCapacity)
+			[Values(1, 2, 3)] int initialCapacity)
 		{
 			System.Collections.Specialized.INotifyCollectionChanged source = getItems();
 			Scalar<System.Collections.Generic.IEqualityComparer<Item>> equalityComparerScalar = getScalar<System.Collections.Generic.IEqualityComparer<Item>>(EqualityComparer<Item>.Default);
@@ -9473,6 +9595,7 @@ namespace ObservableComputations.Test
 					sourceValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -9542,6 +9665,7 @@ namespace ObservableComputations.Test
 					sourceValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -9555,7 +9679,7 @@ namespace ObservableComputations.Test
 		
 		[Test, Combinatorial]
 		public void TestDistincting11(
-			[Values(1)] int initialCapacity)
+			[Values(1, 2, 3)] int initialCapacity)
 		{
 			System.Collections.Specialized.INotifyCollectionChanged source = getItems();
 			OcConsumer consumer = new OcConsumer();
@@ -9611,6 +9735,7 @@ namespace ObservableComputations.Test
 					sourceValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -9672,6 +9797,7 @@ namespace ObservableComputations.Test
 					sourceValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -9680,7 +9806,7 @@ namespace ObservableComputations.Test
 		
 		[Test, Combinatorial]
 		public void TestDistincting13(
-			[Values(1)] int initialCapacity)
+			[Values(1, 2, 3)] int initialCapacity)
 		{
 			ObservableCollection<Item> source = getItems();
 			Scalar<System.Collections.Generic.IEqualityComparer<Item>> equalityComparerScalar = getScalar<System.Collections.Generic.IEqualityComparer<Item>>(EqualityComparer<Item>.Default);
@@ -9739,6 +9865,7 @@ namespace ObservableComputations.Test
 					sourceValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -9808,6 +9935,7 @@ namespace ObservableComputations.Test
 					sourceValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -9821,7 +9949,7 @@ namespace ObservableComputations.Test
 		
 		[Test, Combinatorial]
 		public void TestDistincting15(
-			[Values(1)] int initialCapacity)
+			[Values(1, 2, 3)] int initialCapacity)
 		{
 			ObservableCollection<Item> source = getItems();
 			OcConsumer consumer = new OcConsumer();
@@ -9877,6 +10005,7 @@ namespace ObservableComputations.Test
 					sourceValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -9938,6 +10067,7 @@ namespace ObservableComputations.Test
 					sourceValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -9946,7 +10076,7 @@ namespace ObservableComputations.Test
 		
 		[Test, Combinatorial]
 		public void TestDistincting17(
-			[Values(1)] int initialCapacity)
+			[Values(1, 2, 3)] int initialCapacity)
 		{
 			System.Collections.Specialized.INotifyCollectionChanged source = getItems();
 			System.Collections.Generic.IEqualityComparer<Item> equalityComparer = EqualityComparer<Item>.Default;
@@ -10005,6 +10135,7 @@ namespace ObservableComputations.Test
 					sourceValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -10069,6 +10200,7 @@ namespace ObservableComputations.Test
 					sourceValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -10077,7 +10209,7 @@ namespace ObservableComputations.Test
 		
 		[Test, Combinatorial]
 		public void TestDistincting19(
-			[Values(1)] int initialCapacity)
+			[Values(1, 2, 3)] int initialCapacity)
 		{
 			ObservableCollection<Item> source = getItems();
 			System.Collections.Generic.IEqualityComparer<Item> equalityComparer = EqualityComparer<Item>.Default;
@@ -10136,6 +10268,7 @@ namespace ObservableComputations.Test
 					sourceValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -10200,6 +10333,7 @@ namespace ObservableComputations.Test
 					sourceValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -10208,7 +10342,7 @@ namespace ObservableComputations.Test
 		
 		[Test, Combinatorial]
 		public void TestDistincting21(
-			[Values(1)] int initialCapacity)
+			[Values(1, 2, 3)] int initialCapacity)
 		{
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
 			System.Collections.Generic.IEqualityComparer<Item> equalityComparer = EqualityComparer<Item>.Default;
@@ -10267,6 +10401,7 @@ namespace ObservableComputations.Test
 					sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -10336,6 +10471,7 @@ namespace ObservableComputations.Test
 					sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -10349,7 +10485,7 @@ namespace ObservableComputations.Test
 		
 		[Test, Combinatorial]
 		public void TestDistincting23(
-			[Values(1)] int initialCapacity)
+			[Values(1, 2, 3)] int initialCapacity)
 		{
 			Scalar<ObservableCollection<Item>> sourceScalar = getScalar<ObservableCollection<Item>>(getItems());
 			System.Collections.Generic.IEqualityComparer<Item> equalityComparer = EqualityComparer<Item>.Default;
@@ -10408,6 +10544,7 @@ namespace ObservableComputations.Test
 					sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -10477,6 +10614,7 @@ namespace ObservableComputations.Test
 					sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -10493,7 +10631,7 @@ namespace ObservableComputations.Test
 		
 		[Test, Combinatorial]
 		public void TestExcepting01(
-			[Values(1)] int initialCapacity)
+			[Values(1, 2, 3)] int initialCapacity)
 		{
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> source1Scalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> source2Scalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
@@ -10596,6 +10734,7 @@ namespace ObservableComputations.Test
 					source2ScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -10717,6 +10856,7 @@ namespace ObservableComputations.Test
 					source2ScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -10738,7 +10878,7 @@ namespace ObservableComputations.Test
 		
 		[Test, Combinatorial]
 		public void TestExcepting03(
-			[Values(1)] int initialCapacity)
+			[Values(1, 2, 3)] int initialCapacity)
 		{
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> source1Scalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> source2Scalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
@@ -10838,6 +10978,7 @@ namespace ObservableComputations.Test
 					source2ScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -10953,6 +11094,7 @@ namespace ObservableComputations.Test
 					source2ScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -10971,7 +11113,7 @@ namespace ObservableComputations.Test
 		
 		[Test, Combinatorial]
 		public void TestExcepting05(
-			[Values(1)] int initialCapacity)
+			[Values(1, 2, 3)] int initialCapacity)
 		{
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> source1Scalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
 			Scalar<ObservableCollection<Item>> source2Scalar = getScalar<ObservableCollection<Item>>(getItems());
@@ -11074,6 +11216,7 @@ namespace ObservableComputations.Test
 					source2ScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -11195,6 +11338,7 @@ namespace ObservableComputations.Test
 					source2ScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -11216,7 +11360,7 @@ namespace ObservableComputations.Test
 		
 		[Test, Combinatorial]
 		public void TestExcepting07(
-			[Values(1)] int initialCapacity)
+			[Values(1, 2, 3)] int initialCapacity)
 		{
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> source1Scalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
 			Scalar<ObservableCollection<Item>> source2Scalar = getScalar<ObservableCollection<Item>>(getItems());
@@ -11316,6 +11460,7 @@ namespace ObservableComputations.Test
 					source2ScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -11431,6 +11576,7 @@ namespace ObservableComputations.Test
 					source2ScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -11449,7 +11595,7 @@ namespace ObservableComputations.Test
 		
 		[Test, Combinatorial]
 		public void TestExcepting09(
-			[Values(1)] int initialCapacity)
+			[Values(1, 2, 3)] int initialCapacity)
 		{
 			Scalar<ObservableCollection<Item>> source1Scalar = getScalar<ObservableCollection<Item>>(getItems());
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> source2Scalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
@@ -11552,6 +11698,7 @@ namespace ObservableComputations.Test
 					source2ScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -11673,6 +11820,7 @@ namespace ObservableComputations.Test
 					source2ScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -11694,7 +11842,7 @@ namespace ObservableComputations.Test
 		
 		[Test, Combinatorial]
 		public void TestExcepting11(
-			[Values(1)] int initialCapacity)
+			[Values(1, 2, 3)] int initialCapacity)
 		{
 			Scalar<ObservableCollection<Item>> source1Scalar = getScalar<ObservableCollection<Item>>(getItems());
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> source2Scalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
@@ -11794,6 +11942,7 @@ namespace ObservableComputations.Test
 					source2ScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -11909,6 +12058,7 @@ namespace ObservableComputations.Test
 					source2ScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -11927,7 +12077,7 @@ namespace ObservableComputations.Test
 		
 		[Test, Combinatorial]
 		public void TestExcepting13(
-			[Values(1)] int initialCapacity)
+			[Values(1, 2, 3)] int initialCapacity)
 		{
 			Scalar<ObservableCollection<Item>> source1Scalar = getScalar<ObservableCollection<Item>>(getItems());
 			Scalar<ObservableCollection<Item>> source2Scalar = getScalar<ObservableCollection<Item>>(getItems());
@@ -12030,6 +12180,7 @@ namespace ObservableComputations.Test
 					source2ScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -12151,6 +12302,7 @@ namespace ObservableComputations.Test
 					source2ScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -12172,7 +12324,7 @@ namespace ObservableComputations.Test
 		
 		[Test, Combinatorial]
 		public void TestExcepting15(
-			[Values(1)] int initialCapacity)
+			[Values(1, 2, 3)] int initialCapacity)
 		{
 			Scalar<ObservableCollection<Item>> source1Scalar = getScalar<ObservableCollection<Item>>(getItems());
 			Scalar<ObservableCollection<Item>> source2Scalar = getScalar<ObservableCollection<Item>>(getItems());
@@ -12272,6 +12424,7 @@ namespace ObservableComputations.Test
 					source2ScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -12387,6 +12540,7 @@ namespace ObservableComputations.Test
 					source2ScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -12405,7 +12559,7 @@ namespace ObservableComputations.Test
 		
 		[Test, Combinatorial]
 		public void TestExcepting17(
-			[Values(1)] int initialCapacity)
+			[Values(1, 2, 3)] int initialCapacity)
 		{
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> source1Scalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
 			System.Collections.Specialized.INotifyCollectionChanged source2 = getItems();
@@ -12508,6 +12662,7 @@ namespace ObservableComputations.Test
 					source2Value.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -12624,6 +12779,7 @@ namespace ObservableComputations.Test
 					source2Value.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -12640,7 +12796,7 @@ namespace ObservableComputations.Test
 		
 		[Test, Combinatorial]
 		public void TestExcepting19(
-			[Values(1)] int initialCapacity)
+			[Values(1, 2, 3)] int initialCapacity)
 		{
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> source1Scalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
 			System.Collections.Specialized.INotifyCollectionChanged source2 = getItems();
@@ -12740,6 +12896,7 @@ namespace ObservableComputations.Test
 					source2Value.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -12850,6 +13007,7 @@ namespace ObservableComputations.Test
 					source2Value.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -12863,7 +13021,7 @@ namespace ObservableComputations.Test
 		
 		[Test, Combinatorial]
 		public void TestExcepting21(
-			[Values(1)] int initialCapacity)
+			[Values(1, 2, 3)] int initialCapacity)
 		{
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> source1Scalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
 			ObservableCollection<Item> source2 = getItems();
@@ -12966,6 +13124,7 @@ namespace ObservableComputations.Test
 					source2Value.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -13082,6 +13241,7 @@ namespace ObservableComputations.Test
 					source2Value.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -13098,7 +13258,7 @@ namespace ObservableComputations.Test
 		
 		[Test, Combinatorial]
 		public void TestExcepting23(
-			[Values(1)] int initialCapacity)
+			[Values(1, 2, 3)] int initialCapacity)
 		{
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> source1Scalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
 			ObservableCollection<Item> source2 = getItems();
@@ -13198,6 +13358,7 @@ namespace ObservableComputations.Test
 					source2Value.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -13308,6 +13469,7 @@ namespace ObservableComputations.Test
 					source2Value.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -13321,7 +13483,7 @@ namespace ObservableComputations.Test
 		
 		[Test, Combinatorial]
 		public void TestExcepting25(
-			[Values(1)] int initialCapacity)
+			[Values(1, 2, 3)] int initialCapacity)
 		{
 			Scalar<ObservableCollection<Item>> source1Scalar = getScalar<ObservableCollection<Item>>(getItems());
 			System.Collections.Specialized.INotifyCollectionChanged source2 = getItems();
@@ -13424,6 +13586,7 @@ namespace ObservableComputations.Test
 					source2Value.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -13540,6 +13703,7 @@ namespace ObservableComputations.Test
 					source2Value.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -13556,7 +13720,7 @@ namespace ObservableComputations.Test
 		
 		[Test, Combinatorial]
 		public void TestExcepting27(
-			[Values(1)] int initialCapacity)
+			[Values(1, 2, 3)] int initialCapacity)
 		{
 			Scalar<ObservableCollection<Item>> source1Scalar = getScalar<ObservableCollection<Item>>(getItems());
 			System.Collections.Specialized.INotifyCollectionChanged source2 = getItems();
@@ -13656,6 +13820,7 @@ namespace ObservableComputations.Test
 					source2Value.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -13766,6 +13931,7 @@ namespace ObservableComputations.Test
 					source2Value.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -13779,7 +13945,7 @@ namespace ObservableComputations.Test
 		
 		[Test, Combinatorial]
 		public void TestExcepting29(
-			[Values(1)] int initialCapacity)
+			[Values(1, 2, 3)] int initialCapacity)
 		{
 			Scalar<ObservableCollection<Item>> source1Scalar = getScalar<ObservableCollection<Item>>(getItems());
 			ObservableCollection<Item> source2 = getItems();
@@ -13882,6 +14048,7 @@ namespace ObservableComputations.Test
 					source2Value.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -13998,6 +14165,7 @@ namespace ObservableComputations.Test
 					source2Value.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -14014,7 +14182,7 @@ namespace ObservableComputations.Test
 		
 		[Test, Combinatorial]
 		public void TestExcepting31(
-			[Values(1)] int initialCapacity)
+			[Values(1, 2, 3)] int initialCapacity)
 		{
 			Scalar<ObservableCollection<Item>> source1Scalar = getScalar<ObservableCollection<Item>>(getItems());
 			ObservableCollection<Item> source2 = getItems();
@@ -14114,6 +14282,7 @@ namespace ObservableComputations.Test
 					source2Value.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -14224,6 +14393,7 @@ namespace ObservableComputations.Test
 					source2Value.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -14237,7 +14407,7 @@ namespace ObservableComputations.Test
 		
 		[Test, Combinatorial]
 		public void TestExcepting33(
-			[Values(1)] int initialCapacity)
+			[Values(1, 2, 3)] int initialCapacity)
 		{
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> source1Scalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
 			System.Collections.Specialized.INotifyCollectionChanged source2 = getItems();
@@ -14340,6 +14510,7 @@ namespace ObservableComputations.Test
 					source2Value.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -14453,6 +14624,7 @@ namespace ObservableComputations.Test
 					source2Value.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -14466,7 +14638,7 @@ namespace ObservableComputations.Test
 		
 		[Test, Combinatorial]
 		public void TestExcepting35(
-			[Values(1)] int initialCapacity)
+			[Values(1, 2, 3)] int initialCapacity)
 		{
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> source1Scalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
 			ObservableCollection<Item> source2 = getItems();
@@ -14569,6 +14741,7 @@ namespace ObservableComputations.Test
 					source2Value.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -14682,6 +14855,7 @@ namespace ObservableComputations.Test
 					source2Value.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -14695,7 +14869,7 @@ namespace ObservableComputations.Test
 		
 		[Test, Combinatorial]
 		public void TestExcepting37(
-			[Values(1)] int initialCapacity)
+			[Values(1, 2, 3)] int initialCapacity)
 		{
 			Scalar<ObservableCollection<Item>> source1Scalar = getScalar<ObservableCollection<Item>>(getItems());
 			System.Collections.Specialized.INotifyCollectionChanged source2 = getItems();
@@ -14798,6 +14972,7 @@ namespace ObservableComputations.Test
 					source2Value.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -14911,6 +15086,7 @@ namespace ObservableComputations.Test
 					source2Value.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -14924,7 +15100,7 @@ namespace ObservableComputations.Test
 		
 		[Test, Combinatorial]
 		public void TestExcepting39(
-			[Values(1)] int initialCapacity)
+			[Values(1, 2, 3)] int initialCapacity)
 		{
 			Scalar<ObservableCollection<Item>> source1Scalar = getScalar<ObservableCollection<Item>>(getItems());
 			ObservableCollection<Item> source2 = getItems();
@@ -15027,6 +15203,7 @@ namespace ObservableComputations.Test
 					source2Value.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -15140,6 +15317,7 @@ namespace ObservableComputations.Test
 					source2Value.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -15153,7 +15331,7 @@ namespace ObservableComputations.Test
 		
 		[Test, Combinatorial]
 		public void TestExcepting41(
-			[Values(1)] int initialCapacity)
+			[Values(1, 2, 3)] int initialCapacity)
 		{
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> source1Scalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> source2Scalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
@@ -15256,6 +15434,7 @@ namespace ObservableComputations.Test
 					source2ScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -15374,6 +15553,7 @@ namespace ObservableComputations.Test
 					source2ScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -15392,7 +15572,7 @@ namespace ObservableComputations.Test
 		
 		[Test, Combinatorial]
 		public void TestExcepting43(
-			[Values(1)] int initialCapacity)
+			[Values(1, 2, 3)] int initialCapacity)
 		{
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> source1Scalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
 			Scalar<ObservableCollection<Item>> source2Scalar = getScalar<ObservableCollection<Item>>(getItems());
@@ -15495,6 +15675,7 @@ namespace ObservableComputations.Test
 					source2ScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -15613,6 +15794,7 @@ namespace ObservableComputations.Test
 					source2ScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -15631,7 +15813,7 @@ namespace ObservableComputations.Test
 		
 		[Test, Combinatorial]
 		public void TestExcepting45(
-			[Values(1)] int initialCapacity)
+			[Values(1, 2, 3)] int initialCapacity)
 		{
 			Scalar<ObservableCollection<Item>> source1Scalar = getScalar<ObservableCollection<Item>>(getItems());
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> source2Scalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
@@ -15734,6 +15916,7 @@ namespace ObservableComputations.Test
 					source2ScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -15852,6 +16035,7 @@ namespace ObservableComputations.Test
 					source2ScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -15870,7 +16054,7 @@ namespace ObservableComputations.Test
 		
 		[Test, Combinatorial]
 		public void TestExcepting47(
-			[Values(1)] int initialCapacity)
+			[Values(1, 2, 3)] int initialCapacity)
 		{
 			Scalar<ObservableCollection<Item>> source1Scalar = getScalar<ObservableCollection<Item>>(getItems());
 			Scalar<ObservableCollection<Item>> source2Scalar = getScalar<ObservableCollection<Item>>(getItems());
@@ -15973,6 +16157,7 @@ namespace ObservableComputations.Test
 					source2ScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -16091,6 +16276,7 @@ namespace ObservableComputations.Test
 					source2ScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -16109,7 +16295,7 @@ namespace ObservableComputations.Test
 		
 		[Test, Combinatorial]
 		public void TestExcepting49(
-			[Values(1)] int initialCapacity)
+			[Values(1, 2, 3)] int initialCapacity)
 		{
 			System.Collections.Specialized.INotifyCollectionChanged source1 = getItems();
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> source2Scalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
@@ -16212,6 +16398,7 @@ namespace ObservableComputations.Test
 					source2ScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -16328,6 +16515,7 @@ namespace ObservableComputations.Test
 					source2ScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -16344,7 +16532,7 @@ namespace ObservableComputations.Test
 		
 		[Test, Combinatorial]
 		public void TestExcepting51(
-			[Values(1)] int initialCapacity)
+			[Values(1, 2, 3)] int initialCapacity)
 		{
 			System.Collections.Specialized.INotifyCollectionChanged source1 = getItems();
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> source2Scalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
@@ -16444,6 +16632,7 @@ namespace ObservableComputations.Test
 					source2ScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -16554,6 +16743,7 @@ namespace ObservableComputations.Test
 					source2ScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -16567,7 +16757,7 @@ namespace ObservableComputations.Test
 		
 		[Test, Combinatorial]
 		public void TestExcepting53(
-			[Values(1)] int initialCapacity)
+			[Values(1, 2, 3)] int initialCapacity)
 		{
 			System.Collections.Specialized.INotifyCollectionChanged source1 = getItems();
 			Scalar<ObservableCollection<Item>> source2Scalar = getScalar<ObservableCollection<Item>>(getItems());
@@ -16670,6 +16860,7 @@ namespace ObservableComputations.Test
 					source2ScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -16786,6 +16977,7 @@ namespace ObservableComputations.Test
 					source2ScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -16802,7 +16994,7 @@ namespace ObservableComputations.Test
 		
 		[Test, Combinatorial]
 		public void TestExcepting55(
-			[Values(1)] int initialCapacity)
+			[Values(1, 2, 3)] int initialCapacity)
 		{
 			System.Collections.Specialized.INotifyCollectionChanged source1 = getItems();
 			Scalar<ObservableCollection<Item>> source2Scalar = getScalar<ObservableCollection<Item>>(getItems());
@@ -16902,6 +17094,7 @@ namespace ObservableComputations.Test
 					source2ScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -17012,6 +17205,7 @@ namespace ObservableComputations.Test
 					source2ScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -17025,7 +17219,7 @@ namespace ObservableComputations.Test
 		
 		[Test, Combinatorial]
 		public void TestExcepting57(
-			[Values(1)] int initialCapacity)
+			[Values(1, 2, 3)] int initialCapacity)
 		{
 			ObservableCollection<Item> source1 = getItems();
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> source2Scalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
@@ -17128,6 +17322,7 @@ namespace ObservableComputations.Test
 					source2ScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -17244,6 +17439,7 @@ namespace ObservableComputations.Test
 					source2ScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -17260,7 +17456,7 @@ namespace ObservableComputations.Test
 		
 		[Test, Combinatorial]
 		public void TestExcepting59(
-			[Values(1)] int initialCapacity)
+			[Values(1, 2, 3)] int initialCapacity)
 		{
 			ObservableCollection<Item> source1 = getItems();
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> source2Scalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
@@ -17360,6 +17556,7 @@ namespace ObservableComputations.Test
 					source2ScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -17470,6 +17667,7 @@ namespace ObservableComputations.Test
 					source2ScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -17483,7 +17681,7 @@ namespace ObservableComputations.Test
 		
 		[Test, Combinatorial]
 		public void TestExcepting61(
-			[Values(1)] int initialCapacity)
+			[Values(1, 2, 3)] int initialCapacity)
 		{
 			ObservableCollection<Item> source1 = getItems();
 			Scalar<ObservableCollection<Item>> source2Scalar = getScalar<ObservableCollection<Item>>(getItems());
@@ -17586,6 +17784,7 @@ namespace ObservableComputations.Test
 					source2ScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -17702,6 +17901,7 @@ namespace ObservableComputations.Test
 					source2ScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -17718,7 +17918,7 @@ namespace ObservableComputations.Test
 		
 		[Test, Combinatorial]
 		public void TestExcepting63(
-			[Values(1)] int initialCapacity)
+			[Values(1, 2, 3)] int initialCapacity)
 		{
 			ObservableCollection<Item> source1 = getItems();
 			Scalar<ObservableCollection<Item>> source2Scalar = getScalar<ObservableCollection<Item>>(getItems());
@@ -17818,6 +18018,7 @@ namespace ObservableComputations.Test
 					source2ScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -17928,6 +18129,7 @@ namespace ObservableComputations.Test
 					source2ScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -17941,7 +18143,7 @@ namespace ObservableComputations.Test
 		
 		[Test, Combinatorial]
 		public void TestExcepting65(
-			[Values(1)] int initialCapacity)
+			[Values(1, 2, 3)] int initialCapacity)
 		{
 			System.Collections.Specialized.INotifyCollectionChanged source1 = getItems();
 			System.Collections.Specialized.INotifyCollectionChanged source2 = getItems();
@@ -18044,6 +18246,7 @@ namespace ObservableComputations.Test
 					source2Value.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -18155,6 +18358,7 @@ namespace ObservableComputations.Test
 					source2Value.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -18166,7 +18370,7 @@ namespace ObservableComputations.Test
 		
 		[Test, Combinatorial]
 		public void TestExcepting67(
-			[Values(1)] int initialCapacity)
+			[Values(1, 2, 3)] int initialCapacity)
 		{
 			System.Collections.Specialized.INotifyCollectionChanged source1 = getItems();
 			System.Collections.Specialized.INotifyCollectionChanged source2 = getItems();
@@ -18266,6 +18470,7 @@ namespace ObservableComputations.Test
 					source2Value.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -18371,6 +18576,7 @@ namespace ObservableComputations.Test
 					source2Value.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -18379,7 +18585,7 @@ namespace ObservableComputations.Test
 		
 		[Test, Combinatorial]
 		public void TestExcepting69(
-			[Values(1)] int initialCapacity)
+			[Values(1, 2, 3)] int initialCapacity)
 		{
 			System.Collections.Specialized.INotifyCollectionChanged source1 = getItems();
 			ObservableCollection<Item> source2 = getItems();
@@ -18482,6 +18688,7 @@ namespace ObservableComputations.Test
 					source2Value.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -18593,6 +18800,7 @@ namespace ObservableComputations.Test
 					source2Value.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -18604,7 +18812,7 @@ namespace ObservableComputations.Test
 		
 		[Test, Combinatorial]
 		public void TestExcepting71(
-			[Values(1)] int initialCapacity)
+			[Values(1, 2, 3)] int initialCapacity)
 		{
 			System.Collections.Specialized.INotifyCollectionChanged source1 = getItems();
 			ObservableCollection<Item> source2 = getItems();
@@ -18704,6 +18912,7 @@ namespace ObservableComputations.Test
 					source2Value.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -18809,6 +19018,7 @@ namespace ObservableComputations.Test
 					source2Value.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -18817,7 +19027,7 @@ namespace ObservableComputations.Test
 		
 		[Test, Combinatorial]
 		public void TestExcepting73(
-			[Values(1)] int initialCapacity)
+			[Values(1, 2, 3)] int initialCapacity)
 		{
 			ObservableCollection<Item> source1 = getItems();
 			System.Collections.Specialized.INotifyCollectionChanged source2 = getItems();
@@ -18920,6 +19130,7 @@ namespace ObservableComputations.Test
 					source2Value.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -19031,6 +19242,7 @@ namespace ObservableComputations.Test
 					source2Value.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -19042,7 +19254,7 @@ namespace ObservableComputations.Test
 		
 		[Test, Combinatorial]
 		public void TestExcepting75(
-			[Values(1)] int initialCapacity)
+			[Values(1, 2, 3)] int initialCapacity)
 		{
 			ObservableCollection<Item> source1 = getItems();
 			System.Collections.Specialized.INotifyCollectionChanged source2 = getItems();
@@ -19142,6 +19354,7 @@ namespace ObservableComputations.Test
 					source2Value.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -19247,6 +19460,7 @@ namespace ObservableComputations.Test
 					source2Value.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -19255,7 +19469,7 @@ namespace ObservableComputations.Test
 		
 		[Test, Combinatorial]
 		public void TestExcepting77(
-			[Values(1)] int initialCapacity)
+			[Values(1, 2, 3)] int initialCapacity)
 		{
 			ObservableCollection<Item> source1 = getItems();
 			ObservableCollection<Item> source2 = getItems();
@@ -19358,6 +19572,7 @@ namespace ObservableComputations.Test
 					source2Value.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -19469,6 +19684,7 @@ namespace ObservableComputations.Test
 					source2Value.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -19480,7 +19696,7 @@ namespace ObservableComputations.Test
 		
 		[Test, Combinatorial]
 		public void TestExcepting79(
-			[Values(1)] int initialCapacity)
+			[Values(1, 2, 3)] int initialCapacity)
 		{
 			ObservableCollection<Item> source1 = getItems();
 			ObservableCollection<Item> source2 = getItems();
@@ -19580,6 +19796,7 @@ namespace ObservableComputations.Test
 					source2Value.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -19685,6 +19902,7 @@ namespace ObservableComputations.Test
 					source2Value.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -19693,7 +19911,7 @@ namespace ObservableComputations.Test
 		
 		[Test, Combinatorial]
 		public void TestExcepting81(
-			[Values(1)] int initialCapacity)
+			[Values(1, 2, 3)] int initialCapacity)
 		{
 			System.Collections.Specialized.INotifyCollectionChanged source1 = getItems();
 			System.Collections.Specialized.INotifyCollectionChanged source2 = getItems();
@@ -19796,6 +20014,7 @@ namespace ObservableComputations.Test
 					source2Value.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -19904,6 +20123,7 @@ namespace ObservableComputations.Test
 					source2Value.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -19912,7 +20132,7 @@ namespace ObservableComputations.Test
 		
 		[Test, Combinatorial]
 		public void TestExcepting83(
-			[Values(1)] int initialCapacity)
+			[Values(1, 2, 3)] int initialCapacity)
 		{
 			System.Collections.Specialized.INotifyCollectionChanged source1 = getItems();
 			ObservableCollection<Item> source2 = getItems();
@@ -20015,6 +20235,7 @@ namespace ObservableComputations.Test
 					source2Value.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -20123,6 +20344,7 @@ namespace ObservableComputations.Test
 					source2Value.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -20131,7 +20353,7 @@ namespace ObservableComputations.Test
 		
 		[Test, Combinatorial]
 		public void TestExcepting85(
-			[Values(1)] int initialCapacity)
+			[Values(1, 2, 3)] int initialCapacity)
 		{
 			ObservableCollection<Item> source1 = getItems();
 			System.Collections.Specialized.INotifyCollectionChanged source2 = getItems();
@@ -20234,6 +20456,7 @@ namespace ObservableComputations.Test
 					source2Value.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -20342,6 +20565,7 @@ namespace ObservableComputations.Test
 					source2Value.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -20350,7 +20574,7 @@ namespace ObservableComputations.Test
 		
 		[Test, Combinatorial]
 		public void TestExcepting87(
-			[Values(1)] int initialCapacity)
+			[Values(1, 2, 3)] int initialCapacity)
 		{
 			ObservableCollection<Item> source1 = getItems();
 			ObservableCollection<Item> source2 = getItems();
@@ -20453,6 +20677,7 @@ namespace ObservableComputations.Test
 					source2Value.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -20561,6 +20786,7 @@ namespace ObservableComputations.Test
 					source2Value.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -20569,7 +20795,7 @@ namespace ObservableComputations.Test
 		
 		[Test, Combinatorial]
 		public void TestExcepting89(
-			[Values(1)] int initialCapacity)
+			[Values(1, 2, 3)] int initialCapacity)
 		{
 			System.Collections.Specialized.INotifyCollectionChanged source1 = getItems();
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> source2Scalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
@@ -20672,6 +20898,7 @@ namespace ObservableComputations.Test
 					source2ScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -20785,6 +21012,7 @@ namespace ObservableComputations.Test
 					source2ScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -20798,7 +21026,7 @@ namespace ObservableComputations.Test
 		
 		[Test, Combinatorial]
 		public void TestExcepting91(
-			[Values(1)] int initialCapacity)
+			[Values(1, 2, 3)] int initialCapacity)
 		{
 			System.Collections.Specialized.INotifyCollectionChanged source1 = getItems();
 			Scalar<ObservableCollection<Item>> source2Scalar = getScalar<ObservableCollection<Item>>(getItems());
@@ -20901,6 +21129,7 @@ namespace ObservableComputations.Test
 					source2ScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -21014,6 +21243,7 @@ namespace ObservableComputations.Test
 					source2ScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -21027,7 +21257,7 @@ namespace ObservableComputations.Test
 		
 		[Test, Combinatorial]
 		public void TestExcepting93(
-			[Values(1)] int initialCapacity)
+			[Values(1, 2, 3)] int initialCapacity)
 		{
 			ObservableCollection<Item> source1 = getItems();
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> source2Scalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
@@ -21130,6 +21360,7 @@ namespace ObservableComputations.Test
 					source2ScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -21243,6 +21474,7 @@ namespace ObservableComputations.Test
 					source2ScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -21256,7 +21488,7 @@ namespace ObservableComputations.Test
 		
 		[Test, Combinatorial]
 		public void TestExcepting95(
-			[Values(1)] int initialCapacity)
+			[Values(1, 2, 3)] int initialCapacity)
 		{
 			ObservableCollection<Item> source1 = getItems();
 			Scalar<ObservableCollection<Item>> source2Scalar = getScalar<ObservableCollection<Item>>(getItems());
@@ -21359,6 +21591,7 @@ namespace ObservableComputations.Test
 					source2ScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -21472,6 +21705,7 @@ namespace ObservableComputations.Test
 					source2ScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -21541,6 +21775,7 @@ namespace ObservableComputations.Test
 					sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -21607,6 +21842,7 @@ namespace ObservableComputations.Test
 					sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -21673,6 +21909,7 @@ namespace ObservableComputations.Test
 					sourceValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -21734,6 +21971,7 @@ namespace ObservableComputations.Test
 					sourceValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -21745,7 +21983,7 @@ namespace ObservableComputations.Test
 		
 		[Test, Combinatorial]
 		public void TestFiltering01(
-			[Values(1)] int initialCapacity)
+			[Values(1, 2, 3)] int initialCapacity)
 		{
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
 			System.Linq.Expressions.Expression<System.Func<Item, bool>> predicateExpression = i => i.Active;
@@ -21804,6 +22042,7 @@ namespace ObservableComputations.Test
 					sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -21873,6 +22112,7 @@ namespace ObservableComputations.Test
 					sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -21886,7 +22126,7 @@ namespace ObservableComputations.Test
 		
 		[Test, Combinatorial]
 		public void TestFiltering03(
-			[Values(1)] int initialCapacity)
+			[Values(1, 2, 3)] int initialCapacity)
 		{
 			Scalar<ObservableCollection<Item>> sourceScalar = getScalar<ObservableCollection<Item>>(getItems());
 			System.Linq.Expressions.Expression<System.Func<Item, bool>> predicateExpression = i => i.Active;
@@ -21945,6 +22185,7 @@ namespace ObservableComputations.Test
 					sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -22014,6 +22255,7 @@ namespace ObservableComputations.Test
 					sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -22027,7 +22269,7 @@ namespace ObservableComputations.Test
 		
 		[Test, Combinatorial]
 		public void TestFiltering05(
-			[Values(1)] int initialCapacity)
+			[Values(1, 2, 3)] int initialCapacity)
 		{
 			System.Collections.Specialized.INotifyCollectionChanged source = getItems();
 			System.Linq.Expressions.Expression<System.Func<Item, bool>> predicateExpression = i => i.Active;
@@ -22086,6 +22328,7 @@ namespace ObservableComputations.Test
 					sourceValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -22150,6 +22393,7 @@ namespace ObservableComputations.Test
 					sourceValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -22158,7 +22402,7 @@ namespace ObservableComputations.Test
 		
 		[Test, Combinatorial]
 		public void TestFiltering07(
-			[Values(1)] int initialCapacity)
+			[Values(1, 2, 3)] int initialCapacity)
 		{
 			ObservableCollection<Item> source = getItems();
 			System.Linq.Expressions.Expression<System.Func<Item, bool>> predicateExpression = i => i.Active;
@@ -22217,6 +22461,7 @@ namespace ObservableComputations.Test
 					sourceValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -22281,6 +22526,7 @@ namespace ObservableComputations.Test
 					sourceValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -22348,6 +22594,7 @@ namespace ObservableComputations.Test
 					sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -22414,6 +22661,7 @@ namespace ObservableComputations.Test
 					sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -22483,6 +22731,7 @@ namespace ObservableComputations.Test
 					sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -22549,6 +22798,7 @@ namespace ObservableComputations.Test
 					sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -22618,6 +22868,7 @@ namespace ObservableComputations.Test
 					sourceValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -22679,6 +22930,7 @@ namespace ObservableComputations.Test
 					sourceValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -22743,6 +22995,7 @@ namespace ObservableComputations.Test
 					sourceValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -22804,6 +23057,7 @@ namespace ObservableComputations.Test
 					sourceValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -22815,7 +23069,7 @@ namespace ObservableComputations.Test
 		
 		[Test, Combinatorial]
 		public void TestGrouping01(
-			[Values(1)] int initialCapacity)
+			[Values(1, 2, 3)] int initialCapacity)
 		{
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
 			System.Linq.Expressions.Expression<System.Func<Item, int>> keySelectorExpression = i => i.Id;
@@ -22877,6 +23131,7 @@ namespace ObservableComputations.Test
 					sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -22954,6 +23209,7 @@ namespace ObservableComputations.Test
 					sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -22972,7 +23228,7 @@ namespace ObservableComputations.Test
 		
 		[Test, Combinatorial]
 		public void TestGrouping03(
-			[Values(1)] int initialCapacity)
+			[Values(1, 2, 3)] int initialCapacity)
 		{
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
 			System.Linq.Expressions.Expression<System.Func<Item, int>> keySelectorExpression = i => i.Id;
@@ -23031,6 +23287,7 @@ namespace ObservableComputations.Test
 					sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -23100,6 +23357,7 @@ namespace ObservableComputations.Test
 					sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -23113,7 +23371,7 @@ namespace ObservableComputations.Test
 		
 		[Test, Combinatorial]
 		public void TestGrouping05(
-			[Values(1)] int initialCapacity)
+			[Values(1, 2, 3)] int initialCapacity)
 		{
 			Scalar<ObservableCollection<Item>> sourceScalar = getScalar<ObservableCollection<Item>>(getItems());
 			System.Linq.Expressions.Expression<System.Func<Item, int>> keySelectorExpression = i => i.Id;
@@ -23175,6 +23433,7 @@ namespace ObservableComputations.Test
 					sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -23252,6 +23511,7 @@ namespace ObservableComputations.Test
 					sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -23270,7 +23530,7 @@ namespace ObservableComputations.Test
 		
 		[Test, Combinatorial]
 		public void TestGrouping07(
-			[Values(1)] int initialCapacity)
+			[Values(1, 2, 3)] int initialCapacity)
 		{
 			Scalar<ObservableCollection<Item>> sourceScalar = getScalar<ObservableCollection<Item>>(getItems());
 			System.Linq.Expressions.Expression<System.Func<Item, int>> keySelectorExpression = i => i.Id;
@@ -23329,6 +23589,7 @@ namespace ObservableComputations.Test
 					sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -23398,6 +23659,7 @@ namespace ObservableComputations.Test
 					sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -23411,7 +23673,7 @@ namespace ObservableComputations.Test
 		
 		[Test, Combinatorial]
 		public void TestGrouping09(
-			[Values(1)] int initialCapacity)
+			[Values(1, 2, 3)] int initialCapacity)
 		{
 			System.Collections.Specialized.INotifyCollectionChanged source = getItems();
 			System.Linq.Expressions.Expression<System.Func<Item, int>> keySelectorExpression = i => i.Id;
@@ -23473,6 +23735,7 @@ namespace ObservableComputations.Test
 					sourceValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -23545,6 +23808,7 @@ namespace ObservableComputations.Test
 					sourceValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -23558,7 +23822,7 @@ namespace ObservableComputations.Test
 		
 		[Test, Combinatorial]
 		public void TestGrouping11(
-			[Values(1)] int initialCapacity)
+			[Values(1, 2, 3)] int initialCapacity)
 		{
 			System.Collections.Specialized.INotifyCollectionChanged source = getItems();
 			System.Linq.Expressions.Expression<System.Func<Item, int>> keySelectorExpression = i => i.Id;
@@ -23617,6 +23881,7 @@ namespace ObservableComputations.Test
 					sourceValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -23681,6 +23946,7 @@ namespace ObservableComputations.Test
 					sourceValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -23689,7 +23955,7 @@ namespace ObservableComputations.Test
 		
 		[Test, Combinatorial]
 		public void TestGrouping13(
-			[Values(1)] int initialCapacity)
+			[Values(1, 2, 3)] int initialCapacity)
 		{
 			ObservableCollection<Item> source = getItems();
 			System.Linq.Expressions.Expression<System.Func<Item, int>> keySelectorExpression = i => i.Id;
@@ -23751,6 +24017,7 @@ namespace ObservableComputations.Test
 					sourceValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -23823,6 +24090,7 @@ namespace ObservableComputations.Test
 					sourceValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -23836,7 +24104,7 @@ namespace ObservableComputations.Test
 		
 		[Test, Combinatorial]
 		public void TestGrouping15(
-			[Values(1)] int initialCapacity)
+			[Values(1, 2, 3)] int initialCapacity)
 		{
 			ObservableCollection<Item> source = getItems();
 			System.Linq.Expressions.Expression<System.Func<Item, int>> keySelectorExpression = i => i.Id;
@@ -23895,6 +24163,7 @@ namespace ObservableComputations.Test
 					sourceValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -23959,6 +24228,7 @@ namespace ObservableComputations.Test
 					sourceValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -23967,7 +24237,7 @@ namespace ObservableComputations.Test
 		
 		[Test, Combinatorial]
 		public void TestGrouping17(
-			[Values(1)] int initialCapacity)
+			[Values(1, 2, 3)] int initialCapacity)
 		{
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
 			System.Linq.Expressions.Expression<System.Func<Item, int>> keySelectorExpression = i => i.Id;
@@ -24029,6 +24299,7 @@ namespace ObservableComputations.Test
 					sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -24101,6 +24372,7 @@ namespace ObservableComputations.Test
 					sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -24114,7 +24386,7 @@ namespace ObservableComputations.Test
 		
 		[Test, Combinatorial]
 		public void TestGrouping19(
-			[Values(1)] int initialCapacity)
+			[Values(1, 2, 3)] int initialCapacity)
 		{
 			Scalar<ObservableCollection<Item>> sourceScalar = getScalar<ObservableCollection<Item>>(getItems());
 			System.Linq.Expressions.Expression<System.Func<Item, int>> keySelectorExpression = i => i.Id;
@@ -24176,6 +24448,7 @@ namespace ObservableComputations.Test
 					sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -24248,6 +24521,7 @@ namespace ObservableComputations.Test
 					sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -24261,7 +24535,7 @@ namespace ObservableComputations.Test
 		
 		[Test, Combinatorial]
 		public void TestGrouping21(
-			[Values(1)] int initialCapacity)
+			[Values(1, 2, 3)] int initialCapacity)
 		{
 			System.Collections.Specialized.INotifyCollectionChanged source = getItems();
 			System.Linq.Expressions.Expression<System.Func<Item, int>> keySelectorExpression = i => i.Id;
@@ -24323,6 +24597,7 @@ namespace ObservableComputations.Test
 					sourceValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -24390,6 +24665,7 @@ namespace ObservableComputations.Test
 					sourceValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -24398,7 +24674,7 @@ namespace ObservableComputations.Test
 		
 		[Test, Combinatorial]
 		public void TestGrouping23(
-			[Values(1)] int initialCapacity)
+			[Values(1, 2, 3)] int initialCapacity)
 		{
 			ObservableCollection<Item> source = getItems();
 			System.Linq.Expressions.Expression<System.Func<Item, int>> keySelectorExpression = i => i.Id;
@@ -24460,6 +24736,7 @@ namespace ObservableComputations.Test
 					sourceValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -24527,6 +24804,7 @@ namespace ObservableComputations.Test
 					sourceValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -24644,6 +24922,7 @@ namespace ObservableComputations.Test
 					innerSourceScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -24770,6 +25049,7 @@ namespace ObservableComputations.Test
 					innerSourceScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -24894,6 +25174,7 @@ namespace ObservableComputations.Test
 					innerSourceScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -25020,6 +25301,7 @@ namespace ObservableComputations.Test
 					innerSourceScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -25144,6 +25426,7 @@ namespace ObservableComputations.Test
 					innerSourceScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -25270,6 +25553,7 @@ namespace ObservableComputations.Test
 					innerSourceScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -25394,6 +25678,7 @@ namespace ObservableComputations.Test
 					innerSourceScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -25520,6 +25805,7 @@ namespace ObservableComputations.Test
 					innerSourceScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -25644,6 +25930,7 @@ namespace ObservableComputations.Test
 					innerSourceValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -25765,6 +26052,7 @@ namespace ObservableComputations.Test
 					innerSourceValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -25884,6 +26172,7 @@ namespace ObservableComputations.Test
 					innerSourceValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -26005,6 +26294,7 @@ namespace ObservableComputations.Test
 					innerSourceValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -26124,6 +26414,7 @@ namespace ObservableComputations.Test
 					innerSourceValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -26245,6 +26536,7 @@ namespace ObservableComputations.Test
 					innerSourceValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -26364,6 +26656,7 @@ namespace ObservableComputations.Test
 					innerSourceValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -26485,6 +26778,7 @@ namespace ObservableComputations.Test
 					innerSourceValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -26604,6 +26898,7 @@ namespace ObservableComputations.Test
 					innerSourceValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -26723,6 +27018,7 @@ namespace ObservableComputations.Test
 					innerSourceValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -26842,6 +27138,7 @@ namespace ObservableComputations.Test
 					innerSourceValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -26961,6 +27258,7 @@ namespace ObservableComputations.Test
 					innerSourceValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -27080,6 +27378,7 @@ namespace ObservableComputations.Test
 					innerSourceScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -27204,6 +27503,7 @@ namespace ObservableComputations.Test
 					innerSourceScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -27328,6 +27628,7 @@ namespace ObservableComputations.Test
 					innerSourceScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -27452,6 +27753,7 @@ namespace ObservableComputations.Test
 					innerSourceScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -27576,6 +27878,7 @@ namespace ObservableComputations.Test
 					innerSourceScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -27697,6 +28000,7 @@ namespace ObservableComputations.Test
 					innerSourceScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -27816,6 +28120,7 @@ namespace ObservableComputations.Test
 					innerSourceScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -27937,6 +28242,7 @@ namespace ObservableComputations.Test
 					innerSourceScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -28056,6 +28362,7 @@ namespace ObservableComputations.Test
 					innerSourceScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -28177,6 +28484,7 @@ namespace ObservableComputations.Test
 					innerSourceScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -28296,6 +28604,7 @@ namespace ObservableComputations.Test
 					innerSourceScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -28417,6 +28726,7 @@ namespace ObservableComputations.Test
 					innerSourceScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -28536,6 +28846,7 @@ namespace ObservableComputations.Test
 					innerSourceValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -28652,6 +28963,7 @@ namespace ObservableComputations.Test
 					innerSourceValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -28766,6 +29078,7 @@ namespace ObservableComputations.Test
 					innerSourceValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -28882,6 +29195,7 @@ namespace ObservableComputations.Test
 					innerSourceValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -28996,6 +29310,7 @@ namespace ObservableComputations.Test
 					innerSourceValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -29112,6 +29427,7 @@ namespace ObservableComputations.Test
 					innerSourceValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -29226,6 +29542,7 @@ namespace ObservableComputations.Test
 					innerSourceValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -29342,6 +29659,7 @@ namespace ObservableComputations.Test
 					innerSourceValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -29456,6 +29774,7 @@ namespace ObservableComputations.Test
 					innerSourceValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -29570,6 +29889,7 @@ namespace ObservableComputations.Test
 					innerSourceValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -29684,6 +30004,7 @@ namespace ObservableComputations.Test
 					innerSourceValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -29798,6 +30119,7 @@ namespace ObservableComputations.Test
 					innerSourceValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -29912,6 +30234,7 @@ namespace ObservableComputations.Test
 					innerSourceScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -30031,6 +30354,7 @@ namespace ObservableComputations.Test
 					innerSourceScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -30150,6 +30474,7 @@ namespace ObservableComputations.Test
 					innerSourceScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -30269,6 +30594,7 @@ namespace ObservableComputations.Test
 					innerSourceScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -30344,6 +30670,7 @@ namespace ObservableComputations.Test
 					sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -30413,6 +30740,7 @@ namespace ObservableComputations.Test
 					sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -30485,6 +30813,7 @@ namespace ObservableComputations.Test
 					sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -30554,6 +30883,7 @@ namespace ObservableComputations.Test
 					sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -30626,6 +30956,7 @@ namespace ObservableComputations.Test
 					sourceValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -30690,6 +31021,7 @@ namespace ObservableComputations.Test
 					sourceValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -30757,6 +31089,7 @@ namespace ObservableComputations.Test
 					sourceValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -30821,6 +31154,7 @@ namespace ObservableComputations.Test
 					sourceValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -30888,6 +31222,7 @@ namespace ObservableComputations.Test
 					sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -30965,6 +31300,7 @@ namespace ObservableComputations.Test
 					sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -31042,6 +31378,7 @@ namespace ObservableComputations.Test
 					sourceValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -31114,6 +31451,7 @@ namespace ObservableComputations.Test
 					sourceValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -31130,7 +31468,7 @@ namespace ObservableComputations.Test
 		
 		[Test, Combinatorial]
 		public void TestIndicesComputing01(
-			[Values(1)] int initialCapacity)
+			[Values(1, 2, 3)] int initialCapacity)
 		{
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
 			System.Linq.Expressions.Expression<System.Func<Item, bool>> predicateExpression = i => i.Active;
@@ -31189,6 +31527,7 @@ namespace ObservableComputations.Test
 					sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -31258,6 +31597,7 @@ namespace ObservableComputations.Test
 					sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -31271,7 +31611,7 @@ namespace ObservableComputations.Test
 		
 		[Test, Combinatorial]
 		public void TestIndicesComputing03(
-			[Values(1)] int initialCapacity)
+			[Values(1, 2, 3)] int initialCapacity)
 		{
 			Scalar<ObservableCollection<Item>> sourceScalar = getScalar<ObservableCollection<Item>>(getItems());
 			System.Linq.Expressions.Expression<System.Func<Item, bool>> predicateExpression = i => i.Active;
@@ -31330,6 +31670,7 @@ namespace ObservableComputations.Test
 					sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -31399,6 +31740,7 @@ namespace ObservableComputations.Test
 					sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -31412,7 +31754,7 @@ namespace ObservableComputations.Test
 		
 		[Test, Combinatorial]
 		public void TestIndicesComputing05(
-			[Values(1)] int initialCapacity)
+			[Values(1, 2, 3)] int initialCapacity)
 		{
 			System.Collections.Specialized.INotifyCollectionChanged source = getItems();
 			System.Linq.Expressions.Expression<System.Func<Item, bool>> predicateExpression = i => i.Active;
@@ -31471,6 +31813,7 @@ namespace ObservableComputations.Test
 					sourceValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -31535,6 +31878,7 @@ namespace ObservableComputations.Test
 					sourceValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -31543,7 +31887,7 @@ namespace ObservableComputations.Test
 		
 		[Test, Combinatorial]
 		public void TestIndicesComputing07(
-			[Values(1)] int initialCapacity)
+			[Values(1, 2, 3)] int initialCapacity)
 		{
 			ObservableCollection<Item> source = getItems();
 			System.Linq.Expressions.Expression<System.Func<Item, bool>> predicateExpression = i => i.Active;
@@ -31602,6 +31946,7 @@ namespace ObservableComputations.Test
 					sourceValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -31666,6 +32011,7 @@ namespace ObservableComputations.Test
 					sourceValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -31677,7 +32023,7 @@ namespace ObservableComputations.Test
 		
 		[Test, Combinatorial]
 		public void TestIntersecting01(
-			[Values(1)] int initialCapacity)
+			[Values(1, 2, 3)] int initialCapacity)
 		{
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> source1Scalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> source2Scalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
@@ -31780,6 +32126,7 @@ namespace ObservableComputations.Test
 					source2ScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -31901,6 +32248,7 @@ namespace ObservableComputations.Test
 					source2ScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -31922,7 +32270,7 @@ namespace ObservableComputations.Test
 		
 		[Test, Combinatorial]
 		public void TestIntersecting03(
-			[Values(1)] int initialCapacity)
+			[Values(1, 2, 3)] int initialCapacity)
 		{
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> source1Scalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> source2Scalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
@@ -32022,6 +32370,7 @@ namespace ObservableComputations.Test
 					source2ScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -32137,6 +32486,7 @@ namespace ObservableComputations.Test
 					source2ScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -32155,7 +32505,7 @@ namespace ObservableComputations.Test
 		
 		[Test, Combinatorial]
 		public void TestIntersecting05(
-			[Values(1)] int initialCapacity)
+			[Values(1, 2, 3)] int initialCapacity)
 		{
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> source1Scalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
 			Scalar<ObservableCollection<Item>> source2Scalar = getScalar<ObservableCollection<Item>>(getItems());
@@ -32258,6 +32608,7 @@ namespace ObservableComputations.Test
 					source2ScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -32379,6 +32730,7 @@ namespace ObservableComputations.Test
 					source2ScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -32400,7 +32752,7 @@ namespace ObservableComputations.Test
 		
 		[Test, Combinatorial]
 		public void TestIntersecting07(
-			[Values(1)] int initialCapacity)
+			[Values(1, 2, 3)] int initialCapacity)
 		{
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> source1Scalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
 			Scalar<ObservableCollection<Item>> source2Scalar = getScalar<ObservableCollection<Item>>(getItems());
@@ -32500,6 +32852,7 @@ namespace ObservableComputations.Test
 					source2ScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -32615,6 +32968,7 @@ namespace ObservableComputations.Test
 					source2ScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -32633,7 +32987,7 @@ namespace ObservableComputations.Test
 		
 		[Test, Combinatorial]
 		public void TestIntersecting09(
-			[Values(1)] int initialCapacity)
+			[Values(1, 2, 3)] int initialCapacity)
 		{
 			Scalar<ObservableCollection<Item>> source1Scalar = getScalar<ObservableCollection<Item>>(getItems());
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> source2Scalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
@@ -32736,6 +33090,7 @@ namespace ObservableComputations.Test
 					source2ScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -32857,6 +33212,7 @@ namespace ObservableComputations.Test
 					source2ScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -32878,7 +33234,7 @@ namespace ObservableComputations.Test
 		
 		[Test, Combinatorial]
 		public void TestIntersecting11(
-			[Values(1)] int initialCapacity)
+			[Values(1, 2, 3)] int initialCapacity)
 		{
 			Scalar<ObservableCollection<Item>> source1Scalar = getScalar<ObservableCollection<Item>>(getItems());
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> source2Scalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
@@ -32978,6 +33334,7 @@ namespace ObservableComputations.Test
 					source2ScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -33093,6 +33450,7 @@ namespace ObservableComputations.Test
 					source2ScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -33111,7 +33469,7 @@ namespace ObservableComputations.Test
 		
 		[Test, Combinatorial]
 		public void TestIntersecting13(
-			[Values(1)] int initialCapacity)
+			[Values(1, 2, 3)] int initialCapacity)
 		{
 			Scalar<ObservableCollection<Item>> source1Scalar = getScalar<ObservableCollection<Item>>(getItems());
 			Scalar<ObservableCollection<Item>> source2Scalar = getScalar<ObservableCollection<Item>>(getItems());
@@ -33214,6 +33572,7 @@ namespace ObservableComputations.Test
 					source2ScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -33335,6 +33694,7 @@ namespace ObservableComputations.Test
 					source2ScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -33356,7 +33716,7 @@ namespace ObservableComputations.Test
 		
 		[Test, Combinatorial]
 		public void TestIntersecting15(
-			[Values(1)] int initialCapacity)
+			[Values(1, 2, 3)] int initialCapacity)
 		{
 			Scalar<ObservableCollection<Item>> source1Scalar = getScalar<ObservableCollection<Item>>(getItems());
 			Scalar<ObservableCollection<Item>> source2Scalar = getScalar<ObservableCollection<Item>>(getItems());
@@ -33456,6 +33816,7 @@ namespace ObservableComputations.Test
 					source2ScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -33571,6 +33932,7 @@ namespace ObservableComputations.Test
 					source2ScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -33589,7 +33951,7 @@ namespace ObservableComputations.Test
 		
 		[Test, Combinatorial]
 		public void TestIntersecting17(
-			[Values(1)] int initialCapacity)
+			[Values(1, 2, 3)] int initialCapacity)
 		{
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> source1Scalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
 			System.Collections.Specialized.INotifyCollectionChanged source2 = getItems();
@@ -33692,6 +34054,7 @@ namespace ObservableComputations.Test
 					source2Value.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -33808,6 +34171,7 @@ namespace ObservableComputations.Test
 					source2Value.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -33824,7 +34188,7 @@ namespace ObservableComputations.Test
 		
 		[Test, Combinatorial]
 		public void TestIntersecting19(
-			[Values(1)] int initialCapacity)
+			[Values(1, 2, 3)] int initialCapacity)
 		{
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> source1Scalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
 			System.Collections.Specialized.INotifyCollectionChanged source2 = getItems();
@@ -33924,6 +34288,7 @@ namespace ObservableComputations.Test
 					source2Value.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -34034,6 +34399,7 @@ namespace ObservableComputations.Test
 					source2Value.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -34047,7 +34413,7 @@ namespace ObservableComputations.Test
 		
 		[Test, Combinatorial]
 		public void TestIntersecting21(
-			[Values(1)] int initialCapacity)
+			[Values(1, 2, 3)] int initialCapacity)
 		{
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> source1Scalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
 			ObservableCollection<Item> source2 = getItems();
@@ -34150,6 +34516,7 @@ namespace ObservableComputations.Test
 					source2Value.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -34266,6 +34633,7 @@ namespace ObservableComputations.Test
 					source2Value.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -34282,7 +34650,7 @@ namespace ObservableComputations.Test
 		
 		[Test, Combinatorial]
 		public void TestIntersecting23(
-			[Values(1)] int initialCapacity)
+			[Values(1, 2, 3)] int initialCapacity)
 		{
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> source1Scalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
 			ObservableCollection<Item> source2 = getItems();
@@ -34382,6 +34750,7 @@ namespace ObservableComputations.Test
 					source2Value.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -34492,6 +34861,7 @@ namespace ObservableComputations.Test
 					source2Value.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -34505,7 +34875,7 @@ namespace ObservableComputations.Test
 		
 		[Test, Combinatorial]
 		public void TestIntersecting25(
-			[Values(1)] int initialCapacity)
+			[Values(1, 2, 3)] int initialCapacity)
 		{
 			Scalar<ObservableCollection<Item>> source1Scalar = getScalar<ObservableCollection<Item>>(getItems());
 			System.Collections.Specialized.INotifyCollectionChanged source2 = getItems();
@@ -34608,6 +34978,7 @@ namespace ObservableComputations.Test
 					source2Value.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -34724,6 +35095,7 @@ namespace ObservableComputations.Test
 					source2Value.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -34740,7 +35112,7 @@ namespace ObservableComputations.Test
 		
 		[Test, Combinatorial]
 		public void TestIntersecting27(
-			[Values(1)] int initialCapacity)
+			[Values(1, 2, 3)] int initialCapacity)
 		{
 			Scalar<ObservableCollection<Item>> source1Scalar = getScalar<ObservableCollection<Item>>(getItems());
 			System.Collections.Specialized.INotifyCollectionChanged source2 = getItems();
@@ -34840,6 +35212,7 @@ namespace ObservableComputations.Test
 					source2Value.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -34950,6 +35323,7 @@ namespace ObservableComputations.Test
 					source2Value.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -34963,7 +35337,7 @@ namespace ObservableComputations.Test
 		
 		[Test, Combinatorial]
 		public void TestIntersecting29(
-			[Values(1)] int initialCapacity)
+			[Values(1, 2, 3)] int initialCapacity)
 		{
 			Scalar<ObservableCollection<Item>> source1Scalar = getScalar<ObservableCollection<Item>>(getItems());
 			ObservableCollection<Item> source2 = getItems();
@@ -35066,6 +35440,7 @@ namespace ObservableComputations.Test
 					source2Value.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -35182,6 +35557,7 @@ namespace ObservableComputations.Test
 					source2Value.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -35198,7 +35574,7 @@ namespace ObservableComputations.Test
 		
 		[Test, Combinatorial]
 		public void TestIntersecting31(
-			[Values(1)] int initialCapacity)
+			[Values(1, 2, 3)] int initialCapacity)
 		{
 			Scalar<ObservableCollection<Item>> source1Scalar = getScalar<ObservableCollection<Item>>(getItems());
 			ObservableCollection<Item> source2 = getItems();
@@ -35298,6 +35674,7 @@ namespace ObservableComputations.Test
 					source2Value.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -35408,6 +35785,7 @@ namespace ObservableComputations.Test
 					source2Value.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -35421,7 +35799,7 @@ namespace ObservableComputations.Test
 		
 		[Test, Combinatorial]
 		public void TestIntersecting33(
-			[Values(1)] int initialCapacity)
+			[Values(1, 2, 3)] int initialCapacity)
 		{
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> source1Scalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
 			System.Collections.Specialized.INotifyCollectionChanged source2 = getItems();
@@ -35524,6 +35902,7 @@ namespace ObservableComputations.Test
 					source2Value.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -35637,6 +36016,7 @@ namespace ObservableComputations.Test
 					source2Value.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -35650,7 +36030,7 @@ namespace ObservableComputations.Test
 		
 		[Test, Combinatorial]
 		public void TestIntersecting35(
-			[Values(1)] int initialCapacity)
+			[Values(1, 2, 3)] int initialCapacity)
 		{
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> source1Scalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
 			ObservableCollection<Item> source2 = getItems();
@@ -35753,6 +36133,7 @@ namespace ObservableComputations.Test
 					source2Value.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -35866,6 +36247,7 @@ namespace ObservableComputations.Test
 					source2Value.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -35879,7 +36261,7 @@ namespace ObservableComputations.Test
 		
 		[Test, Combinatorial]
 		public void TestIntersecting37(
-			[Values(1)] int initialCapacity)
+			[Values(1, 2, 3)] int initialCapacity)
 		{
 			Scalar<ObservableCollection<Item>> source1Scalar = getScalar<ObservableCollection<Item>>(getItems());
 			System.Collections.Specialized.INotifyCollectionChanged source2 = getItems();
@@ -35982,6 +36364,7 @@ namespace ObservableComputations.Test
 					source2Value.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -36095,6 +36478,7 @@ namespace ObservableComputations.Test
 					source2Value.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -36108,7 +36492,7 @@ namespace ObservableComputations.Test
 		
 		[Test, Combinatorial]
 		public void TestIntersecting39(
-			[Values(1)] int initialCapacity)
+			[Values(1, 2, 3)] int initialCapacity)
 		{
 			Scalar<ObservableCollection<Item>> source1Scalar = getScalar<ObservableCollection<Item>>(getItems());
 			ObservableCollection<Item> source2 = getItems();
@@ -36211,6 +36595,7 @@ namespace ObservableComputations.Test
 					source2Value.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -36324,6 +36709,7 @@ namespace ObservableComputations.Test
 					source2Value.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -36337,7 +36723,7 @@ namespace ObservableComputations.Test
 		
 		[Test, Combinatorial]
 		public void TestIntersecting41(
-			[Values(1)] int initialCapacity)
+			[Values(1, 2, 3)] int initialCapacity)
 		{
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> source1Scalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> source2Scalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
@@ -36440,6 +36826,7 @@ namespace ObservableComputations.Test
 					source2ScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -36558,6 +36945,7 @@ namespace ObservableComputations.Test
 					source2ScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -36576,7 +36964,7 @@ namespace ObservableComputations.Test
 		
 		[Test, Combinatorial]
 		public void TestIntersecting43(
-			[Values(1)] int initialCapacity)
+			[Values(1, 2, 3)] int initialCapacity)
 		{
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> source1Scalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
 			Scalar<ObservableCollection<Item>> source2Scalar = getScalar<ObservableCollection<Item>>(getItems());
@@ -36679,6 +37067,7 @@ namespace ObservableComputations.Test
 					source2ScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -36797,6 +37186,7 @@ namespace ObservableComputations.Test
 					source2ScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -36815,7 +37205,7 @@ namespace ObservableComputations.Test
 		
 		[Test, Combinatorial]
 		public void TestIntersecting45(
-			[Values(1)] int initialCapacity)
+			[Values(1, 2, 3)] int initialCapacity)
 		{
 			Scalar<ObservableCollection<Item>> source1Scalar = getScalar<ObservableCollection<Item>>(getItems());
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> source2Scalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
@@ -36918,6 +37308,7 @@ namespace ObservableComputations.Test
 					source2ScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -37036,6 +37427,7 @@ namespace ObservableComputations.Test
 					source2ScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -37054,7 +37446,7 @@ namespace ObservableComputations.Test
 		
 		[Test, Combinatorial]
 		public void TestIntersecting47(
-			[Values(1)] int initialCapacity)
+			[Values(1, 2, 3)] int initialCapacity)
 		{
 			Scalar<ObservableCollection<Item>> source1Scalar = getScalar<ObservableCollection<Item>>(getItems());
 			Scalar<ObservableCollection<Item>> source2Scalar = getScalar<ObservableCollection<Item>>(getItems());
@@ -37157,6 +37549,7 @@ namespace ObservableComputations.Test
 					source2ScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -37275,6 +37668,7 @@ namespace ObservableComputations.Test
 					source2ScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -37293,7 +37687,7 @@ namespace ObservableComputations.Test
 		
 		[Test, Combinatorial]
 		public void TestIntersecting49(
-			[Values(1)] int initialCapacity)
+			[Values(1, 2, 3)] int initialCapacity)
 		{
 			System.Collections.Specialized.INotifyCollectionChanged source1 = getItems();
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> source2Scalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
@@ -37396,6 +37790,7 @@ namespace ObservableComputations.Test
 					source2ScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -37512,6 +37907,7 @@ namespace ObservableComputations.Test
 					source2ScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -37528,7 +37924,7 @@ namespace ObservableComputations.Test
 		
 		[Test, Combinatorial]
 		public void TestIntersecting51(
-			[Values(1)] int initialCapacity)
+			[Values(1, 2, 3)] int initialCapacity)
 		{
 			System.Collections.Specialized.INotifyCollectionChanged source1 = getItems();
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> source2Scalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
@@ -37628,6 +38024,7 @@ namespace ObservableComputations.Test
 					source2ScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -37738,6 +38135,7 @@ namespace ObservableComputations.Test
 					source2ScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -37751,7 +38149,7 @@ namespace ObservableComputations.Test
 		
 		[Test, Combinatorial]
 		public void TestIntersecting53(
-			[Values(1)] int initialCapacity)
+			[Values(1, 2, 3)] int initialCapacity)
 		{
 			System.Collections.Specialized.INotifyCollectionChanged source1 = getItems();
 			Scalar<ObservableCollection<Item>> source2Scalar = getScalar<ObservableCollection<Item>>(getItems());
@@ -37854,6 +38252,7 @@ namespace ObservableComputations.Test
 					source2ScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -37970,6 +38369,7 @@ namespace ObservableComputations.Test
 					source2ScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -37986,7 +38386,7 @@ namespace ObservableComputations.Test
 		
 		[Test, Combinatorial]
 		public void TestIntersecting55(
-			[Values(1)] int initialCapacity)
+			[Values(1, 2, 3)] int initialCapacity)
 		{
 			System.Collections.Specialized.INotifyCollectionChanged source1 = getItems();
 			Scalar<ObservableCollection<Item>> source2Scalar = getScalar<ObservableCollection<Item>>(getItems());
@@ -38086,6 +38486,7 @@ namespace ObservableComputations.Test
 					source2ScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -38196,6 +38597,7 @@ namespace ObservableComputations.Test
 					source2ScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -38209,7 +38611,7 @@ namespace ObservableComputations.Test
 		
 		[Test, Combinatorial]
 		public void TestIntersecting57(
-			[Values(1)] int initialCapacity)
+			[Values(1, 2, 3)] int initialCapacity)
 		{
 			ObservableCollection<Item> source1 = getItems();
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> source2Scalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
@@ -38312,6 +38714,7 @@ namespace ObservableComputations.Test
 					source2ScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -38428,6 +38831,7 @@ namespace ObservableComputations.Test
 					source2ScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -38444,7 +38848,7 @@ namespace ObservableComputations.Test
 		
 		[Test, Combinatorial]
 		public void TestIntersecting59(
-			[Values(1)] int initialCapacity)
+			[Values(1, 2, 3)] int initialCapacity)
 		{
 			ObservableCollection<Item> source1 = getItems();
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> source2Scalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
@@ -38544,6 +38948,7 @@ namespace ObservableComputations.Test
 					source2ScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -38654,6 +39059,7 @@ namespace ObservableComputations.Test
 					source2ScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -38667,7 +39073,7 @@ namespace ObservableComputations.Test
 		
 		[Test, Combinatorial]
 		public void TestIntersecting61(
-			[Values(1)] int initialCapacity)
+			[Values(1, 2, 3)] int initialCapacity)
 		{
 			ObservableCollection<Item> source1 = getItems();
 			Scalar<ObservableCollection<Item>> source2Scalar = getScalar<ObservableCollection<Item>>(getItems());
@@ -38770,6 +39176,7 @@ namespace ObservableComputations.Test
 					source2ScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -38886,6 +39293,7 @@ namespace ObservableComputations.Test
 					source2ScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -38902,7 +39310,7 @@ namespace ObservableComputations.Test
 		
 		[Test, Combinatorial]
 		public void TestIntersecting63(
-			[Values(1)] int initialCapacity)
+			[Values(1, 2, 3)] int initialCapacity)
 		{
 			ObservableCollection<Item> source1 = getItems();
 			Scalar<ObservableCollection<Item>> source2Scalar = getScalar<ObservableCollection<Item>>(getItems());
@@ -39002,6 +39410,7 @@ namespace ObservableComputations.Test
 					source2ScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -39112,6 +39521,7 @@ namespace ObservableComputations.Test
 					source2ScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -39125,7 +39535,7 @@ namespace ObservableComputations.Test
 		
 		[Test, Combinatorial]
 		public void TestIntersecting65(
-			[Values(1)] int initialCapacity)
+			[Values(1, 2, 3)] int initialCapacity)
 		{
 			System.Collections.Specialized.INotifyCollectionChanged source1 = getItems();
 			System.Collections.Specialized.INotifyCollectionChanged source2 = getItems();
@@ -39228,6 +39638,7 @@ namespace ObservableComputations.Test
 					source2Value.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -39339,6 +39750,7 @@ namespace ObservableComputations.Test
 					source2Value.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -39350,7 +39762,7 @@ namespace ObservableComputations.Test
 		
 		[Test, Combinatorial]
 		public void TestIntersecting67(
-			[Values(1)] int initialCapacity)
+			[Values(1, 2, 3)] int initialCapacity)
 		{
 			System.Collections.Specialized.INotifyCollectionChanged source1 = getItems();
 			System.Collections.Specialized.INotifyCollectionChanged source2 = getItems();
@@ -39450,6 +39862,7 @@ namespace ObservableComputations.Test
 					source2Value.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -39555,6 +39968,7 @@ namespace ObservableComputations.Test
 					source2Value.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -39563,7 +39977,7 @@ namespace ObservableComputations.Test
 		
 		[Test, Combinatorial]
 		public void TestIntersecting69(
-			[Values(1)] int initialCapacity)
+			[Values(1, 2, 3)] int initialCapacity)
 		{
 			System.Collections.Specialized.INotifyCollectionChanged source1 = getItems();
 			ObservableCollection<Item> source2 = getItems();
@@ -39666,6 +40080,7 @@ namespace ObservableComputations.Test
 					source2Value.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -39777,6 +40192,7 @@ namespace ObservableComputations.Test
 					source2Value.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -39788,7 +40204,7 @@ namespace ObservableComputations.Test
 		
 		[Test, Combinatorial]
 		public void TestIntersecting71(
-			[Values(1)] int initialCapacity)
+			[Values(1, 2, 3)] int initialCapacity)
 		{
 			System.Collections.Specialized.INotifyCollectionChanged source1 = getItems();
 			ObservableCollection<Item> source2 = getItems();
@@ -39888,6 +40304,7 @@ namespace ObservableComputations.Test
 					source2Value.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -39993,6 +40410,7 @@ namespace ObservableComputations.Test
 					source2Value.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -40001,7 +40419,7 @@ namespace ObservableComputations.Test
 		
 		[Test, Combinatorial]
 		public void TestIntersecting73(
-			[Values(1)] int initialCapacity)
+			[Values(1, 2, 3)] int initialCapacity)
 		{
 			ObservableCollection<Item> source1 = getItems();
 			System.Collections.Specialized.INotifyCollectionChanged source2 = getItems();
@@ -40104,6 +40522,7 @@ namespace ObservableComputations.Test
 					source2Value.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -40215,6 +40634,7 @@ namespace ObservableComputations.Test
 					source2Value.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -40226,7 +40646,7 @@ namespace ObservableComputations.Test
 		
 		[Test, Combinatorial]
 		public void TestIntersecting75(
-			[Values(1)] int initialCapacity)
+			[Values(1, 2, 3)] int initialCapacity)
 		{
 			ObservableCollection<Item> source1 = getItems();
 			System.Collections.Specialized.INotifyCollectionChanged source2 = getItems();
@@ -40326,6 +40746,7 @@ namespace ObservableComputations.Test
 					source2Value.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -40431,6 +40852,7 @@ namespace ObservableComputations.Test
 					source2Value.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -40439,7 +40861,7 @@ namespace ObservableComputations.Test
 		
 		[Test, Combinatorial]
 		public void TestIntersecting77(
-			[Values(1)] int initialCapacity)
+			[Values(1, 2, 3)] int initialCapacity)
 		{
 			ObservableCollection<Item> source1 = getItems();
 			ObservableCollection<Item> source2 = getItems();
@@ -40542,6 +40964,7 @@ namespace ObservableComputations.Test
 					source2Value.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -40653,6 +41076,7 @@ namespace ObservableComputations.Test
 					source2Value.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -40664,7 +41088,7 @@ namespace ObservableComputations.Test
 		
 		[Test, Combinatorial]
 		public void TestIntersecting79(
-			[Values(1)] int initialCapacity)
+			[Values(1, 2, 3)] int initialCapacity)
 		{
 			ObservableCollection<Item> source1 = getItems();
 			ObservableCollection<Item> source2 = getItems();
@@ -40764,6 +41188,7 @@ namespace ObservableComputations.Test
 					source2Value.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -40869,6 +41294,7 @@ namespace ObservableComputations.Test
 					source2Value.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -40877,7 +41303,7 @@ namespace ObservableComputations.Test
 		
 		[Test, Combinatorial]
 		public void TestIntersecting81(
-			[Values(1)] int initialCapacity)
+			[Values(1, 2, 3)] int initialCapacity)
 		{
 			System.Collections.Specialized.INotifyCollectionChanged source1 = getItems();
 			System.Collections.Specialized.INotifyCollectionChanged source2 = getItems();
@@ -40980,6 +41406,7 @@ namespace ObservableComputations.Test
 					source2Value.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -41088,6 +41515,7 @@ namespace ObservableComputations.Test
 					source2Value.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -41096,7 +41524,7 @@ namespace ObservableComputations.Test
 		
 		[Test, Combinatorial]
 		public void TestIntersecting83(
-			[Values(1)] int initialCapacity)
+			[Values(1, 2, 3)] int initialCapacity)
 		{
 			System.Collections.Specialized.INotifyCollectionChanged source1 = getItems();
 			ObservableCollection<Item> source2 = getItems();
@@ -41199,6 +41627,7 @@ namespace ObservableComputations.Test
 					source2Value.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -41307,6 +41736,7 @@ namespace ObservableComputations.Test
 					source2Value.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -41315,7 +41745,7 @@ namespace ObservableComputations.Test
 		
 		[Test, Combinatorial]
 		public void TestIntersecting85(
-			[Values(1)] int initialCapacity)
+			[Values(1, 2, 3)] int initialCapacity)
 		{
 			ObservableCollection<Item> source1 = getItems();
 			System.Collections.Specialized.INotifyCollectionChanged source2 = getItems();
@@ -41418,6 +41848,7 @@ namespace ObservableComputations.Test
 					source2Value.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -41526,6 +41957,7 @@ namespace ObservableComputations.Test
 					source2Value.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -41534,7 +41966,7 @@ namespace ObservableComputations.Test
 		
 		[Test, Combinatorial]
 		public void TestIntersecting87(
-			[Values(1)] int initialCapacity)
+			[Values(1, 2, 3)] int initialCapacity)
 		{
 			ObservableCollection<Item> source1 = getItems();
 			ObservableCollection<Item> source2 = getItems();
@@ -41637,6 +42069,7 @@ namespace ObservableComputations.Test
 					source2Value.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -41745,6 +42178,7 @@ namespace ObservableComputations.Test
 					source2Value.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -41753,7 +42187,7 @@ namespace ObservableComputations.Test
 		
 		[Test, Combinatorial]
 		public void TestIntersecting89(
-			[Values(1)] int initialCapacity)
+			[Values(1, 2, 3)] int initialCapacity)
 		{
 			System.Collections.Specialized.INotifyCollectionChanged source1 = getItems();
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> source2Scalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
@@ -41856,6 +42290,7 @@ namespace ObservableComputations.Test
 					source2ScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -41969,6 +42404,7 @@ namespace ObservableComputations.Test
 					source2ScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -41982,7 +42418,7 @@ namespace ObservableComputations.Test
 		
 		[Test, Combinatorial]
 		public void TestIntersecting91(
-			[Values(1)] int initialCapacity)
+			[Values(1, 2, 3)] int initialCapacity)
 		{
 			System.Collections.Specialized.INotifyCollectionChanged source1 = getItems();
 			Scalar<ObservableCollection<Item>> source2Scalar = getScalar<ObservableCollection<Item>>(getItems());
@@ -42085,6 +42521,7 @@ namespace ObservableComputations.Test
 					source2ScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -42198,6 +42635,7 @@ namespace ObservableComputations.Test
 					source2ScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -42211,7 +42649,7 @@ namespace ObservableComputations.Test
 		
 		[Test, Combinatorial]
 		public void TestIntersecting93(
-			[Values(1)] int initialCapacity)
+			[Values(1, 2, 3)] int initialCapacity)
 		{
 			ObservableCollection<Item> source1 = getItems();
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> source2Scalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
@@ -42314,6 +42752,7 @@ namespace ObservableComputations.Test
 					source2ScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -42427,6 +42866,7 @@ namespace ObservableComputations.Test
 					source2ScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -42440,7 +42880,7 @@ namespace ObservableComputations.Test
 		
 		[Test, Combinatorial]
 		public void TestIntersecting95(
-			[Values(1)] int initialCapacity)
+			[Values(1, 2, 3)] int initialCapacity)
 		{
 			ObservableCollection<Item> source1 = getItems();
 			Scalar<ObservableCollection<Item>> source2Scalar = getScalar<ObservableCollection<Item>>(getItems());
@@ -42543,6 +42983,7 @@ namespace ObservableComputations.Test
 					source2ScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -42656,6 +43097,7 @@ namespace ObservableComputations.Test
 					source2ScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -42672,7 +43114,7 @@ namespace ObservableComputations.Test
 		
 		[Test, Combinatorial]
 		public void TestItemComputing01(
-			[Values(1)] int index)
+			[Values(1, 2, 3)] int index)
 		{
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
 			Item defaultValue = new QuickTests.Item(1, true);
@@ -42731,6 +43173,7 @@ namespace ObservableComputations.Test
 					sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -42744,7 +43187,7 @@ namespace ObservableComputations.Test
 		
 		[Test, Combinatorial]
 		public void TestItemComputing02(
-			[Values(1)] int index)
+			[Values(1, 2, 3)] int index)
 		{
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
 			OcConsumer consumer = new OcConsumer();
@@ -42800,6 +43243,7 @@ namespace ObservableComputations.Test
 					sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -42813,7 +43257,7 @@ namespace ObservableComputations.Test
 		
 		[Test, Combinatorial]
 		public void TestItemComputing03(
-			[Values(1)] int index)
+			[Values(1, 2, 3)] int index)
 		{
 			Scalar<ObservableCollection<Item>> sourceScalar = getScalar<ObservableCollection<Item>>(getItems());
 			Item defaultValue = new QuickTests.Item(1, true);
@@ -42872,6 +43316,7 @@ namespace ObservableComputations.Test
 					sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -42885,7 +43330,7 @@ namespace ObservableComputations.Test
 		
 		[Test, Combinatorial]
 		public void TestItemComputing04(
-			[Values(1)] int index)
+			[Values(1, 2, 3)] int index)
 		{
 			Scalar<ObservableCollection<Item>> sourceScalar = getScalar<ObservableCollection<Item>>(getItems());
 			OcConsumer consumer = new OcConsumer();
@@ -42941,6 +43386,7 @@ namespace ObservableComputations.Test
 					sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -43013,6 +43459,7 @@ namespace ObservableComputations.Test
 					sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -43020,6 +43467,10 @@ namespace ObservableComputations.Test
 			((Scalar<int>)indexScalar).Touch();
 			test();
 			((Scalar<int>)indexScalar).Change(1);
+			test();
+			((Scalar<int>)indexScalar).Change(2);
+			test();
+			((Scalar<int>)indexScalar).Change(3);
 			test();
 
 			((Scalar<System.Collections.Specialized.INotifyCollectionChanged>)sourceScalar).Touch();
@@ -43087,6 +43538,7 @@ namespace ObservableComputations.Test
 					sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -43094,6 +43546,10 @@ namespace ObservableComputations.Test
 			((Scalar<int>)indexScalar).Touch();
 			test();
 			((Scalar<int>)indexScalar).Change(1);
+			test();
+			((Scalar<int>)indexScalar).Change(2);
+			test();
+			((Scalar<int>)indexScalar).Change(3);
 			test();
 
 			((Scalar<System.Collections.Specialized.INotifyCollectionChanged>)sourceScalar).Touch();
@@ -43164,6 +43620,7 @@ namespace ObservableComputations.Test
 					sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -43171,6 +43628,10 @@ namespace ObservableComputations.Test
 			((Scalar<int>)indexScalar).Touch();
 			test();
 			((Scalar<int>)indexScalar).Change(1);
+			test();
+			((Scalar<int>)indexScalar).Change(2);
+			test();
+			((Scalar<int>)indexScalar).Change(3);
 			test();
 
 			((Scalar<ObservableCollection<Item>>)sourceScalar).Touch();
@@ -43238,6 +43699,7 @@ namespace ObservableComputations.Test
 					sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -43245,6 +43707,10 @@ namespace ObservableComputations.Test
 			((Scalar<int>)indexScalar).Touch();
 			test();
 			((Scalar<int>)indexScalar).Change(1);
+			test();
+			((Scalar<int>)indexScalar).Change(2);
+			test();
+			((Scalar<int>)indexScalar).Change(3);
 			test();
 
 			((Scalar<ObservableCollection<Item>>)sourceScalar).Touch();
@@ -43256,7 +43722,7 @@ namespace ObservableComputations.Test
 		
 		[Test, Combinatorial]
 		public void TestItemComputing09(
-			[Values(1)] int index)
+			[Values(1, 2, 3)] int index)
 		{
 			System.Collections.Specialized.INotifyCollectionChanged source = getItems();
 			Item defaultValue = new QuickTests.Item(1, true);
@@ -43315,6 +43781,7 @@ namespace ObservableComputations.Test
 					sourceValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -43323,7 +43790,7 @@ namespace ObservableComputations.Test
 		
 		[Test, Combinatorial]
 		public void TestItemComputing10(
-			[Values(1)] int index)
+			[Values(1, 2, 3)] int index)
 		{
 			System.Collections.Specialized.INotifyCollectionChanged source = getItems();
 			OcConsumer consumer = new OcConsumer();
@@ -43379,6 +43846,7 @@ namespace ObservableComputations.Test
 					sourceValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -43387,7 +43855,7 @@ namespace ObservableComputations.Test
 		
 		[Test, Combinatorial]
 		public void TestItemComputing11(
-			[Values(1)] int index)
+			[Values(1, 2, 3)] int index)
 		{
 			ObservableCollection<Item> source = getItems();
 			Item defaultValue = new QuickTests.Item(1, true);
@@ -43446,6 +43914,7 @@ namespace ObservableComputations.Test
 					sourceValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -43454,7 +43923,7 @@ namespace ObservableComputations.Test
 		
 		[Test, Combinatorial]
 		public void TestItemComputing12(
-			[Values(1)] int index)
+			[Values(1, 2, 3)] int index)
 		{
 			ObservableCollection<Item> source = getItems();
 			OcConsumer consumer = new OcConsumer();
@@ -43510,6 +43979,7 @@ namespace ObservableComputations.Test
 					sourceValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -43577,6 +44047,7 @@ namespace ObservableComputations.Test
 					sourceValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -43584,6 +44055,10 @@ namespace ObservableComputations.Test
 			((Scalar<int>)indexScalar).Touch();
 			test();
 			((Scalar<int>)indexScalar).Change(1);
+			test();
+			((Scalar<int>)indexScalar).Change(2);
+			test();
+			((Scalar<int>)indexScalar).Change(3);
 			test();
 			consumer.Dispose();
 		}
@@ -43646,6 +44121,7 @@ namespace ObservableComputations.Test
 					sourceValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -43653,6 +44129,10 @@ namespace ObservableComputations.Test
 			((Scalar<int>)indexScalar).Touch();
 			test();
 			((Scalar<int>)indexScalar).Change(1);
+			test();
+			((Scalar<int>)indexScalar).Change(2);
+			test();
+			((Scalar<int>)indexScalar).Change(3);
 			test();
 			consumer.Dispose();
 		}
@@ -43718,6 +44198,7 @@ namespace ObservableComputations.Test
 					sourceValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -43725,6 +44206,10 @@ namespace ObservableComputations.Test
 			((Scalar<int>)indexScalar).Touch();
 			test();
 			((Scalar<int>)indexScalar).Change(1);
+			test();
+			((Scalar<int>)indexScalar).Change(2);
+			test();
+			((Scalar<int>)indexScalar).Change(3);
 			test();
 			consumer.Dispose();
 		}
@@ -43787,6 +44272,7 @@ namespace ObservableComputations.Test
 					sourceValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -43794,6 +44280,10 @@ namespace ObservableComputations.Test
 			((Scalar<int>)indexScalar).Touch();
 			test();
 			((Scalar<int>)indexScalar).Change(1);
+			test();
+			((Scalar<int>)indexScalar).Change(2);
+			test();
+			((Scalar<int>)indexScalar).Change(3);
 			test();
 			consumer.Dispose();
 		}
@@ -43803,7 +44293,7 @@ namespace ObservableComputations.Test
 		
 		[Test, Combinatorial]
 		public void TestJoining01(
-			[Values(1)] int initialCapacity)
+			[Values(1, 2, 3)] int initialCapacity)
 		{
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> leftSourceScalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> rightSourceScalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
@@ -43874,6 +44364,7 @@ namespace ObservableComputations.Test
 				}
 
 				IList listSource;
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -43960,6 +44451,7 @@ namespace ObservableComputations.Test
 				}
 
 				IList listSource;
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -43978,7 +44470,7 @@ namespace ObservableComputations.Test
 		
 		[Test, Combinatorial]
 		public void TestJoining03(
-			[Values(1)] int initialCapacity)
+			[Values(1, 2, 3)] int initialCapacity)
 		{
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> leftSourceScalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
 			Scalar<ObservableCollection<Item>> rightSourceScalar = getScalar<ObservableCollection<Item>>(getItems());
@@ -44049,6 +44541,7 @@ namespace ObservableComputations.Test
 				}
 
 				IList listSource;
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -44135,6 +44628,7 @@ namespace ObservableComputations.Test
 				}
 
 				IList listSource;
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -44153,7 +44647,7 @@ namespace ObservableComputations.Test
 		
 		[Test, Combinatorial]
 		public void TestJoining05(
-			[Values(1)] int initialCapacity)
+			[Values(1, 2, 3)] int initialCapacity)
 		{
 			Scalar<ObservableCollection<Item>> leftSourceScalar = getScalar<ObservableCollection<Item>>(getItems());
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> rightSourceScalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
@@ -44224,6 +44718,7 @@ namespace ObservableComputations.Test
 				}
 
 				IList listSource;
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -44310,6 +44805,7 @@ namespace ObservableComputations.Test
 				}
 
 				IList listSource;
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -44328,7 +44824,7 @@ namespace ObservableComputations.Test
 		
 		[Test, Combinatorial]
 		public void TestJoining07(
-			[Values(1)] int initialCapacity)
+			[Values(1, 2, 3)] int initialCapacity)
 		{
 			Scalar<ObservableCollection<Item>> leftSourceScalar = getScalar<ObservableCollection<Item>>(getItems());
 			Scalar<ObservableCollection<Item>> rightSourceScalar = getScalar<ObservableCollection<Item>>(getItems());
@@ -44399,6 +44895,7 @@ namespace ObservableComputations.Test
 				}
 
 				IList listSource;
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -44485,6 +44982,7 @@ namespace ObservableComputations.Test
 				}
 
 				IList listSource;
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -44503,7 +45001,7 @@ namespace ObservableComputations.Test
 		
 		[Test, Combinatorial]
 		public void TestJoining09(
-			[Values(1)] int initialCapacity)
+			[Values(1, 2, 3)] int initialCapacity)
 		{
 			System.Collections.Specialized.INotifyCollectionChanged leftSource = getItems();
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> rightSourceScalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
@@ -44574,6 +45072,7 @@ namespace ObservableComputations.Test
 				}
 
 				IList listSource;
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -44655,6 +45154,7 @@ namespace ObservableComputations.Test
 				}
 
 				IList listSource;
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -44668,7 +45168,7 @@ namespace ObservableComputations.Test
 		
 		[Test, Combinatorial]
 		public void TestJoining11(
-			[Values(1)] int initialCapacity)
+			[Values(1, 2, 3)] int initialCapacity)
 		{
 			System.Collections.Specialized.INotifyCollectionChanged leftSource = getItems();
 			Scalar<ObservableCollection<Item>> rightSourceScalar = getScalar<ObservableCollection<Item>>(getItems());
@@ -44739,6 +45239,7 @@ namespace ObservableComputations.Test
 				}
 
 				IList listSource;
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -44820,6 +45321,7 @@ namespace ObservableComputations.Test
 				}
 
 				IList listSource;
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -44833,7 +45335,7 @@ namespace ObservableComputations.Test
 		
 		[Test, Combinatorial]
 		public void TestJoining13(
-			[Values(1)] int initialCapacity)
+			[Values(1, 2, 3)] int initialCapacity)
 		{
 			ObservableCollection<Item> leftSource = getItems();
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> rightSourceScalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
@@ -44904,6 +45406,7 @@ namespace ObservableComputations.Test
 				}
 
 				IList listSource;
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -44985,6 +45488,7 @@ namespace ObservableComputations.Test
 				}
 
 				IList listSource;
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -44998,7 +45502,7 @@ namespace ObservableComputations.Test
 		
 		[Test, Combinatorial]
 		public void TestJoining15(
-			[Values(1)] int initialCapacity)
+			[Values(1, 2, 3)] int initialCapacity)
 		{
 			ObservableCollection<Item> leftSource = getItems();
 			Scalar<ObservableCollection<Item>> rightSourceScalar = getScalar<ObservableCollection<Item>>(getItems());
@@ -45069,6 +45573,7 @@ namespace ObservableComputations.Test
 				}
 
 				IList listSource;
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -45150,6 +45655,7 @@ namespace ObservableComputations.Test
 				}
 
 				IList listSource;
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -45163,7 +45669,7 @@ namespace ObservableComputations.Test
 		
 		[Test, Combinatorial]
 		public void TestJoining17(
-			[Values(1)] int initialCapacity)
+			[Values(1, 2, 3)] int initialCapacity)
 		{
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> leftSourceScalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
 			System.Collections.Specialized.INotifyCollectionChanged rightSource = getItems();
@@ -45234,6 +45740,7 @@ namespace ObservableComputations.Test
 				}
 
 				IList listSource;
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -45315,6 +45822,7 @@ namespace ObservableComputations.Test
 				}
 
 				IList listSource;
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -45328,7 +45836,7 @@ namespace ObservableComputations.Test
 		
 		[Test, Combinatorial]
 		public void TestJoining19(
-			[Values(1)] int initialCapacity)
+			[Values(1, 2, 3)] int initialCapacity)
 		{
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> leftSourceScalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
 			ObservableCollection<Item> rightSource = getItems();
@@ -45399,6 +45907,7 @@ namespace ObservableComputations.Test
 				}
 
 				IList listSource;
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -45480,6 +45989,7 @@ namespace ObservableComputations.Test
 				}
 
 				IList listSource;
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -45493,7 +46003,7 @@ namespace ObservableComputations.Test
 		
 		[Test, Combinatorial]
 		public void TestJoining21(
-			[Values(1)] int initialCapacity)
+			[Values(1, 2, 3)] int initialCapacity)
 		{
 			Scalar<ObservableCollection<Item>> leftSourceScalar = getScalar<ObservableCollection<Item>>(getItems());
 			System.Collections.Specialized.INotifyCollectionChanged rightSource = getItems();
@@ -45564,6 +46074,7 @@ namespace ObservableComputations.Test
 				}
 
 				IList listSource;
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -45645,6 +46156,7 @@ namespace ObservableComputations.Test
 				}
 
 				IList listSource;
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -45658,7 +46170,7 @@ namespace ObservableComputations.Test
 		
 		[Test, Combinatorial]
 		public void TestJoining23(
-			[Values(1)] int initialCapacity)
+			[Values(1, 2, 3)] int initialCapacity)
 		{
 			Scalar<ObservableCollection<Item>> leftSourceScalar = getScalar<ObservableCollection<Item>>(getItems());
 			ObservableCollection<Item> rightSource = getItems();
@@ -45729,6 +46241,7 @@ namespace ObservableComputations.Test
 				}
 
 				IList listSource;
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -45810,6 +46323,7 @@ namespace ObservableComputations.Test
 				}
 
 				IList listSource;
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -45823,7 +46337,7 @@ namespace ObservableComputations.Test
 		
 		[Test, Combinatorial]
 		public void TestJoining25(
-			[Values(1)] int initialCapacity)
+			[Values(1, 2, 3)] int initialCapacity)
 		{
 			System.Collections.Specialized.INotifyCollectionChanged leftSource = getItems();
 			System.Collections.Specialized.INotifyCollectionChanged rightSource = getItems();
@@ -45894,6 +46408,7 @@ namespace ObservableComputations.Test
 				}
 
 				IList listSource;
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -45970,6 +46485,7 @@ namespace ObservableComputations.Test
 				}
 
 				IList listSource;
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -45978,7 +46494,7 @@ namespace ObservableComputations.Test
 		
 		[Test, Combinatorial]
 		public void TestJoining27(
-			[Values(1)] int initialCapacity)
+			[Values(1, 2, 3)] int initialCapacity)
 		{
 			System.Collections.Specialized.INotifyCollectionChanged leftSource = getItems();
 			ObservableCollection<Item> rightSource = getItems();
@@ -46049,6 +46565,7 @@ namespace ObservableComputations.Test
 				}
 
 				IList listSource;
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -46125,6 +46642,7 @@ namespace ObservableComputations.Test
 				}
 
 				IList listSource;
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -46133,7 +46651,7 @@ namespace ObservableComputations.Test
 		
 		[Test, Combinatorial]
 		public void TestJoining29(
-			[Values(1)] int initialCapacity)
+			[Values(1, 2, 3)] int initialCapacity)
 		{
 			ObservableCollection<Item> leftSource = getItems();
 			System.Collections.Specialized.INotifyCollectionChanged rightSource = getItems();
@@ -46204,6 +46722,7 @@ namespace ObservableComputations.Test
 				}
 
 				IList listSource;
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -46280,6 +46799,7 @@ namespace ObservableComputations.Test
 				}
 
 				IList listSource;
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -46288,7 +46808,7 @@ namespace ObservableComputations.Test
 		
 		[Test, Combinatorial]
 		public void TestJoining31(
-			[Values(1)] int initialCapacity)
+			[Values(1, 2, 3)] int initialCapacity)
 		{
 			ObservableCollection<Item> leftSource = getItems();
 			ObservableCollection<Item> rightSource = getItems();
@@ -46359,6 +46879,7 @@ namespace ObservableComputations.Test
 				}
 
 				IList listSource;
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -46435,6 +46956,7 @@ namespace ObservableComputations.Test
 				}
 
 				IList listSource;
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -46502,6 +47024,7 @@ namespace ObservableComputations.Test
 					sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -46568,6 +47091,7 @@ namespace ObservableComputations.Test
 					sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -46637,6 +47161,7 @@ namespace ObservableComputations.Test
 					sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -46703,6 +47228,7 @@ namespace ObservableComputations.Test
 					sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -46772,6 +47298,7 @@ namespace ObservableComputations.Test
 					sourceValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -46833,6 +47360,7 @@ namespace ObservableComputations.Test
 					sourceValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -46897,6 +47425,7 @@ namespace ObservableComputations.Test
 					sourceValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -46958,6 +47487,7 @@ namespace ObservableComputations.Test
 					sourceValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -47028,6 +47558,7 @@ namespace ObservableComputations.Test
 					sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -47097,6 +47628,7 @@ namespace ObservableComputations.Test
 					sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -47166,6 +47698,7 @@ namespace ObservableComputations.Test
 					sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -47232,6 +47765,7 @@ namespace ObservableComputations.Test
 					sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -47304,6 +47838,7 @@ namespace ObservableComputations.Test
 					sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -47373,6 +47908,7 @@ namespace ObservableComputations.Test
 					sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -47442,6 +47978,7 @@ namespace ObservableComputations.Test
 					sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -47508,6 +48045,7 @@ namespace ObservableComputations.Test
 					sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -47580,6 +48118,7 @@ namespace ObservableComputations.Test
 					sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -47654,6 +48193,7 @@ namespace ObservableComputations.Test
 					sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -47731,6 +48271,7 @@ namespace ObservableComputations.Test
 					sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -47805,6 +48346,7 @@ namespace ObservableComputations.Test
 					sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -47882,6 +48424,7 @@ namespace ObservableComputations.Test
 					sourceValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -47946,6 +48489,7 @@ namespace ObservableComputations.Test
 					sourceValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -48010,6 +48554,7 @@ namespace ObservableComputations.Test
 					sourceValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -48071,6 +48616,7 @@ namespace ObservableComputations.Test
 					sourceValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -48138,6 +48684,7 @@ namespace ObservableComputations.Test
 					sourceValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -48202,6 +48749,7 @@ namespace ObservableComputations.Test
 					sourceValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -48266,6 +48814,7 @@ namespace ObservableComputations.Test
 					sourceValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -48327,6 +48876,7 @@ namespace ObservableComputations.Test
 					sourceValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -48394,6 +48944,7 @@ namespace ObservableComputations.Test
 					sourceValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -48463,6 +49014,7 @@ namespace ObservableComputations.Test
 					sourceValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -48535,6 +49087,7 @@ namespace ObservableComputations.Test
 					sourceValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -48604,6 +49157,7 @@ namespace ObservableComputations.Test
 					sourceValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -48679,6 +49233,7 @@ namespace ObservableComputations.Test
 					sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -48748,6 +49303,7 @@ namespace ObservableComputations.Test
 					sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -48817,6 +49373,7 @@ namespace ObservableComputations.Test
 					sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -48883,6 +49440,7 @@ namespace ObservableComputations.Test
 					sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -48955,6 +49513,7 @@ namespace ObservableComputations.Test
 					sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -49024,6 +49583,7 @@ namespace ObservableComputations.Test
 					sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -49093,6 +49653,7 @@ namespace ObservableComputations.Test
 					sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -49159,6 +49720,7 @@ namespace ObservableComputations.Test
 					sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -49231,6 +49793,7 @@ namespace ObservableComputations.Test
 					sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -49305,6 +49868,7 @@ namespace ObservableComputations.Test
 					sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -49382,6 +49946,7 @@ namespace ObservableComputations.Test
 					sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -49456,6 +50021,7 @@ namespace ObservableComputations.Test
 					sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -49533,6 +50099,7 @@ namespace ObservableComputations.Test
 					sourceValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -49597,6 +50164,7 @@ namespace ObservableComputations.Test
 					sourceValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -49661,6 +50229,7 @@ namespace ObservableComputations.Test
 					sourceValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -49722,6 +50291,7 @@ namespace ObservableComputations.Test
 					sourceValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -49789,6 +50359,7 @@ namespace ObservableComputations.Test
 					sourceValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -49853,6 +50424,7 @@ namespace ObservableComputations.Test
 					sourceValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -49917,6 +50489,7 @@ namespace ObservableComputations.Test
 					sourceValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -49978,6 +50551,7 @@ namespace ObservableComputations.Test
 					sourceValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -50045,6 +50619,7 @@ namespace ObservableComputations.Test
 					sourceValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -50114,6 +50689,7 @@ namespace ObservableComputations.Test
 					sourceValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -50186,6 +50762,7 @@ namespace ObservableComputations.Test
 					sourceValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -50255,6 +50832,7 @@ namespace ObservableComputations.Test
 					sourceValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -50324,6 +50902,7 @@ namespace ObservableComputations.Test
 					sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -50390,6 +50969,7 @@ namespace ObservableComputations.Test
 					sourceValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -50463,6 +51043,7 @@ namespace ObservableComputations.Test
 					sourceValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -50540,6 +51121,7 @@ namespace ObservableComputations.Test
 					sourceValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -50612,6 +51194,7 @@ namespace ObservableComputations.Test
 					sourceValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -50681,6 +51264,7 @@ namespace ObservableComputations.Test
 					sourceValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -50751,6 +51335,7 @@ namespace ObservableComputations.Test
 					sourceValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -50828,6 +51413,7 @@ namespace ObservableComputations.Test
 					sourceValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -50900,6 +51486,7 @@ namespace ObservableComputations.Test
 					sourceValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -50969,6 +51556,7 @@ namespace ObservableComputations.Test
 					sourceValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -51039,6 +51627,7 @@ namespace ObservableComputations.Test
 					sourceValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -51111,6 +51700,7 @@ namespace ObservableComputations.Test
 					sourceValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -51181,6 +51771,7 @@ namespace ObservableComputations.Test
 					sourceValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -51253,6 +51844,7 @@ namespace ObservableComputations.Test
 					sourceValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -51323,6 +51915,7 @@ namespace ObservableComputations.Test
 					sourceValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -51395,6 +51988,7 @@ namespace ObservableComputations.Test
 					sourceValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -51465,6 +52059,7 @@ namespace ObservableComputations.Test
 					sourceValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -51537,6 +52132,7 @@ namespace ObservableComputations.Test
 					sourceValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -51607,6 +52203,7 @@ namespace ObservableComputations.Test
 					sourceValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -51677,6 +52274,7 @@ namespace ObservableComputations.Test
 					sourceValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -51747,6 +52345,7 @@ namespace ObservableComputations.Test
 					sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -51829,6 +52428,7 @@ namespace ObservableComputations.Test
 					sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -51906,6 +52506,7 @@ namespace ObservableComputations.Test
 					sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -51980,6 +52581,7 @@ namespace ObservableComputations.Test
 					sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -52055,6 +52657,7 @@ namespace ObservableComputations.Test
 					sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -52137,6 +52740,7 @@ namespace ObservableComputations.Test
 					sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -52214,6 +52818,7 @@ namespace ObservableComputations.Test
 					sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -52288,6 +52893,7 @@ namespace ObservableComputations.Test
 					sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -52363,6 +52969,7 @@ namespace ObservableComputations.Test
 					sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -52440,6 +53047,7 @@ namespace ObservableComputations.Test
 					sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -52515,6 +53123,7 @@ namespace ObservableComputations.Test
 					sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -52592,6 +53201,7 @@ namespace ObservableComputations.Test
 					sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -52667,6 +53277,7 @@ namespace ObservableComputations.Test
 					sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -52744,6 +53355,7 @@ namespace ObservableComputations.Test
 					sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -52819,6 +53431,7 @@ namespace ObservableComputations.Test
 					sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -52896,6 +53509,7 @@ namespace ObservableComputations.Test
 					sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -52971,6 +53585,7 @@ namespace ObservableComputations.Test
 					sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -53046,6 +53661,7 @@ namespace ObservableComputations.Test
 					sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -53062,8 +53678,8 @@ namespace ObservableComputations.Test
 		
 		[Test, Combinatorial]
 		public void TestPaging01(
-			[Values(1)] int pageSize,
-			[Values(1)] int initialPage)
+			[Values(1, 2, 3)] int pageSize,
+			[Values(1, 2, 3)] int initialPage)
 		{
 			System.Collections.Specialized.INotifyCollectionChanged source = getItems();
 			OcConsumer consumer = new OcConsumer();
@@ -53120,6 +53736,7 @@ namespace ObservableComputations.Test
 					sourceValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -53128,7 +53745,7 @@ namespace ObservableComputations.Test
 		
 		[Test, Combinatorial]
 		public void TestPaging02(
-			[Values(1)] int pageSize)
+			[Values(1, 2, 3)] int pageSize)
 		{
 			System.Collections.Specialized.INotifyCollectionChanged source = getItems();
 			OcConsumer consumer = new OcConsumer();
@@ -53184,6 +53801,7 @@ namespace ObservableComputations.Test
 					sourceValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -53192,8 +53810,8 @@ namespace ObservableComputations.Test
 		
 		[Test, Combinatorial]
 		public void TestPaging03(
-			[Values(1)] int pageSize,
-			[Values(1)] int initialPage)
+			[Values(1, 2, 3)] int pageSize,
+			[Values(1, 2, 3)] int initialPage)
 		{
 			ObservableCollection<Item> source = getItems();
 			OcConsumer consumer = new OcConsumer();
@@ -53250,6 +53868,7 @@ namespace ObservableComputations.Test
 					sourceValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -53258,7 +53877,7 @@ namespace ObservableComputations.Test
 		
 		[Test, Combinatorial]
 		public void TestPaging04(
-			[Values(1)] int pageSize)
+			[Values(1, 2, 3)] int pageSize)
 		{
 			ObservableCollection<Item> source = getItems();
 			OcConsumer consumer = new OcConsumer();
@@ -53314,6 +53933,7 @@ namespace ObservableComputations.Test
 					sourceValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -53322,8 +53942,8 @@ namespace ObservableComputations.Test
 		
 		[Test, Combinatorial]
 		public void TestPaging05(
-			[Values(1)] int pageSize,
-			[Values(1)] int initialPage)
+			[Values(1, 2, 3)] int pageSize,
+			[Values(1, 2, 3)] int initialPage)
 		{
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
 			OcConsumer consumer = new OcConsumer();
@@ -53380,6 +54000,7 @@ namespace ObservableComputations.Test
 					sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -53393,7 +54014,7 @@ namespace ObservableComputations.Test
 		
 		[Test, Combinatorial]
 		public void TestPaging06(
-			[Values(1)] int pageSize)
+			[Values(1, 2, 3)] int pageSize)
 		{
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
 			OcConsumer consumer = new OcConsumer();
@@ -53449,6 +54070,7 @@ namespace ObservableComputations.Test
 					sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -53462,8 +54084,8 @@ namespace ObservableComputations.Test
 		
 		[Test, Combinatorial]
 		public void TestPaging07(
-			[Values(1)] int pageSize,
-			[Values(1)] int initialPage)
+			[Values(1, 2, 3)] int pageSize,
+			[Values(1, 2, 3)] int initialPage)
 		{
 			Scalar<ObservableCollection<Item>> sourceScalar = getScalar<ObservableCollection<Item>>(getItems());
 			OcConsumer consumer = new OcConsumer();
@@ -53520,6 +54142,7 @@ namespace ObservableComputations.Test
 					sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -53533,7 +54156,7 @@ namespace ObservableComputations.Test
 		
 		[Test, Combinatorial]
 		public void TestPaging08(
-			[Values(1)] int pageSize)
+			[Values(1, 2, 3)] int pageSize)
 		{
 			Scalar<ObservableCollection<Item>> sourceScalar = getScalar<ObservableCollection<Item>>(getItems());
 			OcConsumer consumer = new OcConsumer();
@@ -53589,6 +54212,7 @@ namespace ObservableComputations.Test
 					sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -53602,7 +54226,7 @@ namespace ObservableComputations.Test
 		
 		[Test, Combinatorial]
 		public void TestPaging09(
-			[Values(1)] int initialPage)
+			[Values(1, 2, 3)] int initialPage)
 		{
 			System.Collections.Specialized.INotifyCollectionChanged source = getItems();
 			Scalar<int> pageSizeScalar = getScalar<int>(2);
@@ -53660,6 +54284,7 @@ namespace ObservableComputations.Test
 					sourceValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -53667,6 +54292,10 @@ namespace ObservableComputations.Test
 			((Scalar<int>)pageSizeScalar).Touch();
 			test();
 			((Scalar<int>)pageSizeScalar).Change(1);
+			test();
+			((Scalar<int>)pageSizeScalar).Change(2);
+			test();
+			((Scalar<int>)pageSizeScalar).Change(3);
 			test();
 			consumer.Dispose();
 		}
@@ -53729,6 +54358,7 @@ namespace ObservableComputations.Test
 					sourceValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -53737,12 +54367,16 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<int>)pageSizeScalar).Change(1);
 			test();
+			((Scalar<int>)pageSizeScalar).Change(2);
+			test();
+			((Scalar<int>)pageSizeScalar).Change(3);
+			test();
 			consumer.Dispose();
 		}
 		
 		[Test, Combinatorial]
 		public void TestPaging11(
-			[Values(1)] int initialPage)
+			[Values(1, 2, 3)] int initialPage)
 		{
 			ObservableCollection<Item> source = getItems();
 			Scalar<int> pageSizeScalar = getScalar<int>(2);
@@ -53800,6 +54434,7 @@ namespace ObservableComputations.Test
 					sourceValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -53807,6 +54442,10 @@ namespace ObservableComputations.Test
 			((Scalar<int>)pageSizeScalar).Touch();
 			test();
 			((Scalar<int>)pageSizeScalar).Change(1);
+			test();
+			((Scalar<int>)pageSizeScalar).Change(2);
+			test();
+			((Scalar<int>)pageSizeScalar).Change(3);
 			test();
 			consumer.Dispose();
 		}
@@ -53869,6 +54508,7 @@ namespace ObservableComputations.Test
 					sourceValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -53877,12 +54517,16 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<int>)pageSizeScalar).Change(1);
 			test();
+			((Scalar<int>)pageSizeScalar).Change(2);
+			test();
+			((Scalar<int>)pageSizeScalar).Change(3);
+			test();
 			consumer.Dispose();
 		}
 		
 		[Test, Combinatorial]
 		public void TestPaging13(
-			[Values(1)] int initialPage)
+			[Values(1, 2, 3)] int initialPage)
 		{
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
 			Scalar<int> pageSizeScalar = getScalar<int>(2);
@@ -53940,6 +54584,7 @@ namespace ObservableComputations.Test
 					sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -53947,6 +54592,10 @@ namespace ObservableComputations.Test
 			((Scalar<int>)pageSizeScalar).Touch();
 			test();
 			((Scalar<int>)pageSizeScalar).Change(1);
+			test();
+			((Scalar<int>)pageSizeScalar).Change(2);
+			test();
+			((Scalar<int>)pageSizeScalar).Change(3);
 			test();
 
 			((Scalar<System.Collections.Specialized.INotifyCollectionChanged>)sourceScalar).Touch();
@@ -54014,6 +54663,7 @@ namespace ObservableComputations.Test
 					sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -54021,6 +54671,10 @@ namespace ObservableComputations.Test
 			((Scalar<int>)pageSizeScalar).Touch();
 			test();
 			((Scalar<int>)pageSizeScalar).Change(1);
+			test();
+			((Scalar<int>)pageSizeScalar).Change(2);
+			test();
+			((Scalar<int>)pageSizeScalar).Change(3);
 			test();
 
 			((Scalar<System.Collections.Specialized.INotifyCollectionChanged>)sourceScalar).Touch();
@@ -54032,7 +54686,7 @@ namespace ObservableComputations.Test
 		
 		[Test, Combinatorial]
 		public void TestPaging15(
-			[Values(1)] int initialPage)
+			[Values(1, 2, 3)] int initialPage)
 		{
 			Scalar<ObservableCollection<Item>> sourceScalar = getScalar<ObservableCollection<Item>>(getItems());
 			Scalar<int> pageSizeScalar = getScalar<int>(2);
@@ -54090,6 +54744,7 @@ namespace ObservableComputations.Test
 					sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -54097,6 +54752,10 @@ namespace ObservableComputations.Test
 			((Scalar<int>)pageSizeScalar).Touch();
 			test();
 			((Scalar<int>)pageSizeScalar).Change(1);
+			test();
+			((Scalar<int>)pageSizeScalar).Change(2);
+			test();
+			((Scalar<int>)pageSizeScalar).Change(3);
 			test();
 
 			((Scalar<ObservableCollection<Item>>)sourceScalar).Touch();
@@ -54164,6 +54823,7 @@ namespace ObservableComputations.Test
 					sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -54171,6 +54831,10 @@ namespace ObservableComputations.Test
 			((Scalar<int>)pageSizeScalar).Touch();
 			test();
 			((Scalar<int>)pageSizeScalar).Change(1);
+			test();
+			((Scalar<int>)pageSizeScalar).Change(2);
+			test();
+			((Scalar<int>)pageSizeScalar).Change(3);
 			test();
 
 			((Scalar<ObservableCollection<Item>>)sourceScalar).Touch();
@@ -54241,6 +54905,7 @@ namespace ObservableComputations.Test
 					sourceValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -54249,10 +54914,18 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<int>)pageSizeScalar).Change(1);
 			test();
+			((Scalar<int>)pageSizeScalar).Change(2);
+			test();
+			((Scalar<int>)pageSizeScalar).Change(3);
+			test();
 
 			((Scalar<int>)currentPageScalar).Touch();
 			test();
 			((Scalar<int>)currentPageScalar).Change(1);
+			test();
+			((Scalar<int>)currentPageScalar).Change(2);
+			test();
+			((Scalar<int>)currentPageScalar).Change(3);
 			test();
 			consumer.Dispose();
 		}
@@ -54318,6 +54991,7 @@ namespace ObservableComputations.Test
 					sourceValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -54326,10 +55000,18 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<int>)pageSizeScalar).Change(1);
 			test();
+			((Scalar<int>)pageSizeScalar).Change(2);
+			test();
+			((Scalar<int>)pageSizeScalar).Change(3);
+			test();
 
 			((Scalar<int>)currentPageScalar).Touch();
 			test();
 			((Scalar<int>)currentPageScalar).Change(1);
+			test();
+			((Scalar<int>)currentPageScalar).Change(2);
+			test();
+			((Scalar<int>)currentPageScalar).Change(3);
 			test();
 			consumer.Dispose();
 		}
@@ -54395,6 +55077,7 @@ namespace ObservableComputations.Test
 					sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -54403,10 +55086,18 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<int>)pageSizeScalar).Change(1);
 			test();
+			((Scalar<int>)pageSizeScalar).Change(2);
+			test();
+			((Scalar<int>)pageSizeScalar).Change(3);
+			test();
 
 			((Scalar<int>)currentPageScalar).Touch();
 			test();
 			((Scalar<int>)currentPageScalar).Change(1);
+			test();
+			((Scalar<int>)currentPageScalar).Change(2);
+			test();
+			((Scalar<int>)currentPageScalar).Change(3);
 			test();
 
 			((Scalar<System.Collections.Specialized.INotifyCollectionChanged>)sourceScalar).Touch();
@@ -54477,6 +55168,7 @@ namespace ObservableComputations.Test
 					sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -54485,10 +55177,18 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<int>)pageSizeScalar).Change(1);
 			test();
+			((Scalar<int>)pageSizeScalar).Change(2);
+			test();
+			((Scalar<int>)pageSizeScalar).Change(3);
+			test();
 
 			((Scalar<int>)currentPageScalar).Touch();
 			test();
 			((Scalar<int>)currentPageScalar).Change(1);
+			test();
+			((Scalar<int>)currentPageScalar).Change(2);
+			test();
+			((Scalar<int>)currentPageScalar).Change(3);
 			test();
 
 			((Scalar<ObservableCollection<Item>>)sourceScalar).Touch();
@@ -54500,7 +55200,7 @@ namespace ObservableComputations.Test
 		
 		[Test, Combinatorial]
 		public void TestPaging21(
-			[Values(1)] int pageSize)
+			[Values(1, 2, 3)] int pageSize)
 		{
 			System.Collections.Specialized.INotifyCollectionChanged source = getItems();
 			Scalar<int> currentPageScalar = getScalar<int>(1);
@@ -54559,6 +55259,7 @@ namespace ObservableComputations.Test
 					sourceValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -54567,12 +55268,16 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<int>)currentPageScalar).Change(1);
 			test();
+			((Scalar<int>)currentPageScalar).Change(2);
+			test();
+			((Scalar<int>)currentPageScalar).Change(3);
+			test();
 			consumer.Dispose();
 		}
 		
 		[Test, Combinatorial]
 		public void TestPaging22(
-			[Values(1)] int pageSize)
+			[Values(1, 2, 3)] int pageSize)
 		{
 			ObservableCollection<Item> source = getItems();
 			Scalar<int> currentPageScalar = getScalar<int>(1);
@@ -54631,6 +55336,7 @@ namespace ObservableComputations.Test
 					sourceValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -54639,12 +55345,16 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<int>)currentPageScalar).Change(1);
 			test();
+			((Scalar<int>)currentPageScalar).Change(2);
+			test();
+			((Scalar<int>)currentPageScalar).Change(3);
+			test();
 			consumer.Dispose();
 		}
 		
 		[Test, Combinatorial]
 		public void TestPaging23(
-			[Values(1)] int pageSize)
+			[Values(1, 2, 3)] int pageSize)
 		{
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
 			Scalar<int> currentPageScalar = getScalar<int>(1);
@@ -54703,6 +55413,7 @@ namespace ObservableComputations.Test
 					sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -54710,6 +55421,10 @@ namespace ObservableComputations.Test
 			((Scalar<int>)currentPageScalar).Touch();
 			test();
 			((Scalar<int>)currentPageScalar).Change(1);
+			test();
+			((Scalar<int>)currentPageScalar).Change(2);
+			test();
+			((Scalar<int>)currentPageScalar).Change(3);
 			test();
 
 			((Scalar<System.Collections.Specialized.INotifyCollectionChanged>)sourceScalar).Touch();
@@ -54721,7 +55436,7 @@ namespace ObservableComputations.Test
 		
 		[Test, Combinatorial]
 		public void TestPaging24(
-			[Values(1)] int pageSize)
+			[Values(1, 2, 3)] int pageSize)
 		{
 			Scalar<ObservableCollection<Item>> sourceScalar = getScalar<ObservableCollection<Item>>(getItems());
 			Scalar<int> currentPageScalar = getScalar<int>(1);
@@ -54780,6 +55495,7 @@ namespace ObservableComputations.Test
 					sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -54787,6 +55503,10 @@ namespace ObservableComputations.Test
 			((Scalar<int>)currentPageScalar).Touch();
 			test();
 			((Scalar<int>)currentPageScalar).Change(1);
+			test();
+			((Scalar<int>)currentPageScalar).Change(2);
+			test();
+			((Scalar<int>)currentPageScalar).Change(3);
 			test();
 
 			((Scalar<ObservableCollection<Item>>)sourceScalar).Touch();
@@ -54901,6 +55621,7 @@ namespace ObservableComputations.Test
 					innerSourceScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -55019,6 +55740,7 @@ namespace ObservableComputations.Test
 					innerSourceScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -55137,6 +55859,7 @@ namespace ObservableComputations.Test
 					innerSourceScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -55255,6 +55978,7 @@ namespace ObservableComputations.Test
 					innerSourceScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -55373,6 +56097,7 @@ namespace ObservableComputations.Test
 					innerSourceValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -55486,6 +56211,7 @@ namespace ObservableComputations.Test
 					innerSourceValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -55599,6 +56325,7 @@ namespace ObservableComputations.Test
 					innerSourceValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -55712,6 +56439,7 @@ namespace ObservableComputations.Test
 					innerSourceValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -55825,6 +56553,7 @@ namespace ObservableComputations.Test
 					innerSourceScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -55938,6 +56667,7 @@ namespace ObservableComputations.Test
 					innerSourceScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -56051,6 +56781,7 @@ namespace ObservableComputations.Test
 					innerSourceScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -56164,6 +56895,7 @@ namespace ObservableComputations.Test
 					innerSourceScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -56277,6 +57009,7 @@ namespace ObservableComputations.Test
 					innerSourceValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -56385,6 +57118,7 @@ namespace ObservableComputations.Test
 					innerSourceValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -56493,6 +57227,7 @@ namespace ObservableComputations.Test
 					innerSourceValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -56601,6 +57336,7 @@ namespace ObservableComputations.Test
 					innerSourceValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -56668,6 +57404,7 @@ namespace ObservableComputations.Test
 					sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -56742,6 +57479,7 @@ namespace ObservableComputations.Test
 					sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -56816,6 +57554,7 @@ namespace ObservableComputations.Test
 					sourceValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -56885,6 +57624,7 @@ namespace ObservableComputations.Test
 					sourceValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -56954,6 +57694,7 @@ namespace ObservableComputations.Test
 					sourceValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -57018,6 +57759,7 @@ namespace ObservableComputations.Test
 					sourceValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -57082,6 +57824,7 @@ namespace ObservableComputations.Test
 					sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -57151,6 +57894,7 @@ namespace ObservableComputations.Test
 					sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -57220,6 +57964,7 @@ namespace ObservableComputations.Test
 					sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -57286,6 +58031,7 @@ namespace ObservableComputations.Test
 					sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -57352,6 +58098,7 @@ namespace ObservableComputations.Test
 					sourceValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -57413,8 +58160,269 @@ namespace ObservableComputations.Test
 					sourceValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
+			test();
+			consumer.Dispose();
+		}
+		#endregion
+		#region ScalarPausing
+
+		
+		[Test, Combinatorial]
+		public void TestScalarPausing01(
+			[Values(false, true)] bool initialIsPaused,
+			[Values(1, 1)] int? lastChangesToApplyOnResumeCount)
+		{
+			Scalar<int> scalar = getScalar<int>(0);
+			OcConsumer consumer = new OcConsumer();
+			var testing = scalar.ScalarPausing<int>(
+				initialIsPaused,
+				lastChangesToApplyOnResumeCount).For(consumer);
+
+			Assert.AreEqual(scalar, testing.Scalar);
+			Assert.AreEqual(lastChangesToApplyOnResumeCount, testing.LastChangesToApplyOnResumeCount);
+
+			void test()
+			{
+				testing.ValidateConsistency();
+
+				IList listSource;
+				((Scalar<int>)scalar).Change(1);
+				((Scalar<int>)scalar).Change(2);
+				((Scalar<int>)scalar).Change(3);
+				testing.ValidateConsistency();
+			}
+
+			test();
+			consumer.Dispose();
+		}
+		
+		[Test, Combinatorial]
+		public void TestScalarPausing02(
+			[Values(false, true)] bool initialIsPaused)
+		{
+			Scalar<int> scalar = getScalar<int>(0);
+			OcConsumer consumer = new OcConsumer();
+			var testing = scalar.ScalarPausing<int>(
+				initialIsPaused).For(consumer);
+
+			Assert.AreEqual(scalar, testing.Scalar);
+
+			void test()
+			{
+				testing.ValidateConsistency();
+
+				IList listSource;
+				((Scalar<int>)scalar).Change(1);
+				((Scalar<int>)scalar).Change(2);
+				((Scalar<int>)scalar).Change(3);
+				testing.ValidateConsistency();
+			}
+
+			test();
+			consumer.Dispose();
+		}
+		
+		[Test, Combinatorial]
+		public void TestScalarPausing03(
+			[Values(1, 1)] int? lastChangesToApplyOnResumeCount)
+		{
+			Scalar<int> scalar = getScalar<int>(0);
+			OcConsumer consumer = new OcConsumer();
+			var testing = scalar.ScalarPausing<int>(
+				lastChangesToApplyOnResumeCount).For(consumer);
+
+			Assert.AreEqual(scalar, testing.Scalar);
+			Assert.AreEqual(lastChangesToApplyOnResumeCount, testing.LastChangesToApplyOnResumeCount);
+
+			void test()
+			{
+				testing.ValidateConsistency();
+
+				IList listSource;
+				((Scalar<int>)scalar).Change(1);
+				((Scalar<int>)scalar).Change(2);
+				((Scalar<int>)scalar).Change(3);
+				testing.ValidateConsistency();
+			}
+
+			test();
+			consumer.Dispose();
+		}
+		
+		[Test, Combinatorial]
+		public void TestScalarPausing04()
+		{
+			Scalar<int> scalar = getScalar<int>(0);
+			OcConsumer consumer = new OcConsumer();
+			var testing = scalar.ScalarPausing<int>().For(consumer);
+
+			Assert.AreEqual(scalar, testing.Scalar);
+
+			void test()
+			{
+				testing.ValidateConsistency();
+
+				IList listSource;
+				((Scalar<int>)scalar).Change(1);
+				((Scalar<int>)scalar).Change(2);
+				((Scalar<int>)scalar).Change(3);
+				testing.ValidateConsistency();
+			}
+
+			test();
+			consumer.Dispose();
+		}
+		
+		[Test, Combinatorial]
+		public void TestScalarPausing05(
+			[Values(1, 1)] int? lastChangesToApplyOnResumeCount)
+		{
+			Scalar<int> scalar = getScalar<int>(0);
+			Scalar<bool> isPausedScalar = getScalar<bool>(true);
+			OcConsumer consumer = new OcConsumer();
+			var testing = scalar.ScalarPausing<int>(
+				isPausedScalar,
+				lastChangesToApplyOnResumeCount).For(consumer);
+
+			Assert.AreEqual(scalar, testing.Scalar);
+			Assert.AreEqual(isPausedScalar, testing.IsPausedScalar);
+			Assert.AreEqual(lastChangesToApplyOnResumeCount, testing.LastChangesToApplyOnResumeCount);
+
+			void test()
+			{
+				testing.ValidateConsistency();
+
+				IList listSource;
+				((Scalar<int>)scalar).Change(1);
+				((Scalar<int>)scalar).Change(2);
+				((Scalar<int>)scalar).Change(3);
+				testing.ValidateConsistency();
+			}
+
+			test();
+
+			((Scalar<bool>)isPausedScalar).Touch();
+			test();
+			((Scalar<bool>)isPausedScalar).Change(false);
+			test();
+			((Scalar<bool>)isPausedScalar).Change(true);
+			test();
+			consumer.Dispose();
+		}
+		
+		[Test, Combinatorial]
+		public void TestScalarPausing06()
+		{
+			Scalar<int> scalar = getScalar<int>(0);
+			Scalar<bool> isPausedScalar = getScalar<bool>(true);
+			OcConsumer consumer = new OcConsumer();
+			var testing = scalar.ScalarPausing<int>(
+				isPausedScalar).For(consumer);
+
+			Assert.AreEqual(scalar, testing.Scalar);
+			Assert.AreEqual(isPausedScalar, testing.IsPausedScalar);
+
+			void test()
+			{
+				testing.ValidateConsistency();
+
+				IList listSource;
+				((Scalar<int>)scalar).Change(1);
+				((Scalar<int>)scalar).Change(2);
+				((Scalar<int>)scalar).Change(3);
+				testing.ValidateConsistency();
+			}
+
+			test();
+
+			((Scalar<bool>)isPausedScalar).Touch();
+			test();
+			((Scalar<bool>)isPausedScalar).Change(false);
+			test();
+			((Scalar<bool>)isPausedScalar).Change(true);
+			test();
+			consumer.Dispose();
+		}
+		
+		[Test, Combinatorial]
+		public void TestScalarPausing07()
+		{
+			Scalar<int> scalar = getScalar<int>(0);
+			Scalar<bool> isPausedScalar = getScalar<bool>(true);
+			Scalar<int?> lastChangesToApplyOnResumeCountScalar = getScalar<int?>(null);
+			OcConsumer consumer = new OcConsumer();
+			var testing = scalar.ScalarPausing<int>(
+				isPausedScalar,
+				lastChangesToApplyOnResumeCountScalar).For(consumer);
+
+			Assert.AreEqual(scalar, testing.Scalar);
+			Assert.AreEqual(isPausedScalar, testing.IsPausedScalar);
+			Assert.AreEqual(lastChangesToApplyOnResumeCountScalar, testing.LastChangesToApplyOnResumeCountScalar);
+
+			void test()
+			{
+				testing.ValidateConsistency();
+
+				IList listSource;
+				((Scalar<int>)scalar).Change(1);
+				((Scalar<int>)scalar).Change(2);
+				((Scalar<int>)scalar).Change(3);
+				testing.ValidateConsistency();
+			}
+
+			test();
+
+			((Scalar<bool>)isPausedScalar).Touch();
+			test();
+			((Scalar<bool>)isPausedScalar).Change(false);
+			test();
+			((Scalar<bool>)isPausedScalar).Change(true);
+			test();
+
+			((Scalar<int?>)lastChangesToApplyOnResumeCountScalar).Touch();
+			test();
+			((Scalar<int?>)lastChangesToApplyOnResumeCountScalar).Change(1);
+			test();
+			((Scalar<int?>)lastChangesToApplyOnResumeCountScalar).Change(1);
+			test();
+			consumer.Dispose();
+		}
+		
+		[Test, Combinatorial]
+		public void TestScalarPausing08(
+			[Values(false, true)] bool initialIsPaused)
+		{
+			Scalar<int> scalar = getScalar<int>(0);
+			Scalar<int?> lastChangesToApplyOnResumeCountScalar = getScalar<int?>(null);
+			OcConsumer consumer = new OcConsumer();
+			var testing = scalar.ScalarPausing<int>(
+				initialIsPaused,
+				lastChangesToApplyOnResumeCountScalar).For(consumer);
+
+			Assert.AreEqual(scalar, testing.Scalar);
+			Assert.AreEqual(lastChangesToApplyOnResumeCountScalar, testing.LastChangesToApplyOnResumeCountScalar);
+
+			void test()
+			{
+				testing.ValidateConsistency();
+
+				IList listSource;
+				((Scalar<int>)scalar).Change(1);
+				((Scalar<int>)scalar).Change(2);
+				((Scalar<int>)scalar).Change(3);
+				testing.ValidateConsistency();
+			}
+
+			test();
+
+			((Scalar<int?>)lastChangesToApplyOnResumeCountScalar).Touch();
+			test();
+			((Scalar<int?>)lastChangesToApplyOnResumeCountScalar).Change(1);
+			test();
+			((Scalar<int?>)lastChangesToApplyOnResumeCountScalar).Change(1);
 			test();
 			consumer.Dispose();
 		}
@@ -57480,6 +58488,7 @@ namespace ObservableComputations.Test
 					sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -57549,6 +58558,7 @@ namespace ObservableComputations.Test
 					sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -57618,6 +58628,7 @@ namespace ObservableComputations.Test
 					sourceValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -57682,6 +58693,7 @@ namespace ObservableComputations.Test
 					sourceValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -57749,6 +58761,7 @@ namespace ObservableComputations.Test
 					sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -57818,6 +58831,7 @@ namespace ObservableComputations.Test
 					sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -57887,6 +58901,7 @@ namespace ObservableComputations.Test
 					sourceValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -57951,6 +58966,7 @@ namespace ObservableComputations.Test
 					sourceValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -58015,6 +59031,7 @@ namespace ObservableComputations.Test
 					sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -58084,6 +59101,7 @@ namespace ObservableComputations.Test
 					sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -58153,6 +59171,7 @@ namespace ObservableComputations.Test
 					sourceValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -58217,6 +59236,7 @@ namespace ObservableComputations.Test
 					sourceValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -58240,6 +59260,7 @@ namespace ObservableComputations.Test
 				testing.ValidateConsistency();
 
 				IList listSource;
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -58247,6 +59268,10 @@ namespace ObservableComputations.Test
 			((Scalar<int>)countScalar).Touch();
 			test();
 			((Scalar<int>)countScalar).Change(4);
+			test();
+			((Scalar<int>)countScalar).Change(2);
+			test();
+			((Scalar<int>)countScalar).Change(3);
 			test();
 			consumer.Dispose();
 		}
@@ -58256,7 +59281,7 @@ namespace ObservableComputations.Test
 		
 		[Test, Combinatorial]
 		public void TestSkipping01(
-			[Values(1)] int initialCapacity)
+			[Values(1, 2, 3)] int initialCapacity)
 		{
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
 			Scalar<int> skippingCountScalar = getScalar<int>(0);
@@ -58315,6 +59340,7 @@ namespace ObservableComputations.Test
 					sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -58322,6 +59348,10 @@ namespace ObservableComputations.Test
 			((Scalar<int>)skippingCountScalar).Touch();
 			test();
 			((Scalar<int>)skippingCountScalar).Change(1);
+			test();
+			((Scalar<int>)skippingCountScalar).Change(2);
+			test();
+			((Scalar<int>)skippingCountScalar).Change(3);
 			test();
 
 			((Scalar<System.Collections.Specialized.INotifyCollectionChanged>)sourceScalar).Touch();
@@ -58389,6 +59419,7 @@ namespace ObservableComputations.Test
 					sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -58396,6 +59427,10 @@ namespace ObservableComputations.Test
 			((Scalar<int>)skippingCountScalar).Touch();
 			test();
 			((Scalar<int>)skippingCountScalar).Change(1);
+			test();
+			((Scalar<int>)skippingCountScalar).Change(2);
+			test();
+			((Scalar<int>)skippingCountScalar).Change(3);
 			test();
 
 			((Scalar<System.Collections.Specialized.INotifyCollectionChanged>)sourceScalar).Touch();
@@ -58407,7 +59442,7 @@ namespace ObservableComputations.Test
 		
 		[Test, Combinatorial]
 		public void TestSkipping03(
-			[Values(1)] int initialCapacity)
+			[Values(1, 2, 3)] int initialCapacity)
 		{
 			Scalar<ObservableCollection<Item>> sourceScalar = getScalar<ObservableCollection<Item>>(getItems());
 			Scalar<int> skippingCountScalar = getScalar<int>(0);
@@ -58466,6 +59501,7 @@ namespace ObservableComputations.Test
 					sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -58473,6 +59509,10 @@ namespace ObservableComputations.Test
 			((Scalar<int>)skippingCountScalar).Touch();
 			test();
 			((Scalar<int>)skippingCountScalar).Change(1);
+			test();
+			((Scalar<int>)skippingCountScalar).Change(2);
+			test();
+			((Scalar<int>)skippingCountScalar).Change(3);
 			test();
 
 			((Scalar<ObservableCollection<Item>>)sourceScalar).Touch();
@@ -58540,6 +59580,7 @@ namespace ObservableComputations.Test
 					sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -58547,6 +59588,10 @@ namespace ObservableComputations.Test
 			((Scalar<int>)skippingCountScalar).Touch();
 			test();
 			((Scalar<int>)skippingCountScalar).Change(1);
+			test();
+			((Scalar<int>)skippingCountScalar).Change(2);
+			test();
+			((Scalar<int>)skippingCountScalar).Change(3);
 			test();
 
 			((Scalar<ObservableCollection<Item>>)sourceScalar).Touch();
@@ -58558,7 +59603,7 @@ namespace ObservableComputations.Test
 		
 		[Test, Combinatorial]
 		public void TestSkipping05(
-			[Values(1)] int initialCapacity)
+			[Values(1, 2, 3)] int initialCapacity)
 		{
 			System.Collections.Specialized.INotifyCollectionChanged source = getItems();
 			Scalar<int> skippingCountScalar = getScalar<int>(0);
@@ -58617,6 +59662,7 @@ namespace ObservableComputations.Test
 					sourceValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -58624,6 +59670,10 @@ namespace ObservableComputations.Test
 			((Scalar<int>)skippingCountScalar).Touch();
 			test();
 			((Scalar<int>)skippingCountScalar).Change(1);
+			test();
+			((Scalar<int>)skippingCountScalar).Change(2);
+			test();
+			((Scalar<int>)skippingCountScalar).Change(3);
 			test();
 			consumer.Dispose();
 		}
@@ -58686,6 +59736,7 @@ namespace ObservableComputations.Test
 					sourceValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -58694,12 +59745,16 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<int>)skippingCountScalar).Change(1);
 			test();
+			((Scalar<int>)skippingCountScalar).Change(2);
+			test();
+			((Scalar<int>)skippingCountScalar).Change(3);
+			test();
 			consumer.Dispose();
 		}
 		
 		[Test, Combinatorial]
 		public void TestSkipping07(
-			[Values(1)] int initialCapacity)
+			[Values(1, 2, 3)] int initialCapacity)
 		{
 			ObservableCollection<Item> source = getItems();
 			Scalar<int> skippingCountScalar = getScalar<int>(0);
@@ -58758,6 +59813,7 @@ namespace ObservableComputations.Test
 					sourceValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -58765,6 +59821,10 @@ namespace ObservableComputations.Test
 			((Scalar<int>)skippingCountScalar).Touch();
 			test();
 			((Scalar<int>)skippingCountScalar).Change(1);
+			test();
+			((Scalar<int>)skippingCountScalar).Change(2);
+			test();
+			((Scalar<int>)skippingCountScalar).Change(3);
 			test();
 			consumer.Dispose();
 		}
@@ -58827,6 +59887,7 @@ namespace ObservableComputations.Test
 					sourceValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -58835,13 +59896,17 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<int>)skippingCountScalar).Change(1);
 			test();
+			((Scalar<int>)skippingCountScalar).Change(2);
+			test();
+			((Scalar<int>)skippingCountScalar).Change(3);
+			test();
 			consumer.Dispose();
 		}
 		
 		[Test, Combinatorial]
 		public void TestSkipping09(
-			[Values(1)] int skippingCount,
-			[Values(1)] int initialCapacity)
+			[Values(1, 2, 3)] int skippingCount,
+			[Values(1, 2, 3)] int initialCapacity)
 		{
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
 			OcConsumer consumer = new OcConsumer();
@@ -58899,6 +59964,7 @@ namespace ObservableComputations.Test
 					sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -58912,7 +59978,7 @@ namespace ObservableComputations.Test
 		
 		[Test, Combinatorial]
 		public void TestSkipping10(
-			[Values(1)] int skippingCount)
+			[Values(1, 2, 3)] int skippingCount)
 		{
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
 			OcConsumer consumer = new OcConsumer();
@@ -58968,6 +60034,7 @@ namespace ObservableComputations.Test
 					sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -58981,8 +60048,8 @@ namespace ObservableComputations.Test
 		
 		[Test, Combinatorial]
 		public void TestSkipping11(
-			[Values(1)] int skippingCount,
-			[Values(1)] int initialCapacity)
+			[Values(1, 2, 3)] int skippingCount,
+			[Values(1, 2, 3)] int initialCapacity)
 		{
 			Scalar<ObservableCollection<Item>> sourceScalar = getScalar<ObservableCollection<Item>>(getItems());
 			OcConsumer consumer = new OcConsumer();
@@ -59040,6 +60107,7 @@ namespace ObservableComputations.Test
 					sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -59053,7 +60121,7 @@ namespace ObservableComputations.Test
 		
 		[Test, Combinatorial]
 		public void TestSkipping12(
-			[Values(1)] int skippingCount)
+			[Values(1, 2, 3)] int skippingCount)
 		{
 			Scalar<ObservableCollection<Item>> sourceScalar = getScalar<ObservableCollection<Item>>(getItems());
 			OcConsumer consumer = new OcConsumer();
@@ -59109,6 +60177,7 @@ namespace ObservableComputations.Test
 					sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -59122,8 +60191,8 @@ namespace ObservableComputations.Test
 		
 		[Test, Combinatorial]
 		public void TestSkipping13(
-			[Values(1)] int skippingCount,
-			[Values(1)] int initialCapacity)
+			[Values(1, 2, 3)] int skippingCount,
+			[Values(1, 2, 3)] int initialCapacity)
 		{
 			System.Collections.Specialized.INotifyCollectionChanged source = getItems();
 			OcConsumer consumer = new OcConsumer();
@@ -59181,6 +60250,7 @@ namespace ObservableComputations.Test
 					sourceValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -59189,7 +60259,7 @@ namespace ObservableComputations.Test
 		
 		[Test, Combinatorial]
 		public void TestSkipping14(
-			[Values(1)] int skippingCount)
+			[Values(1, 2, 3)] int skippingCount)
 		{
 			System.Collections.Specialized.INotifyCollectionChanged source = getItems();
 			OcConsumer consumer = new OcConsumer();
@@ -59245,6 +60315,7 @@ namespace ObservableComputations.Test
 					sourceValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -59253,8 +60324,8 @@ namespace ObservableComputations.Test
 		
 		[Test, Combinatorial]
 		public void TestSkipping15(
-			[Values(1)] int skippingCount,
-			[Values(1)] int initialCapacity)
+			[Values(1, 2, 3)] int skippingCount,
+			[Values(1, 2, 3)] int initialCapacity)
 		{
 			ObservableCollection<Item> source = getItems();
 			OcConsumer consumer = new OcConsumer();
@@ -59312,6 +60383,7 @@ namespace ObservableComputations.Test
 					sourceValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -59320,7 +60392,7 @@ namespace ObservableComputations.Test
 		
 		[Test, Combinatorial]
 		public void TestSkipping16(
-			[Values(1)] int skippingCount)
+			[Values(1, 2, 3)] int skippingCount)
 		{
 			ObservableCollection<Item> source = getItems();
 			OcConsumer consumer = new OcConsumer();
@@ -59376,6 +60448,7 @@ namespace ObservableComputations.Test
 					sourceValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -59387,7 +60460,7 @@ namespace ObservableComputations.Test
 		
 		[Test, Combinatorial]
 		public void TestSkippingWhile01(
-			[Values(1)] int initialCapacity)
+			[Values(1, 2, 3)] int initialCapacity)
 		{
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
 			System.Linq.Expressions.Expression<System.Func<Item, int, bool>> indexedPredicateExpression = (i, ind) => i.Active;
@@ -59446,6 +60519,7 @@ namespace ObservableComputations.Test
 					sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -59515,6 +60589,7 @@ namespace ObservableComputations.Test
 					sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -59528,7 +60603,7 @@ namespace ObservableComputations.Test
 		
 		[Test, Combinatorial]
 		public void TestSkippingWhile03(
-			[Values(1)] int initialCapacity)
+			[Values(1, 2, 3)] int initialCapacity)
 		{
 			Scalar<ObservableCollection<Item>> sourceScalar = getScalar<ObservableCollection<Item>>(getItems());
 			System.Linq.Expressions.Expression<System.Func<Item, int, bool>> indexedPredicateExpression = (i, ind) => i.Active;
@@ -59587,6 +60662,7 @@ namespace ObservableComputations.Test
 					sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -59656,6 +60732,7 @@ namespace ObservableComputations.Test
 					sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -59669,7 +60746,7 @@ namespace ObservableComputations.Test
 		
 		[Test, Combinatorial]
 		public void TestSkippingWhile05(
-			[Values(1)] int initialCapacity)
+			[Values(1, 2, 3)] int initialCapacity)
 		{
 			System.Collections.Specialized.INotifyCollectionChanged source = getItems();
 			System.Linq.Expressions.Expression<System.Func<Item, int, bool>> indexedPredicateExpression = (i, ind) => i.Active;
@@ -59728,6 +60805,7 @@ namespace ObservableComputations.Test
 					sourceValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -59792,6 +60870,7 @@ namespace ObservableComputations.Test
 					sourceValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -59800,7 +60879,7 @@ namespace ObservableComputations.Test
 		
 		[Test, Combinatorial]
 		public void TestSkippingWhile07(
-			[Values(1)] int initialCapacity)
+			[Values(1, 2, 3)] int initialCapacity)
 		{
 			ObservableCollection<Item> source = getItems();
 			System.Linq.Expressions.Expression<System.Func<Item, int, bool>> indexedPredicateExpression = (i, ind) => i.Active;
@@ -59859,6 +60938,7 @@ namespace ObservableComputations.Test
 					sourceValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -59923,6 +61003,7 @@ namespace ObservableComputations.Test
 					sourceValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -59931,7 +61012,7 @@ namespace ObservableComputations.Test
 		
 		[Test, Combinatorial]
 		public void TestSkippingWhile09(
-			[Values(1)] int initialCapacity)
+			[Values(1, 2, 3)] int initialCapacity)
 		{
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
 			System.Linq.Expressions.Expression<System.Func<Item, bool>> predicateExpression = i => i.Active;
@@ -59990,6 +61071,7 @@ namespace ObservableComputations.Test
 					sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -60059,6 +61141,7 @@ namespace ObservableComputations.Test
 					sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -60072,7 +61155,7 @@ namespace ObservableComputations.Test
 		
 		[Test, Combinatorial]
 		public void TestSkippingWhile11(
-			[Values(1)] int initialCapacity)
+			[Values(1, 2, 3)] int initialCapacity)
 		{
 			Scalar<ObservableCollection<Item>> sourceScalar = getScalar<ObservableCollection<Item>>(getItems());
 			System.Linq.Expressions.Expression<System.Func<Item, bool>> predicateExpression = i => i.Active;
@@ -60131,6 +61214,7 @@ namespace ObservableComputations.Test
 					sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -60200,6 +61284,7 @@ namespace ObservableComputations.Test
 					sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -60213,7 +61298,7 @@ namespace ObservableComputations.Test
 		
 		[Test, Combinatorial]
 		public void TestSkippingWhile13(
-			[Values(1)] int initialCapacity)
+			[Values(1, 2, 3)] int initialCapacity)
 		{
 			System.Collections.Specialized.INotifyCollectionChanged source = getItems();
 			System.Linq.Expressions.Expression<System.Func<Item, bool>> predicateExpression = i => i.Active;
@@ -60272,6 +61357,7 @@ namespace ObservableComputations.Test
 					sourceValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -60336,6 +61422,7 @@ namespace ObservableComputations.Test
 					sourceValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -60344,7 +61431,7 @@ namespace ObservableComputations.Test
 		
 		[Test, Combinatorial]
 		public void TestSkippingWhile15(
-			[Values(1)] int initialCapacity)
+			[Values(1, 2, 3)] int initialCapacity)
 		{
 			ObservableCollection<Item> source = getItems();
 			System.Linq.Expressions.Expression<System.Func<Item, bool>> predicateExpression = i => i.Active;
@@ -60403,6 +61490,7 @@ namespace ObservableComputations.Test
 					sourceValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -60467,6 +61555,7 @@ namespace ObservableComputations.Test
 					sourceValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -60534,6 +61623,7 @@ namespace ObservableComputations.Test
 					sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -60607,6 +61697,7 @@ namespace ObservableComputations.Test
 					sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -60676,6 +61767,7 @@ namespace ObservableComputations.Test
 					sourceValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -60744,6 +61836,7 @@ namespace ObservableComputations.Test
 					sourceValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -60808,6 +61901,7 @@ namespace ObservableComputations.Test
 					sourceValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -60872,6 +61966,7 @@ namespace ObservableComputations.Test
 					sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -60941,6 +62036,7 @@ namespace ObservableComputations.Test
 					sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -61007,6 +62103,7 @@ namespace ObservableComputations.Test
 					sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -61073,6 +62170,7 @@ namespace ObservableComputations.Test
 					sourceValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -61134,6 +62232,7 @@ namespace ObservableComputations.Test
 					sourceValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -61145,20 +62244,20 @@ namespace ObservableComputations.Test
 		
 		[Test, Combinatorial]
 		public void TestTaking01(
-			[Values(1)] int initialCapacity)
+			[Values(1, 2, 3)] int initialCapacity)
 		{
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
 			Scalar<int> startIndexScalar = getScalar<int>(0);
-			Scalar<int> countScalar = getScalar<int>(3);
+			Scalar<int> countTakingScalar = getScalar<int>(3);
 			OcConsumer consumer = new OcConsumer();
 			var testing = sourceScalar.Taking<Item>(
 				startIndexScalar,
-				countScalar,
+				countTakingScalar,
 				initialCapacity).For(consumer);
 
 			Assert.AreEqual(sourceScalar, testing.SourceScalar);
 			Assert.AreEqual(startIndexScalar, testing.StartIndexScalar);
-			Assert.AreEqual(countScalar, testing.CountScalar);
+			Assert.AreEqual(countTakingScalar, testing.CountTakingScalar);
 			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
 
 			void test()
@@ -61207,6 +62306,7 @@ namespace ObservableComputations.Test
 					sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -61215,10 +62315,18 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<int>)startIndexScalar).Change(1);
 			test();
-
-			((Scalar<int>)countScalar).Touch();
+			((Scalar<int>)startIndexScalar).Change(2);
 			test();
-			((Scalar<int>)countScalar).Change(4);
+			((Scalar<int>)startIndexScalar).Change(3);
+			test();
+
+			((Scalar<int>)countTakingScalar).Touch();
+			test();
+			((Scalar<int>)countTakingScalar).Change(4);
+			test();
+			((Scalar<int>)countTakingScalar).Change(2);
+			test();
+			((Scalar<int>)countTakingScalar).Change(3);
 			test();
 
 			((Scalar<System.Collections.Specialized.INotifyCollectionChanged>)sourceScalar).Touch();
@@ -61233,15 +62341,15 @@ namespace ObservableComputations.Test
 		{
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
 			Scalar<int> startIndexScalar = getScalar<int>(0);
-			Scalar<int> countScalar = getScalar<int>(3);
+			Scalar<int> countTakingScalar = getScalar<int>(3);
 			OcConsumer consumer = new OcConsumer();
 			var testing = sourceScalar.Taking<Item>(
 				startIndexScalar,
-				countScalar).For(consumer);
+				countTakingScalar).For(consumer);
 
 			Assert.AreEqual(sourceScalar, testing.SourceScalar);
 			Assert.AreEqual(startIndexScalar, testing.StartIndexScalar);
-			Assert.AreEqual(countScalar, testing.CountScalar);
+			Assert.AreEqual(countTakingScalar, testing.CountTakingScalar);
 
 			void test()
 			{
@@ -61289,6 +62397,7 @@ namespace ObservableComputations.Test
 					sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -61297,10 +62406,18 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<int>)startIndexScalar).Change(1);
 			test();
-
-			((Scalar<int>)countScalar).Touch();
+			((Scalar<int>)startIndexScalar).Change(2);
 			test();
-			((Scalar<int>)countScalar).Change(4);
+			((Scalar<int>)startIndexScalar).Change(3);
+			test();
+
+			((Scalar<int>)countTakingScalar).Touch();
+			test();
+			((Scalar<int>)countTakingScalar).Change(4);
+			test();
+			((Scalar<int>)countTakingScalar).Change(2);
+			test();
+			((Scalar<int>)countTakingScalar).Change(3);
 			test();
 
 			((Scalar<System.Collections.Specialized.INotifyCollectionChanged>)sourceScalar).Touch();
@@ -61312,20 +62429,20 @@ namespace ObservableComputations.Test
 		
 		[Test, Combinatorial]
 		public void TestTaking03(
-			[Values(1)] int initialCapacity)
+			[Values(1, 2, 3)] int initialCapacity)
 		{
 			Scalar<ObservableCollection<Item>> sourceScalar = getScalar<ObservableCollection<Item>>(getItems());
 			Scalar<int> startIndexScalar = getScalar<int>(0);
-			Scalar<int> countScalar = getScalar<int>(3);
+			Scalar<int> countTakingScalar = getScalar<int>(3);
 			OcConsumer consumer = new OcConsumer();
 			var testing = sourceScalar.Taking<Item>(
 				startIndexScalar,
-				countScalar,
+				countTakingScalar,
 				initialCapacity).For(consumer);
 
 			Assert.AreEqual(sourceScalar, testing.SourceScalar);
 			Assert.AreEqual(startIndexScalar, testing.StartIndexScalar);
-			Assert.AreEqual(countScalar, testing.CountScalar);
+			Assert.AreEqual(countTakingScalar, testing.CountTakingScalar);
 			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
 
 			void test()
@@ -61374,6 +62491,7 @@ namespace ObservableComputations.Test
 					sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -61382,10 +62500,18 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<int>)startIndexScalar).Change(1);
 			test();
-
-			((Scalar<int>)countScalar).Touch();
+			((Scalar<int>)startIndexScalar).Change(2);
 			test();
-			((Scalar<int>)countScalar).Change(4);
+			((Scalar<int>)startIndexScalar).Change(3);
+			test();
+
+			((Scalar<int>)countTakingScalar).Touch();
+			test();
+			((Scalar<int>)countTakingScalar).Change(4);
+			test();
+			((Scalar<int>)countTakingScalar).Change(2);
+			test();
+			((Scalar<int>)countTakingScalar).Change(3);
 			test();
 
 			((Scalar<ObservableCollection<Item>>)sourceScalar).Touch();
@@ -61400,15 +62526,15 @@ namespace ObservableComputations.Test
 		{
 			Scalar<ObservableCollection<Item>> sourceScalar = getScalar<ObservableCollection<Item>>(getItems());
 			Scalar<int> startIndexScalar = getScalar<int>(0);
-			Scalar<int> countScalar = getScalar<int>(3);
+			Scalar<int> countTakingScalar = getScalar<int>(3);
 			OcConsumer consumer = new OcConsumer();
 			var testing = sourceScalar.Taking<Item>(
 				startIndexScalar,
-				countScalar).For(consumer);
+				countTakingScalar).For(consumer);
 
 			Assert.AreEqual(sourceScalar, testing.SourceScalar);
 			Assert.AreEqual(startIndexScalar, testing.StartIndexScalar);
-			Assert.AreEqual(countScalar, testing.CountScalar);
+			Assert.AreEqual(countTakingScalar, testing.CountTakingScalar);
 
 			void test()
 			{
@@ -61456,6 +62582,7 @@ namespace ObservableComputations.Test
 					sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -61464,10 +62591,18 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<int>)startIndexScalar).Change(1);
 			test();
-
-			((Scalar<int>)countScalar).Touch();
+			((Scalar<int>)startIndexScalar).Change(2);
 			test();
-			((Scalar<int>)countScalar).Change(4);
+			((Scalar<int>)startIndexScalar).Change(3);
+			test();
+
+			((Scalar<int>)countTakingScalar).Touch();
+			test();
+			((Scalar<int>)countTakingScalar).Change(4);
+			test();
+			((Scalar<int>)countTakingScalar).Change(2);
+			test();
+			((Scalar<int>)countTakingScalar).Change(3);
 			test();
 
 			((Scalar<ObservableCollection<Item>>)sourceScalar).Touch();
@@ -61479,18 +62614,18 @@ namespace ObservableComputations.Test
 		
 		[Test, Combinatorial]
 		public void TestTaking05(
-			[Values(4)] int count)
+			[Values(4, 2, 3)] int countTaking)
 		{
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
 			Scalar<int> startIndexScalar = getScalar<int>(0);
 			OcConsumer consumer = new OcConsumer();
 			var testing = sourceScalar.Taking<Item>(
 				startIndexScalar,
-				count).For(consumer);
+				countTaking).For(consumer);
 
 			Assert.AreEqual(sourceScalar, testing.SourceScalar);
 			Assert.AreEqual(startIndexScalar, testing.StartIndexScalar);
-			Assert.AreEqual(count, testing.Count);
+			Assert.AreEqual(countTaking, testing.CountTaking);
 
 			void test()
 			{
@@ -61538,6 +62673,7 @@ namespace ObservableComputations.Test
 					sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -61545,6 +62681,10 @@ namespace ObservableComputations.Test
 			((Scalar<int>)startIndexScalar).Touch();
 			test();
 			((Scalar<int>)startIndexScalar).Change(1);
+			test();
+			((Scalar<int>)startIndexScalar).Change(2);
+			test();
+			((Scalar<int>)startIndexScalar).Change(3);
 			test();
 
 			((Scalar<System.Collections.Specialized.INotifyCollectionChanged>)sourceScalar).Touch();
@@ -61556,18 +62696,18 @@ namespace ObservableComputations.Test
 		
 		[Test, Combinatorial]
 		public void TestTaking06(
-			[Values(4)] int count)
+			[Values(4, 2, 3)] int countTaking)
 		{
 			Scalar<ObservableCollection<Item>> sourceScalar = getScalar<ObservableCollection<Item>>(getItems());
 			Scalar<int> startIndexScalar = getScalar<int>(0);
 			OcConsumer consumer = new OcConsumer();
 			var testing = sourceScalar.Taking<Item>(
 				startIndexScalar,
-				count).For(consumer);
+				countTaking).For(consumer);
 
 			Assert.AreEqual(sourceScalar, testing.SourceScalar);
 			Assert.AreEqual(startIndexScalar, testing.StartIndexScalar);
-			Assert.AreEqual(count, testing.Count);
+			Assert.AreEqual(countTaking, testing.CountTaking);
 
 			void test()
 			{
@@ -61615,6 +62755,7 @@ namespace ObservableComputations.Test
 					sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -61622,6 +62763,10 @@ namespace ObservableComputations.Test
 			((Scalar<int>)startIndexScalar).Touch();
 			test();
 			((Scalar<int>)startIndexScalar).Change(1);
+			test();
+			((Scalar<int>)startIndexScalar).Change(2);
+			test();
+			((Scalar<int>)startIndexScalar).Change(3);
 			test();
 
 			((Scalar<ObservableCollection<Item>>)sourceScalar).Touch();
@@ -61633,20 +62778,20 @@ namespace ObservableComputations.Test
 		
 		[Test, Combinatorial]
 		public void TestTaking07(
-			[Values(1)] int startIndex,
-			[Values(1)] int initialCapacity)
+			[Values(1, 2, 3)] int startIndex,
+			[Values(1, 2, 3)] int initialCapacity)
 		{
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
-			Scalar<int> countScalar = getScalar<int>(3);
+			Scalar<int> countTakingScalar = getScalar<int>(3);
 			OcConsumer consumer = new OcConsumer();
 			var testing = sourceScalar.Taking<Item>(
 				startIndex,
-				countScalar,
+				countTakingScalar,
 				initialCapacity).For(consumer);
 
 			Assert.AreEqual(sourceScalar, testing.SourceScalar);
 			Assert.AreEqual(startIndex, testing.StartIndex);
-			Assert.AreEqual(countScalar, testing.CountScalar);
+			Assert.AreEqual(countTakingScalar, testing.CountTakingScalar);
 			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
 
 			void test()
@@ -61695,13 +62840,18 @@ namespace ObservableComputations.Test
 					sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
 
-			((Scalar<int>)countScalar).Touch();
+			((Scalar<int>)countTakingScalar).Touch();
 			test();
-			((Scalar<int>)countScalar).Change(4);
+			((Scalar<int>)countTakingScalar).Change(4);
+			test();
+			((Scalar<int>)countTakingScalar).Change(2);
+			test();
+			((Scalar<int>)countTakingScalar).Change(3);
 			test();
 
 			((Scalar<System.Collections.Specialized.INotifyCollectionChanged>)sourceScalar).Touch();
@@ -61713,18 +62863,18 @@ namespace ObservableComputations.Test
 		
 		[Test, Combinatorial]
 		public void TestTaking08(
-			[Values(1)] int startIndex)
+			[Values(1, 2, 3)] int startIndex)
 		{
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
-			Scalar<int> countScalar = getScalar<int>(3);
+			Scalar<int> countTakingScalar = getScalar<int>(3);
 			OcConsumer consumer = new OcConsumer();
 			var testing = sourceScalar.Taking<Item>(
 				startIndex,
-				countScalar).For(consumer);
+				countTakingScalar).For(consumer);
 
 			Assert.AreEqual(sourceScalar, testing.SourceScalar);
 			Assert.AreEqual(startIndex, testing.StartIndex);
-			Assert.AreEqual(countScalar, testing.CountScalar);
+			Assert.AreEqual(countTakingScalar, testing.CountTakingScalar);
 
 			void test()
 			{
@@ -61772,13 +62922,18 @@ namespace ObservableComputations.Test
 					sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
 
-			((Scalar<int>)countScalar).Touch();
+			((Scalar<int>)countTakingScalar).Touch();
 			test();
-			((Scalar<int>)countScalar).Change(4);
+			((Scalar<int>)countTakingScalar).Change(4);
+			test();
+			((Scalar<int>)countTakingScalar).Change(2);
+			test();
+			((Scalar<int>)countTakingScalar).Change(3);
 			test();
 
 			((Scalar<System.Collections.Specialized.INotifyCollectionChanged>)sourceScalar).Touch();
@@ -61790,20 +62945,20 @@ namespace ObservableComputations.Test
 		
 		[Test, Combinatorial]
 		public void TestTaking09(
-			[Values(1)] int startIndex,
-			[Values(1)] int initialCapacity)
+			[Values(1, 2, 3)] int startIndex,
+			[Values(1, 2, 3)] int initialCapacity)
 		{
 			Scalar<ObservableCollection<Item>> sourceScalar = getScalar<ObservableCollection<Item>>(getItems());
-			Scalar<int> countScalar = getScalar<int>(3);
+			Scalar<int> countTakingScalar = getScalar<int>(3);
 			OcConsumer consumer = new OcConsumer();
 			var testing = sourceScalar.Taking<Item>(
 				startIndex,
-				countScalar,
+				countTakingScalar,
 				initialCapacity).For(consumer);
 
 			Assert.AreEqual(sourceScalar, testing.SourceScalar);
 			Assert.AreEqual(startIndex, testing.StartIndex);
-			Assert.AreEqual(countScalar, testing.CountScalar);
+			Assert.AreEqual(countTakingScalar, testing.CountTakingScalar);
 			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
 
 			void test()
@@ -61852,13 +63007,18 @@ namespace ObservableComputations.Test
 					sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
 
-			((Scalar<int>)countScalar).Touch();
+			((Scalar<int>)countTakingScalar).Touch();
 			test();
-			((Scalar<int>)countScalar).Change(4);
+			((Scalar<int>)countTakingScalar).Change(4);
+			test();
+			((Scalar<int>)countTakingScalar).Change(2);
+			test();
+			((Scalar<int>)countTakingScalar).Change(3);
 			test();
 
 			((Scalar<ObservableCollection<Item>>)sourceScalar).Touch();
@@ -61870,18 +63030,18 @@ namespace ObservableComputations.Test
 		
 		[Test, Combinatorial]
 		public void TestTaking10(
-			[Values(1)] int startIndex)
+			[Values(1, 2, 3)] int startIndex)
 		{
 			Scalar<ObservableCollection<Item>> sourceScalar = getScalar<ObservableCollection<Item>>(getItems());
-			Scalar<int> countScalar = getScalar<int>(3);
+			Scalar<int> countTakingScalar = getScalar<int>(3);
 			OcConsumer consumer = new OcConsumer();
 			var testing = sourceScalar.Taking<Item>(
 				startIndex,
-				countScalar).For(consumer);
+				countTakingScalar).For(consumer);
 
 			Assert.AreEqual(sourceScalar, testing.SourceScalar);
 			Assert.AreEqual(startIndex, testing.StartIndex);
-			Assert.AreEqual(countScalar, testing.CountScalar);
+			Assert.AreEqual(countTakingScalar, testing.CountTakingScalar);
 
 			void test()
 			{
@@ -61929,13 +63089,18 @@ namespace ObservableComputations.Test
 					sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
 
-			((Scalar<int>)countScalar).Touch();
+			((Scalar<int>)countTakingScalar).Touch();
 			test();
-			((Scalar<int>)countScalar).Change(4);
+			((Scalar<int>)countTakingScalar).Change(4);
+			test();
+			((Scalar<int>)countTakingScalar).Change(2);
+			test();
+			((Scalar<int>)countTakingScalar).Change(3);
 			test();
 
 			((Scalar<ObservableCollection<Item>>)sourceScalar).Touch();
@@ -61947,18 +63112,18 @@ namespace ObservableComputations.Test
 		
 		[Test, Combinatorial]
 		public void TestTaking11(
-			[Values(1)] int startIndex,
-			[Values(4)] int count)
+			[Values(1, 2, 3)] int startIndex,
+			[Values(4, 2, 3)] int countTaking)
 		{
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
 			OcConsumer consumer = new OcConsumer();
 			var testing = sourceScalar.Taking<Item>(
 				startIndex,
-				count).For(consumer);
+				countTaking).For(consumer);
 
 			Assert.AreEqual(sourceScalar, testing.SourceScalar);
 			Assert.AreEqual(startIndex, testing.StartIndex);
-			Assert.AreEqual(count, testing.Count);
+			Assert.AreEqual(countTaking, testing.CountTaking);
 
 			void test()
 			{
@@ -62006,6 +63171,7 @@ namespace ObservableComputations.Test
 					sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -62019,18 +63185,18 @@ namespace ObservableComputations.Test
 		
 		[Test, Combinatorial]
 		public void TestTaking12(
-			[Values(1)] int startIndex,
-			[Values(4)] int count)
+			[Values(1, 2, 3)] int startIndex,
+			[Values(4, 2, 3)] int countTaking)
 		{
 			Scalar<ObservableCollection<Item>> sourceScalar = getScalar<ObservableCollection<Item>>(getItems());
 			OcConsumer consumer = new OcConsumer();
 			var testing = sourceScalar.Taking<Item>(
 				startIndex,
-				count).For(consumer);
+				countTaking).For(consumer);
 
 			Assert.AreEqual(sourceScalar, testing.SourceScalar);
 			Assert.AreEqual(startIndex, testing.StartIndex);
-			Assert.AreEqual(count, testing.Count);
+			Assert.AreEqual(countTaking, testing.CountTaking);
 
 			void test()
 			{
@@ -62078,6 +63244,7 @@ namespace ObservableComputations.Test
 					sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -62091,20 +63258,20 @@ namespace ObservableComputations.Test
 		
 		[Test, Combinatorial]
 		public void TestTaking13(
-			[Values(1)] int initialCapacity)
+			[Values(1, 2, 3)] int initialCapacity)
 		{
 			System.Collections.Specialized.INotifyCollectionChanged source = getItems();
 			Scalar<int> startIndexScalar = getScalar<int>(0);
-			Scalar<int> countScalar = getScalar<int>(3);
+			Scalar<int> countTakingScalar = getScalar<int>(3);
 			OcConsumer consumer = new OcConsumer();
 			var testing = source.Taking<Item>(
 				startIndexScalar,
-				countScalar,
+				countTakingScalar,
 				initialCapacity).For(consumer);
 
 			Assert.AreEqual(source, testing.Source);
 			Assert.AreEqual(startIndexScalar, testing.StartIndexScalar);
-			Assert.AreEqual(countScalar, testing.CountScalar);
+			Assert.AreEqual(countTakingScalar, testing.CountTakingScalar);
 			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
 
 			void test()
@@ -62153,6 +63320,7 @@ namespace ObservableComputations.Test
 					sourceValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -62161,10 +63329,18 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<int>)startIndexScalar).Change(1);
 			test();
-
-			((Scalar<int>)countScalar).Touch();
+			((Scalar<int>)startIndexScalar).Change(2);
 			test();
-			((Scalar<int>)countScalar).Change(4);
+			((Scalar<int>)startIndexScalar).Change(3);
+			test();
+
+			((Scalar<int>)countTakingScalar).Touch();
+			test();
+			((Scalar<int>)countTakingScalar).Change(4);
+			test();
+			((Scalar<int>)countTakingScalar).Change(2);
+			test();
+			((Scalar<int>)countTakingScalar).Change(3);
 			test();
 			consumer.Dispose();
 		}
@@ -62174,15 +63350,15 @@ namespace ObservableComputations.Test
 		{
 			System.Collections.Specialized.INotifyCollectionChanged source = getItems();
 			Scalar<int> startIndexScalar = getScalar<int>(0);
-			Scalar<int> countScalar = getScalar<int>(3);
+			Scalar<int> countTakingScalar = getScalar<int>(3);
 			OcConsumer consumer = new OcConsumer();
 			var testing = source.Taking<Item>(
 				startIndexScalar,
-				countScalar).For(consumer);
+				countTakingScalar).For(consumer);
 
 			Assert.AreEqual(source, testing.Source);
 			Assert.AreEqual(startIndexScalar, testing.StartIndexScalar);
-			Assert.AreEqual(countScalar, testing.CountScalar);
+			Assert.AreEqual(countTakingScalar, testing.CountTakingScalar);
 
 			void test()
 			{
@@ -62230,6 +63406,7 @@ namespace ObservableComputations.Test
 					sourceValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -62238,30 +63415,38 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<int>)startIndexScalar).Change(1);
 			test();
-
-			((Scalar<int>)countScalar).Touch();
+			((Scalar<int>)startIndexScalar).Change(2);
 			test();
-			((Scalar<int>)countScalar).Change(4);
+			((Scalar<int>)startIndexScalar).Change(3);
+			test();
+
+			((Scalar<int>)countTakingScalar).Touch();
+			test();
+			((Scalar<int>)countTakingScalar).Change(4);
+			test();
+			((Scalar<int>)countTakingScalar).Change(2);
+			test();
+			((Scalar<int>)countTakingScalar).Change(3);
 			test();
 			consumer.Dispose();
 		}
 		
 		[Test, Combinatorial]
 		public void TestTaking15(
-			[Values(1)] int initialCapacity)
+			[Values(1, 2, 3)] int initialCapacity)
 		{
 			ObservableCollection<Item> source = getItems();
 			Scalar<int> startIndexScalar = getScalar<int>(0);
-			Scalar<int> countScalar = getScalar<int>(3);
+			Scalar<int> countTakingScalar = getScalar<int>(3);
 			OcConsumer consumer = new OcConsumer();
 			var testing = source.Taking<Item>(
 				startIndexScalar,
-				countScalar,
+				countTakingScalar,
 				initialCapacity).For(consumer);
 
 			Assert.AreEqual(source, testing.Source);
 			Assert.AreEqual(startIndexScalar, testing.StartIndexScalar);
-			Assert.AreEqual(countScalar, testing.CountScalar);
+			Assert.AreEqual(countTakingScalar, testing.CountTakingScalar);
 			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
 
 			void test()
@@ -62310,6 +63495,7 @@ namespace ObservableComputations.Test
 					sourceValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -62318,10 +63504,18 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<int>)startIndexScalar).Change(1);
 			test();
-
-			((Scalar<int>)countScalar).Touch();
+			((Scalar<int>)startIndexScalar).Change(2);
 			test();
-			((Scalar<int>)countScalar).Change(4);
+			((Scalar<int>)startIndexScalar).Change(3);
+			test();
+
+			((Scalar<int>)countTakingScalar).Touch();
+			test();
+			((Scalar<int>)countTakingScalar).Change(4);
+			test();
+			((Scalar<int>)countTakingScalar).Change(2);
+			test();
+			((Scalar<int>)countTakingScalar).Change(3);
 			test();
 			consumer.Dispose();
 		}
@@ -62331,15 +63525,15 @@ namespace ObservableComputations.Test
 		{
 			ObservableCollection<Item> source = getItems();
 			Scalar<int> startIndexScalar = getScalar<int>(0);
-			Scalar<int> countScalar = getScalar<int>(3);
+			Scalar<int> countTakingScalar = getScalar<int>(3);
 			OcConsumer consumer = new OcConsumer();
 			var testing = source.Taking<Item>(
 				startIndexScalar,
-				countScalar).For(consumer);
+				countTakingScalar).For(consumer);
 
 			Assert.AreEqual(source, testing.Source);
 			Assert.AreEqual(startIndexScalar, testing.StartIndexScalar);
-			Assert.AreEqual(countScalar, testing.CountScalar);
+			Assert.AreEqual(countTakingScalar, testing.CountTakingScalar);
 
 			void test()
 			{
@@ -62387,6 +63581,7 @@ namespace ObservableComputations.Test
 					sourceValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -62395,28 +63590,36 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<int>)startIndexScalar).Change(1);
 			test();
-
-			((Scalar<int>)countScalar).Touch();
+			((Scalar<int>)startIndexScalar).Change(2);
 			test();
-			((Scalar<int>)countScalar).Change(4);
+			((Scalar<int>)startIndexScalar).Change(3);
+			test();
+
+			((Scalar<int>)countTakingScalar).Touch();
+			test();
+			((Scalar<int>)countTakingScalar).Change(4);
+			test();
+			((Scalar<int>)countTakingScalar).Change(2);
+			test();
+			((Scalar<int>)countTakingScalar).Change(3);
 			test();
 			consumer.Dispose();
 		}
 		
 		[Test, Combinatorial]
 		public void TestTaking17(
-			[Values(4)] int count)
+			[Values(4, 2, 3)] int countTaking)
 		{
 			System.Collections.Specialized.INotifyCollectionChanged source = getItems();
 			Scalar<int> startIndexScalar = getScalar<int>(0);
 			OcConsumer consumer = new OcConsumer();
 			var testing = source.Taking<Item>(
 				startIndexScalar,
-				count).For(consumer);
+				countTaking).For(consumer);
 
 			Assert.AreEqual(source, testing.Source);
 			Assert.AreEqual(startIndexScalar, testing.StartIndexScalar);
-			Assert.AreEqual(count, testing.Count);
+			Assert.AreEqual(countTaking, testing.CountTaking);
 
 			void test()
 			{
@@ -62464,6 +63667,7 @@ namespace ObservableComputations.Test
 					sourceValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -62471,24 +63675,28 @@ namespace ObservableComputations.Test
 			((Scalar<int>)startIndexScalar).Touch();
 			test();
 			((Scalar<int>)startIndexScalar).Change(1);
+			test();
+			((Scalar<int>)startIndexScalar).Change(2);
+			test();
+			((Scalar<int>)startIndexScalar).Change(3);
 			test();
 			consumer.Dispose();
 		}
 		
 		[Test, Combinatorial]
 		public void TestTaking18(
-			[Values(4)] int count)
+			[Values(4, 2, 3)] int countTaking)
 		{
 			ObservableCollection<Item> source = getItems();
 			Scalar<int> startIndexScalar = getScalar<int>(0);
 			OcConsumer consumer = new OcConsumer();
 			var testing = source.Taking<Item>(
 				startIndexScalar,
-				count).For(consumer);
+				countTaking).For(consumer);
 
 			Assert.AreEqual(source, testing.Source);
 			Assert.AreEqual(startIndexScalar, testing.StartIndexScalar);
-			Assert.AreEqual(count, testing.Count);
+			Assert.AreEqual(countTaking, testing.CountTaking);
 
 			void test()
 			{
@@ -62536,6 +63744,7 @@ namespace ObservableComputations.Test
 					sourceValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -62544,25 +63753,29 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<int>)startIndexScalar).Change(1);
 			test();
+			((Scalar<int>)startIndexScalar).Change(2);
+			test();
+			((Scalar<int>)startIndexScalar).Change(3);
+			test();
 			consumer.Dispose();
 		}
 		
 		[Test, Combinatorial]
 		public void TestTaking19(
-			[Values(1)] int startIndex,
-			[Values(1)] int initialCapacity)
+			[Values(1, 2, 3)] int startIndex,
+			[Values(1, 2, 3)] int initialCapacity)
 		{
 			System.Collections.Specialized.INotifyCollectionChanged source = getItems();
-			Scalar<int> countScalar = getScalar<int>(3);
+			Scalar<int> countTakingScalar = getScalar<int>(3);
 			OcConsumer consumer = new OcConsumer();
 			var testing = source.Taking<Item>(
 				startIndex,
-				countScalar,
+				countTakingScalar,
 				initialCapacity).For(consumer);
 
 			Assert.AreEqual(source, testing.Source);
 			Assert.AreEqual(startIndex, testing.StartIndex);
-			Assert.AreEqual(countScalar, testing.CountScalar);
+			Assert.AreEqual(countTakingScalar, testing.CountTakingScalar);
 			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
 
 			void test()
@@ -62611,31 +63824,36 @@ namespace ObservableComputations.Test
 					sourceValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
 
-			((Scalar<int>)countScalar).Touch();
+			((Scalar<int>)countTakingScalar).Touch();
 			test();
-			((Scalar<int>)countScalar).Change(4);
+			((Scalar<int>)countTakingScalar).Change(4);
+			test();
+			((Scalar<int>)countTakingScalar).Change(2);
+			test();
+			((Scalar<int>)countTakingScalar).Change(3);
 			test();
 			consumer.Dispose();
 		}
 		
 		[Test, Combinatorial]
 		public void TestTaking20(
-			[Values(1)] int startIndex)
+			[Values(1, 2, 3)] int startIndex)
 		{
 			System.Collections.Specialized.INotifyCollectionChanged source = getItems();
-			Scalar<int> countScalar = getScalar<int>(3);
+			Scalar<int> countTakingScalar = getScalar<int>(3);
 			OcConsumer consumer = new OcConsumer();
 			var testing = source.Taking<Item>(
 				startIndex,
-				countScalar).For(consumer);
+				countTakingScalar).For(consumer);
 
 			Assert.AreEqual(source, testing.Source);
 			Assert.AreEqual(startIndex, testing.StartIndex);
-			Assert.AreEqual(countScalar, testing.CountScalar);
+			Assert.AreEqual(countTakingScalar, testing.CountTakingScalar);
 
 			void test()
 			{
@@ -62683,33 +63901,38 @@ namespace ObservableComputations.Test
 					sourceValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
 
-			((Scalar<int>)countScalar).Touch();
+			((Scalar<int>)countTakingScalar).Touch();
 			test();
-			((Scalar<int>)countScalar).Change(4);
+			((Scalar<int>)countTakingScalar).Change(4);
+			test();
+			((Scalar<int>)countTakingScalar).Change(2);
+			test();
+			((Scalar<int>)countTakingScalar).Change(3);
 			test();
 			consumer.Dispose();
 		}
 		
 		[Test, Combinatorial]
 		public void TestTaking21(
-			[Values(1)] int startIndex,
-			[Values(1)] int initialCapacity)
+			[Values(1, 2, 3)] int startIndex,
+			[Values(1, 2, 3)] int initialCapacity)
 		{
 			ObservableCollection<Item> source = getItems();
-			Scalar<int> countScalar = getScalar<int>(3);
+			Scalar<int> countTakingScalar = getScalar<int>(3);
 			OcConsumer consumer = new OcConsumer();
 			var testing = source.Taking<Item>(
 				startIndex,
-				countScalar,
+				countTakingScalar,
 				initialCapacity).For(consumer);
 
 			Assert.AreEqual(source, testing.Source);
 			Assert.AreEqual(startIndex, testing.StartIndex);
-			Assert.AreEqual(countScalar, testing.CountScalar);
+			Assert.AreEqual(countTakingScalar, testing.CountTakingScalar);
 			Assert.AreEqual(initialCapacity, testing.InitialCapacity);
 
 			void test()
@@ -62758,31 +63981,36 @@ namespace ObservableComputations.Test
 					sourceValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
 
-			((Scalar<int>)countScalar).Touch();
+			((Scalar<int>)countTakingScalar).Touch();
 			test();
-			((Scalar<int>)countScalar).Change(4);
+			((Scalar<int>)countTakingScalar).Change(4);
+			test();
+			((Scalar<int>)countTakingScalar).Change(2);
+			test();
+			((Scalar<int>)countTakingScalar).Change(3);
 			test();
 			consumer.Dispose();
 		}
 		
 		[Test, Combinatorial]
 		public void TestTaking22(
-			[Values(1)] int startIndex)
+			[Values(1, 2, 3)] int startIndex)
 		{
 			ObservableCollection<Item> source = getItems();
-			Scalar<int> countScalar = getScalar<int>(3);
+			Scalar<int> countTakingScalar = getScalar<int>(3);
 			OcConsumer consumer = new OcConsumer();
 			var testing = source.Taking<Item>(
 				startIndex,
-				countScalar).For(consumer);
+				countTakingScalar).For(consumer);
 
 			Assert.AreEqual(source, testing.Source);
 			Assert.AreEqual(startIndex, testing.StartIndex);
-			Assert.AreEqual(countScalar, testing.CountScalar);
+			Assert.AreEqual(countTakingScalar, testing.CountTakingScalar);
 
 			void test()
 			{
@@ -62830,31 +64058,36 @@ namespace ObservableComputations.Test
 					sourceValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
 
-			((Scalar<int>)countScalar).Touch();
+			((Scalar<int>)countTakingScalar).Touch();
 			test();
-			((Scalar<int>)countScalar).Change(4);
+			((Scalar<int>)countTakingScalar).Change(4);
+			test();
+			((Scalar<int>)countTakingScalar).Change(2);
+			test();
+			((Scalar<int>)countTakingScalar).Change(3);
 			test();
 			consumer.Dispose();
 		}
 		
 		[Test, Combinatorial]
 		public void TestTaking23(
-			[Values(1)] int startIndex,
-			[Values(4)] int count)
+			[Values(1, 2, 3)] int startIndex,
+			[Values(4, 2, 3)] int countTaking)
 		{
 			System.Collections.Specialized.INotifyCollectionChanged source = getItems();
 			OcConsumer consumer = new OcConsumer();
 			var testing = source.Taking<Item>(
 				startIndex,
-				count).For(consumer);
+				countTaking).For(consumer);
 
 			Assert.AreEqual(source, testing.Source);
 			Assert.AreEqual(startIndex, testing.StartIndex);
-			Assert.AreEqual(count, testing.Count);
+			Assert.AreEqual(countTaking, testing.CountTaking);
 
 			void test()
 			{
@@ -62902,6 +64135,7 @@ namespace ObservableComputations.Test
 					sourceValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -62910,18 +64144,18 @@ namespace ObservableComputations.Test
 		
 		[Test, Combinatorial]
 		public void TestTaking24(
-			[Values(1)] int startIndex,
-			[Values(4)] int count)
+			[Values(1, 2, 3)] int startIndex,
+			[Values(4, 2, 3)] int countTaking)
 		{
 			ObservableCollection<Item> source = getItems();
 			OcConsumer consumer = new OcConsumer();
 			var testing = source.Taking<Item>(
 				startIndex,
-				count).For(consumer);
+				countTaking).For(consumer);
 
 			Assert.AreEqual(source, testing.Source);
 			Assert.AreEqual(startIndex, testing.StartIndex);
-			Assert.AreEqual(count, testing.Count);
+			Assert.AreEqual(countTaking, testing.CountTaking);
 
 			void test()
 			{
@@ -62969,6 +64203,7 @@ namespace ObservableComputations.Test
 					sourceValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -62980,7 +64215,7 @@ namespace ObservableComputations.Test
 		
 		[Test, Combinatorial]
 		public void TestTakingWhile01(
-			[Values(1)] int initialCapacity)
+			[Values(1, 2, 3)] int initialCapacity)
 		{
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
 			System.Linq.Expressions.Expression<System.Func<Item, int, bool>> indexedPredicateExpression = (i, ind) => i.Active;
@@ -63039,6 +64274,7 @@ namespace ObservableComputations.Test
 					sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -63108,6 +64344,7 @@ namespace ObservableComputations.Test
 					sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -63121,7 +64358,7 @@ namespace ObservableComputations.Test
 		
 		[Test, Combinatorial]
 		public void TestTakingWhile03(
-			[Values(1)] int initialCapacity)
+			[Values(1, 2, 3)] int initialCapacity)
 		{
 			Scalar<ObservableCollection<Item>> sourceScalar = getScalar<ObservableCollection<Item>>(getItems());
 			System.Linq.Expressions.Expression<System.Func<Item, int, bool>> indexedPredicateExpression = (i, ind) => i.Active;
@@ -63180,6 +64417,7 @@ namespace ObservableComputations.Test
 					sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -63249,6 +64487,7 @@ namespace ObservableComputations.Test
 					sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -63262,7 +64501,7 @@ namespace ObservableComputations.Test
 		
 		[Test, Combinatorial]
 		public void TestTakingWhile05(
-			[Values(1)] int initialCapacity)
+			[Values(1, 2, 3)] int initialCapacity)
 		{
 			System.Collections.Specialized.INotifyCollectionChanged source = getItems();
 			System.Linq.Expressions.Expression<System.Func<Item, int, bool>> indexedPredicateExpression = (i, ind) => i.Active;
@@ -63321,6 +64560,7 @@ namespace ObservableComputations.Test
 					sourceValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -63385,6 +64625,7 @@ namespace ObservableComputations.Test
 					sourceValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -63393,7 +64634,7 @@ namespace ObservableComputations.Test
 		
 		[Test, Combinatorial]
 		public void TestTakingWhile07(
-			[Values(1)] int initialCapacity)
+			[Values(1, 2, 3)] int initialCapacity)
 		{
 			ObservableCollection<Item> source = getItems();
 			System.Linq.Expressions.Expression<System.Func<Item, int, bool>> indexedPredicateExpression = (i, ind) => i.Active;
@@ -63452,6 +64693,7 @@ namespace ObservableComputations.Test
 					sourceValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -63516,6 +64758,7 @@ namespace ObservableComputations.Test
 					sourceValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -63524,7 +64767,7 @@ namespace ObservableComputations.Test
 		
 		[Test, Combinatorial]
 		public void TestTakingWhile09(
-			[Values(1)] int initialCapacity)
+			[Values(1, 2, 3)] int initialCapacity)
 		{
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
 			System.Linq.Expressions.Expression<System.Func<Item, bool>> predicateExpression = i => i.Active;
@@ -63583,6 +64826,7 @@ namespace ObservableComputations.Test
 					sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -63652,6 +64896,7 @@ namespace ObservableComputations.Test
 					sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -63665,7 +64910,7 @@ namespace ObservableComputations.Test
 		
 		[Test, Combinatorial]
 		public void TestTakingWhile11(
-			[Values(1)] int initialCapacity)
+			[Values(1, 2, 3)] int initialCapacity)
 		{
 			Scalar<ObservableCollection<Item>> sourceScalar = getScalar<ObservableCollection<Item>>(getItems());
 			System.Linq.Expressions.Expression<System.Func<Item, bool>> predicateExpression = i => i.Active;
@@ -63724,6 +64969,7 @@ namespace ObservableComputations.Test
 					sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -63793,6 +65039,7 @@ namespace ObservableComputations.Test
 					sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -63806,7 +65053,7 @@ namespace ObservableComputations.Test
 		
 		[Test, Combinatorial]
 		public void TestTakingWhile13(
-			[Values(1)] int initialCapacity)
+			[Values(1, 2, 3)] int initialCapacity)
 		{
 			System.Collections.Specialized.INotifyCollectionChanged source = getItems();
 			System.Linq.Expressions.Expression<System.Func<Item, bool>> predicateExpression = i => i.Active;
@@ -63865,6 +65112,7 @@ namespace ObservableComputations.Test
 					sourceValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -63929,6 +65177,7 @@ namespace ObservableComputations.Test
 					sourceValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -63937,7 +65186,7 @@ namespace ObservableComputations.Test
 		
 		[Test, Combinatorial]
 		public void TestTakingWhile15(
-			[Values(1)] int initialCapacity)
+			[Values(1, 2, 3)] int initialCapacity)
 		{
 			ObservableCollection<Item> source = getItems();
 			System.Linq.Expressions.Expression<System.Func<Item, bool>> predicateExpression = i => i.Active;
@@ -63996,6 +65245,7 @@ namespace ObservableComputations.Test
 					sourceValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -64060,6 +65310,7 @@ namespace ObservableComputations.Test
 					sourceValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -64133,6 +65384,7 @@ namespace ObservableComputations.Test
 					sourceValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -64210,6 +65462,7 @@ namespace ObservableComputations.Test
 					sourceValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -64282,6 +65535,7 @@ namespace ObservableComputations.Test
 					sourceValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -64351,6 +65605,7 @@ namespace ObservableComputations.Test
 					sourceValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -64421,6 +65676,7 @@ namespace ObservableComputations.Test
 					sourceValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -64493,6 +65749,7 @@ namespace ObservableComputations.Test
 					sourceValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -64563,6 +65820,7 @@ namespace ObservableComputations.Test
 					sourceValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -64635,6 +65893,7 @@ namespace ObservableComputations.Test
 					sourceValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -64705,6 +65964,7 @@ namespace ObservableComputations.Test
 					sourceValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -64775,6 +66035,7 @@ namespace ObservableComputations.Test
 					sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -64857,6 +66118,7 @@ namespace ObservableComputations.Test
 					sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -64934,6 +66196,7 @@ namespace ObservableComputations.Test
 					sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -65008,6 +66271,7 @@ namespace ObservableComputations.Test
 					sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -65083,6 +66347,7 @@ namespace ObservableComputations.Test
 					sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -65160,6 +66425,7 @@ namespace ObservableComputations.Test
 					sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -65235,6 +66501,7 @@ namespace ObservableComputations.Test
 					sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -65312,6 +66579,7 @@ namespace ObservableComputations.Test
 					sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -65387,6 +66655,7 @@ namespace ObservableComputations.Test
 					sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -65403,7 +66672,7 @@ namespace ObservableComputations.Test
 		
 		[Test, Combinatorial]
 		public void TestUniting01(
-			[Values(1)] int initialCapacity)
+			[Values(1, 2, 3)] int initialCapacity)
 		{
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getCollectionsOfItems());
 			Scalar<System.Collections.Generic.IEqualityComparer<Item>> equalityComparerScalar = getScalar<System.Collections.Generic.IEqualityComparer<Item>>(EqualityComparer<Item>.Default);
@@ -65438,8 +66707,8 @@ namespace ObservableComputations.Test
 					sourceScalarValue.Insert(0, new ObservableCollection<Item>(new []{new Item(1, true), new Item(2, true), new Item(3, true), new Item(4, true), new Item(5, true)}));
 					sourceScalarValue.Insert(0, new ObservableCollection<Item>(new []{new Item(6, true), new Item(7, true), new Item(8, true), new Item(8, true), new Item(10, true)}));
 					testing.ValidateConsistency();
-				}
-
+				}				
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -65490,8 +66759,8 @@ namespace ObservableComputations.Test
 					sourceScalarValue.Insert(0, new ObservableCollection<Item>(new []{new Item(1, true), new Item(2, true), new Item(3, true), new Item(4, true), new Item(5, true)}));
 					sourceScalarValue.Insert(0, new ObservableCollection<Item>(new []{new Item(6, true), new Item(7, true), new Item(8, true), new Item(8, true), new Item(10, true)}));
 					testing.ValidateConsistency();
-				}
-
+				}				
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -65510,7 +66779,7 @@ namespace ObservableComputations.Test
 		
 		[Test, Combinatorial]
 		public void TestUniting03(
-			[Values(1)] int initialCapacity)
+			[Values(1, 2, 3)] int initialCapacity)
 		{
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getCollectionsOfItems());
 			OcConsumer consumer = new OcConsumer();
@@ -65542,8 +66811,8 @@ namespace ObservableComputations.Test
 					sourceScalarValue.Insert(0, new ObservableCollection<Item>(new []{new Item(1, true), new Item(2, true), new Item(3, true), new Item(4, true), new Item(5, true)}));
 					sourceScalarValue.Insert(0, new ObservableCollection<Item>(new []{new Item(6, true), new Item(7, true), new Item(8, true), new Item(8, true), new Item(10, true)}));
 					testing.ValidateConsistency();
-				}
-
+				}				
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -65586,8 +66855,8 @@ namespace ObservableComputations.Test
 					sourceScalarValue.Insert(0, new ObservableCollection<Item>(new []{new Item(1, true), new Item(2, true), new Item(3, true), new Item(4, true), new Item(5, true)}));
 					sourceScalarValue.Insert(0, new ObservableCollection<Item>(new []{new Item(6, true), new Item(7, true), new Item(8, true), new Item(8, true), new Item(10, true)}));
 					testing.ValidateConsistency();
-				}
-
+				}				
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -65601,7 +66870,7 @@ namespace ObservableComputations.Test
 		
 		[Test, Combinatorial]
 		public void TestUniting05(
-			[Values(1)] int initialCapacity)
+			[Values(1, 2, 3)] int initialCapacity)
 		{
 			Scalar<ObservableCollection<ObservableCollection<Item>>> sourceScalar = getScalar<ObservableCollection<ObservableCollection<Item>>>(getCollectionsOfItems());
 			Scalar<System.Collections.Generic.IEqualityComparer<Item>> equalityComparerScalar = getScalar<System.Collections.Generic.IEqualityComparer<Item>>(EqualityComparer<Item>.Default);
@@ -65636,8 +66905,8 @@ namespace ObservableComputations.Test
 					sourceScalarValue.Insert(0, new ObservableCollection<Item>(new []{new Item(1, true), new Item(2, true), new Item(3, true), new Item(4, true), new Item(5, true)}));
 					sourceScalarValue.Insert(0, new ObservableCollection<Item>(new []{new Item(6, true), new Item(7, true), new Item(8, true), new Item(8, true), new Item(10, true)}));
 					testing.ValidateConsistency();
-				}
-
+				}				
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -65688,8 +66957,8 @@ namespace ObservableComputations.Test
 					sourceScalarValue.Insert(0, new ObservableCollection<Item>(new []{new Item(1, true), new Item(2, true), new Item(3, true), new Item(4, true), new Item(5, true)}));
 					sourceScalarValue.Insert(0, new ObservableCollection<Item>(new []{new Item(6, true), new Item(7, true), new Item(8, true), new Item(8, true), new Item(10, true)}));
 					testing.ValidateConsistency();
-				}
-
+				}				
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -65708,7 +66977,7 @@ namespace ObservableComputations.Test
 		
 		[Test, Combinatorial]
 		public void TestUniting07(
-			[Values(1)] int initialCapacity)
+			[Values(1, 2, 3)] int initialCapacity)
 		{
 			Scalar<ObservableCollection<ObservableCollection<Item>>> sourceScalar = getScalar<ObservableCollection<ObservableCollection<Item>>>(getCollectionsOfItems());
 			OcConsumer consumer = new OcConsumer();
@@ -65740,8 +67009,8 @@ namespace ObservableComputations.Test
 					sourceScalarValue.Insert(0, new ObservableCollection<Item>(new []{new Item(1, true), new Item(2, true), new Item(3, true), new Item(4, true), new Item(5, true)}));
 					sourceScalarValue.Insert(0, new ObservableCollection<Item>(new []{new Item(6, true), new Item(7, true), new Item(8, true), new Item(8, true), new Item(10, true)}));
 					testing.ValidateConsistency();
-				}
-
+				}				
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -65784,8 +67053,8 @@ namespace ObservableComputations.Test
 					sourceScalarValue.Insert(0, new ObservableCollection<Item>(new []{new Item(1, true), new Item(2, true), new Item(3, true), new Item(4, true), new Item(5, true)}));
 					sourceScalarValue.Insert(0, new ObservableCollection<Item>(new []{new Item(6, true), new Item(7, true), new Item(8, true), new Item(8, true), new Item(10, true)}));
 					testing.ValidateConsistency();
-				}
-
+				}				
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -65799,7 +67068,7 @@ namespace ObservableComputations.Test
 		
 		[Test, Combinatorial]
 		public void TestUniting09(
-			[Values(1)] int initialCapacity)
+			[Values(1, 2, 3)] int initialCapacity)
 		{
 			System.Collections.Specialized.INotifyCollectionChanged source = getCollectionsOfItems();
 			Scalar<System.Collections.Generic.IEqualityComparer<Item>> equalityComparerScalar = getScalar<System.Collections.Generic.IEqualityComparer<Item>>(EqualityComparer<Item>.Default);
@@ -65834,8 +67103,8 @@ namespace ObservableComputations.Test
 					sourceValue.Insert(0, new ObservableCollection<Item>(new []{new Item(1, true), new Item(2, true), new Item(3, true), new Item(4, true), new Item(5, true)}));
 					sourceValue.Insert(0, new ObservableCollection<Item>(new []{new Item(6, true), new Item(7, true), new Item(8, true), new Item(8, true), new Item(10, true)}));
 					testing.ValidateConsistency();
-				}
-
+				}				
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -65881,8 +67150,8 @@ namespace ObservableComputations.Test
 					sourceValue.Insert(0, new ObservableCollection<Item>(new []{new Item(1, true), new Item(2, true), new Item(3, true), new Item(4, true), new Item(5, true)}));
 					sourceValue.Insert(0, new ObservableCollection<Item>(new []{new Item(6, true), new Item(7, true), new Item(8, true), new Item(8, true), new Item(10, true)}));
 					testing.ValidateConsistency();
-				}
-
+				}				
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -65896,7 +67165,7 @@ namespace ObservableComputations.Test
 		
 		[Test, Combinatorial]
 		public void TestUniting11(
-			[Values(1)] int initialCapacity)
+			[Values(1, 2, 3)] int initialCapacity)
 		{
 			System.Collections.Specialized.INotifyCollectionChanged source = getCollectionsOfItems();
 			OcConsumer consumer = new OcConsumer();
@@ -65928,8 +67197,8 @@ namespace ObservableComputations.Test
 					sourceValue.Insert(0, new ObservableCollection<Item>(new []{new Item(1, true), new Item(2, true), new Item(3, true), new Item(4, true), new Item(5, true)}));
 					sourceValue.Insert(0, new ObservableCollection<Item>(new []{new Item(6, true), new Item(7, true), new Item(8, true), new Item(8, true), new Item(10, true)}));
 					testing.ValidateConsistency();
-				}
-
+				}				
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -65967,8 +67236,8 @@ namespace ObservableComputations.Test
 					sourceValue.Insert(0, new ObservableCollection<Item>(new []{new Item(1, true), new Item(2, true), new Item(3, true), new Item(4, true), new Item(5, true)}));
 					sourceValue.Insert(0, new ObservableCollection<Item>(new []{new Item(6, true), new Item(7, true), new Item(8, true), new Item(8, true), new Item(10, true)}));
 					testing.ValidateConsistency();
-				}
-
+				}				
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -65977,7 +67246,7 @@ namespace ObservableComputations.Test
 		
 		[Test, Combinatorial]
 		public void TestUniting13(
-			[Values(1)] int initialCapacity)
+			[Values(1, 2, 3)] int initialCapacity)
 		{
 			ObservableCollection<ObservableCollection<Item>> source = getCollectionsOfItems();
 			Scalar<System.Collections.Generic.IEqualityComparer<Item>> equalityComparerScalar = getScalar<System.Collections.Generic.IEqualityComparer<Item>>(EqualityComparer<Item>.Default);
@@ -66012,8 +67281,8 @@ namespace ObservableComputations.Test
 					sourceValue.Insert(0, new ObservableCollection<Item>(new []{new Item(1, true), new Item(2, true), new Item(3, true), new Item(4, true), new Item(5, true)}));
 					sourceValue.Insert(0, new ObservableCollection<Item>(new []{new Item(6, true), new Item(7, true), new Item(8, true), new Item(8, true), new Item(10, true)}));
 					testing.ValidateConsistency();
-				}
-
+				}				
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -66059,8 +67328,8 @@ namespace ObservableComputations.Test
 					sourceValue.Insert(0, new ObservableCollection<Item>(new []{new Item(1, true), new Item(2, true), new Item(3, true), new Item(4, true), new Item(5, true)}));
 					sourceValue.Insert(0, new ObservableCollection<Item>(new []{new Item(6, true), new Item(7, true), new Item(8, true), new Item(8, true), new Item(10, true)}));
 					testing.ValidateConsistency();
-				}
-
+				}				
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -66074,7 +67343,7 @@ namespace ObservableComputations.Test
 		
 		[Test, Combinatorial]
 		public void TestUniting15(
-			[Values(1)] int initialCapacity)
+			[Values(1, 2, 3)] int initialCapacity)
 		{
 			ObservableCollection<ObservableCollection<Item>> source = getCollectionsOfItems();
 			OcConsumer consumer = new OcConsumer();
@@ -66106,8 +67375,8 @@ namespace ObservableComputations.Test
 					sourceValue.Insert(0, new ObservableCollection<Item>(new []{new Item(1, true), new Item(2, true), new Item(3, true), new Item(4, true), new Item(5, true)}));
 					sourceValue.Insert(0, new ObservableCollection<Item>(new []{new Item(6, true), new Item(7, true), new Item(8, true), new Item(8, true), new Item(10, true)}));
 					testing.ValidateConsistency();
-				}
-
+				}				
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -66145,8 +67414,8 @@ namespace ObservableComputations.Test
 					sourceValue.Insert(0, new ObservableCollection<Item>(new []{new Item(1, true), new Item(2, true), new Item(3, true), new Item(4, true), new Item(5, true)}));
 					sourceValue.Insert(0, new ObservableCollection<Item>(new []{new Item(6, true), new Item(7, true), new Item(8, true), new Item(8, true), new Item(10, true)}));
 					testing.ValidateConsistency();
-				}
-
+				}				
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -66155,7 +67424,7 @@ namespace ObservableComputations.Test
 		
 		[Test, Combinatorial]
 		public void TestUniting17(
-			[Values(1)] int initialCapacity)
+			[Values(1, 2, 3)] int initialCapacity)
 		{
 			System.Collections.Specialized.INotifyCollectionChanged source = getCollectionsOfItems();
 			System.Collections.Generic.IEqualityComparer<Item> equalityComparer = EqualityComparer<Item>.Default;
@@ -66190,8 +67459,8 @@ namespace ObservableComputations.Test
 					sourceValue.Insert(0, new ObservableCollection<Item>(new []{new Item(1, true), new Item(2, true), new Item(3, true), new Item(4, true), new Item(5, true)}));
 					sourceValue.Insert(0, new ObservableCollection<Item>(new []{new Item(6, true), new Item(7, true), new Item(8, true), new Item(8, true), new Item(10, true)}));
 					testing.ValidateConsistency();
-				}
-
+				}				
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -66232,8 +67501,8 @@ namespace ObservableComputations.Test
 					sourceValue.Insert(0, new ObservableCollection<Item>(new []{new Item(1, true), new Item(2, true), new Item(3, true), new Item(4, true), new Item(5, true)}));
 					sourceValue.Insert(0, new ObservableCollection<Item>(new []{new Item(6, true), new Item(7, true), new Item(8, true), new Item(8, true), new Item(10, true)}));
 					testing.ValidateConsistency();
-				}
-
+				}				
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -66242,7 +67511,7 @@ namespace ObservableComputations.Test
 		
 		[Test, Combinatorial]
 		public void TestUniting19(
-			[Values(1)] int initialCapacity)
+			[Values(1, 2, 3)] int initialCapacity)
 		{
 			ObservableCollection<ObservableCollection<Item>> source = getCollectionsOfItems();
 			System.Collections.Generic.IEqualityComparer<Item> equalityComparer = EqualityComparer<Item>.Default;
@@ -66277,8 +67546,8 @@ namespace ObservableComputations.Test
 					sourceValue.Insert(0, new ObservableCollection<Item>(new []{new Item(1, true), new Item(2, true), new Item(3, true), new Item(4, true), new Item(5, true)}));
 					sourceValue.Insert(0, new ObservableCollection<Item>(new []{new Item(6, true), new Item(7, true), new Item(8, true), new Item(8, true), new Item(10, true)}));
 					testing.ValidateConsistency();
-				}
-
+				}				
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -66319,8 +67588,8 @@ namespace ObservableComputations.Test
 					sourceValue.Insert(0, new ObservableCollection<Item>(new []{new Item(1, true), new Item(2, true), new Item(3, true), new Item(4, true), new Item(5, true)}));
 					sourceValue.Insert(0, new ObservableCollection<Item>(new []{new Item(6, true), new Item(7, true), new Item(8, true), new Item(8, true), new Item(10, true)}));
 					testing.ValidateConsistency();
-				}
-
+				}				
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -66329,7 +67598,7 @@ namespace ObservableComputations.Test
 		
 		[Test, Combinatorial]
 		public void TestUniting21(
-			[Values(1)] int initialCapacity)
+			[Values(1, 2, 3)] int initialCapacity)
 		{
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getCollectionsOfItems());
 			System.Collections.Generic.IEqualityComparer<Item> equalityComparer = EqualityComparer<Item>.Default;
@@ -66364,8 +67633,8 @@ namespace ObservableComputations.Test
 					sourceScalarValue.Insert(0, new ObservableCollection<Item>(new []{new Item(1, true), new Item(2, true), new Item(3, true), new Item(4, true), new Item(5, true)}));
 					sourceScalarValue.Insert(0, new ObservableCollection<Item>(new []{new Item(6, true), new Item(7, true), new Item(8, true), new Item(8, true), new Item(10, true)}));
 					testing.ValidateConsistency();
-				}
-
+				}				
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -66411,8 +67680,8 @@ namespace ObservableComputations.Test
 					sourceScalarValue.Insert(0, new ObservableCollection<Item>(new []{new Item(1, true), new Item(2, true), new Item(3, true), new Item(4, true), new Item(5, true)}));
 					sourceScalarValue.Insert(0, new ObservableCollection<Item>(new []{new Item(6, true), new Item(7, true), new Item(8, true), new Item(8, true), new Item(10, true)}));
 					testing.ValidateConsistency();
-				}
-
+				}				
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -66426,7 +67695,7 @@ namespace ObservableComputations.Test
 		
 		[Test, Combinatorial]
 		public void TestUniting23(
-			[Values(1)] int initialCapacity)
+			[Values(1, 2, 3)] int initialCapacity)
 		{
 			Scalar<ObservableCollection<ObservableCollection<Item>>> sourceScalar = getScalar<ObservableCollection<ObservableCollection<Item>>>(getCollectionsOfItems());
 			System.Collections.Generic.IEqualityComparer<Item> equalityComparer = EqualityComparer<Item>.Default;
@@ -66461,8 +67730,8 @@ namespace ObservableComputations.Test
 					sourceScalarValue.Insert(0, new ObservableCollection<Item>(new []{new Item(1, true), new Item(2, true), new Item(3, true), new Item(4, true), new Item(5, true)}));
 					sourceScalarValue.Insert(0, new ObservableCollection<Item>(new []{new Item(6, true), new Item(7, true), new Item(8, true), new Item(8, true), new Item(10, true)}));
 					testing.ValidateConsistency();
-				}
-
+				}				
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -66508,8 +67777,8 @@ namespace ObservableComputations.Test
 					sourceScalarValue.Insert(0, new ObservableCollection<Item>(new []{new Item(1, true), new Item(2, true), new Item(3, true), new Item(4, true), new Item(5, true)}));
 					sourceScalarValue.Insert(0, new ObservableCollection<Item>(new []{new Item(6, true), new Item(7, true), new Item(8, true), new Item(8, true), new Item(10, true)}));
 					testing.ValidateConsistency();
-				}
-
+				}				
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -66523,7 +67792,7 @@ namespace ObservableComputations.Test
 		
 		[Test, Combinatorial]
 		public void TestUniting25(
-			[Values(1)] int initialCapacity)
+			[Values(1, 2, 3)] int initialCapacity)
 		{
 			System.Collections.Specialized.INotifyCollectionChanged source1 = getItems();
 			System.Collections.Specialized.INotifyCollectionChanged source2 = getItems();
@@ -66624,6 +67893,7 @@ namespace ObservableComputations.Test
 					source2Value.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -66730,6 +68000,7 @@ namespace ObservableComputations.Test
 					source2Value.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -66738,7 +68009,7 @@ namespace ObservableComputations.Test
 		
 		[Test, Combinatorial]
 		public void TestUniting27(
-			[Values(1)] int initialCapacity)
+			[Values(1, 2, 3)] int initialCapacity)
 		{
 			System.Collections.Specialized.INotifyCollectionChanged source1 = getItems();
 			System.Collections.Specialized.INotifyCollectionChanged source2 = getItems();
@@ -66836,6 +68107,7 @@ namespace ObservableComputations.Test
 					source2Value.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -66939,6 +68211,7 @@ namespace ObservableComputations.Test
 					source2Value.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -66947,7 +68220,7 @@ namespace ObservableComputations.Test
 		
 		[Test, Combinatorial]
 		public void TestUniting29(
-			[Values(1)] int initialCapacity)
+			[Values(1, 2, 3)] int initialCapacity)
 		{
 			System.Collections.Specialized.INotifyCollectionChanged source1 = getItems();
 			ObservableCollection<Item> source2 = getItems();
@@ -67048,6 +68321,7 @@ namespace ObservableComputations.Test
 					source2Value.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -67154,6 +68428,7 @@ namespace ObservableComputations.Test
 					source2Value.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -67162,7 +68437,7 @@ namespace ObservableComputations.Test
 		
 		[Test, Combinatorial]
 		public void TestUniting31(
-			[Values(1)] int initialCapacity)
+			[Values(1, 2, 3)] int initialCapacity)
 		{
 			System.Collections.Specialized.INotifyCollectionChanged source1 = getItems();
 			ObservableCollection<Item> source2 = getItems();
@@ -67260,6 +68535,7 @@ namespace ObservableComputations.Test
 					source2Value.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -67363,6 +68639,7 @@ namespace ObservableComputations.Test
 					source2Value.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -67371,7 +68648,7 @@ namespace ObservableComputations.Test
 		
 		[Test, Combinatorial]
 		public void TestUniting33(
-			[Values(1)] int initialCapacity)
+			[Values(1, 2, 3)] int initialCapacity)
 		{
 			ObservableCollection<Item> source1 = getItems();
 			System.Collections.Specialized.INotifyCollectionChanged source2 = getItems();
@@ -67472,6 +68749,7 @@ namespace ObservableComputations.Test
 					source2Value.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -67578,6 +68856,7 @@ namespace ObservableComputations.Test
 					source2Value.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -67586,7 +68865,7 @@ namespace ObservableComputations.Test
 		
 		[Test, Combinatorial]
 		public void TestUniting35(
-			[Values(1)] int initialCapacity)
+			[Values(1, 2, 3)] int initialCapacity)
 		{
 			ObservableCollection<Item> source1 = getItems();
 			System.Collections.Specialized.INotifyCollectionChanged source2 = getItems();
@@ -67684,6 +68963,7 @@ namespace ObservableComputations.Test
 					source2Value.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -67787,6 +69067,7 @@ namespace ObservableComputations.Test
 					source2Value.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -67795,7 +69076,7 @@ namespace ObservableComputations.Test
 		
 		[Test, Combinatorial]
 		public void TestUniting37(
-			[Values(1)] int initialCapacity)
+			[Values(1, 2, 3)] int initialCapacity)
 		{
 			ObservableCollection<Item> source1 = getItems();
 			ObservableCollection<Item> source2 = getItems();
@@ -67896,6 +69177,7 @@ namespace ObservableComputations.Test
 					source2Value.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -68002,6 +69284,7 @@ namespace ObservableComputations.Test
 					source2Value.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -68010,7 +69293,7 @@ namespace ObservableComputations.Test
 		
 		[Test, Combinatorial]
 		public void TestUniting39(
-			[Values(1)] int initialCapacity)
+			[Values(1, 2, 3)] int initialCapacity)
 		{
 			ObservableCollection<Item> source1 = getItems();
 			ObservableCollection<Item> source2 = getItems();
@@ -68108,6 +69391,7 @@ namespace ObservableComputations.Test
 					source2Value.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -68211,6 +69495,7 @@ namespace ObservableComputations.Test
 					source2Value.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -68219,7 +69504,7 @@ namespace ObservableComputations.Test
 		
 		[Test, Combinatorial]
 		public void TestUniting41(
-			[Values(1)] int initialCapacity)
+			[Values(1, 2, 3)] int initialCapacity)
 		{
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> source1Scalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
 			System.Collections.Specialized.INotifyCollectionChanged source2 = getItems();
@@ -68320,6 +69605,7 @@ namespace ObservableComputations.Test
 					source2Value.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -68431,6 +69717,7 @@ namespace ObservableComputations.Test
 					source2Value.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -68444,7 +69731,7 @@ namespace ObservableComputations.Test
 		
 		[Test, Combinatorial]
 		public void TestUniting43(
-			[Values(1)] int initialCapacity)
+			[Values(1, 2, 3)] int initialCapacity)
 		{
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> source1Scalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
 			System.Collections.Specialized.INotifyCollectionChanged source2 = getItems();
@@ -68542,6 +69829,7 @@ namespace ObservableComputations.Test
 					source2Value.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -68650,6 +69938,7 @@ namespace ObservableComputations.Test
 					source2Value.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -68663,7 +69952,7 @@ namespace ObservableComputations.Test
 		
 		[Test, Combinatorial]
 		public void TestUniting45(
-			[Values(1)] int initialCapacity)
+			[Values(1, 2, 3)] int initialCapacity)
 		{
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> source1Scalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
 			ObservableCollection<Item> source2 = getItems();
@@ -68764,6 +70053,7 @@ namespace ObservableComputations.Test
 					source2Value.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -68875,6 +70165,7 @@ namespace ObservableComputations.Test
 					source2Value.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -68888,7 +70179,7 @@ namespace ObservableComputations.Test
 		
 		[Test, Combinatorial]
 		public void TestUniting47(
-			[Values(1)] int initialCapacity)
+			[Values(1, 2, 3)] int initialCapacity)
 		{
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> source1Scalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
 			ObservableCollection<Item> source2 = getItems();
@@ -68986,6 +70277,7 @@ namespace ObservableComputations.Test
 					source2Value.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -69094,6 +70386,7 @@ namespace ObservableComputations.Test
 					source2Value.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -69107,7 +70400,7 @@ namespace ObservableComputations.Test
 		
 		[Test, Combinatorial]
 		public void TestUniting49(
-			[Values(1)] int initialCapacity)
+			[Values(1, 2, 3)] int initialCapacity)
 		{
 			Scalar<ObservableCollection<Item>> source1Scalar = getScalar<ObservableCollection<Item>>(getItems());
 			System.Collections.Specialized.INotifyCollectionChanged source2 = getItems();
@@ -69208,6 +70501,7 @@ namespace ObservableComputations.Test
 					source2Value.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -69319,6 +70613,7 @@ namespace ObservableComputations.Test
 					source2Value.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -69332,7 +70627,7 @@ namespace ObservableComputations.Test
 		
 		[Test, Combinatorial]
 		public void TestUniting51(
-			[Values(1)] int initialCapacity)
+			[Values(1, 2, 3)] int initialCapacity)
 		{
 			Scalar<ObservableCollection<Item>> source1Scalar = getScalar<ObservableCollection<Item>>(getItems());
 			System.Collections.Specialized.INotifyCollectionChanged source2 = getItems();
@@ -69430,6 +70725,7 @@ namespace ObservableComputations.Test
 					source2Value.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -69538,6 +70834,7 @@ namespace ObservableComputations.Test
 					source2Value.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -69551,7 +70848,7 @@ namespace ObservableComputations.Test
 		
 		[Test, Combinatorial]
 		public void TestUniting53(
-			[Values(1)] int initialCapacity)
+			[Values(1, 2, 3)] int initialCapacity)
 		{
 			Scalar<ObservableCollection<Item>> source1Scalar = getScalar<ObservableCollection<Item>>(getItems());
 			ObservableCollection<Item> source2 = getItems();
@@ -69652,6 +70949,7 @@ namespace ObservableComputations.Test
 					source2Value.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -69763,6 +71061,7 @@ namespace ObservableComputations.Test
 					source2Value.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -69776,7 +71075,7 @@ namespace ObservableComputations.Test
 		
 		[Test, Combinatorial]
 		public void TestUniting55(
-			[Values(1)] int initialCapacity)
+			[Values(1, 2, 3)] int initialCapacity)
 		{
 			Scalar<ObservableCollection<Item>> source1Scalar = getScalar<ObservableCollection<Item>>(getItems());
 			ObservableCollection<Item> source2 = getItems();
@@ -69874,6 +71173,7 @@ namespace ObservableComputations.Test
 					source2Value.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -69982,6 +71282,7 @@ namespace ObservableComputations.Test
 					source2Value.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -69995,7 +71296,7 @@ namespace ObservableComputations.Test
 		
 		[Test, Combinatorial]
 		public void TestUniting57(
-			[Values(1)] int initialCapacity)
+			[Values(1, 2, 3)] int initialCapacity)
 		{
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> source1Scalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> source2Scalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
@@ -70096,6 +71397,7 @@ namespace ObservableComputations.Test
 					source2ScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -70212,6 +71514,7 @@ namespace ObservableComputations.Test
 					source2ScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -70230,7 +71533,7 @@ namespace ObservableComputations.Test
 		
 		[Test, Combinatorial]
 		public void TestUniting59(
-			[Values(1)] int initialCapacity)
+			[Values(1, 2, 3)] int initialCapacity)
 		{
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> source1Scalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> source2Scalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
@@ -70328,6 +71631,7 @@ namespace ObservableComputations.Test
 					source2ScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -70441,6 +71745,7 @@ namespace ObservableComputations.Test
 					source2ScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -70459,7 +71764,7 @@ namespace ObservableComputations.Test
 		
 		[Test, Combinatorial]
 		public void TestUniting61(
-			[Values(1)] int initialCapacity)
+			[Values(1, 2, 3)] int initialCapacity)
 		{
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> source1Scalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
 			Scalar<ObservableCollection<Item>> source2Scalar = getScalar<ObservableCollection<Item>>(getItems());
@@ -70560,6 +71865,7 @@ namespace ObservableComputations.Test
 					source2ScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -70676,6 +71982,7 @@ namespace ObservableComputations.Test
 					source2ScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -70694,7 +72001,7 @@ namespace ObservableComputations.Test
 		
 		[Test, Combinatorial]
 		public void TestUniting63(
-			[Values(1)] int initialCapacity)
+			[Values(1, 2, 3)] int initialCapacity)
 		{
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> source1Scalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
 			Scalar<ObservableCollection<Item>> source2Scalar = getScalar<ObservableCollection<Item>>(getItems());
@@ -70792,6 +72099,7 @@ namespace ObservableComputations.Test
 					source2ScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -70905,6 +72213,7 @@ namespace ObservableComputations.Test
 					source2ScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -70923,7 +72232,7 @@ namespace ObservableComputations.Test
 		
 		[Test, Combinatorial]
 		public void TestUniting65(
-			[Values(1)] int initialCapacity)
+			[Values(1, 2, 3)] int initialCapacity)
 		{
 			Scalar<ObservableCollection<Item>> source1Scalar = getScalar<ObservableCollection<Item>>(getItems());
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> source2Scalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
@@ -71024,6 +72333,7 @@ namespace ObservableComputations.Test
 					source2ScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -71140,6 +72450,7 @@ namespace ObservableComputations.Test
 					source2ScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -71158,7 +72469,7 @@ namespace ObservableComputations.Test
 		
 		[Test, Combinatorial]
 		public void TestUniting67(
-			[Values(1)] int initialCapacity)
+			[Values(1, 2, 3)] int initialCapacity)
 		{
 			Scalar<ObservableCollection<Item>> source1Scalar = getScalar<ObservableCollection<Item>>(getItems());
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> source2Scalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
@@ -71256,6 +72567,7 @@ namespace ObservableComputations.Test
 					source2ScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -71369,6 +72681,7 @@ namespace ObservableComputations.Test
 					source2ScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -71387,7 +72700,7 @@ namespace ObservableComputations.Test
 		
 		[Test, Combinatorial]
 		public void TestUniting69(
-			[Values(1)] int initialCapacity)
+			[Values(1, 2, 3)] int initialCapacity)
 		{
 			Scalar<ObservableCollection<Item>> source1Scalar = getScalar<ObservableCollection<Item>>(getItems());
 			Scalar<ObservableCollection<Item>> source2Scalar = getScalar<ObservableCollection<Item>>(getItems());
@@ -71488,6 +72801,7 @@ namespace ObservableComputations.Test
 					source2ScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -71604,6 +72918,7 @@ namespace ObservableComputations.Test
 					source2ScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -71622,7 +72937,7 @@ namespace ObservableComputations.Test
 		
 		[Test, Combinatorial]
 		public void TestUniting71(
-			[Values(1)] int initialCapacity)
+			[Values(1, 2, 3)] int initialCapacity)
 		{
 			Scalar<ObservableCollection<Item>> source1Scalar = getScalar<ObservableCollection<Item>>(getItems());
 			Scalar<ObservableCollection<Item>> source2Scalar = getScalar<ObservableCollection<Item>>(getItems());
@@ -71720,6 +73035,7 @@ namespace ObservableComputations.Test
 					source2ScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -71833,6 +73149,7 @@ namespace ObservableComputations.Test
 					source2ScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -71851,7 +73168,7 @@ namespace ObservableComputations.Test
 		
 		[Test, Combinatorial]
 		public void TestUniting73(
-			[Values(1)] int initialCapacity)
+			[Values(1, 2, 3)] int initialCapacity)
 		{
 			System.Collections.Specialized.INotifyCollectionChanged source1 = getItems();
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> source2Scalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
@@ -71952,6 +73269,7 @@ namespace ObservableComputations.Test
 					source2ScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -72063,6 +73381,7 @@ namespace ObservableComputations.Test
 					source2ScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -72076,7 +73395,7 @@ namespace ObservableComputations.Test
 		
 		[Test, Combinatorial]
 		public void TestUniting75(
-			[Values(1)] int initialCapacity)
+			[Values(1, 2, 3)] int initialCapacity)
 		{
 			System.Collections.Specialized.INotifyCollectionChanged source1 = getItems();
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> source2Scalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
@@ -72174,6 +73493,7 @@ namespace ObservableComputations.Test
 					source2ScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -72282,6 +73602,7 @@ namespace ObservableComputations.Test
 					source2ScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -72295,7 +73616,7 @@ namespace ObservableComputations.Test
 		
 		[Test, Combinatorial]
 		public void TestUniting77(
-			[Values(1)] int initialCapacity)
+			[Values(1, 2, 3)] int initialCapacity)
 		{
 			System.Collections.Specialized.INotifyCollectionChanged source1 = getItems();
 			Scalar<ObservableCollection<Item>> source2Scalar = getScalar<ObservableCollection<Item>>(getItems());
@@ -72396,6 +73717,7 @@ namespace ObservableComputations.Test
 					source2ScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -72507,6 +73829,7 @@ namespace ObservableComputations.Test
 					source2ScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -72520,7 +73843,7 @@ namespace ObservableComputations.Test
 		
 		[Test, Combinatorial]
 		public void TestUniting79(
-			[Values(1)] int initialCapacity)
+			[Values(1, 2, 3)] int initialCapacity)
 		{
 			System.Collections.Specialized.INotifyCollectionChanged source1 = getItems();
 			Scalar<ObservableCollection<Item>> source2Scalar = getScalar<ObservableCollection<Item>>(getItems());
@@ -72618,6 +73941,7 @@ namespace ObservableComputations.Test
 					source2ScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -72726,6 +74050,7 @@ namespace ObservableComputations.Test
 					source2ScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -72739,7 +74064,7 @@ namespace ObservableComputations.Test
 		
 		[Test, Combinatorial]
 		public void TestUniting81(
-			[Values(1)] int initialCapacity)
+			[Values(1, 2, 3)] int initialCapacity)
 		{
 			ObservableCollection<Item> source1 = getItems();
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> source2Scalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
@@ -72840,6 +74165,7 @@ namespace ObservableComputations.Test
 					source2ScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -72951,6 +74277,7 @@ namespace ObservableComputations.Test
 					source2ScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -72964,7 +74291,7 @@ namespace ObservableComputations.Test
 		
 		[Test, Combinatorial]
 		public void TestUniting83(
-			[Values(1)] int initialCapacity)
+			[Values(1, 2, 3)] int initialCapacity)
 		{
 			ObservableCollection<Item> source1 = getItems();
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> source2Scalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
@@ -73062,6 +74389,7 @@ namespace ObservableComputations.Test
 					source2ScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -73170,6 +74498,7 @@ namespace ObservableComputations.Test
 					source2ScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -73183,7 +74512,7 @@ namespace ObservableComputations.Test
 		
 		[Test, Combinatorial]
 		public void TestUniting85(
-			[Values(1)] int initialCapacity)
+			[Values(1, 2, 3)] int initialCapacity)
 		{
 			ObservableCollection<Item> source1 = getItems();
 			Scalar<ObservableCollection<Item>> source2Scalar = getScalar<ObservableCollection<Item>>(getItems());
@@ -73284,6 +74613,7 @@ namespace ObservableComputations.Test
 					source2ScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -73395,6 +74725,7 @@ namespace ObservableComputations.Test
 					source2ScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -73408,7 +74739,7 @@ namespace ObservableComputations.Test
 		
 		[Test, Combinatorial]
 		public void TestUniting87(
-			[Values(1)] int initialCapacity)
+			[Values(1, 2, 3)] int initialCapacity)
 		{
 			ObservableCollection<Item> source1 = getItems();
 			Scalar<ObservableCollection<Item>> source2Scalar = getScalar<ObservableCollection<Item>>(getItems());
@@ -73506,6 +74837,7 @@ namespace ObservableComputations.Test
 					source2ScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -73614,6 +74946,7 @@ namespace ObservableComputations.Test
 					source2ScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -73627,7 +74960,7 @@ namespace ObservableComputations.Test
 		
 		[Test, Combinatorial]
 		public void TestUniting89(
-			[Values(1)] int initialCapacity)
+			[Values(1, 2, 3)] int initialCapacity)
 		{
 			System.Collections.Specialized.INotifyCollectionChanged source1 = getItems();
 			System.Collections.Specialized.INotifyCollectionChanged source2 = getItems();
@@ -73728,6 +75061,7 @@ namespace ObservableComputations.Test
 					source2Value.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -73839,6 +75173,7 @@ namespace ObservableComputations.Test
 					source2Value.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -73852,7 +75187,7 @@ namespace ObservableComputations.Test
 		
 		[Test, Combinatorial]
 		public void TestUniting91(
-			[Values(1)] int initialCapacity)
+			[Values(1, 2, 3)] int initialCapacity)
 		{
 			System.Collections.Specialized.INotifyCollectionChanged source1 = getItems();
 			ObservableCollection<Item> source2 = getItems();
@@ -73953,6 +75288,7 @@ namespace ObservableComputations.Test
 					source2Value.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -74064,6 +75400,7 @@ namespace ObservableComputations.Test
 					source2Value.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -74077,7 +75414,7 @@ namespace ObservableComputations.Test
 		
 		[Test, Combinatorial]
 		public void TestUniting93(
-			[Values(1)] int initialCapacity)
+			[Values(1, 2, 3)] int initialCapacity)
 		{
 			ObservableCollection<Item> source1 = getItems();
 			System.Collections.Specialized.INotifyCollectionChanged source2 = getItems();
@@ -74178,6 +75515,7 @@ namespace ObservableComputations.Test
 					source2Value.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -74289,6 +75627,7 @@ namespace ObservableComputations.Test
 					source2Value.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -74302,7 +75641,7 @@ namespace ObservableComputations.Test
 		
 		[Test, Combinatorial]
 		public void TestUniting95(
-			[Values(1)] int initialCapacity)
+			[Values(1, 2, 3)] int initialCapacity)
 		{
 			ObservableCollection<Item> source1 = getItems();
 			ObservableCollection<Item> source2 = getItems();
@@ -74403,6 +75742,7 @@ namespace ObservableComputations.Test
 					source2Value.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -74514,6 +75854,7 @@ namespace ObservableComputations.Test
 					source2Value.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -74527,7 +75868,7 @@ namespace ObservableComputations.Test
 		
 		[Test, Combinatorial]
 		public void TestUniting97(
-			[Values(1)] int initialCapacity)
+			[Values(1, 2, 3)] int initialCapacity)
 		{
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> source1Scalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
 			System.Collections.Specialized.INotifyCollectionChanged source2 = getItems();
@@ -74628,6 +75969,7 @@ namespace ObservableComputations.Test
 					source2Value.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -74744,6 +76086,7 @@ namespace ObservableComputations.Test
 					source2Value.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -74762,7 +76105,7 @@ namespace ObservableComputations.Test
 		
 		[Test, Combinatorial]
 		public void TestUniting99(
-			[Values(1)] int initialCapacity)
+			[Values(1, 2, 3)] int initialCapacity)
 		{
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> source1Scalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
 			ObservableCollection<Item> source2 = getItems();
@@ -74863,6 +76206,7 @@ namespace ObservableComputations.Test
 					source2Value.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -74979,6 +76323,7 @@ namespace ObservableComputations.Test
 					source2Value.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -74997,7 +76342,7 @@ namespace ObservableComputations.Test
 		
 		[Test, Combinatorial]
 		public void TestUniting101(
-			[Values(1)] int initialCapacity)
+			[Values(1, 2, 3)] int initialCapacity)
 		{
 			Scalar<ObservableCollection<Item>> source1Scalar = getScalar<ObservableCollection<Item>>(getItems());
 			System.Collections.Specialized.INotifyCollectionChanged source2 = getItems();
@@ -75098,6 +76443,7 @@ namespace ObservableComputations.Test
 					source2Value.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -75214,6 +76560,7 @@ namespace ObservableComputations.Test
 					source2Value.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -75232,7 +76579,7 @@ namespace ObservableComputations.Test
 		
 		[Test, Combinatorial]
 		public void TestUniting103(
-			[Values(1)] int initialCapacity)
+			[Values(1, 2, 3)] int initialCapacity)
 		{
 			Scalar<ObservableCollection<Item>> source1Scalar = getScalar<ObservableCollection<Item>>(getItems());
 			ObservableCollection<Item> source2 = getItems();
@@ -75333,6 +76680,7 @@ namespace ObservableComputations.Test
 					source2Value.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -75449,6 +76797,7 @@ namespace ObservableComputations.Test
 					source2Value.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -75467,7 +76816,7 @@ namespace ObservableComputations.Test
 		
 		[Test, Combinatorial]
 		public void TestUniting105(
-			[Values(1)] int initialCapacity)
+			[Values(1, 2, 3)] int initialCapacity)
 		{
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> source1Scalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> source2Scalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
@@ -75568,6 +76917,7 @@ namespace ObservableComputations.Test
 					source2ScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -75689,6 +77039,7 @@ namespace ObservableComputations.Test
 					source2ScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -75712,7 +77063,7 @@ namespace ObservableComputations.Test
 		
 		[Test, Combinatorial]
 		public void TestUniting107(
-			[Values(1)] int initialCapacity)
+			[Values(1, 2, 3)] int initialCapacity)
 		{
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> source1Scalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
 			Scalar<ObservableCollection<Item>> source2Scalar = getScalar<ObservableCollection<Item>>(getItems());
@@ -75813,6 +77164,7 @@ namespace ObservableComputations.Test
 					source2ScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -75934,6 +77286,7 @@ namespace ObservableComputations.Test
 					source2ScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -75957,7 +77310,7 @@ namespace ObservableComputations.Test
 		
 		[Test, Combinatorial]
 		public void TestUniting109(
-			[Values(1)] int initialCapacity)
+			[Values(1, 2, 3)] int initialCapacity)
 		{
 			Scalar<ObservableCollection<Item>> source1Scalar = getScalar<ObservableCollection<Item>>(getItems());
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> source2Scalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
@@ -76058,6 +77411,7 @@ namespace ObservableComputations.Test
 					source2ScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -76179,6 +77533,7 @@ namespace ObservableComputations.Test
 					source2ScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -76202,7 +77557,7 @@ namespace ObservableComputations.Test
 		
 		[Test, Combinatorial]
 		public void TestUniting111(
-			[Values(1)] int initialCapacity)
+			[Values(1, 2, 3)] int initialCapacity)
 		{
 			Scalar<ObservableCollection<Item>> source1Scalar = getScalar<ObservableCollection<Item>>(getItems());
 			Scalar<ObservableCollection<Item>> source2Scalar = getScalar<ObservableCollection<Item>>(getItems());
@@ -76303,6 +77658,7 @@ namespace ObservableComputations.Test
 					source2ScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -76424,6 +77780,7 @@ namespace ObservableComputations.Test
 					source2ScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -76447,7 +77804,7 @@ namespace ObservableComputations.Test
 		
 		[Test, Combinatorial]
 		public void TestUniting113(
-			[Values(1)] int initialCapacity)
+			[Values(1, 2, 3)] int initialCapacity)
 		{
 			System.Collections.Specialized.INotifyCollectionChanged source1 = getItems();
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> source2Scalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
@@ -76548,6 +77905,7 @@ namespace ObservableComputations.Test
 					source2ScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -76664,6 +78022,7 @@ namespace ObservableComputations.Test
 					source2ScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -76682,7 +78041,7 @@ namespace ObservableComputations.Test
 		
 		[Test, Combinatorial]
 		public void TestUniting115(
-			[Values(1)] int initialCapacity)
+			[Values(1, 2, 3)] int initialCapacity)
 		{
 			System.Collections.Specialized.INotifyCollectionChanged source1 = getItems();
 			Scalar<ObservableCollection<Item>> source2Scalar = getScalar<ObservableCollection<Item>>(getItems());
@@ -76783,6 +78142,7 @@ namespace ObservableComputations.Test
 					source2ScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -76899,6 +78259,7 @@ namespace ObservableComputations.Test
 					source2ScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -76917,7 +78278,7 @@ namespace ObservableComputations.Test
 		
 		[Test, Combinatorial]
 		public void TestUniting117(
-			[Values(1)] int initialCapacity)
+			[Values(1, 2, 3)] int initialCapacity)
 		{
 			ObservableCollection<Item> source1 = getItems();
 			Scalar<System.Collections.Specialized.INotifyCollectionChanged> source2Scalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
@@ -77018,6 +78379,7 @@ namespace ObservableComputations.Test
 					source2ScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -77134,6 +78496,7 @@ namespace ObservableComputations.Test
 					source2ScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -77152,7 +78515,7 @@ namespace ObservableComputations.Test
 		
 		[Test, Combinatorial]
 		public void TestUniting119(
-			[Values(1)] int initialCapacity)
+			[Values(1, 2, 3)] int initialCapacity)
 		{
 			ObservableCollection<Item> source1 = getItems();
 			Scalar<ObservableCollection<Item>> source2Scalar = getScalar<ObservableCollection<Item>>(getItems());
@@ -77253,6 +78616,7 @@ namespace ObservableComputations.Test
 					source2ScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -77369,6 +78733,7 @@ namespace ObservableComputations.Test
 					source2ScalarValue.Insert(4, new QuickTests.Item(3, true));
 					testing.ValidateConsistency();
 				}
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -77455,6 +78820,7 @@ namespace ObservableComputations.Test
 				}
 
 				IList listSource;
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -77533,6 +78899,7 @@ namespace ObservableComputations.Test
 				}
 
 				IList listSource;
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -77611,6 +78978,7 @@ namespace ObservableComputations.Test
 				}
 
 				IList listSource;
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -77689,6 +79057,7 @@ namespace ObservableComputations.Test
 				}
 
 				IList listSource;
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -77767,6 +79136,7 @@ namespace ObservableComputations.Test
 				}
 
 				IList listSource;
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -77850,6 +79220,7 @@ namespace ObservableComputations.Test
 				}
 
 				IList listSource;
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -77933,6 +79304,7 @@ namespace ObservableComputations.Test
 				}
 
 				IList listSource;
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -78016,6 +79388,7 @@ namespace ObservableComputations.Test
 				}
 
 				IList listSource;
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -78099,6 +79472,7 @@ namespace ObservableComputations.Test
 				}
 
 				IList listSource;
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -78172,6 +79546,7 @@ namespace ObservableComputations.Test
 				}
 
 				IList listSource;
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -78245,6 +79620,7 @@ namespace ObservableComputations.Test
 				}
 
 				IList listSource;
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -78318,6 +79694,7 @@ namespace ObservableComputations.Test
 				}
 
 				IList listSource;
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -78391,6 +79768,7 @@ namespace ObservableComputations.Test
 				}
 
 				IList listSource;
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -78469,6 +79847,7 @@ namespace ObservableComputations.Test
 				}
 
 				IList listSource;
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -78547,6 +79926,7 @@ namespace ObservableComputations.Test
 				}
 
 				IList listSource;
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -78625,6 +80005,7 @@ namespace ObservableComputations.Test
 				}
 
 				IList listSource;
+				testing.ValidateConsistency();
 			}
 
 			test();

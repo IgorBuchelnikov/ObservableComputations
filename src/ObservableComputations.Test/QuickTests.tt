@@ -50,7 +50,7 @@ namespace ObservableComputations.Test
 		{
 			testNum++;
 
-			if (extensionMethod.Name == "Aggregating")
+			if (extensionMethod.Name == "SequenceComputing")
 			{
 			}
 
@@ -111,6 +111,7 @@ namespace ObservableComputations.Test
 						)
 						|| (extensionMethod.Name == "Paging" && argument.name == "initialPage")
 						|| (extensionMethod.Name == "CollectionPausing" && argument.name == "initialIsPaused")
+						|| (extensionMethod.Name == "ScalarPausing" && argument.name == "initialIsPaused")
 					)
 					continue;
 #>
@@ -220,12 +221,16 @@ namespace ObservableComputations.Test
 					<#=sourcesArgument.First().name#>Value.Insert(0, new ObservableCollection<Item>(new []{new Item(1, true), new Item(2, true), new Item(3, true), new Item(4, true), new Item(5, true)}));
 					<#=sourcesArgument.First().name#>Value.Insert(0, new ObservableCollection<Item>(new []{new Item(6, true), new Item(7, true), new Item(8, true), new Item(8, true), new Item(10, true)}));
 					testing.ValidateConsistency();
-				}
-
+				}				
 <#
 			}
 
-			var scalarSourceNotCollectionArguments = arguments.Where(a => a.argumentIndex == 0 && a.name.ToUpper().Contains("SCALAR") && !IsCollectionArgument(extensionMethod.Name, a.name, a.scalarType));
+			var scalarSourceNotCollectionArguments = arguments.Where(a => 
+				a.argumentIndex == 0 
+				&& a.name.ToUpper().Contains("SCALAR") 
+				&& !IsCollectionArgument(extensionMethod.Name, a.name, a.argumentType) 
+				&& !IsCollectionOfCollectionsArgument(extensionMethod.Name, a.name)
+				&& extensionMethod.Name != "SequenceComputing").ToArray();
 
 			foreach (var argument in scalarSourceNotCollectionArguments)
 			{
@@ -239,6 +244,7 @@ namespace ObservableComputations.Test
 				}
 			}
 #>
+				testing.ValidateConsistency();
 			}
 
 			test();
@@ -246,8 +252,14 @@ namespace ObservableComputations.Test
 
 
 			var scalarArguments = arguments.Where(a => a.name.ToUpper().Contains("SCALAR"));
-			var scalarSourceArguments = scalarArguments.Where(a => a.name.ToUpper().Contains("SOURCE"));
-			var scalarNotSourceArguments = scalarArguments.Where(a => a.argumentIndex > 0 && !a.name.ToUpper().Contains("SOURCE"));
+
+			var scalarSourceArguments = scalarArguments.Where(a => 
+				a.name.ToUpper().Contains("SOURCE") 
+				|| (extensionMethod.Name == "SequenceComputing" && a.name == "countScalar"));
+
+			var scalarNotSourceArguments = scalarArguments.Where(a => 
+				a.argumentIndex > 0 
+				&& !a.name.ToUpper().Contains("SOURCE"));
 
 			foreach (var argument in scalarNotSourceArguments.Concat(scalarSourceArguments))
 			{
@@ -555,6 +567,8 @@ namespace ObservableComputations.Test
 				break;
 			case "int":
 				result.Add(argumentName.Contains("count") ? "4" : "1");
+				result.Add("2");
+				result.Add("3");
 				break;
 			case "int?":
 				result.Add("1");

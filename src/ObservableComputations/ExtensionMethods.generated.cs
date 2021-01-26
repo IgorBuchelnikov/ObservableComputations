@@ -25069,13 +25069,13 @@ namespace ObservableComputations
 		public static ObservableComputations.Taking<TSourceItem> Taking<TSourceItem>(this
 			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar,
 			 ObservableComputations.IReadScalar<int> startIndexScalar,
-			 ObservableComputations.IReadScalar<int> countScalar,
+			 ObservableComputations.IReadScalar<int> countTakingScalar,
 			 int initialCapacity)
 		{
 			return new ObservableComputations.Taking<TSourceItem>(
 				sourceScalar: sourceScalar,
 				startIndexScalar: startIndexScalar,
-				countScalar: countScalar,
+				countTakingScalar: countTakingScalar,
 				initialCapacity: initialCapacity);
 		}
 
@@ -25083,12 +25083,12 @@ namespace ObservableComputations
 		public static ObservableComputations.Taking<TSourceItem> Taking<TSourceItem>(this
 			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar,
 			 ObservableComputations.IReadScalar<int> startIndexScalar,
-			 ObservableComputations.IReadScalar<int> countScalar)
+			 ObservableComputations.IReadScalar<int> countTakingScalar)
 		{
 			return new ObservableComputations.Taking<TSourceItem>(
 				sourceScalar: sourceScalar,
 				startIndexScalar: startIndexScalar,
-				countScalar: countScalar,
+				countTakingScalar: countTakingScalar,
 				initialCapacity: 0);
 		}
 
@@ -25096,13 +25096,13 @@ namespace ObservableComputations
 		public static ObservableComputations.Taking<TSourceItem> Taking<TSourceItem>(this
 			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar,
 			 ObservableComputations.IReadScalar<int> startIndexScalar,
-			 Expression<Func<int>> countExpression,
+			 Expression<Func<int>> countTakingExpression,
 			 int initialCapacity)
 		{
 			return new ObservableComputations.Taking<TSourceItem>(
 				sourceScalar: sourceScalar,
 				startIndexScalar: startIndexScalar,
-				countScalar: new Computing<int>(countExpression),
+				countTakingScalar: new Computing<int>(countTakingExpression),
 				initialCapacity: initialCapacity);
 		}
 
@@ -25110,12 +25110,12 @@ namespace ObservableComputations
 		public static ObservableComputations.Taking<TSourceItem> Taking<TSourceItem>(this
 			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar,
 			 ObservableComputations.IReadScalar<int> startIndexScalar,
-			 Expression<Func<int>> countExpression)
+			 Expression<Func<int>> countTakingExpression)
 		{
 			return new ObservableComputations.Taking<TSourceItem>(
 				sourceScalar: sourceScalar,
 				startIndexScalar: startIndexScalar,
-				countScalar: new Computing<int>(countExpression),
+				countTakingScalar: new Computing<int>(countTakingExpression),
 				initialCapacity: 0);
 		}
 
@@ -25123,13 +25123,13 @@ namespace ObservableComputations
 		public static ObservableComputations.Taking<TSourceItem> Taking<TSourceItem>(this
 			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar,
 			 Expression<Func<int>> startIndexExpression,
-			 ObservableComputations.IReadScalar<int> countScalar,
+			 ObservableComputations.IReadScalar<int> countTakingScalar,
 			 int initialCapacity)
 		{
 			return new ObservableComputations.Taking<TSourceItem>(
 				sourceScalar: sourceScalar,
 				startIndexScalar: new Computing<int>(startIndexExpression),
-				countScalar: countScalar,
+				countTakingScalar: countTakingScalar,
 				initialCapacity: initialCapacity);
 		}
 
@@ -25137,12 +25137,12 @@ namespace ObservableComputations
 		public static ObservableComputations.Taking<TSourceItem> Taking<TSourceItem>(this
 			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar,
 			 Expression<Func<int>> startIndexExpression,
-			 ObservableComputations.IReadScalar<int> countScalar)
+			 ObservableComputations.IReadScalar<int> countTakingScalar)
 		{
 			return new ObservableComputations.Taking<TSourceItem>(
 				sourceScalar: sourceScalar,
 				startIndexScalar: new Computing<int>(startIndexExpression),
-				countScalar: countScalar,
+				countTakingScalar: countTakingScalar,
 				initialCapacity: 0);
 		}
 
@@ -25150,13 +25150,13 @@ namespace ObservableComputations
 		public static ObservableComputations.Taking<TSourceItem> Taking<TSourceItem>(this
 			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar,
 			 Expression<Func<int>> startIndexExpression,
-			 Expression<Func<int>> countExpression,
+			 Expression<Func<int>> countTakingExpression,
 			 int initialCapacity)
 		{
 			return new ObservableComputations.Taking<TSourceItem>(
 				sourceScalar: sourceScalar,
 				startIndexScalar: new Computing<int>(startIndexExpression),
-				countScalar: new Computing<int>(countExpression),
+				countTakingScalar: new Computing<int>(countTakingExpression),
 				initialCapacity: initialCapacity);
 		}
 
@@ -25164,12 +25164,12 @@ namespace ObservableComputations
 		public static ObservableComputations.Taking<TSourceItem> Taking<TSourceItem>(this
 			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar,
 			 Expression<Func<int>> startIndexExpression,
-			 Expression<Func<int>> countExpression)
+			 Expression<Func<int>> countTakingExpression)
 		{
 			return new ObservableComputations.Taking<TSourceItem>(
 				sourceScalar: sourceScalar,
 				startIndexScalar: new Computing<int>(startIndexExpression),
-				countScalar: new Computing<int>(countExpression),
+				countTakingScalar: new Computing<int>(countTakingExpression),
 				initialCapacity: 0);
 		}
 
@@ -25177,13 +25177,13 @@ namespace ObservableComputations
 		public static ObservableComputations.Taking<TSourceItem> Taking<TSourceItem>(this
 			 ObservableComputations.IReadScalar<ObservableCollection<TSourceItem>> sourceScalar,
 			 ObservableComputations.IReadScalar<int> startIndexScalar,
-			 ObservableComputations.IReadScalar<int> countScalar,
+			 ObservableComputations.IReadScalar<int> countTakingScalar,
 			 int initialCapacity)
 		{
 			return new ObservableComputations.Taking<TSourceItem>(
 				sourceScalar: sourceScalar,
 				startIndexScalar: startIndexScalar,
-				countScalar: countScalar,
+				countTakingScalar: countTakingScalar,
 				initialCapacity: initialCapacity);
 		}
 
@@ -25191,12 +25191,12 @@ namespace ObservableComputations
 		public static ObservableComputations.Taking<TSourceItem> Taking<TSourceItem>(this
 			 ObservableComputations.IReadScalar<ObservableCollection<TSourceItem>> sourceScalar,
 			 ObservableComputations.IReadScalar<int> startIndexScalar,
-			 ObservableComputations.IReadScalar<int> countScalar)
+			 ObservableComputations.IReadScalar<int> countTakingScalar)
 		{
 			return new ObservableComputations.Taking<TSourceItem>(
 				sourceScalar: sourceScalar,
 				startIndexScalar: startIndexScalar,
-				countScalar: countScalar,
+				countTakingScalar: countTakingScalar,
 				initialCapacity: 0);
 		}
 
@@ -25204,13 +25204,13 @@ namespace ObservableComputations
 		public static ObservableComputations.Taking<TSourceItem> Taking<TSourceItem>(this
 			 ObservableComputations.IReadScalar<ObservableCollection<TSourceItem>> sourceScalar,
 			 ObservableComputations.IReadScalar<int> startIndexScalar,
-			 Expression<Func<int>> countExpression,
+			 Expression<Func<int>> countTakingExpression,
 			 int initialCapacity)
 		{
 			return new ObservableComputations.Taking<TSourceItem>(
 				sourceScalar: sourceScalar,
 				startIndexScalar: startIndexScalar,
-				countScalar: new Computing<int>(countExpression),
+				countTakingScalar: new Computing<int>(countTakingExpression),
 				initialCapacity: initialCapacity);
 		}
 
@@ -25218,12 +25218,12 @@ namespace ObservableComputations
 		public static ObservableComputations.Taking<TSourceItem> Taking<TSourceItem>(this
 			 ObservableComputations.IReadScalar<ObservableCollection<TSourceItem>> sourceScalar,
 			 ObservableComputations.IReadScalar<int> startIndexScalar,
-			 Expression<Func<int>> countExpression)
+			 Expression<Func<int>> countTakingExpression)
 		{
 			return new ObservableComputations.Taking<TSourceItem>(
 				sourceScalar: sourceScalar,
 				startIndexScalar: startIndexScalar,
-				countScalar: new Computing<int>(countExpression),
+				countTakingScalar: new Computing<int>(countTakingExpression),
 				initialCapacity: 0);
 		}
 
@@ -25231,13 +25231,13 @@ namespace ObservableComputations
 		public static ObservableComputations.Taking<TSourceItem> Taking<TSourceItem>(this
 			 ObservableComputations.IReadScalar<ObservableCollection<TSourceItem>> sourceScalar,
 			 Expression<Func<int>> startIndexExpression,
-			 ObservableComputations.IReadScalar<int> countScalar,
+			 ObservableComputations.IReadScalar<int> countTakingScalar,
 			 int initialCapacity)
 		{
 			return new ObservableComputations.Taking<TSourceItem>(
 				sourceScalar: sourceScalar,
 				startIndexScalar: new Computing<int>(startIndexExpression),
-				countScalar: countScalar,
+				countTakingScalar: countTakingScalar,
 				initialCapacity: initialCapacity);
 		}
 
@@ -25245,12 +25245,12 @@ namespace ObservableComputations
 		public static ObservableComputations.Taking<TSourceItem> Taking<TSourceItem>(this
 			 ObservableComputations.IReadScalar<ObservableCollection<TSourceItem>> sourceScalar,
 			 Expression<Func<int>> startIndexExpression,
-			 ObservableComputations.IReadScalar<int> countScalar)
+			 ObservableComputations.IReadScalar<int> countTakingScalar)
 		{
 			return new ObservableComputations.Taking<TSourceItem>(
 				sourceScalar: sourceScalar,
 				startIndexScalar: new Computing<int>(startIndexExpression),
-				countScalar: countScalar,
+				countTakingScalar: countTakingScalar,
 				initialCapacity: 0);
 		}
 
@@ -25258,13 +25258,13 @@ namespace ObservableComputations
 		public static ObservableComputations.Taking<TSourceItem> Taking<TSourceItem>(this
 			 ObservableComputations.IReadScalar<ObservableCollection<TSourceItem>> sourceScalar,
 			 Expression<Func<int>> startIndexExpression,
-			 Expression<Func<int>> countExpression,
+			 Expression<Func<int>> countTakingExpression,
 			 int initialCapacity)
 		{
 			return new ObservableComputations.Taking<TSourceItem>(
 				sourceScalar: sourceScalar,
 				startIndexScalar: new Computing<int>(startIndexExpression),
-				countScalar: new Computing<int>(countExpression),
+				countTakingScalar: new Computing<int>(countTakingExpression),
 				initialCapacity: initialCapacity);
 		}
 
@@ -25272,12 +25272,12 @@ namespace ObservableComputations
 		public static ObservableComputations.Taking<TSourceItem> Taking<TSourceItem>(this
 			 ObservableComputations.IReadScalar<ObservableCollection<TSourceItem>> sourceScalar,
 			 Expression<Func<int>> startIndexExpression,
-			 Expression<Func<int>> countExpression)
+			 Expression<Func<int>> countTakingExpression)
 		{
 			return new ObservableComputations.Taking<TSourceItem>(
 				sourceScalar: sourceScalar,
 				startIndexScalar: new Computing<int>(startIndexExpression),
-				countScalar: new Computing<int>(countExpression),
+				countTakingScalar: new Computing<int>(countTakingExpression),
 				initialCapacity: 0);
 		}
 
@@ -25285,13 +25285,13 @@ namespace ObservableComputations
 		public static ObservableComputations.Taking<TSourceItem> Taking<TSourceItem>(this
 			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> sourceExpression,
 			 ObservableComputations.IReadScalar<int> startIndexScalar,
-			 ObservableComputations.IReadScalar<int> countScalar,
+			 ObservableComputations.IReadScalar<int> countTakingScalar,
 			 int initialCapacity)
 		{
 			return new ObservableComputations.Taking<TSourceItem>(
 				sourceScalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(sourceExpression),
 				startIndexScalar: startIndexScalar,
-				countScalar: countScalar,
+				countTakingScalar: countTakingScalar,
 				initialCapacity: initialCapacity);
 		}
 
@@ -25299,12 +25299,12 @@ namespace ObservableComputations
 		public static ObservableComputations.Taking<TSourceItem> Taking<TSourceItem>(this
 			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> sourceExpression,
 			 ObservableComputations.IReadScalar<int> startIndexScalar,
-			 ObservableComputations.IReadScalar<int> countScalar)
+			 ObservableComputations.IReadScalar<int> countTakingScalar)
 		{
 			return new ObservableComputations.Taking<TSourceItem>(
 				sourceScalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(sourceExpression),
 				startIndexScalar: startIndexScalar,
-				countScalar: countScalar,
+				countTakingScalar: countTakingScalar,
 				initialCapacity: 0);
 		}
 
@@ -25312,13 +25312,13 @@ namespace ObservableComputations
 		public static ObservableComputations.Taking<TSourceItem> Taking<TSourceItem>(this
 			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> sourceExpression,
 			 ObservableComputations.IReadScalar<int> startIndexScalar,
-			 Expression<Func<int>> countExpression,
+			 Expression<Func<int>> countTakingExpression,
 			 int initialCapacity)
 		{
 			return new ObservableComputations.Taking<TSourceItem>(
 				sourceScalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(sourceExpression),
 				startIndexScalar: startIndexScalar,
-				countScalar: new Computing<int>(countExpression),
+				countTakingScalar: new Computing<int>(countTakingExpression),
 				initialCapacity: initialCapacity);
 		}
 
@@ -25326,12 +25326,12 @@ namespace ObservableComputations
 		public static ObservableComputations.Taking<TSourceItem> Taking<TSourceItem>(this
 			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> sourceExpression,
 			 ObservableComputations.IReadScalar<int> startIndexScalar,
-			 Expression<Func<int>> countExpression)
+			 Expression<Func<int>> countTakingExpression)
 		{
 			return new ObservableComputations.Taking<TSourceItem>(
 				sourceScalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(sourceExpression),
 				startIndexScalar: startIndexScalar,
-				countScalar: new Computing<int>(countExpression),
+				countTakingScalar: new Computing<int>(countTakingExpression),
 				initialCapacity: 0);
 		}
 
@@ -25339,13 +25339,13 @@ namespace ObservableComputations
 		public static ObservableComputations.Taking<TSourceItem> Taking<TSourceItem>(this
 			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> sourceExpression,
 			 Expression<Func<int>> startIndexExpression,
-			 ObservableComputations.IReadScalar<int> countScalar,
+			 ObservableComputations.IReadScalar<int> countTakingScalar,
 			 int initialCapacity)
 		{
 			return new ObservableComputations.Taking<TSourceItem>(
 				sourceScalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(sourceExpression),
 				startIndexScalar: new Computing<int>(startIndexExpression),
-				countScalar: countScalar,
+				countTakingScalar: countTakingScalar,
 				initialCapacity: initialCapacity);
 		}
 
@@ -25353,12 +25353,12 @@ namespace ObservableComputations
 		public static ObservableComputations.Taking<TSourceItem> Taking<TSourceItem>(this
 			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> sourceExpression,
 			 Expression<Func<int>> startIndexExpression,
-			 ObservableComputations.IReadScalar<int> countScalar)
+			 ObservableComputations.IReadScalar<int> countTakingScalar)
 		{
 			return new ObservableComputations.Taking<TSourceItem>(
 				sourceScalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(sourceExpression),
 				startIndexScalar: new Computing<int>(startIndexExpression),
-				countScalar: countScalar,
+				countTakingScalar: countTakingScalar,
 				initialCapacity: 0);
 		}
 
@@ -25366,13 +25366,13 @@ namespace ObservableComputations
 		public static ObservableComputations.Taking<TSourceItem> Taking<TSourceItem>(this
 			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> sourceExpression,
 			 Expression<Func<int>> startIndexExpression,
-			 Expression<Func<int>> countExpression,
+			 Expression<Func<int>> countTakingExpression,
 			 int initialCapacity)
 		{
 			return new ObservableComputations.Taking<TSourceItem>(
 				sourceScalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(sourceExpression),
 				startIndexScalar: new Computing<int>(startIndexExpression),
-				countScalar: new Computing<int>(countExpression),
+				countTakingScalar: new Computing<int>(countTakingExpression),
 				initialCapacity: initialCapacity);
 		}
 
@@ -25380,12 +25380,12 @@ namespace ObservableComputations
 		public static ObservableComputations.Taking<TSourceItem> Taking<TSourceItem>(this
 			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> sourceExpression,
 			 Expression<Func<int>> startIndexExpression,
-			 Expression<Func<int>> countExpression)
+			 Expression<Func<int>> countTakingExpression)
 		{
 			return new ObservableComputations.Taking<TSourceItem>(
 				sourceScalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(sourceExpression),
 				startIndexScalar: new Computing<int>(startIndexExpression),
-				countScalar: new Computing<int>(countExpression),
+				countTakingScalar: new Computing<int>(countTakingExpression),
 				initialCapacity: 0);
 		}
 
@@ -25393,13 +25393,13 @@ namespace ObservableComputations
 		public static ObservableComputations.Taking<TSourceItem> Taking<TSourceItem>(this
 			 Expression<Func<ObservableCollection<TSourceItem>>> sourceExpression,
 			 ObservableComputations.IReadScalar<int> startIndexScalar,
-			 ObservableComputations.IReadScalar<int> countScalar,
+			 ObservableComputations.IReadScalar<int> countTakingScalar,
 			 int initialCapacity)
 		{
 			return new ObservableComputations.Taking<TSourceItem>(
 				sourceScalar: new Computing<ObservableCollection<TSourceItem>>(sourceExpression),
 				startIndexScalar: startIndexScalar,
-				countScalar: countScalar,
+				countTakingScalar: countTakingScalar,
 				initialCapacity: initialCapacity);
 		}
 
@@ -25407,12 +25407,12 @@ namespace ObservableComputations
 		public static ObservableComputations.Taking<TSourceItem> Taking<TSourceItem>(this
 			 Expression<Func<ObservableCollection<TSourceItem>>> sourceExpression,
 			 ObservableComputations.IReadScalar<int> startIndexScalar,
-			 ObservableComputations.IReadScalar<int> countScalar)
+			 ObservableComputations.IReadScalar<int> countTakingScalar)
 		{
 			return new ObservableComputations.Taking<TSourceItem>(
 				sourceScalar: new Computing<ObservableCollection<TSourceItem>>(sourceExpression),
 				startIndexScalar: startIndexScalar,
-				countScalar: countScalar,
+				countTakingScalar: countTakingScalar,
 				initialCapacity: 0);
 		}
 
@@ -25420,13 +25420,13 @@ namespace ObservableComputations
 		public static ObservableComputations.Taking<TSourceItem> Taking<TSourceItem>(this
 			 Expression<Func<ObservableCollection<TSourceItem>>> sourceExpression,
 			 ObservableComputations.IReadScalar<int> startIndexScalar,
-			 Expression<Func<int>> countExpression,
+			 Expression<Func<int>> countTakingExpression,
 			 int initialCapacity)
 		{
 			return new ObservableComputations.Taking<TSourceItem>(
 				sourceScalar: new Computing<ObservableCollection<TSourceItem>>(sourceExpression),
 				startIndexScalar: startIndexScalar,
-				countScalar: new Computing<int>(countExpression),
+				countTakingScalar: new Computing<int>(countTakingExpression),
 				initialCapacity: initialCapacity);
 		}
 
@@ -25434,12 +25434,12 @@ namespace ObservableComputations
 		public static ObservableComputations.Taking<TSourceItem> Taking<TSourceItem>(this
 			 Expression<Func<ObservableCollection<TSourceItem>>> sourceExpression,
 			 ObservableComputations.IReadScalar<int> startIndexScalar,
-			 Expression<Func<int>> countExpression)
+			 Expression<Func<int>> countTakingExpression)
 		{
 			return new ObservableComputations.Taking<TSourceItem>(
 				sourceScalar: new Computing<ObservableCollection<TSourceItem>>(sourceExpression),
 				startIndexScalar: startIndexScalar,
-				countScalar: new Computing<int>(countExpression),
+				countTakingScalar: new Computing<int>(countTakingExpression),
 				initialCapacity: 0);
 		}
 
@@ -25447,13 +25447,13 @@ namespace ObservableComputations
 		public static ObservableComputations.Taking<TSourceItem> Taking<TSourceItem>(this
 			 Expression<Func<ObservableCollection<TSourceItem>>> sourceExpression,
 			 Expression<Func<int>> startIndexExpression,
-			 ObservableComputations.IReadScalar<int> countScalar,
+			 ObservableComputations.IReadScalar<int> countTakingScalar,
 			 int initialCapacity)
 		{
 			return new ObservableComputations.Taking<TSourceItem>(
 				sourceScalar: new Computing<ObservableCollection<TSourceItem>>(sourceExpression),
 				startIndexScalar: new Computing<int>(startIndexExpression),
-				countScalar: countScalar,
+				countTakingScalar: countTakingScalar,
 				initialCapacity: initialCapacity);
 		}
 
@@ -25461,12 +25461,12 @@ namespace ObservableComputations
 		public static ObservableComputations.Taking<TSourceItem> Taking<TSourceItem>(this
 			 Expression<Func<ObservableCollection<TSourceItem>>> sourceExpression,
 			 Expression<Func<int>> startIndexExpression,
-			 ObservableComputations.IReadScalar<int> countScalar)
+			 ObservableComputations.IReadScalar<int> countTakingScalar)
 		{
 			return new ObservableComputations.Taking<TSourceItem>(
 				sourceScalar: new Computing<ObservableCollection<TSourceItem>>(sourceExpression),
 				startIndexScalar: new Computing<int>(startIndexExpression),
-				countScalar: countScalar,
+				countTakingScalar: countTakingScalar,
 				initialCapacity: 0);
 		}
 
@@ -25474,13 +25474,13 @@ namespace ObservableComputations
 		public static ObservableComputations.Taking<TSourceItem> Taking<TSourceItem>(this
 			 Expression<Func<ObservableCollection<TSourceItem>>> sourceExpression,
 			 Expression<Func<int>> startIndexExpression,
-			 Expression<Func<int>> countExpression,
+			 Expression<Func<int>> countTakingExpression,
 			 int initialCapacity)
 		{
 			return new ObservableComputations.Taking<TSourceItem>(
 				sourceScalar: new Computing<ObservableCollection<TSourceItem>>(sourceExpression),
 				startIndexScalar: new Computing<int>(startIndexExpression),
-				countScalar: new Computing<int>(countExpression),
+				countTakingScalar: new Computing<int>(countTakingExpression),
 				initialCapacity: initialCapacity);
 		}
 
@@ -25488,12 +25488,12 @@ namespace ObservableComputations
 		public static ObservableComputations.Taking<TSourceItem> Taking<TSourceItem>(this
 			 Expression<Func<ObservableCollection<TSourceItem>>> sourceExpression,
 			 Expression<Func<int>> startIndexExpression,
-			 Expression<Func<int>> countExpression)
+			 Expression<Func<int>> countTakingExpression)
 		{
 			return new ObservableComputations.Taking<TSourceItem>(
 				sourceScalar: new Computing<ObservableCollection<TSourceItem>>(sourceExpression),
 				startIndexScalar: new Computing<int>(startIndexExpression),
-				countScalar: new Computing<int>(countExpression),
+				countTakingScalar: new Computing<int>(countTakingExpression),
 				initialCapacity: 0);
 		}
 
@@ -25501,136 +25501,109 @@ namespace ObservableComputations
 		public static ObservableComputations.Taking<TSourceItem> Taking<TSourceItem>(this
 			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar,
 			 ObservableComputations.IReadScalar<int> startIndexScalar,
-			 int count)
+			 int countTaking)
 		{
 			return new ObservableComputations.Taking<TSourceItem>(
 				sourceScalar: sourceScalar,
 				startIndexScalar: startIndexScalar,
-				count: count);
+				countTaking: countTaking);
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.Taking<TSourceItem> Taking<TSourceItem>(this
 			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar,
 			 Expression<Func<int>> startIndexExpression,
-			 int count)
+			 int countTaking)
 		{
 			return new ObservableComputations.Taking<TSourceItem>(
 				sourceScalar: sourceScalar,
 				startIndexScalar: new Computing<int>(startIndexExpression),
-				count: count);
+				countTaking: countTaking);
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.Taking<TSourceItem> Taking<TSourceItem>(this
 			 ObservableComputations.IReadScalar<ObservableCollection<TSourceItem>> sourceScalar,
 			 ObservableComputations.IReadScalar<int> startIndexScalar,
-			 int count)
+			 int countTaking)
 		{
 			return new ObservableComputations.Taking<TSourceItem>(
 				sourceScalar: sourceScalar,
 				startIndexScalar: startIndexScalar,
-				count: count);
+				countTaking: countTaking);
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.Taking<TSourceItem> Taking<TSourceItem>(this
 			 ObservableComputations.IReadScalar<ObservableCollection<TSourceItem>> sourceScalar,
 			 Expression<Func<int>> startIndexExpression,
-			 int count)
+			 int countTaking)
 		{
 			return new ObservableComputations.Taking<TSourceItem>(
 				sourceScalar: sourceScalar,
 				startIndexScalar: new Computing<int>(startIndexExpression),
-				count: count);
+				countTaking: countTaking);
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.Taking<TSourceItem> Taking<TSourceItem>(this
 			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> sourceExpression,
 			 ObservableComputations.IReadScalar<int> startIndexScalar,
-			 int count)
+			 int countTaking)
 		{
 			return new ObservableComputations.Taking<TSourceItem>(
 				sourceScalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(sourceExpression),
 				startIndexScalar: startIndexScalar,
-				count: count);
+				countTaking: countTaking);
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.Taking<TSourceItem> Taking<TSourceItem>(this
 			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> sourceExpression,
 			 Expression<Func<int>> startIndexExpression,
-			 int count)
+			 int countTaking)
 		{
 			return new ObservableComputations.Taking<TSourceItem>(
 				sourceScalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(sourceExpression),
 				startIndexScalar: new Computing<int>(startIndexExpression),
-				count: count);
+				countTaking: countTaking);
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.Taking<TSourceItem> Taking<TSourceItem>(this
 			 Expression<Func<ObservableCollection<TSourceItem>>> sourceExpression,
 			 ObservableComputations.IReadScalar<int> startIndexScalar,
-			 int count)
+			 int countTaking)
 		{
 			return new ObservableComputations.Taking<TSourceItem>(
 				sourceScalar: new Computing<ObservableCollection<TSourceItem>>(sourceExpression),
 				startIndexScalar: startIndexScalar,
-				count: count);
+				countTaking: countTaking);
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.Taking<TSourceItem> Taking<TSourceItem>(this
 			 Expression<Func<ObservableCollection<TSourceItem>>> sourceExpression,
 			 Expression<Func<int>> startIndexExpression,
-			 int count)
+			 int countTaking)
 		{
 			return new ObservableComputations.Taking<TSourceItem>(
 				sourceScalar: new Computing<ObservableCollection<TSourceItem>>(sourceExpression),
 				startIndexScalar: new Computing<int>(startIndexExpression),
-				count: count);
+				countTaking: countTaking);
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.Taking<TSourceItem> Taking<TSourceItem>(this
 			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar,
 			 int startIndex,
-			 ObservableComputations.IReadScalar<int> countScalar,
+			 ObservableComputations.IReadScalar<int> countTakingScalar,
 			 int initialCapacity)
 		{
 			return new ObservableComputations.Taking<TSourceItem>(
 				sourceScalar: sourceScalar,
 				startIndex: startIndex,
-				countScalar: countScalar,
-				initialCapacity: initialCapacity);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.Taking<TSourceItem> Taking<TSourceItem>(this
-			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar,
-			 int startIndex,
-			 ObservableComputations.IReadScalar<int> countScalar)
-		{
-			return new ObservableComputations.Taking<TSourceItem>(
-				sourceScalar: sourceScalar,
-				startIndex: startIndex,
-				countScalar: countScalar,
-				initialCapacity: 0);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.Taking<TSourceItem> Taking<TSourceItem>(this
-			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar,
-			 int startIndex,
-			 Expression<Func<int>> countExpression,
-			 int initialCapacity)
-		{
-			return new ObservableComputations.Taking<TSourceItem>(
-				sourceScalar: sourceScalar,
-				startIndex: startIndex,
-				countScalar: new Computing<int>(countExpression),
+				countTakingScalar: countTakingScalar,
 				initialCapacity: initialCapacity);
 		}
 
@@ -25638,174 +25611,12 @@ namespace ObservableComputations
 		public static ObservableComputations.Taking<TSourceItem> Taking<TSourceItem>(this
 			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar,
 			 int startIndex,
-			 Expression<Func<int>> countExpression)
+			 ObservableComputations.IReadScalar<int> countTakingScalar)
 		{
 			return new ObservableComputations.Taking<TSourceItem>(
 				sourceScalar: sourceScalar,
 				startIndex: startIndex,
-				countScalar: new Computing<int>(countExpression),
-				initialCapacity: 0);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.Taking<TSourceItem> Taking<TSourceItem>(this
-			 ObservableComputations.IReadScalar<ObservableCollection<TSourceItem>> sourceScalar,
-			 int startIndex,
-			 ObservableComputations.IReadScalar<int> countScalar,
-			 int initialCapacity)
-		{
-			return new ObservableComputations.Taking<TSourceItem>(
-				sourceScalar: sourceScalar,
-				startIndex: startIndex,
-				countScalar: countScalar,
-				initialCapacity: initialCapacity);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.Taking<TSourceItem> Taking<TSourceItem>(this
-			 ObservableComputations.IReadScalar<ObservableCollection<TSourceItem>> sourceScalar,
-			 int startIndex,
-			 ObservableComputations.IReadScalar<int> countScalar)
-		{
-			return new ObservableComputations.Taking<TSourceItem>(
-				sourceScalar: sourceScalar,
-				startIndex: startIndex,
-				countScalar: countScalar,
-				initialCapacity: 0);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.Taking<TSourceItem> Taking<TSourceItem>(this
-			 ObservableComputations.IReadScalar<ObservableCollection<TSourceItem>> sourceScalar,
-			 int startIndex,
-			 Expression<Func<int>> countExpression,
-			 int initialCapacity)
-		{
-			return new ObservableComputations.Taking<TSourceItem>(
-				sourceScalar: sourceScalar,
-				startIndex: startIndex,
-				countScalar: new Computing<int>(countExpression),
-				initialCapacity: initialCapacity);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.Taking<TSourceItem> Taking<TSourceItem>(this
-			 ObservableComputations.IReadScalar<ObservableCollection<TSourceItem>> sourceScalar,
-			 int startIndex,
-			 Expression<Func<int>> countExpression)
-		{
-			return new ObservableComputations.Taking<TSourceItem>(
-				sourceScalar: sourceScalar,
-				startIndex: startIndex,
-				countScalar: new Computing<int>(countExpression),
-				initialCapacity: 0);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.Taking<TSourceItem> Taking<TSourceItem>(this
-			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> sourceExpression,
-			 int startIndex,
-			 ObservableComputations.IReadScalar<int> countScalar,
-			 int initialCapacity)
-		{
-			return new ObservableComputations.Taking<TSourceItem>(
-				sourceScalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(sourceExpression),
-				startIndex: startIndex,
-				countScalar: countScalar,
-				initialCapacity: initialCapacity);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.Taking<TSourceItem> Taking<TSourceItem>(this
-			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> sourceExpression,
-			 int startIndex,
-			 ObservableComputations.IReadScalar<int> countScalar)
-		{
-			return new ObservableComputations.Taking<TSourceItem>(
-				sourceScalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(sourceExpression),
-				startIndex: startIndex,
-				countScalar: countScalar,
-				initialCapacity: 0);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.Taking<TSourceItem> Taking<TSourceItem>(this
-			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> sourceExpression,
-			 int startIndex,
-			 Expression<Func<int>> countExpression,
-			 int initialCapacity)
-		{
-			return new ObservableComputations.Taking<TSourceItem>(
-				sourceScalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(sourceExpression),
-				startIndex: startIndex,
-				countScalar: new Computing<int>(countExpression),
-				initialCapacity: initialCapacity);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.Taking<TSourceItem> Taking<TSourceItem>(this
-			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> sourceExpression,
-			 int startIndex,
-			 Expression<Func<int>> countExpression)
-		{
-			return new ObservableComputations.Taking<TSourceItem>(
-				sourceScalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(sourceExpression),
-				startIndex: startIndex,
-				countScalar: new Computing<int>(countExpression),
-				initialCapacity: 0);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.Taking<TSourceItem> Taking<TSourceItem>(this
-			 Expression<Func<ObservableCollection<TSourceItem>>> sourceExpression,
-			 int startIndex,
-			 ObservableComputations.IReadScalar<int> countScalar,
-			 int initialCapacity)
-		{
-			return new ObservableComputations.Taking<TSourceItem>(
-				sourceScalar: new Computing<ObservableCollection<TSourceItem>>(sourceExpression),
-				startIndex: startIndex,
-				countScalar: countScalar,
-				initialCapacity: initialCapacity);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.Taking<TSourceItem> Taking<TSourceItem>(this
-			 Expression<Func<ObservableCollection<TSourceItem>>> sourceExpression,
-			 int startIndex,
-			 ObservableComputations.IReadScalar<int> countScalar)
-		{
-			return new ObservableComputations.Taking<TSourceItem>(
-				sourceScalar: new Computing<ObservableCollection<TSourceItem>>(sourceExpression),
-				startIndex: startIndex,
-				countScalar: countScalar,
-				initialCapacity: 0);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.Taking<TSourceItem> Taking<TSourceItem>(this
-			 Expression<Func<ObservableCollection<TSourceItem>>> sourceExpression,
-			 int startIndex,
-			 Expression<Func<int>> countExpression,
-			 int initialCapacity)
-		{
-			return new ObservableComputations.Taking<TSourceItem>(
-				sourceScalar: new Computing<ObservableCollection<TSourceItem>>(sourceExpression),
-				startIndex: startIndex,
-				countScalar: new Computing<int>(countExpression),
-				initialCapacity: initialCapacity);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.Taking<TSourceItem> Taking<TSourceItem>(this
-			 Expression<Func<ObservableCollection<TSourceItem>>> sourceExpression,
-			 int startIndex,
-			 Expression<Func<int>> countExpression)
-		{
-			return new ObservableComputations.Taking<TSourceItem>(
-				sourceScalar: new Computing<ObservableCollection<TSourceItem>>(sourceExpression),
-				startIndex: startIndex,
-				countScalar: new Computing<int>(countExpression),
+				countTakingScalar: countTakingScalar,
 				initialCapacity: 0);
 		}
 
@@ -25813,263 +25624,263 @@ namespace ObservableComputations
 		public static ObservableComputations.Taking<TSourceItem> Taking<TSourceItem>(this
 			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar,
 			 int startIndex,
-			 int count)
+			 Expression<Func<int>> countTakingExpression,
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Taking<TSourceItem>(
 				sourceScalar: sourceScalar,
 				startIndex: startIndex,
-				count: count);
+				countTakingScalar: new Computing<int>(countTakingExpression),
+				initialCapacity: initialCapacity);
+		}
+
+		[ObservableComputationsCall]
+		public static ObservableComputations.Taking<TSourceItem> Taking<TSourceItem>(this
+			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar,
+			 int startIndex,
+			 Expression<Func<int>> countTakingExpression)
+		{
+			return new ObservableComputations.Taking<TSourceItem>(
+				sourceScalar: sourceScalar,
+				startIndex: startIndex,
+				countTakingScalar: new Computing<int>(countTakingExpression),
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.Taking<TSourceItem> Taking<TSourceItem>(this
 			 ObservableComputations.IReadScalar<ObservableCollection<TSourceItem>> sourceScalar,
 			 int startIndex,
-			 int count)
+			 ObservableComputations.IReadScalar<int> countTakingScalar,
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Taking<TSourceItem>(
 				sourceScalar: sourceScalar,
 				startIndex: startIndex,
-				count: count);
+				countTakingScalar: countTakingScalar,
+				initialCapacity: initialCapacity);
+		}
+
+		[ObservableComputationsCall]
+		public static ObservableComputations.Taking<TSourceItem> Taking<TSourceItem>(this
+			 ObservableComputations.IReadScalar<ObservableCollection<TSourceItem>> sourceScalar,
+			 int startIndex,
+			 ObservableComputations.IReadScalar<int> countTakingScalar)
+		{
+			return new ObservableComputations.Taking<TSourceItem>(
+				sourceScalar: sourceScalar,
+				startIndex: startIndex,
+				countTakingScalar: countTakingScalar,
+				initialCapacity: 0);
+		}
+
+		[ObservableComputationsCall]
+		public static ObservableComputations.Taking<TSourceItem> Taking<TSourceItem>(this
+			 ObservableComputations.IReadScalar<ObservableCollection<TSourceItem>> sourceScalar,
+			 int startIndex,
+			 Expression<Func<int>> countTakingExpression,
+			 int initialCapacity)
+		{
+			return new ObservableComputations.Taking<TSourceItem>(
+				sourceScalar: sourceScalar,
+				startIndex: startIndex,
+				countTakingScalar: new Computing<int>(countTakingExpression),
+				initialCapacity: initialCapacity);
+		}
+
+		[ObservableComputationsCall]
+		public static ObservableComputations.Taking<TSourceItem> Taking<TSourceItem>(this
+			 ObservableComputations.IReadScalar<ObservableCollection<TSourceItem>> sourceScalar,
+			 int startIndex,
+			 Expression<Func<int>> countTakingExpression)
+		{
+			return new ObservableComputations.Taking<TSourceItem>(
+				sourceScalar: sourceScalar,
+				startIndex: startIndex,
+				countTakingScalar: new Computing<int>(countTakingExpression),
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.Taking<TSourceItem> Taking<TSourceItem>(this
 			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> sourceExpression,
 			 int startIndex,
-			 int count)
+			 ObservableComputations.IReadScalar<int> countTakingScalar,
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Taking<TSourceItem>(
 				sourceScalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(sourceExpression),
 				startIndex: startIndex,
-				count: count);
+				countTakingScalar: countTakingScalar,
+				initialCapacity: initialCapacity);
+		}
+
+		[ObservableComputationsCall]
+		public static ObservableComputations.Taking<TSourceItem> Taking<TSourceItem>(this
+			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> sourceExpression,
+			 int startIndex,
+			 ObservableComputations.IReadScalar<int> countTakingScalar)
+		{
+			return new ObservableComputations.Taking<TSourceItem>(
+				sourceScalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(sourceExpression),
+				startIndex: startIndex,
+				countTakingScalar: countTakingScalar,
+				initialCapacity: 0);
+		}
+
+		[ObservableComputationsCall]
+		public static ObservableComputations.Taking<TSourceItem> Taking<TSourceItem>(this
+			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> sourceExpression,
+			 int startIndex,
+			 Expression<Func<int>> countTakingExpression,
+			 int initialCapacity)
+		{
+			return new ObservableComputations.Taking<TSourceItem>(
+				sourceScalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(sourceExpression),
+				startIndex: startIndex,
+				countTakingScalar: new Computing<int>(countTakingExpression),
+				initialCapacity: initialCapacity);
+		}
+
+		[ObservableComputationsCall]
+		public static ObservableComputations.Taking<TSourceItem> Taking<TSourceItem>(this
+			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> sourceExpression,
+			 int startIndex,
+			 Expression<Func<int>> countTakingExpression)
+		{
+			return new ObservableComputations.Taking<TSourceItem>(
+				sourceScalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(sourceExpression),
+				startIndex: startIndex,
+				countTakingScalar: new Computing<int>(countTakingExpression),
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.Taking<TSourceItem> Taking<TSourceItem>(this
 			 Expression<Func<ObservableCollection<TSourceItem>>> sourceExpression,
 			 int startIndex,
-			 int count)
+			 ObservableComputations.IReadScalar<int> countTakingScalar,
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Taking<TSourceItem>(
 				sourceScalar: new Computing<ObservableCollection<TSourceItem>>(sourceExpression),
 				startIndex: startIndex,
-				count: count);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.Taking<TSourceItem> Taking<TSourceItem>(this
-			 System.Collections.Specialized.INotifyCollectionChanged source,
-			 ObservableComputations.IReadScalar<int> startIndexScalar,
-			 ObservableComputations.IReadScalar<int> countScalar,
-			 int initialCapacity)
-		{
-			return new ObservableComputations.Taking<TSourceItem>(
-				source: source,
-				startIndexScalar: startIndexScalar,
-				countScalar: countScalar,
+				countTakingScalar: countTakingScalar,
 				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.Taking<TSourceItem> Taking<TSourceItem>(this
-			 System.Collections.Specialized.INotifyCollectionChanged source,
-			 ObservableComputations.IReadScalar<int> startIndexScalar,
-			 ObservableComputations.IReadScalar<int> countScalar)
+			 Expression<Func<ObservableCollection<TSourceItem>>> sourceExpression,
+			 int startIndex,
+			 ObservableComputations.IReadScalar<int> countTakingScalar)
 		{
 			return new ObservableComputations.Taking<TSourceItem>(
-				source: source,
-				startIndexScalar: startIndexScalar,
-				countScalar: countScalar,
+				sourceScalar: new Computing<ObservableCollection<TSourceItem>>(sourceExpression),
+				startIndex: startIndex,
+				countTakingScalar: countTakingScalar,
 				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.Taking<TSourceItem> Taking<TSourceItem>(this
-			 System.Collections.Specialized.INotifyCollectionChanged source,
-			 ObservableComputations.IReadScalar<int> startIndexScalar,
-			 Expression<Func<int>> countExpression,
+			 Expression<Func<ObservableCollection<TSourceItem>>> sourceExpression,
+			 int startIndex,
+			 Expression<Func<int>> countTakingExpression,
 			 int initialCapacity)
 		{
 			return new ObservableComputations.Taking<TSourceItem>(
-				source: source,
-				startIndexScalar: startIndexScalar,
-				countScalar: new Computing<int>(countExpression),
+				sourceScalar: new Computing<ObservableCollection<TSourceItem>>(sourceExpression),
+				startIndex: startIndex,
+				countTakingScalar: new Computing<int>(countTakingExpression),
 				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.Taking<TSourceItem> Taking<TSourceItem>(this
-			 System.Collections.Specialized.INotifyCollectionChanged source,
-			 ObservableComputations.IReadScalar<int> startIndexScalar,
-			 Expression<Func<int>> countExpression)
+			 Expression<Func<ObservableCollection<TSourceItem>>> sourceExpression,
+			 int startIndex,
+			 Expression<Func<int>> countTakingExpression)
 		{
 			return new ObservableComputations.Taking<TSourceItem>(
-				source: source,
-				startIndexScalar: startIndexScalar,
-				countScalar: new Computing<int>(countExpression),
+				sourceScalar: new Computing<ObservableCollection<TSourceItem>>(sourceExpression),
+				startIndex: startIndex,
+				countTakingScalar: new Computing<int>(countTakingExpression),
 				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.Taking<TSourceItem> Taking<TSourceItem>(this
-			 System.Collections.Specialized.INotifyCollectionChanged source,
-			 Expression<Func<int>> startIndexExpression,
-			 ObservableComputations.IReadScalar<int> countScalar,
-			 int initialCapacity)
+			 ObservableComputations.IReadScalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar,
+			 int startIndex,
+			 int countTaking)
 		{
 			return new ObservableComputations.Taking<TSourceItem>(
-				source: source,
-				startIndexScalar: new Computing<int>(startIndexExpression),
-				countScalar: countScalar,
-				initialCapacity: initialCapacity);
+				sourceScalar: sourceScalar,
+				startIndex: startIndex,
+				countTaking: countTaking);
+		}
+
+		[ObservableComputationsCall]
+		public static ObservableComputations.Taking<TSourceItem> Taking<TSourceItem>(this
+			 ObservableComputations.IReadScalar<ObservableCollection<TSourceItem>> sourceScalar,
+			 int startIndex,
+			 int countTaking)
+		{
+			return new ObservableComputations.Taking<TSourceItem>(
+				sourceScalar: sourceScalar,
+				startIndex: startIndex,
+				countTaking: countTaking);
+		}
+
+		[ObservableComputationsCall]
+		public static ObservableComputations.Taking<TSourceItem> Taking<TSourceItem>(this
+			 Expression<Func<System.Collections.Specialized.INotifyCollectionChanged>> sourceExpression,
+			 int startIndex,
+			 int countTaking)
+		{
+			return new ObservableComputations.Taking<TSourceItem>(
+				sourceScalar: new Computing<System.Collections.Specialized.INotifyCollectionChanged>(sourceExpression),
+				startIndex: startIndex,
+				countTaking: countTaking);
+		}
+
+		[ObservableComputationsCall]
+		public static ObservableComputations.Taking<TSourceItem> Taking<TSourceItem>(this
+			 Expression<Func<ObservableCollection<TSourceItem>>> sourceExpression,
+			 int startIndex,
+			 int countTaking)
+		{
+			return new ObservableComputations.Taking<TSourceItem>(
+				sourceScalar: new Computing<ObservableCollection<TSourceItem>>(sourceExpression),
+				startIndex: startIndex,
+				countTaking: countTaking);
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.Taking<TSourceItem> Taking<TSourceItem>(this
 			 System.Collections.Specialized.INotifyCollectionChanged source,
-			 Expression<Func<int>> startIndexExpression,
-			 ObservableComputations.IReadScalar<int> countScalar)
-		{
-			return new ObservableComputations.Taking<TSourceItem>(
-				source: source,
-				startIndexScalar: new Computing<int>(startIndexExpression),
-				countScalar: countScalar,
-				initialCapacity: 0);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.Taking<TSourceItem> Taking<TSourceItem>(this
-			 System.Collections.Specialized.INotifyCollectionChanged source,
-			 Expression<Func<int>> startIndexExpression,
-			 Expression<Func<int>> countExpression,
+			 ObservableComputations.IReadScalar<int> startIndexScalar,
+			 ObservableComputations.IReadScalar<int> countTakingScalar,
 			 int initialCapacity)
 		{
 			return new ObservableComputations.Taking<TSourceItem>(
 				source: source,
-				startIndexScalar: new Computing<int>(startIndexExpression),
-				countScalar: new Computing<int>(countExpression),
+				startIndexScalar: startIndexScalar,
+				countTakingScalar: countTakingScalar,
 				initialCapacity: initialCapacity);
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.Taking<TSourceItem> Taking<TSourceItem>(this
 			 System.Collections.Specialized.INotifyCollectionChanged source,
-			 Expression<Func<int>> startIndexExpression,
-			 Expression<Func<int>> countExpression)
-		{
-			return new ObservableComputations.Taking<TSourceItem>(
-				source: source,
-				startIndexScalar: new Computing<int>(startIndexExpression),
-				countScalar: new Computing<int>(countExpression),
-				initialCapacity: 0);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.Taking<TSourceItem> Taking<TSourceItem>(this
-			 ObservableCollection<TSourceItem> source,
 			 ObservableComputations.IReadScalar<int> startIndexScalar,
-			 ObservableComputations.IReadScalar<int> countScalar,
-			 int initialCapacity)
+			 ObservableComputations.IReadScalar<int> countTakingScalar)
 		{
 			return new ObservableComputations.Taking<TSourceItem>(
 				source: source,
 				startIndexScalar: startIndexScalar,
-				countScalar: countScalar,
-				initialCapacity: initialCapacity);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.Taking<TSourceItem> Taking<TSourceItem>(this
-			 ObservableCollection<TSourceItem> source,
-			 ObservableComputations.IReadScalar<int> startIndexScalar,
-			 ObservableComputations.IReadScalar<int> countScalar)
-		{
-			return new ObservableComputations.Taking<TSourceItem>(
-				source: source,
-				startIndexScalar: startIndexScalar,
-				countScalar: countScalar,
-				initialCapacity: 0);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.Taking<TSourceItem> Taking<TSourceItem>(this
-			 ObservableCollection<TSourceItem> source,
-			 ObservableComputations.IReadScalar<int> startIndexScalar,
-			 Expression<Func<int>> countExpression,
-			 int initialCapacity)
-		{
-			return new ObservableComputations.Taking<TSourceItem>(
-				source: source,
-				startIndexScalar: startIndexScalar,
-				countScalar: new Computing<int>(countExpression),
-				initialCapacity: initialCapacity);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.Taking<TSourceItem> Taking<TSourceItem>(this
-			 ObservableCollection<TSourceItem> source,
-			 ObservableComputations.IReadScalar<int> startIndexScalar,
-			 Expression<Func<int>> countExpression)
-		{
-			return new ObservableComputations.Taking<TSourceItem>(
-				source: source,
-				startIndexScalar: startIndexScalar,
-				countScalar: new Computing<int>(countExpression),
-				initialCapacity: 0);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.Taking<TSourceItem> Taking<TSourceItem>(this
-			 ObservableCollection<TSourceItem> source,
-			 Expression<Func<int>> startIndexExpression,
-			 ObservableComputations.IReadScalar<int> countScalar,
-			 int initialCapacity)
-		{
-			return new ObservableComputations.Taking<TSourceItem>(
-				source: source,
-				startIndexScalar: new Computing<int>(startIndexExpression),
-				countScalar: countScalar,
-				initialCapacity: initialCapacity);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.Taking<TSourceItem> Taking<TSourceItem>(this
-			 ObservableCollection<TSourceItem> source,
-			 Expression<Func<int>> startIndexExpression,
-			 ObservableComputations.IReadScalar<int> countScalar)
-		{
-			return new ObservableComputations.Taking<TSourceItem>(
-				source: source,
-				startIndexScalar: new Computing<int>(startIndexExpression),
-				countScalar: countScalar,
-				initialCapacity: 0);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.Taking<TSourceItem> Taking<TSourceItem>(this
-			 ObservableCollection<TSourceItem> source,
-			 Expression<Func<int>> startIndexExpression,
-			 Expression<Func<int>> countExpression,
-			 int initialCapacity)
-		{
-			return new ObservableComputations.Taking<TSourceItem>(
-				source: source,
-				startIndexScalar: new Computing<int>(startIndexExpression),
-				countScalar: new Computing<int>(countExpression),
-				initialCapacity: initialCapacity);
-		}
-
-		[ObservableComputationsCall]
-		public static ObservableComputations.Taking<TSourceItem> Taking<TSourceItem>(this
-			 ObservableCollection<TSourceItem> source,
-			 Expression<Func<int>> startIndexExpression,
-			 Expression<Func<int>> countExpression)
-		{
-			return new ObservableComputations.Taking<TSourceItem>(
-				source: source,
-				startIndexScalar: new Computing<int>(startIndexExpression),
-				countScalar: new Computing<int>(countExpression),
+				countTakingScalar: countTakingScalar,
 				initialCapacity: 0);
 		}
 
@@ -26077,61 +25888,250 @@ namespace ObservableComputations
 		public static ObservableComputations.Taking<TSourceItem> Taking<TSourceItem>(this
 			 System.Collections.Specialized.INotifyCollectionChanged source,
 			 ObservableComputations.IReadScalar<int> startIndexScalar,
-			 int count)
+			 Expression<Func<int>> countTakingExpression,
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Taking<TSourceItem>(
 				source: source,
 				startIndexScalar: startIndexScalar,
-				count: count);
+				countTakingScalar: new Computing<int>(countTakingExpression),
+				initialCapacity: initialCapacity);
+		}
+
+		[ObservableComputationsCall]
+		public static ObservableComputations.Taking<TSourceItem> Taking<TSourceItem>(this
+			 System.Collections.Specialized.INotifyCollectionChanged source,
+			 ObservableComputations.IReadScalar<int> startIndexScalar,
+			 Expression<Func<int>> countTakingExpression)
+		{
+			return new ObservableComputations.Taking<TSourceItem>(
+				source: source,
+				startIndexScalar: startIndexScalar,
+				countTakingScalar: new Computing<int>(countTakingExpression),
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.Taking<TSourceItem> Taking<TSourceItem>(this
 			 System.Collections.Specialized.INotifyCollectionChanged source,
 			 Expression<Func<int>> startIndexExpression,
-			 int count)
+			 ObservableComputations.IReadScalar<int> countTakingScalar,
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Taking<TSourceItem>(
 				source: source,
 				startIndexScalar: new Computing<int>(startIndexExpression),
-				count: count);
+				countTakingScalar: countTakingScalar,
+				initialCapacity: initialCapacity);
+		}
+
+		[ObservableComputationsCall]
+		public static ObservableComputations.Taking<TSourceItem> Taking<TSourceItem>(this
+			 System.Collections.Specialized.INotifyCollectionChanged source,
+			 Expression<Func<int>> startIndexExpression,
+			 ObservableComputations.IReadScalar<int> countTakingScalar)
+		{
+			return new ObservableComputations.Taking<TSourceItem>(
+				source: source,
+				startIndexScalar: new Computing<int>(startIndexExpression),
+				countTakingScalar: countTakingScalar,
+				initialCapacity: 0);
+		}
+
+		[ObservableComputationsCall]
+		public static ObservableComputations.Taking<TSourceItem> Taking<TSourceItem>(this
+			 System.Collections.Specialized.INotifyCollectionChanged source,
+			 Expression<Func<int>> startIndexExpression,
+			 Expression<Func<int>> countTakingExpression,
+			 int initialCapacity)
+		{
+			return new ObservableComputations.Taking<TSourceItem>(
+				source: source,
+				startIndexScalar: new Computing<int>(startIndexExpression),
+				countTakingScalar: new Computing<int>(countTakingExpression),
+				initialCapacity: initialCapacity);
+		}
+
+		[ObservableComputationsCall]
+		public static ObservableComputations.Taking<TSourceItem> Taking<TSourceItem>(this
+			 System.Collections.Specialized.INotifyCollectionChanged source,
+			 Expression<Func<int>> startIndexExpression,
+			 Expression<Func<int>> countTakingExpression)
+		{
+			return new ObservableComputations.Taking<TSourceItem>(
+				source: source,
+				startIndexScalar: new Computing<int>(startIndexExpression),
+				countTakingScalar: new Computing<int>(countTakingExpression),
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.Taking<TSourceItem> Taking<TSourceItem>(this
 			 ObservableCollection<TSourceItem> source,
 			 ObservableComputations.IReadScalar<int> startIndexScalar,
-			 int count)
+			 ObservableComputations.IReadScalar<int> countTakingScalar,
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Taking<TSourceItem>(
 				source: source,
 				startIndexScalar: startIndexScalar,
-				count: count);
+				countTakingScalar: countTakingScalar,
+				initialCapacity: initialCapacity);
+		}
+
+		[ObservableComputationsCall]
+		public static ObservableComputations.Taking<TSourceItem> Taking<TSourceItem>(this
+			 ObservableCollection<TSourceItem> source,
+			 ObservableComputations.IReadScalar<int> startIndexScalar,
+			 ObservableComputations.IReadScalar<int> countTakingScalar)
+		{
+			return new ObservableComputations.Taking<TSourceItem>(
+				source: source,
+				startIndexScalar: startIndexScalar,
+				countTakingScalar: countTakingScalar,
+				initialCapacity: 0);
+		}
+
+		[ObservableComputationsCall]
+		public static ObservableComputations.Taking<TSourceItem> Taking<TSourceItem>(this
+			 ObservableCollection<TSourceItem> source,
+			 ObservableComputations.IReadScalar<int> startIndexScalar,
+			 Expression<Func<int>> countTakingExpression,
+			 int initialCapacity)
+		{
+			return new ObservableComputations.Taking<TSourceItem>(
+				source: source,
+				startIndexScalar: startIndexScalar,
+				countTakingScalar: new Computing<int>(countTakingExpression),
+				initialCapacity: initialCapacity);
+		}
+
+		[ObservableComputationsCall]
+		public static ObservableComputations.Taking<TSourceItem> Taking<TSourceItem>(this
+			 ObservableCollection<TSourceItem> source,
+			 ObservableComputations.IReadScalar<int> startIndexScalar,
+			 Expression<Func<int>> countTakingExpression)
+		{
+			return new ObservableComputations.Taking<TSourceItem>(
+				source: source,
+				startIndexScalar: startIndexScalar,
+				countTakingScalar: new Computing<int>(countTakingExpression),
+				initialCapacity: 0);
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.Taking<TSourceItem> Taking<TSourceItem>(this
 			 ObservableCollection<TSourceItem> source,
 			 Expression<Func<int>> startIndexExpression,
-			 int count)
+			 ObservableComputations.IReadScalar<int> countTakingScalar,
+			 int initialCapacity)
 		{
 			return new ObservableComputations.Taking<TSourceItem>(
 				source: source,
 				startIndexScalar: new Computing<int>(startIndexExpression),
-				count: count);
+				countTakingScalar: countTakingScalar,
+				initialCapacity: initialCapacity);
+		}
+
+		[ObservableComputationsCall]
+		public static ObservableComputations.Taking<TSourceItem> Taking<TSourceItem>(this
+			 ObservableCollection<TSourceItem> source,
+			 Expression<Func<int>> startIndexExpression,
+			 ObservableComputations.IReadScalar<int> countTakingScalar)
+		{
+			return new ObservableComputations.Taking<TSourceItem>(
+				source: source,
+				startIndexScalar: new Computing<int>(startIndexExpression),
+				countTakingScalar: countTakingScalar,
+				initialCapacity: 0);
+		}
+
+		[ObservableComputationsCall]
+		public static ObservableComputations.Taking<TSourceItem> Taking<TSourceItem>(this
+			 ObservableCollection<TSourceItem> source,
+			 Expression<Func<int>> startIndexExpression,
+			 Expression<Func<int>> countTakingExpression,
+			 int initialCapacity)
+		{
+			return new ObservableComputations.Taking<TSourceItem>(
+				source: source,
+				startIndexScalar: new Computing<int>(startIndexExpression),
+				countTakingScalar: new Computing<int>(countTakingExpression),
+				initialCapacity: initialCapacity);
+		}
+
+		[ObservableComputationsCall]
+		public static ObservableComputations.Taking<TSourceItem> Taking<TSourceItem>(this
+			 ObservableCollection<TSourceItem> source,
+			 Expression<Func<int>> startIndexExpression,
+			 Expression<Func<int>> countTakingExpression)
+		{
+			return new ObservableComputations.Taking<TSourceItem>(
+				source: source,
+				startIndexScalar: new Computing<int>(startIndexExpression),
+				countTakingScalar: new Computing<int>(countTakingExpression),
+				initialCapacity: 0);
+		}
+
+		[ObservableComputationsCall]
+		public static ObservableComputations.Taking<TSourceItem> Taking<TSourceItem>(this
+			 System.Collections.Specialized.INotifyCollectionChanged source,
+			 ObservableComputations.IReadScalar<int> startIndexScalar,
+			 int countTaking)
+		{
+			return new ObservableComputations.Taking<TSourceItem>(
+				source: source,
+				startIndexScalar: startIndexScalar,
+				countTaking: countTaking);
+		}
+
+		[ObservableComputationsCall]
+		public static ObservableComputations.Taking<TSourceItem> Taking<TSourceItem>(this
+			 System.Collections.Specialized.INotifyCollectionChanged source,
+			 Expression<Func<int>> startIndexExpression,
+			 int countTaking)
+		{
+			return new ObservableComputations.Taking<TSourceItem>(
+				source: source,
+				startIndexScalar: new Computing<int>(startIndexExpression),
+				countTaking: countTaking);
+		}
+
+		[ObservableComputationsCall]
+		public static ObservableComputations.Taking<TSourceItem> Taking<TSourceItem>(this
+			 ObservableCollection<TSourceItem> source,
+			 ObservableComputations.IReadScalar<int> startIndexScalar,
+			 int countTaking)
+		{
+			return new ObservableComputations.Taking<TSourceItem>(
+				source: source,
+				startIndexScalar: startIndexScalar,
+				countTaking: countTaking);
+		}
+
+		[ObservableComputationsCall]
+		public static ObservableComputations.Taking<TSourceItem> Taking<TSourceItem>(this
+			 ObservableCollection<TSourceItem> source,
+			 Expression<Func<int>> startIndexExpression,
+			 int countTaking)
+		{
+			return new ObservableComputations.Taking<TSourceItem>(
+				source: source,
+				startIndexScalar: new Computing<int>(startIndexExpression),
+				countTaking: countTaking);
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.Taking<TSourceItem> Taking<TSourceItem>(this
 			 System.Collections.Specialized.INotifyCollectionChanged source,
 			 int startIndex,
-			 ObservableComputations.IReadScalar<int> countScalar,
+			 ObservableComputations.IReadScalar<int> countTakingScalar,
 			 int initialCapacity)
 		{
 			return new ObservableComputations.Taking<TSourceItem>(
 				source: source,
 				startIndex: startIndex,
-				countScalar: countScalar,
+				countTakingScalar: countTakingScalar,
 				initialCapacity: initialCapacity);
 		}
 
@@ -26139,12 +26139,12 @@ namespace ObservableComputations
 		public static ObservableComputations.Taking<TSourceItem> Taking<TSourceItem>(this
 			 System.Collections.Specialized.INotifyCollectionChanged source,
 			 int startIndex,
-			 ObservableComputations.IReadScalar<int> countScalar)
+			 ObservableComputations.IReadScalar<int> countTakingScalar)
 		{
 			return new ObservableComputations.Taking<TSourceItem>(
 				source: source,
 				startIndex: startIndex,
-				countScalar: countScalar,
+				countTakingScalar: countTakingScalar,
 				initialCapacity: 0);
 		}
 
@@ -26152,13 +26152,13 @@ namespace ObservableComputations
 		public static ObservableComputations.Taking<TSourceItem> Taking<TSourceItem>(this
 			 System.Collections.Specialized.INotifyCollectionChanged source,
 			 int startIndex,
-			 Expression<Func<int>> countExpression,
+			 Expression<Func<int>> countTakingExpression,
 			 int initialCapacity)
 		{
 			return new ObservableComputations.Taking<TSourceItem>(
 				source: source,
 				startIndex: startIndex,
-				countScalar: new Computing<int>(countExpression),
+				countTakingScalar: new Computing<int>(countTakingExpression),
 				initialCapacity: initialCapacity);
 		}
 
@@ -26166,12 +26166,12 @@ namespace ObservableComputations
 		public static ObservableComputations.Taking<TSourceItem> Taking<TSourceItem>(this
 			 System.Collections.Specialized.INotifyCollectionChanged source,
 			 int startIndex,
-			 Expression<Func<int>> countExpression)
+			 Expression<Func<int>> countTakingExpression)
 		{
 			return new ObservableComputations.Taking<TSourceItem>(
 				source: source,
 				startIndex: startIndex,
-				countScalar: new Computing<int>(countExpression),
+				countTakingScalar: new Computing<int>(countTakingExpression),
 				initialCapacity: 0);
 		}
 
@@ -26179,13 +26179,13 @@ namespace ObservableComputations
 		public static ObservableComputations.Taking<TSourceItem> Taking<TSourceItem>(this
 			 ObservableCollection<TSourceItem> source,
 			 int startIndex,
-			 ObservableComputations.IReadScalar<int> countScalar,
+			 ObservableComputations.IReadScalar<int> countTakingScalar,
 			 int initialCapacity)
 		{
 			return new ObservableComputations.Taking<TSourceItem>(
 				source: source,
 				startIndex: startIndex,
-				countScalar: countScalar,
+				countTakingScalar: countTakingScalar,
 				initialCapacity: initialCapacity);
 		}
 
@@ -26193,12 +26193,12 @@ namespace ObservableComputations
 		public static ObservableComputations.Taking<TSourceItem> Taking<TSourceItem>(this
 			 ObservableCollection<TSourceItem> source,
 			 int startIndex,
-			 ObservableComputations.IReadScalar<int> countScalar)
+			 ObservableComputations.IReadScalar<int> countTakingScalar)
 		{
 			return new ObservableComputations.Taking<TSourceItem>(
 				source: source,
 				startIndex: startIndex,
-				countScalar: countScalar,
+				countTakingScalar: countTakingScalar,
 				initialCapacity: 0);
 		}
 
@@ -26206,13 +26206,13 @@ namespace ObservableComputations
 		public static ObservableComputations.Taking<TSourceItem> Taking<TSourceItem>(this
 			 ObservableCollection<TSourceItem> source,
 			 int startIndex,
-			 Expression<Func<int>> countExpression,
+			 Expression<Func<int>> countTakingExpression,
 			 int initialCapacity)
 		{
 			return new ObservableComputations.Taking<TSourceItem>(
 				source: source,
 				startIndex: startIndex,
-				countScalar: new Computing<int>(countExpression),
+				countTakingScalar: new Computing<int>(countTakingExpression),
 				initialCapacity: initialCapacity);
 		}
 
@@ -26220,12 +26220,12 @@ namespace ObservableComputations
 		public static ObservableComputations.Taking<TSourceItem> Taking<TSourceItem>(this
 			 ObservableCollection<TSourceItem> source,
 			 int startIndex,
-			 Expression<Func<int>> countExpression)
+			 Expression<Func<int>> countTakingExpression)
 		{
 			return new ObservableComputations.Taking<TSourceItem>(
 				source: source,
 				startIndex: startIndex,
-				countScalar: new Computing<int>(countExpression),
+				countTakingScalar: new Computing<int>(countTakingExpression),
 				initialCapacity: 0);
 		}
 
@@ -26233,24 +26233,24 @@ namespace ObservableComputations
 		public static ObservableComputations.Taking<TSourceItem> Taking<TSourceItem>(this
 			 System.Collections.Specialized.INotifyCollectionChanged source,
 			 int startIndex,
-			 int count)
+			 int countTaking)
 		{
 			return new ObservableComputations.Taking<TSourceItem>(
 				source: source,
 				startIndex: startIndex,
-				count: count);
+				countTaking: countTaking);
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.Taking<TSourceItem> Taking<TSourceItem>(this
 			 ObservableCollection<TSourceItem> source,
 			 int startIndex,
-			 int count)
+			 int countTaking)
 		{
 			return new ObservableComputations.Taking<TSourceItem>(
 				source: source,
 				startIndex: startIndex,
-				count: count);
+				countTaking: countTaking);
 		}
 
 		#endregion

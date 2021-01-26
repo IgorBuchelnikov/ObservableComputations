@@ -19,7 +19,7 @@ namespace ObservableComputations
 		public override INotifyCollectionChanged Source => _sourceTaking;
 
 		// ReSharper disable once MemberCanBePrivate.Global
-		public IReadScalar<int> CountScalar => _countScalar;
+		public IReadScalar<int> CountTakingScalar => _countTakingScalar;
 
 		// ReSharper disable once MemberCanBePrivate.Global
 		public int CountTaking => _countTaking;
@@ -36,7 +36,7 @@ namespace ObservableComputations
 		public int StartIndex => _startIndex;
 		private readonly IReadScalar<INotifyCollectionChanged> _sourceScalarTaking;
 		private readonly INotifyCollectionChanged _sourceTaking;
-		private readonly IReadScalar<int> _countScalar;
+		private readonly IReadScalar<int> _countTakingScalar;
 		private readonly int _countTaking;
 		private readonly IReadScalar<int> _startIndexScalar;
 		private readonly int _startIndex;
@@ -48,14 +48,14 @@ namespace ObservableComputations
 		public Taking(			
 			IReadScalar<INotifyCollectionChanged> sourceScalar, 
 			IReadScalar<int> startIndexScalar,
-			IReadScalar<int> countScalar,
+			IReadScalar<int> countTakingScalar,
 			int initialCapacity = 0)
 			: base(
-				getSource(sourceScalar, startIndexScalar, countScalar, initialCapacity),
+				getSource(sourceScalar, startIndexScalar, countTakingScalar, initialCapacity),
 				zipPair => zipPair.RightItem)
 		{
 			_sourceScalarTaking = sourceScalar;
-			_countScalar = countScalar;
+			_countTakingScalar = countTakingScalar;
 			_startIndexScalar = startIndexScalar;
 		}
 
@@ -63,13 +63,13 @@ namespace ObservableComputations
 		public Taking(			
 			IReadScalar<INotifyCollectionChanged> sourceScalar, 
 			IReadScalar<int> startIndexScalar,
-			int count)
+			int countTaking)
 			: base(
-				getSource(sourceScalar, startIndexScalar, count),
+				getSource(sourceScalar, startIndexScalar, countTaking),
 				zipPair => zipPair.RightItem)
 		{
 			_sourceScalarTaking = sourceScalar;
-			_countTaking = count;
+			_countTaking = countTaking;
 			_startIndexScalar = startIndexScalar;
 		}
 
@@ -77,14 +77,14 @@ namespace ObservableComputations
 		public Taking(			
 			IReadScalar<INotifyCollectionChanged> sourceScalar, 
 			int startIndex,
-			IReadScalar<int> countScalar,
+			IReadScalar<int> countTakingScalar,
 			int initialCapacity = 0)
 			: base(
-				getSource(sourceScalar, startIndex, countScalar, initialCapacity),
+				getSource(sourceScalar, startIndex, countTakingScalar, initialCapacity),
 				zipPair => zipPair.RightItem)
 		{
 			_sourceScalarTaking = sourceScalar;
-			_countScalar = countScalar;
+			_countTakingScalar = countTakingScalar;
 			_startIndex = startIndex;
 		}
 
@@ -92,13 +92,13 @@ namespace ObservableComputations
 		public Taking(			
 			IReadScalar<INotifyCollectionChanged> sourceScalar, 
 			int startIndex,
-			int count)
+			int countTaking)
 			: base(
-				getSource(sourceScalar, startIndex, count),
+				getSource(sourceScalar, startIndex, countTaking),
 				zipPair => zipPair.RightItem)
 		{
 			_sourceScalarTaking = sourceScalar;
-			_countTaking = count;
+			_countTaking = countTaking;
 			_startIndex = startIndex;
 		}
 
@@ -106,14 +106,14 @@ namespace ObservableComputations
 		public Taking(			
 			INotifyCollectionChanged source, 
 			IReadScalar<int> startIndexScalar,
-			IReadScalar<int> countScalar,
+			IReadScalar<int> countTakingScalar,
 			int initialCapacity = 0)
 			: base(
-				getSource(source, startIndexScalar, countScalar, initialCapacity),
+				getSource(source, startIndexScalar, countTakingScalar, initialCapacity),
 				zipPair => zipPair.RightItem)
 		{
 			_sourceTaking = source;
-			_countScalar = countScalar;
+			_countTakingScalar = countTakingScalar;
 			_startIndexScalar = startIndexScalar;
 		}
 
@@ -121,13 +121,13 @@ namespace ObservableComputations
 		public Taking(			
 			INotifyCollectionChanged source, 
 			IReadScalar<int> startIndexScalar,
-			int count)
+			int countTaking)
 			: base(
-				getSource(source, startIndexScalar, count),
+				getSource(source, startIndexScalar, countTaking),
 				zipPair => zipPair.RightItem)
 		{
 			_sourceTaking = source;
-			_countTaking = count;
+			_countTaking = countTaking;
 			_startIndexScalar = startIndexScalar;
 		}
 
@@ -135,14 +135,14 @@ namespace ObservableComputations
 		public Taking(			
 			INotifyCollectionChanged source, 
 			int startIndex,
-			IReadScalar<int> countScalar,
+			IReadScalar<int> countTakingScalar,
 			int initialCapacity = 0)
 			: base(
-				getSource(source, startIndex, countScalar, initialCapacity),
+				getSource(source, startIndex, countTakingScalar, initialCapacity),
 				zipPair => zipPair.RightItem)
 		{
 			_sourceTaking = source;
-			_countScalar = countScalar;
+			_countTakingScalar = countTakingScalar;
 			_startIndex = startIndex;
 		}
 
@@ -150,13 +150,13 @@ namespace ObservableComputations
 		public Taking(			
 			INotifyCollectionChanged source, 
 			int startIndex,
-			int count)
+			int countTaking)
 			: base(
-				getSource(source, startIndex, count),
+				getSource(source, startIndex, countTaking),
 				zipPair => zipPair.RightItem)
 		{
 			_sourceTaking = source;
-			_countTaking = count;
+			_countTaking = countTaking;
 			_startIndex = startIndex;
 		}
 
@@ -259,7 +259,7 @@ namespace ObservableComputations
 		{
 			IList<TSourceItem> source = _sourceScalarTaking.getValue(_sourceTaking, new ObservableCollection<TSourceItem>()) as IList<TSourceItem>;
 			int startIndex = _startIndexScalar.getValue(_startIndex);
-			int count = _countScalar.getValue(_countTaking);
+			int count = _countTakingScalar.getValue(_countTaking);
 
 			// ReSharper disable once AssignNullToNotNullAttribute
 			if (!this.SequenceEqual(source.Skip(startIndex).Take(count)))

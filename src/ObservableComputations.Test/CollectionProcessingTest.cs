@@ -22,6 +22,7 @@ namespace ObservableComputations.Test
 			public object Token = new object();
 		}
 
+		[Test, Combinatorial]
 		public void TestCollectionProcessing1()
 		{
 			Item[] sourceCollection = new[]
@@ -95,6 +96,7 @@ namespace ObservableComputations.Test
 			}
 		}
 
+		[Test, Combinatorial]
 		public void CollectionProcessing2()
 			//IReadScalar<INotifyCollectionChanged> sourceScalar,
 			//Func<TSourceItem[], ICollectionComputing, TReturnValue[]> newItemProcessor = null,
@@ -177,6 +179,7 @@ namespace ObservableComputations.Test
 			itemsScalar.Touch();
 		}
 
+		[Test, Combinatorial]
 		public void CollectionProcessing3()
 		{
 			Item[] sourceCollection = new[]
@@ -250,9 +253,7 @@ namespace ObservableComputations.Test
 			}
 		}
 
-
-
-
+		[Test, Combinatorial]
 		public void TestCollectionProcessingVoid1()
 		{
 			Item[] sourceCollection = new[]
@@ -321,6 +322,7 @@ namespace ObservableComputations.Test
 			}
 		}
 
+		[Test, Combinatorial]
 		public void CollectionProcessingVoid2()
 			//IReadScalar<INotifyCollectionChanged> sourceScalar,
 			//Func<TSourceItem[], ICollectionComputing, TReturnValue[]> newItemProcessor = null,
@@ -398,6 +400,7 @@ namespace ObservableComputations.Test
 			itemsScalar.Touch();
 		}
 
+		[Test, Combinatorial]
 		public void CollectionProcessingVoid3()
 		{
 			Item[] sourceCollection = new[]

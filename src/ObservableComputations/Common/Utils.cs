@@ -701,8 +701,8 @@ namespace ObservableComputations
 						current.SetActivationInProgress(true);
 						current.OnPropertyChanged(ActivationInProgressPropertyChangedEventArgs);
 						current.SetIsActive(true);
-						current.Initialize();
 						current.AddToUpstreamComputings(current);
+						current.Initialize();
 						current.InitializeFromSource();
 						current.OnPropertyChanged(IsActivePropertyChangedEventArgs);
 						current.SetActivationInProgress(false);
@@ -743,8 +743,8 @@ namespace ObservableComputations
 						current.OnPropertyChanged(InactivationInProgressPropertyChangedEventArgs);
 						current.SetIsActive(false);
 						current.InitializeFromSource();
-						current.RemoveFromUpstreamComputings(current);
 						current.Uninitialize();
+						current.RemoveFromUpstreamComputings(current);
 
 						current.OnPropertyChanged(IsActivePropertyChangedEventArgs); 
 						current.SetInactivationInProgress(false);
@@ -781,8 +781,8 @@ namespace ObservableComputations
 						current.SetActivationInProgress(true);
 						current.OnPropertyChanged(ActivationInProgressPropertyChangedEventArgs);
 						current.SetIsActive(true);
-						current.Initialize();
 						current.AddToUpstreamComputings(computing);
+						current.Initialize();
 						current.InitializeFromSource();
 						current.OnPropertyChanged(IsActivePropertyChangedEventArgs);
 						current.SetActivationInProgress(false);
@@ -820,8 +820,8 @@ namespace ObservableComputations
 						current.OnPropertyChanged(InactivationInProgressPropertyChangedEventArgs);
 						current.SetIsActive(false);
 						current.InitializeFromSource();
-						current.RemoveFromUpstreamComputings(computing);
 						current.Uninitialize();
+						current.RemoveFromUpstreamComputings(computing);
 						current.OnPropertyChanged(IsActivePropertyChangedEventArgs);
 						current.SetInactivationInProgress(false);
 						current.OnPropertyChanged(InactivationInProgressPropertyChangedEventArgs);

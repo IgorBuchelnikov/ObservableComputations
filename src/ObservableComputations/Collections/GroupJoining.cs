@@ -263,47 +263,25 @@ namespace ObservableComputations
 			_equalityComparer = equalityComparer;
 		}
 
-
-		private void initializeGrouping(IReadScalar<INotifyCollectionChanged> innerSourceScalar, Expression<Func<TInnerSourceItem, TKey>> innerKeySelector, IReadScalar<IEqualityComparer<TKey>> equalityComparerScalar)
-		{
-			_grouping = innerSourceScalar.Grouping(innerKeySelector, equalityComparerScalar);
-			subscribeToGroupingCollectionChanged();
-		}
-
-		private void initializeGrouping(IReadScalar<INotifyCollectionChanged> innerSourceScalar, Expression<Func<TInnerSourceItem, TKey>> innerKeySelector, IEqualityComparer<TKey> equalityComparer)
-		{
-			_grouping = innerSourceScalar.Grouping(innerKeySelector, equalityComparer);
-			subscribeToGroupingCollectionChanged();
-		}
-
-		private void initializeGrouping(INotifyCollectionChanged innerSource, Expression<Func<TInnerSourceItem, TKey>> innerKeySelector, IReadScalar<IEqualityComparer<TKey>> equalityComparerScalar)
-		{
-			_grouping = innerSource.Grouping(innerKeySelector, equalityComparerScalar);
-			subscribeToGroupingCollectionChanged();
-		}
-
-		private void initializeGrouping(INotifyCollectionChanged innerSource, Expression<Func<TInnerSourceItem, TKey>> innerKeySelector, IEqualityComparer<TKey> equalityComparer)
-		{
-			_grouping = innerSource.Grouping(innerKeySelector, equalityComparer);
-			subscribeToGroupingCollectionChanged();
-		}
-
 		protected override void initialize()
 		{
 			if (_innerSourceScalar != null)
 			{
 				if (_equalityComparerScalar != null)
-					initializeGrouping(_innerSourceScalar, _innerKeySelector, _equalityComparerScalar);
+					_grouping = _innerSourceScalar.Grouping(_innerKeySelector, _equalityComparerScalar);
 				else
-					initializeGrouping(_innerSourceScalar, _innerKeySelector, _equalityComparer);
+					_grouping = _innerSourceScalar.Grouping(_innerKeySelector, _equalityComparer);
 			}
 			else
 			{
 				if (_equalityComparerScalar != null)
-					initializeGrouping(_innerSource, _innerKeySelector, _equalityComparerScalar);
+					_grouping = _innerSource.Grouping(_innerKeySelector, _equalityComparerScalar);
 				else
-					initializeGrouping(_innerSource, _innerKeySelector, _equalityComparer);			   
+					_grouping = _innerSource.Grouping(_innerKeySelector, _equalityComparer);			   
 			}
+
+			((IComputingInternal) _grouping).AddDownstreamConsumedComputing(this);
+			subscribeToGroupingCollectionChanged();
 
 			_keyPositions = new Dictionary<TKey, List<OuterItemInfo>>(_grouping._equalityComparer);
 
@@ -314,7 +292,8 @@ namespace ObservableComputations
 		protected override void uninitialize()
 		{
 			if (_groupingNotifyCollectionChangedEventHandler != null)
-				_grouping.CollectionChanged -= _groupingNotifyCollectionChangedEventHandler;			
+				_grouping.CollectionChanged -= _groupingNotifyCollectionChangedEventHandler;	
+			((IComputingInternal) _grouping).RemoveDownstreamConsumedComputing(this);
 
 			Utils.uninitializeSourceScalar(_outerSourceScalar, scalarValueChangedHandler, ref _outerSource);
 			Utils.uninitializeNestedComputings(_nestedComputings, this);
@@ -564,7 +543,6 @@ namespace ObservableComputations
 			(_outerSource as IComputingInternal)?.AddDownstreamConsumedComputing(computing);
 			(_outerSourceScalar as IComputingInternal)?.AddDownstreamConsumedComputing(computing);
 			(_equalityComparerScalar as IComputingInternal)?.AddDownstreamConsumedComputing(computing);
-			((IComputingInternal) _grouping).AddDownstreamConsumedComputing(computing);
 		}
 
 		internal override void removeFromUpstreamComputings(IComputingInternal computing)		
@@ -572,7 +550,6 @@ namespace ObservableComputations
 			(_outerSource as IComputingInternal)?.RemoveDownstreamConsumedComputing(computing);
 			(_outerSourceScalar as IComputingInternal)?.RemoveDownstreamConsumedComputing(computing);
 			(_equalityComparerScalar as IComputingInternal)?.RemoveDownstreamConsumedComputing(computing);
-			((IComputingInternal) _grouping).RemoveDownstreamConsumedComputing(computing);
 		}
 
 		private void expressionWatcher_OnValueChanged(ExpressionWatcher expressionWatcher, object sender, EventArgs eventArgs)

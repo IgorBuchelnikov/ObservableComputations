@@ -5,7 +5,7 @@ using NUnit.Framework;
 
 namespace ObservableComputations.Test
 {
-	[TestFixture]
+	[TestFixture(false)]
 	public class CollectionDisposingTest : TestBase
 	{
 		public CollectionDisposingTest(bool debug) : base(debug)
@@ -30,6 +30,7 @@ namespace ObservableComputations.Test
 			Assert.IsTrue(item.Disposed);
 		}
 
+		[Test]
 		public void Test1()
 		{
 			ObservableCollection<Item> source = new ObservableCollection<Item>(
@@ -46,6 +47,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 
+		[Test]
 		public void Test2()
 		{
 			ObservableCollection<Item> source = new ObservableCollection<Item>(
@@ -62,6 +64,7 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 
+		[Test]
 		public void Test3()
 		{
 			ObservableCollection<Item> source = new ObservableCollection<Item>(

@@ -38,8 +38,6 @@ namespace ObservableComputations
 		private readonly StringBuilder _valueStringBuilder = new StringBuilder();
 		private RangePositions<RangePosition> _resultRangePositions;
 
-		private bool _sourceInitialized;
-
 		private bool _moving;
 		private readonly IReadScalar<INotifyCollectionChanged> _sourceScalar;
 		private readonly IReadScalar<string> _separatorScalar;
@@ -108,9 +106,9 @@ namespace ObservableComputations
 			}
 		}
 
-		protected override void initializeFromSource()
+		protected override void processSource()
 		{
-			if (_sourceInitialized)
+			if (_sourceEnumerated)
 			{
 				_valueStringBuilder.Clear();
 
@@ -126,7 +124,7 @@ namespace ObservableComputations
 					_sourceAsINotifyPropertyChanged = null;
 				}
 
-				_sourceInitialized = false;
+				_sourceEnumerated = false;
 			}
 
 
@@ -143,7 +141,7 @@ namespace ObservableComputations
 					(ISourceIndexerPropertyTracker)this);
 
 				_source.CollectionChanged += handleSourceCollectionChanged;
-				_sourceInitialized = true;
+				_sourceEnumerated = true;
 				recalculateValue();
 			}
 			else
@@ -298,21 +296,19 @@ namespace ObservableComputations
 
 					break;
 				case NotifyCollectionChangedAction.Reset:
-					initializeFromSource();
+					processSource();
 					break;
 			}
 		}
 
 		internal override void addToUpstreamComputings(IComputingInternal computing)
 		{
-			(_source as IComputingInternal)?.AddDownstreamConsumedComputing(computing);
-			(_sourceScalar as IComputingInternal)?.AddDownstreamConsumedComputing(computing);
+			Utils.AddDownstreamConsumedComputing(computing, _sourceScalar, _source);
 		}
 
 		internal override void removeFromUpstreamComputings(IComputingInternal computing)		
 		{
-			(_source as IComputingInternal)?.RemoveDownstreamConsumedComputing(computing);
-			(_sourceScalar as IComputingInternal)?.RemoveDownstreamConsumedComputing(computing);
+			Utils.RemoveDownstreamConsumedComputing(computing, _sourceScalar, _source);
 		}
 
 		protected override void initialize()

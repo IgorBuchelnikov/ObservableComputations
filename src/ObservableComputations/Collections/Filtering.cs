@@ -52,8 +52,6 @@ namespace ObservableComputations
 
 		private readonly ExpressionWatcher.ExpressionInfo _predicateExpressionInfo;
 
-		private bool _sourceInitialized;
-
 		private ObservableCollectionWithChangeMarker<TSourceItem> _sourceAsList;
 		bool _rootSourceWrapper;
 		private bool _lastProcessedSourceChangeMarker;
@@ -211,11 +209,11 @@ namespace ObservableComputations
 		//	#endregion
 		//}
 
-		protected override void initializeFromSource()
+		protected override void processSource()
 		{
 			int originalCount = _items.Count;
 
-			if (_sourceInitialized)
+			if (_sourceEnumerated)
 			{
 				Utils.disposeExpressionItemInfos(_itemInfos, _predicateExpressionCallCount, this);
 				Utils.removeDownstreamConsumedComputing(_itemInfos, this);
@@ -230,7 +228,7 @@ namespace ObservableComputations
 					_sourceAsList, 
 					handleSourceCollectionChanged);
 
-				_sourceInitialized = false;
+				_sourceEnumerated = false;
 			}
 
 			Utils.changeSource(ref _source, _sourceScalar, _downstreamConsumedComputings, _consumers, this, out _sourceAsList, false);
@@ -280,7 +278,7 @@ namespace ObservableComputations
 					_items.RemoveAt(index);
 				}
 
-				_sourceInitialized = true;
+				_sourceEnumerated = true;
 			}
 			else
 			{
@@ -368,7 +366,7 @@ namespace ObservableComputations
 						_filteredPositions, _sourcePositions, this);
 					break;
 				case NotifyCollectionChangedAction.Reset:
-					initializeFromSource();
+					processSource();
 					break;
 				case NotifyCollectionChangedAction.Replace:
 					int sourceIndex = e.NewStartingIndex;
@@ -389,14 +387,12 @@ namespace ObservableComputations
 
 		internal override void addToUpstreamComputings(IComputingInternal computing)
 		{
-			(_source as IComputingInternal)?.AddDownstreamConsumedComputing(computing);
-			(_sourceScalar as IComputingInternal)?.AddDownstreamConsumedComputing(computing);
+			Utils.AddDownstreamConsumedComputing(computing, _sourceScalar, _source);
 		}
 
 		internal override void removeFromUpstreamComputings(IComputingInternal computing)		
 		{
-			(_source as IComputingInternal)?.RemoveDownstreamConsumedComputing(computing);
-			(_sourceScalar as IComputingInternal)?.RemoveDownstreamConsumedComputing(computing);		  
+			Utils.RemoveDownstreamConsumedComputing(computing, _sourceScalar, _source);		  
 		}
 
 		void IFiltering<TSourceItem>.expressionWatcher_OnValueChanged(ExpressionWatcher expressionWatcher, object sender, EventArgs eventArgs)

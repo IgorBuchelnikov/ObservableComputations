@@ -28,7 +28,7 @@ namespace ObservableComputations
 			Utils.clearDeferredProcessings(deferredProcessings);
 
 			Action?.Invoke();
-			CanInitializeFromSource.InitializeFromSource();
+			CanInitializeFromSource.ProcessSource();
 		}
 
 		#endregion

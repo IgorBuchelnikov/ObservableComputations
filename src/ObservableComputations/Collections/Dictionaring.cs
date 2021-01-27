@@ -145,7 +145,7 @@ namespace ObservableComputations
 
 		private bool _lastProcessedSourceChangeMarker;
 
-		private bool _sourceInitialized;
+		private bool _sourceEnumerated;
 		private readonly IReadScalar<INotifyCollectionChanged> _sourceScalar;
 		private readonly Func<TSourceItem, TKey> _keySelectorFunc;
 		private readonly Func<TSourceItem, TValue> _valueSelectorFunc;
@@ -259,6 +259,8 @@ namespace ObservableComputations
 
 		private void handleEqualityComparerScalarValueChanged(object sender, PropertyChangedEventArgs e)
 		{
+			if (!_initializedFromSource) return;
+
 			Utils.processResetChange(
 				sender, 
 				e, 
@@ -270,9 +272,9 @@ namespace ObservableComputations
 				ref _deferredProcessings, this);
 		}
 
-		private void initializeFromSource()
+		private void processSource()
 		{
-			if (_sourceInitialized)
+			if (_sourceEnumerated)
 			{
 				Utils.disposeKeyValueExpressionItemInfos(
 					_itemInfos,
@@ -292,7 +294,7 @@ namespace ObservableComputations
 
 				baseClearItems();
 
-				_sourceInitialized = false;
+				_sourceEnumerated = false;
 			}
 
 			Utils.changeSource(ref _source, _sourceScalar, _downstreamConsumedComputings, _consumers, this, out _sourceAsList, false);
@@ -319,7 +321,7 @@ namespace ObservableComputations
 					baseAddItem(key, value);
 				}
 		 
-				_sourceInitialized = true;
+				_sourceEnumerated = true;
 			}
 		}
 
@@ -467,7 +469,7 @@ namespace ObservableComputations
 
 					break;
 				case NotifyCollectionChangedAction.Reset:
-					initializeFromSource();
+					processSource();
 					break;
 			}
 		}
@@ -725,6 +727,8 @@ namespace ObservableComputations
 
 		private void handleSourceScalarValueChanged(object sender,  PropertyChangedEventArgs e)
 		{
+			if (!_initializedFromSource) return;
+
 			Utils.processResetChange(
 				sender, 
 				e, 
@@ -773,9 +777,9 @@ namespace ObservableComputations
 			Utils.uninitializeNestedComputings(_valueNestedComputings, this);
 		}
 
-		void ICanInitializeFromSource.InitializeFromSource()
+		void ICanInitializeFromSource.ProcessSource()
 		{
-			initializeFromSource();
+			processSource();
 		}
 
 
@@ -793,6 +797,14 @@ namespace ObservableComputations
 		void ISourceItemChangeProcessor.ProcessSourceItemChange(ExpressionWatcher expressionWatcher)
 		{
 			throw new NotImplementedException();
+		}
+
+		private bool _initializedFromSource;
+
+		bool IComputingInternal.InitializedFromSource
+		{
+			get => _initializedFromSource;
+			set => _initializedFromSource = value;
 		}
 
 		void IComputingInternal.AddConsumer(OcConsumer addingOcConsumer)

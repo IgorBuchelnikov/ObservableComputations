@@ -142,7 +142,7 @@ namespace ObservableComputations
 			}
 			else //if (_resumeType == CollectionPausingResumeType.Reset)
 			{
-				initializeFromSource();
+				processSource();
 			}
 		}
 
@@ -151,8 +151,6 @@ namespace ObservableComputations
 		private readonly IReadScalar<INotifyCollectionChanged> _sourceScalar;
 
 		private readonly IReadScalar<bool> _isPausedScalar;
-
-		private bool _sourceInitialized;
 
 		private bool _indexerPropertyChangedEventRaised;
 		private INotifyPropertyChanged _sourceAsINotifyPropertyChanged;
@@ -227,7 +225,7 @@ namespace ObservableComputations
 		private void handleIsPausedScalarValueChanged(object sender, PropertyChangedEventArgs e)
 		{
 			if (e.PropertyName != nameof(IReadScalar<object>.Value)) return;
-			if (_sourceInitialized) checkConsistent(sender, e);
+			if (_sourceEnumerated) checkConsistent(sender, e);
 
 			_handledEventSender = sender;
 			_handledEventArgs = e;
@@ -242,11 +240,11 @@ namespace ObservableComputations
 			_handledEventArgs = null;
 		}
 
-		protected override void initializeFromSource()
+		protected override void processSource()
 		{
 			int originalCount = _items.Count;
 
-			if (_sourceInitialized)
+			if (_sourceEnumerated)
 			{		
 				_source.CollectionChanged -= handleSourceCollectionChanged;
 
@@ -257,7 +255,7 @@ namespace ObservableComputations
 					_sourceAsINotifyPropertyChanged = null;
 				}
 
-				_sourceInitialized = false;
+				_sourceEnumerated = false;
 			}
 
 			Utils.changeSource(ref _source, _sourceScalar, _downstreamConsumedComputings, _consumers, this,
@@ -305,7 +303,7 @@ namespace ObservableComputations
 					}
 				}
 		  
-				_sourceInitialized = true;
+				_sourceEnumerated = true;
 			}			
 			else 
 			{
@@ -376,22 +374,20 @@ namespace ObservableComputations
 
 					break;
 				case NotifyCollectionChangedAction.Reset:
-					initializeFromSource();
+					processSource();
 					break;
 			}
 		}
 
 		internal override void addToUpstreamComputings(IComputingInternal computing)
 		{
-			(_source as IComputingInternal)?.AddDownstreamConsumedComputing(computing);
-			(_sourceScalar as IComputingInternal)?.AddDownstreamConsumedComputing(computing);
+			Utils.AddDownstreamConsumedComputing(computing, _sourceScalar, _source);
 			(_isPausedScalar as IComputingInternal)?.AddDownstreamConsumedComputing(computing);
 		}
 
 		internal override void removeFromUpstreamComputings(IComputingInternal computing)		
 		{
-			(_source as IComputingInternal)?.RemoveDownstreamConsumedComputing(computing);
-			(_sourceScalar as IComputingInternal)?.RemoveDownstreamConsumedComputing(computing);
+			Utils.RemoveDownstreamConsumedComputing(computing, _sourceScalar, _source);
 			(_isPausedScalar as IComputingInternal)?.RemoveDownstreamConsumedComputing(computing);
 		}
 

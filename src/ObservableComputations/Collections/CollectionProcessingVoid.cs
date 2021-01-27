@@ -34,7 +34,6 @@ namespace ObservableComputations
 		private IHasChangeMarker _sourceAsIHasChangeMarker;
 		private bool _lastProcessedSourceChangeMarker;
 
-		private bool _sourceInitialized;
 		private readonly IReadScalar<INotifyCollectionChanged> _sourceScalar;
 		private INotifyCollectionChanged _source;
 
@@ -77,9 +76,9 @@ namespace ObservableComputations
 			_thisAsSourceCollectionChangeProcessor = this;
 		}
 
-		protected override void initializeFromSource()
+		protected override void processSource()
 		{
-			if (_sourceInitialized)
+			if (_sourceEnumerated)
 			{
 				_source.CollectionChanged -= handleSourceCollectionChanged;
 
@@ -91,7 +90,7 @@ namespace ObservableComputations
 
 				if (_oldItemsProcessor!= null) processOldItems(_sourceAsList.ToArray());
 
-				_sourceInitialized = false;
+				_sourceEnumerated = false;
 			}
 
 			Utils.changeSource(ref _source, _sourceScalar, _downstreamConsumedComputings, _consumers, this,
@@ -119,7 +118,7 @@ namespace ObservableComputations
 
 				if (_newItemsProcessor != null) processNewItems(sourceCopy);
 			 
-				_sourceInitialized = true;
+				_sourceEnumerated = true;
 			}
 		}
 
@@ -184,7 +183,7 @@ namespace ObservableComputations
 
 					break;
 				case NotifyCollectionChangedAction.Reset:
-					initializeFromSource();
+					processSource();
 					break;
 			}
 		}
@@ -231,14 +230,12 @@ namespace ObservableComputations
 
 		internal override void addToUpstreamComputings(IComputingInternal computing)
 		{
-			(_source as IComputingInternal)?.AddDownstreamConsumedComputing(computing);
-			(_sourceScalar as IComputingInternal)?.AddDownstreamConsumedComputing(computing);
+			Utils.AddDownstreamConsumedComputing(computing, _sourceScalar, _source);
 		}
 
 		internal override void removeFromUpstreamComputings(IComputingInternal computing)		
 		{
-			(_source as IComputingInternal)?.RemoveDownstreamConsumedComputing(computing);
-			(_sourceScalar as IComputingInternal)?.RemoveDownstreamConsumedComputing(computing);
+			Utils.RemoveDownstreamConsumedComputing(computing, _sourceScalar, _source);
 		}
 
 		protected override void initialize()

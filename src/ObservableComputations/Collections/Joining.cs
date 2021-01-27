@@ -57,8 +57,6 @@ namespace ObservableComputations
 
 		private readonly ExpressionWatcher.ExpressionInfo _predicateExpressionInfo;
 
-		private bool _sourceInitialized;
-
 		private ObservableCollectionWithChangeMarker<TLeftSourceItem> _leftSourceAsList;
 		private ObservableCollectionWithChangeMarker<TRightSourceItem> _rightSourceAsList;
 		private List<TLeftSourceItem> _leftSourceCopy;
@@ -252,11 +250,11 @@ namespace ObservableComputations
 			_deferredQueuesCount = 3;
 		}
 
-		protected override void initializeFromSource()
+		protected override void processSource()
 		{
 			int originalCount = _items.Count;
 
-			if (_sourceInitialized)
+			if (_sourceEnumerated)
 			{
 				Utils.disposeExpressionItemInfos(_itemInfos, _predicateExpressionCallCount, this);
 				Utils.removeDownstreamConsumedComputing(_itemInfos, this);
@@ -280,7 +278,7 @@ namespace ObservableComputations
 
 				_leftSourceCopy = null;
 				_rightSourceCopy = null;
-				_sourceInitialized = false;
+				_sourceEnumerated = false;
 			}
 
 			Utils.changeSource(ref _leftSource, _leftSourceScalar, _downstreamConsumedComputings, _consumers, this,
@@ -375,7 +373,7 @@ namespace ObservableComputations
 				for (int index = originalCount - 1; index >= insertingIndex; index--)
 					_items.RemoveAt(index);
 
-				_sourceInitialized = true;
+				_sourceEnumerated = true;
 
 			}
 			else
@@ -490,7 +488,7 @@ namespace ObservableComputations
 
 						break;
 					case NotifyCollectionChangedAction.Reset:
-						initializeFromSource();
+						processSource();
 						break;
 					case NotifyCollectionChangedAction.Replace:
 						int newIndex3 = e.NewStartingIndex;
@@ -609,7 +607,7 @@ namespace ObservableComputations
 						}
 						break;
 					case NotifyCollectionChangedAction.Reset:
-						initializeFromSource();
+						processSource();
 						break;
 				}
 		}
@@ -676,18 +674,14 @@ namespace ObservableComputations
 
 		internal override void addToUpstreamComputings(IComputingInternal computing)
 		{
-			(_leftSource as IComputingInternal)?.AddDownstreamConsumedComputing(computing);
-			(_rightSource as IComputingInternal)?.AddDownstreamConsumedComputing(computing);
-			(_leftSourceScalar as IComputingInternal)?.AddDownstreamConsumedComputing(computing);
-			(_rightSourceScalar as IComputingInternal)?.AddDownstreamConsumedComputing(computing);
+			Utils.AddDownstreamConsumedComputing(computing, _leftSourceScalar, _leftSource);
+			Utils.AddDownstreamConsumedComputing(computing, _rightSourceScalar, _leftSource);
 		}
 
 		internal override void removeFromUpstreamComputings(IComputingInternal computing)
 		{
-			(_leftSource as IComputingInternal)?.RemoveDownstreamConsumedComputing(computing);
-			(_rightSource as IComputingInternal)?.RemoveDownstreamConsumedComputing(computing);
-			(_leftSourceScalar as IComputingInternal)?.RemoveDownstreamConsumedComputing(computing);
-			(_rightSourceScalar as IComputingInternal)?.RemoveDownstreamConsumedComputing(computing);
+			Utils.RemoveDownstreamConsumedComputing(computing, _leftSourceScalar, _rightSource);
+			Utils.RemoveDownstreamConsumedComputing(computing, _rightSourceScalar, _rightSource);
 		}
 
 		void IFiltering<JoinPair<TLeftSourceItem, TRightSourceItem>>.expressionWatcher_OnValueChanged(ExpressionWatcher expressionWatcher, object sender,

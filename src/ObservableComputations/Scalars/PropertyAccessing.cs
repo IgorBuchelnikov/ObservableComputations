@@ -407,12 +407,11 @@ namespace ObservableComputations
 				ref _deferredProcessings, this);
 		}
 
-		private bool _initializedFromSource;
 		#region Overrides of ScalarComputing<TResult>
 
-		protected override void initializeFromSource()
+		protected override void processSource()
 		{
-			if (_initializedFromSource)
+			if (_sourceEnumerated)
 			{
 				if (_propertyHolderScalar != null)
 				{
@@ -423,7 +422,7 @@ namespace ObservableComputations
 				if (_propertyHolder != null)
 					_propertyHolder.PropertyChanged -= handlePropertyHolderPropertyChanged;
 
-				_initializedFromSource = false;
+				_sourceEnumerated = false;
 			}
 
 			if (_isActive)
@@ -435,7 +434,7 @@ namespace ObservableComputations
 				}
 
 				registerPropertyHolder();
-				_initializedFromSource = true;
+				_sourceEnumerated = true;
 			}
 			else
 				setDefaultValue(_defaultValue);

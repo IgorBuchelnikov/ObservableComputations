@@ -70,7 +70,7 @@ namespace ObservableComputations
 
 		#region Overrides of CollectionComputing<int>
 
-		protected override void initializeFromSource()
+		protected override void processSource()
 		{
 		}
 

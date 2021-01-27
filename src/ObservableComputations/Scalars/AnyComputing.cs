@@ -44,8 +44,6 @@ namespace ObservableComputations
 
 		private readonly ExpressionWatcher.ExpressionInfo _predicateExpressionInfo;
 
-		private bool _sourceInitialized;
-
 		private readonly IReadScalar<INotifyCollectionChanged> _sourceScalar;
 
 		private INotifyCollectionChanged _source;
@@ -164,7 +162,7 @@ namespace ObservableComputations
 
 					break;
 				case NotifyCollectionChangedAction.Reset:
-					initializeFromSource();
+					processSource();
 					break;
 				case NotifyCollectionChangedAction.Replace:
 					int newStartingIndex = e.NewStartingIndex;
@@ -210,14 +208,12 @@ namespace ObservableComputations
 
 		internal override void addToUpstreamComputings(IComputingInternal computing)
 		{
-			(_source as IComputingInternal)?.AddDownstreamConsumedComputing(computing);
-			(_sourceScalar as IComputingInternal)?.AddDownstreamConsumedComputing(computing);
+			Utils.AddDownstreamConsumedComputing(computing, _sourceScalar, _source);
 		}
 
 		internal override void removeFromUpstreamComputings(IComputingInternal computing)		
 		{
-			(_source as IComputingInternal)?.RemoveDownstreamConsumedComputing(computing);
-			(_sourceScalar as IComputingInternal)?.RemoveDownstreamConsumedComputing(computing);
+			Utils.RemoveDownstreamConsumedComputing(computing, _sourceScalar, _source);
 		}
 
 		protected override void initialize()
@@ -232,9 +228,9 @@ namespace ObservableComputations
 			Utils.uninitializeNestedComputings(_nestedComputings, this);
 		}
 
-		protected override void initializeFromSource()
+		protected override void processSource()
 		{
-			if (_sourceInitialized)
+			if (_sourceEnumerated)
 			{
 				Utils.disposeExpressionItemInfos(_itemInfos, _predicateExpressionCallCount, this);
 				Utils.removeDownstreamConsumedComputing(_itemInfos, this);
@@ -247,7 +243,7 @@ namespace ObservableComputations
 					_sourceAsList, 
 					handleSourceCollectionChanged);
 
-				_sourceInitialized = false;
+				_sourceEnumerated = false;
 			}
 
 			_predicatePassedCount = 0;
@@ -278,7 +274,7 @@ namespace ObservableComputations
 
 				calculateValue();
 
-				_sourceInitialized = true;
+				_sourceEnumerated = true;
 			}
 			else
 			{

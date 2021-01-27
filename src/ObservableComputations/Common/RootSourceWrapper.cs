@@ -18,8 +18,6 @@ namespace ObservableComputations
 		private readonly INotifyCollectionChanged _source;
 		private readonly IList<TSourceItem> _sourceAsList;
 
-		private bool _sourceInitialized;
-
 		private bool _indexerPropertyChangedEventRaised;
 		private readonly INotifyPropertyChanged _sourceAsINotifyPropertyChanged;
 		private readonly IList<TSourceItem> _items;

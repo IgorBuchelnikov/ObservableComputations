@@ -159,11 +159,9 @@ namespace ObservableComputations
 			}
 		}
 
-		private bool _initializedFromSource;
-
-		protected override void initializeFromSource()
+		protected override void processSource()
 		{
-			if (_initializedFromSource)
+			if (_sourceEnumerated)
 			{
 				_scalar.PropertyChanged -= handleScalarPropertyChanged;
 
@@ -178,7 +176,7 @@ namespace ObservableComputations
 				}
 
 				_deferredScalarActions.Clear();
-				_initializedFromSource = false;
+				_sourceEnumerated = false;
 			}
 
 			if (_isActive)
@@ -190,7 +188,7 @@ namespace ObservableComputations
 
 				initializeIsPauserScalar();
 				initializeLastChangesCountOnResumeScalar();
-				_initializedFromSource = true;
+				_sourceEnumerated = true;
 			}
 			else
 			{

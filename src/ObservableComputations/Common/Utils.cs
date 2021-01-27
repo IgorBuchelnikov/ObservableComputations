@@ -701,9 +701,10 @@ namespace ObservableComputations
 						current.SetActivationInProgress(true);
 						current.OnPropertyChanged(ActivationInProgressPropertyChangedEventArgs);
 						current.SetIsActive(true);
-						current.AddToUpstreamComputings(current);
 						current.Initialize();
-						current.InitializeFromSource();
+						current.AddToUpstreamComputings(current);
+						current.ProcessSource();
+						current.InitializedFromSource = true;
 						current.OnPropertyChanged(IsActivePropertyChangedEventArgs);
 						current.SetActivationInProgress(false);
 						current.OnPropertyChanged(ActivationInProgressPropertyChangedEventArgs);
@@ -742,10 +743,10 @@ namespace ObservableComputations
 						current.SetInactivationInProgress(true);
 						current.OnPropertyChanged(InactivationInProgressPropertyChangedEventArgs);
 						current.SetIsActive(false);
-						current.InitializeFromSource();
-						current.Uninitialize();
+						current.ProcessSource();
+						current.InitializedFromSource = false;
 						current.RemoveFromUpstreamComputings(current);
-
+						current.Uninitialize();
 						current.OnPropertyChanged(IsActivePropertyChangedEventArgs); 
 						current.SetInactivationInProgress(false);
 						current.OnPropertyChanged(InactivationInProgressPropertyChangedEventArgs);
@@ -781,9 +782,10 @@ namespace ObservableComputations
 						current.SetActivationInProgress(true);
 						current.OnPropertyChanged(ActivationInProgressPropertyChangedEventArgs);
 						current.SetIsActive(true);
-						current.AddToUpstreamComputings(computing);
 						current.Initialize();
-						current.InitializeFromSource();
+						current.AddToUpstreamComputings(computing);
+						current.ProcessSource();
+						current.InitializedFromSource = true;
 						current.OnPropertyChanged(IsActivePropertyChangedEventArgs);
 						current.SetActivationInProgress(false);
 						current.OnPropertyChanged(ActivationInProgressPropertyChangedEventArgs);
@@ -819,9 +821,10 @@ namespace ObservableComputations
 						current.SetInactivationInProgress(true);
 						current.OnPropertyChanged(InactivationInProgressPropertyChangedEventArgs);
 						current.SetIsActive(false);
-						current.InitializeFromSource();
-						current.Uninitialize();
+						current.ProcessSource();
+						current.InitializedFromSource = false;
 						current.RemoveFromUpstreamComputings(computing);
+						current.Uninitialize();
 						current.OnPropertyChanged(IsActivePropertyChangedEventArgs);
 						current.SetInactivationInProgress(false);
 						current.OnPropertyChanged(InactivationInProgressPropertyChangedEventArgs);
@@ -1024,7 +1027,7 @@ namespace ObservableComputations
 				() =>
 				{
 					scalarValueChangedHandlerAction?.Invoke();
-					computing.InitializeFromSource();
+					computing.ProcessSource();
 				}, 
 				() => new CollectionReset(sender, args, computing, scalarValueChangedHandlerAction),
 				ref isConsistent, ref handledEventSender, ref handledEventArgs,
@@ -1123,11 +1126,16 @@ namespace ObservableComputations
 				watcher._currentComputings[computingIndex]?.AddDownstreamConsumedComputing(current);
 		}
 
-		internal static void addDownstreamConsumedComputing<TItemInfo>(List<TItemInfo> itemInfos, IComputingInternal current) where TItemInfo : ExpressionItemInfo
+		internal static void AddDownstreamConsumedComputing(IComputingInternal computing, IReadScalar<INotifyCollectionChanged> sourceScalar, INotifyCollectionChanged source)
 		{
-			int itemInfosCount = itemInfos.Count;
-			for (int index = 0; index < itemInfosCount; index++)
-				addDownstreamConsumedComputing(itemInfos[index].ExpressionWatcher, current);
+			(sourceScalar as IComputingInternal)?.AddDownstreamConsumedComputing(computing);
+			(source as IComputingInternal)?.AddDownstreamConsumedComputing(computing);
+		}
+
+		internal static void RemoveDownstreamConsumedComputing(IComputingInternal computing, IReadScalar<INotifyCollectionChanged> sourceScalar, INotifyCollectionChanged source)
+		{
+			(source as IComputingInternal)?.RemoveDownstreamConsumedComputing(computing);
+			(sourceScalar as IComputingInternal)?.RemoveDownstreamConsumedComputing(computing);
 		}
 
 		internal static readonly PropertyChangedEventArgs InsertItemIntoGroupRequestHandlerPropertyChangedEventArgs = new PropertyChangedEventArgs("InsertItemIntoGroupRequestHandler");

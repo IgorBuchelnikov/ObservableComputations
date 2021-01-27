@@ -73,15 +73,14 @@ namespace ObservableComputations
 				ref _deferredProcessings, this);
 		}
 
-		private bool _initializedFromSource;
 		#region Overrides of ScalarComputing<TResult>
 
-		protected override void initializeFromSource()
+		protected override void processSource()
 		{
-			if (_initializedFromSource)
+			if (_sourceEnumerated)
 			{
 				_scalar.PropertyChanged -= handleScalarPropertyChanged;
-				_initializedFromSource = false;
+				_sourceEnumerated = false;
 			}
 
 			if (_isActive)
@@ -108,7 +107,7 @@ namespace ObservableComputations
 				else
 					readAndSubscribe();
 
-				_initializedFromSource = true;
+				_sourceEnumerated = true;
 			}
 			else
 			{

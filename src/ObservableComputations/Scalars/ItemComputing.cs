@@ -34,7 +34,6 @@ namespace ObservableComputations
 		protected INotifyCollectionChanged _source;
 		private IList<TSourceItem> _sourceAsList;
 
-		private bool _sourceInitialized;
 		private readonly IReadScalar<int> _indexScalar;
 		private int _index;
 		internal readonly TSourceItem _defaultValue;
@@ -142,9 +141,9 @@ namespace ObservableComputations
 				ref _deferredProcessings, this);
 		}
 
-		protected override void initializeFromSource()
+		protected override void processSource()
 		{
-			if (_sourceInitialized)
+			if (_sourceEnumerated)
 			{
 				_source.CollectionChanged -= handleSourceCollectionChanged;
 
@@ -157,7 +156,7 @@ namespace ObservableComputations
 
 				_sourceCopy = null;
 
-				_sourceInitialized = false;
+				_sourceEnumerated = false;
 			}
 
 			Utils.changeSource(ref _source, _sourceScalar, _downstreamConsumedComputings, _consumers, this,
@@ -177,7 +176,7 @@ namespace ObservableComputations
 				_sourceCopy = new List<TSourceItem>(_sourceAsList);
 				recalculateValue();
 
-				_sourceInitialized = true;
+				_sourceEnumerated = true;
 			}
 			else
 				setDefaultValue(_defaultValue);
@@ -274,22 +273,20 @@ namespace ObservableComputations
 
 					break;
 				case NotifyCollectionChangedAction.Reset:
-					initializeFromSource();
+					processSource();
 					break;
 			}
 		}
 
 		internal override void addToUpstreamComputings(IComputingInternal computing)
 		{
-			(_source as IComputingInternal)?.AddDownstreamConsumedComputing(computing);
-			(_sourceScalar as IComputingInternal)?.AddDownstreamConsumedComputing(computing);
+			Utils.AddDownstreamConsumedComputing(computing, _sourceScalar, _source);
 			(_indexScalar as IComputingInternal)?.AddDownstreamConsumedComputing(computing);
 		}
 
 		internal override void removeFromUpstreamComputings(IComputingInternal computing)		
 		{
-			(_source as IComputingInternal)?.RemoveDownstreamConsumedComputing(computing);
-			(_sourceScalar as IComputingInternal)?.RemoveDownstreamConsumedComputing(computing);
+			Utils.RemoveDownstreamConsumedComputing(computing, _sourceScalar, _source);
 			(_indexScalar as IComputingInternal)?.RemoveDownstreamConsumedComputing(computing);
 		}
 

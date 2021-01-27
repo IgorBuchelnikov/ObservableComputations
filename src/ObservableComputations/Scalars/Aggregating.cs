@@ -30,7 +30,6 @@ namespace ObservableComputations
 
 		private IList<TSourceItem> _sourceAsList;
 
-		private bool _sourceInitialized;
 		private readonly IReadScalar<INotifyCollectionChanged> _sourceScalar;
 		private readonly Func<TSourceItem, TResult, TResult> _aggregateFunc;
 		private readonly Func<TSourceItem, TResult, TResult> _deaggregateFunc;
@@ -70,9 +69,9 @@ namespace ObservableComputations
 			_thisAsSourceCollectionChangeProcessor = this;
 		}
 
-		protected override void initializeFromSource()
+		protected override void processSource()
 		{
-			if (_sourceInitialized)
+			if (_sourceEnumerated)
 			{
 				_source.CollectionChanged -= handleSourceCollectionChanged;
 
@@ -83,7 +82,7 @@ namespace ObservableComputations
 					_sourceAsINotifyPropertyChanged = null;
 				}
 
-				_sourceInitialized = false;
+				_sourceEnumerated = false;
 			}
 
 
@@ -108,7 +107,7 @@ namespace ObservableComputations
 					value = aggregate(_sourceAsList[index], value);
 				setValue(value);
 
-				_sourceInitialized = true;
+				_sourceEnumerated = true;
 			}
 			else
 			{
@@ -162,7 +161,7 @@ namespace ObservableComputations
 					setValue(aggregate(newItem, result));
 					break;
 				case NotifyCollectionChangedAction.Reset:
-					initializeFromSource();
+					processSource();
 					break;
 			}
 		}
@@ -196,14 +195,12 @@ namespace ObservableComputations
 
 		internal override void addToUpstreamComputings(IComputingInternal computing)
 		{
-			(_source as IComputingInternal)?.AddDownstreamConsumedComputing(computing);
-			(_sourceScalar as IComputingInternal)?.AddDownstreamConsumedComputing(computing);
+			Utils.AddDownstreamConsumedComputing(computing, _sourceScalar, _source);
 		}
 
 		internal override void removeFromUpstreamComputings(IComputingInternal computing)		
 		{
-			(_source as IComputingInternal)?.RemoveDownstreamConsumedComputing(computing);
-			(_sourceScalar as IComputingInternal)?.RemoveDownstreamConsumedComputing(computing);
+			Utils.RemoveDownstreamConsumedComputing(computing, _sourceScalar, _source);
 		}
 
 		protected override void initialize()

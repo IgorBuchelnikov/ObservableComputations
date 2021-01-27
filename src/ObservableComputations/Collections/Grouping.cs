@@ -114,8 +114,6 @@ namespace ObservableComputations
 		private bool _lastProcessedSourceChangeMarker;
 		private readonly ISourceCollectionChangeProcessor _thisAsSourceCollectionChangeProcessor;
 
-		private bool _sourceInitialized;
-
 		private Dictionary<TKey, Group<TSourceItem, TKey>> _groupDictionary;
 		private Group<TSourceItem, TKey> _nullGroup;
 
@@ -399,22 +397,20 @@ namespace ObservableComputations
 
 					break;
 				case NotifyCollectionChangedAction.Reset:
-					initializeFromSource();
+					processSource();
 					break;
 			}
 		}
 
 		internal override void addToUpstreamComputings(IComputingInternal computing)
 		{
-			(_source as IComputingInternal)?.AddDownstreamConsumedComputing(computing);
-			(_sourceScalar as IComputingInternal)?.AddDownstreamConsumedComputing(computing);
+			Utils.AddDownstreamConsumedComputing(computing, _sourceScalar, _source);
 			(_equalityComparerScalar as IComputingInternal)?.AddDownstreamConsumedComputing(computing);
 		}
 
 		internal override void removeFromUpstreamComputings(IComputingInternal computing)		
 		{
-			(_source as IComputingInternal)?.RemoveDownstreamConsumedComputing(computing);
-			(_sourceScalar as IComputingInternal)?.RemoveDownstreamConsumedComputing(computing);
+			Utils.RemoveDownstreamConsumedComputing(computing, _sourceScalar, _source);
 			(_equalityComparerScalar as IComputingInternal)?.RemoveDownstreamConsumedComputing(computing);
 		}
 
@@ -452,9 +448,9 @@ namespace ObservableComputations
 			Utils.uninitializeNestedComputings(_nestedComputings, this);
 		}
 
-		protected override void initializeFromSource()
+		protected override void processSource()
 		{			
-			if (_sourceInitialized)
+			if (_sourceEnumerated)
 			{
 				Utils.disposeExpressionItemInfos(_itemInfos, _keySelectorExpressionCallCount, this);
 				Utils.removeDownstreamConsumedComputing(_itemInfos, this);
@@ -472,7 +468,7 @@ namespace ObservableComputations
 				_groupDictionary = new Dictionary<TKey, Group<TSourceItem, TKey>>(_equalityComparer);	
 				_items.Clear();
 
-				_sourceInitialized = false;
+				_sourceEnumerated = false;
 			}
 
 			Utils.changeSource(ref _source, _sourceScalar, _downstreamConsumedComputings, _consumers, this, out _sourceAsList, false);
@@ -494,7 +490,7 @@ namespace ObservableComputations
 				for (int index = 0; index < count; index++)
 					registerSourceItem(sourceCopy[index], true, _sourcePositions.Insert(index), true);
 
-				_sourceInitialized = true;
+				_sourceEnumerated = true;
 			}			
 
 			reset();

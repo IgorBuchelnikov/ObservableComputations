@@ -23,7 +23,6 @@ namespace ObservableComputations
 
 		private IList _sourceAsList;
 
-		private bool _sourceInitialized;
 		private INotifyCollectionChanged _source;
 		private readonly IReadScalar<INotifyCollectionChanged> _sourceScalar;
 
@@ -51,11 +50,11 @@ namespace ObservableComputations
 			_thisAsSourceCollectionChangeProcessor = this;
 		}
 
-		protected override void initializeFromSource()
+		protected override void processSource()
 		{
 			int originalCount = _items.Count;
 
-			if (_sourceInitialized)
+			if (_sourceEnumerated)
 			{	
 				_source.CollectionChanged -= handleSourceCollectionChanged;
 
@@ -66,7 +65,7 @@ namespace ObservableComputations
 					_sourceAsINotifyPropertyChanged = null;
 				}
 
-				_sourceInitialized = false;
+				_sourceEnumerated = false;
 			}
 
 			Utils.changeSource(ref _source, _sourceScalar, _downstreamConsumedComputings, _consumers, this,
@@ -102,7 +101,7 @@ namespace ObservableComputations
 					_items.RemoveAt(index);
 				}
 
-				_sourceInitialized = true;
+				_sourceEnumerated = true;
 			}			
 			else
 			{
@@ -164,21 +163,19 @@ namespace ObservableComputations
 					baseSetItem(e.NewStartingIndex, (TResultItem) newItems1[0]);
 					break;
 				case NotifyCollectionChangedAction.Reset:
-					initializeFromSource();
+					processSource();
 					break;
 			}
 		}
 
 		internal override void addToUpstreamComputings(IComputingInternal computing)
 		{
-			(_source as IComputingInternal)?.AddDownstreamConsumedComputing(computing);
-			(_sourceScalar as IComputingInternal)?.AddDownstreamConsumedComputing(computing);
+			Utils.AddDownstreamConsumedComputing(computing, _sourceScalar, _source);
 		}
 
 		internal override void removeFromUpstreamComputings(IComputingInternal computing)		
 		{
-			(_source as IComputingInternal)?.RemoveDownstreamConsumedComputing(computing);
-			(_sourceScalar as IComputingInternal)?.RemoveDownstreamConsumedComputing(computing);
+			Utils.RemoveDownstreamConsumedComputing(computing, _sourceScalar, _source);
 		}
 
 		protected override void initialize()

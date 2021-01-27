@@ -14,6 +14,7 @@ namespace ObservableComputations
 		public object Tag {get; set;}
 		internal Queue<IProcessable>[] _deferredProcessings;
 		protected int _deferredQueuesCount = 1;
+		protected bool _sourceEnumerated;
 
 		public ScalarComputing()
 		{
@@ -155,6 +156,8 @@ namespace ObservableComputations
 
 		protected void scalarValueChangedHandler(object sender, PropertyChangedEventArgs args)
 		{
+			if (!_initializedFromSource) return;
+
 			Utils.processResetChange(
 				sender, 
 				args, 
@@ -189,7 +192,7 @@ namespace ObservableComputations
 			_activationInProgress = value;
 		}
 
-		protected abstract void initializeFromSource();
+		protected abstract void processSource();
 		protected abstract void initialize();
 		protected abstract void uninitialize();
 
@@ -200,7 +203,16 @@ namespace ObservableComputations
 		protected readonly List<OcConsumer> _consumers = new List<OcConsumer>();
 		internal readonly List<IComputingInternal> _downstreamConsumedComputings = new List<IComputingInternal>();
 
+		private bool _initializedFromSource;
+
 		#region Implementation of IComputingInternal
+
+		bool IComputingInternal.InitializedFromSource
+		{
+			get => _initializedFromSource;
+			set => _initializedFromSource = value;
+		}
+
 		IEnumerable<OcConsumer> IComputingInternal.Consumers => _consumers;
 
 		void IComputingInternal.AddToUpstreamComputings(IComputingInternal computing)
@@ -223,9 +235,9 @@ namespace ObservableComputations
 			uninitialize();
 		}
 
-		void ICanInitializeFromSource.InitializeFromSource()
+		void ICanInitializeFromSource.ProcessSource()
 		{
-			initializeFromSource();
+			processSource();
 		}
 
 		void IComputingInternal.OnPropertyChanged(PropertyChangedEventArgs propertyChangedEventArgs)

@@ -29,8 +29,6 @@ namespace ObservableComputations
 		private IList<TSourceItem> _sourceAsList;
 		private readonly IReadScalar<INotifyCollectionChanged> _sourceScalar;
 
-		private bool _sourceInitialized;
-
 		private bool _indexerPropertyChangedEventRaised;
 		private INotifyPropertyChanged _sourceAsINotifyPropertyChanged;
 
@@ -64,9 +62,9 @@ namespace ObservableComputations
 
 
 
-		protected override void initializeFromSource()
+		protected override void processSource()
 		{
-			invokeInitializeFromSource(null, null);
+			invokeProcessSource(null, null);
 		}
 
 		[ObservableComputationsCall]
@@ -101,31 +99,31 @@ namespace ObservableComputations
 		{
 			if (e.PropertyName != nameof(IReadScalar<object>.Value)) return;
 
-			invokeInitializeFromSource(sender, e);
+			invokeProcessSource(sender, e);
 		}
 
 
-		private void invokeInitializeFromSource(object sender, EventArgs e)
+		private void invokeProcessSource(object sender, EventArgs e)
 		{
 			if (_source != null)
 				_source.CollectionChanged -= handleSourceCollectionChanged;
 
 			_destinationOcDispatcher.Invoke(
-				() => doInitializeFromSource(sender, e), 
+				() => doProcessSource(sender, e), 
 				_destinationOcDispatcherPriority,
 				_destinationOcDispatcherParameter,
 				this);
 		}
 
-		private void doInitializeFromSource(object sender, EventArgs e)
+		private void doProcessSource(object sender, EventArgs e)
 		{
 			int originalCount = _items.Count;
 
-			if (_sourceInitialized)
+			if (_sourceEnumerated)
 			{			
 				uninitializeSource();
 
-				_sourceInitialized = false;
+				_sourceEnumerated = false;
 
 				void uninitializeSource()
 				{
@@ -212,7 +210,7 @@ namespace ObservableComputations
 				else
 					readAndSubscribe();
 	 
-				_sourceInitialized = true;
+				_sourceEnumerated = true;
 			}
 			else
 			{
@@ -305,7 +303,7 @@ namespace ObservableComputations
 
 					break;
 				case NotifyCollectionChangedAction.Reset:
-					invokeInitializeFromSource(sender, e);
+					invokeProcessSource(sender, e);
 					break;
 			}
 
@@ -325,11 +323,7 @@ namespace ObservableComputations
 
 		internal override void addToUpstreamComputings(IComputingInternal computing)
 		{
-			void perform()
-			{
-				(_source as IComputingInternal)?.AddDownstreamConsumedComputing(computing);
-				(_sourceScalar as IComputingInternal)?.AddDownstreamConsumedComputing(computing);
-			}
+			void perform() => Utils.AddDownstreamConsumedComputing(computing, _sourceScalar, _source);
 
 			if (_sourceOcDispatcher != null)
 				_sourceOcDispatcher.Invoke(
@@ -343,11 +337,7 @@ namespace ObservableComputations
 
 		internal override void removeFromUpstreamComputings(IComputingInternal computing)
 		{
-			void perform()
-			{
-				(_source as IComputingInternal)?.RemoveDownstreamConsumedComputing(computing);
-				(_sourceScalar as IComputingInternal)?.RemoveDownstreamConsumedComputing(computing);
-			}
+			void perform() => Utils.RemoveDownstreamConsumedComputing(computing, _sourceScalar, _source);
 
 			if (_sourceOcDispatcher != null)
 				_sourceOcDispatcher.Invoke(

@@ -16,7 +16,7 @@ namespace ObservableComputations
 
 		[ObservableComputationsCall]
 		public static Binding<TValue> Binding<TValue>(this
-				IReadScalar<TValue> sourceScalar,
+			IReadScalar<TValue> sourceScalar,
 			Action<TValue> modifyTargetAction,
 			bool applyNow)
 			
@@ -29,7 +29,7 @@ namespace ObservableComputations
 
 		[ObservableComputationsCall]
 		public static Binding<TValue> Binding<TValue>(this
-				IReadScalar<TValue> sourceScalar,
+			IReadScalar<TValue> sourceScalar,
 			Action<TValue> modifyTargetAction)
 			
 		{
@@ -41,7 +41,7 @@ namespace ObservableComputations
 
 		[ObservableComputationsCall]
 		public static Binding<TValue> Binding<TValue>(this
-				Expression<Func<TValue>> getSourceExpression,
+			Expression<Func<TValue>> getSourceExpression,
 			Action<TValue> modifyTargetAction,
 			bool applyNow)
 			
@@ -54,7 +54,7 @@ namespace ObservableComputations
 
 		[ObservableComputationsCall]
 		public static Binding<TValue> Binding<TValue>(this
-				Expression<Func<TValue>> getSourceExpression,
+			Expression<Func<TValue>> getSourceExpression,
 			Action<TValue> modifyTargetAction)
 			
 		{

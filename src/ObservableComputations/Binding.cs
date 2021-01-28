@@ -51,11 +51,11 @@ namespace ObservableComputations
 
 			_gettingExpressionValueHandlePropertyChanged = (sender, args) =>
 			{
-				if (!_isDisabled && args.PropertyName == nameof(Computing<TValue>.Value))
+				if (_bindOnSourceChanged && args.PropertyName == nameof(Computing<TValue>.Value))
 				{
 					_handledEventSender = sender;
 					_handledEventArgs = args;
-					modifyTargetAction(_sourceScalar.Value);
+					_modifyTargetAction(_sourceScalar.Value);
 					_handledEventSender = null;
 					_handledEventArgs = null;
 				}
@@ -74,20 +74,45 @@ namespace ObservableComputations
 			_getSourceExpression = getSourceExpression;
 		}
 
-		private bool _isDisabled;
+
 		private bool _isDisposed;
 		private object _handledEventSender;
 		private EventArgs _handledEventArgs;
 
-		public bool IsDisabled
+		private bool _bindOnSourceChanged = true;
+		public bool BindOnSourceChanged
 		{
-			get => _isDisabled;
+			get => _bindOnSourceChanged;
 			set
 			{
-				if (_isDisposed) throw new ObservableComputationsException("Binding is disposed");
-				_isDisabled = value;
-				PropertyChanged?.Invoke(this, Utils.IsDisabledPropertyChangedEventArgs);
+				checkDisposed();
+				_bindOnSourceChanged = value;
+				PropertyChanged?.Invoke(this, Utils.BindOnSourceChangedPropertyChangedEventArgs);
 			}
+		}
+
+		private void checkDisposed()
+		{
+			if (_isDisposed) throw new ObservableComputationsException("Binding is disposed");
+		}
+
+		private bool _bindOnDemand = true;
+		public bool BindOnDemand
+		{
+			get => _bindOnDemand;
+			set
+			{
+				checkDisposed();
+				_bindOnDemand = value;
+				PropertyChanged?.Invoke(this, Utils.BindOnDemandPropertyChangedEventArgs);
+			}
+		}
+
+		public void Bind()
+		{
+			checkDisposed();
+			if (!_bindOnDemand) throw new ObservableComputationsException("BindOnDemand is false");
+			if (_bindOnDemand) _modifyTargetAction(_sourceScalar.Value);
 		}
 
 		public event PropertyChangedEventHandler PropertyChanged;

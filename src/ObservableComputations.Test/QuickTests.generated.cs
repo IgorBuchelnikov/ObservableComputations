@@ -44364,6 +44364,38 @@ namespace ObservableComputations.Test
 				}
 
 				IList listSource;
+				listSource = ((IList)((System.Collections.Specialized.INotifyCollectionChanged)leftSourceScalar.Value));
+				if (listSource != null)
+				{
+					listSource.Clear();
+					testing.ValidateConsistency();
+				}
+
+				listSource = ((IList)((System.Collections.Specialized.INotifyCollectionChanged)rightSourceScalar.Value));
+				if (listSource != null)
+				{
+					listSource.Clear();
+					testing.ValidateConsistency();
+				}
+
+				if (leftSourceScalarValue != null)
+				{
+					leftSourceScalarValue.Insert(0, new QuickTests.Item(1, true));
+					leftSourceScalarValue.Insert(1, new QuickTests.Item(2, true));
+					leftSourceScalarValue.Insert(2, new QuickTests.Item(3, true));
+					leftSourceScalarValue.Insert(3, new QuickTests.Item(3, true));
+					leftSourceScalarValue.Insert(4, new QuickTests.Item(3, true));
+					testing.ValidateConsistency();
+				}
+				if (rightSourceScalarValue != null)
+				{
+					rightSourceScalarValue.Insert(0, new QuickTests.Item(1, true));
+					rightSourceScalarValue.Insert(1, new QuickTests.Item(2, true));
+					rightSourceScalarValue.Insert(2, new QuickTests.Item(3, true));
+					rightSourceScalarValue.Insert(3, new QuickTests.Item(3, true));
+					rightSourceScalarValue.Insert(4, new QuickTests.Item(3, true));
+					testing.ValidateConsistency();
+				}
 				testing.ValidateConsistency();
 			}
 
@@ -44451,6 +44483,38 @@ namespace ObservableComputations.Test
 				}
 
 				IList listSource;
+				listSource = ((IList)((System.Collections.Specialized.INotifyCollectionChanged)leftSourceScalar.Value));
+				if (listSource != null)
+				{
+					listSource.Clear();
+					testing.ValidateConsistency();
+				}
+
+				listSource = ((IList)((System.Collections.Specialized.INotifyCollectionChanged)rightSourceScalar.Value));
+				if (listSource != null)
+				{
+					listSource.Clear();
+					testing.ValidateConsistency();
+				}
+
+				if (leftSourceScalarValue != null)
+				{
+					leftSourceScalarValue.Insert(0, new QuickTests.Item(1, true));
+					leftSourceScalarValue.Insert(1, new QuickTests.Item(2, true));
+					leftSourceScalarValue.Insert(2, new QuickTests.Item(3, true));
+					leftSourceScalarValue.Insert(3, new QuickTests.Item(3, true));
+					leftSourceScalarValue.Insert(4, new QuickTests.Item(3, true));
+					testing.ValidateConsistency();
+				}
+				if (rightSourceScalarValue != null)
+				{
+					rightSourceScalarValue.Insert(0, new QuickTests.Item(1, true));
+					rightSourceScalarValue.Insert(1, new QuickTests.Item(2, true));
+					rightSourceScalarValue.Insert(2, new QuickTests.Item(3, true));
+					rightSourceScalarValue.Insert(3, new QuickTests.Item(3, true));
+					rightSourceScalarValue.Insert(4, new QuickTests.Item(3, true));
+					testing.ValidateConsistency();
+				}
 				testing.ValidateConsistency();
 			}
 
@@ -44541,6 +44605,38 @@ namespace ObservableComputations.Test
 				}
 
 				IList listSource;
+				listSource = ((IList)((System.Collections.Specialized.INotifyCollectionChanged)leftSourceScalar.Value));
+				if (listSource != null)
+				{
+					listSource.Clear();
+					testing.ValidateConsistency();
+				}
+
+				listSource = ((IList)((ObservableCollection<Item>)rightSourceScalar.Value));
+				if (listSource != null)
+				{
+					listSource.Clear();
+					testing.ValidateConsistency();
+				}
+
+				if (leftSourceScalarValue != null)
+				{
+					leftSourceScalarValue.Insert(0, new QuickTests.Item(1, true));
+					leftSourceScalarValue.Insert(1, new QuickTests.Item(2, true));
+					leftSourceScalarValue.Insert(2, new QuickTests.Item(3, true));
+					leftSourceScalarValue.Insert(3, new QuickTests.Item(3, true));
+					leftSourceScalarValue.Insert(4, new QuickTests.Item(3, true));
+					testing.ValidateConsistency();
+				}
+				if (rightSourceScalarValue != null)
+				{
+					rightSourceScalarValue.Insert(0, new QuickTests.Item(1, true));
+					rightSourceScalarValue.Insert(1, new QuickTests.Item(2, true));
+					rightSourceScalarValue.Insert(2, new QuickTests.Item(3, true));
+					rightSourceScalarValue.Insert(3, new QuickTests.Item(3, true));
+					rightSourceScalarValue.Insert(4, new QuickTests.Item(3, true));
+					testing.ValidateConsistency();
+				}
 				testing.ValidateConsistency();
 			}
 
@@ -44628,6 +44724,38 @@ namespace ObservableComputations.Test
 				}
 
 				IList listSource;
+				listSource = ((IList)((System.Collections.Specialized.INotifyCollectionChanged)leftSourceScalar.Value));
+				if (listSource != null)
+				{
+					listSource.Clear();
+					testing.ValidateConsistency();
+				}
+
+				listSource = ((IList)((ObservableCollection<Item>)rightSourceScalar.Value));
+				if (listSource != null)
+				{
+					listSource.Clear();
+					testing.ValidateConsistency();
+				}
+
+				if (leftSourceScalarValue != null)
+				{
+					leftSourceScalarValue.Insert(0, new QuickTests.Item(1, true));
+					leftSourceScalarValue.Insert(1, new QuickTests.Item(2, true));
+					leftSourceScalarValue.Insert(2, new QuickTests.Item(3, true));
+					leftSourceScalarValue.Insert(3, new QuickTests.Item(3, true));
+					leftSourceScalarValue.Insert(4, new QuickTests.Item(3, true));
+					testing.ValidateConsistency();
+				}
+				if (rightSourceScalarValue != null)
+				{
+					rightSourceScalarValue.Insert(0, new QuickTests.Item(1, true));
+					rightSourceScalarValue.Insert(1, new QuickTests.Item(2, true));
+					rightSourceScalarValue.Insert(2, new QuickTests.Item(3, true));
+					rightSourceScalarValue.Insert(3, new QuickTests.Item(3, true));
+					rightSourceScalarValue.Insert(4, new QuickTests.Item(3, true));
+					testing.ValidateConsistency();
+				}
 				testing.ValidateConsistency();
 			}
 
@@ -44718,6 +44846,38 @@ namespace ObservableComputations.Test
 				}
 
 				IList listSource;
+				listSource = ((IList)((ObservableCollection<Item>)leftSourceScalar.Value));
+				if (listSource != null)
+				{
+					listSource.Clear();
+					testing.ValidateConsistency();
+				}
+
+				listSource = ((IList)((System.Collections.Specialized.INotifyCollectionChanged)rightSourceScalar.Value));
+				if (listSource != null)
+				{
+					listSource.Clear();
+					testing.ValidateConsistency();
+				}
+
+				if (leftSourceScalarValue != null)
+				{
+					leftSourceScalarValue.Insert(0, new QuickTests.Item(1, true));
+					leftSourceScalarValue.Insert(1, new QuickTests.Item(2, true));
+					leftSourceScalarValue.Insert(2, new QuickTests.Item(3, true));
+					leftSourceScalarValue.Insert(3, new QuickTests.Item(3, true));
+					leftSourceScalarValue.Insert(4, new QuickTests.Item(3, true));
+					testing.ValidateConsistency();
+				}
+				if (rightSourceScalarValue != null)
+				{
+					rightSourceScalarValue.Insert(0, new QuickTests.Item(1, true));
+					rightSourceScalarValue.Insert(1, new QuickTests.Item(2, true));
+					rightSourceScalarValue.Insert(2, new QuickTests.Item(3, true));
+					rightSourceScalarValue.Insert(3, new QuickTests.Item(3, true));
+					rightSourceScalarValue.Insert(4, new QuickTests.Item(3, true));
+					testing.ValidateConsistency();
+				}
 				testing.ValidateConsistency();
 			}
 
@@ -44805,6 +44965,38 @@ namespace ObservableComputations.Test
 				}
 
 				IList listSource;
+				listSource = ((IList)((ObservableCollection<Item>)leftSourceScalar.Value));
+				if (listSource != null)
+				{
+					listSource.Clear();
+					testing.ValidateConsistency();
+				}
+
+				listSource = ((IList)((System.Collections.Specialized.INotifyCollectionChanged)rightSourceScalar.Value));
+				if (listSource != null)
+				{
+					listSource.Clear();
+					testing.ValidateConsistency();
+				}
+
+				if (leftSourceScalarValue != null)
+				{
+					leftSourceScalarValue.Insert(0, new QuickTests.Item(1, true));
+					leftSourceScalarValue.Insert(1, new QuickTests.Item(2, true));
+					leftSourceScalarValue.Insert(2, new QuickTests.Item(3, true));
+					leftSourceScalarValue.Insert(3, new QuickTests.Item(3, true));
+					leftSourceScalarValue.Insert(4, new QuickTests.Item(3, true));
+					testing.ValidateConsistency();
+				}
+				if (rightSourceScalarValue != null)
+				{
+					rightSourceScalarValue.Insert(0, new QuickTests.Item(1, true));
+					rightSourceScalarValue.Insert(1, new QuickTests.Item(2, true));
+					rightSourceScalarValue.Insert(2, new QuickTests.Item(3, true));
+					rightSourceScalarValue.Insert(3, new QuickTests.Item(3, true));
+					rightSourceScalarValue.Insert(4, new QuickTests.Item(3, true));
+					testing.ValidateConsistency();
+				}
 				testing.ValidateConsistency();
 			}
 
@@ -44895,6 +45087,38 @@ namespace ObservableComputations.Test
 				}
 
 				IList listSource;
+				listSource = ((IList)((ObservableCollection<Item>)leftSourceScalar.Value));
+				if (listSource != null)
+				{
+					listSource.Clear();
+					testing.ValidateConsistency();
+				}
+
+				listSource = ((IList)((ObservableCollection<Item>)rightSourceScalar.Value));
+				if (listSource != null)
+				{
+					listSource.Clear();
+					testing.ValidateConsistency();
+				}
+
+				if (leftSourceScalarValue != null)
+				{
+					leftSourceScalarValue.Insert(0, new QuickTests.Item(1, true));
+					leftSourceScalarValue.Insert(1, new QuickTests.Item(2, true));
+					leftSourceScalarValue.Insert(2, new QuickTests.Item(3, true));
+					leftSourceScalarValue.Insert(3, new QuickTests.Item(3, true));
+					leftSourceScalarValue.Insert(4, new QuickTests.Item(3, true));
+					testing.ValidateConsistency();
+				}
+				if (rightSourceScalarValue != null)
+				{
+					rightSourceScalarValue.Insert(0, new QuickTests.Item(1, true));
+					rightSourceScalarValue.Insert(1, new QuickTests.Item(2, true));
+					rightSourceScalarValue.Insert(2, new QuickTests.Item(3, true));
+					rightSourceScalarValue.Insert(3, new QuickTests.Item(3, true));
+					rightSourceScalarValue.Insert(4, new QuickTests.Item(3, true));
+					testing.ValidateConsistency();
+				}
 				testing.ValidateConsistency();
 			}
 
@@ -44982,6 +45206,38 @@ namespace ObservableComputations.Test
 				}
 
 				IList listSource;
+				listSource = ((IList)((ObservableCollection<Item>)leftSourceScalar.Value));
+				if (listSource != null)
+				{
+					listSource.Clear();
+					testing.ValidateConsistency();
+				}
+
+				listSource = ((IList)((ObservableCollection<Item>)rightSourceScalar.Value));
+				if (listSource != null)
+				{
+					listSource.Clear();
+					testing.ValidateConsistency();
+				}
+
+				if (leftSourceScalarValue != null)
+				{
+					leftSourceScalarValue.Insert(0, new QuickTests.Item(1, true));
+					leftSourceScalarValue.Insert(1, new QuickTests.Item(2, true));
+					leftSourceScalarValue.Insert(2, new QuickTests.Item(3, true));
+					leftSourceScalarValue.Insert(3, new QuickTests.Item(3, true));
+					leftSourceScalarValue.Insert(4, new QuickTests.Item(3, true));
+					testing.ValidateConsistency();
+				}
+				if (rightSourceScalarValue != null)
+				{
+					rightSourceScalarValue.Insert(0, new QuickTests.Item(1, true));
+					rightSourceScalarValue.Insert(1, new QuickTests.Item(2, true));
+					rightSourceScalarValue.Insert(2, new QuickTests.Item(3, true));
+					rightSourceScalarValue.Insert(3, new QuickTests.Item(3, true));
+					rightSourceScalarValue.Insert(4, new QuickTests.Item(3, true));
+					testing.ValidateConsistency();
+				}
 				testing.ValidateConsistency();
 			}
 
@@ -45072,6 +45328,38 @@ namespace ObservableComputations.Test
 				}
 
 				IList listSource;
+				listSource = ((IList)((System.Collections.Specialized.INotifyCollectionChanged)leftSource));
+				if (listSource != null)
+				{
+					listSource.Clear();
+					testing.ValidateConsistency();
+				}
+
+				listSource = ((IList)((System.Collections.Specialized.INotifyCollectionChanged)rightSourceScalar.Value));
+				if (listSource != null)
+				{
+					listSource.Clear();
+					testing.ValidateConsistency();
+				}
+
+				if (leftSourceValue != null)
+				{
+					leftSourceValue.Insert(0, new QuickTests.Item(1, true));
+					leftSourceValue.Insert(1, new QuickTests.Item(2, true));
+					leftSourceValue.Insert(2, new QuickTests.Item(3, true));
+					leftSourceValue.Insert(3, new QuickTests.Item(3, true));
+					leftSourceValue.Insert(4, new QuickTests.Item(3, true));
+					testing.ValidateConsistency();
+				}
+				if (rightSourceScalarValue != null)
+				{
+					rightSourceScalarValue.Insert(0, new QuickTests.Item(1, true));
+					rightSourceScalarValue.Insert(1, new QuickTests.Item(2, true));
+					rightSourceScalarValue.Insert(2, new QuickTests.Item(3, true));
+					rightSourceScalarValue.Insert(3, new QuickTests.Item(3, true));
+					rightSourceScalarValue.Insert(4, new QuickTests.Item(3, true));
+					testing.ValidateConsistency();
+				}
 				testing.ValidateConsistency();
 			}
 
@@ -45154,6 +45442,38 @@ namespace ObservableComputations.Test
 				}
 
 				IList listSource;
+				listSource = ((IList)((System.Collections.Specialized.INotifyCollectionChanged)leftSource));
+				if (listSource != null)
+				{
+					listSource.Clear();
+					testing.ValidateConsistency();
+				}
+
+				listSource = ((IList)((System.Collections.Specialized.INotifyCollectionChanged)rightSourceScalar.Value));
+				if (listSource != null)
+				{
+					listSource.Clear();
+					testing.ValidateConsistency();
+				}
+
+				if (leftSourceValue != null)
+				{
+					leftSourceValue.Insert(0, new QuickTests.Item(1, true));
+					leftSourceValue.Insert(1, new QuickTests.Item(2, true));
+					leftSourceValue.Insert(2, new QuickTests.Item(3, true));
+					leftSourceValue.Insert(3, new QuickTests.Item(3, true));
+					leftSourceValue.Insert(4, new QuickTests.Item(3, true));
+					testing.ValidateConsistency();
+				}
+				if (rightSourceScalarValue != null)
+				{
+					rightSourceScalarValue.Insert(0, new QuickTests.Item(1, true));
+					rightSourceScalarValue.Insert(1, new QuickTests.Item(2, true));
+					rightSourceScalarValue.Insert(2, new QuickTests.Item(3, true));
+					rightSourceScalarValue.Insert(3, new QuickTests.Item(3, true));
+					rightSourceScalarValue.Insert(4, new QuickTests.Item(3, true));
+					testing.ValidateConsistency();
+				}
 				testing.ValidateConsistency();
 			}
 
@@ -45239,6 +45559,38 @@ namespace ObservableComputations.Test
 				}
 
 				IList listSource;
+				listSource = ((IList)((System.Collections.Specialized.INotifyCollectionChanged)leftSource));
+				if (listSource != null)
+				{
+					listSource.Clear();
+					testing.ValidateConsistency();
+				}
+
+				listSource = ((IList)((ObservableCollection<Item>)rightSourceScalar.Value));
+				if (listSource != null)
+				{
+					listSource.Clear();
+					testing.ValidateConsistency();
+				}
+
+				if (leftSourceValue != null)
+				{
+					leftSourceValue.Insert(0, new QuickTests.Item(1, true));
+					leftSourceValue.Insert(1, new QuickTests.Item(2, true));
+					leftSourceValue.Insert(2, new QuickTests.Item(3, true));
+					leftSourceValue.Insert(3, new QuickTests.Item(3, true));
+					leftSourceValue.Insert(4, new QuickTests.Item(3, true));
+					testing.ValidateConsistency();
+				}
+				if (rightSourceScalarValue != null)
+				{
+					rightSourceScalarValue.Insert(0, new QuickTests.Item(1, true));
+					rightSourceScalarValue.Insert(1, new QuickTests.Item(2, true));
+					rightSourceScalarValue.Insert(2, new QuickTests.Item(3, true));
+					rightSourceScalarValue.Insert(3, new QuickTests.Item(3, true));
+					rightSourceScalarValue.Insert(4, new QuickTests.Item(3, true));
+					testing.ValidateConsistency();
+				}
 				testing.ValidateConsistency();
 			}
 
@@ -45321,6 +45673,38 @@ namespace ObservableComputations.Test
 				}
 
 				IList listSource;
+				listSource = ((IList)((System.Collections.Specialized.INotifyCollectionChanged)leftSource));
+				if (listSource != null)
+				{
+					listSource.Clear();
+					testing.ValidateConsistency();
+				}
+
+				listSource = ((IList)((ObservableCollection<Item>)rightSourceScalar.Value));
+				if (listSource != null)
+				{
+					listSource.Clear();
+					testing.ValidateConsistency();
+				}
+
+				if (leftSourceValue != null)
+				{
+					leftSourceValue.Insert(0, new QuickTests.Item(1, true));
+					leftSourceValue.Insert(1, new QuickTests.Item(2, true));
+					leftSourceValue.Insert(2, new QuickTests.Item(3, true));
+					leftSourceValue.Insert(3, new QuickTests.Item(3, true));
+					leftSourceValue.Insert(4, new QuickTests.Item(3, true));
+					testing.ValidateConsistency();
+				}
+				if (rightSourceScalarValue != null)
+				{
+					rightSourceScalarValue.Insert(0, new QuickTests.Item(1, true));
+					rightSourceScalarValue.Insert(1, new QuickTests.Item(2, true));
+					rightSourceScalarValue.Insert(2, new QuickTests.Item(3, true));
+					rightSourceScalarValue.Insert(3, new QuickTests.Item(3, true));
+					rightSourceScalarValue.Insert(4, new QuickTests.Item(3, true));
+					testing.ValidateConsistency();
+				}
 				testing.ValidateConsistency();
 			}
 
@@ -45406,6 +45790,38 @@ namespace ObservableComputations.Test
 				}
 
 				IList listSource;
+				listSource = ((IList)((ObservableCollection<Item>)leftSource));
+				if (listSource != null)
+				{
+					listSource.Clear();
+					testing.ValidateConsistency();
+				}
+
+				listSource = ((IList)((System.Collections.Specialized.INotifyCollectionChanged)rightSourceScalar.Value));
+				if (listSource != null)
+				{
+					listSource.Clear();
+					testing.ValidateConsistency();
+				}
+
+				if (leftSourceValue != null)
+				{
+					leftSourceValue.Insert(0, new QuickTests.Item(1, true));
+					leftSourceValue.Insert(1, new QuickTests.Item(2, true));
+					leftSourceValue.Insert(2, new QuickTests.Item(3, true));
+					leftSourceValue.Insert(3, new QuickTests.Item(3, true));
+					leftSourceValue.Insert(4, new QuickTests.Item(3, true));
+					testing.ValidateConsistency();
+				}
+				if (rightSourceScalarValue != null)
+				{
+					rightSourceScalarValue.Insert(0, new QuickTests.Item(1, true));
+					rightSourceScalarValue.Insert(1, new QuickTests.Item(2, true));
+					rightSourceScalarValue.Insert(2, new QuickTests.Item(3, true));
+					rightSourceScalarValue.Insert(3, new QuickTests.Item(3, true));
+					rightSourceScalarValue.Insert(4, new QuickTests.Item(3, true));
+					testing.ValidateConsistency();
+				}
 				testing.ValidateConsistency();
 			}
 
@@ -45488,6 +45904,38 @@ namespace ObservableComputations.Test
 				}
 
 				IList listSource;
+				listSource = ((IList)((ObservableCollection<Item>)leftSource));
+				if (listSource != null)
+				{
+					listSource.Clear();
+					testing.ValidateConsistency();
+				}
+
+				listSource = ((IList)((System.Collections.Specialized.INotifyCollectionChanged)rightSourceScalar.Value));
+				if (listSource != null)
+				{
+					listSource.Clear();
+					testing.ValidateConsistency();
+				}
+
+				if (leftSourceValue != null)
+				{
+					leftSourceValue.Insert(0, new QuickTests.Item(1, true));
+					leftSourceValue.Insert(1, new QuickTests.Item(2, true));
+					leftSourceValue.Insert(2, new QuickTests.Item(3, true));
+					leftSourceValue.Insert(3, new QuickTests.Item(3, true));
+					leftSourceValue.Insert(4, new QuickTests.Item(3, true));
+					testing.ValidateConsistency();
+				}
+				if (rightSourceScalarValue != null)
+				{
+					rightSourceScalarValue.Insert(0, new QuickTests.Item(1, true));
+					rightSourceScalarValue.Insert(1, new QuickTests.Item(2, true));
+					rightSourceScalarValue.Insert(2, new QuickTests.Item(3, true));
+					rightSourceScalarValue.Insert(3, new QuickTests.Item(3, true));
+					rightSourceScalarValue.Insert(4, new QuickTests.Item(3, true));
+					testing.ValidateConsistency();
+				}
 				testing.ValidateConsistency();
 			}
 
@@ -45573,6 +46021,38 @@ namespace ObservableComputations.Test
 				}
 
 				IList listSource;
+				listSource = ((IList)((ObservableCollection<Item>)leftSource));
+				if (listSource != null)
+				{
+					listSource.Clear();
+					testing.ValidateConsistency();
+				}
+
+				listSource = ((IList)((ObservableCollection<Item>)rightSourceScalar.Value));
+				if (listSource != null)
+				{
+					listSource.Clear();
+					testing.ValidateConsistency();
+				}
+
+				if (leftSourceValue != null)
+				{
+					leftSourceValue.Insert(0, new QuickTests.Item(1, true));
+					leftSourceValue.Insert(1, new QuickTests.Item(2, true));
+					leftSourceValue.Insert(2, new QuickTests.Item(3, true));
+					leftSourceValue.Insert(3, new QuickTests.Item(3, true));
+					leftSourceValue.Insert(4, new QuickTests.Item(3, true));
+					testing.ValidateConsistency();
+				}
+				if (rightSourceScalarValue != null)
+				{
+					rightSourceScalarValue.Insert(0, new QuickTests.Item(1, true));
+					rightSourceScalarValue.Insert(1, new QuickTests.Item(2, true));
+					rightSourceScalarValue.Insert(2, new QuickTests.Item(3, true));
+					rightSourceScalarValue.Insert(3, new QuickTests.Item(3, true));
+					rightSourceScalarValue.Insert(4, new QuickTests.Item(3, true));
+					testing.ValidateConsistency();
+				}
 				testing.ValidateConsistency();
 			}
 
@@ -45655,6 +46135,38 @@ namespace ObservableComputations.Test
 				}
 
 				IList listSource;
+				listSource = ((IList)((ObservableCollection<Item>)leftSource));
+				if (listSource != null)
+				{
+					listSource.Clear();
+					testing.ValidateConsistency();
+				}
+
+				listSource = ((IList)((ObservableCollection<Item>)rightSourceScalar.Value));
+				if (listSource != null)
+				{
+					listSource.Clear();
+					testing.ValidateConsistency();
+				}
+
+				if (leftSourceValue != null)
+				{
+					leftSourceValue.Insert(0, new QuickTests.Item(1, true));
+					leftSourceValue.Insert(1, new QuickTests.Item(2, true));
+					leftSourceValue.Insert(2, new QuickTests.Item(3, true));
+					leftSourceValue.Insert(3, new QuickTests.Item(3, true));
+					leftSourceValue.Insert(4, new QuickTests.Item(3, true));
+					testing.ValidateConsistency();
+				}
+				if (rightSourceScalarValue != null)
+				{
+					rightSourceScalarValue.Insert(0, new QuickTests.Item(1, true));
+					rightSourceScalarValue.Insert(1, new QuickTests.Item(2, true));
+					rightSourceScalarValue.Insert(2, new QuickTests.Item(3, true));
+					rightSourceScalarValue.Insert(3, new QuickTests.Item(3, true));
+					rightSourceScalarValue.Insert(4, new QuickTests.Item(3, true));
+					testing.ValidateConsistency();
+				}
 				testing.ValidateConsistency();
 			}
 
@@ -45740,6 +46252,38 @@ namespace ObservableComputations.Test
 				}
 
 				IList listSource;
+				listSource = ((IList)((System.Collections.Specialized.INotifyCollectionChanged)leftSourceScalar.Value));
+				if (listSource != null)
+				{
+					listSource.Clear();
+					testing.ValidateConsistency();
+				}
+
+				listSource = ((IList)((System.Collections.Specialized.INotifyCollectionChanged)rightSource));
+				if (listSource != null)
+				{
+					listSource.Clear();
+					testing.ValidateConsistency();
+				}
+
+				if (leftSourceScalarValue != null)
+				{
+					leftSourceScalarValue.Insert(0, new QuickTests.Item(1, true));
+					leftSourceScalarValue.Insert(1, new QuickTests.Item(2, true));
+					leftSourceScalarValue.Insert(2, new QuickTests.Item(3, true));
+					leftSourceScalarValue.Insert(3, new QuickTests.Item(3, true));
+					leftSourceScalarValue.Insert(4, new QuickTests.Item(3, true));
+					testing.ValidateConsistency();
+				}
+				if (rightSourceValue != null)
+				{
+					rightSourceValue.Insert(0, new QuickTests.Item(1, true));
+					rightSourceValue.Insert(1, new QuickTests.Item(2, true));
+					rightSourceValue.Insert(2, new QuickTests.Item(3, true));
+					rightSourceValue.Insert(3, new QuickTests.Item(3, true));
+					rightSourceValue.Insert(4, new QuickTests.Item(3, true));
+					testing.ValidateConsistency();
+				}
 				testing.ValidateConsistency();
 			}
 
@@ -45822,6 +46366,38 @@ namespace ObservableComputations.Test
 				}
 
 				IList listSource;
+				listSource = ((IList)((System.Collections.Specialized.INotifyCollectionChanged)leftSourceScalar.Value));
+				if (listSource != null)
+				{
+					listSource.Clear();
+					testing.ValidateConsistency();
+				}
+
+				listSource = ((IList)((System.Collections.Specialized.INotifyCollectionChanged)rightSource));
+				if (listSource != null)
+				{
+					listSource.Clear();
+					testing.ValidateConsistency();
+				}
+
+				if (leftSourceScalarValue != null)
+				{
+					leftSourceScalarValue.Insert(0, new QuickTests.Item(1, true));
+					leftSourceScalarValue.Insert(1, new QuickTests.Item(2, true));
+					leftSourceScalarValue.Insert(2, new QuickTests.Item(3, true));
+					leftSourceScalarValue.Insert(3, new QuickTests.Item(3, true));
+					leftSourceScalarValue.Insert(4, new QuickTests.Item(3, true));
+					testing.ValidateConsistency();
+				}
+				if (rightSourceValue != null)
+				{
+					rightSourceValue.Insert(0, new QuickTests.Item(1, true));
+					rightSourceValue.Insert(1, new QuickTests.Item(2, true));
+					rightSourceValue.Insert(2, new QuickTests.Item(3, true));
+					rightSourceValue.Insert(3, new QuickTests.Item(3, true));
+					rightSourceValue.Insert(4, new QuickTests.Item(3, true));
+					testing.ValidateConsistency();
+				}
 				testing.ValidateConsistency();
 			}
 
@@ -45907,6 +46483,38 @@ namespace ObservableComputations.Test
 				}
 
 				IList listSource;
+				listSource = ((IList)((System.Collections.Specialized.INotifyCollectionChanged)leftSourceScalar.Value));
+				if (listSource != null)
+				{
+					listSource.Clear();
+					testing.ValidateConsistency();
+				}
+
+				listSource = ((IList)((ObservableCollection<Item>)rightSource));
+				if (listSource != null)
+				{
+					listSource.Clear();
+					testing.ValidateConsistency();
+				}
+
+				if (leftSourceScalarValue != null)
+				{
+					leftSourceScalarValue.Insert(0, new QuickTests.Item(1, true));
+					leftSourceScalarValue.Insert(1, new QuickTests.Item(2, true));
+					leftSourceScalarValue.Insert(2, new QuickTests.Item(3, true));
+					leftSourceScalarValue.Insert(3, new QuickTests.Item(3, true));
+					leftSourceScalarValue.Insert(4, new QuickTests.Item(3, true));
+					testing.ValidateConsistency();
+				}
+				if (rightSourceValue != null)
+				{
+					rightSourceValue.Insert(0, new QuickTests.Item(1, true));
+					rightSourceValue.Insert(1, new QuickTests.Item(2, true));
+					rightSourceValue.Insert(2, new QuickTests.Item(3, true));
+					rightSourceValue.Insert(3, new QuickTests.Item(3, true));
+					rightSourceValue.Insert(4, new QuickTests.Item(3, true));
+					testing.ValidateConsistency();
+				}
 				testing.ValidateConsistency();
 			}
 
@@ -45989,6 +46597,38 @@ namespace ObservableComputations.Test
 				}
 
 				IList listSource;
+				listSource = ((IList)((System.Collections.Specialized.INotifyCollectionChanged)leftSourceScalar.Value));
+				if (listSource != null)
+				{
+					listSource.Clear();
+					testing.ValidateConsistency();
+				}
+
+				listSource = ((IList)((ObservableCollection<Item>)rightSource));
+				if (listSource != null)
+				{
+					listSource.Clear();
+					testing.ValidateConsistency();
+				}
+
+				if (leftSourceScalarValue != null)
+				{
+					leftSourceScalarValue.Insert(0, new QuickTests.Item(1, true));
+					leftSourceScalarValue.Insert(1, new QuickTests.Item(2, true));
+					leftSourceScalarValue.Insert(2, new QuickTests.Item(3, true));
+					leftSourceScalarValue.Insert(3, new QuickTests.Item(3, true));
+					leftSourceScalarValue.Insert(4, new QuickTests.Item(3, true));
+					testing.ValidateConsistency();
+				}
+				if (rightSourceValue != null)
+				{
+					rightSourceValue.Insert(0, new QuickTests.Item(1, true));
+					rightSourceValue.Insert(1, new QuickTests.Item(2, true));
+					rightSourceValue.Insert(2, new QuickTests.Item(3, true));
+					rightSourceValue.Insert(3, new QuickTests.Item(3, true));
+					rightSourceValue.Insert(4, new QuickTests.Item(3, true));
+					testing.ValidateConsistency();
+				}
 				testing.ValidateConsistency();
 			}
 
@@ -46074,6 +46714,38 @@ namespace ObservableComputations.Test
 				}
 
 				IList listSource;
+				listSource = ((IList)((ObservableCollection<Item>)leftSourceScalar.Value));
+				if (listSource != null)
+				{
+					listSource.Clear();
+					testing.ValidateConsistency();
+				}
+
+				listSource = ((IList)((System.Collections.Specialized.INotifyCollectionChanged)rightSource));
+				if (listSource != null)
+				{
+					listSource.Clear();
+					testing.ValidateConsistency();
+				}
+
+				if (leftSourceScalarValue != null)
+				{
+					leftSourceScalarValue.Insert(0, new QuickTests.Item(1, true));
+					leftSourceScalarValue.Insert(1, new QuickTests.Item(2, true));
+					leftSourceScalarValue.Insert(2, new QuickTests.Item(3, true));
+					leftSourceScalarValue.Insert(3, new QuickTests.Item(3, true));
+					leftSourceScalarValue.Insert(4, new QuickTests.Item(3, true));
+					testing.ValidateConsistency();
+				}
+				if (rightSourceValue != null)
+				{
+					rightSourceValue.Insert(0, new QuickTests.Item(1, true));
+					rightSourceValue.Insert(1, new QuickTests.Item(2, true));
+					rightSourceValue.Insert(2, new QuickTests.Item(3, true));
+					rightSourceValue.Insert(3, new QuickTests.Item(3, true));
+					rightSourceValue.Insert(4, new QuickTests.Item(3, true));
+					testing.ValidateConsistency();
+				}
 				testing.ValidateConsistency();
 			}
 
@@ -46156,6 +46828,38 @@ namespace ObservableComputations.Test
 				}
 
 				IList listSource;
+				listSource = ((IList)((ObservableCollection<Item>)leftSourceScalar.Value));
+				if (listSource != null)
+				{
+					listSource.Clear();
+					testing.ValidateConsistency();
+				}
+
+				listSource = ((IList)((System.Collections.Specialized.INotifyCollectionChanged)rightSource));
+				if (listSource != null)
+				{
+					listSource.Clear();
+					testing.ValidateConsistency();
+				}
+
+				if (leftSourceScalarValue != null)
+				{
+					leftSourceScalarValue.Insert(0, new QuickTests.Item(1, true));
+					leftSourceScalarValue.Insert(1, new QuickTests.Item(2, true));
+					leftSourceScalarValue.Insert(2, new QuickTests.Item(3, true));
+					leftSourceScalarValue.Insert(3, new QuickTests.Item(3, true));
+					leftSourceScalarValue.Insert(4, new QuickTests.Item(3, true));
+					testing.ValidateConsistency();
+				}
+				if (rightSourceValue != null)
+				{
+					rightSourceValue.Insert(0, new QuickTests.Item(1, true));
+					rightSourceValue.Insert(1, new QuickTests.Item(2, true));
+					rightSourceValue.Insert(2, new QuickTests.Item(3, true));
+					rightSourceValue.Insert(3, new QuickTests.Item(3, true));
+					rightSourceValue.Insert(4, new QuickTests.Item(3, true));
+					testing.ValidateConsistency();
+				}
 				testing.ValidateConsistency();
 			}
 
@@ -46241,6 +46945,38 @@ namespace ObservableComputations.Test
 				}
 
 				IList listSource;
+				listSource = ((IList)((ObservableCollection<Item>)leftSourceScalar.Value));
+				if (listSource != null)
+				{
+					listSource.Clear();
+					testing.ValidateConsistency();
+				}
+
+				listSource = ((IList)((ObservableCollection<Item>)rightSource));
+				if (listSource != null)
+				{
+					listSource.Clear();
+					testing.ValidateConsistency();
+				}
+
+				if (leftSourceScalarValue != null)
+				{
+					leftSourceScalarValue.Insert(0, new QuickTests.Item(1, true));
+					leftSourceScalarValue.Insert(1, new QuickTests.Item(2, true));
+					leftSourceScalarValue.Insert(2, new QuickTests.Item(3, true));
+					leftSourceScalarValue.Insert(3, new QuickTests.Item(3, true));
+					leftSourceScalarValue.Insert(4, new QuickTests.Item(3, true));
+					testing.ValidateConsistency();
+				}
+				if (rightSourceValue != null)
+				{
+					rightSourceValue.Insert(0, new QuickTests.Item(1, true));
+					rightSourceValue.Insert(1, new QuickTests.Item(2, true));
+					rightSourceValue.Insert(2, new QuickTests.Item(3, true));
+					rightSourceValue.Insert(3, new QuickTests.Item(3, true));
+					rightSourceValue.Insert(4, new QuickTests.Item(3, true));
+					testing.ValidateConsistency();
+				}
 				testing.ValidateConsistency();
 			}
 
@@ -46323,6 +47059,38 @@ namespace ObservableComputations.Test
 				}
 
 				IList listSource;
+				listSource = ((IList)((ObservableCollection<Item>)leftSourceScalar.Value));
+				if (listSource != null)
+				{
+					listSource.Clear();
+					testing.ValidateConsistency();
+				}
+
+				listSource = ((IList)((ObservableCollection<Item>)rightSource));
+				if (listSource != null)
+				{
+					listSource.Clear();
+					testing.ValidateConsistency();
+				}
+
+				if (leftSourceScalarValue != null)
+				{
+					leftSourceScalarValue.Insert(0, new QuickTests.Item(1, true));
+					leftSourceScalarValue.Insert(1, new QuickTests.Item(2, true));
+					leftSourceScalarValue.Insert(2, new QuickTests.Item(3, true));
+					leftSourceScalarValue.Insert(3, new QuickTests.Item(3, true));
+					leftSourceScalarValue.Insert(4, new QuickTests.Item(3, true));
+					testing.ValidateConsistency();
+				}
+				if (rightSourceValue != null)
+				{
+					rightSourceValue.Insert(0, new QuickTests.Item(1, true));
+					rightSourceValue.Insert(1, new QuickTests.Item(2, true));
+					rightSourceValue.Insert(2, new QuickTests.Item(3, true));
+					rightSourceValue.Insert(3, new QuickTests.Item(3, true));
+					rightSourceValue.Insert(4, new QuickTests.Item(3, true));
+					testing.ValidateConsistency();
+				}
 				testing.ValidateConsistency();
 			}
 
@@ -46408,6 +47176,38 @@ namespace ObservableComputations.Test
 				}
 
 				IList listSource;
+				listSource = ((IList)((System.Collections.Specialized.INotifyCollectionChanged)leftSource));
+				if (listSource != null)
+				{
+					listSource.Clear();
+					testing.ValidateConsistency();
+				}
+
+				listSource = ((IList)((System.Collections.Specialized.INotifyCollectionChanged)rightSource));
+				if (listSource != null)
+				{
+					listSource.Clear();
+					testing.ValidateConsistency();
+				}
+
+				if (leftSourceValue != null)
+				{
+					leftSourceValue.Insert(0, new QuickTests.Item(1, true));
+					leftSourceValue.Insert(1, new QuickTests.Item(2, true));
+					leftSourceValue.Insert(2, new QuickTests.Item(3, true));
+					leftSourceValue.Insert(3, new QuickTests.Item(3, true));
+					leftSourceValue.Insert(4, new QuickTests.Item(3, true));
+					testing.ValidateConsistency();
+				}
+				if (rightSourceValue != null)
+				{
+					rightSourceValue.Insert(0, new QuickTests.Item(1, true));
+					rightSourceValue.Insert(1, new QuickTests.Item(2, true));
+					rightSourceValue.Insert(2, new QuickTests.Item(3, true));
+					rightSourceValue.Insert(3, new QuickTests.Item(3, true));
+					rightSourceValue.Insert(4, new QuickTests.Item(3, true));
+					testing.ValidateConsistency();
+				}
 				testing.ValidateConsistency();
 			}
 
@@ -46485,6 +47285,38 @@ namespace ObservableComputations.Test
 				}
 
 				IList listSource;
+				listSource = ((IList)((System.Collections.Specialized.INotifyCollectionChanged)leftSource));
+				if (listSource != null)
+				{
+					listSource.Clear();
+					testing.ValidateConsistency();
+				}
+
+				listSource = ((IList)((System.Collections.Specialized.INotifyCollectionChanged)rightSource));
+				if (listSource != null)
+				{
+					listSource.Clear();
+					testing.ValidateConsistency();
+				}
+
+				if (leftSourceValue != null)
+				{
+					leftSourceValue.Insert(0, new QuickTests.Item(1, true));
+					leftSourceValue.Insert(1, new QuickTests.Item(2, true));
+					leftSourceValue.Insert(2, new QuickTests.Item(3, true));
+					leftSourceValue.Insert(3, new QuickTests.Item(3, true));
+					leftSourceValue.Insert(4, new QuickTests.Item(3, true));
+					testing.ValidateConsistency();
+				}
+				if (rightSourceValue != null)
+				{
+					rightSourceValue.Insert(0, new QuickTests.Item(1, true));
+					rightSourceValue.Insert(1, new QuickTests.Item(2, true));
+					rightSourceValue.Insert(2, new QuickTests.Item(3, true));
+					rightSourceValue.Insert(3, new QuickTests.Item(3, true));
+					rightSourceValue.Insert(4, new QuickTests.Item(3, true));
+					testing.ValidateConsistency();
+				}
 				testing.ValidateConsistency();
 			}
 
@@ -46565,6 +47397,38 @@ namespace ObservableComputations.Test
 				}
 
 				IList listSource;
+				listSource = ((IList)((System.Collections.Specialized.INotifyCollectionChanged)leftSource));
+				if (listSource != null)
+				{
+					listSource.Clear();
+					testing.ValidateConsistency();
+				}
+
+				listSource = ((IList)((ObservableCollection<Item>)rightSource));
+				if (listSource != null)
+				{
+					listSource.Clear();
+					testing.ValidateConsistency();
+				}
+
+				if (leftSourceValue != null)
+				{
+					leftSourceValue.Insert(0, new QuickTests.Item(1, true));
+					leftSourceValue.Insert(1, new QuickTests.Item(2, true));
+					leftSourceValue.Insert(2, new QuickTests.Item(3, true));
+					leftSourceValue.Insert(3, new QuickTests.Item(3, true));
+					leftSourceValue.Insert(4, new QuickTests.Item(3, true));
+					testing.ValidateConsistency();
+				}
+				if (rightSourceValue != null)
+				{
+					rightSourceValue.Insert(0, new QuickTests.Item(1, true));
+					rightSourceValue.Insert(1, new QuickTests.Item(2, true));
+					rightSourceValue.Insert(2, new QuickTests.Item(3, true));
+					rightSourceValue.Insert(3, new QuickTests.Item(3, true));
+					rightSourceValue.Insert(4, new QuickTests.Item(3, true));
+					testing.ValidateConsistency();
+				}
 				testing.ValidateConsistency();
 			}
 
@@ -46642,6 +47506,38 @@ namespace ObservableComputations.Test
 				}
 
 				IList listSource;
+				listSource = ((IList)((System.Collections.Specialized.INotifyCollectionChanged)leftSource));
+				if (listSource != null)
+				{
+					listSource.Clear();
+					testing.ValidateConsistency();
+				}
+
+				listSource = ((IList)((ObservableCollection<Item>)rightSource));
+				if (listSource != null)
+				{
+					listSource.Clear();
+					testing.ValidateConsistency();
+				}
+
+				if (leftSourceValue != null)
+				{
+					leftSourceValue.Insert(0, new QuickTests.Item(1, true));
+					leftSourceValue.Insert(1, new QuickTests.Item(2, true));
+					leftSourceValue.Insert(2, new QuickTests.Item(3, true));
+					leftSourceValue.Insert(3, new QuickTests.Item(3, true));
+					leftSourceValue.Insert(4, new QuickTests.Item(3, true));
+					testing.ValidateConsistency();
+				}
+				if (rightSourceValue != null)
+				{
+					rightSourceValue.Insert(0, new QuickTests.Item(1, true));
+					rightSourceValue.Insert(1, new QuickTests.Item(2, true));
+					rightSourceValue.Insert(2, new QuickTests.Item(3, true));
+					rightSourceValue.Insert(3, new QuickTests.Item(3, true));
+					rightSourceValue.Insert(4, new QuickTests.Item(3, true));
+					testing.ValidateConsistency();
+				}
 				testing.ValidateConsistency();
 			}
 
@@ -46722,6 +47618,38 @@ namespace ObservableComputations.Test
 				}
 
 				IList listSource;
+				listSource = ((IList)((ObservableCollection<Item>)leftSource));
+				if (listSource != null)
+				{
+					listSource.Clear();
+					testing.ValidateConsistency();
+				}
+
+				listSource = ((IList)((System.Collections.Specialized.INotifyCollectionChanged)rightSource));
+				if (listSource != null)
+				{
+					listSource.Clear();
+					testing.ValidateConsistency();
+				}
+
+				if (leftSourceValue != null)
+				{
+					leftSourceValue.Insert(0, new QuickTests.Item(1, true));
+					leftSourceValue.Insert(1, new QuickTests.Item(2, true));
+					leftSourceValue.Insert(2, new QuickTests.Item(3, true));
+					leftSourceValue.Insert(3, new QuickTests.Item(3, true));
+					leftSourceValue.Insert(4, new QuickTests.Item(3, true));
+					testing.ValidateConsistency();
+				}
+				if (rightSourceValue != null)
+				{
+					rightSourceValue.Insert(0, new QuickTests.Item(1, true));
+					rightSourceValue.Insert(1, new QuickTests.Item(2, true));
+					rightSourceValue.Insert(2, new QuickTests.Item(3, true));
+					rightSourceValue.Insert(3, new QuickTests.Item(3, true));
+					rightSourceValue.Insert(4, new QuickTests.Item(3, true));
+					testing.ValidateConsistency();
+				}
 				testing.ValidateConsistency();
 			}
 
@@ -46799,6 +47727,38 @@ namespace ObservableComputations.Test
 				}
 
 				IList listSource;
+				listSource = ((IList)((ObservableCollection<Item>)leftSource));
+				if (listSource != null)
+				{
+					listSource.Clear();
+					testing.ValidateConsistency();
+				}
+
+				listSource = ((IList)((System.Collections.Specialized.INotifyCollectionChanged)rightSource));
+				if (listSource != null)
+				{
+					listSource.Clear();
+					testing.ValidateConsistency();
+				}
+
+				if (leftSourceValue != null)
+				{
+					leftSourceValue.Insert(0, new QuickTests.Item(1, true));
+					leftSourceValue.Insert(1, new QuickTests.Item(2, true));
+					leftSourceValue.Insert(2, new QuickTests.Item(3, true));
+					leftSourceValue.Insert(3, new QuickTests.Item(3, true));
+					leftSourceValue.Insert(4, new QuickTests.Item(3, true));
+					testing.ValidateConsistency();
+				}
+				if (rightSourceValue != null)
+				{
+					rightSourceValue.Insert(0, new QuickTests.Item(1, true));
+					rightSourceValue.Insert(1, new QuickTests.Item(2, true));
+					rightSourceValue.Insert(2, new QuickTests.Item(3, true));
+					rightSourceValue.Insert(3, new QuickTests.Item(3, true));
+					rightSourceValue.Insert(4, new QuickTests.Item(3, true));
+					testing.ValidateConsistency();
+				}
 				testing.ValidateConsistency();
 			}
 
@@ -46879,6 +47839,38 @@ namespace ObservableComputations.Test
 				}
 
 				IList listSource;
+				listSource = ((IList)((ObservableCollection<Item>)leftSource));
+				if (listSource != null)
+				{
+					listSource.Clear();
+					testing.ValidateConsistency();
+				}
+
+				listSource = ((IList)((ObservableCollection<Item>)rightSource));
+				if (listSource != null)
+				{
+					listSource.Clear();
+					testing.ValidateConsistency();
+				}
+
+				if (leftSourceValue != null)
+				{
+					leftSourceValue.Insert(0, new QuickTests.Item(1, true));
+					leftSourceValue.Insert(1, new QuickTests.Item(2, true));
+					leftSourceValue.Insert(2, new QuickTests.Item(3, true));
+					leftSourceValue.Insert(3, new QuickTests.Item(3, true));
+					leftSourceValue.Insert(4, new QuickTests.Item(3, true));
+					testing.ValidateConsistency();
+				}
+				if (rightSourceValue != null)
+				{
+					rightSourceValue.Insert(0, new QuickTests.Item(1, true));
+					rightSourceValue.Insert(1, new QuickTests.Item(2, true));
+					rightSourceValue.Insert(2, new QuickTests.Item(3, true));
+					rightSourceValue.Insert(3, new QuickTests.Item(3, true));
+					rightSourceValue.Insert(4, new QuickTests.Item(3, true));
+					testing.ValidateConsistency();
+				}
 				testing.ValidateConsistency();
 			}
 
@@ -46956,6 +47948,38 @@ namespace ObservableComputations.Test
 				}
 
 				IList listSource;
+				listSource = ((IList)((ObservableCollection<Item>)leftSource));
+				if (listSource != null)
+				{
+					listSource.Clear();
+					testing.ValidateConsistency();
+				}
+
+				listSource = ((IList)((ObservableCollection<Item>)rightSource));
+				if (listSource != null)
+				{
+					listSource.Clear();
+					testing.ValidateConsistency();
+				}
+
+				if (leftSourceValue != null)
+				{
+					leftSourceValue.Insert(0, new QuickTests.Item(1, true));
+					leftSourceValue.Insert(1, new QuickTests.Item(2, true));
+					leftSourceValue.Insert(2, new QuickTests.Item(3, true));
+					leftSourceValue.Insert(3, new QuickTests.Item(3, true));
+					leftSourceValue.Insert(4, new QuickTests.Item(3, true));
+					testing.ValidateConsistency();
+				}
+				if (rightSourceValue != null)
+				{
+					rightSourceValue.Insert(0, new QuickTests.Item(1, true));
+					rightSourceValue.Insert(1, new QuickTests.Item(2, true));
+					rightSourceValue.Insert(2, new QuickTests.Item(3, true));
+					rightSourceValue.Insert(3, new QuickTests.Item(3, true));
+					rightSourceValue.Insert(4, new QuickTests.Item(3, true));
+					testing.ValidateConsistency();
+				}
 				testing.ValidateConsistency();
 			}
 
@@ -58175,13 +59199,13 @@ namespace ObservableComputations.Test
 			[Values(false, true)] bool initialIsPaused,
 			[Values(1, 1)] int? lastChangesToApplyOnResumeCount)
 		{
-			Scalar<int> scalar = getScalar<int>(0);
+			Scalar<int> source = getScalar<int>(0);
 			OcConsumer consumer = new OcConsumer();
-			var testing = scalar.ScalarPausing<int>(
+			var testing = source.ScalarPausing<int>(
 				initialIsPaused,
 				lastChangesToApplyOnResumeCount).For(consumer);
 
-			Assert.AreEqual(scalar, testing.Scalar);
+			Assert.AreEqual(source, testing.Source);
 			Assert.AreEqual(lastChangesToApplyOnResumeCount, testing.LastChangesToApplyOnResumeCount);
 
 			void test()
@@ -58189,9 +59213,9 @@ namespace ObservableComputations.Test
 				testing.ValidateConsistency();
 
 				IList listSource;
-				((Scalar<int>)scalar).Change(1);
-				((Scalar<int>)scalar).Change(2);
-				((Scalar<int>)scalar).Change(3);
+				((Scalar<int>)source).Change(1);
+				((Scalar<int>)source).Change(2);
+				((Scalar<int>)source).Change(3);
 				testing.ValidateConsistency();
 			}
 
@@ -58203,21 +59227,21 @@ namespace ObservableComputations.Test
 		public void TestScalarPausing02(
 			[Values(false, true)] bool initialIsPaused)
 		{
-			Scalar<int> scalar = getScalar<int>(0);
+			Scalar<int> source = getScalar<int>(0);
 			OcConsumer consumer = new OcConsumer();
-			var testing = scalar.ScalarPausing<int>(
+			var testing = source.ScalarPausing<int>(
 				initialIsPaused).For(consumer);
 
-			Assert.AreEqual(scalar, testing.Scalar);
+			Assert.AreEqual(source, testing.Source);
 
 			void test()
 			{
 				testing.ValidateConsistency();
 
 				IList listSource;
-				((Scalar<int>)scalar).Change(1);
-				((Scalar<int>)scalar).Change(2);
-				((Scalar<int>)scalar).Change(3);
+				((Scalar<int>)source).Change(1);
+				((Scalar<int>)source).Change(2);
+				((Scalar<int>)source).Change(3);
 				testing.ValidateConsistency();
 			}
 
@@ -58229,12 +59253,12 @@ namespace ObservableComputations.Test
 		public void TestScalarPausing03(
 			[Values(1, 1)] int? lastChangesToApplyOnResumeCount)
 		{
-			Scalar<int> scalar = getScalar<int>(0);
+			Scalar<int> source = getScalar<int>(0);
 			OcConsumer consumer = new OcConsumer();
-			var testing = scalar.ScalarPausing<int>(
+			var testing = source.ScalarPausing<int>(
 				lastChangesToApplyOnResumeCount).For(consumer);
 
-			Assert.AreEqual(scalar, testing.Scalar);
+			Assert.AreEqual(source, testing.Source);
 			Assert.AreEqual(lastChangesToApplyOnResumeCount, testing.LastChangesToApplyOnResumeCount);
 
 			void test()
@@ -58242,9 +59266,9 @@ namespace ObservableComputations.Test
 				testing.ValidateConsistency();
 
 				IList listSource;
-				((Scalar<int>)scalar).Change(1);
-				((Scalar<int>)scalar).Change(2);
-				((Scalar<int>)scalar).Change(3);
+				((Scalar<int>)source).Change(1);
+				((Scalar<int>)source).Change(2);
+				((Scalar<int>)source).Change(3);
 				testing.ValidateConsistency();
 			}
 
@@ -58255,20 +59279,20 @@ namespace ObservableComputations.Test
 		[Test, Combinatorial]
 		public void TestScalarPausing04()
 		{
-			Scalar<int> scalar = getScalar<int>(0);
+			Scalar<int> source = getScalar<int>(0);
 			OcConsumer consumer = new OcConsumer();
-			var testing = scalar.ScalarPausing<int>().For(consumer);
+			var testing = source.ScalarPausing<int>().For(consumer);
 
-			Assert.AreEqual(scalar, testing.Scalar);
+			Assert.AreEqual(source, testing.Source);
 
 			void test()
 			{
 				testing.ValidateConsistency();
 
 				IList listSource;
-				((Scalar<int>)scalar).Change(1);
-				((Scalar<int>)scalar).Change(2);
-				((Scalar<int>)scalar).Change(3);
+				((Scalar<int>)source).Change(1);
+				((Scalar<int>)source).Change(2);
+				((Scalar<int>)source).Change(3);
 				testing.ValidateConsistency();
 			}
 
@@ -58280,14 +59304,14 @@ namespace ObservableComputations.Test
 		public void TestScalarPausing05(
 			[Values(1, 1)] int? lastChangesToApplyOnResumeCount)
 		{
-			Scalar<int> scalar = getScalar<int>(0);
+			Scalar<int> source = getScalar<int>(0);
 			Scalar<bool> isPausedScalar = getScalar<bool>(true);
 			OcConsumer consumer = new OcConsumer();
-			var testing = scalar.ScalarPausing<int>(
+			var testing = source.ScalarPausing<int>(
 				isPausedScalar,
 				lastChangesToApplyOnResumeCount).For(consumer);
 
-			Assert.AreEqual(scalar, testing.Scalar);
+			Assert.AreEqual(source, testing.Source);
 			Assert.AreEqual(isPausedScalar, testing.IsPausedScalar);
 			Assert.AreEqual(lastChangesToApplyOnResumeCount, testing.LastChangesToApplyOnResumeCount);
 
@@ -58296,9 +59320,9 @@ namespace ObservableComputations.Test
 				testing.ValidateConsistency();
 
 				IList listSource;
-				((Scalar<int>)scalar).Change(1);
-				((Scalar<int>)scalar).Change(2);
-				((Scalar<int>)scalar).Change(3);
+				((Scalar<int>)source).Change(1);
+				((Scalar<int>)source).Change(2);
+				((Scalar<int>)source).Change(3);
 				testing.ValidateConsistency();
 			}
 
@@ -58316,13 +59340,13 @@ namespace ObservableComputations.Test
 		[Test, Combinatorial]
 		public void TestScalarPausing06()
 		{
-			Scalar<int> scalar = getScalar<int>(0);
+			Scalar<int> source = getScalar<int>(0);
 			Scalar<bool> isPausedScalar = getScalar<bool>(true);
 			OcConsumer consumer = new OcConsumer();
-			var testing = scalar.ScalarPausing<int>(
+			var testing = source.ScalarPausing<int>(
 				isPausedScalar).For(consumer);
 
-			Assert.AreEqual(scalar, testing.Scalar);
+			Assert.AreEqual(source, testing.Source);
 			Assert.AreEqual(isPausedScalar, testing.IsPausedScalar);
 
 			void test()
@@ -58330,9 +59354,9 @@ namespace ObservableComputations.Test
 				testing.ValidateConsistency();
 
 				IList listSource;
-				((Scalar<int>)scalar).Change(1);
-				((Scalar<int>)scalar).Change(2);
-				((Scalar<int>)scalar).Change(3);
+				((Scalar<int>)source).Change(1);
+				((Scalar<int>)source).Change(2);
+				((Scalar<int>)source).Change(3);
 				testing.ValidateConsistency();
 			}
 
@@ -58350,15 +59374,15 @@ namespace ObservableComputations.Test
 		[Test, Combinatorial]
 		public void TestScalarPausing07()
 		{
-			Scalar<int> scalar = getScalar<int>(0);
+			Scalar<int> source = getScalar<int>(0);
 			Scalar<bool> isPausedScalar = getScalar<bool>(true);
 			Scalar<int?> lastChangesToApplyOnResumeCountScalar = getScalar<int?>(null);
 			OcConsumer consumer = new OcConsumer();
-			var testing = scalar.ScalarPausing<int>(
+			var testing = source.ScalarPausing<int>(
 				isPausedScalar,
 				lastChangesToApplyOnResumeCountScalar).For(consumer);
 
-			Assert.AreEqual(scalar, testing.Scalar);
+			Assert.AreEqual(source, testing.Source);
 			Assert.AreEqual(isPausedScalar, testing.IsPausedScalar);
 			Assert.AreEqual(lastChangesToApplyOnResumeCountScalar, testing.LastChangesToApplyOnResumeCountScalar);
 
@@ -58367,9 +59391,9 @@ namespace ObservableComputations.Test
 				testing.ValidateConsistency();
 
 				IList listSource;
-				((Scalar<int>)scalar).Change(1);
-				((Scalar<int>)scalar).Change(2);
-				((Scalar<int>)scalar).Change(3);
+				((Scalar<int>)source).Change(1);
+				((Scalar<int>)source).Change(2);
+				((Scalar<int>)source).Change(3);
 				testing.ValidateConsistency();
 			}
 
@@ -58395,14 +59419,14 @@ namespace ObservableComputations.Test
 		public void TestScalarPausing08(
 			[Values(false, true)] bool initialIsPaused)
 		{
-			Scalar<int> scalar = getScalar<int>(0);
+			Scalar<int> source = getScalar<int>(0);
 			Scalar<int?> lastChangesToApplyOnResumeCountScalar = getScalar<int?>(null);
 			OcConsumer consumer = new OcConsumer();
-			var testing = scalar.ScalarPausing<int>(
+			var testing = source.ScalarPausing<int>(
 				initialIsPaused,
 				lastChangesToApplyOnResumeCountScalar).For(consumer);
 
-			Assert.AreEqual(scalar, testing.Scalar);
+			Assert.AreEqual(source, testing.Source);
 			Assert.AreEqual(lastChangesToApplyOnResumeCountScalar, testing.LastChangesToApplyOnResumeCountScalar);
 
 			void test()
@@ -58410,9 +59434,9 @@ namespace ObservableComputations.Test
 				testing.ValidateConsistency();
 
 				IList listSource;
-				((Scalar<int>)scalar).Change(1);
-				((Scalar<int>)scalar).Change(2);
-				((Scalar<int>)scalar).Change(3);
+				((Scalar<int>)source).Change(1);
+				((Scalar<int>)source).Change(2);
+				((Scalar<int>)source).Change(3);
 				testing.ValidateConsistency();
 			}
 
@@ -78820,6 +79844,38 @@ namespace ObservableComputations.Test
 				}
 
 				IList listSource;
+				listSource = ((IList)((System.Collections.Specialized.INotifyCollectionChanged)leftSourceScalar.Value));
+				if (listSource != null)
+				{
+					listSource.Clear();
+					testing.ValidateConsistency();
+				}
+
+				listSource = ((IList)((System.Collections.Specialized.INotifyCollectionChanged)rightSource));
+				if (listSource != null)
+				{
+					listSource.Clear();
+					testing.ValidateConsistency();
+				}
+
+				if (leftSourceScalarValue != null)
+				{
+					leftSourceScalarValue.Insert(0, new QuickTests.Item(1, true));
+					leftSourceScalarValue.Insert(1, new QuickTests.Item(2, true));
+					leftSourceScalarValue.Insert(2, new QuickTests.Item(3, true));
+					leftSourceScalarValue.Insert(3, new QuickTests.Item(3, true));
+					leftSourceScalarValue.Insert(4, new QuickTests.Item(3, true));
+					testing.ValidateConsistency();
+				}
+				if (rightSourceValue != null)
+				{
+					rightSourceValue.Insert(0, new QuickTests.Item(1, true));
+					rightSourceValue.Insert(1, new QuickTests.Item(2, true));
+					rightSourceValue.Insert(2, new QuickTests.Item(3, true));
+					rightSourceValue.Insert(3, new QuickTests.Item(3, true));
+					rightSourceValue.Insert(4, new QuickTests.Item(3, true));
+					testing.ValidateConsistency();
+				}
 				testing.ValidateConsistency();
 			}
 
@@ -78899,6 +79955,38 @@ namespace ObservableComputations.Test
 				}
 
 				IList listSource;
+				listSource = ((IList)((System.Collections.Specialized.INotifyCollectionChanged)leftSourceScalar.Value));
+				if (listSource != null)
+				{
+					listSource.Clear();
+					testing.ValidateConsistency();
+				}
+
+				listSource = ((IList)((ObservableCollection<Item>)rightSource));
+				if (listSource != null)
+				{
+					listSource.Clear();
+					testing.ValidateConsistency();
+				}
+
+				if (leftSourceScalarValue != null)
+				{
+					leftSourceScalarValue.Insert(0, new QuickTests.Item(1, true));
+					leftSourceScalarValue.Insert(1, new QuickTests.Item(2, true));
+					leftSourceScalarValue.Insert(2, new QuickTests.Item(3, true));
+					leftSourceScalarValue.Insert(3, new QuickTests.Item(3, true));
+					leftSourceScalarValue.Insert(4, new QuickTests.Item(3, true));
+					testing.ValidateConsistency();
+				}
+				if (rightSourceValue != null)
+				{
+					rightSourceValue.Insert(0, new QuickTests.Item(1, true));
+					rightSourceValue.Insert(1, new QuickTests.Item(2, true));
+					rightSourceValue.Insert(2, new QuickTests.Item(3, true));
+					rightSourceValue.Insert(3, new QuickTests.Item(3, true));
+					rightSourceValue.Insert(4, new QuickTests.Item(3, true));
+					testing.ValidateConsistency();
+				}
 				testing.ValidateConsistency();
 			}
 
@@ -78978,6 +80066,38 @@ namespace ObservableComputations.Test
 				}
 
 				IList listSource;
+				listSource = ((IList)((ObservableCollection<Item>)leftSourceScalar.Value));
+				if (listSource != null)
+				{
+					listSource.Clear();
+					testing.ValidateConsistency();
+				}
+
+				listSource = ((IList)((System.Collections.Specialized.INotifyCollectionChanged)rightSource));
+				if (listSource != null)
+				{
+					listSource.Clear();
+					testing.ValidateConsistency();
+				}
+
+				if (leftSourceScalarValue != null)
+				{
+					leftSourceScalarValue.Insert(0, new QuickTests.Item(1, true));
+					leftSourceScalarValue.Insert(1, new QuickTests.Item(2, true));
+					leftSourceScalarValue.Insert(2, new QuickTests.Item(3, true));
+					leftSourceScalarValue.Insert(3, new QuickTests.Item(3, true));
+					leftSourceScalarValue.Insert(4, new QuickTests.Item(3, true));
+					testing.ValidateConsistency();
+				}
+				if (rightSourceValue != null)
+				{
+					rightSourceValue.Insert(0, new QuickTests.Item(1, true));
+					rightSourceValue.Insert(1, new QuickTests.Item(2, true));
+					rightSourceValue.Insert(2, new QuickTests.Item(3, true));
+					rightSourceValue.Insert(3, new QuickTests.Item(3, true));
+					rightSourceValue.Insert(4, new QuickTests.Item(3, true));
+					testing.ValidateConsistency();
+				}
 				testing.ValidateConsistency();
 			}
 
@@ -79057,6 +80177,38 @@ namespace ObservableComputations.Test
 				}
 
 				IList listSource;
+				listSource = ((IList)((ObservableCollection<Item>)leftSourceScalar.Value));
+				if (listSource != null)
+				{
+					listSource.Clear();
+					testing.ValidateConsistency();
+				}
+
+				listSource = ((IList)((ObservableCollection<Item>)rightSource));
+				if (listSource != null)
+				{
+					listSource.Clear();
+					testing.ValidateConsistency();
+				}
+
+				if (leftSourceScalarValue != null)
+				{
+					leftSourceScalarValue.Insert(0, new QuickTests.Item(1, true));
+					leftSourceScalarValue.Insert(1, new QuickTests.Item(2, true));
+					leftSourceScalarValue.Insert(2, new QuickTests.Item(3, true));
+					leftSourceScalarValue.Insert(3, new QuickTests.Item(3, true));
+					leftSourceScalarValue.Insert(4, new QuickTests.Item(3, true));
+					testing.ValidateConsistency();
+				}
+				if (rightSourceValue != null)
+				{
+					rightSourceValue.Insert(0, new QuickTests.Item(1, true));
+					rightSourceValue.Insert(1, new QuickTests.Item(2, true));
+					rightSourceValue.Insert(2, new QuickTests.Item(3, true));
+					rightSourceValue.Insert(3, new QuickTests.Item(3, true));
+					rightSourceValue.Insert(4, new QuickTests.Item(3, true));
+					testing.ValidateConsistency();
+				}
 				testing.ValidateConsistency();
 			}
 
@@ -79136,6 +80288,38 @@ namespace ObservableComputations.Test
 				}
 
 				IList listSource;
+				listSource = ((IList)((System.Collections.Specialized.INotifyCollectionChanged)leftSourceScalar.Value));
+				if (listSource != null)
+				{
+					listSource.Clear();
+					testing.ValidateConsistency();
+				}
+
+				listSource = ((IList)((System.Collections.Specialized.INotifyCollectionChanged)rightSourceScalar.Value));
+				if (listSource != null)
+				{
+					listSource.Clear();
+					testing.ValidateConsistency();
+				}
+
+				if (leftSourceScalarValue != null)
+				{
+					leftSourceScalarValue.Insert(0, new QuickTests.Item(1, true));
+					leftSourceScalarValue.Insert(1, new QuickTests.Item(2, true));
+					leftSourceScalarValue.Insert(2, new QuickTests.Item(3, true));
+					leftSourceScalarValue.Insert(3, new QuickTests.Item(3, true));
+					leftSourceScalarValue.Insert(4, new QuickTests.Item(3, true));
+					testing.ValidateConsistency();
+				}
+				if (rightSourceScalarValue != null)
+				{
+					rightSourceScalarValue.Insert(0, new QuickTests.Item(1, true));
+					rightSourceScalarValue.Insert(1, new QuickTests.Item(2, true));
+					rightSourceScalarValue.Insert(2, new QuickTests.Item(3, true));
+					rightSourceScalarValue.Insert(3, new QuickTests.Item(3, true));
+					rightSourceScalarValue.Insert(4, new QuickTests.Item(3, true));
+					testing.ValidateConsistency();
+				}
 				testing.ValidateConsistency();
 			}
 
@@ -79220,6 +80404,38 @@ namespace ObservableComputations.Test
 				}
 
 				IList listSource;
+				listSource = ((IList)((System.Collections.Specialized.INotifyCollectionChanged)leftSourceScalar.Value));
+				if (listSource != null)
+				{
+					listSource.Clear();
+					testing.ValidateConsistency();
+				}
+
+				listSource = ((IList)((ObservableCollection<Item>)rightSourceScalar.Value));
+				if (listSource != null)
+				{
+					listSource.Clear();
+					testing.ValidateConsistency();
+				}
+
+				if (leftSourceScalarValue != null)
+				{
+					leftSourceScalarValue.Insert(0, new QuickTests.Item(1, true));
+					leftSourceScalarValue.Insert(1, new QuickTests.Item(2, true));
+					leftSourceScalarValue.Insert(2, new QuickTests.Item(3, true));
+					leftSourceScalarValue.Insert(3, new QuickTests.Item(3, true));
+					leftSourceScalarValue.Insert(4, new QuickTests.Item(3, true));
+					testing.ValidateConsistency();
+				}
+				if (rightSourceScalarValue != null)
+				{
+					rightSourceScalarValue.Insert(0, new QuickTests.Item(1, true));
+					rightSourceScalarValue.Insert(1, new QuickTests.Item(2, true));
+					rightSourceScalarValue.Insert(2, new QuickTests.Item(3, true));
+					rightSourceScalarValue.Insert(3, new QuickTests.Item(3, true));
+					rightSourceScalarValue.Insert(4, new QuickTests.Item(3, true));
+					testing.ValidateConsistency();
+				}
 				testing.ValidateConsistency();
 			}
 
@@ -79304,6 +80520,38 @@ namespace ObservableComputations.Test
 				}
 
 				IList listSource;
+				listSource = ((IList)((ObservableCollection<Item>)leftSourceScalar.Value));
+				if (listSource != null)
+				{
+					listSource.Clear();
+					testing.ValidateConsistency();
+				}
+
+				listSource = ((IList)((System.Collections.Specialized.INotifyCollectionChanged)rightSourceScalar.Value));
+				if (listSource != null)
+				{
+					listSource.Clear();
+					testing.ValidateConsistency();
+				}
+
+				if (leftSourceScalarValue != null)
+				{
+					leftSourceScalarValue.Insert(0, new QuickTests.Item(1, true));
+					leftSourceScalarValue.Insert(1, new QuickTests.Item(2, true));
+					leftSourceScalarValue.Insert(2, new QuickTests.Item(3, true));
+					leftSourceScalarValue.Insert(3, new QuickTests.Item(3, true));
+					leftSourceScalarValue.Insert(4, new QuickTests.Item(3, true));
+					testing.ValidateConsistency();
+				}
+				if (rightSourceScalarValue != null)
+				{
+					rightSourceScalarValue.Insert(0, new QuickTests.Item(1, true));
+					rightSourceScalarValue.Insert(1, new QuickTests.Item(2, true));
+					rightSourceScalarValue.Insert(2, new QuickTests.Item(3, true));
+					rightSourceScalarValue.Insert(3, new QuickTests.Item(3, true));
+					rightSourceScalarValue.Insert(4, new QuickTests.Item(3, true));
+					testing.ValidateConsistency();
+				}
 				testing.ValidateConsistency();
 			}
 
@@ -79388,6 +80636,38 @@ namespace ObservableComputations.Test
 				}
 
 				IList listSource;
+				listSource = ((IList)((ObservableCollection<Item>)leftSourceScalar.Value));
+				if (listSource != null)
+				{
+					listSource.Clear();
+					testing.ValidateConsistency();
+				}
+
+				listSource = ((IList)((ObservableCollection<Item>)rightSourceScalar.Value));
+				if (listSource != null)
+				{
+					listSource.Clear();
+					testing.ValidateConsistency();
+				}
+
+				if (leftSourceScalarValue != null)
+				{
+					leftSourceScalarValue.Insert(0, new QuickTests.Item(1, true));
+					leftSourceScalarValue.Insert(1, new QuickTests.Item(2, true));
+					leftSourceScalarValue.Insert(2, new QuickTests.Item(3, true));
+					leftSourceScalarValue.Insert(3, new QuickTests.Item(3, true));
+					leftSourceScalarValue.Insert(4, new QuickTests.Item(3, true));
+					testing.ValidateConsistency();
+				}
+				if (rightSourceScalarValue != null)
+				{
+					rightSourceScalarValue.Insert(0, new QuickTests.Item(1, true));
+					rightSourceScalarValue.Insert(1, new QuickTests.Item(2, true));
+					rightSourceScalarValue.Insert(2, new QuickTests.Item(3, true));
+					rightSourceScalarValue.Insert(3, new QuickTests.Item(3, true));
+					rightSourceScalarValue.Insert(4, new QuickTests.Item(3, true));
+					testing.ValidateConsistency();
+				}
 				testing.ValidateConsistency();
 			}
 
@@ -79472,6 +80752,38 @@ namespace ObservableComputations.Test
 				}
 
 				IList listSource;
+				listSource = ((IList)((System.Collections.Specialized.INotifyCollectionChanged)leftSource));
+				if (listSource != null)
+				{
+					listSource.Clear();
+					testing.ValidateConsistency();
+				}
+
+				listSource = ((IList)((System.Collections.Specialized.INotifyCollectionChanged)rightSource));
+				if (listSource != null)
+				{
+					listSource.Clear();
+					testing.ValidateConsistency();
+				}
+
+				if (leftSourceValue != null)
+				{
+					leftSourceValue.Insert(0, new QuickTests.Item(1, true));
+					leftSourceValue.Insert(1, new QuickTests.Item(2, true));
+					leftSourceValue.Insert(2, new QuickTests.Item(3, true));
+					leftSourceValue.Insert(3, new QuickTests.Item(3, true));
+					leftSourceValue.Insert(4, new QuickTests.Item(3, true));
+					testing.ValidateConsistency();
+				}
+				if (rightSourceValue != null)
+				{
+					rightSourceValue.Insert(0, new QuickTests.Item(1, true));
+					rightSourceValue.Insert(1, new QuickTests.Item(2, true));
+					rightSourceValue.Insert(2, new QuickTests.Item(3, true));
+					rightSourceValue.Insert(3, new QuickTests.Item(3, true));
+					rightSourceValue.Insert(4, new QuickTests.Item(3, true));
+					testing.ValidateConsistency();
+				}
 				testing.ValidateConsistency();
 			}
 
@@ -79546,6 +80858,38 @@ namespace ObservableComputations.Test
 				}
 
 				IList listSource;
+				listSource = ((IList)((System.Collections.Specialized.INotifyCollectionChanged)leftSource));
+				if (listSource != null)
+				{
+					listSource.Clear();
+					testing.ValidateConsistency();
+				}
+
+				listSource = ((IList)((ObservableCollection<Item>)rightSource));
+				if (listSource != null)
+				{
+					listSource.Clear();
+					testing.ValidateConsistency();
+				}
+
+				if (leftSourceValue != null)
+				{
+					leftSourceValue.Insert(0, new QuickTests.Item(1, true));
+					leftSourceValue.Insert(1, new QuickTests.Item(2, true));
+					leftSourceValue.Insert(2, new QuickTests.Item(3, true));
+					leftSourceValue.Insert(3, new QuickTests.Item(3, true));
+					leftSourceValue.Insert(4, new QuickTests.Item(3, true));
+					testing.ValidateConsistency();
+				}
+				if (rightSourceValue != null)
+				{
+					rightSourceValue.Insert(0, new QuickTests.Item(1, true));
+					rightSourceValue.Insert(1, new QuickTests.Item(2, true));
+					rightSourceValue.Insert(2, new QuickTests.Item(3, true));
+					rightSourceValue.Insert(3, new QuickTests.Item(3, true));
+					rightSourceValue.Insert(4, new QuickTests.Item(3, true));
+					testing.ValidateConsistency();
+				}
 				testing.ValidateConsistency();
 			}
 
@@ -79620,6 +80964,38 @@ namespace ObservableComputations.Test
 				}
 
 				IList listSource;
+				listSource = ((IList)((ObservableCollection<Item>)leftSource));
+				if (listSource != null)
+				{
+					listSource.Clear();
+					testing.ValidateConsistency();
+				}
+
+				listSource = ((IList)((System.Collections.Specialized.INotifyCollectionChanged)rightSource));
+				if (listSource != null)
+				{
+					listSource.Clear();
+					testing.ValidateConsistency();
+				}
+
+				if (leftSourceValue != null)
+				{
+					leftSourceValue.Insert(0, new QuickTests.Item(1, true));
+					leftSourceValue.Insert(1, new QuickTests.Item(2, true));
+					leftSourceValue.Insert(2, new QuickTests.Item(3, true));
+					leftSourceValue.Insert(3, new QuickTests.Item(3, true));
+					leftSourceValue.Insert(4, new QuickTests.Item(3, true));
+					testing.ValidateConsistency();
+				}
+				if (rightSourceValue != null)
+				{
+					rightSourceValue.Insert(0, new QuickTests.Item(1, true));
+					rightSourceValue.Insert(1, new QuickTests.Item(2, true));
+					rightSourceValue.Insert(2, new QuickTests.Item(3, true));
+					rightSourceValue.Insert(3, new QuickTests.Item(3, true));
+					rightSourceValue.Insert(4, new QuickTests.Item(3, true));
+					testing.ValidateConsistency();
+				}
 				testing.ValidateConsistency();
 			}
 
@@ -79694,6 +81070,38 @@ namespace ObservableComputations.Test
 				}
 
 				IList listSource;
+				listSource = ((IList)((ObservableCollection<Item>)leftSource));
+				if (listSource != null)
+				{
+					listSource.Clear();
+					testing.ValidateConsistency();
+				}
+
+				listSource = ((IList)((ObservableCollection<Item>)rightSource));
+				if (listSource != null)
+				{
+					listSource.Clear();
+					testing.ValidateConsistency();
+				}
+
+				if (leftSourceValue != null)
+				{
+					leftSourceValue.Insert(0, new QuickTests.Item(1, true));
+					leftSourceValue.Insert(1, new QuickTests.Item(2, true));
+					leftSourceValue.Insert(2, new QuickTests.Item(3, true));
+					leftSourceValue.Insert(3, new QuickTests.Item(3, true));
+					leftSourceValue.Insert(4, new QuickTests.Item(3, true));
+					testing.ValidateConsistency();
+				}
+				if (rightSourceValue != null)
+				{
+					rightSourceValue.Insert(0, new QuickTests.Item(1, true));
+					rightSourceValue.Insert(1, new QuickTests.Item(2, true));
+					rightSourceValue.Insert(2, new QuickTests.Item(3, true));
+					rightSourceValue.Insert(3, new QuickTests.Item(3, true));
+					rightSourceValue.Insert(4, new QuickTests.Item(3, true));
+					testing.ValidateConsistency();
+				}
 				testing.ValidateConsistency();
 			}
 
@@ -79768,6 +81176,38 @@ namespace ObservableComputations.Test
 				}
 
 				IList listSource;
+				listSource = ((IList)((System.Collections.Specialized.INotifyCollectionChanged)leftSource));
+				if (listSource != null)
+				{
+					listSource.Clear();
+					testing.ValidateConsistency();
+				}
+
+				listSource = ((IList)((System.Collections.Specialized.INotifyCollectionChanged)rightSourceScalar.Value));
+				if (listSource != null)
+				{
+					listSource.Clear();
+					testing.ValidateConsistency();
+				}
+
+				if (leftSourceValue != null)
+				{
+					leftSourceValue.Insert(0, new QuickTests.Item(1, true));
+					leftSourceValue.Insert(1, new QuickTests.Item(2, true));
+					leftSourceValue.Insert(2, new QuickTests.Item(3, true));
+					leftSourceValue.Insert(3, new QuickTests.Item(3, true));
+					leftSourceValue.Insert(4, new QuickTests.Item(3, true));
+					testing.ValidateConsistency();
+				}
+				if (rightSourceScalarValue != null)
+				{
+					rightSourceScalarValue.Insert(0, new QuickTests.Item(1, true));
+					rightSourceScalarValue.Insert(1, new QuickTests.Item(2, true));
+					rightSourceScalarValue.Insert(2, new QuickTests.Item(3, true));
+					rightSourceScalarValue.Insert(3, new QuickTests.Item(3, true));
+					rightSourceScalarValue.Insert(4, new QuickTests.Item(3, true));
+					testing.ValidateConsistency();
+				}
 				testing.ValidateConsistency();
 			}
 
@@ -79847,6 +81287,38 @@ namespace ObservableComputations.Test
 				}
 
 				IList listSource;
+				listSource = ((IList)((System.Collections.Specialized.INotifyCollectionChanged)leftSource));
+				if (listSource != null)
+				{
+					listSource.Clear();
+					testing.ValidateConsistency();
+				}
+
+				listSource = ((IList)((ObservableCollection<Item>)rightSourceScalar.Value));
+				if (listSource != null)
+				{
+					listSource.Clear();
+					testing.ValidateConsistency();
+				}
+
+				if (leftSourceValue != null)
+				{
+					leftSourceValue.Insert(0, new QuickTests.Item(1, true));
+					leftSourceValue.Insert(1, new QuickTests.Item(2, true));
+					leftSourceValue.Insert(2, new QuickTests.Item(3, true));
+					leftSourceValue.Insert(3, new QuickTests.Item(3, true));
+					leftSourceValue.Insert(4, new QuickTests.Item(3, true));
+					testing.ValidateConsistency();
+				}
+				if (rightSourceScalarValue != null)
+				{
+					rightSourceScalarValue.Insert(0, new QuickTests.Item(1, true));
+					rightSourceScalarValue.Insert(1, new QuickTests.Item(2, true));
+					rightSourceScalarValue.Insert(2, new QuickTests.Item(3, true));
+					rightSourceScalarValue.Insert(3, new QuickTests.Item(3, true));
+					rightSourceScalarValue.Insert(4, new QuickTests.Item(3, true));
+					testing.ValidateConsistency();
+				}
 				testing.ValidateConsistency();
 			}
 
@@ -79926,6 +81398,38 @@ namespace ObservableComputations.Test
 				}
 
 				IList listSource;
+				listSource = ((IList)((ObservableCollection<Item>)leftSource));
+				if (listSource != null)
+				{
+					listSource.Clear();
+					testing.ValidateConsistency();
+				}
+
+				listSource = ((IList)((System.Collections.Specialized.INotifyCollectionChanged)rightSourceScalar.Value));
+				if (listSource != null)
+				{
+					listSource.Clear();
+					testing.ValidateConsistency();
+				}
+
+				if (leftSourceValue != null)
+				{
+					leftSourceValue.Insert(0, new QuickTests.Item(1, true));
+					leftSourceValue.Insert(1, new QuickTests.Item(2, true));
+					leftSourceValue.Insert(2, new QuickTests.Item(3, true));
+					leftSourceValue.Insert(3, new QuickTests.Item(3, true));
+					leftSourceValue.Insert(4, new QuickTests.Item(3, true));
+					testing.ValidateConsistency();
+				}
+				if (rightSourceScalarValue != null)
+				{
+					rightSourceScalarValue.Insert(0, new QuickTests.Item(1, true));
+					rightSourceScalarValue.Insert(1, new QuickTests.Item(2, true));
+					rightSourceScalarValue.Insert(2, new QuickTests.Item(3, true));
+					rightSourceScalarValue.Insert(3, new QuickTests.Item(3, true));
+					rightSourceScalarValue.Insert(4, new QuickTests.Item(3, true));
+					testing.ValidateConsistency();
+				}
 				testing.ValidateConsistency();
 			}
 
@@ -80005,6 +81509,38 @@ namespace ObservableComputations.Test
 				}
 
 				IList listSource;
+				listSource = ((IList)((ObservableCollection<Item>)leftSource));
+				if (listSource != null)
+				{
+					listSource.Clear();
+					testing.ValidateConsistency();
+				}
+
+				listSource = ((IList)((ObservableCollection<Item>)rightSourceScalar.Value));
+				if (listSource != null)
+				{
+					listSource.Clear();
+					testing.ValidateConsistency();
+				}
+
+				if (leftSourceValue != null)
+				{
+					leftSourceValue.Insert(0, new QuickTests.Item(1, true));
+					leftSourceValue.Insert(1, new QuickTests.Item(2, true));
+					leftSourceValue.Insert(2, new QuickTests.Item(3, true));
+					leftSourceValue.Insert(3, new QuickTests.Item(3, true));
+					leftSourceValue.Insert(4, new QuickTests.Item(3, true));
+					testing.ValidateConsistency();
+				}
+				if (rightSourceScalarValue != null)
+				{
+					rightSourceScalarValue.Insert(0, new QuickTests.Item(1, true));
+					rightSourceScalarValue.Insert(1, new QuickTests.Item(2, true));
+					rightSourceScalarValue.Insert(2, new QuickTests.Item(3, true));
+					rightSourceScalarValue.Insert(3, new QuickTests.Item(3, true));
+					rightSourceScalarValue.Insert(4, new QuickTests.Item(3, true));
+					testing.ValidateConsistency();
+				}
 				testing.ValidateConsistency();
 			}
 

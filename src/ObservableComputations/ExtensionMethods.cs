@@ -16,52 +16,52 @@ namespace ObservableComputations
 
 		[ObservableComputationsCall]
 		public static Binding<TValue> Binding<TValue>(this
-			IReadScalar<TValue> sourceScalar,
-			Action<TValue> modifyTargetAction,
+			IReadScalar<TValue> source,
+			Action<TValue, Binding<TValue>> modifyTargetAction,
 			bool applyNow)
 			
 		{
 			return new Binding<TValue>(
-				sourceScalar: sourceScalar,
+				source: source,
 				modifyTargetAction: modifyTargetAction,
-				applyNow : applyNow);
+				applyOnActivation : applyNow);
 		}
 
 		[ObservableComputationsCall]
 		public static Binding<TValue> Binding<TValue>(this
-			IReadScalar<TValue> sourceScalar,
-			Action<TValue> modifyTargetAction)
+			IReadScalar<TValue> source,
+			Action<TValue, Binding<TValue>> modifyTargetAction)
 			
 		{
 			return new Binding<TValue>(
-				sourceScalar: sourceScalar,
+				source: source,
 				modifyTargetAction: modifyTargetAction,
-				applyNow : true);
+				applyOnActivation : true);
 		}
 
 		[ObservableComputationsCall]
 		public static Binding<TValue> Binding<TValue>(this
 			Expression<Func<TValue>> getSourceExpression,
-			Action<TValue> modifyTargetAction,
+			Action<TValue, Binding<TValue>> modifyTargetAction,
 			bool applyNow)
 			
 		{
 			return new Binding<TValue>(
-				getSourceExpression: getSourceExpression,
+				source: new Computing<TValue>(getSourceExpression),
 				modifyTargetAction: modifyTargetAction,
-				applyNow : applyNow);
+				applyOnActivation : applyNow);
 		}
 
 		[ObservableComputationsCall]
 		public static Binding<TValue> Binding<TValue>(this
 			Expression<Func<TValue>> getSourceExpression,
-			Action<TValue> modifyTargetAction)
+			Action<TValue, Binding<TValue>> modifyTargetAction)
 			
 		{
 			return new Binding<TValue>(
-				getSourceExpression: getSourceExpression,
+				source: new Computing<TValue>(getSourceExpression),
 				modifyTargetAction: modifyTargetAction,
-				applyNow : true);
+				applyOnActivation : true);
 		}
 
 		#endregion
@@ -69,37 +69,37 @@ namespace ObservableComputations
 		#region ScalarProcessing
 		[ObservableComputationsCall]
 		public static ScalarProcessing<TValue, TReturnValue> ScalarProcessing<TValue, TReturnValue>(this
-			IReadScalar<TValue> scalar,
+			IReadScalar<TValue> source,
 			Func<TValue, IScalarComputing, TReturnValue> newValueProcessor,
 			Action<TValue, IScalarComputing, TReturnValue> oldValueProcessor = null)
 			
 		{
 			return new ScalarProcessing<TValue, TReturnValue>(
-				scalar: scalar,
+				source: source,
 				newValueProcessor: newValueProcessor,
 				oldValueProcessor : oldValueProcessor);
 		}
 
 		[ObservableComputationsCall]
 		public static ScalarProcessingVoid<TValue> ScalarProcessing<TValue>(this
-			 IReadScalar<TValue> scalar,
+			 IReadScalar<TValue> source,
 			Action<TValue, ScalarProcessingVoid<TValue>> newValueProcessor = null,
 			Action<TValue, ScalarProcessingVoid<TValue>> oldValueProcessor = null)
 			
 		{
 			return new ScalarProcessingVoid<TValue>(
-				scalar: scalar,
+				source: source,
 				newValueProcessor: newValueProcessor,
 				oldValueProcessor : oldValueProcessor);
 		}
 
 		[ObservableComputationsCall]
 		public static ScalarDisposing<TValue> ScalarDisposing<TValue>(this
-				IReadScalar<TValue> scalar) where TValue : IDisposable
+				IReadScalar<TValue> source) where TValue : IDisposable
 
 		{
 			return new ScalarDisposing<TValue>(
-				scalar: scalar);
+				source: source);
 		}
 
 
@@ -112,7 +112,7 @@ namespace ObservableComputations
 			
 		{
 			return new ScalarProcessing<TValue, TReturnValue>(
-				scalar: new Computing<TValue>(getValueExpression),
+				source: new Computing<TValue>(getValueExpression),
 				newValueProcessor: newValueProcessor,
 				oldValueProcessor : oldValueProcessor);
 		}
@@ -125,7 +125,7 @@ namespace ObservableComputations
 
 		{
 			return new ScalarProcessingVoid<TValue>(
-				scalar: new Computing<TValue>(getValueExpression),
+				source: new Computing<TValue>(getValueExpression),
 				newValueProcessor: newValueProcessor,
 				oldValueProcessor : oldValueProcessor);
 		}
@@ -135,7 +135,7 @@ namespace ObservableComputations
 
 		{
 			return new ScalarDisposing<TValue>(
-				scalar: new Computing<TValue>(getValueExpression));
+				source: new Computing<TValue>(getValueExpression));
 		}
 
 		#endregion

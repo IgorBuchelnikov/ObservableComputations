@@ -35,7 +35,7 @@ namespace ObservableComputations.Test
 			&& em.Name != "PropertyAccessing"
 			&& em.Name != "CollectionDispatching"
 			&& em.Name != "ScalarDispatching"
-			//&& em.Name != "ScalarPausing"
+			&& em.Name != "Binding"
 			&& !em.Arguments.Any(ema => IsComputingArgument(ema)))
 		.GroupBy(em => em.Name).OrderBy(emg => emg.Key))
 	{
@@ -180,10 +180,9 @@ namespace ObservableComputations.Test
 
 				IList listSource;
 <#
-			if (sourcesArgument.Count() == 0)
-				foreach (var argument in arguments.Where(a => (a.name.Contains("source") || a.name.Contains("innerSource") || a.name.Contains("outerSource"))))
-				{
-					string scalarValueAccessor = argument.variableType.Contains("Scalar") ? ".Value" : "";
+			foreach (var argument in arguments.Where(a => IsCollectionArgument(extensionMethod.Name, a.name, a.argumentType)))
+			{
+				string scalarValueAccessor = argument.variableType.Contains("Scalar") ? ".Value" : "";
 #>
 				listSource = ((IList)((<#=argument.scalarType#>)<#=argument.name#><#=scalarValueAccessor#>)<#=argument.sourceAccessor#>);
 				if (listSource != null)
@@ -193,12 +192,11 @@ namespace ObservableComputations.Test
 				}
 
 <#
-				}
+			}
 
-			if (sourcesArgument.Count() == 0)
-				foreach (var argument in arguments.Where(a => (a.name.Contains("source") || a.name.Contains("innerSource") || a.name.Contains("outerSource")) && !a.name.Contains("sources")))
-				{
-					string scalarValueAccessor = argument.variableType.Contains("Scalar") ? ".Value" : "";
+			foreach (var argument in arguments.Where(a => IsCollectionArgument(extensionMethod.Name, a.name, a.argumentType)))
+			{
+				string scalarValueAccessor = argument.variableType.Contains("Scalar") ? ".Value" : "";
 #>
 				if (<#=argument.name#>Value != null)
 				{
@@ -210,7 +208,7 @@ namespace ObservableComputations.Test
 					testing.ValidateConsistency();
 				}
 <#
-				}
+			}
 
 			if (sourcesArgument.Count() != 0)
 			{
@@ -227,7 +225,7 @@ namespace ObservableComputations.Test
 
 			var scalarSourceNotCollectionArguments = arguments.Where(a => 
 				a.argumentIndex == 0 
-				&& a.name.ToUpper().Contains("SCALAR") 
+				&& a.name.ToUpper().Contains("SOURCE") 
 				&& !IsCollectionArgument(extensionMethod.Name, a.name, a.argumentType) 
 				&& !IsCollectionOfCollectionsArgument(extensionMethod.Name, a.name)
 				&& extensionMethod.Name != "SequenceComputing").ToArray();

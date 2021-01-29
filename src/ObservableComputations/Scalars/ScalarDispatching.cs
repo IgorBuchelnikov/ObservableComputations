@@ -9,7 +9,7 @@ namespace ObservableComputations
 {
 	public class ScalarDispatching<TResult> : ScalarComputing<TResult>
 	{
-		public IReadScalar<TResult> Scalar => _scalar;
+		public IReadScalar<TResult> Source => _source;
 		public IOcDispatcher DestinationOcDispatcher => _destinationOcDispatcher;
 		public IOcDispatcher SourceOcDispatcher => _sourceOcDispatcher;
 
@@ -21,7 +21,7 @@ namespace ObservableComputations
 		private readonly IOcDispatcher _destinationOcDispatcher;
 		private readonly IOcDispatcher _sourceOcDispatcher;
 
-		private readonly IReadScalar<TResult> _scalar;
+		private readonly IReadScalar<TResult> _source;
 		private readonly Action _changeValueAction;
 
 		private readonly int _destinationOcDispatcherPriority;
@@ -31,7 +31,7 @@ namespace ObservableComputations
 
 		[ObservableComputationsCall]
 		public ScalarDispatching(
-			IReadScalar<TResult> scalar, 
+			IReadScalar<TResult> source, 
 			IOcDispatcher destinationOcDispatcher,
 			IOcDispatcher sourceOcDispatcher = null,
 			int destinationOcDispatcherPriority = 0,
@@ -40,11 +40,11 @@ namespace ObservableComputations
 			object sourceOcDispatcherParameter = null)
 		{
 			_destinationOcDispatcher = destinationOcDispatcher;
-			_scalar = scalar;
+			_source = source;
 			_sourceOcDispatcher = sourceOcDispatcher;
 			_changeValueAction = () =>
 			{
-				TResult newValue = _scalar.Value;
+				TResult newValue = _source.Value;
 				void setNewValue() => setValue(newValue);
 
 				_destinationOcDispatcher.Invoke(
@@ -60,7 +60,7 @@ namespace ObservableComputations
 			_sourceOcDispatcherParameter = sourceOcDispatcherParameter;
 		}
 
-		private void handleScalarPropertyChanged(object sender, PropertyChangedEventArgs e)
+		private void handleSourceScalarPropertyChanged(object sender, PropertyChangedEventArgs e)
 		{
 			Utils.processChange(
 				sender, 
@@ -79,7 +79,7 @@ namespace ObservableComputations
 		{
 			if (_sourceEnumerated)
 			{
-				_scalar.PropertyChanged -= handleScalarPropertyChanged;
+				_source.PropertyChanged -= handleSourceScalarPropertyChanged;
 				_sourceEnumerated = false;
 			}
 
@@ -87,10 +87,10 @@ namespace ObservableComputations
 			{
 				void readAndSubscribe()
 				{
-					TResult newValue = _scalar.Value;
+					TResult newValue = _source.Value;
 					void setNewValue() => setValue(newValue);
 
-					_scalar.PropertyChanged += handleScalarPropertyChanged;
+					_source.PropertyChanged += handleSourceScalarPropertyChanged;
 					_destinationOcDispatcher.Invoke(
 						setNewValue, 
 						_destinationOcDispatcherPriority,
@@ -132,12 +132,12 @@ namespace ObservableComputations
 
 		internal override void addToUpstreamComputings(IComputingInternal computing)
 		{
-			(_scalar as IComputingInternal)?.AddDownstreamConsumedComputing(computing);
+			(_source as IComputingInternal)?.AddDownstreamConsumedComputing(computing);
 		}
 
 		internal override void removeFromUpstreamComputings(IComputingInternal computing)
 		{
-			(_scalar as IComputingInternal)?.RemoveDownstreamConsumedComputing(computing);
+			(_source as IComputingInternal)?.RemoveDownstreamConsumedComputing(computing);
 		}
 
 		#endregion

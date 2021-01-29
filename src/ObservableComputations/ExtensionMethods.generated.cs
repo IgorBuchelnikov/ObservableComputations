@@ -4863,79 +4863,79 @@ namespace ObservableComputations
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.Differing<TResult> Differing<TResult>(this
-			 ObservableComputations.IReadScalar<TResult> scalar,
+			 ObservableComputations.IReadScalar<TResult> source,
 			 System.Collections.Generic.IEqualityComparer<TResult> equalityComparer)
 		{
 			return new ObservableComputations.Differing<TResult>(
-				scalar: scalar,
+				source: source,
 				equalityComparer: equalityComparer);
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.Differing<TResult> Differing<TResult>(this
-			 ObservableComputations.IReadScalar<TResult> scalar)
+			 ObservableComputations.IReadScalar<TResult> source)
 		{
 			return new ObservableComputations.Differing<TResult>(
-				scalar: scalar,
+				source: source,
 				equalityComparer: null);
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.Differing<TResult> Differing<TResult>(this
-			 Expression<Func<TResult>> scalar,
+			 Expression<Func<TResult>> source,
 			 System.Collections.Generic.IEqualityComparer<TResult> equalityComparer)
 		{
 			return new ObservableComputations.Differing<TResult>(
-				scalar: new Computing<TResult>(scalar),
+				source: new Computing<TResult>(source),
 				equalityComparer: equalityComparer);
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.Differing<TResult> Differing<TResult>(this
-			 Expression<Func<TResult>> scalar)
+			 Expression<Func<TResult>> source)
 		{
 			return new ObservableComputations.Differing<TResult>(
-				scalar: new Computing<TResult>(scalar),
+				source: new Computing<TResult>(source),
 				equalityComparer: null);
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.Differing<TResult> Differing<TResult>(this
-			 ObservableComputations.IReadScalar<TResult> scalar,
+			 ObservableComputations.IReadScalar<TResult> source,
 			 ObservableComputations.IReadScalar<System.Collections.Generic.IEqualityComparer<TResult>> equalityComparerScalar)
 		{
 			return new ObservableComputations.Differing<TResult>(
-				scalar: scalar,
+				source: source,
 				equalityComparerScalar: equalityComparerScalar);
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.Differing<TResult> Differing<TResult>(this
-			 ObservableComputations.IReadScalar<TResult> scalar,
+			 ObservableComputations.IReadScalar<TResult> source,
 			 Expression<Func<System.Collections.Generic.IEqualityComparer<TResult>>> equalityComparerExpression)
 		{
 			return new ObservableComputations.Differing<TResult>(
-				scalar: scalar,
+				source: source,
 				equalityComparerScalar: new Computing<System.Collections.Generic.IEqualityComparer<TResult>>(equalityComparerExpression));
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.Differing<TResult> Differing<TResult>(this
-			 Expression<Func<TResult>> scalar,
+			 Expression<Func<TResult>> source,
 			 ObservableComputations.IReadScalar<System.Collections.Generic.IEqualityComparer<TResult>> equalityComparerScalar)
 		{
 			return new ObservableComputations.Differing<TResult>(
-				scalar: new Computing<TResult>(scalar),
+				source: new Computing<TResult>(source),
 				equalityComparerScalar: equalityComparerScalar);
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.Differing<TResult> Differing<TResult>(this
-			 Expression<Func<TResult>> scalar,
+			 Expression<Func<TResult>> source,
 			 Expression<Func<System.Collections.Generic.IEqualityComparer<TResult>>> equalityComparerExpression)
 		{
 			return new ObservableComputations.Differing<TResult>(
-				scalar: new Computing<TResult>(scalar),
+				source: new Computing<TResult>(source),
 				equalityComparerScalar: new Computing<System.Collections.Generic.IEqualityComparer<TResult>>(equalityComparerExpression));
 		}
 
@@ -22254,18 +22254,18 @@ namespace ObservableComputations
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.PreviousTracking<TResult> PreviousTracking<TResult>(this
-			 ObservableComputations.IReadScalar<TResult> scalar)
+			 ObservableComputations.IReadScalar<TResult> source)
 		{
 			return new ObservableComputations.PreviousTracking<TResult>(
-				scalar: scalar);
+				source: source);
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.PreviousTracking<TResult> PreviousTracking<TResult>(this
-			 Expression<Func<TResult>> scalar)
+			 Expression<Func<TResult>> source)
 		{
 			return new ObservableComputations.PreviousTracking<TResult>(
-				scalar: new Computing<TResult>(scalar));
+				source: new Computing<TResult>(source));
 		}
 
 		#endregion
@@ -22745,36 +22745,36 @@ namespace ObservableComputations
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.PropertyAccessing<TResult> PropertyAccessing<TResult>(this
-			 System.ComponentModel.INotifyPropertyChanged propertyHolder,
+			 System.ComponentModel.INotifyPropertyChanged source,
 			 string propertyName,
 			 TResult defaultValue)
 		{
 			return new ObservableComputations.PropertyAccessing<TResult>(
-				propertyHolder: propertyHolder,
+				source: source,
 				propertyName: propertyName,
 				defaultValue: defaultValue);
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.PropertyAccessing<TResult> PropertyAccessing<TResult>(this
-			 System.ComponentModel.INotifyPropertyChanged propertyHolder,
+			 System.ComponentModel.INotifyPropertyChanged source,
 			 string propertyName)
 		{
 			return new ObservableComputations.PropertyAccessing<TResult>(
-				propertyHolder: propertyHolder,
+				source: source,
 				propertyName: propertyName,
 				defaultValue: default(TResult));
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.PropertyAccessing<TResult> PropertyAccessing<TResult>(this
-			 System.ComponentModel.INotifyPropertyChanged propertyHolder,
+			 System.ComponentModel.INotifyPropertyChanged source,
 			 string propertyName,
 			 System.Reflection.BindingFlags bindingAttr,
 			 TResult defaultValue)
 		{
 			return new ObservableComputations.PropertyAccessing<TResult>(
-				propertyHolder: propertyHolder,
+				source: source,
 				propertyName: propertyName,
 				bindingAttr: bindingAttr,
 				defaultValue: defaultValue);
@@ -22782,12 +22782,12 @@ namespace ObservableComputations
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.PropertyAccessing<TResult> PropertyAccessing<TResult>(this
-			 System.ComponentModel.INotifyPropertyChanged propertyHolder,
+			 System.ComponentModel.INotifyPropertyChanged source,
 			 string propertyName,
 			 System.Reflection.BindingFlags bindingAttr)
 		{
 			return new ObservableComputations.PropertyAccessing<TResult>(
-				propertyHolder: propertyHolder,
+				source: source,
 				propertyName: propertyName,
 				bindingAttr: bindingAttr,
 				defaultValue: default(TResult));
@@ -22795,13 +22795,13 @@ namespace ObservableComputations
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.PropertyAccessing<TResult> PropertyAccessing<TResult>(this
-			 System.ComponentModel.INotifyPropertyChanged propertyHolder,
+			 System.ComponentModel.INotifyPropertyChanged source,
 			 string propertyName,
 			 System.Type returnType,
 			 TResult defaultValue)
 		{
 			return new ObservableComputations.PropertyAccessing<TResult>(
-				propertyHolder: propertyHolder,
+				source: source,
 				propertyName: propertyName,
 				returnType: returnType,
 				defaultValue: defaultValue);
@@ -22809,12 +22809,12 @@ namespace ObservableComputations
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.PropertyAccessing<TResult> PropertyAccessing<TResult>(this
-			 System.ComponentModel.INotifyPropertyChanged propertyHolder,
+			 System.ComponentModel.INotifyPropertyChanged source,
 			 string propertyName,
 			 System.Type returnType)
 		{
 			return new ObservableComputations.PropertyAccessing<TResult>(
-				propertyHolder: propertyHolder,
+				source: source,
 				propertyName: propertyName,
 				returnType: returnType,
 				defaultValue: default(TResult));
@@ -22822,14 +22822,14 @@ namespace ObservableComputations
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.PropertyAccessing<TResult> PropertyAccessing<TResult>(this
-			 System.ComponentModel.INotifyPropertyChanged propertyHolder,
+			 System.ComponentModel.INotifyPropertyChanged source,
 			 string propertyName,
 			 System.Type returnType,
 			 System.Type[] types,
 			 TResult defaultValue)
 		{
 			return new ObservableComputations.PropertyAccessing<TResult>(
-				propertyHolder: propertyHolder,
+				source: source,
 				propertyName: propertyName,
 				returnType: returnType,
 				types: types,
@@ -22838,13 +22838,13 @@ namespace ObservableComputations
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.PropertyAccessing<TResult> PropertyAccessing<TResult>(this
-			 System.ComponentModel.INotifyPropertyChanged propertyHolder,
+			 System.ComponentModel.INotifyPropertyChanged source,
 			 string propertyName,
 			 System.Type returnType,
 			 System.Type[] types)
 		{
 			return new ObservableComputations.PropertyAccessing<TResult>(
-				propertyHolder: propertyHolder,
+				source: source,
 				propertyName: propertyName,
 				returnType: returnType,
 				types: types,
@@ -22853,7 +22853,7 @@ namespace ObservableComputations
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.PropertyAccessing<TResult> PropertyAccessing<TResult>(this
-			 System.ComponentModel.INotifyPropertyChanged propertyHolder,
+			 System.ComponentModel.INotifyPropertyChanged source,
 			 string propertyName,
 			 System.Type returnType,
 			 System.Type[] types,
@@ -22861,7 +22861,7 @@ namespace ObservableComputations
 			 TResult defaultValue)
 		{
 			return new ObservableComputations.PropertyAccessing<TResult>(
-				propertyHolder: propertyHolder,
+				source: source,
 				propertyName: propertyName,
 				returnType: returnType,
 				types: types,
@@ -22871,14 +22871,14 @@ namespace ObservableComputations
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.PropertyAccessing<TResult> PropertyAccessing<TResult>(this
-			 System.ComponentModel.INotifyPropertyChanged propertyHolder,
+			 System.ComponentModel.INotifyPropertyChanged source,
 			 string propertyName,
 			 System.Type returnType,
 			 System.Type[] types,
 			 System.Reflection.ParameterModifier[] modifiers)
 		{
 			return new ObservableComputations.PropertyAccessing<TResult>(
-				propertyHolder: propertyHolder,
+				source: source,
 				propertyName: propertyName,
 				returnType: returnType,
 				types: types,
@@ -22888,7 +22888,7 @@ namespace ObservableComputations
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.PropertyAccessing<TResult> PropertyAccessing<TResult>(this
-			 System.ComponentModel.INotifyPropertyChanged propertyHolder,
+			 System.ComponentModel.INotifyPropertyChanged source,
 			 string propertyName,
 			 System.Reflection.BindingFlags bindingAttr,
 			 System.Reflection.Binder binder,
@@ -22898,7 +22898,7 @@ namespace ObservableComputations
 			 TResult defaultValue)
 		{
 			return new ObservableComputations.PropertyAccessing<TResult>(
-				propertyHolder: propertyHolder,
+				source: source,
 				propertyName: propertyName,
 				bindingAttr: bindingAttr,
 				binder: binder,
@@ -22910,7 +22910,7 @@ namespace ObservableComputations
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.PropertyAccessing<TResult> PropertyAccessing<TResult>(this
-			 System.ComponentModel.INotifyPropertyChanged propertyHolder,
+			 System.ComponentModel.INotifyPropertyChanged source,
 			 string propertyName,
 			 System.Reflection.BindingFlags bindingAttr,
 			 System.Reflection.Binder binder,
@@ -22919,7 +22919,7 @@ namespace ObservableComputations
 			 System.Reflection.ParameterModifier[] modifiers)
 		{
 			return new ObservableComputations.PropertyAccessing<TResult>(
-				propertyHolder: propertyHolder,
+				source: source,
 				propertyName: propertyName,
 				bindingAttr: bindingAttr,
 				binder: binder,
@@ -22931,36 +22931,36 @@ namespace ObservableComputations
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.PropertyAccessing<TResult> PropertyAccessing<TResult>(this
-			 System.ComponentModel.INotifyPropertyChanged propertyHolder,
+			 System.ComponentModel.INotifyPropertyChanged source,
 			 System.Func<System.Reflection.PropertyInfo, bool> propertyInfoPredicate,
 			 TResult defaultValue)
 		{
 			return new ObservableComputations.PropertyAccessing<TResult>(
-				propertyHolder: propertyHolder,
+				source: source,
 				propertyInfoPredicate: propertyInfoPredicate,
 				defaultValue: defaultValue);
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.PropertyAccessing<TResult> PropertyAccessing<TResult>(this
-			 System.ComponentModel.INotifyPropertyChanged propertyHolder,
+			 System.ComponentModel.INotifyPropertyChanged source,
 			 System.Func<System.Reflection.PropertyInfo, bool> propertyInfoPredicate)
 		{
 			return new ObservableComputations.PropertyAccessing<TResult>(
-				propertyHolder: propertyHolder,
+				source: source,
 				propertyInfoPredicate: propertyInfoPredicate,
 				defaultValue: default(TResult));
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.PropertyAccessing<TResult> PropertyAccessing<TResult>(this
-			 System.ComponentModel.INotifyPropertyChanged propertyHolder,
+			 System.ComponentModel.INotifyPropertyChanged source,
 			 System.Func<System.Reflection.PropertyInfo, bool> propertyInfoPredicate,
 			 System.Reflection.BindingFlags bindingAttr,
 			 TResult defaultValue)
 		{
 			return new ObservableComputations.PropertyAccessing<TResult>(
-				propertyHolder: propertyHolder,
+				source: source,
 				propertyInfoPredicate: propertyInfoPredicate,
 				bindingAttr: bindingAttr,
 				defaultValue: defaultValue);
@@ -22968,12 +22968,12 @@ namespace ObservableComputations
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.PropertyAccessing<TResult> PropertyAccessing<TResult>(this
-			 System.ComponentModel.INotifyPropertyChanged propertyHolder,
+			 System.ComponentModel.INotifyPropertyChanged source,
 			 System.Func<System.Reflection.PropertyInfo, bool> propertyInfoPredicate,
 			 System.Reflection.BindingFlags bindingAttr)
 		{
 			return new ObservableComputations.PropertyAccessing<TResult>(
-				propertyHolder: propertyHolder,
+				source: source,
 				propertyInfoPredicate: propertyInfoPredicate,
 				bindingAttr: bindingAttr,
 				defaultValue: default(TResult));
@@ -23035,7 +23035,7 @@ namespace ObservableComputations
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.ScalarDispatching<TResult> ScalarDispatching<TResult>(this
-			 ObservableComputations.IReadScalar<TResult> scalar,
+			 ObservableComputations.IReadScalar<TResult> source,
 			 ObservableComputations.IOcDispatcher destinationOcDispatcher,
 			 ObservableComputations.IOcDispatcher sourceOcDispatcher,
 			 int destinationOcDispatcherPriority,
@@ -23044,7 +23044,7 @@ namespace ObservableComputations
 			 object sourceOcDispatcherParameter)
 		{
 			return new ObservableComputations.ScalarDispatching<TResult>(
-				scalar: scalar,
+				source: source,
 				destinationOcDispatcher: destinationOcDispatcher,
 				sourceOcDispatcher: sourceOcDispatcher,
 				destinationOcDispatcherPriority: destinationOcDispatcherPriority,
@@ -23055,7 +23055,7 @@ namespace ObservableComputations
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.ScalarDispatching<TResult> ScalarDispatching<TResult>(this
-			 ObservableComputations.IReadScalar<TResult> scalar,
+			 ObservableComputations.IReadScalar<TResult> source,
 			 ObservableComputations.IOcDispatcher destinationOcDispatcher,
 			 ObservableComputations.IOcDispatcher sourceOcDispatcher,
 			 int destinationOcDispatcherPriority,
@@ -23063,7 +23063,7 @@ namespace ObservableComputations
 			 object destinationOcDispatcherParameter)
 		{
 			return new ObservableComputations.ScalarDispatching<TResult>(
-				scalar: scalar,
+				source: source,
 				destinationOcDispatcher: destinationOcDispatcher,
 				sourceOcDispatcher: sourceOcDispatcher,
 				destinationOcDispatcherPriority: destinationOcDispatcherPriority,
@@ -23074,14 +23074,14 @@ namespace ObservableComputations
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.ScalarDispatching<TResult> ScalarDispatching<TResult>(this
-			 ObservableComputations.IReadScalar<TResult> scalar,
+			 ObservableComputations.IReadScalar<TResult> source,
 			 ObservableComputations.IOcDispatcher destinationOcDispatcher,
 			 ObservableComputations.IOcDispatcher sourceOcDispatcher,
 			 int destinationOcDispatcherPriority,
 			 int sourceOcDispatcherPriority)
 		{
 			return new ObservableComputations.ScalarDispatching<TResult>(
-				scalar: scalar,
+				source: source,
 				destinationOcDispatcher: destinationOcDispatcher,
 				sourceOcDispatcher: sourceOcDispatcher,
 				destinationOcDispatcherPriority: destinationOcDispatcherPriority,
@@ -23092,7 +23092,7 @@ namespace ObservableComputations
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.ScalarDispatching<TResult> ScalarDispatching<TResult>(this
-			 ObservableComputations.IReadScalar<TResult> scalar,
+			 ObservableComputations.IReadScalar<TResult> source,
 			 ObservableComputations.IOcDispatcher destinationOcDispatcher,
 			 ObservableComputations.IOcDispatcher sourceOcDispatcher,
 			 int destinationOcDispatcherPriority,
@@ -23100,7 +23100,7 @@ namespace ObservableComputations
 			 object sourceOcDispatcherParameter)
 		{
 			return new ObservableComputations.ScalarDispatching<TResult>(
-				scalar: scalar,
+				source: source,
 				destinationOcDispatcher: destinationOcDispatcher,
 				sourceOcDispatcher: sourceOcDispatcher,
 				destinationOcDispatcherPriority: destinationOcDispatcherPriority,
@@ -23111,14 +23111,14 @@ namespace ObservableComputations
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.ScalarDispatching<TResult> ScalarDispatching<TResult>(this
-			 ObservableComputations.IReadScalar<TResult> scalar,
+			 ObservableComputations.IReadScalar<TResult> source,
 			 ObservableComputations.IOcDispatcher destinationOcDispatcher,
 			 ObservableComputations.IOcDispatcher sourceOcDispatcher,
 			 int destinationOcDispatcherPriority,
 			 object destinationOcDispatcherParameter)
 		{
 			return new ObservableComputations.ScalarDispatching<TResult>(
-				scalar: scalar,
+				source: source,
 				destinationOcDispatcher: destinationOcDispatcher,
 				sourceOcDispatcher: sourceOcDispatcher,
 				destinationOcDispatcherPriority: destinationOcDispatcherPriority,
@@ -23129,13 +23129,13 @@ namespace ObservableComputations
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.ScalarDispatching<TResult> ScalarDispatching<TResult>(this
-			 ObservableComputations.IReadScalar<TResult> scalar,
+			 ObservableComputations.IReadScalar<TResult> source,
 			 ObservableComputations.IOcDispatcher destinationOcDispatcher,
 			 ObservableComputations.IOcDispatcher sourceOcDispatcher,
 			 int destinationOcDispatcherPriority)
 		{
 			return new ObservableComputations.ScalarDispatching<TResult>(
-				scalar: scalar,
+				source: source,
 				destinationOcDispatcher: destinationOcDispatcher,
 				sourceOcDispatcher: sourceOcDispatcher,
 				destinationOcDispatcherPriority: destinationOcDispatcherPriority,
@@ -23146,14 +23146,14 @@ namespace ObservableComputations
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.ScalarDispatching<TResult> ScalarDispatching<TResult>(this
-			 ObservableComputations.IReadScalar<TResult> scalar,
+			 ObservableComputations.IReadScalar<TResult> source,
 			 ObservableComputations.IOcDispatcher destinationOcDispatcher,
 			 ObservableComputations.IOcDispatcher sourceOcDispatcher,
 			 object destinationOcDispatcherParameter,
 			 object sourceOcDispatcherParameter)
 		{
 			return new ObservableComputations.ScalarDispatching<TResult>(
-				scalar: scalar,
+				source: source,
 				destinationOcDispatcher: destinationOcDispatcher,
 				sourceOcDispatcher: sourceOcDispatcher,
 				destinationOcDispatcherPriority: 0,
@@ -23164,13 +23164,13 @@ namespace ObservableComputations
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.ScalarDispatching<TResult> ScalarDispatching<TResult>(this
-			 ObservableComputations.IReadScalar<TResult> scalar,
+			 ObservableComputations.IReadScalar<TResult> source,
 			 ObservableComputations.IOcDispatcher destinationOcDispatcher,
 			 ObservableComputations.IOcDispatcher sourceOcDispatcher,
 			 object destinationOcDispatcherParameter)
 		{
 			return new ObservableComputations.ScalarDispatching<TResult>(
-				scalar: scalar,
+				source: source,
 				destinationOcDispatcher: destinationOcDispatcher,
 				sourceOcDispatcher: sourceOcDispatcher,
 				destinationOcDispatcherPriority: 0,
@@ -23181,12 +23181,12 @@ namespace ObservableComputations
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.ScalarDispatching<TResult> ScalarDispatching<TResult>(this
-			 ObservableComputations.IReadScalar<TResult> scalar,
+			 ObservableComputations.IReadScalar<TResult> source,
 			 ObservableComputations.IOcDispatcher destinationOcDispatcher,
 			 ObservableComputations.IOcDispatcher sourceOcDispatcher)
 		{
 			return new ObservableComputations.ScalarDispatching<TResult>(
-				scalar: scalar,
+				source: source,
 				destinationOcDispatcher: destinationOcDispatcher,
 				sourceOcDispatcher: sourceOcDispatcher,
 				destinationOcDispatcherPriority: 0,
@@ -23197,7 +23197,7 @@ namespace ObservableComputations
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.ScalarDispatching<TResult> ScalarDispatching<TResult>(this
-			 ObservableComputations.IReadScalar<TResult> scalar,
+			 ObservableComputations.IReadScalar<TResult> source,
 			 ObservableComputations.IOcDispatcher destinationOcDispatcher,
 			 int destinationOcDispatcherPriority,
 			 int sourceOcDispatcherPriority,
@@ -23205,7 +23205,7 @@ namespace ObservableComputations
 			 object sourceOcDispatcherParameter)
 		{
 			return new ObservableComputations.ScalarDispatching<TResult>(
-				scalar: scalar,
+				source: source,
 				destinationOcDispatcher: destinationOcDispatcher,
 				sourceOcDispatcher: null,
 				destinationOcDispatcherPriority: destinationOcDispatcherPriority,
@@ -23216,14 +23216,14 @@ namespace ObservableComputations
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.ScalarDispatching<TResult> ScalarDispatching<TResult>(this
-			 ObservableComputations.IReadScalar<TResult> scalar,
+			 ObservableComputations.IReadScalar<TResult> source,
 			 ObservableComputations.IOcDispatcher destinationOcDispatcher,
 			 int destinationOcDispatcherPriority,
 			 int sourceOcDispatcherPriority,
 			 object destinationOcDispatcherParameter)
 		{
 			return new ObservableComputations.ScalarDispatching<TResult>(
-				scalar: scalar,
+				source: source,
 				destinationOcDispatcher: destinationOcDispatcher,
 				sourceOcDispatcher: null,
 				destinationOcDispatcherPriority: destinationOcDispatcherPriority,
@@ -23234,13 +23234,13 @@ namespace ObservableComputations
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.ScalarDispatching<TResult> ScalarDispatching<TResult>(this
-			 ObservableComputations.IReadScalar<TResult> scalar,
+			 ObservableComputations.IReadScalar<TResult> source,
 			 ObservableComputations.IOcDispatcher destinationOcDispatcher,
 			 int destinationOcDispatcherPriority,
 			 int sourceOcDispatcherPriority)
 		{
 			return new ObservableComputations.ScalarDispatching<TResult>(
-				scalar: scalar,
+				source: source,
 				destinationOcDispatcher: destinationOcDispatcher,
 				sourceOcDispatcher: null,
 				destinationOcDispatcherPriority: destinationOcDispatcherPriority,
@@ -23251,14 +23251,14 @@ namespace ObservableComputations
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.ScalarDispatching<TResult> ScalarDispatching<TResult>(this
-			 ObservableComputations.IReadScalar<TResult> scalar,
+			 ObservableComputations.IReadScalar<TResult> source,
 			 ObservableComputations.IOcDispatcher destinationOcDispatcher,
 			 int destinationOcDispatcherPriority,
 			 object destinationOcDispatcherParameter,
 			 object sourceOcDispatcherParameter)
 		{
 			return new ObservableComputations.ScalarDispatching<TResult>(
-				scalar: scalar,
+				source: source,
 				destinationOcDispatcher: destinationOcDispatcher,
 				sourceOcDispatcher: null,
 				destinationOcDispatcherPriority: destinationOcDispatcherPriority,
@@ -23269,13 +23269,13 @@ namespace ObservableComputations
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.ScalarDispatching<TResult> ScalarDispatching<TResult>(this
-			 ObservableComputations.IReadScalar<TResult> scalar,
+			 ObservableComputations.IReadScalar<TResult> source,
 			 ObservableComputations.IOcDispatcher destinationOcDispatcher,
 			 int destinationOcDispatcherPriority,
 			 object destinationOcDispatcherParameter)
 		{
 			return new ObservableComputations.ScalarDispatching<TResult>(
-				scalar: scalar,
+				source: source,
 				destinationOcDispatcher: destinationOcDispatcher,
 				sourceOcDispatcher: null,
 				destinationOcDispatcherPriority: destinationOcDispatcherPriority,
@@ -23286,12 +23286,12 @@ namespace ObservableComputations
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.ScalarDispatching<TResult> ScalarDispatching<TResult>(this
-			 ObservableComputations.IReadScalar<TResult> scalar,
+			 ObservableComputations.IReadScalar<TResult> source,
 			 ObservableComputations.IOcDispatcher destinationOcDispatcher,
 			 int destinationOcDispatcherPriority)
 		{
 			return new ObservableComputations.ScalarDispatching<TResult>(
-				scalar: scalar,
+				source: source,
 				destinationOcDispatcher: destinationOcDispatcher,
 				sourceOcDispatcher: null,
 				destinationOcDispatcherPriority: destinationOcDispatcherPriority,
@@ -23302,13 +23302,13 @@ namespace ObservableComputations
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.ScalarDispatching<TResult> ScalarDispatching<TResult>(this
-			 ObservableComputations.IReadScalar<TResult> scalar,
+			 ObservableComputations.IReadScalar<TResult> source,
 			 ObservableComputations.IOcDispatcher destinationOcDispatcher,
 			 object destinationOcDispatcherParameter,
 			 object sourceOcDispatcherParameter)
 		{
 			return new ObservableComputations.ScalarDispatching<TResult>(
-				scalar: scalar,
+				source: source,
 				destinationOcDispatcher: destinationOcDispatcher,
 				sourceOcDispatcher: null,
 				destinationOcDispatcherPriority: 0,
@@ -23319,12 +23319,12 @@ namespace ObservableComputations
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.ScalarDispatching<TResult> ScalarDispatching<TResult>(this
-			 ObservableComputations.IReadScalar<TResult> scalar,
+			 ObservableComputations.IReadScalar<TResult> source,
 			 ObservableComputations.IOcDispatcher destinationOcDispatcher,
 			 object destinationOcDispatcherParameter)
 		{
 			return new ObservableComputations.ScalarDispatching<TResult>(
-				scalar: scalar,
+				source: source,
 				destinationOcDispatcher: destinationOcDispatcher,
 				sourceOcDispatcher: null,
 				destinationOcDispatcherPriority: 0,
@@ -23335,11 +23335,11 @@ namespace ObservableComputations
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.ScalarDispatching<TResult> ScalarDispatching<TResult>(this
-			 ObservableComputations.IReadScalar<TResult> scalar,
+			 ObservableComputations.IReadScalar<TResult> source,
 			 ObservableComputations.IOcDispatcher destinationOcDispatcher)
 		{
 			return new ObservableComputations.ScalarDispatching<TResult>(
-				scalar: scalar,
+				source: source,
 				destinationOcDispatcher: destinationOcDispatcher,
 				sourceOcDispatcher: null,
 				destinationOcDispatcherPriority: 0,
@@ -23350,7 +23350,7 @@ namespace ObservableComputations
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.ScalarDispatching<TResult> ScalarDispatching<TResult>(this
-			 Expression<Func<TResult>> scalar,
+			 Expression<Func<TResult>> source,
 			 ObservableComputations.IOcDispatcher destinationOcDispatcher,
 			 ObservableComputations.IOcDispatcher sourceOcDispatcher,
 			 int destinationOcDispatcherPriority,
@@ -23359,7 +23359,7 @@ namespace ObservableComputations
 			 object sourceOcDispatcherParameter)
 		{
 			return new ObservableComputations.ScalarDispatching<TResult>(
-				scalar: new Computing<TResult>(scalar),
+				source: new Computing<TResult>(source),
 				destinationOcDispatcher: destinationOcDispatcher,
 				sourceOcDispatcher: sourceOcDispatcher,
 				destinationOcDispatcherPriority: destinationOcDispatcherPriority,
@@ -23370,7 +23370,7 @@ namespace ObservableComputations
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.ScalarDispatching<TResult> ScalarDispatching<TResult>(this
-			 Expression<Func<TResult>> scalar,
+			 Expression<Func<TResult>> source,
 			 ObservableComputations.IOcDispatcher destinationOcDispatcher,
 			 ObservableComputations.IOcDispatcher sourceOcDispatcher,
 			 int destinationOcDispatcherPriority,
@@ -23378,7 +23378,7 @@ namespace ObservableComputations
 			 object destinationOcDispatcherParameter)
 		{
 			return new ObservableComputations.ScalarDispatching<TResult>(
-				scalar: new Computing<TResult>(scalar),
+				source: new Computing<TResult>(source),
 				destinationOcDispatcher: destinationOcDispatcher,
 				sourceOcDispatcher: sourceOcDispatcher,
 				destinationOcDispatcherPriority: destinationOcDispatcherPriority,
@@ -23389,14 +23389,14 @@ namespace ObservableComputations
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.ScalarDispatching<TResult> ScalarDispatching<TResult>(this
-			 Expression<Func<TResult>> scalar,
+			 Expression<Func<TResult>> source,
 			 ObservableComputations.IOcDispatcher destinationOcDispatcher,
 			 ObservableComputations.IOcDispatcher sourceOcDispatcher,
 			 int destinationOcDispatcherPriority,
 			 int sourceOcDispatcherPriority)
 		{
 			return new ObservableComputations.ScalarDispatching<TResult>(
-				scalar: new Computing<TResult>(scalar),
+				source: new Computing<TResult>(source),
 				destinationOcDispatcher: destinationOcDispatcher,
 				sourceOcDispatcher: sourceOcDispatcher,
 				destinationOcDispatcherPriority: destinationOcDispatcherPriority,
@@ -23407,7 +23407,7 @@ namespace ObservableComputations
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.ScalarDispatching<TResult> ScalarDispatching<TResult>(this
-			 Expression<Func<TResult>> scalar,
+			 Expression<Func<TResult>> source,
 			 ObservableComputations.IOcDispatcher destinationOcDispatcher,
 			 ObservableComputations.IOcDispatcher sourceOcDispatcher,
 			 int destinationOcDispatcherPriority,
@@ -23415,7 +23415,7 @@ namespace ObservableComputations
 			 object sourceOcDispatcherParameter)
 		{
 			return new ObservableComputations.ScalarDispatching<TResult>(
-				scalar: new Computing<TResult>(scalar),
+				source: new Computing<TResult>(source),
 				destinationOcDispatcher: destinationOcDispatcher,
 				sourceOcDispatcher: sourceOcDispatcher,
 				destinationOcDispatcherPriority: destinationOcDispatcherPriority,
@@ -23426,14 +23426,14 @@ namespace ObservableComputations
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.ScalarDispatching<TResult> ScalarDispatching<TResult>(this
-			 Expression<Func<TResult>> scalar,
+			 Expression<Func<TResult>> source,
 			 ObservableComputations.IOcDispatcher destinationOcDispatcher,
 			 ObservableComputations.IOcDispatcher sourceOcDispatcher,
 			 int destinationOcDispatcherPriority,
 			 object destinationOcDispatcherParameter)
 		{
 			return new ObservableComputations.ScalarDispatching<TResult>(
-				scalar: new Computing<TResult>(scalar),
+				source: new Computing<TResult>(source),
 				destinationOcDispatcher: destinationOcDispatcher,
 				sourceOcDispatcher: sourceOcDispatcher,
 				destinationOcDispatcherPriority: destinationOcDispatcherPriority,
@@ -23444,13 +23444,13 @@ namespace ObservableComputations
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.ScalarDispatching<TResult> ScalarDispatching<TResult>(this
-			 Expression<Func<TResult>> scalar,
+			 Expression<Func<TResult>> source,
 			 ObservableComputations.IOcDispatcher destinationOcDispatcher,
 			 ObservableComputations.IOcDispatcher sourceOcDispatcher,
 			 int destinationOcDispatcherPriority)
 		{
 			return new ObservableComputations.ScalarDispatching<TResult>(
-				scalar: new Computing<TResult>(scalar),
+				source: new Computing<TResult>(source),
 				destinationOcDispatcher: destinationOcDispatcher,
 				sourceOcDispatcher: sourceOcDispatcher,
 				destinationOcDispatcherPriority: destinationOcDispatcherPriority,
@@ -23461,14 +23461,14 @@ namespace ObservableComputations
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.ScalarDispatching<TResult> ScalarDispatching<TResult>(this
-			 Expression<Func<TResult>> scalar,
+			 Expression<Func<TResult>> source,
 			 ObservableComputations.IOcDispatcher destinationOcDispatcher,
 			 ObservableComputations.IOcDispatcher sourceOcDispatcher,
 			 object destinationOcDispatcherParameter,
 			 object sourceOcDispatcherParameter)
 		{
 			return new ObservableComputations.ScalarDispatching<TResult>(
-				scalar: new Computing<TResult>(scalar),
+				source: new Computing<TResult>(source),
 				destinationOcDispatcher: destinationOcDispatcher,
 				sourceOcDispatcher: sourceOcDispatcher,
 				destinationOcDispatcherPriority: 0,
@@ -23479,13 +23479,13 @@ namespace ObservableComputations
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.ScalarDispatching<TResult> ScalarDispatching<TResult>(this
-			 Expression<Func<TResult>> scalar,
+			 Expression<Func<TResult>> source,
 			 ObservableComputations.IOcDispatcher destinationOcDispatcher,
 			 ObservableComputations.IOcDispatcher sourceOcDispatcher,
 			 object destinationOcDispatcherParameter)
 		{
 			return new ObservableComputations.ScalarDispatching<TResult>(
-				scalar: new Computing<TResult>(scalar),
+				source: new Computing<TResult>(source),
 				destinationOcDispatcher: destinationOcDispatcher,
 				sourceOcDispatcher: sourceOcDispatcher,
 				destinationOcDispatcherPriority: 0,
@@ -23496,12 +23496,12 @@ namespace ObservableComputations
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.ScalarDispatching<TResult> ScalarDispatching<TResult>(this
-			 Expression<Func<TResult>> scalar,
+			 Expression<Func<TResult>> source,
 			 ObservableComputations.IOcDispatcher destinationOcDispatcher,
 			 ObservableComputations.IOcDispatcher sourceOcDispatcher)
 		{
 			return new ObservableComputations.ScalarDispatching<TResult>(
-				scalar: new Computing<TResult>(scalar),
+				source: new Computing<TResult>(source),
 				destinationOcDispatcher: destinationOcDispatcher,
 				sourceOcDispatcher: sourceOcDispatcher,
 				destinationOcDispatcherPriority: 0,
@@ -23512,7 +23512,7 @@ namespace ObservableComputations
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.ScalarDispatching<TResult> ScalarDispatching<TResult>(this
-			 Expression<Func<TResult>> scalar,
+			 Expression<Func<TResult>> source,
 			 ObservableComputations.IOcDispatcher destinationOcDispatcher,
 			 int destinationOcDispatcherPriority,
 			 int sourceOcDispatcherPriority,
@@ -23520,7 +23520,7 @@ namespace ObservableComputations
 			 object sourceOcDispatcherParameter)
 		{
 			return new ObservableComputations.ScalarDispatching<TResult>(
-				scalar: new Computing<TResult>(scalar),
+				source: new Computing<TResult>(source),
 				destinationOcDispatcher: destinationOcDispatcher,
 				sourceOcDispatcher: null,
 				destinationOcDispatcherPriority: destinationOcDispatcherPriority,
@@ -23531,14 +23531,14 @@ namespace ObservableComputations
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.ScalarDispatching<TResult> ScalarDispatching<TResult>(this
-			 Expression<Func<TResult>> scalar,
+			 Expression<Func<TResult>> source,
 			 ObservableComputations.IOcDispatcher destinationOcDispatcher,
 			 int destinationOcDispatcherPriority,
 			 int sourceOcDispatcherPriority,
 			 object destinationOcDispatcherParameter)
 		{
 			return new ObservableComputations.ScalarDispatching<TResult>(
-				scalar: new Computing<TResult>(scalar),
+				source: new Computing<TResult>(source),
 				destinationOcDispatcher: destinationOcDispatcher,
 				sourceOcDispatcher: null,
 				destinationOcDispatcherPriority: destinationOcDispatcherPriority,
@@ -23549,13 +23549,13 @@ namespace ObservableComputations
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.ScalarDispatching<TResult> ScalarDispatching<TResult>(this
-			 Expression<Func<TResult>> scalar,
+			 Expression<Func<TResult>> source,
 			 ObservableComputations.IOcDispatcher destinationOcDispatcher,
 			 int destinationOcDispatcherPriority,
 			 int sourceOcDispatcherPriority)
 		{
 			return new ObservableComputations.ScalarDispatching<TResult>(
-				scalar: new Computing<TResult>(scalar),
+				source: new Computing<TResult>(source),
 				destinationOcDispatcher: destinationOcDispatcher,
 				sourceOcDispatcher: null,
 				destinationOcDispatcherPriority: destinationOcDispatcherPriority,
@@ -23566,14 +23566,14 @@ namespace ObservableComputations
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.ScalarDispatching<TResult> ScalarDispatching<TResult>(this
-			 Expression<Func<TResult>> scalar,
+			 Expression<Func<TResult>> source,
 			 ObservableComputations.IOcDispatcher destinationOcDispatcher,
 			 int destinationOcDispatcherPriority,
 			 object destinationOcDispatcherParameter,
 			 object sourceOcDispatcherParameter)
 		{
 			return new ObservableComputations.ScalarDispatching<TResult>(
-				scalar: new Computing<TResult>(scalar),
+				source: new Computing<TResult>(source),
 				destinationOcDispatcher: destinationOcDispatcher,
 				sourceOcDispatcher: null,
 				destinationOcDispatcherPriority: destinationOcDispatcherPriority,
@@ -23584,13 +23584,13 @@ namespace ObservableComputations
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.ScalarDispatching<TResult> ScalarDispatching<TResult>(this
-			 Expression<Func<TResult>> scalar,
+			 Expression<Func<TResult>> source,
 			 ObservableComputations.IOcDispatcher destinationOcDispatcher,
 			 int destinationOcDispatcherPriority,
 			 object destinationOcDispatcherParameter)
 		{
 			return new ObservableComputations.ScalarDispatching<TResult>(
-				scalar: new Computing<TResult>(scalar),
+				source: new Computing<TResult>(source),
 				destinationOcDispatcher: destinationOcDispatcher,
 				sourceOcDispatcher: null,
 				destinationOcDispatcherPriority: destinationOcDispatcherPriority,
@@ -23601,12 +23601,12 @@ namespace ObservableComputations
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.ScalarDispatching<TResult> ScalarDispatching<TResult>(this
-			 Expression<Func<TResult>> scalar,
+			 Expression<Func<TResult>> source,
 			 ObservableComputations.IOcDispatcher destinationOcDispatcher,
 			 int destinationOcDispatcherPriority)
 		{
 			return new ObservableComputations.ScalarDispatching<TResult>(
-				scalar: new Computing<TResult>(scalar),
+				source: new Computing<TResult>(source),
 				destinationOcDispatcher: destinationOcDispatcher,
 				sourceOcDispatcher: null,
 				destinationOcDispatcherPriority: destinationOcDispatcherPriority,
@@ -23617,13 +23617,13 @@ namespace ObservableComputations
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.ScalarDispatching<TResult> ScalarDispatching<TResult>(this
-			 Expression<Func<TResult>> scalar,
+			 Expression<Func<TResult>> source,
 			 ObservableComputations.IOcDispatcher destinationOcDispatcher,
 			 object destinationOcDispatcherParameter,
 			 object sourceOcDispatcherParameter)
 		{
 			return new ObservableComputations.ScalarDispatching<TResult>(
-				scalar: new Computing<TResult>(scalar),
+				source: new Computing<TResult>(source),
 				destinationOcDispatcher: destinationOcDispatcher,
 				sourceOcDispatcher: null,
 				destinationOcDispatcherPriority: 0,
@@ -23634,12 +23634,12 @@ namespace ObservableComputations
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.ScalarDispatching<TResult> ScalarDispatching<TResult>(this
-			 Expression<Func<TResult>> scalar,
+			 Expression<Func<TResult>> source,
 			 ObservableComputations.IOcDispatcher destinationOcDispatcher,
 			 object destinationOcDispatcherParameter)
 		{
 			return new ObservableComputations.ScalarDispatching<TResult>(
-				scalar: new Computing<TResult>(scalar),
+				source: new Computing<TResult>(source),
 				destinationOcDispatcher: destinationOcDispatcher,
 				sourceOcDispatcher: null,
 				destinationOcDispatcherPriority: 0,
@@ -23650,11 +23650,11 @@ namespace ObservableComputations
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.ScalarDispatching<TResult> ScalarDispatching<TResult>(this
-			 Expression<Func<TResult>> scalar,
+			 Expression<Func<TResult>> source,
 			 ObservableComputations.IOcDispatcher destinationOcDispatcher)
 		{
 			return new ObservableComputations.ScalarDispatching<TResult>(
-				scalar: new Computing<TResult>(scalar),
+				source: new Computing<TResult>(source),
 				destinationOcDispatcher: destinationOcDispatcher,
 				sourceOcDispatcher: null,
 				destinationOcDispatcherPriority: 0,
@@ -23668,324 +23668,324 @@ namespace ObservableComputations
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.ScalarPausing<TResult> ScalarPausing<TResult>(this
-			 ObservableComputations.IReadScalar<TResult> scalar,
+			 ObservableComputations.IReadScalar<TResult> source,
 			 bool initialIsPaused,
 			 int? lastChangesToApplyOnResumeCount)
 		{
 			return new ObservableComputations.ScalarPausing<TResult>(
-				scalar: scalar,
+				source: source,
 				initialIsPaused: initialIsPaused,
 				lastChangesToApplyOnResumeCount: lastChangesToApplyOnResumeCount);
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.ScalarPausing<TResult> ScalarPausing<TResult>(this
-			 ObservableComputations.IReadScalar<TResult> scalar,
+			 ObservableComputations.IReadScalar<TResult> source,
 			 bool initialIsPaused)
 		{
 			return new ObservableComputations.ScalarPausing<TResult>(
-				scalar: scalar,
+				source: source,
 				initialIsPaused: initialIsPaused,
 				lastChangesToApplyOnResumeCount: 1);
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.ScalarPausing<TResult> ScalarPausing<TResult>(this
-			 ObservableComputations.IReadScalar<TResult> scalar,
+			 ObservableComputations.IReadScalar<TResult> source,
 			 int? lastChangesToApplyOnResumeCount)
 		{
 			return new ObservableComputations.ScalarPausing<TResult>(
-				scalar: scalar,
+				source: source,
 				initialIsPaused: false,
 				lastChangesToApplyOnResumeCount: lastChangesToApplyOnResumeCount);
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.ScalarPausing<TResult> ScalarPausing<TResult>(this
-			 ObservableComputations.IReadScalar<TResult> scalar)
+			 ObservableComputations.IReadScalar<TResult> source)
 		{
 			return new ObservableComputations.ScalarPausing<TResult>(
-				scalar: scalar,
+				source: source,
 				initialIsPaused: false,
 				lastChangesToApplyOnResumeCount: 1);
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.ScalarPausing<TResult> ScalarPausing<TResult>(this
-			 Expression<Func<TResult>> scalar,
+			 Expression<Func<TResult>> source,
 			 bool initialIsPaused,
 			 int? lastChangesToApplyOnResumeCount)
 		{
 			return new ObservableComputations.ScalarPausing<TResult>(
-				scalar: new Computing<TResult>(scalar),
+				source: new Computing<TResult>(source),
 				initialIsPaused: initialIsPaused,
 				lastChangesToApplyOnResumeCount: lastChangesToApplyOnResumeCount);
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.ScalarPausing<TResult> ScalarPausing<TResult>(this
-			 Expression<Func<TResult>> scalar,
+			 Expression<Func<TResult>> source,
 			 bool initialIsPaused)
 		{
 			return new ObservableComputations.ScalarPausing<TResult>(
-				scalar: new Computing<TResult>(scalar),
+				source: new Computing<TResult>(source),
 				initialIsPaused: initialIsPaused,
 				lastChangesToApplyOnResumeCount: 1);
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.ScalarPausing<TResult> ScalarPausing<TResult>(this
-			 Expression<Func<TResult>> scalar,
+			 Expression<Func<TResult>> source,
 			 int? lastChangesToApplyOnResumeCount)
 		{
 			return new ObservableComputations.ScalarPausing<TResult>(
-				scalar: new Computing<TResult>(scalar),
+				source: new Computing<TResult>(source),
 				initialIsPaused: false,
 				lastChangesToApplyOnResumeCount: lastChangesToApplyOnResumeCount);
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.ScalarPausing<TResult> ScalarPausing<TResult>(this
-			 Expression<Func<TResult>> scalar)
+			 Expression<Func<TResult>> source)
 		{
 			return new ObservableComputations.ScalarPausing<TResult>(
-				scalar: new Computing<TResult>(scalar),
+				source: new Computing<TResult>(source),
 				initialIsPaused: false,
 				lastChangesToApplyOnResumeCount: 1);
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.ScalarPausing<TResult> ScalarPausing<TResult>(this
-			 ObservableComputations.IReadScalar<TResult> scalar,
+			 ObservableComputations.IReadScalar<TResult> source,
 			 ObservableComputations.IReadScalar<bool> isPausedScalar,
 			 int? lastChangesToApplyOnResumeCount)
 		{
 			return new ObservableComputations.ScalarPausing<TResult>(
-				scalar: scalar,
+				source: source,
 				isPausedScalar: isPausedScalar,
 				lastChangesToApplyOnResumeCount: lastChangesToApplyOnResumeCount);
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.ScalarPausing<TResult> ScalarPausing<TResult>(this
-			 ObservableComputations.IReadScalar<TResult> scalar,
+			 ObservableComputations.IReadScalar<TResult> source,
 			 ObservableComputations.IReadScalar<bool> isPausedScalar)
 		{
 			return new ObservableComputations.ScalarPausing<TResult>(
-				scalar: scalar,
+				source: source,
 				isPausedScalar: isPausedScalar,
 				lastChangesToApplyOnResumeCount: null);
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.ScalarPausing<TResult> ScalarPausing<TResult>(this
-			 ObservableComputations.IReadScalar<TResult> scalar,
+			 ObservableComputations.IReadScalar<TResult> source,
 			 Expression<Func<bool>> isPausedExpression,
 			 int? lastChangesToApplyOnResumeCount)
 		{
 			return new ObservableComputations.ScalarPausing<TResult>(
-				scalar: scalar,
+				source: source,
 				isPausedScalar: new Computing<bool>(isPausedExpression),
 				lastChangesToApplyOnResumeCount: lastChangesToApplyOnResumeCount);
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.ScalarPausing<TResult> ScalarPausing<TResult>(this
-			 ObservableComputations.IReadScalar<TResult> scalar,
+			 ObservableComputations.IReadScalar<TResult> source,
 			 Expression<Func<bool>> isPausedExpression)
 		{
 			return new ObservableComputations.ScalarPausing<TResult>(
-				scalar: scalar,
+				source: source,
 				isPausedScalar: new Computing<bool>(isPausedExpression),
 				lastChangesToApplyOnResumeCount: null);
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.ScalarPausing<TResult> ScalarPausing<TResult>(this
-			 Expression<Func<TResult>> scalar,
+			 Expression<Func<TResult>> source,
 			 ObservableComputations.IReadScalar<bool> isPausedScalar,
 			 int? lastChangesToApplyOnResumeCount)
 		{
 			return new ObservableComputations.ScalarPausing<TResult>(
-				scalar: new Computing<TResult>(scalar),
+				source: new Computing<TResult>(source),
 				isPausedScalar: isPausedScalar,
 				lastChangesToApplyOnResumeCount: lastChangesToApplyOnResumeCount);
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.ScalarPausing<TResult> ScalarPausing<TResult>(this
-			 Expression<Func<TResult>> scalar,
+			 Expression<Func<TResult>> source,
 			 ObservableComputations.IReadScalar<bool> isPausedScalar)
 		{
 			return new ObservableComputations.ScalarPausing<TResult>(
-				scalar: new Computing<TResult>(scalar),
+				source: new Computing<TResult>(source),
 				isPausedScalar: isPausedScalar,
 				lastChangesToApplyOnResumeCount: null);
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.ScalarPausing<TResult> ScalarPausing<TResult>(this
-			 Expression<Func<TResult>> scalar,
+			 Expression<Func<TResult>> source,
 			 Expression<Func<bool>> isPausedExpression,
 			 int? lastChangesToApplyOnResumeCount)
 		{
 			return new ObservableComputations.ScalarPausing<TResult>(
-				scalar: new Computing<TResult>(scalar),
+				source: new Computing<TResult>(source),
 				isPausedScalar: new Computing<bool>(isPausedExpression),
 				lastChangesToApplyOnResumeCount: lastChangesToApplyOnResumeCount);
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.ScalarPausing<TResult> ScalarPausing<TResult>(this
-			 Expression<Func<TResult>> scalar,
+			 Expression<Func<TResult>> source,
 			 Expression<Func<bool>> isPausedExpression)
 		{
 			return new ObservableComputations.ScalarPausing<TResult>(
-				scalar: new Computing<TResult>(scalar),
+				source: new Computing<TResult>(source),
 				isPausedScalar: new Computing<bool>(isPausedExpression),
 				lastChangesToApplyOnResumeCount: null);
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.ScalarPausing<TResult> ScalarPausing<TResult>(this
-			 ObservableComputations.IReadScalar<TResult> scalar,
+			 ObservableComputations.IReadScalar<TResult> source,
 			 ObservableComputations.IReadScalar<bool> isPausedScalar,
 			 ObservableComputations.IReadScalar<int?> lastChangesToApplyOnResumeCountScalar)
 		{
 			return new ObservableComputations.ScalarPausing<TResult>(
-				scalar: scalar,
+				source: source,
 				isPausedScalar: isPausedScalar,
 				lastChangesToApplyOnResumeCountScalar: lastChangesToApplyOnResumeCountScalar);
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.ScalarPausing<TResult> ScalarPausing<TResult>(this
-			 ObservableComputations.IReadScalar<TResult> scalar,
+			 ObservableComputations.IReadScalar<TResult> source,
 			 ObservableComputations.IReadScalar<bool> isPausedScalar,
 			 Expression<Func<int?>> lastChangesToApplyOnResumeCountExpression)
 		{
 			return new ObservableComputations.ScalarPausing<TResult>(
-				scalar: scalar,
+				source: source,
 				isPausedScalar: isPausedScalar,
 				lastChangesToApplyOnResumeCountScalar: new Computing<int?>(lastChangesToApplyOnResumeCountExpression));
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.ScalarPausing<TResult> ScalarPausing<TResult>(this
-			 ObservableComputations.IReadScalar<TResult> scalar,
+			 ObservableComputations.IReadScalar<TResult> source,
 			 Expression<Func<bool>> isPausedExpression,
 			 ObservableComputations.IReadScalar<int?> lastChangesToApplyOnResumeCountScalar)
 		{
 			return new ObservableComputations.ScalarPausing<TResult>(
-				scalar: scalar,
+				source: source,
 				isPausedScalar: new Computing<bool>(isPausedExpression),
 				lastChangesToApplyOnResumeCountScalar: lastChangesToApplyOnResumeCountScalar);
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.ScalarPausing<TResult> ScalarPausing<TResult>(this
-			 ObservableComputations.IReadScalar<TResult> scalar,
+			 ObservableComputations.IReadScalar<TResult> source,
 			 Expression<Func<bool>> isPausedExpression,
 			 Expression<Func<int?>> lastChangesToApplyOnResumeCountExpression)
 		{
 			return new ObservableComputations.ScalarPausing<TResult>(
-				scalar: scalar,
+				source: source,
 				isPausedScalar: new Computing<bool>(isPausedExpression),
 				lastChangesToApplyOnResumeCountScalar: new Computing<int?>(lastChangesToApplyOnResumeCountExpression));
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.ScalarPausing<TResult> ScalarPausing<TResult>(this
-			 Expression<Func<TResult>> scalar,
+			 Expression<Func<TResult>> source,
 			 ObservableComputations.IReadScalar<bool> isPausedScalar,
 			 ObservableComputations.IReadScalar<int?> lastChangesToApplyOnResumeCountScalar)
 		{
 			return new ObservableComputations.ScalarPausing<TResult>(
-				scalar: new Computing<TResult>(scalar),
+				source: new Computing<TResult>(source),
 				isPausedScalar: isPausedScalar,
 				lastChangesToApplyOnResumeCountScalar: lastChangesToApplyOnResumeCountScalar);
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.ScalarPausing<TResult> ScalarPausing<TResult>(this
-			 Expression<Func<TResult>> scalar,
+			 Expression<Func<TResult>> source,
 			 ObservableComputations.IReadScalar<bool> isPausedScalar,
 			 Expression<Func<int?>> lastChangesToApplyOnResumeCountExpression)
 		{
 			return new ObservableComputations.ScalarPausing<TResult>(
-				scalar: new Computing<TResult>(scalar),
+				source: new Computing<TResult>(source),
 				isPausedScalar: isPausedScalar,
 				lastChangesToApplyOnResumeCountScalar: new Computing<int?>(lastChangesToApplyOnResumeCountExpression));
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.ScalarPausing<TResult> ScalarPausing<TResult>(this
-			 Expression<Func<TResult>> scalar,
+			 Expression<Func<TResult>> source,
 			 Expression<Func<bool>> isPausedExpression,
 			 ObservableComputations.IReadScalar<int?> lastChangesToApplyOnResumeCountScalar)
 		{
 			return new ObservableComputations.ScalarPausing<TResult>(
-				scalar: new Computing<TResult>(scalar),
+				source: new Computing<TResult>(source),
 				isPausedScalar: new Computing<bool>(isPausedExpression),
 				lastChangesToApplyOnResumeCountScalar: lastChangesToApplyOnResumeCountScalar);
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.ScalarPausing<TResult> ScalarPausing<TResult>(this
-			 Expression<Func<TResult>> scalar,
+			 Expression<Func<TResult>> source,
 			 Expression<Func<bool>> isPausedExpression,
 			 Expression<Func<int?>> lastChangesToApplyOnResumeCountExpression)
 		{
 			return new ObservableComputations.ScalarPausing<TResult>(
-				scalar: new Computing<TResult>(scalar),
+				source: new Computing<TResult>(source),
 				isPausedScalar: new Computing<bool>(isPausedExpression),
 				lastChangesToApplyOnResumeCountScalar: new Computing<int?>(lastChangesToApplyOnResumeCountExpression));
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.ScalarPausing<TResult> ScalarPausing<TResult>(this
-			 ObservableComputations.IReadScalar<TResult> scalar,
+			 ObservableComputations.IReadScalar<TResult> source,
 			 bool initialIsPaused,
 			 ObservableComputations.IReadScalar<int?> lastChangesToApplyOnResumeCountScalar)
 		{
 			return new ObservableComputations.ScalarPausing<TResult>(
-				scalar: scalar,
+				source: source,
 				initialIsPaused: initialIsPaused,
 				lastChangesToApplyOnResumeCountScalar: lastChangesToApplyOnResumeCountScalar);
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.ScalarPausing<TResult> ScalarPausing<TResult>(this
-			 ObservableComputations.IReadScalar<TResult> scalar,
+			 ObservableComputations.IReadScalar<TResult> source,
 			 bool initialIsPaused,
 			 Expression<Func<int?>> lastChangesToApplyOnResumeCountExpression)
 		{
 			return new ObservableComputations.ScalarPausing<TResult>(
-				scalar: scalar,
+				source: source,
 				initialIsPaused: initialIsPaused,
 				lastChangesToApplyOnResumeCountScalar: new Computing<int?>(lastChangesToApplyOnResumeCountExpression));
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.ScalarPausing<TResult> ScalarPausing<TResult>(this
-			 Expression<Func<TResult>> scalar,
+			 Expression<Func<TResult>> source,
 			 bool initialIsPaused,
 			 ObservableComputations.IReadScalar<int?> lastChangesToApplyOnResumeCountScalar)
 		{
 			return new ObservableComputations.ScalarPausing<TResult>(
-				scalar: new Computing<TResult>(scalar),
+				source: new Computing<TResult>(source),
 				initialIsPaused: initialIsPaused,
 				lastChangesToApplyOnResumeCountScalar: lastChangesToApplyOnResumeCountScalar);
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.ScalarPausing<TResult> ScalarPausing<TResult>(this
-			 Expression<Func<TResult>> scalar,
+			 Expression<Func<TResult>> source,
 			 bool initialIsPaused,
 			 Expression<Func<int?>> lastChangesToApplyOnResumeCountExpression)
 		{
 			return new ObservableComputations.ScalarPausing<TResult>(
-				scalar: new Computing<TResult>(scalar),
+				source: new Computing<TResult>(source),
 				initialIsPaused: initialIsPaused,
 				lastChangesToApplyOnResumeCountScalar: new Computing<int?>(lastChangesToApplyOnResumeCountExpression));
 		}
@@ -31560,18 +31560,18 @@ namespace ObservableComputations
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.WeakPreviousTracking<TResult> WeakPreviousTracking<TResult>(this
-			 ObservableComputations.IReadScalar<TResult> scalar)
+			 ObservableComputations.IReadScalar<TResult> source)
 where TResult : class		{
 			return new ObservableComputations.WeakPreviousTracking<TResult>(
-				scalar: scalar);
+				source: source);
 		}
 
 		[ObservableComputationsCall]
 		public static ObservableComputations.WeakPreviousTracking<TResult> WeakPreviousTracking<TResult>(this
-			 Expression<Func<TResult>> scalar)
+			 Expression<Func<TResult>> source)
 where TResult : class		{
 			return new ObservableComputations.WeakPreviousTracking<TResult>(
-				scalar: new Computing<TResult>(scalar));
+				source: new Computing<TResult>(source));
 		}
 
 		#endregion

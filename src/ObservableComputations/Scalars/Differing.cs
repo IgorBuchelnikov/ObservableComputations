@@ -10,10 +10,10 @@ namespace ObservableComputations
 {
 	public class Differing<TResult> : ScalarComputing<TResult>
 	{
-		public IReadScalar<TResult> Scalar => _scalar;
+		public IReadScalar<TResult> Source => _source;
 		public IEqualityComparer<TResult> EqualityComparer =>_equalityComparer;
 
-		private readonly IReadScalar<TResult> _scalar;
+		private readonly IReadScalar<TResult> _source;
 		private IEqualityComparer<TResult> _equalityComparer;
 
 
@@ -23,28 +23,28 @@ namespace ObservableComputations
 
 		[ObservableComputationsCall]
 		public Differing(
-			IReadScalar<TResult> scalar,
-			IEqualityComparer<TResult> equalityComparer = null) : this(scalar)
+			IReadScalar<TResult> source,
+			IEqualityComparer<TResult> equalityComparer = null) : this(source)
 		{
 			_equalityComparer = equalityComparer ?? EqualityComparer<TResult>.Default;
 		}
 
 		[ObservableComputationsCall]
 		public Differing(
-			IReadScalar<TResult> scalar,
-			IReadScalar<IEqualityComparer<TResult>> equalityComparerScalar) : this(scalar)
+			IReadScalar<TResult> source,
+			IReadScalar<IEqualityComparer<TResult>> equalityComparerScalar) : this(source)
 		{
 			_equalityComparerScalar = equalityComparerScalar;
 		}
 
 		private Differing(
-			IReadScalar<TResult> scalar)
+			IReadScalar<TResult> source)
 		{
-			_scalar = scalar;
+			_source = source;
 
 			_changeValueAction = () =>
 			{
-				TResult newValue = _scalar.Value;
+				TResult newValue = _source.Value;
 				if (!_equalityComparer.Equals(newValue, _value))
 				{
 					setValue(newValue);
@@ -57,7 +57,7 @@ namespace ObservableComputations
 			};
 		}
 
-		private void handleScalarPropertyChanged(object sender, PropertyChangedEventArgs e)
+		private void handleSourceScalarPropertyChanged(object sender, PropertyChangedEventArgs e)
 		{
 			Utils.processChange(
 				sender, 
@@ -95,7 +95,7 @@ namespace ObservableComputations
 					_equalityComparer = null;	  
 				}
 
-				_scalar.PropertyChanged -= handleScalarPropertyChanged;
+				_source.PropertyChanged -= handleSourceScalarPropertyChanged;
 				_sourceEnumerated = false;
 			}
 
@@ -107,8 +107,8 @@ namespace ObservableComputations
 					_equalityComparer = _equalityComparerScalar.Value ?? EqualityComparer<TResult>.Default;	  
 				}
 
-				_scalar.PropertyChanged += handleScalarPropertyChanged;
-				setValue(_scalar.Value);
+				_source.PropertyChanged += handleSourceScalarPropertyChanged;
+				setValue(_source.Value);
 				_sourceEnumerated = true;
 			}
 			else
@@ -129,12 +129,12 @@ namespace ObservableComputations
 
 		internal override void addToUpstreamComputings(IComputingInternal computing)
 		{
-			(_scalar as IComputingInternal)?.AddDownstreamConsumedComputing(computing);
+			(_source as IComputingInternal)?.AddDownstreamConsumedComputing(computing);
 		}
 
 		internal override void removeFromUpstreamComputings(IComputingInternal computing)
 		{
-			(_scalar as IComputingInternal)?.RemoveDownstreamConsumedComputing(computing);
+			(_source as IComputingInternal)?.RemoveDownstreamConsumedComputing(computing);
 		}
 
 		#endregion

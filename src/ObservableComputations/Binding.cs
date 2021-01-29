@@ -8,123 +8,112 @@ using System.Linq.Expressions;
 
 namespace ObservableComputations
 {
-	public class Binding<TValue> : INotifyPropertyChanged, IEventHandler, IDisposable
+	public class Binding<TValue> : ScalarComputing<TValue>
 	{
 		readonly Expression<Func<TValue>> _getSourceExpression;
 		// ReSharper disable once PrivateFieldCanBeConvertedToLocalVariable
-		IReadScalar<TValue> _sourceScalar;
+		IReadScalar<TValue> _source;
 		// ReSharper disable once PrivateFieldCanBeConvertedToLocalVariable
 		PropertyChangedEventHandler _gettingExpressionValueHandlePropertyChanged;
-		Action<TValue> _modifyTargetAction;
+		Action<TValue, Binding<TValue>> _modifyTargetAction;
 
 		// ReSharper disable once ConvertToAutoProperty
 		public Expression<Func<TValue>> GetSourceExpression => _getSourceExpression;
 		// ReSharper disable once ConvertToAutoProperty
-		public Action<TValue> ModifyTargetAction => _modifyTargetAction;
+		public Action<TValue, Binding<TValue>> ModifyTargetAction => _modifyTargetAction;
 
-		public IReadScalar<TValue> SourceScalar => _sourceScalar;
+		public IReadScalar<TValue> Source => _source;
 
-		public object HandledEventSender => _handledEventSender;
-		public EventArgs HandledEventArgs => _handledEventArgs;
-
-		public bool IsDisposed => _isDisposed;
-
-		private readonly OcConsumer _consumer = new OcConsumer("Binding consumer");
-
-		[ObservableComputationsCall]
-		public Binding(IReadScalar<TValue> sourceScalar, Action<TValue, Binding<TValue>> modifyTargetAction, bool applyNow = true)
+		private bool _applyOnActivation;
+		public bool ApplyOnActivation
 		{
-			initialize(sourceScalar, value => modifyTargetAction(value, this), applyNow);
+			get => _applyOnActivation;
+			set
+			{
+				_applyOnActivation = value;
+				raisePropertyChanged(Utils.ApplyOnActivationPropertyChangedEventArgs);
+			}
 		}
 
 		[ObservableComputationsCall]
-		public Binding(IReadScalar<TValue> sourceScalar, Action<TValue> modifyTargetAction, bool applyNow = true)
-		{
-			initialize(sourceScalar, modifyTargetAction, applyNow);
-		}
-
-		private void initialize(IReadScalar<TValue> sourceScalar, Action<TValue> modifyTargetAction, bool applyNow)
+		public Binding(IReadScalar<TValue> source, Action<TValue, Binding<TValue>> modifyTargetAction, bool applyOnActivation = true)
 		{
 			_modifyTargetAction = modifyTargetAction;
-			_sourceScalar = sourceScalar;
-			(_sourceScalar as IComputing)?.For(_consumer);
+			_source = source;
+			_applyOnActivation = applyOnActivation;
 
 			_gettingExpressionValueHandlePropertyChanged = (sender, args) =>
 			{
-				if (_bindOnSourceChanged && args.PropertyName == nameof(Computing<TValue>.Value))
+				if (args.PropertyName == nameof(Computing<TValue>.Value))
 				{
 					_handledEventSender = sender;
 					_handledEventArgs = args;
-					_modifyTargetAction(_sourceScalar.Value);
+					if (_applyOnSourceChanged) Apply();
+					setValue(_source.Value);
 					_handledEventSender = null;
 					_handledEventArgs = null;
 				}
 			};
-
-			_sourceScalar.PropertyChanged += _gettingExpressionValueHandlePropertyChanged;
-
-			if (applyNow)
-				modifyTargetAction(_sourceScalar.Value);
-		}
-
-		[ObservableComputationsCall]
-		public Binding(Expression<Func<TValue>> getSourceExpression, Action<TValue> modifyTargetAction, bool applyNow = true) 
-			: this(new Computing<TValue>(getSourceExpression), modifyTargetAction, applyNow)
-		{
-			_getSourceExpression = getSourceExpression;
 		}
 
 
-		private bool _isDisposed;
-		private object _handledEventSender;
-		private EventArgs _handledEventArgs;
-
-		private bool _bindOnSourceChanged = true;
-		public bool BindOnSourceChanged
+		private bool _applyOnSourceChanged = true;
+		public bool ApplyOnSourceChanged
 		{
-			get => _bindOnSourceChanged;
+			get => _applyOnSourceChanged;
 			set
 			{
-				checkDisposed();
-				_bindOnSourceChanged = value;
-				PropertyChanged?.Invoke(this, Utils.BindOnSourceChangedPropertyChangedEventArgs);
+				_applyOnSourceChanged = value;
+				raisePropertyChanged(Utils.ApplyOnSourceChangedPropertyChangedEventArgs);
 			}
 		}
 
-		private void checkDisposed()
+		public void Apply()
 		{
-			if (_isDisposed) throw new ObservableComputationsException("Binding is disposed");
+			_modifyTargetAction(_source.Value, this);
 		}
 
-		private bool _bindOnDemand = true;
-		public bool BindOnDemand
+		#region Overrides of ScalarComputing<TValue>
+
+		protected override void processSource()
 		{
-			get => _bindOnDemand;
-			set
+			if (_sourceEnumerated)
 			{
-				checkDisposed();
-				_bindOnDemand = value;
-				PropertyChanged?.Invoke(this, Utils.BindOnDemandPropertyChangedEventArgs);
+				_source.PropertyChanged -= _gettingExpressionValueHandlePropertyChanged;
+				_sourceEnumerated = false;
+			}
+
+			if (_isActive)
+			{
+				_source.PropertyChanged += _gettingExpressionValueHandlePropertyChanged;
+
+				if (_applyOnActivation) Apply();
+				_sourceEnumerated = true;
+			}
+			else
+			{
+				setDefaultValue();
 			}
 		}
 
-		public void Bind()
+		protected override void initialize()
 		{
-			checkDisposed();
-			if (!_bindOnDemand) throw new ObservableComputationsException("BindOnDemand is false");
-			if (_bindOnDemand) _modifyTargetAction(_sourceScalar.Value);
+
 		}
 
-		public event PropertyChangedEventHandler PropertyChanged;
-
-		#region Implementation of IDisposable
-
-		public void Dispose()
+		protected override void uninitialize()
 		{
-			_isDisposed = true;
-			_consumer.Dispose();
-			_sourceScalar.PropertyChanged -= _gettingExpressionValueHandlePropertyChanged;
-			PropertyChanged?.Invoke(this, Utils.IsDisposedPropertyChangedEventArgs);
+
+		}
+
+		internal override void addToUpstreamComputings(IComputingInternal computing)
+		{
+			(_source as IComputingInternal)?.AddDownstreamConsumedComputing(computing);
+		}
+
+		internal override void removeFromUpstreamComputings(IComputingInternal computing)
+		{
+			(_source as IComputingInternal)?.RemoveDownstreamConsumedComputing(computing);
 		}
 
 		#endregion

@@ -1175,7 +1175,7 @@ namespace ObservableComputations
 		internal static readonly PropertyChangedEventArgs IsDisposedPropertyChangedEventArgs = new PropertyChangedEventArgs("IsDisposed");
 		private static readonly PropertyChangedEventArgs ActivationInProgressPropertyChangedEventArgs = new PropertyChangedEventArgs("ActivationInProgress");
 		private static readonly PropertyChangedEventArgs InactivationInProgressPropertyChangedEventArgs = new PropertyChangedEventArgs("InactivationInProgress");
-		public static PropertyChangedEventArgs BindOnSourceChangedPropertyChangedEventArgs = new PropertyChangedEventArgs("BindOnSourceChanged");
-		public static PropertyChangedEventArgs BindOnDemandPropertyChangedEventArgs = new PropertyChangedEventArgs("BindOnDemand");
+		public static PropertyChangedEventArgs ApplyOnSourceChangedPropertyChangedEventArgs = new PropertyChangedEventArgs("ApplyOnSourceChanged");
+		public static PropertyChangedEventArgs ApplyOnActivationPropertyChangedEventArgs = new PropertyChangedEventArgs("ApplyOnActivation");
 	}
 }

@@ -10,7 +10,7 @@ namespace ObservableComputations
 	public class WeakPreviousTracking<TResult> : ScalarComputing<TResult>
 		where TResult : class
 	{
-		public IReadScalar<TResult> Scalar => _scalar;
+		public IReadScalar<TResult> Source => _source;
 		public bool IsEverChanged => _isEverChanged;
 
 		public bool TryGetPreviousValue(out TResult result)
@@ -28,18 +28,18 @@ namespace ObservableComputations
 		private TResult _previousValue;
 		private bool _isEverChanged;
 
-		private readonly IReadScalar<TResult> _scalar;
+		private readonly IReadScalar<TResult> _source;
 		private readonly Action _changeValueAction;
 
 
 		[ObservableComputationsCall]
 		public WeakPreviousTracking(
-			IReadScalar<TResult> scalar)
+			IReadScalar<TResult> source)
 		{
-			_scalar = scalar;
+			_source = source;
 			_changeValueAction = () =>
 			{
-				TResult newValue = _scalar.Value;
+				TResult newValue = _source.Value;
 				_previousValue = _value;
 				_previousValueWeakReference = new WeakReference<TResult>(_previousValue);
 
@@ -54,7 +54,7 @@ namespace ObservableComputations
 			};
 		}
 
-		private void handleScalarPropertyChanged(object sender, PropertyChangedEventArgs e)
+		private void handleSourceScalarPropertyChanged(object sender, PropertyChangedEventArgs e)
 		{
 			Utils.processChange(
 				sender, 
@@ -73,14 +73,14 @@ namespace ObservableComputations
 		{
 			if (_sourceEnumerated)
 			{
-				_scalar.PropertyChanged -= handleScalarPropertyChanged;
+				_source.PropertyChanged -= handleSourceScalarPropertyChanged;
 				_sourceEnumerated = false;
 			}
 
 			if (_isActive)
 			{
-				_scalar.PropertyChanged += handleScalarPropertyChanged;
-				setValue(_scalar.Value);
+				_source.PropertyChanged += handleSourceScalarPropertyChanged;
+				setValue(_source.Value);
 				_sourceEnumerated = true;
 			}
 			else
@@ -110,19 +110,19 @@ namespace ObservableComputations
 
 		internal override void addToUpstreamComputings(IComputingInternal computing)
 		{
-			(_scalar as IComputingInternal)?.AddDownstreamConsumedComputing(computing);
+			(_source as IComputingInternal)?.AddDownstreamConsumedComputing(computing);
 		}
 
 		internal override void removeFromUpstreamComputings(IComputingInternal computing)
 		{
-			(_scalar as IComputingInternal)?.RemoveDownstreamConsumedComputing(computing);
+			(_source as IComputingInternal)?.RemoveDownstreamConsumedComputing(computing);
 		}
 
 		#endregion
 
 		~WeakPreviousTracking()
 		{
-			_scalar.PropertyChanged -= handleScalarPropertyChanged;
+			_source.PropertyChanged -= handleSourceScalarPropertyChanged;
 		}
 	}
 }

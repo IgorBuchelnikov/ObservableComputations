@@ -51,69 +51,12 @@ namespace ObservableComputations.Test
 			order.DeliveryAddress = "A";
 			Assert.AreEqual(order.DeliveryAddress, car.DestinationAddress);
 
-			binding.BindOnSourceChanged = false;
+			binding.ApplyOnSourceChanged = false;
 			order.DeliveryAddress = "B";
 			Assert.AreNotEqual(order.DeliveryAddress, car.DestinationAddress);
 
-			binding.Bind();
+			binding.Apply();
 			Assert.AreEqual(order.DeliveryAddress, car.DestinationAddress);
-
-			Exception e = null;
-
-			binding.BindOnDemand = false;
-			order.DeliveryAddress = "C";
-			Assert.AreNotEqual(order.DeliveryAddress, car.DestinationAddress);
-
-			try
-			{
-				binding.Bind();
-			}
-			catch (Exception exception)
-			{
-				e = exception;
-			}
-
-			Assert.IsTrue(e != null);
-
-			binding.Dispose();
-
-
-			e = null;
-
-			try
-			{
-				binding.BindOnDemand = true;
-			}
-			catch (Exception exception)
-			{
-				e = exception;
-			}
-
-			Assert.IsTrue(e != null);
-			e = null;
-
-			try
-			{
-				binding.BindOnSourceChanged = true;
-			}
-			catch (Exception exception)
-			{
-				e = exception;
-			}
-
-			Assert.IsTrue(e != null);
-			e = null;
-
-			try
-			{
-				binding.Bind();
-			}
-			catch (Exception exception)
-			{
-				e = exception;
-			}
-
-			Assert.IsTrue(e != null);
 		}
 
 		[Test]
@@ -121,9 +64,10 @@ namespace ObservableComputations.Test
 		{
 			Order order = new Order(){DeliveryAddress = "0"};
 			Car assignedDeliveryCar = new Car(){DestinationAddress = ""};
+			OcConsumer consumer = new OcConsumer();
 
 			test(
-				Expr.Is(() => order.DeliveryAddress).Binding(da => assignedDeliveryCar.DestinationAddress = da),
+				Expr.Is(() => order.DeliveryAddress).Binding((da, _) => assignedDeliveryCar.DestinationAddress = da).For(consumer),
 					true, order, assignedDeliveryCar);
 		}
 
@@ -132,9 +76,10 @@ namespace ObservableComputations.Test
 		{
 			Order order = new Order(){DeliveryAddress = "0"};
 			Car assignedDeliveryCar = new Car(){DestinationAddress = ""};
+			OcConsumer consumer = new OcConsumer();
 
 			test(
-				Expr.Is(() => order.DeliveryAddress).Binding(da => assignedDeliveryCar.DestinationAddress = da, false),
+				Expr.Is(() => order.DeliveryAddress).Binding((da, _) => assignedDeliveryCar.DestinationAddress = da, false).For(consumer),
 					false, order, assignedDeliveryCar);
 		}
 
@@ -147,7 +92,9 @@ namespace ObservableComputations.Test
 			OcConsumer consumer = new OcConsumer();
 
 			test(
-				new Computing<string>(() => order.DeliveryAddress).For(consumer).Binding(da => assignedDeliveryCar.DestinationAddress = da, false),
+				new Computing<string>(() => order.DeliveryAddress)
+					.Binding((da, _) => assignedDeliveryCar.DestinationAddress = da, false)
+					.For(consumer),
 					false, order, assignedDeliveryCar);
 		}
 
@@ -159,7 +106,9 @@ namespace ObservableComputations.Test
 			OcConsumer consumer = new OcConsumer();
 
 			test(
-				new Computing<string>(() => order.DeliveryAddress).For(consumer).Binding(da => assignedDeliveryCar.DestinationAddress = da),
+				new Computing<string>(() => order.DeliveryAddress)
+					.Binding((da, _) => assignedDeliveryCar.DestinationAddress = da)
+					.For(consumer),
 					true, order, assignedDeliveryCar);
 		}
 

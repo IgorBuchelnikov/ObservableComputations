@@ -9,10 +9,10 @@ namespace ObservableComputations
 {
 	public class ScalarProcessing<TValue, TReturnValue> : ScalarComputing<TReturnValue>
 	{
-		public IReadScalar<TValue> Scalar => _scalar;
+		public IReadScalar<TValue> Source => _source;
 		public Func<TValue, IScalarComputing, TReturnValue> NewValueProcessor => _newValueProcessor;
 
-		private readonly IReadScalar<TValue> _scalar;
+		private readonly IReadScalar<TValue> _source;
 
 		private readonly Func<TValue, IScalarComputing, TReturnValue> _newValueProcessor;
 		private readonly Action<TValue, IScalarComputing, TReturnValue> _oldValueProcessor;
@@ -21,18 +21,18 @@ namespace ObservableComputations
 
 		[ObservableComputationsCall]
 		public ScalarProcessing(
-			IReadScalar<TValue> scalar,
+			IReadScalar<TValue> source,
 			Func<TValue, IScalarComputing, TReturnValue> newValueProcessor,
-			Action<TValue, IScalarComputing, TReturnValue> oldValueProcessor = null) : this(scalar)
+			Action<TValue, IScalarComputing, TReturnValue> oldValueProcessor = null) : this(source)
 		{
 			_newValueProcessor = newValueProcessor;
 			_oldValueProcessor = oldValueProcessor;
 		}
 
 		private ScalarProcessing(
-			IReadScalar<TValue> scalar)
+			IReadScalar<TValue> source)
 		{
-			_scalar = scalar;
+			_source = source;
 		}
 
 		private void updateValue()
@@ -43,12 +43,12 @@ namespace ObservableComputations
 
 		private void setNewValue()
 		{
-			TValue newValue = _scalar.Value;
+			TValue newValue = _source.Value;
 			_oldValue = newValue;
 			setValue(processNewValue(newValue));
 		}
 
-		private void handleScalarPropertyChanged(object sender, PropertyChangedEventArgs e)
+		private void handleSourceScalarPropertyChanged(object sender, PropertyChangedEventArgs e)
 		{
 			if (e.PropertyName != nameof(Value)) return;
 
@@ -102,21 +102,21 @@ namespace ObservableComputations
 		{
 			if (_sourceEnumerated)
 			{
-				_scalar.PropertyChanged -= handleScalarPropertyChanged;
+				_source.PropertyChanged -= handleSourceScalarPropertyChanged;
 				processOldValue(_oldValue);
 				_sourceEnumerated = false;
 			}
 
 			if (_isActive)
 			{
-				if (_scalar is IComputing scalarComputing)
+				if (_source is IComputing scalarComputing)
 				{
 					if (scalarComputing.IsActive) setNewValue();
 				}
 				else
 					setNewValue();
 
-				_scalar.PropertyChanged += handleScalarPropertyChanged;
+				_source.PropertyChanged += handleSourceScalarPropertyChanged;
 				_sourceEnumerated = true;
 			}
 		}
@@ -133,12 +133,12 @@ namespace ObservableComputations
 
 		internal override void addToUpstreamComputings(IComputingInternal computing)
 		{
-			(_scalar as IComputingInternal)?.AddDownstreamConsumedComputing(computing);
+			(_source as IComputingInternal)?.AddDownstreamConsumedComputing(computing);
 		}
 
 		internal override void removeFromUpstreamComputings(IComputingInternal computing)
 		{
-			(_scalar as IComputingInternal)?.RemoveDownstreamConsumedComputing(computing);
+			(_source as IComputingInternal)?.RemoveDownstreamConsumedComputing(computing);
 		}
 
 		#endregion

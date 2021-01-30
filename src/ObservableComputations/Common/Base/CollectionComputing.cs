@@ -303,6 +303,7 @@ namespace ObservableComputations
 			_currentChange = NotifyCollectionChangedAction.Replace;
 			_newItem = item;
 			_newIndex = index;
+			_oldIndex = index;
 
 			if (Configuration.TrackComputingsExecutingUserCode)
 			{
@@ -320,6 +321,7 @@ namespace ObservableComputations
 			_currentChange = null;
 			_newItem = default;
 			_newIndex = -1;
+			_oldIndex = -1;
 		}
 
 		

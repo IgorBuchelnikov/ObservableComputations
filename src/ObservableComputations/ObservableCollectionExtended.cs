@@ -3,6 +3,7 @@
 // The LICENSE file is located at https://github.com/IgorBuchelnikov/ObservableComputations/blob/master/LICENSE
 
 using System;
+using System.Collections.Generic;
 using System.Collections.Specialized;
 
 namespace ObservableComputations
@@ -21,6 +22,21 @@ namespace ObservableComputations
 		public object NewItemObject => _newItem;
 		public int OldIndex => _oldIndex;
 		public int NewIndex => _newIndex;
+
+		public ObservableCollectionExtended() : base()
+		{
+
+		}
+
+		public ObservableCollectionExtended(List<TItem> list) : base(list)
+		{
+
+		}
+
+		public ObservableCollectionExtended(IEnumerable<TItem> collection) : base(collection)
+		{
+
+		}
 
 		protected override void InsertItem(int index, TItem item)
 		{
@@ -79,6 +95,7 @@ namespace ObservableComputations
 			_currentChange = NotifyCollectionChangedAction.Replace;
 			_newItem = item;
 			_newIndex = index;
+			_oldIndex = index;
 
 			PreCollectionChanged?.Invoke(this, null);
 			base.SetItem(index, item);
@@ -87,6 +104,7 @@ namespace ObservableComputations
 			_currentChange = null;
 			_newItem = default;
 			_newIndex = -1;
+			_oldIndex = -1;
 		}
 
 		protected override void ClearItems()

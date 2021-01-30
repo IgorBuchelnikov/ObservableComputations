@@ -16,8 +16,12 @@ namespace ObservableComputations
 
 		}
 
+		public ObservableCollectionWithChangeMarker(IEnumerable<TItem> collection) : base(collection)
+		{
 
-		protected ObservableCollectionWithChangeMarker()
+		}
+
+		public ObservableCollectionWithChangeMarker()
 		{
 		}
 

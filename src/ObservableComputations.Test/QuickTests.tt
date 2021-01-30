@@ -30,7 +30,6 @@ namespace ObservableComputations.Test
 		GetExtensionMethods().Where(em => 
 			em.Name != "Using" 
 			&& em.Name != "Computing"
-			&& em.Name != "Differing"
 			&& em.Name != "PreviousTracking"
 			&& em.Name != "WeakPreviousTracking"
 			&& em.Name != "PropertyAccessing"
@@ -445,6 +444,9 @@ namespace ObservableComputations.Test
 				break;
 			case "System.Collections.Generic.IEqualityComparer<TSourceItem>":
 				result =  "EqualityComparer<Item>.Default";
+				break;
+			case "System.Collections.Generic.IEqualityComparer<TResult>":
+				result =  "EqualityComparer<int>.Default";
 				break;
 			case "System.Collections.Generic.IEqualityComparer<TKey>":
 				result =  "EqualityComparer<int>.Default";

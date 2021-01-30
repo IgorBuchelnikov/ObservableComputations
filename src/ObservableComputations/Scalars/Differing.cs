@@ -12,6 +12,7 @@ namespace ObservableComputations
 	{
 		public IReadScalar<TResult> Source => _source;
 		public IEqualityComparer<TResult> EqualityComparer =>_equalityComparer;
+		public IReadScalar<IEqualityComparer<TResult>> EqualityComparerScalar =>_equalityComparerScalar;
 
 		private readonly IReadScalar<TResult> _source;
 		private IEqualityComparer<TResult> _equalityComparer;
@@ -138,5 +139,11 @@ namespace ObservableComputations
 		}
 
 		#endregion
+
+		internal void ValidateConsistency()
+		{
+			if (!_value.Equals(_source.Value))
+				throw new ObservableComputationsException("Consistency violation: Differing.1");
+		}
 	}
 }

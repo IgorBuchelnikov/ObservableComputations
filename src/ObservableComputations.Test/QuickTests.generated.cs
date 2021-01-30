@@ -9524,6 +9524,92 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		#endregion
+		#region Differing
+
+		
+		[Test, Combinatorial]
+		public void TestDiffering01()
+		{
+			Scalar<int> source = getScalar<int>(0);
+			System.Collections.Generic.IEqualityComparer<int> equalityComparer = EqualityComparer<int>.Default;
+			OcConsumer consumer = new OcConsumer();
+			var testing = source.Differing<int>(
+				equalityComparer).For(consumer);
+
+			Assert.AreEqual(source, testing.Source);
+			Assert.AreEqual(equalityComparer, testing.EqualityComparer);
+
+			void test()
+			{
+				testing.ValidateConsistency();
+
+				IList listSource;
+				((Scalar<int>)source).Change(1);
+				((Scalar<int>)source).Change(2);
+				((Scalar<int>)source).Change(3);
+				testing.ValidateConsistency();
+			}
+
+			test();
+			consumer.Dispose();
+		}
+		
+		[Test, Combinatorial]
+		public void TestDiffering02()
+		{
+			Scalar<int> source = getScalar<int>(0);
+			OcConsumer consumer = new OcConsumer();
+			var testing = source.Differing<int>().For(consumer);
+
+			Assert.AreEqual(source, testing.Source);
+
+			void test()
+			{
+				testing.ValidateConsistency();
+
+				IList listSource;
+				((Scalar<int>)source).Change(1);
+				((Scalar<int>)source).Change(2);
+				((Scalar<int>)source).Change(3);
+				testing.ValidateConsistency();
+			}
+
+			test();
+			consumer.Dispose();
+		}
+		
+		[Test, Combinatorial]
+		public void TestDiffering03()
+		{
+			Scalar<int> source = getScalar<int>(0);
+			Scalar<System.Collections.Generic.IEqualityComparer<int>> equalityComparerScalar = getScalar<System.Collections.Generic.IEqualityComparer<int>>(EqualityComparer<int>.Default);
+			OcConsumer consumer = new OcConsumer();
+			var testing = source.Differing<int>(
+				equalityComparerScalar).For(consumer);
+
+			Assert.AreEqual(source, testing.Source);
+			Assert.AreEqual(equalityComparerScalar, testing.EqualityComparerScalar);
+
+			void test()
+			{
+				testing.ValidateConsistency();
+
+				IList listSource;
+				((Scalar<int>)source).Change(1);
+				((Scalar<int>)source).Change(2);
+				((Scalar<int>)source).Change(3);
+				testing.ValidateConsistency();
+			}
+
+			test();
+
+			((Scalar<System.Collections.Generic.IEqualityComparer<int>>)equalityComparerScalar).Touch();
+			test();
+			((Scalar<System.Collections.Generic.IEqualityComparer<int>>)equalityComparerScalar).Change(null);
+			test();
+			consumer.Dispose();
+		}
+		#endregion
 		#region Distincting
 
 		

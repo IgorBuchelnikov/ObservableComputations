@@ -16,6 +16,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
+using System.Reflection;
 using NUnit.Framework;
 using ObservableComputations;
 
@@ -30,7 +31,6 @@ namespace ObservableComputations.Test
 		GetExtensionMethods().Where(em => 
 			em.Name != "Using" 
 			&& em.Name != "Computing"
-			&& em.Name != "PropertyAccessing"
 			&& em.Name != "CollectionDispatching"
 			&& em.Name != "ScalarDispatching"
 			&& em.Name != "Binding"
@@ -226,7 +226,8 @@ namespace ObservableComputations.Test
 				&& a.name.ToUpper().Contains("SOURCE") 
 				&& !IsCollectionArgument(extensionMethod.Name, a.name, a.argumentType) 
 				&& !IsCollectionOfCollectionsArgument(extensionMethod.Name, a.name)
-				&& extensionMethod.Name != "SequenceComputing").ToArray();
+				&& extensionMethod.Name != "SequenceComputing"
+				&& !(extensionMethod.Name == "PropertyAccessing" && a.name == "source")).ToArray();
 
 			foreach (var argument in scalarSourceNotCollectionArguments)
 			{
@@ -492,7 +493,7 @@ namespace ObservableComputations.Test
 				result =  "(i, ind) => i.Active";
 				break;
 			case "string":
-				result =  @"""&""";
+				result =  argumentName == "propertyName" ? @"""Num""" : @"""&""";
 				break;
 			case "System.Linq.Expressions.Expression<System.Func<TResult>>":
 				result =  extensionMethodName != "WeakPreviousTracking" ? "() => 1" : "() => new Item(1, true)";
@@ -514,6 +515,27 @@ namespace ObservableComputations.Test
 				break;
 			case "TResult":
 				result = extensionMethodName != "WeakPreviousTracking" ? "0" : "new Item(1, true)";
+				break;
+			case "System.ComponentModel.INotifyPropertyChanged":
+				result = "new Item(1, true)";
+				break;
+			case "System.Reflection.Binder":
+				result = "Type.DefaultBinder";
+				break;
+			case "System.Reflection.BindingFlags":
+				result = "BindingFlags.Instance | BindingFlags.Public";
+				break;
+			case "System.Type":
+				result = "typeof(int)";
+				break;
+			case "System.Type[]":
+				result = "new Type[0]";
+				break;
+			case "System.Reflection.ParameterModifier[]":
+				result = "new ParameterModifier[0]";
+				break;
+			case "System.Func<System.Reflection.PropertyInfo, bool>":
+				result = @"pi => pi.Name == ""Num""";
 				break;
 			default:
 				throw new Exception($"Unexpected type {type}");
@@ -786,6 +808,9 @@ namespace ObservableComputations.Test
 			case "ObservableComputations.CollectionPausingResumeType":
 				result.Add("CollectionPausingResumeType.ReplayChanges");
 				result.Add("CollectionPausingResumeType.Reset");
+				break;
+			case "System.ComponentModel.INotifyPropertyChanged":
+				result.Add("new Item(2, true)");
 				break;
 			default:
 				throw new Exception($"Unexpected scalar type {scalarType}");

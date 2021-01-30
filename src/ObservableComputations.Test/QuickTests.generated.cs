@@ -19,6 +19,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
+using System.Reflection;
 using NUnit.Framework;
 using ObservableComputations;
 
@@ -59869,6 +59870,1077 @@ namespace ObservableComputations.Test
 				((Scalar<int>)source).Change(1);
 				((Scalar<int>)source).Change(2);
 				((Scalar<int>)source).Change(3);
+				testing.ValidateConsistency();
+			}
+
+			test();
+			consumer.Dispose();
+		}
+		#endregion
+		#region PropertyAccessing
+
+		
+		[Test, Combinatorial]
+		public void TestPropertyAccessing01()
+		{
+			Scalar<System.ComponentModel.INotifyPropertyChanged> sourceScalar = getScalar<System.ComponentModel.INotifyPropertyChanged>(new Item(1, true));
+			string propertyName = "Num";
+			int defaultValue = 0;
+			OcConsumer consumer = new OcConsumer();
+			var testing = sourceScalar.PropertyAccessing<int>(
+				propertyName,
+				defaultValue).For(consumer);
+
+			Assert.AreEqual(sourceScalar, testing.SourceScalar);
+			Assert.AreEqual(propertyName, testing.PropertyName);
+			Assert.AreEqual(defaultValue, testing.DefaultValue);
+
+			void test()
+			{
+				testing.ValidateConsistency();
+
+				IList listSource;
+				((Scalar<System.ComponentModel.INotifyPropertyChanged>)sourceScalar).Change(new Item(2, true));
+				testing.ValidateConsistency();
+			}
+
+			test();
+
+			((Scalar<System.ComponentModel.INotifyPropertyChanged>)sourceScalar).Touch();
+			test();
+			((Scalar<System.ComponentModel.INotifyPropertyChanged>)sourceScalar).Change(new Item(2, true));
+			test();
+			consumer.Dispose();
+		}
+		
+		[Test, Combinatorial]
+		public void TestPropertyAccessing02()
+		{
+			Scalar<System.ComponentModel.INotifyPropertyChanged> sourceScalar = getScalar<System.ComponentModel.INotifyPropertyChanged>(new Item(1, true));
+			string propertyName = "Num";
+			OcConsumer consumer = new OcConsumer();
+			var testing = sourceScalar.PropertyAccessing<int>(
+				propertyName).For(consumer);
+
+			Assert.AreEqual(sourceScalar, testing.SourceScalar);
+			Assert.AreEqual(propertyName, testing.PropertyName);
+
+			void test()
+			{
+				testing.ValidateConsistency();
+
+				IList listSource;
+				((Scalar<System.ComponentModel.INotifyPropertyChanged>)sourceScalar).Change(new Item(2, true));
+				testing.ValidateConsistency();
+			}
+
+			test();
+
+			((Scalar<System.ComponentModel.INotifyPropertyChanged>)sourceScalar).Touch();
+			test();
+			((Scalar<System.ComponentModel.INotifyPropertyChanged>)sourceScalar).Change(new Item(2, true));
+			test();
+			consumer.Dispose();
+		}
+		
+		[Test, Combinatorial]
+		public void TestPropertyAccessing03()
+		{
+			Scalar<System.ComponentModel.INotifyPropertyChanged> sourceScalar = getScalar<System.ComponentModel.INotifyPropertyChanged>(new Item(1, true));
+			string propertyName = "Num";
+			System.Reflection.BindingFlags bindingAttr = BindingFlags.Instance | BindingFlags.Public;
+			int defaultValue = 0;
+			OcConsumer consumer = new OcConsumer();
+			var testing = sourceScalar.PropertyAccessing<int>(
+				propertyName,
+				bindingAttr,
+				defaultValue).For(consumer);
+
+			Assert.AreEqual(sourceScalar, testing.SourceScalar);
+			Assert.AreEqual(propertyName, testing.PropertyName);
+			Assert.AreEqual(bindingAttr, testing.BindingAttr);
+			Assert.AreEqual(defaultValue, testing.DefaultValue);
+
+			void test()
+			{
+				testing.ValidateConsistency();
+
+				IList listSource;
+				((Scalar<System.ComponentModel.INotifyPropertyChanged>)sourceScalar).Change(new Item(2, true));
+				testing.ValidateConsistency();
+			}
+
+			test();
+
+			((Scalar<System.ComponentModel.INotifyPropertyChanged>)sourceScalar).Touch();
+			test();
+			((Scalar<System.ComponentModel.INotifyPropertyChanged>)sourceScalar).Change(new Item(2, true));
+			test();
+			consumer.Dispose();
+		}
+		
+		[Test, Combinatorial]
+		public void TestPropertyAccessing04()
+		{
+			Scalar<System.ComponentModel.INotifyPropertyChanged> sourceScalar = getScalar<System.ComponentModel.INotifyPropertyChanged>(new Item(1, true));
+			string propertyName = "Num";
+			System.Reflection.BindingFlags bindingAttr = BindingFlags.Instance | BindingFlags.Public;
+			OcConsumer consumer = new OcConsumer();
+			var testing = sourceScalar.PropertyAccessing<int>(
+				propertyName,
+				bindingAttr).For(consumer);
+
+			Assert.AreEqual(sourceScalar, testing.SourceScalar);
+			Assert.AreEqual(propertyName, testing.PropertyName);
+			Assert.AreEqual(bindingAttr, testing.BindingAttr);
+
+			void test()
+			{
+				testing.ValidateConsistency();
+
+				IList listSource;
+				((Scalar<System.ComponentModel.INotifyPropertyChanged>)sourceScalar).Change(new Item(2, true));
+				testing.ValidateConsistency();
+			}
+
+			test();
+
+			((Scalar<System.ComponentModel.INotifyPropertyChanged>)sourceScalar).Touch();
+			test();
+			((Scalar<System.ComponentModel.INotifyPropertyChanged>)sourceScalar).Change(new Item(2, true));
+			test();
+			consumer.Dispose();
+		}
+		
+		[Test, Combinatorial]
+		public void TestPropertyAccessing05()
+		{
+			Scalar<System.ComponentModel.INotifyPropertyChanged> sourceScalar = getScalar<System.ComponentModel.INotifyPropertyChanged>(new Item(1, true));
+			string propertyName = "Num";
+			System.Type returnType = typeof(int);
+			int defaultValue = 0;
+			OcConsumer consumer = new OcConsumer();
+			var testing = sourceScalar.PropertyAccessing<int>(
+				propertyName,
+				returnType,
+				defaultValue).For(consumer);
+
+			Assert.AreEqual(sourceScalar, testing.SourceScalar);
+			Assert.AreEqual(propertyName, testing.PropertyName);
+			Assert.AreEqual(returnType, testing.ReturnType);
+			Assert.AreEqual(defaultValue, testing.DefaultValue);
+
+			void test()
+			{
+				testing.ValidateConsistency();
+
+				IList listSource;
+				((Scalar<System.ComponentModel.INotifyPropertyChanged>)sourceScalar).Change(new Item(2, true));
+				testing.ValidateConsistency();
+			}
+
+			test();
+
+			((Scalar<System.ComponentModel.INotifyPropertyChanged>)sourceScalar).Touch();
+			test();
+			((Scalar<System.ComponentModel.INotifyPropertyChanged>)sourceScalar).Change(new Item(2, true));
+			test();
+			consumer.Dispose();
+		}
+		
+		[Test, Combinatorial]
+		public void TestPropertyAccessing06()
+		{
+			Scalar<System.ComponentModel.INotifyPropertyChanged> sourceScalar = getScalar<System.ComponentModel.INotifyPropertyChanged>(new Item(1, true));
+			string propertyName = "Num";
+			System.Type returnType = typeof(int);
+			OcConsumer consumer = new OcConsumer();
+			var testing = sourceScalar.PropertyAccessing<int>(
+				propertyName,
+				returnType).For(consumer);
+
+			Assert.AreEqual(sourceScalar, testing.SourceScalar);
+			Assert.AreEqual(propertyName, testing.PropertyName);
+			Assert.AreEqual(returnType, testing.ReturnType);
+
+			void test()
+			{
+				testing.ValidateConsistency();
+
+				IList listSource;
+				((Scalar<System.ComponentModel.INotifyPropertyChanged>)sourceScalar).Change(new Item(2, true));
+				testing.ValidateConsistency();
+			}
+
+			test();
+
+			((Scalar<System.ComponentModel.INotifyPropertyChanged>)sourceScalar).Touch();
+			test();
+			((Scalar<System.ComponentModel.INotifyPropertyChanged>)sourceScalar).Change(new Item(2, true));
+			test();
+			consumer.Dispose();
+		}
+		
+		[Test, Combinatorial]
+		public void TestPropertyAccessing07()
+		{
+			Scalar<System.ComponentModel.INotifyPropertyChanged> sourceScalar = getScalar<System.ComponentModel.INotifyPropertyChanged>(new Item(1, true));
+			string propertyName = "Num";
+			System.Type returnType = typeof(int);
+			System.Type[] types = new Type[0];
+			int defaultValue = 0;
+			OcConsumer consumer = new OcConsumer();
+			var testing = sourceScalar.PropertyAccessing<int>(
+				propertyName,
+				returnType,
+				types,
+				defaultValue).For(consumer);
+
+			Assert.AreEqual(sourceScalar, testing.SourceScalar);
+			Assert.AreEqual(propertyName, testing.PropertyName);
+			Assert.AreEqual(returnType, testing.ReturnType);
+			Assert.AreEqual(types, testing.Types);
+			Assert.AreEqual(defaultValue, testing.DefaultValue);
+
+			void test()
+			{
+				testing.ValidateConsistency();
+
+				IList listSource;
+				((Scalar<System.ComponentModel.INotifyPropertyChanged>)sourceScalar).Change(new Item(2, true));
+				testing.ValidateConsistency();
+			}
+
+			test();
+
+			((Scalar<System.ComponentModel.INotifyPropertyChanged>)sourceScalar).Touch();
+			test();
+			((Scalar<System.ComponentModel.INotifyPropertyChanged>)sourceScalar).Change(new Item(2, true));
+			test();
+			consumer.Dispose();
+		}
+		
+		[Test, Combinatorial]
+		public void TestPropertyAccessing08()
+		{
+			Scalar<System.ComponentModel.INotifyPropertyChanged> sourceScalar = getScalar<System.ComponentModel.INotifyPropertyChanged>(new Item(1, true));
+			string propertyName = "Num";
+			System.Type returnType = typeof(int);
+			System.Type[] types = new Type[0];
+			OcConsumer consumer = new OcConsumer();
+			var testing = sourceScalar.PropertyAccessing<int>(
+				propertyName,
+				returnType,
+				types).For(consumer);
+
+			Assert.AreEqual(sourceScalar, testing.SourceScalar);
+			Assert.AreEqual(propertyName, testing.PropertyName);
+			Assert.AreEqual(returnType, testing.ReturnType);
+			Assert.AreEqual(types, testing.Types);
+
+			void test()
+			{
+				testing.ValidateConsistency();
+
+				IList listSource;
+				((Scalar<System.ComponentModel.INotifyPropertyChanged>)sourceScalar).Change(new Item(2, true));
+				testing.ValidateConsistency();
+			}
+
+			test();
+
+			((Scalar<System.ComponentModel.INotifyPropertyChanged>)sourceScalar).Touch();
+			test();
+			((Scalar<System.ComponentModel.INotifyPropertyChanged>)sourceScalar).Change(new Item(2, true));
+			test();
+			consumer.Dispose();
+		}
+		
+		[Test, Combinatorial]
+		public void TestPropertyAccessing09()
+		{
+			Scalar<System.ComponentModel.INotifyPropertyChanged> sourceScalar = getScalar<System.ComponentModel.INotifyPropertyChanged>(new Item(1, true));
+			string propertyName = "Num";
+			System.Type returnType = typeof(int);
+			System.Type[] types = new Type[0];
+			System.Reflection.ParameterModifier[] modifiers = new ParameterModifier[0];
+			int defaultValue = 0;
+			OcConsumer consumer = new OcConsumer();
+			var testing = sourceScalar.PropertyAccessing<int>(
+				propertyName,
+				returnType,
+				types,
+				modifiers,
+				defaultValue).For(consumer);
+
+			Assert.AreEqual(sourceScalar, testing.SourceScalar);
+			Assert.AreEqual(propertyName, testing.PropertyName);
+			Assert.AreEqual(returnType, testing.ReturnType);
+			Assert.AreEqual(types, testing.Types);
+			Assert.AreEqual(modifiers, testing.Modifiers);
+			Assert.AreEqual(defaultValue, testing.DefaultValue);
+
+			void test()
+			{
+				testing.ValidateConsistency();
+
+				IList listSource;
+				((Scalar<System.ComponentModel.INotifyPropertyChanged>)sourceScalar).Change(new Item(2, true));
+				testing.ValidateConsistency();
+			}
+
+			test();
+
+			((Scalar<System.ComponentModel.INotifyPropertyChanged>)sourceScalar).Touch();
+			test();
+			((Scalar<System.ComponentModel.INotifyPropertyChanged>)sourceScalar).Change(new Item(2, true));
+			test();
+			consumer.Dispose();
+		}
+		
+		[Test, Combinatorial]
+		public void TestPropertyAccessing10()
+		{
+			Scalar<System.ComponentModel.INotifyPropertyChanged> sourceScalar = getScalar<System.ComponentModel.INotifyPropertyChanged>(new Item(1, true));
+			string propertyName = "Num";
+			System.Type returnType = typeof(int);
+			System.Type[] types = new Type[0];
+			System.Reflection.ParameterModifier[] modifiers = new ParameterModifier[0];
+			OcConsumer consumer = new OcConsumer();
+			var testing = sourceScalar.PropertyAccessing<int>(
+				propertyName,
+				returnType,
+				types,
+				modifiers).For(consumer);
+
+			Assert.AreEqual(sourceScalar, testing.SourceScalar);
+			Assert.AreEqual(propertyName, testing.PropertyName);
+			Assert.AreEqual(returnType, testing.ReturnType);
+			Assert.AreEqual(types, testing.Types);
+			Assert.AreEqual(modifiers, testing.Modifiers);
+
+			void test()
+			{
+				testing.ValidateConsistency();
+
+				IList listSource;
+				((Scalar<System.ComponentModel.INotifyPropertyChanged>)sourceScalar).Change(new Item(2, true));
+				testing.ValidateConsistency();
+			}
+
+			test();
+
+			((Scalar<System.ComponentModel.INotifyPropertyChanged>)sourceScalar).Touch();
+			test();
+			((Scalar<System.ComponentModel.INotifyPropertyChanged>)sourceScalar).Change(new Item(2, true));
+			test();
+			consumer.Dispose();
+		}
+		
+		[Test, Combinatorial]
+		public void TestPropertyAccessing11()
+		{
+			Scalar<System.ComponentModel.INotifyPropertyChanged> sourceScalar = getScalar<System.ComponentModel.INotifyPropertyChanged>(new Item(1, true));
+			string propertyName = "Num";
+			System.Reflection.BindingFlags bindingAttr = BindingFlags.Instance | BindingFlags.Public;
+			System.Reflection.Binder binder = Type.DefaultBinder;
+			System.Type returnType = typeof(int);
+			System.Type[] types = new Type[0];
+			System.Reflection.ParameterModifier[] modifiers = new ParameterModifier[0];
+			int defaultValue = 0;
+			OcConsumer consumer = new OcConsumer();
+			var testing = sourceScalar.PropertyAccessing<int>(
+				propertyName,
+				bindingAttr,
+				binder,
+				returnType,
+				types,
+				modifiers,
+				defaultValue).For(consumer);
+
+			Assert.AreEqual(sourceScalar, testing.SourceScalar);
+			Assert.AreEqual(propertyName, testing.PropertyName);
+			Assert.AreEqual(bindingAttr, testing.BindingAttr);
+			Assert.AreEqual(binder, testing.Binder);
+			Assert.AreEqual(returnType, testing.ReturnType);
+			Assert.AreEqual(types, testing.Types);
+			Assert.AreEqual(modifiers, testing.Modifiers);
+			Assert.AreEqual(defaultValue, testing.DefaultValue);
+
+			void test()
+			{
+				testing.ValidateConsistency();
+
+				IList listSource;
+				((Scalar<System.ComponentModel.INotifyPropertyChanged>)sourceScalar).Change(new Item(2, true));
+				testing.ValidateConsistency();
+			}
+
+			test();
+
+			((Scalar<System.ComponentModel.INotifyPropertyChanged>)sourceScalar).Touch();
+			test();
+			((Scalar<System.ComponentModel.INotifyPropertyChanged>)sourceScalar).Change(new Item(2, true));
+			test();
+			consumer.Dispose();
+		}
+		
+		[Test, Combinatorial]
+		public void TestPropertyAccessing12()
+		{
+			Scalar<System.ComponentModel.INotifyPropertyChanged> sourceScalar = getScalar<System.ComponentModel.INotifyPropertyChanged>(new Item(1, true));
+			string propertyName = "Num";
+			System.Reflection.BindingFlags bindingAttr = BindingFlags.Instance | BindingFlags.Public;
+			System.Reflection.Binder binder = Type.DefaultBinder;
+			System.Type returnType = typeof(int);
+			System.Type[] types = new Type[0];
+			System.Reflection.ParameterModifier[] modifiers = new ParameterModifier[0];
+			OcConsumer consumer = new OcConsumer();
+			var testing = sourceScalar.PropertyAccessing<int>(
+				propertyName,
+				bindingAttr,
+				binder,
+				returnType,
+				types,
+				modifiers).For(consumer);
+
+			Assert.AreEqual(sourceScalar, testing.SourceScalar);
+			Assert.AreEqual(propertyName, testing.PropertyName);
+			Assert.AreEqual(bindingAttr, testing.BindingAttr);
+			Assert.AreEqual(binder, testing.Binder);
+			Assert.AreEqual(returnType, testing.ReturnType);
+			Assert.AreEqual(types, testing.Types);
+			Assert.AreEqual(modifiers, testing.Modifiers);
+
+			void test()
+			{
+				testing.ValidateConsistency();
+
+				IList listSource;
+				((Scalar<System.ComponentModel.INotifyPropertyChanged>)sourceScalar).Change(new Item(2, true));
+				testing.ValidateConsistency();
+			}
+
+			test();
+
+			((Scalar<System.ComponentModel.INotifyPropertyChanged>)sourceScalar).Touch();
+			test();
+			((Scalar<System.ComponentModel.INotifyPropertyChanged>)sourceScalar).Change(new Item(2, true));
+			test();
+			consumer.Dispose();
+		}
+		
+		[Test, Combinatorial]
+		public void TestPropertyAccessing13()
+		{
+			Scalar<System.ComponentModel.INotifyPropertyChanged> sourceScalar = getScalar<System.ComponentModel.INotifyPropertyChanged>(new Item(1, true));
+			System.Func<System.Reflection.PropertyInfo, bool> propertyInfoPredicate = pi => pi.Name == "Num";
+			int defaultValue = 0;
+			OcConsumer consumer = new OcConsumer();
+			var testing = sourceScalar.PropertyAccessing<int>(
+				propertyInfoPredicate,
+				defaultValue).For(consumer);
+
+			Assert.AreEqual(sourceScalar, testing.SourceScalar);
+			Assert.AreEqual(propertyInfoPredicate, testing.PropertyInfoPredicate);
+			Assert.AreEqual(defaultValue, testing.DefaultValue);
+
+			void test()
+			{
+				testing.ValidateConsistency();
+
+				IList listSource;
+				((Scalar<System.ComponentModel.INotifyPropertyChanged>)sourceScalar).Change(new Item(2, true));
+				testing.ValidateConsistency();
+			}
+
+			test();
+
+			((Scalar<System.ComponentModel.INotifyPropertyChanged>)sourceScalar).Touch();
+			test();
+			((Scalar<System.ComponentModel.INotifyPropertyChanged>)sourceScalar).Change(new Item(2, true));
+			test();
+			consumer.Dispose();
+		}
+		
+		[Test, Combinatorial]
+		public void TestPropertyAccessing14()
+		{
+			Scalar<System.ComponentModel.INotifyPropertyChanged> sourceScalar = getScalar<System.ComponentModel.INotifyPropertyChanged>(new Item(1, true));
+			System.Func<System.Reflection.PropertyInfo, bool> propertyInfoPredicate = pi => pi.Name == "Num";
+			OcConsumer consumer = new OcConsumer();
+			var testing = sourceScalar.PropertyAccessing<int>(
+				propertyInfoPredicate).For(consumer);
+
+			Assert.AreEqual(sourceScalar, testing.SourceScalar);
+			Assert.AreEqual(propertyInfoPredicate, testing.PropertyInfoPredicate);
+
+			void test()
+			{
+				testing.ValidateConsistency();
+
+				IList listSource;
+				((Scalar<System.ComponentModel.INotifyPropertyChanged>)sourceScalar).Change(new Item(2, true));
+				testing.ValidateConsistency();
+			}
+
+			test();
+
+			((Scalar<System.ComponentModel.INotifyPropertyChanged>)sourceScalar).Touch();
+			test();
+			((Scalar<System.ComponentModel.INotifyPropertyChanged>)sourceScalar).Change(new Item(2, true));
+			test();
+			consumer.Dispose();
+		}
+		
+		[Test, Combinatorial]
+		public void TestPropertyAccessing15()
+		{
+			Scalar<System.ComponentModel.INotifyPropertyChanged> sourceScalar = getScalar<System.ComponentModel.INotifyPropertyChanged>(new Item(1, true));
+			System.Func<System.Reflection.PropertyInfo, bool> propertyInfoPredicate = pi => pi.Name == "Num";
+			System.Reflection.BindingFlags bindingAttr = BindingFlags.Instance | BindingFlags.Public;
+			int defaultValue = 0;
+			OcConsumer consumer = new OcConsumer();
+			var testing = sourceScalar.PropertyAccessing<int>(
+				propertyInfoPredicate,
+				bindingAttr,
+				defaultValue).For(consumer);
+
+			Assert.AreEqual(sourceScalar, testing.SourceScalar);
+			Assert.AreEqual(propertyInfoPredicate, testing.PropertyInfoPredicate);
+			Assert.AreEqual(bindingAttr, testing.BindingAttr);
+			Assert.AreEqual(defaultValue, testing.DefaultValue);
+
+			void test()
+			{
+				testing.ValidateConsistency();
+
+				IList listSource;
+				((Scalar<System.ComponentModel.INotifyPropertyChanged>)sourceScalar).Change(new Item(2, true));
+				testing.ValidateConsistency();
+			}
+
+			test();
+
+			((Scalar<System.ComponentModel.INotifyPropertyChanged>)sourceScalar).Touch();
+			test();
+			((Scalar<System.ComponentModel.INotifyPropertyChanged>)sourceScalar).Change(new Item(2, true));
+			test();
+			consumer.Dispose();
+		}
+		
+		[Test, Combinatorial]
+		public void TestPropertyAccessing16()
+		{
+			Scalar<System.ComponentModel.INotifyPropertyChanged> sourceScalar = getScalar<System.ComponentModel.INotifyPropertyChanged>(new Item(1, true));
+			System.Func<System.Reflection.PropertyInfo, bool> propertyInfoPredicate = pi => pi.Name == "Num";
+			System.Reflection.BindingFlags bindingAttr = BindingFlags.Instance | BindingFlags.Public;
+			OcConsumer consumer = new OcConsumer();
+			var testing = sourceScalar.PropertyAccessing<int>(
+				propertyInfoPredicate,
+				bindingAttr).For(consumer);
+
+			Assert.AreEqual(sourceScalar, testing.SourceScalar);
+			Assert.AreEqual(propertyInfoPredicate, testing.PropertyInfoPredicate);
+			Assert.AreEqual(bindingAttr, testing.BindingAttr);
+
+			void test()
+			{
+				testing.ValidateConsistency();
+
+				IList listSource;
+				((Scalar<System.ComponentModel.INotifyPropertyChanged>)sourceScalar).Change(new Item(2, true));
+				testing.ValidateConsistency();
+			}
+
+			test();
+
+			((Scalar<System.ComponentModel.INotifyPropertyChanged>)sourceScalar).Touch();
+			test();
+			((Scalar<System.ComponentModel.INotifyPropertyChanged>)sourceScalar).Change(new Item(2, true));
+			test();
+			consumer.Dispose();
+		}
+		
+		[Test, Combinatorial]
+		public void TestPropertyAccessing17()
+		{
+			System.ComponentModel.INotifyPropertyChanged source = new Item(1, true);
+			string propertyName = "Num";
+			int defaultValue = 0;
+			OcConsumer consumer = new OcConsumer();
+			var testing = source.PropertyAccessing<int>(
+				propertyName,
+				defaultValue).For(consumer);
+
+			Assert.AreEqual(source, testing.Source);
+			Assert.AreEqual(propertyName, testing.PropertyName);
+			Assert.AreEqual(defaultValue, testing.DefaultValue);
+
+			void test()
+			{
+				testing.ValidateConsistency();
+
+				IList listSource;
+				testing.ValidateConsistency();
+			}
+
+			test();
+			consumer.Dispose();
+		}
+		
+		[Test, Combinatorial]
+		public void TestPropertyAccessing18()
+		{
+			System.ComponentModel.INotifyPropertyChanged source = new Item(1, true);
+			string propertyName = "Num";
+			OcConsumer consumer = new OcConsumer();
+			var testing = source.PropertyAccessing<int>(
+				propertyName).For(consumer);
+
+			Assert.AreEqual(source, testing.Source);
+			Assert.AreEqual(propertyName, testing.PropertyName);
+
+			void test()
+			{
+				testing.ValidateConsistency();
+
+				IList listSource;
+				testing.ValidateConsistency();
+			}
+
+			test();
+			consumer.Dispose();
+		}
+		
+		[Test, Combinatorial]
+		public void TestPropertyAccessing19()
+		{
+			System.ComponentModel.INotifyPropertyChanged source = new Item(1, true);
+			string propertyName = "Num";
+			System.Reflection.BindingFlags bindingAttr = BindingFlags.Instance | BindingFlags.Public;
+			int defaultValue = 0;
+			OcConsumer consumer = new OcConsumer();
+			var testing = source.PropertyAccessing<int>(
+				propertyName,
+				bindingAttr,
+				defaultValue).For(consumer);
+
+			Assert.AreEqual(source, testing.Source);
+			Assert.AreEqual(propertyName, testing.PropertyName);
+			Assert.AreEqual(bindingAttr, testing.BindingAttr);
+			Assert.AreEqual(defaultValue, testing.DefaultValue);
+
+			void test()
+			{
+				testing.ValidateConsistency();
+
+				IList listSource;
+				testing.ValidateConsistency();
+			}
+
+			test();
+			consumer.Dispose();
+		}
+		
+		[Test, Combinatorial]
+		public void TestPropertyAccessing20()
+		{
+			System.ComponentModel.INotifyPropertyChanged source = new Item(1, true);
+			string propertyName = "Num";
+			System.Reflection.BindingFlags bindingAttr = BindingFlags.Instance | BindingFlags.Public;
+			OcConsumer consumer = new OcConsumer();
+			var testing = source.PropertyAccessing<int>(
+				propertyName,
+				bindingAttr).For(consumer);
+
+			Assert.AreEqual(source, testing.Source);
+			Assert.AreEqual(propertyName, testing.PropertyName);
+			Assert.AreEqual(bindingAttr, testing.BindingAttr);
+
+			void test()
+			{
+				testing.ValidateConsistency();
+
+				IList listSource;
+				testing.ValidateConsistency();
+			}
+
+			test();
+			consumer.Dispose();
+		}
+		
+		[Test, Combinatorial]
+		public void TestPropertyAccessing21()
+		{
+			System.ComponentModel.INotifyPropertyChanged source = new Item(1, true);
+			string propertyName = "Num";
+			System.Type returnType = typeof(int);
+			int defaultValue = 0;
+			OcConsumer consumer = new OcConsumer();
+			var testing = source.PropertyAccessing<int>(
+				propertyName,
+				returnType,
+				defaultValue).For(consumer);
+
+			Assert.AreEqual(source, testing.Source);
+			Assert.AreEqual(propertyName, testing.PropertyName);
+			Assert.AreEqual(returnType, testing.ReturnType);
+			Assert.AreEqual(defaultValue, testing.DefaultValue);
+
+			void test()
+			{
+				testing.ValidateConsistency();
+
+				IList listSource;
+				testing.ValidateConsistency();
+			}
+
+			test();
+			consumer.Dispose();
+		}
+		
+		[Test, Combinatorial]
+		public void TestPropertyAccessing22()
+		{
+			System.ComponentModel.INotifyPropertyChanged source = new Item(1, true);
+			string propertyName = "Num";
+			System.Type returnType = typeof(int);
+			OcConsumer consumer = new OcConsumer();
+			var testing = source.PropertyAccessing<int>(
+				propertyName,
+				returnType).For(consumer);
+
+			Assert.AreEqual(source, testing.Source);
+			Assert.AreEqual(propertyName, testing.PropertyName);
+			Assert.AreEqual(returnType, testing.ReturnType);
+
+			void test()
+			{
+				testing.ValidateConsistency();
+
+				IList listSource;
+				testing.ValidateConsistency();
+			}
+
+			test();
+			consumer.Dispose();
+		}
+		
+		[Test, Combinatorial]
+		public void TestPropertyAccessing23()
+		{
+			System.ComponentModel.INotifyPropertyChanged source = new Item(1, true);
+			string propertyName = "Num";
+			System.Type returnType = typeof(int);
+			System.Type[] types = new Type[0];
+			int defaultValue = 0;
+			OcConsumer consumer = new OcConsumer();
+			var testing = source.PropertyAccessing<int>(
+				propertyName,
+				returnType,
+				types,
+				defaultValue).For(consumer);
+
+			Assert.AreEqual(source, testing.Source);
+			Assert.AreEqual(propertyName, testing.PropertyName);
+			Assert.AreEqual(returnType, testing.ReturnType);
+			Assert.AreEqual(types, testing.Types);
+			Assert.AreEqual(defaultValue, testing.DefaultValue);
+
+			void test()
+			{
+				testing.ValidateConsistency();
+
+				IList listSource;
+				testing.ValidateConsistency();
+			}
+
+			test();
+			consumer.Dispose();
+		}
+		
+		[Test, Combinatorial]
+		public void TestPropertyAccessing24()
+		{
+			System.ComponentModel.INotifyPropertyChanged source = new Item(1, true);
+			string propertyName = "Num";
+			System.Type returnType = typeof(int);
+			System.Type[] types = new Type[0];
+			OcConsumer consumer = new OcConsumer();
+			var testing = source.PropertyAccessing<int>(
+				propertyName,
+				returnType,
+				types).For(consumer);
+
+			Assert.AreEqual(source, testing.Source);
+			Assert.AreEqual(propertyName, testing.PropertyName);
+			Assert.AreEqual(returnType, testing.ReturnType);
+			Assert.AreEqual(types, testing.Types);
+
+			void test()
+			{
+				testing.ValidateConsistency();
+
+				IList listSource;
+				testing.ValidateConsistency();
+			}
+
+			test();
+			consumer.Dispose();
+		}
+		
+		[Test, Combinatorial]
+		public void TestPropertyAccessing25()
+		{
+			System.ComponentModel.INotifyPropertyChanged source = new Item(1, true);
+			string propertyName = "Num";
+			System.Type returnType = typeof(int);
+			System.Type[] types = new Type[0];
+			System.Reflection.ParameterModifier[] modifiers = new ParameterModifier[0];
+			int defaultValue = 0;
+			OcConsumer consumer = new OcConsumer();
+			var testing = source.PropertyAccessing<int>(
+				propertyName,
+				returnType,
+				types,
+				modifiers,
+				defaultValue).For(consumer);
+
+			Assert.AreEqual(source, testing.Source);
+			Assert.AreEqual(propertyName, testing.PropertyName);
+			Assert.AreEqual(returnType, testing.ReturnType);
+			Assert.AreEqual(types, testing.Types);
+			Assert.AreEqual(modifiers, testing.Modifiers);
+			Assert.AreEqual(defaultValue, testing.DefaultValue);
+
+			void test()
+			{
+				testing.ValidateConsistency();
+
+				IList listSource;
+				testing.ValidateConsistency();
+			}
+
+			test();
+			consumer.Dispose();
+		}
+		
+		[Test, Combinatorial]
+		public void TestPropertyAccessing26()
+		{
+			System.ComponentModel.INotifyPropertyChanged source = new Item(1, true);
+			string propertyName = "Num";
+			System.Type returnType = typeof(int);
+			System.Type[] types = new Type[0];
+			System.Reflection.ParameterModifier[] modifiers = new ParameterModifier[0];
+			OcConsumer consumer = new OcConsumer();
+			var testing = source.PropertyAccessing<int>(
+				propertyName,
+				returnType,
+				types,
+				modifiers).For(consumer);
+
+			Assert.AreEqual(source, testing.Source);
+			Assert.AreEqual(propertyName, testing.PropertyName);
+			Assert.AreEqual(returnType, testing.ReturnType);
+			Assert.AreEqual(types, testing.Types);
+			Assert.AreEqual(modifiers, testing.Modifiers);
+
+			void test()
+			{
+				testing.ValidateConsistency();
+
+				IList listSource;
+				testing.ValidateConsistency();
+			}
+
+			test();
+			consumer.Dispose();
+		}
+		
+		[Test, Combinatorial]
+		public void TestPropertyAccessing27()
+		{
+			System.ComponentModel.INotifyPropertyChanged source = new Item(1, true);
+			string propertyName = "Num";
+			System.Reflection.BindingFlags bindingAttr = BindingFlags.Instance | BindingFlags.Public;
+			System.Reflection.Binder binder = Type.DefaultBinder;
+			System.Type returnType = typeof(int);
+			System.Type[] types = new Type[0];
+			System.Reflection.ParameterModifier[] modifiers = new ParameterModifier[0];
+			int defaultValue = 0;
+			OcConsumer consumer = new OcConsumer();
+			var testing = source.PropertyAccessing<int>(
+				propertyName,
+				bindingAttr,
+				binder,
+				returnType,
+				types,
+				modifiers,
+				defaultValue).For(consumer);
+
+			Assert.AreEqual(source, testing.Source);
+			Assert.AreEqual(propertyName, testing.PropertyName);
+			Assert.AreEqual(bindingAttr, testing.BindingAttr);
+			Assert.AreEqual(binder, testing.Binder);
+			Assert.AreEqual(returnType, testing.ReturnType);
+			Assert.AreEqual(types, testing.Types);
+			Assert.AreEqual(modifiers, testing.Modifiers);
+			Assert.AreEqual(defaultValue, testing.DefaultValue);
+
+			void test()
+			{
+				testing.ValidateConsistency();
+
+				IList listSource;
+				testing.ValidateConsistency();
+			}
+
+			test();
+			consumer.Dispose();
+		}
+		
+		[Test, Combinatorial]
+		public void TestPropertyAccessing28()
+		{
+			System.ComponentModel.INotifyPropertyChanged source = new Item(1, true);
+			string propertyName = "Num";
+			System.Reflection.BindingFlags bindingAttr = BindingFlags.Instance | BindingFlags.Public;
+			System.Reflection.Binder binder = Type.DefaultBinder;
+			System.Type returnType = typeof(int);
+			System.Type[] types = new Type[0];
+			System.Reflection.ParameterModifier[] modifiers = new ParameterModifier[0];
+			OcConsumer consumer = new OcConsumer();
+			var testing = source.PropertyAccessing<int>(
+				propertyName,
+				bindingAttr,
+				binder,
+				returnType,
+				types,
+				modifiers).For(consumer);
+
+			Assert.AreEqual(source, testing.Source);
+			Assert.AreEqual(propertyName, testing.PropertyName);
+			Assert.AreEqual(bindingAttr, testing.BindingAttr);
+			Assert.AreEqual(binder, testing.Binder);
+			Assert.AreEqual(returnType, testing.ReturnType);
+			Assert.AreEqual(types, testing.Types);
+			Assert.AreEqual(modifiers, testing.Modifiers);
+
+			void test()
+			{
+				testing.ValidateConsistency();
+
+				IList listSource;
+				testing.ValidateConsistency();
+			}
+
+			test();
+			consumer.Dispose();
+		}
+		
+		[Test, Combinatorial]
+		public void TestPropertyAccessing29()
+		{
+			System.ComponentModel.INotifyPropertyChanged source = new Item(1, true);
+			System.Func<System.Reflection.PropertyInfo, bool> propertyInfoPredicate = pi => pi.Name == "Num";
+			int defaultValue = 0;
+			OcConsumer consumer = new OcConsumer();
+			var testing = source.PropertyAccessing<int>(
+				propertyInfoPredicate,
+				defaultValue).For(consumer);
+
+			Assert.AreEqual(source, testing.Source);
+			Assert.AreEqual(propertyInfoPredicate, testing.PropertyInfoPredicate);
+			Assert.AreEqual(defaultValue, testing.DefaultValue);
+
+			void test()
+			{
+				testing.ValidateConsistency();
+
+				IList listSource;
+				testing.ValidateConsistency();
+			}
+
+			test();
+			consumer.Dispose();
+		}
+		
+		[Test, Combinatorial]
+		public void TestPropertyAccessing30()
+		{
+			System.ComponentModel.INotifyPropertyChanged source = new Item(1, true);
+			System.Func<System.Reflection.PropertyInfo, bool> propertyInfoPredicate = pi => pi.Name == "Num";
+			OcConsumer consumer = new OcConsumer();
+			var testing = source.PropertyAccessing<int>(
+				propertyInfoPredicate).For(consumer);
+
+			Assert.AreEqual(source, testing.Source);
+			Assert.AreEqual(propertyInfoPredicate, testing.PropertyInfoPredicate);
+
+			void test()
+			{
+				testing.ValidateConsistency();
+
+				IList listSource;
+				testing.ValidateConsistency();
+			}
+
+			test();
+			consumer.Dispose();
+		}
+		
+		[Test, Combinatorial]
+		public void TestPropertyAccessing31()
+		{
+			System.ComponentModel.INotifyPropertyChanged source = new Item(1, true);
+			System.Func<System.Reflection.PropertyInfo, bool> propertyInfoPredicate = pi => pi.Name == "Num";
+			System.Reflection.BindingFlags bindingAttr = BindingFlags.Instance | BindingFlags.Public;
+			int defaultValue = 0;
+			OcConsumer consumer = new OcConsumer();
+			var testing = source.PropertyAccessing<int>(
+				propertyInfoPredicate,
+				bindingAttr,
+				defaultValue).For(consumer);
+
+			Assert.AreEqual(source, testing.Source);
+			Assert.AreEqual(propertyInfoPredicate, testing.PropertyInfoPredicate);
+			Assert.AreEqual(bindingAttr, testing.BindingAttr);
+			Assert.AreEqual(defaultValue, testing.DefaultValue);
+
+			void test()
+			{
+				testing.ValidateConsistency();
+
+				IList listSource;
+				testing.ValidateConsistency();
+			}
+
+			test();
+			consumer.Dispose();
+		}
+		
+		[Test, Combinatorial]
+		public void TestPropertyAccessing32()
+		{
+			System.ComponentModel.INotifyPropertyChanged source = new Item(1, true);
+			System.Func<System.Reflection.PropertyInfo, bool> propertyInfoPredicate = pi => pi.Name == "Num";
+			System.Reflection.BindingFlags bindingAttr = BindingFlags.Instance | BindingFlags.Public;
+			OcConsumer consumer = new OcConsumer();
+			var testing = source.PropertyAccessing<int>(
+				propertyInfoPredicate,
+				bindingAttr).For(consumer);
+
+			Assert.AreEqual(source, testing.Source);
+			Assert.AreEqual(propertyInfoPredicate, testing.PropertyInfoPredicate);
+			Assert.AreEqual(bindingAttr, testing.BindingAttr);
+
+			void test()
+			{
+				testing.ValidateConsistency();
+
+				IList listSource;
 				testing.ValidateConsistency();
 			}
 

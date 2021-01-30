@@ -4,6 +4,7 @@
 
 using System;
 using System.ComponentModel;
+using System.Diagnostics.CodeAnalysis;
 
 namespace ObservableComputations
 {
@@ -106,5 +107,12 @@ namespace ObservableComputations
 		}
 
 		#endregion
+
+		[ExcludeFromCodeCoverage]
+		internal void ValidateConsistency()
+		{
+			if (!_value.Equals(_source.Value))
+				throw new ObservableComputationsException("Consistency violation: PreviousTracking.1");
+		}
 	}
 }

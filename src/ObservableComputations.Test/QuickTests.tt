@@ -30,8 +30,6 @@ namespace ObservableComputations.Test
 		GetExtensionMethods().Where(em => 
 			em.Name != "Using" 
 			&& em.Name != "Computing"
-			&& em.Name != "PreviousTracking"
-			&& em.Name != "WeakPreviousTracking"
 			&& em.Name != "PropertyAccessing"
 			&& em.Name != "CollectionDispatching"
 			&& em.Name != "ScalarDispatching"
@@ -330,10 +328,11 @@ namespace ObservableComputations.Test
 		type = type.Replace("TOrderingValue", "int");
 		if (extensionMethodName == "Averaging") 
 			type = type.Replace("TResult", "double");
+		else if (extensionMethodName == "WeakPreviousTracking") 
+			type = type.Replace("TResult", "Item");
 		else
 			type = type.Replace("TResult", "int");
 		type = type.Replace("ObservableComputations.IReadScalar", "Scalar");
-		type = type.Replace("TResult", "int");
 		return type;
 	}
 
@@ -496,7 +495,7 @@ namespace ObservableComputations.Test
 				result =  @"""&""";
 				break;
 			case "System.Linq.Expressions.Expression<System.Func<TResult>>":
-				result =  "() => 1";
+				result =  extensionMethodName != "WeakPreviousTracking" ? "() => 1" : "() => new Item(1, true)";
 				break;
 			case "System.Collections.Generic.IComparer<TSourceItem>":
 				result =  "Comparer<int>.Default";
@@ -514,7 +513,7 @@ namespace ObservableComputations.Test
 				result = "CollectionPausingResumeType.Reset";
 				break;
 			case "TResult":
-				result = "0";
+				result = extensionMethodName != "WeakPreviousTracking" ? "0" : "new Item(1, true)";
 				break;
 			default:
 				throw new Exception($"Unexpected type {type}");

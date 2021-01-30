@@ -4,6 +4,7 @@
 
 using System;
 using System.ComponentModel;
+using System.Diagnostics.CodeAnalysis;
 
 namespace ObservableComputations
 {
@@ -120,9 +121,11 @@ namespace ObservableComputations
 
 		#endregion
 
-		~WeakPreviousTracking()
+		[ExcludeFromCodeCoverage]
+		internal void ValidateConsistency()
 		{
-			_source.PropertyChanged -= handleSourceScalarPropertyChanged;
+			if (!_value.IsSameAs(_source.Value))
+				throw new ObservableComputationsException("Consistency violation: WeakPreviousTracking.1");
 		}
 	}
 }

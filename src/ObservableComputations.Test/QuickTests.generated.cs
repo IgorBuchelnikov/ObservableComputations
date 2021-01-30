@@ -59849,6 +59849,33 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		#endregion
+		#region PreviousTracking
+
+		
+		[Test, Combinatorial]
+		public void TestPreviousTracking01()
+		{
+			Scalar<int> source = getScalar<int>(0);
+			OcConsumer consumer = new OcConsumer();
+			var testing = source.PreviousTracking<int>().For(consumer);
+
+			Assert.AreEqual(source, testing.Source);
+
+			void test()
+			{
+				testing.ValidateConsistency();
+
+				IList listSource;
+				((Scalar<int>)source).Change(1);
+				((Scalar<int>)source).Change(2);
+				((Scalar<int>)source).Change(3);
+				testing.ValidateConsistency();
+			}
+
+			test();
+			consumer.Dispose();
+		}
+		#endregion
 		#region Reversing
 
 		
@@ -80963,6 +80990,31 @@ namespace ObservableComputations.Test
 			((Scalar<ObservableCollection<Item>>)source2Scalar).Touch();
 			test();
 			((Scalar<ObservableCollection<Item>>)source2Scalar).Change(null);
+			test();
+			consumer.Dispose();
+		}
+		#endregion
+		#region WeakPreviousTracking
+
+		
+		[Test, Combinatorial]
+		public void TestWeakPreviousTracking01()
+		{
+			Scalar<Item> source = getScalar<Item>(new Item(1, true));
+			OcConsumer consumer = new OcConsumer();
+			var testing = source.WeakPreviousTracking<Item>().For(consumer);
+
+			Assert.AreEqual(source, testing.Source);
+
+			void test()
+			{
+				testing.ValidateConsistency();
+
+				IList listSource;
+				((Scalar<Item>)source).Change(null);
+				testing.ValidateConsistency();
+			}
+
 			test();
 			consumer.Dispose();
 		}

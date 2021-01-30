@@ -5,6 +5,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Diagnostics.CodeAnalysis;
 
 namespace ObservableComputations
 {
@@ -140,6 +141,7 @@ namespace ObservableComputations
 
 		#endregion
 
+		[ExcludeFromCodeCoverage]
 		internal void ValidateConsistency()
 		{
 			if (!_value.Equals(_source.Value))

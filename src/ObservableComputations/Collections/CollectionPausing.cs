@@ -27,7 +27,9 @@ namespace ObservableComputations
 			set
 			{
 				if (_isPausedScalar != null) 
-					throw new ObservableComputationsException("Modifying of IsPaused property is controlled by IsPausedScalar");
+					throw new ObservableComputationsException(this, "Modifying of IsPaused property is controlled by IsPausedScalar");
+
+				checkConsistent(null, null);
 
 				void action()
 				{
@@ -62,7 +64,7 @@ namespace ObservableComputations
 						throw new ObservableComputationsException(this, "It is impossible to change ResumeType from Reset to ReplayChanges while IsPaused is true");
 
 					if (_resumeType == CollectionPausingResumeType.ReplayChanges
-						&& value == CollectionPausingResumeType.Reset)
+					    && value == CollectionPausingResumeType.Reset)
 						_deferredCollectionActions.Clear();
 
 				}
@@ -323,7 +325,8 @@ namespace ObservableComputations
 		{
 			if (_isPaused && e.Action != NotifyCollectionChangedAction.Reset)
 			{
-				_deferredCollectionActions.Enqueue(new DeferredCollectionAction<TSourceItem>(sender, e));
+				if (_resumeType == CollectionPausingResumeType.ReplayChanges)
+					_deferredCollectionActions.Enqueue(new DeferredCollectionAction<TSourceItem>(sender, e));
 				_indexerPropertyChangedEventRaised = false;
 				return;
 			}

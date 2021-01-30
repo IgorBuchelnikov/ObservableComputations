@@ -15,6 +15,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Collections.ObjectModel;
+using System.Collections.Specialized;
 using NUnit.Framework;
 using ObservableComputations;
 
@@ -54,13 +55,13 @@ namespace ObservableComputations.Test
 			{
 			}
 
-			var arguments = new List<(int argumentIndex, string variableType, string argumentType, string name, string result, string sourceAccessor, string scalarType, bool isCombinatorical)>();
+			var arguments = new List<(int argumentIndex, string variableType, string argumentType, string name, string result, string sourceAccessor, string scalarType, bool isCombinatorical, string additionalTest)>();
 			var signatureArguments = extensionMethod.ArgumentsWithoutDefaultValue;
 			int index = 0;
 			foreach (ExtensionMethodArgument argument in signatureArguments)
 			{
 				var argumentValue = getArgumentValue(argument.Type, argument.Name, extensionMethod.Name);
-				arguments.Add((index, argumentValue.variableType, argument.Type, argument.Name, argumentValue.result, argumentValue.sourceAccessor, argumentValue.scalarType, argumentValue.isCombinatorical));
+				arguments.Add((index, argumentValue.variableType, argument.Type, argument.Name, argumentValue.result, argumentValue.sourceAccessor, argumentValue.scalarType, argumentValue.isCombinatorical, argumentValue.additionalTest));
 				index++;
 			}
 
@@ -276,6 +277,13 @@ namespace ObservableComputations.Test
 <#	
 				}
 			}
+
+			foreach (var argument in arguments.Where(a => a.additionalTest != null))
+			{
+#>
+<#=argument.additionalTest#>			
+<#
+			}
 #>
 			consumer.Dispose();
 		}
@@ -336,7 +344,7 @@ namespace ObservableComputations.Test
 		return type;
 	}
 
-	private (string result, string sourceAccessor, string variableType, string scalarType, bool isCombinatorical) getArgumentValue(string type, string argumentName, string extensionMethodName)
+	private (string result, string sourceAccessor, string variableType, string scalarType, bool isCombinatorical, string additionalTest) getArgumentValue(string type, string argumentName, string extensionMethodName)
 	{
 		string checkingType = type;
 		string result = null;
@@ -524,7 +532,189 @@ namespace ObservableComputations.Test
 			variableType = scalar ? $"IReadScalar<{getTestType(checkingType, extensionMethodName)}>" : variableType;
 		}
 
-		return (result, sourceAccessor, variableType, scalarType, isCombinatoricalArgument(type, argumentName, extensionMethodName));
+		return (result, sourceAccessor, variableType, scalarType, isCombinatoricalArgument(type, argumentName, extensionMethodName), getAdditionalTest(argumentName, extensionMethodName));
+	}
+
+	private string getAdditionalTest(string argumentName, string extensionMethodName)
+	{
+		if (extensionMethodName == "Paging")
+		{
+			if (argumentName == "pageSizeScalar")
+				return @"
+			Exception setPageSizeException = null;
+
+			try
+			{
+				testing.PageSize = 10;
+			}
+			catch (Exception exception)
+			{
+				setPageSizeException = exception;
+			}
+
+			Assert.IsTrue(setPageSizeException != null);";
+
+			if (argumentName == "currentPageScalar")
+				return @"
+			Exception setCurrentPageException = null;
+
+			try
+			{
+				testing.CurrentPage = 10;
+			}
+			catch (Exception exception)
+			{
+				setCurrentPageException = exception;
+			}
+
+			Assert.IsTrue(setCurrentPageException != null);";
+
+		}
+
+		if (extensionMethodName == "CollectionPausing")
+		{
+			if (argumentName == "isPausedScalar")
+				return @"
+			Exception setIsPausedScalarException = null;
+
+			try
+			{
+				testing.IsPaused = true;
+			}
+			catch (Exception exception)
+			{
+				setIsPausedScalarException = exception;
+			}
+
+			Assert.IsTrue(setIsPausedScalarException != null);";
+
+			if (argumentName == "resumeType")
+				return @"
+			Exception setResumeTypeException = null;
+
+			try
+			{
+				testing.IsPaused = true;
+				testing.ResumeType = CollectionPausingResumeType.Reset;
+				testing.ResumeType = CollectionPausingResumeType.ReplayChanges;
+			}
+			catch (Exception exception)
+			{
+				setResumeTypeException = exception;
+			}
+
+			Assert.IsTrue(setResumeTypeException != null);";
+
+
+			if (argumentName == "resumeType")
+				return @"
+			Exception setResumeTypeException = null;
+
+			try
+			{
+				testing.IsPaused = true;
+				testing.ResumeType = CollectionPausingResumeType.Reset;
+				testing.ResumeType = CollectionPausingResumeType.ReplayChanges;
+			}
+			catch (Exception exception)
+			{
+				setResumeTypeException = exception;
+			}
+
+			Assert.IsTrue(setResumeTypeException != null);";
+
+			if (argumentName == "source")
+				return @"
+			if (testing.IsPausedScalar == null)
+			{
+				NotifyCollectionChangedEventHandler handler = (object sender, NotifyCollectionChangedEventArgs args) =>
+					{
+						Exception setIsPausedWhileChangeException = null;
+
+						try
+						{
+							testing.IsPaused = true;
+						}
+						catch (Exception exception)
+						{
+							setIsPausedWhileChangeException = exception;
+						}
+
+						Assert.IsTrue(setIsPausedWhileChangeException != null);
+					};
+
+				testing.IsPaused = false;
+				testing.CollectionChanged += handler;
+				((ObservableCollection<Item>)testing.Source).Add(new QuickTests.Item(1, true));
+				testing.CollectionChanged -= handler;
+			}";
+
+		}
+
+		if (extensionMethodName == "ScalarPausing")
+		{
+			if (argumentName == "lastChangesToApplyOnResumeCountScalar")
+				return @"
+			Exception setLastChangesToApplyOnResumeCountException = null;
+
+			try
+			{
+				testing.LastChangesToApplyOnResumeCount = 10;
+			}
+			catch (Exception exception)
+			{
+				setLastChangesToApplyOnResumeCountException = exception;
+			}
+
+			Assert.IsTrue(setLastChangesToApplyOnResumeCountException != null);";
+
+			if (argumentName == "lastChangesToApplyOnResumeCount")
+				return @"
+			Exception setLastChangesToApplyOnResumeCountPausedException = null;
+
+			try
+			{
+				testing.IsPaused = false;
+				testing.LastChangesToApplyOnResumeCount = 1;
+				testing.IsPaused = true;
+				testing.LastChangesToApplyOnResumeCount = 2;
+			}
+			catch (Exception exception)
+			{
+				setLastChangesToApplyOnResumeCountPausedException = exception;
+			}
+
+			Assert.IsTrue(setLastChangesToApplyOnResumeCountPausedException != null);";
+
+			if (argumentName == "source")
+				return @"
+			if (testing.IsPausedScalar == null)
+			{
+				PropertyChangedEventHandler handler = (object sender, PropertyChangedEventArgs args) =>
+					{
+						if (args.PropertyName != ""Value"") return;
+						Exception setIsPausedWhileChangeException = null;
+
+						try
+						{
+							testing.IsPaused = true;
+						}
+						catch (Exception exception)
+						{
+							setIsPausedWhileChangeException = exception;
+						}
+
+						Assert.IsTrue(setIsPausedWhileChangeException != null);
+					};
+
+				testing.IsPaused = false;
+				testing.PropertyChanged += handler;
+				((Scalar<int>)source).Change(1);
+				testing.PropertyChanged -= handler;
+			}";
+		}
+
+		return null;
 	}
 
 	private IEnumerable<string> getScalarAlternativeValues(string scalarType, string argumentName, string extensionMethodName)

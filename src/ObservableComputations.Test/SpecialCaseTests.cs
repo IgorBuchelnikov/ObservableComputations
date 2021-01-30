@@ -2,6 +2,7 @@
 // Buchelnikov Igor Vladimirovich licenses this file to you under the MIT license.
 // The LICENSE file is located at https://github.com/IgorBuchelnikov/ObservableComputations/blob/master/LICENSE
 
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
@@ -201,6 +202,38 @@ namespace ObservableComputations.Test
 			Assert.IsTrue(!items[0].NumComputing.IsActive);
 			Assert.IsTrue(!items[0].NumPlus1Computing.IsActive);
 
+		}
+
+		[ObservableComputationsCall]
+		public string SomeStringFunction(string s)
+		{
+			return null;
+		}
+
+		[Test]
+		public void TestNonStaticObservableComputationsCall()
+		{
+			Exception exception = null;
+
+			ObservableCollection<string> items = new ObservableCollection<string>(
+				new[]
+				{
+					"a",
+				}
+			);
+
+			try
+			{
+				items.Filtering(i => SomeStringFunction(i) == null).For(consumer);
+			}
+			catch (Exception e)
+			{
+				exception = e;
+			}
+
+			Assert.IsTrue(exception != null);
+
+			consumer.Dispose();
 		}
 
 		public SpecialCaseTests(bool debug) : base(debug)

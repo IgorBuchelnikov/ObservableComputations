@@ -13,7 +13,6 @@ namespace ObservableComputations
 		public IReadScalar<TResult> Source => _source;
 		private readonly IReadScalar<TResult> _source;
 		public IReadScalar<bool> IsPausedScalar => _isPausedScalar;
-		public int? LastChangesToApplyOnResumeCount => _lastChangesToApplyOnResumeCount;
 		public IReadScalar<int?> LastChangesToApplyOnResumeCountScalar => _lastChangesToApplyOnResumeCountScalar;
 
 		public bool Resuming => _resuming;
@@ -26,14 +25,14 @@ namespace ObservableComputations
 
 		private readonly Action _changeValueAction;
 
-		public int? LastChangesCountOnResume
+		public int? LastChangesToApplyOnResumeCount
 		{
 			get => _lastChangesToApplyOnResumeCount;
 			set
 			{
-				if (_lastChangesToApplyOnResumeCountScalar != null) throw new ObservableComputationsException("Modifying of LastChangesToApplyOnResumeCount property is controlled by LastChangesToApplyOnResumeCountScalar");
+				if (_lastChangesToApplyOnResumeCountScalar != null) throw new ObservableComputationsException(this, "Modifying of LastChangesToApplyOnResumeCount property is controlled by LastChangesToApplyOnResumeCountScalar");
 
-				_lastChangesToApplyOnResumeCount = value;
+				changeLastChangesToApplyOnResumeCount(value);
 			}
 		}
 
@@ -43,7 +42,7 @@ namespace ObservableComputations
 			get => _isPaused;
 			set
 			{
-				if (_isPausedScalar != null) throw new ObservableComputationsException("Modifying of IsPaused property is controlled by IsPausedScalar");
+				if (_isPausedScalar != null) throw new ObservableComputationsException(this, "Modifying of IsPaused property is controlled by IsPausedScalar");
 				checkConsistent(null, null);
 
 				_resuming = _isPaused != value && value;
@@ -228,8 +227,12 @@ namespace ObservableComputations
 
 		private void handleSourceScalarPropertyChanged(object sender, PropertyChangedEventArgs e)
 		{
-			if (_isPaused) 
+			if (_isPaused)
+			{
 				_deferredScalarActions.Enqueue(new DeferredScalarAction<TResult>(sender, e, _source.Value));
+				if (_lastChangesToApplyOnResumeCount != null && _deferredScalarActions.Count > _lastChangesToApplyOnResumeCount)
+					_deferredScalarActions.Dequeue();
+			}
 			else			 
 				Utils.processChange(
 					sender, 
@@ -266,17 +269,38 @@ namespace ObservableComputations
 		{
 			if (e.PropertyName != nameof(IReadScalar<object>.Value)) return;
 
-			checkConsistent(sender, e);
-
 			_handledEventSender = sender;
 			_handledEventArgs = e;
 
-			_lastChangesToApplyOnResumeCount = _lastChangesToApplyOnResumeCountScalar.Value;
+			changeLastChangesToApplyOnResumeCount(_lastChangesToApplyOnResumeCountScalar.Value);
 
 			if (_resuming) resume();
 
 			_handledEventSender = null;
 			_handledEventArgs = null;
+		}
+
+		private void changeLastChangesToApplyOnResumeCount(int? newValue)
+		{
+			if (_isPaused)
+			{
+				if ((newValue == null && _lastChangesToApplyOnResumeCount != null) 
+				    || (newValue != null && _lastChangesToApplyOnResumeCount != null && newValue > _lastChangesToApplyOnResumeCount))
+					throw new ObservableComputationsException(this, "It is impossible to increase LastChangesToApplyOnResumeCount while IsPaused = true");
+
+
+				if (newValue < _lastChangesToApplyOnResumeCount)
+				{
+					int count = _deferredScalarActions.Count;
+					if (count > newValue)
+					{
+						for (int index = 0; index < count - newValue; index++)
+							_deferredScalarActions.Dequeue();
+					}
+				}
+			}
+
+			_lastChangesToApplyOnResumeCount = newValue;
 		}
 
 		internal void ValidateConsistency()

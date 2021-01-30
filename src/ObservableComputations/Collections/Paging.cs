@@ -27,7 +27,7 @@ namespace ObservableComputations
 			get => _pageSize;
 			set
 			{
-				if (_pageSizeScalar != null) throw new ObservableComputationsException("Modifying of PageSize property is controlled by PageSizeScalar");
+				if (_pageSizeScalar != null) throw new ObservableComputationsException(this, "Modifying of PageSize property is controlled by PageSizeScalar");
 
 				int newPageSize = value;
 
@@ -94,7 +94,7 @@ namespace ObservableComputations
 			get => _currentPage;
 			set
 			{
-				if (_currentPageScalar != null) throw new ObservableComputationsException("Modifying of CurrentPage property is controlled by CurrentPageScalar");
+				if (_currentPageScalar != null) throw new ObservableComputationsException(this, "Modifying of CurrentPage property is controlled by CurrentPageScalar");
 
 				int newCurrentPage = value;
 
@@ -283,13 +283,13 @@ namespace ObservableComputations
 		private void checkPageSize()
 		{
 			if (_pageSize <= 0)
-				throw new ObservableComputationsException($"Invalid PageSize value '{_pageSize}' for Paging computation");
+				throw new ObservableComputationsException(this, $"Invalid PageSize value '{_pageSize}' for Paging computation");
 		}
 
 		private void checkCurrentPage()
 		{
 			if (_currentPage <= 0)
-				throw new ObservableComputationsException($"Invalid CurrentPage value '{_currentPage}' for Paging computation");
+				throw new ObservableComputationsException(this, $"Invalid CurrentPage value '{_currentPage}' for Paging computation");
 		}
 
 		private void initializePageSizeScalar()

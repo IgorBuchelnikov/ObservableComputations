@@ -18,6 +18,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Collections.ObjectModel;
+using System.Collections.Specialized;
 using NUnit.Framework;
 using ObservableComputations;
 
@@ -1881,6 +1882,45 @@ namespace ObservableComputations.Test
 			}
 
 			test();
+
+			if (testing.IsPausedScalar == null)
+			{
+				NotifyCollectionChangedEventHandler handler = (object sender, NotifyCollectionChangedEventArgs args) =>
+					{
+						Exception setIsPausedWhileChangeException = null;
+
+						try
+						{
+							testing.IsPaused = true;
+						}
+						catch (Exception exception)
+						{
+							setIsPausedWhileChangeException = exception;
+						}
+
+						Assert.IsTrue(setIsPausedWhileChangeException != null);
+					};
+
+				testing.IsPaused = false;
+				testing.CollectionChanged += handler;
+				((ObservableCollection<Item>)testing.Source).Add(new QuickTests.Item(1, true));
+				testing.CollectionChanged -= handler;
+			}			
+
+			Exception setResumeTypeException = null;
+
+			try
+			{
+				testing.IsPaused = true;
+				testing.ResumeType = CollectionPausingResumeType.Reset;
+				testing.ResumeType = CollectionPausingResumeType.ReplayChanges;
+			}
+			catch (Exception exception)
+			{
+				setResumeTypeException = exception;
+			}
+
+			Assert.IsTrue(setResumeTypeException != null);			
 			consumer.Dispose();
 		}
 		
@@ -1945,6 +1985,30 @@ namespace ObservableComputations.Test
 			}
 
 			test();
+
+			if (testing.IsPausedScalar == null)
+			{
+				NotifyCollectionChangedEventHandler handler = (object sender, NotifyCollectionChangedEventArgs args) =>
+					{
+						Exception setIsPausedWhileChangeException = null;
+
+						try
+						{
+							testing.IsPaused = true;
+						}
+						catch (Exception exception)
+						{
+							setIsPausedWhileChangeException = exception;
+						}
+
+						Assert.IsTrue(setIsPausedWhileChangeException != null);
+					};
+
+				testing.IsPaused = false;
+				testing.CollectionChanged += handler;
+				((ObservableCollection<Item>)testing.Source).Add(new QuickTests.Item(1, true));
+				testing.CollectionChanged -= handler;
+			}			
 			consumer.Dispose();
 		}
 		
@@ -2010,6 +2074,45 @@ namespace ObservableComputations.Test
 			}
 
 			test();
+
+			if (testing.IsPausedScalar == null)
+			{
+				NotifyCollectionChangedEventHandler handler = (object sender, NotifyCollectionChangedEventArgs args) =>
+					{
+						Exception setIsPausedWhileChangeException = null;
+
+						try
+						{
+							testing.IsPaused = true;
+						}
+						catch (Exception exception)
+						{
+							setIsPausedWhileChangeException = exception;
+						}
+
+						Assert.IsTrue(setIsPausedWhileChangeException != null);
+					};
+
+				testing.IsPaused = false;
+				testing.CollectionChanged += handler;
+				((ObservableCollection<Item>)testing.Source).Add(new QuickTests.Item(1, true));
+				testing.CollectionChanged -= handler;
+			}			
+
+			Exception setResumeTypeException = null;
+
+			try
+			{
+				testing.IsPaused = true;
+				testing.ResumeType = CollectionPausingResumeType.Reset;
+				testing.ResumeType = CollectionPausingResumeType.ReplayChanges;
+			}
+			catch (Exception exception)
+			{
+				setResumeTypeException = exception;
+			}
+
+			Assert.IsTrue(setResumeTypeException != null);			
 			consumer.Dispose();
 		}
 		
@@ -2072,6 +2175,30 @@ namespace ObservableComputations.Test
 			}
 
 			test();
+
+			if (testing.IsPausedScalar == null)
+			{
+				NotifyCollectionChangedEventHandler handler = (object sender, NotifyCollectionChangedEventArgs args) =>
+					{
+						Exception setIsPausedWhileChangeException = null;
+
+						try
+						{
+							testing.IsPaused = true;
+						}
+						catch (Exception exception)
+						{
+							setIsPausedWhileChangeException = exception;
+						}
+
+						Assert.IsTrue(setIsPausedWhileChangeException != null);
+					};
+
+				testing.IsPaused = false;
+				testing.CollectionChanged += handler;
+				((ObservableCollection<Item>)testing.Source).Add(new QuickTests.Item(1, true));
+				testing.CollectionChanged -= handler;
+			}			
 			consumer.Dispose();
 		}
 		
@@ -2139,6 +2266,45 @@ namespace ObservableComputations.Test
 			}
 
 			test();
+
+			if (testing.IsPausedScalar == null)
+			{
+				NotifyCollectionChangedEventHandler handler = (object sender, NotifyCollectionChangedEventArgs args) =>
+					{
+						Exception setIsPausedWhileChangeException = null;
+
+						try
+						{
+							testing.IsPaused = true;
+						}
+						catch (Exception exception)
+						{
+							setIsPausedWhileChangeException = exception;
+						}
+
+						Assert.IsTrue(setIsPausedWhileChangeException != null);
+					};
+
+				testing.IsPaused = false;
+				testing.CollectionChanged += handler;
+				((ObservableCollection<Item>)testing.Source).Add(new QuickTests.Item(1, true));
+				testing.CollectionChanged -= handler;
+			}			
+
+			Exception setResumeTypeException = null;
+
+			try
+			{
+				testing.IsPaused = true;
+				testing.ResumeType = CollectionPausingResumeType.Reset;
+				testing.ResumeType = CollectionPausingResumeType.ReplayChanges;
+			}
+			catch (Exception exception)
+			{
+				setResumeTypeException = exception;
+			}
+
+			Assert.IsTrue(setResumeTypeException != null);			
 			consumer.Dispose();
 		}
 		
@@ -2203,6 +2369,30 @@ namespace ObservableComputations.Test
 			}
 
 			test();
+
+			if (testing.IsPausedScalar == null)
+			{
+				NotifyCollectionChangedEventHandler handler = (object sender, NotifyCollectionChangedEventArgs args) =>
+					{
+						Exception setIsPausedWhileChangeException = null;
+
+						try
+						{
+							testing.IsPaused = true;
+						}
+						catch (Exception exception)
+						{
+							setIsPausedWhileChangeException = exception;
+						}
+
+						Assert.IsTrue(setIsPausedWhileChangeException != null);
+					};
+
+				testing.IsPaused = false;
+				testing.CollectionChanged += handler;
+				((ObservableCollection<Item>)testing.Source).Add(new QuickTests.Item(1, true));
+				testing.CollectionChanged -= handler;
+			}			
 			consumer.Dispose();
 		}
 		
@@ -2268,6 +2458,45 @@ namespace ObservableComputations.Test
 			}
 
 			test();
+
+			if (testing.IsPausedScalar == null)
+			{
+				NotifyCollectionChangedEventHandler handler = (object sender, NotifyCollectionChangedEventArgs args) =>
+					{
+						Exception setIsPausedWhileChangeException = null;
+
+						try
+						{
+							testing.IsPaused = true;
+						}
+						catch (Exception exception)
+						{
+							setIsPausedWhileChangeException = exception;
+						}
+
+						Assert.IsTrue(setIsPausedWhileChangeException != null);
+					};
+
+				testing.IsPaused = false;
+				testing.CollectionChanged += handler;
+				((ObservableCollection<Item>)testing.Source).Add(new QuickTests.Item(1, true));
+				testing.CollectionChanged -= handler;
+			}			
+
+			Exception setResumeTypeException = null;
+
+			try
+			{
+				testing.IsPaused = true;
+				testing.ResumeType = CollectionPausingResumeType.Reset;
+				testing.ResumeType = CollectionPausingResumeType.ReplayChanges;
+			}
+			catch (Exception exception)
+			{
+				setResumeTypeException = exception;
+			}
+
+			Assert.IsTrue(setResumeTypeException != null);			
 			consumer.Dispose();
 		}
 		
@@ -2330,6 +2559,30 @@ namespace ObservableComputations.Test
 			}
 
 			test();
+
+			if (testing.IsPausedScalar == null)
+			{
+				NotifyCollectionChangedEventHandler handler = (object sender, NotifyCollectionChangedEventArgs args) =>
+					{
+						Exception setIsPausedWhileChangeException = null;
+
+						try
+						{
+							testing.IsPaused = true;
+						}
+						catch (Exception exception)
+						{
+							setIsPausedWhileChangeException = exception;
+						}
+
+						Assert.IsTrue(setIsPausedWhileChangeException != null);
+					};
+
+				testing.IsPaused = false;
+				testing.CollectionChanged += handler;
+				((ObservableCollection<Item>)testing.Source).Add(new QuickTests.Item(1, true));
+				testing.CollectionChanged -= handler;
+			}			
 			consumer.Dispose();
 		}
 		
@@ -2402,6 +2655,21 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<System.Collections.Specialized.INotifyCollectionChanged>)sourceScalar).Change(null);
 			test();
+
+			Exception setResumeTypeException = null;
+
+			try
+			{
+				testing.IsPaused = true;
+				testing.ResumeType = CollectionPausingResumeType.Reset;
+				testing.ResumeType = CollectionPausingResumeType.ReplayChanges;
+			}
+			catch (Exception exception)
+			{
+				setResumeTypeException = exception;
+			}
+
+			Assert.IsTrue(setResumeTypeException != null);			
 			consumer.Dispose();
 		}
 		
@@ -2541,6 +2809,21 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<System.Collections.Specialized.INotifyCollectionChanged>)sourceScalar).Change(null);
 			test();
+
+			Exception setResumeTypeException = null;
+
+			try
+			{
+				testing.IsPaused = true;
+				testing.ResumeType = CollectionPausingResumeType.Reset;
+				testing.ResumeType = CollectionPausingResumeType.ReplayChanges;
+			}
+			catch (Exception exception)
+			{
+				setResumeTypeException = exception;
+			}
+
+			Assert.IsTrue(setResumeTypeException != null);			
 			consumer.Dispose();
 		}
 		
@@ -2680,6 +2963,21 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<ObservableCollection<Item>>)sourceScalar).Change(null);
 			test();
+
+			Exception setResumeTypeException = null;
+
+			try
+			{
+				testing.IsPaused = true;
+				testing.ResumeType = CollectionPausingResumeType.Reset;
+				testing.ResumeType = CollectionPausingResumeType.ReplayChanges;
+			}
+			catch (Exception exception)
+			{
+				setResumeTypeException = exception;
+			}
+
+			Assert.IsTrue(setResumeTypeException != null);			
 			consumer.Dispose();
 		}
 		
@@ -2819,6 +3117,21 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<ObservableCollection<Item>>)sourceScalar).Change(null);
 			test();
+
+			Exception setResumeTypeException = null;
+
+			try
+			{
+				testing.IsPaused = true;
+				testing.ResumeType = CollectionPausingResumeType.Reset;
+				testing.ResumeType = CollectionPausingResumeType.ReplayChanges;
+			}
+			catch (Exception exception)
+			{
+				setResumeTypeException = exception;
+			}
+
+			Assert.IsTrue(setResumeTypeException != null);			
 			consumer.Dispose();
 		}
 		
@@ -2961,6 +3274,58 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<bool>)isPausedScalar).Change(true);
 			test();
+
+			if (testing.IsPausedScalar == null)
+			{
+				NotifyCollectionChangedEventHandler handler = (object sender, NotifyCollectionChangedEventArgs args) =>
+					{
+						Exception setIsPausedWhileChangeException = null;
+
+						try
+						{
+							testing.IsPaused = true;
+						}
+						catch (Exception exception)
+						{
+							setIsPausedWhileChangeException = exception;
+						}
+
+						Assert.IsTrue(setIsPausedWhileChangeException != null);
+					};
+
+				testing.IsPaused = false;
+				testing.CollectionChanged += handler;
+				((ObservableCollection<Item>)testing.Source).Add(new QuickTests.Item(1, true));
+				testing.CollectionChanged -= handler;
+			}			
+
+			Exception setIsPausedScalarException = null;
+
+			try
+			{
+				testing.IsPaused = true;
+			}
+			catch (Exception exception)
+			{
+				setIsPausedScalarException = exception;
+			}
+
+			Assert.IsTrue(setIsPausedScalarException != null);			
+
+			Exception setResumeTypeException = null;
+
+			try
+			{
+				testing.IsPaused = true;
+				testing.ResumeType = CollectionPausingResumeType.Reset;
+				testing.ResumeType = CollectionPausingResumeType.ReplayChanges;
+			}
+			catch (Exception exception)
+			{
+				setResumeTypeException = exception;
+			}
+
+			Assert.IsTrue(setResumeTypeException != null);			
 			consumer.Dispose();
 		}
 		
@@ -3033,6 +3398,43 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<bool>)isPausedScalar).Change(true);
 			test();
+
+			if (testing.IsPausedScalar == null)
+			{
+				NotifyCollectionChangedEventHandler handler = (object sender, NotifyCollectionChangedEventArgs args) =>
+					{
+						Exception setIsPausedWhileChangeException = null;
+
+						try
+						{
+							testing.IsPaused = true;
+						}
+						catch (Exception exception)
+						{
+							setIsPausedWhileChangeException = exception;
+						}
+
+						Assert.IsTrue(setIsPausedWhileChangeException != null);
+					};
+
+				testing.IsPaused = false;
+				testing.CollectionChanged += handler;
+				((ObservableCollection<Item>)testing.Source).Add(new QuickTests.Item(1, true));
+				testing.CollectionChanged -= handler;
+			}			
+
+			Exception setIsPausedScalarException = null;
+
+			try
+			{
+				testing.IsPaused = true;
+			}
+			catch (Exception exception)
+			{
+				setIsPausedScalarException = exception;
+			}
+
+			Assert.IsTrue(setIsPausedScalarException != null);			
 			consumer.Dispose();
 		}
 		
@@ -3108,6 +3510,58 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<bool>)isPausedScalar).Change(true);
 			test();
+
+			if (testing.IsPausedScalar == null)
+			{
+				NotifyCollectionChangedEventHandler handler = (object sender, NotifyCollectionChangedEventArgs args) =>
+					{
+						Exception setIsPausedWhileChangeException = null;
+
+						try
+						{
+							testing.IsPaused = true;
+						}
+						catch (Exception exception)
+						{
+							setIsPausedWhileChangeException = exception;
+						}
+
+						Assert.IsTrue(setIsPausedWhileChangeException != null);
+					};
+
+				testing.IsPaused = false;
+				testing.CollectionChanged += handler;
+				((ObservableCollection<Item>)testing.Source).Add(new QuickTests.Item(1, true));
+				testing.CollectionChanged -= handler;
+			}			
+
+			Exception setIsPausedScalarException = null;
+
+			try
+			{
+				testing.IsPaused = true;
+			}
+			catch (Exception exception)
+			{
+				setIsPausedScalarException = exception;
+			}
+
+			Assert.IsTrue(setIsPausedScalarException != null);			
+
+			Exception setResumeTypeException = null;
+
+			try
+			{
+				testing.IsPaused = true;
+				testing.ResumeType = CollectionPausingResumeType.Reset;
+				testing.ResumeType = CollectionPausingResumeType.ReplayChanges;
+			}
+			catch (Exception exception)
+			{
+				setResumeTypeException = exception;
+			}
+
+			Assert.IsTrue(setResumeTypeException != null);			
 			consumer.Dispose();
 		}
 		
@@ -3180,6 +3634,43 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<bool>)isPausedScalar).Change(true);
 			test();
+
+			if (testing.IsPausedScalar == null)
+			{
+				NotifyCollectionChangedEventHandler handler = (object sender, NotifyCollectionChangedEventArgs args) =>
+					{
+						Exception setIsPausedWhileChangeException = null;
+
+						try
+						{
+							testing.IsPaused = true;
+						}
+						catch (Exception exception)
+						{
+							setIsPausedWhileChangeException = exception;
+						}
+
+						Assert.IsTrue(setIsPausedWhileChangeException != null);
+					};
+
+				testing.IsPaused = false;
+				testing.CollectionChanged += handler;
+				((ObservableCollection<Item>)testing.Source).Add(new QuickTests.Item(1, true));
+				testing.CollectionChanged -= handler;
+			}			
+
+			Exception setIsPausedScalarException = null;
+
+			try
+			{
+				testing.IsPaused = true;
+			}
+			catch (Exception exception)
+			{
+				setIsPausedScalarException = exception;
+			}
+
+			Assert.IsTrue(setIsPausedScalarException != null);			
 			consumer.Dispose();
 		}
 		
@@ -3260,6 +3751,34 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<System.Collections.Specialized.INotifyCollectionChanged>)sourceScalar).Change(null);
 			test();
+
+			Exception setIsPausedScalarException = null;
+
+			try
+			{
+				testing.IsPaused = true;
+			}
+			catch (Exception exception)
+			{
+				setIsPausedScalarException = exception;
+			}
+
+			Assert.IsTrue(setIsPausedScalarException != null);			
+
+			Exception setResumeTypeException = null;
+
+			try
+			{
+				testing.IsPaused = true;
+				testing.ResumeType = CollectionPausingResumeType.Reset;
+				testing.ResumeType = CollectionPausingResumeType.ReplayChanges;
+			}
+			catch (Exception exception)
+			{
+				setResumeTypeException = exception;
+			}
+
+			Assert.IsTrue(setResumeTypeException != null);			
 			consumer.Dispose();
 		}
 		
@@ -3337,6 +3856,19 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<System.Collections.Specialized.INotifyCollectionChanged>)sourceScalar).Change(null);
 			test();
+
+			Exception setIsPausedScalarException = null;
+
+			try
+			{
+				testing.IsPaused = true;
+			}
+			catch (Exception exception)
+			{
+				setIsPausedScalarException = exception;
+			}
+
+			Assert.IsTrue(setIsPausedScalarException != null);			
 			consumer.Dispose();
 		}
 		
@@ -3417,6 +3949,34 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<ObservableCollection<Item>>)sourceScalar).Change(null);
 			test();
+
+			Exception setIsPausedScalarException = null;
+
+			try
+			{
+				testing.IsPaused = true;
+			}
+			catch (Exception exception)
+			{
+				setIsPausedScalarException = exception;
+			}
+
+			Assert.IsTrue(setIsPausedScalarException != null);			
+
+			Exception setResumeTypeException = null;
+
+			try
+			{
+				testing.IsPaused = true;
+				testing.ResumeType = CollectionPausingResumeType.Reset;
+				testing.ResumeType = CollectionPausingResumeType.ReplayChanges;
+			}
+			catch (Exception exception)
+			{
+				setResumeTypeException = exception;
+			}
+
+			Assert.IsTrue(setResumeTypeException != null);			
 			consumer.Dispose();
 		}
 		
@@ -3494,6 +4054,19 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<ObservableCollection<Item>>)sourceScalar).Change(null);
 			test();
+
+			Exception setIsPausedScalarException = null;
+
+			try
+			{
+				testing.IsPaused = true;
+			}
+			catch (Exception exception)
+			{
+				setIsPausedScalarException = exception;
+			}
+
+			Assert.IsTrue(setIsPausedScalarException != null);			
 			consumer.Dispose();
 		}
 		#endregion
@@ -55321,6 +55894,19 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<int>)pageSizeScalar).Change(3);
 			test();
+
+			Exception setPageSizeException = null;
+
+			try
+			{
+				testing.PageSize = 10;
+			}
+			catch (Exception exception)
+			{
+				setPageSizeException = exception;
+			}
+
+			Assert.IsTrue(setPageSizeException != null);			
 			consumer.Dispose();
 		}
 		
@@ -55395,6 +55981,19 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<int>)pageSizeScalar).Change(3);
 			test();
+
+			Exception setPageSizeException = null;
+
+			try
+			{
+				testing.PageSize = 10;
+			}
+			catch (Exception exception)
+			{
+				setPageSizeException = exception;
+			}
+
+			Assert.IsTrue(setPageSizeException != null);			
 			consumer.Dispose();
 		}
 		
@@ -55471,6 +56070,19 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<int>)pageSizeScalar).Change(3);
 			test();
+
+			Exception setPageSizeException = null;
+
+			try
+			{
+				testing.PageSize = 10;
+			}
+			catch (Exception exception)
+			{
+				setPageSizeException = exception;
+			}
+
+			Assert.IsTrue(setPageSizeException != null);			
 			consumer.Dispose();
 		}
 		
@@ -55545,6 +56157,19 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<int>)pageSizeScalar).Change(3);
 			test();
+
+			Exception setPageSizeException = null;
+
+			try
+			{
+				testing.PageSize = 10;
+			}
+			catch (Exception exception)
+			{
+				setPageSizeException = exception;
+			}
+
+			Assert.IsTrue(setPageSizeException != null);			
 			consumer.Dispose();
 		}
 		
@@ -55626,6 +56251,19 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<System.Collections.Specialized.INotifyCollectionChanged>)sourceScalar).Change(null);
 			test();
+
+			Exception setPageSizeException = null;
+
+			try
+			{
+				testing.PageSize = 10;
+			}
+			catch (Exception exception)
+			{
+				setPageSizeException = exception;
+			}
+
+			Assert.IsTrue(setPageSizeException != null);			
 			consumer.Dispose();
 		}
 		
@@ -55705,6 +56343,19 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<System.Collections.Specialized.INotifyCollectionChanged>)sourceScalar).Change(null);
 			test();
+
+			Exception setPageSizeException = null;
+
+			try
+			{
+				testing.PageSize = 10;
+			}
+			catch (Exception exception)
+			{
+				setPageSizeException = exception;
+			}
+
+			Assert.IsTrue(setPageSizeException != null);			
 			consumer.Dispose();
 		}
 		
@@ -55786,6 +56437,19 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<ObservableCollection<Item>>)sourceScalar).Change(null);
 			test();
+
+			Exception setPageSizeException = null;
+
+			try
+			{
+				testing.PageSize = 10;
+			}
+			catch (Exception exception)
+			{
+				setPageSizeException = exception;
+			}
+
+			Assert.IsTrue(setPageSizeException != null);			
 			consumer.Dispose();
 		}
 		
@@ -55865,6 +56529,19 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<ObservableCollection<Item>>)sourceScalar).Change(null);
 			test();
+
+			Exception setPageSizeException = null;
+
+			try
+			{
+				testing.PageSize = 10;
+			}
+			catch (Exception exception)
+			{
+				setPageSizeException = exception;
+			}
+
+			Assert.IsTrue(setPageSizeException != null);			
 			consumer.Dispose();
 		}
 		
@@ -55951,6 +56628,32 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<int>)currentPageScalar).Change(3);
 			test();
+
+			Exception setPageSizeException = null;
+
+			try
+			{
+				testing.PageSize = 10;
+			}
+			catch (Exception exception)
+			{
+				setPageSizeException = exception;
+			}
+
+			Assert.IsTrue(setPageSizeException != null);			
+
+			Exception setCurrentPageException = null;
+
+			try
+			{
+				testing.CurrentPage = 10;
+			}
+			catch (Exception exception)
+			{
+				setCurrentPageException = exception;
+			}
+
+			Assert.IsTrue(setCurrentPageException != null);			
 			consumer.Dispose();
 		}
 		
@@ -56037,6 +56740,32 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<int>)currentPageScalar).Change(3);
 			test();
+
+			Exception setPageSizeException = null;
+
+			try
+			{
+				testing.PageSize = 10;
+			}
+			catch (Exception exception)
+			{
+				setPageSizeException = exception;
+			}
+
+			Assert.IsTrue(setPageSizeException != null);			
+
+			Exception setCurrentPageException = null;
+
+			try
+			{
+				testing.CurrentPage = 10;
+			}
+			catch (Exception exception)
+			{
+				setCurrentPageException = exception;
+			}
+
+			Assert.IsTrue(setCurrentPageException != null);			
 			consumer.Dispose();
 		}
 		
@@ -56128,6 +56857,32 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<System.Collections.Specialized.INotifyCollectionChanged>)sourceScalar).Change(null);
 			test();
+
+			Exception setPageSizeException = null;
+
+			try
+			{
+				testing.PageSize = 10;
+			}
+			catch (Exception exception)
+			{
+				setPageSizeException = exception;
+			}
+
+			Assert.IsTrue(setPageSizeException != null);			
+
+			Exception setCurrentPageException = null;
+
+			try
+			{
+				testing.CurrentPage = 10;
+			}
+			catch (Exception exception)
+			{
+				setCurrentPageException = exception;
+			}
+
+			Assert.IsTrue(setCurrentPageException != null);			
 			consumer.Dispose();
 		}
 		
@@ -56219,6 +56974,32 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<ObservableCollection<Item>>)sourceScalar).Change(null);
 			test();
+
+			Exception setPageSizeException = null;
+
+			try
+			{
+				testing.PageSize = 10;
+			}
+			catch (Exception exception)
+			{
+				setPageSizeException = exception;
+			}
+
+			Assert.IsTrue(setPageSizeException != null);			
+
+			Exception setCurrentPageException = null;
+
+			try
+			{
+				testing.CurrentPage = 10;
+			}
+			catch (Exception exception)
+			{
+				setCurrentPageException = exception;
+			}
+
+			Assert.IsTrue(setCurrentPageException != null);			
 			consumer.Dispose();
 		}
 		
@@ -56296,6 +57077,19 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<int>)currentPageScalar).Change(3);
 			test();
+
+			Exception setCurrentPageException = null;
+
+			try
+			{
+				testing.CurrentPage = 10;
+			}
+			catch (Exception exception)
+			{
+				setCurrentPageException = exception;
+			}
+
+			Assert.IsTrue(setCurrentPageException != null);			
 			consumer.Dispose();
 		}
 		
@@ -56373,6 +57167,19 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<int>)currentPageScalar).Change(3);
 			test();
+
+			Exception setCurrentPageException = null;
+
+			try
+			{
+				testing.CurrentPage = 10;
+			}
+			catch (Exception exception)
+			{
+				setCurrentPageException = exception;
+			}
+
+			Assert.IsTrue(setCurrentPageException != null);			
 			consumer.Dispose();
 		}
 		
@@ -56455,6 +57262,19 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<System.Collections.Specialized.INotifyCollectionChanged>)sourceScalar).Change(null);
 			test();
+
+			Exception setCurrentPageException = null;
+
+			try
+			{
+				testing.CurrentPage = 10;
+			}
+			catch (Exception exception)
+			{
+				setCurrentPageException = exception;
+			}
+
+			Assert.IsTrue(setCurrentPageException != null);			
 			consumer.Dispose();
 		}
 		
@@ -56537,6 +57357,19 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<ObservableCollection<Item>>)sourceScalar).Change(null);
 			test();
+
+			Exception setCurrentPageException = null;
+
+			try
+			{
+				testing.CurrentPage = 10;
+			}
+			catch (Exception exception)
+			{
+				setCurrentPageException = exception;
+			}
+
+			Assert.IsTrue(setCurrentPageException != null);			
 			consumer.Dispose();
 		}
 		#endregion
@@ -59220,6 +60053,47 @@ namespace ObservableComputations.Test
 			}
 
 			test();
+
+			if (testing.IsPausedScalar == null)
+			{
+				PropertyChangedEventHandler handler = (object sender, PropertyChangedEventArgs args) =>
+					{
+						if (args.PropertyName != "Value") return;
+						Exception setIsPausedWhileChangeException = null;
+
+						try
+						{
+							testing.IsPaused = true;
+						}
+						catch (Exception exception)
+						{
+							setIsPausedWhileChangeException = exception;
+						}
+
+						Assert.IsTrue(setIsPausedWhileChangeException != null);
+					};
+
+				testing.IsPaused = false;
+				testing.PropertyChanged += handler;
+				((Scalar<int>)source).Change(1);
+				testing.PropertyChanged -= handler;
+			}			
+
+			Exception setLastChangesToApplyOnResumeCountPausedException = null;
+
+			try
+			{
+				testing.IsPaused = false;
+				testing.LastChangesToApplyOnResumeCount = 1;
+				testing.IsPaused = true;
+				testing.LastChangesToApplyOnResumeCount = 2;
+			}
+			catch (Exception exception)
+			{
+				setLastChangesToApplyOnResumeCountPausedException = exception;
+			}
+
+			Assert.IsTrue(setLastChangesToApplyOnResumeCountPausedException != null);			
 			consumer.Dispose();
 		}
 		
@@ -59246,6 +60120,31 @@ namespace ObservableComputations.Test
 			}
 
 			test();
+
+			if (testing.IsPausedScalar == null)
+			{
+				PropertyChangedEventHandler handler = (object sender, PropertyChangedEventArgs args) =>
+					{
+						if (args.PropertyName != "Value") return;
+						Exception setIsPausedWhileChangeException = null;
+
+						try
+						{
+							testing.IsPaused = true;
+						}
+						catch (Exception exception)
+						{
+							setIsPausedWhileChangeException = exception;
+						}
+
+						Assert.IsTrue(setIsPausedWhileChangeException != null);
+					};
+
+				testing.IsPaused = false;
+				testing.PropertyChanged += handler;
+				((Scalar<int>)source).Change(1);
+				testing.PropertyChanged -= handler;
+			}			
 			consumer.Dispose();
 		}
 		
@@ -59273,6 +60172,47 @@ namespace ObservableComputations.Test
 			}
 
 			test();
+
+			if (testing.IsPausedScalar == null)
+			{
+				PropertyChangedEventHandler handler = (object sender, PropertyChangedEventArgs args) =>
+					{
+						if (args.PropertyName != "Value") return;
+						Exception setIsPausedWhileChangeException = null;
+
+						try
+						{
+							testing.IsPaused = true;
+						}
+						catch (Exception exception)
+						{
+							setIsPausedWhileChangeException = exception;
+						}
+
+						Assert.IsTrue(setIsPausedWhileChangeException != null);
+					};
+
+				testing.IsPaused = false;
+				testing.PropertyChanged += handler;
+				((Scalar<int>)source).Change(1);
+				testing.PropertyChanged -= handler;
+			}			
+
+			Exception setLastChangesToApplyOnResumeCountPausedException = null;
+
+			try
+			{
+				testing.IsPaused = false;
+				testing.LastChangesToApplyOnResumeCount = 1;
+				testing.IsPaused = true;
+				testing.LastChangesToApplyOnResumeCount = 2;
+			}
+			catch (Exception exception)
+			{
+				setLastChangesToApplyOnResumeCountPausedException = exception;
+			}
+
+			Assert.IsTrue(setLastChangesToApplyOnResumeCountPausedException != null);			
 			consumer.Dispose();
 		}
 		
@@ -59297,6 +60237,31 @@ namespace ObservableComputations.Test
 			}
 
 			test();
+
+			if (testing.IsPausedScalar == null)
+			{
+				PropertyChangedEventHandler handler = (object sender, PropertyChangedEventArgs args) =>
+					{
+						if (args.PropertyName != "Value") return;
+						Exception setIsPausedWhileChangeException = null;
+
+						try
+						{
+							testing.IsPaused = true;
+						}
+						catch (Exception exception)
+						{
+							setIsPausedWhileChangeException = exception;
+						}
+
+						Assert.IsTrue(setIsPausedWhileChangeException != null);
+					};
+
+				testing.IsPaused = false;
+				testing.PropertyChanged += handler;
+				((Scalar<int>)source).Change(1);
+				testing.PropertyChanged -= handler;
+			}			
 			consumer.Dispose();
 		}
 		
@@ -59334,6 +60299,47 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<bool>)isPausedScalar).Change(true);
 			test();
+
+			if (testing.IsPausedScalar == null)
+			{
+				PropertyChangedEventHandler handler = (object sender, PropertyChangedEventArgs args) =>
+					{
+						if (args.PropertyName != "Value") return;
+						Exception setIsPausedWhileChangeException = null;
+
+						try
+						{
+							testing.IsPaused = true;
+						}
+						catch (Exception exception)
+						{
+							setIsPausedWhileChangeException = exception;
+						}
+
+						Assert.IsTrue(setIsPausedWhileChangeException != null);
+					};
+
+				testing.IsPaused = false;
+				testing.PropertyChanged += handler;
+				((Scalar<int>)source).Change(1);
+				testing.PropertyChanged -= handler;
+			}			
+
+			Exception setLastChangesToApplyOnResumeCountPausedException = null;
+
+			try
+			{
+				testing.IsPaused = false;
+				testing.LastChangesToApplyOnResumeCount = 1;
+				testing.IsPaused = true;
+				testing.LastChangesToApplyOnResumeCount = 2;
+			}
+			catch (Exception exception)
+			{
+				setLastChangesToApplyOnResumeCountPausedException = exception;
+			}
+
+			Assert.IsTrue(setLastChangesToApplyOnResumeCountPausedException != null);			
 			consumer.Dispose();
 		}
 		
@@ -59368,6 +60374,31 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<bool>)isPausedScalar).Change(true);
 			test();
+
+			if (testing.IsPausedScalar == null)
+			{
+				PropertyChangedEventHandler handler = (object sender, PropertyChangedEventArgs args) =>
+					{
+						if (args.PropertyName != "Value") return;
+						Exception setIsPausedWhileChangeException = null;
+
+						try
+						{
+							testing.IsPaused = true;
+						}
+						catch (Exception exception)
+						{
+							setIsPausedWhileChangeException = exception;
+						}
+
+						Assert.IsTrue(setIsPausedWhileChangeException != null);
+					};
+
+				testing.IsPaused = false;
+				testing.PropertyChanged += handler;
+				((Scalar<int>)source).Change(1);
+				testing.PropertyChanged -= handler;
+			}			
 			consumer.Dispose();
 		}
 		
@@ -59412,6 +60443,44 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<int?>)lastChangesToApplyOnResumeCountScalar).Change(1);
 			test();
+
+			if (testing.IsPausedScalar == null)
+			{
+				PropertyChangedEventHandler handler = (object sender, PropertyChangedEventArgs args) =>
+					{
+						if (args.PropertyName != "Value") return;
+						Exception setIsPausedWhileChangeException = null;
+
+						try
+						{
+							testing.IsPaused = true;
+						}
+						catch (Exception exception)
+						{
+							setIsPausedWhileChangeException = exception;
+						}
+
+						Assert.IsTrue(setIsPausedWhileChangeException != null);
+					};
+
+				testing.IsPaused = false;
+				testing.PropertyChanged += handler;
+				((Scalar<int>)source).Change(1);
+				testing.PropertyChanged -= handler;
+			}			
+
+			Exception setLastChangesToApplyOnResumeCountException = null;
+
+			try
+			{
+				testing.LastChangesToApplyOnResumeCount = 10;
+			}
+			catch (Exception exception)
+			{
+				setLastChangesToApplyOnResumeCountException = exception;
+			}
+
+			Assert.IsTrue(setLastChangesToApplyOnResumeCountException != null);			
 			consumer.Dispose();
 		}
 		
@@ -59448,6 +60517,44 @@ namespace ObservableComputations.Test
 			test();
 			((Scalar<int?>)lastChangesToApplyOnResumeCountScalar).Change(1);
 			test();
+
+			if (testing.IsPausedScalar == null)
+			{
+				PropertyChangedEventHandler handler = (object sender, PropertyChangedEventArgs args) =>
+					{
+						if (args.PropertyName != "Value") return;
+						Exception setIsPausedWhileChangeException = null;
+
+						try
+						{
+							testing.IsPaused = true;
+						}
+						catch (Exception exception)
+						{
+							setIsPausedWhileChangeException = exception;
+						}
+
+						Assert.IsTrue(setIsPausedWhileChangeException != null);
+					};
+
+				testing.IsPaused = false;
+				testing.PropertyChanged += handler;
+				((Scalar<int>)source).Change(1);
+				testing.PropertyChanged -= handler;
+			}			
+
+			Exception setLastChangesToApplyOnResumeCountException = null;
+
+			try
+			{
+				testing.LastChangesToApplyOnResumeCount = 10;
+			}
+			catch (Exception exception)
+			{
+				setLastChangesToApplyOnResumeCountException = exception;
+			}
+
+			Assert.IsTrue(setLastChangesToApplyOnResumeCountException != null);			
 			consumer.Dispose();
 		}
 		#endregion

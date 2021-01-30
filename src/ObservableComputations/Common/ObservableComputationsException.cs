@@ -30,11 +30,11 @@ namespace ObservableComputations
 		public object EventSender => _eventSender;
 		public EventArgs EventArgs => _eventArgs;
 
-		public ObservableComputationsInconsistencyException(string message, object eventSender, EventArgs eventArgs) : base(message)
-		{
-			_eventSender = eventSender;
-			_eventArgs = eventArgs;
-		}
+		//public ObservableComputationsInconsistencyException(string message, object eventSender, EventArgs eventArgs) : base(message)
+		//{
+		//	_eventSender = eventSender;
+		//	_eventArgs = eventArgs;
+		//}
 
 		public ObservableComputationsInconsistencyException(IComputing computing, string message, object eventSender, EventArgs eventArgs) : base(computing, message)
 		{

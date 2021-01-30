@@ -225,7 +225,7 @@ namespace ObservableComputations
 		private void handleIsPausedScalarValueChanged(object sender, PropertyChangedEventArgs e)
 		{
 			if (e.PropertyName != nameof(IReadScalar<object>.Value)) return;
-			if (_sourceEnumerated) checkConsistent(sender, e);
+			if (_sourceReadAndSubscribed) checkConsistent(sender, e);
 
 			_handledEventSender = sender;
 			_handledEventArgs = e;
@@ -244,7 +244,7 @@ namespace ObservableComputations
 		{
 			int originalCount = _items.Count;
 
-			if (_sourceEnumerated)
+			if (_sourceReadAndSubscribed)
 			{		
 				_source.CollectionChanged -= handleSourceCollectionChanged;
 
@@ -255,7 +255,7 @@ namespace ObservableComputations
 					_sourceAsINotifyPropertyChanged = null;
 				}
 
-				_sourceEnumerated = false;
+				_sourceReadAndSubscribed = false;
 			}
 
 			Utils.changeSource(ref _source, _sourceScalar, _downstreamConsumedComputings, _consumers, this,
@@ -303,7 +303,7 @@ namespace ObservableComputations
 					}
 				}
 		  
-				_sourceEnumerated = true;
+				_sourceReadAndSubscribed = true;
 			}			
 			else 
 			{

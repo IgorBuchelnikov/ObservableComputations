@@ -71,17 +71,17 @@ namespace ObservableComputations
 
 		protected override void processSource()
 		{
-			if (_sourceEnumerated)
+			if (_sourceReadAndSubscribed)
 			{
 				_source.PropertyChanged -= handleSourceScalarPropertyChanged;
-				_sourceEnumerated = false;
+				_sourceReadAndSubscribed = false;
 			}
 
 			if (_isActive)
 			{
 				_source.PropertyChanged += handleSourceScalarPropertyChanged;
 				setValue(_source.Value);
-				_sourceEnumerated = true;
+				_sourceReadAndSubscribed = true;
 			}
 			else
 			{

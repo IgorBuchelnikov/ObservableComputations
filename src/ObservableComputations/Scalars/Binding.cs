@@ -77,10 +77,10 @@ namespace ObservableComputations
 
 		protected override void processSource()
 		{
-			if (_sourceEnumerated)
+			if (_sourceReadAndSubscribed)
 			{
 				_source.PropertyChanged -= _gettingExpressionValueHandlePropertyChanged;
-				_sourceEnumerated = false;
+				_sourceReadAndSubscribed = false;
 			}
 
 			if (_isActive)
@@ -88,7 +88,7 @@ namespace ObservableComputations
 				_source.PropertyChanged += _gettingExpressionValueHandlePropertyChanged;
 
 				if (_applyOnActivation) Apply();
-				_sourceEnumerated = true;
+				_sourceReadAndSubscribed = true;
 			}
 			else
 			{

@@ -230,7 +230,7 @@ namespace ObservableComputations
 
 		protected override void processSource()
 		{
-			if (_sourceEnumerated)
+			if (_sourceReadAndSubscribed)
 			{
 				Utils.disposeExpressionItemInfos(_itemInfos, _predicateExpressionCallCount, this);
 				Utils.removeDownstreamConsumedComputing(_itemInfos, this);
@@ -243,7 +243,7 @@ namespace ObservableComputations
 					_sourceAsList, 
 					handleSourceCollectionChanged);
 
-				_sourceEnumerated = false;
+				_sourceReadAndSubscribed = false;
 			}
 
 			_predicatePassedCount = 0;
@@ -274,7 +274,7 @@ namespace ObservableComputations
 
 				calculateValue();
 
-				_sourceEnumerated = true;
+				_sourceReadAndSubscribed = true;
 			}
 			else
 			{

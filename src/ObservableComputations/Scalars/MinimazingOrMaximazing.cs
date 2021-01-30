@@ -154,7 +154,7 @@ namespace ObservableComputations
 
 		protected override void processSource()
 		{
-			if (_sourceEnumerated)
+			if (_sourceReadAndSubscribed)
 			{
 				_source.CollectionChanged -= handleSourceCollectionChanged;
 
@@ -166,7 +166,7 @@ namespace ObservableComputations
 				}
 
 				_sourceCopy = new List<TSourceItem>(Utils.getCapacity(_sourceScalar, _source));
-				_sourceEnumerated = false;
+				_sourceReadAndSubscribed = false;
 			}
 
 			Utils.changeSource(ref _source, _sourceScalar, _downstreamConsumedComputings, _consumers, this,
@@ -182,7 +182,7 @@ namespace ObservableComputations
 					(ISourceIndexerPropertyTracker)this);
 
 				_source.CollectionChanged += handleSourceCollectionChanged;
-				_sourceEnumerated = true;
+				_sourceReadAndSubscribed = true;
 			}
 
 			recalculateValue(true);

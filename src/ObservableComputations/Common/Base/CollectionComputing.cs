@@ -18,7 +18,7 @@ namespace ObservableComputations
 		internal readonly IList<TItem> _items;
 		internal Queue<IProcessable>[] _deferredProcessings;
 		protected int _deferredQueuesCount = 2;
-		protected bool _sourceEnumerated;
+		protected bool _sourceReadAndSubscribed;
 
 		public CollectionComputing(int initialCapacity = 0) : base(new List<TItem>(initialCapacity))
 		{

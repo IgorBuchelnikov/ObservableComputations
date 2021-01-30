@@ -78,7 +78,7 @@ namespace ObservableComputations
 
 		protected override void processSource()
 		{
-			if (_sourceEnumerated)
+			if (_sourceReadAndSubscribed)
 			{
 				_source.CollectionChanged -= handleSourceCollectionChanged;
 
@@ -90,7 +90,7 @@ namespace ObservableComputations
 
 				if (_oldItemsProcessor!= null) processOldItems(_sourceAsList.ToArray());
 
-				_sourceEnumerated = false;
+				_sourceReadAndSubscribed = false;
 			}
 
 			Utils.changeSource(ref _source, _sourceScalar, _downstreamConsumedComputings, _consumers, this,
@@ -118,7 +118,7 @@ namespace ObservableComputations
 
 				if (_newItemsProcessor != null) processNewItems(sourceCopy);
 			 
-				_sourceEnumerated = true;
+				_sourceReadAndSubscribed = true;
 			}
 		}
 

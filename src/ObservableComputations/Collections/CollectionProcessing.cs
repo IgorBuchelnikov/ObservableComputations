@@ -77,7 +77,7 @@ namespace ObservableComputations
 
 		protected override void processSource()
 		{
-			if (_sourceEnumerated)
+			if (_sourceReadAndSubscribed)
 			{
 				_source.CollectionChanged -= handleSourceCollectionChanged;
 
@@ -87,7 +87,7 @@ namespace ObservableComputations
 				for (int i = 0; i < count; i++)
 					baseRemoveItem(0);
 
-				_sourceEnumerated = false;
+				_sourceReadAndSubscribed = false;
 			}
 
 			Utils.changeSource(ref _source, _sourceScalar, _downstreamConsumedComputings, _consumers, this,
@@ -116,7 +116,7 @@ namespace ObservableComputations
 				for (int index = 0; index < count; index++)
 					baseInsertItem(index, returnValues != null ? returnValues[index] : default);
 
-				_sourceEnumerated = true;
+				_sourceReadAndSubscribed = true;
 			}
 		}
 

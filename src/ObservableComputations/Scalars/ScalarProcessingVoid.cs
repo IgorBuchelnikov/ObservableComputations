@@ -97,11 +97,11 @@ namespace ObservableComputations
 
 		protected override void processSource()
 		{
-			if (_sourceEnumerated)
+			if (_sourceReadAndSubscribed)
 			{
 				_source.PropertyChanged -= handleSourceScalarPropertyChanged;
 				processOldValue(_value);
-				_sourceEnumerated = false;
+				_sourceReadAndSubscribed = false;
 			}
 
 			if (_isActive)
@@ -114,7 +114,7 @@ namespace ObservableComputations
 					setNewValue();
 
 				_source.PropertyChanged += handleSourceScalarPropertyChanged;
-				_sourceEnumerated = true;
+				_sourceReadAndSubscribed = true;
 			}
 		}
 

@@ -108,7 +108,7 @@ namespace ObservableComputations
 
 		protected override void processSource()
 		{
-			if (_sourceEnumerated)
+			if (_sourceReadAndSubscribed)
 			{
 				_valueStringBuilder.Clear();
 
@@ -124,7 +124,7 @@ namespace ObservableComputations
 					_sourceAsINotifyPropertyChanged = null;
 				}
 
-				_sourceEnumerated = false;
+				_sourceReadAndSubscribed = false;
 			}
 
 
@@ -141,7 +141,7 @@ namespace ObservableComputations
 					(ISourceIndexerPropertyTracker)this);
 
 				_source.CollectionChanged += handleSourceCollectionChanged;
-				_sourceEnumerated = true;
+				_sourceReadAndSubscribed = true;
 				recalculateValue();
 			}
 			else

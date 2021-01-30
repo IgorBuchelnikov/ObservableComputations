@@ -147,7 +147,7 @@ namespace ObservableComputations
 
 		private bool _lastProcessedSourceChangeMarker;
 
-		private bool _sourceEnumerated;
+		private bool _sourceReadAndSubscribed;
 		private readonly IReadScalar<INotifyCollectionChanged> _sourceScalar;
 		private readonly Func<TSourceItem, TKey> _keySelectorFunc;
 		private readonly Func<TSourceItem, TValue> _valueSelectorFunc;
@@ -276,7 +276,7 @@ namespace ObservableComputations
 
 		private void processSource()
 		{
-			if (_sourceEnumerated)
+			if (_sourceReadAndSubscribed)
 			{
 				Utils.disposeKeyValueExpressionItemInfos(
 					_itemInfos,
@@ -296,7 +296,7 @@ namespace ObservableComputations
 
 				baseClearItems();
 
-				_sourceEnumerated = false;
+				_sourceReadAndSubscribed = false;
 			}
 
 			Utils.changeSource(ref _source, _sourceScalar, _downstreamConsumedComputings, _consumers, this, out _sourceAsList, false);
@@ -324,7 +324,7 @@ namespace ObservableComputations
 				}
 
 				
-				_sourceEnumerated = true;
+				_sourceReadAndSubscribed = true;
 			}
 		}
 

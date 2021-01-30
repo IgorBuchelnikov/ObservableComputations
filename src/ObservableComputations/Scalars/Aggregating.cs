@@ -71,7 +71,7 @@ namespace ObservableComputations
 
 		protected override void processSource()
 		{
-			if (_sourceEnumerated)
+			if (_sourceReadAndSubscribed)
 			{
 				_source.CollectionChanged -= handleSourceCollectionChanged;
 
@@ -82,7 +82,7 @@ namespace ObservableComputations
 					_sourceAsINotifyPropertyChanged = null;
 				}
 
-				_sourceEnumerated = false;
+				_sourceReadAndSubscribed = false;
 			}
 
 
@@ -107,7 +107,7 @@ namespace ObservableComputations
 					value = aggregate(_sourceAsList[index], value);
 				setValue(value);
 
-				_sourceEnumerated = true;
+				_sourceReadAndSubscribed = true;
 			}
 			else
 			{

@@ -258,7 +258,7 @@ namespace ObservableComputations
 
 		protected override void processSource()
 		{
-			if (_sourceEnumerated)
+			if (_sourceReadAndSubscribed)
 			{
 				Utils.disposeExpressionItemInfos(_itemInfos, _orderingValueSelectorExpressionCallCount, this);
 				Utils.removeDownstreamConsumedComputing(_itemInfos, this);
@@ -275,7 +275,7 @@ namespace ObservableComputations
 
 				_items.Clear();
 
-				_sourceEnumerated = false;
+				_sourceReadAndSubscribed = false;
 			}
 
 			Utils.changeSource(ref _source, _sourceScalar, _downstreamConsumedComputings, _consumers, this, out _sourceAsList, false);
@@ -298,7 +298,7 @@ namespace ObservableComputations
 				for (sourceIndex = 0; sourceIndex < count; sourceIndex++)
 					registerSourceItem(sourceCopy[sourceIndex], sourceIndex, true);
 
-				_sourceEnumerated = true;
+				_sourceReadAndSubscribed = true;
 			}
 
 			reset();

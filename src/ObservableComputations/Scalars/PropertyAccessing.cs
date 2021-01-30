@@ -411,7 +411,7 @@ namespace ObservableComputations
 
 		protected override void processSource()
 		{
-			if (_sourceEnumerated)
+			if (_sourceReadAndSubscribed)
 			{
 				if (_propertyHolderScalar != null)
 				{
@@ -422,7 +422,7 @@ namespace ObservableComputations
 				if (_source != null)
 					_source.PropertyChanged -= handleSourcePropertyChanged;
 
-				_sourceEnumerated = false;
+				_sourceReadAndSubscribed = false;
 			}
 
 			if (_isActive)
@@ -434,7 +434,7 @@ namespace ObservableComputations
 				}
 
 				registerPropertyHolder();
-				_sourceEnumerated = true;
+				_sourceReadAndSubscribed = true;
 			}
 			else
 				setDefaultValue(_defaultValue);

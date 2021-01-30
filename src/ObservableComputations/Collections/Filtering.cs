@@ -213,7 +213,7 @@ namespace ObservableComputations
 		{
 			int originalCount = _items.Count;
 
-			if (_sourceEnumerated)
+			if (_sourceReadAndSubscribed)
 			{
 				Utils.disposeExpressionItemInfos(_itemInfos, _predicateExpressionCallCount, this);
 				Utils.removeDownstreamConsumedComputing(_itemInfos, this);
@@ -228,7 +228,7 @@ namespace ObservableComputations
 					_sourceAsList, 
 					handleSourceCollectionChanged);
 
-				_sourceEnumerated = false;
+				_sourceReadAndSubscribed = false;
 			}
 
 			Utils.changeSource(ref _source, _sourceScalar, _downstreamConsumedComputings, _consumers, this, out _sourceAsList, false);
@@ -278,7 +278,7 @@ namespace ObservableComputations
 					_items.RemoveAt(index);
 				}
 
-				_sourceEnumerated = true;
+				_sourceReadAndSubscribed = true;
 			}
 			else
 			{

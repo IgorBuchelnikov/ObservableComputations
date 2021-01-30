@@ -14,7 +14,7 @@ namespace ObservableComputations
 		public object Tag {get; set;}
 		internal Queue<IProcessable>[] _deferredProcessings;
 		protected int _deferredQueuesCount = 1;
-		protected bool _sourceEnumerated;
+		protected bool _sourceReadAndSubscribed;
 
 		public ScalarComputing()
 		{

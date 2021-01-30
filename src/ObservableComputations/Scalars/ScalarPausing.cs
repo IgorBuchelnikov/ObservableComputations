@@ -161,7 +161,7 @@ namespace ObservableComputations
 
 		protected override void processSource()
 		{
-			if (_sourceEnumerated)
+			if (_sourceReadAndSubscribed)
 			{
 				_source.PropertyChanged -= handleSourceScalarPropertyChanged;
 
@@ -176,7 +176,7 @@ namespace ObservableComputations
 				}
 
 				_deferredScalarActions.Clear();
-				_sourceEnumerated = false;
+				_sourceReadAndSubscribed = false;
 			}
 
 			if (_isActive)
@@ -188,7 +188,7 @@ namespace ObservableComputations
 
 				initializeIsPauserScalar();
 				initializeLastChangesCountOnResumeScalar();
-				_sourceEnumerated = true;
+				_sourceReadAndSubscribed = true;
 			}
 			else
 			{

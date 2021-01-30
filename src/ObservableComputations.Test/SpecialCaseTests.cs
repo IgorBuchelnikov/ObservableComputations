@@ -236,6 +236,42 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 
+		[Test]
+		public void TestDeferredReset()
+		{
+			Exception exception = null;
+
+			ObservableCollection<string> items = new ObservableCollection<string>(
+				new[]
+				{
+					"a",
+				}
+			);
+
+			ObservableCollection<string> items2 = new ObservableCollection<string>(
+				new[]
+				{
+					"b",
+				}
+			);
+
+			Scalar<ObservableCollection<string>> sourceScalar = new Scalar<ObservableCollection<string>>(items);
+
+			Selecting<string, int> selecting = sourceScalar.Selecting(s => s.Length).For(consumer);
+
+			selecting.CollectionChanged += (sender, args) =>
+			{
+				if (args.Action != NotifyCollectionChangedAction.Add) return;
+				sourceScalar.Change(items2);
+			};
+
+			items.Add("q");
+
+			Assert.IsTrue(selecting.SequenceEqual(items2.Select(s => s.Length)));
+
+			consumer.Dispose();
+		}
+
 		public SpecialCaseTests(bool debug) : base(debug)
 		{
 		}

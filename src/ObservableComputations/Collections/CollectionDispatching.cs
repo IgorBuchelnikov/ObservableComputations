@@ -7,6 +7,8 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.ComponentModel;
+using System.Diagnostics.CodeAnalysis;
+using System.Linq;
 
 namespace ObservableComputations
 {
@@ -390,6 +392,23 @@ namespace ObservableComputations
 				_destinationOcDispatcherPriority,
 				_destinationOcDispatcherParameter,
 				this);
+		}
+
+		[ExcludeFromCodeCoverage]
+		internal void ValidateConsistency()
+		{
+			IList<TSourceItem> source = _sourceScalar.getValue(_source, new ObservableCollection<TSourceItem>()) as IList<TSourceItem>;
+			
+			bool conststent = true;
+
+			_destinationOcDispatcher.Invoke(() =>
+			{
+				conststent = this.SequenceEqual(source);
+			});
+
+			if (!conststent)
+				throw new ObservableComputationsException(this, "Consistency violation: CollectionDispatching.1");
+
 		}
 	}
 }

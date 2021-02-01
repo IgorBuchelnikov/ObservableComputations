@@ -4,6 +4,7 @@
 
 using System;
 using System.ComponentModel;
+using System.Diagnostics.CodeAnalysis;
 
 namespace ObservableComputations
 {
@@ -149,6 +150,20 @@ namespace ObservableComputations
 				_destinationOcDispatcherPriority,
 				_destinationOcDispatcherParameter,
 				this);
+		}
+
+		[ExcludeFromCodeCoverage]
+		internal void ValidateConsistency()
+		{
+			bool conststent = true;
+
+			_destinationOcDispatcher.Invoke(() =>
+			{
+				conststent = _value.Equals(_source.Value);
+			});
+
+			if (!conststent)
+				throw new ObservableComputationsException(this, "Consistency violation: ScalarDispatching.1");
 		}
 	}
 }

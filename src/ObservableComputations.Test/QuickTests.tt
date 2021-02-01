@@ -31,8 +31,6 @@ namespace ObservableComputations.Test
 		GetExtensionMethods().Where(em => 
 			em.Name != "Using" 
 			&& em.Name != "Computing"
-			&& em.Name != "CollectionDispatching"
-			&& em.Name != "ScalarDispatching"
 			&& em.Name != "Binding"
 			&& !em.Arguments.Any(ema => IsComputingArgument(ema)))
 		.GroupBy(em => em.Name).OrderBy(emg => emg.Key))
@@ -71,7 +69,7 @@ namespace ObservableComputations.Test
 			for (int combinatoricalArgumentIndex = 0; combinatoricalArgumentIndex < combinatoricalArguments.Length; combinatoricalArgumentIndex++)
 			{
 				var argument = combinatoricalArguments[combinatoricalArgumentIndex];
-#>			[Values(<#=string.Join(", ", getScalarAlternativeValues(argument.variableType, argument.name, extensionMethod.Name))#>)] <#=argument.variableType#> <#=argument.name#><#=combinatoricalArgumentIndex < combinatoricalArguments.Length - 1 ? ",\n" : ")\n"#><#
+#>			[Values(<#=string.Join(", ", getAlternativeValues(argument.variableType, argument.name, extensionMethod.Name))#>)] <#=argument.variableType#> <#=argument.name#><#=combinatoricalArgumentIndex < combinatoricalArguments.Length - 1 ? ",\n" : ")\n"#><#
 			}
 #>
 		{
@@ -231,7 +229,7 @@ namespace ObservableComputations.Test
 
 			foreach (var argument in scalarSourceNotCollectionArguments)
 			{
-				IEnumerable<string> scalarAlternativeValues = getScalarAlternativeValues(argument.scalarType, argument.name, extensionMethod.Name);
+				IEnumerable<string> scalarAlternativeValues = getAlternativeValues(argument.scalarType, argument.name, extensionMethod.Name);
 
 				foreach (var scalarAlternativeValue in scalarAlternativeValues)
 				{
@@ -265,7 +263,7 @@ namespace ObservableComputations.Test
 			((Scalar<<#=argument.scalarType#>>)<#=argument.name#>).Touch();
 			test();
 <#				
-				IEnumerable<string> scalarAlternativeValues = getScalarAlternativeValues(argument.scalarType, argument.name, extensionMethod.Name);
+				IEnumerable<string> scalarAlternativeValues = getAlternativeValues(argument.scalarType, argument.name, extensionMethod.Name);
 
 				foreach (var scalarAlternativeValue in scalarAlternativeValues)
 				{
@@ -284,6 +282,21 @@ namespace ObservableComputations.Test
 			}
 #>
 			consumer.Dispose();
+<#
+			if (arguments.Any(a => a.name == "destinationOcDispatcher"))
+			{
+#>
+			((OcDispatcher)destinationOcDispatcher).Dispose();
+<#
+			}
+
+			if (arguments.Any(a => a.name == "sourceOcDispatcher"))
+			{
+#>
+			((OcDispatcher)sourceOcDispatcher).Dispose();
+<#
+			}
+#>
 		}
 <#
 		}
@@ -477,6 +490,8 @@ namespace ObservableComputations.Test
 				else if (argumentName.Contains("initialPage")) result = "1";
 				else if (argumentName.Contains("currentPage")) result = "1";
 				else if (argumentName.Contains("Capacity")) result = "100";
+				else if (argumentName == "destinationOcDispatcherPriority") result = "0";
+				else if (argumentName == "sourceOcDispatcherPriority") result = "0";
 				else result =  argumentName.Contains("count") ? "3" : "0";
 				break;
 			case "int?":
@@ -536,6 +551,12 @@ namespace ObservableComputations.Test
 				break;
 			case "System.Func<System.Reflection.PropertyInfo, bool>":
 				result = @"pi => pi.Name == ""Num""";
+				break;
+			case "ObservableComputations.IOcDispatcher":
+				result = "new OcDispatcher()";
+				break;
+			case "object":
+				result = "new object()";
 				break;
 			default:
 				throw new Exception($"Unexpected type {type}");
@@ -740,7 +761,7 @@ namespace ObservableComputations.Test
 		return null;
 	}
 
-	private IEnumerable<string> getScalarAlternativeValues(string scalarType, string argumentName, string extensionMethodName)
+	private IEnumerable<string> getAlternativeValues(string scalarType, string argumentName, string extensionMethodName)
 	{
 		List<string> result = new List<string>();
 
@@ -777,9 +798,12 @@ namespace ObservableComputations.Test
 				result.Add("null");
 				break;
 			case "int":
-				result.Add(argumentName.Contains("count") ? "4" : "1");
-				result.Add("2");
-				result.Add("3");
+				if (argumentName != "destinationOcDispatcherPriority" && argumentName != "sourceOcDispatcherPriority")
+				{
+					result.Add(argumentName.Contains("count") ? "4" : "1");
+					result.Add("2");
+					result.Add("3");
+				}
 				break;
 			case "int?":
 				result.Add("1");

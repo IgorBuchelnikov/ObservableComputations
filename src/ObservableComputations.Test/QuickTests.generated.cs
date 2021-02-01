@@ -1816,6 +1816,5517 @@ namespace ObservableComputations.Test
 			consumer.Dispose();
 		}
 		#endregion
+		#region CollectionDispatching
+
+		
+		[Test, Combinatorial]
+		public void TestCollectionDispatching01(
+			[Values()] int destinationOcDispatcherPriority,
+			[Values()] int sourceOcDispatcherPriority)
+		{
+			System.Collections.Specialized.INotifyCollectionChanged source = getItems();
+			ObservableComputations.IOcDispatcher destinationOcDispatcher = new OcDispatcher();
+			ObservableComputations.IOcDispatcher sourceOcDispatcher = new OcDispatcher();
+			object destinationOcDispatcherParameter = new object();
+			object sourceOcDispatcherParameter = new object();
+			OcConsumer consumer = new OcConsumer();
+			var testing = source.CollectionDispatching<Item>(
+				destinationOcDispatcher,
+				sourceOcDispatcher,
+				destinationOcDispatcherPriority,
+				sourceOcDispatcherPriority,
+				destinationOcDispatcherParameter,
+				sourceOcDispatcherParameter).For(consumer);
+
+			Assert.AreEqual(source, testing.Source);
+			Assert.AreEqual(destinationOcDispatcher, testing.DestinationOcDispatcher);
+			Assert.AreEqual(sourceOcDispatcher, testing.SourceOcDispatcher);
+			Assert.AreEqual(destinationOcDispatcherPriority, testing.DestinationOcDispatcherPriority);
+			Assert.AreEqual(sourceOcDispatcherPriority, testing.SourceOcDispatcherPriority);
+			Assert.AreEqual(destinationOcDispatcherParameter, testing.DestinationOcDispatcherParameter);
+			Assert.AreEqual(sourceOcDispatcherParameter, testing.SourceOcDispatcherParameter);
+
+			void test()
+			{
+				testing.ValidateConsistency();
+				var sourceValue = ((ObservableCollection<Item>)((System.Collections.Specialized.INotifyCollectionChanged)source));
+
+				if (sourceValue != null)
+				{		
+					sourceValue.Insert(2, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					sourceValue[3] = new QuickTests.Item(7, true);
+					testing.ValidateConsistency();
+					sourceValue.RemoveAt(3);
+					testing.ValidateConsistency();
+					sourceValue.Move(1, 3);
+					testing.ValidateConsistency();
+					sourceValue[2].Active = !sourceValue[2].Active;
+					testing.ValidateConsistency();
+					sourceValue[2].Num = sourceValue[2].Num + 1;
+					testing.ValidateConsistency();
+					sourceValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceValue.RemoveAt(1);
+					testing.ValidateConsistency();
+					sourceValue.Insert(0, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					sourceValue.Insert(0, new QuickTests.Item(2, true));
+					testing.ValidateConsistency();
+				}
+
+				IList listSource;
+				listSource = ((IList)((System.Collections.Specialized.INotifyCollectionChanged)source));
+				if (listSource != null)
+				{
+					listSource.Clear();
+					testing.ValidateConsistency();
+				}
+
+				if (sourceValue != null)
+				{
+					sourceValue.Insert(0, new QuickTests.Item(1, true));
+					sourceValue.Insert(1, new QuickTests.Item(2, true));
+					sourceValue.Insert(2, new QuickTests.Item(3, true));
+					sourceValue.Insert(3, new QuickTests.Item(3, true));
+					sourceValue.Insert(4, new QuickTests.Item(3, true));
+					testing.ValidateConsistency();
+				}
+				testing.ValidateConsistency();
+			}
+
+			test();
+			consumer.Dispose();
+			((OcDispatcher)destinationOcDispatcher).Dispose();
+			((OcDispatcher)sourceOcDispatcher).Dispose();
+		}
+		
+		[Test, Combinatorial]
+		public void TestCollectionDispatching02(
+			[Values()] int destinationOcDispatcherPriority,
+			[Values()] int sourceOcDispatcherPriority)
+		{
+			System.Collections.Specialized.INotifyCollectionChanged source = getItems();
+			ObservableComputations.IOcDispatcher destinationOcDispatcher = new OcDispatcher();
+			ObservableComputations.IOcDispatcher sourceOcDispatcher = new OcDispatcher();
+			object destinationOcDispatcherParameter = new object();
+			OcConsumer consumer = new OcConsumer();
+			var testing = source.CollectionDispatching<Item>(
+				destinationOcDispatcher,
+				sourceOcDispatcher,
+				destinationOcDispatcherPriority,
+				sourceOcDispatcherPriority,
+				destinationOcDispatcherParameter).For(consumer);
+
+			Assert.AreEqual(source, testing.Source);
+			Assert.AreEqual(destinationOcDispatcher, testing.DestinationOcDispatcher);
+			Assert.AreEqual(sourceOcDispatcher, testing.SourceOcDispatcher);
+			Assert.AreEqual(destinationOcDispatcherPriority, testing.DestinationOcDispatcherPriority);
+			Assert.AreEqual(sourceOcDispatcherPriority, testing.SourceOcDispatcherPriority);
+			Assert.AreEqual(destinationOcDispatcherParameter, testing.DestinationOcDispatcherParameter);
+
+			void test()
+			{
+				testing.ValidateConsistency();
+				var sourceValue = ((ObservableCollection<Item>)((System.Collections.Specialized.INotifyCollectionChanged)source));
+
+				if (sourceValue != null)
+				{		
+					sourceValue.Insert(2, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					sourceValue[3] = new QuickTests.Item(7, true);
+					testing.ValidateConsistency();
+					sourceValue.RemoveAt(3);
+					testing.ValidateConsistency();
+					sourceValue.Move(1, 3);
+					testing.ValidateConsistency();
+					sourceValue[2].Active = !sourceValue[2].Active;
+					testing.ValidateConsistency();
+					sourceValue[2].Num = sourceValue[2].Num + 1;
+					testing.ValidateConsistency();
+					sourceValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceValue.RemoveAt(1);
+					testing.ValidateConsistency();
+					sourceValue.Insert(0, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					sourceValue.Insert(0, new QuickTests.Item(2, true));
+					testing.ValidateConsistency();
+				}
+
+				IList listSource;
+				listSource = ((IList)((System.Collections.Specialized.INotifyCollectionChanged)source));
+				if (listSource != null)
+				{
+					listSource.Clear();
+					testing.ValidateConsistency();
+				}
+
+				if (sourceValue != null)
+				{
+					sourceValue.Insert(0, new QuickTests.Item(1, true));
+					sourceValue.Insert(1, new QuickTests.Item(2, true));
+					sourceValue.Insert(2, new QuickTests.Item(3, true));
+					sourceValue.Insert(3, new QuickTests.Item(3, true));
+					sourceValue.Insert(4, new QuickTests.Item(3, true));
+					testing.ValidateConsistency();
+				}
+				testing.ValidateConsistency();
+			}
+
+			test();
+			consumer.Dispose();
+			((OcDispatcher)destinationOcDispatcher).Dispose();
+			((OcDispatcher)sourceOcDispatcher).Dispose();
+		}
+		
+		[Test, Combinatorial]
+		public void TestCollectionDispatching03(
+			[Values()] int destinationOcDispatcherPriority,
+			[Values()] int sourceOcDispatcherPriority)
+		{
+			System.Collections.Specialized.INotifyCollectionChanged source = getItems();
+			ObservableComputations.IOcDispatcher destinationOcDispatcher = new OcDispatcher();
+			ObservableComputations.IOcDispatcher sourceOcDispatcher = new OcDispatcher();
+			OcConsumer consumer = new OcConsumer();
+			var testing = source.CollectionDispatching<Item>(
+				destinationOcDispatcher,
+				sourceOcDispatcher,
+				destinationOcDispatcherPriority,
+				sourceOcDispatcherPriority).For(consumer);
+
+			Assert.AreEqual(source, testing.Source);
+			Assert.AreEqual(destinationOcDispatcher, testing.DestinationOcDispatcher);
+			Assert.AreEqual(sourceOcDispatcher, testing.SourceOcDispatcher);
+			Assert.AreEqual(destinationOcDispatcherPriority, testing.DestinationOcDispatcherPriority);
+			Assert.AreEqual(sourceOcDispatcherPriority, testing.SourceOcDispatcherPriority);
+
+			void test()
+			{
+				testing.ValidateConsistency();
+				var sourceValue = ((ObservableCollection<Item>)((System.Collections.Specialized.INotifyCollectionChanged)source));
+
+				if (sourceValue != null)
+				{		
+					sourceValue.Insert(2, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					sourceValue[3] = new QuickTests.Item(7, true);
+					testing.ValidateConsistency();
+					sourceValue.RemoveAt(3);
+					testing.ValidateConsistency();
+					sourceValue.Move(1, 3);
+					testing.ValidateConsistency();
+					sourceValue[2].Active = !sourceValue[2].Active;
+					testing.ValidateConsistency();
+					sourceValue[2].Num = sourceValue[2].Num + 1;
+					testing.ValidateConsistency();
+					sourceValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceValue.RemoveAt(1);
+					testing.ValidateConsistency();
+					sourceValue.Insert(0, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					sourceValue.Insert(0, new QuickTests.Item(2, true));
+					testing.ValidateConsistency();
+				}
+
+				IList listSource;
+				listSource = ((IList)((System.Collections.Specialized.INotifyCollectionChanged)source));
+				if (listSource != null)
+				{
+					listSource.Clear();
+					testing.ValidateConsistency();
+				}
+
+				if (sourceValue != null)
+				{
+					sourceValue.Insert(0, new QuickTests.Item(1, true));
+					sourceValue.Insert(1, new QuickTests.Item(2, true));
+					sourceValue.Insert(2, new QuickTests.Item(3, true));
+					sourceValue.Insert(3, new QuickTests.Item(3, true));
+					sourceValue.Insert(4, new QuickTests.Item(3, true));
+					testing.ValidateConsistency();
+				}
+				testing.ValidateConsistency();
+			}
+
+			test();
+			consumer.Dispose();
+			((OcDispatcher)destinationOcDispatcher).Dispose();
+			((OcDispatcher)sourceOcDispatcher).Dispose();
+		}
+		
+		[Test, Combinatorial]
+		public void TestCollectionDispatching04(
+			[Values()] int destinationOcDispatcherPriority)
+		{
+			System.Collections.Specialized.INotifyCollectionChanged source = getItems();
+			ObservableComputations.IOcDispatcher destinationOcDispatcher = new OcDispatcher();
+			ObservableComputations.IOcDispatcher sourceOcDispatcher = new OcDispatcher();
+			object destinationOcDispatcherParameter = new object();
+			object sourceOcDispatcherParameter = new object();
+			OcConsumer consumer = new OcConsumer();
+			var testing = source.CollectionDispatching<Item>(
+				destinationOcDispatcher,
+				sourceOcDispatcher,
+				destinationOcDispatcherPriority,
+				destinationOcDispatcherParameter,
+				sourceOcDispatcherParameter).For(consumer);
+
+			Assert.AreEqual(source, testing.Source);
+			Assert.AreEqual(destinationOcDispatcher, testing.DestinationOcDispatcher);
+			Assert.AreEqual(sourceOcDispatcher, testing.SourceOcDispatcher);
+			Assert.AreEqual(destinationOcDispatcherPriority, testing.DestinationOcDispatcherPriority);
+			Assert.AreEqual(destinationOcDispatcherParameter, testing.DestinationOcDispatcherParameter);
+			Assert.AreEqual(sourceOcDispatcherParameter, testing.SourceOcDispatcherParameter);
+
+			void test()
+			{
+				testing.ValidateConsistency();
+				var sourceValue = ((ObservableCollection<Item>)((System.Collections.Specialized.INotifyCollectionChanged)source));
+
+				if (sourceValue != null)
+				{		
+					sourceValue.Insert(2, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					sourceValue[3] = new QuickTests.Item(7, true);
+					testing.ValidateConsistency();
+					sourceValue.RemoveAt(3);
+					testing.ValidateConsistency();
+					sourceValue.Move(1, 3);
+					testing.ValidateConsistency();
+					sourceValue[2].Active = !sourceValue[2].Active;
+					testing.ValidateConsistency();
+					sourceValue[2].Num = sourceValue[2].Num + 1;
+					testing.ValidateConsistency();
+					sourceValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceValue.RemoveAt(1);
+					testing.ValidateConsistency();
+					sourceValue.Insert(0, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					sourceValue.Insert(0, new QuickTests.Item(2, true));
+					testing.ValidateConsistency();
+				}
+
+				IList listSource;
+				listSource = ((IList)((System.Collections.Specialized.INotifyCollectionChanged)source));
+				if (listSource != null)
+				{
+					listSource.Clear();
+					testing.ValidateConsistency();
+				}
+
+				if (sourceValue != null)
+				{
+					sourceValue.Insert(0, new QuickTests.Item(1, true));
+					sourceValue.Insert(1, new QuickTests.Item(2, true));
+					sourceValue.Insert(2, new QuickTests.Item(3, true));
+					sourceValue.Insert(3, new QuickTests.Item(3, true));
+					sourceValue.Insert(4, new QuickTests.Item(3, true));
+					testing.ValidateConsistency();
+				}
+				testing.ValidateConsistency();
+			}
+
+			test();
+			consumer.Dispose();
+			((OcDispatcher)destinationOcDispatcher).Dispose();
+			((OcDispatcher)sourceOcDispatcher).Dispose();
+		}
+		
+		[Test, Combinatorial]
+		public void TestCollectionDispatching05(
+			[Values()] int destinationOcDispatcherPriority)
+		{
+			System.Collections.Specialized.INotifyCollectionChanged source = getItems();
+			ObservableComputations.IOcDispatcher destinationOcDispatcher = new OcDispatcher();
+			ObservableComputations.IOcDispatcher sourceOcDispatcher = new OcDispatcher();
+			object destinationOcDispatcherParameter = new object();
+			OcConsumer consumer = new OcConsumer();
+			var testing = source.CollectionDispatching<Item>(
+				destinationOcDispatcher,
+				sourceOcDispatcher,
+				destinationOcDispatcherPriority,
+				destinationOcDispatcherParameter).For(consumer);
+
+			Assert.AreEqual(source, testing.Source);
+			Assert.AreEqual(destinationOcDispatcher, testing.DestinationOcDispatcher);
+			Assert.AreEqual(sourceOcDispatcher, testing.SourceOcDispatcher);
+			Assert.AreEqual(destinationOcDispatcherPriority, testing.DestinationOcDispatcherPriority);
+			Assert.AreEqual(destinationOcDispatcherParameter, testing.DestinationOcDispatcherParameter);
+
+			void test()
+			{
+				testing.ValidateConsistency();
+				var sourceValue = ((ObservableCollection<Item>)((System.Collections.Specialized.INotifyCollectionChanged)source));
+
+				if (sourceValue != null)
+				{		
+					sourceValue.Insert(2, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					sourceValue[3] = new QuickTests.Item(7, true);
+					testing.ValidateConsistency();
+					sourceValue.RemoveAt(3);
+					testing.ValidateConsistency();
+					sourceValue.Move(1, 3);
+					testing.ValidateConsistency();
+					sourceValue[2].Active = !sourceValue[2].Active;
+					testing.ValidateConsistency();
+					sourceValue[2].Num = sourceValue[2].Num + 1;
+					testing.ValidateConsistency();
+					sourceValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceValue.RemoveAt(1);
+					testing.ValidateConsistency();
+					sourceValue.Insert(0, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					sourceValue.Insert(0, new QuickTests.Item(2, true));
+					testing.ValidateConsistency();
+				}
+
+				IList listSource;
+				listSource = ((IList)((System.Collections.Specialized.INotifyCollectionChanged)source));
+				if (listSource != null)
+				{
+					listSource.Clear();
+					testing.ValidateConsistency();
+				}
+
+				if (sourceValue != null)
+				{
+					sourceValue.Insert(0, new QuickTests.Item(1, true));
+					sourceValue.Insert(1, new QuickTests.Item(2, true));
+					sourceValue.Insert(2, new QuickTests.Item(3, true));
+					sourceValue.Insert(3, new QuickTests.Item(3, true));
+					sourceValue.Insert(4, new QuickTests.Item(3, true));
+					testing.ValidateConsistency();
+				}
+				testing.ValidateConsistency();
+			}
+
+			test();
+			consumer.Dispose();
+			((OcDispatcher)destinationOcDispatcher).Dispose();
+			((OcDispatcher)sourceOcDispatcher).Dispose();
+		}
+		
+		[Test, Combinatorial]
+		public void TestCollectionDispatching06(
+			[Values()] int destinationOcDispatcherPriority)
+		{
+			System.Collections.Specialized.INotifyCollectionChanged source = getItems();
+			ObservableComputations.IOcDispatcher destinationOcDispatcher = new OcDispatcher();
+			ObservableComputations.IOcDispatcher sourceOcDispatcher = new OcDispatcher();
+			OcConsumer consumer = new OcConsumer();
+			var testing = source.CollectionDispatching<Item>(
+				destinationOcDispatcher,
+				sourceOcDispatcher,
+				destinationOcDispatcherPriority).For(consumer);
+
+			Assert.AreEqual(source, testing.Source);
+			Assert.AreEqual(destinationOcDispatcher, testing.DestinationOcDispatcher);
+			Assert.AreEqual(sourceOcDispatcher, testing.SourceOcDispatcher);
+			Assert.AreEqual(destinationOcDispatcherPriority, testing.DestinationOcDispatcherPriority);
+
+			void test()
+			{
+				testing.ValidateConsistency();
+				var sourceValue = ((ObservableCollection<Item>)((System.Collections.Specialized.INotifyCollectionChanged)source));
+
+				if (sourceValue != null)
+				{		
+					sourceValue.Insert(2, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					sourceValue[3] = new QuickTests.Item(7, true);
+					testing.ValidateConsistency();
+					sourceValue.RemoveAt(3);
+					testing.ValidateConsistency();
+					sourceValue.Move(1, 3);
+					testing.ValidateConsistency();
+					sourceValue[2].Active = !sourceValue[2].Active;
+					testing.ValidateConsistency();
+					sourceValue[2].Num = sourceValue[2].Num + 1;
+					testing.ValidateConsistency();
+					sourceValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceValue.RemoveAt(1);
+					testing.ValidateConsistency();
+					sourceValue.Insert(0, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					sourceValue.Insert(0, new QuickTests.Item(2, true));
+					testing.ValidateConsistency();
+				}
+
+				IList listSource;
+				listSource = ((IList)((System.Collections.Specialized.INotifyCollectionChanged)source));
+				if (listSource != null)
+				{
+					listSource.Clear();
+					testing.ValidateConsistency();
+				}
+
+				if (sourceValue != null)
+				{
+					sourceValue.Insert(0, new QuickTests.Item(1, true));
+					sourceValue.Insert(1, new QuickTests.Item(2, true));
+					sourceValue.Insert(2, new QuickTests.Item(3, true));
+					sourceValue.Insert(3, new QuickTests.Item(3, true));
+					sourceValue.Insert(4, new QuickTests.Item(3, true));
+					testing.ValidateConsistency();
+				}
+				testing.ValidateConsistency();
+			}
+
+			test();
+			consumer.Dispose();
+			((OcDispatcher)destinationOcDispatcher).Dispose();
+			((OcDispatcher)sourceOcDispatcher).Dispose();
+		}
+		
+		[Test, Combinatorial]
+		public void TestCollectionDispatching07()
+		{
+			System.Collections.Specialized.INotifyCollectionChanged source = getItems();
+			ObservableComputations.IOcDispatcher destinationOcDispatcher = new OcDispatcher();
+			ObservableComputations.IOcDispatcher sourceOcDispatcher = new OcDispatcher();
+			object destinationOcDispatcherParameter = new object();
+			object sourceOcDispatcherParameter = new object();
+			OcConsumer consumer = new OcConsumer();
+			var testing = source.CollectionDispatching<Item>(
+				destinationOcDispatcher,
+				sourceOcDispatcher,
+				destinationOcDispatcherParameter,
+				sourceOcDispatcherParameter).For(consumer);
+
+			Assert.AreEqual(source, testing.Source);
+			Assert.AreEqual(destinationOcDispatcher, testing.DestinationOcDispatcher);
+			Assert.AreEqual(sourceOcDispatcher, testing.SourceOcDispatcher);
+			Assert.AreEqual(destinationOcDispatcherParameter, testing.DestinationOcDispatcherParameter);
+			Assert.AreEqual(sourceOcDispatcherParameter, testing.SourceOcDispatcherParameter);
+
+			void test()
+			{
+				testing.ValidateConsistency();
+				var sourceValue = ((ObservableCollection<Item>)((System.Collections.Specialized.INotifyCollectionChanged)source));
+
+				if (sourceValue != null)
+				{		
+					sourceValue.Insert(2, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					sourceValue[3] = new QuickTests.Item(7, true);
+					testing.ValidateConsistency();
+					sourceValue.RemoveAt(3);
+					testing.ValidateConsistency();
+					sourceValue.Move(1, 3);
+					testing.ValidateConsistency();
+					sourceValue[2].Active = !sourceValue[2].Active;
+					testing.ValidateConsistency();
+					sourceValue[2].Num = sourceValue[2].Num + 1;
+					testing.ValidateConsistency();
+					sourceValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceValue.RemoveAt(1);
+					testing.ValidateConsistency();
+					sourceValue.Insert(0, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					sourceValue.Insert(0, new QuickTests.Item(2, true));
+					testing.ValidateConsistency();
+				}
+
+				IList listSource;
+				listSource = ((IList)((System.Collections.Specialized.INotifyCollectionChanged)source));
+				if (listSource != null)
+				{
+					listSource.Clear();
+					testing.ValidateConsistency();
+				}
+
+				if (sourceValue != null)
+				{
+					sourceValue.Insert(0, new QuickTests.Item(1, true));
+					sourceValue.Insert(1, new QuickTests.Item(2, true));
+					sourceValue.Insert(2, new QuickTests.Item(3, true));
+					sourceValue.Insert(3, new QuickTests.Item(3, true));
+					sourceValue.Insert(4, new QuickTests.Item(3, true));
+					testing.ValidateConsistency();
+				}
+				testing.ValidateConsistency();
+			}
+
+			test();
+			consumer.Dispose();
+			((OcDispatcher)destinationOcDispatcher).Dispose();
+			((OcDispatcher)sourceOcDispatcher).Dispose();
+		}
+		
+		[Test, Combinatorial]
+		public void TestCollectionDispatching08()
+		{
+			System.Collections.Specialized.INotifyCollectionChanged source = getItems();
+			ObservableComputations.IOcDispatcher destinationOcDispatcher = new OcDispatcher();
+			ObservableComputations.IOcDispatcher sourceOcDispatcher = new OcDispatcher();
+			object destinationOcDispatcherParameter = new object();
+			OcConsumer consumer = new OcConsumer();
+			var testing = source.CollectionDispatching<Item>(
+				destinationOcDispatcher,
+				sourceOcDispatcher,
+				destinationOcDispatcherParameter).For(consumer);
+
+			Assert.AreEqual(source, testing.Source);
+			Assert.AreEqual(destinationOcDispatcher, testing.DestinationOcDispatcher);
+			Assert.AreEqual(sourceOcDispatcher, testing.SourceOcDispatcher);
+			Assert.AreEqual(destinationOcDispatcherParameter, testing.DestinationOcDispatcherParameter);
+
+			void test()
+			{
+				testing.ValidateConsistency();
+				var sourceValue = ((ObservableCollection<Item>)((System.Collections.Specialized.INotifyCollectionChanged)source));
+
+				if (sourceValue != null)
+				{		
+					sourceValue.Insert(2, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					sourceValue[3] = new QuickTests.Item(7, true);
+					testing.ValidateConsistency();
+					sourceValue.RemoveAt(3);
+					testing.ValidateConsistency();
+					sourceValue.Move(1, 3);
+					testing.ValidateConsistency();
+					sourceValue[2].Active = !sourceValue[2].Active;
+					testing.ValidateConsistency();
+					sourceValue[2].Num = sourceValue[2].Num + 1;
+					testing.ValidateConsistency();
+					sourceValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceValue.RemoveAt(1);
+					testing.ValidateConsistency();
+					sourceValue.Insert(0, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					sourceValue.Insert(0, new QuickTests.Item(2, true));
+					testing.ValidateConsistency();
+				}
+
+				IList listSource;
+				listSource = ((IList)((System.Collections.Specialized.INotifyCollectionChanged)source));
+				if (listSource != null)
+				{
+					listSource.Clear();
+					testing.ValidateConsistency();
+				}
+
+				if (sourceValue != null)
+				{
+					sourceValue.Insert(0, new QuickTests.Item(1, true));
+					sourceValue.Insert(1, new QuickTests.Item(2, true));
+					sourceValue.Insert(2, new QuickTests.Item(3, true));
+					sourceValue.Insert(3, new QuickTests.Item(3, true));
+					sourceValue.Insert(4, new QuickTests.Item(3, true));
+					testing.ValidateConsistency();
+				}
+				testing.ValidateConsistency();
+			}
+
+			test();
+			consumer.Dispose();
+			((OcDispatcher)destinationOcDispatcher).Dispose();
+			((OcDispatcher)sourceOcDispatcher).Dispose();
+		}
+		
+		[Test, Combinatorial]
+		public void TestCollectionDispatching09()
+		{
+			System.Collections.Specialized.INotifyCollectionChanged source = getItems();
+			ObservableComputations.IOcDispatcher destinationOcDispatcher = new OcDispatcher();
+			ObservableComputations.IOcDispatcher sourceOcDispatcher = new OcDispatcher();
+			OcConsumer consumer = new OcConsumer();
+			var testing = source.CollectionDispatching<Item>(
+				destinationOcDispatcher,
+				sourceOcDispatcher).For(consumer);
+
+			Assert.AreEqual(source, testing.Source);
+			Assert.AreEqual(destinationOcDispatcher, testing.DestinationOcDispatcher);
+			Assert.AreEqual(sourceOcDispatcher, testing.SourceOcDispatcher);
+
+			void test()
+			{
+				testing.ValidateConsistency();
+				var sourceValue = ((ObservableCollection<Item>)((System.Collections.Specialized.INotifyCollectionChanged)source));
+
+				if (sourceValue != null)
+				{		
+					sourceValue.Insert(2, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					sourceValue[3] = new QuickTests.Item(7, true);
+					testing.ValidateConsistency();
+					sourceValue.RemoveAt(3);
+					testing.ValidateConsistency();
+					sourceValue.Move(1, 3);
+					testing.ValidateConsistency();
+					sourceValue[2].Active = !sourceValue[2].Active;
+					testing.ValidateConsistency();
+					sourceValue[2].Num = sourceValue[2].Num + 1;
+					testing.ValidateConsistency();
+					sourceValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceValue.RemoveAt(1);
+					testing.ValidateConsistency();
+					sourceValue.Insert(0, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					sourceValue.Insert(0, new QuickTests.Item(2, true));
+					testing.ValidateConsistency();
+				}
+
+				IList listSource;
+				listSource = ((IList)((System.Collections.Specialized.INotifyCollectionChanged)source));
+				if (listSource != null)
+				{
+					listSource.Clear();
+					testing.ValidateConsistency();
+				}
+
+				if (sourceValue != null)
+				{
+					sourceValue.Insert(0, new QuickTests.Item(1, true));
+					sourceValue.Insert(1, new QuickTests.Item(2, true));
+					sourceValue.Insert(2, new QuickTests.Item(3, true));
+					sourceValue.Insert(3, new QuickTests.Item(3, true));
+					sourceValue.Insert(4, new QuickTests.Item(3, true));
+					testing.ValidateConsistency();
+				}
+				testing.ValidateConsistency();
+			}
+
+			test();
+			consumer.Dispose();
+			((OcDispatcher)destinationOcDispatcher).Dispose();
+			((OcDispatcher)sourceOcDispatcher).Dispose();
+		}
+		
+		[Test, Combinatorial]
+		public void TestCollectionDispatching10(
+			[Values()] int destinationOcDispatcherPriority,
+			[Values()] int sourceOcDispatcherPriority)
+		{
+			System.Collections.Specialized.INotifyCollectionChanged source = getItems();
+			ObservableComputations.IOcDispatcher destinationOcDispatcher = new OcDispatcher();
+			object destinationOcDispatcherParameter = new object();
+			object sourceOcDispatcherParameter = new object();
+			OcConsumer consumer = new OcConsumer();
+			var testing = source.CollectionDispatching<Item>(
+				destinationOcDispatcher,
+				destinationOcDispatcherPriority,
+				sourceOcDispatcherPriority,
+				destinationOcDispatcherParameter,
+				sourceOcDispatcherParameter).For(consumer);
+
+			Assert.AreEqual(source, testing.Source);
+			Assert.AreEqual(destinationOcDispatcher, testing.DestinationOcDispatcher);
+			Assert.AreEqual(destinationOcDispatcherPriority, testing.DestinationOcDispatcherPriority);
+			Assert.AreEqual(sourceOcDispatcherPriority, testing.SourceOcDispatcherPriority);
+			Assert.AreEqual(destinationOcDispatcherParameter, testing.DestinationOcDispatcherParameter);
+			Assert.AreEqual(sourceOcDispatcherParameter, testing.SourceOcDispatcherParameter);
+
+			void test()
+			{
+				testing.ValidateConsistency();
+				var sourceValue = ((ObservableCollection<Item>)((System.Collections.Specialized.INotifyCollectionChanged)source));
+
+				if (sourceValue != null)
+				{		
+					sourceValue.Insert(2, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					sourceValue[3] = new QuickTests.Item(7, true);
+					testing.ValidateConsistency();
+					sourceValue.RemoveAt(3);
+					testing.ValidateConsistency();
+					sourceValue.Move(1, 3);
+					testing.ValidateConsistency();
+					sourceValue[2].Active = !sourceValue[2].Active;
+					testing.ValidateConsistency();
+					sourceValue[2].Num = sourceValue[2].Num + 1;
+					testing.ValidateConsistency();
+					sourceValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceValue.RemoveAt(1);
+					testing.ValidateConsistency();
+					sourceValue.Insert(0, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					sourceValue.Insert(0, new QuickTests.Item(2, true));
+					testing.ValidateConsistency();
+				}
+
+				IList listSource;
+				listSource = ((IList)((System.Collections.Specialized.INotifyCollectionChanged)source));
+				if (listSource != null)
+				{
+					listSource.Clear();
+					testing.ValidateConsistency();
+				}
+
+				if (sourceValue != null)
+				{
+					sourceValue.Insert(0, new QuickTests.Item(1, true));
+					sourceValue.Insert(1, new QuickTests.Item(2, true));
+					sourceValue.Insert(2, new QuickTests.Item(3, true));
+					sourceValue.Insert(3, new QuickTests.Item(3, true));
+					sourceValue.Insert(4, new QuickTests.Item(3, true));
+					testing.ValidateConsistency();
+				}
+				testing.ValidateConsistency();
+			}
+
+			test();
+			consumer.Dispose();
+			((OcDispatcher)destinationOcDispatcher).Dispose();
+		}
+		
+		[Test, Combinatorial]
+		public void TestCollectionDispatching11(
+			[Values()] int destinationOcDispatcherPriority,
+			[Values()] int sourceOcDispatcherPriority)
+		{
+			System.Collections.Specialized.INotifyCollectionChanged source = getItems();
+			ObservableComputations.IOcDispatcher destinationOcDispatcher = new OcDispatcher();
+			object destinationOcDispatcherParameter = new object();
+			OcConsumer consumer = new OcConsumer();
+			var testing = source.CollectionDispatching<Item>(
+				destinationOcDispatcher,
+				destinationOcDispatcherPriority,
+				sourceOcDispatcherPriority,
+				destinationOcDispatcherParameter).For(consumer);
+
+			Assert.AreEqual(source, testing.Source);
+			Assert.AreEqual(destinationOcDispatcher, testing.DestinationOcDispatcher);
+			Assert.AreEqual(destinationOcDispatcherPriority, testing.DestinationOcDispatcherPriority);
+			Assert.AreEqual(sourceOcDispatcherPriority, testing.SourceOcDispatcherPriority);
+			Assert.AreEqual(destinationOcDispatcherParameter, testing.DestinationOcDispatcherParameter);
+
+			void test()
+			{
+				testing.ValidateConsistency();
+				var sourceValue = ((ObservableCollection<Item>)((System.Collections.Specialized.INotifyCollectionChanged)source));
+
+				if (sourceValue != null)
+				{		
+					sourceValue.Insert(2, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					sourceValue[3] = new QuickTests.Item(7, true);
+					testing.ValidateConsistency();
+					sourceValue.RemoveAt(3);
+					testing.ValidateConsistency();
+					sourceValue.Move(1, 3);
+					testing.ValidateConsistency();
+					sourceValue[2].Active = !sourceValue[2].Active;
+					testing.ValidateConsistency();
+					sourceValue[2].Num = sourceValue[2].Num + 1;
+					testing.ValidateConsistency();
+					sourceValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceValue.RemoveAt(1);
+					testing.ValidateConsistency();
+					sourceValue.Insert(0, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					sourceValue.Insert(0, new QuickTests.Item(2, true));
+					testing.ValidateConsistency();
+				}
+
+				IList listSource;
+				listSource = ((IList)((System.Collections.Specialized.INotifyCollectionChanged)source));
+				if (listSource != null)
+				{
+					listSource.Clear();
+					testing.ValidateConsistency();
+				}
+
+				if (sourceValue != null)
+				{
+					sourceValue.Insert(0, new QuickTests.Item(1, true));
+					sourceValue.Insert(1, new QuickTests.Item(2, true));
+					sourceValue.Insert(2, new QuickTests.Item(3, true));
+					sourceValue.Insert(3, new QuickTests.Item(3, true));
+					sourceValue.Insert(4, new QuickTests.Item(3, true));
+					testing.ValidateConsistency();
+				}
+				testing.ValidateConsistency();
+			}
+
+			test();
+			consumer.Dispose();
+			((OcDispatcher)destinationOcDispatcher).Dispose();
+		}
+		
+		[Test, Combinatorial]
+		public void TestCollectionDispatching12(
+			[Values()] int destinationOcDispatcherPriority,
+			[Values()] int sourceOcDispatcherPriority)
+		{
+			System.Collections.Specialized.INotifyCollectionChanged source = getItems();
+			ObservableComputations.IOcDispatcher destinationOcDispatcher = new OcDispatcher();
+			OcConsumer consumer = new OcConsumer();
+			var testing = source.CollectionDispatching<Item>(
+				destinationOcDispatcher,
+				destinationOcDispatcherPriority,
+				sourceOcDispatcherPriority).For(consumer);
+
+			Assert.AreEqual(source, testing.Source);
+			Assert.AreEqual(destinationOcDispatcher, testing.DestinationOcDispatcher);
+			Assert.AreEqual(destinationOcDispatcherPriority, testing.DestinationOcDispatcherPriority);
+			Assert.AreEqual(sourceOcDispatcherPriority, testing.SourceOcDispatcherPriority);
+
+			void test()
+			{
+				testing.ValidateConsistency();
+				var sourceValue = ((ObservableCollection<Item>)((System.Collections.Specialized.INotifyCollectionChanged)source));
+
+				if (sourceValue != null)
+				{		
+					sourceValue.Insert(2, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					sourceValue[3] = new QuickTests.Item(7, true);
+					testing.ValidateConsistency();
+					sourceValue.RemoveAt(3);
+					testing.ValidateConsistency();
+					sourceValue.Move(1, 3);
+					testing.ValidateConsistency();
+					sourceValue[2].Active = !sourceValue[2].Active;
+					testing.ValidateConsistency();
+					sourceValue[2].Num = sourceValue[2].Num + 1;
+					testing.ValidateConsistency();
+					sourceValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceValue.RemoveAt(1);
+					testing.ValidateConsistency();
+					sourceValue.Insert(0, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					sourceValue.Insert(0, new QuickTests.Item(2, true));
+					testing.ValidateConsistency();
+				}
+
+				IList listSource;
+				listSource = ((IList)((System.Collections.Specialized.INotifyCollectionChanged)source));
+				if (listSource != null)
+				{
+					listSource.Clear();
+					testing.ValidateConsistency();
+				}
+
+				if (sourceValue != null)
+				{
+					sourceValue.Insert(0, new QuickTests.Item(1, true));
+					sourceValue.Insert(1, new QuickTests.Item(2, true));
+					sourceValue.Insert(2, new QuickTests.Item(3, true));
+					sourceValue.Insert(3, new QuickTests.Item(3, true));
+					sourceValue.Insert(4, new QuickTests.Item(3, true));
+					testing.ValidateConsistency();
+				}
+				testing.ValidateConsistency();
+			}
+
+			test();
+			consumer.Dispose();
+			((OcDispatcher)destinationOcDispatcher).Dispose();
+		}
+		
+		[Test, Combinatorial]
+		public void TestCollectionDispatching13(
+			[Values()] int destinationOcDispatcherPriority)
+		{
+			System.Collections.Specialized.INotifyCollectionChanged source = getItems();
+			ObservableComputations.IOcDispatcher destinationOcDispatcher = new OcDispatcher();
+			object destinationOcDispatcherParameter = new object();
+			object sourceOcDispatcherParameter = new object();
+			OcConsumer consumer = new OcConsumer();
+			var testing = source.CollectionDispatching<Item>(
+				destinationOcDispatcher,
+				destinationOcDispatcherPriority,
+				destinationOcDispatcherParameter,
+				sourceOcDispatcherParameter).For(consumer);
+
+			Assert.AreEqual(source, testing.Source);
+			Assert.AreEqual(destinationOcDispatcher, testing.DestinationOcDispatcher);
+			Assert.AreEqual(destinationOcDispatcherPriority, testing.DestinationOcDispatcherPriority);
+			Assert.AreEqual(destinationOcDispatcherParameter, testing.DestinationOcDispatcherParameter);
+			Assert.AreEqual(sourceOcDispatcherParameter, testing.SourceOcDispatcherParameter);
+
+			void test()
+			{
+				testing.ValidateConsistency();
+				var sourceValue = ((ObservableCollection<Item>)((System.Collections.Specialized.INotifyCollectionChanged)source));
+
+				if (sourceValue != null)
+				{		
+					sourceValue.Insert(2, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					sourceValue[3] = new QuickTests.Item(7, true);
+					testing.ValidateConsistency();
+					sourceValue.RemoveAt(3);
+					testing.ValidateConsistency();
+					sourceValue.Move(1, 3);
+					testing.ValidateConsistency();
+					sourceValue[2].Active = !sourceValue[2].Active;
+					testing.ValidateConsistency();
+					sourceValue[2].Num = sourceValue[2].Num + 1;
+					testing.ValidateConsistency();
+					sourceValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceValue.RemoveAt(1);
+					testing.ValidateConsistency();
+					sourceValue.Insert(0, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					sourceValue.Insert(0, new QuickTests.Item(2, true));
+					testing.ValidateConsistency();
+				}
+
+				IList listSource;
+				listSource = ((IList)((System.Collections.Specialized.INotifyCollectionChanged)source));
+				if (listSource != null)
+				{
+					listSource.Clear();
+					testing.ValidateConsistency();
+				}
+
+				if (sourceValue != null)
+				{
+					sourceValue.Insert(0, new QuickTests.Item(1, true));
+					sourceValue.Insert(1, new QuickTests.Item(2, true));
+					sourceValue.Insert(2, new QuickTests.Item(3, true));
+					sourceValue.Insert(3, new QuickTests.Item(3, true));
+					sourceValue.Insert(4, new QuickTests.Item(3, true));
+					testing.ValidateConsistency();
+				}
+				testing.ValidateConsistency();
+			}
+
+			test();
+			consumer.Dispose();
+			((OcDispatcher)destinationOcDispatcher).Dispose();
+		}
+		
+		[Test, Combinatorial]
+		public void TestCollectionDispatching14(
+			[Values()] int destinationOcDispatcherPriority)
+		{
+			System.Collections.Specialized.INotifyCollectionChanged source = getItems();
+			ObservableComputations.IOcDispatcher destinationOcDispatcher = new OcDispatcher();
+			object destinationOcDispatcherParameter = new object();
+			OcConsumer consumer = new OcConsumer();
+			var testing = source.CollectionDispatching<Item>(
+				destinationOcDispatcher,
+				destinationOcDispatcherPriority,
+				destinationOcDispatcherParameter).For(consumer);
+
+			Assert.AreEqual(source, testing.Source);
+			Assert.AreEqual(destinationOcDispatcher, testing.DestinationOcDispatcher);
+			Assert.AreEqual(destinationOcDispatcherPriority, testing.DestinationOcDispatcherPriority);
+			Assert.AreEqual(destinationOcDispatcherParameter, testing.DestinationOcDispatcherParameter);
+
+			void test()
+			{
+				testing.ValidateConsistency();
+				var sourceValue = ((ObservableCollection<Item>)((System.Collections.Specialized.INotifyCollectionChanged)source));
+
+				if (sourceValue != null)
+				{		
+					sourceValue.Insert(2, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					sourceValue[3] = new QuickTests.Item(7, true);
+					testing.ValidateConsistency();
+					sourceValue.RemoveAt(3);
+					testing.ValidateConsistency();
+					sourceValue.Move(1, 3);
+					testing.ValidateConsistency();
+					sourceValue[2].Active = !sourceValue[2].Active;
+					testing.ValidateConsistency();
+					sourceValue[2].Num = sourceValue[2].Num + 1;
+					testing.ValidateConsistency();
+					sourceValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceValue.RemoveAt(1);
+					testing.ValidateConsistency();
+					sourceValue.Insert(0, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					sourceValue.Insert(0, new QuickTests.Item(2, true));
+					testing.ValidateConsistency();
+				}
+
+				IList listSource;
+				listSource = ((IList)((System.Collections.Specialized.INotifyCollectionChanged)source));
+				if (listSource != null)
+				{
+					listSource.Clear();
+					testing.ValidateConsistency();
+				}
+
+				if (sourceValue != null)
+				{
+					sourceValue.Insert(0, new QuickTests.Item(1, true));
+					sourceValue.Insert(1, new QuickTests.Item(2, true));
+					sourceValue.Insert(2, new QuickTests.Item(3, true));
+					sourceValue.Insert(3, new QuickTests.Item(3, true));
+					sourceValue.Insert(4, new QuickTests.Item(3, true));
+					testing.ValidateConsistency();
+				}
+				testing.ValidateConsistency();
+			}
+
+			test();
+			consumer.Dispose();
+			((OcDispatcher)destinationOcDispatcher).Dispose();
+		}
+		
+		[Test, Combinatorial]
+		public void TestCollectionDispatching15(
+			[Values()] int destinationOcDispatcherPriority)
+		{
+			System.Collections.Specialized.INotifyCollectionChanged source = getItems();
+			ObservableComputations.IOcDispatcher destinationOcDispatcher = new OcDispatcher();
+			OcConsumer consumer = new OcConsumer();
+			var testing = source.CollectionDispatching<Item>(
+				destinationOcDispatcher,
+				destinationOcDispatcherPriority).For(consumer);
+
+			Assert.AreEqual(source, testing.Source);
+			Assert.AreEqual(destinationOcDispatcher, testing.DestinationOcDispatcher);
+			Assert.AreEqual(destinationOcDispatcherPriority, testing.DestinationOcDispatcherPriority);
+
+			void test()
+			{
+				testing.ValidateConsistency();
+				var sourceValue = ((ObservableCollection<Item>)((System.Collections.Specialized.INotifyCollectionChanged)source));
+
+				if (sourceValue != null)
+				{		
+					sourceValue.Insert(2, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					sourceValue[3] = new QuickTests.Item(7, true);
+					testing.ValidateConsistency();
+					sourceValue.RemoveAt(3);
+					testing.ValidateConsistency();
+					sourceValue.Move(1, 3);
+					testing.ValidateConsistency();
+					sourceValue[2].Active = !sourceValue[2].Active;
+					testing.ValidateConsistency();
+					sourceValue[2].Num = sourceValue[2].Num + 1;
+					testing.ValidateConsistency();
+					sourceValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceValue.RemoveAt(1);
+					testing.ValidateConsistency();
+					sourceValue.Insert(0, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					sourceValue.Insert(0, new QuickTests.Item(2, true));
+					testing.ValidateConsistency();
+				}
+
+				IList listSource;
+				listSource = ((IList)((System.Collections.Specialized.INotifyCollectionChanged)source));
+				if (listSource != null)
+				{
+					listSource.Clear();
+					testing.ValidateConsistency();
+				}
+
+				if (sourceValue != null)
+				{
+					sourceValue.Insert(0, new QuickTests.Item(1, true));
+					sourceValue.Insert(1, new QuickTests.Item(2, true));
+					sourceValue.Insert(2, new QuickTests.Item(3, true));
+					sourceValue.Insert(3, new QuickTests.Item(3, true));
+					sourceValue.Insert(4, new QuickTests.Item(3, true));
+					testing.ValidateConsistency();
+				}
+				testing.ValidateConsistency();
+			}
+
+			test();
+			consumer.Dispose();
+			((OcDispatcher)destinationOcDispatcher).Dispose();
+		}
+		
+		[Test, Combinatorial]
+		public void TestCollectionDispatching16()
+		{
+			System.Collections.Specialized.INotifyCollectionChanged source = getItems();
+			ObservableComputations.IOcDispatcher destinationOcDispatcher = new OcDispatcher();
+			object destinationOcDispatcherParameter = new object();
+			object sourceOcDispatcherParameter = new object();
+			OcConsumer consumer = new OcConsumer();
+			var testing = source.CollectionDispatching<Item>(
+				destinationOcDispatcher,
+				destinationOcDispatcherParameter,
+				sourceOcDispatcherParameter).For(consumer);
+
+			Assert.AreEqual(source, testing.Source);
+			Assert.AreEqual(destinationOcDispatcher, testing.DestinationOcDispatcher);
+			Assert.AreEqual(destinationOcDispatcherParameter, testing.DestinationOcDispatcherParameter);
+			Assert.AreEqual(sourceOcDispatcherParameter, testing.SourceOcDispatcherParameter);
+
+			void test()
+			{
+				testing.ValidateConsistency();
+				var sourceValue = ((ObservableCollection<Item>)((System.Collections.Specialized.INotifyCollectionChanged)source));
+
+				if (sourceValue != null)
+				{		
+					sourceValue.Insert(2, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					sourceValue[3] = new QuickTests.Item(7, true);
+					testing.ValidateConsistency();
+					sourceValue.RemoveAt(3);
+					testing.ValidateConsistency();
+					sourceValue.Move(1, 3);
+					testing.ValidateConsistency();
+					sourceValue[2].Active = !sourceValue[2].Active;
+					testing.ValidateConsistency();
+					sourceValue[2].Num = sourceValue[2].Num + 1;
+					testing.ValidateConsistency();
+					sourceValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceValue.RemoveAt(1);
+					testing.ValidateConsistency();
+					sourceValue.Insert(0, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					sourceValue.Insert(0, new QuickTests.Item(2, true));
+					testing.ValidateConsistency();
+				}
+
+				IList listSource;
+				listSource = ((IList)((System.Collections.Specialized.INotifyCollectionChanged)source));
+				if (listSource != null)
+				{
+					listSource.Clear();
+					testing.ValidateConsistency();
+				}
+
+				if (sourceValue != null)
+				{
+					sourceValue.Insert(0, new QuickTests.Item(1, true));
+					sourceValue.Insert(1, new QuickTests.Item(2, true));
+					sourceValue.Insert(2, new QuickTests.Item(3, true));
+					sourceValue.Insert(3, new QuickTests.Item(3, true));
+					sourceValue.Insert(4, new QuickTests.Item(3, true));
+					testing.ValidateConsistency();
+				}
+				testing.ValidateConsistency();
+			}
+
+			test();
+			consumer.Dispose();
+			((OcDispatcher)destinationOcDispatcher).Dispose();
+		}
+		
+		[Test, Combinatorial]
+		public void TestCollectionDispatching17()
+		{
+			System.Collections.Specialized.INotifyCollectionChanged source = getItems();
+			ObservableComputations.IOcDispatcher destinationOcDispatcher = new OcDispatcher();
+			object destinationOcDispatcherParameter = new object();
+			OcConsumer consumer = new OcConsumer();
+			var testing = source.CollectionDispatching<Item>(
+				destinationOcDispatcher,
+				destinationOcDispatcherParameter).For(consumer);
+
+			Assert.AreEqual(source, testing.Source);
+			Assert.AreEqual(destinationOcDispatcher, testing.DestinationOcDispatcher);
+			Assert.AreEqual(destinationOcDispatcherParameter, testing.DestinationOcDispatcherParameter);
+
+			void test()
+			{
+				testing.ValidateConsistency();
+				var sourceValue = ((ObservableCollection<Item>)((System.Collections.Specialized.INotifyCollectionChanged)source));
+
+				if (sourceValue != null)
+				{		
+					sourceValue.Insert(2, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					sourceValue[3] = new QuickTests.Item(7, true);
+					testing.ValidateConsistency();
+					sourceValue.RemoveAt(3);
+					testing.ValidateConsistency();
+					sourceValue.Move(1, 3);
+					testing.ValidateConsistency();
+					sourceValue[2].Active = !sourceValue[2].Active;
+					testing.ValidateConsistency();
+					sourceValue[2].Num = sourceValue[2].Num + 1;
+					testing.ValidateConsistency();
+					sourceValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceValue.RemoveAt(1);
+					testing.ValidateConsistency();
+					sourceValue.Insert(0, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					sourceValue.Insert(0, new QuickTests.Item(2, true));
+					testing.ValidateConsistency();
+				}
+
+				IList listSource;
+				listSource = ((IList)((System.Collections.Specialized.INotifyCollectionChanged)source));
+				if (listSource != null)
+				{
+					listSource.Clear();
+					testing.ValidateConsistency();
+				}
+
+				if (sourceValue != null)
+				{
+					sourceValue.Insert(0, new QuickTests.Item(1, true));
+					sourceValue.Insert(1, new QuickTests.Item(2, true));
+					sourceValue.Insert(2, new QuickTests.Item(3, true));
+					sourceValue.Insert(3, new QuickTests.Item(3, true));
+					sourceValue.Insert(4, new QuickTests.Item(3, true));
+					testing.ValidateConsistency();
+				}
+				testing.ValidateConsistency();
+			}
+
+			test();
+			consumer.Dispose();
+			((OcDispatcher)destinationOcDispatcher).Dispose();
+		}
+		
+		[Test, Combinatorial]
+		public void TestCollectionDispatching18()
+		{
+			System.Collections.Specialized.INotifyCollectionChanged source = getItems();
+			ObservableComputations.IOcDispatcher destinationOcDispatcher = new OcDispatcher();
+			OcConsumer consumer = new OcConsumer();
+			var testing = source.CollectionDispatching<Item>(
+				destinationOcDispatcher).For(consumer);
+
+			Assert.AreEqual(source, testing.Source);
+			Assert.AreEqual(destinationOcDispatcher, testing.DestinationOcDispatcher);
+
+			void test()
+			{
+				testing.ValidateConsistency();
+				var sourceValue = ((ObservableCollection<Item>)((System.Collections.Specialized.INotifyCollectionChanged)source));
+
+				if (sourceValue != null)
+				{		
+					sourceValue.Insert(2, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					sourceValue[3] = new QuickTests.Item(7, true);
+					testing.ValidateConsistency();
+					sourceValue.RemoveAt(3);
+					testing.ValidateConsistency();
+					sourceValue.Move(1, 3);
+					testing.ValidateConsistency();
+					sourceValue[2].Active = !sourceValue[2].Active;
+					testing.ValidateConsistency();
+					sourceValue[2].Num = sourceValue[2].Num + 1;
+					testing.ValidateConsistency();
+					sourceValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceValue.RemoveAt(1);
+					testing.ValidateConsistency();
+					sourceValue.Insert(0, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					sourceValue.Insert(0, new QuickTests.Item(2, true));
+					testing.ValidateConsistency();
+				}
+
+				IList listSource;
+				listSource = ((IList)((System.Collections.Specialized.INotifyCollectionChanged)source));
+				if (listSource != null)
+				{
+					listSource.Clear();
+					testing.ValidateConsistency();
+				}
+
+				if (sourceValue != null)
+				{
+					sourceValue.Insert(0, new QuickTests.Item(1, true));
+					sourceValue.Insert(1, new QuickTests.Item(2, true));
+					sourceValue.Insert(2, new QuickTests.Item(3, true));
+					sourceValue.Insert(3, new QuickTests.Item(3, true));
+					sourceValue.Insert(4, new QuickTests.Item(3, true));
+					testing.ValidateConsistency();
+				}
+				testing.ValidateConsistency();
+			}
+
+			test();
+			consumer.Dispose();
+			((OcDispatcher)destinationOcDispatcher).Dispose();
+		}
+		
+		[Test, Combinatorial]
+		public void TestCollectionDispatching19(
+			[Values()] int destinationOcDispatcherPriority,
+			[Values()] int sourceOcDispatcherPriority)
+		{
+			ObservableCollection<Item> source = getItems();
+			ObservableComputations.IOcDispatcher destinationOcDispatcher = new OcDispatcher();
+			ObservableComputations.IOcDispatcher sourceOcDispatcher = new OcDispatcher();
+			object destinationOcDispatcherParameter = new object();
+			object sourceOcDispatcherParameter = new object();
+			OcConsumer consumer = new OcConsumer();
+			var testing = source.CollectionDispatching<Item>(
+				destinationOcDispatcher,
+				sourceOcDispatcher,
+				destinationOcDispatcherPriority,
+				sourceOcDispatcherPriority,
+				destinationOcDispatcherParameter,
+				sourceOcDispatcherParameter).For(consumer);
+
+			Assert.AreEqual(source, testing.Source);
+			Assert.AreEqual(destinationOcDispatcher, testing.DestinationOcDispatcher);
+			Assert.AreEqual(sourceOcDispatcher, testing.SourceOcDispatcher);
+			Assert.AreEqual(destinationOcDispatcherPriority, testing.DestinationOcDispatcherPriority);
+			Assert.AreEqual(sourceOcDispatcherPriority, testing.SourceOcDispatcherPriority);
+			Assert.AreEqual(destinationOcDispatcherParameter, testing.DestinationOcDispatcherParameter);
+			Assert.AreEqual(sourceOcDispatcherParameter, testing.SourceOcDispatcherParameter);
+
+			void test()
+			{
+				testing.ValidateConsistency();
+				var sourceValue = ((ObservableCollection<Item>)((ObservableCollection<Item>)source));
+
+				if (sourceValue != null)
+				{		
+					sourceValue.Insert(2, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					sourceValue[3] = new QuickTests.Item(7, true);
+					testing.ValidateConsistency();
+					sourceValue.RemoveAt(3);
+					testing.ValidateConsistency();
+					sourceValue.Move(1, 3);
+					testing.ValidateConsistency();
+					sourceValue[2].Active = !sourceValue[2].Active;
+					testing.ValidateConsistency();
+					sourceValue[2].Num = sourceValue[2].Num + 1;
+					testing.ValidateConsistency();
+					sourceValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceValue.RemoveAt(1);
+					testing.ValidateConsistency();
+					sourceValue.Insert(0, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					sourceValue.Insert(0, new QuickTests.Item(2, true));
+					testing.ValidateConsistency();
+				}
+
+				IList listSource;
+				listSource = ((IList)((ObservableCollection<Item>)source));
+				if (listSource != null)
+				{
+					listSource.Clear();
+					testing.ValidateConsistency();
+				}
+
+				if (sourceValue != null)
+				{
+					sourceValue.Insert(0, new QuickTests.Item(1, true));
+					sourceValue.Insert(1, new QuickTests.Item(2, true));
+					sourceValue.Insert(2, new QuickTests.Item(3, true));
+					sourceValue.Insert(3, new QuickTests.Item(3, true));
+					sourceValue.Insert(4, new QuickTests.Item(3, true));
+					testing.ValidateConsistency();
+				}
+				testing.ValidateConsistency();
+			}
+
+			test();
+			consumer.Dispose();
+			((OcDispatcher)destinationOcDispatcher).Dispose();
+			((OcDispatcher)sourceOcDispatcher).Dispose();
+		}
+		
+		[Test, Combinatorial]
+		public void TestCollectionDispatching20(
+			[Values()] int destinationOcDispatcherPriority,
+			[Values()] int sourceOcDispatcherPriority)
+		{
+			ObservableCollection<Item> source = getItems();
+			ObservableComputations.IOcDispatcher destinationOcDispatcher = new OcDispatcher();
+			ObservableComputations.IOcDispatcher sourceOcDispatcher = new OcDispatcher();
+			object destinationOcDispatcherParameter = new object();
+			OcConsumer consumer = new OcConsumer();
+			var testing = source.CollectionDispatching<Item>(
+				destinationOcDispatcher,
+				sourceOcDispatcher,
+				destinationOcDispatcherPriority,
+				sourceOcDispatcherPriority,
+				destinationOcDispatcherParameter).For(consumer);
+
+			Assert.AreEqual(source, testing.Source);
+			Assert.AreEqual(destinationOcDispatcher, testing.DestinationOcDispatcher);
+			Assert.AreEqual(sourceOcDispatcher, testing.SourceOcDispatcher);
+			Assert.AreEqual(destinationOcDispatcherPriority, testing.DestinationOcDispatcherPriority);
+			Assert.AreEqual(sourceOcDispatcherPriority, testing.SourceOcDispatcherPriority);
+			Assert.AreEqual(destinationOcDispatcherParameter, testing.DestinationOcDispatcherParameter);
+
+			void test()
+			{
+				testing.ValidateConsistency();
+				var sourceValue = ((ObservableCollection<Item>)((ObservableCollection<Item>)source));
+
+				if (sourceValue != null)
+				{		
+					sourceValue.Insert(2, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					sourceValue[3] = new QuickTests.Item(7, true);
+					testing.ValidateConsistency();
+					sourceValue.RemoveAt(3);
+					testing.ValidateConsistency();
+					sourceValue.Move(1, 3);
+					testing.ValidateConsistency();
+					sourceValue[2].Active = !sourceValue[2].Active;
+					testing.ValidateConsistency();
+					sourceValue[2].Num = sourceValue[2].Num + 1;
+					testing.ValidateConsistency();
+					sourceValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceValue.RemoveAt(1);
+					testing.ValidateConsistency();
+					sourceValue.Insert(0, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					sourceValue.Insert(0, new QuickTests.Item(2, true));
+					testing.ValidateConsistency();
+				}
+
+				IList listSource;
+				listSource = ((IList)((ObservableCollection<Item>)source));
+				if (listSource != null)
+				{
+					listSource.Clear();
+					testing.ValidateConsistency();
+				}
+
+				if (sourceValue != null)
+				{
+					sourceValue.Insert(0, new QuickTests.Item(1, true));
+					sourceValue.Insert(1, new QuickTests.Item(2, true));
+					sourceValue.Insert(2, new QuickTests.Item(3, true));
+					sourceValue.Insert(3, new QuickTests.Item(3, true));
+					sourceValue.Insert(4, new QuickTests.Item(3, true));
+					testing.ValidateConsistency();
+				}
+				testing.ValidateConsistency();
+			}
+
+			test();
+			consumer.Dispose();
+			((OcDispatcher)destinationOcDispatcher).Dispose();
+			((OcDispatcher)sourceOcDispatcher).Dispose();
+		}
+		
+		[Test, Combinatorial]
+		public void TestCollectionDispatching21(
+			[Values()] int destinationOcDispatcherPriority,
+			[Values()] int sourceOcDispatcherPriority)
+		{
+			ObservableCollection<Item> source = getItems();
+			ObservableComputations.IOcDispatcher destinationOcDispatcher = new OcDispatcher();
+			ObservableComputations.IOcDispatcher sourceOcDispatcher = new OcDispatcher();
+			OcConsumer consumer = new OcConsumer();
+			var testing = source.CollectionDispatching<Item>(
+				destinationOcDispatcher,
+				sourceOcDispatcher,
+				destinationOcDispatcherPriority,
+				sourceOcDispatcherPriority).For(consumer);
+
+			Assert.AreEqual(source, testing.Source);
+			Assert.AreEqual(destinationOcDispatcher, testing.DestinationOcDispatcher);
+			Assert.AreEqual(sourceOcDispatcher, testing.SourceOcDispatcher);
+			Assert.AreEqual(destinationOcDispatcherPriority, testing.DestinationOcDispatcherPriority);
+			Assert.AreEqual(sourceOcDispatcherPriority, testing.SourceOcDispatcherPriority);
+
+			void test()
+			{
+				testing.ValidateConsistency();
+				var sourceValue = ((ObservableCollection<Item>)((ObservableCollection<Item>)source));
+
+				if (sourceValue != null)
+				{		
+					sourceValue.Insert(2, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					sourceValue[3] = new QuickTests.Item(7, true);
+					testing.ValidateConsistency();
+					sourceValue.RemoveAt(3);
+					testing.ValidateConsistency();
+					sourceValue.Move(1, 3);
+					testing.ValidateConsistency();
+					sourceValue[2].Active = !sourceValue[2].Active;
+					testing.ValidateConsistency();
+					sourceValue[2].Num = sourceValue[2].Num + 1;
+					testing.ValidateConsistency();
+					sourceValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceValue.RemoveAt(1);
+					testing.ValidateConsistency();
+					sourceValue.Insert(0, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					sourceValue.Insert(0, new QuickTests.Item(2, true));
+					testing.ValidateConsistency();
+				}
+
+				IList listSource;
+				listSource = ((IList)((ObservableCollection<Item>)source));
+				if (listSource != null)
+				{
+					listSource.Clear();
+					testing.ValidateConsistency();
+				}
+
+				if (sourceValue != null)
+				{
+					sourceValue.Insert(0, new QuickTests.Item(1, true));
+					sourceValue.Insert(1, new QuickTests.Item(2, true));
+					sourceValue.Insert(2, new QuickTests.Item(3, true));
+					sourceValue.Insert(3, new QuickTests.Item(3, true));
+					sourceValue.Insert(4, new QuickTests.Item(3, true));
+					testing.ValidateConsistency();
+				}
+				testing.ValidateConsistency();
+			}
+
+			test();
+			consumer.Dispose();
+			((OcDispatcher)destinationOcDispatcher).Dispose();
+			((OcDispatcher)sourceOcDispatcher).Dispose();
+		}
+		
+		[Test, Combinatorial]
+		public void TestCollectionDispatching22(
+			[Values()] int destinationOcDispatcherPriority)
+		{
+			ObservableCollection<Item> source = getItems();
+			ObservableComputations.IOcDispatcher destinationOcDispatcher = new OcDispatcher();
+			ObservableComputations.IOcDispatcher sourceOcDispatcher = new OcDispatcher();
+			object destinationOcDispatcherParameter = new object();
+			object sourceOcDispatcherParameter = new object();
+			OcConsumer consumer = new OcConsumer();
+			var testing = source.CollectionDispatching<Item>(
+				destinationOcDispatcher,
+				sourceOcDispatcher,
+				destinationOcDispatcherPriority,
+				destinationOcDispatcherParameter,
+				sourceOcDispatcherParameter).For(consumer);
+
+			Assert.AreEqual(source, testing.Source);
+			Assert.AreEqual(destinationOcDispatcher, testing.DestinationOcDispatcher);
+			Assert.AreEqual(sourceOcDispatcher, testing.SourceOcDispatcher);
+			Assert.AreEqual(destinationOcDispatcherPriority, testing.DestinationOcDispatcherPriority);
+			Assert.AreEqual(destinationOcDispatcherParameter, testing.DestinationOcDispatcherParameter);
+			Assert.AreEqual(sourceOcDispatcherParameter, testing.SourceOcDispatcherParameter);
+
+			void test()
+			{
+				testing.ValidateConsistency();
+				var sourceValue = ((ObservableCollection<Item>)((ObservableCollection<Item>)source));
+
+				if (sourceValue != null)
+				{		
+					sourceValue.Insert(2, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					sourceValue[3] = new QuickTests.Item(7, true);
+					testing.ValidateConsistency();
+					sourceValue.RemoveAt(3);
+					testing.ValidateConsistency();
+					sourceValue.Move(1, 3);
+					testing.ValidateConsistency();
+					sourceValue[2].Active = !sourceValue[2].Active;
+					testing.ValidateConsistency();
+					sourceValue[2].Num = sourceValue[2].Num + 1;
+					testing.ValidateConsistency();
+					sourceValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceValue.RemoveAt(1);
+					testing.ValidateConsistency();
+					sourceValue.Insert(0, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					sourceValue.Insert(0, new QuickTests.Item(2, true));
+					testing.ValidateConsistency();
+				}
+
+				IList listSource;
+				listSource = ((IList)((ObservableCollection<Item>)source));
+				if (listSource != null)
+				{
+					listSource.Clear();
+					testing.ValidateConsistency();
+				}
+
+				if (sourceValue != null)
+				{
+					sourceValue.Insert(0, new QuickTests.Item(1, true));
+					sourceValue.Insert(1, new QuickTests.Item(2, true));
+					sourceValue.Insert(2, new QuickTests.Item(3, true));
+					sourceValue.Insert(3, new QuickTests.Item(3, true));
+					sourceValue.Insert(4, new QuickTests.Item(3, true));
+					testing.ValidateConsistency();
+				}
+				testing.ValidateConsistency();
+			}
+
+			test();
+			consumer.Dispose();
+			((OcDispatcher)destinationOcDispatcher).Dispose();
+			((OcDispatcher)sourceOcDispatcher).Dispose();
+		}
+		
+		[Test, Combinatorial]
+		public void TestCollectionDispatching23(
+			[Values()] int destinationOcDispatcherPriority)
+		{
+			ObservableCollection<Item> source = getItems();
+			ObservableComputations.IOcDispatcher destinationOcDispatcher = new OcDispatcher();
+			ObservableComputations.IOcDispatcher sourceOcDispatcher = new OcDispatcher();
+			object destinationOcDispatcherParameter = new object();
+			OcConsumer consumer = new OcConsumer();
+			var testing = source.CollectionDispatching<Item>(
+				destinationOcDispatcher,
+				sourceOcDispatcher,
+				destinationOcDispatcherPriority,
+				destinationOcDispatcherParameter).For(consumer);
+
+			Assert.AreEqual(source, testing.Source);
+			Assert.AreEqual(destinationOcDispatcher, testing.DestinationOcDispatcher);
+			Assert.AreEqual(sourceOcDispatcher, testing.SourceOcDispatcher);
+			Assert.AreEqual(destinationOcDispatcherPriority, testing.DestinationOcDispatcherPriority);
+			Assert.AreEqual(destinationOcDispatcherParameter, testing.DestinationOcDispatcherParameter);
+
+			void test()
+			{
+				testing.ValidateConsistency();
+				var sourceValue = ((ObservableCollection<Item>)((ObservableCollection<Item>)source));
+
+				if (sourceValue != null)
+				{		
+					sourceValue.Insert(2, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					sourceValue[3] = new QuickTests.Item(7, true);
+					testing.ValidateConsistency();
+					sourceValue.RemoveAt(3);
+					testing.ValidateConsistency();
+					sourceValue.Move(1, 3);
+					testing.ValidateConsistency();
+					sourceValue[2].Active = !sourceValue[2].Active;
+					testing.ValidateConsistency();
+					sourceValue[2].Num = sourceValue[2].Num + 1;
+					testing.ValidateConsistency();
+					sourceValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceValue.RemoveAt(1);
+					testing.ValidateConsistency();
+					sourceValue.Insert(0, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					sourceValue.Insert(0, new QuickTests.Item(2, true));
+					testing.ValidateConsistency();
+				}
+
+				IList listSource;
+				listSource = ((IList)((ObservableCollection<Item>)source));
+				if (listSource != null)
+				{
+					listSource.Clear();
+					testing.ValidateConsistency();
+				}
+
+				if (sourceValue != null)
+				{
+					sourceValue.Insert(0, new QuickTests.Item(1, true));
+					sourceValue.Insert(1, new QuickTests.Item(2, true));
+					sourceValue.Insert(2, new QuickTests.Item(3, true));
+					sourceValue.Insert(3, new QuickTests.Item(3, true));
+					sourceValue.Insert(4, new QuickTests.Item(3, true));
+					testing.ValidateConsistency();
+				}
+				testing.ValidateConsistency();
+			}
+
+			test();
+			consumer.Dispose();
+			((OcDispatcher)destinationOcDispatcher).Dispose();
+			((OcDispatcher)sourceOcDispatcher).Dispose();
+		}
+		
+		[Test, Combinatorial]
+		public void TestCollectionDispatching24(
+			[Values()] int destinationOcDispatcherPriority)
+		{
+			ObservableCollection<Item> source = getItems();
+			ObservableComputations.IOcDispatcher destinationOcDispatcher = new OcDispatcher();
+			ObservableComputations.IOcDispatcher sourceOcDispatcher = new OcDispatcher();
+			OcConsumer consumer = new OcConsumer();
+			var testing = source.CollectionDispatching<Item>(
+				destinationOcDispatcher,
+				sourceOcDispatcher,
+				destinationOcDispatcherPriority).For(consumer);
+
+			Assert.AreEqual(source, testing.Source);
+			Assert.AreEqual(destinationOcDispatcher, testing.DestinationOcDispatcher);
+			Assert.AreEqual(sourceOcDispatcher, testing.SourceOcDispatcher);
+			Assert.AreEqual(destinationOcDispatcherPriority, testing.DestinationOcDispatcherPriority);
+
+			void test()
+			{
+				testing.ValidateConsistency();
+				var sourceValue = ((ObservableCollection<Item>)((ObservableCollection<Item>)source));
+
+				if (sourceValue != null)
+				{		
+					sourceValue.Insert(2, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					sourceValue[3] = new QuickTests.Item(7, true);
+					testing.ValidateConsistency();
+					sourceValue.RemoveAt(3);
+					testing.ValidateConsistency();
+					sourceValue.Move(1, 3);
+					testing.ValidateConsistency();
+					sourceValue[2].Active = !sourceValue[2].Active;
+					testing.ValidateConsistency();
+					sourceValue[2].Num = sourceValue[2].Num + 1;
+					testing.ValidateConsistency();
+					sourceValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceValue.RemoveAt(1);
+					testing.ValidateConsistency();
+					sourceValue.Insert(0, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					sourceValue.Insert(0, new QuickTests.Item(2, true));
+					testing.ValidateConsistency();
+				}
+
+				IList listSource;
+				listSource = ((IList)((ObservableCollection<Item>)source));
+				if (listSource != null)
+				{
+					listSource.Clear();
+					testing.ValidateConsistency();
+				}
+
+				if (sourceValue != null)
+				{
+					sourceValue.Insert(0, new QuickTests.Item(1, true));
+					sourceValue.Insert(1, new QuickTests.Item(2, true));
+					sourceValue.Insert(2, new QuickTests.Item(3, true));
+					sourceValue.Insert(3, new QuickTests.Item(3, true));
+					sourceValue.Insert(4, new QuickTests.Item(3, true));
+					testing.ValidateConsistency();
+				}
+				testing.ValidateConsistency();
+			}
+
+			test();
+			consumer.Dispose();
+			((OcDispatcher)destinationOcDispatcher).Dispose();
+			((OcDispatcher)sourceOcDispatcher).Dispose();
+		}
+		
+		[Test, Combinatorial]
+		public void TestCollectionDispatching25()
+		{
+			ObservableCollection<Item> source = getItems();
+			ObservableComputations.IOcDispatcher destinationOcDispatcher = new OcDispatcher();
+			ObservableComputations.IOcDispatcher sourceOcDispatcher = new OcDispatcher();
+			object destinationOcDispatcherParameter = new object();
+			object sourceOcDispatcherParameter = new object();
+			OcConsumer consumer = new OcConsumer();
+			var testing = source.CollectionDispatching<Item>(
+				destinationOcDispatcher,
+				sourceOcDispatcher,
+				destinationOcDispatcherParameter,
+				sourceOcDispatcherParameter).For(consumer);
+
+			Assert.AreEqual(source, testing.Source);
+			Assert.AreEqual(destinationOcDispatcher, testing.DestinationOcDispatcher);
+			Assert.AreEqual(sourceOcDispatcher, testing.SourceOcDispatcher);
+			Assert.AreEqual(destinationOcDispatcherParameter, testing.DestinationOcDispatcherParameter);
+			Assert.AreEqual(sourceOcDispatcherParameter, testing.SourceOcDispatcherParameter);
+
+			void test()
+			{
+				testing.ValidateConsistency();
+				var sourceValue = ((ObservableCollection<Item>)((ObservableCollection<Item>)source));
+
+				if (sourceValue != null)
+				{		
+					sourceValue.Insert(2, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					sourceValue[3] = new QuickTests.Item(7, true);
+					testing.ValidateConsistency();
+					sourceValue.RemoveAt(3);
+					testing.ValidateConsistency();
+					sourceValue.Move(1, 3);
+					testing.ValidateConsistency();
+					sourceValue[2].Active = !sourceValue[2].Active;
+					testing.ValidateConsistency();
+					sourceValue[2].Num = sourceValue[2].Num + 1;
+					testing.ValidateConsistency();
+					sourceValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceValue.RemoveAt(1);
+					testing.ValidateConsistency();
+					sourceValue.Insert(0, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					sourceValue.Insert(0, new QuickTests.Item(2, true));
+					testing.ValidateConsistency();
+				}
+
+				IList listSource;
+				listSource = ((IList)((ObservableCollection<Item>)source));
+				if (listSource != null)
+				{
+					listSource.Clear();
+					testing.ValidateConsistency();
+				}
+
+				if (sourceValue != null)
+				{
+					sourceValue.Insert(0, new QuickTests.Item(1, true));
+					sourceValue.Insert(1, new QuickTests.Item(2, true));
+					sourceValue.Insert(2, new QuickTests.Item(3, true));
+					sourceValue.Insert(3, new QuickTests.Item(3, true));
+					sourceValue.Insert(4, new QuickTests.Item(3, true));
+					testing.ValidateConsistency();
+				}
+				testing.ValidateConsistency();
+			}
+
+			test();
+			consumer.Dispose();
+			((OcDispatcher)destinationOcDispatcher).Dispose();
+			((OcDispatcher)sourceOcDispatcher).Dispose();
+		}
+		
+		[Test, Combinatorial]
+		public void TestCollectionDispatching26()
+		{
+			ObservableCollection<Item> source = getItems();
+			ObservableComputations.IOcDispatcher destinationOcDispatcher = new OcDispatcher();
+			ObservableComputations.IOcDispatcher sourceOcDispatcher = new OcDispatcher();
+			object destinationOcDispatcherParameter = new object();
+			OcConsumer consumer = new OcConsumer();
+			var testing = source.CollectionDispatching<Item>(
+				destinationOcDispatcher,
+				sourceOcDispatcher,
+				destinationOcDispatcherParameter).For(consumer);
+
+			Assert.AreEqual(source, testing.Source);
+			Assert.AreEqual(destinationOcDispatcher, testing.DestinationOcDispatcher);
+			Assert.AreEqual(sourceOcDispatcher, testing.SourceOcDispatcher);
+			Assert.AreEqual(destinationOcDispatcherParameter, testing.DestinationOcDispatcherParameter);
+
+			void test()
+			{
+				testing.ValidateConsistency();
+				var sourceValue = ((ObservableCollection<Item>)((ObservableCollection<Item>)source));
+
+				if (sourceValue != null)
+				{		
+					sourceValue.Insert(2, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					sourceValue[3] = new QuickTests.Item(7, true);
+					testing.ValidateConsistency();
+					sourceValue.RemoveAt(3);
+					testing.ValidateConsistency();
+					sourceValue.Move(1, 3);
+					testing.ValidateConsistency();
+					sourceValue[2].Active = !sourceValue[2].Active;
+					testing.ValidateConsistency();
+					sourceValue[2].Num = sourceValue[2].Num + 1;
+					testing.ValidateConsistency();
+					sourceValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceValue.RemoveAt(1);
+					testing.ValidateConsistency();
+					sourceValue.Insert(0, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					sourceValue.Insert(0, new QuickTests.Item(2, true));
+					testing.ValidateConsistency();
+				}
+
+				IList listSource;
+				listSource = ((IList)((ObservableCollection<Item>)source));
+				if (listSource != null)
+				{
+					listSource.Clear();
+					testing.ValidateConsistency();
+				}
+
+				if (sourceValue != null)
+				{
+					sourceValue.Insert(0, new QuickTests.Item(1, true));
+					sourceValue.Insert(1, new QuickTests.Item(2, true));
+					sourceValue.Insert(2, new QuickTests.Item(3, true));
+					sourceValue.Insert(3, new QuickTests.Item(3, true));
+					sourceValue.Insert(4, new QuickTests.Item(3, true));
+					testing.ValidateConsistency();
+				}
+				testing.ValidateConsistency();
+			}
+
+			test();
+			consumer.Dispose();
+			((OcDispatcher)destinationOcDispatcher).Dispose();
+			((OcDispatcher)sourceOcDispatcher).Dispose();
+		}
+		
+		[Test, Combinatorial]
+		public void TestCollectionDispatching27()
+		{
+			ObservableCollection<Item> source = getItems();
+			ObservableComputations.IOcDispatcher destinationOcDispatcher = new OcDispatcher();
+			ObservableComputations.IOcDispatcher sourceOcDispatcher = new OcDispatcher();
+			OcConsumer consumer = new OcConsumer();
+			var testing = source.CollectionDispatching<Item>(
+				destinationOcDispatcher,
+				sourceOcDispatcher).For(consumer);
+
+			Assert.AreEqual(source, testing.Source);
+			Assert.AreEqual(destinationOcDispatcher, testing.DestinationOcDispatcher);
+			Assert.AreEqual(sourceOcDispatcher, testing.SourceOcDispatcher);
+
+			void test()
+			{
+				testing.ValidateConsistency();
+				var sourceValue = ((ObservableCollection<Item>)((ObservableCollection<Item>)source));
+
+				if (sourceValue != null)
+				{		
+					sourceValue.Insert(2, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					sourceValue[3] = new QuickTests.Item(7, true);
+					testing.ValidateConsistency();
+					sourceValue.RemoveAt(3);
+					testing.ValidateConsistency();
+					sourceValue.Move(1, 3);
+					testing.ValidateConsistency();
+					sourceValue[2].Active = !sourceValue[2].Active;
+					testing.ValidateConsistency();
+					sourceValue[2].Num = sourceValue[2].Num + 1;
+					testing.ValidateConsistency();
+					sourceValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceValue.RemoveAt(1);
+					testing.ValidateConsistency();
+					sourceValue.Insert(0, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					sourceValue.Insert(0, new QuickTests.Item(2, true));
+					testing.ValidateConsistency();
+				}
+
+				IList listSource;
+				listSource = ((IList)((ObservableCollection<Item>)source));
+				if (listSource != null)
+				{
+					listSource.Clear();
+					testing.ValidateConsistency();
+				}
+
+				if (sourceValue != null)
+				{
+					sourceValue.Insert(0, new QuickTests.Item(1, true));
+					sourceValue.Insert(1, new QuickTests.Item(2, true));
+					sourceValue.Insert(2, new QuickTests.Item(3, true));
+					sourceValue.Insert(3, new QuickTests.Item(3, true));
+					sourceValue.Insert(4, new QuickTests.Item(3, true));
+					testing.ValidateConsistency();
+				}
+				testing.ValidateConsistency();
+			}
+
+			test();
+			consumer.Dispose();
+			((OcDispatcher)destinationOcDispatcher).Dispose();
+			((OcDispatcher)sourceOcDispatcher).Dispose();
+		}
+		
+		[Test, Combinatorial]
+		public void TestCollectionDispatching28(
+			[Values()] int destinationOcDispatcherPriority,
+			[Values()] int sourceOcDispatcherPriority)
+		{
+			ObservableCollection<Item> source = getItems();
+			ObservableComputations.IOcDispatcher destinationOcDispatcher = new OcDispatcher();
+			object destinationOcDispatcherParameter = new object();
+			object sourceOcDispatcherParameter = new object();
+			OcConsumer consumer = new OcConsumer();
+			var testing = source.CollectionDispatching<Item>(
+				destinationOcDispatcher,
+				destinationOcDispatcherPriority,
+				sourceOcDispatcherPriority,
+				destinationOcDispatcherParameter,
+				sourceOcDispatcherParameter).For(consumer);
+
+			Assert.AreEqual(source, testing.Source);
+			Assert.AreEqual(destinationOcDispatcher, testing.DestinationOcDispatcher);
+			Assert.AreEqual(destinationOcDispatcherPriority, testing.DestinationOcDispatcherPriority);
+			Assert.AreEqual(sourceOcDispatcherPriority, testing.SourceOcDispatcherPriority);
+			Assert.AreEqual(destinationOcDispatcherParameter, testing.DestinationOcDispatcherParameter);
+			Assert.AreEqual(sourceOcDispatcherParameter, testing.SourceOcDispatcherParameter);
+
+			void test()
+			{
+				testing.ValidateConsistency();
+				var sourceValue = ((ObservableCollection<Item>)((ObservableCollection<Item>)source));
+
+				if (sourceValue != null)
+				{		
+					sourceValue.Insert(2, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					sourceValue[3] = new QuickTests.Item(7, true);
+					testing.ValidateConsistency();
+					sourceValue.RemoveAt(3);
+					testing.ValidateConsistency();
+					sourceValue.Move(1, 3);
+					testing.ValidateConsistency();
+					sourceValue[2].Active = !sourceValue[2].Active;
+					testing.ValidateConsistency();
+					sourceValue[2].Num = sourceValue[2].Num + 1;
+					testing.ValidateConsistency();
+					sourceValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceValue.RemoveAt(1);
+					testing.ValidateConsistency();
+					sourceValue.Insert(0, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					sourceValue.Insert(0, new QuickTests.Item(2, true));
+					testing.ValidateConsistency();
+				}
+
+				IList listSource;
+				listSource = ((IList)((ObservableCollection<Item>)source));
+				if (listSource != null)
+				{
+					listSource.Clear();
+					testing.ValidateConsistency();
+				}
+
+				if (sourceValue != null)
+				{
+					sourceValue.Insert(0, new QuickTests.Item(1, true));
+					sourceValue.Insert(1, new QuickTests.Item(2, true));
+					sourceValue.Insert(2, new QuickTests.Item(3, true));
+					sourceValue.Insert(3, new QuickTests.Item(3, true));
+					sourceValue.Insert(4, new QuickTests.Item(3, true));
+					testing.ValidateConsistency();
+				}
+				testing.ValidateConsistency();
+			}
+
+			test();
+			consumer.Dispose();
+			((OcDispatcher)destinationOcDispatcher).Dispose();
+		}
+		
+		[Test, Combinatorial]
+		public void TestCollectionDispatching29(
+			[Values()] int destinationOcDispatcherPriority,
+			[Values()] int sourceOcDispatcherPriority)
+		{
+			ObservableCollection<Item> source = getItems();
+			ObservableComputations.IOcDispatcher destinationOcDispatcher = new OcDispatcher();
+			object destinationOcDispatcherParameter = new object();
+			OcConsumer consumer = new OcConsumer();
+			var testing = source.CollectionDispatching<Item>(
+				destinationOcDispatcher,
+				destinationOcDispatcherPriority,
+				sourceOcDispatcherPriority,
+				destinationOcDispatcherParameter).For(consumer);
+
+			Assert.AreEqual(source, testing.Source);
+			Assert.AreEqual(destinationOcDispatcher, testing.DestinationOcDispatcher);
+			Assert.AreEqual(destinationOcDispatcherPriority, testing.DestinationOcDispatcherPriority);
+			Assert.AreEqual(sourceOcDispatcherPriority, testing.SourceOcDispatcherPriority);
+			Assert.AreEqual(destinationOcDispatcherParameter, testing.DestinationOcDispatcherParameter);
+
+			void test()
+			{
+				testing.ValidateConsistency();
+				var sourceValue = ((ObservableCollection<Item>)((ObservableCollection<Item>)source));
+
+				if (sourceValue != null)
+				{		
+					sourceValue.Insert(2, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					sourceValue[3] = new QuickTests.Item(7, true);
+					testing.ValidateConsistency();
+					sourceValue.RemoveAt(3);
+					testing.ValidateConsistency();
+					sourceValue.Move(1, 3);
+					testing.ValidateConsistency();
+					sourceValue[2].Active = !sourceValue[2].Active;
+					testing.ValidateConsistency();
+					sourceValue[2].Num = sourceValue[2].Num + 1;
+					testing.ValidateConsistency();
+					sourceValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceValue.RemoveAt(1);
+					testing.ValidateConsistency();
+					sourceValue.Insert(0, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					sourceValue.Insert(0, new QuickTests.Item(2, true));
+					testing.ValidateConsistency();
+				}
+
+				IList listSource;
+				listSource = ((IList)((ObservableCollection<Item>)source));
+				if (listSource != null)
+				{
+					listSource.Clear();
+					testing.ValidateConsistency();
+				}
+
+				if (sourceValue != null)
+				{
+					sourceValue.Insert(0, new QuickTests.Item(1, true));
+					sourceValue.Insert(1, new QuickTests.Item(2, true));
+					sourceValue.Insert(2, new QuickTests.Item(3, true));
+					sourceValue.Insert(3, new QuickTests.Item(3, true));
+					sourceValue.Insert(4, new QuickTests.Item(3, true));
+					testing.ValidateConsistency();
+				}
+				testing.ValidateConsistency();
+			}
+
+			test();
+			consumer.Dispose();
+			((OcDispatcher)destinationOcDispatcher).Dispose();
+		}
+		
+		[Test, Combinatorial]
+		public void TestCollectionDispatching30(
+			[Values()] int destinationOcDispatcherPriority,
+			[Values()] int sourceOcDispatcherPriority)
+		{
+			ObservableCollection<Item> source = getItems();
+			ObservableComputations.IOcDispatcher destinationOcDispatcher = new OcDispatcher();
+			OcConsumer consumer = new OcConsumer();
+			var testing = source.CollectionDispatching<Item>(
+				destinationOcDispatcher,
+				destinationOcDispatcherPriority,
+				sourceOcDispatcherPriority).For(consumer);
+
+			Assert.AreEqual(source, testing.Source);
+			Assert.AreEqual(destinationOcDispatcher, testing.DestinationOcDispatcher);
+			Assert.AreEqual(destinationOcDispatcherPriority, testing.DestinationOcDispatcherPriority);
+			Assert.AreEqual(sourceOcDispatcherPriority, testing.SourceOcDispatcherPriority);
+
+			void test()
+			{
+				testing.ValidateConsistency();
+				var sourceValue = ((ObservableCollection<Item>)((ObservableCollection<Item>)source));
+
+				if (sourceValue != null)
+				{		
+					sourceValue.Insert(2, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					sourceValue[3] = new QuickTests.Item(7, true);
+					testing.ValidateConsistency();
+					sourceValue.RemoveAt(3);
+					testing.ValidateConsistency();
+					sourceValue.Move(1, 3);
+					testing.ValidateConsistency();
+					sourceValue[2].Active = !sourceValue[2].Active;
+					testing.ValidateConsistency();
+					sourceValue[2].Num = sourceValue[2].Num + 1;
+					testing.ValidateConsistency();
+					sourceValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceValue.RemoveAt(1);
+					testing.ValidateConsistency();
+					sourceValue.Insert(0, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					sourceValue.Insert(0, new QuickTests.Item(2, true));
+					testing.ValidateConsistency();
+				}
+
+				IList listSource;
+				listSource = ((IList)((ObservableCollection<Item>)source));
+				if (listSource != null)
+				{
+					listSource.Clear();
+					testing.ValidateConsistency();
+				}
+
+				if (sourceValue != null)
+				{
+					sourceValue.Insert(0, new QuickTests.Item(1, true));
+					sourceValue.Insert(1, new QuickTests.Item(2, true));
+					sourceValue.Insert(2, new QuickTests.Item(3, true));
+					sourceValue.Insert(3, new QuickTests.Item(3, true));
+					sourceValue.Insert(4, new QuickTests.Item(3, true));
+					testing.ValidateConsistency();
+				}
+				testing.ValidateConsistency();
+			}
+
+			test();
+			consumer.Dispose();
+			((OcDispatcher)destinationOcDispatcher).Dispose();
+		}
+		
+		[Test, Combinatorial]
+		public void TestCollectionDispatching31(
+			[Values()] int destinationOcDispatcherPriority)
+		{
+			ObservableCollection<Item> source = getItems();
+			ObservableComputations.IOcDispatcher destinationOcDispatcher = new OcDispatcher();
+			object destinationOcDispatcherParameter = new object();
+			object sourceOcDispatcherParameter = new object();
+			OcConsumer consumer = new OcConsumer();
+			var testing = source.CollectionDispatching<Item>(
+				destinationOcDispatcher,
+				destinationOcDispatcherPriority,
+				destinationOcDispatcherParameter,
+				sourceOcDispatcherParameter).For(consumer);
+
+			Assert.AreEqual(source, testing.Source);
+			Assert.AreEqual(destinationOcDispatcher, testing.DestinationOcDispatcher);
+			Assert.AreEqual(destinationOcDispatcherPriority, testing.DestinationOcDispatcherPriority);
+			Assert.AreEqual(destinationOcDispatcherParameter, testing.DestinationOcDispatcherParameter);
+			Assert.AreEqual(sourceOcDispatcherParameter, testing.SourceOcDispatcherParameter);
+
+			void test()
+			{
+				testing.ValidateConsistency();
+				var sourceValue = ((ObservableCollection<Item>)((ObservableCollection<Item>)source));
+
+				if (sourceValue != null)
+				{		
+					sourceValue.Insert(2, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					sourceValue[3] = new QuickTests.Item(7, true);
+					testing.ValidateConsistency();
+					sourceValue.RemoveAt(3);
+					testing.ValidateConsistency();
+					sourceValue.Move(1, 3);
+					testing.ValidateConsistency();
+					sourceValue[2].Active = !sourceValue[2].Active;
+					testing.ValidateConsistency();
+					sourceValue[2].Num = sourceValue[2].Num + 1;
+					testing.ValidateConsistency();
+					sourceValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceValue.RemoveAt(1);
+					testing.ValidateConsistency();
+					sourceValue.Insert(0, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					sourceValue.Insert(0, new QuickTests.Item(2, true));
+					testing.ValidateConsistency();
+				}
+
+				IList listSource;
+				listSource = ((IList)((ObservableCollection<Item>)source));
+				if (listSource != null)
+				{
+					listSource.Clear();
+					testing.ValidateConsistency();
+				}
+
+				if (sourceValue != null)
+				{
+					sourceValue.Insert(0, new QuickTests.Item(1, true));
+					sourceValue.Insert(1, new QuickTests.Item(2, true));
+					sourceValue.Insert(2, new QuickTests.Item(3, true));
+					sourceValue.Insert(3, new QuickTests.Item(3, true));
+					sourceValue.Insert(4, new QuickTests.Item(3, true));
+					testing.ValidateConsistency();
+				}
+				testing.ValidateConsistency();
+			}
+
+			test();
+			consumer.Dispose();
+			((OcDispatcher)destinationOcDispatcher).Dispose();
+		}
+		
+		[Test, Combinatorial]
+		public void TestCollectionDispatching32(
+			[Values()] int destinationOcDispatcherPriority)
+		{
+			ObservableCollection<Item> source = getItems();
+			ObservableComputations.IOcDispatcher destinationOcDispatcher = new OcDispatcher();
+			object destinationOcDispatcherParameter = new object();
+			OcConsumer consumer = new OcConsumer();
+			var testing = source.CollectionDispatching<Item>(
+				destinationOcDispatcher,
+				destinationOcDispatcherPriority,
+				destinationOcDispatcherParameter).For(consumer);
+
+			Assert.AreEqual(source, testing.Source);
+			Assert.AreEqual(destinationOcDispatcher, testing.DestinationOcDispatcher);
+			Assert.AreEqual(destinationOcDispatcherPriority, testing.DestinationOcDispatcherPriority);
+			Assert.AreEqual(destinationOcDispatcherParameter, testing.DestinationOcDispatcherParameter);
+
+			void test()
+			{
+				testing.ValidateConsistency();
+				var sourceValue = ((ObservableCollection<Item>)((ObservableCollection<Item>)source));
+
+				if (sourceValue != null)
+				{		
+					sourceValue.Insert(2, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					sourceValue[3] = new QuickTests.Item(7, true);
+					testing.ValidateConsistency();
+					sourceValue.RemoveAt(3);
+					testing.ValidateConsistency();
+					sourceValue.Move(1, 3);
+					testing.ValidateConsistency();
+					sourceValue[2].Active = !sourceValue[2].Active;
+					testing.ValidateConsistency();
+					sourceValue[2].Num = sourceValue[2].Num + 1;
+					testing.ValidateConsistency();
+					sourceValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceValue.RemoveAt(1);
+					testing.ValidateConsistency();
+					sourceValue.Insert(0, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					sourceValue.Insert(0, new QuickTests.Item(2, true));
+					testing.ValidateConsistency();
+				}
+
+				IList listSource;
+				listSource = ((IList)((ObservableCollection<Item>)source));
+				if (listSource != null)
+				{
+					listSource.Clear();
+					testing.ValidateConsistency();
+				}
+
+				if (sourceValue != null)
+				{
+					sourceValue.Insert(0, new QuickTests.Item(1, true));
+					sourceValue.Insert(1, new QuickTests.Item(2, true));
+					sourceValue.Insert(2, new QuickTests.Item(3, true));
+					sourceValue.Insert(3, new QuickTests.Item(3, true));
+					sourceValue.Insert(4, new QuickTests.Item(3, true));
+					testing.ValidateConsistency();
+				}
+				testing.ValidateConsistency();
+			}
+
+			test();
+			consumer.Dispose();
+			((OcDispatcher)destinationOcDispatcher).Dispose();
+		}
+		
+		[Test, Combinatorial]
+		public void TestCollectionDispatching33(
+			[Values()] int destinationOcDispatcherPriority)
+		{
+			ObservableCollection<Item> source = getItems();
+			ObservableComputations.IOcDispatcher destinationOcDispatcher = new OcDispatcher();
+			OcConsumer consumer = new OcConsumer();
+			var testing = source.CollectionDispatching<Item>(
+				destinationOcDispatcher,
+				destinationOcDispatcherPriority).For(consumer);
+
+			Assert.AreEqual(source, testing.Source);
+			Assert.AreEqual(destinationOcDispatcher, testing.DestinationOcDispatcher);
+			Assert.AreEqual(destinationOcDispatcherPriority, testing.DestinationOcDispatcherPriority);
+
+			void test()
+			{
+				testing.ValidateConsistency();
+				var sourceValue = ((ObservableCollection<Item>)((ObservableCollection<Item>)source));
+
+				if (sourceValue != null)
+				{		
+					sourceValue.Insert(2, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					sourceValue[3] = new QuickTests.Item(7, true);
+					testing.ValidateConsistency();
+					sourceValue.RemoveAt(3);
+					testing.ValidateConsistency();
+					sourceValue.Move(1, 3);
+					testing.ValidateConsistency();
+					sourceValue[2].Active = !sourceValue[2].Active;
+					testing.ValidateConsistency();
+					sourceValue[2].Num = sourceValue[2].Num + 1;
+					testing.ValidateConsistency();
+					sourceValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceValue.RemoveAt(1);
+					testing.ValidateConsistency();
+					sourceValue.Insert(0, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					sourceValue.Insert(0, new QuickTests.Item(2, true));
+					testing.ValidateConsistency();
+				}
+
+				IList listSource;
+				listSource = ((IList)((ObservableCollection<Item>)source));
+				if (listSource != null)
+				{
+					listSource.Clear();
+					testing.ValidateConsistency();
+				}
+
+				if (sourceValue != null)
+				{
+					sourceValue.Insert(0, new QuickTests.Item(1, true));
+					sourceValue.Insert(1, new QuickTests.Item(2, true));
+					sourceValue.Insert(2, new QuickTests.Item(3, true));
+					sourceValue.Insert(3, new QuickTests.Item(3, true));
+					sourceValue.Insert(4, new QuickTests.Item(3, true));
+					testing.ValidateConsistency();
+				}
+				testing.ValidateConsistency();
+			}
+
+			test();
+			consumer.Dispose();
+			((OcDispatcher)destinationOcDispatcher).Dispose();
+		}
+		
+		[Test, Combinatorial]
+		public void TestCollectionDispatching34()
+		{
+			ObservableCollection<Item> source = getItems();
+			ObservableComputations.IOcDispatcher destinationOcDispatcher = new OcDispatcher();
+			object destinationOcDispatcherParameter = new object();
+			object sourceOcDispatcherParameter = new object();
+			OcConsumer consumer = new OcConsumer();
+			var testing = source.CollectionDispatching<Item>(
+				destinationOcDispatcher,
+				destinationOcDispatcherParameter,
+				sourceOcDispatcherParameter).For(consumer);
+
+			Assert.AreEqual(source, testing.Source);
+			Assert.AreEqual(destinationOcDispatcher, testing.DestinationOcDispatcher);
+			Assert.AreEqual(destinationOcDispatcherParameter, testing.DestinationOcDispatcherParameter);
+			Assert.AreEqual(sourceOcDispatcherParameter, testing.SourceOcDispatcherParameter);
+
+			void test()
+			{
+				testing.ValidateConsistency();
+				var sourceValue = ((ObservableCollection<Item>)((ObservableCollection<Item>)source));
+
+				if (sourceValue != null)
+				{		
+					sourceValue.Insert(2, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					sourceValue[3] = new QuickTests.Item(7, true);
+					testing.ValidateConsistency();
+					sourceValue.RemoveAt(3);
+					testing.ValidateConsistency();
+					sourceValue.Move(1, 3);
+					testing.ValidateConsistency();
+					sourceValue[2].Active = !sourceValue[2].Active;
+					testing.ValidateConsistency();
+					sourceValue[2].Num = sourceValue[2].Num + 1;
+					testing.ValidateConsistency();
+					sourceValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceValue.RemoveAt(1);
+					testing.ValidateConsistency();
+					sourceValue.Insert(0, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					sourceValue.Insert(0, new QuickTests.Item(2, true));
+					testing.ValidateConsistency();
+				}
+
+				IList listSource;
+				listSource = ((IList)((ObservableCollection<Item>)source));
+				if (listSource != null)
+				{
+					listSource.Clear();
+					testing.ValidateConsistency();
+				}
+
+				if (sourceValue != null)
+				{
+					sourceValue.Insert(0, new QuickTests.Item(1, true));
+					sourceValue.Insert(1, new QuickTests.Item(2, true));
+					sourceValue.Insert(2, new QuickTests.Item(3, true));
+					sourceValue.Insert(3, new QuickTests.Item(3, true));
+					sourceValue.Insert(4, new QuickTests.Item(3, true));
+					testing.ValidateConsistency();
+				}
+				testing.ValidateConsistency();
+			}
+
+			test();
+			consumer.Dispose();
+			((OcDispatcher)destinationOcDispatcher).Dispose();
+		}
+		
+		[Test, Combinatorial]
+		public void TestCollectionDispatching35()
+		{
+			ObservableCollection<Item> source = getItems();
+			ObservableComputations.IOcDispatcher destinationOcDispatcher = new OcDispatcher();
+			object destinationOcDispatcherParameter = new object();
+			OcConsumer consumer = new OcConsumer();
+			var testing = source.CollectionDispatching<Item>(
+				destinationOcDispatcher,
+				destinationOcDispatcherParameter).For(consumer);
+
+			Assert.AreEqual(source, testing.Source);
+			Assert.AreEqual(destinationOcDispatcher, testing.DestinationOcDispatcher);
+			Assert.AreEqual(destinationOcDispatcherParameter, testing.DestinationOcDispatcherParameter);
+
+			void test()
+			{
+				testing.ValidateConsistency();
+				var sourceValue = ((ObservableCollection<Item>)((ObservableCollection<Item>)source));
+
+				if (sourceValue != null)
+				{		
+					sourceValue.Insert(2, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					sourceValue[3] = new QuickTests.Item(7, true);
+					testing.ValidateConsistency();
+					sourceValue.RemoveAt(3);
+					testing.ValidateConsistency();
+					sourceValue.Move(1, 3);
+					testing.ValidateConsistency();
+					sourceValue[2].Active = !sourceValue[2].Active;
+					testing.ValidateConsistency();
+					sourceValue[2].Num = sourceValue[2].Num + 1;
+					testing.ValidateConsistency();
+					sourceValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceValue.RemoveAt(1);
+					testing.ValidateConsistency();
+					sourceValue.Insert(0, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					sourceValue.Insert(0, new QuickTests.Item(2, true));
+					testing.ValidateConsistency();
+				}
+
+				IList listSource;
+				listSource = ((IList)((ObservableCollection<Item>)source));
+				if (listSource != null)
+				{
+					listSource.Clear();
+					testing.ValidateConsistency();
+				}
+
+				if (sourceValue != null)
+				{
+					sourceValue.Insert(0, new QuickTests.Item(1, true));
+					sourceValue.Insert(1, new QuickTests.Item(2, true));
+					sourceValue.Insert(2, new QuickTests.Item(3, true));
+					sourceValue.Insert(3, new QuickTests.Item(3, true));
+					sourceValue.Insert(4, new QuickTests.Item(3, true));
+					testing.ValidateConsistency();
+				}
+				testing.ValidateConsistency();
+			}
+
+			test();
+			consumer.Dispose();
+			((OcDispatcher)destinationOcDispatcher).Dispose();
+		}
+		
+		[Test, Combinatorial]
+		public void TestCollectionDispatching36()
+		{
+			ObservableCollection<Item> source = getItems();
+			ObservableComputations.IOcDispatcher destinationOcDispatcher = new OcDispatcher();
+			OcConsumer consumer = new OcConsumer();
+			var testing = source.CollectionDispatching<Item>(
+				destinationOcDispatcher).For(consumer);
+
+			Assert.AreEqual(source, testing.Source);
+			Assert.AreEqual(destinationOcDispatcher, testing.DestinationOcDispatcher);
+
+			void test()
+			{
+				testing.ValidateConsistency();
+				var sourceValue = ((ObservableCollection<Item>)((ObservableCollection<Item>)source));
+
+				if (sourceValue != null)
+				{		
+					sourceValue.Insert(2, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					sourceValue[3] = new QuickTests.Item(7, true);
+					testing.ValidateConsistency();
+					sourceValue.RemoveAt(3);
+					testing.ValidateConsistency();
+					sourceValue.Move(1, 3);
+					testing.ValidateConsistency();
+					sourceValue[2].Active = !sourceValue[2].Active;
+					testing.ValidateConsistency();
+					sourceValue[2].Num = sourceValue[2].Num + 1;
+					testing.ValidateConsistency();
+					sourceValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceValue.RemoveAt(1);
+					testing.ValidateConsistency();
+					sourceValue.Insert(0, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					sourceValue.Insert(0, new QuickTests.Item(2, true));
+					testing.ValidateConsistency();
+				}
+
+				IList listSource;
+				listSource = ((IList)((ObservableCollection<Item>)source));
+				if (listSource != null)
+				{
+					listSource.Clear();
+					testing.ValidateConsistency();
+				}
+
+				if (sourceValue != null)
+				{
+					sourceValue.Insert(0, new QuickTests.Item(1, true));
+					sourceValue.Insert(1, new QuickTests.Item(2, true));
+					sourceValue.Insert(2, new QuickTests.Item(3, true));
+					sourceValue.Insert(3, new QuickTests.Item(3, true));
+					sourceValue.Insert(4, new QuickTests.Item(3, true));
+					testing.ValidateConsistency();
+				}
+				testing.ValidateConsistency();
+			}
+
+			test();
+			consumer.Dispose();
+			((OcDispatcher)destinationOcDispatcher).Dispose();
+		}
+		
+		[Test, Combinatorial]
+		public void TestCollectionDispatching37(
+			[Values()] int destinationOcDispatcherPriority,
+			[Values()] int sourceOcDispatcherPriority)
+		{
+			Scalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
+			ObservableComputations.IOcDispatcher destinationOcDispatcher = new OcDispatcher();
+			ObservableComputations.IOcDispatcher sourceOcDispatcher = new OcDispatcher();
+			object destinationOcDispatcherParameter = new object();
+			object sourceOcDispatcherParameter = new object();
+			OcConsumer consumer = new OcConsumer();
+			var testing = sourceScalar.CollectionDispatching<Item>(
+				destinationOcDispatcher,
+				sourceOcDispatcher,
+				destinationOcDispatcherPriority,
+				sourceOcDispatcherPriority,
+				destinationOcDispatcherParameter,
+				sourceOcDispatcherParameter).For(consumer);
+
+			Assert.AreEqual(sourceScalar, testing.SourceScalar);
+			Assert.AreEqual(destinationOcDispatcher, testing.DestinationOcDispatcher);
+			Assert.AreEqual(sourceOcDispatcher, testing.SourceOcDispatcher);
+			Assert.AreEqual(destinationOcDispatcherPriority, testing.DestinationOcDispatcherPriority);
+			Assert.AreEqual(sourceOcDispatcherPriority, testing.SourceOcDispatcherPriority);
+			Assert.AreEqual(destinationOcDispatcherParameter, testing.DestinationOcDispatcherParameter);
+			Assert.AreEqual(sourceOcDispatcherParameter, testing.SourceOcDispatcherParameter);
+
+			void test()
+			{
+				testing.ValidateConsistency();
+				var sourceScalarValue = ((ObservableCollection<Item>)((System.Collections.Specialized.INotifyCollectionChanged)sourceScalar.Value));
+
+				if (sourceScalarValue != null)
+				{		
+					sourceScalarValue.Insert(2, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					sourceScalarValue[3] = new QuickTests.Item(7, true);
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(3);
+					testing.ValidateConsistency();
+					sourceScalarValue.Move(1, 3);
+					testing.ValidateConsistency();
+					sourceScalarValue[2].Active = !sourceScalarValue[2].Active;
+					testing.ValidateConsistency();
+					sourceScalarValue[2].Num = sourceScalarValue[2].Num + 1;
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(1);
+					testing.ValidateConsistency();
+					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					sourceScalarValue.Insert(0, new QuickTests.Item(2, true));
+					testing.ValidateConsistency();
+				}
+
+				IList listSource;
+				listSource = ((IList)((System.Collections.Specialized.INotifyCollectionChanged)sourceScalar.Value));
+				if (listSource != null)
+				{
+					listSource.Clear();
+					testing.ValidateConsistency();
+				}
+
+				if (sourceScalarValue != null)
+				{
+					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
+					sourceScalarValue.Insert(1, new QuickTests.Item(2, true));
+					sourceScalarValue.Insert(2, new QuickTests.Item(3, true));
+					sourceScalarValue.Insert(3, new QuickTests.Item(3, true));
+					sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
+					testing.ValidateConsistency();
+				}
+				testing.ValidateConsistency();
+			}
+
+			test();
+
+			((Scalar<System.Collections.Specialized.INotifyCollectionChanged>)sourceScalar).Touch();
+			test();
+			((Scalar<System.Collections.Specialized.INotifyCollectionChanged>)sourceScalar).Change(null);
+			test();
+			consumer.Dispose();
+			((OcDispatcher)destinationOcDispatcher).Dispose();
+			((OcDispatcher)sourceOcDispatcher).Dispose();
+		}
+		
+		[Test, Combinatorial]
+		public void TestCollectionDispatching38(
+			[Values()] int destinationOcDispatcherPriority,
+			[Values()] int sourceOcDispatcherPriority)
+		{
+			Scalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
+			ObservableComputations.IOcDispatcher destinationOcDispatcher = new OcDispatcher();
+			ObservableComputations.IOcDispatcher sourceOcDispatcher = new OcDispatcher();
+			object destinationOcDispatcherParameter = new object();
+			OcConsumer consumer = new OcConsumer();
+			var testing = sourceScalar.CollectionDispatching<Item>(
+				destinationOcDispatcher,
+				sourceOcDispatcher,
+				destinationOcDispatcherPriority,
+				sourceOcDispatcherPriority,
+				destinationOcDispatcherParameter).For(consumer);
+
+			Assert.AreEqual(sourceScalar, testing.SourceScalar);
+			Assert.AreEqual(destinationOcDispatcher, testing.DestinationOcDispatcher);
+			Assert.AreEqual(sourceOcDispatcher, testing.SourceOcDispatcher);
+			Assert.AreEqual(destinationOcDispatcherPriority, testing.DestinationOcDispatcherPriority);
+			Assert.AreEqual(sourceOcDispatcherPriority, testing.SourceOcDispatcherPriority);
+			Assert.AreEqual(destinationOcDispatcherParameter, testing.DestinationOcDispatcherParameter);
+
+			void test()
+			{
+				testing.ValidateConsistency();
+				var sourceScalarValue = ((ObservableCollection<Item>)((System.Collections.Specialized.INotifyCollectionChanged)sourceScalar.Value));
+
+				if (sourceScalarValue != null)
+				{		
+					sourceScalarValue.Insert(2, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					sourceScalarValue[3] = new QuickTests.Item(7, true);
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(3);
+					testing.ValidateConsistency();
+					sourceScalarValue.Move(1, 3);
+					testing.ValidateConsistency();
+					sourceScalarValue[2].Active = !sourceScalarValue[2].Active;
+					testing.ValidateConsistency();
+					sourceScalarValue[2].Num = sourceScalarValue[2].Num + 1;
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(1);
+					testing.ValidateConsistency();
+					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					sourceScalarValue.Insert(0, new QuickTests.Item(2, true));
+					testing.ValidateConsistency();
+				}
+
+				IList listSource;
+				listSource = ((IList)((System.Collections.Specialized.INotifyCollectionChanged)sourceScalar.Value));
+				if (listSource != null)
+				{
+					listSource.Clear();
+					testing.ValidateConsistency();
+				}
+
+				if (sourceScalarValue != null)
+				{
+					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
+					sourceScalarValue.Insert(1, new QuickTests.Item(2, true));
+					sourceScalarValue.Insert(2, new QuickTests.Item(3, true));
+					sourceScalarValue.Insert(3, new QuickTests.Item(3, true));
+					sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
+					testing.ValidateConsistency();
+				}
+				testing.ValidateConsistency();
+			}
+
+			test();
+
+			((Scalar<System.Collections.Specialized.INotifyCollectionChanged>)sourceScalar).Touch();
+			test();
+			((Scalar<System.Collections.Specialized.INotifyCollectionChanged>)sourceScalar).Change(null);
+			test();
+			consumer.Dispose();
+			((OcDispatcher)destinationOcDispatcher).Dispose();
+			((OcDispatcher)sourceOcDispatcher).Dispose();
+		}
+		
+		[Test, Combinatorial]
+		public void TestCollectionDispatching39(
+			[Values()] int destinationOcDispatcherPriority,
+			[Values()] int sourceOcDispatcherPriority)
+		{
+			Scalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
+			ObservableComputations.IOcDispatcher destinationOcDispatcher = new OcDispatcher();
+			ObservableComputations.IOcDispatcher sourceOcDispatcher = new OcDispatcher();
+			OcConsumer consumer = new OcConsumer();
+			var testing = sourceScalar.CollectionDispatching<Item>(
+				destinationOcDispatcher,
+				sourceOcDispatcher,
+				destinationOcDispatcherPriority,
+				sourceOcDispatcherPriority).For(consumer);
+
+			Assert.AreEqual(sourceScalar, testing.SourceScalar);
+			Assert.AreEqual(destinationOcDispatcher, testing.DestinationOcDispatcher);
+			Assert.AreEqual(sourceOcDispatcher, testing.SourceOcDispatcher);
+			Assert.AreEqual(destinationOcDispatcherPriority, testing.DestinationOcDispatcherPriority);
+			Assert.AreEqual(sourceOcDispatcherPriority, testing.SourceOcDispatcherPriority);
+
+			void test()
+			{
+				testing.ValidateConsistency();
+				var sourceScalarValue = ((ObservableCollection<Item>)((System.Collections.Specialized.INotifyCollectionChanged)sourceScalar.Value));
+
+				if (sourceScalarValue != null)
+				{		
+					sourceScalarValue.Insert(2, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					sourceScalarValue[3] = new QuickTests.Item(7, true);
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(3);
+					testing.ValidateConsistency();
+					sourceScalarValue.Move(1, 3);
+					testing.ValidateConsistency();
+					sourceScalarValue[2].Active = !sourceScalarValue[2].Active;
+					testing.ValidateConsistency();
+					sourceScalarValue[2].Num = sourceScalarValue[2].Num + 1;
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(1);
+					testing.ValidateConsistency();
+					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					sourceScalarValue.Insert(0, new QuickTests.Item(2, true));
+					testing.ValidateConsistency();
+				}
+
+				IList listSource;
+				listSource = ((IList)((System.Collections.Specialized.INotifyCollectionChanged)sourceScalar.Value));
+				if (listSource != null)
+				{
+					listSource.Clear();
+					testing.ValidateConsistency();
+				}
+
+				if (sourceScalarValue != null)
+				{
+					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
+					sourceScalarValue.Insert(1, new QuickTests.Item(2, true));
+					sourceScalarValue.Insert(2, new QuickTests.Item(3, true));
+					sourceScalarValue.Insert(3, new QuickTests.Item(3, true));
+					sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
+					testing.ValidateConsistency();
+				}
+				testing.ValidateConsistency();
+			}
+
+			test();
+
+			((Scalar<System.Collections.Specialized.INotifyCollectionChanged>)sourceScalar).Touch();
+			test();
+			((Scalar<System.Collections.Specialized.INotifyCollectionChanged>)sourceScalar).Change(null);
+			test();
+			consumer.Dispose();
+			((OcDispatcher)destinationOcDispatcher).Dispose();
+			((OcDispatcher)sourceOcDispatcher).Dispose();
+		}
+		
+		[Test, Combinatorial]
+		public void TestCollectionDispatching40(
+			[Values()] int destinationOcDispatcherPriority)
+		{
+			Scalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
+			ObservableComputations.IOcDispatcher destinationOcDispatcher = new OcDispatcher();
+			ObservableComputations.IOcDispatcher sourceOcDispatcher = new OcDispatcher();
+			object destinationOcDispatcherParameter = new object();
+			object sourceOcDispatcherParameter = new object();
+			OcConsumer consumer = new OcConsumer();
+			var testing = sourceScalar.CollectionDispatching<Item>(
+				destinationOcDispatcher,
+				sourceOcDispatcher,
+				destinationOcDispatcherPriority,
+				destinationOcDispatcherParameter,
+				sourceOcDispatcherParameter).For(consumer);
+
+			Assert.AreEqual(sourceScalar, testing.SourceScalar);
+			Assert.AreEqual(destinationOcDispatcher, testing.DestinationOcDispatcher);
+			Assert.AreEqual(sourceOcDispatcher, testing.SourceOcDispatcher);
+			Assert.AreEqual(destinationOcDispatcherPriority, testing.DestinationOcDispatcherPriority);
+			Assert.AreEqual(destinationOcDispatcherParameter, testing.DestinationOcDispatcherParameter);
+			Assert.AreEqual(sourceOcDispatcherParameter, testing.SourceOcDispatcherParameter);
+
+			void test()
+			{
+				testing.ValidateConsistency();
+				var sourceScalarValue = ((ObservableCollection<Item>)((System.Collections.Specialized.INotifyCollectionChanged)sourceScalar.Value));
+
+				if (sourceScalarValue != null)
+				{		
+					sourceScalarValue.Insert(2, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					sourceScalarValue[3] = new QuickTests.Item(7, true);
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(3);
+					testing.ValidateConsistency();
+					sourceScalarValue.Move(1, 3);
+					testing.ValidateConsistency();
+					sourceScalarValue[2].Active = !sourceScalarValue[2].Active;
+					testing.ValidateConsistency();
+					sourceScalarValue[2].Num = sourceScalarValue[2].Num + 1;
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(1);
+					testing.ValidateConsistency();
+					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					sourceScalarValue.Insert(0, new QuickTests.Item(2, true));
+					testing.ValidateConsistency();
+				}
+
+				IList listSource;
+				listSource = ((IList)((System.Collections.Specialized.INotifyCollectionChanged)sourceScalar.Value));
+				if (listSource != null)
+				{
+					listSource.Clear();
+					testing.ValidateConsistency();
+				}
+
+				if (sourceScalarValue != null)
+				{
+					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
+					sourceScalarValue.Insert(1, new QuickTests.Item(2, true));
+					sourceScalarValue.Insert(2, new QuickTests.Item(3, true));
+					sourceScalarValue.Insert(3, new QuickTests.Item(3, true));
+					sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
+					testing.ValidateConsistency();
+				}
+				testing.ValidateConsistency();
+			}
+
+			test();
+
+			((Scalar<System.Collections.Specialized.INotifyCollectionChanged>)sourceScalar).Touch();
+			test();
+			((Scalar<System.Collections.Specialized.INotifyCollectionChanged>)sourceScalar).Change(null);
+			test();
+			consumer.Dispose();
+			((OcDispatcher)destinationOcDispatcher).Dispose();
+			((OcDispatcher)sourceOcDispatcher).Dispose();
+		}
+		
+		[Test, Combinatorial]
+		public void TestCollectionDispatching41(
+			[Values()] int destinationOcDispatcherPriority)
+		{
+			Scalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
+			ObservableComputations.IOcDispatcher destinationOcDispatcher = new OcDispatcher();
+			ObservableComputations.IOcDispatcher sourceOcDispatcher = new OcDispatcher();
+			object destinationOcDispatcherParameter = new object();
+			OcConsumer consumer = new OcConsumer();
+			var testing = sourceScalar.CollectionDispatching<Item>(
+				destinationOcDispatcher,
+				sourceOcDispatcher,
+				destinationOcDispatcherPriority,
+				destinationOcDispatcherParameter).For(consumer);
+
+			Assert.AreEqual(sourceScalar, testing.SourceScalar);
+			Assert.AreEqual(destinationOcDispatcher, testing.DestinationOcDispatcher);
+			Assert.AreEqual(sourceOcDispatcher, testing.SourceOcDispatcher);
+			Assert.AreEqual(destinationOcDispatcherPriority, testing.DestinationOcDispatcherPriority);
+			Assert.AreEqual(destinationOcDispatcherParameter, testing.DestinationOcDispatcherParameter);
+
+			void test()
+			{
+				testing.ValidateConsistency();
+				var sourceScalarValue = ((ObservableCollection<Item>)((System.Collections.Specialized.INotifyCollectionChanged)sourceScalar.Value));
+
+				if (sourceScalarValue != null)
+				{		
+					sourceScalarValue.Insert(2, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					sourceScalarValue[3] = new QuickTests.Item(7, true);
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(3);
+					testing.ValidateConsistency();
+					sourceScalarValue.Move(1, 3);
+					testing.ValidateConsistency();
+					sourceScalarValue[2].Active = !sourceScalarValue[2].Active;
+					testing.ValidateConsistency();
+					sourceScalarValue[2].Num = sourceScalarValue[2].Num + 1;
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(1);
+					testing.ValidateConsistency();
+					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					sourceScalarValue.Insert(0, new QuickTests.Item(2, true));
+					testing.ValidateConsistency();
+				}
+
+				IList listSource;
+				listSource = ((IList)((System.Collections.Specialized.INotifyCollectionChanged)sourceScalar.Value));
+				if (listSource != null)
+				{
+					listSource.Clear();
+					testing.ValidateConsistency();
+				}
+
+				if (sourceScalarValue != null)
+				{
+					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
+					sourceScalarValue.Insert(1, new QuickTests.Item(2, true));
+					sourceScalarValue.Insert(2, new QuickTests.Item(3, true));
+					sourceScalarValue.Insert(3, new QuickTests.Item(3, true));
+					sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
+					testing.ValidateConsistency();
+				}
+				testing.ValidateConsistency();
+			}
+
+			test();
+
+			((Scalar<System.Collections.Specialized.INotifyCollectionChanged>)sourceScalar).Touch();
+			test();
+			((Scalar<System.Collections.Specialized.INotifyCollectionChanged>)sourceScalar).Change(null);
+			test();
+			consumer.Dispose();
+			((OcDispatcher)destinationOcDispatcher).Dispose();
+			((OcDispatcher)sourceOcDispatcher).Dispose();
+		}
+		
+		[Test, Combinatorial]
+		public void TestCollectionDispatching42(
+			[Values()] int destinationOcDispatcherPriority)
+		{
+			Scalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
+			ObservableComputations.IOcDispatcher destinationOcDispatcher = new OcDispatcher();
+			ObservableComputations.IOcDispatcher sourceOcDispatcher = new OcDispatcher();
+			OcConsumer consumer = new OcConsumer();
+			var testing = sourceScalar.CollectionDispatching<Item>(
+				destinationOcDispatcher,
+				sourceOcDispatcher,
+				destinationOcDispatcherPriority).For(consumer);
+
+			Assert.AreEqual(sourceScalar, testing.SourceScalar);
+			Assert.AreEqual(destinationOcDispatcher, testing.DestinationOcDispatcher);
+			Assert.AreEqual(sourceOcDispatcher, testing.SourceOcDispatcher);
+			Assert.AreEqual(destinationOcDispatcherPriority, testing.DestinationOcDispatcherPriority);
+
+			void test()
+			{
+				testing.ValidateConsistency();
+				var sourceScalarValue = ((ObservableCollection<Item>)((System.Collections.Specialized.INotifyCollectionChanged)sourceScalar.Value));
+
+				if (sourceScalarValue != null)
+				{		
+					sourceScalarValue.Insert(2, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					sourceScalarValue[3] = new QuickTests.Item(7, true);
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(3);
+					testing.ValidateConsistency();
+					sourceScalarValue.Move(1, 3);
+					testing.ValidateConsistency();
+					sourceScalarValue[2].Active = !sourceScalarValue[2].Active;
+					testing.ValidateConsistency();
+					sourceScalarValue[2].Num = sourceScalarValue[2].Num + 1;
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(1);
+					testing.ValidateConsistency();
+					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					sourceScalarValue.Insert(0, new QuickTests.Item(2, true));
+					testing.ValidateConsistency();
+				}
+
+				IList listSource;
+				listSource = ((IList)((System.Collections.Specialized.INotifyCollectionChanged)sourceScalar.Value));
+				if (listSource != null)
+				{
+					listSource.Clear();
+					testing.ValidateConsistency();
+				}
+
+				if (sourceScalarValue != null)
+				{
+					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
+					sourceScalarValue.Insert(1, new QuickTests.Item(2, true));
+					sourceScalarValue.Insert(2, new QuickTests.Item(3, true));
+					sourceScalarValue.Insert(3, new QuickTests.Item(3, true));
+					sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
+					testing.ValidateConsistency();
+				}
+				testing.ValidateConsistency();
+			}
+
+			test();
+
+			((Scalar<System.Collections.Specialized.INotifyCollectionChanged>)sourceScalar).Touch();
+			test();
+			((Scalar<System.Collections.Specialized.INotifyCollectionChanged>)sourceScalar).Change(null);
+			test();
+			consumer.Dispose();
+			((OcDispatcher)destinationOcDispatcher).Dispose();
+			((OcDispatcher)sourceOcDispatcher).Dispose();
+		}
+		
+		[Test, Combinatorial]
+		public void TestCollectionDispatching43()
+		{
+			Scalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
+			ObservableComputations.IOcDispatcher destinationOcDispatcher = new OcDispatcher();
+			ObservableComputations.IOcDispatcher sourceOcDispatcher = new OcDispatcher();
+			object destinationOcDispatcherParameter = new object();
+			object sourceOcDispatcherParameter = new object();
+			OcConsumer consumer = new OcConsumer();
+			var testing = sourceScalar.CollectionDispatching<Item>(
+				destinationOcDispatcher,
+				sourceOcDispatcher,
+				destinationOcDispatcherParameter,
+				sourceOcDispatcherParameter).For(consumer);
+
+			Assert.AreEqual(sourceScalar, testing.SourceScalar);
+			Assert.AreEqual(destinationOcDispatcher, testing.DestinationOcDispatcher);
+			Assert.AreEqual(sourceOcDispatcher, testing.SourceOcDispatcher);
+			Assert.AreEqual(destinationOcDispatcherParameter, testing.DestinationOcDispatcherParameter);
+			Assert.AreEqual(sourceOcDispatcherParameter, testing.SourceOcDispatcherParameter);
+
+			void test()
+			{
+				testing.ValidateConsistency();
+				var sourceScalarValue = ((ObservableCollection<Item>)((System.Collections.Specialized.INotifyCollectionChanged)sourceScalar.Value));
+
+				if (sourceScalarValue != null)
+				{		
+					sourceScalarValue.Insert(2, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					sourceScalarValue[3] = new QuickTests.Item(7, true);
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(3);
+					testing.ValidateConsistency();
+					sourceScalarValue.Move(1, 3);
+					testing.ValidateConsistency();
+					sourceScalarValue[2].Active = !sourceScalarValue[2].Active;
+					testing.ValidateConsistency();
+					sourceScalarValue[2].Num = sourceScalarValue[2].Num + 1;
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(1);
+					testing.ValidateConsistency();
+					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					sourceScalarValue.Insert(0, new QuickTests.Item(2, true));
+					testing.ValidateConsistency();
+				}
+
+				IList listSource;
+				listSource = ((IList)((System.Collections.Specialized.INotifyCollectionChanged)sourceScalar.Value));
+				if (listSource != null)
+				{
+					listSource.Clear();
+					testing.ValidateConsistency();
+				}
+
+				if (sourceScalarValue != null)
+				{
+					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
+					sourceScalarValue.Insert(1, new QuickTests.Item(2, true));
+					sourceScalarValue.Insert(2, new QuickTests.Item(3, true));
+					sourceScalarValue.Insert(3, new QuickTests.Item(3, true));
+					sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
+					testing.ValidateConsistency();
+				}
+				testing.ValidateConsistency();
+			}
+
+			test();
+
+			((Scalar<System.Collections.Specialized.INotifyCollectionChanged>)sourceScalar).Touch();
+			test();
+			((Scalar<System.Collections.Specialized.INotifyCollectionChanged>)sourceScalar).Change(null);
+			test();
+			consumer.Dispose();
+			((OcDispatcher)destinationOcDispatcher).Dispose();
+			((OcDispatcher)sourceOcDispatcher).Dispose();
+		}
+		
+		[Test, Combinatorial]
+		public void TestCollectionDispatching44()
+		{
+			Scalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
+			ObservableComputations.IOcDispatcher destinationOcDispatcher = new OcDispatcher();
+			ObservableComputations.IOcDispatcher sourceOcDispatcher = new OcDispatcher();
+			object destinationOcDispatcherParameter = new object();
+			OcConsumer consumer = new OcConsumer();
+			var testing = sourceScalar.CollectionDispatching<Item>(
+				destinationOcDispatcher,
+				sourceOcDispatcher,
+				destinationOcDispatcherParameter).For(consumer);
+
+			Assert.AreEqual(sourceScalar, testing.SourceScalar);
+			Assert.AreEqual(destinationOcDispatcher, testing.DestinationOcDispatcher);
+			Assert.AreEqual(sourceOcDispatcher, testing.SourceOcDispatcher);
+			Assert.AreEqual(destinationOcDispatcherParameter, testing.DestinationOcDispatcherParameter);
+
+			void test()
+			{
+				testing.ValidateConsistency();
+				var sourceScalarValue = ((ObservableCollection<Item>)((System.Collections.Specialized.INotifyCollectionChanged)sourceScalar.Value));
+
+				if (sourceScalarValue != null)
+				{		
+					sourceScalarValue.Insert(2, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					sourceScalarValue[3] = new QuickTests.Item(7, true);
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(3);
+					testing.ValidateConsistency();
+					sourceScalarValue.Move(1, 3);
+					testing.ValidateConsistency();
+					sourceScalarValue[2].Active = !sourceScalarValue[2].Active;
+					testing.ValidateConsistency();
+					sourceScalarValue[2].Num = sourceScalarValue[2].Num + 1;
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(1);
+					testing.ValidateConsistency();
+					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					sourceScalarValue.Insert(0, new QuickTests.Item(2, true));
+					testing.ValidateConsistency();
+				}
+
+				IList listSource;
+				listSource = ((IList)((System.Collections.Specialized.INotifyCollectionChanged)sourceScalar.Value));
+				if (listSource != null)
+				{
+					listSource.Clear();
+					testing.ValidateConsistency();
+				}
+
+				if (sourceScalarValue != null)
+				{
+					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
+					sourceScalarValue.Insert(1, new QuickTests.Item(2, true));
+					sourceScalarValue.Insert(2, new QuickTests.Item(3, true));
+					sourceScalarValue.Insert(3, new QuickTests.Item(3, true));
+					sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
+					testing.ValidateConsistency();
+				}
+				testing.ValidateConsistency();
+			}
+
+			test();
+
+			((Scalar<System.Collections.Specialized.INotifyCollectionChanged>)sourceScalar).Touch();
+			test();
+			((Scalar<System.Collections.Specialized.INotifyCollectionChanged>)sourceScalar).Change(null);
+			test();
+			consumer.Dispose();
+			((OcDispatcher)destinationOcDispatcher).Dispose();
+			((OcDispatcher)sourceOcDispatcher).Dispose();
+		}
+		
+		[Test, Combinatorial]
+		public void TestCollectionDispatching45()
+		{
+			Scalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
+			ObservableComputations.IOcDispatcher destinationOcDispatcher = new OcDispatcher();
+			ObservableComputations.IOcDispatcher sourceOcDispatcher = new OcDispatcher();
+			OcConsumer consumer = new OcConsumer();
+			var testing = sourceScalar.CollectionDispatching<Item>(
+				destinationOcDispatcher,
+				sourceOcDispatcher).For(consumer);
+
+			Assert.AreEqual(sourceScalar, testing.SourceScalar);
+			Assert.AreEqual(destinationOcDispatcher, testing.DestinationOcDispatcher);
+			Assert.AreEqual(sourceOcDispatcher, testing.SourceOcDispatcher);
+
+			void test()
+			{
+				testing.ValidateConsistency();
+				var sourceScalarValue = ((ObservableCollection<Item>)((System.Collections.Specialized.INotifyCollectionChanged)sourceScalar.Value));
+
+				if (sourceScalarValue != null)
+				{		
+					sourceScalarValue.Insert(2, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					sourceScalarValue[3] = new QuickTests.Item(7, true);
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(3);
+					testing.ValidateConsistency();
+					sourceScalarValue.Move(1, 3);
+					testing.ValidateConsistency();
+					sourceScalarValue[2].Active = !sourceScalarValue[2].Active;
+					testing.ValidateConsistency();
+					sourceScalarValue[2].Num = sourceScalarValue[2].Num + 1;
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(1);
+					testing.ValidateConsistency();
+					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					sourceScalarValue.Insert(0, new QuickTests.Item(2, true));
+					testing.ValidateConsistency();
+				}
+
+				IList listSource;
+				listSource = ((IList)((System.Collections.Specialized.INotifyCollectionChanged)sourceScalar.Value));
+				if (listSource != null)
+				{
+					listSource.Clear();
+					testing.ValidateConsistency();
+				}
+
+				if (sourceScalarValue != null)
+				{
+					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
+					sourceScalarValue.Insert(1, new QuickTests.Item(2, true));
+					sourceScalarValue.Insert(2, new QuickTests.Item(3, true));
+					sourceScalarValue.Insert(3, new QuickTests.Item(3, true));
+					sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
+					testing.ValidateConsistency();
+				}
+				testing.ValidateConsistency();
+			}
+
+			test();
+
+			((Scalar<System.Collections.Specialized.INotifyCollectionChanged>)sourceScalar).Touch();
+			test();
+			((Scalar<System.Collections.Specialized.INotifyCollectionChanged>)sourceScalar).Change(null);
+			test();
+			consumer.Dispose();
+			((OcDispatcher)destinationOcDispatcher).Dispose();
+			((OcDispatcher)sourceOcDispatcher).Dispose();
+		}
+		
+		[Test, Combinatorial]
+		public void TestCollectionDispatching46(
+			[Values()] int destinationOcDispatcherPriority,
+			[Values()] int sourceOcDispatcherPriority)
+		{
+			Scalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
+			ObservableComputations.IOcDispatcher destinationOcDispatcher = new OcDispatcher();
+			object destinationOcDispatcherParameter = new object();
+			object sourceOcDispatcherParameter = new object();
+			OcConsumer consumer = new OcConsumer();
+			var testing = sourceScalar.CollectionDispatching<Item>(
+				destinationOcDispatcher,
+				destinationOcDispatcherPriority,
+				sourceOcDispatcherPriority,
+				destinationOcDispatcherParameter,
+				sourceOcDispatcherParameter).For(consumer);
+
+			Assert.AreEqual(sourceScalar, testing.SourceScalar);
+			Assert.AreEqual(destinationOcDispatcher, testing.DestinationOcDispatcher);
+			Assert.AreEqual(destinationOcDispatcherPriority, testing.DestinationOcDispatcherPriority);
+			Assert.AreEqual(sourceOcDispatcherPriority, testing.SourceOcDispatcherPriority);
+			Assert.AreEqual(destinationOcDispatcherParameter, testing.DestinationOcDispatcherParameter);
+			Assert.AreEqual(sourceOcDispatcherParameter, testing.SourceOcDispatcherParameter);
+
+			void test()
+			{
+				testing.ValidateConsistency();
+				var sourceScalarValue = ((ObservableCollection<Item>)((System.Collections.Specialized.INotifyCollectionChanged)sourceScalar.Value));
+
+				if (sourceScalarValue != null)
+				{		
+					sourceScalarValue.Insert(2, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					sourceScalarValue[3] = new QuickTests.Item(7, true);
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(3);
+					testing.ValidateConsistency();
+					sourceScalarValue.Move(1, 3);
+					testing.ValidateConsistency();
+					sourceScalarValue[2].Active = !sourceScalarValue[2].Active;
+					testing.ValidateConsistency();
+					sourceScalarValue[2].Num = sourceScalarValue[2].Num + 1;
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(1);
+					testing.ValidateConsistency();
+					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					sourceScalarValue.Insert(0, new QuickTests.Item(2, true));
+					testing.ValidateConsistency();
+				}
+
+				IList listSource;
+				listSource = ((IList)((System.Collections.Specialized.INotifyCollectionChanged)sourceScalar.Value));
+				if (listSource != null)
+				{
+					listSource.Clear();
+					testing.ValidateConsistency();
+				}
+
+				if (sourceScalarValue != null)
+				{
+					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
+					sourceScalarValue.Insert(1, new QuickTests.Item(2, true));
+					sourceScalarValue.Insert(2, new QuickTests.Item(3, true));
+					sourceScalarValue.Insert(3, new QuickTests.Item(3, true));
+					sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
+					testing.ValidateConsistency();
+				}
+				testing.ValidateConsistency();
+			}
+
+			test();
+
+			((Scalar<System.Collections.Specialized.INotifyCollectionChanged>)sourceScalar).Touch();
+			test();
+			((Scalar<System.Collections.Specialized.INotifyCollectionChanged>)sourceScalar).Change(null);
+			test();
+			consumer.Dispose();
+			((OcDispatcher)destinationOcDispatcher).Dispose();
+		}
+		
+		[Test, Combinatorial]
+		public void TestCollectionDispatching47(
+			[Values()] int destinationOcDispatcherPriority,
+			[Values()] int sourceOcDispatcherPriority)
+		{
+			Scalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
+			ObservableComputations.IOcDispatcher destinationOcDispatcher = new OcDispatcher();
+			object destinationOcDispatcherParameter = new object();
+			OcConsumer consumer = new OcConsumer();
+			var testing = sourceScalar.CollectionDispatching<Item>(
+				destinationOcDispatcher,
+				destinationOcDispatcherPriority,
+				sourceOcDispatcherPriority,
+				destinationOcDispatcherParameter).For(consumer);
+
+			Assert.AreEqual(sourceScalar, testing.SourceScalar);
+			Assert.AreEqual(destinationOcDispatcher, testing.DestinationOcDispatcher);
+			Assert.AreEqual(destinationOcDispatcherPriority, testing.DestinationOcDispatcherPriority);
+			Assert.AreEqual(sourceOcDispatcherPriority, testing.SourceOcDispatcherPriority);
+			Assert.AreEqual(destinationOcDispatcherParameter, testing.DestinationOcDispatcherParameter);
+
+			void test()
+			{
+				testing.ValidateConsistency();
+				var sourceScalarValue = ((ObservableCollection<Item>)((System.Collections.Specialized.INotifyCollectionChanged)sourceScalar.Value));
+
+				if (sourceScalarValue != null)
+				{		
+					sourceScalarValue.Insert(2, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					sourceScalarValue[3] = new QuickTests.Item(7, true);
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(3);
+					testing.ValidateConsistency();
+					sourceScalarValue.Move(1, 3);
+					testing.ValidateConsistency();
+					sourceScalarValue[2].Active = !sourceScalarValue[2].Active;
+					testing.ValidateConsistency();
+					sourceScalarValue[2].Num = sourceScalarValue[2].Num + 1;
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(1);
+					testing.ValidateConsistency();
+					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					sourceScalarValue.Insert(0, new QuickTests.Item(2, true));
+					testing.ValidateConsistency();
+				}
+
+				IList listSource;
+				listSource = ((IList)((System.Collections.Specialized.INotifyCollectionChanged)sourceScalar.Value));
+				if (listSource != null)
+				{
+					listSource.Clear();
+					testing.ValidateConsistency();
+				}
+
+				if (sourceScalarValue != null)
+				{
+					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
+					sourceScalarValue.Insert(1, new QuickTests.Item(2, true));
+					sourceScalarValue.Insert(2, new QuickTests.Item(3, true));
+					sourceScalarValue.Insert(3, new QuickTests.Item(3, true));
+					sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
+					testing.ValidateConsistency();
+				}
+				testing.ValidateConsistency();
+			}
+
+			test();
+
+			((Scalar<System.Collections.Specialized.INotifyCollectionChanged>)sourceScalar).Touch();
+			test();
+			((Scalar<System.Collections.Specialized.INotifyCollectionChanged>)sourceScalar).Change(null);
+			test();
+			consumer.Dispose();
+			((OcDispatcher)destinationOcDispatcher).Dispose();
+		}
+		
+		[Test, Combinatorial]
+		public void TestCollectionDispatching48(
+			[Values()] int destinationOcDispatcherPriority,
+			[Values()] int sourceOcDispatcherPriority)
+		{
+			Scalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
+			ObservableComputations.IOcDispatcher destinationOcDispatcher = new OcDispatcher();
+			OcConsumer consumer = new OcConsumer();
+			var testing = sourceScalar.CollectionDispatching<Item>(
+				destinationOcDispatcher,
+				destinationOcDispatcherPriority,
+				sourceOcDispatcherPriority).For(consumer);
+
+			Assert.AreEqual(sourceScalar, testing.SourceScalar);
+			Assert.AreEqual(destinationOcDispatcher, testing.DestinationOcDispatcher);
+			Assert.AreEqual(destinationOcDispatcherPriority, testing.DestinationOcDispatcherPriority);
+			Assert.AreEqual(sourceOcDispatcherPriority, testing.SourceOcDispatcherPriority);
+
+			void test()
+			{
+				testing.ValidateConsistency();
+				var sourceScalarValue = ((ObservableCollection<Item>)((System.Collections.Specialized.INotifyCollectionChanged)sourceScalar.Value));
+
+				if (sourceScalarValue != null)
+				{		
+					sourceScalarValue.Insert(2, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					sourceScalarValue[3] = new QuickTests.Item(7, true);
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(3);
+					testing.ValidateConsistency();
+					sourceScalarValue.Move(1, 3);
+					testing.ValidateConsistency();
+					sourceScalarValue[2].Active = !sourceScalarValue[2].Active;
+					testing.ValidateConsistency();
+					sourceScalarValue[2].Num = sourceScalarValue[2].Num + 1;
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(1);
+					testing.ValidateConsistency();
+					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					sourceScalarValue.Insert(0, new QuickTests.Item(2, true));
+					testing.ValidateConsistency();
+				}
+
+				IList listSource;
+				listSource = ((IList)((System.Collections.Specialized.INotifyCollectionChanged)sourceScalar.Value));
+				if (listSource != null)
+				{
+					listSource.Clear();
+					testing.ValidateConsistency();
+				}
+
+				if (sourceScalarValue != null)
+				{
+					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
+					sourceScalarValue.Insert(1, new QuickTests.Item(2, true));
+					sourceScalarValue.Insert(2, new QuickTests.Item(3, true));
+					sourceScalarValue.Insert(3, new QuickTests.Item(3, true));
+					sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
+					testing.ValidateConsistency();
+				}
+				testing.ValidateConsistency();
+			}
+
+			test();
+
+			((Scalar<System.Collections.Specialized.INotifyCollectionChanged>)sourceScalar).Touch();
+			test();
+			((Scalar<System.Collections.Specialized.INotifyCollectionChanged>)sourceScalar).Change(null);
+			test();
+			consumer.Dispose();
+			((OcDispatcher)destinationOcDispatcher).Dispose();
+		}
+		
+		[Test, Combinatorial]
+		public void TestCollectionDispatching49(
+			[Values()] int destinationOcDispatcherPriority)
+		{
+			Scalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
+			ObservableComputations.IOcDispatcher destinationOcDispatcher = new OcDispatcher();
+			object destinationOcDispatcherParameter = new object();
+			object sourceOcDispatcherParameter = new object();
+			OcConsumer consumer = new OcConsumer();
+			var testing = sourceScalar.CollectionDispatching<Item>(
+				destinationOcDispatcher,
+				destinationOcDispatcherPriority,
+				destinationOcDispatcherParameter,
+				sourceOcDispatcherParameter).For(consumer);
+
+			Assert.AreEqual(sourceScalar, testing.SourceScalar);
+			Assert.AreEqual(destinationOcDispatcher, testing.DestinationOcDispatcher);
+			Assert.AreEqual(destinationOcDispatcherPriority, testing.DestinationOcDispatcherPriority);
+			Assert.AreEqual(destinationOcDispatcherParameter, testing.DestinationOcDispatcherParameter);
+			Assert.AreEqual(sourceOcDispatcherParameter, testing.SourceOcDispatcherParameter);
+
+			void test()
+			{
+				testing.ValidateConsistency();
+				var sourceScalarValue = ((ObservableCollection<Item>)((System.Collections.Specialized.INotifyCollectionChanged)sourceScalar.Value));
+
+				if (sourceScalarValue != null)
+				{		
+					sourceScalarValue.Insert(2, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					sourceScalarValue[3] = new QuickTests.Item(7, true);
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(3);
+					testing.ValidateConsistency();
+					sourceScalarValue.Move(1, 3);
+					testing.ValidateConsistency();
+					sourceScalarValue[2].Active = !sourceScalarValue[2].Active;
+					testing.ValidateConsistency();
+					sourceScalarValue[2].Num = sourceScalarValue[2].Num + 1;
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(1);
+					testing.ValidateConsistency();
+					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					sourceScalarValue.Insert(0, new QuickTests.Item(2, true));
+					testing.ValidateConsistency();
+				}
+
+				IList listSource;
+				listSource = ((IList)((System.Collections.Specialized.INotifyCollectionChanged)sourceScalar.Value));
+				if (listSource != null)
+				{
+					listSource.Clear();
+					testing.ValidateConsistency();
+				}
+
+				if (sourceScalarValue != null)
+				{
+					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
+					sourceScalarValue.Insert(1, new QuickTests.Item(2, true));
+					sourceScalarValue.Insert(2, new QuickTests.Item(3, true));
+					sourceScalarValue.Insert(3, new QuickTests.Item(3, true));
+					sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
+					testing.ValidateConsistency();
+				}
+				testing.ValidateConsistency();
+			}
+
+			test();
+
+			((Scalar<System.Collections.Specialized.INotifyCollectionChanged>)sourceScalar).Touch();
+			test();
+			((Scalar<System.Collections.Specialized.INotifyCollectionChanged>)sourceScalar).Change(null);
+			test();
+			consumer.Dispose();
+			((OcDispatcher)destinationOcDispatcher).Dispose();
+		}
+		
+		[Test, Combinatorial]
+		public void TestCollectionDispatching50(
+			[Values()] int destinationOcDispatcherPriority)
+		{
+			Scalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
+			ObservableComputations.IOcDispatcher destinationOcDispatcher = new OcDispatcher();
+			object destinationOcDispatcherParameter = new object();
+			OcConsumer consumer = new OcConsumer();
+			var testing = sourceScalar.CollectionDispatching<Item>(
+				destinationOcDispatcher,
+				destinationOcDispatcherPriority,
+				destinationOcDispatcherParameter).For(consumer);
+
+			Assert.AreEqual(sourceScalar, testing.SourceScalar);
+			Assert.AreEqual(destinationOcDispatcher, testing.DestinationOcDispatcher);
+			Assert.AreEqual(destinationOcDispatcherPriority, testing.DestinationOcDispatcherPriority);
+			Assert.AreEqual(destinationOcDispatcherParameter, testing.DestinationOcDispatcherParameter);
+
+			void test()
+			{
+				testing.ValidateConsistency();
+				var sourceScalarValue = ((ObservableCollection<Item>)((System.Collections.Specialized.INotifyCollectionChanged)sourceScalar.Value));
+
+				if (sourceScalarValue != null)
+				{		
+					sourceScalarValue.Insert(2, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					sourceScalarValue[3] = new QuickTests.Item(7, true);
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(3);
+					testing.ValidateConsistency();
+					sourceScalarValue.Move(1, 3);
+					testing.ValidateConsistency();
+					sourceScalarValue[2].Active = !sourceScalarValue[2].Active;
+					testing.ValidateConsistency();
+					sourceScalarValue[2].Num = sourceScalarValue[2].Num + 1;
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(1);
+					testing.ValidateConsistency();
+					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					sourceScalarValue.Insert(0, new QuickTests.Item(2, true));
+					testing.ValidateConsistency();
+				}
+
+				IList listSource;
+				listSource = ((IList)((System.Collections.Specialized.INotifyCollectionChanged)sourceScalar.Value));
+				if (listSource != null)
+				{
+					listSource.Clear();
+					testing.ValidateConsistency();
+				}
+
+				if (sourceScalarValue != null)
+				{
+					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
+					sourceScalarValue.Insert(1, new QuickTests.Item(2, true));
+					sourceScalarValue.Insert(2, new QuickTests.Item(3, true));
+					sourceScalarValue.Insert(3, new QuickTests.Item(3, true));
+					sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
+					testing.ValidateConsistency();
+				}
+				testing.ValidateConsistency();
+			}
+
+			test();
+
+			((Scalar<System.Collections.Specialized.INotifyCollectionChanged>)sourceScalar).Touch();
+			test();
+			((Scalar<System.Collections.Specialized.INotifyCollectionChanged>)sourceScalar).Change(null);
+			test();
+			consumer.Dispose();
+			((OcDispatcher)destinationOcDispatcher).Dispose();
+		}
+		
+		[Test, Combinatorial]
+		public void TestCollectionDispatching51(
+			[Values()] int destinationOcDispatcherPriority)
+		{
+			Scalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
+			ObservableComputations.IOcDispatcher destinationOcDispatcher = new OcDispatcher();
+			OcConsumer consumer = new OcConsumer();
+			var testing = sourceScalar.CollectionDispatching<Item>(
+				destinationOcDispatcher,
+				destinationOcDispatcherPriority).For(consumer);
+
+			Assert.AreEqual(sourceScalar, testing.SourceScalar);
+			Assert.AreEqual(destinationOcDispatcher, testing.DestinationOcDispatcher);
+			Assert.AreEqual(destinationOcDispatcherPriority, testing.DestinationOcDispatcherPriority);
+
+			void test()
+			{
+				testing.ValidateConsistency();
+				var sourceScalarValue = ((ObservableCollection<Item>)((System.Collections.Specialized.INotifyCollectionChanged)sourceScalar.Value));
+
+				if (sourceScalarValue != null)
+				{		
+					sourceScalarValue.Insert(2, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					sourceScalarValue[3] = new QuickTests.Item(7, true);
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(3);
+					testing.ValidateConsistency();
+					sourceScalarValue.Move(1, 3);
+					testing.ValidateConsistency();
+					sourceScalarValue[2].Active = !sourceScalarValue[2].Active;
+					testing.ValidateConsistency();
+					sourceScalarValue[2].Num = sourceScalarValue[2].Num + 1;
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(1);
+					testing.ValidateConsistency();
+					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					sourceScalarValue.Insert(0, new QuickTests.Item(2, true));
+					testing.ValidateConsistency();
+				}
+
+				IList listSource;
+				listSource = ((IList)((System.Collections.Specialized.INotifyCollectionChanged)sourceScalar.Value));
+				if (listSource != null)
+				{
+					listSource.Clear();
+					testing.ValidateConsistency();
+				}
+
+				if (sourceScalarValue != null)
+				{
+					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
+					sourceScalarValue.Insert(1, new QuickTests.Item(2, true));
+					sourceScalarValue.Insert(2, new QuickTests.Item(3, true));
+					sourceScalarValue.Insert(3, new QuickTests.Item(3, true));
+					sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
+					testing.ValidateConsistency();
+				}
+				testing.ValidateConsistency();
+			}
+
+			test();
+
+			((Scalar<System.Collections.Specialized.INotifyCollectionChanged>)sourceScalar).Touch();
+			test();
+			((Scalar<System.Collections.Specialized.INotifyCollectionChanged>)sourceScalar).Change(null);
+			test();
+			consumer.Dispose();
+			((OcDispatcher)destinationOcDispatcher).Dispose();
+		}
+		
+		[Test, Combinatorial]
+		public void TestCollectionDispatching52()
+		{
+			Scalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
+			ObservableComputations.IOcDispatcher destinationOcDispatcher = new OcDispatcher();
+			object destinationOcDispatcherParameter = new object();
+			object sourceOcDispatcherParameter = new object();
+			OcConsumer consumer = new OcConsumer();
+			var testing = sourceScalar.CollectionDispatching<Item>(
+				destinationOcDispatcher,
+				destinationOcDispatcherParameter,
+				sourceOcDispatcherParameter).For(consumer);
+
+			Assert.AreEqual(sourceScalar, testing.SourceScalar);
+			Assert.AreEqual(destinationOcDispatcher, testing.DestinationOcDispatcher);
+			Assert.AreEqual(destinationOcDispatcherParameter, testing.DestinationOcDispatcherParameter);
+			Assert.AreEqual(sourceOcDispatcherParameter, testing.SourceOcDispatcherParameter);
+
+			void test()
+			{
+				testing.ValidateConsistency();
+				var sourceScalarValue = ((ObservableCollection<Item>)((System.Collections.Specialized.INotifyCollectionChanged)sourceScalar.Value));
+
+				if (sourceScalarValue != null)
+				{		
+					sourceScalarValue.Insert(2, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					sourceScalarValue[3] = new QuickTests.Item(7, true);
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(3);
+					testing.ValidateConsistency();
+					sourceScalarValue.Move(1, 3);
+					testing.ValidateConsistency();
+					sourceScalarValue[2].Active = !sourceScalarValue[2].Active;
+					testing.ValidateConsistency();
+					sourceScalarValue[2].Num = sourceScalarValue[2].Num + 1;
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(1);
+					testing.ValidateConsistency();
+					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					sourceScalarValue.Insert(0, new QuickTests.Item(2, true));
+					testing.ValidateConsistency();
+				}
+
+				IList listSource;
+				listSource = ((IList)((System.Collections.Specialized.INotifyCollectionChanged)sourceScalar.Value));
+				if (listSource != null)
+				{
+					listSource.Clear();
+					testing.ValidateConsistency();
+				}
+
+				if (sourceScalarValue != null)
+				{
+					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
+					sourceScalarValue.Insert(1, new QuickTests.Item(2, true));
+					sourceScalarValue.Insert(2, new QuickTests.Item(3, true));
+					sourceScalarValue.Insert(3, new QuickTests.Item(3, true));
+					sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
+					testing.ValidateConsistency();
+				}
+				testing.ValidateConsistency();
+			}
+
+			test();
+
+			((Scalar<System.Collections.Specialized.INotifyCollectionChanged>)sourceScalar).Touch();
+			test();
+			((Scalar<System.Collections.Specialized.INotifyCollectionChanged>)sourceScalar).Change(null);
+			test();
+			consumer.Dispose();
+			((OcDispatcher)destinationOcDispatcher).Dispose();
+		}
+		
+		[Test, Combinatorial]
+		public void TestCollectionDispatching53()
+		{
+			Scalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
+			ObservableComputations.IOcDispatcher destinationOcDispatcher = new OcDispatcher();
+			object destinationOcDispatcherParameter = new object();
+			OcConsumer consumer = new OcConsumer();
+			var testing = sourceScalar.CollectionDispatching<Item>(
+				destinationOcDispatcher,
+				destinationOcDispatcherParameter).For(consumer);
+
+			Assert.AreEqual(sourceScalar, testing.SourceScalar);
+			Assert.AreEqual(destinationOcDispatcher, testing.DestinationOcDispatcher);
+			Assert.AreEqual(destinationOcDispatcherParameter, testing.DestinationOcDispatcherParameter);
+
+			void test()
+			{
+				testing.ValidateConsistency();
+				var sourceScalarValue = ((ObservableCollection<Item>)((System.Collections.Specialized.INotifyCollectionChanged)sourceScalar.Value));
+
+				if (sourceScalarValue != null)
+				{		
+					sourceScalarValue.Insert(2, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					sourceScalarValue[3] = new QuickTests.Item(7, true);
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(3);
+					testing.ValidateConsistency();
+					sourceScalarValue.Move(1, 3);
+					testing.ValidateConsistency();
+					sourceScalarValue[2].Active = !sourceScalarValue[2].Active;
+					testing.ValidateConsistency();
+					sourceScalarValue[2].Num = sourceScalarValue[2].Num + 1;
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(1);
+					testing.ValidateConsistency();
+					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					sourceScalarValue.Insert(0, new QuickTests.Item(2, true));
+					testing.ValidateConsistency();
+				}
+
+				IList listSource;
+				listSource = ((IList)((System.Collections.Specialized.INotifyCollectionChanged)sourceScalar.Value));
+				if (listSource != null)
+				{
+					listSource.Clear();
+					testing.ValidateConsistency();
+				}
+
+				if (sourceScalarValue != null)
+				{
+					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
+					sourceScalarValue.Insert(1, new QuickTests.Item(2, true));
+					sourceScalarValue.Insert(2, new QuickTests.Item(3, true));
+					sourceScalarValue.Insert(3, new QuickTests.Item(3, true));
+					sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
+					testing.ValidateConsistency();
+				}
+				testing.ValidateConsistency();
+			}
+
+			test();
+
+			((Scalar<System.Collections.Specialized.INotifyCollectionChanged>)sourceScalar).Touch();
+			test();
+			((Scalar<System.Collections.Specialized.INotifyCollectionChanged>)sourceScalar).Change(null);
+			test();
+			consumer.Dispose();
+			((OcDispatcher)destinationOcDispatcher).Dispose();
+		}
+		
+		[Test, Combinatorial]
+		public void TestCollectionDispatching54()
+		{
+			Scalar<System.Collections.Specialized.INotifyCollectionChanged> sourceScalar = getScalar<System.Collections.Specialized.INotifyCollectionChanged>(getItems());
+			ObservableComputations.IOcDispatcher destinationOcDispatcher = new OcDispatcher();
+			OcConsumer consumer = new OcConsumer();
+			var testing = sourceScalar.CollectionDispatching<Item>(
+				destinationOcDispatcher).For(consumer);
+
+			Assert.AreEqual(sourceScalar, testing.SourceScalar);
+			Assert.AreEqual(destinationOcDispatcher, testing.DestinationOcDispatcher);
+
+			void test()
+			{
+				testing.ValidateConsistency();
+				var sourceScalarValue = ((ObservableCollection<Item>)((System.Collections.Specialized.INotifyCollectionChanged)sourceScalar.Value));
+
+				if (sourceScalarValue != null)
+				{		
+					sourceScalarValue.Insert(2, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					sourceScalarValue[3] = new QuickTests.Item(7, true);
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(3);
+					testing.ValidateConsistency();
+					sourceScalarValue.Move(1, 3);
+					testing.ValidateConsistency();
+					sourceScalarValue[2].Active = !sourceScalarValue[2].Active;
+					testing.ValidateConsistency();
+					sourceScalarValue[2].Num = sourceScalarValue[2].Num + 1;
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(1);
+					testing.ValidateConsistency();
+					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					sourceScalarValue.Insert(0, new QuickTests.Item(2, true));
+					testing.ValidateConsistency();
+				}
+
+				IList listSource;
+				listSource = ((IList)((System.Collections.Specialized.INotifyCollectionChanged)sourceScalar.Value));
+				if (listSource != null)
+				{
+					listSource.Clear();
+					testing.ValidateConsistency();
+				}
+
+				if (sourceScalarValue != null)
+				{
+					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
+					sourceScalarValue.Insert(1, new QuickTests.Item(2, true));
+					sourceScalarValue.Insert(2, new QuickTests.Item(3, true));
+					sourceScalarValue.Insert(3, new QuickTests.Item(3, true));
+					sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
+					testing.ValidateConsistency();
+				}
+				testing.ValidateConsistency();
+			}
+
+			test();
+
+			((Scalar<System.Collections.Specialized.INotifyCollectionChanged>)sourceScalar).Touch();
+			test();
+			((Scalar<System.Collections.Specialized.INotifyCollectionChanged>)sourceScalar).Change(null);
+			test();
+			consumer.Dispose();
+			((OcDispatcher)destinationOcDispatcher).Dispose();
+		}
+		
+		[Test, Combinatorial]
+		public void TestCollectionDispatching55(
+			[Values()] int destinationOcDispatcherPriority,
+			[Values()] int sourceOcDispatcherPriority)
+		{
+			Scalar<ObservableCollection<Item>> sourceScalar = getScalar<ObservableCollection<Item>>(getItems());
+			ObservableComputations.IOcDispatcher destinationOcDispatcher = new OcDispatcher();
+			ObservableComputations.IOcDispatcher sourceOcDispatcher = new OcDispatcher();
+			object destinationOcDispatcherParameter = new object();
+			object sourceOcDispatcherParameter = new object();
+			OcConsumer consumer = new OcConsumer();
+			var testing = sourceScalar.CollectionDispatching<Item>(
+				destinationOcDispatcher,
+				sourceOcDispatcher,
+				destinationOcDispatcherPriority,
+				sourceOcDispatcherPriority,
+				destinationOcDispatcherParameter,
+				sourceOcDispatcherParameter).For(consumer);
+
+			Assert.AreEqual(sourceScalar, testing.SourceScalar);
+			Assert.AreEqual(destinationOcDispatcher, testing.DestinationOcDispatcher);
+			Assert.AreEqual(sourceOcDispatcher, testing.SourceOcDispatcher);
+			Assert.AreEqual(destinationOcDispatcherPriority, testing.DestinationOcDispatcherPriority);
+			Assert.AreEqual(sourceOcDispatcherPriority, testing.SourceOcDispatcherPriority);
+			Assert.AreEqual(destinationOcDispatcherParameter, testing.DestinationOcDispatcherParameter);
+			Assert.AreEqual(sourceOcDispatcherParameter, testing.SourceOcDispatcherParameter);
+
+			void test()
+			{
+				testing.ValidateConsistency();
+				var sourceScalarValue = ((ObservableCollection<Item>)((ObservableCollection<Item>)sourceScalar.Value));
+
+				if (sourceScalarValue != null)
+				{		
+					sourceScalarValue.Insert(2, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					sourceScalarValue[3] = new QuickTests.Item(7, true);
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(3);
+					testing.ValidateConsistency();
+					sourceScalarValue.Move(1, 3);
+					testing.ValidateConsistency();
+					sourceScalarValue[2].Active = !sourceScalarValue[2].Active;
+					testing.ValidateConsistency();
+					sourceScalarValue[2].Num = sourceScalarValue[2].Num + 1;
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(1);
+					testing.ValidateConsistency();
+					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					sourceScalarValue.Insert(0, new QuickTests.Item(2, true));
+					testing.ValidateConsistency();
+				}
+
+				IList listSource;
+				listSource = ((IList)((ObservableCollection<Item>)sourceScalar.Value));
+				if (listSource != null)
+				{
+					listSource.Clear();
+					testing.ValidateConsistency();
+				}
+
+				if (sourceScalarValue != null)
+				{
+					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
+					sourceScalarValue.Insert(1, new QuickTests.Item(2, true));
+					sourceScalarValue.Insert(2, new QuickTests.Item(3, true));
+					sourceScalarValue.Insert(3, new QuickTests.Item(3, true));
+					sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
+					testing.ValidateConsistency();
+				}
+				testing.ValidateConsistency();
+			}
+
+			test();
+
+			((Scalar<ObservableCollection<Item>>)sourceScalar).Touch();
+			test();
+			((Scalar<ObservableCollection<Item>>)sourceScalar).Change(null);
+			test();
+			consumer.Dispose();
+			((OcDispatcher)destinationOcDispatcher).Dispose();
+			((OcDispatcher)sourceOcDispatcher).Dispose();
+		}
+		
+		[Test, Combinatorial]
+		public void TestCollectionDispatching56(
+			[Values()] int destinationOcDispatcherPriority,
+			[Values()] int sourceOcDispatcherPriority)
+		{
+			Scalar<ObservableCollection<Item>> sourceScalar = getScalar<ObservableCollection<Item>>(getItems());
+			ObservableComputations.IOcDispatcher destinationOcDispatcher = new OcDispatcher();
+			ObservableComputations.IOcDispatcher sourceOcDispatcher = new OcDispatcher();
+			object destinationOcDispatcherParameter = new object();
+			OcConsumer consumer = new OcConsumer();
+			var testing = sourceScalar.CollectionDispatching<Item>(
+				destinationOcDispatcher,
+				sourceOcDispatcher,
+				destinationOcDispatcherPriority,
+				sourceOcDispatcherPriority,
+				destinationOcDispatcherParameter).For(consumer);
+
+			Assert.AreEqual(sourceScalar, testing.SourceScalar);
+			Assert.AreEqual(destinationOcDispatcher, testing.DestinationOcDispatcher);
+			Assert.AreEqual(sourceOcDispatcher, testing.SourceOcDispatcher);
+			Assert.AreEqual(destinationOcDispatcherPriority, testing.DestinationOcDispatcherPriority);
+			Assert.AreEqual(sourceOcDispatcherPriority, testing.SourceOcDispatcherPriority);
+			Assert.AreEqual(destinationOcDispatcherParameter, testing.DestinationOcDispatcherParameter);
+
+			void test()
+			{
+				testing.ValidateConsistency();
+				var sourceScalarValue = ((ObservableCollection<Item>)((ObservableCollection<Item>)sourceScalar.Value));
+
+				if (sourceScalarValue != null)
+				{		
+					sourceScalarValue.Insert(2, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					sourceScalarValue[3] = new QuickTests.Item(7, true);
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(3);
+					testing.ValidateConsistency();
+					sourceScalarValue.Move(1, 3);
+					testing.ValidateConsistency();
+					sourceScalarValue[2].Active = !sourceScalarValue[2].Active;
+					testing.ValidateConsistency();
+					sourceScalarValue[2].Num = sourceScalarValue[2].Num + 1;
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(1);
+					testing.ValidateConsistency();
+					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					sourceScalarValue.Insert(0, new QuickTests.Item(2, true));
+					testing.ValidateConsistency();
+				}
+
+				IList listSource;
+				listSource = ((IList)((ObservableCollection<Item>)sourceScalar.Value));
+				if (listSource != null)
+				{
+					listSource.Clear();
+					testing.ValidateConsistency();
+				}
+
+				if (sourceScalarValue != null)
+				{
+					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
+					sourceScalarValue.Insert(1, new QuickTests.Item(2, true));
+					sourceScalarValue.Insert(2, new QuickTests.Item(3, true));
+					sourceScalarValue.Insert(3, new QuickTests.Item(3, true));
+					sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
+					testing.ValidateConsistency();
+				}
+				testing.ValidateConsistency();
+			}
+
+			test();
+
+			((Scalar<ObservableCollection<Item>>)sourceScalar).Touch();
+			test();
+			((Scalar<ObservableCollection<Item>>)sourceScalar).Change(null);
+			test();
+			consumer.Dispose();
+			((OcDispatcher)destinationOcDispatcher).Dispose();
+			((OcDispatcher)sourceOcDispatcher).Dispose();
+		}
+		
+		[Test, Combinatorial]
+		public void TestCollectionDispatching57(
+			[Values()] int destinationOcDispatcherPriority,
+			[Values()] int sourceOcDispatcherPriority)
+		{
+			Scalar<ObservableCollection<Item>> sourceScalar = getScalar<ObservableCollection<Item>>(getItems());
+			ObservableComputations.IOcDispatcher destinationOcDispatcher = new OcDispatcher();
+			ObservableComputations.IOcDispatcher sourceOcDispatcher = new OcDispatcher();
+			OcConsumer consumer = new OcConsumer();
+			var testing = sourceScalar.CollectionDispatching<Item>(
+				destinationOcDispatcher,
+				sourceOcDispatcher,
+				destinationOcDispatcherPriority,
+				sourceOcDispatcherPriority).For(consumer);
+
+			Assert.AreEqual(sourceScalar, testing.SourceScalar);
+			Assert.AreEqual(destinationOcDispatcher, testing.DestinationOcDispatcher);
+			Assert.AreEqual(sourceOcDispatcher, testing.SourceOcDispatcher);
+			Assert.AreEqual(destinationOcDispatcherPriority, testing.DestinationOcDispatcherPriority);
+			Assert.AreEqual(sourceOcDispatcherPriority, testing.SourceOcDispatcherPriority);
+
+			void test()
+			{
+				testing.ValidateConsistency();
+				var sourceScalarValue = ((ObservableCollection<Item>)((ObservableCollection<Item>)sourceScalar.Value));
+
+				if (sourceScalarValue != null)
+				{		
+					sourceScalarValue.Insert(2, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					sourceScalarValue[3] = new QuickTests.Item(7, true);
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(3);
+					testing.ValidateConsistency();
+					sourceScalarValue.Move(1, 3);
+					testing.ValidateConsistency();
+					sourceScalarValue[2].Active = !sourceScalarValue[2].Active;
+					testing.ValidateConsistency();
+					sourceScalarValue[2].Num = sourceScalarValue[2].Num + 1;
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(1);
+					testing.ValidateConsistency();
+					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					sourceScalarValue.Insert(0, new QuickTests.Item(2, true));
+					testing.ValidateConsistency();
+				}
+
+				IList listSource;
+				listSource = ((IList)((ObservableCollection<Item>)sourceScalar.Value));
+				if (listSource != null)
+				{
+					listSource.Clear();
+					testing.ValidateConsistency();
+				}
+
+				if (sourceScalarValue != null)
+				{
+					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
+					sourceScalarValue.Insert(1, new QuickTests.Item(2, true));
+					sourceScalarValue.Insert(2, new QuickTests.Item(3, true));
+					sourceScalarValue.Insert(3, new QuickTests.Item(3, true));
+					sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
+					testing.ValidateConsistency();
+				}
+				testing.ValidateConsistency();
+			}
+
+			test();
+
+			((Scalar<ObservableCollection<Item>>)sourceScalar).Touch();
+			test();
+			((Scalar<ObservableCollection<Item>>)sourceScalar).Change(null);
+			test();
+			consumer.Dispose();
+			((OcDispatcher)destinationOcDispatcher).Dispose();
+			((OcDispatcher)sourceOcDispatcher).Dispose();
+		}
+		
+		[Test, Combinatorial]
+		public void TestCollectionDispatching58(
+			[Values()] int destinationOcDispatcherPriority)
+		{
+			Scalar<ObservableCollection<Item>> sourceScalar = getScalar<ObservableCollection<Item>>(getItems());
+			ObservableComputations.IOcDispatcher destinationOcDispatcher = new OcDispatcher();
+			ObservableComputations.IOcDispatcher sourceOcDispatcher = new OcDispatcher();
+			object destinationOcDispatcherParameter = new object();
+			object sourceOcDispatcherParameter = new object();
+			OcConsumer consumer = new OcConsumer();
+			var testing = sourceScalar.CollectionDispatching<Item>(
+				destinationOcDispatcher,
+				sourceOcDispatcher,
+				destinationOcDispatcherPriority,
+				destinationOcDispatcherParameter,
+				sourceOcDispatcherParameter).For(consumer);
+
+			Assert.AreEqual(sourceScalar, testing.SourceScalar);
+			Assert.AreEqual(destinationOcDispatcher, testing.DestinationOcDispatcher);
+			Assert.AreEqual(sourceOcDispatcher, testing.SourceOcDispatcher);
+			Assert.AreEqual(destinationOcDispatcherPriority, testing.DestinationOcDispatcherPriority);
+			Assert.AreEqual(destinationOcDispatcherParameter, testing.DestinationOcDispatcherParameter);
+			Assert.AreEqual(sourceOcDispatcherParameter, testing.SourceOcDispatcherParameter);
+
+			void test()
+			{
+				testing.ValidateConsistency();
+				var sourceScalarValue = ((ObservableCollection<Item>)((ObservableCollection<Item>)sourceScalar.Value));
+
+				if (sourceScalarValue != null)
+				{		
+					sourceScalarValue.Insert(2, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					sourceScalarValue[3] = new QuickTests.Item(7, true);
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(3);
+					testing.ValidateConsistency();
+					sourceScalarValue.Move(1, 3);
+					testing.ValidateConsistency();
+					sourceScalarValue[2].Active = !sourceScalarValue[2].Active;
+					testing.ValidateConsistency();
+					sourceScalarValue[2].Num = sourceScalarValue[2].Num + 1;
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(1);
+					testing.ValidateConsistency();
+					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					sourceScalarValue.Insert(0, new QuickTests.Item(2, true));
+					testing.ValidateConsistency();
+				}
+
+				IList listSource;
+				listSource = ((IList)((ObservableCollection<Item>)sourceScalar.Value));
+				if (listSource != null)
+				{
+					listSource.Clear();
+					testing.ValidateConsistency();
+				}
+
+				if (sourceScalarValue != null)
+				{
+					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
+					sourceScalarValue.Insert(1, new QuickTests.Item(2, true));
+					sourceScalarValue.Insert(2, new QuickTests.Item(3, true));
+					sourceScalarValue.Insert(3, new QuickTests.Item(3, true));
+					sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
+					testing.ValidateConsistency();
+				}
+				testing.ValidateConsistency();
+			}
+
+			test();
+
+			((Scalar<ObservableCollection<Item>>)sourceScalar).Touch();
+			test();
+			((Scalar<ObservableCollection<Item>>)sourceScalar).Change(null);
+			test();
+			consumer.Dispose();
+			((OcDispatcher)destinationOcDispatcher).Dispose();
+			((OcDispatcher)sourceOcDispatcher).Dispose();
+		}
+		
+		[Test, Combinatorial]
+		public void TestCollectionDispatching59(
+			[Values()] int destinationOcDispatcherPriority)
+		{
+			Scalar<ObservableCollection<Item>> sourceScalar = getScalar<ObservableCollection<Item>>(getItems());
+			ObservableComputations.IOcDispatcher destinationOcDispatcher = new OcDispatcher();
+			ObservableComputations.IOcDispatcher sourceOcDispatcher = new OcDispatcher();
+			object destinationOcDispatcherParameter = new object();
+			OcConsumer consumer = new OcConsumer();
+			var testing = sourceScalar.CollectionDispatching<Item>(
+				destinationOcDispatcher,
+				sourceOcDispatcher,
+				destinationOcDispatcherPriority,
+				destinationOcDispatcherParameter).For(consumer);
+
+			Assert.AreEqual(sourceScalar, testing.SourceScalar);
+			Assert.AreEqual(destinationOcDispatcher, testing.DestinationOcDispatcher);
+			Assert.AreEqual(sourceOcDispatcher, testing.SourceOcDispatcher);
+			Assert.AreEqual(destinationOcDispatcherPriority, testing.DestinationOcDispatcherPriority);
+			Assert.AreEqual(destinationOcDispatcherParameter, testing.DestinationOcDispatcherParameter);
+
+			void test()
+			{
+				testing.ValidateConsistency();
+				var sourceScalarValue = ((ObservableCollection<Item>)((ObservableCollection<Item>)sourceScalar.Value));
+
+				if (sourceScalarValue != null)
+				{		
+					sourceScalarValue.Insert(2, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					sourceScalarValue[3] = new QuickTests.Item(7, true);
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(3);
+					testing.ValidateConsistency();
+					sourceScalarValue.Move(1, 3);
+					testing.ValidateConsistency();
+					sourceScalarValue[2].Active = !sourceScalarValue[2].Active;
+					testing.ValidateConsistency();
+					sourceScalarValue[2].Num = sourceScalarValue[2].Num + 1;
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(1);
+					testing.ValidateConsistency();
+					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					sourceScalarValue.Insert(0, new QuickTests.Item(2, true));
+					testing.ValidateConsistency();
+				}
+
+				IList listSource;
+				listSource = ((IList)((ObservableCollection<Item>)sourceScalar.Value));
+				if (listSource != null)
+				{
+					listSource.Clear();
+					testing.ValidateConsistency();
+				}
+
+				if (sourceScalarValue != null)
+				{
+					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
+					sourceScalarValue.Insert(1, new QuickTests.Item(2, true));
+					sourceScalarValue.Insert(2, new QuickTests.Item(3, true));
+					sourceScalarValue.Insert(3, new QuickTests.Item(3, true));
+					sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
+					testing.ValidateConsistency();
+				}
+				testing.ValidateConsistency();
+			}
+
+			test();
+
+			((Scalar<ObservableCollection<Item>>)sourceScalar).Touch();
+			test();
+			((Scalar<ObservableCollection<Item>>)sourceScalar).Change(null);
+			test();
+			consumer.Dispose();
+			((OcDispatcher)destinationOcDispatcher).Dispose();
+			((OcDispatcher)sourceOcDispatcher).Dispose();
+		}
+		
+		[Test, Combinatorial]
+		public void TestCollectionDispatching60(
+			[Values()] int destinationOcDispatcherPriority)
+		{
+			Scalar<ObservableCollection<Item>> sourceScalar = getScalar<ObservableCollection<Item>>(getItems());
+			ObservableComputations.IOcDispatcher destinationOcDispatcher = new OcDispatcher();
+			ObservableComputations.IOcDispatcher sourceOcDispatcher = new OcDispatcher();
+			OcConsumer consumer = new OcConsumer();
+			var testing = sourceScalar.CollectionDispatching<Item>(
+				destinationOcDispatcher,
+				sourceOcDispatcher,
+				destinationOcDispatcherPriority).For(consumer);
+
+			Assert.AreEqual(sourceScalar, testing.SourceScalar);
+			Assert.AreEqual(destinationOcDispatcher, testing.DestinationOcDispatcher);
+			Assert.AreEqual(sourceOcDispatcher, testing.SourceOcDispatcher);
+			Assert.AreEqual(destinationOcDispatcherPriority, testing.DestinationOcDispatcherPriority);
+
+			void test()
+			{
+				testing.ValidateConsistency();
+				var sourceScalarValue = ((ObservableCollection<Item>)((ObservableCollection<Item>)sourceScalar.Value));
+
+				if (sourceScalarValue != null)
+				{		
+					sourceScalarValue.Insert(2, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					sourceScalarValue[3] = new QuickTests.Item(7, true);
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(3);
+					testing.ValidateConsistency();
+					sourceScalarValue.Move(1, 3);
+					testing.ValidateConsistency();
+					sourceScalarValue[2].Active = !sourceScalarValue[2].Active;
+					testing.ValidateConsistency();
+					sourceScalarValue[2].Num = sourceScalarValue[2].Num + 1;
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(1);
+					testing.ValidateConsistency();
+					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					sourceScalarValue.Insert(0, new QuickTests.Item(2, true));
+					testing.ValidateConsistency();
+				}
+
+				IList listSource;
+				listSource = ((IList)((ObservableCollection<Item>)sourceScalar.Value));
+				if (listSource != null)
+				{
+					listSource.Clear();
+					testing.ValidateConsistency();
+				}
+
+				if (sourceScalarValue != null)
+				{
+					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
+					sourceScalarValue.Insert(1, new QuickTests.Item(2, true));
+					sourceScalarValue.Insert(2, new QuickTests.Item(3, true));
+					sourceScalarValue.Insert(3, new QuickTests.Item(3, true));
+					sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
+					testing.ValidateConsistency();
+				}
+				testing.ValidateConsistency();
+			}
+
+			test();
+
+			((Scalar<ObservableCollection<Item>>)sourceScalar).Touch();
+			test();
+			((Scalar<ObservableCollection<Item>>)sourceScalar).Change(null);
+			test();
+			consumer.Dispose();
+			((OcDispatcher)destinationOcDispatcher).Dispose();
+			((OcDispatcher)sourceOcDispatcher).Dispose();
+		}
+		
+		[Test, Combinatorial]
+		public void TestCollectionDispatching61()
+		{
+			Scalar<ObservableCollection<Item>> sourceScalar = getScalar<ObservableCollection<Item>>(getItems());
+			ObservableComputations.IOcDispatcher destinationOcDispatcher = new OcDispatcher();
+			ObservableComputations.IOcDispatcher sourceOcDispatcher = new OcDispatcher();
+			object destinationOcDispatcherParameter = new object();
+			object sourceOcDispatcherParameter = new object();
+			OcConsumer consumer = new OcConsumer();
+			var testing = sourceScalar.CollectionDispatching<Item>(
+				destinationOcDispatcher,
+				sourceOcDispatcher,
+				destinationOcDispatcherParameter,
+				sourceOcDispatcherParameter).For(consumer);
+
+			Assert.AreEqual(sourceScalar, testing.SourceScalar);
+			Assert.AreEqual(destinationOcDispatcher, testing.DestinationOcDispatcher);
+			Assert.AreEqual(sourceOcDispatcher, testing.SourceOcDispatcher);
+			Assert.AreEqual(destinationOcDispatcherParameter, testing.DestinationOcDispatcherParameter);
+			Assert.AreEqual(sourceOcDispatcherParameter, testing.SourceOcDispatcherParameter);
+
+			void test()
+			{
+				testing.ValidateConsistency();
+				var sourceScalarValue = ((ObservableCollection<Item>)((ObservableCollection<Item>)sourceScalar.Value));
+
+				if (sourceScalarValue != null)
+				{		
+					sourceScalarValue.Insert(2, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					sourceScalarValue[3] = new QuickTests.Item(7, true);
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(3);
+					testing.ValidateConsistency();
+					sourceScalarValue.Move(1, 3);
+					testing.ValidateConsistency();
+					sourceScalarValue[2].Active = !sourceScalarValue[2].Active;
+					testing.ValidateConsistency();
+					sourceScalarValue[2].Num = sourceScalarValue[2].Num + 1;
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(1);
+					testing.ValidateConsistency();
+					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					sourceScalarValue.Insert(0, new QuickTests.Item(2, true));
+					testing.ValidateConsistency();
+				}
+
+				IList listSource;
+				listSource = ((IList)((ObservableCollection<Item>)sourceScalar.Value));
+				if (listSource != null)
+				{
+					listSource.Clear();
+					testing.ValidateConsistency();
+				}
+
+				if (sourceScalarValue != null)
+				{
+					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
+					sourceScalarValue.Insert(1, new QuickTests.Item(2, true));
+					sourceScalarValue.Insert(2, new QuickTests.Item(3, true));
+					sourceScalarValue.Insert(3, new QuickTests.Item(3, true));
+					sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
+					testing.ValidateConsistency();
+				}
+				testing.ValidateConsistency();
+			}
+
+			test();
+
+			((Scalar<ObservableCollection<Item>>)sourceScalar).Touch();
+			test();
+			((Scalar<ObservableCollection<Item>>)sourceScalar).Change(null);
+			test();
+			consumer.Dispose();
+			((OcDispatcher)destinationOcDispatcher).Dispose();
+			((OcDispatcher)sourceOcDispatcher).Dispose();
+		}
+		
+		[Test, Combinatorial]
+		public void TestCollectionDispatching62()
+		{
+			Scalar<ObservableCollection<Item>> sourceScalar = getScalar<ObservableCollection<Item>>(getItems());
+			ObservableComputations.IOcDispatcher destinationOcDispatcher = new OcDispatcher();
+			ObservableComputations.IOcDispatcher sourceOcDispatcher = new OcDispatcher();
+			object destinationOcDispatcherParameter = new object();
+			OcConsumer consumer = new OcConsumer();
+			var testing = sourceScalar.CollectionDispatching<Item>(
+				destinationOcDispatcher,
+				sourceOcDispatcher,
+				destinationOcDispatcherParameter).For(consumer);
+
+			Assert.AreEqual(sourceScalar, testing.SourceScalar);
+			Assert.AreEqual(destinationOcDispatcher, testing.DestinationOcDispatcher);
+			Assert.AreEqual(sourceOcDispatcher, testing.SourceOcDispatcher);
+			Assert.AreEqual(destinationOcDispatcherParameter, testing.DestinationOcDispatcherParameter);
+
+			void test()
+			{
+				testing.ValidateConsistency();
+				var sourceScalarValue = ((ObservableCollection<Item>)((ObservableCollection<Item>)sourceScalar.Value));
+
+				if (sourceScalarValue != null)
+				{		
+					sourceScalarValue.Insert(2, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					sourceScalarValue[3] = new QuickTests.Item(7, true);
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(3);
+					testing.ValidateConsistency();
+					sourceScalarValue.Move(1, 3);
+					testing.ValidateConsistency();
+					sourceScalarValue[2].Active = !sourceScalarValue[2].Active;
+					testing.ValidateConsistency();
+					sourceScalarValue[2].Num = sourceScalarValue[2].Num + 1;
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(1);
+					testing.ValidateConsistency();
+					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					sourceScalarValue.Insert(0, new QuickTests.Item(2, true));
+					testing.ValidateConsistency();
+				}
+
+				IList listSource;
+				listSource = ((IList)((ObservableCollection<Item>)sourceScalar.Value));
+				if (listSource != null)
+				{
+					listSource.Clear();
+					testing.ValidateConsistency();
+				}
+
+				if (sourceScalarValue != null)
+				{
+					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
+					sourceScalarValue.Insert(1, new QuickTests.Item(2, true));
+					sourceScalarValue.Insert(2, new QuickTests.Item(3, true));
+					sourceScalarValue.Insert(3, new QuickTests.Item(3, true));
+					sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
+					testing.ValidateConsistency();
+				}
+				testing.ValidateConsistency();
+			}
+
+			test();
+
+			((Scalar<ObservableCollection<Item>>)sourceScalar).Touch();
+			test();
+			((Scalar<ObservableCollection<Item>>)sourceScalar).Change(null);
+			test();
+			consumer.Dispose();
+			((OcDispatcher)destinationOcDispatcher).Dispose();
+			((OcDispatcher)sourceOcDispatcher).Dispose();
+		}
+		
+		[Test, Combinatorial]
+		public void TestCollectionDispatching63()
+		{
+			Scalar<ObservableCollection<Item>> sourceScalar = getScalar<ObservableCollection<Item>>(getItems());
+			ObservableComputations.IOcDispatcher destinationOcDispatcher = new OcDispatcher();
+			ObservableComputations.IOcDispatcher sourceOcDispatcher = new OcDispatcher();
+			OcConsumer consumer = new OcConsumer();
+			var testing = sourceScalar.CollectionDispatching<Item>(
+				destinationOcDispatcher,
+				sourceOcDispatcher).For(consumer);
+
+			Assert.AreEqual(sourceScalar, testing.SourceScalar);
+			Assert.AreEqual(destinationOcDispatcher, testing.DestinationOcDispatcher);
+			Assert.AreEqual(sourceOcDispatcher, testing.SourceOcDispatcher);
+
+			void test()
+			{
+				testing.ValidateConsistency();
+				var sourceScalarValue = ((ObservableCollection<Item>)((ObservableCollection<Item>)sourceScalar.Value));
+
+				if (sourceScalarValue != null)
+				{		
+					sourceScalarValue.Insert(2, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					sourceScalarValue[3] = new QuickTests.Item(7, true);
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(3);
+					testing.ValidateConsistency();
+					sourceScalarValue.Move(1, 3);
+					testing.ValidateConsistency();
+					sourceScalarValue[2].Active = !sourceScalarValue[2].Active;
+					testing.ValidateConsistency();
+					sourceScalarValue[2].Num = sourceScalarValue[2].Num + 1;
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(1);
+					testing.ValidateConsistency();
+					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					sourceScalarValue.Insert(0, new QuickTests.Item(2, true));
+					testing.ValidateConsistency();
+				}
+
+				IList listSource;
+				listSource = ((IList)((ObservableCollection<Item>)sourceScalar.Value));
+				if (listSource != null)
+				{
+					listSource.Clear();
+					testing.ValidateConsistency();
+				}
+
+				if (sourceScalarValue != null)
+				{
+					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
+					sourceScalarValue.Insert(1, new QuickTests.Item(2, true));
+					sourceScalarValue.Insert(2, new QuickTests.Item(3, true));
+					sourceScalarValue.Insert(3, new QuickTests.Item(3, true));
+					sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
+					testing.ValidateConsistency();
+				}
+				testing.ValidateConsistency();
+			}
+
+			test();
+
+			((Scalar<ObservableCollection<Item>>)sourceScalar).Touch();
+			test();
+			((Scalar<ObservableCollection<Item>>)sourceScalar).Change(null);
+			test();
+			consumer.Dispose();
+			((OcDispatcher)destinationOcDispatcher).Dispose();
+			((OcDispatcher)sourceOcDispatcher).Dispose();
+		}
+		
+		[Test, Combinatorial]
+		public void TestCollectionDispatching64(
+			[Values()] int destinationOcDispatcherPriority,
+			[Values()] int sourceOcDispatcherPriority)
+		{
+			Scalar<ObservableCollection<Item>> sourceScalar = getScalar<ObservableCollection<Item>>(getItems());
+			ObservableComputations.IOcDispatcher destinationOcDispatcher = new OcDispatcher();
+			object destinationOcDispatcherParameter = new object();
+			object sourceOcDispatcherParameter = new object();
+			OcConsumer consumer = new OcConsumer();
+			var testing = sourceScalar.CollectionDispatching<Item>(
+				destinationOcDispatcher,
+				destinationOcDispatcherPriority,
+				sourceOcDispatcherPriority,
+				destinationOcDispatcherParameter,
+				sourceOcDispatcherParameter).For(consumer);
+
+			Assert.AreEqual(sourceScalar, testing.SourceScalar);
+			Assert.AreEqual(destinationOcDispatcher, testing.DestinationOcDispatcher);
+			Assert.AreEqual(destinationOcDispatcherPriority, testing.DestinationOcDispatcherPriority);
+			Assert.AreEqual(sourceOcDispatcherPriority, testing.SourceOcDispatcherPriority);
+			Assert.AreEqual(destinationOcDispatcherParameter, testing.DestinationOcDispatcherParameter);
+			Assert.AreEqual(sourceOcDispatcherParameter, testing.SourceOcDispatcherParameter);
+
+			void test()
+			{
+				testing.ValidateConsistency();
+				var sourceScalarValue = ((ObservableCollection<Item>)((ObservableCollection<Item>)sourceScalar.Value));
+
+				if (sourceScalarValue != null)
+				{		
+					sourceScalarValue.Insert(2, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					sourceScalarValue[3] = new QuickTests.Item(7, true);
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(3);
+					testing.ValidateConsistency();
+					sourceScalarValue.Move(1, 3);
+					testing.ValidateConsistency();
+					sourceScalarValue[2].Active = !sourceScalarValue[2].Active;
+					testing.ValidateConsistency();
+					sourceScalarValue[2].Num = sourceScalarValue[2].Num + 1;
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(1);
+					testing.ValidateConsistency();
+					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					sourceScalarValue.Insert(0, new QuickTests.Item(2, true));
+					testing.ValidateConsistency();
+				}
+
+				IList listSource;
+				listSource = ((IList)((ObservableCollection<Item>)sourceScalar.Value));
+				if (listSource != null)
+				{
+					listSource.Clear();
+					testing.ValidateConsistency();
+				}
+
+				if (sourceScalarValue != null)
+				{
+					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
+					sourceScalarValue.Insert(1, new QuickTests.Item(2, true));
+					sourceScalarValue.Insert(2, new QuickTests.Item(3, true));
+					sourceScalarValue.Insert(3, new QuickTests.Item(3, true));
+					sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
+					testing.ValidateConsistency();
+				}
+				testing.ValidateConsistency();
+			}
+
+			test();
+
+			((Scalar<ObservableCollection<Item>>)sourceScalar).Touch();
+			test();
+			((Scalar<ObservableCollection<Item>>)sourceScalar).Change(null);
+			test();
+			consumer.Dispose();
+			((OcDispatcher)destinationOcDispatcher).Dispose();
+		}
+		
+		[Test, Combinatorial]
+		public void TestCollectionDispatching65(
+			[Values()] int destinationOcDispatcherPriority,
+			[Values()] int sourceOcDispatcherPriority)
+		{
+			Scalar<ObservableCollection<Item>> sourceScalar = getScalar<ObservableCollection<Item>>(getItems());
+			ObservableComputations.IOcDispatcher destinationOcDispatcher = new OcDispatcher();
+			object destinationOcDispatcherParameter = new object();
+			OcConsumer consumer = new OcConsumer();
+			var testing = sourceScalar.CollectionDispatching<Item>(
+				destinationOcDispatcher,
+				destinationOcDispatcherPriority,
+				sourceOcDispatcherPriority,
+				destinationOcDispatcherParameter).For(consumer);
+
+			Assert.AreEqual(sourceScalar, testing.SourceScalar);
+			Assert.AreEqual(destinationOcDispatcher, testing.DestinationOcDispatcher);
+			Assert.AreEqual(destinationOcDispatcherPriority, testing.DestinationOcDispatcherPriority);
+			Assert.AreEqual(sourceOcDispatcherPriority, testing.SourceOcDispatcherPriority);
+			Assert.AreEqual(destinationOcDispatcherParameter, testing.DestinationOcDispatcherParameter);
+
+			void test()
+			{
+				testing.ValidateConsistency();
+				var sourceScalarValue = ((ObservableCollection<Item>)((ObservableCollection<Item>)sourceScalar.Value));
+
+				if (sourceScalarValue != null)
+				{		
+					sourceScalarValue.Insert(2, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					sourceScalarValue[3] = new QuickTests.Item(7, true);
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(3);
+					testing.ValidateConsistency();
+					sourceScalarValue.Move(1, 3);
+					testing.ValidateConsistency();
+					sourceScalarValue[2].Active = !sourceScalarValue[2].Active;
+					testing.ValidateConsistency();
+					sourceScalarValue[2].Num = sourceScalarValue[2].Num + 1;
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(1);
+					testing.ValidateConsistency();
+					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					sourceScalarValue.Insert(0, new QuickTests.Item(2, true));
+					testing.ValidateConsistency();
+				}
+
+				IList listSource;
+				listSource = ((IList)((ObservableCollection<Item>)sourceScalar.Value));
+				if (listSource != null)
+				{
+					listSource.Clear();
+					testing.ValidateConsistency();
+				}
+
+				if (sourceScalarValue != null)
+				{
+					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
+					sourceScalarValue.Insert(1, new QuickTests.Item(2, true));
+					sourceScalarValue.Insert(2, new QuickTests.Item(3, true));
+					sourceScalarValue.Insert(3, new QuickTests.Item(3, true));
+					sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
+					testing.ValidateConsistency();
+				}
+				testing.ValidateConsistency();
+			}
+
+			test();
+
+			((Scalar<ObservableCollection<Item>>)sourceScalar).Touch();
+			test();
+			((Scalar<ObservableCollection<Item>>)sourceScalar).Change(null);
+			test();
+			consumer.Dispose();
+			((OcDispatcher)destinationOcDispatcher).Dispose();
+		}
+		
+		[Test, Combinatorial]
+		public void TestCollectionDispatching66(
+			[Values()] int destinationOcDispatcherPriority,
+			[Values()] int sourceOcDispatcherPriority)
+		{
+			Scalar<ObservableCollection<Item>> sourceScalar = getScalar<ObservableCollection<Item>>(getItems());
+			ObservableComputations.IOcDispatcher destinationOcDispatcher = new OcDispatcher();
+			OcConsumer consumer = new OcConsumer();
+			var testing = sourceScalar.CollectionDispatching<Item>(
+				destinationOcDispatcher,
+				destinationOcDispatcherPriority,
+				sourceOcDispatcherPriority).For(consumer);
+
+			Assert.AreEqual(sourceScalar, testing.SourceScalar);
+			Assert.AreEqual(destinationOcDispatcher, testing.DestinationOcDispatcher);
+			Assert.AreEqual(destinationOcDispatcherPriority, testing.DestinationOcDispatcherPriority);
+			Assert.AreEqual(sourceOcDispatcherPriority, testing.SourceOcDispatcherPriority);
+
+			void test()
+			{
+				testing.ValidateConsistency();
+				var sourceScalarValue = ((ObservableCollection<Item>)((ObservableCollection<Item>)sourceScalar.Value));
+
+				if (sourceScalarValue != null)
+				{		
+					sourceScalarValue.Insert(2, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					sourceScalarValue[3] = new QuickTests.Item(7, true);
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(3);
+					testing.ValidateConsistency();
+					sourceScalarValue.Move(1, 3);
+					testing.ValidateConsistency();
+					sourceScalarValue[2].Active = !sourceScalarValue[2].Active;
+					testing.ValidateConsistency();
+					sourceScalarValue[2].Num = sourceScalarValue[2].Num + 1;
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(1);
+					testing.ValidateConsistency();
+					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					sourceScalarValue.Insert(0, new QuickTests.Item(2, true));
+					testing.ValidateConsistency();
+				}
+
+				IList listSource;
+				listSource = ((IList)((ObservableCollection<Item>)sourceScalar.Value));
+				if (listSource != null)
+				{
+					listSource.Clear();
+					testing.ValidateConsistency();
+				}
+
+				if (sourceScalarValue != null)
+				{
+					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
+					sourceScalarValue.Insert(1, new QuickTests.Item(2, true));
+					sourceScalarValue.Insert(2, new QuickTests.Item(3, true));
+					sourceScalarValue.Insert(3, new QuickTests.Item(3, true));
+					sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
+					testing.ValidateConsistency();
+				}
+				testing.ValidateConsistency();
+			}
+
+			test();
+
+			((Scalar<ObservableCollection<Item>>)sourceScalar).Touch();
+			test();
+			((Scalar<ObservableCollection<Item>>)sourceScalar).Change(null);
+			test();
+			consumer.Dispose();
+			((OcDispatcher)destinationOcDispatcher).Dispose();
+		}
+		
+		[Test, Combinatorial]
+		public void TestCollectionDispatching67(
+			[Values()] int destinationOcDispatcherPriority)
+		{
+			Scalar<ObservableCollection<Item>> sourceScalar = getScalar<ObservableCollection<Item>>(getItems());
+			ObservableComputations.IOcDispatcher destinationOcDispatcher = new OcDispatcher();
+			object destinationOcDispatcherParameter = new object();
+			object sourceOcDispatcherParameter = new object();
+			OcConsumer consumer = new OcConsumer();
+			var testing = sourceScalar.CollectionDispatching<Item>(
+				destinationOcDispatcher,
+				destinationOcDispatcherPriority,
+				destinationOcDispatcherParameter,
+				sourceOcDispatcherParameter).For(consumer);
+
+			Assert.AreEqual(sourceScalar, testing.SourceScalar);
+			Assert.AreEqual(destinationOcDispatcher, testing.DestinationOcDispatcher);
+			Assert.AreEqual(destinationOcDispatcherPriority, testing.DestinationOcDispatcherPriority);
+			Assert.AreEqual(destinationOcDispatcherParameter, testing.DestinationOcDispatcherParameter);
+			Assert.AreEqual(sourceOcDispatcherParameter, testing.SourceOcDispatcherParameter);
+
+			void test()
+			{
+				testing.ValidateConsistency();
+				var sourceScalarValue = ((ObservableCollection<Item>)((ObservableCollection<Item>)sourceScalar.Value));
+
+				if (sourceScalarValue != null)
+				{		
+					sourceScalarValue.Insert(2, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					sourceScalarValue[3] = new QuickTests.Item(7, true);
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(3);
+					testing.ValidateConsistency();
+					sourceScalarValue.Move(1, 3);
+					testing.ValidateConsistency();
+					sourceScalarValue[2].Active = !sourceScalarValue[2].Active;
+					testing.ValidateConsistency();
+					sourceScalarValue[2].Num = sourceScalarValue[2].Num + 1;
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(1);
+					testing.ValidateConsistency();
+					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					sourceScalarValue.Insert(0, new QuickTests.Item(2, true));
+					testing.ValidateConsistency();
+				}
+
+				IList listSource;
+				listSource = ((IList)((ObservableCollection<Item>)sourceScalar.Value));
+				if (listSource != null)
+				{
+					listSource.Clear();
+					testing.ValidateConsistency();
+				}
+
+				if (sourceScalarValue != null)
+				{
+					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
+					sourceScalarValue.Insert(1, new QuickTests.Item(2, true));
+					sourceScalarValue.Insert(2, new QuickTests.Item(3, true));
+					sourceScalarValue.Insert(3, new QuickTests.Item(3, true));
+					sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
+					testing.ValidateConsistency();
+				}
+				testing.ValidateConsistency();
+			}
+
+			test();
+
+			((Scalar<ObservableCollection<Item>>)sourceScalar).Touch();
+			test();
+			((Scalar<ObservableCollection<Item>>)sourceScalar).Change(null);
+			test();
+			consumer.Dispose();
+			((OcDispatcher)destinationOcDispatcher).Dispose();
+		}
+		
+		[Test, Combinatorial]
+		public void TestCollectionDispatching68(
+			[Values()] int destinationOcDispatcherPriority)
+		{
+			Scalar<ObservableCollection<Item>> sourceScalar = getScalar<ObservableCollection<Item>>(getItems());
+			ObservableComputations.IOcDispatcher destinationOcDispatcher = new OcDispatcher();
+			object destinationOcDispatcherParameter = new object();
+			OcConsumer consumer = new OcConsumer();
+			var testing = sourceScalar.CollectionDispatching<Item>(
+				destinationOcDispatcher,
+				destinationOcDispatcherPriority,
+				destinationOcDispatcherParameter).For(consumer);
+
+			Assert.AreEqual(sourceScalar, testing.SourceScalar);
+			Assert.AreEqual(destinationOcDispatcher, testing.DestinationOcDispatcher);
+			Assert.AreEqual(destinationOcDispatcherPriority, testing.DestinationOcDispatcherPriority);
+			Assert.AreEqual(destinationOcDispatcherParameter, testing.DestinationOcDispatcherParameter);
+
+			void test()
+			{
+				testing.ValidateConsistency();
+				var sourceScalarValue = ((ObservableCollection<Item>)((ObservableCollection<Item>)sourceScalar.Value));
+
+				if (sourceScalarValue != null)
+				{		
+					sourceScalarValue.Insert(2, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					sourceScalarValue[3] = new QuickTests.Item(7, true);
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(3);
+					testing.ValidateConsistency();
+					sourceScalarValue.Move(1, 3);
+					testing.ValidateConsistency();
+					sourceScalarValue[2].Active = !sourceScalarValue[2].Active;
+					testing.ValidateConsistency();
+					sourceScalarValue[2].Num = sourceScalarValue[2].Num + 1;
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(1);
+					testing.ValidateConsistency();
+					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					sourceScalarValue.Insert(0, new QuickTests.Item(2, true));
+					testing.ValidateConsistency();
+				}
+
+				IList listSource;
+				listSource = ((IList)((ObservableCollection<Item>)sourceScalar.Value));
+				if (listSource != null)
+				{
+					listSource.Clear();
+					testing.ValidateConsistency();
+				}
+
+				if (sourceScalarValue != null)
+				{
+					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
+					sourceScalarValue.Insert(1, new QuickTests.Item(2, true));
+					sourceScalarValue.Insert(2, new QuickTests.Item(3, true));
+					sourceScalarValue.Insert(3, new QuickTests.Item(3, true));
+					sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
+					testing.ValidateConsistency();
+				}
+				testing.ValidateConsistency();
+			}
+
+			test();
+
+			((Scalar<ObservableCollection<Item>>)sourceScalar).Touch();
+			test();
+			((Scalar<ObservableCollection<Item>>)sourceScalar).Change(null);
+			test();
+			consumer.Dispose();
+			((OcDispatcher)destinationOcDispatcher).Dispose();
+		}
+		
+		[Test, Combinatorial]
+		public void TestCollectionDispatching69(
+			[Values()] int destinationOcDispatcherPriority)
+		{
+			Scalar<ObservableCollection<Item>> sourceScalar = getScalar<ObservableCollection<Item>>(getItems());
+			ObservableComputations.IOcDispatcher destinationOcDispatcher = new OcDispatcher();
+			OcConsumer consumer = new OcConsumer();
+			var testing = sourceScalar.CollectionDispatching<Item>(
+				destinationOcDispatcher,
+				destinationOcDispatcherPriority).For(consumer);
+
+			Assert.AreEqual(sourceScalar, testing.SourceScalar);
+			Assert.AreEqual(destinationOcDispatcher, testing.DestinationOcDispatcher);
+			Assert.AreEqual(destinationOcDispatcherPriority, testing.DestinationOcDispatcherPriority);
+
+			void test()
+			{
+				testing.ValidateConsistency();
+				var sourceScalarValue = ((ObservableCollection<Item>)((ObservableCollection<Item>)sourceScalar.Value));
+
+				if (sourceScalarValue != null)
+				{		
+					sourceScalarValue.Insert(2, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					sourceScalarValue[3] = new QuickTests.Item(7, true);
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(3);
+					testing.ValidateConsistency();
+					sourceScalarValue.Move(1, 3);
+					testing.ValidateConsistency();
+					sourceScalarValue[2].Active = !sourceScalarValue[2].Active;
+					testing.ValidateConsistency();
+					sourceScalarValue[2].Num = sourceScalarValue[2].Num + 1;
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(1);
+					testing.ValidateConsistency();
+					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					sourceScalarValue.Insert(0, new QuickTests.Item(2, true));
+					testing.ValidateConsistency();
+				}
+
+				IList listSource;
+				listSource = ((IList)((ObservableCollection<Item>)sourceScalar.Value));
+				if (listSource != null)
+				{
+					listSource.Clear();
+					testing.ValidateConsistency();
+				}
+
+				if (sourceScalarValue != null)
+				{
+					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
+					sourceScalarValue.Insert(1, new QuickTests.Item(2, true));
+					sourceScalarValue.Insert(2, new QuickTests.Item(3, true));
+					sourceScalarValue.Insert(3, new QuickTests.Item(3, true));
+					sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
+					testing.ValidateConsistency();
+				}
+				testing.ValidateConsistency();
+			}
+
+			test();
+
+			((Scalar<ObservableCollection<Item>>)sourceScalar).Touch();
+			test();
+			((Scalar<ObservableCollection<Item>>)sourceScalar).Change(null);
+			test();
+			consumer.Dispose();
+			((OcDispatcher)destinationOcDispatcher).Dispose();
+		}
+		
+		[Test, Combinatorial]
+		public void TestCollectionDispatching70()
+		{
+			Scalar<ObservableCollection<Item>> sourceScalar = getScalar<ObservableCollection<Item>>(getItems());
+			ObservableComputations.IOcDispatcher destinationOcDispatcher = new OcDispatcher();
+			object destinationOcDispatcherParameter = new object();
+			object sourceOcDispatcherParameter = new object();
+			OcConsumer consumer = new OcConsumer();
+			var testing = sourceScalar.CollectionDispatching<Item>(
+				destinationOcDispatcher,
+				destinationOcDispatcherParameter,
+				sourceOcDispatcherParameter).For(consumer);
+
+			Assert.AreEqual(sourceScalar, testing.SourceScalar);
+			Assert.AreEqual(destinationOcDispatcher, testing.DestinationOcDispatcher);
+			Assert.AreEqual(destinationOcDispatcherParameter, testing.DestinationOcDispatcherParameter);
+			Assert.AreEqual(sourceOcDispatcherParameter, testing.SourceOcDispatcherParameter);
+
+			void test()
+			{
+				testing.ValidateConsistency();
+				var sourceScalarValue = ((ObservableCollection<Item>)((ObservableCollection<Item>)sourceScalar.Value));
+
+				if (sourceScalarValue != null)
+				{		
+					sourceScalarValue.Insert(2, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					sourceScalarValue[3] = new QuickTests.Item(7, true);
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(3);
+					testing.ValidateConsistency();
+					sourceScalarValue.Move(1, 3);
+					testing.ValidateConsistency();
+					sourceScalarValue[2].Active = !sourceScalarValue[2].Active;
+					testing.ValidateConsistency();
+					sourceScalarValue[2].Num = sourceScalarValue[2].Num + 1;
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(1);
+					testing.ValidateConsistency();
+					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					sourceScalarValue.Insert(0, new QuickTests.Item(2, true));
+					testing.ValidateConsistency();
+				}
+
+				IList listSource;
+				listSource = ((IList)((ObservableCollection<Item>)sourceScalar.Value));
+				if (listSource != null)
+				{
+					listSource.Clear();
+					testing.ValidateConsistency();
+				}
+
+				if (sourceScalarValue != null)
+				{
+					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
+					sourceScalarValue.Insert(1, new QuickTests.Item(2, true));
+					sourceScalarValue.Insert(2, new QuickTests.Item(3, true));
+					sourceScalarValue.Insert(3, new QuickTests.Item(3, true));
+					sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
+					testing.ValidateConsistency();
+				}
+				testing.ValidateConsistency();
+			}
+
+			test();
+
+			((Scalar<ObservableCollection<Item>>)sourceScalar).Touch();
+			test();
+			((Scalar<ObservableCollection<Item>>)sourceScalar).Change(null);
+			test();
+			consumer.Dispose();
+			((OcDispatcher)destinationOcDispatcher).Dispose();
+		}
+		
+		[Test, Combinatorial]
+		public void TestCollectionDispatching71()
+		{
+			Scalar<ObservableCollection<Item>> sourceScalar = getScalar<ObservableCollection<Item>>(getItems());
+			ObservableComputations.IOcDispatcher destinationOcDispatcher = new OcDispatcher();
+			object destinationOcDispatcherParameter = new object();
+			OcConsumer consumer = new OcConsumer();
+			var testing = sourceScalar.CollectionDispatching<Item>(
+				destinationOcDispatcher,
+				destinationOcDispatcherParameter).For(consumer);
+
+			Assert.AreEqual(sourceScalar, testing.SourceScalar);
+			Assert.AreEqual(destinationOcDispatcher, testing.DestinationOcDispatcher);
+			Assert.AreEqual(destinationOcDispatcherParameter, testing.DestinationOcDispatcherParameter);
+
+			void test()
+			{
+				testing.ValidateConsistency();
+				var sourceScalarValue = ((ObservableCollection<Item>)((ObservableCollection<Item>)sourceScalar.Value));
+
+				if (sourceScalarValue != null)
+				{		
+					sourceScalarValue.Insert(2, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					sourceScalarValue[3] = new QuickTests.Item(7, true);
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(3);
+					testing.ValidateConsistency();
+					sourceScalarValue.Move(1, 3);
+					testing.ValidateConsistency();
+					sourceScalarValue[2].Active = !sourceScalarValue[2].Active;
+					testing.ValidateConsistency();
+					sourceScalarValue[2].Num = sourceScalarValue[2].Num + 1;
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(1);
+					testing.ValidateConsistency();
+					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					sourceScalarValue.Insert(0, new QuickTests.Item(2, true));
+					testing.ValidateConsistency();
+				}
+
+				IList listSource;
+				listSource = ((IList)((ObservableCollection<Item>)sourceScalar.Value));
+				if (listSource != null)
+				{
+					listSource.Clear();
+					testing.ValidateConsistency();
+				}
+
+				if (sourceScalarValue != null)
+				{
+					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
+					sourceScalarValue.Insert(1, new QuickTests.Item(2, true));
+					sourceScalarValue.Insert(2, new QuickTests.Item(3, true));
+					sourceScalarValue.Insert(3, new QuickTests.Item(3, true));
+					sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
+					testing.ValidateConsistency();
+				}
+				testing.ValidateConsistency();
+			}
+
+			test();
+
+			((Scalar<ObservableCollection<Item>>)sourceScalar).Touch();
+			test();
+			((Scalar<ObservableCollection<Item>>)sourceScalar).Change(null);
+			test();
+			consumer.Dispose();
+			((OcDispatcher)destinationOcDispatcher).Dispose();
+		}
+		
+		[Test, Combinatorial]
+		public void TestCollectionDispatching72()
+		{
+			Scalar<ObservableCollection<Item>> sourceScalar = getScalar<ObservableCollection<Item>>(getItems());
+			ObservableComputations.IOcDispatcher destinationOcDispatcher = new OcDispatcher();
+			OcConsumer consumer = new OcConsumer();
+			var testing = sourceScalar.CollectionDispatching<Item>(
+				destinationOcDispatcher).For(consumer);
+
+			Assert.AreEqual(sourceScalar, testing.SourceScalar);
+			Assert.AreEqual(destinationOcDispatcher, testing.DestinationOcDispatcher);
+
+			void test()
+			{
+				testing.ValidateConsistency();
+				var sourceScalarValue = ((ObservableCollection<Item>)((ObservableCollection<Item>)sourceScalar.Value));
+
+				if (sourceScalarValue != null)
+				{		
+					sourceScalarValue.Insert(2, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					sourceScalarValue[3] = new QuickTests.Item(7, true);
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(3);
+					testing.ValidateConsistency();
+					sourceScalarValue.Move(1, 3);
+					testing.ValidateConsistency();
+					sourceScalarValue[2].Active = !sourceScalarValue[2].Active;
+					testing.ValidateConsistency();
+					sourceScalarValue[2].Num = sourceScalarValue[2].Num + 1;
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(0);
+					testing.ValidateConsistency();
+					sourceScalarValue.RemoveAt(1);
+					testing.ValidateConsistency();
+					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
+					testing.ValidateConsistency();
+					sourceScalarValue.Insert(0, new QuickTests.Item(2, true));
+					testing.ValidateConsistency();
+				}
+
+				IList listSource;
+				listSource = ((IList)((ObservableCollection<Item>)sourceScalar.Value));
+				if (listSource != null)
+				{
+					listSource.Clear();
+					testing.ValidateConsistency();
+				}
+
+				if (sourceScalarValue != null)
+				{
+					sourceScalarValue.Insert(0, new QuickTests.Item(1, true));
+					sourceScalarValue.Insert(1, new QuickTests.Item(2, true));
+					sourceScalarValue.Insert(2, new QuickTests.Item(3, true));
+					sourceScalarValue.Insert(3, new QuickTests.Item(3, true));
+					sourceScalarValue.Insert(4, new QuickTests.Item(3, true));
+					testing.ValidateConsistency();
+				}
+				testing.ValidateConsistency();
+			}
+
+			test();
+
+			((Scalar<ObservableCollection<Item>>)sourceScalar).Touch();
+			test();
+			((Scalar<ObservableCollection<Item>>)sourceScalar).Change(null);
+			test();
+			consumer.Dispose();
+			((OcDispatcher)destinationOcDispatcher).Dispose();
+		}
+		#endregion
 		#region CollectionPausing
 
 		
@@ -61207,6 +66718,657 @@ namespace ObservableComputations.Test
 
 			test();
 			consumer.Dispose();
+		}
+		#endregion
+		#region ScalarDispatching
+
+		
+		[Test, Combinatorial]
+		public void TestScalarDispatching01(
+			[Values()] int destinationOcDispatcherPriority,
+			[Values()] int sourceOcDispatcherPriority)
+		{
+			Scalar<int> source = getScalar<int>(0);
+			ObservableComputations.IOcDispatcher destinationOcDispatcher = new OcDispatcher();
+			ObservableComputations.IOcDispatcher sourceOcDispatcher = new OcDispatcher();
+			object destinationOcDispatcherParameter = new object();
+			object sourceOcDispatcherParameter = new object();
+			OcConsumer consumer = new OcConsumer();
+			var testing = source.ScalarDispatching<int>(
+				destinationOcDispatcher,
+				sourceOcDispatcher,
+				destinationOcDispatcherPriority,
+				sourceOcDispatcherPriority,
+				destinationOcDispatcherParameter,
+				sourceOcDispatcherParameter).For(consumer);
+
+			Assert.AreEqual(source, testing.Source);
+			Assert.AreEqual(destinationOcDispatcher, testing.DestinationOcDispatcher);
+			Assert.AreEqual(sourceOcDispatcher, testing.SourceOcDispatcher);
+			Assert.AreEqual(destinationOcDispatcherPriority, testing.DestinationOcDispatcherPriority);
+			Assert.AreEqual(sourceOcDispatcherPriority, testing.SourceOcDispatcherPriority);
+			Assert.AreEqual(destinationOcDispatcherParameter, testing.DestinationOcDispatcherParameter);
+			Assert.AreEqual(sourceOcDispatcherParameter, testing.SourceOcDispatcherParameter);
+
+			void test()
+			{
+				testing.ValidateConsistency();
+
+				IList listSource;
+				((Scalar<int>)source).Change(1);
+				((Scalar<int>)source).Change(2);
+				((Scalar<int>)source).Change(3);
+				testing.ValidateConsistency();
+			}
+
+			test();
+			consumer.Dispose();
+			((OcDispatcher)destinationOcDispatcher).Dispose();
+			((OcDispatcher)sourceOcDispatcher).Dispose();
+		}
+		
+		[Test, Combinatorial]
+		public void TestScalarDispatching02(
+			[Values()] int destinationOcDispatcherPriority,
+			[Values()] int sourceOcDispatcherPriority)
+		{
+			Scalar<int> source = getScalar<int>(0);
+			ObservableComputations.IOcDispatcher destinationOcDispatcher = new OcDispatcher();
+			ObservableComputations.IOcDispatcher sourceOcDispatcher = new OcDispatcher();
+			object destinationOcDispatcherParameter = new object();
+			OcConsumer consumer = new OcConsumer();
+			var testing = source.ScalarDispatching<int>(
+				destinationOcDispatcher,
+				sourceOcDispatcher,
+				destinationOcDispatcherPriority,
+				sourceOcDispatcherPriority,
+				destinationOcDispatcherParameter).For(consumer);
+
+			Assert.AreEqual(source, testing.Source);
+			Assert.AreEqual(destinationOcDispatcher, testing.DestinationOcDispatcher);
+			Assert.AreEqual(sourceOcDispatcher, testing.SourceOcDispatcher);
+			Assert.AreEqual(destinationOcDispatcherPriority, testing.DestinationOcDispatcherPriority);
+			Assert.AreEqual(sourceOcDispatcherPriority, testing.SourceOcDispatcherPriority);
+			Assert.AreEqual(destinationOcDispatcherParameter, testing.DestinationOcDispatcherParameter);
+
+			void test()
+			{
+				testing.ValidateConsistency();
+
+				IList listSource;
+				((Scalar<int>)source).Change(1);
+				((Scalar<int>)source).Change(2);
+				((Scalar<int>)source).Change(3);
+				testing.ValidateConsistency();
+			}
+
+			test();
+			consumer.Dispose();
+			((OcDispatcher)destinationOcDispatcher).Dispose();
+			((OcDispatcher)sourceOcDispatcher).Dispose();
+		}
+		
+		[Test, Combinatorial]
+		public void TestScalarDispatching03(
+			[Values()] int destinationOcDispatcherPriority,
+			[Values()] int sourceOcDispatcherPriority)
+		{
+			Scalar<int> source = getScalar<int>(0);
+			ObservableComputations.IOcDispatcher destinationOcDispatcher = new OcDispatcher();
+			ObservableComputations.IOcDispatcher sourceOcDispatcher = new OcDispatcher();
+			OcConsumer consumer = new OcConsumer();
+			var testing = source.ScalarDispatching<int>(
+				destinationOcDispatcher,
+				sourceOcDispatcher,
+				destinationOcDispatcherPriority,
+				sourceOcDispatcherPriority).For(consumer);
+
+			Assert.AreEqual(source, testing.Source);
+			Assert.AreEqual(destinationOcDispatcher, testing.DestinationOcDispatcher);
+			Assert.AreEqual(sourceOcDispatcher, testing.SourceOcDispatcher);
+			Assert.AreEqual(destinationOcDispatcherPriority, testing.DestinationOcDispatcherPriority);
+			Assert.AreEqual(sourceOcDispatcherPriority, testing.SourceOcDispatcherPriority);
+
+			void test()
+			{
+				testing.ValidateConsistency();
+
+				IList listSource;
+				((Scalar<int>)source).Change(1);
+				((Scalar<int>)source).Change(2);
+				((Scalar<int>)source).Change(3);
+				testing.ValidateConsistency();
+			}
+
+			test();
+			consumer.Dispose();
+			((OcDispatcher)destinationOcDispatcher).Dispose();
+			((OcDispatcher)sourceOcDispatcher).Dispose();
+		}
+		
+		[Test, Combinatorial]
+		public void TestScalarDispatching04(
+			[Values()] int destinationOcDispatcherPriority)
+		{
+			Scalar<int> source = getScalar<int>(0);
+			ObservableComputations.IOcDispatcher destinationOcDispatcher = new OcDispatcher();
+			ObservableComputations.IOcDispatcher sourceOcDispatcher = new OcDispatcher();
+			object destinationOcDispatcherParameter = new object();
+			object sourceOcDispatcherParameter = new object();
+			OcConsumer consumer = new OcConsumer();
+			var testing = source.ScalarDispatching<int>(
+				destinationOcDispatcher,
+				sourceOcDispatcher,
+				destinationOcDispatcherPriority,
+				destinationOcDispatcherParameter,
+				sourceOcDispatcherParameter).For(consumer);
+
+			Assert.AreEqual(source, testing.Source);
+			Assert.AreEqual(destinationOcDispatcher, testing.DestinationOcDispatcher);
+			Assert.AreEqual(sourceOcDispatcher, testing.SourceOcDispatcher);
+			Assert.AreEqual(destinationOcDispatcherPriority, testing.DestinationOcDispatcherPriority);
+			Assert.AreEqual(destinationOcDispatcherParameter, testing.DestinationOcDispatcherParameter);
+			Assert.AreEqual(sourceOcDispatcherParameter, testing.SourceOcDispatcherParameter);
+
+			void test()
+			{
+				testing.ValidateConsistency();
+
+				IList listSource;
+				((Scalar<int>)source).Change(1);
+				((Scalar<int>)source).Change(2);
+				((Scalar<int>)source).Change(3);
+				testing.ValidateConsistency();
+			}
+
+			test();
+			consumer.Dispose();
+			((OcDispatcher)destinationOcDispatcher).Dispose();
+			((OcDispatcher)sourceOcDispatcher).Dispose();
+		}
+		
+		[Test, Combinatorial]
+		public void TestScalarDispatching05(
+			[Values()] int destinationOcDispatcherPriority)
+		{
+			Scalar<int> source = getScalar<int>(0);
+			ObservableComputations.IOcDispatcher destinationOcDispatcher = new OcDispatcher();
+			ObservableComputations.IOcDispatcher sourceOcDispatcher = new OcDispatcher();
+			object destinationOcDispatcherParameter = new object();
+			OcConsumer consumer = new OcConsumer();
+			var testing = source.ScalarDispatching<int>(
+				destinationOcDispatcher,
+				sourceOcDispatcher,
+				destinationOcDispatcherPriority,
+				destinationOcDispatcherParameter).For(consumer);
+
+			Assert.AreEqual(source, testing.Source);
+			Assert.AreEqual(destinationOcDispatcher, testing.DestinationOcDispatcher);
+			Assert.AreEqual(sourceOcDispatcher, testing.SourceOcDispatcher);
+			Assert.AreEqual(destinationOcDispatcherPriority, testing.DestinationOcDispatcherPriority);
+			Assert.AreEqual(destinationOcDispatcherParameter, testing.DestinationOcDispatcherParameter);
+
+			void test()
+			{
+				testing.ValidateConsistency();
+
+				IList listSource;
+				((Scalar<int>)source).Change(1);
+				((Scalar<int>)source).Change(2);
+				((Scalar<int>)source).Change(3);
+				testing.ValidateConsistency();
+			}
+
+			test();
+			consumer.Dispose();
+			((OcDispatcher)destinationOcDispatcher).Dispose();
+			((OcDispatcher)sourceOcDispatcher).Dispose();
+		}
+		
+		[Test, Combinatorial]
+		public void TestScalarDispatching06(
+			[Values()] int destinationOcDispatcherPriority)
+		{
+			Scalar<int> source = getScalar<int>(0);
+			ObservableComputations.IOcDispatcher destinationOcDispatcher = new OcDispatcher();
+			ObservableComputations.IOcDispatcher sourceOcDispatcher = new OcDispatcher();
+			OcConsumer consumer = new OcConsumer();
+			var testing = source.ScalarDispatching<int>(
+				destinationOcDispatcher,
+				sourceOcDispatcher,
+				destinationOcDispatcherPriority).For(consumer);
+
+			Assert.AreEqual(source, testing.Source);
+			Assert.AreEqual(destinationOcDispatcher, testing.DestinationOcDispatcher);
+			Assert.AreEqual(sourceOcDispatcher, testing.SourceOcDispatcher);
+			Assert.AreEqual(destinationOcDispatcherPriority, testing.DestinationOcDispatcherPriority);
+
+			void test()
+			{
+				testing.ValidateConsistency();
+
+				IList listSource;
+				((Scalar<int>)source).Change(1);
+				((Scalar<int>)source).Change(2);
+				((Scalar<int>)source).Change(3);
+				testing.ValidateConsistency();
+			}
+
+			test();
+			consumer.Dispose();
+			((OcDispatcher)destinationOcDispatcher).Dispose();
+			((OcDispatcher)sourceOcDispatcher).Dispose();
+		}
+		
+		[Test, Combinatorial]
+		public void TestScalarDispatching07()
+		{
+			Scalar<int> source = getScalar<int>(0);
+			ObservableComputations.IOcDispatcher destinationOcDispatcher = new OcDispatcher();
+			ObservableComputations.IOcDispatcher sourceOcDispatcher = new OcDispatcher();
+			object destinationOcDispatcherParameter = new object();
+			object sourceOcDispatcherParameter = new object();
+			OcConsumer consumer = new OcConsumer();
+			var testing = source.ScalarDispatching<int>(
+				destinationOcDispatcher,
+				sourceOcDispatcher,
+				destinationOcDispatcherParameter,
+				sourceOcDispatcherParameter).For(consumer);
+
+			Assert.AreEqual(source, testing.Source);
+			Assert.AreEqual(destinationOcDispatcher, testing.DestinationOcDispatcher);
+			Assert.AreEqual(sourceOcDispatcher, testing.SourceOcDispatcher);
+			Assert.AreEqual(destinationOcDispatcherParameter, testing.DestinationOcDispatcherParameter);
+			Assert.AreEqual(sourceOcDispatcherParameter, testing.SourceOcDispatcherParameter);
+
+			void test()
+			{
+				testing.ValidateConsistency();
+
+				IList listSource;
+				((Scalar<int>)source).Change(1);
+				((Scalar<int>)source).Change(2);
+				((Scalar<int>)source).Change(3);
+				testing.ValidateConsistency();
+			}
+
+			test();
+			consumer.Dispose();
+			((OcDispatcher)destinationOcDispatcher).Dispose();
+			((OcDispatcher)sourceOcDispatcher).Dispose();
+		}
+		
+		[Test, Combinatorial]
+		public void TestScalarDispatching08()
+		{
+			Scalar<int> source = getScalar<int>(0);
+			ObservableComputations.IOcDispatcher destinationOcDispatcher = new OcDispatcher();
+			ObservableComputations.IOcDispatcher sourceOcDispatcher = new OcDispatcher();
+			object destinationOcDispatcherParameter = new object();
+			OcConsumer consumer = new OcConsumer();
+			var testing = source.ScalarDispatching<int>(
+				destinationOcDispatcher,
+				sourceOcDispatcher,
+				destinationOcDispatcherParameter).For(consumer);
+
+			Assert.AreEqual(source, testing.Source);
+			Assert.AreEqual(destinationOcDispatcher, testing.DestinationOcDispatcher);
+			Assert.AreEqual(sourceOcDispatcher, testing.SourceOcDispatcher);
+			Assert.AreEqual(destinationOcDispatcherParameter, testing.DestinationOcDispatcherParameter);
+
+			void test()
+			{
+				testing.ValidateConsistency();
+
+				IList listSource;
+				((Scalar<int>)source).Change(1);
+				((Scalar<int>)source).Change(2);
+				((Scalar<int>)source).Change(3);
+				testing.ValidateConsistency();
+			}
+
+			test();
+			consumer.Dispose();
+			((OcDispatcher)destinationOcDispatcher).Dispose();
+			((OcDispatcher)sourceOcDispatcher).Dispose();
+		}
+		
+		[Test, Combinatorial]
+		public void TestScalarDispatching09()
+		{
+			Scalar<int> source = getScalar<int>(0);
+			ObservableComputations.IOcDispatcher destinationOcDispatcher = new OcDispatcher();
+			ObservableComputations.IOcDispatcher sourceOcDispatcher = new OcDispatcher();
+			OcConsumer consumer = new OcConsumer();
+			var testing = source.ScalarDispatching<int>(
+				destinationOcDispatcher,
+				sourceOcDispatcher).For(consumer);
+
+			Assert.AreEqual(source, testing.Source);
+			Assert.AreEqual(destinationOcDispatcher, testing.DestinationOcDispatcher);
+			Assert.AreEqual(sourceOcDispatcher, testing.SourceOcDispatcher);
+
+			void test()
+			{
+				testing.ValidateConsistency();
+
+				IList listSource;
+				((Scalar<int>)source).Change(1);
+				((Scalar<int>)source).Change(2);
+				((Scalar<int>)source).Change(3);
+				testing.ValidateConsistency();
+			}
+
+			test();
+			consumer.Dispose();
+			((OcDispatcher)destinationOcDispatcher).Dispose();
+			((OcDispatcher)sourceOcDispatcher).Dispose();
+		}
+		
+		[Test, Combinatorial]
+		public void TestScalarDispatching10(
+			[Values()] int destinationOcDispatcherPriority,
+			[Values()] int sourceOcDispatcherPriority)
+		{
+			Scalar<int> source = getScalar<int>(0);
+			ObservableComputations.IOcDispatcher destinationOcDispatcher = new OcDispatcher();
+			object destinationOcDispatcherParameter = new object();
+			object sourceOcDispatcherParameter = new object();
+			OcConsumer consumer = new OcConsumer();
+			var testing = source.ScalarDispatching<int>(
+				destinationOcDispatcher,
+				destinationOcDispatcherPriority,
+				sourceOcDispatcherPriority,
+				destinationOcDispatcherParameter,
+				sourceOcDispatcherParameter).For(consumer);
+
+			Assert.AreEqual(source, testing.Source);
+			Assert.AreEqual(destinationOcDispatcher, testing.DestinationOcDispatcher);
+			Assert.AreEqual(destinationOcDispatcherPriority, testing.DestinationOcDispatcherPriority);
+			Assert.AreEqual(sourceOcDispatcherPriority, testing.SourceOcDispatcherPriority);
+			Assert.AreEqual(destinationOcDispatcherParameter, testing.DestinationOcDispatcherParameter);
+			Assert.AreEqual(sourceOcDispatcherParameter, testing.SourceOcDispatcherParameter);
+
+			void test()
+			{
+				testing.ValidateConsistency();
+
+				IList listSource;
+				((Scalar<int>)source).Change(1);
+				((Scalar<int>)source).Change(2);
+				((Scalar<int>)source).Change(3);
+				testing.ValidateConsistency();
+			}
+
+			test();
+			consumer.Dispose();
+			((OcDispatcher)destinationOcDispatcher).Dispose();
+		}
+		
+		[Test, Combinatorial]
+		public void TestScalarDispatching11(
+			[Values()] int destinationOcDispatcherPriority,
+			[Values()] int sourceOcDispatcherPriority)
+		{
+			Scalar<int> source = getScalar<int>(0);
+			ObservableComputations.IOcDispatcher destinationOcDispatcher = new OcDispatcher();
+			object destinationOcDispatcherParameter = new object();
+			OcConsumer consumer = new OcConsumer();
+			var testing = source.ScalarDispatching<int>(
+				destinationOcDispatcher,
+				destinationOcDispatcherPriority,
+				sourceOcDispatcherPriority,
+				destinationOcDispatcherParameter).For(consumer);
+
+			Assert.AreEqual(source, testing.Source);
+			Assert.AreEqual(destinationOcDispatcher, testing.DestinationOcDispatcher);
+			Assert.AreEqual(destinationOcDispatcherPriority, testing.DestinationOcDispatcherPriority);
+			Assert.AreEqual(sourceOcDispatcherPriority, testing.SourceOcDispatcherPriority);
+			Assert.AreEqual(destinationOcDispatcherParameter, testing.DestinationOcDispatcherParameter);
+
+			void test()
+			{
+				testing.ValidateConsistency();
+
+				IList listSource;
+				((Scalar<int>)source).Change(1);
+				((Scalar<int>)source).Change(2);
+				((Scalar<int>)source).Change(3);
+				testing.ValidateConsistency();
+			}
+
+			test();
+			consumer.Dispose();
+			((OcDispatcher)destinationOcDispatcher).Dispose();
+		}
+		
+		[Test, Combinatorial]
+		public void TestScalarDispatching12(
+			[Values()] int destinationOcDispatcherPriority,
+			[Values()] int sourceOcDispatcherPriority)
+		{
+			Scalar<int> source = getScalar<int>(0);
+			ObservableComputations.IOcDispatcher destinationOcDispatcher = new OcDispatcher();
+			OcConsumer consumer = new OcConsumer();
+			var testing = source.ScalarDispatching<int>(
+				destinationOcDispatcher,
+				destinationOcDispatcherPriority,
+				sourceOcDispatcherPriority).For(consumer);
+
+			Assert.AreEqual(source, testing.Source);
+			Assert.AreEqual(destinationOcDispatcher, testing.DestinationOcDispatcher);
+			Assert.AreEqual(destinationOcDispatcherPriority, testing.DestinationOcDispatcherPriority);
+			Assert.AreEqual(sourceOcDispatcherPriority, testing.SourceOcDispatcherPriority);
+
+			void test()
+			{
+				testing.ValidateConsistency();
+
+				IList listSource;
+				((Scalar<int>)source).Change(1);
+				((Scalar<int>)source).Change(2);
+				((Scalar<int>)source).Change(3);
+				testing.ValidateConsistency();
+			}
+
+			test();
+			consumer.Dispose();
+			((OcDispatcher)destinationOcDispatcher).Dispose();
+		}
+		
+		[Test, Combinatorial]
+		public void TestScalarDispatching13(
+			[Values()] int destinationOcDispatcherPriority)
+		{
+			Scalar<int> source = getScalar<int>(0);
+			ObservableComputations.IOcDispatcher destinationOcDispatcher = new OcDispatcher();
+			object destinationOcDispatcherParameter = new object();
+			object sourceOcDispatcherParameter = new object();
+			OcConsumer consumer = new OcConsumer();
+			var testing = source.ScalarDispatching<int>(
+				destinationOcDispatcher,
+				destinationOcDispatcherPriority,
+				destinationOcDispatcherParameter,
+				sourceOcDispatcherParameter).For(consumer);
+
+			Assert.AreEqual(source, testing.Source);
+			Assert.AreEqual(destinationOcDispatcher, testing.DestinationOcDispatcher);
+			Assert.AreEqual(destinationOcDispatcherPriority, testing.DestinationOcDispatcherPriority);
+			Assert.AreEqual(destinationOcDispatcherParameter, testing.DestinationOcDispatcherParameter);
+			Assert.AreEqual(sourceOcDispatcherParameter, testing.SourceOcDispatcherParameter);
+
+			void test()
+			{
+				testing.ValidateConsistency();
+
+				IList listSource;
+				((Scalar<int>)source).Change(1);
+				((Scalar<int>)source).Change(2);
+				((Scalar<int>)source).Change(3);
+				testing.ValidateConsistency();
+			}
+
+			test();
+			consumer.Dispose();
+			((OcDispatcher)destinationOcDispatcher).Dispose();
+		}
+		
+		[Test, Combinatorial]
+		public void TestScalarDispatching14(
+			[Values()] int destinationOcDispatcherPriority)
+		{
+			Scalar<int> source = getScalar<int>(0);
+			ObservableComputations.IOcDispatcher destinationOcDispatcher = new OcDispatcher();
+			object destinationOcDispatcherParameter = new object();
+			OcConsumer consumer = new OcConsumer();
+			var testing = source.ScalarDispatching<int>(
+				destinationOcDispatcher,
+				destinationOcDispatcherPriority,
+				destinationOcDispatcherParameter).For(consumer);
+
+			Assert.AreEqual(source, testing.Source);
+			Assert.AreEqual(destinationOcDispatcher, testing.DestinationOcDispatcher);
+			Assert.AreEqual(destinationOcDispatcherPriority, testing.DestinationOcDispatcherPriority);
+			Assert.AreEqual(destinationOcDispatcherParameter, testing.DestinationOcDispatcherParameter);
+
+			void test()
+			{
+				testing.ValidateConsistency();
+
+				IList listSource;
+				((Scalar<int>)source).Change(1);
+				((Scalar<int>)source).Change(2);
+				((Scalar<int>)source).Change(3);
+				testing.ValidateConsistency();
+			}
+
+			test();
+			consumer.Dispose();
+			((OcDispatcher)destinationOcDispatcher).Dispose();
+		}
+		
+		[Test, Combinatorial]
+		public void TestScalarDispatching15(
+			[Values()] int destinationOcDispatcherPriority)
+		{
+			Scalar<int> source = getScalar<int>(0);
+			ObservableComputations.IOcDispatcher destinationOcDispatcher = new OcDispatcher();
+			OcConsumer consumer = new OcConsumer();
+			var testing = source.ScalarDispatching<int>(
+				destinationOcDispatcher,
+				destinationOcDispatcherPriority).For(consumer);
+
+			Assert.AreEqual(source, testing.Source);
+			Assert.AreEqual(destinationOcDispatcher, testing.DestinationOcDispatcher);
+			Assert.AreEqual(destinationOcDispatcherPriority, testing.DestinationOcDispatcherPriority);
+
+			void test()
+			{
+				testing.ValidateConsistency();
+
+				IList listSource;
+				((Scalar<int>)source).Change(1);
+				((Scalar<int>)source).Change(2);
+				((Scalar<int>)source).Change(3);
+				testing.ValidateConsistency();
+			}
+
+			test();
+			consumer.Dispose();
+			((OcDispatcher)destinationOcDispatcher).Dispose();
+		}
+		
+		[Test, Combinatorial]
+		public void TestScalarDispatching16()
+		{
+			Scalar<int> source = getScalar<int>(0);
+			ObservableComputations.IOcDispatcher destinationOcDispatcher = new OcDispatcher();
+			object destinationOcDispatcherParameter = new object();
+			object sourceOcDispatcherParameter = new object();
+			OcConsumer consumer = new OcConsumer();
+			var testing = source.ScalarDispatching<int>(
+				destinationOcDispatcher,
+				destinationOcDispatcherParameter,
+				sourceOcDispatcherParameter).For(consumer);
+
+			Assert.AreEqual(source, testing.Source);
+			Assert.AreEqual(destinationOcDispatcher, testing.DestinationOcDispatcher);
+			Assert.AreEqual(destinationOcDispatcherParameter, testing.DestinationOcDispatcherParameter);
+			Assert.AreEqual(sourceOcDispatcherParameter, testing.SourceOcDispatcherParameter);
+
+			void test()
+			{
+				testing.ValidateConsistency();
+
+				IList listSource;
+				((Scalar<int>)source).Change(1);
+				((Scalar<int>)source).Change(2);
+				((Scalar<int>)source).Change(3);
+				testing.ValidateConsistency();
+			}
+
+			test();
+			consumer.Dispose();
+			((OcDispatcher)destinationOcDispatcher).Dispose();
+		}
+		
+		[Test, Combinatorial]
+		public void TestScalarDispatching17()
+		{
+			Scalar<int> source = getScalar<int>(0);
+			ObservableComputations.IOcDispatcher destinationOcDispatcher = new OcDispatcher();
+			object destinationOcDispatcherParameter = new object();
+			OcConsumer consumer = new OcConsumer();
+			var testing = source.ScalarDispatching<int>(
+				destinationOcDispatcher,
+				destinationOcDispatcherParameter).For(consumer);
+
+			Assert.AreEqual(source, testing.Source);
+			Assert.AreEqual(destinationOcDispatcher, testing.DestinationOcDispatcher);
+			Assert.AreEqual(destinationOcDispatcherParameter, testing.DestinationOcDispatcherParameter);
+
+			void test()
+			{
+				testing.ValidateConsistency();
+
+				IList listSource;
+				((Scalar<int>)source).Change(1);
+				((Scalar<int>)source).Change(2);
+				((Scalar<int>)source).Change(3);
+				testing.ValidateConsistency();
+			}
+
+			test();
+			consumer.Dispose();
+			((OcDispatcher)destinationOcDispatcher).Dispose();
+		}
+		
+		[Test, Combinatorial]
+		public void TestScalarDispatching18()
+		{
+			Scalar<int> source = getScalar<int>(0);
+			ObservableComputations.IOcDispatcher destinationOcDispatcher = new OcDispatcher();
+			OcConsumer consumer = new OcConsumer();
+			var testing = source.ScalarDispatching<int>(
+				destinationOcDispatcher).For(consumer);
+
+			Assert.AreEqual(source, testing.Source);
+			Assert.AreEqual(destinationOcDispatcher, testing.DestinationOcDispatcher);
+
+			void test()
+			{
+				testing.ValidateConsistency();
+
+				IList listSource;
+				((Scalar<int>)source).Change(1);
+				((Scalar<int>)source).Change(2);
+				((Scalar<int>)source).Change(3);
+				testing.ValidateConsistency();
+			}
+
+			test();
+			consumer.Dispose();
+			((OcDispatcher)destinationOcDispatcher).Dispose();
 		}
 		#endregion
 		#region ScalarPausing
